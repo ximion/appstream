@@ -49,6 +49,7 @@ extern "C" {
 #include <as-relation.h>
 #include <as-issue.h>
 #include <as-enums-types.h>
+#include <as-review.h>
 
 #include <as-validator.h>
 #include <as-validator-issue.h>

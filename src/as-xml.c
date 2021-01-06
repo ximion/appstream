@@ -34,7 +34,7 @@
  * as_xml_get_node_value:
  */
 gchar*
-as_xml_get_node_value (xmlNode *node)
+as_xml_get_node_value (const xmlNode *node)
 {
 	gchar *content;
 	content = (gchar*) xmlNodeGetContent (node);
@@ -42,6 +42,56 @@ as_xml_get_node_value (xmlNode *node)
 		as_strstripnl (content);
 
 	return content;
+}
+
+/**
+ * as_xml_get_node_value_refstr:
+ */
+GRefString*
+as_xml_get_node_value_refstr (const xmlNode *node)
+{
+	g_autofree gchar *content = NULL;
+	content = (gchar*) xmlNodeGetContent (node);
+	if (content != NULL)
+		as_strstripnl (content);
+	if (content == NULL)
+		return g_ref_string_new_intern ("");
+	return g_ref_string_new_intern (content);
+}
+
+/**
+ * as_xml_get_prop_value_refstr:
+ */
+GRefString*
+as_xml_get_prop_value_refstr (const xmlNode *node, const gchar *prop_name)
+{
+	g_autofree gchar *tmp = as_xml_get_prop_value (node, prop_name);
+	return g_ref_string_new_intern (tmp);
+}
+
+/**
+ * as_xml_get_prop_value_as_int:
+ *
+ * Gets a XML node property, e.g. 34
+ *
+ * Return value: integer value, or %G_MAXINT for error
+ **/
+gint
+as_xml_get_prop_value_as_int (const xmlNode *node, const gchar *prop_name)
+{
+	g_autofree gchar *tmp = NULL;
+	gchar *endptr = NULL;
+	gint64 value_tmp;
+
+	tmp = as_xml_get_prop_value (node, prop_name);
+	if (tmp == NULL)
+		return G_MAXINT;
+	value_tmp = g_ascii_strtoll (tmp, &endptr, 10);
+	if (value_tmp == 0 && tmp == endptr)
+		return G_MAXINT;
+	if (value_tmp > G_MAXINT || value_tmp < G_MININT)
+		return G_MAXINT;
+	return (gint) value_tmp;
 }
 
 /**
@@ -617,6 +667,47 @@ as_xml_add_description_node (AsContext *ctx, xmlNode *root, GHashTable *desc_tab
 }
 
 /**
+ * as_xml_add_description_node_raw:
+ *
+ * Add a simple description node in verbatim, performing only basic markup
+ * validation. The node will not have a language property attached.
+ *
+ * Returns: The new xmlNode, or %NULL if no node was appended.
+ */
+xmlNode*
+as_xml_add_description_node_raw (xmlNode *root, const gchar *description)
+{
+	xmlNode *dnode;
+	xmlNode *cnode;
+	g_autoptr(AsXMLMarkupParseHelper) helper = NULL;
+
+	if (as_is_empty (description))
+		return NULL;
+
+	helper = as_xml_markup_parse_helper_new (description, NULL);
+	if (helper == NULL)
+		return NULL;
+
+	dnode = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
+	if (helper->node == NULL)
+		return NULL;
+	cnode = dnode;
+
+	do {
+		if ((helper->tag_id == AS_TAG_UL) || (helper->tag_id == AS_TAG_OL)) {
+			cnode = as_xml_markup_parse_helper_export_node (helper, dnode, FALSE);
+		} else {
+			if (helper->tag_id != AS_TAG_LI)
+				cnode = dnode;
+
+			as_xml_markup_parse_helper_export_node (helper, cnode, FALSE);
+		}
+	} while (as_xml_markup_parse_helper_next (helper));
+
+	return dnode;
+}
+
+/**
  * as_xml_add_localized_text_node:
  *
  * Add set of localized XML nodes based on a localization table.
@@ -718,9 +809,70 @@ as_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *child_name,
 }
 
 /**
- * as_xml_add_text_node:
+ * as_xml_parse_custom_node:
  *
- * Add node if value is not empty
+ * Parse a custom key/value table from XML into a #GHashTable
+ * using #GRefString as key/value.
+ */
+void
+as_xml_parse_custom_node (xmlNode *node, GHashTable *custom)
+{
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		g_autofree gchar *key_str = NULL;
+
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		if (g_strcmp0 ((gchar*) iter->name, "value") != 0)
+			continue;
+
+		key_str = (gchar*) xmlGetProp (iter, (xmlChar*) "key");
+		if (key_str == NULL)
+			continue;
+
+		g_hash_table_insert (custom,
+				     g_ref_string_new_intern (key_str),
+				     as_xml_get_node_value_refstr (iter));
+	}
+}
+
+/**
+ * as_xml_add_custom_node:
+ *
+ * Add a custom key/value table to the XML DOM.
+ * The #GHashTable should use #GRefString as keys/values.
+ */
+void
+as_xml_add_custom_node (xmlNode *root, const gchar *node_name, GHashTable *custom)
+{
+	xmlNode *node;
+	g_autoptr(GList) keys = NULL;
+
+	if (g_hash_table_size (custom) == 0)
+		return;
+
+	node = xmlNewChild (root, NULL, (xmlChar*) node_name, NULL);
+	keys = g_hash_table_get_keys (custom);
+	keys = g_list_sort (keys, (GCompareFunc) g_ascii_strcasecmp);
+	for (GList *link = keys; link != NULL; link = link->next) {
+		const GRefString *key = (const GRefString*) link->data;
+
+		xmlNode *snode = xmlNewTextChild (node,
+						  NULL,
+						  (xmlChar*) "value",
+						  (xmlChar*) g_hash_table_lookup (custom, key));
+		xmlNewProp (snode,
+			    (xmlChar*) "key",
+			    (xmlChar*) key);
+	}
+}
+
+/**
+ * as_xml_add_text_node:
+ * @root: The node to add a child to.
+ * @name: The new node name.
+ * @value: The new node value.
+ *
+ * Add node if value is not empty.
  */
 xmlNode*
 as_xml_add_text_node (xmlNode *root, const gchar *name, const gchar *value)
@@ -729,6 +881,23 @@ as_xml_add_text_node (xmlNode *root, const gchar *name, const gchar *value)
 		return NULL;
 
 	return xmlNewTextChild (root, NULL, (xmlChar*) name, (xmlChar*) value);
+}
+
+/**
+ * as_xml_add_text_prop:
+ * @node: The node to attach a property to.
+ * @name: The new property name.
+ * @value: The new property value.
+ *
+ * Add property to node if value is not empty.
+ */
+xmlAttr*
+as_xml_add_text_prop (xmlNode *node, const gchar *name, const gchar *value)
+{
+	if (as_is_empty (value))
+		return NULL;
+
+	return xmlNewProp (node, (xmlChar*) name, (xmlChar*) value);
 }
 
 /**

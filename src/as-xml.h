@@ -35,7 +35,13 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-gchar		*as_xml_get_node_value (xmlNode *node);
+gchar		*as_xml_get_node_value (const xmlNode *node);
+GRefString	*as_xml_get_node_value_refstr (const xmlNode *node);
+
+#define as_xml_get_prop_value(node, prop_name)	(gchar*) (xmlGetProp (node, (xmlChar*) prop_name))
+GRefString	*as_xml_get_prop_value_refstr (const xmlNode *node, const gchar *prop_name);
+gint		as_xml_get_prop_value_as_int (const xmlNode *node, const gchar *prop_name);
+
 gchar		*as_xml_get_node_locale_match (AsContext *ctx,
 					       xmlNode *node);
 
@@ -59,6 +65,8 @@ gchar		*as_xml_dump_node_children (xmlNode *node);
 void		as_xml_add_description_node (AsContext *ctx,
 					     xmlNode *root,
 					     GHashTable *desc_table);
+xmlNode		*as_xml_add_description_node_raw (xmlNode *root,
+						  const gchar *description);
 
 void		as_xml_add_localized_text_node (xmlNode *root,
 						const gchar *node_name,
@@ -74,8 +82,17 @@ void		as_xml_add_node_list (xmlNode *root,
 					const gchar *child_name,
 					GPtrArray *array);
 
+void		as_xml_parse_custom_node (xmlNode *node,
+					  GHashTable *custom);
+void		as_xml_add_custom_node (xmlNode *root,
+					const gchar *node_name,
+					GHashTable *custom);
+
 xmlNode		*as_xml_add_text_node (xmlNode *root,
-				       const gchar *name,
+					const gchar *name,
+					const gchar *value);
+xmlAttr		*as_xml_add_text_prop (xmlNode *node,
+					const gchar *name,
 					const gchar *value);
 
 xmlDoc		*as_xml_parse_document (const gchar *data,

@@ -1481,3 +1481,46 @@ as_strstripnl (gchar *string)
 	memmove (string, start, strlen ((gchar *) start) + 1);
 	return string;
 }
+
+/**
+ * as_ref_string_assign_safe:
+ * @rstr_ptr: (out): a #AsRefString
+ * @str: a string, or a #AsRefString
+ *
+ * This function unrefs and clears @rstr_ptr if set, then sets @rstr if
+ * non-NULL. If @rstr and @rstr_ptr are the same string the action is ignored.
+ *
+ * This function should be used when @str cannot be guaranteed to be a
+ * refcounted string and is suitable for use in existing object setters.
+ */
+void
+as_ref_string_assign_safe (GRefString **rstr_ptr, const gchar *str)
+{
+	g_return_if_fail (rstr_ptr != NULL);
+	if (*rstr_ptr != NULL) {
+		g_ref_string_release (*rstr_ptr);
+		*rstr_ptr = NULL;
+	}
+	if (str != NULL)
+		*rstr_ptr = g_ref_string_new_intern (str);
+}
+
+/**
+ * as_ref_string_assign_transfer:
+ * @rstr_ptr: (out): a #AsRefString
+ * @new_rstr: a #AsRefString
+ *
+ * Clear the previous refstring in @rstr_ptr and move the new string @new_rstr in its place,
+ * without increasing its reference count again.
+ */
+void
+as_ref_string_assign_transfer (GRefString **rstr_ptr, GRefString *new_rstr)
+{
+	g_return_if_fail (rstr_ptr != NULL);
+	if (*rstr_ptr != NULL) {
+		g_ref_string_release (*rstr_ptr);
+		*rstr_ptr = NULL;
+	}
+	if (new_rstr != NULL)
+		*rstr_ptr = new_rstr;
+}

@@ -40,6 +40,7 @@
 #include "as-provided-private.h"
 #include "as-relation-private.h"
 #include "as-agreement-private.h"
+#include "as-review-private.h"
 
 
 /**
@@ -97,13 +98,13 @@ typedef struct
 	GPtrArray		*recommends; /* of AsRelation */
 	GPtrArray		*requires; /* of AsRelation */
 	GPtrArray		*agreements; /* of AsAgreement */
-
 	GHashTable		*urls; /* of int:utf8 */
-	GHashTable		*languages; /* of utf8:utf8 */
 
+	GHashTable		*languages; /* of utf8:utf8 */
 	GPtrArray		*translations; /* of AsTranslation */
 
 	GPtrArray		*icons; /* of AsIcon elements */
+	GPtrArray		*reviews; /* of AsReview */
 
 	gchar			*arch; /* the architecture this data was generated from */
 	gint			priority; /* used internally */
@@ -118,7 +119,7 @@ typedef struct
 	gboolean		ignored; /* whether we should ignore this component */
 
 	GHashTable		*name_variant_suffix; /* variant suffix for component name */
-	GHashTable		*custom; /* free-form user-defined custom data */
+	GHashTable		*custom; /* of GRefString:GRefString, free-form user-defined custom data */
 } AsComponentPrivate;
 
 typedef enum {
@@ -367,11 +368,14 @@ as_component_init (AsComponent *cpt)
 	priv->recommends = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->requires = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->agreements = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->reviews = g_ptr_array_new_with_free_func (g_object_unref);
 
 	/* others */
 	priv->urls = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-	priv->custom = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->custom = g_hash_table_new_full (g_str_hash, g_str_equal,
+					      (GDestroyNotify) g_ref_string_release,
+					      (GDestroyNotify) g_ref_string_release);
 
 	priv->token_cache = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
@@ -418,16 +422,17 @@ as_component_finalize (GObject* object)
 	g_hash_table_unref (priv->custom);
 	g_ptr_array_unref (priv->content_ratings);
 	g_ptr_array_unref (priv->icons);
-	if (priv->name_variant_suffix != NULL)
-		g_hash_table_unref (priv->name_variant_suffix);
 
 	g_ptr_array_unref (priv->recommends);
 	g_ptr_array_unref (priv->requires);
-
 	g_ptr_array_unref (priv->agreements);
+	g_ptr_array_unref (priv->reviews);
 
 	if (priv->translations != NULL)
 		g_ptr_array_unref (priv->translations);
+
+	if (priv->name_variant_suffix != NULL)
+		g_hash_table_unref (priv->name_variant_suffix);
 
 	g_hash_table_unref (priv->token_cache);
 
@@ -2868,8 +2873,41 @@ as_component_insert_custom_value (AsComponent *cpt, const gchar *key, const gcha
 	if (key == NULL)
 		return FALSE;
 	return g_hash_table_insert (priv->custom,
-				    g_strdup (key),
-				    g_strdup (value));
+				    g_ref_string_new_intern (key),
+				    g_ref_string_new_intern (value));
+}
+
+/**
+ * as_component_get_reviews:
+ * @cpt: a #AsComponent instance.
+ *
+ * Gets any reviews associated with the component.
+ *
+ * Returns: (element-type AsReview) (transfer none): an array
+ *
+ * Since: 0.14.0
+ **/
+GPtrArray*
+as_component_get_reviews (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->reviews;
+}
+
+/**
+ * as_component_add_review:
+ * @cpt: a #AsComponent instance.
+ * @review: a #AsReview instance.
+ *
+ * Adds a user review to a software component.
+ *
+ * Since: 0.14.0
+ **/
+void
+as_component_add_review (AsComponent *cpt, AsReview *review)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_ptr_array_add (priv->reviews, g_object_ref (review));
 }
 
 /**
@@ -3484,33 +3522,6 @@ as_component_load_launchable_from_xml (AsComponent *cpt, xmlNode *node)
 }
 
 /**
- * as_component_xml_parse_custom_node:
- */
-static void
-as_component_xml_parse_custom_node (AsComponent *cpt, xmlNode *node)
-{
-	xmlNode *iter;
-	GHashTable *custom;
-
-	custom = as_component_get_custom (cpt);
-	for (iter = node->children; iter != NULL; iter = iter->next) {
-		gchar *key_str = NULL;
-
-		if (iter->type != XML_ELEMENT_NODE)
-			continue;
-		if (g_strcmp0 ((gchar*) iter->name, "value") != 0)
-			continue;
-
-		key_str = (gchar*) xmlGetProp (iter, (xmlChar*) "key");
-		if (key_str == NULL)
-			continue;
-		g_hash_table_insert (custom,
-				     key_str,
-				     as_xml_get_node_value (iter));
-	}
-}
-
-/**
  * as_component_load_relations_from_xml:
  */
 static void
@@ -3763,7 +3774,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			if (as_suggested_load_from_xml (suggested, ctx, iter, NULL))
 				as_component_add_suggested (cpt, suggested);
 		} else if (tag_id == AS_TAG_CUSTOM) {
-			as_component_xml_parse_custom_node (cpt, iter);
+			as_xml_parse_custom_node (iter, as_component_get_custom (cpt));
 		} else if (tag_id == AS_TAG_CONTENT_RATING) {
 			g_autoptr(AsContentRating) ctrating = as_content_rating_new ();
 			if (as_content_rating_load_from_xml (ctrating, ctx, iter, NULL))
@@ -3776,6 +3787,16 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			g_autoptr(AsAgreement) agreement = as_agreement_new ();
 			if (as_agreement_load_from_xml (agreement, ctx, iter, NULL))
 				as_component_add_agreement (cpt, agreement);
+		} else if (tag_id == AS_TAG_REVIEWS) {
+			for (xmlNode *sn = iter->children; sn != NULL; sn = sn->next) {
+				if (sn->type != XML_ELEMENT_NODE)
+					continue;
+				if (g_strcmp0 ((const gchar*) sn->name, "review") == 0) {
+					g_autoptr(AsReview) review = as_review_new ();
+					if (as_review_load_from_xml (review, ctx, sn, NULL))
+						as_component_add_review (cpt, review);
+				}
+			}
 		} else if (as_context_get_internal_mode (ctx)) {
 			/* internal information */
 
@@ -3999,37 +4020,6 @@ as_component_xml_serialize_languages (AsComponent *cpt, xmlNode *cptnode)
 }
 
 /**
- * as_component_xml_serialize_custom:
- */
-static void
-as_component_xml_serialize_custom (AsComponent *cpt, xmlNode *cptnode)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	xmlNode *node;
-	g_autoptr(GList) keys = NULL;
-	GList *link;
-
-	if (g_hash_table_size (priv->custom) == 0)
-		return;
-
-	node = xmlNewChild (cptnode, NULL, (xmlChar*) "custom", NULL);
-	keys = g_hash_table_get_keys (priv->custom);
-	keys = g_list_sort (keys, (GCompareFunc) g_ascii_strcasecmp);
-	for (link = keys; link != NULL; link = link->next) {
-		const gchar *key = (const gchar*) link->data;
-		xmlNode *snode;
-
-		snode = xmlNewTextChild (node,
-					  NULL,
-					  (xmlChar*) "value",
-					  (xmlChar*) g_hash_table_lookup (priv->custom, key));
-		xmlNewProp (snode,
-			    (xmlChar*) "key",
-			    (xmlChar*) key);
-	}
-}
-
-/**
  * as_component_to_xml_node:
  * @cpt: an #AsComponent.
  * @ctx: the AppStream document context.
@@ -4042,7 +4032,6 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	xmlNode *cnode;
-	guint i;
 
 	/* define component root node properties */
 	if (root == NULL)
@@ -4106,7 +4095,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	as_component_xml_keywords_to_node (cpt, cnode);
 
 	/* urls */
-	for (i = AS_URL_KIND_UNKNOWN; i < AS_URL_KIND_LAST; i++) {
+	for (guint i = AS_URL_KIND_UNKNOWN; i < AS_URL_KIND_LAST; i++) {
 		xmlNode *n;
 		const gchar *value;
 		value = as_component_get_url (cpt, i);
@@ -4119,26 +4108,26 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	}
 
 	/* icons */
-	for (i = 0; i < priv->icons->len; i++) {
+	for (guint i = 0; i < priv->icons->len; i++) {
 		AsIcon *icon = AS_ICON (g_ptr_array_index (priv->icons, i));
 		as_icon_to_xml_node (icon, ctx, cnode);
 	}
 
 	/* bundles */
-	for (i = 0; i < priv->bundles->len; i++) {
+	for (guint i = 0; i < priv->bundles->len; i++) {
 		AsBundle *bundle = AS_BUNDLE (g_ptr_array_index (priv->bundles, i));
 		as_bundle_to_xml_node (bundle, ctx, cnode);
 	}
 
 	/* launchables */
-	for (i = 0; i < priv->launchables->len; i++) {
+	for (guint i = 0; i < priv->launchables->len; i++) {
 		AsLaunchable *launchable = AS_LAUNCHABLE (g_ptr_array_index (priv->launchables, i));
 		as_launchable_to_xml_node (launchable, ctx, cnode);
 	}
 
 	/* translations */
 	if (priv->translations != NULL) {
-		for (i = 0; i < priv->translations->len; i++) {
+		for (guint i = 0; i < priv->translations->len; i++) {
 			AsTranslation *tr = AS_TRANSLATION (g_ptr_array_index (priv->translations, i));
 			as_translation_to_xml_node (tr, ctx, cnode);
 		}
@@ -4148,14 +4137,14 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	if (priv->screenshots->len > 0) {
 		xmlNode *rnode = xmlNewChild (cnode, NULL, (xmlChar*) "screenshots", NULL);
 
-		for (i = 0; i < priv->screenshots->len; i++) {
+		for (guint i = 0; i < priv->screenshots->len; i++) {
 			AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
 			as_screenshot_to_xml_node (scr, ctx, rnode);
 		}
 	}
 
 	/* agreements */
-	for (i = 0; i < priv->agreements->len; i++) {
+	for (guint i = 0; i < priv->agreements->len; i++) {
 		AsAgreement *agreement = AS_AGREEMENT (g_ptr_array_index (priv->agreements, i));
 		as_agreement_to_xml_node (agreement, ctx, cnode);
 	}
@@ -4166,7 +4155,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 		/* ensure releases are sorted, then emit XML nodes */
 		as_component_sort_releases (cpt);
-		for (i = 0; i < priv->releases->len; i++) {
+		for (guint i = 0; i < priv->releases->len; i++) {
 			AsRelease *rel = AS_RELEASE (g_ptr_array_index (priv->releases, i));
 			as_release_to_xml_node (rel, ctx, rnode);
 		}
@@ -4179,13 +4168,13 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	as_component_xml_serialize_languages (cpt, cnode);
 
 	/* suggests nodes */
-	for (i = 0; i < priv->suggestions->len; i++) {
+	for (guint i = 0; i < priv->suggestions->len; i++) {
 		AsSuggested *suggested = AS_SUGGESTED (g_ptr_array_index (priv->suggestions, i));
 		as_suggested_to_xml_node (suggested, ctx, cnode);
 	}
 
 	/* content_rating nodes */
-	for (i = 0; i < priv->content_ratings->len; i++) {
+	for (guint i = 0; i < priv->content_ratings->len; i++) {
 		AsContentRating *ctrating = AS_CONTENT_RATING (g_ptr_array_index (priv->content_ratings, i));
 		as_content_rating_to_xml_node (ctrating, ctx, cnode);
 	}
@@ -4194,7 +4183,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	if (priv->recommends->len > 0) {
 		xmlNode *rcnode = xmlNewChild (cnode, NULL, (xmlChar*) "recommends", NULL);
 
-		for (i = 0; i < priv->recommends->len; i++) {
+		for (guint i = 0; i < priv->recommends->len; i++) {
 			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->recommends, i));
 			as_relation_to_xml_node (relation, ctx, rcnode);
 		}
@@ -4204,14 +4193,24 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	if (priv->requires->len > 0) {
 		xmlNode *rqnode = xmlNewChild (cnode, NULL, (xmlChar*) "requires", NULL);
 
-		for (i = 0; i < priv->requires->len; i++) {
+		for (guint i = 0; i < priv->requires->len; i++) {
 			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->requires, i));
 			as_relation_to_xml_node (relation, ctx, rqnode);
 		}
 	}
 
 	/* custom node */
-	as_component_xml_serialize_custom (cpt, cnode);
+	as_xml_add_custom_node (cnode, "custom", priv->custom);
+
+	/* reviews */
+	if (priv->reviews->len > 0) {
+		xmlNode *rnode = xmlNewChild (cnode, NULL, (xmlChar*) "reviews", NULL);
+
+		for (guint i = 0; i < priv->reviews->len; i++) {
+			AsReview *review = AS_REVIEW (g_ptr_array_index (priv->reviews, i));
+			as_review_to_xml_node (review, ctx, rnode);
+		}
+	}
 
 	/* internal information */
 	if (as_context_get_internal_mode (ctx)) {
@@ -4514,9 +4513,7 @@ as_component_yaml_parse_languages (AsComponent *cpt, GNode *node)
 static void
 as_component_yaml_parse_relations (AsComponent *cpt, AsContext *ctx, GNode *node, AsRelationKind kind)
 {
-	GNode *n;
-
-	for (n = node->children; n != NULL; n = n->next) {
+	for (GNode *n = node->children; n != NULL; n = n->next) {
 		g_autoptr(AsRelation) relation = as_relation_new ();
 
 		as_relation_set_kind (relation, kind);
@@ -4531,13 +4528,12 @@ as_component_yaml_parse_relations (AsComponent *cpt, AsContext *ctx, GNode *node
 static void
 as_component_yaml_parse_custom (AsComponent *cpt, GNode *node)
 {
-	GNode *sn;
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	for (sn = node->children; sn != NULL; sn = sn->next) {
-		const gchar *key = as_yaml_node_get_key (sn);
-		const gchar *value = as_yaml_node_get_value (sn);
-
-		as_component_insert_custom_value (cpt, key, value);
+	for (GNode *sn = node->children; sn != NULL; sn = sn->next) {
+		g_hash_table_insert (priv->custom,
+				     as_yaml_node_get_key_refstr (sn),
+				     as_yaml_node_get_value_refstr (sn));
 	}
 }
 
@@ -4622,15 +4618,13 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 		} else if (field_id == AS_TAG_ICON) {
 			as_component_yaml_parse_icons (cpt, ctx, node);
 		} else if (field_id == AS_TAG_BUNDLE) {
-			GNode *n;
-			for (n = node->children; n != NULL; n = n->next) {
+			for (GNode *n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsBundle) bundle = as_bundle_new ();
 				if (as_bundle_load_from_yaml (bundle, ctx, n, NULL))
 					as_component_add_bundle (cpt, bundle);
 			}
 		} else if (field_id == AS_TAG_LAUNCHABLE) {
-			GNode *n;
-			for (n = node->children; n != NULL; n = n->next) {
+			for (GNode *n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsLaunchable) launch = as_launchable_new ();
 				if (as_launchable_load_from_yaml (launch, ctx, n, NULL))
 					as_component_add_launchable (cpt, launch);
@@ -4638,8 +4632,7 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 		} else if (field_id == AS_TAG_PROVIDES) {
 			as_component_yaml_parse_provides (cpt, node);
 		} else if (field_id == AS_TAG_SCREENSHOTS) {
-			GNode *n;
-			for (n = node->children; n != NULL; n = n->next) {
+			for (GNode * n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsScreenshot) scr = as_screenshot_new ();
 				if (as_screenshot_load_from_yaml (scr, ctx, n, NULL))
 					as_component_add_screenshot (cpt, scr);
@@ -4647,22 +4640,19 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 		} else if (field_id == AS_TAG_LANGUAGES) {
 			as_component_yaml_parse_languages (cpt, node);
 		} else if (field_id == AS_TAG_RELEASES) {
-			GNode *n;
-			for (n = node->children; n != NULL; n = n->next) {
+			for (GNode *n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsRelease) release = as_release_new ();
 				if (as_release_load_from_yaml (release, ctx, n, NULL))
 					g_ptr_array_add (priv->releases, g_steal_pointer (&release));
 			}
 		} else if (field_id == AS_TAG_SUGGESTS) {
-			GNode *n;
-			for (n = node->children; n != NULL; n = n->next) {
+			for (GNode *n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsSuggested) suggested = as_suggested_new ();
 				if (as_suggested_load_from_yaml (suggested, ctx, n, NULL))
 					as_component_add_suggested (cpt, suggested);
 			}
 		} else if (field_id == AS_TAG_CONTENT_RATING) {
-			GNode *n;
-			for (n = node->children; n != NULL; n = n->next) {
+			for (GNode *n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsContentRating) rating = as_content_rating_new ();
 				if (as_content_rating_load_from_yaml (rating, ctx, n, NULL))
 					as_component_add_content_rating (cpt, rating);
@@ -4672,8 +4662,7 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 		} else if (field_id == AS_TAG_REQUIRES) {
 			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_REQUIRES);
 		} else if (field_id == AS_TAG_AGREEMENT) {
-			GNode *n;
-			for (n = node->children; n != NULL; n = n->next) {
+			for (GNode *n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsAgreement) agreement = as_agreement_new ();
 				if (as_agreement_load_from_yaml (agreement, ctx, n, NULL))
 					as_component_add_agreement (cpt, agreement);
@@ -4683,6 +4672,12 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 			as_yaml_set_localized_table (ctx, node, priv->name_variant_suffix);
 		} else if (field_id == AS_TAG_CUSTOM) {
 			as_component_yaml_parse_custom (cpt, node);
+		} else if (field_id == AS_TAG_REVIEWS) {
+			for (GNode *n = node->children; n != NULL; n = n->next) {
+				g_autoptr(AsReview) review = as_review_new ();
+				if (as_review_load_from_yaml (review, ctx, n, NULL))
+					as_component_add_review (cpt, review);
+			}
 		} else {
 			as_yaml_print_unknown ("root", key);
 		}
@@ -5035,7 +5030,6 @@ void
 as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitter)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	guint i;
 	gint res;
 	const gchar *cstr;
 	yaml_event_t event;
@@ -5143,7 +5137,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_emit_scalar (emitter, "Bundles");
 		as_yaml_sequence_start (emitter);
 
-		for (i = 0; i < priv->bundles->len; i++) {
+		for (guint i = 0; i < priv->bundles->len; i++) {
 			AsBundle *bundle = AS_BUNDLE (g_ptr_array_index (priv->bundles, i));
 			as_bundle_emit_yaml (bundle, ctx, emitter);
 		}
@@ -5156,7 +5150,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_emit_scalar (emitter, "Launchable");
 		as_yaml_mapping_start (emitter);
 
-		for (i = 0; i < priv->launchables->len; i++) {
+		for (guint i = 0; i < priv->launchables->len; i++) {
 			AsLaunchable *launch = AS_LAUNCHABLE (g_ptr_array_index (priv->launchables, i));
 			as_launchable_emit_yaml (launch, ctx, emitter);
 		}
@@ -5172,7 +5166,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_emit_scalar (emitter, "Screenshots");
 		as_yaml_sequence_start (emitter);
 
-		for (i = 0; i < priv->screenshots->len; i++) {
+		for (guint i = 0; i < priv->screenshots->len; i++) {
 			AsScreenshot *screenshot = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
 			as_screenshot_emit_yaml (screenshot, ctx, emitter);
 		}
@@ -5188,7 +5182,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_emit_scalar (emitter, "Agreements");
 		as_yaml_sequence_start (emitter);
 
-		for (i = 0; i < priv->agreements->len; i++) {
+		for (guint i = 0; i < priv->agreements->len; i++) {
 			AsAgreement *agreement = AS_AGREEMENT (g_ptr_array_index (priv->agreements, i));
 			as_agreement_emit_yaml (agreement, ctx, emitter);
 		}
@@ -5204,7 +5198,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_emit_scalar (emitter, "Releases");
 		as_yaml_sequence_start (emitter);
 
-		for (i = 0; i < priv->releases->len; i++) {
+		for (guint i = 0; i < priv->releases->len; i++) {
 			AsRelease *release = AS_RELEASE (g_ptr_array_index (priv->releases, i));
 			as_release_emit_yaml (release, ctx, emitter);
 		}
@@ -5217,7 +5211,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_emit_scalar (emitter, "Suggests");
 		as_yaml_sequence_start (emitter);
 
-		for (i = 0; i < priv->suggestions->len; i++) {
+		for (guint i = 0; i < priv->suggestions->len; i++) {
 			AsSuggested *suggested = AS_SUGGESTED (g_ptr_array_index (priv->suggestions, i));
 			as_suggested_emit_yaml (suggested, ctx, emitter);
 		}
@@ -5230,7 +5224,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_emit_scalar (emitter, "ContentRating");
 		as_yaml_mapping_start (emitter);
 
-		for (i = 0; i < priv->content_ratings->len; i++) {
+		for (guint i = 0; i < priv->content_ratings->len; i++) {
 			AsContentRating *content_rating = AS_CONTENT_RATING (g_ptr_array_index (priv->content_ratings, i));
 			as_content_rating_emit_yaml (content_rating, ctx, emitter);
 		}
@@ -5243,7 +5237,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_emit_scalar (emitter, "Recommends");
 		as_yaml_sequence_start (emitter);
 
-		for (i = 0; i < priv->recommends->len; i++) {
+		for (guint i = 0; i < priv->recommends->len; i++) {
 			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->recommends, i));
 			as_relation_emit_yaml (relation, ctx, emitter);
 		}
@@ -5256,7 +5250,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_emit_scalar (emitter, "Requires");
 		as_yaml_sequence_start (emitter);
 
-		for (i = 0; i < priv->requires->len; i++) {
+		for (guint i = 0; i < priv->requires->len; i++) {
 			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->requires, i));
 			as_relation_emit_yaml (relation, ctx, emitter);
 		}
@@ -5266,6 +5260,19 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 
 	/* Custom fields */
 	as_component_yaml_emit_custom (cpt, emitter);
+
+	/* Reviews */
+	if (priv->reviews->len > 0) {
+		as_yaml_emit_scalar (emitter, "Reviews");
+		as_yaml_mapping_start (emitter);
+
+		for (guint i = 0; i < priv->reviews->len; i++) {
+			AsReview *review = AS_REVIEW (g_ptr_array_index (priv->reviews, i));
+			as_review_emit_yaml (review, ctx, emitter);
+		}
+
+		as_yaml_mapping_end (emitter);
+	}
 
 	/* close main mapping */
 	as_yaml_mapping_end (emitter);

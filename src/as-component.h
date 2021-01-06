@@ -41,6 +41,7 @@
 #include "as-launchable.h"
 #include "as-relation.h"
 #include "as-agreement.h"
+#include "as-review.h"
 
 G_BEGIN_DECLS
 
@@ -362,6 +363,10 @@ void			as_component_set_name_variant_suffix (AsComponent *cpt,
 guint			as_component_get_sort_score (AsComponent *cpt);
 void			as_component_set_sort_score (AsComponent *cpt,
 							guint score);
+
+GPtrArray		*as_component_get_reviews (AsComponent *cpt);
+void		 	as_component_add_review	(AsComponent *cpt,
+						 AsReview *review);
 
 AsContext		*as_component_get_context (AsComponent *cpt);
 

@@ -129,6 +129,12 @@ gchar			*as_date_time_format_iso8601 (GDateTime *datetime);
 AS_INTERNAL_VISIBLE
 gchar			*as_strstripnl (gchar *string);
 
+void			as_ref_string_assign_safe (GRefString **rstr_ptr,
+						   const gchar *str);
+
+void			as_ref_string_assign_transfer (GRefString **rstr_ptr,
+						       GRefString *new_rstr);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

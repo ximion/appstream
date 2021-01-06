@@ -43,6 +43,9 @@ gboolean	as_yaml_free_node (GNode *node,
 const gchar	*as_yaml_node_get_key (GNode *n);
 const gchar	*as_yaml_node_get_value (GNode *n);
 
+GRefString	*as_yaml_node_get_key_refstr (GNode *n);
+GRefString	*as_yaml_node_get_value_refstr (GNode *n);
+
 void		as_yaml_print_unknown (const gchar *root,
 				       const gchar *key);
 

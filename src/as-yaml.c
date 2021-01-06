@@ -163,6 +163,28 @@ as_yaml_node_get_value (GNode *n)
 }
 
 /**
+ * as_yaml_node_get_key_refstr:
+ *
+ * Helper method to get the key of a node.
+ */
+GRefString*
+as_yaml_node_get_key_refstr (GNode *n)
+{
+	return g_ref_string_new_intern (as_yaml_node_get_key (n));
+}
+
+/**
+ * as_yaml_node_get_value_refstr:
+ *
+ * Helper method to get the value of a node.
+ */
+GRefString*
+as_yaml_node_get_value_refstr (GNode *n)
+{
+	return g_ref_string_new_intern (as_yaml_node_get_value (n));
+}
+
+/**
  * as_yaml_print_unknown:
  */
 void

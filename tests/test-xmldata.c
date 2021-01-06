@@ -1748,6 +1748,62 @@ test_xml_read_releases_legacy (void)
 }
 
 /**
+ * test_xml_rw_reviews:
+ */
+static void
+test_xml_rw_reviews (void)
+{
+	static const gchar *xmldata_reviews =
+			"<component>\n"
+			"  <id>org.example.ReviewTest</id>\n"
+			"  <reviews>\n"
+			"    <review id=\"17\" date=\"2016-09-15\" rating=\"80\">\n"
+			"      <priority>5</priority>\n"
+			"      <summary>Hello world</summary>\n"
+			"      <description>\n"
+			"        <p>Mighty Fine</p>\n"
+			"      </description>\n"
+			"      <version>1.2.3</version>\n"
+			"      <reviewer_id>deadbeef</reviewer_id>\n"
+			"      <reviewer_name>Richard Hughes</reviewer_name>\n"
+			"      <lang>en_GB</lang>\n"
+			"      <metadata>\n"
+			"        <value key=\"foo\">bar</value>\n"
+			"      </metadata>\n"
+			"    </review>\n"
+			"  </reviews>\n"
+			"</component>\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	GPtrArray *reviews;
+	AsReview *review;
+	g_autofree gchar *res = NULL;
+
+	/* read */
+	cpt = as_xml_test_read_data (xmldata_reviews, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReviewTest");
+
+	reviews = as_component_get_reviews (cpt);
+	g_assert_cmpint (reviews->len, ==, 1);
+	review = AS_REVIEW (g_ptr_array_index (reviews, 0));
+
+	/* validate */
+	g_assert_cmpint (as_review_get_priority (review), ==, 5);
+	g_assert (as_review_get_date (review) != NULL);
+	g_assert_cmpstr (as_review_get_id (review), ==, "17");
+	g_assert_cmpstr (as_review_get_version (review), ==, "1.2.3");
+	g_assert_cmpstr (as_review_get_reviewer_id (review), ==, "deadbeef");
+	g_assert_cmpstr (as_review_get_reviewer_name (review), ==, "Richard Hughes");
+	g_assert_cmpstr (as_review_get_summary (review), ==, "Hello world");
+	g_assert_cmpstr (as_review_get_locale (review), ==, "en_GB");
+	g_assert_cmpstr (as_review_get_description (review), ==, "<p>Mighty Fine</p>");
+	g_assert_cmpstr (as_review_get_metadata_item (review, "foo"), ==, "bar");
+
+	/* write */
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert (as_xml_test_compare_xml (res, xmldata_reviews));
+}
+
+/**
  * main:
  */
 int
@@ -1813,6 +1869,8 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Read/Releases", test_xml_read_releases);
 	g_test_add_func ("/XML/Write/Releases", test_xml_write_releases);
 	g_test_add_func ("/XML/Read/ReleasesLegacy", test_xml_read_releases_legacy);
+
+	g_test_add_func ("/XML/ReadWrite/Reviews", test_xml_rw_reviews);
 
 	ret = g_test_run ();
 	g_free (datadir);
