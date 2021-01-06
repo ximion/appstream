@@ -26,26 +26,33 @@
 #define __AS_UTILS_H
 
 #include <glib-object.h>
+#include "as-component.h"
 
 G_BEGIN_DECLS
 
-gchar		*as_markup_convert_simple (const gchar *markup,
-					   GError **error);
+gchar			*as_markup_convert_simple (const gchar *markup,
+						   GError **error);
 
-gboolean	as_utils_locale_is_compatible (const gchar *locale1,
-					       const gchar *locale2);
-gboolean	as_utils_is_category_name (const gchar *category_name);
-gboolean	as_utils_is_tld (const gchar *tld);
-gboolean	as_utils_is_desktop_environment (const gchar *desktop);
+gboolean		as_utils_locale_is_compatible (const gchar *locale1,
+						       const gchar *locale2);
+gboolean		as_utils_is_category_name (const gchar *category_name);
+gboolean		as_utils_is_tld (const gchar *tld);
+gboolean		as_utils_is_desktop_environment (const gchar *desktop);
 
-void		as_utils_sort_components_into_categories (GPtrArray *cpts,
-							  GPtrArray *categories,
-							  gboolean check_duplicates);
+void			as_utils_sort_components_into_categories (GPtrArray *cpts,
+								  GPtrArray *categories,
+								  gboolean check_duplicates);
 
-gint		as_utils_compare_versions (const gchar* a,
-					   const gchar *b);
+gint			as_utils_compare_versions (const gchar* a,
+						   const gchar *b);
 
-const gchar	*as_get_appstream_version (void);
+gchar			*as_utils_build_data_id (AsComponentScope scope,
+						 const gchar *origin,
+						 AsBundleKind bundle_kind,
+						 const gchar *cid);
+gchar			*as_utils_data_id_get_cid (const gchar *data_id);
+
+const gchar		*as_get_appstream_version (void);
 
 G_END_DECLS
 

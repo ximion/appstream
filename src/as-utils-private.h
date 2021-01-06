@@ -24,7 +24,6 @@
 #include <glib-object.h>
 #include "as-settings-private.h"
 #include "as-utils.h"
-#include "as-component.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
@@ -106,11 +105,6 @@ gboolean		as_arch_compatible (const gchar *arch1,
 
 gboolean		as_utils_search_token_valid (const gchar *token);
 
-gchar			*as_utils_build_data_id (AsComponentScope scope,
-						 const gchar *origin,
-						 AsBundleKind bundle_kind,
-						 const gchar *cid);
-gchar			*as_utils_data_id_get_cid (const gchar *data_id);
 AsBundleKind		as_utils_get_component_bundle_kind (AsComponent *cpt);
 gchar			*as_utils_build_data_id_for_cpt (AsComponent *cpt);
 

@@ -1156,8 +1156,14 @@ as_utils_compare_versions (const gchar* a, const gchar *b)
 
 /**
  * as_utils_build_data_id:
+ * @scope: The scope of the metadata
+ * @origin: The origin string of the data
+ * @bundle_kind: The bundling system that provided the component
+ * @cid: An AppStream component-id
  *
- * Builds the unique metadata ID using the supplied information.
+ * Builds an identifier string unique to the individual dataset using the supplied information.
+ *
+ * Since: 0.14.0
  */
 gchar*
 as_utils_build_data_id (AsComponentScope scope,
