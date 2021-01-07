@@ -139,6 +139,8 @@ GPtrArray		*as_pool_get_components_by_launchable (AsPool *pool,
 							       const gchar *id);
 GPtrArray		*as_pool_search (AsPool *pool,
 					 const gchar *search);
+gchar			**as_pool_build_search_tokens (AsPool *pool,
+						       const gchar *search);
 
 void			as_pool_clear_metadata_locations (AsPool *pool);
 void			as_pool_add_metadata_location (AsPool *pool,

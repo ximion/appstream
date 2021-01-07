@@ -1650,13 +1650,21 @@ as_user_search_term_valid (const gchar *term)
 }
 
 /**
- * as_pool_build_search_terms:
+ * as_pool_build_search_tokens:
+ * @pool: An instance of #AsPool.
+ * @search: the (user-provided) search phrase.
  *
- * Build an array of search terms from a search string and improve the search terms
- * slightly, by stripping whitespaces, casefolding the terms and removing greylist words.
+ * Splits up a string into an array of tokens that are suitable for searching.
+ * This includes stripping whitespaces, casefolding the terms and removing greylist words.
+ *
+ * This function is usually called automatically when needed, you will only need to
+ * run it explicitly when you need to check which search tokens the pool will actually
+ * use internally for a given phrase.
+ *
+ * Returns: (transfer full): Valid tokens to search for, or %NULL for error
  */
-static gchar**
-as_pool_build_search_terms (AsPool *pool, const gchar *search)
+gchar**
+as_pool_build_search_tokens (AsPool *pool, const gchar *search)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(AsStemmer) stemmer = NULL;
@@ -1721,7 +1729,7 @@ as_pool_build_search_terms (AsPool *pool, const gchar *search)
  * @pool: An instance of #AsPool
  * @search: A search string
  *
- * Search for a list of components matching the search terms.
+ * Search for a list of components matching the search term.
  * The list will be ordered by match score.
  *
  * Returns: (transfer container) (element-type AsComponent): an array of the found #AsComponent objects.
@@ -1734,12 +1742,12 @@ as_pool_search (AsPool *pool, const gchar *search)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GError) tmp_error = NULL;
 	GPtrArray *result = NULL;
-	g_auto(GStrv) terms = NULL;
+	g_auto(GStrv) tokens = NULL;
 
 	/* sanitize user's search term */
-	terms = as_pool_build_search_terms (pool, search);
+	tokens = as_pool_build_search_tokens (pool, search);
 
-	if (terms == NULL) {
+	if (tokens == NULL) {
 		/* the query was invalid */
 		g_autofree gchar *tmp = g_strdup (search);
 		as_strstripnl (tmp);
@@ -1748,16 +1756,16 @@ as_pool_search (AsPool *pool, const gchar *search)
 			g_debug ("Search query too broad. Matching everything.");
 			return as_pool_get_components (pool);
 		} else {
-			g_debug ("No valid search terms. Can not find any results.");
+			g_debug ("No valid search tokens. Can not find any results.");
 			return g_ptr_array_new_with_free_func (g_object_unref);
 		}
 	} else {
 		g_autofree gchar *tmp_str = NULL;
-		tmp_str = g_strjoinv (" ", terms);
+		tmp_str = g_strjoinv (" ", tokens);
 		g_debug ("Searching for: %s", tmp_str);
 	}
 
-	result = as_cache_search (priv->cache, terms, FALSE, &tmp_error);
+	result = as_cache_search (priv->cache, tokens, FALSE, &tmp_error);
 	if (result == NULL) {
 		g_mutex_lock (&priv->mutex);
 		g_warning ("Search in session cache failed: %s", tmp_error->message);
@@ -1767,7 +1775,7 @@ as_pool_search (AsPool *pool, const gchar *search)
 
 	if (as_pool_can_query_system_cache (pool)) {
 		g_autoptr(GPtrArray) tmp_res = NULL;
-		tmp_res = as_cache_search (priv->system_cache, terms, FALSE, &tmp_error);
+		tmp_res = as_cache_search (priv->system_cache, tokens, FALSE, &tmp_error);
 		if (tmp_res == NULL) {
 			g_warning ("Search in system cache failed: %s", tmp_error->message);
 			return result;
