@@ -224,18 +224,18 @@ test_cache ()
 	as_cache_open (cache, cache_testpath, "C", &error);
 	g_assert_no_error (error);
 
-	ccpt = as_cache_get_component_by_data_id (cache, "system/os/package/org.inkscape.Inkscape", &error);
+	ccpt = as_cache_get_component_by_data_id (cache, "system/package/os/org.inkscape.Inkscape/*", &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (ccpt);
 
 	g_assert_cmpstr (as_component_get_name (ccpt), ==, "Inkscape");
 	g_object_unref (ccpt);
 
-	ret = as_cache_remove_by_data_id (cache, "system/os/package/org.inkscape.Inkscape", &error);
+	ret = as_cache_remove_by_data_id (cache, "system/package/os/org.inkscape.Inkscape/*", &error);
 	g_assert_no_error (error);
 	g_assert (ret);
 
-	ccpt = as_cache_get_component_by_data_id (cache, "system/os/package/org.inkscape.Inkscape", &error);
+	ccpt = as_cache_get_component_by_data_id (cache, "system/package/os/org.inkscape.Inkscape/*", &error);
 	g_assert_no_error (error);
 	g_assert_null (ccpt);
 }

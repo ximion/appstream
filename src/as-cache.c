@@ -1411,9 +1411,10 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 			const gchar *extended_cid = (const gchar*) g_ptr_array_index (extends, i);
 
 			extended_cdid = as_utils_build_data_id (as_component_get_scope (cpt),
-								as_component_get_origin (cpt),
 								as_utils_get_component_bundle_kind (cpt),
-								extended_cid);
+								as_component_get_origin (cpt),
+								extended_cid,
+								NULL);
 
 			hash_list = lmdb_val_memdup (as_cache_txn_get_value (cache,
 									     txn,

@@ -1155,12 +1155,21 @@ as_utils_compare_versions (const gchar* a, const gchar *b)
 	if (!*one) return -1; else return 1;
 }
 
+static const gchar*
+_as_fix_data_id_part (const gchar *tmp)
+{
+	if (tmp == NULL || tmp[0] == '\0')
+		return AS_DATA_ID_WILDCARD;
+	return tmp;
+}
+
 /**
  * as_utils_build_data_id:
- * @scope: The scope of the metadata
- * @origin: The origin string of the data
- * @bundle_kind: The bundling system that provided the component
- * @cid: An AppStream component-id
+ * @scope: Scope of the metadata as #AsComponentScope e.g. %AS_COMPONENT_SCOPE_SYSTEM
+ * @bundle_kind: Bundling system providing this data, e.g. 'package' or 'flatpak'
+ * @origin: Origin string, e.g. 'os' or 'gnome-apps-nightly'
+ * @cid: AppStream component ID, e.g. 'org.freedesktop.appstream.cli'
+ * @branch: Branch, e.g. '3-20' or 'master'
  *
  * Builds an identifier string unique to the individual dataset using the supplied information.
  *
@@ -1168,22 +1177,32 @@ as_utils_compare_versions (const gchar* a, const gchar *b)
  */
 gchar*
 as_utils_build_data_id (AsComponentScope scope,
-			const gchar *origin,
 			AsBundleKind bundle_kind,
-			const gchar *cid)
+			const gchar *origin,
+			const gchar *cid,
+			const gchar *branch)
 {
+	const gchar *scope_str = NULL;
+	const gchar *bundle_str = NULL;
+
 	/* if we have a package in system scope, the origin is "os", as they share the same namespace
 	 * and we can not have multiple versions of the same software installed on the system.
 	 * The data ID is needed to deduplicate entries */
 	if ((scope == AS_COMPONENT_SCOPE_SYSTEM) && (bundle_kind == AS_BUNDLE_KIND_PACKAGE))
 		origin = "os";
 
+	if (scope != AS_COMPONENT_SCOPE_UNKNOWN)
+		scope_str = as_component_scope_to_string (scope);
+	if (bundle_kind != AS_BUNDLE_KIND_UNKNOWN)
+		bundle_str = as_bundle_kind_to_string (bundle_kind);
+
 	/* build the data-id */
-	return g_strdup_printf ("%s/%s/%s/%s",
-				as_component_scope_to_string (scope),
-				origin,
-				as_bundle_kind_to_string (bundle_kind),
-				cid);
+	return g_strdup_printf ("%s/%s/%s/%s/%s",
+				_as_fix_data_id_part (scope_str),
+				_as_fix_data_id_part (bundle_str),
+				_as_fix_data_id_part (origin),
+				_as_fix_data_id_part (cid),
+				_as_fix_data_id_part (branch));
 }
 
 /**
@@ -1197,8 +1216,8 @@ as_utils_data_id_get_cid (const gchar *data_id)
 {
 	g_auto(GStrv) parts = NULL;
 
-	parts = g_strsplit (data_id, "/", 4);
-	if (g_strv_length (parts) != 4)
+	parts = g_strsplit (data_id, "/", 5);
+	if (g_strv_length (parts) != 5)
 		return NULL;
 	return g_strdup (parts[3]);
 }
@@ -1241,9 +1260,10 @@ as_utils_build_data_id_for_cpt (AsComponent *cpt)
 
 	/* build the data-id */
 	return as_utils_build_data_id (as_component_get_scope (cpt),
-					as_component_get_origin (cpt),
-					bundle_kind,
-					as_component_get_id (cpt));
+				       bundle_kind,
+				       as_component_get_origin (cpt),
+				       as_component_get_id (cpt),
+				       NULL);
 }
 
 /**

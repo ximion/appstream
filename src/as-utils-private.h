@@ -28,6 +28,9 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
+/* unique */
+#define AS_DATA_ID_WILDCARD	"*"
+
 /**
  * AsMarkupKind:
  * @AS_MARKUP_KIND_UNKNOWN:	Unknown markup.

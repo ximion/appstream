@@ -47,9 +47,10 @@ gint			as_utils_compare_versions (const gchar* a,
 						   const gchar *b);
 
 gchar			*as_utils_build_data_id (AsComponentScope scope,
-						 const gchar *origin,
 						 AsBundleKind bundle_kind,
-						 const gchar *cid);
+						 const gchar *origin,
+						 const gchar *cid,
+						 const gchar *branch);
 gchar			*as_utils_data_id_get_cid (const gchar *data_id);
 
 /* DEPRECATED */
