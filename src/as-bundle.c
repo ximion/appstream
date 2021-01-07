@@ -65,8 +65,10 @@ as_bundle_kind_to_string (AsBundleKind kind)
 		return "appimage";
 	if (kind == AS_BUNDLE_KIND_SNAP)
 		return "snap";
-    if (kind == AS_BUNDLE_KIND_TARBALL)
+	if (kind == AS_BUNDLE_KIND_TARBALL)
 		return "tarball";
+	if (kind == AS_BUNDLE_KIND_CABINET)
+		return "cabinet";
 	return "unknown";
 }
 
@@ -91,8 +93,10 @@ as_bundle_kind_from_string (const gchar *bundle_str)
 		return AS_BUNDLE_KIND_APPIMAGE;
 	if (g_strcmp0 (bundle_str, "snap") == 0)
 		return AS_BUNDLE_KIND_SNAP;
-    if (g_strcmp0 (bundle_str, "tarball") == 0)
+	if (g_strcmp0 (bundle_str, "tarball") == 0)
 		return AS_BUNDLE_KIND_TARBALL;
+	if (g_strcmp0 (bundle_str, "cabinet") == 0)
+		return AS_BUNDLE_KIND_CABINET;
 	return AS_BUNDLE_KIND_UNKNOWN;
 }
 
