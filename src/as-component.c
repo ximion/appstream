@@ -123,19 +123,6 @@ typedef struct
 	GHashTable		*custom; /* of GRefString:GRefString, free-form user-defined custom data */
 } AsComponentPrivate;
 
-typedef enum {
-	AS_TOKEN_MATCH_NONE		= 0,
-	AS_TOKEN_MATCH_MIMETYPE		= 1 << 0,
-	AS_TOKEN_MATCH_PKGNAME		= 1 << 1,
-	AS_TOKEN_MATCH_DESCRIPTION	= 1 << 2,
-	AS_TOKEN_MATCH_SUMMARY		= 1 << 3,
-	AS_TOKEN_MATCH_KEYWORD		= 1 << 4,
-	AS_TOKEN_MATCH_NAME		= 1 << 5,
-	AS_TOKEN_MATCH_ID		= 1 << 6,
-
-	AS_TOKEN_MATCH_LAST
-} AsTokenMatch;
-
 G_DEFINE_TYPE_WITH_PRIVATE (AsComponent, as_component, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_component_get_instance_private (o))
 

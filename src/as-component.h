@@ -165,6 +165,33 @@ typedef enum {
 	AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK = 1 << 1
 } AsValueFlags;
 
+/**
+ * AsTokenMatch:
+ * @AS_APP_SEARCH_MATCH_NONE:			No token matching
+ * @AS_APP_SEARCH_MATCH_MIMETYPE:		Use the component mimetypes
+ * @AS_APP_SEARCH_MATCH_PKGNAME:		Use the component package name
+ * @AS_APP_SEARCH_MATCH_DESCRIPTION:		Use the component description
+ * @AS_APP_SEARCH_MATCH_COMMENT:		Use the component comment
+ * @AS_APP_SEARCH_MATCH_NAME:			Use the component name
+ * @AS_APP_SEARCH_MATCH_KEYWORD:		Use the component keyword
+ * @AS_APP_SEARCH_MATCH_ID:			Use the component ID
+ *
+ * The token match kind, which we want to be exactly 16 bits for storage
+ * reasons.
+ **/
+typedef enum /*< skip >*/ __attribute__((__packed__)) {
+	AS_TOKEN_MATCH_NONE		= 0,
+	AS_TOKEN_MATCH_MIMETYPE		= 1 << 0,
+	AS_TOKEN_MATCH_PKGNAME		= 1 << 1,
+	AS_TOKEN_MATCH_DESCRIPTION	= 1 << 2,
+	AS_TOKEN_MATCH_SUMMARY		= 1 << 3,
+	AS_TOKEN_MATCH_KEYWORD		= 1 << 4,
+	AS_TOKEN_MATCH_NAME		= 1 << 5,
+	AS_TOKEN_MATCH_ID		= 1 << 6,
+	/*< private >*/
+	AS_TOKEN_MATCH_LAST		= 0xffff
+} AsTokenMatch;
+
 AsComponent		*as_component_new (void);
 
 AsValueFlags		as_component_get_value_flags (AsComponent *cpt);
