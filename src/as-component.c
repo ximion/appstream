@@ -1673,13 +1673,12 @@ AsProvided*
 as_component_get_provided_for_kind (AsComponent *cpt, AsProvidedKind kind)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	guint i;
-
-	for (i = 0; i < priv->provided->len; i++) {
+	for (guint i = 0; i < priv->provided->len; i++) {
 		AsProvided *prov = AS_PROVIDED (g_ptr_array_index (priv->provided, i));
 		if (as_provided_get_kind (prov) == kind)
 			return prov;
 	}
+
 	return NULL;
 }
 
@@ -1734,12 +1733,11 @@ as_component_add_provided (AsComponent *cpt, AsProvided *prov)
 /**
  * as_component_add_provided_item:
  * @cpt: a #AsComponent instance.
- * @kind: the kind of the provided item (e.g. %AS_PROVIDED_KIND_MIMETYPE)
+ * @kind: the kind of the provided item (e.g. %AS_PROVIDED_KIND_MEDIATYPE)
  * @item: the item to add.
  *
- * Adds a provided item to the component.
- *
- * Internal convenience function for use by the metadata reading classes.
+ * Adds a provided item to the component with the given @kind, creating a new
+ * @AsProvided for this kind internally if necessary.
  **/
 void
 as_component_add_provided_item (AsComponent *cpt, AsProvidedKind kind, const gchar *item)
@@ -2399,7 +2397,7 @@ as_component_complete (AsComponent *cpt, gchar *scr_service_url, GPtrArray *icon
 static void
 as_component_add_token_helper (AsComponent *cpt,
 			   const gchar *value,
-			   AsTokenMatch match_flag,
+			   AsSearchTokenMatch match_flag,
 			   AsStemmer *stemmer)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
@@ -2410,7 +2408,7 @@ as_component_add_token_helper (AsComponent *cpt,
 	if (!as_utils_search_token_valid (value))
 		return;
 	/* small tokens are invalid unless they are in the summary / name of the component */
-	if (match_flag < AS_TOKEN_MATCH_SUMMARY) {
+	if (match_flag < AS_SEARCH_TOKEN_MATCH_SUMMARY) {
 		if (strlen (value) < 3)
 			return;
 	}
@@ -2444,7 +2442,7 @@ static void
 as_component_add_token (AsComponent *cpt,
 		  const gchar *value,
 		  gboolean allow_split,
-		  AsTokenMatch match_flag)
+		  AsSearchTokenMatch match_flag)
 {
 	/* get global stemmer instance (it's threadsafe and should survive this invocation) */
 	AsStemmer *stemmer = as_stemmer_get ();
@@ -2498,7 +2496,7 @@ static void
 as_component_add_tokens (AsComponent *cpt,
 		   const gchar *value,
 		   gboolean allow_split,
-		   AsTokenMatch match_flag)
+		   AsSearchTokenMatch match_flag)
 {
 	guint i;
 	g_auto(GStrv) values_utf8 = NULL;
@@ -2537,28 +2535,28 @@ as_component_create_token_cache_target (AsComponent *cpt, AsComponent *donor)
 	/* tokenize all the data we have */
 	if (priv->id != NULL) {
 		as_component_add_token (cpt, priv->id, FALSE,
-				  AS_TOKEN_MATCH_ID);
+				  AS_SEARCH_TOKEN_MATCH_ID);
 	}
 
 	tmp = as_component_get_name (cpt);
 	if (tmp != NULL) {
-		as_component_add_tokens (cpt, tmp, TRUE, AS_TOKEN_MATCH_NAME);
+		as_component_add_tokens (cpt, tmp, TRUE, AS_SEARCH_TOKEN_MATCH_NAME);
 	}
 
 	tmp = as_component_get_summary (cpt);
 	if (tmp != NULL) {
-		as_component_add_tokens (cpt, tmp, TRUE, AS_TOKEN_MATCH_SUMMARY);
+		as_component_add_tokens (cpt, tmp, TRUE, AS_SEARCH_TOKEN_MATCH_SUMMARY);
 	}
 
 	tmp = as_component_get_description (cpt);
 	if (tmp != NULL) {
-		as_component_add_tokens (cpt, tmp, TRUE, AS_TOKEN_MATCH_DESCRIPTION);
+		as_component_add_tokens (cpt, tmp, TRUE, AS_SEARCH_TOKEN_MATCH_DESCRIPTION);
 	}
 
 	keywords = as_component_get_keywords (cpt);
 	if (keywords != NULL) {
 		for (i = 0; keywords[i] != NULL; i++)
-			as_component_add_tokens (cpt, keywords[i], FALSE, AS_TOKEN_MATCH_KEYWORD);
+			as_component_add_tokens (cpt, keywords[i], FALSE, AS_SEARCH_TOKEN_MATCH_KEYWORD);
 	}
 
 	prov = as_component_get_provided_for_kind (donor, AS_PROVIDED_KIND_MIMETYPE);
@@ -2568,12 +2566,12 @@ as_component_create_token_cache_target (AsComponent *cpt, AsComponent *donor)
 			as_component_add_token (cpt,
 						(const gchar*) g_ptr_array_index (items, i),
 						FALSE,
-						AS_TOKEN_MATCH_MIMETYPE);
+						AS_SEARCH_TOKEN_MATCH_MIMETYPE);
 	}
 
 	if (priv->pkgnames != NULL) {
 		for (i = 0; priv->pkgnames[i] != NULL; i++)
-			as_component_add_token (cpt, priv->pkgnames[i], FALSE, AS_TOKEN_MATCH_PKGNAME);
+			as_component_add_token (cpt, priv->pkgnames[i], FALSE, AS_SEARCH_TOKEN_MATCH_PKGNAME);
 	}
 }
 
@@ -4470,7 +4468,7 @@ as_component_yaml_parse_provides (AsComponent *cpt, GNode *node)
 			}
 		} else if ((g_strcmp0 (key, "mimetypes") == 0) || (g_strcmp0 (key, "mediatypes") == 0)) {
 			for (sn = n->children; sn != NULL; sn = sn->next) {
-				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MIMETYPE, (gchar*) sn->data);
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MEDIATYPE, (gchar*) sn->data);
 			}
 		} else if (g_strcmp0 (key, "dbus") == 0) {
 			GNode *dn;
