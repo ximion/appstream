@@ -182,7 +182,7 @@ as_component_kind_to_string (AsComponentKind kind)
 		return "font";
 	if (kind == AS_COMPONENT_KIND_CODEC)
 		return "codec";
-	if (kind == AS_COMPONENT_KIND_INPUTMETHOD)
+	if (kind == AS_COMPONENT_KIND_INPUT_METHOD)
 		return "inputmethod";
 	if (kind == AS_COMPONENT_KIND_FIRMWARE)
 		return "firmware";
@@ -231,7 +231,7 @@ as_component_kind_from_string (const gchar *kind_str)
 	if (g_strcmp0 (kind_str, "codec") == 0)
 		return AS_COMPONENT_KIND_CODEC;
 	if (g_strcmp0 (kind_str, "inputmethod") == 0)
-		return AS_COMPONENT_KIND_INPUTMETHOD;
+		return AS_COMPONENT_KIND_INPUT_METHOD;
 	if (g_strcmp0 (kind_str, "firmware") == 0)
 		return AS_COMPONENT_KIND_FIRMWARE;
 	if (g_strcmp0 (kind_str, "driver") == 0)

@@ -70,7 +70,7 @@ struct _AsComponentClass
  * @AS_COMPONENT_KIND_ADDON:		An extension of existing software, which does not run standalone
  * @AS_COMPONENT_KIND_FONT:		A font
  * @AS_COMPONENT_KIND_CODEC:		A multimedia codec
- * @AS_COMPONENT_KIND_INPUTMETHOD:	An input-method provider
+ * @AS_COMPONENT_KIND_INPUT_METHOD:	An input-method provider
  * @AS_COMPONENT_KIND_FIRMWARE:		Firmware
  * @AS_COMPONENT_KIND_DRIVER:		A driver
  * @AS_COMPONENT_KIND_LOCALIZATION:	Software localization (usually l10n resources)
@@ -91,7 +91,7 @@ typedef enum  {
 	AS_COMPONENT_KIND_ADDON,
 	AS_COMPONENT_KIND_FONT,
 	AS_COMPONENT_KIND_CODEC,
-	AS_COMPONENT_KIND_INPUTMETHOD,
+	AS_COMPONENT_KIND_INPUT_METHOD,
 	AS_COMPONENT_KIND_FIRMWARE,
 	AS_COMPONENT_KIND_DRIVER,
 	AS_COMPONENT_KIND_LOCALIZATION,
@@ -103,6 +103,8 @@ typedef enum  {
 	/*< private >*/
 	AS_COMPONENT_KIND_LAST
 } AsComponentKind;
+
+#define AS_COMPONENT_KIND_INPUTMETHOD AS_COMPONENT_KIND_INPUT_METHOD
 
 const gchar		*as_component_kind_to_string (AsComponentKind kind);
 AsComponentKind		as_component_kind_from_string (const gchar *kind_str);
