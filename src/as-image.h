@@ -60,6 +60,14 @@ typedef enum {
 	AS_IMAGE_KIND_LAST
 } AsImageKind;
 
+/* some useful constants */
+#define AS_IMAGE_LARGE_HEIGHT		423	/* Since: 0.14.0 */
+#define AS_IMAGE_LARGE_WIDTH		752	/* Since: 0.14.0 */
+#define AS_IMAGE_NORMAL_HEIGHT		351	/* Since: 0.14.0 */
+#define AS_IMAGE_NORMAL_WIDTH		624	/* Since: 0.14.0 */
+#define AS_IMAGE_THUMBNAIL_HEIGHT	63	/* Since: 0.14.0 */
+#define AS_IMAGE_THUMBNAIL_WIDTH 	112	/* Since: 0.14.0 */
+
 AsImageKind	 as_image_kind_from_string (const gchar *kind);
 const gchar	*as_image_kind_to_string (AsImageKind kind);
 
