@@ -83,6 +83,10 @@ gboolean		as_utils_data_id_equal (const gchar *data_id1,
 						const gchar *data_id2);
 guint			as_utils_data_id_hash (const gchar *data_id);
 
+guint			as_gstring_replace (GString *string,
+					    const gchar *search,
+					    const gchar *replace);
+
 /* DEPRECATED */
 
 G_DEPRECATED
