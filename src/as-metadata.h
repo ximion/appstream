@@ -138,7 +138,7 @@ const gchar		*as_metadata_get_locale (AsMetadata *metad);
 
 const gchar		*as_metadata_get_origin (AsMetadata *metad);
 void			as_metadata_set_origin (AsMetadata *metad,
-							const gchar *origin);
+						const gchar *origin);
 
 gboolean		as_metadata_get_update_existing (AsMetadata *metad);
 void			as_metadata_set_update_existing (AsMetadata *metad,
