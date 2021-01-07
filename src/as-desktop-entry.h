@@ -29,14 +29,15 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-AsComponent	*as_desktop_entry_parse_data (const gchar *data,
-					      const gchar *cid,
-					      AsFormatVersion fversion,
-					      GError **error);
+gboolean	as_desktop_entry_parse_data (AsComponent *cpt,
+					     const gchar *data,
+					     AsFormatVersion fversion,
+					     GError **error);
 
-AsComponent	*as_desktop_entry_parse_file (GFile *file,
-					      AsFormatVersion fversion,
-					      GError **error);
+gboolean	as_desktop_entry_parse_file (AsComponent *cpt,
+					     GFile *file,
+					     AsFormatVersion fversion,
+					     GError **error);
 
 #pragma GCC visibility pop
 G_END_DECLS

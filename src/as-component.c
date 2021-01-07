@@ -41,6 +41,7 @@
 #include "as-relation-private.h"
 #include "as-agreement-private.h"
 #include "as-review-private.h"
+#include "as-desktop-entry.h"
 
 
 /**
@@ -5312,6 +5313,68 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 }
 
 /**
+ * as_component_load_from_data:
+ * @cpt: an #AsComponent instance.
+ * @context: an #AsContext instance.
+ * @format: the format of the data to load, e.g. %AS_FORMAT_KIND_XML
+ * @data: the data to load.
+ * @error: a #GError.
+ *
+ * Load metadata for this component from an XML string.
+ * You normally do not want to use this method directly and instead use the more
+ * convenient API of #AsMetadata to create and update components.
+ *
+ * Returns: %TRUE on success.
+ *
+ * Since: 0.14.0
+ */
+gboolean
+as_component_load_from_data (AsComponent *cpt, AsContext *context, AsFormatKind format, const gchar *data, GError **error)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	if ((format == AS_FORMAT_KIND_XML) || (format == AS_FORMAT_KIND_UNKNOWN)) {
+		xmlDoc *doc;
+		xmlNode *root;
+		gboolean ret;
+		g_return_val_if_fail (context != NULL, FALSE);
+
+		doc = as_xml_parse_document (data, -1, error);
+		if (doc == NULL)
+			return FALSE;
+		root = xmlDocGetRootElement (doc);
+
+		ret = as_component_load_from_xml (cpt, context, root, error);
+		xmlFreeDoc (doc);
+		return ret;
+	}
+
+	if (format == AS_FORMAT_KIND_DESKTOP_ENTRY) {
+		GError *tmp_error = NULL;
+		as_desktop_entry_parse_data (cpt,
+					     data,
+					     AS_CURRENT_FORMAT_VERSION,
+					     &tmp_error);
+		if (tmp_error != NULL) {
+			g_propagate_error (error, tmp_error);
+			return FALSE;
+		}
+
+		/* update context */
+		priv->priority = as_context_get_priority (context);
+		as_component_set_context (cpt, context);
+
+		return TRUE;
+	}
+
+	g_set_error_literal (error,
+			     AS_METADATA_ERROR,
+			     AS_METADATA_ERROR_FAILED,
+			     "Unable to load data: Unknown or unsupported format for this operation.");
+	return FALSE;
+}
+
+/**
  * as_component_load_from_xml_data:
  * @cpt: an #AsComponent instance.
  * @context: an #AsContext instance.
@@ -5329,19 +5392,11 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 gboolean
 as_component_load_from_xml_data (AsComponent *cpt, AsContext *context, const gchar *data, GError **error)
 {
-	xmlDoc *doc;
-	xmlNode *root;
-	gboolean ret;
-	g_return_val_if_fail (context != NULL, FALSE);
-
-	doc = as_xml_parse_document (data, -1, error);
-	if (doc == NULL)
-		return FALSE;
-	root = xmlDocGetRootElement (doc);
-
-	ret = as_component_load_from_xml (cpt, context, root, error);
-	xmlFreeDoc (doc);
-	return ret;
+	return as_component_load_from_data (cpt,
+					    context,
+					    AS_FORMAT_KIND_XML,
+					    data,
+					    error);
 }
 
 /**

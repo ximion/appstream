@@ -148,17 +148,23 @@ as_add_filtered_categories (gchar **cats, AsComponent *cpt)
 /**
  * as_desktop_entry_parse_data:
  */
-AsComponent*
-as_desktop_entry_parse_data (const gchar *data, const gchar *cid, AsFormatVersion fversion, GError **error)
+gboolean
+as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, AsFormatVersion fversion, GError **error)
 {
-	g_autoptr(AsComponent) cpt = NULL;
 	g_autoptr(GKeyFile) df = NULL;
 	gchar *tmp;
 	gboolean ignore_cpt = FALSE;
 	g_auto(GStrv) keys = NULL;
 	guint i;
+	const gchar *cid = as_component_get_id (cpt);
 
-	g_assert (cid != NULL);
+	if (cid == NULL) {
+		g_set_error_literal (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_PARSE,
+				     "Unable to determine component-id for component from desktop-entry data.");
+		return FALSE;
+	}
 
 	df = g_key_file_new ();
 	g_key_file_load_from_data (df,
@@ -167,7 +173,7 @@ as_desktop_entry_parse_data (const gchar *data, const gchar *cid, AsFormatVersio
 				   G_KEY_FILE_KEEP_TRANSLATIONS,
 				   error);
 	if (*error != NULL)
-		return NULL;
+		return FALSE;
 
 	/* Type */
 	tmp = g_key_file_get_string (df,
@@ -177,7 +183,7 @@ as_desktop_entry_parse_data (const gchar *data, const gchar *cid, AsFormatVersio
 	if (!as_strequal_casefold (tmp, "application")) {
 		g_free (tmp);
 		/* not an application, so we can't proceed, but also no error */
-		return NULL;
+		return FALSE;
 	}
 	g_free (tmp);
 
@@ -200,7 +206,7 @@ as_desktop_entry_parse_data (const gchar *data, const gchar *cid, AsFormatVersio
 	if (as_strequal_casefold (tmp, "true")) {
 		g_free (tmp);
 		/* this file should be ignored, we can't return a component (but this is also no error) */
-		return NULL;
+		return FALSE;
 	}
 	g_free (tmp);
 
@@ -210,13 +216,11 @@ as_desktop_entry_parse_data (const gchar *data, const gchar *cid, AsFormatVersio
 				AS_METADATA_ERROR,
 				AS_METADATA_ERROR_PARSE,
 				"Data in '%s' does not contain a valid Desktop Entry.", cid);
-		return NULL;
+		return FALSE;
 	}
 
 	/* create the new component we synthesize for this desktop entry */
-	cpt = as_component_new ();
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
-	as_component_set_id (cpt, cid);
 	as_component_set_ignored (cpt, ignore_cpt);
 	as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_DESKTOP_ENTRY);
 
@@ -322,7 +326,7 @@ as_desktop_entry_parse_data (const gchar *data, const gchar *cid, AsFormatVersio
 
 	/* we have the lowest priority */
 	as_component_set_priority (cpt, -G_MAXINT);
-	return g_object_ref (cpt);
+	return TRUE;
 }
 
 /**
@@ -330,8 +334,8 @@ as_desktop_entry_parse_data (const gchar *data, const gchar *cid, AsFormatVersio
  *
  * Parse a .desktop file.
  */
-AsComponent*
-as_desktop_entry_parse_file (GFile *file, AsFormatVersion fversion, GError **error)
+gboolean
+as_desktop_entry_parse_file (AsComponent *cpt, GFile *file, AsFormatVersion fversion, GError **error)
 {
 	g_autofree gchar *file_basename = NULL;
 	g_autoptr(GInputStream) file_stream = NULL;
@@ -342,7 +346,7 @@ as_desktop_entry_parse_file (GFile *file, AsFormatVersion fversion, GError **err
 
 	file_stream = G_INPUT_STREAM (g_file_read (file, NULL, error));
 	if (file_stream == NULL)
-		return NULL;
+		return FALSE;
 
 	file_basename = g_file_get_basename (file);
 	dedata = g_string_new ("");
@@ -352,11 +356,12 @@ as_desktop_entry_parse_file (GFile *file, AsFormatVersion fversion, GError **err
 	}
 	/* check if there was an error */
 	if (len < 0)
-		return NULL;
+		return FALSE;
 
 	/* parse desktop entry */
-	return as_desktop_entry_parse_data (dedata->str,
-					    file_basename,
+	as_component_set_id (cpt, file_basename);
+	return as_desktop_entry_parse_data (cpt,
+					    dedata->str,
 					    fversion,
 					    error);
 }

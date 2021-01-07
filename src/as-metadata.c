@@ -475,19 +475,23 @@ void
 as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *data, const gchar *cid, GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-	AsComponent *cpt;
+	gboolean ret;
+	GError *tmp_error = NULL;
+	g_autoptr(AsComponent) cpt = as_component_new ();
 
-	cpt = as_desktop_entry_parse_data (data,
-					   cid,
+	as_component_set_id (cpt, cid);
+	ret = as_desktop_entry_parse_data (cpt,
+					   data,
 					   priv->format_version,
-					   error);
-	if (cpt == NULL) {
-		if (*error == NULL) {
+					   &tmp_error);
+	if (!ret) {
+		if (tmp_error == NULL) {
 			if (cid == NULL)
 				g_debug ("No component found in desktop-entry data.");
 			else
 				g_debug ("No component found in desktop-entry file: %s", cid);
 		}
+		g_propagate_error (error, tmp_error);
 		return;
 	}
 
@@ -495,7 +499,7 @@ as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *data, const gcha
 	as_component_set_active_locale (cpt, priv->locale);
 
 	/* add component to our list */
-	g_ptr_array_add (priv->cpts, cpt);
+	g_ptr_array_add (priv->cpts, g_steal_pointer (&cpt));
 }
 
 /**
