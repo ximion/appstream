@@ -26,6 +26,7 @@
 extern "C" {
 #endif
 
+#include <as-version.h>
 #include <as-context.h>
 #include <as-component.h>
 #include <as-enums.h>

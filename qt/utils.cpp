@@ -30,7 +30,7 @@ QString AppStream::Utils::currentDistroComponentId()
 
 QString AppStream::Utils::currentAppStreamVersion()
 {
-    return QString::fromUtf8(as_get_appstream_version());
+    return QString::fromUtf8(as_version_string());
 }
 
 

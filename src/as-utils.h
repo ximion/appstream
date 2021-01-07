@@ -52,6 +52,9 @@ gchar			*as_utils_build_data_id (AsComponentScope scope,
 						 const gchar *cid);
 gchar			*as_utils_data_id_get_cid (const gchar *data_id);
 
+/* DEPRECATED */
+
+G_DEPRECATED
 const gchar		*as_get_appstream_version (void);
 
 G_END_DECLS

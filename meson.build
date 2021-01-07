@@ -12,10 +12,18 @@ source_root = meson.source_root()
 as_version = meson.project_version()
 as_api_level = '4'
 
+varr = as_version.split('.')
+as_major_version = varr[0]
+as_minor_version = varr[1]
+as_micro_version = varr[2]
+
 #
 # Configure files
 #
 conf = configuration_data()
+conf.set('AS_MAJOR_VERSION_CONF', as_major_version)
+conf.set('AS_MINOR_VERSION_CONF', as_minor_version)
+conf.set('AS_MICRO_VERSION_CONF', as_micro_version)
 conf.set_quoted('PACKAGE_VERSION', as_version)
 conf.set_quoted('GETTEXT_PACKAGE', 'appstream')
 conf.set_quoted('LOCALEDIR', get_option('localedir'))

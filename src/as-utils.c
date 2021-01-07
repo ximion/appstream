@@ -38,6 +38,7 @@
 #include <sys/stat.h>
 #include <errno.h>
 
+#include "as-version.h"
 #include "as-resources.h"
 #include "as-category.h"
 #include "as-component.h"
@@ -64,7 +65,7 @@
 const gchar*
 as_get_appstream_version (void)
 {
-	return PACKAGE_VERSION;
+	return as_version_string ();
 }
 
 /**
