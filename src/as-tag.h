@@ -119,6 +119,7 @@ typedef enum {
 
 	AS_TAG_INTERNAL_SCOPE,
 	AS_TAG_INTERNAL_ORIGIN,
+	AS_TAG_INTERNAL_BRANCH,
 
 	/*< private >*/
 	AS_TAG_LAST

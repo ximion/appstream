@@ -1035,6 +1035,12 @@ as_component_set_origin (AsComponent *cpt, const gchar *origin)
 /**
  * as_component_get_branch:
  * @cpt: a #AsComponent instance.
+ *
+ * Gets the branch for the application.
+ *
+ * Returns: string, or %NULL if unset
+ *
+ * Since: 0.14.0
  */
 const gchar*
 as_component_get_branch (AsComponent *cpt)
@@ -1046,7 +1052,11 @@ as_component_get_branch (AsComponent *cpt)
 /**
  * as_component_set_branch:
  * @cpt: a #AsComponent instance.
- * @origin: the origin.
+ * @branch: the branch, e.g. "master" or "3-16".
+ *
+ * Set the branch that the component instance was sourced from.
+ *
+ * Since: 0.14.0
  */
 void
 as_component_set_branch (AsComponent *cpt, const gchar *branch)
@@ -3831,6 +3841,8 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 				priv->scope = as_component_scope_from_string (content);
 			} else if (tag_id == AS_TAG_INTERNAL_ORIGIN) {
 				as_component_set_origin (cpt, content);
+			} else if (tag_id == AS_TAG_INTERNAL_BRANCH) {
+				as_component_set_branch (cpt, content);
 			}
 		} else if (tag_id == AS_TAG_NAME_VARIANT_SUFFIX) {
 			if (lang != NULL)
@@ -4246,6 +4258,8 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 			as_xml_add_text_node (cnode, "__asi_scope", as_component_scope_to_string (priv->scope));
 		if (origin != NULL)
 			as_xml_add_text_node (cnode, "__asi_origin", origin);
+		if (priv->branch != NULL)
+			as_xml_add_text_node (cnode, "__asi_branch", priv->branch);
 	}
 
 	return cnode;
