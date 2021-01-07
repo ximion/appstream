@@ -1122,6 +1122,14 @@ test_xml_read_screenshots (void)
 	g_assert_cmpint (as_image_get_width (img), ==, 800);
 	g_assert_cmpint (as_image_get_height (img), ==, 600);
 
+	/* get closest images */
+	img = as_screenshot_get_image (scr1, 120, 120);
+	g_assert_nonnull (img);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha_small.png");
+	img = as_screenshot_get_image (scr1, 1400, 1000);
+	g_assert_nonnull (img);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha.png");
+
 	/* screenshot 2 */
 	g_assert_cmpint (as_screenshot_get_kind (scr2), ==, AS_SCREENSHOT_KIND_EXTRA);
 	g_assert_cmpint (as_screenshot_get_media_kind (scr2), ==, AS_SCREENSHOT_MEDIA_KIND_IMAGE);
