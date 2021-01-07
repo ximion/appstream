@@ -148,6 +148,10 @@ gboolean		as_metadata_get_write_header (AsMetadata *metad);
 void			as_metadata_set_write_header (AsMetadata *metad,
 								gboolean wheader);
 
+const gchar		*as_metadata_get_media_baseurl (AsMetadata *metad);
+void			as_metadata_set_media_baseurl (AsMetadata *metad,
+							const gchar *url);
+
 const gchar		*as_metadata_get_architecture (AsMetadata *metad);
 void			as_metadata_set_architecture (AsMetadata *metad,
 							const gchar *arch);

@@ -159,18 +159,21 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
 	/* set origin of this metadata */
 	tmp = (gchar*) xmlGetProp (node, (xmlChar*) "origin");
 	as_context_set_origin (context, tmp);
+	as_metadata_set_origin (metad, tmp);
 	g_free (tmp);
 
 	/* set baseurl for the media files */
 	if (!as_flags_contains (priv->parse_flags, AS_PARSE_FLAG_IGNORE_MEDIABASEURL)) {
 		tmp = (gchar*) xmlGetProp (node, (xmlChar*) "media_baseurl");
 		as_context_set_media_baseurl (context, tmp);
+		as_metadata_set_media_baseurl (metad, tmp);
 		g_free (tmp);
 	}
 
 	/* set architecture for the components */
 	tmp = (gchar*) xmlGetProp (node, (xmlChar*) "architecture");
 	as_context_set_architecture (context, tmp);
+	as_metadata_set_architecture (metad, tmp);
 	g_free (tmp);
 
 	/* collection metadata allows setting a priority for components */
@@ -179,6 +182,7 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
 		gint default_priority;
 		default_priority = g_ascii_strtoll (priority_str, NULL, 10);
 		as_context_set_priority (context, default_priority);
+		priv->default_priority = default_priority;
 	}
 	g_free (priority_str);
 
@@ -300,6 +304,7 @@ as_metadata_yaml_parse_collection_doc (AsMetadata *metad, AsContext *context, co
 					if (g_strcmp0 (key, "Origin") == 0) {
 						if (value != NULL) {
 							as_context_set_origin (context, value);
+							as_metadata_set_origin (metad, value);
 						} else {
 							parse = FALSE;
 							ret = FALSE;
@@ -310,16 +315,20 @@ as_metadata_yaml_parse_collection_doc (AsMetadata *metad, AsContext *context, co
 						}
 					} else if (g_strcmp0 (key, "Priority") == 0) {
 						if (value != NULL) {
-							as_context_set_priority (context, g_ascii_strtoll (value, NULL, 10));
+							gint priority = g_ascii_strtoll (value, NULL, 10);
+							as_context_set_priority (context, priority);
+							priv->default_priority = priority;
 						}
 					} else if (g_strcmp0 (key, "MediaBaseUrl") == 0) {
 						if (value != NULL &&
 						    !as_flags_contains (priv->parse_flags, AS_PARSE_FLAG_IGNORE_MEDIABASEURL)) {
 								as_context_set_media_baseurl (context, value);
+								as_metadata_set_media_baseurl (metad, value);
 						}
 					} else if (g_strcmp0 (key, "Architecture") == 0) {
 						if (value != NULL) {
 							as_context_set_architecture (context, value);
+							as_metadata_set_architecture (metad, value);
 						}
 					}
 				}
@@ -765,13 +774,21 @@ as_metadata_xml_serialize_to_collection_with_rootnode (AsMetadata *metad, AsCont
 	guint i;
 
 	root = xmlNewNode (NULL, (xmlChar*) "components");
-	xmlNewProp (root,
-		    (xmlChar*) "version",
-		    (xmlChar*) as_format_version_to_string (priv->format_version));
+	as_xml_add_text_prop (root,
+			      "version",
+			      as_format_version_to_string (priv->format_version));
 	if (priv->origin != NULL)
-		xmlNewProp (root, (xmlChar*) "origin", (xmlChar*) priv->origin);
+		as_xml_add_text_prop (root,
+				      "origin",
+				      priv->origin);
 	if (priv->arch != NULL)
-		xmlNewProp (root, (xmlChar*) "architecture", (xmlChar*) priv->arch);
+		as_xml_add_text_prop (root,
+				      "architecture",
+				      priv->arch);
+	if (as_context_has_media_baseurl (context))
+		as_xml_add_text_prop (root,
+				      "media_baseurl",
+				      as_context_get_media_baseurl (context));
 
 	for (i = 0; i < cpts->len; i++) {
 		xmlNode *node;
@@ -1096,6 +1113,35 @@ as_metadata_get_origin (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	return priv->origin;
+}
+
+/**
+ * as_metadata_set_media_baseurl:
+ * @metad: an #AsMetadata instance.
+ * @url: the base URL.
+ *
+ * Set the base URL for all media links referenced in the metadata,
+ * or %NULL if every component has absolute URLs.
+ **/
+void
+as_metadata_set_media_baseurl (AsMetadata *metad, const gchar *url)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	g_free (priv->media_baseurl);
+	priv->media_baseurl = g_strdup (url);
+}
+
+/**
+ * as_metadata_get_media_baseurl:
+ * @metad: an #AsMetadata instance.
+ *
+ * Returns: The media URL prefix.
+ **/
+const gchar*
+as_metadata_get_media_baseurl (AsMetadata *metad)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	return priv->media_baseurl;
 }
 
 /**
