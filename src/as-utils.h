@@ -30,6 +30,28 @@
 
 G_BEGIN_DECLS
 
+/**
+ * AsDataIdMatchFlags:
+ * @AS_DATA_ID_MATCH_FLAG_NONE:		No flags set
+ * @AS_DATA_ID_MATCH_FLAG_SCOPE:	Scope, e.g. a #AsComponentScope
+ * @AS_DATA_ID_MATCH_FLAG_BUNDLE_KIND:	Bundle kind, e.g. a #AsBundleKind
+ * @AS_DATA_ID_MATCH_FLAG_ORIGIN:	Origin
+ * @AS_DATA_ID_MATCH_FLAG_ID:		Component AppStream ID
+ * @AS_DATA_ID_MATCH_FLAG_BRANCH:	Branch
+ *
+ * The flags used when matching unique IDs.
+ **/
+typedef enum {
+	AS_DATA_ID_MATCH_FLAG_NONE		= 0,
+	AS_DATA_ID_MATCH_FLAG_SCOPE		= 1 << 0,
+	AS_DATA_ID_MATCH_FLAG_BUNDLE_KIND	= 1 << 1,
+	AS_DATA_ID_MATCH_FLAG_ORIGIN		= 1 << 2,
+	AS_DATA_ID_MATCH_FLAG_ID		= 1 << 3,
+	AS_DATA_ID_MATCH_FLAG_BRANCH		= 1 << 4,
+	/*< private >*/
+	AS_DATA_ID_MATCH_FLAG_LAST
+} AsDataIdMatchFlags;
+
 gchar			*as_markup_convert_simple (const gchar *markup,
 						   GError **error);
 
@@ -51,7 +73,15 @@ gchar			*as_utils_build_data_id (AsComponentScope scope,
 						 const gchar *origin,
 						 const gchar *cid,
 						 const gchar *branch);
+gboolean		as_utils_data_id_valid (const gchar *data_id);
 gchar			*as_utils_data_id_get_cid (const gchar *data_id);
+
+gboolean		as_utils_data_id_match (const gchar *data_id1,
+						const gchar *data_id2,
+						AsDataIdMatchFlags match_flags);
+gboolean		as_utils_data_id_equal (const gchar *data_id1,
+						const gchar *data_id2);
+guint			as_utils_data_id_hash (const gchar *data_id);
 
 /* DEPRECATED */
 

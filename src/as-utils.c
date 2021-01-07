@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2020 Matthias Klumpp <matthias@tenstral.net>
- * Copyright (C) 2016 Richard Hughes <richard@hughsie.com>
+ * Copyright (C) 2014-2016 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -1155,7 +1155,7 @@ as_utils_compare_versions (const gchar* a, const gchar *b)
 	if (!*one) return -1; else return 1;
 }
 
-static const gchar*
+static inline const gchar*
 _as_fix_data_id_part (const gchar *tmp)
 {
 	if (tmp == NULL || tmp[0] == '\0')
@@ -1206,6 +1206,31 @@ as_utils_build_data_id (AsComponentScope scope,
 }
 
 /**
+ * as_utils_data_id_valid:
+ * @data_id: a component data ID
+ *
+ * Checks if a data ID is valid i.e. has the correct number of
+ * sections.
+ *
+ * Returns: %TRUE if the ID is valid
+ *
+ * Since: 0.14.0
+ */
+gboolean
+as_utils_data_id_valid (const gchar *data_id)
+{
+	guint i;
+	guint sections = 1;
+	if (data_id == NULL)
+		return FALSE;
+	for (i = 0; data_id[i] != '\0'; i++) {
+		if (data_id[i] == '/')
+			sections++;
+	}
+	return sections == AS_DATA_ID_PARTS_COUNT;
+}
+
+/**
  * as_utils_data_id_get_cid:
  * @data_id: The data-id.
  *
@@ -1222,6 +1247,143 @@ as_utils_data_id_get_cid (const gchar *data_id)
 	return g_strdup (parts[3]);
 }
 
+static inline guint
+_as_utils_data_id_find_part (const gchar *str)
+{
+	guint i;
+	for (i = 0; str[i] != '/' && str[i] != '\0'; i++);
+	return i;
+}
+
+static inline gboolean
+_as_utils_data_id_is_wildcard_part (const gchar *str, guint len)
+{
+	return len == 1 && str[0] == '*';
+}
+
+/**
+ * as_utils_data_id_match:
+ * @data_id1: a data ID
+ * @data_id2: another data ID
+ * @match_flags: a #AsDataIdMatchFlags bitfield, e.g. %AS_DATA_ID_MATCH_FLAG_ID
+ *
+ * Checks two data IDs for equality allowing globs to match, whilst also
+ * allowing clients to whitelist sections that have to match.
+ *
+ * Returns: %TRUE if the IDs should be considered equal.
+ *
+ * Since: 0.14.0
+ */
+gboolean
+as_utils_data_id_match (const gchar *data_id1,
+			const gchar *data_id2,
+			AsDataIdMatchFlags match_flags)
+{
+	guint last1 = 0;
+	guint last2 = 0;
+	guint len1;
+	guint len2;
+
+	/* trivial */
+	if (data_id1 == data_id2)
+		return TRUE;
+
+	/* invalid */
+	if (!as_utils_data_id_valid (data_id1) ||
+	    !as_utils_data_id_valid (data_id2))
+		return g_strcmp0 (data_id1, data_id2) == 0;
+
+	/* look at each part */
+	for (guint i = 0; i < AS_DATA_ID_PARTS_COUNT; i++) {
+		const gchar *tmp1 = data_id1 + last1;
+		const gchar *tmp2 = data_id2 + last2;
+
+		/* find the slash or the end of the string */
+		len1 = _as_utils_data_id_find_part (tmp1);
+		len2 = _as_utils_data_id_find_part (tmp2);
+
+		/* either string was a wildcard */
+		if (match_flags & (1 << i) &&
+		    !_as_utils_data_id_is_wildcard_part (tmp1, len1) &&
+		    !_as_utils_data_id_is_wildcard_part (tmp2, len2)) {
+			/* are substrings the same */
+			if (len1 != len2)
+				return FALSE;
+			if (memcmp (tmp1, tmp2, len1) != 0)
+				return FALSE;
+		}
+
+		/* advance to next section */
+		last1 += len1 + 1;
+		last2 += len2 + 1;
+	}
+	return TRUE;
+}
+
+/**
+ * as_utils_data_id_equal:
+ * @data_id1: a data ID
+ * @data_id2: another data ID
+ *
+ * Checks two component data IDs for equality allowing globs to match.
+ *
+ * Returns: %TRUE if the ID's should be considered equal.
+ *
+ * Since: 0.14.0
+ */
+gboolean
+as_utils_data_id_equal (const gchar *data_id1, const gchar *data_id2)
+{
+	return as_utils_data_id_match (data_id1,
+				       data_id2,
+				       AS_DATA_ID_MATCH_FLAG_SCOPE |
+				       AS_DATA_ID_MATCH_FLAG_BUNDLE_KIND |
+				       AS_DATA_ID_MATCH_FLAG_ORIGIN |
+				       AS_DATA_ID_MATCH_FLAG_ID |
+				       AS_DATA_ID_MATCH_FLAG_BRANCH);
+}
+
+/**
+ * as_utils_data_id_hash:
+ * @data_id: a data ID
+ *
+ * Converts a data-id to a hash value.
+ *
+ * This function implements the widely used DJB hash on the ID subset of the
+ * data-id string.
+ *
+ * It can be passed to g_hash_table_new() as the hash_func parameter,
+ * when using non-NULL strings or unique_ids as keys in a GHashTable.
+ *
+ * Returns: a hash value corresponding to the key
+ *
+ * Since: 0.14.0
+ */
+guint
+as_utils_data_id_hash (const gchar *data_id)
+{
+	gsize i;
+	guint hash = 5381;
+	guint section_cnt = 0;
+
+	/* not a unique ID */
+	if (!as_utils_data_id_valid (data_id))
+		return g_str_hash (data_id);
+
+	/* only include the component-id */
+	for (i = 0; data_id[i] != '\0'; i++) {
+		if (data_id[i] == '/') {
+			if (++section_cnt > 3)
+				break;
+			continue;
+		}
+		if (section_cnt < 3)
+			continue;
+		hash = (guint) ((hash << 5) + hash) + (guint) (data_id[i]);
+	}
+	return hash;
+}
+
 /**
  * as_utils_get_component_bundle_kind:
  *
@@ -1231,11 +1393,12 @@ AsBundleKind
 as_utils_get_component_bundle_kind (AsComponent *cpt)
 {
 	GPtrArray *bundles;
-	AsBundleKind bundle_kind;
+	AsBundleKind bundle_kind = AS_BUNDLE_KIND_UNKNOWN;
 
 	/* determine bundle - what should we do if there are multiple bundles of different types
 	 * defined for one component? */
-	bundle_kind = AS_BUNDLE_KIND_PACKAGE;
+	if (as_component_has_package (cpt))
+		bundle_kind = AS_BUNDLE_KIND_PACKAGE;
 	bundles = as_component_get_bundles (cpt);
 	if (bundles->len > 0)
 		bundle_kind = as_bundle_get_kind (AS_BUNDLE (g_ptr_array_index (bundles, 0)));
@@ -1263,7 +1426,7 @@ as_utils_build_data_id_for_cpt (AsComponent *cpt)
 				       bundle_kind,
 				       as_component_get_origin (cpt),
 				       as_component_get_id (cpt),
-				       NULL);
+				       as_component_get_branch (cpt));
 }
 
 /**

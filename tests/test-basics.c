@@ -673,6 +673,96 @@ as_test_content_rating_from_locale (void)
 	}
 }
 
+/**
+ * test_utils_data_id_hash:
+ *
+ * Shows the data-id globbing functions at work
+ */
+void
+test_utils_data_id_hash (void)
+{
+	AsComponent *found;
+	g_autoptr(AsComponent) cpt1 = NULL;
+	g_autoptr(AsComponent) cpt2 = NULL;
+	g_autoptr(GHashTable) hash = NULL;
+
+	/* create new couple of apps */
+	cpt1 = as_component_new ();
+	as_component_set_id (cpt1, "org.gnome.Software.desktop");
+	as_component_set_branch (cpt1, "master");
+	g_assert_cmpstr (as_component_get_data_id (cpt1), ==,
+			 "*/*/*/org.gnome.Software.desktop/master");
+	cpt2 = as_component_new ();
+	as_component_set_id (cpt2, "org.gnome.Software.desktop");
+	as_component_set_branch (cpt2, "stable");
+	g_assert_cmpstr (as_component_get_data_id (cpt2), ==,
+			 "*/*/*/org.gnome.Software.desktop/stable");
+
+	/* add to hash table using the data ID as a key */
+	hash = g_hash_table_new ((GHashFunc) as_utils_data_id_hash,
+				 (GEqualFunc) as_utils_data_id_equal);
+	g_hash_table_insert (hash, (gpointer) as_component_get_data_id (cpt1), cpt1);
+	g_hash_table_insert (hash, (gpointer) as_component_get_data_id (cpt2), cpt2);
+
+	/* get with exact key */
+	found = g_hash_table_lookup (hash, "*/*/*/org.gnome.Software.desktop/master");
+	g_assert (found != NULL);
+	found = g_hash_table_lookup (hash, "*/*/*/org.gnome.Software.desktop/stable");
+	g_assert (found != NULL);
+
+	/* get with more details specified */
+	found = g_hash_table_lookup (hash, "system/*/*/org.gnome.Software.desktop/master");
+	g_assert (found != NULL);
+	found = g_hash_table_lookup (hash, "system/*/*/org.gnome.Software.desktop/stable");
+	g_assert (found != NULL);
+
+	/* get with less details specified */
+	found = g_hash_table_lookup (hash, "*/*/*/org.gnome.Software.desktop/*");
+	g_assert (found != NULL);
+
+	/* different key */
+	found = g_hash_table_lookup (hash, "*/*/*/gimp.desktop/*");
+	g_assert (found == NULL);
+
+	/* different branch */
+	found = g_hash_table_lookup (hash, "*/*/*/org.gnome.Software.desktop/obsolete");
+	g_assert (found == NULL);
+
+	/* check hash function */
+	g_assert_cmpint (as_utils_data_id_hash ("*/*/*/gimp.desktop/master"), ==,
+			 as_utils_data_id_hash ("system/*/*/gimp.desktop/stable"));
+}
+
+/**
+ * test_utils_data_id_hash_str:
+ *
+ * Shows the as_utils_data_id_* functions are safe with bare text.
+ */
+void
+test_utils_data_id_hash_str (void)
+{
+	AsComponent *found;
+	g_autoptr(AsComponent) app = NULL;
+	g_autoptr(GHashTable) hash = NULL;
+
+	/* create new app */
+	app = as_component_new ();
+	as_component_set_id (app, "org.gnome.Software.desktop");
+
+	/* add to hash table using the data ID as a key */
+	hash = g_hash_table_new ((GHashFunc) as_utils_data_id_hash,
+				 (GEqualFunc) as_utils_data_id_equal);
+	g_hash_table_insert (hash, (gpointer) "dave", app);
+
+	/* get with exact key */
+	found = g_hash_table_lookup (hash, "dave");
+	g_assert (found != NULL);
+
+	/* different key */
+	found = g_hash_table_lookup (hash, "frank");
+	g_assert (found == NULL);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -706,6 +796,9 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/URIToBasename", test_filebasename_from_uri);
 	g_test_add_func ("/AppStream/ContentRating/Mapings", test_content_rating_mappings);
 	g_test_add_func ("/AppStream/ContentRating/from-locale", as_test_content_rating_from_locale);
+
+	g_test_add_func ("/AppStream/DataID/hash", test_utils_data_id_hash);
+	g_test_add_func ("/AppStream/DataID/hash-str", test_utils_data_id_hash_str);
 
 	ret = g_test_run ();
 	g_free (datadir);

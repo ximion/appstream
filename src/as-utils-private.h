@@ -28,8 +28,9 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-/* unique */
+/* component data-ID constants */
 #define AS_DATA_ID_WILDCARD	"*"
+#define	AS_DATA_ID_PARTS_COUNT	5
 
 /**
  * AsMarkupKind:
