@@ -149,6 +149,10 @@ void			as_content_rating_set_value (AsContentRating *content_rating,
 
 const gchar		**as_content_rating_get_rating_ids (AsContentRating *content_rating);
 
+void			as_content_rating_add_attribute (AsContentRating *content_rating,
+							const gchar *id,
+							AsContentRatingValue value);
+
 G_END_DECLS
 
 #endif /* __AS_CONTENT_RATING_H */

@@ -36,6 +36,7 @@
 #include <glib/gi18n-lib.h>
 #include "as-content-rating.h"
 #include "as-content-rating-private.h"
+#include "as-utils-private.h"
 
 typedef struct {
 	gchar *id;
@@ -76,8 +77,7 @@ as_content_rating_finalize (GObject *object)
 static void
 as_content_rating_key_free (AsContentRatingKey *key)
 {
-	if (key->id != NULL)
-		g_free (key->id);
+	as_ref_string_release (key->id);
 	g_slice_free (AsContentRatingKey, key);
 }
 
@@ -159,7 +159,7 @@ as_content_rating_set_value (AsContentRating *content_rating, const gchar *id, A
 	g_return_if_fail (value != AS_CONTENT_RATING_VALUE_UNKNOWN);
 
 	key = g_slice_new0 (AsContentRatingKey);
-	key->id = g_strdup (id);
+	key->id = g_ref_string_new_intern (id);
 	key->value = value;
 	g_ptr_array_add (priv->keys, key);
 }
@@ -500,6 +500,33 @@ static const gchar *content_rating_strings[AS_CONTENT_RATING_SYSTEM_LAST][7] = {
 	[AS_CONTENT_RATING_SYSTEM_ESRB] = { "Early Childhood", "Everyone", "Everyone 10+", "Teen", "Mature", "Adults Only", NULL },
 	[AS_CONTENT_RATING_SYSTEM_IARC] = { "3+", "7+", "12+", "16+", "18+", NULL },
 };
+
+/**
+ * as_content_rating_add_attribute:
+ * @content_rating: a #AsContentRating instance.
+ * @id: a content rating ID, e.g. `money-gambling`.
+ * @value: a #AsContentRatingValue, e.g. %AS_CONTENT_RATING_VALUE_MODERATE.
+ *
+ * Adds an attribute value to the content rating.
+ *
+ * Since: 0.14.0
+ **/
+void
+as_content_rating_add_attribute (AsContentRating *content_rating,
+				 const gchar *id,
+				 AsContentRatingValue value)
+{
+	AsContentRatingKey *key = g_slice_new0 (AsContentRatingKey);
+	AsContentRatingPrivate *priv = GET_PRIVATE (content_rating);
+
+	g_return_if_fail (AS_IS_CONTENT_RATING (content_rating));
+	g_return_if_fail (id != NULL);
+	g_return_if_fail (value != AS_CONTENT_RATING_VALUE_UNKNOWN);
+
+	key->id = g_ref_string_new_intern (id);
+	key->value = value;
+	g_ptr_array_add (priv->keys, key);
+}
 
 /**
  * as_content_rating_system_get_formatted_ages:
