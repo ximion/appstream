@@ -77,20 +77,14 @@ as_review_finalize (GObject *object)
 	AsReview *review = AS_REVIEW (object);
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 
-	if (priv->id != NULL)
-		g_ref_string_release (priv->id);
-	if (priv->summary != NULL)
-		g_ref_string_release (priv->summary);
-	if (priv->description != NULL)
-		g_ref_string_release (priv->description);
-	if (priv->locale != NULL)
-		g_ref_string_release (priv->locale);
-	if (priv->version != NULL)
-		g_ref_string_release (priv->version);
-	if (priv->reviewer_id != NULL)
-		g_ref_string_release (priv->reviewer_id);
-	if (priv->reviewer_name != NULL)
-		g_ref_string_release (priv->reviewer_name);
+	as_ref_string_release (priv->id);
+	as_ref_string_release (priv->summary);
+	as_ref_string_release (priv->description);
+	as_ref_string_release (priv->locale);
+	as_ref_string_release (priv->version);
+	as_ref_string_release (priv->reviewer_id);
+	as_ref_string_release (priv->reviewer_name);
+
 	g_hash_table_unref (priv->metadata);
 	if (priv->date != NULL)
 		g_date_time_unref (priv->date);

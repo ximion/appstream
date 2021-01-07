@@ -70,9 +70,10 @@ typedef struct
 
 	gchar			*id;
 	gchar			*data_id;
-	gchar			*origin;
 	gchar			**pkgnames;
 	gchar			*source_pkgname;
+	GRefString		*origin;
+	GRefString		*branch;
 
 	GHashTable		*name; /* localized entry */
 	GHashTable		*summary; /* localized entry */
@@ -393,12 +394,15 @@ as_component_finalize (GObject* object)
 
 	g_free (priv->id);
 	g_free (priv->data_id);
+	g_free (priv->source_pkgname);
 	g_strfreev (priv->pkgnames);
 	g_free (priv->metadata_license);
 	g_free (priv->project_license);
 	g_free (priv->project_group);
 	g_free (priv->active_locale_override);
 	g_free (priv->arch);
+	as_ref_string_release (priv->origin);
+	as_ref_string_release (priv->branch);
 
 	g_hash_table_unref (priv->name);
 	g_hash_table_unref (priv->summary);
@@ -1024,8 +1028,31 @@ void
 as_component_set_origin (AsComponent *cpt, const gchar *origin)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_free (priv->origin);
-	priv->origin = g_strdup (origin);
+	as_ref_string_assign_safe (&priv->origin, origin);
+	as_component_invalidate_data_id (cpt);
+}
+
+/**
+ * as_component_get_branch:
+ * @cpt: a #AsComponent instance.
+ */
+const gchar*
+as_component_get_branch (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->branch;
+}
+
+/**
+ * as_component_set_branch:
+ * @cpt: a #AsComponent instance.
+ * @origin: the origin.
+ */
+void
+as_component_set_branch (AsComponent *cpt, const gchar *branch)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	as_ref_string_assign_safe (&priv->branch, branch);
 	as_component_invalidate_data_id (cpt);
 }
 
@@ -3172,7 +3199,7 @@ as_component_set_context (AsComponent *cpt, AsContext *context)
 	g_free (priv->active_locale_override);
 	priv->active_locale_override = NULL;
 
-	g_free (priv->origin);
+	as_ref_string_release (priv->origin);
 	priv->origin = NULL;
 
 	g_free (priv->arch);

@@ -1504,6 +1504,21 @@ as_strstripnl (gchar *string)
 }
 
 /**
+ * as_ref_string_release:
+ * @rstr: a #GRefString to release.
+ *
+ * This function works exactly like %g_ref_string_release, except
+ * that it does not throw an error if %NULL is passed to it.
+ */
+void
+as_ref_string_release (GRefString *rstr)
+{
+	if (rstr == NULL)
+		return;
+	g_ref_string_release (rstr);
+}
+
+/**
  * as_ref_string_assign_safe:
  * @rstr_ptr: (out): a #AsRefString
  * @str: a string, or a #AsRefString

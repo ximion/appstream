@@ -189,6 +189,10 @@ const gchar		*as_component_get_origin (AsComponent *cpt);
 void			as_component_set_origin (AsComponent *cpt,
 							const gchar *origin);
 
+const gchar		*as_component_get_branch (AsComponent *cpt);
+void			as_component_set_branch (AsComponent *cpt,
+						 const gchar *branch);
+
 AsComponentScope	as_component_get_scope (AsComponent *cpt);
 void			as_component_set_scope (AsComponent *cpt,
 						AsComponentScope scope);
