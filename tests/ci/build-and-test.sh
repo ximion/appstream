@@ -12,12 +12,22 @@ set -x
 
 $CC --version
 
+. /etc/os-release
+build_compose=true
+maintainer_mode=true
+if [ "$ID" = "ubuntu" ] && [ "$VERSION_CODENAME" = "focal" ]; then
+    # we don't build appstream-compose on Ubuntu 20.04,
+    # or make warnings fatal
+    build_compose=false
+    maintainer_mode=false
+fi;
+
 # configure AppStream build with all flags enabled
 mkdir build && cd build
-meson -Dmaintainer=true \
+meson -Dmaintainer=$maintainer_mode \
       -Ddocs=true \
       -Dqt=true \
-      -Dcompose=true \
+      -Dcompose=$build_compose \
       -Dapt-support=true \
       -Dvapi=true \
       ..
@@ -26,7 +36,7 @@ meson -Dmaintainer=true \
 # (the number of Ninja jobs needs to be limited, so Travis doesn't kill us)
 ninja -j4
 ninja documentation
-ninja test -v
+meson test --print-errorlogs
 DESTDIR=/tmp/install_root/ ninja install
 
 # Rebuild everything with Sanitizers enabled

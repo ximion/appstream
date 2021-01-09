@@ -38,7 +38,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Create Build Environment
-      run: sudo ../tests/ci/install-deps-deb.sh
+      run: sudo ./tests/ci/install-deps-deb.sh
       
     - name: Build & Test
       run: CC=gcc CXX=g++ ./tests/ci/build-and-test.sh

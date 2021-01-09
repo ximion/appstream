@@ -40,8 +40,14 @@ eatmydata apt-get install -yq --no-install-recommends \
     valac
 
 # install build dependencies for libappstream-compose
+. /etc/os-release
+if [ "$ID" = "ubuntu" ]; then
+    gdk_pixbuf_dep="libgdk-pixbuf2.0-dev"
+else
+    gdk_pixbuf_dep="libgdk-pixbuf-2.0-dev"
+fi;
 eatmydata apt-get install -yq --no-install-recommends \
-    libgdk-pixbuf-2.0-dev \
+    $gdk_pixbuf_dep \
     librsvg2-dev \
     libcairo2-dev \
     libfontconfig-dev \
