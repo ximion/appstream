@@ -46,6 +46,7 @@ mkdir -p $BUILD_DIR
 cd $BUILD_DIR
 meson -Dmaintainer=true \
       -Ddocs=true \
+      -Dcompose=true \
       -Dqt=true \
       -Dapt-support=true \
       -Dvapi=true \
@@ -69,11 +70,10 @@ rm -rf $R_ROOT/docs/html/
 cp -dpr ./docs/html/ $R_ROOT/docs
 
 # cleanup files which should not go to the release tarball
-find ./release-tar-tmp -name .gitignore -type f -delete
 find ./release-tar-tmp -name '*~' -type f -delete
 find ./release-tar-tmp -name '*.bak' -type f -delete
 find ./release-tar-tmp -name '*.o' -type f -delete
-rm -f $R_ROOT/.travis.yml
+rm -r $R_ROOT/.github
 rm $R_ROOT/release.sh
 
 # create release tarball
