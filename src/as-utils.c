@@ -217,7 +217,7 @@ as_description_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError
 						g_auto(GStrv) spl = NULL;
 						/* break to 100 chars, leaving room for the dot/indent */
 						spl = as_markup_strsplit_words (content, 100 - 3);
-						g_string_append_printf (str, " - %s", spl[0]);
+						g_string_append_printf (str, " * %s", spl[0]);
 						for (guint i = 1; spl[i] != NULL; i++)
 							g_string_append_printf (str, "   %s", spl[i]);
 					} else {
