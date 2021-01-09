@@ -161,13 +161,13 @@ test_readwrite_text_news ()
 			"This release changes the output of appstreamcli\n"
 			"\n"
 			"This release adds the following features:\n"
-			" - Alpha\n"
-			" - Beta\n"
+			" * Alpha\n"
+			" * Beta\n"
 			"\n"
 			"This release fixes the following bugs:\n"
-			" - Restore compatibility with GLib < 2.58\n"
-			" - Gamma\n"
-			" - Delta\n";
+			" * Restore compatibility with GLib < 2.58\n"
+			" * Gamma\n"
+			" * Delta\n";
 
 	g_autoptr(GPtrArray) releases = NULL;
 	g_autoptr(GError) error = NULL;
