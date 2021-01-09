@@ -57,14 +57,14 @@ if get_option('maintainer')
                          #'-Wformat-signedness',
                          '-Winline'
     ]
-    add_global_arguments(maintainer_c_args, language: 'c')
-    add_global_arguments(maintainer_c_args, language: 'cpp')
+    add_project_arguments(maintainer_c_args, language: 'c')
+    add_project_arguments(maintainer_c_args, language: 'cpp')
 endif
 
 # a few compiler warning flags we always want enabled
-add_global_arguments('-Werror=implicit-function-declaration', '-Wno-unused-parameter', language: 'c')
-add_global_arguments('-Wno-unused-parameter', '-Wno-error=deprecated-copy', language: 'cpp')
-add_global_arguments('-DAS_COMPILATION', language: 'c')
+add_project_arguments('-Werror=implicit-function-declaration', '-Wno-unused-parameter', language: 'c')
+add_project_arguments('-Wno-unused-parameter', '-Wno-error=deprecated-copy', language: 'cpp')
+add_project_arguments('-DAS_COMPILATION', language: 'c')
 
 #
 # Dependencies
