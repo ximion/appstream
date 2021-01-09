@@ -974,12 +974,12 @@ as_xml_parse_document (const gchar *data, gssize len, GError **error)
 		if (error_msg_str == NULL) {
 			g_set_error (error,
 					AS_METADATA_ERROR,
-					AS_METADATA_ERROR_FAILED,
+					AS_METADATA_ERROR_PARSE,
 					"Could not parse XML data (no details received)");
 		} else {
 			g_set_error (error,
 					AS_METADATA_ERROR,
-					AS_METADATA_ERROR_FAILED,
+					AS_METADATA_ERROR_PARSE,
 					"Could not parse XML data: %s", error_msg_str);
 		}
 		as_xml_set_out_of_context_error (NULL);
@@ -991,7 +991,7 @@ as_xml_parse_document (const gchar *data, gssize len, GError **error)
 	if (root == NULL) {
 		g_set_error_literal (error,
 				     AS_METADATA_ERROR,
-				     AS_METADATA_ERROR_FAILED,
+				     AS_METADATA_ERROR_PARSE,
 				     "The XML document is empty.");
 		xmlFreeDoc (doc);
 		return NULL;

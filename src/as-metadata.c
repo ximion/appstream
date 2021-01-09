@@ -491,6 +491,7 @@ as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *data, const gcha
 	as_component_set_id (cpt, cid);
 	ret = as_desktop_entry_parse_data (cpt,
 					   data,
+					   -1,
 					   priv->format_version,
 					   &tmp_error);
 	if (!ret) {

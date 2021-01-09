@@ -412,11 +412,11 @@ GHashTable		*as_component_get_name_table (AsComponent *cpt);
 GHashTable		*as_component_get_summary_table (AsComponent *cpt);
 GHashTable		*as_component_get_keywords_table (AsComponent *cpt);
 
-gboolean		as_component_load_from_data (AsComponent *cpt,
-						     AsContext *context,
-						     AsFormatKind format,
-						     const gchar *data,
-						     GError **error);
+gboolean		as_component_load_from_bytes (AsComponent *cpt,
+						      AsContext *context,
+						      AsFormatKind format,
+						      GBytes *bytes,
+						      GError **error);
 gchar			*as_component_to_xml_data (AsComponent *cpt,
 						   AsContext *context,
 						   GError **error);

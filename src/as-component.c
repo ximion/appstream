@@ -5311,11 +5311,11 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 }
 
 /**
- * as_component_load_from_data:
+ * as_component_load_from_bytes:
  * @cpt: an #AsComponent instance.
  * @context: an #AsContext instance.
  * @format: the format of the data to load, e.g. %AS_FORMAT_KIND_XML
- * @data: the data to load.
+ * @bytes: the data to load.
  * @error: a #GError.
  *
  * Load metadata for this component from an XML string.
@@ -5327,9 +5327,19 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
  * Since: 0.14.0
  */
 gboolean
-as_component_load_from_data (AsComponent *cpt, AsContext *context, AsFormatKind format, const gchar *data, GError **error)
+as_component_load_from_bytes (AsComponent *cpt, AsContext *context, AsFormatKind format, GBytes *bytes, GError **error)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	gsize data_len;
+	const gchar *data = g_bytes_get_data (bytes, &data_len);
+
+	if (data_len == 0) {
+		g_set_error_literal (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_FAILED,
+				     "No data submitted to load component from.");
+		return FALSE;
+	}
 
 	if ((format == AS_FORMAT_KIND_XML) || (format == AS_FORMAT_KIND_UNKNOWN)) {
 		xmlDoc *doc;
@@ -5337,7 +5347,7 @@ as_component_load_from_data (AsComponent *cpt, AsContext *context, AsFormatKind 
 		gboolean ret;
 		g_return_val_if_fail (context != NULL, FALSE);
 
-		doc = as_xml_parse_document (data, -1, error);
+		doc = as_xml_parse_document (data, data_len, error);
 		if (doc == NULL)
 			return FALSE;
 		root = xmlDocGetRootElement (doc);
@@ -5351,6 +5361,7 @@ as_component_load_from_data (AsComponent *cpt, AsContext *context, AsFormatKind 
 		GError *tmp_error = NULL;
 		as_desktop_entry_parse_data (cpt,
 					     data,
+					     data_len,
 					     AS_CURRENT_FORMAT_VERSION,
 					     &tmp_error);
 		if (tmp_error != NULL) {
@@ -5390,11 +5401,12 @@ as_component_load_from_data (AsComponent *cpt, AsContext *context, AsFormatKind 
 gboolean
 as_component_load_from_xml_data (AsComponent *cpt, AsContext *context, const gchar *data, GError **error)
 {
-	return as_component_load_from_data (cpt,
-					    context,
-					    AS_FORMAT_KIND_XML,
-					    data,
-					    error);
+	g_autoptr(GBytes) bytes = g_bytes_new_static (data, strlen (data));
+	return as_component_load_from_bytes (cpt,
+					     context,
+					     AS_FORMAT_KIND_XML,
+					     bytes,
+					     error);
 }
 
 /**

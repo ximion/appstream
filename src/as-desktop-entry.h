@@ -31,6 +31,7 @@ G_BEGIN_DECLS
 
 gboolean	as_desktop_entry_parse_data (AsComponent *cpt,
 					     const gchar *data,
+					     gssize data_len,
 					     AsFormatVersion fversion,
 					     GError **error);
 

@@ -149,13 +149,13 @@ as_add_filtered_categories (gchar **cats, AsComponent *cpt)
  * as_desktop_entry_parse_data:
  */
 gboolean
-as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, AsFormatVersion fversion, GError **error)
+as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, gssize data_len, AsFormatVersion fversion, GError **error)
 {
 	g_autoptr(GKeyFile) df = NULL;
-	gchar *tmp;
 	gboolean ignore_cpt = FALSE;
 	g_auto(GStrv) keys = NULL;
-	guint i;
+	GError *tmp_error = NULL;
+	gchar *tmp;
 	const gchar *cid = as_component_get_id (cpt);
 
 	if (cid == NULL) {
@@ -169,11 +169,13 @@ as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, AsFormatVersio
 	df = g_key_file_new ();
 	g_key_file_load_from_data (df,
 				   data,
-				   -1,
+				   data_len,
 				   G_KEY_FILE_KEEP_TRANSLATIONS,
-				   error);
-	if (*error != NULL)
+				   &tmp_error);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
 		return FALSE;
+	}
 
 	/* Type */
 	tmp = g_key_file_get_string (df,
@@ -241,7 +243,7 @@ as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, AsFormatVersio
 	}
 
 	keys = g_key_file_get_keys (df, DESKTOP_GROUP, NULL, NULL);
-	for (i = 0; keys[i] != NULL; i++) {
+	for (guint i = 0; keys[i] != NULL; i++) {
 		g_autofree gchar *locale = NULL;
 		g_autofree gchar *val = NULL;
 		gchar *key = keys[i];
@@ -362,6 +364,7 @@ as_desktop_entry_parse_file (AsComponent *cpt, GFile *file, AsFormatVersion fver
 	as_component_set_id (cpt, file_basename);
 	return as_desktop_entry_parse_data (cpt,
 					    dedata->str,
+					    dedata->len,
 					    fversion,
 					    error);
 }
