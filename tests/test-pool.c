@@ -488,14 +488,12 @@ test_pool_read_async ()
 	g_test_log_set_fatal_handler (test_log_allow_warnings, NULL);
 
 	result = as_pool_search (pool, "web");
-	if (result->len != 0 && result->len != 1)
-		g_assert (0);
+	g_assert_cmpint (result->len, ==, 0);
 	g_clear_pointer (&result, g_ptr_array_unref);
 
 	cpts = as_pool_get_components (pool);
 	g_assert_nonnull (cpts);
-	if (cpts->len != 0 && cpts->len != 19)
-		g_assert (0);
+	g_assert_cmpint (cpts->len, ==, 0);
 	g_ptr_array_unref (cpts);
 
 	/* wait for the callback to be run (unless it already has!) */
