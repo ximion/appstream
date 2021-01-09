@@ -211,6 +211,7 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
  * @metad: an instance of #AsMetadata.
  * @context: an #AsContext
  * @data: YAML metadata to parse
+ * @data_len: Length of @data
  * @error: a #GError
  *
  * Read an array of #AsComponent from AppStream YAML metadata.
@@ -218,7 +219,7 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
  * Returns: (transfer container) (element-type AsComponent) (nullable): An array of #AsComponent or %NULL
  */
 static GPtrArray*
-as_metadata_yaml_parse_collection_doc (AsMetadata *metad, AsContext *context, const gchar *data, GError **error)
+as_metadata_yaml_parse_collection_doc (AsMetadata *metad, AsContext *context, const gchar *data, gssize data_len, GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	yaml_parser_t parser;
@@ -232,13 +233,15 @@ as_metadata_yaml_parse_collection_doc (AsMetadata *metad, AsContext *context, co
 	 * or download interruption. */
 	if (data == NULL)
 		return NULL;
+	if (data_len < 0)
+		data_len = strlen (data);
 
 	/* create container for the components we find */
 	cpts = g_ptr_array_new_with_free_func (g_object_unref);
 
 	/* initialize YAML parser */
 	yaml_parser_initialize (&parser);
-	yaml_parser_set_input_string (&parser, (unsigned char*) data, strlen (data));
+	yaml_parser_set_input_string (&parser, (unsigned char*) data, data_len);
 
 	while (parse) {
 		if (!yaml_parser_parse (&parser, &event)) {
@@ -373,28 +376,23 @@ as_metadata_yaml_parse_collection_doc (AsMetadata *metad, AsContext *context, co
 }
 
 /**
- * as_metadata_parse:
- * @metad: An instance of #AsMetadata.
- * @data: Metadata describing one or more software components.
- * @format: The format of the data (XML or YAML).
- * @error: A #GError or %NULL.
+ * as_metadata_parse_data:
  *
  * Parses AppStream metadata.
  **/
-void
-as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GError **error)
+static gboolean
+as_metadata_parse_data (AsMetadata *metad, const gchar *data, gssize data_len, AsFormatKind format, GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-
-	g_return_if_fail (format > AS_FORMAT_KIND_UNKNOWN && format < AS_FORMAT_KIND_LAST);
+	g_return_val_if_fail (format > AS_FORMAT_KIND_UNKNOWN && format < AS_FORMAT_KIND_LAST, FALSE);
 
 	if (format == AS_FORMAT_KIND_XML) {
 		xmlDoc *doc;
 		xmlNode *root;
 
-		doc = as_xml_parse_document (data, -1, error);
+		doc = as_xml_parse_document (data, data_len, error);
 		if (doc == NULL)
-			return;
+			return FALSE;
 		root = xmlDocGetRootElement (doc);
 
 		if (priv->mode == AS_FORMAT_STYLE_COLLECTION) {
@@ -414,6 +412,7 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 							AS_METADATA_ERROR,
 							AS_METADATA_ERROR_FAILED,
 							"XML file does not contain valid AppStream data!");
+				return FALSE;
 			}
 		} else {
 			g_autoptr(AsContext) context = NULL;
@@ -429,7 +428,7 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 								AS_METADATA_ERROR_NO_COMPONENT,
 								"No component found that could be updated.");
 					xmlFreeDoc (doc);
-					return;
+					return FALSE;
 				} else {
 					cpt = g_object_ref (cpt);
 					as_component_load_from_xml (cpt, context, root, error);
@@ -446,17 +445,23 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 
 		/* free the XML document */
 		xmlFreeDoc (doc);
+		return TRUE;
+	}
 
-	} else if (format == AS_FORMAT_KIND_YAML) {
+	if (format == AS_FORMAT_KIND_YAML) {
 		if (priv->mode == AS_FORMAT_STYLE_COLLECTION) {
 			g_autoptr(AsContext) context = NULL;
 			g_autoptr(GPtrArray) new_cpts = NULL;
 			guint i;
 
 			context = as_metadata_new_context (metad, AS_FORMAT_STYLE_COLLECTION, NULL);
-			new_cpts = as_metadata_yaml_parse_collection_doc (metad, context, data, error);
+			new_cpts = as_metadata_yaml_parse_collection_doc (metad,
+									  context,
+									  data,
+									  data_len,
+									  error);
 			if (new_cpts == NULL)
-				return;
+				return TRUE;
 			for (i = 0; i < new_cpts->len; i++) {
 				AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (new_cpts, i));
 				as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_COLLECTION);
@@ -464,11 +469,74 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 				g_ptr_array_add (priv->cpts, g_object_ref (cpt));
 			}
 		} else {
-			g_warning ("Can not load non-collection AppStream YAML data, because their format is not specified.");
+			g_set_error_literal (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_FORMAT_UNEXPECTED,
+				     "Can not load non-collection AppStream YAML data, because their format is not specified.");
+			return FALSE;
 		}
-	} else if (format == AS_FORMAT_KIND_DESKTOP_ENTRY) {
-		g_critical ("Refusing to load desktop entry without knowing its ID. Use as_metadata_parse_desktop() to parse .desktop files.");
+		return TRUE;
 	}
+
+	if (format == AS_FORMAT_KIND_DESKTOP_ENTRY) {
+		g_set_error_literal (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_FORMAT_UNEXPECTED,
+				     "Refusing to load desktop entry without knowing its ID. Use as_metadata_parse_desktop() to parse .desktop files.");
+		return FALSE;
+	}
+
+	g_set_error_literal (error,
+				AS_METADATA_ERROR,
+				AS_METADATA_ERROR_FORMAT_UNEXPECTED,
+				"The selected metadata format is unknown.");
+	return FALSE;
+}
+
+/**
+ * as_metadata_parse:
+ * @metad: An instance of #AsMetadata.
+ * @data: Metadata describing one or more software components as null-terminated string.
+ * @format: The format of the data (XML or YAML).
+ * @error: A #GError or %NULL.
+ *
+ * Parses any AppStream metadata into one or more #AsComponent instances.
+ *
+ * Returns: %TRUE on success.
+ **/
+gboolean
+as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GError **error)
+{
+	return as_metadata_parse_data (metad,
+					data,
+					-1,
+					format,
+					error);
+}
+
+/**
+ * as_metadata_parse_bytes:
+ * @metad: An instance of #AsMetadata.
+ * @bytes: Metadata describing one or more software components.
+ * @format: The format of the data (XML or YAML).
+ * @error: A #GError or %NULL.
+ *
+ * Parses any AppStream metadata into one or more #AsComponent instances.
+ *
+ * Returns: %TRUE on success.
+ *
+ * Since: 0.14.0
+ **/
+gboolean
+as_metadata_parse_bytes (AsMetadata *metad, GBytes *bytes, AsFormatKind format, GError **error)
+{
+	gsize data_len;
+	const gchar *data = g_bytes_get_data (bytes, &data_len);
+	return as_metadata_parse_data (metad,
+					data,
+					data_len,
+					format,
+					error);
 }
 
 /**
