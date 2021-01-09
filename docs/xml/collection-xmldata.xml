@@ -563,11 +563,13 @@
 						The <literal>type</literal> property of this tag indicates which 3rd-party software installation solution the bundle belongs to.
 						Currently supported solutions are:
 						<itemizedlist>
-							<listitem><para>The <ulink url="https://people.freedesktop.org/~mak/limba/">Limba Project</ulink>, using the value <code>limba</code>.</para></listitem>
-							<listitem><para><ulink url="https://flatpak.org/">Flatpak</ulink> bundles, using the value <code>flatpak</code>.</para></listitem>
-							<listitem><para><ulink url="https://appimage.org/">AppImageKit</ulink> bundles, using the value <code>appimage</code>.</para></listitem>
-							<listitem><para><ulink url="https://snapcraft.io/">Snappy</ulink> snap bundles, using the value <code>snap</code>.</para></listitem>
-							<listitem><para>Plain and possibly compressed tarballs, using the value <code>tarball</code>.</para></listitem>
+							<listitem><para><code>package</code> - For distribution package names.</para></listitem>
+							<listitem><para><code>limba</code> - For <ulink url="https://people.freedesktop.org/~mak/limba/">Limba Project</ulink> bundles.</para></listitem>
+							<listitem><para><code>flatpak</code> - For <ulink url="https://flatpak.org/">Flatpak</ulink> bundles.</para></listitem>
+							<listitem><para><code>appimage</code> - For <ulink url="https://appimage.org/">AppImageKit</ulink> bundles.</para></listitem>
+							<listitem><para><code>snap</code> - For <ulink url="https://snapcraft.io/">Snappy</ulink> snap bundles.</para></listitem>
+							<listitem><para><code>tarball</code> - For plain and possibly compressed tarballs.</para></listitem>
+							<listitem><para><code>cabinet</code> - For cabinet firmware deployments.</para></listitem>
 						</itemizedlist>
 					</para>
 					<para>
