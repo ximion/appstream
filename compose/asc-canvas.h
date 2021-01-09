@@ -39,14 +39,14 @@ G_DECLARE_FINAL_TYPE (AscCanvas, asc_canvas, ASC, CANVAS, GObject)
  * @ASC_CANVAS_ERROR_DRAWING:	Drawing operation failed.
  * @ASC_CANVAS_ERROR_FONT:	Issue with font or font selection.
  *
- * A metadata processing error.
+ * A drawing error.
  **/
 typedef enum {
 	ASC_CANVAS_ERROR_FAILED,
 	ASC_CANVAS_ERROR_DRAWING,
 	ASC_CANVAS_ERROR_FONT,
 	/*< private >*/
-	ASC_CANVASE_RROR_LAST
+	ASC_CANVAS_ERROR_LAST
 } AscCanvasError;
 
 #define	ASC_CANVAS_ERROR	asc_canvas_error_quark ()

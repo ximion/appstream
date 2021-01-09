@@ -134,6 +134,7 @@ test_image_transform ()
 	g_autofree gchar *sample_img_fname = NULL;
 	g_autoptr(AscImage) image = NULL;
 	g_autoptr(GError) error = NULL;
+	gboolean ret;
 
 	g_autofree gchar *data = NULL;
 	gsize data_len;
@@ -147,8 +148,12 @@ test_image_transform ()
 	sample_img_fname = g_build_filename (datadir, "appstream-logo.png", NULL);
 
 	/* load image from file */
-	image = asc_image_new_from_file (sample_img_fname, &error);
+	image = asc_image_new_from_file (sample_img_fname,
+					 0,
+					 ASC_IMAGE_LOAD_FLAG_NONE,
+					 &error);
 	g_assert_no_error (error);
+	g_assert_nonnull (image);
 
 	g_assert_cmpint (asc_image_get_width (image), ==, 136);
 	g_assert_cmpint (asc_image_get_height (image), ==, 144);
@@ -158,8 +163,13 @@ test_image_transform ()
 	g_assert_cmpint (asc_image_get_width (image), ==, 64);
 	g_assert_cmpint (asc_image_get_height (image), ==, 64);
 
-	asc_image_save_png (image, "/tmp/asc-iscale_test.png", &error);
+	ret = asc_image_save_filename (image,
+				      "/tmp/asc-iscale_test.png",
+				      0, 0,
+				      ASC_IMAGE_SAVE_FLAG_NONE,
+				      &error);
 	g_assert_no_error (error);
+	g_assert (ret);
 
 	g_object_unref (image);
 	image = NULL;
@@ -168,12 +178,21 @@ test_image_transform ()
 	g_file_get_contents (sample_img_fname, &data, &data_len, &error);
 	g_assert_no_error (error);
 
-	image = asc_image_new_from_data (data, data_len, &error);
+	image = asc_image_new_from_data (data, data_len,
+					 0,
+					 ASC_IMAGE_LOAD_FLAG_NONE,
+					 &error);
 	g_assert_no_error (error);
+	g_assert_nonnull (image);
 
 	asc_image_scale (image, 124, 124);
-	asc_image_save_png (image, "/tmp/asc-iscale-d_test.png", &error);
+	ret = asc_image_save_filename (image,
+				      "/tmp/asc-iscale-d_test.png",
+				      0, 0,
+				      ASC_IMAGE_SAVE_FLAG_NONE,
+				      &error);
 	g_assert_no_error (error);
+	g_assert (ret);
 }
 
 /**
