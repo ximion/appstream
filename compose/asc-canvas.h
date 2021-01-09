@@ -58,7 +58,7 @@ AscCanvas	*asc_canvas_new (gint width,
 guint		asc_canvas_get_width (AscCanvas *canvas);
 guint		asc_canvas_get_height (AscCanvas *canvas);
 
-gboolean	asc_canvas_render_svg(AscCanvas* canvas,
+gboolean	asc_canvas_render_svg (AscCanvas* canvas,
 					GInputStream *stream,
 					GError** error);
 

@@ -122,8 +122,9 @@ if get_option('compose')
         ['test-compose.c',
          as_test_common_src],
         dependencies: [appstream_compose_dep,
+                       gio_dep,
                        freetype_dep,
-                       gio_dep],
+                       gdkpixbuf_dep],
     )
     test ('as-test_compose',
         as_test_compose_exe,

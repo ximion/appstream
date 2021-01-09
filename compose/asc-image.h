@@ -24,6 +24,7 @@
 #pragma once
 
 #include <glib-object.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 G_BEGIN_DECLS
 
@@ -88,5 +89,9 @@ void		asc_image_scale_to_fit (AscImage *image,
 gboolean	asc_image_save_png (AscImage *image,
 				    const gchar *fname,
 				    GError **error);
+
+void		asc_pixbuf_blur (GdkPixbuf *src,
+				 gint radius,
+				 gint iterations);
 
 G_END_DECLS
