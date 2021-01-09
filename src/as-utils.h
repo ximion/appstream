@@ -52,6 +52,8 @@ typedef enum {
 	AS_DATA_ID_MATCH_FLAG_LAST
 } AsDataIdMatchFlags;
 
+gchar 			**as_markup_strsplit_words (const gchar *text,
+						    guint line_len);
 gchar			*as_markup_convert_simple (const gchar *markup,
 						   GError **error);
 

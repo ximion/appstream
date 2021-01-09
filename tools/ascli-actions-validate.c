@@ -31,7 +31,7 @@
  * create_issue_info_print_string:
  **/
 static gchar*
-create_issue_info_print_string (AsValidatorIssue *issue)
+create_issue_info_print_string (AsValidatorIssue *issue, guint indent)
 {
 	GString *str;
 	g_autofree gchar *location = NULL;
@@ -54,6 +54,7 @@ create_issue_info_print_string (AsValidatorIssue *issue)
 	}
 
 	str = g_string_new ("");
+	g_string_append_printf (str, "%*s", indent, "");
 	switch (severity) {
 		case AS_ISSUE_SEVERITY_ERROR:
 			g_string_append_printf (str, "E: %s: ", location);
@@ -92,8 +93,17 @@ create_issue_info_print_string (AsValidatorIssue *issue)
 		g_string_append (str, tag);
 	}
 
-	if (hint != NULL)
-		g_string_append_printf (str, " %s", hint);
+	if (hint != NULL) {
+		if ((str->len + strlen (hint)) > 100) {
+			g_autofree gchar *wrap = NULL;
+			/* the hint string is too long, move it to the next line and indent it,
+			 * to visually separate it from a possible explanation text */
+			wrap = ascli_format_long_output (hint, 100 - (indent + 3 + 2), indent + 3 + 2);
+			g_string_append_printf (str, "\n%s", wrap);
+		} else {
+			g_string_append_printf (str, " %s", hint);
+		}
+	}
 
 	return g_string_free (str, FALSE);
 }
@@ -132,21 +142,15 @@ print_single_issue (AsValidatorIssue *issue, gboolean pedantic, gboolean explain
 	if ((!pedantic) && (severity == AS_ISSUE_SEVERITY_PEDANTIC))
 		return no_errors;
 
-	title = create_issue_info_print_string (issue);
+	title = create_issue_info_print_string (issue, indent);
 	if (explained) {
-		g_autofree gchar *explanation = ascli_format_long_output (as_validator_issue_get_explanation (issue),  indent + 4);
-		g_print ("%*s%s\n%*s%s\n\n",
-			 indent,
-			 "",
+		g_autofree gchar *explanation = ascli_format_long_output (as_validator_issue_get_explanation (issue),
+									  100, indent + 3);
+		g_print ("%s\n%s\n\n",
 			 title,
-			 indent + 4,
-			 "",
 			 explanation);
 	} else {
-		g_print ("%*s%s\n",
-			 indent,
-			 "",
-			 title);
+		g_print ("%s\n", title);
 	}
 
 

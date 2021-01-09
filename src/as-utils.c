@@ -69,6 +69,65 @@ as_get_appstream_version (void)
 }
 
 /**
+ * as_markup_strsplit_words:
+ * @text: the text to split.
+ * @line_len: the maximum length of the output line
+ *
+ * Splits up a long line into an array of smaller strings, each being no longer
+ * than @line_len. Words are not split.
+ *
+ * Returns: (transfer full): lines, or %NULL in event of an error
+ *
+ * Since: 0.14.0
+ **/
+gchar **
+as_markup_strsplit_words (const gchar *text, guint line_len)
+{
+	GPtrArray *lines;
+	g_autoptr(GString) curline = NULL;
+	g_auto(GStrv) tokens = NULL;
+
+	/* sanity check */
+	if (as_is_empty (text))
+		return NULL;
+	if (line_len == 0)
+		return NULL;
+
+	lines = g_ptr_array_new ();
+	curline = g_string_new ("");
+
+	/* tokenize the string */
+	tokens = g_strsplit (text, " ", -1);
+	for (guint i = 0; tokens[i] != NULL; i++) {
+
+		/* current line plus new token is okay */
+		if (curline->len + strlen (tokens[i]) < line_len) {
+			g_string_append_printf (curline, "%s ", tokens[i]);
+			continue;
+		}
+
+		/* too long, so remove space, add newline and dump */
+		if (curline->len > 0)
+			g_string_truncate (curline, curline->len - 1);
+		g_string_append (curline, "\n");
+		g_ptr_array_add (lines, g_strdup (curline->str));
+		g_string_truncate (curline, 0);
+		g_string_append_printf (curline, "%s ", tokens[i]);
+
+	}
+
+	/* any incomplete line? */
+	if (curline->len > 0) {
+		g_string_truncate (curline, curline->len - 1);
+		g_string_append (curline, "\n");
+		g_ptr_array_add (lines, g_strdup (curline->str));
+	}
+
+	g_ptr_array_add (lines, NULL);
+	return (gchar **) g_ptr_array_free (lines, FALSE);
+}
+
+/**
  * as_description_markup_convert:
  * @markup: the XML markup to transform.
  * @error: A #GError or %NULL.
@@ -138,7 +197,14 @@ as_description_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError
 
 			if (str->len > 0)
 				g_string_append (str, "\n");
-			g_string_append_printf (str, "%s\n", tmp);
+
+			if (to_kind == AS_MARKUP_KIND_MARKDOWN) {
+				g_auto(GStrv) spl = as_markup_strsplit_words (tmp, 100);
+				for (guint i = 0; spl[i] != NULL; i++)
+					g_string_append (str, spl[i]);
+			} else {
+				g_string_append_printf (str, "%s\n", tmp);
+			}
 		} else if ((g_strcmp0 ((gchar*) iter->name, "ul") == 0) || (g_strcmp0 ((gchar*) iter->name, "ol") == 0)) {
 			/* iterate over itemize contents */
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
@@ -148,9 +214,12 @@ as_description_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError
 					g_autofree gchar *content = (gchar*) xmlNodeGetContent (iter2);
 					g_strstrip (content);
 					if (to_kind == AS_MARKUP_KIND_MARKDOWN) {
-						g_string_append_printf (str,
-								" - %s\n",
-								content);
+						g_auto(GStrv) spl = NULL;
+						/* break to 100 chars, leaving room for the dot/indent */
+						spl = as_markup_strsplit_words (content, 100 - 3);
+						g_string_append_printf (str, " - %s", spl[0]);
+						for (guint i = 1; spl[i] != NULL; i++)
+							g_string_append_printf (str, "   %s", spl[i]);
 					} else {
 						g_string_append_printf (str,
 									" • %s\n",

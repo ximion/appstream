@@ -27,6 +27,7 @@
 G_BEGIN_DECLS
 
 gchar		*ascli_format_long_output (const gchar *str,
+					   guint line_length,
 					   guint indent_level);
 void		ascli_print_key_value (const gchar *key,
 				       const gchar *val,
