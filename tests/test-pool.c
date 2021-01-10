@@ -39,11 +39,11 @@ print_cptarray (GPtrArray *cpt_array)
 
 	g_printf ("----\n");
 	for (i = 0; i < cpt_array->len; i++) {
-		AsComponent *cpt;
-		cpt = (AsComponent*) g_ptr_array_index (cpt_array, i);
+		g_autofree gchar *tmp = NULL;
+		AsComponent *cpt = (AsComponent*) g_ptr_array_index (cpt_array, i);
 
-		g_printf ("  - %s\n",
-				  as_component_to_string (cpt));
+		tmp = as_component_to_string (cpt);
+		g_printf ("  - %s\n", tmp);
 	}
 	g_printf ("----\n");
 }

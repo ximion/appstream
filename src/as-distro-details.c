@@ -87,6 +87,7 @@ as_distro_details_finalize (GObject *object)
 	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
 
 	g_free (priv->id);
+	g_free (priv->cid);
 	g_free (priv->name);
 	g_free (priv->version);
 	g_free (priv->homepage);

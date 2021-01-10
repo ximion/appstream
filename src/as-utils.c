@@ -143,9 +143,9 @@ as_description_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError
 	xmlNode *root;
 	xmlNode *iter;
 	gboolean ret = TRUE;
-	gchar *xmldata;
 	gchar *formatted = NULL;
 	GString *str = NULL;
+	g_autofree gchar *xmldata = NULL;
 
 	if (markup == NULL)
 		return NULL;

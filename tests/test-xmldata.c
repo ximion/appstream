@@ -734,6 +734,7 @@ test_xml_write_suggests (void)
 	/* test metainfo serialization */
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
 	g_assert (as_xml_test_compare_xml (res, expected_sug_xml_mi));
+	g_free (res);
 
 	/* test collection serialization */
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_COLLECTION);

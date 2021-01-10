@@ -1853,9 +1853,18 @@ as_cache_get_component_by_data_id (AsCache *cache, const gchar *cdid, GError **e
 		lmdb_transaction_abort (txn);
 		return NULL;
 	}
+	if (dval.mv_size <= 0) {
+		/* nothing found? */
+		lmdb_transaction_abort (txn);
+		return NULL;
+	}
+
 	cpt = as_cache_component_from_dval (cache, txn, dval, error);
-	if (cpt == NULL)
-		return NULL; /* error */
+	if (cpt == NULL) {
+		g_propagate_error (error, tmp_error);
+		lmdb_transaction_abort (txn);
+		return NULL;
+	}
 
 	lmdb_transaction_commit (txn, NULL);
 	return cpt;

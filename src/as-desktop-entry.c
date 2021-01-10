@@ -80,8 +80,10 @@ as_get_locale_from_key (const gchar *key)
 		locale[strlen (locale)-6] = '\0';
 
 	/* filter out cruft */
-	if (as_is_cruft_locale (locale))
+	if (as_is_cruft_locale (locale)) {
+		g_free (locale);
 		return NULL;
+	}
 
 	delim = g_strrstr (locale, ".");
 	if (delim != NULL) {

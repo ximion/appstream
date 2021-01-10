@@ -3516,9 +3516,11 @@ as_component_load_launchable_from_xml (AsComponent *cpt, xmlNode *node)
 {
 	AsLaunchableKind lkind;
 	AsLaunchable *launchable;
+	g_autofree gchar *lstr = NULL;
 	g_autofree gchar *value = NULL;
 
-	lkind = as_launchable_kind_from_string ((gchar*) xmlGetProp (node, (xmlChar*) "type"));
+	lstr = as_xml_get_prop_value (node, "type");
+	lkind = as_launchable_kind_from_string (lstr);
 	if (lkind == AS_LAUNCHABLE_KIND_UNKNOWN)
 		return;
 

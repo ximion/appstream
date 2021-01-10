@@ -1005,7 +1005,7 @@ gboolean
 as_relation_load_from_xml (AsRelation *relation, AsContext *ctx, xmlNode *node, GError **error)
 {
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
-	gchar *content = NULL;
+	g_autofree gchar *content = NULL;
 
 	content = as_xml_get_node_value (node);
 	if (content == NULL)

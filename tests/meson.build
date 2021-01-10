@@ -1,11 +1,6 @@
 # Meson definition for AppStream Tests
 
 as_test_env = []
-opt_sanitize = get_option('b_sanitize').split(',')
-if opt_sanitize.contains('address') or opt_sanitize.contains('undefined')
-    as_test_env = ['ASAN_OPTIONS=detect_leaks=0'] # otherwise we fail on leaks in 3rd-party libraries
-endif
-
 as_test_args = [meson.current_source_dir()]
 
 as_test_common_src = [

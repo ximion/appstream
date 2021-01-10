@@ -120,6 +120,8 @@ as_releases_to_metainfo_xml_chunk (GPtrArray *releases, GError **error)
 	lines = g_strv_length (strv);
 	if (lines < 4)
 		return NULL; /* something went wrong here */
+	g_free(strv[lines - 1]);
+	g_free(strv[lines - 2]);
 	strv[lines - 2] = NULL;
 
 	return g_strjoinv ("\n", strv + 2);

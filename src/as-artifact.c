@@ -30,6 +30,7 @@
 #include "config.h"
 #include "as-artifact.h"
 #include "as-checksum-private.h"
+#include "as-utils-private.h"
 
 typedef struct
 {
@@ -39,7 +40,7 @@ typedef struct
 	GPtrArray	*checksums;
 	guint64		size[AS_SIZE_KIND_LAST];
 
-	gchar		*platform;
+	GRefString	*platform;
 	AsBundleKind	bundle_kind;
 } AsArtifactPrivate;
 
@@ -129,6 +130,7 @@ as_artifact_finalize (GObject *object)
 	AsArtifact *artifact = AS_ARTIFACT (object);
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
 
+	as_ref_string_release (priv->platform);
 	g_ptr_array_unref (priv->locations);
 	g_ptr_array_unref (priv->checksums);
 
@@ -320,8 +322,7 @@ void
 as_artifact_set_platform (AsArtifact *artifact, const gchar *platform)
 {
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
-	g_free (priv->platform);
-	priv->platform = g_strdup (platform);
+	as_ref_string_assign_safe (&priv->platform, platform);
 }
 
 /**
@@ -368,8 +369,9 @@ as_artifact_load_from_xml (AsArtifact *artifact, AsContext *ctx, xmlNode *node, 
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
 	gchar *str;
 
-	g_free (priv->platform);
-	priv->platform = (gchar*) xmlGetProp (node, (xmlChar*) "platform");
+	str = as_xml_get_prop_value (node, "platform");
+	as_ref_string_assign_safe (&priv->platform, str);
+	g_free (str);
 
 	str = (gchar*) xmlGetProp (node, (xmlChar*) "type");
 	priv->kind = as_artifact_kind_from_string (str);
@@ -502,8 +504,8 @@ as_artifact_load_from_yaml (AsArtifact *artifact, AsContext *ctx, GNode *node, G
 			priv->kind = as_artifact_kind_from_string (as_yaml_node_get_value (n));
 
 		} else if (g_strcmp0 (key, "platform") == 0) {
-			g_free (priv->platform);
-			priv->platform = g_strdup (as_yaml_node_get_value (n));
+			as_ref_string_assign_safe (&priv->platform,
+						   as_yaml_node_get_value (n));
 
 		} else if (g_strcmp0 (key, "bundle") == 0) {
 			priv->bundle_kind = as_bundle_kind_from_string (as_yaml_node_get_value (n));
