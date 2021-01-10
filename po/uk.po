@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-01-10 03:02+0100\n"
+"POT-Creation-Date: 2021-01-10 21:50+0100\n"
 "PO-Revision-Date: 2020-11-24 06:29+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
@@ -773,8 +773,8 @@ msgstr ""
 "нетипові дані до файла metainfo."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:535 src/as-validator.c:954 src/as-validator.c:1036
-#: src/as-validator.c:1259
+#: src/as-validator.c:536 src/as-validator.c:955 src/as-validator.c:1037
+#: src/as-validator.c:1260
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Виявлено: %s — Дозволено: %s"
@@ -1456,7 +1456,7 @@ msgid "Remove software matching the component-ID."
 msgstr "Вилучити програмне забезпечення, вказане ідентифікатором компонента."
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:366
+#: src/as-validator.c:367
 msgid "Retrieved file size was zero."
 msgstr "Розмір отриманого файла виявився нульовим."
 
@@ -1890,7 +1890,7 @@ msgstr ""
 "Опис містить вебадресу у форматі звичайного тексту. Так не можна робити. "
 "Будь ласка, скористайтеся теґом <url/> для визначення посилань."
 
-#: src/as-validator.c:152
+#: src/as-validator.c:153
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
@@ -2314,7 +2314,7 @@ msgstr ""
 "Маємо компонент типу «font», але не вказано відомостей щодо шрифту за "
 "допомогою теґу «provides/font»."
 
-#: src/as-validator.c:335
+#: src/as-validator.c:336
 msgid "URL format is invalid."
 msgstr "Формат адреси є некоректним."
 

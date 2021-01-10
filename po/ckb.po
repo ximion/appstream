@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-01-10 03:02+0100\n"
+"POT-Creation-Date: 2021-01-10 21:50+0100\n"
 "PO-Revision-Date: 2016-09-06 13:56+0000\n"
 "Last-Translator: Rasti K5 <rasti.khdhr@gmail.com>\n"
 "Language-Team: Kurdish Sorani <https://hosted.weblate.org/projects/appstream/"
@@ -695,8 +695,8 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:535 src/as-validator.c:954 src/as-validator.c:1036
-#: src/as-validator.c:1259
+#: src/as-validator.c:536 src/as-validator.c:955 src/as-validator.c:1037
+#: src/as-validator.c:1260
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
@@ -1343,7 +1343,7 @@ msgid "Remove software matching the component-ID."
 msgstr ""
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:366
+#: src/as-validator.c:367
 msgid "Retrieved file size was zero."
 msgstr ""
 
@@ -1704,7 +1704,7 @@ msgid ""
 "please use the <url/> tag instead to share links."
 msgstr ""
 
-#: src/as-validator.c:152
+#: src/as-validator.c:153
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
@@ -2016,7 +2016,7 @@ msgid ""
 "font` tag."
 msgstr ""
 
-#: src/as-validator.c:335
+#: src/as-validator.c:336
 msgid "URL format is invalid."
 msgstr ""
 

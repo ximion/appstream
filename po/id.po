@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-01-10 03:02+0100\n"
+"POT-Creation-Date: 2021-01-10 21:50+0100\n"
 "PO-Revision-Date: 2020-09-06 01:36+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
@@ -763,8 +763,8 @@ msgstr ""
 "baru jika Anda hanya ingin menambahkan data ubahan ke berkas metainfo."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:535 src/as-validator.c:954 src/as-validator.c:1036
-#: src/as-validator.c:1259
+#: src/as-validator.c:536 src/as-validator.c:955 src/as-validator.c:1037
+#: src/as-validator.c:1260
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Ditemukan: %s - Diizinkan: %s"
@@ -1444,7 +1444,7 @@ msgid "Remove software matching the component-ID."
 msgstr "Buang perangkat lunak dengan component-ID yang cocok."
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:366
+#: src/as-validator.c:367
 msgid "Retrieved file size was zero."
 msgstr "Ukuran berkas yang diambil adalah nol."
 
@@ -1875,7 +1875,7 @@ msgstr ""
 "Deskripsi berisi URL web dalam teks polos. Ini tidak diizinkan, silakan "
 "gunakan tag <url/> untuk membagikan tautan."
 
-#: src/as-validator.c:152
+#: src/as-validator.c:153
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
@@ -2290,7 +2290,7 @@ msgstr ""
 "Tipe komponen `font`, tetapi tidak ada informasi fonta yang disediakan "
 "melalui tag `provides/font`."
 
-#: src/as-validator.c:335
+#: src/as-validator.c:336
 msgid "URL format is invalid."
 msgstr "Format URL tidak valid."
 

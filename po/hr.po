@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-01-10 03:02+0100\n"
+"POT-Creation-Date: 2021-01-10 21:50+0100\n"
 "PO-Revision-Date: 2020-06-14 18:20+0200\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <hr@li.org>\n"
@@ -766,8 +766,8 @@ msgstr ""
 "samo žele dodati prilagođeni podaci u metainfo datoteku."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:535 src/as-validator.c:954 src/as-validator.c:1036
-#: src/as-validator.c:1259
+#: src/as-validator.c:536 src/as-validator.c:955 src/as-validator.c:1037
+#: src/as-validator.c:1260
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Pronađeno: %s – Dozvoljeno: %s"
@@ -1444,7 +1444,7 @@ msgid "Remove software matching the component-ID."
 msgstr "Ukloni softver koji se poklapa s ID oznakom komponente."
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:366
+#: src/as-validator.c:367
 msgid "Retrieved file size was zero."
 msgstr "Veličina preuzete datoteke je bila nula."
 
@@ -1867,7 +1867,7 @@ msgstr ""
 "Opis sadrži internetsku URL-adresu u običnom tekstu. To nije dozvoljeno. Za "
 "dijeljenje poveznica koristi oznaku <url/>."
 
-#: src/as-validator.c:152
+#: src/as-validator.c:153
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
@@ -2279,7 +2279,7 @@ msgstr ""
 "Komponenta vrste `font`, ali podaci fonta nisu pruženi putem `provides/font` "
 "oznake."
 
-#: src/as-validator.c:335
+#: src/as-validator.c:336
 msgid "URL format is invalid."
 msgstr "URL format je neispravan."
 

@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-01-10 03:02+0100\n"
+"POT-Creation-Date: 2021-01-10 21:50+0100\n"
 "PO-Revision-Date: 2020-10-13 01:26+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/appstream/"
@@ -760,8 +760,8 @@ msgstr ""
 "med 'x-', hvis du vil tilføje tilpasset data til en metainfo-fil."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:535 src/as-validator.c:954 src/as-validator.c:1036
-#: src/as-validator.c:1259
+#: src/as-validator.c:536 src/as-validator.c:955 src/as-validator.c:1037
+#: src/as-validator.c:1260
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Fandt: %s - Tilladt: %s"
@@ -1438,7 +1438,7 @@ msgid "Remove software matching the component-ID."
 msgstr "Fjern software som matcher komponent-id'et."
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:366
+#: src/as-validator.c:367
 msgid "Retrieved file size was zero."
 msgstr "Hentede filstørrelse var nul."
 
@@ -1864,7 +1864,7 @@ msgstr ""
 "Beskrivelsen indeholdet en web-URL i ren tekst. Det er ikke tilladt. Brug "
 "venligst <url/>-tagget i stedet til at dele links."
 
-#: src/as-validator.c:152
+#: src/as-validator.c:153
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
@@ -2269,7 +2269,7 @@ msgstr ""
 "Typen er 'font'-komponent men der blev ikke angivet nogen information om "
 "skrifttype via et 'provides/font'-tag."
 
-#: src/as-validator.c:335
+#: src/as-validator.c:336
 msgid "URL format is invalid."
 msgstr "URL-formatet er ugyldigt."
 

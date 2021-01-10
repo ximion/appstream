@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-01-10 03:02+0100\n"
+"POT-Creation-Date: 2021-01-10 21:50+0100\n"
 "PO-Revision-Date: 2019-01-21 08:07+0000\n"
 "Last-Translator: Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>\n"
 "Language-Team: French (http://www.transifex.com/freedesktop/appstream-glib/"
@@ -796,8 +796,8 @@ msgstr ""
 "préfixées avec « x- »."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:535 src/as-validator.c:954 src/as-validator.c:1036
-#: src/as-validator.c:1259
+#: src/as-validator.c:536 src/as-validator.c:955 src/as-validator.c:1037
+#: src/as-validator.c:1260
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Trouvé : %s – Permis : %s"
@@ -1484,7 +1484,7 @@ msgid "Remove software matching the component-ID."
 msgstr "Désinstalle le logiciel correspondant à l’identifiant du composant."
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:366
+#: src/as-validator.c:367
 msgid "Retrieved file size was zero."
 msgstr "La taille du fichier récupéré est nulle."
 
@@ -1925,7 +1925,7 @@ msgstr ""
 "La description contient une URL Web en texte brut. Ceci n’est pas autorisé, "
 "veuillez utiliser une balise <url/> pour partager des liens."
 
-#: src/as-validator.c:152
+#: src/as-validator.c:153
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
@@ -2351,7 +2351,7 @@ msgstr ""
 "Composant de type « font », mais aucune information sur les polices de "
 "caractères n’a été fournie via la balise « provides/font »."
 
-#: src/as-validator.c:335
+#: src/as-validator.c:336
 msgid "URL format is invalid."
 msgstr "Le format de l’URL est invalide."
 
