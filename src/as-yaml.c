@@ -261,7 +261,7 @@ as_yaml_emit_scalar (yaml_emitter_t *emitter, const gchar *value)
 					NULL,
 					NULL,
 					(yaml_char_t*) value,
-					strlen (value),
+					-1,
 					TRUE,
 					TRUE,
 					style);
@@ -283,7 +283,7 @@ as_yaml_emit_scalar_raw (yaml_emitter_t *emitter, const gchar *value)
 					NULL,
 					NULL,
 					(yaml_char_t*) value,
-					strlen (value),
+					-1,
 					TRUE,
 					TRUE,
 					YAML_ANY_SCALAR_STYLE);
@@ -306,7 +306,7 @@ as_yaml_emit_scalar_uint64 (yaml_emitter_t *emitter, guint64 value)
 					NULL,
 					NULL,
 					(yaml_char_t*) value_str,
-					strlen (value_str),
+					-1,
 					TRUE,
 					TRUE,
 					YAML_ANY_SCALAR_STYLE);
@@ -336,7 +336,7 @@ as_yaml_emit_scalar_key (yaml_emitter_t *emitter, const gchar *key)
 					NULL,
 					NULL,
 					(yaml_char_t*) key,
-					strlen (key),
+					-1,
 					TRUE,
 					TRUE,
 					keystyle);
@@ -384,7 +384,7 @@ as_yaml_emit_entry_timestamp (yaml_emitter_t *emitter, const gchar *key, guint64
 					NULL,
 					NULL,
 					(yaml_char_t*) time_str,
-					strlen (time_str),
+					-1,
 					TRUE,
 					TRUE,
 					YAML_ANY_SCALAR_STYLE);
@@ -410,7 +410,7 @@ as_yaml_emit_long_entry (yaml_emitter_t *emitter, const gchar *key, const gchar 
 					NULL,
 					NULL,
 					(yaml_char_t*) value,
-					strlen (value),
+					-1,
 					TRUE,
 					TRUE,
 					YAML_FOLDED_SCALAR_STYLE);
@@ -435,7 +435,7 @@ as_yaml_emit_long_entry_literal (yaml_emitter_t *emitter, const gchar *key, cons
 					NULL,
 					NULL,
 					(yaml_char_t*) value,
-					strlen (value),
+					-1,
 					TRUE,
 					TRUE,
 					YAML_LITERAL_SCALAR_STYLE);

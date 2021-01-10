@@ -660,9 +660,16 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 
 	/* parse metadata */
 	if (format == AS_FORMAT_KIND_DESKTOP_ENTRY)
-		as_metadata_parse_desktop_data (metad, asdata->str, file_basename, error);
+		as_metadata_parse_desktop_data (metad,
+						asdata->str,
+						file_basename,
+						error);
 	else
-		as_metadata_parse (metad, asdata->str, format, error);
+		as_metadata_parse_data (metad,
+					asdata->str,
+					asdata->len,
+					format,
+					error);
 }
 
 /**
