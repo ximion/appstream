@@ -1,0 +1,35 @@
+name: "CodeQL"
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: '43 21 * * 3'
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-20.04
+
+    strategy:
+      fail-fast: false
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: cpp
+
+    - name: Install dependencies
+      run: sudo ./tests/ci/install-deps-deb.sh
+
+    - name: Build
+      run: CC=gcc CXX=g++ ./tests/ci/run-build.sh codeql
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
