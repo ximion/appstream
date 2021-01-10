@@ -97,6 +97,11 @@ as_translation_init (AsTranslation *tr)
 static void
 as_translation_finalize (GObject *object)
 {
+	AsTranslation *tr = AS_TRANSLATION (object);
+	AsTranslationPrivate *priv = GET_PRIVATE (tr);
+
+	g_free (priv->id);
+
 	G_OBJECT_CLASS (as_translation_parent_class)->finalize (object);
 }
 
