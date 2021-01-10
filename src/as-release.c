@@ -38,6 +38,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-vercmp.h"
 #include "as-context-private.h"
 #include "as-artifact-private.h"
 #include "as-checksum-private.h"
@@ -269,8 +270,8 @@ as_release_set_version (AsRelease *release, const gchar *version)
 gint
 as_release_vercmp (AsRelease *rel1, AsRelease *rel2)
 {
-	return as_utils_compare_versions (as_release_get_version (rel1),
-					  as_release_get_version (rel2));
+	return as_vercmp_simple (as_release_get_version (rel1),
+				 as_release_get_version (rel2));
 }
 
 /**

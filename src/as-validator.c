@@ -45,6 +45,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-vercmp.h"
 #include "as-spdx.h"
 #include "as-component.h"
 #include "as-component-private.h"
@@ -1680,7 +1681,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			const gchar *version_prev = as_release_get_version (release_prev);
 			if (version == NULL || version_prev == NULL)
 				continue;
-			if (as_utils_compare_versions (version_prev, version) < 0) {
+			if (as_vercmp_simple (version_prev, version) < 0) {
 				as_validator_add_issue (validator, NULL,
 							"releases-not-in-order",
 							"%s << %s",

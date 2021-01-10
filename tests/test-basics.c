@@ -478,26 +478,30 @@ test_desktop_entry ()
 static void
 test_version_compare ()
 {
-	g_assert_cmpint (as_utils_compare_versions ("6", "8"), <, 0);
-	g_assert_cmpint (as_utils_compare_versions ("0.6.12b-d", "0.6.12a"), >, 0);
-	g_assert_cmpint (as_utils_compare_versions ("7.4", "7.4"), ==, 0);
-	g_assert_cmpint (as_utils_compare_versions ("ab.d", "ab.f"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("6", "8"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("0.6.12b-d", "0.6.12a"), >, 0);
+	g_assert_cmpint (as_vercmp_simple ("7.4", "7.4"), ==, 0);
+	g_assert_cmpint (as_vercmp_simple ("ab.d", "ab.f"), <, 0);
 
-	g_assert_cmpint (as_utils_compare_versions ("0.6.16", "0.6.14"), >, 0);
+	g_assert_cmpint (as_vercmp_simple ("0.6.16", "0.6.14"), >, 0);
 
-	g_assert_cmpint (as_utils_compare_versions ("5.9.1+dfsg-5pureos1", "5.9.1+dfsg-5"), >, 0);
-	g_assert_cmpint (as_utils_compare_versions ("2.79", "2.79a"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("5.9.1+dfsg-5pureos1", "5.9.1+dfsg-5"), >, 0);
+	g_assert_cmpint (as_vercmp_simple ("2.79", "2.79a"), <, 0);
 
-	g_assert_cmpint (as_utils_compare_versions ("3.0.rc2", "3.0.0"), <, 0);
-	g_assert_cmpint (as_utils_compare_versions ("3.0.0~rc2", "3.0.0"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("3.0.rc2", "3.0.0"), >, 0);
+	g_assert_cmpint (as_vercmp_simple ("3.0.0~rc2", "3.0.0"), <, 0);
 
-	g_assert_cmpint (as_utils_compare_versions (NULL, NULL), ==, 0);
-	g_assert_cmpint (as_utils_compare_versions (NULL, "4.0"), <, 0);
-	g_assert_cmpint (as_utils_compare_versions ("4.0", NULL), >, 0);
+	g_assert_cmpint (as_vercmp_simple (NULL, NULL), ==, 0);
+	g_assert_cmpint (as_vercmp_simple (NULL, "4.0"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("4.0", NULL), >, 0);
 
-	/* TODO: Handle epochs as well? */
-	/* g_assert_cmpint (as_utils_compare_versions ("4:5.6-2", "8.0-6"), >, 0); */
-	/* g_assert_cmpint (as_utils_compare_versions ("1:1.0-4", "3:0.8-2"), <, 0); */
+	g_assert_cmpint (as_vercmp_simple ("11.0.9.1+1-0ubuntu1", "11.0.9+11-0ubuntu2"), >, 0); /* issue #288 */
+
+	/* epochs */
+	g_assert_cmpint (as_vercmp_simple ("4:5.6-2", "8.0-6"), >, 0);
+	g_assert_cmpint (as_vercmp_simple ("1:1.0-4", "3:0.8-2"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("1:1.0-4", "3:0.8-2"), <, 0);
+	g_assert_cmpint (as_vercmp ("1:1.0-4", "3:0.8-2", AS_VERCMP_FLAG_IGNORE_EPOCH), >, 0);
 }
 
 /**

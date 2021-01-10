@@ -41,6 +41,7 @@ aslib_src = [
     'as-translation.c',
     'as-validator.c',
     'as-validator-issue.c',
+    'as-vercmp.c',
     'as-version.c',
     'as-video.c'
 ]
@@ -75,6 +76,7 @@ aslib_pub_headers = [
     'as-utils.h',
     'as-validator.h',
     'as-validator-issue.h',
+    'as-vercmp.h',
     'as-video.h'
 ]
 

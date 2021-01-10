@@ -33,8 +33,16 @@ QString AppStream::Utils::currentAppStreamVersion()
     return QString::fromUtf8(as_version_string());
 }
 
+int AppStream::Utils::vercmpSimple(const QString &a, const QString &b)
+{
+    return as_vercmp (qPrintable(a), qPrintable(b), AS_VERCMP_FLAG_NONE);
+}
 
 int AppStream::Utils::compareVersions(const QString &a, const QString &b)
 {
-    return as_utils_compare_versions (qPrintable(a), qPrintable(b));
+    gint r;
+    r = as_vercmp (qPrintable(a), qPrintable(b), AS_VERCMP_FLAG_NONE);
+    if (r == 0)
+        return 0;
+    return (r < 0)? -1 : 1;
 }

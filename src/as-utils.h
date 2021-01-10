@@ -67,9 +67,6 @@ void			as_utils_sort_components_into_categories (GPtrArray *cpts,
 								  GPtrArray *categories,
 								  gboolean check_duplicates);
 
-gint			as_utils_compare_versions (const gchar* a,
-						   const gchar *b);
-
 gchar			*as_utils_build_data_id (AsComponentScope scope,
 						 AsBundleKind bundle_kind,
 						 const gchar *origin,
@@ -91,7 +88,7 @@ guint			as_gstring_replace (GString *string,
 
 /* DEPRECATED */
 
-G_DEPRECATED
+G_DEPRECATED_FOR(as_version_string)
 const gchar		*as_get_appstream_version (void);
 
 G_END_DECLS

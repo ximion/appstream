@@ -56,6 +56,7 @@ extern "C" {
 #include <as-validator-issue.h>
 
 #include <as-utils.h>
+#include <as-vercmp.h>
 #include <as-spdx.h>
 
 #ifdef __cplusplus

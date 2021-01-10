@@ -24,6 +24,7 @@
 #include <glib.h>
 
 #include "as-utils.h"
+#include "as-vercmp.h"
 
 /**
  * SECTION:as-relation
@@ -969,22 +970,22 @@ as_relation_version_compare (AsRelation *relation, const gchar *version, GError 
 
 	switch (priv->compare) {
 	case AS_RELATION_COMPARE_EQ:
-		rc = as_utils_compare_versions (priv->version, version);
+		rc = as_vercmp_simple (priv->version, version);
 		return rc == 0;
 	case AS_RELATION_COMPARE_NE:
-		rc = as_utils_compare_versions (priv->version, version);
+		rc = as_vercmp_simple (priv->version, version);
 		return rc != 0;
 	case AS_RELATION_COMPARE_LT:
-		rc = as_utils_compare_versions (priv->version, version);
+		rc = as_vercmp_simple (priv->version, version);
 		return rc > 0;
 	case AS_RELATION_COMPARE_GT:
-		rc = as_utils_compare_versions (priv->version, version);
+		rc = as_vercmp_simple (priv->version, version);
 		return rc < 0;
 	case AS_RELATION_COMPARE_LE:
-		rc = as_utils_compare_versions (priv->version, version);
+		rc = as_vercmp_simple (priv->version, version);
 		return rc >= 0;
 	case AS_RELATION_COMPARE_GE:
-		rc = as_utils_compare_versions (priv->version, version);
+		rc = as_vercmp_simple (priv->version, version);
 		return rc <= 0;
 	default:
 		return FALSE;

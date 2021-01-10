@@ -31,6 +31,11 @@ APPSTREAMQT_EXPORT QString currentDistroComponentId();
 
 APPSTREAMQT_EXPORT QString currentAppStreamVersion();
 
+APPSTREAMQT_EXPORT int vercmpSimple(const QString &a, const QString &b);
+
+/* DEPRECATED */
+
+Q_DECL_DEPRECATED
 APPSTREAMQT_EXPORT int compareVersions(const QString &a, const QString &b);
 
 }

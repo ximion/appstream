@@ -583,7 +583,7 @@ as_client_run_compare_versions (char **argv, int argc)
 	if (argc == 4) {
 		const gchar *ver1 = argv[2];
 		const gchar *ver2 = argv[3];
-		gint comp_res = as_utils_compare_versions (ver1, ver2);
+		gint comp_res = as_vercmp_simple (ver1, ver2);
 
 		if (comp_res == 0)
 			g_print ("%s == %s\n", ver1, ver2);
@@ -611,7 +611,7 @@ as_client_run_compare_versions (char **argv, int argc)
 			return 2;
 		}
 
-		rc = as_utils_compare_versions (ver1, ver2);
+		rc = as_vercmp_simple (ver1, ver2);
 		switch (compare) {
 		case AS_RELATION_COMPARE_EQ:
 			res = rc == 0;
