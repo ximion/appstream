@@ -67,7 +67,7 @@ typedef struct
 	AsComponentScope	scope;
 	AsOriginKind		origin_kind;
 	AsContext		*context; /* the document context associated with this component */
-	gchar			*active_locale_override;
+	GRefString		*active_locale_override;
 
 	gchar			*id;
 	gchar			*data_id;
@@ -82,9 +82,9 @@ typedef struct
 	GHashTable		*keywords; /* localized entry, value:strv */
 	GHashTable		*developer_name; /* localized entry */
 
-	gchar			*metadata_license;
-	gchar			*project_license;
-	gchar			*project_group;
+	GRefString		*metadata_license;
+	GRefString		*project_license;
+	GRefString		*project_group;
 
 	GPtrArray		*launchables; /* of #AsLaunchable */
 	GPtrArray		*categories; /* of utf8 */
@@ -108,7 +108,7 @@ typedef struct
 	GPtrArray		*icons; /* of AsIcon elements */
 	GPtrArray		*reviews; /* of AsReview */
 
-	gchar			*arch; /* the architecture this data was generated from */
+	GRefString		*arch; /* the architecture this data was generated from */
 	gint			priority; /* used internally */
 	AsMergeKind		merge_kind; /* whether and how the component data should be merged */
 
@@ -384,11 +384,11 @@ as_component_finalize (GObject* object)
 	g_free (priv->data_id);
 	g_free (priv->source_pkgname);
 	g_strfreev (priv->pkgnames);
-	g_free (priv->metadata_license);
-	g_free (priv->project_license);
-	g_free (priv->project_group);
-	g_free (priv->active_locale_override);
-	g_free (priv->arch);
+	as_ref_string_release (priv->metadata_license);
+	as_ref_string_release (priv->project_license);
+	as_ref_string_release (priv->project_group);
+	as_ref_string_release (priv->active_locale_override);
+	as_ref_string_release (priv->arch);
 	as_ref_string_release (priv->origin);
 	as_ref_string_release (priv->branch);
 
@@ -1078,8 +1078,7 @@ void
 as_component_set_architecture (AsComponent *cpt, const gchar *arch)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_free (priv->arch);
-	priv->arch = g_strdup (arch);
+	as_ref_string_assign_safe (&priv->arch, arch);
 }
 
 /**
@@ -1095,7 +1094,7 @@ const gchar*
 as_component_get_active_locale (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	const gchar *locale;
+	const GRefString *locale;
 
 	/* return context locale, if the locale isn't explicitly overridden for this component */
 	if ((priv->context != NULL) && (priv->active_locale_override == NULL)) {
@@ -1124,9 +1123,7 @@ void
 as_component_set_active_locale (AsComponent *cpt, const gchar *locale)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	g_free (priv->active_locale_override);
-	priv->active_locale_override = g_strdup (locale);
+	as_ref_string_assign_safe (&priv->active_locale_override, locale);
 }
 
 /**
@@ -1443,8 +1440,7 @@ void
 as_component_set_metadata_license (AsComponent *cpt, const gchar *value)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_free (priv->metadata_license);
-	priv->metadata_license = g_strdup (value);
+	as_ref_string_assign_safe (&priv->metadata_license, value);
 }
 
 /**
@@ -1473,9 +1469,7 @@ void
 as_component_set_project_license (AsComponent *cpt, const gchar *value)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	g_free (priv->project_license);
-	priv->project_license = g_strdup (value);
+	as_ref_string_assign_safe (&priv->project_license, value);
 	g_object_notify ((GObject *) cpt, "project-license");
 }
 
@@ -1505,9 +1499,7 @@ void
 as_component_set_project_group (AsComponent *cpt, const gchar *value)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	g_free (priv->project_group);
-	priv->project_group = g_strdup (value);
+	as_ref_string_assign_safe (&priv->project_group, value);
 }
 
 /**

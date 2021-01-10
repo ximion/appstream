@@ -24,6 +24,8 @@
 #include <config.h>
 #include <glib.h>
 
+#include "as-utils-private.h"
+
 /**
  * SECTION:as-translation
  * @short_description: Description of translation domains for an upstream component.
@@ -39,7 +41,7 @@
 typedef struct
 {
 	AsTranslationKind	kind;
-	gchar			*id;
+	GRefString		*id;
 } AsTranslationPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsTranslation, as_translation, G_TYPE_OBJECT)
@@ -100,7 +102,7 @@ as_translation_finalize (GObject *object)
 	AsTranslation *tr = AS_TRANSLATION (object);
 	AsTranslationPrivate *priv = GET_PRIVATE (tr);
 
-	g_free (priv->id);
+	as_ref_string_release (priv->id);
 
 	G_OBJECT_CLASS (as_translation_parent_class)->finalize (object);
 }
@@ -168,8 +170,7 @@ void
 as_translation_set_id (AsTranslation *tr, const gchar *id)
 {
 	AsTranslationPrivate *priv = GET_PRIVATE (tr);
-	g_free (priv->id);
-	priv->id = g_strdup (id);
+	as_ref_string_assign_safe (&priv->id, id);
 }
 
 /**

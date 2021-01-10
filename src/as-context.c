@@ -42,11 +42,11 @@ typedef struct
 {
 	AsFormatVersion		format_version;
 	AsFormatStyle		style;
-	gchar 			*locale;
-	gchar 			*origin;
-	gchar 			*media_baseurl;
-	gchar 			*arch;
-	gchar			*fname;
+	GRefString		*locale;
+	GRefString		*origin;
+	GRefString		*media_baseurl;
+	GRefString		*arch;
+	GRefString		*fname;
 	gint 			priority;
 
 	gboolean		internal_mode;
@@ -164,11 +164,11 @@ as_context_finalize (GObject *object)
 	AsContext *ctx = AS_CONTEXT (object);
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 
-	g_free (priv->locale);
-	g_free (priv->origin);
-	g_free (priv->media_baseurl);
-	g_free (priv->arch);
-	g_free (priv->fname);
+	as_ref_string_release (priv->locale);
+	as_ref_string_release (priv->origin);
+	as_ref_string_release (priv->media_baseurl);
+	as_ref_string_release (priv->arch);
+	as_ref_string_release (priv->fname);
 
 	G_OBJECT_CLASS (as_context_parent_class)->finalize (object);
 }
@@ -180,7 +180,7 @@ as_context_init (AsContext *ctx)
 
 	priv->format_version = AS_CURRENT_FORMAT_VERSION;
 	priv->style = AS_FORMAT_STYLE_UNKNOWN;
-	priv->fname = g_strdup (":memory");
+	priv->fname = g_ref_string_new_intern (":memory");
 	priv->priority = 0;
 	priv->internal_mode = FALSE;
 }
@@ -297,8 +297,7 @@ void
 as_context_set_origin (AsContext *ctx, const gchar *value)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
-	g_free (priv->origin);
-	priv->origin = g_strdup (value);
+	as_ref_string_assign_safe (&priv->origin, value);
 }
 
 /**
@@ -325,14 +324,14 @@ void
 as_context_set_locale (AsContext *ctx, const gchar *value)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
-	g_free (priv->locale);
 
 	g_atomic_int_set (&priv->all_locale, FALSE);
 	if (g_strcmp0 (value, "ALL") == 0) {
+		g_autofree gchar *tmp = as_get_current_locale ();
 		g_atomic_int_set (&priv->all_locale, TRUE);
-		priv->locale = as_get_current_locale ();
+		as_ref_string_assign_safe (&priv->locale, tmp);
 	} else {
-		priv->locale = g_strdup (value);
+		as_ref_string_assign_safe (&priv->locale, value);
 	}
 }
 
@@ -386,8 +385,7 @@ void
 as_context_set_media_baseurl (AsContext *ctx, const gchar *value)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
-	g_free (priv->media_baseurl);
-	priv->media_baseurl = g_strdup (value);
+	as_ref_string_assign_safe (&priv->media_baseurl, value);
 }
 
 /**
@@ -414,8 +412,7 @@ void
 as_context_set_architecture (AsContext *ctx, const gchar *value)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
-	g_free (priv->arch);
-	priv->arch = g_strdup (value);
+	as_ref_string_assign_safe (&priv->arch, value);
 }
 
 /**
@@ -442,8 +439,7 @@ void
 as_context_set_filename (AsContext *ctx, const gchar *fname)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
-	g_free (priv->fname);
-	priv->fname = g_strdup (fname);
+	as_ref_string_assign_safe (&priv->fname, fname);
 }
 
 /**
