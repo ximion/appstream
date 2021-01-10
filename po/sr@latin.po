@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2020-11-30 19:42+0100\n"
+"POT-Creation-Date: 2021-01-10 03:02+0100\n"
 "PO-Revision-Date: 2016-08-06 03:00+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/freedesktop/"
@@ -99,7 +99,7 @@ msgid "ALL"
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:976
+#: src/as-content-rating.c:1003
 #, fuzzy
 msgid "Ability to spend real money in-app"
 msgstr ""
@@ -114,11 +114,11 @@ msgstr "Radnja"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:398
+#: src/as-category.c:320 tools/ascli-utils.c:364
 msgid "Add-ons"
 msgstr "Dodaci"
 
-#: src/as-content-rating.c:457 src/as-content-rating.c:533
+#: src/as-content-rating.c:457 src/as-content-rating.c:560
 msgid "Adults Only"
 msgstr ""
 
@@ -200,7 +200,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1937
+#: src/as-pool.c:1945
 #, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
@@ -274,15 +274,15 @@ msgid "Board"
 msgstr "Na tabli"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:897
+#: src/as-content-rating.c:924
 msgid "Brief artistic nudity"
 msgstr "Kratka umetnička golotinja"
 
-#: tools/ascli-utils.c:299
+#: tools/ascli-utils.c:265
 msgid "Bundle"
 msgstr "Komplet"
 
-#: src/as-pool.c:1828
+#: src/as-pool.c:1836
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Lokacija keša „%s“ nije upisiva."
@@ -305,26 +305,26 @@ msgid "Card"
 msgstr "Karte"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:816
+#: src/as-content-rating.c:843
 msgid "Cartoon characters in aggressive conflict"
 msgstr "Likovi iz crtaća u agresivnom sukobu"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:814
+#: src/as-content-rating.c:841
 msgid "Cartoon characters in unsafe situations"
 msgstr "Likovi iz crtaća u nepoželjnim situacijama"
 
-#: tools/ascli-utils.c:369
+#: tools/ascli-utils.c:335
 msgid "Categories"
 msgstr "Kategorije"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:827
+#: src/as-content-rating.c:854
 msgid "Characters in aggressive conflict easily distinguishable from reality"
 msgstr "Likovi u agresivnom sukobu koji se lako razlikuje od stvarnosti"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:825
+#: src/as-content-rating.c:852
 msgid "Characters in unsafe situations easily distinguishable from reality"
 msgstr "Likovi u nesigurnim situacijama koje se lako razlikuju od stvarnosti"
 
@@ -334,7 +334,7 @@ msgid "Chat"
 msgstr "Ćaskanje"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1012
+#: src/as-content-rating.c:1039
 msgid "Checking for the latest application version"
 msgstr "Proverava poslednje izdanje programa"
 
@@ -372,7 +372,7 @@ msgstr ""
 msgid "Component '%s' has no installation candidate."
 msgstr "Komponenta „%s“ nema kandidata za instalaciju."
 
-#: tools/ascli-utils.c:377
+#: tools/ascli-utils.c:343
 msgid "Compulsory for"
 msgstr "Neophodan za"
 
@@ -436,7 +436,7 @@ msgid "Database"
 msgstr "Baze podataka"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1090
+#: src/as-content-rating.c:1131
 msgid "Dead human remains that are exposed to the elements"
 msgstr "Posmrtni ostaci ljudi koji su izloženi vremenskim prilikama"
 
@@ -445,7 +445,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Otklanjanje grešaka"
 
-#: tools/ascli-utils.c:353
+#: tools/ascli-utils.c:319
 msgid "Default Screenshot URL"
 msgstr "URL podrazumevanog snimka ekrana"
 
@@ -455,22 +455,22 @@ msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:851
+#: src/as-content-rating.c:878
 msgid "Depictions of bloodshed and the mutilation of body parts"
 msgstr "Prikaz krvoprolića i sakaćenje delova tela"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1079
+#: src/as-content-rating.c:1120
 msgid "Depictions of modern-day human desecration"
 msgstr "Prikazi savremenog ljudskog skrnavljenja"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1101
+#: src/as-content-rating.c:1142
 msgid "Depictions of modern-day slavery"
 msgstr "Prikazi savremenog robovlasništva"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1077
+#: src/as-content-rating.c:1118
 #, fuzzy
 msgid "Depictions of or references to historical desecration"
 msgstr ""
@@ -479,7 +479,7 @@ msgstr ""
 "Prikazi ili upućivanja ka istorijskim skrnavljenjima"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1099
+#: src/as-content-rating.c:1140
 #, fuzzy
 msgid "Depictions of or references to historical slavery"
 msgstr ""
@@ -488,16 +488,16 @@ msgstr ""
 "Prikazi ili upućivanja ka istorijskom robovlasništvu"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:838
+#: src/as-content-rating.c:865
 msgid "Depictions of realistic characters in aggressive conflict"
 msgstr "Prikaz stvarnih likova u agresivnom sukobu"
 
-#: tools/ascli-utils.c:333
+#: tools/ascli-utils.c:299
 msgid "Description"
 msgstr "Opis"
 
 #. developer name
-#: tools/ascli-utils.c:321
+#: tools/ascli-utils.c:287
 msgid "Developer"
 msgstr "Programer"
 
@@ -507,7 +507,7 @@ msgid "Developer Tools"
 msgstr "Programerske alatke"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1058
+#: src/as-content-rating.c:1099
 #, fuzzy
 msgid "Direct references to adultery"
 msgstr ""
@@ -516,7 +516,7 @@ msgstr ""
 "Neposredna upućivanja na preljubu"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1047
+#: src/as-content-rating.c:1088
 #, fuzzy
 msgid "Direct references to prostitution"
 msgstr ""
@@ -525,7 +525,7 @@ msgstr ""
 "Neposredna upućivanja na prostituciju"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:942
+#: src/as-content-rating.c:969
 msgid "Discrimination designed to cause emotional harm"
 msgstr "Diskriminacija osmišljena da izazove emotivnu povredu"
 
@@ -552,7 +552,7 @@ msgstr "Ne prikazuj obojeni izlaz."
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Izbacuje sirove XML metapodatke za komponentu odgovarajućeg ID-a."
 
-#: src/as-content-rating.c:467 src/as-content-rating.c:528
+#: src/as-content-rating.c:467 src/as-content-rating.c:555
 msgid "Early Childhood"
 msgstr ""
 
@@ -585,27 +585,27 @@ msgstr ""
 msgid "Error while loading the metadata pool: %s"
 msgstr ""
 
-#: src/as-content-rating.c:465 src/as-content-rating.c:529
+#: src/as-content-rating.c:465 src/as-content-rating.c:556
 msgid "Everyone"
 msgstr ""
 
-#: src/as-content-rating.c:463 src/as-content-rating.c:530
+#: src/as-content-rating.c:463 src/as-content-rating.c:557
 msgid "Everyone 10+"
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:944
+#: src/as-content-rating.c:971
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
 msgstr ""
 "Eksplicitna diskriminacija na osnovu pola, seksualnosti, rase ili "
 "veroispovesti"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:953
+#: src/as-content-rating.c:980
 msgid "Explicit references to specific brands or trademarked products"
 msgstr "Eksplicitno upućivanje na naročite robne marke ili zaštićene proizvode"
 
-#: tools/ascli-utils.c:327
+#: tools/ascli-utils.c:293
 msgid "Extends"
 msgstr "Proširuje"
 
@@ -654,7 +654,7 @@ msgctxt "Category of Utility"
 msgid "Featured"
 msgstr "Izdvojeno"
 
-#: tools/ascli-actions-validate.c:171 tools/ascli-actions-validate.c:349
+#: tools/ascli-actions-validate.c:175 tools/ascli-actions-validate.c:353
 #, fuzzy, c-format
 msgid "File '%s' does not exist."
 msgstr ".desktop fajl „%s“ ne postoji."
@@ -754,24 +754,24 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:527 src/as-validator.c:946 src/as-validator.c:1028
-#: src/as-validator.c:1251
+#: src/as-validator.c:535 src/as-validator.c:954 src/as-validator.c:1036
+#: src/as-validator.c:1259
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:962
+#: src/as-content-rating.c:989
 msgid "Gambling on random events using tokens or credits"
 msgstr "Kockanje na nasumičnim događajima koji koriste žetone ili kredite"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:966
+#: src/as-content-rating.c:993
 msgid "Gambling using real money"
 msgstr "Kockanje koje koristi stvarni novac"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:964
+#: src/as-content-rating.c:991
 msgid "Gambling using “play” money"
 msgstr "Kockanje koje koristi „igrački“ novac (play)"
 
@@ -798,52 +798,52 @@ msgid "Get information about a component by its ID."
 msgstr "Dobavlja podatke o komponenti prema ID-u."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1092
+#: src/as-content-rating.c:1133
 msgid "Graphic depictions of desecration of human bodies"
 msgstr "Grafički prikazi skrnavljenja ljudskih tela"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1081
+#: src/as-content-rating.c:1122
 msgid "Graphic depictions of modern-day desecration"
 msgstr "Grafički prikazi savremenog skrnavljenja"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1103
+#: src/as-content-rating.c:1144
 msgid "Graphic depictions of modern-day slavery"
 msgstr "Grafički prikazi savremenog robovlasništva"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1060
+#: src/as-content-rating.c:1101
 msgid "Graphic depictions of the act of adultery"
 msgstr "Grafički prikazi čina preljube"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1049
+#: src/as-content-rating.c:1090
 msgid "Graphic depictions of the act of prostitution"
 msgstr "Grafički prikazi čina prostitucije"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:911
+#: src/as-content-rating.c:938
 msgid "Graphic sexual behavior"
 msgstr "Grafičko seksualno ponašanje"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1038
+#: src/as-content-rating.c:1079
 msgid "Graphic sexual behavior between people of the same gender"
 msgstr "Grafičko seksualno ponašanje između osoba istog pola"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:829
+#: src/as-content-rating.c:856
 msgid "Graphic violence easily distinguishable from reality"
 msgstr "Grafičko nasilje koje se lako razlikuje od stvarnosti"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:818
+#: src/as-content-rating.c:845
 msgid "Graphic violence involving cartoon characters"
 msgstr "Grafičko nasilje koje uključuje likove iz crtaća"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:840
+#: src/as-content-rating.c:867
 msgid "Graphic violence involving realistic characters"
 msgstr "Grafičko nasilje koje uključuje stvarne likove"
 
@@ -852,7 +852,7 @@ msgstr "Grafičko nasilje koje uključuje stvarne likove"
 msgid "Graphics & Photography"
 msgstr "Grafika i fotografija"
 
-#: tools/ascli-utils.c:300
+#: tools/ascli-utils.c:266
 msgid "Homepage"
 msgstr "Matična stranica"
 
@@ -861,7 +861,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "Razvojna okruženja"
 
-#: tools/ascli-utils.c:301
+#: tools/ascli-utils.c:267
 msgid "Icon"
 msgstr "Ikona"
 
@@ -881,22 +881,22 @@ msgstr ""
 msgid "Iconsets"
 msgstr "Kompleti ikona"
 
-#: tools/ascli-utils.c:295
+#: tools/ascli-utils.c:261
 msgid "Identifier"
 msgstr "Identifikator"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1056
+#: src/as-content-rating.c:1097
 msgid "Indirect references to adultery"
 msgstr "Posredna upućivanja na preljubu"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1034
+#: src/as-content-rating.c:1075
 msgid "Indirect references to homosexuality"
 msgstr "Posredna upućivanja na homoseksualnost"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1045
+#: src/as-content-rating.c:1086
 msgid "Indirect references to prostitution"
 msgstr "Posredna upućivanja na prostituciju"
 
@@ -957,7 +957,7 @@ msgid "Kids"
 msgstr "Dečije"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1036
+#: src/as-content-rating.c:1077
 msgid "Kissing between people of the same gender"
 msgstr "Ljubljenje između osoba istog pola"
 
@@ -976,7 +976,7 @@ msgid "Libraries"
 msgstr "Biblioteke"
 
 #. license
-#: tools/ascli-utils.c:363
+#: tools/ascli-utils.c:329
 msgid "License"
 msgstr "Licenca"
 
@@ -1039,13 +1039,13 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matematika"
 
-#: src/as-content-rating.c:459 src/as-content-rating.c:532
+#: src/as-content-rating.c:459 src/as-content-rating.c:559
 #, fuzzy
 msgid "Mature"
 msgstr "Izdvojeno"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:933
+#: src/as-content-rating.c:960
 msgid "Mature or sexual humor"
 msgstr "Erotski i humor za odrasle"
 
@@ -1082,12 +1082,12 @@ msgid "Metainfo files:"
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:918
+#: src/as-content-rating.c:945
 msgid "Mild or infrequent use of profanity"
 msgstr "Blaga ili retka upotreba psovki"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:836
+#: src/as-content-rating.c:863
 msgid "Mildly realistic characters in unsafe situations"
 msgstr "Blago stvarni likovi u nesigurnim situacijama"
 
@@ -1096,12 +1096,12 @@ msgid "Modaliases"
 msgstr "Modalijasi"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:920
+#: src/as-content-rating.c:947
 msgid "Moderate use of profanity"
 msgstr "Umerena upotreba psovki"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:985
+#: src/as-content-rating.c:1012
 msgid "Moderated chat functionality between users"
 msgstr "Umerena mogućnost ćaskanja između korisnika"
 
@@ -1110,12 +1110,12 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Muzički plejeri"
 
-#: tools/ascli-utils.c:296
+#: tools/ascli-utils.c:262
 msgid "Name"
 msgstr "Naziv"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:940
+#: src/as-content-rating.c:967
 msgid "Negativity towards a specific group of people"
 msgstr "Negativnost prema određenoj grupi ljudi"
 
@@ -1134,22 +1134,22 @@ msgid "No XDG applications directory found."
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:971
+#: src/as-content-rating.c:998
 msgid "No ability to spend money"
 msgstr "Ne može se trošiti stvaran novac"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:949
+#: src/as-content-rating.c:976
 msgid "No advertising of any kind"
 msgstr "Nema bilo kakvog oglašavanja"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:845
+#: src/as-content-rating.c:872
 msgid "No bloodshed"
 msgstr "Nema krvoprolića"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:812
+#: src/as-content-rating.c:839
 msgid "No cartoon violence"
 msgstr "Nema crtanog nasilja"
 
@@ -1159,17 +1159,17 @@ msgid "No component matching '%s' found."
 msgstr "Nisam našao komponentu koja se poklapa sa „%s“."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:938
+#: src/as-content-rating.c:965
 msgid "No discriminatory language of any kind"
 msgstr "Nema bilo kakvog diskriminacionog govora"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:823
+#: src/as-content-rating.c:850
 msgid "No fantasy violence"
 msgstr "Nema fantazijskog nasilja"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:960
+#: src/as-content-rating.c:987
 msgid "No gambling of any kind"
 msgstr "Nema bilo kakvog kockanja"
 
@@ -1178,12 +1178,12 @@ msgid "No icons."
 msgstr "Nema ikona."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:927
+#: src/as-content-rating.c:954
 msgid "No inappropriate humor"
 msgstr "Nema neumesnog humora"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:895
+#: src/as-content-rating.c:922
 msgid "No nudity of any sort"
 msgstr "Nema bilo kakve nagosti"
 
@@ -1192,7 +1192,7 @@ msgid "No output filename specified, modifying metainfo file directly."
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:916
+#: src/as-content-rating.c:943
 msgid "No profanity of any kind"
 msgstr "Nema bilo kakve vulgarnosti"
 
@@ -1203,37 +1203,37 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:834
+#: src/as-content-rating.c:861
 msgid "No realistic violence"
 msgstr "Nema realističnog nasilja"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1054
+#: src/as-content-rating.c:1095
 msgid "No references to adultery"
 msgstr "Nema upućivanja na preljubu"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:865
+#: src/as-content-rating.c:892
 msgid "No references to alcohol"
 msgstr "Nema upućivanja na alkohol"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1075
+#: src/as-content-rating.c:1116
 msgid "No references to desecration"
 msgstr "Nema upućivanja na skrnavljenje"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1032
+#: src/as-content-rating.c:1073
 msgid "No references to homosexuality"
 msgstr "Nema upućivanja na homoseksualnost"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:875
+#: src/as-content-rating.c:902
 msgid "No references to illicit drugs"
 msgstr "Nema upućivanja na zabranjene droge"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:905
+#: src/as-content-rating.c:932
 #, fuzzy
 msgid "No references to or depictions of sexual nature"
 msgstr ""
@@ -1242,17 +1242,17 @@ msgstr ""
 "Nema seksualnih prikaza ili upućivanja"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1043
+#: src/as-content-rating.c:1084
 msgid "No references to prostitution"
 msgstr "Nema upućivanja na prostituciju"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1097
+#: src/as-content-rating.c:1138
 msgid "No references to slavery"
 msgstr "Nema upućivanja na robovlasništvo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:885
+#: src/as-content-rating.c:912
 #, fuzzy
 msgid "No references to tobacco products"
 msgstr ""
@@ -1261,17 +1261,17 @@ msgstr ""
 "Upućivanje na duvanske proizvode"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:856
+#: src/as-content-rating.c:883
 msgid "No sexual violence"
 msgstr "Nema seksualnog nasilja"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1065
+#: src/as-content-rating.c:1106
 msgid "No sexualized characters"
 msgstr "Nema seksualizovanih karaktera"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1021
+#: src/as-content-rating.c:1048
 #, fuzzy
 msgid "No sharing of physical location with other users"
 msgstr ""
@@ -1280,13 +1280,13 @@ msgstr ""
 "Nema razmene fizičke lokacije sa drugim korisnicima"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1001
+#: src/as-content-rating.c:1028
 msgid "No sharing of social network usernames or email addresses"
 msgstr ""
 "Nema razmene korisničkih imena društvenih mreža ili adresa elektronske pošte"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1010
+#: src/as-content-rating.c:1037
 #, fuzzy
 msgid "No sharing of user information with third parties"
 msgstr ""
@@ -1312,17 +1312,17 @@ msgid "No value for the item to search for was defined."
 msgstr "Nema vrednosti stavke za traženje definisanog."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1086
+#: src/as-content-rating.c:1127
 msgid "No visible dead human remains"
 msgstr "Bez vidljivih ljudskih posmrtnih ostataka"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:981
+#: src/as-content-rating.c:1008
 msgid "No way to chat with other users"
 msgstr "Nema načina za ćaskanje sa drugim korisnicima"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:992
+#: src/as-content-rating.c:1019
 msgid "No way to talk with other users"
 msgstr "Nema načina za razgovor sa drugim korisnicima"
 
@@ -1338,11 +1338,11 @@ msgid "Option '%s' is unknown."
 msgstr "Opcija „%s“ nije poznata."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1070
+#: src/as-content-rating.c:1111
 msgid "Overtly sexualized human characters"
 msgstr "Preterano seksualizovani ljudski karakteri"
 
-#: tools/ascli-utils.c:298
+#: tools/ascli-utils.c:264
 msgid "Package"
 msgstr "Paket"
 
@@ -1363,26 +1363,26 @@ msgid "Print detailed output about found components."
 msgstr "Ispisuje opširni izlaz o nađenim komponentama."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:951
+#: src/as-content-rating.c:978
 msgid "Product placement"
 msgstr "Plasman proizvoda"
 
 #. project group
-#: tools/ascli-utils.c:360
+#: tools/ascli-utils.c:326
 msgid "Project Group"
 msgstr "Grupa projekta"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:899
+#: src/as-content-rating.c:926
 msgid "Prolonged nudity"
 msgstr "Produžena golotinja"
 
-#: tools/ascli-utils.c:405
+#: tools/ascli-utils.c:371
 msgid "Provided Items"
 msgstr "Omogućene stavke"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:907
+#: src/as-content-rating.c:934
 msgid "Provocative references or depictions"
 msgstr "Provokativne upute ili prikazi"
 
@@ -1395,12 +1395,12 @@ msgid "Python 3"
 msgstr "Python 3"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:858
+#: src/as-content-rating.c:885
 msgid "Rape or other violent sexual behavior"
 msgstr "Silovanje ili drugo nasilno seksualno ponašanje"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:849
+#: src/as-content-rating.c:876
 msgid "Realistic bloodshed"
 msgstr "Realno krvoproliće"
 
@@ -1409,17 +1409,17 @@ msgid "Rebuild the component metadata cache."
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:867
+#: src/as-content-rating.c:894
 msgid "References to alcoholic beverages"
 msgstr "Upućivanje na alkoholna pića"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:877
+#: src/as-content-rating.c:904
 msgid "References to illicit drugs"
 msgstr "Upućivanje na zabranjene droge"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:887
+#: src/as-content-rating.c:914
 msgid "References to tobacco products"
 msgstr "Upućivanje na duvanske proizvode"
 
@@ -1468,7 +1468,7 @@ msgid "Scanning"
 msgstr "Skeniranje"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1068
+#: src/as-content-rating.c:1109
 msgid "Scantily clad human characters"
 msgstr "Oskudno obučeni ljudski karakteri"
 
@@ -1487,24 +1487,24 @@ msgid "Security"
 msgstr "Bezbednost"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:909
+#: src/as-content-rating.c:936
 msgid "Sexual references or depictions"
 msgstr "Seksualne upute ili prikazi"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1014
+#: src/as-content-rating.c:1041
 msgid "Sharing diagnostic data that does not let others identify the user"
 msgstr ""
 "Dele se dijagnostički podaci preko kojih drugi ne mogu prepoznati korisnika"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1016
+#: src/as-content-rating.c:1043
 msgid "Sharing information that lets others identify the user"
 msgstr ""
 "Dele se dijagnostički podaci preko kojih drugi mogu prepoznati korisnika"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1023
+#: src/as-content-rating.c:1050
 #, fuzzy
 msgid "Sharing physical location with other users"
 msgstr ""
@@ -1513,7 +1513,7 @@ msgstr ""
 "Razmena stvarnih lokacija sa drugim korisnicima"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1003
+#: src/as-content-rating.c:1030
 msgid "Sharing social network usernames or email addresses"
 msgstr ""
 "Razmena korisničkih imena društvenih mreža ili adresa elektronske pošte"
@@ -1536,7 +1536,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:929
+#: src/as-content-rating.c:956
 msgid "Slapstick humor"
 msgstr "Urnebesna komedija"
 
@@ -1551,7 +1551,7 @@ msgid "Strategy"
 msgstr "Strategija"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:922
+#: src/as-content-rating.c:949
 msgid "Strong or frequent use of profanity"
 msgstr "Jaka ili česta upotreba psovki"
 
@@ -1567,7 +1567,7 @@ msgid ""
 "files."
 msgstr ""
 
-#: tools/ascli-utils.c:297
+#: tools/ascli-utils.c:263
 msgid "Summary"
 msgstr "Sažetak"
 
@@ -1585,7 +1585,7 @@ msgstr "Nadgledanje sistema"
 msgid "Tags of this name are not permitted in this section."
 msgstr ""
 
-#: src/as-content-rating.c:461 src/as-content-rating.c:531
+#: src/as-content-rating.c:461 src/as-content-rating.c:558
 msgid "Teen"
 msgstr ""
 
@@ -1621,14 +1621,14 @@ msgid ""
 "valid."
 msgstr ""
 
-#: src/as-pool.c:1924
+#: src/as-pool.c:1932
 #, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
 "resulted in metadata being ignored: %s"
 msgstr ""
 
-#: src/as-pool.c:1922
+#: src/as-pool.c:1930
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
@@ -1953,7 +1953,7 @@ msgid ""
 "`@` is only allowed as `_at_` or `_AT_`)."
 msgstr ""
 
-#: tools/ascli-actions-validate.c:363 tools/ascli-actions-validate.c:492
+#: tools/ascli-actions-validate.c:367 tools/ascli-actions-validate.c:496
 #, c-format
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
@@ -2205,12 +2205,12 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:994
+#: src/as-content-rating.c:1021
 msgid "Uncontrolled audio or video chat functionality between users"
 msgstr "Nekontrolisana mogućnost zvučnog i video ćaskanja između korisnika"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:987
+#: src/as-content-rating.c:1014
 msgid "Uncontrolled chat functionality between users"
 msgstr "Nekontrolisana mogućnost ćaskanja između korisnika"
 
@@ -2227,22 +2227,22 @@ msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:847
+#: src/as-content-rating.c:874
 msgid "Unrealistic bloodshed"
 msgstr "Nerealno krvoproliće"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:869
+#: src/as-content-rating.c:896
 msgid "Use of alcoholic beverages"
 msgstr "Upotreba alkoholnih pića"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:879
+#: src/as-content-rating.c:906
 msgid "Use of illicit drugs"
 msgstr "Upotreba zabranjenih droga"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:889
+#: src/as-content-rating.c:916
 msgid "Use of tobacco products"
 msgstr "Upotreba duvanskih proizvoda"
 
@@ -2258,7 +2258,7 @@ msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:983
+#: src/as-content-rating.c:1010
 #, fuzzy
 msgid "User-to-user interactions without chat functionality"
 msgstr ""
@@ -2267,12 +2267,12 @@ msgstr ""
 "Međudejstvo između korisnika bez mogućnosti ćaskanja"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:973
+#: src/as-content-rating.c:1000
 msgid "Users are encouraged to donate real money"
 msgstr "Korisnici se ohrabruju da doniraju stvarni novac"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:955
+#: src/as-content-rating.c:982
 msgid "Users are encouraged to purchase specific real-world items"
 msgstr "Korisnici se ohrabruju da kupuju određene stavke u stvarnom svetu"
 
@@ -2290,16 +2290,16 @@ msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Potvrdite instalirano stablo fajlova programa za ispravnim metapodacima."
 
-#: tools/ascli-actions-validate.c:301 tools/ascli-actions-validate.c:442
+#: tools/ascli-actions-validate.c:305 tools/ascli-actions-validate.c:446
 #, c-format
 msgid "Validation failed: %s"
 msgstr "Overavanje nije uspelo: %s"
 
-#: tools/ascli-actions-validate.c:289 tools/ascli-actions-validate.c:430
+#: tools/ascli-actions-validate.c:293 tools/ascli-actions-validate.c:434
 msgid "Validation was successful."
 msgstr "Potvrđivanje je uspelo."
 
-#: tools/ascli-actions-validate.c:291 tools/ascli-actions-validate.c:432
+#: tools/ascli-actions-validate.c:295 tools/ascli-actions-validate.c:436
 #, c-format
 msgid "Validation was successful: %s"
 msgstr "Potvrđivanje je uspelo: %s"
@@ -2324,12 +2324,12 @@ msgid "Viewers"
 msgstr "Pregledači"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1088
+#: src/as-content-rating.c:1129
 msgid "Visible dead human remains"
 msgstr "Sa vidljivim ljudskim posmrtnim ostacima"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:931
+#: src/as-content-rating.c:958
 msgid "Vulgar or bathroom humor"
 msgstr "Vulgaran ili neumesni humor"
 
@@ -2423,7 +2423,7 @@ msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
 msgstr "Morate da navedete fajl za potvrđivanje!"
 
-#: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479
+#: tools/ascli-actions-validate.c:389 tools/ascli-actions-validate.c:483
 msgid "You need to specify a root directory to start validation!"
 msgstr "Morate navesti korenu fasciklu za počinjanje potvrđivanja!"
 
@@ -2435,7 +2435,7 @@ msgstr "Morate da navedete pojam za traženje."
 msgid "You need to specify an input and output file."
 msgstr "Morate da navedete ulazni i izlazni fajl."
 
-#: tools/ascli-actions-validate.c:263 tools/ascli-actions-validate.c:337
+#: tools/ascli-actions-validate.c:267 tools/ascli-actions-validate.c:341
 #, fuzzy
 msgid "You need to specify at least one file to validate!"
 msgstr "Morate da navedete fajl za potvrđivanje!"
@@ -2453,25 +2453,25 @@ msgstr ""
 "program;комплет;алат;aplikacija;komplet;alat;paket"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:223
+#: tools/ascli-actions-validate.c:227
 #, c-format
 msgid "errors: %lu"
 msgstr ""
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:237
+#: tools/ascli-actions-validate.c:241
 #, c-format
 msgid "infos: %lu"
 msgstr ""
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:244
+#: tools/ascli-actions-validate.c:248
 #, c-format
 msgid "pedantic: %lu"
 msgstr ""
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:230
+#: tools/ascli-actions-validate.c:234
 #, c-format
 msgid "warnings: %lu"
 msgstr ""

@@ -23,10 +23,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2020-11-30 19:42+0100\n"
+"POT-Creation-Date: 2021-01-10 03:02+0100\n"
 "PO-Revision-Date: 2021-01-07 18:32+0000\n"
 "Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
-"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/appstream/translations/zh_Hant/>\n"
+"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
+"appstream/translations/zh_Hant/>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +56,9 @@ msgstr "3D 圖形"
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr "<description/> 標籤絕不能翻譯成 metainfo 檔案（上游中介資料）。請改為翻譯個別文字段落。"
+msgstr ""
+"<description/> 標籤絕不能翻譯成 metainfo 檔案（上游中介資料）。請改為翻譯個別"
+"文字段落。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:259
@@ -83,7 +86,7 @@ msgid "ALL"
 msgstr "所有"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:976
+#: src/as-content-rating.c:1003
 msgid "Ability to spend real money in-app"
 msgstr "可在程式中花費實體金錢"
 
@@ -94,11 +97,11 @@ msgstr "動作"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:398
+#: src/as-category.c:320 tools/ascli-utils.c:364
 msgid "Add-ons"
 msgstr "附加元件"
 
-#: src/as-content-rating.c:457 src/as-content-rating.c:533
+#: src/as-content-rating.c:457 src/as-content-rating.c:560
 msgid "Adults Only"
 msgstr "僅限成人 (18+)"
 
@@ -177,7 +180,7 @@ msgid ""
 "software components."
 msgstr "AppStream 是種跨散布版的規格，旨在提供軟體組件的中介資料。"
 
-#: src/as-pool.c:1937
+#: src/as-pool.c:1945
 #, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
@@ -252,15 +255,15 @@ msgid "Board"
 msgstr "棋盤"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:897
+#: src/as-content-rating.c:924
 msgid "Brief artistic nudity"
 msgstr "短暫藝術性裸體"
 
-#: tools/ascli-utils.c:299
+#: tools/ascli-utils.c:265
 msgid "Bundle"
 msgstr "套組"
 
-#: src/as-pool.c:1828
+#: src/as-pool.c:1836
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "無法寫入「%s」快取位置。"
@@ -283,26 +286,26 @@ msgid "Card"
 msgstr "紙牌"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:816
+#: src/as-content-rating.c:843
 msgid "Cartoon characters in aggressive conflict"
 msgstr "漫畫角色有強勢衝突"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:814
+#: src/as-content-rating.c:841
 msgid "Cartoon characters in unsafe situations"
 msgstr "漫畫角色處在非安全的情況下"
 
-#: tools/ascli-utils.c:369
+#: tools/ascli-utils.c:335
 msgid "Categories"
 msgstr "類別"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:827
+#: src/as-content-rating.c:854
 msgid "Characters in aggressive conflict easily distinguishable from reality"
 msgstr "人物有強勢衝突但容易與現實區隔"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:825
+#: src/as-content-rating.c:852
 msgid "Characters in unsafe situations easily distinguishable from reality"
 msgstr "人物處在非安全的情況下但容易與現實區隔"
 
@@ -312,7 +315,7 @@ msgid "Chat"
 msgstr "聊天"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1012
+#: src/as-content-rating.c:1039
 msgid "Checking for the latest application version"
 msgstr "檢查最新的應用程式版本"
 
@@ -350,7 +353,7 @@ msgstr "組件"
 msgid "Component '%s' has no installation candidate."
 msgstr "「%s」組件尚無安裝候選。"
 
-#: tools/ascli-utils.c:377
+#: tools/ascli-utils.c:343
 msgid "Compulsory for"
 msgstr "強制項目為"
 
@@ -412,7 +415,7 @@ msgid "Database"
 msgstr "資料庫"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1090
+#: src/as-content-rating.c:1131
 msgid "Dead human remains that are exposed to the elements"
 msgstr "亡者遺體暴露在相關元素中"
 
@@ -421,7 +424,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "除錯器"
 
-#: tools/ascli-utils.c:353
+#: tools/ascli-utils.c:319
 msgid "Default Screenshot URL"
 msgstr "預設螢幕快照 URL"
 
@@ -431,41 +434,41 @@ msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "預設中介資料格式（有效的值為「xml」和「yaml」）。"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:851
+#: src/as-content-rating.c:878
 msgid "Depictions of bloodshed and the mutilation of body parts"
 msgstr "殺人及殘害身體的描繪"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1079
+#: src/as-content-rating.c:1120
 msgid "Depictions of modern-day human desecration"
 msgstr "描繪當代人體褻瀆"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1101
+#: src/as-content-rating.c:1142
 msgid "Depictions of modern-day slavery"
 msgstr "描繪當代的奴隸行為"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1077
+#: src/as-content-rating.c:1118
 msgid "Depictions of or references to historical desecration"
 msgstr "描繪或涉及史實上的褻瀆"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1099
+#: src/as-content-rating.c:1140
 msgid "Depictions of or references to historical slavery"
 msgstr "描繪或涉及史實上的奴隸行為"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:838
+#: src/as-content-rating.c:865
 msgid "Depictions of realistic characters in aggressive conflict"
 msgstr "真實人物有強勢衝突的描繪"
 
-#: tools/ascli-utils.c:333
+#: tools/ascli-utils.c:299
 msgid "Description"
 msgstr "描述"
 
 #. developer name
-#: tools/ascli-utils.c:321
+#: tools/ascli-utils.c:287
 msgid "Developer"
 msgstr "開發者"
 
@@ -475,17 +478,17 @@ msgid "Developer Tools"
 msgstr "開發者工具"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1058
+#: src/as-content-rating.c:1099
 msgid "Direct references to adultery"
 msgstr "直接涉及通姦"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1047
+#: src/as-content-rating.c:1088
 msgid "Direct references to prostitution"
 msgstr "直接涉及賣淫"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:942
+#: src/as-content-rating.c:969
 msgid "Discrimination designed to cause emotional harm"
 msgstr "刻意造成情緒傷害之歧視"
 
@@ -512,7 +515,7 @@ msgstr "不要顯示色彩化的輸出。"
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "傾印符合該 ID 的組件原生 XML 中介資料。"
 
-#: src/as-content-rating.c:467 src/as-content-rating.c:528
+#: src/as-content-rating.c:467 src/as-content-rating.c:555
 msgid "Early Childhood"
 msgstr "幼兒 (3+)"
 
@@ -545,25 +548,25 @@ msgstr ""
 msgid "Error while loading the metadata pool: %s"
 msgstr "載入中介資料集池時發生錯誤：%s"
 
-#: src/as-content-rating.c:465 src/as-content-rating.c:529
+#: src/as-content-rating.c:465 src/as-content-rating.c:556
 msgid "Everyone"
 msgstr "任何人"
 
-#: src/as-content-rating.c:463 src/as-content-rating.c:530
+#: src/as-content-rating.c:463 src/as-content-rating.c:557
 msgid "Everyone 10+"
 msgstr "十歲以上 (10+)"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:944
+#: src/as-content-rating.c:971
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
 msgstr "根據性別、性能力、種族、信仰所作的針對性歧視"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:953
+#: src/as-content-rating.c:980
 msgid "Explicit references to specific brands or trademarked products"
 msgstr "明確指涉特定廠牌或註冊商標之產品"
 
-#: tools/ascli-utils.c:327
+#: tools/ascli-utils.c:293
 msgid "Extends"
 msgstr "擴展"
 
@@ -612,7 +615,7 @@ msgctxt "Category of Utility"
 msgid "Featured"
 msgstr "特選"
 
-#: tools/ascli-actions-validate.c:171 tools/ascli-actions-validate.c:349
+#: tools/ascli-actions-validate.c:175 tools/ascli-actions-validate.c:353
 #, c-format
 msgid "File '%s' does not exist."
 msgstr "「%s」檔案不存在。"
@@ -712,24 +715,24 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:527 src/as-validator.c:946 src/as-validator.c:1028
-#: src/as-validator.c:1251
+#: src/as-validator.c:535 src/as-validator.c:954 src/as-validator.c:1036
+#: src/as-validator.c:1259
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:962
+#: src/as-content-rating.c:989
 msgid "Gambling on random events using tokens or credits"
 msgstr "使用代幣或儲值之隨機活動性賭博"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:966
+#: src/as-content-rating.c:993
 msgid "Gambling using real money"
 msgstr "使用實體金錢的賭博"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:964
+#: src/as-content-rating.c:991
 msgid "Gambling using “play” money"
 msgstr "使用「遊戲」財物之賭博"
 
@@ -756,52 +759,52 @@ msgid "Get information about a component by its ID."
 msgstr "根據 ID 取得組件的資訊。"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1092
+#: src/as-content-rating.c:1133
 msgid "Graphic depictions of desecration of human bodies"
 msgstr "圖像式褻瀆人體的描繪"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1081
+#: src/as-content-rating.c:1122
 msgid "Graphic depictions of modern-day desecration"
 msgstr "圖像式當代褻瀆描繪"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1103
+#: src/as-content-rating.c:1144
 msgid "Graphic depictions of modern-day slavery"
 msgstr "圖像式當代奴隸行為描繪"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1060
+#: src/as-content-rating.c:1101
 msgid "Graphic depictions of the act of adultery"
 msgstr "圖像式通姦行為描繪"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1049
+#: src/as-content-rating.c:1090
 msgid "Graphic depictions of the act of prostitution"
 msgstr "圖像式賣淫動作描繪"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:911
+#: src/as-content-rating.c:938
 msgid "Graphic sexual behavior"
 msgstr "圖像式性行為"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1038
+#: src/as-content-rating.c:1079
 msgid "Graphic sexual behavior between people of the same gender"
 msgstr "圖像式人類同性別性行為"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:829
+#: src/as-content-rating.c:856
 msgid "Graphic violence easily distinguishable from reality"
 msgstr "圖像暴力但容易與現實區隔"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:818
+#: src/as-content-rating.c:845
 msgid "Graphic violence involving cartoon characters"
 msgstr "涉及漫畫角色的圖像暴力"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:840
+#: src/as-content-rating.c:867
 msgid "Graphic violence involving realistic characters"
 msgstr "涉及真實人物的圖像暴力"
 
@@ -810,7 +813,7 @@ msgstr "涉及真實人物的圖像暴力"
 msgid "Graphics & Photography"
 msgstr "圖形和攝影"
 
-#: tools/ascli-utils.c:300
+#: tools/ascli-utils.c:266
 msgid "Homepage"
 msgstr "首頁"
 
@@ -819,7 +822,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "IDE"
 
-#: tools/ascli-utils.c:301
+#: tools/ascli-utils.c:267
 msgid "Icon"
 msgstr "圖示"
 
@@ -839,22 +842,22 @@ msgstr ""
 msgid "Iconsets"
 msgstr "圖示集"
 
-#: tools/ascli-utils.c:295
+#: tools/ascli-utils.c:261
 msgid "Identifier"
 msgstr "辨識碼"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1056
+#: src/as-content-rating.c:1097
 msgid "Indirect references to adultery"
 msgstr "間接涉及通姦"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1034
+#: src/as-content-rating.c:1075
 msgid "Indirect references to homosexuality"
 msgstr "間接涉及同性戀議題"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1045
+#: src/as-content-rating.c:1086
 msgid "Indirect references to prostitution"
 msgstr "間接涉及賣淫"
 
@@ -913,7 +916,7 @@ msgid "Kids"
 msgstr "孩童"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1036
+#: src/as-content-rating.c:1077
 msgid "Kissing between people of the same gender"
 msgstr "人類同性別親吻"
 
@@ -932,7 +935,7 @@ msgid "Libraries"
 msgstr "函式庫"
 
 #. license
-#: tools/ascli-utils.c:363
+#: tools/ascli-utils.c:329
 msgid "License"
 msgstr "授權條款"
 
@@ -993,12 +996,12 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr "數學"
 
-#: src/as-content-rating.c:459 src/as-content-rating.c:532
+#: src/as-content-rating.c:459 src/as-content-rating.c:559
 msgid "Mature"
 msgstr "成熟 (17+)"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:933
+#: src/as-content-rating.c:960
 msgid "Mature or sexual humor"
 msgstr "成人或性相關幽默"
 
@@ -1034,12 +1037,12 @@ msgid "Metainfo files:"
 msgstr "中介資料檔："
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:918
+#: src/as-content-rating.c:945
 msgid "Mild or infrequent use of profanity"
 msgstr "輕微或少有使用辱駡"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:836
+#: src/as-content-rating.c:863
 msgid "Mildly realistic characters in unsafe situations"
 msgstr "輕微真實人物處在非安全的情況下"
 
@@ -1048,12 +1051,12 @@ msgid "Modaliases"
 msgstr "Modalias 檔"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:920
+#: src/as-content-rating.c:947
 msgid "Moderate use of profanity"
 msgstr "偶爾使用辱駡"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:985
+#: src/as-content-rating.c:1012
 msgid "Moderated chat functionality between users"
 msgstr "受審查的使用者間聊天功能"
 
@@ -1062,12 +1065,12 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "音樂播放器"
 
-#: tools/ascli-utils.c:296
+#: tools/ascli-utils.c:262
 msgid "Name"
 msgstr "名稱"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:940
+#: src/as-content-rating.c:967
 msgid "Negativity towards a specific group of people"
 msgstr "排斥特定群體"
 
@@ -1086,22 +1089,22 @@ msgid "No XDG applications directory found."
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:971
+#: src/as-content-rating.c:998
 msgid "No ability to spend money"
 msgstr "沒有金錢花費之功能"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:949
+#: src/as-content-rating.c:976
 msgid "No advertising of any kind"
 msgstr "沒有任何形式之行銷"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:845
+#: src/as-content-rating.c:872
 msgid "No bloodshed"
 msgstr "沒有殺人"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:812
+#: src/as-content-rating.c:839
 msgid "No cartoon violence"
 msgstr "沒有漫畫暴力"
 
@@ -1111,17 +1114,17 @@ msgid "No component matching '%s' found."
 msgstr "找不到符合「%s」的組件。"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:938
+#: src/as-content-rating.c:965
 msgid "No discriminatory language of any kind"
 msgstr "沒有任何形式之歧視用語"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:823
+#: src/as-content-rating.c:850
 msgid "No fantasy violence"
 msgstr "沒有幻想暴力"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:960
+#: src/as-content-rating.c:987
 msgid "No gambling of any kind"
 msgstr "任何形式之賭博"
 
@@ -1130,12 +1133,12 @@ msgid "No icons."
 msgstr "無圖示。"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:927
+#: src/as-content-rating.c:954
 msgid "No inappropriate humor"
 msgstr "沒有不適切之幽默"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:895
+#: src/as-content-rating.c:922
 msgid "No nudity of any sort"
 msgstr "沒有任何形式之裸體"
 
@@ -1144,7 +1147,7 @@ msgid "No output filename specified, modifying metainfo file directly."
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:916
+#: src/as-content-rating.c:943
 msgid "No profanity of any kind"
 msgstr "沒有任何形式之辱駡"
 
@@ -1155,77 +1158,77 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:834
+#: src/as-content-rating.c:861
 msgid "No realistic violence"
 msgstr "沒有現實暴力"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1054
+#: src/as-content-rating.c:1095
 msgid "No references to adultery"
 msgstr "沒有涉及通姦"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:865
+#: src/as-content-rating.c:892
 msgid "No references to alcohol"
 msgstr "沒有涉及酒精"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1075
+#: src/as-content-rating.c:1116
 msgid "No references to desecration"
 msgstr "沒有涉及褻瀆"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1032
+#: src/as-content-rating.c:1073
 msgid "No references to homosexuality"
 msgstr "沒有涉及同性戀議題"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:875
+#: src/as-content-rating.c:902
 msgid "No references to illicit drugs"
 msgstr "沒有涉及非法藥物"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:905
+#: src/as-content-rating.c:932
 msgid "No references to or depictions of sexual nature"
 msgstr "沒有涉及性事或描繪性事"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1043
+#: src/as-content-rating.c:1084
 msgid "No references to prostitution"
 msgstr "沒有涉及賣淫"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1097
+#: src/as-content-rating.c:1138
 msgid "No references to slavery"
 msgstr "沒有涉及奴隸行為"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:885
+#: src/as-content-rating.c:912
 msgid "No references to tobacco products"
 msgstr "沒有涉及菸草產品"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:856
+#: src/as-content-rating.c:883
 msgid "No sexual violence"
 msgstr "沒有性暴力"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1065
+#: src/as-content-rating.c:1106
 msgid "No sexualized characters"
 msgstr "沒有性化角色"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1021
+#: src/as-content-rating.c:1048
 msgid "No sharing of physical location with other users"
 msgstr "不會與其他使用者分享實際地理位置"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1001
+#: src/as-content-rating.c:1028
 msgid "No sharing of social network usernames or email addresses"
 msgstr "不會分享社交網路使用者名稱或電子郵件爲止"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1010
+#: src/as-content-rating.c:1037
 msgid "No sharing of user information with third parties"
 msgstr "不會與第三方單位分享使用者資訊"
 
@@ -1246,17 +1249,17 @@ msgid "No value for the item to search for was defined."
 msgstr "要搜尋的項目未定義該值。"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1086
+#: src/as-content-rating.c:1127
 msgid "No visible dead human remains"
 msgstr "不會看見亡者遺體"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:981
+#: src/as-content-rating.c:1008
 msgid "No way to chat with other users"
 msgstr "無法和其他使用者聊天"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:992
+#: src/as-content-rating.c:1019
 msgid "No way to talk with other users"
 msgstr "無法和其他使用者對談"
 
@@ -1272,11 +1275,11 @@ msgid "Option '%s' is unknown."
 msgstr "「%s」選項不明。"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1070
+#: src/as-content-rating.c:1111
 msgid "Overtly sexualized human characters"
 msgstr "刻意性化的人類角色"
 
-#: tools/ascli-utils.c:298
+#: tools/ascli-utils.c:264
 msgid "Package"
 msgstr "軟體包"
 
@@ -1296,26 +1299,26 @@ msgid "Print detailed output about found components."
 msgstr "列印有關找到之組件的詳細輸出。"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:951
+#: src/as-content-rating.c:978
 msgid "Product placement"
 msgstr "置入性產品行銷"
 
 #. project group
-#: tools/ascli-utils.c:360
+#: tools/ascli-utils.c:326
 msgid "Project Group"
 msgstr "專案群組"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:899
+#: src/as-content-rating.c:926
 msgid "Prolonged nudity"
 msgstr "長時間裸體"
 
-#: tools/ascli-utils.c:405
+#: tools/ascli-utils.c:371
 msgid "Provided Items"
 msgstr "提供的項目"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:907
+#: src/as-content-rating.c:934
 msgid "Provocative references or depictions"
 msgstr "涉及刺激或描繪刺激"
 
@@ -1328,12 +1331,12 @@ msgid "Python 3"
 msgstr "Python 3"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:858
+#: src/as-content-rating.c:885
 msgid "Rape or other violent sexual behavior"
 msgstr "強暴或其他暴力式性行為"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:849
+#: src/as-content-rating.c:876
 msgid "Realistic bloodshed"
 msgstr "寫實的殺人"
 
@@ -1342,17 +1345,17 @@ msgid "Rebuild the component metadata cache."
 msgstr "重建組件的中介資料快取。"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:867
+#: src/as-content-rating.c:894
 msgid "References to alcoholic beverages"
 msgstr "涉及酒精性飲料"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:877
+#: src/as-content-rating.c:904
 msgid "References to illicit drugs"
 msgstr "涉及非法藥物"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:887
+#: src/as-content-rating.c:914
 msgid "References to tobacco products"
 msgstr "涉及菸草產品"
 
@@ -1399,7 +1402,7 @@ msgid "Scanning"
 msgstr "掃描"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1068
+#: src/as-content-rating.c:1109
 msgid "Scantily clad human characters"
 msgstr "衣著覆蓋極少的人類角色"
 
@@ -1418,27 +1421,27 @@ msgid "Security"
 msgstr "安全"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:909
+#: src/as-content-rating.c:936
 msgid "Sexual references or depictions"
 msgstr "涉及性或描繪性"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1014
+#: src/as-content-rating.c:1041
 msgid "Sharing diagnostic data that does not let others identify the user"
 msgstr "分享無法讓他人辨識出使用者的診斷性數據資料"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1016
+#: src/as-content-rating.c:1043
 msgid "Sharing information that lets others identify the user"
 msgstr "分享可以讓其他人辨識出使用者的資訊"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1023
+#: src/as-content-rating.c:1050
 msgid "Sharing physical location with other users"
 msgstr "與其他使用者分享實際地理位置"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1003
+#: src/as-content-rating.c:1030
 msgid "Sharing social network usernames or email addresses"
 msgstr "分享社交網路使用者名稱或電子郵件位址"
 
@@ -1460,7 +1463,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:929
+#: src/as-content-rating.c:956
 msgid "Slapstick humor"
 msgstr "低俗鬧劇式幽默"
 
@@ -1475,7 +1478,7 @@ msgid "Strategy"
 msgstr "策略"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:922
+#: src/as-content-rating.c:949
 msgid "Strong or frequent use of profanity"
 msgstr "強烈或經常使用辱駡"
 
@@ -1491,7 +1494,7 @@ msgid ""
 "files."
 msgstr ""
 
-#: tools/ascli-utils.c:297
+#: tools/ascli-utils.c:263
 msgid "Summary"
 msgstr "摘要"
 
@@ -1509,7 +1512,7 @@ msgstr "系統監控"
 msgid "Tags of this name are not permitted in this section."
 msgstr ""
 
-#: src/as-content-rating.c:461 src/as-content-rating.c:531
+#: src/as-content-rating.c:461 src/as-content-rating.c:558
 msgid "Teen"
 msgstr "青少年 (13-19)"
 
@@ -1545,14 +1548,14 @@ msgid ""
 "valid."
 msgstr ""
 
-#: src/as-pool.c:1924
+#: src/as-pool.c:1932
 #, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
 "resulted in metadata being ignored: %s"
 msgstr "AppStream 系統快取已更新，但發現一些問題導致中介資料被忽略：%s"
 
-#: src/as-pool.c:1922
+#: src/as-pool.c:1930
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
@@ -1877,7 +1880,7 @@ msgid ""
 "`@` is only allowed as `_at_` or `_AT_`)."
 msgstr ""
 
-#: tools/ascli-actions-validate.c:363 tools/ascli-actions-validate.c:492
+#: tools/ascli-actions-validate.c:367 tools/ascli-actions-validate.c:496
 #, c-format
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
@@ -2134,12 +2137,12 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "無法寫入「%s」，無法安裝中介資料檔。"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:994
+#: src/as-content-rating.c:1021
 msgid "Uncontrolled audio or video chat functionality between users"
 msgstr "未受管制的使用者間音訊或視訊聊天功能"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:987
+#: src/as-content-rating.c:1014
 msgid "Uncontrolled chat functionality between users"
 msgstr "未受管制的使用者間聊天功能"
 
@@ -2156,22 +2159,22 @@ msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "未知比較關係「%s」。有效的值有："
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:847
+#: src/as-content-rating.c:874
 msgid "Unrealistic bloodshed"
 msgstr "非寫實的殺人"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:869
+#: src/as-content-rating.c:896
 msgid "Use of alcoholic beverages"
 msgstr "使用到酒精性飲料"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:879
+#: src/as-content-rating.c:906
 msgid "Use of illicit drugs"
 msgstr "使用到非法藥物"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:889
+#: src/as-content-rating.c:916
 msgid "Use of tobacco products"
 msgstr "使用到菸草產品"
 
@@ -2187,17 +2190,17 @@ msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:983
+#: src/as-content-rating.c:1010
 msgid "User-to-user interactions without chat functionality"
 msgstr "使用者與使用者間之互動不含聊天功能"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:973
+#: src/as-content-rating.c:1000
 msgid "Users are encouraged to donate real money"
 msgstr "鼓勵使用者捐贈實體金錢"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:955
+#: src/as-content-rating.c:982
 msgid "Users are encouraged to purchase specific real-world items"
 msgstr "鼓吹使用者購買特定真實世界商品"
 
@@ -2214,16 +2217,16 @@ msgstr "驗證 AppStream XML 檔是否有問題。"
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "驗證已安裝應用程式的檔案樹是否存在有效的中介資料。"
 
-#: tools/ascli-actions-validate.c:301 tools/ascli-actions-validate.c:442
+#: tools/ascli-actions-validate.c:305 tools/ascli-actions-validate.c:446
 #, c-format
 msgid "Validation failed: %s"
 msgstr "驗證失敗：%s"
 
-#: tools/ascli-actions-validate.c:289 tools/ascli-actions-validate.c:430
+#: tools/ascli-actions-validate.c:293 tools/ascli-actions-validate.c:434
 msgid "Validation was successful."
 msgstr "驗證成功。"
 
-#: tools/ascli-actions-validate.c:291 tools/ascli-actions-validate.c:432
+#: tools/ascli-actions-validate.c:295 tools/ascli-actions-validate.c:436
 #, c-format
 msgid "Validation was successful: %s"
 msgstr "驗證成功：%s"
@@ -2248,12 +2251,12 @@ msgid "Viewers"
 msgstr "檢視器"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1088
+#: src/as-content-rating.c:1129
 msgid "Visible dead human remains"
 msgstr "會看見亡者遺體"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:931
+#: src/as-content-rating.c:958
 msgid "Vulgar or bathroom humor"
 msgstr "粗俗或廁所式幽默"
 
@@ -2340,7 +2343,7 @@ msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
 msgstr "您需要指定要擴增的中介資訊檔，或用「-」列印至 stdout。"
 
-#: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479
+#: tools/ascli-actions-validate.c:389 tools/ascli-actions-validate.c:483
 msgid "You need to specify a root directory to start validation!"
 msgstr "您需要指定根基目錄才能開始驗證！"
 
@@ -2352,7 +2355,7 @@ msgstr "您需要指定個關鍵字來搜尋。"
 msgid "You need to specify an input and output file."
 msgstr "您需要指定輸入檔和輸出檔。"
 
-#: tools/ascli-actions-validate.c:263 tools/ascli-actions-validate.c:337
+#: tools/ascli-actions-validate.c:267 tools/ascli-actions-validate.c:341
 msgid "You need to specify at least one file to validate!"
 msgstr "您需要指定至少一個檔案作驗證！"
 
@@ -2369,25 +2372,25 @@ msgstr ""
 "件;套裝軟體;工具;公用程式"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:223
+#: tools/ascli-actions-validate.c:227
 #, c-format
 msgid "errors: %lu"
 msgstr "errors: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:237
+#: tools/ascli-actions-validate.c:241
 #, c-format
 msgid "infos: %lu"
 msgstr "infos: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:244
+#: tools/ascli-actions-validate.c:248
 #, c-format
 msgid "pedantic: %lu"
 msgstr "pedantic: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:230
+#: tools/ascli-actions-validate.c:234
 #, c-format
 msgid "warnings: %lu"
 msgstr "warnings: %lu"

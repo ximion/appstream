@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2020-11-30 19:42+0100\n"
+"POT-Creation-Date: 2021-01-10 03:02+0100\n"
 "PO-Revision-Date: 2020-09-06 01:36+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
@@ -88,7 +88,7 @@ msgid "ALL"
 msgstr "SEMUA"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:976
+#: src/as-content-rating.c:1003
 msgid "Ability to spend real money in-app"
 msgstr "Kemampuan untuk menghabiskan uang riil dalam aplikasi"
 
@@ -99,11 +99,11 @@ msgstr "Aksi"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:398
+#: src/as-category.c:320 tools/ascli-utils.c:364
 msgid "Add-ons"
 msgstr "Pengaya"
 
-#: src/as-content-rating.c:457 src/as-content-rating.c:533
+#: src/as-content-rating.c:457 src/as-content-rating.c:560
 msgid "Adults Only"
 msgstr "Hanya untuk orang dewasa"
 
@@ -190,7 +190,7 @@ msgstr ""
 "AppStream adalah spesifikasi lintas-distribusi untuk menyediakan metadata "
 "tentang komponen perangkat lunak."
 
-#: src/as-pool.c:1937
+#: src/as-pool.c:1945
 #, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
@@ -269,15 +269,15 @@ msgid "Board"
 msgstr "Papan"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:897
+#: src/as-content-rating.c:924
 msgid "Brief artistic nudity"
 msgstr "Ketelanjangan artistik singkat"
 
-#: tools/ascli-utils.c:299
+#: tools/ascli-utils.c:265
 msgid "Bundle"
 msgstr "Bundel"
 
-#: src/as-pool.c:1828
+#: src/as-pool.c:1836
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Lokasi singgahan '%s' tidak dapat ditulisi."
@@ -302,26 +302,26 @@ msgid "Card"
 msgstr "Kartu"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:816
+#: src/as-content-rating.c:843
 msgid "Cartoon characters in aggressive conflict"
 msgstr "Karakter kartun dalam konflik agresif"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:814
+#: src/as-content-rating.c:841
 msgid "Cartoon characters in unsafe situations"
 msgstr "Karakter kartun dalam situasi yang tidak aman"
 
-#: tools/ascli-utils.c:369
+#: tools/ascli-utils.c:335
 msgid "Categories"
 msgstr "Kategori"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:827
+#: src/as-content-rating.c:854
 msgid "Characters in aggressive conflict easily distinguishable from reality"
 msgstr "Karakter dalam konflik agresif dengan mudah dibedakan dari realitas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:825
+#: src/as-content-rating.c:852
 msgid "Characters in unsafe situations easily distinguishable from reality"
 msgstr ""
 "Karakter dalam situasi yang tidak aman dengan mudah dibedakan dari realitas"
@@ -332,7 +332,7 @@ msgid "Chat"
 msgstr "Komunikasi"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1012
+#: src/as-content-rating.c:1039
 msgid "Checking for the latest application version"
 msgstr "Memeriksa versi aplikasi terbaru"
 
@@ -370,7 +370,7 @@ msgstr "Komponen"
 msgid "Component '%s' has no installation candidate."
 msgstr "Komponen '%s' tidak punya kandidat instalasi."
 
-#: tools/ascli-utils.c:377
+#: tools/ascli-utils.c:343
 msgid "Compulsory for"
 msgstr "Wajib bagi"
 
@@ -437,7 +437,7 @@ msgid "Database"
 msgstr "Basis data"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1090
+#: src/as-content-rating.c:1131
 msgid "Dead human remains that are exposed to the elements"
 msgstr "Sisa manusia mati yang terpapar unsur"
 
@@ -446,7 +446,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Debugger"
 
-#: tools/ascli-utils.c:353
+#: tools/ascli-utils.c:319
 msgid "Default Screenshot URL"
 msgstr "Cuplikan Layar URL bawaan"
 
@@ -456,41 +456,41 @@ msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Format metadata baku (nilai yang valid adalah 'xml' dan 'yaml')."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:851
+#: src/as-content-rating.c:878
 msgid "Depictions of bloodshed and the mutilation of body parts"
 msgstr "Penggambaran pertumpahan darah dan mutilasi bagian tubuh"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1079
+#: src/as-content-rating.c:1120
 msgid "Depictions of modern-day human desecration"
 msgstr "Penggambaran tentang penodaan manusia zaman modern"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1101
+#: src/as-content-rating.c:1142
 msgid "Depictions of modern-day slavery"
 msgstr "Penggambaran perbudakan modern"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1077
+#: src/as-content-rating.c:1118
 msgid "Depictions of or references to historical desecration"
 msgstr "Penggambaran atau referensi tentang penodaan sejarah"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1099
+#: src/as-content-rating.c:1140
 msgid "Depictions of or references to historical slavery"
 msgstr "Penggambaran atau referensi tentang perbudakan sejarah"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:838
+#: src/as-content-rating.c:865
 msgid "Depictions of realistic characters in aggressive conflict"
 msgstr "Penggambaran karakter yang realistis dalam konflik agresif"
 
-#: tools/ascli-utils.c:333
+#: tools/ascli-utils.c:299
 msgid "Description"
 msgstr "Deskripsi"
 
 #. developer name
-#: tools/ascli-utils.c:321
+#: tools/ascli-utils.c:287
 msgid "Developer"
 msgstr "Pengembang"
 
@@ -500,17 +500,17 @@ msgid "Developer Tools"
 msgstr "Alat Pengembang"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1058
+#: src/as-content-rating.c:1099
 msgid "Direct references to adultery"
 msgstr "Referensi langsung ke perzinaan"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1047
+#: src/as-content-rating.c:1088
 msgid "Direct references to prostitution"
 msgstr "Referensi langsung ke prostitusi"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:942
+#: src/as-content-rating.c:969
 msgid "Discrimination designed to cause emotional harm"
 msgstr "Diskriminasi dirancang untuk menyebabkan kerusakan emosional"
 
@@ -537,7 +537,7 @@ msgstr "Jangan tampilkan keluaran berwarna."
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Curahkan metadata XML mentah bagi suatu komponen yang cocok ID-nya."
 
-#: src/as-content-rating.c:467 src/as-content-rating.c:528
+#: src/as-content-rating.c:467 src/as-content-rating.c:555
 msgid "Early Childhood"
 msgstr "Anak usia dini"
 
@@ -570,26 +570,26 @@ msgstr "Enumerasi hanya boleh memiliki item daftar (<li/>) sebagai anak."
 msgid "Error while loading the metadata pool: %s"
 msgstr "Kesalahan ketika memuat pool metadata: %s"
 
-#: src/as-content-rating.c:465 src/as-content-rating.c:529
+#: src/as-content-rating.c:465 src/as-content-rating.c:556
 msgid "Everyone"
 msgstr "Semua orang"
 
-#: src/as-content-rating.c:463 src/as-content-rating.c:530
+#: src/as-content-rating.c:463 src/as-content-rating.c:557
 msgid "Everyone 10+"
 msgstr "Semua orang 10+"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:944
+#: src/as-content-rating.c:971
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
 msgstr "Diskriminasi eksplisit berdasarkan gender, seksualitas, ras atau agama"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:953
+#: src/as-content-rating.c:980
 msgid "Explicit references to specific brands or trademarked products"
 msgstr ""
 "Referensi eksplisit untuk merek tertentu atau produk dengan merek dagang"
 
-#: tools/ascli-utils.c:327
+#: tools/ascli-utils.c:293
 msgid "Extends"
 msgstr "Memperluas"
 
@@ -638,7 +638,7 @@ msgctxt "Category of Utility"
 msgid "Featured"
 msgstr "Unggulan"
 
-#: tools/ascli-actions-validate.c:171 tools/ascli-actions-validate.c:349
+#: tools/ascli-actions-validate.c:175 tools/ascli-actions-validate.c:353
 #, c-format
 msgid "File '%s' does not exist."
 msgstr "Berkas '%s' tidak ada."
@@ -763,24 +763,24 @@ msgstr ""
 "baru jika Anda hanya ingin menambahkan data ubahan ke berkas metainfo."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:527 src/as-validator.c:946 src/as-validator.c:1028
-#: src/as-validator.c:1251
+#: src/as-validator.c:535 src/as-validator.c:954 src/as-validator.c:1036
+#: src/as-validator.c:1259
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Ditemukan: %s - Diizinkan: %s"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:962
+#: src/as-content-rating.c:989
 msgid "Gambling on random events using tokens or credits"
 msgstr "Perjudian pada peristiwa acak menggunakan token atau kredit"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:966
+#: src/as-content-rating.c:993
 msgid "Gambling using real money"
 msgstr "Perjudian menggunakan uang riil"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:964
+#: src/as-content-rating.c:991
 msgid "Gambling using “play” money"
 msgstr "Perjudian menggunakan \"permainan\" uang"
 
@@ -807,52 +807,52 @@ msgid "Get information about a component by its ID."
 msgstr "Dapatkan informasi tentang suatu komponen berdasarkan ID-nya."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1092
+#: src/as-content-rating.c:1133
 msgid "Graphic depictions of desecration of human bodies"
 msgstr "Penggambaran grafis penodaan tubuh manusia"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1081
+#: src/as-content-rating.c:1122
 msgid "Graphic depictions of modern-day desecration"
 msgstr "Penggambaran grafis tentang penodaan modern"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1103
+#: src/as-content-rating.c:1144
 msgid "Graphic depictions of modern-day slavery"
 msgstr "Penggambaran grafis tentang perbudakan modern"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1060
+#: src/as-content-rating.c:1101
 msgid "Graphic depictions of the act of adultery"
 msgstr "Penggambaran grafis dari tindakan perzinaan"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1049
+#: src/as-content-rating.c:1090
 msgid "Graphic depictions of the act of prostitution"
 msgstr "Penggambaran grafis dari prostitusi"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:911
+#: src/as-content-rating.c:938
 msgid "Graphic sexual behavior"
 msgstr "Perilaku seksual grafis"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1038
+#: src/as-content-rating.c:1079
 msgid "Graphic sexual behavior between people of the same gender"
 msgstr "Perilaku seksual grafis antara orang dengan jenis kelamin yang sama"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:829
+#: src/as-content-rating.c:856
 msgid "Graphic violence easily distinguishable from reality"
 msgstr "Kekerasan grafis dengan mudah dibedakan dari realitas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:818
+#: src/as-content-rating.c:845
 msgid "Graphic violence involving cartoon characters"
 msgstr "Kekerasan grafis yang melibatkan karakter kartun"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:840
+#: src/as-content-rating.c:867
 msgid "Graphic violence involving realistic characters"
 msgstr "Kekerasan grafis yang melibatkan karakter yang realistis"
 
@@ -861,7 +861,7 @@ msgstr "Kekerasan grafis yang melibatkan karakter yang realistis"
 msgid "Graphics & Photography"
 msgstr "Grafis & Fotografi"
 
-#: tools/ascli-utils.c:300
+#: tools/ascli-utils.c:266
 msgid "Homepage"
 msgstr "Beranda"
 
@@ -870,7 +870,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "IDE"
 
-#: tools/ascli-utils.c:301
+#: tools/ascli-utils.c:267
 msgid "Icon"
 msgstr "Ikon"
 
@@ -892,22 +892,22 @@ msgstr ""
 msgid "Iconsets"
 msgstr "Set ikon"
 
-#: tools/ascli-utils.c:295
+#: tools/ascli-utils.c:261
 msgid "Identifier"
 msgstr "Identifier"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1056
+#: src/as-content-rating.c:1097
 msgid "Indirect references to adultery"
 msgstr "Referensi tidak langsung untuk perzinaan"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1034
+#: src/as-content-rating.c:1075
 msgid "Indirect references to homosexuality"
 msgstr "Tidak ada referensi untuk homoseksualitas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1045
+#: src/as-content-rating.c:1086
 msgid "Indirect references to prostitution"
 msgstr "Referensi tidak langsung untuk prostitusi"
 
@@ -978,7 +978,7 @@ msgid "Kids"
 msgstr "Anak-anak"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1036
+#: src/as-content-rating.c:1077
 msgid "Kissing between people of the same gender"
 msgstr "Berciuman antara orang-orang dengan jenis kelamin yang sama"
 
@@ -997,7 +997,7 @@ msgid "Libraries"
 msgstr "Pustaka"
 
 #. license
-#: tools/ascli-utils.c:363
+#: tools/ascli-utils.c:329
 msgid "License"
 msgstr "Lisensi"
 
@@ -1065,12 +1065,12 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matematika"
 
-#: src/as-content-rating.c:459 src/as-content-rating.c:532
+#: src/as-content-rating.c:459 src/as-content-rating.c:559
 msgid "Mature"
 msgstr "Dewasa"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:933
+#: src/as-content-rating.c:960
 msgid "Mature or sexual humor"
 msgstr "Humor dewasa atau seksual"
 
@@ -1108,12 +1108,12 @@ msgid "Metainfo files:"
 msgstr "Berkas metainfo:"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:918
+#: src/as-content-rating.c:945
 msgid "Mild or infrequent use of profanity"
 msgstr "Penggunaan ringan atau jarang kata-kata tidak senonoh"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:836
+#: src/as-content-rating.c:863
 msgid "Mildly realistic characters in unsafe situations"
 msgstr "Sedikit karakter realistis dalam situasi yang tidak aman"
 
@@ -1122,12 +1122,12 @@ msgid "Modaliases"
 msgstr "Modalias"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:920
+#: src/as-content-rating.c:947
 msgid "Moderate use of profanity"
 msgstr "Penggunaan sedang kata-kata tidak senonoh"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:985
+#: src/as-content-rating.c:1012
 msgid "Moderated chat functionality between users"
 msgstr "Moderasi fungsi obrolan antar pengguna"
 
@@ -1136,12 +1136,12 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Pemutar Musik"
 
-#: tools/ascli-utils.c:296
+#: tools/ascli-utils.c:262
 msgid "Name"
 msgstr "Nama"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:940
+#: src/as-content-rating.c:967
 msgid "Negativity towards a specific group of people"
 msgstr "Negatif terhadap sekelompok orang tertentu"
 
@@ -1162,22 +1162,22 @@ msgid "No XDG applications directory found."
 msgstr "Tidak ada direktori aplikasi XDG yang ditemukan."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:971
+#: src/as-content-rating.c:998
 msgid "No ability to spend money"
 msgstr "Tidak ada kemampuan membelanjakan uang"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:949
+#: src/as-content-rating.c:976
 msgid "No advertising of any kind"
 msgstr "Tidak ada iklan jenis apapun"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:845
+#: src/as-content-rating.c:872
 msgid "No bloodshed"
 msgstr "Tidak ada pertumpahan darah"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:812
+#: src/as-content-rating.c:839
 msgid "No cartoon violence"
 msgstr "Tidak ada kekerasan kartun"
 
@@ -1187,17 +1187,17 @@ msgid "No component matching '%s' found."
 msgstr "Tidak ditemukan komponen yang cocok '%s'."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:938
+#: src/as-content-rating.c:965
 msgid "No discriminatory language of any kind"
 msgstr "Tidak ada bahasa diskriminatif apapun"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:823
+#: src/as-content-rating.c:850
 msgid "No fantasy violence"
 msgstr "Tidak ada kekerasan fantasi"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:960
+#: src/as-content-rating.c:987
 msgid "No gambling of any kind"
 msgstr "Tidak ada perjudian jenis apapun"
 
@@ -1206,12 +1206,12 @@ msgid "No icons."
 msgstr "Tak ada ikon."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:927
+#: src/as-content-rating.c:954
 msgid "No inappropriate humor"
 msgstr "Tidak ada humor yang tidak pantas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:895
+#: src/as-content-rating.c:922
 msgid "No nudity of any sort"
 msgstr "Tidak ada ketelanjangan apapun"
 
@@ -1222,7 +1222,7 @@ msgstr ""
 "secara langsung."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:916
+#: src/as-content-rating.c:943
 msgid "No profanity of any kind"
 msgstr "Tidak ada kata-kata tidak senonoh apapun"
 
@@ -1236,77 +1236,77 @@ msgstr ""
 "'Exec='."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:834
+#: src/as-content-rating.c:861
 msgid "No realistic violence"
 msgstr "Tidak ada kekerasan realistis"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1054
+#: src/as-content-rating.c:1095
 msgid "No references to adultery"
 msgstr "Tidak ada referensi untuk perzinaan"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:865
+#: src/as-content-rating.c:892
 msgid "No references to alcohol"
 msgstr "Tidak ada referensi untuk alkohol"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1075
+#: src/as-content-rating.c:1116
 msgid "No references to desecration"
 msgstr "Tidak ada referensi untuk penodaan"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1032
+#: src/as-content-rating.c:1073
 msgid "No references to homosexuality"
 msgstr "Tidak ada referensi untuk homoseksualitas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:875
+#: src/as-content-rating.c:902
 msgid "No references to illicit drugs"
 msgstr "Tidak ada referensi untuk obat-obatan terlarang"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:905
+#: src/as-content-rating.c:932
 msgid "No references to or depictions of sexual nature"
 msgstr "Tidak ada referensi atau penggambaran sifat seksual"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1043
+#: src/as-content-rating.c:1084
 msgid "No references to prostitution"
 msgstr "Tidak ada referensi untuk prostitusi"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1097
+#: src/as-content-rating.c:1138
 msgid "No references to slavery"
 msgstr "Tidak ada referensi untuk perbudakan"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:885
+#: src/as-content-rating.c:912
 msgid "No references to tobacco products"
 msgstr "Tidak ada referensi untuk produk tembakau"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:856
+#: src/as-content-rating.c:883
 msgid "No sexual violence"
 msgstr "Tidak ada kekerasan seksual"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1065
+#: src/as-content-rating.c:1106
 msgid "No sexualized characters"
 msgstr "Tidak ada karakter seksual"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1021
+#: src/as-content-rating.c:1048
 msgid "No sharing of physical location with other users"
 msgstr "Tidak berbagi lokasi fisik dengan pengguna lain"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1001
+#: src/as-content-rating.c:1028
 msgid "No sharing of social network usernames or email addresses"
 msgstr "Tidak berbagi alamat surel atau nama pengguna media sosial"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1010
+#: src/as-content-rating.c:1037
 msgid "No sharing of user information with third parties"
 msgstr "Tidak berbagi informasi pengguna dengan pihak ketiga"
 
@@ -1329,17 +1329,17 @@ msgid "No value for the item to search for was defined."
 msgstr "Tidak ada nilai yang didefinisikan bagi butir yang dicari."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1086
+#: src/as-content-rating.c:1127
 msgid "No visible dead human remains"
 msgstr "Tidak ada sisa manusia mati yang terlihat"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:981
+#: src/as-content-rating.c:1008
 msgid "No way to chat with other users"
 msgstr "Tidak ada cara untuk mengobrol dengan pengguna lain"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:992
+#: src/as-content-rating.c:1019
 msgid "No way to talk with other users"
 msgstr "Tidak ada cara untuk berbicara dengan pengguna lain"
 
@@ -1355,11 +1355,11 @@ msgid "Option '%s' is unknown."
 msgstr "Opsi '%s' tak dikenal."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1070
+#: src/as-content-rating.c:1111
 msgid "Overtly sexualized human characters"
 msgstr "Karakter manusia seksual secara menyeluruh"
 
-#: tools/ascli-utils.c:298
+#: tools/ascli-utils.c:264
 msgid "Package"
 msgstr "Paket"
 
@@ -1379,26 +1379,26 @@ msgid "Print detailed output about found components."
 msgstr "Cetak keluaran terrinci tentang komponen yang ditemukan."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:951
+#: src/as-content-rating.c:978
 msgid "Product placement"
 msgstr "Penempatan produk"
 
 #. project group
-#: tools/ascli-utils.c:360
+#: tools/ascli-utils.c:326
 msgid "Project Group"
 msgstr "Grup Proyek"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:899
+#: src/as-content-rating.c:926
 msgid "Prolonged nudity"
 msgstr "Ketelanjangan berkepanjangan"
 
-#: tools/ascli-utils.c:405
+#: tools/ascli-utils.c:371
 msgid "Provided Items"
 msgstr "Butir Yang Disediakan"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:907
+#: src/as-content-rating.c:934
 msgid "Provocative references or depictions"
 msgstr "Referensi provokatif atau penggambaran"
 
@@ -1411,12 +1411,12 @@ msgid "Python 3"
 msgstr "Python 3"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:858
+#: src/as-content-rating.c:885
 msgid "Rape or other violent sexual behavior"
 msgstr "Perkosaan atau perilaku seksual kekerasan lainnya"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:849
+#: src/as-content-rating.c:876
 msgid "Realistic bloodshed"
 msgstr "Pertumpahan darah yang realistis"
 
@@ -1425,17 +1425,17 @@ msgid "Rebuild the component metadata cache."
 msgstr "Bangun ulang singgahan metadata komponen."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:867
+#: src/as-content-rating.c:894
 msgid "References to alcoholic beverages"
 msgstr "Referensi untuk minuman beralkohol"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:877
+#: src/as-content-rating.c:904
 msgid "References to illicit drugs"
 msgstr "Referensi untuk obat-obatan terlarang"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:887
+#: src/as-content-rating.c:914
 msgid "References to tobacco products"
 msgstr "Referensi untuk produk tembakau"
 
@@ -1485,7 +1485,7 @@ msgid "Scanning"
 msgstr "Pemindaian"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1068
+#: src/as-content-rating.c:1109
 msgid "Scantily clad human characters"
 msgstr "Karakter manusia berpakaian minim"
 
@@ -1504,30 +1504,30 @@ msgid "Security"
 msgstr "Keamanan"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:909
+#: src/as-content-rating.c:936
 msgid "Sexual references or depictions"
 msgstr "Referensi seksual atau penggambaran"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1014
+#: src/as-content-rating.c:1041
 msgid "Sharing diagnostic data that does not let others identify the user"
 msgstr ""
 "Berbagi data diagnostik yang tidak membiarkan orang lain mengidentifikasi "
 "pengguna"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1016
+#: src/as-content-rating.c:1043
 msgid "Sharing information that lets others identify the user"
 msgstr ""
 "Berbagi informasi yang memungkinkan orang lain mengidentifikasi pengguna"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1023
+#: src/as-content-rating.c:1050
 msgid "Sharing physical location with other users"
 msgstr "Berbagi lokasi fisik dengan pengguna lain"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1003
+#: src/as-content-rating.c:1030
 msgid "Sharing social network usernames or email addresses"
 msgstr "Berbagai nama pengguna jejaring sosial atau alamat surel"
 
@@ -1552,7 +1552,7 @@ msgstr ""
 "runtime ini."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:929
+#: src/as-content-rating.c:956
 msgid "Slapstick humor"
 msgstr "Humor slapstick"
 
@@ -1567,7 +1567,7 @@ msgid "Strategy"
 msgstr "Strategi"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:922
+#: src/as-content-rating.c:949
 msgid "Strong or frequent use of profanity"
 msgstr "Penggunaan kuat atau sering kata-kata tidak senonoh"
 
@@ -1584,7 +1584,7 @@ msgid ""
 msgstr ""
 "Saran tipe apa pun selain `upstream` tidak diizinkan dalam berkas metainfo."
 
-#: tools/ascli-utils.c:297
+#: tools/ascli-utils.c:263
 msgid "Summary"
 msgstr "Ringkasan"
 
@@ -1602,7 +1602,7 @@ msgstr "Pemantauan Sistem"
 msgid "Tags of this name are not permitted in this section."
 msgstr "Tag nama ini tidak diizinkan di bagian ini."
 
-#: src/as-content-rating.c:461 src/as-content-rating.c:531
+#: src/as-content-rating.c:461 src/as-content-rating.c:558
 msgid "Teen"
 msgstr "Remaja"
 
@@ -1643,7 +1643,7 @@ msgstr ""
 "dengan setidaknya granularitas hari untuk menunjukkan tanggal. Harap "
 "pastikan string tanggal valid."
 
-#: src/as-pool.c:1924
+#: src/as-pool.c:1932
 #, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
@@ -1652,7 +1652,7 @@ msgstr ""
 "Singgahan sistem AppStream dimutakhirkan, tapi ditemukan masalah yang "
 "menyebabkan metadata diabaikan: %s"
 
-#: src/as-pool.c:1922
+#: src/as-pool.c:1930
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
@@ -2082,7 +2082,7 @@ msgstr ""
 "Nilai update-contact tampaknya bukan alamat email yang valid (meng-escape "
 "`@` hanya diizinkan sebagai `_at_` atau `_AT_`)."
 
-#: tools/ascli-actions-validate.c:363 tools/ascli-actions-validate.c:492
+#: tools/ascli-actions-validate.c:367 tools/ascli-actions-validate.c:496
 #, c-format
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
@@ -2391,12 +2391,12 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Tidak bisa menulis ke '%s', tidak bisa memasang berkas metainfo."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:994
+#: src/as-content-rating.c:1021
 msgid "Uncontrolled audio or video chat functionality between users"
 msgstr "Fungsi obrolan audio atau video yang tidak terkontrol antara pengguna"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:987
+#: src/as-content-rating.c:1014
 msgid "Uncontrolled chat functionality between users"
 msgstr "Fungsi obrolan yang tidak terkontrol antara pengguna"
 
@@ -2414,22 +2414,22 @@ msgstr ""
 "Hubungan perbandingan tidak dikenal '%s'. Nilai-nilai yang valid adalah:"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:847
+#: src/as-content-rating.c:874
 msgid "Unrealistic bloodshed"
 msgstr "Pertumpahan darah yang tidak realistis"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:869
+#: src/as-content-rating.c:896
 msgid "Use of alcoholic beverages"
 msgstr "Penggunaan minuman beralkohol"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:879
+#: src/as-content-rating.c:906
 msgid "Use of illicit drugs"
 msgstr "Penggunaan obat-obatan terlarang"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:889
+#: src/as-content-rating.c:916
 msgid "Use of tobacco products"
 msgstr "Penggunaan produk tembakau"
 
@@ -2449,17 +2449,17 @@ msgstr ""
 "desktop."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:983
+#: src/as-content-rating.c:1010
 msgid "User-to-user interactions without chat functionality"
 msgstr "Interaksi antar pengguna tanpa fungsi obrolan"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:973
+#: src/as-content-rating.c:1000
 msgid "Users are encouraged to donate real money"
 msgstr "Pengguna dianjurkan untuk menyumbangkan uang sungguhan"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:955
+#: src/as-content-rating.c:982
 msgid "Users are encouraged to purchase specific real-world items"
 msgstr "Pengguna dianjurkan untuk membeli barang dunia nyata tertentu"
 
@@ -2476,16 +2476,16 @@ msgstr "Validasikan berkas XML AppStream apakah bermasalah."
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "Validasikan metadata pohon berkas terpasang dari suatu aplikasi."
 
-#: tools/ascli-actions-validate.c:301 tools/ascli-actions-validate.c:442
+#: tools/ascli-actions-validate.c:305 tools/ascli-actions-validate.c:446
 #, c-format
 msgid "Validation failed: %s"
 msgstr "Validasi gagal: %s"
 
-#: tools/ascli-actions-validate.c:289 tools/ascli-actions-validate.c:430
+#: tools/ascli-actions-validate.c:293 tools/ascli-actions-validate.c:434
 msgid "Validation was successful."
 msgstr "Validasi sukses."
 
-#: tools/ascli-actions-validate.c:291 tools/ascli-actions-validate.c:432
+#: tools/ascli-actions-validate.c:295 tools/ascli-actions-validate.c:436
 #, c-format
 msgid "Validation was successful: %s"
 msgstr "Validasi sukses: %s"
@@ -2510,12 +2510,12 @@ msgid "Viewers"
 msgstr "Penampil"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1088
+#: src/as-content-rating.c:1129
 msgid "Visible dead human remains"
 msgstr "Sisa manusia mati yang terlihat"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:931
+#: src/as-content-rating.c:958
 msgid "Vulgar or bathroom humor"
 msgstr "Vulgar atau humor kamar mandi"
 
@@ -2615,7 +2615,7 @@ msgstr ""
 "Anda perlu menyatakan suatu berkas metainfo yang akan ditambah, atau '-' "
 "untuk mencetak stdout."
 
-#: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479
+#: tools/ascli-actions-validate.c:389 tools/ascli-actions-validate.c:483
 msgid "You need to specify a root directory to start validation!"
 msgstr "Anda perlu menyatakan suatu direktori akar untuk memulai validasi!"
 
@@ -2627,7 +2627,7 @@ msgstr "Anda perlu menyatakan istilah yang akan dicari."
 msgid "You need to specify an input and output file."
 msgstr "Anda perlu menyatakan berkas masukan dan keluaran."
 
-#: tools/ascli-actions-validate.c:263 tools/ascli-actions-validate.c:337
+#: tools/ascli-actions-validate.c:267 tools/ascli-actions-validate.c:341
 msgid "You need to specify at least one file to validate!"
 msgstr "Anda perlu menyatakan paling tidak sebuah berkas yang akan divalidasi!"
 
@@ -2642,25 +2642,25 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;application;package;program;programme;suite;tool;aplikasi;paket"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:223
+#: tools/ascli-actions-validate.c:227
 #, c-format
 msgid "errors: %lu"
 msgstr "kesalahan: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:237
+#: tools/ascli-actions-validate.c:241
 #, c-format
 msgid "infos: %lu"
 msgstr "info: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:244
+#: tools/ascli-actions-validate.c:248
 #, c-format
 msgid "pedantic: %lu"
 msgstr "pedantik: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:230
+#: tools/ascli-actions-validate.c:234
 #, c-format
 msgid "warnings: %lu"
 msgstr "peringatan: %lu"
