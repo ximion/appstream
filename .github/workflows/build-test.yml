@@ -12,9 +12,13 @@ jobs:
     - name: Create Build Environment
       run: cd tests/ci/ && docker build -t appstream -f ./Dockerfile-debian-stable .
 
-    - name: Build & Test
+    - name: Build
       run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
-           ./tests/ci/build-and-test.sh
+           ./tests/ci/run-build.sh
+
+    - name: Test
+      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
+           ./tests/ci/run-tests.sh
 
 
   build-debian-testing:
@@ -26,9 +30,21 @@ jobs:
     - name: Create Build Environment
       run: cd tests/ci/ && docker build -t appstream -f ./Dockerfile-debian-testing .
 
-    - name: Build & Test
+    - name: Build
       run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
-           ./tests/ci/build-and-test.sh
+           ./tests/ci/run-build.sh
+
+    - name: Test
+      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
+           ./tests/ci/run-tests.sh
+
+    - name: Build (asan, ubsan)
+      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
+           ./tests/ci/run-build.sh sanitize
+
+    - name: Test (asan, ubsan)
+      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
+           ./tests/ci/run-tests.sh sanitize
 
 
   build-ubuntu:
@@ -39,6 +55,9 @@ jobs:
 
     - name: Create Build Environment
       run: sudo ./tests/ci/install-deps-deb.sh
-      
-    - name: Build & Test
-      run: CC=gcc CXX=g++ ./tests/ci/build-and-test.sh
+
+    - name: Build
+      run: CC=gcc CXX=g++ ./tests/ci/run-build.sh
+
+    - name: Test
+      run: CC=gcc CXX=g++ ./tests/ci/run-tests.sh
