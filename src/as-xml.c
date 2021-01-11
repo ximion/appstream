@@ -330,7 +330,7 @@ as_xml_markup_parse_helper_new (const gchar *markup, const gchar *locale)
 	AsXMLMarkupParseHelper *helper = g_slice_new0 (AsXMLMarkupParseHelper);
 
 	helper->locale = g_strdup (locale);
-	xmldata = g_strdup_printf ("<root>%s</root>", markup);
+	xmldata = g_strconcat ("<root>", markup, "</root>", NULL);
 	helper->doc = xmlReadMemory (xmldata, strlen (xmldata),
 					NULL,
 					"utf-8",
