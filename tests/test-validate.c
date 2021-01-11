@@ -26,17 +26,169 @@
 
 static gchar *datadir = NULL;
 
+typedef struct {
+	const gchar	*tag;
+	const gchar	*hint;
+	glong		line;
+	AsIssueSeverity	severity;
+} AsVResultCheck;
+
 /**
- * test_validator_create:
+ * _astest_validate_sample_fname:
  *
- * Placeholder test function that just creates a validator and removes it again
- * for now.
+ * Validate file from sample directory with the given validator.
+ */
+static gboolean
+_astest_validate_sample_fname (AsValidator *validator, const gchar *basename)
+{
+	g_autofree gchar *fname;
+	g_autoptr(GFile) file = NULL;
+
+	fname = g_build_filename (datadir, basename, NULL);
+	file = g_file_new_for_path (fname);
+	g_assert_true (g_file_query_exists (file, NULL));
+
+	return as_validator_validate_file (validator, file);
+}
+
+/**
+ * print_single_issue:
+ **/
+static gchar*
+_astest_issue_info_to_string (const gchar *tag, const gchar *hint, glong line, AsIssueSeverity severity)
+{
+	return g_strdup_printf ("%s:%s:%li:%s",
+				tag,
+				hint,
+				line,
+				as_issue_severity_to_string (severity));
+}
+
+/**
+ * _astest_validate_check_results:
+ *
+ * Ensure the specified checks pass for the given validator results.
  */
 static void
-test_validator_create ()
+_astest_check_validate_issues (GList *issues, AsVResultCheck *checks_all)
 {
-	AsValidator *validator = as_validator_new ();
-	g_object_unref (validator);
+	g_autoptr(GHashTable) checks = g_hash_table_new_full (g_str_hash,
+							      g_str_equal,
+							      g_free,
+							      NULL);
+
+	for (guint i = 0; checks_all[i].tag != NULL; i++)
+		g_hash_table_insert (checks,
+				     g_strconcat (checks_all[i].tag, ":", checks_all[i].hint, NULL),
+				     &checks_all[i]);
+
+	for (GList *l = issues; l != NULL; l = l->next) {
+		g_autofree gchar *issue_idstr = NULL;
+		g_autofree gchar *expected_idstr = NULL;
+		g_autofree gchar *check_key = NULL;
+		AsVResultCheck *check;
+		AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (l->data);
+		const gchar *tag = as_validator_issue_get_tag (issue);
+		const gchar *hint = as_validator_issue_get_hint (issue);
+
+		check_key = g_strconcat (tag, ":", hint, NULL);
+		issue_idstr = _astest_issue_info_to_string (tag,
+							    hint,
+							    as_validator_issue_get_line (issue),
+							    as_validator_issue_get_severity (issue));
+		check = g_hash_table_lookup (checks, check_key);
+		if (check == NULL) {
+			g_error ("Encountered unexpected validation issue: %s", issue_idstr);
+			g_assert_not_reached ();
+		}
+		expected_idstr = _astest_issue_info_to_string (check->tag,
+								check->hint,
+								check->line,
+								check->severity);
+
+		g_assert_cmpstr (expected_idstr, ==, issue_idstr);
+		g_hash_table_remove (checks, check_key);
+	}
+
+	if (g_hash_table_size (checks) != 0) {
+		g_autofree gchar *tmp = NULL;
+		g_autofree gchar **strv = NULL;
+		strv = (gchar**) g_hash_table_get_keys_as_array (checks, NULL);
+		tmp = g_strjoinv ("; ", strv);
+		g_error ("Expected validation issues were not found: %s", tmp);
+		g_assert_not_reached ();
+	}
+}
+
+/**
+ * test_validator_manyerrors_desktopapp:
+ *
+ * Test desktop-application metainfo file with many issues.
+ */
+static void
+test_validator_manyerrors_desktopapp ()
+{
+	g_autoptr(GList) issues = NULL;
+	g_autoptr(AsValidator) validator = as_validator_new ();
+
+	AsVResultCheck expected_results[] =  {
+		{ "metadata-license-invalid",
+		  "GPL-2.0+", 8,
+		  AS_ISSUE_SEVERITY_ERROR,
+		},
+		{ "spdx-license-unknown",
+		  "weird", 9,
+		  AS_ISSUE_SEVERITY_WARNING,
+		},
+		{ "summary-has-dot-suffix",
+		  "Too short, ends with dot.", 12,
+		  AS_ISSUE_SEVERITY_INFO,
+		},
+		{ "name-has-dot-suffix",
+		  "A name.", 11,
+		  AS_ISSUE_SEVERITY_PEDANTIC,
+		},
+		{ "cid-contains-hyphen",
+		  "7-bad-ID", 7,
+		  AS_ISSUE_SEVERITY_INFO,
+		},
+		{ "cid-contains-uppercase-letter",
+		  "7-bad-ID", 7,
+		  AS_ISSUE_SEVERITY_PEDANTIC,
+		},
+		{ "cid-has-number-prefix",
+		  "7-bad-ID: 7-bad-ID → _7-bad-ID", 7,
+		  AS_ISSUE_SEVERITY_INFO,
+		},
+		{ "cid-desktopapp-is-not-rdns",
+		  "7-bad-ID", 7,
+		  AS_ISSUE_SEVERITY_WARNING,
+		},
+		{ "description-first-para-too-short",
+		  "Have some invalid markup as well as some valid one.", 15,
+		  AS_ISSUE_SEVERITY_INFO,
+		},
+		{ "description-para-markup-invalid",
+		  "b", 16,
+		  AS_ISSUE_SEVERITY_ERROR,
+		},
+		{ "url-not-secure",
+		  "http://www.example.org/insecure-url", 21,
+		  AS_ISSUE_SEVERITY_INFO,
+		},
+		{ "web-url-expected",
+		  "not a link", 20,
+		  AS_ISSUE_SEVERITY_ERROR,
+		},
+
+		{ NULL, NULL, AS_ISSUE_SEVERITY_UNKNOWN }
+	};
+
+	_astest_validate_sample_fname (validator, "many-errors-desktopapp.xml");
+
+	issues = as_validator_get_issues (validator);
+	_astest_check_validate_issues (issues,
+				       (AsVResultCheck*) &expected_results);
 }
 
 int
@@ -59,7 +211,7 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
-	g_test_add_func ("/AppStream/Validate/Create", test_validator_create);
+	g_test_add_func ("/AppStream/Validate/DesktopAppManyErrors", test_validator_manyerrors_desktopapp);
 
 	ret = g_test_run ();
 	g_free (datadir);

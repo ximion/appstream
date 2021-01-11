@@ -401,6 +401,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("Consider using a secure (HTTPS) URL for this web link."),
 	},
 
+	{ "web-url-expected",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("A web URL was expected for this value."),
+	},
+
 	{ "url-uses-ftp",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("This web link uses the FTP protocol. Consider switching to HTTP(S) instead."),

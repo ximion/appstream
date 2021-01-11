@@ -650,6 +650,8 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 								"description/p");
 			}
 			if (main_description) {
+				if (node_content != NULL)
+					g_strstrip (node_content);
 				if ((first_paragraph) && (strlen (node_content) < 80)) {
 					as_validator_add_issue (validator, iter,
 								"description-first-para-too-short",
@@ -966,6 +968,12 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				g_autofree gchar *image_url = as_strstripnl ((gchar*) xmlNodeGetContent (iter2));
 
 				image_found = TRUE;
+				if (!as_validate_is_url (image_url)) {
+					as_validator_add_issue (validator, iter2,
+								"web-url-expected",
+								image_url);
+					continue;
+				}
 				if (!as_validate_is_secure_url (image_url)) {
 					as_validator_add_issue (validator, iter2,
 								"screenshot-media-url-not-secure",
@@ -995,6 +1003,12 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 								video_url,
 								"screenshot-video-not-found");
 
+				if (!as_validate_is_url (video_url)) {
+					as_validator_add_issue (validator, iter2,
+								"web-url-expected",
+								video_url);
+					continue;
+				}
 				if (!as_validate_is_secure_url (video_url)) {
 					as_validator_add_issue (validator, iter2,
 								"screenshot-media-url-not-secure",
@@ -1394,6 +1408,11 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				if (!as_validate_is_url (node_content)) {
 					as_validator_add_issue (validator, iter, "icon-remote-no-url", NULL);
 				} else {
+					if (as_validate_is_url (node_content)) {
+						as_validator_add_issue (validator, iter, "web-url-expected", node_content);
+						continue;
+					}
+
 					if (!as_validate_is_secure_url (node_content))
 						as_validator_add_issue (validator, iter, "icon-remote-not-secure", node_content);
 
@@ -1413,6 +1432,11 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			g_autofree gchar *prop = as_validator_check_type_property (validator, cpt, iter);
 			if (as_url_kind_from_string (prop) == AS_URL_KIND_UNKNOWN)
 				as_validator_add_issue (validator, iter, "url-invalid-type", prop);
+
+			if (!as_validate_is_url (node_content)) {
+				as_validator_add_issue (validator, iter, "web-url-expected", node_content);
+				continue;
+			}
 
 			if (!as_validate_is_secure_url (node_content))
 				as_validator_add_issue (validator, iter, "url-not-secure", node_content);

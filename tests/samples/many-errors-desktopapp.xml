@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- NOTE: This file is part of AppStream's testsuite, and is supposed
+to contain a lot of issues for the validator to catch -->
+
+<component type="desktop-application">
+  <id>7-bad-ID</id>
+  <metadata_license>GPL-2.0+</metadata_license>
+  <project_license>weird</project_license>
+
+  <name>A name.</name>
+  <summary>Too short, ends with dot.</summary>
+
+  <description>
+    <p>
+      Have some <b>invalid</b> markup as well as some <code>valid</code> one.
+    </p>
+  </description>
+
+  <url type="homepage">not a link</url>
+  <url type="help">http://www.example.org/insecure-url</url>
+
+  <project_group>Unregistered</project_group>
+</component>
