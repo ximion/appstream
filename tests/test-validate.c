@@ -181,7 +181,7 @@ test_validator_manyerrors_desktopapp ()
 		  AS_ISSUE_SEVERITY_ERROR,
 		},
 
-		{ NULL, NULL, AS_ISSUE_SEVERITY_UNKNOWN }
+		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }
 	};
 
 	_astest_validate_sample_fname (validator, "many-errors-desktopapp.xml");
