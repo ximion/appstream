@@ -124,6 +124,8 @@ if get_option('compose')
     test ('as-test_compose',
         as_test_compose_exe,
         args: as_test_args,
-        env: as_test_env
+        env: [as_test_env,
+              'LSAN_OPTIONS=suppressions=' +
+                  join_paths(meson.current_source_dir(), 'lsan-suppr.txt')]
     )
 endif

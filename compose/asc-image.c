@@ -266,7 +266,7 @@ asc_image_supported_format_names (void)
 
 	for (GSList *l = fm_list; l != NULL; l = l->next)
 		g_hash_table_add (res,
-				  g_strdup ((const gchar*) gdk_pixbuf_format_get_name (l->data)));
+				  gdk_pixbuf_format_get_name (l->data));
 
 	return res;
 }

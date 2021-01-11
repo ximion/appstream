@@ -41,26 +41,26 @@ G_DEFINE_TYPE_WITH_PRIVATE (AscHint, asc_hint, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (asc_hint_get_instance_private (o))
 
 static void
-asc_hint_finalize (GObject *object)
-{
-	AscHint *hint = ASC_HINT (object);
-	AscHintPrivate *priv = GET_PRIVATE (hint);
-
-	priv->severity = AS_ISSUE_SEVERITY_UNKNOWN;
-	if (priv->vars != NULL)
-		g_ptr_array_unref (priv->vars);
-
-	G_OBJECT_CLASS (asc_hint_parent_class)->finalize (object);
-}
-
-static void
 asc_hint_init (AscHint *hint)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
 
 	priv->vars = g_ptr_array_new_with_free_func (g_free);
+}
+
+static void
+asc_hint_finalize (GObject *object)
+{
+	AscHint *hint = ASC_HINT (object);
+	AscHintPrivate *priv = GET_PRIVATE (hint);
+
 	g_free (priv->tag);
 	g_free (priv->explanation_tmpl);
+	priv->severity = AS_ISSUE_SEVERITY_UNKNOWN;
+	if (priv->vars != NULL)
+		g_ptr_array_unref (priv->vars);
+
+	G_OBJECT_CLASS (asc_hint_parent_class)->finalize (object);
 }
 
 static void
