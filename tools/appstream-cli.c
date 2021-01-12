@@ -231,11 +231,10 @@ as_client_option_context_parse (GOptionContext *opt_context, const gchar *subcom
  * Refresh the AppStream caches.
  */
 static int
-as_client_run_refresh_cache (char **argv, int argc)
+as_client_run_refresh_cache (const gchar *command, char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
-	const gchar *command = "refresh";
 
 	const GOptionEntry refresh_options[] = {
 		{ "force", (gchar) 0, 0,
@@ -266,12 +265,11 @@ as_client_run_refresh_cache (char **argv, int argc)
  * Search for AppStream metadata.
  */
 static int
-as_client_run_search (char **argv, int argc)
+as_client_run_search (const gchar *command, char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 	const gchar *value = NULL;
-	const gchar *command = "search";
 
 	opt_context = as_client_new_subcommand_option_context (command, find_options);
 	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
@@ -295,12 +293,11 @@ as_client_run_search (char **argv, int argc)
  * Get components by its ID.
  */
 static int
-as_client_run_get (char **argv, int argc)
+as_client_run_get (const gchar *command, char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 	const gchar *value = NULL;
-	const gchar *command = "get";
 
 	opt_context = as_client_new_subcommand_option_context (command, find_options);
 	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
@@ -324,13 +321,12 @@ as_client_run_get (char **argv, int argc)
  * Dump the raw component metadata to the console.
  */
 static int
-as_client_run_dump (char **argv, int argc)
+as_client_run_dump (const gchar *command, char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 	const gchar *value = NULL;
 	AsFormatKind mformat;
-	const gchar *command = "dump";
 
 	opt_context = as_client_new_subcommand_option_context (command, data_collection_options);
 	g_option_context_add_main_entries (opt_context, format_options, NULL);
@@ -355,13 +351,12 @@ as_client_run_dump (char **argv, int argc)
  * Find components that provide a certain item.
  */
 static int
-as_client_run_what_provides (char **argv, int argc)
+as_client_run_what_provides (const gchar *command, char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 	const gchar *vtype = NULL;
 	const gchar *vvalue = NULL;
-	const gchar *command = "what-provides";
 
 	opt_context = as_client_new_subcommand_option_context (command, find_options);
 	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
@@ -387,11 +382,10 @@ as_client_run_what_provides (char **argv, int argc)
  * Validate single metadata files.
  */
 static int
-as_client_run_validate (char **argv, int argc)
+as_client_run_validate (const gchar *command, char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
-	const gchar *command = "validate";
 
 	opt_context = as_client_new_subcommand_option_context (command, validate_options);
 	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
@@ -419,12 +413,11 @@ as_client_run_validate (char **argv, int argc)
  * and .desktop files.
  */
 static int
-as_client_run_validate_tree (char **argv, int argc)
+as_client_run_validate_tree (const gchar *command, char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 	const gchar *value = NULL;
-	const gchar *command = "validate-tree";
 
 	opt_context = as_client_new_subcommand_option_context (command, validate_options);
 	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
@@ -452,10 +445,9 @@ as_client_run_validate_tree (char **argv, int argc)
  * Place a metadata file in the right directory.
  */
 static int
-as_client_run_put (char **argv, int argc)
+as_client_run_put (const gchar *command, char **argv, int argc)
 {
 	const gchar *value = NULL;
-	const gchar *command = "put";
 
 	if (argc > 2)
 		value = argv[2];
@@ -473,10 +465,9 @@ as_client_run_put (char **argv, int argc)
  * Install a component by its ID.
  */
 static int
-as_client_run_install (char **argv, int argc)
+as_client_run_install (const gchar *command, char **argv, int argc)
 {
 	const gchar *value = NULL;
-	const gchar *command = "install";
 
 	if (argc > 2)
 		value = argv[2];
@@ -494,10 +485,9 @@ as_client_run_install (char **argv, int argc)
  * Uninstall a component by its ID.
  */
 static int
-as_client_run_remove (char **argv, int argc)
+as_client_run_remove (const gchar *command, char **argv, int argc)
 {
 	const gchar *value = NULL;
-	const gchar *command = "remove";
 
 	if (argc > 2)
 		value = argv[2];
@@ -515,10 +505,8 @@ as_client_run_remove (char **argv, int argc)
  * Show diagnostic information.
  */
 static int
-as_client_run_status (char **argv, int argc)
+as_client_run_status (const gchar *command, char **argv, int argc)
 {
-	const gchar *command = "status";
-
 	if (argc > 2) {
 		as_client_print_help_hint (command, argv[3]);
 		return 1;
@@ -533,14 +521,13 @@ as_client_run_status (char **argv, int argc)
  * Convert metadata.
  */
 static int
-as_client_run_convert (char **argv, int argc)
+as_client_run_convert (const gchar *command, char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 	const gchar *fname1 = NULL;
 	const gchar *fname2 = NULL;
 	AsFormatKind mformat;
-	const gchar *command = "convert";
 
 	opt_context = as_client_new_subcommand_option_context (command, format_options);
 	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
@@ -564,11 +551,10 @@ as_client_run_convert (char **argv, int argc)
  * Compare versions using AppStream's version comparison algorithm.
  */
 static int
-as_client_run_compare_versions (char **argv, int argc)
+as_client_run_compare_versions (const gchar *command, char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
-	const gchar *command = "compare-versions";
 
 	opt_context = as_client_new_subcommand_option_context (command, format_options);
 	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
@@ -656,13 +642,12 @@ as_client_run_compare_versions (char **argv, int argc)
  * Convert metadata.
  */
 static int
-as_client_run_new_template (char **argv, int argc)
+as_client_run_new_template (const gchar *command, char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	g_autoptr(GString) desc_str = NULL;
 	guint i;
 	gint ret;
-	const gchar *command = "new-template";
 	const gchar *out_fname = NULL;
 	const gchar *cpt_kind_str = NULL;
 	const gchar *optn_desktop_file = NULL;
@@ -708,9 +693,8 @@ as_client_run_new_template (char **argv, int argc)
  * Create desktop-entry file from metainfo file.
  */
 static int
-as_client_run_make_desktop_file (char **argv, int argc)
+as_client_run_make_desktop_file (const gchar *command, char **argv, int argc)
 {
-	const gchar *command = "make-desktop-file";
 	g_autoptr(GOptionContext) opt_context = NULL;
 	const gchar *optn_exec_command = NULL;
 	const gchar *mi_fname = NULL;
@@ -747,9 +731,8 @@ as_client_run_make_desktop_file (char **argv, int argc)
  * Convert NEWS file to metainfo data.
  */
 static int
-as_client_run_news_to_metainfo (char **argv, int argc)
+as_client_run_news_to_metainfo (const gchar *command, char **argv, int argc)
 {
-	const gchar *command = "news-to-metainfo";
 	g_autoptr(GOptionContext) opt_context = NULL;
 	const gchar *optn_format_text = NULL;
 	guint optn_limit = 0;
@@ -797,9 +780,8 @@ as_client_run_news_to_metainfo (char **argv, int argc)
  * Convert metainfo data to NEWS file.
  */
 static int
-as_client_run_metainfo_to_news (char **argv, int argc)
+as_client_run_metainfo_to_news (const gchar *command, char **argv, int argc)
 {
-	const gchar *command = "metainfo-to-news";
 	g_autoptr(GOptionContext) opt_context = NULL;
 	const gchar *optn_format_text = NULL;
 	const gchar *mi_fname = NULL;
@@ -830,45 +812,127 @@ as_client_run_metainfo_to_news (char **argv, int argc)
 					optn_format_text);
 }
 
+typedef gboolean (*AsCliCommandCb) (const gchar *command,
+				    gchar **argv,
+				    gint argc);
+
+typedef struct {
+	gchar		*name;
+	gchar		*alias;
+	gchar		*arguments;
+	gchar		*summary;
+	guint		 block_id;
+	AsCliCommandCb	 callback;
+} AsCliCommandItem;
+
 /**
- * as_client_get_summary:
+ * ascli_command_item_free:
+ */
+static void
+ascli_command_item_free (AsCliCommandItem *item)
+{
+	g_free (item->name);
+	g_free (item->alias);
+	g_free (item->arguments);
+	g_free (item->summary);
+	g_free (item);
+}
+
+/**
+ * ascli_add_cmd:
+ */
+static void
+ascli_add_cmd (GPtrArray *commands,
+		guint block_id,
+		const gchar *name,
+		const gchar *alias,
+		const gchar *arguments,
+		const gchar *summary,
+		AsCliCommandCb callback)
+{
+	AsCliCommandItem *item;
+
+	g_return_if_fail (name != NULL);
+	g_return_if_fail (summary != NULL);
+	g_return_if_fail (callback != NULL);
+
+	item = g_new0 (AsCliCommandItem, 1);
+	item->block_id = block_id;
+	item->name = g_strdup (name);
+	if (alias != NULL) {
+		g_autofree gchar *tmp = NULL;
+		/* TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text */
+		tmp = g_strdup_printf (_("(Alias: '%s')"), alias);
+		item->summary = g_strconcat (summary, " ", tmp, NULL);
+		item->alias = g_strdup (alias);
+	} else {
+		item->summary = g_strdup (summary);
+	}
+	if (arguments == NULL)
+		item->arguments = g_strdup ("");
+	else
+		item->arguments = g_strdup (arguments);
+	item->callback = callback;
+	g_ptr_array_add (commands, item);
+}
+
+/**
+ * as_client_get_help_summary:
  **/
 static gchar*
-as_client_get_summary ()
+as_client_get_help_summary (GPtrArray *commands)
 {
-	GString *string;
-	string = g_string_new ("");
+	guint current_block_id = 0;
+	g_autoptr(GArray) blocks_maxlen = NULL;
+	GString *string = g_string_new ("");
 
 	/* TRANSLATORS: This is the header to the --help menu */
 	g_string_append_printf (string, "%s\n\n%s\n", _("AppStream command-line interface"),
 				/* these are commands we can use with appstreamcli */
 				_("Subcommands:"));
 
-	g_string_append_printf (string, "  %s - %s\n", "search TERM     ", _("Search the component database."));
-	g_string_append_printf (string, "  %s - %s\n", "get COMPONENT-ID", _("Get information about a component by its ID."));
-	g_string_append_printf (string, "  %s - %s\n", "what-provides TYPE VALUE", _("Get components which provide the given item."));
-	g_string_append_printf (string, "    %s - %s\n", "TYPE ", _("An item type (e.g. lib, bin, python3, …)"));
-	g_string_append_printf (string, "    %s - %s\n", "VALUE", _("Value of the item that should be found."));
-	g_string_append (string, "\n");
-	g_string_append_printf (string, "  %s - %s\n", "dump COMPONENT-ID", _("Dump raw XML metadata for a component matching the ID."));
-	g_string_append_printf (string, "  %s - %s\n", "refresh-cache    ", _("Rebuild the component metadata cache."));
-	g_string_append (string, "\n");
-	g_string_append_printf (string, "  %s - %s\n", "validate FILE          ", _("Validate AppStream XML files for issues."));
-	g_string_append_printf (string, "  %s - %s\n", "validate-tree DIRECTORY", _("Validate an installed file-tree of an application for valid metadata."));
-	g_string_append (string, "\n");
-	g_string_append_printf (string, "  %s - %s\n", "install COMPONENT-ID", _("Install software matching the component-ID."));
-	g_string_append_printf (string, "  %s - %s\n", "remove  COMPONENT-ID", _("Remove software matching the component-ID."));
-	g_string_append (string, "\n");
-	g_string_append_printf (string, "  %s - %s\n", "status           ", _("Display status information about available AppStream metadata."));
-	g_string_append_printf (string, "  %s - %s\n", "put FILE         ", _("Install a metadata file into the right location."));
-	/* TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data. */
-	g_string_append_printf (string, "  %s - %s\n", "convert FILE FILE", _("Convert collection XML to YAML or vice versa."));
-	g_string_append_printf (string, "  %s - %s\n", "compare-versions VER1 [COMP] VER2", _("Compare two version numbers."));
-	g_string_append (string, "\n");
-	g_string_append_printf (string, "  %s - %s\n", "new-template TYPE FILE", _("Create a template for a metainfo file (to be filled out by the upstream project)."));
-	g_string_append_printf (string, "  %s - %s\n", "make-desktop-file MI_FILE DESKTOP_FILE", _("Create a XDG desktop-entry file from a metainfo file."));
-	g_string_append_printf (string, "  %s - %s\n", "news-to-metainfo NEWS_FILE MI_FILE [OUT_FILE]", _("Convert a YAML or text NEWS file into metainfo releases."));
-	g_string_append_printf (string, "  %s - %s\n", "metainfo-to-news MI_FILE NEWS_FILE", _("Write NEWS text or YAML file with information from a metainfo file."));
+	blocks_maxlen = g_array_new (FALSE, FALSE, sizeof (guint));
+	for (guint i = 0; i < commands->len; i++) {
+		guint nlen;
+		guint *elen_p;
+		AsCliCommandItem *item = (AsCliCommandItem *) g_ptr_array_index (commands, i);
+
+		while (blocks_maxlen->len < (item->block_id + 1)) {
+			guint min_len = 26;
+			g_array_append_val (blocks_maxlen, min_len);
+		}
+		nlen = strlen (item->name) + strlen (item->arguments);
+		elen_p = &g_array_index (blocks_maxlen, guint, item->block_id);
+		if (nlen > *elen_p)
+			*elen_p = nlen;
+	}
+
+	for (guint i = 0; i < commands->len; i++) {
+		guint term_len;
+		guint block_maxlen;
+		guint synopsis_len;
+		g_autofree gchar *summary_wrap = NULL;
+		AsCliCommandItem *item = (AsCliCommandItem *) g_ptr_array_index (commands, i);
+
+		if (item->block_id != current_block_id) {
+			current_block_id = item->block_id;
+			g_string_append (string, "\n");
+		}
+
+		block_maxlen = g_array_index (blocks_maxlen, guint, item->block_id);
+		term_len = strlen (item->name) + strlen (item->arguments);
+
+		g_string_append_printf (string, "  %s %s%*s",
+					item->name,
+					item->arguments,
+					(block_maxlen - term_len) + 1, "");
+		synopsis_len = block_maxlen + 3 + 1 ;
+		summary_wrap = ascli_format_long_output (item->summary,
+							 synopsis_len + 72,
+							 synopsis_len + 2);
+		g_strstrip (summary_wrap);
+		g_string_append_printf (string, "- %s\n", summary_wrap);
+	}
 
 	g_string_append (string, "\n");
 	g_string_append (string, _("You can find information about subcommand-specific options by passing \"--help\" to the subcommand."));
@@ -883,10 +947,9 @@ static int
 as_client_run (char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
+	g_autoptr(GPtrArray) commands = NULL;
 	gint ret;
 	const gchar *command = NULL;
-
-	gchar *summary;
 	g_autofree gchar *options_help = NULL;
 
 	const GOptionEntry client_options[] = {
@@ -912,10 +975,98 @@ as_client_run (char **argv, int argc)
 	opt_context = g_option_context_new ("- AppStream CLI.");
 	g_option_context_add_main_entries (opt_context, client_options, NULL);
 
-	/* set the summary text */
-	summary = as_client_get_summary ();
-	g_option_context_set_summary (opt_context, summary) ;
-	g_free (summary);
+	/* register all available subcommands */
+	commands = g_ptr_array_new_with_free_func ((GDestroyNotify) ascli_command_item_free);
+	ascli_add_cmd (commands,
+			0, "search", "s", "TERM",
+			/* TRANSLATORS: `appstreamcli search` command description. */
+			_("Search the component database."),
+			as_client_run_search);
+	ascli_add_cmd (commands,
+			0, "get", NULL, "COMPONENT-ID",
+			/* TRANSLATORS: `appstreamcli get` command description. */
+			_("Get information about a component by its ID."),
+			as_client_run_get);
+	ascli_add_cmd (commands,
+			0, "what-provides", NULL, "TYPE VALUE",
+			/* TRANSLATORS: `appstreamcli what-provides` command description. */
+			_("Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."),
+			as_client_run_what_provides);
+
+	ascli_add_cmd (commands,
+			1, "dump", NULL, "COMPONENT-ID",
+			/* TRANSLATORS: `appstreamcli dump` command description. */
+			_("Dump raw XML metadata for a component matching the ID."),
+			as_client_run_dump);
+	ascli_add_cmd (commands,
+			1, "refresh-cache", "refresh", NULL,
+			/* TRANSLATORS: `appstreamcli refresh-cache` command description. */
+			_("Rebuild the component metadata cache."),
+			as_client_run_refresh_cache);
+
+	ascli_add_cmd (commands,
+			2, "validate", NULL, "FILE",
+			/* TRANSLATORS: `appstreamcli validate` command description. */
+			_("Validate AppStream XML files for issues."),
+			as_client_run_validate);
+	ascli_add_cmd (commands,
+			2, "validate-tree", NULL, "DIRECTORY",
+			/* TRANSLATORS: `appstreamcli validate-tree` command description. */
+			_("Validate an installed file-tree of an application for valid metadata."),
+			as_client_run_validate_tree);
+
+	ascli_add_cmd (commands,
+			3, "install", NULL, "COMPONENT-ID",
+			/* TRANSLATORS: `appstreamcli install` command description. */
+			_("Install software matching the component-ID."),
+			as_client_run_install);
+	ascli_add_cmd (commands,
+			3, "remove", NULL, "COMPONENT-ID",
+			/* TRANSLATORS: `appstreamcli remove` command description. */
+			_("Remove software matching the component-ID."),
+			as_client_run_remove);
+
+	ascli_add_cmd (commands,
+			4, "status", NULL, NULL,
+			/* TRANSLATORS: `appstreamcli status` command description. */
+			_("Display status information about available AppStream metadata."),
+			as_client_run_status);
+	ascli_add_cmd (commands,
+			4, "put", NULL, "FILE",
+			/* TRANSLATORS: `appstreamcli put` command description. */
+			_("Install a metadata file into the right location."),
+			as_client_run_put);
+	ascli_add_cmd (commands,
+			4, "convert", NULL, "FILE FILE",
+			/* TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data. */
+			_("Convert collection XML to YAML or vice versa."),
+			as_client_run_convert);
+	ascli_add_cmd (commands,
+			4, "compare-versions", "vercmp", "VER1 [COMP] VER2",
+			/* TRANSLATORS: `appstreamcli vercmp` command description. */
+			_("Compare two version numbers."),
+			as_client_run_compare_versions);
+
+	ascli_add_cmd (commands,
+			5, "new-template", NULL, "TYPE FILE",
+			/* TRANSLATORS: `appstreamcli new-template` command description. */
+			_("Create a template for a metainfo file (to be filled out by the upstream project)."),
+			as_client_run_new_template);
+	ascli_add_cmd (commands,
+			5, "make-desktop-file", NULL, "MI_FILE DESKTOP_FILE",
+			/* TRANSLATORS: `appstreamcli make-desktop-file` command description. */
+			_("Create a desktop-entry file from a metainfo file."),
+			as_client_run_make_desktop_file);
+	ascli_add_cmd (commands,
+			5, "news-to-metainfo", NULL, "NEWS_FILE MI_FILE [OUT_FILE]",
+			/* TRANSLATORS: `appstreamcli news-to-metainfo` command description. */
+			_("Convert a YAML or text NEWS file into metainfo releases."),
+			as_client_run_news_to_metainfo);
+	ascli_add_cmd (commands,
+			5, "metainfo-to-news", NULL, "MI_FILE NEWS_FILE",
+			/* TRANSLATORS: `appstreamcli metainfo-to-news` command description. */
+			_("Write NEWS text or YAML file with information from a metainfo file."),
+			as_client_run_metainfo_to_news);
 
 	/* we handle the unknown options later in the individual subcommands */
 	g_option_context_set_ignore_unknown_options (opt_context, TRUE);
@@ -929,10 +1080,15 @@ as_client_run (char **argv, int argc)
 	command = argv[1];
 
 	/* only attempt to show global help if we don't have a subcommand as first parameter (subcommands are never prefixed with "-") */
-	if (g_str_has_prefix (command, "-"))
+	if (g_str_has_prefix (command, "-")) {
+		/* set the summary text */
+		g_autofree gchar *summary = NULL;
+		summary = as_client_get_help_summary (commands);
+		g_option_context_set_summary (opt_context, summary) ;
 		g_option_context_set_help_enabled (opt_context, TRUE);
-	else
+	} else {
 		g_option_context_set_help_enabled (opt_context, FALSE);
+	}
 
 	ret = as_client_option_context_parse (opt_context, NULL, &argc, &argv);
 	if (ret != 0)
@@ -970,45 +1126,18 @@ as_client_run (char **argv, int argc)
 	g_setenv ("GIO_USE_VFS", "local", TRUE);
 
 	/* process subcommands */
-	if ((g_strcmp0 (command, "search") == 0) || (g_strcmp0 (command, "s") == 0)) {
-		return as_client_run_search (argv, argc);
-	} else if ((g_strcmp0 (command, "refresh-cache") == 0) || (g_strcmp0 (command, "refresh") == 0)) {
-		return as_client_run_refresh_cache (argv, argc);
-	} else if (g_strcmp0 (command, "get") == 0) {
-		return as_client_run_get (argv, argc);
-	} else if (g_strcmp0 (command, "dump") == 0) {
-		return as_client_run_dump (argv, argc);
-	} else if (g_strcmp0 (command, "what-provides") == 0) {
-		return as_client_run_what_provides (argv, argc);
-	} else if (g_strcmp0 (command, "validate") == 0) {
-		return as_client_run_validate (argv, argc);
-	} else if (g_strcmp0 (command, "validate-tree") == 0) {
-		return as_client_run_validate_tree (argv, argc);
-	} else if (g_strcmp0 (command, "put") == 0) {
-		return as_client_run_put (argv, argc);
-	} else if (g_strcmp0 (command, "install") == 0) {
-		return as_client_run_install (argv, argc);
-	} else if (g_strcmp0 (command, "remove") == 0) {
-		return as_client_run_remove (argv, argc);
-	} else if (g_strcmp0 (command, "status") == 0) {
-		return as_client_run_status (argv, argc);
-	} else if (g_strcmp0 (command, "convert") == 0) {
-		return as_client_run_convert (argv, argc);
-	} else if ((g_strcmp0 (command, "compare-versions") == 0) || (g_strcmp0 (command, "vercmp") == 0)) {
-		return as_client_run_compare_versions (argv, argc);
-	} else if (g_strcmp0 (command, "new-template") == 0) {
-		return as_client_run_new_template (argv, argc);
-	} else if (g_strcmp0 (command, "make-desktop-file") == 0) {
-		return as_client_run_make_desktop_file (argv, argc);
-	} else if (g_strcmp0 (command, "news-to-metainfo") == 0) {
-		return as_client_run_news_to_metainfo (argv, argc);
-	} else if (g_strcmp0 (command, "metainfo-to-news") == 0) {
-		return as_client_run_metainfo_to_news (argv, argc);
-	} else {
-		/* TRANSLATORS: ascli has been run with unknown command. */
-		ascli_print_stderr (_("Unknown command '%s'."), command);
-		return 1;
+	for (guint i = 0; i < commands->len; i++) {
+		AsCliCommandItem *item = (AsCliCommandItem *) g_ptr_array_index (commands, i);
+
+		if (g_strcmp0 (command, item->name) == 0)
+			return item->callback (item->name, argv, argc);
+		if ((item->alias != NULL) && (g_strcmp0 (command, item->alias) == 0))
+			return item->callback (item->name, argv, argc);
 	}
+
+	/* TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated. */
+	ascli_print_stderr (_("Command '%s' is unknown. Run '%s --help' for a list of available commands."), command, argv[0]);
+	return 1;
 }
 
 int
