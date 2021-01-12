@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-01-10 21:50+0100\n"
+"POT-Creation-Date: 2021-01-12 03:35+0100\n"
 "PO-Revision-Date: 2020-09-06 01:36+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
@@ -41,6 +41,12 @@ msgstr "%s (%s)"
 #, c-format
 msgid "'%s' command"
 msgstr "perintah '%s'"
+
+#. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
+#: tools/appstream-cli.c:865
+#, c-format
+msgid "(Alias: '%s')"
+msgstr ""
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -83,6 +89,10 @@ msgstr ""
 "sekaligus. Silakan gunakan tangkapan layar ini secara eksklusif untuk gambar "
 "statis atau untuk video."
 
+#: src/as-validator-issue-tag.h:406
+msgid "A web URL was expected for this value."
+msgstr ""
+
 #: src/as-content-rating.c:453
 msgid "ALL"
 msgstr "SEMUA"
@@ -118,17 +128,13 @@ msgid "Also show pedantic hints."
 msgstr "Tampilkan juga saran pedantik."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:515
+#: src/as-validator-issue-tag.h:520
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
 msgstr ""
 "Tag `extends` dinyatakan, tetapi komponennya tidak bertipe `addon`, "
 "`localization`, atau `repository`."
-
-#: tools/appstream-cli.c:850
-msgid "An item type (e.g. lib, bin, python3, …)"
-msgstr "Suatu tipe butir (mis. lib, bin, python3, ...)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
@@ -139,7 +145,7 @@ msgid "AppStream CLI"
 msgstr "CLI AppStream"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:947
+#: tools/appstream-cli.c:1103
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -166,7 +172,7 @@ msgstr "Pemutakhiran singgahan AppStream tidak perlu."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:154 tools/appstream-cli.c:843
+#: tools/appstream-cli.c:154 tools/appstream-cli.c:890
 msgid "AppStream command-line interface"
 msgstr "Antarmuka baris perintah AppStream"
 
@@ -200,7 +206,7 @@ msgstr ""
 "memperoleh informasi masalah lebih terperinci."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:944
+#: tools/appstream-cli.c:1100
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream versi: %s"
@@ -224,7 +230,7 @@ msgstr ""
 "dalam konteks ini. Memiliki banyak tag semacam ini tidak valid."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstream-cli.c:766
+#: tools/appstream-cli.c:749
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 "Asumsikan berkas masukan dalam format yang dipilih ('yaml' atau 'teks')."
@@ -351,12 +357,22 @@ msgctxt "Category of Addons"
 msgid "Codecs"
 msgstr "Kodek"
 
+#. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
+#: tools/appstream-cli.c:1139
+#, fuzzy, c-format
+msgid ""
+"Command '%s' is unknown. Run '%s --help' for a list of available commands."
+msgstr ""
+"Jalankan '%s --help' untuk melihat daftar lengkap opsi baris perintah yang "
+"tersedia."
+
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
 msgstr "Komunikasi & Berita"
 
-#: tools/appstream-cli.c:866
+#. TRANSLATORS: `appstreamcli vercmp` command description.
+#: tools/appstream-cli.c:1047
 msgid "Compare two version numbers."
 msgstr "Bandingkan dua nomor versi."
 
@@ -392,12 +408,13 @@ msgstr ""
 "Pertimbangkan untuk menggunakan URL aman (HTTPS) untuk merujuk gambar "
 "tangkapan layar atau video ini."
 
-#: tools/appstream-cli.c:870
+#. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
+#: tools/appstream-cli.c:1063
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "Mengubah berkas YAML atau teks NEWS menjadi rilis metainfo."
 
-#. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:865
+#. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
+#: tools/appstream-cli.c:1042
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Mengonversi koleksi XML ke YAML atau sebaliknya."
 
@@ -407,11 +424,14 @@ msgstr "Mengonversi koleksi XML ke YAML atau sebaliknya."
 msgid "Could not find component providing '%s::%s'."
 msgstr "Tidak bisa menemukan komponen yang menyediakan '%s::%s'."
 
-#: tools/appstream-cli.c:869
-msgid "Create a XDG desktop-entry file from a metainfo file."
+#. TRANSLATORS: `appstreamcli make-desktop-file` command description.
+#: tools/appstream-cli.c:1058
+#, fuzzy
+msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Membuat berkas entri desktop XDG dari berkas metainfo."
 
-#: tools/appstream-cli.c:868
+#. TRANSLATORS: `appstreamcli new-template` command description.
+#: tools/appstream-cli.c:1053
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -514,7 +534,8 @@ msgstr "Referensi langsung ke prostitusi"
 msgid "Discrimination designed to cause emotional harm"
 msgstr "Diskriminasi dirancang untuk menyebabkan kerusakan emosional"
 
-#: tools/appstream-cli.c:862
+#. TRANSLATORS: `appstreamcli status` command description.
+#: tools/appstream-cli.c:1032
 msgid "Display status information about available AppStream metadata."
 msgstr "Tampilkan informasi status tentang metadata AppStream yang tersedia."
 
@@ -529,11 +550,12 @@ msgid "Do not use network access."
 msgstr "Jangan pakai akses jaringan."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:908
+#: tools/appstream-cli.c:971
 msgid "Don't show colored output."
 msgstr "Jangan tampilkan keluaran berwarna."
 
-#: tools/appstream-cli.c:853
+#. TRANSLATORS: `appstreamcli dump` command description.
+#: tools/appstream-cli.c:999
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Curahkan metadata XML mentah bagi suatu komponen yang cocok ID-nya."
 
@@ -557,7 +579,7 @@ msgid "Emulators"
 msgstr "Emulator"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstream-cli.c:245
+#: tools/appstream-cli.c:244
 msgid "Enforce a cache refresh."
 msgstr "Paksakan penyegaran tembolok."
 
@@ -748,7 +770,7 @@ msgstr ""
 "Menemukan tag yang tidak dikenal di grup membutuhkan/menyarankan. Ini "
 "mungkin kesalahan, karena hubungan komponen tipe ini tidak diketahui."
 
-#: src/as-validator-issue-tag.h:445
+#: src/as-validator-issue-tag.h:450
 msgid ""
 "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream "
 "also provides the <custom/> tag to add arbitrary custom data to metainfo "
@@ -763,8 +785,8 @@ msgstr ""
 "baru jika Anda hanya ingin menambahkan data ubahan ke berkas metainfo."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:536 src/as-validator.c:955 src/as-validator.c:1037
-#: src/as-validator.c:1260
+#: src/as-validator.c:536 src/as-validator.c:957 src/as-validator.c:1051
+#: src/as-validator.c:1274
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Ditemukan: %s - Diizinkan: %s"
@@ -794,15 +816,19 @@ msgid "General"
 msgstr "Umum"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstream-cli.c:814
+#: tools/appstream-cli.c:796
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr "Menghasilkan luaran dalam format yang dipilih ('yaml' atau 'teks')."
 
-#: tools/appstream-cli.c:849
-msgid "Get components which provide the given item."
-msgstr "Dapatkan komponen yang menyediakan butir yang diberikan."
+#. TRANSLATORS: `appstreamcli what-provides` command description.
+#: tools/appstream-cli.c:993
+msgid ""
+"Get components which provide the given item. Needs an item type (e.g. lib, "
+"bin, python3, …) and item value as parameter."
+msgstr ""
 
-#: tools/appstream-cli.c:848
+#. TRANSLATORS: `appstreamcli get` command description.
+#: tools/appstream-cli.c:988
 msgid "Get information about a component by its ID."
 msgstr "Dapatkan informasi tentang suatu komponen berdasarkan ID-nya."
 
@@ -916,11 +942,13 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Sumber Masukan"
 
-#: tools/appstream-cli.c:863
+#. TRANSLATORS: `appstreamcli put` command description.
+#: tools/appstream-cli.c:1037
 msgid "Install a metadata file into the right location."
 msgstr "Pasang suatu berkas metadata ke lokasi yang benar."
 
-#: tools/appstream-cli.c:859
+#. TRANSLATORS: `appstreamcli install` command description.
+#: tools/appstream-cli.c:1021
 msgid "Install software matching the component-ID."
 msgstr "Pasang perangkat lunak dengan component-ID yang cocok."
 
@@ -934,7 +962,7 @@ msgstr ""
 "dalam spesifikasi AppStream."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:571
+#: src/as-validator-issue-tag.h:576
 msgid ""
 "Invalid tag found in collection metadata. Only `component` tags are "
 "permitted."
@@ -956,7 +984,7 @@ msgstr ""
 "Operasi perbandingan versi tidak valid pada item relasi. Hanya eq/ne/lt/gt/"
 "le/ge yang diizinkan."
 
-#: src/as-validator-issue-tag.h:468
+#: src/as-validator-issue-tag.h:473
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
@@ -964,7 +992,7 @@ msgstr ""
 "Disarankan untuk menambahkan deskripsi panjang ke komponen ini untuk "
 "menyajikannya lebih baik kepada pengguna."
 
-#: src/as-validator-issue-tag.h:463
+#: src/as-validator-issue-tag.h:468
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
@@ -1002,7 +1030,7 @@ msgid "License"
 msgstr "Lisensi"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:647
+#: src/as-validator-issue-tag.h:652
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
@@ -1015,7 +1043,7 @@ msgstr ""
 "komponen ini. Misalnya `LicenseRef-free=https://example.com/licenses.html`"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstream-cli.c:771
+#: tools/appstream-cli.c:754
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
@@ -1150,14 +1178,14 @@ msgctxt "Category of Communication"
 msgid "News"
 msgstr "Berita"
 
-#: src/as-validator-issue-tag.h:607
+#: src/as-validator-issue-tag.h:612
 msgid "No AppStream metadata was found in this directory or directory tree."
 msgstr ""
 "Tidak ada metadata AppStream yang ditemukan di direktori atau pohon "
 "direktori ini."
 
 #. pedantic because not everything which has metadata is an application
-#: src/as-validator-issue-tag.h:612
+#: src/as-validator-issue-tag.h:617
 msgid "No XDG applications directory found."
 msgstr "Tidak ada direktori aplikasi XDG yang ditemukan."
 
@@ -1420,7 +1448,8 @@ msgstr "Perkosaan atau perilaku seksual kekerasan lainnya"
 msgid "Realistic bloodshed"
 msgstr "Pertumpahan darah yang realistis"
 
-#: tools/appstream-cli.c:854
+#. TRANSLATORS: `appstreamcli refresh-cache` command description.
+#: tools/appstream-cli.c:1004
 msgid "Rebuild the component metadata cache."
 msgstr "Bangun ulang singgahan metadata komponen."
 
@@ -1439,7 +1468,8 @@ msgstr "Referensi untuk obat-obatan terlarang"
 msgid "References to tobacco products"
 msgstr "Referensi untuk produk tembakau"
 
-#: tools/appstream-cli.c:860
+#. TRANSLATORS: `appstreamcli remove` command description.
+#: tools/appstream-cli.c:1026
 msgid "Remove software matching the component-ID."
 msgstr "Buang perangkat lunak dengan component-ID yang cocok."
 
@@ -1458,7 +1488,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Bermain Peran"
 
-#: tools/appstream-cli.c:196 tools/appstream-cli.c:926
+#: tools/appstream-cli.c:196 tools/appstream-cli.c:1077
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -1494,7 +1524,8 @@ msgstr "Karakter manusia berpakaian minim"
 msgid "Science"
 msgstr "Sains"
 
-#: tools/appstream-cli.c:847
+#. TRANSLATORS: `appstreamcli search` command description.
+#: tools/appstream-cli.c:983
 msgid "Search the component database."
 msgstr "Cari basis data komponen."
 
@@ -1532,16 +1563,16 @@ msgid "Sharing social network usernames or email addresses"
 msgstr "Berbagai nama pengguna jejaring sosial atau alamat surel"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:903
+#: tools/appstream-cli.c:966
 msgid "Show extra debugging information."
 msgstr "Tampilkan informasi debug ekstra."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:897
+#: tools/appstream-cli.c:960
 msgid "Show the program version."
 msgstr "Tampilkan versi program."
 
-#: src/as-validator-issue-tag.h:653
+#: src/as-validator-issue-tag.h:658
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
@@ -1572,12 +1603,12 @@ msgid "Strong or frequent use of profanity"
 msgstr "Penggunaan kuat atau sering kata-kata tidak senonoh"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:845
+#: tools/appstream-cli.c:892
 msgid "Subcommands:"
 msgstr "Subperintah:"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:545
+#: src/as-validator-issue-tag.h:550
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
@@ -1621,7 +1652,7 @@ msgstr "Penyunting Teks"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Berkas .desktop '%s' tidak ada."
 
-#: src/as-validator-issue-tag.h:411
+#: src/as-validator-issue-tag.h:416
 msgid "The <developer_name/> can not contain a hyperlink."
 msgstr "<developer_name/> tidak boleh mengandung pranala."
 
@@ -1633,7 +1664,7 @@ msgstr ""
 "Tag <id/> masih mengandung properti `type`, mungkin dari konversi lama ke "
 "format metainfo terbaru."
 
-#: src/as-validator-issue-tag.h:634
+#: src/as-validator-issue-tag.h:639
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
@@ -1665,12 +1696,12 @@ msgid "The SPDX license expression is invalid and could not be parsed."
 msgstr "Ekspresi lisensi SPDX tidak valid dan tidak dapat diuraikan."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:683
+#: tools/appstream-cli.c:668
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TIPE mesti berupa suatu tipe komponen yang valid, seperti misalnya: %s"
 
-#: src/as-validator-issue-tag.h:565
+#: src/as-validator-issue-tag.h:570
 msgid "The XML of this file is malformed."
 msgstr "XML berkas ini salah bentuk."
 
@@ -1685,13 +1716,13 @@ msgstr ""
 "menghindari mendefinisikan beberapa nama paket per komponen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:434
+#: src/as-validator-issue-tag.h:439
 msgid ""
 "The `update_contact` tag should not be included in collection AppStream XML."
 msgstr ""
 "Tag `update_contact` tidak boleh dimasukkan dalam koleksi AppStream XML."
 
-#: src/as-validator-issue-tag.h:602
+#: src/as-validator-issue-tag.h:607
 msgid ""
 "The category defined in the .desktop file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
@@ -1699,7 +1730,7 @@ msgstr ""
 "Kategori yang didefinisikan dalam berkas .desktop tidak valid. Lihat "
 "Spesifikasi Menu XDG untuk daftar kategori yang valid."
 
-#: src/as-validator-issue-tag.h:550
+#: src/as-validator-issue-tag.h:555
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
@@ -1796,11 +1827,11 @@ msgstr ""
 "metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:521
+#: src/as-validator-issue-tag.h:526
 msgid "The component is an addon, but no `extends` tag was specified."
 msgstr "Komponen adalah addon, tetapi tidak ada tag `extends` yang ditentukan."
 
-#: src/as-validator-issue-tag.h:458
+#: src/as-validator-issue-tag.h:463
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
@@ -1884,7 +1915,7 @@ msgstr ""
 "adalah bug di validator itu sendiri, laporkan masalah ini di bugtracker kami."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:453
+#: src/as-validator-issue-tag.h:458
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
@@ -1950,7 +1981,7 @@ msgstr ""
 "dalam koleksi data campuran tanpa risiko pelanggaran lisensi karena lisensi "
 "yang tidak saling kompatibel."
 
-#: src/as-validator-issue-tag.h:617
+#: src/as-validator-issue-tag.h:622
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
@@ -1958,12 +1989,12 @@ msgstr ""
 "Berkas metainfo disimpan di path lama. Silakan letakkan di `/usr/share/"
 "metainfo/`."
 
-#: src/as-validator-issue-tag.h:622
+#: src/as-validator-issue-tag.h:627
 msgid "The metainfo file specifies multiple components. This is not allowed."
 msgstr "Berkas metainfo menyatakan beberapa komponen. Ini tidak diizinkan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:577
+#: src/as-validator-issue-tag.h:582
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher)."
@@ -1971,11 +2002,11 @@ msgstr ""
 "Berkas metainfo menggunakan versi kuno dari spesifikasi AppStream, yang "
 "tidak dapat divalidasi. Harap migrasi ke versi 0.6 (atau lebih tinggi)."
 
-#: src/as-validator-issue-tag.h:587
+#: src/as-validator-issue-tag.h:592
 msgid "The metainfo filename does not match the component ID."
 msgstr "Nama berkas metainfo tidak cocok dengan ID komponen."
 
-#: src/as-validator-issue-tag.h:627
+#: src/as-validator-issue-tag.h:632
 msgid ""
 "The releases are not sorted in a latest to oldest version order. This is "
 "required as some tools will assume that the latest version is always at the "
@@ -1986,7 +2017,7 @@ msgstr ""
 "karena beberapa alat akan menganggap bahwa versi terbaru selalu di atas. "
 "Menyortir rilis juga meningkatkan keterbacaan keseluruhan berkas metainfo."
 
-#: src/as-validator-issue-tag.h:555
+#: src/as-validator-issue-tag.h:560
 msgid "The screenshot caption is too long (should be <= 80 characters)"
 msgstr "Keterangan tangkapan layar terlalu panjang (harus <= 80 karakter)"
 
@@ -2046,7 +2077,7 @@ msgstr ""
 "Tipe komponen yang ditata bukan tipe komponen AppStream yang dikenal dan "
 "valid."
 
-#: src/as-validator-issue-tag.h:416
+#: src/as-validator-issue-tag.h:421
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
@@ -2069,7 +2100,7 @@ msgstr ""
 "Ringkasan tidak boleh mengandung URL apa pun. Gunakan tag <url/> untuk "
 "tautan."
 
-#: src/as-validator-issue-tag.h:658
+#: src/as-validator-issue-tag.h:663
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr "Tipe butir yang disediakan komponen tidak diketahui oleh AppStream."
@@ -2091,7 +2122,7 @@ msgstr ""
 "Validator tidak dapat membuat laporan dalam format '%s'. Anda dapat memilih "
 "'yaml' atau 'teks' sebagai gantinya."
 
-#: src/as-validator-issue-tag.h:582
+#: src/as-validator-issue-tag.h:587
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
@@ -2100,7 +2131,7 @@ msgstr ""
 "bukan dokumen metainfo?"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:428
+#: src/as-validator-issue-tag.h:433
 msgid "This `bundle` tag has an unknown type and can not be used."
 msgstr ""
 "Tag `bundle` ini memiliki tipe yang tidak dikenal dan tidak dapat digunakan."
@@ -2115,14 +2146,14 @@ msgstr ""
 "tidak valid. Periksa spesifikasi untuk daftar nilai yang diizinkan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:422
+#: src/as-validator-issue-tag.h:427
 msgid "This `launchable` tag has an unknown type and can not be used."
 msgstr ""
 "Tag `launchable` ini memiliki tipe yang tidak dikenal dan tidak dapat "
 "digunakan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:533
+#: src/as-validator-issue-tag.h:538
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
@@ -2131,7 +2162,7 @@ msgstr ""
 "untuk pelokalan ini."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:527
+#: src/as-validator-issue-tag.h:532
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
@@ -2140,13 +2171,13 @@ msgstr ""
 "yang ditambahkannya untuk pelokalan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:539
+#: src/as-validator-issue-tag.h:544
 msgid ""
 "This `service` component is missing a `launchable` tag of type `service`."
 msgstr "Komponen `service` ini kurang tag `launchable` bertipe `service`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:491
+#: src/as-validator-issue-tag.h:496
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
@@ -2155,13 +2186,13 @@ msgstr ""
 "yang valid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:485
+#: src/as-validator-issue-tag.h:490
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
 msgstr "Komponen `web-application` ini kurang tag `launchable` bertipe `url`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:497
+#: src/as-validator-issue-tag.h:502
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
@@ -2170,7 +2201,7 @@ msgstr ""
 "kemungkinan hilang."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:680
+#: tools/appstream-cli.c:665
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -2178,7 +2209,7 @@ msgstr ""
 "Perintah ini menerima argumen posisional pilihan TIPE dan BERKAS, BERKAS "
 "adalah berkas tujuan tulis (atau \"-\" untuk keluaran standar)."
 
-#: src/as-validator-issue-tag.h:640
+#: src/as-validator-issue-tag.h:645
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
@@ -2188,7 +2219,7 @@ msgstr ""
 "dirinya sendiri, yang tentunya tidak dimaksudkan dan dapat membingungkan "
 "pengguna atau mesin yang berurusan dengan metadata ini."
 
-#: src/as-validator-issue-tag.h:597
+#: src/as-validator-issue-tag.h:602
 msgid "This component metadata refers to a non-existing .desktop file."
 msgstr "Metadata komponen ini merujuk ke berkas .desktop yang tidak ada."
 
@@ -2214,7 +2245,7 @@ msgstr ""
 "AppStream (mis. `appstream-generator`) sudah akan melakukan hal yang benar "
 "ketika mengkompilasi data."
 
-#: src/as-validator-issue-tag.h:473
+#: src/as-validator-issue-tag.h:478
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
@@ -2222,7 +2253,7 @@ msgstr ""
 "Komponen generik ini tidak memiliki deskripsi panjang. Mungkin bermanfaat "
 "untuk menambahkannya."
 
-#: src/as-validator-issue-tag.h:439
+#: src/as-validator-issue-tag.h:444
 msgid ""
 "This tag is a GNOME-specific extension to AppStream and not part of the "
 "official specification. Do not expect it to work in all implementations and "
@@ -2248,14 +2279,14 @@ msgstr ""
 "untuk misalnya mengkueri perangkat lunak yang menyediakan MIME-type tertentu "
 "dan memasangnya dengan identifier komponen perangkat lunaknya."
 
-#: src/as-validator-issue-tag.h:406
+#: src/as-validator-issue-tag.h:411
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
 msgstr ""
 "Tautan web ini menggunakan protokol FTP. Pertimbangkan beralih ke HTTP(S) "
 "sebagai gantinya."
 
-#: tools/appstream-cli.c:648
+#: tools/appstream-cli.c:634
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -2264,7 +2295,7 @@ msgstr ""
 "dan sebuah operator perbandingan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:479
+#: src/as-validator-issue-tag.h:484
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
@@ -2273,7 +2304,7 @@ msgstr ""
 "biner di $PATH yang disediakan melalui tag `provides/binary`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:509
+#: src/as-validator-issue-tag.h:514
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
@@ -2282,7 +2313,7 @@ msgstr ""
 "melalui tag `provides/modalias`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:503
+#: src/as-validator-issue-tag.h:508
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
@@ -2353,11 +2384,11 @@ msgstr ""
 "Tidak dapat mencapai video tangkapan layar di lokasi remote - apakah berkas "
 "video ada?"
 
-#: src/as-validator-issue-tag.h:560
+#: src/as-validator-issue-tag.h:565
 msgid "Unable to read file."
 msgstr "Tidak bisa membaca berkas."
 
-#: src/as-validator-issue-tag.h:592
+#: src/as-validator-issue-tag.h:597
 msgid "Unable to read the .desktop file associated with this component."
 msgstr "Tidak bisa membaca berkas .desktop yang terkait dengan komponen ini."
 
@@ -2400,14 +2431,8 @@ msgstr "Fungsi obrolan audio atau video yang tidak terkontrol antara pengguna"
 msgid "Uncontrolled chat functionality between users"
 msgstr "Fungsi obrolan yang tidak terkontrol antara pengguna"
 
-#. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:1009
-#, c-format
-msgid "Unknown command '%s'."
-msgstr "Perintah tak dikenal '%s'."
-
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstream-cli.c:608
+#: tools/appstream-cli.c:594
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr ""
@@ -2434,7 +2459,7 @@ msgid "Use of tobacco products"
 msgstr "Penggunaan produk tembakau"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:675
+#: tools/appstream-cli.c:660
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -2442,7 +2467,7 @@ msgstr ""
 "berkas metainfo."
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstream-cli.c:725
+#: tools/appstream-cli.c:709
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 "Menggunakan baris yang dinyatakan untuk kunci 'Exec=' dari berkas entri "
@@ -2468,11 +2493,13 @@ msgstr "Pengguna dianjurkan untuk membeli barang dunia nyata tertentu"
 msgid "Utilities"
 msgstr "Utilitas"
 
-#: tools/appstream-cli.c:856
+#. TRANSLATORS: `appstreamcli validate` command description.
+#: tools/appstream-cli.c:1010
 msgid "Validate AppStream XML files for issues."
 msgstr "Validasikan berkas XML AppStream apakah bermasalah."
 
-#: tools/appstream-cli.c:857
+#. TRANSLATORS: `appstreamcli validate-tree` command description.
+#: tools/appstream-cli.c:1015
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "Validasikan metadata pohon berkas terpasang dari suatu aplikasi."
 
@@ -2489,10 +2516,6 @@ msgstr "Validasi sukses."
 #, c-format
 msgid "Validation was successful: %s"
 msgstr "Validasi sukses: %s"
-
-#: tools/appstream-cli.c:851
-msgid "Value of the item that should be found."
-msgstr "Nilai dari butir yang mesti ditemukan."
 
 #: src/as-category.c:177
 msgctxt "Category of Graphics"
@@ -2534,12 +2557,13 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Pengolah Kata"
 
-#: tools/appstream-cli.c:871
+#. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
+#: tools/appstream-cli.c:1068
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 "Menulis teks NEWS atau berkas YAML dengan informasi dari berkas metainfo."
 
-#: tools/appstream-cli.c:874
+#: tools/appstream-cli.c:938
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -2560,7 +2584,7 @@ msgstr ""
 "Anda perlu memberi tipe komponen perangkat lunak AppStream untuk "
 "menjangkitkan suatu templat. Nilai yang mungkin adalah:"
 
-#: tools/appstream-cli.c:579
+#: tools/appstream-cli.c:565
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
@@ -2582,7 +2606,7 @@ msgid "You need to specify a NEWS format to write the output in."
 msgstr "Anda perlu menyatakan suatu format NEWS tempat menulis luaran."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:925
+#: tools/appstream-cli.c:1076
 msgid "You need to specify a command."
 msgstr "Anda perlu menyatakan suatu perintah."
 
@@ -2664,3 +2688,16 @@ msgstr "pedantik: %lu"
 #, c-format
 msgid "warnings: %lu"
 msgstr "peringatan: %lu"
+
+#~ msgid "An item type (e.g. lib, bin, python3, …)"
+#~ msgstr "Suatu tipe butir (mis. lib, bin, python3, ...)"
+
+#~ msgid "Get components which provide the given item."
+#~ msgstr "Dapatkan komponen yang menyediakan butir yang diberikan."
+
+#, c-format
+#~ msgid "Unknown command '%s'."
+#~ msgstr "Perintah tak dikenal '%s'."
+
+#~ msgid "Value of the item that should be found."
+#~ msgstr "Nilai dari butir yang mesti ditemukan."

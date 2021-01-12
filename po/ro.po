@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-01-10 21:50+0100\n"
+"POT-Creation-Date: 2021-01-12 03:35+0100\n"
 "PO-Revision-Date: 2020-07-03 04:41+0000\n"
 "Last-Translator: Daniel Șerbănescu <daniel@serbanescu.dk>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/"
@@ -30,6 +30,12 @@ msgstr ""
 #, c-format
 msgid "'%s' command"
 msgstr "comanda „%s”"
+
+#. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
+#: tools/appstream-cli.c:865
+#, c-format
+msgid "(Alias: '%s')"
+msgstr ""
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -73,6 +79,10 @@ msgstr ""
 "în același timp. Utilizați această captură de ecran exclusiv pentru "
 "imaginile statice sau pentru video-uri."
 
+#: src/as-validator-issue-tag.h:406
+msgid "A web URL was expected for this value."
+msgstr ""
+
 #: src/as-content-rating.c:453
 msgid "ALL"
 msgstr ""
@@ -108,17 +118,13 @@ msgid "Also show pedantic hints."
 msgstr "Arată, de asemenea, indiciile pendante."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:515
+#: src/as-validator-issue-tag.h:520
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
 msgstr ""
 "O etichetă „extinde” este specificată, dar componenta nu este de tipul "
 "„supliment”, „localizare” sau „depozit”."
-
-#: tools/appstream-cli.c:850
-msgid "An item type (e.g. lib, bin, python3, …)"
-msgstr "Un tip de element (de ex. lib, bin, python3, …)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
@@ -129,7 +135,7 @@ msgid "AppStream CLI"
 msgstr "CLI AppStream"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:947
+#: tools/appstream-cli.c:1103
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -156,7 +162,7 @@ msgstr "Actualizarea cache-ului AppStream nu este necesară."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:154 tools/appstream-cli.c:843
+#: tools/appstream-cli.c:154 tools/appstream-cli.c:890
 msgid "AppStream command-line interface"
 msgstr "Interfață în linie de comandă AppStream"
 
@@ -190,7 +196,7 @@ msgstr ""
 "detaliat pentru a obține informații detaliate despre problemă."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:944
+#: tools/appstream-cli.c:1100
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Versiune AppStream: %s"
@@ -214,7 +220,7 @@ msgstr ""
 "în acest context. A avea mai multe etichete de acest tip nu este valid."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstream-cli.c:766
+#: tools/appstream-cli.c:749
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 "Presupuneți că fișierul de intrare este în formatul selectat („yaml” sau "
@@ -343,12 +349,22 @@ msgctxt "Category of Addons"
 msgid "Codecs"
 msgstr "Codecuri"
 
+#. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
+#: tools/appstream-cli.c:1139
+#, fuzzy, c-format
+msgid ""
+"Command '%s' is unknown. Run '%s --help' for a list of available commands."
+msgstr ""
+"Rulați „%s -- help” pentru a vedea o listă completă a opțiunilor în linie de "
+"comandă disponibile."
+
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
 msgstr "Comunicare și știri"
 
-#: tools/appstream-cli.c:866
+#. TRANSLATORS: `appstreamcli vercmp` command description.
+#: tools/appstream-cli.c:1047
 msgid "Compare two version numbers."
 msgstr "Comparați două numere de versiune."
 
@@ -386,13 +402,14 @@ msgstr ""
 "Luați în considerare utilizarea unui URL securizat (HTTPS) pentru a face "
 "referire la această imagine captură de ecran sau video."
 
-#: tools/appstream-cli.c:870
+#. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
+#: tools/appstream-cli.c:1063
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr ""
 "Convertește un fișier YAML sau text ȘTIRI în lansări de informații meta."
 
-#. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:865
+#. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
+#: tools/appstream-cli.c:1042
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Convertește colecția XML la YAML sau vice versa."
 
@@ -402,12 +419,15 @@ msgstr "Convertește colecția XML la YAML sau vice versa."
 msgid "Could not find component providing '%s::%s'."
 msgstr "Nu s-a putut găsit componenta care furnizează „%s::%s”."
 
-#: tools/appstream-cli.c:869
-msgid "Create a XDG desktop-entry file from a metainfo file."
+#. TRANSLATORS: `appstreamcli make-desktop-file` command description.
+#: tools/appstream-cli.c:1058
+#, fuzzy
+msgid "Create a desktop-entry file from a metainfo file."
 msgstr ""
 "Creează un fișier de intrare desktop XDG de la un fișier de informații meta."
 
-#: tools/appstream-cli.c:868
+#. TRANSLATORS: `appstreamcli new-template` command description.
+#: tools/appstream-cli.c:1053
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -512,7 +532,8 @@ msgstr ""
 msgid "Discrimination designed to cause emotional harm"
 msgstr ""
 
-#: tools/appstream-cli.c:862
+#. TRANSLATORS: `appstreamcli status` command description.
+#: tools/appstream-cli.c:1032
 msgid "Display status information about available AppStream metadata."
 msgstr "Afișează informații de stare despre datele meta AppStream disponibile."
 
@@ -527,11 +548,12 @@ msgid "Do not use network access."
 msgstr "Nu utiliza accesul la rețea."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:908
+#: tools/appstream-cli.c:971
 msgid "Don't show colored output."
 msgstr "Nu arăta ieșirea colorată."
 
-#: tools/appstream-cli.c:853
+#. TRANSLATORS: `appstreamcli dump` command description.
+#: tools/appstream-cli.c:999
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Transferă datele meta XML brute pentru o componentă care se potrivește cu ID-"
@@ -557,7 +579,7 @@ msgid "Emulators"
 msgstr "Emulatoare"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstream-cli.c:245
+#: tools/appstream-cli.c:244
 msgid "Enforce a cache refresh."
 msgstr "Impune o reîmprospătare a cache-ului."
 
@@ -748,7 +770,7 @@ msgstr ""
 "probabil o eroare, pentru că o relație de componentă de acest tip nu este "
 "cunoscută."
 
-#: src/as-validator-issue-tag.h:445
+#: src/as-validator-issue-tag.h:450
 msgid ""
 "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream "
 "also provides the <custom/> tag to add arbitrary custom data to metainfo "
@@ -765,8 +787,8 @@ msgstr ""
 "fișier de informații meta."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:536 src/as-validator.c:955 src/as-validator.c:1037
-#: src/as-validator.c:1260
+#: src/as-validator.c:536 src/as-validator.c:957 src/as-validator.c:1051
+#: src/as-validator.c:1274
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "S-au găsit %s - Permise: %s"
@@ -796,15 +818,19 @@ msgid "General"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstream-cli.c:814
+#: tools/appstream-cli.c:796
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr "Generează ieșirea în formatul selectat („yaml” sau „text”)."
 
-#: tools/appstream-cli.c:849
-msgid "Get components which provide the given item."
-msgstr "Obțineți componente care furnizează elementul dat."
+#. TRANSLATORS: `appstreamcli what-provides` command description.
+#: tools/appstream-cli.c:993
+msgid ""
+"Get components which provide the given item. Needs an item type (e.g. lib, "
+"bin, python3, …) and item value as parameter."
+msgstr ""
 
-#: tools/appstream-cli.c:848
+#. TRANSLATORS: `appstreamcli get` command description.
+#: tools/appstream-cli.c:988
 msgid "Get information about a component by its ID."
 msgstr "Obțineți informații despre o componentă după ID-ul acesteia."
 
@@ -920,11 +946,13 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Surse de intrare"
 
-#: tools/appstream-cli.c:863
+#. TRANSLATORS: `appstreamcli put` command description.
+#: tools/appstream-cli.c:1037
 msgid "Install a metadata file into the right location."
 msgstr "Instalați un fișier de date meta în locația corectă."
 
-#: tools/appstream-cli.c:859
+#. TRANSLATORS: `appstreamcli install` command description.
+#: tools/appstream-cli.c:1021
 msgid "Install software matching the component-ID."
 msgstr "Instalați software care se potrivește cu ID-ul componentei."
 
@@ -938,7 +966,7 @@ msgstr ""
 "de acest tip nu sunt cunoscute în specificația AppStream."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:571
+#: src/as-validator-issue-tag.h:576
 msgid ""
 "Invalid tag found in collection metadata. Only `component` tags are "
 "permitted."
@@ -958,7 +986,7 @@ msgstr ""
 "Operațiune de comparare a versiunii nevalide la elementul relațional. Doar "
 "eq/ne/lt/gt/le/ge sunt permise."
 
-#: src/as-validator-issue-tag.h:468
+#: src/as-validator-issue-tag.h:473
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
@@ -966,7 +994,7 @@ msgstr ""
 "Este recomandat să adăugați o descriere lungă la această componentă pentru a "
 "o prezenta mai bine utilizatorilor."
 
-#: src/as-validator-issue-tag.h:463
+#: src/as-validator-issue-tag.h:468
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
@@ -1004,7 +1032,7 @@ msgid "License"
 msgstr "Licență"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:647
+#: src/as-validator-issue-tag.h:652
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
@@ -1018,7 +1046,7 @@ msgstr ""
 "html”"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstream-cli.c:771
+#: tools/appstream-cli.c:754
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
@@ -1155,13 +1183,13 @@ msgctxt "Category of Communication"
 msgid "News"
 msgstr "Știri"
 
-#: src/as-validator-issue-tag.h:607
+#: src/as-validator-issue-tag.h:612
 msgid "No AppStream metadata was found in this directory or directory tree."
 msgstr ""
 "Nu s-au găsit date meta AppStream în acest director sau arbore de directoare."
 
 #. pedantic because not everything which has metadata is an application
-#: src/as-validator-issue-tag.h:612
+#: src/as-validator-issue-tag.h:617
 msgid "No XDG applications directory found."
 msgstr "Nu s-a găsit directorul de aplicații XDG."
 
@@ -1423,7 +1451,8 @@ msgstr ""
 msgid "Realistic bloodshed"
 msgstr ""
 
-#: tools/appstream-cli.c:854
+#. TRANSLATORS: `appstreamcli refresh-cache` command description.
+#: tools/appstream-cli.c:1004
 msgid "Rebuild the component metadata cache."
 msgstr "Regenerează cache-ul de date meta de componentă."
 
@@ -1442,7 +1471,8 @@ msgstr ""
 msgid "References to tobacco products"
 msgstr ""
 
-#: tools/appstream-cli.c:860
+#. TRANSLATORS: `appstreamcli remove` command description.
+#: tools/appstream-cli.c:1026
 msgid "Remove software matching the component-ID."
 msgstr "Elimină software-ul care se potrivește ID-ului de componentă."
 
@@ -1461,7 +1491,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Pe roluri"
 
-#: tools/appstream-cli.c:196 tools/appstream-cli.c:926
+#: tools/appstream-cli.c:196 tools/appstream-cli.c:1077
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -1497,7 +1527,8 @@ msgstr ""
 msgid "Science"
 msgstr "Știință"
 
-#: tools/appstream-cli.c:847
+#. TRANSLATORS: `appstreamcli search` command description.
+#: tools/appstream-cli.c:983
 msgid "Search the component database."
 msgstr "Caută baza de date a componentelor."
 
@@ -1532,16 +1563,16 @@ msgid "Sharing social network usernames or email addresses"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:903
+#: tools/appstream-cli.c:966
 msgid "Show extra debugging information."
 msgstr "Arată informații de depanare extra."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:897
+#: tools/appstream-cli.c:960
 msgid "Show the program version."
 msgstr "Arată versiunea programului."
 
-#: src/as-validator-issue-tag.h:653
+#: src/as-validator-issue-tag.h:658
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
@@ -1572,12 +1603,12 @@ msgid "Strong or frequent use of profanity"
 msgstr ""
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:845
+#: tools/appstream-cli.c:892
 msgid "Subcommands:"
 msgstr "Subcomenzi:"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:545
+#: src/as-validator-issue-tag.h:550
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
@@ -1622,7 +1653,7 @@ msgstr "Editoare de text"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Fișierul .desktop „%s” nu există."
 
-#: src/as-validator-issue-tag.h:411
+#: src/as-validator-issue-tag.h:416
 msgid "The <developer_name/> can not contain a hyperlink."
 msgstr "<developer_name/> nu poate să conțină o hiperlegătură."
 
@@ -1634,7 +1665,7 @@ msgstr ""
 "Eticheta <id/> conține încă o proprietae „tip”, probabil de la o conversie "
 "veche la formatul de informații meta recent."
 
-#: src/as-validator-issue-tag.h:634
+#: src/as-validator-issue-tag.h:639
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
@@ -1666,12 +1697,12 @@ msgid "The SPDX license expression is invalid and could not be parsed."
 msgstr "Expresia de licență SPDX nu este validă și nu a putut fi parsată."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:683
+#: tools/appstream-cli.c:668
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TIPUL trebuie să fie un tip de componentă validă, cum ar fi: %s"
 
-#: src/as-validator-issue-tag.h:565
+#: src/as-validator-issue-tag.h:570
 msgid "The XML of this file is malformed."
 msgstr "XML-ul acestui fișier deteriorat."
 
@@ -1686,14 +1717,14 @@ msgstr ""
 "a evita definirea de nume de pachet multiple per componentă."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:434
+#: src/as-validator-issue-tag.h:439
 msgid ""
 "The `update_contact` tag should not be included in collection AppStream XML."
 msgstr ""
 "Eticheta „update_contact” nu ar trebui să fie inclusă în colecția XML "
 "AppStream."
 
-#: src/as-validator-issue-tag.h:602
+#: src/as-validator-issue-tag.h:607
 msgid ""
 "The category defined in the .desktop file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
@@ -1701,7 +1732,7 @@ msgstr ""
 "Categoria definită în fișierul .desktop nu este validă. Consultați "
 "specificația de meniu XDG pentru o listă de categorii valide."
 
-#: src/as-validator-issue-tag.h:550
+#: src/as-validator-issue-tag.h:555
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
@@ -1800,12 +1831,12 @@ msgstr ""
 "în fișiere de informații meta."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:521
+#: src/as-validator-issue-tag.h:526
 msgid "The component is an addon, but no `extends` tag was specified."
 msgstr ""
 "Componenta este un supliment, dar nu s-a specificat nicio etichetă „extinde”."
 
-#: src/as-validator-issue-tag.h:458
+#: src/as-validator-issue-tag.h:463
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
@@ -1892,7 +1923,7 @@ msgstr ""
 "această defecțiune la tracker-ul nostru de defecțiuni."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:453
+#: src/as-validator-issue-tag.h:458
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
@@ -1958,7 +1989,7 @@ msgstr ""
 "amestecate fără riscul încălcării licenței din cauza licențelor "
 "incompatibile reciproc."
 
-#: src/as-validator-issue-tag.h:617
+#: src/as-validator-issue-tag.h:622
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
@@ -1966,14 +1997,14 @@ msgstr ""
 "Fișierul de informații meta este stocat într-o cale moștenită. Plasați-l în "
 "„/usr/share/metainfo/”."
 
-#: src/as-validator-issue-tag.h:622
+#: src/as-validator-issue-tag.h:627
 msgid "The metainfo file specifies multiple components. This is not allowed."
 msgstr ""
 "Fișierul de informații meta specifică componente multiple. Acest lucru nu "
 "este permis."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:577
+#: src/as-validator-issue-tag.h:582
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher)."
@@ -1982,12 +2013,12 @@ msgstr ""
 "AppStream, care nu poate fi validat. Migrați-l la versiunea 0.6 (sau mai "
 "mare)."
 
-#: src/as-validator-issue-tag.h:587
+#: src/as-validator-issue-tag.h:592
 msgid "The metainfo filename does not match the component ID."
 msgstr ""
 "Numele de fișier de informații meta nu se potrivește cu ID-ul componentei."
 
-#: src/as-validator-issue-tag.h:627
+#: src/as-validator-issue-tag.h:632
 msgid ""
 "The releases are not sorted in a latest to oldest version order. This is "
 "required as some tools will assume that the latest version is always at the "
@@ -2000,7 +2031,7 @@ msgstr ""
 "crește, de asemenea, lizibilitatea în ansamblu a fișierului de informații "
 "meta."
 
-#: src/as-validator-issue-tag.h:555
+#: src/as-validator-issue-tag.h:560
 msgid "The screenshot caption is too long (should be <= 80 characters)"
 msgstr ""
 "Legenda capturii de ecran este prea lungă (ar trebui să fie <= 80 de "
@@ -2062,7 +2093,7 @@ msgstr ""
 "Tipul de componentă stabilit nu este un tip de componentă recunoscut, valid "
 "AppStream."
 
-#: src/as-validator-issue-tag.h:416
+#: src/as-validator-issue-tag.h:421
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
@@ -2085,7 +2116,7 @@ msgstr ""
 "Rezumatul nu trebuie să conțină URL-uri. Utilizați eticheta <url/> pentru "
 "legături."
 
-#: src/as-validator-issue-tag.h:658
+#: src/as-validator-issue-tag.h:663
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr ""
@@ -2109,7 +2140,7 @@ msgstr ""
 "Validatorul nu poate crea rapoarte în formatul „%s”. Puteți selecta în "
 "schimb „yaml” sau „text”."
 
-#: src/as-validator-issue-tag.h:582
+#: src/as-validator-issue-tag.h:587
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
@@ -2118,7 +2149,7 @@ msgstr ""
 "nu este un document de informații meta?"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:428
+#: src/as-validator-issue-tag.h:433
 msgid "This `bundle` tag has an unknown type and can not be used."
 msgstr ""
 "Această etichetă „bundle” are un tip necunoscut și nu poate fi utilizată."
@@ -2133,13 +2164,13 @@ msgstr ""
 "valid. Verificați specificația pentru o listă de valori permise."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:422
+#: src/as-validator-issue-tag.h:427
 msgid "This `launchable` tag has an unknown type and can not be used."
 msgstr ""
 "Această etichetă „launchable” are un tip necunoscut și nu poate fi utilizată."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:533
+#: src/as-validator-issue-tag.h:538
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
@@ -2148,7 +2179,7 @@ msgstr ""
 "această localizare."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:527
+#: src/as-validator-issue-tag.h:532
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
@@ -2157,7 +2188,7 @@ msgstr ""
 "specifica componentele la care adaugă localizare."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:539
+#: src/as-validator-issue-tag.h:544
 msgid ""
 "This `service` component is missing a `launchable` tag of type `service`."
 msgstr ""
@@ -2165,7 +2196,7 @@ msgstr ""
 "„service”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:491
+#: src/as-validator-issue-tag.h:496
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
@@ -2174,7 +2205,7 @@ msgstr ""
 "specifica o iconiță validă."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:485
+#: src/as-validator-issue-tag.h:490
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
 msgstr ""
@@ -2182,7 +2213,7 @@ msgstr ""
 "tipul „url”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:497
+#: src/as-validator-issue-tag.h:502
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
@@ -2191,7 +2222,7 @@ msgstr ""
 "„categories” probabil că lipsește."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:680
+#: tools/appstream-cli.c:665
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -2199,7 +2230,7 @@ msgstr ""
 "Această comandă ia argumentele poziționale TIP și FIȘIER, FIȘIER fiind un "
 "fișier la care se scrie (sau „-” pentru ieșirea standard)."
 
-#: src/as-validator-issue-tag.h:640
+#: src/as-validator-issue-tag.h:645
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
@@ -2209,7 +2240,7 @@ msgstr ""
 "ceea ce cu siguranță nu este intenționat și poate confunda utilizatorii sau "
 "mașinile care se vor ocupa de aceste date meta."
 
-#: src/as-validator-issue-tag.h:597
+#: src/as-validator-issue-tag.h:602
 msgid "This component metadata refers to a non-existing .desktop file."
 msgstr ""
 "Aceste date meta de componentă fac referire la un fișier .desktop care nu "
@@ -2237,7 +2268,7 @@ msgstr ""
 "colecție AppStream (de ex. „appstream-generator”) va face deja ceea ce "
 "trebuie în timpul compilării datelor."
 
-#: src/as-validator-issue-tag.h:473
+#: src/as-validator-issue-tag.h:478
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
@@ -2245,7 +2276,7 @@ msgstr ""
 "Acestei componente generice îi lipsește o descriere lungă. Poate fi util să "
 "adăugați una."
 
-#: src/as-validator-issue-tag.h:439
+#: src/as-validator-issue-tag.h:444
 msgid ""
 "This tag is a GNOME-specific extension to AppStream and not part of the "
 "official specification. Do not expect it to work in all implementations and "
@@ -2272,14 +2303,14 @@ msgstr ""
 "furnizează un tip MIME specific, și instalarea lui prin identificatorul de "
 "componentă software al acestuia."
 
-#: src/as-validator-issue-tag.h:406
+#: src/as-validator-issue-tag.h:411
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
 msgstr ""
 "Această legătură web utilizează protocolul FTP. Luați în considerare "
 "trecerea la HTTP(S)."
 
-#: tools/appstream-cli.c:648
+#: tools/appstream-cli.c:634
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -2288,7 +2319,7 @@ msgstr ""
 "de versiune și un operator de comparație."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:479
+#: src/as-validator-issue-tag.h:484
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
@@ -2297,7 +2328,7 @@ msgstr ""
 "în $PATH nu a fost furnizată via unei etichete „provides/binary”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:509
+#: src/as-validator-issue-tag.h:514
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
@@ -2306,7 +2337,7 @@ msgstr ""
 "furnizată via unei etichete „provides/modalias”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:503
+#: src/as-validator-issue-tag.h:508
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
@@ -2377,11 +2408,11 @@ msgstr ""
 "Nu se poate ajunge la video-ul captură de ecran din locația sa de la "
 "distanță - fișierul video există?"
 
-#: src/as-validator-issue-tag.h:560
+#: src/as-validator-issue-tag.h:565
 msgid "Unable to read file."
 msgstr "Nu se poate citi fișierul."
 
-#: src/as-validator-issue-tag.h:592
+#: src/as-validator-issue-tag.h:597
 msgid "Unable to read the .desktop file associated with this component."
 msgstr "Nu se poate citi fișierul .desktop asociat cu această componentă."
 
@@ -2425,14 +2456,8 @@ msgstr ""
 msgid "Uncontrolled chat functionality between users"
 msgstr ""
 
-#. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:1009
-#, c-format
-msgid "Unknown command '%s'."
-msgstr "Comandă necunoscută „%s”."
-
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstream-cli.c:608
+#: tools/appstream-cli.c:594
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Relație de comparație necunoscută „%s”. Valorile valide sunt:"
@@ -2458,7 +2483,7 @@ msgid "Use of tobacco products"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:675
+#: tools/appstream-cli.c:660
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -2466,7 +2491,7 @@ msgstr ""
 "fișierului de informații meta."
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstream-cli.c:725
+#: tools/appstream-cli.c:709
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 "Utilizează linia specificată pentru tasta „Exec=” al fișierului de intrare "
@@ -2492,11 +2517,13 @@ msgstr ""
 msgid "Utilities"
 msgstr "Utilități"
 
-#: tools/appstream-cli.c:856
+#. TRANSLATORS: `appstreamcli validate` command description.
+#: tools/appstream-cli.c:1010
 msgid "Validate AppStream XML files for issues."
 msgstr "Validează fișiere XML AppStream pentru probleme."
 
-#: tools/appstream-cli.c:857
+#. TRANSLATORS: `appstreamcli validate-tree` command description.
+#: tools/appstream-cli.c:1015
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Validează un arbore de fișier instalat al unei aplicații pentru date meta "
@@ -2515,10 +2542,6 @@ msgstr "Validarea a fost cu succes."
 #, c-format
 msgid "Validation was successful: %s"
 msgstr "Validarea a fost cu succes: %s"
-
-#: tools/appstream-cli.c:851
-msgid "Value of the item that should be found."
-msgstr "Valoare elementului care ar trebui să fie găsit."
 
 #: src/as-category.c:177
 msgctxt "Category of Graphics"
@@ -2560,13 +2583,14 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Procesoare de text"
 
-#: tools/appstream-cli.c:871
+#. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
+#: tools/appstream-cli.c:1068
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 "Scrie un fișier text ȘTIRI sau YAML cu informații de la un fișier de "
 "informații meta."
 
-#: tools/appstream-cli.c:874
+#: tools/appstream-cli.c:938
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -2589,7 +2613,7 @@ msgstr ""
 "Trebuie să dați un tip de componentă de software AppStream pentru a genera "
 "un șablon. Valorile posibile sunt:"
 
-#: tools/appstream-cli.c:579
+#: tools/appstream-cli.c:565
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
@@ -2611,7 +2635,7 @@ msgid "You need to specify a NEWS format to write the output in."
 msgstr "Trebuie să specificați un format de ȘTIRI în care să se scrie ieșire."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:925
+#: tools/appstream-cli.c:1076
 msgid "You need to specify a command."
 msgstr "Trebuie să specificați o comandă."
 
@@ -2695,3 +2719,16 @@ msgstr "pedant: %lu"
 #, c-format
 msgid "warnings: %lu"
 msgstr "avertismente: %lu"
+
+#~ msgid "An item type (e.g. lib, bin, python3, …)"
+#~ msgstr "Un tip de element (de ex. lib, bin, python3, …)"
+
+#~ msgid "Get components which provide the given item."
+#~ msgstr "Obțineți componente care furnizează elementul dat."
+
+#, c-format
+#~ msgid "Unknown command '%s'."
+#~ msgstr "Comandă necunoscută „%s”."
+
+#~ msgid "Value of the item that should be found."
+#~ msgstr "Valoare elementului care ar trebui să fie găsit."
