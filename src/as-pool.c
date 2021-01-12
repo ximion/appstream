@@ -58,6 +58,7 @@
 #include "as-distro-extras.h"
 #include "as-stemmer.h"
 #include "as-cache.h"
+#include "as-profile.h"
 
 #include "as-metadata.h"
 
@@ -66,6 +67,7 @@ typedef struct
 	gchar *screenshot_service_url;
 	gchar *locale;
 	gchar *current_arch;
+	AsProfile *profile;
 
 	GPtrArray *xml_dirs;
 	GPtrArray *yaml_dirs;
@@ -127,6 +129,8 @@ as_pool_init (AsPool *pool)
 	g_autoptr(AsDistroDetails) distro = NULL;
 
 	g_mutex_init (&priv->mutex);
+
+	priv->profile = as_profile_new ();
 
 	/* set active locale */
 	priv->locale = as_get_current_locale ();
@@ -212,6 +216,8 @@ as_pool_finalize (GObject *object)
 	g_free (priv->locale);
 	g_free (priv->current_arch);
 	g_strfreev (priv->term_greylist);
+
+	g_object_unref (priv->profile);
 
 	g_mutex_unlock (&priv->mutex);
 	g_mutex_clear (&priv->mutex);
@@ -734,6 +740,9 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 	g_autoptr(GPtrArray) mdata_files = NULL;
 	GError *tmp_error = NULL;
 	g_autoptr(GMutexLocker) locker = NULL;
+	g_autoptr(AsProfileTask) ptask = NULL;
+
+	ptask = as_profile_start_literal (priv->profile, "AsPool:load_collection_data");
 
 	/* see if we can use the system caches */
 	if (!refresh && as_pool_has_system_metadata_paths (pool)) {
@@ -929,12 +938,14 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 static GHashTable*
 as_pool_get_desktop_entries_table (AsPool *pool)
 {
-	guint i;
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GPtrArray) de_files = NULL;
+	g_autoptr(AsProfileTask) ptask = NULL;
 	GHashTable *de_cpt_table = NULL;
 	GError *error = NULL;
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
+
+	ptask = as_profile_start_literal (priv->profile, "AsPool:get_desktop_entries_table");
 
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
@@ -956,7 +967,7 @@ as_pool_get_desktop_entries_table (AsPool *pool)
 	}
 
 	/* parse the found data */
-	for (i = 0; i < de_files->len; i++) {
+	for (guint i = 0; i < de_files->len; i++) {
 		g_autoptr(GFile) infile = NULL;
 		AsComponent *cpt;
 		const gchar *fname = (const gchar*) g_ptr_array_index (de_files, i);
@@ -1002,11 +1013,13 @@ as_pool_get_desktop_entries_table (AsPool *pool)
 static void
 as_pool_load_metainfo_data (AsPool *pool, GHashTable *desktop_entry_cpts)
 {
-	guint i;
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GPtrArray) mi_files = NULL;
+	g_autoptr(AsProfileTask) ptask = NULL;
 	GError *error = NULL;
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
+
+	ptask = as_profile_start_literal (priv->profile, "AsPool:load_metainfo_data");
 
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
@@ -1023,7 +1036,7 @@ as_pool_load_metainfo_data (AsPool *pool, GHashTable *desktop_entry_cpts)
 	}
 
 	/* parse the found data */
-	for (i = 0; i < mi_files->len; i++) {
+	for (guint i = 0; i < mi_files->len; i++) {
 		AsComponent *cpt;
 		AsLaunchable *launchable;
 		g_autoptr(GFile) infile = NULL;
@@ -1124,6 +1137,9 @@ as_pool_load_metainfo_desktop_data (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GHashTable) de_cpts = NULL;
+	g_autoptr(AsProfileTask) ptask = NULL;
+
+	ptask = as_profile_start_literal (priv->profile, "AsPool:load_metainfo_desktop_data");
 
 	/* check if we actually need to load anything */
 	g_mutex_lock (&priv->mutex);
@@ -1211,11 +1227,14 @@ gboolean
 as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(AsProfileTask) ptask = NULL;
 	gboolean ret = TRUE;
 	guint invalid_cpts_n;
 	gssize all_cpts_n;
 	gdouble valid_percentage;
 	GError *tmp_error = NULL;
+
+	ptask = as_profile_start_literal (priv->profile, "AsPool:load");
 
 	g_mutex_lock (&priv->mutex);
 	if (as_flags_contains (priv->cache_flags, AS_CACHE_FLAG_NO_CLEAR)) {
@@ -1270,7 +1289,7 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 	/* we only return a non-TRUE value if a significant amount (10%) of components has been declared invalid. */
 	if ((invalid_cpts_n != 0) && (valid_percentage <= 90))
 		ret = FALSE;
-	
+
 	/* report errors if refining has failed */
 	if (!ret && (error != NULL)) {
 		if (*error == NULL) {
@@ -1411,8 +1430,11 @@ GPtrArray*
 as_pool_get_components (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(AsProfileTask) ptask = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 	GPtrArray *result = NULL;
+
+	ptask = as_profile_start_literal (priv->profile, "AsPool:get_components");
 
 	result = as_cache_get_components_all (priv->cache, &tmp_error);
 	if (result == NULL) {
@@ -1448,8 +1470,11 @@ GPtrArray*
 as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(AsProfileTask) ptask = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 	GPtrArray *result = NULL;
+
+	ptask = as_profile_start_literal (priv->profile, "AsPool:get_components_by_id");
 
 	result = as_cache_get_components_by_id (priv->cache, cid, &tmp_error);
 	if (result == NULL) {
@@ -1740,9 +1765,12 @@ GPtrArray*
 as_pool_search (AsPool *pool, const gchar *search)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(AsProfileTask) ptask = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 	GPtrArray *result = NULL;
 	g_auto(GStrv) tokens = NULL;
+
+	ptask = as_profile_start_literal (priv->profile, "AsPool:search");
 
 	/* sanitize user's search term */
 	tokens = as_pool_build_search_tokens (pool, search);
