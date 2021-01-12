@@ -568,8 +568,9 @@ as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *data, const gcha
 				g_debug ("No component found in desktop-entry data.");
 			else
 				g_debug ("No component found in desktop-entry file: %s", cid);
+		} else {
+			g_propagate_error (error, tmp_error);
 		}
-		g_propagate_error (error, tmp_error);
 		return;
 	}
 
