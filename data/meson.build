@@ -1,7 +1,9 @@
 # Meson definition for AppStream data
 
-install_data ('its/metainfo.its', install_dir: 'share/gettext/its')
-install_data ('its/metainfo.loc', install_dir: 'share/gettext/its')
+install_data ('its/metainfo.its',
+              install_dir: join_paths(get_option('datadir'), 'gettext', 'its'))
+install_data ('its/metainfo.loc',
+              install_dir: join_paths(get_option('datadir'), 'gettext', 'its'))
 
 # NOTE: We do not translate the release notes on purpose here.
 # If you do want to give translators a chance to translate them,
@@ -23,4 +25,5 @@ i18n.merge_file (
     install_dir: join_paths (get_option ('datadir'), 'metainfo')
 )
 
-install_data ('appstream.conf', install_dir: '/etc')
+install_data ('appstream.conf',
+              install_dir: get_option('sysconfdir'))
