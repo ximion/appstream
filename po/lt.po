@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-01-12 03:35+0100\n"
+"POT-Creation-Date: 2021-01-12 19:24+0100\n"
 "PO-Revision-Date: 2018-10-08 07:11+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
 "Language-Team: Lithuanian\n"
@@ -35,13 +35,13 @@ msgstr ""
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: tools/appstream-cli.c:157
+#: tools/appstream-cli.c:159
 #, c-format
 msgid "'%s' command"
 msgstr "\"%s\" komanda"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstream-cli.c:865
+#: tools/appstream-cli.c:867
 #, c-format
 msgid "(Alias: '%s')"
 msgstr ""
@@ -112,7 +112,7 @@ msgid "Adventure"
 msgstr "Nuotykiai"
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
-#: tools/appstream-cli.c:116
+#: tools/appstream-cli.c:118
 msgid "Also show pedantic hints."
 msgstr "Taip pat rodyti pedantiškus patarimus."
 
@@ -132,7 +132,7 @@ msgid "AppStream CLI"
 msgstr "AppStream komandų eilutė"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:1103
+#: tools/appstream-cli.c:1133
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -159,7 +159,7 @@ msgstr "AppStream podėlio atnaujinimas nėra būtinas."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:154 tools/appstream-cli.c:890
+#: tools/appstream-cli.c:156 tools/appstream-cli.c:892
 msgid "AppStream command-line interface"
 msgstr "AppStream komandų eilutės sąsaja"
 
@@ -190,7 +190,7 @@ msgstr ""
 "gautumėte išsamesnę informaciją apie problemą."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:1100
+#: tools/appstream-cli.c:1130
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream versija: %s"
@@ -212,7 +212,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstream-cli.c:749
+#: tools/appstream-cli.c:751
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 
@@ -338,7 +338,7 @@ msgid "Codecs"
 msgstr "Kodekai"
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstream-cli.c:1139
+#: tools/appstream-cli.c:963
 #, fuzzy, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -352,7 +352,7 @@ msgid "Communication & News"
 msgstr "Komunikacija ir naujienos"
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstream-cli.c:1047
+#: tools/appstream-cli.c:1077
 msgid "Compare two version numbers."
 msgstr "Palyginti dviejų versijų numerius."
 
@@ -385,12 +385,12 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstream-cli.c:1063
+#: tools/appstream-cli.c:1093
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:1042
+#: tools/appstream-cli.c:1072
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Konvertuoti kolekciją iš XML į YAML arba atvirkščiai."
 
@@ -401,12 +401,12 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Nepavyko rasti komponento, pateikiančio \"%s::%s\"."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstream-cli.c:1058
+#: tools/appstream-cli.c:1088
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstream-cli.c:1053
+#: tools/appstream-cli.c:1083
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -448,7 +448,7 @@ msgid "Default Screenshot URL"
 msgstr "Numatytosios ekrano kopijos URL"
 
 #. TRANSLATORS: ascli flag description for: --format
-#: tools/appstream-cli.c:83
+#: tools/appstream-cli.c:85
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 "Numatytasis metaduomenų formatas (teisingos reikšmės yra \"xml\" ir \"yaml"
@@ -514,7 +514,7 @@ msgid "Discrimination designed to cause emotional harm"
 msgstr "Diskriminacija, sukurta sukelti emocinę žalą"
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstream-cli.c:1032
+#: tools/appstream-cli.c:1062
 msgid "Display status information about available AppStream metadata."
 msgstr "Rodyti būsenos informaciją apie prieinamus AppStream metaduomenis."
 
@@ -524,17 +524,17 @@ msgid "Distribution metadata:"
 msgstr "Distribucijos metaduomenys:"
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
-#: tools/appstream-cli.c:126
+#: tools/appstream-cli.c:128
 msgid "Do not use network access."
 msgstr "Nenaudoti tinklo prieigą."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:971
+#: tools/appstream-cli.c:998
 msgid "Don't show colored output."
 msgstr "Nerodyti spalvotos išvesties."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstream-cli.c:999
+#: tools/appstream-cli.c:1029
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Iškloti neapdorotus XML metaduomenis komponentui su atitinkamu ID."
 
@@ -557,8 +557,13 @@ msgctxt "Category of Games"
 msgid "Emulators"
 msgstr "Emuliatoriai"
 
+#. TRANSLATORS: ascli flag description for: --profile
+#: tools/appstream-cli.c:1001
+msgid "Enable profiling"
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstream-cli.c:244
+#: tools/appstream-cli.c:246
 msgid "Enforce a cache refresh."
 msgstr "Priverstinai atlikti podėlio įkėlimą iš naujo."
 
@@ -639,7 +644,7 @@ msgctxt "Category of Utility"
 msgid "Featured"
 msgstr "Pasižymėjusios"
 
-#: tools/ascli-actions-validate.c:175 tools/ascli-actions-validate.c:353
+#: tools/ascli-actions-validate.c:176 tools/ascli-actions-validate.c:354
 #, fuzzy, c-format
 msgid "File '%s' does not exist."
 msgstr "Metaduomenų failo \"%s\" nėra."
@@ -675,7 +680,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
-#: tools/appstream-cli.c:131
+#: tools/appstream-cli.c:133
 #, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr ""
@@ -773,19 +778,19 @@ msgid "General"
 msgstr "Bendra"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstream-cli.c:796
+#: tools/appstream-cli.c:798
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstream-cli.c:993
+#: tools/appstream-cli.c:1023
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstream-cli.c:988
+#: tools/appstream-cli.c:1018
 msgid "Get information about a component by its ID."
 msgstr "Gauti informaciją apie komponentą pagal jo ID."
 
@@ -898,12 +903,12 @@ msgid "Input Sources"
 msgstr "Įvesties šaltiniai"
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstream-cli.c:1037
+#: tools/appstream-cli.c:1067
 msgid "Install a metadata file into the right location."
 msgstr "Įdiegti metaduomenų failą į tinkamą vietą."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstream-cli.c:1021
+#: tools/appstream-cli.c:1051
 msgid "Install software matching the component-ID."
 msgstr "Įdiegti komponento ID atitinkančią programinę įrangą."
 
@@ -983,7 +988,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstream-cli.c:754
+#: tools/appstream-cli.c:756
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
@@ -1000,17 +1005,17 @@ msgid "Logic"
 msgstr "Logika"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: tools/appstream-cli.c:67
+#: tools/appstream-cli.c:69
 msgid "Make request without any caching."
 msgstr "Padaryti užklausą be podėliavimo."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
-#: tools/appstream-cli.c:57
+#: tools/appstream-cli.c:59
 msgid "Manually selected location of AppStream cache."
 msgstr "Rankiniu būdu pasirinkta AppStream podėlio vieta."
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: tools/appstream-cli.c:62
+#: tools/appstream-cli.c:64
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Rankiniu būdu pasirinkta peržiūrima AppStream metaduomenų vieta."
 
@@ -1307,7 +1312,7 @@ msgid "Office"
 msgstr "Raštinė"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstream-cli.c:192
+#: tools/appstream-cli.c:194
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "Parametras \"%s\" nėra žinomas."
@@ -1327,13 +1332,13 @@ msgid "Photography"
 msgstr "Fotografija"
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
-#: tools/appstream-cli.c:121
+#: tools/appstream-cli.c:123
 #, fuzzy
 msgid "Print detailed explanation for found issues."
 msgstr "Rodyti išsamią išvestį apie rastus komponentus."
 
 #. TRANSLATORS: ascli flag description for: --details
-#: tools/appstream-cli.c:98
+#: tools/appstream-cli.c:100
 msgid "Print detailed output about found components."
 msgstr "Rodyti išsamią išvestį apie rastus komponentus."
 
@@ -1380,7 +1385,7 @@ msgid "Realistic bloodshed"
 msgstr "Tikroviškas kraujo praliejimas"
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstream-cli.c:1004
+#: tools/appstream-cli.c:1034
 msgid "Rebuild the component metadata cache."
 msgstr "Iš naujo sukurti komponentų metaduomenų podėlį."
 
@@ -1400,7 +1405,7 @@ msgid "References to tobacco products"
 msgstr "Nuorodos į tabako gaminius"
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstream-cli.c:1026
+#: tools/appstream-cli.c:1056
 msgid "Remove software matching the component-ID."
 msgstr "Šalinti komponento ID atitinkančią programinę įrangą."
 
@@ -1419,14 +1424,14 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Vaidmenimis"
 
-#: tools/appstream-cli.c:196 tools/appstream-cli.c:1077
+#: tools/appstream-cli.c:198 tools/appstream-cli.c:1107
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Vykdykite \"%s --help\", kad pamatytumėte visą prieinamų komandų eilutės "
 "parametrų sąrašą."
 
-#: tools/appstream-cli.c:198
+#: tools/appstream-cli.c:200
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
@@ -1456,7 +1461,7 @@ msgid "Science"
 msgstr "Mokslas"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstream-cli.c:983
+#: tools/appstream-cli.c:1013
 msgid "Search the component database."
 msgstr "Ieškoti komponentų duomenų bazėje."
 
@@ -1492,12 +1497,12 @@ msgid "Sharing social network usernames or email addresses"
 msgstr "Dalinimasis socialinių tinklų naudotojų vardais ar el. pašto adresais"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:966
+#: tools/appstream-cli.c:993
 msgid "Show extra debugging information."
 msgstr "Rodyti papildomą derinimo informaciją."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:960
+#: tools/appstream-cli.c:987
 msgid "Show the program version."
 msgstr "Rodyti programos versiją."
 
@@ -1529,7 +1534,7 @@ msgid "Strong or frequent use of profanity"
 msgstr "Smarkus ar dažnas keiksmų naudojimas"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:892
+#: tools/appstream-cli.c:894
 msgid "Subcommands:"
 msgstr "Pokomandžiai:"
 
@@ -1617,7 +1622,7 @@ msgid "The SPDX license expression is invalid and could not be parsed."
 msgstr ""
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:668
+#: tools/appstream-cli.c:670
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "Tipas (TYPE) privalo būti teisingas komponento tipas, toks kaip: %s"
@@ -1936,7 +1941,7 @@ msgid ""
 "`@` is only allowed as `_at_` or `_AT_`)."
 msgstr ""
 
-#: tools/ascli-actions-validate.c:367 tools/ascli-actions-validate.c:496
+#: tools/ascli-actions-validate.c:368 tools/ascli-actions-validate.c:497
 #, c-format
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
@@ -2007,7 +2012,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:665
+#: tools/appstream-cli.c:667
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -2076,7 +2081,7 @@ msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
 msgstr ""
 
-#: tools/appstream-cli.c:634
+#: tools/appstream-cli.c:636
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -2211,7 +2216,7 @@ msgid "Uncontrolled chat functionality between users"
 msgstr "Neprižiūrimas pokalbių funkcionalumas tarp žaidėjų"
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstream-cli.c:594
+#: tools/appstream-cli.c:596
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Nežinomas palyginimo santykis \"%s\". Teisingos reikšmės yra:"
@@ -2237,7 +2242,7 @@ msgid "Use of tobacco products"
 msgstr "Tabako gaminių vartojimas"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:660
+#: tools/appstream-cli.c:662
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -2245,7 +2250,7 @@ msgstr ""
 "užpildytos pagrindinės reikšmės."
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstream-cli.c:709
+#: tools/appstream-cli.c:711
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 
@@ -2270,25 +2275,25 @@ msgid "Utilities"
 msgstr "Paslaugų programos"
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstream-cli.c:1010
+#: tools/appstream-cli.c:1040
 msgid "Validate AppStream XML files for issues."
 msgstr "Patikrinti ar AppStream XML failuose nėra problemų."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstream-cli.c:1015
+#: tools/appstream-cli.c:1045
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "Patikrinti įdiegto programos failų medžio metaduomenų teisingumą."
 
-#: tools/ascli-actions-validate.c:305 tools/ascli-actions-validate.c:446
+#: tools/ascli-actions-validate.c:306 tools/ascli-actions-validate.c:447
 #, c-format
 msgid "Validation failed: %s"
 msgstr "Patikrinimas nepavyko: %s"
 
-#: tools/ascli-actions-validate.c:293 tools/ascli-actions-validate.c:434
+#: tools/ascli-actions-validate.c:294 tools/ascli-actions-validate.c:435
 msgid "Validation was successful."
 msgstr "Patikrinimas buvo sėkmingas."
 
-#: tools/ascli-actions-validate.c:295 tools/ascli-actions-validate.c:436
+#: tools/ascli-actions-validate.c:296 tools/ascli-actions-validate.c:437
 #, c-format
 msgid "Validation was successful: %s"
 msgstr "Patikrinimas buvo sėkmingas: %s"
@@ -2334,11 +2339,11 @@ msgid "Word Processor"
 msgstr "Tekstų rengyklė"
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstream-cli.c:1068
+#: tools/appstream-cli.c:1098
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 
-#: tools/appstream-cli.c:938
+#: tools/appstream-cli.c:940
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -2359,7 +2364,7 @@ msgstr ""
 "Norėdami sukurti šabloną, turite pateikti AppStream programinės įrangos "
 "komponento tipą. Galimos reikšmės yra:"
 
-#: tools/appstream-cli.c:565
+#: tools/appstream-cli.c:567
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
@@ -2382,7 +2387,7 @@ msgid "You need to specify a NEWS format to write the output in."
 msgstr "Jūs turite nurodyti įvesties ir išvesties failą."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:1076
+#: tools/appstream-cli.c:1106
 msgid "You need to specify a command."
 msgstr "Jūs turite nurodyti komandą."
 
@@ -2414,7 +2419,7 @@ msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
 msgstr "Jūs turite nurodyti metaduomenų failą."
 
-#: tools/ascli-actions-validate.c:389 tools/ascli-actions-validate.c:483
+#: tools/ascli-actions-validate.c:390 tools/ascli-actions-validate.c:484
 msgid "You need to specify a root directory to start validation!"
 msgstr "Norėdami pradėti tikrinimą, turite nurodyti šakninį katalogą!"
 
@@ -2426,7 +2431,7 @@ msgstr "Jūs turite nurodyti paieškos žodžius, kurių ieškoti."
 msgid "You need to specify an input and output file."
 msgstr "Jūs turite nurodyti įvesties ir išvesties failą."
 
-#: tools/ascli-actions-validate.c:267 tools/ascli-actions-validate.c:341
+#: tools/ascli-actions-validate.c:268 tools/ascli-actions-validate.c:342
 #, fuzzy
 msgid "You need to specify at least one file to validate!"
 msgstr "Turite nurodyti failą, kurį tikrinti!"
@@ -2441,26 +2446,26 @@ msgstr "Turite nurodyti failą, kurį tikrinti!"
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "programa;programėlė;aplikacija;paketas;įrankis;komplektas;rinkinys"
 
-#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:227
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "error"-type hints
+#: tools/ascli-actions-validate.c:228
 #, c-format
 msgid "errors: %lu"
 msgstr "klaidos: %lu"
 
-#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:241
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "info"-type hints
+#: tools/ascli-actions-validate.c:242
 #, c-format
 msgid "infos: %lu"
 msgstr "informacijos: %lu"
 
-#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:248
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "pedantic"-type hints
+#: tools/ascli-actions-validate.c:249
 #, c-format
 msgid "pedantic: %lu"
 msgstr "pedantiški: %lu"
 
-#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:234
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "warning"-type hints
+#: tools/ascli-actions-validate.c:235
 #, c-format
 msgid "warnings: %lu"
 msgstr "įspėjimai: %lu"
