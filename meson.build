@@ -26,8 +26,27 @@ conf.set('AS_MINOR_VERSION_CONF', as_minor_version)
 conf.set('AS_MICRO_VERSION_CONF', as_micro_version)
 conf.set_quoted('PACKAGE_VERSION', as_version)
 conf.set_quoted('GETTEXT_PACKAGE', 'appstream')
-conf.set_quoted('LOCALEDIR', get_option('localedir'))
-conf.set_quoted('LOCALSTATEDIR', get_option('localstatedir'))
+conf.set_quoted('LOCALEDIR',
+                join_paths(get_option('prefix'),
+                           get_option('localedir')))
+conf.set_quoted('LOCALSTATEDIR',
+                join_paths(get_option('prefix'),
+                           get_option('localstatedir')))
+conf.set_quoted('LIBEXECDIR',
+                join_paths(get_option('prefix'),
+                           get_option('libexecdir')))
+conf.set_quoted('DATADIR',
+                join_paths(get_option('prefix'),
+                           get_option('datadir')))
+conf.set_quoted('LIBDIR',
+                join_paths(get_option('prefix'),
+                           get_option('libdir')))
+conf.set_quoted('BINDIR',
+                join_paths(get_option('prefix'),
+                           get_option('bindir')))
+conf.set_quoted('SYSCONFDIR',
+                join_paths(get_option('prefix'),
+                           get_option('sysconfdir')))
 
 if get_option('apt-support')
     conf.set('HAVE_APT_SUPPORT', 1)
