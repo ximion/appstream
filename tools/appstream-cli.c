@@ -25,6 +25,8 @@
 #include <locale.h>
 #include <stdio.h>
 
+#include "as-profile.h"
+
 #include "ascli-utils.h"
 #include "ascli-actions-mdata.h"
 #include "ascli-actions-validate.h"
@@ -941,6 +943,28 @@ as_client_get_help_summary (GPtrArray *commands)
 }
 
 /**
+ * ascli_run_command:
+ *
+ * Run a subcommand with the given parameters.
+ */
+static gint
+ascli_run_command (GPtrArray *commands, const gchar *command, char **argv, int argc)
+{
+	for (guint i = 0; i < commands->len; i++) {
+		AsCliCommandItem *item = (AsCliCommandItem *) g_ptr_array_index (commands, i);
+
+		if (g_strcmp0 (command, item->name) == 0)
+			return item->callback (item->name, argv, argc);
+		if ((item->alias != NULL) && (g_strcmp0 (command, item->alias) == 0))
+			return item->callback (item->name, argv, argc);
+	}
+
+	/* TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated. */
+	ascli_print_stderr (_("Command '%s' is unknown. Run '%s --help' for a list of available commands."), command, argv[0]);
+	return 1;
+}
+
+/**
  * as_client_run:
  */
 static int
@@ -948,9 +972,12 @@ as_client_run (char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	g_autoptr(GPtrArray) commands = NULL;
-	gint ret;
+	g_autoptr(AsProfile) profile = NULL;
+	AsProfileTask *ptask;
+	gboolean enable_profiling = FALSE;
+	gint retval = 0;
 	const gchar *command = NULL;
-	g_autofree gchar *options_help = NULL;
+
 
 	const GOptionEntry client_options[] = {
 		{ "version", 0, 0,
@@ -969,6 +996,9 @@ as_client_run (char **argv, int argc)
 			G_OPTION_ARG_NONE, &optn_no_color,
 			/* TRANSLATORS: ascli flag description for: --no-color */
 			_("Don\'t show colored output."), NULL },
+		{ "profile", '\0', 0, G_OPTION_ARG_NONE, &enable_profiling,
+			/* TRANSLATORS: ascli flag description for: --profile */
+			_("Enable profiling"), NULL },
 		{ NULL }
 	};
 
@@ -1090,9 +1120,9 @@ as_client_run (char **argv, int argc)
 		g_option_context_set_help_enabled (opt_context, FALSE);
 	}
 
-	ret = as_client_option_context_parse (opt_context, NULL, &argc, &argv);
-	if (ret != 0)
-		return ret;
+	retval = as_client_option_context_parse (opt_context, NULL, &argc, &argv);
+	if (retval != 0)
+		return retval;
 
 	if (optn_show_version) {
 		if (g_strcmp0 (as_version_string (), PACKAGE_VERSION) == 0) {
@@ -1125,19 +1155,19 @@ as_client_run (char **argv, int argc)
 	/* don't let gvfsd start it's own session bus: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=852696 */
 	g_setenv ("GIO_USE_VFS", "local", TRUE);
 
-	/* process subcommands */
-	for (guint i = 0; i < commands->len; i++) {
-		AsCliCommandItem *item = (AsCliCommandItem *) g_ptr_array_index (commands, i);
+	/* prepare profiler */
+	profile = as_profile_new ();
 
-		if (g_strcmp0 (command, item->name) == 0)
-			return item->callback (item->name, argv, argc);
-		if ((item->alias != NULL) && (g_strcmp0 (command, item->alias) == 0))
-			return item->callback (item->name, argv, argc);
-	}
+	/* run subcommand */
+	ptask = as_profile_start (profile, "%s: %s", argv[0], command);
+	retval = ascli_run_command (commands, command, argv, argc);
+	as_profile_task_free (ptask);
 
-	/* TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated. */
-	ascli_print_stderr (_("Command '%s' is unknown. Run '%s --help' for a list of available commands."), command, argv[0]);
-	return 1;
+	/* profile */
+	if (enable_profiling)
+		as_profile_dump (profile);
+
+	return retval;
 }
 
 int

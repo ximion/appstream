@@ -112,7 +112,8 @@ create_issue_info_print_string (AsValidatorIssue *issue, guint indent)
  * print_single_issue:
  **/
 static gboolean
-print_single_issue (AsValidatorIssue *issue, gboolean pedantic, gboolean explained, gint indent, gulong *error_count, gulong *warning_count, gulong *info_count, gulong *pedantic_count)
+print_single_issue (AsValidatorIssue *issue, gboolean pedantic, gboolean explained, gint indent,
+		    gulong *error_count, gulong *warning_count, gulong *info_count, gulong *pedantic_count)
 {
 	AsIssueSeverity severity;
 	gboolean no_errors = TRUE;
@@ -223,28 +224,28 @@ ascli_validate_print_stats (gulong error_count, gulong warning_count, gulong inf
 	gboolean add_spacer = FALSE;
 
 	if (error_count > 0) {
-		/* TRANSLATORS: Used for small issue-statistics in appstreamcli-validate */
+		/* TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "error"-type hints */
 		g_print (_("errors: %lu"), error_count);
 		add_spacer = TRUE;
 	}
 	if (warning_count > 0) {
 		if (add_spacer)
 			g_print (", ");
-		/* TRANSLATORS: Used for small issue-statistics in appstreamcli-validate */
+		/* TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "warning"-type hints */
 		g_print (_("warnings: %lu"), warning_count);
 		add_spacer = TRUE;
 	}
 	if (info_count > 0) {
 		if (add_spacer)
 			g_print (", ");
-		/* TRANSLATORS: Used for small issue-statistics in appstreamcli-validate */
+		/* TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "info"-type hints */
 		g_print (_("infos: %lu"), info_count);
 		add_spacer = TRUE;
 	}
 	if (pedantic_count > 0) {
 		if (add_spacer)
 			g_print (", ");
-		/* TRANSLATORS: Used for small issue-statistics in appstreamcli-validate */
+		/* TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "pedantic"-type hints */
 		g_print (_("pedantic: %lu"), pedantic_count);
 		add_spacer = TRUE;
 	}
