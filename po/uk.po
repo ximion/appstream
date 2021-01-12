@@ -2,18 +2,18 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
-# Yuri Chornoivan <yurchor@ukr.net>, 2014-2016, 2019, 2020.
+# Yuri Chornoivan <yurchor@ukr.net>, 2014-2016, 2019, 2020, 2021.
 # kyanukovich <ianu0001@algonquinlive.com>, 2020.
 # #-#-#-#-#  uk.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Yuri Chornoivan <yurchor@ukr.net>, 2014-2016
+# Yuri Chornoivan <yurchor@ukr.net>, 2014-2016, 2021.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
-# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata
-# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata
-# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata
-# Yuri Chornoivan <yurchor@ukr.net>, 2019. #zanata
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2019. #zanata, 2021.
 #
 # Translators:
 msgid ""
@@ -21,17 +21,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-01-12 03:35+0100\n"
-"PO-Revision-Date: 2020-11-24 06:29+0000\n"
+"PO-Revision-Date: 2021-01-12 16:02+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
-"translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. * of the rating e.g. "Adults Only (solo adultos)"
@@ -49,7 +47,7 @@ msgstr "Команда «%s»"
 #: tools/appstream-cli.c:865
 #, c-format
 msgid "(Alias: '%s')"
-msgstr ""
+msgstr "(Альтернатива: «%s»)"
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -94,7 +92,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:406
 msgid "A web URL was expected for this value."
-msgstr ""
+msgstr "Значенням цього параметра мала бути адреса у мережі."
 
 #: src/as-content-rating.c:453
 msgid "ALL"
@@ -363,12 +361,10 @@ msgstr "Кодеки"
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstream-cli.c:1139
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Щоб переглянути повний список можливих параметрів командного рядка, віддайте "
-"команду «%s --help»."
+msgstr "Невідома команда «%s». Щоб переглянути список доступних команд, віддайте команду «%s --help»."
 
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
@@ -431,9 +427,8 @@ msgstr "Не вдалося знайти компонент, що містить
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstream-cli.c:1058
-#, fuzzy
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr "Створити файл запису desktop у форматі XDG з файла метаінформації."
+msgstr "Створити файл запису desktop з файла метаінформації."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
 #: tools/appstream-cli.c:1053
@@ -835,7 +830,7 @@ msgstr "Вивести дані у вибраному форматі («yaml» �
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr ""
+msgstr "Отримати назви компонентів, які надають вказаний запис. Слід вказати тип запису (наприклад lib, bin, python3, …) і значення запису як параметр."
 
 #. TRANSLATORS: `appstreamcli get` command description.
 #: tools/appstream-cli.c:988
