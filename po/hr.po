@@ -3,34 +3,26 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # gogogogi <trebelnik2@gmail.com>, 2020.
-# Milo Ivir <mail@milotype.de>, 2020.
+# Milo Ivir <mail@milotype.de>, 2020, 2021.
 # #-#-#-#-#  hr.po (appstream-glib)  #-#-#-#-#
 # Croatian translation for appstream-glib.
 # Copyright (C) 2020 appstream-glib's COPYRIGHT HOLDER
 # This file is distributed under the same license as the appstream-glib package.
-# Milo Ivir <mail@milotype.de>, 2020.
-#
-#, fuzzy
+# Milo Ivir <mail@milotype.de>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-01-12 03:35+0100\n"
-"PO-Revision-Date: 2020-06-14 18:20+0200\n"
+"PO-Revision-Date: 2021-01-12 16:02+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
-"Language-Team: Croatian <hr@li.org>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  hr.po (appstream)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.1-dev\n"
-"#-#-#-#-#  hr.po (appstream-glib)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 2.3.1\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. * of the rating e.g. "Adults Only (solo adultos)"
@@ -48,7 +40,7 @@ msgstr "„%s” naredba"
 #: tools/appstream-cli.c:865
 #, c-format
 msgid "(Alias: '%s')"
-msgstr ""
+msgstr "(Alias: „%s”)"
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -86,14 +78,11 @@ msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"Snimka ekrana mora sadržati barem jednu sliku ili videozapis, ali ne oboje "
-"istovremeno. Koristi ovu snimku ekrana samo za statične slike ili "
-"videosnimke."
+msgstr "Snimka ekrana mora sadržati slike ili videozapise, ali ne oboje istovremeno. Koristi ovu snimku ekrana samo za statične slike ili videozapise."
 
 #: src/as-validator-issue-tag.h:406
 msgid "A web URL was expected for this value."
-msgstr ""
+msgstr "Za ovu se vrijednost očekivala internetska URL adresa."
 
 #: src/as-content-rating.c:453
 msgid "ALL"
@@ -107,7 +96,7 @@ msgstr "Mogućnost trošenja novca unutar programa"
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
-msgstr "Akcijske igre"
+msgstr "Akcija"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
@@ -362,12 +351,10 @@ msgstr "Kodeki"
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstream-cli.c:1139
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Pokreni „%s --help“ za prikaz popisa svih dostupnih mogućnosti u naredbenom "
-"retku."
+msgstr "Nepoznata naredba „%s”. Pokreni „%s --help“ za prikaz popisa dostupnih naredbi."
 
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
@@ -429,9 +416,8 @@ msgstr "Nije bilo moguće pronaći komponentu, koja omogućuje „%s::%s”."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstream-cli.c:1058
-#, fuzzy
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr "Stvori XDG desktop-entry datoteku iz metainfo datoteke."
+msgstr "Stvori desktop-entry datoteku iz metainfo datoteke."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
 #: tools/appstream-cli.c:1053
@@ -828,12 +814,12 @@ msgstr "Izradi rezultat u odabranom formatu („yaml” ili „text”)."
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr ""
+msgstr "Dobavi komponente koje pružaju određenu stavku. Kao parametar se mora navesti vrsta stavke (npr. lib, kanta, piton3, …) i vrijednost stavke."
 
 #. TRANSLATORS: `appstreamcli get` command description.
 #: tools/appstream-cli.c:988
 msgid "Get information about a component by its ID."
-msgstr "Dobij informacije o komponenti na osnovi njene ID oznake."
+msgstr "Dobavi podatke komponente na osnovi njene ID oznake."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1133
