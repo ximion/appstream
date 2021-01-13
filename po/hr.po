@@ -14,16 +14,14 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-01-12 19:24+0100\n"
-"PO-Revision-Date: 2021-01-12 16:02+0000\n"
+"PO-Revision-Date: 2021-01-13 19:31+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
-"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/"
-"translations/hr/>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.4.1-dev\n"
 
 #. TRANSLATORS: This is the formatting of English and localized name
@@ -53,9 +51,7 @@ msgstr "3D grafike"
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"Oznaka <description/> se ne lokalizira u metainfo datotekama (izvorni "
-"metapodaci). Umjesto toga lokaliziraj pojedine odlomke."
+msgstr "<description/> oznaka se ne smije lokalizirati u datotekama metapodataka (metapodaci glevne grane). Umjesto toga lokaliziraj pojedinačne odlomke."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:259
@@ -95,12 +91,12 @@ msgstr "SVE"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1003
 msgid "Ability to spend real money in-app"
-msgstr "Mogućnost trošenja novca unutar programa"
+msgstr "Mogućnost trošenja stvarnog novca unutar programa"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
-msgstr "Akcija"
+msgstr "Akcijske igre"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
@@ -115,7 +111,7 @@ msgstr "Samo za odrasle osobe"
 #: src/as-category.c:126
 msgctxt "Category of Games"
 msgid "Adventure"
-msgstr "Pustolovine"
+msgstr "Pustolovne igre"
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstream-cli.c:118
@@ -127,9 +123,7 @@ msgstr "Također pokaži pedantne savjete."
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"`extends` oznaka je navedena, ali komponenta nije vrste `addon`, "
-"`localization` ili `repository`."
+msgstr "Navedena je `extends` oznaka, ali komponenta nije vrste `addon`, `localization` ili `repository`."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
@@ -177,11 +171,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
-"AppStream podržava samo ograničen skup oznaka za formatiranje teksta opisa: "
-"oznake za odlomke (<p/>) i za popise (<ul/>, <ol/>). Označavanje u opisu "
-"sadrži neispravnu XML-oznaku, koja se neće ispravno prikazati u programima "
-"koji podržavaju metainfo specifikaciju."
+msgstr "AppStream podržava samo ograničen skup oznaka za formatiranje teksta opisa: oznake za odlomke (<p/>) i za popise (<ul/>, <ol/>). Označavanje u opisu sadrži neispravnu XML-oznaku, koja se neće ispravno prikazati u programima koji podržavaju specifikaciju metapodataka."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
@@ -243,7 +233,7 @@ msgstr "Astronomija"
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: src/as-category.c:302
 msgid "Audio & Video"
-msgstr "Audio i video"
+msgstr "Audio- i videosnimke"
 
 #: src/as-category.c:68
 msgctxt "Category of AudioVideo"
@@ -394,7 +384,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:401
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr "Razmisli o upotrebi sigurne (HTTPS) URL adrese za ovu web-poveznicu."
+msgstr "Razmotri mogućnost upotrebe sigurne (HTTPS) URL adrese za ovu web-poveznicu."
 
 #: src/as-validator-issue-tag.h:194
 msgid ""
@@ -407,7 +397,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstream-cli.c:1093
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr "Pretvori YAML ili tekstualnu NEWS datoteku u metainfo izdanja."
+msgstr "Pretvori YAML ili tekstualnu NEWS datoteku u izdanja metapodataka."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:1072
@@ -423,15 +413,14 @@ msgstr "Nije bilo moguće pronaći komponentu, koja omogućuje „%s::%s”."
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstream-cli.c:1088
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr "Stvori desktop-entry datoteku iz metainfo datoteke."
+msgstr "Stvori desktop-entry datoteku iz datoteke metapodataka."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
 #: tools/appstream-cli.c:1083
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
-"Stvori predložak za metainfo datoteku (popunjava se izvornim projektom)."
+msgstr "Stvori predložak za datoteku metapodataka (popunjava se izvornim projektom)."
 
 #: tools/ascli-actions-misc.c:228
 #, c-format
@@ -468,8 +457,7 @@ msgstr "Standardni URL za slike ekrana"
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:85
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Standardni format metapodatke (ispravne vrijednosti su „xml” i „yaml”)."
+msgstr "Standardni format metapodataka (ispravne vrijednosti su „xml” i „yaml”)."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:878
@@ -578,12 +566,12 @@ msgstr "Emulatori"
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstream-cli.c:1001
 msgid "Enable profiling"
-msgstr ""
+msgstr "Aktiviraj profiliranje"
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstream-cli.c:246
 msgid "Enforce a cache refresh."
-msgstr "Prisilno osvježi predmemoriju."
+msgstr "Prisilno aktualiziraj predmemoriju."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -639,7 +627,7 @@ msgstr "Predstavljeno"
 #: src/as-category.c:120
 msgctxt "Category of Games"
 msgid "Featured"
-msgstr "Predstavljeno"
+msgstr "Istaknute igre"
 
 #: src/as-category.c:165
 msgctxt "Category of Graphics"
@@ -776,13 +764,7 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"Pronađena je neispravna oznaka. Nestandardne oznake trebale bi se označiti s "
-"prefiksom `x-`. AppStream također pruža <custom/> oznaku za dodavanje "
-"proizvoljnih prilagođenih podataka u metainfo datoteke. AppStream biblioteke "
-"čitaju ovu oznaku i ona može biti korisna, kako bi se izbjeglo definiranje "
-"nove prilagođene oznake najviše razine ili oznake s `x-` prefiksom, ako se "
-"samo žele dodati prilagođeni podaci u metainfo datoteku."
+msgstr "Pronađena je neispravna oznaka. Nestandardne oznake trebale bi se označiti s prefiksom `x-`. AppStream također pruža <custom/> oznaku za dodavanje proizvoljnih prilagođenih podataka u datoteke metapodataka. AppStream biblioteke čitaju ovu oznaku i ona može biti korisna, kako bi se izbjeglo definiranje nove prilagođene oznake najviše razine ili oznake s `x-` prefiksom, ako se samo žele dodati prilagođeni podaci u datoteku metapodataka."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #: src/as-validator.c:536 src/as-validator.c:957 src/as-validator.c:1051
@@ -1005,7 +987,7 @@ msgstr ""
 #: src/as-category.c:144
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr "Djeca"
+msgstr "Dječje igre"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1077
@@ -1049,9 +1031,7 @@ msgstr ""
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
-msgstr ""
-"Ograniči broj unosa izdanja koja će se na kraju naći u metainfo datoteci (0 "
-"za neograničeno)."
+msgstr "Ograniči broj unosa izdanja koji će se na kraju naći u datoteci metapodataka (0 za neograničeno)."
 
 #: src/as-category.c:223
 msgctxt "Category of Addons"
@@ -1061,7 +1041,7 @@ msgstr "Lokalizacija"
 #: src/as-category.c:147
 msgctxt "Category of Games"
 msgid "Logic"
-msgstr "Logika"
+msgstr "Logičke igre"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:69
@@ -1116,27 +1096,25 @@ msgstr "Datoteka metapodataka „%s” ne postoji."
 
 #: src/as-pool.c:881
 msgid "Metadata files have errors:"
-msgstr "Datoteka metapodataka sadrži greške:"
+msgstr "Datoteke metapodataka sadrže greške:"
 
 #: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
 #: tools/ascli-actions-misc.c:515
 #, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr "Metainfo-datoteka „%s” ne postoji."
+msgstr "Datoteka metapodataka „%s” ne postoji."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:385
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr ""
-"Metainfo-datoteke smiju sadržati samo ikone vrste `stock` ili `remote`. "
-"Postavljena vrsta nije dozvoljena."
+msgstr "Datoteke metapodataka smiju sadržati samo ikone vrste `stock` ili `remote`. Postavljena vrsta nije dozvoljena."
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:116
 msgid "Metainfo files:"
-msgstr "Metainfo-datoteke:"
+msgstr "Datoteke metapodataka:"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:945
@@ -1246,8 +1224,7 @@ msgstr "Bez golotinje"
 
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr ""
-"Ime datoteke rezultata nije navedeno. Metainfo datoteka se izravno mijenja."
+msgstr "Ime datoteke rezultata nije navedeno. Datoteka metapodataka se izravno mijenja."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:943
@@ -1258,10 +1235,7 @@ msgstr "Bez vulgarnosti bilo koje vrste"
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
-msgstr ""
-"U metainfo datoteci nije navedena nijedna pružena binarna datoteka i nijedna "
-"izvršna naredba nije navedena putem „--exec”. Nije moguće stvoriti „Exec=” "
-"ključ."
+msgstr "U datoteci metapodataka nije navedena nijedna pružena binarna datoteka. Također nijedna navedena nijedna izvršna naredba putem „--exec”. Nije moguće stvoriti „Exec=” ključ."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:861
@@ -1340,8 +1314,7 @@ msgstr "Bez dijeljenja korisničkih podataka sa sporednim strankama"
 
 #: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr ""
-"U metainfo datoteci nema nijednog imena ikone. Nije moguće nastaviti s radom."
+msgstr "U datoteci metapodataka nije navedeno nijedno ime ikone. Nije moguće nastaviti."
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -1485,7 +1458,7 @@ msgstr "Robotika"
 #: src/as-category.c:150
 msgctxt "Category of Games"
 msgid "Role Playing"
-msgstr "Igre uloga"
+msgstr "Igranje uloga"
 
 #: tools/appstream-cli.c:198 tools/appstream-cli.c:1107
 #, c-format
@@ -1586,7 +1559,7 @@ msgstr "Smiješni humor"
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
-msgstr "Sport"
+msgstr "Sportske igre"
 
 #: src/as-category.c:157
 msgctxt "Category of Games"
@@ -1608,7 +1581,7 @@ msgstr "Podnaredbe:"
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
-msgstr "U metainfo datotekama je dozvoljena samo `upstream` vrsta prijedloga."
+msgstr "U datotekama metapodataka je dozvoljena samo `upstream` vrsta prijedloga."
 
 #: tools/ascli-utils.c:263
 msgid "Summary"
@@ -1655,9 +1628,7 @@ msgstr "Oznaka <developer_name/> ne smije sadržati hiperpoveznicu."
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
-msgstr ""
-"Oznaka <id/> i dalje sadrži svojstvo `type`, koje je vjerojatno nastalo pri "
-"staroj pretvorbi u noviji metainfo format."
+msgstr "Oznaka <id/> i dalje sadrži svojstvo `type`, koje je vjerojatno nastalo pri staroj pretvorbi u noviji format metapodataka."
 
 #: src/as-validator-issue-tag.h:639
 msgid ""
@@ -1705,10 +1676,7 @@ msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
 "defining multiple package names per component."
-msgstr ""
-"Oznaka `pkgname` pojavljuje se više puta. Bilo bi dobro stvoriti metapaket "
-"koji sadrži metainfo i .desktop datoteke, kako bi se izbjeglo definiranje "
-"više naziva paketa po komponenti."
+msgstr "Oznaka `pkgname` pojavljuje se više puta. Bilo bi dobro stvoriti metapaket koji sadrži datoteke metapodataka i .desktop datoteke, kako bi se izbjeglo definiranje više naziva paketa po komponenti."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:439
@@ -1773,15 +1741,8 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
-"ID oznaka komponente nije obrnuto ime domene. Aktualiziraj ID oznaku, za "
-"izbjegavanje budućih poteškoća i za kompatibilnost sa svim implementacijama "
-"AppStream-a.\n"
-"Također, razmotri mogućnost aktualiziranja imena pridružene .desktop "
-"datoteke, čime slijediš najnoviju verziju Desktop-Entry specifikacije. "
-"Također koristi i rDNS ime. U svakom slučaju, nemoj zaboraviti spomenuti "
-"novi desktop-entry u <launchable/> oznaci za ovu komponentu, kako bi se "
-"program mogao pokrentui iz softverskih centara i podatke .desktop datoteka "
-"povezanih s metainfo podacima."
+"ID oznaka komponente nije obrnuto ime domene. Aktualiziraj ID oznaku, za izbjegavanje budućih poteškoća i za kompatibilnost sa svim implementacijama AppStream-a.\n"
+"Također, razmotri mogućnost aktualiziranja imena pridružene .desktop datoteke, čime slijediš najnoviju verziju Desktop-Entry specifikacije. Također koristi i rDNS ime. U svakom slučaju, nemoj zaboraviti spomenuti novi desktop-entry u <launchable/> oznaci za ovu komponentu, kako bi se program mogao pokrentui iz softverskih centara i podatke .desktop datoteka povezanih s podacima metapodataka."
 
 #: src/as-validator-issue-tag.h:101
 msgid ""
@@ -1807,17 +1768,13 @@ msgstr "ID oznaka komponente treba sadržati samo mala slova."
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
-msgstr ""
-"Komponenta ima definiranu metodu `merge`. To nije dozvoljeno u metainfo "
-"datotekama."
+msgstr "Komponenta sadrži definiranu metodu `merge`. To nije dozvoljeno u datotekama metapodataka."
 
 #: src/as-validator-issue-tag.h:306
 msgid ""
 "The component has a priority value set. This is not allowed in metainfo "
 "files."
-msgstr ""
-"Komponenta ima postavljenu vrijednost prioriteta. To nije dozvoljeno u "
-"metainfo datotekama."
+msgstr "Komponenta ima postavljenu vrijednost prioriteta. To nije dozvoljeno u datotekama metapodataka."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:526
@@ -1911,9 +1868,7 @@ msgstr ""
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
-msgstr ""
-"Nedostaje osnovna oznaka `metadata_license`. Uvijek se mora definirati "
-"licenca za same metapodatke."
+msgstr "Nedostaje osnovna oznaka `metadata_license`. Licenca za metapodatke se mora uvijek definirati."
 
 #: src/as-validator-issue-tag.h:79
 msgid ""
@@ -1951,12 +1906,7 @@ msgid ""
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
 "0BSD to allow distributors to include it in mixed data collections without "
 "the risk of license violations due to mutually incompatible licenses."
-msgstr ""
-"Čini se da sami metapodaci nisu licenzirani pod ispravnom licencom. "
-"Licenciraj podatke pod licencom kao što su FSFAP, CC0-1.0 ili 0BSD, kako bi "
-"se distributerima dozvolilo uključivanje podataka u miješane zbirke "
-"podataka, bez rizika od kršenja licenci zbog obostrano nekompatibilnih "
-"licenci."
+msgstr "Čini se da metapodaci nisu licenzirani pod ispravnom licencom. Licenciraj podatke pod licencom kao što su FSFAP, CC0-1.0 ili 0BSD, kako bi se distributerima dozvolilo uključivanje podataka u miješane zbirke podataka, bez rizika od kršenja licenci zbog obostrano nekompatibilnih licenci."
 
 #: src/as-validator-issue-tag.h:167
 msgid ""
@@ -1965,37 +1915,28 @@ msgid ""
 "FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
 "collections without the risk of license violations due to mutually "
 "incompatible licenses."
-msgstr ""
-"Čini se da su sami metapodaci licenzirani pod složenom zbirkom licenci. "
-"Licenciraj podatke pod jednostavnom licencom kao što su FSFAP, MIT or "
-"CC0-1.0, kako bi se distributerima dozvolilo uključivanje podataka u "
-"miješane zbirke podataka, bez rizika od kršenja licenci zbog obostrano "
-"nekompatibilnih licenci."
+msgstr "Čini se da su metapodaci licenzirani pod složenom zbirkom licenci. Licenciraj podatke pod jednostavnom licencom kao što su FSFAP, MIT or CC0-1.0, kako bi se distributerima dozvolilo uključivanje podataka u miješane zbirke podataka, bez rizika od kršenja licenci zbog obostrano nekompatibilnih licenci."
 
 #: src/as-validator-issue-tag.h:622
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr ""
-"Metainfo datoteka spremljena je u staroj stazi. Premjesti je u `/usr/share/"
-"metainfo/`."
+msgstr "Datoteka metapodataka spremljena je u staroj stazi. Premjesti je u `/usr/share/metainfo/`."
 
 #: src/as-validator-issue-tag.h:627
 msgid "The metainfo file specifies multiple components. This is not allowed."
-msgstr "Metainfo datoteka navodi više komponenata. To nije dozvoljeno."
+msgstr "Datoteka metapodataka navodi više komponenata. To nije dozvoljeno."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:582
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher)."
-msgstr ""
-"Metainfo datoteka koristi prastaru verziju AppStream specifikacije, koju "
-"nije moguće provjeriti. Prebaci na verziju 0.6 (ili noviju)."
+msgstr "Datoteka metapodataka koristi prastaru verziju AppStream specifikacije, koju nije moguće provjeriti. Prebaci je na verziju 0.6 (ili noviju)."
 
 #: src/as-validator-issue-tag.h:592
 msgid "The metainfo filename does not match the component ID."
-msgstr "Ime metainfo datoteke ne se poklapa s ID oznakom komponente."
+msgstr "Ime datoteke metapodataka ne se poklapa s ID oznakom komponente."
 
 #: src/as-validator-issue-tag.h:632
 msgid ""
@@ -2003,11 +1944,7 @@ msgid ""
 "required as some tools will assume that the latest version is always at the "
 "top. Sorting releases also increases overall readability of the metainfo "
 "file."
-msgstr ""
-"Redoslijed izdanja nije od najnovije do najstarije verzije. Ovo je potrebno, "
-"jer neki alati pretpostavljaju da se najnovija verzija uvijek nalazi na "
-"vrhu. Razvrstavanje izdanja također povećava opću čitljivost metainfo "
-"datoteke."
+msgstr "Redoslijed izdanja nije od najnovije do najstarije verzije. Ovo je potrebno, jer neki alati pretpostavljaju da se najnovija verzija uvijek nalazi na vrhu. Razvrstavanje izdanja također povećava opću čitljivost datoteke metapodataka."
 
 #: src/as-validator-issue-tag.h:560
 msgid "The screenshot caption is too long (should be <= 80 characters)"
@@ -2116,9 +2053,7 @@ msgstr ""
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
-msgstr ""
-"Ovaj XML dokument sadrži nepoznatu osnovnu oznaku. Možda ova datoteka nije "
-"metainfo dokument?"
+msgstr "Ovaj XML dokument sadrži nepoznatu osnovnu oznaku. Možda ova datoteka nije dokument metapodataka?"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:433
@@ -2226,11 +2161,7 @@ msgid ""
 "<description/> tag instead. The AppStream collection metadata generator (e."
 "g. `appstream-generator`) will already do the right thing when compiling the "
 "data."
-msgstr ""
-"Ovaj element (odlomak, popis itd.) <description/> oznake ne smije se "
-"pojedinačno lokalizirati u metapodacima zbirke. Lokaliziraj cijelu oznaku "
-"<description/>. AppStream generator metapodataka zbirke (npr. `appstream-"
-"generator`) će već sam od sebe ispravno postupiti pri sastavljanju podataka."
+msgstr "Ovaj element (odlomak, popis itd.) oznake <description/> ne smije se pojedinačno lokalizirati u metapodacima zbirke. Umjesto toga lokaliziraj cijelu oznaku <description/>. AppStream generator metapodataka zbirke (npr. `appstream-generator`) će već sam od sebe ispravno postupiti pri sastavljanju podataka."
 
 #: src/as-validator-issue-tag.h:478
 msgid ""
@@ -2316,7 +2247,7 @@ msgstr "URL format je neispravan."
 #: tools/ascli-actions-mdata.c:544
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr "Nije moguće izgraditi predložak metainfo datoteke: %s"
+msgstr "Nije moguće izgraditi predložak datoteke metapodataka: %s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:400
@@ -2399,7 +2330,7 @@ msgstr "Nije moguće spremiti desktop-entry datoteku: %s"
 #: tools/ascli-actions-mdata.c:552
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
-msgstr "Nije moguće spremiti predložak metainfo datoteke: %s"
+msgstr "Nije moguće spremiti predložak datoteke metapodataka: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -2409,7 +2340,7 @@ msgstr "Nije moguće učitati upravljača paketa: %s"
 #: tools/ascli-actions-mdata.c:322
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr "Nije moguće pisati u „%s”. Nije moguće instalirati metainfo datoteku."
+msgstr "Nije moguće pisati u „%s”. Nije moguće instalirati datoteku metapodataka."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1021
@@ -2453,9 +2384,7 @@ msgstr "Upotreba duhanskih proizvoda"
 #: tools/appstream-cli.c:662
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
-"Koristi zadanu .desktop datoteku za popunjavanje osnovnih vrijednosti "
-"metainfo datoteke."
+msgstr "Koristi zadanu .desktop datoteku za popunjavanje osnovnih vrijednosti datoteke metapodataka."
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstream-cli.c:711
@@ -2550,9 +2479,7 @@ msgstr "Obrada teksta"
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
 #: tools/appstream-cli.c:1098
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr ""
-"Zapiši tekstualnu NEWS ili YAML datoteku s informacijama iz jedne metainfo "
-"datoteke."
+msgstr "Zapiši tekstualnu NEWS ili YAML datoteku s podacima iz datoteke metapodataka."
 
 #: tools/appstream-cli.c:940
 msgid ""
@@ -2587,9 +2514,7 @@ msgstr "Mora se navesti jedna NEWS datoteka kao unos."
 
 #: tools/ascli-actions-misc.c:509
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr ""
-"Mora se navesti jedna NEWS datoteka kao rezultat ili '-' za ispis na "
-"standardni izlaz."
+msgstr "Mora se navesti jedna NEWS datoteka kao rezultat ili „-” za ispis u standardni rezultat."
 
 #: tools/ascli-actions-misc.c:540
 msgid "You need to specify a NEWS format to write the output in."
@@ -2620,14 +2545,12 @@ msgstr "Mora se navesti jedna datoteka metapodataka."
 
 #: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
 msgid "You need to specify a metainfo file as input."
-msgstr "Mora se navesti jedna metainfo datoteka kao unos."
+msgstr "Mora se navesti jedna datoteka metapodataka kao unos."
 
 #: tools/ascli-actions-misc.c:397
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr ""
-"Mora se navesti jedna metainfo datoteka za proširivanje ili „-” za ispis na "
-"standardni izlaz."
+msgstr "Mora se navesti jedna datoteka metapodataka za proširivanje ili „-” za ispis u standardni rezultat."
 
 #: tools/ascli-actions-validate.c:390 tools/ascli-actions-validate.c:484
 msgid "You need to specify a root directory to start validation!"
