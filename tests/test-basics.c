@@ -495,13 +495,61 @@ test_version_compare ()
 	g_assert_cmpint (as_vercmp_simple (NULL, "4.0"), <, 0);
 	g_assert_cmpint (as_vercmp_simple ("4.0", NULL), >, 0);
 
-	g_assert_cmpint (as_vercmp_simple ("11.0.9.1+1-0ubuntu1", "11.0.9+11-0ubuntu2"), >, 0); /* issue #288 */
+	/* issue #288 */
+	g_assert_cmpint (as_vercmp_simple ("11.0.9.1+1-0ubuntu1", "11.0.9+11-0ubuntu2"), >, 0);
+
+	/* same */
+	g_assert_cmpint (as_vercmp_simple ("1.2.3", "1.2.3"), ==, 0);
+	g_assert_cmpint (as_vercmp_simple ("001.002.003", "001.002.003"), ==, 0);
 
 	/* epochs */
 	g_assert_cmpint (as_vercmp_simple ("4:5.6-2", "8.0-6"), >, 0);
 	g_assert_cmpint (as_vercmp_simple ("1:1.0-4", "3:0.8-2"), <, 0);
 	g_assert_cmpint (as_vercmp_simple ("1:1.0-4", "3:0.8-2"), <, 0);
 	g_assert_cmpint (as_vercmp ("1:1.0-4", "3:0.8-2", AS_VERCMP_FLAG_IGNORE_EPOCH), >, 0);
+
+	/* upgrade and downgrade */
+	g_assert_cmpint (as_vercmp_simple ("1.2.3", "1.2.4"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("001.002.000", "001.002.009"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("1.2.3", "1.2.2"), >, 0);
+	g_assert_cmpint (as_vercmp_simple ("001.002.009", "001.002.000"), >, 0);
+
+	/* unequal depth */
+	g_assert_cmpint (as_vercmp_simple ("1.2.3", "1.2.3.1"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("1.2.3.1", "1.2.4"), <, 0);
+
+	/* mixed-alpha-numeric */
+	g_assert_cmpint (as_vercmp_simple ("1.2.3a", "1.2.3a"), ==, 0);
+	g_assert_cmpint (as_vercmp_simple ("1.2.3a", "1.2.3b"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("1.2.3b", "1.2.3a"), >, 0);
+
+	/* alpha version append */
+	g_assert_cmpint (as_vercmp_simple ("1.2.3", "1.2.3a"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("1.2.3a", "1.2.3"), >, 0);
+
+	/* alpha only */
+	g_assert_cmpint (as_vercmp_simple ("alpha", "alpha"), ==, 0);
+	g_assert_cmpint (as_vercmp_simple ("alpha", "beta"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("beta", "alpha"), >, 0);
+
+	/* alpha-compare */
+	g_assert_cmpint (as_vercmp_simple ("1.2a.3", "1.2a.3"), ==, 0);
+	g_assert_cmpint (as_vercmp_simple ("1.2a.3", "1.2b.3"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("1.2b.3", "1.2a.3"), >, 0);
+
+	/* tilde is all-powerful */
+	g_assert_cmpint (as_vercmp_simple ("1.2.3~rc1", "1.2.3~rc1"), ==, 0);
+	g_assert_cmpint (as_vercmp_simple ("1.2.3~rc1", "1.2.3"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("1.2.3", "1.2.3~rc1"), >, 0);
+	g_assert_cmpint (as_vercmp_simple ("1.2.3~rc2", "1.2.3~rc1"), >, 0);
+
+	/* more complex */
+	g_assert_cmpint (as_vercmp_simple ("0.9", "1"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("9", "9a"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("9a", "10"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("9+", "10"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("9half", "10"), <, 0);
+	g_assert_cmpint (as_vercmp_simple ("9.5", "10"), <, 0);
 }
 
 /**
