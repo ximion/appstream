@@ -119,7 +119,7 @@ configure_file(
   configuration: conf
 )
 
-aslib_pub_enums = glib.mkenums_simple('as-enums-types',
+aslib_pub_enums = glib.mkenums_simple('as-enum-types',
     sources: aslib_pub_headers,
     install_header: true,
     install_dir: join_paths(get_option('includedir'), 'appstream')

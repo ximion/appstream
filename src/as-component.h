@@ -28,7 +28,7 @@
 #include <glib-object.h>
 #include "as-context.h"
 #include "as-enums.h"
-#include "as-enums-types.h"
+#include "as-enum-types.h"
 #include "as-provided.h"
 #include "as-icon.h"
 #include "as-screenshot.h"
