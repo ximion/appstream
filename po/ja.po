@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:43+0000\n"
-"Last-Translator: Baka Gaijin <lewdwarrior@waifu.club>\n"
+"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/translations/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -953,9 +953,7 @@ msgstr "取得したファイルサイズはゼロでした。"
 #.
 #: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
-"app;application;package;program;programme;suite;tool;アプリ;アプリケーション;"
-"パッケージ;プログラム;スイート;ツール"
+msgstr "app;application;package;program;programme;suite;tool;アプリ;アプリケーション;パッケージ;プログラム;スイート;ツール"
 
 #: src/as-pool.c:1114
 msgid "Metadata files have errors:"
@@ -1840,9 +1838,7 @@ msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr ""
-"AppStream の仕様では、日付を示すために少なくとも1日単位の完全な ISO 8601 日付"
-"文字列が必要です。 日付文字列が有効であることを確認してください。"
+msgstr "AppStream の仕様では、日付を示すために少なくとも1日単位の完全な ISO 8601 日付文字列が必要です。 日付文字列が有効であることを確認してください。"
 
 #: src/as-validator-issue-tag.h:731
 msgid ""
@@ -2171,9 +2167,7 @@ msgstr "オプション '%s' は不明です。"
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"利用可能なコマンドラインオプションの完全なリストを見るには '%s --help' を実行"
-"してください。"
+msgstr "利用可能なコマンドラインオプションの完全なリストを見るには '%s --help' を実行してください。"
 
 #: tools/appstreamcli.c:199
 #, c-format
@@ -2311,9 +2305,7 @@ msgstr ""
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"'%s' は不明なコマンドです。利用可能なコマンドの一覧を見るには '%s --help' を"
-"実行してください。"
+msgstr "'%s' は不明なコマンドです。利用可能なコマンドの一覧を見るには '%s --help' を実行してください。"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1123
@@ -2458,8 +2450,7 @@ msgstr "メタデータファイル '%s' は存在しません。"
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
-"この操作を実行するにはスーパーユーザー権限が必要である可能性があります。"
+msgstr "この操作を実行するにはスーパーユーザー権限が必要である可能性があります。"
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
@@ -2635,8 +2626,7 @@ msgstr "入力としてメタインフォファイルの指定が必要です。
 #: tools/ascli-actions-misc.c:118
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr ""
-"出力として作成したり引数に取るには、デスクトップファイルの指定が必要です。"
+msgstr "出力として作成したり引数に取るには、デスクトップファイルの指定が必要です。"
 
 #: tools/ascli-actions-misc.c:128 tools/ascli-actions-misc.c:371
 #: tools/ascli-actions-misc.c:448
@@ -2647,8 +2637,7 @@ msgstr "メタデータファイル '%s' は存在しません。"
 #: tools/ascli-actions-misc.c:149
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
-"既存のデスクトップエントリーファイル「%s」を「%s」のデータで拡張しています。"
+msgstr "既存のデスクトップエントリーファイル「%s」を「%s」のデータで拡張しています。"
 
 #: tools/ascli-actions-misc.c:154
 #, c-format
@@ -2688,9 +2677,7 @@ msgstr "入力元としてNEWSファイルの指定が必要です。"
 #: tools/ascli-actions-misc.c:332
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr ""
-"引数へのメタインフォファイルの指定が必要です。標準出力に表示する場合は '-' が"
-"必要です。"
+msgstr "引数へのメタインフォファイルの指定が必要です。標準出力に表示する場合は '-' が必要です。"
 
 #: tools/ascli-actions-misc.c:337
 msgid "No output filename specified, modifying metainfo file directly."
@@ -2698,9 +2685,7 @@ msgstr "出力ファイル名が指定されていません。メタ情報ファ
 
 #: tools/ascli-actions-misc.c:442
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr ""
-"出力先としてNEWSファイルを指定するか、'-' と入力して標準出力に出力する必要が"
-"あります。"
+msgstr "出力先としてNEWSファイルを指定するか、'-' と入力して標準出力に出力する必要があります。"
 
 #: tools/ascli-actions-misc.c:473
 msgid "You need to specify a NEWS format to write the output in."
