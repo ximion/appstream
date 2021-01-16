@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the appstream package.
 # Translators:
 # Ooyama Yosiyuki <qqke6wd9k@apricot.ocn.ne.jp>, 2015
-# Ryo Nakano <ryonakaknock3@gmail.com>, 2019, 2020.
+# Ryo Nakano <ryonakaknock3@gmail.com>, 2019, 2020, 2021.
 # Grace Guo <grace@appest.com>, 2020.
 # Allan Nordhøy <epost@anotheragency.no>, 2020.
 # Baka Gaijin <lewdwarrior@waifu.club>, 2020.
@@ -12,16 +12,15 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-01-12 19:24+0100\n"
-"PO-Revision-Date: 2020-11-25 08:29+0000\n"
-"Last-Translator: Baka Gaijin <lewdwarrior@waifu.club>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/"
-"translations/ja/>\n"
+"PO-Revision-Date: 2021-01-16 01:32+0000\n"
+"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/translations/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. * of the rating e.g. "Adults Only (solo adultos)"
@@ -39,7 +38,7 @@ msgstr "'%s' コマンド"
 #: tools/appstream-cli.c:867
 #, c-format
 msgid "(Alias: '%s')"
-msgstr ""
+msgstr "(エイリアス: '%s')"
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -87,12 +86,12 @@ msgstr ""
 
 #: src/as-content-rating.c:453
 msgid "ALL"
-msgstr ""
+msgstr "すべて"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1003
 msgid "Ability to spend real money in-app"
-msgstr ""
+msgstr "アプリ内課金あり"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -303,12 +302,12 @@ msgstr "カード"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:843
 msgid "Cartoon characters in aggressive conflict"
-msgstr ""
+msgstr "攻撃的な人物が挿絵に登場します"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:841
 msgid "Cartoon characters in unsafe situations"
-msgstr ""
+msgstr "危険な状況下の人物が挿絵に登場します"
 
 #: tools/ascli-utils.c:335
 msgid "Categories"
@@ -317,12 +316,12 @@ msgstr "カテゴリー"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:854
 msgid "Characters in aggressive conflict easily distinguishable from reality"
-msgstr ""
+msgstr "フィクションだと容易に判定できる攻撃的な人物が登場します"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:852
 msgid "Characters in unsafe situations easily distinguishable from reality"
-msgstr ""
+msgstr "フィクションだと容易に判定できる危険な状況下の人物が登場します"
 
 #: src/as-category.c:259
 msgctxt "Category of Communication"
@@ -351,12 +350,10 @@ msgstr "コーデック"
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstream-cli.c:963
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"利用可能なコマンドラインオプションの完全なリストを見るには '%s --help' を実行"
-"してください。"
+msgstr "'%s' は不明なコマンドです。利用可能なコマンドの一覧を見るには '%s --help' を実行してください。"
 
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
@@ -417,9 +414,8 @@ msgstr "'％s ::％s'を提供できるコンポーネントが見つかりま�
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstream-cli.c:1088
-#, fuzzy
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr "メタインフォファイルからXDGデスクトップエントリファイルを作成します。"
+msgstr "メタインフォファイルからデスクトップエントリファイルを作成します。"
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
 #: tools/appstream-cli.c:1083
@@ -453,7 +449,7 @@ msgstr "データベース"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1131
 msgid "Dead human remains that are exposed to the elements"
-msgstr ""
+msgstr "主要部に死体が表示されます"
 
 #: src/as-category.c:86
 msgctxt "Category of Development"
@@ -472,27 +468,27 @@ msgstr "デフォルトのメタデータファイル形式 (有効な値は 'xm
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:878
 msgid "Depictions of bloodshed and the mutilation of body parts"
-msgstr ""
+msgstr "流血している切断された体の一部の描写があります"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1120
 msgid "Depictions of modern-day human desecration"
-msgstr ""
+msgstr "人間性の冒涜にあたる描写があります"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1142
 msgid "Depictions of modern-day slavery"
-msgstr ""
+msgstr "奴隷制に関する描写があります"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1118
 msgid "Depictions of or references to historical desecration"
-msgstr ""
+msgstr "過去の人間性の冒涜にあたる描写があります"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1140
 msgid "Depictions of or references to historical slavery"
-msgstr ""
+msgstr "過去の奴隷制に関する描写があります"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:865
@@ -1089,14 +1085,13 @@ msgid "Math"
 msgstr "数学"
 
 #: src/as-content-rating.c:459 src/as-content-rating.c:559
-#, fuzzy
 msgid "Mature"
-msgstr "おすすめ"
+msgstr "成人向け"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:960
 msgid "Mature or sexual humor"
-msgstr ""
+msgstr "成人向けの下品な話題"
 
 #: src/as-provided.c:148
 msgid "Media types"
@@ -1659,10 +1654,7 @@ msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr ""
-"AppStream仕様では、日付を示すために少なくとも1日単位の完全なISO 8601日付文字"
-"列が必要です。 \n"
-"日付文字列が有効であることを確認してください。"
+msgstr "AppStream の仕様では、日付を示すために少なくとも1日単位の完全な ISO 8601 日付文字列が必要です。 日付文字列が有効であることを確認してください。"
 
 #: src/as-pool.c:1932
 #, c-format
@@ -2191,9 +2183,9 @@ msgid "Unable to find component with ID '%s'!"
 msgstr "ID が '%s' のコンポーネントは見つかりません！"
 
 #: tools/ascli-actions-misc.c:224
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr ".desktop ファイルを読み込めません: %s"
+msgstr "既存のデスクトップエントリファイルのテンプレートを読み込めません: %s"
 
 #: src/as-validator-issue-tag.h:374
 msgid "Unable to reach remote icon at the given web location - does it exist?"
@@ -2234,9 +2226,9 @@ msgid "Unable to remove old cache."
 msgstr ""
 
 #: tools/ascli-actions-misc.c:370
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save desktop entry file: %s"
-msgstr ".desktop ファイルを読み込めません: %s"
+msgstr "デスクトップエントリファイルを保存できません: %s"
 
 #: tools/ascli-actions-mdata.c:552
 #, c-format
@@ -2440,25 +2432,22 @@ msgid "You need to specify a component-ID."
 msgstr "コンポーネント ID の指定が必要です。"
 
 #: tools/ascli-actions-misc.c:188
-#, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "検証するファイルの指定が少なくとも一つは必要です！"
+msgstr "出力として作成したり引数に取るには、デスクトップファイルの指定が必要です。"
 
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
 msgstr "メタデータファイルの指定が必要です。"
 
 #: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
-#, fuzzy
 msgid "You need to specify a metainfo file as input."
-msgstr "メタデータファイルの指定が必要です。"
+msgstr "入力としてメタインフォファイルの指定が必要です。"
 
 #: tools/ascli-actions-misc.c:397
-#, fuzzy
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr "メタデータファイルの指定が必要です。"
+msgstr "引数へのメタインフォファイルの指定が必要です。標準出力に表示する場合は '-' が必要です。"
 
 #: tools/ascli-actions-validate.c:390 tools/ascli-actions-validate.c:484
 msgid "You need to specify a root directory to start validation!"
