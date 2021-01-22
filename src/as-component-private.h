@@ -69,10 +69,6 @@ void			as_component_set_bundles_array (AsComponent *cpt,
 gboolean		as_component_has_package (AsComponent *cpt);
 gboolean		as_component_has_install_candidate (AsComponent *cpt);
 
-void			as_component_add_provided_item (AsComponent *cpt,
-							AsProvidedKind kind,
-							const gchar *item);
-
 const gchar		*as_component_get_architecture (AsComponent *cpt);
 void			 as_component_set_architecture (AsComponent *cpt,
 							const gchar *arch);
