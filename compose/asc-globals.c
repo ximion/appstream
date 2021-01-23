@@ -300,9 +300,8 @@ asc_globals_create_hint_tag_table ()
 		gboolean r;
 		AsIssueSeverity severity;
 		g_autofree gchar *compose_tag = g_strconcat ("asv-", as_validator_issue_tag_list[i].tag, NULL);
-		g_autofree gchar *explanation = g_strconcat ("<code>{{location}}</code> - <em>{{hint}}</em><br/>",
-							     as_validator_issue_tag_list[i].explanation,
-							     NULL);
+		g_autofree gchar *explanation = g_markup_printf_escaped ("<code>{{location}}</code> - <em>{{hint}}</em><br/>%s",
+									 as_validator_issue_tag_list[i].explanation);
 
 		/* any validator issue can not be of type error in as-compose - if the validation issue
 		 * is so severe that it renders the compose process impossible, we will throw another issue
