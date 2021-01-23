@@ -42,6 +42,8 @@ struct _AscHintClass
 };
 
 AscHint			*asc_hint_new (void);
+AscHint			*asc_hint_new_for_tag (const gchar *tag,
+						GError **error);
 
 const gchar		*asc_hint_get_tag (AscHint *hint);
 void			asc_hint_set_tag (AscHint *hint,

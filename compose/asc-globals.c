@@ -28,6 +28,7 @@
 #include "asc-globals-private.h"
 
 #include "as-utils-private.h"
+#include "as-validator-issue-tag.h"
 #include "asc-resources.h"
 
 #define ASC_TYPE_GLOBALS (asc_globals_get_type ())
@@ -274,11 +275,14 @@ static void
 asc_globals_create_hint_tag_table ()
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
-	priv->hint_tags = g_hash_table_new_full (g_str_hash,
-							g_str_equal,
-							(GDestroyNotify) as_ref_string_release,
-							(GDestroyNotify) asc_hint_tag_free);
+	g_return_if_fail (priv->hint_tags == NULL);
 
+	priv->hint_tags = g_hash_table_new_full (g_str_hash,
+						 g_str_equal,
+						 (GDestroyNotify) as_ref_string_release,
+						 (GDestroyNotify) asc_hint_tag_free);
+
+	/* add compose issue hint tags */
 	for (guint i = 0; asc_hint_tag_list[i].tag != NULL; i++) {
 		AscHintTag *htag;
 		const AscHintTagStatic s = asc_hint_tag_list[i];
@@ -288,6 +292,31 @@ asc_globals_create_hint_tag_table ()
 							htag);
 		if (G_UNLIKELY (!r))
 			g_critical ("Duplicate compose-hint tag '%s' found in tag list. This is a bug in appstream-compose.", asc_hint_tag_list[i].tag);
+	}
+
+	/* add validator issue hint tags */
+	for (guint i = 0; as_validator_issue_tag_list[i].tag != NULL; i++) {
+		AscHintTag *htag;
+		gboolean r;
+		AsIssueSeverity severity;
+		g_autofree gchar *compose_tag = g_strconcat ("asv-", as_validator_issue_tag_list[i].tag, NULL);
+		g_autofree gchar *explanation = g_strconcat ("<code>{{location}}</code> - <em>{{hint}}</em><br/>",
+							     as_validator_issue_tag_list[i].explanation,
+							     NULL);
+
+		/* any validator issue can not be of type error in as-compose - if the validation issue
+		 * is so severe that it renders the compose process impossible, we will throw another issue
+		 * of type "error" which will immediately terminate the data genertaion. */
+		severity = as_validator_issue_tag_list[i].severity;
+		if (severity == AS_ISSUE_SEVERITY_ERROR)
+			severity = AS_ISSUE_SEVERITY_WARNING;
+
+		htag = asc_hint_tag_new (compose_tag, severity, explanation);
+		r = g_hash_table_insert (priv->hint_tags,
+					 g_ref_string_new_intern (compose_tag),
+					 htag);
+		if (G_UNLIKELY (!r))
+			g_critical ("Duplicate issue-tag '%s' found in tag list. This is a bug in appstream-compose.", as_validator_issue_tag_list[i].tag);
 	}
 }
 
@@ -362,7 +391,7 @@ asc_globals_get_hint_tags ()
 	strv = g_new0 (gchar*, g_hash_table_size (priv->hint_tags) + 1);
 	g_hash_table_iter_init (&iter, priv->hint_tags);
 	while (g_hash_table_iter_next (&iter, &key, NULL))
-		strv[++i] = g_strdup ((const gchar*) key);
+		strv[i++] = g_strdup ((const gchar*) key);
 
 	return strv;
 }

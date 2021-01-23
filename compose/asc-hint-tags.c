@@ -30,14 +30,19 @@
 #include "as-utils-private.h"
 
 AscHintTagStatic asc_hint_tag_list[] =  {
+	{ "internal-unknown-tag",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "The given tag was unknown. This is a bug."
+	},
+
 	{ "x-dev-testsuite-error",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  "Dummy error hint for the testsuite. Var1: {var1}."
+	  "Dummy error hint for the testsuite. Var1: {{var1}}."
 	},
 
 	{ "x-dev-testsuite-info",
 	  AS_ISSUE_SEVERITY_INFO,
-	  "Dummy info hint for the testsuite. Var1: {var1}."
+	  "Dummy info hint for the testsuite. Var1: {{var1}}."
 	},
 
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }

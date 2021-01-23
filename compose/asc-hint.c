@@ -28,6 +28,7 @@
 #include "asc-hint.h"
 
 #include "as-utils-private.h"
+#include "asc-globals-private.h"
 
 typedef struct
 {
@@ -242,12 +243,12 @@ asc_hint_format_explanation (AscHint *hint)
 	if (priv->explanation_tmpl == NULL)
 		return NULL;
 
-	parts = g_strsplit (priv->explanation_tmpl, "{", -1);
+	parts = g_strsplit (priv->explanation_tmpl, "{{", -1);
 	for (guint i = 0; parts[i] != NULL; i++) {
 		gboolean replaced = FALSE;
 
 		for (guint j = 0; j < priv->vars->len; j += 2) {
-			g_autofree gchar *tmp = g_strconcat (g_ptr_array_index (priv->vars, j), "}", NULL);
+			g_autofree gchar *tmp = g_strconcat (g_ptr_array_index (priv->vars, j), "}}", NULL);
 			g_autofree gchar *tmp2 = NULL;
 			if (!g_str_has_prefix (parts[i], tmp))
 				continue;
@@ -265,7 +266,7 @@ asc_hint_format_explanation (AscHint *hint)
 
 			/* keep the placeholder in place */
 			tmp = parts[i];
-			parts[i] = g_strconcat ("{", parts[i], NULL);
+			parts[i] = g_strconcat ("{{", parts[i], NULL);
 		}
 	}
 
@@ -283,4 +284,33 @@ asc_hint_new (void)
 	AscHint *hint;
 	hint = g_object_new (ASC_TYPE_HINT, NULL);
 	return ASC_HINT (hint);
+}
+
+/**
+ * asc_hint_new_for_tag:
+ * @tag: The tag ID to construct this hint for.
+ * @error: A #GError or %NULL
+ *
+ * Creates a new #AscHint with the given tag. If the selected tag was not registered+
+ * with the global tag registry, %NULL is returned and an error is set.
+ **/
+AscHint*
+asc_hint_new_for_tag (const gchar *tag, GError **error)
+{
+	AscHintTag *htag;
+	g_autoptr(AscHint) hint = asc_hint_new ();
+
+	htag = asc_globals_get_hint_tag_details (tag);
+	if (htag == NULL || htag->severity == AS_ISSUE_SEVERITY_UNKNOWN) {
+		g_set_error (error,
+			     ASC_COMPOSE_ERROR,
+			     ASC_COMPOSE_ERROR_FAILED,
+			     "The selected hint tag '%s' could not be found. Unable to create hint object.", tag);
+		return NULL;
+	}
+
+	asc_hint_set_tag (hint, htag->tag);
+	asc_hint_set_severity (hint, htag->severity);
+	asc_hint_set_explanation_template (hint, htag->explanation);
+	return g_steal_pointer (&hint);
 }

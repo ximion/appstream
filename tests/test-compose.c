@@ -257,21 +257,33 @@ static void
 test_compose_hints ()
 {
 	g_autoptr(AscHint) hint = NULL;
+	g_autoptr(GError) error = NULL;
 	g_autofree gchar *tmp = NULL;
 
-	hint = asc_hint_new ();
+	hint = asc_hint_new_for_tag ("internal-unknown-tag", &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (hint);
+
+	g_assert_cmpstr (asc_hint_get_tag (hint), ==, "internal-unknown-tag");
+	g_assert_cmpint (asc_hint_get_severity (hint), ==, AS_ISSUE_SEVERITY_ERROR);
+	g_assert_cmpstr (asc_hint_get_explanation_template (hint), ==, "The given tag was unknown. This is a bug.");
+	g_assert (asc_hint_is_valid (hint));
+	g_assert (asc_hint_is_error (hint));
+
 	asc_hint_set_tag (hint, "dev-testsuite-test");
 	asc_hint_set_severity (hint, AS_ISSUE_SEVERITY_INFO);
 	g_assert (asc_hint_is_valid (hint));
 	g_assert (!asc_hint_is_error (hint));
 
 	asc_hint_set_explanation_template (hint,
-					   "This is an explanation for {name} which contains {amount} placeholders, including one left {invalid} intentionally.");
+					   "This is an explanation for {{name}} which contains {{amount}} placeholders, "
+					   "including one {odd} one and one left {{invalid}} intentionally.");
 	asc_hint_add_explanation_var (hint, "name", "the compose testsuite");
 	asc_hint_add_explanation_var (hint, "amount", "3");
 
 	tmp = asc_hint_format_explanation (hint);
-	g_assert_cmpstr (tmp, ==, "This is an explanation for the compose testsuite which contains 3 placeholders, including one left {invalid} intentionally.");
+	g_assert_cmpstr (tmp, ==, "This is an explanation for the compose testsuite which contains 3 placeholders, "
+				  "including one {odd} one and one left {{invalid}} intentionally.");
 }
 
 /**
