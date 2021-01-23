@@ -46,10 +46,10 @@ struct _AsValidatorIssueClass
 
 /**
  * AsIssueSeverity:
- * @AS_ISSUE_SEVERITY_ERROR:	There is a serious error in your metadata
- * @AS_ISSUE_SEVERITY_WARNING:	Something which should be fixed, but is not fatal
- * @AS_ISSUE_SEVERITY_INFO:	Non-essential information on how to improve your metadata
- * @AS_ISSUE_SEVERITY_PEDANTIC:	Pedantic information
+ * @AS_ISSUE_SEVERITY_ERROR:	There is a serious, fatal error in your metadata
+ * @AS_ISSUE_SEVERITY_WARNING:	Something metadata issue which should be fixed as soon as possible.
+ * @AS_ISSUE_SEVERITY_INFO:	Non-essential information on how to improve metadata, no immediate action needed.
+ * @AS_ISSUE_SEVERITY_PEDANTIC:	Pedantic information about ways to improve the data, but could also be ignored.
  *
  * The severity of an issue found by #AsValidator
  **/

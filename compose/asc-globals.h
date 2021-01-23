@@ -40,16 +40,16 @@ typedef enum {
 } AscComposeError;
 
 #define	ASC_COMPOSE_ERROR	asc_compose_error_quark ()
-GQuark			asc_compose_error_quark (void);
+GQuark				asc_compose_error_quark (void);
 
-const gchar	*asc_globals_get_tmp_dir (void);
-const gchar	*asc_globals_get_tmp_dir_create (void);
-void		asc_globals_set_tmp_dir (const gchar *path);
+const gchar			*asc_globals_get_tmp_dir (void);
+const gchar			*asc_globals_get_tmp_dir_create (void);
+void				asc_globals_set_tmp_dir (const gchar *path);
 
-gboolean	asc_globals_get_use_optipng (void);
-void		asc_globals_set_use_optipng (gboolean enabled);
+gboolean			asc_globals_get_use_optipng (void);
+void				asc_globals_set_use_optipng (gboolean enabled);
 
-const gchar	*asc_globals_get_optipng_binary (void);
-void		asc_globals_set_optipng_binary (const gchar *path);
+const gchar			*asc_globals_get_optipng_binary (void);
+void				asc_globals_set_optipng_binary (const gchar *path);
 
 G_END_DECLS

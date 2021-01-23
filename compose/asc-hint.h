@@ -59,8 +59,8 @@ gboolean		asc_hint_is_error (AscHint *hint);
 gboolean		asc_hint_is_valid (AscHint *hint);
 
 void			asc_hint_add_explanation_var (AscHint *hint,
-						const gchar *var_name,
-						const gchar *text);
+						      const gchar *var_name,
+						      const gchar *text);
 
 gchar			*asc_hint_format_explanation (AscHint *hint);
 
