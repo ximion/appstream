@@ -36,7 +36,6 @@ ascli_format_long_output (const gchar *str, guint line_length, guint indent_leve
 {
 	GString *res = NULL;
 	g_auto(GStrv) spl = NULL;
-	g_autofree gchar *spacing = NULL;
 
 	if (str == NULL)
 		return NULL;
@@ -44,12 +43,16 @@ ascli_format_long_output (const gchar *str, guint line_length, guint indent_leve
 		indent_level = line_length - 4;
 
 	res = g_string_sized_new (strlen (str));
-	spacing = g_strnfill (indent_level, ' ');
 
 	spl = as_markup_strsplit_words (str, line_length - indent_level);
-	for (guint i = 0; spl[i] != NULL; i++) {
-		g_string_append (res, spacing);
+	for (guint i = 0; spl[i] != NULL; i++)
 		g_string_append (res, spl[i]);
+
+	if (indent_level > 0) {
+		g_autofree gchar *spacing = g_strnfill (indent_level, ' ');
+		g_autofree gchar *spacing_nl = g_strconcat ("\n", spacing, NULL);
+		as_gstring_replace (res, "\n", spacing_nl);
+		g_string_prepend (res, spacing);
 	}
 
 	/* drop trailing newline */
@@ -72,10 +75,12 @@ ascli_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 	if ((val == NULL) || (g_strcmp0 (val, "") == 0))
 		return;
 
-	if (strlen (val) > 100)
-		fmtval = ascli_format_long_output (val, 100, 2);
-	else
+	if (strlen (val) > 100) {
+		g_autofree gchar *tmp = ascli_format_long_output (val, 100, 2);
+		fmtval = g_strconcat ("\n", tmp, NULL);
+	} else {
 		fmtval = g_strdup (val);
+	}
 
 	str = g_strdup_printf ("%s: ", key);
 	if (_colored_output) {

@@ -18,3 +18,6 @@ libappstream API break for the AppStream 1.0 release.
 
  * Drop use of `/etc/appstream.conf`, expose any of its remaining options (if there are any) as C API
    for client tools to use.
+
+ * Sort out the various markup-to-text conversion functions, make some of them public API and maybe rewrite some
+   (there are likely some performance improvements to be found there)

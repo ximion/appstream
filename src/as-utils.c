@@ -189,11 +189,11 @@ as_description_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError
 			g_autofree gchar *content = (gchar*) xmlNodeGetContent (iter);
 			g_strstrip (content);
 
-			/* remove extra whitespaces */
+			/* remove extra whitespaces and linebreaks */
 			strv = g_strsplit (content, "\n", -1);
 			for (guint i = 0; strv[i] != NULL; ++i)
 				g_strstrip (strv[i]);
-			tmp = g_strjoinv ("\n", strv);
+			tmp = g_strjoinv (" ", strv);
 
 			if (str->len > 0)
 				g_string_append (str, "\n");
