@@ -112,7 +112,7 @@ aslib_priv_headers = [
     'as-yaml.h'
 ]
 
-configure_file(
+as_version_h = configure_file(
   input: 'as-version.h.in',
   output: 'as-version.h',
   install_dir: join_paths(get_option('includedir'), 'appstream'),
@@ -221,7 +221,11 @@ install_headers(aslib_pub_headers, subdir: 'appstream')
 if get_option ('gir')
     as_gir_typelib = glib.generate_gir (
         appstream_lib,
-        sources: aslib_src + aslib_pub_headers + aslib_pub_enums,
+        sources: [aslib_src,
+                  aslib_pub_headers,
+                  aslib_pub_enums,
+                  as_version_h,
+                  'as-version.c'],
         nsversion: '1.0',
         namespace: 'AppStream',
         symbol_prefix: 'as',

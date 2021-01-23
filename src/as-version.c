@@ -35,6 +35,12 @@
 #include "as-version.h"
 
 /**
+ * SECTION:as-versions
+ * @short_description: Macros and functions to check the AppStream version
+ * @include: appstream.h
+ */
+
+/**
  * as_version_string:
  *
  * Get the version of the AppStream library that is currently used
