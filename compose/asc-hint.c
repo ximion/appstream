@@ -34,7 +34,7 @@ typedef struct
 	GPtrArray		*vars;
 	gchar			*tag;
 	AsIssueSeverity		severity;
-	gchar			*explanation_tmpl;
+	GRefString		*explanation_tmpl;
 } AscHintPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscHint, asc_hint, G_TYPE_OBJECT)
@@ -55,7 +55,7 @@ asc_hint_finalize (GObject *object)
 	AscHintPrivate *priv = GET_PRIVATE (hint);
 
 	g_free (priv->tag);
-	g_free (priv->explanation_tmpl);
+	as_ref_string_release (priv->explanation_tmpl);
 	priv->severity = AS_ISSUE_SEVERITY_UNKNOWN;
 	if (priv->vars != NULL)
 		g_ptr_array_unref (priv->vars);
@@ -146,8 +146,7 @@ void
 asc_hint_set_explanation_template (AscHint *hint, const gchar *explanation_tmpl)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
-	g_free (priv->explanation_tmpl);
-	priv->explanation_tmpl = g_strdup (explanation_tmpl);
+	as_ref_string_assign_safe (&priv->explanation_tmpl, explanation_tmpl);
 }
 
 /**
@@ -205,6 +204,23 @@ asc_hint_add_explanation_var (AscHint *hint, const gchar *var_name, const gchar 
 	/* add new key-value pair */
 	g_ptr_array_add (priv->vars, g_strdup (var_name));
 	g_ptr_array_add (priv->vars, g_strdup (text));
+}
+
+/**
+ * asc_hint_get_explanation_vars_list:
+ * @hint: an #AscHint instance.
+ *
+ * Returns a list with the flattened key/value pairs for this hint.
+ * Values are located in uneven list entries, following their keys in even list entries.
+ *
+ * Returns: (transfer none) (element-type utf8): A flattened #GPtrArray with the key/value pairs.
+ **/
+GPtrArray*
+asc_hint_get_explanation_vars_list (AscHint *hint)
+{
+	AscHintPrivate *priv = GET_PRIVATE (hint);
+	g_assert_cmpint (priv->vars->len % 2, ==, 0);
+	return priv->vars;
 }
 
 /**

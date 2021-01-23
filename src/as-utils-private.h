@@ -130,7 +130,9 @@ gchar			*as_date_time_format_iso8601 (GDateTime *datetime);
 AS_INTERNAL_VISIBLE
 gchar			*as_strstripnl (gchar *string);
 
+AS_INTERNAL_VISIBLE
 void			as_ref_string_release (GRefString *rstr);
+AS_INTERNAL_VISIBLE
 void			as_ref_string_assign_safe (GRefString **rstr_ptr,
 						   const gchar *str);
 

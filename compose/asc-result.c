@@ -237,7 +237,7 @@ asc_result_fetch_components (AscResult *result)
  *
  * Gets hints for a component with the given component-id.
  *
- * Returns: (transfer none) (element-type AscHint) : An array of #AscHint or %NULL
+ * Returns: (transfer none) (element-type AscHint): An array of #AscHint or %NULL
  **/
 GPtrArray*
 asc_result_get_hints (AscResult *result, const gchar *cid)

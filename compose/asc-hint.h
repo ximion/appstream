@@ -61,6 +61,7 @@ gboolean		asc_hint_is_valid (AscHint *hint);
 void			asc_hint_add_explanation_var (AscHint *hint,
 						      const gchar *var_name,
 						      const gchar *text);
+GPtrArray		*asc_hint_get_explanation_vars_list (AscHint *hint);
 
 gchar			*asc_hint_format_explanation (AscHint *hint);
 
