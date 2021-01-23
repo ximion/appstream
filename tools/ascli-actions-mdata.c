@@ -426,6 +426,39 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 }
 
 /**
+ * ascli_show_os_info:
+ *
+ * Display information about the current operating system from the AppStream
+ * metadata cache.
+ */
+int
+ascli_show_os_info (const gchar *cachepath, gboolean no_cache)
+{
+	g_autoptr(AsPool) pool = NULL;
+	g_autoptr(GPtrArray) result = NULL;
+	g_autoptr(AsDistroDetails) distro = NULL;
+	g_autoptr(GError) error = NULL;
+
+	distro = as_distro_details_new ();
+	pool = ascli_data_pool_new_and_open (cachepath, no_cache, &error);
+	if (error != NULL) {
+		g_printerr ("%s\n", error->message);
+		return 1;
+	}
+
+	result = as_pool_get_components_by_id (pool, as_distro_details_get_cid (distro));
+	if (result->len == 0) {
+		ascli_print_stderr (_("Unable to find operating system component '%s'!"), as_distro_details_get_cid (distro));
+		return 4;
+	}
+
+	ascli_print_components (result, TRUE);
+	ascli_print_key_value (_("Version"), as_distro_details_get_version (distro), FALSE);
+
+	return 0;
+}
+
+/**
  * ascli_create_metainfo_template:
  *
  * Create a metainfo file template to be filed out by the user.

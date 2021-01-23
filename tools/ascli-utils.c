@@ -48,16 +48,17 @@ ascli_format_long_output (const gchar *str, guint line_length, guint indent_leve
 	for (guint i = 0; spl[i] != NULL; i++)
 		g_string_append (res, spl[i]);
 
+	/* drop trailing newline */
+	if (res->len > 0)
+		g_string_truncate (res, res->len - 1);
+
+	/* indent the block, if requested */
 	if (indent_level > 0) {
 		g_autofree gchar *spacing = g_strnfill (indent_level, ' ');
 		g_autofree gchar *spacing_nl = g_strconcat ("\n", spacing, NULL);
 		as_gstring_replace (res, "\n", spacing_nl);
 		g_string_prepend (res, spacing);
 	}
-
-	/* drop trailing newline */
-	if (res->len > 0)
-		g_string_truncate (res, res->len - 1);
 
 	return g_string_free (res, FALSE);
 }

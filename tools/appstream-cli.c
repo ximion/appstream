@@ -518,6 +518,32 @@ as_client_run_status (const gchar *command, char **argv, int argc)
 }
 
 /**
+ * as_client_run_os_info:
+ *
+ * Show information about the current operating system.
+ */
+static int
+as_client_run_os_info (const gchar *command, char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+
+	opt_context = as_client_new_subcommand_option_context (command, find_options);
+	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
+
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 2) {
+		as_client_print_help_hint (command, argv[3]);
+		return 1;
+	}
+
+	return ascli_show_os_info (optn_cachepath, optn_no_cache);
+}
+
+/**
  * as_client_run_convert:
  *
  * Convert metadata.
@@ -1061,6 +1087,11 @@ as_client_run (char **argv, int argc)
 			/* TRANSLATORS: `appstreamcli status` command description. */
 			_("Display status information about available AppStream metadata."),
 			as_client_run_status);
+	ascli_add_cmd (commands,
+			4, "os-info", NULL, NULL,
+			/* TRANSLATORS: `appstreamcli os-info` command description. */
+			_("Show information about the current operating system from the metadata index."),
+			as_client_run_os_info);
 	ascli_add_cmd (commands,
 			4, "put", NULL, "FILE",
 			/* TRANSLATORS: `appstreamcli put` command description. */
