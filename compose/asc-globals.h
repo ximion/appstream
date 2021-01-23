@@ -24,6 +24,7 @@
 #pragma once
 
 #include <glib-object.h>
+#include <appstream.h>
 
 G_BEGIN_DECLS
 
@@ -51,5 +52,12 @@ void				asc_globals_set_use_optipng (gboolean enabled);
 
 const gchar			*asc_globals_get_optipng_binary (void);
 void				asc_globals_set_optipng_binary (const gchar *path);
+
+gboolean			asc_globals_add_hint_tag (const gchar *tag,
+							  AsIssueSeverity severity,
+							  const gchar *explanation);
+gchar				**asc_globals_get_hint_tags ();
+AsIssueSeverity			asc_globals_hint_tag_severity (const gchar *tag);
+const gchar			*asc_globals_hint_tag_explanation (const gchar *tag);
 
 G_END_DECLS

@@ -30,12 +30,23 @@ G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
 typedef struct {
+	GRefString	*tag;
+	AsIssueSeverity	severity;
+	GRefString	*explanation;
+} AscHintTag;
+
+AscHintTag	*asc_hint_tag_new (const gchar *tag,
+				   AsIssueSeverity severity,
+				   const gchar *explanation);
+void		asc_hint_tag_free (AscHintTag *htag);
+
+typedef struct {
 	const gchar	*tag;
 	AsIssueSeverity	severity;
 	const gchar	*explanation;
-} AscHintTag;
+} AscHintTagStatic;
 
-extern AscHintTag asc_hint_tag_list[];
+extern AscHintTagStatic asc_hint_tag_list[];
 
 #pragma GCC visibility pop
 G_END_DECLS

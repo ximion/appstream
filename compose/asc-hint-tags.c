@@ -27,7 +27,9 @@
 #include "config.h"
 #include "asc-hint-tags.h"
 
-AscHintTag asc_hint_tag_list[] =  {
+#include "as-utils-private.h"
+
+AscHintTagStatic asc_hint_tag_list[] =  {
 	{ "x-dev-testsuite-error",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  "Dummy error hint for the testsuite. Var1: {var1}."
@@ -40,3 +42,32 @@ AscHintTag asc_hint_tag_list[] =  {
 
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
 };
+
+/**
+ * asc_hint_tag_new:
+ *
+ * Create a new #AscHintTag struct with the given values.
+ */
+AscHintTag*
+asc_hint_tag_new (const gchar *tag, AsIssueSeverity severity, const gchar *explanation)
+{
+	AscHintTag *htag = g_new0 (AscHintTag, 1);
+	htag->severity = severity;
+	htag->tag = g_ref_string_new_intern (tag);
+	htag->explanation = g_ref_string_new_intern (explanation);
+
+	return htag;
+}
+
+/**
+ * asc_hint_tag_free:
+ *
+ * Free a dynamically allocated hint tag struct.
+ */
+void
+asc_hint_tag_free (AscHintTag *htag)
+{
+	as_ref_string_release (htag->tag);
+	as_ref_string_release (htag->explanation);
+	g_free (htag);
+}
