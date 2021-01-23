@@ -241,6 +241,8 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 	gboolean icons_available = FALSE;
 	guint i;
 
+	g_debug ("Scanning for metadata changes in the APT cache.");
+
 	/* skip this step if the APT lists directory doesn't exist */
 	if (!g_file_test (apt_lists_dir, G_FILE_TEST_IS_DIR)) {
 		g_debug ("APT lists directory (%s) not found!", apt_lists_dir);

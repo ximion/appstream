@@ -47,13 +47,8 @@ conf.set_quoted('BINDIR',
 conf.set_quoted('SYSCONFDIR',
                 join_paths(get_option('prefix'),
                            get_option('sysconfdir')))
-
-if get_option('apt-support')
-    conf.set('HAVE_APT_SUPPORT', 1)
-endif
-if get_option('stemming')
-    conf.set('HAVE_STEMMING', 1)
-endif
+conf.set('HAVE_APT_SUPPORT', get_option('apt-support'))
+conf.set('HAVE_STEMMING', get_option('stemming'))
 
 configure_file(output: 'config.h', configuration: conf)
 root_inc_dir = include_directories ('.')
