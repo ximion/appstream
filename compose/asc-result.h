@@ -59,11 +59,18 @@ AsComponent		*asc_result_get_component (AscResult *result,
 						   const gchar *cid);
 GPtrArray		*asc_result_fetch_components (AscResult *result);
 GPtrArray		*asc_result_get_hints (AscResult *result,
-					       const gchar *cid);
+						const gchar *cid);
+const gchar		**asc_result_get_component_ids_with_hints (AscResult *result);
+
 
 gboolean		asc_result_update_component_gcid (AscResult *result,
 							  AsComponent *cpt,
 							  const gchar *data);
+const gchar		*asc_result_gcid_for_cid (AscResult *result,
+							const gchar *cid);
+const gchar		*asc_result_gcid_for_component (AscResult *result,
+							AsComponent *cpt);
+const gchar		**asc_result_get_component_gcids (AscResult *result);
 
 gboolean		asc_result_add_component (AscResult *result,
 						  AsComponent *cpt,
