@@ -12,9 +12,7 @@ set -e
 build_compose=true
 maintainer_mode=true
 if [ "$ID" = "ubuntu" ] && [ "$VERSION_CODENAME" = "focal" ]; then
-    # we don't build appstream-compose on Ubuntu 20.04,
-    # or make warnings fatal
-    build_compose=false
+    # we don't make warnings fatal on Ubuntu 20.04
     maintainer_mode=false
 fi;
 

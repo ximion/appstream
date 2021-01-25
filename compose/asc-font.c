@@ -27,6 +27,7 @@
 #include "config.h"
 #include "asc-font-private.h"
 
+#include <glib/gstdio.h>
 #include <fontconfig/fontconfig.h>
 #include FT_SFNT_NAMES_H
 #include FT_TRUETYPE_IDS_H
