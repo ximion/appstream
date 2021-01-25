@@ -21,11 +21,14 @@
 
 /**
  * SECTION:as-version
- * @short_description: Helpers for the current runtime version.
+ * @short_description: Macros and functions to check the AppStream version
  * @include: appstream.h
  * @stability: Stable
  *
- * The version number can be different between build-time and runtime.
+ * These functions are used in client code to conditionalize compilation
+ * depending on the version of libappstream headers installed.
+ *
+ * Also, a function to obtain the AppStream version at runtime is provided.
  */
 
 #include "config.h"
@@ -33,12 +36,6 @@
 #include <glib.h>
 
 #include "as-version.h"
-
-/**
- * SECTION:as-versions
- * @short_description: Macros and functions to check the AppStream version
- * @include: appstream.h
- */
 
 /**
  * as_version_string:
