@@ -335,13 +335,22 @@ asc_font_new_from_data (const void *data, gssize len, const gchar *file_basename
 	 * (FreeType itself could load from memory) */
 	tmp_root = asc_globals_get_tmp_dir_create ();
 
-        fname = g_build_filename(tmp_root, file_basename, NULL);
+        fname = g_build_filename (tmp_root, file_basename, NULL);
+#if GLIB_CHECK_VERSION(2,66,0)
 	ret = g_file_set_contents_full (fname,
 					data,
 					len,
 					G_FILE_SET_CONTENTS_NONE,
 					0666,
 					error);
+#else
+	ret = g_file_set_contents (fname,
+				   data,
+				   len,
+				   error);
+	if (ret)
+		g_chmod (fname, 0666);
+#endif
 	if (!ret)
 		return NULL;
 
