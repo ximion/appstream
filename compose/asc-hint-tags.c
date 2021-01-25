@@ -35,6 +35,13 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "The given tag was unknown. This is a bug."
 	},
 
+	{ "ancient-metadata",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "The AppStream metadata should be updated to follow a more recent version of the specification.<br/>"
+	  "Please consult <a href=\"http://freedesktop.org/software/appstream/docs/chap-Quickstart.html\">the XML quickstart guide</a> for "
+	  "more information."
+	},
+
 	{ "x-dev-testsuite-error",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  "Dummy error hint for the testsuite. Var1: {{var1}}."

@@ -1796,12 +1796,12 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
  * as_validator_open_xml_document:
  */
 static xmlDoc*
-as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata)
+as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata, gssize len)
 {
 	xmlDoc *doc;
 	g_autoptr(GError) error = NULL;
 
-	doc = as_xml_parse_document (xmldata, -1, &error);
+	doc = as_xml_parse_document (xmldata, len, &error);
 	if (doc == NULL) {
 		if (error != NULL) {
 			as_validator_add_issue (validator, NULL,
@@ -1816,19 +1816,23 @@ as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata)
 }
 
 /**
- * as_validator_validate_data:
+ * as_validator_validate_bytes:
  * @validator: An instance of #AsValidator.
- * @metadata: XML metadata.
+ * @metadata: XML metadata as #GBytes.
  *
- * Validate AppStream XML data
+ * Validate AppStream XML data from a byte array.
+ *
+ * Since: 0.14.0
  **/
 gboolean
-as_validator_validate_data (AsValidator *validator, const gchar *metadata)
+as_validator_validate_bytes (AsValidator *validator, GBytes *metadata)
 {
 	gboolean ret;
 	xmlNode* root;
 	xmlDoc *doc;
 	g_autoptr(AsContext) ctx = NULL;
+	const gchar *data;
+	gsize data_len;
 	AsComponent *cpt;
 
 	/* setup networking, in case we want to check URLs */
@@ -1838,7 +1842,8 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 	ctx = as_context_new ();
 	as_context_set_locale (ctx, "C");
 
-	doc = as_validator_open_xml_document (validator, metadata);
+	data = g_bytes_get_data (metadata, &data_len);
+	doc = as_validator_open_xml_document (validator, data, data_len);
 	if (doc == NULL)
 		return FALSE;
 	root = xmlDocGetRootElement (doc);
@@ -1884,6 +1889,20 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 
 	xmlFreeDoc (doc);
 	return ret;
+}
+
+/**
+ * as_validator_validate_data:
+ * @validator: An instance of #AsValidator.
+ * @metadata: XML metadata.
+ *
+ * Validate AppStream XML data
+ **/
+gboolean
+as_validator_validate_data (AsValidator *validator, const gchar *metadata)
+{
+	g_autoptr(GBytes) bytes = g_bytes_new_static (metadata, strlen (metadata));
+	return as_validator_validate_bytes (validator, bytes);
 }
 
 /**
@@ -2138,7 +2157,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 		}
 
 		/* now read the XML */
-		doc = as_validator_open_xml_document (validator, asdata->str);
+		doc = as_validator_open_xml_document (validator, asdata->str, asdata->len);
 		if (doc == NULL) {
 			as_validator_clear_current_fname (validator);
 			continue;

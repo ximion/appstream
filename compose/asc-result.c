@@ -619,6 +619,29 @@ asc_result_add_hint (AscResult *result, AsComponent *cpt, const gchar *tag, cons
 }
 
 /**
+ * asc_result_add_hint_simple: (skip)
+ * @result: an #AscResult instance.
+ * @cpt: The affected #AsComponent
+ * @tag: AppStream Compose Issue hint tag
+ *
+ * Add an issue hint which does not have any variables to replace in its
+ * explanation text for a component.
+ *
+ * Returns: %TRUE if the added hint did not cause the component to be invalidated.
+ **/
+gboolean
+asc_result_add_hint_simple (AscResult *result, AsComponent *cpt, const gchar *tag)
+{
+	return asc_result_add_hint_va (result,
+					cpt,
+					NULL,
+					tag,
+					NULL,
+					NULL,
+					NULL);
+}
+
+/**
  * asc_result_add_hint_v: (rename-to asc_result_add_hint)
  * @result: an #AscResult instance.
  * @cpt: The affected #AsComponent

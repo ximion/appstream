@@ -50,6 +50,8 @@ AsValidator	*as_validator_new (void);
 void		as_validator_clear_issues (AsValidator *validator);
 gboolean	as_validator_validate_file (AsValidator *validator,
 						GFile* metadata_file);
+gboolean	as_validator_validate_bytes (AsValidator *validator,
+						GBytes *metadata);
 gboolean	as_validator_validate_data (AsValidator *validator,
 						const gchar *metadata);
 gboolean	as_validator_validate_tree (AsValidator *validator,

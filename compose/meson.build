@@ -10,6 +10,7 @@ ascompose_src = [
     'asc-hint-tags.c',
     'asc-image.c',
     'asc-result.c',
+    'asc-utils-metainfo.c',
     'asc-utils.c'
 ]
 
@@ -21,6 +22,7 @@ ascompose_pub_headers = [
     'asc-hint.h',
     'asc-image.h',
     'asc-result.h',
+    'asc-utils-metainfo.h',
     'asc-utils.h'
 ]
 

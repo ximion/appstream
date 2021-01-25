@@ -96,6 +96,9 @@ gboolean		asc_result_add_hint (AscResult *result,
 					     const gchar *tag,
 					     const gchar *key1,
 					     ...) G_GNUC_NULL_TERMINATED;
+gboolean		asc_result_add_hint_simple (AscResult *result,
+						    AsComponent *cpt,
+						    const gchar *tag);
 gboolean		asc_result_add_hint_v (AscResult *result,
 					       AsComponent *cpt,
 					       const gchar *tag,
