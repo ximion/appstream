@@ -1133,7 +1133,7 @@ as_utils_build_data_id (AsComponentScope scope,
 	/* if we have a package in system scope, the origin is "os", as they share the same namespace
 	 * and we can not have multiple versions of the same software installed on the system.
 	 * The data ID is needed to deduplicate entries */
-	if ((scope == AS_COMPONENT_SCOPE_SYSTEM) && (bundle_kind == AS_BUNDLE_KIND_PACKAGE))
+	if (scope == AS_COMPONENT_SCOPE_SYSTEM && bundle_kind == AS_BUNDLE_KIND_PACKAGE)
 		origin = "os";
 
 	if (scope != AS_COMPONENT_SCOPE_UNKNOWN)
@@ -1342,7 +1342,8 @@ as_utils_get_component_bundle_kind (AsComponent *cpt)
 
 	/* determine bundle - what should we do if there are multiple bundles of different types
 	 * defined for one component? */
-	if (as_component_has_package (cpt))
+	if (as_component_has_package (cpt) ||
+	    as_component_get_kind (cpt) == AS_COMPONENT_KIND_OPERATING_SYSTEM)
 		bundle_kind = AS_BUNDLE_KIND_PACKAGE;
 	bundles = as_component_get_bundles (cpt);
 	if (bundles->len > 0)

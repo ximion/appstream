@@ -265,6 +265,8 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 	}
 
 	ascli_print_key_value (_("Identifier"), short_idline, FALSE);
+	if (show_detailed && as_component_get_kind (cpt) != AS_COMPONENT_KIND_OPERATING_SYSTEM)
+		ascli_print_key_value (_("Internal ID"), as_component_get_data_id (cpt), FALSE);
 	ascli_print_key_value (_("Name"), as_component_get_name (cpt), FALSE);
 	ascli_print_key_value (_("Summary"), as_component_get_summary (cpt), FALSE);
 	ascli_print_key_value (_("Package"), pkgs_str, FALSE);
