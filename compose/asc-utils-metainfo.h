@@ -28,10 +28,18 @@
 
 G_BEGIN_DECLS
 
+AsComponent		*asc_parse_metainfo_data (AscResult *cres,
+						  AsMetadata *mdata,
+						  GBytes *bytes,
+						  const gchar *mi_basename);
+AsComponent		*asc_parse_metainfo_data_simple (AscResult *cres,
+							 GBytes *bytes,
+							 const gchar *mi_basename);
+
 void			asc_validate_metainfo_data_for_component (AscResult *cres,
 								  AsValidator *validator,
 								  AsComponent *cpt,
-								  GBytes *data,
+								  GBytes *bytes,
 								  const gchar *mi_basename);
 
 G_END_DECLS

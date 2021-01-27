@@ -42,6 +42,33 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "more information."
 	},
 
+	{ "metainfo-parsing-error",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "Unable to parse AppStream MetaInfo file `{{fname}}`, the data is likely malformed.<br/>Error: {{error}}"
+	},
+
+	{ "metainfo-no-id",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "Could not determine an ID for the component in '{{fname}}'. The AppStream MetaInfo file likely lacks an <code>&lt;id/&gt;</code> tag.<br/>"
+          "The identifier tag is essential for AppStream metadata, and must not be missing."
+	},
+
+	{ "metainfo-license-invalid",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "The MetaInfo file does not seem to be licensed under a permissive license that is in the allowed set for AppStream metadata. "
+	  "Valid permissive licenses include FSFAP, CC0-1.0 or MIT. "
+	  "Using one of the supported permissive licenses is required to allow distributors to include the metadata in mixed data collections "
+	  "without the risk of license violations due to mixing incompatible licenses."
+	  "We only support a limited set of licenses that went through legal review. If you think this message is an error and '{{license}}' "
+	  "should actually be supported, please <a href=\"https://github.com/ximion/appstream/issues\">file a bug against AppStream</a>."
+	},
+
+	{ "metainfo-unknown-type",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "The component has an unknown type. Please make sure this component type is mentioned in the specification, and that the"
+	  "<code>type=</code> property of the component root-node in the MetaInfo XML file does not contain a spelling mistake."
+	},
+
 	{ "x-dev-testsuite-error",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  "Dummy error hint for the testsuite. Var1: {{var1}}."

@@ -271,23 +271,29 @@ asc_result_get_component_ids_with_hints (AscResult *result)
  * asc_result_update_component_gcid:
  * @result: an #AscResult instance.
  * @cpt: The #AsComponent to edit.
- * @data: The data to include in the global component ID.
+ * @bytes: (nullable): The data to include in the global component ID, or %NULL
  *
  * Update the global component ID for the given component.
  *
  * Returns: %TRUE if the component existed and was updated.
  **/
 gboolean
-asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, const gchar *data)
+asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, GBytes *bytes)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
 	g_autofree gchar *gcid = NULL;
 	gchar *hash = NULL;
+	const gchar *data;
+	gsize data_len;
 	const gchar *old_hash;
 	const gchar *cid = as_component_get_id (cpt);
 
-	if (data == NULL)
+	if (bytes == NULL) {
 		data = "";
+		data_len = strlen (data);
+	} else {
+		data = g_bytes_get_data (bytes, &data_len);
+	}
 
 	if (as_is_empty (cid)) {
 		gcid = asc_build_component_global_id (cid, NULL);
@@ -301,10 +307,17 @@ asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, const gch
 
 	old_hash = g_hash_table_lookup (priv->mdata_hashes, cpt);
 	if (old_hash == NULL) {
-		hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, data, -1);
+		hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, data, data_len);
 	} else {
-		g_autofree gchar *tmp = g_strconcat (old_hash, data, NULL);
-		hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, tmp, -1);
+		gsize old_hash_len;
+		g_autofree gchar *tmp = NULL;
+
+		old_hash_len = strlen (old_hash);
+		tmp = malloc(old_hash_len + data_len);
+		memcpy (tmp, old_hash, old_hash_len);
+		memcpy (tmp + old_hash_len, data, data_len);
+
+		hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, tmp, old_hash_len + data_len);
 	}
 
 	g_hash_table_insert (priv->mdata_hashes, cpt, hash);
@@ -314,6 +327,24 @@ asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, const gch
 			     g_steal_pointer (&gcid));
 
 	return TRUE;
+}
+
+/**
+ * asc_result_update_component_gcid_with_string:
+ * @result: an #AscResult instance.
+ * @cpt: The #AsComponent to edit.
+ * @data: (nullable): The data as string to include in the global component ID, or %NULL
+ *
+ * Update the global component ID for the given component.
+ * This is a convenience method for %asc_result_update_component_gcid
+ *
+ * Returns: %TRUE if the component existed and was updated.
+ **/
+gboolean
+asc_result_update_component_gcid_with_string (AscResult *result, AsComponent *cpt, const gchar *data)
+{
+	g_autoptr(GBytes) bytes = g_bytes_new_static (data? data : "", strlen (data? data : ""));
+	return asc_result_update_component_gcid (result, cpt, bytes);
 }
 
 /**
@@ -375,7 +406,7 @@ asc_result_get_component_gcids (AscResult *result)
  * asc_result_add_component:
  * @result: an #AscResult instance.
  * @cpt: The #AsComponent to add.
- * @data: Source data used to generate the GCID hash.
+ * @bytes: Source data used to generate the GCID hash, or %NULL if nonexistent.
  * @error: A #GError or %NULL
  *
  * Add component to the results set.
@@ -383,7 +414,7 @@ asc_result_get_component_gcids (AscResult *result)
  * Returns: %TRUE on success.
  **/
 gboolean
-asc_result_add_component (AscResult *result, AsComponent *cpt, const gchar *data, GError **error)
+asc_result_add_component (AscResult *result, AsComponent *cpt, GBytes *bytes, GError **error)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
 	AsComponentKind ckind;
@@ -418,8 +449,26 @@ asc_result_add_component (AscResult *result, AsComponent *cpt, const gchar *data
         g_hash_table_insert (priv->cpts,
 			     g_ref_string_new_intern (cid),
 			     g_object_ref (cpt));
-	asc_result_update_component_gcid (result, cpt, data);
+	asc_result_update_component_gcid (result, cpt, bytes);
 	return TRUE;
+}
+
+/**
+ * asc_result_add_component_with_string:
+ * @result: an #AscResult instance.
+ * @cpt: The #AsComponent to add.
+ * @data: Source data used to generate the GCID hash, or %NULL if nonexistent.
+ * @error: A #GError or %NULL
+ *
+ * Add component to the results set, using string data.
+ *
+ * Returns: %TRUE on success.
+ **/
+gboolean
+asc_result_add_component_with_string (AscResult *result, AsComponent *cpt, const gchar *data, GError **error)
+{
+	g_autoptr(GBytes) bytes = g_bytes_new_static (data? data : "", strlen (data? data : ""));
+	return asc_result_add_component (result, cpt, bytes, error);
 }
 
 /**
@@ -496,10 +545,8 @@ asc_result_add_hint_va (AscResult *result, AsComponent *cpt, const gchar *compon
 			cur_val = va_arg (*args, gchar*);
 		else
 			cur_val = args_v[i++];
-		if (cur_val == NULL) {
-			g_error ("Hint template replacement value for key '%s' was NULL!", cur_key);
-			break;
-		}
+		if (cur_val == NULL)
+			cur_val = "";
 		asc_hint_add_explanation_var (hint, cur_key, cur_val);
 
 		if (args_v == NULL)
@@ -606,15 +653,28 @@ asc_result_add_hint (AscResult *result, AsComponent *cpt, const gchar *tag, cons
 	va_list args;
 	gboolean ret;
 
-	va_start (args, key1);
-	ret = asc_result_add_hint_va (result,
-				      cpt,
-				      NULL,
-				      tag,
-				      key1,
-				      &args,
-				      NULL);
-	va_end (args);
+	if (cpt != NULL) {
+		va_start (args, key1);
+		ret = asc_result_add_hint_va (result,
+					cpt,
+					NULL,
+					tag,
+					key1,
+					&args,
+					NULL);
+		va_end (args);
+	} else {
+		va_start (args, key1);
+		ret = asc_result_add_hint_va (result,
+					NULL,
+					"general",
+					tag,
+					key1,
+					&args,
+					NULL);
+		va_end (args);
+	}
+
 	return ret;
 }
 
@@ -632,13 +692,23 @@ asc_result_add_hint (AscResult *result, AsComponent *cpt, const gchar *tag, cons
 gboolean
 asc_result_add_hint_simple (AscResult *result, AsComponent *cpt, const gchar *tag)
 {
-	return asc_result_add_hint_va (result,
-					cpt,
-					NULL,
-					tag,
-					NULL,
-					NULL,
-					NULL);
+	if (cpt != NULL) {
+		return asc_result_add_hint_va (result,
+						cpt,
+						NULL,
+						tag,
+						NULL,
+						NULL,
+						NULL);
+	} else {
+		return asc_result_add_hint_va (result,
+						NULL,
+						"general",
+						tag,
+						NULL,
+						NULL,
+						NULL);
+	}
 }
 
 /**
@@ -660,13 +730,25 @@ asc_result_add_hint_v (AscResult *result, AsComponent *cpt, const gchar *tag, gc
 
 	if (kv != NULL)
 		first_key = kv[0];
-	ret = asc_result_add_hint_va (result,
-				      cpt,
-				      NULL,
-				      tag,
-				      first_key,
-				      NULL,
-				      kv);
+
+	if (cpt != NULL) {
+		ret = asc_result_add_hint_va (result,
+					cpt,
+					NULL,
+					tag,
+					first_key,
+					NULL,
+					kv);
+	} else {
+		ret = asc_result_add_hint_va (result,
+						NULL,
+						"general",
+						tag,
+						first_key,
+						NULL,
+						kv);
+	}
+
 	return ret;
 }
 

@@ -305,7 +305,7 @@ test_compose_result ()
 	as_component_set_id (cpt, "org.freedesktop.appstream.dummy");
 
 	cres = asc_result_new ();
-	ret = asc_result_add_component (cres, cpt, "<testdata>", &error);
+	ret = asc_result_add_component_with_string (cres, cpt, "<testdata>", &error);
 	g_assert_no_error (error);
 	g_assert (ret);
 
@@ -317,7 +317,7 @@ test_compose_result ()
 	g_assert_cmpint (asc_result_components_count (cres), ==, 1);
 	g_assert_cmpint (asc_result_hints_count (cres), ==, 1);
 
-	ret = asc_result_update_component_gcid (cres, cpt, "<moredata>");
+	ret = asc_result_update_component_gcid_with_string (cres, cpt, "<moredata>");
 	g_assert_true (ret);
 
 	g_assert_true (asc_result_get_component (cres, "org.freedesktop.appstream.dummy") == cpt);
@@ -328,7 +328,7 @@ test_compose_result ()
 	g_assert_false (ret);
 
 	/* component no longer exists after an error, so this should fail now */
-	ret = asc_result_update_component_gcid (cres, cpt, "<moredata>");
+	ret = asc_result_update_component_gcid_with_string (cres, cpt, "<moredata>");
 	g_assert_false (ret);
 
 	g_assert_cmpint (asc_result_components_count (cres), ==, 0);

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2020 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2021 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -28,23 +28,123 @@
 #include "asc-result.h"
 
 #include "as-utils-private.h"
+#include "as-spdx.h"
 
+/* Maximum amount of releases present in output data */
+#define MAX_RELEASE_INFO_COUNT 4
+
+/**
+ * asc_parse_metainfo_data:
+ * @cres: an #AscResult instance.
+ * @mdata: an #AsMetadata instance used for parsing.
+ * @bytes: the data to parse.
+ * @mi_basename: the basename of the MetaInfo file we are loading.
+ *
+ * Parses metaInfo XML into a new #AsComponent and records any issues in
+ * an #AscResult.
+ *
+ * Returns: (transfer full): A new #AsComponent or %NULL if we refused to accept this data.
+ **/
+AsComponent*
+asc_parse_metainfo_data (AscResult *cres, AsMetadata *mdata, GBytes *bytes, const gchar *mi_basename)
+{
+	g_autoptr(GError) error = NULL;
+	AsComponent *cpt;
+	GPtrArray *releases;
+
+	g_return_val_if_fail (mi_basename != NULL, NULL);
+
+	if (!as_metadata_parse_bytes (mdata, bytes, AS_FORMAT_KIND_XML, &error)) {
+		asc_result_add_hint (cres, NULL,
+				     "ancient-metadata",
+				     "fname", mi_basename,
+				     "error", error->message,
+				     NULL);
+		return NULL;
+	}
+
+	cpt = as_metadata_get_component (mdata);
+	if (cpt == NULL)
+		return NULL;
+
+	/* check if we have a component-id, a component without ID is invalid */
+	if (as_is_empty (as_component_get_id (cpt))) {
+		asc_result_add_hint (cres, NULL,
+				     "metainfo-no-id",
+				     "fname", mi_basename,
+				     NULL);
+		return NULL;
+	}
+
+	/* we at least read enough data to consider this component */
+	if (!asc_result_add_component (cres, cpt, bytes, NULL))
+		return NULL;
+
+	/* check if we can actually legally use this metadata */
+	if (!as_license_is_metadata_license (as_component_get_metadata_license (cpt))) {
+		asc_result_add_hint (cres, cpt,
+				     "metainfo-license-invalid",
+				     "license", as_component_get_metadata_license (cpt),
+				     NULL);
+		return NULL;
+	}
+
+	/* quit immediately if we have an unknown component type */
+	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_UNKNOWN) {
+		asc_result_add_hint_simple (cres, cpt, "metainfo-unknown-type");
+		return NULL;
+	}
+
+	/* limit the amount of releases that we add to the output metadata.
+	 * since releases are sorted with the newest one at the top, we will only
+	 * remove the older ones. */
+	releases = as_component_get_releases (cpt);
+	if (releases->len > MAX_RELEASE_INFO_COUNT)
+		g_ptr_array_set_size (releases, MAX_RELEASE_INFO_COUNT);
+
+	return g_object_ref (cpt);
+}
+
+/**
+ * asc_parse_metainfo_data_simple:
+ * @cres: an #AscResult instance.
+ * @bytes: the data to parse.
+ * @mi_basename: the basename of the MetaInfo file we are loading.
+ *
+ * Parses metaInfo XML into a new #AsComponent and records any issues in
+ * an #AscResult.
+ *
+ * Returns: (transfer full): A new #AsComponent or %NULL if we refused to accept this data.
+ **/
+AsComponent*
+asc_parse_metainfo_data_simple (AscResult *cres, GBytes *bytes, const gchar *mi_basename)
+{
+	g_autoptr(AsMetadata) mdata = as_metadata_new ();
+
+	as_metadata_set_locale (mdata, "ALL");
+	as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_METAINFO);
+
+	return asc_parse_metainfo_data (cres,
+					mdata,
+					bytes,
+					mi_basename);
+}
 
 /**
  * asc_validate_metainfo_data_for_component:
  * @cres: an #AscResult instance.
  * @validator: an #AsValidator to validate with.
  * @cpt: the loaded #AsComponent which we are validating
- * @data: the data @cpt was constructed from.
- * @mi_basename: the basename of the metainfo file we are analyzing.
+ * @bytes: the data @cpt was constructed from.
+ * @mi_basename: the basename of the MetaInfo file we are analyzing.
  *
- * Validates metainfo data for the given component and stores the validation result as issue hints
+ * Validates MetaInfo data for the given component and stores the validation result as issue hints
  * in the given #AscResult.
  * Both the result as well as the validator's state may be modified by this function.
  **/
 void
 asc_validate_metainfo_data_for_component (AscResult *cres, AsValidator *validator,
-					  AsComponent *cpt, GBytes *data, const gchar *mi_basename)
+					  AsComponent *cpt, GBytes *bytes, const gchar *mi_basename)
 {
 	g_autoptr(GList) issues = NULL;
 
@@ -55,7 +155,7 @@ asc_validate_metainfo_data_for_component (AscResult *cres, AsValidator *validato
 	as_validator_clear_issues (validator);
 
 	/* validate */
-	as_validator_validate_bytes (validator, data);
+	as_validator_validate_bytes (validator, bytes);
 
 	/* convert & register found issues */
 	issues = as_validator_get_issues (validator);
