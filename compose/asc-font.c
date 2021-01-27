@@ -683,10 +683,11 @@ asc_font_determine_sample_texts (AscFont *font)
 
 	/* If we only have to set the icon text, try to do it!
 	 * Otherwise keep cached values and do nothing */
-        if (!as_is_empty (priv->sample_text))
-            asc_font_set_fallback_sample_texts_if_needed (font);
-        if (!as_is_empty (priv->sample_icon_text))
-            return;
+        if (!as_is_empty (priv->sample_text)) {
+		asc_font_set_fallback_sample_texts_if_needed (font);
+		if (!as_is_empty (priv->sample_icon_text))
+			return;
+	}
 
 	/* always prefer English (even if not alphabetically first) */
 	if (g_hash_table_contains (priv->languages, "en")) {
@@ -718,13 +719,16 @@ asc_font_determine_sample_texts (AscFont *font)
 
 	/* check if we have a font that can actually display the characters we picked - in case
 	 * it doesn't, we just select random chars. */
-	if (FT_Get_Char_Index (priv->fface, g_utf8_get_char_validated (priv->sample_icon_text, -1)) == 0) {
+	if (FT_Get_Char_Index (priv->fface, g_utf8_get_char_validated (priv->sample_icon_text, -1)) != 0)
+		return;
+
+	if (FT_Get_Char_Index (priv->fface, g_utf8_get_char_validated ("☃", -1)) != 0) {
+		/* maybe we have a symbols-only font? */
 		g_free (priv->sample_text);
 		g_free (priv->sample_icon_text);
 		priv->sample_text = g_strdup ("☃❤✓☀★☂♞☯☢∞❄♫↺");
 		priv->sample_icon_text = g_strdup ("☃❤");
-	}
-	if (FT_Get_Char_Index (priv->fface, g_utf8_get_char_validated (priv->sample_icon_text, -1)) == 0) {
+	} else {
 		GString *sample_text;
 		guint count;
 
