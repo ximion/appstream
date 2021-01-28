@@ -132,9 +132,9 @@
 			</listitem>
 		</itemizedlist>
 		<para>
-			The license codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+			The license codes correspond to the identifiers found at the <ulink url="https://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
 			For instance, <literal>CC-BY-SA-3.0</literal> corresponds to the license at
-			<ulink url="http://creativecommons.org/licenses/by-sa/3.0/">creativecommons.org/licenses/by-sa/3.0</ulink>.
+			<ulink url="https://creativecommons.org/licenses/by-sa/3.0/">creativecommons.org/licenses/by-sa/3.0</ulink>.
 		</para>
 		</listitem>
 		</varlistentry>
@@ -377,9 +377,9 @@
                     <listitem>
                       <para>
                         The software can be launched from the menus of
-                        the <ulink url="http://cockpit-project.org">Cockpit</ulink> admin interface.
+                        the <ulink url="https://cockpit-project.org">Cockpit</ulink> admin interface.
                         The value of the tag is the name of a <ulink
-                        url="http://cockpit-project.org/guide/latest/packages.html">Cockpit
+                        url="https://cockpit-project.org/guide/latest/packages.html">Cockpit
                         package</ulink>.
                       </para>
                     </listitem>
@@ -1008,7 +1008,7 @@
 					<listitem><para><literal>LicenseRef-Proprietary=https://example.com/mylicense.html</literal></para></listitem>
 				</itemizedlist>
 				A full list of recognized licenses and their identifiers can be found at the
-				<ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+				<ulink url="https://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
 			</para>
 			<para>
 				Custom licenses which are not in the SPDX registry, like proprietary licenses, can be denoted using the <code>LicenseRef</code> notation.
@@ -1095,7 +1095,7 @@
 		<para>
 			The value of the <code>&lt;video/&gt;</code> tag is a direct HTTP/HTTPS URL to a video uploaded to a public location on the web. The video must be in a
 			<ulink url="https://www.matroska.org/">Matroska (.mkv)</ulink> or <ulink url="https://www.webmproject.org/">WebM</ulink> container and use either the
-			<ulink url="https://www.webmproject.org/vp9/">VP9</ulink> or <ulink url="http://aomedia.org/av1-features/">AV1</ulink> codec.
+			<ulink url="https://www.webmproject.org/vp9/">VP9</ulink> or <ulink url="https://aomedia.org/av1-features/">AV1</ulink> codec.
 			The video should ideally work without any audio, but if audio is needed, the <ulink url="https://opus-codec.org/">Opus</ulink> codec should be used.
 			Software centers may still play the video without any sound though. Additionally, AppStream metadata repositories (like in distributions such as Fedora and Debian)
 			may impose size limitations to video files delivered by their CDN, so it is recommended to keep the video file size below 10MiB.
@@ -1391,7 +1391,7 @@
   <id>com.example.foobar</id>
   <name>Foo Bar</name>
   <summary>A foo-ish bar</summary>
-  <url type="homepage">http://www.example.org</url>
+  <url type="homepage">https://www.example.org</url>
   <metadata_license>CC0-1.0</metadata_license>
 
   <provides>
