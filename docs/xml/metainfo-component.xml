@@ -522,6 +522,18 @@
 						</listitem>
 					</varlistentry>
 
+					<varlistentry>
+						<term>filename</term>
+						<listitem>
+						<para>
+							An artifact may have a <literal>filename</literal> child, containing a non-absolute filename that the artifact may be stored under. The file name is only a naming hint and
+							applications are not required to follow it when downloading the file. If no <literal>filename</literal> tag is present, a file name may be generated from the artifact
+							<literal>location</literal> URL.
+							This tag must only appear once.
+						</para>
+						</listitem>
+					</varlistentry>
+
 				</variablelist>
 
 			<para>
