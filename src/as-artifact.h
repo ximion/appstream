@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2018-2020 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2018-2021 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -115,6 +115,10 @@ void		as_artifact_set_platform (AsArtifact *artifact,
 AsBundleKind	 as_artifact_get_bundle_kind (AsArtifact *artifact);
 void		 as_artifact_set_bundle_kind (AsArtifact *artifact,
                                           AsBundleKind kind);
+
+const gchar	*as_artifact_get_filename (AsArtifact *artifact);
+void		as_artifact_set_filename (AsArtifact *artifact,
+					  const gchar *filename);
 
 
 G_END_DECLS

@@ -1309,6 +1309,7 @@ static const gchar *yamldata_releases_field =
 				"    bundle: flatpak\n"
 				"    locations:\n"
 				"    - https://example.com/binary_amd64.flatpak\n"
+				"    filename: binary-1.2.0_amd64.flatpak\n"
 				"    checksum:\n"
 				"      blake2b: 04839a\n"
 				"    size:\n"
@@ -1392,6 +1393,7 @@ test_yaml_write_releases (void)
 	af2 = as_artifact_new ();
 	as_artifact_set_kind (af2, AS_ARTIFACT_KIND_BINARY);
 	as_artifact_add_location (af2, "https://example.com/binary_amd64.flatpak");
+	as_artifact_set_filename (af2, "binary-1.2.0_amd64.flatpak");
 	as_artifact_set_bundle_kind (af2, AS_BUNDLE_KIND_FLATPAK);
 	cs = as_checksum_new_for_kind_value (AS_CHECKSUM_KIND_BLAKE2B, "04839a");
 	as_artifact_add_checksum (af2, cs);
@@ -1465,6 +1467,7 @@ test_yaml_read_releases (void)
 	af = AS_ARTIFACT (g_ptr_array_index (artifacts, 1));
 	g_assert_cmpint (as_artifact_get_kind (af), ==, AS_ARTIFACT_KIND_BINARY);
 	g_assert_cmpstr (g_ptr_array_index (as_artifact_get_locations (af), 0), ==, "https://example.com/binary_amd64.flatpak");
+	g_assert_cmpstr (as_artifact_get_filename (af), ==, "binary-1.2.0_amd64.flatpak");
 	g_assert_cmpint (as_artifact_get_bundle_kind (af), ==, AS_BUNDLE_KIND_FLATPAK);
 
 	cs = as_artifact_get_checksum (af, AS_CHECKSUM_KIND_BLAKE2B);

@@ -39,6 +39,7 @@ typedef struct
 	GPtrArray	*locations;
 	GPtrArray	*checksums;
 	guint64		size[AS_SIZE_KIND_LAST];
+	gchar		*filename;
 
 	GRefString	*platform;
 	AsBundleKind	bundle_kind;
@@ -130,6 +131,7 @@ as_artifact_finalize (GObject *object)
 	AsArtifact *artifact = AS_ARTIFACT (object);
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
 
+	g_free (priv->filename);
 	as_ref_string_release (priv->platform);
 	g_ptr_array_unref (priv->locations);
 	g_ptr_array_unref (priv->checksums);
@@ -355,6 +357,37 @@ as_artifact_set_bundle_kind (AsArtifact *artifact, AsBundleKind kind)
 }
 
 /**
+ * as_artifact_get_filename:
+ * @artifact: a #AsArtifact instance.
+ *
+ * Gets a suggested filename for the downloaded artifact,
+ * or %NULL if none is suggested.
+ *
+ * Returns: The platform triplet or identifier string.
+ **/
+const gchar*
+as_artifact_get_filename (AsArtifact *artifact)
+{
+	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
+	return priv->filename;
+}
+
+/**
+ * as_artifact_set_filename:
+ * @artifact: a #AsArtifact instance.
+ * @filename: the file name suggestion.
+ *
+ * Sets a suggested filename for this artifact after it has been downloaded.
+ **/
+void
+as_artifact_set_filename (AsArtifact *artifact, const gchar *filename)
+{
+	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
+	g_free (priv->filename);
+	priv->filename = g_strdup (filename);
+}
+
+/**
  * as_artifact_load_from_xml:
  * @artifact: a #AsArtifact instance.
  * @ctx: the AppStream document context.
@@ -389,6 +422,9 @@ as_artifact_load_from_xml (AsArtifact *artifact, AsContext *ctx, xmlNode *node, 
 		if (g_strcmp0 ((gchar*) iter->name, "location") == 0) {
 			content = as_xml_get_node_value (iter);
 			as_artifact_add_location (artifact, content);
+		} else if (g_strcmp0 ((gchar*) iter->name, "filename") == 0) {
+			g_free (priv->filename);
+			priv->filename = as_xml_get_node_value (iter);
 		} else if (g_strcmp0 ((gchar*) iter->name, "checksum") == 0) {
 			g_autoptr(AsChecksum) cs = NULL;
 
@@ -453,8 +489,11 @@ as_artifact_to_xml_node (AsArtifact *artifact, AsContext *ctx, xmlNode *root)
 	/* add location urls */
 	for (guint j = 0; j < priv->locations->len; j++) {
 		const gchar *lurl = (const gchar*) g_ptr_array_index (priv->locations, j);
-		xmlNewTextChild (n_artifact, NULL, (xmlChar*) "location", (xmlChar*) lurl);
+		as_xml_add_text_node (n_artifact, "location", lurl);
 	}
+
+	/* add filename tag */
+	as_xml_add_text_node (n_artifact, "filename", priv->filename);
 
 	/* add checksum node */
 	for (guint j = 0; j < priv->checksums->len; j++) {
@@ -512,6 +551,10 @@ as_artifact_load_from_yaml (AsArtifact *artifact, AsContext *ctx, GNode *node, G
 
 		} else if (g_strcmp0 (key, "locations") == 0) {
 			as_yaml_list_to_str_array (n, priv->locations);
+
+		} else if (g_strcmp0 (key, "filename") == 0) {
+			g_free (priv->filename);
+			priv->filename = g_strdup (as_yaml_node_get_value (n));
 
 		} else if (g_strcmp0 (key, "checksum") == 0) {
 			for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
@@ -573,6 +616,11 @@ as_artifact_emit_yaml (AsArtifact *artifact, AsContext *ctx, yaml_emitter_t *emi
 
 	/* location URLs */
 	as_yaml_emit_sequence_from_str_array (emitter, "locations", priv->locations);
+
+	/* filename suggestion */
+	as_yaml_emit_entry (emitter,
+			    "filename",
+			    priv->filename);
 
 	/* checksums */
 	if (priv->locations->len > 0) {

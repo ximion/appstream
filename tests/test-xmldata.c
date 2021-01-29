@@ -1543,6 +1543,7 @@ static const gchar *xmldata_releases =  "<component>\n"
 					"      <artifacts>\n"
 					"        <artifact type=\"binary\" platform=\"x86_64-linux-gnu\" bundle=\"tarball\">\n"
 					"          <location>https://example.com/mytarball.bin.tar.xz</location>\n"
+					"          <filename>mytarball-1.2.0.bin.tar.xz</filename>\n"
 					"          <checksum type=\"sha256\">f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8</checksum>\n"
 					"          <size type=\"download\">112358</size>\n"
 					"          <size type=\"installed\">42424242</size>\n"
@@ -1597,6 +1598,8 @@ test_xml_read_releases (void)
 
 			g_assert_cmpint (as_artifact_get_locations (artifact)->len, ==, 1);
 			g_assert_cmpstr (g_ptr_array_index (as_artifact_get_locations (artifact), 0), ==, "https://example.com/mytarball.bin.tar.xz");
+
+			g_assert_cmpstr (as_artifact_get_filename (artifact), ==, "mytarball-1.2.0.bin.tar.xz");
 
 			cs = as_artifact_get_checksum (artifact, AS_CHECKSUM_KIND_SHA256);
 			g_assert_cmpstr (as_checksum_get_value (cs), ==, "f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8");
@@ -1663,6 +1666,7 @@ test_xml_write_releases (void)
 	as_artifact_set_platform (artifact, "x86_64-linux-gnu");
 	as_artifact_set_bundle_kind (artifact, AS_BUNDLE_KIND_TARBALL);
 	as_artifact_add_location (artifact, "https://example.com/mytarball.bin.tar.xz");
+	as_artifact_set_filename (artifact, "mytarball-1.2.0.bin.tar.xz");
 	cs = as_checksum_new ();
 	as_checksum_set_kind (cs, AS_CHECKSUM_KIND_SHA256);
 	as_checksum_set_value (cs, "f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8");
