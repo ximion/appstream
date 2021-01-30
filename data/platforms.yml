@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: FSFAP
 #
 # This document is used to generate the platform triplets supported by AppStream.
-# AppStream platform triples are based on normalized GNU triplets,
+# AppStream platform triplets are based on normalized GNU triplets,
 # as used for Debian's multiarch support[1]. They consist of strictly three parts:
 #   <architecture>-<os-kernel>-<os-environment>
 # Parts which do not matter for a binary can be substituted with "any".
@@ -38,22 +38,25 @@ architectures:
 - sparc       # Sparc: sparc
 - sparc64     # SPARCv9 psABI
 - x86         # X86: i[3-9]86
-- i386        # alias for X86: i[3-9]86
+- i386        # compatibility alias for X86: i[3-9]86
 - x86_64      # X86-64: amd64, x86_64
 - wasm32      # WebAssembly with 32-bit pointers
 - wasm64      # WebAssembly with 64-bit pointers
 
+# OS / Kernels
 os_kernels:
 - linux       # Linux
 - darwin      # Darwin (macOS kernel)
+- macos       # macOS / MacOSX
 - dragonfly   # DragonFly (BSD variant)
 - freebsd     # FreeBSD (OS)
 - kfreebsd    # FreeBSD (kernel)
 - netbsd      # NetBSD
 - openbsd     # OpenBSD
-- win32       # Windows (Win32)
+- windows     # Windows
 - haiku       # Haiku
 
+# OS / Environments
 os_environments:
 - gnu         # The GNU Operating System
 - gnu_ilp32   # GNU, x32 ABI

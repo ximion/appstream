@@ -12,6 +12,7 @@ import os
 import json
 import requests
 import subprocess
+import yaml
 from datetime import date
 from tempfile import TemporaryDirectory
 
@@ -126,6 +127,23 @@ def update_spdx_id_list(git_url, licenselist_fname, licenselist_free_fname, exce
         f.write('\n')
 
 
+def update_platforms_data():
+    print('Updating platform triplet part data...')
+
+    with open('platforms.yml', 'r') as f:
+        data = yaml.safe_load(f)
+
+    def write_platform_data(fname, values):
+        with open(fname, 'w') as f:
+            f.write('# This file is derived from platforms.yml - DO NOT EDIT IT MANUALLY!\n')
+            f.write('\n'.join(values))
+            f.write('\n')
+
+    write_platform_data('platform_arch.txt', data['architectures'])
+    write_platform_data('platform_os.txt', data['os_kernels'])
+    write_platform_data('platform_env.txt', data['os_environments'])
+
+
 def update_categories_list(spec_url, cat_fname):
     ''' The worst parser ever, extracting category information directoly from the spec Docbook file '''
     from enum import Enum, auto
@@ -233,6 +251,7 @@ def main():
     update_tld_list(IANA_TLD_LIST_URL, 'iana-filtered-tld-list.txt')
     update_spdx_id_list(SPDX_REPO_URL, 'spdx-license-ids.txt', 'spdx-free-license-ids.txt', 'spdx-license-exception-ids.txt')
     update_categories_list(MENU_SPEC_URL, 'xdg-category-names.txt')
+    update_platforms_data()
 
     print('All done.')
 
