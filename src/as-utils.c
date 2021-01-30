@@ -1035,7 +1035,7 @@ as_utils_is_desktop_environment (const gchar *desktop)
 	g_autoptr(GBytes) data = NULL;
 	g_autofree gchar *key = NULL;
 
-	/* load the readonly data section and look for the TLD */
+	/* load the readonly data section and look for the desktop environment name */
 	data = g_resource_lookup_data (as_get_resource (),
 				       "/org/freedesktop/appstream/desktop-environments.txt",
 				       G_RESOURCE_LOOKUP_FLAGS_NONE,
@@ -1044,6 +1044,142 @@ as_utils_is_desktop_environment (const gchar *desktop)
 		return FALSE;
 	key = g_strdup_printf ("\n%s\n", desktop);
 	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
+}
+
+/**
+ * as_utils_is_platform_triplet_arch:
+ * @arch: an architecture ID.
+ *
+ * Check if the given string is a valid architecture part
+ * of a platform triplet.
+ *
+ * Returns: %TRUE if architecture is valid
+ *
+ * Since: 0.14.0
+ **/
+gboolean
+as_utils_is_platform_triplet_arch (const gchar *arch)
+{
+	g_autoptr(GBytes) data = NULL;
+	g_autofree gchar *key = NULL;
+
+	if (arch == NULL)
+		return FALSE;
+
+	/* "any" is always a valid value */
+	if (g_strcmp0 (arch, "any") == 0)
+		return TRUE;
+
+	/* load the readonly data section */
+	data = g_resource_lookup_data (as_get_resource (),
+				       "/org/freedesktop/appstream/platform_arch.txt",
+				       G_RESOURCE_LOOKUP_FLAGS_NONE,
+				       NULL);
+	if (data == NULL)
+		return FALSE;
+	key = g_strdup_printf ("\n%s\n", arch);
+	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
+}
+
+/**
+ * as_utils_is_platform_triplet_oskernel:
+ * @os: an OS/kernel ID.
+ *
+ * Check if the given string is a valid OS/kernel part
+ * of a platform triplet.
+ *
+ * Returns: %TRUE if kernel ID is valid
+ *
+ * Since: 0.14.0
+ **/
+gboolean
+as_utils_is_platform_triplet_oskernel (const gchar *os)
+{
+	g_autoptr(GBytes) data = NULL;
+	g_autofree gchar *key = NULL;
+
+	if (os == NULL)
+		return FALSE;
+
+	/* "any" is always a valid value */
+	if (g_strcmp0 (os, "any") == 0)
+		return TRUE;
+
+	/* load the readonly data section */
+	data = g_resource_lookup_data (as_get_resource (),
+				       "/org/freedesktop/appstream/platform_os.txt",
+				       G_RESOURCE_LOOKUP_FLAGS_NONE,
+				       NULL);
+	if (data == NULL)
+		return FALSE;
+	key = g_strdup_printf ("\n%s\n", os);
+	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
+}
+
+/**
+ * as_utils_is_platform_triplet_osenv:
+ * @env: an OS/environment ID.
+ *
+ * Check if the given string is a valid OS/environment part
+ * of a platform triplet.
+ *
+ * Returns: %TRUE if environment ID is valid
+ *
+ * Since: 0.14.0
+ **/
+gboolean
+as_utils_is_platform_triplet_osenv (const gchar *env)
+{
+	g_autoptr(GBytes) data = NULL;
+	g_autofree gchar *key = NULL;
+
+	if (env == NULL)
+		return FALSE;
+
+	/* "any" is always a valid value */
+	if (g_strcmp0 (env, "any") == 0)
+		return TRUE;
+
+	/* load the readonly data section */
+	data = g_resource_lookup_data (as_get_resource (),
+				       "/org/freedesktop/appstream/platform_env.txt",
+				       G_RESOURCE_LOOKUP_FLAGS_NONE,
+				       NULL);
+	if (data == NULL)
+		return FALSE;
+	key = g_strdup_printf ("\n%s\n", env);
+	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
+}
+
+/**
+ * as_utils_is_platform_triplet:
+ * @triplet: a platform triplet.
+ *
+ * Test if the given string is a valid platform triplet recognized by
+ * AppStream.
+ *
+ * Returns: %TRUE if triplet is valid.
+ *
+ * Since: 0.14.0
+ **/
+gboolean
+as_utils_is_platform_triplet (const gchar *triplet)
+{
+	g_auto(GStrv) parts = NULL;
+
+	if (triplet == NULL)
+		return FALSE;
+
+	parts = g_strsplit (triplet, "-", 3);
+	if (g_strv_length (parts) != 3)
+		return FALSE;
+	if (!as_utils_is_platform_triplet_arch (parts[0]))
+		return FALSE;
+	if (!as_utils_is_platform_triplet_oskernel (parts[1]))
+		return FALSE;
+	if (!as_utils_is_platform_triplet_osenv (parts[2]))
+		return FALSE;
+	return TRUE;
 }
 
 /**

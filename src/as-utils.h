@@ -86,6 +86,8 @@ guint			as_gstring_replace (GString *string,
 					    const gchar *search,
 					    const gchar *replace);
 
+gboolean		as_utils_is_platform_triplet (const gchar *triplet);
+
 /* DEPRECATED */
 
 G_DEPRECATED_FOR(as_version_string)

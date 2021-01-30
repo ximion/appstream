@@ -799,7 +799,7 @@ test_utils_data_id_hash_str (void)
 
 	/* create new app */
 	app = as_component_new ();
-	as_component_set_id (app, "org.gnome.Software.desktop");
+	as_component_set_id (app, "org.gnome.Software");
 
 	/* add to hash table using the data ID as a key */
 	hash = g_hash_table_new ((GHashFunc) as_utils_data_id_hash,
@@ -813,6 +813,27 @@ test_utils_data_id_hash_str (void)
 	/* different key */
 	found = g_hash_table_lookup (hash, "frank");
 	g_assert (found == NULL);
+}
+
+/**
+ * test_utils_platform_triplet:
+ */
+void
+test_utils_platform_triplet (void)
+{
+	g_assert_true (as_utils_is_platform_triplet ("x86_64-linux-gnu"));
+	g_assert_true (as_utils_is_platform_triplet ("x86_64-windows-msvc"));
+	g_assert_true (as_utils_is_platform_triplet ("x86_64-linux-gnu"));
+	g_assert_true (as_utils_is_platform_triplet ("aarch64-linux-gnu_ilp32"));
+	g_assert_true (as_utils_is_platform_triplet ("wasm64-any-any"));
+	g_assert_true (as_utils_is_platform_triplet ("any-linux-gnu"));
+	g_assert_true (as_utils_is_platform_triplet ("any-any-any"));
+	g_assert_false (as_utils_is_platform_triplet ("aarch64-any"));
+	g_assert_false (as_utils_is_platform_triplet ("---"));
+	g_assert_false (as_utils_is_platform_triplet (NULL));
+	g_assert_false (as_utils_is_platform_triplet ("x86_64-gnu-windows"));
+	g_assert_false (as_utils_is_platform_triplet ("x86-64-linux-gnu"));
+	g_assert_false (as_utils_is_platform_triplet ("x86-lunix-gna"));
 }
 
 int
@@ -851,6 +872,8 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/AppStream/DataID/hash", test_utils_data_id_hash);
 	g_test_add_func ("/AppStream/DataID/hash-str", test_utils_data_id_hash_str);
+
+	g_test_add_func ("/AppStream/PlatformTriplets", test_utils_platform_triplet);
 
 	ret = g_test_run ();
 	g_free (datadir);
