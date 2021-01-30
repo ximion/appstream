@@ -478,10 +478,17 @@
 			<para>
 				To denote release artifacts, the <literal>artifacts</literal> child tag can be used. It itself contains the artifacts as <literal>artifact</literal> children.
 				Each artifact tag must have a <literal>type</literal> property with the value of either <code>binary</code> or <code>source</code> to indicate whether the
-				artifact is the releases' source-code or a binary distribution. In case of a <code>binary</code> type, an optional <literal>platform</literal> property may
-				also be set, containing a target triplet (also known as normalized GNU triplet), such as <code>x86_64-linux-gnu</code>. Refer to
-				<ulink url="https://wiki.debian.org/Multiarch/Tuples#Used_solution">Debian multiarch tuples</ulink> for a list of possible triplets to use and more information
-				on their purpose. For the Windows platform, a platform identifier string such as <code>win32</code> is also permitted as platform identifier.
+				artifact is the releases' source-code or a binary distribution.
+			</para>
+			<para>
+				In case of a <code>binary</code> type, an optional <literal>platform</literal> property may
+				also be set, containing a platform triplet (also known as normalized GNU triplet), such as <code>x86_64-linux-gnu</code>. Refer to
+				<ulink url="https://wiki.debian.org/Multiarch/Tuples#Used_solution">Debian multiarch tuples</ulink> for more information on normalized GNU triplets, and
+				<ulink url="https://github.com/ximion/appstream/blob/master/data/platforms.yml">AppStream's platforms.yml</ulink> for the triplet parts AppStream currently recognizes.
+				Note that AppStream only supports stricly three-part triplets in the form of <code>arch-oskernel-osenvironment</code>. Parts of the triplets which do not apply can be
+				replaced with <code>any</code>.
+			</para>
+			<para>
 				Binary artifacts may also have a <literal>bundle</literal> property to indicate the bundling system the binary distribution is made for. Refer to
 				the bundle types in <xref linkend="tag-ct-bundle"/> for a list of possible values.
 				Each <literal>artifact</literal> can have a number of children:
@@ -560,7 +567,7 @@
         <size type="download">12345678</size>
         <size type="installed">42424242</size>
       </artifact>
-      <artifact type="binary" platform="win32">
+      <artifact type="binary" platform="x86_64-windows-msvc">
         <location>https://example.com/mytarball.bin.exe</location>
       </artifact>
       <artifact type="source">
