@@ -6,7 +6,7 @@ i18n.gettext (as_gettext_domain,
     args: [
         '--default-domain=' + as_gettext_domain,
         '--from-code=UTF-8',
-        '-i', '-s', '--no-wrap', '-c', '-w120',
+        '-i', '-F', '-c', '--no-wrap',
         '--package-name=' + as_gettext_domain,
         '--copyright-holder=Matthias Klumpp',
         '--msgid-bugs-address=appstream@lists.freedesktop.org'
