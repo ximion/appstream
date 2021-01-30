@@ -21,4 +21,31 @@ to contain a lot of issues for the validator to catch -->
   <url type="help">http://www.example.org/insecure-url</url>
 
   <project_group>Unregistered</project_group>
+
+  <releases>
+    <release version="1.2" date="2014-04-12" urgency="superduperhigh">
+      <description>
+        <p>This stable release fixes bugs.</p>
+      </description>
+
+      <url>not an URL</url>
+      <issues>
+        <issue type="cve">hmm...</issue>
+        <issue url="https://example.org">bug-77</issue>
+      </issues>
+
+      <artifacts>
+        <artifact type="binary" platform="x86_64-lunix-gn">
+          <location>https://example.com/mytarball.bin.tar.xz</location>
+          <checksum type="sha256">....</checksum>
+          <checksum type="blake2b">....</checksum>
+          <size type="download">12345678</size>
+          <size type="installed">42424242</size>
+          <filename>/root/file.dat</filename>
+        </artifact>
+      </artifacts>
+    </release>
+    <release version="1.1" type="unstable" date="2013-10-20" />
+    <release version="1.0" date="2012-08-26" />
+  </releases>
 </component>

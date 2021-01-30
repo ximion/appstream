@@ -436,10 +436,6 @@ as_validator_check_content_empty (AsValidator *validator, xmlNode *node, const g
 	if (!as_is_empty (node_content))
 		return;
 
-	/* release tags are allowed to be empty */
-	if (g_str_has_prefix (tag_path, "release"))
-		return;
-
 	as_validator_add_issue (validator, node,
 				"tag-empty",
 				tag_path);
@@ -1218,27 +1214,179 @@ as_validator_validate_iso8601_complete_date (AsValidator *validator, xmlNode *no
 }
 
 /**
+ * as_validator_check_platform_triplet:
+ **/
+static void
+as_validator_check_platform_triplet (AsValidator *validator, xmlNode *node, const gchar *triplet)
+{
+	g_auto(GStrv) parts = g_strsplit (triplet, "-", 3);
+	if (g_strv_length (parts) != 3) {
+		as_validator_add_issue (validator, node,
+					"artifact-invalid-platform-triplet",
+					"%u != 3", g_strv_length (parts));
+		return;
+	}
+	if (!as_utils_is_platform_triplet_arch (parts[0])) {
+		as_validator_add_issue (validator, node,
+					"artifact-invalid-platform-triplet",
+					"Architecture invalid: %s", parts[0]);
+		return;
+	}
+	if (!as_utils_is_platform_triplet_oskernel (parts[1])) {
+		as_validator_add_issue (validator, node,
+					"artifact-invalid-platform-triplet",
+					"OS/Kernel invalid: %s", parts[1]);
+		return;
+	}
+	if (!as_utils_is_platform_triplet_osenv (parts[2])) {
+		as_validator_add_issue (validator, node,
+					"artifact-invalid-platform-triplet",
+					"OS/Environment invalid: %s", parts[2]);
+		return;
+	}
+}
+
+/**
+ * as_validator_check_artifact:
+ **/
+static void
+as_validator_check_artifact (AsValidator *validator, xmlNode *node)
+{
+	gchar *prop;
+
+	/* validate type */
+	prop = as_xml_get_prop_value (node, "type");
+	if (prop != NULL) {
+		if (as_artifact_kind_from_string (prop) == AS_ARTIFACT_KIND_UNKNOWN)
+			as_validator_add_issue (validator, node, "artifact-type-invalid", prop);
+		g_free (prop);
+	}
+
+	/* validate platform */
+	prop = as_xml_get_prop_value (node, "platform");
+	if (prop != NULL) {
+		as_validator_check_platform_triplet (validator, node, prop);
+		g_free (prop);
+	}
+
+	/* validate bundle type */
+	prop = as_xml_get_prop_value (node, "bundle");
+	if (prop != NULL) {
+		if (as_bundle_kind_from_string (prop) == AS_BUNDLE_KIND_UNKNOWN)
+			as_validator_add_issue (validator, node, "artifact-bundle-type-invalid", prop);
+		g_free (prop);
+	}
+
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		const gchar *node_name;
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		node_name = (const gchar*) iter->name;
+
+		if (g_strcmp0 (node_name, "location") == 0) {
+			g_autofree gchar *url = as_xml_get_node_value (iter);
+			if (!as_validate_is_url (url)) {
+				as_validator_add_issue (validator, iter, "web-url-expected", url);
+				continue;
+			}
+			if (!as_validate_is_secure_url (url))
+				as_validator_add_issue (validator, iter, "url-not-secure", url);
+			continue;
+		} else if (g_strcmp0 (node_name, "checksum") == 0) {
+			g_autofree gchar *tmp = as_xml_get_prop_value (iter, "type");
+			if (as_checksum_kind_from_string (tmp) == AS_CHECKSUM_KIND_NONE)
+				as_validator_add_issue (validator, iter, "artifact-checksum-type-invalid", tmp);
+			continue;
+		} else if (g_strcmp0 (node_name, "size") == 0) {
+			g_autofree gchar *tmp = as_xml_get_prop_value (iter, "type");
+			if (as_size_kind_from_string (tmp) == AS_SIZE_KIND_UNKNOWN)
+				as_validator_add_issue (validator, iter, "artifact-size-type-invalid", tmp);
+			continue;
+		} else if (g_strcmp0 (node_name, "filename") == 0) {
+			g_autofree gchar *fname = as_xml_get_node_value (iter);
+			if (g_path_is_absolute (fname) || g_str_has_prefix (fname, "."))
+				as_validator_add_issue (validator, iter, "artifact-filename-not-basename", fname);
+			continue;
+		} else {
+			/* unknown tag */
+			as_validator_add_issue (validator, iter, "unknown-tag", node_name);
+		}
+	}
+}
+
+/**
+ * as_validator_check_release_issue:
+ **/
+static void
+as_validator_check_release_issue (AsValidator *validator, xmlNode *node)
+{
+	gchar *prop;
+	AsIssueKind kind = AS_ISSUE_KIND_UNKNOWN;
+
+	/* validate type */
+	prop = as_xml_get_prop_value (node, "type");
+	kind = as_issue_kind_from_string (prop);
+	if (prop != NULL) {
+		if (kind == AS_ISSUE_KIND_UNKNOWN)
+			as_validator_add_issue (validator, node, "release-issue-type-invalid", prop);
+		g_free (prop);
+	}
+
+	/* validate url */
+	prop = as_xml_get_prop_value (node, "url");
+	if (prop != NULL) {
+		if (!as_validate_is_url (prop))
+			as_validator_add_issue (validator, node, "web-url-expected", prop);
+		else if (!as_validate_is_secure_url (prop))
+			as_validator_add_issue (validator, node, "url-not-secure", prop);
+		g_free (prop);
+	}
+
+	/* validate value */
+	if (kind == AS_ISSUE_KIND_CVE) {
+		g_autofree gchar *value = as_xml_get_node_value (node);
+		if (!g_str_has_prefix (value, "CVE-"))
+			as_validator_add_issue (validator, node, "release-issue-is-cve-but-no-cve-id", value);
+	}
+}
+
+/**
  * as_validator_check_release:
  **/
 static void
 as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle mode)
 {
-	xmlNode *iter;
 	gchar *prop;
 
 	/* validate date strings */
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "date");
+	prop = as_xml_get_prop_value (node, "date");
 	if (prop != NULL) {
 		as_validator_validate_iso8601_complete_date (validator, node, prop);
 		g_free (prop);
 	}
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "date_eol");
+	prop = as_xml_get_prop_value (node, "date_eol");
 	if (prop != NULL) {
 		as_validator_validate_iso8601_complete_date (validator, node, prop);
 		g_free (prop);
 	}
 
-	for (iter = node->children; iter != NULL; iter = iter->next) {
+	/* validate type */
+	prop = as_xml_get_prop_value (node, "type");
+	if (prop != NULL) {
+		if (as_release_kind_from_string (prop) == AS_RELEASE_KIND_UNKNOWN)
+			as_validator_add_issue (validator, node, "release-type-invalid", prop);
+		g_free (prop);
+	}
+
+	/* validate urgency */
+	prop = as_xml_get_prop_value (node, "urgency");
+	if (prop != NULL) {
+		if (as_urgency_kind_from_string (prop) == AS_URGENCY_KIND_UNKNOWN)
+			as_validator_add_issue (validator, node, "release-urgency-invalid", prop);
+		g_free (prop);
+	}
+
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
@@ -1249,6 +1397,61 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 			as_validator_check_description_tag (validator, iter, mode, FALSE);
 			continue;
 		}
+
+		/* validate url */
+		if (g_strcmp0 (node_name, "url") == 0) {
+			g_autofree gchar *url = as_xml_get_node_value (iter);
+			if (!as_validate_is_url (url)) {
+				as_validator_add_issue (validator, iter, "web-url-expected", url);
+				continue;
+			}
+			if (!as_validate_is_secure_url (url))
+				as_validator_add_issue (validator, iter, "url-not-secure", url);
+			continue;
+		}
+
+		/* validate artifacts */
+		if (g_strcmp0 (node_name, "artifacts") == 0) {
+			for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
+				if (g_strcmp0 ((const gchar*) iter2->name, "artifact") != 0) {
+					as_validator_add_issue (validator, iter2,
+								"invalid-child-tag-name",
+								/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
+								_("Found: %s - Allowed: %s"),
+								(const gchar*) iter2->name,
+								"artifact");
+					continue;
+				}
+				/* validate artifact */
+				as_validator_check_artifact (validator, iter2);
+			}
+			continue;
+		}
+
+		/* validate issues */
+		if (g_strcmp0 (node_name, "issues") == 0) {
+			for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
+				if (g_strcmp0 ((const gchar*) iter2->name, "issue") != 0) {
+					as_validator_add_issue (validator, iter2,
+								"invalid-child-tag-name",
+								/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
+								_("Found: %s - Allowed: %s"),
+								(const gchar*) iter2->name,
+								"issue");
+					continue;
+				}
+				/* validate issue */
+				as_validator_check_release_issue (validator, iter2);
+			}
+			continue;
+		}
+
+		/* if we are here, we have an unknown tag */
+		as_validator_add_issue (validator, iter, "unknown-tag", node_name);
 	}
 }
 
@@ -1258,9 +1461,7 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 static void
 as_validator_check_releases (AsValidator *validator, xmlNode *node, AsFormatStyle mode)
 {
-	xmlNode *iter;
-
-	for (iter = node->children; iter != NULL; iter = iter->next) {
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
@@ -1288,7 +1489,6 @@ as_validator_check_releases (AsValidator *validator, xmlNode *node, AsFormatStyl
 static AsComponent*
 as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xmlNode *root)
 {
-	xmlNode *iter;
 	AsComponent *cpt;
 	g_autofree gchar *cpttype = NULL;
 	g_autoptr(GHashTable) found_tags = NULL;
@@ -1338,7 +1538,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		as_validator_add_issue (validator, NULL, "component-summary-missing", NULL);
 	}
 
-	for (iter = root->children; iter != NULL; iter = iter->next) {
+	for (xmlNode *iter = root->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		g_autofree gchar *node_content = NULL;
 		gboolean tag_valid = TRUE;
@@ -1479,6 +1679,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			}
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
 			as_validator_check_releases (validator, iter, mode);
+			can_be_empty = TRUE;
 		} else if (g_strcmp0 (node_name, "languages") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags);
 			as_validator_check_children_quick (validator, iter, "lang", FALSE);
