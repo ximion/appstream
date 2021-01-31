@@ -36,6 +36,42 @@ G_BEGIN_DECLS
 #define as_flags_contains(bitfield,enum)	(((bitfield) & enum) > 0)
 
 /**
+ * AsFormatStyle:
+ * @AS_FORMAT_STYLE_METAINFO:	Parse AppStream upstream metadata (metainfo files)
+ * @AS_FORMAT_STYLE_COLLECTION:	Parse AppStream metadata collections (shipped by software distributors)
+ *
+ * There are a few differences between AppStream's metainfo files (shipped by upstream projects)
+ * and the collection metadata (shipped by distributors).
+ * The data source kind indicates which style we should process.
+ * Usually you do not want to set this explicitly.
+ **/
+typedef enum {
+	AS_FORMAT_STYLE_UNKNOWN,
+	AS_FORMAT_STYLE_METAINFO,
+	AS_FORMAT_STYLE_COLLECTION,
+	/*< private >*/
+	AS_FORMAT_STYLE_LAST
+} AsFormatStyle;
+
+/**
+ * AsFormatKind:
+ * @AS_FORMAT_KIND_UNKNOWN:		Unknown metadata format.
+ * @AS_FORMAT_KIND_XML:			AppStream XML metadata.
+ * @AS_FORMAT_KIND_YAML:		AppStream YAML (DEP-11) metadata.
+ * @AS_FORMAT_KIND_DESKTOP_ENTRY:	XDG Desktop Entry data.
+ *
+ * Format of the AppStream metadata.
+ **/
+typedef enum {
+	AS_FORMAT_KIND_UNKNOWN,
+	AS_FORMAT_KIND_XML,
+	AS_FORMAT_KIND_YAML,
+	AS_FORMAT_KIND_DESKTOP_ENTRY,
+	/*< private >*/
+	AS_FORMAT_KIND_LAST
+} AsFormatKind;
+
+/**
  * AsUrlKind:
  * @AS_URL_KIND_UNKNOWN:	Type invalid or not known
  * @AS_URL_KIND_HOMEPAGE:	Project homepage
@@ -61,9 +97,6 @@ typedef enum {
 	AS_URL_KIND_LAST
 } AsUrlKind;
 
-const gchar	*as_url_kind_to_string (AsUrlKind url_kind);
-AsUrlKind	as_url_kind_from_string (const gchar *url_kind);
-
 /**
  * AsUrgencyKind:
  * @AS_URGENCY_KIND_UNKNOWN:	Urgency is unknown or not set
@@ -84,8 +117,14 @@ typedef enum {
 	AS_URGENCY_KIND_LAST
 } AsUrgencyKind;
 
-const gchar	*as_urgency_kind_to_string (AsUrgencyKind urgency_kind);
-AsUrgencyKind	 as_urgency_kind_from_string (const gchar *urgency_kind);
+const gchar		*as_url_kind_to_string (AsUrlKind url_kind);
+AsUrlKind		 as_url_kind_from_string (const gchar *url_kind);
+
+const gchar		*as_format_kind_to_string (AsFormatKind kind);
+AsFormatKind		 as_format_kind_from_string (const gchar *kind_str);
+
+const gchar		*as_urgency_kind_to_string (AsUrgencyKind urgency_kind);
+AsUrgencyKind		 as_urgency_kind_from_string (const gchar *urgency_kind);
 
 G_END_DECLS
 

@@ -27,6 +27,46 @@
  */
 
 /**
+ * as_format_kind_to_string:
+ * @kind: the #AsFormatKind.
+ *
+ * Converts the enumerated value to an text representation.
+ *
+ * Returns: string version of @kind
+ *
+ * Since: 0.10
+ **/
+const gchar*
+as_format_kind_to_string (AsFormatKind kind)
+{
+	if (kind == AS_FORMAT_KIND_XML)
+		return "xml";
+	if (kind == AS_FORMAT_KIND_YAML)
+		return "yaml";
+	return "unknown";
+}
+
+/**
+ * as_format_kind_from_string:
+ * @kind_str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsFormatKind or %AS_FORMAT_KIND_UNKNOWN for unknown
+ *
+ * Since: 0.10
+ **/
+AsFormatKind
+as_format_kind_from_string (const gchar *kind_str)
+{
+	if (g_strcmp0 (kind_str, "xml") == 0)
+		return AS_FORMAT_KIND_XML;
+	if (g_strcmp0 (kind_str, "yaml") == 0)
+		return AS_FORMAT_KIND_YAML;
+	return AS_FORMAT_KIND_UNKNOWN;
+}
+
+/**
  * as_url_kind_to_string:
  * @url_kind: the %AsUrlKind.
  *

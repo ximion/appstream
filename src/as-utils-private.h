@@ -139,6 +139,10 @@ void			as_ref_string_assign_safe (GRefString **rstr_ptr,
 void			as_ref_string_assign_transfer (GRefString **rstr_ptr,
 						       GRefString *new_rstr);
 
+gboolean		as_utils_extract_tarball (const gchar *filename,
+						  const gchar *target_dir,
+						  GError **error);
+
 gboolean		as_utils_is_platform_triplet_arch (const gchar *arch);
 gboolean		as_utils_is_platform_triplet_oskernel (const gchar *os);
 gboolean		as_utils_is_platform_triplet_osenv (const gchar *env);

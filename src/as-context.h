@@ -26,6 +26,7 @@
 #define __AS_CONTEXT_H
 
 #include <glib-object.h>
+#include "as-enums.h"
 
 G_BEGIN_DECLS
 
@@ -43,45 +44,6 @@ struct _AsContextClass
 	void (*_as_reserved5) (void);
 	void (*_as_reserved6) (void);
 };
-
-/**
- * AsFormatStyle:
- * @AS_FORMAT_STYLE_METAINFO:	Parse AppStream upstream metadata (metainfo files)
- * @AS_FORMAT_STYLE_COLLECTION:	Parse AppStream metadata collections (shipped by software distributors)
- *
- * There are a few differences between AppStream's metainfo files (shipped by upstream projects)
- * and the collection metadata (shipped by distributors).
- * The data source kind indicates which style we should process.
- * Usually you do not want to set this explicitly.
- **/
-typedef enum {
-	AS_FORMAT_STYLE_UNKNOWN,
-	AS_FORMAT_STYLE_METAINFO,
-	AS_FORMAT_STYLE_COLLECTION,
-	/*< private >*/
-	AS_FORMAT_STYLE_LAST
-} AsFormatStyle;
-
-/**
- * AsFormatKind:
- * @AS_FORMAT_KIND_UNKNOWN:		Unknown metadata format.
- * @AS_FORMAT_KIND_XML:			AppStream XML metadata.
- * @AS_FORMAT_KIND_YAML:		AppStream YAML (DEP-11) metadata.
- * @AS_FORMAT_KIND_DESKTOP_ENTRY:	XDG Desktop Entry data.
- *
- * Format of the AppStream metadata.
- **/
-typedef enum {
-	AS_FORMAT_KIND_UNKNOWN,
-	AS_FORMAT_KIND_XML,
-	AS_FORMAT_KIND_YAML,
-	AS_FORMAT_KIND_DESKTOP_ENTRY,
-	/*< private >*/
-	AS_FORMAT_KIND_LAST
-} AsFormatKind;
-
-const gchar		*as_format_kind_to_string (AsFormatKind kind);
-AsFormatKind		 as_format_kind_from_string (const gchar *kind_str);
 
 /**
  * AsFormatVersion:

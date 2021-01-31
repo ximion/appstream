@@ -41,7 +41,7 @@
 #include "as-version.h"
 #include "as-resources.h"
 #include "as-category.h"
-#include "as-component.h"
+#include "as-metadata.h"
 #include "as-component-private.h"
 
 /**
@@ -67,6 +67,15 @@ as_get_appstream_version (void)
 {
 	return as_version_string ();
 }
+
+/**
+ * as_utils_error_quark:
+ *
+ * Return value: An error quark.
+ *
+ * Since: 0.14.0
+ **/
+G_DEFINE_QUARK (as-utils-error-quark, as_utils_error)
 
 /**
  * as_markup_strsplit_words:
@@ -1804,4 +1813,297 @@ as_ref_string_assign_transfer (GRefString **rstr_ptr, GRefString *new_rstr)
 	}
 	if (new_rstr != NULL)
 		*rstr_ptr = new_rstr;
+}
+
+/**
+ * as_utils_extract_tarball:
+ *
+ * Internal helper function to extract a tarball with tar.
+ */
+gboolean
+as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError **error)
+{
+	g_autofree gchar *wdir = NULL;
+	gboolean ret;
+	gint exit_status;
+	const gchar *argv[] = { "/bin/tar",
+				"-xzf",
+				filename,
+				"-C",
+				target_dir,
+				NULL };
+
+	g_return_val_if_fail (filename != NULL, FALSE);
+
+	if (!as_utils_is_writable (target_dir)) {
+		g_set_error_literal (error,
+				     AS_UTILS_ERROR,
+				     AS_UTILS_ERROR_FAILED,
+				     "Can not extract tarball: target directory is not writable.");
+		return FALSE;
+	}
+
+	wdir = g_path_get_dirname (filename);
+	if (g_strcmp0 (wdir, ".") == 0)
+		g_clear_pointer (&wdir, g_free);
+
+	ret = g_spawn_sync (wdir,
+			    (gchar**) argv,
+			    NULL, /* envp */
+			    G_SPAWN_CLOEXEC_PIPES,
+			    NULL, /* child_setup */
+			    NULL, /* child_setup udata */
+			    NULL, /* stdout */
+			    NULL, /* stderr */
+			    &exit_status,
+			    error);
+	if (!ret) {
+		g_prefix_error (error, "Unable to run tar: ");
+		return FALSE;
+	}
+	if (exit_status == 0)
+		return TRUE;
+
+	g_set_error (error,
+		     AS_UTILS_ERROR,
+		     AS_UTILS_ERROR_FAILED,
+		     "Tarball extraction failed with 'tar' exit-code %i.",
+		     exit_status);
+	return FALSE;
+}
+
+/**
+ * as_metadata_location_get_prefix:
+ */
+static const gchar*
+as_metadata_location_get_prefix (AsMetadataLocation location)
+{
+	if (location == AS_METADATA_LOCATION_SHARED)
+		return "/usr/share";
+	if (location == AS_METADATA_LOCATION_CACHE)
+		return "/var/cache";
+	if (location == AS_METADATA_LOCATION_STATE)
+		return "/var/lib";
+	if (location == AS_METADATA_LOCATION_USER)
+		return g_get_user_data_dir ();
+	return NULL;
+}
+
+/**
+ * as_utils_install_metadata_file_internal:
+ */
+static gboolean
+as_utils_install_metadata_file_internal (const gchar *filename,
+					 const gchar *origin,
+					 const gchar *dir,
+					 const gchar *destdir,
+					 gboolean is_yaml,
+					 GError **error)
+{
+	gchar *tmp;
+	g_autofree gchar *basename = NULL;
+	g_autofree gchar *path_dest = NULL;
+	g_autofree gchar *path_parent = NULL;
+	g_autoptr(GFile) file_dest = NULL;
+	g_autoptr(GFile) file_src = NULL;
+
+	/* create directory structure */
+	path_parent = g_strdup_printf ("%s%s", destdir, dir);
+	if (g_mkdir_with_parents (path_parent, 0755) != 0) {
+		g_set_error (error,
+			     AS_UTILS_ERROR,
+			     AS_UTILS_ERROR_FAILED,
+			     "Failed to create %s", path_parent);
+		return FALSE;
+	}
+
+	/* calculate the new destination */
+	file_src = g_file_new_for_path (filename);
+	basename = g_path_get_basename (filename);
+	if (origin != NULL) {
+		g_autofree gchar *basename_new = NULL;
+		tmp = g_strstr_len (basename, -1, ".");
+		if (tmp == NULL) {
+			g_set_error (error,
+				     AS_UTILS_ERROR,
+				     AS_UTILS_ERROR_FAILED,
+				     "Name of metadata collection file is invalid %s",
+				     basename);
+			return FALSE;
+		}
+		basename_new = g_strdup_printf ("%s%s", origin, tmp);
+		/* replace the fedora.xml.gz into %{origin}.xml.gz */
+		path_dest = g_build_filename (path_parent, basename_new, NULL);
+	} else {
+		path_dest = g_build_filename (path_parent, basename, NULL);
+	}
+
+	/* actually copy file */
+	file_dest = g_file_new_for_path (path_dest);
+	if (!g_file_copy (file_src, file_dest,
+			  G_FILE_COPY_OVERWRITE,
+			  NULL, NULL, NULL, error))
+		return FALSE;
+
+	/* update the origin for XML files */
+	if (origin != NULL && !is_yaml) {
+		g_autoptr(AsMetadata) mdata = as_metadata_new ();
+		as_metadata_set_locale (mdata, "ALL");
+		if (!as_metadata_parse_file (mdata, file_dest, AS_FORMAT_KIND_XML, error))
+			return FALSE;
+		as_metadata_set_origin (mdata, origin);
+		if (!as_metadata_save_collection (mdata, path_dest, AS_FORMAT_KIND_XML, error))
+			return FALSE;
+	}
+
+	g_chmod (path_dest, 0755);
+	return TRUE;
+}
+
+/**
+ * as_utils_install_icon_tarball:
+ */
+static gboolean
+as_utils_install_icon_tarball (AsMetadataLocation location,
+				const gchar *filename,
+				const gchar *origin,
+				const gchar *size_id,
+				const gchar *destdir,
+				GError **error)
+{
+	g_autofree gchar *dir = NULL;
+	dir = g_strdup_printf ("%s%s/app-info/icons/%s/%s",
+			       destdir,
+			       as_metadata_location_get_prefix (location),
+			       origin,
+			       size_id);
+	if (g_mkdir_with_parents (dir, 0755) != 0) {
+		g_set_error (error,
+			     AS_UTILS_ERROR,
+			     AS_UTILS_ERROR_FAILED,
+			     "Failed to create %s", dir);
+		return FALSE;
+	}
+
+	if (!as_utils_extract_tarball (filename, dir, error))
+		return FALSE;
+	return TRUE;
+}
+
+/**
+ * as_utils_install_metadata_file:
+ * @location: the #AsMetadataLocation, e.g. %AS_METADATA_LOCATION_CACHE
+ * @filename: the full path of the file to install
+ * @origin: the origin to use for the installation, or %NULL
+ * @destdir: the destdir to use, or %NULL
+ * @error: A #GError or %NULL
+ *
+ * Installs an AppStream MetaInfo, AppStream Metadata Collection or AppStream Icon tarball file
+ * to the right place on the filesystem.
+ * Please note that this function does almost no validation and may guess missing values such
+ * as icon sizes and origin names.
+ * Ensure your metadata is good before installing it.
+ *
+ * Returns: %TRUE for success, %FALSE if error is set
+ *
+ * Since: 0.14.0
+ **/
+gboolean
+as_utils_install_metadata_file (AsMetadataLocation location,
+				const gchar *filename,
+				const gchar *origin,
+				const gchar *destdir,
+				GError **error)
+{
+	gboolean ret = FALSE;
+	g_autofree gchar *basename = NULL;
+	g_autofree gchar *path = NULL;
+	const gchar *icons_size_id = NULL;
+	const gchar *icons_size_ids[] = { "48x48",
+					  "48x48@2",
+					  "64x64",
+					  "64x64@2",
+					  "128x128",
+					  "128x128@2",
+					  NULL };
+
+	/* default value */
+	if (destdir == NULL)
+		destdir = "";
+	if (location == AS_METADATA_LOCATION_USER)
+		destdir = "";
+
+	switch (as_metadata_file_guess_style (filename)) {
+	case AS_FORMAT_STYLE_COLLECTION:
+		if (g_strstr_len (filename, -1, ".yml.gz") != NULL) {
+			path = g_build_filename (as_metadata_location_get_prefix (location),
+						 "app-info", "yaml", NULL);
+			ret = as_utils_install_metadata_file_internal (filename, origin, path, destdir, TRUE, error);
+		} else {
+			path = g_build_filename (as_metadata_location_get_prefix (location),
+						 "app-info", "xmls", NULL);
+			ret = as_utils_install_metadata_file_internal (filename, origin, path, destdir, FALSE, error);
+		}
+		break;
+	case AS_FORMAT_STYLE_METAINFO:
+		if (location == AS_METADATA_LOCATION_CACHE || location == AS_METADATA_LOCATION_STATE) {
+			g_set_error_literal (error,
+					     AS_UTILS_ERROR,
+					     AS_UTILS_ERROR_FAILED,
+					     "System cache and state locations are unsupported for MetaInfo files");
+			return FALSE;
+		}
+		path = g_build_filename (as_metadata_location_get_prefix (location),
+					 "metainfo", NULL);
+		ret = as_utils_install_metadata_file_internal (filename, NULL, path, destdir, FALSE, error);
+		break;
+	default:
+		basename = g_path_get_basename (filename);
+
+		if (g_str_has_suffix (basename, ".tar.gz")) {
+			gchar *tmp;
+			g_autofree gchar *tmp2 = NULL;
+			/* we may have an icon tarball */
+
+			/* guess icon size */
+			for (guint i = 0; icons_size_ids[i] != NULL; i++) {
+				if (g_strstr_len (basename, -1, icons_size_ids[i]) != NULL) {
+					icons_size_id = icons_size_ids[i];
+					break;
+				}
+			}
+
+			if (icons_size_id == NULL) {
+				g_set_error_literal (error,
+					AS_UTILS_ERROR,
+					AS_UTILS_ERROR_FAILED,
+					"Unable to find valid icon size in icon tarball name.");
+				return FALSE;
+			}
+
+			/* install icons if we know the origin name */
+			if (origin != NULL) {
+				ret = as_utils_install_icon_tarball (location, filename, origin, icons_size_id, destdir, error);
+				break;
+			}
+
+			/* guess origin */
+			tmp2 = g_strdup_printf ("_icons-%s.tar.gz", icons_size_id);
+			tmp = g_strstr_len (basename, -1, tmp2);
+			if (tmp != NULL) {
+				*tmp = '\0';
+				ret = as_utils_install_icon_tarball (location, filename, basename, icons_size_id, destdir, error);
+				break;
+			}
+		}
+
+		/* unrecognised */
+		g_set_error_literal (error,
+				     AS_UTILS_ERROR,
+				     AS_UTILS_ERROR_FAILED,
+				     "Can not process files of this type.");
+		break;
+	}
+
+	return ret;
 }

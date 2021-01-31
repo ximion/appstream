@@ -68,6 +68,39 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsMetadata, as_metadata, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_metadata_get_instance_private (o))
 
 /**
+ * as_metadata_file_guess_style:
+ * @filename: a file name
+ *
+ * Guesses the AppStream metadata style (metainfo or collection) based on
+ * the filename.
+ *
+ * Return value: An #AsFormatStyle, e.g. %AS_FORMAT_STYLE_METAINFO.
+ *
+ * Since: 0.14.0
+ **/
+AsFormatStyle
+as_metadata_file_guess_style (const gchar *filename)
+{
+	if (g_str_has_suffix (filename, ".xml.gz"))
+		return AS_FORMAT_STYLE_COLLECTION;
+	if (g_str_has_suffix (filename, ".yml"))
+		return AS_FORMAT_STYLE_COLLECTION;
+	if (g_str_has_suffix (filename, ".yml.gz"))
+		return AS_FORMAT_STYLE_COLLECTION;
+	if (g_str_has_suffix (filename, ".appdata.xml"))
+		return AS_FORMAT_STYLE_METAINFO;
+	if (g_str_has_suffix (filename, ".appdata.xml.in"))
+		return AS_FORMAT_STYLE_METAINFO;
+	if (g_str_has_suffix (filename, ".metainfo.xml"))
+		return AS_FORMAT_STYLE_METAINFO;
+	if (g_str_has_suffix (filename, ".metainfo.xml.in"))
+		return AS_FORMAT_STYLE_METAINFO;
+	if (g_str_has_suffix (filename, ".xml"))
+		return AS_FORMAT_STYLE_COLLECTION;
+	return AS_FORMAT_STYLE_UNKNOWN;
+}
+
+/**
  * as_metadata_init:
  **/
 static void
@@ -546,9 +579,15 @@ as_metadata_parse_bytes (AsMetadata *metad, GBytes *bytes, AsFormatKind format, 
  * @cid: The component-id the new #AsComponent should have.
  * @error: A #GError or %NULL.
  *
- * Parses XDG Desktop Entry metadata and adds it to the pool.
+ * Parses XDG Desktop Entry metadata and adds it to the list of parsed entities.
+ *
+ * Please note that not every desktop-entry file will result in a valid component
+ * being generated, even if parsing succeeds without error (The desktiop-entry file
+ * may be valid but not generate a component on purpose).
+ *
+ * Returns: %TRUE if the file was parsed without error.
  **/
-void
+gboolean
 as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *data, const gchar *cid, GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
@@ -568,10 +607,14 @@ as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *data, const gcha
 				g_debug ("No component found in desktop-entry data.");
 			else
 				g_debug ("No component found in desktop-entry file: %s", cid);
+
+			/* not an actual error here, we just haven't found data */
+			ret = TRUE;
 		} else {
 			g_propagate_error (error, tmp_error);
+			ret = FALSE;
 		}
-		return;
+		return ret;
 	}
 
 	/* ensure the right active locale is set */
@@ -579,6 +622,8 @@ as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *data, const gcha
 
 	/* add component to our list */
 	g_ptr_array_add (priv->cpts, g_steal_pointer (&cpt));
+
+	return TRUE;
 }
 
 /**
@@ -590,8 +635,9 @@ as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *data, const gcha
  *
  * Parses an AppStream upstream metadata file.
  *
+ * Returns: %TRUE if the file was parsed without error.
  **/
-void
+gboolean
 as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GError **error)
 {
 	g_autofree gchar *file_basename = NULL;
@@ -600,6 +646,7 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 	g_autoptr(GInputStream) stream_data = NULL;
 	g_autoptr(GConverter) conv = NULL;
 	g_autoptr(GString) asdata = NULL;
+	g_autoptr(GError) tmp_error = NULL;
 	gssize len;
 	const gsize buffer_size = 1024 * 32;
 	g_autofree gchar *buffer = NULL;
@@ -633,9 +680,11 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 			format = AS_FORMAT_KIND_DESKTOP_ENTRY;
 	}
 
-	file_stream = G_INPUT_STREAM (g_file_read (file, NULL, error));
-	if (file_stream == NULL)
-		return;
+	file_stream = G_INPUT_STREAM (g_file_read (file, NULL, &tmp_error));
+	if (file_stream == NULL) {
+		g_propagate_error (error, tmp_error);
+		return FALSE;
+	}
 
 	if ((g_strcmp0 (content_type, "application/gzip") == 0) || (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
 		/* decompress the GZip stream */
@@ -656,27 +705,34 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 		g_string_append_len (asdata, buffer, len);
 	}
 	/* check if there was an error */
-	if (len < 0)
-		return;
+	if (len < 0) {
+		g_propagate_error (error, tmp_error);
+		return FALSE;
+	}
 
 	/* parse metadata */
 	if (format == AS_FORMAT_KIND_DESKTOP_ENTRY)
 		as_metadata_parse_desktop_data (metad,
 						asdata->str,
 						file_basename,
-						error);
+						&tmp_error);
 	else
 		as_metadata_parse_data (metad,
 					asdata->str,
 					asdata->len,
 					format,
-					error);
+					&tmp_error);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		return FALSE;
+	}
+	return TRUE;
 }
 
 /**
  * as_metadata_save_data:
  */
-static void
+static gboolean
 as_metadata_save_data (AsMetadata *metad, const gchar *fname, const gchar *metadata, GError **error)
 {
 	g_autoptr(GFile) file = NULL;
@@ -695,19 +751,24 @@ as_metadata_save_data (AsMetadata *metad, const gchar *fname, const gchar *metad
 		g_object_unref (compressor);
 
 		/* ensure data is not NULL */
-		if (metadata == NULL)
-			return;
+		if (metadata == NULL) {
+			g_set_error_literal (error,
+						AS_METADATA_ERROR,
+						AS_METADATA_ERROR_FAILED,
+						"Metadata to save was NULL.");
+			return FALSE;
+		}
 
 		if (!g_output_stream_write_all (out2, metadata, strlen (metadata),
 					NULL, NULL, &tmp_error)) {
 			g_propagate_error (error, tmp_error);
-			return;
+			return FALSE;
 		}
 
 		g_output_stream_close (out2, NULL, &tmp_error);
 		if (tmp_error != NULL) {
 			g_propagate_error (error, tmp_error);
-			return;
+			return FALSE;
 		}
 
 		if (!g_file_replace_contents (file,
@@ -720,7 +781,7 @@ as_metadata_save_data (AsMetadata *metad, const gchar *fname, const gchar *metad
 						NULL,
 						&tmp_error)) {
 			g_propagate_error (error, tmp_error);
-			return;
+			return FALSE;
 		}
 	} else {
 		GFileOutputStream *fos = NULL;
@@ -741,7 +802,7 @@ as_metadata_save_data (AsMetadata *metad, const gchar *fname, const gchar *metad
 		if (tmp_error != NULL) {
 			g_object_unref (fos);
 			g_propagate_error (error, tmp_error);
-			return;
+			return FALSE;
 		}
 
 		dos = g_data_output_stream_new (G_OUTPUT_STREAM (fos));
@@ -752,9 +813,11 @@ as_metadata_save_data (AsMetadata *metad, const gchar *fname, const gchar *metad
 
 		if (tmp_error != NULL) {
 			g_propagate_error (error, tmp_error);
-			return;
+			return FALSE;
 		}
 	}
+
+	return TRUE;
 }
 
 /**
@@ -764,16 +827,21 @@ as_metadata_save_data (AsMetadata *metad, const gchar *fname, const gchar *metad
  *
  * Serialize #AsComponent instance to XML and save it to file.
  * An existing file at the same location will be overridden.
+ *
+ * Returns: %TRUE if the file was written without error.
  */
-void
+gboolean
 as_metadata_save_metainfo (AsMetadata *metad, const gchar *fname, AsFormatKind format, GError **error)
 {
 	g_autofree gchar *xml_data = NULL;
+	g_autoptr(GError) tmp_error = NULL;
 
-	xml_data = as_metadata_component_to_metainfo (metad, format, error);
-	if ((error != NULL) && (*error != NULL))
-		return;
-	as_metadata_save_data (metad, fname, xml_data, error);
+	xml_data = as_metadata_component_to_metainfo (metad, format, &tmp_error);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		return FALSE;
+	}
+	return as_metadata_save_data (metad, fname, xml_data, error);
 }
 
 /**
@@ -784,16 +852,21 @@ as_metadata_save_metainfo (AsMetadata *metad, const gchar *fname, AsFormatKind f
  * Serialize all #AsComponent instances to XML or YAML metadata and save
  * the data to a file.
  * An existing file at the same location will be overridden.
+ *
+ * Returns: %TRUE if the file was written without error.
  */
-void
+gboolean
 as_metadata_save_collection (AsMetadata *metad, const gchar *fname, AsFormatKind format, GError **error)
 {
 	g_autofree gchar *data = NULL;
+	g_autoptr(GError) tmp_error = NULL;
 
-	data = as_metadata_components_to_collection (metad, format, error);
-	if ((error != NULL) && (*error != NULL))
-		return;
-	as_metadata_save_data (metad, fname, data, error);
+	data = as_metadata_components_to_collection (metad, format, &tmp_error);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		return FALSE;
+	}
+	return as_metadata_save_data (metad, fname, data, error);
 }
 
 /**

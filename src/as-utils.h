@@ -31,6 +31,20 @@
 G_BEGIN_DECLS
 
 /**
+ * AsUtilsError:
+ * @AS_UTILS_ERROR_FAILED:			Generic failure
+ *
+ * The error type.
+ **/
+typedef enum {
+	AS_UTILS_ERROR_FAILED,
+	/*< private >*/
+	AS_UTILS_ERROR_LAST
+} AsUtilsError;
+
+#define	AS_UTILS_ERROR				as_utils_error_quark ()
+
+/**
  * AsDataIdMatchFlags:
  * @AS_DATA_ID_MATCH_FLAG_NONE:		No flags set
  * @AS_DATA_ID_MATCH_FLAG_SCOPE:	Scope, e.g. a #AsComponentScope
@@ -51,6 +65,26 @@ typedef enum {
 	/*< private >*/
 	AS_DATA_ID_MATCH_FLAG_LAST
 } AsDataIdMatchFlags;
+
+/**
+ * AsMetadataLocation:
+ * @AS_METADATA_LOCATION_SHARED:	Installed by the vendor, shared
+ * @AS_METADATA_LOCATION_STATE:		Installed as metadata into /var/lib, shared
+ * @AS_METADATA_LOCATION_CACHE:		Installed as metadata into /var/cache, shared
+ * @AS_METADATA_LOCATION_USER:		Installed for the current user
+ *
+ * The flags used when installing and removing metadata files.
+ **/
+typedef enum {
+	AS_METADATA_LOCATION_SHARED,
+	AS_METADATA_LOCATION_STATE,
+	AS_METADATA_LOCATION_CACHE,
+	AS_METADATA_LOCATION_USER,
+	/*< private >*/
+	AS_METADATA_LOCATION_LAST
+} AsMetadataLocation;
+
+GQuark		 	as_utils_error_quark (void);
 
 gchar 			**as_markup_strsplit_words (const gchar *text,
 						    guint line_len);
@@ -87,6 +121,12 @@ guint			as_gstring_replace (GString *string,
 					    const gchar *replace);
 
 gboolean		as_utils_is_platform_triplet (const gchar *triplet);
+
+gboolean		as_utils_install_metadata_file (AsMetadataLocation location,
+							const gchar *filename,
+							const gchar *origin,
+							const gchar *destdir,
+							GError **error);
 
 /* DEPRECATED */
 

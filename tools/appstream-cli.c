@@ -449,16 +449,40 @@ as_client_run_validate_tree (const gchar *command, char **argv, int argc)
 static int
 as_client_run_put (const gchar *command, char **argv, int argc)
 {
-	const gchar *value = NULL;
+	g_autoptr(GOptionContext) opt_context = NULL;
+	const gchar *fname = NULL;
+	const gchar *optn_origin = NULL;
+	gboolean optn_usermode = FALSE;
+	gint ret;
+
+	const GOptionEntry put_file_options[] = {
+		{ "origin", 0, 0,
+			G_OPTION_ARG_STRING,
+			&optn_origin,
+			/* TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand) */
+			N_("Set the given data origin for the installed metadata coollection file."), NULL },
+		{ "user", 0, 0,
+			G_OPTION_ARG_NONE,
+			&optn_usermode,
+			/* TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand) */
+			N_("Install the file for the current user, instead of globally."),
+			NULL },
+		{ NULL }
+	};
+
+	opt_context = as_client_new_subcommand_option_context (command, put_file_options);
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
 
 	if (argc > 2)
-		value = argv[2];
+		fname = argv[2];
 	if (argc > 3) {
 		as_client_print_help_hint (command, argv[3]);
 		return 1;
 	}
 
-	return ascli_put_metainfo (value);
+	return ascli_put_metainfo (fname, optn_origin, optn_usermode);
 }
 
 /**

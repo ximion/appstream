@@ -83,10 +83,12 @@ typedef enum {
 
 #define	AS_METADATA_ERROR	as_metadata_error_quark ()
 
+AsFormatStyle		as_metadata_file_guess_style (const gchar *filename);
+
 AsMetadata		*as_metadata_new (void);
 GQuark			as_metadata_error_quark (void);
 
-void			as_metadata_parse_file (AsMetadata *metad,
+gboolean		as_metadata_parse_file (AsMetadata *metad,
 						GFile *file,
 						AsFormatKind format,
 						GError **error);
@@ -100,7 +102,7 @@ gboolean		as_metadata_parse_bytes (AsMetadata *metad,
 						 AsFormatKind format,
 						 GError **error);
 
-void			as_metadata_parse_desktop_data (AsMetadata *metad,
+gboolean		as_metadata_parse_desktop_data (AsMetadata *metad,
 							const gchar *data,
 							const gchar *cid,
 							GError **error);
@@ -115,7 +117,7 @@ void			as_metadata_add_component (AsMetadata *metad,
 gchar			*as_metadata_component_to_metainfo (AsMetadata *metad,
 								AsFormatKind format,
 								GError **error);
-void			as_metadata_save_metainfo (AsMetadata *metad,
+gboolean		as_metadata_save_metainfo (AsMetadata *metad,
 							const gchar *fname,
 							AsFormatKind format,
 							GError **error);
@@ -123,7 +125,7 @@ void			as_metadata_save_metainfo (AsMetadata *metad,
 gchar			*as_metadata_components_to_collection (AsMetadata *metad,
 								AsFormatKind format,
 								GError **error);
-void			as_metadata_save_collection (AsMetadata *metad,
+gboolean		as_metadata_save_collection (AsMetadata *metad,
 							const gchar *fname,
 							AsFormatKind format,
 							GError **error);
