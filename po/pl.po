@@ -21,17 +21,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-01-30 22:24+0100\n"
-"PO-Revision-Date: 2021-01-12 19:41+0000\n"
+"PO-Revision-Date: 2021-01-31 09:06+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
-"translations/pl/>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1898,54 +1896,54 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:639
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "Wartość ustawiona jako pilność wydania nie jest znaną wartością pilności."
 
 #: src/as-validator-issue-tag.h:644
 msgid "The value set as release type is invalid."
-msgstr ""
+msgstr "Wartość ustawiona jako typ wydania jest nieprawidłowa."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:650
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr ""
+msgstr "Wartość ustawiona jako typ artefaktu jest nieprawidłowa. Musi wynosić „source” lub „binary”."
 
 #: src/as-validator-issue-tag.h:655
 msgid "The value set as artifact bundle type is invalid."
-msgstr ""
+msgstr "Wartość ustawiona jako typ paczki artefaktu jest nieprawidłowa."
 
 #: src/as-validator-issue-tag.h:660
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
+msgstr "Trójka platformy dla tego wydania jest nieprawidłowa. Musi być w formie „architektura-jądrosystemu-środowiskosystemu” — dokumentacja AppStream lub informacje o znormalizowanych trójkach GNU zawierają więcej informacji i listę prawidłowych pól."
 
 #: src/as-validator-issue-tag.h:667
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
+msgstr "Wybrany algorytm sum kontrolnych jest nieobsługiwany lub nieznany."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:673
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
+msgstr "Typ rozmiaru jest nieznany. Musi wynosić „download” lub „installed”."
 
 #: src/as-validator-issue-tag.h:678
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr ""
+msgstr "Nazwa pliku artefaktu musi być podstawową nazwą pliku, nie (względną ani bezwzględną) ścieżką."
 
 #: src/as-validator-issue-tag.h:683
 msgid "The value set as release issue type is invalid."
-msgstr ""
+msgstr "Wartość ustawiona jako typ zgłoszenia wydania jest nieprawidłowa."
 
 #: src/as-validator-issue-tag.h:688
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
+msgstr "Zgłoszenie jest oznakowane jako błąd zabezpieczeń z numerem CVE, ale jego wartość nie jest prawidłowym identyfikatorem CVE."
 
 #: src/as-validator-issue-tag.h:693
 msgid ""
@@ -2278,7 +2276,7 @@ msgstr "Wyświetla informacje o stanie dostępnych metadanych AppStream."
 #: tools/appstream-cli.c:1093
 msgid ""
 "Show information about the current operating system from the metadata index."
-msgstr ""
+msgstr "Wyświetla informacje o bieżącym systemie operacyjnym z indeksu metadanych."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstream-cli.c:1098
@@ -2435,14 +2433,13 @@ msgstr ""
 "ustawić go za pomocą „--format=”."
 
 #: tools/ascli-actions-mdata.c:451
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr "Nie można odnaleźć składnika o identyfikatorze „%s”."
+msgstr "Nie można odnaleźć składnika systemu operacyjnego „%s”."
 
 #: tools/ascli-actions-mdata.c:456
-#, fuzzy
 msgid "Version"
-msgstr "Wersja: %s"
+msgstr "Wersja"
 
 #: tools/ascli-actions-mdata.c:480
 msgid ""
@@ -2702,7 +2699,7 @@ msgstr "Identyfikator"
 
 #: tools/ascli-utils.c:269
 msgid "Internal ID"
-msgstr ""
+msgstr "Wewnętrzny identyfikator"
 
 #: tools/ascli-utils.c:270
 msgid "Name"
