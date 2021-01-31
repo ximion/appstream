@@ -3454,25 +3454,22 @@ as_component_load_provides_from_xml (AsComponent *cpt, xmlNode *node)
 		} else if (g_strcmp0 (node_name, "modalias") == 0) {
 			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MODALIAS, content);
 		} else if (g_strcmp0 (node_name, "firmware") == 0) {
-			g_autofree gchar *fwtype = NULL;
-			fwtype = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
-			if (fwtype != NULL) {
-				if (g_strcmp0 (fwtype, "runtime") == 0)
-					as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FIRMWARE_RUNTIME, content);
-				else if (g_strcmp0 (fwtype, "flashed") == 0)
-					as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FIRMWARE_FLASHED, content);
-			}
+			g_autofree gchar *fw_type = NULL;
+			fw_type = as_xml_get_prop_value (iter, "type");
+			if (g_strcmp0 (fw_type, "runtime") == 0)
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FIRMWARE_RUNTIME, content);
+			else if (g_strcmp0 (fw_type, "flashed") == 0)
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FIRMWARE_FLASHED, content);
 		} else if (g_strcmp0 (node_name, "python2") == 0) {
 			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_PYTHON_2, content);
 		} else if (g_strcmp0 (node_name, "python3") == 0) {
 			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_PYTHON, content);
 		} else if (g_strcmp0 (node_name, "dbus") == 0) {
-			g_autofree gchar *dbustype = NULL;
-			dbustype = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+			g_autofree gchar *dbus_type = as_xml_get_prop_value (iter, "type");
 
-			if (g_strcmp0 (dbustype, "system") == 0)
+			if (g_strcmp0 (dbus_type, "system") == 0)
 				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_DBUS_SYSTEM, content);
-			else if ((g_strcmp0 (dbustype, "user") == 0) || (g_strcmp0 (dbustype, "session") == 0))
+			else if ((g_strcmp0 (dbus_type, "user") == 0) || (g_strcmp0 (dbus_type, "session") == 0))
 				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_DBUS_USER, content);
 		}
 	}
