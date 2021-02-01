@@ -84,6 +84,10 @@ as_format_version_to_string (AsFormatVersion version)
 		return "0.11";
 	if (version == AS_FORMAT_VERSION_V0_12)
 		return "0.12";
+	if (version == AS_FORMAT_VERSION_V0_13)
+		return "0.13";
+	if (version == AS_FORMAT_VERSION_V0_14)
+		return "0.14";
 	return "?.??";
 }
 
@@ -101,6 +105,10 @@ as_format_version_to_string (AsFormatVersion version)
 AsFormatVersion
 as_format_version_from_string (const gchar *version_str)
 {
+	if (g_strcmp0 (version_str, "0.14") == 0)
+		return AS_FORMAT_VERSION_V0_14;
+	if (g_strcmp0 (version_str, "0.13") == 0)
+		return AS_FORMAT_VERSION_V0_13;
 	if (g_strcmp0 (version_str, "0.12") == 0)
 		return AS_FORMAT_VERSION_V0_12;
 	if (g_strcmp0 (version_str, "0.11") == 0)

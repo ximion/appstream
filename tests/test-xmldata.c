@@ -347,7 +347,7 @@ test_appstream_write_description ()
 						"  </releases>\n"
 						"</component>\n";
 
-	const gchar *EXPECTED_XML_DISTRO = "<components version=\"0.12\">\n"
+	const gchar *EXPECTED_XML_DISTRO = "<components version=\"0.14\">\n"
 					   "  <component>\n"
 					   "    <id>org.example.Test</id>\n"
 					   "    <name>Test</name>\n"
@@ -704,7 +704,7 @@ test_xml_write_suggests (void)
 					   "    <id>org.example.Awesome</id>\n"
 					   "  </suggests>\n"
 					   "</component>\n";
-	const gchar *expected_sug_xml_coll = "<components version=\"0.12\">\n"
+	const gchar *expected_sug_xml_coll = "<components version=\"0.14\">\n"
 					"  <component>\n"
 					"    <id>org.example.SuggestsTest</id>\n"
 					"    <suggests type=\"upstream\">\n"
@@ -982,7 +982,7 @@ test_appstream_write_metainfo_to_collection (void)
 					"  </releases>\n"
 					"</component>\n";
 
-	const gchar *EXPECTED_XML_COLL =   "<components version=\"0.12\">\n"
+	const gchar *EXPECTED_XML_COLL =   "<components version=\"0.14\">\n"
 					   "  <component>\n"
 					   "    <id>org.example.Test</id>\n"
 					   "    <name>Test</name>\n"
