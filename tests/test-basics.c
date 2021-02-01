@@ -388,12 +388,84 @@ test_spdx (void)
 }
 
 /**
- * test_desktop_entry:
+ * test_read_desktop_entry_simple:
+ *
+ * Read XDG desktop-entry file.
+ */
+static void
+test_read_desktop_entry_simple ()
+{
+	static const gchar *desktop_entry_data =
+		"[Desktop Entry]\n"
+		"Type=Application\n"
+		"Name=FooBar\n"
+		"Name[de_DE]=FööBär\n"
+		"Comment=A foo-ish bar.\n"
+		"Keywords=Hobbes;Bentham;Locke;\n"
+		"Keywords[de_DE]=Heidegger;Kant;Hegel;\n";
+
+	gboolean ret;
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GError) error = NULL;
+	AsComponent *cpt;
+	AsLaunchable *launch;
+	GPtrArray *entries;
+	gchar *tmp;
+
+	metad = as_metadata_new ();
+
+	ret = as_metadata_parse_desktop_data (metad, desktop_entry_data, "foobar.desktop", &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	cpt = as_metadata_get_component (metad);
+	g_assert_nonnull (cpt);
+	as_component_set_active_locale (cpt, "C.UTF-8");
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "foobar.desktop");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "FooBar");
+	tmp = g_strjoinv (", ", as_component_get_keywords (cpt));
+	g_assert_cmpstr (tmp, ==, "Hobbes, Bentham, Locke");
+	g_free (tmp);
+
+	as_component_set_active_locale (cpt, "de_DE");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "FööBär");
+	tmp = g_strjoinv (", ", as_component_get_keywords (cpt));
+	g_assert_cmpstr (tmp, ==, "Heidegger, Kant, Hegel");
+	g_free (tmp);
+
+	launch = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+	g_assert_nonnull (launch);
+	g_assert_cmpint (as_launchable_get_kind (launch), ==, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+	entries = as_launchable_get_entries (launch);
+	g_assert_cmpint (entries->len, ==, 1);
+	g_assert_cmpstr ((const gchar*) g_ptr_array_index (entries, 0), ==, "foobar.desktop");
+
+	/* test component-id trimming */
+	as_metadata_clear_components (metad);
+	ret = as_metadata_parse_desktop_data (metad, desktop_entry_data, "org.example.foobar.desktop", &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	cpt = as_metadata_get_component (metad);
+	g_assert_nonnull (cpt);
+
+	as_component_set_active_locale (cpt, "C.UTF-8");
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.foobar");
+
+	launch = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+	g_assert_nonnull (launch);
+	g_assert_cmpint (as_launchable_get_kind (launch), ==, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+	entries = as_launchable_get_entries (launch);
+	g_assert_cmpint (entries->len, ==, 1);
+	g_assert_cmpstr ((const gchar*) g_ptr_array_index (entries, 0), ==, "org.example.foobar.desktop");
+}
+
+/**
+ * test_desktop_entry_convert:
  *
  * Test reading a desktop-entry.
  */
 static void
-test_desktop_entry ()
+test_desktop_entry_convert ()
 {
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autofree gchar *nautilus_de_fname = NULL;
@@ -862,7 +934,8 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Component", test_component);
 	g_test_add_func ("/AppStream/SPDX", test_spdx);
 	g_test_add_func ("/AppStream/TranslationFallback", test_translation_fallback);
-	g_test_add_func ("/AppStream/DesktopEntry", test_desktop_entry);
+	g_test_add_func ("/AppStream/ReadDesktopEntry", test_read_desktop_entry_simple);
+	g_test_add_func ("/AppStream/ConvertDesktopEntry", test_desktop_entry_convert);
 	g_test_add_func ("/AppStream/VersionCompare", test_version_compare);
 	g_test_add_func ("/AppStream/DistroDetails", test_distro_details);
 	g_test_add_func ("/AppStream/rDNSConvert", test_rdns_convert);

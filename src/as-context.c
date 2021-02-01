@@ -138,7 +138,7 @@ as_context_init (AsContext *ctx)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 
-	priv->format_version = AS_CURRENT_FORMAT_VERSION;
+	priv->format_version = AS_FORMAT_VERSION_CURRENT;
 	priv->style = AS_FORMAT_STYLE_UNKNOWN;
 	priv->fname = g_ref_string_new_intern (":memory");
 	priv->priority = 0;

@@ -114,7 +114,7 @@ as_metadata_init (AsMetadata *metad)
 	as_metadata_set_locale (metad, str);
 	g_free (str);
 
-	priv->format_version = AS_CURRENT_FORMAT_VERSION;
+	priv->format_version = AS_FORMAT_VERSION_CURRENT;
 	priv->mode = AS_FORMAT_STYLE_METAINFO;
 	priv->default_priority = 0;
 	priv->write_header = TRUE;

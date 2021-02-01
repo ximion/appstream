@@ -154,13 +154,13 @@ gboolean
 as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, gssize data_len, AsFormatVersion fversion, GError **error)
 {
 	g_autoptr(GKeyFile) df = NULL;
-	gboolean ignore_cpt = FALSE;
 	g_auto(GStrv) keys = NULL;
+	gboolean ignore_cpt = FALSE;
 	GError *tmp_error = NULL;
 	gchar *tmp;
-	const gchar *cid = as_component_get_id (cpt);
+	g_autofree gchar *desktop_basename = g_strdup (as_component_get_id (cpt));
 
-	if (cid == NULL) {
+	if (desktop_basename == NULL) {
 		g_set_error_literal (error,
 				     AS_METADATA_ERROR,
 				     AS_METADATA_ERROR_PARSE,
@@ -219,7 +219,7 @@ as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, gssize data_le
 		g_set_error (error,
 				AS_METADATA_ERROR,
 				AS_METADATA_ERROR_PARSE,
-				"Data in '%s' does not contain a valid Desktop Entry.", cid);
+				"Data in '%s' does not contain a valid Desktop Entry.", as_component_get_id (cpt));
 		return FALSE;
 	}
 
@@ -231,12 +231,12 @@ as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, gssize data_le
 	/* strip .desktop suffix if the reverse-domain-name scheme is followed and we build for
          * a recent AppStream version */
         if (fversion >= AS_FORMAT_VERSION_V0_10) {
-		g_auto(GStrv) parts = g_strsplit (cid, ".", 3);
+		g_auto(GStrv) parts = g_strsplit (desktop_basename, ".", 3);
 		if (g_strv_length (parts) == 3) {
-			if (as_utils_is_tld (parts[0]) && g_str_has_suffix (cid, ".desktop")) {
+			if (as_utils_is_tld (parts[0]) && g_str_has_suffix (desktop_basename, ".desktop")) {
 				g_autofree gchar *id_raw = NULL;
 				/* remove .desktop suffix */
-				id_raw = g_strdup (cid);
+				id_raw = g_strdup (desktop_basename);
 				id_raw[strlen (id_raw)-8] = '\0';
 
 				as_component_set_id (cpt, id_raw);
@@ -328,8 +328,17 @@ as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, gssize data_le
 		}
 	}
 
-	/* we have the lowest priority */
-	as_component_set_priority (cpt, -G_MAXINT);
+	/* add this .desktop file as launchable entry, if we don't have one set already */
+	if (as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID) == NULL) {
+		g_autoptr(AsLaunchable) launch = as_launchable_new ();
+		as_launchable_set_kind (launch, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+		as_launchable_add_entry (launch, desktop_basename);
+		as_component_add_launchable (cpt, launch);
+
+		/* we have the lowest priority */
+		as_component_set_priority (cpt, -G_MAXINT);
+	}
+
 	return TRUE;
 }
 

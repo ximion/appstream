@@ -69,10 +69,10 @@ typedef enum {
 	AS_FORMAT_VERSION_LAST
 } AsFormatVersion;
 
+#define AS_FORMAT_VERSION_CURRENT AS_FORMAT_VERSION_V0_12
+
 const gchar		*as_format_version_to_string (AsFormatVersion version);
 AsFormatVersion		 as_format_version_from_string (const gchar *version_str);
-
-#define AS_CURRENT_FORMAT_VERSION AS_FORMAT_VERSION_V0_12
 
 AsContext		*as_context_new (void);
 
