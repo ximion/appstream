@@ -21,16 +21,14 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-02-02 16:26+0100\n"
-"PO-Revision-Date: 2021-01-31 09:06+0000\n"
+"PO-Revision-Date: 2021-02-02 15:48+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
-"translations/pl/>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.5-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -2119,12 +2117,12 @@ msgstr "Wymusza odświeżenie pamięci podręcznej."
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstream-cli.c:463
 msgid "Set the given data origin for the installed metadata coollection file."
-msgstr ""
+msgstr "Ustawia podane pochodzenie danych dla zainstalowanego pliku kolekcji metadanych."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstream-cli.c:468
 msgid "Install the file for the current user, instead of globally."
-msgstr ""
+msgstr "Instaluje plik dla bieżącego użytkownika zamiast globalnie."
 
 #: tools/appstream-cli.c:617
 msgid ""
@@ -2425,9 +2423,9 @@ msgid "You need to specify a metadata file."
 msgstr "Należy podać plik metadanych."
 
 #: tools/ascli-actions-mdata.c:321
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr "Nie można zapisać pliku .desktop: %s"
+msgstr "Nie można zainstalować pliku metadanych: %s"
 
 #: tools/ascli-actions-mdata.c:341
 msgid "You need to specify an input and output file."
