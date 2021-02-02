@@ -66,7 +66,9 @@ as_screenshot_init (AsScreenshot *screenshot)
 
 	priv->kind = AS_SCREENSHOT_KIND_EXTRA;
 	priv->media_kind = AS_SCREENSHOT_MEDIA_KIND_IMAGE;
-	priv->caption = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->caption = g_hash_table_new_full (g_str_hash, g_str_equal,
+						(GDestroyNotify) as_ref_string_release,
+						g_free);
 	priv->images = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
 	priv->images_lang = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
 	priv->videos = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);

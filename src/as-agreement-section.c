@@ -70,8 +70,12 @@ as_agreement_section_init (AsAgreementSection *agreement_section)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
 
-	priv->name = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->name = g_hash_table_new_full (g_str_hash, g_str_equal,
+					    (GDestroyNotify) as_ref_string_release,
+					    g_free);
+	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal,
+						   (GDestroyNotify) as_ref_string_release,
+						   g_free);
 }
 
 static void

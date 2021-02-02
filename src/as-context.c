@@ -499,6 +499,7 @@ void
 as_context_localized_ht_set (AsContext *ctx, GHashTable *lht, const gchar *value, const gchar *locale)
 {
 	const gchar *selected_locale;
+	g_autofree gchar *locale_noenc = NULL;
 
 	/* if no locale was specified, we assume the default locale
 	 * NOTE: %NULL does NOT necessarily mean lang=C here! */
@@ -512,8 +513,9 @@ as_context_localized_ht_set (AsContext *ctx, GHashTable *lht, const gchar *value
 	if (selected_locale == NULL)
 		selected_locale = "C";
 
+	locale_noenc = as_locale_strip_encoding (g_strdup (selected_locale));
 	g_hash_table_insert (lht,
-			     as_locale_strip_encoding (g_strdup (selected_locale)),
+			     g_ref_string_new_intern (locale_noenc),
 			     g_strdup (value));
 }
 

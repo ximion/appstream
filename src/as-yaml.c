@@ -506,14 +506,14 @@ as_yaml_get_node_locale (AsContext *ctx, GNode *node)
 void
 as_yaml_set_localized_table (AsContext *ctx, GNode *node, GHashTable *l10n_table)
 {
-	GNode *n;
-
-	for (n = node->children; n != NULL; n = n->next) {
+	for (GNode *n = node->children; n != NULL; n = n->next) {
 		const gchar *locale = as_yaml_get_node_locale (ctx, n);
-		if (locale != NULL)
+		if (locale != NULL) {
+			g_autofree gchar *locale_noenc = as_locale_strip_encoding (g_strdup (locale));
 			g_hash_table_insert (l10n_table,
-						as_locale_strip_encoding (g_strdup (locale)),
+						g_ref_string_new_intern (locale_noenc),
 						g_strdup (as_yaml_node_get_value (n)));
+		}
 	}
 }
 

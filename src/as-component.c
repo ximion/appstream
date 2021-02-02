@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2020 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2021 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -114,14 +114,14 @@ typedef struct
 
 	guint			sort_score; /* used to priorize components in listings */
 	gsize			token_cache_valid;
-	GHashTable		*token_cache; /* of utf8:AsTokenType* */
+	GHashTable		*token_cache; /* of RefString:AsTokenType* */
 
 	AsValueFlags		value_flags;
 
 	gboolean		ignored; /* whether we should ignore this component */
 
 	GHashTable		*name_variant_suffix; /* variant suffix for component name */
-	GHashTable		*custom; /* of GRefString:GRefString, free-form user-defined custom data */
+	GHashTable		*custom; /* of RefString:RefString, free-form user-defined custom data */
 } AsComponentPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsComponent, as_component, G_TYPE_OBJECT)
@@ -335,11 +335,21 @@ as_component_init (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	/* translatable entities */
-	priv->name = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-	priv->summary = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-	priv->developer_name = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-	priv->keywords = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify) g_strfreev);
+	priv->name = g_hash_table_new_full (g_str_hash, g_str_equal,
+					    (GDestroyNotify) as_ref_string_release,
+					    g_free);
+	priv->summary = g_hash_table_new_full (g_str_hash, g_str_equal,
+					       (GDestroyNotify) as_ref_string_release,
+					       g_free);
+	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal,
+						   (GDestroyNotify) as_ref_string_release,
+						   g_free);
+	priv->developer_name = g_hash_table_new_full (g_str_hash, g_str_equal,
+						      (GDestroyNotify) as_ref_string_release,
+						      g_free);
+	priv->keywords = g_hash_table_new_full (g_str_hash, g_str_equal,
+						(GDestroyNotify) as_ref_string_release,
+						(GDestroyNotify) g_strfreev);
 
 	/* lists */
 	priv->launchables = g_ptr_array_new_with_free_func (g_object_unref);
@@ -366,7 +376,9 @@ as_component_init (AsComponent *cpt)
 					      (GDestroyNotify) g_ref_string_release,
 					      (GDestroyNotify) g_ref_string_release);
 
-	priv->token_cache = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->token_cache = g_hash_table_new_full (g_str_hash, g_str_equal,
+						   (GDestroyNotify) g_ref_string_release,
+						   g_free);
 
 	priv->priority = 0;
 }
@@ -1295,7 +1307,7 @@ as_component_set_keywords (AsComponent *cpt, gchar **value, const gchar *locale)
 		locale = as_component_get_active_locale (cpt);
 
 	g_hash_table_insert (priv->keywords,
-				g_strdup (locale),
+				g_ref_string_new_intern (locale),
 				g_strdupv (value));
 
 	g_object_notify ((GObject *) cpt, "keywords");
@@ -1577,7 +1589,9 @@ as_component_set_name_variant_suffix (AsComponent *cpt, const gchar *value, cons
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	if (priv->name_variant_suffix == NULL)
-		priv->name_variant_suffix = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+		priv->name_variant_suffix = g_hash_table_new_full (g_str_hash, g_str_equal,
+								   (GDestroyNotify) as_ref_string_release,
+								   g_free);
 	as_context_localized_ht_set (priv->context,
 				     priv->name_variant_suffix,
 				     value,
@@ -2423,7 +2437,7 @@ as_component_add_token_helper (AsComponent *cpt,
 	match_pval = g_new0 (AsTokenType, 1);
 	*match_pval = match_flag;
 	g_hash_table_insert (priv->token_cache,
-			     g_steal_pointer (&token_stemmed),
+			     g_ref_string_new_intern (token_stemmed),
 			     match_pval);
 }
 
@@ -3201,8 +3215,7 @@ static void
 as_copy_l10n_hashtable_hfunc (gpointer key, gpointer value, gpointer user_data)
 {
 	GHashTable *dest = (GHashTable*) user_data;
-
-	g_hash_table_insert (dest, g_strdup (key), g_strdup (value));
+	g_hash_table_insert (dest, g_ref_string_acquire (key), g_strdup (value));
 }
 
 /**
@@ -4686,7 +4699,11 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 					as_component_add_agreement (cpt, agreement);
 			}
 		} else if (field_id == AS_TAG_NAME_VARIANT_SUFFIX) {
-			priv->name_variant_suffix = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+			if (priv->name_variant_suffix != NULL)
+				g_hash_table_unref (priv->name_variant_suffix);
+			priv->name_variant_suffix = g_hash_table_new_full (g_str_hash, g_str_equal,
+									   (GDestroyNotify) as_ref_string_release,
+									   g_free);
 			as_yaml_set_localized_table (ctx, node, priv->name_variant_suffix);
 		} else if (field_id == AS_TAG_CUSTOM) {
 			as_component_yaml_parse_custom (cpt, node);

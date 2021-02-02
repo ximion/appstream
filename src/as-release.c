@@ -156,7 +156,9 @@ as_release_init (AsRelease *release)
 	/* we assume a stable release by default */
 	priv->kind = AS_RELEASE_KIND_STABLE;
 
-	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal,
+						   (GDestroyNotify) as_ref_string_release,
+						   g_free);
 	priv->issues = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->artifacts = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->urgency = AS_URGENCY_KIND_UNKNOWN;
