@@ -56,8 +56,7 @@ gchar		**as_xml_get_children_as_strv (xmlNode *node,
 
 void		as_xml_parse_metainfo_description_node (AsContext *ctx,
 							xmlNode *node,
-							GHFunc func,
-							gpointer entity);
+							GHashTable *l10n_desc);
 
 gchar		*as_xml_dump_node_content_raw (xmlNode *node);
 gchar		*as_xml_dump_node_children (xmlNode *node);

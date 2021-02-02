@@ -838,20 +838,6 @@ as_release_add_checksum (AsRelease *release, AsChecksum *cs)
 }
 
 /**
- * as_release_parse_xml_metainfo_description_cb:
- *
- * Helper function for GHashTable
- */
-static void
-as_release_parse_xml_metainfo_description_cb (gchar *key, GString *value, AsRelease *rel)
-{
-	g_assert (AS_IS_RELEASE (rel));
-
-	as_release_set_description (rel, value->str, key);
-	g_string_free (value, TRUE);
-}
-
-/**
  * as_release_load_from_xml:
  * @release: an #AsRelease
  * @ctx: the AppStream document context.
@@ -927,6 +913,7 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 					as_release_add_artifact (release, artifact);
 			}
 		} else if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
+			g_hash_table_remove_all (priv->description);
 			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
 				g_autofree gchar *lang;
 
@@ -936,10 +923,7 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 				if (lang != NULL)
 					as_release_set_description (release, content, lang);
 			} else {
-				as_xml_parse_metainfo_description_node (ctx,
-									iter,
-									(GHFunc) as_release_parse_xml_metainfo_description_cb,
-									release);
+				as_xml_parse_metainfo_description_node (ctx, iter, priv->description);
 			}
 		} else if (g_strcmp0 ((gchar*) iter->name, "url") == 0) {
 			/* NOTE: Currently, every url in releases is a "details" URL */

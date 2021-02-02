@@ -447,6 +447,73 @@ test_appstream_write_description ()
 }
 
 /**
+ * test_appstream_description_l10n_cleanup:
+ */
+static void
+test_appstream_description_l10n_cleanup (void)
+{
+	const gchar *DESC_L10N_XML = "<component>\n"
+				    "  <id>org.example.Test</id>\n"
+				    "  <name>Test</name>\n"
+				    "  <summary>Just a unittest.</summary>\n"
+				    "  <description>\n"
+				    "    <p>First paragraph</p>\n"
+				    "    <p xml:lang=\"de\">Erster Absatz</p>\n"
+				    "    <p>Second paragraph</p>\n"
+				    "    <p xml:lang=\"de\">Zweiter Absatz</p>\n"
+				    "    <p>Features:</p>\n"
+				    "    <p xml:lang=\"ca\">Característiques:</p>\n"
+				    "    <p xml:lang=\"cs\">Vlastnosti:</p>\n"
+				    "    <p xml:lang=\"de\">Funktionen:</p>\n"
+				    "    <p xml:lang=\"nn\">Funksjonar:</p>\n"
+				    "    <ul>\n"
+				    "      <li>Browse the maps clicking in a map division to see its name, capital and flag</li>\n"
+				    "      <li xml:lang=\"ca\">Busqueu en els mapes fent clic a sobre d'una zona del mapa per a veure el seu nom, capital i bandera</li>\n"
+				    "      <li xml:lang=\"de\">Landkarte erkunden, indem Sie in der Karte auf ein Land klicken und dessen Name, Hauptstadt und Flagge angezeigt wird</li>\n"
+				    "      <li>The game tells you a map division name and you have to click on it</li>\n"
+				    "      <li xml:lang=\"ca\">El joc mostra el nom d'una zona en el mapa i heu de fer clic sobre el lloc on està</li>\n"
+				    "    </ul>\n"
+				    "  </description>\n"
+				    "</component>\n";
+	const gchar *ENGLISH_DESC_TEXT = "<p>First paragraph</p>\n"
+					 "<p>Second paragraph</p>\n"
+					 "<p>Features:</p>\n"
+					 "<ul>\n"
+					 "  <li>Browse the maps clicking in a map division to see its name, capital and flag</li>\n"
+					 "  <li>The game tells you a map division name and you have to click on it</li>\n"
+					 "</ul>\n";
+	g_autoptr(AsComponent) cpt = NULL;
+
+	cpt = as_xml_test_read_data (DESC_L10N_XML, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
+
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "Test");
+	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Just a unittest.");
+
+	as_component_set_active_locale (cpt, "C");
+	g_assert_cmpstr (as_component_get_description (cpt), ==, ENGLISH_DESC_TEXT);
+	as_component_set_active_locale (cpt, "de");
+	g_assert_cmpstr (as_component_get_description (cpt), ==, "<p>Erster Absatz</p>\n"
+								 "<p>Zweiter Absatz</p>\n"
+								 "<p>Funktionen:</p>\n"
+								 "<ul>\n"
+								 "  <li>Landkarte erkunden, indem Sie in der Karte auf ein Land klicken und dessen Name, Hauptstadt und Flagge angezeigt wird</li>\n"
+								 "</ul>\n");
+	as_component_set_active_locale (cpt, "ca");
+	g_assert_cmpstr (as_component_get_description (cpt), ==, "<p>Característiques:</p>\n"
+								 "<ul>\n"
+								 "  <li>Busqueu en els mapes fent clic a sobre d'una zona del mapa per a veure el seu nom, capital i bandera</li>\n"
+								 "  <li>El joc mostra el nom d'una zona en el mapa i heu de fer clic sobre el lloc on està</li>\n"
+								 "</ul>\n");
+
+	/* not enough translation for these, we should have fallen back to English */
+	as_component_set_active_locale (cpt, "cs");
+	g_assert_cmpstr (as_component_get_description (cpt), ==, ENGLISH_DESC_TEXT);
+	as_component_set_active_locale (cpt, "nn");
+	g_assert_cmpstr (as_component_get_description (cpt), ==, ENGLISH_DESC_TEXT);
+}
+
+/**
  * test_appstream_read_description:
  *
  * Test reading the description tag.
@@ -1846,6 +1913,7 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/XML/Read/Description", test_appstream_read_description);
 	g_test_add_func ("/XML/Write/Description", test_appstream_write_description);
+	g_test_add_func ("/XML/DescriptionL10NCleanup", test_appstream_description_l10n_cleanup);
 
 	g_test_add_func ("/XML/Write/MetainfoToCollection", test_appstream_write_metainfo_to_collection);
 

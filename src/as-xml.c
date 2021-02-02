@@ -424,18 +424,50 @@ as_xml_markup_parse_helper_export_node (AsXMLMarkupParseHelper *helper, xmlNode 
 	return NULL;
 }
 
+typedef struct
+{
+	guint elem_count;
+	GString *data;
+} AsXMLMetaInfoDescParseHelper;
+
+/**
+ * as_xml_metainfo_desc_parse_helper_new: (skip)
+ **/
+static AsXMLMetaInfoDescParseHelper*
+as_xml_metainfo_desc_parse_helper_new ()
+{
+	AsXMLMetaInfoDescParseHelper *helper = g_slice_new0 (AsXMLMetaInfoDescParseHelper);
+	helper->data = g_string_new ("");
+	helper->elem_count = 0;
+	return helper;
+}
+
+/**
+ * as_xml_metainfo_desc_parse_helper_free: (skip)
+ **/
+static gchar*
+as_xml_metainfo_desc_parse_helper_free (AsXMLMetaInfoDescParseHelper *helper)
+{
+	gchar *data = g_string_free (helper->data, FALSE);
+	g_slice_free (AsXMLMetaInfoDescParseHelper, helper);
+	return data;
+}
+
 /**
  * as_xml_parse_metainfo_description_node:
  */
 void
-as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc func, gpointer entity)
+as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTable *l10n_desc)
 {
-	xmlNode *iter;
-	g_autoptr(GHashTable) desc = NULL;
+	g_autoptr(GHashTable) tmp_desc = NULL;
+	GHashTableIter res_iter;
+	gpointer res_value;
+	gpointer res_key;
+	AsXMLMetaInfoDescParseHelper *phelper;
+	guint untranslated_elem_count = 0;
 
-	desc = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-	for (iter = node->children; iter != NULL; iter = iter->next) {
-		GString *str;
+	tmp_desc = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify) g_ref_string_release, NULL);
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		AsTag tag_id;
 		const gchar *node_name = (const gchar*) iter->name;
 
@@ -453,15 +485,19 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 				/* this locale is not for us */
 				continue;
 
-			str = g_hash_table_lookup (desc, lang);
-			if (str == NULL) {
-				str = g_string_new ("");
-				g_hash_table_insert (desc, g_strdup (lang), str);
+			phelper = g_hash_table_lookup (tmp_desc, lang);
+			if (phelper == NULL) {
+				phelper = as_xml_metainfo_desc_parse_helper_new ();
+				g_hash_table_insert (tmp_desc,
+						     g_ref_string_new_intern (lang),
+						     phelper);
 			}
 
 			content = as_xml_dump_desc_para_node_content_raw (iter);
-			if (content != NULL)
-				g_string_append_printf (str, "<p>%s</p>\n", content);
+			if (content != NULL) {
+				g_string_append_printf (phelper->data, "<p>%s</p>\n", content);
+				phelper->elem_count += 1;
+			}
 
 		} else if ((tag_id == AS_TAG_UL) || (tag_id == AS_TAG_OL)) {
 			GHashTableIter htiter;
@@ -469,9 +505,9 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 			xmlNode *iter2;
 
 			/* append listing node tag to every locale string */
-			g_hash_table_iter_init (&htiter, desc);
+			g_hash_table_iter_init (&htiter, tmp_desc);
 			while (g_hash_table_iter_next (&htiter, NULL, &hvalue)) {
-				GString *hstr = (GString*) hvalue;
+				GString *hstr = ((AsXMLMetaInfoDescParseHelper*) hvalue)->data;
 				g_string_append_printf (hstr, "<%s>\n", node_name);
 			}
 
@@ -490,28 +526,61 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 					continue;
 
 				/* if the language is new, we add a listing tag first */
-				str = g_hash_table_lookup (desc, lang);
-				if (str == NULL) {
-					str = g_string_new ("");
-					g_string_append_printf (str, "<%s>\n", node_name);
-					g_hash_table_insert (desc, g_strdup (lang), str);
+				phelper = g_hash_table_lookup (tmp_desc, lang);
+				if (phelper == NULL) {
+					phelper = as_xml_metainfo_desc_parse_helper_new ();
+					g_string_append_printf (phelper->data, "<%s>\n", node_name);
+					g_hash_table_insert (tmp_desc,
+							     g_ref_string_new_intern (lang),
+							     phelper);
 				}
 
 				content = as_xml_dump_desc_para_node_content_raw (iter2);
-				if (content != NULL)
-					g_string_append_printf (str, "  <%s>%s</%s>\n", (gchar*) iter2->name, content, (gchar*) iter2->name);
+				if (content != NULL) {
+					g_string_append_printf (phelper->data, "  <%s>%s</%s>\n",
+								(gchar*) iter2->name,
+								content,
+								(gchar*) iter2->name);
+					phelper->elem_count += 1;
+				}
 			}
 
 			/* close listing tags */
-			g_hash_table_iter_init (&htiter, desc);
+			g_hash_table_iter_init (&htiter, tmp_desc);
 			while (g_hash_table_iter_next (&htiter, NULL, &hvalue)) {
-				GString *hstr = (GString*) hvalue;
+				GString *hstr = ((AsXMLMetaInfoDescParseHelper*) hvalue)->data;
 				g_string_append_printf (hstr, "</%s>\n", node_name);
 			}
 		}
 	}
 
-	g_hash_table_foreach (desc, func, entity);
+	phelper = g_hash_table_lookup (tmp_desc, "C");
+	if (phelper != NULL)
+		untranslated_elem_count = phelper->elem_count;
+
+	/* finalize the data */
+	g_hash_table_iter_init (&res_iter, tmp_desc);
+	while (g_hash_table_iter_next (&res_iter, &res_key, &res_value)) {
+		g_autofree gchar *text = NULL;
+		guint elem_count;
+		phelper = (AsXMLMetaInfoDescParseHelper*) res_value;
+
+		elem_count = phelper->elem_count;
+		text = as_xml_metainfo_desc_parse_helper_free (phelper);
+
+		/* we require at the very least either more than 3 elements of the description to be translated or
+		 * all of the elements if there are less than 3 elements to accept a translation.
+		 * See https://github.com/ximion/appstream/issues/293 for more information on the kind of issue that
+		 * caused this workaround. */
+		if (elem_count < 3) {
+			if (elem_count < untranslated_elem_count)
+				continue;
+		}
+
+		g_hash_table_insert (l10n_desc,
+				     g_ref_string_acquire (res_key),
+				     g_steal_pointer (&text));
+	}
 }
 
 /**

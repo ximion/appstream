@@ -3422,18 +3422,6 @@ as_component_set_kind_from_node (AsComponent *cpt, xmlNode *node)
 }
 
 /**
- * as_xml_metainfo_description_to_cpt:
- *
- * Helper function for GHashTable
- */
-static void
-as_xml_metainfo_description_to_cpt (gchar *key, GString *value, AsComponent *cpt)
-{
-	as_component_set_description (cpt, value->str, key);
-	g_string_free (value, TRUE);
-}
-
-/**
  * as_component_load_provides_from_xml:
  */
 static void
@@ -3689,6 +3677,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			if (lang != NULL)
 				as_component_set_summary (cpt, content, lang);
 		} else if (tag_id == AS_TAG_DESCRIPTION) {
+			g_hash_table_remove_all (priv->description);
 			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
 				/* for collection XML, the "description" tag has a language property, so parsing it is simple */
 				if (lang != NULL) {
@@ -3698,10 +3687,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 					g_free (desc);
 				}
 			} else {
-				as_xml_parse_metainfo_description_node (ctx,
-									iter,
-									(GHFunc) as_xml_metainfo_description_to_cpt,
-									cpt);
+				as_xml_parse_metainfo_description_node (ctx, iter, priv->description);
 			}
 		} else if (tag_id == AS_TAG_ICON) {
 			g_autoptr(AsIcon) icon = NULL;
