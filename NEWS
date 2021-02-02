@@ -1,3 +1,90 @@
+Version 0.14.0
+~~~~~~~~~~~~~~
+Released: 2021-02-02
+
+Notes:
+ * Component data-IDs gain a fifth part for a "branch". If you parse the IDs with AppStream's
+   functions, this change is fully backwards compatible. If you do your own parsing of these
+   IDs, please check if you have 4-part or 5-part IDs and split accordingly.
+   The branch is not used by AppStream (it is just passed through), but needed in GNOME Software
+   for Flatpak and Snappy support.
+ * AppStream-Generator depends on libappstream-compose now, however the API is still not stable, so
+   please do not use it unless you either are appstream-generator or like using experimental code.
+
+Features:
+ * news-to-metainfo: Interpret placeholder release dates as denoting a dev version
+ * Make as_utils_build_data_id public API
+ * Add AsReview for attaching user reviews to software components
+ * Add compile-time version test macros
+ * Add a branch element to component data-IDs
+ * Add branch property to AsComponent
+ * utils: Add data-ID hashing and matching functions
+ * utils: Make as_gstring_replace public API
+ * Add branch info to on-disk cached components
+ * content-rating: Add as_content_rating_add_attribute API
+ * Rename INPUTMETHOD component kind enum to INPUT_METHOD
+ * Add "cabinet" bundle type for firmware deployments
+ * Make AsTokenMatch public API
+ * Add function to AsScreenshot to get image closest to preferred size
+ * Allow AsComponent to directly ingest desktop-entry data
+ * Make as_pool_build_search_tokens API public
+ * Add "origin" token match
+ * Make as_component_add_provided_item API public
+ * Add some useful image dimension constants
+ * compose: Add blur function from asglib
+ * Add more efficient load_from_bytes method to AsComponent
+ * Add methods to load metadata directly from GBytes
+ * compose: Make image loading code more versatile
+ * Add editorconfig
+ * Make more use of RefString in AsComponent
+ * Revamp version comparison algorithm
+ * ascli: Add native profiling support
+ * compose: Reduce Hint memory usage, allow to retrieve var list
+ * compose: Allow clients to add their own, new hint tags
+ * compose: Allow hints to be created from tags, include validator hints in pool
+ * compose: XML-escape validator explanations
+ * compose: Add a few more methods from asgen's GeneratorResult
+ * compose: Add helper method for metainfo validation
+ * compose: Add metainfo parsing helper function
+ * Implement "filename" property for release artifacts
+ * ascli: Add new `os-info` subcommand
+ * Add code to validate platform triplets
+ * validator: Validate more release-tag specific issues
+ * Add utils helper function to install a variety of metadata
+ * Improve desktop-entry tests, always add "launchable" tag
+ * Update AppStream format version
+ * qt: Add bindings for relations API (requires/recommends)
+ * Use ref-strings for locale hash tables and token tables
+
+Specification:
+ * docs: Update revision and date
+ * spec: Add "cabinet" bundle type for firmware deployments
+ * spec: Allow "filename" tag in release artifacts
+ * docs: Clarify section on release artifact platform triplets
+ * spec: Properly mark mailto: links in contact URLs as deprecated
+
+Bugfixes:
+ * parse-desktop: Do not try to propagate a null error (Aleix Pol)
+ * Retain loaded context in AsMetadata and allow external media base url changes
+ * meson: Use project arguments instead of global arguments
+ * ascli: Improve text reflow in console output
+ * metainfo-to-news: Use "*" instead of "-" for markdown enumerations
+ * Drop unneeded compiler warning override
+ * Fix small memory leak in AsTranslation
+ * Avoid extra strlen() call when loading metadata from file
+ * Fix a few more memory leaks
+ * validator: Add some more tests
+ * ascli: Remove some code duplication, improve help summary text
+ * meson: Hardcode less paths
+ * tests: Add version comparison tests from appstream-glib, to ensure we compare the same
+ * gir: Ensure as_version_string shows up in introspection data
+ * ascli: Improve display of indented long-text output
+ * compose: Fix build with GLib < 2.66
+ * Make sure there are no duplicate operating-system components
+ * compose: Ensure font selection for symbolic fonts actually works
+ * validator: Ensure we return false in API functions if validation failed
+ * Ignore minimal translations in metainfo description texts
+
 Version 0.13.1
 ~~~~~~~~~~~~~~
 Released: 2020-11-30
