@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-01-30 22:24+0100\n"
+"POT-Creation-Date: 2021-02-02 16:26+0100\n"
 "PO-Revision-Date: 2021-01-07 18:32+0000\n"
 "Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -1769,18 +1769,18 @@ msgid ""
 "bug in the validator itself, please report this issue in our bugtracker."
 msgstr ""
 
-#: src/as-validator.c:336
+#: src/as-validator.c:360
 msgid "URL format is invalid."
 msgstr ""
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:367
+#: src/as-validator.c:391
 msgid "Retrieved file size was zero."
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:532 src/as-validator.c:953 src/as-validator.c:1047
-#: src/as-validator.c:1422 src/as-validator.c:1442 src/as-validator.c:1475
+#: src/as-validator.c:556 src/as-validator.c:977 src/as-validator.c:1071
+#: src/as-validator.c:1446 src/as-validator.c:1466 src/as-validator.c:1499
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
@@ -1832,7 +1832,7 @@ msgstr "生成的報告格式（有效的值為「text」和「yaml」）。"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:156 tools/appstream-cli.c:918
+#: tools/appstream-cli.c:156 tools/appstream-cli.c:942
 msgid "AppStream command-line interface"
 msgstr "AppStream 指令列介面"
 
@@ -1847,7 +1847,7 @@ msgstr "「%s」指令"
 msgid "Option '%s' is unknown."
 msgstr "「%s」選項不明。"
 
-#: tools/appstream-cli.c:198 tools/appstream-cli.c:1138
+#: tools/appstream-cli.c:198 tools/appstream-cli.c:1162
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "執行「%s --help」查看可用指令列選項的完整清單。"
@@ -1866,31 +1866,41 @@ msgstr ""
 msgid "Enforce a cache refresh."
 msgstr "強制重新整理快取。"
 
-#: tools/appstream-cli.c:593
+#. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
+#: tools/appstream-cli.c:463
+msgid "Set the given data origin for the installed metadata coollection file."
+msgstr ""
+
+#. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
+#: tools/appstream-cli.c:468
+msgid "Install the file for the current user, instead of globally."
+msgstr ""
+
+#: tools/appstream-cli.c:617
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr "您需要提供至少兩個版本號作為參數比較。"
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstream-cli.c:622
+#: tools/appstream-cli.c:646
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "未知比較關係「%s」。有效的值有："
 
-#: tools/appstream-cli.c:662
+#: tools/appstream-cli.c:686
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr "過多參數：需要的只有兩個版本號，或是版號加比較操作符。"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:688
+#: tools/appstream-cli.c:712
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "使用給定的 .deskotp 檔以在中介資訊檔中填入基礎值。"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:693
+#: tools/appstream-cli.c:717
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -1899,185 +1909,185 @@ msgstr ""
 "表示標準輸出）。"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:696
+#: tools/appstream-cli.c:720
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPE 必須是有效組件類型，例如：%s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstream-cli.c:737
+#: tools/appstream-cli.c:761
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstream-cli.c:777
+#: tools/appstream-cli.c:801
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstream-cli.c:782
+#: tools/appstream-cli.c:806
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstream-cli.c:824
+#: tools/appstream-cli.c:848
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr ""
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstream-cli.c:893
+#: tools/appstream-cli.c:917
 #, c-format
 msgid "(Alias: '%s')"
 msgstr ""
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:920
+#: tools/appstream-cli.c:944
 msgid "Subcommands:"
 msgstr "子指令："
 
-#: tools/appstream-cli.c:966
+#: tools/appstream-cli.c:990
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr "您可以藉由傳遞「--help」給子指令來查詢子指令專屬的選項資訊。"
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstream-cli.c:989
+#: tools/appstream-cli.c:1013
 #, fuzzy, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
 msgstr "執行「%s --help」查看可用指令列選項的完整清單。"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:1013
+#: tools/appstream-cli.c:1037
 msgid "Show the program version."
 msgstr "顯示程式版本。"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:1019
+#: tools/appstream-cli.c:1043
 msgid "Show extra debugging information."
 msgstr "顯示額外除錯資訊。"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:1024
+#: tools/appstream-cli.c:1048
 msgid "Don't show colored output."
 msgstr "不要顯示色彩化的輸出。"
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstream-cli.c:1027
+#: tools/appstream-cli.c:1051
 msgid "Enable profiling"
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstream-cli.c:1039
+#: tools/appstream-cli.c:1063
 msgid "Search the component database."
 msgstr "搜尋組件資料庫。"
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstream-cli.c:1044
+#: tools/appstream-cli.c:1068
 msgid "Get information about a component by its ID."
 msgstr "根據 ID 取得組件的資訊。"
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstream-cli.c:1049
+#: tools/appstream-cli.c:1073
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstream-cli.c:1055
+#: tools/appstream-cli.c:1079
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "傾印符合該 ID 的組件原生 XML 中介資料。"
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstream-cli.c:1060
+#: tools/appstream-cli.c:1084
 msgid "Rebuild the component metadata cache."
 msgstr "重建組件的中介資料快取。"
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstream-cli.c:1066
+#: tools/appstream-cli.c:1090
 msgid "Validate AppStream XML files for issues."
 msgstr "驗證 AppStream XML 檔是否有問題。"
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstream-cli.c:1071
+#: tools/appstream-cli.c:1095
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "驗證已安裝應用程式的檔案樹是否存在有效的中介資料。"
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstream-cli.c:1077
+#: tools/appstream-cli.c:1101
 msgid "Install software matching the component-ID."
 msgstr "安裝符合組件 ID 的軟體。"
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstream-cli.c:1082
+#: tools/appstream-cli.c:1106
 msgid "Remove software matching the component-ID."
 msgstr "移除符合該組件 ID 的軟體。"
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstream-cli.c:1088
+#: tools/appstream-cli.c:1112
 msgid "Display status information about available AppStream metadata."
 msgstr "顯示可用的 AppStream 中介資料相關狀態資訊。"
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstream-cli.c:1093
+#: tools/appstream-cli.c:1117
 msgid ""
 "Show information about the current operating system from the metadata index."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstream-cli.c:1098
+#: tools/appstream-cli.c:1122
 msgid "Install a metadata file into the right location."
 msgstr "安裝中介資料檔到適當位置。"
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:1103
+#: tools/appstream-cli.c:1127
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "將收藏集 XML 轉換成 YAML，或是相反。"
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstream-cli.c:1108
+#: tools/appstream-cli.c:1132
 msgid "Compare two version numbers."
 msgstr "比較兩個版本號。"
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstream-cli.c:1114
+#: tools/appstream-cli.c:1138
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr "製作中介資訊檔的範本（由上游專案填寫）。"
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstream-cli.c:1119
+#: tools/appstream-cli.c:1143
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstream-cli.c:1124
+#: tools/appstream-cli.c:1148
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstream-cli.c:1129
+#: tools/appstream-cli.c:1153
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:1137
+#: tools/appstream-cli.c:1161
 msgid "You need to specify a command."
 msgstr "您需要指定個指令。"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:1161
+#: tools/appstream-cli.c:1185
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream 版本：%s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:1164
+#: tools/appstream-cli.c:1188
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2144,77 +2154,70 @@ msgstr "選取的供應項目類型無效。有效的值有："
 msgid "Could not find component providing '%s::%s'."
 msgstr "找不到提供「%s::%s」的組件。"
 
-#: tools/ascli-actions-mdata.c:309
+#: tools/ascli-actions-mdata.c:307
 msgid "You need to specify a metadata file."
 msgstr "您需要指定中介資料檔。"
 
-#: tools/ascli-actions-mdata.c:322
-#, c-format
-msgid "Unable to write to '%s', can not install metainfo file."
-msgstr "無法寫入「%s」，無法安裝中介資料檔。"
+#: tools/ascli-actions-mdata.c:321
+#, fuzzy, c-format
+msgid "Unable to install metadata file: %s"
+msgstr "無法儲存桌面條目檔：%s"
 
-#: tools/ascli-actions-mdata.c:327
-#, c-format
-msgid ""
-"Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
-"suffix."
-msgstr "無法複製「%s」：檔案沒有「.metainfo.xml」或「.appdata.xml」後綴字。"
-
-#: tools/ascli-actions-mdata.c:357
+#: tools/ascli-actions-mdata.c:341
 msgid "You need to specify an input and output file."
 msgstr "您需要指定輸入檔和輸出檔。"
 
-#: tools/ascli-actions-mdata.c:364
+#: tools/ascli-actions-mdata.c:348
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "「%s」中介資料檔並不存在。"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:400
+#: tools/ascli-actions-mdata.c:384
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
 msgstr "無法轉換檔案：無法判定輸出格式，請使用「--format=」明確設定。"
 
-#: tools/ascli-actions-mdata.c:451
+#: tools/ascli-actions-mdata.c:435
 #, fuzzy, c-format
 msgid "Unable to find operating system component '%s'!"
 msgstr "找不到 ID 為「%s」的組件！"
 
-#: tools/ascli-actions-mdata.c:456
+#: tools/ascli-actions-mdata.c:440
 #, fuzzy
 msgid "Version"
 msgstr "版本：%s"
 
-#: tools/ascli-actions-mdata.c:480
+#: tools/ascli-actions-mdata.c:464
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
 msgstr "您需要給予 AppStream 軟體組件類型以生成範本。可用的值有："
 
-#: tools/ascli-actions-mdata.c:482
+#: tools/ascli-actions-mdata.c:466
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
 msgstr "「%s」軟體組件類型在 AppStream 中無效。可用的值有："
 
-#: tools/ascli-actions-mdata.c:500
+#: tools/ascli-actions-mdata.c:484
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr "「%s」.desktop 檔並不存在。"
 
-#: tools/ascli-actions-mdata.c:506
+#: tools/ascli-actions-mdata.c:490
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "無法讀取 .desktop 檔：%s"
 
-#: tools/ascli-actions-mdata.c:577
+#: tools/ascli-actions-mdata.c:561
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "無法建置中介資訊檔：%s"
 
-#: tools/ascli-actions-mdata.c:585
+#: tools/ascli-actions-mdata.c:569
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "無法儲存範本中介資訊檔：%s"
@@ -2491,6 +2494,16 @@ msgstr "強制項目為"
 #: tools/ascli-utils.c:379
 msgid "Provided Items"
 msgstr "提供的項目"
+
+#, c-format
+#~ msgid "Unable to write to '%s', can not install metainfo file."
+#~ msgstr "無法寫入「%s」，無法安裝中介資料檔。"
+
+#, c-format
+#~ msgid ""
+#~ "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
+#~ "suffix."
+#~ msgstr "無法複製「%s」：檔案沒有「.metainfo.xml」或「.appdata.xml」後綴字。"
 
 #~ msgid "An item type (e.g. lib, bin, python3, …)"
 #~ msgstr "項目類型（例：lib、bin、python3…等）"

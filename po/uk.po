@@ -20,15 +20,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-01-30 22:24+0100\n"
+"POT-Creation-Date: 2021-02-02 16:26+0100\n"
 "PO-Revision-Date: 2021-01-31 09:06+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
+"translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.5-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -1907,7 +1909,9 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:639
 msgid "The value set as release urgency is not a known urgency value."
-msgstr "Встановлене як терміновість випуску значення не є відомим значенням терміновості."
+msgstr ""
+"Встановлене як терміновість випуску значення не є відомим значенням "
+"терміновості."
 
 #: src/as-validator-issue-tag.h:644
 msgid "The value set as release type is invalid."
@@ -1918,7 +1922,9 @@ msgstr "Встановлене як тип випуску значення є н
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr "Встановлене як тип об'єкта значення є некоректним. Має бути «source» або «binary»."
+msgstr ""
+"Встановлене як тип об'єкта значення є некоректним. Має бути «source» або "
+"«binary»."
 
 #: src/as-validator-issue-tag.h:655
 msgid "The value set as artifact bundle type is invalid."
@@ -1929,11 +1935,18 @@ msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr "Трійка значень платформи для цього випуску є некоректною. Її має бути вказано у форматі «архітектура-ядро_системи-середовище_операційної_системи» - зверніться до документації з AppStream або відомостей щодо нормалізованих трійок GNU, щоб дізнатися більше і ознайомитися із коректними значеннями полів."
+msgstr ""
+"Трійка значень платформи для цього випуску є некоректною. Її має бути "
+"вказано у форматі «архітектура-ядро_системи-середовище_операційної_системи» "
+"- зверніться до документації з AppStream або відомостей щодо нормалізованих "
+"трійок GNU, щоб дізнатися більше і ознайомитися із коректними значеннями "
+"полів."
 
 #: src/as-validator-issue-tag.h:667
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr "Вибраний алгоритм роботи із контрольними сумами є непідтримуваним або невідомим."
+msgstr ""
+"Вибраний алгоритм роботи із контрольними сумами є непідтримуваним або "
+"невідомим."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:673
@@ -1944,7 +1957,9 @@ msgstr "Тип розміру є невідомим. Має бути «download�
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr "Назва файла об'єкта має бути базовою назвою файла, а не (відносним або абсолютним) шляхом."
+msgstr ""
+"Назва файла об'єкта має бути базовою назвою файла, а не (відносним або "
+"абсолютним) шляхом."
 
 #: src/as-validator-issue-tag.h:683
 msgid "The value set as release issue type is invalid."
@@ -1954,7 +1969,9 @@ msgstr "Встановлене як тип вади випуску значен�
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr "Ваду позначено як вразливість захисту із номером CVE, але його значення, здається, є некоректним ідентифікатором CVE."
+msgstr ""
+"Ваду позначено як вразливість захисту із номером CVE, але його значення, "
+"здається, є некоректним ідентифікатором CVE."
 
 #: src/as-validator-issue-tag.h:693
 msgid ""
@@ -2013,18 +2030,18 @@ msgstr ""
 "самому засобі перевірки. Будь ласка, повідомте про неї розробників за "
 "допомогою відповідної системи стеження за вадами."
 
-#: src/as-validator.c:336
+#: src/as-validator.c:360
 msgid "URL format is invalid."
 msgstr "Формат адреси є некоректним."
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:367
+#: src/as-validator.c:391
 msgid "Retrieved file size was zero."
 msgstr "Розмір отриманого файла виявився нульовим."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:532 src/as-validator.c:953 src/as-validator.c:1047
-#: src/as-validator.c:1422 src/as-validator.c:1442 src/as-validator.c:1475
+#: src/as-validator.c:556 src/as-validator.c:977 src/as-validator.c:1071
+#: src/as-validator.c:1446 src/as-validator.c:1466 src/as-validator.c:1499
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Виявлено: %s — Дозволено: %s"
@@ -2076,7 +2093,7 @@ msgstr "Формат створеного звіту (коректними є з
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:156 tools/appstream-cli.c:918
+#: tools/appstream-cli.c:156 tools/appstream-cli.c:942
 msgid "AppStream command-line interface"
 msgstr "Інтерфейс командного рядка AppStream"
 
@@ -2091,7 +2108,7 @@ msgstr "Команда «%s»"
 msgid "Option '%s' is unknown."
 msgstr "Параметр «%s» є невідомим програмі."
 
-#: tools/appstream-cli.c:198 tools/appstream-cli.c:1138
+#: tools/appstream-cli.c:198 tools/appstream-cli.c:1162
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -2113,20 +2130,30 @@ msgstr ""
 msgid "Enforce a cache refresh."
 msgstr "Примусове оновлення кешу."
 
-#: tools/appstream-cli.c:593
+#. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
+#: tools/appstream-cli.c:463
+msgid "Set the given data origin for the installed metadata coollection file."
+msgstr ""
+
+#. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
+#: tools/appstream-cli.c:468
+msgid "Install the file for the current user, instead of globally."
+msgstr ""
+
+#: tools/appstream-cli.c:617
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
 "Для порівняння вам слід вказати принаймні два номери версій як параметри."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstream-cli.c:622
+#: tools/appstream-cli.c:646
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr ""
 "Невідоме співвідношення порівняння, «%s». Коректними значеннями є такі:"
 
-#: tools/appstream-cli.c:662
+#: tools/appstream-cli.c:686
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -2135,7 +2162,7 @@ msgstr ""
 "оператор порівняння."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:688
+#: tools/appstream-cli.c:712
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -2143,7 +2170,7 @@ msgstr ""
 "метаінформації."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:693
+#: tools/appstream-cli.c:717
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -2153,26 +2180,26 @@ msgstr ""
 "вивести до стандартного виведення)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:696
+#: tools/appstream-cli.c:720
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "Значенням ТИП має бути коректний запис компонент-тип, зокрема: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstream-cli.c:737
+#: tools/appstream-cli.c:761
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 "Скористатися вказаним рядокм для запису «Exec=» у файлі записів .desktop."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstream-cli.c:777
+#: tools/appstream-cli.c:801
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 "Вважати, що дані у вхідному файлі записано у вибраному форматі («yaml» або "
 "«text»)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstream-cli.c:782
+#: tools/appstream-cli.c:806
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
@@ -2181,22 +2208,22 @@ msgstr ""
 "(0 — без обмежень)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstream-cli.c:824
+#: tools/appstream-cli.c:848
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr "Вивести дані у вибраному форматі («yaml» або «text»)."
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstream-cli.c:893
+#: tools/appstream-cli.c:917
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(Альтернатива: «%s»)"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:920
+#: tools/appstream-cli.c:944
 msgid "Subcommands:"
 msgstr "Підкоманди:"
 
-#: tools/appstream-cli.c:966
+#: tools/appstream-cli.c:990
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -2205,7 +2232,7 @@ msgstr ""
 "підкоманді параметр «--help»."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstream-cli.c:989
+#: tools/appstream-cli.c:1013
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -2214,37 +2241,37 @@ msgstr ""
 "команду «%s --help»."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:1013
+#: tools/appstream-cli.c:1037
 msgid "Show the program version."
 msgstr "Вивести дані щодо версії програми."
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:1019
+#: tools/appstream-cli.c:1043
 msgid "Show extra debugging information."
 msgstr "Вивести додаткові діагностичні дані."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:1024
+#: tools/appstream-cli.c:1048
 msgid "Don't show colored output."
 msgstr "Не розфарбовувати виведені дані."
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstream-cli.c:1027
+#: tools/appstream-cli.c:1051
 msgid "Enable profiling"
 msgstr "Увімкнути профілювання"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstream-cli.c:1039
+#: tools/appstream-cli.c:1063
 msgid "Search the component database."
 msgstr "Шукати у базі даних компонентів."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstream-cli.c:1044
+#: tools/appstream-cli.c:1068
 msgid "Get information about a component by its ID."
 msgstr "Отримати інформацію щодо компонента за його ідентифікатором."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstream-cli.c:1049
+#: tools/appstream-cli.c:1073
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
@@ -2253,67 +2280,68 @@ msgstr ""
 "запису (наприклад lib, bin, python3, …) і значення запису як параметр."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstream-cli.c:1055
+#: tools/appstream-cli.c:1079
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Створити дамп необроблених метаданих XML для компонента з відповідним "
 "ідентифікатором."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstream-cli.c:1060
+#: tools/appstream-cli.c:1084
 msgid "Rebuild the component metadata cache."
 msgstr "Перебудувати кеш метаданих щодо компонентів."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstream-cli.c:1066
+#: tools/appstream-cli.c:1090
 msgid "Validate AppStream XML files for issues."
 msgstr "Перевірити файли XML AppStream на вади."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstream-cli.c:1071
+#: tools/appstream-cli.c:1095
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Перевіряти на коректність метаданих усю встановлену ієрархію файлів програми."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstream-cli.c:1077
+#: tools/appstream-cli.c:1101
 msgid "Install software matching the component-ID."
 msgstr ""
 "Встановити програмне забезпечення, що відповідає ідентифікатору компонента."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstream-cli.c:1082
+#: tools/appstream-cli.c:1106
 msgid "Remove software matching the component-ID."
 msgstr "Вилучити програмне забезпечення, вказане ідентифікатором компонента."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstream-cli.c:1088
+#: tools/appstream-cli.c:1112
 msgid "Display status information about available AppStream metadata."
 msgstr "Вивести дані щодо стану доступних метаданих AppStream."
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstream-cli.c:1093
+#: tools/appstream-cli.c:1117
 msgid ""
 "Show information about the current operating system from the metadata index."
-msgstr "Показати відомості щодо поточної операційної системи з покажчика метаданих."
+msgstr ""
+"Показати відомості щодо поточної операційної системи з покажчика метаданих."
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstream-cli.c:1098
+#: tools/appstream-cli.c:1122
 msgid "Install a metadata file into the right location."
 msgstr "Встановити файл метаданих у належному місці."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:1103
+#: tools/appstream-cli.c:1127
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Перетворити XML збірки на YAML або навпаки."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstream-cli.c:1108
+#: tools/appstream-cli.c:1132
 msgid "Compare two version numbers."
 msgstr "Порівняти два номери версій."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstream-cli.c:1114
+#: tools/appstream-cli.c:1138
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -2321,37 +2349,37 @@ msgstr ""
 "Створити шаблон файла метаінформації (для заповнення у основному проєкті)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstream-cli.c:1119
+#: tools/appstream-cli.c:1143
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Створити файл запису desktop з файла метаінформації."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstream-cli.c:1124
+#: tools/appstream-cli.c:1148
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr ""
 "Перетворити файл NEWS у форматі YAML або текстовому форматі на "
 "метаінформацію щодо випусків."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstream-cli.c:1129
+#: tools/appstream-cli.c:1153
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 "Записати текстовий файл або файл YAML NEWS, заповнивши його даними з файла "
 "метаінформації."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:1137
+#: tools/appstream-cli.c:1161
 msgid "You need to specify a command."
 msgstr "Вам слід вказати команду."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:1161
+#: tools/appstream-cli.c:1185
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Версія AppStream: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:1164
+#: tools/appstream-cli.c:1188
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2418,36 +2446,26 @@ msgstr "Вибрано некоректний тип для запису «provi
 msgid "Could not find component providing '%s::%s'."
 msgstr "Не вдалося знайти компонент, що містить «%s::%s»."
 
-#: tools/ascli-actions-mdata.c:309
+#: tools/ascli-actions-mdata.c:307
 msgid "You need to specify a metadata file."
 msgstr "Вам слід вказати файл метаданих."
 
-#: tools/ascli-actions-mdata.c:322
-#, c-format
-msgid "Unable to write to '%s', can not install metainfo file."
-msgstr ""
-"Не вдалося виконати запис до «%s», не вдалося встановити файл metainfo."
+#: tools/ascli-actions-mdata.c:321
+#, fuzzy, c-format
+msgid "Unable to install metadata file: %s"
+msgstr "Не вдалося зберегти файл записів .desktop: %s"
 
-#: tools/ascli-actions-mdata.c:327
-#, c-format
-msgid ""
-"Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
-"suffix."
-msgstr ""
-"Не вдалося скопіювати «%s»: назва файла не містить суфікса «.metainfo.xml» "
-"або «'.appdata.xml»."
-
-#: tools/ascli-actions-mdata.c:357
+#: tools/ascli-actions-mdata.c:341
 msgid "You need to specify an input and output file."
 msgstr "Вам слід вказати файл вхідних і вихідних даних."
 
-#: tools/ascli-actions-mdata.c:364
+#: tools/ascli-actions-mdata.c:348
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "Файла метаданих «%s» не існує."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:400
+#: tools/ascli-actions-mdata.c:384
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -2455,16 +2473,16 @@ msgstr ""
 "Не вдалося перетворити файл: програма не змогла визначити формат виведення "
 "даних; будь ласка, вкажіть його явно за допомогою параметра «--format=»."
 
-#: tools/ascli-actions-mdata.c:451
+#: tools/ascli-actions-mdata.c:435
 #, c-format
 msgid "Unable to find operating system component '%s'!"
 msgstr "Не вдалося знайти компонент операційної системи «%s»!"
 
-#: tools/ascli-actions-mdata.c:456
+#: tools/ascli-actions-mdata.c:440
 msgid "Version"
 msgstr "Версія"
 
-#: tools/ascli-actions-mdata.c:480
+#: tools/ascli-actions-mdata.c:464
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
@@ -2472,7 +2490,7 @@ msgstr ""
 "Для створення шаблона вам слід вказати тип компонента програмного "
 "забезпечення у AppStream. Можливі значення типу:"
 
-#: tools/ascli-actions-mdata.c:482
+#: tools/ascli-actions-mdata.c:466
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
@@ -2481,22 +2499,22 @@ msgstr ""
 "Тип компонента програмного забезпечення «%s» є некоректним у AppStream. "
 "Коректні типи:"
 
-#: tools/ascli-actions-mdata.c:500
+#: tools/ascli-actions-mdata.c:484
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr "Файла .desktop «%s» не існує."
 
-#: tools/ascli-actions-mdata.c:506
+#: tools/ascli-actions-mdata.c:490
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Не вдалося прочитати файл .desktop: %s"
 
-#: tools/ascli-actions-mdata.c:577
+#: tools/ascli-actions-mdata.c:561
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "Не вдалося побудувати файл шаблона метаінформації: %s"
 
-#: tools/ascli-actions-mdata.c:585
+#: tools/ascli-actions-mdata.c:569
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "Не вдалося зберегти файл метаінформації шаблона: %s"
@@ -2787,6 +2805,19 @@ msgstr "Обов’язкове для"
 #: tools/ascli-utils.c:379
 msgid "Provided Items"
 msgstr "Надані записи"
+
+#, c-format
+#~ msgid "Unable to write to '%s', can not install metainfo file."
+#~ msgstr ""
+#~ "Не вдалося виконати запис до «%s», не вдалося встановити файл metainfo."
+
+#, c-format
+#~ msgid ""
+#~ "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
+#~ "suffix."
+#~ msgstr ""
+#~ "Не вдалося скопіювати «%s»: назва файла не містить суфікса «.metainfo."
+#~ "xml» або «'.appdata.xml»."
 
 #~ msgid "An item type (e.g. lib, bin, python3, …)"
 #~ msgstr "Тип запису (наприклад lib, bin, python3, ...)"

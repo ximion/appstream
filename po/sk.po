@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-01-30 22:24+0100\n"
+"POT-Creation-Date: 2021-02-02 16:26+0100\n"
 "PO-Revision-Date: 2016-08-06 03:00+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream-glib/"
@@ -1844,18 +1844,18 @@ msgid ""
 "bug in the validator itself, please report this issue in our bugtracker."
 msgstr ""
 
-#: src/as-validator.c:336
+#: src/as-validator.c:360
 msgid "URL format is invalid."
 msgstr ""
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:367
+#: src/as-validator.c:391
 msgid "Retrieved file size was zero."
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:532 src/as-validator.c:953 src/as-validator.c:1047
-#: src/as-validator.c:1422 src/as-validator.c:1442 src/as-validator.c:1475
+#: src/as-validator.c:556 src/as-validator.c:977 src/as-validator.c:1071
+#: src/as-validator.c:1446 src/as-validator.c:1466 src/as-validator.c:1499
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
@@ -1911,7 +1911,7 @@ msgstr "Predvolený metaúdajoví formát (platné hodnoty sú „xml“ a „ya
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:156 tools/appstream-cli.c:918
+#: tools/appstream-cli.c:156 tools/appstream-cli.c:942
 msgid "AppStream command-line interface"
 msgstr "Rozhranie príkazového riadku AppStream"
 
@@ -1926,7 +1926,7 @@ msgstr "Príkaz „%s“"
 msgid "Option '%s' is unknown."
 msgstr "Príkaz „%s“ je neznámy."
 
-#: tools/appstream-cli.c:198 tools/appstream-cli.c:1138
+#: tools/appstream-cli.c:198 tools/appstream-cli.c:1162
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -1947,18 +1947,28 @@ msgstr ""
 msgid "Enforce a cache refresh."
 msgstr "Vynútiť aktualizáciu vyrovnávacej pamäte."
 
-#: tools/appstream-cli.c:593
+#. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
+#: tools/appstream-cli.c:463
+msgid "Set the given data origin for the installed metadata coollection file."
+msgstr ""
+
+#. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
+#: tools/appstream-cli.c:468
+msgid "Install the file for the current user, instead of globally."
+msgstr ""
+
+#: tools/appstream-cli.c:617
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr "Ak chcete porovnať parametre, musíte poskytnúť aspoň dve čísla verzií."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstream-cli.c:622
+#: tools/appstream-cli.c:646
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Neznámy vzťah porovnania „%s“ Platné hodnoty sú:"
 
-#: tools/appstream-cli.c:662
+#: tools/appstream-cli.c:686
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -1967,7 +1977,7 @@ msgstr ""
 "operátor porovnania."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:688
+#: tools/appstream-cli.c:712
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -1975,7 +1985,7 @@ msgstr ""
 "metainformáciami."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:693
+#: tools/appstream-cli.c:717
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -1985,48 +1995,48 @@ msgstr ""
 "výstup)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:696
+#: tools/appstream-cli.c:720
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr ""
 "Je potrebné, aby TYPE (typ) bol platný typ komponentu, ako napríklad: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstream-cli.c:737
+#: tools/appstream-cli.c:761
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstream-cli.c:777
+#: tools/appstream-cli.c:801
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 "Predpokladajme, že vstupný súbor je vo vybranom formáte ('yaml' alebo "
 "'text')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstream-cli.c:782
+#: tools/appstream-cli.c:806
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstream-cli.c:824
+#: tools/appstream-cli.c:848
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr ""
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstream-cli.c:893
+#: tools/appstream-cli.c:917
 #, c-format
 msgid "(Alias: '%s')"
 msgstr ""
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:920
+#: tools/appstream-cli.c:944
 msgid "Subcommands:"
 msgstr "Čiastkové príkazy:"
 
-#: tools/appstream-cli.c:966
+#: tools/appstream-cli.c:990
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -2035,7 +2045,7 @@ msgstr ""
 "'--help' (nápoveda) k čiastkovému príkazu."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstream-cli.c:989
+#: tools/appstream-cli.c:1013
 #, fuzzy, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -2044,101 +2054,101 @@ msgstr ""
 "riadka."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:1013
+#: tools/appstream-cli.c:1037
 msgid "Show the program version."
 msgstr "Zobraziť verziu programu."
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:1019
+#: tools/appstream-cli.c:1043
 msgid "Show extra debugging information."
 msgstr "Zobrazovať doplňujúce informácie pre ladenie."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:1024
+#: tools/appstream-cli.c:1048
 msgid "Don't show colored output."
 msgstr "Nezobrazovať farebný výstup."
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstream-cli.c:1027
+#: tools/appstream-cli.c:1051
 msgid "Enable profiling"
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstream-cli.c:1039
+#: tools/appstream-cli.c:1063
 msgid "Search the component database."
 msgstr "Prehľadať databázu komponentov."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstream-cli.c:1044
+#: tools/appstream-cli.c:1068
 msgid "Get information about a component by its ID."
 msgstr "Získať informácie o komponente podľa jeho identifikátora."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstream-cli.c:1049
+#: tools/appstream-cli.c:1073
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstream-cli.c:1055
+#: tools/appstream-cli.c:1079
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Vypísať surové XML metaúdaje súčasti s týmto identifikátorom."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstream-cli.c:1060
+#: tools/appstream-cli.c:1084
 msgid "Rebuild the component metadata cache."
 msgstr "Znovu vytvoriť súčasť vyrovnávacej pamäti metaúdajov."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstream-cli.c:1066
+#: tools/appstream-cli.c:1090
 msgid "Validate AppStream XML files for issues."
 msgstr "Overiť či XML AppStream súbor neobsahuje chyby."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstream-cli.c:1071
+#: tools/appstream-cli.c:1095
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Overiť či nainštalovaný strom súborov programu obsahuje platné metaúdaje."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstream-cli.c:1077
+#: tools/appstream-cli.c:1101
 msgid "Install software matching the component-ID."
 msgstr "Nainštalovať softvér zodpovedajúci identifikátoru súčasti."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstream-cli.c:1082
+#: tools/appstream-cli.c:1106
 msgid "Remove software matching the component-ID."
 msgstr "Odobrať softvér zodpovedajúci identifikátora súčasti."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstream-cli.c:1088
+#: tools/appstream-cli.c:1112
 msgid "Display status information about available AppStream metadata."
 msgstr "Zobraziť stavové informácie o dostupných AppStream metaúdajoch."
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstream-cli.c:1093
+#: tools/appstream-cli.c:1117
 msgid ""
 "Show information about the current operating system from the metadata index."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstream-cli.c:1098
+#: tools/appstream-cli.c:1122
 msgid "Install a metadata file into the right location."
 msgstr "Nainštalovať súbor s metaúdajmi na správne miesto."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:1103
+#: tools/appstream-cli.c:1127
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Prevádza z XML na YAML formát a obrátene."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstream-cli.c:1108
+#: tools/appstream-cli.c:1132
 msgid "Compare two version numbers."
 msgstr "Porovnať dve čísla verzií."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstream-cli.c:1114
+#: tools/appstream-cli.c:1138
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -2146,33 +2156,33 @@ msgstr ""
 "Vytvoriť šablónu pre metainfo súbor (pre vyplnenie v upstream projektu)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstream-cli.c:1119
+#: tools/appstream-cli.c:1143
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstream-cli.c:1124
+#: tools/appstream-cli.c:1148
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstream-cli.c:1129
+#: tools/appstream-cli.c:1153
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:1137
+#: tools/appstream-cli.c:1161
 msgid "You need to specify a command."
 msgstr "Musíte uviesť príkaz."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:1161
+#: tools/appstream-cli.c:1185
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Verzia nástroja AppStream CLI: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:1164
+#: tools/appstream-cli.c:1188
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2241,37 +2251,26 @@ msgstr "Vybratý neplatný typ pre poskytnutú položku. Platné hodnoty sú:"
 msgid "Could not find component providing '%s::%s'."
 msgstr "Nie je možné nájsť komponent poskytujúci „%s;%s“."
 
-#: tools/ascli-actions-mdata.c:309
+#: tools/ascli-actions-mdata.c:307
 msgid "You need to specify a metadata file."
 msgstr "Musíte určiť súbor metaúdajov."
 
-#: tools/ascli-actions-mdata.c:322
-#, c-format
-msgid "Unable to write to '%s', can not install metainfo file."
-msgstr ""
-"Nedarí sa zapisovať do „% s“, preto nie je možné nainštalovať súbor s "
-"metainformáciami."
+#: tools/ascli-actions-mdata.c:321
+#, fuzzy, c-format
+msgid "Unable to install metadata file: %s"
+msgstr "Nepodarilo sa načítať .desktop súbor: %s"
 
-#: tools/ascli-actions-mdata.c:327
-#, c-format
-msgid ""
-"Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
-"suffix."
-msgstr ""
-"Nepodarilo sa skopírovať „%s“: Súbor nemá príponu „.metainfo.xml“ alebo "
-"„appdata.xml“."
-
-#: tools/ascli-actions-mdata.c:357
+#: tools/ascli-actions-mdata.c:341
 msgid "You need to specify an input and output file."
 msgstr "Musíte určiť súbor metaúdajov."
 
-#: tools/ascli-actions-mdata.c:364
+#: tools/ascli-actions-mdata.c:348
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "Súbor s metaúdajmi „%s“ neexistuje."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:400
+#: tools/ascli-actions-mdata.c:384
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -2279,17 +2278,17 @@ msgstr ""
 "Nedarí sa previesť súbor: Nepodarilo sa zistiť výstupný formát, nastavte ho "
 "výslovne pomocou prepínača '--format'."
 
-#: tools/ascli-actions-mdata.c:451
+#: tools/ascli-actions-mdata.c:435
 #, fuzzy, c-format
 msgid "Unable to find operating system component '%s'!"
 msgstr "Nepodarilo sa nájsť súčasť s identifikátorom „%s“!"
 
-#: tools/ascli-actions-mdata.c:456
+#: tools/ascli-actions-mdata.c:440
 #, fuzzy
 msgid "Version"
 msgstr "Verzia: %s"
 
-#: tools/ascli-actions-mdata.c:480
+#: tools/ascli-actions-mdata.c:464
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
@@ -2297,7 +2296,7 @@ msgstr ""
 "Aby bolo možné vytvoriť šablónu, je potrebné zadať typ softvérovej súčasti "
 "AppStream. Možné hodnoty sú:"
 
-#: tools/ascli-actions-mdata.c:482
+#: tools/ascli-actions-mdata.c:466
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
@@ -2305,22 +2304,22 @@ msgid ""
 msgstr ""
 "Typ „%s“ softvérovej súčasti nie je platný pre AppStream. Možné hodnoty sú:"
 
-#: tools/ascli-actions-mdata.c:500
+#: tools/ascli-actions-mdata.c:484
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr "Súbor .desktop pre „%s“ neexistuje."
 
-#: tools/ascli-actions-mdata.c:506
+#: tools/ascli-actions-mdata.c:490
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Nepodarilo sa načítať .desktop súbor: %s"
 
-#: tools/ascli-actions-mdata.c:577
+#: tools/ascli-actions-mdata.c:561
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "Nepodarilo sa vytvoriť súbor so šablónou metainfomacií: „%s“"
 
-#: tools/ascli-actions-mdata.c:585
+#: tools/ascli-actions-mdata.c:569
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "Nepodarilo sa uložiť súbor s metainfomáciami šablóny: %s"
@@ -2604,6 +2603,20 @@ msgstr "Povinné pre"
 #: tools/ascli-utils.c:379
 msgid "Provided Items"
 msgstr "Poskytované položky"
+
+#, c-format
+#~ msgid "Unable to write to '%s', can not install metainfo file."
+#~ msgstr ""
+#~ "Nedarí sa zapisovať do „% s“, preto nie je možné nainštalovať súbor s "
+#~ "metainformáciami."
+
+#, c-format
+#~ msgid ""
+#~ "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
+#~ "suffix."
+#~ msgstr ""
+#~ "Nepodarilo sa skopírovať „%s“: Súbor nemá príponu „.metainfo.xml“ alebo "
+#~ "„appdata.xml“."
 
 #~ msgid "An item type (e.g. lib, bin, python3, …)"
 #~ msgstr "Typ položky (napr. lib, bin, python3, ...)"
