@@ -268,6 +268,30 @@ as_validator_clear_issues (AsValidator *validator)
 }
 
 /**
+ * as_validator_check_success:
+ *
+ * Check if, according to the current recorded issues, the last validated data was valid.
+ */
+static gboolean
+as_validator_check_success (AsValidator *validator)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	GHashTableIter iter;
+	gpointer value;
+
+	g_hash_table_iter_init (&iter, priv->issues);
+	while (g_hash_table_iter_next (&iter, NULL, &value)) {
+		AsIssueSeverity severity;
+		AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (value);
+		severity = as_validator_issue_get_severity (issue);
+		if (severity == AS_ISSUE_SEVERITY_ERROR || severity == AS_ISSUE_SEVERITY_WARNING)
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
+/**
  * as_validator_setup_networking:
  */
 static gboolean
@@ -1926,7 +1950,11 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
  * @validator: An instance of #AsValidator.
  * @metadata_file: An AppStream XML file.
  *
- * Validate an AppStream XML file
+ * Validate an AppStream XML file.
+ * Remember to run %as_validator_clear_issues if you do not want previous
+ * validation runs to affect the outcome of this validation.
+ *
+ * Returns: %TRUE if file validated successfully.
  **/
 gboolean
 as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
@@ -1936,6 +1964,7 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 	g_autoptr(GInputStream) stream_data = NULL;
 	g_autoptr(GConverter) conv = NULL;
 	g_autoptr(GString) asxmldata = NULL;
+	g_autoptr(GBytes) bytes = NULL;
 	g_autofree gchar *fname = NULL;
 	gssize len;
 	const gsize buffer_size = 1024 * 32;
@@ -1987,7 +2016,8 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 	if (len < 0)
 		return FALSE;
 
-	ret = as_validator_validate_data (validator, asxmldata->str);
+	bytes = g_bytes_new_static (asxmldata->str, asxmldata->len);
+	ret = as_validator_validate_bytes (validator, bytes);
 	as_validator_clear_current_fname (validator);
 
 	return ret;
@@ -2022,6 +2052,10 @@ as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata, gs
  * @metadata: XML metadata as #GBytes.
  *
  * Validate AppStream XML data from a byte array.
+ * Remember to run %as_validator_clear_issues if you do not want previous
+ * validation runs to affect the outcome of this validation.
+ *
+ * Returns: %TRUE if bytes validated successfully.
  *
  * Since: 0.14.0
  **/
@@ -2089,7 +2123,7 @@ as_validator_validate_bytes (AsValidator *validator, GBytes *metadata)
 	}
 
 	xmlFreeDoc (doc);
-	return ret;
+	return ret && as_validator_check_success (validator);
 }
 
 /**
@@ -2097,7 +2131,11 @@ as_validator_validate_bytes (AsValidator *validator, GBytes *metadata)
  * @validator: An instance of #AsValidator.
  * @metadata: XML metadata.
  *
- * Validate AppStream XML data
+ * Validate AppStream XML data.
+ * Remember to run %as_validator_clear_issues if you do not want previous
+ * validation runs to affect the outcome of this validation.
+ *
+ * Returns: %TRUE if data validated successfully.
  **/
 gboolean
 as_validator_validate_data (AsValidator *validator, const gchar *metadata)
@@ -2233,6 +2271,8 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
  * @root_dir: The root directory of the filesystem tree that should be validated.
  *
  * Validate a full directory tree for issues in AppStream metadata.
+ *
+ * Returns: %TRUE if file validated successfully.
  **/
 gboolean
 as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
@@ -2417,7 +2457,7 @@ out:
 	if (validated_cpts != NULL)
 		g_hash_table_unref (validated_cpts);
 
-	return ret;
+	return ret && as_validator_check_success (validator);
 }
 
 /**

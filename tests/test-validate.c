@@ -128,6 +128,7 @@ _astest_check_validate_issues (GList *issues, AsVResultCheck *checks_all)
 static void
 test_validator_manyerrors_desktopapp ()
 {
+	gboolean ret;
 	g_autoptr(GList) issues = NULL;
 	g_autoptr(AsValidator) validator = as_validator_new ();
 
@@ -208,11 +209,12 @@ test_validator_manyerrors_desktopapp ()
 		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }
 	};
 
-	_astest_validate_sample_fname (validator, "many-errors-desktopapp.xml");
+	ret = _astest_validate_sample_fname (validator, "many-errors-desktopapp.xml");
 
 	issues = as_validator_get_issues (validator);
 	_astest_check_validate_issues (issues,
 				       (AsVResultCheck*) &expected_results);
+	g_assert_false (ret);
 }
 
 int
