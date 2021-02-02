@@ -28,11 +28,11 @@
 
 /**
  * SECTION:as-relation
- * @short_description: Description of relations a software component has with other items
+ * @short_description: Description of relations a software component has with other things
  * @include: appstream.h
  *
  * A component can have recommends- or requires relations on other components, system properties,
- * other hardware and interfaces.
+ * hardware and other interfaces.
  * This class contains a representation of those relations.
  *
  * See also: #AsComponent

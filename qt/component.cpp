@@ -29,6 +29,7 @@
 #include "icon.h"
 #include "screenshot.h"
 #include "release.h"
+#include "relation.h"
 #include "bundle.h"
 #include "suggested.h"
 #include "contentrating.h"
@@ -443,6 +444,37 @@ QList<AppStream::Component> Component::addons() const
 void AppStream::Component::addAddon(const AppStream::Component& addon)
 {
     as_component_add_addon(m_cpt, addon.asComponent());
+}
+
+QList<Relation> Component::recommends() const
+{
+    QList<AppStream::Relation> res;
+
+    auto recommends = as_component_get_recommends (m_cpt);
+    res.reserve(recommends->len);
+    for (uint i = 0; i < recommends->len; i++) {
+        auto rel = AS_RELATION (g_ptr_array_index (recommends, i));
+        res.append(Relation(rel));
+    }
+    return res;
+}
+
+QList<Relation> Component::requires() const
+{
+    QList<AppStream::Relation> res;
+
+    auto requires = as_component_get_requires (m_cpt);
+    res.reserve(requires->len);
+    for (uint i = 0; i < requires->len; i++) {
+        auto rel = AS_RELATION (g_ptr_array_index (requires, i));
+        res.append(Relation(rel));
+    }
+    return res;
+}
+
+void Component::addRelation(const Relation &relation)
+{
+    as_component_add_relation(m_cpt, relation.asRelation());
 }
 
 QStringList AppStream::Component::languages() const

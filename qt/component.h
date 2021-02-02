@@ -39,6 +39,7 @@ namespace AppStream {
 class Icon;
 class Screenshot;
 class Release;
+class Relation;
 class Suggested;
 
 class ComponentData;
@@ -47,7 +48,7 @@ class ComponentData;
  * Describes a software component (application, driver, font, ...)
  */
 class APPSTREAMQT_EXPORT Component {
-Q_GADGET
+    Q_GADGET
     friend class Pool;
     public:
         enum Kind  {
@@ -189,6 +190,10 @@ Q_GADGET
 
         QList<AppStream::Component> addons() const;
         void addAddon(const AppStream::Component& addon);
+
+        QList<AppStream::Relation> recommends() const;
+        QList<AppStream::Relation> requires() const;
+        void addRelation(const AppStream::Relation &relation);
 
         QStringList languages() const;
         int language(const QString& locale) const;

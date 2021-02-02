@@ -125,6 +125,8 @@ void AppStream::Launchable::addEntry(const QString& entry)
 
 QDebug operator<<(QDebug s, const AppStream::Launchable& launchable)
 {
-    s.nospace() << "AppStream::Launchable(" << launchable.entries() << ")";
+    s.nospace() << "AppStream::Launchable("
+                << Launchable::kindToString(launchable.kind()) << ":"
+                << launchable.entries() << ")";
     return s.space();
 }

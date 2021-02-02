@@ -44,14 +44,14 @@ class APPSTREAMQT_EXPORT Launchable {
         Q_ENUM(Kind)
 
         Launchable();
-        Launchable(_AsLaunchable* category);
-        Launchable(const Launchable& category);
+        Launchable(_AsLaunchable* launchable);
+        Launchable(const Launchable& launchable);
         ~Launchable();
 
         static Kind stringToKind(const QString& kindString);
         static QString kindToString(Kind kind);
 
-        Launchable& operator=(const Launchable& category);
+        Launchable& operator=(const Launchable& launchable);
         bool operator==(const Launchable& r) const;
 
         /**
@@ -70,7 +70,7 @@ class APPSTREAMQT_EXPORT Launchable {
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Launchable& category);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Launchable& launchable);
 
 #endif // APPSTREAMQT_LAUNCHABLE_H
 

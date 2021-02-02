@@ -8,44 +8,46 @@ qt = import('qt5')
 qt5_dep = dependency('qt5', modules: ['Core'])
 
 asqt_src = [
+    'bundle.cpp',
     'category.cpp',
     'component.cpp',
-    'pool.cpp',
-    'image.cpp',
-    'video.cpp',
-    'screenshot.cpp',
-    'icon.cpp',
-    'provided.cpp',
-    'release.cpp',
-    'bundle.cpp',
-    'suggested.cpp',
     'contentrating.cpp',
+    'icon.cpp',
+    'image.cpp',
     'launchable.cpp',
-    'translation.cpp',
     'metadata.cpp',
+    'pool.cpp',
+    'provided.cpp',
+    'relation.cpp',
+    'release.cpp',
+    'screenshot.cpp',
     'spdx.cpp',
-    'utils.cpp'
+    'suggested.cpp',
+    'translation.cpp',
+    'utils.cpp',
+    'video.cpp'
 ]
 
 asqt_pub_headers = [
     'appstreamqt_export.h',
+    'bundle.h',
     'category.h',
     'component.h',
-    'pool.h',
-    'image.h',
-    'video.h',
-    'screenshot.h',
-    'icon.h',
-    'provided.h',
-    'release.h',
-    'bundle.h',
-    'suggested.h',
     'contentrating.h',
+    'icon.h',
+    'image.h',
     'launchable.h',
-    'translation.h',
     'metadata.h',
+    'pool.h',
+    'provided.h',
+    'relation.h',
+    'release.h',
+    'screenshot.h',
     'spdx.h',
-    'utils.h'
+    'suggested.h',
+    'translation.h',
+    'utils.h',
+    'video.h'
 ]
 
 asqt_priv_headers = [
