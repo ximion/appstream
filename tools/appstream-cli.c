@@ -460,7 +460,7 @@ as_client_run_put (const gchar *command, char **argv, int argc)
 			G_OPTION_ARG_STRING,
 			&optn_origin,
 			/* TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand) */
-			N_("Set the given data origin for the installed metadata coollection file."), NULL },
+			N_("Set the data origin for the installed metadata collection file."), NULL },
 		{ "user", 0, 0,
 			G_OPTION_ARG_NONE,
 			&optn_usermode,
