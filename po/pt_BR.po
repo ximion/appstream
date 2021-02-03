@@ -5,7 +5,7 @@
 # Translators:
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2016
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2015-2016
-# Rafael Fontenelle <rafaelff@gnome.org>, 2017, 2019, 2020.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2017, 2019, 2020, 2021.
 # Wellington Terumi Uemura <wellingtonuemura@gmail.com>, 2020.
 # André Marcelo Alvarenga <andrealvarenga@gmx.net>, 2020.
 # #-#-#-#-#  pt_BR.po (appstream-glib)  #-#-#-#-#
@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-02-02 16:26+0100\n"
 "PO-Revision-Date: 2021-02-03 20:27+0000\n"
-"Last-Translator: Fábio Rodrigues Ribeiro <farribeiro@gmail.com>\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -1597,7 +1597,7 @@ msgstr "Considere usar uma URL segura (HTTPS) para este link web."
 
 #: src/as-validator-issue-tag.h:406
 msgid "A web URL was expected for this value."
-msgstr "Um URL da web era esperado para este valor."
+msgstr "Uma URL web era esperado para este valor."
 
 #: src/as-validator-issue-tag.h:411
 msgid ""
@@ -1905,54 +1905,54 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:639
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "O valor definido como urgência de lançamento não é um valor de urgência conhecido."
 
 #: src/as-validator-issue-tag.h:644
 msgid "The value set as release type is invalid."
-msgstr ""
+msgstr "O valor definido como tipo de lançamento é inválido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:650
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr ""
+msgstr "O valor definido como tipo de artefato é inválido. Deve ser `source` ou `binary`."
 
 #: src/as-validator-issue-tag.h:655
 msgid "The value set as artifact bundle type is invalid."
-msgstr ""
+msgstr "O valor definido como tipo de pacote de artefato é inválido."
 
 #: src/as-validator-issue-tag.h:660
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
+msgstr "O tripleto da plataforma para esta versão é inválido. Ele deve ser na forma de `architecture-oskernel-osenv` – consulte a documentação do AppStream ou informações sobre tripleto normalizados GNU para obter mais informações e campos válidos."
 
 #: src/as-validator-issue-tag.h:667
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
+msgstr "O algoritmo de verificação selecionado não tem suporte ou é desconhecido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:673
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
+msgstr "O tipo de tamanho é desconhecido. Deve ser `download` ou `installed`."
 
 #: src/as-validator-issue-tag.h:678
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr ""
+msgstr "O nome do arquivo do artefato deve ser um nome base de arquivo, não um caminho (relativo ou absoluto)."
 
 #: src/as-validator-issue-tag.h:683
 msgid "The value set as release issue type is invalid."
-msgstr ""
+msgstr "O valor definido como tipo de problema de lançamento é inválido."
 
 #: src/as-validator-issue-tag.h:688
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
+msgstr "O problema está marcado na vulnerabilidade de segurança com um número CVE, mas seu valor não se parece com um identificador CVE válido."
 
 #: src/as-validator-issue-tag.h:693
 msgid ""
@@ -2115,12 +2115,12 @@ msgstr "Reforçar uma atualização da cache."
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstream-cli.c:463
 msgid "Set the given data origin for the installed metadata coollection file."
-msgstr ""
+msgstr "Define a origem dos dados dada para o arquivo de coleção de metadados instalados."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstream-cli.c:468
 msgid "Install the file for the current user, instead of globally."
-msgstr ""
+msgstr "Instala o arquivo para o usuário atual, em vez de globalmente."
 
 #: tools/appstream-cli.c:617
 msgid ""
