@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-02-02 16:26+0100\n"
 "PO-Revision-Date: 2021-02-03 20:27+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"Last-Translator: Fábio Rodrigues Ribeiro <farribeiro@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -2215,12 +2215,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstream-cli.c:1013
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Executar “%s --help” para ver uma lista completa das opções de linha de "
-"comando disponíveis."
+msgstr "O comando '%s' é desconhecido. Execute '%s --help' para obter uma lista dos comandos disponíveis."
 
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:1037
