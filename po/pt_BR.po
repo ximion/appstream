@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-02-02 16:26+0100\n"
-"PO-Revision-Date: 2021-02-03 20:28+0000\n"
+"PO-Revision-Date: 2021-02-03 21:07+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -2255,7 +2255,7 @@ msgstr "Obtém informação sobre um componente por seu ID."
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr "Obtenha componentes que forneçam o item dado. Precisa de um tipo de item (por exemplo, lib, bin, python3, ...) e valor do item como parâmetro."
+msgstr "Obtém componentes que forneçam o item dado. Precisa de um tipo de item (por exemplo, lib, bin, python3, ...) e valor do item como parâmetro."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstream-cli.c:1079
@@ -2299,7 +2299,7 @@ msgstr "Exibir informações sobre metadados disponíveis do AppStream."
 #: tools/appstream-cli.c:1117
 msgid ""
 "Show information about the current operating system from the metadata index."
-msgstr ""
+msgstr "Mostra informações sobre o sistema operacional atual a partir do índice de metadados."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstream-cli.c:1122
@@ -2327,10 +2327,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstream-cli.c:1143
-#, fuzzy
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr ""
-"Cria um arquivo de entrada de desktop XDG a partir de um arquivo metainfo."
+msgstr "Cria um arquivo de entrada de desktop a partir de um arquivo metainfo."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstream-cli.c:1148
@@ -2427,9 +2425,9 @@ msgid "You need to specify a metadata file."
 msgstr "Você precisa especificar um arquivo de metadados."
 
 #: tools/ascli-actions-mdata.c:321
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr "Não foi possível salvar o arquivo de entrada de desktop: %s"
+msgstr "Não foi possível instalar o arquivo de metadados: %s"
 
 #: tools/ascli-actions-mdata.c:341
 msgid "You need to specify an input and output file."
@@ -2450,14 +2448,13 @@ msgstr ""
 "por favor, defina o formato explicitamente, utilizando “--format=”."
 
 #: tools/ascli-actions-mdata.c:435
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr "Não foi possível encontrar um componente com ID “%s”!"
+msgstr "Não foi possível encontrar um componente de sistema operacional “%s”!"
 
 #: tools/ascli-actions-mdata.c:440
-#, fuzzy
 msgid "Version"
-msgstr "Versão: %s"
+msgstr "Versão"
 
 #: tools/ascli-actions-mdata.c:464
 msgid ""
@@ -2720,7 +2717,7 @@ msgstr "Identificador"
 
 #: tools/ascli-utils.c:269
 msgid "Internal ID"
-msgstr ""
+msgstr "ID interno"
 
 #: tools/ascli-utils.c:270
 msgid "Name"
