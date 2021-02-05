@@ -54,6 +54,7 @@ public:
         return m_metadata;
     }
 
+    QString lastError;
     AsMetadata* m_metadata;
 };
 
@@ -139,7 +140,11 @@ AppStream::Metadata::MetadataError AppStream::Metadata::parseFile(const QString&
     as_metadata_parse_file(d->m_metadata, gFile, (AsFormatKind) format, &error);
 
     if (error != nullptr) {
-        return static_cast<AppStream::Metadata::MetadataError>(error->code);
+        d->lastError = QString::fromUtf8(error->message);
+        if (error->domain == AS_METADATA_ERROR)
+            return static_cast<AppStream::Metadata::MetadataError>(error->code);
+        else
+            return AppStream::Metadata::MetadataErrorFailed;
     }
 
     return AppStream::Metadata::MetadataErrorNoError;
@@ -151,7 +156,11 @@ AppStream::Metadata::MetadataError AppStream::Metadata::parse(const QString& dat
     as_metadata_parse(d->m_metadata, qPrintable(data), (AsFormatKind) format, &error);
 
     if (error != nullptr) {
-        return static_cast<AppStream::Metadata::MetadataError>(error->code);
+        d->lastError = QString::fromUtf8(error->message);
+        if (error->domain == AS_METADATA_ERROR)
+            return static_cast<AppStream::Metadata::MetadataError>(error->code);
+        else
+            return AppStream::Metadata::MetadataErrorFailed;
     }
 
     return AppStream::Metadata::MetadataErrorNoError;
@@ -163,7 +172,11 @@ AppStream::Metadata::MetadataError AppStream::Metadata::parseDesktopData(const Q
     as_metadata_parse_desktop_data(d->m_metadata, qPrintable(data), qPrintable(cid), &error);
 
     if (error != nullptr) {
-        return static_cast<AppStream::Metadata::MetadataError>(error->code);
+        d->lastError = QString::fromUtf8(error->message);
+        if (error->domain == AS_METADATA_ERROR)
+            return static_cast<AppStream::Metadata::MetadataError>(error->code);
+        else
+            return AppStream::Metadata::MetadataErrorFailed;
     }
 
     return AppStream::Metadata::MetadataErrorNoError;
@@ -211,7 +224,11 @@ AppStream::Metadata::MetadataError AppStream::Metadata::saveMetainfo(const QStri
     as_metadata_save_metainfo(d->m_metadata, qPrintable(fname), (AsFormatKind) format, &error);
 
     if (error != nullptr) {
-        return static_cast<AppStream::Metadata::MetadataError>(error->code);
+        d->lastError = QString::fromUtf8(error->message);
+        if (error->domain == AS_METADATA_ERROR)
+            return static_cast<AppStream::Metadata::MetadataError>(error->code);
+        else
+            return AppStream::Metadata::MetadataErrorFailed;
     }
 
     return AppStream::Metadata::MetadataErrorNoError;
@@ -228,7 +245,11 @@ AppStream::Metadata::MetadataError AppStream::Metadata::saveCollection(const QSt
     as_metadata_save_collection(d->m_metadata, qPrintable(collection), (AsFormatKind) format, &error);
 
     if (error != nullptr) {
-        return static_cast<AppStream::Metadata::MetadataError>(error->code);
+        d->lastError = QString::fromUtf8(error->message);
+        if (error->domain == AS_METADATA_ERROR)
+            return static_cast<AppStream::Metadata::MetadataError>(error->code);
+        else
+            return AppStream::Metadata::MetadataErrorFailed;
     }
 
     return AppStream::Metadata::MetadataErrorNoError;

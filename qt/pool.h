@@ -73,9 +73,9 @@ Q_OBJECT
 
         /**
          * \return true on success. False on failure
-	 *
-	 * Loads all available metadata and opens the cache. In case of an error,
-	 * \sa lastError() will contain the error message.
+         *
+         * Loads all available metadata and opens the cache. In case of an error,
+         * \sa lastError() will contain the error message.
          */
         bool load();
 
@@ -91,10 +91,10 @@ Q_OBJECT
          */
         void clear();
 
-	/**
+        /**
          * \return The last error message received.
          */
-	QString lastError() const;
+        QString lastError() const;
 
         /**
          * Add a component to the pool.

@@ -132,6 +132,11 @@ class APPSTREAMQT_EXPORT Metadata {
         QString architecture() const;
         void setArchitecture(const QString& architecture);
 
+        /**
+         * \return The last error message received.
+         */
+        QString lastError() const;
+
     private:
         QSharedDataPointer<MetadataData> d;
 };
