@@ -207,7 +207,7 @@ asc_optimize_png (const gchar *fname, GError **error)
 	g_autofree gchar *opng_stdout = NULL;
 	g_autofree gchar *opng_stderr = NULL;
 	g_autofree const gchar **argv = NULL;
-	g_autoptr(GError) tmp_error = NULL;
+	GError *tmp_error = NULL;
 
 	if (!asc_globals_get_use_optipng ())
 		return TRUE;

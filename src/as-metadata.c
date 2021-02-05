@@ -646,7 +646,7 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 	g_autoptr(GInputStream) stream_data = NULL;
 	g_autoptr(GConverter) conv = NULL;
 	g_autoptr(GString) asdata = NULL;
-	g_autoptr(GError) tmp_error = NULL;
+	GError *tmp_error = NULL;
 	gssize len;
 	const gsize buffer_size = 1024 * 32;
 	g_autofree gchar *buffer = NULL;
@@ -701,7 +701,7 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 
 	asdata = g_string_new ("");
 	buffer = g_malloc (buffer_size);
-	while ((len = g_input_stream_read (stream_data, buffer, buffer_size, NULL, error)) > 0) {
+	while ((len = g_input_stream_read (stream_data, buffer, buffer_size, NULL, &tmp_error)) > 0) {
 		g_string_append_len (asdata, buffer, len);
 	}
 	/* check if there was an error */
@@ -834,7 +834,7 @@ gboolean
 as_metadata_save_metainfo (AsMetadata *metad, const gchar *fname, AsFormatKind format, GError **error)
 {
 	g_autofree gchar *xml_data = NULL;
-	g_autoptr(GError) tmp_error = NULL;
+	GError *tmp_error = NULL;
 
 	xml_data = as_metadata_component_to_metainfo (metad, format, &tmp_error);
 	if (tmp_error != NULL) {
@@ -859,7 +859,7 @@ gboolean
 as_metadata_save_collection (AsMetadata *metad, const gchar *fname, AsFormatKind format, GError **error)
 {
 	g_autofree gchar *data = NULL;
-	g_autoptr(GError) tmp_error = NULL;
+	GError *tmp_error = NULL;
 
 	data = as_metadata_components_to_collection (metad, format, &tmp_error);
 	if (tmp_error != NULL) {
