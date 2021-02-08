@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-02-02 16:26+0100\n"
-"PO-Revision-Date: 2021-02-07 14:50+0000\n"
+"PO-Revision-Date: 2021-02-08 18:50+0000\n"
 "Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
@@ -1583,7 +1583,7 @@ msgstr "Pertimbangkan untuk menggunakan URL aman (HTTPS) untuk tautan web ini."
 
 #: src/as-validator-issue-tag.h:406
 msgid "A web URL was expected for this value."
-msgstr ""
+msgstr "URL web diharapkan untuk nilai ini."
 
 #: src/as-validator-issue-tag.h:411
 msgid ""
@@ -1888,7 +1888,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:639
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "Nilai yang ditetapkan sebagai urgensi rilis bukanlah nilai urgensi yang diketahui."
 
 #: src/as-validator-issue-tag.h:644
 msgid "The value set as release type is invalid."
@@ -1910,11 +1910,11 @@ msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
+msgstr "Triplet platform untuk rilis ini tidak valid. Ia harus dalam bentuk 'arsitektur-oskernel-osenv' - lihat dokumentasi AppStream atau informasi tentang GNU triplets yang dinormalisasi untuk informasi lebih lanjut dan bidang yang valid."
 
 #: src/as-validator-issue-tag.h:667
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
+msgstr "Algoritma checksumming yang dipilih tidak didukung atau tidak diketahui."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:673
@@ -1935,7 +1935,7 @@ msgstr "Nilai yang ditetapkan sebagai jenis rilis issue tidak valid."
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
+msgstr "Masalah ini ditandai pada kerentanan keamanan dengan nomor CVE, tetapi nilainya tidak terlihat seperti pengenal CVE yang valid."
 
 #: src/as-validator-issue-tag.h:693
 msgid ""
@@ -2198,12 +2198,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstream-cli.c:1013
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Jalankan '%s --help' untuk melihat daftar lengkap opsi baris perintah yang "
-"tersedia."
+msgstr "Perintah '%s' tidak diketahui. Jalankan '%s --help' untuk melihat daftar perintah yang tersedia."
 
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:1037
@@ -2223,7 +2221,7 @@ msgstr "Jangan tampilkan keluaran berwarna."
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstream-cli.c:1051
 msgid "Enable profiling"
-msgstr ""
+msgstr "Aktifkan pembuatan profil"
 
 #. TRANSLATORS: `appstreamcli search` command description.
 #: tools/appstream-cli.c:1063
@@ -2240,7 +2238,7 @@ msgstr "Dapatkan informasi tentang suatu komponen berdasarkan ID-nya."
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr ""
+msgstr "Dapatkan komponen yang menyediakan item yang diberikan. Membutuhkan tipe item (misalnya lib, bin, python3,…) dan nilai item sebagai parameter."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstream-cli.c:1079
@@ -2281,7 +2279,7 @@ msgstr "Tampilkan informasi status tentang metadata AppStream yang tersedia."
 #: tools/appstream-cli.c:1117
 msgid ""
 "Show information about the current operating system from the metadata index."
-msgstr ""
+msgstr "Menampilkan informasi tentang sistem operasi saat ini dari indeks metadata."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstream-cli.c:1122
@@ -2308,9 +2306,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstream-cli.c:1143
-#, fuzzy
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr "Membuat berkas entri desktop XDG dari berkas metainfo."
+msgstr "Membuat berkas entri-desktop XDG dari berkas metainfo."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstream-cli.c:1148
@@ -2409,9 +2406,9 @@ msgid "You need to specify a metadata file."
 msgstr "Anda perlu menyatakan suatu berkas metadata."
 
 #: tools/ascli-actions-mdata.c:321
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr "Tidak bisa menyimpan berkas entri desktop: %s"
+msgstr "Tidak dapat menginstal file metadata: %s"
 
 #: tools/ascli-actions-mdata.c:341
 msgid "You need to specify an input and output file."
@@ -2432,14 +2429,13 @@ msgstr ""
 "atur secara eksplisit memakai '--format='."
 
 #: tools/ascli-actions-mdata.c:435
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
 msgstr "Tidak bisa menemukan komponen dengan ID '%s'!"
 
 #: tools/ascli-actions-mdata.c:440
-#, fuzzy
 msgid "Version"
-msgstr "Versi: %s"
+msgstr "Versi"
 
 #: tools/ascli-actions-mdata.c:464
 msgid ""
@@ -2701,7 +2697,7 @@ msgstr "Identifier"
 
 #: tools/ascli-utils.c:269
 msgid "Internal ID"
-msgstr ""
+msgstr "ID Internal"
 
 #: tools/ascli-utils.c:270
 msgid "Name"
