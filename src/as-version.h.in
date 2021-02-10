@@ -27,6 +27,8 @@
 
 #include <glib.h>
 
+G_BEGIN_DECLS
+
 /* compile time version
  */
 #define AS_MAJOR_VERSION				@AS_MAJOR_VERSION_CONF@
@@ -43,3 +45,5 @@
       AS_MICRO_VERSION >= (micro)))
 
 const gchar	*as_version_string (void);
+
+G_END_DECLS

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2020 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2021 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -25,10 +25,6 @@
 
 #include <appstream.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include <asc-globals.h>
 #include <asc-utils.h>
 #include <asc-canvas.h>
@@ -38,9 +34,6 @@ extern "C" {
 #include <asc-result.h>
 #include <asc-enums-types.h>
 
-#ifdef __cplusplus
-};
-#endif
 #undef __APPSTREAM_COMPOSE_H_INSIDE__
 
 #endif /* __APPSTREAM_COMPOSE_H */

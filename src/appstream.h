@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2020 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2021 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -22,9 +22,6 @@
 #define __APPSTREAM_H
 
 #define __APPSTREAM_H_INSIDE__
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #include <as-version.h>
 #include <as-context.h>
@@ -59,9 +56,6 @@ extern "C" {
 #include <as-vercmp.h>
 #include <as-spdx.h>
 
-#ifdef __cplusplus
-};
-#endif
 #undef __APPSTREAM_H_INSIDE__
 
 #endif /* __APPSTREAM_H */
