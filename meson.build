@@ -1,6 +1,6 @@
 project('AppStream', 'c',
   meson_version: '>=0.48',
-  default_options: ['c_std=gnu11', 'cpp_std=gnu++14'],
+  default_options: ['c_std=c11', 'cpp_std=gnu++14'],
 
   license: 'LGPL-2.1+ and GPL-2.0+',
   version: '0.14.1',
@@ -79,6 +79,9 @@ endif
 add_project_arguments('-Werror=implicit-function-declaration', '-Wno-unused-parameter', language: 'c')
 add_project_arguments('-Wno-unused-parameter', language: 'cpp')
 add_project_arguments('-DAS_COMPILATION', language: 'c')
+
+# Vendor extensions in system headers
+add_project_arguments('-D_POSIX_C_SOURCE=200112L', language: 'c')
 
 #
 # Dependencies
