@@ -38,8 +38,7 @@ G_BEGIN_DECLS
 typedef enum {
 	AS_VERCMP_FLAG_NONE		= 0,
 	AS_VERCMP_FLAG_IGNORE_EPOCH	= 1 << 0,
-	/*< private >*/
-	AS_VERCMP_FLAG_LAST
+	AS_VERCMP_FLAG_LAST  /*< skip >*/
 } AsVercmpFlags;
 
 

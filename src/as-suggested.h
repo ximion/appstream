@@ -57,8 +57,7 @@ typedef enum  {
 	AS_SUGGESTED_KIND_UNKNOWN,
 	AS_SUGGESTED_KIND_UPSTREAM,
 	AS_SUGGESTED_KIND_HEURISTIC,
-	/*< private >*/
-	AS_SUGGESTED_KIND_LAST
+	AS_SUGGESTED_KIND_LAST  /*< skip >*/
 } AsSuggestedKind;
 
 AsSuggestedKind			as_suggested_kind_from_string (const gchar *kind_str);

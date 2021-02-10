@@ -38,8 +38,7 @@ G_BEGIN_DECLS
  **/
 typedef enum {
 	AS_UTILS_ERROR_FAILED,
-	/*< private >*/
-	AS_UTILS_ERROR_LAST
+	AS_UTILS_ERROR_LAST  /*< skip >*/
 } AsUtilsError;
 
 #define	AS_UTILS_ERROR				as_utils_error_quark ()
@@ -62,8 +61,7 @@ typedef enum {
 	AS_DATA_ID_MATCH_FLAG_ORIGIN		= 1 << 2,
 	AS_DATA_ID_MATCH_FLAG_ID		= 1 << 3,
 	AS_DATA_ID_MATCH_FLAG_BRANCH		= 1 << 4,
-	/*< private >*/
-	AS_DATA_ID_MATCH_FLAG_LAST
+	AS_DATA_ID_MATCH_FLAG_LAST  /*< skip >*/
 } AsDataIdMatchFlags;
 
 /**
@@ -80,8 +78,7 @@ typedef enum {
 	AS_METADATA_LOCATION_STATE,
 	AS_METADATA_LOCATION_CACHE,
 	AS_METADATA_LOCATION_USER,
-	/*< private >*/
-	AS_METADATA_LOCATION_LAST
+	AS_METADATA_LOCATION_LAST  /*< skip >*/
 } AsMetadataLocation;
 
 GQuark		 	as_utils_error_quark (void);

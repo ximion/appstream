@@ -86,8 +86,7 @@ typedef enum {
 	AS_CONTENT_RATING_SYSTEM_GRAC,
 	AS_CONTENT_RATING_SYSTEM_ESRB,
 	AS_CONTENT_RATING_SYSTEM_IARC,
-	/*< private >*/
-	AS_CONTENT_RATING_SYSTEM_LAST
+	AS_CONTENT_RATING_SYSTEM_LAST  /*< skip >*/
 } AsContentRatingSystem;
 
 /**
@@ -106,8 +105,7 @@ typedef enum {
 	AS_CONTENT_RATING_VALUE_MILD,
 	AS_CONTENT_RATING_VALUE_MODERATE,
 	AS_CONTENT_RATING_VALUE_INTENSE,
-	/*< private >*/
-	AS_CONTENT_RATING_VALUE_LAST
+	AS_CONTENT_RATING_VALUE_LAST  /*< skip >*/
 } AsContentRatingValue;
 
 const gchar		*as_content_rating_value_to_string (AsContentRatingValue value);

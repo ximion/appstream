@@ -36,8 +36,7 @@ G_BEGIN_DECLS
  **/
 typedef enum {
 	ASC_COMPOSE_ERROR_FAILED,
-	/*< private >*/
-	ASC_COMPOSE_ERROR_LAST
+	ASC_COMPOSE_ERROR_LAST  /*< skip >*/
 } AscComposeError;
 
 #define	ASC_COMPOSE_ERROR	asc_compose_error_quark ()

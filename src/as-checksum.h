@@ -60,8 +60,7 @@ typedef enum  {
 	AS_CHECKSUM_KIND_SHA256,
 	AS_CHECKSUM_KIND_BLAKE2B,
 	AS_CHECKSUM_KIND_BLAKE2S,
-	/*< private >*/
-	AS_CHECKSUM_KIND_LAST
+	AS_CHECKSUM_KIND_LAST  /*< skip >*/
 } AsChecksumKind;
 
 const gchar		*as_checksum_kind_to_string (AsChecksumKind kind);

@@ -56,8 +56,7 @@ typedef enum  {
 	AS_RELATION_KIND_UNKNOWN,
 	AS_RELATION_KIND_REQUIRES,
 	AS_RELATION_KIND_RECOMMENDS,
-	/*< private >*/
-	AS_RELATION_KIND_LAST
+	AS_RELATION_KIND_LAST  /*< skip >*/
 } AsRelationKind;
 
 /**
@@ -82,8 +81,7 @@ typedef enum  {
 	AS_RELATION_ITEM_KIND_FIRMWARE,
 	AS_RELATION_ITEM_KIND_CONTROL,
 	AS_RELATION_ITEM_KIND_DISPLAY_LENGTH,
-	/*< private >*/
-	AS_RELATION_ITEM_KIND_LAST
+	AS_RELATION_ITEM_KIND_LAST  /*< skip >*/
 } AsRelationItemKind;
 
 /**
@@ -106,8 +104,7 @@ typedef enum {
 	AS_RELATION_COMPARE_GT,
 	AS_RELATION_COMPARE_LE,
 	AS_RELATION_COMPARE_GE,
-	/*< private >*/
-	AS_RELATION_COMPARE_LAST
+	AS_RELATION_COMPARE_LAST  /*< skip >*/
 } AsRelationCompare;
 
 /**
@@ -134,8 +131,7 @@ typedef enum {
 	AS_CONTROL_KIND_VOICE,
 	AS_CONTROL_KIND_VISION,
 	AS_CONTROL_KIND_TV_REMOTE,
-	/*< private >*/
-	AS_CONTROL_KIND_LAST
+	AS_CONTROL_KIND_LAST  /*< skip >*/
 } AsControlKind;
 
 /**
@@ -150,8 +146,7 @@ typedef enum  {
 	AS_DISPLAY_SIDE_KIND_UNKNOWN,
 	AS_DISPLAY_SIDE_KIND_SHORTEST,
 	AS_DISPLAY_SIDE_KIND_LONGEST,
-	/*< private >*/
-	AS_DISPLAY_SIDE_KIND_LAST
+	AS_DISPLAY_SIDE_KIND_LAST  /*< skip >*/
 } AsDisplaySideKind;
 
 /**
@@ -172,8 +167,7 @@ typedef enum  {
 	AS_DISPLAY_LENGTH_KIND_MEDIUM,
 	AS_DISPLAY_LENGTH_KIND_LARGE,
 	AS_DISPLAY_LENGTH_KIND_XLARGE,
-	/*< private >*/
-	AS_DISPLAY_LENGTH_KIND_LAST
+	AS_DISPLAY_LENGTH_KIND_LAST  /*< skip >*/
 } AsDisplayLengthKind;
 
 const gchar		*as_relation_kind_to_string (AsRelationKind kind);

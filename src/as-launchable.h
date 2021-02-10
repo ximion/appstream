@@ -60,8 +60,7 @@ typedef enum  {
 	AS_LAUNCHABLE_KIND_SERVICE,
 	AS_LAUNCHABLE_KIND_COCKPIT_MANIFEST,
 	AS_LAUNCHABLE_KIND_URL,
-	/*< private >*/
-	AS_LAUNCHABLE_KIND_LAST
+	AS_LAUNCHABLE_KIND_LAST  /*< skip >*/
 } AsLaunchableKind;
 
 const gchar		*as_launchable_kind_to_string (AsLaunchableKind kind);

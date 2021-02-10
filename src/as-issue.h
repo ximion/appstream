@@ -56,8 +56,7 @@ typedef enum  {
 	AS_ISSUE_KIND_UNKNOWN,
 	AS_ISSUE_KIND_GENERIC,
 	AS_ISSUE_KIND_CVE,
-	/*< private >*/
-	AS_ISSUE_KIND_LAST
+	AS_ISSUE_KIND_LAST  /*< skip >*/
 } AsIssueKind;
 
 const gchar		*as_issue_kind_to_string (AsIssueKind kind);

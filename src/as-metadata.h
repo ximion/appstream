@@ -77,8 +77,7 @@ typedef enum {
 	AS_METADATA_ERROR_FORMAT_UNEXPECTED,
 	AS_METADATA_ERROR_NO_COMPONENT,
 	AS_METADATA_ERROR_VALUE_MISSING,
-	/*< private >*/
-	AS_METADATA_ERROR_LAST
+	AS_METADATA_ERROR_LAST  /*< skip >*/
 } AsMetadataError;
 
 #define	AS_METADATA_ERROR	as_metadata_error_quark ()

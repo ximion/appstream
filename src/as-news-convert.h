@@ -42,8 +42,7 @@ typedef enum {
 	AS_NEWS_FORMAT_KIND_UNKNOWN,
 	AS_NEWS_FORMAT_KIND_YAML,
 	AS_NEWS_FORMAT_KIND_TEXT,
-	/*< private >*/
-	AS_NEWS_FORMAT_KIND_LAST
+	AS_NEWS_FORMAT_KIND_LAST  /*< skip >*/
 } AsNewsFormatKind;
 
 const gchar		*as_news_format_kind_to_string (AsNewsFormatKind kind);

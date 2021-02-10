@@ -60,8 +60,7 @@ typedef enum {
 	AS_SIZE_KIND_UNKNOWN,
 	AS_SIZE_KIND_DOWNLOAD,
 	AS_SIZE_KIND_INSTALLED,
-	/*< private >*/
-	AS_SIZE_KIND_LAST
+	AS_SIZE_KIND_LAST  /*< skip >*/
 } AsSizeKind;
 
 const gchar	*as_size_kind_to_string (AsSizeKind size_kind);
@@ -79,8 +78,7 @@ typedef enum {
 	AS_ARTIFACT_KIND_UNKNOWN,
 	AS_ARTIFACT_KIND_SOURCE,
 	AS_ARTIFACT_KIND_BINARY,
-	/*< private >*/
-	AS_ARTIFACT_KIND_LAST
+	AS_ARTIFACT_KIND_LAST  /*< skip >*/
 } AsArtifactKind;
 
 AsArtifactKind	 as_artifact_kind_from_string (const gchar *kind);

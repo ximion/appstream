@@ -49,8 +49,7 @@ typedef enum {
 	AS_FORMAT_STYLE_UNKNOWN,
 	AS_FORMAT_STYLE_METAINFO,
 	AS_FORMAT_STYLE_COLLECTION,
-	/*< private >*/
-	AS_FORMAT_STYLE_LAST
+	AS_FORMAT_STYLE_LAST  /*< skip >*/
 } AsFormatStyle;
 
 /**
@@ -67,8 +66,7 @@ typedef enum {
 	AS_FORMAT_KIND_XML,
 	AS_FORMAT_KIND_YAML,
 	AS_FORMAT_KIND_DESKTOP_ENTRY,
-	/*< private >*/
-	AS_FORMAT_KIND_LAST
+	AS_FORMAT_KIND_LAST  /*< skip >*/
 } AsFormatKind;
 
 /**
@@ -93,8 +91,7 @@ typedef enum {
 	AS_URL_KIND_DONATION,
 	AS_URL_KIND_TRANSLATE,
 	AS_URL_KIND_CONTACT,
-	/*< private >*/
-	AS_URL_KIND_LAST
+	AS_URL_KIND_LAST  /*< skip >*/
 } AsUrlKind;
 
 /**
@@ -113,8 +110,7 @@ typedef enum {
 	AS_URGENCY_KIND_MEDIUM,
 	AS_URGENCY_KIND_HIGH,
 	AS_URGENCY_KIND_CRITICAL,
-	/*< private >*/
-	AS_URGENCY_KIND_LAST
+	AS_URGENCY_KIND_LAST  /*< skip >*/
 } AsUrgencyKind;
 
 const gchar		*as_url_kind_to_string (AsUrlKind url_kind);

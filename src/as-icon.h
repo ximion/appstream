@@ -60,8 +60,7 @@ typedef enum  {
 	AS_ICON_KIND_STOCK,
 	AS_ICON_KIND_LOCAL,
 	AS_ICON_KIND_REMOTE,
-	/*< private >*/
-	AS_ICON_KIND_LAST
+	AS_ICON_KIND_LAST  /*< skip >*/
 } AsIconKind;
 
 AsIconKind	as_icon_kind_from_string (const gchar *kind_str);

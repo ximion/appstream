@@ -61,8 +61,7 @@ typedef enum {
 	AS_REVIEW_FLAG_NONE	= 0,
 	AS_REVIEW_FLAG_SELF	= 1 << 0,
 	AS_REVIEW_FLAG_VOTED	= 1 << 1,
-	/*< private >*/
-	AS_REVIEW_FLAG_LAST
+	AS_REVIEW_FLAG_LAST  /*< skip >*/
 } AsReviewFlags;
 
 AsReview	*as_review_new			(void);

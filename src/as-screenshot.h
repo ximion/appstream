@@ -60,8 +60,7 @@ typedef enum {
 	AS_SCREENSHOT_KIND_UNKNOWN,
 	AS_SCREENSHOT_KIND_DEFAULT,
 	AS_SCREENSHOT_KIND_EXTRA,
-	/*< private >*/
-	AS_SCREENSHOT_KIND_LAST
+	AS_SCREENSHOT_KIND_LAST  /*< skip >*/
 } AsScreenshotKind;
 
 /**
@@ -76,8 +75,7 @@ typedef enum {
 	AS_SCREENSHOT_MEDIA_KIND_UNKNOWN,
 	AS_SCREENSHOT_MEDIA_KIND_IMAGE,
 	AS_SCREENSHOT_MEDIA_KIND_VIDEO,
-	/*< private >*/
-	AS_SCREENSHOT_MEDIA_KIND_LAST
+	AS_SCREENSHOT_MEDIA_KIND_LAST  /*< skip >*/
 } AsScreenshotMediaKind;
 
 AsScreenshotKind		as_screenshot_kind_from_string (const gchar *kind);

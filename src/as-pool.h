@@ -94,8 +94,7 @@ typedef enum {
 	AS_POOL_ERROR_INCOMPLETE,
 	AS_POOL_ERROR_COLLISION,
 	AS_POOL_ERROR_OLD_CACHE,
-	/*< private >*/
-	AS_POOL_ERROR_LAST
+	AS_POOL_ERROR_LAST  /*< skip >*/
 } AsPoolError;
 
 #define AS_POOL_ERROR	as_pool_error_quark ()

@@ -56,8 +56,7 @@ typedef enum {
 	AS_VIDEO_CODEC_KIND_UNKNOWN,
 	AS_VIDEO_CODEC_KIND_VP9,
 	AS_VIDEO_CODEC_KIND_AV1,
-	/*< private >*/
-	AS_VIDEO_CODEC_KIND_LAST
+	AS_VIDEO_CODEC_KIND_LAST  /*< skip >*/
 } AsVideoCodecKind;
 
 /**
@@ -72,8 +71,7 @@ typedef enum {
 	AS_VIDEO_CONTAINER_KIND_UNKNOWN,
 	AS_VIDEO_CONTAINER_KIND_MKV,
 	AS_VIDEO_CONTAINER_KIND_WEBM,
-	/*< private >*/
-	AS_VIDEO_CONTAINER_KIND_LAST
+	AS_VIDEO_CONTAINER_KIND_LAST  /*< skip >*/
 } AsVideoContainerKind;
 
 AsVideoCodecKind	as_video_codec_kind_from_string (const gchar *str);

@@ -45,8 +45,7 @@ typedef enum {
 	ASC_CANVAS_ERROR_FAILED,
 	ASC_CANVAS_ERROR_DRAWING,
 	ASC_CANVAS_ERROR_FONT,
-	/*< private >*/
-	ASC_CANVAS_ERROR_LAST
+	ASC_CANVAS_ERROR_LAST  /*< skip >*/
 } AscCanvasError;
 
 #define	ASC_CANVAS_ERROR	asc_canvas_error_quark ()

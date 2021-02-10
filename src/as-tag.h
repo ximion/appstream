@@ -121,8 +121,7 @@ typedef enum {
 	AS_TAG_INTERNAL_ORIGIN,
 	AS_TAG_INTERNAL_BRANCH,
 
-	/*< private >*/
-	AS_TAG_LAST
+	AS_TAG_LAST  /*< skip >*/
 } AsTag;
 
 AsTag			as_xml_tag_from_string (const gchar *tag);

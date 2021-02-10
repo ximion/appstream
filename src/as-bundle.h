@@ -66,8 +66,7 @@ typedef enum {
 	AS_BUNDLE_KIND_SNAP,
 	AS_BUNDLE_KIND_TARBALL,
 	AS_BUNDLE_KIND_CABINET,
-	/*< private >*/
-	AS_BUNDLE_KIND_LAST
+	AS_BUNDLE_KIND_LAST  /*< skip >*/
 } AsBundleKind;
 
 const gchar	*as_bundle_kind_to_string (AsBundleKind kind);

@@ -100,8 +100,7 @@ typedef enum  {
 	AS_COMPONENT_KIND_OPERATING_SYSTEM,
 	AS_COMPONENT_KIND_ICON_THEME,
 	AS_COMPONENT_KIND_RUNTIME,
-	/*< private >*/
-	AS_COMPONENT_KIND_LAST
+	AS_COMPONENT_KIND_LAST  /*< skip >*/
 } AsComponentKind;
 
 #define AS_COMPONENT_KIND_INPUTMETHOD AS_COMPONENT_KIND_INPUT_METHOD
@@ -124,8 +123,7 @@ typedef enum  {
 	AS_MERGE_KIND_REPLACE,
 	AS_MERGE_KIND_APPEND,
 	AS_MERGE_KIND_REMOVE_COMPONENT,
-	/*< private >*/
-	AS_MERGE_KIND_LAST
+	AS_MERGE_KIND_LAST  /*< skip >*/
 } AsMergeKind;
 
 const gchar		*as_merge_kind_to_string (AsMergeKind kind);
@@ -143,8 +141,7 @@ typedef enum {
 	AS_COMPONENT_SCOPE_UNKNOWN,
 	AS_COMPONENT_SCOPE_SYSTEM,
 	AS_COMPONENT_SCOPE_USER,
-	/*< private >*/
-	AS_COMPONENT_SCOPE_LAST
+	AS_COMPONENT_SCOPE_LAST  /*< skip >*/
 } AsComponentScope;
 
 const gchar		*as_component_scope_to_string (AsComponentScope scope);
@@ -190,8 +187,7 @@ typedef enum /*< skip >*/ __attribute__((__packed__)) {
 	AS_SEARCH_TOKEN_MATCH_KEYWORD		= 1 << 5,
 	AS_SEARCH_TOKEN_MATCH_NAME		= 1 << 6,
 	AS_SEARCH_TOKEN_MATCH_ID		= 1 << 7,
-	/*< private >*/
-	AS_SEARCH_TOKEN_MATCH_LAST		= 0xffff
+	AS_SEARCH_TOKEN_MATCH_LAST		= 0xffff  /*< skip >*/
 } AsSearchTokenMatch;
 
 AsComponent		*as_component_new (void);

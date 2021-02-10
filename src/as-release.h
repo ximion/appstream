@@ -61,8 +61,7 @@ typedef enum {
 	AS_RELEASE_KIND_UNKNOWN,
 	AS_RELEASE_KIND_STABLE,
 	AS_RELEASE_KIND_DEVELOPMENT,
-	/*< private >*/
-	AS_RELEASE_KIND_LAST
+	AS_RELEASE_KIND_LAST  /*< skip >*/
 } AsReleaseKind;
 
 const gchar	*as_release_kind_to_string (AsReleaseKind kind);
@@ -80,8 +79,7 @@ AsReleaseKind	as_release_kind_from_string (const gchar *kind_str);
 typedef enum {
 	AS_RELEASE_URL_KIND_UNKNOWN,
 	AS_RELEASE_URL_KIND_DETAILS,
-	/*< private >*/
-	AS_RELEASE_URL_KIND_LAST
+	AS_RELEASE_URL_KIND_LAST  /*< skip >*/
 } AsReleaseUrlKind;
 
 const gchar	*as_release_url_kind_to_string (AsReleaseUrlKind kind);

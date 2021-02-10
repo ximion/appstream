@@ -48,8 +48,7 @@ typedef enum {
 	AS_MARKUP_KIND_YAML,
 	AS_MARKUP_KIND_TEXT,
 	AS_MARKUP_KIND_MARKDOWN,
-	/*< private >*/
-	AS_MARKUP_KIND_LAST
+	AS_MARKUP_KIND_LAST  /*< skip >*/
 } AsMarkupKind;
 
 gchar			*as_description_markup_convert (const gchar *markup,

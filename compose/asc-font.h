@@ -38,8 +38,7 @@ G_DECLARE_FINAL_TYPE (AscFont, asc_font, ASC, FONT, GObject)
  **/
 typedef enum {
 	ASC_FONT_ERROR_FAILED,
-	/*< private >*/
-	ASC_FONT_ERROR_LAST
+	ASC_FONT_ERROR_LAST  /*< skip >*/
 } AscFontError;
 
 #define	ASC_FONT_ERROR	asc_font_error_quark ()

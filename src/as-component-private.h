@@ -44,8 +44,7 @@ typedef enum {
 	AS_ORIGIN_KIND_METAINFO,
 	AS_ORIGIN_KIND_COLLECTION,
 	AS_ORIGIN_KIND_DESKTOP_ENTRY,
-	/*< private >*/
-	AS_ORIGIN_KIND_LAST
+	AS_ORIGIN_KIND_LAST  /*< skip >*/
 } AsOriginKind;
 
 typedef guint16		AsTokenType; /* big enough for both bitshifts */

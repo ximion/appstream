@@ -48,8 +48,7 @@ typedef enum {
 	ASC_IMAGE_SAVE_FLAG_PAD_16_9	= 1 << 1,
 	ASC_IMAGE_SAVE_FLAG_SHARPEN	= 1 << 2,
 	ASC_IMAGE_SAVE_FLAG_BLUR	= 1 << 3,
-	/*< private >*/
-	ASC_IMAGE_SAVE_FLAG_LAST
+	ASC_IMAGE_SAVE_FLAG_LAST  /*< skip >*/
 } AscImageSaveFlags;
 
 /**
@@ -66,8 +65,7 @@ typedef enum {
 	ASC_IMAGE_LOAD_FLAG_SHARPEN		= 1 << 0,
 	ASC_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED	= 1 << 1,
 	ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE	= 1 << 2,
-	/*< private >*/
-	ASC_IMAGE_LOAD_FLAG_LAST
+	ASC_IMAGE_LOAD_FLAG_LAST  /*< skip >*/
 } AscImageLoadFlags;
 
 /**
@@ -94,8 +92,7 @@ typedef enum {
 	ASC_IMAGE_FORMAT_WEBP,
 	ASC_IMAGE_FORMAT_AVIF,
 	ASC_IMAGE_FORMAT_XPM,
-	/*< private >*/
-	ASC_IMAGE_FORMAT_LAST
+	ASC_IMAGE_FORMAT_LAST  /*< skip >*/
 } AscImageFormat;
 
 /**
@@ -106,8 +103,7 @@ typedef enum {
  **/
 typedef enum {
 	ASC_IMAGE_ERROR_FAILED,
-	/*< private >*/
-	ASC_IMAGE_ERROR_LAST
+	ASC_IMAGE_ERROR_LAST  /*< skip >*/
 } AscImageError;
 
 #define	ASC_IMAGE_ERROR	asc_image_error_quark ()

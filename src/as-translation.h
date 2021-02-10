@@ -56,8 +56,7 @@ typedef enum {
 	AS_TRANSLATION_KIND_UNKNOWN,
 	AS_TRANSLATION_KIND_GETTEXT,
 	AS_TRANSLATION_KIND_QT,
-	/*< private >*/
-	AS_TRANSLATION_KIND_LAST
+	AS_TRANSLATION_KIND_LAST  /*< skip >*/
 } AsTranslationKind;
 
 const gchar		*as_translation_kind_to_string (AsTranslationKind kind);

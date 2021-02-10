@@ -65,8 +65,7 @@ typedef enum {
 	AS_CACHE_ERROR_FLOATING,
 	AS_CACHE_ERROR_NO_FILENAME,
 	AS_CACHE_ERROR_BAD_DATA,
-	/*< private >*/
-	AS_CACHE_ERROR_LAST
+	AS_CACHE_ERROR_LAST  /*< skip >*/
 } AsCacheError;
 
 #define AS_CACHE_ERROR	as_cache_error_quark ()

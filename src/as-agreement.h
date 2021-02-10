@@ -63,8 +63,7 @@ typedef enum {
 	AS_AGREEMENT_KIND_GENERIC,
 	AS_AGREEMENT_KIND_EULA,
 	AS_AGREEMENT_KIND_PRIVACY,
-	/*< private >*/
-	AS_AGREEMENT_KIND_LAST
+	AS_AGREEMENT_KIND_LAST  /*< skip >*/
 } AsAgreementKind;
 
 AsAgreement		*as_agreement_new (void);
