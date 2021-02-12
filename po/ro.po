@@ -2,22 +2,21 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Daniel Șerbănescu <daniel@serbanescu.dk>, 2020.
+# Alecsa Maria <alecsandra.suciu@alizaur.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-02-02 16:26+0100\n"
-"PO-Revision-Date: 2020-07-03 04:41+0000\n"
-"Last-Translator: Daniel Șerbănescu <daniel@serbanescu.dk>\n"
-"Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/"
-"translations/ro/>\n"
+"PO-Revision-Date: 2021-02-12 09:50+0000\n"
+"Last-Translator: Alecsa Maria <alecsandra.suciu@alizaur.com>\n"
+"Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/translations/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -388,326 +387,325 @@ msgstr ""
 
 #: src/as-content-rating.c:444
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: src/as-content-rating.c:453
 msgid "ALL"
-msgstr ""
+msgstr "Toate"
 
 #: src/as-content-rating.c:457 src/as-content-rating.c:560
 msgid "Adults Only"
-msgstr ""
+msgstr "Doar pentru adulți"
 
 #: src/as-content-rating.c:459 src/as-content-rating.c:559
-#, fuzzy
 msgid "Mature"
-msgstr "Recomandate"
+msgstr "Adult"
 
 #: src/as-content-rating.c:461 src/as-content-rating.c:558
 msgid "Teen"
-msgstr ""
+msgstr "Adolescenți"
 
 #: src/as-content-rating.c:463 src/as-content-rating.c:557
 msgid "Everyone 10+"
-msgstr ""
+msgstr "De la 10 ani în sus"
 
 #: src/as-content-rating.c:465 src/as-content-rating.c:556
 msgid "Everyone"
-msgstr ""
+msgstr "Toată lumea"
 
 #: src/as-content-rating.c:467 src/as-content-rating.c:555
 msgid "Early Childhood"
-msgstr ""
+msgstr "Copii mici"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:839
 msgid "No cartoon violence"
-msgstr ""
+msgstr "Desene animate fara violență"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:841
 msgid "Cartoon characters in unsafe situations"
-msgstr ""
+msgstr "Personaje animate in situații de nesiguranță"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:843
 msgid "Cartoon characters in aggressive conflict"
-msgstr ""
+msgstr "Personaje de desene animate în conflict agresiv"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:845
 msgid "Graphic violence involving cartoon characters"
-msgstr ""
+msgstr "Violență grafică care implică personaje de desene animate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:850
 msgid "No fantasy violence"
-msgstr ""
+msgstr "Fără violență fantezistă"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:852
 msgid "Characters in unsafe situations easily distinguishable from reality"
-msgstr ""
+msgstr "Personaje în situații nesigure, ușor de distins de realitate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:854
 msgid "Characters in aggressive conflict easily distinguishable from reality"
-msgstr ""
+msgstr "Personajele aflate în conflict agresiv se disting ușor de realitate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:856
 msgid "Graphic violence easily distinguishable from reality"
-msgstr ""
+msgstr "Violența grafică ușor de distins de realitate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:861
 msgid "No realistic violence"
-msgstr ""
+msgstr "Fără violență realistă"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:863
 msgid "Mildly realistic characters in unsafe situations"
-msgstr ""
+msgstr "Personaje ușor realiste în situații nesigure"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:865
 msgid "Depictions of realistic characters in aggressive conflict"
-msgstr ""
+msgstr "Prezentări ale personajelor realiste în conflict agresiv"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:867
 msgid "Graphic violence involving realistic characters"
-msgstr ""
+msgstr "Violență grafică care implică personaje realiste"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:872
 msgid "No bloodshed"
-msgstr ""
+msgstr "Fără vărsare de sânge"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:874
 msgid "Unrealistic bloodshed"
-msgstr ""
+msgstr "Vărsare de sânge nerealistă"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:876
 msgid "Realistic bloodshed"
-msgstr ""
+msgstr "Vărsare de sânge realistă"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:878
 msgid "Depictions of bloodshed and the mutilation of body parts"
-msgstr ""
+msgstr "Reprezentarea vărsării de sânge și mutilarea părților corpului"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:883
 msgid "No sexual violence"
-msgstr ""
+msgstr "Fără violență sexuală"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:885
 msgid "Rape or other violent sexual behavior"
-msgstr ""
+msgstr "Viol sau alt comportament sexual violent"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:892
 msgid "No references to alcohol"
-msgstr ""
+msgstr "Fără referiri la alcool"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:894
 msgid "References to alcoholic beverages"
-msgstr ""
+msgstr "Cu referiri la băuturi alcoolice"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:896
 msgid "Use of alcoholic beverages"
-msgstr ""
+msgstr "Utilizarea băuturilor alcoolice"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:902
 msgid "No references to illicit drugs"
-msgstr ""
+msgstr "Fără referiri la drogurile ilicite"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:904
 msgid "References to illicit drugs"
-msgstr ""
+msgstr "Cu referiri la droguri ilicite"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:906
 msgid "Use of illicit drugs"
-msgstr ""
+msgstr "Utilizarea drogurilor ilicite"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:912
 msgid "No references to tobacco products"
-msgstr ""
+msgstr "Nu există referiri la produsele din tutun"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:914
 msgid "References to tobacco products"
-msgstr ""
+msgstr "Referiri la produsele din tutun"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:916
 msgid "Use of tobacco products"
-msgstr ""
+msgstr "Utilizarea produselor din tutun"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:922
 msgid "No nudity of any sort"
-msgstr ""
+msgstr "Niciun fel de nuditate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:924
 msgid "Brief artistic nudity"
-msgstr ""
+msgstr "Puțină nuditate artistică"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:926
 msgid "Prolonged nudity"
-msgstr ""
+msgstr "Nuditate prelungită"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:932
 msgid "No references to or depictions of sexual nature"
-msgstr ""
+msgstr "Fără referiri sau descrieri de natură sexuală"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:934
 msgid "Provocative references or depictions"
-msgstr ""
+msgstr "Referințe provocatoare sau descrieri"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:936
 msgid "Sexual references or depictions"
-msgstr ""
+msgstr "Referințe sau descrieri sexuale"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:938
 msgid "Graphic sexual behavior"
-msgstr ""
+msgstr "Comportament sexual grafic"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:943
 msgid "No profanity of any kind"
-msgstr ""
+msgstr "Niciun fel de blasfemie"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:945
 msgid "Mild or infrequent use of profanity"
-msgstr ""
+msgstr "Utilizarea ușoară sau mai puțin frecventă a blasfemiei"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:947
 msgid "Moderate use of profanity"
-msgstr ""
+msgstr "Utilizarea moderată a blasfemiei"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:949
 msgid "Strong or frequent use of profanity"
-msgstr ""
+msgstr "Folosirea puternică sau frecventă a blasfemieii"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:954
 msgid "No inappropriate humor"
-msgstr ""
+msgstr "Fără umor nepotrivit"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:956
 msgid "Slapstick humor"
-msgstr ""
+msgstr "Umor infantil"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:958
 msgid "Vulgar or bathroom humor"
-msgstr ""
+msgstr "Umor vulgar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:960
 msgid "Mature or sexual humor"
-msgstr ""
+msgstr "Umor matur sau sexual"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:965
 msgid "No discriminatory language of any kind"
-msgstr ""
+msgstr "Nu există limbaj discriminatoriu de niciun fel"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:967
 msgid "Negativity towards a specific group of people"
-msgstr ""
+msgstr "Negativitate față de un anumit grup de oameni"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:969
 msgid "Discrimination designed to cause emotional harm"
-msgstr ""
+msgstr "Discriminare menită să provoace rău emoțional"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:971
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
-msgstr ""
+msgstr "Discriminare explicită bazată pe sex, sexualitate, rasă sau religie"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
 msgid "No advertising of any kind"
-msgstr ""
+msgstr "Nu există publicitate de niciun fel"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:978
 msgid "Product placement"
-msgstr ""
+msgstr "Plasare de produs"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:980
 msgid "Explicit references to specific brands or trademarked products"
-msgstr ""
+msgstr "Referințe explicite la anumite mărci sau produse comerciale"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:982
 msgid "Users are encouraged to purchase specific real-world items"
-msgstr ""
+msgstr "Utilizatorii sunt încurajați să cumpere articole specifice din lumea reală"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:987
 msgid "No gambling of any kind"
-msgstr ""
+msgstr "Fără jocuri de noroc"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:989
 msgid "Gambling on random events using tokens or credits"
-msgstr ""
+msgstr "Jocuri de noroc pe evenimente aleatorii folosind jetoane sau credite"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:991
 msgid "Gambling using “play” money"
-msgstr ""
+msgstr "Jocuri de noroc folosind bani „din joc”"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:993
 msgid "Gambling using real money"
-msgstr ""
+msgstr "Jocuri de noroc folosind bani reali"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:998
 msgid "No ability to spend money"
-msgstr ""
+msgstr "Nici o capacitate de a cheltui bani"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1000
 msgid "Users are encouraged to donate real money"
-msgstr ""
+msgstr "Utilizatorii sunt încurajați să doneze bani reali"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1003
 msgid "Ability to spend real money in-app"
-msgstr ""
+msgstr "Abilitatea de a cheltui bani reali în aplicație"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1008
 msgid "No way to chat with other users"
-msgstr ""
+msgstr "Nici o modalitate de a discuta cu alți utilizatori"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1010
