@@ -36,15 +36,13 @@
 #include <libxml/parser.h>
 #include <string.h>
 
-#include <libsoup/soup.h>
-#include <libsoup/soup-status.h>
-
 #include "as-validator.h"
 #include "as-validator-issue.h"
 #include "as-validator-issue-tag.h"
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-curl.h"
 #include "as-vercmp.h"
 #include "as-spdx.h"
 #include "as-component.h"
@@ -62,7 +60,7 @@ typedef struct
 	gchar		*current_fname;
 
 	gboolean	check_urls;
-	SoupSession	*soup_session;
+	AsCurl		*acurl;
 } AsValidatorPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidator, as_validator, G_TYPE_OBJECT)
@@ -99,7 +97,6 @@ as_validator_init (AsValidator *validator)
 							g_str_equal,
 							g_free,
 							(GDestroyNotify) g_ptr_array_unref);
-	priv->soup_session = NULL;
 	priv->current_fname = NULL;
 	priv->current_cpt = NULL;
 	priv->check_urls = FALSE;
@@ -123,8 +120,8 @@ as_validator_finalize (GObject *object)
 	if (priv->current_cpt != NULL)
 		g_object_unref (priv->current_cpt);
 
-	if (priv->soup_session != NULL)
-		g_object_unref (priv->soup_session);
+	if (priv->acurl != NULL)
+		g_object_unref (priv->acurl);
 
 	G_OBJECT_CLASS (as_validator_parent_class)->finalize (object);
 }
@@ -298,26 +295,21 @@ static gboolean
 as_validator_setup_networking (AsValidator *validator)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	g_autoptr(GError) tmp_error = NULL;
 
 	/* check if we are already initialized */
-	if (priv->soup_session != NULL)
+	if (priv->acurl != NULL)
 		return TRUE;
 
 	/* don't initialize if no URLs should be checked */
 	if (!priv->check_urls)
 		return TRUE;
 
-	priv->soup_session = soup_session_new_with_options (SOUP_SESSION_USER_AGENT,
-							    "appstream-validator",
-							    SOUP_SESSION_TIMEOUT,
-							    90,
-							    NULL);
-	if (priv->soup_session == NULL) {
-		g_critical ("Failed to set up networking support");
+	priv->acurl = as_curl_new (&tmp_error);
+	if (priv->acurl == NULL) {
+		g_critical ("Failed to set up networking support: %s", tmp_error->message);
 		return FALSE;
 	}
-	soup_session_add_feature_by_type (priv->soup_session,
-					  SOUP_TYPE_PROXY_RESOLVER_DEFAULT);
 	return TRUE;
 }
 
@@ -331,9 +323,8 @@ static gboolean
 as_validator_validate_web_url (AsValidator *validator, xmlNode *node, const gchar *url, const gchar *tag)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
-	guint status_code;
-	g_autoptr(SoupMessage) msg = NULL;
-	g_autoptr(SoupURI) base_uri = NULL;
+	g_autoptr(GBytes) bytes = NULL;
+	g_autoptr(GError) tmp_error = NULL;
 
 	/* we don't check mailto URLs */
 	if (g_str_has_prefix (url, "mailto:"))
@@ -347,43 +338,38 @@ as_validator_validate_web_url (AsValidator *validator, xmlNode *node, const gcha
 		return FALSE;
 	}
 
-	/* do nothing and assume the URL exists if we shouldn't check URLs */
-	if (!priv->check_urls)
-		return TRUE;
-
-	g_debug ("Checking URL: %s\n", url);
-	base_uri = soup_uri_new (url);
-	if (!SOUP_URI_VALID_FOR_HTTP (base_uri)) {
+	if (!as_curl_is_url (url)) {
 		as_validator_add_issue (validator, node, tag,
 					"%s - %s",
 					url,
 					_("URL format is invalid."));
 		return FALSE;
 	}
-	msg = soup_message_new_from_uri (SOUP_METHOD_GET, base_uri);
-	if (msg == NULL) {
-		g_warning ("Failed to setup HTTP GET message for URL.");
-		return FALSE;
-	}
+
+	/* do nothing and assume the URL exists if we shouldn't check URLs */
+	if (!priv->check_urls)
+		return TRUE;
+
+	g_debug ("Checking URL availability: %s\n", url);
 
 	/* try to download the file */
-	status_code = soup_session_send_message (priv->soup_session, msg);
-	if (SOUP_STATUS_IS_TRANSPORT_ERROR (status_code)) {
+	bytes = as_curl_download_bytes (priv->acurl, url, &tmp_error);
+	if (tmp_error != NULL) {
 		as_validator_add_issue (validator, node, tag,
 					"%s - %s",
 					url,
-					soup_status_get_phrase (status_code));
+					tmp_error->message);
 		return FALSE;
-	} else if (status_code != SOUP_STATUS_OK) {
+	} else if (bytes == NULL) {
 		as_validator_add_issue (validator, node, tag,
-					"%s - HTTP %d: %s",
+					"%s - %s",
 					url,
-					status_code, soup_status_get_phrase(status_code));
+					"Unknown error.");
 		return FALSE;
 	}
 
 	/* check if it's a zero sized file */
-	if (msg->response_body->length == 0) {
+	if (g_bytes_get_size (bytes) == 0) {
 		as_validator_add_issue (validator, node, tag,
 					"%s - %s",
 					url,
@@ -392,7 +378,7 @@ as_validator_validate_web_url (AsValidator *validator, xmlNode *node, const gcha
 		return FALSE;
 	}
 
-	/* we we din't get a zero-length file, we just assume everything is fine here */
+	/* if we we din't get a zero-length file, we just assume everything is fine here */
 	return TRUE;
 }
 

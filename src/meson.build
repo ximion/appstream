@@ -6,6 +6,7 @@ aslib_src = [
     'as-utils.c',
     # internal
     'as-cache.c',
+    'as-curl.c',
     'as-desktop-entry.c',
     'as-distro-extras.c',
     'as-news-convert.c',
@@ -90,6 +91,7 @@ aslib_priv_headers = [
     'as-component-private.h',
     'as-content-rating-private.h',
     'as-context-private.h',
+    'as-curl.h',
     'as-desktop-entry.h',
     'as-distro-details-private.h',
     'as-distro-extras.h',
@@ -159,7 +161,7 @@ aslib_src = aslib_src + [aslib_gperf_xml, aslib_gperf_yaml]
 aslib_deps = [glib_dep,
               gobject_dep,
               gio_unix_dep,
-              soup_dep,
+              curl_dep,
               lmdb_dep,
               xml2_dep,
               yaml_dep]

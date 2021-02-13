@@ -49,6 +49,7 @@ you may want to take a look at the [AppStream Generator](https://github.com/ximi
  * GObject-Introspection
  * libxml2
  * libyaml
+ * libcurl (>= 7.62)
  * LMDB
 
 #### Optional
