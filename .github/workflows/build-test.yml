@@ -38,14 +38,6 @@ jobs:
       run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
            ./tests/ci/run-tests.sh
 
-    - name: Build (asan, ubsan)
-      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
-           ./tests/ci/run-build.sh sanitize
-
-    - name: Test (asan, ubsan)
-      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
-           ./tests/ci/run-tests.sh sanitize
-
 
   build-ubuntu:
     name: Ubuntu LTS
@@ -61,3 +53,21 @@ jobs:
 
     - name: Test
       run: CC=gcc CXX=g++ ./tests/ci/run-tests.sh
+
+
+  build-sanitized:
+    name: Sanitizers
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Create Build Environment
+      run: cd tests/ci/ && docker build -t appstream -f ./Dockerfile-debian-testing .
+
+    - name: Build with asan, ubsan
+      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
+           ./tests/ci/run-build.sh sanitize
+
+    - name: Test with asan, ubsan
+      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
+           ./tests/ci/run-tests.sh sanitize
