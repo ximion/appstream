@@ -18,6 +18,10 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#if !defined (AS_COMPILATION)
+#error "Can not use internal AppStream API from external project."
+#endif
+
 #pragma once
 
 #include <glib-object.h>
