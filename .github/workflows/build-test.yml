@@ -10,14 +10,14 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Create Build Environment
-      run: cd tests/ci/ && docker build -t appstream -f ./Dockerfile-debian-stable .
+      run: cd tests/ci/ && podman build -t appstream -f ./Dockerfile-debian-stable .
 
     - name: Build
-      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
+      run: podman run -a stdout -a stderr -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
            ./tests/ci/run-build.sh
 
     - name: Test
-      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
+      run: podman run -a stdout -a stderr -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
            ./tests/ci/run-tests.sh
 
 
@@ -28,14 +28,14 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Create Build Environment
-      run: cd tests/ci/ && docker build -t appstream -f ./Dockerfile-debian-testing .
+      run: cd tests/ci/ && podman build -t appstream -f ./Dockerfile-debian-testing .
 
     - name: Build
-      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
+      run: podman run -a stdout -a stderr -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
            ./tests/ci/run-build.sh
 
     - name: Test
-      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
+      run: podman run -a stdout -a stderr -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
            ./tests/ci/run-tests.sh
 
 
@@ -62,12 +62,12 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Create Build Environment
-      run: cd tests/ci/ && docker build -t appstream -f ./Dockerfile-debian-stable .
+      run: cd tests/ci/ && podman build -t appstream -f ./Dockerfile-debian-testing .
 
     - name: Build with asan, ubsan
-      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
+      run: podman run -a stdout -a stderr --privileged -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
            ./tests/ci/run-build.sh sanitize
 
     - name: Test with asan, ubsan
-      run: docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
+      run: podman run -a stdout -a stderr --privileged -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
            ./tests/ci/run-tests.sh sanitize
