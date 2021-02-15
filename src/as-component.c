@@ -3876,43 +3876,25 @@ as_component_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	xmlNode *node;
 	GPtrArray *items;
-	guint i;
-	AsProvided *prov_mime;
 
 	if (priv->provided->len == 0)
 		return;
 
-	prov_mime = as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_MIMETYPE);
-	if (prov_mime != NULL) {
-		/* mimetypes get special treatment in XML for historical reasons */
-		node = xmlNewChild (cnode, NULL, (xmlChar*) "mimetypes", NULL);
-		items = as_provided_get_items (prov_mime);
-
-		for (i = 0; i < items->len; i++) {
-			xmlNewTextChild (node,
-					  NULL,
-					  (xmlChar*) "mimetype",
-					  (xmlChar*) g_ptr_array_index (items, i));
-		}
-
-		/* check if we only had mimetype provided items, in that case we don't need to continue */
-		if (priv->provided->len == 1)
-			return;
-	}
-
 	node = xmlNewChild (cnode, NULL, (xmlChar*) "provides", NULL);
-	for (i = 0; i < priv->provided->len; i++) {
+	for (guint i = 0; i < priv->provided->len; i++) {
 		guint j;
 		AsProvided *prov = AS_PROVIDED (g_ptr_array_index (priv->provided, i));
 
 		items = as_provided_get_items (prov);
 		switch (as_provided_get_kind (prov)) {
-			case AS_PROVIDED_KIND_MIMETYPE:
-				/* we already handled those */
-				break;
 			case AS_PROVIDED_KIND_ID:
 				as_xml_add_node_list (node, NULL,
 							"id",
+							items);
+				break;
+			case AS_PROVIDED_KIND_MEDIATYPE:
+				as_xml_add_node_list (node, NULL,
+							"mediatype",
 							items);
 				break;
 			case AS_PROVIDED_KIND_LIBRARY:
@@ -4080,34 +4062,84 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	/* component tags */
 	as_xml_add_text_node (cnode, "id", as_component_get_id (cpt));
 
+	/* name */
 	as_xml_add_localized_text_node (cnode, "name", priv->name);
+
+	/* name variant suffix */
+	if (priv->name_variant_suffix != NULL)
+		as_xml_add_localized_text_node (cnode, "name_variant_suffix", priv->name_variant_suffix);
+
+	/* summary */
 	as_xml_add_localized_text_node (cnode, "summary", priv->summary);
 
 	/* order license and project group after name/summary */
 	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO)
 		as_xml_add_text_node (cnode, "metadata_license", priv->metadata_license);
 
+	/* project license */
 	as_xml_add_text_node (cnode, "project_license", priv->project_license);
-	as_xml_add_text_node (cnode, "project_group", priv->project_group);
-
-	/* name variant suffix */
-	if (priv->name_variant_suffix != NULL)
-		as_xml_add_localized_text_node (cnode, "name_variant_suffix", priv->name_variant_suffix);
 
 	/* developer name */
 	as_xml_add_localized_text_node (cnode, "developer_name", priv->developer_name);
 
+	/* project group */
+	as_xml_add_text_node (cnode, "project_group", priv->project_group);
+
 	/* long description */
 	as_xml_add_description_node (ctx, cnode, priv->description);
 
+	/* extends nodes */
+	as_xml_add_node_list (cnode, NULL, "extends", priv->extends);
+
+	/* requires */
+	if (priv->requires->len > 0) {
+		xmlNode *rqnode = xmlNewChild (cnode, NULL, (xmlChar*) "requires", NULL);
+
+		for (guint i = 0; i < priv->requires->len; i++) {
+			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->requires, i));
+			as_relation_to_xml_node (relation, ctx, rqnode);
+		}
+	}
+
+	/* recommends */
+	if (priv->recommends->len > 0) {
+		xmlNode *rcnode = xmlNewChild (cnode, NULL, (xmlChar*) "recommends", NULL);
+
+		for (guint i = 0; i < priv->recommends->len; i++) {
+			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->recommends, i));
+			as_relation_to_xml_node (relation, ctx, rcnode);
+		}
+	}
+
+	/* suggests nodes */
+	for (guint i = 0; i < priv->suggestions->len; i++) {
+		AsSuggested *suggested = AS_SUGGESTED (g_ptr_array_index (priv->suggestions, i));
+		as_suggested_to_xml_node (suggested, ctx, cnode);
+	}
+
+	/* package name(s) (if any) */
 	as_xml_add_node_list_strv (cnode, NULL, "pkgname", priv->pkgnames);
 
-	as_xml_add_node_list (cnode, NULL, "extends", priv->extends);
-	as_xml_add_node_list (cnode, NULL, "compulsory_for_desktop", priv->compulsory_for_desktops);
-	as_xml_add_node_list (cnode, "categories", "category", priv->categories);
+	/* bundles */
+	for (guint i = 0; i < priv->bundles->len; i++) {
+		AsBundle *bundle = AS_BUNDLE (g_ptr_array_index (priv->bundles, i));
+		as_bundle_to_xml_node (bundle, ctx, cnode);
+	}
 
-	/* keywords */
-	as_component_xml_keywords_to_node (cpt, cnode);
+	/* launchables */
+	for (guint i = 0; i < priv->launchables->len; i++) {
+		AsLaunchable *launchable = AS_LAUNCHABLE (g_ptr_array_index (priv->launchables, i));
+		as_launchable_to_xml_node (launchable, ctx, cnode);
+	}
+
+	/* compulsory for desktop(s) */
+	as_xml_add_node_list (cnode, NULL, "compulsory_for_desktop", priv->compulsory_for_desktops);
+
+	/* icons */
+	for (guint i = 0; i < priv->icons->len; i++) {
+		AsIcon *icon = AS_ICON (g_ptr_array_index (priv->icons, i));
+		as_icon_to_xml_node (icon, ctx, cnode);
+	}
 
 	/* urls */
 	for (guint i = AS_URL_KIND_UNKNOWN; i < AS_URL_KIND_LAST; i++) {
@@ -4122,23 +4154,11 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 					(xmlChar*) as_url_kind_to_string (i));
 	}
 
-	/* icons */
-	for (guint i = 0; i < priv->icons->len; i++) {
-		AsIcon *icon = AS_ICON (g_ptr_array_index (priv->icons, i));
-		as_icon_to_xml_node (icon, ctx, cnode);
-	}
+	/* software sorting catgories */
+	as_xml_add_node_list (cnode, "categories", "category", priv->categories);
 
-	/* bundles */
-	for (guint i = 0; i < priv->bundles->len; i++) {
-		AsBundle *bundle = AS_BUNDLE (g_ptr_array_index (priv->bundles, i));
-		as_bundle_to_xml_node (bundle, ctx, cnode);
-	}
-
-	/* launchables */
-	for (guint i = 0; i < priv->launchables->len; i++) {
-		AsLaunchable *launchable = AS_LAUNCHABLE (g_ptr_array_index (priv->launchables, i));
-		as_launchable_to_xml_node (launchable, ctx, cnode);
-	}
+	/* provides node */
+	as_component_xml_serialize_provides (cpt, cnode);
 
 	/* translations */
 	if (priv->translations != NULL) {
@@ -4147,6 +4167,9 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 			as_translation_to_xml_node (tr, ctx, cnode);
 		}
 	}
+
+	/* languages node */
+	as_component_xml_serialize_languages (cpt, cnode);
 
 	/* screenshots */
 	if (priv->screenshots->len > 0) {
@@ -4157,6 +4180,9 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 			as_screenshot_to_xml_node (scr, ctx, rnode);
 		}
 	}
+
+	/* keywords */
+	as_component_xml_keywords_to_node (cpt, cnode);
 
 	/* agreements */
 	for (guint i = 0; i < priv->agreements->len; i++) {
@@ -4176,42 +4202,10 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 		}
 	}
 
-	/* provides & mimetypes node */
-	as_component_xml_serialize_provides (cpt, cnode);
-
-	/* languages node */
-	as_component_xml_serialize_languages (cpt, cnode);
-
-	/* suggests nodes */
-	for (guint i = 0; i < priv->suggestions->len; i++) {
-		AsSuggested *suggested = AS_SUGGESTED (g_ptr_array_index (priv->suggestions, i));
-		as_suggested_to_xml_node (suggested, ctx, cnode);
-	}
-
 	/* content_rating nodes */
 	for (guint i = 0; i < priv->content_ratings->len; i++) {
 		AsContentRating *ctrating = AS_CONTENT_RATING (g_ptr_array_index (priv->content_ratings, i));
 		as_content_rating_to_xml_node (ctrating, ctx, cnode);
-	}
-
-	/* recommends */
-	if (priv->recommends->len > 0) {
-		xmlNode *rcnode = xmlNewChild (cnode, NULL, (xmlChar*) "recommends", NULL);
-
-		for (guint i = 0; i < priv->recommends->len; i++) {
-			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->recommends, i));
-			as_relation_to_xml_node (relation, ctx, rcnode);
-		}
-	}
-
-	/* requires */
-	if (priv->requires->len > 0) {
-		xmlNode *rqnode = xmlNewChild (cnode, NULL, (xmlChar*) "requires", NULL);
-
-		for (guint i = 0; i < priv->requires->len; i++) {
-			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->requires, i));
-			as_relation_to_xml_node (relation, ctx, rqnode);
-		}
 	}
 
 	/* custom node */
@@ -4456,7 +4450,7 @@ as_component_yaml_parse_provides (AsComponent *cpt, GNode *node)
 			for (sn = n->children; sn != NULL; sn = sn->next) {
 				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_PYTHON, (gchar*) sn->data);
 			}
-		} else if ((g_strcmp0 (key, "mimetypes") == 0) || (g_strcmp0 (key, "mediatypes") == 0)) {
+		} else if (g_strcmp0 (key, "mediatypes") == 0) {
 			for (sn = n->children; sn != NULL; sn = sn->next) {
 				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MEDIATYPE, (gchar*) sn->data);
 			}
@@ -4843,9 +4837,9 @@ as_component_yaml_emit_provides (AsComponent *cpt, yaml_emitter_t *emitter)
 							"binaries",
 							items);
 				break;
-			case AS_PROVIDED_KIND_MIMETYPE:
+			case AS_PROVIDED_KIND_MEDIATYPE:
 				as_yaml_emit_sequence (emitter,
-							"mimetypes",
+							"mediatypes",
 							items);
 				break;
 			case AS_PROVIDED_KIND_PYTHON_2:

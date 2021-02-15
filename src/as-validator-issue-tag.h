@@ -717,6 +717,13 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The type of the item that the component provides is not known to AppStream."),
 	},
 
+	{ "mimetypes-tag-deprecated",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead "
+	     "to indicate that your software provides a media handler for the given types."),
+	},
+
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
 };
 

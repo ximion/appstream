@@ -186,7 +186,7 @@ test_appstream_parser_locale ()
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Feuerfuchs");
 	/* no french, so fallback */
 	as_component_set_active_locale (cpt, "fr_FR");
-	g_assert_cmpstr (as_component_get_name (cpt), ==, "Firefoux");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "Renard de feu");
 
 	/* check if reading <translation/> tag succeeded */
 	trs = as_component_get_translations (cpt);
@@ -213,37 +213,37 @@ test_appstream_write_locale ()
 	GError *error = NULL;
 
 	const gchar *EXPECTED_XML = "<component type=\"desktop-application\">\n"
-				    "  <id>firefox.desktop</id>\n"
+				    "  <id>org.mozilla.firefox</id>\n"
 				    "  <name>Firefox</name>\n"
 				    "  <name xml:lang=\"de_DE\">Feuerfuchs</name>\n"
-				    "  <name xml:lang=\"fr_FR\">Firefoux</name>\n"
+				    "  <name xml:lang=\"fr_FR\">Renard de feu</name>\n"
 				    "  <summary>Web browser</summary>\n"
 				    "  <summary xml:lang=\"fr_FR\">Navigateur web</summary>\n"
 				    "  <pkgname>firefox-bin</pkgname>\n"
+				    "  <icon type=\"stock\">web-browser</icon>\n"
+				    "  <icon type=\"cached\" width=\"64\" height=\"64\">firefox_web-browser.png</icon>\n"
+				    "  <url type=\"homepage\">http://www.mozilla.com</url>\n"
 				    "  <categories>\n"
 				    "    <category>network</category>\n"
 				    "    <category>web</category>\n"
 				    "  </categories>\n"
+				    "  <provides>\n"
+				    "    <mediatype>application/vnd.mozilla.xul+xml</mediatype>\n"
+				    "    <mediatype>application/x-xpinstall</mediatype>\n"
+				    "    <mediatype>application/xhtml+xml</mediatype>\n"
+				    "    <mediatype>text/html</mediatype>\n"
+				    "    <mediatype>text/mml</mediatype>\n"
+				    "    <mediatype>text/xml</mediatype>\n"
+				    "    <mediatype>x-scheme-handler/http</mediatype>\n"
+				    "    <mediatype>x-scheme-handler/https</mediatype>\n"
+				    "  </provides>\n"
+				    "  <translation type=\"gettext\">firefox</translation>\n"
 				    "  <keywords>\n"
 				    "    <keyword>internet</keyword>\n"
 				    "    <keyword>web</keyword>\n"
 				    "    <keyword>browser</keyword>\n"
 				    "    <keyword>navigateur</keyword>\n"
 				    "  </keywords>\n"
-				    "  <url type=\"homepage\">http://www.mozilla.com</url>\n"
-				    "  <icon type=\"stock\">web-browser</icon>\n"
-				    "  <icon type=\"cached\" width=\"64\" height=\"64\">firefox_web-browser.png</icon>\n"
-				    "  <translation type=\"gettext\">firefox</translation>\n"
-				    "  <mimetypes>\n"
-				    "    <mimetype>application/vnd.mozilla.xul+xml</mimetype>\n"
-				    "    <mimetype>application/x-xpinstall</mimetype>\n"
-				    "    <mimetype>application/xhtml+xml</mimetype>\n"
-				    "    <mimetype>text/html</mimetype>\n"
-				    "    <mimetype>text/mml</mimetype>\n"
-				    "    <mimetype>text/xml</mimetype>\n"
-				    "    <mimetype>x-scheme-handler/http</mimetype>\n"
-				    "    <mimetype>x-scheme-handler/https</mimetype>\n"
-				    "  </mimetypes>\n"
 				    "</component>\n";
 
 	metad = as_metadata_new ();
@@ -578,8 +578,8 @@ test_appstream_read_description (void)
 static const gchar *xmldata_simple =    "<component>\n"
 					"  <id>org.example.SimpleTest</id>\n"
 					"  <name>TestComponent</name>\n"
-					"  <summary>Just part of an unittest</summary>\n"
 					"  <name_variant_suffix>Generic</name_variant_suffix>\n"
+					"  <summary>Just part of an unittest</summary>\n"
 					"</component>\n";
 
 /**
@@ -716,12 +716,10 @@ test_xml_write_provides (void)
 	g_autofree gchar *res = NULL;
 	const gchar *expected_prov_xml = "<component>\n"
 					 "  <id>org.example.ProvidesTest</id>\n"
-					 "  <mimetypes>\n"
-					 "    <mimetype>text/plain</mimetype>\n"
-					 "    <mimetype>application/xml</mimetype>\n"
-					 "    <mimetype>image/png</mimetype>\n"
-					 "  </mimetypes>\n"
 					 "  <provides>\n"
+					 "    <mediatype>text/plain</mediatype>\n"
+					 "    <mediatype>application/xml</mediatype>\n"
+					 "    <mediatype>image/png</mediatype>\n"
 					 "    <binary>foobar</binary>\n"
 					 "    <binary>foobar-viewer</binary>\n"
 					 "    <dbus type=\"system\">org.example.ProvidesTest.Modify</dbus>\n"
@@ -1368,16 +1366,16 @@ test_xml_write_screenshots (void)
 
 static const gchar *xmldata_recommends_requires = "<component>\n"
 						  "  <id>org.example.RelationsTest</id>\n"
-						  "  <recommends>\n"
-						  "    <memory>2500</memory>\n"
-						  "    <modalias>usb:v1130p0202d*</modalias>\n"
-						  "    <display_length side=\"longest\" compare=\"le\">4200</display_length>\n"
-						  "  </recommends>\n"
 						  "  <requires>\n"
 						  "    <kernel version=\"4.15\" compare=\"ge\">Linux</kernel>\n"
 						  "    <id version=\"1.2\" compare=\"eq\">org.example.TestDependency</id>\n"
 						  "    <display_length>small</display_length>\n"
 						  "  </requires>\n"
+						  "  <recommends>\n"
+						  "    <memory>2500</memory>\n"
+						  "    <modalias>usb:v1130p0202d*</modalias>\n"
+						  "    <display_length side=\"longest\" compare=\"le\">4200</display_length>\n"
+						  "  </recommends>\n"
 						  "</component>\n";
 /**
  * test_xml_read_recommends_requires:

@@ -104,14 +104,14 @@
     <summary xml:lang="uk">Стеження за процесами та швидкодією системи</summary>
     <summary xml:lang="zh_CN">监视运行的进程和系统效率</summary>
     <summary xml:lang="zh_TW">監視執行中的行程與系統效能</summary>
+    <launchable type="desktop-id">org.kde.ksysguard.desktop</launchable>
+    <icon type="stock">utilities-system-monitor</icon>
     <categories>
       <category>System</category>
     </categories>
-    <icon type="stock">utilities-system-monitor</icon>
-    <launchable type="desktop-id">org.kde.ksysguard.desktop</launchable>
-    <mimetypes>
-      <mimetype>application/x-ksysguard</mimetype>
-    </mimetypes>
+    <provides>
+      <mediatype>application/x-ksysguard</mediatype>
+    </provides>
   </component>
   <component type="desktop-application" priority="-1">
     <id>org.gnome.Nautilus</id>
@@ -267,11 +267,17 @@
     <summary xml:lang="zh_CN">访问和组织文件</summary>
     <summary xml:lang="zh_HK">存取與組織檔案</summary>
     <summary xml:lang="zh_TW">存取與組織檔案</summary>
+    <launchable type="desktop-id">org.gnome.Nautilus.desktop</launchable>
+    <icon type="stock">org.gnome.Nautilus</icon>
     <categories>
       <category>Utility</category>
       <category>Core</category>
       <category>FileManager</category>
     </categories>
+    <provides>
+      <mediatype>inode/directory</mediatype>
+      <mediatype>application/x-gnome-saved-search</mediatype>
+    </provides>
     <keywords xml:lang="af">
       <keyword>folder</keyword>
       <keyword>manager</keyword>
@@ -903,11 +909,5 @@
       <keyword>磁碟</keyword>
       <keyword>檔案系統</keyword>
     </keywords>
-    <icon type="stock">org.gnome.Nautilus</icon>
-    <launchable type="desktop-id">org.gnome.Nautilus.desktop</launchable>
-    <mimetypes>
-      <mimetype>inode/directory</mimetype>
-      <mimetype>application/x-gnome-saved-search</mimetype>
-    </mimetypes>
   </component>
 </components>

@@ -1665,6 +1665,9 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags);
 			as_validator_check_children_quick (validator, iter, "mimetype", FALSE);
+			as_validator_add_issue (validator, iter,
+						"mimetypes-tag-deprecated",
+						NULL);
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags);
 			as_validator_check_provides (validator, iter, cpt);
