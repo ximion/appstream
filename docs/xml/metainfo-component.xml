@@ -607,12 +607,31 @@
 
 			<variablelist>
 			<varlistentry>
+				<term>&lt;mediatype/&gt;</term>
+				<listitem>
+				<para>
+					Describes the media types (also known as MIME types) this software supports, meaning it can open, edit or otherwise handle them.
+					This tag is especially useful for generic components and addon-type components. For applications, the metadata may automatically
+					be fetched from their <filename>.desktop</filename> files by the distribution's metadata generator if a desktop-entry file is set
+					as <xref linkend="tag-launchable"/>.
+				Example:
+				</para>
+				<programlisting language="XML">
+<![CDATA[<provides>
+    <mediatype>text/html</mediatype>
+    <mediatype>image/jpeg</mediatype>
+    <mediatype>application/rss+xml</mediatype>
+ </provides>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
 				<term>&lt;library/&gt;</term>
 				<listitem>
 				<para>
 					Contains the name of a shared library placed in a publicly accessible library path, such as <filename>/usr/lib</filename>, <filename>/usr/lib/&lt;triplet&gt;</filename>
 					or <filename>/lib</filename>.
-					For example, for the libappstream library, the value for <literal>library</literal> would be <userinput>libappstream.so.1</userinput>.
+					For example, for the <literal>libappstream</literal> library, the value for <literal>library</literal> would be <code>libappstream.so.1</code>.
 				</para>
 				</listitem>
 			</varlistentry>
@@ -957,16 +976,14 @@
 		<listitem>
 			<para>
 			This tag can contain one or more <code>&lt;mimetype/&gt;</code> children, describing the MIME types this application supports.
-			This tag is especially useful for generic components and addon-type components. For applications, the metadata will automatically
-			be fetched from their <filename>.desktop</filename> files by the distribution's metadata generator.
-			Example:
+		</para>
+		<important>
+			<title>Deprecation</title>
+			<para>
+				This tag is deprecated and should not be used for new metadata. Please use <xref linkend="tag-provides"/> ↪ <literal>mediatype</literal> tags
+				instead.
 			</para>
-			<programlisting language="XML">
-<![CDATA[<mimetypes>
-    <mimetype>text/html</mimetype>
-    <mimetype>image/jpeg</mimetype>
-    <mimetype>application/rss+xml</mimetype>
- </mimetypes>]]></programlisting>
+		</important>
 		</listitem>
 		</varlistentry>
 

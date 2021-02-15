@@ -302,22 +302,6 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-mimetypes">
-				<term>&lt;mimetypes/&gt;</term>
-				<listitem>
-					<para>
-						This tag can contain one or more <code><![CDATA[<mimetype>]]></code> tags, describing the mime types this component supports.
-						The data can usually be fetched from the Desktop files.
-						Example:
-					</para>
-					<programlisting language="XML"><![CDATA[<mimetypes>
-    <mimetype>text/html</mimetype>
-    <mimetype>image/jpeg</mimetype>
-    <mimetype>application/rss+xml</mimetype>
-</mimetypes>]]></programlisting>
-				</listitem>
-			</varlistentry>
-
 			<varlistentry id="tag-ct-categories">
 				<term>&lt;categories/&gt;</term>
 				<listitem>
@@ -655,16 +639,6 @@
       <category>network</category>
       <category>web</category>
     </categories>
-    <mimetypes>
-      <mimetype>text/html</mimetype>
-      <mimetype>text/xml</mimetype>
-      <mimetype>application/xhtml+xml</mimetype>
-      <mimetype>application/vnd.mozilla.xul+xml</mimetype>
-      <mimetype>text/mml</mimetype>
-      <mimetype>application/x-xpinstall</mimetype>
-      <mimetype>x-scheme-handler/http</mimetype>
-      <mimetype>x-scheme-handler/https</mimetype>
-    </mimetypes>
     <url type="homepage">https://www.mozilla.com</url>
     <screenshots>
       <screenshot type="default">
@@ -674,6 +648,15 @@
     </screenshots>
     <provides>
       <binary>firefox</binary>
+
+      <mediatype>text/html</mediatype>
+      <mediatype>text/xml</mediatype>
+      <mediatype>application/xhtml+xml</mediatype>
+      <mediatype>application/vnd.mozilla.xul+xml</mediatype>
+      <mediatype>text/mml</mediatype>
+      <mediatype>application/x-xpinstall</mediatype>
+      <mediatype>x-scheme-handler/http</mediatype>
+      <mediatype>x-scheme-handler/https</mediatype>
     </provides>
   </component>
   <component>

@@ -594,10 +594,10 @@
 						</varlistentry>
 
 						<varlistentry>
-						<term>mimetypes</term>
+						<term>mediatypes</term>
 						<listitem>
 							<para>
-								A list of mimetypes this component can handle.
+								A list of media types (MIME types) this component can handle.
 							</para>
 							<literallayout>Field info: <property>value-type</property>:<emphasis>list(str)</emphasis></literallayout>
 						</listitem>
@@ -986,7 +986,7 @@ Categories:
   - AudioVideo
   - Player
 Provides:
-  mimetypes:
+  mediatypes:
     - application/ogg
     - application/smil
     - application/vnd.ms-asf
@@ -1025,7 +1025,7 @@ Categories:
   - Office
   - Publishing
 Provides:
-  mimetypes:
+  mediatypes:
     - text/x-tex
 Screenshots:
   - default: true
