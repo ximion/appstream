@@ -273,7 +273,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "relation-item-invalid-vercmp",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("Invalid version comparison operation on relation item. Only eq/ne/lt/gt/le/ge are permitted.")
+	  N_("Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are permitted.")
+	},
+
+	{ "relation-item-has-vercmp",
+	  AS_ISSUE_SEVERITY_INFO,
+	  N_("The relation item has a comparison operation set, but does not support any comparisons.")
 	},
 
 	{ "relation-memory-in-requires",
@@ -290,10 +295,24 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	     "defined input control available on the system. This is usually not intended and you want to use `control` in the `recommends` tag instead.")
 	},
 
-	{ "relation-control-value-unknown",
+	{ "relation-control-value-invalid",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("This `control` item defines an unknown input method and is invalid. Check the specification for a list of permitted values.")
+	},
+
+	{ "relation-display-length-value-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This `display_length` item contains an invalid display length. Its value must either be a shorthand string, or positive integer value denoting logical pixels. "
+	     "Please refer to the AppStream specification for more information on this tag.")
+	},
+
+	{ "relation-display-length-side-property-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This `side` property of this `display_length` item contains an invalid value. It must either be `shortest` or `longest`, or unset to imply `shortest` to "
+	     "make the item value refer to either the shortest or longest side of the display.")
 	},
 
 	{ "component-type-invalid",

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- NOTE: This file is part of AppStream's testsuite, and is supposed
+to contain a lot of issues for the validator to catch -->
+
+<component type="desktop-application">
+  <id>org.example.goodid</id>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>FSFAP</project_license>
+
+  <name>A name</name>
+  <summary>A very pointless, but long-enough summary test, without end dot</summary>
+
+  <description>
+    <p>
+      A first, equally pointless but decently long explanatory paragraph, that just goes on in order
+      to satisfy the validator's length requirement for a first paragraph.
+    </p>
+  </description>
+
+  <recommends>
+    <control>telekinesis</control>
+    <control compare="gt">keyboard</control>
+    <id compare="gl" version="1.0">org.example.test</id>
+    <display_length>bleh</display_length>
+    <display_length>600</display_length>
+    <display_length side="alpha">small</display_length>
+  </recommends>
+</component>

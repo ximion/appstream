@@ -420,7 +420,7 @@ as_validator_check_type_property (AsValidator *validator, AsComponent *cpt, xmlN
 {
 	gchar *prop;
 	gchar *content;
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	prop = as_xml_get_prop_value (node, "type");
 	content = (gchar*) xmlNodeGetContent (node);
 	if (prop == NULL) {
 		as_validator_add_issue (validator, node,
@@ -554,7 +554,7 @@ as_validator_check_nolocalized (AsValidator *validator, xmlNode* node, const gch
 {
 	g_autofree gchar *lang = NULL;
 
-	lang = (gchar*) xmlGetProp (node, (xmlChar*) "lang");
+	lang = as_xml_get_prop_value (node, "lang");
 	if (lang != NULL) {
 		as_validator_add_issue (validator,
 					node,
@@ -709,7 +709,7 @@ as_validator_check_appear_once (AsValidator *validator, xmlNode *node, GHashTabl
 
 	/* generate tag-id to make a unique identifier for localized and unlocalized tags */
 	node_name = (const gchar*) node->name;
-	lang = (gchar*) xmlGetProp (node, (xmlChar*) "lang");
+	lang = as_xml_get_prop_value (node, "lang");
 	if (lang == NULL)
 		tag_id = g_strdup (node_name);
 	else
@@ -952,7 +952,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		scr_kind_str = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+		scr_kind_str = as_xml_get_prop_value (iter, "type");
 		if (g_strcmp0 (scr_kind_str, "default") == 0)
 			default_screenshot = TRUE;
 
@@ -1021,7 +1021,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 								video_url);
 				}
 
-				codec_str = (gchar*) xmlGetProp (iter2, (xmlChar*) "codec");
+				codec_str = as_xml_get_prop_value (iter2, "codec");
 				if (codec_str == NULL) {
 					as_validator_add_issue (validator, iter2, "screenshot-video-codec-missing", NULL);
 				} else {
@@ -1030,7 +1030,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 						as_validator_add_issue (validator, iter2, "screenshot-video-codec-invalid", codec_str);
 				}
 
-				container_str = (gchar*) xmlGetProp (iter2, (xmlChar*) "container");
+				container_str = as_xml_get_prop_value (iter2, "container");
 				if (container_str == NULL) {
 					as_validator_add_issue (validator, iter2, "screenshot-video-container-missing", NULL);
 				} else {
@@ -1082,15 +1082,18 @@ as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, A
 		const gchar *node_name;
 		g_autofree gchar *content = NULL;
 		g_autofree gchar *version = NULL;
-		gboolean can_have_version;
+		g_autofree gchar *compare_str = NULL;
+		gboolean can_have_version = FALSE;
+		gboolean can_have_compare = FALSE;
 		AsRelationItemKind item_kind;
+		AsRelationCompare compare;
 
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 		node_name = (const gchar*) iter->name;
 		content = as_xml_get_node_value (iter);
-		g_strstrip (content);
+		as_strstripnl (content);
 
 		item_kind = as_relation_item_kind_from_string (node_name);
 		if (item_kind == AS_RELATION_ITEM_KIND_UNKNOWN) {
@@ -1118,20 +1121,25 @@ as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, A
 		}
 
 		switch (item_kind) {
-		case AS_RELATION_ITEM_KIND_MEMORY:
 		case AS_RELATION_ITEM_KIND_MODALIAS:
 		case AS_RELATION_ITEM_KIND_CONTROL:
 			can_have_version = FALSE;
+			can_have_compare = FALSE;
+			break;
+		case AS_RELATION_ITEM_KIND_MEMORY:
+		case AS_RELATION_ITEM_KIND_DISPLAY_LENGTH:
+			can_have_version = FALSE;
+			can_have_compare = TRUE;
 			break;
 		default:
 			can_have_version = TRUE;
+			can_have_compare = TRUE;
 		}
 
-		version = (gchar*) xmlGetProp (iter, (xmlChar*) "version");
+		version = as_xml_get_prop_value (iter, "version");
+		compare_str = as_xml_get_prop_value (iter, "compare");
+		compare = as_relation_compare_from_string (compare_str);
 		if (version != NULL) {
-			AsRelationCompare compare;
-			g_autofree gchar *compare_str = (gchar*) xmlGetProp (iter, (xmlChar*) "compare");
-
 			if (!can_have_version) {
 				as_validator_add_issue (validator, iter,
 						"relation-item-has-version",
@@ -1143,13 +1151,16 @@ as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, A
 				as_validator_add_issue (validator, iter, "relation-item-missing-compare", NULL);
 				continue;
 			}
+		}
 
-			compare = as_relation_compare_from_string (compare_str);
-			if (compare == AS_RELATION_COMPARE_UNKNOWN) {
-				as_validator_add_issue (validator, iter,
-							"relation-item-invalid-vercmp",
-							compare_str);
-			}
+		if (can_have_compare && compare == AS_RELATION_COMPARE_UNKNOWN) {
+			as_validator_add_issue (validator, iter,
+						"relation-item-invalid-vercmp",
+						compare_str);
+		} else if (!can_have_compare && compare_str != NULL) {
+			as_validator_add_issue (validator, iter,
+						"relation-item-has-vercmp",
+						compare_str);
 		}
 
 		if (kind == AS_RELATION_KIND_REQUIRES) {
@@ -1159,9 +1170,24 @@ as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, A
 				as_validator_add_issue (validator, iter, "relation-control-in-requires", NULL);
 		}
 
+		/* check input control names for sanity */
 		if (item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
 			if (as_control_kind_from_string (content) == AS_CONTROL_KIND_UNKNOWN)
-				as_validator_add_issue (validator, iter, "relation-control-value-unknown", content);
+				as_validator_add_issue (validator, iter, "relation-control-value-invalid", content);
+		}
+
+		/* check display length for sanity */
+		if (item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
+			g_autofree gchar *side_str = NULL;
+			if (as_display_length_kind_from_string (content) == AS_DISPLAY_LENGTH_KIND_UNKNOWN) {
+				/* no text name, but we still may have an integer */
+				if (g_ascii_strtoll (content, NULL, 10) == 0)
+					as_validator_add_issue (validator, iter, "relation-display-length-value-invalid", content);
+			}
+
+			side_str = as_xml_get_prop_value (iter, "side");
+			if (as_display_side_kind_from_string (side_str) == AS_DISPLAY_SIDE_KIND_UNKNOWN)
+				as_validator_add_issue (validator, iter, "relation-display-length-side-property-invalid", side_str);
 		}
 	}
 }
@@ -1515,7 +1541,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	as_validator_set_current_cpt (validator, cpt);
 
 	/* check if component type is valid */
-	cpttype = (gchar*) xmlGetProp (root, (xmlChar*) "type");
+	cpttype = as_xml_get_prop_value (root, (xmlChar*) "type");
 	if (cpttype != NULL) {
 		if (as_component_kind_from_string (cpttype) == AS_COMPONENT_KIND_UNKNOWN) {
 			as_validator_add_issue (validator, root,
@@ -1561,7 +1587,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		node_content = (gchar*) xmlNodeGetContent (iter);
 
 		if (g_strcmp0 (node_name, "id") == 0) {
-			g_autofree gchar *prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+			g_autofree gchar *prop = as_xml_get_prop_value (iter, (xmlChar*) "type");
 			if (prop != NULL) {
 				as_validator_add_issue (validator, iter, "id-tag-has-type", node_content);
 			}

@@ -209,7 +209,52 @@ test_validator_manyerrors_desktopapp ()
 		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }
 	};
 
-	ret = _astest_validate_sample_fname (validator, "many-errors-desktopapp.xml");
+	ret = _astest_validate_sample_fname (validator, "validate_many-errors-desktopapp.xml");
+
+	issues = as_validator_get_issues (validator);
+	_astest_check_validate_issues (issues,
+				       (AsVResultCheck*) &expected_results);
+	g_assert_false (ret);
+}
+
+/**
+ * test_validator_relationissues:
+ *
+ * Test requires/recommends & Co.
+ */
+static void
+test_validator_relationissues ()
+{
+	gboolean ret;
+	g_autoptr(GList) issues = NULL;
+	g_autoptr(AsValidator) validator = as_validator_new ();
+
+	AsVResultCheck expected_results[] =  {
+		{ "relation-control-value-invalid",
+		  "telekinesis", 22,
+		  AS_ISSUE_SEVERITY_WARNING,
+		},
+		{ "relation-item-has-vercmp",
+		  "gt", 23,
+		  AS_ISSUE_SEVERITY_INFO,
+		},
+		{ "relation-item-invalid-vercmp",
+		  "gl", 24,
+		  AS_ISSUE_SEVERITY_ERROR,
+		},
+		{ "relation-display-length-side-property-invalid",
+		  "alpha", 27,
+		  AS_ISSUE_SEVERITY_WARNING,
+		},
+		{ "relation-display-length-value-invalid",
+		  "bleh", 25,
+		  AS_ISSUE_SEVERITY_WARNING,
+		},
+
+		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }
+	};
+
+	ret = _astest_validate_sample_fname (validator, "validate_relationissues.xml");
 
 	issues = as_validator_get_issues (validator);
 	_astest_check_validate_issues (issues,
@@ -238,6 +283,7 @@ main (int argc, char **argv)
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
 	g_test_add_func ("/AppStream/Validate/DesktopAppManyErrors", test_validator_manyerrors_desktopapp);
+	g_test_add_func ("/AppStream/Validate/RelationIssues", test_validator_relationissues);
 
 	ret = g_test_run ();
 	g_free (datadir);
