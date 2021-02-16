@@ -323,7 +323,6 @@ static gboolean
 as_validator_validate_web_url (AsValidator *validator, xmlNode *node, const gchar *url, const gchar *tag)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
-	g_autoptr(GBytes) bytes = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 
 	/* we don't check mailto URLs */
@@ -352,29 +351,12 @@ as_validator_validate_web_url (AsValidator *validator, xmlNode *node, const gcha
 
 	g_debug ("Checking URL availability: %s\n", url);
 
-	/* try to download the file */
-	bytes = as_curl_download_bytes (priv->acurl, url, &tmp_error);
-	if (tmp_error != NULL) {
+	/* try to download first few bytes of the file, get error if that fails */
+	if (!as_curl_check_url_exists (priv->acurl, url, &tmp_error)) {
 		as_validator_add_issue (validator, node, tag,
 					"%s - %s",
 					url,
 					tmp_error->message);
-		return FALSE;
-	} else if (bytes == NULL) {
-		as_validator_add_issue (validator, node, tag,
-					"%s - %s",
-					url,
-					"Unknown error.");
-		return FALSE;
-	}
-
-	/* check if it's a zero sized file */
-	if (g_bytes_get_size (bytes) == 0) {
-		as_validator_add_issue (validator, node, tag,
-					"%s - %s",
-					url,
-					/* TRANSLATORS: We tried to download from an URL, but the retrieved data was empty */
-					_("Retrieved file size was zero."));
 		return FALSE;
 	}
 

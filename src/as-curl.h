@@ -36,6 +36,7 @@ G_DECLARE_FINAL_TYPE (AsCurl, as_curl, AS, CURL, GObject)
  * @AS_CURL_ERROR_FAILED:	Generic failure.
  * @AS_CURL_ERROR_REMOTE:	Some issue happened on the remote side.
  * @AS_CURL_ERROR_DOWNLOAD:	Download failed.
+ * @AS_CURL_ERROR_SIZE:		Some filesize value was unexpected.
  *
  * An cURL error.
  **/
@@ -43,6 +44,7 @@ typedef enum {
 	AS_CURL_ERROR_FAILED,
 	AS_CURL_ERROR_REMOTE,
 	AS_CURL_ERROR_DOWNLOAD,
+	AS_CURL_ERROR_SIZE,
 	/*< private >*/
 	AS_CURL_ERROR_LAST
 } AsCurlError;
@@ -55,6 +57,10 @@ AsCurl			*as_curl_new (GError **error);
 GBytes			*as_curl_download_bytes (AsCurl *acurl,
 						 const gchar *url,
 						 GError **error);
+
+gboolean		as_curl_check_url_exists (AsCurl *acurl,
+						  const gchar *url,
+						  GError **error);
 
 gboolean		as_curl_is_url (const gchar *url);
 
