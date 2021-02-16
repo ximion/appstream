@@ -1,3 +1,22 @@
+Version 0.14.1
+~~~~~~~~~~~~~~
+Released: 2021-02-16
+
+Features:
+ * Switch back from Soup to cURL for HTTP(S) (Matthias Klumpp)
+ * validator: Check a few more things on requires/recommends items (Matthias Klumpp)
+ * Only download the first bytes of a file when checking URLs for validity (Matthias Klumpp)
+
+Specification:
+ * spec: Officially mark <mimetypes/> tag as deprecated (Matthias Klumpp)
+
+Bugfixes:
+ * qt: Return better errors in AppStream::Metadata (Matthias Klumpp)
+ * Do not automatically clean up errors that will be propagated (Matthias Klumpp)
+ * Remove overall extern "C" to make very new (2.67+) GLib versions happy (Matthias Klumpp)
+ * ascli: Don’t use GNU C extension type names (Philip Withnall)
+ * build: Use c11 rather than gnu11 and define vendor extensions separately (Philip Withnall)
+
 Version 0.14.0
 ~~~~~~~~~~~~~~
 Released: 2021-02-02
