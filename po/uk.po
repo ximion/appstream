@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-02-16 20:08+0100\n"
-"PO-Revision-Date: 2021-02-16 19:16+0000\n"
+"PO-Revision-Date: 2021-02-17 01:13+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
@@ -941,13 +941,13 @@ msgstr "Не вдалося отримати файл: %s"
 #: src/as-curl.c:157
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "Адресу не було знайдено на сервері."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:164
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Неочікуваний код стану: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:247
@@ -1449,19 +1449,16 @@ msgstr ""
 "порівняння."
 
 #: src/as-validator-issue-tag.h:276
-#, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are "
 "permitted."
-msgstr ""
-"У записі порівняння виявлено некоректне порівняння версій. Можна "
-"використовувати лише операції eq, ne, lt, gt, le та ge."
+msgstr "У записі залежності виявлено некоректну операцію з порівняння. Можна використовувати лише операції eq, ne, lt, gt, le та ge."
 
 #: src/as-validator-issue-tag.h:281
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
+msgstr "У записі зв'язку встановлено операцію з порівняння, але підтримки порівнянь там не передбачено."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:287
@@ -1507,7 +1504,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
+msgstr "Запис «display_length» містить некоректну довжину для показу. Значення запису має бути або рядком-скороченням, або додатним цілим значенням, яке позначає кількість логічних пікселів. Будь ласка, зверніться до специфікації AppStream, щоб дізнатися більше про цей теґ."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:314
@@ -1516,7 +1513,7 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
+msgstr "Властивість «side» цього запису «display_length» містить некоректне значення. Значенням має бути або «shortest», або «longest». Якщо значення не встановлено, буде використано значення «shortest». Відповідно до значення запису буде використано найкоротший (shortest) або найдовший (longest) з розмірів дисплея."
 
 #: src/as-validator-issue-tag.h:320
 msgid ""
@@ -2079,7 +2076,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
+msgstr "Теґ верхнього рівня «mimetypes» вважається застарілим. Будь ласка, скористайтеся замість нього теґами «mediatype» у блоці «provides» для позначення того, що ваше програмне забезпечення надає обробник мультимедійних даних для вказаних типів."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2187,10 +2184,8 @@ msgstr "Примусове оновлення кешу."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstream-cli.c:463
-#, fuzzy
 msgid "Set the data origin for the installed metadata collection file."
-msgstr ""
-"Встановити вказану дату походження для встановленого файла збірки метаданих."
+msgstr "Встановити дату походження для встановленого файла збірки метаданих."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstream-cli.c:468
