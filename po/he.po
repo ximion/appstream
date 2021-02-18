@@ -7,13 +7,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-02-16 20:08+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2021-02-18 04:50+0000\n"
+"Last-Translator: Omer I.S. <omeritzicschwartz@gmail.com>\n"
+"Language-Team: Hebrew <https://hosted.weblate.org/projects/appstream/translations/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && n % 10 == 0) ? 2 : 3));\n"
+"X-Generator: Weblate 4.5\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -21,7 +23,7 @@ msgstr ""
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr ""
+msgstr "עזר לעבודה עם נתוני העל של AppStream"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid "AppStream is a cross-distribution specification to provide metadata about software components."
@@ -34,22 +36,22 @@ msgstr ""
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
 msgid "Featured"
-msgstr ""
+msgstr "מומלצים"
 
 #: src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr ""
+msgstr "יצירה ועריכת שמע"
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
-msgstr ""
+msgstr "נגני מוזיקה"
 
 #: src/as-category.c:83
 msgctxt "Category of Development"
 msgid "Featured"
-msgstr ""
+msgstr "מומלצים"
 
 #: src/as-category.c:86
 msgctxt "Category of Development"
@@ -64,32 +66,32 @@ msgstr ""
 #: src/as-category.c:98
 msgctxt "Category of Education"
 msgid "Featured"
-msgstr ""
+msgstr "מומלצים"
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
 msgid "Astronomy"
-msgstr ""
+msgstr "אסטרונומיה"
 
 #: src/as-category.c:104
 msgctxt "Category of Education"
 msgid "Chemistry"
-msgstr ""
+msgstr "כימיה"
 
 #: src/as-category.c:107
 msgctxt "Category of Education"
 msgid "Languages"
-msgstr ""
+msgstr "שפות"
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
-msgstr ""
+msgstr "מתמטיקה"
 
 #: src/as-category.c:120
 msgctxt "Category of Games"
 msgid "Featured"
-msgstr ""
+msgstr "מומלצים"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -104,7 +106,7 @@ msgstr ""
 #: src/as-category.c:129
 msgctxt "Category of Games"
 msgid "Arcade"
-msgstr ""
+msgstr "ארקייד"
 
 #: src/as-category.c:132
 msgctxt "Category of Games"
@@ -114,12 +116,12 @@ msgstr ""
 #: src/as-category.c:135
 msgctxt "Category of Games"
 msgid "Board"
-msgstr ""
+msgstr "לוח"
 
 #: src/as-category.c:138
 msgctxt "Category of Games"
 msgid "Card"
-msgstr ""
+msgstr "קלפים"
 
 #: src/as-category.c:141
 msgctxt "Category of Games"
@@ -129,7 +131,7 @@ msgstr ""
 #: src/as-category.c:144
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr ""
+msgstr "ילדים"
 
 #: src/as-category.c:147
 msgctxt "Category of Games"
@@ -139,22 +141,22 @@ msgstr ""
 #: src/as-category.c:150
 msgctxt "Category of Games"
 msgid "Role Playing"
-msgstr ""
+msgstr "משחקי תפקידים"
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
-msgstr ""
+msgstr "ספורט"
 
 #: src/as-category.c:157
 msgctxt "Category of Games"
 msgid "Strategy"
-msgstr ""
+msgstr "אסטרטגיה"
 
 #: src/as-category.c:165
 msgctxt "Category of Graphics"
 msgid "Featured"
-msgstr ""
+msgstr "מומלצים"
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -164,52 +166,52 @@ msgstr ""
 #: src/as-category.c:171
 msgctxt "Category of Graphics"
 msgid "Photography"
-msgstr ""
+msgstr "צילום"
 
 #: src/as-category.c:174
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr ""
+msgstr "סריקה"
 
 #: src/as-category.c:177
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr ""
+msgstr "גרפיקה וקטורית"
 
 #: src/as-category.c:180
 msgctxt "Category of Graphics"
 msgid "Viewers"
-msgstr ""
+msgstr "מציגים"
 
 #: src/as-category.c:188
 msgctxt "Category of Office"
 msgid "Featured"
-msgstr ""
+msgstr "מומלצים"
 
 #: src/as-category.c:191
 msgctxt "Category of Office"
 msgid "Calendar"
-msgstr ""
+msgstr "לוח שנה"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Database"
-msgstr ""
+msgstr "מסד נתונים"
 
 #: src/as-category.c:198
 msgctxt "Category of Office"
 msgid "Finance"
-msgstr ""
+msgstr "כספים"
 
 #: src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr ""
+msgstr "מעבד תמלילים"
 
 #: src/as-category.c:211
 msgctxt "Category of Addons"
 msgid "Fonts"
-msgstr ""
+msgstr "גופנים"
 
 #: src/as-category.c:214
 msgctxt "Category of Addons"
@@ -229,67 +231,67 @@ msgstr ""
 #: src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
-msgstr ""
+msgstr "המקמה"
 
 #: src/as-category.c:231
 msgctxt "Category of Science"
 msgid "Featured"
-msgstr ""
+msgstr "מומלצים"
 
 #: src/as-category.c:234
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
-msgstr ""
+msgstr "בינה מלאכותית"
 
 #: src/as-category.c:237
 msgctxt "Category of Science"
 msgid "Astronomy"
-msgstr ""
+msgstr "אסטרונומיה"
 
 #: src/as-category.c:240
 msgctxt "Category of Science"
 msgid "Chemistry"
-msgstr ""
+msgstr "כימיה"
 
 #: src/as-category.c:243
 msgctxt "Category of Science"
 msgid "Math"
-msgstr ""
+msgstr "מתמטיקה"
 
 #: src/as-category.c:248
 msgctxt "Category of Science"
 msgid "Robotics"
-msgstr ""
+msgstr "רובוטיקה"
 
 #: src/as-category.c:256
 msgctxt "Category of Communication"
 msgid "Featured"
-msgstr ""
+msgstr "מומלצים"
 
 #: src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
-msgstr ""
+msgstr "צ׳אט"
 
 #: src/as-category.c:266
 msgctxt "Category of Communication"
 msgid "News"
-msgstr ""
+msgstr "חדשות"
 
 #: src/as-category.c:270
 msgctxt "Category of Communication"
 msgid "Web Browsers"
-msgstr ""
+msgstr "דפדפני רשת"
 
 #: src/as-category.c:278
 msgctxt "Category of Utility"
 msgid "Featured"
-msgstr ""
+msgstr "מומלצים"
 
 #: src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
-msgstr ""
+msgstr "עורכי טקסט"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
@@ -299,7 +301,7 @@ msgstr ""
 #: src/as-category.c:287
 msgctxt "Category of Utility"
 msgid "File System"
-msgstr ""
+msgstr "מערכת קבצים"
 
 #: src/as-category.c:290
 msgctxt "Category of Utility"
@@ -309,12 +311,12 @@ msgstr ""
 #: src/as-category.c:293
 msgctxt "Category of Utility"
 msgid "Security"
-msgstr ""
+msgstr "אבטחה"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: src/as-category.c:302
 msgid "Audio & Video"
-msgstr ""
+msgstr "שמע ווידאו"
 
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:305
@@ -324,33 +326,33 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
 msgid "Education"
-msgstr ""
+msgstr "חינוך"
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
-msgstr ""
+msgstr "משחקים"
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
 msgid "Graphics & Photography"
-msgstr ""
+msgstr "גרפיקה וצילום"
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
 msgid "Office"
-msgstr ""
+msgstr "משרד"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
 #: src/as-category.c:320 tools/ascli-utils.c:372
 msgid "Add-ons"
-msgstr ""
+msgstr "תוספים"
 
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
 msgid "Science"
-msgstr ""
+msgstr "מדע"
 
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
@@ -360,14 +362,14 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
 msgid "Utilities"
-msgstr ""
+msgstr "עזרים"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. * of the rating e.g. "Adults Only (solo adultos)"
 #: src/as-content-rating.c:298
 #, c-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: src/as-content-rating.c:444
 msgid "General"
@@ -375,31 +377,31 @@ msgstr ""
 
 #: src/as-content-rating.c:453
 msgid "ALL"
-msgstr ""
+msgstr "הכול"
 
 #: src/as-content-rating.c:457 src/as-content-rating.c:560
 msgid "Adults Only"
-msgstr ""
+msgstr "למבוגרים בלבד"
 
 #: src/as-content-rating.c:459 src/as-content-rating.c:559
 msgid "Mature"
-msgstr ""
+msgstr "למבוגרים"
 
 #: src/as-content-rating.c:461 src/as-content-rating.c:558
 msgid "Teen"
-msgstr ""
+msgstr "לנוער"
 
 #: src/as-content-rating.c:463 src/as-content-rating.c:557
 msgid "Everyone 10+"
-msgstr ""
+msgstr "לגילאי 10+"
 
 #: src/as-content-rating.c:465 src/as-content-rating.c:556
 msgid "Everyone"
-msgstr ""
+msgstr "לכולם"
 
 #: src/as-content-rating.c:467 src/as-content-rating.c:555
 msgid "Early Childhood"
-msgstr ""
+msgstr "לגיל הרך"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:839
@@ -932,7 +934,7 @@ msgstr ""
 
 #: src/as-pool.c:612
 msgid "Unable to remove old cache."
-msgstr ""
+msgstr "אין אפשרות להסיר את המטמון הישן."
 
 #: src/as-pool.c:890
 msgid "Metadata files have errors:"
@@ -963,7 +965,7 @@ msgstr ""
 
 #: src/as-provided.c:144
 msgid "Libraries"
-msgstr ""
+msgstr "ספריות"
 
 #: src/as-provided.c:146
 msgid "Binaries"
@@ -975,7 +977,7 @@ msgstr ""
 
 #: src/as-provided.c:150
 msgid "Fonts"
-msgstr ""
+msgstr "גופנים"
 
 #: src/as-provided.c:152
 msgid "Modaliases"
@@ -1734,7 +1736,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:1037
 msgid "Show the program version."
-msgstr ""
+msgstr "הצגת גרסת התוכנית."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:1043
@@ -2025,7 +2027,7 @@ msgstr ""
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:145
 msgid "Summary:"
-msgstr ""
+msgstr "סיכום:"
 
 #: tools/ascli-actions-misc.c:153
 #, c-format
@@ -2123,13 +2125,13 @@ msgstr ""
 #: tools/ascli-actions-validate.c:228
 #, c-format
 msgid "errors: %lu"
-msgstr ""
+msgstr "שגיאות: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "warning"-type hints
 #: tools/ascli-actions-validate.c:235
 #, c-format
 msgid "warnings: %lu"
-msgstr ""
+msgstr "אזהרות: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "info"-type hints
 #: tools/ascli-actions-validate.c:242
@@ -2196,11 +2198,11 @@ msgstr ""
 
 #: tools/ascli-utils.c:274
 msgid "Homepage"
-msgstr ""
+msgstr "דף הבית"
 
 #: tools/ascli-utils.c:275
 msgid "Icon"
-msgstr ""
+msgstr "סמל"
 
 #. developer name
 #: tools/ascli-utils.c:295
@@ -2213,7 +2215,7 @@ msgstr ""
 
 #: tools/ascli-utils.c:307
 msgid "Description"
-msgstr ""
+msgstr "תיאור"
 
 #: tools/ascli-utils.c:327
 msgid "Default Screenshot URL"
@@ -2227,11 +2229,11 @@ msgstr ""
 #. license
 #: tools/ascli-utils.c:337
 msgid "License"
-msgstr ""
+msgstr "רישיון"
 
 #: tools/ascli-utils.c:343
 msgid "Categories"
-msgstr ""
+msgstr "קטגוריות"
 
 #: tools/ascli-utils.c:351
 msgid "Compulsory for"
