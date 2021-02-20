@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-02-16 20:08+0100\n"
-"PO-Revision-Date: 2021-02-18 04:50+0000\n"
+"PO-Revision-Date: 2021-02-20 11:28+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
@@ -1500,7 +1500,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
+msgstr "Ten element „display_length” zawiera nieprawidłową długość ekranu. Jego wartość musi być ciągiem skrótu lub dodatnią wartością całkowitą określającą logiczne piksele. Specyfikacja AppStream zawiera więcej informacji o tym znaczniku."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:314
@@ -1509,7 +1509,7 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
+msgstr "Ta właściwość „side” tego elementu „display_length” zawiera nieprawidłową wartość. Musi wynosić „shortest” lub „longest”, albo nie być ustawiona, aby znaczyć „shortest”, aby wartość elementu odnosiła się do najkrótszej lub najdłuższej strony ekranu."
 
 #: src/as-validator-issue-tag.h:320
 msgid ""
@@ -2064,7 +2064,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
+msgstr "Znacznik „mimetypes” najwyższego poziomu jest przestarzały. Proszę zamiast tego użyć znaczników „mediatype” w bloku „provides”, aby wskazać, że oprogramowanie dostarcza obsługę multimediów o podanych typach."
 
 #: src/as-validator.c:150
 msgid ""
