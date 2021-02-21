@@ -14,6 +14,12 @@ if [ "$1" = "sanitize" ]; then
     echo "Testing sanitized build."
     # Slow unwind, but we get better backtraces
     export ASAN_OPTIONS=fast_unwind_on_malloc=0
+
+    # no GLib memory pools
+    export G_SLICE=always-malloc
+
+    # pedantic malloc
+    export MALLOC_CHECK_=3
 fi;
 
 if [ ! -d "$build_dir" ]; then
