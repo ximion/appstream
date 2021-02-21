@@ -48,10 +48,11 @@ static QList<Component> cptArrayToQList(GPtrArray *cpts)
     QList<Component> res;
     res.reserve(cpts->len);
     for (uint i = 0; i < cpts->len; i++) {
-        auto cpt = AS_COMPONENT(g_ptr_array_index(cpts, i));
-        Component x(cpt);
-        res.append(x);
+        auto ccpt = AS_COMPONENT(g_ptr_array_index(cpts, i));
+        Component cpt(ccpt);
+        res.append(cpt);
     }
+    g_ptr_array_unref (cpts);
     return res;
 }
 

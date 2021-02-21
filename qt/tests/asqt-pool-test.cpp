@@ -34,7 +34,7 @@ using namespace AppStream;
 void PoolReadTest::testRead01()
 {
     // set up the data pool to read our sample data, without localization
-    auto pool = new Pool();
+    auto pool = std::make_unique<Pool>();
 
     pool->clearMetadataLocations();
     pool->addMetadataLocation(AS_SAMPLE_DATA_PATH);
@@ -62,8 +62,6 @@ void PoolReadTest::testRead01()
     QVERIFY(!cpt.id().isEmpty());
 
     QCOMPARE(cpt.name(), QLatin1String("Neverball"));
-
-    delete pool;
 }
 
 QTEST_MAIN(PoolReadTest)

@@ -170,13 +170,11 @@ test_cache ()
 	as_pool_load (pool, NULL, &error);
 	g_assert_no_error (error);
 
-	cpts_prev = as_pool_get_components (pool);
-	g_assert_cmpint (cpts_prev->len, ==, 19);
-
 	/* get XML representation of the data currently in the pool */
 	mdata = as_metadata_new ();
 	cpts_prev = as_pool_get_components (pool);
 	as_sort_components (cpts_prev);
+	g_assert_cmpint (cpts_prev->len, ==, 19);
 	for (guint i = 0; i < cpts_prev->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts_prev, i));
 
@@ -252,11 +250,12 @@ test_pool_read ()
 	g_autoptr(GPtrArray) all_cpts = NULL;
 	g_autoptr(GPtrArray) result = NULL;
 	g_autoptr(GPtrArray) categories = NULL;
+	g_autoptr(AsComponent) cpt_a = NULL;
+	AsComponent *cpt_s = NULL;
 	gchar **strv;
 	GPtrArray *rels;
 	AsRelease *rel;
 	GPtrArray *artifacts;
-	AsComponent *cpt;
 	AsBundle *bundle;
 	g_autoptr(GError) error = NULL;
 
@@ -280,8 +279,8 @@ test_pool_read ()
 	result = as_pool_search (dpool, "kig");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
-	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));
-	g_assert_cmpstr (as_component_get_pkgnames (cpt)[0], ==, "kig");
+	cpt_s = AS_COMPONENT (g_ptr_array_index (result, 0));
+	g_assert_cmpstr (as_component_get_pkgnames (cpt_s)[0], ==, "kig");
 	g_clear_pointer (&result, g_ptr_array_unref);
 
 	result = as_pool_search (dpool, "web");
@@ -321,25 +320,25 @@ test_pool_read ()
 	result = as_pool_get_components_by_provided_item (dpool, AS_PROVIDED_KIND_BINARY, "inkscape");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
-	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));
+	cpt_s = AS_COMPONENT (g_ptr_array_index (result, 0));
 
-	g_assert_cmpstr (as_component_get_name (cpt), ==, "Inkscape");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), ==, "https://inkscape.org/");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_FAQ), ==, "https://inkscape.org/learn/faq/");
+	g_assert_cmpstr (as_component_get_name (cpt_s), ==, "Inkscape");
+	g_assert_cmpstr (as_component_get_url (cpt_s, AS_URL_KIND_HOMEPAGE), ==, "https://inkscape.org/");
+	g_assert_cmpstr (as_component_get_url (cpt_s, AS_URL_KIND_FAQ), ==, "https://inkscape.org/learn/faq/");
 
 	g_clear_pointer (&result, g_ptr_array_unref);
 
 	/* test a component in a different file, with no package but a bundle instead */
-	cpt = _as_get_single_component_by_cid (dpool, "org.neverball.Neverball");
-	g_assert_nonnull (cpt);
+	cpt_a = _as_get_single_component_by_cid (dpool, "org.neverball.Neverball");
+	g_assert_nonnull (cpt_a);
 
-	g_assert_cmpstr (as_component_get_name (cpt), ==, "Neverball");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), ==, "http://neverball.org/");
-	bundle = as_component_get_bundle (cpt, AS_BUNDLE_KIND_LIMBA);
+	g_assert_cmpstr (as_component_get_name (cpt_a), ==, "Neverball");
+	g_assert_cmpstr (as_component_get_url (cpt_a, AS_URL_KIND_HOMEPAGE), ==, "http://neverball.org/");
+	bundle = as_component_get_bundle (cpt_a, AS_BUNDLE_KIND_LIMBA);
 	g_assert_nonnull (bundle);
 	g_assert_cmpstr (as_bundle_get_id (bundle), ==, "neverball-1.6.0");
 
-	rels = as_component_get_releases (cpt);
+	rels = as_component_get_releases (cpt_a);
 	g_assert_cmpint (rels->len, ==, 2);
 
 	rel = AS_RELEASE (g_ptr_array_index (rels, 0));
@@ -398,8 +397,8 @@ test_pool_read ()
 		}
 
 		if (g_strcmp0 (cat_id, "graphics") == 0) {
-			cpt = g_ptr_array_index (as_category_get_components (cat), 0);
-			g_assert_cmpstr (as_component_get_id (cpt), ==, "org.inkscape.Inkscape");
+			AsComponent *tmp_cpt = g_ptr_array_index (as_category_get_components (cat), 0);
+			g_assert_cmpstr (as_component_get_id (tmp_cpt), ==, "org.inkscape.Inkscape");
 		}
 	}
 
@@ -410,8 +409,8 @@ test_pool_read ()
 
 	result = as_pool_get_components_by_launchable (dpool, AS_LAUNCHABLE_KIND_DESKTOP_ID, "inkscape.desktop");
 	g_assert_cmpint (result->len, ==, 1);
-	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));
-	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.inkscape.Inkscape");
+	cpt_s = AS_COMPONENT (g_ptr_array_index (result, 0));
+	g_assert_cmpstr (as_component_get_id (cpt_s), ==, "org.inkscape.Inkscape");
 	g_clear_pointer (&result, g_ptr_array_unref);
 }
 
@@ -518,7 +517,7 @@ static void
 test_merge_components ()
 {
 	g_autoptr(AsPool) dpool = NULL;
-	AsComponent *cpt;
+	g_autoptr(AsComponent) cpt = NULL;
 	GPtrArray *suggestions;
 	AsSuggested *suggested;
 	GPtrArray *cpt_ids;
@@ -542,6 +541,7 @@ test_merge_components ()
 	g_assert_cmpint (cpt_ids->len, ==, 2);
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 0), ==, "org.example.test1");
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 1), ==, "org.example.test2");
+	g_clear_pointer (&cpt, g_object_unref);
 
 	cpt = _as_get_single_component_by_cid (dpool, "literki.desktop");
 	g_assert_nonnull (cpt);
@@ -554,6 +554,7 @@ test_merge_components ()
 	g_assert_cmpint (cpt_ids->len, ==, 2);
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 0), ==, "org.example.test3");
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 1), ==, "org.example.test4");
+	g_clear_pointer (&cpt, g_object_unref);
 
 	/* test if names get overridden */
 	cpt = _as_get_single_component_by_cid (dpool, "kiki.desktop");
