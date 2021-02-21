@@ -721,7 +721,7 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	MDB_txn *txn = NULL;
 	MDB_dbi db_config;
 	g_autofree gchar *cache_format = NULL;
-	mdb_mode_t db_mode;
+	unsigned int db_flags;
 	gboolean nosync;
 	gboolean readonly;
 	g_autoptr(GMutexLocker) locker = NULL;
@@ -761,7 +761,7 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	}
 
 	/* determine database mode */
-	db_mode = MDB_NOSUBDIR | MDB_NOMETASYNC | MDB_NOLOCK;
+	db_flags = MDB_NOSUBDIR | MDB_NOMETASYNC | MDB_NOLOCK;
 	nosync = priv->nosync;
 	readonly = priv->readonly;
 
@@ -791,9 +791,9 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	}
 
 	if (readonly)
-		db_mode |= MDB_RDONLY;
+		db_flags |= MDB_RDONLY;
 	if (nosync)
-		db_mode |= MDB_NOSYNC;
+		db_flags |= MDB_NOSYNC;
 
 	g_free (priv->fname);
 	if (volatile_dir != NULL) {
@@ -822,7 +822,7 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 		g_debug ("Opening cache file: %s", priv->fname);
 	rc = mdb_env_open (priv->db_env,
 			   priv->fname,
-			   db_mode,
+			   db_flags,
 			   0755);
 	if (rc != MDB_SUCCESS) {
 		g_set_error (error,
