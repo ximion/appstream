@@ -16,6 +16,7 @@
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Milo Casagrande <milo@milo.name>, 2018. #zanata
 # J. Lavoie <j.lavoie@net-c.ca>, 2020.
+# Lory ~ <dury.lorenzo@gmail.com>, 2021.
 #
 # Translators:
 msgid ""
@@ -23,16 +24,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-02-16 20:08+0100\n"
-"PO-Revision-Date: 2020-11-15 14:28+0000\n"
-"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
-"translations/it/>\n"
+"PO-Revision-Date: 2021-02-21 11:50+0000\n"
+"Last-Translator: Lory ~ <dury.lorenzo@gmail.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.5\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1132,13 +1132,10 @@ msgstr ""
 "nel primo paragrafo."
 
 #: src/as-validator-issue-tag.h:86
-#, fuzzy
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
-"La denominazione contiene un URL web in testo semplice. Ciò non è permesso, "
-"si prega di utilizzare il tag <url/> al posto della condivisione dei link."
+msgstr "La descrizione contiene un URL web in testo semplice. Ciò non è permesso, si prega di utilizzare il tag <url/> al posto della condivisione dei link."
 
 #: src/as-validator-issue-tag.h:91
 msgid ""
