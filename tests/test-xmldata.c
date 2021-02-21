@@ -283,6 +283,7 @@ test_appstream_write_description ()
 	guint i;
 	gchar *tmp;
 	AsRelease *rel;
+	g_autoptr(GError) error = NULL;
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(AsComponent) cpt = NULL;
 
@@ -391,6 +392,7 @@ test_appstream_write_description ()
 					   "</components>\n";
 
 	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "ALL");
 
 	cpt = as_component_new ();
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
@@ -437,10 +439,30 @@ test_appstream_write_description ()
 				"<p>Erster paragraph</p>\n<ol><li>Eins</li><li>Zwei</li><li>Drei</li></ol><p>Zweiter Paragraph</p><ul><li>Erstens</li><li>Zweitens</li></ul><p>Paragraph3</p>",
 				"de");
 
+	/* test localization */
 	tmp = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, NULL);
 	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML_LOCALIZED));
 	g_free (tmp);
 
+	/* test collection-xml conversion */
+	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, NULL);
+	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML_DISTRO));
+	g_free (tmp);
+
+	/* test collection XMl -> metainfo XML */
+	as_metadata_clear_components (metad);
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
+	as_metadata_parse (metad, EXPECTED_XML_DISTRO, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+	tmp = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, NULL);
+	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML_LOCALIZED));
+	g_free (tmp);
+
+	/* test metainfo XMl -> collection XML */
+	as_metadata_clear_components (metad);
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_METAINFO);
+	as_metadata_parse (metad, EXPECTED_XML_LOCALIZED, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
 	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, NULL);
 	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML_DISTRO));
 	g_free (tmp);

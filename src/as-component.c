@@ -3644,6 +3644,9 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 	/* set context for this component */
 	as_component_set_context (cpt, ctx);
 
+	/* clear any existing descriptions */
+	g_hash_table_remove_all (priv->description);
+
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		g_autofree gchar *content = NULL;
 		g_autofree gchar *lang = NULL;
@@ -3677,7 +3680,6 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			if (lang != NULL)
 				as_component_set_summary (cpt, content, lang);
 		} else if (tag_id == AS_TAG_DESCRIPTION) {
-			g_hash_table_remove_all (priv->description);
 			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
 				/* for collection XML, the "description" tag has a language property, so parsing it is simple */
 				if (lang != NULL) {
