@@ -37,7 +37,7 @@ as_yaml_test_serialize (AsComponent *cpt)
 {
 	gchar *data;
 	g_autoptr(AsMetadata) metad = NULL;
-	GError *error = NULL;
+	g_autoptr(GError) error = NULL;
 
 	metad = as_metadata_new ();
 	as_metadata_set_locale (metad, "ALL");
@@ -123,7 +123,7 @@ test_basic (void)
 	GPtrArray *cpts;
 	guint i;
 	AsComponent *cpt_tomatoes = NULL;
-	GError *error = NULL;
+	g_autoptr(GError) error = NULL;
 
 	mdata = as_metadata_new ();
 	as_metadata_set_locale (mdata, "C");
@@ -205,10 +205,11 @@ test_yamlwrite_misc (void)
 	g_autoptr(AsRelease) rel1 = NULL;
 	g_autoptr(AsRelease) rel2 = NULL;
 	g_autoptr(AsBundle) bdl = NULL;
+	g_autoptr(GError) error = NULL;
 	AsIssue *issue;
 	g_autofree gchar *resdata = NULL;
 	AsComponent *cpt = NULL;
-	GError *error = NULL;
+
 	gchar *_PKGNAME1[2] = {"fwdummy", NULL};
 	gchar *_PKGNAME2[2] = {"foobar-pkg", NULL};
 

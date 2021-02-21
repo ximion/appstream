@@ -69,7 +69,7 @@ test_get_sampledata_pool (gboolean use_caches)
 static void
 test_pool_xml_read_perf (void)
 {
-	GError *error = NULL;
+	g_autoptr(GError) error = NULL;
 	guint i;
 	guint loops = 1000;
 	g_autoptr(GTimer) timer = NULL;
@@ -95,7 +95,7 @@ test_pool_xml_read_perf (void)
 static void
 test_pool_cache_perf (void)
 {
-	GError *error = NULL;
+	g_autoptr(GError) error = NULL;
 	g_autoptr(GTimer) timer = NULL;
 	g_autoptr(GPtrArray) prep_cpts = NULL;
 	g_autoptr(AsCache) cache = NULL;

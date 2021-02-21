@@ -82,7 +82,7 @@ static void
 test_simplemarkup ()
 {
 	g_autofree gchar *str = NULL;
-	GError *error = NULL;
+	g_autoptr(GError) error = NULL;
 
 	str = as_markup_convert_simple ("<p>Test!</p><p>Blah.</p><ul><li>A</li><li>B</li></ul><p>End.</p>", &error);
 	g_assert_no_error (error);
@@ -98,7 +98,6 @@ test_simplemarkup ()
 					"</ul>"
 					"<p>Last paragraph.</p>", &error);
 	g_assert_no_error (error);
-	g_print ("!!! %s\n", str);
 	g_assert (g_strcmp0 (str, "Paragraph using all allowed markup, like an emphasis or some code.\n\n"
 				  "Second paragraph.\n"
 				  " • List item, emphasized\n"

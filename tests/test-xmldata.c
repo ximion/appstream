@@ -111,7 +111,7 @@ test_appstream_parser_legacy ()
 	gchar *path;
 	AsComponent *cpt;
 	GPtrArray *screenshots;
-	GError *error = NULL;
+	g_autoptr(GError) error = NULL;
 
 	metad = as_metadata_new ();
 
@@ -144,13 +144,12 @@ test_appstream_parser_locale ()
 {
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GFile) file = NULL;
+	g_autoptr(GError) error = NULL;
 	gchar *path;
 	AsComponent *cpt;
 
 	GPtrArray *trs;
 	AsTranslation *tr;
-
-	GError *error = NULL;
 
 	metad = as_metadata_new ();
 
@@ -210,7 +209,7 @@ test_appstream_write_locale ()
 	GFile *file;
 	gchar *tmp;
 	AsComponent *cpt;
-	GError *error = NULL;
+	g_autoptr(GError) error = NULL;
 
 	const gchar *EXPECTED_XML = "<component type=\"desktop-application\">\n"
 				    "  <id>org.mozilla.firefox</id>\n"
