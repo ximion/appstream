@@ -24,16 +24,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-02-16 20:08+0100\n"
-"PO-Revision-Date: 2021-01-24 04:32+0000\n"
+"PO-Revision-Date: 2021-02-21 11:50+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.5\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -933,24 +932,24 @@ msgstr "Çağdaş zaman köleliğinin görsel betimlemeleri"
 #: src/as-curl.c:134
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr ""
+msgstr "Sunucu sınırı nedeniyle indirilemedi"
 
 #: src/as-curl.c:141 src/as-curl.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to download file: %s"
-msgstr "Masaüstü girdi dosyası kaydedilemedi: %s"
+msgstr "Dosya indirilemedi: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
 #: src/as-curl.c:157
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "Sunucuda URL bulunamadı."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:164
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Beklenmeyen durum kodu: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:247
@@ -1025,7 +1024,7 @@ msgstr "İkili Kodlar"
 
 #: src/as-provided.c:148
 msgid "Media types"
-msgstr "Medya Türleri"
+msgstr "Ortam türleri"
 
 #: src/as-provided.c:150
 msgid "Fonts"
@@ -1448,19 +1447,16 @@ msgstr ""
 "önerilir."
 
 #: src/as-validator-issue-tag.h:276
-#, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are "
 "permitted."
-msgstr ""
-"İlişkisel ögede geçersiz sürüm karşılaştırma işlemi. Sadece eq/ne/lt/gt/le/"
-"ge'ye izin verilmektedir."
+msgstr "İlişki ögesinde geçersiz karşılaştırma işlemi. Yalnızca eq/ne/lt/gt/le/ge işlemlerine izin verilir."
 
 #: src/as-validator-issue-tag.h:281
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
+msgstr "İlişki ögesinin bir karşılaştırma işlemi kümesi var, ancak herhangi bir karşılaştırmayı desteklemiyor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:287
@@ -1504,7 +1500,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
+msgstr "Bu `display_length` ögesi geçersiz bir görüntüleme uzunluğu içeriyor. Değeri, bir kısaltma dizgesi veya mantıksal pikselleri ifade eden pozitif tam sayı değeri olmalıdır. Bu etiket hakkında daha fazla bilgi için lütfen AppStream tanımlamasına bakın."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:314
@@ -1513,7 +1509,7 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
+msgstr "Bu `display_length` ögesinin bu `side` özelliği geçersiz bir değer içeriyor. Öge değerinin ekranın en kısa veya en uzun tarafına uygulanmasını sağlamak için ya `shortest` veya `longest` olmalı, ya da `shortest` anlamına gelmesi için ayarlanmamış olmalıdır."
 
 #: src/as-validator-issue-tag.h:320
 msgid ""
@@ -1947,64 +1943,61 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:658
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "Yayın aciliyeti olarak ayarlanan değer, bilinen bir aciliyet değeri değil."
 
 #: src/as-validator-issue-tag.h:663
 msgid "The value set as release type is invalid."
-msgstr ""
+msgstr "Yayın türü olarak ayarlanan değer geçersiz."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:669
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr ""
+msgstr "Yapı türü olarak ayarlanan değer geçersiz. `source` veya `binary` olmalıdır."
 
 #: src/as-validator-issue-tag.h:674
 msgid "The value set as artifact bundle type is invalid."
-msgstr ""
+msgstr "Yapı takım türü olarak ayarlanan değer geçersiz."
 
 #: src/as-validator-issue-tag.h:679
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
+msgstr "Bu yayının platform üçlüsü geçersiz. `architecture-oskernel-osenv` biçiminde olmalıdır - daha fazla bilgi ve geçerli alanlar için AppStream belgelendirmesine veya normalleştirilmiş GNU üçlüleriyle ilgili bilgilere bakın."
 
 #: src/as-validator-issue-tag.h:686
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
+msgstr "Seçilen sağlama toplamı algoritması desteklenmiyor veya bilinmiyor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:692
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
+msgstr "Boyut türü bilinmiyor. `download` veya `installed` olmalıdır."
 
 #: src/as-validator-issue-tag.h:697
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr ""
+msgstr "Yapı dosya adı bir dosya temel adı olmalıdır, bir (göreceli veya mutlak) yol değil."
 
 #: src/as-validator-issue-tag.h:702
 msgid "The value set as release issue type is invalid."
-msgstr ""
+msgstr "Yayın sorunu türü olarak ayarlanan değer geçersiz."
 
 #: src/as-validator-issue-tag.h:707
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
+msgstr "Sorun bir CVE numarasıyla güvenlik açığı olarak etiketlendi, ancak değeri geçerli bir CVE tanımlayıcısı gibi görünmüyor."
 
 #: src/as-validator-issue-tag.h:712
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr ""
-"AppStream tanımlaması, tarihleri belirtmek için en az gün derecesinde "
-"ayrıntıya sahip tam bir ISO 8601 tarih dizgisi gerektirmektedir. Lütfen "
-"tarih dizgisinin geçerli olduğundan emin olun."
+msgstr "AppStream tanımlaması, tarihleri belirtmek için en az gün derecesinde ayrıntıya sahip tam bir ISO 8601 tarih dizgesi gerektirmektedir. Lütfen tarih dizgesinin geçerli olduğundan emin olun."
 
 #: src/as-validator-issue-tag.h:718
 msgid ""
@@ -2050,7 +2043,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
+msgstr "Üst düzey `mimetypes` etiketi kullanımdan kaldırıldı. Yazılımınızın belirli türler için bir ortam işleyicisi sağladığını belirtmek için lütfen bir `provides` bloğunda `mediatype` etiketlerini kullanın."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2158,12 +2151,12 @@ msgstr "Ön belleği yenilenmeye zorla."
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstream-cli.c:463
 msgid "Set the data origin for the installed metadata collection file."
-msgstr ""
+msgstr "Kurulu üst veri koleksiyon dosyası için veri kaynağını ayarla."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstream-cli.c:468
 msgid "Install the file for the current user, instead of globally."
-msgstr ""
+msgstr "Dosyayı genel olarak değil, geçerli kullanıcı için kur."
 
 #: tools/appstream-cli.c:617
 msgid ""
@@ -2342,7 +2335,7 @@ msgstr ""
 #: tools/appstream-cli.c:1117
 msgid ""
 "Show information about the current operating system from the metadata index."
-msgstr ""
+msgstr "Üst veri indeksinden geçerli işletim sistemi hakkında bilgi göster."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstream-cli.c:1122
@@ -2470,9 +2463,9 @@ msgid "You need to specify a metadata file."
 msgstr "Bir üst veri dosyası belirtmeniz gerekmektedir."
 
 #: tools/ascli-actions-mdata.c:320
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr "Masaüstü girdi dosyası kaydedilemedi: %s"
+msgstr "Üst veri dosyası kurulamadı: %s"
 
 #: tools/ascli-actions-mdata.c:340
 msgid "You need to specify an input and output file."
@@ -2493,14 +2486,13 @@ msgstr ""
 "kullanarak açıkça belirtin."
 
 #: tools/ascli-actions-mdata.c:434
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr "'%s' kimliğine sahip bileşen bulunamadı!"
+msgstr "'%s' işletim sistemi bileşeni bulunamadı!"
 
 #: tools/ascli-actions-mdata.c:439
-#, fuzzy
 msgid "Version"
-msgstr "Sürüm: %s"
+msgstr "Sürüm"
 
 #: tools/ascli-actions-mdata.c:463
 msgid ""
@@ -2757,7 +2749,7 @@ msgstr "Tanımlayıcı"
 
 #: tools/ascli-utils.c:269
 msgid "Internal ID"
-msgstr ""
+msgstr "Dahili Kimlik"
 
 #: tools/ascli-utils.c:270
 msgid "Name"
