@@ -302,6 +302,12 @@ test_pool_read ()
 	/* test searching for multiple words */
 	result = as_pool_search (dpool, "scalable graphics");
 	print_cptarray (result);
+	g_assert_cmpint (result->len, ==, 1);
+	g_clear_pointer (&result, g_ptr_array_unref);
+
+	/* test searching for multiple words, multiple results */
+	result = as_pool_search (dpool, "strategy game");
+	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 2);
 	g_clear_pointer (&result, g_ptr_array_unref);
 

@@ -2071,6 +2071,19 @@ as_cache_get_components_by_launchable (AsCache *cache, AsLaunchableKind kind, co
 	}
 }
 
+typedef struct {
+	AsComponent *cpt;
+	guint terms_found;
+} AsSearchResultItem;
+
+static void
+as_search_result_item_free (AsSearchResultItem *item)
+{
+	if (item->cpt != NULL)
+		g_object_unref (item->cpt);
+	g_slice_free (AsSearchResultItem, item);
+}
+
 /**
  * as_cache_update_results_with_fts_value:
  *
@@ -2095,7 +2108,7 @@ as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn, MDB_val dv
 
 	for (gsize i = 0; i < data_len; i += ENTRY_LEN) {
 		guint sort_score;
-		AsComponent *cpt;
+		AsSearchResultItem *sitem;
 		const guint8 *cpt_hash;
 		AsTokenType match_pval;
 
@@ -2103,46 +2116,83 @@ as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn, MDB_val dv
 		match_pval = (AsTokenType) *(data + i + AS_CACHE_CHECKSUM_LEN);
 
 		/* retrieve component with this hash */
-		cpt = g_hash_table_lookup (results_ht, cpt_hash);
-		if (cpt == NULL) {
-			cpt = as_cache_component_by_hash (cache, txn, cpt_hash, &tmp_error);
+		sitem = g_hash_table_lookup (results_ht, cpt_hash);
+		if (sitem == NULL) {
+			sitem = g_slice_new0 (AsSearchResultItem);
+			sitem->cpt = as_cache_component_by_hash (cache, txn, cpt_hash, &tmp_error);
 			if (tmp_error != NULL) {
 				g_propagate_prefixed_error (error, tmp_error, "Failed to retrieve component data: ");
 				return FALSE;
 			}
-			if (cpt != NULL) {
+			if (sitem->cpt == NULL) {
+				as_search_result_item_free (sitem);
+			} else {
 				sort_score = 0;
 				if (exact_match)
 					sort_score |= match_pval << 2;
 				else
 					sort_score |= match_pval;
 
-				if ((as_component_get_kind (cpt) == AS_COMPONENT_KIND_ADDON) && (match_pval > 0))
+				if ((as_component_get_kind (sitem->cpt) == AS_COMPONENT_KIND_ADDON) && (match_pval > 0))
 					sort_score--;
 
-				as_component_set_sort_score (cpt, sort_score);
+				as_component_set_sort_score (sitem->cpt, sort_score);
+				sitem->terms_found = 1;
 
 				g_hash_table_insert (results_ht,
 						     g_memdup (cpt_hash, AS_CACHE_CHECKSUM_LEN),
-						     cpt);
+						     sitem);
 			}
 		} else {
-			sort_score = as_component_get_sort_score (cpt);
+			sort_score = as_component_get_sort_score (sitem->cpt);
 			if (exact_match)
 				sort_score |= match_pval << 2;
 			else
 				sort_score |= match_pval;
 
-			if (as_component_get_sort_score (cpt) == 0) {
-				if ((as_component_get_kind (cpt) == AS_COMPONENT_KIND_ADDON))
+			if (as_component_get_sort_score (sitem->cpt) == 0) {
+				if ((as_component_get_kind (sitem->cpt) == AS_COMPONENT_KIND_ADDON))
 					sort_score--;
 			}
 
-			as_component_set_sort_score (cpt, sort_score);
+			as_component_set_sort_score (sitem->cpt, sort_score);
+			sitem->terms_found++;
 		}
 	}
 
 	return TRUE;
+}
+
+/**
+ * as_cache_search_items_table_to_results:
+ *
+ * Converts the found items hash table to results list.
+ */
+static void
+as_cache_search_items_table_to_results (GHashTable *results_ht, GPtrArray *results, guint required_terms_n, gboolean strict)
+{
+	GHashTableIter ht_iter;
+	gpointer ht_value;
+
+	g_hash_table_iter_init (&ht_iter, results_ht);
+	while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value)) {
+		AsSearchResultItem *sitem = (AsSearchResultItem*) ht_value;
+		if (sitem->terms_found < required_terms_n)
+			continue;
+		g_ptr_array_add (results, g_steal_pointer (&sitem->cpt));
+	}
+
+	if (results->len == 0 && !strict && required_terms_n > 1) {
+		/* still no components found? let's cheat a bit and see if we get results
+		 * if we remove one search term, as the user may have been too specific */
+		as_cache_search_items_table_to_results (results_ht,
+							results,
+							required_terms_n - 1,
+							TRUE);
+	}
+
+	/* the items hash table contents are invalid now */
+	g_hash_table_remove_all (results_ht);
 }
 
 /**
@@ -2164,9 +2214,8 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 	GError *tmp_error = NULL;
 	g_autoptr(GPtrArray) results = NULL;
 	g_autoptr(GHashTable) results_ht = NULL;
-	GHashTableIter ht_iter;
-	gpointer ht_value;
 	g_autoptr(GMutexLocker) locker = NULL;
+	guint terms_len = 0;
 
 	if (!as_cache_check_opened (cache, FALSE, error))
 		return NULL;
@@ -2186,12 +2235,12 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 	results_ht = g_hash_table_new_full (as_cache_checksum_hash,
 					    as_cache_checksum_equal,
 					    g_free,
-					    (GDestroyNotify) g_object_unref);
+					    (GDestroyNotify) as_search_result_item_free);
 
 	/* search by using exact matches first */
 	for (guint i = 0; terms[i] != NULL; i++) {
-		g_autoptr(GPtrArray) tmp_res = NULL;
 		MDB_val dval;
+		terms_len++;
 
 		dval = as_cache_txn_get_value (cache, txn, priv->db_fts, terms[i], &tmp_error);
 		if (tmp_error != NULL) {
@@ -2208,8 +2257,14 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 		}
 	}
 
+	/* compile our result */
+	as_cache_search_items_table_to_results (results_ht,
+						results,
+						terms_len,
+						TRUE);
+
 	/* if we got no results by exact matches, try partial matches (which is slower) */
-	if (g_hash_table_size (results_ht) <= 0) {
+	if (results->len == 0) {
 		MDB_cursor *cur;
 		gint rc;
 		MDB_val dkey;
@@ -2258,15 +2313,16 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 			rc = mdb_cursor_get(cur, &dkey, &dval, MDB_NEXT);
 		}
 		mdb_cursor_close (cur);
+
+		/* compile our result */
+		as_cache_search_items_table_to_results (results_ht,
+							results,
+							terms_len,
+							FALSE);
 	}
 
-	/* we don't need the mutex anymore, no class struct access here */
+	/* we don't need the mutex anymore, no class member access here */
 	g_clear_pointer (&locker, g_mutex_locker_free);
-
-	/* compile our result */
-	g_hash_table_iter_init (&ht_iter, results_ht);
-	while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value))
-		g_ptr_array_add (results, g_object_ref (AS_COMPONENT (ht_value)));
 
 	/* sort the results by their priority */
 	if (sort)
