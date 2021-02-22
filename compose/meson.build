@@ -69,7 +69,8 @@ appstream_compose_lib = library ('appstream-compose',
                    pango_dep,
                    fontconfig_dep],
     include_directories: [root_inc_dir],
-    c_args: '-DASC_COMPILATION',
+    c_args: ['-DASC_COMPILATION',
+             '-DI_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE'],
     install: true
 )
 
@@ -130,6 +131,10 @@ if get_option ('gir')
         header: 'appstream-compose.h',
         include_directories: [appstream_lib_inc],
         dependencies: [appstream_dep],
+        extra_args: [
+            '-DASC_COMPILATION',
+            '-DI_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE'
+        ],
         install: true
     )
 

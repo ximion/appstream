@@ -120,6 +120,7 @@ if get_option('compose')
                        gio_dep,
                        freetype_dep,
                        gdkpixbuf_dep],
+        c_args: ['-DI_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE'],
     )
     test ('as-test_compose',
         as_test_compose_exe,
