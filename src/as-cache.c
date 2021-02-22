@@ -2174,6 +2174,9 @@ as_cache_search_items_table_to_results (GHashTable *results_ht, GPtrArray *resul
 	GHashTableIter ht_iter;
 	gpointer ht_value;
 
+	if (g_hash_table_size (results_ht) == 0)
+		return;
+
 	g_hash_table_iter_init (&ht_iter, results_ht);
 	while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value)) {
 		AsSearchResultItem *sitem = (AsSearchResultItem*) ht_value;
@@ -2215,7 +2218,7 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 	g_autoptr(GPtrArray) results = NULL;
 	g_autoptr(GHashTable) results_ht = NULL;
 	g_autoptr(GMutexLocker) locker = NULL;
-	guint terms_len = 0;
+	guint terms_n = 0;
 
 	if (!as_cache_check_opened (cache, FALSE, error))
 		return NULL;
@@ -2240,7 +2243,7 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 	/* search by using exact matches first */
 	for (guint i = 0; terms[i] != NULL; i++) {
 		MDB_val dval;
-		terms_len++;
+		terms_n++;
 
 		dval = as_cache_txn_get_value (cache, txn, priv->db_fts, terms[i], &tmp_error);
 		if (tmp_error != NULL) {
@@ -2260,7 +2263,7 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 	/* compile our result */
 	as_cache_search_items_table_to_results (results_ht,
 						results,
-						terms_len,
+						terms_n,
 						TRUE);
 
 	/* if we got no results by exact matches, try partial matches (which is slower) */
@@ -2269,6 +2272,7 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 		gint rc;
 		MDB_val dkey;
 		MDB_val dval;
+		g_autofree gsize *terms_lens = NULL;
 
 		rc = mdb_cursor_open (txn, priv->db_fts, &cur);
 		if (rc != MDB_SUCCESS) {
@@ -2280,15 +2284,19 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 			return NULL;
 		}
 
+		/* cache term string lengths */
+		terms_lens = g_new0 (gsize, terms_n + 1);
+		for (guint i = 0; terms[i] != NULL; i++)
+			terms_lens[i] = strlen (terms[i]);
+
 		rc = mdb_cursor_get (cur, &dkey, &dval, MDB_FIRST);
 		while (rc == 0) {
 			gboolean match = FALSE;
 
 			for (guint i = 0; terms[i] != NULL; i++) {
-				gsize term_len = strlen (terms[i]);
-				/* if term length is bigger than the key, it will never match.
-				 * if it is equal, we already matches it and shouldn't be here */
-				if (term_len >= dkey.mv_size)
+				gsize term_len = terms_lens[i];
+				/* if term length is bigger than the key, it will never match */
+				if (term_len > dkey.mv_size)
 					continue;
 				if (strncmp (dkey.mv_data, terms[i], term_len) == 0) {
 					/* prefix match was successful */
@@ -2317,7 +2325,7 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 		/* compile our result */
 		as_cache_search_items_table_to_results (results_ht,
 							results,
-							terms_len,
+							terms_n,
 							FALSE);
 	}
 
