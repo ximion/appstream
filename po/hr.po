@@ -14,17 +14,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-02-16 20:08+0100\n"
-"PO-Revision-Date: 2021-01-14 23:32+0000\n"
+"PO-Revision-Date: 2021-02-24 00:50+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
-"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/"
-"translations/hr/>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.5\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -924,24 +922,24 @@ msgstr "Grafički prikazi suvremenog ropstva"
 #: src/as-curl.c:134
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr ""
+msgstr "Neuspjelo preuzimanje zbog ograničenja poslužitelja"
 
 #: src/as-curl.c:141 src/as-curl.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to download file: %s"
-msgstr "Nije moguće spremiti desktop-entry datoteku: %s"
+msgstr "Neuspjelo preuzimanje datoteke: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
 #: src/as-curl.c:157
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "URL adresa nije pronađena na poslužitelju."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:164
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Neočekivani kod stanja: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:247
@@ -1433,13 +1431,10 @@ msgstr ""
 "uspoređivanje."
 
 #: src/as-validator-issue-tag.h:276
-#, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are "
 "permitted."
-msgstr ""
-"Neispravna operacija uspoređivanja verzija na elementu veze. Dozvoljene samo "
-"eq/ne/lt/gt/le/ge."
+msgstr "Neispravna operacija uspoređivanja na elementu veze. Dozvoljene su samo eq/ne/lt/gt/le/ge."
 
 #: src/as-validator-issue-tag.h:281
 msgid ""
@@ -2455,9 +2450,9 @@ msgid "You need to specify a metadata file."
 msgstr "Mora se navesti jedna datoteka metapodataka."
 
 #: tools/ascli-actions-mdata.c:320
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr "Nije moguće spremiti desktop-entry datoteku: %s"
+msgstr "Nije moguće instalirati datoteku metapodaka: %s"
 
 #: tools/ascli-actions-mdata.c:340
 msgid "You need to specify an input and output file."
@@ -2478,14 +2473,13 @@ msgstr ""
 "Podesi je izričito, koristeći „--format=”."
 
 #: tools/ascli-actions-mdata.c:434
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr "Nije moguće pronaći komponentu s ID oznakom „%s”!"
+msgstr "Nije moguće pronaći komponentu operacijskog sustava „%s”!"
 
 #: tools/ascli-actions-mdata.c:439
-#, fuzzy
 msgid "Version"
-msgstr "Inačica %s"
+msgstr "Verzija"
 
 #: tools/ascli-actions-mdata.c:463
 msgid ""
