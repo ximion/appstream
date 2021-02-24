@@ -314,13 +314,13 @@ as_validator_setup_networking (AsValidator *validator)
 }
 
 /**
- * as_validator_validate_web_url:
+ * as_validator_check_web_url:
  *
  * Check if an URL is valid and is reachable, creating a new
  * issue tag of value @tag in case of errors.
  */
 static gboolean
-as_validator_validate_web_url (AsValidator *validator, xmlNode *node, const gchar *url, const gchar *tag)
+as_validator_check_web_url (AsValidator *validator, xmlNode *node, const gchar *url, const gchar *tag)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	g_autoptr(GError) tmp_error = NULL;
@@ -969,10 +969,10 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				}
 
 				/* check if we can reach the URL */
-				as_validator_validate_web_url (validator,
-								iter2,
-								image_url,
-								"screenshot-image-not-found");
+				as_validator_check_web_url (validator,
+							    iter2,
+							    image_url,
+							    "screenshot-image-not-found");
 			} else if (g_strcmp0 (node_name, "video") == 0) {
 				g_autofree gchar *codec_str = NULL;
 				g_autofree gchar *container_str = NULL;
@@ -986,10 +986,10 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				if (default_screenshot)
 					as_validator_add_issue (validator, iter, "screenshot-default-contains-video", NULL);
 
-				as_validator_validate_web_url (validator,
-								iter2,
-								video_url,
-								"screenshot-video-not-found");
+				as_validator_check_web_url (validator,
+							    iter2,
+							    video_url,
+							    "screenshot-video-not-found");
 
 				if (!as_validate_is_url (video_url)) {
 					as_validator_add_issue (validator, iter2,
@@ -1627,10 +1627,10 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 					if (!as_validate_is_secure_url (node_content))
 						as_validator_add_issue (validator, iter, "icon-remote-not-secure", node_content);
 
-					as_validator_validate_web_url (validator,
-									iter,
-									node_content,
-									"icon-remote-not-found");
+					as_validator_check_web_url (validator,
+								    iter,
+								    node_content,
+								    "icon-remote-not-found");
 				} else {
 					as_validator_add_issue (validator, iter, "icon-remote-no-url", node_content);
 				}
@@ -1654,10 +1654,10 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			if (!as_validate_is_secure_url (node_content))
 				as_validator_add_issue (validator, iter, "url-not-secure", node_content);
 
-			as_validator_validate_web_url (validator,
-							iter,
-							node_content,
-							"url-not-found");
+			as_validator_check_web_url (validator,
+						    iter,
+						    node_content,
+						    "url-not-found");
 
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags);
