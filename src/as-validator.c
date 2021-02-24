@@ -1623,14 +1623,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			}
 
 			if (g_strcmp0 (prop, "remote") == 0) {
-				if (!as_validate_is_url (node_content)) {
-					as_validator_add_issue (validator, iter, "icon-remote-no-url", NULL);
-				} else {
-					if (as_validate_is_url (node_content)) {
-						as_validator_add_issue (validator, iter, "web-url-expected", node_content);
-						continue;
-					}
-
+				if (as_validate_is_url (node_content)) {
 					if (!as_validate_is_secure_url (node_content))
 						as_validator_add_issue (validator, iter, "icon-remote-not-secure", node_content);
 
@@ -1638,6 +1631,8 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 									iter,
 									node_content,
 									"icon-remote-not-found");
+				} else {
+					as_validator_add_issue (validator, iter, "icon-remote-no-url", node_content);
 				}
 			}
 
