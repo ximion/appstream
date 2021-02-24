@@ -132,6 +132,14 @@ as_markup_strsplit_words (const gchar *text, guint line_len)
 		g_ptr_array_add (lines, g_strdup (curline->str));
 	}
 
+	/* any superfluous linebreak at the start?
+	 * (this may happen if text is just one, very long word with no spaces) */
+	if (lines->len > 0) {
+		gchar *first_line = (gchar*) g_ptr_array_index (lines, 0);
+		if (!g_str_has_prefix (text, "\n") && g_strcmp0 (first_line, "\n") == 0)
+			g_ptr_array_remove_index (lines, 0);
+	}
+
 	g_ptr_array_add (lines, NULL);
 	return (gchar **) g_ptr_array_free (lines, FALSE);
 }
