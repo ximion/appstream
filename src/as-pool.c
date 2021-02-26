@@ -49,6 +49,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <errno.h>
 
 #include "as-utils.h"
 #include "as-utils-private.h"
