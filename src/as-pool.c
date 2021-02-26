@@ -672,7 +672,15 @@ as_pool_ctime_newer (AsPool *pool, const gchar *dir, AsCache *cache)
 static gboolean
 as_path_is_system_metadata_location (const gchar *dir)
 {
-	return !g_str_has_prefix (dir, "/home/");
+	/* we can't just do a "/home/" prefix check here, as e.g. Flatpak data may also be
+	 * in system directories, and not every instance of an AppStream-using app will have
+	 * these included, which would mess up cross-app cache sharing.
+	 * In addition, some cliants may have multiple AsPool instance, further complicating
+	 * this issue. */
+	for (gint i = 0; AS_SYSTEM_COLLECTION_METADATA_PATHS[i] != NULL; i++)
+		if (g_str_has_prefix (dir, AS_SYSTEM_COLLECTION_METADATA_PATHS[i]))
+			return TRUE;
+	return FALSE;
 }
 
 /**
