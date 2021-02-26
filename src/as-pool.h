@@ -48,18 +48,20 @@ struct _AsPoolClass
 
 /**
  * AsCacheFlags:
- * @AS_CACHE_FLAG_NONE:		No flags.
- * @AS_CACHE_FLAG_USE_USER:	Create an user-specific metadata cache.
- * @AS_CACHE_FLAG_USE_SYSTEM:	Use and - if possible - update the global metadata cache.
- * @AS_CACHE_FLAG_NO_CLEAR:	Don't clear the cache when opening it.
+ * @AS_CACHE_FLAG_NONE:			No flags.
+ * @AS_CACHE_FLAG_USE_USER:		Create an user-specific metadata cache.
+ * @AS_CACHE_FLAG_USE_SYSTEM:		Use and - if possible - update the system metadata cache.
+ * @AS_CACHE_FLAG_NO_CLEAR:		Don't clear the cache when opening it.
+ * @AS_CACHE_FLAG_REFRESH_SYSTEM:	Refresh the system cache that is shared between applications.
  *
  * Flags on how caching should be used.
  **/
 typedef enum {
 	AS_CACHE_FLAG_NONE = 0,
-	AS_CACHE_FLAG_USE_USER   = 1 << 0,
-	AS_CACHE_FLAG_USE_SYSTEM = 1 << 1,
-	AS_CACHE_FLAG_NO_CLEAR   = 1 << 2,
+	AS_CACHE_FLAG_USE_USER		= 1 << 0,
+	AS_CACHE_FLAG_USE_SYSTEM	= 1 << 1,
+	AS_CACHE_FLAG_NO_CLEAR		= 1 << 2,
+	AS_CACHE_FLAG_REFRESH_SYSTEM	= 1 << 3,
 } AsCacheFlags;
 
 /**

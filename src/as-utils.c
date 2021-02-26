@@ -2115,3 +2115,24 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 
 	return ret;
 }
+
+/**
+ * as_get_user_cache_dir:
+ *
+ * Obtain the user-specific data cache directory for AppStream.
+ *
+ * Since: 0.14.2
+ */
+gchar*
+as_get_user_cache_dir ()
+{
+	const gchar *cache_root;
+	if (as_utils_is_root ()) {
+		cache_root = g_get_tmp_dir ();
+	} else {
+		cache_root = g_get_user_cache_dir ();
+		if (cache_root == NULL || !g_file_test (cache_root, G_FILE_TEST_IS_DIR))
+			cache_root = g_get_tmp_dir ();
+	}
+	return g_build_filename (cache_root, "appstream", NULL);
+}

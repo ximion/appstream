@@ -138,9 +138,6 @@ const GOptionEntry validate_options[] = {
 	{ NULL }
 };
 
-/* only used by the "refresh --force" command */
-static gboolean optn_force = FALSE;
-
 /*** HELPER METHODS ***/
 
 /**
@@ -237,6 +234,8 @@ as_client_run_refresh_cache (const gchar *command, char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
+	gboolean optn_force = FALSE;
+	gboolean optn_user = FALSE;
 
 	const GOptionEntry refresh_options[] = {
 		{ "force", (gchar) 0, 0,
@@ -244,6 +243,12 @@ as_client_run_refresh_cache (const gchar *command, char **argv, int argc)
 			&optn_force,
 			/* TRANSLATORS: ascli flag description for: --force */
 			_("Enforce a cache refresh."),
+			NULL },
+		{ "user", (gchar) 0, 0,
+			G_OPTION_ARG_NONE,
+			&optn_user,
+			/* TRANSLATORS: ascli flag description for: --user */
+			_("Update the user-specific instead of the system-wide cache."),
 			NULL },
 		{ NULL }
 	};
@@ -257,8 +262,9 @@ as_client_run_refresh_cache (const gchar *command, char **argv, int argc)
 		return ret;
 
 	return ascli_refresh_cache (optn_cachepath,
-					optn_datapath,
-					optn_force);
+				    optn_datapath,
+				    optn_user,
+				    optn_force);
 }
 
 /**

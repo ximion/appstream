@@ -717,7 +717,6 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	GError *tmp_error = NULL;
 	gint rc;
-	const gchar *volatile_dir = NULL;
 	MDB_txn *txn = NULL;
 	MDB_dbi db_config;
 	g_autofree gchar *cache_format = NULL;
@@ -726,6 +725,7 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	gboolean readonly;
 	g_autoptr(GMutexLocker) locker = NULL;
 	int db_fd;
+	g_autofree gchar *volatile_fname = NULL;
 
 	/* close cache in case it was open */
 	as_cache_close (cache);
@@ -767,12 +767,15 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 
 	/* determine where to put a volatile database */
 	if (g_strcmp0 (fname, ":temporary") == 0) {
-		if (as_utils_is_root ()) {
-			volatile_dir = g_get_tmp_dir ();
-		} else {
-			volatile_dir = g_get_user_cache_dir ();
-			if ((volatile_dir == NULL) || (!g_file_test (volatile_dir, G_FILE_TEST_IS_DIR)))
-				volatile_dir = g_get_tmp_dir ();
+		g_autofree gchar *volatile_dir = as_get_user_cache_dir ();
+		volatile_fname = g_build_filename (volatile_dir, "appcache-XXXXXX.mdb", NULL);
+
+		if (g_mkdir_with_parents (volatile_dir, 0755) != 0) {
+			g_set_error (error,
+				     AS_CACHE_ERROR,
+				     AS_CACHE_ERROR_FAILED,
+				     "Unable to create cache directory (%s)",volatile_dir);
+			goto fail;
 		}
 
 		/* we can skip syncs in temporary mode - in case of a crash, the data is lost anyway */
@@ -782,7 +785,7 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 		readonly = FALSE;
 
 	} else if (g_strcmp0 (fname, ":memory") == 0) {
-		volatile_dir = g_get_user_runtime_dir ();
+		volatile_fname = g_build_filename (g_get_user_runtime_dir (), "appstream-cache-XXXXXX.mdb", NULL);
 		/* we can skip syncs in in-memory mode - they don't mean anything anyway*/
 		nosync = TRUE;
 
@@ -795,11 +798,11 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	if (nosync)
 		db_flags |= MDB_NOSYNC;
 
-	g_free (priv->fname);
-	if (volatile_dir != NULL) {
+	if (volatile_fname != NULL) {
 		gint fd;
 
-		priv->fname = g_build_filename (volatile_dir, "appstream-cache-XXXXXX.mdb", NULL);
+		g_free (priv->fname);
+		priv->fname = g_steal_pointer (&volatile_fname);
 		fd = g_mkstemp (priv->fname);
 		if (fd < 0) {
 			g_set_error (error,
@@ -813,6 +816,7 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 
 		priv->volatile_db_fname = g_strdup (priv->fname);
 	} else {
+		g_free (priv->fname);
 		priv->fname = g_strdup (fname);
 	}
 
@@ -1033,6 +1037,8 @@ as_cache_close (AsCache *cache)
 	if (!priv->opened)
 		return FALSE;
 
+	if (!priv->readonly)
+		mdb_env_sync (priv->db_env, 1);
 	mdb_env_close (priv->db_env);
 
 	/* ensure any temporary file is gone, in case we used an in-memory database */
