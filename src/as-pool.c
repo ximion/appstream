@@ -117,6 +117,7 @@ static gchar *METAINFO_DIR = "/usr/share/metainfo";
 
 static void as_pool_add_metadata_location_internal (AsPool *pool, const gchar *directory, gboolean add_root);
 static void as_pool_cache_refine_component_cb (gpointer data, gpointer user_data);
+static void as_pool_cleanup_cache_dir (AsPool *pool, const gchar *cache_dir);
 
 /**
  * as_pool_init:
@@ -822,6 +823,11 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 					system_cache_used = FALSE;
 				}
 				g_mutex_unlock (&priv->mutex);
+
+				/* try to clean up old caches for the user, in case the system cache is up to date
+				 * and we are using it instead */
+				if (!use_user_cache)
+					as_pool_cleanup_cache_dir (pool, priv->sys_cache_dir_user);
 			}
 
 		} else {
