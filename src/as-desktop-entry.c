@@ -34,6 +34,7 @@
 #include "as-metadata.h"
 #include "as-component.h"
 #include "as-component-private.h"
+#include "as-validator-issue.h"
 
 #define DESKTOP_GROUP G_KEY_FILE_DESKTOP_GROUP
 
@@ -54,6 +55,32 @@ as_strequal_casefold (const gchar *a, const gchar *b)
 }
 
 /**
+ * as_desktop_entry_add_issue:
+ */
+static void
+as_desktop_entry_add_issue (GPtrArray *issues, const gchar *tag, const gchar *format, ...)
+{
+	va_list args;
+	g_autofree gchar *buffer = NULL;
+	AsValidatorIssue *issue = NULL;
+
+	/* do nothing if we shouldn't record issues */
+	if (issues == NULL)
+		return;
+
+	if (format != NULL) {
+		va_start (args, format);
+		buffer = g_strdup_vprintf (format, args);
+		va_end (args);
+	}
+
+	issue = as_validator_issue_new ();
+	as_validator_issue_set_tag (issue, tag);
+	as_validator_issue_set_hint (issue, buffer);
+	g_ptr_array_add (issues, issue);
+}
+
+/**
  * as_get_locale_from_key:
  */
 static gchar*
@@ -61,8 +88,8 @@ as_get_locale_from_key (const gchar *key)
 {
 	gchar *tmp1;
 	gchar *tmp2;
-	gchar *locale = NULL;
 	gchar *delim;
+	g_autofree gchar *locale = NULL;
 
 	tmp1 = g_strstr_len (key, -1, "[");
 	if (tmp1 == NULL)
@@ -80,10 +107,8 @@ as_get_locale_from_key (const gchar *key)
 		locale[strlen (locale)-6] = '\0';
 
 	/* filter out cruft */
-	if (as_is_cruft_locale (locale)) {
-		g_free (locale);
+	if (as_is_cruft_locale (locale))
 		return NULL;
-	}
 
 	delim = g_strrstr (locale, ".");
 	if (delim != NULL) {
@@ -99,7 +124,7 @@ as_get_locale_from_key (const gchar *key)
 		}
 	}
 
-	return locale;
+	return g_steal_pointer (&locale);
 }
 
 /**
@@ -110,7 +135,7 @@ as_get_locale_from_key (const gchar *key)
  * Add the remaining ones to the new #AsComponent.
  */
 static void
-as_add_filtered_categories (gchar **cats, AsComponent *cpt)
+as_add_filtered_categories (gchar **cats, AsComponent *cpt, GPtrArray *issues)
 {
 	guint i;
 
@@ -143,15 +168,78 @@ as_add_filtered_categories (gchar **cats, AsComponent *cpt)
 		/* add the category if it is valid */
 		if (as_utils_is_category_name (cat))
 			as_component_add_category (cpt, cat);
+		else
+			as_desktop_entry_add_issue (issues,
+						    "desktop-entry-category-invalid",
+						    cat);
 	}
 }
 
+/**
+ * as_get_desktop_entry_value:
+ */
+static gchar *
+as_get_desktop_entry_value (GKeyFile *df, GPtrArray *issues, const gchar *key)
+{
+	g_autofree gchar *str = NULL;
+	const gchar *str_iter;
+	GString *sane_str;
+	gboolean has_invalid_chars = FALSE;
+
+	str = g_key_file_get_string (df, DESKTOP_GROUP, key, NULL);
+	if (str == NULL)
+		return NULL;
+
+	/* some dumb .desktop files contain non-printable characters. If we are in XML mode,
+	 * this will hard-break some XML readers at a later point, so we need to clean this up
+	 * and replace these characters with a nice questionmark, so someone will notice and hopefully
+	 * fix the issue at the source */
+	sane_str = g_string_new ("");
+	str_iter = str;
+	while (*str_iter != '\0') {
+		gunichar c = g_utf8_get_char (str_iter);
+		if (g_unichar_isprint (c) || g_unichar_iszerowidth (c))
+			g_string_append_unichar (sane_str, c);
+		else {
+			g_string_append (sane_str, "�");
+			has_invalid_chars = TRUE;
+		}
+
+		str_iter = g_utf8_next_char (str_iter);
+	}
+
+	if (has_invalid_chars)
+		as_desktop_entry_add_issue (issues,
+					    "desktop-entry-value-invalid-chars",
+					    key);
+	return g_string_free (sane_str, FALSE);
+}
+
+/**
+ * as_check_desktop_string:
+ */
+void
+as_check_desktop_string (GPtrArray *issues, const gchar *field, const gchar *str)
+{
+	if (issues == NULL)
+		return;
+	if ((g_str_has_prefix (str, "\"") && g_str_has_suffix (str, "\"")) ||
+	    (g_str_has_prefix (str, "'") && g_str_has_suffix (str, "'")))
+		as_desktop_entry_add_issue (issues,
+					    "desktop-entry-value-quoted",
+					    "%s: %s", field, str);
+}
 
 /**
  * as_desktop_entry_parse_data:
  */
 gboolean
-as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, gssize data_len, AsFormatVersion fversion, GError **error)
+as_desktop_entry_parse_data (AsComponent *cpt,
+			     const gchar *data, gssize data_len,
+			     AsFormatVersion fversion,
+			     gboolean ignore_nodisplay,
+			     GPtrArray *issues,
+			     GError **error)
 {
 	g_autoptr(GKeyFile) df = NULL;
 	g_auto(GStrv) keys = NULL;
@@ -197,8 +285,12 @@ as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, gssize data_le
 				     "NoDisplay",
 				     NULL);
 	if (as_strequal_casefold (tmp, "true")) {
-		/* we will read the application data, but it will be ignored in its current form */
+		/* we may read the application data, but it will be ignored in its current form */
 		ignore_cpt = TRUE;
+		if (!ignore_nodisplay) {
+			g_free (tmp);
+			return FALSE;
+		}
 	}
 	g_free (tmp);
 
@@ -213,6 +305,42 @@ as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, gssize data_le
 		return FALSE;
 	}
 	g_free (tmp);
+
+	/* Hidden */
+	tmp = g_key_file_get_string (df,
+				     DESKTOP_GROUP,
+				     "Hidden",
+				     NULL);
+	if (as_strequal_casefold (tmp, "true")) {
+		ignore_cpt = TRUE;
+		as_desktop_entry_add_issue (issues,
+					    "desktop-entry-hidden-set",
+					    NULL);
+		if (!ignore_nodisplay) {
+			g_free (tmp);
+			return FALSE;
+		}
+	}
+	g_free (tmp);
+
+	/* OnlyShowIn */
+	tmp = g_key_file_get_string (df,
+				     DESKTOP_GROUP,
+				     "OnlyShowIn",
+				     NULL);
+	if (tmp != NULL) {
+		if (as_is_empty (tmp))
+			as_desktop_entry_add_issue (issues,
+						    "desktop-entry-empty-onlyshowin",
+						    NULL);
+		/* We want to ignore all desktop-entry files which were made desktop-exclusive
+		 * via OnlyShowIn (those are usually configuration apps and control center modules)
+		 * Only exception is if a metainfo file was present. */
+		g_free (tmp);
+		ignore_cpt = TRUE;
+		if (!ignore_nodisplay)
+			return FALSE;
+	}
 
 	/* check this is a valid desktop file */
 	if (!g_key_file_has_group (df, DESKTOP_GROUP)) {
@@ -250,6 +378,9 @@ as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, gssize data_le
 		g_autofree gchar *val = NULL;
 		gchar *key = keys[i];
 
+		if (g_strcmp0 (key, "Type") == 0)
+			continue;
+
 		g_strstrip (key);
 		locale = as_get_locale_from_key (key);
 
@@ -257,16 +388,18 @@ as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, gssize data_le
 		if (locale == NULL)
 			continue;
 
-		val = g_key_file_get_string (df, DESKTOP_GROUP, key, NULL);
+		val = as_get_desktop_entry_value (df, issues, key);
 		if (g_str_has_prefix (key, "Name")) {
 			as_component_set_name (cpt, val, locale);
+			as_check_desktop_string (issues, key, val);
 		} else if (g_str_has_prefix (key, "Comment")) {
 			as_component_set_summary (cpt, val, locale);
+			as_check_desktop_string (issues, key, val);
 		} else if (g_strcmp0 (key, "Categories") == 0) {
 			g_auto(GStrv) cats = NULL;
 
 			cats = g_strsplit (val, ";", -1);
-			as_add_filtered_categories (cats, cpt);
+			as_add_filtered_categories (cats, cpt, issues);
 		} else if (g_str_has_prefix (key, "Keywords")) {
 			g_auto(GStrv) kws = NULL;
 
@@ -285,10 +418,10 @@ as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, gssize data_le
 			if (mts == NULL)
 				continue;
 
-			prov = as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_MIMETYPE);
+			prov = as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_MEDIATYPE);
 			if (prov == NULL) {
 				prov = as_provided_new ();
-				as_provided_set_kind (prov, AS_PROVIDED_KIND_MIMETYPE);
+				as_provided_set_kind (prov, AS_PROVIDED_KIND_MEDIATYPE);
 			} else {
 				g_object_ref (prov);
 			}
@@ -348,7 +481,12 @@ as_desktop_entry_parse_data (AsComponent *cpt, const gchar *data, gssize data_le
  * Parse a .desktop file.
  */
 gboolean
-as_desktop_entry_parse_file (AsComponent *cpt, GFile *file, AsFormatVersion fversion, GError **error)
+as_desktop_entry_parse_file (AsComponent *cpt,
+			     GFile *file,
+			     AsFormatVersion fversion,
+			     gboolean ignore_nodisplay,
+			     GPtrArray *issues,
+			     GError **error)
 {
 	g_autofree gchar *file_basename = NULL;
 	g_autoptr(GInputStream) file_stream = NULL;
@@ -377,5 +515,7 @@ as_desktop_entry_parse_file (AsComponent *cpt, GFile *file, AsFormatVersion fver
 					    dedata->str,
 					    dedata->len,
 					    fversion,
+					    ignore_nodisplay,
+					    issues,
 					    error);
 }

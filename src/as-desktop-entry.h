@@ -33,11 +33,15 @@ gboolean	as_desktop_entry_parse_data (AsComponent *cpt,
 					     const gchar *data,
 					     gssize data_len,
 					     AsFormatVersion fversion,
+					     gboolean ignore_nodisplay,
+					     GPtrArray *issues,
 					     GError **error);
 
 gboolean	as_desktop_entry_parse_file (AsComponent *cpt,
 					     GFile *file,
 					     AsFormatVersion fversion,
+					     gboolean ignore_nodisplay,
+					     GPtrArray *issues,
 					     GError **error);
 
 #pragma GCC visibility pop

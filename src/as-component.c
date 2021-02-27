@@ -5353,6 +5353,8 @@ as_component_load_from_bytes (AsComponent *cpt, AsContext *context, AsFormatKind
 					     data,
 					     data_len,
 					     AS_FORMAT_VERSION_CURRENT,
+					     TRUE,
+					     NULL,
 					     &tmp_error);
 		if (tmp_error != NULL) {
 			g_propagate_error (error, tmp_error);
