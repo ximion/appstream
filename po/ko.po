@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-02-16 20:08+0100\n"
+"POT-Creation-Date: 2021-02-28 08:16+0100\n"
 "PO-Revision-Date: 2016-08-06 03:00+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Korean (http://www.transifex.com/freedesktop/appstream-glib/"
@@ -964,19 +964,19 @@ msgstr ""
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:109
+#: src/as-pool.c:111
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "앱;애플리케이션;패키지;프로그램;프로그램;모음;도구"
 
-#: src/as-pool.c:612
+#: src/as-pool.c:619
 msgid "Unable to remove old cache."
 msgstr ""
 
-#: src/as-pool.c:890
+#: src/as-pool.c:958
 msgid "Metadata files have errors:"
 msgstr "메타데이터 파일에 오류가 있습니다:"
 
-#: src/as-pool.c:1299
+#: src/as-pool.c:1365
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -984,12 +984,17 @@ msgstr ""
 "많은 구성품(코드)들이 허가되지 않은 상태로 인식될 수 있습니다. 자세한 사항은 "
 "디버깅을 통해서 살펴보세요."
 
-#: src/as-pool.c:1864
+#: src/as-pool.c:1984
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "'%s' 캐시 위치에 기록할 수 없습니다."
 
-#: src/as-pool.c:1958
+#: src/as-pool.c:2037
+#, fuzzy, c-format
+msgid "Unable to open new cache file: %s"
+msgstr "해당 .desktop 파일을 읽을 수 없습니다: %s"
+
+#: src/as-pool.c:2106
 #, fuzzy
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
@@ -998,14 +1003,14 @@ msgstr ""
 "AppStream 시스템 캐시는 업데이트했지만 메타데이터를 유실할 수 있는 일부 오류"
 "가 발견되었습니다. 자세한 정보는 로그를 참고하세요."
 
-#: src/as-pool.c:1960
+#: src/as-pool.c:2108
 #, fuzzy, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
 "resulted in metadata being ignored: %s"
 msgstr "AppStream 시스템 캐시는 업데이트했지만 문제를 발견했습니다: %s"
 
-#: src/as-pool.c:1973
+#: src/as-pool.c:2121
 #, fuzzy, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
@@ -1914,28 +1919,28 @@ msgstr "기본 메타데이터 포맷 (유효한 값은 'xml'과 'yaml'입니다
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:156 tools/appstream-cli.c:942
+#: tools/appstream-cli.c:153 tools/appstream-cli.c:948
 msgid "AppStream command-line interface"
 msgstr "AppStream 명령문 인터페이스"
 
-#: tools/appstream-cli.c:159
+#: tools/appstream-cli.c:156
 #, c-format
 msgid "'%s' command"
 msgstr "'%s' 명령어"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstream-cli.c:194
+#: tools/appstream-cli.c:191
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "'%s'는(은) 알 수 없는 옵션입니다."
 
-#: tools/appstream-cli.c:198 tools/appstream-cli.c:1162
+#: tools/appstream-cli.c:195 tools/appstream-cli.c:1168
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "'%s --help' 를 실행하면 사용 가능한 명령문 옵션 전체 목록을 볼 수 있습니다."
 
-#: tools/appstream-cli.c:200
+#: tools/appstream-cli.c:197
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
@@ -1945,32 +1950,37 @@ msgstr ""
 "고 '%s %s --help' 를 실행해서 사용 가능한 하위 명령어 옵션 목록을 봅니다."
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstream-cli.c:246
+#: tools/appstream-cli.c:245
 msgid "Enforce a cache refresh."
 msgstr "캐시를 강제로 새로 고칩니다."
 
+#. TRANSLATORS: ascli flag description for: --user
+#: tools/appstream-cli.c:251
+msgid "Update the user-specific instead of the system-wide cache."
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstream-cli.c:463
+#: tools/appstream-cli.c:469
 msgid "Set the data origin for the installed metadata collection file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstream-cli.c:468
+#: tools/appstream-cli.c:474
 msgid "Install the file for the current user, instead of globally."
 msgstr ""
 
-#: tools/appstream-cli.c:617
+#: tools/appstream-cli.c:623
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr "변수로써 비교하기 위해 최소 2개의 버전 숫자가 필요합니다."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstream-cli.c:646
+#: tools/appstream-cli.c:652
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "알 수 없는 비교 연산자'%s'. 사용할 수 있는 것들은 :"
 
-#: tools/appstream-cli.c:686
+#: tools/appstream-cli.c:692
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -1979,13 +1989,13 @@ msgstr ""
 "합니다."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:718
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "주어진 .desktop 파일을 사용하여 metainfo 파일의 기본 값을 채웁니다."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:717
+#: tools/appstream-cli.c:723
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -1994,45 +2004,45 @@ msgstr ""
 "는 표준 출력의 경우 \"-\")입니다."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:720
+#: tools/appstream-cli.c:726
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPE은 유효한 구성 요소 유형이어야 합니다, 예: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstream-cli.c:761
+#: tools/appstream-cli.c:767
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstream-cli.c:801
+#: tools/appstream-cli.c:807
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstream-cli.c:806
+#: tools/appstream-cli.c:812
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstream-cli.c:848
+#: tools/appstream-cli.c:854
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr ""
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstream-cli.c:917
+#: tools/appstream-cli.c:923
 #, c-format
 msgid "(Alias: '%s')"
 msgstr ""
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:944
+#: tools/appstream-cli.c:950
 msgid "Subcommands:"
 msgstr "하위 명령어:"
 
-#: tools/appstream-cli.c:990
+#: tools/appstream-cli.c:996
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -2041,7 +2051,7 @@ msgstr ""
 "다."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstream-cli.c:1013
+#: tools/appstream-cli.c:1019
 #, fuzzy, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -2049,134 +2059,134 @@ msgstr ""
 "'%s --help' 를 실행하면 사용 가능한 명령문 옵션 전체 목록을 볼 수 있습니다."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:1037
+#: tools/appstream-cli.c:1043
 msgid "Show the program version."
 msgstr "프로그램 버전 보기."
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:1043
+#: tools/appstream-cli.c:1049
 msgid "Show extra debugging information."
 msgstr "추가 디버깅 정보 보이기."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:1048
+#: tools/appstream-cli.c:1054
 msgid "Don't show colored output."
 msgstr "출력에 색깔을 사용하지 마세요."
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstream-cli.c:1051
+#: tools/appstream-cli.c:1057
 msgid "Enable profiling"
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstream-cli.c:1063
+#: tools/appstream-cli.c:1069
 msgid "Search the component database."
 msgstr "구성요소 데이터베이스를 검색합니다."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstream-cli.c:1068
+#: tools/appstream-cli.c:1074
 msgid "Get information about a component by its ID."
 msgstr "ID와 일치하는 구성요소 정보를 가져옵니다."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstream-cli.c:1073
+#: tools/appstream-cli.c:1079
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstream-cli.c:1079
+#: tools/appstream-cli.c:1085
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "ID와 일치하는 구성요소의 원시 XML 메타데이터 덤프."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstream-cli.c:1084
+#: tools/appstream-cli.c:1090
 msgid "Rebuild the component metadata cache."
 msgstr "구성요소 메타데이터 캐시를 다시 만듭니다."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstream-cli.c:1090
+#: tools/appstream-cli.c:1096
 msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML 파일의 문제를 검증합니다."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstream-cli.c:1095
+#: tools/appstream-cli.c:1101
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "올바른 메타데이터를 가지고 있는지 프로그램의 설치 파일 트리를 검증합니다."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstream-cli.c:1101
+#: tools/appstream-cli.c:1107
 msgid "Install software matching the component-ID."
 msgstr "component-ID와 일치하는 소프트웨어를 설치합니다."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstream-cli.c:1106
+#: tools/appstream-cli.c:1112
 msgid "Remove software matching the component-ID."
 msgstr "component-ID와 일치하는 소프트웨어를 제거하세요."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstream-cli.c:1112
+#: tools/appstream-cli.c:1118
 msgid "Display status information about available AppStream metadata."
 msgstr "설치한 AppStream 메타데이터의 상태 정보를 나타냅니다."
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstream-cli.c:1117
+#: tools/appstream-cli.c:1123
 msgid ""
 "Show information about the current operating system from the metadata index."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstream-cli.c:1122
+#: tools/appstream-cli.c:1128
 msgid "Install a metadata file into the right location."
 msgstr "올바른 위치에 메타데이터 파일을 설치하십시오."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:1127
+#: tools/appstream-cli.c:1133
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "컬렉션 XML을 YAML로 변환하시거나 그 반대로 하세요."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstream-cli.c:1132
+#: tools/appstream-cli.c:1138
 msgid "Compare two version numbers."
 msgstr "두 버전 비교하기."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstream-cli.c:1138
+#: tools/appstream-cli.c:1144
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr "업스트림 프로젝트로 채울 metainfo 파일의 템플릿을 만듭니다."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstream-cli.c:1143
+#: tools/appstream-cli.c:1149
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstream-cli.c:1148
+#: tools/appstream-cli.c:1154
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstream-cli.c:1153
+#: tools/appstream-cli.c:1159
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:1161
+#: tools/appstream-cli.c:1167
 msgid "You need to specify a command."
 msgstr "명령을 지정해야 합니다."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:1185
+#: tools/appstream-cli.c:1191
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream 버전: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:1188
+#: tools/appstream-cli.c:1194
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"

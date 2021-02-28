@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-02-16 20:08+0100\n"
+"POT-Creation-Date: 2021-02-28 08:16+0100\n"
 "PO-Revision-Date: 2020-12-10 06:29+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/"
@@ -972,19 +972,19 @@ msgstr "O tamanho do ficheiro obtido foi zero."
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:109
+#: src/as-pool.c:111
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplicação;aplicativo;pacote;programa;ferramenta"
 
-#: src/as-pool.c:612
+#: src/as-pool.c:619
 msgid "Unable to remove old cache."
 msgstr "Não foi possível remover cache antiga."
 
-#: src/as-pool.c:890
+#: src/as-pool.c:958
 msgid "Metadata files have errors:"
 msgstr "Os ficheiros de metadados têm erros:"
 
-#: src/as-pool.c:1299
+#: src/as-pool.c:1365
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -992,12 +992,17 @@ msgstr ""
 "Muitos componentes foram reconhecidos como inválidos. Veja a saída de "
 "depuração para detalhes."
 
-#: src/as-pool.c:1864
+#: src/as-pool.c:1984
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "A localização da cache “%s” não é gravável."
 
-#: src/as-pool.c:1958
+#: src/as-pool.c:2037
+#, fuzzy, c-format
+msgid "Unable to open new cache file: %s"
+msgstr "Não foi possível ler o ficheiro .desktop: %s"
+
+#: src/as-pool.c:2106
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
@@ -1005,7 +1010,7 @@ msgstr ""
 "A ''cache'' do sistema de AppStream foi atualizada, mas alguns componentes "
 "foram ignorados. Consulte o registo verboso para mais informação."
 
-#: src/as-pool.c:1960
+#: src/as-pool.c:2108
 #, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
@@ -1014,7 +1019,7 @@ msgstr ""
 "A ''cache'' do sistema de AppStream foi atualizada, mas foram encontrados "
 "problemas mas que resultaram em que os metadados fossem ignorados: %s"
 
-#: src/as-pool.c:1973
+#: src/as-pool.c:2121
 #, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
@@ -2141,29 +2146,29 @@ msgstr "O formato do relatório gerado (os valores válidos são 'xml' e 'yaml')
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:156 tools/appstream-cli.c:942
+#: tools/appstream-cli.c:153 tools/appstream-cli.c:948
 msgid "AppStream command-line interface"
 msgstr "Interface da linha de comandos do AppStream"
 
-#: tools/appstream-cli.c:159
+#: tools/appstream-cli.c:156
 #, c-format
 msgid "'%s' command"
 msgstr "Comando '%s'"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstream-cli.c:194
+#: tools/appstream-cli.c:191
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "A opção \"%s\" é desconhecida."
 
-#: tools/appstream-cli.c:198 tools/appstream-cli.c:1162
+#: tools/appstream-cli.c:195 tools/appstream-cli.c:1168
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Execute \"%s --help\" para ver uma lista completa das opções da linha de "
 "comandos disponíveis."
 
-#: tools/appstream-cli.c:200
+#: tools/appstream-cli.c:197
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
@@ -2174,21 +2179,26 @@ msgstr ""
 "este sub-comando."
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstream-cli.c:246
+#: tools/appstream-cli.c:245
 msgid "Enforce a cache refresh."
 msgstr "Forçar a atualização da cache."
 
+#. TRANSLATORS: ascli flag description for: --user
+#: tools/appstream-cli.c:251
+msgid "Update the user-specific instead of the system-wide cache."
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstream-cli.c:463
+#: tools/appstream-cli.c:469
 msgid "Set the data origin for the installed metadata collection file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstream-cli.c:468
+#: tools/appstream-cli.c:474
 msgid "Install the file for the current user, instead of globally."
 msgstr ""
 
-#: tools/appstream-cli.c:617
+#: tools/appstream-cli.c:623
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
@@ -2196,12 +2206,12 @@ msgstr ""
 "parâmetros."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstream-cli.c:646
+#: tools/appstream-cli.c:652
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Relação de comparação desconhecida \"%s\". Os valores válidos são:"
 
-#: tools/appstream-cli.c:686
+#: tools/appstream-cli.c:692
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -2210,7 +2220,7 @@ msgstr ""
 "versão e um operador de comparação."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:718
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -2218,7 +2228,7 @@ msgstr ""
 "metainfo."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:717
+#: tools/appstream-cli.c:723
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -2227,27 +2237,27 @@ msgstr ""
 "ARQUIVO sendo um ficheiro para escrever (ou “-” para a saída padrão)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:720
+#: tools/appstream-cli.c:726
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "O TIPO deve ser um component-type válido, como: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstream-cli.c:761
+#: tools/appstream-cli.c:767
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 "Usa a linha especificada para a chave “Exec=” do ficheiro de entrada de "
 "desktop."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstream-cli.c:801
+#: tools/appstream-cli.c:807
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 "Presuma que o ficheiro de entrada está no formato selecionado ('yaml' ou "
 "'text')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstream-cli.c:806
+#: tools/appstream-cli.c:812
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
@@ -2256,22 +2266,22 @@ msgstr ""
 "ficheiro metainfo (0 para sem limite)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstream-cli.c:848
+#: tools/appstream-cli.c:854
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr "Gera a saída no formato selecionado (“yaml” ou “text”)."
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstream-cli.c:917
+#: tools/appstream-cli.c:923
 #, c-format
 msgid "(Alias: '%s')"
 msgstr ""
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:944
+#: tools/appstream-cli.c:950
 msgid "Subcommands:"
 msgstr "Sub-comandos:"
 
-#: tools/appstream-cli.c:990
+#: tools/appstream-cli.c:996
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -2280,7 +2290,7 @@ msgstr ""
 "passando “--help” para o sub-comando."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstream-cli.c:1013
+#: tools/appstream-cli.c:1019
 #, fuzzy, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -2289,106 +2299,106 @@ msgstr ""
 "comandos disponíveis."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:1037
+#: tools/appstream-cli.c:1043
 msgid "Show the program version."
 msgstr "Mostrar a versão do programa."
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:1043
+#: tools/appstream-cli.c:1049
 msgid "Show extra debugging information."
 msgstr "Mostrar informações extras de depuração."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:1048
+#: tools/appstream-cli.c:1054
 msgid "Don't show colored output."
 msgstr "Não mostrar saída colorida."
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstream-cli.c:1051
+#: tools/appstream-cli.c:1057
 msgid "Enable profiling"
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstream-cli.c:1063
+#: tools/appstream-cli.c:1069
 msgid "Search the component database."
 msgstr "Pesquisa na base de dados de componente."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstream-cli.c:1068
+#: tools/appstream-cli.c:1074
 msgid "Get information about a component by its ID."
 msgstr "Obtém informação sobre um componente através do seu identificador."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstream-cli.c:1073
+#: tools/appstream-cli.c:1079
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstream-cli.c:1079
+#: tools/appstream-cli.c:1085
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Despejar metadados XML não tratados para um componente coincidindo com o "
 "identificador (ID)."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstream-cli.c:1084
+#: tools/appstream-cli.c:1090
 msgid "Rebuild the component metadata cache."
 msgstr "Reconstruir a cache de metadados de componentes."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstream-cli.c:1090
+#: tools/appstream-cli.c:1096
 msgid "Validate AppStream XML files for issues."
 msgstr "Valida os ficheiros XML de AppStream por problemas."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstream-cli.c:1095
+#: tools/appstream-cli.c:1101
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Valida uma árvore de ficheiros instalada de uma aplicação para metadados "
 "válidos."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstream-cli.c:1101
+#: tools/appstream-cli.c:1107
 msgid "Install software matching the component-ID."
 msgstr ""
 "Instala software correspondente ao component-ID (identificador de "
 "componente)."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstream-cli.c:1106
+#: tools/appstream-cli.c:1112
 msgid "Remove software matching the component-ID."
 msgstr "Remove software correspondendo ao component-ID."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstream-cli.c:1112
+#: tools/appstream-cli.c:1118
 msgid "Display status information about available AppStream metadata."
 msgstr "Mostrar informações sobre metadados disponíveis do AppStream."
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstream-cli.c:1117
+#: tools/appstream-cli.c:1123
 msgid ""
 "Show information about the current operating system from the metadata index."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstream-cli.c:1122
+#: tools/appstream-cli.c:1128
 msgid "Install a metadata file into the right location."
 msgstr "Instala um ficheiro de metadados na localização certa."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:1127
+#: tools/appstream-cli.c:1133
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Converter XML para YAML ou vice-versa."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstream-cli.c:1132
+#: tools/appstream-cli.c:1138
 msgid "Compare two version numbers."
 msgstr "Compara dois números de versões."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstream-cli.c:1138
+#: tools/appstream-cli.c:1144
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -2397,35 +2407,35 @@ msgstr ""
 "upstream)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstream-cli.c:1143
+#: tools/appstream-cli.c:1149
 #, fuzzy
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Cria um ficheiro de entrada de desktop XDG de um ficheiro metainfo."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstream-cli.c:1148
+#: tools/appstream-cli.c:1154
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "Converte um ficheiro YAML ou NEWS de textos em lançamento de metainfo."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstream-cli.c:1153
+#: tools/appstream-cli.c:1159
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 "Escreve ficheiro de textos NEWS ou YAML com info de um ficheiro metainfo."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:1161
+#: tools/appstream-cli.c:1167
 msgid "You need to specify a command."
 msgstr "Tem de especificar um comando."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:1185
+#: tools/appstream-cli.c:1191
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Versão do AppStream: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:1188
+#: tools/appstream-cli.c:1194
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"

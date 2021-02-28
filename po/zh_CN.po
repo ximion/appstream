@@ -35,10 +35,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-02-16 20:08+0100\n"
+"POT-Creation-Date: 2021-02-28 08:16+0100\n"
 "PO-Revision-Date: 2021-02-24 00:50+0000\n"
 "Last-Translator: Chen Xiaomeng <295932653@qq.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -67,7 +68,9 @@ msgid ""
 "AppStream XML or YAML metadata. It also gives access to the system metadata "
 "pool, for example to query for software that provides a specific MIME-type, "
 "and installing it by its software component identifier."
-msgstr "本工具可用于读写、验证与转换 AppStream XML 或 YAML 元数据；此外还可访问系统元数据库，进行诸如搜索提供某种 MIME 类型的软件，并按照其软件组件辨识码安装。"
+msgstr ""
+"本工具可用于读写、验证与转换 AppStream XML 或 YAML 元数据；此外还可访问系统元"
+"数据库，进行诸如搜索提供某种 MIME 类型的软件，并按照其软件组件辨识码安装。"
 
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
@@ -932,7 +935,7 @@ msgstr "对当代奴役行为的图片描写"
 
 #. TRANSLATORS: We got a 429 error while trying to download data
 #: src/as-curl.c:134
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "Failed to download due to server limit"
 msgstr "因服务器限制下载失败"
 
@@ -965,45 +968,51 @@ msgstr "检索到的文件大小为0。"
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:109
+#: src/as-pool.c:111
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;application;package;program;programme;suite;tool;应用;程序;包;程序;套装;"
 "工具;套件;软件"
 
-#: src/as-pool.c:612
+#: src/as-pool.c:619
 msgid "Unable to remove old cache."
 msgstr "无法删除旧缓存。"
 
-#: src/as-pool.c:890
+#: src/as-pool.c:958
 msgid "Metadata files have errors:"
 msgstr "元数据文件有错误："
 
-#: src/as-pool.c:1299
+#: src/as-pool.c:1365
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
 msgstr "多个组件被识别为无效。详细信息见调试输出。"
 
-#: src/as-pool.c:1864
+#: src/as-pool.c:1984
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "缓存位置“%s”不可写。"
 
-#: src/as-pool.c:1958
+#: src/as-pool.c:2037
+#, fuzzy, c-format
+msgid "Unable to open new cache file: %s"
+msgstr "无法读取 .desktop 文件：%s"
+
+#: src/as-pool.c:2106
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
-msgstr "AppStream 系统缓存已更新，但是部分组件被忽略。 请参阅详细日志获取更多信息。"
+msgstr ""
+"AppStream 系统缓存已更新，但是部分组件被忽略。 请参阅详细日志获取更多信息。"
 
-#: src/as-pool.c:1960
+#: src/as-pool.c:2108
 #, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
 "resulted in metadata being ignored: %s"
 msgstr "AppStream 系统缓存已更新，但发现了一些问题，可能导致元数据被忽略：%s"
 
-#: src/as-pool.c:1973
+#: src/as-pool.c:2121
 #, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
@@ -1915,27 +1924,27 @@ msgstr "给定元数据格式的默认值 (有效的值为“xml”和“yaml”
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:156 tools/appstream-cli.c:942
+#: tools/appstream-cli.c:153 tools/appstream-cli.c:948
 msgid "AppStream command-line interface"
 msgstr "AppStream 命令行界面"
 
-#: tools/appstream-cli.c:159
+#: tools/appstream-cli.c:156
 #, c-format
 msgid "'%s' command"
 msgstr "“%s”命令"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstream-cli.c:194
+#: tools/appstream-cli.c:191
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "选项“%s”未知。"
 
-#: tools/appstream-cli.c:198 tools/appstream-cli.c:1162
+#: tools/appstream-cli.c:195 tools/appstream-cli.c:1168
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "运行“%s --help”以查看可用命令行选项完整的列表。"
 
-#: tools/appstream-cli.c:200
+#: tools/appstream-cli.c:197
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
@@ -1945,46 +1954,51 @@ msgstr ""
 "的选项列表。"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstream-cli.c:246
+#: tools/appstream-cli.c:245
 msgid "Enforce a cache refresh."
 msgstr "强制刷新缓存。"
 
+#. TRANSLATORS: ascli flag description for: --user
+#: tools/appstream-cli.c:251
+msgid "Update the user-specific instead of the system-wide cache."
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstream-cli.c:463
+#: tools/appstream-cli.c:469
 msgid "Set the data origin for the installed metadata collection file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstream-cli.c:468
+#: tools/appstream-cli.c:474
 msgid "Install the file for the current user, instead of globally."
 msgstr ""
 
-#: tools/appstream-cli.c:617
+#: tools/appstream-cli.c:623
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstream-cli.c:646
+#: tools/appstream-cli.c:652
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr ""
 
-#: tools/appstream-cli.c:686
+#: tools/appstream-cli.c:692
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:718
 #, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "使用给定的 .desktop 文件来填充元信息文件里的基本值。"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:717
+#: tools/appstream-cli.c:723
 #, fuzzy
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
@@ -1994,154 +2008,154 @@ msgstr ""
 "输出）。"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:720
+#: tools/appstream-cli.c:726
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPE 必须为有效的组件类型，例如：%s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstream-cli.c:761
+#: tools/appstream-cli.c:767
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstream-cli.c:801
+#: tools/appstream-cli.c:807
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr "假设输入文件是所选的格式（'yaml' 或者 'text'）。"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstream-cli.c:806
+#: tools/appstream-cli.c:812
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstream-cli.c:848
+#: tools/appstream-cli.c:854
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr ""
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstream-cli.c:917
+#: tools/appstream-cli.c:923
 #, c-format
 msgid "(Alias: '%s')"
 msgstr ""
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:944
+#: tools/appstream-cli.c:950
 msgid "Subcommands:"
 msgstr "子命令："
 
-#: tools/appstream-cli.c:990
+#: tools/appstream-cli.c:996
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr "您可以借由传递“--help”给子命令来查找子命令专属的选项信息。"
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstream-cli.c:1013
+#: tools/appstream-cli.c:1019
 #, fuzzy, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
 msgstr "运行“%s --help”以查看可用命令行选项完整的列表。"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:1037
+#: tools/appstream-cli.c:1043
 msgid "Show the program version."
 msgstr "显示程序版本."
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:1043
+#: tools/appstream-cli.c:1049
 msgid "Show extra debugging information."
 msgstr "显示额外的调试信息。"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:1048
+#: tools/appstream-cli.c:1054
 msgid "Don't show colored output."
 msgstr "不要显示彩色输出。"
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstream-cli.c:1051
+#: tools/appstream-cli.c:1057
 msgid "Enable profiling"
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstream-cli.c:1063
+#: tools/appstream-cli.c:1069
 msgid "Search the component database."
 msgstr "搜索组件数据库。"
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstream-cli.c:1068
+#: tools/appstream-cli.c:1074
 msgid "Get information about a component by its ID."
 msgstr "根据 ID 获取相应组件的信息。"
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstream-cli.c:1073
+#: tools/appstream-cli.c:1079
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstream-cli.c:1079
+#: tools/appstream-cli.c:1085
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "为 ID 匹配的组件转储原始 XML 元数据。"
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstream-cli.c:1084
+#: tools/appstream-cli.c:1090
 msgid "Rebuild the component metadata cache."
 msgstr "重建组件元数据缓存。"
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstream-cli.c:1090
+#: tools/appstream-cli.c:1096
 msgid "Validate AppStream XML files for issues."
 msgstr "验证 AppStream XML 文件以寻找问题。"
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstream-cli.c:1095
+#: tools/appstream-cli.c:1101
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "检验已安装应用程序的文件树以查找有效元数据。"
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstream-cli.c:1101
+#: tools/appstream-cli.c:1107
 #, fuzzy
 msgid "Install software matching the component-ID."
 msgstr "安装匹配组件 ID 的软件。"
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstream-cli.c:1106
+#: tools/appstream-cli.c:1112
 #, fuzzy
 msgid "Remove software matching the component-ID."
 msgstr "卸载匹配 component-id 的软件。"
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstream-cli.c:1112
+#: tools/appstream-cli.c:1118
 msgid "Display status information about available AppStream metadata."
 msgstr "显示关于可用的 AppStream 元数据的状态信息。"
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstream-cli.c:1117
+#: tools/appstream-cli.c:1123
 msgid ""
 "Show information about the current operating system from the metadata index."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstream-cli.c:1122
+#: tools/appstream-cli.c:1128
 msgid "Install a metadata file into the right location."
 msgstr "将元数据文件安装到正确的位置。"
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:1127
+#: tools/appstream-cli.c:1133
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "将收藏集 XML 转换成 YAML，或是相反。"
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstream-cli.c:1132
+#: tools/appstream-cli.c:1138
 msgid "Compare two version numbers."
 msgstr "比较两个版本号。"
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstream-cli.c:1138
+#: tools/appstream-cli.c:1144
 #, fuzzy
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
@@ -2149,33 +2163,33 @@ msgid ""
 msgstr "为元信息文件创建模板（由上游项目所填写）。"
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstream-cli.c:1143
+#: tools/appstream-cli.c:1149
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstream-cli.c:1148
+#: tools/appstream-cli.c:1154
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstream-cli.c:1153
+#: tools/appstream-cli.c:1159
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:1161
+#: tools/appstream-cli.c:1167
 msgid "You need to specify a command."
 msgstr "您需要指定一个命令。"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:1185
+#: tools/appstream-cli.c:1191
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream 版本：%s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:1188
+#: tools/appstream-cli.c:1194
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"

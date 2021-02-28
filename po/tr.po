@@ -23,10 +23,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-02-16 20:08+0100\n"
+"POT-Creation-Date: 2021-02-28 08:16+0100\n"
 "PO-Revision-Date: 2021-02-21 11:50+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
+"translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -963,19 +964,19 @@ msgstr "Alınan dosya boyutu sıfırdı."
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:109
+#: src/as-pool.c:111
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "uygulama;paket;program;takım;araç"
 
-#: src/as-pool.c:612
+#: src/as-pool.c:619
 msgid "Unable to remove old cache."
 msgstr "Eski önbellek kaldırılamıyor."
 
-#: src/as-pool.c:890
+#: src/as-pool.c:958
 msgid "Metadata files have errors:"
 msgstr "Üst veri dosyalarında hata var:"
 
-#: src/as-pool.c:1299
+#: src/as-pool.c:1365
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -983,12 +984,17 @@ msgstr ""
 "Birçok bileşen geçersiz olarak kabul edildi. Ayrıntılar için hata ayıklama "
 "çıktısına bakınız."
 
-#: src/as-pool.c:1864
+#: src/as-pool.c:1984
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Önbellek konumu '%s', yazılabilir değil."
 
-#: src/as-pool.c:1958
+#: src/as-pool.c:2037
+#, fuzzy, c-format
+msgid "Unable to open new cache file: %s"
+msgstr ".desktop dosyası okunamadı: %s"
+
+#: src/as-pool.c:2106
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
@@ -996,7 +1002,7 @@ msgstr ""
 "AppStream sistem önbelleği güncellendi, ama bazı bileşenler yok sayıldı. "
 "Daha fazla bilgi için ayrıntılı log kaydına başvurun."
 
-#: src/as-pool.c:1960
+#: src/as-pool.c:2108
 #, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
@@ -1005,7 +1011,7 @@ msgstr ""
 "AppStream sistem önbelleği güncellendi, ama üst verilerin yok sayılmasıyla "
 "sonuçlanan sorunlar bulundu: %s"
 
-#: src/as-pool.c:1973
+#: src/as-pool.c:2121
 #, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
@@ -1450,13 +1456,17 @@ msgstr ""
 msgid ""
 "Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are "
 "permitted."
-msgstr "İlişki ögesinde geçersiz karşılaştırma işlemi. Yalnızca eq/ne/lt/gt/le/ge işlemlerine izin verilir."
+msgstr ""
+"İlişki ögesinde geçersiz karşılaştırma işlemi. Yalnızca eq/ne/lt/gt/le/ge "
+"işlemlerine izin verilir."
 
 #: src/as-validator-issue-tag.h:281
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr "İlişki ögesinin bir karşılaştırma işlemi kümesi var, ancak herhangi bir karşılaştırmayı desteklemiyor."
+msgstr ""
+"İlişki ögesinin bir karşılaştırma işlemi kümesi var, ancak herhangi bir "
+"karşılaştırmayı desteklemiyor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:287
@@ -1500,7 +1510,11 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr "Bu `display_length` ögesi geçersiz bir görüntüleme uzunluğu içeriyor. Değeri, bir kısaltma dizgesi veya mantıksal pikselleri ifade eden pozitif tam sayı değeri olmalıdır. Bu etiket hakkında daha fazla bilgi için lütfen AppStream tanımlamasına bakın."
+msgstr ""
+"Bu `display_length` ögesi geçersiz bir görüntüleme uzunluğu içeriyor. "
+"Değeri, bir kısaltma dizgesi veya mantıksal pikselleri ifade eden pozitif "
+"tam sayı değeri olmalıdır. Bu etiket hakkında daha fazla bilgi için lütfen "
+"AppStream tanımlamasına bakın."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:314
@@ -1509,7 +1523,11 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr "Bu `display_length` ögesinin bu `side` özelliği geçersiz bir değer içeriyor. Öge değerinin ekranın en kısa veya en uzun tarafına uygulanmasını sağlamak için ya `shortest` veya `longest` olmalı, ya da `shortest` anlamına gelmesi için ayarlanmamış olmalıdır."
+msgstr ""
+"Bu `display_length` ögesinin bu `side` özelliği geçersiz bir değer içeriyor. "
+"Öge değerinin ekranın en kısa veya en uzun tarafına uygulanmasını sağlamak "
+"için ya `shortest` veya `longest` olmalı, ya da `shortest` anlamına gelmesi "
+"için ayarlanmamış olmalıdır."
 
 #: src/as-validator-issue-tag.h:320
 msgid ""
@@ -1943,7 +1961,8 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:658
 msgid "The value set as release urgency is not a known urgency value."
-msgstr "Yayın aciliyeti olarak ayarlanan değer, bilinen bir aciliyet değeri değil."
+msgstr ""
+"Yayın aciliyeti olarak ayarlanan değer, bilinen bir aciliyet değeri değil."
 
 #: src/as-validator-issue-tag.h:663
 msgid "The value set as release type is invalid."
@@ -1954,7 +1973,8 @@ msgstr "Yayın türü olarak ayarlanan değer geçersiz."
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr "Yapı türü olarak ayarlanan değer geçersiz. `source` veya `binary` olmalıdır."
+msgstr ""
+"Yapı türü olarak ayarlanan değer geçersiz. `source` veya `binary` olmalıdır."
 
 #: src/as-validator-issue-tag.h:674
 msgid "The value set as artifact bundle type is invalid."
@@ -1965,7 +1985,11 @@ msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr "Bu yayının platform üçlüsü geçersiz. `architecture-oskernel-osenv` biçiminde olmalıdır - daha fazla bilgi ve geçerli alanlar için AppStream belgelendirmesine veya normalleştirilmiş GNU üçlüleriyle ilgili bilgilere bakın."
+msgstr ""
+"Bu yayının platform üçlüsü geçersiz. `architecture-oskernel-osenv` biçiminde "
+"olmalıdır - daha fazla bilgi ve geçerli alanlar için AppStream "
+"belgelendirmesine veya normalleştirilmiş GNU üçlüleriyle ilgili bilgilere "
+"bakın."
 
 #: src/as-validator-issue-tag.h:686
 msgid "The selected checksumming algorithm is unsupported or unknown."
@@ -1980,7 +2004,9 @@ msgstr "Boyut türü bilinmiyor. `download` veya `installed` olmalıdır."
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr "Yapı dosya adı bir dosya temel adı olmalıdır, bir (göreceli veya mutlak) yol değil."
+msgstr ""
+"Yapı dosya adı bir dosya temel adı olmalıdır, bir (göreceli veya mutlak) yol "
+"değil."
 
 #: src/as-validator-issue-tag.h:702
 msgid "The value set as release issue type is invalid."
@@ -1990,14 +2016,19 @@ msgstr "Yayın sorunu türü olarak ayarlanan değer geçersiz."
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr "Sorun bir CVE numarasıyla güvenlik açığı olarak etiketlendi, ancak değeri geçerli bir CVE tanımlayıcısı gibi görünmüyor."
+msgstr ""
+"Sorun bir CVE numarasıyla güvenlik açığı olarak etiketlendi, ancak değeri "
+"geçerli bir CVE tanımlayıcısı gibi görünmüyor."
 
 #: src/as-validator-issue-tag.h:712
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr "AppStream tanımlaması, tarihleri belirtmek için en az gün derecesinde ayrıntıya sahip tam bir ISO 8601 tarih dizgesi gerektirmektedir. Lütfen tarih dizgesinin geçerli olduğundan emin olun."
+msgstr ""
+"AppStream tanımlaması, tarihleri belirtmek için en az gün derecesinde "
+"ayrıntıya sahip tam bir ISO 8601 tarih dizgesi gerektirmektedir. Lütfen "
+"tarih dizgesinin geçerli olduğundan emin olun."
 
 #: src/as-validator-issue-tag.h:718
 msgid ""
@@ -2043,7 +2074,10 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr "Üst düzey `mimetypes` etiketi kullanımdan kaldırıldı. Yazılımınızın belirli türler için bir ortam işleyicisi sağladığını belirtmek için lütfen bir `provides` bloğunda `mediatype` etiketlerini kullanın."
+msgstr ""
+"Üst düzey `mimetypes` etiketi kullanımdan kaldırıldı. Yazılımınızın belirli "
+"türler için bir ortam işleyicisi sağladığını belirtmek için lütfen bir "
+"`provides` bloğunda `mediatype` etiketlerini kullanın."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2112,28 +2146,28 @@ msgstr "Oluşturulan raporun biçimi (geçerli değerler 'text' ve 'yaml')."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:156 tools/appstream-cli.c:942
+#: tools/appstream-cli.c:153 tools/appstream-cli.c:948
 msgid "AppStream command-line interface"
 msgstr "AppStream komut satırı arayüzü"
 
-#: tools/appstream-cli.c:159
+#: tools/appstream-cli.c:156
 #, c-format
 msgid "'%s' command"
 msgstr "'%s' komutu"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstream-cli.c:194
+#: tools/appstream-cli.c:191
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "'%s' seçeneği bilinmiyor."
 
-#: tools/appstream-cli.c:198 tools/appstream-cli.c:1162
+#: tools/appstream-cli.c:195 tools/appstream-cli.c:1168
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Tüm komut satırı işlemlerini görmek için '%s --help' komutunu çalıştırın."
 
-#: tools/appstream-cli.c:200
+#: tools/appstream-cli.c:197
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
@@ -2144,21 +2178,26 @@ msgstr ""
 "help'i çalıştırın."
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstream-cli.c:246
+#: tools/appstream-cli.c:245
 msgid "Enforce a cache refresh."
 msgstr "Ön belleği yenilenmeye zorla."
 
+#. TRANSLATORS: ascli flag description for: --user
+#: tools/appstream-cli.c:251
+msgid "Update the user-specific instead of the system-wide cache."
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstream-cli.c:463
+#: tools/appstream-cli.c:469
 msgid "Set the data origin for the installed metadata collection file."
 msgstr "Kurulu üst veri koleksiyon dosyası için veri kaynağını ayarla."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstream-cli.c:468
+#: tools/appstream-cli.c:474
 msgid "Install the file for the current user, instead of globally."
 msgstr "Dosyayı genel olarak değil, geçerli kullanıcı için kur."
 
-#: tools/appstream-cli.c:617
+#: tools/appstream-cli.c:623
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
@@ -2166,12 +2205,12 @@ msgstr ""
 "gerekmektedir."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstream-cli.c:646
+#: tools/appstream-cli.c:652
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Bilinmeyen karşılaştırma ilişkisi '%s'. Geçerli değerler:"
 
-#: tools/appstream-cli.c:686
+#: tools/appstream-cli.c:692
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -2180,7 +2219,7 @@ msgstr ""
 "karşılaştırma operatörüne ihtiyaç var."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:718
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -2188,7 +2227,7 @@ msgstr ""
 "dosyasını kullanın."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:717
+#: tools/appstream-cli.c:723
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -2197,24 +2236,24 @@ msgstr ""
 "yazılacak bir dosyadır (veya standart çıktı için \"-\")."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:720
+#: tools/appstream-cli.c:726
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPE, şunun gibi geçerli bir bileşen türü olmalıdır: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstream-cli.c:761
+#: tools/appstream-cli.c:767
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 "Masaüstü girdi dosyasının 'Exec =' anahtarı için belirtilen satırı kullanın."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstream-cli.c:801
+#: tools/appstream-cli.c:807
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr "Giriş dosyasının seçilen biçimde ('yaml' veya 'text') olduğunu varsay."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstream-cli.c:806
+#: tools/appstream-cli.c:812
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
@@ -2223,22 +2262,22 @@ msgstr ""
 "(sınırsız için 0)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstream-cli.c:848
+#: tools/appstream-cli.c:854
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr "Çıktıyı seçilen biçimde ('yaml' veya 'text') oluştur."
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstream-cli.c:917
+#: tools/appstream-cli.c:923
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(Takma ad: '%s')"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:944
+#: tools/appstream-cli.c:950
 msgid "Subcommands:"
 msgstr "Alt komutlar:"
 
-#: tools/appstream-cli.c:990
+#: tools/appstream-cli.c:996
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -2247,7 +2286,7 @@ msgstr ""
 "bulabilirsiniz."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstream-cli.c:1013
+#: tools/appstream-cli.c:1019
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -2256,37 +2295,37 @@ msgstr ""
 "komutunu çalıştırın."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:1037
+#: tools/appstream-cli.c:1043
 msgid "Show the program version."
 msgstr "Program sürümünü göster."
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:1043
+#: tools/appstream-cli.c:1049
 msgid "Show extra debugging information."
 msgstr "Ek hata ayıklama bilgisi göster."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:1048
+#: tools/appstream-cli.c:1054
 msgid "Don't show colored output."
 msgstr "Renklendirilmiş çıktı gösterme."
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstream-cli.c:1051
+#: tools/appstream-cli.c:1057
 msgid "Enable profiling"
 msgstr "Profil oluşturmayı etkinleştir"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstream-cli.c:1063
+#: tools/appstream-cli.c:1069
 msgid "Search the component database."
 msgstr "Bileşen veri tabanında arama yapın."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstream-cli.c:1068
+#: tools/appstream-cli.c:1074
 msgid "Get information about a component by its ID."
 msgstr "Kimliğiyle bir bileşen hakkında bilgi edin."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstream-cli.c:1073
+#: tools/appstream-cli.c:1079
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
@@ -2295,65 +2334,65 @@ msgstr ""
 "(örn. lib, bin, python3, …) ve öge değerine ihtiyaç duyar."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstream-cli.c:1079
+#: tools/appstream-cli.c:1085
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Kimlik ile eşleşen bileşen için ham XML üst verisini dök."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstream-cli.c:1084
+#: tools/appstream-cli.c:1090
 msgid "Rebuild the component metadata cache."
 msgstr "Bileşen üst veri önbelleğini yeniden oluştur."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstream-cli.c:1090
+#: tools/appstream-cli.c:1096
 msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML dosyalarını sorunlar için doğrula."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstream-cli.c:1095
+#: tools/appstream-cli.c:1101
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Bir uygulamanın kurulu bir dosya ağacını geçerli üst veri için doğrulayın."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstream-cli.c:1101
+#: tools/appstream-cli.c:1107
 msgid "Install software matching the component-ID."
 msgstr "Bileşen kimliğiyle eşleşen yazılım kur."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstream-cli.c:1106
+#: tools/appstream-cli.c:1112
 msgid "Remove software matching the component-ID."
 msgstr "Bileşen kimliğiyle eşleşen yazılımı kaldır."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstream-cli.c:1112
+#: tools/appstream-cli.c:1118
 msgid "Display status information about available AppStream metadata."
 msgstr ""
 "Kullanılabilir AppStream üst verileri hakkındaki durum bilgilerini görüntüle."
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstream-cli.c:1117
+#: tools/appstream-cli.c:1123
 msgid ""
 "Show information about the current operating system from the metadata index."
 msgstr "Üst veri indeksinden geçerli işletim sistemi hakkında bilgi göster."
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstream-cli.c:1122
+#: tools/appstream-cli.c:1128
 msgid "Install a metadata file into the right location."
 msgstr "Bir üst veri dosyasını doğru konuma kur."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:1127
+#: tools/appstream-cli.c:1133
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Koleksiyon XML'ini YAML'e veya ters yönde dönüştür."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstream-cli.c:1132
+#: tools/appstream-cli.c:1138
 msgid "Compare two version numbers."
 msgstr "İki sürüm numarasını karşılaştır."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstream-cli.c:1138
+#: tools/appstream-cli.c:1144
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -2362,34 +2401,34 @@ msgstr ""
 "doldurulacak)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstream-cli.c:1143
+#: tools/appstream-cli.c:1149
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Bir metainfo dosyasından bir masaüstü girdi dosyası oluşturun."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstream-cli.c:1148
+#: tools/appstream-cli.c:1154
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "Bir YAML veya metin NEWS dosyasını metainfo sürümlerine dönüştürün."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstream-cli.c:1153
+#: tools/appstream-cli.c:1159
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 "NEWS metin veya YAML dosyasını bir metainfo dosyasındaki bilgilerle yazın."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:1161
+#: tools/appstream-cli.c:1167
 msgid "You need to specify a command."
 msgstr "Bir komut belirtmelisiniz."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:1185
+#: tools/appstream-cli.c:1191
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream sürümü: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:1188
+#: tools/appstream-cli.c:1194
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
