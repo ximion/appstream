@@ -149,6 +149,8 @@ gboolean		as_utils_is_platform_triplet_osenv (const gchar *env);
 
 gchar			*as_get_user_cache_dir ();
 
+gboolean		as_unichar_accepted (gunichar c);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

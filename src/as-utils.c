@@ -2136,3 +2136,18 @@ as_get_user_cache_dir ()
 	}
 	return g_build_filename (cache_root, "appstream", NULL);
 }
+
+/**
+ * as_unichar_accepted:
+ *
+ * Test if the unicode character is in the accepted set for
+ * string values in AppStream.
+ *
+ * We permit any printable, non-spacing, format or zero-width space characters, as
+ * well as enclosing marks and U+00AD SOFT HYPHEN
+ */
+gboolean
+as_unichar_accepted (gunichar c)
+{
+	return g_unichar_isprint (c) || g_unichar_iszerowidth (c) || c == 173;
+}

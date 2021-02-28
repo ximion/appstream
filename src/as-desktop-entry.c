@@ -203,7 +203,7 @@ as_get_desktop_entry_value (GKeyFile *df, GPtrArray *issues, const gchar *key)
 	str_iter = str;
 	while (*str_iter != '\0') {
 		gunichar c = g_utf8_get_char (str_iter);
-		if (g_unichar_isprint (c) || g_unichar_iszerowidth (c))
+		if (as_unichar_accepted (c))
 			g_string_append_unichar (sane_str, c);
 		else {
 			g_string_append (sane_str, "�");
