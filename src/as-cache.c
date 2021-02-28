@@ -2172,10 +2172,10 @@ as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn, MDB_val dv
 /**
  * as_cache_search_items_table_to_results:
  *
- * Converts the found items hash table to results list.
+ * Converts the found items hash table entries to results list of components.
  */
 static void
-as_cache_search_items_table_to_results (GHashTable *results_ht, GPtrArray *results, guint required_terms_n, gboolean strict)
+as_cache_search_items_table_to_results (GHashTable *results_ht, GPtrArray *results, guint required_terms_n)
 {
 	GHashTableIter ht_iter;
 	gpointer ht_value;
@@ -2189,15 +2189,6 @@ as_cache_search_items_table_to_results (GHashTable *results_ht, GPtrArray *resul
 		if (sitem->terms_found < required_terms_n)
 			continue;
 		g_ptr_array_add (results, g_steal_pointer (&sitem->cpt));
-	}
-
-	if (results->len == 0 && !strict && required_terms_n > 1) {
-		/* still no components found? let's cheat a bit and see if we get results
-		 * if we remove one search term, as the user may have been too specific */
-		as_cache_search_items_table_to_results (results_ht,
-							results,
-							required_terms_n - 1,
-							TRUE);
 	}
 
 	/* the items hash table contents are invalid now */
@@ -2269,8 +2260,7 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 	/* compile our result */
 	as_cache_search_items_table_to_results (results_ht,
 						results,
-						terms_n,
-						TRUE);
+						terms_n);
 
 	/* if we got no results by exact matches, try partial matches (which is slower) */
 	if (results->len == 0) {
@@ -2298,24 +2288,31 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 		rc = mdb_cursor_get (cur, &dkey, &dval, MDB_FIRST);
 		while (rc == 0) {
 			gboolean match = FALSE;
+			const gchar *token = dkey.mv_data;
+			gsize token_len = dkey.mv_size;
 
 			for (guint i = 0; terms[i] != NULL; i++) {
 				gsize term_len = terms_lens[i];
 				/* if term length is bigger than the key, it will never match */
 				if (term_len > dkey.mv_size)
 					continue;
-				if (strncmp (dkey.mv_data, terms[i], term_len) == 0) {
-					/* prefix match was successful */
-					match = TRUE;
-					break;
+
+				for (guint j = 0; j < token_len - term_len + 1; j++) {
+					if (strncmp (token + j, terms[i], term_len) == 0) {
+						/* partial match was successful */
+						match = TRUE;
+						break;
+					}
 				}
+				if (match)
+					break;
 			}
 			if (!match) {
 				rc = mdb_cursor_get(cur, &dkey, &dval, MDB_NEXT);
 				continue;
 			}
 
-			/* we got a prefix match, so add the components to our search result */
+			/* we got a partial match, so add the components to our search result */
 			if (dval.mv_size <= 0)
 				continue;
 			if (!as_cache_update_results_with_fts_value (cache, txn, dval, results_ht, FALSE, error)) {
@@ -2331,8 +2328,7 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 		/* compile our result */
 		as_cache_search_items_table_to_results (results_ht,
 							results,
-							terms_n,
-							FALSE);
+							terms_n);
 	}
 
 	/* we don't need the mutex anymore, no class member access here */
