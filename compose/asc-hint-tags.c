@@ -84,6 +84,11 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "Unable to read data from .desktop file: {{msg}}",
 	},
 
+	{ "desktop-entry-bad-data",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "Error while reading some data from the desktop-entry file: {{hint}}",
+	},
+
 	{ "desktop-entry-category-invalid",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  "The category name {{hint}} is invalid. The software can not be shown in this category.",

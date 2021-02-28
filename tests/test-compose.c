@@ -353,11 +353,17 @@ test_compose_result ()
 static void
 test_compose_desktop_entry ()
 {
+	g_autoptr(GError) error = NULL;
 	g_autoptr(AscResult) cres = NULL;
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autoptr(AsComponent) ecpt = NULL;
+	g_autofree gchar *de_fname = NULL;
+	g_autoptr(GBytes) de_bytes2 = NULL;
+	gchar *contents;
+	gsize contents_len;
 	gchar *tmp;
 	AsLaunchable *launch;
+	GPtrArray *hints;
 	g_autoptr(GBytes) de_bytes = as_gbytes_from_literal ("[Desktop Entry]\n"
 							     "Type=Application\n"
 							     "Name=FooBar\n"
@@ -373,7 +379,7 @@ test_compose_desktop_entry ()
 					    NULL, /* cpt */
 					    de_bytes,
 					    "foobar.desktop",
-					    TRUE, /* ignore nodisplay */
+					    FALSE, /* don't ignore nodisplay */
 					    AS_FORMAT_VERSION_CURRENT,
 					    NULL, NULL);
 	g_assert_nonnull (cpt);
@@ -394,7 +400,7 @@ test_compose_desktop_entry ()
 					    NULL, /* cpt */
 					    de_bytes,
 					    "org.example.foobar.desktop",
-					    TRUE, /* ignore nodisplay */
+					    FALSE, /* don't ignore nodisplay */
 					    AS_FORMAT_VERSION_CURRENT,
 					    NULL, NULL);
 	g_assert_nonnull (cpt);
@@ -404,6 +410,7 @@ test_compose_desktop_entry ()
 	g_assert_nonnull (cpt);
 	cpt = g_object_ref (cpt);
 	g_clear_pointer (&cpt, g_object_unref);
+	g_assert_cmpint (asc_result_hints_count (cres), ==, 0);
 
 	/* test preexisting component */
 	g_object_unref (cres);
@@ -429,6 +436,7 @@ test_compose_desktop_entry ()
 	cpt = asc_result_get_component (cres, "org.example.foobar");
 	g_assert_nonnull (cpt);
 	cpt = g_object_ref (cpt);
+	g_assert_cmpint (asc_result_hints_count (cres), ==, 0);
 
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "TestX");
 	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Summary of TestX");
@@ -445,6 +453,44 @@ test_compose_desktop_entry ()
 
 	g_assert_cmpint (as_launchable_get_entries (launch)->len, ==, 1);
 	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 0), ==, "org.example.foobar.desktop");
+	g_clear_pointer (&cpt, g_object_unref);
+
+	/* from file with damaged UTF-8 */
+	de_fname = g_build_filename (datadir, "gnome-breakout_badUTF-8.desktop", NULL);
+	g_file_get_contents (de_fname, &contents, &contents_len, &error);
+	g_assert_no_error (error);
+	de_bytes2 = g_bytes_new_take (contents, contents_len);
+
+	g_object_unref (cres);
+	cres = asc_result_new ();
+	cpt = asc_parse_desktop_entry_data (cres,
+					    NULL, /* cpt */
+					    de_bytes2,
+					    "gnome-breakout.desktop",
+					    FALSE, /* don't ignore nodisplay */
+					    AS_FORMAT_VERSION_CURRENT,
+					    NULL, NULL);
+	g_assert_nonnull (cpt);
+
+	as_component_set_active_locale (cpt, "C.UTF-8");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "GNOME Breakout");
+	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Play a clone of the classic arcade game Breakout for GNOME");
+	as_component_set_active_locale (cpt, "de");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "GNOME Breakout");
+	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Play a clone of the classic arcade game Breakout for GNOME"); /* not loaded, contains bad UTF-8 */
+	as_component_set_active_locale (cpt, "tr");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "Gnome Breakout");
+	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Play a clone of the classic arcade game Breakout for GNOME");
+
+	/* we should have two warnings about the bad UTF-8 */
+	g_assert_cmpint (asc_result_hints_count (cres), ==, 2);
+	hints = asc_result_get_hints (cres, "gnome-breakout.desktop");
+	g_assert_cmpint (hints->len, ==, 2);
+	for (guint i = 0; i < hints->len; i++) {
+		AscHint *hint = ASC_HINT (g_ptr_array_index (hints, i));
+		g_assert_cmpstr (asc_hint_get_tag (hint), ==, "desktop-entry-bad-data");
+	}
+	g_clear_pointer (&cpt, g_object_unref);
 }
 
 int

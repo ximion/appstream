@@ -185,8 +185,13 @@ as_get_desktop_entry_value (GKeyFile *df, GPtrArray *issues, const gchar *key)
 	const gchar *str_iter;
 	GString *sane_str;
 	gboolean has_invalid_chars = FALSE;
+	g_autoptr(GError) error = NULL;
 
-	str = g_key_file_get_string (df, DESKTOP_GROUP, key, NULL);
+	str = g_key_file_get_string (df, DESKTOP_GROUP, key, &error);
+	if (error != NULL)
+		as_desktop_entry_add_issue (issues,
+					    "desktop-entry-bad-data",
+					    error->message);
 	if (str == NULL)
 		return NULL;
 
@@ -420,6 +425,8 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 			continue;
 
 		val = as_get_desktop_entry_value (df, issues, key);
+		if (val == NULL)
+			continue;
 		if (g_str_has_prefix (key, "Name")) {
 			g_autoptr(GPtrArray) l10n_data = NULL;
 			if (had_name)
