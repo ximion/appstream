@@ -35,6 +35,16 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "The given tag was unknown. This is a bug."
 	},
 
+	{ "x-dev-testsuite-error",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "Dummy error hint for the testsuite. Var1: {{var1}}."
+	},
+
+	{ "x-dev-testsuite-info",
+	  AS_ISSUE_SEVERITY_INFO,
+	  "Dummy info hint for the testsuite. Var1: {{var1}}."
+	},
+
 	{ "ancient-metadata",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  "The AppStream metadata should be updated to follow a more recent version of the specification.<br/>"
@@ -69,14 +79,38 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "<code>type=</code> property of the component root-node in the MetaInfo XML file does not contain a spelling mistake."
 	},
 
-	{ "x-dev-testsuite-error",
+	{ "desktop-file-error",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  "Dummy error hint for the testsuite. Var1: {{var1}}."
+	  "Unable to read data from .desktop file: {{msg}}",
 	},
 
-	{ "x-dev-testsuite-info",
-	  AS_ISSUE_SEVERITY_INFO,
-	  "Dummy info hint for the testsuite. Var1: {{var1}}."
+	{ "desktop-entry-category-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "The category name {{hint}} is invalid. The software can not be shown in this category.",
+	},
+
+	{ "desktop-entry-value-invalid-chars",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "The desktop-entry field value for {{hint}} contains invalid or non-printable UTF-8 characters, which can not be properly displayed.",
+	},
+
+	{ "desktop-file-hidden-set",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "This .desktop file has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and "
+	  "nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional. "
+	  "See <a href=\"https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html\">the specification</a> for details."
+	},
+
+	{ "desktop-entry-value-quoted",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "The desktop entry field value {{hint}} is quoted, which is likely unintentional."
+	},
+
+	{ "desktop-entry-empty-onlyshowin",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "This .desktop file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide "
+	  "the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit. "
+	  "See <a href=\"https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html\">the specification</a> for details."
 	},
 
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }

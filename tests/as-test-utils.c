@@ -116,3 +116,12 @@ as_sort_components (GPtrArray *cpts)
 {
 	g_ptr_array_sort (cpts, as_sort_components_cb);
 }
+
+/**
+ * as_gbytes_from_literal:
+ */
+GBytes*
+as_gbytes_from_literal (const gchar *string)
+{
+	return g_bytes_new_static (string, strlen (string));
+}

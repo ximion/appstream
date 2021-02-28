@@ -25,10 +25,11 @@
  */
 
 #include "config.h"
-#include "asc-result.h"
+#include "asc-utils-metainfo.h"
 
 #include "as-utils-private.h"
 #include "as-spdx.h"
+#include "as-desktop-entry.h"
 
 /* Maximum amount of releases present in output data */
 #define MAX_RELEASE_INFO_COUNT 4
@@ -196,4 +197,108 @@ asc_validate_metainfo_data_for_component (AscResult *cres, AsValidator *validato
 				     "hint", issue_hint,
 				     NULL);
 	}
+}
+
+/**
+ * asc_parse_desktop_entry_data:
+ * @cres: an #AscResult instance.
+ * @cpt: (nullable): an existing #AsComponent which we are adding data from this desktop file to, or NULL to create a new one
+ * @bytes: the data @cpt was constructed from.
+ * @de_basename: the basename of the desktop-entry file we are parsing.
+ * @ignore_nodisplay: set %TRUE if fields which cause the desktop-entry file to be purposefully hidden should be ignored (useful when passing an existing #AsComponent).
+ * @de_l10n_fn: (scope call): callback for custom desktop-entry field localization functions.
+ * @user_data: user data for @de_l10n_fn
+ *
+ * Parse a XDG desktop-entry file into either a new component or for extending an existing component.
+ *
+ * Returns: (nullable) (transfer full): A new #AsComponent or reference to the existing #AsComponent passed as parameter in case
+ *                                      we parsed anything. %NULL if we refused to accept this data.
+ */
+AsComponent*
+asc_parse_desktop_entry_data (AscResult *cres,
+			      AsComponent *cpt,
+			      GBytes *bytes, const gchar *de_basename,
+			      gboolean ignore_nodisplay,
+			      AsFormatVersion fversion,
+			      AscTranslateDesktopTextFn de_l10n_fn, gpointer user_data)
+{
+	g_autoptr(AsComponent) ncpt = NULL;
+	g_autoptr(GPtrArray) issues = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *prev_cid = NULL;
+	gboolean cpt_is_new = FALSE;
+	const gchar *data;
+	gsize data_len;
+	gboolean ret;
+
+
+	if (cpt != NULL) {
+		ncpt = g_object_ref (cpt);
+		prev_cid = g_strdup (as_component_get_id (cpt));
+		as_component_set_id (ncpt, de_basename);
+		cpt_is_new = FALSE;
+	} else {
+		ncpt = as_component_new ();
+		as_component_set_id (ncpt, de_basename);
+		cpt_is_new = TRUE;
+	}
+	/* we shouldn't even try to use cpt from this point forward */
+	cpt = NULL;
+
+	/* prepare */
+	issues = g_ptr_array_new_with_free_func (g_object_unref);
+	data = g_bytes_get_data (bytes, &data_len);
+
+	/* sanity check */
+	if (data_len == 0) {
+		asc_result_add_hint_by_cid (cres, de_basename,
+					    "desktop-file-error",
+					    "msg", "Desktop file was empty or nonexistent. "
+						   "Please ensure that it isn't a symbolic link to contents of a different package.",
+					    NULL);
+		return NULL;
+	}
+
+	/* actually parse the desktop-entry data now */
+	ret = as_desktop_entry_parse_data (ncpt,
+					   data,
+					   data_len,
+					   fversion,
+					   ignore_nodisplay,
+					   issues,
+					   de_l10n_fn,
+					   user_data,
+					   &error);
+	if (error != NULL) {
+		asc_result_add_hint_by_cid (cres, de_basename,
+					    "desktop-file-error",
+					    "msg", error->message,
+					    NULL);
+		return NULL;
+	}
+	if (!ret)
+		return NULL;
+
+	/* the desktop-entry parsing function may have overridden this, so we reset the original value if we had one */
+	if (prev_cid != NULL)
+		as_component_set_id (ncpt, prev_cid);
+
+	/* add new component to the results set */
+	if (cpt_is_new && !asc_result_add_component (cres, ncpt, bytes, NULL))
+		return NULL;
+
+	/* register all the hints we may have found */
+	for (guint i = 0; i < issues->len; i++) {
+		AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (g_ptr_array_index (issues, i));
+
+		if (as_validator_issue_get_hint (issue) == NULL)
+			asc_result_add_hint_simple (cres, ncpt, as_validator_issue_get_tag (issue));
+		else
+			asc_result_add_hint (cres, ncpt,
+						as_validator_issue_get_tag (issue),
+						"hint", as_validator_issue_get_hint (issue),
+						NULL);
+	}
+
+	return g_steal_pointer (&ncpt);
 }

@@ -231,6 +231,29 @@ as_check_desktop_string (GPtrArray *issues, const gchar *field, const gchar *str
 }
 
 /**
+ * as_get_external_desktop_translations:
+ */
+GPtrArray*
+as_get_external_desktop_translations (GKeyFile *kf, const gchar *text, const gchar *locale,
+				      AsTranslateDesktopTextFn de_l10n_fn, gpointer user_data)
+{
+	GPtrArray *l10n;
+	if (de_l10n_fn == NULL)
+		return NULL;
+	if (g_strcmp0 (locale, "C") != 0)
+		return NULL;
+
+	l10n = de_l10n_fn (kf, text, user_data);
+	if (G_UNLIKELY (l10n->len % 2 != 0)) {
+		/* NOTE: We could use g_return_val_if_fail here, but we could just as well write a more descriptive message */
+		g_critical ("Invalid amount of list entries in external desktop translation l10n listing. "
+			    "Make sure you return locale names in even, and translations in odd indices. This is a programmer error.");
+		return FALSE;
+	}
+	return l10n;
+}
+
+/**
  * as_desktop_entry_parse_data:
  */
 gboolean
@@ -239,6 +262,8 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 			     AsFormatVersion fversion,
 			     gboolean ignore_nodisplay,
 			     GPtrArray *issues,
+			     AsTranslateDesktopTextFn de_l10n_fn,
+			     gpointer user_data,
 			     GError **error)
 {
 	g_autoptr(GKeyFile) df = NULL;
@@ -246,6 +271,7 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 	gboolean ignore_cpt = FALSE;
 	GError *tmp_error = NULL;
 	gchar *tmp;
+	gboolean had_name, had_summary, had_categories, had_mimetypes;
 	g_autofree gchar *desktop_basename = g_strdup (as_component_get_id (cpt));
 
 	if (desktop_basename == NULL) {
@@ -264,6 +290,15 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 				   &tmp_error);
 	if (tmp_error != NULL) {
 		g_propagate_error (error, tmp_error);
+		return FALSE;
+	}
+
+	/* check this is a valid desktop file */
+	if (!g_key_file_has_group (df, DESKTOP_GROUP)) {
+		g_set_error (error,
+				AS_METADATA_ERROR,
+				AS_METADATA_ERROR_PARSE,
+				"Data in '%s' does not contain a valid Desktop Entry.", as_component_get_id (cpt));
 		return FALSE;
 	}
 
@@ -342,15 +377,6 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 			return FALSE;
 	}
 
-	/* check this is a valid desktop file */
-	if (!g_key_file_has_group (df, DESKTOP_GROUP)) {
-		g_set_error (error,
-				AS_METADATA_ERROR,
-				AS_METADATA_ERROR_PARSE,
-				"Data in '%s' does not contain a valid Desktop Entry.", as_component_get_id (cpt));
-		return FALSE;
-	}
-
 	/* create the new component we synthesize for this desktop entry */
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
 	as_component_set_ignored (cpt, ignore_cpt);
@@ -372,6 +398,11 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 		}
 	}
 
+	had_name = !as_is_empty (as_component_get_name (cpt));
+	had_summary = !as_is_empty (as_component_get_name (cpt));
+	had_categories = as_component_get_categories (cpt)->len > 0;
+	had_mimetypes = as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_MEDIATYPE) != NULL;
+
 	keys = g_key_file_get_keys (df, DESKTOP_GROUP, NULL, NULL);
 	for (guint i = 0; keys[i] != NULL; i++) {
 		g_autofree gchar *locale = NULL;
@@ -390,18 +421,45 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 
 		val = as_get_desktop_entry_value (df, issues, key);
 		if (g_str_has_prefix (key, "Name")) {
+			g_autoptr(GPtrArray) l10n_data = NULL;
+			if (had_name)
+				continue;
+
 			as_component_set_name (cpt, val, locale);
 			as_check_desktop_string (issues, key, val);
+			l10n_data = as_get_external_desktop_translations (df, val, locale,
+									  de_l10n_fn, user_data);
+			if (l10n_data != NULL) {
+				for (guint j = 0; j < l10n_data->len; i += 2)
+					as_component_set_name (cpt,
+							       g_ptr_array_index (l10n_data, j),
+							       g_ptr_array_index (l10n_data, j + 1));
+			}
 		} else if (g_str_has_prefix (key, "Comment")) {
+			g_autoptr(GPtrArray) l10n_data = NULL;
+			if (had_summary)
+				continue;
+
 			as_component_set_summary (cpt, val, locale);
 			as_check_desktop_string (issues, key, val);
+			l10n_data = as_get_external_desktop_translations (df, val, locale,
+									  de_l10n_fn, user_data);
+			if (l10n_data != NULL) {
+				for (guint j = 0; j < l10n_data->len; i += 2)
+					as_component_set_name (cpt,
+							       g_ptr_array_index (l10n_data, j),
+							       g_ptr_array_index (l10n_data, j + 1));
+			}
 		} else if (g_strcmp0 (key, "Categories") == 0) {
 			g_auto(GStrv) cats = NULL;
+			if (had_categories)
+				continue;
 
 			cats = g_strsplit (val, ";", -1);
 			as_add_filtered_categories (cats, cpt, issues);
 		} else if (g_str_has_prefix (key, "Keywords")) {
 			g_auto(GStrv) kws = NULL;
+			g_autoptr(GPtrArray) l10n_data = NULL;
 
 			/* drop last ";" to not get an empty entry later */
 			if (g_str_has_suffix (val, ";"))
@@ -409,10 +467,28 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 
 			kws = g_strsplit (val, ";", -1);
 			as_component_set_keywords (cpt, kws, locale);
+
+			l10n_data = as_get_external_desktop_translations (df, val, locale,
+									  de_l10n_fn, user_data);
+			if (l10n_data != NULL) {
+				for (guint j = 0; j < l10n_data->len; i += 2) {
+					g_auto(GStrv) e_kws = NULL;
+					const gchar *e_locale = g_ptr_array_index (l10n_data, j);
+					gchar *e_value = g_ptr_array_index (l10n_data, j + 1);
+
+					/* drop last ";" to not get an empty entry later */
+					if (g_str_has_suffix (e_value, ";"))
+						e_value[strlen (e_value) -1] = '\0';
+
+					e_kws = g_strsplit (e_value, ";", -1);
+					as_component_set_keywords (cpt, e_kws, e_locale);
+				}
+			}
 		} else if (g_strcmp0 (key, "MimeType") == 0) {
 			g_auto(GStrv) mts = NULL;
 			g_autoptr(AsProvided) prov = NULL;
-			guint j;
+			if (had_mimetypes)
+				continue;
 
 			mts = g_strsplit (val, ";", -1);
 			if (mts == NULL)
@@ -426,7 +502,7 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 				g_object_ref (prov);
 			}
 
-			for (j = 0; mts[j] != NULL; j++) {
+			for (guint j = 0; mts[j] != NULL; j++) {
 				if (g_strcmp0 (mts[j], "") == 0)
 					continue;
 				as_provided_add_item (prov, mts[j]);
@@ -486,6 +562,8 @@ as_desktop_entry_parse_file (AsComponent *cpt,
 			     AsFormatVersion fversion,
 			     gboolean ignore_nodisplay,
 			     GPtrArray *issues,
+			     AsTranslateDesktopTextFn de_l10n_fn,
+			     gpointer user_data,
 			     GError **error)
 {
 	g_autofree gchar *file_basename = NULL;
@@ -517,5 +595,7 @@ as_desktop_entry_parse_file (AsComponent *cpt,
 					    fversion,
 					    ignore_nodisplay,
 					    issues,
+					    de_l10n_fn,
+					    user_data,
 					    error);
 }

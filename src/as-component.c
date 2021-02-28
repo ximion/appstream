@@ -5354,7 +5354,9 @@ as_component_load_from_bytes (AsComponent *cpt, AsContext *context, AsFormatKind
 					     data_len,
 					     AS_FORMAT_VERSION_CURRENT,
 					     TRUE,
-					     NULL,
+					     NULL, /* issues */
+					     NULL, /* l10n function */
+					     NULL, /* l10n func user data */
 					     &tmp_error);
 		if (tmp_error != NULL) {
 			g_propagate_error (error, tmp_error);

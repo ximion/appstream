@@ -21,6 +21,7 @@
 #include <glib.h>
 #include "appstream-compose.h"
 #include "asc-font-private.h"
+#include "asc-utils-metainfo.h"
 
 #include "as-test-utils.h"
 
@@ -346,6 +347,105 @@ test_compose_result ()
 	g_free (tmp);
 }
 
+/**
+ * test_compose_desktop_entry:
+ */
+static void
+test_compose_desktop_entry ()
+{
+	g_autoptr(AscResult) cres = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+	gchar *tmp;
+	AsLaunchable *launch;
+	g_autoptr(GBytes) de_bytes = as_gbytes_from_literal ("[Desktop Entry]\n"
+							     "Type=Application\n"
+							     "Name=FooBar\n"
+							     "Name[de_DE]=FööBär\n"
+							     "Comment=A foo-ish bar.\n"
+							     "Keywords=Hobbes;Bentham;Locke;\n"
+							     "Keywords[de_DE]=Heidegger;Kant;Hegel;\n");
+
+	cres = asc_result_new ();
+
+	/* test parsing standalone desktop-entry file */
+	cpt = asc_parse_desktop_entry_data (cres,
+					    NULL, /* cpt */
+					    de_bytes,
+					    "foobar.desktop",
+					    TRUE, /* ignore nodisplay */
+					    AS_FORMAT_VERSION_CURRENT,
+					    NULL, NULL);
+	g_assert_nonnull (cpt);
+	g_clear_pointer (&cpt, g_object_unref);
+
+	cpt = asc_result_get_component (cres, "foobar.desktop");
+	g_assert_nonnull (cpt);
+	cpt = g_object_ref (cpt);
+
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "FooBar");
+	g_assert_cmpint (asc_result_hints_count (cres), ==, 0);
+	g_clear_pointer (&cpt, g_object_unref);
+
+	/* test component-id trimming */
+	g_object_unref (cres);
+	cres = asc_result_new ();
+	cpt = asc_parse_desktop_entry_data (cres,
+					    NULL, /* cpt */
+					    de_bytes,
+					    "org.example.foobar.desktop",
+					    TRUE, /* ignore nodisplay */
+					    AS_FORMAT_VERSION_CURRENT,
+					    NULL, NULL);
+	g_assert_nonnull (cpt);
+	g_clear_pointer (&cpt, g_object_unref);
+
+	cpt = asc_result_get_component (cres, "org.example.foobar");
+	g_assert_nonnull (cpt);
+	cpt = g_object_ref (cpt);
+	g_clear_pointer (&cpt, g_object_unref);
+
+	/* test preexisting component */
+	g_object_unref (cres);
+	cres = asc_result_new ();
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
+	as_component_set_id (cpt, "org.example.foobar");
+	as_component_set_name (cpt, "TestX", "C");
+	as_component_set_summary (cpt, "Summary of TestX", "C");
+	asc_result_add_component_with_string (cres, cpt, "<testdata>", NULL);
+
+	cpt = asc_parse_desktop_entry_data (cres,
+					    cpt,
+					    de_bytes,
+					    "org.example.foobar.desktop",
+					    TRUE, /* ignore nodisplay */
+					    AS_FORMAT_VERSION_CURRENT,
+					    NULL, NULL);
+	g_assert_nonnull (cpt);
+	g_clear_pointer (&cpt, g_object_unref);
+
+	cpt = asc_result_get_component (cres, "org.example.foobar");
+	g_assert_nonnull (cpt);
+	cpt = g_object_ref (cpt);
+
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "TestX");
+	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Summary of TestX");
+
+
+	as_component_set_active_locale (cpt, "C.UTF-8");
+	tmp = g_strjoinv (", ", as_component_get_keywords (cpt));
+	g_assert_cmpstr (tmp, ==, "Hobbes, Bentham, Locke");
+	g_free (tmp);
+
+	/* test launchable */
+	launch = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+	g_assert_nonnull (launch);
+
+	g_assert_cmpint (as_launchable_get_entries (launch)->len, ==, 1);
+	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 0), ==, "org.example.foobar.desktop");
+}
+
 int
 main (int argc, char **argv)
 {
@@ -372,6 +472,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Compose/Canvas", test_canvas);
 	g_test_add_func ("/AppStream/Compose/Hints", test_compose_hints);
 	g_test_add_func ("/AppStream/Compose/Result", test_compose_result);
+	g_test_add_func ("/AppStream/Compose/DesktopEntry", test_compose_desktop_entry);
 
 	ret = g_test_run ();
 	g_free (datadir);
