@@ -355,6 +355,7 @@ test_compose_desktop_entry ()
 {
 	g_autoptr(AscResult) cres = NULL;
 	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsComponent) ecpt = NULL;
 	gchar *tmp;
 	AsLaunchable *launch;
 	g_autoptr(GBytes) de_bytes = as_gbytes_from_literal ("[Desktop Entry]\n"
@@ -408,15 +409,15 @@ test_compose_desktop_entry ()
 	g_object_unref (cres);
 	cres = asc_result_new ();
 
-	cpt = as_component_new ();
-	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
-	as_component_set_id (cpt, "org.example.foobar");
-	as_component_set_name (cpt, "TestX", "C");
-	as_component_set_summary (cpt, "Summary of TestX", "C");
-	asc_result_add_component_with_string (cres, cpt, "<testdata>", NULL);
+	ecpt = as_component_new ();
+	as_component_set_kind (ecpt, AS_COMPONENT_KIND_DESKTOP_APP);
+	as_component_set_id (ecpt, "org.example.foobar");
+	as_component_set_name (ecpt, "TestX", "C");
+	as_component_set_summary (ecpt, "Summary of TestX", "C");
+	asc_result_add_component_with_string (cres, ecpt, "<testdata>", NULL);
 
 	cpt = asc_parse_desktop_entry_data (cres,
-					    cpt,
+					    ecpt,
 					    de_bytes,
 					    "org.example.foobar.desktop",
 					    TRUE, /* ignore nodisplay */
