@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2016 Matthias Klumpp -->
+<!-- Copyright 2016-2021 Matthias Klumpp -->
 <component type="console-application">
   <id>org.freedesktop.appstream.cli</id>
   <metadata_license>FSFAP</metadata_license>
@@ -10,17 +10,22 @@
 
   <description>
     <p>
-      AppStream is a cross-distribution specification to provide metadata about software components.
+      AppStream is a metadata specification which permits software components to provide information about themselves
+      to automated systems and end-users before the software is actually installed.
+      The AppStream project provides facilities to easily access and transform this metadata, as well as a few additional
+      services for building feature-rich software centers and similar applications that make use of software metadata.
     </p>
     <p>
-      This tool allows for reading, writing, validating and transformation of AppStream XML or YAML metadata.
-      It also gives access to the system metadata pool, for example to query for software that provides a
-      specific MIME-type, and installing it by its software component identifier.
+      The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata
+      as well as to validate it for compliance with the specification.
+      It also provides easy access to the system metadata pool, for example to query for software that provides a
+      specific Mediatype handler or for installing software by its component identifier.
     </p>
   </description>
 
   <url type="homepage">https://www.freedesktop.org/wiki/Distributions/AppStream/</url>
   <url type="help">https://www.freedesktop.org/software/appstream/docs/chap-AppStream-ManualPages.html</url>
+  <url type="bugtracker">https://github.com/ximion/appstream/issues</url>
 
   <project_group>Freedesktop</project_group>
 
@@ -28,4 +33,6 @@
   <provides>
     <binary>appstreamcli</binary>
   </provides>
+
+  <content_rating type="oars-1.0"/>
 </component>
