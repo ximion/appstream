@@ -25,10 +25,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-02-28 08:16+0100\n"
+"POT-Creation-Date: 2021-03-01 16:00+0100\n"
 "PO-Revision-Date: 2021-03-01 01:35+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
+"appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,18 +47,23 @@ msgstr "Um utilitário para trabalhar com os metadados do AppStream"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
-"AppStream is a cross-distribution specification to provide metadata about "
-"software components."
+"AppStream is a metadata specification which permits software components to "
+"provide information about themselves to automated systems and end-users "
+"before the software is actually installed. The AppStream project provides "
+"facilities to easily access and transform this metadata, as well as a few "
+"additional services for building feature-rich software centers and similar "
+"applications that make use of software metadata."
 msgstr ""
-"AppStream é uma especificação independente de distribuição para provimento "
-"de metadados sobre componentes de software."
 
-#: data/org.freedesktop.appstream.cli.metainfo.xml:15
+#: data/org.freedesktop.appstream.cli.metainfo.xml:18
+#, fuzzy
 msgid ""
-"This tool allows for reading, writing, validating and transformation of "
-"AppStream XML or YAML metadata. It also gives access to the system metadata "
-"pool, for example to query for software that provides a specific MIME-type, "
-"and installing it by its software component identifier."
+"The <em>appstreamcli</em> command-line tool allows to read, write, and "
+"transform AppStream XML or YAML metadata as well as to validate it for "
+"compliance with the specification. It also provides easy access to the "
+"system metadata pool, for example to query for software that provides a "
+"specific Mediatype handler or for installing software by its component "
+"identifier."
 msgstr ""
 "Esta ferramenta permite ler, escrever, validar e transformar metadados "
 "AppStream em XML ou YAML. Também permite acessar o pool de metadados do "
@@ -2202,7 +2208,8 @@ msgstr "Reforçar uma atualização da cache."
 #. TRANSLATORS: ascli flag description for: --user
 #: tools/appstream-cli.c:251
 msgid "Update the user-specific instead of the system-wide cache."
-msgstr "Atualiza o cache específico do usuário em vez do cache em todo o sistema."
+msgstr ""
+"Atualiza o cache específico do usuário em vez do cache em todo o sistema."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstream-cli.c:469
@@ -2880,6 +2887,13 @@ msgstr "Compulsório para"
 #: tools/ascli-utils.c:379
 msgid "Provided Items"
 msgstr "Itens fornecidos"
+
+#~ msgid ""
+#~ "AppStream is a cross-distribution specification to provide metadata about "
+#~ "software components."
+#~ msgstr ""
+#~ "AppStream é uma especificação independente de distribuição para "
+#~ "provimento de metadados sobre componentes de software."
 
 #, c-format
 #~ msgid "Unable to write to '%s', can not install metainfo file."

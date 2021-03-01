@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-02-28 08:16+0100\n"
+"POT-Creation-Date: 2021-03-01 16:00+0100\n"
 "PO-Revision-Date: 2018-10-24 09:29+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/freedesktop/appstream-glib/"
@@ -48,20 +48,24 @@ msgid "An utility to work with AppStream metadata"
 msgstr "Una utilitat per treballar amb les metadades AppStream"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
+msgid ""
+"AppStream is a metadata specification which permits software components to "
+"provide information about themselves to automated systems and end-users "
+"before the software is actually installed. The AppStream project provides "
+"facilities to easily access and transform this metadata, as well as a few "
+"additional services for building feature-rich software centers and similar "
+"applications that make use of software metadata."
+msgstr ""
+
+#: data/org.freedesktop.appstream.cli.metainfo.xml:18
 #, fuzzy
 msgid ""
-"AppStream is a cross-distribution specification to provide metadata about "
-"software components."
-msgstr ""
-"AppStream és una especificació independent de la distribució que proporciona "
-"metadades quant als components de programari."
-
-#: data/org.freedesktop.appstream.cli.metainfo.xml:15
-msgid ""
-"This tool allows for reading, writing, validating and transformation of "
-"AppStream XML or YAML metadata. It also gives access to the system metadata "
-"pool, for example to query for software that provides a specific MIME-type, "
-"and installing it by its software component identifier."
+"The <em>appstreamcli</em> command-line tool allows to read, write, and "
+"transform AppStream XML or YAML metadata as well as to validate it for "
+"compliance with the specification. It also provides easy access to the "
+"system metadata pool, for example to query for software that provides a "
+"specific Mediatype handler or for installing software by its component "
+"identifier."
 msgstr ""
 "Aquesta eina permet llegir, escriure, validar i transformar les metadades "
 "XML o YAML d'AppStream. També dóna accés a l'agrupació de metadades del "
@@ -2670,6 +2674,14 @@ msgstr "Obligatori per"
 #: tools/ascli-utils.c:379
 msgid "Provided Items"
 msgstr "Elements proporcionats"
+
+#, fuzzy
+#~ msgid ""
+#~ "AppStream is a cross-distribution specification to provide metadata about "
+#~ "software components."
+#~ msgstr ""
+#~ "AppStream és una especificació independent de la distribució que "
+#~ "proporciona metadades quant als components de programari."
 
 #, c-format
 #~ msgid "Unable to write to '%s', can not install metainfo file."

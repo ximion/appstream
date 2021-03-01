@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-02-28 08:16+0100\n"
+"POT-Creation-Date: 2021-03-01 16:00+0100\n"
 "PO-Revision-Date: 2021-01-07 18:32+0000\n"
 "Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -45,16 +45,23 @@ msgstr "處理 AppStream 中介資料的公用程式"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
-"AppStream is a cross-distribution specification to provide metadata about "
-"software components."
-msgstr "AppStream 是種跨散布版的規格，旨在提供軟體組件的中介資料。"
+"AppStream is a metadata specification which permits software components to "
+"provide information about themselves to automated systems and end-users "
+"before the software is actually installed. The AppStream project provides "
+"facilities to easily access and transform this metadata, as well as a few "
+"additional services for building feature-rich software centers and similar "
+"applications that make use of software metadata."
+msgstr ""
 
-#: data/org.freedesktop.appstream.cli.metainfo.xml:15
+#: data/org.freedesktop.appstream.cli.metainfo.xml:18
+#, fuzzy
 msgid ""
-"This tool allows for reading, writing, validating and transformation of "
-"AppStream XML or YAML metadata. It also gives access to the system metadata "
-"pool, for example to query for software that provides a specific MIME-type, "
-"and installing it by its software component identifier."
+"The <em>appstreamcli</em> command-line tool allows to read, write, and "
+"transform AppStream XML or YAML metadata as well as to validate it for "
+"compliance with the specification. It also provides easy access to the "
+"system metadata pool, for example to query for software that provides a "
+"specific Mediatype handler or for installing software by its component "
+"identifier."
 msgstr ""
 "本工具可以讀寫、驗證與變換 AppStream XML 或 YAML 中介資料；此外還能存取系統中"
 "介資料池，搜尋諸如提供某特定 MIME 類型使用的軟體，並按照其軟體組件辨識碼安裝"
@@ -2560,6 +2567,11 @@ msgstr "強制項目為"
 #: tools/ascli-utils.c:379
 msgid "Provided Items"
 msgstr "提供的項目"
+
+#~ msgid ""
+#~ "AppStream is a cross-distribution specification to provide metadata about "
+#~ "software components."
+#~ msgstr "AppStream 是種跨散布版的規格，旨在提供軟體組件的中介資料。"
 
 #, c-format
 #~ msgid "Unable to write to '%s', can not install metainfo file."
