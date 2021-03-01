@@ -24,10 +24,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-02-28 08:16+0100\n"
-"PO-Revision-Date: 2021-02-21 11:50+0000\n"
+"PO-Revision-Date: 2021-03-01 01:35+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -990,9 +989,9 @@ msgid "Cache location '%s' is not writable."
 msgstr "Önbellek konumu '%s', yazılabilir değil."
 
 #: src/as-pool.c:2037
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to open new cache file: %s"
-msgstr ".desktop dosyası okunamadı: %s"
+msgstr "Yeni önbellek dosyası açılamıyor: %s"
 
 #: src/as-pool.c:2106
 msgid ""
@@ -2185,7 +2184,7 @@ msgstr "Ön belleği yenilenmeye zorla."
 #. TRANSLATORS: ascli flag description for: --user
 #: tools/appstream-cli.c:251
 msgid "Update the user-specific instead of the system-wide cache."
-msgstr ""
+msgstr "Sistem geneli önbelleği yerine kullanıcıya özel olanı güncelle."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstream-cli.c:469
