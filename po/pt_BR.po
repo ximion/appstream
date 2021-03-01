@@ -26,10 +26,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-02-28 08:16+0100\n"
-"PO-Revision-Date: 2021-02-18 04:50+0000\n"
+"PO-Revision-Date: 2021-03-01 01:35+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"appstream/translations/pt_BR/>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -999,9 +998,9 @@ msgid "Cache location '%s' is not writable."
 msgstr "A localização de cache “%s” não é gravável."
 
 #: src/as-pool.c:2037
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to open new cache file: %s"
-msgstr "Não foi possível ler o arquivo .desktop: %s"
+msgstr "Não foi possível abrir novo arquivo de cache: %s"
 
 #: src/as-pool.c:2106
 msgid ""
@@ -2203,7 +2202,7 @@ msgstr "Reforçar uma atualização da cache."
 #. TRANSLATORS: ascli flag description for: --user
 #: tools/appstream-cli.c:251
 msgid "Update the user-specific instead of the system-wide cache."
-msgstr ""
+msgstr "Atualiza o cache específico do usuário em vez do cache em todo o sistema."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstream-cli.c:469
