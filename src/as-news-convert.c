@@ -407,6 +407,7 @@ typedef enum {
 	AS_NEWS_SECTION_KIND_NOTES,
 	AS_NEWS_SECTION_KIND_TRANSLATION,
 	AS_NEWS_SECTION_KIND_DOCUMENTATION,
+	AS_NEWS_SECTION_KIND_CONTRIBUTORS,
 	AS_NEWS_SECTION_KIND_LAST
 } AsNewsSectionKind;
 
@@ -439,6 +440,12 @@ as_news_text_guess_section (const gchar *lines)
 		return AS_NEWS_SECTION_KIND_TRANSLATION;
 	if (g_strstr_len (lines, -1, "Translations\n") != NULL)
 		return AS_NEWS_SECTION_KIND_TRANSLATION;
+	if (g_strstr_len (lines, -1, "Contributors:\n") != NULL)
+		return AS_NEWS_SECTION_KIND_CONTRIBUTORS;
+	if (g_strstr_len (lines, -1, "With contributions from:\n") != NULL)
+		return AS_NEWS_SECTION_KIND_CONTRIBUTORS;
+	if (g_strstr_len (lines, -1, "Thanks to:\n") != NULL)
+		return AS_NEWS_SECTION_KIND_CONTRIBUTORS;
 	return AS_NEWS_SECTION_KIND_UNKNOWN;
 }
 
@@ -573,17 +580,48 @@ as_news_text_to_list_markup (GString *desc, gchar **lines, GError **error)
 static gboolean
 as_news_text_to_para_markup (GString *desc, const gchar *txt, GError **error)
 {
-	guint i;
 	g_auto(GStrv) lines = NULL;
+	gboolean para_generated = FALSE;
 
-	lines = g_strsplit (txt, "\n", -1);
-	for (i = 1; lines[i] != NULL; i++) {
-		guint prefix = 0;
-		g_strstrip(lines[i]);
-		if ((g_str_has_prefix (lines[i], "- ")) || (g_str_has_prefix (lines[i], "* ")))
-			prefix = 2;
-		as_news_text_add_markup (desc, "p", lines[i] + prefix);
+	if (g_strstr_len (txt, -1, "* ") != NULL || g_strstr_len (txt, -1, "- ") != NULL) {
+		/* enumerations to paragraphs */
+		lines = g_strsplit (txt, "\n", -1);
+		for (guint i = 1; lines[i] != NULL; i++) {
+			guint prefix = 0;
+			g_strstrip (lines[i]);
+			if ((g_str_has_prefix (lines[i], "- ")) || (g_str_has_prefix (lines[i], "* ")))
+				prefix = 2;
+
+			as_news_text_add_markup (desc, "p", lines[i] + prefix);
+			para_generated = TRUE;
+		}
+	} else {
+		/* freeform text to paragraphs */
+		const gchar *txt_content = g_strstr_len (txt, -1, "\n");
+		if (txt_content == NULL) {
+			g_set_error (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_FAILED,
+				     "Unable to write sensible paragraph markup (missing header) for: %s.", txt);
+			return FALSE;
+		}
+		lines = g_strsplit (txt_content, "\n\n", -1);
+		for (guint i = 0; lines[i] != NULL; i++) {
+			g_strstrip (lines[i]);
+
+			as_news_text_add_markup (desc, "p", lines[i]);
+			para_generated = TRUE;
+		}
 	}
+
+	if (!para_generated) {
+		g_set_error (error,
+				AS_METADATA_ERROR,
+				AS_METADATA_ERROR_FAILED,
+				"Unable to write sensible paragraph markup (source data may be malformed) for: %s.", txt);
+		return FALSE;
+	}
+
 	return TRUE;
 }
 
@@ -683,6 +721,20 @@ as_news_text_to_releases (const gchar *data, GError **error)
 		case AS_NEWS_SECTION_KIND_TRANSLATION:
 			as_news_text_add_markup (desc, "p",
 						 "This release updates translations.");
+			break;
+		case AS_NEWS_SECTION_KIND_CONTRIBUTORS:
+			as_news_text_add_markup (desc, "p",
+						 "With contributions from:");
+
+			if (g_strstr_len (split[i], -1, "* ") != NULL ||
+			    g_strstr_len (split[i], -1, "- ") != NULL) {
+				lines = g_strsplit (split[i], "\n", -1);
+				if (!as_news_text_to_list_markup (desc, lines + 1, error))
+					return FALSE;
+			} else {
+				if (!as_news_text_to_para_markup (desc, split[i], error))
+					return FALSE;
+			}
 			break;
 		default:
 			g_set_error (error,

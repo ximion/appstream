@@ -97,8 +97,10 @@ as_markup_strsplit_words (const gchar *text, guint line_len)
 	g_auto(GStrv) tokens = NULL;
 
 	/* sanity check */
-	if (as_is_empty (text))
+	if (text == NULL)
 		return NULL;
+	if (text[0] == '\0')
+		return g_strsplit (text, " ", -1);
 	if (line_len == 0)
 		return NULL;
 
