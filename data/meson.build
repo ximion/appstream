@@ -15,7 +15,7 @@ metainfo_with_relinfo = custom_target('gen-output',
     command : [ascli_exe, 'news-to-metainfo', '--limit=6', '@INPUT0@', '@INPUT1@', '@OUTPUT@']
 )
 
-i18n.merge_file (
+metainfo_i18n = i18n.merge_file (
     input:  metainfo_with_relinfo,
     output: 'org.freedesktop.appstream.cli.metainfo.xml',
     type: 'xml',
@@ -23,6 +23,14 @@ i18n.merge_file (
     po_dir: join_paths (source_root, 'po'),
     install: true,
     install_dir: join_paths (get_option ('datadir'), 'metainfo')
+)
+
+test ('as-validate_metainfo',
+    ascli_exe,
+    args: ['validate',
+           '--pedantic',
+           '--no-net',
+           metainfo_i18n]
 )
 
 install_data ('appstream.conf',
