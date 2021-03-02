@@ -2234,10 +2234,15 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	MDB_txn *txn;
-	GError *tmp_error = NULL;
 	g_autoptr(GPtrArray) results = NULL;
 	g_autoptr(GHashTable) results_ht = NULL;
 	g_autoptr(GMutexLocker) locker = NULL;
+
+	MDB_cursor *cur;
+	gint rc;
+	MDB_val dkey;
+	MDB_val dval;
+	g_autofree gsize *terms_lens = NULL;
 	guint terms_n = 0;
 
 	if (!as_cache_check_opened (cache, FALSE, error))
@@ -2260,110 +2265,74 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 					    g_free,
 					    (GDestroyNotify) as_search_result_item_free);
 
-	/* search by using exact matches first */
-	for (guint i = 0; terms[i] != NULL; i++) {
-		MDB_val dval;
-		terms_n++;
+	terms_n = g_strv_length (terms);
 
-		dval = as_cache_txn_get_value (cache, txn, priv->db_fts, terms[i], &tmp_error);
-		if (tmp_error != NULL) {
-			g_propagate_error (error, tmp_error);
-			lmdb_transaction_abort (txn);
-			return NULL;
+	/* unconditionally perform partial matching, which is slower, but yields more complete results
+	 * closer to what the users seem to expect compared to the more narrow results we get when running
+	 * an exact match query on the database */
+	rc = mdb_cursor_open (txn, priv->db_fts, &cur);
+	if (rc != MDB_SUCCESS) {
+		g_set_error (error,
+				AS_CACHE_ERROR,
+				AS_CACHE_ERROR_FAILED,
+				"Unable to iterate cache (no cursor): %s", mdb_strerror (rc));
+		lmdb_transaction_abort (txn);
+		return NULL;
+	}
+
+	/* cache term string lengths */
+	terms_lens = g_new0 (gsize, terms_n + 1);
+	for (guint i = 0; terms[i] != NULL; i++)
+		terms_lens[i] = strlen (terms[i]);
+
+	rc = mdb_cursor_get (cur, &dkey, &dval, MDB_FIRST);
+	while (rc == 0) {
+		const gchar *matched_term = NULL;
+		const gchar *token = dkey.mv_data;
+		gsize token_len = dkey.mv_size;
+
+		for (guint i = 0; terms[i] != NULL; i++) {
+			gsize term_len = terms_lens[i];
+			/* if term length is bigger than the key, it will never match */
+			if (term_len > dkey.mv_size)
+				continue;
+
+			for (guint j = 0; j < token_len - term_len + 1; j++) {
+				if (strncmp (token + j, terms[i], term_len) == 0) {
+					/* partial match was successful */
+					matched_term = terms[i];
+					break;
+				}
+			}
+			if (matched_term != NULL)
+				break;
 		}
+		if (matched_term == NULL) {
+			rc = mdb_cursor_get(cur, &dkey, &dval, MDB_NEXT);
+			continue;
+		}
+
+		/* we got a partial match, so add the components to our search result */
 		if (dval.mv_size <= 0)
 			continue;
-
 		if (!as_cache_update_results_with_fts_value (cache, txn,
-							     dval, terms[i],
-							     results_ht,
-							     TRUE,
-							     error)) {
+								dval, matched_term,
+								results_ht,
+								FALSE,
+								error)) {
+			mdb_cursor_close (cur);
 			lmdb_transaction_abort (txn);
 			return NULL;
 		}
+
+		rc = mdb_cursor_get(cur, &dkey, &dval, MDB_NEXT);
 	}
+	mdb_cursor_close (cur);
 
 	/* compile our result */
 	as_cache_search_items_table_to_results (results_ht,
 						results,
 						terms_n);
-
-	/* if we got no results by exact matches, try partial matches (which is slower) */
-	if (results->len == 0) {
-		MDB_cursor *cur;
-		gint rc;
-		MDB_val dkey;
-		MDB_val dval;
-		g_autofree gsize *terms_lens = NULL;
-
-		g_debug ("No search results with exact token matches found, trying partial matching.");
-		rc = mdb_cursor_open (txn, priv->db_fts, &cur);
-		if (rc != MDB_SUCCESS) {
-			g_set_error (error,
-				     AS_CACHE_ERROR,
-				     AS_CACHE_ERROR_FAILED,
-				     "Unable to iterate cache (no cursor): %s", mdb_strerror (rc));
-			lmdb_transaction_abort (txn);
-			return NULL;
-		}
-
-		/* cache term string lengths */
-		terms_lens = g_new0 (gsize, terms_n + 1);
-		for (guint i = 0; terms[i] != NULL; i++)
-			terms_lens[i] = strlen (terms[i]);
-
-		rc = mdb_cursor_get (cur, &dkey, &dval, MDB_FIRST);
-		while (rc == 0) {
-			const gchar *matched_term = NULL;
-			const gchar *token = dkey.mv_data;
-			gsize token_len = dkey.mv_size;
-
-			for (guint i = 0; terms[i] != NULL; i++) {
-				gsize term_len = terms_lens[i];
-				/* if term length is bigger than the key, it will never match */
-				if (term_len > dkey.mv_size)
-					continue;
-
-				for (guint j = 0; j < token_len - term_len + 1; j++) {
-					if (strncmp (token + j, terms[i], term_len) == 0) {
-						/* partial match was successful */
-						matched_term = terms[i];
-						break;
-					}
-				}
-				if (matched_term != NULL)
-					break;
-			}
-			if (matched_term == NULL) {
-				rc = mdb_cursor_get(cur, &dkey, &dval, MDB_NEXT);
-				continue;
-			}
-
-			/* we got a partial match, so add the components to our search result */
-			if (dval.mv_size <= 0)
-				continue;
-			if (!as_cache_update_results_with_fts_value (cache, txn,
-								     dval, matched_term,
-								     results_ht,
-								     FALSE,
-								     error)) {
-				mdb_cursor_close (cur);
-				lmdb_transaction_abort (txn);
-				return NULL;
-			}
-
-			rc = mdb_cursor_get(cur, &dkey, &dval, MDB_NEXT);
-		}
-		mdb_cursor_close (cur);
-
-		/* compile our result */
-		as_cache_search_items_table_to_results (results_ht,
-							results,
-							terms_n);
-	} else {
-		g_debug ("Search results found for exact token match.");
-	}
 
 	/* we don't need the mutex anymore, no class member access here */
 	g_clear_pointer (&locker, g_mutex_locker_free);
