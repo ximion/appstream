@@ -1759,37 +1759,43 @@ as_pool_build_search_tokens (AsPool *pool, const gchar *search)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(AsStemmer) stemmer = NULL;
-	g_autofree gchar *tmp_str = NULL;
+	g_autofree gchar *search_norm = NULL;
+	g_auto(GStrv) words = NULL;
 	g_auto(GStrv) strv = NULL;
 	gchar **terms;
-	guint i;
 	guint idx;
 
 	if (search == NULL)
 		return NULL;
-	tmp_str = g_utf8_casefold (search, -1);
+	search_norm = g_utf8_casefold (search, -1);
 
 	/* filter query by greylist (to avoid overly generic search terms) */
-	for (i = 0; priv->term_greylist[i] != NULL; i++) {
-		gchar *str;
-		str = as_str_replace (tmp_str, priv->term_greylist[i], "");
-		g_free (tmp_str);
-		tmp_str = str;
+	words = g_strsplit (search_norm, " ", -1);
+	for (guint i = 0; words[i] != NULL; i++) {
+		as_strstripnl (words[i]);
+		for (guint j = 0; priv->term_greylist[j] != NULL; j++) {
+			if (g_strcmp0 (words[i], priv->term_greylist[j]) == 0) {
+				g_free (words[i]);
+				words[i] = g_strdup ("");
+			}
+		}
 	}
+	g_free (search_norm);
+	search_norm = g_strjoinv (" ", words);
 
 	/* restore query if it was just greylist words */
-	g_strstrip (tmp_str);
-	if (g_strcmp0 (tmp_str, "") == 0) {
+	g_strstrip (search_norm);
+	if (g_strcmp0 (search_norm, "") == 0) {
 		g_debug ("grey-list replaced all terms, restoring");
-		g_free (tmp_str);
-		tmp_str = g_utf8_casefold (search, -1);
+		g_free (search_norm);
+		search_norm = g_utf8_casefold (search, -1);
 	}
 
-	strv = g_str_tokenize_and_fold (tmp_str, priv->locale, NULL);
+	strv = g_str_tokenize_and_fold (search_norm, priv->locale, NULL);
 	/* we might still be able to extract tokens if g_str_tokenize_and_fold() can't do it or +/- were found */
 	if (strv == NULL) {
 		g_autofree gchar *delim = NULL;
-		delim = g_utf8_strdown (tmp_str, -1);
+		delim = g_utf8_strdown (search_norm, -1);
 		g_strdelimit (delim, "/,.;:", ' ');
 		strv = g_strsplit (delim, " ", -1);
 	}
@@ -1797,7 +1803,7 @@ as_pool_build_search_tokens (AsPool *pool, const gchar *search)
 	terms = g_new0 (gchar *, g_strv_length (strv) + 1);
 	idx = 0;
 	stemmer = g_object_ref (as_stemmer_get ());
-	for (i = 0; strv[i] != NULL; i++) {
+	for (guint i = 0; strv[i] != NULL; i++) {
 		gchar *token;
 		if (!as_user_search_term_valid (strv[i]))
 			continue;
