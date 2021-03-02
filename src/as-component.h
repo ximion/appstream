@@ -372,6 +372,10 @@ gboolean		as_component_is_ignored (AsComponent *cpt);
 gboolean		as_component_is_valid (AsComponent *cpt);
 gchar			*as_component_to_string (AsComponent *cpt);
 
+gint			as_component_get_priority (AsComponent *cpt);
+void			as_component_set_priority (AsComponent *cpt,
+							gint priority);
+
 GHashTable		*as_component_get_custom (AsComponent *cpt);
 const gchar		*as_component_get_custom_value (AsComponent *cpt,
 							const gchar *key);

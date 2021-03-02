@@ -50,12 +50,6 @@ typedef enum {
 
 typedef guint16		AsTokenType; /* big enough for both bitshifts */
 
-AS_INTERNAL_VISIBLE
-gint			as_component_get_priority (AsComponent *cpt);
-AS_INTERNAL_VISIBLE
-void			as_component_set_priority (AsComponent *cpt,
-							gint priority);
-
 void			as_component_complete (AsComponent *cpt,
 						gchar *scr_base_url,
 						GPtrArray *icon_paths);
