@@ -238,7 +238,7 @@ as_check_desktop_string (GPtrArray *issues, const gchar *field, const gchar *str
 /**
  * as_get_external_desktop_translations:
  */
-GPtrArray*
+static GPtrArray*
 as_get_external_desktop_translations (GKeyFile *kf, const gchar *text, const gchar *locale,
 				      AsTranslateDesktopTextFn de_l10n_fn, gpointer user_data)
 {
@@ -253,7 +253,7 @@ as_get_external_desktop_translations (GKeyFile *kf, const gchar *text, const gch
 		/* NOTE: We could use g_return_val_if_fail here, but we could just as well write a more descriptive message */
 		g_critical ("Invalid amount of list entries in external desktop translation l10n listing. "
 			    "Make sure you return locale names in even, and translations in odd indices. This is a programmer error.");
-		return FALSE;
+		return NULL;
 	}
 	return l10n;
 }
