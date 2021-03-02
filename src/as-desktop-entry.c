@@ -437,7 +437,7 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 			l10n_data = as_get_external_desktop_translations (df, val, locale,
 									  de_l10n_fn, user_data);
 			if (l10n_data != NULL) {
-				for (guint j = 0; j < l10n_data->len; i += 2)
+				for (guint j = 0; j < l10n_data->len; j += 2)
 					as_component_set_name (cpt,
 							       g_ptr_array_index (l10n_data, j),
 							       g_ptr_array_index (l10n_data, j + 1));
@@ -452,7 +452,7 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 			l10n_data = as_get_external_desktop_translations (df, val, locale,
 									  de_l10n_fn, user_data);
 			if (l10n_data != NULL) {
-				for (guint j = 0; j < l10n_data->len; i += 2)
+				for (guint j = 0; j < l10n_data->len; j += 2)
 					as_component_set_name (cpt,
 							       g_ptr_array_index (l10n_data, j),
 							       g_ptr_array_index (l10n_data, j + 1));
@@ -478,7 +478,7 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 			l10n_data = as_get_external_desktop_translations (df, val, locale,
 									  de_l10n_fn, user_data);
 			if (l10n_data != NULL) {
-				for (guint j = 0; j < l10n_data->len; i += 2) {
+				for (guint j = 0; j < l10n_data->len; j += 2) {
 					g_auto(GStrv) e_kws = NULL;
 					const gchar *e_locale = g_ptr_array_index (l10n_data, j);
 					gchar *e_value = g_ptr_array_index (l10n_data, j + 1);
