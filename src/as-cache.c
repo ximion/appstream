@@ -2186,6 +2186,8 @@ as_cache_search_items_table_to_results (GHashTable *results_ht, GPtrArray *resul
 	g_hash_table_iter_init (&ht_iter, results_ht);
 	while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value)) {
 		AsSearchResultItem *sitem = (AsSearchResultItem*) ht_value;
+		/* NOTE: We may have find the same term multiple times due to how stemming and partial matches work.
+		 * We still accept such components as likely search matches (even though we likely shouldn't) */
 		if (sitem->terms_found < required_terms_n)
 			continue;
 		g_ptr_array_add (results, g_steal_pointer (&sitem->cpt));
@@ -2270,6 +2272,7 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 		MDB_val dval;
 		g_autofree gsize *terms_lens = NULL;
 
+		g_debug ("No search results with exact token matches found, trying partial matching.");
 		rc = mdb_cursor_open (txn, priv->db_fts, &cur);
 		if (rc != MDB_SUCCESS) {
 			g_set_error (error,
