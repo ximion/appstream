@@ -283,6 +283,9 @@ asc_parse_desktop_entry_data (AscResult *cres,
 	if (prev_cid != NULL)
 		as_component_set_id (ncpt, prev_cid);
 
+	/* reset component priority to neutral (may be lowest) */
+	as_component_set_priority (ncpt, 0);
+
 	/* add new component to the results set */
 	if (cpt_is_new && !asc_result_add_component (cres, ncpt, bytes, NULL))
 		return NULL;
