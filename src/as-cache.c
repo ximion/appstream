@@ -2079,6 +2079,7 @@ as_cache_get_components_by_launchable (AsCache *cache, AsLaunchableKind kind, co
 
 typedef struct {
 	AsComponent *cpt;
+	GPtrArray *matched_terms;
 	guint terms_found;
 } AsSearchResultItem;
 
@@ -2087,6 +2088,8 @@ as_search_result_item_free (AsSearchResultItem *item)
 {
 	if (item->cpt != NULL)
 		g_object_unref (item->cpt);
+	if (item->matched_terms != NULL)
+		g_ptr_array_unref (item->matched_terms);
 	g_slice_free (AsSearchResultItem, item);
 }
 
@@ -2096,7 +2099,11 @@ as_search_result_item_free (AsSearchResultItem *item)
  * Update results table using the full-text search scoring data from a GVariant dict
  */
 static gboolean
-as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn, MDB_val dval, GHashTable *results_ht, gboolean exact_match, GError **error)
+as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn,
+					MDB_val dval, const gchar *matched_term,
+					GHashTable *results_ht,
+					gboolean exact_match,
+					GError **error)
 {
 	GError *tmp_error = NULL;
 	g_autofree gchar *entry_data = NULL;
@@ -2126,8 +2133,10 @@ as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn, MDB_val dv
 		if (sitem == NULL) {
 			sitem = g_slice_new0 (AsSearchResultItem);
 			sitem->cpt = as_cache_component_by_hash (cache, txn, cpt_hash, &tmp_error);
+			sitem->matched_terms = g_ptr_array_new_with_free_func (g_free);
 			if (tmp_error != NULL) {
 				g_propagate_prefixed_error (error, tmp_error, "Failed to retrieve component data: ");
+				as_search_result_item_free (sitem);
 				return FALSE;
 			}
 			if (sitem->cpt == NULL) {
@@ -2144,12 +2153,15 @@ as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn, MDB_val dv
 
 				as_component_set_sort_score (sitem->cpt, sort_score);
 				sitem->terms_found = 1;
+				g_ptr_array_add (sitem->matched_terms, g_strdup (matched_term));
 
 				g_hash_table_insert (results_ht,
 						     g_memdup (cpt_hash, AS_CACHE_CHECKSUM_LEN),
 						     sitem);
 			}
 		} else {
+			gboolean term_matched = FALSE;
+
 			sort_score = as_component_get_sort_score (sitem->cpt);
 			if (exact_match)
 				sort_score |= match_pval << 2;
@@ -2162,7 +2174,18 @@ as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn, MDB_val dv
 			}
 
 			as_component_set_sort_score (sitem->cpt, sort_score);
-			sitem->terms_found++;
+
+			/* due to stemming and partial matches, we may match the same term a lot of times,
+			 * but we only want to register a specific term match once (while still bumping up the
+			 * search result's match score) */
+			for (guint j = 0; j < sitem->matched_terms->len; j++) {
+				if (g_strcmp0 (matched_term, (const gchar *) g_ptr_array_index (sitem->matched_terms, j)) == 0) {
+					term_matched = TRUE;
+					break;
+				}
+			}
+			if (!term_matched)
+				sitem->terms_found++;
 		}
 	}
 
@@ -2186,8 +2209,6 @@ as_cache_search_items_table_to_results (GHashTable *results_ht, GPtrArray *resul
 	g_hash_table_iter_init (&ht_iter, results_ht);
 	while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value)) {
 		AsSearchResultItem *sitem = (AsSearchResultItem*) ht_value;
-		/* NOTE: We may have find the same term multiple times due to how stemming and partial matches work.
-		 * We still accept such components as likely search matches (even though we likely shouldn't) */
 		if (sitem->terms_found < required_terms_n)
 			continue;
 		g_ptr_array_add (results, g_steal_pointer (&sitem->cpt));
@@ -2253,7 +2274,11 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 		if (dval.mv_size <= 0)
 			continue;
 
-		if (!as_cache_update_results_with_fts_value (cache, txn, dval, results_ht, TRUE, error)) {
+		if (!as_cache_update_results_with_fts_value (cache, txn,
+							     dval, terms[i],
+							     results_ht,
+							     TRUE,
+							     error)) {
 			lmdb_transaction_abort (txn);
 			return NULL;
 		}
@@ -2290,7 +2315,7 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 
 		rc = mdb_cursor_get (cur, &dkey, &dval, MDB_FIRST);
 		while (rc == 0) {
-			gboolean match = FALSE;
+			const gchar *matched_term = NULL;
 			const gchar *token = dkey.mv_data;
 			gsize token_len = dkey.mv_size;
 
@@ -2303,14 +2328,14 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 				for (guint j = 0; j < token_len - term_len + 1; j++) {
 					if (strncmp (token + j, terms[i], term_len) == 0) {
 						/* partial match was successful */
-						match = TRUE;
+						matched_term = terms[i];
 						break;
 					}
 				}
-				if (match)
+				if (matched_term != NULL)
 					break;
 			}
-			if (!match) {
+			if (matched_term == NULL) {
 				rc = mdb_cursor_get(cur, &dkey, &dval, MDB_NEXT);
 				continue;
 			}
@@ -2318,7 +2343,11 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 			/* we got a partial match, so add the components to our search result */
 			if (dval.mv_size <= 0)
 				continue;
-			if (!as_cache_update_results_with_fts_value (cache, txn, dval, results_ht, FALSE, error)) {
+			if (!as_cache_update_results_with_fts_value (cache, txn,
+								     dval, matched_term,
+								     results_ht,
+								     FALSE,
+								     error)) {
 				mdb_cursor_close (cur);
 				lmdb_transaction_abort (txn);
 				return NULL;
@@ -2332,6 +2361,8 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 		as_cache_search_items_table_to_results (results_ht,
 							results,
 							terms_n);
+	} else {
+		g_debug ("Search results found for exact token match.");
 	}
 
 	/* we don't need the mutex anymore, no class member access here */
