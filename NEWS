@@ -1,3 +1,32 @@
+Version 0.14.2
+~~~~~~~~~~~~~~
+Released: 2021-03-02
+
+Features:
+ * qt: Implement missing Pool::componentsByCategories
+ * Share one user-owned read-only system metadata cache between all applications
+ * pool: Clean up user sysdata caches if we start to use the system cache
+ * Port over some parsing improvements for desktop-files from asgen
+ * compose: Add helper for reading desktop-entry files
+ * compose: Handle bad UTF-8 in desktop-entry files even better
+ * search: Perform partial token matches instead of prefix matches
+ * search: Unconditionally perform partial term matching after exact matching
+ * news-to-metainfo: Recognize the "Contributors" section
+ * Update our own metainfo file for appstreamcli
+
+Bugfixes:
+ * Read descriptions from collection XML correctly again
+ * tests: Fix a few memory leaks
+ * Make people acknowledge they know the ascompose API is unstable
+ * search: Make whole-search string matching a lot more strict
+ * validator: Resolve false-positive when testing remote icon URL validity
+ * utils: Improve textwrap if text is just one excessively long word
+ * compose: Permit U+00AD SOFT HYPHEN in string values
+ * Validate our own metainfo file
+ * compose: Don't assume lowest priority for desktop-entry-only components
+ * search: Only replace full words with greylist terms, not partial ones
+ * ascli: Take all positional parameters as search terms when searching
+
 Version 0.14.1
 ~~~~~~~~~~~~~~
 Released: 2021-02-16
