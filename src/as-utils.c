@@ -2128,15 +2128,22 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 gchar*
 as_get_user_cache_dir ()
 {
-	const gchar *cache_root;
-	if (as_utils_is_root ()) {
-		cache_root = g_get_tmp_dir ();
+	const gchar *cache_root = g_get_user_cache_dir ();
+	if (cache_root == NULL) {
+		g_autoptr(GError) error = NULL;
+		gchar *tmp_dir = g_dir_make_tmp ("appstream-XXXXXX", &error);
+		if (tmp_dir == NULL) {
+			/* something went very wrong here, we could neither get a user cache dir, nor
+			 * access to a temporary directory in /tmp */
+			g_error ("Unable to create temporary cache directory: %s", error->message);
+			return NULL;
+		}
+		return tmp_dir;
 	} else {
-		cache_root = g_get_user_cache_dir ();
-		if (cache_root == NULL || !g_file_test (cache_root, G_FILE_TEST_IS_DIR))
-			cache_root = g_get_tmp_dir ();
+		gchar *cache_dir = g_build_filename (cache_root, "appstream", NULL);
+		g_mkdir_with_parents (cache_dir, 0755);
+		return cache_dir;
 	}
-	return g_build_filename (cache_root, "appstream", NULL);
 }
 
 /**
