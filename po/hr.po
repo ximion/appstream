@@ -14,17 +14,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2021-02-24 00:50+0000\n"
+"PO-Revision-Date: 2021-03-05 23:50+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
-"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/"
-"translations/hr/>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.5\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.5.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -45,7 +43,6 @@ msgid ""
 msgstr ""
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
-#, fuzzy
 msgid ""
 "The <em>appstreamcli</em> command-line tool allows to read, write, and "
 "transform AppStream XML or YAML metadata as well as to validate it for "
@@ -53,12 +50,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Ovaj alat omogućuje čitanje, pisanje, provjeru ispravnosti i transformaciju "
-"AppStream XML ili YAML metapodataka. Također daje pristup sabiralištu "
-"metapodataka sustava, na primjer, za traženje softvera, koji pruža određenu "
-"MIME vrstu i za instaliranje pomoću njenog identifikatora komponenata "
-"softvera."
+msgstr "Alat <em>appstreamcli</em> omogućuje čitanje, pisanje, provjeru ispravnosti i transformaciju AppStream XML ili YAML metapodataka. Također daje pristup sabiralištu metapodataka sustava, na primjer, za traženje softvera koji pruža određenu MIME vrstu ili za instaliranje pomoću njenog identifikatora komponenata softvera."
 
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
@@ -986,9 +978,9 @@ msgid "Cache location '%s' is not writable."
 msgstr "Mjesto predmemorije „%s” je zaštićeno od pisanja."
 
 #: src/as-pool.c:2037
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to open new cache file: %s"
-msgstr "Nije moguće čitati .desktop datoteku: %s"
+msgstr "Nije moguće otvoriti novu datoteku predmemorije: %s"
 
 #: src/as-pool.c:2106
 msgid ""
@@ -1943,22 +1935,22 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:658
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "Vrijednost koja je postavljena kao hitnost izdanja nije poznata vrijednost hitnosti."
 
 #: src/as-validator-issue-tag.h:663
 msgid "The value set as release type is invalid."
-msgstr ""
+msgstr "Vrijednost koja je postavljena kao vrsta izdanja je neispravna."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:669
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr ""
+msgstr "Vrijednost koja je postavljena kao vrsta artefakta je neispravna. Mora biti `source` ili `binary`."
 
 #: src/as-validator-issue-tag.h:674
 msgid "The value set as artifact bundle type is invalid."
-msgstr ""
+msgstr "Vrijednost koja je postavljena kao vrsta paketa artefakata je neispravna."
 
 #: src/as-validator-issue-tag.h:679
 msgid ""
@@ -1969,22 +1961,22 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:686
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
+msgstr "Odabrani algoritam za računanje kontrolnog zbroja nije podržan ili je nepoznat."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:692
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
+msgstr "Vrsta veličine nije poznata. Mora biti `download` ili `installed`."
 
 #: src/as-validator-issue-tag.h:697
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr ""
+msgstr "Naziv datoteke artefakta mora biti osnovno ime datoteke, a ne (relativna ili apsolutna) staza."
 
 #: src/as-validator-issue-tag.h:702
 msgid "The value set as release issue type is invalid."
-msgstr ""
+msgstr "Vrijednost koja je postavljena kao vrsta problema izdanja je neispravna."
 
 #: src/as-validator-issue-tag.h:707
 msgid ""
@@ -2155,17 +2147,17 @@ msgstr "Prisilno aktualiziraj predmemoriju."
 #. TRANSLATORS: ascli flag description for: --user
 #: tools/appstream-cli.c:251
 msgid "Update the user-specific instead of the system-wide cache."
-msgstr ""
+msgstr "Aktualiziraj korisničku predmemoriju umjesto sustavsku."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstream-cli.c:469
 msgid "Set the data origin for the installed metadata collection file."
-msgstr ""
+msgstr "Postavi izvor podataka za instaliranu datoteku zbirke metapodataka."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstream-cli.c:474
 msgid "Install the file for the current user, instead of globally."
-msgstr ""
+msgstr "Instaliraj datoteku za trenutačnog korisnika, umjesto globalno."
 
 #: tools/appstream-cli.c:623
 msgid ""
@@ -2343,7 +2335,7 @@ msgstr "Prikaži podatke stanja dostupnih AppStream metapodataka."
 #: tools/appstream-cli.c:1123
 msgid ""
 "Show information about the current operating system from the metadata index."
-msgstr ""
+msgstr "Prikaži podatke trenutačnog operacijskog sustava iz indeksa metapodataka."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstream-cli.c:1128
@@ -2760,7 +2752,7 @@ msgstr "Identifikator"
 
 #: tools/ascli-utils.c:269
 msgid "Internal ID"
-msgstr ""
+msgstr "Interni ID"
 
 #: tools/ascli-utils.c:270
 msgid "Name"
