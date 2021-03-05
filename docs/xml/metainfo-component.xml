@@ -1037,14 +1037,14 @@
 					<listitem><para><literal>LGPL-3.0+ AND GPL-3.0+</literal></para></listitem>
 					<listitem><para><literal>MIT</literal></para></listitem>
 					<listitem><para><literal>CC-BY-SA-2.0</literal></para></listitem>
-					<listitem><para><literal>LicenseRef-Proprietary=https://example.com/mylicense.html</literal></para></listitem>
+					<listitem><para><literal>LicenseRef-proprietary=https://example.com/mylicense.html</literal></para></listitem>
 				</itemizedlist>
 				A full list of recognized licenses and their identifiers can be found at the
 				<ulink url="https://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
 			</para>
 			<para>
 				Custom licenses which are not in the SPDX registry, like proprietary licenses, can be denoted using the <code>LicenseRef</code> notation.
-				<code>LicenseRef-Proprietary</code> can be used to denote a proprietary license, with an optional URL to the license text following after
+				<code>LicenseRef-proprietary</code> can be used to denote a proprietary license, with an optional URL to the license text following after
 				a <code>=</code> sign.
 			</para>
 			<para>
