@@ -1,3 +1,18 @@
+Version 0.14.3
+~~~~~~~~~~~~~~
+Released: 2021-03-08
+
+Specification:
+ * spec: Mention that license-IDs are case-sensitive
+ * spec: Fix case of LicenseRef-proprietary in the spec
+
+Bugfixes:
+ * compose: Don't loop endlessly if external desktop l10n function is set
+ * Never create a predictable dir in /tmp for caching
+
+Contributors:
+  Philip Withnall, Matthias Klumpp
+
 Version 0.14.2
 ~~~~~~~~~~~~~~
 Released: 2021-03-02
