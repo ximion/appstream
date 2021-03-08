@@ -1030,7 +1030,7 @@
 		<listitem>
 			<para>
 				The <code>&lt;project_license/&gt;</code> tag is indicating the license of the component (application/library/addon/font/etc.) described in the metadata document.
-				It should be a <ulink url="https://spdx.org/specifications">SPDX license expression</ulink>.
+				It should be a <ulink url="https://spdx.org/specifications">SPDX license expression</ulink>. Please note the SPDX license IDs are case-sensitive in AppStream.
 				Possible values include:
 				<itemizedlist>
 					<listitem><para><literal>GPL-2.0</literal></para></listitem>
