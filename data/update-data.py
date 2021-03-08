@@ -123,7 +123,7 @@ def update_spdx_id_list(git_url, licenselist_fname, licenselist_free_fname, exce
     license_free_data = _read_spdx_licenses(tdir.name, last_tag_ver, only_free=True)
     with open(licenselist_free_fname, 'w') as f:
         f.write('# The list of free (OSI or FSF approved) licenses recognized by SPDX, v{}\n'.format(license_list_ver))
-        f.write('\n'.join(license_free_data['licenses']))
+        f.write('\n'.join(sorted(license_free_data['licenses'])))
         f.write('\n')
 
 
