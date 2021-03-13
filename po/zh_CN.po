@@ -29,6 +29,7 @@
 # Forbidden <10278743+f0rb1d@users.noreply.github.com>, 2020.
 # Rigo Ligo <rigoligo03@gmail.com>, 2021.
 # Chen Xiaomeng <295932653@qq.com>, 2021.
+# jane <allfortestingwork@outlook.com>, 2021.
 #
 # Translators:
 msgid ""
@@ -36,16 +37,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2021-02-24 00:50+0000\n"
-"Last-Translator: Chen Xiaomeng <295932653@qq.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_Hans/>\n"
+"PO-Revision-Date: 2021-03-13 14:02+0000\n"
+"Last-Translator: jane <allfortestingwork@outlook.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.5\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1113,11 +1113,11 @@ msgstr ""
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr ""
+msgstr "此描述段落中包含非法标记。目前只允许包含 <em/> and <code/> 标记。"
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr ""
+msgstr "枚举值的子元素必须而且只能是 (<li/>) 。"
 
 #: src/as-validator-issue-tag.h:79
 msgid ""
@@ -1125,13 +1125,13 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
+msgstr "此组件的第一段 `description/p` 太短了（小于 80 个字符)。请考虑用长一点的段落开头，这样描述看起来会更适合软件中心，然后在第一段之后提供有关该组件更为详细的信息。"
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
+msgstr "描述中包含一段普通文本格式的 web URL。这是不允许的，请使用 <url/> 标记来分享链接。"
 
 #: src/as-validator-issue-tag.h:91
 msgid ""
@@ -1216,14 +1216,14 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:156
 msgid "The SPDX license expression is invalid and could not be parsed."
-msgstr ""
+msgstr "SPDX 许可证信息不正确，无法解析。"
 
 #: src/as-validator-issue-tag.h:161
 msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
+msgstr "在 SPDX 数据库中未找到此许可证 ID。请确保许可证 ID 符合 SPDX 要求的格式，并且是有效的免费软件许可证。"
 
 #: src/as-validator-issue-tag.h:167
 msgid ""
