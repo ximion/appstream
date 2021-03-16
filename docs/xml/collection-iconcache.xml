@@ -29,7 +29,7 @@
 			<filename>/usr/share/app-info/icons/jessie/64x64/krita.png</filename> (or in the <filename>/var/cache</filename> location).
 		</para>
 		<para>
-			Icon sclaing factors commonly used for HiDPI display support are part of the size-directory filename and are separated from the regular size via an <code>@</code> sign.
+			Icon scaling factors commonly used for HiDPI display support are part of the size-directory filename and are separated from the regular size via an <code>@</code> sign.
 			If the scaling factor is 1, it must be omitted from the directory name.
 			For example, if the icon scaling factor is <literal>2</literal> for icons of size <literal>64x64</literal> from origin <literal>jessie</literal>, the icon must be placed
 			in <filename>/usr/share/app-info/icons/jessie/64x64@2/</filename>.
