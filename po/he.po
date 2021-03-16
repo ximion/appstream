@@ -7,17 +7,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2021-02-18 04:50+0000\n"
+"PO-Revision-Date: 2021-03-16 23:02+0000\n"
 "Last-Translator: Omer I.S. <omeritzicschwartz@gmail.com>\n"
-"Language-Team: Hebrew <https://hosted.weblate.org/projects/appstream/"
-"translations/he/>\n"
+"Language-Team: Hebrew <https://hosted.weblate.org/projects/appstream/translations/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
-"n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 4.5\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && n % 10 == 0) ? 2 : 3));\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -25,7 +23,7 @@ msgstr ""
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr "עזר לעבודה עם נתוני העל של AppStream"
+msgstr "כלי עזר לעבודה עם נתוני העל של AppStream"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
@@ -70,12 +68,12 @@ msgstr "מומלצים"
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "ניפוי תקלות"
 
 #: src/as-category.c:89
 msgctxt "Category of Development"
 msgid "IDEs"
-msgstr ""
+msgstr "סביבות פיתוח"
 
 #: src/as-category.c:98
 msgctxt "Category of Education"
@@ -110,12 +108,12 @@ msgstr "מומלצים"
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
-msgstr ""
+msgstr "אקשן"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
 msgid "Adventure"
-msgstr ""
+msgstr "הרפתקאות"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -123,9 +121,10 @@ msgid "Arcade"
 msgstr "ארקייד"
 
 #: src/as-category.c:132
+#, fuzzy
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr ""
+msgstr "קוביות"
 
 #: src/as-category.c:135
 msgctxt "Category of Games"
@@ -140,17 +139,17 @@ msgstr "קלפים"
 #: src/as-category.c:141
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr ""
+msgstr "מדמים"
 
 #: src/as-category.c:144
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr "ילדים"
+msgstr "לילדים"
 
 #: src/as-category.c:147
 msgctxt "Category of Games"
 msgid "Logic"
-msgstr ""
+msgstr "לוגיקה"
 
 #: src/as-category.c:150
 msgctxt "Category of Games"
@@ -175,7 +174,7 @@ msgstr "מומלצים"
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr ""
+msgstr "גרפיקה בתלת ממד"
 
 #: src/as-category.c:171
 msgctxt "Category of Graphics"
@@ -230,17 +229,17 @@ msgstr "גופנים"
 #: src/as-category.c:214
 msgctxt "Category of Addons"
 msgid "Codecs"
-msgstr ""
+msgstr "קודקים"
 
 #: src/as-category.c:217
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr ""
+msgstr "מקורות קלט"
 
 #: src/as-category.c:220
 msgctxt "Category of Addons"
 msgid "Language Packs"
-msgstr ""
+msgstr "חבילות שפה"
 
 #: src/as-category.c:223
 msgctxt "Category of Addons"
@@ -310,7 +309,7 @@ msgstr "עורכי טקסט"
 #: src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "מדמי מסוף"
 
 #: src/as-category.c:287
 msgctxt "Category of Utility"
@@ -320,7 +319,7 @@ msgstr "מערכת קבצים"
 #: src/as-category.c:290
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr ""
+msgstr "צגי מערכת"
 
 #: src/as-category.c:293
 msgctxt "Category of Utility"
@@ -335,7 +334,7 @@ msgstr "שמע ווידאו"
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:305
 msgid "Developer Tools"
-msgstr ""
+msgstr "כלים למפתחים"
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
@@ -371,7 +370,7 @@ msgstr "מדע"
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
-msgstr ""
+msgstr "תקשורת וחדשות"
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -387,7 +386,7 @@ msgstr "%s (%s)"
 
 #: src/as-content-rating.c:444
 msgid "General"
-msgstr ""
+msgstr "כללי"
 
 #: src/as-content-rating.c:453
 msgid "ALL"
@@ -650,7 +649,7 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
 msgid "No advertising of any kind"
-msgstr ""
+msgstr "ללא פרסומות מכל סוג"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:978
@@ -690,22 +689,22 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:998
 msgid "No ability to spend money"
-msgstr ""
+msgstr "אין יכולת לשלם כסף"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1000
 msgid "Users are encouraged to donate real money"
-msgstr ""
+msgstr "המשתמשים מעוּדדים לשלם כסף אמיתי"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1003
 msgid "Ability to spend real money in-app"
-msgstr ""
+msgstr "יכולת לשלם כסף אמיתי ביישום"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1008
 msgid "No way to chat with other users"
-msgstr ""
+msgstr "אין דרך לשוחח עם משתמשים אחרים בצ׳אט"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1010
@@ -725,7 +724,7 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1019
 msgid "No way to talk with other users"
-msgstr ""
+msgstr "אין דרך לשוחח עם משתמשים אחרים"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1021
@@ -735,12 +734,12 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1028
 msgid "No sharing of social network usernames or email addresses"
-msgstr ""
+msgstr "אין שיתוף של שמות משתמשים ברשתות חברתיות או של כתובות דוא״ל"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1030
 msgid "Sharing social network usernames or email addresses"
-msgstr ""
+msgstr "שיתוף של שמות משתמשים ברשתות חברתיות או של כתובות דוא״ל"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1037
