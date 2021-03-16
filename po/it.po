@@ -17,6 +17,7 @@
 # Milo Casagrande <milo@milo.name>, 2018. #zanata
 # J. Lavoie <j.lavoie@net-c.ca>, 2020.
 # Lory ~ <dury.lorenzo@gmail.com>, 2021.
+# Alessandro Mandelli <mandelli.alessandro@ngi.it>, 2021.
 #
 # Translators:
 msgid ""
@@ -24,16 +25,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2021-02-21 11:50+0000\n"
-"Last-Translator: Lory ~ <dury.lorenzo@gmail.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
-"translations/it/>\n"
+"PO-Revision-Date: 2021-03-16 23:02+0000\n"
+"Last-Translator: Alessandro Mandelli <mandelli.alessandro@ngi.it>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2257,11 +2257,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstream-cli.c:1019
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Eseguire \"%s --help\" per l'elenco completo delle opzioni a riga di comando."
+msgstr "Comando '%s' sconosciuto. Eseguire \"%s --help\" per l'elenco completo delle opzioni a riga di comando."
 
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:1043
