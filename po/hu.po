@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>\n"
+"Last-Translator: SoftwareByRedline <krajczar.david41@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/translations/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
@@ -52,10 +52,7 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
-"Az AppStream egy metaadat-specifikáció, ami révén a szoftveres komponensek "
-"információt szolgáltathatnak magukról automata rendszereknek és a "
-"végfelhasználóknak, mielőtt a szoftver telepítve lenne."
+msgstr "Az AppStream egy metaadat-specifikáció, ami révén a szoftveres komponensek információt szolgáltathatnak magukról automata rendszereknek és a végfelhasználóknak, mielőtt a szoftver telepítve lenne."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -65,12 +62,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Ezzel az eszközzel AppStream XML vagy YAML metaadatokat olvashat, írhat, "
-"érvényesíthet és alakíthat át. Hozzáférést is biztosít a rendszer "
-"metaadataihoz, például le tudja kérdezni a szoftvereket, amelyek bizonyos "
-"MIME-típusokat biztosítanak, és telepíteni tudja a szoftverösszetevő-"
-"azonosítója alapján."
+msgstr "Ezzel az eszközzel AppStream XML vagy YAML metaadatokat olvashat, írhat, érvényesíthet és alakíthat át. Hozzáférést is biztosít a rendszer metaadataihoz, például le tudja kérdezni a szoftvereket, amelyek bizonyos MIME-típusokat biztosítanak, és telepíteni tudja a szoftverösszetevő-azonosítója alapján."
 
 #: src/as-cache.c:909
 #, c-format
@@ -1739,8 +1731,7 @@ msgstr "A kiadások nem a legfrissebb verziótól a legrégebbi verzióig vannak
 
 #: src/as-validator-issue-tag.h:665
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
-"A kiadási sürgősségnek beállított érték nem egy ismert sürgősségi érték."
+msgstr "A kiadási sürgősségnek beállított érték nem egy ismert sürgősségi érték."
 
 #: src/as-validator-issue-tag.h:670
 msgid "The value set as release type is invalid."
