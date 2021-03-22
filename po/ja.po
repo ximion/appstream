@@ -7,21 +7,21 @@
 # Grace Guo <grace@appest.com>, 2020.
 # Allan Nordhøy <epost@anotheragency.no>, 2020.
 # Baka Gaijin <lewdwarrior@waifu.club>, 2020.
+# phlostically <phlostically@mailinator.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2021-01-16 01:32+0000\n"
-"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/"
-"translations/ja/>\n"
+"PO-Revision-Date: 2021-03-22 04:29+0000\n"
+"Last-Translator: phlostically <phlostically@mailinator.com>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/translations/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2329,9 +2329,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr "ID が '%s' のコンポーネントは見つかりません！"
 
 #: tools/ascli-actions-mdata.c:439
-#, fuzzy
 msgid "Version"
-msgstr "バージョン: %s"
+msgstr "バージョン"
 
 #: tools/ascli-actions-mdata.c:463
 msgid ""
