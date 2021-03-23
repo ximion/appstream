@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2021-03-02 17:56+0000\n"
+"PO-Revision-Date: 2021-03-23 13:29+0000\n"
 "Last-Translator: SoftwareByRedline <krajczar.david41@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/translations/hu/>\n"
 "Language: hu\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2546,9 +2546,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr "Nem található összetevő a következő azonosítóval: „%s”!"
 
 #: tools/ascli-actions-mdata.c:439
-#, fuzzy
 msgid "Version"
-msgstr "Verzió: %s"
+msgstr "Verzió"
 
 #: tools/ascli-actions-mdata.c:463
 msgid ""
