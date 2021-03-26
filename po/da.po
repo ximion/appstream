@@ -5,7 +5,7 @@
 # Translators:
 # Joe Hansen <joedalton2@yahoo.dk>, 2014
 # scootergrisen <scootergrisen@gmail.com>, 2019, 2020, 2021.
-# Henrik Dankvardt <dankvardt@gmail.com>, 2019, 2020.
+# Henrik Dankvardt <dankvardt@gmail.com>, 2019, 2020, 2021.
 # #-#-#-#-#  da.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -20,16 +20,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2021-02-05 08:42+0000\n"
-"Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
-"Language-Team: Danish <https://hosted.weblate.org/projects/appstream/"
-"translations/da/>\n"
+"PO-Revision-Date: 2021-03-26 18:29+0000\n"
+"Last-Translator: Henrik Dankvardt <dankvardt@gmail.com>\n"
+"Language-Team: Danish <https://hosted.weblate.org/projects/appstream/translations/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -47,7 +46,7 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
+msgstr "AppStream er en metadata-specifikation, der tillader softwarekomponenter at give oplysninger om sig selv til automatiserede systemer og slutbrugere, før softwaren faktisk installeres. AppStream-projektet giver faciliteter til let adgang til og omdannelse af disse metadata samt et par ekstra tjenester til opbygning af funktionsrige softwarecentre og lignende applikationer, der gør brug af softwaremetadata."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 #, fuzzy
@@ -933,7 +932,7 @@ msgstr "Visuel fremstilling af nutidigt slaveri"
 #: src/as-curl.c:134
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr ""
+msgstr "Download mislykkedes på grund af server-grænse"
 
 #: src/as-curl.c:141 src/as-curl.c:148
 #, fuzzy, c-format
@@ -944,13 +943,13 @@ msgstr "Kan ikke gemme desktop entry-filen: %s"
 #: src/as-curl.c:157
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "URL blev ikke fundet på serveren."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:164
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Uventet statuskode: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:247
@@ -1461,7 +1460,7 @@ msgstr ""
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
+msgstr "Relationselementet har et sammenligningshandlingssæt, men understøtter ingen sammenligninger."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:287
@@ -1504,7 +1503,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
+msgstr "Dette `display_length`-element indeholder en ugyldig visningslængde. Værdien skal enten være en stenstreng eller et positivt heltal, der angiver logiske pixels. Der henvises til AppStream-specifikationen for yderligere oplysninger om dette tag."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:314
@@ -1513,7 +1512,7 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
+msgstr "Denne `side`-egenskab for dette `display_length`-element indeholder en ugyldig værdi. Den skal enten være `shortest` eller `longest`, eller den skal være usat for at betyde `shortest`, så elementets værdi henviser til enten den korteste eller længste side af displayet."
 
 #: src/as-validator-issue-tag.h:320
 msgid ""
@@ -1942,34 +1941,34 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:663
 msgid "The value set as release type is invalid."
-msgstr ""
+msgstr "Værdien, der er angivet som frigivelsestype, er ugyldig."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:669
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr ""
+msgstr "Den værdi, der er angivet som artefakttype, er ugyldig. Skal være enten `source` eller `binary`."
 
 #: src/as-validator-issue-tag.h:674
 msgid "The value set as artifact bundle type is invalid."
-msgstr ""
+msgstr "Værdien, der er angivet som artefaktgruppetype, er ugyldig."
 
 #: src/as-validator-issue-tag.h:679
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
+msgstr "Platformstripletten for denne udgave er ugyldig. Den skal være i form af `architecture-oskernel-osenv` - se AppStream-dokumentationen eller oplysninger om normaliserede GNU-tripletter for at få flere oplysninger og gyldige felter."
 
 #: src/as-validator-issue-tag.h:686
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
+msgstr "Den valgte checksums-algoritme er ikke understøttet eller ukendt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:692
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
+msgstr "Størrelsestypen er ukendt. Skal være 'download' eller 'installed'."
 
 #: src/as-validator-issue-tag.h:697
 msgid ""
