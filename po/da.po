@@ -21,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Henrik Dankvardt <dankvardt@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/appstream/translations/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
@@ -46,13 +46,7 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
-"AppStream er en metadata-specifikation, der tillader softwarekomponenter at "
-"give oplysninger om sig selv til automatiserede systemer og slutbrugere, før "
-"softwaren faktisk installeres. AppStream-projektet giver faciliteter til let "
-"adgang til og omdannelse af disse metadata samt et par ekstra tjenester til "
-"opbygning af funktionsrige softwarecentre og lignende applikationer, der gør "
-"brug af softwaremetadata."
+msgstr "AppStream er en metadata-specifikation, der tillader softwarekomponenter at give oplysninger om sig selv til automatiserede systemer og slutbrugere, før softwaren faktisk installeres. AppStream-projektet giver faciliteter til let adgang til og omdannelse af disse metadata samt et par ekstra tjenester til opbygning af funktionsrige softwarecentre og lignende applikationer, der gør brug af softwaremetadata."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -1329,9 +1323,7 @@ msgstr "Ugyldig sammenligningshandling på relationspunkt. Kun eq/ne/lt/gt/le/ge
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
-"Relationselementet har et sammenligningshandlingssæt, men understøtter ingen "
-"sammenligninger."
+msgstr "Relationselementet har et sammenligningshandlingssæt, men understøtter ingen sammenligninger."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:288
@@ -1365,11 +1357,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
-"Dette `display_length`-element indeholder en ugyldig visningslængde. Værdien "
-"skal enten være en stenstreng eller et positivt heltal, der angiver logiske "
-"pixels. Der henvises til AppStream-specifikationen for yderligere "
-"oplysninger om dette tag."
+msgstr "Dette `display_length`-element indeholder en ugyldig visningslængde. Værdien skal enten være en stenstreng eller et positivt heltal, der angiver logiske pixels. Der henvises til AppStream-specifikationen for yderligere oplysninger om dette tag."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:315
@@ -1378,11 +1366,7 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
-"Denne `side`-egenskab for dette `display_length`-element indeholder en "
-"ugyldig værdi. Den skal enten være `shortest` eller `longest`, eller den "
-"skal være usat for at betyde `shortest`, så elementets værdi henviser til "
-"enten den korteste eller længste side af displayet."
+msgstr "Denne `side`-egenskab for dette `display_length`-element indeholder en ugyldig værdi. Den skal enten være `shortest` eller `longest`, eller den skal være usat for at betyde `shortest`, så elementets værdi henviser til enten den korteste eller længste side af displayet."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:322
@@ -1763,11 +1747,7 @@ msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
-"Platformstripletten for denne udgave er ugyldig. Den skal være i form af "
-"`architecture-oskernel-osenv` - se AppStream-dokumentationen eller "
-"oplysninger om normaliserede GNU-tripletter for at få flere oplysninger og "
-"gyldige felter."
+msgstr "Platformstripletten for denne udgave er ugyldig. Den skal være i form af `architecture-oskernel-osenv` - se AppStream-dokumentationen eller oplysninger om normaliserede GNU-tripletter for at få flere oplysninger og gyldige felter."
 
 #: src/as-validator-issue-tag.h:693
 msgid "The selected checksumming algorithm is unsupported or unknown."
