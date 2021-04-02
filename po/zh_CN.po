@@ -35,6 +35,7 @@
 # Donald Yiu <1456762857@qq.com>, 2021.
 # Flywater Zh <lumingzh@qq.com>, 2021.
 # Eric <spice2wolf@gmail.com>, 2021.
+# 刘韬 <lyuutau@outlook.com>, 2021.
 #
 # Translators:
 msgid ""
@@ -43,7 +44,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:44+0000\n"
-"Last-Translator: Yu Lou <louyu27@gmail.com>\n"
+"Last-Translator: 刘韬 <lyuutau@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -68,11 +69,7 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
-"AppStream 是一种元数据规范，它允许软件组件在实际安装软件之前向自动化系统和最"
-"终用户提供有关自身的信息。AppStream 项目提供了方便访问和转换这种元数据的设"
-"施，以及一些额外的服务，用于建立功能丰富的软件中心和利用软件元数据的类似应"
-"用。"
+msgstr "AppStream 是一种元数据规范，它允许软件组件在实际安装软件之前向自动化系统和最终用户提供有关自身的信息。AppStream 项目提供了方便访问和转换这种元数据的设施，以及一些额外的服务，用于建立功能丰富的软件中心和利用软件元数据的类似应用。"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -82,10 +79,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"<em>appstreamcli</em> 命令行工具允许读取、写入和转换 AppStream XML 或 YAML 元"
-"数据，并验证其是否符合规范。它还提供了对系统元数据池的简单访问，例如查询提供"
-"特定 Mediatype 处理程序的软件，或者通过组件标识符安装软件。"
+msgstr "<em>appstreamcli</em> 命令行工具允许读取、写入和转换 AppStream XML 或 YAML 元数据，并验证其是否符合规范。它还提供了对系统元数据池的简单访问，例如查询提供特定 Mediatype 处理程序的软件，或者通过组件标识符安装软件。"
 
 #: src/as-cache.c:909
 #, c-format
@@ -1136,8 +1130,7 @@ msgstr "提及的标签空白，因为这里应该有内容所以很可能不是
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
-msgstr ""
-"组件 ID 需要遵循其名称的反向域名方案。有关详细信息，请参阅 AppStream 规范。"
+msgstr "组件 ID 需要遵循其名称的反向域名方案。有关详细信息，请参阅 AppStream 规范。"
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
