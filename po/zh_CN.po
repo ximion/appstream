@@ -30,6 +30,7 @@
 # Rigo Ligo <rigoligo03@gmail.com>, 2021.
 # Chen Xiaomeng <295932653@qq.com>, 2021.
 # jane <allfortestingwork@outlook.com>, 2021.
+# Liu Tao <lyuutau@outlook.com>, 2021.
 #
 # Translators:
 msgid ""
@@ -37,15 +38,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2021-03-13 14:02+0000\n"
-"Last-Translator: jane <allfortestingwork@outlook.com>\n"
+"PO-Revision-Date: 2021-04-02 22:26+0000\n"
+"Last-Translator: Liu Tao <lyuutau@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.5.2-dev\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -63,10 +64,9 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
+msgstr "AppStream 是一种元数据规范，它允许软件组件在实际安装软件之前向自动化系统和最终用户提供有关自身的信息。AppStream 项目提供了方便访问和转换这种元数据的设施，以及一些额外的服务，用于建立功能丰富的软件中心和利用软件元数据的类似应用。"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
-#, fuzzy
 msgid ""
 "The <em>appstreamcli</em> command-line tool allows to read, write, and "
 "transform AppStream XML or YAML metadata as well as to validate it for "
@@ -74,9 +74,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"本工具可用于读写、验证与转换 AppStream XML 或 YAML 元数据；此外还可访问系统元"
-"数据库，进行诸如搜索提供某种 MIME 类型的软件，并按照其软件组件辨识码安装。"
+msgstr "<em>appstreamcli</em> 命令行工具允许读取、写入和转换 AppStream XML 或 YAML 元数据，并验证其是否符合规范。它还提供了对系统元数据池的简单访问，例如查询提供特定 Mediatype 处理程序的软件，或者通过组件标识符安装软件。"
 
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
@@ -1000,9 +998,9 @@ msgid "Cache location '%s' is not writable."
 msgstr "缓存位置“%s”不可写。"
 
 #: src/as-pool.c:2037
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to open new cache file: %s"
-msgstr "无法读取 .desktop 文件：%s"
+msgstr "无法打开新的缓存文件：%s"
 
 #: src/as-pool.c:2106
 msgid ""
@@ -1070,7 +1068,6 @@ msgid "Flashed Firmware"
 msgstr "已刷入的固件"
 
 #: src/as-provided.c:166
-#, fuzzy
 msgid "Component"
 msgstr "组件"
 
@@ -1193,8 +1190,9 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:136
+#, fuzzy
 msgid "The component ID should only contain lowercase letters."
-msgstr ""
+msgstr "组件 ID 应仅包含小写字母。"
 
 #: src/as-validator-issue-tag.h:141
 msgid ""
