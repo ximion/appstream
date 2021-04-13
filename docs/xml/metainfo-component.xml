@@ -1048,6 +1048,13 @@
 				a <code>=</code> sign.
 			</para>
 			<para>
+				The license given in the <literal>project_license</literal> tag should be the ‘main’ license of the project. For a software project, this
+				is typically the license for the code. It is not recommended to include the license for accompanying documentation (for example) in
+				<literal>project_license</literal>, as that could confuse users. In particular, the <literal>CC-BY-SA-3.0</literal> license which is commonly
+				used for documentation is not an (FSF or OSI) approved license for free software, so including it in <literal>project_license</literal> results in the
+				project as a whole being considered non-free.
+			</para>
+			<para>
 				Although the <literal>project_license</literal> tag is not mandatory, it is highly recommended to include it.
 			</para>
 			<para>
