@@ -10,7 +10,7 @@
 # Ervin <zetsmart@gmail.com>, 2019.
 # Cassio Lamarck Silva Freitas <cassiolamarcksilvafreitas@gmail.com>, 2020.
 # Gustavo Maciel <gustamaciel2012@hotmail.com>, 2020.
-# Manuela Silva <mmsrs@sky.com>, 2020.
+# Manuela Silva <mmsrs@sky.com>, 2020, 2021.
 # Allan Lago <allanlago1@gmail.com>, 2020.
 # ssantos <ssantos@web.de>, 2020.
 # #-#-#-#-#  pt.po (appstream-glib)  #-#-#-#-#
@@ -28,16 +28,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2020-12-10 06:29+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/"
-"translations/pt/>\n"
+"PO-Revision-Date: 2021-04-30 03:31+0000\n"
+"Last-Translator: Manuela Silva <mmsrs@sky.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -58,7 +57,6 @@ msgid ""
 msgstr ""
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
-#, fuzzy
 msgid ""
 "The <em>appstreamcli</em> command-line tool allows to read, write, and "
 "transform AppStream XML or YAML metadata as well as to validate it for "
@@ -66,11 +64,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Esta ferramenta permite ler, escrever, validar e transformar metadados "
-"AppStream em XML ou YAML. Também permite acessar o grupo de metadados do "
-"sistema para, por exemplo, consultar por um software fornecendo um tipo MIME "
-"específico e instalá-lo usando o identificador de componente do seu software."
+msgstr "A ferramenta da linha de comandos <em>appstreamcli</em> permite ler, escrever, e transformar metadados AppStream em XML ou YAML, bem como validá-la para conformidade com a especificação. Esta também permite aceder ao grupo de metadados do sistema, por exemplo, consultar por um \"software\" que forneça um tipo MIME específico, ou para instalar \"software\" usando o próprio identificador de componente."
 
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
@@ -949,9 +943,9 @@ msgid "Failed to download due to server limit"
 msgstr ""
 
 #: src/as-curl.c:141 src/as-curl.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to download file: %s"
-msgstr "Não é possível guardar o ficheiro de entrada desktop: %s"
+msgstr "Não foi possível transferir o ficheiro: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
 #: src/as-curl.c:157
@@ -1003,9 +997,9 @@ msgid "Cache location '%s' is not writable."
 msgstr "A localização da cache “%s” não é gravável."
 
 #: src/as-pool.c:2037
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to open new cache file: %s"
-msgstr "Não foi possível ler o ficheiro .desktop: %s"
+msgstr "Não é possível abrir o novo ficheiro de \"cache\": %s"
 
 #: src/as-pool.c:2106
 msgid ""
@@ -1468,13 +1462,10 @@ msgstr ""
 "operação de comparação."
 
 #: src/as-validator-issue-tag.h:276
-#, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are "
 "permitted."
-msgstr ""
-"Operação de comparação de versão inválida no item de relação. Somente eq/ne/"
-"lt/gt/le/ge são permitidas."
+msgstr "Operação de comparação inválida no item de relação. Só é permitido eq/ne/lt/gt/le/ge."
 
 #: src/as-validator-issue-tag.h:281
 msgid ""
@@ -2296,12 +2287,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstream-cli.c:1019
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Execute \"%s --help\" para ver uma lista completa das opções da linha de "
-"comandos disponíveis."
+msgstr "O comando '%s' é desconhecido. Execute '%s --help' para ver uma lista dos comandos disponíveis."
 
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:1043
@@ -2413,9 +2402,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstream-cli.c:1149
-#, fuzzy
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr "Cria um ficheiro de entrada de desktop XDG de um ficheiro metainfo."
+msgstr "Crie um ficheiro de entrada de \"desktop\" a partir de um ficheiro metainfo."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstream-cli.c:1154
@@ -2514,9 +2502,9 @@ msgid "You need to specify a metadata file."
 msgstr "Tem de especificar um ficheiro de metadados."
 
 #: tools/ascli-actions-mdata.c:320
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr "Não é possível guardar o ficheiro de entrada desktop: %s"
+msgstr "Não é possível instalar o ficheiro de metadados: %s"
 
 #: tools/ascli-actions-mdata.c:340
 msgid "You need to specify an input and output file."
@@ -2537,15 +2525,13 @@ msgstr ""
 "por favor, defina o formato explicitamente, utilizando “--format=”."
 
 #: tools/ascli-actions-mdata.c:434
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr ""
-"Não foi possível encontrar o componente com o identificador (ID) \"%s\"!"
+msgstr "Não é possível encontrar o componente do sistema operativo '%s'!"
 
 #: tools/ascli-actions-mdata.c:439
-#, fuzzy
 msgid "Version"
-msgstr "Versão: %s"
+msgstr "Versão"
 
 #: tools/ascli-actions-mdata.c:463
 msgid ""
