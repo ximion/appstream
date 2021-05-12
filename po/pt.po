@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2021-05-10 04:32+0000\n"
+"PO-Revision-Date: 2021-05-12 05:32+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
@@ -54,7 +54,7 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
+msgstr "AppStream é uma especificação de metadados que permite que os componentes de software forneçam informações sobre si mesmos a sistemas automatizados e utilizadores finais antes que o software seja realmente instalado. O projeto AppStream oferece facilidades para acessar e transformar facilmente esses metadados, bem como alguns serviços adicionais para construir centros de software repletos de recursos e aplicações similares que fazem uso de metadados de software."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -940,7 +940,7 @@ msgstr "Representações gráficas da escravatura moderna"
 #: src/as-curl.c:134
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr ""
+msgstr "Falha no download devido ao limite do servidor"
 
 #: src/as-curl.c:141 src/as-curl.c:148
 #, c-format
@@ -951,13 +951,13 @@ msgstr "Não foi possível transferir o ficheiro: %s"
 #: src/as-curl.c:157
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "URL não foi encontrada no servidor."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:164
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Código de status inesperado: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:247
@@ -1471,7 +1471,7 @@ msgstr "Operação de comparação inválida no item de relação. Só é permit
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
+msgstr "O item de relação tem um conjunto de operações de comparação, mas não tem suporte a quaisquer comparações."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:287
@@ -1515,7 +1515,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
+msgstr "Este item `display_length` contém um comprimento de exibição inválido. O valor dele deve ser uma cadeia curta ou um valor inteiro positivo denotando pixels lógicos. Consulte a especificação do AppStream para mais informações sobre esta tag."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:314
@@ -1524,7 +1524,7 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
+msgstr "Esta propriedade `side` deste item `display_length` contém um valor inválido. Deve ser `shortest` ou `longest`, ou não deve ser definida para implicar `shortest` para que o valor do item se refira ao lado mais curto ou longo do ecrã."
 
 #: src/as-validator-issue-tag.h:320
 msgid ""
@@ -1654,7 +1654,7 @@ msgstr "Considere usar um URL (HTTPS) seguro para esta hiperligação da Web."
 
 #: src/as-validator-issue-tag.h:425
 msgid "A web URL was expected for this value."
-msgstr ""
+msgstr "Uma URL web era esperado para este valor."
 
 #: src/as-validator-issue-tag.h:430
 msgid ""
@@ -1968,54 +1968,54 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:658
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "O valor definido como urgência de lançamento não é um valor de urgência conhecido."
 
 #: src/as-validator-issue-tag.h:663
 msgid "The value set as release type is invalid."
-msgstr ""
+msgstr "O valor definido como tipo de lançamento é inválido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:669
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr ""
+msgstr "O valor definido como tipo de artefato é inválido. Deve ser `source` ou `binary`."
 
 #: src/as-validator-issue-tag.h:674
 msgid "The value set as artifact bundle type is invalid."
-msgstr ""
+msgstr "O valor definido como tipo de pacote de artefato é inválido."
 
 #: src/as-validator-issue-tag.h:679
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
+msgstr "O tripleto da plataforma para esta versão é inválido. Ele deve ser na forma de `architecture-oskernel-osenv` – consulte a documentação do AppStream ou informações sobre tripleto normalizados GNU para obter mais informações e campos válidos."
 
 #: src/as-validator-issue-tag.h:686
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
+msgstr "O algoritmo de verificação selecionado não tem suporte ou é desconhecido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:692
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
+msgstr "O tipo de tamanho é desconhecido. Deve ser `download` ou `installed`."
 
 #: src/as-validator-issue-tag.h:697
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr ""
+msgstr "O nome do ficheiro do artefato deve ser um nome base de ficheiro, não um caminho (relativo ou absoluto)."
 
 #: src/as-validator-issue-tag.h:702
 msgid "The value set as release issue type is invalid."
-msgstr ""
+msgstr "O valor definido como tipo de problema de lançamento é inválido."
 
 #: src/as-validator-issue-tag.h:707
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
+msgstr "O problema está marcado na vulnerabilidade de segurança com um s CVE, mas o valor dele não parece-se com um identificador CVE válido."
 
 #: src/as-validator-issue-tag.h:712
 msgid ""
@@ -2072,7 +2072,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
+msgstr "A tag de topo de nível `mimetypes` foi descontinuada. Por favor, utilize tags `mediatype` num bloco `provides` para indicar que o seu software fornece um manipulador de mídia para os tipos em questão."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2182,17 +2182,17 @@ msgstr "Forçar a atualização da cache."
 #. TRANSLATORS: ascli flag description for: --user
 #: tools/appstream-cli.c:251
 msgid "Update the user-specific instead of the system-wide cache."
-msgstr ""
+msgstr "Atualiza o cache específico do utilizador em vez do cache em todo o sistema."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstream-cli.c:469
 msgid "Set the data origin for the installed metadata collection file."
-msgstr ""
+msgstr "Define a origem dos dados para o ficheiro de coleção de metadados instalados."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstream-cli.c:474
 msgid "Install the file for the current user, instead of globally."
-msgstr ""
+msgstr "Instala o ficheiro para o utilizador atual, em vez de globalmente."
 
 #: tools/appstream-cli.c:623
 msgid ""
@@ -2268,7 +2268,7 @@ msgstr "Gera a saída no formato selecionado (“yaml” ou “text”)."
 #: tools/appstream-cli.c:923
 #, c-format
 msgid "(Alias: '%s')"
-msgstr ""
+msgstr "(Alias: \"%s\")"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:950
@@ -2308,7 +2308,7 @@ msgstr "Não mostrar saída colorida."
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstream-cli.c:1057
 msgid "Enable profiling"
-msgstr ""
+msgstr "Ativa perfil"
 
 #. TRANSLATORS: `appstreamcli search` command description.
 #: tools/appstream-cli.c:1069
@@ -2325,7 +2325,7 @@ msgstr "Obtém informação sobre um componente através do seu identificador."
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr ""
+msgstr "Obtém componentes que forneçam o item dado. Precisa de um tipo de item (por exemplo, lib, bin, python3, ...) e valor do item como parâmetro."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstream-cli.c:1085
@@ -2372,7 +2372,7 @@ msgstr "Mostrar informações sobre metadados disponíveis do AppStream."
 #: tools/appstream-cli.c:1123
 msgid ""
 "Show information about the current operating system from the metadata index."
-msgstr ""
+msgstr "Mostra informações sobre o sistema operacional atual a partir do índice de metadados."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstream-cli.c:1128
@@ -2791,7 +2791,7 @@ msgstr "Identificador"
 
 #: tools/ascli-utils.c:269
 msgid "Internal ID"
-msgstr ""
+msgstr "ID interno"
 
 #: tools/ascli-utils.c:270
 msgid "Name"
