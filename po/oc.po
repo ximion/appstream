@@ -9,39 +9,36 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
 # Cédric Valmary <cvalmary@yahoo.fr>, 2015
 # Cédric Valmary <cvalmary@yahoo.fr>, 2016
 # Cédric Valmary <cvalmary@yahoo.fr>, 2016
 # Tot en òc <totenoc@gmail.com>, 2016
 # Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>, 2007
-#, fuzzy
+# Quentin PAGÈS <quentinantonin@free.fr>, 2021.
+#
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2016-06-12 22:44+0000\n"
-"Last-Translator: Tot en òc <totenoc@gmail.com>\n"
-"Language-Team: Occitan (post 1500) (http://www.transifex.com/freedesktop/"
-"appstream-glib/language/oc/)\n"
+"PO-Revision-Date: 2021-05-14 23:32+0000\n"
+"Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
+"Language-Team: Occitan <https://hosted.weblate.org/projects/appstream/translations/oc/>\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  oc.po (AppStream)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"#-#-#-#-#  oc.po (appstream-glib)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
-msgstr ""
+msgstr "Interfàcia en linha de comanda AppStream"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr ""
+msgstr "Un utilitari per trabalhar amb las metadonadas AppStream"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
@@ -66,22 +63,22 @@ msgstr ""
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
 msgid "Featured"
-msgstr ""
+msgstr "Endavant"
 
 #: src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr ""
+msgstr "Creacion e edicion àudio"
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
-msgstr ""
+msgstr "Lectors de musica"
 
 #: src/as-category.c:83
 msgctxt "Category of Development"
 msgid "Featured"
-msgstr ""
+msgstr "Endavant"
 
 #: src/as-category.c:86
 msgctxt "Category of Development"
@@ -101,37 +98,37 @@ msgstr ""
 #: src/as-category.c:101
 msgctxt "Category of Education"
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomia"
 
 #: src/as-category.c:104
 msgctxt "Category of Education"
 msgid "Chemistry"
-msgstr ""
+msgstr "Quimia"
 
 #: src/as-category.c:107
 msgctxt "Category of Education"
 msgid "Languages"
-msgstr ""
+msgstr "Lengas"
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
-msgstr ""
+msgstr "Matematicas"
 
 #: src/as-category.c:120
 msgctxt "Category of Games"
 msgid "Featured"
-msgstr ""
+msgstr "Endavant"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
-msgstr ""
+msgstr "Accion"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
 msgid "Adventure"
-msgstr ""
+msgstr "Aventura"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -151,37 +148,37 @@ msgstr ""
 #: src/as-category.c:138
 msgctxt "Category of Games"
 msgid "Card"
-msgstr ""
+msgstr "Carta"
 
 #: src/as-category.c:141
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr ""
+msgstr "Emuladors"
 
 #: src/as-category.c:144
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr ""
+msgstr "Mainatge"
 
 #: src/as-category.c:147
 msgctxt "Category of Games"
 msgid "Logic"
-msgstr ""
+msgstr "Logica"
 
 #: src/as-category.c:150
 msgctxt "Category of Games"
 msgid "Role Playing"
-msgstr ""
+msgstr "Jòcs de ròtle"
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
-msgstr ""
+msgstr "Espòrts"
 
 #: src/as-category.c:157
 msgctxt "Category of Games"
 msgid "Strategy"
-msgstr ""
+msgstr "Estrategia"
 
 #: src/as-category.c:165
 msgctxt "Category of Graphics"
@@ -189,31 +186,29 @@ msgid "Featured"
 msgstr ""
 
 #: src/as-category.c:168
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr "Categorias"
+msgstr "Grafisme 3D"
 
 #: src/as-category.c:171
 msgctxt "Category of Graphics"
 msgid "Photography"
-msgstr ""
+msgstr "Fotografia"
 
 #: src/as-category.c:174
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr ""
+msgstr "Numerizacion"
 
 #: src/as-category.c:177
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr "Categorias"
+msgstr "Grafisme vectorial"
 
 #: src/as-category.c:180
 msgctxt "Category of Graphics"
 msgid "Viewers"
-msgstr ""
+msgstr "Visuadors"
 
 #: src/as-category.c:188
 msgctxt "Category of Office"
@@ -223,25 +218,24 @@ msgstr ""
 #: src/as-category.c:191
 msgctxt "Category of Office"
 msgid "Calendar"
-msgstr ""
+msgstr "Calendièr"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Database"
-msgstr ""
+msgstr "Basa de donadas"
 
 #: src/as-category.c:198
 msgctxt "Category of Office"
 msgid "Finance"
-msgstr ""
+msgstr "Finanças"
 
 #: src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr ""
+msgstr "Tractament de tèxt"
 
 #: src/as-category.c:211
-#, fuzzy
 msgctxt "Category of Addons"
 msgid "Fonts"
 msgstr "Poliças"
@@ -254,87 +248,87 @@ msgstr ""
 #: src/as-category.c:217
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr ""
+msgstr "Fonts d’entrada"
 
 #: src/as-category.c:220
 msgctxt "Category of Addons"
 msgid "Language Packs"
-msgstr ""
+msgstr "Paquets de lenga"
 
 #: src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
-msgstr ""
+msgstr "Localizacion"
 
 #: src/as-category.c:231
 msgctxt "Category of Science"
 msgid "Featured"
-msgstr ""
+msgstr "Endavant"
 
 #: src/as-category.c:234
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
-msgstr ""
+msgstr "Intelligéncia artificiala"
 
 #: src/as-category.c:237
 msgctxt "Category of Science"
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomia"
 
 #: src/as-category.c:240
 msgctxt "Category of Science"
 msgid "Chemistry"
-msgstr ""
+msgstr "Quimia"
 
 #: src/as-category.c:243
 msgctxt "Category of Science"
 msgid "Math"
-msgstr ""
+msgstr "Matematicas"
 
 #: src/as-category.c:248
 msgctxt "Category of Science"
 msgid "Robotics"
-msgstr ""
+msgstr "Robotica"
 
 #: src/as-category.c:256
 msgctxt "Category of Communication"
 msgid "Featured"
-msgstr ""
+msgstr "Endavant"
 
 #: src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
-msgstr ""
+msgstr "Messatjariá"
 
 #: src/as-category.c:266
 msgctxt "Category of Communication"
 msgid "News"
-msgstr ""
+msgstr "Actualitat"
 
 #: src/as-category.c:270
 msgctxt "Category of Communication"
 msgid "Web Browsers"
-msgstr ""
+msgstr "Navegador web"
 
 #: src/as-category.c:278
 msgctxt "Category of Utility"
 msgid "Featured"
-msgstr ""
+msgstr "Endavant"
 
 #: src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
-msgstr ""
+msgstr "Editors de tèxt"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "Emulador de terminal"
 
 #: src/as-category.c:287
 msgctxt "Category of Utility"
 msgid "File System"
-msgstr ""
+msgstr "Sistèma de fichièrs"
 
 #: src/as-category.c:290
 msgctxt "Category of Utility"
@@ -344,59 +338,58 @@ msgstr ""
 #: src/as-category.c:293
 msgctxt "Category of Utility"
 msgid "Security"
-msgstr ""
+msgstr "Seguretat"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: src/as-category.c:302
 msgid "Audio & Video"
-msgstr ""
+msgstr "Àudio e vidèo"
 
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:305
-#, fuzzy
 msgid "Developer Tools"
-msgstr "Desvolopaire"
+msgstr "Aisinas pel desvolopament"
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
 msgid "Education"
-msgstr ""
+msgstr "Educacion"
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
-msgstr ""
+msgstr "Jòcs"
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
 msgid "Graphics & Photography"
-msgstr ""
+msgstr "Grafisme e fotografia"
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
 msgid "Office"
-msgstr ""
+msgstr "Burotica"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
 #: src/as-category.c:320 tools/ascli-utils.c:372
 msgid "Add-ons"
-msgstr ""
+msgstr "Extensions"
 
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
 msgid "Science"
-msgstr ""
+msgstr "Sciéncia"
 
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
-msgstr ""
+msgstr "Comunicacion e actualitat"
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
 msgid "Utilities"
-msgstr ""
+msgstr "Utilitaris"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. * of the rating e.g. "Adults Only (solo adultos)"
@@ -560,12 +553,8 @@ msgstr "Usatge de drògas illicitas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:912
-#, fuzzy
 msgid "No references to tobacco products"
-msgstr ""
-"#-#-#-#-#  oc.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  oc.po (appstream-glib)  #-#-#-#-#\n"
-"Allusions a de produits derivats del tabat"
+msgstr "Cap d’allusions als produits derivats del tabat"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:914
@@ -946,30 +935,30 @@ msgstr "Imatges d’esclavagisme contemporanèu"
 #: src/as-curl.c:134
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr ""
+msgstr "Fracàs del telecargament a causa del temps de responsa del servidor"
 
 #: src/as-curl.c:141 src/as-curl.c:148
 #, c-format
 msgid "Failed to download file: %s"
-msgstr ""
+msgstr "Fracàs del telecargament del fichièr : %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
 #: src/as-curl.c:157
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "URL pas trobada al servidor."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:164
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Còdi d’estat inesperat : %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:247
 #, c-format
 msgid "Retrieved file size was zero."
-msgstr ""
+msgstr "La talha del fichièr recebut es nulla."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -979,15 +968,15 @@ msgstr ""
 #.
 #: src/as-pool.c:111
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
+msgstr "app;aplicacion;paquet;programa;program;seguida;aisina;otis"
 
 #: src/as-pool.c:619
 msgid "Unable to remove old cache."
-msgstr ""
+msgstr "Supression impossibla del cache ancian."
 
 #: src/as-pool.c:958
 msgid "Metadata files have errors:"
-msgstr ""
+msgstr "Los fichièrs de metadonadas an d’errors :"
 
 #: src/as-pool.c:1365
 msgid ""
@@ -1034,9 +1023,8 @@ msgid "Binaries"
 msgstr "Binaris"
 
 #: src/as-provided.c:148
-#, fuzzy
 msgid "Media types"
-msgstr "Tipes Mime"
+msgstr "Tipes de mèdias"
 
 #: src/as-provided.c:150
 msgid "Fonts"
@@ -1072,7 +1060,7 @@ msgstr ""
 
 #: src/as-provided.c:166
 msgid "Component"
-msgstr ""
+msgstr "Compausant"
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1681,7 +1669,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:584
 msgid "Unable to read file."
-msgstr ""
+msgstr "Lectura impossibla del fichièr."
 
 #: src/as-validator-issue-tag.h:589
 msgid "The XML of this file is malformed."
@@ -1854,7 +1842,7 @@ msgstr ""
 
 #: src/as-validator.c:344
 msgid "URL format is invalid."
-msgstr ""
+msgstr "Lo format de l’URL es invalid."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #: src/as-validator.c:524 src/as-validator.c:945 src/as-validator.c:1039
@@ -1901,7 +1889,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:128
 msgid "Do not use network access."
-msgstr ""
+msgstr "Utilizar pas l’accès a la ret."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:133
@@ -1917,7 +1905,7 @@ msgstr ""
 #: tools/appstream-cli.c:156
 #, c-format
 msgid "'%s' command"
-msgstr ""
+msgstr "comanda « %s »"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
 #: tools/appstream-cli.c:191
@@ -2019,7 +2007,7 @@ msgstr ""
 #: tools/appstream-cli.c:923
 #, c-format
 msgid "(Alias: '%s')"
-msgstr ""
+msgstr "(Alias : « %s »)"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:950
@@ -2042,7 +2030,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:1043
 msgid "Show the program version."
-msgstr ""
+msgstr "Afichar la version del programa."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:1049
@@ -2161,9 +2149,9 @@ msgstr ""
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:1191
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream version: %s"
-msgstr "Version : %s"
+msgstr "Version d’AppStream : %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
 #: tools/appstream-cli.c:1194
@@ -2262,9 +2250,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:439
-#, fuzzy
 msgid "Version"
-msgstr "Version : %s"
+msgstr "Version"
 
 #: tools/ascli-actions-mdata.c:463
 msgid ""
@@ -2282,7 +2269,7 @@ msgstr ""
 #: tools/ascli-actions-mdata.c:483
 #, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr ""
+msgstr "Lo fichièr .desktop « %s » existís pas."
 
 #: tools/ascli-actions-mdata.c:489
 #, c-format
@@ -2302,7 +2289,7 @@ msgstr ""
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:47
 msgid "AppStream Status:"
-msgstr ""
+msgstr "Estat d'AppStream :"
 
 #: tools/ascli-actions-misc.c:48
 #, c-format
@@ -2320,7 +2307,7 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:105
 msgid "No icons."
-msgstr ""
+msgstr "Cap d’icòna."
 
 #. TRANSLATORS: No metainfo files have been found
 #: tools/ascli-actions-misc.c:109 tools/ascli-actions-misc.c:129
@@ -2433,7 +2420,7 @@ msgstr ""
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr ""
+msgstr "Lançament impossibla del gestionari de paquets : %s"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
@@ -2444,7 +2431,7 @@ msgstr ""
 #: tools/ascli-actions-validate.c:176 tools/ascli-actions-validate.c:354
 #, c-format
 msgid "File '%s' does not exist."
-msgstr ""
+msgstr "Lo fichièr « %s » existís pas."
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "error"-type hints
 #: tools/ascli-actions-validate.c:228
@@ -2462,7 +2449,7 @@ msgstr ""
 #: tools/ascli-actions-validate.c:242
 #, c-format
 msgid "infos: %lu"
-msgstr ""
+msgstr "informacions : %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "pedantic"-type hints
 #: tools/ascli-actions-validate.c:249
@@ -2521,7 +2508,7 @@ msgstr "Paquetatge"
 
 #: tools/ascli-utils.c:273
 msgid "Bundle"
-msgstr ""
+msgstr "Grop"
 
 #: tools/ascli-utils.c:274
 msgid "Homepage"
@@ -2564,7 +2551,7 @@ msgstr "Categorias"
 
 #: tools/ascli-utils.c:351
 msgid "Compulsory for"
-msgstr ""
+msgstr "Obligatòri per"
 
 #: tools/ascli-utils.c:379
 msgid "Provided Items"
