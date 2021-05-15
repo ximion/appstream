@@ -36,6 +36,7 @@
 # Johannes Keyser <johanneskeyser@posteo.de>, 2020, 2021.
 # J. Lavoie <j.lavoie@net-c.ca>, 2020.
 # CurlingTongs <jobiwaff@googlemail.com>, 2021.
+# Johannes Keyser <joke@fsfe.org>, 2021.
 #
 # Translators:
 msgid ""
@@ -44,7 +45,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: Coruna <airwing77@gmx.de>\n"
+"Last-Translator: Johannes Keyser <joke@fsfe.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -69,14 +70,7 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
-"AppStream ist eine Metadatenspezifikation, die es Softwarekomponenten "
-"ermöglicht, automatisierten Systemen und Endnutzern Informationen über sich "
-"selbst zur Verfügung zu stellen, bevor die Software tatsächlich installiert "
-"wird. Das AppStream-Projekt bietet Möglichkeiten, auf diese Metadaten "
-"einfach zuzugreifen und sie umzuwandeln, sowie einige zusätzliche Dienste "
-"für die Erstellung funktionsreicher Softwarezentren und ähnlicher "
-"Anwendungen, die Software-Metadaten nutzen."
+msgstr "AppStream ist eine Metadatenspezifikation, die es Softwarekomponenten ermöglicht, automatisierten Systemen und Endnutzern Informationen über sich selbst zur Verfügung zu stellen, bevor die Software tatsächlich installiert wird. Das AppStream-Projekt bietet Möglichkeiten, auf diese Metadaten einfach zuzugreifen und sie umzuwandeln, sowie einige zusätzliche Dienste für die Erstellung funktionsreicher Softwarezentren und ähnlicher Anwendungen, die Software-Metadaten nutzen."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -86,13 +80,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Das Kommandozeilen-Werkzeug <em>appstreamcli</em> ermöglicht das Lesen, "
-"Schreiben und Umwandeln von AppStream XML- oder YAML-Metadaten sowie deren "
-"Validierung auf Übereinstimmung mit der Spezifikation. Es bietet außerdem "
-"einen einfachen Zugriff auf den System-Metadaten-Pool, um z. B. nach "
-"Software zu suchen, die einen bestimmten Mediatype-Handler bereitstellt, "
-"oder um Software anhand ihres Komponenten-Identifikators zu installieren."
+msgstr "Das Kommandozeilen-Werkzeug <em>appstreamcli</em> ermöglicht das Lesen, Schreiben und Umwandeln von AppStream XML- oder YAML-Metadaten sowie deren Validierung auf Übereinstimmung mit der Spezifikation. Es bietet außerdem einen einfachen Zugriff auf den System-Metadaten-Pool, um z. B. nach Software zu suchen, die einen bestimmten Mediatype-Handler bereitstellt, oder um Software anhand ihres Komponenten-Identifikators zu installieren."
 
 #: src/as-cache.c:909
 #, c-format
@@ -1403,9 +1391,7 @@ msgstr "Ungültiger Versionsvergleichsvorgang für Beziehungselement. Nur eq/ne/
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
-"Das Beziehungselement hat einen Vergleichsvorgang festgelegt, unterstützt "
-"jedoch keine Vergleiche."
+msgstr "Das Beziehungselement hat einen Vergleichsvorgang festgelegt, unterstützt jedoch keine Vergleiche."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:288
@@ -1443,11 +1429,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
-"Dieses Element `display_length` enthält eine ungültige Anzeigelänge. Sein "
-"Wert muss entweder eine kurze Zeichenfolge oder ein positiver Integer-Wert "
-"sein, der logische Pixel angibt. Weitere Informationen zu diesem Tag finden "
-"Sie in der AppStream-Spezifikation."
+msgstr "Dieses Element `display_length` enthält eine ungültige Anzeigelänge. Sein Wert muss entweder eine kurze Zeichenfolge oder ein positiver Integer-Wert sein, der logische Pixel angibt. Weitere Informationen zu diesem Tag finden Sie in der AppStream-Spezifikation."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:315
@@ -1456,12 +1438,7 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
-"Die Eigenschaft `side` dieses Elements `display_length` enthält einen "
-"ungültigen Wert. Sie muss entweder `kürzeste` oder `längste` sein, oder "
-"nicht gesetzt werden, um `kürzeste` zu implizieren, damit sich der "
-"Elementwert entweder auf die kürzeste oder längste Seite des Displays "
-"bezieht."
+msgstr "Die Eigenschaft `side` dieses Elements `display_length` enthält einen ungültigen Wert. Sie muss entweder `kürzeste` oder `längste` sein, oder nicht gesetzt werden, um `kürzeste` zu implizieren, damit sich der Elementwert entweder auf die kürzeste oder längste Seite des Displays bezieht."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:322
@@ -1864,9 +1841,7 @@ msgstr ""
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr ""
-"Der als Artefakttyp eingestellte Wert ist ungültig. Muss entweder `source` "
-"oder `binary` sein."
+msgstr "Der als Artefakttyp eingestellte Wert ist ungültig. Muss entweder `source` oder `binary` sein."
 
 #: src/as-validator-issue-tag.h:681
 msgid "The value set as artifact bundle type is invalid."
@@ -1881,9 +1856,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:693
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
-"Der ausgewählte Prüfsummenalgorithmus wird nicht unterstützt oder ist "
-"unbekannt."
+msgstr "Der ausgewählte Prüfsummenalgorithmus wird nicht unterstützt oder ist unbekannt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:699
@@ -1894,9 +1867,7 @@ msgstr "Der Größentyp ist unbekannt. Muss `download` oder `installed` sein."
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr ""
-"Der Dateiname des Artefakts muss ein Datei-Basisname sein, kein (relativer "
-"oder absoluter) Pfad."
+msgstr "Der Dateiname des Artefakts muss ein Datei-Basisname sein, kein (relativer oder absoluter) Pfad."
 
 #: src/as-validator-issue-tag.h:709
 msgid "The value set as release issue type is invalid."
@@ -1906,9 +1877,7 @@ msgstr ""
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
-"Das Problem ist als Sicherheitslücke mit einer CVE-Nummer gekennzeichnet, "
-"aber der Wert sieht nicht wie ein gültiger CVE-Bezeichner aus."
+msgstr "Das Problem ist als Sicherheitslücke mit einer CVE-Nummer gekennzeichnet, aber der Wert sieht nicht wie ein gültiger CVE-Bezeichner aus."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:720
@@ -2484,9 +2453,7 @@ msgstr "Zwei Versionsnummern vergleichen."
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
-"Erstellen Sie eine Vorlage für eine Metainfo-Datei (die vom Upstream-Projekt "
-"auszufüllen ist)."
+msgstr "Erstellen Sie eine Vorlage für eine Metainfo-Datei (die vom Upstream-Projekt auszufüllen ist)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1228
