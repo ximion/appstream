@@ -33,7 +33,7 @@
 # Tim Fraedrich <timfraedrich@icloud.com>, 2020.
 # mv87 <mv87@dismail.de>, 2020.
 # Coruna <airwing77@gmx.de>, 2020.
-# Johannes Keyser <johanneskeyser@posteo.de>, 2020.
+# Johannes Keyser <johanneskeyser@posteo.de>, 2020, 2021.
 # J. Lavoie <j.lavoie@net-c.ca>, 2020.
 #
 # Translators:
@@ -42,16 +42,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2021-01-13 19:31+0000\n"
-"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"PO-Revision-Date: 2021-05-16 00:37+0000\n"
+"Last-Translator: Johannes Keyser <johanneskeyser@posteo.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -69,10 +68,9 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
+msgstr "AppStream ist eine Metadatenspezifikation, die es Softwarekomponenten ermöglicht, automatisierten Systemen und Endnutzern Informationen über sich selbst zur Verfügung zu stellen, bevor die Software tatsächlich installiert wird. Das AppStream-Projekt bietet Möglichkeiten, auf diese Metadaten einfach zuzugreifen und sie umzuwandeln, sowie einige zusätzliche Dienste für die Erstellung funktionsreicher Softwarezentren und ähnlicher Anwendungen, die Software-Metadaten nutzen."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
-#, fuzzy
 msgid ""
 "The <em>appstreamcli</em> command-line tool allows to read, write, and "
 "transform AppStream XML or YAML metadata as well as to validate it for "
@@ -80,11 +78,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Dieses Werkzeug ermöglicht das Lesen, Schreiben, Überprüfen und Umwandeln "
-"von AppStream XML- oder YAML-Metadaten. Es erlaubt auch den Zugriff auf den "
-"System-Metadaten-Pool, z. B. Abfrage nach Anwendungen, die einen bestimmten "
-"MIME-Typ liefert und Installation anhand der Softwarekomponentenkennung."
+msgstr "Das Kommandozeilen-Werkzeug <em>appstreamcli</em> ermöglicht das Lesen, Schreiben und Umwandeln von AppStream XML- oder YAML-Metadaten sowie deren Validierung auf Übereinstimmung mit der Spezifikation. Es bietet außerdem einen einfachen Zugriff auf den System-Metadaten-Pool, um z. B. nach Software zu suchen, die einen bestimmten Mediatype-Handler bereitstellt, oder um Software anhand ihres Komponenten-Identifikators zu installieren."
 
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
@@ -962,24 +956,24 @@ msgstr "Grafische Darstellungen von moderner Sklaverei"
 #: src/as-curl.c:134
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr ""
+msgstr "Download fehlgeschlagen wegen Serverlimit"
 
 #: src/as-curl.c:141 src/as-curl.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to download file: %s"
-msgstr "Der Desktop-Eintrag konnte nicht gespeichert werden: %s"
+msgstr "Herunterladen von Datei fehlgeschlagen: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
 #: src/as-curl.c:157
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "URL nicht auf dem Server gefunden."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:164
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Unerwarteter Status-Code: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:247
@@ -1019,9 +1013,9 @@ msgid "Cache location '%s' is not writable."
 msgstr "Zwischenspeicheradresse »%s« ist schreibgeschützt."
 
 #: src/as-pool.c:2037
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to open new cache file: %s"
-msgstr "Die .desktop-Datei konnte nicht gelesen werden: %s"
+msgstr "Neue Cache-Datei kann nicht geöffnet werden: %s"
 
 #: src/as-pool.c:2106
 msgid ""
@@ -1484,19 +1478,16 @@ msgstr ""
 "Vergleichsoperation explizit zu definieren."
 
 #: src/as-validator-issue-tag.h:276
-#, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are "
 "permitted."
-msgstr ""
-"Ungültiger Versionsvergleichsvorgang für Beziehungselement. Nur eq/ne/lt/gt/"
-"le/ge sind zulässig."
+msgstr "Ungültiger Versionsvergleichsvorgang für Beziehungselement. Nur eq/ne/lt/gt/le/ge sind zulässig."
 
 #: src/as-validator-issue-tag.h:281
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
+msgstr "Das Beziehungselement hat einen Vergleichsvorgang festgelegt, unterstützt jedoch keine Vergleiche."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:287
@@ -1541,7 +1532,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
+msgstr "Dieses Element `display_length` enthält eine ungültige Anzeigelänge. Sein Wert muss entweder eine kurze Zeichenfolge oder ein positiver Integer-Wert sein, der logische Pixel angibt. Weitere Informationen zu diesem Tag finden Sie in der AppStream-Spezifikation."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:314
@@ -1550,7 +1541,7 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
+msgstr "Die Eigenschaft `side` dieses Elements `display_length` enthält einen ungültigen Wert. Sie muss entweder `kürzeste` oder `längste` sein, oder nicht gesetzt werden, um `kürzeste` zu implizieren, damit sich der Elementwert entweder auf die kürzeste oder längste Seite des Displays bezieht."
 
 #: src/as-validator-issue-tag.h:320
 msgid ""
@@ -1689,7 +1680,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:425
 msgid "A web URL was expected for this value."
-msgstr ""
+msgstr "Für diesen Wert wurde eine Web-URL erwartet."
 
 #: src/as-validator-issue-tag.h:430
 msgid ""
@@ -2019,7 +2010,7 @@ msgstr ""
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr ""
+msgstr "Der als Artefakttyp eingestellte Wert ist ungültig. Muss entweder `source` oder `binary` sein."
 
 #: src/as-validator-issue-tag.h:674
 msgid "The value set as artifact bundle type is invalid."
