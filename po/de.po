@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2021-05-16 00:37+0000\n"
+"PO-Revision-Date: 2021-05-23 04:32+0000\n"
 "Last-Translator: Johannes Keyser <johanneskeyser@posteo.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
@@ -2025,18 +2025,18 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:686
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
+msgstr "Der ausgewählte Prüfsummenalgorithmus wird nicht unterstützt oder ist unbekannt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:692
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
+msgstr "Der Größentyp ist unbekannt. Muss `download` oder `installed` sein."
 
 #: src/as-validator-issue-tag.h:697
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr ""
+msgstr "Der Dateiname des Artefakts muss ein Datei-Basisname sein, kein (relativer oder absoluter) Pfad."
 
 #: src/as-validator-issue-tag.h:702
 msgid "The value set as release issue type is invalid."
@@ -2046,7 +2046,7 @@ msgstr ""
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
+msgstr "Das Problem ist als Sicherheitslücke mit einer CVE-Nummer gekennzeichnet, aber der Wert sieht nicht wie ein gültiger CVE-Bezeichner aus."
 
 #: src/as-validator-issue-tag.h:712
 msgid ""
@@ -2215,7 +2215,7 @@ msgstr "Aktualisierung des Zwischenspeichers erzwingen."
 #. TRANSLATORS: ascli flag description for: --user
 #: tools/appstream-cli.c:251
 msgid "Update the user-specific instead of the system-wide cache."
-msgstr ""
+msgstr "Aktualisiere den Benutzer-spezifischen anstelle des systemweiten Caches."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstream-cli.c:469
