@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2021-04-17 09:26+0000\n"
+"PO-Revision-Date: 2021-05-23 04:32+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/appstream/translations/da/>\n"
 "Language: da\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -49,7 +49,6 @@ msgid ""
 msgstr "AppStream er en metadata-specifikation, der tillader softwarekomponenter at give oplysninger om sig selv til automatiserede systemer og slutbrugere, før softwaren faktisk installeres. AppStream-projektet giver faciliteter til let adgang til og omdannelse af disse metadata samt et par ekstra tjenester til opbygning af funktionsrige softwarecentre og lignende applikationer, der gør brug af softwaremetadata."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
-#, fuzzy
 msgid ""
 "The <em>appstreamcli</em> command-line tool allows to read, write, and "
 "transform AppStream XML or YAML metadata as well as to validate it for "
@@ -57,11 +56,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Værktøjet gør det muligt at læse, skrive, validere og transformere AppStream "
-"XML- eller YAML-metadata. Det giver også adgang til systemets "
-"metadatasamling, f.eks. til at forespørge software der bruger en bestemt "
-"MIME-type og installere den med dens softwarekomponent-identifikator."
+msgstr "Kommandolinjeærktøjet <em>appstreamcli</em> gør det muligt at læse, skrive, validere og transformere AppStream XML- eller YAML-metadata samt validere den for overholdelse af specifikationen. Det giver også let adgang til systemets metadatasamling, f.eks. til at forespørge software der håndtere en bestemt MIME-type eller for at installere software med dens komponentidentifikator."
 
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
@@ -2246,12 +2241,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstream-cli.c:1019
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Kør '%s --help' for at se en fuld liste over tilgængelige tilvalg for "
-"kommandolinjen."
+msgstr "Kommandoen '%s' er ukendt. Kør '%s --help' for at se en liste over tilgængelige kommandoer."
 
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:1043
@@ -2476,9 +2469,9 @@ msgstr ""
 "venligst eksplicit med '--format='."
 
 #: tools/ascli-actions-mdata.c:434
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr "Kan ikke finde komponent med id'et '%s'!"
+msgstr "Kan ikke finde styresystemskomponenten '%s'!"
 
 #: tools/ascli-actions-mdata.c:439
 msgid "Version"
