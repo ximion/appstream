@@ -31,7 +31,7 @@
 
 G_BEGIN_DECLS
 
-#define AS_TYPE_CONTENT (as_content_rating_get_type ())
+#define AS_TYPE_CONTENT_RATING (as_content_rating_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsContentRating, as_content_rating, AS, CONTENT_RATING, GObject)
 
 struct _AsContentRatingClass
