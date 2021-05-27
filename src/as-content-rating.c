@@ -1578,6 +1578,6 @@ AsContentRating*
 as_content_rating_new (void)
 {
 	AsContentRating *content_rating;
-	content_rating = g_object_new (AS_TYPE_CONTENT, NULL);
+	content_rating = g_object_new (AS_TYPE_CONTENT_RATING, NULL);
 	return AS_CONTENT_RATING (content_rating);
 }
