@@ -1301,14 +1301,25 @@ void
 as_component_set_keywords (AsComponent *cpt, gchar **value, const gchar *locale)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_autoptr(GPtrArray) keywords = NULL;
 
 	/* if no locale was specified, we assume the default locale */
 	if (locale == NULL)
 		locale = as_component_get_active_locale (cpt);
 
+	keywords = g_ptr_array_new ();
+
+	if (value != NULL) {
+		for (guint i = 0; value[i] != NULL; ++i) {
+			if (g_strcmp0 (value[i], "") != 0)
+				g_ptr_array_add (keywords, g_strdup (value[i]));
+		}
+	}
+	g_ptr_array_add (keywords, NULL);
+
 	g_hash_table_insert (priv->keywords,
 				g_ref_string_new_intern (locale),
-				g_strdupv (value));
+				(gchar **) (g_ptr_array_steal (keywords, NULL)));
 
 	g_object_notify ((GObject *) cpt, "keywords");
 }
