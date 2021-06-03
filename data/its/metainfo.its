@@ -23,4 +23,6 @@
                      translate="no"/>
   <its:translateRule selector="/component/name_variant_suffix[@translatable = 'no']"
                      translate="no"/>
+  <its:translateRule selector="/component/releases/release/description[@translatable = 'no']"
+                     translate="no"/>
 </its:rules>
