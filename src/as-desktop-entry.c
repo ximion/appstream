@@ -468,10 +468,6 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 			g_auto(GStrv) kws = NULL;
 			g_autoptr(GPtrArray) l10n_data = NULL;
 
-			/* drop last ";" to not get an empty entry later */
-			if (g_str_has_suffix (val, ";"))
-				val[strlen (val) -1] = '\0';
-
 			kws = g_strsplit (val, ";", -1);
 			as_component_set_keywords (cpt, kws, locale);
 
@@ -482,10 +478,6 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 					g_auto(GStrv) e_kws = NULL;
 					const gchar *e_locale = g_ptr_array_index (l10n_data, j);
 					gchar *e_value = g_ptr_array_index (l10n_data, j + 1);
-
-					/* drop last ";" to not get an empty entry later */
-					if (g_str_has_suffix (e_value, ";"))
-						e_value[strlen (e_value) -1] = '\0';
 
 					e_kws = g_strsplit (e_value, ";", -1);
 					as_component_set_keywords (cpt, e_kws, e_locale);
