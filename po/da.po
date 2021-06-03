@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-03-01 16:00+0100\n"
-"PO-Revision-Date: 2021-05-23 04:32+0000\n"
+"PO-Revision-Date: 2021-06-03 10:33+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/appstream/translations/da/>\n"
 "Language: da\n"
@@ -1929,18 +1929,18 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:658
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "Værdien der er indstillet som udgivelsens travlhed er ikke en kendt travlhedsværdi."
 
 #: src/as-validator-issue-tag.h:663
 msgid "The value set as release type is invalid."
-msgstr "Værdien, der er angivet som frigivelsestype, er ugyldig."
+msgstr "Værdien, der er angivet som udgivelsens type, er ugyldig."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:669
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr "Den værdi, der er angivet som artefakttype, er ugyldig. Skal være enten `source` eller `binary`."
+msgstr "Værdien, der er angivet som artefakttype, er ugyldig. Skal være enten `source` eller `binary`."
 
 #: src/as-validator-issue-tag.h:674
 msgid "The value set as artifact bundle type is invalid."
@@ -1966,17 +1966,17 @@ msgstr "Størrelsestypen er ukendt. Skal være 'download' eller 'installed'."
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr ""
+msgstr "Artefaktfilnavnet skal være et filgrundnavn, ikke en (relativ eller absolut) sti."
 
 #: src/as-validator-issue-tag.h:702
 msgid "The value set as release issue type is invalid."
-msgstr ""
+msgstr "Værdien der er indstillet som udgivelsens problemtype er ugyldig."
 
 #: src/as-validator-issue-tag.h:707
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
+msgstr "Problemet er tagget som sikkerhedssårbarhed med et CVE-nummer, men dets værdi ligner ikke en gyldig CVE-identidikator."
 
 #: src/as-validator-issue-tag.h:712
 msgid ""
@@ -2032,7 +2032,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
+msgstr "Topniveaustagget `mimetypes` er udgået. Brug venligst `mediatype`-tags i en `provides`-blok i stedet, for at indikere at din software leverer en mediebehandler til de angine typer."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2141,17 +2141,17 @@ msgstr "Gennemtving en opdatering af mellemlageret."
 #. TRANSLATORS: ascli flag description for: --user
 #: tools/appstream-cli.c:251
 msgid "Update the user-specific instead of the system-wide cache."
-msgstr ""
+msgstr "Opdater det brugerspecifikke mellemlager frem for det systembrede."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstream-cli.c:469
 msgid "Set the data origin for the installed metadata collection file."
-msgstr ""
+msgstr "Indstil dataens oprindelse for den installerede metadatasamlingsfil."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstream-cli.c:474
 msgid "Install the file for the current user, instead of globally."
-msgstr ""
+msgstr "Installer filen for den nuværende bruger frem for globalt."
 
 #: tools/appstream-cli.c:623
 msgid ""
@@ -2281,7 +2281,7 @@ msgstr "Hent information om en komponent efter dets id."
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr ""
+msgstr "Hent komponenter som leverer det givne element. Behøver en elementtype (f.eks. lib, bin, python3 ...) og elementværdi som parameter."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstream-cli.c:1085
@@ -2471,7 +2471,7 @@ msgstr ""
 #: tools/ascli-actions-mdata.c:434
 #, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr "Kan ikke finde styresystemskomponenten '%s'!"
+msgstr "Kan ikke finde styresystemets komponent '%s'!"
 
 #: tools/ascli-actions-mdata.c:439
 msgid "Version"
