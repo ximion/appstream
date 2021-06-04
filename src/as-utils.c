@@ -776,16 +776,12 @@ as_is_cruft_locale (const gchar *locale)
  * as_locale_strip_encoding:
  *
  * Remove the encoding from a locale string.
- * The function modifies the string directly.
+ * The function returns a newly allocated string.
  */
 gchar*
-as_locale_strip_encoding (gchar *locale)
+as_locale_strip_encoding (const gchar *locale)
 {
-	gchar *tmp;
-	tmp = g_strstr_len (locale, -1, ".UTF-8");
-	if (tmp != NULL)
-		*tmp = '\0';
-	return locale;
+	return as_str_replace (locale, ".UTF-8", "");
 }
 
 /**

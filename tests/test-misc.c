@@ -21,6 +21,7 @@
 #include <glib.h>
 #include "appstream.h"
 #include "as-news-convert.h"
+#include "as-utils-private.h"
 
 #include "as-test-utils.h"
 
@@ -192,6 +193,22 @@ test_readwrite_text_news ()
 	g_free (tmp);
 }
 
+static void
+test_locale_strip_encoding ()
+{
+	g_autofree gchar *c = NULL;
+	g_autofree gchar *cutf8 = NULL;
+	g_autofree gchar *cutf8valencia = NULL;
+
+	c = as_locale_strip_encoding ("C");
+	cutf8 = as_locale_strip_encoding ("C.UTF-8");
+	cutf8valencia = as_locale_strip_encoding ("C.UTF-8@valencia");
+
+	g_assert_cmpstr (c, ==, "C");
+	g_assert_cmpstr (cutf8, ==, "C");
+	g_assert_cmpstr (cutf8valencia, ==, "C@valencia");
+}
+
 int
 main (int argc, char **argv)
 {
@@ -214,6 +231,7 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/AppStream/Misc/YAMLNews", test_readwrite_yaml_news);
 	g_test_add_func ("/AppStream/Misc/TextNews", test_readwrite_text_news);
+	g_test_add_func ("/AppStream/Misc/StripLocaleEncoding", test_locale_strip_encoding);
 
 	ret = g_test_run ();
 	g_free (datadir);

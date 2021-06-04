@@ -509,7 +509,7 @@ as_yaml_set_localized_table (AsContext *ctx, GNode *node, GHashTable *l10n_table
 	for (GNode *n = node->children; n != NULL; n = n->next) {
 		const gchar *locale = as_yaml_get_node_locale (ctx, n);
 		if (locale != NULL) {
-			g_autofree gchar *locale_noenc = as_locale_strip_encoding (g_strdup (locale));
+			g_autofree gchar *locale_noenc = as_locale_strip_encoding (locale);
 			g_hash_table_insert (l10n_table,
 						g_ref_string_new_intern (locale_noenc),
 						g_strdup (as_yaml_node_get_value (n)));
@@ -641,6 +641,7 @@ as_yaml_emit_sequence_from_str_array (yaml_emitter_t *emitter, const gchar *key,
 static void
 as_yaml_localized_list_helper (gchar *key, gchar **strv, yaml_emitter_t *emitter)
 {
+	g_autofree gchar *locale_noenc = NULL;
 	guint i;
 	if (strv == NULL)
 		return;
@@ -649,7 +650,8 @@ as_yaml_localized_list_helper (gchar *key, gchar **strv, yaml_emitter_t *emitter
 	if (as_is_cruft_locale (key))
 		return;
 
-	as_yaml_emit_scalar (emitter, as_locale_strip_encoding (key));
+	locale_noenc = as_locale_strip_encoding (key);
+	as_yaml_emit_scalar (emitter, locale_noenc);
 	as_yaml_sequence_start (emitter);
 	for (i = 0; strv[i] != NULL; i++) {
 		as_yaml_emit_scalar (emitter, strv[i]);
