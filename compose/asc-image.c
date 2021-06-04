@@ -204,6 +204,7 @@ asc_optimize_png (const gchar *fname, GError **error)
 {
 	gint exit_status;
 	gboolean r;
+	const gchar *optipng_path;
 	g_autofree gchar *opng_stdout = NULL;
 	g_autofree gchar *opng_stderr = NULL;
 	g_autofree const gchar **argv = NULL;
@@ -212,8 +213,17 @@ asc_optimize_png (const gchar *fname, GError **error)
 	if (!asc_globals_get_use_optipng ())
 		return TRUE;
 
+	optipng_path = asc_globals_get_optipng_binary ();
+	if (optipng_path == NULL) {
+		g_set_error (error,
+			     ASC_IMAGE_ERROR,
+			     ASC_IMAGE_ERROR_FAILED,
+			     "optipng not found in $PATH");
+		return FALSE;
+	}
+
 	argv = g_new0 (const gchar*, 2 + 1);
-	argv[0] = asc_globals_get_optipng_binary ();
+	argv[0] = optipng_path;
 	argv[1] = fname;
 
 	/* NOTE: Maybe add an option to run optipng with stronger optimization? (>= -o4) */

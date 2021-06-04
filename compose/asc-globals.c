@@ -190,6 +190,11 @@ void
 asc_globals_set_use_optipng (gboolean enabled)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	if (enabled && priv->optipng_bin == NULL) {
+		g_critical ("Refusing to enable optipng: not found in $PATH");
+		priv->use_optipng = FALSE;
+		return;
+	}
 	priv->use_optipng = enabled;
 }
 
@@ -216,6 +221,8 @@ asc_globals_set_optipng_binary (const gchar *path)
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
 	g_free (priv->optipng_bin);
 	priv->optipng_bin = g_strdup (path);
+	if (priv->optipng_bin == NULL)
+		priv->use_optipng = FALSE;
 }
 
 /**

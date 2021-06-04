@@ -27,6 +27,11 @@
 
 static gchar *datadir = NULL;
 
+typedef struct
+{
+	gchar *path;
+} Fixture;
+
 /**
  * test_utils:
  *
@@ -493,6 +498,32 @@ test_compose_desktop_entry ()
 	g_clear_pointer (&cpt, g_object_unref);
 }
 
+static void
+setup (Fixture *fixture, gconstpointer user_data)
+{
+	fixture->path = g_strdup (g_getenv ("PATH"));
+	/* not unset because glib has a hardcoded fallback */
+	g_setenv ("PATH", "", TRUE);
+}
+
+static void
+teardown (Fixture *fixture, gconstpointer user_data)
+{
+	g_setenv ("PATH", fixture->path, TRUE);
+	g_clear_pointer (&fixture->path, g_free);
+}
+
+static void
+test_compose_optipng_not_found (Fixture *fixture, gconstpointer user_data)
+{
+	g_test_expect_message (G_LOG_DOMAIN,
+			       G_LOG_LEVEL_CRITICAL,
+			       "*Refusing to enable optipng: not found in $PATH");
+	asc_globals_set_use_optipng (TRUE);
+	g_assert_false (asc_globals_get_use_optipng ());
+	g_test_assert_expected_messages ();
+}
+
 int
 main (int argc, char **argv)
 {
@@ -513,6 +544,7 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
+	g_test_add ("/AppStream/Compose/OptipngNotfound", Fixture, NULL, setup, test_compose_optipng_not_found, teardown);
 	g_test_add_func ("/AppStream/Compose/Utils", test_utils);
 	g_test_add_func ("/AppStream/Compose/FontInfo", test_read_fontinfo);
 	g_test_add_func ("/AppStream/Compose/Image", test_image_transform);
