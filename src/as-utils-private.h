@@ -136,7 +136,10 @@ AS_INTERNAL_VISIBLE
 gboolean		as_copy_file (const gchar *source, const gchar *destination, GError **error);
 
 gboolean		as_is_cruft_locale (const gchar *locale);
-gchar			*as_locale_strip_encoding (gchar *locale);
+
+AS_INTERNAL_VISIBLE
+gchar			*as_locale_strip_encoding (const gchar *locale);
+
 gchar			*as_utils_locale_to_language (const gchar *locale);
 
 gchar			*as_get_current_arch (void);

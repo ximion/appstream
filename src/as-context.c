@@ -513,7 +513,7 @@ as_context_localized_ht_set (AsContext *ctx, GHashTable *lht, const gchar *value
 	if (selected_locale == NULL)
 		selected_locale = "C";
 
-	locale_noenc = as_locale_strip_encoding (g_strdup (selected_locale));
+	locale_noenc = as_locale_strip_encoding (selected_locale);
 	g_hash_table_insert (lht,
 			     g_ref_string_new_intern (locale_noenc),
 			     g_strdup (value));
