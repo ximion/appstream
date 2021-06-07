@@ -286,8 +286,8 @@ static GString*
 as_utils_spdx_license_3to2 (const gchar *license3)
 {
 	GString *license2 = g_string_new (license3);
-	as_gstring_replace (license2, "-only", "");
-	as_gstring_replace (license2, "-or-later", "+");
+	as_gstring_replace (license2, "-only", "", 1);
+	as_gstring_replace (license2, "-or-later", "+", 1);
 	return license2;
 }
 
@@ -302,8 +302,8 @@ static GString*
 as_utils_spdx_license_2to3 (const gchar *license2)
 {
 	GString *license3 = g_string_new (license2);
-	as_gstring_replace (license3, ".0+", ".0-or-later");
-	as_gstring_replace (license3, ".1+", ".1-or-later");
+	as_gstring_replace (license3, ".0+", ".0-or-later", 1);
+	as_gstring_replace (license3, ".1+", ".1-or-later", 1);
 	return license3;
 }
 

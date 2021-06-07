@@ -121,7 +121,8 @@ gboolean		as_utils_is_writable (const gchar *path);
 AS_INTERNAL_VISIBLE
 gchar			*as_str_replace (const gchar *str,
 					 const gchar *old_str,
-					 const gchar *new_str);
+					 const gchar *new_str,
+					 guint limit);
 
 gchar			**as_ptr_array_to_strv (GPtrArray *array);
 const gchar		*as_ptr_array_find_string (GPtrArray *array,

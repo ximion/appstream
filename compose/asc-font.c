@@ -423,12 +423,12 @@ asc_font_get_id (AscFont *font)
 		return priv->id;
 
 	tmp = g_utf8_strdown (asc_font_get_family (font), -1);
-	tmp_family = as_str_replace (tmp, " ", "");
+	tmp_family = as_str_replace (tmp, " ", "", 0);
 	as_strstripnl (tmp_family);
 	g_free (tmp);
 
 	tmp = g_utf8_strdown (asc_font_get_style (font), -1);
-	tmp_style = as_str_replace (tmp, " ", "");
+	tmp_style = as_str_replace (tmp, " ", "", 0);
 	as_strstripnl (tmp_style);
 	g_free (tmp);
 

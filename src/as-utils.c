@@ -649,66 +649,55 @@ as_ptr_array_to_strv (GPtrArray *array)
 }
 
 /**
- * as_gstring_replace:
- * @string: The #GString to operate on
- * @search: The text to search for
- * @replace: The text to use for substitutions
+ * g_string_replace:
+ * @string: a #GString
+ * @find: the string to find in @string
+ * @replace: the string to insert in place of @find
+ * @limit: the maximum instances of @find to replace with @replace, or `0` for
+ * no limit
  *
- * Performs multiple search and replace operations on the given string.
+ * Replaces the string @find with the string @replace in a #GString up to
+ * @limit times. If the number of instances of @find in the #GString is
+ * less than @limit, all instances are replaced. If @limit is `0`,
+ * all instances of @find are replaced.
  *
- * Returns: the number of replacements done, or 0 if @search is not found.
+ * Returns: the number of find and replace operations performed.
  **/
 guint
-as_gstring_replace (GString *string, const gchar *search, const gchar *replace)
+as_gstring_replace (GString *string, const gchar *find, const gchar *replace, guint limit)
 {
-	gchar *tmp;
-	guint count = 0;
-	gsize search_idx = 0;
-	gsize replace_len;
-	gsize search_len;
+#if GLIB_CHECK_VERSION(2,68,0)
+	return g_string_replace (string, find, replace, limit);
+#else
+	/* note: This is a direct copy from GLib upstream (with whitespace
+	 * fixed spaces to tabs and with style fixed). Once we can depend on
+	 * GLib 2.68, this copy should be dropped and g_string_replace() used
+	 * instead.
+	 *
+	 * GLib is licensed under the LGPL-2.1+.
+	 */
+	gsize f_len, r_len, pos;
+	gchar *cur, *next;
+	guint n = 0;
 
 	g_return_val_if_fail (string != NULL, 0);
-	g_return_val_if_fail (search != NULL, 0);
+	g_return_val_if_fail (find != NULL, 0);
 	g_return_val_if_fail (replace != NULL, 0);
 
-	/* nothing to do */
-	if (string->len == 0)
-		return 0;
+	f_len = strlen (find);
+	r_len = strlen (replace);
+	cur = string->str;
 
-	search_len = strlen (search);
-	replace_len = strlen (replace);
+	while ((next = strstr (cur, find)) != NULL) {
+		pos = next - string->str;
+		g_string_erase (string, pos, f_len);
+		g_string_insert (string, pos, replace);
+		cur = string->str + pos + r_len;
+		n++;
+	}
 
-	do {
-		tmp = g_strstr_len (string->str + search_idx, -1, search);
-		if (tmp == NULL)
-			break;
-
-		/* advance the counter in case @replace contains @search */
-		search_idx = (gsize) (tmp - string->str);
-
-		/* reallocate the string if required */
-		if (search_len > replace_len) {
-			g_string_erase (string,
-					(gssize) search_idx,
-					(gssize) (search_len - replace_len));
-			memcpy (tmp, replace, replace_len);
-		} else if (search_len < replace_len) {
-			g_string_insert_len (string,
-					     (gssize) search_idx,
-					     replace,
-					     (gssize) (replace_len - search_len));
-			/* we have to treat this specially as it could have
-			 * been reallocated when the insertion happened */
-			memcpy (string->str + search_idx, replace, replace_len);
-		} else {
-			/* just memcmp in the new string */
-			memcpy (tmp, replace, replace_len);
-		}
-		search_idx += replace_len;
-		count++;
-	} while (TRUE);
-
-	return count;
+	return n;
+#endif /* !GLIB_CHECK_VERSION(2,68.0) */
 }
 
 /**
@@ -716,18 +705,20 @@ as_gstring_replace (GString *string, const gchar *search, const gchar *replace)
  * @str: The string to operate on
  * @old_str: The old value to replace.
  * @new_str: The new value to replace @old_str with.
+ * @limit: the maximum instances of @find to replace with @new_str, or `0` for
+ * no limit
  *
  * Performs search & replace on the given string.
  *
  * Returns: A new string with the characters replaced.
  */
 gchar*
-as_str_replace (const gchar *str, const gchar *old_str, const gchar *new_str)
+as_str_replace (const gchar *str, const gchar *old_str, const gchar *new_str, guint limit)
 {
 	GString *gstr;
 
 	gstr = g_string_new (str);
-	as_gstring_replace (gstr, old_str, new_str);
+	as_gstring_replace (gstr, old_str, new_str, limit);
 	return g_string_free (gstr, FALSE);
 }
 
@@ -837,7 +828,7 @@ as_is_cruft_locale (const gchar *locale)
 gchar*
 as_locale_strip_encoding (const gchar *locale)
 {
-	return as_str_replace (locale, ".UTF-8", "");
+	return as_str_replace (locale, ".UTF-8", "", 1);
 }
 
 /**
