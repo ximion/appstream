@@ -683,6 +683,42 @@
 						</varlistentry>
 
 						<varlistentry>
+						<term>type</term>
+						<listitem>
+							<para>
+								The release type. Allowed values are:
+							</para>
+							<itemizedlist>
+								<listitem><para><code>stable</code></para></listitem>
+								<listitem><para><code>development</code></para></listitem>
+							</itemizedlist>
+							<para>
+								By default, if no release type is defined, <code>stable</code> is assumed.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>urgency</term>
+						<listitem>
+							<para>
+								How important it is to install the new release as an update. Allowed values are:
+							</para>
+							<itemizedlist>
+								<listitem><para><code>low</code></para></listitem>
+								<listitem><para><code>medium</code></para></listitem>
+								<listitem><para><code>high</code></para></listitem>
+								<listitem><para><code>critical</code></para></listitem>
+							</itemizedlist>
+							<para>
+								If no urgency is defined, a <code>medium</code> urgency is implicitly assumed.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
 						<term>unix-timestamp</term>
 						<listitem>
 							<para>
