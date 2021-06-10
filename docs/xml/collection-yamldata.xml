@@ -594,6 +594,27 @@
 						</varlistentry>
 
 						<varlistentry>
+						<term>fonts</term>
+						<listitem>
+							<para>
+								A list of provided fonts. Each font entry is of type <emphasis>dict</emphasis> and has a
+								<literal>name</literal> key.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>modaliases</term>
+						<listitem>
+							<para>
+								A list of modalias globs representing the hardware types this component handles.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(str)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
 						<term>mediatypes</term>
 						<listitem>
 							<para>
@@ -619,6 +640,26 @@
 						</varlistentry>
 
 						<varlistentry>
+						<term>python2</term>
+						<listitem>
+							<para>
+								A list of Python 2 modules this component provides.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(str)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>python3</term>
+						<listitem>
+							<para>
+								A list of Python 3 modules this component provides.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(str)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
 						<term>dbus</term>
 						<listitem>
 							<para>
@@ -629,6 +670,16 @@
 								The <literal>service</literal> key contains the name of the DBus service file. All dict values are of type <emphasis>str</emphasis>.
 							</para>
 							<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>ids</term>
+						<listitem>
+							<para>
+								A list of component-IDs that this component is able to provide all functionality of.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(str)</emphasis></literallayout>
 						</listitem>
 						</varlistentry>
 
