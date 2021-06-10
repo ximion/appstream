@@ -4961,7 +4961,7 @@ as_component_yaml_emit_provides (AsComponent *cpt, yaml_emitter_t *emitter)
 				as_yaml_mapping_start (emitter);
 
 				as_yaml_emit_entry (emitter, "type", "runtime");
-				as_yaml_emit_entry (emitter, "guid", value);
+				as_yaml_emit_entry (emitter, "file", value);
 
 				as_yaml_mapping_end (emitter);
 			}
@@ -4973,7 +4973,7 @@ as_component_yaml_emit_provides (AsComponent *cpt, yaml_emitter_t *emitter)
 				as_yaml_mapping_start (emitter);
 
 				as_yaml_emit_entry (emitter, "type", "flashed");
-				as_yaml_emit_entry (emitter, "file", value);
+				as_yaml_emit_entry (emitter, "guid", value);
 
 				as_yaml_mapping_end (emitter);
 			}
