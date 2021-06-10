@@ -734,6 +734,8 @@ test_xml_write_provides (void)
 	g_autoptr(AsProvided) prov_mime = NULL;
 	g_autoptr(AsProvided) prov_bin = NULL;
 	g_autoptr(AsProvided) prov_dbus = NULL;
+	g_autoptr(AsProvided) prov_firmware_runtime = NULL;
+	g_autoptr(AsProvided) prov_firmware_flashed = NULL;
 	g_autofree gchar *res = NULL;
 	const gchar *expected_prov_xml = "<component>\n"
 					 "  <id>org.example.ProvidesTest</id>\n"
@@ -744,6 +746,8 @@ test_xml_write_provides (void)
 					 "    <binary>foobar</binary>\n"
 					 "    <binary>foobar-viewer</binary>\n"
 					 "    <dbus type=\"system\">org.example.ProvidesTest.Modify</dbus>\n"
+					 "    <firmware type=\"runtime\">ipw2200-bss.fw</firmware>\n"
+					 "    <firmware type=\"flashed\">84f40464-9272-4ef7-9399-cd95f12da696</firmware>\n"
 					 "  </provides>\n"
 					 "</component>\n";
 
@@ -767,6 +771,16 @@ test_xml_write_provides (void)
 	as_provided_set_kind (prov_dbus, AS_PROVIDED_KIND_DBUS_SYSTEM);
 	as_provided_add_item (prov_dbus, "org.example.ProvidesTest.Modify");
 	as_component_add_provided (cpt, prov_dbus);
+
+	prov_firmware_runtime = as_provided_new ();
+	as_provided_set_kind (prov_firmware_runtime, AS_PROVIDED_KIND_FIRMWARE_RUNTIME);
+	as_provided_add_item (prov_firmware_runtime, "ipw2200-bss.fw");
+	as_component_add_provided (cpt, prov_firmware_runtime);
+
+	prov_firmware_flashed = as_provided_new ();
+	as_provided_set_kind (prov_firmware_flashed, AS_PROVIDED_KIND_FIRMWARE_FLASHED);
+	as_provided_add_item (prov_firmware_flashed, "84f40464-9272-4ef7-9399-cd95f12da696");
+	as_component_add_provided (cpt, prov_firmware_flashed);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
 	g_assert (as_xml_test_compare_xml (res, expected_prov_xml));

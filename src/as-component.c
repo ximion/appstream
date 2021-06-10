@@ -3959,7 +3959,7 @@ as_component_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 							     (xmlChar*) g_ptr_array_index (items, j));
 					xmlNewProp (n,
 						    (xmlChar*) "type",
-						    (xmlChar*) "runtime");
+						    (xmlChar*) "flashed");
 				}
 				break;
 			case AS_PROVIDED_KIND_DBUS_SYSTEM:
