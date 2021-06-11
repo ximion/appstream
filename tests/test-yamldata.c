@@ -609,6 +609,148 @@ test_yaml_read_simple (void)
 }
 
 /**
+ * test_yaml_write_provides:
+ *
+ * Test writing the Provides field.
+ */
+static void
+test_yaml_write_provides (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsProvided) prov_mime = NULL;
+	g_autoptr(AsProvided) prov_bin = NULL;
+	g_autoptr(AsProvided) prov_dbus = NULL;
+	g_autoptr(AsProvided) prov_firmware_runtime = NULL;
+	g_autoptr(AsProvided) prov_firmware_flashed = NULL;
+	g_autofree gchar *res = NULL;
+	const gchar *expected_prov_yaml = "Type: generic\n"
+					  "ID: org.example.ProvidesTest\n"
+					  "Provides:\n"
+					  "  mediatypes:\n"
+                                          "  - text/plain\n"
+                                          "  - application/xml\n"
+                                          "  - image/png\n"
+					  "  binaries:\n"
+					  "  - foobar\n"
+					  "  - foobar-viewer\n"
+					  "  dbus:\n"
+					  "  - type: system\n"
+					  "    service: org.example.ProvidesTest.Modify\n"
+					  "  firmware:\n"
+					  "  - type: runtime\n"
+					  "    file: ipw2200-bss.fw\n"
+					  "  - type: flashed\n"
+					  "    guid: 84f40464-9272-4ef7-9399-cd95f12da696\n";
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
+	as_component_set_id (cpt, "org.example.ProvidesTest");
+
+	prov_mime = as_provided_new ();
+	as_provided_set_kind (prov_mime, AS_PROVIDED_KIND_MIMETYPE);
+	as_provided_add_item (prov_mime, "text/plain");
+	as_provided_add_item (prov_mime, "application/xml");
+	as_provided_add_item (prov_mime, "image/png");
+	as_component_add_provided (cpt, prov_mime);
+
+	prov_bin = as_provided_new ();
+	as_provided_set_kind (prov_bin, AS_PROVIDED_KIND_BINARY);
+	as_provided_add_item (prov_bin, "foobar");
+	as_provided_add_item (prov_bin, "foobar-viewer");
+	as_component_add_provided (cpt, prov_bin);
+
+	prov_dbus = as_provided_new ();
+	as_provided_set_kind (prov_dbus, AS_PROVIDED_KIND_DBUS_SYSTEM);
+	as_provided_add_item (prov_dbus, "org.example.ProvidesTest.Modify");
+	as_component_add_provided (cpt, prov_dbus);
+
+	prov_firmware_runtime = as_provided_new ();
+	as_provided_set_kind (prov_firmware_runtime, AS_PROVIDED_KIND_FIRMWARE_RUNTIME);
+	as_provided_add_item (prov_firmware_runtime, "ipw2200-bss.fw");
+	as_component_add_provided (cpt, prov_firmware_runtime);
+
+	prov_firmware_flashed = as_provided_new ();
+	as_provided_set_kind (prov_firmware_flashed, AS_PROVIDED_KIND_FIRMWARE_FLASHED);
+	as_provided_add_item (prov_firmware_flashed, "84f40464-9272-4ef7-9399-cd95f12da696");
+	as_component_add_provided (cpt, prov_firmware_flashed);
+
+	/* test collection serialization */
+	res = as_yaml_test_serialize (cpt);
+	g_assert (as_yaml_test_compare_yaml (res, expected_prov_yaml));
+}
+
+/**
+ * test_yaml_read_provides:
+ *
+ * Test if reading the Provides field works.
+ */
+static void
+test_yaml_read_provides (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	GPtrArray *provides;
+	GPtrArray *cpt_items;
+	AsProvided *prov;
+	const gchar *yamldata_provides = "ID: org.example.ProvidesTest\n"
+					 "Provides:\n"
+					 "  mediatypes:\n"
+                                         "  - text/plain\n"
+                                         "  - application/xml\n"
+                                         "  - image/png\n"
+					 "  binaries:\n"
+					 "  - foobar\n"
+					 "  - foobar-viewer\n"
+					 "  dbus:\n"
+					 "  - type: system\n"
+					 "    service: org.example.ProvidesTest.Modify\n"
+					 "  firmware:\n"
+					 "  - type: runtime\n"
+					 "    file: ipw2200-bss.fw\n"
+					 "  - type: flashed\n"
+					 "    guid: 84f40464-9272-4ef7-9399-cd95f12da696\n";
+
+	cpt = as_yaml_test_read_data (yamldata_provides, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ProvidesTest");
+
+	provides = as_component_get_provided (cpt);
+	g_assert_cmpint (provides->len, ==, 5);
+
+	prov = AS_PROVIDED (g_ptr_array_index (provides, 0));
+	g_assert (as_provided_get_kind (prov) == AS_PROVIDED_KIND_MIMETYPE);
+	cpt_items = as_provided_get_items (prov);
+	g_assert_cmpint (cpt_items->len, ==, 3);
+
+	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 0), ==, "text/plain");
+	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 1), ==, "application/xml");
+	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 2), ==, "image/png");
+
+	prov = AS_PROVIDED (g_ptr_array_index (provides, 1));
+	g_assert (as_provided_get_kind (prov) == AS_PROVIDED_KIND_BINARY);
+	cpt_items = as_provided_get_items (prov);
+	g_assert_cmpint (cpt_items->len, ==, 2);
+	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 0), ==, "foobar");
+	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 1), ==, "foobar-viewer");
+
+	prov = AS_PROVIDED (g_ptr_array_index (provides, 2));
+	g_assert (as_provided_get_kind (prov) == AS_PROVIDED_KIND_DBUS_SYSTEM);
+	cpt_items = as_provided_get_items (prov);
+	g_assert_cmpint (cpt_items->len, ==, 1);
+	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 0), ==, "org.example.ProvidesTest.Modify");
+
+	prov = AS_PROVIDED (g_ptr_array_index (provides, 3));
+	g_assert (as_provided_get_kind (prov) == AS_PROVIDED_KIND_FIRMWARE_RUNTIME);
+	cpt_items = as_provided_get_items (prov);
+	g_assert_cmpint (cpt_items->len, ==, 1);
+	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 0), ==, "ipw2200-bss.fw");
+
+	prov = AS_PROVIDED (g_ptr_array_index (provides, 4));
+	g_assert (as_provided_get_kind (prov) == AS_PROVIDED_KIND_FIRMWARE_FLASHED);
+	cpt_items = as_provided_get_items (prov);
+	g_assert_cmpint (cpt_items->len, ==, 1);
+	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 0), ==, "84f40464-9272-4ef7-9399-cd95f12da696");
+}
+
+/**
  * test_yaml_write_suggests:
  *
  * Test writing the Suggests field.
@@ -1515,6 +1657,9 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/YAML/Read/Simple", test_yaml_read_simple);
 	g_test_add_func ("/YAML/Write/Simple", test_yaml_write_simple);
+
+	g_test_add_func ("/YAML/Read/Provides", test_yaml_read_provides);
+	g_test_add_func ("/YAML/Write/Provides", test_yaml_write_provides);
 
 	g_test_add_func ("/YAML/Read/Suggests", test_yaml_read_suggests);
 	g_test_add_func ("/YAML/Write/Suggests", test_yaml_write_suggests);
