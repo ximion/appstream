@@ -67,7 +67,7 @@ ascli_format_long_output (const gchar *str, guint line_length, guint indent_leve
  * ascli_print_key_value:
  */
 void
-ascli_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
+ascli_print_key_value (const gchar* key, const gchar* val, gboolean line_wrap)
 {
 	gchar *str;
 	gchar *fmtval;
@@ -76,7 +76,7 @@ ascli_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 	if ((val == NULL) || (g_strcmp0 (val, "") == 0))
 		return;
 
-	if (strlen (val) > 100) {
+	if (line_wrap && (strlen (val) > 100)) {
 		g_autofree gchar *tmp = ascli_format_long_output (val, 100, 2);
 		fmtval = g_strconcat ("\n", tmp, NULL);
 	} else {
@@ -211,19 +211,18 @@ as_get_bundle_str (AsComponent *cpt)
  * Pretty-print a GPtrArray.
  */
 static gchar*
-ascli_ptrarray_to_pretty (GPtrArray *array)
+ascli_ptrarray_to_pretty (GPtrArray *array, guint indent)
 {
 	GString *rstr = NULL;
 	guint i;
 
-	if (array->len == 1) {
+	if (array->len == 1)
 		return g_strdup (g_ptr_array_index (array, 0));
-	}
 
 	rstr = g_string_new ("\n");
 	for (i = 0; i < array->len; i++) {
 		const gchar *astr = (const gchar*) g_ptr_array_index (array, i);
-		g_string_append_printf (rstr, " - %s\n", astr);
+		g_string_append_printf (rstr, "%*s- %s\n", indent, "", astr);
 	}
 	if (rstr->len > 0)
 		g_string_truncate (rstr, rstr->len - 1);
@@ -268,7 +267,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 	if (show_detailed && as_component_get_kind (cpt) != AS_COMPONENT_KIND_OPERATING_SYSTEM)
 		ascli_print_key_value (_("Internal ID"), as_component_get_data_id (cpt), FALSE);
 	ascli_print_key_value (_("Name"), as_component_get_name (cpt), FALSE);
-	ascli_print_key_value (_("Summary"), as_component_get_summary (cpt), FALSE);
+	ascli_print_key_value (_("Summary"), as_component_get_summary (cpt), TRUE);
 	ascli_print_key_value (_("Package"), pkgs_str, FALSE);
 	ascli_print_key_value (_("Bundle"), bundles_str, FALSE);
 	ascli_print_key_value (_("Homepage"), as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), FALSE);
@@ -292,19 +291,19 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		gchar *str;
 
 		/* developer name */
-		ascli_print_key_value (_("Developer"), as_component_get_developer_name (cpt), FALSE);
+		ascli_print_key_value (_("Developer"), as_component_get_developer_name (cpt), TRUE);
 
 		/* extends data (e.g. for addons) */
 		extends = as_component_get_extends (cpt);
 		if (extends->len > 0) {
-			str = ascli_ptrarray_to_pretty (extends);
+			str = ascli_ptrarray_to_pretty (extends, 2);
 			ascli_print_key_value (_("Extends"), str, FALSE);
 			g_free (str);
 		}
 
 		/* long description */
 		str = as_markup_convert_simple (as_component_get_description (cpt), NULL);
-		ascli_print_key_value (_("Description"), str, FALSE);
+		ascli_print_key_value (_("Description"), str, TRUE);
 		g_free (str);
 
 		/* some simple screenshot information */
@@ -324,22 +323,22 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 			for (j = 0; j < imgs->len; j++) {
 				img = AS_IMAGE (g_ptr_array_index (imgs, j));
 				if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
-					ascli_print_key_value (_("Default Screenshot URL"), as_image_get_url (img), FALSE);
+					ascli_print_key_value (_("Default Screenshot URL"), as_image_get_url (img), TRUE);
 					break;
 				}
 			}
 		}
 
 		/* project group */
-		ascli_print_key_value (_("Project Group"), as_component_get_project_group (cpt), FALSE);
+		ascli_print_key_value (_("Project Group"), as_component_get_project_group (cpt), TRUE);
 
 		/* license */
-		ascli_print_key_value (_("License"), as_component_get_project_license (cpt), FALSE);
+		ascli_print_key_value (_("License"), as_component_get_project_license (cpt), TRUE);
 
 		/* Categories */
 		categories = as_component_get_categories (cpt);
 		if (categories->len > 0) {
-			str = ascli_ptrarray_to_pretty (categories);
+			str = ascli_ptrarray_to_pretty (categories, 2);
 			ascli_print_key_value (_("Categories"), str, FALSE);
 			g_free (str);
 		}
@@ -347,7 +346,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		/* Desktop-compulsority */
 		compulsory_desktops = as_component_get_compulsory_for_desktops (cpt);
 		if (compulsory_desktops->len > 0) {
-			str = ascli_ptrarray_to_pretty (compulsory_desktops);
+			str = ascli_ptrarray_to_pretty (compulsory_desktops, 2);
 			ascli_print_key_value (_("Compulsory for"), str, FALSE);
 			g_free (str);
 		}
@@ -367,7 +366,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 											as_component_get_name (cpt)));
 				}
 			}
-			str = ascli_ptrarray_to_pretty (addons_str);
+			str = ascli_ptrarray_to_pretty (addons_str, 2);
 			/* TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor */
 			ascli_print_key_value (_("Add-ons"), str, FALSE);
 			g_free (str);
@@ -385,8 +384,8 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 			if (items->len > 0) {
 				g_autofree gchar *keyname = NULL;
 
-				str = ascli_ptrarray_to_pretty (items);
-				keyname = g_strdup_printf (" %s", as_provided_kind_to_l10n_string (as_provided_get_kind (prov)));
+				str = ascli_ptrarray_to_pretty (items, 4);
+				keyname = g_strdup_printf ("  %s", as_provided_kind_to_l10n_string (as_provided_get_kind (prov)));
 				ascli_print_key_value (keyname, str, FALSE);
 				g_free (str);
 			}

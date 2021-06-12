@@ -31,7 +31,7 @@ gchar		*ascli_format_long_output (const gchar *str,
 					   guint indent_level);
 void		ascli_print_key_value (const gchar *key,
 				       const gchar *val,
-				       gboolean highlight);
+				       gboolean line_wrap);
 void		ascli_print_separator (void);
 
 void		ascli_print_stdout (const gchar *format, ...);
