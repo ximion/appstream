@@ -89,12 +89,13 @@ G_DEFINE_QUARK (as-utils-error-quark, as_utils_error)
  *
  * Since: 0.14.0
  **/
-gchar **
+gchar**
 as_markup_strsplit_words (const gchar *text, guint line_len)
 {
 	GPtrArray *lines;
 	g_autoptr(GString) curline = NULL;
 	g_auto(GStrv) tokens = NULL;
+	gsize curline_char_count = 0;
 
 	/* sanity check */
 	if (text == NULL)
@@ -110,33 +111,40 @@ as_markup_strsplit_words (const gchar *text, guint line_len)
 	/* tokenize the string */
 	tokens = g_strsplit (text, " ", -1);
 	for (guint i = 0; tokens[i] != NULL; i++) {
-		gsize token_len = strlen (tokens[i]);
-		gboolean token_has_linebreak = g_strstr_len (tokens[i], token_len, "\n") != NULL;
+		gsize token_unilen = g_utf8_strlen (tokens[i], -1);
+		gboolean token_has_linebreak = g_strstr_len (tokens[i], -1, "\n") != NULL;
 
 		/* current line plus new token is okay */
-		if (curline->len + token_len < line_len) {
+		if (curline_char_count + token_unilen < line_len) {
 			/* we can't just check for a suffix \n here, as tokens may contain internal linebreaks */
 			if (token_has_linebreak) {
-				g_string_append (curline, tokens[i]);
+				g_string_append (curline, (tokens[i][0] == '\0')? " " : tokens[i]);
 				g_ptr_array_add (lines, g_strdup (curline->str));
 				g_string_truncate (curline, 0);
+				curline_char_count = 0;
 			} else {
 				g_string_append_printf (curline, "%s ", tokens[i]);
+				curline_char_count += token_unilen + 1;
 			}
 			continue;
 		}
 
 		/* too long, so remove space, add newline and dump */
-		if (curline->len > 0)
+		if (curline->len > 0) {
 			g_string_truncate (curline, curline->len - 1);
+			curline_char_count -= 1;
+		}
 
 		g_string_append (curline, "\n");
 		g_ptr_array_add (lines, g_strdup (curline->str));
 		g_string_truncate (curline, 0);
-		if (token_has_linebreak)
+		curline_char_count = 0;
+		if (token_has_linebreak) {
 			g_ptr_array_add (lines, g_strdup (tokens[i]));
-		else
+		} else {
 			g_string_append_printf (curline, "%s ", tokens[i]);
+			curline_char_count += token_unilen + 1;
+		}
 	}
 
 	/* any incomplete line? */
@@ -289,9 +297,9 @@ as_description_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError
 
 					/* break to 100 chars, leaving room for the dot/indent */
 					spl = as_markup_strsplit_words (clean_item, 100 - 4);
-					g_string_append_printf (str, "  %s %s", item_c, spl[0]);
+					g_string_append_printf (str, " %s %s", item_c, spl[0]);
 					for (guint i = 1; spl[i] != NULL; i++)
-						g_string_append_printf (str, "    %s", spl[i]);
+						g_string_append_printf (str, "   %s", spl[i]);
 				} else {
 					/* only <li> is valid in lists */
 					ret = FALSE;
