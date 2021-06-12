@@ -151,6 +151,8 @@ gchar			*as_get_user_cache_dir ();
 
 gboolean		as_unichar_accepted (gunichar c);
 
+gchar			*as_sanitize_text_spaces (const gchar *text);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

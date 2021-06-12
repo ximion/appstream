@@ -110,21 +110,33 @@ as_markup_strsplit_words (const gchar *text, guint line_len)
 	/* tokenize the string */
 	tokens = g_strsplit (text, " ", -1);
 	for (guint i = 0; tokens[i] != NULL; i++) {
+		gsize token_len = strlen (tokens[i]);
+		gboolean token_has_linebreak = g_strstr_len (tokens[i], token_len, "\n") != NULL;
 
 		/* current line plus new token is okay */
-		if (curline->len + strlen (tokens[i]) < line_len) {
-			g_string_append_printf (curline, "%s ", tokens[i]);
+		if (curline->len + token_len < line_len) {
+			/* we can't just check for a suffix \n here, as tokens may contain internal linebreaks */
+			if (token_has_linebreak) {
+				g_string_append (curline, tokens[i]);
+				g_ptr_array_add (lines, g_strdup (curline->str));
+				g_string_truncate (curline, 0);
+			} else {
+				g_string_append_printf (curline, "%s ", tokens[i]);
+			}
 			continue;
 		}
 
 		/* too long, so remove space, add newline and dump */
 		if (curline->len > 0)
 			g_string_truncate (curline, curline->len - 1);
+
 		g_string_append (curline, "\n");
 		g_ptr_array_add (lines, g_strdup (curline->str));
 		g_string_truncate (curline, 0);
-		g_string_append_printf (curline, "%s ", tokens[i]);
-
+		if (token_has_linebreak)
+			g_ptr_array_add (lines, g_strdup (tokens[i]));
+		else
+			g_string_append_printf (curline, "%s ", tokens[i]);
 	}
 
 	/* any incomplete line? */
@@ -144,6 +156,30 @@ as_markup_strsplit_words (const gchar *text, guint line_len)
 
 	g_ptr_array_add (lines, NULL);
 	return (gchar **) g_ptr_array_free (lines, FALSE);
+}
+
+/**
+ * as_sanitize_text_spaces:
+ * @text: The text to sanitize.
+ *
+ * Sanitize a text string by removing extra whitespaces and all
+ * linebreaks. This is ideal to run on a text obtained from XML
+ * prior to passing it through to a word-wrapping function.
+ *
+ * Returns: The sanitized string.
+ */
+gchar*
+as_sanitize_text_spaces (const gchar *text)
+{
+	g_auto(GStrv) strv = NULL;
+
+	if (text == NULL)
+		return NULL;
+
+	strv = g_strsplit (text, "\n", -1);
+	for (guint i = 0; strv[i] != NULL; ++i)
+		g_strstrip (strv[i]);
+	return g_strjoinv (" ", strv);
 }
 
 /**
@@ -203,47 +239,59 @@ as_description_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError
 			continue;
 
 		if (g_strcmp0 ((gchar*) iter->name, "p") == 0) {
-			g_auto(GStrv) strv = NULL;
-			g_autofree gchar *tmp = NULL;
-			g_autofree gchar *content = (gchar*) xmlNodeGetContent (iter);
-			g_strstrip (content);
+			g_autofree gchar *clean_text = NULL;
+			g_autofree gchar *text_content = (gchar*) xmlNodeGetContent (iter);
 
 			/* remove extra whitespaces and linebreaks */
-			strv = g_strsplit (content, "\n", -1);
-			for (guint i = 0; strv[i] != NULL; ++i)
-				g_strstrip (strv[i]);
-			tmp = g_strjoinv (" ", strv);
+			clean_text = as_sanitize_text_spaces (text_content);
 
 			if (str->len > 0)
 				g_string_append (str, "\n");
 
 			if (to_kind == AS_MARKUP_KIND_MARKDOWN) {
-				g_auto(GStrv) spl = as_markup_strsplit_words (tmp, 100);
+				g_auto(GStrv) spl = as_markup_strsplit_words (clean_text, 100);
 				for (guint i = 0; spl[i] != NULL; i++)
 					g_string_append (str, spl[i]);
 			} else {
-				g_string_append_printf (str, "%s\n", tmp);
+				g_string_append_printf (str, "%s\n", clean_text);
 			}
 		} else if ((g_strcmp0 ((gchar*) iter->name, "ul") == 0) || (g_strcmp0 ((gchar*) iter->name, "ol") == 0)) {
+			g_autofree gchar *item_c = NULL;
+			gboolean is_ordered_list = g_strcmp0 ((gchar*) iter->name, "ol") == 0;
+			guint entry_no = 0;
+
+			/* set item style for unordered lists */
+			if (!is_ordered_list) {
+				if (to_kind == AS_MARKUP_KIND_MARKDOWN)
+					item_c = g_strdup ("*");
+				else
+					item_c = g_strdup ("•");
+			}
+
 			/* iterate over itemize contents */
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				if (iter2->type != XML_ELEMENT_NODE)
 					continue;
 				if (g_strcmp0 ((gchar*) iter2->name, "li") == 0) {
-					g_autofree gchar *content = (gchar*) xmlNodeGetContent (iter2);
-					g_strstrip (content);
-					if (to_kind == AS_MARKUP_KIND_MARKDOWN) {
-						g_auto(GStrv) spl = NULL;
-						/* break to 100 chars, leaving room for the dot/indent */
-						spl = as_markup_strsplit_words (content, 100 - 3);
-						g_string_append_printf (str, " * %s", spl[0]);
-						for (guint i = 1; spl[i] != NULL; i++)
-							g_string_append_printf (str, "   %s", spl[i]);
-					} else {
-						g_string_append_printf (str,
-									" • %s\n",
-									content);
+					g_auto(GStrv) spl = NULL;
+					g_autofree gchar *clean_item = NULL;
+					g_autofree gchar *item_content = (gchar*) xmlNodeGetContent (iter2);
+					entry_no++;
+
+					/* remove extra whitespaces and linebreaks */
+					clean_item = as_sanitize_text_spaces (item_content);
+
+					/* set item number for ordered list */
+					if (is_ordered_list) {
+						g_free (item_c);
+						item_c = g_strdup_printf ("%u.", entry_no);
 					}
+
+					/* break to 100 chars, leaving room for the dot/indent */
+					spl = as_markup_strsplit_words (clean_item, 100 - 4);
+					g_string_append_printf (str, "  %s %s", item_c, spl[0]);
+					for (guint i = 1; spl[i] != NULL; i++)
+						g_string_append_printf (str, "    %s", spl[i]);
 				} else {
 					/* only <li> is valid in lists */
 					ret = FALSE;
