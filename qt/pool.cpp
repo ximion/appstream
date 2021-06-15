@@ -183,3 +183,13 @@ void Pool::setCacheFlags(uint flags)
 {
     as_pool_set_cache_flags (d->pool, (AsCacheFlags) flags);
 }
+
+QString AppStream::Pool::cacheLocation() const
+{
+    return QString::fromUtf8(as_pool_get_cache_location(d->pool));
+}
+
+void Pool::setCacheLocation(const QString &location)
+{
+    as_pool_set_cache_location(d->pool, qPrintable(location));
+}
