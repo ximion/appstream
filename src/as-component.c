@@ -720,8 +720,7 @@ void
 as_component_set_bundles_array (AsComponent *cpt, GPtrArray *bundles)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_ptr_array_unref (priv->bundles);
-	priv->bundles = g_ptr_array_ref (bundles);
+	as_assign_ptr_array_safe (priv->bundles, bundles);
 	as_component_invalidate_data_id (cpt);
 }
 
@@ -890,6 +889,8 @@ void
 as_component_set_pkgnames (AsComponent *cpt, gchar **packages)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (G_UNLIKELY (priv->pkgnames == packages))
+		return;
 
 	g_strfreev (priv->pkgnames);
 	priv->pkgnames = g_strdupv (packages);
@@ -918,9 +919,7 @@ void
 as_component_set_source_pkgname (AsComponent *cpt, const gchar* spkgname)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	g_free (priv->source_pkgname);
-	priv->source_pkgname = g_strdup (spkgname);
+	as_assign_string_safe (priv->source_pkgname, spkgname);
 }
 
 /**
@@ -955,8 +954,7 @@ as_component_set_id (AsComponent *cpt, const gchar* value)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	g_free (priv->id);
-	priv->id = g_strdup (value);
+	as_assign_string_safe (priv->id, value);
 	g_object_notify ((GObject *) cpt, "id");
 	as_component_invalidate_data_id (cpt);
 }
@@ -1002,8 +1000,7 @@ void
 as_component_set_data_id (AsComponent *cpt, const gchar* value)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_free (priv->data_id);
-	priv->data_id = g_strdup (value);
+	as_assign_string_safe (priv->data_id, value);
 }
 
 /**
