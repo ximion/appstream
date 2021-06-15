@@ -126,6 +126,9 @@ Q_OBJECT
         uint cacheFlags() const;
         void setCacheFlags(uint flags);
 
+        void setCacheLocation(const QString &path);
+        QString cacheLocation() const;
+
     private:
         Q_DISABLE_COPY(Pool);
         QScopedPointer<PoolPrivate> d;
