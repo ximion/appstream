@@ -394,6 +394,7 @@ test_spdx (void)
 	g_assert (as_license_is_metadata_license ("0BSD"));
 	g_assert (as_license_is_metadata_license ("MIT AND FSFAP"));
 	g_assert (!as_license_is_metadata_license ("GPL-2.0 AND FSFAP"));
+	g_assert (as_license_is_metadata_license ("GPL-2.0+ OR GFDL-1.3-only"));
 
 	/* check license URL generation */
 	tmp = as_get_license_url ("LGPL-2.0-or-later");

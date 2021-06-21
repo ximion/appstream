@@ -874,7 +874,7 @@ as_validator_validate_metadata_license (AsValidator *validator, xmlNode *license
 			requires_all_tokens = TRUE;
 			continue;
 		}
-		if (as_license_is_metadata_license (tokens[i])) {
+		if (as_license_is_metadata_license_id (tokens[i])) {
 			license_good_cnt++;
 		} else {
 			license_bad_cnt++;
