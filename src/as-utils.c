@@ -649,7 +649,7 @@ as_ptr_array_to_strv (GPtrArray *array)
 }
 
 /**
- * g_string_replace:
+ * as_gstring_replace:
  * @string: a #GString
  * @find: the string to find in @string
  * @replace: the string to insert in place of @find
