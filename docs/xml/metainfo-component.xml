@@ -102,18 +102,32 @@
 		<listitem>
 		<para>
 			The <code>&lt;metadata_license/&gt;</code> tag indicates the content license that you are releasing the one
-			metainfo XML file under. This is typically not the same as the project license. Omitting the license value can result
-			in your data not being incorporated into the distribution metadata (so this is a required tag).
+			metainfo XML file under. This is typically not the same as the project license. Omitting the license value will
+			result in the metainfo data not being incorporated into metadata collections as used by Linux distributions.
+			This tag is required for all metainfo files.
 		</para>
 		<para>
-			A <ulink url="https://en.wikipedia.org/wiki/Permissive_software_licence">permissive</ulink> license ensures your data can
-			be combined with arbitrary other data in one file (this means copyleft licenses like the GPL are not suitable as metadata license).
-			Currently, only a restricted set of permissive licenses is supported by AppStream implementations.
-			Valid permissive licenses include:
+			The value of this tag has to be one of the recognized SPDX license IDs for <code>&lt;metadata_license/&gt;</code> tags, or a simple SPDX expression
+			(only <code>AND</code> and <code>OR</code> operators allowed) allowing the use of the metadata file under one of the recognized licenses.
+		</para>
+		<para>
+			We do recognize a set of <ulink url="https://en.wikipedia.org/wiki/Permissive_software_licence">permissive</ulink> licenses that have been vetted
+			for mutual compatibility. This is important in order to allow the metainfo metadata to be combined with arbitrary other data in one file.
+			While copyleft licenses like the GPL are great for code, it is not feasible to test every copyleft license for mutual compatibility and compliance
+			when combining metainfo metadata with other data into one larger assembly fully automatically.
+		</para>
+		<para>
+			Currently, the following licenses have been reviewed and can be used as metadata licenses:
 		</para>
 		<itemizedlist>
 			<listitem>
 			<para><literal>FSFAP</literal></para>
+			</listitem>
+			<listitem>
+			<para><literal>MIT</literal></para>
+			</listitem>
+			<listitem>
+			<para><literal>0BSD</literal></para>
 			</listitem>
 			<listitem>
 			<para><literal>CC0-1.0</literal></para>
@@ -122,19 +136,38 @@
 			<para><literal>CC-BY-3.0</literal></para>
 			</listitem>
 			<listitem>
+			<para><literal>CC-BY-4.0</literal></para>
+			</listitem>
+			<listitem>
 			<para><literal>CC-BY-SA-3.0</literal></para>
+			</listitem>
+			<listitem>
+			<para><literal>CC-BY-SA-4.0</literal></para>
+			</listitem>
+			<listitem>
+			<para><literal>GFDL-1.1</literal></para>
+			</listitem>
+			<listitem>
+			<para><literal>GFDL-1.2</literal></para>
 			</listitem>
 			<listitem>
 			<para><literal>GFDL-1.3</literal></para>
 			</listitem>
 			<listitem>
-			<para><literal>MIT</literal></para>
+			<para><literal>BSL-1.0</literal></para>
+			</listitem>
+			<listitem>
+			<para><literal>FTL</literal></para>
+			</listitem>
+			<listitem>
+			<para><literal>FSFUL</literal></para>
 			</listitem>
 		</itemizedlist>
 		<para>
 			The license codes correspond to the identifiers found at the <ulink url="https://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
 			For instance, <literal>CC-BY-SA-3.0</literal> corresponds to the license at
 			<ulink url="https://creativecommons.org/licenses/by-sa/3.0/">creativecommons.org/licenses/by-sa/3.0</ulink>.
+			If you are looking for the simplest license to use for your metadata, using the <code>FSFAP</code> license is suggested.
 		</para>
 		</listitem>
 		</varlistentry>
