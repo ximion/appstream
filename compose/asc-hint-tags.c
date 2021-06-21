@@ -67,10 +67,11 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  AS_ISSUE_SEVERITY_ERROR,
 	  "The MetaInfo file does not seem to be licensed under a permissive license that is in the allowed set for AppStream metadata. "
 	  "Valid permissive licenses include FSFAP, CC0-1.0 or MIT. "
-	  "Using one of the supported permissive licenses is required to allow distributors to include the metadata in mixed data collections "
+	  "Using one of the vetted permissive licenses is required to allow distributors to include the metadata in mixed data collections "
 	  "without the risk of license violations due to mixing incompatible licenses."
-	  "We only support a limited set of licenses that went through legal review. If you think this message is an error and '{{license}}' "
-	  "should actually be supported, please <a href=\"https://github.com/ximion/appstream/issues\">file a bug against AppStream</a>."
+	  "We only support a limited set of licenses that went through legal review. Refer to "
+	  "<a href=\"https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-metadata_license\">the specification documentation</a> "
+	  "for information on how to make '{{license}}' a valid expression, or consider replacing the license with one of the recognized licenses directly."
 	},
 
 	{ "metainfo-unknown-type",
