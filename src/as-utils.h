@@ -117,7 +117,7 @@ gboolean		as_utils_data_id_equal (const gchar *data_id1,
 guint			as_utils_data_id_hash (const gchar *data_id);
 
 guint			as_gstring_replace (GString *string,
-					    const gchar *search,
+					    const gchar *find,
 					    const gchar *replace,
 					    guint limit);
 
