@@ -185,8 +185,7 @@ void
 as_icon_set_name (AsIcon *icon, const gchar *name)
 {
 	AsIconPrivate *priv = GET_PRIVATE (icon);
-	g_free (priv->name);
-	priv->name = g_strdup (name);
+	as_assign_string_safe (priv->name, name);
 }
 
 /**
@@ -220,8 +219,7 @@ void
 as_icon_set_url (AsIcon *icon, const gchar *url)
 {
 	AsIconPrivate *priv = GET_PRIVATE (icon);
-	g_free (priv->url);
-	priv->url = g_strdup (url);
+	as_assign_string_safe (priv->url, url);
 }
 
 /**
@@ -250,8 +248,7 @@ void
 as_icon_set_filename (AsIcon *icon, const gchar *filename)
 {
 	AsIconPrivate *priv = GET_PRIVATE (icon);
-	g_free (priv->filename);
-	priv->filename = g_strdup (filename);
+	as_assign_string_safe (priv->filename, filename);
 
 	/* invalidate URL */
 	if (priv->url != NULL) {

@@ -26,6 +26,7 @@
 #include <glib.h>
 
 #include "as-component.h"
+#include "as-utils-private.h"
 
 /**
  * SECTION:as-category
@@ -412,8 +413,7 @@ as_category_set_id (AsCategory *category, const gchar *id)
 {
 	AsCategoryPrivate *priv = GET_PRIVATE (category);
 
-	g_free (priv->id);
-	priv->id = g_strdup (id);
+	as_assign_string_safe (priv->id, id);
 	g_object_notify (G_OBJECT (category), "id");
 }
 
@@ -441,8 +441,7 @@ as_category_set_name (AsCategory *category, const gchar *value)
 {
 	AsCategoryPrivate *priv = GET_PRIVATE (category);
 
-	g_free (priv->name);
-	priv->name = g_strdup (value);
+	as_assign_string_safe (priv->name, value);
 	g_object_notify (G_OBJECT (category), "name");
 }
 
@@ -527,8 +526,7 @@ as_category_set_summary (AsCategory *category, const gchar *value)
 {
 	AsCategoryPrivate *priv = GET_PRIVATE (category);
 
-	g_free (priv->summary);
-	priv->summary = g_strdup (value);
+	as_assign_string_safe (priv->summary, value);
 	g_object_notify (G_OBJECT (category), "summary");
 }
 
@@ -556,8 +554,7 @@ as_category_set_icon (AsCategory *category, const gchar *value)
 {
 	AsCategoryPrivate *priv = GET_PRIVATE (category);
 
-	g_free (priv->icon);
-	priv->icon = g_strdup (value);
+	as_assign_string_safe (priv->icon, value);
 	g_object_notify (G_OBJECT (category), "icon");
 }
 

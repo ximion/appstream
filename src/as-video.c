@@ -32,6 +32,8 @@
 #include "as-video.h"
 #include "as-video-private.h"
 
+#include "as-utils-private.h"
+
 typedef struct
 {
 	AsVideoCodecKind	codec;
@@ -237,8 +239,7 @@ void
 as_video_set_url (AsVideo *video, const gchar *url)
 {
 	AsVideoPrivate *priv = GET_PRIVATE (video);
-	g_free (priv->url);
-	priv->url = g_strdup (url);
+	as_assign_string_safe (priv->url, url);
 }
 
 /**
@@ -329,8 +330,7 @@ void
 as_video_set_locale (AsVideo *video, const gchar *locale)
 {
 	AsVideoPrivate *priv = GET_PRIVATE (video);
-	g_free (priv->locale);
-	priv->locale = g_strdup (locale);
+	as_assign_string_safe (priv->locale, locale);
 }
 
 /**

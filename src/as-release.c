@@ -256,8 +256,7 @@ void
 as_release_set_version (AsRelease *release, const gchar *version)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-	g_free (priv->version);
-	priv->version = g_strdup (version);
+	as_assign_string_safe (priv->version, version);
 }
 
 /**
@@ -349,8 +348,7 @@ as_release_set_date (AsRelease *release, const gchar *date)
 		return;
 	}
 
-	g_free (priv->date);
-	priv->date = g_strdup (date);
+	as_assign_string_safe (priv->date, date);
 }
 
 /**
@@ -653,10 +651,8 @@ as_release_set_url (AsRelease *release, AsReleaseUrlKind url_kind, const gchar *
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 
-	if (url_kind == AS_RELEASE_URL_KIND_DETAILS) {
-		g_free (priv->url_details);
-		priv->url_details = g_strdup (url);
-	}
+	if (url_kind == AS_RELEASE_URL_KIND_DETAILS)
+		as_assign_string_safe (priv->url_details, url);
 }
 
 /**

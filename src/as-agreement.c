@@ -31,9 +31,10 @@
  */
 
 #include "config.h"
-
 #include "as-agreement-private.h"
 #include "as-agreement-section-private.h"
+
+#include "as-utils-private.h"
 
 typedef struct {
 	AsAgreementKind		kind;
@@ -185,9 +186,7 @@ void
 as_agreement_set_version_id (AsAgreement *agreement, const gchar *version_id)
 {
 	AsAgreementPrivate *priv = GET_PRIVATE (agreement);
-
-	g_free (priv->version_id);
-	priv->version_id = g_strdup (version_id);
+	as_assign_string_safe (priv->version_id, version_id);
 }
 
 /**

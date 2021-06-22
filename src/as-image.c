@@ -34,13 +34,15 @@
 #include "as-image.h"
 #include "as-image-private.h"
 
+#include "as-utils-private.h"
+
 typedef struct
 {
 	AsImageKind	kind;
 	gchar		*url;
 	guint		width;
 	guint		height;
-	gchar		*locale;
+	GRefString	*locale;
 } AsImagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsImage, as_image, G_TYPE_OBJECT)
@@ -56,7 +58,7 @@ as_image_finalize (GObject *object)
 	AsImagePrivate *priv = GET_PRIVATE (image);
 
 	g_free (priv->url);
-	g_free (priv->locale);
+	as_ref_string_release (priv->locale);
 
 	G_OBJECT_CLASS (as_image_parent_class)->finalize (object);
 }
@@ -166,8 +168,7 @@ void
 as_image_set_url (AsImage *image, const gchar *url)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);
-	g_free (priv->url);
-	priv->url = g_strdup (url);
+	as_assign_string_safe (priv->url, url);
 }
 
 /**
@@ -262,8 +263,7 @@ void
 as_image_set_locale (AsImage *image, const gchar *locale)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);
-	g_free (priv->locale);
-	priv->locale = g_strdup (locale);
+	as_ref_string_assign_safe (&priv->locale, locale);
 }
 
 /**

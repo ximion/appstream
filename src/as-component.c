@@ -3212,11 +3212,8 @@ as_component_set_context (AsComponent *cpt, AsContext *context)
 	priv->context = g_object_ref (context);
 
 	/* reset individual properties, so the new context overrides them */
-	g_free (priv->active_locale_override);
-	priv->active_locale_override = NULL;
-
-	as_ref_string_release (priv->origin);
-	priv->origin = NULL;
+	as_ref_string_assign_safe (&priv->active_locale_override, NULL);
+	as_ref_string_assign_safe (&priv->origin, NULL);
 
 	g_free (priv->arch);
 	priv->arch = NULL;

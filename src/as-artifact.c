@@ -383,8 +383,7 @@ void
 as_artifact_set_filename (AsArtifact *artifact, const gchar *filename)
 {
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
-	g_free (priv->filename);
-	priv->filename = g_strdup (filename);
+	as_assign_string_safe (priv->filename, filename);
 }
 
 /**

@@ -272,9 +272,7 @@ void
 as_agreement_section_set_active_locale (AsAgreementSection *agreement_section, const gchar *locale)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
-
-	g_free (priv->active_locale_override);
-	priv->active_locale_override = g_strdup (locale);
+	as_assign_string_safe (priv->active_locale_override, locale);
 }
 
 /**
