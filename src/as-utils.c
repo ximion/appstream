@@ -595,8 +595,7 @@ gchar*
 as_get_current_locale (void)
 {
 	const gchar * const *locale_names;
-	gchar *tmp;
-	gchar *locale = NULL;
+	const gchar *locale = NULL;
 
 	/* use LANGUAGE, LC_ALL, LC_MESSAGES and LANG */
 	locale_names = g_get_language_names ();
@@ -610,17 +609,13 @@ as_get_current_locale (void)
 		 * multiple caches on systems which generate them via a backend in PackageKit. */
 		const gchar *env_lang = g_getenv ("LANG");
 		if ((env_lang != NULL) && (g_strstr_len (env_lang, -1, "_") != NULL))
-			locale = g_strdup (env_lang);
+			locale = env_lang;
 	}
 	if (locale == NULL)
-		locale = g_strdup (locale_names[0]);
+		locale = locale_names[0];
 
-	/* set active locale without UTF-8 suffix, UTF-8 is default in AppStream */
-	tmp = g_strstr_len (locale, -1, ".UTF-8");
-	if (tmp != NULL)
-		*tmp = '\0';
-
-	return locale;
+	/* return active locale without UTF-8 suffix, UTF-8 is default in AppStream */
+	return as_locale_strip_encoding (locale);
 }
 
 /**
