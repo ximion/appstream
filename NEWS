@@ -1,3 +1,37 @@
+Version 0.14.4
+~~~~~~~~~~~~~~
+Released: 2021-06-22
+
+Features:
+ * qt: Expose setter and getter for pool cache location
+ * utils: Use GLib's gstring_replace if available
+ * its: Allow to mark release descriptions as non-translatable
+ * compose: Point people at the specification if metadata license is invalid
+
+Specification:
+ * docs: Clarify which metadata licenses are permitted
+ * docs: Fix a typo on the icon cache page
+ * spec: Add a paragraph about which license to put in <project_license>
+ * Add documentation for YAML release type and urgency
+ * Add documentation for YAML provides
+
+Bugfixes:
+ * component: Don't strip ";" from keywords before translating them
+ * utils: Don't strip modifiers when stripping encoding
+ * compose: Check optipng is there before we use it
+ * Improve text line wrapping, especially if many newlines are present
+ * Make word-wrap function unicode-aware
+ * Make license_is_metadata_license parse more complex expressions
+ * Improve cache refresh code, don't flag cache as updated if update failed
+ * Use system cache even if we had to drop some invalid metadata
+ * Assign more string class members safely
+ * Fix flashed firmware generating incorrect XML
+ * Fix YAML having wrong names for the firmware data
+
+Contributors:
+ Aleix Pol, Iain Lane, Philip Withnall,
+ Robert Ancell, Matthias Klumpp
+
 Version 0.14.3
 ~~~~~~~~~~~~~~
 Released: 2021-03-08
