@@ -1314,9 +1314,15 @@ as_component_set_keywords (AsComponent *cpt, gchar **value, const gchar *locale)
 	}
 	g_ptr_array_add (keywords, NULL);
 
+#if GLIB_CHECK_VERSION(2,58,0)
 	g_hash_table_insert (priv->keywords,
 				g_ref_string_new_intern (locale),
 				(gchar **) (g_ptr_array_steal (keywords, NULL)));
+#else
+	g_hash_table_insert (priv->keywords,
+				g_ref_string_new_intern (locale),
+				(gchar **) g_ptr_array_free (g_steal_pointer (&keywords), FALSE));
+#endif
 
 	g_object_notify ((GObject *) cpt, "keywords");
 }
