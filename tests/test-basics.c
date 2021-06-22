@@ -261,6 +261,22 @@ test_translation_fallback (void)
 }
 
 /**
+ * test_locale_compat:
+ */
+static void
+test_locale_compat (void)
+{
+	g_assert (as_utils_locale_is_compatible ("de_DE", "de_DE"));
+	g_assert (!as_utils_locale_is_compatible ("de_DE", "en"));
+	g_assert (as_utils_locale_is_compatible ("de_DE", "de"));
+	g_assert (as_utils_locale_is_compatible ("ca_ES@valencia", "ca"));
+	g_assert (as_utils_locale_is_compatible ("ca@valencia", "ca"));
+	g_assert (!as_utils_locale_is_compatible ("ca@valencia", "de"));
+	g_assert (!as_utils_locale_is_compatible ("de_CH", "de_DE"));
+	g_assert (as_utils_locale_is_compatible ("de", "de_CH"));
+}
+
+/**
  * test_spdx:
  *
  * Test SPDX license description parsing.
@@ -991,6 +1007,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Component", test_component);
 	g_test_add_func ("/AppStream/SPDX", test_spdx);
 	g_test_add_func ("/AppStream/TranslationFallback", test_translation_fallback);
+	g_test_add_func ("/AppStream/LocaleCompat", test_locale_compat);
 	g_test_add_func ("/AppStream/ReadDesktopEntry", test_read_desktop_entry_simple);
 	g_test_add_func ("/AppStream/ConvertDesktopEntry", test_desktop_entry_convert);
 	g_test_add_func ("/AppStream/VersionCompare", test_version_compare);

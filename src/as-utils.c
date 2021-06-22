@@ -910,6 +910,12 @@ as_utils_locale_to_language (const gchar *locale)
 	tmp = g_strstr_len (country_code, -1, "_");
 	if (tmp != NULL)
 		*tmp = '\0';
+
+	/* return the part before any "@" for locale with modifiers like "ca@valencia" */
+	tmp = g_strstr_len (country_code, -1, "@");
+	if (tmp != NULL)
+		*tmp = '\0';
+
 	return country_code;
 }
 
