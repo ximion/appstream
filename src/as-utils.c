@@ -649,12 +649,11 @@ as_ptr_array_to_strv (GPtrArray *array)
 }
 
 /**
- * as_gstring_replace:
+ * as_gstring_replace2:
  * @string: a #GString
  * @find: the string to find in @string
  * @replace: the string to insert in place of @find
- * @limit: the maximum instances of @find to replace with @replace, or `0` for
- * no limit
+ * @limit: the maximum instances of @find to replace with @replace, or `0` for no limit
  *
  * Replaces the string @find with the string @replace in a #GString up to
  * @limit times. If the number of instances of @find in the #GString is
@@ -664,7 +663,7 @@ as_ptr_array_to_strv (GPtrArray *array)
  * Returns: the number of find and replace operations performed.
  **/
 guint
-as_gstring_replace (GString *string, const gchar *find, const gchar *replace, guint limit)
+as_gstring_replace2 (GString *string, const gchar *find, const gchar *replace, guint limit)
 {
 #if GLIB_CHECK_VERSION(2,68,0)
 	return g_string_replace (string, find, replace, limit);
@@ -701,6 +700,22 @@ as_gstring_replace (GString *string, const gchar *find, const gchar *replace, gu
 }
 
 /**
+ * as_gstring_replace:
+ * @string: a #GString
+ * @find: the string to find in @string
+ * @replace: the string to insert in place of @find
+ *
+ * Replaces all occurences of @find with the string @replace in a #GString.
+ *
+ * Returns: the number of find and replace operations performed.
+ **/
+guint
+as_gstring_replace (GString *string, const gchar *find, const gchar *replace)
+{
+	return as_gstring_replace2 (string, find, replace, 0);
+}
+
+/**
  * as_str_replace:
  * @str: The string to operate on
  * @old_str: The old value to replace.
@@ -718,7 +733,7 @@ as_str_replace (const gchar *str, const gchar *old_str, const gchar *new_str, gu
 	GString *gstr;
 
 	gstr = g_string_new (str);
-	as_gstring_replace (gstr, old_str, new_str, limit);
+	as_gstring_replace2 (gstr, old_str, new_str, limit);
 	return g_string_free (gstr, FALSE);
 }
 
