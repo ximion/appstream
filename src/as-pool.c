@@ -795,14 +795,18 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 				if (as_flags_contains (priv->cache_flags, AS_CACHE_FLAG_REFRESH_SYSTEM)) {
 					g_autoptr(AsPool) refresh_pool = as_pool_new ();
 					g_debug ("System-wide metadata cache is stale, will refresh it now.");
-					as_pool_refresh_system_cache (refresh_pool,
-								TRUE, /* user */
-								FALSE, /* force */
-								&tmp_error);
+					ret = as_pool_refresh_system_cache (refresh_pool,
+									    TRUE, /* user */
+									    FALSE, /* force */
+									    &tmp_error);
 					if (tmp_error != NULL) {
-						g_warning ("Unable to refresh system cache: %s", tmp_error->message);
+						if (ret)
+							g_warning ("System cache issue: %s", tmp_error->message);
+						else
+							g_warning ("Unable to refresh system cache: %s", tmp_error->message);
 						g_clear_pointer (&tmp_error, g_error_free);
-					} else {
+					}
+					if (ret) {
 						/* the cache should exist now, ready to be loaded */
 						g_mutex_lock (&priv->mutex);
 						if (as_cache_open2 (priv->system_cache, priv->locale, &tmp_error)) {
