@@ -60,6 +60,24 @@ test_strstripnl ()
 }
 
 /**
+ * test_random:
+ */
+static void
+test_random ()
+{
+	g_autofree gchar *str1 = NULL;
+	g_autofree gchar *str2 = NULL;
+
+	str1 = as_random_alnum_string (24);
+	g_assert_cmpint (strlen (str1), ==, 24);
+
+	str2 = as_random_alnum_string (24);
+	g_assert_cmpint (strlen (str2), ==, 24);
+
+	g_assert_cmpstr (str1, !=, str2);
+}
+
+/**
  * test_safe_assign:
  *
  * Test safe variable assignment macros.
@@ -966,6 +984,7 @@ main (int argc, char **argv)
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
 	g_test_add_func ("/AppStream/Strstrip", test_strstripnl);
+	g_test_add_func ("/AppStream/Random", test_random);
 	g_test_add_func ("/AppStream/SafeAssign", test_safe_assign);
 	g_test_add_func ("/AppStream/Categories", test_categories);
 	g_test_add_func ("/AppStream/SimpleMarkupConvert", test_simplemarkup);

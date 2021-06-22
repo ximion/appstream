@@ -2218,3 +2218,28 @@ as_unichar_accepted (gunichar c)
 {
 	return g_unichar_isprint (c) || g_unichar_iszerowidth (c) || c == 173;
 }
+
+/**
+ * as_random_alnum_string:
+ * @len: Length of the generated string.
+ *
+ * Create a random alphanumeric (only ASCII letters and numbers)
+ * string that can be used for tests and filenames.
+ *
+ * Returns: A random alphanumeric string.
+ */
+gchar*
+as_random_alnum_string (gssize len)
+{
+	gchar *ret;
+	static char alnum_plain_chars[] =
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		"abcdefghijklmnopqrstuvwxyz"
+		"1234567890";
+
+	ret = g_new0 (gchar, len + 1);
+	for (gssize i = 0; i < len; i++)
+		ret[i] = alnum_plain_chars[g_random_int_range(0, strlen (alnum_plain_chars))];
+
+	return ret;
+}

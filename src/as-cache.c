@@ -814,6 +814,7 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 			close (fd);
 		}
 
+		g_free (priv->volatile_db_fname);
 		priv->volatile_db_fname = g_strdup (priv->fname);
 	} else {
 		g_free (priv->fname);

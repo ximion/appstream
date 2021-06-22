@@ -1967,13 +1967,14 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean user, gboolean force, GErro
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	gboolean ret = FALSE;
+	gboolean cache_updated = FALSE;
 	g_autofree gchar *cache_fname = NULL;
 	g_autofree gchar *cache_fname_tmp = NULL;
+	g_autofree gchar *random_str = NULL;
 	g_autoptr(GError) data_load_error = NULL;
 	GError *tmp_error = NULL;
 	AsCacheFlags prev_cache_flags;
 	guint invalid_cpts_n;
-	gint fd;
 	const gchar *sys_cache_dir;
 
 	if (user)
@@ -2034,20 +2035,8 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean user, gboolean force, GErro
 	/* open new system cache as user cache temporarily, so we can modify it */
 	g_mutex_lock (&priv->mutex);
 
-	cache_fname_tmp = g_strconcat (cache_fname, "XXXXXX.tmp", NULL);
-	fd = g_mkstemp (cache_fname_tmp);
-	if (fd < 0) {
-		g_set_error (error,
-				AS_POOL_ERROR,
-				AS_POOL_ERROR_TARGET_NOT_WRITABLE,
-				_("Unable to open new cache file: %s"), g_strerror (errno));
-		g_mutex_unlock (&priv->mutex);
-		return FALSE;
-	}
-
-	/* we will reopen this file as LMDB database */
-	close (fd);
-	g_remove (cache_fname_tmp);
+	random_str = as_random_alnum_string (8);
+	cache_fname_tmp = g_strconcat (cache_fname, random_str, ".tmp", NULL);
 
 	/* remove old files for other languages in per-user mode */
 	if (user)
@@ -2055,6 +2044,7 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean user, gboolean force, GErro
 
 	if (!as_cache_open (priv->cache, cache_fname_tmp, priv->locale, error)) {
 		g_mutex_unlock (&priv->mutex);
+		g_remove (cache_fname_tmp);
 		return FALSE;
 	}
 	g_mutex_unlock (&priv->mutex);
@@ -2092,6 +2082,8 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean user, gboolean force, GErro
 	g_chmod (cache_fname_tmp, 0644);
 	if (g_rename (cache_fname_tmp, cache_fname) < 0)
 		g_warning ("Unable to replace old cache '%s': %s", cache_fname, g_strerror (errno));
+	else
+		cache_updated = TRUE;
 	g_clear_pointer (&cache_fname_tmp, g_free);
 
 	/* restore cache flags */
@@ -2119,7 +2111,8 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean user, gboolean force, GErro
 					     error_message);
 		}
 		/* update the cache mtime, to not needlessly rebuild it again */
-		as_touch_location (cache_fname);
+		if (cache_updated)
+			as_touch_location (cache_fname);
 	} else {
 		g_set_error (error,
 			     AS_POOL_ERROR,

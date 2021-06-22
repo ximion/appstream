@@ -196,6 +196,9 @@ gboolean		as_unichar_accepted (gunichar c);
 
 gchar			*as_sanitize_text_spaces (const gchar *text);
 
+AS_INTERNAL_VISIBLE
+gchar			*as_random_alnum_string (gssize len);
+
 #pragma GCC visibility pop
 G_END_DECLS
 
