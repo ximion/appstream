@@ -6,10 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-03-01 16:00+0100\n"
+"POT-Creation-Date: 2021-06-22 19:04+0200\n"
 "PO-Revision-Date: 2021-03-23 13:29+0000\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
-"Language-Team: Esperanto <https://hosted.weblate.org/projects/appstream/translations/eo/>\n"
+"Language-Team: Esperanto <https://hosted.weblate.org/projects/appstream/"
+"translations/eo/>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,12 +27,36 @@ msgid "An utility to work with AppStream metadata"
 msgstr "Ilprogramo por uzi AppStream-metadatenojn"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
-msgid "AppStream is a metadata specification which permits software components to provide information about themselves to automated systems and end-users before the software is actually installed. The AppStream project provides facilities to easily access and transform this metadata, as well as a few additional services for building feature-rich software centers and similar applications that make use of software metadata."
-msgstr "AppStream estas normo pri metadatenoj, kiu ebligas programajn komponantojn informi pri si aŭtomatajn sistemojn kaj uzantojn antaŭ efektiva instalo. La projekto AppStream disponigas ilprogramojn por facile atingi kaj transformi tiujn metadatenojn, kaj ankaŭ kelkajn pliajn servojn por konstrui riĉajn programvendejojn kaj similajn programojn, kiuj uzas metadatenojn pri programoj."
+msgid ""
+"AppStream is a metadata specification which permits software components to "
+"provide information about themselves to automated systems and end-users "
+"before the software is actually installed. The AppStream project provides "
+"facilities to easily access and transform this metadata, as well as a few "
+"additional services for building feature-rich software centers and similar "
+"applications that make use of software metadata."
+msgstr ""
+"AppStream estas normo pri metadatenoj, kiu ebligas programajn komponantojn "
+"informi pri si aŭtomatajn sistemojn kaj uzantojn antaŭ efektiva instalo. La "
+"projekto AppStream disponigas ilprogramojn por facile atingi kaj transformi "
+"tiujn metadatenojn, kaj ankaŭ kelkajn pliajn servojn por konstrui riĉajn "
+"programvendejojn kaj similajn programojn, kiuj uzas metadatenojn pri "
+"programoj."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
-msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
-msgstr "La komandlinia ilprogramo <em>appstreamcli</em> ebligas legi, skribi, kaj transformi XML- aŭ YAML-metadatenojn de AppStream kaj ankaŭ validigi ĝin pri kongruado kun la normo. Ĝi ankaŭ ebligas facile atingi la sisteman metadatenaron, ekzemple por serĉi programon, kiu disponigas pritraktilon de specifa aŭdvidaĵa tipo, aŭ por instali programan komponanton per ĝia identigilo."
+msgid ""
+"The <em>appstreamcli</em> command-line tool allows to read, write, and "
+"transform AppStream XML or YAML metadata as well as to validate it for "
+"compliance with the specification. It also provides easy access to the "
+"system metadata pool, for example to query for software that provides a "
+"specific Mediatype handler or for installing software by its component "
+"identifier."
+msgstr ""
+"La komandlinia ilprogramo <em>appstreamcli</em> ebligas legi, skribi, kaj "
+"transformi XML- aŭ YAML-metadatenojn de AppStream kaj ankaŭ validigi ĝin pri "
+"kongruado kun la normo. Ĝi ankaŭ ebligas facile atingi la sisteman "
+"metadatenaron, ekzemple por serĉi programon, kiu disponigas pritraktilon de "
+"specifa aŭdvidaĵa tipo, aŭ por instali programan komponanton per ĝia "
+"identigilo."
 
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
@@ -345,7 +370,7 @@ msgstr "Oficejaj Programoj"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:372
+#: src/as-category.c:320 tools/ascli-utils.c:371
 msgid "Add-ons"
 msgstr "Kromprogramoj"
 
@@ -741,7 +766,9 @@ msgstr "Kontrolado de la plej nova versio de programo"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1041
 msgid "Sharing diagnostic data that does not let others identify the user"
-msgstr "Sendado de anonimaj informoj por diagnozo kiuj ne ebligas identigon de la uzanto"
+msgstr ""
+"Sendado de anonimaj informoj por diagnozo kiuj ne ebligas identigon de la "
+"uzanto"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
@@ -936,37 +963,47 @@ msgstr "apo;aplikaĵo;programo;programaro;softvaro;ilo"
 msgid "Unable to remove old cache."
 msgstr "Ne eblas forigi malnovan kaŝmemoron."
 
-#: src/as-pool.c:958
+#: src/as-pool.c:962
 msgid "Metadata files have errors:"
 msgstr "Metadatenaj dosieroj enhavas erarojn:"
 
-#: src/as-pool.c:1365
-msgid "Many components have been recognized as invalid. See debug output for details."
-msgstr "Pluraj komponantoj estas nevalidaj. Vidu sencimigan eligon por detaloj."
+#: src/as-pool.c:1369
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+"Pluraj komponantoj estas nevalidaj. Vidu sencimigan eligon por detaloj."
 
-#: src/as-pool.c:1984
+#: src/as-pool.c:1995
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Kaŝmemora loko '%s' ne estas surskribebla."
 
-#: src/as-pool.c:2037
-#, c-format
-msgid "Unable to open new cache file: %s"
-msgstr "Ne eblas malfermi novan kaŝmemoran dosieron: %s"
-
-#: src/as-pool.c:2106
-msgid "The AppStream system cache was updated, but some components were ignored. Refer to the verbose log for more information."
-msgstr "Ĝisdatiĝis la sistema kaŝmemoro de AppStream, sed kelkaj komponantoj estis ignoritaj. Vidu la detalan protokolon por pliaj informoj."
-
 #: src/as-pool.c:2108
-#, c-format
-msgid "The AppStream system cache was updated, but problems were found which resulted in metadata being ignored: %s"
-msgstr "Ĝisdatiĝis la sistema kaŝmemoro de AppStream, sed okazis problemojn, pro kiuj metadatenoj estis ignoritaj: %s"
+msgid ""
+"The AppStream system cache was updated, but some components were ignored. "
+"Refer to the verbose log for more information."
+msgstr ""
+"Ĝisdatiĝis la sistema kaŝmemoro de AppStream, sed kelkaj komponantoj estis "
+"ignoritaj. Vidu la detalan protokolon por pliaj informoj."
 
-#: src/as-pool.c:2121
+#: src/as-pool.c:2110
 #, c-format
-msgid "AppStream system cache refresh failed. Turn on verbose mode to get detailed issue information."
-msgstr "Malsukcesis reŝargo de sistema kaŝmemoro de AppStream. Ŝaltu detalan reĝimon por detalaj informoj pri la problemo."
+msgid ""
+"The AppStream system cache was updated, but problems were found which "
+"resulted in metadata being ignored: %s"
+msgstr ""
+"Ĝisdatiĝis la sistema kaŝmemoro de AppStream, sed okazis problemojn, pro "
+"kiuj metadatenoj estis ignoritaj: %s"
+
+#: src/as-pool.c:2124
+#, c-format
+msgid ""
+"AppStream system cache refresh failed. Turn on verbose mode to get detailed "
+"issue information."
+msgstr ""
+"Malsukcesis reŝargo de sistema kaŝmemoro de AppStream. Ŝaltu detalan reĝimon "
+"por detalaj informoj pri la problemo."
 
 #: src/as-provided.c:144
 msgid "Libraries"
@@ -1025,124 +1062,269 @@ msgid "Tags of this name are not permitted in this section."
 msgstr "Ĉi tiu elemento ne estas permesata en ĉi tiu sekcio."
 
 #: src/as-validator-issue-tag.h:51
-msgid "A <description/> tag must not be localized in metainfo files (upstream metadata). Localize the individual paragraphs instead."
-msgstr "Elemento <description/> devas esti ne rekte tradukita en metainformaja dosieroj (metadatenoj el la originaj programistoj). Traduku la individuajn alineojn anstataŭe."
+msgid ""
+"A <description/> tag must not be localized in metainfo files (upstream "
+"metadata). Localize the individual paragraphs instead."
+msgstr ""
+"Elemento <description/> devas esti ne rekte tradukita en metainformaja "
+"dosieroj (metadatenoj el la originaj programistoj). Traduku la individuajn "
+"alineojn anstataŭe."
 
 #: src/as-validator-issue-tag.h:57
-msgid "This element (paragraph, list, etc.) of a <description/> tag must not be localized individually in collection metadata. Localize the whole <description/> tag instead. The AppStream collection metadata generator (e.g. `appstream-generator`) will already do the right thing when compiling the data."
-msgstr "Ĉi tiu elemento (alineo, listo, ktp) en elemento <description/> devas esti ne individue tradukita en kolektaj metadatenoj. Traduku la tutan elementon <description/> anstataŭe. La farilo de kolektaj metadatenoj de AppStream (t.e. \"appstream-generator\") faros tion ĝuste dum kolektado de la datenoj."
+msgid ""
+"This element (paragraph, list, etc.) of a <description/> tag must not be "
+"localized individually in collection metadata. Localize the whole "
+"<description/> tag instead. The AppStream collection metadata generator (e."
+"g. `appstream-generator`) will already do the right thing when compiling the "
+"data."
+msgstr ""
+"Ĉi tiu elemento (alineo, listo, ktp) en elemento <description/> devas esti "
+"ne individue tradukita en kolektaj metadatenoj. Traduku la tutan elementon "
+"<description/> anstataŭe. La farilo de kolektaj metadatenoj de AppStream (t."
+"e. \"appstream-generator\") faros tion ĝuste dum kolektado de la datenoj."
 
 #: src/as-validator-issue-tag.h:63
-msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
-msgstr "Priskriboj laŭ AppStream povas enhavi nur limigitan aron da elementoj por aranĝi tekston: Alineoj (<p/>) kaj listoj (<ul/>, <ol/>). Ĉi tiu priskribo enhavas nevalidan XML-elementon, kiun mismontros programoj subtenantaj la normon pri metainformoj."
+msgid ""
+"AppStream descriptions support only a limited set of tags to format text: "
+"Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
+"an invalid XML tag that would not be rendered correctly in applications "
+"supporting the metainfo specification."
+msgstr ""
+"Priskriboj laŭ AppStream povas enhavi nur limigitan aron da elementoj por "
+"aranĝi tekston: Alineoj (<p/>) kaj listoj (<ul/>, <ol/>). Ĉi tiu priskribo "
+"enhavas nevalidan XML-elementon, kiun mismontros programoj subtenantaj la "
+"normon pri metainformoj."
 
 #: src/as-validator-issue-tag.h:69
-msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
-msgstr "Ĉi tiu priskriba alineo enhavas nevalidan markadon. Nuntempe nur <em/> kaj <code/> estas permesataj."
+msgid ""
+"This description paragraph contains invalid markup. Currently, only <em/> "
+"and <code/> are permitted."
+msgstr ""
+"Ĉi tiu priskriba alineo enhavas nevalidan markadon. Nuntempe nur <em/> kaj "
+"<code/> estas permesataj."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
 msgstr "Numera listo povas nur enhavi listerojn (<li/>) kiel idojn."
 
 #: src/as-validator-issue-tag.h:79
-msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
-msgstr "La unua alineo `description/p` de ĉi tiu komponanto estas eble tro mallonga (<80 signoj). Bonvolu konsideri pli longan unuan alineon por plibeligi la aspekton de la priskribo en programvendejoj kaj por tuj unuaalinee pluinformi pri ĉi tiu komponanto."
+msgid ""
+"The first `description/p` paragraph of this component might be too short (< "
+"80 characters). Please consider starting with a longer paragraph to improve "
+"how the description looks like in software centers and to provide more "
+"detailed information on this component immediately in the first paragraph."
+msgstr ""
+"La unua alineo `description/p` de ĉi tiu komponanto estas eble tro mallonga "
+"(<80 signoj). Bonvolu konsideri pli longan unuan alineon por plibeligi la "
+"aspekton de la priskribo en programvendejoj kaj por tuj unuaalinee "
+"pluinformi pri ĉi tiu komponanto."
 
 #: src/as-validator-issue-tag.h:86
-msgid "The description contains a web URL in plain text. This is not allowed, please use the <url/> tag instead to share links."
-msgstr "La priskribo enhavas retpaĝan adreson plattekste. Tio estas malpermesata; bonvolu uzi la elementon <url/> anstataŭe por hiperligoj."
+msgid ""
+"The description contains a web URL in plain text. This is not allowed, "
+"please use the <url/> tag instead to share links."
+msgstr ""
+"La priskribo enhavas retpaĝan adreson plattekste. Tio estas malpermesata; "
+"bonvolu uzi la elementon <url/> anstataŭe por hiperligoj."
 
 #: src/as-validator-issue-tag.h:91
-msgid "As per AppStream specification, the mentioned tag must only appear once in this context. Having multiple tags of this kind is not valid."
-msgstr "Laŭ la normo AppStream, la jena elemento devas aperi nur unufoje en ĉi tia kunteksto. Ne validas apero de pluraj jenaj elementoj."
+msgid ""
+"As per AppStream specification, the mentioned tag must only appear once in "
+"this context. Having multiple tags of this kind is not valid."
+msgstr ""
+"Laŭ la normo AppStream, la jena elemento devas aperi nur unufoje en ĉi tia "
+"kunteksto. Ne validas apero de pluraj jenaj elementoj."
 
 #: src/as-validator-issue-tag.h:96
-msgid "The mentioned tag is empty, which is highly likely not intended as it should have content."
-msgstr "La ĉi-supra elemento estas malplena, verŝajne senintence, ĉar ĝi enhavu ion."
+msgid ""
+"The mentioned tag is empty, which is highly likely not intended as it should "
+"have content."
+msgstr ""
+"La ĉi-supra elemento estas malplena, verŝajne senintence, ĉar ĝi enhavu ion."
 
 #: src/as-validator-issue-tag.h:101
-msgid "The component ID is required to follow a reverse domain-name scheme for its name. See the AppStream specification for details."
-msgstr "La identigilo de la komponanto devas esti inversigita reteja adreso. Vidu la normon AppStream por detaloj."
+msgid ""
+"The component ID is required to follow a reverse domain-name scheme for its "
+"name. See the AppStream specification for details."
+msgstr ""
+"La identigilo de la komponanto devas esti inversigita reteja adreso. Vidu la "
+"normon AppStream por detaloj."
 
 #: src/as-validator-issue-tag.h:106
-msgid "The component ID is not a reverse domain-name. Please update the ID to avoid future issues and be compatible with all AppStream implementations.\n"
-"You may also consider to update the name of the accompanying .desktop file to follow the latest version of the Desktop-Entry specification and use a rDNS name for it as well. In any case, do not forget to mention the new desktop-entry in a <launchable/> tag for this component to keep the application launchable from software centers and the .desktop file data associated with the metainfo data."
+msgid ""
+"The component ID is not a reverse domain-name. Please update the ID to avoid "
+"future issues and be compatible with all AppStream implementations.\n"
+"You may also consider to update the name of the accompanying .desktop file "
+"to follow the latest version of the Desktop-Entry specification and use a "
+"rDNS name for it as well. In any case, do not forget to mention the new "
+"desktop-entry in a <launchable/> tag for this component to keep the "
+"application launchable from software centers and the .desktop file data "
+"associated with the metainfo data."
 msgstr ""
-"La identigilo de la komponanto ne estas inversigita reteja adreso. Bonvolu ŝanĝi la identigilon por eviti okazontajn problemojn kaj kongrui kun ĉiuj uzoj de AppStream.\n"
-"Vi konsideru ankaŭ ŝanĝi la nomon de la akompananta .desktop-dosiero al inversigita reteja adreso laŭ la plej nova versio de la normo pri Desktop-Entry. Ĉiukaze ne forgesu mencii la novan desktop-entry en elemento <launchable/> de ĉi tiu komponanto por lanĉebligi la programon per programvendejoj kaj por asocii la datenojn de la .desktop-dosiero kun la metainformaj datenoj."
+"La identigilo de la komponanto ne estas inversigita reteja adreso. Bonvolu "
+"ŝanĝi la identigilon por eviti okazontajn problemojn kaj kongrui kun ĉiuj "
+"uzoj de AppStream.\n"
+"Vi konsideru ankaŭ ŝanĝi la nomon de la akompananta .desktop-dosiero al "
+"inversigita reteja adreso laŭ la plej nova versio de la normo pri Desktop-"
+"Entry. Ĉiukaze ne forgesu mencii la novan desktop-entry en elemento "
+"<launchable/> de ĉi tiu komponanto por lanĉebligi la programon per "
+"programvendejoj kaj por asocii la datenojn de la .desktop-dosiero kun la "
+"metainformaj datenoj."
 
 #: src/as-validator-issue-tag.h:114
-msgid "The component ID might not follow the reverse domain-name schema (the TLD used by it is not known to the validator)."
-msgstr "La identigilo de la komponanto eble ne sekvas la skemon de inversigita reteja adreso (la retregiono en ĝi ne estas konata de la validigilo)."
+msgid ""
+"The component ID might not follow the reverse domain-name schema (the TLD "
+"used by it is not known to the validator)."
+msgstr ""
+"La identigilo de la komponanto eble ne sekvas la skemon de inversigita "
+"reteja adreso (la retregiono en ĝi ne estas konata de la validigilo)."
 
 #: src/as-validator-issue-tag.h:119
-msgid "The component ID contains an invalid character. Only ASCII characters, dots and numbers are permitted."
-msgstr "La identigilo de la komponanto enhavas nevalidan signon. Nur Askiaj literoj, punktoj kaj ciferoj estas permesataj."
+msgid ""
+"The component ID contains an invalid character. Only ASCII characters, dots "
+"and numbers are permitted."
+msgstr ""
+"La identigilo de la komponanto enhavas nevalidan signon. Nur Askiaj literoj, "
+"punktoj kaj ciferoj estas permesataj."
 
 #: src/as-validator-issue-tag.h:124
-msgid "The component ID contains a hyphen/minus. Using a hyphen is strongly discouraged, to improve interoperability with other tools such as D-Bus. A good option is to replace any hyphens with underscores (`_`)."
-msgstr "La identigilo de la komponanto enhavas streketon/minuson. Uzo de streketo estas forte malinstigata, por kunfunkciebleco kun aliaj iloj kiel D-Bus. Ekzemple, anstataŭigu streketojn per substrekoj (\"_\")."
+msgid ""
+"The component ID contains a hyphen/minus. Using a hyphen is strongly "
+"discouraged, to improve interoperability with other tools such as D-Bus. A "
+"good option is to replace any hyphens with underscores (`_`)."
+msgstr ""
+"La identigilo de la komponanto enhavas streketon/minuson. Uzo de streketo "
+"estas forte malinstigata, por kunfunkciebleco kun aliaj iloj kiel D-Bus. "
+"Ekzemple, anstataŭigu streketojn per substrekoj (\"_\")."
 
 #: src/as-validator-issue-tag.h:130
-msgid "The component ID contains a segment starting with a number. Starting a segment of the reverse-DNS ID with a number is strongly discouraged, to keep interoperability with other tools such as D-Bus. Ideally, prefix these segments with an underscore."
-msgstr "La identigilo de komponanto enhavas segmenton komencantan per cifero. Komencado de segmento de la inversigita retejadresa identigilo per cifero estas evitindega, por kunfunkciebleco kun aliaj programoj kiel D-Bus. Konsideru meti substrekon antaŭ tiaj segmentoj."
+msgid ""
+"The component ID contains a segment starting with a number. Starting a "
+"segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
+"interoperability with other tools such as D-Bus. Ideally, prefix these "
+"segments with an underscore."
+msgstr ""
+"La identigilo de komponanto enhavas segmenton komencantan per cifero. "
+"Komencado de segmento de la inversigita retejadresa identigilo per cifero "
+"estas evitindega, por kunfunkciebleco kun aliaj programoj kiel D-Bus. "
+"Konsideru meti substrekon antaŭ tiaj segmentoj."
 
 #: src/as-validator-issue-tag.h:136
 msgid "The component ID should only contain lowercase letters."
 msgstr "La identigilo de komponanto devas konsisti nur el minuskloj."
 
 #: src/as-validator-issue-tag.h:141
-msgid "The component is part of the Freedesktop project, but its ID does not start with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr "La komponanto estas parto de la projekto Freedesktop, sed ĝia identigilo ne komenciĝas per la inversa DNS-nomo de Freedesktop (\"org.freedesktop\")."
+msgid ""
+"The component is part of the Freedesktop project, but its ID does not start "
+"with fd.o's reverse-DNS name (\"org.freedesktop\")."
+msgstr ""
+"La komponanto estas parto de la projekto Freedesktop, sed ĝia identigilo ne "
+"komenciĝas per la inversa DNS-nomo de Freedesktop (\"org.freedesktop\")."
 
 #: src/as-validator-issue-tag.h:146
-msgid "The component is part of the KDE project, but its ID does not start with KDEs reverse-DNS name (\"org.kde\")."
-msgstr "La komponanto estas parto de la projekto KDE, sed ĝia identigilo ne komenciĝas per la inversa DNS-nomo de KDE (\"org.kde\")."
+msgid ""
+"The component is part of the KDE project, but its ID does not start with "
+"KDEs reverse-DNS name (\"org.kde\")."
+msgstr ""
+"La komponanto estas parto de la projekto KDE, sed ĝia identigilo ne "
+"komenciĝas per la inversa DNS-nomo de KDE (\"org.kde\")."
 
 #: src/as-validator-issue-tag.h:151
-msgid "The component is part of the GNOME project, but its ID does not start with GNOMEs reverse-DNS name (\"org.gnome\")."
-msgstr "La komponanto estas parto de la projekto GNOME, sed ĝia identigilo ne komenciĝas per la inversa DNS-nomo de GNOME (\"org.gnome\")."
+msgid ""
+"The component is part of the GNOME project, but its ID does not start with "
+"GNOMEs reverse-DNS name (\"org.gnome\")."
+msgstr ""
+"La komponanto estas parto de la projekto GNOME, sed ĝia identigilo ne "
+"komenciĝas per la inversa DNS-nomo de GNOME (\"org.gnome\")."
 
 #: src/as-validator-issue-tag.h:156
 msgid "The SPDX license expression is invalid and could not be parsed."
 msgstr "La permesilo-esprimo laŭ SPDX estas nevalida kaj tial ne analizebla."
 
 #: src/as-validator-issue-tag.h:161
-msgid "The license ID was not found in the SPDX database. Please check that the license ID is written in an SPDX-conformant way and is a valid free software license."
-msgstr "La permesila identigilo ne troviĝis en la SPDX-datenbanko. Bonvolu kontroli, ĉu la permesila identigilo konformas al SPDX kaj estas valida permesilo de libera programo."
+msgid ""
+"The license ID was not found in the SPDX database. Please check that the "
+"license ID is written in an SPDX-conformant way and is a valid free software "
+"license."
+msgstr ""
+"La permesila identigilo ne troviĝis en la SPDX-datenbanko. Bonvolu kontroli, "
+"ĉu la permesila identigilo konformas al SPDX kaj estas valida permesilo de "
+"libera programo."
 
 #: src/as-validator-issue-tag.h:167
-msgid "The metadata itself seems to be licensed under a complex collection of licenses. Please license the data under a simple permissive license, like FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses."
-msgstr "La metadatenoj mem ŝajnas esti publikigitaj sub komplika kolekto de permesiloj. Bonvolu meti la metadatenojn sub simpla permesema permesilo, kiel FSFAP, MIT, aŭ CC0-1.0 por permesi al distribuistoj inkluzivi ĝin en miksitajn datenajn kolektojn sen risko de permesilaj malobservoj pro reciproke malkongruaj permesiloj."
+msgid ""
+"The metadata itself seems to be licensed under a complex collection of "
+"licenses. Please license the data under a simple permissive license, like "
+"FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
+"collections without the risk of license violations due to mutually "
+"incompatible licenses."
+msgstr ""
+"La metadatenoj mem ŝajnas esti publikigitaj sub komplika kolekto de "
+"permesiloj. Bonvolu meti la metadatenojn sub simpla permesema permesilo, "
+"kiel FSFAP, MIT, aŭ CC0-1.0 por permesi al distribuistoj inkluzivi ĝin en "
+"miksitajn datenajn kolektojn sen risko de permesilaj malobservoj pro "
+"reciproke malkongruaj permesiloj."
 
 #: src/as-validator-issue-tag.h:173
-msgid "The metadata itself does not seem to be licensed under a permissive license. Please license the data under a permissive license, like FSFAP, CC0-1.0 or 0BSD to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses."
-msgstr "La metadatenoj mem ŝajnas esti ne publikigitaj sub permesema permesilo. Bonvolu meti la metadatenojn sub permesema permesilo, kiel FSFAP, MIT, aŭ CC0-1.0 por permesi al distribuistoj inkluzivi ĝin en miksitajn datenajn kolektojn sen risko de permesilaj malobservoj pro reciproke malkongruaj permesiloj."
+msgid ""
+"The metadata itself does not seem to be licensed under a permissive license. "
+"Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
+"0BSD to allow distributors to include it in mixed data collections without "
+"the risk of license violations due to mutually incompatible licenses."
+msgstr ""
+"La metadatenoj mem ŝajnas esti ne publikigitaj sub permesema permesilo. "
+"Bonvolu meti la metadatenojn sub permesema permesilo, kiel FSFAP, MIT, aŭ "
+"CC0-1.0 por permesi al distribuistoj inkluzivi ĝin en miksitajn datenajn "
+"kolektojn sen risko de permesilaj malobservoj pro reciproke malkongruaj "
+"permesiloj."
 
 #: src/as-validator-issue-tag.h:179
-msgid "The update-contact does not appear to be a valid email address (escaping of `@` is only allowed as `_at_` or `_AT_`)."
-msgstr "La update-contact ŝajne ne validas kiel retpoŝta adreso (kaŝo de `@` estas permesata nur per `_at_` aŭ `_AT_`)."
+msgid ""
+"The update-contact does not appear to be a valid email address (escaping of "
+"`@` is only allowed as `_at_` or `_AT_`)."
+msgstr ""
+"La update-contact ŝajne ne validas kiel retpoŝta adreso (kaŝo de `@` estas "
+"permesata nur per `_at_` aŭ `_AT_`)."
 
 #: src/as-validator-issue-tag.h:184
-msgid "Unable to reach the screenshot image on its remote location - does the image exist?"
+msgid ""
+"Unable to reach the screenshot image on its remote location - does the image "
+"exist?"
 msgstr "Ne eblas atingi la foran ekrankopian bildon - ĉu ekzistas la bildo?"
 
 #: src/as-validator-issue-tag.h:189
-msgid "Unable to reach the screenshot video on its remote location - does the video file exist?"
-msgstr "Ne eblas atingi la foran ekrankopian filmeton - ĉu ekzistas la filmeto?"
+msgid ""
+"Unable to reach the screenshot video on its remote location - does the video "
+"file exist?"
+msgstr ""
+"Ne eblas atingi la foran ekrankopian filmeton - ĉu ekzistas la filmeto?"
 
 #: src/as-validator-issue-tag.h:194
-msgid "Consider using a secure (HTTPS) URL to reference this screenshot image or video."
-msgstr "Konsideru uzi sekuran adreson (HTTPS) por ĉi tiu fora ekrankopia bildo aŭ filmeto."
+msgid ""
+"Consider using a secure (HTTPS) URL to reference this screenshot image or "
+"video."
+msgstr ""
+"Konsideru uzi sekuran adreson (HTTPS) por ĉi tiu fora ekrankopia bildo aŭ "
+"filmeto."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
-msgid "A screenshot must contain at least one image or video in order to be useful. Please add an <image/> to it."
-msgstr "Ekrankopio devas enhavi almenaŭ unu bildon aŭ filmeton por utilo. Bonvolu aldoni elementon <image/> en ĝin."
+msgid ""
+"A screenshot must contain at least one image or video in order to be useful. "
+"Please add an <image/> to it."
+msgstr ""
+"Ekrankopio devas enhavi almenaŭ unu bildon aŭ filmeton por utilo. Bonvolu "
+"aldoni elementon <image/> en ĝin."
 
 #: src/as-validator-issue-tag.h:205
-msgid "A screenshot must contain either images or videos, but not both at the same time. Please use this screenshot exclusively for either static images or for videos."
-msgstr "Ekrankopio devas enhavi aŭ bildojn aŭ filmetojn, sed ne ambaŭ samtempe. Bonvolu uzi tiun ekrankopion ekskluzive por aŭ nemoviĝantaj bildoj aŭ por filmetoj."
+msgid ""
+"A screenshot must contain either images or videos, but not both at the same "
+"time. Please use this screenshot exclusively for either static images or for "
+"videos."
+msgstr ""
+"Ekrankopio devas enhavi aŭ bildojn aŭ filmetojn, sed ne ambaŭ samtempe. "
+"Bonvolu uzi tiun ekrankopion ekskluzive por aŭ nemoviĝantaj bildoj aŭ por "
+"filmetoj."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
@@ -1150,95 +1332,201 @@ msgstr "Titolo mankas al la ekrankopio. Konsideru aldoni ĝin."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:217
-msgid "The screenshot video does not specify which video codec was used in a `codec` property."
-msgstr "La ekrankopia filmeto ne specifas la uzitan kodadan metodon per atributo `codec`."
+msgid ""
+"The screenshot video does not specify which video codec was used in a "
+"`codec` property."
+msgstr ""
+"La ekrankopia filmeto ne specifas la uzitan kodadan metodon per atributo "
+"`codec`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:223
-msgid "The screenshot video does not specify which container format was used in a `container` property."
-msgstr "La ekrankopia filmeto ne specifas la uzatan konteneran formon per atributo `container`."
+msgid ""
+"The screenshot video does not specify which container format was used in a "
+"`container` property."
+msgstr ""
+"La ekrankopia filmeto ne specifas la uzatan konteneran formon per atributo "
+"`container`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:229
-msgid "The selected video codec is not supported by AppStream and software centers may not be able to play the video. Only the AV1 and VP9 codecs are currently supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr "La elektita kodiga metodo ne estas subtenata de AppStream, kaj programvendejoj eble ne povos ludi la filmeton. Nur la kodadaj metodoj AV1 kaj VP9 estas nuntempe subtenataj, responde al la valoroj `av1` kaj` vp9` de la atributo `codec`."
+msgid ""
+"The selected video codec is not supported by AppStream and software centers "
+"may not be able to play the video. Only the AV1 and VP9 codecs are currently "
+"supported, using `av1` and `vp9` as values for the `codec` property."
+msgstr ""
+"La elektita kodiga metodo ne estas subtenata de AppStream, kaj "
+"programvendejoj eble ne povos ludi la filmeton. Nur la kodadaj metodoj AV1 "
+"kaj VP9 estas nuntempe subtenataj, responde al la valoroj `av1` kaj` vp9` de "
+"la atributo `codec`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:236
-msgid "The selected video container format is not supported by AppStream and software centers may not be able to play the video. Only the WebM and Matroska video containers are currently supported, using `webm` and `mkv` as values for the `container` property."
-msgstr "La elektita kontenera formo ne estas subtenata de AppStream, kaj programvendejoj eble ne povos ludi la filmeton. Nur la konteneraj formoj WebM kaj Matroska estas nuntempe subtenataj, responde al la valoroj `webm` kaj `mkv` de la atributo `container`."
+msgid ""
+"The selected video container format is not supported by AppStream and "
+"software centers may not be able to play the video. Only the WebM and "
+"Matroska video containers are currently supported, using `webm` and `mkv` as "
+"values for the `container` property."
+msgstr ""
+"La elektita kontenera formo ne estas subtenata de AppStream, kaj "
+"programvendejoj eble ne povos ludi la filmeton. Nur la konteneraj formoj "
+"WebM kaj Matroska estas nuntempe subtenataj, responde al la valoroj `webm` "
+"kaj `mkv` de la atributo `container`."
 
 #: src/as-validator-issue-tag.h:242
-msgid "For videos, only the WebM and Matroska (.mkv) container formats are currently supported. The file extension of the referenced video does not belong to either of these formats."
-msgstr "Por filmetoj, nur la konteneraj formoj WebM kaj Matroska (.mkv) estas nuntempe subtenataj. La dosiersufikso de la referencita filmeto ne indikas unu el la subtenataj konteneraj formoj."
+msgid ""
+"For videos, only the WebM and Matroska (.mkv) container formats are "
+"currently supported. The file extension of the referenced video does not "
+"belong to either of these formats."
+msgstr ""
+"Por filmetoj, nur la konteneraj formoj WebM kaj Matroska (.mkv) estas "
+"nuntempe subtenataj. La dosiersufikso de la referencita filmeto ne indikas "
+"unu el la subtenataj konteneraj formoj."
 
 #: src/as-validator-issue-tag.h:248
-msgid "The default screenshot of a software component must not be a video. Use a static image as default screenshot and set the video as a secondary screenshot."
-msgstr "La apriora ekrankopio de programa komponanto devas esti ne filmeto. Uzu nemoviĝantana bildon kiel aprioran ekrankopion kaj agordu la filmeton kiel kroman ekrankopion."
+msgid ""
+"The default screenshot of a software component must not be a video. Use a "
+"static image as default screenshot and set the video as a secondary "
+"screenshot."
+msgstr ""
+"La apriora ekrankopio de programa komponanto devas esti ne filmeto. Uzu "
+"nemoviĝantana bildon kiel aprioran ekrankopion kaj agordu la filmeton kiel "
+"kroman ekrankopion."
 
 #: src/as-validator-issue-tag.h:253
-msgid "Found an unknown tag in a requires/recommends group. This is likely an error, because a component relation of this type is unknown."
-msgstr "Troviĝis nekonata elemento en grupo `requires` aŭ `recommends`. Jen verŝajna eraro, ĉar tiutipa rilato inter komponantoj estas nekonata."
+msgid ""
+"Found an unknown tag in a requires/recommends group. This is likely an "
+"error, because a component relation of this type is unknown."
+msgstr ""
+"Troviĝis nekonata elemento en grupo `requires` aŭ `recommends`. Jen verŝajna "
+"eraro, ĉar tiutipa rilato inter komponantoj estas nekonata."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:259
-msgid "A `requires` or `recommends` item requires a value to denote a valid relation."
-msgstr "`requires`- aŭ `recommends`-ero postulas valoron por indiki validan rilaton."
+msgid ""
+"A `requires` or `recommends` item requires a value to denote a valid "
+"relation."
+msgstr ""
+"`requires`- aŭ `recommends`-ero postulas valoron por indiki validan rilaton."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:265
-msgid "Found `version` property on required/recommended item of a type that should not have or require a version."
-msgstr "Troviĝis atributo `version` ĉe postulata/rekomendata ero de tipo, kiu ne havu version."
+msgid ""
+"Found `version` property on required/recommended item of a type that should "
+"not have or require a version."
+msgstr ""
+"Troviĝis atributo `version` ĉe postulata/rekomendata ero de tipo, kiu ne "
+"havu version."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:271
-msgid "Found `version` property on this required/recommended item, but not `compare` property. It is recommended to explicitly define a comparison operation."
-msgstr "Troviĝis atributo `version`, sed ne atributo `compare`, ĉe postulata/rekomendata ero. Rekomendiĝas eksplici komparan operacion."
+msgid ""
+"Found `version` property on this required/recommended item, but not "
+"`compare` property. It is recommended to explicitly define a comparison "
+"operation."
+msgstr ""
+"Troviĝis atributo `version`, sed ne atributo `compare`, ĉe postulata/"
+"rekomendata ero. Rekomendiĝas eksplici komparan operacion."
 
 #: src/as-validator-issue-tag.h:276
-msgid "Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are permitted."
-msgstr "Nevalida kompara operacio pri ero de rilato. Nur validas `eq`, `ne`, `lt`, `gt`, `le`, kaj `ge`."
+msgid ""
+"Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are "
+"permitted."
+msgstr ""
+"Nevalida kompara operacio pri ero de rilato. Nur validas `eq`, `ne`, `lt`, "
+"`gt`, `le`, kaj `ge`."
 
 #: src/as-validator-issue-tag.h:281
-msgid "The relation item has a comparison operation set, but does not support any comparisons."
-msgstr "La ero de rilato havas agorditan komparan operacion, sed ne subtenas ajnajn komparojn."
+msgid ""
+"The relation item has a comparison operation set, but does not support any "
+"comparisons."
+msgstr ""
+"La ero de rilato havas agorditan komparan operacion, sed ne subtenas ajnajn "
+"komparojn."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:287
-msgid "Found a memory size relation in a `requires` tag. This means users will not be able to even install the component without having enough RAM. This is usually not intended and you want to use `memory` in the `recommends` tag instead."
-msgstr "Troviĝis rilato pri kvanto de memoro en elemento `require`. Tio signifas, ke uzantoj ne povos eĉ instali la komponanton sen sufiĉe da memoro. Tio estas ordinare ne intencita, kaj vi verŝajne volas uzi `memory` en la elemento` recommends` anstataŭe."
+msgid ""
+"Found a memory size relation in a `requires` tag. This means users will not "
+"be able to even install the component without having enough RAM. This is "
+"usually not intended and you want to use `memory` in the `recommends` tag "
+"instead."
+msgstr ""
+"Troviĝis rilato pri kvanto de memoro en elemento `require`. Tio signifas, ke "
+"uzantoj ne povos eĉ instali la komponanton sen sufiĉe da memoro. Tio estas "
+"ordinare ne intencita, kaj vi verŝajne volas uzi `memory` en la elemento` "
+"recommends` anstataŭe."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:294
-msgid "Found a user input control relation in a `requires` tag. This means users will not be able to even install the component without having the defined input control available on the system. This is usually not intended and you want to use `control` in the `recommends` tag instead."
-msgstr "Troviĝis rilato pri eniga metodo en elemento `require`. Tio signifas, ke uzantoj ne povos eĉ instali la komponanton sen la specifita eniga metodo. Tio estas ordinare ne intencita, kaj vi verŝajne volas uzi `control` en la elemento` recommends` anstataŭe."
+msgid ""
+"Found a user input control relation in a `requires` tag. This means users "
+"will not be able to even install the component without having the defined "
+"input control available on the system. This is usually not intended and you "
+"want to use `control` in the `recommends` tag instead."
+msgstr ""
+"Troviĝis rilato pri eniga metodo en elemento `require`. Tio signifas, ke "
+"uzantoj ne povos eĉ instali la komponanton sen la specifita eniga metodo. "
+"Tio estas ordinare ne intencita, kaj vi verŝajne volas uzi `control` en la "
+"elemento` recommends` anstataŭe."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:301
-msgid "This `control` item defines an unknown input method and is invalid. Check the specification for a list of permitted values."
-msgstr "Ĉi tiu ero `control` difinas nekonatan enigan metodon kaj tial ne validas. Vidu la normon por listo de permesataj valoroj."
+msgid ""
+"This `control` item defines an unknown input method and is invalid. Check "
+"the specification for a list of permitted values."
+msgstr ""
+"Ĉi tiu ero `control` difinas nekonatan enigan metodon kaj tial ne validas. "
+"Vidu la normon por listo de permesataj valoroj."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:307
-msgid "This `display_length` item contains an invalid display length. Its value must either be a shorthand string, or positive integer value denoting logical pixels. Please refer to the AppStream specification for more information on this tag."
-msgstr "Ĉi tiu ero 'display_length` enhavas nevalidan ekranan dimension. Ĝia valoro devas esti aŭ mallongigita signoĉeno, aŭ pozitiva entjero indikanta logikajn bilderojn. Bonvolu konsulti la normon AppStream por pliaj informoj pri ĉi tiu elemento."
+msgid ""
+"This `display_length` item contains an invalid display length. Its value "
+"must either be a shorthand string, or positive integer value denoting "
+"logical pixels. Please refer to the AppStream specification for more "
+"information on this tag."
+msgstr ""
+"Ĉi tiu ero 'display_length` enhavas nevalidan ekranan dimension. Ĝia valoro "
+"devas esti aŭ mallongigita signoĉeno, aŭ pozitiva entjero indikanta logikajn "
+"bilderojn. Bonvolu konsulti la normon AppStream por pliaj informoj pri ĉi "
+"tiu elemento."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:314
-msgid "This `side` property of this `display_length` item contains an invalid value. It must either be `shortest` or `longest`, or unset to imply `shortest` to make the item value refer to either the shortest or longest side of the display."
-msgstr "Ĉi tiu atributo `size` de ĉi tiu ero `display_length` enhavas nevalidan valoron. Ĝi devas esti aŭ `shortest` aŭ `longest` aŭ malplena (por implici `shortest`), por ke la valoro indiku aŭ la plej mallongan aŭ la plej longan dimension de la ekrano."
+msgid ""
+"This `side` property of this `display_length` item contains an invalid "
+"value. It must either be `shortest` or `longest`, or unset to imply "
+"`shortest` to make the item value refer to either the shortest or longest "
+"side of the display."
+msgstr ""
+"Ĉi tiu atributo `size` de ĉi tiu ero `display_length` enhavas nevalidan "
+"valoron. Ĝi devas esti aŭ `shortest` aŭ `longest` aŭ malplena (por implici "
+"`shortest`), por ke la valoro indiku aŭ la plej mallongan aŭ la plej longan "
+"dimension de la ekrano."
 
 #: src/as-validator-issue-tag.h:320
-msgid "The set component type is not a recognized, valid AppStream component type."
-msgstr "La agordita tipo de komponanto ne estas valida tipo de komponanto laŭ AppStream."
+msgid ""
+"The set component type is not a recognized, valid AppStream component type."
+msgstr ""
+"La agordita tipo de komponanto ne estas valida tipo de komponanto laŭ "
+"AppStream."
 
 #: src/as-validator-issue-tag.h:325
-msgid "The component has a priority value set. This is not allowed in metainfo files."
-msgstr "La komponanto havas valoron de prioritato. Tio ne estas permesata en metainformaj dosieroj."
+msgid ""
+"The component has a priority value set. This is not allowed in metainfo "
+"files."
+msgstr ""
+"La komponanto havas valoron de prioritato. Tio ne estas permesata en "
+"metainformaj dosieroj."
 
 #: src/as-validator-issue-tag.h:330
-msgid "The component has a `merge` method defined. This is not allowed in metainfo files."
-msgstr "La komponanto havas metodon `merge`. Tio ne estas permesata en metainformaj dosieroj."
+msgid ""
+"The component has a `merge` method defined. This is not allowed in metainfo "
+"files."
+msgstr ""
+"La komponanto havas metodon `merge`. Tio ne estas permesata en metainformaj "
+"dosieroj."
 
 #: src/as-validator-issue-tag.h:335
 msgid "The component is missing an ID (<id/> tag)."
@@ -1253,12 +1541,22 @@ msgid "The component is missing a summary (<summary/> tag)."
 msgstr "Mankas resumo (elemento <summary/>) en komponanto."
 
 #: src/as-validator-issue-tag.h:350
-msgid "The <id/> tag still contains a `type` property, probably from an old conversion to the recent metainfo format."
-msgstr "La elemento <id/> ankoraŭ enhavas atributon `type`, probable pro malnova konverto al la nuna metainforma normo."
+msgid ""
+"The <id/> tag still contains a `type` property, probably from an old "
+"conversion to the recent metainfo format."
+msgstr ""
+"La elemento <id/> ankoraŭ enhavas atributon `type`, probable pro malnova "
+"konverto al la nuna metainforma normo."
 
 #: src/as-validator-issue-tag.h:355
-msgid "The `pkgname` tag appears multiple times. You should evaluate creating a metapackage containing the metainfo and .desktop files in order to avoid defining multiple package names per component."
-msgstr "Ĉeestas pluraj elementoj `pkgname`. Konsideru metapakon enhavantan la metainformajn kaj .desktop-dosierojn por eviti difini plurajn paknomojn por komponanto."
+msgid ""
+"The `pkgname` tag appears multiple times. You should evaluate creating a "
+"metapackage containing the metainfo and .desktop files in order to avoid "
+"defining multiple package names per component."
+msgstr ""
+"Ĉeestas pluraj elementoj `pkgname`. Konsideru metapakon enhavantan la "
+"metainformajn kaj .desktop-dosierojn por eviti difini plurajn paknomojn por "
+"komponanto."
 
 #: src/as-validator-issue-tag.h:360
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -1274,17 +1572,25 @@ msgstr "La resumo de komponanto devas ne enhavi tabeligon aŭ linifinon."
 
 #: src/as-validator-issue-tag.h:375
 msgid "The summary must not contain any URL. Use the <url/> tags for links."
-msgstr "La resumo devas enhavi neniun retpaĝan adreson. Uzu la elementon <url/> por hiperligoj."
+msgstr ""
+"La resumo devas enhavi neniun retpaĝan adreson. Uzu la elementon <url/> por "
+"hiperligoj."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:381
-msgid "Icons of type `stock` or `cached` must not contain an URL, a full or an relative path to the icon. Only file basenames or stock names are allowed."
-msgstr "Ikonoj de tipo `stock` aŭ `cached` devas ne enhavi URL aŭ absolutan aŭ relativan dosierindikon al la ikono. Nur dosieraj baznomoj aŭ stokaj nomoj estas permesataj."
+msgid ""
+"Icons of type `stock` or `cached` must not contain an URL, a full or an "
+"relative path to the icon. Only file basenames or stock names are allowed."
+msgstr ""
+"Ikonoj de tipo `stock` aŭ `cached` devas ne enhavi URL aŭ absolutan aŭ "
+"relativan dosierindikon al la ikono. Nur dosieraj baznomoj aŭ stokaj nomoj "
+"estas permesataj."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:388
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
-msgstr "Ikono de tipo `remote` devas enhavi retan adreson de la referencita ikono."
+msgstr ""
+"Ikono de tipo `remote` devas enhavi retan adreson de la referencita ikono."
 
 #: src/as-validator-issue-tag.h:393
 msgid "Unable to reach remote icon at the given web location - does it exist?"
@@ -1296,16 +1602,25 @@ msgstr "Konsideru uzi sekuran adreson (HTTPS) por ĉi tiu fora ikono."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:404
-msgid "Metainfo files may only contain icons of type `stock` or `remote`, the set type is not allowed."
-msgstr "Metainformaj dosieroj povas enhavi ikonojn nur de tipo `stock` aŭ `remote`; la agordita tipo estas malpermesata."
+msgid ""
+"Metainfo files may only contain icons of type `stock` or `remote`, the set "
+"type is not allowed."
+msgstr ""
+"Metainformaj dosieroj povas enhavi ikonojn nur de tipo `stock` aŭ `remote`; "
+"la agordita tipo estas malpermesata."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:410
-msgid "Invalid `type` property for this `url` tag. URLs of this type are not known in the AppStream specification."
-msgstr "Tipo de ĉi tiu elemento `url` ne validas. Tiutipa reta adreso ne validas laŭ la normo AppStream."
+msgid ""
+"Invalid `type` property for this `url` tag. URLs of this type are not known "
+"in the AppStream specification."
+msgstr ""
+"Tipo de ĉi tiu elemento `url` ne validas. Tiutipa reta adreso ne validas laŭ "
+"la normo AppStream."
 
 #: src/as-validator-issue-tag.h:415
-msgid "Unable to reach remote location that this URL references - does it exist?"
+msgid ""
+"Unable to reach remote location that this URL references - does it exist?"
 msgstr "Ne eblas atingi la retpaĝan adreson - ĉu ĝi ekzistas?"
 
 #: src/as-validator-issue-tag.h:420
@@ -1317,95 +1632,165 @@ msgid "A web URL was expected for this value."
 msgstr "Ĉi tiu valoro estu retpaĝa adreso."
 
 #: src/as-validator-issue-tag.h:430
-msgid "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr "Ĉi tiu hiperligo uzas la protokolon FTP. Konsideru la protokolon HTTP(S) anstataŭe."
+msgid ""
+"This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
+msgstr ""
+"Ĉi tiu hiperligo uzas la protokolon FTP. Konsideru la protokolon HTTP(S) "
+"anstataŭe."
 
 #: src/as-validator-issue-tag.h:435
 msgid "The <developer_name/> can not contain a hyperlink."
 msgstr "La elemento <developer_name/> ne povas enhavi hiperligon."
 
 #: src/as-validator-issue-tag.h:440
-msgid "The set value is not an identifier for a desktop environment as registered with Freedesktop.org."
-msgstr "La agordita valoro ne estas identigilo de fenestrilo registrita ĉe Freedesktop.org."
+msgid ""
+"The set value is not an identifier for a desktop environment as registered "
+"with Freedesktop.org."
+msgstr ""
+"La agordita valoro ne estas identigilo de fenestrilo registrita ĉe "
+"Freedesktop.org."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:446
 msgid "This `launchable` tag has an unknown type and can not be used."
-msgstr "Ĉi tiu `launchable`-elemento havas nekonatan tipon kaj tial ne estas uzebla."
+msgstr ""
+"Ĉi tiu `launchable`-elemento havas nekonatan tipon kaj tial ne estas uzebla."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:452
 msgid "This `bundle` tag has an unknown type and can not be used."
-msgstr "Ĉi tiu `bundle`-elemento havas nekonatan tipon kaj tial ne estas uzebla."
+msgstr ""
+"Ĉi tiu `bundle`-elemento havas nekonatan tipon kaj tial ne estas uzebla."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:458
-msgid "The `update_contact` tag should not be included in collection AppStream XML."
-msgstr "La elemento `update_contact` devas ne ĉeesti en kolekta XML de AppStream."
+msgid ""
+"The `update_contact` tag should not be included in collection AppStream XML."
+msgstr ""
+"La elemento `update_contact` devas ne ĉeesti en kolekta XML de AppStream."
 
 #: src/as-validator-issue-tag.h:463
-msgid "This tag is a GNOME-specific extension to AppStream and not part of the official specification. Do not expect it to work in all implementations and in all software centers."
-msgstr "Ĉi tiu elemento estas GNOME-specifa etendaĵo de AppStream kaj ne estas parto de la oficiala normo. Ne atendu, ke ĝi funkcios en ĉiuj bibliotekoj kaj en ĉiuj programvendejoj."
+msgid ""
+"This tag is a GNOME-specific extension to AppStream and not part of the "
+"official specification. Do not expect it to work in all implementations and "
+"in all software centers."
+msgstr ""
+"Ĉi tiu elemento estas GNOME-specifa etendaĵo de AppStream kaj ne estas parto "
+"de la oficiala normo. Ne atendu, ke ĝi funkcios en ĉiuj bibliotekoj kaj en "
+"ĉiuj programvendejoj."
 
 #: src/as-validator-issue-tag.h:469
-msgid "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream also provides the <custom/> tag to add arbitrary custom data to metainfo files. This tag is read by AppStream libraries and may be useful instead of defining new custom toplevel or `x-`-prefixed tags if you just want to add custom data to a metainfo file."
-msgstr "Trovita nevalida element. Nenormaj elemento havu la prefikson `x-`. AppStream ankaŭ disponebligas la elementon <custom/> por aldoni aliajn datenojn al metainformaja dosieroj. Ĉi tiu elemento estas legebla per bibliotekoj de AppStream kaj eble utilos anstataŭ novaj supranivelaj aŭ `x-`-prefiksaj elementoj, se vi simple volas aldoni aliajn datenojn al metainforma dosiero."
+msgid ""
+"Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream "
+"also provides the <custom/> tag to add arbitrary custom data to metainfo "
+"files. This tag is read by AppStream libraries and may be useful instead of "
+"defining new custom toplevel or `x-`-prefixed tags if you just want to add "
+"custom data to a metainfo file."
+msgstr ""
+"Trovita nevalida element. Nenormaj elemento havu la prefikson `x-`. "
+"AppStream ankaŭ disponebligas la elementon <custom/> por aldoni aliajn "
+"datenojn al metainformaja dosieroj. Ĉi tiu elemento estas legebla per "
+"bibliotekoj de AppStream kaj eble utilos anstataŭ novaj supranivelaj aŭ `x-`-"
+"prefiksaj elementoj, se vi simple volas aldoni aliajn datenojn al "
+"metainforma dosiero."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:477
-msgid "The essential tag `metadata_license` is missing. A license for the metadata itself always has to be defined."
-msgstr "Mankas la deviga elemento `metadata_license`. Permesilo de metadatenoj devas esti difinita."
+msgid ""
+"The essential tag `metadata_license` is missing. A license for the metadata "
+"itself always has to be defined."
+msgstr ""
+"Mankas la deviga elemento `metadata_license`. Permesilo de metadatenoj devas "
+"esti difinita."
 
 #: src/as-validator-issue-tag.h:482
-msgid "The component is missing a long description. Components of this type must have a long description."
-msgstr "Mankas longa priskribo de la komponanto. Tia komponanto devas havi longan priskribon."
+msgid ""
+"The component is missing a long description. Components of this type must "
+"have a long description."
+msgstr ""
+"Mankas longa priskribo de la komponanto. Tia komponanto devas havi longan "
+"priskribon."
 
 #: src/as-validator-issue-tag.h:487
-msgid "It would be useful to add a long description to this font to present it better to users."
+msgid ""
+"It would be useful to add a long description to this font to present it "
+"better to users."
 msgstr "Al uzantoj utilos aldoni longan priskribon al ĉi tiu tiparo."
 
 #: src/as-validator-issue-tag.h:492
-msgid "It is recommended to add a long description to this component to present it better to users."
+msgid ""
+"It is recommended to add a long description to this component to present it "
+"better to users."
 msgstr "Al uzantoj utilos aldoni longan priskribon al ĉi tiu komponanto."
 
 #: src/as-validator-issue-tag.h:497
-msgid "This generic component is missing a long description. It may be useful to add one."
-msgstr "Al ĉi tiu ĝenerala komponanto mankas longa priskribo. Utilos aldoni ĝin."
+msgid ""
+"This generic component is missing a long description. It may be useful to "
+"add one."
+msgstr ""
+"Al ĉi tiu ĝenerala komponanto mankas longa priskribo. Utilos aldoni ĝin."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:503
-msgid "Type `console-application` component, but no information about binaries in $PATH was provided via a `provides/binary` tag."
-msgstr "En komponanto de tipo `console-application`, neniuj informoj pri ruleblaĵoj en $PATH estis donitaj per elemento`provides/binary`."
+msgid ""
+"Type `console-application` component, but no information about binaries in "
+"$PATH was provided via a `provides/binary` tag."
+msgstr ""
+"En komponanto de tipo `console-application`, neniuj informoj pri ruleblaĵoj "
+"en $PATH estis donitaj per elemento`provides/binary`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:509
-msgid "This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr "En ĉi tiu `web-application`-komponanto mankas elemento `launchable` de tipo `url`."
+msgid ""
+"This `web-application` component is missing a `launchable` tag of type `url`."
+msgstr ""
+"En ĉi tiu `web-application`-komponanto mankas elemento `launchable` de tipo "
+"`url`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:515
-msgid "This `web-application` component is missing a `icon` tag to specify a valid icon."
-msgstr "En ĉi tiu `web-application`-komponanto mankas elemento `icon` specifanta validan ikonon."
+msgid ""
+"This `web-application` component is missing a `icon` tag to specify a valid "
+"icon."
+msgstr ""
+"En ĉi tiu `web-application`-komponanto mankas elemento `icon` specifanta "
+"validan ikonon."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:521
-msgid "This `web-application` component is missing categorizations. A `categories` block is likely missing."
-msgstr "Pri ĉi tiu komponanto de tipo `web-application`, mankas kategorioj. Verŝajne, elemento `categories` estas bezonata."
+msgid ""
+"This `web-application` component is missing categorizations. A `categories` "
+"block is likely missing."
+msgstr ""
+"Pri ĉi tiu komponanto de tipo `web-application`, mankas kategorioj. "
+"Verŝajne, elemento `categories` estas bezonata."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:527
-msgid "Type `font` component, but no font information was provided via a `provides/font` tag."
-msgstr "En komponanto de tipo `font`, mankas tiparaj informoj disponigendaj per elemento `provides/font`."
+msgid ""
+"Type `font` component, but no font information was provided via a `provides/"
+"font` tag."
+msgstr ""
+"En komponanto de tipo `font`, mankas tiparaj informoj disponigendaj per "
+"elemento `provides/font`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:533
-msgid "Type `driver` component, but no modalias information was provided via a `provides/modalias` tag."
-msgstr "En komponanto de tipo `driver`, mankas informoj pri modula alinomo disponigendaj per elemento `provides/modalias`."
+msgid ""
+"Type `driver` component, but no modalias information was provided via a "
+"`provides/modalias` tag."
+msgstr ""
+"En komponanto de tipo `driver`, mankas informoj pri modula alinomo "
+"disponigendaj per elemento `provides/modalias`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:539
-msgid "An `extends` tag is specified, but the component is not of type `addon`, `localization` or `repository`."
-msgstr "Elemento `extends` ĉeestas en komponanto, kies tipo ne estas `addon`, `localization`, aŭ `repository`."
+msgid ""
+"An `extends` tag is specified, but the component is not of type `addon`, "
+"`localization` or `repository`."
+msgstr ""
+"Elemento `extends` ĉeestas en komponanto, kies tipo ne estas `addon`, "
+"`localization`, aŭ `repository`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:545
@@ -1414,27 +1799,46 @@ msgstr "En komponanto de tipo `addon`, mankas elemento `extends`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:551
-msgid "This `localization` component is missing an `extends` tag, to specify the components it adds localization to."
-msgstr "En komponanto de tipo `localization`, mankas elemento `extends` specifanta tradukitajn komponantojn."
+msgid ""
+"This `localization` component is missing an `extends` tag, to specify the "
+"components it adds localization to."
+msgstr ""
+"En komponanto de tipo `localization`, mankas elemento `extends` specifanta "
+"tradukitajn komponantojn."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:557
-msgid "This `localization` component does not define any languages this localization is for."
-msgstr "Ĉi tiu komponanto `localization` ne difinas tiujn lingvojn, en kiujn ĉi tiu komponanto tradukas."
+msgid ""
+"This `localization` component does not define any languages this "
+"localization is for."
+msgstr ""
+"Ĉi tiu komponanto `localization` ne difinas tiujn lingvojn, en kiujn ĉi tiu "
+"komponanto tradukas."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:563
-msgid "This `service` component is missing a `launchable` tag of type `service`."
-msgstr "En ĉi tiu `service`-komponanto mankas elemento `launchable` de tipo `service`."
+msgid ""
+"This `service` component is missing a `launchable` tag of type `service`."
+msgstr ""
+"En ĉi tiu `service`-komponanto mankas elemento `launchable` de tipo "
+"`service`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:569
-msgid "Suggestions of any type other than `upstream` are not allowed in metainfo files."
-msgstr "Sugestoj de tipo alia ol `upstream` estas malpermesataj en metainformaj dosieroj."
+msgid ""
+"Suggestions of any type other than `upstream` are not allowed in metainfo "
+"files."
+msgstr ""
+"Sugestoj de tipo alia ol `upstream` estas malpermesataj en metainformaj "
+"dosieroj."
 
 #: src/as-validator-issue-tag.h:574
-msgid "The category name is not valid. Refer to the XDG Menu Specification for a list of valid category names."
-msgstr "La nomo de kategorio ne validas. Konsultu la Menu-Normon de XDG por listo de validaj nomoj de kategorioj."
+msgid ""
+"The category name is not valid. Refer to the XDG Menu Specification for a "
+"list of valid category names."
+msgstr ""
+"La nomo de kategorio ne validas. Konsultu la Menu-Normon de XDG por listo de "
+"validaj nomoj de kategorioj."
 
 #: src/as-validator-issue-tag.h:579
 msgid "The screenshot caption is too long (should be <= 80 characters)"
@@ -1450,21 +1854,35 @@ msgstr "La XML-dosiero estas misformita."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:595
-msgid "Invalid tag found in collection metadata. Only `component` tags are permitted."
-msgstr "Nevalida elemento troviĝis en metadatenoj de kolekto. Nur elementoj `component` estas permesataj."
+msgid ""
+"Invalid tag found in collection metadata. Only `component` tags are "
+"permitted."
+msgstr ""
+"Nevalida elemento troviĝis en metadatenoj de kolekto. Nur elementoj "
+"`component` estas permesataj."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:601
-msgid "The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher)."
-msgstr "Ĉi tiu metainforma dosiero uzas malnovan, nevalidigeblan version de la normo AppStream. Bonvolu ĝisdatigi ĝin al versio 0.6 (aŭ pli nova)."
+msgid ""
+"The metainfo file uses an ancient version of the AppStream specification, "
+"which can not be validated. Please migrate it to version 0.6 (or higher)."
+msgstr ""
+"Ĉi tiu metainforma dosiero uzas malnovan, nevalidigeblan version de la normo "
+"AppStream. Bonvolu ĝisdatigi ĝin al versio 0.6 (aŭ pli nova)."
 
 #: src/as-validator-issue-tag.h:606
-msgid "This XML document has an unknown root tag. Maybe this file is not a metainfo document?"
-msgstr "Jen XML-dokumento de nekonata radika elemento. Ĉu jena dosiero ne estas metainforma dokumento?"
+msgid ""
+"This XML document has an unknown root tag. Maybe this file is not a metainfo "
+"document?"
+msgstr ""
+"Jen XML-dokumento de nekonata radika elemento. Ĉu jena dosiero ne estas "
+"metainforma dokumento?"
 
 #: src/as-validator-issue-tag.h:611
 msgid "The metainfo filename does not match the component ID."
-msgstr "La nomo de la metainforma dosiero ne kongruas kun la identigilo de la komponanto."
+msgstr ""
+"La nomo de la metainforma dosiero ne kongruas kun la identigilo de la "
+"komponanto."
 
 #: src/as-validator-issue-tag.h:616
 msgid "Unable to read the .desktop file associated with this component."
@@ -1472,15 +1890,21 @@ msgstr "Malsukcesis legi la .desktop-dosieron asociitan al ĉi tiu komponanto."
 
 #: src/as-validator-issue-tag.h:621
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr "Ĉi tiu metadateno pri komponanto mencias neekzistantan .desktop-dosieron."
+msgstr ""
+"Ĉi tiu metadateno pri komponanto mencias neekzistantan .desktop-dosieron."
 
 #: src/as-validator-issue-tag.h:626
-msgid "The category defined in the .desktop file is not valid. Refer to the XDG Menu Specification for a list of valid categories."
-msgstr "La kategorio difinita en la .desktop-dosiero ne validas. Konsultu la Menu-Normon de XDG por listo de validaj kategorioj."
+msgid ""
+"The category defined in the .desktop file is not valid. Refer to the XDG "
+"Menu Specification for a list of valid categories."
+msgstr ""
+"La kategorio difinita en la .desktop-dosiero ne validas. Konsultu la Menu-"
+"Normon de XDG por listo de validaj kategorioj."
 
 #: src/as-validator-issue-tag.h:631
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr "Neniuj AppStream-metadatenoj troviĝis en ĉi tiu dosierujo aŭ subdosierujoj."
+msgstr ""
+"Neniuj AppStream-metadatenoj troviĝis en ĉi tiu dosierujo aŭ subdosierujoj."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:636
@@ -1488,16 +1912,29 @@ msgid "No XDG applications directory found."
 msgstr "Ne troviĝis programa dosierujo laŭ XDG."
 
 #: src/as-validator-issue-tag.h:641
-msgid "The metainfo file is stored in a legacy path. Please place it in `/usr/share/metainfo/`."
-msgstr "La metainforma dosiero estas en evitinda dosierujo. Bonvolu meti ĝin en `/usr/share/metainfo/`."
+msgid ""
+"The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
+"metainfo/`."
+msgstr ""
+"La metainforma dosiero estas en evitinda dosierujo. Bonvolu meti ĝin en `/"
+"usr/share/metainfo/`."
 
 #: src/as-validator-issue-tag.h:646
 msgid "The metainfo file specifies multiple components. This is not allowed."
-msgstr "La metainforma dosiero specifas plurajn komponantojn. Tio estas malpermesata."
+msgstr ""
+"La metainforma dosiero specifas plurajn komponantojn. Tio estas malpermesata."
 
 #: src/as-validator-issue-tag.h:651
-msgid "The releases are not sorted in a latest to oldest version order. This is required as some tools will assume that the latest version is always at the top. Sorting releases also increases overall readability of the metainfo file."
-msgstr "La eldonoj ne estas ordigitaj ekde la plej nova ĝis la plej malnova. Tia ordigo necesas, ĉar iuj iloj supozos, ke la plej nova versio ĉiam estas la unue menciita. Ordigo de eldonoj ankaŭ faciligas legadon de la metainforma dosiero."
+msgid ""
+"The releases are not sorted in a latest to oldest version order. This is "
+"required as some tools will assume that the latest version is always at the "
+"top. Sorting releases also increases overall readability of the metainfo "
+"file."
+msgstr ""
+"La eldonoj ne estas ordigitaj ekde la plej nova ĝis la plej malnova. Tia "
+"ordigo necesas, ĉar iuj iloj supozos, ke la plej nova versio ĉiam estas la "
+"unue menciita. Ordigo de eldonoj ankaŭ faciligas legadon de la metainforma "
+"dosiero."
 
 #: src/as-validator-issue-tag.h:658
 msgid "The value set as release urgency is not a known urgency value."
@@ -1509,16 +1946,25 @@ msgstr "La tipo de eldono ne validas."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:669
-msgid "The value set as artifact type is invalid. Must be either `source` or `binary`."
-msgstr "La tipo de artefakto ne validas. Ĝi devas esti aŭ `source` aŭ `binary`."
+msgid ""
+"The value set as artifact type is invalid. Must be either `source` or "
+"`binary`."
+msgstr ""
+"La tipo de artefakto ne validas. Ĝi devas esti aŭ `source` aŭ `binary`."
 
 #: src/as-validator-issue-tag.h:674
 msgid "The value set as artifact bundle type is invalid."
 msgstr "La tipo de artefakta fasko ne validas."
 
 #: src/as-validator-issue-tag.h:679
-msgid "The platform triplet for this release is invalid. It must be in the form of `architecture-oskernel-osenv` - refer to the AppStream documentation or information on normalized GNU triplets for more information and valid fields."
-msgstr "La platforma triopo de ĉi tiu eldono ne validas. Ĝi devas esti laŭ la formo \"arkitekturo-kerno-medio\" - konsultu la dokumentaron de AppStream pri normaligitaj GNU-triopopj por pli da informoj pri validaj kampoj."
+msgid ""
+"The platform triplet for this release is invalid. It must be in the form of "
+"`architecture-oskernel-osenv` - refer to the AppStream documentation or "
+"information on normalized GNU triplets for more information and valid fields."
+msgstr ""
+"La platforma triopo de ĉi tiu eldono ne validas. Ĝi devas esti laŭ la formo "
+"\"arkitekturo-kerno-medio\" - konsultu la dokumentaron de AppStream pri "
+"normaligitaj GNU-triopopj por pli da informoj pri validaj kampoj."
 
 #: src/as-validator-issue-tag.h:686
 msgid "The selected checksumming algorithm is unsupported or unknown."
@@ -1527,49 +1973,98 @@ msgstr "La elektita kontrolsuma algoritmo estas nesubtenata aŭ nekonata."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:692
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr "La tipo de grando ne validas. Ĝi devas esti aŭ `download` aŭ `installed`."
+msgstr ""
+"La tipo de grando ne validas. Ĝi devas esti aŭ `download` aŭ `installed`."
 
 #: src/as-validator-issue-tag.h:697
-msgid "The artifact filename must be a file basename, not a (relative or absolute) path."
-msgstr "La artefakta dosiernomo devas esti dosiera baznomo, ne (relativa aŭ absoluta) dosierindiko."
+msgid ""
+"The artifact filename must be a file basename, not a (relative or absolute) "
+"path."
+msgstr ""
+"La artefakta dosiernomo devas esti dosiera baznomo, ne (relativa aŭ "
+"absoluta) dosierindiko."
 
 #: src/as-validator-issue-tag.h:702
 msgid "The value set as release issue type is invalid."
 msgstr "La tipo de eldona problemo ne validas."
 
 #: src/as-validator-issue-tag.h:707
-msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
-msgstr "La problemo estas markita kiel sekureca vundebleco kun CVE-numero, sed ĝia valoro ne aspektas kiel valida CVE-numero."
+msgid ""
+"The issue is tagged at security vulnerability with a CVE number, but its "
+"value does not look like a valid CVE identifier."
+msgstr ""
+"La problemo estas markita kiel sekureca vundebleco kun CVE-numero, sed ĝia "
+"valoro ne aspektas kiel valida CVE-numero."
 
 #: src/as-validator-issue-tag.h:712
-msgid "The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. Please ensure the date string is valid."
-msgstr "La normo AppStream postulas kompletan datan signoĉenon laŭ ISO 8601 kun almenaŭ taga precizeco por indiki datojn. Bonvolu certigi, ke la data signoĉeno validas."
+msgid ""
+"The AppStream specification requires a complete, ISO 8601 date string with "
+"at least day-granularity to denote dates. Please ensure the date string is "
+"valid."
+msgstr ""
+"La normo AppStream postulas kompletan datan signoĉenon laŭ ISO 8601 kun "
+"almenaŭ taga precizeco por indiki datojn. Bonvolu certigi, ke la data "
+"signoĉeno validas."
 
 #: src/as-validator-issue-tag.h:718
-msgid "This component extends, provides, requires or recommends itself, which is certainly not intended and may confuse users or machines dealing with this metadata."
-msgstr "Ĉi tiu komponanto etendas, disponigas, postulas aŭ rekomendas sin, kio certe estas senintenca kaj povas konfuzi uzantojn aŭ maŝinojn traktantajn tiajn metadatenojn."
+msgid ""
+"This component extends, provides, requires or recommends itself, which is "
+"certainly not intended and may confuse users or machines dealing with this "
+"metadata."
+msgstr ""
+"Ĉi tiu komponanto etendas, disponigas, postulas aŭ rekomendas sin, kio certe "
+"estas senintenca kaj povas konfuzi uzantojn aŭ maŝinojn traktantajn tiajn "
+"metadatenojn."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:725
-msgid "Licenses for `runtime` components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL as value for this component's `project_license`. E.g. `LicenseRef-free=https://example.com/licenses.html`"
-msgstr "Permesiloj de komponantoj de tipo `runtime` estas ofte tro komplikaj por simpla SPDX-esprimo. Konsideru uzi `LicenseRef` kun retpaĝa adreso kiel valoro de la `project_license` de ĉi tiu komponanto: ekz. `LicenseRef-free=https://example.com/licenses.html`"
+msgid ""
+"Licenses for `runtime` components are usually too complex to reflect them in "
+"a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
+"value for this component's `project_license`. E.g. `LicenseRef-free=https://"
+"example.com/licenses.html`"
+msgstr ""
+"Permesiloj de komponantoj de tipo `runtime` estas ofte tro komplikaj por "
+"simpla SPDX-esprimo. Konsideru uzi `LicenseRef` kun retpaĝa adreso kiel "
+"valoro de la `project_license` de ĉi tiu komponanto: ekz. `LicenseRef-"
+"free=https://example.com/licenses.html`"
 
 #: src/as-validator-issue-tag.h:731
-msgid "Since a `runtime` component is comprised of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime."
-msgstr "Ĉar komponanto de tipo `runtime` konsistas el multaj aliaj programaj komponantoj, iliaj identigiloj povas esti listigitaj en sekcio `<provides/>` de ĉi tiu komponanto."
+msgid ""
+"Since a `runtime` component is comprised of multiple other software "
+"components, their component-IDs may be listed in a `<provides/>` section for "
+"this runtime."
+msgstr ""
+"Ĉar komponanto de tipo `runtime` konsistas el multaj aliaj programaj "
+"komponantoj, iliaj identigiloj povas esti listigitaj en sekcio `<provides/>` "
+"de ĉi tiu komponanto."
 
 #: src/as-validator-issue-tag.h:736
-msgid "The type of the item that the component provides is not known to AppStream."
-msgstr "La tipo de la ero disponebligita de la komponanto estas nekonata laŭ AppStream."
+msgid ""
+"The type of the item that the component provides is not known to AppStream."
+msgstr ""
+"La tipo de la ero disponebligita de la komponanto estas nekonata laŭ "
+"AppStream."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:742
-msgid "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead to indicate that your software provides a media handler for the given types."
-msgstr "La supranivela elemento `mimetypes` estas evitinda. Bonvolu uzi elementojn `mediatype` en bloko `provides` por indiki, ke via programo disponebligas pritraktilon de specifitaj aŭdvidaĵaj tipoj."
+msgid ""
+"The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
+"`provides` block instead to indicate that your software provides a media "
+"handler for the given types."
+msgstr ""
+"La supranivela elemento `mimetypes` estas evitinda. Bonvolu uzi elementojn "
+"`mediatype` en bloko `provides` por indiki, ke via programo disponebligas "
+"pritraktilon de specifitaj aŭdvidaĵaj tipoj."
 
 #: src/as-validator.c:150
-msgid "The emitted issue tag is unknown in the tag registry of AppStream. This is a bug in the validator itself, please report this issue in our bugtracker."
-msgstr "La produktita elemento issue estas nekonata en la registro de AppStream. Jen cimo de la validigilo mem; bonvolu raporti ĉi tiun problemon ĉe nia cimspuradilo."
+msgid ""
+"The emitted issue tag is unknown in the tag registry of AppStream. This is a "
+"bug in the validator itself, please report this issue in our bugtracker."
+msgstr ""
+"La produktita elemento issue estas nekonata en la registro de AppStream. Jen "
+"cimo de la validigilo mem; bonvolu raporti ĉi tiun problemon ĉe nia "
+"cimspuradilo."
 
 #: src/as-validator.c:344
 msgid "URL format is invalid."
@@ -1629,7 +2124,7 @@ msgstr "Formo de la farota raporto (aŭ 'text' aŭ 'yaml')."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:153 tools/appstream-cli.c:948
+#: tools/appstream-cli.c:153 tools/appstream-cli.c:956
 msgid "AppStream command-line interface"
 msgstr "Komandlinia interfaco al AppStream"
 
@@ -1644,15 +2139,19 @@ msgstr "komando '%s'"
 msgid "Option '%s' is unknown."
 msgstr "Opcio '%s' estas nekonata."
 
-#: tools/appstream-cli.c:195 tools/appstream-cli.c:1168
+#: tools/appstream-cli.c:195 tools/appstream-cli.c:1176
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "Rulu '%s --help' por plena listo de disponeblaj komandliniaj opcioj."
 
 #: tools/appstream-cli.c:197
 #, c-format
-msgid "Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."
-msgstr "Rulu '%s --help' por listo de disponeblaj komandoj kaja opcioj, kaj rulu '%s %s --help' por listo de opcioj specifaj de ĉi tiu subkomando."
+msgid ""
+"Run '%s --help' to see a list of available commands and options, and '%s %s "
+"--help' to see a list of options specific for this subcommand."
+msgstr ""
+"Rulu '%s --help' por listo de disponeblaj komandoj kaja opcioj, kaj rulu '%s "
+"%s --help' por listo de opcioj specifaj de ĉi tiu subkomando."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstream-cli.c:245
@@ -1665,211 +2164,252 @@ msgid "Update the user-specific instead of the system-wide cache."
 msgstr "Ĝisdatigi la kaŝmemoron nur de uzanto, ne de la tuta sistemo."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstream-cli.c:469
+#: tools/appstream-cli.c:477
 msgid "Set the data origin for the installed metadata collection file."
-msgstr "Agordi la datenan originon de la instalita dosiero de metadatena kolekto."
+msgstr ""
+"Agordi la datenan originon de la instalita dosiero de metadatena kolekto."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstream-cli.c:474
+#: tools/appstream-cli.c:482
 msgid "Install the file for the current user, instead of globally."
-msgstr "Instali la dosieron nur por la aktuala uzanto, anstataŭ por ĉiuj uzantoj."
+msgstr ""
+"Instali la dosieron nur por la aktuala uzanto, anstataŭ por ĉiuj uzantoj."
 
-#: tools/appstream-cli.c:623
-msgid "You need to provide at least two version numbers to compare as parameters."
+#: tools/appstream-cli.c:631
+msgid ""
+"You need to provide at least two version numbers to compare as parameters."
 msgstr "Vi devas doni almenaŭ du komparotajn versiojn kiel parametrojn."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstream-cli.c:652
+#: tools/appstream-cli.c:660
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Nekonata kompara rilato '%s'. Jen validaj valoroj:"
 
-#: tools/appstream-cli.c:692
-msgid "Too many parameters: Need two version numbers or version numbers and a comparison operator."
-msgstr "Tro da parametroj: Postuliĝas aŭ du versinumerojn, aŭ versinumerojn kune kun kompara operatoro."
+#: tools/appstream-cli.c:700
+msgid ""
+"Too many parameters: Need two version numbers or version numbers and a "
+"comparison operator."
+msgstr ""
+"Tro da parametroj: Postuliĝas aŭ du versinumerojn, aŭ versinumerojn kune kun "
+"kompara operatoro."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:718
-msgid "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr "Uzi la donitan .desktop-dosieron por plenigi la bazajn valorojn de la metainforma dosiero."
+#: tools/appstream-cli.c:726
+msgid ""
+"Use the given .desktop file to fill in the basic values of the metainfo file."
+msgstr ""
+"Uzi la donitan .desktop-dosieron por plenigi la bazajn valorojn de la "
+"metainforma dosiero."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:723
-msgid "This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."
-msgstr "Ĉi tiu komando prenas nedevigajn poziciajn argumentojn TIPO kaj DOSIERO; DOSIERO estas surskribota dosiero (aŭ \"-\" por ĉefeligujo)."
+#: tools/appstream-cli.c:731
+msgid ""
+"This command takes optional TYPE and FILE positional arguments, FILE being a "
+"file to write to (or \"-\" for standard output)."
+msgstr ""
+"Ĉi tiu komando prenas nedevigajn poziciajn argumentojn TIPO kaj DOSIERO; "
+"DOSIERO estas surskribota dosiero (aŭ \"-\" por ĉefeligujo)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:726
+#: tools/appstream-cli.c:734
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "La TIPO devas esti valida tipo de komponanto, ekz. %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstream-cli.c:767
+#: tools/appstream-cli.c:775
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
-msgstr "Uzi la specifitan linion por la ŝlosilo 'Exec =' de la dosiero desktop-entry."
+msgstr ""
+"Uzi la specifitan linion por la ŝlosilo 'Exec =' de la dosiero desktop-entry."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstream-cli.c:807
+#: tools/appstream-cli.c:815
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr "Supozi, ke la enigota dosiero estas en la elektita formo (aŭ 'yaml' aŭ 'text')."
+msgstr ""
+"Supozi, ke la enigota dosiero estas en la elektita formo (aŭ 'yaml' aŭ "
+"'text')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstream-cli.c:812
-msgid "Limit the number of release entries that end up in the metainfo file (0 for unlimited)."
-msgstr "Limigi la nombron de eldonoj, kiuj menciiĝos en la metainforma dosiero (0 por senlimigi)."
+#: tools/appstream-cli.c:820
+msgid ""
+"Limit the number of release entries that end up in the metainfo file (0 for "
+"unlimited)."
+msgstr ""
+"Limigi la nombron de eldonoj, kiuj menciiĝos en la metainforma dosiero (0 "
+"por senlimigi)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstream-cli.c:854
+#: tools/appstream-cli.c:862
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr "Eligi laŭ elektita formo (aŭ 'yaml' aŭ 'text')."
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstream-cli.c:923
+#: tools/appstream-cli.c:931
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(Alinomo: '%s')"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:950
+#: tools/appstream-cli.c:958
 msgid "Subcommands:"
 msgstr "Subkomandoj:"
 
-#: tools/appstream-cli.c:996
-msgid "You can find information about subcommand-specific options by passing \"--help\" to the subcommand."
-msgstr "Vi povas informiĝi pri subkomandaj opcioj per la opcio \"--help\" kune kun subkomando."
+#: tools/appstream-cli.c:1004
+msgid ""
+"You can find information about subcommand-specific options by passing \"--"
+"help\" to the subcommand."
+msgstr ""
+"Vi povas informiĝi pri subkomandaj opcioj per la opcio \"--help\" kune kun "
+"subkomando."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstream-cli.c:1019
+#: tools/appstream-cli.c:1027
 #, c-format
-msgid "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr "Komando '%s' estas nekonata. Rulu '%s --help' por listo de disponeblaj komandoj."
+msgid ""
+"Command '%s' is unknown. Run '%s --help' for a list of available commands."
+msgstr ""
+"Komando '%s' estas nekonata. Rulu '%s --help' por listo de disponeblaj "
+"komandoj."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:1043
+#: tools/appstream-cli.c:1051
 msgid "Show the program version."
 msgstr "Montri la version de la programo."
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:1049
+#: tools/appstream-cli.c:1057
 msgid "Show extra debugging information."
 msgstr "Montri pliaj informojn por erarserĉado."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:1054
+#: tools/appstream-cli.c:1062
 msgid "Don't show colored output."
 msgstr "Ne eligi kolore."
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstream-cli.c:1057
+#: tools/appstream-cli.c:1065
 msgid "Enable profiling"
 msgstr "Ŝalti profiladon"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstream-cli.c:1069
+#: tools/appstream-cli.c:1077
 msgid "Search the component database."
 msgstr "Serĉi la datenbankon de komponantoj."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstream-cli.c:1074
+#: tools/appstream-cli.c:1082
 msgid "Get information about a component by its ID."
 msgstr "Akiri informojn pri komponanto per ĝia identigilo."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstream-cli.c:1079
-msgid "Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."
-msgstr "Akiri tiujn komponantojn, kiuj disponebligas la specifitan eron. Tio postulas eran tipon (ekz. lib, bin, python3, …) kaj eran valoron kiel parametrojn."
+#: tools/appstream-cli.c:1087
+msgid ""
+"Get components which provide the given item. Needs an item type (e.g. lib, "
+"bin, python3, …) and item value as parameter."
+msgstr ""
+"Akiri tiujn komponantojn, kiuj disponebligas la specifitan eron. Tio "
+"postulas eran tipon (ekz. lib, bin, python3, …) kaj eran valoron kiel "
+"parametrojn."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstream-cli.c:1085
+#: tools/appstream-cli.c:1093
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Deponi krudajn XML-metadatenojn de komponanto de kongrua identigilo."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstream-cli.c:1090
+#: tools/appstream-cli.c:1098
 msgid "Rebuild the component metadata cache."
 msgstr "Reŝargi la kaŝmemoron de metadatenoj pri komponantoj."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstream-cli.c:1096
+#: tools/appstream-cli.c:1104
 msgid "Validate AppStream XML files for issues."
 msgstr "Validigi XML-dosierojn de AppStream pri problemoj."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstream-cli.c:1101
+#: tools/appstream-cli.c:1109
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr "Validigi instalitan dosierarbon de programo pri valideco de metadatenoj."
+msgstr ""
+"Validigi instalitan dosierarbon de programo pri valideco de metadatenoj."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstream-cli.c:1107
+#: tools/appstream-cli.c:1115
 msgid "Install software matching the component-ID."
 msgstr "Instali programon per identigilo de komponanto."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstream-cli.c:1112
+#: tools/appstream-cli.c:1120
 msgid "Remove software matching the component-ID."
 msgstr "Malinstali programon per identigilo de komponanto."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstream-cli.c:1118
+#: tools/appstream-cli.c:1126
 msgid "Display status information about available AppStream metadata."
 msgstr "Montri informojn pri la stato de haveblaj AppStream-metadatenoj."
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstream-cli.c:1123
-msgid "Show information about the current operating system from the metadata index."
-msgstr "Montri informojn pri la aktuala mastruma sistemo en la metadatena indekso."
+#: tools/appstream-cli.c:1131
+msgid ""
+"Show information about the current operating system from the metadata index."
+msgstr ""
+"Montri informojn pri la aktuala mastruma sistemo en la metadatena indekso."
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstream-cli.c:1128
+#: tools/appstream-cli.c:1136
 msgid "Install a metadata file into the right location."
 msgstr "Instali metadatenan dosieron en la ĝustan lokon."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:1133
+#: tools/appstream-cli.c:1141
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Konverti kolektan XML al YAML aŭ inverse."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstream-cli.c:1138
+#: tools/appstream-cli.c:1146
 msgid "Compare two version numbers."
 msgstr "Kompari du versiajn numerojn."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstream-cli.c:1144
-msgid "Create a template for a metainfo file (to be filled out by the upstream project)."
-msgstr "Krei ŝablonon de metainforma dosiero (kompletigota de la programistoj)."
+#: tools/appstream-cli.c:1152
+msgid ""
+"Create a template for a metainfo file (to be filled out by the upstream "
+"project)."
+msgstr ""
+"Krei ŝablonon de metainforma dosiero (kompletigota de la programistoj)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstream-cli.c:1149
+#: tools/appstream-cli.c:1157
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Krei dosieron desktop-entry laŭ metainforma dosiero."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstream-cli.c:1154
+#: tools/appstream-cli.c:1162
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "Konverti YAML- aŭ tekstan NEWS-dosieron en metainformajn eldonojn."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstream-cli.c:1159
+#: tools/appstream-cli.c:1167
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr "Skribi tekstan aŭ YAML-dosieron NEWS per informoj de metainforma dosiero."
+msgstr ""
+"Skribi tekstan aŭ YAML-dosieron NEWS per informoj de metainforma dosiero."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:1167
+#: tools/appstream-cli.c:1175
 msgid "You need to specify a command."
 msgstr "Vi devas specifi komandon."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:1191
+#: tools/appstream-cli.c:1199
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Versio de AppStream: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:1194
+#: tools/appstream-cli.c:1202
 #, c-format
-msgid "AppStream CLI tool version: %s\n"
+msgid ""
+"AppStream CLI tool version: %s\n"
 "AppStream library version: %s"
 msgstr ""
 "Versio de komandlinia ilprogramo de AppStream: %s\n"
@@ -1953,8 +2493,12 @@ msgstr "Ne ekzistas metadatena dosiero '%s'."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:383
-msgid "Unable to convert file: Could not determine output format, please set it explicitly using '--format='."
-msgstr "Ne eblas konverti dosieron: Ne eblas determini eligan formon; bonvolu eksplici ĝin per '--format='."
+msgid ""
+"Unable to convert file: Could not determine output format, please set it "
+"explicitly using '--format='."
+msgstr ""
+"Ne eblas konverti dosieron: Ne eblas determini eligan formon; bonvolu "
+"eksplici ĝin per '--format='."
 
 #: tools/ascli-actions-mdata.c:434
 #, c-format
@@ -1966,13 +2510,21 @@ msgid "Version"
 msgstr "Versio"
 
 #: tools/ascli-actions-mdata.c:463
-msgid "You need to give an AppStream software component type to generate a template. Possible values are:"
-msgstr "Vi devas specifi tipon de programa komponanto laŭ AppStream por fari ŝablonon. Jen eblaj tipoj:"
+msgid ""
+"You need to give an AppStream software component type to generate a "
+"template. Possible values are:"
+msgstr ""
+"Vi devas specifi tipon de programa komponanto laŭ AppStream por fari "
+"ŝablonon. Jen eblaj tipoj:"
 
 #: tools/ascli-actions-mdata.c:465
 #, c-format
-msgid "The software component type '%s' is not valid in AppStream. Possible values are:"
-msgstr "La tipo de programa komponanto '%s' ne validas laŭ AppStream. Jen validaj tipoj:"
+msgid ""
+"The software component type '%s' is not valid in AppStream. Possible values "
+"are:"
+msgstr ""
+"La tipo de programa komponanto '%s' ne validas laŭ AppStream. Jen validaj "
+"tipoj:"
 
 #: tools/ascli-actions-mdata.c:483
 #, c-format
@@ -2058,8 +2610,10 @@ msgid "You need to specify a metainfo file as input."
 msgstr "Vi devas specifi metainforman dosieron kiel enigon."
 
 #: tools/ascli-actions-misc.c:188
-msgid "You need to specify a desktop-entry file to create or augment as output."
-msgstr "Vi devas specifi kreotan aŭ modifotan dosieron desktop-entry kiel eligon."
+msgid ""
+"You need to specify a desktop-entry file to create or augment as output."
+msgstr ""
+"Vi devas specifi kreotan aŭ modifotan dosieron desktop-entry kiel eligon."
 
 #: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
 #: tools/ascli-actions-misc.c:515
@@ -2084,11 +2638,17 @@ msgstr "Kreante novan dosieron desktop-entry '%s' per datenoj de '%s'"
 
 #: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr "Neniu nomo de stoka ikono estis donita en la metainforma dosiero. Ne eblas daŭrigi."
+msgstr ""
+"Neniu nomo de stoka ikono estis donita en la metainforma dosiero. Ne eblas "
+"daŭrigi."
 
 #: tools/ascli-actions-misc.c:306
-msgid "No provided binary specified in metainfo file, and no exec command specified via '--exec'. Can not create 'Exec=' key."
-msgstr "Neniu disponigita ruleblaĵo estas specifita de la metainforma dosiero, nek rulota komando per '--exec'. Ne eblas krei ŝlosilon 'Exec='."
+msgid ""
+"No provided binary specified in metainfo file, and no exec command specified "
+"via '--exec'. Can not create 'Exec=' key."
+msgstr ""
+"Neniu disponigita ruleblaĵo estas specifita de la metainforma dosiero, nek "
+"rulota komando per '--exec'. Ne eblas krei ŝlosilon 'Exec='."
 
 #: tools/ascli-actions-misc.c:370
 #, c-format
@@ -2100,24 +2660,33 @@ msgid "You need to specify a NEWS file as input."
 msgstr "Vi devas specifi NEWS-dosieron kiel enigon."
 
 #: tools/ascli-actions-misc.c:397
-msgid "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr "Vi devas specifi modifotan metainformana dosieron aŭ '-' por eligi al ĉefeligujo."
+msgid ""
+"You need to specify a metainfo file to augment, or '-' to print to stdout."
+msgstr ""
+"Vi devas specifi modifotan metainformana dosieron aŭ '-' por eligi al "
+"ĉefeligujo."
 
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr "Ne specifiĝis eliga dosiernomo; tial rekte modifante metainforman dosieron."
+msgstr ""
+"Ne specifiĝis eliga dosiernomo; tial rekte modifante metainforman dosieron."
 
 #: tools/ascli-actions-misc.c:509
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "Vi devas specifi NEWS-dosieron kiel eligon aŭ '-' por eligi al ĉefeligujo."
+msgstr ""
+"Vi devas specifi NEWS-dosieron kiel eligon aŭ '-' por eligi al ĉefeligujo."
 
 #: tools/ascli-actions-misc.c:540
 msgid "You need to specify a NEWS format to write the output in."
 msgstr "Vi devas specifi formon de skribota NEWS-dosiero."
 
 #: tools/ascli-actions-pkgmgr.c:53
-msgid "No suitable package manager CLI found. Please make sure that e.g. \"pkcon\" (part of PackageKit) is available."
-msgstr "Troviĝis neniu taŭga komandlinia pakadministrilo. Bonvolu certigi, ke ekz. \"pkcon\" (parto de PackageKit) disponeblas."
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
+msgstr ""
+"Troviĝis neniu taŭga komandlinia pakadministrilo. Bonvolu certigi, ke ekz. "
+"\"pkcon\" (parto de PackageKit) disponeblas."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -2179,80 +2748,88 @@ msgstr "Validigo malsukcesis: %s"
 
 #: tools/ascli-actions-validate.c:368 tools/ascli-actions-validate.c:497
 #, c-format
-msgid "The validator can not create reports in the '%s' format. You may select 'yaml' or 'text' instead."
-msgstr "La validigilo ne povas krei raportojn de la formo '%s'. Bonvolu elekti aŭ la formon 'yaml' aŭ la formon 'text'."
+msgid ""
+"The validator can not create reports in the '%s' format. You may select "
+"'yaml' or 'text' instead."
+msgstr ""
+"La validigilo ne povas krei raportojn de la formo '%s'. Bonvolu elekti aŭ la "
+"formon 'yaml' aŭ la formon 'text'."
 
 #: tools/ascli-actions-validate.c:390 tools/ascli-actions-validate.c:484
 msgid "You need to specify a root directory to start validation!"
 msgstr "Vi devas specifi radikan dosierujon por ekvalidigi!"
 
-#: tools/ascli-utils.c:267
+#: tools/ascli-utils.c:266
 msgid "Identifier"
 msgstr "Identigilo"
 
-#: tools/ascli-utils.c:269
+#: tools/ascli-utils.c:268
 msgid "Internal ID"
 msgstr "Interna Identigilo"
 
-#: tools/ascli-utils.c:270
+#: tools/ascli-utils.c:269
 msgid "Name"
 msgstr "Nomo"
 
-#: tools/ascli-utils.c:271
+#: tools/ascli-utils.c:270
 msgid "Summary"
 msgstr "Resumo"
 
-#: tools/ascli-utils.c:272
+#: tools/ascli-utils.c:271
 msgid "Package"
 msgstr "Pako"
 
-#: tools/ascli-utils.c:273
+#: tools/ascli-utils.c:272
 msgid "Bundle"
 msgstr "Fasko"
 
-#: tools/ascli-utils.c:274
+#: tools/ascli-utils.c:273
 msgid "Homepage"
 msgstr "Hejmpaĝo"
 
-#: tools/ascli-utils.c:275
+#: tools/ascli-utils.c:274
 msgid "Icon"
 msgstr "Ikono"
 
 #. developer name
-#: tools/ascli-utils.c:295
+#: tools/ascli-utils.c:294
 msgid "Developer"
 msgstr "Programisto"
 
-#: tools/ascli-utils.c:301
+#: tools/ascli-utils.c:300
 msgid "Extends"
 msgstr "Etendas"
 
-#: tools/ascli-utils.c:307
+#: tools/ascli-utils.c:306
 msgid "Description"
 msgstr "Priskribo"
 
-#: tools/ascli-utils.c:327
+#: tools/ascli-utils.c:326
 msgid "Default Screenshot URL"
 msgstr "Apriora adreso de ekrankopio"
 
 #. project group
-#: tools/ascli-utils.c:334
+#: tools/ascli-utils.c:333
 msgid "Project Group"
 msgstr "Grupo de Projekto"
 
 #. license
-#: tools/ascli-utils.c:337
+#: tools/ascli-utils.c:336
 msgid "License"
 msgstr "Permesilo"
 
-#: tools/ascli-utils.c:343
+#: tools/ascli-utils.c:342
 msgid "Categories"
 msgstr "Kategorioj"
 
-#: tools/ascli-utils.c:351
+#: tools/ascli-utils.c:350
 msgid "Compulsory for"
 msgstr "Deviga por"
 
-#: tools/ascli-utils.c:379
+#: tools/ascli-utils.c:378
 msgid "Provided Items"
 msgstr "Provizitaj Eroj"
+
+#, c-format
+#~ msgid "Unable to open new cache file: %s"
+#~ msgstr "Ne eblas malfermi novan kaŝmemoran dosieron: %s"
