@@ -202,9 +202,9 @@ main (int argc, char **argv)
 	}
 
 	datadir = argv[1];
-	g_assert (datadir != NULL);
+	g_assert_nonnull (datadir);
 	datadir = g_build_filename (datadir, "samples", NULL);
-	g_assert (g_file_test (datadir, G_FILE_TEST_EXISTS) != FALSE);
+	g_assert_true (g_file_test (datadir, G_FILE_TEST_EXISTS));
 
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);

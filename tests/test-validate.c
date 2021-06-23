@@ -272,9 +272,9 @@ main (int argc, char **argv)
 		return 1;
 	}
 
-	g_assert (argv[1] != NULL);
+	g_assert_nonnull (argv[1]);
 	datadir = g_build_filename (argv[1], "samples", NULL);
-	g_assert (g_file_test (datadir, G_FILE_TEST_EXISTS) != FALSE);
+	g_assert_true (g_file_test (datadir, G_FILE_TEST_EXISTS));
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	g_test_init (&argc, &argv, NULL);

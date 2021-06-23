@@ -142,7 +142,7 @@ test_basic (void)
 
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
-		g_assert (as_component_is_valid (cpt));
+		g_assert_true (as_component_is_valid (cpt));
 
 		if (g_strcmp0 (as_component_get_name (cpt), "I Have No Tomatoes") == 0)
 			cpt_tomatoes = cpt;
@@ -399,7 +399,7 @@ test_yamlwrite_misc (void)
 	resdata = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_YAML, &error);
 	g_assert_no_error (error);
 
-	g_assert (as_yaml_test_compare_yaml (resdata, expected_yaml));
+	g_assert_true (as_yaml_test_compare_yaml (resdata, expected_yaml));
 }
 
 /**
@@ -587,7 +587,7 @@ test_yaml_write_simple (void)
 
 	/* test collection serialization */
 	res = as_yaml_test_serialize (cpt);
-	g_assert (as_yaml_test_compare_yaml (res, yamldata_simple_fields));
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_simple_fields));
 }
 
 /**
@@ -676,7 +676,7 @@ test_yaml_write_provides (void)
 
 	/* test collection serialization */
 	res = as_yaml_test_serialize (cpt);
-	g_assert (as_yaml_test_compare_yaml (res, expected_prov_yaml));
+	g_assert_true (as_yaml_test_compare_yaml (res, expected_prov_yaml));
 }
 
 /**
@@ -716,7 +716,7 @@ test_yaml_read_provides (void)
 	g_assert_cmpint (provides->len, ==, 5);
 
 	prov = AS_PROVIDED (g_ptr_array_index (provides, 0));
-	g_assert (as_provided_get_kind (prov) == AS_PROVIDED_KIND_MIMETYPE);
+	g_assert_true (as_provided_get_kind (prov) == AS_PROVIDED_KIND_MIMETYPE);
 	cpt_items = as_provided_get_items (prov);
 	g_assert_cmpint (cpt_items->len, ==, 3);
 
@@ -725,26 +725,26 @@ test_yaml_read_provides (void)
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 2), ==, "image/png");
 
 	prov = AS_PROVIDED (g_ptr_array_index (provides, 1));
-	g_assert (as_provided_get_kind (prov) == AS_PROVIDED_KIND_BINARY);
+	g_assert_true (as_provided_get_kind (prov) == AS_PROVIDED_KIND_BINARY);
 	cpt_items = as_provided_get_items (prov);
 	g_assert_cmpint (cpt_items->len, ==, 2);
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 0), ==, "foobar");
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 1), ==, "foobar-viewer");
 
 	prov = AS_PROVIDED (g_ptr_array_index (provides, 2));
-	g_assert (as_provided_get_kind (prov) == AS_PROVIDED_KIND_DBUS_SYSTEM);
+	g_assert_true (as_provided_get_kind (prov) == AS_PROVIDED_KIND_DBUS_SYSTEM);
 	cpt_items = as_provided_get_items (prov);
 	g_assert_cmpint (cpt_items->len, ==, 1);
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 0), ==, "org.example.ProvidesTest.Modify");
 
 	prov = AS_PROVIDED (g_ptr_array_index (provides, 3));
-	g_assert (as_provided_get_kind (prov) == AS_PROVIDED_KIND_FIRMWARE_RUNTIME);
+	g_assert_true (as_provided_get_kind (prov) == AS_PROVIDED_KIND_FIRMWARE_RUNTIME);
 	cpt_items = as_provided_get_items (prov);
 	g_assert_cmpint (cpt_items->len, ==, 1);
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 0), ==, "ipw2200-bss.fw");
 
 	prov = AS_PROVIDED (g_ptr_array_index (provides, 4));
-	g_assert (as_provided_get_kind (prov) == AS_PROVIDED_KIND_FIRMWARE_FLASHED);
+	g_assert_true (as_provided_get_kind (prov) == AS_PROVIDED_KIND_FIRMWARE_FLASHED);
 	cpt_items = as_provided_get_items (prov);
 	g_assert_cmpint (cpt_items->len, ==, 1);
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 0), ==, "84f40464-9272-4ef7-9399-cd95f12da696");
@@ -790,7 +790,7 @@ test_yaml_write_suggests (void)
 
 	/* test collection serialization */
 	res = as_yaml_test_serialize (cpt);
-	g_assert (as_yaml_test_compare_yaml (res, expected_sug_yaml));
+	g_assert_true (as_yaml_test_compare_yaml (res, expected_sug_yaml));
 }
 
 /**
@@ -823,7 +823,7 @@ test_yaml_read_suggests (void)
 	g_assert_cmpint (suggestions->len, ==, 2);
 
 	sug = AS_SUGGESTED (g_ptr_array_index (suggestions, 0));
-	g_assert (as_suggested_get_kind (sug) == AS_SUGGESTED_KIND_UPSTREAM);
+	g_assert_true (as_suggested_get_kind (sug) == AS_SUGGESTED_KIND_UPSTREAM);
 	cpt_ids = as_suggested_get_ids (sug);
 	g_assert_cmpint (cpt_ids->len, ==, 3);
 
@@ -832,7 +832,7 @@ test_yaml_read_suggests (void)
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 2), ==, "org.example.test2");
 
 	sug = AS_SUGGESTED (g_ptr_array_index (suggestions, 1));
-	g_assert (as_suggested_get_kind (sug) == AS_SUGGESTED_KIND_HEURISTIC);
+	g_assert_true (as_suggested_get_kind (sug) == AS_SUGGESTED_KIND_HEURISTIC);
 	cpt_ids = as_suggested_get_ids (sug);
 	g_assert_cmpint (cpt_ids->len, ==, 1);
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 0), ==, "org.example.test3");
@@ -866,7 +866,7 @@ test_yaml_write_custom (void)
 
 	/* test collection serialization */
 	res = as_yaml_test_serialize (cpt);
-	g_assert (as_yaml_test_compare_yaml (res, yamldata_custom_field));
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_custom_field));
 }
 
 /**
@@ -921,7 +921,7 @@ test_yaml_write_content_rating (void)
 
 	/* test collection serialization */
 	res = as_yaml_test_serialize (cpt);
-	g_assert (as_yaml_test_compare_yaml (res, yamldata_content_rating_field));
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_content_rating_field));
 }
 
 /**
@@ -979,7 +979,7 @@ test_yaml_write_launchable (void)
 
 	/* test collection serialization */
 	res = as_yaml_test_serialize (cpt);
-	g_assert (as_yaml_test_compare_yaml (res, yamldata_launchable_field));
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_launchable_field));
 }
 
 /**
@@ -1087,7 +1087,7 @@ test_yaml_write_requires_recommends (void)
 
 	/* test collection serialization */
 	res = as_yaml_test_serialize (cpt);
-	g_assert (as_yaml_test_compare_yaml (res, yamldata_requires_recommends_field));
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_requires_recommends_field));
 }
 
 /**
@@ -1206,7 +1206,7 @@ test_yaml_write_agreements (void)
 
 	/* test collection serialization */
 	res = as_yaml_test_serialize (cpt);
-	g_assert (as_yaml_test_compare_yaml (res, yamldata_agreements));
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_agreements));
 }
 
 /**
@@ -1337,7 +1337,7 @@ test_yaml_write_screenshots (void)
 
 	/* test collection serialization */
 	res = as_yaml_test_serialize (cpt);
-	g_assert (as_yaml_test_compare_yaml (res, yamldata_screenshots));
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_screenshots));
 }
 
 /**
@@ -1548,7 +1548,7 @@ test_yaml_write_releases (void)
 
 	/* test collection serialization */
 	res = as_yaml_test_serialize (cpt);
-	g_assert (as_yaml_test_compare_yaml (res, yamldata_releases_field));
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_releases_field));
 }
 
 /**
@@ -1637,9 +1637,9 @@ main (int argc, char **argv)
 	}
 
 	datadir = argv[1];
-	g_assert (datadir != NULL);
+	g_assert_nonnull (datadir);
 	datadir = g_build_filename (datadir, "samples", NULL);
-	g_assert (g_file_test (datadir, G_FILE_TEST_EXISTS) != FALSE);
+	g_assert_true (g_file_test (datadir, G_FILE_TEST_EXISTS));
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	g_test_init (&argc, &argv, NULL);

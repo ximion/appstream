@@ -141,7 +141,7 @@ as_assert_component_lists_equal (GPtrArray *cpts_a, GPtrArray *cpts_b)
 	cpts_b_xml = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
-	g_assert (as_test_compare_lines (cpts_a_xml, cpts_b_xml));
+	g_assert_true (as_test_compare_lines (cpts_a_xml, cpts_b_xml));
 }
 
 /**
@@ -214,7 +214,7 @@ test_cache ()
 
 	xmldata_postcache = as_metadata_components_to_collection (mdata, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
-	g_assert (as_test_compare_lines (xmldata_precache, xmldata_postcache));
+	g_assert_true (as_test_compare_lines (xmldata_precache, xmldata_postcache));
 
 	/* load an "modify" read-only cache */
 	cache = as_cache_new ();
@@ -231,7 +231,7 @@ test_cache ()
 
 	ret = as_cache_remove_by_data_id (cache, "system/package/os/org.inkscape.Inkscape/*", &error);
 	g_assert_no_error (error);
-	g_assert (ret);
+	g_assert_true (ret);
 
 	ccpt = as_cache_get_component_by_data_id (cache, "system/package/os/org.inkscape.Inkscape/*", &error);
 	g_assert_no_error (error);
@@ -350,7 +350,7 @@ test_pool_read ()
 	rel = AS_RELEASE (g_ptr_array_index (rels, 0));
 	g_assert_cmpstr  (as_release_get_version (rel), ==, "1.6.1");
 	g_assert_cmpuint (as_release_get_timestamp (rel), ==, 123465888);
-	g_assert (as_release_get_urgency (rel) == AS_URGENCY_KIND_LOW);
+	g_assert_true (as_release_get_urgency (rel) == AS_URGENCY_KIND_LOW);
 
 	artifacts = as_release_get_artifacts (rel);
 	g_assert_cmpint (artifacts->len, ==, 2);
@@ -628,7 +628,7 @@ test_pool_empty ()
 	ret = as_pool_add_component (pool, cpt, &error);
 	g_object_unref (cpt);
 	g_assert_no_error (error);
-	g_assert (ret);
+	g_assert_true (ret);
 
 	/* try to retrieve the dummy component */
 	result = as_pool_search (pool, "foo");
@@ -652,9 +652,9 @@ main (int argc, char **argv)
 	}
 
 	datadir = argv[1];
-	g_assert (datadir != NULL);
+	g_assert_nonnull (datadir);
 	datadir = g_build_filename (datadir, "samples", NULL);
-	g_assert (g_file_test (datadir, G_FILE_TEST_EXISTS) != FALSE);
+	g_assert_true (g_file_test (datadir, G_FILE_TEST_EXISTS));
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	g_test_init (&argc, &argv, NULL);

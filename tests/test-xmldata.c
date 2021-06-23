@@ -123,10 +123,10 @@ test_appstream_parser_legacy ()
 	cpt = as_metadata_get_component (metad);
 	g_object_unref (file);
 	g_assert_no_error (error);
-	g_assert (cpt != NULL);
+	g_assert_true (cpt != NULL);
 
 	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Application manager for GNOME");
-	g_assert (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP);
+	g_assert_true (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP);
 
 	screenshots = as_component_get_screenshots (cpt);
 	g_assert_cmpint (screenshots->len, ==, 5);
@@ -162,9 +162,9 @@ test_appstream_parser_locale ()
 	as_metadata_parse_file (metad, file, AS_FORMAT_KIND_XML, &error);
 	cpt = as_metadata_get_component (metad);
 	g_assert_no_error (error);
-	g_assert (cpt != NULL);
+	g_assert_true (cpt != NULL);
 
-	g_assert (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP);
+	g_assert_true (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP);
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Feuerfuchs");
 	as_component_set_active_locale (cpt, "C");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Firefox");
@@ -255,7 +255,7 @@ test_appstream_write_locale ()
 	as_metadata_parse_file (metad, file, AS_FORMAT_KIND_XML, &error);
 	cpt = as_metadata_get_component (metad);
 	g_assert_no_error (error);
-	g_assert (cpt != NULL);
+	g_assert_true (cpt != NULL);
 	g_object_unref (file);
 
 	as_component_sort_values (cpt);
@@ -265,7 +265,7 @@ test_appstream_write_locale ()
 						 &error);
 	g_assert_no_error (error);
 
-	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML));
+	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML));
 	g_free (tmp);
 
 	g_object_unref (metad);
@@ -429,7 +429,7 @@ test_appstream_write_description ()
 	as_metadata_add_component (metad, cpt);
 
 	tmp = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, NULL);
-	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML));
+	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML));
 	g_free (tmp);
 
 	/* add localization */
@@ -440,12 +440,12 @@ test_appstream_write_description ()
 
 	/* test localization */
 	tmp = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, NULL);
-	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML_LOCALIZED));
+	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML_LOCALIZED));
 	g_free (tmp);
 
 	/* test collection-xml conversion */
 	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, NULL);
-	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML_DISTRO));
+	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML_DISTRO));
 	g_free (tmp);
 
 	/* test collection XMl -> metainfo XML */
@@ -454,7 +454,7 @@ test_appstream_write_description ()
 	as_metadata_parse (metad, EXPECTED_XML_DISTRO, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 	tmp = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, NULL);
-	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML_LOCALIZED));
+	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML_LOCALIZED));
 	g_free (tmp);
 
 	/* test metainfo XMl -> collection XML */
@@ -463,7 +463,7 @@ test_appstream_write_description ()
 	as_metadata_parse (metad, EXPECTED_XML_LOCALIZED, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, NULL);
-	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML_DISTRO));
+	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML_DISTRO));
 	g_free (tmp);
 }
 
@@ -573,7 +573,7 @@ test_appstream_read_description (void)
 	cpt = as_xml_test_read_data (xmldata_desc_mi1, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DescTestMI-1");
 
-	g_assert (as_test_compare_lines (as_component_get_description (cpt),
+	g_assert_true (as_test_compare_lines (as_component_get_description (cpt),
 					 "<p>Agenda is a simple, slick, <em>speedy</em> and no-nonsense task manager. Use it to keep track of the tasks that matter most.</p>\n"
 					 "<p>This paragraph makes use of <code>code markup</code>.</p>\n"
 					 "<ul>\n"
@@ -641,7 +641,7 @@ test_xml_write_simple (void)
 	as_component_set_name_variant_suffix (cpt, "Generic", "C");
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_xml_test_compare_xml (res, xmldata_simple));
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_simple));
 }
 
 /**
@@ -719,7 +719,7 @@ test_xml_write_languages (void)
 	as_component_add_language (cpt, "en_GB", 98);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_xml_test_compare_xml (res, expected_lang_xml));
+	g_assert_true (as_xml_test_compare_xml (res, expected_lang_xml));
 }
 
 /**
@@ -783,7 +783,7 @@ test_xml_write_provides (void)
 	as_component_add_provided (cpt, prov_firmware_flashed);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_xml_test_compare_xml (res, expected_prov_xml));
+	g_assert_true (as_xml_test_compare_xml (res, expected_prov_xml));
 }
 
 /**
@@ -833,12 +833,12 @@ test_xml_write_suggests (void)
 
 	/* test metainfo serialization */
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_xml_test_compare_xml (res, expected_sug_xml_mi));
+	g_assert_true (as_xml_test_compare_xml (res, expected_sug_xml_mi));
 	g_free (res);
 
 	/* test collection serialization */
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_COLLECTION);
-	g_assert (as_xml_test_compare_xml (res, expected_sug_xml_coll));
+	g_assert_true (as_xml_test_compare_xml (res, expected_sug_xml_coll));
 }
 
 static const gchar *xmldata_custom = "<component>\n"
@@ -885,7 +885,7 @@ test_xml_write_custom (void)
 	as_component_insert_custom_value (cpt, NULL, "dummy");
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_xml_test_compare_xml (res, xmldata_custom));
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_custom));
 }
 
 static const gchar *xmldata_content_rating = "<component>\n"
@@ -942,7 +942,7 @@ test_xml_write_content_rating (void)
 	as_component_add_content_rating (cpt, rating);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_xml_test_compare_xml (res, xmldata_content_rating));
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_content_rating));
 }
 
 /* Test that parsing an empty content rating correctly returns `none` as the
@@ -1027,7 +1027,7 @@ test_xml_write_launchable (void)
 	as_component_add_launchable (cpt, launch);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_xml_test_compare_xml (res, xmldata_launchable));
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_launchable));
 }
 
 /**
@@ -1139,7 +1139,7 @@ test_appstream_write_metainfo_to_collection (void)
 	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
 
 	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, NULL);
-	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML_COLL));
+	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML_COLL));
 	g_free (tmp);
 }
 
@@ -1395,7 +1395,7 @@ test_xml_write_screenshots (void)
 	as_component_add_screenshot (cpt, scr3);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_xml_test_compare_xml (res, xmldata_screenshots));
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_screenshots));
 }
 
 
@@ -1543,7 +1543,7 @@ test_xml_write_recommends_requires (void)
 	as_component_add_relation (cpt, dl_relation2);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_xml_test_compare_xml (res, xmldata_recommends_requires));
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_recommends_requires));
 }
 
 
@@ -1624,7 +1624,7 @@ test_xml_write_agreements (void)
 	as_component_add_agreement (cpt, agreement);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_xml_test_compare_xml (res, xmldata_agreements));
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_agreements));
 }
 
 static const gchar *xmldata_releases =  "<component>\n"
@@ -1804,7 +1804,7 @@ test_xml_write_releases (void)
 	as_component_add_release (cpt, rel);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_xml_test_compare_xml (res, xmldata_releases));
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_releases));
 }
 
 /**
@@ -1901,7 +1901,7 @@ test_xml_rw_reviews (void)
 
 	/* validate */
 	g_assert_cmpint (as_review_get_priority (review), ==, 5);
-	g_assert (as_review_get_date (review) != NULL);
+	g_assert_true (as_review_get_date (review) != NULL);
 	g_assert_cmpstr (as_review_get_id (review), ==, "17");
 	g_assert_cmpstr (as_review_get_version (review), ==, "1.2.3");
 	g_assert_cmpstr (as_review_get_reviewer_id (review), ==, "deadbeef");
@@ -1913,7 +1913,7 @@ test_xml_rw_reviews (void)
 
 	/* write */
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_xml_test_compare_xml (res, xmldata_reviews));
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_reviews));
 }
 
 /**
@@ -1930,9 +1930,9 @@ main (int argc, char **argv)
 	}
 
 	datadir = argv[1];
-	g_assert (datadir != NULL);
+	g_assert_nonnull (datadir);
 	datadir = g_build_filename (datadir, "samples", NULL);
-	g_assert (g_file_test (datadir, G_FILE_TEST_EXISTS) != FALSE);
+	g_assert_true (g_file_test (datadir, G_FILE_TEST_EXISTS));
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	g_test_init (&argc, &argv, NULL);

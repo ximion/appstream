@@ -99,14 +99,14 @@ test_readwrite_yaml_news ()
 	tmp = as_releases_to_metainfo_xml_chunk (releases, &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (tmp);
-	g_assert (as_test_compare_lines (tmp, expected_xml_releases_data));
+	g_assert_true (as_test_compare_lines (tmp, expected_xml_releases_data));
 	g_free (tmp);
 
 	/* write */
 	ret = as_releases_to_news_data (releases, AS_NEWS_FORMAT_KIND_YAML, &tmp, &error);
 	g_assert_no_error (error);
-	g_assert (ret);
-	g_assert (as_test_compare_lines (tmp, yaml_news_data));
+	g_assert_true (ret);
+	g_assert_true (as_test_compare_lines (tmp, yaml_news_data));
 	g_free (tmp);
 }
 
@@ -183,13 +183,13 @@ test_readwrite_text_news ()
 	tmp = as_releases_to_metainfo_xml_chunk (releases, &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (tmp);
-	g_assert (as_test_compare_lines (tmp, expected_xml_releases_data));
+	g_assert_true (as_test_compare_lines (tmp, expected_xml_releases_data));
 	g_free (tmp);
 
 	/* write */
 	as_releases_to_news_data (releases, AS_NEWS_FORMAT_KIND_TEXT, &tmp, &error);
 	g_assert_no_error (error);
-	g_assert (as_test_compare_lines (tmp, expected_generated_news_txt));
+	g_assert_true (as_test_compare_lines (tmp, expected_generated_news_txt));
 	g_free (tmp);
 }
 
@@ -219,9 +219,9 @@ main (int argc, char **argv)
 		return 1;
 	}
 
-	g_assert (argv[1] != NULL);
+	g_assert_nonnull (argv[1]);
 	datadir = g_build_filename (argv[1], "samples", NULL);
-	g_assert (g_file_test (datadir, G_FILE_TEST_EXISTS) != FALSE);
+	g_assert_true (g_file_test (datadir, G_FILE_TEST_EXISTS));
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	g_test_init (&argc, &argv, NULL);

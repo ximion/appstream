@@ -95,7 +95,7 @@ test_safe_assign ()
 	tmp = member1;
 	as_assign_string_safe (member1, member1);
 	g_assert_cmpstr (member1, ==, "Test A");
-	g_assert (tmp == member1);
+	g_assert_true (tmp == member1);
 
 	/* assign new literal */
 	tmp = member1;
@@ -106,7 +106,7 @@ test_safe_assign ()
 	tmp = member1;
 	as_assign_string_safe (member1, value1);
 	g_assert_cmpstr (member1, ==, "New Value");
-	g_assert (member1 != value1);
+	g_assert_true (member1 != value1);
 	g_assert_cmpstr (value1, ==, "New Value");
 
 	/* test PtrArray assignments */
@@ -146,7 +146,7 @@ test_simplemarkup ()
 
 	str = as_markup_convert_simple ("<p>Test!</p><p>Blah.</p><ul><li>A</li><li>B</li></ul><p>End.</p>", &error);
 	g_assert_no_error (error);
-	g_assert (g_strcmp0 (str, "Test!\n\nBlah.\n • A\n • B\n\nEnd.") == 0);
+	g_assert_true (g_strcmp0 (str, "Test!\n\nBlah.\n • A\n • B\n\nEnd.") == 0);
 	g_free (str);
 
 	str = as_markup_convert_simple ("<p>Paragraph using all allowed markup, "
@@ -158,7 +158,7 @@ test_simplemarkup ()
 					"</ul>"
 					"<p>Last paragraph.</p>", &error);
 	g_assert_no_error (error);
-	g_assert (g_strcmp0 (str, "Paragraph using all allowed markup, like an emphasis or some code.\n\n"
+	g_assert_true (g_strcmp0 (str, "Paragraph using all allowed markup, like an emphasis or some code.\n\n"
 				  "Second paragraph.\n"
 				  " • List item, emphasized\n"
 				  " • Item with a bit of code\n\n"
@@ -266,14 +266,14 @@ test_translation_fallback (void)
 static void
 test_locale_compat (void)
 {
-	g_assert (as_utils_locale_is_compatible ("de_DE", "de_DE"));
-	g_assert (!as_utils_locale_is_compatible ("de_DE", "en"));
-	g_assert (as_utils_locale_is_compatible ("de_DE", "de"));
-	g_assert (as_utils_locale_is_compatible ("ca_ES@valencia", "ca"));
-	g_assert (as_utils_locale_is_compatible ("ca@valencia", "ca"));
-	g_assert (!as_utils_locale_is_compatible ("ca@valencia", "de"));
-	g_assert (!as_utils_locale_is_compatible ("de_CH", "de_DE"));
-	g_assert (as_utils_locale_is_compatible ("de", "de_CH"));
+	g_assert_true (as_utils_locale_is_compatible ("de_DE", "de_DE"));
+	g_assert_true (!as_utils_locale_is_compatible ("de_DE", "en"));
+	g_assert_true (as_utils_locale_is_compatible ("de_DE", "de"));
+	g_assert_true (as_utils_locale_is_compatible ("ca_ES@valencia", "ca"));
+	g_assert_true (as_utils_locale_is_compatible ("ca@valencia", "ca"));
+	g_assert_true (!as_utils_locale_is_compatible ("ca@valencia", "de"));
+	g_assert_true (!as_utils_locale_is_compatible ("de_CH", "de_DE"));
+	g_assert_true (as_utils_locale_is_compatible ("de", "de_CH"));
 }
 
 /**
@@ -303,7 +303,7 @@ test_spdx (void)
 
 	/* invalid */
 	tok = as_spdx_license_tokenize (NULL);
-	g_assert (tok == NULL);
+	g_assert_true (tok == NULL);
 
 	/* random */
 	tok = as_spdx_license_tokenize ("Public Domain");
@@ -366,7 +366,7 @@ test_spdx (void)
 
 	/* invalid tokens */
 	tmp = as_spdx_license_detokenize (NULL);
-	g_assert (tmp == NULL);
+	g_assert_true (tmp == NULL);
 
 	/* leading brackets */
 	tok = as_spdx_license_tokenize ("(MPLv1.1 or LGPLv3+) and LGPLv3");
@@ -403,19 +403,19 @@ test_spdx (void)
 	g_free (tmp);
 
 	/* SPDX strings */
-	g_assert (as_is_spdx_license_expression ("CC0-1.0"));
-	g_assert (as_is_spdx_license_expression ("CC0"));
-	g_assert (as_is_spdx_license_expression ("LicenseRef-proprietary"));
-	g_assert (as_is_spdx_license_expression ("CC0-1.0 and GFDL-1.3"));
-	g_assert (as_is_spdx_license_expression ("CC0-1.0 AND GFDL-1.3"));
-	g_assert (as_is_spdx_license_expression ("CC-BY-SA-3.0+"));
-	g_assert (as_is_spdx_license_expression ("CC-BY-SA-3.0+ AND Zlib"));
-	g_assert (as_is_spdx_license_expression ("GPL-3.0-or-later WITH GCC-exception-3.1"));
-	g_assert (as_is_spdx_license_expression ("GPL-3.0-or-later WITH Font-exception-2.0 AND OFL-1.1"));
-	g_assert (as_is_spdx_license_expression ("NOASSERTION"));
-	g_assert (!as_is_spdx_license_expression ("CC0 dave"));
-	g_assert (!as_is_spdx_license_expression (""));
-	g_assert (!as_is_spdx_license_expression (NULL));
+	g_assert_true (as_is_spdx_license_expression ("CC0-1.0"));
+	g_assert_true (as_is_spdx_license_expression ("CC0"));
+	g_assert_true (as_is_spdx_license_expression ("LicenseRef-proprietary"));
+	g_assert_true (as_is_spdx_license_expression ("CC0-1.0 and GFDL-1.3"));
+	g_assert_true (as_is_spdx_license_expression ("CC0-1.0 AND GFDL-1.3"));
+	g_assert_true (as_is_spdx_license_expression ("CC-BY-SA-3.0+"));
+	g_assert_true (as_is_spdx_license_expression ("CC-BY-SA-3.0+ AND Zlib"));
+	g_assert_true (as_is_spdx_license_expression ("GPL-3.0-or-later WITH GCC-exception-3.1"));
+	g_assert_true (as_is_spdx_license_expression ("GPL-3.0-or-later WITH Font-exception-2.0 AND OFL-1.1"));
+	g_assert_true (as_is_spdx_license_expression ("NOASSERTION"));
+	g_assert_true (!as_is_spdx_license_expression ("CC0 dave"));
+	g_assert_true (!as_is_spdx_license_expression (""));
+	g_assert_true (!as_is_spdx_license_expression (NULL));
 
 	/* importing non-SPDX formats */
 	tmp = as_license_to_spdx_id ("CC0 and (Public Domain and GPLv3+ with exceptions)");
@@ -423,12 +423,12 @@ test_spdx (void)
 	g_free (tmp);
 
 	/* licenses suitable for metadata licensing */
-	g_assert (as_license_is_metadata_license ("CC0"));
-	g_assert (as_license_is_metadata_license ("CC0-1.0"));
-	g_assert (as_license_is_metadata_license ("0BSD"));
-	g_assert (as_license_is_metadata_license ("MIT AND FSFAP"));
-	g_assert (!as_license_is_metadata_license ("GPL-2.0 AND FSFAP"));
-	g_assert (as_license_is_metadata_license ("GPL-2.0+ OR GFDL-1.3-only"));
+	g_assert_true (as_license_is_metadata_license ("CC0"));
+	g_assert_true (as_license_is_metadata_license ("CC0-1.0"));
+	g_assert_true (as_license_is_metadata_license ("0BSD"));
+	g_assert_true (as_license_is_metadata_license ("MIT AND FSFAP"));
+	g_assert_true (!as_license_is_metadata_license ("GPL-2.0 AND FSFAP"));
+	g_assert_true (as_license_is_metadata_license ("GPL-2.0+ OR GFDL-1.3-only"));
 
 	/* check license URL generation */
 	tmp = as_get_license_url ("LGPL-2.0-or-later");
@@ -448,14 +448,14 @@ test_spdx (void)
 	g_free (tmp);
 
 	/* licenses are free-as-in-freedom */
-	g_assert (as_license_is_free_license ("CC0"));
-	g_assert (as_license_is_free_license ("GPL-2.0 AND FSFAP"));
-	g_assert (as_license_is_free_license ("OFL-1.1 OR (GPL-3.0-or-later WITH Font-exception-2.0)"));
-	g_assert (!as_license_is_free_license ("NOASSERTION"));
-	g_assert (!as_license_is_free_license ("LicenseRef-proprietary=https://example.com/mylicense.txt"));
-	g_assert (!as_license_is_free_license ("MIT AND LicenseRef-proprietary=https://example.com/lic.txt"));
-	g_assert (!as_license_is_free_license ("ADSL"));
-	g_assert (!as_license_is_free_license ("JSON AND GPL-3.0-or-later"));
+	g_assert_true (as_license_is_free_license ("CC0"));
+	g_assert_true (as_license_is_free_license ("GPL-2.0 AND FSFAP"));
+	g_assert_true (as_license_is_free_license ("OFL-1.1 OR (GPL-3.0-or-later WITH Font-exception-2.0)"));
+	g_assert_true (!as_license_is_free_license ("NOASSERTION"));
+	g_assert_true (!as_license_is_free_license ("LicenseRef-proprietary=https://example.com/mylicense.txt"));
+	g_assert_true (!as_license_is_free_license ("MIT AND LicenseRef-proprietary=https://example.com/lic.txt"));
+	g_assert_true (!as_license_is_free_license ("ADSL"));
+	g_assert_true (!as_license_is_free_license ("JSON AND GPL-3.0-or-later"));
 }
 
 /**
@@ -609,7 +609,7 @@ test_desktop_entry_convert ()
 
 	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
-	g_assert (as_test_compare_lines (tmp, expected_xml));
+	g_assert_true (as_test_compare_lines (tmp, expected_xml));
 	g_free (tmp);
 }
 
@@ -901,27 +901,27 @@ test_utils_data_id_hash (void)
 
 	/* get with exact key */
 	found = g_hash_table_lookup (hash, "*/*/*/org.gnome.Software.desktop/master");
-	g_assert (found != NULL);
+	g_assert_true (found != NULL);
 	found = g_hash_table_lookup (hash, "*/*/*/org.gnome.Software.desktop/stable");
-	g_assert (found != NULL);
+	g_assert_true (found != NULL);
 
 	/* get with more details specified */
 	found = g_hash_table_lookup (hash, "system/*/*/org.gnome.Software.desktop/master");
-	g_assert (found != NULL);
+	g_assert_true (found != NULL);
 	found = g_hash_table_lookup (hash, "system/*/*/org.gnome.Software.desktop/stable");
-	g_assert (found != NULL);
+	g_assert_true (found != NULL);
 
 	/* get with less details specified */
 	found = g_hash_table_lookup (hash, "*/*/*/org.gnome.Software.desktop/*");
-	g_assert (found != NULL);
+	g_assert_true (found != NULL);
 
 	/* different key */
 	found = g_hash_table_lookup (hash, "*/*/*/gimp.desktop/*");
-	g_assert (found == NULL);
+	g_assert_true (found == NULL);
 
 	/* different branch */
 	found = g_hash_table_lookup (hash, "*/*/*/org.gnome.Software.desktop/obsolete");
-	g_assert (found == NULL);
+	g_assert_true (found == NULL);
 
 	/* check hash function */
 	g_assert_cmpint (as_utils_data_id_hash ("*/*/*/gimp.desktop/master"), ==,
@@ -951,11 +951,11 @@ test_utils_data_id_hash_str (void)
 
 	/* get with exact key */
 	found = g_hash_table_lookup (hash, "dave");
-	g_assert (found != NULL);
+	g_assert_true (found != NULL);
 
 	/* different key */
 	found = g_hash_table_lookup (hash, "frank");
-	g_assert (found == NULL);
+	g_assert_true (found == NULL);
 }
 
 /**
@@ -989,9 +989,9 @@ main (int argc, char **argv)
 		return 1;
 	}
 
-	g_assert (argv[1] != NULL);
+	g_assert_nonnull (argv[1]);
 	datadir = g_build_filename (argv[1], "samples", NULL);
-	g_assert (g_file_test (datadir, G_FILE_TEST_EXISTS) != FALSE);
+	g_assert_true (g_file_test (datadir, G_FILE_TEST_EXISTS));
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	g_test_init (&argc, &argv, NULL);

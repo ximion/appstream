@@ -115,7 +115,7 @@ test_read_fontinfo ()
 	lang_list = asc_font_get_language_list (font);
 	i = 0;
 	for (GList *l = lang_list; l != NULL; l = l->next) {
-		g_assert (expected_langs[i] != NULL);
+		g_assert_true (expected_langs[i] != NULL);
 		g_assert_cmpstr (expected_langs[i], ==, l->data);
 		i++;
 	}
@@ -147,9 +147,9 @@ test_image_transform ()
 
 	/* check if our GdkPixbuf supports the minimum amount of image formats we need */
 	supported_fmts = asc_image_supported_format_names ();
-	g_assert (g_hash_table_contains (supported_fmts, "png"));
-	g_assert (g_hash_table_contains (supported_fmts, "svg"));
-	g_assert (g_hash_table_contains (supported_fmts, "jpeg"));
+	g_assert_true (g_hash_table_contains (supported_fmts, "png"));
+	g_assert_true (g_hash_table_contains (supported_fmts, "svg"));
+	g_assert_true (g_hash_table_contains (supported_fmts, "jpeg"));
 
 	sample_img_fname = g_build_filename (datadir, "appstream-logo.png", NULL);
 
@@ -175,7 +175,7 @@ test_image_transform ()
 				      ASC_IMAGE_SAVE_FLAG_NONE,
 				      &error);
 	g_assert_no_error (error);
-	g_assert (ret);
+	g_assert_true (ret);
 
 	g_object_unref (image);
 	image = NULL;
@@ -198,7 +198,7 @@ test_image_transform ()
 				      ASC_IMAGE_SAVE_FLAG_NONE,
 				      &error);
 	g_assert_no_error (error);
-	g_assert (ret);
+	g_assert_true (ret);
 }
 
 /**
@@ -273,13 +273,13 @@ test_compose_hints ()
 	g_assert_cmpstr (asc_hint_get_tag (hint), ==, "internal-unknown-tag");
 	g_assert_cmpint (asc_hint_get_severity (hint), ==, AS_ISSUE_SEVERITY_ERROR);
 	g_assert_cmpstr (asc_hint_get_explanation_template (hint), ==, "The given tag was unknown. This is a bug.");
-	g_assert (asc_hint_is_valid (hint));
-	g_assert (asc_hint_is_error (hint));
+	g_assert_true (asc_hint_is_valid (hint));
+	g_assert_true (asc_hint_is_error (hint));
 
 	asc_hint_set_tag (hint, "dev-testsuite-test");
 	asc_hint_set_severity (hint, AS_ISSUE_SEVERITY_INFO);
-	g_assert (asc_hint_is_valid (hint));
-	g_assert (!asc_hint_is_error (hint));
+	g_assert_true (asc_hint_is_valid (hint));
+	g_assert_true (!asc_hint_is_error (hint));
 
 	asc_hint_set_explanation_template (hint,
 					   "This is an explanation for {{name}} which contains {{amount}} placeholders, "
@@ -313,7 +313,7 @@ test_compose_result ()
 	cres = asc_result_new ();
 	ret = asc_result_add_component_with_string (cres, cpt, "<testdata>", &error);
 	g_assert_no_error (error);
-	g_assert (ret);
+	g_assert_true (ret);
 
 	ret = asc_result_add_hint (cres, cpt,
 				   "x-dev-testsuite-info",
@@ -534,9 +534,9 @@ main (int argc, char **argv)
 		return 1;
 	}
 
-	g_assert (argv[1] != NULL);
+	g_assert_nonnull (argv[1]);
 	datadir = g_build_filename (argv[1], "samples", "compose", NULL);
-	g_assert (g_file_test (datadir, G_FILE_TEST_EXISTS) != FALSE);
+	g_assert_true (g_file_test (datadir, G_FILE_TEST_EXISTS));
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	g_test_init (&argc, &argv, NULL);
