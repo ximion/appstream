@@ -35,7 +35,7 @@ namespace AppStream {
  * See http://www.freedesktop.org/wiki/Distributions/AppStream/ for details
  */
 class PoolPrivate;
-class APPSTREAMQT_EXPORT Pool : QObject{
+class APPSTREAMQT_EXPORT Pool : public QObject {
 Q_OBJECT
     public:
         Pool(QObject *parent = nullptr);
