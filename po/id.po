@@ -23,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: se7entime <se7entime@protonmail.com>\n"
+"Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -48,13 +48,7 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
-"AppStream adalah memungkinkan perangkat lunak memberika informasi tentang "
-"diri mereka ke sistem otomatis dan pengguna akhir sebelum benar-benar "
-"diinstal. Proyek AppStream menyediakan fasilitas untuk dengan mudah "
-"mengakses dan mengubah metadata ini, serta beberapa layanan tambahan untuk "
-"membangun pusat perangkat lunak yang kaya fitur dan aplikasi serupa yang "
-"memanfaatkan metadata perangkat lunak."
+msgstr "AppStream adalah memungkinkan perangkat lunak memberika informasi tentang diri mereka ke sistem otomatis dan pengguna akhir sebelum benar-benar diinstal. Proyek AppStream menyediakan fasilitas untuk dengan mudah mengakses dan mengubah metadata ini, serta beberapa layanan tambahan untuk membangun pusat perangkat lunak yang kaya fitur dan aplikasi serupa yang memanfaatkan metadata perangkat lunak."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -64,12 +58,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"<em>appstreamcli </em> memungkinkan pembacaan, penulisan, validasi, dan "
-"transformasi metadata XML atau YAML AppStream. Ini memberi akses ke pool "
-"metadata sistem untuk misalnya mengkueri perangkat lunak yang menyediakan "
-"MIME-type tertentu dan memasangnya dengan identifier komponen perangkat "
-"lunaknya."
+msgstr "<em>appstreamcli </em> memungkinkan pembacaan, penulisan, validasi, dan transformasi metadata XML atau YAML AppStream. Ini memberi akses ke pool metadata sistem untuk misalnya mengkueri perangkat lunak yang menyediakan MIME-type tertentu dan memasangnya dengan identifier komponen perangkat lunaknya."
 
 #: src/as-cache.c:909
 #, c-format
@@ -1336,9 +1325,7 @@ msgstr "Operasi perbandingan versi tidak valid pada item relasi. Hanya eq/ne/lt/
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
-"Item relasi memiliki kumpulan operasi perbandingan, tetapi tidak mendukung "
-"perbandingan apa pun."
+msgstr "Item relasi memiliki kumpulan operasi perbandingan, tetapi tidak mendukung perbandingan apa pun."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:288
@@ -1372,11 +1359,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
-"Item `display_length` ini berisi panjang tampilan yang tidak valid. Nilainya "
-"harus berupa string singkatan, atau nilai integer positif yang menunjukkan "
-"piksel logis. Silakan merujuk ke spesifikasi AppStream untuk informasi lebih "
-"lanjut tentang tag ini."
+msgstr "Item `display_length` ini berisi panjang tampilan yang tidak valid. Nilainya harus berupa string singkatan, atau nilai integer positif yang menunjukkan piksel logis. Silakan merujuk ke spesifikasi AppStream untuk informasi lebih lanjut tentang tag ini."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:315
@@ -1385,11 +1368,7 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
-"Properti `side` dari item `display_length` ini berisi nilai yang tidak "
-"valid. Itu harus `shortest` atau `longest`, atau tidak disetel untuk "
-"menyiratkan `shortest` untuk membuat nilai item merujuk ke sisi terpendek "
-"atau terpanjang dari tampilan."
+msgstr "Properti `side` dari item `display_length` ini berisi nilai yang tidak valid. Itu harus `shortest` atau `longest`, atau tidak disetel untuk menyiratkan `shortest` untuk membuat nilai item merujuk ke sisi terpendek atau terpanjang dari tampilan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:322
@@ -1748,9 +1727,7 @@ msgstr "Rilis tidak diurutkan dalam urutan versi terbaru ke terlama. Ini diperlu
 
 #: src/as-validator-issue-tag.h:665
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
-"Nilai yang ditetapkan sebagai urgensi rilis bukanlah nilai urgensi yang "
-"diketahui."
+msgstr "Nilai yang ditetapkan sebagai urgensi rilis bukanlah nilai urgensi yang diketahui."
 
 #: src/as-validator-issue-tag.h:670
 msgid "The value set as release type is invalid."
@@ -1761,9 +1738,7 @@ msgstr "Nilai yang ditetapkan sebagai jenis rilis tidak valid."
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr ""
-"Nilai yang ditetapkan sebagai jenis artefak tidak valid. Harus salah satu "
-"dari `source` atau `binary`."
+msgstr "Nilai yang ditetapkan sebagai jenis artefak tidak valid. Harus salah satu dari `source` atau `binary`."
 
 #: src/as-validator-issue-tag.h:681
 msgid "The value set as artifact bundle type is invalid."
@@ -1774,16 +1749,11 @@ msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
-"Triplet platform untuk rilis ini tidak valid. Ia harus dalam bentuk "
-"'arsitektur-oskernel-osenv' - lihat dokumentasi AppStream atau informasi "
-"tentang GNU triplets yang dinormalisasi untuk informasi lebih lanjut dan "
-"bidang yang valid."
+msgstr "Triplet platform untuk rilis ini tidak valid. Ia harus dalam bentuk 'arsitektur-oskernel-osenv' - lihat dokumentasi AppStream atau informasi tentang GNU triplets yang dinormalisasi untuk informasi lebih lanjut dan bidang yang valid."
 
 #: src/as-validator-issue-tag.h:693
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
-"Algoritma checksumming yang dipilih tidak didukung atau tidak diketahui."
+msgstr "Algoritma checksumming yang dipilih tidak didukung atau tidak diketahui."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:699
@@ -1794,9 +1764,7 @@ msgstr "Jenis ukuran tidak diketahui. Harus `download` atau `installed`."
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr ""
-"Nama file artefak harus berupa nama dasar file, bukan jalur (relatif atau "
-"absolut)."
+msgstr "Nama file artefak harus berupa nama dasar file, bukan jalur (relatif atau absolut)."
 
 #: src/as-validator-issue-tag.h:709
 msgid "The value set as release issue type is invalid."
@@ -1806,9 +1774,7 @@ msgstr "Nilai yang ditetapkan sebagai jenis rilis issue tidak valid."
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
-"Masalah ini ditandai pada kerentanan keamanan dengan nomor CVE, tetapi "
-"nilainya tidak terlihat seperti pengenal CVE yang valid."
+msgstr "Masalah ini ditandai pada kerentanan keamanan dengan nomor CVE, tetapi nilainya tidak terlihat seperti pengenal CVE yang valid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:720
@@ -1858,10 +1824,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
-"Tag `mimetypes` tingkat atas tidak digunakan lagi. Harap gunakan tag "
-"`mediatype` di blok `provides` untuk menunjukkan bahwa perangkat lunak Anda "
-"menyediakan pengendali media untuk jenis yang diberikan."
+msgstr "Tag `mimetypes` tingkat atas tidak digunakan lagi. Harap gunakan tag `mediatype` di blok `provides` untuk menunjukkan bahwa perangkat lunak Anda menyediakan pengendali media untuk jenis yang diberikan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:762
@@ -2217,9 +2180,7 @@ msgstr "Gunakan berkas .desktop yang diberikan untuk mengisi nilai-nilai dasar d
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Perintah ini menerima argumen posisional pilihan TIPE dan FILE, FILE adalah "
-"berkas tujuan tulis (atau \"-\" untuk keluaran standar)."
+msgstr "Perintah ini menerima argumen posisional pilihan TIPE dan FILE, FILE adalah berkas tujuan tulis (atau \"-\" untuk keluaran standar)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2288,9 +2249,7 @@ msgstr "Anda dapat menemukan informasi tentang opsi spesifik sub perintah dengan
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Perintah '%s' tidak diketahui. Jalankan '%s --help' untuk melihat daftar "
-"perintah yang tersedia."
+msgstr "Perintah '%s' tidak diketahui. Jalankan '%s --help' untuk melihat daftar perintah yang tersedia."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1123
@@ -2317,9 +2276,7 @@ msgstr "Dapatkan informasi tentang suatu komponen berdasarkan ID-nya."
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr ""
-"Dapatkan komponen yang menyediakan item yang diberikan. Membutuhkan tipe "
-"item (misalnya lib, bin, python3,…) dan nilai item sebagai parameter."
+msgstr "Dapatkan komponen yang menyediakan item yang diberikan. Membutuhkan tipe item (misalnya lib, bin, python3,…) dan nilai item sebagai parameter."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1159
@@ -2365,8 +2322,7 @@ msgstr "Tampilkan informasi status tentang metadata AppStream yang tersedia."
 #: tools/appstreamcli.c:1202
 msgid ""
 "Show information about the current operating system from the metadata index."
-msgstr ""
-"Menampilkan informasi tentang sistem operasi saat ini dari indeks metadata."
+msgstr "Menampilkan informasi tentang sistem operasi saat ini dari indeks metadata."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1207
