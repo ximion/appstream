@@ -20,16 +20,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-06-22 19:04+0200\n"
-"PO-Revision-Date: 2021-02-08 18:50+0000\n"
+"PO-Revision-Date: 2021-07-10 13:34+0000\n"
 "Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
-"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
-"translations/id/>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.8-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -47,10 +46,9 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
+msgstr "AppStream adalah memungkinkan perangkat lunak memberika informasi tentang diri mereka ke sistem otomatis dan pengguna akhir sebelum benar-benar diinstal. Proyek AppStream menyediakan fasilitas untuk dengan mudah mengakses dan mengubah metadata ini, serta beberapa layanan tambahan untuk membangun pusat perangkat lunak yang kaya fitur dan aplikasi serupa yang memanfaatkan metadata perangkat lunak."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
-#, fuzzy
 msgid ""
 "The <em>appstreamcli</em> command-line tool allows to read, write, and "
 "transform AppStream XML or YAML metadata as well as to validate it for "
@@ -58,11 +56,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Alat ini memungkinkan pembacaan, penulisan, validasi, dan transformasi "
-"metadata XML atau YAML AppStream. Ini memberi akses ke pool metadata sistem "
-"untuk misalnya mengkueri perangkat lunak yang menyediakan MIME-type tertentu "
-"dan memasangnya dengan identifier komponen perangkat lunaknya."
+msgstr "<em>appstreamcli </em> memungkinkan pembacaan, penulisan, validasi, dan transformasi metadata XML atau YAML AppStream. Ini memberi akses ke pool metadata sistem untuk misalnya mengkueri perangkat lunak yang menyediakan MIME-type tertentu dan memasangnya dengan identifier komponen perangkat lunaknya."
 
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
@@ -933,24 +927,24 @@ msgstr "Penggambaran grafis tentang perbudakan modern"
 #: src/as-curl.c:134
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr ""
+msgstr "Gagal mengunduh karena batas server"
 
 #: src/as-curl.c:141 src/as-curl.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to download file: %s"
-msgstr "Tidak dapat menginstal file metadata: %s"
+msgstr "Tidak dapat mengunduh berkas: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
 #: src/as-curl.c:157
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "URL tidak ditemukan di server."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:164
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Kode status tak terduga: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:247
@@ -1448,19 +1442,16 @@ msgstr ""
 "mendefinisikan operasi perbandingan."
 
 #: src/as-validator-issue-tag.h:276
-#, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are "
 "permitted."
-msgstr ""
-"Operasi perbandingan versi tidak valid pada item relasi. Hanya eq/ne/lt/gt/"
-"le/ge yang diizinkan."
+msgstr "Operasi perbandingan versi tidak valid pada item relasi. Hanya eq/ne/lt/gt/le/ge yang diizinkan."
 
 #: src/as-validator-issue-tag.h:281
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
+msgstr "Item relasi memiliki kumpulan operasi perbandingan, tetapi tidak mendukung perbandingan apa pun."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:287
@@ -1504,7 +1495,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
+msgstr "Item `display_length` ini berisi panjang tampilan yang tidak valid. Nilainya harus berupa string singkatan, atau nilai integer positif yang menunjukkan piksel logis. Silakan merujuk ke spesifikasi AppStream untuk informasi lebih lanjut tentang tag ini."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:314
@@ -1513,7 +1504,7 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
+msgstr "Properti `side` dari item `display_length` ini berisi nilai yang tidak valid. Itu harus `shortest` atau `longest`, atau tidak disetel untuk menyiratkan `shortest` untuk membuat nilai item merujuk ke sisi terpendek atau terpanjang dari tampilan."
 
 #: src/as-validator-issue-tag.h:320
 msgid ""
@@ -2064,7 +2055,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
+msgstr "Tag `mimetypes` tingkat atas tidak digunakan lagi. Harap gunakan tag `mediatype` di blok `provides` untuk menunjukkan bahwa perangkat lunak Anda menyediakan pengendali media untuk jenis yang diberikan."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2174,12 +2165,12 @@ msgstr "Paksakan penyegaran tembolok."
 #. TRANSLATORS: ascli flag description for: --user
 #: tools/appstream-cli.c:251
 msgid "Update the user-specific instead of the system-wide cache."
-msgstr ""
+msgstr "Perbarui cache khusus pengguna alih-alih cache seluruh sistem."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstream-cli.c:477
 msgid "Set the data origin for the installed metadata collection file."
-msgstr ""
+msgstr "Atur asal data untuk file pengumpulan metadata yang terinstal."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstream-cli.c:482
@@ -2221,9 +2212,7 @@ msgstr ""
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Perintah ini menerima argumen posisional pilihan TIPE dan BERKAS, BERKAS "
-"adalah berkas tujuan tulis (atau \"-\" untuk keluaran standar)."
+msgstr "Perintah ini menerima argumen posisional pilihan TIPE dan FILE, FILE adalah berkas tujuan tulis (atau \"-\" untuk keluaran standar)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstream-cli.c:734
@@ -2779,7 +2768,7 @@ msgstr "Anda perlu menyatakan suatu direktori akar untuk memulai validasi!"
 
 #: tools/ascli-utils.c:266
 msgid "Identifier"
-msgstr "Identifier"
+msgstr "Pengenal"
 
 #: tools/ascli-utils.c:268
 msgid "Internal ID"
