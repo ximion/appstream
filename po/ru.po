@@ -34,8 +34,8 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-06-22 19:04+0200\n"
-"PO-Revision-Date: 2021-07-18 02:14+0000\n"
-"Last-Translator: Yaroslav Malykh <yaroslav.malykh@gmail.com>\n"
+"PO-Revision-Date: 2021-07-18 22:35+0000\n"
+"Last-Translator: Anna Malinovskaia <tacitcoast@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -1943,7 +1943,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:658
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "Значение, установленное в качестве срочности выпуска, не является известным значением срочности."
 
 #: src/as-validator-issue-tag.h:663
 msgid "The value set as release type is invalid."
@@ -1965,7 +1965,7 @@ msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
+msgstr "Триплет платформы для этого выпуска недействителен. Он должен быть в форме \"architecture-oskernel-osenv\" - обратитесь к документации AppStream или информации о нормализованных триплетах GNU для получения дополнительной информации и допустимых полей."
 
 #: src/as-validator-issue-tag.h:686
 msgid "The selected checksumming algorithm is unsupported or unknown."
@@ -1980,11 +1980,11 @@ msgstr "Тип размера неизвестен. Должно быть \"за
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr ""
+msgstr "Имя файла артефакта должно быть базовым именем файла, а не (относительным или абсолютным) путем."
 
 #: src/as-validator-issue-tag.h:702
 msgid "The value set as release issue type is invalid."
-msgstr ""
+msgstr "Значение, установленное в качестве типа выпуска релиза, недействительно."
 
 #: src/as-validator-issue-tag.h:707
 msgid ""
@@ -2045,7 +2045,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
+msgstr "Топлеуровневый тег `mimetypes` устарел. Вместо этого используйте теги `mediatype` в блоке `provides`, чтобы указать, что ваше программное обеспечение предоставляет обработчик медиа для заданных типов."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2156,17 +2156,17 @@ msgstr "Принудительно обновить кэш."
 #. TRANSLATORS: ascli flag description for: --user
 #: tools/appstream-cli.c:251
 msgid "Update the user-specific instead of the system-wide cache."
-msgstr ""
+msgstr "Обновите пользовательский, а не общесистемный кэш."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstream-cli.c:477
 msgid "Set the data origin for the installed metadata collection file."
-msgstr ""
+msgstr "Установите источник данных для установленного файла сбора метаданных."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstream-cli.c:482
 msgid "Install the file for the current user, instead of globally."
-msgstr ""
+msgstr "Установите файл для текущего пользователя, а не глобально."
 
 #: tools/appstream-cli.c:631
 msgid ""
@@ -2199,13 +2199,10 @@ msgstr ""
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:731
-#, fuzzy
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Эта команда принимает опциональные аргументы TYPE и FILE, FILE является "
-"файлом для вывода (или \"-\" для стандартного потока вывода)."
+msgstr "Эта команда принимает необязательные позиционные аргументы TYPE и FILE, FILE - файл для записи (или \"-\" для стандартного вывода)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstream-cli.c:734
@@ -2216,7 +2213,7 @@ msgstr "TYPE должен быть типом программного комп�
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstream-cli.c:775
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
-msgstr ""
+msgstr "Используйте указанную строку для ключа \"Exec=\" файла записи рабочего стола."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:815
@@ -2243,7 +2240,7 @@ msgstr "Сгенерируйте вывод в выбранном формате
 #: tools/appstream-cli.c:931
 #, c-format
 msgid "(Alias: '%s')"
-msgstr ""
+msgstr "(Alias: '%s')"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:958
@@ -2260,12 +2257,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstream-cli.c:1027
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Запустите '%s --help' чтоб увидеть полный список доступных параметров "
-"командной строки."
+msgstr "Команда '%s' неизвестна. Выполните '%s --help' для получения списка доступных команд."
 
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:1051
@@ -2285,7 +2280,7 @@ msgstr "Не показывать цветной вывод."
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstream-cli.c:1065
 msgid "Enable profiling"
-msgstr ""
+msgstr "Включить профилирование"
 
 #. TRANSLATORS: `appstreamcli search` command description.
 #: tools/appstream-cli.c:1077
@@ -2302,7 +2297,7 @@ msgstr "Получить информацию о компоненте по ег�
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr ""
+msgstr "Получите компоненты, которые обеспечивают данный элемент. Требуется тип элемента (например, lib, bin, python3, ...) и значение элемента в качестве параметра."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstream-cli.c:1093
@@ -2350,7 +2345,7 @@ msgstr "Показать информацию о состоянии доступ
 #: tools/appstream-cli.c:1131
 msgid ""
 "Show information about the current operating system from the metadata index."
-msgstr ""
+msgstr "Отображение информации о текущей операционной системе из индекса метаданных."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstream-cli.c:1136
@@ -2377,9 +2372,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstream-cli.c:1157
-#, fuzzy
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr "Создайте файл XDG для входа в рабочий стол из файла metainfo."
+msgstr "Создайте файл записи рабочего стола из файла metainfo."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstream-cli.c:1162
@@ -2477,9 +2471,9 @@ msgid "You need to specify a metadata file."
 msgstr "Вам необходимо указать файл метаданных."
 
 #: tools/ascli-actions-mdata.c:320
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr "Не удалось создать входной файл рабочего стола: %s"
+msgstr "Не удалось установить файл метаданных: %s"
 
 #: tools/ascli-actions-mdata.c:340
 msgid "You need to specify an input and output file."
@@ -2500,14 +2494,13 @@ msgstr ""
 "пожалуйста, укажите его явно, используя \"--format=\"."
 
 #: tools/ascli-actions-mdata.c:434
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr "Не удаётся найти компоненту с идентификатором \"%s\"!"
+msgstr "Невозможно найти компонент операционной системы '%s'!"
 
 #: tools/ascli-actions-mdata.c:439
-#, fuzzy
 msgid "Version"
-msgstr "Версия: %s"
+msgstr "Версия"
 
 #: tools/ascli-actions-mdata.c:463
 msgid ""
@@ -2606,9 +2599,8 @@ msgid "Error while loading the metadata pool: %s"
 msgstr "Ошибка при загрузке пула метаданных: %s"
 
 #: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
-#, fuzzy
 msgid "You need to specify a metainfo file as input."
-msgstr "Вам необходимо указать файл метаданных."
+msgstr "Вам необходимо указать файл metainfo в качестве входных данных."
 
 #: tools/ascli-actions-misc.c:188
 msgid ""
@@ -2664,10 +2656,9 @@ msgid "You need to specify a NEWS file as input."
 msgstr "Вам необходимо указать файл НОВОСТЕЙ в качестве входных данных."
 
 #: tools/ascli-actions-misc.c:397
-#, fuzzy
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr "Вам необходимо указать файл метаданных."
+msgstr "Вам необходимо указать файл metainfo для дополнения или '-' для вывода в stdout."
 
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
@@ -2675,14 +2666,12 @@ msgstr ""
 "Имя выходного файла не указано, непосредственно изменяя файл метаинформации."
 
 #: tools/ascli-actions-misc.c:509
-#, fuzzy
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "Вам необходимо указать файл метаданных."
+msgstr "Вам необходимо указать файл NEWS в качестве выходного, или '-' для печати в stdout."
 
 #: tools/ascli-actions-misc.c:540
-#, fuzzy
 msgid "You need to specify a NEWS format to write the output in."
-msgstr "Вам необходимо указать входной и выходной файлы."
+msgstr "Вам необходимо указать формат NEWS для записи вывода."
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -2733,9 +2722,8 @@ msgid "pedantic: %lu"
 msgstr "строгие: %lu"
 
 #: tools/ascli-actions-validate.c:268 tools/ascli-actions-validate.c:342
-#, fuzzy
 msgid "You need to specify at least one file to validate!"
-msgstr "Вам необходимо указать файл для проверки!"
+msgstr "Вам необходимо указать хотя бы один файл для проверки!"
 
 #: tools/ascli-actions-validate.c:294 tools/ascli-actions-validate.c:435
 msgid "Validation was successful."
@@ -2770,7 +2758,7 @@ msgstr "Идентификатор"
 
 #: tools/ascli-utils.c:268
 msgid "Internal ID"
-msgstr ""
+msgstr "Внутренний ID"
 
 #: tools/ascli-utils.c:269
 msgid "Name"
