@@ -6,7 +6,7 @@
 # Serge Vylekzhanin <vylekzhanin@mail.ru>, 2014-2016
 # Igor <f2404@yandex.ru>, 2019.
 # A <yoyotax@protonmail.com>, 2020.
-# Yaroslav Malykh <yaroslav.malykh@gmail.com>, 2020.
+# Yaroslav Malykh <yaroslav.malykh@gmail.com>, 2020, 2021.
 # Allan Nordhøy <epost@anotheragency.no>, 2020.
 # Alex <theavganec@gmail.com>, 2020.
 # Alexander <ramzi7208@gmail.com>, 2020.
@@ -35,7 +35,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-06-22 19:04+0200\n"
 "PO-Revision-Date: 2021-07-18 02:14+0000\n"
-"Last-Translator: Shwady <pokhodnyak69@gmail.com>\n"
+"Last-Translator: Yaroslav Malykh <yaroslav.malykh@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -1538,7 +1538,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:335
 msgid "The component is missing an ID (<id/> tag)."
-msgstr "Отсутствует идентификатор компонента (тег <id/>)."
+msgstr "В компоненте отсутствует идентификатор (<id/> тег)."
 
 #: src/as-validator-issue-tag.h:340
 msgid "The component is missing a name (<name/> tag)."
@@ -1838,7 +1838,7 @@ msgstr "У компонента `service` отсутствует тег `launcha
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
-msgstr "Использование других типов кроме `upstream` не допускаются."
+msgstr "Предложения любого типа, кроме `upstream`, не допускаются в файлах metainfo."
 
 #: src/as-validator-issue-tag.h:574
 msgid ""
