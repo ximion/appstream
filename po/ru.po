@@ -38,7 +38,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:43+0000\n"
-"Last-Translator: Maxim Taranov <png2378@gmail.com>\n"
+"Last-Translator: Anna Malinovskaia <tacitcoast@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -1264,9 +1264,7 @@ msgstr "Рассмотрите возможность использования
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Скриншот должен содержать по крайней мере одно изображение или видео, чтобы "
-"быть полезным. Пожалуйста, добавьте к нему <image/>."
+msgstr "Скриншот должен содержать по крайней мере одно изображение или видео, чтобы быть полезным. Пожалуйста, добавьте к нему <image/>."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
@@ -1366,9 +1364,7 @@ msgstr "Недопустимая операция сравнения верси�
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
-"Элемент связи имеет набор операций сравнения, но не поддерживает никаких "
-"сравнений."
+msgstr "Элемент связи имеет набор операций сравнения, но не поддерживает никаких сравнений."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:288
@@ -1402,12 +1398,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
-"Этот элемент \" display_length` содержит недопустимую длину отображения. Его "
-"значение должно быть либо сокращенной строкой, либо целочисленным "
-"положительным значением, обозначающим логические пиксели. Пожалуйста, "
-"обратитесь к спецификации AppStream для получения дополнительной информации "
-"об этом теге."
+msgstr "Этот элемент \" display_length` содержит недопустимую длину отображения. Его значение должно быть либо сокращенной строкой, либо целочисленным положительным значением, обозначающим логические пиксели. Пожалуйста, обратитесь к спецификации AppStream для получения дополнительной информации об этом теге."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:315
@@ -1788,9 +1779,7 @@ msgstr "Выпуски (релизы) не отсортированы в пор�
 
 #: src/as-validator-issue-tag.h:665
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
-"Значение, установленное в качестве срочности выпуска, не является известным "
-"значением срочности."
+msgstr "Значение, установленное в качестве срочности выпуска, не является известным значением срочности."
 
 #: src/as-validator-issue-tag.h:670
 msgid "The value set as release type is invalid."
@@ -1812,11 +1801,7 @@ msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
-"Триплет платформы для этого выпуска недействителен. Он должен быть в форме "
-"\"architecture-oskernel-osenv\" - обратитесь к документации AppStream или "
-"информации о нормализованных триплетах GNU для получения дополнительной "
-"информации и допустимых полей."
+msgstr "Триплет платформы для этого выпуска недействителен. Он должен быть в форме \"architecture-oskernel-osenv\" - обратитесь к документации AppStream или информации о нормализованных триплетах GNU для получения дополнительной информации и допустимых полей."
 
 #: src/as-validator-issue-tag.h:693
 msgid "The selected checksumming algorithm is unsupported or unknown."
@@ -1831,22 +1816,17 @@ msgstr "Тип размера неизвестен. Должно быть \"за
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr ""
-"Имя файла артефакта должно быть базовым именем файла, а не (относительным "
-"или абсолютным) путем."
+msgstr "Имя файла артефакта должно быть базовым именем файла, а не (относительным или абсолютным) путем."
 
 #: src/as-validator-issue-tag.h:709
 msgid "The value set as release issue type is invalid."
-msgstr ""
-"Значение, установленное в качестве типа выпуска релиза, недействительно."
+msgstr "Значение, установленное в качестве типа выпуска релиза, недействительно."
 
 #: src/as-validator-issue-tag.h:714
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
-"Проблема помечена в уязвимости безопасности номером CVE, но ее значение не "
-"похоже на действительный идентификатор CVE."
+msgstr "Проблема помечена в уязвимости безопасности номером CVE, но ее значение не похоже на действительный идентификатор CVE."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:720
@@ -1896,10 +1876,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
-"Топлеуровневый тег `mimetypes` устарел. Вместо этого используйте теги "
-"`mediatype` в блоке `provides`, чтобы указать, что ваше программное "
-"обеспечение предоставляет обработчик медиа для заданных типов."
+msgstr "Топлеуровневый тег `mimetypes` устарел. Вместо этого используйте теги `mediatype` в блоке `provides`, чтобы указать, что ваше программное обеспечение предоставляет обработчик медиа для заданных типов."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:762
@@ -2266,8 +2243,7 @@ msgstr "TYPE должен быть типом программного комп�
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstreamcli.c:801
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
-msgstr ""
-"Используйте указанную строку для ключа \"Exec=\" файла записи рабочего стола."
+msgstr "Используйте указанную строку для ключа \"Exec=\" файла записи рабочего стола."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:842
@@ -2325,9 +2301,7 @@ msgstr "Вы можете получить информацию об опция�
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Команда '%s' неизвестна. Выполните '%s --help' для получения списка "
-"доступных команд."
+msgstr "Команда '%s' неизвестна. Выполните '%s --help' для получения списка доступных команд."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1123
@@ -2354,10 +2328,7 @@ msgstr "Получить информацию о компоненте по ег�
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr ""
-"Получите компоненты, которые обеспечивают данный элемент. Требуется тип "
-"элемента (например, lib, bin, python3, ...) и значение элемента в качестве "
-"параметра."
+msgstr "Получите компоненты, которые обеспечивают данный элемент. Требуется тип элемента (например, lib, bin, python3, ...) и значение элемента в качестве параметра."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1159
@@ -2403,8 +2374,7 @@ msgstr "Показать информацию о состоянии доступ
 #: tools/appstreamcli.c:1202
 msgid ""
 "Show information about the current operating system from the metadata index."
-msgstr ""
-"Отображение информации о текущей операционной системе из индекса метаданных."
+msgstr "Отображение информации о текущей операционной системе из индекса метаданных."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1207
@@ -2693,9 +2663,7 @@ msgstr "Вам необходимо указать файл NEWS в качест
 #: tools/ascli-actions-misc.c:332
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr ""
-"Вам необходимо указать файл metainfo для дополнения или '-' для вывода в "
-"stdout."
+msgstr "Вам необходимо указать файл metainfo для дополнения или '-' для вывода в stdout."
 
 #: tools/ascli-actions-misc.c:337
 msgid "No output filename specified, modifying metainfo file directly."
@@ -2703,9 +2671,7 @@ msgstr "Имя выходного файла не указано, непосре
 
 #: tools/ascli-actions-misc.c:442
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr ""
-"Вам необходимо указать файл NEWS в качестве выходного, или '-' для печати в "
-"stdout."
+msgstr "Вам необходимо указать файл NEWS в качестве выходного, или '-' для печати в stdout."
 
 #: tools/ascli-actions-misc.c:473
 msgid "You need to specify a NEWS format to write the output in."
