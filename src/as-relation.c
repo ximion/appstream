@@ -1162,7 +1162,7 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 				gint value_px;
 				const gchar *len_str = as_yaml_node_get_value (n);
 				if (strlen (len_str) <= 2) {
-					/* this string is too short to contain a comparsion operator */
+					/* this string is too short to contain a comparison operator */
 					value_str = g_strdup (len_str);
 				} else {
 					g_autofree gchar *compare_str = NULL;
