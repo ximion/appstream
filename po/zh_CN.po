@@ -33,6 +33,7 @@
 # Liu Tao <lyuutau@outlook.com>, 2021.
 # Zhou Nan <zhounan@nfschina.com>, 2021.
 # Donald Yiu <1456762857@qq.com>, 2021.
+# Flywater Zh <lumingzh@qq.com>, 2021.
 #
 # Translators:
 msgid ""
@@ -41,7 +42,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-06-22 19:04+0200\n"
 "PO-Revision-Date: 2021-07-31 03:07+0000\n"
-"Last-Translator: Donald Yiu <1456762857@qq.com>\n"
+"Last-Translator: Flywater Zh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -1443,7 +1444,7 @@ msgstr "组件定义了一个 “merge” 方法。 这在 metainfo 文件中是
 
 #: src/as-validator-issue-tag.h:335
 msgid "The component is missing an ID (<id/> tag)."
-msgstr "组件缺少一个ID（< id />标签）。"
+msgstr "组件缺少一个标识（<id/> 标签）。"
 
 #: src/as-validator-issue-tag.h:340
 msgid "The component is missing a name (<name/> tag)."
@@ -1732,9 +1733,8 @@ msgid "The metainfo filename does not match the component ID."
 msgstr "卸载匹配 component-id 的软件。"
 
 #: src/as-validator-issue-tag.h:616
-#, fuzzy
 msgid "Unable to read the .desktop file associated with this component."
-msgstr "无法读取 .desktop 文件：%s"
+msgstr "无法读取与该组件关连的 .desktop 文件。"
 
 #: src/as-validator-issue-tag.h:621
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -2067,10 +2067,10 @@ msgstr "您可以借由传递“--help”给子命令来查找子命令专属的
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstream-cli.c:1027
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr "运行“%s --help”以查看可用命令行选项完整的列表。"
+msgstr "未知命令“%s”。运行“%s --help”查看可用命令列表。"
 
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:1051
@@ -2403,10 +2403,9 @@ msgid "You need to specify a metainfo file as input."
 msgstr "你需要指定一个元数据文件。"
 
 #: tools/ascli-actions-misc.c:188
-#, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "您需要指定用来验证的文件！"
+msgstr "您需要指定桌面入口文件以作为输出创建或补充。"
 
 #: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
 #: tools/ascli-actions-misc.c:515
