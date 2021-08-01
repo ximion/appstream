@@ -43,7 +43,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:44+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Eric <spice2wolf@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -1818,9 +1818,7 @@ msgstr "该问题打上了带 CVE 数字的安全漏洞标签，但它的设定�
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
-msgstr ""
-"该组件缺少关于版本的信息。考虑添加一个`releases` 标签来描述发行版和它们的变"
-"化。"
+msgstr "该组件缺少关于版本的信息。考虑添加一个`releases` 标签来描述发行版和它们的变化。"
 
 #: src/as-validator-issue-tag.h:725
 msgid ""
@@ -1871,9 +1869,7 @@ msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
 "questions at https://hughsie.github.io/oars/"
-msgstr ""
-"该组件没有 `content_rating` 标签来提供年龄评级信息。您可以在 https://hughsie."
-"github.io/oars/ 上回答几个问题，在线生成标签数据"
+msgstr "该组件没有 `content_rating` 标签来提供年龄评级信息。您可以在 https://hughsie.github.io/oars/ 上回答几个问题，在线生成标签数据"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:769
@@ -1885,9 +1881,7 @@ msgstr "该 `tag` 缺少 `namespace` 属性。"
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"此标记或其名称空间包含无效字符。只能使用小写 ASCII 字母、数字、点、连字符和下"
-"划线。"
+msgstr "此标记或其名称空间包含无效字符。只能使用小写 ASCII 字母、数字、点、连字符和下划线。"
 
 #: src/as-validator.c:150
 msgid ""
@@ -2223,9 +2217,7 @@ msgstr "使用给定的 .desktop 文件填写元信息文件的基本值。"
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"此命令引用可选的 TYPE 和 FILE 位置参数，FILE 为要写入的文件（或用“-”表示标准"
-"输出）。"
+msgstr "此命令引用可选的 TYPE 和 FILE 位置参数，FILE 为要写入的文件（或用“-”表示标准输出）。"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
