@@ -34,6 +34,7 @@
 # Zhou Nan <zhounan@nfschina.com>, 2021.
 # Donald Yiu <1456762857@qq.com>, 2021.
 # Flywater Zh <lumingzh@qq.com>, 2021.
+# Eric <spice2wolf@gmail.com>, 2021.
 #
 # Translators:
 msgid ""
@@ -41,8 +42,8 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-06-22 19:04+0200\n"
-"PO-Revision-Date: 2021-07-31 19:52+0000\n"
-"Last-Translator: Flywater Zh <lumingzh@qq.com>\n"
+"PO-Revision-Date: 2021-08-02 01:37+0000\n"
+"Last-Translator: Eric <spice2wolf@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -1184,12 +1185,11 @@ msgid ""
 msgstr "组件ID包含一个无效字符。 只允许ASCII字符、英文点和数字。"
 
 #: src/as-validator-issue-tag.h:124
-#, fuzzy
 msgid ""
 "The component ID contains a hyphen/minus. Using a hyphen is strongly "
 "discouraged, to improve interoperability with other tools such as D-Bus. A "
 "good option is to replace any hyphens with underscores (`_`)."
-msgstr "组件ID中包含连字符/减号。 强烈建议使用连字符，以改善与其他工具（如D-Bus）的互操作性。 一个好的选择是将任何连字符替换为下划线（' _ '）。"
+msgstr "组件ID中包含连字符/减号。 强烈不建议使用连字符来改善与其他工具（如D-Bus）的互操作性。 一个好的选择是将任何连字符替换为下划线（' _ '）。"
 
 #: src/as-validator-issue-tag.h:130
 msgid ""
@@ -1376,11 +1376,10 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:281
-#, fuzzy
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr "相关项具有比较操作集，但不支持任何比较。"
+msgstr "关系项有比较操作集，但不支持任何比较。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:287
@@ -1728,9 +1727,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:611
-#, fuzzy
 msgid "The metainfo filename does not match the component ID."
-msgstr "卸载匹配 component-id 的软件。"
+msgstr "元信息文件名与组件 ID 不匹配。"
 
 #: src/as-validator-issue-tag.h:616
 msgid "Unable to read the .desktop file associated with this component."
@@ -1886,15 +1884,13 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:59
-#, fuzzy
 msgid "Manually selected location of AppStream cache."
-msgstr "手动设置 AppStream 缓存的位置。"
+msgstr "手动选择的 AppStream 缓存位置。"
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:64
-#, fuzzy
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr "手动设置要扫描的 AppStream 元数据的位置。"
+msgstr "手动选择的要扫描的 AppStream 元数据的位置。"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:69
@@ -1903,9 +1899,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:85
-#, fuzzy
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr "给定元数据格式的默认值 (有效的值为“xml”和“yaml”)。"
+msgstr "元数据格式的默认值 (有效的值为“xml”和“yaml”)。"
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:100
@@ -1919,21 +1914,18 @@ msgstr "同时显示详细提示。"
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
 #: tools/appstream-cli.c:123
-#, fuzzy
 msgid "Print detailed explanation for found issues."
-msgstr "打印关于寻找到的组件的详细输出。"
+msgstr "打印出所发现问题的详细说明。"
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:128
-#, fuzzy
 msgid "Do not use network access."
 msgstr "不使用网络访问。"
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:133
-#, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr "给定元数据格式的默认值 (有效的值为“xml”和“yaml”)。"
+msgstr "生成报告的格式 (有效的值为“xml”和“yaml”)。"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -2005,20 +1997,16 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:726
-#, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr "使用给定的 .desktop 文件来填充元信息文件里的基本值。"
+msgstr "使用给定的 .desktop 文件填写元信息文件的基本值。"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:731
-#, fuzzy
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"此命令引用可选的 TYPE 和 FILE 位置参数，FILE 为要写入的文件（或用“-”表示标准"
-"输出）。"
+msgstr "此命令引用可选的 TYPE 和 FILE 位置参数，FILE 为要写入的文件（或用“-”表示标准输出）。"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstream-cli.c:734
@@ -2131,13 +2119,11 @@ msgstr "检验已安装应用程序的文件树以查找有效元数据。"
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstream-cli.c:1115
-#, fuzzy
 msgid "Install software matching the component-ID."
-msgstr "安装匹配组件 ID 的软件。"
+msgstr "安装匹配 component-ID 的软件。"
 
 #. TRANSLATORS: `appstreamcli remove` command description.
 #: tools/appstream-cli.c:1120
-#, fuzzy
 msgid "Remove software matching the component-ID."
 msgstr "卸载匹配 component-id 的软件。"
 
@@ -2169,11 +2155,10 @@ msgstr "比较两个版本号。"
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
 #: tools/appstream-cli.c:1152
-#, fuzzy
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr "为元信息文件创建模板（由上游项目所填写）。"
+msgstr "为元信息文件创建一个模板（由上游项目填写）。"
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstream-cli.c:1157
@@ -2256,9 +2241,8 @@ msgid "No component matching '%s' found."
 msgstr "未找到符合“%s”的组件。"
 
 #: tools/ascli-actions-mdata.c:206
-#, fuzzy
 msgid "No value for the item to search for was defined."
-msgstr "没有定义要搜索的提供项目值。"
+msgstr "未定义要搜索的项目的值。"
 
 #: tools/ascli-actions-mdata.c:212
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -2275,9 +2259,9 @@ msgid "You need to specify a metadata file."
 msgstr "你需要指定一个元数据文件。"
 
 #: tools/ascli-actions-mdata.c:320
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr "无法读取 .desktop 文件：%s"
+msgstr "无安装元数据文件：%s"
 
 #: tools/ascli-actions-mdata.c:340
 msgid "You need to specify an input and output file."
@@ -2296,14 +2280,13 @@ msgid ""
 msgstr "无法转换文件：无法判定输出格式，请使用“--format=”明确设置。"
 
 #: tools/ascli-actions-mdata.c:434
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr "未找到 id 为“%s”的组件！"
+msgstr "找不到操作系统组件 '%s'！"
 
 #: tools/ascli-actions-mdata.c:439
-#, fuzzy
 msgid "Version"
-msgstr "版本：%s"
+msgstr "版本"
 
 #: tools/ascli-actions-mdata.c:463
 msgid ""
@@ -2329,12 +2312,12 @@ msgid "Unable to read the .desktop file: %s"
 msgstr "无法读取 .desktop 文件：%s"
 
 #: tools/ascli-actions-mdata.c:560
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr "无法生成模板元信息文件：%s"
+msgstr "无法构建模板元信息文件：%s"
 
 #: tools/ascli-actions-mdata.c:568
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "无法保存模板源信息文件：%s"
 
@@ -2398,9 +2381,8 @@ msgid "Error while loading the metadata pool: %s"
 msgstr "载入元数据池时出错：%s"
 
 #: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
-#, fuzzy
 msgid "You need to specify a metainfo file as input."
-msgstr "你需要指定一个元数据文件。"
+msgstr "您需要指定一个元信息文件作为输入。"
 
 #: tools/ascli-actions-misc.c:188
 msgid ""
@@ -2409,9 +2391,9 @@ msgstr "您需要指定桌面入口文件以作为输出创建或补充。"
 
 #: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
 #: tools/ascli-actions-misc.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr "“%s”元数据文件并不存在。"
+msgstr "不存在 “%s” 元数据文件。"
 
 #: tools/ascli-actions-misc.c:219
 #, c-format
@@ -2419,9 +2401,9 @@ msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
 msgstr ""
 
 #: tools/ascli-actions-misc.c:224
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr "无法读取 .desktop 文件：%s"
+msgstr "无法加载现有的桌面条目文件模板：%s"
 
 #: tools/ascli-actions-misc.c:228
 #, c-format
@@ -2439,34 +2421,30 @@ msgid ""
 msgstr ""
 
 #: tools/ascli-actions-misc.c:370
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save desktop entry file: %s"
-msgstr "无法读取 .desktop 文件：%s"
+msgstr "无法保存桌面项文件：%s"
 
 #: tools/ascli-actions-misc.c:393
-#, fuzzy
 msgid "You need to specify a NEWS file as input."
-msgstr "你需要指定一个元数据文件。"
+msgstr "您需要指定一个 NEWS 文件作为输入。"
 
 #: tools/ascli-actions-misc.c:397
-#, fuzzy
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr "你需要指定一个元数据文件。"
+msgstr "您需要指定要扩充的元信息文件，或指定“-”以打印到标准输出。"
 
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
 msgstr ""
 
 #: tools/ascli-actions-misc.c:509
-#, fuzzy
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "你需要指定一个元数据文件。"
+msgstr "您需要指定 NEWS 文件作为输出，或指定“-”以打印到标准输出。"
 
 #: tools/ascli-actions-misc.c:540
-#, fuzzy
 msgid "You need to specify a NEWS format to write the output in."
-msgstr "你需要指定输入和输出文件。"
+msgstr "您需要指定一种 NEWS 格式来写入输出。"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -2488,9 +2466,9 @@ msgid "Component '%s' has no installation candidate."
 msgstr "'%s' 组件没有安装候选版本。"
 
 #: tools/ascli-actions-validate.c:176 tools/ascli-actions-validate.c:354
-#, fuzzy, c-format
+#, c-format
 msgid "File '%s' does not exist."
-msgstr "“%s”元数据文件并不存在。"
+msgstr "文件 “%s” 不存在。"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "error"-type hints
 #: tools/ascli-actions-validate.c:228
@@ -2517,9 +2495,8 @@ msgid "pedantic: %lu"
 msgstr ""
 
 #: tools/ascli-actions-validate.c:268 tools/ascli-actions-validate.c:342
-#, fuzzy
 msgid "You need to specify at least one file to validate!"
-msgstr "您需要指定用来验证的文件！"
+msgstr "您需要指定至少一个要进行验证的文件！"
 
 #: tools/ascli-actions-validate.c:294 tools/ascli-actions-validate.c:435
 msgid "Validation was successful."
