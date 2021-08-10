@@ -943,8 +943,8 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 						"invalid-child-tag-name",
 						/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
 						_("Found: %s - Allowed: %s"),
-						(const gchar*) iter->name),
-						"screenshot";
+						(const gchar*) iter->name,
+						"screenshot");
 		}
 
 		for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
@@ -1037,8 +1037,8 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 							"invalid-child-tag-name",
 							/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
 							_("Found: %s - Allowed: %s"),
-							(const gchar*) iter2->name),
-							"caption; image; video";
+							(const gchar*) iter2->name,
+							"caption; image; video");
 			}
 		}
 
