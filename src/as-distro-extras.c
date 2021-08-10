@@ -166,7 +166,6 @@ static void
 as_extract_icon_cache_tarball (const gchar *asicons_target,
 			       const gchar *origin,
 			       const gchar *apt_basename,
-			       const gchar *apt_lists_dir,
 			       const gchar *icons_size)
 {
 	g_autofree gchar *escaped_size = NULL;
@@ -391,7 +390,6 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 			as_extract_icon_cache_tarball (appstream_icons_target,
 							origin,
 							file_baseprefix,
-							apt_lists_dir,
 							default_icon_sizes[j]);
 		}
 	}
