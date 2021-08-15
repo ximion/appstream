@@ -513,6 +513,9 @@ teardown (Fixture *fixture, gconstpointer user_data)
 	g_clear_pointer (&fixture->path, g_free);
 }
 
+/**
+ * test_compose_optipng_not_found:
+ */
 static void
 test_compose_optipng_not_found (Fixture *fixture, gconstpointer user_data)
 {
@@ -522,6 +525,43 @@ test_compose_optipng_not_found (Fixture *fixture, gconstpointer user_data)
 	asc_globals_set_use_optipng (TRUE);
 	g_assert_false (asc_globals_get_use_optipng ());
 	g_test_assert_expected_messages ();
+}
+
+/**
+ * test_compose_directory_unit:
+ */
+static void
+test_compose_directory_unit ()
+{
+	g_autoptr(GError) error = NULL;
+	gboolean ret;
+	GPtrArray *contents;
+	g_autoptr(GBytes) data = NULL;
+	g_autoptr(AscDirectoryUnit) dirunit = asc_directory_unit_new (datadir);
+
+	ret = asc_unit_open (ASC_UNIT (dirunit), &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	contents = asc_unit_get_contents (ASC_UNIT (dirunit));
+	g_assert_cmpint (contents->len, ==, 6);
+	as_sort_strings (contents);
+
+	g_assert_cmpstr (g_ptr_array_index (contents, 0), ==, "/Noto.LICENSE");
+	g_assert_cmpstr (g_ptr_array_index (contents, 4), ==, "/subdir/dummy");
+
+	/* read existent data */
+	data = asc_unit_read_data (ASC_UNIT (dirunit), "/subdir/dummy", &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (data);
+	g_assert_cmpstr ((const gchar*) g_bytes_get_data (data, NULL), ==, "Hello Universe!\n");
+
+	/* read nonexistent data */
+	g_bytes_unref (data);
+	data = asc_unit_read_data (ASC_UNIT (dirunit), "/nonexistent", &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (data);
+	g_assert_cmpint (g_bytes_get_size (data), ==, 0);
 }
 
 int
@@ -552,6 +592,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Compose/Hints", test_compose_hints);
 	g_test_add_func ("/AppStream/Compose/Result", test_compose_result);
 	g_test_add_func ("/AppStream/Compose/DesktopEntry", test_compose_desktop_entry);
+	g_test_add_func ("/AppStream/Compose/DirectoryUnit", test_compose_directory_unit);
 
 	ret = g_test_run ();
 	g_free (datadir);

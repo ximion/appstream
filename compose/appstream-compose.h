@@ -35,6 +35,8 @@
 #include <asc-font.h>
 #include <asc-hint.h>
 #include <asc-image.h>
+#include <asc-unit.h>
+#include <asc-directory-unit.h>
 #include <asc-result.h>
 #include <asc-enums-types.h>
 

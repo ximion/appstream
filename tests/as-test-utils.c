@@ -76,6 +76,15 @@ as_sort_strings_cb (gconstpointer a, gconstpointer b)
 }
 
 /**
+ * as_sort_strings:
+ */
+void
+as_sort_strings (GPtrArray *utf8)
+{
+	g_ptr_array_sort (utf8, as_sort_strings_cb);
+}
+
+/**
  * as_component_sort_values:
  */
 void

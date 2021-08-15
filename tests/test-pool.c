@@ -35,10 +35,8 @@ static gchar *datadir = NULL;
 static void
 print_cptarray (GPtrArray *cpt_array)
 {
-	guint i;
-
 	g_printf ("----\n");
-	for (i = 0; i < cpt_array->len; i++) {
+	for (guint i = 0; i < cpt_array->len; i++) {
 		g_autofree gchar *tmp = NULL;
 		AsComponent *cpt = (AsComponent*) g_ptr_array_index (cpt_array, i);
 
