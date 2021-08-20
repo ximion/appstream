@@ -32,16 +32,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-06-22 19:04+0200\n"
-"PO-Revision-Date: 2021-01-14 23:32+0000\n"
+"PO-Revision-Date: 2021-08-20 08:34+0000\n"
 "Last-Translator: Éfrit <efrit@posteo.net>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/appstream/"
-"translations/fr/>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.8-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -62,7 +61,6 @@ msgid ""
 msgstr ""
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
-#, fuzzy
 msgid ""
 "The <em>appstreamcli</em> command-line tool allows to read, write, and "
 "transform AppStream XML or YAML metadata as well as to validate it for "
@@ -70,12 +68,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Cet outil permet la lecture, l’écriture, la validation et la transformation "
-"des métadonnées XML ou YAML d’AppStream. Il permet également d’accéder au "
-"pool de métadonnées système pour, par exemple, chercher un logiciel qui "
-"fournit un type de média spécifique et l’installer en utilisant son "
-"identifiant de composant logiciel."
+msgstr "L’outil en ligne de commande <em>appstreamcli</em> permet la lecture, l’écriture, la validation et la transformation des métadonnées XML ou YAML d’AppStream. Il fournit également un accès aisé au pool de métadonnées système pour, par exemple, chercher un logiciel qui fournit un gestionnaire de type de média spécifique ou en installer un en utilisant son identifiant de composant."
 
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
@@ -950,24 +943,24 @@ msgstr "Images d’esclavagisme contemporain"
 #: src/as-curl.c:134
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr ""
+msgstr "Échec du téléchargement dû à une limite du serveur"
 
 #: src/as-curl.c:141 src/as-curl.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to download file: %s"
-msgstr "Impossible d’enregistrer le fichier bureau : %s"
+msgstr "Échec du téléchargement du fichier : %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
 #: src/as-curl.c:157
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "La ressource n’a pas été trouvée sur le serveur."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:164
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Code d’état inattendu : %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:247
@@ -1473,19 +1466,16 @@ msgstr ""
 "explicitement une opération de comparaison."
 
 #: src/as-validator-issue-tag.h:276
-#, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are "
 "permitted."
-msgstr ""
-"Opération de comparaison de version invalide sur l’item de relation. Seules "
-"« eq », « ne », « lt », « gt », « le » et « ge » sont autorisées."
+msgstr "Opération de comparaison invalide sur l’item de relation. Seules « eq », « ne », « lt », « gt », « le » et « ge » sont autorisées."
 
 #: src/as-validator-issue-tag.h:281
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
+msgstr "L’item de relation a un opérateur de comparaison défini, mais il ne prend en charge aucune comparaison."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:287
@@ -1530,7 +1520,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
+msgstr "Cet item `display_length` contient une longueur d’affichage invalide. Sa valeur doit soit être une abréviation, soit un entier positif désignant des pixels logiques. Veuillez vous référer à la spécification AppStream pour plus d’information sur cette balise."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:314
@@ -1539,7 +1529,7 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
+msgstr "La propriété `side` de cet item `display_length` contient une valeur invalide. Il doit être soit `shortest` soit `longest`, ou bien non défini pour impliquer `shortest`afin que la valeur de l’item désigne soit le plus petit ou le plus grand côté de l’affichage."
 
 #: src/as-validator-issue-tag.h:320
 msgid ""
@@ -1996,18 +1986,18 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:658
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "La valeur définie comme version urgente n’est pas une valeur d’urgence connue."
 
 #: src/as-validator-issue-tag.h:663
 msgid "The value set as release type is invalid."
-msgstr ""
+msgstr "La valeur définie comme type de version est invalide."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:669
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr ""
+msgstr "La valeur définie comme type d’artéfact est invalide. Elle doit être soit `source` soit `binary`."
 
 #: src/as-validator-issue-tag.h:674
 msgid "The value set as artifact bundle type is invalid."
