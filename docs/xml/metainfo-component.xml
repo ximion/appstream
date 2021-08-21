@@ -1241,7 +1241,8 @@
 		<listitem>
 		<para>
 			The <code>&lt;translation/&gt;</code> tag is an optional tag which can be added to specify the translation domain used for this software component.
-			It may be used by the AppStream distro metadata generator to determine the translation status of the respective software (e.g. which languages the software is translated into and how complete the translations are).
+			It may be used by the AppStream distro metadata generator to determine the translation status of the respective software (e.g. which languages the
+			software is translated into and how complete the translations are).
 		</para>
 		<para>
 			The tag must have a <literal>type</literal> property, assuming the value of the translation system which is used. Right now, allowed translation systems and
@@ -1254,9 +1255,17 @@
 			than once.
 		</para>
 		<para>
+			For Gettext translations, localization data will be looked for in <filename>${prefix}/share/locale/${locale}/LC_MESSAGES/${id}.mo</filename>, where
+			<code>${id}</code> is replaced with the translation domain specified in the <code>&lt;translation/&gt;</code> tag.
+			For Qt translations, if the ID string contains slashes, we will look for translations following either the <filename>${prefix}/share/${id}_${locale}.qm</filename>
+			or the <filename>${prefix}/share/${id}/${locale}.qm</filename> pattern. If no slashes are contained, we will look for translation data in
+			<filename>${prefix}/share/locale/${locale}/LC_MESSAGES/${id}.qm</filename>.
+		</para>
+		<para>
 			Example:
 		</para>
-		<programlisting language="XML"><![CDATA[<translation type="gettext">foobar</translation>]]></programlisting>
+		<programlisting language="XML"><![CDATA[<translation type="gettext">foobar</translation>
+<translation type="qt">FooBar/translations/foobar</translation>]]></programlisting>
 		</listitem>
 		</varlistentry>
 
