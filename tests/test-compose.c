@@ -551,6 +551,7 @@ test_compose_directory_unit ()
 	g_assert_cmpstr (g_ptr_array_index (contents, 4), ==, "/subdir/dummy");
 
 	/* read existent data */
+	g_assert_true (asc_unit_file_exists (ASC_UNIT (dirunit), "/subdir/dummy"));
 	data = asc_unit_read_data (ASC_UNIT (dirunit), "/subdir/dummy", &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (data);
@@ -558,10 +559,10 @@ test_compose_directory_unit ()
 
 	/* read nonexistent data */
 	g_bytes_unref (data);
+	g_assert_false (asc_unit_file_exists (ASC_UNIT (dirunit), "/nonexistent"));
 	data = asc_unit_read_data (ASC_UNIT (dirunit), "/nonexistent", &error);
-	g_assert_no_error (error);
-	g_assert_nonnull (data);
-	g_assert_cmpint (g_bytes_get_size (data), ==, 0);
+	g_assert_error (error, G_FILE_ERROR, G_FILE_ERROR_NOENT);
+	g_assert_null (data);
 }
 
 int

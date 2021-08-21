@@ -191,6 +191,24 @@ asc_unit_close (AscUnit *unit)
 }
 
 /**
+ * asc_unit_file_exists:
+ * @unit: an #AscUnit instance.
+ * @filename: The filename to check.
+ *
+ * Returns %TRUE if the filename exists and is readable.
+ **/
+gboolean
+asc_unit_file_exists (AscUnit *unit, const gchar *filename)
+{
+	AscUnitClass *klass;
+	g_return_val_if_fail (ASC_IS_UNIT (unit), FALSE);
+
+	klass = ASC_UNIT_GET_CLASS (unit);
+	g_return_val_if_fail (klass->file_exists != NULL, FALSE);
+	return klass->file_exists (unit, filename);
+}
+
+/**
  * asc_unit_read_data:
  * @unit: an #AscUnit instance.
  * @filename: The file to read data for.

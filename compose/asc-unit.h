@@ -38,6 +38,9 @@ struct _AscUnitClass
 	gboolean (*open) (AscUnit *unit,
 			  GError **error);
 	void (*close) (AscUnit *unit);
+
+	gboolean (*file_exists) (AscUnit *unit,
+				  const gchar *filename);
 	GBytes *(*read_data) (AscUnit *unit,
 			      const gchar *filename,
 			      GError **error);
@@ -67,6 +70,8 @@ gboolean		asc_unit_open (AscUnit *unit,
 					GError **error);
 void			asc_unit_close (AscUnit *unit);
 
+gboolean		asc_unit_file_exists (AscUnit *unit,
+					      const gchar *filename);
 GBytes			*asc_unit_read_data (AscUnit *unit,
 					     const gchar *filename,
 					     GError **error);

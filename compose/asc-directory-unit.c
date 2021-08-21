@@ -41,6 +41,9 @@ G_DEFINE_TYPE_WITH_PRIVATE (AscDirectoryUnit, asc_directory_unit, ASC_TYPE_UNIT)
 static gboolean		asc_directory_unit_open (AscUnit *unit,
 						 GError **error);
 static void		asc_directory_unit_close (AscUnit *unit);
+
+static gboolean		asc_directory_unit_file_exists (AscUnit *unit,
+							const gchar *filename);
 static GBytes		*asc_directory_unit_read_data (AscUnit *unit,
 							const gchar *filename,
 							GError **error);
@@ -80,6 +83,7 @@ asc_directory_unit_class_init (AscDirectoryUnitClass *klass)
 	unit_class = ASC_UNIT_CLASS (klass);
 	unit_class->open = asc_directory_unit_open;
 	unit_class->close = asc_directory_unit_close;
+	unit_class->file_exists = asc_directory_unit_file_exists;
 	unit_class->read_data = asc_directory_unit_read_data;
 }
 
@@ -110,15 +114,21 @@ asc_directory_unit_close (AscUnit *unit)
 	return;
 }
 
+static gboolean
+asc_directory_unit_file_exists (AscUnit *unit, const gchar *filename)
+{
+	AscDirectoryUnitPrivate *priv = GET_PRIVATE (ASC_DIRECTORY_UNIT (unit));
+	g_autofree gchar *fname_full = g_build_filename (priv->root_dir, filename, NULL);
+
+	return g_file_test (fname_full, G_FILE_TEST_EXISTS);
+}
+
 static GBytes*
 asc_directory_unit_read_data (AscUnit *unit, const gchar *filename, GError **error)
 {
 	AscDirectoryUnitPrivate *priv = GET_PRIVATE (ASC_DIRECTORY_UNIT (unit));
 	g_autoptr(GMappedFile) mfile = NULL;
 	g_autofree gchar *fname_full = g_build_filename (priv->root_dir, filename, NULL);
-
-	if (!g_file_test (fname_full, G_FILE_TEST_EXISTS))
-		return g_bytes_new (NULL, 0);
 
 	mfile = g_mapped_file_new (fname_full, FALSE, error);
 	if (!mfile)
