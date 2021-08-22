@@ -22,6 +22,7 @@
 #include "appstream-compose.h"
 #include "asc-font-private.h"
 #include "asc-utils-metainfo.h"
+#include "asc-utils-l10n.h"
 
 #include "as-test-utils.h"
 
@@ -544,15 +545,15 @@ test_compose_directory_unit ()
 	g_assert_true (ret);
 
 	contents = asc_unit_get_contents (ASC_UNIT (dirunit));
-	g_assert_cmpint (contents->len, ==, 6);
+	g_assert_cmpint (contents->len, ==, 12);
 	as_sort_strings (contents);
 
 	g_assert_cmpstr (g_ptr_array_index (contents, 0), ==, "/Noto.LICENSE");
-	g_assert_cmpstr (g_ptr_array_index (contents, 4), ==, "/subdir/dummy");
+	g_assert_cmpstr (g_ptr_array_index (contents, 4), ==, "/table.svgz");
 
 	/* read existent data */
-	g_assert_true (asc_unit_file_exists (ASC_UNIT (dirunit), "/subdir/dummy"));
-	data = asc_unit_read_data (ASC_UNIT (dirunit), "/subdir/dummy", &error);
+	g_assert_true (asc_unit_file_exists (ASC_UNIT (dirunit), "/usr/dummy"));
+	data = asc_unit_read_data (ASC_UNIT (dirunit), "/usr/dummy", &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (data);
 	g_assert_cmpstr ((const gchar*) g_bytes_get_data (data, NULL), ==, "Hello Universe!\n");
@@ -563,6 +564,98 @@ test_compose_directory_unit ()
 	data = asc_unit_read_data (ASC_UNIT (dirunit), "/nonexistent", &error);
 	g_assert_error (error, G_FILE_ERROR, G_FILE_ERROR_NOENT);
 	g_assert_null (data);
+}
+
+/**
+ * test_compose_locale_stats:
+ */
+static void
+test_compose_locale_stats ()
+{
+	gboolean ret;
+	g_autoptr(GError) error = NULL;
+	g_autoptr(AscResult) cres = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsTranslation) tr = NULL;
+	g_autoptr(AscDirectoryUnit) dirunit = asc_directory_unit_new (datadir);
+
+	/* open sample data directory unit */
+	ret = asc_unit_open (ASC_UNIT (dirunit), &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	/* create dummy result with a dummy component */
+	cpt = as_component_new ();
+	as_component_set_id (cpt, "org.freedesktop.appstream.dummy");
+
+	tr = as_translation_new ();
+	as_translation_set_kind (tr, AS_TRANSLATION_KIND_GETTEXT);
+	as_translation_set_id (tr, "app");
+	as_component_add_translation (cpt, tr);
+
+	cres = asc_result_new ();
+	ret = asc_result_add_component_with_string (cres, cpt, "<testdata>", &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	/* try loading a Gettext translation */
+	ret = asc_read_translations (cres,
+					ASC_UNIT (dirunit),
+					"/usr",
+					25,
+					&error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	g_assert_cmpint (as_component_get_language (cpt, "en_GB"), ==, 100);
+	g_assert_cmpint (as_component_get_language (cpt, "ru"), ==, 33);
+
+	/* try loading Qt translations, style 1 */
+	as_component_clear_languages (cpt);
+	as_translation_set_kind (tr, AS_TRANSLATION_KIND_QT);
+	as_translation_set_id (tr, "kdeapp1/translations/kdeapp");
+	as_component_add_translation (cpt, tr);
+
+	ret = asc_read_translations (cres,
+					ASC_UNIT (dirunit),
+					"/usr",
+					25,
+					&error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
+	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, -1);
+
+	/* try loading Qt translations, style 2 */
+	as_component_clear_languages (cpt);
+	as_translation_set_kind (tr, AS_TRANSLATION_KIND_QT);
+	as_translation_set_id (tr, "kdeapp2/translations/kdeapp");
+	as_component_add_translation (cpt, tr);
+
+	ret = asc_read_translations (cres,
+					ASC_UNIT (dirunit),
+					"/usr",
+					25,
+					&error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
+	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, -1);
+
+	/* try loading Qt translations, style 3 */
+	as_component_clear_languages (cpt);
+	as_translation_set_kind (tr, AS_TRANSLATION_KIND_QT);
+	as_translation_set_id (tr, "kdeapp3");
+	as_component_add_translation (cpt, tr);
+
+	ret = asc_read_translations (cres,
+					ASC_UNIT (dirunit),
+					"/usr",
+					25,
+					&error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
+	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, 100);
 }
 
 int
@@ -594,6 +687,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Compose/Result", test_compose_result);
 	g_test_add_func ("/AppStream/Compose/DesktopEntry", test_compose_desktop_entry);
 	g_test_add_func ("/AppStream/Compose/DirectoryUnit", test_compose_directory_unit);
+	g_test_add_func ("/AppStream/Compose/LocaleStats", test_compose_locale_stats);
 
 	ret = g_test_run ();
 	g_free (datadir);

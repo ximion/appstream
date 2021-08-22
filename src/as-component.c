@@ -1985,6 +1985,21 @@ as_component_get_languages (AsComponent *cpt)
 }
 
 /**
+ * as_component_clear_languages:
+ * @cpt: an #AsComponent instance.
+ *
+ * Remove all registered language translation information.
+ *
+ * Since: 0.14.5
+ **/
+void
+as_component_clear_languages (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_hash_table_remove_all (priv->languages);
+}
+
+/**
  * as_component_get_languages_table:
  * @cpt: an #AsComponent instance.
  *

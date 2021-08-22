@@ -195,7 +195,7 @@ asc_unit_close (AscUnit *unit)
  * @unit: an #AscUnit instance.
  * @filename: The filename to check.
  *
- * Returns %TRUE if the filename exists and is readable.
+ * Returns %TRUE if the filename exists and is readable using %asc_unit_read_data.
  **/
 gboolean
 asc_unit_file_exists (AscUnit *unit, const gchar *filename)
@@ -206,6 +206,24 @@ asc_unit_file_exists (AscUnit *unit, const gchar *filename)
 	klass = ASC_UNIT_GET_CLASS (unit);
 	g_return_val_if_fail (klass->file_exists != NULL, FALSE);
 	return klass->file_exists (unit, filename);
+}
+
+/**
+ * asc_unit_dir_exists:
+ * @unit: an #AscUnit instance.
+ * @dirname: The directory name to check.
+ *
+ * Returns %TRUE if the directory exists and files in it are readable.
+ **/
+gboolean
+asc_unit_dir_exists (AscUnit *unit, const gchar *dirname)
+{
+	AscUnitClass *klass;
+	g_return_val_if_fail (ASC_IS_UNIT (unit), FALSE);
+
+	klass = ASC_UNIT_GET_CLASS (unit);
+	g_return_val_if_fail (klass->dir_exists != NULL, FALSE);
+	return klass->dir_exists (unit, dirname);
 }
 
 /**

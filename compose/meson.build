@@ -12,6 +12,7 @@ ascompose_src = [
     'asc-image.c',
     'asc-result.c',
     'asc-unit.c',
+    'asc-utils-l10n.c',
     'asc-utils-metainfo.c',
     'asc-utils.c'
 ]
@@ -26,6 +27,7 @@ ascompose_pub_headers = [
     'asc-image.h',
     'asc-result.h',
     'asc-unit.h',
+    'asc-utils-l10n.h',
     'asc-utils-metainfo.h',
     'asc-utils.h'
 ]

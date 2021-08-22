@@ -84,6 +84,7 @@ asc_directory_unit_class_init (AscDirectoryUnitClass *klass)
 	unit_class->open = asc_directory_unit_open;
 	unit_class->close = asc_directory_unit_close;
 	unit_class->file_exists = asc_directory_unit_file_exists;
+	unit_class->dir_exists = asc_directory_unit_file_exists;
 	unit_class->read_data = asc_directory_unit_read_data;
 }
 

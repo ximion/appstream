@@ -41,6 +41,8 @@ struct _AscUnitClass
 
 	gboolean (*file_exists) (AscUnit *unit,
 				  const gchar *filename);
+	gboolean (*dir_exists) (AscUnit *unit,
+				  const gchar *dirname);
 	GBytes *(*read_data) (AscUnit *unit,
 			      const gchar *filename,
 			      GError **error);
@@ -72,6 +74,8 @@ void			asc_unit_close (AscUnit *unit);
 
 gboolean		asc_unit_file_exists (AscUnit *unit,
 					      const gchar *filename);
+gboolean		asc_unit_dir_exists (AscUnit *unit,
+					     const gchar *dirname);
 GBytes			*asc_unit_read_data (AscUnit *unit,
 					     const gchar *filename,
 					     GError **error);

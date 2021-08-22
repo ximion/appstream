@@ -338,6 +338,7 @@ gint			as_component_get_language (AsComponent *cpt,
 void			as_component_add_language (AsComponent *cpt,
 							const gchar *locale,
 							gint percentage);
+void			as_component_clear_languages (AsComponent *cpt);
 
 GPtrArray		*as_component_get_translations (AsComponent *cpt);
 void			as_component_add_translation (AsComponent *cpt,
