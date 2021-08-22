@@ -443,6 +443,10 @@ asc_read_translations (AscResult *cres,
 		ctx = asc_locale_ctx_new ();
 		ctx->translations = as_component_get_translations (cpt);
 
+		/* skip if we have no translation hints */
+		if (ctx->translations->len == 0)
+			continue;
+
 		/* search for Qt .qm files */
 		if (!asc_l10n_search_translations_qt (ctx, unit, prefix, error))
 			return FALSE;

@@ -89,20 +89,81 @@ asc_directory_unit_class_init (AscDirectoryUnitClass *klass)
 }
 
 static gboolean
+asc_directory_unit_find_files_recursive (GPtrArray *files,
+					 const gchar *path_orig,
+					 guint path_orig_len,
+					 const gchar *path,
+					 GError **error)
+{
+	const gchar *tmp;
+	g_autoptr(GDir) dir = NULL;
+	g_autoptr(GError) tmp_error = NULL;
+
+	dir = g_dir_open (path, 0, &tmp_error);
+	if (dir == NULL) {
+		/* just ignore locations we do not have access to */
+		if (g_error_matches (tmp_error, G_FILE_ERROR, G_FILE_ERROR_ACCES))
+			return TRUE;
+		g_propagate_error (error, g_steal_pointer (&tmp_error));
+		return FALSE;
+	}
+
+	while ((tmp = g_dir_read_name (dir)) != NULL) {
+		g_autofree gchar *path_new = NULL;
+		path_new = g_build_filename (path, tmp, NULL);
+		if (g_file_test (path_new, G_FILE_TEST_IS_DIR)) {
+			if (!asc_directory_unit_find_files_recursive (files,
+								      path_orig,
+								      path_orig_len,
+								      path_new,
+								      error))
+				return FALSE;
+		} else {
+			g_ptr_array_add (files, g_strdup (path_new + path_orig_len));
+		}
+	}
+
+	return TRUE;
+}
+
+static gboolean
 asc_directory_unit_open (AscUnit *unit, GError **error)
 {
 	AscDirectoryUnitPrivate *priv = GET_PRIVATE (ASC_DIRECTORY_UNIT (unit));
 	g_autoptr(GPtrArray) contents;
-	guint root_dir_len = strlen (priv->root_dir);
+	GPtrArray *relevant_paths;
+	guint root_dir_len = (guint) strlen (priv->root_dir);
 
-	contents = as_utils_find_files (priv->root_dir, TRUE, error);
-	if (contents == NULL)
-		return FALSE;
+	if (g_str_has_suffix (priv->root_dir, G_DIR_SEPARATOR_S))
+		root_dir_len = root_dir_len > 0? root_dir_len - 1 : root_dir_len;
 
-	for (guint i = 0; i < contents->len; i++) {
-		g_autofree gchar *fname = g_steal_pointer (&g_ptr_array_index (contents, i));
-		g_ptr_array_index (contents, i) = g_canonicalize_filename (fname + root_dir_len, priv->root_dir);
+	contents = g_ptr_array_new_with_free_func (g_free);
+	relevant_paths = asc_unit_get_relevant_paths (unit);
+
+	g_debug ("Creating contents index for directory: %s", priv->root_dir);
+	if (relevant_paths->len == 0) {
+		/* create an index of all the data
+		 * TODO: All of this is super wasteful, and may need a completely different approach */
+		if (!asc_directory_unit_find_files_recursive (contents,
+								priv->root_dir, root_dir_len,
+								priv->root_dir,
+								error))
+			return FALSE;
+	} else {
+		/* only index data from paths that we care about */
+		for (guint i = 0; i < relevant_paths->len; i++) {
+			g_autofree gchar *check_path = NULL;
+			const gchar *rel_path = g_ptr_array_index (relevant_paths, i);
+			check_path = g_build_filename (priv->root_dir, rel_path, NULL);
+
+			if (!asc_directory_unit_find_files_recursive (contents,
+									priv->root_dir, root_dir_len,
+									check_path,
+									error))
+				return FALSE;
+		}
 	}
+	g_debug ("Index done for directory: %s", priv->root_dir);
 
 	asc_unit_set_contents (unit, contents);
 	return TRUE;

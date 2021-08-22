@@ -206,6 +206,7 @@ asc_validate_metainfo_data_for_component (AscResult *cres, AsValidator *validato
  * @bytes: the data @cpt was constructed from.
  * @de_basename: the basename of the desktop-entry file we are parsing.
  * @ignore_nodisplay: set %TRUE if fields which cause the desktop-entry file to be purposefully hidden should be ignored (useful when passing an existing #AsComponent).
+ * @fversion: AppStream format version
  * @de_l10n_fn: (scope call): callback for custom desktop-entry field localization functions.
  * @user_data: user data for @de_l10n_fn
  *

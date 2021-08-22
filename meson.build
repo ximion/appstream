@@ -134,12 +134,12 @@ pkgc = import('pkgconfig')
 # Directories
 #
 subdir('src/')
-subdir('tools/')
-subdir('data/')
-subdir('contrib/')
 if get_option('compose')
     subdir('compose/')
 endif
+subdir('tools/')
+subdir('data/')
+subdir('contrib/')
 subdir('po/')
 subdir('docs/')
 subdir('tests/')

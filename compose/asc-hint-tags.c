@@ -80,6 +80,11 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "<code>type=</code> property of the component root-node in the MetaInfo XML file does not contain a spelling mistake."
 	},
 
+	{ "file-read-error",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "Unable to read data from file {{fname}}: {{msg}}",
+	},
+
 	{ "desktop-file-error",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  "Unable to read data from .desktop file: {{msg}}",
@@ -117,6 +122,13 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "This .desktop file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide "
 	  "the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit. "
 	  "See <a href=\"https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html\">the specification</a> for details."
+	},
+
+	{ "missing-launchable-desktop-file",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "The MetaInfo file references a .desktop file with ID '{{desktop_id}}' in its <code>launchable</code> tag, but the file "
+	  "was not found in the same source tree. In order to be able to launch the software once it was installed, please place the "
+	  "MetaInfo file and its .desktop files in the same package."
 	},
 
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }

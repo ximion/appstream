@@ -1136,7 +1136,7 @@ as_metadata_components_to_collection (AsMetadata *metad, AsFormatKind format, GE
 	g_return_val_if_fail (format > AS_FORMAT_KIND_UNKNOWN && format < AS_FORMAT_KIND_LAST, NULL);
 
 	if (priv->cpts->len == 0)
-		return NULL;
+		return g_strdup ("");
 
 	context = as_metadata_new_context (metad, AS_FORMAT_STYLE_COLLECTION, NULL);
 

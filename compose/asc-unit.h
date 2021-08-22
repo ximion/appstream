@@ -68,6 +68,10 @@ GPtrArray		*asc_unit_get_contents (AscUnit *unit);
 void			asc_unit_set_contents (AscUnit *unit,
 					       GPtrArray *contents);
 
+GPtrArray		*asc_unit_get_relevant_paths (AscUnit *unit);
+void			asc_unit_add_relevant_path (AscUnit *unit,
+							const gchar *path);
+
 gboolean		asc_unit_open (AscUnit *unit,
 					GError **error);
 void			asc_unit_close (AscUnit *unit);

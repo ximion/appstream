@@ -34,6 +34,7 @@ typedef struct
 	AsBundleKind	bundle_kind;
 	gchar		*bundle_id;
 	GPtrArray	*contents;
+	GPtrArray	*relevant_paths;
 } AscUnitPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscUnit, asc_unit, G_TYPE_OBJECT)
@@ -46,6 +47,7 @@ asc_unit_init (AscUnit *unit)
 
 	priv->bundle_kind = AS_BUNDLE_KIND_UNKNOWN;
 	priv->contents = g_ptr_array_new_with_free_func (g_free);
+	priv->relevant_paths = g_ptr_array_new_with_free_func (g_free);
 }
 
 static void
@@ -56,6 +58,7 @@ asc_unit_finalize (GObject *object)
 
 	g_free (priv->bundle_id);
 	g_ptr_array_unref (priv->contents);
+	g_ptr_array_unref (priv->relevant_paths);
 
 	G_OBJECT_CLASS (asc_unit_parent_class)->finalize (object);
 }
@@ -151,6 +154,43 @@ asc_unit_set_contents (AscUnit *unit, GPtrArray *contents)
 		return;
 	g_ptr_array_unref (priv->contents);
 	priv->contents = g_ptr_array_ref (contents);
+}
+
+/**
+ * asc_unit_get_relevant_paths:
+ * @unit: an #AscUnit instance.
+ *
+ * Get a list of paths that are relevant for data processing.
+ *
+ * Returns: (transfer none) (element-type utf8) : A list of paths
+ **/
+GPtrArray*
+asc_unit_get_relevant_paths (AscUnit *unit)
+{
+	AscUnitPrivate *priv = GET_PRIVATE (unit);
+	return priv->relevant_paths;
+}
+
+/**
+ * asc_unit_add_relevant_path:
+ * @unit: an #AscUnit instance.
+ * @path: path to be considered relevant
+ *
+ * Add a path to the list of relevant directories.
+ * A unit may only read data in paths that were previously
+ * registered as relevant.
+ **/
+void
+asc_unit_add_relevant_path (AscUnit *unit, const gchar *path)
+{
+	AscUnitPrivate *priv = GET_PRIVATE (unit);
+
+	/* duplicate check */
+	for (guint i = 0; i < priv->relevant_paths->len; i++) {
+		if (g_strcmp0 (g_ptr_array_index (priv->relevant_paths, i), path) == 0)
+			return;
+	}
+	g_ptr_array_add (priv->relevant_paths, g_strdup (path));
 }
 
 /**

@@ -43,6 +43,18 @@ struct _AscComposeClass
 	void (*_as_reserved4) (void);
 };
 
+/**
+ * AsCacheFlags:
+ * @ASC_COMPOSE_FLAG_NONE:		No flags.
+ * @ASC_COMPOSE_FLAG_VALIDATE:		Validate metadata while processing.
+ *
+ * Flags on how caching should be used.
+ **/
+typedef enum {
+	ASC_COMPOSE_FLAG_NONE		= 0,
+	ASC_COMPOSE_FLAG_VALIDATE	= 1 << 0
+} AscComposeFlags;
+
 AscCompose		*asc_compose_new (void);
 
 void			asc_compose_reset (AscCompose *compose);
@@ -67,5 +79,19 @@ void			asc_compose_set_format (AscCompose *compose,
 const gchar		*asc_compose_get_media_baseurl (AscCompose *compose);
 void			asc_compose_set_media_baseurl (AscCompose *compose,
 						       const gchar *url);
+
+AscComposeFlags		asc_compose_get_flags (AscCompose *compose);
+void			asc_compose_set_flags (AscCompose *compose,
+					       AscComposeFlags flags);
+
+const gchar		*asc_compose_get_data_result_dir (AscCompose *compose);
+void			asc_compose_set_data_result_dir (AscCompose *compose,
+							 const gchar *dir);
+
+GPtrArray		*asc_compose_get_results (AscCompose *compose);
+
+GPtrArray		*asc_compose_run (AscCompose *compose,
+					  GCancellable *cancellable,
+					  GError **error);
 
 G_END_DECLS
