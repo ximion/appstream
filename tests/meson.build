@@ -1,5 +1,7 @@
 # Meson definition for AppStream Tests
 
+subdir('installed-tests/')
+
 as_test_env = []
 as_test_args = [meson.current_source_dir()]
 
