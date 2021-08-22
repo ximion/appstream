@@ -4,6 +4,7 @@ appstream_compose_lib_inc = include_directories ('.')
 
 ascompose_src = [
     'asc-canvas.c',
+    'asc-compose.c',
     'asc-directory-unit.c',
     'asc-font.c',
     'asc-globals.c',
@@ -20,6 +21,7 @@ ascompose_src = [
 ascompose_pub_headers = [
     'appstream-compose.h',
     'asc-canvas.h',
+    'asc-compose.h',
     'asc-directory-unit.h',
     'asc-font.h',
     'asc-globals.h',

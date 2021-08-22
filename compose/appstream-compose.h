@@ -30,6 +30,7 @@
 #include <appstream.h>
 
 #include <asc-globals.h>
+#include <asc-compose.h>
 #include <asc-utils.h>
 #include <asc-canvas.h>
 #include <asc-font.h>
