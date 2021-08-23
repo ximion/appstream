@@ -2244,3 +2244,176 @@ as_random_alnum_string (gssize len)
 
 	return ret;
 }
+
+/**
+ * as_utils_find_stock_icon_filename_full:
+ * @root_dir: the directory to search in, including prefix.
+ * @icon_name: the stock icon search name, e.g. "microphone.svg" or "kate"
+ * @icon_size: the icon color, e.g. 64 or 128. If size is 0, the first found icon is returned.
+ * @icon_scale the icon scaling factor, 1 for non HiDPI displays
+ * @error: a #GError or %NULL
+ *
+ * Finds an icon filename in the filesystem that matches the given specifications.
+ * This function may return a bigger icon than requested, which is suitable to be scaled down
+ * to the actually requested size.
+ * If no icon with the right scale factor is found, %NULL is returned.
+ *
+ * This algorithm does not implement the full Freedesktop icon theme specification,
+ * instead is is designed to find 99% of all application icons quickly and
+ * efficiently. It is not explicitly designed to find non-application stock
+ * icons as well.
+ * It also deliberately does not support legacy icon search locations and formats.
+ * It will however work on incomplete directory trees with missing icon theme definition files,
+ * by using a heuristic to find the right icon.
+ * If you need more features, and have a complete icon theme definition installed, use the
+ * icon-finding functions provided by GTK+ and Qt instead.
+ *
+ * If @icon_name is an absolute path, it will be returned unconditionally, as long
+ * as the icon it references exists on the filesystem.
+ *
+ * Returns: (transfer full): a newly allocated %NULL terminated string
+ *
+ * Since: 0.14.5
+ **/
+gchar*
+as_utils_find_stock_icon_filename_full (const gchar *root_dir,
+					const gchar *icon_name,
+					guint icon_size,
+					guint icon_scale,
+					GError **error)
+{
+	guint min_size_idx;
+	const gchar *supported_ext[] = { ".png",
+					 ".svg",
+					 ".svgz",
+					 "",
+					 NULL };
+	const struct {
+		guint size;
+		const gchar *size_str;
+	} sizes[] =  {
+		{ 48,  "48x48" },
+		{ 64,  "64x64" },
+		{ 96,  "96x96" },
+		{ 128, "128x128" },
+		{ 256, "256x256" },
+		{ 512, "512x512" },
+		{ 0,   "scalable" },
+		{ 0,   NULL }
+	};
+	const gchar *types[] = { "actions",
+				 "animations",
+				 "apps",
+				 "categories",
+				 "devices",
+				 "emblems",
+				 "emotes",
+				 "filesystems",
+				 "intl",
+				 "mimetypes",
+				 "places",
+				 "status",
+				 "stock",
+				 NULL };
+	g_autofree gchar *prefix = NULL;
+
+	g_return_val_if_fail (icon_name != NULL, NULL);
+
+	/* fallbacks & sanitizations */
+	if (root_dir == NULL)
+		root_dir = "";
+	if (icon_scale <= 0)
+		icon_scale = 1;
+	if (icon_size > 512)
+		icon_size = 512;
+
+	/* is this an absolute path */
+	if (icon_name[0] == '/') {
+		g_autofree gchar *tmp = NULL;
+		tmp = g_build_filename (root_dir, icon_name, NULL);
+		if (!g_file_test (tmp, G_FILE_TEST_EXISTS)) {
+			g_set_error (error,
+				     AS_UTILS_ERROR,
+				     AS_UTILS_ERROR_FAILED,
+				     "specified icon '%s' does not exist",
+				     icon_name);
+			return NULL;
+		}
+		return g_strdup (tmp);
+	}
+
+	/* detect prefix */
+	prefix = g_build_filename (root_dir, "usr", NULL);
+	if (!g_file_test (prefix, G_FILE_TEST_EXISTS)) {
+		g_free (prefix);
+		prefix = g_strdup (root_dir);
+	}
+	if (!g_file_test (prefix, G_FILE_TEST_EXISTS)) {
+		g_set_error (error,
+			     AS_UTILS_ERROR,
+			     AS_UTILS_ERROR_FAILED,
+			     "Failed to find icon '%s' in %s", icon_name, prefix);
+		return NULL;
+	}
+
+	/* select minimum size */
+	for (guint i = 0; sizes[i].size_str != NULL; i++) {
+		if (sizes[i].size >= icon_size) {
+			min_size_idx = i;
+			break;
+		}
+	}
+
+	/* hicolor icon theme search */
+	for (guint i = min_size_idx; sizes[i].size_str != NULL; i++) {
+		g_autofree gchar *size = NULL;
+		if (icon_scale == 1)
+			size = g_strdup (sizes[i].size_str);
+		else
+			size = g_strdup_printf ("%s@%i", sizes[i].size_str, icon_scale);
+		for (guint m = 0; types[m] != NULL; m++) {
+			for (guint j = 0; supported_ext[j] != NULL; j++) {
+				g_autofree gchar *tmp = NULL;
+				tmp = g_strdup_printf ("%s/share/icons/"
+							"hicolor/%s/%s/%s%s",
+							prefix,
+							size,
+							types[m],
+							icon_name,
+							supported_ext[j]);
+				if (g_file_test (tmp, G_FILE_TEST_EXISTS))
+					return g_strdup (tmp);
+			}
+		}
+	}
+
+	/* breeze icon theme search, for KDE Plasma compatibility */
+	for (guint i = min_size_idx; sizes[i].size_str != NULL; i++) {
+		g_autofree gchar *size = NULL;
+		if (icon_scale == 1)
+			size = g_strdup (sizes[i].size_str);
+		else
+			size = g_strdup_printf ("%s@%i", sizes[i].size_str, icon_scale);
+		for (guint m = 0; types[m] != NULL; m++) {
+			for (guint j = 0; supported_ext[j] != NULL; j++) {
+				g_autofree gchar *tmp = NULL;
+				tmp = g_strdup_printf ("%s/share/icons/"
+							"breeze/%s/%s/%s%s",
+							prefix,
+							types[m],
+							size,
+							icon_name,
+							supported_ext[j]);
+				if (g_file_test (tmp, G_FILE_TEST_EXISTS))
+					return g_strdup (tmp);
+			}
+		}
+	}
+
+	/* failed */
+	g_set_error (error,
+		     AS_UTILS_ERROR,
+		     AS_UTILS_ERROR_FAILED,
+		     "Failed to find icon %s", icon_name);
+	return NULL;
+}

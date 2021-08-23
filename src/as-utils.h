@@ -132,6 +132,12 @@ gboolean		as_utils_install_metadata_file (AsMetadataLocation location,
 							const gchar *destdir,
 							GError **error);
 
+gchar			*as_utils_find_stock_icon_filename_full (const gchar *root_dir,
+								 const gchar *icon_name,
+								 guint icon_size,
+								 guint icon_scale,
+								 GError **error);
+
 /* DEPRECATED */
 
 G_DEPRECATED_FOR(as_version_string)

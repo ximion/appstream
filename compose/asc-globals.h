@@ -55,7 +55,8 @@ void				asc_globals_set_optipng_binary (const gchar *path);
 
 gboolean			asc_globals_add_hint_tag (const gchar *tag,
 							  AsIssueSeverity severity,
-							  const gchar *explanation);
+							  const gchar *explanation,
+							  gboolean overrideExisting);
 gchar				**asc_globals_get_hint_tags ();
 AsIssueSeverity			asc_globals_hint_tag_severity (const gchar *tag);
 const gchar			*asc_globals_hint_tag_explanation (const gchar *tag);

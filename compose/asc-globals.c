@@ -328,24 +328,45 @@ asc_globals_create_hint_tag_table ()
 
 /**
  * asc_globals_add_hint_tag:
+ * @tag: the tag-ID to add
+ * @severity: the tag severity as #AsIssueSeverity
+ * @explanation: the tag explanatory message
+ * @overrideExisting: whether an existing tag should be replaced
  *
  * Register a new hint tag. If a previous tag with the given name
- * already existed, the existing tag will not be replaced.
+ * already existed, the existing tag will not be replaced unless
+ * @overrideExisting is set to %TRUE.
+ * Please be careful when overriding tags! Tag severities can not
+ * be lowered by overriding a tag.
  *
  * Returns: %TRUE if the tag was registered and did not exist previously.
  */
 gboolean
-asc_globals_add_hint_tag (const gchar *tag, AsIssueSeverity severity, const gchar *explanation)
+asc_globals_add_hint_tag (const gchar *tag,
+			  AsIssueSeverity severity,
+			  const gchar *explanation,
+			  gboolean overrideExisting)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
 	AscHintTag *htag;
+	AscHintTag *e_htag;
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->hint_tags_mutex);
 	g_return_val_if_fail (tag != NULL, FALSE);
 
 	if (priv->hint_tags == NULL)
 		asc_globals_create_hint_tag_table ();
-	if (g_hash_table_contains (priv->hint_tags, tag))
-		return FALSE;
+
+	e_htag = g_hash_table_lookup (priv->hint_tags, tag);
+	if (e_htag != NULL) {
+		if (overrideExisting) {
+			/* make sure we don't permit lowering severities */
+			if (severity > e_htag->severity)
+				severity = e_htag->severity;
+		} else {
+			/* don't allow the override */
+			return FALSE;
+		}
+	}
 
 	htag = asc_hint_tag_new (tag, severity, explanation);
 	g_hash_table_insert (priv->hint_tags,

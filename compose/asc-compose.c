@@ -37,6 +37,7 @@
 
 #include "asc-utils-metainfo.h"
 #include "asc-utils-l10n.h"
+#include "asc-image.h"
 
 typedef struct
 {
@@ -52,6 +53,9 @@ typedef struct
 	AscComposeFlags	flags;
 
 	gchar		*data_result_dir;
+	gchar		*icons_result_dir;
+	gchar		*media_result_dir;
+	gchar		*hints_result_dir;
 } AscComposePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscCompose, asc_compose, G_TYPE_OBJECT)
@@ -91,6 +95,9 @@ asc_compose_finalize (GObject *object)
 	g_free (priv->media_baseurl);
 
 	g_free (priv->data_result_dir);
+	g_free (priv->icons_result_dir);
+	g_free (priv->media_result_dir);
+	g_free (priv->hints_result_dir);
 
 	G_OBJECT_CLASS (asc_compose_parent_class)->finalize (object);
 }
@@ -315,6 +322,34 @@ asc_compose_set_data_result_dir (AscCompose *compose, const gchar *dir)
 }
 
 /**
+ * asc_compose_get_icons_result_dir:
+ * @compose: an #AscCompose instance.
+ *
+ * Get the icon result directory.
+ */
+const gchar*
+asc_compose_get_icons_result_dir (AscCompose *compose)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	return priv->icons_result_dir;
+}
+
+/**
+ * asc_compose_set_icons_result_dir:
+ * @compose: an #AscCompose instance.
+ * @dir: the icon storage location.
+ *
+ * Set an output location where plain icons for the processed metadata
+ * are stored.
+ */
+void
+asc_compose_set_icons_result_dir (AscCompose *compose, const gchar *dir)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	as_assign_string_safe (priv->icons_result_dir, dir);
+}
+
+/**
  * asc_compose_get_results:
  * @compose: an #AscCompose instance.
  *
@@ -353,6 +388,253 @@ asc_compose_task_free (AscComposeTask *ctask)
 	g_free (ctask);
 }
 
+static gchar*
+asc_compose_find_icon_filename (AscCompose *compose,
+				AscUnit *unit,
+				const gchar *icon_name,
+				guint icon_size,
+				guint icon_scale)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	guint min_size_idx;
+	const gchar *supported_ext[] = { ".png",
+					 ".svg",
+					 ".svgz",
+					 "",
+					 NULL };
+	const struct {
+		guint size;
+		const gchar *size_str;
+	} sizes[] =  {
+		{ 48,  "48x48" },
+		{ 64,  "64x64" },
+		{ 96,  "96x96" },
+		{ 128, "128x128" },
+		{ 256, "256x256" },
+		{ 512, "512x512" },
+		{ 0,   "scalable" },
+		{ 0,   NULL }
+	};
+	const gchar *types[] = { "actions",
+				 "animations",
+				 "apps",
+				 "categories",
+				 "devices",
+				 "emblems",
+				 "emotes",
+				 "filesystems",
+				 "intl",
+				 "mimetypes",
+				 "places",
+				 "status",
+				 "stock",
+				 NULL };
+
+	g_return_val_if_fail (icon_name != NULL, NULL);
+
+	/* fallbacks & sanitizations */
+	if (icon_scale <= 0)
+		icon_scale = 1;
+	if (icon_size > 512)
+		icon_size = 512;
+
+	/* is this an absolute path */
+	if (icon_name[0] == '/') {
+		g_autofree gchar *tmp = NULL;
+		tmp = g_build_filename (priv->prefix, icon_name, NULL);
+		if (!asc_unit_file_exists (unit, tmp))
+			return NULL;
+		return g_strdup (tmp);
+	}
+
+	/* select minimum size */
+	for (guint i = 0; sizes[i].size_str != NULL; i++) {
+		if (sizes[i].size >= icon_size) {
+			min_size_idx = i;
+			break;
+		}
+	}
+
+	/* hicolor icon theme search */
+	for (guint i = min_size_idx; sizes[i].size_str != NULL; i++) {
+		g_autofree gchar *size = NULL;
+		if (icon_scale == 1)
+			size = g_strdup (sizes[i].size_str);
+		else
+			size = g_strdup_printf ("%s@%i", sizes[i].size_str, icon_scale);
+		for (guint m = 0; types[m] != NULL; m++) {
+			for (guint j = 0; supported_ext[j] != NULL; j++) {
+				g_autofree gchar *tmp = NULL;
+				tmp = g_strdup_printf ("%s/share/icons/"
+							"hicolor/%s/%s/%s%s",
+							priv->prefix,
+							size,
+							types[m],
+							icon_name,
+							supported_ext[j]);
+				if (asc_unit_file_exists (unit, tmp))
+					return g_strdup (tmp);
+			}
+		}
+	}
+
+	/* breeze icon theme search, for KDE Plasma compatibility */
+	for (guint i = min_size_idx; sizes[i].size_str != NULL; i++) {
+		g_autofree gchar *size = NULL;
+		if (icon_scale == 1)
+			size = g_strdup (sizes[i].size_str);
+		else
+			size = g_strdup_printf ("%s@%i", sizes[i].size_str, icon_scale);
+		for (guint m = 0; types[m] != NULL; m++) {
+			for (guint j = 0; supported_ext[j] != NULL; j++) {
+				g_autofree gchar *tmp = NULL;
+				tmp = g_strdup_printf ("%s/share/icons/"
+							"breeze/%s/%s/%s%s",
+							priv->prefix,
+							types[m],
+							size,
+							icon_name,
+							supported_ext[j]);
+				if (asc_unit_file_exists (unit, tmp))
+					return g_strdup (tmp);
+			}
+		}
+	}
+
+	/* failed to find any icon */
+	return NULL;
+}
+
+static void
+asc_compose_process_icons (AscCompose *compose,
+			   AscResult *cres,
+			   AsComponent *cpt,
+			   AscUnit *unit)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	const gint sizes[] = {  48,
+				64,
+				128,
+				-1 };
+	const gint scale_factors[] = {  1,
+					2,
+					-0 };
+	GPtrArray *icons = NULL;
+	AsIcon *stock_icon = NULL;
+	gboolean stock_icon_found = FALSE;
+	const gchar *icon_name = NULL;
+
+	/* do nothing if we have no icons to process */
+	icons = as_component_get_icons (cpt);
+	if (icons == NULL || icons->len == 0)
+		return;
+
+	/* find a suitable stock icon as template */
+	for (guint i = 0; i < icons->len; i++) {
+		AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK) {
+			stock_icon = icon;
+			stock_icon_found = TRUE;
+			break;
+		}
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_LOCAL) {
+			stock_icon = icon;
+			stock_icon_found = TRUE;
+		}
+	}
+
+	if (!stock_icon_found) {
+		asc_result_add_hint_simple (cres, cpt, "no-stock-icon");
+		return;
+	}
+
+	icon_name = as_icon_get_name (stock_icon);
+	for (guint k = 0; scale_factors[k] > 0; k++) {
+		for (guint i = 0; sizes[i] > 0; i++) {
+			g_autofree gchar *icon_fname = NULL;
+			g_autofree gchar *res_icon_fname = NULL;
+			g_autofree gchar *res_icon_sizedir = NULL;
+			g_autoptr(AscImage) img = NULL;
+			g_autoptr(GBytes) img_bytes = NULL;
+			const void *img_data;
+			gsize img_len;
+			g_autoptr(GError) error = NULL;
+			icon_fname = asc_compose_find_icon_filename (compose,
+									unit,
+									icon_name,
+									sizes[i],
+									scale_factors[k]);
+
+			if (icon_fname == NULL) {
+				/* only a 64x64px icon is mandatory, everything else is optional */
+				if (sizes[i] == 64 && scale_factors[k] == 1) {
+					asc_result_add_hint (cres, cpt,
+								"icon-not-found",
+								"icon_fname", icon_fname,
+								NULL);
+					return;
+				}
+				continue;
+			}
+
+			img_bytes = asc_unit_read_data (unit, icon_fname, &error);
+			if (img_bytes == NULL) {
+				asc_result_add_hint (cres, cpt,
+							"file-read-error",
+							"fname", icon_fname,
+							"msg", error->message,
+							NULL);
+				return;
+			}
+			img_data = g_bytes_get_data (img_bytes, &img_len);
+			img = asc_image_new_from_data (img_data, img_len,
+							0,
+							ASC_IMAGE_LOAD_FLAG_NONE,
+							&error);
+			if (img == NULL) {
+				asc_result_add_hint (cres, cpt,
+							"file-read-error",
+							"fname", icon_fname,
+							"msg", error->message,
+							NULL);
+				return;
+			}
+
+			/* we only take exact-ish size matches for 48x48px */
+			if (sizes[i] == 48 && asc_image_get_width (img) > 48)
+				continue;
+
+			res_icon_sizedir = (scale_factors[k] == 1)?
+						g_strdup_printf ("%s/%ix%i",
+								 priv->icons_result_dir,
+								 sizes[i], sizes[i])
+						: g_strdup_printf ("%s/%ix%i@%i",
+								   priv->icons_result_dir,
+								   sizes[i], sizes[i],
+								   scale_factors[k]);
+			g_mkdir_with_parents (res_icon_sizedir, 0755);
+			res_icon_fname = g_strdup_printf ("%s/%s.png",
+							  res_icon_sizedir,
+							  as_component_get_id (cpt));
+
+			/* scale & save the image */
+			g_debug ("Saving icon: %s", res_icon_fname);
+			if (!asc_image_save_filename (img,
+							res_icon_fname,
+							sizes[i], sizes[i],
+							ASC_IMAGE_SAVE_FLAG_OPTIMIZE,
+							&error)) {
+				asc_result_add_hint (cres, cpt,
+							"icon-write-error",
+							"fname", icon_fname,
+							"msg", error->message,
+							NULL);
+				return;
+			}
+		}
+	}
+}
+
 static void
 asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 {
@@ -364,6 +646,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	g_autoptr(AsValidator) validator = NULL;
 	g_autoptr(GPtrArray) mi_fnames = NULL;
 	g_autoptr(GHashTable) de_fname_map = NULL;
+	g_autoptr(GPtrArray) found_cpts = NULL;
 	g_autoptr(GError) error = NULL;
 	GPtrArray *contents = NULL;
 
@@ -553,6 +836,16 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 				priv->prefix,
 				25 /* minimum translation percentage */);
 
+	/* process icons */
+	found_cpts = asc_result_fetch_components (ctask->result);
+	for (guint i = 0; i < found_cpts->len; i++) {
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (found_cpts, i));
+		asc_compose_process_icons (compose,
+					   ctask->result,
+					   cpt,
+					   ctask->unit);
+	}
+
 	asc_unit_close (ctask->unit);
 }
 
@@ -614,6 +907,23 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	GThreadPool *tpool = NULL;
 	g_autoptr(GPtrArray) tasks = NULL;
+
+	/* test if output directories are set */
+	if (priv->data_result_dir == NULL) {
+		g_set_error_literal (error,
+				ASC_COMPOSE_ERROR,
+				ASC_COMPOSE_ERROR_FAILED,
+				"Metadata output directory is not set.");
+		return NULL;
+	}
+	if (priv->icons_result_dir == NULL) {
+		g_set_error_literal (error,
+				ASC_COMPOSE_ERROR,
+				ASC_COMPOSE_ERROR_FAILED,
+				"Icon output directory is not set.");
+		return NULL;
+	}
+	/* hint output directory is optional */
 
 	tasks = g_ptr_array_new_with_free_func ((GDestroyNotify) asc_compose_task_free);
 

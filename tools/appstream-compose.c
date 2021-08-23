@@ -24,6 +24,8 @@
 #include <glib/gi18n.h>
 #include <locale.h>
 
+#include "ascli-utils.h"
+
 int
 main (int argc, char **argv)
 {
@@ -32,7 +34,7 @@ main (int argc, char **argv)
 	gboolean verbose = FALSE;
 	g_autoptr(GError) error = NULL;
 	g_autofree gchar *origin = NULL;
-	g_autofree gchar *res_dir = NULL;
+	g_autofree gchar *res_root_dir = NULL;
 	g_autofree gchar *mdata_dir = NULL;
 	g_autofree gchar *icons_dir = NULL;
 	g_autofree gchar *prefix = NULL;
@@ -47,7 +49,7 @@ main (int argc, char **argv)
 		{ "prefix", '\0', 0, G_OPTION_ARG_FILENAME, &prefix,
 			/* TRANSLATORS: command line option */
 			_("Override the default prefix"), "DIR" },
-		{ "result-dir", 'o', 0, G_OPTION_ARG_FILENAME, &res_dir,
+		{ "result-root", 'o', 0, G_OPTION_ARG_FILENAME, &res_root_dir,
 			/* TRANSLATORS: command line option */
 			_("Set the result output directory"), "DIR" },
 		{ "data-dir", 'o', 0, G_OPTION_ARG_FILENAME, &mdata_dir,
@@ -90,22 +92,30 @@ main (int argc, char **argv)
 		prefix = g_strdup ("/usr");
 	asc_compose_set_prefix (compose, prefix);
 
-	if (res_dir == NULL && (mdata_dir == NULL || icons_dir == NULL)) {
-		/* TRANSLATORS: we could not auto-add the provides */
-		g_printerr ("%s\n", _("No destination directory set, please provide a data output location!"));
-		return EXIT_FAILURE;
+	if (res_root_dir == NULL && (mdata_dir == NULL || icons_dir == NULL)) {
+		if (argc == 2) {
+			/* we have only one unit as parameter, assume it as target path for convenience & compatibility */
+			res_root_dir = g_strdup (argv[1]);
+			ascli_print_stdout (_("Automatically selected '%s' as data output location."), res_root_dir);
+		} else {
+			/* TRANSLATORS: we could not auto-add the provides */
+			g_printerr ("%s\n", _("No destination directory set, please provide a data output location!"));
+			return EXIT_FAILURE;
+		}
 	}
 	if (origin == NULL) {
-		g_print ("WARNING: Metadata origin not set, using 'example'\n");
 		origin = g_strdup ("example");
+		/* TRANSLATORS: information message of appstream-compose */
+		ascli_print_stderr (_("WARNING: Metadata origin not set, using '%s'"), origin);
 	}
 	asc_compose_set_origin (compose, origin);
 
 	if (mdata_dir == NULL)
-		mdata_dir = g_build_filename (res_dir, prefix, "share/app-info/xmls", NULL);
+		mdata_dir = g_build_filename (res_root_dir, prefix, "share/app-info/xmls", NULL);
 	asc_compose_set_data_result_dir (compose, mdata_dir);
 	if (icons_dir == NULL)
-		icons_dir = g_build_filename (res_dir, prefix, "share/app-info/icons", origin, NULL);
+		icons_dir = g_build_filename (res_root_dir, prefix, "share/app-info/icons", origin, NULL);
+	asc_compose_set_icons_result_dir (compose, icons_dir);
 
 	if (argc == 1) {
 		g_autofree gchar *tmp = NULL;
@@ -127,6 +137,9 @@ main (int argc, char **argv)
 		dirunit = asc_directory_unit_new (dir_path);
 		asc_compose_add_unit (compose, ASC_UNIT (dirunit));
 	}
+
+	/* TRANSLATORS: information message */
+	g_print ("%s\n", _("Composing metadata..."));
 
 	results = asc_compose_run (compose, NULL, &error);
 	if (results == NULL) {

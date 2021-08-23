@@ -142,6 +142,24 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "Please check that its value is set correctly.",
 	},
 
+	{ "icon-not-found",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "The icon '{{icon_fname}}' was not found in the archive. This issue can have multiple reasons, "
+	  "like the icon being in a wrong directory or not being available in a suitable size (at least 64x64px). "
+	  "To make the icon easier to find, place it in <code>/usr/share/icons/hicolor/&lt;size&gt;/apps</code> and ensure the <code>Icon=</code> value"
+	  "of the desktop-entry file is set correctly."
+	},
+
+	{ "no-stock-icon",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "The component has no stock icon set, even though it requires one (or a `local` icon) to be valid."
+	},
+
+	{ "icon-write-error",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "Unable to store icon '{{fname}}': {{msg}}"
+	},
+
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
 };
 

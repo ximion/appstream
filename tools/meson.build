@@ -6,7 +6,7 @@ ascli_src = [
     'ascli-actions-pkgmgr.c',
     'ascli-actions-validate.c',
     'ascli-actions-mdata.c',
-    'ascli-actions-misc.c'
+    'ascli-actions-misc.c',
 ]
 
 ascli_exe = executable('appstreamcli',
@@ -19,7 +19,8 @@ ascli_exe = executable('appstreamcli',
 
 if get_option('compose')
     ascompose_src = [
-        'appstream-compose.c'
+        'appstream-compose.c',
+        'ascli-utils.c',
     ]
 
     ascompose_exe = executable('appstreamcli-compose',
