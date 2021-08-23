@@ -60,6 +60,7 @@ AsComponent		*asc_result_get_component (AscResult *result,
 GPtrArray		*asc_result_fetch_components (AscResult *result);
 GPtrArray		*asc_result_get_hints (AscResult *result,
 						const gchar *cid);
+GPtrArray		*asc_result_fetch_hints_all (AscResult *result);
 const gchar		**asc_result_get_component_ids_with_hints (AscResult *result);
 
 

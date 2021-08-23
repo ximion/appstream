@@ -409,7 +409,6 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
  * @unit: an #AscUnit that the result belongs to
  * @prefix: a prefix to search, e.g. "/usr"
  * @min_percentage: minimum percentage to add language
- * @error: a #GError or %NULL
  *
  * Searches a prefix for languages, and adds <language/>
  * tags to the specified component, if it has one or more <translation/> tags
@@ -422,15 +421,12 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
  * The purpose of this functionality is to avoid blowing up the size
  * of the AppStream metadata with a lot of extra data detailing
  * languages with very few translated strings.
- *
- * Returns: %TRUE for success
  **/
-gboolean
+void
 asc_read_translations (AscResult *cres,
 		        AscUnit *unit,
 			const gchar *prefix,
-			guint min_percentage,
-			GError **error)
+			guint min_percentage)
 {
 	g_autoptr(GPtrArray) cpts = NULL;
 
@@ -438,6 +434,8 @@ asc_read_translations (AscResult *cres,
 	for (guint i = 0; i < cpts->len; i++) {
 		AscLocaleEntry *e;
 		g_autoptr(AscLocaleContext) ctx = NULL;
+		g_autoptr(GError) error = NULL;
+		gboolean have_results = FALSE;
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 
 		ctx = asc_locale_ctx_new ();
@@ -448,12 +446,26 @@ asc_read_translations (AscResult *cres,
 			continue;
 
 		/* search for Qt .qm files */
-		if (!asc_l10n_search_translations_qt (ctx, unit, prefix, error))
-			return FALSE;
+		if (!asc_l10n_search_translations_qt (ctx, unit, prefix, &error)) {
+			asc_result_add_hint (cres,
+					     cpt,
+					     "translation-status-error",
+					     "msg",
+					     error->message,
+					     NULL);
+			continue;
+		}
 
 		/* search for gettext .mo files */
-		if (!asc_l10n_search_translations_gettext (ctx, unit, prefix, error))
-			return FALSE;
+		if (!asc_l10n_search_translations_gettext (ctx, unit, prefix, &error)) {
+			asc_result_add_hint (cres,
+					     cpt,
+					     "translation-status-error",
+					     "msg",
+					     error->message,
+					     NULL);
+			continue;
+		}
 
 		/* calculate percentages */
 		for (GList *l = ctx->data; l != NULL; l = l->next) {
@@ -467,15 +479,17 @@ asc_read_translations (AscResult *cres,
 		/* add results */
 		for (GList *l = ctx->data; l != NULL; l = l->next) {
 			e = l->data;
+			have_results = TRUE;
 			if (e->percentage < min_percentage)
 				continue;
 			as_component_add_language (cpt, e->locale, (gint) e->percentage);
 		}
 
+		if (!have_results)
+			asc_result_add_hint_simple (cres, cpt, "translations-not-found");
+
 		/* remove translation elements, they should no longer be in the resulting component */
 		g_ptr_array_set_size (ctx->translations, 0);
 	}
-
-	return TRUE;
 }
 

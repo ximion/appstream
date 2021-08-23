@@ -131,6 +131,17 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "MetaInfo file and its .desktop files in the same package."
 	},
 
+	{ "translation-status-error",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "Unable to read translation status data: {{msg}}",
+	},
+
+	{ "translations-not-found",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "Unable to add languages information, even though a <code>translation</code> tag was present in the source data. "
+	  "Please check that its value is set correctly.",
+	},
+
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
 };
 

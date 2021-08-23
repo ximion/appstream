@@ -253,6 +253,31 @@ asc_result_get_hints (AscResult *result, const gchar *cid)
 }
 
 /**
+ * asc_result_fetch_hints_all:
+ * @result: an #AscResult instance.
+ *
+ * Get a list of all hints for all components that are registered with this result.
+ *
+ * Returns: (transfer container) (element-type AscHint) : An array of #AscHint
+ **/
+GPtrArray*
+asc_result_fetch_hints_all (AscResult *result)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	GPtrArray *res;
+	GHashTableIter iter;
+	gpointer value;
+
+	res = g_ptr_array_new_full (g_hash_table_size (priv->hints),
+				    g_object_unref);
+
+	g_hash_table_iter_init (&iter, priv->hints);
+	while (g_hash_table_iter_next (&iter, NULL, &value))
+		g_ptr_array_add (res, g_object_ref (ASC_HINT (value)));
+	return res;
+}
+
+/**
  * asc_result_get_component_ids_with_hints:
  * @result: an #AscResult instance.
  *

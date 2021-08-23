@@ -31,10 +31,9 @@
 
 G_BEGIN_DECLS
 
-gboolean	asc_read_translations (AscResult *cres,
+void		asc_read_translations (AscResult *cres,
 					AscUnit *unit,
 					const gchar *prefix,
-					guint min_percentage,
-					GError **error);
+					guint min_percentage);
 
 G_END_DECLS

@@ -547,14 +547,11 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 		} /* end of desktop-entry support */
 	} /* end of metadata parsing loop */
 
-#if 0
 	/* process translation status */
-	asc_read_translations (AscResult *cres,
-					AscUnit *unit,
-					const gchar *prefix,
-					guint min_percentage,
-					GError **error);
-#endif
+	asc_read_translations (ctask->result,
+				ctask->unit,
+				priv->prefix,
+				25 /* minimum translation percentage */);
 
 	asc_unit_close (ctask->unit);
 }
