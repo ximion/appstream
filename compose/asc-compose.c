@@ -27,6 +27,8 @@
 #include "config.h"
 #include "asc-compose.h"
 
+#include <errno.h>
+
 #include "as-utils-private.h"
 #include "asc-globals-private.h"
 #include "asc-utils.h"
