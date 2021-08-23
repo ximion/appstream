@@ -118,7 +118,10 @@ as_markup_strsplit_words (const gchar *text, guint line_len)
 		if (curline_char_count + token_unilen < line_len) {
 			/* we can't just check for a suffix \n here, as tokens may contain internal linebreaks */
 			if (token_has_linebreak) {
-				g_string_append (curline, (tokens[i][0] == '\0')? " " : tokens[i]);
+				if (tokens[i][0] == '\0')
+					g_string_append_c (curline, ' ');
+				else
+					g_string_append_printf (curline, "%s ", tokens[i]);
 				g_ptr_array_add (lines, g_strdup (curline->str));
 				g_string_truncate (curline, 0);
 				curline_char_count = 0;
