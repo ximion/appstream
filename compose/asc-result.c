@@ -272,8 +272,12 @@ asc_result_fetch_hints_all (AscResult *result)
 				    g_object_unref);
 
 	g_hash_table_iter_init (&iter, priv->hints);
-	while (g_hash_table_iter_next (&iter, NULL, &value))
-		g_ptr_array_add (res, g_object_ref (ASC_HINT (value)));
+	while (g_hash_table_iter_next (&iter, NULL, &value)) {
+		GPtrArray *hints = value;
+		for (guint i = 0; i < hints->len; i++)
+			g_ptr_array_add (res,
+					 g_object_ref (ASC_HINT (g_ptr_array_index (hints, i))));
+	}
 	return res;
 }
 

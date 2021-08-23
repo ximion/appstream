@@ -364,6 +364,59 @@ asc_compose_get_results (AscCompose *compose)
 	return priv->results;
 }
 
+/**
+ * asc_compose_fetch_components:
+ * @compose: an #AscCompose instance.
+ *
+ * Get the results components extracted in the last data processing run.
+ *
+ * Returns: (transfer container) (element-type AsComponent): The components
+ */
+GPtrArray*
+asc_compose_fetch_components (AscCompose *compose)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	GPtrArray *cpts_result = g_ptr_array_new_with_free_func (g_object_unref);
+
+	for (guint i = 0; i < priv->results->len; i++) {
+		g_autoptr(GPtrArray) cpts = NULL;
+		AscResult *res = ASC_RESULT (g_ptr_array_index (priv->results, i));
+		cpts = asc_result_fetch_components (res);
+		for (guint j = 0; j < cpts->len; j++)
+			g_ptr_array_add (cpts_result,
+					 g_object_ref (AS_COMPONENT (g_ptr_array_index (cpts, j))));
+	}
+
+	return cpts_result;
+}
+
+/**
+ * asc_compose_has_errors:
+ * @compose: an #AscCompose instance.
+ *
+ * Check if the last run generated any errors (which will cause metadata to be ignored).
+ *
+ * Returns: %TRUE if we had errors.
+ */
+gboolean
+asc_compose_has_errors (AscCompose *compose)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+
+	for (guint i = 0; i < priv->results->len; i++) {
+		g_autoptr(GPtrArray) hints = NULL;
+		AscResult *res = ASC_RESULT (g_ptr_array_index (priv->results, i));
+		hints = asc_result_fetch_hints_all (res);
+		for (guint j = 0; j < hints->len; j++) {
+			AscHint *hint = ASC_HINT (g_ptr_array_index (hints, j));
+			if (asc_hint_is_error (hint))
+				return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
 typedef struct {
 	AscUnit		*unit;
 	AscResult	*result;
