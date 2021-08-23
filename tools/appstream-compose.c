@@ -26,6 +26,13 @@
 
 #include "ascli-utils.h"
 
+typedef enum {
+	ASC_REPORT_MODE_UNKNOWN,
+	ASC_REPORT_MODE_FULL,
+	ASC_REPORT_MODE_SHORT,
+	ASC_REPORT_MODE_ERROR_SUMMARY
+} AscReportMode;
+
 void
 composecli_add_report_hint (GString *report, AscHint *hint)
 {
@@ -69,7 +76,7 @@ composecli_add_report_hint (GString *report, AscHint *hint)
 }
 
 void
-composecli_print_hints_report (GPtrArray *results, gboolean errors_only)
+composecli_print_hints_report (GPtrArray *results, const gchar *title, AscReportMode mode)
 {
 	g_autoptr(GString) report = NULL;
 	g_return_if_fail (results != NULL);
@@ -93,7 +100,7 @@ composecli_print_hints_report (GPtrArray *results, gboolean errors_only)
 
 			for (guint k = 0; k < hints->len; k++) {
 				AscHint *hint = ASC_HINT (g_ptr_array_index (hints, k));
-				if (errors_only && !asc_hint_is_error (hint))
+				if (mode == ASC_REPORT_MODE_ERROR_SUMMARY && !asc_hint_is_error (hint))
 					continue;
 				/* pedantic hints are usually not important enough to be displayed here */
 				if (asc_hint_get_severity (hint) == AS_ISSUE_SEVERITY_PEDANTIC)
@@ -102,16 +109,42 @@ composecli_print_hints_report (GPtrArray *results, gboolean errors_only)
 				composecli_add_report_hint (report, hint);
 				g_string_append_c (report, '\n');
 				entry_added = TRUE;
+
+				if (mode == ASC_REPORT_MODE_FULL) {
+					g_autofree gchar *text = NULL;
+					g_autofree gchar *text_md_wrap = NULL;
+					g_autoptr(GString) text_md = NULL;
+
+					text = asc_hint_format_explanation (hint);
+					text_md = g_string_new (text);
+					as_gstring_replace (text_md, "<code>", "`");
+					as_gstring_replace (text_md, "</code>", "`");
+					as_gstring_replace (text_md, "<br/>", "\n");
+					as_gstring_replace (text_md, "<em>", "");
+					as_gstring_replace (text_md, "</em>", "");
+					as_gstring_replace (text_md, "&lt;", "<");
+					as_gstring_replace (text_md, "&gt;", ">");
+
+					text_md_wrap = ascli_format_long_output (text_md->str, 100, 4);
+					g_string_append (report, text_md_wrap);
+					g_string_append_c (report, '\n');
+				}
 			}
 			if (!entry_added)
 				g_string_truncate (report, start_len);
 		}
 	}
 
-	/* trim trailing newline */
-	if (report->len > 2)
-		g_string_erase (report, 0, 1);
+	/* don't print anything if we have no report */
+	if (report->len < 2)
+		return;
 
+	/* trim trailing newline */
+	g_string_erase (report, 0, 1);
+	if (title != NULL) {
+		g_string_prepend_c (report, '\n');
+		g_string_prepend (report, title);
+	}
 	g_print ("%s", report->str);
 }
 
@@ -122,8 +155,9 @@ main (int argc, char **argv)
 	gboolean ret;
 	gboolean verbose = FALSE;
 	gboolean no_color = FALSE;
-	gboolean print_report = FALSE;
 	g_autoptr(GError) error = NULL;
+	AscReportMode report_mode;
+	g_autofree gchar *report_mode_str = NULL;
 	g_autofree gchar *origin = NULL;
 	g_autofree gchar *res_root_dir = NULL;
 	g_autofree gchar *mdata_dir = NULL;
@@ -131,22 +165,21 @@ main (int argc, char **argv)
 	g_autofree gchar *hints_dir = NULL;
 	g_autofree gchar *prefix = NULL;
 	g_autofree gchar *components_str = NULL;
-	GPtrArray *results;
 	g_autoptr(AscCompose) compose = NULL;
+	GPtrArray *results;
 
 	const GOptionEntry options[] = {
 		{ "verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose,
 			/* TRANSLATORS: ascompose flag description for: --verbose */
 			_("Show extra debugging information"), NULL },
-		{ "no-color", (gchar) 0, 0,
-			G_OPTION_ARG_NONE, &no_color,
+		{ "no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &no_color,
 			/* TRANSLATORS: ascompose flag description for: --no-color */
 			_("Don\'t show colored output."), NULL },
-		{ "print-report", (gchar) 0, 0,
-			G_OPTION_ARG_NONE, &print_report,
+		{ "print-report", '\0', 0, G_OPTION_ARG_STRING, &report_mode_str,
 			/* TRANSLATORS: ascompose flag description for: --full-report */
-			_("Always print report summary, including non-error hints. "
-			  "If this is not set, we will only print a summary on error."), NULL },
+			_("Print an issue report to the console. If set to `full`, a detailed report will be printed, "
+			  "`short` generates an abridged version, and `on-error` (the default) only prints a short report "
+			  "if the run failed."), NULL },
 		{ "prefix", '\0', 0, G_OPTION_ARG_FILENAME, &prefix,
 			/* TRANSLATORS: ascompose flag description for: --prefix */
 			_("Override the default prefix"), "DIR" },
@@ -189,6 +222,22 @@ main (int argc, char **argv)
 		g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	ascli_set_output_colored (!no_color);
 
+	/* determine report mode */
+	report_mode = ASC_REPORT_MODE_UNKNOWN;
+	if (report_mode_str == NULL)
+		report_mode = ASC_REPORT_MODE_ERROR_SUMMARY;
+	else if (g_strcmp0 (report_mode_str, "full") == 0)
+		report_mode = ASC_REPORT_MODE_FULL;
+	else if (g_strcmp0 (report_mode_str, "short") == 0)
+		report_mode = ASC_REPORT_MODE_SHORT;
+	else if (g_strcmp0 (report_mode_str, "on-error") == 0)
+		report_mode = ASC_REPORT_MODE_ERROR_SUMMARY;
+	if (report_mode == ASC_REPORT_MODE_UNKNOWN) {
+		/* TRANSLATORS: invalid value for the --print-report CLI option */
+		ascli_print_stderr (_("Invalid value for --print-report option: %s"), report_mode_str);
+		return EXIT_FAILURE;
+	}
+
 	/* create compose engine */
 	compose = asc_compose_new ();
 
@@ -203,7 +252,7 @@ main (int argc, char **argv)
 			res_root_dir = g_strdup (argv[1]);
 			ascli_print_stdout (_("Automatically selected '%s' as data output location."), res_root_dir);
 		} else {
-			/* TRANSLATORS: we could not auto-add the provides */
+			/* TRANSLATORS: we don't have a destination directory for compose */
 			g_printerr ("%s\n", _("No destination directory set, please provide a data output location!"));
 			return EXIT_FAILURE;
 		}
@@ -259,16 +308,14 @@ main (int argc, char **argv)
 	}
 
 	if (asc_compose_has_errors (compose)) {
+		/* TRANSLATORS: appstream-compose failed to include all data */
+		g_print ("%s\n", _("Run failed, some data was ignored."));
 		/* TRANSLATORS: information message of appstream-compose */
-		g_print ("\n%s\n", _("Errors were raised during this compose run:"));
-		composecli_print_hints_report (results, !print_report);
+		composecli_print_hints_report (results, _("Errors were raised during this compose run:"), report_mode);
 		g_print ("%s\n", _("Refer to the generated issue report data for details on the individual problems."));
 		return EXIT_FAILURE;
 	} else {
-		if (print_report) {
-			g_print ("%s\n", _("Overview of generated hints:"));
-			composecli_print_hints_report (results, FALSE);
-		}
+		composecli_print_hints_report (results, _("Overview of generated hints:"), report_mode);
 		/* TRANSLATORS: information message */
 		g_print ("%s\n", _("Success!"));
 

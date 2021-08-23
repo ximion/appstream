@@ -623,7 +623,7 @@ asc_compose_process_icons (AscCompose *compose,
 				if (sizes[i] == 64 && scale_factors[k] == 1) {
 					asc_result_add_hint (cres, cpt,
 								"icon-not-found",
-								"icon_fname", icon_fname,
+								"icon_fname", icon_name,
 								NULL);
 					return;
 				}
