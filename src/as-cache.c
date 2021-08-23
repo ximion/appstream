@@ -342,7 +342,11 @@ lmdb_val_memdup (MDB_val val, gsize *len)
 	*len = val.mv_size;
 	if (val.mv_size == 0)
 		return NULL;
+#if GLIB_CHECK_VERSION(2,68,0)
+	return g_memdup2 (val.mv_data, val.mv_size);
+#else
 	return g_memdup (val.mv_data, val.mv_size);
+#endif
 }
 
 /**
@@ -1222,7 +1226,12 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 						  NULL);
 
 		match_pval = (AsTokenType *) tc_value;
-		match_list = g_memdup (fts_val.mv_data, fts_val.mv_size); /* TODO: There is potential to save on allocations here */
+		/* TODO: There is potential to save on allocations here */
+#if GLIB_CHECK_VERSION(2,68,0)
+		match_list = g_memdup2 (fts_val.mv_data, fts_val.mv_size);
+#else
+		match_list = g_memdup (fts_val.mv_data, fts_val.mv_size);
+#endif
 		match_list_len = fts_val.mv_size;
 
 		if (as_cache_hash_match_dict_insert (&match_list, &match_list_len, cpt_checksum, *match_pval)) {
@@ -2156,9 +2165,16 @@ as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn,
 				sitem->terms_found = 1;
 				g_ptr_array_add (sitem->matched_terms, g_strdup (matched_term));
 
+#if GLIB_CHECK_VERSION(2,68,0)
+				g_hash_table_insert (results_ht,
+						     g_memdup2 (cpt_hash, AS_CACHE_CHECKSUM_LEN),
+						     sitem);
+#else
 				g_hash_table_insert (results_ht,
 						     g_memdup (cpt_hash, AS_CACHE_CHECKSUM_LEN),
 						     sitem);
+#endif
+
 			}
 		} else {
 			gboolean term_matched = FALSE;
