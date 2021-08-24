@@ -28,9 +28,10 @@
 
 typedef enum {
 	ASC_REPORT_MODE_UNKNOWN,
-	ASC_REPORT_MODE_FULL,
+	ASC_REPORT_MODE_NONE,
+	ASC_REPORT_MODE_ERROR_SUMMARY,
 	ASC_REPORT_MODE_SHORT,
-	ASC_REPORT_MODE_ERROR_SUMMARY
+	ASC_REPORT_MODE_FULL
 } AscReportMode;
 
 void
@@ -80,6 +81,9 @@ composecli_print_hints_report (GPtrArray *results, const gchar *title, AscReport
 {
 	g_autoptr(GString) report = NULL;
 	g_return_if_fail (results != NULL);
+
+	if (mode == ASC_REPORT_MODE_NONE)
+		return;
 
 	report = g_string_new ("");
 	for (guint i = 0; i < results->len; i++) {
@@ -232,6 +236,8 @@ main (int argc, char **argv)
 		report_mode = ASC_REPORT_MODE_SHORT;
 	else if (g_strcmp0 (report_mode_str, "on-error") == 0)
 		report_mode = ASC_REPORT_MODE_ERROR_SUMMARY;
+	else if (g_strcmp0 (report_mode_str, "none") == 0)
+		report_mode = ASC_REPORT_MODE_NONE;
 	if (report_mode == ASC_REPORT_MODE_UNKNOWN) {
 		/* TRANSLATORS: invalid value for the --print-report CLI option */
 		ascli_print_stderr (_("Invalid value for --print-report option: %s"), report_mode_str);
