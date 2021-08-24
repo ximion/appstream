@@ -423,6 +423,7 @@ asc_image_new_from_file (const gchar* fname,
  * @len: Length of the data to load.
  * @dest_size: The size of the constructed pixbuf, or 0 for the native size
  * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
+ * @compressed: %TRUE if passed data is gzip-compressed
  * @error: A #GError or %NULL
  *
  * Creates a new #AscImage from data in memory.
@@ -430,16 +431,25 @@ asc_image_new_from_file (const gchar* fname,
 AscImage*
 asc_image_new_from_data (const void *data, gssize len,
 			 guint dest_size,
+			 gboolean compressed,
 			 AscImageLoadFlags flags,
 			 GError **error)
 {
 	gboolean ret;
 	g_autoptr(GInputStream) istream = NULL;
+	g_autoptr(GInputStream) dstream = NULL;
+	g_autoptr(GConverter) conv = NULL;
 	g_autoptr(GdkPixbuf) pix = NULL;
 	g_autoptr(AscImage) image = asc_image_new();
 
 	istream = g_memory_input_stream_new_from_data (data, len, NULL);
-        pix = gdk_pixbuf_new_from_stream (istream, NULL, error);
+	if (compressed) {
+		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
+		dstream = g_converter_input_stream_new (istream, conv);
+	} else {
+		dstream = g_object_ref (istream);
+	}
+        pix = gdk_pixbuf_new_from_stream (dstream, NULL, error);
 	if (pix == NULL)
 		return NULL;
 
@@ -458,6 +468,58 @@ asc_image_new_from_data (const void *data, gssize len,
 		return NULL;
 
 	return g_steal_pointer (&image);
+}
+
+/**
+ * asc_image_pixbuf_new_from_gz:
+ *
+ * Wrapper to allow GdkPixbuf to load SVG images from SVGZ files as well.
+ */
+static GdkPixbuf*
+asc_image_pixbuf_new_from_gz (const gchar *filename, gint width, gint height, GError **error)
+{
+	g_autoptr(GFile) file = NULL;
+	g_autoptr(GInputStream) file_stream = NULL;
+	g_autoptr(GInputStream) stream_data = NULL;
+	g_autoptr(GConverter) conv = NULL;
+	g_autoptr(GFileInfo) info = NULL;
+	const gchar *content_type = NULL;
+
+	file = g_file_new_for_path (filename);
+	if (!g_file_query_exists (file, NULL)) {
+		g_set_error_literal (error,
+					ASC_IMAGE_ERROR,
+					ASC_IMAGE_ERROR_FAILED,
+					"Image file does not exist");
+		return NULL;
+	}
+	info = g_file_query_info (file,
+				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				G_FILE_QUERY_INFO_NONE,
+				NULL, NULL);
+	if (info != NULL)
+		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+
+	file_stream = G_INPUT_STREAM (g_file_read (file, NULL, error));
+	if (file_stream == NULL)
+		return NULL;
+
+	if ((g_strcmp0 (content_type, "application/gzip") == 0) || (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
+		/* decompress the GZip stream */
+		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
+		stream_data = g_converter_input_stream_new (file_stream, conv);
+	} else {
+		stream_data = g_object_ref (file_stream);
+	}
+
+	if (width != 0 || height != 0)
+		return gdk_pixbuf_new_from_stream_at_scale (stream_data,
+							    width, height,
+							    TRUE,
+							    NULL,
+							    error);
+	else
+		return gdk_pixbuf_new_from_stream (stream_data, NULL, error);
 }
 
 /**
@@ -481,7 +543,6 @@ asc_image_load_filename (AscImage *image,
 			 AscImageLoadFlags flags,
 			 GError **error)
 {
-	g_autoptr(GdkPixbuf) pixbuf = NULL;
 	g_autoptr(GdkPixbuf) pixbuf_src = NULL;
 
 	g_return_val_if_fail (ASC_IS_IMAGE (image), FALSE);
@@ -511,7 +572,8 @@ asc_image_load_filename (AscImage *image,
 
 	/* load the image of the native size */
 	if (dest_size == 0) {
-		pixbuf = gdk_pixbuf_new_from_file (filename, error);
+		g_autoptr(GdkPixbuf) pixbuf = NULL;
+		pixbuf = asc_image_pixbuf_new_from_gz (filename, 0, 0, error);
 		if (pixbuf == NULL)
 			return FALSE;
 		asc_image_set_pixbuf (image, pixbuf);
@@ -520,16 +582,17 @@ asc_image_load_filename (AscImage *image,
 
 	/* open file in native size */
 	if (g_str_has_suffix (filename, ".svg") || g_str_has_suffix (filename, ".svgz")) {
-		pixbuf_src = gdk_pixbuf_new_from_file_at_scale (filename,
-								(gint) dest_size,
-								(gint) dest_size,
-								TRUE, error);
+		pixbuf_src = asc_image_pixbuf_new_from_gz (filename,
+							   (gint) dest_size,
+							   (gint) dest_size,
+							   error);
 	} else {
-		pixbuf_src = gdk_pixbuf_new_from_file (filename, error);
+		pixbuf_src = asc_image_pixbuf_new_from_gz (filename, 0, 0, error);
 	}
 	if (pixbuf_src == NULL)
 		return FALSE;
 
+	/* create from pixbuf & resize */
 	return asc_image_load_pixbuf (image,
 				      pixbuf_src,
 				      dest_size,

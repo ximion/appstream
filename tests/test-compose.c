@@ -207,6 +207,7 @@ test_image_transform ()
 
 	image = asc_image_new_from_data (data, data_len,
 					 0,
+					 FALSE,
 					 ASC_IMAGE_LOAD_FLAG_NONE,
 					 &error);
 	g_assert_no_error (error);

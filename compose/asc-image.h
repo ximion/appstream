@@ -129,6 +129,7 @@ AscImage	*asc_image_new_from_file (const gchar* fname,
 AscImage	*asc_image_new_from_data (const void *data,
 					  gssize len,
 					  guint dest_size,
+					  gboolean compressed,
 					  AscImageLoadFlags flags,
 					  GError **error);
 
