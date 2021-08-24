@@ -209,7 +209,9 @@ void
 asc_compose_set_origin (AscCompose *compose, const gchar *origin)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	as_ref_string_assign_safe (&priv->origin, origin);
+	g_autofree gchar *tmp = NULL;
+	tmp = g_markup_escape_text (origin, -1);
+	as_ref_string_assign_safe (&priv->origin, tmp);
 }
 
 /**
@@ -1206,6 +1208,141 @@ asc_compose_export_hints_data_yaml (AscCompose *compose, GError **error)
 	return g_file_set_contents (yaml_fname, yaml_result->str, yaml_result->len, error);
 }
 
+
+static gboolean
+asc_compose_export_hints_data_html (AscCompose *compose, GError **error)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GString) html = NULL;
+	g_autofree gchar *html_fname = NULL;
+
+	/* create header */
+	html = g_string_new ("");
+	g_string_append (html, "<!DOCTYPE html>\n"
+			       "<html lang=\"en\">\n");
+	g_string_append (html, "<head>\n");
+	g_string_append (html, "<meta http-equiv=\"Content-Type\" content=\"text/html; "
+			       "charset=UTF-8\" />\n");
+	g_string_append (html, "<meta name=\"generator\" content=\"appstream-compose " PACKAGE_VERSION "\" />\n");
+	g_string_append_printf (html, "<title>Compose issue hints for \"%s\"</title>\n", priv->origin);
+
+	g_string_append (html,
+	"\n<style type=\"text/css\">\n"
+	"body {\n"
+	"	margin-top: 2em;\n"
+	"	margin-left: 5%;\n"
+	"	margin-right: 5%;\n"
+	"	font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;\n"
+	"}\n"
+	"a {\n"
+	"    color: #337ab7;\n"
+	"    text-decoration: none;\n"
+	"    background-color: transparent;\n"
+	"}\n"
+	".permalink {\n"
+	"    font-size: 75%;\n"
+	"    color: #999;\n"
+	"    line-height: 100%;\n"
+	"    font-weight: normal;\n"
+	"    text-decoration: none;\n"
+	"}\n"
+	".label {\n"
+	"    border-radius: 0.25em;\n"
+	"    color: #fff;\n"
+	"    display: inline;\n"
+	"    font-size: 75%;\n"
+	"    font-weight: 700;\n"
+	"    line-height: 1;\n"
+	"    padding: 0.2em 0.6em 0.3em;\n"
+	"    text-align: center;\n"
+	"    vertical-align: baseline;\n"
+	"    white-space: nowrap;\n"
+	"}\n"
+	".label-info {\n"
+	"   background-color: #5bc0de;\n"
+	"}\n"
+	".label-warning {\n"
+	"    background-color: #f0ad4e;\n"
+	"}\n"
+	".label-error {\n"
+	"    background-color: #d9534f;\n"
+	"}\n"
+	".label-neutral {\n"
+	"    background-color: #777;\n"
+	"}\n"
+	".content {\n"
+	"    width: 60%;\n"
+	"}\n"
+	"</style>\n\n");
+
+	g_string_append (html, "</head>\n");
+	g_string_append (html, "<body>\n");
+
+	for (guint i = 0; i < priv->results->len; i++) {
+		g_autofree const gchar **hints_cids = NULL;
+		g_autofree gchar *bundle_hstr = NULL;
+		AscResult *result = ASC_RESULT (g_ptr_array_index (priv->results, i));
+
+		hints_cids = asc_result_get_component_ids_with_hints (result);
+		if (hints_cids == NULL)
+			continue;
+
+		g_string_append_printf (html, "<h1 style=\"font-weight: 100;\">Compose issue hints for \"%s\"</h1>\n", priv->origin);
+		g_string_append (html, "<div class=\"content\">");
+		bundle_hstr = g_markup_escape_text (asc_result_get_bundle_id (result), -1);
+		g_string_append_printf (html, "<h2>Unit: %s</h2>\n<hr/>\n", bundle_hstr);
+
+		for (guint j = 0; hints_cids[j] != NULL; j++) {
+			g_autofree gchar *cid_hstr = NULL;
+			GPtrArray *hints = asc_result_get_hints (result, hints_cids[j]);
+
+			cid_hstr = g_markup_escape_text (hints_cids[j], -1);
+			g_string_append_printf (html, "<h3 id=\"%s\">%s <a title=\"Permalink\" class=\"permalink\" href=\"#%s\">#</a></h3>\n",
+						cid_hstr, cid_hstr, cid_hstr);
+			g_string_append (html, "<ul>\n");
+			for (guint k = 0; k < hints->len; k++) {
+				g_autofree gchar *explanation = NULL;
+				const gchar *label_style;
+				AsIssueSeverity severity;
+				AscHint *hint = ASC_HINT (g_ptr_array_index (hints, k));
+
+				severity = asc_hint_get_severity (hint);
+				switch (severity) {
+					case AS_ISSUE_SEVERITY_ERROR:
+						label_style = "label-error";
+						break;
+					case AS_ISSUE_SEVERITY_WARNING:
+						label_style = "label-warning";
+						break;
+					case AS_ISSUE_SEVERITY_INFO:
+						label_style = "label-info";
+						break;
+					case AS_ISSUE_SEVERITY_PEDANTIC:
+						label_style = "label-neutral";
+						break;
+					default:
+						label_style = "label-neutral";
+				}
+
+				explanation = asc_hint_format_explanation (hint);
+				g_string_append_printf (html, "    <li>\n    <strong>%s</strong>&nbsp;<span class=\"label %s\">%s</span>\n",
+							asc_hint_get_tag (hint), label_style, as_issue_severity_to_string (severity));
+				g_string_append_printf (html, "    <p>%s</p>\n    </li>\n",
+							explanation);
+			}
+			g_string_append (html, "</ul>\n");
+		}
+	}
+
+	g_string_append (html, "</div>\n");
+	g_string_append (html, "</body>\n");
+	g_string_append (html, "</html>\n");
+
+	g_mkdir_with_parents (priv->hints_result_dir, 0755);
+	html_fname = g_strdup_printf ("%s/%s.hints.html", priv->hints_result_dir, priv->origin);
+	return g_file_set_contents (html_fname, html->str, html->len, error);
+}
+
 static gboolean
 asc_compose_save_metadata_result (AscCompose *compose, GError **error)
 {
@@ -1322,6 +1459,8 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 	/* write hints */
 	if (priv->hints_result_dir != NULL) {
 		if (!asc_compose_export_hints_data_yaml (compose, error))
+			return NULL;
+		if (!asc_compose_export_hints_data_html (compose, error))
 			return NULL;
 	}
 

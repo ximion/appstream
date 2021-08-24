@@ -54,12 +54,12 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 
 	{ "metainfo-parsing-error",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  "Unable to parse AppStream MetaInfo file `{{fname}}`, the data is likely malformed.<br/>Error: {{error}}"
+	  "Unable to parse AppStream MetaInfo file <code>{{fname}}</code>, the data is likely malformed.<br/>Error: {{error}}"
 	},
 
 	{ "metainfo-no-id",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  "Could not determine an ID for the component in '{{fname}}'. The AppStream MetaInfo file likely lacks an <code>&lt;id/&gt;</code> tag.<br/>"
+	  "Could not determine an ID for the component in <code>{{fname}}</code>. The AppStream MetaInfo file likely lacks an <code>&lt;id/&gt;</code> tag.<br/>"
           "The identifier tag is essential for AppStream metadata, and must not be missing."
 	},
 
@@ -82,7 +82,7 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 
 	{ "file-read-error",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  "Unable to read data from file {{fname}}: {{msg}}",
+	  "Unable to read data from file <code>{{fname}}</code>: {{msg}}",
 	},
 
 	{ "desktop-file-error",
@@ -144,7 +144,7 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 
 	{ "icon-not-found",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  "The icon '{{icon_fname}}' was not found in the archive. This issue can have multiple reasons, "
+	  "The icon <em>{{icon_fname}}</em> was not found in the archive. This issue can have multiple reasons, "
 	  "like the icon being in a wrong directory or not being available in a suitable size (at least 64x64px). "
 	  "To make the icon easier to find, place it in <code>/usr/share/icons/hicolor/&lt;size&gt;/apps</code> and ensure the <code>Icon=</code> value"
 	  "of the desktop-entry file is set correctly."
@@ -157,7 +157,7 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 
 	{ "icon-write-error",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  "Unable to store icon '{{fname}}': {{msg}}"
+	  "Unable to store icon <code>{{fname}}</code>: {{msg}}"
 	},
 
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
