@@ -234,6 +234,8 @@ gchar			*as_component_get_pkgname (AsComponent *cpt);
 gchar			**as_component_get_pkgnames (AsComponent *cpt);
 void			as_component_set_pkgnames (AsComponent *cpt,
 							gchar **packages);
+void			as_component_set_pkgname (AsComponent *cpt,
+						  const gchar *pkgname);
 
 const gchar		*as_component_get_source_pkgname (AsComponent *cpt);
 void			as_component_set_source_pkgname (AsComponent *cpt,

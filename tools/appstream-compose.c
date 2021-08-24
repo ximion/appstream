@@ -83,7 +83,7 @@ composecli_print_hints_report (GPtrArray *results, const gchar *title, AscReport
 
 	report = g_string_new ("");
 	for (guint i = 0; i < results->len; i++) {
-		const gchar **issue_cids;
+		g_autofree const gchar **issue_cids;
 		AscResult *result = ASC_RESULT (g_ptr_array_index (results, i));
 
 		issue_cids = asc_result_get_component_ids_with_hints (result);
@@ -276,6 +276,10 @@ main (int argc, char **argv)
 		icons_dir = g_build_filename (res_root_dir, prefix, "share/app-info/icons", origin, NULL);
 	asc_compose_set_icons_result_dir (compose, icons_dir);
 
+	/* optional */
+	asc_compose_set_hints_result_dir (compose, hints_dir);
+
+	/* we need at least one unit to process */
 	if (argc == 1) {
 		g_autofree gchar *tmp = NULL;
 		tmp = g_option_context_get_help (option_context, TRUE, NULL);

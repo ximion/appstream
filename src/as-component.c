@@ -898,6 +898,25 @@ as_component_set_pkgnames (AsComponent *cpt, gchar **packages)
 }
 
 /**
+ * as_component_set_pkgname:
+ * @cpt: a #AsComponent instance.
+ * @pkgname: the package name
+ *
+ * Set the package name that provides this component.
+ *
+ * Since: 0.14.5
+ */
+void
+as_component_set_pkgname (AsComponent *cpt, const gchar *pkgname)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_strfreev (priv->pkgnames);
+	priv->pkgnames = g_new0 (gchar*, 2);
+	priv->pkgnames[0] = g_strdup (pkgname);
+	g_object_notify ((GObject *) cpt, "pkgnames");
+}
+
+/**
  * as_component_get_source_pkgname:
  * @cpt: a #AsComponent instance.
  *

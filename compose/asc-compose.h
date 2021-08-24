@@ -92,6 +92,14 @@ const gchar		*asc_compose_get_icons_result_dir (AscCompose *compose);
 void			asc_compose_set_icons_result_dir (AscCompose *compose,
 							  const gchar *dir);
 
+const gchar		*asc_compose_get_media_result_dir (AscCompose *compose);
+void			asc_compose_set_media_result_dir (AscCompose *compose,
+							  const gchar *dir);
+
+const gchar		*asc_compose_get_hints_result_dir (AscCompose *compose);
+void			asc_compose_set_hints_result_dir (AscCompose *compose,
+							  const gchar *dir);
+
 GPtrArray		*asc_compose_get_results (AscCompose *compose);
 GPtrArray		*asc_compose_fetch_components (AscCompose *compose);
 gboolean		asc_compose_has_errors (AscCompose *compose);

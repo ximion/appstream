@@ -223,6 +223,8 @@ asc_directory_unit_set_root (AscDirectoryUnit *dirunit, const gchar *root_dir)
 {
 	AscDirectoryUnitPrivate *priv = GET_PRIVATE (dirunit);
 	as_assign_string_safe (priv->root_dir, root_dir);
+	if (asc_unit_get_bundle_id (ASC_UNIT (dirunit)) == NULL)
+		asc_unit_set_bundle_id (ASC_UNIT (dirunit), priv->root_dir);
 }
 
 /**

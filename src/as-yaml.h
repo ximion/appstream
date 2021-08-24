@@ -49,6 +49,8 @@ GRefString	*as_yaml_node_get_value_refstr (GNode *n);
 void		as_yaml_print_unknown (const gchar *root,
 				       const gchar *key);
 
+/* these functions have internal visibility, so appstream-compose can write YAML data */
+#pragma GCC visibility push(default)
 void		as_yaml_mapping_start (yaml_emitter_t *emitter);
 void		as_yaml_mapping_end (yaml_emitter_t *emitter);
 
@@ -81,6 +83,7 @@ void		as_yaml_emit_long_entry (yaml_emitter_t *emitter,
 void		as_yaml_emit_sequence (yaml_emitter_t *emitter,
 					const gchar *key,
 					GPtrArray *list);
+#pragma GCC visibility pop
 void		as_yaml_emit_sequence_from_str_array (yaml_emitter_t *emitter,
 							const gchar *key,
 							GPtrArray *array);

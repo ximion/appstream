@@ -30,6 +30,8 @@
 #include <errno.h>
 
 #include "as-utils-private.h"
+#include "as-yaml.h"
+
 #include "asc-globals-private.h"
 #include "asc-utils.h"
 #include "asc-hint.h"
@@ -347,6 +349,62 @@ asc_compose_set_icons_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	as_assign_string_safe (priv->icons_result_dir, dir);
+}
+
+/**
+ * asc_compose_get_media_result_dir:
+ * @compose: an #AscCompose instance.
+ *
+ * Get the media result directory, that can be served on a webserver.
+ */
+const gchar*
+asc_compose_get_media_result_dir (AscCompose *compose)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	return priv->media_result_dir;
+}
+
+/**
+ * asc_compose_set_media_result_dir:
+ * @compose: an #AscCompose instance.
+ * @dir: the media storage location.
+ *
+ * Set an output location to store media (screenshots, icons, ...) that
+ * will be served on a webserver via the URL set as media baseurl.
+ */
+void
+asc_compose_set_media_result_dir (AscCompose *compose, const gchar *dir)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	as_assign_string_safe (priv->media_result_dir, dir);
+}
+
+/**
+ * asc_compose_get_hints_result_dir:
+ * @compose: an #AscCompose instance.
+ *
+ * Get hints report output directory.
+ */
+const gchar*
+asc_compose_get_hints_result_dir (AscCompose *compose)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	return priv->hints_result_dir;
+}
+
+/**
+ * asc_compose_set_hints_result_dir:
+ * @compose: an #AscCompose instance.
+ * @dir: the hints data directory.
+ *
+ * Set an output location for HTML reports of issues generated
+ * during a compose run.
+ */
+void
+asc_compose_set_hints_result_dir (AscCompose *compose, const gchar *dir)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	as_assign_string_safe (priv->hints_result_dir, dir);
 }
 
 /**
@@ -744,6 +802,21 @@ asc_compose_process_icons (AscCompose *compose,
 
 }
 
+/**
+ * as_compose_yaml_write_handler_cb:
+ *
+ * Helper function to store the emitted YAML document.
+ */
+static int
+as_compose_yaml_write_handler_cb (void *ptr, unsigned char *buffer, size_t size)
+{
+	GString *str;
+	str = (GString*) ptr;
+	g_string_append_len (str, (const gchar*) buffer, size);
+
+	return 1;
+}
+
 static void
 asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 {
@@ -759,6 +832,12 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	g_autoptr(GError) error = NULL;
 	gboolean filter_cpts = FALSE;
 	GPtrArray *contents = NULL;
+
+	/* propagate unit bundle ID */
+	asc_result_set_bundle_id (ctask->result,
+				  asc_unit_get_bundle_id (ctask->unit));
+	asc_result_set_bundle_kind (ctask->result,
+				  asc_unit_get_bundle_kind (ctask->unit));
 
 	/* configure metadata loader */
 	mdata = as_metadata_new ();
@@ -949,6 +1028,21 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 				}
 			} /* end of desktop-entry legacy support */
 		} /* end of desktop-entry support */
+
+		/* add bundle data */
+		if (asc_unit_get_bundle_kind (ctask->unit) != AS_BUNDLE_KIND_UNKNOWN) {
+			AsBundleKind bundle_kind = asc_unit_get_bundle_kind (ctask->unit);
+			g_ptr_array_set_size (as_component_get_bundles (cpt), 0);
+			as_component_set_pkgname (cpt, NULL);
+
+			if (bundle_kind == AS_BUNDLE_KIND_PACKAGE) {
+				as_component_set_pkgname (cpt, asc_unit_get_bundle_id (ctask->unit));
+			} else {
+				g_autoptr(AsBundle) bundle = as_bundle_new ();
+				as_bundle_set_kind (bundle, bundle_kind);
+				as_bundle_set_id (bundle, asc_unit_get_bundle_id (ctask->unit));
+			}
+		}
 	} /* end of metadata parsing loop */
 
 	/* process translation status */
@@ -981,7 +1075,139 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 }
 
 static gboolean
-asc_compose_save_metadata_result (AscCompose *compose, const gchar *out_dir, GError **error)
+asc_compose_export_hints_data_yaml (AscCompose *compose, GError **error)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	yaml_emitter_t emitter;
+	yaml_event_t event;
+	gboolean res = FALSE;
+	g_auto(GStrv) all_hint_tags = NULL;
+	g_autofree gchar *yaml_fname = NULL;
+	g_autoptr(GString) yaml_result = g_string_new ("");
+
+	/* don't export anything if export dir isn't set */
+	if (priv->hints_result_dir == NULL)
+		return TRUE;
+
+	yaml_emitter_initialize (&emitter);
+	yaml_emitter_set_indent (&emitter, 2);
+	yaml_emitter_set_unicode (&emitter, TRUE);
+	yaml_emitter_set_width (&emitter, 100);
+	yaml_emitter_set_output (&emitter, as_compose_yaml_write_handler_cb, yaml_result);
+
+	/* emit start event */
+	yaml_stream_start_event_initialize (&event, YAML_UTF8_ENCODING);
+	if (!yaml_emitter_emit (&emitter, &event)) {
+		g_set_error_literal (error,
+				     ASC_COMPOSE_ERROR,
+				     ASC_COMPOSE_ERROR_FAILED,
+				     "Failed to initialize YAML emitter.");
+		yaml_emitter_delete (&emitter);
+		return FALSE;
+	}
+
+	/* new document for the tag list */
+	yaml_document_start_event_initialize (&event, NULL, NULL, NULL, FALSE);
+	res = yaml_emitter_emit (&emitter, &event);
+	g_assert (res);
+	all_hint_tags = asc_globals_get_hint_tags ();
+
+	as_yaml_sequence_start (&emitter);
+	for (guint i = 0; all_hint_tags[i] != NULL; i++) {
+		const gchar *tag = all_hint_tags[i];
+		/* main dict start */
+		as_yaml_mapping_start (&emitter);
+
+		as_yaml_emit_entry (&emitter,
+				    "Tag",
+				    tag);
+		as_yaml_emit_entry (&emitter,
+				    "Severity",
+				    as_issue_severity_to_string (asc_globals_hint_tag_severity (tag)));
+		as_yaml_emit_entry (&emitter,
+				    "Explanation",
+				    asc_globals_hint_tag_explanation (tag));
+		/* main dict end */
+		as_yaml_mapping_end (&emitter);
+	}
+	as_yaml_sequence_end (&emitter);
+
+	/* finalize the tag list document */
+	yaml_document_end_event_initialize (&event, 1);
+	res = yaml_emitter_emit (&emitter, &event);
+	g_assert (res);
+
+	/* new document for the actual issue hints */
+	yaml_document_start_event_initialize (&event, NULL, NULL, NULL, FALSE);
+	res = yaml_emitter_emit (&emitter, &event);
+	g_assert (res);
+
+	as_yaml_sequence_start (&emitter);
+	for (guint i = 0; i < priv->results->len; i++) {
+		g_autofree const gchar **hints_cids = NULL;
+		AscResult *result = ASC_RESULT (g_ptr_array_index (priv->results, i));
+
+		hints_cids = asc_result_get_component_ids_with_hints (result);
+		if (hints_cids == NULL)
+			continue;
+
+		as_yaml_mapping_start (&emitter);
+		as_yaml_emit_entry (&emitter, "Unit", asc_result_get_bundle_id (result));
+		as_yaml_emit_scalar (&emitter, "Hints");
+		as_yaml_sequence_start (&emitter);
+		for (guint j = 0; hints_cids[j] != NULL; j++) {
+			GPtrArray *hints = asc_result_get_hints (result, hints_cids[j]);
+
+			as_yaml_mapping_start (&emitter);
+			as_yaml_emit_scalar (&emitter, hints_cids[j]);
+			as_yaml_sequence_start (&emitter);
+			for (guint k = 0; k < hints->len; k++) {
+				GPtrArray *vars;
+				AscHint *hint = ASC_HINT (g_ptr_array_index (hints, k));
+				as_yaml_mapping_start (&emitter);
+				as_yaml_emit_entry (&emitter, "tag", asc_hint_get_tag (hint));
+
+				vars = asc_hint_get_explanation_vars_list (hint);
+				as_yaml_emit_scalar (&emitter, "variables");
+				as_yaml_mapping_start (&emitter);
+				for (guint l = 0; l < vars->len; l += 2) {
+					as_yaml_emit_entry (&emitter,
+							    g_ptr_array_index (vars, l),
+							    g_ptr_array_index (vars, l + 1));
+				}
+				as_yaml_mapping_end (&emitter);
+
+				/* end hint mapping */
+				as_yaml_mapping_end (&emitter);
+			}
+			as_yaml_sequence_end (&emitter);
+			as_yaml_mapping_end (&emitter);
+		}
+		as_yaml_sequence_end (&emitter);
+		as_yaml_mapping_end (&emitter);
+	}
+	as_yaml_sequence_end (&emitter);
+
+	/* finalize the hints document */
+	yaml_document_end_event_initialize (&event, 1);
+	res = yaml_emitter_emit (&emitter, &event);
+	g_assert (res);
+
+	/* end stream */
+	yaml_stream_end_event_initialize (&event);
+	res = yaml_emitter_emit (&emitter, &event);
+	g_assert (res);
+
+	yaml_emitter_flush (&emitter);
+	yaml_emitter_delete (&emitter);
+
+	g_mkdir_with_parents (priv->hints_result_dir, 0755);
+	yaml_fname = g_strdup_printf ("%s/%s.hints.yaml", priv->hints_result_dir, priv->origin);
+	return g_file_set_contents (yaml_fname, yaml_result->str, yaml_result->len, error);
+}
+
+static gboolean
+asc_compose_save_metadata_result (AscCompose *compose, GError **error)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(AsMetadata) mdata = NULL;
@@ -997,12 +1223,12 @@ asc_compose_save_metadata_result (AscCompose *compose, const gchar *out_dir, GEr
 	else
 		data_basename = g_strdup_printf ("%s.xml.gz", priv->origin);
 
-	if (g_mkdir_with_parents (out_dir, 0755)) {
+	if (g_mkdir_with_parents (priv->data_result_dir, 0755)) {
 		g_set_error (error,
 			     ASC_COMPOSE_ERROR,
 			     ASC_COMPOSE_ERROR_FAILED,
 			     "failed to create %s: %s",
-			     out_dir,
+			     priv->data_result_dir,
 			     strerror (errno));
 		return FALSE;
 	}
@@ -1017,7 +1243,7 @@ asc_compose_save_metadata_result (AscCompose *compose, const gchar *out_dir, GEr
 		}
 	}
 
-	data_fname = g_build_filename (out_dir, data_basename, NULL);
+	data_fname = g_build_filename (priv->data_result_dir, data_basename, NULL);
 	return as_metadata_save_collection (mdata, data_fname, priv->format, error);
 }
 
@@ -1089,7 +1315,13 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 
 	/* write result */
 	if (priv->data_result_dir != NULL) {
-		if (!asc_compose_save_metadata_result (compose, priv->data_result_dir, error))
+		if (!asc_compose_save_metadata_result (compose, error))
+			return NULL;
+	}
+
+	/* write hints */
+	if (priv->hints_result_dir != NULL) {
+		if (!asc_compose_export_hints_data_yaml (compose, error))
 			return NULL;
 	}
 
