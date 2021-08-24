@@ -160,6 +160,12 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "Unable to store icon <code>{{fname}}</code>: {{msg}}"
 	},
 
+	{ "duplicate-component",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "A component with this ID already exists. AppStream IDs must be unique, any subsequent components "
+	  "have been ignored. Please resolve the ID conflict!"
+	},
+
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
 };
 

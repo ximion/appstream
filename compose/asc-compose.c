@@ -58,6 +58,9 @@ typedef struct
 	gchar		*icons_result_dir;
 	gchar		*media_result_dir;
 	gchar		*hints_result_dir;
+
+	GHashTable	*known_cids;
+	GMutex		mutex;
 } AscComposePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscCompose, asc_compose, G_TYPE_OBJECT)
@@ -74,6 +77,11 @@ asc_compose_init (AscCompose *compose)
 						    g_str_equal,
 						    g_free,
 						    NULL);
+	priv->known_cids = g_hash_table_new_full (g_str_hash,
+						  g_str_equal,
+						  g_free,
+						  NULL);
+	g_mutex_init (&priv->mutex);
 
 	/* defaults */
 	priv->format = AS_FORMAT_KIND_XML;
@@ -92,6 +100,7 @@ asc_compose_finalize (GObject *object)
 	g_ptr_array_unref (priv->results);
 
 	g_hash_table_unref (priv->allowed_cids);
+	g_hash_table_unref (priv->known_cids);
 	as_ref_string_release (priv->prefix);
 	as_ref_string_release (priv->origin);
 	g_free (priv->media_baseurl);
@@ -100,6 +109,8 @@ asc_compose_finalize (GObject *object)
 	g_free (priv->icons_result_dir);
 	g_free (priv->media_result_dir);
 	g_free (priv->hints_result_dir);
+
+	g_mutex_clear (&priv->mutex);
 
 	G_OBJECT_CLASS (asc_compose_parent_class)->finalize (object);
 }
@@ -122,9 +133,12 @@ void
 asc_compose_reset (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+
 	g_hash_table_remove_all (priv->allowed_cids);
 	g_ptr_array_set_size (priv->units, 0);
 	g_ptr_array_set_size (priv->results, 0);
+	g_hash_table_remove_all (priv->known_cids);
 }
 
 /**
@@ -138,6 +152,13 @@ void
 asc_compose_add_unit (AscCompose *compose, AscUnit *unit)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	/* sanity check */
+	for (guint i = 0; i < priv->units->len; i++) {
+		if (unit == g_ptr_array_index (priv->units, i)) {
+			g_critical ("Not adding unit duplicate for processing!");
+			return;
+		}
+	}
 	g_ptr_array_add (priv->units,
 			 g_object_ref (unit));
 }
@@ -819,6 +840,14 @@ as_compose_yaml_write_handler_cb (void *ptr, unsigned char *buffer, size_t size)
 	return 1;
 }
 
+static gboolean
+asc_compose_component_known (AscCompose *compose, AsComponent *cpt)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	return g_hash_table_contains (priv->known_cids, as_component_get_id (cpt));
+}
+
 static void
 asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 {
@@ -922,6 +951,16 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 				asc_result_remove_component (ctask->result, cpt);
 				continue;
 			}
+		}
+
+		/* check if we have a duplicate */
+		if (asc_compose_component_known (compose, cpt)) {
+			asc_result_add_hint_simple (ctask->result, cpt, "duplicate-component");
+			continue;
+		} else {
+			g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+			g_hash_table_add (priv->known_cids,
+					  g_strdup (as_component_get_id (cpt)));
 		}
 
 		/* validate the data */

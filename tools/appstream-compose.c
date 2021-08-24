@@ -182,7 +182,7 @@ main (int argc, char **argv)
 			  "if the run failed."), NULL },
 		{ "prefix", '\0', 0, G_OPTION_ARG_FILENAME, &prefix,
 			/* TRANSLATORS: ascompose flag description for: --prefix */
-			_("Override the default prefix"), "DIR" },
+			_("Override the default prefix (`/usr` by default)"), "DIR" },
 		{ "result-root", 'o', 0, G_OPTION_ARG_FILENAME, &res_root_dir,
 			/* TRANSLATORS: ascompose flag description for: --result-root */
 			_("Set the result output directory"), "DIR" },
@@ -306,6 +306,13 @@ main (int argc, char **argv)
 			ascli_print_stdout (_("Only accepting component: %s"), cid_list);
 	}
 
+	if (argc > 2)
+		/* TRANSLATORS: information about as-compose units to be processed */
+		g_print ("%s\n", _("Processing directories:"));
+	else
+		/* TRANSLATORS: information about as-compose units to be processed */
+		g_print ("%s", _("Processing directory:"));
+
 	/* add locations for data processing */
 	for (guint i = 1; i < (guint) argc; i++) {
 		g_autoptr(AscDirectoryUnit) dirunit = NULL;
@@ -318,6 +325,10 @@ main (int argc, char **argv)
 		}
 		dirunit = asc_directory_unit_new (dir_path);
 		asc_compose_add_unit (compose, ASC_UNIT (dirunit));
+		if (argc > 2)
+			g_print ("  • %s\n", dir_path);
+		else
+			g_print ("%s\n", dir_path);
 	}
 
 	/* TRANSLATORS: information message */
