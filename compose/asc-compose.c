@@ -757,6 +757,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	g_autoptr(GHashTable) de_fname_map = NULL;
 	g_autoptr(GPtrArray) found_cpts = NULL;
 	g_autoptr(GError) error = NULL;
+	gboolean filter_cpts = FALSE;
 	GPtrArray *contents = NULL;
 
 	/* configure metadata loader */
@@ -800,6 +801,9 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 		}
 	}
 
+	/* check if we need to filter components */
+	filter_cpts = g_hash_table_size (priv->allowed_cids) > 0;
+
 	/* process metadata */
 	for (guint i = 0; i < mi_fnames->len; i++) {
 		g_autoptr(GBytes) mi_bytes = NULL;
@@ -829,6 +833,14 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 		if (cpt == NULL) {
 			g_debug ("Rejected: %s", mi_basename);
 			continue;
+		}
+
+		/* filter out this component if it isn't on the allowlist */
+		if (filter_cpts) {
+			if (!g_hash_table_contains (priv->allowed_cids, as_component_get_id (cpt))) {
+				asc_result_remove_component (ctask->result, cpt);
+				continue;
+			}
 		}
 
 		/* validate the data */
@@ -953,6 +965,16 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 					   ctask->result,
 					   cpt,
 					   ctask->unit);
+	}
+
+	/* clean up superfluous hints in case we were filtering the results, as some rejected
+	 * components may have generated errors while we were inspecting them */
+	if (filter_cpts) {
+		const gchar **cids = asc_result_get_component_ids_with_hints (ctask->result);
+		for (guint i = 0; cids[i] != NULL; i++) {
+			if (!g_hash_table_contains (priv->allowed_cids, cids[i]))
+				asc_result_remove_hints_for_cid (ctask->result, cids[i]);
+		}
 	}
 
 	asc_unit_close (ctask->unit);

@@ -524,6 +524,20 @@ asc_result_remove_component (AscResult *result, AsComponent *cpt)
 }
 
 /**
+ * asc_result_remove_hints_for_cid:
+ * @result: an #AscResult instance.
+ * @cid: The component ID
+ *
+ * Remove all hints that we have associated with the selected component-ID.
+ */
+void
+asc_result_remove_hints_for_cid (AscResult *result, const gchar *cid)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	g_hash_table_remove (priv->hints, cid);
+}
+
+/**
  * asc_result_remove_component_by_id:
  * @result: an #AscResult instance.
  * @cid: a component-ID

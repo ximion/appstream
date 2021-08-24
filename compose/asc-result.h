@@ -88,6 +88,8 @@ gboolean		asc_result_remove_component (AscResult *result,
 						     AsComponent *cpt);
 gboolean		asc_result_remove_component_by_id (AscResult *result,
 							   const gchar *cid);
+void			asc_result_remove_hints_for_cid (AscResult *result,
+							 const gchar *cid);
 
 gboolean		asc_result_add_hint_by_cid (AscResult *result,
 						    const gchar *component_id,

@@ -283,6 +283,25 @@ main (int argc, char **argv)
 		return  EXIT_FAILURE;
 	}
 
+	/* add allowlist for components */
+	if (components_str != NULL) {
+		g_auto(GStrv) cid_allowlist = NULL;
+		g_autofree gchar *cid_list = NULL;
+		guint i;
+
+		cid_allowlist = g_strsplit (components_str, ",", -1);
+		for (i = 0; cid_allowlist[i] != NULL; i++)
+			asc_compose_add_allowed_cid (compose, cid_allowlist[i]);
+
+		cid_list = g_strjoinv (", ", cid_allowlist);
+		if (i > 1)
+			/* TRANSLATORS: information about as-compose allowlist */
+			ascli_print_stdout (_("Only accepting components: %s"), cid_list);
+		else
+			/* TRANSLATORS: information about as-compose allowlist */
+			ascli_print_stdout (_("Only accepting component: %s"), cid_list);
+	}
+
 	/* add locations for data processing */
 	for (guint i = 1; i < (guint) argc; i++) {
 		g_autoptr(AscDirectoryUnit) dirunit = NULL;
