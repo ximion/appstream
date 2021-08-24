@@ -441,6 +441,9 @@ asc_compose_task_free (AscComposeTask *ctask)
 	g_free (ctask);
 }
 
+/**
+ * asc_compose_find_icon_filename:
+ */
 static gchar*
 asc_compose_find_icon_filename (AscCompose *compose,
 				AscUnit *unit,
@@ -449,7 +452,9 @@ asc_compose_find_icon_filename (AscCompose *compose,
 				guint icon_scale)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	guint min_size_idx;
+	guint min_size_idx = 0;
+	guint min_ext_idx = 0;
+	gboolean vector_relaxed = FALSE;
 	const gchar *supported_ext[] = { ".png",
 					 ".svg",
 					 ".svgz",
@@ -460,6 +465,7 @@ asc_compose_find_icon_filename (AscCompose *compose,
 		const gchar *size_str;
 	} sizes[] =  {
 		{ 48,  "48x48" },
+		{ 32,  "32x32" },
 		{ 64,  "64x64" },
 		{ 96,  "96x96" },
 		{ 128, "128x128" },
@@ -469,16 +475,16 @@ asc_compose_find_icon_filename (AscCompose *compose,
 		{ 0,   NULL }
 	};
 	const gchar *types[] = { "actions",
-				 "animations",
 				 "apps",
+				 "applets",
 				 "categories",
 				 "devices",
 				 "emblems",
 				 "emotes",
 				 "filesystems",
-				 "intl",
 				 "mimetypes",
 				 "places",
+				 "preferences",
 				 "status",
 				 "stock",
 				 NULL };
@@ -508,49 +514,63 @@ asc_compose_find_icon_filename (AscCompose *compose,
 		}
 	}
 
-	/* hicolor icon theme search */
-	for (guint i = min_size_idx; sizes[i].size_str != NULL; i++) {
-		g_autofree gchar *size = NULL;
-		if (icon_scale == 1)
-			size = g_strdup (sizes[i].size_str);
-		else
-			size = g_strdup_printf ("%s@%i", sizes[i].size_str, icon_scale);
-		for (guint m = 0; types[m] != NULL; m++) {
-			for (guint j = 0; supported_ext[j] != NULL; j++) {
-				g_autofree gchar *tmp = NULL;
-				tmp = g_strdup_printf ("%s/share/icons/"
-							"hicolor/%s/%s/%s%s",
-							priv->prefix,
-							size,
-							types[m],
-							icon_name,
-							supported_ext[j]);
-				if (asc_unit_file_exists (unit, tmp))
-					return g_strdup (tmp);
+	while (TRUE) {
+		/* hicolor icon theme search */
+		for (guint i = min_size_idx; sizes[i].size_str != NULL; i++) {
+			g_autofree gchar *size = NULL;
+			if (icon_scale == 1)
+				size = g_strdup (sizes[i].size_str);
+			else
+				size = g_strdup_printf ("%s@%i", sizes[i].size_str, icon_scale);
+			for (guint m = 0; types[m] != NULL; m++) {
+				for (guint j = min_ext_idx; supported_ext[j] != NULL; j++) {
+					g_autofree gchar *tmp = NULL;
+					tmp = g_strdup_printf ("%s/share/icons/"
+								"hicolor/%s/%s/%s%s",
+								priv->prefix,
+								size,
+								types[m],
+								icon_name,
+								supported_ext[j]);
+					if (asc_unit_file_exists (unit, tmp))
+						return g_strdup (tmp);
+				}
 			}
 		}
-	}
 
-	/* breeze icon theme search, for KDE Plasma compatibility */
-	for (guint i = min_size_idx; sizes[i].size_str != NULL; i++) {
-		g_autofree gchar *size = NULL;
-		if (icon_scale == 1)
-			size = g_strdup (sizes[i].size_str);
-		else
-			size = g_strdup_printf ("%s@%i", sizes[i].size_str, icon_scale);
-		for (guint m = 0; types[m] != NULL; m++) {
-			for (guint j = 0; supported_ext[j] != NULL; j++) {
-				g_autofree gchar *tmp = NULL;
-				tmp = g_strdup_printf ("%s/share/icons/"
-							"breeze/%s/%s/%s%s",
-							priv->prefix,
-							types[m],
-							size,
-							icon_name,
-							supported_ext[j]);
-				if (asc_unit_file_exists (unit, tmp))
-					return g_strdup (tmp);
+		/* breeze icon theme search, for KDE Plasma compatibility */
+		for (guint i = min_size_idx; sizes[i].size_str != NULL; i++) {
+			g_autofree gchar *size = NULL;
+			if (icon_scale == 1)
+				size = g_strdup_printf ("%i", sizes[i].size);
+			else
+				size = g_strdup_printf ("%i@%i", sizes[i].size, icon_scale);
+			for (guint m = 0; types[m] != NULL; m++) {
+				for (guint j = min_ext_idx; supported_ext[j] != NULL; j++) {
+					g_autofree gchar *tmp = NULL;
+					tmp = g_strdup_printf ("%s/share/icons/"
+								"breeze/%s/%s/%s%s",
+								priv->prefix,
+								types[m],
+								size,
+								icon_name,
+								supported_ext[j]);
+					if (asc_unit_file_exists (unit, tmp))
+						return g_strdup (tmp);
+				}
 			}
+		}
+
+		if (vector_relaxed) {
+			break;
+		} else {
+			if (g_str_has_suffix (icon_name, ".png"))
+				break;
+			/* try again, searching for vector graphics that we can scale up */
+			vector_relaxed = TRUE;
+			min_size_idx = 0;
+			/* start at index 1, where the SVG icons are */
+			min_ext_idx = 1;
 		}
 	}
 
@@ -571,7 +591,7 @@ asc_compose_process_icons (AscCompose *compose,
 				-1 };
 	const gint scale_factors[] = {  1,
 					2,
-					-0 };
+					-1 };
 	GPtrArray *icons = NULL;
 	AsIcon *stock_icon = NULL;
 	gboolean stock_icon_found = FALSE;
@@ -609,6 +629,7 @@ asc_compose_process_icons (AscCompose *compose,
 			g_autofree gchar *res_icon_sizedir = NULL;
 			g_autoptr(AscImage) img = NULL;
 			g_autoptr(GBytes) img_bytes = NULL;
+			gboolean is_vector_icon = FALSE;
 			const void *img_data;
 			gsize img_len;
 			g_autoptr(GError) error = NULL;
@@ -630,6 +651,7 @@ asc_compose_process_icons (AscCompose *compose,
 				continue;
 			}
 
+			is_vector_icon = g_str_has_suffix (icon_fname, ".svgz") || g_str_has_suffix (icon_fname, ".svg");
 			img_bytes = asc_unit_read_data (unit, icon_fname, &error);
 			if (img_bytes == NULL) {
 				asc_result_add_hint (cres, cpt,
@@ -641,7 +663,8 @@ asc_compose_process_icons (AscCompose *compose,
 			}
 			img_data = g_bytes_get_data (img_bytes, &img_len);
 			img = asc_image_new_from_data (img_data, img_len,
-							0,
+							is_vector_icon? sizes[i] * scale_factors[k] : 0,
+							g_str_has_suffix (icon_fname, ".svgz"),
 							ASC_IMAGE_LOAD_FLAG_NONE,
 							&error);
 			if (img == NULL) {
@@ -674,7 +697,7 @@ asc_compose_process_icons (AscCompose *compose,
 			g_debug ("Saving icon: %s", res_icon_fname);
 			if (!asc_image_save_filename (img,
 							res_icon_fname,
-							sizes[i], sizes[i],
+							sizes[i] * scale_factors[k], sizes[i] * scale_factors[k],
 							ASC_IMAGE_SAVE_FLAG_OPTIMIZE,
 							&error)) {
 				asc_result_add_hint (cres, cpt,
