@@ -593,7 +593,7 @@ asc_compose_process_icons (AscCompose *compose,
 					2,
 					-1 };
 	GPtrArray *icons = NULL;
-	AsIcon *stock_icon = NULL;
+	g_autoptr(AsIcon) stock_icon = NULL;
 	gboolean stock_icon_found = FALSE;
 	const gchar *icon_name = NULL;
 
@@ -615,6 +615,10 @@ asc_compose_process_icons (AscCompose *compose,
 			stock_icon_found = TRUE;
 		}
 	}
+	/* drop all preexisting icons */
+	if (stock_icon != NULL)
+		stock_icon = g_object_ref (stock_icon);
+	g_ptr_array_set_size (as_component_get_icons (cpt), 0);
 
 	if (!stock_icon_found) {
 		asc_result_add_hint_simple (cres, cpt, "no-stock-icon");
@@ -628,6 +632,7 @@ asc_compose_process_icons (AscCompose *compose,
 			g_autofree gchar *res_icon_fname = NULL;
 			g_autofree gchar *res_icon_sizedir = NULL;
 			g_autoptr(AscImage) img = NULL;
+			g_autoptr(AsIcon) icon = NULL;
 			g_autoptr(GBytes) img_bytes = NULL;
 			gboolean is_vector_icon = FALSE;
 			const void *img_data;
@@ -707,8 +712,36 @@ asc_compose_process_icons (AscCompose *compose,
 							NULL);
 				return;
 			}
+
+			/* add icon to metadata */
+			icon = as_icon_new ();
+			as_icon_set_kind (icon, AS_ICON_KIND_CACHED);
+			as_icon_set_width (icon, sizes[i]);
+			as_icon_set_height (icon, sizes[i]);
+			as_icon_set_scale (icon, scale_factors[k]);
+			as_icon_set_name (icon, as_component_get_id (cpt));
+			as_component_add_icon (cpt, icon);
 		}
 	}
+
+	/* fix some stock icon mistakes and add the stock icon back */
+	if (as_icon_get_kind (stock_icon) == AS_ICON_KIND_STOCK) {
+		g_autofree gchar *tmp = NULL;
+		gsize icon_name_len = strlen (icon_name);
+		tmp = g_strdup (icon_name);
+
+		if (g_str_has_suffix (icon_name, ".png") || g_str_has_suffix (icon_name, ".svg"))
+			tmp[icon_name_len - 4] = '\0';
+		else if (g_str_has_suffix (icon_name, ".svgz"))
+			tmp[icon_name_len - 5] = '\0';
+
+		as_icon_set_width (stock_icon, 0);
+		as_icon_set_height (stock_icon, 0);
+		as_icon_set_scale (stock_icon, 0);
+		as_icon_set_name (stock_icon, tmp);
+		as_component_add_icon (cpt, stock_icon);
+	}
+
 }
 
 static void
