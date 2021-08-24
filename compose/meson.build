@@ -104,7 +104,9 @@ appstream_compose_dep = declare_dependency(
     ],
     dependencies: [appstream_dep,
                    glib_dep,
-                   gobject_dep],
+                   gobject_dep,
+                   gio_dep,
+                   gdkpixbuf_dep],
     include_directories: [appstream_compose_lib_inc]
 )
 
