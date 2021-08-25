@@ -751,7 +751,7 @@ asc_compose_process_icons (AscCompose *compose,
 			img = asc_image_new_from_data (img_data, img_len,
 							is_vector_icon? sizes[i] * scale_factors[k] : 0,
 							g_str_has_suffix (icon_fname, ".svgz"),
-							ASC_IMAGE_LOAD_FLAG_NONE,
+							ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE,
 							&error);
 			if (img == NULL) {
 				asc_result_add_hint (cres, cpt,

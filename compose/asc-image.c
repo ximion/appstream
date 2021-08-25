@@ -447,14 +447,31 @@ asc_image_new_from_data (const void *data, gssize len,
 	} else {
 		dstream = g_object_ref (istream);
 	}
-        pix = gdk_pixbuf_new_from_stream (dstream, NULL, error);
-	if (pix == NULL)
-		return NULL;
 
 	if (dest_size == 0) {
 		/* use the native size and don't perform any scaling */
+		pix = gdk_pixbuf_new_from_stream (dstream, NULL, error);
+		if (pix == NULL)
+			return NULL;
+
 		asc_image_set_pixbuf (image, pix);
 		return g_steal_pointer (&image);
+	}
+
+	/* load & scale */
+	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
+		pix = gdk_pixbuf_new_from_stream_at_scale (dstream,
+							dest_size, dest_size,
+							TRUE,
+							NULL,
+							error);
+		if (pix == NULL)
+			return NULL;
+	} else {
+		/* just load, we will do resizing later */
+		pix = gdk_pixbuf_new_from_stream (dstream, NULL, error);
+		if (pix == NULL)
+			return NULL;
 	}
 	ret = asc_image_load_pixbuf (image,
 				     pix,
