@@ -21,17 +21,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-08-25 19:40+0200\n"
-"PO-Revision-Date: 2021-03-01 19:53+0000\n"
+"PO-Revision-Date: 2021-08-25 17:53+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
-"translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.5\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.8.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2131,9 +2129,8 @@ msgstr "Виявлено: %s — Дозволено: %s"
 
 #. TRANSLATORS: ascompose flag description for: --verbose
 #: tools/appstream-compose.c:178
-#, fuzzy
 msgid "Show extra debugging information"
-msgstr "Вивести додаткові діагностичні дані."
+msgstr "Вивести додаткові діагностичні дані"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
@@ -2144,32 +2141,32 @@ msgstr "Не розфарбовувати виведені дані."
 #. TRANSLATORS: ascompose flag description for: --full-report
 #: tools/appstream-compose.c:184
 msgid "Set mode of the issue report that is printed to the console"
-msgstr ""
+msgstr "Встановити режим звітування щодо проблем, який буде використано у консолі"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:187
 msgid "Override the default prefix (`/usr` by default)"
-msgstr ""
+msgstr "Перевизначити типовий префікс (типовим є `/usr`)"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:190
 msgid "Set the result output directory"
-msgstr ""
+msgstr "Встановити каталог для виведення результатів"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
 #: tools/appstream-compose.c:193
 msgid "Override the collection metadata output directory"
-msgstr ""
+msgstr "Перевизначити каталог виведення метаданих збірки"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:196
 msgid "Override the icon output directory"
-msgstr ""
+msgstr "Перевизначити каталог виведення піктограм"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:199
 msgid "Set a directory where HTML and text issue reports will be stored"
-msgstr ""
+msgstr "Встановити каталог, у якому зберігатимуться звіти щодо вад у форматі HTML і текстовому форматі"
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:202
