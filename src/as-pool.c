@@ -500,6 +500,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		 * (we hope that collection data was loaded first here, so the existing_cpt already contains
 		 *  the information we want - if that's not the case, no harm is done here) */
 		as_component_set_pkgnames (cpt, as_component_get_pkgnames (existing_cpt));
+		as_component_set_bundles_array (cpt, as_component_get_bundles (existing_cpt));
 
 		if (!as_pool_insert (pool, cpt, error))
 			return FALSE;
