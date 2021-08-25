@@ -526,7 +526,7 @@
 				also be set, containing a platform triplet (also known as normalized GNU triplet), such as <code>x86_64-linux-gnu</code>. Refer to
 				<ulink url="https://wiki.debian.org/Multiarch/Tuples#Used_solution">Debian multiarch tuples</ulink> for more information on normalized GNU triplets, and
 				<ulink url="https://github.com/ximion/appstream/blob/master/data/platforms.yml">AppStream's platforms.yml</ulink> for the triplet parts AppStream currently recognizes.
-				Note that AppStream only supports stricly three-part triplets in the form of <code>arch-oskernel-osenvironment</code>. Parts of the triplets which do not apply can be
+				Note that AppStream only supports strictly three-part triplets in the form of <code>arch-oskernel-osenvironment</code>. Parts of the triplets which do not apply can be
 				replaced with <code>any</code>.
 			</para>
 			<para>
