@@ -3652,7 +3652,6 @@ gboolean
 as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GError **error)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	xmlNode *iter;
 	const gchar *node_name;
 	g_autoptr(GPtrArray) pkgnames = NULL;
 	g_autofree gchar *priority_str = NULL;
@@ -3692,7 +3691,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 	/* clear any existing descriptions */
 	g_hash_table_remove_all (priv->description);
 
-	for (iter = node->children; iter != NULL; iter = iter->next) {
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		g_autofree gchar *content = NULL;
 		g_autofree gchar *lang = NULL;
 		AsTag tag_id;

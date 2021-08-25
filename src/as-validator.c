@@ -2070,11 +2070,10 @@ as_validator_validate_bytes (AsValidator *validator, GBytes *metadata)
 		if (cpt != NULL)
 			g_object_unref (cpt);
 	} else if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
-		xmlNode *iter;
 		const gchar *node_name;
 
 		as_context_set_style (ctx, AS_FORMAT_STYLE_COLLECTION);
-		for (iter = root->children; iter != NULL; iter = iter->next) {
+		for (xmlNode *iter = root->children; iter != NULL; iter = iter->next) {
 			/* discard spaces */
 			if (iter->type != XML_ELEMENT_NODE)
 				continue;
