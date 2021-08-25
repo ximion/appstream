@@ -21,3 +21,5 @@ libappstream API break for the AppStream 1.0 release.
 
  * Sort out the various markup-to-text conversion functions, make some of them public API and maybe rewrite some
    (there are likely some performance improvements to be found there)
+
+ * Make UNKNOWN the first entry in AsFormatVersion enum

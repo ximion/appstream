@@ -47,6 +47,7 @@ struct _AsContextClass
 
 /**
  * AsFormatVersion:
+ * @AS_FORMAT_VERSION_UNKNOWN:	Unknown
  * @AS_FORMAT_VERSION_V0_6:	0.6
  * @AS_FORMAT_VERSION_V0_7:	0.7
  * @AS_FORMAT_VERSION_V0_8:	0.8
@@ -69,6 +70,7 @@ typedef enum {
 	AS_FORMAT_VERSION_V0_12,
 	AS_FORMAT_VERSION_V0_13,
 	AS_FORMAT_VERSION_V0_14,
+	AS_FORMAT_VERSION_UNKNOWN, /* added to work around GIR inconsistencies */
 	/*< private >*/
 	AS_FORMAT_VERSION_LAST
 } AsFormatVersion;
