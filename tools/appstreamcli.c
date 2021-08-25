@@ -878,6 +878,31 @@ as_client_run_metainfo_to_news (const gchar *command, char **argv, int argc)
 					optn_format_text);
 }
 
+/**
+ * as_client_run_compose:
+ *
+ * Delegate the "compose" command to the appstream-compose binary,
+ * if it is available.
+ */
+static int
+as_client_run_compose (const gchar *command, char **argv, int argc)
+{
+	const gchar *ascompose_exe = LIBEXECDIR "/appstreamcli-compose";
+	g_autofree const gchar **asc_argv = NULL;
+
+	if (!g_file_test (ascompose_exe, G_FILE_TEST_EXISTS)) {
+		ascli_print_stderr (_("Compose binary '%s' was not found! Can not continue."), ascompose_exe);
+		return 4;
+	}
+
+	asc_argv = g_new0 (const gchar*, argc + 2);
+	asc_argv[0] = ascompose_exe;
+	for (gint i = 0; i < argc; i++)
+		asc_argv[i+1] = argv[i];
+
+	return execv(ascompose_exe, (gchar * const*) asc_argv);
+}
+
 typedef gboolean (*AsCliCommandCb) (const gchar *command,
 				    gchar **argv,
 				    gint argc);
@@ -1166,6 +1191,12 @@ as_client_run (char **argv, int argc)
 			/* TRANSLATORS: `appstreamcli metainfo-to-news` command description. */
 			_("Write NEWS text or YAML file with information from a metainfo file."),
 			as_client_run_metainfo_to_news);
+	if (g_file_test (LIBEXECDIR "/appstreamcli-compose", G_FILE_TEST_EXISTS))
+		ascli_add_cmd (commands,
+				5, "compose", NULL, NULL,
+				/* TRANSLATORS: `appstreamcli compose` command description. */
+				_("Compose AppStream collection metadata from directory trees."),
+				as_client_run_compose);
 
 	/* we handle the unknown options later in the individual subcommands */
 	g_option_context_set_ignore_unknown_options (opt_context, TRUE);
