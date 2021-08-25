@@ -357,6 +357,10 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 	    (g_str_has_suffix (in_fname, ".yaml"))) {
 		/* if we have YAML, we also automatically assume a collection style */
 		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
+	} else if (g_str_has_suffix (in_fname, ".metainfo.xml") || g_str_has_suffix (in_fname, ".appdata.xml")) {
+		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_METAINFO);
+	} else {
+		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
 	}
 
 	as_metadata_parse_file (metad,
