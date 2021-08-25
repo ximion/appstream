@@ -181,9 +181,7 @@ main (int argc, char **argv)
 			_("Don\'t show colored output."), NULL },
 		{ "print-report", '\0', 0, G_OPTION_ARG_STRING, &report_mode_str,
 			/* TRANSLATORS: ascompose flag description for: --full-report */
-			_("Print an issue report to the console. If set to `full`, a detailed report will be printed, "
-			  "`short` generates an abridged version, and `on-error` (the default) only prints a short report "
-			  "if the run failed."), NULL },
+			_("Set mode of the issue report that is printed to the console"), "MODE" },
 		{ "prefix", '\0', 0, G_OPTION_ARG_FILENAME, &prefix,
 			/* TRANSLATORS: ascompose flag description for: --prefix */
 			_("Override the default prefix (`/usr` by default)"), "DIR" },
@@ -240,7 +238,12 @@ main (int argc, char **argv)
 		report_mode = ASC_REPORT_MODE_NONE;
 	if (report_mode == ASC_REPORT_MODE_UNKNOWN) {
 		/* TRANSLATORS: invalid value for the --print-report CLI option */
-		ascli_print_stderr (_("Invalid value for --print-report option: %s"), report_mode_str);
+		ascli_print_stderr (_("Invalid value for `--print-report` option: %s\n"
+				      "Possible values are:\n"
+				      "`on-error` - only prints a short report if the run failed (default)\n"
+				      "`short` - generates an abridged report\n"
+				      "`full` - a detailed report will be printed"),
+				    report_mode_str);
 		return EXIT_FAILURE;
 	}
 
