@@ -863,7 +863,7 @@ as_get_current_arch (void)
 	if (g_strcmp0 (uts.machine, "x86_64") == 0) {
 		arch = g_strdup ("amd64");
 	} else if (g_pattern_match_simple ("i?86", uts.machine)) {
-		arch = g_strdup ("ia32");
+		arch = g_strdup ("i386");
 	} else if (g_strcmp0 (uts.machine, "aarch64")) {
 		arch = g_strdup ("arm64");
 	} else {

@@ -37,8 +37,7 @@ architectures:
 - riscv64     # RISC-V (64-bit): riscv64
 - sparc       # Sparc: sparc
 - sparc64     # SPARCv9 psABI
-- x86         # X86: i[3-9]86
-- i386        # compatibility alias for X86: i[3-9]86
+- i386        # X86: i[3-9]86
 - x86_64      # X86-64: amd64, x86_64
 - wasm32      # WebAssembly with 32-bit pointers
 - wasm64      # WebAssembly with 64-bit pointers
