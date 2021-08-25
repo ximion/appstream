@@ -317,7 +317,7 @@ main (int argc, char **argv)
 		g_print ("%s\n", _("Processing directories:"));
 	else
 		/* TRANSLATORS: information about as-compose units to be processed */
-		g_print ("%s", _("Processing directory:"));
+		g_print ("%s ", _("Processing directory:"));
 
 	/* add locations for data processing */
 	for (guint i = 1; i < (guint) argc; i++) {

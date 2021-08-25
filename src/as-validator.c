@@ -501,9 +501,7 @@ as_validate_is_secure_url (const gchar *str)
 static void
 as_validator_check_children_quick (AsValidator *validator, xmlNode *node, const gchar *allowed_tagname, gboolean allow_empty)
 {
-	xmlNode *iter;
-
-	for (iter = node->children; iter != NULL; iter = iter->next) {
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
@@ -551,9 +549,7 @@ as_validator_check_nolocalized (AsValidator *validator, xmlNode* node, const gch
 static void
 as_validator_check_description_paragraph (AsValidator *validator, xmlNode *node)
 {
-	xmlNode *iter;
-
-	for (iter = node->children; iter != NULL; iter = iter->next) {
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
@@ -576,9 +572,7 @@ as_validator_check_description_paragraph (AsValidator *validator, xmlNode *node)
 static void
 as_validator_check_description_enumeration (AsValidator *validator, xmlNode *node)
 {
-	xmlNode *iter;
-
-	for (iter = node->children; iter != NULL; iter = iter->next) {
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
@@ -606,7 +600,6 @@ as_validator_check_description_enumeration (AsValidator *validator, xmlNode *nod
 static void
 as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFormatStyle mode, gboolean main_description)
 {
-	xmlNode *iter;
 	gboolean first_paragraph = TRUE;
 
 	if (mode == AS_FORMAT_STYLE_METAINFO) {
@@ -616,7 +609,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 						(const gchar*) node->name);
 	}
 
-	for (iter = node->children; iter != NULL; iter = iter->next) {
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name = (gchar*) iter->name;
 		g_autofree gchar *node_content = (gchar*) xmlNodeGetContent (iter);
 
@@ -922,8 +915,7 @@ as_validator_validate_update_contact (AsValidator *validator, xmlNode *uc_node)
 static void
 as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsComponent *cpt)
 {
-	xmlNode *iter;
-	for (iter = node->children; iter != NULL; iter = iter->next) {
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		xmlNode *iter2;
 		gboolean image_found = FALSE;
 		gboolean video_found = FALSE;
@@ -1058,9 +1050,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 static void
 as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, AsComponent *cpt, AsRelationKind kind)
 {
-	xmlNode *iter;
-
-	for (iter = node->children; iter != NULL; iter = iter->next) {
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		g_autofree gchar *content = NULL;
 		g_autofree gchar *version = NULL;
@@ -1180,9 +1170,7 @@ as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, A
 static void
 as_validator_check_provides (AsValidator *validator, xmlNode *node, AsComponent *cpt)
 {
-	xmlNode *iter;
-
-	for (iter = node->children; iter != NULL; iter = iter->next) {
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		g_autofree gchar *node_content = NULL;
 		if (iter->type != XML_ELEMENT_NODE)
