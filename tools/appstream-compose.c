@@ -159,6 +159,7 @@ main (int argc, char **argv)
 	gboolean ret;
 	gboolean verbose = FALSE;
 	gboolean no_color = FALSE;
+	gboolean show_version = FALSE;
 	g_autoptr(GError) error = NULL;
 	AscReportMode report_mode;
 	g_autofree gchar *report_mode_str = NULL;
@@ -179,6 +180,9 @@ main (int argc, char **argv)
 		{ "no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &no_color,
 			/* TRANSLATORS: ascompose flag description for: --no-color */
 			_("Don\'t show colored output."), NULL },
+		{ "version", 0, 0, G_OPTION_ARG_NONE, &show_version,
+			/* TRANSLATORS: ascompose flag description for: --version */
+			_("Show the program version."), NULL },
 		{ "print-report", '\0', 0, G_OPTION_ARG_STRING, &report_mode_str,
 			/* TRANSLATORS: ascompose flag description for: --full-report */
 			_("Set mode of the issue report that is printed to the console"), "MODE" },
@@ -223,6 +227,17 @@ main (int argc, char **argv)
 	if (verbose)
 		g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	ascli_set_output_colored (!no_color);
+
+	if (show_version) {
+		if (g_strcmp0 (as_version_string (), PACKAGE_VERSION) == 0) {
+			/* TRANSLATORS: Output if appstreamcli --version is executed. */
+			ascli_print_stdout (_("AppStream version: %s"), PACKAGE_VERSION);
+		} else {
+			/* TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ. */
+			ascli_print_stdout (_("AppStream CLI tool version: %s\nAppStream library version: %s"), PACKAGE_VERSION, as_version_string ());
+		}
+		return EXIT_SUCCESS;
+	}
 
 	/* determine report mode */
 	report_mode = ASC_REPORT_MODE_UNKNOWN;
