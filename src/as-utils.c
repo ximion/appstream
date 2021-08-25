@@ -409,7 +409,7 @@ as_utils_delete_dir_recursive (const gchar* dirname)
 	gboolean ret = FALSE;
 	GFile *dir;
 	GFileEnumerator *enr;
-	GFileInfo *info;
+	g_autoptr(GFileInfo) info = NULL;
 	g_return_val_if_fail (dirname != NULL, FALSE);
 
 	if (!g_file_test (dirname, G_FILE_TEST_IS_DIR))

@@ -56,6 +56,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AscGlobals, asc_globals, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (asc_globals_get_instance_private (o))
 
 static AscGlobals *g_globals = NULL;
+static GMutex g_globals_mutex;
 
 /**
  * asc_compose_error_quark:
@@ -74,6 +75,7 @@ asc_compose_error_quark (void)
 static GObject*
 asc_globals_constructor (GType type, guint n_construct_properties, GObjectConstructParam *construct_properties)
 {
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&g_globals_mutex);
 	if (g_globals)
 		return g_object_ref (G_OBJECT (g_globals));
 	else
