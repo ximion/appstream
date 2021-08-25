@@ -1087,10 +1087,10 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	} /* end of metadata parsing loop */
 
 	/* process translation status */
-	asc_read_translations (ctask->result,
-				ctask->unit,
-				priv->prefix,
-				25 /* minimum translation percentage */);
+	asc_read_translation_status (ctask->result,
+				     ctask->unit,
+				     priv->prefix,
+				     25 /* minimum translation percentage */);
 
 	/* process icons */
 	found_cpts = asc_result_fetch_components (ctask->result);

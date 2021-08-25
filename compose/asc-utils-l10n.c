@@ -404,7 +404,7 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
 }
 
 /**
- * asc_read_translations:
+ * asc_read_translation_status:
  * @cres: an #AscResult
  * @unit: an #AscUnit that the result belongs to
  * @prefix: a prefix to search, e.g. "/usr"
@@ -423,10 +423,10 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
  * languages with very few translated strings.
  **/
 void
-asc_read_translations (AscResult *cres,
-		        AscUnit *unit,
-			const gchar *prefix,
-			guint min_percentage)
+asc_read_translation_status (AscResult *cres,
+			     AscUnit *unit,
+			     const gchar *prefix,
+			     guint min_percentage)
 {
 	g_autoptr(GPtrArray) cpts = NULL;
 

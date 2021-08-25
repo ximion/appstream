@@ -620,10 +620,10 @@ test_compose_locale_stats ()
 	g_assert_true (ret);
 
 	/* try loading a Gettext translation */
-	asc_read_translations (cres,
-				ASC_UNIT (dirunit),
-				"/usr",
-				25);
+	asc_read_translation_status (cres,
+					ASC_UNIT (dirunit),
+					"/usr",
+					25);
 	asc_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "en_GB"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "ru"), ==, 33);
@@ -634,10 +634,10 @@ test_compose_locale_stats ()
 	as_translation_set_id (tr, "kdeapp1/translations/kdeapp");
 	as_component_add_translation (cpt, tr);
 
-	asc_read_translations (cres,
-				ASC_UNIT (dirunit),
-				"/usr",
-				25);
+	asc_read_translation_status (cres,
+					ASC_UNIT (dirunit),
+					"/usr",
+					25);
 	asc_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, -1);
@@ -648,10 +648,10 @@ test_compose_locale_stats ()
 	as_translation_set_id (tr, "kdeapp2/translations/kdeapp");
 	as_component_add_translation (cpt, tr);
 
-	asc_read_translations (cres,
-				ASC_UNIT (dirunit),
-				"/usr",
-				25);
+	asc_read_translation_status (cres,
+					ASC_UNIT (dirunit),
+					"/usr",
+					25);
 	asc_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, -1);
@@ -662,10 +662,10 @@ test_compose_locale_stats ()
 	as_translation_set_id (tr, "kdeapp3");
 	as_component_add_translation (cpt, tr);
 
-	asc_read_translations (cres,
-				ASC_UNIT (dirunit),
-				"/usr",
-				25);
+	asc_read_translation_status (cres,
+					ASC_UNIT (dirunit),
+					"/usr",
+					25);
 	asc_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, 100);

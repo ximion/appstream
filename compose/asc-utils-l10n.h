@@ -31,9 +31,9 @@
 
 G_BEGIN_DECLS
 
-void		asc_read_translations (AscResult *cres,
-					AscUnit *unit,
-					const gchar *prefix,
-					guint min_percentage);
+void		asc_read_translation_status (AscResult *cres,
+						AscUnit *unit,
+						const gchar *prefix,
+						guint min_percentage);
 
 G_END_DECLS
