@@ -38,7 +38,7 @@
  * (this function is called implicitly by every parsing function anyway).
  * In order to work around this issue until a better fix is available, we simply put
  * parsing behind a global lock. */
-static GMutex g_xml_parse_mtx;
+G_LOCK_DEFINE (xml_parser);
 
 #if !defined(LIBXML_THREAD_ENABLED)
 #error "libxml2 needs to be compiled with thread support!"
@@ -345,12 +345,12 @@ as_xml_markup_parse_helper_new (const gchar *markup, const gchar *locale)
 
 	helper->locale = g_strdup (locale);
 	xmldata = g_strconcat ("<root>", markup, "</root>", NULL);
-	g_mutex_lock (&g_xml_parse_mtx);
+	G_LOCK (xml_parser);
 	helper->doc = xmlReadMemory (xmldata, strlen (xmldata),
 					NULL,
 					"utf-8",
 					XML_PARSE_NOBLANKS | XML_PARSE_NONET);
-	g_mutex_unlock (&g_xml_parse_mtx);
+	G_UNLOCK (xml_parser);
 	if (helper->doc == NULL)
 		return NULL;
 
@@ -1050,7 +1050,7 @@ as_xml_parse_document (const gchar *data, gssize len, GError **error)
 	if (len < 0)
 		len = strlen (data);
 
-	g_mutex_lock (&g_xml_parse_mtx);
+	G_LOCK (xml_parser);
 	as_xml_set_out_of_context_error (&error_msg_str);
 	doc = xmlReadMemory (data, len,
 			     NULL,
@@ -1069,11 +1069,11 @@ as_xml_parse_document (const gchar *data, gssize len, GError **error)
 					"Could not parse XML data: %s", error_msg_str);
 		}
 		as_xml_set_out_of_context_error (NULL);
-		g_mutex_unlock (&g_xml_parse_mtx);
+		G_UNLOCK (xml_parser);
 		return NULL;
 	}
 	as_xml_set_out_of_context_error (NULL);
-	g_mutex_unlock (&g_xml_parse_mtx);
+	G_UNLOCK (xml_parser);
 
 	root = xmlDocGetRootElement (doc);
 	if (root == NULL) {
@@ -1104,8 +1104,8 @@ as_xml_node_to_str (xmlNode *root, GError **error)
 	xmlDoc *doc;
 	gchar *xmlstr = NULL;
 	g_autofree gchar *error_msg_str = NULL;
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&g_xml_parse_mtx);
 
+	G_LOCK (xml_parser);
 	as_xml_set_out_of_context_error (&error_msg_str);
 	doc = xmlNewDoc ((xmlChar*) NULL);
 	if (root == NULL)
@@ -1130,5 +1130,6 @@ as_xml_node_to_str (xmlNode *root, GError **error)
 out:
 	as_xml_set_out_of_context_error (NULL);
 	xmlFreeDoc (doc);
+	G_UNLOCK (xml_parser);
 	return xmlstr;
 }

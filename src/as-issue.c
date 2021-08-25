@@ -215,7 +215,6 @@ as_issue_load_from_xml (AsIssue *issue, AsContext *ctx, xmlNode *node, GError **
 {
 	AsIssuePrivate *priv = GET_PRIVATE (issue);
 	g_autofree gchar *prop = NULL;
-	g_autofree gchar *content = NULL;
 
 	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");
 	priv->kind = as_issue_kind_from_string (prop);

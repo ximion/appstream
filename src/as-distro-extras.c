@@ -171,8 +171,6 @@ as_extract_icon_cache_tarball (const gchar *asicons_target,
 	g_autofree gchar *escaped_size = NULL;
 	g_autofree gchar *icons_tarball = NULL;
 	g_autofree gchar *target_dir = NULL;
-	g_autofree gchar *cmd = NULL;
-	g_autofree gchar *stderr_txt = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 
 	escaped_size = g_uri_escape_string (icons_size, NULL, FALSE);

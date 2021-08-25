@@ -2285,7 +2285,7 @@ as_utils_find_stock_icon_filename_full (const gchar *root_dir,
 					guint icon_scale,
 					GError **error)
 {
-	guint min_size_idx;
+	guint min_size_idx = 0;
 	const gchar *supported_ext[] = { ".png",
 					 ".svg",
 					 ".svgz",

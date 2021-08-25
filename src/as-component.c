@@ -3587,11 +3587,8 @@ as_component_load_launchable_from_xml (AsComponent *cpt, xmlNode *node)
 static void
 as_component_load_relations_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, AsRelationKind kind)
 {
-	xmlNode *iter;
-
-	for (iter = node->children; iter != NULL; iter = iter->next) {
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		g_autoptr(AsRelation) relation = NULL;
-		g_autofree gchar *content = NULL;
 
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)

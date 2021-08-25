@@ -402,9 +402,7 @@ asc_image_new_from_file (const gchar* fname,
 			 GError **error)
 {
 	gboolean ret;
-	g_autoptr(GdkPixbuf) pix = NULL;
 	g_autoptr(AscImage) image = asc_image_new();
-
 
 	ret = asc_image_load_filename (image,
 					fname,

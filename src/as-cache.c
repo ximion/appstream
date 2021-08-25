@@ -435,7 +435,6 @@ as_txn_put_hash_kv_str (MDB_txn *txn, MDB_dbi dbi, const guint8 *hash, const gch
 	MDB_val dkey;
 	MDB_val dval;
 	gint rc;
-	g_autofree gchar *key_hash = NULL;
 
 	dkey.mv_size = AS_CACHE_CHECKSUM_LEN;
 	dkey.mv_data = (guint8*) hash;
@@ -584,7 +583,6 @@ as_txn_get_value_by_hash (AsCache *cache, MDB_txn *txn, MDB_dbi dbi, const guint
 	MDB_cursor *cur;
 	MDB_val dkey;
 	MDB_val dval = {0, NULL};
-	g_autofree gchar *key_hash = NULL;
 	gint rc;
 
 	if (hash == NULL)
@@ -1197,8 +1195,6 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 
 	g_hash_table_iter_init (&tc_iter, token_cache);
 	while (g_hash_table_iter_next (&tc_iter, &tc_key, &tc_value)) {
-		g_autoptr(GPtrArray) entries = NULL;
-		g_autoptr(GVariant) nvar = NULL;
 		MDB_val fts_val;
 		g_autofree guint8 *match_list = NULL;
 		gsize match_list_len;
@@ -2116,8 +2112,6 @@ as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn,
 					GError **error)
 {
 	GError *tmp_error = NULL;
-	g_autofree gchar *entry_data = NULL;
-	g_auto(GStrv) entries = NULL;
 	guint8 *data = NULL;
 	gsize data_len = 0;
 	const gsize ENTRY_LEN = sizeof(AsTokenType) + AS_CACHE_CHECKSUM_LEN * sizeof(guint8);

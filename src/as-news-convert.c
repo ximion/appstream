@@ -333,7 +333,6 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 				xmlNode *root;
 				xmlNode *iter;
 				g_autofree gchar *xmldata = NULL;
-				g_autoptr(GString) str = g_string_new ("");
 
 				/* make XML parser happy by providing a root element */
 				xmldata = g_strdup_printf ("<root>%s</root>", desc_markup);

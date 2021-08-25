@@ -47,7 +47,6 @@ asc_build_component_global_id (const gchar *component_id, const gchar *checksum)
 {
 	gboolean rdns_split;
 	g_auto(GStrv) parts = NULL;
-	g_autofree gchar *tld_part = NULL;
 
 	if (as_is_empty (component_id))
 		return NULL;
