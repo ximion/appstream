@@ -24,16 +24,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-08-25 19:40+0200\n"
-"PO-Revision-Date: 2021-03-01 19:53+0000\n"
+"PO-Revision-Date: 2021-08-26 19:34+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.5\n"
+"X-Generator: Weblate 4.8.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2108,9 +2107,8 @@ msgstr "Bulunan: %s - İzin verilen: %s"
 
 #. TRANSLATORS: ascompose flag description for: --verbose
 #: tools/appstream-compose.c:178
-#, fuzzy
 msgid "Show extra debugging information"
-msgstr "Ek hata ayıklama bilgisi göster."
+msgstr "Ek hata ayıklama bilgilerini göster"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
@@ -2121,47 +2119,47 @@ msgstr "Renklendirilmiş çıktı gösterme."
 #. TRANSLATORS: ascompose flag description for: --full-report
 #: tools/appstream-compose.c:184
 msgid "Set mode of the issue report that is printed to the console"
-msgstr ""
+msgstr "Konsola yazdırılan sorun raporunun modunu ayarla"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:187
 msgid "Override the default prefix (`/usr` by default)"
-msgstr ""
+msgstr "Öntanımlı ön eki geçersiz kıl (öntanımlı olarak `/usr`)"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:190
 msgid "Set the result output directory"
-msgstr ""
+msgstr "Sonuç çıktı dizinini ayarla"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
 #: tools/appstream-compose.c:193
 msgid "Override the collection metadata output directory"
-msgstr ""
+msgstr "Koleksiyon üst verileri çıktı dizinini geçersiz kıl"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:196
 msgid "Override the icon output directory"
-msgstr ""
+msgstr "Simge çıktı dizinini geçersiz kıl"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:199
 msgid "Set a directory where HTML and text issue reports will be stored"
-msgstr ""
+msgstr "HTML ve metin sorun raporlarının saklanacağı dizini ayarla"
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:202
 msgid "Set the origin name"
-msgstr ""
+msgstr "Kaynak adını ayarla"
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:205
 msgid "A comma-separated list of component-IDs to accept"
-msgstr ""
+msgstr "Kabul edilecek bileşen kimliklerinin virgülle ayrılmış listesi"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:219
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Argümanlar ayrıştırılamadı"
 
 #. TRANSLATORS: invalid value for the --print-report CLI option
 #: tools/appstream-compose.c:241
@@ -2173,83 +2171,87 @@ msgid ""
 "`short` - generates an abridged report\n"
 "`full` - a detailed report will be printed"
 msgstr ""
+"`--print-report` seçeneği için geçersiz değer: %s\n"
+"Olası değerler şunlardır:\n"
+"`on-error` - yalnızca çalıştırma başarısız olursa kısa bir rapor yazdırır (öntanımlı)\n"
+"`short` - kısaltılmış bir rapor oluşturur\n"
+"`full` - ayrıntılı bir rapor yazdırır"
 
 #: tools/appstream-compose.c:262
 #, c-format
 msgid "Automatically selected '%s' as data output location."
-msgstr ""
+msgstr "Veri çıktı konumu olarak '%s' otomatik seçildi."
 
 #. TRANSLATORS: we don't have a destination directory for compose
 #: tools/appstream-compose.c:265
 msgid "No destination directory set, please provide a data output location!"
-msgstr ""
+msgstr "Hedef dizin ayarlanmadı, lütfen bir veri çıktı konumu sağlayın!"
 
 #: tools/appstream-compose.c:275 tools/appstream-compose.c:277
 msgid "WARNING"
-msgstr ""
+msgstr "UYARI"
 
 #. TRANSLATORS: information about as-compose allowlist
 #: tools/appstream-compose.c:312
 #, c-format
 msgid "Only accepting components: %s"
-msgstr ""
+msgstr "Yalnızca kabul edilen bileşenler: %s"
 
 #. TRANSLATORS: information about as-compose allowlist
 #: tools/appstream-compose.c:315
 #, c-format
 msgid "Only accepting component: %s"
-msgstr ""
+msgstr "Yalnızca kabul edilen bileşen: %s"
 
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:320
 msgid "Processing directories:"
-msgstr ""
+msgstr "İşleme dizinleri:"
 
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:323
 msgid "Processing directory:"
-msgstr ""
+msgstr "İşleme dizini:"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:332
 msgid "Can not process invalid directory"
-msgstr ""
+msgstr "Geçersiz dizin işlenemiyor"
 
 #. TRANSLATORS: information message
 #: tools/appstream-compose.c:344
 msgid "Composing metadata..."
-msgstr ""
+msgstr "Üst veriler oluşturuluyor..."
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:349
-#, fuzzy
 msgid "Failed to compose AppStream metadata"
-msgstr "AppStream üst verisiyle çalışmak için bir araç"
+msgstr "AppStream üst verileri oluşturulamadı"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:355
 msgid "Run failed, some data was ignored."
-msgstr ""
+msgstr "Çalıştırma başarısız oldu, bazı veriler yok sayıldı."
 
 #. TRANSLATORS: information message of appstream-compose
 #: tools/appstream-compose.c:357
 msgid "Errors were raised during this compose run:"
-msgstr ""
+msgstr "Bu oluşturma çalıştırması sırasında hatalar oluştu:"
 
 #: tools/appstream-compose.c:358
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
-msgstr ""
+msgstr "Bireysel sorunlarla ilgili ayrıntılar için oluşturulan sorun raporu verilerine bakın."
 
 #: tools/appstream-compose.c:361
 msgid "Overview of generated hints:"
-msgstr ""
+msgstr "Oluşturulan ipuçlarına genel bakış:"
 
 #. TRANSLATORS: information message
 #: tools/appstream-compose.c:363
 msgid "Success!"
-msgstr ""
+msgstr "Başarılı!"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstreamcli.c:59
@@ -2421,7 +2423,7 @@ msgstr "Çıktıyı seçilen biçimde ('yaml' veya 'text') oluştur."
 #: tools/appstreamcli.c:894
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
-msgstr ""
+msgstr "Oluşturma ikili dosyası '%s' bulunamadı! Devam edilemiyor."
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:956
@@ -2570,9 +2572,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1198
-#, fuzzy
 msgid "Compose AppStream collection metadata from directory trees."
-msgstr "Bu dizinde veya dizin ağacında AppStream üst verisi bulunamadı."
+msgstr "Dizin ağaçlarından AppStream koleksiyonu üst verileri oluşturun."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1206
