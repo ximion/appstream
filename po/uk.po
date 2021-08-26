@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-08-25 19:40+0200\n"
-"PO-Revision-Date: 2021-08-25 17:53+0000\n"
+"PO-Revision-Date: 2021-08-26 19:34+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
@@ -2171,17 +2171,17 @@ msgstr "Встановити каталог, у якому зберігатим�
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:202
 msgid "Set the origin name"
-msgstr ""
+msgstr "Встановити назву походження"
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:205
 msgid "A comma-separated list of component-IDs to accept"
-msgstr ""
+msgstr "Список ідентифікаторів компонентів, відокремлених комами, які слід приймати"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:219
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Не вдалося обробити аргументи"
 
 #. TRANSLATORS: invalid value for the --print-report CLI option
 #: tools/appstream-compose.c:241
@@ -2193,93 +2193,97 @@ msgid ""
 "`short` - generates an abridged report\n"
 "`full` - a detailed report will be printed"
 msgstr ""
+"Некоректне значення параметра `--print-report`: %s\n"
+"Можливі значення:\n"
+"`on-error` — виводить лише короткий звіт, якщо не вдасться запустити (типова поведінка)\n"
+"`short` — створює короткий звіт\n"
+"`full` — виводить докладний звіт"
 
 #: tools/appstream-compose.c:262
 #, c-format
 msgid "Automatically selected '%s' as data output location."
-msgstr ""
+msgstr "Автоматично вибрано «%s» як місце виведення даних."
 
 #. TRANSLATORS: we don't have a destination directory for compose
 #: tools/appstream-compose.c:265
 msgid "No destination directory set, please provide a data output location!"
-msgstr ""
+msgstr "Не встановлено каталог призначення. Будь ласка, вкажіть місце для виведення даних!"
 
 #: tools/appstream-compose.c:275 tools/appstream-compose.c:277
 msgid "WARNING"
-msgstr ""
+msgstr "ПОПЕРЕДЖЕННЯ"
 
 #. TRANSLATORS: information about as-compose allowlist
 #: tools/appstream-compose.c:312
 #, c-format
 msgid "Only accepting components: %s"
-msgstr ""
+msgstr "Приймаємо лише такі компоненти: %s"
 
 #. TRANSLATORS: information about as-compose allowlist
 #: tools/appstream-compose.c:315
 #, c-format
 msgid "Only accepting component: %s"
-msgstr ""
+msgstr "Приймаємо лише такий компонент: %s"
 
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:320
 msgid "Processing directories:"
-msgstr ""
+msgstr "Обробляємо каталоги:"
 
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:323
 msgid "Processing directory:"
-msgstr ""
+msgstr "Обробляємо каталог:"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:332
 msgid "Can not process invalid directory"
-msgstr ""
+msgstr "Неможливо обробити некоректний каталог"
 
 #. TRANSLATORS: information message
 #: tools/appstream-compose.c:344
 msgid "Composing metadata..."
-msgstr ""
+msgstr "Компонуємо метадані…"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:349
-#, fuzzy
 msgid "Failed to compose AppStream metadata"
-msgstr "Інструмент для обробки метаданих AppStream"
+msgstr "Не вдалося скомпонувати метадані AppStream"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:355
 msgid "Run failed, some data was ignored."
-msgstr ""
+msgstr "Помилка запуску, деякі дані було проігноровано."
 
 #. TRANSLATORS: information message of appstream-compose
 #: tools/appstream-compose.c:357
 msgid "Errors were raised during this compose run:"
-msgstr ""
+msgstr "Під час цього запуску компонування сталися помилки:"
 
 #: tools/appstream-compose.c:358
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
-msgstr ""
+msgstr "Зверніться до даних створеного звіту щодо вади, щоб дізнатися про окремі проблеми."
 
 #: tools/appstream-compose.c:361
 msgid "Overview of generated hints:"
-msgstr ""
+msgstr "Огляд створених підказок:"
 
 #. TRANSLATORS: information message
 #: tools/appstream-compose.c:363
 msgid "Success!"
-msgstr ""
+msgstr "Виконано!"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstreamcli.c:59
 msgid "Manually selected location of AppStream cache."
-msgstr "Встановити вручну розташування кешу AppStream."
+msgstr "Встановлене вручну місце зберігання кешу AppStream."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstreamcli.c:64
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr "Встановити вручну розташування метаданих AppStream для сканування."
+msgstr "Встановлене вручну розташування метаданих AppStream для сканування."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:69
@@ -2446,7 +2450,7 @@ msgstr "Вивести дані у вибраному форматі («yaml» �
 #: tools/appstreamcli.c:894
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
-msgstr ""
+msgstr "Виконуваний файл компонувальника «%s» не знайдено. Продовження обробки неможливе."
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:956
@@ -2600,10 +2604,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1198
-#, fuzzy
 msgid "Compose AppStream collection metadata from directory trees."
-msgstr ""
-"У цьому каталозі або ієрархії каталогів не знайдено метаданих AppStream."
+msgstr "Скомпонувати метадані збірки AppStream з ієрархії каталогів."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1206
