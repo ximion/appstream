@@ -43,7 +43,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-08-25 19:40+0200\n"
 "PO-Revision-Date: 2021-08-26 19:34+0000\n"
-"Last-Translator: lumingzh <lumingzh@qq.com>\n"
+"Last-Translator: Eric <spice2wolf@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -1918,9 +1918,8 @@ msgstr "发现的：%s - 允许的：%s"
 
 #. TRANSLATORS: ascompose flag description for: --verbose
 #: tools/appstream-compose.c:178
-#, fuzzy
 msgid "Show extra debugging information"
-msgstr "显示额外的调试信息。"
+msgstr "显示额外的调试信息"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
@@ -2037,9 +2036,8 @@ msgstr "正在整合元数据…"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:349
-#, fuzzy
 msgid "Failed to compose AppStream metadata"
-msgstr "用于操作 AppStream 元数据的实用工具"
+msgstr "未能编写 AppStream 元数据"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:355
