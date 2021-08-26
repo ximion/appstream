@@ -43,7 +43,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:44+0000\n"
-"Last-Translator: Chen Xiaomeng <295932653@qq.com>\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -989,9 +989,7 @@ msgstr "检索到的文件大小为0。"
 #.
 #: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
-"app;application;package;program;programme;suite;tool;应用;应用程序;包;程序;套"
-"装;工具;套件;软件"
+msgstr "app;application;package;program;programme;suite;tool;应用;应用程序;包;程序;套装;工具;套件;软件"
 
 #: src/as-pool.c:1114
 msgid "Metadata files have errors:"
@@ -1085,10 +1083,7 @@ msgid ""
 "<description/> tag instead. The AppStream collection metadata generator (e."
 "g. `appstream-generator`) will already do the right thing when compiling the "
 "data."
-msgstr ""
-"集合元数据中的<description/>标签的该元素（段落、列表等）不能单独本地化。应本"
-"地化整个<description/>标签。AppStream 集合元数据生成器（如“appstream-"
-"generator”）将在编译数据时做该做的事。"
+msgstr "集合元数据中的<description/>标签的该元素（段落、列表等）不能单独本地化。应本地化整个<description/>标签。AppStream 集合元数据生成器（如“appstream-generator”）将在编译数据时做该做的事。"
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -1126,17 +1121,13 @@ msgstr ""
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
-"描述中包含一段普通文本格式的 web URL。这是不允许的，请使用 <url/> 标记来分享"
-"链接。"
+msgstr "描述中包含一段普通文本格式的 web URL。这是不允许的，请使用 <url/> 标记来分享链接。"
 
 #: src/as-validator-issue-tag.h:91
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr ""
-"根据AppStream规范，所提到的标记在此上下文中只能出现一次。具有多个此类标记无"
-"效。"
+msgstr "根据AppStream规范，所提到的标记在此上下文中只能出现一次。具有多个此类标记无效。"
 
 #: src/as-validator-issue-tag.h:96
 msgid ""
@@ -1162,12 +1153,8 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
-"该组件 ID 不是反向域名。请更新 ID 以避免未来的问题且与所有 AppStream 规范兼"
-"容。\n"
-"您可能同时要考虑更新附带的 .desktop 文件名称以遵循最新版本的 Desktop-Entry 标"
-"准且同样为其使用 rDNS 名称。无论任何情况，不要忘了为该组件的<launchable/>标签"
-"提及新的 desktop-entry 使应用程序可以从软件中心启动且 .desktop 文件数据与元信"
-"息数据相关联。"
+"该组件 ID 不是反向域名。请更新 ID 以避免未来的问题且与所有 AppStream 规范兼容。\n"
+"您可能同时要考虑更新附带的 .desktop 文件名称以遵循最新版本的 Desktop-Entry 标准且同样为其使用 rDNS 名称。无论任何情况，不要忘了为该组件的<launchable/>标签提及新的 desktop-entry 使应用程序可以从软件中心启动且 .desktop 文件数据与元信息数据相关联。"
 
 #: src/as-validator-issue-tag.h:114
 msgid ""
@@ -1186,9 +1173,7 @@ msgid ""
 "The component ID contains a hyphen/minus. Using a hyphen is strongly "
 "discouraged, to improve interoperability with other tools such as D-Bus. A "
 "good option is to replace any hyphens with underscores (`_`)."
-msgstr ""
-"组件ID中包含连字符/减号。 强烈不建议使用连字符来改善与其他工具（如D-Bus）的互"
-"操作性。 一个好的选择是将任何连字符替换为下划线（' _ '）。"
+msgstr "组件ID中包含连字符/减号。 强烈不建议使用连字符来改善与其他工具（如D-Bus）的互操作性。 一个好的选择是将任何连字符替换为下划线（' _ '）。"
 
 #: src/as-validator-issue-tag.h:130
 msgid ""
@@ -1196,9 +1181,7 @@ msgid ""
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr ""
-"该组件 ID 包含以数字开头的片段。反向 DNS ID 的片段强烈不推荐以数字开头，以保"
-"留与其它工具如 D-Bus 的互操作性。理想状态可以用下划线作为片段前缀。"
+msgstr "该组件 ID 包含以数字开头的片段。反向 DNS ID 的片段强烈不推荐以数字开头，以保留与其它工具如 D-Bus 的互操作性。理想状态可以用下划线作为片段前缀。"
 
 #: src/as-validator-issue-tag.h:136
 msgid "The component ID should only contain lowercase letters."
@@ -1208,23 +1191,19 @@ msgstr "组件 ID 应仅包含小写字母。"
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr ""
-"这个组件是Freedesktop项目的一部分，但是它的ID不是以fd的反向dns名称(“org."
-"freedesktop”)开始的。"
+msgstr "这个组件是Freedesktop项目的一部分，但是它的ID不是以fd的反向dns名称(“org.freedesktop”)开始的。"
 
 #: src/as-validator-issue-tag.h:146
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDEs reverse-DNS name (\"org.kde\")."
-msgstr ""
-"该组件是KDE项目的一部分，但它的ID不是以KDE的反向dns名称(\"org.kde\")开始的。"
+msgstr "该组件是KDE项目的一部分，但它的ID不是以KDE的反向dns名称(\"org.kde\")开始的。"
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOMEs reverse-DNS name (\"org.gnome\")."
-msgstr ""
-"该组件是KDE项目的一部分，但它的ID不是以KDE的反向dns名称(\"org.kde\")开始的。"
+msgstr "该组件是KDE项目的一部分，但它的ID不是以KDE的反向dns名称(\"org.kde\")开始的。"
 
 #: src/as-validator-issue-tag.h:156
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1246,10 +1225,7 @@ msgid ""
 "FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
 "collections without the risk of license violations due to mutually "
 "incompatible licenses."
-msgstr ""
-"该元数据自身似乎用了复杂的许可证集合来许可。请使用简单宽容的许可证来许可数"
-"据，比如 FSFAP、MIT 或 CC0-1.0 以允许发行者将其包含在混合数据集合中时避免因彼"
-"此不兼容的许可证遇到侵犯许可的风险。"
+msgstr "该元数据自身似乎用了复杂的许可证集合来许可。请使用简单宽容的许可证来许可数据，比如 FSFAP、MIT 或 CC0-1.0 以允许发行者将其包含在混合数据集合中时避免因彼此不兼容的许可证遇到侵犯许可的风险。"
 
 #: src/as-validator-issue-tag.h:173
 msgid ""
@@ -1257,10 +1233,7 @@ msgid ""
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
 "0BSD to allow distributors to include it in mixed data collections without "
 "the risk of license violations due to mutually incompatible licenses."
-msgstr ""
-"该元数据自身似乎未使用宽容的许可证来许可它。请使用宽容的许可证来许可数据，比"
-"如 FSFAP、MIT 或 CC0-1.0 以允许发行者将其包含在混合数据集合中时避免因彼此不兼"
-"容的许可证遇到侵犯许可的风险。"
+msgstr "该元数据自身似乎未使用宽容的许可证来许可它。请使用宽容的许可证来许可数据，比如 FSFAP、MIT 或 CC0-1.0 以允许发行者将其包含在混合数据集合中时避免因彼此不兼容的许可证遇到侵犯许可的风险。"
 
 #: src/as-validator-issue-tag.h:179
 msgid ""
@@ -1327,9 +1300,7 @@ msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
-"AppStream 不支持已选择的视频编解码器因此软件中心可能无法播放该视频。当前仅支"
-"持 AV1 和 VP9 编解码器，请为 `codec` 属性使用 `av1` 和 `vp9` 作为设定值。"
+msgstr "AppStream 不支持已选择的视频编解码器因此软件中心可能无法播放该视频。当前仅支持 AV1 和 VP9 编解码器，请为 `codec` 属性使用 `av1` 和 `vp9` 作为设定值。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:236
@@ -1338,10 +1309,7 @@ msgid ""
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr ""
-"AppStream 不支持已选择的视频容器格式因此软件中心可能无法播放该视频。当前仅支"
-"持 WebM 和 Matroska 视频容器，请为 `container` 属性使用 `webm` 和 `mkv` 作为"
-"设定值。"
+msgstr "AppStream 不支持已选择的视频容器格式因此软件中心可能无法播放该视频。当前仅支持 WebM 和 Matroska 视频容器，请为 `container` 属性使用 `webm` 和 `mkv` 作为设定值。"
 
 #: src/as-validator-issue-tag.h:242
 msgid ""
@@ -1387,9 +1355,7 @@ msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr ""
-"在该需求/推荐项目上发现了 `version` 属性而不是 `compare` 属性。推荐明确定义对"
-"比运算。"
+msgstr "在该需求/推荐项目上发现了 `version` 属性而不是 `compare` 属性。推荐明确定义对比运算。"
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:277
@@ -1411,9 +1377,7 @@ msgid ""
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr ""
-"在 `requires` 标签中发现内存大小关联。这意味着内存不足时用户甚至无法安装该组"
-"件。这通常不是有意的且您想要在 `recommends` 标签中使用 `memory` 替代。"
+msgstr "在 `requires` 标签中发现内存大小关联。这意味着内存不足时用户甚至无法安装该组件。这通常不是有意的且您想要在 `recommends` 标签中使用 `memory` 替代。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:295
@@ -1422,19 +1386,14 @@ msgid ""
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr ""
-"在 `requires` 标签中发现用户输入控制关联。这意味着系统上没有可用的指定输入控"
-"制时用户甚至无法安装该组件。这通常不是有意的且您想要在 `recommends` 标签中使"
-"用 `control` 替代。"
+msgstr "在 `requires` 标签中发现用户输入控制关联。这意味着系统上没有可用的指定输入控制时用户甚至无法安装该组件。这通常不是有意的且您想要在 `recommends` 标签中使用 `control` 替代。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:302
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
-msgstr ""
-"这个“control”项定义了一个未知的输入法，这是无效的。请检查规格中允许的值的列"
-"表。"
+msgstr "这个“control”项定义了一个未知的输入法，这是无效的。请检查规格中允许的值的列表。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:308
@@ -1443,9 +1402,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
-"该 `display_length` 项目包含无效的显示长度。它的设定值必须为简写字符串或表示"
-"逻辑像素的正整数。请参阅 AppStream 规范获取有关该标签的更多信息。"
+msgstr "该 `display_length` 项目包含无效的显示长度。它的设定值必须为简写字符串或表示逻辑像素的正整数。请参阅 AppStream 规范获取有关该标签的更多信息。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:315
@@ -1454,17 +1411,14 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
-"该 `display_length` 的 `side` 属性包含无效的设定值。它必须为 `shortest` 或 "
-"`longest`，或者不设置以暗示 `shortest` 该项目设定值指向显示器的最短或最长边。"
+msgstr "该 `display_length` 的 `side` 属性包含无效的设定值。它必须为 `shortest` 或 `longest`，或者不设置以暗示 `shortest` 该项目设定值指向显示器的最短或最长边。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:322
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
-"该 `hardware` 项目包含无效值。它应为不带括号的计算机硬件标识（CHID）UUID。"
+msgstr "该 `hardware` 项目包含无效值。它应为不带括号的计算机硬件标识（CHID）UUID。"
 
 #: src/as-validator-issue-tag.h:327
 msgid ""
@@ -1499,17 +1453,14 @@ msgstr "组件缺少一个摘要（<summary/>标记）。"
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
-msgstr ""
-"<id/>标签仍然包含一个“ type ”属性，可能是从旧的转换到当前的 metainfo 格式。"
+msgstr "<id/>标签仍然包含一个“ type ”属性，可能是从旧的转换到当前的 metainfo 格式。"
 
 #: src/as-validator-issue-tag.h:362
 msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
 "defining multiple package names per component."
-msgstr ""
-"该 `pkgname` 标签出现了多次。您应该考虑创建包含元信息和 .desktop 文件的元软件"
-"包以避免为每个组件定义多个软件包名称。"
+msgstr "该 `pkgname` 标签出现了多次。您应该考虑创建包含元信息和 .desktop 文件的元软件包以避免为每个组件定义多个软件包名称。"
 
 #: src/as-validator-issue-tag.h:367
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -1532,9 +1483,7 @@ msgstr "摘要不能包含任何URL。 链接使用<url/>标签。"
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
-"`stock` 或 `cached` 类型的图标不能包含网址，指向该图标的完整或相关路径。仅允"
-"许文件 basenames 或 stock names。"
+msgstr "`stock` 或 `cached` 类型的图标不能包含网址，指向该图标的完整或相关路径。仅允许文件 basenames 或 stock names。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:395
@@ -1554,17 +1503,14 @@ msgstr "请考虑使用安全的 (HTTPS) 远程图标链接 URL。"
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr ""
-"Metainfo 文件可能只包含类型 “stock” 或 “remote” 的图标，设置类型是不允许的。"
+msgstr "Metainfo 文件可能只包含类型 “stock” 或 “remote” 的图标，设置类型是不允许的。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr ""
-"此 “url” 标签的 “type” 属性无效。 这种类型的 url 在 AppStream 规范中是未知"
-"的。"
+msgstr "此 “url” 标签的 “type” 属性无效。 这种类型的 url 在 AppStream 规范中是未知的。"
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
@@ -1626,11 +1572,7 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"发现无效标签。非标准标签应使用 `x-` 前缀。AppStream 也提供了 <custom/> 标签用"
-"来添加任意自定义数据至元信息文件。该标签会被 AppStream 库读取并且如果您只是想"
-"要为元信息文件添加自定义数据可以使用该标签作为定义新自定义顶层或 `x-` 前缀标"
-"签的有用替代。"
+msgstr "发现无效标签。非标准标签应使用 `x-` 前缀。AppStream 也提供了 <custom/> 标签用来添加任意自定义数据至元信息文件。该标签会被 AppStream 库读取并且如果您只是想要为元信息文件添加自定义数据可以使用该标签作为定义新自定义顶层或 `x-` 前缀标签的有用替代。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:484
@@ -1668,9 +1610,7 @@ msgstr "这个通用组件缺少一个很长的描述。 加一个可能有用�
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
-msgstr ""
-"输入“ console-application ”组件，但是 $PATH 中没有通过“ provides/binary ”标签"
-"提供关于二进制文件的信息。"
+msgstr "输入“ console-application ”组件，但是 $PATH 中没有通过“ provides/binary ”标签提供关于二进制文件的信息。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:516
@@ -1704,16 +1644,14 @@ msgstr "键入“ font ” 组件，但没有通过 “ provides/font ” 标签
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
-msgstr ""
-"输入“ driver”组件，但没有通过“provides/modalias”标签提供 modalias 信息。"
+msgstr "输入“ driver”组件，但没有通过“provides/modalias”标签提供 modalias 信息。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:546
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"指定了`extends'标签，但是组件类型不是`addon`、`localization`或`repository`。"
+msgstr "指定了`extends'标签，但是组件类型不是`addon`、`localization`或`repository`。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:552
@@ -1725,8 +1663,7 @@ msgstr "该组件是一个插件，但是没有指定“ extends ”标记。"
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
-msgstr ""
-"这个“localization”组件缺少一个 “extends” 标记，用来指定它添加本地化的组件。"
+msgstr "这个“localization”组件缺少一个 “extends” 标记，用来指定它添加本地化的组件。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:564
@@ -1778,9 +1715,7 @@ msgstr "在集合元数据中发现无效标记。 只允许 “component” 标
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher)."
-msgstr ""
-"该元信息文件使用了无法被验证的过时版本的 AppStream 规范。请迁移至 0.6 版本"
-"（或更高）。"
+msgstr "该元信息文件使用了无法被验证的过时版本的 AppStream 规范。请迁移至 0.6 版本（或更高）。"
 
 #: src/as-validator-issue-tag.h:613
 msgid ""
@@ -1804,8 +1739,7 @@ msgstr "该组件元数据引用了不存在的 .desktop 文件。"
 msgid ""
 "The category defined in the .desktop file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
-"在该 .desktop 文件中定义的分类无效。请参阅 XDG 菜单规范获取有效的分类列表。"
+msgstr "在该 .desktop 文件中定义的分类无效。请参阅 XDG 菜单规范获取有效的分类列表。"
 
 #: src/as-validator-issue-tag.h:638
 msgid "No AppStream metadata was found in this directory or directory tree."
@@ -1832,9 +1766,7 @@ msgid ""
 "required as some tools will assume that the latest version is always at the "
 "top. Sorting releases also increases overall readability of the metainfo "
 "file."
-msgstr ""
-"版本发布没有按最新到最旧的版本顺序排序。由于一些工具会假定最新版本总是在最顶"
-"端因此需要这样。对发布排序同样会增强元信息文件的整体可读性。"
+msgstr "版本发布没有按最新到最旧的版本顺序排序。由于一些工具会假定最新版本总是在最顶端因此需要这样。对发布排序同样会增强元信息文件的整体可读性。"
 
 #: src/as-validator-issue-tag.h:665
 msgid "The value set as release urgency is not a known urgency value."
@@ -1860,9 +1792,7 @@ msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
-"该发布的平台三联体无效。它必须是 `architecture-oskernel-osenv` 的形式，请参"
-"阅 AppStream 文档或标准化的 GNU 三联体信息获取更多信息和有效域。"
+msgstr "该发布的平台三联体无效。它必须是 `architecture-oskernel-osenv` 的形式，请参阅 AppStream 文档或标准化的 GNU 三联体信息获取更多信息和有效域。"
 
 #: src/as-validator-issue-tag.h:693
 msgid "The selected checksumming algorithm is unsupported or unknown."
@@ -1887,9 +1817,7 @@ msgstr "该设定值作为发布问题类型无效。"
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
-"该问题打上了带 CVE 数字的安全漏洞标签，但它的设定值看起来不像有效的 CVE 标"
-"识。"
+msgstr "该问题打上了带 CVE 数字的安全漏洞标签，但它的设定值看起来不像有效的 CVE 标识。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:720
@@ -1905,18 +1833,14 @@ msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr ""
-"AppStream 规范要求了完整的带有至少精确到天的 ISO 8601 数据字符串来表示日期。"
-"请确保日期字符串有效。"
+msgstr "AppStream 规范要求了完整的带有至少精确到天的 ISO 8601 数据字符串来表示日期。请确保日期字符串有效。"
 
 #: src/as-validator-issue-tag.h:731
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
 "metadata."
-msgstr ""
-"该组件扩展、提供、需求或推荐它自己，这肯定不是有意的且可能会迷惑用户或处理该"
-"元数据的设备。"
+msgstr "该组件扩展、提供、需求或推荐它自己，这肯定不是有意的且可能会迷惑用户或处理该元数据的设备。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:738
@@ -1925,19 +1849,14 @@ msgid ""
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's `project_license`. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr ""
-"用于 `runtime` 组件的许可证往往太复杂以致无法以简单的 SPDX 表达来反映它们。请"
-"考虑为该组件的 `project_license` 使用 `LicenseRef` 且用网址作为设定值。比如 "
-"`LicenseRef-free=https://example.com/licenses.html`"
+msgstr "用于 `runtime` 组件的许可证往往太复杂以致无法以简单的 SPDX 表达来反映它们。请考虑为该组件的 `project_license` 使用 `LicenseRef` 且用网址作为设定值。比如 `LicenseRef-free=https://example.com/licenses.html`"
 
 #: src/as-validator-issue-tag.h:744
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
-msgstr ""
-"由于 `runtime` 组件是由多个其它软件组件构成的，它们的组件 ID 可能被列在该运行"
-"时的 `<provides/>` 部分。"
+msgstr "由于 `runtime` 组件是由多个其它软件组件构成的，它们的组件 ID 可能被列在该运行时的 `<provides/>` 部分。"
 
 #: src/as-validator-issue-tag.h:749
 msgid ""
@@ -1950,9 +1869,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
-"该顶层 `mimetypes` 标签已废弃。请在 `provides` 区块中使用 `mediatype` 标签替"
-"代来提示您的软件提供了指定类型的多媒体处理功能。"
+msgstr "该顶层 `mimetypes` 标签已废弃。请在 `provides` 区块中使用 `mediatype` 标签替代来提示您的软件提供了指定类型的多媒体处理功能。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:762
@@ -1982,9 +1899,7 @@ msgstr ""
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
-msgstr ""
-"该发出的问题标签在 AppStream 的标签注册表中是未知的。这是验证器自身的缺陷，请"
-"在我们的缺陷追踪系统中报告该问题。"
+msgstr "该发出的问题标签在 AppStream 的标签注册表中是未知的。这是验证器自身的缺陷，请在我们的缺陷追踪系统中报告该问题。"
 
 #: src/as-validator.c:344
 msgid "URL format is invalid."
@@ -2270,8 +2185,7 @@ msgstr "强制刷新缓存。"
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
-"限制对来自指定源的数据缓存刷新，比如： `os` 或 `flatpak`。可以指定多次。"
+msgstr "限制对来自指定源的数据缓存刷新，比如： `os` 或 `flatpak`。可以指定多次。"
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:478
@@ -2349,8 +2263,7 @@ msgstr "限制元信息文件中出现的发行条目数量（<=0 为不限制�
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
-msgstr ""
-"设置具有应标记为翻译的描述的发布数量（最新的发布优先翻译，-1 为不限制）。"
+msgstr "设置具有应标记为翻译的描述的发布数量（最新的发布优先翻译，-1 为不限制）。"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:898
@@ -2416,9 +2329,7 @@ msgstr "根据 ID 获取相应组件的信息。"
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr ""
-"获取提供给定项目的组件。需要项目类型（如 lib、bin、python3……）和项目值作为参"
-"数。"
+msgstr "获取提供给定项目的组件。需要项目类型（如 lib、bin、python3……）和项目值作为参数。"
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1159
@@ -2739,9 +2650,7 @@ msgstr "元信息文件中未提供库存图标名称。无法继续。"
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
-msgstr ""
-"元信息文件中未指定提供的二进制文件，且未通过“--exec”指定执行命令。无法创"
-"建“Exec=”设定键。"
+msgstr "元信息文件中未指定提供的二进制文件，且未通过“--exec”指定执行命令。无法创建“Exec=”设定键。"
 
 #: tools/ascli-actions-misc.c:300
 #, c-format
