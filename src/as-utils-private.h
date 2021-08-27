@@ -199,6 +199,12 @@ gchar			*as_sanitize_text_spaces (const gchar *text);
 AS_INTERNAL_VISIBLE
 gchar			*as_random_alnum_string (gssize len);
 
+gchar			*as_utils_find_stock_icon_filename_full (const gchar *root_dir,
+								 const gchar *icon_name,
+								 guint icon_size,
+								 guint icon_scale,
+								 GError **error);
+
 #pragma GCC visibility pop
 G_END_DECLS
 
