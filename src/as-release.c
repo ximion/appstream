@@ -870,7 +870,9 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 			g_free (priv->date);
 			priv->date = prop;
 		} else {
-			g_debug ("Invalid ISO-8601 date in releases at %s line %li", as_context_get_filename (ctx), xmlGetLineNo (node));
+			g_debug ("Invalid ISO-8601 date in releases at %s line %li",
+				 as_context_get_filename (ctx),
+				 xmlGetLineNo (node));
 			g_free (prop);
 		}
 	}
@@ -1079,7 +1081,9 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 			if (time != NULL) {
 				priv->timestamp = g_date_time_to_unix (time);
 			} else {
-				g_debug ("Invalid ISO-8601 date in %s", as_context_get_filename (ctx)); // FIXME: Better error, maybe with line number?
+				// FIXME: Better error, maybe with line number?
+				g_debug ("Invalid ISO-8601 date in %s",
+					 as_context_get_filename (ctx));
 			}
 		} else if (g_strcmp0 (key, "date-eol") == 0) {
 			as_release_set_date_eol (release, value);
