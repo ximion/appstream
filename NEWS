@@ -1,3 +1,41 @@
+Version 0.14.5
+~~~~~~~~~~~~~~
+Released: 2021-08-28
+
+Features:
+ * compose: Add locale statistics reader
+ * Add installed test to validate all metainfo data on the system
+ * compose: Add initial compose utility
+ * compose: Read SVGZ images in AscImage
+ * compose: Better heuristics for finding KDE icons
+ * compose: Allow filtering which components are processed
+ * compose: Allow exporting hint report as YAML
+ * cli: convert: Autodetect metainfo/collection XML files
+ * Add documentation for appstreamcli compose
+ * validator: Nag about missing content_rating and releases
+ * compose: Add metainfo file for cli utility
+
+Specification:
+ * docs: Clarify how Qt translations are searched for
+ * spec: Use "i386" as arch name for the shared ABI of all 32-bit x86 CPUs
+ * spec: Remove debshots screenshots API references
+ * docs: Document the version comparison algorithm
+
+Bugfixes:
+ * qt: Make Pool's parent class public
+ * Use locale_strip_encoding for determining the current locale as well
+ * Consider locale like "ca@valencia" compatible with "ca"
+ * validator: Properly emit some invalid tag name messages
+ * Resolve g_memdup deprecation warning for GLib >= 2.68
+ * cli: Don't occasionally remove spaces when wrapping words
+ * Propagate bundle information even if PreferLocalMetainfoData is True
+ * Add workaround for GIR inconsistency in AsFormatVersion enum
+ * Add assertion against as_get_resource() returning NULL
+ * context: Don't initialize filename ref string value
+
+Contributors:
+ Aleix Pol, Matthias Klumpp
+
 Version 0.14.4
 ~~~~~~~~~~~~~~
 Released: 2021-06-22
