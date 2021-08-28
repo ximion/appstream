@@ -1919,6 +1919,25 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			}
 			release_prev = release;
 		}
+	} else {
+		/* we have no release information! */
+		AsComponentKind kind = as_component_get_kind (cpt);
+		if (kind == AS_COMPONENT_KIND_DESKTOP_APP ||
+		    kind == AS_COMPONENT_KIND_CONSOLE_APP) {
+			/* show an info about missing age rating for application-type components */
+			as_validator_add_issue (validator, NULL, "releases-info-missing", NULL);
+		}
+	}
+
+	/* check content_rating */
+	if (as_component_get_content_ratings (cpt)->len == 0) {
+		AsComponentKind kind = as_component_get_kind (cpt);
+		if (kind == AS_COMPONENT_KIND_DESKTOP_APP ||
+		    kind == AS_COMPONENT_KIND_CONSOLE_APP ||
+		    kind == AS_COMPONENT_KIND_WEB_APP) {
+			/* show an info about missing age rating for application-type components */
+			as_validator_add_issue (validator, NULL, "content-rating-missing", NULL);
+		}
 	}
 
 	as_validator_clear_current_cpt (validator);

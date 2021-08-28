@@ -707,6 +707,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."),
 	},
 
+	{ "releases-info-missing",
+	  AS_ISSUE_SEVERITY_PEDANTIC,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This component is missing information about releases. Consider adding a `releases` tag to describe releases and their changes."),
+	},
+
 	{ "invalid-iso8601-date",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. "
@@ -741,6 +747,13 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead "
 	     "to indicate that your software provides a media handler for the given types."),
+	},
+
+	{ "content-rating-missing",
+	  AS_ISSUE_SEVERITY_INFO,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact. */
+	  N_("This component has no `content_rating` tag to provide age rating information. "
+	     "You can generate the tag data online by answering a few questions at https://hughsie.github.io/oars/"),
 	},
 
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
