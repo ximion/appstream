@@ -1087,9 +1087,11 @@ as_utils_is_tld (const gchar *tld)
 {
 	g_autoptr(GBytes) data = NULL;
 	g_autofree gchar *key = NULL;
+	GResource *resource = as_get_resource ();
+	g_assert (resource != NULL);
 
 	/* load the readonly data section and look for the TLD */
-	data = g_resource_lookup_data (as_get_resource (),
+	data = g_resource_lookup_data (resource,
 				       "/org/freedesktop/appstream/iana-filtered-tld-list.txt",
 				       G_RESOURCE_LOOKUP_FLAGS_NONE,
 				       NULL);
@@ -1115,9 +1117,11 @@ as_utils_is_desktop_environment (const gchar *desktop)
 {
 	g_autoptr(GBytes) data = NULL;
 	g_autofree gchar *key = NULL;
+	GResource *resource = as_get_resource ();
+	g_assert (resource != NULL);
 
 	/* load the readonly data section and look for the desktop environment name */
-	data = g_resource_lookup_data (as_get_resource (),
+	data = g_resource_lookup_data (resource,
 				       "/org/freedesktop/appstream/desktop-environments.txt",
 				       G_RESOURCE_LOOKUP_FLAGS_NONE,
 				       NULL);
@@ -1143,6 +1147,7 @@ as_utils_is_platform_triplet_arch (const gchar *arch)
 {
 	g_autoptr(GBytes) data = NULL;
 	g_autofree gchar *key = NULL;
+	GResource *resource;
 
 	if (arch == NULL)
 		return FALSE;
@@ -1151,8 +1156,11 @@ as_utils_is_platform_triplet_arch (const gchar *arch)
 	if (g_strcmp0 (arch, "any") == 0)
 		return TRUE;
 
+	resource = as_get_resource ();
+	g_assert (resource != NULL);
+
 	/* load the readonly data section */
-	data = g_resource_lookup_data (as_get_resource (),
+	data = g_resource_lookup_data (resource,
 				       "/org/freedesktop/appstream/platform_arch.txt",
 				       G_RESOURCE_LOOKUP_FLAGS_NONE,
 				       NULL);
@@ -1178,6 +1186,7 @@ as_utils_is_platform_triplet_oskernel (const gchar *os)
 {
 	g_autoptr(GBytes) data = NULL;
 	g_autofree gchar *key = NULL;
+	GResource *resource;
 
 	if (os == NULL)
 		return FALSE;
@@ -1186,8 +1195,11 @@ as_utils_is_platform_triplet_oskernel (const gchar *os)
 	if (g_strcmp0 (os, "any") == 0)
 		return TRUE;
 
+	resource = as_get_resource ();
+	g_assert (resource != NULL);
+
 	/* load the readonly data section */
-	data = g_resource_lookup_data (as_get_resource (),
+	data = g_resource_lookup_data (resource,
 				       "/org/freedesktop/appstream/platform_os.txt",
 				       G_RESOURCE_LOOKUP_FLAGS_NONE,
 				       NULL);
@@ -1213,6 +1225,7 @@ as_utils_is_platform_triplet_osenv (const gchar *env)
 {
 	g_autoptr(GBytes) data = NULL;
 	g_autofree gchar *key = NULL;
+	GResource *resource;
 
 	if (env == NULL)
 		return FALSE;
@@ -1221,8 +1234,11 @@ as_utils_is_platform_triplet_osenv (const gchar *env)
 	if (g_strcmp0 (env, "any") == 0)
 		return TRUE;
 
+	resource = as_get_resource ();
+	g_assert (resource != NULL);
+
 	/* load the readonly data section */
-	data = g_resource_lookup_data (as_get_resource (),
+	data = g_resource_lookup_data (resource,
 				       "/org/freedesktop/appstream/platform_env.txt",
 				       G_RESOURCE_LOOKUP_FLAGS_NONE,
 				       NULL);
