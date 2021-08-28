@@ -59,7 +59,7 @@ _astest_issue_info_to_string (const gchar *tag, const gchar *hint, glong line, A
 {
 	return g_strdup_printf ("%s:%s:%li:%s",
 				tag,
-				hint,
+				hint == NULL? "" : hint,
 				line,
 				as_issue_severity_to_string (severity));
 }
@@ -91,7 +91,7 @@ _astest_check_validate_issues (GList *issues, AsVResultCheck *checks_all)
 		const gchar *tag = as_validator_issue_get_tag (issue);
 		const gchar *hint = as_validator_issue_get_hint (issue);
 
-		check_key = g_strconcat (tag, ":", hint, NULL);
+		check_key = g_strconcat (tag, ":", hint == NULL? "" : hint, NULL);
 		issue_idstr = _astest_issue_info_to_string (tag,
 							    hint,
 							    as_validator_issue_get_line (issue),
@@ -205,6 +205,10 @@ test_validator_manyerrors_desktopapp ()
 		  "hmm...", 33,
 		  AS_ISSUE_SEVERITY_WARNING,
 		},
+		{ "content-rating-missing",
+		  "", -1,
+		  AS_ISSUE_SEVERITY_INFO,
+		},
 
 		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }
 	};
@@ -249,6 +253,10 @@ test_validator_relationissues ()
 		{ "relation-display-length-value-invalid",
 		  "bleh", 25,
 		  AS_ISSUE_SEVERITY_WARNING,
+		},
+		{ "releases-info-missing",
+		  "", -1,
+		  AS_ISSUE_SEVERITY_PEDANTIC,
 		},
 
 		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }
