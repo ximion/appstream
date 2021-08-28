@@ -32,14 +32,6 @@
  * @include: appstream.h
  */
 
-/* FIXME: According to http://xmlsoft.org/threads.html, libxml2 is supposed to be threadsafe
- * when parsing data. However, we do get occasional heap corruption when parsing XML from
- * multiple threads, and calling xmlInitParser() from the main thread does not fix that
- * (this function is called implicitly by every parsing function anyway).
- * In order to work around this issue until a better fix is available, we simply put
- * parsing behind a global lock. */
-G_LOCK_DEFINE (xml_parser);
-
 #if !defined(LIBXML_THREAD_ENABLED)
 #error "libxml2 needs to be compiled with thread support!"
 #endif
@@ -345,12 +337,10 @@ as_xml_markup_parse_helper_new (const gchar *markup, const gchar *locale)
 
 	helper->locale = g_strdup (locale);
 	xmldata = g_strconcat ("<root>", markup, "</root>", NULL);
-	G_LOCK (xml_parser);
 	helper->doc = xmlReadMemory (xmldata, strlen (xmldata),
 					NULL,
 					"utf-8",
 					XML_PARSE_NOBLANKS | XML_PARSE_NONET);
-	G_UNLOCK (xml_parser);
 	if (helper->doc == NULL)
 		return NULL;
 
@@ -1015,13 +1005,14 @@ libxml_generic_error (gchar **error_str_ptr, const char *format, ...)
 
 /**
  * as_xml_set_out_of_context_error:
+ *
+ * NOTE: The error-function is supposed to be set & called
+ * thread-local, so we don't need to do any locking here. We just
+ * need to make sure it is set for each thread.
  */
 static void
 as_xml_set_out_of_context_error (gchar **error_msg_ptr)
 {
-	static GMutex mutex;
-
-	g_mutex_lock (&mutex);
 	if (error_msg_ptr == NULL) {
 		xmlSetGenericErrorFunc (NULL, NULL);
 	} else {
@@ -1029,7 +1020,6 @@ as_xml_set_out_of_context_error (gchar **error_msg_ptr)
 		(*error_msg_ptr) = NULL;
 		xmlSetGenericErrorFunc (error_msg_ptr, (xmlGenericErrorFunc) libxml_generic_error);
 	}
-	g_mutex_unlock (&mutex);
 }
 
 /**
@@ -1050,7 +1040,6 @@ as_xml_parse_document (const gchar *data, gssize len, GError **error)
 	if (len < 0)
 		len = strlen (data);
 
-	G_LOCK (xml_parser);
 	as_xml_set_out_of_context_error (&error_msg_str);
 	doc = xmlReadMemory (data, len,
 			     NULL,
@@ -1069,11 +1058,9 @@ as_xml_parse_document (const gchar *data, gssize len, GError **error)
 					"Could not parse XML data: %s", error_msg_str);
 		}
 		as_xml_set_out_of_context_error (NULL);
-		G_UNLOCK (xml_parser);
 		return NULL;
 	}
 	as_xml_set_out_of_context_error (NULL);
-	G_UNLOCK (xml_parser);
 
 	root = xmlDocGetRootElement (doc);
 	if (root == NULL) {
@@ -1105,7 +1092,6 @@ as_xml_node_to_str (xmlNode *root, GError **error)
 	gchar *xmlstr = NULL;
 	g_autofree gchar *error_msg_str = NULL;
 
-	G_LOCK (xml_parser);
 	as_xml_set_out_of_context_error (&error_msg_str);
 	doc = xmlNewDoc ((xmlChar*) NULL);
 	if (root == NULL)
@@ -1130,6 +1116,5 @@ as_xml_node_to_str (xmlNode *root, GError **error)
 out:
 	as_xml_set_out_of_context_error (NULL);
 	xmlFreeDoc (doc);
-	G_UNLOCK (xml_parser);
 	return xmlstr;
 }
