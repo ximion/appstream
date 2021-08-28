@@ -138,8 +138,9 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 
 	{ "translations-not-found",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  "Unable to add languages information, even though a <code>translation</code> tag was present in the source data. "
-	  "Please check that its value is set correctly.",
+	  "Unable to add languages information, even though a <code>translation</code> tag was present in the MetaInfo file. "
+	  "Please check that its value is set correctly, and all locale files are placed in the right directories "
+	  "(e.g. <code>/usr/share/locale/*/LC_MESSAGES/</code> for Gettext .mo files)."
 	},
 
 	{ "icon-not-found",
