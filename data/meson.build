@@ -1,5 +1,7 @@
 # Meson definition for AppStream data
 
+metainfo_dir = join_paths (get_option ('datadir'), 'metainfo')
+
 install_data ('its/metainfo.its',
               install_dir: join_paths(get_option('datadir'), 'gettext', 'its'))
 install_data ('its/metainfo.loc',
@@ -22,10 +24,10 @@ metainfo_i18n = i18n.merge_file (
     data_dirs: [meson.current_source_dir()],
     po_dir: join_paths (source_root, 'po'),
     install: true,
-    install_dir: join_paths (get_option ('datadir'), 'metainfo')
+    install_dir: metainfo_dir
 )
 
-test ('as-validate_metainfo',
+test ('as-validate_metainfo.cli',
     ascli_exe,
     args: ['validate',
            '--pedantic',
@@ -35,3 +37,15 @@ test ('as-validate_metainfo',
 
 install_data ('appstream.conf',
               install_dir: get_option('sysconfdir'))
+
+if get_option('compose')
+    ascompose_metainfo = 'org.freedesktop.appstream.compose.metainfo.xml'
+    test ('as-validate_metainfo.compose',
+        ascli_exe,
+        args: ['validate',
+               '--pedantic',
+               '--no-net',
+               join_paths(meson.current_source_dir(), ascompose_metainfo)]
+    )
+    install_data (ascompose_metainfo, install_dir: metainfo_dir)
+endif
