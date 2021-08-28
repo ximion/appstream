@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+<chapter id="chap-AppStream-Misc">
+	<title>Miscellaneous</title>
+	<para>
+		This chapter describes additional features AppStream provides that are related to the
+		metadata specification.
+	</para>
+
+	<xi:include href="misc-vercmp.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="misc-urihandler.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+</chapter>

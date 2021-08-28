@@ -83,15 +83,15 @@ as_doc_src = [
     'xml/metainfo-runtime.xml',
     'xml/metainfo-service.xml',
     'xml/metainfo-webapp.xml',
+    'xml/Miscellaneous.xml',
+    'xml/misc-vercmp.xml',
+    'xml/misc-urihandler.xml',
     'xml/Project_Desc.xml',
     'xml/Quickstart.xml',
     'xml/quickstart-addons.xml',
     'xml/quickstart-desktopapps.xml',
     'xml/quickstart-packaging.xml',
     'xml/quickstart-translation.xml',
-    'xml/Services.xml',
-    'xml/service-screenshots.xml',
-    'xml/service-urihandler.xml'
 ]
 
 if get_option('docs')

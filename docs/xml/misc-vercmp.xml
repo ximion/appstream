@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-AppStream-Misc-VerCmp">
+	<title>Version Comparison Algorithm</title>
+
+	<section id="spec-vercmp-introduction">
+		<title>Introduction</title>
+		<para>
+			The AppStream specification requires the presence of version numbers in various locations, and AppStream-using
+			clients will occasionally need to compare version numbers in order to determine the latest version.
+			This document describes how version comparisons should be performed.
+		</para>
+	</section>
+
+	<section id="spec-vercmp-algorithm">
+		<title>Algorithm</title>
+		<para>
+			AppStream's version comparison algorithm is identical to the one used by the Fedora and Debian Linux distributions
+			(after RPM's algorithm was extended to handle the tilde character like Debian).
+			The algorithm is described for Debian <ulink url="https://manpages.debian.org/unstable/dpkg-dev/deb-version.5.en.html#Sorting_algorithm">here</ulink>,
+			the description is also reproduced below:
+		</para>
+		<para>
+			The version strings are compared from left to right.
+		</para>
+		<para>
+			First the initial part of each string consisting entirely of non-digit characters is determined.
+			These two parts (one of which may be empty) are compared lexically. If a difference is found it is returned. The lexical comparison is a comparison
+			of ASCII values modified so that all the letters sort earlier than all the non-letters and so that a tilde sorts before anything, even the end of a part.
+			For example, the following parts are in sorted order: <code>~~</code>, <code>~~a</code>, <code>~</code>, the empty part, <code>a</code>.
+		</para>
+		<para>
+			Then the initial part of the remainder of each string which consists entirely of digit characters is determined. The numerical values of these two parts
+			are compared, and any difference found is returned as the result of the comparison. For these purposes an empty string (which can only occur at the end
+			of one or both version strings being compared) counts as zero.
+		</para>
+		<para>
+			These two steps (comparing and removing initial non-digit strings and initial digit strings) are repeated until a difference is found or both strings are exhausted.
+		</para>
+	</section>
+
+	<section id="spec-vercmp-recommendations">
+		<title>Recommendations</title>
+		<para>
+			For meaningful version numbers, consider following <ulink url="https://semver.org/">semantic versioning</ulink>.
+		</para>
+		<para>
+			A version number should always start with a number. Do not start version numbers with a letter or make them
+			consist entirely of letters, e.g. <code>BETA</code> is not a version number.
+		</para>
+		<para>
+			If you want to denote a prerelease, consider appending the prerelease identifier string after a tidle. For example
+			use <code>1.0~alpha1</code> for an alpha release of the upcoming <code>1.0</code> release. The alpha release
+			will then considered lower than the final release.
+		</para>
+		<para>
+			Avoid using any epochs (colons) in your upstream version numbers. Versions like <code>1:2.4</code> will cause
+			problems with downstreams.
+		</para>
+	</section>
+
+	<section id="spec-vercmp-implementation">
+		<title>Implementation</title>
+		<para>
+			You can read AppStream's code for version comparisons <ulink url="https://github.com/ximion/appstream/blob/master/src/as-vercmp.c">here</ulink>.
+		</para>
+		<para>
+			If you want to quickly test version comparisons for your software and arbitrary versions, consider using the <literal>vercmp</literal>
+			subcommand of the <command>appstreamcli</command> utility.
+		</para>
+		<para>
+			Examples:
+		</para>
+		<screen>$ <command>appstreamcli</command> vercmp 1.0 2.0
+1.0 &lt;&lt; 2.0
+$ <command>appstreamcli</command> vercmp 2.0 2.0~a1
+2.0 &gt;&gt; 2.0~a1
+$ <command>appstreamcli</command> vercmp 2.4 lt 2.1
+false: 2.4 &gt;&gt; 2.1
+$ <command>appstreamcli</command> vercmp 1.2.4 gt 1.2.3
+true: 1.2.4 &gt;&gt; 1.2.3</screen>
+	</section>
+
+</section>
