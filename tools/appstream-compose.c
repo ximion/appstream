@@ -167,7 +167,9 @@ main (int argc, char **argv)
 	g_autofree gchar *res_root_dir = NULL;
 	g_autofree gchar *mdata_dir = NULL;
 	g_autofree gchar *icons_dir = NULL;
+	g_autofree gchar *media_dir = NULL;
 	g_autofree gchar *hints_dir = NULL;
+	g_autofree gchar *media_baseurl = NULL;
 	g_autofree gchar *prefix = NULL;
 	g_autofree gchar *components_str = NULL;
 	g_autoptr(AscCompose) compose = NULL;
@@ -177,10 +179,10 @@ main (int argc, char **argv)
 		{ "verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose,
 			/* TRANSLATORS: ascompose flag description for: --verbose */
 			_("Show extra debugging information"), NULL },
-		{ "no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &no_color,
+		{ "no-color", '\0', 0, G_OPTION_ARG_NONE, &no_color,
 			/* TRANSLATORS: ascompose flag description for: --no-color */
 			_("Don\'t show colored output."), NULL },
-		{ "version", 0, 0, G_OPTION_ARG_NONE, &show_version,
+		{ "version", '\0', 0, G_OPTION_ARG_NONE, &show_version,
 			/* TRANSLATORS: ascompose flag description for: --version */
 			_("Show the program version."), NULL },
 		{ "print-report", '\0', 0, G_OPTION_ARG_STRING, &report_mode_str,
@@ -189,20 +191,26 @@ main (int argc, char **argv)
 		{ "prefix", '\0', 0, G_OPTION_ARG_FILENAME, &prefix,
 			/* TRANSLATORS: ascompose flag description for: --prefix */
 			_("Override the default prefix (`/usr` by default)"), "DIR" },
-		{ "result-root", 'o', 0, G_OPTION_ARG_FILENAME, &res_root_dir,
+		{ "result-root", '\0', 0, G_OPTION_ARG_FILENAME, &res_root_dir,
 			/* TRANSLATORS: ascompose flag description for: --result-root */
 			_("Set the result output directory"), "DIR" },
-		{ "data-dir", 'o', 0, G_OPTION_ARG_FILENAME, &mdata_dir,
+		{ "data-dir", '\0', 0, G_OPTION_ARG_FILENAME, &mdata_dir,
 			/* TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term */
 			_("Override the collection metadata output directory"), "DIR" },
-		{ "icons-dir", 'o', 0, G_OPTION_ARG_FILENAME, &icons_dir,
+		{ "icons-dir", '\0', 0, G_OPTION_ARG_FILENAME, &icons_dir,
 			/* TRANSLATORS: ascompose flag description for: --icons-dir */
 			_("Override the icon output directory"), "DIR" },
-		{ "hints-dir", 'o', 0, G_OPTION_ARG_FILENAME, &hints_dir,
+		{ "media-dir", '\0', 0, G_OPTION_ARG_FILENAME, &media_dir,
+			/* TRANSLATORS: ascompose flag description for: --media-dir */
+			_("Set the media output directory (for media data to be served by a webserver)"), "DIR" },
+		{ "hints-dir", '\0', 0, G_OPTION_ARG_FILENAME, &hints_dir,
 			/* TRANSLATORS: ascompose flag description for: --hints-dir */
 			_("Set a directory where HTML and text issue reports will be stored"), "DIR" },
 		{ "origin", '\0', 0, G_OPTION_ARG_STRING, &origin,
 			/* TRANSLATORS: ascompose flag description for: --origin */
+			_("Set the origin name"), "NAME" },
+		{ "media-baseurl", '\0', 0, G_OPTION_ARG_STRING, &media_baseurl,
+			/* TRANSLATORS: ascompose flag description for: --media-baseurl */
 			_("Set the origin name"), "NAME" },
 		{ "components", '\0', 0, G_OPTION_ARG_STRING, &components_str,
 			/* TRANSLATORS: ascompose flag description for: --components */
@@ -302,6 +310,8 @@ main (int argc, char **argv)
 
 	/* optional */
 	asc_compose_set_hints_result_dir (compose, hints_dir);
+	asc_compose_set_media_result_dir (compose, media_dir);
+	asc_compose_set_media_baseurl (compose, media_baseurl);
 
 	/* we need at least one unit to process */
 	if (argc == 1) {

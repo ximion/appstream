@@ -137,6 +137,27 @@
 			</varlistentry>
 
 			<varlistentry>
+				<term><option>--media-dir <replaceable>DIR</replaceable></option></term>
+				<listitem>
+					<para>
+						If set, creates a directory with media content (icons, screenshots, ...) that
+						can be served via a webserver. The metadata will be extended to include information
+						about these remote media.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>--media-baseurl <replaceable>URL</replaceable></option></term>
+				<listitem>
+					<para>
+						The URL under which the contents of a directory set via <option>--media-dir</option>
+						will be served. This value must be set if a media directory is created.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
 				<term><option>--prefix <replaceable>DIR</replaceable></option></term>
 				<listitem>
 					<para>

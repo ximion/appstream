@@ -28,6 +28,7 @@
 #include "asc-compose.h"
 
 #include <errno.h>
+#include <glib/gi18n.h>
 
 #include "as-utils-private.h"
 #include "as-yaml.h"
@@ -711,7 +712,9 @@ asc_compose_process_icons (AscCompose *compose,
 		for (guint i = 0; sizes[i] > 0; i++) {
 			g_autofree gchar *icon_fname = NULL;
 			g_autofree gchar *res_icon_fname = NULL;
+			g_autofree gchar *res_icon_size_str = NULL;
 			g_autofree gchar *res_icon_sizedir = NULL;
+			g_autofree gchar *res_icon_basename = NULL;
 			g_autoptr(AscImage) img = NULL;
 			g_autoptr(AsIcon) icon = NULL;
 			g_autoptr(GBytes) img_bytes = NULL;
@@ -766,18 +769,19 @@ asc_compose_process_icons (AscCompose *compose,
 			if (sizes[i] == 48 && asc_image_get_width (img) > 48)
 				continue;
 
-			res_icon_sizedir = (scale_factors[k] == 1)?
-						g_strdup_printf ("%s/%ix%i",
-								 priv->icons_result_dir,
+			res_icon_size_str = (scale_factors[k] == 1)?
+						g_strdup_printf ("%ix%i",
 								 sizes[i], sizes[i])
-						: g_strdup_printf ("%s/%ix%i@%i",
-								   priv->icons_result_dir,
+						: g_strdup_printf ("%ix%i@%i",
 								   sizes[i], sizes[i],
 								   scale_factors[k]);
+			res_icon_sizedir = g_build_filename (priv->icons_result_dir, res_icon_size_str, NULL);
+
 			g_mkdir_with_parents (res_icon_sizedir, 0755);
-			res_icon_fname = g_strdup_printf ("%s/%s.png",
-							  res_icon_sizedir,
-							  as_component_get_id (cpt));
+			res_icon_basename = g_strdup_printf ("%s.png", as_component_get_id (cpt));
+			res_icon_fname = g_build_filename (res_icon_sizedir,
+							   res_icon_basename,
+							   NULL);
 
 			/* scale & save the image */
 			g_debug ("Saving icon: %s", res_icon_fname);
@@ -794,13 +798,56 @@ asc_compose_process_icons (AscCompose *compose,
 				return;
 			}
 
+			/* create a remote reference if we have data for it */
+			if (priv->media_result_dir != NULL) {
+				g_autofree gchar *icons_media_urlpart_dir = NULL;
+				g_autofree gchar *icons_media_urlpart_fname = NULL;
+				g_autofree gchar *icons_media_path = NULL;
+				g_autofree gchar *icon_media_fname = NULL;
+				g_autoptr(AsIcon) remote_icon = NULL;
+				icons_media_urlpart_dir = g_strdup_printf ("%s/%s/%s",
+								           asc_result_gcid_for_component (cres, cpt),
+								           "icons",
+								           res_icon_size_str);
+				icons_media_urlpart_fname = g_strdup_printf ("%s/%s",
+									     icons_media_urlpart_dir,
+									     res_icon_basename);
+				icons_media_path = g_build_filename (priv->media_result_dir,
+								     icons_media_urlpart_dir,
+								     NULL);
+				icon_media_fname = g_build_filename (icons_media_path,
+								     res_icon_basename,
+								     NULL);
+				g_mkdir_with_parents (icons_media_path, 0755);
+
+				g_debug ("Adding media pool icon: %s", icon_media_fname);
+				if (!as_copy_file (res_icon_fname, icon_media_fname, &error)) {
+					g_warning ("Unable to write media pool icon: %s", icon_media_fname);
+					asc_result_add_hint (cres, cpt,
+							     "icon-write-error",
+							     "fname", icon_fname,
+							     "msg", error->message,
+							     NULL);
+					return;
+				}
+
+				/* add remote icon to metadata */
+				remote_icon = as_icon_new ();
+				as_icon_set_kind (remote_icon, AS_ICON_KIND_REMOTE);
+				as_icon_set_width (remote_icon, sizes[i]);
+				as_icon_set_height (remote_icon, sizes[i]);
+				as_icon_set_scale (remote_icon, scale_factors[k]);
+				as_icon_set_url (remote_icon, icons_media_urlpart_fname);
+				as_component_add_icon (cpt, remote_icon);
+			}
+
 			/* add icon to metadata */
 			icon = as_icon_new ();
 			as_icon_set_kind (icon, AS_ICON_KIND_CACHED);
 			as_icon_set_width (icon, sizes[i]);
 			as_icon_set_height (icon, sizes[i]);
 			as_icon_set_scale (icon, scale_factors[k]);
-			as_icon_set_name (icon, as_component_get_id (cpt));
+			as_icon_set_name (icon, res_icon_basename);
 			as_component_add_icon (cpt, icon);
 		}
 	}
@@ -1393,6 +1440,8 @@ asc_compose_save_metadata_result (AscCompose *compose, GError **error)
 	mdata = as_metadata_new ();
 	as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_COLLECTION);
 	as_metadata_set_format_version (mdata, AS_FORMAT_VERSION_CURRENT);
+	if (priv->media_baseurl != NULL)
+		as_metadata_set_media_baseurl (mdata, priv->media_baseurl);
 
 	if (priv->format == AS_FORMAT_KIND_YAML)
 		data_basename = g_strdup_printf ("%s.yml.gz", priv->origin);
@@ -1444,19 +1493,28 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 	/* test if output directories are set */
 	if (priv->data_result_dir == NULL) {
 		g_set_error_literal (error,
-				ASC_COMPOSE_ERROR,
-				ASC_COMPOSE_ERROR_FAILED,
-				"Metadata output directory is not set.");
+				     ASC_COMPOSE_ERROR,
+				     ASC_COMPOSE_ERROR_FAILED,
+				     _("Metadata output directory is not set."));
 		return NULL;
 	}
 	if (priv->icons_result_dir == NULL) {
 		g_set_error_literal (error,
-				ASC_COMPOSE_ERROR,
-				ASC_COMPOSE_ERROR_FAILED,
-				"Icon output directory is not set.");
+				     ASC_COMPOSE_ERROR,
+				     ASC_COMPOSE_ERROR_FAILED,
+				     _("Icon output directory is not set."));
 		return NULL;
 	}
 	/* hint output directory is optional */
+
+	if (priv->media_baseurl == NULL && priv->media_result_dir != NULL) {
+		g_set_error_literal (error,
+				     ASC_COMPOSE_ERROR,
+				     ASC_COMPOSE_ERROR_FAILED,
+				     _("Media result directory is set, but media base URL is not. A media base URL is needed "
+				       "to export media that is served via the media URL."));
+		return NULL;
+	}
 
 	tasks = g_ptr_array_new_with_free_func ((GDestroyNotify) asc_compose_task_free);
 
