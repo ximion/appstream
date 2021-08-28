@@ -41,10 +41,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-08-25 19:40+0200\n"
+"POT-Creation-Date: 2021-08-28 16:09+0200\n"
 "PO-Revision-Date: 2021-08-26 19:34+0000\n"
 "Last-Translator: Eric <spice2wolf@gmail.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1259,7 +1260,10 @@ msgid ""
 "FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
 "collections without the risk of license violations due to mutually "
 "incompatible licenses."
-msgstr "该元数据自身似乎用了复杂的许可证集合来许可。请使用简单宽容的许可证来许可数据，比如 FSFAP、MIT 或 CC0-1.0 以允许发行者将其包含在混合数据集合中时避免因彼此不兼容的许可证遇到侵犯许可的风险。"
+msgstr ""
+"该元数据自身似乎用了复杂的许可证集合来许可。请使用简单宽容的许可证来许可数"
+"据，比如 FSFAP、MIT 或 CC0-1.0 以允许发行者将其包含在混合数据集合中时避免因彼"
+"此不兼容的许可证遇到侵犯许可的风险。"
 
 #: src/as-validator-issue-tag.h:173
 msgid ""
@@ -1267,7 +1271,10 @@ msgid ""
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
 "0BSD to allow distributors to include it in mixed data collections without "
 "the risk of license violations due to mutually incompatible licenses."
-msgstr "该元数据自身似乎未使用宽容的许可证来许可它。请使用宽容的许可证来许可数据，比如 FSFAP、MIT 或 CC0-1.0 以允许发行者将其包含在混合数据集合中时避免因彼此不兼容的许可证遇到侵犯许可的风险。"
+msgstr ""
+"该元数据自身似乎未使用宽容的许可证来许可它。请使用宽容的许可证来许可数据，比"
+"如 FSFAP、MIT 或 CC0-1.0 以允许发行者将其包含在混合数据集合中时避免因彼此不兼"
+"容的许可证遇到侵犯许可的风险。"
 
 #: src/as-validator-issue-tag.h:179
 msgid ""
@@ -1334,7 +1341,9 @@ msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr "AppStream 不支持已选择的视频编解码器因此软件中心可能无法播放该视频。当前仅支持 AV1 和 VP9 编解码器，请为 `codec` 属性使用 `av1` 和 `vp9` 作为设定值。"
+msgstr ""
+"AppStream 不支持已选择的视频编解码器因此软件中心可能无法播放该视频。当前仅支"
+"持 AV1 和 VP9 编解码器，请为 `codec` 属性使用 `av1` 和 `vp9` 作为设定值。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:236
@@ -1343,7 +1352,10 @@ msgid ""
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr "AppStream 不支持已选择的视频容器格式因此软件中心可能无法播放该视频。当前仅支持 WebM 和 Matroska 视频容器，请为 `container` 属性使用 `webm` 和 `mkv` 作为设定值。"
+msgstr ""
+"AppStream 不支持已选择的视频容器格式因此软件中心可能无法播放该视频。当前仅支"
+"持 WebM 和 Matroska 视频容器，请为 `container` 属性使用 `webm` 和 `mkv` 作为"
+"设定值。"
 
 #: src/as-validator-issue-tag.h:242
 msgid ""
@@ -1389,7 +1401,9 @@ msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr "在该需求/推荐项目上发现了 `version` 属性而不是 `compare` 属性。推荐明确定义对比运算。"
+msgstr ""
+"在该需求/推荐项目上发现了 `version` 属性而不是 `compare` 属性。推荐明确定义对"
+"比运算。"
 
 #: src/as-validator-issue-tag.h:276
 msgid ""
@@ -1410,7 +1424,9 @@ msgid ""
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr "在 `requires` 标签中发现内存大小关联。这意味着内存不足时用户甚至无法安装该组件。这通常不是有意的且您想要在 `recommends` 标签中使用 `memory` 替代。"
+msgstr ""
+"在 `requires` 标签中发现内存大小关联。这意味着内存不足时用户甚至无法安装该组"
+"件。这通常不是有意的且您想要在 `recommends` 标签中使用 `memory` 替代。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:294
@@ -1419,7 +1435,10 @@ msgid ""
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr "在 `requires` 标签中发现用户输入控制关联。这意味着系统上没有可用的指定输入控制时用户甚至无法安装该组件。这通常不是有意的且您想要在 `recommends` 标签中使用 `control` 替代。"
+msgstr ""
+"在 `requires` 标签中发现用户输入控制关联。这意味着系统上没有可用的指定输入控"
+"制时用户甚至无法安装该组件。这通常不是有意的且您想要在 `recommends` 标签中使"
+"用 `control` 替代。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:301
@@ -1437,7 +1456,9 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr "该 `display_length` 项目包含无效的显示长度。它的设定值必须为简写字符串或表示逻辑像素的正整数。请参阅 AppStream 规范获取有关该标签的更多信息。"
+msgstr ""
+"该 `display_length` 项目包含无效的显示长度。它的设定值必须为简写字符串或表示"
+"逻辑像素的正整数。请参阅 AppStream 规范获取有关该标签的更多信息。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:314
@@ -1446,7 +1467,9 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr "该 `display_length` 的 `side` 属性包含无效的设定值。它必须为 `shortest` 或 `longest`，或者不设置以暗示 `shortest` 该项目设定值指向显示器的最短或最长边。"
+msgstr ""
+"该 `display_length` 的 `side` 属性包含无效的设定值。它必须为 `shortest` 或 "
+"`longest`，或者不设置以暗示 `shortest` 该项目设定值指向显示器的最短或最长边。"
 
 #: src/as-validator-issue-tag.h:320
 msgid ""
@@ -1489,7 +1512,9 @@ msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
 "defining multiple package names per component."
-msgstr "该 `pkgname` 标签出现了多次。您应该考虑创建包含元信息和 .desktop 文件的元软件包以避免为每个组件定义多个软件包名称。"
+msgstr ""
+"该 `pkgname` 标签出现了多次。您应该考虑创建包含元信息和 .desktop 文件的元软件"
+"包以避免为每个组件定义多个软件包名称。"
 
 #: src/as-validator-issue-tag.h:360
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -1512,7 +1537,9 @@ msgstr "摘要不能包含任何URL。 链接使用<url/>标签。"
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr "`stock` 或 `cached` 类型的图标不能包含网址，指向该图标的完整或相关路径。仅允许文件 basenames 或 stock names。"
+msgstr ""
+"`stock` 或 `cached` 类型的图标不能包含网址，指向该图标的完整或相关路径。仅允"
+"许文件 basenames 或 stock names。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:388
@@ -1604,7 +1631,11 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr "发现无效标签。非标准标签应使用 `x-` 前缀。AppStream 也提供了 <custom/> 标签用来添加任意自定义数据至元信息文件。该标签会被 AppStream 库读取并且如果您只是想要为元信息文件添加自定义数据可以使用该标签作为定义新自定义顶层或 `x-` 前缀标签的有用替代。"
+msgstr ""
+"发现无效标签。非标准标签应使用 `x-` 前缀。AppStream 也提供了 <custom/> 标签用"
+"来添加任意自定义数据至元信息文件。该标签会被 AppStream 库读取并且如果您只是想"
+"要为元信息文件添加自定义数据可以使用该标签作为定义新自定义顶层或 `x-` 前缀标"
+"签的有用替代。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:477
@@ -1752,7 +1783,9 @@ msgstr "在集合元数据中发现无效标记。 只允许 “component” 标
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher)."
-msgstr "该元信息文件使用了无法被验证的过时版本的 AppStream 规范。请迁移至 0.6 版本（或更高）。"
+msgstr ""
+"该元信息文件使用了无法被验证的过时版本的 AppStream 规范。请迁移至 0.6 版本"
+"（或更高）。"
 
 #: src/as-validator-issue-tag.h:606
 msgid ""
@@ -1776,7 +1809,8 @@ msgstr "该组件元数据引用了不存在的 .desktop 文件。"
 msgid ""
 "The category defined in the .desktop file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr "在该 .desktop 文件中定义的分类无效。请参阅 XDG 菜单规范获取有效的分类列表。"
+msgstr ""
+"在该 .desktop 文件中定义的分类无效。请参阅 XDG 菜单规范获取有效的分类列表。"
 
 #: src/as-validator-issue-tag.h:631
 msgid "No AppStream metadata was found in this directory or directory tree."
@@ -1803,7 +1837,9 @@ msgid ""
 "required as some tools will assume that the latest version is always at the "
 "top. Sorting releases also increases overall readability of the metainfo "
 "file."
-msgstr "版本发布没有按最新到最旧的版本顺序排序。由于一些工具会假定最新版本总是在最顶端因此需要这样。对发布排序同样会增强元信息文件的整体可读性。"
+msgstr ""
+"版本发布没有按最新到最旧的版本顺序排序。由于一些工具会假定最新版本总是在最顶"
+"端因此需要这样。对发布排序同样会增强元信息文件的整体可读性。"
 
 #: src/as-validator-issue-tag.h:658
 msgid "The value set as release urgency is not a known urgency value."
@@ -1829,7 +1865,9 @@ msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr "该发布的平台三联体无效。它必须是 `architecture-oskernel-osenv` 的形式，请参阅 AppStream 文档或标准化的 GNU 三联体信息获取更多信息和有效域。"
+msgstr ""
+"该发布的平台三联体无效。它必须是 `architecture-oskernel-osenv` 的形式，请参"
+"阅 AppStream 文档或标准化的 GNU 三联体信息获取更多信息和有效域。"
 
 #: src/as-validator-issue-tag.h:686
 msgid "The selected checksumming algorithm is unsupported or unknown."
@@ -1854,56 +1892,86 @@ msgstr "该设定值作为发布问题类型无效。"
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr "该问题打上了带 CVE 数字的安全漏洞标签，但它的设定值看起来不像有效的 CVE 标识。"
+msgstr ""
+"该问题打上了带 CVE 数字的安全漏洞标签，但它的设定值看起来不像有效的 CVE 标"
+"识。"
 
-#: src/as-validator-issue-tag.h:712
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
+#: src/as-validator-issue-tag.h:713
+msgid ""
+"This component is missing information about releases. Consider adding a "
+"`releases` tag to describe releases and their changes."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:718
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr "AppStream 规范要求了完整的带有至少精确到天的 ISO 8601 数据字符串来表示日期。请确保日期字符串有效。"
+msgstr ""
+"AppStream 规范要求了完整的带有至少精确到天的 ISO 8601 数据字符串来表示日期。"
+"请确保日期字符串有效。"
 
-#: src/as-validator-issue-tag.h:718
+#: src/as-validator-issue-tag.h:724
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
 "metadata."
-msgstr "该组件扩展、提供、需求或推荐它自己，这肯定不是有意的且可能会迷惑用户或处理该元数据的设备。"
+msgstr ""
+"该组件扩展、提供、需求或推荐它自己，这肯定不是有意的且可能会迷惑用户或处理该"
+"元数据的设备。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:725
+#: src/as-validator-issue-tag.h:731
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's `project_license`. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr "用于 `runtime` 组件的许可证往往太复杂以致无法以简单的 SPDX 表达来反映它们。请考虑为该组件的 `project_license` 使用 `LicenseRef` 且用网址作为设定值。比如 `LicenseRef-free=https://example.com/licenses.html`"
+msgstr ""
+"用于 `runtime` 组件的许可证往往太复杂以致无法以简单的 SPDX 表达来反映它们。请"
+"考虑为该组件的 `project_license` 使用 `LicenseRef` 且用网址作为设定值。比如 "
+"`LicenseRef-free=https://example.com/licenses.html`"
 
-#: src/as-validator-issue-tag.h:731
+#: src/as-validator-issue-tag.h:737
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
-msgstr "由于 `runtime` 组件是由多个其它软件组件构成的，它们的组件 ID 可能被列在该运行时的 `<provides/>` 部分。"
+msgstr ""
+"由于 `runtime` 组件是由多个其它软件组件构成的，它们的组件 ID 可能被列在该运行"
+"时的 `<provides/>` 部分。"
 
-#: src/as-validator-issue-tag.h:736
+#: src/as-validator-issue-tag.h:742
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr "该组件提供的项目类型对于 AppStream 来说是未知的。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:742
+#: src/as-validator-issue-tag.h:748
 msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr "该顶层 `mimetypes` 标签已废弃。请在 `provides` 区块中使用 `mediatype` 标签替代来提示您的软件提供了指定类型的多媒体处理功能。"
+msgstr ""
+"该顶层 `mimetypes` 标签已废弃。请在 `provides` 区块中使用 `mediatype` 标签替"
+"代来提示您的软件提供了指定类型的多媒体处理功能。"
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
+#: src/as-validator-issue-tag.h:755
+msgid ""
+"This component has no `content_rating` tag to provide age rating "
+"information. You can generate the tag data online by answering a few "
+"questions at https://hughsie.github.io/oars/"
+msgstr ""
 
 #: src/as-validator.c:150
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
-msgstr "该发出的问题标签在 AppStream 的标签注册表中是未知的。这是验证器自身的缺陷，请在我们的缺陷追踪系统中报告该问题。"
+msgstr ""
+"该发出的问题标签在 AppStream 的标签注册表中是未知的。这是验证器自身的缺陷，请"
+"在我们的缺陷追踪系统中报告该问题。"
 
 #: src/as-validator.c:344
 msgid "URL format is invalid."
@@ -1917,63 +1985,92 @@ msgid "Found: %s - Allowed: %s"
 msgstr "发现的：%s - 允许的：%s"
 
 #. TRANSLATORS: ascompose flag description for: --verbose
-#: tools/appstream-compose.c:178
+#: tools/appstream-compose.c:181
 msgid "Show extra debugging information"
 msgstr "显示额外的调试信息"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-compose.c:181 tools/appstreamcli.c:1087
+#: tools/appstream-compose.c:184 tools/appstreamcli.c:1087
 msgid "Don't show colored output."
 msgstr "不要显示彩色输出。"
 
+#. TRANSLATORS: ascompose flag description for: --version
+#. TRANSLATORS: ascli flag description for: --version
+#: tools/appstream-compose.c:187 tools/appstreamcli.c:1076
+msgid "Show the program version."
+msgstr "显示程序版本."
+
 #. TRANSLATORS: ascompose flag description for: --full-report
-#: tools/appstream-compose.c:184
+#: tools/appstream-compose.c:190
 msgid "Set mode of the issue report that is printed to the console"
 msgstr "为打印在终端中的问题报告设置模式"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
-#: tools/appstream-compose.c:187
+#: tools/appstream-compose.c:193
 msgid "Override the default prefix (`/usr` by default)"
 msgstr "覆盖默认前缀（默认为“/usr”）"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
-#: tools/appstream-compose.c:190
+#: tools/appstream-compose.c:196
 msgid "Set the result output directory"
 msgstr "设置结果输出目录"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
-#: tools/appstream-compose.c:193
+#: tools/appstream-compose.c:199
 msgid "Override the collection metadata output directory"
 msgstr "覆盖集合元数据输出目录"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
-#: tools/appstream-compose.c:196
+#: tools/appstream-compose.c:202
 msgid "Override the icon output directory"
 msgstr "覆盖图标输出目录"
 
+#. TRANSLATORS: ascompose flag description for: --media-dir
+#: tools/appstream-compose.c:205
+msgid ""
+"Set the media output directory (for media data to be served by a webserver)"
+msgstr ""
+
 #. TRANSLATORS: ascompose flag description for: --hints-dir
-#: tools/appstream-compose.c:199
+#: tools/appstream-compose.c:208
 msgid "Set a directory where HTML and text issue reports will be stored"
 msgstr "设置 HTML 和 纯文本问题报告存放的目录"
 
 #. TRANSLATORS: ascompose flag description for: --origin
-#: tools/appstream-compose.c:202
+#. TRANSLATORS: ascompose flag description for: --media-baseurl
+#: tools/appstream-compose.c:211 tools/appstream-compose.c:214
 msgid "Set the origin name"
 msgstr "设置来源的名称"
 
 #. TRANSLATORS: ascompose flag description for: --components
-#: tools/appstream-compose.c:205
+#: tools/appstream-compose.c:217
 msgid "A comma-separated list of component-IDs to accept"
 msgstr "接受用逗号分隔的组件 ID 列表"
 
 #. TRANSLATORS: error message
-#: tools/appstream-compose.c:219
+#: tools/appstream-compose.c:231
 msgid "Failed to parse arguments"
 msgstr "解析参数失败"
 
+#. TRANSLATORS: Output if appstreamcli --version is executed.
+#: tools/appstream-compose.c:242 tools/appstreamcli.c:1230
+#, c-format
+msgid "AppStream version: %s"
+msgstr "AppStream 版本：%s"
+
+#. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
+#: tools/appstream-compose.c:245 tools/appstreamcli.c:1233
+#, c-format
+msgid ""
+"AppStream CLI tool version: %s\n"
+"AppStream library version: %s"
+msgstr ""
+"AppStream CLI 工具版本：%s\n"
+"AppStream 库版本：%s"
+
 #. TRANSLATORS: invalid value for the --print-report CLI option
-#: tools/appstream-compose.c:241
+#: tools/appstream-compose.c:264
 #, c-format
 msgid ""
 "Invalid value for `--print-report` option: %s\n"
@@ -1988,79 +2085,79 @@ msgstr ""
 "“short”- 生成缩略报告\n"
 "“full”- 打印详细报告"
 
-#: tools/appstream-compose.c:262
+#: tools/appstream-compose.c:285
 #, c-format
 msgid "Automatically selected '%s' as data output location."
 msgstr "已自动选择“%s”作为数据输出位置。"
 
 #. TRANSLATORS: we don't have a destination directory for compose
-#: tools/appstream-compose.c:265
+#: tools/appstream-compose.c:288
 msgid "No destination directory set, please provide a data output location!"
 msgstr "未设置目标目录，请提供数据输出位置！"
 
-#: tools/appstream-compose.c:275 tools/appstream-compose.c:277
+#: tools/appstream-compose.c:298 tools/appstream-compose.c:300
 msgid "WARNING"
 msgstr "警告"
 
 #. TRANSLATORS: information about as-compose allowlist
-#: tools/appstream-compose.c:312
+#: tools/appstream-compose.c:337
 #, c-format
 msgid "Only accepting components: %s"
 msgstr "仅接受组件：%s"
 
 #. TRANSLATORS: information about as-compose allowlist
-#: tools/appstream-compose.c:315
+#: tools/appstream-compose.c:340
 #, c-format
 msgid "Only accepting component: %s"
 msgstr "仅接受组件：%s"
 
 #. TRANSLATORS: information about as-compose units to be processed
-#: tools/appstream-compose.c:320
+#: tools/appstream-compose.c:345
 msgid "Processing directories:"
 msgstr "处理目录："
 
 #. TRANSLATORS: information about as-compose units to be processed
-#: tools/appstream-compose.c:323
+#: tools/appstream-compose.c:348
 msgid "Processing directory:"
 msgstr "处理目录："
 
 #. TRANSLATORS: error message
-#: tools/appstream-compose.c:332
+#: tools/appstream-compose.c:357
 msgid "Can not process invalid directory"
 msgstr "无法处理无效目录"
 
 #. TRANSLATORS: information message
-#: tools/appstream-compose.c:344
+#: tools/appstream-compose.c:369
 msgid "Composing metadata..."
 msgstr "正在整合元数据…"
 
 #. TRANSLATORS: error message
-#: tools/appstream-compose.c:349
+#: tools/appstream-compose.c:374
 msgid "Failed to compose AppStream metadata"
 msgstr "未能编写 AppStream 元数据"
 
 #. TRANSLATORS: appstream-compose failed to include all data
-#: tools/appstream-compose.c:355
+#: tools/appstream-compose.c:380
 msgid "Run failed, some data was ignored."
 msgstr "运行失败，一些数据已被忽略。"
 
 #. TRANSLATORS: information message of appstream-compose
-#: tools/appstream-compose.c:357
+#: tools/appstream-compose.c:382
 msgid "Errors were raised during this compose run:"
 msgstr "在该整合运行期间发生错误："
 
-#: tools/appstream-compose.c:358
+#: tools/appstream-compose.c:383
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
 msgstr "请参阅生成的问题报告数据获取有关单独问题的详情。"
 
-#: tools/appstream-compose.c:361
+#: tools/appstream-compose.c:386
 msgid "Overview of generated hints:"
 msgstr "已生成提示的概览："
 
 #. TRANSLATORS: information message
-#: tools/appstream-compose.c:363
+#: tools/appstream-compose.c:388
 msgid "Success!"
 msgstr "成功！"
 
@@ -2249,11 +2346,6 @@ msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
 msgstr "未知命令“%s”。运行“%s --help”查看可用命令列表。"
 
-#. TRANSLATORS: ascli flag description for: --version
-#: tools/appstreamcli.c:1076
-msgid "Show the program version."
-msgstr "显示程序版本."
-
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1082
 msgid "Show extra debugging information."
@@ -2279,7 +2371,9 @@ msgstr "根据 ID 获取相应组件的信息。"
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr "获取提供给定项目的组件。需要项目类型（如 lib、bin、python3……）和项目值作为参数。"
+msgstr ""
+"获取提供给定项目的组件。需要项目类型（如 lib、bin、python3……）和项目值作为参"
+"数。"
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1118
@@ -2368,22 +2462,6 @@ msgstr "从目录树整合 AppStream 集合元数据。"
 #: tools/appstreamcli.c:1206
 msgid "You need to specify a command."
 msgstr "您需要指定一个命令。"
-
-#. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstreamcli.c:1230
-#, c-format
-msgid "AppStream version: %s"
-msgstr "AppStream 版本：%s"
-
-#. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstreamcli.c:1233
-#, c-format
-msgid ""
-"AppStream CLI tool version: %s\n"
-"AppStream library version: %s"
-msgstr ""
-"AppStream CLI 工具版本：%s\n"
-"AppStream 库版本：%s"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:70
@@ -2607,7 +2685,9 @@ msgstr "元信息文件中未提供库存图标名称。无法继续。"
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
-msgstr "元信息文件中未指定提供的二进制文件，且未通过“--exec”指定执行命令。无法创建“Exec=”设定键。"
+msgstr ""
+"元信息文件中未指定提供的二进制文件，且未通过“--exec”指定执行命令。无法创"
+"建“Exec=”设定键。"
 
 #: tools/ascli-actions-misc.c:370
 #, c-format

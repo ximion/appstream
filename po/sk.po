@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-08-25 19:40+0200\n"
+"POT-Creation-Date: 2021-08-28 16:09+0200\n"
 "PO-Revision-Date: 2016-08-06 03:00+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream-glib/"
@@ -1861,14 +1861,21 @@ msgid ""
 "value does not look like a valid CVE identifier."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:712
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
+#: src/as-validator-issue-tag.h:713
+msgid ""
+"This component is missing information about releases. Consider adding a "
+"`releases` tag to describe releases and their changes."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:718
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:718
+#: src/as-validator-issue-tag.h:724
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
@@ -1876,7 +1883,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:725
+#: src/as-validator-issue-tag.h:731
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
@@ -1884,24 +1891,32 @@ msgid ""
 "example.com/licenses.html`"
 msgstr ""
 
-#: src/as-validator-issue-tag.h:731
+#: src/as-validator-issue-tag.h:737
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:736
+#: src/as-validator-issue-tag.h:742
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:742
+#: src/as-validator-issue-tag.h:748
 msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
+#: src/as-validator-issue-tag.h:755
+msgid ""
+"This component has no `content_rating` tag to provide age rating "
+"information. You can generate the tag data online by answering a few "
+"questions at https://hughsie.github.io/oars/"
 msgstr ""
 
 #: src/as-validator.c:150
@@ -1922,64 +1937,93 @@ msgid "Found: %s - Allowed: %s"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --verbose
-#: tools/appstream-compose.c:178
+#: tools/appstream-compose.c:181
 #, fuzzy
 msgid "Show extra debugging information"
 msgstr "Zobrazovať doplňujúce informácie pre ladenie."
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-compose.c:181 tools/appstreamcli.c:1087
+#: tools/appstream-compose.c:184 tools/appstreamcli.c:1087
 msgid "Don't show colored output."
 msgstr "Nezobrazovať farebný výstup."
 
+#. TRANSLATORS: ascompose flag description for: --version
+#. TRANSLATORS: ascli flag description for: --version
+#: tools/appstream-compose.c:187 tools/appstreamcli.c:1076
+msgid "Show the program version."
+msgstr "Zobraziť verziu programu."
+
 #. TRANSLATORS: ascompose flag description for: --full-report
-#: tools/appstream-compose.c:184
+#: tools/appstream-compose.c:190
 msgid "Set mode of the issue report that is printed to the console"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --prefix
-#: tools/appstream-compose.c:187
+#: tools/appstream-compose.c:193
 msgid "Override the default prefix (`/usr` by default)"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --result-root
-#: tools/appstream-compose.c:190
+#: tools/appstream-compose.c:196
 msgid "Set the result output directory"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
-#: tools/appstream-compose.c:193
+#: tools/appstream-compose.c:199
 msgid "Override the collection metadata output directory"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
-#: tools/appstream-compose.c:196
+#: tools/appstream-compose.c:202
 msgid "Override the icon output directory"
 msgstr ""
 
+#. TRANSLATORS: ascompose flag description for: --media-dir
+#: tools/appstream-compose.c:205
+msgid ""
+"Set the media output directory (for media data to be served by a webserver)"
+msgstr ""
+
 #. TRANSLATORS: ascompose flag description for: --hints-dir
-#: tools/appstream-compose.c:199
+#: tools/appstream-compose.c:208
 msgid "Set a directory where HTML and text issue reports will be stored"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --origin
-#: tools/appstream-compose.c:202
+#. TRANSLATORS: ascompose flag description for: --media-baseurl
+#: tools/appstream-compose.c:211 tools/appstream-compose.c:214
 msgid "Set the origin name"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --components
-#: tools/appstream-compose.c:205
+#: tools/appstream-compose.c:217
 msgid "A comma-separated list of component-IDs to accept"
 msgstr ""
 
 #. TRANSLATORS: error message
-#: tools/appstream-compose.c:219
+#: tools/appstream-compose.c:231
 msgid "Failed to parse arguments"
 msgstr ""
 
+#. TRANSLATORS: Output if appstreamcli --version is executed.
+#: tools/appstream-compose.c:242 tools/appstreamcli.c:1230
+#, c-format
+msgid "AppStream version: %s"
+msgstr "Verzia nástroja AppStream CLI: %s"
+
+#. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
+#: tools/appstream-compose.c:245 tools/appstreamcli.c:1233
+#, c-format
+msgid ""
+"AppStream CLI tool version: %s\n"
+"AppStream library version: %s"
+msgstr ""
+"Verzia nástroja AppStream pre textové užívateľské rozhranie: %s\n"
+"Verzia knižnice AppStream: %s"
+
 #. TRANSLATORS: invalid value for the --print-report CLI option
-#: tools/appstream-compose.c:241
+#: tools/appstream-compose.c:264
 #, c-format
 msgid ""
 "Invalid value for `--print-report` option: %s\n"
@@ -1989,80 +2033,80 @@ msgid ""
 "`full` - a detailed report will be printed"
 msgstr ""
 
-#: tools/appstream-compose.c:262
+#: tools/appstream-compose.c:285
 #, c-format
 msgid "Automatically selected '%s' as data output location."
 msgstr ""
 
 #. TRANSLATORS: we don't have a destination directory for compose
-#: tools/appstream-compose.c:265
+#: tools/appstream-compose.c:288
 msgid "No destination directory set, please provide a data output location!"
 msgstr ""
 
-#: tools/appstream-compose.c:275 tools/appstream-compose.c:277
+#: tools/appstream-compose.c:298 tools/appstream-compose.c:300
 msgid "WARNING"
 msgstr ""
 
 #. TRANSLATORS: information about as-compose allowlist
-#: tools/appstream-compose.c:312
+#: tools/appstream-compose.c:337
 #, c-format
 msgid "Only accepting components: %s"
 msgstr ""
 
 #. TRANSLATORS: information about as-compose allowlist
-#: tools/appstream-compose.c:315
+#: tools/appstream-compose.c:340
 #, c-format
 msgid "Only accepting component: %s"
 msgstr ""
 
 #. TRANSLATORS: information about as-compose units to be processed
-#: tools/appstream-compose.c:320
+#: tools/appstream-compose.c:345
 msgid "Processing directories:"
 msgstr ""
 
 #. TRANSLATORS: information about as-compose units to be processed
-#: tools/appstream-compose.c:323
+#: tools/appstream-compose.c:348
 msgid "Processing directory:"
 msgstr ""
 
 #. TRANSLATORS: error message
-#: tools/appstream-compose.c:332
+#: tools/appstream-compose.c:357
 msgid "Can not process invalid directory"
 msgstr ""
 
 #. TRANSLATORS: information message
-#: tools/appstream-compose.c:344
+#: tools/appstream-compose.c:369
 msgid "Composing metadata..."
 msgstr ""
 
 #. TRANSLATORS: error message
-#: tools/appstream-compose.c:349
+#: tools/appstream-compose.c:374
 #, fuzzy
 msgid "Failed to compose AppStream metadata"
 msgstr "Nástroj pre prácu s AppStream metadátami"
 
 #. TRANSLATORS: appstream-compose failed to include all data
-#: tools/appstream-compose.c:355
+#: tools/appstream-compose.c:380
 msgid "Run failed, some data was ignored."
 msgstr ""
 
 #. TRANSLATORS: information message of appstream-compose
-#: tools/appstream-compose.c:357
+#: tools/appstream-compose.c:382
 msgid "Errors were raised during this compose run:"
 msgstr ""
 
-#: tools/appstream-compose.c:358
+#: tools/appstream-compose.c:383
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
 msgstr ""
 
-#: tools/appstream-compose.c:361
+#: tools/appstream-compose.c:386
 msgid "Overview of generated hints:"
 msgstr ""
 
 #. TRANSLATORS: information message
-#: tools/appstream-compose.c:363
+#: tools/appstream-compose.c:388
 msgid "Success!"
 msgstr ""
 
@@ -2269,11 +2313,6 @@ msgstr ""
 "Spustením „%s --help“ zobrazíte úplný zoznam dostupných volieb príkazového "
 "riadka."
 
-#. TRANSLATORS: ascli flag description for: --version
-#: tools/appstreamcli.c:1076
-msgid "Show the program version."
-msgstr "Zobraziť verziu programu."
-
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1082
 msgid "Show extra debugging information."
@@ -2390,22 +2429,6 @@ msgstr ""
 #: tools/appstreamcli.c:1206
 msgid "You need to specify a command."
 msgstr "Musíte uviesť príkaz."
-
-#. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstreamcli.c:1230
-#, c-format
-msgid "AppStream version: %s"
-msgstr "Verzia nástroja AppStream CLI: %s"
-
-#. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstreamcli.c:1233
-#, c-format
-msgid ""
-"AppStream CLI tool version: %s\n"
-"AppStream library version: %s"
-msgstr ""
-"Verzia nástroja AppStream pre textové užívateľské rozhranie: %s\n"
-"Verzia knižnice AppStream: %s"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:70
