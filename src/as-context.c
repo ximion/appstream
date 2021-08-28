@@ -148,7 +148,6 @@ as_context_init (AsContext *ctx)
 
 	priv->format_version = AS_FORMAT_VERSION_CURRENT;
 	priv->style = AS_FORMAT_STYLE_UNKNOWN;
-	priv->fname = g_ref_string_new_intern (":memory");
 	priv->priority = 0;
 	priv->internal_mode = FALSE;
 }
