@@ -84,4 +84,8 @@ GBytes			*asc_unit_read_data (AscUnit *unit,
 					     const gchar *filename,
 					     GError **error);
 
+gpointer		asc_unit_get_user_data (AscUnit *unit);
+void			asc_unit_set_user_data (AscUnit *unit,
+						gpointer user_data);
+
 G_END_DECLS

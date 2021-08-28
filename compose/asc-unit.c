@@ -35,6 +35,8 @@ typedef struct
 	gchar		*bundle_id;
 	GPtrArray	*contents;
 	GPtrArray	*relevant_paths;
+
+	gpointer	user_data;
 } AscUnitPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscUnit, asc_unit, G_TYPE_OBJECT)
@@ -284,6 +286,35 @@ asc_unit_read_data (AscUnit *unit, const gchar *filename, GError **error)
 	klass = ASC_UNIT_GET_CLASS (unit);
 	g_return_val_if_fail (klass->read_data != NULL, FALSE);
 	return klass->read_data (unit, filename, error);
+}
+
+/**
+ * asc_unit_get_user_data:
+ * @unit: an #AscUnit instance.
+ *
+ * Get user-defined data. This is a helper
+ * function for bindings.
+ **/
+gpointer
+asc_unit_get_user_data (AscUnit *unit)
+{
+	AscUnitPrivate *priv = GET_PRIVATE (unit);
+	return priv->user_data;
+}
+
+/**
+ * asc_unit_get_user_data:
+ * @unit: an #AscUnit instance.
+ * @user_data: the user data
+ *
+ * Assign user-defined data to this object. This is a helper
+ * function for bindings.
+ **/
+void
+asc_unit_set_user_data (AscUnit *unit, gpointer user_data)
+{
+	AscUnitPrivate *priv = GET_PRIVATE (unit);
+	priv->user_data = user_data;
 }
 
 /**
