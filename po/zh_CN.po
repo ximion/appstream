@@ -42,10 +42,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-08-28 16:09+0200\n"
-"PO-Revision-Date: 2021-08-26 19:34+0000\n"
+"PO-Revision-Date: 2021-08-28 20:04+0000\n"
 "Last-Translator: Eric <spice2wolf@gmail.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1901,7 +1900,7 @@ msgstr ""
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
-msgstr ""
+msgstr "该组件缺少关于版本的信息。考虑添加一个`releases` 标签来描述发行版和它们的变化。"
 
 #: src/as-validator-issue-tag.h:718
 msgid ""
@@ -1963,7 +1962,7 @@ msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
 "questions at https://hughsie.github.io/oars/"
-msgstr ""
+msgstr "该组件没有 `content_rating` 标签来提供年龄评级信息。您可以在 https://hughsie.github.io/oars/ 上回答几个问题，在线生成标签数据"
 
 #: src/as-validator.c:150
 msgid ""
@@ -2030,7 +2029,7 @@ msgstr "覆盖图标输出目录"
 #: tools/appstream-compose.c:205
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)"
-msgstr ""
+msgstr "设置媒体输出目录 (用于将由 web 服务器提供的媒体数据)"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:208
