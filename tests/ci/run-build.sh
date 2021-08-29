@@ -9,11 +9,16 @@ set -e
 #
 
 . /etc/os-release
+apt_support=false
 build_compose=true
 maintainer_mode=true
 if [ "$ID" = "ubuntu" ] && [ "$VERSION_CODENAME" = "focal" ]; then
     # we don't make warnings fatal on Ubuntu 20.04
     maintainer_mode=false
+fi;
+if [ "$ID" = "debian" ] || [ "$ID" = "ubuntu" ]; then
+    # apt support is required for debian(-ish) systems
+    apt_support=true
 fi;
 
 build_type=debugoptimized
@@ -48,7 +53,7 @@ meson --buildtype=$build_type \
       -Ddocs=true \
       -Dqt=true \
       -Dcompose=$build_compose \
-      -Dapt-support=true \
+      -Dapt-support=$apt_support \
       -Dvapi=true \
       ..
 
