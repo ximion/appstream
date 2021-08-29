@@ -9,11 +9,19 @@ set -e
 #
 
 . /etc/os-release
+apt_support=false
 build_compose=true
+build_docs=false
 maintainer_mode=true
 if [ "$ID" = "ubuntu" ] && [ "$VERSION_CODENAME" = "focal" ]; then
     # we don't make warnings fatal on Ubuntu 20.04
     maintainer_mode=false
+fi;
+if [ "$ID" = "debian" ] || [ "$ID" = "ubuntu" ]; then
+    # apt support is required for debian(-ish) systems
+    apt_support=true
+    # daps is available to build docs
+    build_docs=true
 fi;
 
 build_type=debugoptimized
@@ -45,10 +53,10 @@ mkdir $build_dir && cd $build_dir
 meson --buildtype=$build_type \
       $sanitize_flags \
       -Dmaintainer=$maintainer_mode \
-      -Ddocs=true \
+      -Ddocs=$build_docs \
       -Dqt=true \
       -Dcompose=$build_compose \
-      -Dapt-support=true \
+      -Dapt-support=$apt_support \
       -Dvapi=true \
       ..
 
@@ -57,6 +65,8 @@ meson --buildtype=$build_type \
 #
 
 ninja
-ninja documentation
+if [ "$build_docs" = "true" ]; then
+    ninja documentation
+fi
 DESTDIR=/tmp/install_root/ ninja install
 rm -r /tmp/install_root/
