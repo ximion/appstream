@@ -10,7 +10,6 @@ dnf makecache
 
 # install build dependencies
 dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
-    daps \
     gcc \
     gcc-c++ \
     gdb \
