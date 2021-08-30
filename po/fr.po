@@ -32,10 +32,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-08-28 16:09+0200\n"
-"PO-Revision-Date: 2021-08-27 09:34+0000\n"
+"PO-Revision-Date: 2021-08-30 09:34+0000\n"
 "Last-Translator: Éfrit <efrit@posteo.net>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/appstream/"
-"translations/fr/>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2081,7 +2080,7 @@ msgstr ""
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
-msgstr ""
+msgstr "Il manque les informations sur les versions de ce composant. Veuillez considérer l’ajout d’une balise `releases` afin de décrire les versions et leurs modifications."
 
 #: src/as-validator-issue-tag.h:718
 msgid ""
@@ -2150,7 +2149,7 @@ msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
 "questions at https://hughsie.github.io/oars/"
-msgstr ""
+msgstr "Ce composant n’a pas de balise `content_rating` pour fournir des informations sur les restrictions d’âge. Vous pouvez générer les données de cette balise en ligne en répondant à quelques questions sur https://hughsie.github.io/oars/"
 
 #: src/as-validator.c:150
 msgid ""
@@ -2218,7 +2217,7 @@ msgstr "Remplace le répertoire de sortie de l’icône"
 #: tools/appstream-compose.c:205
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)"
-msgstr ""
+msgstr "Défini le répertoire de sortie des médias (pour les données de média à servir par un serveur Web)"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:208
