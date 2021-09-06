@@ -897,8 +897,13 @@ as_client_run_compose (const gchar *command, char **argv, int argc)
 
 	asc_argv = g_new0 (const gchar*, argc + 2);
 	asc_argv[0] = ascompose_exe;
-	for (gint i = 0; i < argc; i++)
-		asc_argv[i+1] = argv[i];
+	if (argc < 2) {
+		/* TRANSLATORS: Unexpected number of parameters on the command-line */
+		ascli_print_stderr (_("Invalid number of parameters"));
+		return 5;
+	}
+	for (gint i = 2; i < argc; i++)
+		asc_argv[i-1] = argv[i];
 
 	return execv(ascompose_exe, (gchar * const*) asc_argv);
 }
