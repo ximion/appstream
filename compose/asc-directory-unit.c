@@ -111,7 +111,10 @@ asc_directory_unit_find_files_recursive (GPtrArray *files,
 	while ((tmp = g_dir_read_name (dir)) != NULL) {
 		g_autofree gchar *path_new = NULL;
 		path_new = g_build_filename (path, tmp, NULL);
-		if (g_file_test (path_new, G_FILE_TEST_IS_DIR)) {
+
+		/* search recursively, don't follow symlinks */
+		if (g_file_test (path_new, G_FILE_TEST_IS_DIR) &&
+		    !g_file_test (path_new, G_FILE_TEST_IS_SYMLINK)) {
 			if (!asc_directory_unit_find_files_recursive (files,
 								      path_orig,
 								      path_orig_len,
