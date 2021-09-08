@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-08-28 16:09+0200\n"
-"PO-Revision-Date: 2021-08-30 09:34+0000\n"
+"PO-Revision-Date: 2021-09-08 23:32+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
@@ -2229,9 +2229,8 @@ msgstr ""
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:374
-#, fuzzy
 msgid "Failed to compose AppStream metadata"
-msgstr "Uslužni program za rad s AppStream metapodacima"
+msgstr "Neuspjelo sastavljanje AppStream metapodataka"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:380
@@ -2572,9 +2571,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1198
-#, fuzzy
 msgid "Compose AppStream collection metadata from directory trees."
-msgstr "U ovoj mapi ili stablu mapa nema AppStream metapodataka."
+msgstr "Sastavi metapodatke AppStream zbirke iz stabla mapa."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1206
