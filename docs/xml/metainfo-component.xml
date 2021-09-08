@@ -1270,6 +1270,11 @@
 			than once.
 		</para>
 		<para>
+			The source strings in the component are assumed to be in the <code>en_US</code> locale. If that is not the case, specify the source locale using
+			the <code>source_locale</code> attribute on the <code>&lt;translation/&gt;</code> tag. The metadata generator will use the source locale
+			to synthesize a <code>&lt;lang/&gt;</code> tag for the source locale, with 100% translation.
+		</para>
+		<para>
 			For Gettext translations, localization data will be looked for in <filename>${prefix}/share/locale/${locale}/LC_MESSAGES/${id}.mo</filename>, where
 			<code>${id}</code> is replaced with the translation domain specified in the <code>&lt;translation/&gt;</code> tag.
 			For Qt translations, if the ID string contains slashes, we will look for translations following either the <filename>${prefix}/share/${id}_${locale}.qm</filename>
@@ -1280,6 +1285,7 @@
 			Example:
 		</para>
 		<programlisting language="XML"><![CDATA[<translation type="gettext">foobar</translation>
+<translation type="gettext" source_locale="de_DE">foobar</translation>
 <translation type="qt">FooBar/translations/foobar</translation>]]></programlisting>
 		</listitem>
 		</varlistentry>
