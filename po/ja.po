@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-08-28 16:09+0200\n"
-"PO-Revision-Date: 2021-09-08 01:35+0000\n"
+"PO-Revision-Date: 2021-09-08 23:32+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/translations/ja/>\n"
 "Language: ja\n"
@@ -1350,13 +1350,10 @@ msgstr ""
 "ロパティは見つかりませんでした。比較操作を明示的に定義することをお勧めです。"
 
 #: src/as-validator-issue-tag.h:276
-#, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are "
 "permitted."
-msgstr ""
-"関係アイテムのバージョン比較操作が無効です。 eq / ne / lt / gt / le / geのみ"
-"が許可されます。"
+msgstr "無効な関係アイテムの比較操作です。有効な操作はeq/ne/lt/gt/le/geのみです。"
 
 #: src/as-validator-issue-tag.h:281
 msgid ""
@@ -2070,9 +2067,8 @@ msgstr ""
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:374
-#, fuzzy
 msgid "Failed to compose AppStream metadata"
-msgstr "AppStream メタデータを使用して動作するユーティリティー"
+msgstr "AppStream メタデータを作成できませんでした"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:380
@@ -2398,11 +2394,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1198
-#, fuzzy
 msgid "Compose AppStream collection metadata from directory trees."
-msgstr ""
-"このディレクトリまたはディレクトリツリーにAppStreamメタデータが見つかりません"
-"でした。"
+msgstr "ディレクトリツリーからAppStreamコレクションメタデータを作成します。"
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1206
@@ -2473,9 +2466,9 @@ msgid "You need to specify a metadata file."
 msgstr "メタデータファイルの指定が必要です。"
 
 #: tools/ascli-actions-mdata.c:320
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr "デスクトップエントリファイルを保存できません: %s"
+msgstr "メタデータファイルをインストールできません: %s"
 
 #: tools/ascli-actions-mdata.c:340
 msgid "You need to specify an input and output file."
@@ -2494,9 +2487,9 @@ msgid ""
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:438
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr "ID が '%s' のコンポーネントは見つかりません！"
+msgstr "オペレーティングシステムコンポーネント '%s' が見つかりません！"
 
 #: tools/ascli-actions-mdata.c:443
 msgid "Version"
@@ -2648,9 +2641,8 @@ msgid "Unable to save desktop entry file: %s"
 msgstr "デスクトップエントリファイルを保存できません: %s"
 
 #: tools/ascli-actions-misc.c:393
-#, fuzzy
 msgid "You need to specify a NEWS file as input."
-msgstr "メタデータファイルの指定が必要です。"
+msgstr "入力元としてNEWSファイルの指定が必要です。"
 
 #: tools/ascli-actions-misc.c:397
 msgid ""
@@ -2664,14 +2656,12 @@ msgid "No output filename specified, modifying metainfo file directly."
 msgstr "出力ファイル名が指定されていません。メタ情報ファイルを直接変更します。"
 
 #: tools/ascli-actions-misc.c:509
-#, fuzzy
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "メタデータファイルの指定が必要です。"
+msgstr "出力先としてNEWSファイルを指定するか、'-' と入力して標準出力に出力する必要があります。"
 
 #: tools/ascli-actions-misc.c:540
-#, fuzzy
 msgid "You need to specify a NEWS format to write the output in."
-msgstr "入力ファイルと出力ファイルの指定が必要です。"
+msgstr "出力を書き込むにはNEWS形式の指定が必要です。"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
