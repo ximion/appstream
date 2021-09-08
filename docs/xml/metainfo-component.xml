@@ -205,11 +205,16 @@
 				<literal>local</literal> icons are loaded from a file in the filesystem.
 				They should specify a full file path.
 				This icon type may have <literal>width</literal> and <literal>height</literal>
-                                properties.
+				properties. If targeting a hi-DPI screen, this icon type may have a <literal>scale</literal> property.
 			</para>
 			<para>
 				<literal>remote</literal> icons loaded from a remote URL. Currently, only HTTP/HTTPS urls are supported.
 				This icon type should have <literal>width</literal> and <literal>height</literal> properties.
+				If targeting a hi-DPI screen, this icon type may have a <literal>scale</literal> property.
+			</para>
+			<para>
+				The semantics of each property in the <code>&lt;icon/&gt;</code> tag are the same as for the <code>&lt;icon/&gt;</code> tag for collections.
+				See <xref linkend="tag-ct-icon"/>.
 			</para>
 		</listitem>
 		</varlistentry>

@@ -270,23 +270,34 @@
 						<literal>stock</literal> icons are loaded from stock. The icon name should never include any file-extension or path.
 					</para>
 					<para>
-						<literal>cached</literal> icons are loaded from the AppStream icon cache. The icon tag should contain the icon file name, including it's
+						<literal>cached</literal> icons are loaded from the AppStream icon cache. The icon tag should contain the icon file name, including its
 						extension. It must not contain a full or relative path to the icon file.
+						This icon type may have <literal>width</literal> and <literal>height</literal> properties.
+						If targeting a hi-DPI screen, this icon type may have a <literal>scale</literal> property.
 					</para>
 					<para>
 						<literal>local</literal> icons are reserved for AppStream data installed by local applications or via 3rd-party application installers.
 						They should specify a full file path.
 						This icon type may have <literal>width</literal> and <literal>height</literal> properties.
+						If targeting a hi-DPI screen, this icon type may have a <literal>scale</literal> property.
 					</para>
 					<para>
 						<literal>remote</literal> icons loaded from a remote URL. Currently, only HTTP urls are supported.
 						This icon type should have <literal>width</literal> and <literal>height</literal> properties.
+						If targeting a hi-DPI screen, this icon type may have a <literal>scale</literal> property.
+					</para>
+					<para>
+						If specified, the <literal>scale</literal> property is defined as in the
+						<ulink url="https://specifications.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html#definitions">Freedesktop Icon Theme Specification</ulink>.
+						It’s an integer value ≥1 indicating how many pixels in the image represent a logical pixel on the display, in each dimension.
+						This allows icons for hi-DPI screens to be displayed at the same logical size as on lower resolution screens, but without upscaling artifacts.
 					</para>
 					<para>
 						Examples of the different methods to specify an icon:
 					</para>
 					<programlisting language="XML"><![CDATA[<icon type="stock">gimp</icon>
 <icon type="cached">firefox.png</icon>
+<icon type="cached" width="128" height="128" scale="2">firefox.png</icon>
 <icon type="remote" width="64" height="64">https://example.com/icons/foobar.png</icon>
 <icon type="local" width="64" height="64">/usr/share/pixmaps/foobar.png</icon>]]></programlisting>
 					<para>
