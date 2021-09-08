@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-08-28 16:09+0200\n"
-"PO-Revision-Date: 2021-08-31 03:32+0000\n"
+"PO-Revision-Date: 2021-09-08 01:35+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
@@ -2096,7 +2096,7 @@ msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
 "questions at https://hughsie.github.io/oars/"
-msgstr ""
+msgstr "Komponen ini tidak punya tag `content_rating` untuk menyediakan informasi peringkat umur. Anda dapat membangkitkan data tag daring dengan menjawab beberapa pertanyaan pada https://hughsie.github.io/oars/"
 
 #: src/as-validator.c:150
 msgid ""
@@ -2119,9 +2119,8 @@ msgstr "Ditemukan: %s - Diizinkan: %s"
 
 #. TRANSLATORS: ascompose flag description for: --verbose
 #: tools/appstream-compose.c:181
-#, fuzzy
 msgid "Show extra debugging information"
-msgstr "Tampilkan informasi debug ekstra."
+msgstr "Tampilkan informasi debug ekstra"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
@@ -2138,54 +2137,54 @@ msgstr "Tampilkan versi program."
 #. TRANSLATORS: ascompose flag description for: --full-report
 #: tools/appstream-compose.c:190
 msgid "Set mode of the issue report that is printed to the console"
-msgstr ""
+msgstr "Atur mode laporan masalah yang dicetak ke konsol"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:193
 msgid "Override the default prefix (`/usr` by default)"
-msgstr ""
+msgstr "Timpa prefiks baku (secara baku `/usr`)"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:196
 msgid "Set the result output directory"
-msgstr ""
+msgstr "Atur direktori keluaran hasil"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
 #: tools/appstream-compose.c:199
 msgid "Override the collection metadata output directory"
-msgstr ""
+msgstr "Ganti direktori keluaran metadata koleksi"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:202
 msgid "Override the icon output directory"
-msgstr ""
+msgstr "Ganti direktori keluaran ikon"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:205
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)"
-msgstr ""
+msgstr "Atur direktori keluaran media (untuk data media yang akan disajikan oleh server web)"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:208
 msgid "Set a directory where HTML and text issue reports will be stored"
-msgstr ""
+msgstr "Tetapkan direktori tempat HTML dan laporan masalah teks akan disimpan"
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:211 tools/appstream-compose.c:214
 msgid "Set the origin name"
-msgstr ""
+msgstr "Tetapkan nama asal"
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:217
 msgid "A comma-separated list of component-IDs to accept"
-msgstr ""
+msgstr "Daftar ID komponen yang dipisahkan koma yang akan diterima"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:231
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Gagal mengurai argumen"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-compose.c:242 tools/appstreamcli.c:1230
@@ -2213,83 +2212,87 @@ msgid ""
 "`short` - generates an abridged report\n"
 "`full` - a detailed report will be printed"
 msgstr ""
+"Nilai tidak valid untuk opsi `--print-report`: %s\n"
+"Nilai yang mungkin adalah:\n"
+"`on-error` - hanya mencetak laporan singkat jika proses gagal (baku)\n"
+"`short` - menghasilkan laporan ringkas\n"
+"`full` - laporan terperinci akan dicetak"
 
 #: tools/appstream-compose.c:285
 #, c-format
 msgid "Automatically selected '%s' as data output location."
-msgstr ""
+msgstr "Secara otomatis memilih '%s' sebagai lokasi keluaran data."
 
 #. TRANSLATORS: we don't have a destination directory for compose
 #: tools/appstream-compose.c:288
 msgid "No destination directory set, please provide a data output location!"
-msgstr ""
+msgstr "Tidak ada direktori tujuan yang ditetapkan, harap berikan lokasi keluaran data!"
 
 #: tools/appstream-compose.c:298 tools/appstream-compose.c:300
 msgid "WARNING"
-msgstr ""
+msgstr "PERINGATAN"
 
 #. TRANSLATORS: information about as-compose allowlist
 #: tools/appstream-compose.c:337
 #, c-format
 msgid "Only accepting components: %s"
-msgstr ""
+msgstr "Hanya menerima komponen: %s"
 
 #. TRANSLATORS: information about as-compose allowlist
 #: tools/appstream-compose.c:340
 #, c-format
 msgid "Only accepting component: %s"
-msgstr ""
+msgstr "Hanya menerima komponen: %s"
 
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:345
 msgid "Processing directories:"
-msgstr ""
+msgstr "Memroses direktori:"
 
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:348
 msgid "Processing directory:"
-msgstr ""
+msgstr "Memroses direktori:"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:357
 msgid "Can not process invalid directory"
-msgstr ""
+msgstr "Tidak dapat memroses direktori yang tidak valid"
 
 #. TRANSLATORS: information message
 #: tools/appstream-compose.c:369
 msgid "Composing metadata..."
-msgstr ""
+msgstr "Menyusun metadata..."
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:374
-#, fuzzy
 msgid "Failed to compose AppStream metadata"
-msgstr "Utilitas untuk bekerja dengan metadata AppStream"
+msgstr "Gagal menyusun metadata AppStream"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:380
 msgid "Run failed, some data was ignored."
-msgstr ""
+msgstr "Jalankan gagal, sebagian data diabaikan."
 
 #. TRANSLATORS: information message of appstream-compose
 #: tools/appstream-compose.c:382
 msgid "Errors were raised during this compose run:"
-msgstr ""
+msgstr "Kesalahan muncul selama dijalankannya penyusunan ini:"
 
 #: tools/appstream-compose.c:383
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
-msgstr ""
+msgstr "Lihat data laporan masalah yang dihasilkan untuk detail tentang masalah individu."
 
 #: tools/appstream-compose.c:386
 msgid "Overview of generated hints:"
-msgstr ""
+msgstr "Ikhtisar petunjuk yang dihasilkan:"
 
 #. TRANSLATORS: information message
 #: tools/appstream-compose.c:388
 msgid "Success!"
-msgstr ""
+msgstr "Sukses!"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstreamcli.c:59
@@ -2467,7 +2470,7 @@ msgstr "Menghasilkan luaran dalam format yang dipilih ('yaml' atau 'teks')."
 #: tools/appstreamcli.c:894
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
-msgstr ""
+msgstr "Biner penyusunan '%s' tidak ditemukan! Tidak bisa melanjutkan."
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:956
@@ -2609,11 +2612,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1198
-#, fuzzy
 msgid "Compose AppStream collection metadata from directory trees."
-msgstr ""
-"Tidak ada metadata AppStream yang ditemukan di direktori atau pohon "
-"direktori ini."
+msgstr "Susun metadata koleksi AppStream dari pohon direktori."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1206
