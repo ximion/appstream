@@ -163,7 +163,7 @@ typedef enum  {
  * @AS_DISPLAY_LENGTH_KIND_LARGE:	Large display
  * @AS_DISPLAY_LENGTH_KIND_XLARGE:	Very large display
  *
- * A rought estimate of how large a given display length is.
+ * A rough estimate of how large a given display length is.
  **/
 typedef enum  {
 	AS_DISPLAY_LENGTH_KIND_UNKNOWN,
