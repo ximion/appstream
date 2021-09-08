@@ -13,16 +13,15 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-08-28 16:09+0200\n"
-"PO-Revision-Date: 2021-03-22 04:29+0000\n"
-"Last-Translator: phlostically <phlostically@mailinator.com>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/"
-"translations/ja/>\n"
+"PO-Revision-Date: 2021-09-08 01:35+0000\n"
+"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/translations/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.5.2-dev\n"
+"X-Generator: Weblate 4.8.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -919,9 +918,9 @@ msgid "Failed to download due to server limit"
 msgstr ""
 
 #: src/as-curl.c:141 src/as-curl.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to download file: %s"
-msgstr "デスクトップエントリファイルを保存できません: %s"
+msgstr "ファイルをダウンロードできませんでした: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
 #: src/as-curl.c:157
@@ -1929,9 +1928,8 @@ msgstr "検出：%s-許可：%s"
 
 #. TRANSLATORS: ascompose flag description for: --verbose
 #: tools/appstream-compose.c:181
-#, fuzzy
 msgid "Show extra debugging information"
-msgstr "追加のデバッグ情報を表示します。"
+msgstr "追加のデバッグ情報を表示します"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
