@@ -322,11 +322,7 @@
 				<itemizedlist>
 					<listitem>
 						<para>
-							All screenshots should have a 16:9 aspect ratio, and should have a width that is no smaller than 620px (software center applications will be able to fill in the screenshots in the space they provide for that
-							more easily then).
-						</para>
-						<para>
-							Ideally the window will be resized to a 16:9 aspect ratio, but screenshots can also be cropped if only a small area of the window needs to be shown.
+							Use an aspect ratio that works for the applications's UI, use 16:9 as long as that is sensible. Have the source screenshot be at least 624px in width.
 						</para>
 					</listitem>
 					<listitem>
@@ -336,8 +332,16 @@
 						</para>
 					</listitem>
 					<listitem>
-						<para>Do not scale screenshots below their original size.</para>
+						<para>
+							Do not scale screenshots below their original size.
+						</para>
 					</listitem>
+					<listitem>
+						<para>
+							Generally try to keep any window size small to make the content more visible when it is scaled down in software center frontends
+						</para>
+					</listitem>
+
 				</itemizedlist>
 				<para>
 					Basic guidelines for things to include (and not include) in your screenshots:
@@ -345,7 +349,7 @@
 				<itemizedlist>
 					<listitem>
 						<para>
-							Use the default visual and theme settings, including the default font, icons, and window controls. Avoid including your own tweaks to the standard distribution offering.
+							Use the default theme, icon set, font, and window decorations of your desktop environment. Avoid including your own tweaks to the standard distribution offering.
 						</para>
 					</listitem>
 					<listitem>
@@ -371,7 +375,9 @@
 						</para>
 					</listitem>
 					<listitem>
-						<para>Don't add shadows to your screenshots.</para>
+						<para>
+							Use window screenshots with baked-in default shadows
+						</para>
 					</listitem>
 					<listitem>
 						<para>
@@ -400,7 +406,9 @@
 						</para>
 					</listitem>
 					<listitem>
-						<para>In general, you shouldn't include the mouse pointer in your screenshots.</para>
+						<para>
+							In general, you shouldn't include the mouse pointer in your screenshots.
+						</para>
 					</listitem>
 				</itemizedlist>
 				<para>

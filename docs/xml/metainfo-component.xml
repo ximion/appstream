@@ -1131,12 +1131,15 @@
 		<para>
 			The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> children, where at least one of them must have the property
 			<code>type="default"</code> to indicate the primary screenshot of the software. Every <code>&lt;screenshot/&gt;</code> tag must have at least
-			one <code>&lt;image/&gt;</code> or <code>&lt;video/&gt;</code> child, but never an <literal>image</literal> and <literal>video</literal> at the same time.
-			Also, screenshots containing videos must not be the default screenshot.
+			one <code>&lt;image/&gt;</code> or <code>&lt;video/&gt;</code> child, but never an <literal>image</literal> <emphasis>and</emphasis> <literal>video</literal>
+			at the same time.
+		</para>
+		<para>
+			Screenshots containing a video must not be the default screenshot.
 		</para>
 		<para>
 			The value of the <code>&lt;image/&gt;</code> tag is a direct HTTP/HTTPS URL to a screenshot uploaded to a public location on the web.
-			Images should ideally be provided in the PNG format, however using JPEG or WebP is also fine for images in metainfo files.
+			Images should ideally be provided in the PNG format, using JPEG or WebP is also permitted for images in metainfo files.
 		</para>
 		<para>
 			The <code>&lt;image/&gt;</code> tag may have the following properties:
@@ -1215,11 +1218,13 @@
 			</itemizedlist>
 		</para>
 		<para>
-			Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a translatable <code>&lt;caption/&gt;</code> child, defining a short (ideally not more than 256 characters)
+			Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a translatable <code>&lt;caption/&gt;</code> child, defining a short (ideally not more than 100 characters)
 			description of what the user can see on the referenced screenshot.
 		</para>
 		<para>
-			Ideally, all image screenshots as well as videos should have a 16:9 aspect ratio, and should have a width that is no smaller than 620 pixels.
+			An image of type <code>source</code> as well as any videos should have at least a width of 624 pixels.
+			Try to use a reasonably large image for <code>source</code> images, as they may be scaled down to <code>thumbnail</code> images in metadata processing.
+			It is suggested to have videos and images in 16:9 aspect ratio, as long as that is sensible for the displayed application.
 		</para>
 		<para>
 			Example:
