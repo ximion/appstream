@@ -576,7 +576,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "screenshot-caption-too-long",
 	  AS_ISSUE_SEVERITY_PEDANTIC,
-	  N_("The screenshot caption is too long (should be <= 80 characters)"),
+	  N_("The screenshot caption is too long (should be <= 100 characters)"),
 	},
 
 	{ "file-read-failed",

@@ -1891,7 +1891,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (scr_array, j));
 			const gchar *scr_caption = as_screenshot_get_caption (scr);
 
-			if ((scr_caption != NULL) && (strlen (scr_caption) > 80)) {
+			if ((scr_caption != NULL) && (strlen (scr_caption) > 100)) {
 				as_validator_add_issue (validator, NULL,
 							"screenshot-caption-too-long",
 							scr_caption);
