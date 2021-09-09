@@ -488,6 +488,19 @@ asc_read_translation_status (AscResult *cres,
 		if (!have_results)
 			asc_result_add_hint_simple (cres, cpt, "translations-not-found");
 
+		/* Add a fake entry for the source locale. Do so after checking
+		 * !have_results since the source locale is always guaranteed
+		 * to exist, so would break that check.
+		 * as_component_add_language() will deduplicate in case that’s
+		 * needed. */
+		for (guint i = 0; i < ctx->translations->len; i++) {
+			AsTranslation *t = g_ptr_array_index (ctx->translations, i);
+
+			as_component_add_language (cpt,
+						   as_translation_get_source_locale (t),
+						   100);
+		}
+
 		/* remove translation elements, they should no longer be in the resulting component */
 		g_ptr_array_set_size (ctx->translations, 0);
 	}

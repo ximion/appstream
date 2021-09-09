@@ -628,6 +628,9 @@ test_compose_locale_stats ()
 	g_assert_cmpint (as_component_get_language (cpt, "en_GB"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "ru"), ==, 33);
 
+	/* the source locale should be 100% translated */
+	g_assert_cmpint (as_component_get_language (cpt, "en_US"), ==, 100);
+
 	/* try loading Qt translations, style 1 */
 	as_component_clear_languages (cpt);
 	as_translation_set_kind (tr, AS_TRANSLATION_KIND_QT);
@@ -641,6 +644,9 @@ test_compose_locale_stats ()
 	asc_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, -1);
+
+	/* the source locale should be 100% translated */
+	g_assert_cmpint (as_component_get_language (cpt, "en_US"), ==, 100);
 
 	/* try loading Qt translations, style 2 */
 	as_component_clear_languages (cpt);
@@ -669,6 +675,53 @@ test_compose_locale_stats ()
 	asc_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, 100);
+}
+
+static void
+test_compose_source_locale (void)
+{
+	gboolean ret;
+	g_autoptr(GError) error = NULL;
+	g_autoptr(AscResult) cres = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsTranslation) tr = NULL;
+	g_autoptr(AscDirectoryUnit) dirunit = asc_directory_unit_new (datadir);
+
+	/* open sample data directory unit */
+	ret = asc_unit_open (ASC_UNIT (dirunit), &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	/* create dummy result with a dummy component, and set a non-standard
+	 * source locale on the translation */
+	cpt = as_component_new ();
+	as_component_set_id (cpt, "org.freedesktop.appstream.dummy");
+
+	tr = as_translation_new ();
+	as_translation_set_kind (tr, AS_TRANSLATION_KIND_GETTEXT);
+	as_translation_set_id (tr, "app");
+	as_translation_set_source_locale (tr, "de");
+	as_component_add_translation (cpt, tr);
+
+	cres = asc_result_new ();
+	ret = asc_result_add_component_with_string (cres, cpt, "<testdata>", &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	/* try loading a Gettext translation */
+	asc_read_translation_status (cres,
+					ASC_UNIT (dirunit),
+					"/usr",
+					25);
+	asc_assert_no_hints_in_result (cres);
+	g_assert_cmpint (as_component_get_language (cpt, "en_GB"), ==, 100);
+	g_assert_cmpint (as_component_get_language (cpt, "ru"), ==, 33);
+
+	/* the source locale should be 100% translated */
+	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, 100);
+
+	/* and the default source locale should not be translated */
+	g_assert_cmpint (as_component_get_language (cpt, "en_US"), ==, -1);
 }
 
 int
@@ -701,6 +754,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Compose/DesktopEntry", test_compose_desktop_entry);
 	g_test_add_func ("/AppStream/Compose/DirectoryUnit", test_compose_directory_unit);
 	g_test_add_func ("/AppStream/Compose/LocaleStats", test_compose_locale_stats);
+	g_test_add_func ("/AppStream/Compose/SourceLocale", test_compose_source_locale);
 
 	ret = g_test_run ();
 	g_free (datadir);
