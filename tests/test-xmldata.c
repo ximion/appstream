@@ -192,6 +192,7 @@ test_appstream_parser_locale ()
 	g_assert_cmpint (trs->len, ==, 1);
 	tr = AS_TRANSLATION (g_ptr_array_index (trs, 0));
 	g_assert_cmpstr (as_translation_get_id (tr), ==, "firefox");
+	g_assert_cmpstr (as_translation_get_source_locale (tr), ==, "de");
 
 	/* check if we loaded the right amount of icons */
 	g_assert_cmpint (as_component_get_icons (cpt)->len, ==, 2);
@@ -236,7 +237,7 @@ test_appstream_write_locale ()
 				    "    <mediatype>x-scheme-handler/http</mediatype>\n"
 				    "    <mediatype>x-scheme-handler/https</mediatype>\n"
 				    "  </provides>\n"
-				    "  <translation type=\"gettext\">firefox</translation>\n"
+				    "  <translation type=\"gettext\" source_locale=\"de\">firefox</translation>\n"
 				    "  <keywords>\n"
 				    "    <keyword>internet</keyword>\n"
 				    "    <keyword>web</keyword>\n"

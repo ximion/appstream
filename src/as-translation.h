@@ -73,6 +73,10 @@ const gchar		*as_translation_get_id (AsTranslation *tr);
 void			as_translation_set_id (AsTranslation *tr,
 					       const gchar *id);
 
+const gchar		*as_translation_get_source_locale (AsTranslation *tr);
+void			as_translation_set_source_locale (AsTranslation *tr,
+							  const gchar   *locale);
+
 G_END_DECLS
 
 #endif /* __AS_TRANSLATION_H */

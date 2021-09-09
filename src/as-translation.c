@@ -42,6 +42,7 @@ typedef struct
 {
 	AsTranslationKind	kind;
 	GRefString		*id;
+	GRefString		*source_locale;
 } AsTranslationPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsTranslation, as_translation, G_TYPE_OBJECT)
@@ -103,6 +104,7 @@ as_translation_finalize (GObject *object)
 	AsTranslationPrivate *priv = GET_PRIVATE (tr);
 
 	as_ref_string_release (priv->id);
+	as_ref_string_release (priv->source_locale);
 
 	G_OBJECT_CLASS (as_translation_parent_class)->finalize (object);
 }
@@ -174,6 +176,42 @@ as_translation_set_id (AsTranslation *tr, const gchar *id)
 }
 
 /**
+ * as_translation_get_source_locale:
+ * @tr: a #AsTranslation instance.
+ *
+ * The locale of the source strings for this component. If this has not been
+ * explicitly specified, `en_US` will be returned.
+ *
+ * Returns: (not nullable): The locale of the source strings for this component.
+ * Since: 0.14.6
+ */
+const gchar*
+as_translation_get_source_locale (AsTranslation *tr)
+{
+	AsTranslationPrivate *priv = GET_PRIVATE (tr);
+	return (priv->source_locale != NULL) ? priv->source_locale : "en_US";
+}
+
+/**
+ * as_translation_set_source_locale:
+ * @tr: a #AsTranslation instance.
+ * @locale: (nullable): The locale that the source strings are in, or %NULL if
+ *    unknown or default.
+ *
+ * Set the locale of the source strings for this component. In gettext, this is
+ * referred to as the `C` locale. It’s almost always `en_US`, but for some
+ * components it may not be.
+ *
+ * Since: 0.14.6
+ */
+void
+as_translation_set_source_locale (AsTranslation *tr, const gchar *locale)
+{
+	AsTranslationPrivate *priv = GET_PRIVATE (tr);
+	as_ref_string_assign_safe (&priv->source_locale, locale);
+}
+
+/**
  * as_translation_load_from_xml:
  * @tr: a #AsTranslation instance.
  * @ctx: the AppStream document context.
@@ -193,6 +231,9 @@ as_translation_load_from_xml (AsTranslation *tr, AsContext *ctx, xmlNode *node, 
 	priv->kind = as_translation_kind_from_string (prop);
 	if (priv->kind == AS_TRANSLATION_KIND_UNKNOWN)
 		return FALSE;
+
+	as_ref_string_assign_transfer (&priv->source_locale,
+				       as_xml_get_prop_value_refstr (node, "source_locale"));
 
 	content = as_xml_get_node_value (node);
 	as_translation_set_id (tr, content);
@@ -221,6 +262,8 @@ as_translation_to_xml_node (AsTranslation *tr, AsContext *ctx, xmlNode *root)
 	n = xmlNewTextChild (root, NULL, (xmlChar*) "translation", (xmlChar*) priv->id);
 	xmlNewProp (n, (xmlChar*) "type",
 			(xmlChar*) as_translation_kind_to_string (priv->kind));
+
+	as_xml_add_text_prop (n, "source_locale", priv->source_locale);
 }
 
 /**
