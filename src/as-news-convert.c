@@ -401,9 +401,10 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 typedef enum {
 	AS_NEWS_SECTION_KIND_UNKNOWN,
 	AS_NEWS_SECTION_KIND_HEADER,
+	AS_NEWS_SECTION_KIND_NOTES,
 	AS_NEWS_SECTION_KIND_BUGFIX,
 	AS_NEWS_SECTION_KIND_FEATURES,
-	AS_NEWS_SECTION_KIND_NOTES,
+	AS_NEWS_SECTION_KIND_MISC,
 	AS_NEWS_SECTION_KIND_TRANSLATION,
 	AS_NEWS_SECTION_KIND_DOCUMENTATION,
 	AS_NEWS_SECTION_KIND_CONTRIBUTORS,
@@ -433,6 +434,10 @@ as_news_text_guess_section (const gchar *lines)
 		return AS_NEWS_SECTION_KIND_NOTES;
 	if (g_strstr_len (lines, -1, "Note:\n") != NULL)
 		return AS_NEWS_SECTION_KIND_NOTES;
+	if (g_strstr_len (lines, -1, "Miscellaneous:\n") != NULL)
+		return AS_NEWS_SECTION_KIND_MISC;
+	if (g_strstr_len (lines, -1, "Misc:\n") != NULL)
+		return AS_NEWS_SECTION_KIND_MISC;
 	if (g_strstr_len (lines, -1, "Translations:\n") != NULL)
 		return AS_NEWS_SECTION_KIND_TRANSLATION;
 	if (g_strstr_len (lines, -1, "Translation:\n") != NULL)
@@ -706,6 +711,18 @@ as_news_text_to_releases (const gchar *data, GError **error)
 			} else {
 				as_news_text_add_markup (desc, "p",
 							 "This release adds the following features:");
+			}
+			if (!as_news_text_to_list_markup (desc, lines + 1, error))
+				return FALSE;
+			break;
+		case AS_NEWS_SECTION_KIND_MISC:
+			lines = g_strsplit (split[i], "\n", -1);
+			if (g_strv_length (lines) == 2) {
+				as_news_text_add_markup (desc, "p",
+							 "This release includes the following change:");
+			} else {
+				as_news_text_add_markup (desc, "p",
+							 "This release includes the following changes:");
 			}
 			if (!as_news_text_to_list_markup (desc, lines + 1, error))
 				return FALSE;
