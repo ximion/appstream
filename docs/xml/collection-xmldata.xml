@@ -383,20 +383,21 @@
 					</para>
 					<para>
 						The metadata generator should scale the source image down to several thumbnails useful for the client to load.
-						The recommended sizes for thumbnail images are:
+						The recommended widths for thumbnail images are:
 					</para>
 					<itemizedlist>
-						<listitem><para><emphasis>752x423</emphasis> (large)</para></listitem>
-						<listitem><para><emphasis>624x351</emphasis> (normal)</para></listitem>
-						<listitem><para><emphasis>112x63</emphasis> (small)</para></listitem>
+						<listitem><para><emphasis>752</emphasis> (large)</para></listitem>
+						<listitem><para><emphasis>624</emphasis> (normal)</para></listitem>
+						<listitem><para><emphasis>112</emphasis> (small)</para></listitem>
 
-						<listitem><para><emphasis>1504x846</emphasis> (large, HiDPI)</para></listitem>
-						<listitem><para><emphasis>1248x702</emphasis> (normal, HiDPI)</para></listitem>
-						<listitem><para><emphasis>224x126</emphasis> (small, HiDPI)</para></listitem>
+						<listitem><para><emphasis>1504</emphasis> (large, HiDPI)</para></listitem>
+						<listitem><para><emphasis>1248</emphasis> (normal, HiDPI)</para></listitem>
+						<listitem><para><emphasis>224</emphasis> (small, HiDPI)</para></listitem>
 					</itemizedlist>
 					<para>
 						In order to support HiDPI screens, the thumbnails should also be available in their bigger sizes. A metadata generator should, however, never attempt
 						to scale up a smaller image to a larger size, and just ship the smaller sizes instead.
+						When scaling images to the respective thumbnail width, the image aspect ratio must be preserved, padding, cropping or stretching should not happen.
 					</para>
 					<para>
 						Optionally, a screenshot can contain a <code><![CDATA[<caption>]]></code> tag, describing the screenshot's caption. This is usually what the user can see
