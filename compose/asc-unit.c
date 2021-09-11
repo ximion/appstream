@@ -303,7 +303,7 @@ asc_unit_get_user_data (AscUnit *unit)
 }
 
 /**
- * asc_unit_get_user_data:
+ * asc_unit_set_user_data:
  * @unit: an #AscUnit instance.
  * @user_data: the user data
  *
