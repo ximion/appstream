@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-08-28 16:09+0200\n"
-"PO-Revision-Date: 2021-09-08 23:32+0000\n"
+"PO-Revision-Date: 2021-09-11 07:33+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.8.1-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2180,6 +2180,11 @@ msgid ""
 "`short` - generates an abridged report\n"
 "`full` - a detailed report will be printed"
 msgstr ""
+"Nevažeća vrijednost za opciju `--print-report`: %s\n"
+"Moguće vrijednosti su:\n"
+"`on-error` - ispisuje samo kratak izvještaj ako pokretanje ne uspije (standardno)\n"
+"`short` - generira skraćen izvještaj\n"
+"`full` - ispisat će se detaljan izvještaj"
 
 #: tools/appstream-compose.c:285
 #, c-format
@@ -2193,39 +2198,39 @@ msgstr ""
 
 #: tools/appstream-compose.c:298 tools/appstream-compose.c:300
 msgid "WARNING"
-msgstr ""
+msgstr "UPOZORENJE"
 
 #. TRANSLATORS: information about as-compose allowlist
 #: tools/appstream-compose.c:337
 #, c-format
 msgid "Only accepting components: %s"
-msgstr ""
+msgstr "Prihvaćaju se samo komponente: %s"
 
 #. TRANSLATORS: information about as-compose allowlist
 #: tools/appstream-compose.c:340
 #, c-format
 msgid "Only accepting component: %s"
-msgstr ""
+msgstr "Prihvaća se samo komponenta: %s"
 
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:345
 msgid "Processing directories:"
-msgstr ""
+msgstr "Mape koje se obrađuju:"
 
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:348
 msgid "Processing directory:"
-msgstr ""
+msgstr "Mapa koje se obrađuje:"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:357
 msgid "Can not process invalid directory"
-msgstr ""
+msgstr "Nije moguće obraditi nevaljanu mapu"
 
 #. TRANSLATORS: information message
 #: tools/appstream-compose.c:369
 msgid "Composing metadata..."
-msgstr ""
+msgstr "Sastavljanje metapodataka …"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:374
@@ -2235,12 +2240,12 @@ msgstr "Neuspjelo sastavljanje AppStream metapodataka"
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:380
 msgid "Run failed, some data was ignored."
-msgstr ""
+msgstr "Pokretanje nije uspjelo, neki su podaci zanemareni."
 
 #. TRANSLATORS: information message of appstream-compose
 #: tools/appstream-compose.c:382
 msgid "Errors were raised during this compose run:"
-msgstr ""
+msgstr "Tijekom ovog izvođenja sastavljanja pojavile su se greške:"
 
 #: tools/appstream-compose.c:383
 msgid ""
@@ -2250,12 +2255,12 @@ msgstr ""
 
 #: tools/appstream-compose.c:386
 msgid "Overview of generated hints:"
-msgstr ""
+msgstr "Pregled generiranih savjeta:"
 
 #. TRANSLATORS: information message
 #: tools/appstream-compose.c:388
 msgid "Success!"
-msgstr ""
+msgstr "Uspjeh!"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstreamcli.c:59
