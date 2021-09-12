@@ -34,7 +34,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: Jose Quintana <joseluisquintana20@gmail.com>\n"
+"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -59,14 +59,7 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
-"AppStream es una especificación de metadatos que permite a los componentes "
-"de software proporcionar información sobre sí mismos a los sistemas "
-"automatizados y a los usuarios finales antes de que el software se instale "
-"de forma efectiva. El proyecto AppStream ofrece facilidades para acceder y "
-"transformar fácilmente estos metadatos, así como algunos servicios "
-"adicionales para construir centros de software con muchas funciones y "
-"aplicaciones similares que hagan uso de los metadatos del software."
+msgstr "AppStream es una especificación de metadatos que permite a los componentes de software proporcionar información sobre sí mismos a los sistemas automatizados y a los usuarios finales antes de que el software se instale de forma efectiva. El proyecto AppStream ofrece facilidades para acceder y transformar fácilmente estos metadatos, así como algunos servicios adicionales para construir centros de software con muchas funciones y aplicaciones similares que hagan uso de los metadatos del software."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -76,13 +69,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"La herramienta de línea de comandos <em>appstreamcli</em> permite leer, "
-"escribir y transformar los metadatos XML o YAML de AppStream, así como "
-"validar su cumplimiento con la especificación. También proporciona un fácil "
-"acceso al conjunto de metadatos del sistema, por ejemplo para consultar el "
-"software que proporciona un manejador Mediatype específico o para instalar "
-"software por su identificador de componente."
+msgstr "La herramienta de línea de comandos <em>appstreamcli</em> permite leer, escribir y transformar los metadatos XML o YAML de AppStream, así como validar su cumplimiento con la especificación. También proporciona un fácil acceso al conjunto de metadatos del sistema, por ejemplo para consultar el software que proporciona un manejador Mediatype específico o para instalar software por su identificador de componente."
 
 #: src/as-cache.c:909
 #, c-format
@@ -1377,9 +1364,7 @@ msgstr "Operación de comparación no válida en el elemento de relación. Sólo
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
-"El elemento de relación tiene un conjunto de operaciones de comparación, "
-"pero no admite ninguna comparación."
+msgstr "El elemento de relación tiene un conjunto de operaciones de comparación, pero no admite ninguna comparación."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:288
@@ -1417,11 +1402,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
-"El elemento `display_length` contiene una longitud de pantalla no válida. Su "
-"valor debe ser una cadena abreviada o un valor entero positivo que denote "
-"píxeles lógicos. Consulte la especificación de AppStream para obtener más "
-"información sobre esta etiqueta."
+msgstr "El elemento `display_length` contiene una longitud de pantalla no válida. Su valor debe ser una cadena abreviada o un valor entero positivo que denote píxeles lógicos. Consulte la especificación de AppStream para obtener más información sobre esta etiqueta."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:315
@@ -1430,20 +1411,14 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
-"La propiedad `side` del elemento `display_length` contiene un valor no "
-"válido. Debe ser `shortest` o `longest`, o bien desmarcarse para implicar "
-"`shortest` para que el valor del elemento se refiera al lado más corto o más "
-"largo de la pantalla."
+msgstr "La propiedad `side` del elemento `display_length` contiene un valor no válido. Debe ser `shortest` o `longest`, o bien desmarcarse para implicar `shortest` para que el valor del elemento se refiera al lado más corto o más largo de la pantalla."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:322
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
-"Este elemento `hardware` contiene un valor no válido. Debería ser un "
-"Computer Hardware ID (CHID) UUID sin corchetes."
+msgstr "Este elemento `hardware` contiene un valor no válido. Debería ser un Computer Hardware ID (CHID) UUID sin corchetes."
 
 #: src/as-validator-issue-tag.h:327
 msgid ""
@@ -1733,9 +1708,7 @@ msgstr "El nombre de la categoría no es válido. Consulte la especificación de
 
 #: src/as-validator-issue-tag.h:586
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr ""
-"El título de la captura de pantalla es demasiado largo (debería ser <= 100 "
-"caracteres)"
+msgstr "El título de la captura de pantalla es demasiado largo (debería ser <= 100 caracteres)"
 
 #: src/as-validator-issue-tag.h:591
 msgid "Unable to read file."
@@ -1870,9 +1843,7 @@ msgstr "El problema está etiquetado en la vulnerabilidad de seguridad con un n�
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
-msgstr ""
-"A este componente le falta información sobre las versiones. Considere añadir "
-"una etiqueta `releases` para describir las versiones y sus cambios."
+msgstr "A este componente le falta información sobre las versiones. Considere añadir una etiqueta `releases` para describir las versiones y sus cambios."
 
 #: src/as-validator-issue-tag.h:725
 msgid ""
@@ -1915,10 +1886,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
-"La etiqueta `mimetypes` de nivel superior está obsoleta. Por favor, utilice "
-"las etiquetas `mediatype` en un bloque `provides` para indicar que su "
-"software proporciona un manejador de medios para los tipos dados."
+msgstr "La etiqueta `mimetypes` de nivel superior está obsoleta. Por favor, utilice las etiquetas `mediatype` en un bloque `provides` para indicar que su software proporciona un manejador de medios para los tipos dados."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:762
@@ -1926,10 +1894,7 @@ msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
 "questions at https://hughsie.github.io/oars/"
-msgstr ""
-"Este componente no tiene la etiqueta `content_rating` para proporcionar "
-"información sobre la clasificación por edades. Puede generar los datos de la "
-"etiqueta respondiendo a algunas preguntas en https://hughsie.github.io/oars/"
+msgstr "Este componente no tiene la etiqueta `content_rating` para proporcionar información sobre la clasificación por edades. Puede generar los datos de la etiqueta respondiendo a algunas preguntas en https://hughsie.github.io/oars/"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:769
@@ -1941,10 +1906,7 @@ msgstr "A esta `tag` le falta el atributo `namespace`."
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"Esta etiqueta o su «namespace» contiene caracteres no válidos. Sólo se "
-"permiten letras ASCII en minúsculas, números, puntos, guiones y guiones "
-"bajos."
+msgstr "Esta etiqueta o su «namespace» contiene caracteres no válidos. Sólo se permiten letras ASCII en minúsculas, números, puntos, guiones y guiones bajos."
 
 #: src/as-validator.c:150
 msgid ""
@@ -1984,14 +1946,12 @@ msgstr "Mostrar la versión del programa."
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:192
 msgid "Do not use the network at all, not even for URL validity checks."
-msgstr ""
-"No usa la red en absoluto, ni siquiera para comprobar la validez de la URL."
+msgstr "No usa la red en absoluto, ni siquiera para comprobar la validez de la URL."
 
 #. TRANSLATORS: ascompose flag description for: --full-report
 #: tools/appstream-compose.c:195
 msgid "Set mode of the issue report that is printed to the console"
-msgstr ""
-"Establece el modo del informe de problemas que se imprime en la consola"
+msgstr "Establece el modo del informe de problemas que se imprime en la consola"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:198
@@ -2017,16 +1977,12 @@ msgstr "Anula el directorio de salida de los iconos"
 #: tools/appstream-compose.c:210
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)"
-msgstr ""
-"Establece el directorio de salida de medios (para los datos de medios que "
-"serán provistos por un servidor web)"
+msgstr "Establece el directorio de salida de medios (para los datos de medios que serán provistos por un servidor web)"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:213
 msgid "Set a directory where HTML and text issue reports will be stored"
-msgstr ""
-"Establece un directorio en el que se almacenarán los informes de problemas "
-"HTML y de texto"
+msgstr "Establece un directorio en el que se almacenarán los informes de problemas HTML y de texto"
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:216
@@ -2076,8 +2032,7 @@ msgid ""
 msgstr ""
 "Valor no válido para la opción `--print-report`: %s\n"
 "Posibles valores:\n"
-"`on-error` - sólo imprime un informe reducido si la ejecución ha fallado "
-"(por defecto)\n"
+"`on-error` - sólo imprime un informe reducido si la ejecución ha fallado (por defecto)\n"
 "`short` - genera un informe resumido\n"
 "`full` - se imprimirá un informe detallado"
 
@@ -2089,9 +2044,7 @@ msgstr "Seleccionado automáticamente '%s' como ubicación de salida de datos."
 #. TRANSLATORS: we don't have a destination directory for compose
 #: tools/appstream-compose.c:299
 msgid "No destination directory set, please provide a data output location!"
-msgstr ""
-"No se ha establecido ningún directorio de destino, ¡por favor, indique una "
-"ubicación de salida de datos!"
+msgstr "No se ha establecido ningún directorio de destino, ¡por favor, indique una ubicación de salida de datos!"
 
 #: tools/appstream-compose.c:309 tools/appstream-compose.c:311
 msgid "WARNING"
@@ -2148,9 +2101,7 @@ msgstr "Se produjeron errores durante la ejecución de la composición:"
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
-msgstr ""
-"Consulte los datos del informe de problemas generados para conocer los "
-"detalles de cada uno de ellos."
+msgstr "Consulte los datos del informe de problemas generados para conocer los detalles de cada uno de ellos."
 
 #: tools/appstream-compose.c:397
 msgid "Overview of generated hints:"
@@ -2176,9 +2127,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
-"Ignora la antigüedad de la caché y construye una caché nueva antes de "
-"realizar la consulta."
+msgstr "Ignora la antigüedad de la caché y construye una caché nueva antes de realizar la consulta."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
@@ -2253,24 +2202,18 @@ msgstr "Forzar la actualización de la caché."
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
-"Limita la actualización de la caché a los datos de una fuente específica, "
-"por ejemplo, `os` o `flatpak`. Puede especificarse varias veces."
+msgstr "Limita la actualización de la caché a los datos de una fuente específica, por ejemplo, `os` o `flatpak`. Puede especificarse varias veces."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:478
 msgid ""
 "No license, license expression or license exception string was provided."
-msgstr ""
-"Ninguna licencia, expresión de licencia o cadena de excepción de licencia "
-"fue proporcionada."
+msgstr "Ninguna licencia, expresión de licencia o cadena de excepción de licencia fue proporcionada."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:503
 msgid "Set the data origin for the installed metadata collection file."
-msgstr ""
-"Establece el origen de los datos para el archivo de colección de metadatos "
-"instalado."
+msgstr "Establece el origen de los datos para el archivo de colección de metadatos instalado."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:508
@@ -2338,19 +2281,14 @@ msgstr ""
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr ""
-"Limitar el número de entradas de versión que acaban en el archivo metainfo "
-"(<= 0 para no limitar)."
+msgstr "Limitar el número de entradas de versión que acaban en el archivo metainfo (<= 0 para no limitar)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:854
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
-msgstr ""
-"Establece el número de versiones que deben tener descripciones marcadas para "
-"su traducción (las últimas versiones se traducen primero, -1 para las "
-"ilimitadas)."
+msgstr "Establece el número de versiones que deben tener descripciones marcadas para su traducción (las últimas versiones se traducen primero, -1 para las ilimitadas)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:898
@@ -2360,8 +2298,7 @@ msgstr "Generar la salida en el formato seleccionado («yaml» o «text»)."
 #: tools/appstreamcli.c:930
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
-msgstr ""
-"¡No se ha encontrado el binario de composición '%s'! No se puede continuar."
+msgstr "¡No se ha encontrado el binario de composición '%s'! No se puede continuar."
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:938
@@ -2448,9 +2385,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
 msgid "Check license string for validity and print details about it."
-msgstr ""
-"Comprueba la validez de la cadena de licencia e imprime los detalles de la "
-"misma."
+msgstr "Comprueba la validez de la cadena de licencia e imprime los detalles de la misma."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1186
@@ -2520,9 +2455,7 @@ msgstr "Escribe un archivo de texto o YAML con la información de un archivo met
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1244
 msgid "Compose AppStream collection metadata from directory trees."
-msgstr ""
-"Compone los metadatos de la colección AppStream a partir de árboles de "
-"directorios."
+msgstr "Compone los metadatos de la colección AppStream a partir de árboles de directorios."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1252
@@ -2536,8 +2469,7 @@ msgstr "Sólo refresca la caché de metadatos específica del usuario actual."
 
 #: tools/ascli-actions-mdata.c:59
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
-"Actualizando la caché de metadatos de software para el sistema operativo."
+msgstr "Actualizando la caché de metadatos de software para el sistema operativo."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for Flatpak."
