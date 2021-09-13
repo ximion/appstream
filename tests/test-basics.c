@@ -448,6 +448,9 @@ test_spdx (void)
 	g_free (tmp);
 
 	/* licenses are free-as-in-freedom */
+	g_assert_true (as_license_is_free_license ("GPL-3.0+ and GPL-2.0+ and LGPL-2.0+ and BSD-3-Clause and MIT and CC-BY-SA-1.0 and CC-BY-2.5"));
+	g_assert_true (as_license_is_free_license ("GPL-2.0+ and CC-BY-3.0 and CC-BY-SA-3.0"));
+	g_assert_true (as_license_is_free_license ("GPL-3.0+ and CC-BY-SA-3.0"));
 	g_assert_true (as_license_is_free_license ("CC0"));
 	g_assert_true (as_license_is_free_license ("GPL-2.0 AND FSFAP"));
 	g_assert_true (as_license_is_free_license ("OFL-1.1 OR (GPL-3.0-or-later WITH Font-exception-2.0)"));
