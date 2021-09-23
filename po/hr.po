@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-08-28 16:09+0200\n"
-"PO-Revision-Date: 2021-09-11 07:33+0000\n"
+"PO-Revision-Date: 2021-09-23 06:36+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
@@ -40,7 +40,7 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
+msgstr "AppStream je specifikacija metapodataka koja softverskim komponentama omogućuje pružanje informacija o sebi automatiziranim sustavima i krajnjim korisnicima prije nego što se softver stvarno instalira. Projekt AppStream pruža mogućnosti za jednostavan pristup i transformaciju tih metapodataka, kao i nekoliko dodatnih usluga za izgradnju softverskih centara i sličnih programa koji koriste softverske metapodatke."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -1446,7 +1446,7 @@ msgstr ""
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
+msgstr "Element veze ima postavljenu operaciju uspoređivanja, ali ne podržava bilo koja uspoređivanja."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:287
@@ -1992,7 +1992,7 @@ msgstr ""
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
+msgstr "Problem je označen sigurnosnom ranjivošću sa CVE brojem, ali njegova vrijednost ne izgleda kao valjani CVE identifikator."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:713
@@ -2105,27 +2105,27 @@ msgstr "Prikaži verziju programa."
 #. TRANSLATORS: ascompose flag description for: --full-report
 #: tools/appstream-compose.c:190
 msgid "Set mode of the issue report that is printed to the console"
-msgstr ""
+msgstr "Postavljanje načina ispisa izvještaja o problemu na konzolu"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:193
 msgid "Override the default prefix (`/usr` by default)"
-msgstr ""
+msgstr "Prepiši standardni prefiks (standardno je `/usr`)"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:196
 msgid "Set the result output directory"
-msgstr ""
+msgstr "Postavi mapu za ispis rezultata"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
 #: tools/appstream-compose.c:199
 msgid "Override the collection metadata output directory"
-msgstr ""
+msgstr "Prepiši mapu rezultata od collection metadata"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:202
 msgid "Override the icon output directory"
-msgstr ""
+msgstr "Prepiši mapu rezultata ikone"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:205
