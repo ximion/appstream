@@ -91,6 +91,17 @@ def _read_spdx_licenses(data_dir, last_tag_ver, only_free=False):
             'eceptions_list_ver': exceptions_ver_ref}
 
 
+def _read_dfsg_free_license_list():
+    ''' Obtain a (manually curated) list of DFSG-free licenses '''
+    licenses = set()
+    with open('dfsg-free-licenses.txt', 'r') as f:
+        for line in f.readlines():
+            if line.startswith('#'):
+                continue
+            licenses.add(line.strip())
+    return licenses
+
+
 def update_spdx_id_list(git_url, licenselist_fname, licenselist_free_fname, exceptionlist_fname, with_deprecated=True):
     print('Updating list of SPDX license IDs...')
     tdir = TemporaryDirectory(prefix='spdx_master-')
@@ -122,8 +133,15 @@ def update_spdx_id_list(git_url, licenselist_fname, licenselist_free_fname, exce
 
     license_free_data = _read_spdx_licenses(tdir.name, last_tag_ver, only_free=True)
     with open(licenselist_free_fname, 'w') as f:
-        f.write('# The list of free (OSI or FSF approved) licenses recognized by SPDX, v{}\n'.format(license_list_ver))
-        f.write('\n'.join(sorted(license_free_data['licenses'])))
+        f.write('# The list of free (OSI, FSF approved or DFSG-free) licenses recognized by SPDX, v{}\n'.format(
+            license_list_ver))
+        lid_set = set(lid_list)
+        free_lid_set = set(license_free_data['licenses'])
+        for dfsg_lid in _read_dfsg_free_license_list():
+            if dfsg_lid not in lid_set:
+                raise Exception('Unknown license-ID "{}" found in DFSG-free license list!'.format(dfsg_lid))
+            free_lid_set.add(dfsg_lid)
+        f.write('\n'.join(sorted(free_lid_set)))
         f.write('\n')
 
 
