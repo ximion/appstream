@@ -34,7 +34,7 @@
  *
  * Print various interesting status information.
  */
-int
+gint
 ascli_show_status (void)
 {
 	guint i;
@@ -167,7 +167,7 @@ ascli_show_status (void)
  *
  * Create a .desktop file from a metainfo file.
  */
-int
+gint
 ascli_make_desktop_entry_file (const gchar *mi_fname, const gchar *de_fname, const gchar *exec_line)
 {
 	g_autoptr(AsMetadata) mdata = NULL;
@@ -379,7 +379,7 @@ ascli_make_desktop_entry_file (const gchar *mi_fname, const gchar *de_fname, con
  *
  * Convert NEWS data to a metainfo file.
  */
-int
+gint
 ascli_news_to_metainfo (const gchar *news_fname, const gchar *mi_fname, const gchar *out_fname, guint limit, const gchar *format_str)
 {
 	g_autoptr(GPtrArray) releases = NULL;
@@ -492,7 +492,7 @@ ascli_news_to_metainfo (const gchar *news_fname, const gchar *mi_fname, const gc
  *
  * Convert metainfo file to NEWS textfile.
  */
-int
+gint
 ascli_metainfo_to_news (const gchar *mi_fname, const gchar *news_fname, const gchar *format_str)
 {
 	g_autoptr(AsMetadata) metad = NULL;

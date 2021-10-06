@@ -26,20 +26,22 @@
 
 G_BEGIN_DECLS
 
-int		ascli_show_status (void);
+gint		ascli_show_status (void);
 
-int		ascli_make_desktop_entry_file (const gchar *mi_fname,
+gint		ascli_make_desktop_entry_file (const gchar *mi_fname,
 					       const gchar *de_fname,
 					       const gchar *exec_line);
 
-int		ascli_news_to_metainfo (const gchar *news_fname,
+gint		ascli_news_to_metainfo (const gchar *news_fname,
 					const gchar *mi_fname,
 					const gchar *out_fname,
 					guint limit,
 					const gchar *format_str);
-int		ascli_metainfo_to_news (const gchar *mi_fname,
+gint		ascli_metainfo_to_news (const gchar *mi_fname,
 					const gchar *news_fname,
 					const gchar *format_str);
+
+gint		ascli_check_license (const gchar *license);
 
 G_END_DECLS
 
