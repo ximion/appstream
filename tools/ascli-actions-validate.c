@@ -498,3 +498,61 @@ ascli_validate_tree_format (const gchar *root_dir, const gchar *format, gboolean
 	g_print ("\n");
 	return 1;
 }
+
+/**
+ * ascli_check_license:
+ *
+ * Test license for validity and print information about it.
+ */
+gint
+ascli_check_license (const gchar *license)
+{
+	gboolean valid = TRUE;
+	gboolean is_expression = FALSE;
+	const gchar *type_str = NULL;
+	g_autofree gchar *license_id = NULL;
+
+	is_expression = as_is_spdx_license_expression (license);
+	if (is_expression)
+		license_id = g_strdup (license);
+	else
+		license_id = as_license_to_spdx_id (license);
+
+	if (as_is_spdx_license_id (license_id))
+		/* TRANSLATORS: A plain license ID */
+		type_str = _("license");
+	else if (as_is_spdx_license_exception_id (license_id))
+		/* TRANSLATORS: A license exception */
+		type_str = _("license exception");
+	else if (is_expression)
+		/* TRANSLATORS: A complex license expression */
+		type_str = _("license expression");
+
+	if (type_str == NULL) {
+		/* TRANSLATORS: An invalid license */
+		type_str = _("invalid");
+		valid = FALSE;
+	}
+
+	/* TRANSLATORS: The license string type (single license, expression, exception, invalid) */
+	ascli_print_key_value (_("License Type"), type_str, FALSE);
+
+	if (!is_expression && valid) {
+		/* TRANSLATORS: Canonical identifier of a software license */
+		ascli_print_key_value (_("Canonical ID"), license_id, FALSE);
+	}
+
+	/* TRANSLATORS: Whether a license is suitable for AppStream metadata */
+	ascli_print_key_value (_("Suitable for AppStream metadata"), as_license_is_metadata_license (license_id)? _("yes") : _("no"), FALSE);
+
+	/* TRANSLATORS: Whether a license considered suitable for Free and Open Source software */
+	ascli_print_key_value (_("Free and Open Source"), as_license_is_free_license (license_id)? _("yes") : _("no"), FALSE);
+
+	if (!is_expression) {
+		g_autofree gchar *url = as_get_license_url (license_id);
+		/* TRANSLATORS: Software license URL */
+		ascli_print_key_value (_("URL"), url, FALSE);
+	}
+
+	return valid? 0 : 1;
+}

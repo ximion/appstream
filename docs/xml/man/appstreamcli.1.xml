@@ -163,6 +163,26 @@
 			</varlistentry>
 
 			<varlistentry>
+				<term><option>check-license <replaceable>LICENSE</replaceable></option></term>
+				<listitem>
+					<para>
+						Test a license string for validity and display details about it.
+					</para>
+					<para>
+						This will check whether the license string is considered to be valid for AppStream, and return
+						a non-zero exit code if it is not. The command will also display useful information like the
+						canonical ID of a license, whether it is suitable as license for AppStream metadata,
+						and whether the license is considered to be for Free and Open Source software or proprietary software.
+					</para>
+					<para>
+						AppStream will consider any license as Free and Open Source that is marked as suitable by either the
+						Free Software Foundation (FSF), Open Source Initiative (OSI) or explicit license list
+						of the Debian Free Software Guidelines (DFSG).
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
 				<term><option>install <replaceable>ID</replaceable></option></term>
 				<listitem>
 					<para>

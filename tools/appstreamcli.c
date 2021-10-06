@@ -171,7 +171,8 @@ as_client_new_subcommand_option_context (const gchar *command, const GOptionEntr
 
 	opt_context = g_option_context_new ("- AppStream CLI.");
 	g_option_context_set_help_enabled (opt_context, TRUE);
-	g_option_context_add_main_entries (opt_context, entries, NULL);
+	if (entries != NULL)
+		g_option_context_add_main_entries (opt_context, entries, NULL);
 
 	/* set the summary text */
 	summary = as_client_get_summary_for (command);
@@ -453,6 +454,30 @@ as_client_run_validate_tree (const gchar *command, char **argv, int argc)
 						   optn_format,
 						   !optn_nonet);
 	}
+}
+
+/**
+ * as_client_run_check_license:
+ *
+ * Print license information.
+ */
+static int
+as_client_run_check_license (const gchar *command, char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+
+	opt_context = as_client_new_subcommand_option_context (command, NULL);
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc != 3) {
+		/* TRANSLATORS: ascli check-license is missing its parameter */
+		ascli_print_stderr (_("No license, license expression or license exception string was provided."));
+		return 4;
+	}
+	return ascli_check_license (argv[2]);
 }
 
 /**
@@ -1138,6 +1163,11 @@ as_client_run (char **argv, int argc)
 			/* TRANSLATORS: `appstreamcli validate-tree` command description. */
 			_("Validate an installed file-tree of an application for valid metadata."),
 			as_client_run_validate_tree);
+	ascli_add_cmd (commands,
+			2, "check-license", NULL, "LICENSE",
+			/* TRANSLATORS: `appstreamcli `check-license` command description. */
+			_("Check license string for validity and print details about it."),
+			as_client_run_check_license);
 
 	ascli_add_cmd (commands,
 			3, "install", NULL, "COMPONENT-ID",

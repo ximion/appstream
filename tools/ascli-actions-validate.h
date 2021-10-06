@@ -43,6 +43,8 @@ gint			ascli_validate_tree_format (const gchar *root_dir,
 						    const gchar *format,
 						    gboolean use_net);
 
+gint			ascli_check_license (const gchar *license);
+
 G_END_DECLS
 
 #endif /* __ASCLI_ACTIONS_VALIDATE_H */
