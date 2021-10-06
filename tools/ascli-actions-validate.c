@@ -518,10 +518,11 @@ ascli_check_license (const gchar *license)
 	else
 		license_id = as_license_to_spdx_id (license);
 
-	if (as_is_spdx_license_id (license_id))
+	if (as_is_spdx_license_id (license_id)) {
+		is_expression = FALSE;
 		/* TRANSLATORS: A plain license ID */
 		type_str = _("license");
-	else if (as_is_spdx_license_exception_id (license_id))
+	} else if (as_is_spdx_license_exception_id (license_id))
 		/* TRANSLATORS: A license exception */
 		type_str = _("license exception");
 	else if (is_expression)

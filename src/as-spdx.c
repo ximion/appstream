@@ -664,6 +664,7 @@ as_get_license_url (const gchar *license)
 {
 	g_autoptr(GString) license_id = NULL;
 	g_autofree gchar *tmp_spdx = NULL;
+	g_autofree gchar *license_lower = NULL;
 
 	if (license == NULL)
 		return NULL;
@@ -688,6 +689,29 @@ as_get_license_url (const gchar *license)
 	}
 	if (!as_is_spdx_license_id (license_id->str) && !as_is_spdx_license_exception_id (license_id->str))
 		return NULL;
+
+	license_lower = g_utf8_strdown (license_id->str, -1);
+
+	/* in the long run, AppStream itself should probably set up a user-focused license information repository,
+	 * but in the short term we can link to something pretty close to that, at least for certain popular
+	 * open-source licenses
+	 * ChooseALicense.com is owned by GitHub, but the information there is easy to read, accurate, and overall
+	 * nicer for users to understand than the raw license text on the SPDX website. */
+	if (g_str_has_prefix (license_lower, "gpl-3.0"))
+		return g_strdup ("https://choosealicense.com/licenses/gpl-3.0/");
+	if (g_str_has_prefix (license_lower, "gpl-2.0"))
+		return g_strdup ("https://choosealicense.com/licenses/gpl-3.0/");
+	if (g_str_has_prefix (license_lower, "lgpl-3.0"))
+		return g_strdup ("https://choosealicense.com/licenses/lgpl-3.0/");
+	if (g_str_has_prefix (license_lower, "lgpl-2.1"))
+		return g_strdup ("https://choosealicense.com/licenses/lgpl-2.1/");
+	if (g_str_has_prefix (license_lower, "agpl-3.0"))
+		return g_strdup ("https://choosealicense.com/licenses/agpl-3.0/");
+	if (g_strcmp0 (license_lower, "mpl-2.0") == 0 || g_strcmp0 (license_lower, "mit") == 0 ||
+	    g_strcmp0 (license_lower, "0bsd") == 0 || g_strcmp0 (license_lower, "bsd-2-clause") == 0 ||
+	    g_strcmp0 (license_lower, "bsd-3-clause") == 0 || g_strcmp0 (license_lower, "apache-2.0") == 0 ||
+	    g_strcmp0 (license_lower, "bsl-1.0") == 0)
+		return g_strdup_printf ("https://choosealicense.com/licenses/%s/", license_lower);
 
 	return g_strdup_printf ("https://spdx.org/licenses/%s.html#page", license_id->str);
 }
