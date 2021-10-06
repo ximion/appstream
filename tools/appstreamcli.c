@@ -850,7 +850,7 @@ as_client_run_news_to_metainfo (const gchar *command, char **argv, int argc)
 			G_OPTION_ARG_INT,
 			&optn_translatable_n,
 			/* TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command */
-			N_("Set the number of releases that should have descriptions marked for translation (latest releases are translated first, < 0 for unlimited)."),
+			N_("Set the number of releases that should have descriptions marked for translation (latest releases are translated first, -1 for unlimited)."),
 			NULL },
 		{ NULL }
 	};
