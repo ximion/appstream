@@ -85,13 +85,43 @@ test_readwrite_yaml_news ()
 		"    </release>\n"
 		"  </releases>";
 
+	static const gchar *expected_xml_releases_data_notranslate =
+		"  <releases>\n"
+		"    <release type=\"development\" version=\"1.2\" date=\"2019-04-18T00:00:00Z\">\n"
+		"      <description>\n"
+		"        <ul>\n"
+		"          <li>Improved A &amp; X</li>\n"
+		"          <li>Fixed B</li>\n"
+		"        </ul>\n"
+		"      </description>\n"
+		"    </release>\n"
+		"    <release type=\"stable\" version=\"1.1\" date=\"2019-04-12T00:00:00Z\">\n"
+		"      <description translatable=\"no\">\n"
+		"        <p>A freeform description text.</p>\n"
+		"        <p>Second paragraph. XML &lt;&gt; YAML</p>\n"
+		"      </description>\n"
+		"    </release>\n"
+		"    <release type=\"stable\" version=\"1.0\" date=\"2019-02-24T00:00:00Z\">\n"
+		"      <description translatable=\"no\">\n"
+		"        <ul>\n"
+		"          <li>Introduced feature A</li>\n"
+		"          <li>Introduced feature B</li>\n"
+		"          <li>Fixed X, Y and Z</li>\n"
+		"        </ul>\n"
+		"      </description>\n"
+		"    </release>\n"
+		"  </releases>";
+
 	g_autoptr(GPtrArray) releases = NULL;
 	g_autoptr(GError) error = NULL;
 	gchar *tmp;
 	gboolean ret;
 
 	/* read */
-	releases = as_news_to_releases_from_data (yaml_news_data, AS_NEWS_FORMAT_KIND_YAML, &error);
+	releases = as_news_to_releases_from_data (yaml_news_data,
+						  AS_NEWS_FORMAT_KIND_YAML,
+						  -1, -1,
+						  &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (releases);
 
@@ -103,10 +133,29 @@ test_readwrite_yaml_news ()
 	g_free (tmp);
 
 	/* write */
-	ret = as_releases_to_news_data (releases, AS_NEWS_FORMAT_KIND_YAML, &tmp, &error);
+	ret = as_releases_to_news_data (releases,
+					AS_NEWS_FORMAT_KIND_YAML,
+					&tmp,
+					&error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 	g_assert_true (as_test_compare_lines (tmp, yaml_news_data));
+	g_free (tmp);
+
+	/* read for translatable test */
+	g_ptr_array_unref (releases);
+	releases = as_news_to_releases_from_data (yaml_news_data,
+						  AS_NEWS_FORMAT_KIND_YAML,
+						  -1, 1,
+						  &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (releases);
+
+	/* verify for non-translatable */
+	tmp = as_releases_to_metainfo_xml_chunk (releases, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (tmp);
+	g_assert_true (as_test_compare_lines (tmp, expected_xml_releases_data_notranslate));
 	g_free (tmp);
 }
 
@@ -175,7 +224,10 @@ test_readwrite_text_news ()
 	gchar *tmp;
 
 	/* read */
-	releases = as_news_to_releases_from_data (text_news_data, AS_NEWS_FORMAT_KIND_TEXT, &error);
+	releases = as_news_to_releases_from_data (text_news_data,
+						  AS_NEWS_FORMAT_KIND_TEXT,
+						  -1, -1,
+						  &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (releases);
 

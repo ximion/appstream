@@ -380,7 +380,12 @@ ascli_make_desktop_entry_file (const gchar *mi_fname, const gchar *de_fname, con
  * Convert NEWS data to a metainfo file.
  */
 gint
-ascli_news_to_metainfo (const gchar *news_fname, const gchar *mi_fname, const gchar *out_fname, guint limit, const gchar *format_str)
+ascli_news_to_metainfo (const gchar *news_fname,
+			const gchar *mi_fname,
+			const gchar *out_fname,
+			guint entry_limit,
+			guint translate_limit,
+			const gchar *format_str)
 {
 	g_autoptr(GPtrArray) releases = NULL;
 	g_autoptr(GError) error = NULL;
@@ -404,9 +409,11 @@ ascli_news_to_metainfo (const gchar *news_fname, const gchar *mi_fname, const gc
 		}
 	}
 
-	releases = as_news_to_releases_from_file (news_fname,
-						  as_news_format_kind_from_string (format_str),
-						  &error);
+	releases = as_news_to_releases_from_filename (news_fname,
+							as_news_format_kind_from_string (format_str),
+							entry_limit,
+							translate_limit,
+							&error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return 1;
@@ -419,8 +426,6 @@ ascli_news_to_metainfo (const gchar *news_fname, const gchar *mi_fname, const gc
 	if (g_strcmp0 (mi_fname, "-") == 0) {
 		g_autofree gchar *tmp = NULL;
 
-		if ((limit > 0) && (limit < releases->len))
-			g_ptr_array_remove_range (releases, limit, releases->len - limit);
 		tmp = as_releases_to_metainfo_xml_chunk (releases, &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
@@ -457,8 +462,6 @@ ascli_news_to_metainfo (const gchar *news_fname, const gchar *mi_fname, const gc
 
 	for (guint i = 0; i < releases->len; ++i) {
 		AsRelease *release = AS_RELEASE (g_ptr_array_index (releases, i));
-		if ((limit > 0) && (i >= limit))
-			break;
 		g_ptr_array_add (cpt_releases, g_object_ref (release));
 	}
 

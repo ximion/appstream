@@ -826,7 +826,8 @@ as_client_run_news_to_metainfo (const gchar *command, char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	const gchar *optn_format_text = NULL;
-	guint optn_limit = 0;
+	gint optn_limit = 0;
+	gint optn_translatable_n = -1;
 	const gchar *mi_fname = NULL;
 	const gchar *news_fname = NULL;
 	const gchar *out_fname = NULL;
@@ -837,12 +838,20 @@ as_client_run_news_to_metainfo (const gchar *command, char **argv, int argc)
 			G_OPTION_ARG_STRING,
 			&optn_format_text,
 			/* TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command */
-			N_("Assume the input file is in the selected format ('yaml' or 'text')."), NULL },
-		{ "limit", 0, 0,
+			N_("Assume the input file is in the selected format ('yaml' or 'text')."),
+			NULL },
+		{ "limit", 'l', 0,
 			G_OPTION_ARG_INT,
 			&optn_limit,
 			/* TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command */
-			N_("Limit the number of release entries that end up in the metainfo file (0 for unlimited)."), NULL },
+			N_("Limit the number of release entries that end up in the metainfo file (<= 0 for unlimited)."),
+			NULL },
+		{ "translatable-count", 't', 0,
+			G_OPTION_ARG_INT,
+			&optn_translatable_n,
+			/* TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command */
+			N_("Set the number of releases that should have descriptions marked for translation (latest releases are translated first, < 0 for unlimited)."),
+			NULL },
 		{ NULL }
 	};
 
@@ -862,6 +871,7 @@ as_client_run_news_to_metainfo (const gchar *command, char **argv, int argc)
 					mi_fname,
 					out_fname,
 					optn_limit,
+					optn_translatable_n,
 					optn_format_text);
 }
 

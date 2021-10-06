@@ -828,28 +828,54 @@ as_news_releases_to_text (GPtrArray *releases, gchar **md_data)
  * Convert NEWS data to a list of AsRelease elements.
  */
 GPtrArray*
-as_news_to_releases_from_data (const gchar *data, AsNewsFormatKind kind, GError **error)
+as_news_to_releases_from_data (const gchar *data,
+			       AsNewsFormatKind kind,
+			       gint entry_limit,
+			       gint translatable_limit,
+			       GError **error)
 {
+	GPtrArray *releases = NULL;
+
 	if (kind == AS_NEWS_FORMAT_KIND_YAML)
-		return as_news_yaml_to_releases (data, error);
-
+		releases = as_news_yaml_to_releases (data, error);
 	if (kind == AS_NEWS_FORMAT_KIND_TEXT)
-		return as_news_text_to_releases (data, error);
+		releases = as_news_text_to_releases (data, error);
 
-	g_set_error (error,
-			AS_METADATA_ERROR,
-			AS_METADATA_ERROR_FAILED,
-			"Unable to detect input data format.");
-	return NULL;
+	if (releases == NULL) {
+		g_set_error (error,
+				AS_METADATA_ERROR,
+				AS_METADATA_ERROR_FAILED,
+				"Unable to detect input data format.");
+		return NULL;
+	}
+
+	/* trim release entries to the desired size */
+	if (entry_limit > 0 && (guint) entry_limit < releases->len)
+		g_ptr_array_remove_range (releases, entry_limit, releases->len - entry_limit);
+
+	/* mark only the desired amount of stuff as translatable */
+	if (translatable_limit >= 0) {
+		for (guint i = 0; i < releases->len; i++) {
+			AsRelease *release = AS_RELEASE (g_ptr_array_index (releases, i));
+			if (i >= (guint) translatable_limit)
+				as_release_set_description_translatable (release, FALSE);
+		}
+	}
+
+	return releases;
 }
 
 /**
- * as_news_to_releases_from_file:
+ * as_news_to_releases_from_filename:
  *
  * Convert NEWS file to a list of AsRelease elements.
  */
 GPtrArray*
-as_news_to_releases_from_file (const gchar *fname, AsNewsFormatKind kind, GError **error)
+as_news_to_releases_from_filename (const gchar *fname,
+				   AsNewsFormatKind kind,
+				   gint entry_limit,
+				   gint translatable_limit,
+				   GError **error)
 {
 	g_autofree gchar *data = NULL;
 
@@ -867,7 +893,11 @@ as_news_to_releases_from_file (const gchar *fname, AsNewsFormatKind kind, GError
 	if (!g_file_get_contents (fname, &data, NULL, error))
 		return NULL;
 
-	return as_news_to_releases_from_data (data, kind, error);
+	return as_news_to_releases_from_data (data,
+					      kind,
+					      entry_limit,
+					      translatable_limit,
+					      error);
 }
 
 /**

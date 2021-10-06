@@ -350,7 +350,7 @@ as_agreement_section_to_xml_node (AsAgreementSection *agreement_section, AsConte
 	xmlNewProp (asnode, (xmlChar*) "type", (xmlChar*) priv->kind);
 
 	as_xml_add_localized_text_node (asnode, "name", priv->name);
-	as_xml_add_description_node (ctx, asnode, priv->description);
+	as_xml_add_description_node (ctx, asnode, priv->description, TRUE);
 }
 
 /**

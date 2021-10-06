@@ -4129,7 +4129,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	as_xml_add_text_node (cnode, "project_group", priv->project_group);
 
 	/* long description */
-	as_xml_add_description_node (ctx, cnode, priv->description);
+	as_xml_add_description_node (ctx, cnode, priv->description, TRUE);
 
 	/* extends nodes */
 	as_xml_add_node_list (cnode, NULL, "extends", priv->extends);

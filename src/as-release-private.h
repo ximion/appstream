@@ -32,6 +32,10 @@ AsContext		*as_release_get_context (AsRelease *release);
 void			as_release_set_context (AsRelease *release,
 						AsContext *context);
 
+gboolean		as_release_description_translatable (AsRelease *release);
+void			as_release_set_description_translatable (AsRelease *release,
+								 gboolean translatable);
+
 gboolean		as_release_load_from_xml (AsRelease *release,
 						  AsContext *ctx,
 						  xmlNode *node,

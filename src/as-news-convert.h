@@ -51,12 +51,17 @@ AsNewsFormatKind	as_news_format_kind_from_string (const gchar *kind_str);
 
 GPtrArray		*as_news_to_releases_from_data (const gchar *data,
 							AsNewsFormatKind kind,
+							gint entry_limit,
+							gint translatable_limit,
 							GError **error);
-GPtrArray		*as_news_to_releases_from_file (const gchar *fname,
-							AsNewsFormatKind kind,
-							GError **error);
+GPtrArray		*as_news_to_releases_from_filename (const gchar *fname,
+							    AsNewsFormatKind kind,
+							    gint entry_limit,
+							    gint translatable_limit,
+							    GError **error);
 
-gchar			*as_releases_to_metainfo_xml_chunk (GPtrArray *releases, GError **error);
+gchar			*as_releases_to_metainfo_xml_chunk (GPtrArray *releases,
+							    GError **error);
 
 gboolean		as_releases_to_news_data (GPtrArray *releases,
 						  AsNewsFormatKind kind,

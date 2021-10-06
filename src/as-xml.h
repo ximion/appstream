@@ -63,7 +63,8 @@ gchar		*as_xml_dump_node_children (xmlNode *node);
 
 void		as_xml_add_description_node (AsContext *ctx,
 					     xmlNode *root,
-					     GHashTable *desc_table);
+					     GHashTable *desc_table,
+					     gboolean mi_translatable);
 xmlNode		*as_xml_add_description_node_raw (xmlNode *root,
 						  const gchar *description);
 

@@ -55,6 +55,7 @@ typedef struct
 
 	AsContext	*context;
 	gchar		*active_locale_override;
+	gboolean	desc_translatable;
 
 	GPtrArray	*issues;
 	GPtrArray	*artifacts;
@@ -162,6 +163,7 @@ as_release_init (AsRelease *release)
 	priv->issues = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->artifacts = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->urgency = AS_URGENCY_KIND_UNKNOWN;
+	priv->desc_translatable = TRUE;
 }
 
 /**
@@ -834,6 +836,37 @@ as_release_add_checksum (AsRelease *release, AsChecksum *cs)
 }
 
 /**
+ * as_release_description_translatable:
+ * @release: a #AsRelease instance.
+ *
+ * Check if a MetaInfo description for this release is marked
+ * for translation by translators.
+ *
+ * Returns: %TRUE if description can be translated.
+ **/
+gboolean
+as_release_description_translatable (AsRelease *release)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	return priv->desc_translatable;
+}
+
+/**
+ * as_release_set_description_translatable:
+ * @release: a #AsRelease instance.
+ * @translatable: %TRUE if translation is enabled.
+ *
+ * Sets whether a MetaInfo description for this release is marked
+ * for translation.
+ **/
+void
+as_release_set_description_translatable (AsRelease *release, gboolean translatable)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	priv->desc_translatable = translatable;
+}
+
+/**
  * as_release_load_from_xml:
  * @release: an #AsRelease
  * @ctx: the AppStream document context.
@@ -852,17 +885,17 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 	/* propagate context */
 	as_release_set_context (release, ctx);
 
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	prop = as_xml_get_prop_value (node, "type");
 	if (prop != NULL) {
 		priv->kind = as_release_kind_from_string (prop);
 		g_free (prop);
 	}
 
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "version");
+	prop = as_xml_get_prop_value (node, "version");
 	as_release_set_version (release, prop);
 	g_free (prop);
 
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "date");
+	prop = as_xml_get_prop_value (node, "date");
 	if (prop != NULL) {
 		g_autoptr(GDateTime) time = as_iso8601_to_datetime (prop);
 		if (time != NULL) {
@@ -877,18 +910,18 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 		}
 	}
 
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "date_eol");
+	prop = as_xml_get_prop_value (node, "date_eol");
 	if (prop != NULL) {
 		g_free (priv->date_eol);
 		priv->date_eol = prop;
 	}
 
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "timestamp");
+	prop = as_xml_get_prop_value (node, "timestamp");
 	if (prop != NULL) {
 		priv->timestamp = atol (prop);
 		g_free (prop);
 	}
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "urgency");
+	prop = as_xml_get_prop_value (node, "urgency");
 	if (prop != NULL) {
 		priv->urgency = as_urgency_kind_from_string (prop);
 		g_free (prop);
@@ -922,6 +955,13 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 					as_release_set_description (release, content, lang);
 			} else {
 				as_xml_parse_metainfo_description_node (ctx, iter, priv->description);
+
+				priv->desc_translatable = TRUE;
+				prop = as_xml_get_prop_value (iter, "translatable");
+				if (prop != NULL) {
+					priv->desc_translatable = g_strcmp0 (prop, "no") != 0;
+					g_free (prop);
+				}
 			}
 		} else if (g_strcmp0 ((gchar*) iter->name, "url") == 0) {
 			/* NOTE: Currently, every url in releases is a "details" URL */
@@ -946,7 +986,7 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 			/* DEPRECATED */
 			#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 			AsSizeKind s_kind;
-			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+			prop = as_xml_get_prop_value (iter, "type");
 
 			s_kind = as_size_kind_from_string (prop);
 			if (s_kind != AS_SIZE_KIND_UNKNOWN) {
@@ -1013,21 +1053,21 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 	}
 
 	/* set end-of-life date */
-	if (priv->date_eol != NULL) {
-		xmlNewProp (subnode, (xmlChar*) "date_eol",
-				(xmlChar*) priv->date_eol);
-	}
+	if (priv->date_eol != NULL)
+		as_xml_add_text_prop (subnode, "date_eol", priv->date_eol);
 
 	/* set release urgency, if we have one */
 	if (priv->urgency != AS_URGENCY_KIND_UNKNOWN) {
 		const gchar *urgency_str;
 		urgency_str = as_urgency_kind_to_string (priv->urgency);
-		xmlNewProp (subnode, (xmlChar*) "urgency",
-				(xmlChar*) urgency_str);
+		as_xml_add_text_prop (subnode, "urgency", urgency_str);
 	}
 
 	/* add description */
-	as_xml_add_description_node (ctx, subnode, priv->description);
+	as_xml_add_description_node (ctx,
+				     subnode,
+				     priv->description,
+				     priv->desc_translatable);
 
 	/* add details URL */
 	if (priv->url_details != NULL)
