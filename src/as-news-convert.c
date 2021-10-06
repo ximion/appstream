@@ -131,7 +131,9 @@ as_releases_to_metainfo_xml_chunk (GPtrArray *releases, GError **error)
  * as_news_yaml_to_release:
  */
 static GPtrArray*
-as_news_yaml_to_releases (const gchar *yaml_data, GError **error)
+as_news_yaml_to_releases (const gchar *yaml_data,
+			  gint limit,
+			  GError **error)
 {
 	yaml_parser_t parser;
 	yaml_event_t event;
@@ -226,8 +228,12 @@ as_news_yaml_to_releases (const gchar *yaml_data, GError **error)
 				}
 			}
 
-			if (as_release_get_version (rel) != NULL)
+			if (as_release_get_version (rel) != NULL) {
 				g_ptr_array_add (releases, g_steal_pointer (&rel));
+				if (limit > 0 && releases->len >= (guint) limit)
+					parse = FALSE;
+			}
+
 			g_node_traverse (root,
 					G_IN_ORDER,
 					G_TRAVERSE_ALL,
@@ -633,7 +639,7 @@ as_news_text_to_para_markup (GString *desc, const gchar *txt, GError **error)
  * as_news_text_to_releases:
  */
 static GPtrArray*
-as_news_text_to_releases (const gchar *data, GError **error)
+as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 {
 	guint i;
 	g_autoptr(GString) data_str = NULL;
@@ -641,6 +647,7 @@ as_news_text_to_releases (const gchar *data, GError **error)
 	g_auto(GStrv) split = NULL;
 	g_autoptr(GPtrArray) releases = NULL;
 	g_autoptr(AsRelease) rel = NULL;
+	gboolean limit_reached = FALSE;
 
 	if (data == NULL) {
 		g_set_error (error,
@@ -674,8 +681,11 @@ as_news_text_to_releases (const gchar *data, GError **error)
 				as_release_set_description (rel, desc->str, "C");
 				g_string_truncate (desc, 0);
 			}
-			if (rel != NULL)
+			if (rel != NULL) {
 				g_ptr_array_add (releases, g_steal_pointer (&rel));
+				if (limit > 0 && releases->len >= (guint) limit)
+					limit_reached = TRUE;
+			}
 			rel = as_release_new ();
 
 			/* parse header */
@@ -759,10 +769,13 @@ as_news_text_to_releases (const gchar *data, GError **error)
 				     "Failed to detect section '%s'", split[i]);
 			return FALSE;
 		}
+
+		if (limit_reached)
+			break;
 	}
 
 	/* flush old release content */
-	if (desc->len > 0) {
+	if (desc->len > 0 && !limit_reached) {
 		as_release_set_description (rel, desc->str, "C");
 		g_ptr_array_add (releases, g_steal_pointer (&rel));
 	}
@@ -837,9 +850,9 @@ as_news_to_releases_from_data (const gchar *data,
 	GPtrArray *releases = NULL;
 
 	if (kind == AS_NEWS_FORMAT_KIND_YAML)
-		releases = as_news_yaml_to_releases (data, error);
+		releases = as_news_yaml_to_releases (data, entry_limit, error);
 	if (kind == AS_NEWS_FORMAT_KIND_TEXT)
-		releases = as_news_text_to_releases (data, error);
+		releases = as_news_text_to_releases (data, entry_limit, error);
 
 	if (releases == NULL) {
 		g_set_error (error,
