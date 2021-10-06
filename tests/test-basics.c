@@ -431,12 +431,16 @@ test_spdx (void)
 	g_assert_true (as_license_is_metadata_license ("GPL-2.0+ OR GFDL-1.3-only"));
 
 	/* check license URL generation */
+	tmp = as_get_license_url ("CC0");
+	g_assert_cmpstr (tmp, ==, "https://spdx.org/licenses/CC0-1.0.html#page");
+	g_free (tmp);
+
 	tmp = as_get_license_url ("LGPL-2.0-or-later");
 	g_assert_cmpstr (tmp, ==, "https://spdx.org/licenses/LGPL-2.0-or-later.html#page");
 	g_free (tmp);
 
 	tmp = as_get_license_url ("@GPL-2.0+");
-	g_assert_cmpstr (tmp, ==, "https://spdx.org/licenses/GPL-2.0-or-later.html#page");
+	g_assert_cmpstr (tmp, ==, "https://choosealicense.com/licenses/gpl-2.0/");
 	g_free (tmp);
 
 	tmp = as_get_license_url ("LicenseRef-proprietary");

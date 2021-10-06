@@ -700,7 +700,7 @@ as_get_license_url (const gchar *license)
 	if (g_str_has_prefix (license_lower, "gpl-3.0"))
 		return g_strdup ("https://choosealicense.com/licenses/gpl-3.0/");
 	if (g_str_has_prefix (license_lower, "gpl-2.0"))
-		return g_strdup ("https://choosealicense.com/licenses/gpl-3.0/");
+		return g_strdup ("https://choosealicense.com/licenses/gpl-2.0/");
 	if (g_str_has_prefix (license_lower, "lgpl-3.0"))
 		return g_strdup ("https://choosealicense.com/licenses/lgpl-3.0/");
 	if (g_str_has_prefix (license_lower, "lgpl-2.1"))
