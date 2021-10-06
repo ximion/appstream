@@ -12,10 +12,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-08-28 16:09+0200\n"
+"POT-Creation-Date: 2021-10-06 19:42+0200\n"
 "PO-Revision-Date: 2021-09-08 23:32+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/translations/ja/>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/"
+"translations/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1353,7 +1354,8 @@ msgstr ""
 msgid ""
 "Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are "
 "permitted."
-msgstr "無効な関係アイテムの比較操作です。有効な操作はeq/ne/lt/gt/le/geのみです。"
+msgstr ""
+"無効な関係アイテムの比較操作です。有効な操作はeq/ne/lt/gt/le/geのみです。"
 
 #: src/as-validator-issue-tag.h:281
 msgid ""
@@ -1708,7 +1710,7 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:579
-msgid "The screenshot caption is too long (should be <= 80 characters)"
+msgid "The screenshot caption is too long (should be <= 100 characters)"
 msgstr ""
 
 #: src/as-validator-issue-tag.h:584
@@ -1930,13 +1932,13 @@ msgstr "追加のデバッグ情報を表示します"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-compose.c:184 tools/appstreamcli.c:1087
+#: tools/appstream-compose.c:184 tools/appstreamcli.c:1127
 msgid "Don't show colored output."
 msgstr "カラーで出力を表示しません。"
 
 #. TRANSLATORS: ascompose flag description for: --version
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-compose.c:187 tools/appstreamcli.c:1076
+#: tools/appstream-compose.c:187 tools/appstreamcli.c:1116
 msgid "Show the program version."
 msgstr "プログラムのバージョンを表示します。"
 
@@ -1993,13 +1995,13 @@ msgid "Failed to parse arguments"
 msgstr ""
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:242 tools/appstreamcli.c:1230
+#: tools/appstream-compose.c:242 tools/appstreamcli.c:1275
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream バージョン: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:245 tools/appstreamcli.c:1233
+#: tools/appstream-compose.c:245 tools/appstreamcli.c:1278
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2142,7 +2144,7 @@ msgstr "デフォルトのメタデータファイル形式 (有効な値は 'xm
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstreamcli.c:153 tools/appstreamcli.c:981
+#: tools/appstreamcli.c:153 tools/appstreamcli.c:1021
 msgid "AppStream command-line interface"
 msgstr "AppStream コマンドラインインターフェース"
 
@@ -2152,19 +2154,19 @@ msgid "'%s' command"
 msgstr "'%s' コマンド"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstreamcli.c:191
+#: tools/appstreamcli.c:192
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "オプション '%s' は不明です。"
 
-#: tools/appstreamcli.c:195 tools/appstreamcli.c:1207
+#: tools/appstreamcli.c:196 tools/appstreamcli.c:1252
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "利用可能なコマンドラインオプションの完全なリストを見るには '%s --help' を実行"
 "してください。"
 
-#: tools/appstreamcli.c:197
+#: tools/appstreamcli.c:198
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
@@ -2174,110 +2176,129 @@ msgstr ""
 "--help'を実行してこのサブコマンドに固有のオプションのリストを表示します。"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstreamcli.c:245
+#: tools/appstreamcli.c:246
 msgid "Enforce a cache refresh."
 msgstr "強制的にキャッシュを更新します。"
 
 #. TRANSLATORS: ascli flag description for: --user
-#: tools/appstreamcli.c:251
+#: tools/appstreamcli.c:252
 msgid "Update the user-specific instead of the system-wide cache."
 msgstr ""
 
-#. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
+#. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:477
+msgid ""
+"No license, license expression or license exception string was provided."
+msgstr ""
+
+#. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
+#: tools/appstreamcli.c:502
 msgid "Set the data origin for the installed metadata collection file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:482
+#: tools/appstreamcli.c:507
 msgid "Install the file for the current user, instead of globally."
 msgstr ""
 
-#: tools/appstreamcli.c:631
+#: tools/appstreamcli.c:656
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:660
+#: tools/appstreamcli.c:685
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr ""
 
-#: tools/appstreamcli.c:700
+#: tools/appstreamcli.c:725
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:726
+#: tools/appstreamcli.c:751
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstreamcli.c:731
+#: tools/appstreamcli.c:756
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstreamcli.c:734
+#: tools/appstreamcli.c:759
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPEは次のような有効なコンポーネントタイプである必要があります：%s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:775
+#: tools/appstreamcli.c:800
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:815
+#: tools/appstreamcli.c:841
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 "入力ファイルが選択した形式（「yaml」または「text」）であると仮定します。"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:820
+#: tools/appstreamcli.c:847
+#, fuzzy
 msgid ""
-"Limit the number of release entries that end up in the metainfo file (0 for "
-"unlimited)."
+"Limit the number of release entries that end up in the metainfo file (<= 0 "
+"for unlimited)."
 msgstr ""
 "メタインフォファイルに含まれるリリースエントリの数を制限します（無制限の場合"
 "は0）。"
 
+#. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
+#: tools/appstreamcli.c:853
+msgid ""
+"Set the number of releases that should have descriptions marked for "
+"translation (latest releases are translated first, -1 for unlimited)."
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:862
+#: tools/appstreamcli.c:897
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr "選択した形式（「yaml」または「text」）で出力を生成します。"
 
-#: tools/appstreamcli.c:894
+#: tools/appstreamcli.c:929
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
 msgstr ""
 
+#. TRANSLATORS: Unexpected number of parameters on the command-line
+#: tools/appstreamcli.c:937
+msgid "Invalid number of parameters"
+msgstr ""
+
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:956
+#: tools/appstreamcli.c:996
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(エイリアス: '%s')"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:983
+#: tools/appstreamcli.c:1023
 msgid "Subcommands:"
 msgstr "サブコマンド:"
 
-#: tools/appstreamcli.c:1029
+#: tools/appstreamcli.c:1069
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstreamcli.c:1052
+#: tools/appstreamcli.c:1092
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -2286,90 +2307,95 @@ msgstr ""
 "実行してください。"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstreamcli.c:1082
+#: tools/appstreamcli.c:1122
 msgid "Show extra debugging information."
 msgstr "追加のデバッグ情報を表示します。"
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstreamcli.c:1090
+#: tools/appstreamcli.c:1130
 msgid "Enable profiling"
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1102
+#: tools/appstreamcli.c:1142
 msgid "Search the component database."
 msgstr "コンポーネントデータベースを検索します。"
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1107
+#: tools/appstreamcli.c:1147
 msgid "Get information about a component by its ID."
 msgstr "IDでコンポーネントに関する情報を取得します。"
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1112
+#: tools/appstreamcli.c:1152
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1118
+#: tools/appstreamcli.c:1158
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "IDに一致するコンポーネントの生のXMLメタデータをダンプします。"
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1123
+#: tools/appstreamcli.c:1163
 msgid "Rebuild the component metadata cache."
 msgstr "コンポーネントのメタデータキャッシュを再構築します。"
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1129
+#: tools/appstreamcli.c:1169
 msgid "Validate AppStream XML files for issues."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1134
+#: tools/appstreamcli.c:1174
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 
+#. TRANSLATORS: `appstreamcli `check-license` command description.
+#: tools/appstreamcli.c:1179
+msgid "Check license string for validity and print details about it."
+msgstr ""
+
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1140
+#: tools/appstreamcli.c:1185
 msgid "Install software matching the component-ID."
 msgstr "コンポーネント ID に一致するソフトウェアをインストールします。"
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1145
+#: tools/appstreamcli.c:1190
 msgid "Remove software matching the component-ID."
 msgstr "コンポーネント ID に一致するソフトウェアを削除します。"
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1151
+#: tools/appstreamcli.c:1196
 msgid "Display status information about available AppStream metadata."
 msgstr "利用可能な AppStream メタデータの状態情報を表示します。"
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstreamcli.c:1156
+#: tools/appstreamcli.c:1201
 msgid ""
 "Show information about the current operating system from the metadata index."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1161
+#: tools/appstreamcli.c:1206
 msgid "Install a metadata file into the right location."
 msgstr "メタデータファイルを正しい場所にインストールします。"
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1166
+#: tools/appstreamcli.c:1211
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "コレクションXMLをYAMLに、またはその逆に変換する。"
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1171
+#: tools/appstreamcli.c:1216
 msgid "Compare two version numbers."
 msgstr "2 つのバージョン番号を比較します。"
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1177
+#: tools/appstreamcli.c:1222
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -2378,27 +2404,27 @@ msgstr ""
 "が記入します）。"
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1182
+#: tools/appstreamcli.c:1227
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "メタインフォファイルからデスクトップエントリファイルを作成します。"
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1187
+#: tools/appstreamcli.c:1232
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "YAMLまたはテキストNEWSファイルをメタ情報リリースに変換します。"
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1192
+#: tools/appstreamcli.c:1237
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1198
+#: tools/appstreamcli.c:1243
 msgid "Compose AppStream collection metadata from directory trees."
 msgstr "ディレクトリツリーからAppStreamコレクションメタデータを作成します。"
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1206
+#: tools/appstreamcli.c:1251
 msgid "You need to specify a command."
 msgstr "コマンドの指定が必要です。"
 
@@ -2587,7 +2613,7 @@ msgstr ""
 msgid "Error while loading the metadata pool: %s"
 msgstr "メタデータプールの読み込み中にエラーが発生しました: %s"
 
-#: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
+#: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:508
 msgid "You need to specify a metainfo file as input."
 msgstr "入力としてメタインフォファイルの指定が必要です。"
 
@@ -2597,8 +2623,8 @@ msgid ""
 msgstr ""
 "出力として作成したり引数に取るには、デスクトップファイルの指定が必要です。"
 
-#: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
-#: tools/ascli-actions-misc.c:515
+#: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:441
+#: tools/ascli-actions-misc.c:518
 #, c-format
 msgid "Metainfo file '%s' does not exist."
 msgstr "メタデータファイル '%s' は存在しません。"
@@ -2640,26 +2666,28 @@ msgstr ""
 msgid "Unable to save desktop entry file: %s"
 msgstr "デスクトップエントリファイルを保存できません: %s"
 
-#: tools/ascli-actions-misc.c:393
+#: tools/ascli-actions-misc.c:398
 msgid "You need to specify a NEWS file as input."
 msgstr "入力元としてNEWSファイルの指定が必要です。"
 
-#: tools/ascli-actions-misc.c:397
+#: tools/ascli-actions-misc.c:402
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
 msgstr ""
 "引数へのメタインフォファイルの指定が必要です。標準出力に表示する場合は '-' が"
 "必要です。"
 
-#: tools/ascli-actions-misc.c:402
+#: tools/ascli-actions-misc.c:407
 msgid "No output filename specified, modifying metainfo file directly."
 msgstr "出力ファイル名が指定されていません。メタ情報ファイルを直接変更します。"
 
-#: tools/ascli-actions-misc.c:509
+#: tools/ascli-actions-misc.c:512
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "出力先としてNEWSファイルを指定するか、'-' と入力して標準出力に出力する必要があります。"
+msgstr ""
+"出力先としてNEWSファイルを指定するか、'-' と入力して標準出力に出力する必要が"
+"あります。"
 
-#: tools/ascli-actions-misc.c:540
+#: tools/ascli-actions-misc.c:543
 msgid "You need to specify a NEWS format to write the output in."
 msgstr "出力を書き込むにはNEWS形式の指定が必要です。"
 
@@ -2739,6 +2767,62 @@ msgstr ""
 #: tools/ascli-actions-validate.c:390 tools/ascli-actions-validate.c:484
 msgid "You need to specify a root directory to start validation!"
 msgstr "検証を始めるには、ルートディレクトリの指定が必要です！"
+
+#. TRANSLATORS: A plain license ID
+#: tools/ascli-actions-validate.c:524
+#, fuzzy
+msgid "license"
+msgstr "ライセンス"
+
+#. TRANSLATORS: A license exception
+#: tools/ascli-actions-validate.c:527
+msgid "license exception"
+msgstr ""
+
+#. TRANSLATORS: A complex license expression
+#: tools/ascli-actions-validate.c:530
+msgid "license expression"
+msgstr ""
+
+#. TRANSLATORS: An invalid license
+#: tools/ascli-actions-validate.c:534
+msgid "invalid"
+msgstr ""
+
+#. TRANSLATORS: The license string type (single license, expression, exception, invalid)
+#: tools/ascli-actions-validate.c:539
+#, fuzzy
+msgid "License Type"
+msgstr "ライセンス"
+
+#. TRANSLATORS: Canonical identifier of a software license
+#: tools/ascli-actions-validate.c:543
+msgid "Canonical ID"
+msgstr ""
+
+#. TRANSLATORS: Whether a license is suitable for AppStream metadata
+#: tools/ascli-actions-validate.c:547
+#, fuzzy
+msgid "Suitable for AppStream metadata"
+msgstr "AppStream メタデータを作成できませんでした"
+
+#: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
+msgid "no"
+msgstr ""
+
+#: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
+msgid "yes"
+msgstr ""
+
+#. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
+#: tools/ascli-actions-validate.c:550
+msgid "Free and Open Source"
+msgstr ""
+
+#. TRANSLATORS: Software license URL
+#: tools/ascli-actions-validate.c:555
+msgid "URL"
+msgstr ""
 
 #: tools/ascli-utils.c:266
 msgid "Identifier"

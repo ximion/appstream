@@ -25,10 +25,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-08-28 16:09+0200\n"
+"POT-Creation-Date: 2021-10-06 19:42+0200\n"
 "PO-Revision-Date: 2021-09-23 06:36+0000\n"
 "Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/translations/hu/>\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
+"translations/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1106,7 +1107,12 @@ msgid ""
 "<description/> tag instead. The AppStream collection metadata generator (e."
 "g. `appstream-generator`) will already do the right thing when compiling the "
 "data."
-msgstr "Egy <description/> címke elemét (bekezdés, lista, stb.) egyénileg kell honosítani a gyűjtemény metaadataiban. Honosítsa inkább a teljes <description/> címkét. Az AppStream gyűjtemény metaadat-előállítója (például az „appstream-generator”) már el fogja végezni a megfelelő dolgot az adatok fordításakor."
+msgstr ""
+"Egy <description/> címke elemét (bekezdés, lista, stb.) egyénileg kell "
+"honosítani a gyűjtemény metaadataiban. Honosítsa inkább a teljes "
+"<description/> címkét. Az AppStream gyűjtemény metaadat-előállítója (például "
+"az „appstream-generator”) már el fogja végezni a megfelelő dolgot az adatok "
+"fordításakor."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -1220,7 +1226,11 @@ msgid ""
 "The component ID contains a hyphen/minus. Using a hyphen is strongly "
 "discouraged, to improve interoperability with other tools such as D-Bus. A "
 "good option is to replace any hyphens with underscores (`_`)."
-msgstr "Az összetevő-azonosító elválasztást vagy mínuszt tartalmaz. Az elválasztás használata erősen ellenjavallott a más eszközökkel (mint például a D-Busszal) történő interoperabilitás növelése érdekében. Jó választás lehet az összes elválasztást aláhúzásra („_”) cserélni."
+msgstr ""
+"Az összetevő-azonosító elválasztást vagy mínuszt tartalmaz. Az elválasztás "
+"használata erősen ellenjavallott a más eszközökkel (mint például a D-"
+"Busszal) történő interoperabilitás növelése érdekében. Jó választás lehet az "
+"összes elválasztást aláhúzásra („_”) cserélni."
 
 #: src/as-validator-issue-tag.h:130
 msgid ""
@@ -1309,7 +1319,9 @@ msgstr ""
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr "A frissítést végző személy e-mail címe nem tűnik érvényesnek (a „@” elrejtése csak az „_at_” vagy „_AT_” helyettesítőkkel lehetséges)."
+msgstr ""
+"A frissítést végző személy e-mail címe nem tűnik érvényesnek (a „@” "
+"elrejtése csak az „_at_” vagy „_AT_” helyettesítőkkel lehetséges)."
 
 #: src/as-validator-issue-tag.h:184
 msgid ""
@@ -1362,14 +1374,18 @@ msgstr ""
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
-msgstr "A képernyőkép-videó nem adja meg, hogy mely videókodeket használták egy `codec` tulajdonságban."
+msgstr ""
+"A képernyőkép-videó nem adja meg, hogy mely videókodeket használták egy "
+"`codec` tulajdonságban."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:223
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
-msgstr "A képernyőkép-videó nem adja meg, hogy mely konténerformátumot használták egy `container` tulajdonságban."
+msgstr ""
+"A képernyőkép-videó nem adja meg, hogy mely konténerformátumot használták "
+"egy `container` tulajdonságban."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:229
@@ -1377,7 +1393,11 @@ msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr "A kiválasztott videokodeket nem támogatja az AppStream, és a szoftverközpontok esetleg nem lesznek képesek lejátszani a videót. Jelenleg csak az AV1 és VP9 kodekek támogatottak, használja az `av1` és `vp9` értékeket a `codec` tulajdonságnál."
+msgstr ""
+"A kiválasztott videokodeket nem támogatja az AppStream, és a "
+"szoftverközpontok esetleg nem lesznek képesek lejátszani a videót. Jelenleg "
+"csak az AV1 és VP9 kodekek támogatottak, használja az `av1` és `vp9` "
+"értékeket a `codec` tulajdonságnál."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:236
@@ -1386,7 +1406,11 @@ msgid ""
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr "A kiválasztott videokonténer-formátumot nem támogatja az AppStream, és a szoftverközpontok esetleg nem lesznek képesek lejátszani a videót. Jelenleg csak a WebM és Matroska videokonténerek támogatottak, használja a `webm` és `mkv` értékeket a `container` tulajdonságnál."
+msgstr ""
+"A kiválasztott videokonténer-formátumot nem támogatja az AppStream, és a "
+"szoftverközpontok esetleg nem lesznek képesek lejátszani a videót. Jelenleg "
+"csak a WebM és Matroska videokonténerek támogatottak, használja a `webm` és "
+"`mkv` értékeket a `container` tulajdonságnál."
 
 #: src/as-validator-issue-tag.h:242
 msgid ""
@@ -1421,14 +1445,18 @@ msgstr ""
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr "Egy `requires` vagy `recommends` elem értéket igényel egy érvényes kapcsolat jelöléséhez."
+msgstr ""
+"Egy `requires` vagy `recommends` elem értéket igényel egy érvényes kapcsolat "
+"jelöléséhez."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:265
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr "Egy `version` tulajdonság található egy típus szükséges/javasolt elemén, amelynek nem lehetne vagy nem igényelhet verziót."
+msgstr ""
+"Egy `version` tulajdonság található egy típus szükséges/javasolt elemén, "
+"amelynek nem lehetne vagy nem igényelhet verziót."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:271
@@ -1436,7 +1464,10 @@ msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr "Egy `version` tulajdonság található ezen a szükséges/javasolt elemen, de nincs `compare` tulajdonság. Javasolt kifejezetten meghatározni egy összehasonlítási műveletet."
+msgstr ""
+"Egy `version` tulajdonság található ezen a szükséges/javasolt elemen, de "
+"nincs `compare` tulajdonság. Javasolt kifejezetten meghatározni egy "
+"összehasonlítási műveletet."
 
 #: src/as-validator-issue-tag.h:276
 #, fuzzy
@@ -1460,7 +1491,11 @@ msgid ""
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr "Memóriaméret-függőség található egy `requires` címkén. Ez azt jelenti, hogy a felhasználók nem lesznek képesek még csak telepíteni sem az összetevőt elegendő RAM nélkül. Ez általában nem szándékos, és inkább a `memory` tulajdonságot kellene használnia a `recommends` címkében."
+msgstr ""
+"Memóriaméret-függőség található egy `requires` címkén. Ez azt jelenti, hogy "
+"a felhasználók nem lesznek képesek még csak telepíteni sem az összetevőt "
+"elegendő RAM nélkül. Ez általában nem szándékos, és inkább a `memory` "
+"tulajdonságot kellene használnia a `recommends` címkében."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:294
@@ -1469,14 +1504,20 @@ msgid ""
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr "Memóriaméret-függőség található egy `requires` címkén. Ez azt jelenti, hogy a felhasználók nem lesznek képesek még csak telepíteni sem az összetevőt elegendő RAM nélkül. Ez általában nem szándékos, és inkább a `memory` tulajdonságot kellene használnia a `recommends` címkében."
+msgstr ""
+"Memóriaméret-függőség található egy `requires` címkén. Ez azt jelenti, hogy "
+"a felhasználók nem lesznek képesek még csak telepíteni sem az összetevőt "
+"elegendő RAM nélkül. Ez általában nem szándékos, és inkább a `memory` "
+"tulajdonságot kellene használnia a `recommends` címkében."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:301
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
-msgstr "Ez a `control` elem ismeretlen bemeneti módot határoz meg és érvénytelen. Nézze meg a specifikációt az érvényes értékek listájához."
+msgstr ""
+"Ez a `control` elem ismeretlen bemeneti módot határoz meg és érvénytelen. "
+"Nézze meg a specifikációt az érvényes értékek listájához."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:307
@@ -1576,12 +1617,17 @@ msgstr ""
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr "A `stock` vagy `cached` típusú ikonok nem tartalmazhatnak URL-t, teljes vagy relatív útvonalat az ikonhoz. Csak a fájl alapnevei vagy törzsnevei engedélyezettek."
+msgstr ""
+"A `stock` vagy `cached` típusú ikonok nem tartalmazhatnak URL-t, teljes vagy "
+"relatív útvonalat az ikonhoz. Csak a fájl alapnevei vagy törzsnevei "
+"engedélyezettek."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:388
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
-msgstr "A `remote` típusú ikonoknak tartalmazniuk kell egy URL-t a hivatkozott ikonra."
+msgstr ""
+"A `remote` típusú ikonoknak tartalmazniuk kell egy URL-t a hivatkozott "
+"ikonra."
 
 #: src/as-validator-issue-tag.h:393
 msgid "Unable to reach remote icon at the given web location - does it exist?"
@@ -1598,14 +1644,18 @@ msgstr ""
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr "A metainformációs fájlok csak `stock` vagy `remote` típusú ikonokat tartalmazhatnak, a beállított típus nem engedélyezett."
+msgstr ""
+"A metainformációs fájlok csak `stock` vagy `remote` típusú ikonokat "
+"tartalmazhatnak, a beállított típus nem engedélyezett."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:410
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr "Érvénytelen `type` tulajdonság ennél az `url` címkénél. Az ilyen típusú URL-ek nem ismertek az AppStream specifikációban."
+msgstr ""
+"Érvénytelen `type` tulajdonság ennél az `url` címkénél. Az ilyen típusú URL-"
+"ek nem ismertek az AppStream specifikációban."
 
 #: src/as-validator-issue-tag.h:415
 msgid ""
@@ -1643,18 +1693,21 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:446
 msgid "This `launchable` tag has an unknown type and can not be used."
-msgstr "Ez a `launchable` címke ismeretlen típussal rendelkezik, és nem használható."
+msgstr ""
+"Ez a `launchable` címke ismeretlen típussal rendelkezik, és nem használható."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:452
 msgid "This `bundle` tag has an unknown type and can not be used."
-msgstr "Ez a `bundle` címke ismeretlen típussal rendelkezik, és nem használható."
+msgstr ""
+"Ez a `bundle` címke ismeretlen típussal rendelkezik, és nem használható."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:458
 msgid ""
 "The `update_contact` tag should not be included in collection AppStream XML."
-msgstr "Az `update_contact` címkét nem szabad felvenni az AppStream XML gyűjteménybe."
+msgstr ""
+"Az `update_contact` címkét nem szabad felvenni az AppStream XML gyűjteménybe."
 
 #: src/as-validator-issue-tag.h:463
 msgid ""
@@ -1686,7 +1739,9 @@ msgstr ""
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
-msgstr "Az alapvető `metadata_license` címke hiányzik. Magának a metaadatnak a licencét mindig meg kell határozni."
+msgstr ""
+"Az alapvető `metadata_license` címke hiányzik. Magának a metaadatnak a "
+"licencét mindig meg kell határozni."
 
 #: src/as-validator-issue-tag.h:482
 msgid ""
@@ -1731,42 +1786,54 @@ msgstr ""
 #: src/as-validator-issue-tag.h:509
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr "Ebből a `web-application` összetevőből hiányzik egy `url` típusú `launchable` címke."
+msgstr ""
+"Ebből a `web-application` összetevőből hiányzik egy `url` típusú "
+"`launchable` címke."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:515
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
-msgstr "Ebből a `web-application` összetevőből hiányzik egy `icon` címke egy érvényes ikon megadásához."
+msgstr ""
+"Ebből a `web-application` összetevőből hiányzik egy `icon` címke egy "
+"érvényes ikon megadásához."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:521
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
-msgstr "Ebből a `web-application` összetevőből hiányzik a kategorizálás. Valószínűleg hiányzik egy `categories` blokk."
+msgstr ""
+"Ebből a `web-application` összetevőből hiányzik a kategorizálás. "
+"Valószínűleg hiányzik egy `categories` blokk."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:527
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
-msgstr "`font` típusú összetevő, de nem lett betűkészlet-információ megadva egy `provides/font` címkén keresztül."
+msgstr ""
+"`font` típusú összetevő, de nem lett betűkészlet-információ megadva egy "
+"`provides/font` címkén keresztül."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:533
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
-msgstr "`driver` típusú összetevő, de nem lett modalias-információ megadva egy `provides/modalias` címkén keresztül."
+msgstr ""
+"`driver` típusú összetevő, de nem lett modalias-információ megadva egy "
+"`provides/modalias` címkén keresztül."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:539
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr "Egy `extends`címke meg van adva, de az összetevő nem `addon`, `localization` vagy `repository` típusú."
+msgstr ""
+"Egy `extends`címke meg van adva, de az összetevő nem `addon`, `localization` "
+"vagy `repository` típusú."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:545
@@ -1778,27 +1845,35 @@ msgstr "Az összetevő egy kiegészítő, de nem lett `extends` címke megadva."
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
-msgstr "Ebből a `localization` összetevőből hiányzik egy `extends` címke, hogy megadja azokat az összetevőket, amelyekhez honosítást ad hozzá."
+msgstr ""
+"Ebből a `localization` összetevőből hiányzik egy `extends` címke, hogy "
+"megadja azokat az összetevőket, amelyekhez honosítást ad hozzá."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:557
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
-msgstr "Ez a `localization` összetevő nem határoz meg semmilyen nyelvet ehhez a honosításhoz."
+msgstr ""
+"Ez a `localization` összetevő nem határoz meg semmilyen nyelvet ehhez a "
+"honosításhoz."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:563
 msgid ""
 "This `service` component is missing a `launchable` tag of type `service`."
-msgstr "Ebből a `service` összetevőből hiányzik egy `service` típusú `launchable` címke."
+msgstr ""
+"Ebből a `service` összetevőből hiányzik egy `service` típusú `launchable` "
+"címke."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:569
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
-msgstr "Az `upstream` típuson kívül bármely más típus javaslatai nem engedélyezettek a metainformációs fájlokban."
+msgstr ""
+"Az `upstream` típuson kívül bármely más típus javaslatai nem engedélyezettek "
+"a metainformációs fájlokban."
 
 #: src/as-validator-issue-tag.h:574
 msgid ""
@@ -1809,7 +1884,8 @@ msgstr ""
 "kategórianevek listájához."
 
 #: src/as-validator-issue-tag.h:579
-msgid "The screenshot caption is too long (should be <= 80 characters)"
+#, fuzzy
+msgid "The screenshot caption is too long (should be <= 100 characters)"
 msgstr "A képernyőkép felirata túl hosszú (legfeljebb 80 karakter lehet)"
 
 #: src/as-validator-issue-tag.h:584
@@ -1825,7 +1901,9 @@ msgstr "A fájl XML-je helytelenül formázott."
 msgid ""
 "Invalid tag found in collection metadata. Only `component` tags are "
 "permitted."
-msgstr "Érvénytelen címke található a gyűjtemény metaadataiban. Csak a `component` címkék engedélyezettek."
+msgstr ""
+"Érvénytelen címke található a gyűjtemény metaadataiban. Csak a `component` "
+"címkék engedélyezettek."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:601
@@ -1878,7 +1956,9 @@ msgstr "Nem található XDG alkalmazások könyvtár."
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr "A metainformációs fájl örökölt útvonalon van tárolva. Tegye azt az `/usr/share/metainfo` könyvtárba."
+msgstr ""
+"A metainformációs fájl örökölt útvonalon van tárolva. Tegye azt az `/usr/"
+"share/metainfo` könyvtárba."
 
 #: src/as-validator-issue-tag.h:646
 msgid "The metainfo file specifies multiple components. This is not allowed."
@@ -1930,7 +2010,8 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:692
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr "A méret típusa ismeretlen. `download` vagy `installed` értékűnek kell lennie."
+msgstr ""
+"A méret típusa ismeretlen. `download` vagy `installed` értékűnek kell lennie."
 
 #: src/as-validator-issue-tag.h:697
 msgid ""
@@ -2040,13 +2121,13 @@ msgstr "További hibakeresési információk megjelenítése."
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-compose.c:184 tools/appstreamcli.c:1087
+#: tools/appstream-compose.c:184 tools/appstreamcli.c:1127
 msgid "Don't show colored output."
 msgstr "Ne jelenítsen meg színes kimenetet."
 
 #. TRANSLATORS: ascompose flag description for: --version
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-compose.c:187 tools/appstreamcli.c:1076
+#: tools/appstream-compose.c:187 tools/appstreamcli.c:1116
 msgid "Show the program version."
 msgstr "A programverzió megjelenítése."
 
@@ -2103,13 +2184,13 @@ msgid "Failed to parse arguments"
 msgstr ""
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:242 tools/appstreamcli.c:1230
+#: tools/appstream-compose.c:242 tools/appstreamcli.c:1275
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream verzió: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:245 tools/appstreamcli.c:1233
+#: tools/appstream-compose.c:245 tools/appstreamcli.c:1278
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2254,7 +2335,7 @@ msgstr ""
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstreamcli.c:153 tools/appstreamcli.c:981
+#: tools/appstreamcli.c:153 tools/appstreamcli.c:1021
 msgid "AppStream command-line interface"
 msgstr "AppStream parancssori felület"
 
@@ -2264,19 +2345,19 @@ msgid "'%s' command"
 msgstr "„%s” parancs"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstreamcli.c:191
+#: tools/appstreamcli.c:192
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "A(z) „%s” kapcsoló ismeretlen."
 
-#: tools/appstreamcli.c:195 tools/appstreamcli.c:1207
+#: tools/appstreamcli.c:196 tools/appstreamcli.c:1252
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Futtassa a(z) „%s --help” parancsot az elérhető parancssori kapcsolók teljes "
 "listájáért."
 
-#: tools/appstreamcli.c:197
+#: tools/appstreamcli.c:198
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
@@ -2287,38 +2368,44 @@ msgstr ""
 "jellemző kapcsolók listájának megtekintéséhez."
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstreamcli.c:245
+#: tools/appstreamcli.c:246
 msgid "Enforce a cache refresh."
 msgstr "Gyorsítótár-frissítés kényszerítése."
 
 #. TRANSLATORS: ascli flag description for: --user
-#: tools/appstreamcli.c:251
+#: tools/appstreamcli.c:252
 msgid "Update the user-specific instead of the system-wide cache."
 msgstr ""
 
-#. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
+#. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:477
+msgid ""
+"No license, license expression or license exception string was provided."
+msgstr ""
+
+#. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
+#: tools/appstreamcli.c:502
 msgid "Set the data origin for the installed metadata collection file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:482
+#: tools/appstreamcli.c:507
 msgid "Install the file for the current user, instead of globally."
 msgstr ""
 
-#: tools/appstreamcli.c:631
+#: tools/appstreamcli.c:656
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
 "Meg kell adnia legalább két összehasonlítandó verziószámot paraméterként."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:660
+#: tools/appstreamcli.c:685
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Ismeretlen „%s” összehasonlító-kapcsolat. Az érvényes értékek:"
 
-#: tools/appstreamcli.c:700
+#: tools/appstreamcli.c:725
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -2327,7 +2414,7 @@ msgstr ""
 "operátor szükséges."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:726
+#: tools/appstreamcli.c:751
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -2335,7 +2422,7 @@ msgstr ""
 "kitöltésére."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstreamcli.c:731
+#: tools/appstreamcli.c:756
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -2344,54 +2431,67 @@ msgstr ""
 "fogadja, ahol a FÁJL a kimeneti fájl (vagy szabványos kimenet esetén „-”)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstreamcli.c:734
+#: tools/appstreamcli.c:759
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "A TÍPUS értéke érvényes összetevőtípus kell legyen, mint például: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:775
+#: tools/appstreamcli.c:800
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:815
+#: tools/appstreamcli.c:841
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 "Tegyük fel, hogy a bemeneti fájl a kiválasztott formátumban van ( \"yaml\" "
 "vagy \"text\" )"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:820
+#: tools/appstreamcli.c:847
+#, fuzzy
 msgid ""
-"Limit the number of release entries that end up in the metainfo file (0 for "
-"unlimited)."
+"Limit the number of release entries that end up in the metainfo file (<= 0 "
+"for unlimited)."
 msgstr ""
 "A metainformációs fájlba bekerülő kiadási bejegyzések számának korlátozása "
 "(0 esetén korlátlan)."
 
+#. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
+#: tools/appstreamcli.c:853
+msgid ""
+"Set the number of releases that should have descriptions marked for "
+"translation (latest releases are translated first, -1 for unlimited)."
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:862
+#: tools/appstreamcli.c:897
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr "Kimenet előállítása a kiválasztott formátumban („yaml” vagy „text”)."
 
-#: tools/appstreamcli.c:894
+#: tools/appstreamcli.c:929
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
 msgstr ""
 
+#. TRANSLATORS: Unexpected number of parameters on the command-line
+#: tools/appstreamcli.c:937
+msgid "Invalid number of parameters"
+msgstr ""
+
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:956
+#: tools/appstreamcli.c:996
 #, c-format
 msgid "(Alias: '%s')"
 msgstr ""
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:983
+#: tools/appstreamcli.c:1023
 msgid "Subcommands:"
 msgstr "Alparancsok:"
 
-#: tools/appstreamcli.c:1029
+#: tools/appstreamcli.c:1069
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -2400,7 +2500,7 @@ msgstr ""
 "átadásával az alparancsnak."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstreamcli.c:1052
+#: tools/appstreamcli.c:1092
 #, fuzzy, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -2409,91 +2509,96 @@ msgstr ""
 "listájáért."
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstreamcli.c:1082
+#: tools/appstreamcli.c:1122
 msgid "Show extra debugging information."
 msgstr "További hibakeresési információk megjelenítése."
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstreamcli.c:1090
+#: tools/appstreamcli.c:1130
 msgid "Enable profiling"
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1102
+#: tools/appstreamcli.c:1142
 msgid "Search the component database."
 msgstr "Keresés az összetevő-adatbázisban."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1107
+#: tools/appstreamcli.c:1147
 msgid "Get information about a component by its ID."
 msgstr "Információk kérése egy összetevőről az azonosítója szerint."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1112
+#: tools/appstreamcli.c:1152
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1118
+#: tools/appstreamcli.c:1158
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Nyers XML-metaadatok kiírása az azonosítóra illeszkedő összetevőhöz."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1123
+#: tools/appstreamcli.c:1163
 msgid "Rebuild the component metadata cache."
 msgstr "Az összetevő-metaadat gyorsítótár újraépítése."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1129
+#: tools/appstreamcli.c:1169
 msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML-fájlok érvényesítése a hibáknál."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1134
+#: tools/appstreamcli.c:1174
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Egy alkalmazás telepített fájlfájának összevetése az érvényes metaadatokkal."
 
+#. TRANSLATORS: `appstreamcli `check-license` command description.
+#: tools/appstreamcli.c:1179
+msgid "Check license string for validity and print details about it."
+msgstr ""
+
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1140
+#: tools/appstreamcli.c:1185
 msgid "Install software matching the component-ID."
 msgstr "Az összetevő-azonosítónak megfelelő szoftver telepítése."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1145
+#: tools/appstreamcli.c:1190
 msgid "Remove software matching the component-ID."
 msgstr "Az összetevő-azonosítónak megfelelő szoftver eltávolítása."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1151
+#: tools/appstreamcli.c:1196
 msgid "Display status information about available AppStream metadata."
 msgstr "Állapotinformációk megjelenítése az elérhető AppStream metaadatokról."
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstreamcli.c:1156
+#: tools/appstreamcli.c:1201
 msgid ""
 "Show information about the current operating system from the metadata index."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1161
+#: tools/appstreamcli.c:1206
 msgid "Install a metadata file into the right location."
 msgstr "Metaadatfájl telepítése a megfelelő helyre."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1166
+#: tools/appstreamcli.c:1211
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Gyűjtemény átalakítása XML-ről YAML-ra vagy fordítva."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1171
+#: tools/appstreamcli.c:1216
 msgid "Compare two version numbers."
 msgstr "Két verziószám összehasonlítása."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1177
+#: tools/appstreamcli.c:1222
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -2502,32 +2607,32 @@ msgstr ""
 "kitöltéshez)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1182
+#: tools/appstreamcli.c:1227
 #, fuzzy
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "XDG asztali bejegyzés készítése metainfo fájlból."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1187
+#: tools/appstreamcli.c:1232
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "Fordítsa a YAML vagy text fájlokat metainfo megjelenesbe."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1192
+#: tools/appstreamcli.c:1237
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 "NEWS szöveg vagy YAML fájl írása a metainformációs fájlban található "
 "információkból."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1198
+#: tools/appstreamcli.c:1243
 #, fuzzy
 msgid "Compose AppStream collection metadata from directory trees."
 msgstr ""
 "Nem található AppStream metaadat ebben a könyvtárban vagy könyvtárfában."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1206
+#: tools/appstreamcli.c:1251
 msgid "You need to specify a command."
 msgstr "Meg kell adnia egy parancsot."
 
@@ -2723,7 +2828,7 @@ msgstr "%i szoftverkomponensről van információnk."
 msgid "Error while loading the metadata pool: %s"
 msgstr "Hiba a metaadat-tároló betöltésekor: %s"
 
-#: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
+#: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:508
 #, fuzzy
 msgid "You need to specify a metainfo file as input."
 msgstr "Meg kell adnia egy metaadatfájlt."
@@ -2734,8 +2839,8 @@ msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
 msgstr "Meg kell adnia egy fájlt az ellenőrzéshez!"
 
-#: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
-#: tools/ascli-actions-misc.c:515
+#: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:441
+#: tools/ascli-actions-misc.c:518
 #, c-format
 msgid "Metainfo file '%s' does not exist."
 msgstr "A(z) „%s” metainformációs fájl nem létezik."
@@ -2773,29 +2878,29 @@ msgstr ""
 msgid "Unable to save desktop entry file: %s"
 msgstr "A .desktop fájl nem olvasható: %s"
 
-#: tools/ascli-actions-misc.c:393
+#: tools/ascli-actions-misc.c:398
 msgid "You need to specify a NEWS file as input."
 msgstr "Meg kell adnia egy NEW fájlt bemenetként."
 
-#: tools/ascli-actions-misc.c:397
+#: tools/ascli-actions-misc.c:402
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
 msgstr ""
 "Meg kell adnia egy metainformációs fájlt az argumentumnak, vagy „-” a "
 "szabványos kimenetre íráshoz."
 
-#: tools/ascli-actions-misc.c:402
+#: tools/ascli-actions-misc.c:407
 msgid "No output filename specified, modifying metainfo file directly."
 msgstr ""
 "Nincs kimeneti fájlnév megadva, a metainformációs fájl közvetlen módosítása."
 
-#: tools/ascli-actions-misc.c:509
+#: tools/ascli-actions-misc.c:512
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
 msgstr ""
 "Meg kell adnia egy NEW fájlt kimenetként, vagy „-” a szabványos kimenetre "
 "íráshoz."
 
-#: tools/ascli-actions-misc.c:540
+#: tools/ascli-actions-misc.c:543
 msgid "You need to specify a NEWS format to write the output in."
 msgstr "Meg kell adnia a NEWS formátumot, amiben a bemeneti van."
 
@@ -2877,6 +2982,62 @@ msgstr ""
 #: tools/ascli-actions-validate.c:390 tools/ascli-actions-validate.c:484
 msgid "You need to specify a root directory to start validation!"
 msgstr "Meg kell adnia egy gyökérkönyvtárat az érvényesítés megkezdéséhez!"
+
+#. TRANSLATORS: A plain license ID
+#: tools/ascli-actions-validate.c:524
+#, fuzzy
+msgid "license"
+msgstr "Licenc"
+
+#. TRANSLATORS: A license exception
+#: tools/ascli-actions-validate.c:527
+msgid "license exception"
+msgstr ""
+
+#. TRANSLATORS: A complex license expression
+#: tools/ascli-actions-validate.c:530
+msgid "license expression"
+msgstr ""
+
+#. TRANSLATORS: An invalid license
+#: tools/ascli-actions-validate.c:534
+msgid "invalid"
+msgstr ""
+
+#. TRANSLATORS: The license string type (single license, expression, exception, invalid)
+#: tools/ascli-actions-validate.c:539
+#, fuzzy
+msgid "License Type"
+msgstr "Licenc"
+
+#. TRANSLATORS: Canonical identifier of a software license
+#: tools/ascli-actions-validate.c:543
+msgid "Canonical ID"
+msgstr ""
+
+#. TRANSLATORS: Whether a license is suitable for AppStream metadata
+#: tools/ascli-actions-validate.c:547
+#, fuzzy
+msgid "Suitable for AppStream metadata"
+msgstr "Egy segédprogram az AppStream metaadatokkal való munkához"
+
+#: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
+msgid "no"
+msgstr ""
+
+#: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
+msgid "yes"
+msgstr ""
+
+#. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
+#: tools/ascli-actions-validate.c:550
+msgid "Free and Open Source"
+msgstr ""
+
+#. TRANSLATORS: Software license URL
+#: tools/ascli-actions-validate.c:555
+msgid "URL"
+msgstr ""
 
 #: tools/ascli-utils.c:266
 msgid "Identifier"
