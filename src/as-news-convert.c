@@ -855,10 +855,13 @@ as_news_to_releases_from_data (const gchar *data,
 		releases = as_news_text_to_releases (data, entry_limit, error);
 
 	if (releases == NULL) {
-		g_set_error (error,
-				AS_METADATA_ERROR,
-				AS_METADATA_ERROR_FAILED,
-				"Unable to detect input data format.");
+		/* if no error was set, we simply had no idea about the format.
+		 * Otherwise, parsing must have failed. */
+		if (error == NULL)
+			g_set_error (error,
+					AS_METADATA_ERROR,
+					AS_METADATA_ERROR_FAILED,
+					"Unable to detect input data format.");
 		return NULL;
 	}
 
