@@ -26,16 +26,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-10-06 19:42+0200\n"
-"PO-Revision-Date: 2021-08-31 03:32+0000\n"
+"PO-Revision-Date: 2021-10-07 01:14+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8.1-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1860,9 +1859,8 @@ msgstr ""
 "giltiga kategorinamn."
 
 #: src/as-validator-issue-tag.h:579
-#, fuzzy
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr "Skärmbildens text är för lång (ska vara <= 80 tecken)"
+msgstr "Skärmbildens text är för lång (ska vara <= 100 tecken)"
 
 #: src/as-validator-issue-tag.h:584
 msgid "Unable to read file."
@@ -2392,7 +2390,7 @@ msgstr ""
 #: tools/appstreamcli.c:477
 msgid ""
 "No license, license expression or license exception string was provided."
-msgstr ""
+msgstr "Ingen sträng för licens, licensuttryck eller licensundantag tillhandahölls."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:502
@@ -2459,19 +2457,17 @@ msgstr "Anta att indatafilen är i valt format (”yaml” eller ”text”)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:847
-#, fuzzy
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr ""
-"Begränsa antalet utgåveposter som hamnar i metainfofilen (0 för obegränsat)."
+msgstr "Begränsa antalet utgåveposter som hamnar i metainfofilen (<=0 för obegränsat)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:853
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
-msgstr ""
+msgstr "Ställ in antalet utgåvor som ska ha beskrivningar märkta för översättning (senaste utgåvor översätts först, -1 för obegränsat)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:897
@@ -2486,7 +2482,7 @@ msgstr "Sammansättningsbinär ”%s” hittades inte! Kan inte fortsätta."
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:937
 msgid "Invalid number of parameters"
-msgstr ""
+msgstr "Ogiltigt antal parametrar"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:996
@@ -2569,7 +2565,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1179
 msgid "Check license string for validity and print details about it."
-msgstr ""
+msgstr "Kontrollera licenssträngen för giltighet och skriv ut detaljer om den."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1185
@@ -2985,60 +2981,56 @@ msgstr "Du måste ange en rotkatalog för att påbörja valideringen!"
 
 #. TRANSLATORS: A plain license ID
 #: tools/ascli-actions-validate.c:524
-#, fuzzy
 msgid "license"
-msgstr "Licens"
+msgstr "licens"
 
 #. TRANSLATORS: A license exception
 #: tools/ascli-actions-validate.c:527
 msgid "license exception"
-msgstr ""
+msgstr "licensundantag"
 
 #. TRANSLATORS: A complex license expression
 #: tools/ascli-actions-validate.c:530
 msgid "license expression"
-msgstr ""
+msgstr "licensuttryck"
 
 #. TRANSLATORS: An invalid license
 #: tools/ascli-actions-validate.c:534
 msgid "invalid"
-msgstr ""
+msgstr "ogiltig"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:539
-#, fuzzy
 msgid "License Type"
-msgstr "Licens"
+msgstr "Licenstyp"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:543
-#, fuzzy
 msgid "Canonical ID"
-msgstr "Internt ID"
+msgstr "Kanoniskt ID"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
 #: tools/ascli-actions-validate.c:547
-#, fuzzy
 msgid "Suitable for AppStream metadata"
-msgstr "Misslyckades med att sätta samman AppStream-metadata"
+msgstr "Lämplig för AppStream-metadata"
 
 #: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
 msgid "no"
-msgstr ""
+msgstr "nej"
 
 #: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
 msgid "yes"
-msgstr ""
+msgstr "ja"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
 #: tools/ascli-actions-validate.c:550
 msgid "Free and Open Source"
-msgstr ""
+msgstr "Fri och öppen källkod"
 
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:555
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: tools/ascli-utils.c:266
 msgid "Identifier"
