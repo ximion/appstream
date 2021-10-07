@@ -420,7 +420,9 @@ typedef enum {
 static AsNewsSectionKind
 as_news_text_guess_section (const gchar *lines)
 {
-	if (g_strstr_len (lines, -1, "~~~") != NULL)
+	if (g_strstr_len (lines, -1, "~~~~") != NULL)
+		return AS_NEWS_SECTION_KIND_HEADER;
+	if (g_strstr_len (lines, -1, "----") != NULL)
 		return AS_NEWS_SECTION_KIND_HEADER;
 	if (g_strstr_len (lines, -1, "Bugfix:\n") != NULL)
 		return AS_NEWS_SECTION_KIND_BUGFIX;
