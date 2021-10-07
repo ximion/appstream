@@ -43,7 +43,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-10-06 19:42+0200\n"
 "PO-Revision-Date: 2021-10-07 01:14+0000\n"
-"Last-Translator: lumingzh <lumingzh@qq.com>\n"
+"Last-Translator: Eric <spice2wolf@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -1759,9 +1759,8 @@ msgid ""
 msgstr "类别名称无效。 有关有效类别名称的列表，请参考 XDG 菜单规范。"
 
 #: src/as-validator-issue-tag.h:579
-#, fuzzy
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr "截图标题太长（应该 <= 80 个字符）"
+msgstr "截图标题太长（应该 <= 100 个字符）"
 
 #: src/as-validator-issue-tag.h:584
 msgid "Unable to read file."
@@ -2317,11 +2316,10 @@ msgstr "假设输入文件是所选的格式（'yaml' 或者 'text'）。"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:847
-#, fuzzy
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr "限制元信息文件中出现的发行条目数量（0 为不限制）。"
+msgstr "限制元信息文件中出现的发行条目数量（<=0 为不限制）。"
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:853
@@ -2822,9 +2820,8 @@ msgstr "您需要指定根目录以开始验证！"
 
 #. TRANSLATORS: A plain license ID
 #: tools/ascli-actions-validate.c:524
-#, fuzzy
 msgid "license"
-msgstr "授权条款"
+msgstr "许可证"
 
 #. TRANSLATORS: A license exception
 #: tools/ascli-actions-validate.c:527
@@ -2843,21 +2840,18 @@ msgstr "无效的"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:539
-#, fuzzy
 msgid "License Type"
-msgstr "授权条款"
+msgstr "许可证类型"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:543
-#, fuzzy
 msgid "Canonical ID"
-msgstr "内部 ID"
+msgstr "Canonical ID"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
 #: tools/ascli-actions-validate.c:547
-#, fuzzy
 msgid "Suitable for AppStream metadata"
-msgstr "未能编写 AppStream 元数据"
+msgstr "适用于 AppStream 元数据"
 
 #: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
 msgid "no"
