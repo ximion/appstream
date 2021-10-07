@@ -101,6 +101,7 @@ AS_INTERNAL_VISIBLE
 gboolean		as_is_empty (const gchar *str);
 GDateTime		*as_iso8601_to_datetime (const gchar *iso_date);
 
+AS_INTERNAL_VISIBLE
 gboolean		as_utils_delete_dir_recursive (const gchar* dirname);
 
 AS_INTERNAL_VISIBLE

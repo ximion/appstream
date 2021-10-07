@@ -43,6 +43,7 @@ typedef struct
 {
 	gboolean	use_optipng;
 	gchar		*optipng_bin;
+	gchar		*ffprobe_bin;
 	gchar		*tmp_dir;
 
 	GMutex		pangrams_mutex;
@@ -90,6 +91,7 @@ asc_globals_finalize (GObject *object)
 
 	g_free (priv->tmp_dir);
 	g_free (priv->optipng_bin);
+	g_free (priv->ffprobe_bin);
 
 	g_mutex_clear (&priv->pangrams_mutex);
 	if (priv->pangrams_en != NULL)
@@ -114,6 +116,7 @@ asc_globals_init (AscGlobals *globals)
 	priv->optipng_bin = g_find_program_in_path ("optipng");
 	if (priv->optipng_bin != NULL)
 		priv->use_optipng = TRUE;
+	priv->ffprobe_bin = g_find_program_in_path ("ffprobe");
 
 	g_mutex_init (&priv->pangrams_mutex);
 }
@@ -225,6 +228,31 @@ asc_globals_set_optipng_binary (const gchar *path)
 	priv->optipng_bin = g_strdup (path);
 	if (priv->optipng_bin == NULL)
 		priv->use_optipng = FALSE;
+}
+
+/**
+ * asc_globals_get_ffprobe_binary:
+ *
+ * Get path to the "ffprobe" binary we should use.
+ **/
+const gchar*
+asc_globals_get_ffprobe_binary (void)
+{
+	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	return priv->ffprobe_bin;
+}
+
+/**
+ * asc_globals_set_ffprobe_binary:
+ *
+ * Set path to the "ffprobe" binary we should use.
+ **/
+void
+asc_globals_set_ffprobe_binary (const gchar *path)
+{
+	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	g_free (priv->ffprobe_bin);
+	priv->ffprobe_bin = g_strdup (path);
 }
 
 /**

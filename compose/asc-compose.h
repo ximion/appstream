@@ -46,13 +46,17 @@ struct _AscComposeClass
 /**
  * AsCacheFlags:
  * @ASC_COMPOSE_FLAG_NONE:		No flags.
+ * @ASC_COMPOSE_FLAG_ALLOW_NET:		Allow network access for downloading extra data.
  * @ASC_COMPOSE_FLAG_VALIDATE:		Validate metadata while processing.
+ * @ASC_COMPOSE_FLAG_STORE_SCREENSHOTS:	Whether screenshots should be cached in the media directory.
  *
  * Flags on how caching should be used.
  **/
 typedef enum {
-	ASC_COMPOSE_FLAG_NONE		= 0,
-	ASC_COMPOSE_FLAG_VALIDATE	= 1 << 0
+	ASC_COMPOSE_FLAG_NONE			= 0,
+	ASC_COMPOSE_FLAG_ALLOW_NET		= 1 << 0,
+	ASC_COMPOSE_FLAG_VALIDATE		= 1 << 1,
+	ASC_COMPOSE_FLAG_STORE_SCREENSHOTS	= 1 << 2
 } AscComposeFlags;
 
 AscCompose		*asc_compose_new (void);

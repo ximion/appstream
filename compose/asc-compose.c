@@ -32,6 +32,7 @@
 
 #include "as-utils-private.h"
 #include "as-yaml.h"
+#include "as-curl.h"
 
 #include "asc-globals-private.h"
 #include "asc-utils.h"
@@ -40,6 +41,7 @@
 
 #include "asc-utils-metainfo.h"
 #include "asc-utils-l10n.h"
+#include "asc-utils-screenshots.h"
 #include "asc-image.h"
 
 typedef struct
@@ -88,7 +90,9 @@ asc_compose_init (AscCompose *compose)
 	priv->format = AS_FORMAT_KIND_XML;
 	as_ref_string_assign_safe (&priv->prefix, "/usr");
 	priv->min_l10n_percentage = 25;
-	priv->flags = ASC_COMPOSE_FLAG_VALIDATE;
+	priv->flags = ASC_COMPOSE_FLAG_ALLOW_NET |
+			ASC_COMPOSE_FLAG_VALIDATE |
+			ASC_COMPOSE_FLAG_STORE_SCREENSHOTS;
 }
 
 static void
@@ -907,7 +911,8 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	g_autoptr(GPtrArray) mi_fnames = NULL;
 	g_autoptr(GHashTable) de_fname_map = NULL;
 	g_autoptr(GPtrArray) found_cpts = NULL;
-	g_autoptr(GError) error = NULL;
+	g_autoptr(AsCurl) acurl = NULL;
+	g_autoptr(GError) tmp_error = NULL;
 	gboolean filter_cpts = FALSE;
 	GPtrArray *contents = NULL;
 
@@ -925,13 +930,20 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	/* create validator */
 	validator = as_validator_new ();
 
+	/* Curl interface for this task */
+	acurl = as_curl_new (&tmp_error);
+	if (acurl == NULL) {
+		g_critical ("Unable to initialize networking: %s", tmp_error->message);
+		g_error_free (g_steal_pointer (&tmp_error));
+	}
+
 	/* give unit a hint as to which paths we want to read */
 	share_dir = g_build_filename (priv->prefix, "share", NULL);
 	asc_unit_add_relevant_path (ctask->unit, share_dir);
 
 	/* open our unit for reading */
-	if (!asc_unit_open (ctask->unit, &error)) {
-		g_warning ("Failed to open unit: %s", error->message);
+	if (!asc_unit_open (ctask->unit, &tmp_error)) {
+		g_warning ("Failed to open unit: %s", tmp_error->message);
 		return;
 	}
 	contents = asc_unit_get_contents (ctask->unit);
@@ -964,22 +976,22 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	/* process metadata */
 	for (guint i = 0; i < mi_fnames->len; i++) {
 		g_autoptr(GBytes) mi_bytes = NULL;
-		g_autoptr(GError) error = NULL;
+		g_autoptr(GError) local_error = NULL;
 		g_autoptr(AsComponent) cpt = NULL;
 		g_autofree gchar *mi_basename = NULL;
 		const gchar *mi_fname = g_ptr_array_index (mi_fnames, i);
 		mi_basename = g_path_get_basename (mi_fname);
 
 		g_debug ("Processing: %s", mi_fname);
-		mi_bytes = asc_unit_read_data (ctask->unit, mi_fname, &error);
+		mi_bytes = asc_unit_read_data (ctask->unit, mi_fname, &local_error);
 		if (mi_bytes == NULL) {
 			asc_result_add_hint_by_cid (ctask->result,
 						    mi_basename,
 						    "file-read-error",
 						    "fname", mi_fname,
-						    "msg", error->message,
+						    "msg", local_error->message,
 						    NULL);
-			g_debug ("Failed '%s': %s", mi_basename, error->message);
+			g_debug ("Failed '%s': %s", mi_basename, local_error->message);
 			continue;
 		}
 		as_metadata_clear_components (mdata);
@@ -1045,15 +1057,15 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 
 						de_ref_found = TRUE;
 						g_debug ("Reading: %s", de_fname);
-						de_bytes = asc_unit_read_data (ctask->unit, de_fname, &error);
+						de_bytes = asc_unit_read_data (ctask->unit, de_fname, &local_error);
 						if (de_bytes == NULL) {
 							asc_result_add_hint (ctask->result,
 									     cpt,
 									     "file-read-error",
 									     "fname", de_fname,
-									     "msg", error->message,
+									     "msg", local_error->message,
 									     NULL);
-							g_error_free (g_steal_pointer (&error));
+							g_error_free (g_steal_pointer (&local_error));
 							continue;
 						}
 
@@ -1088,15 +1100,15 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 					g_autofree gchar *de_fname = g_build_filename (app_dir, cid, NULL);
 
 					g_debug ("Reading: %s", de_fname);
-					de_bytes = asc_unit_read_data (ctask->unit, de_fname, &error);
+					de_bytes = asc_unit_read_data (ctask->unit, de_fname, &local_error);
 					if (de_bytes == NULL) {
 						asc_result_add_hint (ctask->result,
 								     cpt,
 								     "file-read-error",
 								     "fname", de_fname,
-								     "msg", error->message,
+								     "msg", local_error->message,
 								     NULL);
-						g_error_free (g_steal_pointer (&error));
+						g_error_free (g_steal_pointer (&local_error));
 					} else {
 						g_autoptr(AsComponent) de_cpt = NULL;
 						de_cpt = asc_parse_desktop_entry_data (ctask->result,
@@ -1139,14 +1151,25 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 				     priv->prefix,
 				     25 /* minimum translation percentage */);
 
-	/* process icons */
+	/* process icons and screenshots */
 	found_cpts = asc_result_fetch_components (ctask->result);
 	for (guint i = 0; i < found_cpts->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (found_cpts, i));
+
+		/* icons */
 		asc_compose_process_icons (compose,
 					   ctask->result,
 					   cpt,
 					   ctask->unit);
+
+		/* screenshots, but only if we allow network access */
+		if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_ALLOW_NET) &&
+		    priv->media_result_dir != NULL && acurl != NULL)
+			asc_process_screenshots (ctask->result,
+						 cpt,
+						 acurl,
+						 priv->media_result_dir,
+						 as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS));
 	}
 
 	/* clean up superfluous hints in case we were filtering the results, as some rejected

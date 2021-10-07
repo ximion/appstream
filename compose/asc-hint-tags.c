@@ -32,7 +32,12 @@
 AscHintTagStatic asc_hint_tag_list[] =  {
 	{ "internal-unknown-tag",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  "The given tag was unknown. This is a bug."
+	  "The given tag was unknown. Please file an issue against AppStream."
+	},
+
+	{ "internal-error",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "A fatal problem appeared in appstream-compose. Please file an issue against AppStream.<br/>Error: {{msg}}"
 	},
 
 	{ "x-dev-testsuite-error",
@@ -165,6 +170,29 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  AS_ISSUE_SEVERITY_ERROR,
 	  "A component with this ID already exists. AppStream IDs must be unique, any subsequent components "
 	  "have been ignored. Please resolve the ID conflict!"
+	},
+
+	{ "metainfo-screenshot-but-no-media",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "A screenshot has been found for this component, but apparently it does not have any images or videos defined. "
+	  "The screenshot entry has been ignored."
+	},
+
+	{ "screenshot-download-error",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "Error while downloading screenshot from '{{url}}': {{error}}<br/>"
+          "This might be a temporary server issue, or the screenshot is no longer available."
+	},
+
+	{ "screenshot-save-error",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "Unable to store screenshot for '{{url}}': {{error}}"
+	},
+
+	{ "screenshot-no-thumbnails",
+	  AS_ISSUE_SEVERITY_INFO,
+	  "No thumbnails have been generated for screenshot '{{url}}'.<br/>"
+          "This could mean that the original provided screenshot is too small to generate thumbnails from."
 	},
 
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
