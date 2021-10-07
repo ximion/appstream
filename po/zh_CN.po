@@ -42,16 +42,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-10-06 19:42+0200\n"
-"PO-Revision-Date: 2021-08-28 20:04+0000\n"
-"Last-Translator: Eric <spice2wolf@gmail.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_Hans/>\n"
+"PO-Revision-Date: 2021-10-07 01:14+0000\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.8.1-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2256,7 +2255,7 @@ msgstr "更新用户指定而不是系统范围的缓存。"
 #: tools/appstreamcli.c:477
 msgid ""
 "No license, license expression or license exception string was provided."
-msgstr ""
+msgstr "没有提供许可证、许可证表述或许可证例外字符串。"
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:502
@@ -2329,7 +2328,7 @@ msgstr "限制元信息文件中出现的发行条目数量（0 为不限制）�
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
-msgstr ""
+msgstr "设置具有应标记为翻译的描述的发布数量（最新的发布优先翻译，-1 为不限制）。"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:897
@@ -2344,7 +2343,7 @@ msgstr "未找到组合二进制文件“%s”！无法继续。"
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:937
 msgid "Invalid number of parameters"
-msgstr ""
+msgstr "无效的参数数量"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:996
@@ -2422,7 +2421,7 @@ msgstr "检验已安装应用程序的文件树以查找有效元数据。"
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1179
 msgid "Check license string for validity and print details about it."
-msgstr ""
+msgstr "检查许可证字符串的有效性并显示其详情。"
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1185
@@ -2830,17 +2829,17 @@ msgstr "授权条款"
 #. TRANSLATORS: A license exception
 #: tools/ascli-actions-validate.c:527
 msgid "license exception"
-msgstr ""
+msgstr "许可证例外"
 
 #. TRANSLATORS: A complex license expression
 #: tools/ascli-actions-validate.c:530
 msgid "license expression"
-msgstr ""
+msgstr "许可证表述"
 
 #. TRANSLATORS: An invalid license
 #: tools/ascli-actions-validate.c:534
 msgid "invalid"
-msgstr ""
+msgstr "无效的"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:539
@@ -2862,21 +2861,21 @@ msgstr "未能编写 AppStream 元数据"
 
 #: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
 msgid "no"
-msgstr ""
+msgstr "否"
 
 #: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
 msgid "yes"
-msgstr ""
+msgstr "是"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
 #: tools/ascli-actions-validate.c:550
 msgid "Free and Open Source"
-msgstr ""
+msgstr "自由且开源"
 
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:555
 msgid "URL"
-msgstr ""
+msgstr "网址"
 
 #: tools/ascli-utils.c:266
 msgid "Identifier"
