@@ -294,7 +294,7 @@ test_compose_hints ()
 
 	g_assert_cmpstr (asc_hint_get_tag (hint), ==, "internal-unknown-tag");
 	g_assert_cmpint (asc_hint_get_severity (hint), ==, AS_ISSUE_SEVERITY_ERROR);
-	g_assert_cmpstr (asc_hint_get_explanation_template (hint), ==, "The given tag was unknown. This is a bug.");
+	g_assert_cmpstr (asc_hint_get_explanation_template (hint), ==, "The given tag was unknown. Please file an issue against AppStream.");
 	g_assert_true (asc_hint_is_valid (hint));
 	g_assert_true (asc_hint_is_error (hint));
 
