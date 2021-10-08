@@ -116,6 +116,7 @@ asc_globals_init (AscGlobals *globals)
 	priv->optipng_bin = g_find_program_in_path ("optipng");
 	if (priv->optipng_bin != NULL)
 		priv->use_optipng = TRUE;
+
 	priv->ffprobe_bin = g_find_program_in_path ("ffprobe");
 
 	g_mutex_init (&priv->pangrams_mutex);
@@ -133,6 +134,21 @@ static AscGlobalsPrivate*
 asc_globals_get_priv (void)
 {
 	return GET_PRIVATE (g_object_new (ASC_TYPE_GLOBALS, NULL));
+}
+
+/**
+ * asc_globals_clear:
+ *
+ * Clear all global state and restore defaults.
+ */
+void
+asc_globals_clear (void)
+{
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&g_globals_mutex);
+	if (g_globals == NULL)
+		return;
+	g_object_unref (G_OBJECT (g_globals));
+	g_globals = NULL;
 }
 
 /**

@@ -192,7 +192,30 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	{ "screenshot-no-thumbnails",
 	  AS_ISSUE_SEVERITY_INFO,
 	  "No thumbnails have been generated for screenshot '{{url}}'.<br/>"
-          "This could mean that the original provided screenshot is too small to generate thumbnails from."
+	  "This could mean that the original provided screenshot is too small to generate thumbnails from."
+	},
+
+	{ "screenshot-video-check-failed",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "Unable to inspect video file '{{fname}}'. This may have been caused by a configuration or network issue, or the supplied video file was faulty. "
+	  "The error message was: {{msg}}"
+	},
+
+	{ "screenshot-video-has-audio",
+	  AS_ISSUE_SEVERITY_INFO,
+	  "The video '{{fname}}' contains an audio track. The audio may not be played by software centers, so ideally you should avoid using audio, "
+	  "or at least make the audio non-essential for understanding the screencast."
+	},
+
+	{ "screenshot-video-audio-codec-unsupported",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "The video '{{fname}}' contains an audio track using the '{{codec}}' codec. The only permitted audio codec is <a href=\"https://opus-codec.org/\">Opus</a>."
+	},
+
+	{ "screenshot-video-format-unsupported",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "The video codec '{{codec}}' or container '{{container}}' of '{{fname}}' are not supported. Please encode the video "
+	  "as VP9 or AV1 using the WebM or Matroska container."
 	},
 
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }

@@ -27,6 +27,8 @@
 #include "config.h"
 #include "asc-utils-screenshots.h"
 
+#include <glib/gstdio.h>
+
 #include "as-utils-private.h"
 
 #include "asc-globals.h"
@@ -42,6 +44,325 @@ struct {
 	{ 224, 126 },
 	{ 0, 0 }
 };
+
+static AscVideoInfo*
+asc_video_info_new (void)
+{
+	AscVideoInfo *vinfo;
+	vinfo = g_new0 (AscVideoInfo, 1);
+	return vinfo;
+}
+
+void
+asc_video_info_free (AscVideoInfo *vinfo)
+{
+	if (vinfo == NULL)
+		return;
+	g_free (vinfo->codec_name);
+	g_free (vinfo->audio_codec_name);
+	g_free (vinfo->format_name);
+	g_free (vinfo);
+}
+
+/**
+ * asc_extract_video_info:
+ */
+AscVideoInfo*
+asc_extract_video_info (AscResult *cres, AsComponent *cpt, const gchar *vid_fname)
+{
+	AscVideoInfo *vinfo = NULL;
+	gboolean ret = FALSE;
+	g_autofree gchar *ff_stdout = NULL;
+	g_autofree gchar *ff_stderr = NULL;
+	g_autofree gchar *vid_basename = NULL;
+	gint exit_status = 0;
+	g_auto(GStrv) lines = NULL;
+	g_autofree gchar *prev_codec_name = NULL;
+	gboolean audio_okay = FALSE;
+	g_autoptr(GError) error = NULL;
+	const gchar *ffprobe_argv[] = {
+		asc_globals_get_ffprobe_binary (),
+		"-v", "quiet",
+		"-show_entries", "stream=width,height,codec_name,codec_type",
+		"-show_entries", "format=format_name",
+		"-of", "default=noprint_wrappers=1",
+		vid_fname,
+		NULL
+	};
+
+	vinfo = asc_video_info_new ();
+	if (vid_fname == NULL)
+		return vinfo;
+	if (asc_globals_get_ffprobe_binary () == NULL)
+		return NULL;
+	vid_basename = g_path_get_basename (vid_fname);
+
+	ret = g_spawn_sync (NULL, /* working directory */
+			    (gchar**) ffprobe_argv,
+			    NULL, /* envp */
+			    G_SPAWN_LEAVE_DESCRIPTORS_OPEN,
+			    NULL, /* child setup */
+			    NULL, /* user data */
+			    &ff_stdout,
+			    &ff_stderr,
+			    &exit_status,
+			    &error);
+	if (!ret) {
+		g_warning ("Failed to spawn ffprobe: %s", error->message);
+		asc_result_add_hint (cres,
+				     cpt,
+				     "screenshot-video-check-failed",
+				     "fname", vid_basename,
+				     "msg", error->message,
+				     NULL);
+		return vinfo;
+	}
+
+	if (exit_status != 0) {
+		g_autofree gchar *msg = NULL;
+		if (ff_stderr == NULL) {
+			ff_stderr = g_strdup (ff_stdout);
+		} else {
+			g_autofree gchar *dummy = ff_stderr;
+			ff_stderr = g_strconcat (ff_stderr, "\n", ff_stdout, NULL);
+		}
+		g_warning ("FFprobe on '%s' failed with error code %i: %s", vid_fname, exit_status, ff_stderr);
+		msg = g_strdup_printf ("Code %i, %s", exit_status, ff_stderr);
+		asc_result_add_hint (cres,
+				     cpt,
+				     "screenshot-video-check-failed",
+				     "fname", vid_basename,
+				     "msg", msg,
+				     NULL);
+		return vinfo;
+	}
+
+	/* NOTE: We are currently extracting information from ffprobe's simple output, but it also has a JSON
+	 * mode. Parsing JSON is a bit slower, but if it is more reliable we should switch to that. */
+	lines = g_strsplit (ff_stdout, "\n", -1);
+	for (guint i = 0; lines[i] != NULL; i++) {
+		gchar *tmp;
+		gchar *value;
+		gchar *key;
+		tmp = g_strstr_len (lines[i], -1, "=");
+		if (tmp == NULL)
+			continue;
+		value = tmp + 1;
+		key = lines[i];
+		tmp[0] = '\0';
+
+		if (g_strcmp0 (key, "codec_name") == 0) {
+			g_free (prev_codec_name);
+			prev_codec_name = g_strdup (value);
+			continue;
+		}
+		if (g_strcmp0 (key, "codec_type") == 0) {
+			if (g_strcmp0 (value, "video") == 0) {
+				if (vinfo->codec_name == NULL)
+					vinfo->codec_name = g_strdup (prev_codec_name);
+			} else if (g_strcmp0 (value, "audio") == 0) {
+				if (vinfo->audio_codec_name == NULL)
+					vinfo->audio_codec_name = g_strdup (prev_codec_name);
+			}
+			continue;
+		}
+		if (g_strcmp0 (key, "format_name") == 0) {
+			if (vinfo->format_name == NULL)
+				vinfo->format_name = g_strdup (value);
+			continue;
+		}
+		if (g_strcmp0 (key, "width") == 0) {
+			if (g_strcmp0 (value, "N/A") != 0)
+				vinfo->width = g_ascii_strtoll (value, NULL, 10);
+			continue;
+		}
+		if (g_strcmp0 (key, "height") == 0) {
+			if (g_strcmp0 (value, "N/A") != 0)
+				vinfo->height = g_ascii_strtoll (value, NULL, 10);
+			continue;
+		}
+	}
+
+	/* Check whether the video container is a supported format
+	 * Since WebM is a subset of Matroska, FFmpeg lists them as one thing
+	 * and us distinguishing by file extension here is a bit artificial. */
+	if (g_strstr_len (vinfo->format_name, -1, "matroska") != NULL)
+		vinfo->container_kind = AS_VIDEO_CONTAINER_KIND_MKV;
+	if (g_strstr_len (vinfo->format_name, -1, "webm") != NULL) {
+		if (g_str_has_suffix (vid_basename, ".webm"))
+			vinfo->container_kind = AS_VIDEO_CONTAINER_KIND_WEBM;
+	}
+
+	/* check codec */
+	if (g_strcmp0 (vinfo->codec_name, "av1") == 0)
+		vinfo->codec_kind = AS_VIDEO_CODEC_KIND_AV1;
+	else if (g_strcmp0 (vinfo->codec_name, "vp9") == 0)
+		vinfo->codec_kind = AS_VIDEO_CODEC_KIND_VP9;
+
+	/* check for audio */
+	audio_okay = TRUE;
+	if (vinfo->audio_codec_name != NULL) {
+		/* this video has an audio track... meh. */
+		asc_result_add_hint (cres,
+				     cpt,
+				     "screenshot-video-has-audio",
+				     "fname", vid_basename,
+				     NULL);
+		if (g_strcmp0 (vinfo->audio_codec_name, "opus") != 0) {
+			asc_result_add_hint (cres,
+					     cpt,
+					     "screenshot-video-audio-codec-unsupported",
+					     "fname", vid_basename,
+					     "codec", vinfo->audio_codec_name,
+					     NULL);
+			audio_okay = FALSE;
+		}
+	}
+
+	/* A video file may contain multiple streams, so this check isn't extensive, but it protects against 99% of cases where
+	 * people were using unsupported formats. */
+	vinfo->is_acceptable = (vinfo->container_kind != AS_VIDEO_CONTAINER_KIND_UNKNOWN) &&
+				(vinfo->codec_kind != AS_VIDEO_CODEC_KIND_UNKNOWN) && audio_okay;
+
+	if (!vinfo->is_acceptable) {
+		asc_result_add_hint (cres,
+				     cpt,
+				     "screenshot-video-format-unsupported",
+				     "fname", vid_basename,
+				     "codec", vinfo->codec_name,
+				     "container", vinfo->format_name,
+				     NULL);
+	}
+
+	return vinfo;
+}
+
+/**
+ * asc_filename_from_url:
+ */
+static gchar *
+asc_filename_from_url (const gchar *url)
+{
+	gchar *tmp;
+	g_autofree gchar *url_dup = NULL;
+	g_autofree gchar *unescaped = NULL;
+
+	if (url == NULL)
+		return NULL;
+	url_dup = g_strdup (url);
+	tmp = g_strstr_len (url_dup, -1, "?");
+	if (tmp != NULL)
+		tmp[0] = '\0';
+
+	unescaped = g_uri_unescape_string (url_dup, NULL);
+	return g_path_get_basename (unescaped);
+}
+
+/**
+ * asc_process_screenshot_videos:
+ */
+static AsScreenshot*
+asc_process_screenshot_videos (AscResult *cres,
+			       AsComponent *cpt,
+			       AsScreenshot *scr,
+			       AsCurl *acurl,
+			       const gchar *scr_export_dir,
+			       const gchar *scr_base_url,
+			       gboolean store_screenshots,
+			       guint scr_no)
+{
+	GPtrArray *vids = NULL;
+	g_autoptr(GPtrArray) valid_vids = NULL;
+
+	vids = as_screenshot_get_videos (scr);
+	if (vids->len == 0) {
+		asc_result_add_hint_simple (cres, cpt, "metainfo-screenshot-but-no-media");
+		return NULL;
+	}
+
+	/* ensure export dir exists */
+	if (g_mkdir_with_parents (scr_export_dir, 0755) != 0)
+		g_warning ("Failed to create directory tree '%s'", scr_export_dir);
+
+	valid_vids = g_ptr_array_new_with_free_func (g_object_unref);
+	for (guint i = 0; i < vids->len; i++) {
+		const gchar *orig_vid_url = NULL;
+		g_autofree gchar *scr_vid_name = NULL;
+		g_autofree gchar *scr_vid_path = NULL;
+		g_autofree gchar *scr_vid_url = NULL;
+		g_autofree gchar *fname_from_url = NULL;
+		AscVideoInfo *vinfo = NULL;
+		g_autoptr(GError) error = NULL;
+		AsVideo *vid = AS_VIDEO (g_ptr_array_index (vids, i));
+
+		orig_vid_url = as_video_get_url (vid);
+		if (orig_vid_url == NULL)
+			continue;
+
+		fname_from_url = asc_filename_from_url (orig_vid_url);
+		scr_vid_name = g_strdup_printf ("vid%i-%i_%s", scr_no, i, fname_from_url);
+		scr_vid_path = g_build_filename (scr_export_dir, scr_vid_name, NULL);
+		scr_vid_url = g_build_filename (scr_base_url, scr_vid_name, NULL);
+
+		if (!as_curl_download_to_filename (acurl, orig_vid_url, scr_vid_path, &error)) {
+			asc_result_add_hint (cres,
+						cpt,
+						"screenshot-download-error",
+						"url", orig_vid_url,
+						"error", error->message,
+						NULL);
+			return NULL;
+		}
+
+		vinfo = asc_extract_video_info (cres, cpt, scr_vid_path);
+		/* if vinfo is NULL, we couldn't gather the required info because ffprobe is missing.
+		 * continue with incomplete metadata in that case */
+		if (vinfo != NULL) {
+			if (!vinfo->is_acceptable) {
+				asc_video_info_free (vinfo);
+				g_remove (scr_vid_path);
+				/* we already marked the screenshot to be ignored at this point */
+				continue;
+			}
+
+			as_video_set_codec_kind (vid, vinfo->codec_kind);
+			as_video_set_container_kind (vid, vinfo->container_kind);
+			as_video_set_width (vid, vinfo->width);
+			as_video_set_height (vid, vinfo->height);
+
+			asc_video_info_free (vinfo);
+		}
+
+		/* if we should not create a screenshots store, we'll later delete the just-downloaded file
+		 * and set the original upstream URL as source.
+		 * we still needed to download the video to get information about its size and ensure
+		 * its metadata is correct. */
+		if (store_screenshots)
+			as_video_set_url (vid, scr_vid_url);
+		else
+			as_video_set_url (vid, orig_vid_url);
+
+		g_ptr_array_add (valid_vids, g_object_ref (vid));
+	}
+
+	/* if we don't store screenshots, the export dir is only a temporary cache */
+	if (!store_screenshots)
+		as_utils_delete_dir_recursive (scr_export_dir);
+
+	/* if we have no valid videos, ignore the screenshot */
+	if (valid_vids->len == 0)
+		return NULL;
+
+	/* drop all videos */
+	g_ptr_array_remove_range (vids, 0, vids->len);
+
+	/* add the valid ones back */
+	for (guint i = 0; i < valid_vids->len; i++)
+		as_screenshot_add_video (scr,
+					 AS_VIDEO (g_ptr_array_index (valid_vids, i)));
+
+	return g_object_ref (scr);
+}
 
 /**
  * asc_process_screenshot_images:
@@ -61,7 +382,6 @@ asc_process_screenshot_images (AscResult *cres,
 	const gchar *orig_img_url = NULL;
 	const gchar *orig_img_locale = NULL;
 	const gchar *gcid = NULL;
-	g_autofree gchar *scr_export_dir_real = NULL;
 	g_autoptr(GBytes) img_bytes = NULL;
 	gconstpointer img_data;
 	gsize img_data_len;
@@ -121,15 +441,9 @@ asc_process_screenshot_images (AscResult *cres,
 		return NULL;
 	}
 
-	/* if we shouldn't export screenshots, we store downloads in a temporary directory */
-	if (store_screenshots)
-		scr_export_dir_real = g_strdup (scr_export_dir);
-	else
-		scr_export_dir_real = g_build_filename (asc_globals_get_tmp_dir (), gcid, NULL);
-
 	/* ensure export dir exists */
-	if (g_mkdir_with_parents (scr_export_dir_real, 0755) != 0)
-		g_warning ("Failed to create directory tree '%s'", scr_export_dir_real);
+	if (g_mkdir_with_parents (scr_export_dir, 0755) != 0)
+		g_warning ("Failed to create directory tree '%s'", scr_export_dir);
 
 
 	{
@@ -140,7 +454,7 @@ asc_process_screenshot_images (AscResult *cres,
 		g_autoptr(AsImage) simg = NULL;
 
 		src_img_name = g_strdup_printf ("image-%i_orig.png", scr_no);
-		src_img_path = g_build_filename (scr_export_dir_real, src_img_name, NULL);
+		src_img_path = g_build_filename (scr_export_dir, src_img_name, NULL);
 		src_img_url = g_build_filename (scr_base_url, src_img_name, NULL);
 
 		/* save the source screenshot as PNG image */
@@ -193,7 +507,7 @@ asc_process_screenshot_images (AscResult *cres,
 			as_screenshot_add_image (scr, simg);
 
 			/* drop screenshot storage directory, in this mode it is only ever used temporarily */
-			as_utils_delete_dir_recursive (scr_export_dir_real);
+			as_utils_delete_dir_recursive (scr_export_dir);
 			return g_object_ref (scr);
 		}
 
@@ -247,7 +561,7 @@ asc_process_screenshot_images (AscResult *cres,
 						  scr_no,
 						  asc_image_get_width (thumb),
 						  asc_image_get_height (thumb));
-		thumb_img_path = g_build_filename (scr_export_dir_real, thumb_img_name, NULL);
+		thumb_img_path = g_build_filename (scr_export_dir, thumb_img_name, NULL);
 		thumb_img_url = g_build_filename (scr_base_url, thumb_img_name, NULL);
 
 		/* store the thumbnail image on disk */
@@ -325,7 +639,12 @@ asc_process_screenshots (AscResult *cres,
 		return;
 	}
 
-	scr_export_dir = g_build_filename (media_export_root, gcid, "screenshots", NULL);
+	/* if we shouldn't export screenshots, we store downloads in a temporary directory */
+	if (store_screenshots)
+		scr_export_dir = g_build_filename (media_export_root, gcid, "screenshots", NULL);
+	else
+		scr_export_dir = g_build_filename (asc_globals_get_tmp_dir (), gcid, NULL);
+
 	scr_base_url = g_build_path (G_DIR_SEPARATOR_S, gcid, "screenshots", NULL);
 
 	valid_scrs = g_ptr_array_new_with_free_func (g_object_unref);
@@ -334,7 +653,14 @@ asc_process_screenshots (AscResult *cres,
 		AsScreenshot *res_scr = NULL;
 
 		if (as_screenshot_get_media_kind (scr) == AS_SCREENSHOT_MEDIA_KIND_VIDEO) {
-			/* TODO: Code for this needs to be ported from appstream-generator */
+			res_scr = asc_process_screenshot_videos (cres,
+								 cpt,
+								 scr,
+								 acurl,
+								 scr_export_dir,
+								 scr_base_url,
+								 store_screenshots,
+								 i + 1);
 		} else {
 			res_scr = asc_process_screenshot_images (cres,
 								 cpt,

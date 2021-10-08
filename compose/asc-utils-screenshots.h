@@ -31,6 +31,28 @@
 
 G_BEGIN_DECLS
 
+/**
+ * AscVideoInfo:
+ *
+ * Contains some basic information about the video
+ * we downloaded from an upstream site.
+ */
+typedef struct {
+	gchar *codec_name;
+	gchar *audio_codec_name;
+	gint width;
+	gint height;
+	gchar *format_name;
+	AsVideoContainerKind container_kind;
+	AsVideoCodecKind codec_kind;
+	gboolean is_acceptable;
+} AscVideoInfo;
+
+AscVideoInfo	*asc_extract_video_info (AscResult *cres,
+					 AsComponent *cpt,
+				         const gchar *vid_fname);
+void		asc_video_info_free (AscVideoInfo *vinfo);
+
 void		asc_process_screenshots (AscResult *cres,
 					 AsComponent *cpt,
 					 AsCurl *acurl,

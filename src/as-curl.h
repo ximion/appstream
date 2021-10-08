@@ -57,6 +57,10 @@ AsCurl			*as_curl_new (GError **error);
 GBytes			*as_curl_download_bytes (AsCurl *acurl,
 						 const gchar *url,
 						 GError **error);
+gboolean		as_curl_download_to_filename (AsCurl *acurl,
+							const gchar *url,
+							const gchar *fname,
+							GError **error);
 
 gboolean		as_curl_check_url_exists (AsCurl *acurl,
 						  const gchar *url,

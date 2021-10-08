@@ -195,6 +195,37 @@ as_curl_download_bytes (AsCurl *acurl, const gchar *url, GError **error)
 	return g_byte_array_free_to_bytes (g_steal_pointer (&buf));
 }
 
+/**
+ * as_curl_download_to_filename:
+ * @acurl: an #AsCurl instance.
+ * @url: URL to download
+ * @fname: the filename to store the downloaded data
+ * @error: a #GError.
+ *
+ * Download an URL and store it as filename.
+ **/
+gboolean
+as_curl_download_to_filename (AsCurl *acurl,
+			      const gchar *url,
+			      const gchar *fname,
+			      GError **error)
+{
+	g_autoptr(GBytes) bytes = NULL;
+	gconstpointer data;
+	gsize data_len;
+
+	bytes = as_curl_download_bytes (acurl, url, error);
+	if (bytes == NULL)
+		return FALSE;
+
+	/* TODO: We should actually stream this to a file, instead of storing it in memory and then
+	 * dumping it to disk */
+	data = g_bytes_get_data (bytes, &data_len);
+	return g_file_set_contents (fname,
+				    data, data_len,
+				    error);
+}
+
 static int
 as_curl_progress_check_url_cb (void *clientp,
 				curl_off_t dltotal,
