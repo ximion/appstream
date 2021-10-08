@@ -804,5 +804,9 @@ main (int argc, char **argv)
 
 	ret = g_test_run ();
 	g_free (datadir);
+
+	/* make sanitizers happy */
+	asc_globals_clear ();
+
 	return ret;
 }
