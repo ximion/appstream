@@ -84,3 +84,32 @@ asc_build_component_global_id (const gchar *component_id, const gchar *checksum)
 		return g_strdup_printf ("%s/%s/%s/%s", pdiv_part, sdiv_part, cid_low, checksum);
 	}
 }
+
+/**
+ * asc_filename_from_url:
+ * @url: The URL to extract a filename from.
+ *
+ * Generate a filename from a web-URL that can be used to store the
+ * file on disk after download.
+ */
+gchar *
+asc_filename_from_url (const gchar *url)
+{
+	gchar *tmp;
+	g_autofree gchar *unescaped = NULL;
+
+	if (url == NULL)
+		return NULL;
+	unescaped = g_uri_unescape_string (url, NULL);
+	tmp = g_strstr_len (unescaped, -1, "?");
+	if (tmp != NULL)
+		tmp[0] = '\0';
+	tmp = g_strstr_len (unescaped, -1, "#");
+	if (tmp != NULL)
+		tmp[0] = '\0';
+
+	/* we couldn't extract a suitable name, so just give it a random string as result */
+	if (unescaped[0] == '\0')
+		return as_random_alnum_string (4);
+	return g_path_get_basename (unescaped);
+}

@@ -32,6 +32,7 @@
 #include "as-utils-private.h"
 
 #include "asc-globals.h"
+#include "asc-utils.h"
 #include "asc-image.h"
 
 struct {
@@ -65,7 +66,7 @@ asc_video_info_free (AscVideoInfo *vinfo)
 }
 
 /**
- * asc_extract_video_info:
+ * asc_extract_video_info: (skip):
  */
 AscVideoInfo*
 asc_extract_video_info (AscResult *cres, AsComponent *cpt, const gchar *vid_fname)
@@ -238,28 +239,7 @@ asc_extract_video_info (AscResult *cres, AsComponent *cpt, const gchar *vid_fnam
 }
 
 /**
- * asc_filename_from_url:
- */
-static gchar *
-asc_filename_from_url (const gchar *url)
-{
-	gchar *tmp;
-	g_autofree gchar *url_dup = NULL;
-	g_autofree gchar *unescaped = NULL;
-
-	if (url == NULL)
-		return NULL;
-	url_dup = g_strdup (url);
-	tmp = g_strstr_len (url_dup, -1, "?");
-	if (tmp != NULL)
-		tmp[0] = '\0';
-
-	unescaped = g_uri_unescape_string (url_dup, NULL);
-	return g_path_get_basename (unescaped);
-}
-
-/**
- * asc_process_screenshot_videos:
+ * asc_process_screenshot_videos: (skip):
  */
 static AsScreenshot*
 asc_process_screenshot_videos (AscResult *cres,

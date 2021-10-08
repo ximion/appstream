@@ -31,4 +31,6 @@ G_BEGIN_DECLS
 gchar		*asc_build_component_global_id (const gchar *component_id,
 						const gchar *checksum);
 
+gchar 		*asc_filename_from_url (const gchar *url);
+
 G_END_DECLS

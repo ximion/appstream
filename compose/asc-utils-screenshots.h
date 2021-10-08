@@ -32,7 +32,7 @@
 G_BEGIN_DECLS
 
 /**
- * AscVideoInfo:
+ * AscVideoInfo: (skip):
  *
  * Contains some basic information about the video
  * we downloaded from an upstream site.

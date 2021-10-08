@@ -64,6 +64,7 @@ test_utils ()
 {
 	gchar *tmp;
 
+	/* global ID */
 	tmp = asc_build_component_global_id ("foobar.desktop", "DEADBEEF");
 	g_assert_cmpstr (tmp, ==, "f/fo/foobar.desktop/DEADBEEF");
 	g_free (tmp);
@@ -82,6 +83,27 @@ test_utils ()
 
 	tmp = asc_build_component_global_id ("io.sample.awesomeapp.sdk", NULL);
 	g_assert_cmpstr (tmp, ==, "io/sample/awesomeapp.sdk/last");
+	g_free (tmp);
+
+	/* filename from URL */
+	tmp = asc_filename_from_url ("https://example.com/file.txt");
+	g_assert_cmpstr (tmp, ==, "file.txt");
+	g_free (tmp);
+
+	tmp = asc_filename_from_url ("https://example.com/file.txt?format=raw");
+	g_assert_cmpstr (tmp, ==, "file.txt");
+	g_free (tmp);
+
+	tmp = asc_filename_from_url ("https://example.com//page.html#anchor");
+	g_assert_cmpstr (tmp, ==, "page.html");
+	g_free (tmp);
+
+	tmp = asc_filename_from_url ("https://example.com/#");
+	g_assert_cmpstr (tmp, ==, "example.com");
+	g_free (tmp);
+
+	tmp = asc_filename_from_url ("https://example.com/?/");
+	g_assert_cmpstr (tmp, ==, "example.com");
 	g_free (tmp);
 }
 
