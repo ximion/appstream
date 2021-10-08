@@ -29,6 +29,7 @@
 
 #include "as-utils-private.h"
 
+#include "asc-globals.h"
 #include "asc-image.h"
 
 struct {
@@ -60,6 +61,7 @@ asc_process_screenshot_images (AscResult *cres,
 	const gchar *orig_img_url = NULL;
 	const gchar *orig_img_locale = NULL;
 	const gchar *gcid = NULL;
+	g_autofree gchar *scr_export_dir_real = NULL;
 	g_autoptr(GBytes) img_bytes = NULL;
 	gconstpointer img_data;
 	gsize img_data_len;
@@ -119,9 +121,15 @@ asc_process_screenshot_images (AscResult *cres,
 		return NULL;
 	}
 
+	/* if we shouldn't export screenshots, we store downloads in a temporary directory */
+	if (store_screenshots)
+		scr_export_dir_real = g_strdup (scr_export_dir);
+	else
+		scr_export_dir_real = g_build_filename (asc_globals_get_tmp_dir (), gcid, NULL);
+
 	/* ensure export dir exists */
-	if (g_mkdir_with_parents (scr_export_dir, 0755) != 0)
-		g_warning ("Failed to create directory tree %s", scr_export_dir);
+	if (g_mkdir_with_parents (scr_export_dir_real, 0755) != 0)
+		g_warning ("Failed to create directory tree '%s'", scr_export_dir_real);
 
 
 	{
@@ -132,7 +140,7 @@ asc_process_screenshot_images (AscResult *cres,
 		g_autoptr(AsImage) simg = NULL;
 
 		src_img_name = g_strdup_printf ("image-%i_orig.png", scr_no);
-		src_img_path = g_build_filename (scr_export_dir, src_img_name, NULL);
+		src_img_path = g_build_filename (scr_export_dir_real, src_img_name, NULL);
 		src_img_url = g_build_filename (scr_base_url, src_img_name, NULL);
 
 		/* save the source screenshot as PNG image */
@@ -185,8 +193,8 @@ asc_process_screenshot_images (AscResult *cres,
 			as_screenshot_add_image (scr, simg);
 
 			/* drop screenshot storage directory, in this mode it is only ever used temporarily */
-			as_utils_delete_dir_recursive (scr_export_dir);
-			return scr;
+			as_utils_delete_dir_recursive (scr_export_dir_real);
+			return g_object_ref (scr);
 		}
 
 		as_image_set_url (simg, src_img_url);
@@ -239,7 +247,7 @@ asc_process_screenshot_images (AscResult *cres,
 						  scr_no,
 						  asc_image_get_width (thumb),
 						  asc_image_get_height (thumb));
-		thumb_img_path = g_build_filename (scr_export_dir, thumb_img_name, NULL);
+		thumb_img_path = g_build_filename (scr_export_dir_real, thumb_img_name, NULL);
 		thumb_img_url = g_build_filename (scr_base_url, thumb_img_name, NULL);
 
 		/* store the thumbnail image on disk */
@@ -281,7 +289,6 @@ asc_process_screenshot_images (AscResult *cres,
 	return g_object_ref (scr);
 }
 
-
 /**
  * asc_process_screenshots:
  *
@@ -299,6 +306,10 @@ asc_process_screenshots (AscResult *cres,
 	const gchar *gcid = NULL;
 	g_autofree gchar *scr_export_dir = NULL;
 	g_autofree gchar *scr_base_url = NULL;
+
+	/* sanity check */
+	if (media_export_root == NULL)
+		store_screenshots = FALSE;
 
 	screenshots = as_component_get_screenshots (cpt);
 	if (screenshots->len == 0)

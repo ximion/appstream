@@ -1163,8 +1163,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 					   ctask->unit);
 
 		/* screenshots, but only if we allow network access */
-		if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_ALLOW_NET) &&
-		    priv->media_result_dir != NULL && acurl != NULL)
+		if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_ALLOW_NET) && acurl != NULL)
 			asc_process_screenshots (ctask->result,
 						 cpt,
 						 acurl,
