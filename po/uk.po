@@ -20,15 +20,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-10-06 19:42+0200\n"
+"POT-Creation-Date: 2021-10-08 16:56+0200\n"
 "PO-Revision-Date: 2021-10-07 01:14+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
+"translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.9-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -962,7 +964,7 @@ msgid "Unexpected status code: %ld"
 msgstr "Неочікуваний код стану: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-curl.c:247
+#: src/as-curl.c:278
 #, c-format
 msgid "Retrieved file size was zero."
 msgstr "Розмір отриманого файла виявився нульовим."
@@ -1888,7 +1890,8 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:579
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr "Підпис знімка екрана є надто довгим (має бути не довшим за 100 символів)"
+msgstr ""
+"Підпис знімка екрана є надто довгим (має бути не довшим за 100 символів)"
 
 #: src/as-validator-issue-tag.h:584
 msgid "Unable to read file."
@@ -2148,50 +2151,55 @@ msgid "Found: %s - Allowed: %s"
 msgstr "Виявлено: %s — Дозволено: %s"
 
 #. TRANSLATORS: ascompose flag description for: --verbose
-#: tools/appstream-compose.c:181
+#: tools/appstream-compose.c:183
 msgid "Show extra debugging information"
 msgstr "Вивести додаткові діагностичні дані"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-compose.c:184 tools/appstreamcli.c:1127
+#: tools/appstream-compose.c:186 tools/appstreamcli.c:1127
 msgid "Don't show colored output."
 msgstr "Не розфарбовувати виведені дані."
 
 #. TRANSLATORS: ascompose flag description for: --version
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-compose.c:187 tools/appstreamcli.c:1116
+#: tools/appstream-compose.c:189 tools/appstreamcli.c:1116
 msgid "Show the program version."
 msgstr "Вивести дані щодо версії програми."
 
+#. TRANSLATORS: ascompose flag description for: --no-net
+#: tools/appstream-compose.c:192
+msgid "Do not use the network at all, not even for URL validity checks."
+msgstr ""
+
 #. TRANSLATORS: ascompose flag description for: --full-report
-#: tools/appstream-compose.c:190
+#: tools/appstream-compose.c:195
 msgid "Set mode of the issue report that is printed to the console"
 msgstr ""
 "Встановити режим звітування щодо проблем, який буде використано у консолі"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
-#: tools/appstream-compose.c:193
+#: tools/appstream-compose.c:198
 msgid "Override the default prefix (`/usr` by default)"
 msgstr "Перевизначити типовий префікс (типовим є `/usr`)"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
-#: tools/appstream-compose.c:196
+#: tools/appstream-compose.c:201
 msgid "Set the result output directory"
 msgstr "Встановити каталог для виведення результатів"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
-#: tools/appstream-compose.c:199
+#: tools/appstream-compose.c:204
 msgid "Override the collection metadata output directory"
 msgstr "Перевизначити каталог виведення метаданих збірки"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
-#: tools/appstream-compose.c:202
+#: tools/appstream-compose.c:207
 msgid "Override the icon output directory"
 msgstr "Перевизначити каталог виведення піктограм"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
-#: tools/appstream-compose.c:205
+#: tools/appstream-compose.c:210
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)"
 msgstr ""
@@ -2199,37 +2207,41 @@ msgstr ""
 "обслуговувати які має сервер)"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
-#: tools/appstream-compose.c:208
+#: tools/appstream-compose.c:213
 msgid "Set a directory where HTML and text issue reports will be stored"
 msgstr ""
 "Встановити каталог, у якому зберігатимуться звіти щодо вад у форматі HTML і "
 "текстовому форматі"
 
 #. TRANSLATORS: ascompose flag description for: --origin
-#. TRANSLATORS: ascompose flag description for: --media-baseurl
-#: tools/appstream-compose.c:211 tools/appstream-compose.c:214
+#: tools/appstream-compose.c:216
 msgid "Set the origin name"
 msgstr "Встановити назву походження"
 
+#. TRANSLATORS: ascompose flag description for: --media-baseurl
+#: tools/appstream-compose.c:219
+msgid "Set the URL where the exported media content will be hosted"
+msgstr ""
+
 #. TRANSLATORS: ascompose flag description for: --components
-#: tools/appstream-compose.c:217
+#: tools/appstream-compose.c:222
 msgid "A comma-separated list of component-IDs to accept"
 msgstr ""
 "Список ідентифікаторів компонентів, відокремлених комами, які слід приймати"
 
 #. TRANSLATORS: error message
-#: tools/appstream-compose.c:231
+#: tools/appstream-compose.c:236
 msgid "Failed to parse arguments"
 msgstr "Не вдалося обробити аргументи"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:242 tools/appstreamcli.c:1275
+#: tools/appstream-compose.c:247 tools/appstreamcli.c:1275
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Версія AppStream: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:245 tools/appstreamcli.c:1278
+#: tools/appstream-compose.c:250 tools/appstreamcli.c:1278
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2239,7 +2251,7 @@ msgstr ""
 "Версія бібліотеки AppStream: %s"
 
 #. TRANSLATORS: invalid value for the --print-report CLI option
-#: tools/appstream-compose.c:264
+#: tools/appstream-compose.c:269
 #, c-format
 msgid ""
 "Invalid value for `--print-report` option: %s\n"
@@ -2255,70 +2267,70 @@ msgstr ""
 "`short` — створює короткий звіт\n"
 "`full` — виводить докладний звіт"
 
-#: tools/appstream-compose.c:285
+#: tools/appstream-compose.c:296
 #, c-format
 msgid "Automatically selected '%s' as data output location."
 msgstr "Автоматично вибрано «%s» як місце виведення даних."
 
 #. TRANSLATORS: we don't have a destination directory for compose
-#: tools/appstream-compose.c:288
+#: tools/appstream-compose.c:299
 msgid "No destination directory set, please provide a data output location!"
 msgstr ""
 "Не встановлено каталог призначення. Будь ласка, вкажіть місце для виведення "
 "даних!"
 
-#: tools/appstream-compose.c:298 tools/appstream-compose.c:300
+#: tools/appstream-compose.c:309 tools/appstream-compose.c:311
 msgid "WARNING"
 msgstr "ПОПЕРЕДЖЕННЯ"
 
 #. TRANSLATORS: information about as-compose allowlist
-#: tools/appstream-compose.c:337
+#: tools/appstream-compose.c:348
 #, c-format
 msgid "Only accepting components: %s"
 msgstr "Приймаємо лише такі компоненти: %s"
 
 #. TRANSLATORS: information about as-compose allowlist
-#: tools/appstream-compose.c:340
+#: tools/appstream-compose.c:351
 #, c-format
 msgid "Only accepting component: %s"
 msgstr "Приймаємо лише такий компонент: %s"
 
 #. TRANSLATORS: information about as-compose units to be processed
-#: tools/appstream-compose.c:345
+#: tools/appstream-compose.c:356
 msgid "Processing directories:"
 msgstr "Обробляємо каталоги:"
 
 #. TRANSLATORS: information about as-compose units to be processed
-#: tools/appstream-compose.c:348
+#: tools/appstream-compose.c:359
 msgid "Processing directory:"
 msgstr "Обробляємо каталог:"
 
 #. TRANSLATORS: error message
-#: tools/appstream-compose.c:357
+#: tools/appstream-compose.c:368
 msgid "Can not process invalid directory"
 msgstr "Неможливо обробити некоректний каталог"
 
 #. TRANSLATORS: information message
-#: tools/appstream-compose.c:369
+#: tools/appstream-compose.c:380
 msgid "Composing metadata..."
 msgstr "Компонуємо метадані…"
 
 #. TRANSLATORS: error message
-#: tools/appstream-compose.c:374
+#: tools/appstream-compose.c:385
 msgid "Failed to compose AppStream metadata"
 msgstr "Не вдалося скомпонувати метадані AppStream"
 
 #. TRANSLATORS: appstream-compose failed to include all data
-#: tools/appstream-compose.c:380
+#: tools/appstream-compose.c:391
 msgid "Run failed, some data was ignored."
 msgstr "Помилка запуску, деякі дані було проігноровано."
 
 #. TRANSLATORS: information message of appstream-compose
-#: tools/appstream-compose.c:382
+#: tools/appstream-compose.c:393
 msgid "Errors were raised during this compose run:"
 msgstr "Під час цього запуску компонування сталися помилки:"
 
-#: tools/appstream-compose.c:383
+#: tools/appstream-compose.c:394
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
@@ -2326,12 +2338,12 @@ msgstr ""
 "Зверніться до даних створеного звіту щодо вади, щоб дізнатися про окремі "
 "проблеми."
 
-#: tools/appstream-compose.c:386
+#: tools/appstream-compose.c:397
 msgid "Overview of generated hints:"
 msgstr "Огляд створених підказок:"
 
 #. TRANSLATORS: information message
-#: tools/appstream-compose.c:388
+#: tools/appstream-compose.c:399
 msgid "Success!"
 msgstr "Виконано!"
 
@@ -2429,7 +2441,9 @@ msgstr ""
 #: tools/appstreamcli.c:477
 msgid ""
 "No license, license expression or license exception string was provided."
-msgstr "Не було надано умов ліцензування, було надано вираз ліцензування або рядок виключення ліцензування."
+msgstr ""
+"Не було надано умов ліцензування, було надано вираз ліцензування або рядок "
+"виключення ліцензування."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:502
@@ -2504,14 +2518,18 @@ msgstr ""
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr "Обмежити кількість записів щодо випусків у отриманому файлі метаінформації (0 або менше — без обмежень)."
+msgstr ""
+"Обмежити кількість записів щодо випусків у отриманому файлі метаінформації "
+"(0 або менше — без обмежень)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:853
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
-msgstr "Встановити кількість випусків, описи яких слід позначити для перекладу (найсвіжіші випуски перекладаються першими, -1 — без обмежень)."
+msgstr ""
+"Встановити кількість випусків, описи яких слід позначити для перекладу "
+"(найсвіжіші випуски перекладаються першими, -1 — без обмежень)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:897
@@ -2613,7 +2631,8 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1179
 msgid "Check license string for validity and print details about it."
-msgstr "Перевірити рядок ліцензування на чинність і вивести подробиці щодо нього."
+msgstr ""
+"Перевірити рядок ліцензування на чинність і вивести подробиці щодо нього."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1185

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-10-06 19:42+0200\n"
+"POT-Creation-Date: 2021-10-08 16:56+0200\n"
 "PO-Revision-Date: 2020-11-08 09:41+0000\n"
 "Last-Translator: Peter Nikolaus Georgiana <tudigeorge99@gmail.com>\n"
 "Language-Team: Romany <https://hosted.weblate.org/projects/appstream/"
@@ -930,7 +930,7 @@ msgid "Unexpected status code: %ld"
 msgstr ""
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-curl.c:247
+#: src/as-curl.c:278
 #, c-format
 msgid "Retrieved file size was zero."
 msgstr ""
@@ -1837,82 +1837,91 @@ msgid "Found: %s - Allowed: %s"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --verbose
-#: tools/appstream-compose.c:181
+#: tools/appstream-compose.c:183
 msgid "Show extra debugging information"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-compose.c:184 tools/appstreamcli.c:1127
+#: tools/appstream-compose.c:186 tools/appstreamcli.c:1127
 msgid "Don't show colored output."
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --version
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-compose.c:187 tools/appstreamcli.c:1116
+#: tools/appstream-compose.c:189 tools/appstreamcli.c:1116
 msgid "Show the program version."
 msgstr ""
 
+#. TRANSLATORS: ascompose flag description for: --no-net
+#: tools/appstream-compose.c:192
+msgid "Do not use the network at all, not even for URL validity checks."
+msgstr ""
+
 #. TRANSLATORS: ascompose flag description for: --full-report
-#: tools/appstream-compose.c:190
+#: tools/appstream-compose.c:195
 msgid "Set mode of the issue report that is printed to the console"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --prefix
-#: tools/appstream-compose.c:193
+#: tools/appstream-compose.c:198
 msgid "Override the default prefix (`/usr` by default)"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --result-root
-#: tools/appstream-compose.c:196
+#: tools/appstream-compose.c:201
 msgid "Set the result output directory"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
-#: tools/appstream-compose.c:199
+#: tools/appstream-compose.c:204
 msgid "Override the collection metadata output directory"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
-#: tools/appstream-compose.c:202
+#: tools/appstream-compose.c:207
 msgid "Override the icon output directory"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
-#: tools/appstream-compose.c:205
+#: tools/appstream-compose.c:210
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
-#: tools/appstream-compose.c:208
+#: tools/appstream-compose.c:213
 msgid "Set a directory where HTML and text issue reports will be stored"
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --origin
-#. TRANSLATORS: ascompose flag description for: --media-baseurl
-#: tools/appstream-compose.c:211 tools/appstream-compose.c:214
+#: tools/appstream-compose.c:216
 msgid "Set the origin name"
 msgstr ""
 
+#. TRANSLATORS: ascompose flag description for: --media-baseurl
+#: tools/appstream-compose.c:219
+msgid "Set the URL where the exported media content will be hosted"
+msgstr ""
+
 #. TRANSLATORS: ascompose flag description for: --components
-#: tools/appstream-compose.c:217
+#: tools/appstream-compose.c:222
 msgid "A comma-separated list of component-IDs to accept"
 msgstr ""
 
 #. TRANSLATORS: error message
-#: tools/appstream-compose.c:231
+#: tools/appstream-compose.c:236
 msgid "Failed to parse arguments"
 msgstr ""
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:242 tools/appstreamcli.c:1275
+#: tools/appstream-compose.c:247 tools/appstreamcli.c:1275
 #, c-format
 msgid "AppStream version: %s"
 msgstr ""
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:245 tools/appstreamcli.c:1278
+#: tools/appstream-compose.c:250 tools/appstreamcli.c:1278
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -1920,7 +1929,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: invalid value for the --print-report CLI option
-#: tools/appstream-compose.c:264
+#: tools/appstream-compose.c:269
 #, c-format
 msgid ""
 "Invalid value for `--print-report` option: %s\n"
@@ -1930,79 +1939,79 @@ msgid ""
 "`full` - a detailed report will be printed"
 msgstr ""
 
-#: tools/appstream-compose.c:285
+#: tools/appstream-compose.c:296
 #, c-format
 msgid "Automatically selected '%s' as data output location."
 msgstr ""
 
 #. TRANSLATORS: we don't have a destination directory for compose
-#: tools/appstream-compose.c:288
+#: tools/appstream-compose.c:299
 msgid "No destination directory set, please provide a data output location!"
 msgstr ""
 
-#: tools/appstream-compose.c:298 tools/appstream-compose.c:300
+#: tools/appstream-compose.c:309 tools/appstream-compose.c:311
 msgid "WARNING"
 msgstr ""
 
 #. TRANSLATORS: information about as-compose allowlist
-#: tools/appstream-compose.c:337
+#: tools/appstream-compose.c:348
 #, c-format
 msgid "Only accepting components: %s"
 msgstr ""
 
 #. TRANSLATORS: information about as-compose allowlist
-#: tools/appstream-compose.c:340
+#: tools/appstream-compose.c:351
 #, c-format
 msgid "Only accepting component: %s"
 msgstr ""
 
 #. TRANSLATORS: information about as-compose units to be processed
-#: tools/appstream-compose.c:345
+#: tools/appstream-compose.c:356
 msgid "Processing directories:"
 msgstr ""
 
 #. TRANSLATORS: information about as-compose units to be processed
-#: tools/appstream-compose.c:348
+#: tools/appstream-compose.c:359
 msgid "Processing directory:"
 msgstr ""
 
 #. TRANSLATORS: error message
-#: tools/appstream-compose.c:357
+#: tools/appstream-compose.c:368
 msgid "Can not process invalid directory"
 msgstr ""
 
 #. TRANSLATORS: information message
-#: tools/appstream-compose.c:369
+#: tools/appstream-compose.c:380
 msgid "Composing metadata..."
 msgstr ""
 
 #. TRANSLATORS: error message
-#: tools/appstream-compose.c:374
+#: tools/appstream-compose.c:385
 msgid "Failed to compose AppStream metadata"
 msgstr ""
 
 #. TRANSLATORS: appstream-compose failed to include all data
-#: tools/appstream-compose.c:380
+#: tools/appstream-compose.c:391
 msgid "Run failed, some data was ignored."
 msgstr ""
 
 #. TRANSLATORS: information message of appstream-compose
-#: tools/appstream-compose.c:382
+#: tools/appstream-compose.c:393
 msgid "Errors were raised during this compose run:"
 msgstr ""
 
-#: tools/appstream-compose.c:383
+#: tools/appstream-compose.c:394
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
 msgstr ""
 
-#: tools/appstream-compose.c:386
+#: tools/appstream-compose.c:397
 msgid "Overview of generated hints:"
 msgstr ""
 
 #. TRANSLATORS: information message
-#: tools/appstream-compose.c:388
+#: tools/appstream-compose.c:399
 msgid "Success!"
 msgstr ""
 
