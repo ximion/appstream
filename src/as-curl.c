@@ -28,6 +28,7 @@
 #include "as-curl.h"
 
 #include <glib/gi18n-lib.h>
+#include <gio/gio.h>
 #include <curl/curl.h>
 
 struct _AsCurl
@@ -195,6 +196,20 @@ as_curl_download_bytes (AsCurl *acurl, const gchar *url, GError **error)
 	return g_byte_array_free_to_bytes (g_steal_pointer (&buf));
 }
 
+static size_t
+as_curl_download_write_data_stream_cb (char *ptr, size_t size, size_t nmemb, void *udata)
+{
+	GOutputStream *ostream = G_OUTPUT_STREAM (udata);
+	gsize bytes_written;
+	gsize realsize = size * nmemb;
+
+	g_output_stream_write_all (ostream,
+				   ptr, realsize,
+				   &bytes_written,
+				   NULL, NULL);
+	return bytes_written;
+}
+
 /**
  * as_curl_download_to_filename:
  * @acurl: an #AsCurl instance.
@@ -210,20 +225,40 @@ as_curl_download_to_filename (AsCurl *acurl,
 			      const gchar *fname,
 			      GError **error)
 {
-	g_autoptr(GBytes) bytes = NULL;
-	gconstpointer data;
-	gsize data_len;
+	AsCurlPrivate *priv = GET_PRIVATE (acurl);
+	g_autoptr(GFile) file = NULL;
+	g_autoptr(GFileOutputStream) fos = NULL;
+	g_autoptr(GDataOutputStream) dos = NULL;
+	GError *tmp_error = NULL;
 
-	bytes = as_curl_download_bytes (acurl, url, error);
-	if (bytes == NULL)
+	file = g_file_new_for_path (fname);
+	if (g_file_query_exists (file, NULL))
+		fos = g_file_replace (file,
+					NULL,
+					FALSE,
+					G_FILE_CREATE_REPLACE_DESTINATION,
+					NULL,
+					&tmp_error);
+	else
+		fos = g_file_create (file, G_FILE_CREATE_REPLACE_DESTINATION, NULL, &tmp_error);
+
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		return FALSE;
+	}
+
+	dos = g_data_output_stream_new (G_OUTPUT_STREAM (fos));
+
+	curl_easy_setopt (priv->curl, CURLOPT_URL, url);
+	curl_easy_setopt (priv->curl, CURLOPT_WRITEFUNCTION, as_curl_download_write_data_stream_cb);
+	curl_easy_setopt (priv->curl, CURLOPT_WRITEDATA, dos);
+	curl_easy_setopt (priv->curl, CURLOPT_XFERINFOFUNCTION, as_curl_progress_dummy_cb);
+	curl_easy_setopt (priv->curl, CURLOPT_XFERINFODATA, acurl);
+
+	if (!as_curl_perform_download (acurl, TRUE, error))
 		return FALSE;
 
-	/* TODO: We should actually stream this to a file, instead of storing it in memory and then
-	 * dumping it to disk */
-	data = g_bytes_get_data (bytes, &data_len);
-	return g_file_set_contents (fname,
-				    data, data_len,
-				    error);
+	return TRUE;
 }
 
 static int
