@@ -1,3 +1,38 @@
+Version 0.14.6
+~~~~~~~~~~~~~~
+Released: 2021-10-08
+
+Features:
+ * validator: Allow slightly longer screenshot captions
+ * news-to-metainfo: Recognize the "Miscellaneous" section
+ * ascli: Add check-license command to test license for compatibility
+ * Emit URLs to choosealicense.com for certain popular licenses
+ * Add manually curated list of DFSG-free licenses
+ * news-to-metainfo: Allow only marking the last entries as translatable
+ * compose: Add support for image and video screenshot handling
+ * news-to-metainfo: Parse hyphens as header separators as well
+ * ci: Add Fedora to the CI environment
+ * as-translation: Add a new source-locale property
+ * compose: Support source locales for translations
+
+Specification:
+ * docs: Clarify screenshot image/video dimensions, quickstart recommendations
+ * docs: Clarify image scaling, drop fixed-size image width recommendation
+ * spec: Mention the already-supported scale attribute of <icon/>
+ * spec: Add support for source locales
+
+Bugfixes:
+ * cli: Properly forward parameters to compose binary when invoked via ascli
+ * compose: Don't follow symlinks when processing raw directories
+ * xml: Make NULL value handling for RefString value readers consistent
+ * news-to-metainfo: Stop parsing data if we have reached our entry limit
+ * news-to-metainfo: Don't attempt to override existing error on parsing failure
+ * compose: Extract screenshot image dimension data even if we're not caching them
+ * curl: Use less memory when downloading large files
+
+Contributors:
+ Neal Gompa, Philip Withnall, Matthias Klumpp
+
 Version 0.14.5
 ~~~~~~~~~~~~~~
 Released: 2021-08-28
