@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-10-08 16:56+0200\n"
-"PO-Revision-Date: 2021-10-10 10:04+0000\n"
+"PO-Revision-Date: 2021-10-10 10:11+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
@@ -2152,7 +2152,7 @@ msgstr "Wyświetla wersję programu."
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:192
 msgid "Do not use the network at all, not even for URL validity checks."
-msgstr ""
+msgstr "Bez używania sieci, nawet do sprawdzania poprawności adresów URL."
 
 #. TRANSLATORS: ascompose flag description for: --full-report
 #: tools/appstream-compose.c:195
@@ -2202,7 +2202,7 @@ msgstr "Zastępuje nazwę pochodzenia"
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:219
 msgid "Set the URL where the exported media content will be hosted"
-msgstr ""
+msgstr "Ustawia adres URL, pod którym będą dostępne wyeksportowane treści multimedialne"
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:222
@@ -2417,7 +2417,7 @@ msgstr "Aktualizuje pamięć podręczną użytkownika zamiast systemowej."
 #: tools/appstreamcli.c:477
 msgid ""
 "No license, license expression or license exception string was provided."
-msgstr ""
+msgstr "Nie podano ciągu licencji, wyrażenia licencji lub wyjątku licencji."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:502
@@ -2486,19 +2486,17 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:847
-#, fuzzy
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr ""
-"Ogranicza liczbę wpisów wydań w pliku Metainfo (0 oznacza brak ograniczenia)."
+msgstr "Ogranicza liczbę wpisów wydań w pliku Metainfo (<= 0 oznacza brak ograniczenia)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:853
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
-msgstr ""
+msgstr "Ustawia liczbę wydań, których opisy mają być udostępnione do tłumaczenia (najnowsze wydania są tłumaczone najpierw, -1 oznacza brak ograniczenia)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:897
@@ -2513,7 +2511,7 @@ msgstr "Nie odnaleziono pliku binarnego składania „%s”. Nie można kontynuo
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:937
 msgid "Invalid number of parameters"
-msgstr ""
+msgstr "Nieprawidłowa liczba parametrów"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:996
@@ -2595,7 +2593,7 @@ msgstr "Sprawdza poprawność metadanych zainstalowanego drzewa plików programu
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1179
 msgid "Check license string for validity and print details about it."
-msgstr ""
+msgstr "Sprawdza poprawność ciągu licencji i wyświetla o tym informacje."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1185
@@ -3016,60 +3014,56 @@ msgstr "Należy podać główny katalog, aby rozpocząć sprawdzanie poprawnośc
 
 #. TRANSLATORS: A plain license ID
 #: tools/ascli-actions-validate.c:524
-#, fuzzy
 msgid "license"
-msgstr "Licencja"
+msgstr "licencja"
 
 #. TRANSLATORS: A license exception
 #: tools/ascli-actions-validate.c:527
 msgid "license exception"
-msgstr ""
+msgstr "wyjątek licencji"
 
 #. TRANSLATORS: A complex license expression
 #: tools/ascli-actions-validate.c:530
 msgid "license expression"
-msgstr ""
+msgstr "wyrażenie licencji"
 
 #. TRANSLATORS: An invalid license
 #: tools/ascli-actions-validate.c:534
 msgid "invalid"
-msgstr ""
+msgstr "nieprawidłowa"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:539
-#, fuzzy
 msgid "License Type"
-msgstr "Licencja"
+msgstr "Typ licencji"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:543
-#, fuzzy
 msgid "Canonical ID"
-msgstr "Wewnętrzny identyfikator"
+msgstr "Znany identyfikator"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
 #: tools/ascli-actions-validate.c:547
-#, fuzzy
 msgid "Suitable for AppStream metadata"
-msgstr "Złożenie metadanych AppStream się nie powiodło"
+msgstr "Odpowiednia dla metadanych AppStream"
 
 #: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
 msgid "no"
-msgstr ""
+msgstr "nie"
 
 #: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
 msgid "yes"
-msgstr ""
+msgstr "tak"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
 #: tools/ascli-actions-validate.c:550
 msgid "Free and Open Source"
-msgstr ""
+msgstr "Wolne i otwarte oprogramowanie"
 
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:555
 msgid "URL"
-msgstr ""
+msgstr "Adres URL"
 
 #: tools/ascli-utils.c:266
 msgid "Identifier"
