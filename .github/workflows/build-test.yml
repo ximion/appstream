@@ -109,7 +109,7 @@ jobs:
            ./tests/ci/run-tests.sh sanitize
 
 
-    build-sanitized-fedora:
+  build-sanitized-fedora:
     name: Sanitizers on Fedora
     runs-on: ubuntu-latest
     steps:
