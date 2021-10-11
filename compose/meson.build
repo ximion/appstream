@@ -57,7 +57,7 @@ asclib_res = glib.compile_resources (
 # extra dependencies we need just for AppStream Compose
 cairo_dep      = dependency('cairo', version : '>= 1.12')
 gdkpixbuf_dep  = dependency('gdk-pixbuf-2.0')
-rsvg_dep       = dependency('librsvg-2.0', version : '>= 2.50')
+rsvg_dep       = dependency('librsvg-2.0', version : '>= 2.48')
 freetype_dep   = dependency('freetype2')
 pango_dep      = dependency('pango')
 fontconfig_dep = dependency('fontconfig')
