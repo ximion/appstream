@@ -7,10 +7,9 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-10-08 16:56+0200\n"
-"PO-Revision-Date: 2021-09-26 02:36+0000\n"
+"PO-Revision-Date: 2021-10-11 00:25+0000\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
-"Language-Team: Esperanto <https://hosted.weblate.org/projects/appstream/"
-"translations/eo/>\n"
+"Language-Team: Esperanto <https://hosted.weblate.org/projects/appstream/translations/eo/>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1841,9 +1840,8 @@ msgstr ""
 "validaj nomoj de kategorioj."
 
 #: src/as-validator-issue-tag.h:579
-#, fuzzy
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr "La titolo de ekrankopio estas tro longa (ĝi estu maksimume 80 signoj)"
+msgstr "La titolo de ekrankopio estas tro longa (ĝi estu maksimume 100 signoj)"
 
 #: src/as-validator-issue-tag.h:584
 msgid "Unable to read file."
@@ -2095,9 +2093,8 @@ msgstr "Troviĝis: %s - Permesata: %s"
 
 #. TRANSLATORS: ascompose flag description for: --verbose
 #: tools/appstream-compose.c:183
-#, fuzzy
 msgid "Show extra debugging information"
-msgstr "Montri pliaj informojn por erarserĉado."
+msgstr "Montri pliaj informojn por erarserĉado"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
@@ -2114,7 +2111,7 @@ msgstr "Montri la version de la programo."
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:192
 msgid "Do not use the network at all, not even for URL validity checks."
-msgstr ""
+msgstr "Tute ne uzi la reton, eĉ ne por kontroli la validecon de retpaĝaj adresoj."
 
 #. TRANSLATORS: ascompose flag description for: --full-report
 #: tools/appstream-compose.c:195
@@ -2124,22 +2121,22 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:198
 msgid "Override the default prefix (`/usr` by default)"
-msgstr ""
+msgstr "Permane agordi la prefikson (implicite `/usr`)"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:201
 msgid "Set the result output directory"
-msgstr ""
+msgstr "Agordi la dosierujon por eligotaj rezultoj"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
 #: tools/appstream-compose.c:204
 msgid "Override the collection metadata output directory"
-msgstr ""
+msgstr "Permane agordi la dosierujon por eligi kolektajn metadatenojn"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:207
 msgid "Override the icon output directory"
-msgstr ""
+msgstr "Permane agordi la dosierujon por eligi piktogramojn"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:210
@@ -2150,12 +2147,12 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:213
 msgid "Set a directory where HTML and text issue reports will be stored"
-msgstr ""
+msgstr "Agordi la dosierujon por HTML-aj kaj tekstaj raportoj pri problemoj"
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:216
 msgid "Set the origin name"
-msgstr ""
+msgstr "Agordi la nomon de la origino"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:219
@@ -2165,12 +2162,12 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:222
 msgid "A comma-separated list of component-IDs to accept"
-msgstr ""
+msgstr "Kome apartigita listo de akceptotaj identigiloj de komponantoj"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:236
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Malsukcesis analizi argumentojn"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-compose.c:247 tools/appstreamcli.c:1275
@@ -2198,11 +2195,16 @@ msgid ""
 "`short` - generates an abridged report\n"
 "`full` - a detailed report will be printed"
 msgstr ""
+"Nevalida valoro por la opcio `--print-report`: %s\n"
+"Jen la validaj valoroj:\n"
+"`on-error` - nur montri mallongan raporton post eraro (implicite)\n"
+"`short` - montri mallongan raporton\n"
+"`full` - montri detalan raporton"
 
 #: tools/appstream-compose.c:296
 #, c-format
 msgid "Automatically selected '%s' as data output location."
-msgstr ""
+msgstr "La loko por eligi datenojn estis aŭtomate agordita kiel «%s»."
 
 #. TRANSLATORS: we don't have a destination directory for compose
 #: tools/appstream-compose.c:299
@@ -2228,38 +2230,37 @@ msgstr "Nur akceptante la komponanton %s"
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:356
 msgid "Processing directories:"
-msgstr ""
+msgstr "Traktante dosierujojn:"
 
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:359
 msgid "Processing directory:"
-msgstr ""
+msgstr "Traktante dosierujon:"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:368
 msgid "Can not process invalid directory"
-msgstr ""
+msgstr "Ne eblas trakti nevalidan dosierujon"
 
 #. TRANSLATORS: information message
 #: tools/appstream-compose.c:380
 msgid "Composing metadata..."
-msgstr ""
+msgstr "Komponante metadatenojn…"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:385
-#, fuzzy
 msgid "Failed to compose AppStream metadata"
-msgstr "Ilprogramo por uzi AppStream-metadatenojn"
+msgstr "Malsukcesis komponi AppStream-metadatenojn"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:391
 msgid "Run failed, some data was ignored."
-msgstr ""
+msgstr "Kompono malsukcesis; kelkaj datenoj estis ignoritaj."
 
 #. TRANSLATORS: information message of appstream-compose
 #: tools/appstream-compose.c:393
 msgid "Errors were raised during this compose run:"
-msgstr ""
+msgstr "Eraroj okazis dum ĉi tiu kompono:"
 
 #: tools/appstream-compose.c:394
 msgid ""
@@ -2366,7 +2367,7 @@ msgstr "Ĝisdatigi la kaŝmemoron nur de uzanto, ne de la tuta sistemo."
 #: tools/appstreamcli.c:477
 msgid ""
 "No license, license expression or license exception string was provided."
-msgstr ""
+msgstr "Mankas permesilo, permesila esprimo aŭ permesila escepto."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:502
@@ -2437,13 +2438,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:847
-#, fuzzy
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr ""
-"Limigi la nombron de eldonoj, kiuj menciiĝos en la metainforma dosiero (0 "
-"por senlimigi)."
+msgstr "Limigi la nombron de eldonoj, kiuj menciiĝos en la metainforma dosiero (nepozitiva valoro: senlimigi)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:853
@@ -2465,7 +2463,7 @@ msgstr ""
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:937
 msgid "Invalid number of parameters"
-msgstr ""
+msgstr "Nevalida nombro da parametroj"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:996
@@ -2614,10 +2612,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1243
-#, fuzzy
 msgid "Compose AppStream collection metadata from directory trees."
-msgstr ""
-"Neniuj AppStream-metadatenoj troviĝis en ĉi tiu dosierujo aŭ subdosierujoj."
+msgstr "Komponi kolektajn metadatenojn de AppStream el dosierujaj arboj."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1251
@@ -2970,60 +2966,56 @@ msgstr "Vi devas specifi radikan dosierujon por ekvalidigi!"
 
 #. TRANSLATORS: A plain license ID
 #: tools/ascli-actions-validate.c:524
-#, fuzzy
 msgid "license"
-msgstr "Permesilo"
+msgstr "permesilo"
 
 #. TRANSLATORS: A license exception
 #: tools/ascli-actions-validate.c:527
 msgid "license exception"
-msgstr ""
+msgstr "permesila escepto"
 
 #. TRANSLATORS: A complex license expression
 #: tools/ascli-actions-validate.c:530
 msgid "license expression"
-msgstr ""
+msgstr "permesila esprimo"
 
 #. TRANSLATORS: An invalid license
 #: tools/ascli-actions-validate.c:534
 msgid "invalid"
-msgstr ""
+msgstr "nevalida"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:539
-#, fuzzy
 msgid "License Type"
-msgstr "Permesilo"
+msgstr "Tipo de permesilo"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:543
-#, fuzzy
 msgid "Canonical ID"
-msgstr "Interna Identigilo"
+msgstr "Kanona Identigilo"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
 #: tools/ascli-actions-validate.c:547
-#, fuzzy
 msgid "Suitable for AppStream metadata"
-msgstr "Ilprogramo por uzi AppStream-metadatenojn"
+msgstr "Taŭga por AppStream-metadatenoj"
 
 #: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
 msgid "no"
-msgstr ""
+msgstr "ne"
 
 #: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
 msgid "yes"
-msgstr ""
+msgstr "jes"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
 #: tools/ascli-actions-validate.c:550
 msgid "Free and Open Source"
-msgstr ""
+msgstr "Libera kaj malfermitkoda"
 
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:555
 msgid "URL"
-msgstr ""
+msgstr "Retpaĝo"
 
 #: tools/ascli-utils.c:266
 msgid "Identifier"
