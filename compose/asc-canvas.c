@@ -153,9 +153,15 @@ asc_canvas_render_svg (AscCanvas *canvas, GInputStream *stream, GError **error)
 {
 	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
 	RsvgHandle *handle = NULL;
-	RsvgDimensionData dims;
 	gboolean ret = FALSE;
-	double w, h;
+	gdouble srf_width, srf_height;
+	gdouble svg_width, svg_height;
+#if LIBRSVG_CHECK_VERSION(2, 52, 0)
+	RsvgRectangle viewport;
+	GError *tmp_error = NULL;
+#else
+	RsvgDimensionData dims;
+#endif
 
 	/* NOTE: unfortunately, Cairo/RSvg may use Fontconfig internally, so
 	 * we need to lock this down since a parallel-processed font
@@ -169,16 +175,52 @@ asc_canvas_render_svg (AscCanvas *canvas, GInputStream *stream, GError **error)
 						   error);
 	if (handle == NULL)
 		goto out;
+	rsvg_handle_set_dpi (handle, 100);
 
+	srf_width = (gdouble) cairo_image_surface_get_width (priv->srf);
+	srf_height = (gdouble) cairo_image_surface_get_height (priv->srf);
+
+#if LIBRSVG_CHECK_VERSION(2, 52, 0)
+	ret = rsvg_handle_get_intrinsic_size_in_pixels(handle, &svg_width, &svg_height);
+	if (!ret) {
+		/* we would need a viewport to get an intrinsic pixel size. Work around this issue
+		 * by just scaling the SVG as high or low as we want to */
+		svg_width = srf_width;
+		svg_height = srf_height;
+	}
+#else
 	rsvg_handle_get_dimensions (handle, &dims);
-	w = (double) cairo_image_surface_get_width (priv->srf);
-	h = (double) cairo_image_surface_get_height (priv->srf);
+	svg_width = dims.width;
+	svg_height = dims.height;
+#endif
 
-	/* cairo_translate (cr, (w - dims.width) / 2, (h - dims.height) / 2); */
-	cairo_scale (priv->cr, w / dims.width, h / dims.height);
+	/* cairo_translate (cr, (srf_width - svg_width) / 2, (srf_height - svg_height) / 2); */
+	cairo_scale (priv->cr,
+		     srf_width / svg_width,
+		     srf_height / svg_height);
 
 	cairo_save (priv->cr);
-        if (!rsvg_handle_render_cairo (handle, priv->cr)) {
+
+
+#if LIBRSVG_CHECK_VERSION(2, 52, 0)
+	viewport.x = 0;
+	viewport.y = 0;
+	viewport.width = srf_width;
+	viewport.height = srf_height;
+	ret = rsvg_handle_render_document (handle,
+					   priv->cr,
+					   &viewport,
+					   &tmp_error);
+	if (!ret) {
+		cairo_restore (priv->cr);
+		g_propagate_prefixed_error (error,
+					    tmp_error,
+					    "SVG graphic rendering failed:");
+		goto out;
+	}
+#else
+	ret = rsvg_handle_render_cairo (handle, priv->cr);
+	if (!ret) {
 		cairo_restore (priv->cr);
 		g_set_error_literal (error,
 				     ASC_CANVAS_ERROR,
@@ -186,8 +228,9 @@ asc_canvas_render_svg (AscCanvas *canvas, GInputStream *stream, GError **error)
 				     "SVG graphic rendering failed.");
 		goto out;
 	}
-	ret = TRUE;
+#endif
 
+	ret = TRUE;
 out:
 	if (handle != NULL)
 		g_object_unref (handle);
