@@ -639,6 +639,9 @@ as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *data, const gcha
  *
  * Parses an AppStream upstream metadata file.
  *
+ * If @file does not exist, %G_IO_ERROR_NOT_FOUND will be returned. Other
+ * #GIOErrors and #AsMetadataErrors may be returned as appropriate.
+ *
  * Returns: %TRUE if the file was parsed without error.
  **/
 gboolean
