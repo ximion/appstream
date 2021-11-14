@@ -28,15 +28,16 @@
 # Чтабс <chtabs2k19@gmail.com>, 2021.
 # Anna Malinovskaia <tacitcoast@gmail.com>, 2021.
 # Валентин Цыбин <iiinkvizitor@gmail.com>, 2021.
-#
+# Dmitry <dmitrydmitry761@gmail.com>, 2021.
 # Translators:
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-10-08 16:56+0200\n"
-"PO-Revision-Date: 2021-07-18 22:35+0000\n"
-"Last-Translator: Валентин Цыбин <iiinkvizitor@gmail.com>\n"
+"PO-Revision-Date: 2021-11-16 00:29+0700\n"
+"Last-Translator: Dmitry <dmitrydmitry761@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
 "translations/ru/>\n"
 "Language: ru\n"
@@ -2152,63 +2153,63 @@ msgstr "Показать версию программы."
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:192
 msgid "Do not use the network at all, not even for URL validity checks."
-msgstr ""
+msgstr "Не использовать сеть вообще, даже для проверки достоверности URL."
 
 #. TRANSLATORS: ascompose flag description for: --full-report
 #: tools/appstream-compose.c:195
 msgid "Set mode of the issue report that is printed to the console"
-msgstr ""
+msgstr "Установить режим отчета о проблеме, который выводится на консоль."
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:198
 msgid "Override the default prefix (`/usr` by default)"
-msgstr ""
+msgstr "Заменить префикс по умолчанию (`/usr` по умолчанию)"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:201
 msgid "Set the result output directory"
-msgstr ""
+msgstr "Установить каталог вывода результатов"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
 #: tools/appstream-compose.c:204
 msgid "Override the collection metadata output directory"
-msgstr ""
+msgstr "Переопределить каталог вывода сбора метаданных"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:207
 msgid "Override the icon output directory"
-msgstr ""
+msgstr "Переопределить каталог вывода значка"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:210
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)"
-msgstr ""
+msgstr "Установить каталог вывода мультимедиа (для мультимедийных данных, которые будут обслуживаться веб-сервером)"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:213
 msgid "Set a directory where HTML and text issue reports will be stored"
-msgstr ""
+msgstr "Установить каталог, в котором будут храниться отчеты о проблемах в формате HTML и текст."
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:216
 msgid "Set the origin name"
-msgstr ""
+msgstr "Задать имя источника"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:219
 msgid "Set the URL where the exported media content will be hosted"
-msgstr ""
+msgstr "Задать URL-адрес, по которому будет размещен экспортированный мультимедийный контент"
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:222
 msgid "A comma-separated list of component-IDs to accept"
-msgstr ""
+msgstr "Список идентификаторов компонентов, разделенных запятыми, которые необходимо принять"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:236
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Не удалось проанализировать аргументы"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-compose.c:247 tools/appstreamcli.c:1275
@@ -2236,52 +2237,57 @@ msgid ""
 "`short` - generates an abridged report\n"
 "`full` - a detailed report will be printed"
 msgstr ""
+"Недопустимое значение для опции `--print-report`: %s\n"
+"Возможные значения:\n"
+"`on-error` - печатает короткий отчет, только если запуск не удался (по умолчанию)\n"
+"`short` - формирует сокращенный отчет"
+"`full` - будет распечатан подробный отчет"
 
 #: tools/appstream-compose.c:296
 #, c-format
 msgid "Automatically selected '%s' as data output location."
-msgstr ""
+msgstr "Автоматически выбрано '%s' как место вывода данных."
 
 #. TRANSLATORS: we don't have a destination directory for compose
 #: tools/appstream-compose.c:299
 msgid "No destination directory set, please provide a data output location!"
-msgstr ""
+msgstr "Не задан целевой каталог, укажите место вывода данных!"
 
 #: tools/appstream-compose.c:309 tools/appstream-compose.c:311
 msgid "WARNING"
-msgstr ""
+msgstr "ВНИМАНИЕ"
 
 #. TRANSLATORS: information about as-compose allowlist
 #: tools/appstream-compose.c:348
 #, c-format
 msgid "Only accepting components: %s"
-msgstr ""
+msgstr "Только принимающие компоненты: %s"
 
 #. TRANSLATORS: information about as-compose allowlist
 #: tools/appstream-compose.c:351
 #, c-format
 msgid "Only accepting component: %s"
-msgstr ""
+msgstr "Только принимающий компонент: %s"
 
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:356
 msgid "Processing directories:"
-msgstr ""
+msgstr "Каталоги обработки:"
 
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:359
 msgid "Processing directory:"
-msgstr ""
+msgstr "Каталог обработки:"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:368
 msgid "Can not process invalid directory"
-msgstr ""
+msgstr "Невозможно обработать неверный каталог"
 
 #. TRANSLATORS: information message
 #: tools/appstream-compose.c:380
 msgid "Composing metadata..."
-msgstr ""
+msgstr "Создание метаданных..."
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:385
@@ -2292,27 +2298,29 @@ msgstr "Утилита для работы с метаданными AppStream"
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:391
 msgid "Run failed, some data was ignored."
-msgstr ""
+msgstr "Не удалось выполнить запуск, некоторые данные были проигнорированы."
 
 #. TRANSLATORS: information message of appstream-compose
 #: tools/appstream-compose.c:393
 msgid "Errors were raised during this compose run:"
-msgstr ""
+msgstr "Во время выполнения этой компоновки возникли ошибки:"
 
 #: tools/appstream-compose.c:394
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
 msgstr ""
+"Обратитесь к сгенерированным данным отчета о проблемах для получения подробной информации об отдельных "
+"проблемах."
 
 #: tools/appstream-compose.c:397
 msgid "Overview of generated hints:"
-msgstr ""
+msgstr "Обзор сгенерированных подсказок:"
 
 #. TRANSLATORS: information message
 #: tools/appstream-compose.c:399
 msgid "Success!"
-msgstr ""
+msgstr "Успешно!"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstreamcli.c:59
@@ -2411,6 +2419,7 @@ msgstr "Обновите пользовательский, а не общеси�
 msgid ""
 "No license, license expression or license exception string was provided."
 msgstr ""
+"Не было предоставлено ни лицензии, ни выдержки из лицензии, ни строки исключения из лицензии."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:502
@@ -2495,6 +2504,8 @@ msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
 msgstr ""
+"Установите количество выпусков, описания которых должны быть помечены для "
+"перевода (сначала переводятся последние выпуски, -1 для неограниченного количества)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:897
@@ -2504,12 +2515,12 @@ msgstr "Сгенерируйте вывод в выбранном формате
 #: tools/appstreamcli.c:929
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
-msgstr ""
+msgstr "Составить двоичный файл '%s' не удалось! Не могу продолжать."
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:937
 msgid "Invalid number of parameters"
-msgstr ""
+msgstr "Неверное количество параметров"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:996
@@ -2596,7 +2607,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1179
 msgid "Check license string for validity and print details about it."
-msgstr ""
+msgstr "Проверьте строку лицензии на срок действия и распечатайте подробные сведения о ней."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1185
@@ -3032,23 +3043,23 @@ msgstr "Лицензия"
 #. TRANSLATORS: A license exception
 #: tools/ascli-actions-validate.c:527
 msgid "license exception"
-msgstr ""
+msgstr "исключение из лицензии"
 
 #. TRANSLATORS: A complex license expression
 #: tools/ascli-actions-validate.c:530
 msgid "license expression"
-msgstr ""
+msgstr "выдержка из лицензии"
 
 #. TRANSLATORS: An invalid license
 #: tools/ascli-actions-validate.c:534
 msgid "invalid"
-msgstr ""
+msgstr "неверно"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:539
 #, fuzzy
 msgid "License Type"
-msgstr "Лицензия"
+msgstr "Тип Лицензия"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:543
@@ -3064,21 +3075,21 @@ msgstr "Утилита для работы с метаданными AppStream"
 
 #: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
 msgid "no"
-msgstr ""
+msgstr "нет"
 
 #: tools/ascli-actions-validate.c:547 tools/ascli-actions-validate.c:550
 msgid "yes"
-msgstr ""
+msgstr "да"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
 #: tools/ascli-actions-validate.c:550
 msgid "Free and Open Source"
-msgstr ""
+msgstr "Свободный и открытый исходный код"
 
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:555
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: tools/ascli-utils.c:266
 msgid "Identifier"
