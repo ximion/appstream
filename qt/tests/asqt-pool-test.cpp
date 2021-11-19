@@ -44,10 +44,11 @@ void PoolReadTest::testRead01()
     auto flags = pool->flags();
     flags &= ~Pool::FlagReadDesktopFiles;
     flags &= ~Pool::FlagReadMetainfo;
+    flags &= ~Pool::FlagIgnoreCacheAge;
     pool->setFlags(flags);
 
-    // don't use caches
-    pool->setCacheFlags(Pool::CacheFlagNone);
+    // use clean caches
+    pool->overrideCacheLocations("/tmp", nullptr);
 
     // read metadata
     QVERIFY(pool->load());

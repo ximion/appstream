@@ -46,7 +46,9 @@ Q_OBJECT
          * FlagNone:             No flags.
          * FlagReadCollection:   Add AppStream collection metadata to the pool.
          * FlagReadMetainfo:     Add data from AppStream metainfo files to the pool.
-         * FlagReadDesktopFiles: Add metadata from .desktop files to the pool.
+         * FlagReadDesktopFiles: Add metadata from desktop-entry files to the pool.
+         * FlagLoadFlatpak:      Add AppStream metadata from Flatpak to the pool.
+         * FlagIgnoreCacheAge:   Ignore cache age and always load data from scratch.
          *
          * Flags on how caching should be used.
          **/
@@ -55,6 +57,8 @@ Q_OBJECT
             FlagReadCollection   = 1 << 0,
             FlagReadMetainfo     = 1 << 1,
             FlagReadDesktopFiles = 1 << 2,
+            FlagLoadFlatpak      = 1 << 3,
+            FlagIgnoreCacheAge   = 1 << 4,
         };
 
         /**
@@ -123,11 +127,14 @@ Q_OBJECT
         uint flags() const;
         void setFlags(uint flags);
 
-        uint cacheFlags() const;
-        void setCacheFlags(uint flags);
+        void overrideCacheLocations(const QString &sysDir,
+                                    const QString &userDir);
 
-        void setCacheLocation(const QString &path);
-        QString cacheLocation() const;
+        Q_DECL_DEPRECATED uint cacheFlags() const;
+        Q_DECL_DEPRECATED void setCacheFlags(uint flags);
+
+        Q_DECL_DEPRECATED void setCacheLocation(const QString &path);
+        Q_DECL_DEPRECATED QString cacheLocation() const;
 
     private:
         Q_DISABLE_COPY(Pool);

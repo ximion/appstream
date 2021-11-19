@@ -26,6 +26,7 @@
 #include <stdio.h>
 
 #include "as-profile.h"
+#include "as-utils-private.h"
 
 #include "ascli-utils.h"
 #include "ascli-actions-mdata.h"
@@ -1291,13 +1292,22 @@ as_client_run (char **argv, int argc)
 		optn_nonet = TRUE;
 	}
 
+	/* set some global defaults, in case we run as root in an unsafe environment */
+	if (as_utils_is_root ()) {
+		/* users umask shouldn't interfere with us creating new files when we are root */
+		as_reset_umask ();
+
+		/* ensure we never start gvfsd as root: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=852696 */
+		g_setenv ("GIO_USE_VFS", "local", TRUE);
+	}
+
 	ascli_set_output_colored (!optn_no_color);
 
 	/* if out terminal is no tty, disable colors automatically */
 	if (!isatty (fileno (stdout)))
 		ascli_set_output_colored (FALSE);
 
-	/* don't let gvfsd start it's own session bus: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=852696 */
+	/* don't let gvfsd start its own session bus: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=852696 */
 	g_setenv ("GIO_USE_VFS", "local", TRUE);
 
 	/* prepare profiler */

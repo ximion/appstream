@@ -23,3 +23,7 @@ libappstream API break for the AppStream 1.0 release.
    (there are likely some performance improvements to be found there)
 
  * Make UNKNOWN the first entry in AsFormatVersion enum
+
+ * Rename AsPoolFlags: e.g. AS_POOL_FLAG_READ_COLLECTION -> AS_POOL_FLAG_USE_OS_COLLECTION
+
+ * Cleanup AsPool API, only keep sensible functions (maybe make the pool read-only?)

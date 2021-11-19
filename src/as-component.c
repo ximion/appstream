@@ -2381,8 +2381,12 @@ as_component_complete (AsComponent *cpt, gchar *scr_service_url, GPtrArray *icon
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
+	/* add search tokens */
+	as_component_create_token_cache (cpt);
+
 	/* improve icon paths */
-	as_component_refine_icons (cpt, icon_paths);
+	if (icon_paths != NULL)
+		as_component_refine_icons (cpt, icon_paths);
 
 	/* "fake" a launchable entry for desktop-apps that failed to include one. This is used for legacy compatibility */
 	if ((priv->kind == AS_COMPONENT_KIND_DESKTOP_APP) && (priv->launchables->len <= 0)) {
@@ -3798,9 +3802,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			if (content != NULL)
 				as_component_set_compulsory_for_desktop (cpt, content);
 		} else if (tag_id == AS_TAG_RELEASES) {
-			xmlNode *iter2;
-
-			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+			for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				if (iter2->type != XML_ELEMENT_NODE)
 					continue;
 				if (g_strcmp0 ((const gchar*) iter2->name, "release") == 0) {
@@ -3862,6 +3864,18 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 				as_component_set_origin (cpt, content);
 			} else if (tag_id == AS_TAG_INTERNAL_BRANCH) {
 				as_component_set_branch (cpt, content);
+			} else if (tag_id == AS_TAG_INTERNAL_TOKENS) {
+				for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+					AsTokenType *match_pval;
+					if (iter2->type != XML_ELEMENT_NODE)
+						continue;
+
+					match_pval = g_new0 (AsTokenType, 1);
+					*match_pval = as_xml_get_prop_value_as_int (iter2, "score");
+					g_hash_table_insert (priv->token_cache,
+							     as_xml_get_node_value_refstr (iter2),
+							     match_pval);
+				}
 			}
 		} else if (tag_id == AS_TAG_NAME_VARIANT_SUFFIX) {
 			if (lang != NULL)
@@ -4266,6 +4280,10 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 	/* internal information */
 	if (as_context_get_internal_mode (ctx)) {
+		GHashTableIter tc_iter;
+		gpointer tc_value, tc_key;
+		xmlNode *tc_node;
+
 		const gchar *origin = as_component_get_origin (cpt);
 		if (priv->scope != AS_COMPONENT_SCOPE_UNKNOWN)
 			as_xml_add_text_node (cnode, "__asi_scope", as_component_scope_to_string (priv->scope));
@@ -4273,6 +4291,25 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 			as_xml_add_text_node (cnode, "__asi_origin", origin);
 		if (priv->branch != NULL)
 			as_xml_add_text_node (cnode, "__asi_branch", priv->branch);
+
+		tc_node = xmlNewChild (cnode,
+					NULL,
+					(xmlChar*) "__asi_tokens",
+					NULL);
+
+		g_hash_table_iter_init (&tc_iter, priv->token_cache);
+		while (g_hash_table_iter_next (&tc_iter, &tc_key, &tc_value)) {
+			g_autofree gchar *tmp = NULL;
+			AsTokenType *score_val;
+			xmlNode *tct = as_xml_add_text_node (tc_node,
+							     "t", (const gchar*) tc_key);
+			score_val = tc_value;
+			if (*score_val == 0)
+				continue;
+
+			tmp = g_strdup_printf ("%" G_GUINT16_FORMAT, *score_val);
+			as_xml_add_text_prop (tct, "score", tmp);
+		}
 	}
 
 	return cnode;

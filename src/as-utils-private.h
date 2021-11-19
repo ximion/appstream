@@ -114,6 +114,7 @@ GPtrArray		*as_utils_find_files (const gchar *dir,
 						gboolean recursive,
 						GError **error);
 
+AS_INTERNAL_VISIBLE
 gboolean		as_utils_is_root (void);
 
 AS_INTERNAL_VISIBLE
@@ -132,6 +133,8 @@ void			as_hash_table_string_keys_to_array (GHashTable *table,
 							    GPtrArray *array);
 
 gboolean		as_touch_location (const gchar *fname);
+
+AS_INTERNAL_VISIBLE
 void			as_reset_umask (void);
 
 AS_INTERNAL_VISIBLE

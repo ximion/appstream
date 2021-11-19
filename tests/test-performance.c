@@ -23,6 +23,7 @@
 #include <glib/gstdio.h>
 
 #include "appstream.h"
+#include "as-utils-private.h"
 #include "as-metadata.h"
 #include "as-test-utils.h"
 #include "as-pool-private.h"
@@ -47,17 +48,18 @@ test_get_sampledata_pool (gboolean use_caches)
 	mdata_dir = g_build_filename (datadir, "collection", NULL);
 
 	pool = as_pool_new ();
-	as_pool_clear_metadata_locations (pool);
-	as_pool_add_metadata_location (pool, mdata_dir);
 	as_pool_set_locale (pool, "C");
 
 	flags = as_pool_get_flags (pool);
-	as_flags_remove (flags, AS_POOL_FLAG_READ_DESKTOP_FILES);
-	as_flags_remove (flags, AS_POOL_FLAG_READ_METAINFO);
+	as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_COLLECTION);
+	as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
+	as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_METAINFO);
+	as_flags_remove (flags, AS_POOL_FLAG_LOAD_FLATPAK);
+	if (!use_caches)
+		as_flags_add (flags, AS_POOL_FLAG_IGNORE_CACHE_AGE);
 	as_pool_set_flags (pool, flags);
 
-	if (!use_caches)
-		as_pool_set_cache_flags (pool, AS_CACHE_FLAG_NONE);
+	as_pool_add_extra_data_location (pool, mdata_dir, AS_FORMAT_STYLE_COLLECTION);
 
 	return pool;
 }
@@ -100,15 +102,18 @@ test_pool_cache_perf (void)
 	g_autoptr(GPtrArray) prep_cpts = NULL;
 	g_autoptr(AsCache) cache = NULL;
 	g_auto(GStrv) strv = NULL;
+	g_autofree gchar *mdata_dir = NULL;
 
 	guint loops = 1000;
-	const gchar *cache_location = "/tmp/as-unittest-perfcache.mdb";
+	const gchar *cache_location = "/tmp/as-unittest-perfcache";
+	mdata_dir = g_build_filename (datadir, "collection", NULL);
 
 	/* prepare a cache file and list of components to work with */
+	as_utils_delete_dir_recursive (cache_location);
 	{
 		g_autoptr(AsPool) prep_pool = NULL;
 		prep_pool = test_get_sampledata_pool (FALSE);
-		as_pool_set_cache_location (prep_pool, cache_location);
+		as_pool_override_cache_locations (prep_pool, cache_location, NULL);
 		as_pool_load (prep_pool, NULL, &error);
 		g_assert_no_error (error);
 
@@ -116,63 +121,53 @@ test_pool_cache_perf (void)
 		g_assert_cmpint (prep_cpts->len, ==, 19);
 	}
 
+
 	/* test fetching all components from cache */
 	timer = g_timer_new ();
 	for (guint i = 0; i < loops; i++) {
 		g_autoptr(GPtrArray) cpts = NULL;
-		AsPoolFlags flags;
-		g_autoptr(AsPool) pool = as_pool_new ();
+		g_autoptr(AsCache) tmp_cache = as_cache_new ();
 
-		as_pool_clear_metadata_locations (pool);
-		as_pool_set_locale (pool, "C");
-		as_pool_set_cache_location (pool, cache_location);
+		as_cache_set_locale (tmp_cache, "C");
+		as_cache_set_locations (tmp_cache, cache_location, cache_location);
+		as_cache_load_section_for_path (tmp_cache, mdata_dir, NULL, NULL);
 
-		flags = as_pool_get_flags (pool);
-		as_flags_remove (flags, AS_POOL_FLAG_READ_DESKTOP_FILES);
-		as_flags_remove (flags, AS_POOL_FLAG_READ_METAINFO);
-		as_pool_set_flags (pool, flags);
-		as_pool_set_cache_flags (pool, as_pool_get_cache_flags (pool) | AS_CACHE_FLAG_NO_CLEAR);
-
-		as_pool_load (pool, NULL, &error);
+		cpts = as_cache_get_components_all (tmp_cache, &error);
 		g_assert_no_error (error);
-
-		cpts = as_pool_get_components (pool);
 		g_assert_cmpint (cpts->len, ==, 19);
 
 	}
 	g_print ("\n    Cache readall: %.2f ms", g_timer_elapsed (timer, NULL) * 1000 / loops);
-	g_assert_cmpint (g_remove (cache_location), ==, 0);
+	g_assert_true (as_utils_delete_dir_recursive (cache_location));
 
 	/* test cache write speed */
 	g_timer_reset (timer);
 	for (guint i = 0; i < loops; i++) {
 		g_autoptr(AsCache) tmp_cache = as_cache_new ();
-		as_cache_set_nosync (tmp_cache, TRUE);
-		as_cache_open (tmp_cache, cache_location, "C", &error);
+		as_cache_set_locale (tmp_cache, "C");
+
+		as_cache_set_contents_for_path (tmp_cache,
+						prep_cpts,
+						"dummy",
+						NULL,
+						&error);
 		g_assert_no_error (error);
 
-		for (guint i = 0; i < prep_cpts->len; i++) {
-			AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (prep_cpts, i));
-			as_cache_insert (tmp_cache, cpt, &error);
-			g_assert_no_error (error);
-		}
-
-		g_assert_cmpint (g_remove (cache_location), ==, 0);
+		g_assert_true (as_utils_delete_dir_recursive (cache_location));
 	}
 	g_print ("\n    Cache write: %.2f ms", g_timer_elapsed (timer, NULL) * 1000 / loops);
 
 	/* test search */
 	cache = as_cache_new ();
-	as_cache_open (cache, cache_location, "C", &error);
+	as_cache_set_locale (cache, "C");
+	as_cache_set_contents_for_path (cache,
+					prep_cpts,
+					"dummy",
+					NULL,
+					&error);
 	g_assert_no_error (error);
 
-	for (guint i = 0; i < prep_cpts->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (prep_cpts, i));
-		as_cache_insert (cache, cpt, &error);
-		g_assert_no_error (error);
-	}
-
-	strv = g_strsplit ("gam\namateur", "\n", -1);
+	strv = g_strsplit ("gam|amateur", "|", -1);
 	g_timer_reset (timer);
 	for (guint i = 0; i < loops; i++) {
 		g_autoptr(GPtrArray) test_cpts = NULL;

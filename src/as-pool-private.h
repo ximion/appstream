@@ -27,7 +27,7 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-time_t			as_pool_get_system_cache_age (AsPool *pool);
+time_t			as_pool_get_os_metadata_cache_age (AsPool *pool);
 
 AS_INTERNAL_VISIBLE
 void			as_cache_file_save (const gchar *fname,
@@ -41,9 +41,15 @@ GPtrArray		*as_cache_file_read (const gchar *fname,
 
 AS_INTERNAL_VISIBLE
 gboolean		as_pool_refresh_system_cache (AsPool *pool,
-						      gboolean force,
-						      gboolean cleanup_old,
-						      GError **error);
+							gboolean user,
+							gboolean force,
+							gboolean *caches_updated,
+							GError **error);
+
+AS_INTERNAL_VISIBLE
+void			as_pool_override_cache_locations (AsPool *pool,
+							  const gchar *dir_sys,
+							  const gchar *dir_user);
 
 #pragma GCC visibility pop
 G_END_DECLS

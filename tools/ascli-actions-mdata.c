@@ -37,34 +37,35 @@ ascli_refresh_cache (const gchar *cachepath, const gchar *datapath, gboolean use
 {
 	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GError) error = NULL;
+	gboolean cache_updated;
 	gboolean ret = FALSE;
 
 	dpool = as_pool_new ();
 	if (datapath != NULL) {
 		AsPoolFlags flags;
 
-		/* the user wants data from a different path to be used */
-		as_pool_clear_metadata_locations (dpool);
-		as_pool_add_metadata_location (dpool, datapath);
-
 		/* we auto-disable loading data from sources that are not in datapath for now */
 		flags = as_pool_get_flags (dpool);
-		as_flags_remove (flags, AS_POOL_FLAG_READ_DESKTOP_FILES);
-		as_flags_remove (flags, AS_POOL_FLAG_READ_METAINFO);
+		as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
+		as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_METAINFO);
+		as_flags_remove (flags, AS_POOL_FLAG_LOAD_FLATPAK);
 		as_pool_set_flags (dpool, flags);
 
-		/* disable loading data from cache */
-		as_pool_set_cache_flags (dpool, AS_CACHE_FLAG_NONE);
+		/* the user wants data from a different path to be used */
+		as_pool_add_extra_data_location (dpool,
+						 datapath,
+						 AS_FORMAT_STYLE_COLLECTION);
 	}
 
 	if (cachepath == NULL) {
-		ret = as_pool_refresh_system_cache (dpool, user, forced, &error);
+		ret = as_pool_refresh_system_cache (dpool, user, forced, &cache_updated, &error);
 	} else {
-		as_pool_set_cache_location (dpool, cachepath);
+		as_pool_override_cache_locations (dpool, cachepath, cachepath);
 		as_pool_load (dpool, NULL, &error);
+		cache_updated = TRUE;
 	}
 
-	if (error != NULL) {
+	if (!ret) {
 		if (g_error_matches (error, AS_POOL_ERROR, AS_POOL_ERROR_TARGET_NOT_WRITABLE))
 			/* TRANSLATORS: In ascli: The requested action needs higher permissions. */
 			g_printerr ("%s\n%s\n", error->message, _("You might need superuser permissions to perform this action."));
@@ -73,19 +74,15 @@ ascli_refresh_cache (const gchar *cachepath, const gchar *datapath, gboolean use
 		return 2;
 	}
 
-	if (ret) {
-		/* we performed a cache refresh */
-
+	if (cache_updated) {
 		/* TRANSLATORS: Updating the metadata cache succeeded */
 		g_print ("%s\n", _("AppStream cache update completed successfully."));
-
-		/* no > 0 error code, since we updated something */
-		return 0;
 	} else {
-		/* cache wasn't updated, so the update wasn't necessary */
+		/* TRANSLATORS: Metadata cache was not updated, likely because it was recent enough */
 		g_print ("%s\n", _("AppStream cache update is not necessary."));
-		return 0;
 	}
+
+	return 0;
 }
 
 /**
@@ -95,22 +92,22 @@ static AsPool*
 ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache, GError **error)
 {
 	AsPool *dpool;
+	AsPoolFlags flags;
 
 	dpool = as_pool_new ();
-	if (cachepath == NULL) {
-		/* no cache object to load, we can use a normal pool - unless (system) caching
-		 * is generally disallowed. */
-		if (no_cache) {
-			as_pool_set_cache_flags (dpool, AS_CACHE_FLAG_USE_USER);
-		}
+	flags = as_pool_get_flags (dpool);
+	if (no_cache)
+		as_flags_add (flags, AS_POOL_FLAG_IGNORE_CACHE_AGE);
 
+	if (cachepath == NULL) {
+		/* no cache object to load, we can use a normal pool */
 		as_pool_load (dpool, NULL, error);
 	} else {
 		/* use an exported cache object */
-		as_pool_set_cache_flags (dpool, AS_CACHE_FLAG_USE_USER);
-		as_pool_set_cache_location (dpool, cachepath);
+		as_pool_override_cache_locations (dpool, cachepath, cachepath);
 		as_pool_load (dpool, NULL, error);
 	}
+	as_pool_set_flags (dpool, flags);
 
 	return dpool;
 }

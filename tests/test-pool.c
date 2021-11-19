@@ -74,22 +74,28 @@ test_get_sampledata_pool (gboolean use_caches)
 	AsPool *pool;
 	AsPoolFlags flags;
 	g_autofree gchar *mdata_dir = NULL;
+	g_autofree gchar *cache_dummy_dir = NULL;
 
 	/* create AsPool and load sample metadata */
 	mdata_dir = g_build_filename (datadir, "collection", NULL);
 
 	pool = as_pool_new ();
-	as_pool_clear_metadata_locations (pool);
-	as_pool_add_metadata_location (pool, mdata_dir);
+	as_pool_add_extra_data_location (pool, mdata_dir, AS_FORMAT_STYLE_COLLECTION);
 	as_pool_set_locale (pool, "C");
 
 	flags = as_pool_get_flags (pool);
-	as_flags_remove (flags, AS_POOL_FLAG_READ_DESKTOP_FILES);
-	as_flags_remove (flags, AS_POOL_FLAG_READ_METAINFO);
-	as_pool_set_flags (pool, flags);
+	as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_COLLECTION);
+	as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
+	as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_METAINFO);
+	as_flags_remove (flags, AS_POOL_FLAG_LOAD_FLATPAK);
 
 	if (!use_caches)
-		as_pool_set_cache_flags (pool, AS_CACHE_FLAG_NONE);
+		as_flags_add (flags, AS_POOL_FLAG_IGNORE_CACHE_AGE);
+	as_pool_set_flags (pool, flags);
+
+	cache_dummy_dir = g_build_filename (g_get_tmp_dir (), "as-cache-dummy", "XXXXXX", NULL);
+	g_mkdtemp (cache_dummy_dir);
+	as_pool_override_cache_locations (pool, cache_dummy_dir, NULL);
 
 	return pool;
 }
@@ -157,13 +163,14 @@ test_cache ()
 	g_autoptr(AsCache) cache = NULL;
 	g_autoptr(AsComponent) ccpt = NULL;
 	g_autoptr(GError) error = NULL;
+	g_autofree gchar *mdata_dir = NULL;
 	g_autofree gchar *xmldata_precache = NULL;
 	g_autofree gchar *xmldata_postcache = NULL;
-	gboolean ret;
-	static const gchar *cache_testpath = "/tmp/as-unittest-cache.cache";
+
+	static const gchar *cache_testpath = "/tmp/as-unittest-tmpcache";
 
 	pool = test_get_sampledata_pool (FALSE);
-	as_pool_set_cache_location (pool, cache_testpath);
+	as_pool_override_cache_locations (pool, cache_testpath, NULL);
 
 	as_pool_load (pool, NULL, &error);
 	g_assert_no_error (error);
@@ -190,16 +197,15 @@ test_cache ()
 	g_assert_no_error (error);
 
 	/* ensure we get the same result back that we cached before */
-	g_object_unref (pool);
-	pool = test_get_sampledata_pool (FALSE);
-	as_pool_clear_metadata_locations (pool);
-	as_pool_set_cache_flags (pool, as_pool_get_cache_flags (pool) | AS_CACHE_FLAG_NO_CLEAR);
+	mdata_dir = g_build_filename (datadir, "collection", NULL);
+	cache = as_cache_new ();
+	as_cache_set_locale (cache, "C");
 
-	as_pool_set_cache_location (pool, cache_testpath);
-	as_pool_load (pool, NULL, &error);
+	as_cache_set_locations (cache, cache_testpath, cache_testpath);
+	as_cache_load_section_for_path (cache, mdata_dir, NULL, NULL);
+
+	cpts_post = as_cache_get_components_all (cache, &error);
 	g_assert_no_error (error);
-
-	cpts_post = as_pool_get_components (pool);
 	g_assert_cmpint (cpts_post->len, ==, 19);
 	as_assert_component_lists_equal (cpts_post, cpts_prev);
 
@@ -213,27 +219,6 @@ test_cache ()
 	xmldata_postcache = as_metadata_components_to_collection (mdata, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 	g_assert_true (as_test_compare_lines (xmldata_precache, xmldata_postcache));
-
-	/* load an "modify" read-only cache */
-	cache = as_cache_new ();
-	as_cache_set_readonly (cache, TRUE);
-	as_cache_open (cache, cache_testpath, "C", &error);
-	g_assert_no_error (error);
-
-	ccpt = as_cache_get_component_by_data_id (cache, "system/package/os/org.inkscape.Inkscape/*", &error);
-	g_assert_no_error (error);
-	g_assert_nonnull (ccpt);
-
-	g_assert_cmpstr (as_component_get_name (ccpt), ==, "Inkscape");
-	g_object_unref (ccpt);
-
-	ret = as_cache_remove_by_data_id (cache, "system/package/os/org.inkscape.Inkscape/*", &error);
-	g_assert_no_error (error);
-	g_assert_true (ret);
-
-	ccpt = as_cache_get_component_by_data_id (cache, "system/package/os/org.inkscape.Inkscape/*", &error);
-	g_assert_no_error (error);
-	g_assert_null (ccpt);
 }
 
 /**
@@ -604,7 +589,7 @@ test_pool_empty ()
 	gboolean ret;
 
 	pool = as_pool_new ();
-	as_pool_clear_metadata_locations (pool);
+	as_pool_reset_extra_data_locations (pool);
 	as_pool_set_locale (pool, "C");
 
 	/* test reading from the pool when it wasn't loaded yet */

@@ -93,14 +93,7 @@ gio_unix_dep = dependency('gio-unix-2.0', version: '>=2.58')
 curl_dep = dependency('libcurl', version : '>= 7.62')
 xml2_dep = dependency('libxml-2.0')
 yaml_dep = dependency('yaml-0.1')
-lmdb_dep = dependency('lmdb', required: false)
-
-if not lmdb_dep.found()
-    lmdb_lib = cc.find_library('lmdb', required: true)
-    if not cc.has_header('lmdb.h')
-        error('Headers for dependency "lmdb" not found')
-    endif
-endif
+xmlb_dep = dependency('xmlb', version : '>= 0.3.2')
 
 if get_option ('gir')
     # ensure we have a version of GIR that isn't broken with Meson

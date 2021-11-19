@@ -203,7 +203,7 @@ as_pool_check_file_newer_than_cache (AsPool *pool, GPtrArray *file_list)
 		const gchar *fname = (const gchar*) g_ptr_array_index (file_list, i);
 		if (stat (fname, &sb) < 0)
 			continue;
-		if (sb.st_ctime > as_pool_get_system_cache_age (pool)) {
+		if (sb.st_ctime > as_pool_get_os_metadata_cache_age (pool)) {
 			/* we need to update the cache */
 			return TRUE;
 		}

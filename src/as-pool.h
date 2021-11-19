@@ -67,18 +67,26 @@ typedef enum {
 /**
  * AsPoolFlags:
  * @AS_POOL_FLAG_NONE:			No flags.
- * @AS_POOL_FLAG_READ_COLLECTION:	Add AppStream collection metadata to the pool.
- * @AS_POOL_FLAG_READ_METAINFO:		Add data from AppStream metainfo files to the pool.
- * @AS_POOL_FLAG_READ_DESKTOP_FILES:	Add metadata from .desktop files to the pool.
+ * @AS_POOL_FLAG_LOAD_OS_COLLECTION:	Load AppStream collection metadata from OS locations.
+ * @AS_POOL_FLAG_LOAD_OS_METAINFO:	Load MetaInfo data from OS locations.
+ * @AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES:	Load components from desktop-entry files in OS locations.
+ * @AS_POOL_FLAG_LOAD_FLATPAK:		Load AppStream collection metadata from Flatpak.
+ * @AS_POOL_FLAG_IGNORE_CACHE_AGE:	Load fresh data even if an up-o-date cache is available.
  *
  * Flags on how caching should be used.
  **/
 typedef enum {
 	AS_POOL_FLAG_NONE = 0,
-	AS_POOL_FLAG_READ_COLLECTION    = 1 << 0,
-	AS_POOL_FLAG_READ_METAINFO      = 1 << 1,
-	AS_POOL_FLAG_READ_DESKTOP_FILES = 1 << 2,
+	AS_POOL_FLAG_LOAD_OS_COLLECTION    = 1 << 0,
+	AS_POOL_FLAG_LOAD_OS_METAINFO      = 1 << 1,
+	AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES = 1 << 2,
+	AS_POOL_FLAG_LOAD_FLATPAK          = 1 << 3,
+	AS_POOL_FLAG_IGNORE_CACHE_AGE      = 1 << 4,
 } AsPoolFlags;
+
+#define AS_POOL_FLAG_READ_COLLECTION AS_POOL_FLAG_LOAD_OS_COLLECTION
+#define AS_POOL_FLAG_READ_METAINFO AS_POOL_FLAG_LOAD_OS_METAINFO
+#define AS_POOL_FLAG_READ_DESKTOP_FILES AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES
 
 /**
  * AsPoolError:
@@ -122,6 +130,9 @@ gboolean		as_pool_load_finish (AsPool *pool,
 
 gboolean		as_pool_clear2 (AsPool *pool,
 					GError **error);
+gboolean		as_pool_add_components (AsPool *pool,
+						GPtrArray *cpts,
+						GError **error);
 gboolean		as_pool_add_component (AsPool *pool,
 						AsComponent *cpt,
 						GError **error);
@@ -144,21 +155,14 @@ GPtrArray		*as_pool_search (AsPool *pool,
 gchar			**as_pool_build_search_tokens (AsPool *pool,
 						       const gchar *search);
 
-void			as_pool_clear_metadata_locations (AsPool *pool);
-void			as_pool_add_metadata_location (AsPool *pool,
-						       const gchar *directory);
-
-AsCacheFlags		as_pool_get_cache_flags (AsPool *pool);
-void			as_pool_set_cache_flags (AsPool *pool,
-						      AsCacheFlags flags);
+void			as_pool_reset_extra_data_locations (AsPool *pool);
+void			as_pool_add_extra_data_location (AsPool *pool,
+							 const gchar *directory,
+							 AsFormatStyle format_style);
 
 AsPoolFlags		as_pool_get_flags (AsPool *pool);
 void			as_pool_set_flags (AsPool *pool,
 						AsPoolFlags flags);
-
-const gchar 		*as_pool_get_cache_location (AsPool *pool);
-void			as_pool_set_cache_location (AsPool *pool,
-						const gchar *fname);
 
 /* DEPRECATED */
 
@@ -176,6 +180,24 @@ gboolean		as_pool_refresh_cache (AsPool *pool,
 						GError **error);
 G_DEPRECATED
 void			as_pool_clear (AsPool *pool);
+
+G_DEPRECATED
+const gchar 		*as_pool_get_cache_location (AsPool *pool);
+G_DEPRECATED
+void			as_pool_set_cache_location (AsPool *pool,
+						const gchar *fname);
+
+G_DEPRECATED
+AsCacheFlags		as_pool_get_cache_flags (AsPool *pool);
+G_DEPRECATED
+void			as_pool_set_cache_flags (AsPool *pool,
+						      AsCacheFlags flags);
+
+G_DEPRECATED
+void			as_pool_clear_metadata_locations (AsPool *pool);
+G_DEPRECATED
+void			as_pool_add_metadata_location (AsPool *pool,
+						       const gchar *directory);
 
 G_END_DECLS
 

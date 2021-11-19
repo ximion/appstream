@@ -2436,3 +2436,21 @@ as_utils_find_stock_icon_filename_full (const gchar *root_dir,
 		     "Failed to find icon %s", icon_name);
 	return NULL;
 }
+
+/**
+ * as_utils_guess_scope_from_path:
+ * @path: The filename to test.
+ *
+ * Guess the #AsComponentScope that applies to a given path.
+ *
+ * Returns: the #AsComponentScope
+ *
+ * Since: 0.14.8
+ */
+AsComponentScope
+as_utils_guess_scope_from_path (const gchar *path)
+{
+	if (g_str_has_prefix (path, "/home") || g_str_has_prefix (path, g_get_home_dir ()))
+		return AS_COMPONENT_SCOPE_USER;
+	return AS_COMPONENT_SCOPE_SYSTEM;
+}

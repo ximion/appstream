@@ -132,6 +132,8 @@ gboolean		as_utils_install_metadata_file (AsMetadataLocation location,
 							const gchar *destdir,
 							GError **error);
 
+AsComponentScope	as_utils_guess_scope_from_path (const gchar *path);
+
 
 /* DEPRECATED */
 
