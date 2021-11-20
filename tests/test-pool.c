@@ -87,15 +87,11 @@ test_get_sampledata_pool (gboolean use_caches)
 	as_pool_set_locale (pool, "C");
 
 	flags = as_pool_get_flags (pool);
-	as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_COLLECTION);
-	as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
-	as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_METAINFO);
-	as_flags_remove (flags, AS_POOL_FLAG_LOAD_FLATPAK);
-
 	if (!use_caches)
 		as_flags_add (flags, AS_POOL_FLAG_IGNORE_CACHE_AGE);
 	as_pool_set_flags (pool, flags);
 
+	as_pool_set_load_std_data_locations (pool, FALSE);
 	as_pool_override_cache_locations (pool, cache_dummy_dir, NULL);
 
 	return pool;

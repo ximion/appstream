@@ -87,10 +87,7 @@ bool Pool::load(QString* strerror)
 
 void Pool::clear()
 {
-    g_autoptr(GError) error = nullptr;
-    auto ret = as_pool_clear2 (d->pool, &error);
-    if (!ret && error)
-        d->lastError = QString::fromUtf8(error->message);
+    as_pool_clear (d->pool);
 }
 
 QString Pool::lastError() const
@@ -98,10 +95,20 @@ QString Pool::lastError() const
     return d->lastError;
 }
 
-bool Pool::addComponent(const AppStream::Component& cpt)
+bool Pool::addComponents(const QList<AppStream::Component>& cpts)
 {
-    // FIXME: We ignore errors for now.
-    return as_pool_add_component (d->pool, cpt.m_cpt, NULL);
+    g_autoptr(GError) error = nullptr;
+    g_autoptr(GPtrArray) array = nullptr;
+
+    array = g_ptr_array_sized_new (cpts.length());
+    for (const auto& cpt : cpts)
+        g_ptr_array_add(array, cpt.asComponent());
+
+    bool ret = as_pool_add_components (d->pool, array, &error);
+    if (!ret)
+        d->lastError = QString::fromUtf8(error->message);
+
+    return ret;
 }
 
 QList<Component> Pool::components() const
@@ -150,20 +157,6 @@ QList<AppStream::Component> Pool::search(const QString& term) const
     return cptArrayToQList(as_pool_search(d->pool, qPrintable(term)));
 }
 
-void Pool::clearMetadataLocations()
-{
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    as_pool_clear_metadata_locations(d->pool);
-#pragma GCC diagnostic pop
-}
-
-void Pool::addMetadataLocation(const QString& directory)
-{
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    as_pool_add_metadata_location (d->pool, qPrintable(directory));
-#pragma GCC diagnostic pop
-}
-
 void Pool::setLocale(const QString& locale)
 {
     as_pool_set_locale (d->pool, qPrintable(locale));
@@ -179,6 +172,23 @@ void Pool::setFlags(uint flags)
     as_pool_set_flags (d->pool, (AsPoolFlags) flags);
 }
 
+void Pool::resetExtraDataLocations()
+{
+    as_pool_reset_extra_data_locations (d->pool);
+}
+
+void Pool::addExtraDataLocation(const QString &directory, Metadata::FormatStyle formatStyle)
+{
+    as_pool_add_extra_data_location (d->pool,
+                                     qPrintable(directory),
+                                     (AsFormatStyle) formatStyle);
+}
+
+void Pool::setLoadStdDataLocations(bool enabled)
+{
+    as_pool_set_load_std_data_locations(d->pool, enabled);
+}
+
 void Pool::overrideCacheLocations(const QString &sysDir, const QString &userDir)
 {
     as_pool_override_cache_locations (d->pool,
@@ -186,13 +196,40 @@ void Pool::overrideCacheLocations(const QString &sysDir, const QString &userDir)
                                       userDir.isEmpty()? nullptr : qPrintable(userDir));
 }
 
+bool Pool::addComponent(const AppStream::Component& cpt)
+{
+    QList<AppStream::Component> cpts;
+    cpts.append(cpt);
+    return addComponents(cpts);
+}
+
 uint Pool::cacheFlags() const
 {
-    return 0;
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+    return as_pool_get_cache_flags(d->pool);
+#pragma GCC diagnostic pop
 }
 
 void Pool::setCacheFlags(uint flags)
 {
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+    as_pool_set_cache_flags(d->pool,
+                            (AsCacheFlags) flags);
+#pragma GCC diagnostic pop
+}
+
+void Pool::clearMetadataLocations()
+{
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+    as_pool_clear_metadata_locations(d->pool);
+#pragma GCC diagnostic pop
+}
+
+void Pool::addMetadataLocation(const QString& directory)
+{
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+    as_pool_add_metadata_location (d->pool, qPrintable(directory));
+#pragma GCC diagnostic pop
 }
 
 QString AppStream::Pool::cacheLocation() const

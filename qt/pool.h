@@ -26,6 +26,7 @@
 #include <QList>
 #include <QStringList>
 #include "component.h"
+#include "metadata.h"
 
 namespace AppStream {
 
@@ -103,7 +104,7 @@ Q_OBJECT
         /**
          * Add a component to the pool.
          */
-        bool addComponent(const AppStream::Component& cpt);
+        bool addComponents(const QList<AppStream::Component>& cpts);
 
         QList<AppStream::Component> components() const;
 
@@ -119,22 +120,29 @@ Q_OBJECT
 
         QList<AppStream::Component> search(const QString& term) const;
 
-        void clearMetadataLocations();
-        void addMetadataLocation(const QString& directory);
 
         void setLocale(const QString& locale);
 
         uint flags() const;
         void setFlags(uint flags);
 
+        void resetExtraDataLocations();
+        void addExtraDataLocation(const QString &directory, Metadata::FormatStyle formatStyle);
+
+        void setLoadStdDataLocations(bool enabled);
         void overrideCacheLocations(const QString &sysDir,
                                     const QString &userDir);
+
+        Q_DECL_DEPRECATED bool addComponent(const AppStream::Component& cpt);
 
         Q_DECL_DEPRECATED uint cacheFlags() const;
         Q_DECL_DEPRECATED void setCacheFlags(uint flags);
 
         Q_DECL_DEPRECATED void setCacheLocation(const QString &path);
         Q_DECL_DEPRECATED QString cacheLocation() const;
+
+        Q_DECL_DEPRECATED void clearMetadataLocations();
+        Q_DECL_DEPRECATED void addMetadataLocation(const QString& directory);
 
     private:
         Q_DISABLE_COPY(Pool);

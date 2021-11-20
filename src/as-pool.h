@@ -128,13 +128,9 @@ gboolean		as_pool_load_finish (AsPool *pool,
 					     GAsyncResult *result,
 					     GError **error);
 
-gboolean		as_pool_clear2 (AsPool *pool,
-					GError **error);
+void			as_pool_clear (AsPool *pool);
 gboolean		as_pool_add_components (AsPool *pool,
 						GPtrArray *cpts,
-						GError **error);
-gboolean		as_pool_add_component (AsPool *pool,
-						AsComponent *cpt,
 						GError **error);
 
 GPtrArray		*as_pool_get_components (AsPool *pool);
@@ -163,8 +159,14 @@ void			as_pool_add_extra_data_location (AsPool *pool,
 AsPoolFlags		as_pool_get_flags (AsPool *pool);
 void			as_pool_set_flags (AsPool *pool,
 						AsPoolFlags flags);
+void			as_pool_set_load_std_data_locations (AsPool *pool,
+							     gboolean enabled);
 
 /* DEPRECATED */
+
+gboolean		as_pool_add_component (AsPool *pool,
+						AsComponent *cpt,
+						GError **error);
 
 G_DEPRECATED
 gboolean		as_pool_load_cache_file (AsPool *pool,
@@ -179,7 +181,8 @@ gboolean		as_pool_refresh_cache (AsPool *pool,
 						gboolean force,
 						GError **error);
 G_DEPRECATED
-void			as_pool_clear (AsPool *pool);
+gboolean		as_pool_clear2 (AsPool *pool,
+					GError **error);
 
 G_DEPRECATED
 const gchar 		*as_pool_get_cache_location (AsPool *pool);

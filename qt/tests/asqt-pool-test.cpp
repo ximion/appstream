@@ -36,9 +36,11 @@ void PoolReadTest::testRead01()
     // set up the data pool to read our sample data, without localization
     auto pool = std::make_unique<Pool>();
 
-    pool->clearMetadataLocations();
+    pool->resetExtraDataLocations();
     pool->setLocale("C");
-    pool->addMetadataLocation(AS_SAMPLE_DATA_PATH);
+    pool->setLoadStdDataLocations(false);
+    pool->addExtraDataLocation(AS_SAMPLE_DATA_PATH,
+                               Metadata::FormatStyleCollection);
 
     // temporary cache location, so we don't use any system cache ever during tests
     QTemporaryDir cacheDir;

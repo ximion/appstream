@@ -779,6 +779,23 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 }
 
 /**
+ * as_pool_clear:
+ * @pool: An #AsPool.
+ *
+ * Remove all metadata from the pool, data will be reloaded
+ * once %as_pool_load is called again.
+ */
+void
+as_pool_clear (AsPool *pool)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+
+	as_cache_clear (priv->cache);
+	as_cache_set_locale (priv->cache, priv->locale);
+}
+
+/**
  * as_pool_clear2:
  * @pool: An #AsPool.
  *
@@ -787,32 +804,8 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 gboolean
 as_pool_clear2 (AsPool *pool, GError **error)
 {
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
-
-	as_cache_clear (priv->cache);
-	as_cache_set_locale (priv->cache, priv->locale);
-
+	as_pool_clear (pool);
 	return TRUE;
-}
-
-/**
- * as_pool_clear:
- * @pool: An #AsPool.
- *
- * Remove all metadata from the pool.
- */
-void
-as_pool_clear (AsPool *pool)
-{
-	GError *tmp_error = NULL;
-
-	/* reopen the new cache */
-	if (!as_pool_clear2 (pool, &tmp_error)) {
-		g_critical ("Unable to reopen cache: %s", tmp_error->message);
-		g_error_free (tmp_error);
-		tmp_error = NULL;
-	}
 }
 
 /**
@@ -1399,8 +1392,7 @@ as_pool_load_internal (AsPool *pool,
 	ptask = as_profile_start_literal (priv->profile, "AsPool:load");
 
 	/* load as AsPool also means to reload, so we clear any potential old data */
-	if (!as_pool_clear2 (pool, error))
-		return FALSE;
+	as_pool_clear (pool);
 
 	/* apply settings */
 	as_cache_set_prefer_os_metainfo (priv->cache, priv->prefer_local_metainfo);
@@ -2149,6 +2141,38 @@ as_pool_set_flags (AsPool *pool, AsPoolFlags flags)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	priv->flags = flags;
+}
+
+/**
+ * as_pool_set_load_std_data_locations:
+ * @pool: An instance of #AsPool.
+ * @enabled: Whether loading of data from standard locations should be enabled.
+ *
+ * This is a convenience function that enables or disables loading of metadata
+ * from well-known standard locations by configuring the #AsPoolFlags of this
+ * #AsPool accordingly.
+ * Data affected by this includes the OS data catalog, metainfo, desktop-entry
+ * files and Flatpak data.
+ * If you need more fine-grained control, set the #AsPoolFlags explicitly.
+ *
+ * Since: 0.14.7
+ */
+void
+as_pool_set_load_std_data_locations (AsPool *pool, gboolean enabled)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	if (enabled) {
+		as_flags_add (priv->flags, AS_POOL_FLAG_LOAD_OS_COLLECTION);
+		as_flags_add (priv->flags, AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
+		as_flags_add (priv->flags, AS_POOL_FLAG_LOAD_OS_METAINFO);
+		as_flags_add (priv->flags, AS_POOL_FLAG_LOAD_FLATPAK);
+	} else {
+		as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_OS_COLLECTION);
+		as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
+		as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_OS_METAINFO);
+		as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_FLATPAK);
+	}
 }
 
 /**
