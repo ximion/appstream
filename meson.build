@@ -90,10 +90,10 @@ glib_dep = dependency('glib-2.0', version: '>=2.58')
 gobject_dep = dependency('gobject-2.0', version: '>=2.58')
 gio_dep = dependency('gio-2.0', version: '>=2.58')
 gio_unix_dep = dependency('gio-unix-2.0', version: '>=2.58')
-curl_dep = dependency('libcurl', version : '>= 7.62')
+curl_dep = dependency('libcurl', version: '>= 7.62')
 xml2_dep = dependency('libxml-2.0')
 yaml_dep = dependency('yaml-0.1')
-xmlb_dep = dependency('xmlb', version : '>= 0.3.2')
+xmlb_dep = dependency('xmlb', version: '>= 0.3.2', fallback: ['libxmlb', 'libxmlb_dep'])
 
 if get_option ('gir')
     # ensure we have a version of GIR that isn't broken with Meson

@@ -13,6 +13,7 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     gcc \
     gcc-c++ \
     gdb \
+    git \
     meson \
     gettext \
     gperf \
@@ -32,7 +33,7 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     'pkgconfig(libsoup-2.4)' \
     'pkgconfig(librsvg-2.0)' \
     'pkgconfig(libxml-2.0)' \
-    'pkgconfig(lmdb)' \
+    'pkgconfig(xmlb)' \
     'pkgconfig(packagekit-glib2)' \
     'pkgconfig(pango)' \
     'pkgconfig(protobuf-lite)' \
