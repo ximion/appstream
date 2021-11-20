@@ -37,8 +37,8 @@ void PoolReadTest::testRead01()
     auto pool = std::make_unique<Pool>();
 
     pool->clearMetadataLocations();
-    pool->addMetadataLocation(AS_SAMPLE_DATA_PATH);
     pool->setLocale("C");
+    pool->addMetadataLocation(AS_SAMPLE_DATA_PATH);
 
     // don't load system metainfo/desktop files
     auto flags = pool->flags();
@@ -51,7 +51,10 @@ void PoolReadTest::testRead01()
     pool->overrideCacheLocations("/tmp", nullptr);
 
     // read metadata
-    QVERIFY(pool->load());
+    bool ret = pool->load();
+    if (!ret)
+        qWarning() << pool->lastError();
+    QVERIFY(ret);
 
     auto cpts = pool->components();
     QCOMPARE(cpts.size(), 19);
