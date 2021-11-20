@@ -426,13 +426,11 @@ as_utils_delete_dir_recursive (const gchar* dirname)
 	if (error != NULL)
 		goto out;
 	while (info != NULL) {
-		gchar *path;
-		path = g_build_filename (dirname, g_file_info_get_name (info), NULL);
-		if (g_file_test (path, G_FILE_TEST_IS_DIR)) {
+		g_autofree gchar *path = g_build_filename (dirname, g_file_info_get_name (info), NULL);
+		if (g_file_test (path, G_FILE_TEST_IS_DIR))
 			as_utils_delete_dir_recursive (path);
-		} else {
+		else
 			g_remove (path);
-		}
 		g_object_unref (info);
 		info = g_file_enumerator_next_file (enr, NULL, &error);
 		if (error != NULL)
