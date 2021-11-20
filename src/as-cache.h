@@ -78,23 +78,13 @@ typedef void (*AsCacheDataRefineFn)(AsComponent *cpt,
  * @AS_CACHE_ERROR_FAILED:		Generic failure
  * @AS_CACHE_ERROR_PERMISSIONS:		Some permissions are missing, e.g. a file may not be writable
  * @AS_CACHE_ERROR_BAD_VALUE:		Some value, possibly user-defined, was invalid.
- * @AS_CACHE_ERROR_NOT_OPEN:		Cache was not open.
- * @AS_CACHE_ERROR_WRONG_FORMAT:	Cache has an unsupported format version.
- * @AS_CACHE_ERROR_LOCALE_MISMATCH:	Cache locale was different from the expected one.
- * @AS_CACHE_ERROR_NO_FILENAME:		No filename was set to open the database.
- * @AS_CACHE_ERROR_BAD_DATA:		The data that should be added failed a sanity check
  *
- * A metadata pool error.
+ * A metadata cache error.
  **/
 typedef enum {
 	AS_CACHE_ERROR_FAILED,
 	AS_CACHE_ERROR_PERMISSIONS,
 	AS_CACHE_ERROR_BAD_VALUE,
-	AS_CACHE_ERROR_NOT_OPEN,
-	AS_CACHE_ERROR_WRONG_FORMAT,
-	AS_CACHE_ERROR_LOCALE_MISMATCH,
-	AS_CACHE_ERROR_NO_FILENAME,
-	AS_CACHE_ERROR_BAD_DATA,
 	/*< private >*/
 	AS_CACHE_ERROR_LAST
 } AsCacheError;
