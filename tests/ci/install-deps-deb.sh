@@ -29,6 +29,7 @@ eatmydata apt-get install -yq --no-install-recommends \
     libxml2-dev \
     libyaml-dev \
     libxmlb-dev \
+    liblzma-dev \
     libcurl4-gnutls-dev \
     gtk-doc-tools \
     libgirepository1.0-dev \
