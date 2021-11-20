@@ -181,7 +181,9 @@ void Pool::setFlags(uint flags)
 
 void Pool::overrideCacheLocations(const QString &sysDir, const QString &userDir)
 {
-    as_pool_override_cache_locations (d->pool, qPrintable(sysDir), qPrintable(userDir));
+    as_pool_override_cache_locations (d->pool,
+                                      sysDir.isEmpty()? nullptr : qPrintable(sysDir),
+                                      userDir.isEmpty()? nullptr : qPrintable(userDir));
 }
 
 uint Pool::cacheFlags() const
