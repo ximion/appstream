@@ -676,18 +676,25 @@ static gchar*
 as_cache_build_section_key (AsCache *cache, const gchar *str)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
-	GString *gstr;
 
-	gstr = g_string_new (str);
-	if (gstr->str[0] == '/')
-		g_string_erase (gstr, 0, 1);
-	g_string_prepend_c (gstr, '-');
-	g_string_prepend (gstr, priv->locale);
-	if (gstr->str[gstr->len] == '/')
-		g_string_truncate (gstr, gstr->len - 1);
+	if (g_strstr_len (str, -1, "/") == NULL) {
+		/* the string is fine as-is, we just need to add the locale prefix to it */
+		return g_strconcat (priv->locale,
+				    "-",
+				    str,
+				    NULL);
+	} else {
+		/* we need to create a unique key from the filename-ish string */
+		g_autoptr(GChecksum) cs = g_checksum_new (G_CHECKSUM_MD5);
+		g_checksum_update (cs,
+				   (const guchar *) str,
+				   -1);
 
-	as_gstring_replace2 (gstr, "/", "_", -1);
-	return g_string_free (gstr, FALSE);
+		return g_strconcat (priv->locale,
+				"-",
+				g_checksum_get_string (cs),
+				NULL);
+	}
 }
 
 /**
