@@ -512,12 +512,12 @@ as_cache_components_to_internal_xb (AsCache *cache,
 		xmlNode *node;
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 
-		if (refine && priv->cpt_refine_func != NULL) {
+		/* ensure search token cache is generated */
+		as_component_create_token_cache (cpt);
+
+		/* refine component data */
+		if (refine && priv->cpt_refine_func != NULL)
 			(*priv->cpt_refine_func) (cpt, TRUE, refine_func_udata);
-		} else {
-			/* ensure search token cache is generated */
-			as_component_create_token_cache (cpt);
-		}
 
 		/* serialize to node */
 		node = as_component_to_xml_node (cpt, priv->context, NULL);
@@ -1252,6 +1252,7 @@ as_cache_query_components (AsCache *cache,
 			   const gchar *xpath,
 			   XbQueryContext *context,
 			   guint limit,
+			   gboolean is_fts,
 			   GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
@@ -1299,10 +1300,18 @@ as_cache_query_components (AsCache *cache,
 		for (guint j = 0; j < array->len; j++) {
 			g_autoptr (AsComponent) cpt = NULL;
 			gchar *tmp;
-			XbNode *node = g_ptr_array_index (array, j);
+			g_autoptr(XbNode) cpt_node = NULL;
+			XbNode *qnode = g_ptr_array_index (array, j);
+
+			if (is_fts) {
+				g_autoptr(XbNode) token_node = xb_node_get_parent (qnode);
+				cpt_node = xb_node_get_parent (token_node);
+			} else {
+				cpt_node = g_object_ref (qnode);
+			}
 
 			if (csec->is_os_data && csec->format_style == AS_FORMAT_STYLE_METAINFO) {
-				const gchar *cid = xb_node_query_text (node, "id", NULL);
+				const gchar *cid = xb_node_query_text (cpt_node, "id", NULL);
 				if (g_hash_table_contains (known_os_cids, cid) &&
 					!priv->prefer_os_metainfo)
 					continue;
@@ -1310,7 +1319,7 @@ as_cache_query_components (AsCache *cache,
 
 			cpt = as_cache_component_from_node (cache,
 							    csec,
-							    node,
+							    cpt_node,
 							    error);
 			if (cpt == NULL)
 				return NULL;
@@ -1319,6 +1328,15 @@ as_cache_query_components (AsCache *cache,
 			if (!csec->is_mask && g_hash_table_contains (priv->masked, as_component_get_data_id (cpt)))
 				continue;
 
+			/* add match score if we are full-text searching
+			 * TODO: We only got the last node of the query to add the score from at the moment, due to
+			 * libxmlb limitations. To improve fulltext search, we may need to extend libxmlb to return
+			 * all nodes that the query selector matches, and calculate an accumulated score.
+			 */
+			if (is_fts)
+				as_component_set_sort_score (cpt, xb_node_get_attr_as_uint (qnode, "score"));
+
+			/* register */
 			if (csec->is_os_data)
 				g_hash_table_add (known_os_cids,
 						  g_strdup (as_component_get_id (cpt)));
@@ -1354,6 +1372,7 @@ as_cache_get_components_all (AsCache *cache, GError **error)
 					  "components/component",
 					  NULL,
 					  0,
+					  FALSE,
 					  error);
 }
 
@@ -1376,6 +1395,7 @@ as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
 					  "components/component/id[text()=?]/..",
 					  &context,
 					  0,
+					  FALSE,
 					  error);
 }
 
@@ -1398,6 +1418,7 @@ as_cache_get_components_by_extends (AsCache *cache, const gchar *extends_id, GEr
 					  "components/component/extends[text()=?]/..",
 					  &context,
 					  0,
+					  FALSE,
 					  error);
 }
 
@@ -1423,6 +1444,7 @@ as_cache_get_components_by_kind (AsCache *cache, AsComponentKind kind, GError **
 					  "components/component[@type=?]",
 					  &context,
 					  0,
+					  FALSE,
 					  error);
 }
 
@@ -1474,6 +1496,7 @@ as_cache_get_components_by_provided_item (AsCache *cache, AsProvidedKind kind, c
 					  xpath_query,
 					  &context,
 					  0,
+					  FALSE,
 					  error);
 }
 
@@ -1510,6 +1533,7 @@ as_cache_get_components_by_categories (AsCache *cache, gchar **categories, GErro
 					  xpath->str,
 					  &context,
 					  0,
+					  FALSE,
 					  error);
 }
 
@@ -1536,6 +1560,7 @@ as_cache_get_components_by_launchable (AsCache *cache, AsLaunchableKind kind, co
 					  xpath,
 					  &context,
 					  0,
+					  FALSE,
 					  error);
 }
 
@@ -1561,19 +1586,20 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 	if (terms == NULL || terms[0] == NULL)
 		return g_ptr_array_new_with_free_func (g_object_unref);
 
-	xpath = g_string_new ("components/component/__asi_tokens");
+	xpath = g_string_new ("components/component/_asi_tokens");
 	for (guint i = 0; terms[i] != NULL; i++) {
 		g_string_append (xpath, "/t[text()~=?]/..");
 		xb_value_bindings_bind_str (vbindings, i,
 					    terms[i],
 					    NULL);
 	}
-	g_string_append (xpath, "/..");
+	g_string_truncate (xpath, xpath->len - 3);
 
 	results = as_cache_query_components (cache,
 						xpath->str,
 						&context,
 						0,
+						TRUE,
 						error);
 
 	/* sort the results by their priority */

@@ -2381,9 +2381,6 @@ as_component_complete (AsComponent *cpt, gchar *scr_service_url, GPtrArray *icon
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	/* add search tokens */
-	as_component_create_token_cache (cpt);
-
 	/* improve icon paths */
 	if (icon_paths != NULL)
 		as_component_refine_icons (cpt, icon_paths);
@@ -3864,18 +3861,6 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 				as_component_set_origin (cpt, content);
 			} else if (tag_id == AS_TAG_INTERNAL_BRANCH) {
 				as_component_set_branch (cpt, content);
-			} else if (tag_id == AS_TAG_INTERNAL_TOKENS) {
-				for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
-					AsTokenType *match_pval;
-					if (iter2->type != XML_ELEMENT_NODE)
-						continue;
-
-					match_pval = g_new0 (AsTokenType, 1);
-					*match_pval = as_xml_get_prop_value_as_int (iter2, "score");
-					g_hash_table_insert (priv->token_cache,
-							     as_xml_get_node_value_refstr (iter2),
-							     match_pval);
-				}
 			}
 		} else if (tag_id == AS_TAG_NAME_VARIANT_SUFFIX) {
 			if (lang != NULL)
@@ -4286,15 +4271,15 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 		const gchar *origin = as_component_get_origin (cpt);
 		if (priv->scope != AS_COMPONENT_SCOPE_UNKNOWN)
-			as_xml_add_text_node (cnode, "__asi_scope", as_component_scope_to_string (priv->scope));
+			as_xml_add_text_node (cnode, "_asi_scope", as_component_scope_to_string (priv->scope));
 		if (origin != NULL)
-			as_xml_add_text_node (cnode, "__asi_origin", origin);
+			as_xml_add_text_node (cnode, "_asi_origin", origin);
 		if (priv->branch != NULL)
-			as_xml_add_text_node (cnode, "__asi_branch", priv->branch);
+			as_xml_add_text_node (cnode, "_asi_branch", priv->branch);
 
 		tc_node = xmlNewChild (cnode,
 					NULL,
-					(xmlChar*) "__asi_tokens",
+					(xmlChar*) "_asi_tokens",
 					NULL);
 
 		g_hash_table_iter_init (&tc_iter, priv->token_cache);
