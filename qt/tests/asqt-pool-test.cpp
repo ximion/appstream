@@ -40,6 +40,10 @@ void PoolReadTest::testRead01()
     pool->setLocale("C");
     pool->addMetadataLocation(AS_SAMPLE_DATA_PATH);
 
+    // temporary cache location, so we don't use any system cache ever during tests
+    QTemporaryDir cacheDir;
+    QVERIFY(cacheDir.isValid());
+
     // don't load system metainfo/desktop files
     auto flags = pool->flags();
     flags &= ~Pool::FlagReadDesktopFiles;
@@ -48,7 +52,7 @@ void PoolReadTest::testRead01()
     pool->setFlags(flags);
 
     // use clean caches
-    pool->overrideCacheLocations("/tmp", nullptr);
+    pool->overrideCacheLocations(cacheDir.path(), nullptr);
 
     // read metadata
     bool ret = pool->load();

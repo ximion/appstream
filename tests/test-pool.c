@@ -31,6 +31,7 @@
 #include "../src/as-component-private.h"
 
 static gchar *datadir = NULL;
+static gchar *cache_dummy_dir = NULL;
 
 static void
 print_cptarray (GPtrArray *cpt_array)
@@ -74,7 +75,9 @@ test_get_sampledata_pool (gboolean use_caches)
 	AsPool *pool;
 	AsPoolFlags flags;
 	g_autofree gchar *mdata_dir = NULL;
-	g_autofree gchar *cache_dummy_dir = NULL;
+
+	/* sanity check */
+	g_assert_nonnull (cache_dummy_dir);
 
 	/* create AsPool and load sample metadata */
 	mdata_dir = g_build_filename (datadir, "collection", NULL);
@@ -93,8 +96,6 @@ test_get_sampledata_pool (gboolean use_caches)
 		as_flags_add (flags, AS_POOL_FLAG_IGNORE_CACHE_AGE);
 	as_pool_set_flags (pool, flags);
 
-	cache_dummy_dir = g_build_filename (g_get_tmp_dir (), "as-cache-dummy", "XXXXXX", NULL);
-	g_mkdtemp (cache_dummy_dir);
 	as_pool_override_cache_locations (pool, cache_dummy_dir, NULL);
 
 	return pool;
@@ -166,8 +167,7 @@ test_cache ()
 	g_autofree gchar *mdata_dir = NULL;
 	g_autofree gchar *xmldata_precache = NULL;
 	g_autofree gchar *xmldata_postcache = NULL;
-
-	static const gchar *cache_testpath = "/tmp/as-unittest-tmpcache";
+	g_autofree gchar *cache_testpath = g_build_filename (cache_dummy_dir, "ctest", NULL);
 
 	pool = test_get_sampledata_pool (FALSE);
 	as_pool_override_cache_locations (pool, cache_testpath, NULL);
@@ -219,6 +219,9 @@ test_cache ()
 	xmldata_postcache = as_metadata_components_to_collection (mdata, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 	g_assert_true (as_test_compare_lines (xmldata_precache, xmldata_postcache));
+
+	/* cleanup */
+	as_utils_delete_dir_recursive (cache_testpath);
 }
 
 /**
@@ -639,6 +642,12 @@ main (int argc, char **argv)
 	datadir = g_build_filename (datadir, "samples", NULL);
 	g_assert_true (g_file_test (datadir, G_FILE_TEST_EXISTS));
 
+	cache_dummy_dir = g_build_filename (g_get_tmp_dir (),
+					    "as-test-cache-dummy",
+					    "XXXXXX",
+					    NULL);
+	g_mkdtemp (cache_dummy_dir);
+
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	g_test_init (&argc, &argv, NULL);
 
@@ -656,6 +665,10 @@ main (int argc, char **argv)
 #endif
 
 	ret = g_test_run ();
+
+	/* cleanup */
+	as_utils_delete_dir_recursive (cache_dummy_dir);
+	g_free (cache_dummy_dir);
 	g_free (datadir);
 
 	return ret;

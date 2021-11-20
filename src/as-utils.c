@@ -438,9 +438,8 @@ as_utils_delete_dir_recursive (const gchar* dirname)
 		if (error != NULL)
 			goto out;
 	}
-	if (g_file_test (dirname, G_FILE_TEST_EXISTS)) {
+	if (g_file_test (dirname, G_FILE_TEST_EXISTS))
 		g_rmdir (dirname);
-	}
 	ret = TRUE;
 
 out:
