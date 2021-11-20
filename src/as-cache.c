@@ -591,7 +591,7 @@ as_cache_register_addons_for_component (AsCache *cache, AsComponent *cpt, GError
  *
  * Get component from an xmlb node.
  */
-static inline AsComponent*
+static AsComponent*
 as_cache_component_from_node (AsCache *cache, AsCacheSection *csec, XbNode *node, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
