@@ -35,51 +35,55 @@
 int
 ascli_refresh_cache (const gchar *cachepath, const gchar *datapath, gboolean user, gboolean forced)
 {
-	g_autoptr(AsPool) dpool = NULL;
+	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(GError) error = NULL;
 	gboolean cache_updated;
 	gboolean ret = FALSE;
 
-	dpool = as_pool_new ();
+	if (!as_utils_is_root ())
+		/* TRANSLATORS: In ascli: Status information during a "refresh" action. */
+		g_print ("• %s\n", _("Refreshing common metadata caches for the current user."));
+
+	pool = as_pool_new ();
 	if (datapath != NULL) {
 		AsPoolFlags flags;
 
 		/* we auto-disable loading data from sources that are not in datapath for now */
-		flags = as_pool_get_flags (dpool);
+		flags = as_pool_get_flags (pool);
 		as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
 		as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_METAINFO);
 		as_flags_remove (flags, AS_POOL_FLAG_LOAD_FLATPAK);
-		as_pool_set_flags (dpool, flags);
+		as_pool_set_flags (pool, flags);
 
 		/* the user wants data from a different path to be used */
-		as_pool_add_extra_data_location (dpool,
+		as_pool_add_extra_data_location (pool,
 						 datapath,
 						 AS_FORMAT_STYLE_COLLECTION);
 	}
 
 	if (cachepath == NULL) {
-		ret = as_pool_refresh_system_cache (dpool, user, forced, &cache_updated, &error);
+		ret = as_pool_refresh_system_cache (pool, user, forced, &cache_updated, &error);
 	} else {
-		as_pool_override_cache_locations (dpool, cachepath, cachepath);
-		as_pool_load (dpool, NULL, &error);
+		as_pool_override_cache_locations (pool, cachepath, NULL);
+		as_pool_load (pool, NULL, &error);
 		cache_updated = TRUE;
 	}
 
 	if (!ret) {
 		if (g_error_matches (error, AS_POOL_ERROR, AS_POOL_ERROR_TARGET_NOT_WRITABLE))
 			/* TRANSLATORS: In ascli: The requested action needs higher permissions. */
-			g_printerr ("%s\n%s\n", error->message, _("You might need superuser permissions to perform this action."));
+			g_printerr ("✘ %s\n  %s\n", error->message, _("You might need superuser permissions to perform this action."));
 		else
-			g_printerr ("%s\n", error->message);
+			g_printerr ("✘ %s\n", error->message);
 		return 2;
 	}
 
 	if (cache_updated) {
 		/* TRANSLATORS: Updating the metadata cache succeeded */
-		g_print ("%s\n", _("AppStream cache update completed successfully."));
+		g_print ("✔ %s\n", _("Metadata cache was updated successfully."));
 	} else {
 		/* TRANSLATORS: Metadata cache was not updated, likely because it was recent enough */
-		g_print ("%s\n", _("AppStream cache update is not necessary."));
+		g_print ("✔ %s\n", _("Metadata cache update is not necessary."));
 	}
 
 	return 0;
