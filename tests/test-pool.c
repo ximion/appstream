@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <glib.h>
+#include <glib/gstdio.h>
 #include <glib/gprintf.h>
 
 #include "appstream.h"
@@ -27,11 +28,15 @@
 #include "as-test-utils.h"
 #include "as-stemmer.h"
 #include "as-cache.h"
-#include "../src/as-utils-private.h"
-#include "../src/as-component-private.h"
+#include "as-file-monitor.h"
+#include "as-utils-private.h"
+#include "as-component-private.h"
 
 static gchar *datadir = NULL;
 static gchar *cache_dummy_dir = NULL;
+
+static GMainLoop *_test_loop = NULL;
+static guint _test_loop_timeout_id = 0;
 
 static void
 print_cptarray (GPtrArray *cpt_array)
@@ -62,6 +67,38 @@ _as_get_single_component_by_cid (AsPool *pool, const gchar *cid)
 	if (result->len == 0)
 		return NULL;
 	return g_object_ref (AS_COMPONENT (g_ptr_array_index (result, 0)));
+}
+
+static gboolean
+as_test_hang_check_cb (gpointer user_data)
+{
+	g_main_loop_quit (_test_loop);
+	_test_loop_timeout_id = 0;
+	_test_loop = NULL;
+	return G_SOURCE_REMOVE;
+}
+
+static void
+as_test_loop_run_with_timeout (guint timeout_ms)
+{
+	g_assert_true (_test_loop_timeout_id == 0);
+	g_assert_true (_test_loop == NULL);
+	_test_loop = g_main_loop_new (NULL, FALSE);
+	_test_loop_timeout_id = g_timeout_add (timeout_ms, as_test_hang_check_cb, NULL);
+	g_main_loop_run (_test_loop);
+}
+
+static void
+as_test_loop_quit (void)
+{
+	if (_test_loop_timeout_id > 0) {
+		g_source_remove (_test_loop_timeout_id);
+		_test_loop_timeout_id = 0;
+	}
+	if (_test_loop != NULL) {
+		g_main_loop_quit (_test_loop);
+		g_clear_pointer (&_test_loop, g_main_loop_unref);
+	}
 }
 
 /**
@@ -412,7 +449,6 @@ test_pool_read_async_ready_cb (AsPool *pool, GAsyncResult *result, gpointer user
 {
 	g_autoptr(GError) error = NULL;
 	g_autoptr(GPtrArray) all_cpts = NULL;
-	GMainLoop **loop = (GMainLoop**) user_data;
 
 	g_debug ("AsPool-Async-Load: Received ready callback.");
 	as_pool_load_finish (pool, result, &error);
@@ -425,9 +461,8 @@ test_pool_read_async_ready_cb (AsPool *pool, GAsyncResult *result, gpointer user
 	g_assert_nonnull (all_cpts);
 	g_assert_cmpint (all_cpts->len, ==, 19);
 
-	/* we received the callback, so quite the loop */
-	g_main_loop_quit (*loop);
-	g_clear_pointer (loop, g_main_loop_unref);
+	/* we received the callback, so quit the loop */
+	as_test_loop_quit ();
 }
 
 /**
@@ -456,17 +491,17 @@ test_pool_read_async ()
 {
 	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(GPtrArray) result = NULL;
-	g_autoptr(GMainLoop) loop = g_main_loop_new (NULL, FALSE);
 
 	/* load sample data */
 	pool = test_get_sampledata_pool (FALSE);
 	as_pool_add_flags (pool, AS_POOL_FLAG_RESOLVE_ADDONS);
 
 	g_debug ("AsPool-Async-Load: Requesting pool data loading.");
+	_test_loop = g_main_loop_new (NULL, FALSE);
 	as_pool_load_async (pool,
 			    NULL, /* cancellable */
 			    (GAsyncReadyCallback) test_pool_read_async_ready_cb,
-			    &loop);
+			    NULL);
 
 	g_debug ("AsPool-Async-Load: Searching for components (immediately)");
 
@@ -487,11 +522,11 @@ test_pool_read_async ()
 		g_warning ("Invalid number of components retrieved: %i", result->len);
 		g_assert_not_reached ();
 	}
-	g_clear_pointer (&result, g_ptr_array_unref);
 
 	/* wait for the callback to be run (unless it already has!) */
-	if (loop != NULL)
-		g_main_loop_run (loop);
+	if (_test_loop != NULL)
+		g_main_loop_run (_test_loop);
+	g_clear_pointer (&_test_loop, g_object_unref);
 
 	/* reset handler */
 	g_test_log_set_fatal_handler (NULL, NULL);
@@ -626,6 +661,211 @@ test_pool_empty ()
 	g_clear_pointer (&result, g_ptr_array_unref);
 }
 
+static void
+monitor_test_cb (AsFileMonitor *mon, const gchar *filename, guint *cnt)
+{
+	(*cnt)++;
+}
+
+/**
+ * test_filemonitor_dir:
+ */
+static void
+test_filemonitor_dir (void)
+{
+	gboolean ret;
+	guint cnt_added = 0;
+	guint cnt_removed = 0;
+	guint cnt_changed = 0;
+	g_autoptr(AsFileMonitor) mon = NULL;
+	g_autoptr(GError) error = NULL;
+	const gchar *tmpdir = "/tmp/as-monitor-test/usr/share/appstream/xml";
+	g_autofree gchar *tmpfile = NULL;
+	g_autofree gchar *tmpfile_new = NULL;
+	g_autofree gchar *cmd_touch = NULL;
+
+	/* cleanup */
+	ret = as_utils_delete_dir_recursive (tmpdir);
+	g_assert_true (ret);
+
+	/* create directory */
+	g_mkdir_with_parents (tmpdir, 0700);
+
+	/* prepare */
+	tmpfile = g_build_filename (tmpdir, "test.txt", NULL);
+	tmpfile_new = g_build_filename (tmpdir, "newtest.txt", NULL);
+	g_unlink (tmpfile);
+	g_unlink (tmpfile_new);
+
+	mon = as_file_monitor_new ();
+	g_signal_connect (mon, "added",
+			  G_CALLBACK (monitor_test_cb), &cnt_added);
+	g_signal_connect (mon, "removed",
+			  G_CALLBACK (monitor_test_cb), &cnt_removed);
+	g_signal_connect (mon, "changed",
+			  G_CALLBACK (monitor_test_cb), &cnt_changed);
+
+	/* add watch */
+	ret = as_file_monitor_add_directory (mon, tmpdir, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	/* touch file */
+	cmd_touch = g_strdup_printf ("touch %s", tmpfile);
+	ret = g_spawn_command_line_sync (cmd_touch, NULL, NULL, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	as_test_loop_run_with_timeout (2000);
+	as_test_loop_quit ();
+	g_assert_cmpint (cnt_added, ==, 1);
+	g_assert_cmpint (cnt_removed, ==, 0);
+	g_assert_cmpint (cnt_changed, ==, 0);
+
+	/* just change the mtime */
+	cnt_added = cnt_removed = cnt_changed = 0;
+	ret = g_spawn_command_line_sync (cmd_touch, NULL, NULL, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	as_test_loop_run_with_timeout (2000);
+	as_test_loop_quit ();
+	g_assert_cmpint (cnt_added, ==, 0);
+	g_assert_cmpint (cnt_removed, ==, 0);
+	g_assert_cmpint (cnt_changed, ==, 1);
+
+	/* delete it */
+	cnt_added = cnt_removed = cnt_changed = 0;
+	g_unlink (tmpfile);
+	as_test_loop_run_with_timeout (2000);
+	as_test_loop_quit ();
+	g_assert_cmpint (cnt_added, ==, 0);
+	g_assert_cmpint (cnt_removed, ==, 1);
+	g_assert_cmpint (cnt_changed, ==, 0);
+
+	/* save a new file with temp copy */
+	cnt_added = cnt_removed = cnt_changed = 0;
+	ret = g_file_set_contents (tmpfile, "foo", -1, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	as_test_loop_run_with_timeout (2000);
+	as_test_loop_quit ();
+	g_assert_cmpint (cnt_added, ==, 1);
+	g_assert_cmpint (cnt_removed, ==, 0);
+	g_assert_cmpint (cnt_changed, ==, 0);
+
+	/* modify file with temp copy */
+	cnt_added = cnt_removed = cnt_changed = 0;
+	ret = g_file_set_contents (tmpfile, "bar", -1, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	as_test_loop_run_with_timeout (2000);
+	as_test_loop_quit ();
+	g_assert_cmpint (cnt_added, ==, 0);
+	g_assert_cmpint (cnt_removed, ==, 0);
+	g_assert_cmpint (cnt_changed, ==, 1);
+
+	/* rename the file */
+	cnt_added = cnt_removed = cnt_changed = 0;
+	g_assert_cmpint (g_rename (tmpfile, tmpfile_new), ==, 0);
+	as_test_loop_run_with_timeout (2000);
+	as_test_loop_quit ();
+	g_assert_cmpint (cnt_added, ==, 1);
+	g_assert_cmpint (cnt_removed, ==, 1);
+	g_assert_cmpint (cnt_changed, ==, 0);
+
+	g_unlink (tmpfile);
+	g_unlink (tmpfile_new);
+
+	/* cleanup */
+	as_utils_delete_dir_recursive (tmpdir);
+}
+
+/**
+ * test_filemonitor_file:
+ */
+static void
+test_filemonitor_file (void)
+{
+	gboolean ret;
+	guint cnt_added = 0;
+	guint cnt_removed = 0;
+	guint cnt_changed = 0;
+	g_autoptr(AsFileMonitor) mon = NULL;
+	g_autoptr(GError) error = NULL;
+	const gchar *tmpfile = "/tmp/one.txt";
+	const gchar *tmpfile_new = "/tmp/two.txt";
+	g_autofree gchar *cmd_touch = NULL;
+
+	g_unlink (tmpfile);
+	g_unlink (tmpfile_new);
+
+	mon = as_file_monitor_new ();
+	g_signal_connect (mon, "added",
+			  G_CALLBACK (monitor_test_cb), &cnt_added);
+	g_signal_connect (mon, "removed",
+			  G_CALLBACK (monitor_test_cb), &cnt_removed);
+	g_signal_connect (mon, "changed",
+			  G_CALLBACK (monitor_test_cb), &cnt_changed);
+
+	/* add a single file */
+	ret = as_file_monitor_add_file (mon, tmpfile, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	/* touch file */
+	cnt_added = cnt_removed = cnt_changed = 0;
+	cmd_touch = g_strdup_printf ("touch %s", tmpfile);
+	ret = g_spawn_command_line_sync (cmd_touch, NULL, NULL, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	as_test_loop_run_with_timeout (2000);
+	as_test_loop_quit ();
+	g_assert_cmpint (cnt_added, ==, 1);
+	g_assert_cmpint (cnt_removed, ==, 0);
+	g_assert_cmpint (cnt_changed, ==, 0);
+
+	/* just change the mtime */
+	cnt_added = cnt_removed = cnt_changed = 0;
+	ret = g_spawn_command_line_sync (cmd_touch, NULL, NULL, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	as_test_loop_run_with_timeout (2000);
+	as_test_loop_quit ();
+	g_assert_cmpint (cnt_added, ==, 0);
+	g_assert_cmpint (cnt_removed, ==, 0);
+	g_assert_cmpint (cnt_changed, ==, 1);
+
+	/* delete it */
+	cnt_added = cnt_removed = cnt_changed = 0;
+	g_unlink (tmpfile);
+	as_test_loop_run_with_timeout (2000);
+	as_test_loop_quit ();
+	g_assert_cmpint (cnt_added, ==, 0);
+	g_assert_cmpint (cnt_removed, ==, 1);
+	g_assert_cmpint (cnt_changed, ==, 0);
+
+	/* save a new file with temp copy */
+	cnt_added = cnt_removed = cnt_changed = 0;
+	ret = g_file_set_contents (tmpfile, "foo", -1, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	as_test_loop_run_with_timeout (2000);
+	as_test_loop_quit ();
+	g_assert_cmpint (cnt_added, ==, 1);
+	g_assert_cmpint (cnt_removed, ==, 0);
+	g_assert_cmpint (cnt_changed, ==, 0);
+
+	/* modify file with temp copy */
+	cnt_added = cnt_removed = cnt_changed = 0;
+	ret = g_file_set_contents (tmpfile, "bar", -1, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	as_test_loop_run_with_timeout (2000);
+	as_test_loop_quit ();
+	g_assert_cmpint (cnt_added, ==, 0);
+	g_assert_cmpint (cnt_removed, ==, 0);
+	g_assert_cmpint (cnt_changed, ==, 1);
+}
+
 /**
  * main:
  */
@@ -661,10 +901,11 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/PoolEmpty", test_pool_empty);
 	g_test_add_func ("/AppStream/Cache", test_cache);
 	g_test_add_func ("/AppStream/Merges", test_merge_components);
-
 #ifdef HAVE_STEMMING
 	g_test_add_func ("/AppStream/Stemming", test_search_stemming);
 #endif
+	g_test_add_func ("/AppStream/FileMonitorDir", test_filemonitor_dir);
+	g_test_add_func ("/AppStream/FileMonitorFile", test_filemonitor_file);
 
 	ret = g_test_run ();
 
