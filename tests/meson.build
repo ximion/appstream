@@ -68,7 +68,8 @@ as_test_pool_exe = executable ('as-test_pool',
 test ('as-test_pool',
     as_test_pool_exe,
     args: as_test_args,
-    env: as_test_env
+    env: as_test_env,
+    timeout: 90
 )
 
 # Validator
@@ -96,7 +97,8 @@ as_test_perf_exe = executable ('as-test_perf',
 test ('as-test_perf',
     as_test_perf_exe,
     args: as_test_args,
-    env: as_test_env
+    env: as_test_env,
+    timeout: 90
 )
 
 # Miscelaneous utilities

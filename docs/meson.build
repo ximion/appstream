@@ -133,7 +133,8 @@ if get_option('docs')
           python_exe,
           args: [join_paths(meson.current_source_dir(), 'doc-build-helper.py'),
                  '--validate',
-                 '--src', meson.current_source_dir()]
+                 '--src', meson.current_source_dir()],
+          timeout: 60
     )
 elif get_option('install-docs')
     if run_command('[', '-d', join_paths(meson.current_source_dir(), 'html'), ']').returncode() == 0
