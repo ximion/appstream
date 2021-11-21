@@ -204,7 +204,7 @@ as_location_group_add_dir (AsLocationGroup *lgroup,
 	return entry;
 }
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(AsLocationGroup, as_location_group_free)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsLocationGroup, as_location_group_free)
 
 /**
  * AsComponentRegistry:
@@ -299,7 +299,7 @@ as_component_registry_get_contents (AsComponentRegistry *registry)
 	return cpt_array;
 }
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(AsComponentRegistry, as_component_registry_free)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsComponentRegistry, as_component_registry_free)
 
 /**
  * as_pool_init:
@@ -1861,6 +1861,37 @@ as_pool_get_components_by_launchable (AsPool *pool,
 }
 
 /**
+ * as_pool_get_components_by_extends:
+ * @pool: An instance of #AsPool.
+ * @extended_id: The ID of the component to search extensions for.
+ *
+ * Find components extending the component with the given ID. They can then be registered to the
+ * #AsComponent they extend via %as_component_add_addon.
+ * If the %AS_POOL_FLAG_RESOLVE_ADDONS pool flag is set, addons are automatically resolved and
+ * this explicit function is not needed, but overall query time will be increased (so only use
+ * this flag if you will be resolving addon information later anyway).
+ *
+ * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects.
+ *
+ * Since: 0.14.7
+ */
+GPtrArray*
+as_pool_get_components_by_extends (AsPool *pool, const gchar *extended_id)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GError) tmp_error = NULL;
+	GPtrArray *result = NULL;
+
+	result = as_cache_get_components_by_extends (priv->cache, extended_id, &tmp_error);
+	if (result == NULL) {
+		g_warning ("Unable find addon components in session cache: %s", tmp_error->message);
+		return g_ptr_array_new_with_free_func (g_object_unref);
+	}
+
+	return result;
+}
+
+/**
  * as_user_search_term_valid:
  *
  * Test for search term validity (filter out any markup).
@@ -2274,6 +2305,8 @@ as_pool_set_flags (AsPool *pool, AsPoolFlags flags)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	priv->flags = flags;
+	as_cache_set_resolve_addons (priv->cache,
+				     as_flags_contains (priv->flags, AS_POOL_FLAG_RESOLVE_ADDONS));
 }
 
 /**
@@ -2292,6 +2325,8 @@ as_pool_add_flags (AsPool *pool, AsPoolFlags flags)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	as_flags_add (priv->flags, flags);
+	as_cache_set_resolve_addons (priv->cache,
+				     as_flags_contains (priv->flags, AS_POOL_FLAG_RESOLVE_ADDONS));
 }
 
 /**
@@ -2310,6 +2345,8 @@ as_pool_remove_flags (AsPool *pool, AsPoolFlags flags)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	as_flags_remove (priv->flags, flags);
+	as_cache_set_resolve_addons (priv->cache,
+				     as_flags_contains (priv->flags, AS_POOL_FLAG_RESOLVE_ADDONS));
 }
 
 /**

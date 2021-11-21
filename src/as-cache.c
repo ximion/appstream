@@ -58,6 +58,7 @@ typedef struct
 
 	AsCacheDataRefineFn	cpt_refine_func;
 	gboolean		prefer_os_metainfo;
+	gboolean		auto_resolve_addons;
 
 	GMutex			sec_mutex;
 	GMutex			mask_mutex;
@@ -311,6 +312,18 @@ as_cache_set_prefer_os_metainfo (AsCache *cache, gboolean prefer_os_metainfo)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	priv->prefer_os_metainfo = prefer_os_metainfo;
+}
+
+/**
+ * as_cache_set_resolve_addons:
+ * @cache: an #AsCache instance.
+ * @resolve_addons: Whether addon links should be auto-resolved.
+ */
+void
+as_cache_set_resolve_addons (AsCache *cache, gboolean resolve_addons)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	priv->auto_resolve_addons = resolve_addons;
 }
 
 /**
@@ -616,7 +629,8 @@ as_cache_component_from_node (AsCache *cache, AsCacheSection *csec, XbNode *node
 	}
 
 	/* find addons (if there are any) - ensure addons don't have addons themselves */
-	if ((as_component_get_kind (cpt) != AS_COMPONENT_KIND_ADDON) &&
+	if (priv->auto_resolve_addons &&
+	    (as_component_get_kind (cpt) != AS_COMPONENT_KIND_ADDON) &&
 	    !as_cache_register_addons_for_component (cache, cpt, error)) {
 		xmlFreeDoc (doc);
 		return NULL;

@@ -106,6 +106,9 @@ gboolean		as_cache_get_prefer_os_metainfo (AsCache *cache);
 void			as_cache_set_prefer_os_metainfo (AsCache *cache,
 							 gboolean prefer_os_metainfo);
 
+void			as_cache_set_resolve_addons (AsCache *cache,
+							 gboolean resolve_addons);
+
 void			as_cache_prune_data (AsCache *cache);
 
 void			as_cache_clear (AsCache *cache);
