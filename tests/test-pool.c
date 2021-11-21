@@ -461,6 +461,7 @@ test_pool_read_async ()
 
 	/* load sample data */
 	pool = test_get_sampledata_pool (FALSE);
+	as_pool_add_flags (pool, AS_POOL_FLAG_RESOLVE_ADDONS);
 
 	g_debug ("AsPool-Async-Load: Requesting pool data loading.");
 	as_pool_load_async (pool,
@@ -480,7 +481,8 @@ test_pool_read_async ()
 
 	cpts = as_pool_get_components (pool);
 	g_assert_nonnull (cpts);
-	g_assert_cmpint (cpts->len, ==, 0);
+	if (cpts->len != 0 && cpts->len != 19)
+		g_assert_not_reached ();
 	g_ptr_array_unref (cpts);
 
 	/* wait for the callback to be run (unless it already has!) */

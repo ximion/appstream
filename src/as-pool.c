@@ -78,7 +78,7 @@ typedef struct
 	gchar		**term_greylist;
 	AsPoolFlags	flags;
 
-	GMutex		mutex;
+	GRWLock		rw_lock;
 } AsPoolPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsPool, as_pool, G_TYPE_OBJECT)
@@ -310,7 +310,7 @@ as_pool_init (AsPool *pool)
 	g_autoptr(GError) tmp_error = NULL;
 	g_autoptr(AsDistroDetails) distro = NULL;
 
-	g_mutex_init (&priv->mutex);
+	g_rw_lock_init (&priv->rw_lock);
 
 	priv->profile = as_profile_new ();
 
@@ -358,8 +358,8 @@ as_pool_finalize (GObject *object)
 {
 	AsPool *pool = AS_POOL (object);
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_rw_lock_writer_lock (&priv->rw_lock);
 
-	g_mutex_lock (&priv->mutex);
 	g_free (priv->screenshot_service_url);
 
 	g_hash_table_unref (priv->std_data_locations);
@@ -373,8 +373,8 @@ as_pool_finalize (GObject *object)
 
 	g_object_unref (priv->profile);
 
-	g_mutex_unlock (&priv->mutex);
-	g_mutex_clear (&priv->mutex);
+	g_rw_lock_writer_unlock (&priv->rw_lock);
+	g_rw_lock_clear (&priv->rw_lock);
 
 	G_OBJECT_CLASS (as_pool_parent_class)->finalize (object);
 }
@@ -586,7 +586,8 @@ as_pool_detect_std_metadata_dirs (AsPool *pool, gboolean include_user_data)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	AsLocationGroup *lgroup_coll;
 	AsLocationGroup *lgroup_metainfo;
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+
+	/* NOTE: Data must be write-locked by the calling function. */
 
 	/* clear existing entries */
 	g_hash_table_remove_all (priv->std_data_locations);
@@ -917,7 +918,7 @@ void
 as_pool_clear (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 
 	as_cache_clear (priv->cache);
 	as_cache_set_locale (priv->cache, priv->locale);
@@ -955,8 +956,9 @@ as_pool_load_collection_data (AsPool *pool,
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GPtrArray) mdata_files = NULL;
 	g_autoptr(GError) tmp_error = NULL;
-	g_autoptr(GMutexLocker) locker = NULL;
 	g_autoptr(AsProfileTask) ptask = NULL;
+
+	/* NOTE: Write-lock is held by the caller. */
 
 	/* do nothing if the group has the wrong format */
 	if (lgroup->format_style != AS_FORMAT_STYLE_COLLECTION)
@@ -972,9 +974,6 @@ as_pool_load_collection_data (AsPool *pool,
 	/* find AppStream metadata */
 	ret = TRUE;
 	mdata_files = g_ptr_array_new_with_free_func (g_free);
-
-	/* protect access to directory lists */
-	locker = g_mutex_locker_new (&priv->mutex);
 
 	for (guint i = 0; i < lgroup->locations->len; i++) {
 		AsLocationEntry *lentry = g_ptr_array_index (lgroup->locations, i);
@@ -1109,8 +1108,9 @@ as_pool_cache_refine_component_cb (AsComponent *cpt, gboolean is_serialization, 
 	AsLocationGroup *lgroup = user_data;
 	AsPool *pool = lgroup->owner;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 
+	/* NOTE: Write-lock on AsPool structures is held by the caller (as the direct caller is
+	 * on the same thread and itself triggered by a write-locked AsPool). */
 
 	if (is_serialization) {
 		/* we refine everything except for the icon paths, as that is expensive on many components,
@@ -1147,9 +1147,7 @@ as_pool_update_desktop_entries_table (AsPool *pool, GHashTable *de_cpt_table, co
 
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
-	g_mutex_lock (&priv->mutex);
 	as_metadata_set_locale (metad, priv->locale);
-	g_mutex_unlock (&priv->mutex);
 
 	/* find .desktop files */
 	g_debug ("Searching for data in: %s", apps_dir);
@@ -1214,6 +1212,8 @@ as_pool_load_metainfo_data (AsPool *pool,
 	g_autoptr(GPtrArray) mi_files = NULL;
 	g_autoptr(AsProfileTask) ptask = NULL;
 	GError *error = NULL;
+
+	/* NOTE: Write-lock is held by the caller. */
 
 	ptask = as_profile_start (priv->profile, "AsPool:load_metainfo_data:%s", cache_key);
 
@@ -1340,6 +1340,8 @@ as_pool_process_metainfo_desktop_data (AsPool *pool,
 	g_autoptr(GHashTable) de_cpts = NULL;
 	g_autoptr(AsProfileTask) ptask = NULL;
 
+	/* NOTE: Write-lock is held by the caller. */
+
 	/* check if we actually need to load anything */
 	if (!as_flags_contains (priv->flags, AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES) && !as_flags_contains (priv->flags, AS_POOL_FLAG_LOAD_OS_METAINFO))
 		return;
@@ -1415,18 +1417,18 @@ as_get_location_ctime (const gchar *location)
 }
 
 /**
- * as_pool_load_process_group:
+ * as_pool_loader_process_group:
  *
  * Process a location group and load all data from the source files
  * or a suitable cache section.
  */
 static gboolean
-as_pool_load_process_group (AsPool *pool,
-			    AsLocationGroup *lgroup,
-			    const gchar *cache_key,
-			    gboolean force_cache_refresh,
-			    gboolean *caches_updated,
-			    GError **error)
+as_pool_loader_process_group (AsPool *pool,
+			      AsLocationGroup *lgroup,
+			      const gchar *cache_key,
+			      gboolean force_cache_refresh,
+			      gboolean *caches_updated,
+			      GError **error)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(AsComponentRegistry) registry = NULL;
@@ -1434,6 +1436,8 @@ as_pool_load_process_group (AsPool *pool,
 	time_t cache_time;
 	gboolean cache_outdated = FALSE;
 	gboolean ret;
+
+	/* NOTE: Write-lock is held by the caller. */
 
 	if (lgroup->locations->len == 0)
 		return TRUE;
@@ -1526,11 +1530,15 @@ as_pool_load_internal (AsPool *pool,
 	GHashTableIter loc_iter;
 	gpointer loc_key, loc_value;
 	gboolean ret = TRUE;
+	g_autoptr(GRWLockWriterLocker) locker = NULL;
 
 	ptask = as_profile_start_literal (priv->profile, "AsPool:load");
 
 	/* load as AsPool also means to reload, so we clear any potential old data */
 	as_pool_clear (pool);
+
+	/* lock for writing */
+	locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 
 	/* apply settings */
 	as_cache_set_prefer_os_metainfo (priv->cache,
@@ -1548,12 +1556,12 @@ as_pool_load_internal (AsPool *pool,
 	/* process data from all the individual metadata silos in known locations */
 	g_hash_table_iter_init (&loc_iter, priv->std_data_locations);
 	while (g_hash_table_iter_next (&loc_iter, &loc_key, &loc_value)) {
-		ret = as_pool_load_process_group (pool,
-						  loc_value,
-						  loc_key,
-						  force_cache_refresh,
-						  caches_updated,
-						  error);
+		ret = as_pool_loader_process_group (pool,
+						    loc_value,
+						    loc_key,
+						    force_cache_refresh,
+						    caches_updated,
+						    error);
 		/* cache writing errors or other fatal stuff will cause us to stop loading anything */
 		if (!ret)
 			return FALSE;
@@ -1563,12 +1571,12 @@ as_pool_load_internal (AsPool *pool,
 	/* process data in user-defined locations */
 	g_hash_table_iter_init (&loc_iter, priv->extra_data_locations);
 	while (g_hash_table_iter_next (&loc_iter, &loc_key, &loc_value)) {
-		ret = as_pool_load_process_group (pool,
-						  loc_value,
-						  loc_key,
-						  force_cache_refresh,
-						  caches_updated,
-						  error);
+		ret = as_pool_loader_process_group (pool,
+						    loc_value,
+						    loc_key,
+						    force_cache_refresh,
+						    caches_updated,
+						    error);
 		if (!ret)
 			return FALSE;
 
@@ -1715,6 +1723,7 @@ as_pool_get_components (AsPool *pool)
 	g_autoptr(AsProfileTask) ptask = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 	GPtrArray *result = NULL;
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	ptask = as_profile_start_literal (priv->profile, "AsPool:get_components");
 
@@ -1743,6 +1752,7 @@ as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(AsProfileTask) ptask = NULL;
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	ptask = as_profile_start_literal (priv->profile, "AsPool:get_components_by_id");
 	return as_cache_get_components_by_id (priv->cache, cid, NULL);
@@ -1766,6 +1776,7 @@ as_pool_get_components_by_provided_item (AsPool *pool,
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GError) tmp_error = NULL;
 	GPtrArray *result = NULL;
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	result = as_cache_get_components_by_provided_item (priv->cache, kind, item, &tmp_error);
 	if (result == NULL) {
@@ -1791,6 +1802,7 @@ as_pool_get_components_by_kind (AsPool *pool, AsComponentKind kind)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GError) tmp_error = NULL;
 	GPtrArray *result = NULL;
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	result = as_cache_get_components_by_kind (priv->cache, kind, &tmp_error);
 	if (result == NULL) {
@@ -1816,6 +1828,7 @@ as_pool_get_components_by_categories (AsPool *pool, gchar **categories)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GError) tmp_error = NULL;
 	GPtrArray *result = NULL;
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	/* sanity check */
 	for (guint i = 0; categories[i] != NULL; i++) {
@@ -1854,6 +1867,7 @@ as_pool_get_components_by_launchable (AsPool *pool,
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GError) tmp_error = NULL;
 	GPtrArray *result = NULL;
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	result = as_cache_get_components_by_launchable (priv->cache, kind, id, &tmp_error);
 	if (result == NULL) {
@@ -1885,6 +1899,7 @@ as_pool_get_components_by_extends (AsPool *pool, const gchar *extended_id)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GError) tmp_error = NULL;
 	GPtrArray *result = NULL;
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	result = as_cache_get_components_by_extends (priv->cache, extended_id, &tmp_error);
 	if (result == NULL) {
@@ -2019,6 +2034,7 @@ as_pool_search (AsPool *pool, const gchar *search)
 	g_autoptr(GError) tmp_error = NULL;
 	GPtrArray *result = NULL;
 	g_auto(GStrv) tokens = NULL;
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	ptask = as_profile_start_literal (priv->profile, "AsPool:search");
 
@@ -2048,9 +2064,7 @@ as_pool_search (AsPool *pool, const gchar *search)
 				  TRUE,
 				  &tmp_error);
 	if (result == NULL) {
-		g_mutex_lock (&priv->mutex);
 		g_warning ("Search failed: %s", tmp_error->message);
-		g_mutex_unlock (&priv->mutex);
 		return g_ptr_array_new_with_free_func (g_object_unref);
 	}
 
@@ -2138,7 +2152,7 @@ void
 as_pool_set_locale (AsPool *pool, const gchar *locale)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 
 	g_free (priv->locale);
 	priv->locale = g_strdup (locale);
@@ -2157,7 +2171,7 @@ const gchar *
 as_pool_get_locale (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 	return priv->locale;
 }
 
@@ -2176,6 +2190,8 @@ as_pool_add_extra_data_location (AsPool *pool, const gchar *directory, AsFormatS
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	AsLocationGroup *extra_group;
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
+
 	extra_group = as_location_group_new (pool,
 					     as_utils_guess_scope_from_path (directory),
 					     format_style,
@@ -2202,7 +2218,7 @@ void
 as_pool_reset_extra_data_locations (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 
 	/* clear arrays */
 	g_hash_table_remove_all (priv->extra_data_locations);
@@ -2238,16 +2254,11 @@ as_pool_add_metadata_location (AsPool *pool, const gchar *directory)
 void
 as_pool_clear_metadata_locations (AsPool *pool)
 {
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
-
-	as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_OS_COLLECTION);
-	as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_OS_METAINFO);
-	as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
-	as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_FLATPAK);
+	/* don't load stuff from default locations to mimic previous behavior */
+	as_pool_set_load_std_data_locations (pool, FALSE);
 
 	/* clear arrays */
-	g_hash_table_remove_all (priv->extra_data_locations);
+	as_pool_reset_extra_data_locations (pool);
 
 	g_debug ("Cleared all metadata search paths.");
 }
@@ -2262,7 +2273,7 @@ AsPoolFlags
 as_pool_get_flags (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 	return priv->flags;
 }
 
@@ -2277,7 +2288,8 @@ void
 as_pool_set_flags (AsPool *pool, AsPoolFlags flags)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
+
 	priv->flags = flags;
 	as_cache_set_resolve_addons (priv->cache,
 				     as_flags_contains (priv->flags, AS_POOL_FLAG_RESOLVE_ADDONS));
@@ -2297,7 +2309,8 @@ void
 as_pool_add_flags (AsPool *pool, AsPoolFlags flags)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
+
 	as_flags_add (priv->flags, flags);
 	as_cache_set_resolve_addons (priv->cache,
 				     as_flags_contains (priv->flags, AS_POOL_FLAG_RESOLVE_ADDONS));
@@ -2317,7 +2330,8 @@ void
 as_pool_remove_flags (AsPool *pool, AsPoolFlags flags)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
+
 	as_flags_remove (priv->flags, flags);
 	as_cache_set_resolve_addons (priv->cache,
 				     as_flags_contains (priv->flags, AS_POOL_FLAG_RESOLVE_ADDONS));
@@ -2341,7 +2355,8 @@ void
 as_pool_set_load_std_data_locations (AsPool *pool, gboolean enabled)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
+
 	if (enabled) {
 		as_flags_add (priv->flags, AS_POOL_FLAG_LOAD_OS_COLLECTION);
 		as_flags_add (priv->flags, AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
@@ -2365,6 +2380,7 @@ time_t
 as_pool_get_os_metadata_cache_age (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 	return as_cache_get_ctime (priv->cache,
 				   AS_COMPONENT_SCOPE_SYSTEM,
 				   OS_COLLECTION_CACHE_KEY,
@@ -2401,8 +2417,6 @@ as_pool_set_cache_location (AsPool *pool, const gchar *fname)
 AsCacheFlags
 as_pool_get_cache_flags (AsPool *pool)
 {
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	return AS_CACHE_FLAG_USE_SYSTEM | AS_CACHE_FLAG_USE_USER | AS_CACHE_FLAG_REFRESH_SYSTEM;
 }
 
@@ -2451,6 +2465,7 @@ void
 as_pool_override_cache_locations (AsPool *pool, const gchar *dir_sys, const gchar *dir_user)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 	if (dir_sys == NULL)
 		as_cache_set_locations (priv->cache, dir_user, dir_user);
 	else if (dir_user == NULL)

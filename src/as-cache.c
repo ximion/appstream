@@ -60,8 +60,7 @@ typedef struct
 	gboolean		prefer_os_metainfo;
 	gboolean		auto_resolve_addons;
 
-	GMutex			sec_mutex;
-	GMutex			mask_mutex;
+	GRWLock			rw_lock;
 } AsCachePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsCache, as_cache, G_TYPE_OBJECT)
@@ -151,8 +150,7 @@ as_cache_init (AsCache *cache)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 
-	g_mutex_init (&priv->sec_mutex);
-	g_mutex_init (&priv->mask_mutex);
+	g_rw_lock_init (&priv->rw_lock);
 
 	priv->sections = g_ptr_array_new_with_free_func ((GDestroyNotify) as_cache_section_free);
 	priv->masked = g_hash_table_new_full (g_str_hash,
@@ -187,6 +185,7 @@ as_cache_finalize (GObject *object)
 {
 	AsCache *cache = AS_CACHE (object);
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_rw_lock_writer_lock (&priv->rw_lock);
 
 	g_free (priv->cache_root_dir);
 	g_free (priv->system_cache_dir);
@@ -195,8 +194,8 @@ as_cache_finalize (GObject *object)
 	g_ptr_array_unref (priv->sections);
 	g_hash_table_unref (priv->masked);
 
-	g_mutex_clear (&priv->sec_mutex);
-	g_mutex_clear (&priv->mask_mutex);
+	g_rw_lock_writer_unlock (&priv->rw_lock);
+	g_rw_lock_clear (&priv->rw_lock);
 	G_OBJECT_CLASS (as_cache_parent_class)->finalize (object);
 }
 
@@ -254,6 +253,7 @@ void
 as_cache_set_locale (AsCache *cache, const gchar *locale)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 	as_ref_string_assign_safe (&priv->locale, locale);
 	as_context_set_locale (priv->context, priv->locale);
 }
@@ -278,6 +278,8 @@ void
 as_cache_set_locations (AsCache *cache, const gchar *system_cache_dir, const gchar *user_cache_dir)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
+
 	g_free (priv->cache_root_dir);
 	priv->cache_root_dir = g_strdup (user_cache_dir);
 	g_free (priv->system_cache_dir);
@@ -461,8 +463,7 @@ void
 as_cache_clear (AsCache *cache)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
-	g_autoptr(GMutexLocker) locker1 = g_mutex_locker_new (&priv->sec_mutex);
-	g_autoptr(GMutexLocker) locker2 = g_mutex_locker_new (&priv->mask_mutex);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 
 	g_ptr_array_set_size (priv->sections, 0);
 
@@ -519,6 +520,8 @@ as_cache_components_to_internal_xb (AsCache *cache,
 	g_autoptr(GError) tmp_error = NULL;
 	XbSilo *silo;
 	xmlNode *root;
+
+	/* NOTE: This function is already write-lock protected by its callers */
 
 	root = xmlNewNode (NULL, (xmlChar*) "components");
 	for (guint i = 0; i < cpts->len; i++) {
@@ -655,10 +658,9 @@ as_cache_remove_section_file (AsCache *cache, AsCacheSection *csec)
 	g_autofree gchar *rnd_suffix = NULL;
 	g_autofree gchar *fname_old = NULL;
 
-	if (!g_file_test (csec->fname, G_FILE_TEST_EXISTS)) {
-		/* file is already gone */
+	/* do nothing if file is already gone */
+	if (!g_file_test (csec->fname, G_FILE_TEST_EXISTS))
 		return;
-	}
 
 	/* random temporary name, in case multiple processes try to delete this at the same time */
 	rnd_suffix = as_random_alnum_string (6);
@@ -751,13 +753,14 @@ as_cache_set_contents_internal (AsCache *cache,
 	g_autoptr(AsCacheSection) csec = NULL;
 	g_autoptr(GFile) file = NULL;
 	g_autoptr(GError) tmp_error = NULL;
-	g_autoptr(GMutexLocker) locker = NULL;
+	g_autoptr(GRWLockWriterLocker) locker = NULL;
 	gboolean ret = TRUE;
 
 	section_key = as_cache_build_section_key (cache, cache_key);
 	internal_section_key = g_strconcat (as_component_scope_to_string (scope), ":", section_key, NULL);
+
+	locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 	g_debug ("Storing cache data for section: %s", internal_section_key);
-	locker = g_mutex_locker_new (&priv->sec_mutex);
 
 	/* ensure we can write to the cache location */
 	cache_full_dir = as_cache_get_root_dir_with_scope (cache,
@@ -994,10 +997,10 @@ as_cache_load_section_internal (AsCache *cache,
 	g_autofree gchar *section_key = NULL;
 	g_autofree gchar *internal_section_key = NULL;
 	g_autofree gchar *xb_fname = NULL;
-	g_autoptr(GMutexLocker) locker = NULL;
 	g_autoptr(AsCacheSection) csec = NULL;
 	g_autoptr(GFile) file = NULL;
 	g_autoptr(GError) tmp_error = NULL;
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 
 	section_key = as_cache_build_section_key (cache, cache_key);
 	internal_section_key = g_strconcat (as_component_scope_to_string (scope), ":", section_key, NULL);
@@ -1019,8 +1022,6 @@ as_cache_load_section_internal (AsCache *cache,
 			*is_outdated = TRUE;
 		return;
 	}
-
-	locker = g_mutex_locker_new (&priv->sec_mutex);
 
 	csec = as_cache_section_new (internal_section_key);
 	csec->is_os_data = is_os_data && scope == AS_COMPONENT_SCOPE_SYSTEM;
@@ -1124,7 +1125,7 @@ void
 as_cache_mask_by_data_id (AsCache *cache, const gchar *cdid)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->sec_mutex);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 	g_hash_table_insert (priv->masked,
 			     g_strdup (cdid),
 			     GINT_TO_POINTER (TRUE));
@@ -1149,7 +1150,7 @@ as_cache_add_masking_components (AsCache *cache, GPtrArray *cpts, GError **error
 	g_autoptr(GError) tmp_error = NULL;
 	g_autofree gchar *volatile_fname = NULL;
 	gint fd;
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->sec_mutex);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 
 	/* find old masking section */
 	for (guint i = 0; i < priv->sections->len; i++) {
@@ -1282,6 +1283,7 @@ as_cache_query_components (AsCache *cache,
 	g_autoptr(GHashTable) known_os_cids = NULL;
 	GHashTableIter ht_iter;
 	gpointer ht_value;
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	results_map = g_hash_table_new_full (g_str_hash, g_str_equal,
 						g_free, g_object_unref);
