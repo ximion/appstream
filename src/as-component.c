@@ -2246,7 +2246,8 @@ as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
 		}
 
 		if ((ikind != AS_ICON_KIND_CACHED) && (ikind != AS_ICON_KIND_LOCAL)) {
-			g_warning ("Found icon of unknown type, skipping it: %s", as_icon_kind_to_string (ikind));
+			g_warning ("Found icon of unknown type '%s' in '%s', skipping it.",
+				   as_icon_kind_to_string (ikind), as_component_get_data_id (cpt));
 			continue;
 		}
 

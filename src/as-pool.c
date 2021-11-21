@@ -121,6 +121,7 @@ static void as_pool_cache_refine_component_cb (AsComponent *cpt, gboolean is_ser
 typedef struct {
 	AsFormatKind		format_kind;
 	GRefString		*location;
+	gboolean		compressed_only; /* load only compressed data, workarounf for Flatpak */
 } AsLocationEntry;
 
 static AsLocationEntry*
@@ -185,20 +186,22 @@ as_location_group_free (AsLocationGroup *lgroup)
 	g_free (lgroup);
 }
 
-static void
+static AsLocationEntry*
 as_location_group_add_dir (AsLocationGroup *lgroup,
 			   const gchar *dir,
 			   const gchar *icon_dir,
 			   AsFormatKind format_kind)
 {
 	AsLocationEntry *entry;
-	g_return_if_fail (dir != NULL);
+	g_return_val_if_fail (dir != NULL, NULL);
 
 	entry = as_location_entry_new (format_kind, dir);
 	g_ptr_array_add (lgroup->locations, entry);
 	if (icon_dir != NULL)
 		g_ptr_array_add (lgroup->icon_dirs,
 				 g_ref_string_new_intern (icon_dir));
+
+	return entry;
 }
 
 G_DEFINE_AUTOPTR_CLEANUP_FUNC(AsLocationGroup, as_location_group_free)
@@ -464,12 +467,122 @@ as_pool_add_collection_metadata_dir_internal (AsPool *pool,
 }
 
 /**
+ * as_pool_register_flatpak_dir:
+ *
+ * Find Flatpak metadata in the given directory and add it to the
+ * standard metadata set.
+ */
+static void
+as_pool_register_flatpak_dir (AsPool *pool, const gchar *flatpak_root_dir, AsComponentScope scope)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GFileEnumerator) fpr_direnum = NULL;
+	g_autoptr(GFile) fpr_dir = NULL;
+	g_autoptr(GError) error = NULL;
+
+	fpr_dir =  g_file_new_for_path (flatpak_root_dir);
+	fpr_direnum = g_file_enumerate_children (fpr_dir,
+					     G_FILE_ATTRIBUTE_STANDARD_NAME,
+					     G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+					     NULL, &error);
+	if (error != NULL) {
+		g_warning ("Unable to read Flatpak directory '%s': %s",
+			   flatpak_root_dir, error->message);
+		return;
+	}
+
+	while (TRUE) {
+		GFileInfo *repo_finfo = NULL;
+		const gchar *repo_name;
+		g_autofree gchar *repo_fname = NULL;
+
+		if (!g_file_enumerator_iterate (fpr_direnum, &repo_finfo, NULL, NULL, &error)) {
+			g_warning ("Unable to iterate Flatpak directory '%s': %s",
+			   flatpak_root_dir, error->message);
+			return;
+		}
+		if (repo_finfo == NULL)
+			break;
+
+		/* generate full repo filename */
+		repo_name = g_file_info_get_name (repo_finfo);
+		repo_fname = g_build_filename (flatpak_root_dir, repo_name, NULL);
+
+		/* jump one directory deeper */
+		if (g_file_info_get_file_type (repo_finfo) == G_FILE_TYPE_DIRECTORY) {
+			g_autoptr(GFileEnumerator) repo_direnum = NULL;
+			g_autoptr(GFile) repo_dir = NULL;
+
+			repo_dir =  g_file_new_for_path (repo_fname);
+			repo_direnum = g_file_enumerate_children (repo_dir,
+								  G_FILE_ATTRIBUTE_STANDARD_NAME,
+								  G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+								  NULL, &error);
+			if (repo_direnum == NULL) {
+				g_warning ("Unable to scan Flatpak repository directory '%s': %s",
+					   repo_fname, error->message);
+				g_error_free (g_steal_pointer (&error));
+				continue;
+			}
+
+			while (TRUE) {
+				GFileInfo *repo_arch_finfo = NULL;
+				g_autofree gchar *fp_appstream_dir = NULL;
+				g_autofree gchar *fp_appstream_icons_dir = NULL;
+				g_autofree gchar *cache_key = NULL;
+				g_autoptr(AsLocationGroup) lgroup = NULL;
+				AsLocationEntry *lentry;
+				const gchar *arch_name;
+
+				if (!g_file_enumerator_iterate (repo_direnum, &repo_arch_finfo, NULL, NULL, &error)) {
+					g_warning ("Unable to iterate Flatpak repository directory '%s': %s",
+						   repo_fname, error->message);
+					g_error_free (g_steal_pointer (&error));
+					break;
+				}
+				if (repo_arch_finfo == NULL)
+					break;
+				if (g_file_info_get_file_type (repo_arch_finfo) != G_FILE_TYPE_DIRECTORY)
+					continue;
+
+				arch_name = g_file_info_get_name (repo_arch_finfo);
+
+				/* add the Flatpak AppStream metadata dir */
+				fp_appstream_dir = g_build_filename (repo_fname, arch_name, "active", NULL);
+				fp_appstream_icons_dir = g_build_filename (fp_appstream_dir, "icons", NULL);
+				cache_key = g_strconcat ("flatpak-", repo_name, "-", arch_name, NULL);
+				lgroup = as_location_group_new (pool,
+								scope,
+								AS_FORMAT_STYLE_COLLECTION,
+								FALSE, /* no OS data, external from Flatpak */
+								cache_key);
+				lentry = as_location_group_add_dir (lgroup,
+								    fp_appstream_dir,
+								    fp_appstream_icons_dir,
+								    AS_FORMAT_KIND_XML);
+				/* flatpak keeps an uncompressed copy of the same data in the same directory - AppStream does not expect
+				 * that, so we work around this issue to not load unnecessary data. Loading the compressed data was faster
+				 * in every tested scenario, so that's the way to go. */
+				lentry->compressed_only = TRUE;
+				g_hash_table_insert (priv->std_data_locations,
+						     g_strdup (cache_key),
+						     g_steal_pointer (&lgroup));
+			}
+		} else {
+			g_warning ("Flatpak metadata repository at '%s' is not a directory.",
+				   repo_fname);
+			continue;
+		}
+	}
+}
+
+/**
  * as_pool_detect_std_metadata_dirs:
  *
  * Find common AppStream metadata directories.
  */
 static void
-as_pool_detect_std_metadata_dirs (AsPool *pool, gboolean system_data_only)
+as_pool_detect_std_metadata_dirs (AsPool *pool, gboolean include_user_data)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	AsLocationGroup *lgroup_coll;
@@ -530,6 +643,22 @@ as_pool_detect_std_metadata_dirs (AsPool *pool, gboolean system_data_only)
 								lgroup_coll,
 								AS_SYSTEM_COLLECTION_METADATA_PATHS[i],
 								FALSE);
+		}
+	}
+
+	/* Add directories belonging to the Flatpak bundling system */
+	if (as_flags_contains (priv->flags, AS_POOL_FLAG_LOAD_FLATPAK)) {
+		as_pool_register_flatpak_dir (pool,
+						"/var/lib/flatpak/appstream/",
+						AS_COMPONENT_SCOPE_SYSTEM);
+		if (include_user_data) {
+			g_autofree gchar *flatpak_user_dir = g_build_filename (g_get_user_data_dir (),
+									       "flatpak",
+										"appstream",
+										NULL);
+			as_pool_register_flatpak_dir (pool,
+						      flatpak_user_dir,
+						      AS_COMPONENT_SCOPE_USER);
 		}
 	}
 }
@@ -859,7 +988,10 @@ as_pool_load_collection_data (AsPool *pool,
 		if (lentry->format_kind == AS_FORMAT_KIND_XML) {
 			g_autoptr(GPtrArray) xmls = NULL;
 			g_debug ("Searching for data in: %s", lentry->location);
-			xmls = as_utils_find_files_matching (lentry->location, "*.xml*", FALSE, NULL);
+			if (lentry->compressed_only)
+				xmls = as_utils_find_files_matching (lentry->location, "*.xml.gz", FALSE, NULL);
+			else
+				xmls = as_utils_find_files_matching (lentry->location, "*.xml*", FALSE, NULL);
 			if (xmls != NULL) {
 				for (guint j = 0; j < xmls->len; j++) {
 					const gchar *val;
@@ -875,7 +1007,10 @@ as_pool_load_collection_data (AsPool *pool,
 			g_autoptr(GPtrArray) yamls = NULL;
 
 			g_debug ("Searching for data in: %s", lentry->location);
-			yamls = as_utils_find_files_matching (lentry->location, "*.yml*", FALSE, NULL);
+			if (lentry->compressed_only)
+				yamls = as_utils_find_files_matching (lentry->location, "*.yml.gz", FALSE, NULL);
+			else
+				yamls = as_utils_find_files_matching (lentry->location, "*.yml*", FALSE, NULL);
 			if (yamls != NULL) {
 				for (guint j = 0; j < yamls->len; j++) {
 					const gchar *val;
@@ -1377,7 +1512,7 @@ as_pool_load_process_group (AsPool *pool,
  */
 static gboolean
 as_pool_load_internal (AsPool *pool,
-		       gboolean system_data_only,
+		       gboolean include_user_data,
 		       gboolean force_cache_refresh,
 		       gboolean *caches_updated,
 		       GCancellable *cancellable,
@@ -1401,7 +1536,7 @@ as_pool_load_internal (AsPool *pool,
 	as_cache_prune_data (priv->cache);
 
 	/* find common locations that have metadata */
-	as_pool_detect_std_metadata_dirs (pool, system_data_only);
+	as_pool_detect_std_metadata_dirs (pool, include_user_data);
 
 	if (caches_updated != NULL)
 		*caches_updated = FALSE;
@@ -1457,7 +1592,7 @@ gboolean
 as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 {
 	return as_pool_load_internal (pool,
-				      FALSE, /* all data, no just system data */
+				      TRUE, /* also load user-specific data */
 				      FALSE, /* do not force cache refresh */
 				      NULL, /* we don't care whether caches were used or not */
 				      cancellable,
@@ -1944,7 +2079,7 @@ as_pool_refresh_system_cache (AsPool *pool,
 
 	/* load AppStream system metadata only and refine it */
 	ret = as_pool_load_internal (pool,
-				     TRUE, /* just system data */
+				     FALSE, /* no user data, only load system data */
 				     force,
 				     caches_updated,
 				     NULL,
