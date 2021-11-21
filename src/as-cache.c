@@ -800,7 +800,7 @@ as_cache_set_contents_internal (AsCache *cache,
 	if (csec->silo == NULL)
 		return FALSE;
 
-	/* write data to cache directory */
+	/* write data to cache directory - XbSilo will do an atomic write, so this is safe */
 	g_debug ("Writing cache file: %s", csec->fname);
 	file = g_file_new_for_path (csec->fname);
 	if (!xb_silo_save_to_file (csec->silo, file, NULL, &tmp_error)) {
