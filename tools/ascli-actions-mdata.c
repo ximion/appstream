@@ -33,7 +33,10 @@
  * ascli_refresh_cache:
  */
 int
-ascli_refresh_cache (const gchar *cachepath, const gchar *datapath, gboolean user, gboolean forced)
+ascli_refresh_cache (const gchar *cachepath,
+		     const gchar *datapath,
+		     const gchar* const* sources_str,
+		     gboolean forced)
 {
 	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(GError) error = NULL;
@@ -42,18 +45,31 @@ ascli_refresh_cache (const gchar *cachepath, const gchar *datapath, gboolean use
 
 	if (!as_utils_is_root ())
 		/* TRANSLATORS: In ascli: Status information during a "refresh" action. */
-		g_print ("• %s\n", _("Refreshing common metadata caches for the current user."));
+		g_print ("• %s\n", _("Only refreshing metadata cache specific to the current user."));
 
 	pool = as_pool_new ();
-	if (datapath != NULL) {
-		AsPoolFlags flags;
+	if (sources_str != NULL) {
+		as_pool_set_load_std_data_locations (pool, FALSE);
 
+		for (guint i = 0; sources_str[i] != NULL; i++) {
+			if (g_strcmp0 (sources_str[i], "os") == 0) {
+				as_pool_add_flags (pool, AS_POOL_FLAG_LOAD_OS_COLLECTION |
+							 AS_POOL_FLAG_LOAD_OS_METAINFO |
+							 AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
+				g_print ("• %s\n", _("Updating software metadata cache for the operating system."));
+			} else if (g_strcmp0 (sources_str[i], "flatpak") == 0) {
+				as_pool_add_flags (pool, AS_POOL_FLAG_LOAD_FLATPAK);
+				g_print ("• %s\n", _("Updating software metadata cache for Flatpak."));
+			} else {
+				ascli_print_stderr (_("A metadata source group with the name '%s' does not exist!"), sources_str[i]);
+				return 1;
+			}
+		}
+	}
+
+	if (datapath != NULL) {
 		/* we auto-disable loading data from sources that are not in datapath for now */
-		flags = as_pool_get_flags (pool);
-		as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
-		as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_METAINFO);
-		as_flags_remove (flags, AS_POOL_FLAG_LOAD_FLATPAK);
-		as_pool_set_flags (pool, flags);
+		as_pool_set_load_std_data_locations (pool, FALSE);
 
 		/* the user wants data from a different path to be used */
 		as_pool_add_extra_data_location (pool,
@@ -62,7 +78,7 @@ ascli_refresh_cache (const gchar *cachepath, const gchar *datapath, gboolean use
 	}
 
 	if (cachepath == NULL) {
-		ret = as_pool_refresh_system_cache (pool, user, forced, &cache_updated, &error);
+		ret = as_pool_refresh_system_cache (pool, forced, &cache_updated, &error);
 	} else {
 		as_pool_override_cache_locations (pool, cachepath, NULL);
 		as_pool_load (pool, NULL, &error);

@@ -43,7 +43,7 @@ int		ascli_get_component (const gchar *cachepath,
 
 int		ascli_refresh_cache (const gchar *cachepath,
 					const gchar *datapath,
-					gboolean user,
+					const gchar * const* sources_str,
 					gboolean forced);
 
 int		ascli_dump_component (const gchar *cachepath,

@@ -41,7 +41,6 @@ GPtrArray		*as_cache_file_read (const gchar *fname,
 
 AS_INTERNAL_VISIBLE
 gboolean		as_pool_refresh_system_cache (AsPool *pool,
-							gboolean user,
 							gboolean force,
 							gboolean *caches_updated,
 							GError **error);

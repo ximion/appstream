@@ -158,7 +158,12 @@ void			as_pool_add_extra_data_location (AsPool *pool,
 
 AsPoolFlags		as_pool_get_flags (AsPool *pool);
 void			as_pool_set_flags (AsPool *pool,
-						AsPoolFlags flags);
+					   AsPoolFlags flags);
+void			as_pool_add_flags (AsPool *pool,
+					   AsPoolFlags flags);
+void			as_pool_remove_flags (AsPool *pool,
+					      AsPoolFlags flags);
+
 void			as_pool_set_load_std_data_locations (AsPool *pool,
 							     gboolean enabled);
 

@@ -2035,13 +2035,12 @@ as_pool_search (AsPool *pool, const gchar *search)
 gboolean
 as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 {
-	return as_pool_refresh_system_cache (pool, FALSE, force, NULL, error);
+	return as_pool_refresh_system_cache (pool, force, NULL, error);
 }
 
 /**
  * as_pool_refresh_system_cache:
  * @pool: An instance of #AsPool.
- * @user: Build cache for the current user, instead of system-wide.
  * @force: Enforce refresh, even if source data has not changed.
  * @caches_updated: Return whether caches were updated or not.
  *
@@ -2052,7 +2051,6 @@ as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
  */
 gboolean
 as_pool_refresh_system_cache (AsPool *pool,
-			      gboolean user,
 			      gboolean force,
 			      gboolean *caches_updated,
 			      GError **error)
@@ -2064,7 +2062,7 @@ as_pool_refresh_system_cache (AsPool *pool,
 	/* collect metadata */
 #ifdef HAVE_APT_SUPPORT
 	/* currently, we only do something here if we are running with explicit APT support compiled in and are root */
-	if (!user || as_utils_is_root ()) {
+	if (as_utils_is_root ()) {
 		as_pool_scan_apt (pool, force, &tmp_error);
 		if (tmp_error != NULL) {
 			/* the exact error is not forwarded here, since we might be able to partially update the cache */
@@ -2276,6 +2274,42 @@ as_pool_set_flags (AsPool *pool, AsPoolFlags flags)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	priv->flags = flags;
+}
+
+/**
+ * as_pool_add_flags:
+ * @pool: An instance of #AsPool.
+ * @flags: The #AsPoolFlags to add.
+ *
+ * Convenience function to add one or multiple #AsPoolFlags to
+ * the flag set of this data pool.
+ *
+ * Since: 0.14.7
+ */
+void
+as_pool_add_flags (AsPool *pool, AsPoolFlags flags)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	as_flags_add (priv->flags, flags);
+}
+
+/**
+ * as_pool_remove_flags:
+ * @pool: An instance of #AsPool.
+ * @flags: The #AsPoolFlags to remove.
+ *
+ * Convenience function to remove one or multiple #AsPoolFlags from
+ * the flag set of this data pool.
+ *
+ * Since: 0.14.7
+ */
+void
+as_pool_remove_flags (AsPool *pool, AsPoolFlags flags)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	as_flags_remove (priv->flags, flags);
 }
 
 /**
