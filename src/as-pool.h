@@ -36,14 +36,15 @@ G_DECLARE_DERIVABLE_TYPE (AsPool, as_pool, AS, POOL, GObject)
 
 struct _AsPoolClass
 {
-	GObjectClass parent_class;
+	GObjectClass	parent_class;
+	void		(*changed)	(AsPool *pool);
+
 	/*< private >*/
 	void (*_as_reserved1) (void);
 	void (*_as_reserved2) (void);
 	void (*_as_reserved3) (void);
 	void (*_as_reserved4) (void);
 	void (*_as_reserved5) (void);
-	void (*_as_reserved6) (void);
 };
 
 /**
@@ -56,6 +57,7 @@ struct _AsPoolClass
  * @AS_POOL_FLAG_IGNORE_CACHE_AGE:	Load fresh data even if an up-o-date cache is available.
  * @AS_POOL_FLAG_RESOLVE_ADDONS:	Always resolve addons for returned components.
  * @AS_POOL_FLAG_PREFER_OS_METAINFO:	Prefer local metainfo data over the system-provided collection data. Useful for debugging.
+ * @AS_POOL_FLAG_MONITOR:		Monitor registered directories for changes, and auto-reload metadata if necessary.
  *
  * Flags controlling the metadata pool behavior.
  **/
@@ -68,6 +70,7 @@ typedef enum {
 	AS_POOL_FLAG_IGNORE_CACHE_AGE      = 1 << 4,
 	AS_POOL_FLAG_RESOLVE_ADDONS        = 1 << 5,
 	AS_POOL_FLAG_PREFER_OS_METAINFO    = 1 << 6,
+	AS_POOL_FLAG_MONITOR		   = 1 << 7,
 } AsPoolFlags;
 
 #define AS_POOL_FLAG_READ_COLLECTION AS_POOL_FLAG_LOAD_OS_COLLECTION

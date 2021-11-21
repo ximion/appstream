@@ -59,6 +59,7 @@
 #include "as-distro-extras.h"
 #include "as-stemmer.h"
 #include "as-cache.h"
+#include "as-file-monitor.h"
 #include "as-profile.h"
 
 #include "as-metadata.h"
@@ -74,6 +75,7 @@ typedef struct
 	GHashTable	*extra_data_locations;
 
 	AsCache		*cache;
+	guint		 pending_id; /* source ID for pending auto-reload */
 
 	gchar		**term_greylist;
 	AsPoolFlags	flags;
@@ -82,7 +84,16 @@ typedef struct
 } AsPoolPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsPool, as_pool, G_TYPE_OBJECT)
+
+enum {
+	SIGNAL_CHANGED,
+	SIGNAL_LAST
+};
+
+static guint signals [SIGNAL_LAST] = { 0 };
+
 #define GET_PRIVATE(o) (as_pool_get_instance_private (o))
+
 
 /**
  * AS_SYSTEM_COLLECTION_METADATA_PATHS:
@@ -114,7 +125,6 @@ static gchar *LOCAL_METAINFO_CACHE_KEY = "local-metainfo";
 /* cache key used for AppStream collection metadata provided by the OS */
 static gchar *OS_COLLECTION_CACHE_KEY = "os-catalog";
 
-static void as_pool_cache_refine_component_cb (AsComponent *cpt, gboolean is_serialization, gpointer user_data);
 
 typedef struct {
 	AsFormatKind		format_kind;
@@ -150,7 +160,11 @@ typedef struct {
 	GPtrArray		*locations;
 	GPtrArray		*icon_dirs;
 	GRefString		*cache_key;
+	AsFileMonitor		*monitor;
 } AsLocationGroup;
+
+static void as_pool_cache_refine_component_cb (AsComponent *cpt, gboolean is_serialization, gpointer user_data);
+static void as_pool_location_group_monitor_changed_cb (AsFileMonitor *monitor, const gchar *filename, AsLocationGroup *lgroup);
 
 static AsLocationGroup*
 as_location_group_new (AsPool *owner,
@@ -171,12 +185,24 @@ as_location_group_new (AsPool *owner,
 	lgroup->icon_dirs = g_ptr_array_new_with_free_func ((GDestroyNotify) as_ref_string_release);
 	as_ref_string_assign_safe (&lgroup->cache_key, cache_key);
 
+	lgroup->monitor = as_file_monitor_new ();
+	g_signal_connect (lgroup->monitor, "changed",
+			  G_CALLBACK (as_pool_location_group_monitor_changed_cb),
+			  lgroup);
+	g_signal_connect (lgroup->monitor, "added",
+			  G_CALLBACK (as_pool_location_group_monitor_changed_cb),
+			  lgroup);
+	g_signal_connect (lgroup->monitor, "removed",
+			  G_CALLBACK (as_pool_location_group_monitor_changed_cb),
+			  lgroup);
+
 	return lgroup;
 }
 
 static void
 as_location_group_free (AsLocationGroup *lgroup)
 {
+	g_object_unref (lgroup->monitor);
 	g_ptr_array_unref (lgroup->locations);
 	g_ptr_array_unref (lgroup->icon_dirs);
 	as_ref_string_release (lgroup->cache_key);
@@ -190,6 +216,7 @@ as_location_group_add_dir (AsLocationGroup *lgroup,
 			   const gchar *icon_dir,
 			   AsFormatKind format_kind)
 {
+	AsPoolPrivate *priv = GET_PRIVATE (lgroup->owner);
 	AsLocationEntry *entry;
 	g_return_val_if_fail (dir != NULL, NULL);
 
@@ -198,6 +225,14 @@ as_location_group_add_dir (AsLocationGroup *lgroup,
 	if (icon_dir != NULL)
 		g_ptr_array_add (lgroup->icon_dirs,
 				 g_ref_string_new_intern (icon_dir));
+
+	/* monitor directory for changes if needed */
+	if (as_flags_contains (priv->flags, AS_POOL_FLAG_MONITOR)) {
+		g_autoptr(GError) error = NULL;
+		if (!as_file_monitor_add_directory (lgroup->monitor, dir, NULL, &error))
+			g_warning ("Unable to register directory '%s' for monitoring: %s",
+				   dir, error->message);
+	}
 
 	return entry;
 }
@@ -360,6 +395,9 @@ as_pool_finalize (GObject *object)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_rw_lock_writer_lock (&priv->rw_lock);
 
+	if (priv->pending_id)
+		g_source_remove (priv->pending_id);
+
 	g_free (priv->screenshot_service_url);
 
 	g_hash_table_unref (priv->std_data_locations);
@@ -386,6 +424,23 @@ static void
 as_pool_class_init (AsPoolClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+	/**
+	 * AsPool::changed:
+	 * @pool: the #AsPool instance that emitted the signal
+	 *
+	 * The ::changed signal is emitted when components have been added
+	 * or removed from the metadata pool.
+	 *
+	 * Since: 0.14.8
+	 **/
+	signals [SIGNAL_CHANGED] =
+		g_signal_new ("changed",
+			      G_TYPE_FROM_CLASS (object_class), G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (AsPoolClass, changed),
+			      NULL, NULL, g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);
+
 	object_class->finalize = as_pool_finalize;
 }
 
@@ -985,7 +1040,7 @@ as_pool_load_collection_data (AsPool *pool,
 		/* find XML data */
 		if (lentry->format_kind == AS_FORMAT_KIND_XML) {
 			g_autoptr(GPtrArray) xmls = NULL;
-			g_debug ("Searching for data in: %s", lentry->location);
+			g_debug ("Searching for XML data in: %s", lentry->location);
 			if (lentry->compressed_only)
 				xmls = as_utils_find_files_matching (lentry->location, "*.xml.gz", FALSE, NULL);
 			else
@@ -1004,7 +1059,7 @@ as_pool_load_collection_data (AsPool *pool,
 		if (lentry->format_kind == AS_FORMAT_KIND_YAML) {
 			g_autoptr(GPtrArray) yamls = NULL;
 
-			g_debug ("Searching for data in: %s", lentry->location);
+			g_debug ("Searching for YAML data in: %s", lentry->location);
 			if (lentry->compressed_only)
 				yamls = as_utils_find_files_matching (lentry->location, "*.yml.gz", FALSE, NULL);
 			else
@@ -1425,7 +1480,6 @@ as_get_location_ctime (const gchar *location)
 static gboolean
 as_pool_loader_process_group (AsPool *pool,
 			      AsLocationGroup *lgroup,
-			      const gchar *cache_key,
 			      gboolean force_cache_refresh,
 			      gboolean *caches_updated,
 			      GError **error)
@@ -1446,7 +1500,7 @@ as_pool_loader_process_group (AsPool *pool,
 	if (!force_cache_refresh && !as_flags_contains (priv->flags, AS_POOL_FLAG_IGNORE_CACHE_AGE)) {
 		cache_time = as_cache_get_ctime (priv->cache,
 						lgroup->scope,
-						cache_key,
+						lgroup->cache_key,
 						NULL);
 		for (guint i = 0; i < lgroup->locations->len; i++) {
 			AsLocationEntry *lentry = (AsLocationEntry*) g_ptr_array_index (lgroup->locations, i);
@@ -1458,12 +1512,12 @@ as_pool_loader_process_group (AsPool *pool,
 
 		if (!cache_outdated) {
 			/* cache is not out of data, let's use it! */
-			g_debug ("Using cached metadata: %s", cache_key);
+			g_debug ("Using cached metadata: %s", lgroup->cache_key);
 			as_cache_load_section_for_key (priv->cache,
 							lgroup->scope,
 							lgroup->format_style,
 							lgroup->is_os_data,
-							cache_key,
+							lgroup->cache_key,
 							&cache_outdated,
 							lgroup);
 			if (!cache_outdated) {
@@ -1473,7 +1527,7 @@ as_pool_loader_process_group (AsPool *pool,
 			/* if we are here, the cache either went out of date (e.g. by being removed)
 			* or loading failed, in which case we will just regenerate it */
 			g_debug ("Failed to load cache metadata for '%s' or cache suddenly went out of data. Regenerating cache.",
-					cache_key);
+					lgroup->cache_key);
 		}
 	}
 
@@ -1483,7 +1537,7 @@ as_pool_loader_process_group (AsPool *pool,
 	/* process any MetaInfo and desktop-entry files */
 	as_pool_process_metainfo_desktop_data (pool, registry,
 					lgroup,
-					cache_key);
+					lgroup->cache_key);
 
 	/* process collection data - we intentionally ignore errors here, and just skip any broken metadata*/
 	as_pool_load_collection_data (pool,
@@ -1498,7 +1552,7 @@ as_pool_loader_process_group (AsPool *pool,
 						lgroup->format_style,
 						lgroup->is_os_data,
 						final_results,
-						cache_key,
+						lgroup->cache_key,
 						lgroup,
 						error);
 	if (!ret)
@@ -1528,7 +1582,7 @@ as_pool_load_internal (AsPool *pool,
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(AsProfileTask) ptask = NULL;
 	GHashTableIter loc_iter;
-	gpointer loc_key, loc_value;
+	gpointer loc_value;
 	gboolean ret = TRUE;
 	g_autoptr(GRWLockWriterLocker) locker = NULL;
 
@@ -1555,10 +1609,9 @@ as_pool_load_internal (AsPool *pool,
 
 	/* process data from all the individual metadata silos in known locations */
 	g_hash_table_iter_init (&loc_iter, priv->std_data_locations);
-	while (g_hash_table_iter_next (&loc_iter, &loc_key, &loc_value)) {
+	while (g_hash_table_iter_next (&loc_iter, NULL, &loc_value)) {
 		ret = as_pool_loader_process_group (pool,
 						    loc_value,
-						    loc_key,
 						    force_cache_refresh,
 						    caches_updated,
 						    error);
@@ -1570,10 +1623,9 @@ as_pool_load_internal (AsPool *pool,
 
 	/* process data in user-defined locations */
 	g_hash_table_iter_init (&loc_iter, priv->extra_data_locations);
-	while (g_hash_table_iter_next (&loc_iter, &loc_key, &loc_value)) {
+	while (g_hash_table_iter_next (&loc_iter, NULL, &loc_value)) {
 		ret = as_pool_loader_process_group (pool,
 						    loc_value,
-						    loc_key,
 						    force_cache_refresh,
 						    caches_updated,
 						    error);
@@ -1611,8 +1663,11 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 				      error);
 }
 
+/**
+ * as_pool_load_thread:
+ */
 static void
-_pool_load_thread (GTask *task,
+as_pool_load_thread (GTask *task,
 		   gpointer source_object,
 		   gpointer task_data,
 		   GCancellable *cancellable)
@@ -1646,9 +1701,11 @@ as_pool_load_async (AsPool *pool,
 		    GAsyncReadyCallback callback,
 		    gpointer user_data)
 {
-	GTask *task = g_task_new (pool, cancellable, callback, user_data);
-	g_task_run_in_thread (task, _pool_load_thread);
-	g_object_unref (task);
+	g_autoptr(GTask) task = g_task_new (pool,
+					    cancellable,
+					    callback,
+					    user_data);
+	g_task_run_in_thread (task, as_pool_load_thread);
 }
 
 /**
@@ -1670,6 +1727,91 @@ as_pool_load_finish (AsPool *pool,
 {
 	g_return_val_if_fail (g_task_is_valid (result, pool), FALSE);
 	return g_task_propagate_boolean (G_TASK (result), error);
+}
+
+/**
+ * as_pool_section_reload_thread:
+ */
+static void
+as_pool_section_reload_thread (GTask *task,
+		   gpointer source_object,
+		   gpointer task_data,
+		   GCancellable *cancellable)
+{
+	AsPool *pool = AS_POOL (source_object);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	AsLocationGroup *lgroup = task_data;
+	g_autoptr(GError) error = NULL;
+	gboolean ret;
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
+
+	ret = as_pool_loader_process_group (pool,
+					    lgroup,
+					    TRUE, /* always refresh cache, don't bother verifying timestamps */
+					    NULL,
+					    &error);
+	if (!ret)
+		g_warning ("Failed to auto-reload cache section %s: %s",
+			   lgroup->cache_key, error->message);
+
+	g_debug ("Emitting Pool::changed() [%s]", ret? "success" : "failure");
+	g_signal_emit (pool, signals[SIGNAL_CHANGED], 0);
+
+	g_task_return_boolean (task, TRUE);
+}
+
+/**
+ * as_pool_process_pending_reload_cb:
+ *
+ * Process a background reload for a specific location group.
+ */
+static gboolean
+as_pool_process_pending_reload_cb (gpointer user_data)
+{
+	AsLocationGroup *lgroup = user_data;
+	AsPoolPrivate *priv = GET_PRIVATE (AS_POOL (lgroup->owner));
+	g_autoptr(GTask) task = NULL;
+
+	priv->pending_id = 0;
+	g_debug ("Auto-reload of cache for %s due to source data changes.", lgroup->cache_key);
+
+	task = g_task_new (lgroup->owner, NULL, NULL, NULL);
+	g_task_set_task_data (task, lgroup, NULL);
+	g_task_run_in_thread (task, as_pool_section_reload_thread);
+
+	return FALSE;
+}
+
+/**
+ * as_pool_trigger_reload_pending:
+ *
+ * Schedule a cache section reload.
+ */
+static void
+as_pool_trigger_reload_pending (AsPool *pool, AsLocationGroup *lgroup, guint timeout_ms)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	if (priv->pending_id)
+		g_source_remove (priv->pending_id);
+	else
+		g_debug ("Reload for %s pending in ~%i ms", lgroup->cache_key, timeout_ms);
+	priv->pending_id = g_timeout_add (timeout_ms,
+					  as_pool_process_pending_reload_cb,
+					  lgroup);
+}
+
+/**
+ * as_pool_location_group_monitor_changed_cb:
+ *
+ * Called when any interesting file in the watched group is added, removed
+ * or changed.
+ */
+static void
+as_pool_location_group_monitor_changed_cb (AsFileMonitor *monitor,
+					   const gchar *filename,
+					   AsLocationGroup *lgroup)
+{
+	as_pool_trigger_reload_pending (lgroup->owner, lgroup, 800);
 }
 
 /**

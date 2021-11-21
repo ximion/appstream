@@ -522,6 +522,7 @@ test_pool_read_async ()
 		g_warning ("Invalid number of components retrieved: %i", result->len);
 		g_assert_not_reached ();
 	}
+	g_clear_pointer (&result, g_ptr_array_unref);
 
 	/* wait for the callback to be run (unless it already has!) */
 	if (_test_loop != NULL)
@@ -535,6 +536,7 @@ test_pool_read_async ()
 	result = as_pool_get_components (pool);
 	g_assert_nonnull (result);
 	g_assert_cmpint (result->len, ==, 19);
+	g_clear_pointer (&result, g_ptr_array_unref);
 }
 
 /**
@@ -629,6 +631,8 @@ test_pool_empty ()
 	gboolean ret;
 
 	pool = as_pool_new ();
+	as_pool_set_load_std_data_locations (pool, FALSE);
+	as_pool_override_cache_locations (pool, cache_dummy_dir, NULL);
 	as_pool_reset_extra_data_locations (pool);
 	as_pool_set_locale (pool, "C");
 
@@ -866,6 +870,107 @@ test_filemonitor_file (void)
 	g_assert_cmpint (cnt_changed, ==, 1);
 }
 
+static void
+pool_changed_cb (AsPool *pool, gboolean *data_changed)
+{
+	as_test_loop_quit ();
+	*data_changed = TRUE;
+}
+
+/**
+ * test_pool_autoreload:
+ *
+ * Test automatic pool data reloading
+ */
+static void
+test_pool_autoreload ()
+{
+	g_autoptr(AsPool) pool = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autoptr(GPtrArray) result = NULL;
+	g_autofree gchar *src_datafile1 = NULL;
+	g_autofree gchar *src_datafile2 = NULL;
+	g_autofree gchar *dst_datafile1 = NULL;
+	g_autofree gchar *dst_datafile2 = NULL;
+	gboolean data_changed = FALSE;
+	gboolean ret;
+	const gchar *tmpdir = "/tmp/as-monitor-test/pool-data";
+
+	/* create pristine, monitoring pool */
+	pool = as_pool_new ();
+	as_pool_set_load_std_data_locations (pool, FALSE);
+	as_pool_override_cache_locations (pool, cache_dummy_dir, NULL);
+	as_pool_reset_extra_data_locations (pool);
+	as_pool_set_locale (pool, "C");
+	as_pool_add_flags (pool, AS_POOL_FLAG_MONITOR);
+
+	g_signal_connect (pool, "changed",
+			  G_CALLBACK (pool_changed_cb), &data_changed);
+
+	/* create test directory */
+	ret = as_utils_delete_dir_recursive (tmpdir);
+	g_assert_true (ret);
+	g_mkdir_with_parents (tmpdir, 0700);
+
+	/* add new data directory */
+	as_pool_add_extra_data_location (pool, tmpdir, AS_FORMAT_STYLE_COLLECTION);
+
+	/* ensure cache is empty */
+	result = as_pool_get_components_by_id (pool, "org.inkscape.Inkscape");
+	g_assert_cmpint (result->len, ==, 0);
+	g_clear_pointer (&result, g_ptr_array_unref);
+
+	/* add data and wait for auto-reload */
+	data_changed = FALSE;
+	src_datafile1 = g_build_filename (datadir, "collection", "xml", "foobar-1.xml", NULL);
+	dst_datafile1 = g_build_filename (tmpdir, "foobar-1.xml", NULL);
+	ret = as_copy_file (src_datafile1, dst_datafile1, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	if (!data_changed)
+		as_test_loop_run_with_timeout (14000);
+
+	/* check again */
+	result = as_pool_get_components_by_id (pool, "org.inkscape.Inkscape");
+	g_assert_cmpint (result->len, ==, 1);
+	g_clear_pointer (&result, g_ptr_array_unref);
+
+
+	/* add more data */
+	data_changed = FALSE;
+	src_datafile2 = g_build_filename (datadir, "collection", "xml", "lvfs-gdpr.xml", NULL);
+	dst_datafile2 = g_build_filename (tmpdir, "lvfs-gdpr.xml", NULL);
+	ret = as_copy_file (src_datafile2, dst_datafile2, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	if (!data_changed)
+		as_test_loop_run_with_timeout (14000);
+
+	/* check for more data */
+	result = as_pool_get_components_by_id (pool, "org.inkscape.Inkscape");
+	g_assert_cmpint (result->len, ==, 1);
+	g_clear_pointer (&result, g_ptr_array_unref);
+	result = as_pool_get_components_by_id (pool, "org.fwupd.lvfs");
+	g_assert_cmpint (result->len, ==, 1);
+	g_clear_pointer (&result, g_ptr_array_unref);
+
+	/* check if deleting stuff yields the expected result */
+	data_changed = FALSE;
+	g_unlink (dst_datafile1);
+
+	if (!data_changed)
+		as_test_loop_run_with_timeout (14000);
+
+	result = as_pool_get_components_by_id (pool, "org.inkscape.Inkscape");
+	g_assert_cmpint (result->len, ==, 0);
+	g_clear_pointer (&result, g_ptr_array_unref);
+	result = as_pool_get_components_by_id (pool, "org.fwupd.lvfs");
+	g_assert_cmpint (result->len, ==, 1);
+	g_clear_pointer (&result, g_ptr_array_unref);
+}
+
 /**
  * main:
  */
@@ -906,6 +1011,7 @@ main (int argc, char **argv)
 #endif
 	g_test_add_func ("/AppStream/FileMonitorDir", test_filemonitor_dir);
 	g_test_add_func ("/AppStream/FileMonitorFile", test_filemonitor_file);
+	g_test_add_func ("/AppStream/PoolAutoReload", test_pool_autoreload);
 
 	ret = g_test_run ();
 
