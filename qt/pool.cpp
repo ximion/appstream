@@ -164,12 +164,22 @@ void Pool::setLocale(const QString& locale)
 
 uint Pool::flags() const
 {
-    return (uint) as_pool_get_flags(d->pool);
+    return as_pool_get_flags(d->pool);
 }
 
 void Pool::setFlags(uint flags)
 {
     as_pool_set_flags (d->pool, (AsPoolFlags) flags);
+}
+
+void Pool::addFlags(uint flags)
+{
+    as_pool_add_flags(d->pool, (AsPoolFlags) flags);
+}
+
+void Pool::removeFlags(uint flags)
+{
+    as_pool_remove_flags(d->pool, (AsPoolFlags) flags);
 }
 
 void Pool::resetExtraDataLocations()

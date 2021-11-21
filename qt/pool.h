@@ -50,8 +50,10 @@ Q_OBJECT
          * FlagReadDesktopFiles: Add metadata from desktop-entry files to the pool.
          * FlagLoadFlatpak:      Add AppStream metadata from Flatpak to the pool.
          * FlagIgnoreCacheAge:   Ignore cache age and always load data from scratch.
+         * FlagResolveAddons:    Always resolve addons for returned components
+         * FlagPreferOsMetainfo: Prefer local metainfo data over the system-provided collection data. Useful for debugging.
          *
-         * Flags on how caching should be used.
+         * Flags controlling the metadata pool behavior.
          **/
         enum Flags {
             FlagNone = 0,
@@ -60,6 +62,8 @@ Q_OBJECT
             FlagReadDesktopFiles = 1 << 2,
             FlagLoadFlatpak      = 1 << 3,
             FlagIgnoreCacheAge   = 1 << 4,
+            FlagResolveAddons    = 1 << 5,
+            FlagPreferOsMetainfo = 1 << 6,
         };
 
         /**
@@ -125,6 +129,8 @@ Q_OBJECT
 
         uint flags() const;
         void setFlags(uint flags);
+        void addFlags(uint flags);
+        void removeFlags(uint flags);
 
         void resetExtraDataLocations();
         void addExtraDataLocation(const QString &directory, Metadata::FormatStyle formatStyle);

@@ -47,6 +47,34 @@ struct _AsPoolClass
 };
 
 /**
+ * AsPoolFlags:
+ * @AS_POOL_FLAG_NONE:			No flags.
+ * @AS_POOL_FLAG_LOAD_OS_COLLECTION:	Load AppStream collection metadata from OS locations.
+ * @AS_POOL_FLAG_LOAD_OS_METAINFO:	Load MetaInfo data from OS locations.
+ * @AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES:	Load components from desktop-entry files in OS locations.
+ * @AS_POOL_FLAG_LOAD_FLATPAK:		Load AppStream collection metadata from Flatpak.
+ * @AS_POOL_FLAG_IGNORE_CACHE_AGE:	Load fresh data even if an up-o-date cache is available.
+ * @AS_POOL_FLAG_RESOLVE_ADDONS:	Always resolve addons for returned components.
+ * @AS_POOL_FLAG_PREFER_OS_METAINFO:	Prefer local metainfo data over the system-provided collection data. Useful for debugging.
+ *
+ * Flags controlling the metadata pool behavior.
+ **/
+typedef enum {
+	AS_POOL_FLAG_NONE = 0,
+	AS_POOL_FLAG_LOAD_OS_COLLECTION    = 1 << 0,
+	AS_POOL_FLAG_LOAD_OS_METAINFO      = 1 << 1,
+	AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES = 1 << 2,
+	AS_POOL_FLAG_LOAD_FLATPAK          = 1 << 3,
+	AS_POOL_FLAG_IGNORE_CACHE_AGE      = 1 << 4,
+	AS_POOL_FLAG_RESOLVE_ADDONS        = 1 << 5,
+	AS_POOL_FLAG_PREFER_OS_METAINFO    = 1 << 6,
+} AsPoolFlags;
+
+#define AS_POOL_FLAG_READ_COLLECTION AS_POOL_FLAG_LOAD_OS_COLLECTION
+#define AS_POOL_FLAG_READ_METAINFO AS_POOL_FLAG_LOAD_OS_METAINFO
+#define AS_POOL_FLAG_READ_DESKTOP_FILES AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES
+
+/**
  * AsCacheFlags:
  * @AS_CACHE_FLAG_NONE:			No flags.
  * @AS_CACHE_FLAG_USE_USER:		Create an user-specific metadata cache.
@@ -63,34 +91,6 @@ typedef enum {
 	AS_CACHE_FLAG_NO_CLEAR		= 1 << 2,
 	AS_CACHE_FLAG_REFRESH_SYSTEM	= 1 << 3,
 } AsCacheFlags;
-
-/**
- * AsPoolFlags:
- * @AS_POOL_FLAG_NONE:			No flags.
- * @AS_POOL_FLAG_LOAD_OS_COLLECTION:	Load AppStream collection metadata from OS locations.
- * @AS_POOL_FLAG_LOAD_OS_METAINFO:	Load MetaInfo data from OS locations.
- * @AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES:	Load components from desktop-entry files in OS locations.
- * @AS_POOL_FLAG_LOAD_FLATPAK:		Load AppStream collection metadata from Flatpak.
- * @AS_POOL_FLAG_IGNORE_CACHE_AGE:	Load fresh data even if an up-o-date cache is available.
- * @AS_POOL_FLAG_RESOLVE_ADDONS:	Always resolve addons for returned components
- * @AS_POOL_FLAG_PREFER_OS_METAINFO:	Prefer local metainfo data over the system-provided collection data. Useful for debugging.
- *
- * Flags on how caching should be used.
- **/
-typedef enum {
-	AS_POOL_FLAG_NONE = 0,
-	AS_POOL_FLAG_LOAD_OS_COLLECTION    = 1 << 0,
-	AS_POOL_FLAG_LOAD_OS_METAINFO      = 1 << 1,
-	AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES = 1 << 2,
-	AS_POOL_FLAG_LOAD_FLATPAK          = 1 << 3,
-	AS_POOL_FLAG_IGNORE_CACHE_AGE      = 1 << 4,
-	AS_POOL_FLAG_RESOLVE_ADDONS        = 1 << 5,
-	AS_POOL_FLAG_PREFER_OS_METAINFO    = 1 << 6,
-} AsPoolFlags;
-
-#define AS_POOL_FLAG_READ_COLLECTION AS_POOL_FLAG_LOAD_OS_COLLECTION
-#define AS_POOL_FLAG_READ_METAINFO AS_POOL_FLAG_LOAD_OS_METAINFO
-#define AS_POOL_FLAG_READ_DESKTOP_FILES AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES
 
 /**
  * AsPoolError:
