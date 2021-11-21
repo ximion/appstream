@@ -455,7 +455,6 @@ static void
 test_pool_read_async ()
 {
 	g_autoptr(AsPool) pool = NULL;
-	g_autoptr(GPtrArray) cpts = NULL;
 	g_autoptr(GPtrArray) result = NULL;
 	g_autoptr(GMainLoop) loop = g_main_loop_new (NULL, FALSE);
 
@@ -476,14 +475,19 @@ test_pool_read_async ()
 	g_test_log_set_fatal_handler (test_log_allow_warnings, NULL);
 
 	result = as_pool_search (pool, "web");
-	g_assert_cmpint (result->len, ==, 0);
+	if (result->len != 0 && result->len != 1) {
+		g_warning ("Invalid number of components retrieved: %i", result->len);
+		g_assert_not_reached ();
+	}
 	g_clear_pointer (&result, g_ptr_array_unref);
 
-	cpts = as_pool_get_components (pool);
-	g_assert_nonnull (cpts);
-	if (cpts->len != 0 && cpts->len != 19)
+	result = as_pool_get_components (pool);
+	g_assert_nonnull (result);
+	if (result->len != 0 && result->len != 19) {
+		g_warning ("Invalid number of components retrieved: %i", result->len);
 		g_assert_not_reached ();
-	g_ptr_array_unref (cpts);
+	}
+	g_clear_pointer (&result, g_ptr_array_unref);
 
 	/* wait for the callback to be run (unless it already has!) */
 	if (loop != NULL)
@@ -493,9 +497,9 @@ test_pool_read_async ()
 	g_test_log_set_fatal_handler (NULL, NULL);
 
 	g_debug ("AsPool-Async-Load: Checking component count (after loaded)");
-	cpts = as_pool_get_components (pool);
-	g_assert_nonnull (cpts);
-	g_assert_cmpint (cpts->len, ==, 19);
+	result = as_pool_get_components (pool);
+	g_assert_nonnull (result);
+	g_assert_cmpint (result->len, ==, 19);
 }
 
 /**
