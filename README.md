@@ -21,9 +21,9 @@ This repository contains:
  * a Qt5 based library for accessing AppStream
 
 ## Useful Links
-[AppStream Documentation](https://www.freedesktop.org/software/appstream/docs/) - The AppStream specification and help  
-[Releases](https://www.freedesktop.org/software/appstream/releases/) - All (signed) releases of AppStream  
-[AppStream on Freedesktop](https://www.freedesktop.org/wiki/Distributions/AppStream/) - The original Freedesktop.org page  
+[AppStream Documentation](https://www.freedesktop.org/software/appstream/docs/) - The AppStream specification and help
+[Releases](https://www.freedesktop.org/software/appstream/releases/) - All (signed) releases of AppStream
+[AppStream on Freedesktop](https://www.freedesktop.org/wiki/Distributions/AppStream/) - The original Freedesktop.org page
 
 For help and development discussion, check out the [AppStream mailinglist](https://lists.freedesktop.org/mailman/listinfo/appstream).
 
@@ -50,7 +50,7 @@ you may want to take a look at the [AppStream Generator](https://github.com/ximi
  * libxml2
  * libyaml
  * libcurl (>= 7.62)
- * LMDB
+ * libxmlb (>= 0.3.2)
 
 #### Optional
  * Vala Compiler (vapigen) (for Vala VAPI file)
