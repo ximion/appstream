@@ -148,8 +148,14 @@ QList<AppStream::Component> Pool::componentsByCategories(const QStringList& cate
 QList<Component> Pool::componentsByLaunchable(Launchable::Kind kind, const QString& value) const
 {
     return cptArrayToQList(as_pool_get_components_by_launchable(d->pool,
-                                                                   static_cast<AsLaunchableKind>(kind),
-                                                                   qPrintable(value)));
+                                                                static_cast<AsLaunchableKind>(kind),
+                                                                qPrintable(value)));
+}
+
+QList<Component> Pool::componentsByExtends(const QString &extendedId) const
+{
+    return cptArrayToQList(as_pool_get_components_by_extends(d->pool,
+                                                             qPrintable(extendedId)));
 }
 
 QList<AppStream::Component> Pool::search(const QString& term) const

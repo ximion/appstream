@@ -122,6 +122,8 @@ Q_OBJECT
 
         QList<AppStream::Component> componentsByLaunchable(Launchable::Kind kind, const QString& value) const;
 
+        QList<AppStream::Component> componentsByExtends(const QString& extendedId) const;
+
         QList<AppStream::Component> search(const QString& term) const;
 
 
