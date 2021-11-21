@@ -34,4 +34,4 @@ set -x
 #
 
 cd $build_dir
-meson test --print-errorlogs
+meson test --print-errorlogs --verbose
