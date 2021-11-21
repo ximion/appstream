@@ -1344,6 +1344,8 @@ as_cache_query_components (AsCache *cache,
 							    error);
 			if (cpt == NULL)
 				return NULL;
+			if (csec->format_style == AS_FORMAT_STYLE_METAINFO)
+				as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_METAINFO);
 
 			/* don't display masked components */
 			if (!csec->is_mask && g_hash_table_contains (priv->masked, as_component_get_data_id (cpt)))

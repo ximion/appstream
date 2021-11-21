@@ -1579,6 +1579,12 @@ as_utils_get_component_bundle_kind (AsComponent *cpt)
 	if (bundles->len > 0)
 		bundle_kind = as_bundle_get_kind (AS_BUNDLE (g_ptr_array_index (bundles, 0)));
 
+	/* assume "package" for system-wide components from metainfo files */
+	if (bundle_kind == AS_BUNDLE_KIND_UNKNOWN &&
+	    as_component_get_scope (cpt) == AS_COMPONENT_SCOPE_SYSTEM &&
+	    as_component_get_origin_kind (cpt) == AS_ORIGIN_KIND_METAINFO)
+		return AS_BUNDLE_KIND_PACKAGE;
+
 	return bundle_kind;
 }
 

@@ -73,6 +73,7 @@ typedef enum {
  * @AS_POOL_FLAG_LOAD_FLATPAK:		Load AppStream collection metadata from Flatpak.
  * @AS_POOL_FLAG_IGNORE_CACHE_AGE:	Load fresh data even if an up-o-date cache is available.
  * @AS_POOL_FLAG_RESOLVE_ADDONS:	Always resolve addons for returned components
+ * @AS_POOL_FLAG_PREFER_OS_METAINFO:	Prefer local metainfo data over the system-provided collection data. Useful for debugging.
  *
  * Flags on how caching should be used.
  **/
@@ -84,6 +85,7 @@ typedef enum {
 	AS_POOL_FLAG_LOAD_FLATPAK          = 1 << 3,
 	AS_POOL_FLAG_IGNORE_CACHE_AGE      = 1 << 4,
 	AS_POOL_FLAG_RESOLVE_ADDONS        = 1 << 5,
+	AS_POOL_FLAG_PREFER_OS_METAINFO    = 1 << 6,
 } AsPoolFlags;
 
 #define AS_POOL_FLAG_READ_COLLECTION AS_POOL_FLAG_LOAD_OS_COLLECTION

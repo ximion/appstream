@@ -76,9 +76,7 @@ typedef struct
 	AsCache		*cache;
 
 	gchar		**term_greylist;
-
 	AsPoolFlags	flags;
-	gboolean	prefer_local_metainfo;
 
 	GMutex		mutex;
 } AsPoolPrivate;
@@ -342,13 +340,14 @@ as_pool_init (AsPool *pool)
 	distro = as_distro_details_new ();
 	priv->screenshot_service_url = as_distro_details_get_str (distro, "ScreenshotUrl");
 
-	/* check whether we might want to prefer local metainfo files over remote data */
-	priv->prefer_local_metainfo = as_distro_details_get_bool (distro, "PreferLocalMetainfoData", FALSE);
-
 	/* set default pool flags */
 	priv->flags = AS_POOL_FLAG_LOAD_OS_COLLECTION |
 		      AS_POOL_FLAG_LOAD_OS_METAINFO |
 		      AS_POOL_FLAG_LOAD_FLATPAK;
+
+	/* check whether we might want to prefer local metainfo files over remote data */
+	if (as_distro_details_get_bool (distro, "PreferLocalMetainfoData", FALSE))
+		as_pool_add_flags (pool, AS_POOL_FLAG_PREFER_OS_METAINFO);
 }
 
 /**
@@ -796,7 +795,7 @@ as_pool_add_component_internal (AsPool *pool,
 	}
 
 	/* check whether we should prefer data from metainfo files over preexisting data */
-	if ((priv->prefer_local_metainfo) &&
+	if (as_flags_contains (priv->flags, AS_POOL_FLAG_PREFER_OS_METAINFO) &&
 	    (new_cpt_orig_kind == AS_ORIGIN_KIND_METAINFO)) {
 		/* update package info, metainfo files do never have this data.
 		 * (we hope that collection data was loaded first here, so the existing_cpt already contains
@@ -1238,7 +1237,7 @@ as_pool_load_metainfo_data (AsPool *pool,
 		g_autofree gchar *desktop_id = NULL;
 		const gchar *fname = (const gchar*) g_ptr_array_index (mi_files, i);
 
-		if (!priv->prefer_local_metainfo) {
+		if (!as_flags_contains (priv->flags, AS_POOL_FLAG_PREFER_OS_METAINFO)) {
 			g_autofree gchar *mi_cid = NULL;
 
 			mi_cid = g_path_get_basename (fname);
@@ -1287,6 +1286,10 @@ as_pool_load_metainfo_data (AsPool *pool,
 
 		/* set scope of these metainfo files */
 		as_component_set_scope (cpt, scope);
+
+		/* if we are at system scope, we just assume an "os" origin for metainfo files */
+		if (scope == AS_COMPONENT_SCOPE_SYSTEM)
+			as_component_set_origin (cpt, "os");
 
 		launchable = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
 		if ((launchable != NULL) && (as_launchable_get_entries (launchable)->len > 0)) {
@@ -1530,7 +1533,8 @@ as_pool_load_internal (AsPool *pool,
 	as_pool_clear (pool);
 
 	/* apply settings */
-	as_cache_set_prefer_os_metainfo (priv->cache, priv->prefer_local_metainfo);
+	as_cache_set_prefer_os_metainfo (priv->cache,
+					 as_flags_contains (priv->flags, AS_POOL_FLAG_PREFER_OS_METAINFO));
 
 	/* prune any ancient data from the cache that has not been used for a long time */
 	as_cache_prune_data (priv->cache);
@@ -2249,36 +2253,6 @@ as_pool_clear_metadata_locations (AsPool *pool)
 }
 
 /**
- * as_pool_get_cache_flags:
- * @pool: An instance of #AsPool.
- *
- * Get the #AsCacheFlags for this data pool.
- *
- * Deprecated: 0.14.7: Cache flags can no longer be changed.
- */
-AsCacheFlags
-as_pool_get_cache_flags (AsPool *pool)
-{
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
-	return AS_CACHE_FLAG_USE_SYSTEM | AS_CACHE_FLAG_USE_USER | AS_CACHE_FLAG_REFRESH_SYSTEM;
-}
-
-/**
- * as_pool_set_cache_flags:
- * @pool: An instance of #AsPool.
- * @flags: The new #AsCacheFlags.
- *
- * Set the #AsCacheFlags for this data pool.
- *
- * Deprecated: 0.14.7: Cache flags can no longer be modified.
- */
-void
-as_pool_set_cache_flags (AsPool *pool, AsCacheFlags flags)
-{
-}
-
-/**
  * as_pool_get_flags:
  * @pool: An instance of #AsPool.
  *
@@ -2414,6 +2388,37 @@ void
 as_pool_set_cache_location (AsPool *pool, const gchar *fname)
 {
 	g_warning ("Not changing AppStream cache location: No longer supported.");
+}
+
+/**
+ * as_pool_get_cache_flags:
+ * @pool: An instance of #AsPool.
+ *
+ * Get the #AsCacheFlags for this data pool.
+ *
+ * Deprecated: 0.14.7: Cache flags can no longer be changed.
+ */
+AsCacheFlags
+as_pool_get_cache_flags (AsPool *pool)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	return AS_CACHE_FLAG_USE_SYSTEM | AS_CACHE_FLAG_USE_USER | AS_CACHE_FLAG_REFRESH_SYSTEM;
+}
+
+/**
+ * as_pool_set_cache_flags:
+ * @pool: An instance of #AsPool.
+ * @flags: The new #AsCacheFlags.
+ *
+ * Set the #AsCacheFlags for this data pool.
+ *
+ * Deprecated: 0.14.7: Cache flags can no longer be modified.
+ */
+void
+as_pool_set_cache_flags (AsPool *pool, AsCacheFlags flags)
+{
+	/* Legacy function that is supposed to do nothing */
 }
 
 /**
