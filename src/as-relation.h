@@ -122,7 +122,8 @@ typedef enum {
  * @AS_CONTROL_KIND_GAMEPAD:	Gamepad input (any game controller with wheels/buttons/joysticks)
  * @AS_CONTROL_KIND_VOICE:	Control via voice recognition/activation
  * @AS_CONTROL_KIND_VISION:	Computer vision / visual object and sign detection
- * @AS_CONTROL_KIND_TV_REMOTE:	A television remote
+ * @AS_CONTROL_KIND_TV_REMOTE:	Input via a television remote
+ * @AS_CONTROL_KIND_TABLET:	Graphics tablet input
  *
  * Kind of an input method for users to control software
  **/
@@ -136,6 +137,7 @@ typedef enum {
 	AS_CONTROL_KIND_VOICE,
 	AS_CONTROL_KIND_VISION,
 	AS_CONTROL_KIND_TV_REMOTE,
+	AS_CONTROL_KIND_TABLET,
 	/*< private >*/
 	AS_CONTROL_KIND_LAST
 } AsControlKind;

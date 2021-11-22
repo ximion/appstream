@@ -297,6 +297,8 @@ as_control_kind_to_string (AsControlKind kind)
 		return "vision";
 	if (kind == AS_CONTROL_KIND_TV_REMOTE)
 		return "tv-remote";
+	if (kind == AS_CONTROL_KIND_TABLET)
+		return "tablet";
 	return "unknown";
 }
 
@@ -329,6 +331,8 @@ as_control_kind_from_string (const gchar *kind_str)
 		return AS_CONTROL_KIND_VISION;
 	if (g_strcmp0 (kind_str, "tv-remote") == 0)
 		return AS_CONTROL_KIND_TV_REMOTE;
+	if (g_strcmp0 (kind_str, "tablet") == 0)
+		return AS_CONTROL_KIND_TABLET;
 	return AS_CONTROL_KIND_UNKNOWN;
 }
 
