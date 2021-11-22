@@ -536,6 +536,9 @@ as_pool_register_flatpak_dir (AsPool *pool, const gchar *flatpak_root_dir, AsCom
 	g_autoptr(GFile) fpr_dir = NULL;
 	g_autoptr(GError) error = NULL;
 
+	if (!g_file_test (flatpak_root_dir, G_FILE_TEST_EXISTS))
+		return;
+
 	fpr_dir =  g_file_new_for_path (flatpak_root_dir);
 	fpr_direnum = g_file_enumerate_children (fpr_dir,
 					     G_FILE_ATTRIBUTE_STANDARD_NAME,
