@@ -954,10 +954,10 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-requires-recommends">
-				<term>Requires &amp; Recommends</term>
+			<varlistentry id="field-dep11-relations">
+				<term>Requires, Recommends &amp; Supports</term>
 				<listitem>
-					<para>See <xref linkend="tag-requires-recommends"/>.</para>
+					<para>See <xref linkend="tag-relations"/>.</para>
 					<para>
 						A list of dictionaries containing the referenced items. The dictionaries in the list must have one key denoting the item type, which has the
 						respective item value as value. Refer to the XML description for a list of possible types.

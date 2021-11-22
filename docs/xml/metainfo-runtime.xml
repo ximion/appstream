@@ -77,7 +77,7 @@
 				<para>
 					The <literal>requires</literal> tag may be used if multiple runtimes are based on top of each other, or if the runtime actually describes
 					a software development kit (SDK) that wants to require its base runtime.
-					See <xref linkend="tag-requires-recommends"/> for a detailed description of this tag.
+					See <xref linkend="tag-relations"/> for a detailed description of this tag.
 				</para>
 				<para>
 					In order to depend on other runtimes, their component-ID should be referenced in a <literal>requires</literal> tag. Example:

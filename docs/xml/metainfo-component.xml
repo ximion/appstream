@@ -768,22 +768,30 @@
 
 		</varlistentry>
 
-		<varlistentry id="tag-requires-recommends">
-		<term>&lt;requires/&gt; &amp; &lt;recommends/&gt;</term>
+		<varlistentry id="tag-relations">
+		<term>&lt;requires/&gt;, &lt;recommends/&gt; &amp; &lt;supports/&gt;</term>
 		<listitem>
 			<para>
-				The <literal>requires</literal> tag denotes an <emphasis>absolute</emphasis> requirement on a different system component.
-				A component can require a certain hardware to be present, or kernel, or other component to be installed first. If a requirement
+				The <literal>requires</literal> tag denotes an <emphasis>absolute</emphasis> requirement on a different entity.
+				For example, a component can require certain hardware to be present, require a specific minimum kernel version,
+				or another component to be installed first. If a requirement specified in a <literal>requires</literal> tag
 				is not met, AppStream clients should prevent the installation of the particular software component.
 			</para>
 			<para>
 				If it is not essential that a certain requirement is met by the system, but just recommended to be available, a
 				<literal>recommends</literal> tag should be used. In this case, AppStream clients should allow the installation of the software
-				component, but may display a warning before allowing it.
+				component, but may display a warning before allowing the installation.
+				It is permissible, but not required, to prevent installation of software which does not have all items specified as
+				<literal>recommends</literal> met on the system that it is installed to.
 			</para>
 			<para>
-				A <literal>requires</literal> or <literal>recommends</literal> tag contains children describing the type, value and version relation
-				of the required item.
+				Components may also set a <literal>supports</literal> tag. This is an even weaker relation than <literal>recommends</literal>,
+				and means the particular component can make use of certain hardware capabilities or other software if it is available, but will
+				also be usable if it is not.
+			</para>
+			<para>
+				A <literal>requires</literal>, <literal>recommends</literal> or <literal>supports</literal> tag contains children describing the type,
+				value and version relation of the required item.
 				Each child can have a <literal>version</literal> and a <literal>compare</literal> property, to allow depending on a certain minimal
 				version of the respective item.
 				The <literal>version</literal> property contains the version to be compared against, while the <literal>compare</literal> property contains
@@ -804,11 +812,12 @@
 				<listitem><para><code>ge</code> - Greater than or equal to</para></listitem>
 			</itemizedlist>
 			<para>
-				Possible item types to declare a requirement on or a recommendation for are:
+				Please note that not all item types are valid for all relation types.
+				Generally valid item types are listed below, with information as for which relation kins they are valid.
 			</para>
 
 			<variablelist>
-			<varlistentry id="tag-requires-recommends-id">
+			<varlistentry id="tag-relations-id">
 				<term>&lt;id/&gt;</term>
 				<listitem>
 				<para>
@@ -817,10 +826,11 @@
 				<programlisting language="XML"><![CDATA[<requires>
   <id version="1.0" compare="ge">org.example.my_software</id>
 </requires>]]></programlisting>
+				<para>Valid for: <literal>requires</literal>, <literal>recommends</literal>, <literal>supports</literal></para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-requires-recommends-modalias">
+			<varlistentry id="tag-relations-modalias">
 				<term>&lt;modalias/&gt;</term>
 				<listitem>
 				<para>
@@ -830,10 +840,11 @@
 				<programlisting language="XML"><![CDATA[<recommends>
   <modalias>usb:v1130p0202d*</modalias>
 </recommends>]]></programlisting>
+				<para>Valid for: <literal>requires</literal>, <literal>recommends</literal>, <literal>supports</literal></para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-requires-recommends-kernel">
+			<varlistentry id="tag-relations-kernel">
 				<term>&lt;kernel/&gt;</term>
 				<listitem>
 				<para>
@@ -843,10 +854,11 @@
 				<programlisting language="XML"><![CDATA[<requires>
   <kernel version="4.14" compare="ge">Linux</kernel>
 </requires>]]></programlisting>
+				<para>Valid for: <literal>requires</literal>, <literal>recommends</literal></para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-requires-recommends-memory">
+			<varlistentry id="tag-relations-memory">
 				<term>&lt;memory/&gt;</term>
 				<listitem>
 				<para>
@@ -859,10 +871,11 @@
 				<programlisting language="XML"><![CDATA[<recommends>
   <memory>2048</memory> <!-- recommend at least 2GiB of memory -->
 </recommends>]]></programlisting>
+				<para>Valid for: <literal>requires</literal>, <literal>recommends</literal></para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-requires-recommends-firmware">
+			<varlistentry id="tag-relations-firmware">
 				<term>&lt;firmware/&gt;</term>
 				<listitem>
 				<para>
@@ -877,18 +890,19 @@
   <firmware compare="ge" version="0.1.2"/>
   <firmware compare="ge" version="0.3.4">bootloader</firmware>
 </requires>]]></programlisting>
+				<para>Valid for: <literal>requires</literal>, <literal>recommends</literal></para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-requires-recommends-control">
+			<varlistentry id="tag-relations-control">
 				<term>&lt;control/&gt;</term>
 				<listitem>
 				<para>
-					This item type can be used to recommend or require certain ways a user can control the software. This usually maps to certain methods
-					of input. If multiples of these tag are found within a requires/recommends block, only one of them needs to be satisfied on the system
-					to mark an application as compatible. This means if <literal>touch</literal> and <literal>pointing</literal> are both recommended as controls,
-					an system that only has a mouse and no touchscreen will still be considered able to run the application.
-					Valid values for this tag are:
+					This item type can be used to indicate support for or require certain ways a user can control the software. This usually maps to certain methods
+					of input. If multiples <literal>control</literal> tags with different values are found within a requires/supports block, only one of them needs
+					to be satisfied on the system to mark an application as compatible. This means if <literal>touch</literal> and <literal>pointing</literal> are both
+					supported as controls for an application-type component, a system that only has a mouse and no touchscreen will still be considered able to run
+					the application. Valid values for this tag are:
 				</para>
 				<itemizedlist>
 					<listitem><para><code>pointing</code> - Input via mouse/cursors/other pointing devices is possible</para></listitem>
@@ -901,30 +915,41 @@
 					<listitem><para><code>vision</code> - The software can be controlled by computer vision / visual object and sign detection</para></listitem>
 				</itemizedlist>
 				<para>
-					If a control type is <emphasis>recommended</emphasis>, it means the software supports the given method of user input. As long as one of the input methods
-					is available on the system, the software can be used. Installation on systems without the given control is still permitted.
-					If a control type is <emphasis>required</emphasis>, the same applies, but the software installer should refuse to install the application on devices which
-					do not have at least one of the input methods. It is therefore advised to only use the <code>control</code> tag in <code>recommends</code> listings,
-					and avoid to use it in <code>requires</code>.
+					If a control type is <emphasis>supported</emphasis> (= in a <literal>supports</literal> block), it means the software supports the given method of user
+					input. As long as one of the input methods is available on the system, the software can be used. Installation on systems without the given control may
+					still be permitted, but the software may not be easily usable.
+				</para>
+				<para>
+					If a control type is <emphasis>recommended</emphasis> (= in a <literal>recommends</literal> block), it means the software prefers the given method of
+					user input. The software may still be installed if the input control method is not available, but functionality may be severely degraded.
+				</para>
+				<para>
+					If a control type is <emphasis>required</emphasis> (= in a <literal>requires</literal> block), the same applies, but the software installer should refuse
+					to install the software on devices which do not have at least one of the input methods. It is therefore advised to only use the <code>control</code> tag
+					in <code>supports</code> and possibly <code>recommends</code> blocks, and avoid to use it in <code>requires</code>.
 				</para>
 				<para>
 					For certain component types, some permitted controls are implicitly assumed: For <link linkend="sect-Metadata-Application">desktop-application</link>
 					and <link linkend="sect-Metadata-WebApplication">web-application</link> components, <literal>pointing</literal> and <literal>keyboard</literal> controls
-					are assumed.
+					are assumed supported, unless explicit support is defined by the metadata author.
 					For <link linkend="sect-Metadata-ConsoleApplication">console-application</link>, control via <literal>console</literal> is assumed.
 				</para>
 				<para>
-					Example control recommendation:
+					For any other, non-application-like component types, the <literal>control</literal> relation item is currently considered unsupported.
 				</para>
-				<programlisting language="XML"><![CDATA[<recommends>
+				<para>
+					Example control support block:
+				</para>
+				<programlisting language="XML"><![CDATA[<supports>
   <control>pointing</control>
   <control>keyboard</control>
   <control>touch</control>
-</recommends>]]></programlisting>
+</supports>]]></programlisting>
+				<para>Valid for: <literal>requires</literal>, <literal>recommends</literal>, <literal>supports</literal></para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-requires-recommends-display_length">
+			<varlistentry id="tag-relations-display_length">
 				<term>&lt;display_length/&gt;</term>
 				<listitem>
 				<para>
@@ -944,7 +969,7 @@
 					</para>
 				</note>
 				<para>
-					Relations for the display length can be defined using a <literal>compare</literal> property as described in <xref linkend="tag-requires-recommends"/>.
+					Relations for the display length can be defined using a <literal>compare</literal> property as described in <xref linkend="tag-relations"/>.
 					If this property is not present, a value of <code>ge</code> (greater-or-equal) is implicitly assumed.
 				</para>
 				<para>
@@ -972,7 +997,7 @@
 						Please note that a display with a lot of vertical space may not be a television screen, but could also be a large gaming monitor.
 						Similar logic applies to the smaller screen sizes. Therefore, to indicate that an application runs well on a certain <emphasis>device</emphasis>
 						and not just on a certain <emphasis>display</emphasis>, additional metadata is needed, like the application's supported
-						input controls as defined via <xref linkend="tag-requires-recommends-control"/>.
+						input controls as defined via <xref linkend="tag-relations-control"/>.
 					</para>
 				</note>
 				<para>
@@ -1006,6 +1031,7 @@
   <display_length compare="lt">xlarge</display_length>
   <display_length compare="gt">xsmall</display_length>
 </requires>]]></programlisting>
+				<para>Valid for: <literal>requires</literal>, <literal>recommends</literal></para>
 				</listitem>
 			</varlistentry>
 
