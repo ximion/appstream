@@ -60,14 +60,19 @@ public:
      **/
     enum Flags {
         FlagNone = 0,
-        FlagReadCollection   = 1 << 0,
-        FlagReadMetainfo     = 1 << 1,
-        FlagReadDesktopFiles = 1 << 2,
-        FlagLoadFlatpak      = 1 << 3,
-        FlagIgnoreCacheAge   = 1 << 4,
-        FlagResolveAddons    = 1 << 5,
-        FlagPreferOsMetainfo = 1 << 6,
-        FlagMonitor          = 1 << 7,
+        FlagLoadOsCollection   = 1 << 0,
+        FlagLoadOsMetainfo     = 1 << 1,
+        FlagLoadOsDesktopFiles = 1 << 2,
+        FlagLoadFlatpak        = 1 << 3,
+        FlagIgnoreCacheAge     = 1 << 4,
+        FlagResolveAddons      = 1 << 5,
+        FlagPreferOsMetainfo   = 1 << 6,
+        FlagMonitor            = 1 << 7,
+
+        // deprecated
+        FlagReadCollection   [[deprecated]] = FlagLoadOsCollection,
+        FlagReadMetainfo     [[deprecated]] = FlagLoadOsMetainfo,
+        FlagReadDesktopFiles [[deprecated]] = FlagLoadOsDesktopFiles,
     };
 
     /**
@@ -79,9 +84,9 @@ public:
      * Flags on how caching should be used.
      **/
     enum CacheFlags {
-        CacheFlagNone      = 0,
-        CacheFlagUseUser   = 1 << 0,
-        CacheFlagUseSystem = 1 << 1,
+        CacheFlagNone      [[deprecated]] = 0,
+        CacheFlagUseUser   [[deprecated]] = 1 << 0,
+        CacheFlagUseSystem [[deprecated]] = 1 << 1,
     };
 
     /**
