@@ -57,10 +57,19 @@ static QList<Component> cptArrayToQList(GPtrArray *cpts)
     return res;
 }
 
+static void
+pool_changed_cb (AsPool *cpool, AppStream::Pool *qpool)
+{
+    qpool->changed();
+}
+
 Pool::Pool(QObject *parent)
     : QObject (parent),
       d(new PoolPrivate())
-{}
+{
+    g_signal_connect (d->pool, "changed",
+                      G_CALLBACK (pool_changed_cb), this);
+}
 
 Pool::~Pool()
 {
