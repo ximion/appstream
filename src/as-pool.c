@@ -256,8 +256,10 @@ as_component_registry_new (void)
 	AsComponentRegistry *registry;
 	registry = g_new0 (AsComponentRegistry, 1);
 
-	registry->data_id_map = g_hash_table_new_full (g_str_hash, g_str_equal,
-							NULL, g_object_unref);
+	registry->data_id_map = g_hash_table_new_full ((GHashFunc) as_utils_data_id_hash,
+						       (GEqualFunc) as_utils_data_id_equal,
+							NULL,
+							g_object_unref);
 	registry->id_map = g_hash_table_new_full (g_str_hash, g_str_equal,
 						  NULL, (GDestroyNotify) g_ptr_array_unref);
 
