@@ -12,10 +12,12 @@ set -e
 apt_support=false
 build_compose=true
 build_docs=false
+build_qt=true
 maintainer_mode=true
 if [ "$ID" = "ubuntu" ] && [ "$VERSION_CODENAME" = "focal" ]; then
     # we don't make warnings fatal on Ubuntu 20.04
     maintainer_mode=false
+    build_qt=false
 fi;
 if [ "$ID" = "debian" ] || [ "$ID" = "ubuntu" ]; then
     # apt support is required for debian(-ish) systems
@@ -54,7 +56,7 @@ meson --buildtype=$build_type \
       $sanitize_flags \
       -Dmaintainer=$maintainer_mode \
       -Ddocs=$build_docs \
-      -Dqt=true \
+      -Dqt=$build_qt \
       -Dcompose=$build_compose \
       -Dapt-support=$apt_support \
       -Dvapi=true \

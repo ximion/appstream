@@ -70,9 +70,9 @@ public:
         FlagMonitor            = 1 << 7,
 
         // deprecated
-        FlagReadCollection   ASQ_ENUM_DEPRECATED = FlagLoadOsCollection,
-        FlagReadMetainfo     ASQ_ENUM_DEPRECATED = FlagLoadOsMetainfo,
-        FlagReadDesktopFiles ASQ_ENUM_DEPRECATED = FlagLoadOsDesktopFiles,
+        FlagReadCollection   [[deprecated]] = FlagLoadOsCollection,
+        FlagReadMetainfo     [[deprecated]] = FlagLoadOsMetainfo,
+        FlagReadDesktopFiles [[deprecated]] = FlagLoadOsDesktopFiles,
     };
 
     /**
@@ -84,9 +84,9 @@ public:
      * Flags on how caching should be used.
      **/
     enum CacheFlags {
-        CacheFlagNone      ASQ_ENUM_DEPRECATED = 0,
-        CacheFlagUseUser   ASQ_ENUM_DEPRECATED = 1 << 0,
-        CacheFlagUseSystem ASQ_ENUM_DEPRECATED = 1 << 1,
+        CacheFlagNone      [[deprecated]] = 0,
+        CacheFlagUseUser   [[deprecated]] = 1 << 0,
+        CacheFlagUseSystem [[deprecated]] = 1 << 1,
     };
 
     /**
