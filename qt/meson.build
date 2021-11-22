@@ -77,6 +77,13 @@ appstreamqt_lib = library ('AppStreamQt',
     install: true
 )
 
+configure_file(
+    input: 'version.h.in',
+    output: 'version.h',
+    install_dir: join_paths(get_option('includedir'), 'AppStreamQt'),
+    configuration: conf
+)
+
 install_headers(asqt_pub_headers, subdir: 'AppStreamQt')
 
 subdir('tests/')

@@ -117,10 +117,10 @@ aslib_priv_headers = [
 ]
 
 as_version_h = configure_file(
-  input: 'as-version.h.in',
-  output: 'as-version.h',
-  install_dir: join_paths(get_option('includedir'), 'appstream'),
-  configuration: conf
+    input: 'as-version.h.in',
+    output: 'as-version.h',
+    install_dir: join_paths(get_option('includedir'), 'appstream'),
+    configuration: conf
 )
 
 aslib_pub_enums = glib.mkenums_simple('as-enum-types',
