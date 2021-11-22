@@ -156,7 +156,7 @@ public:
     Q_DECL_DEPRECATED void clearMetadataLocations();
     Q_DECL_DEPRECATED void addMetadataLocation(const QString& directory);
 
-signals:
+Q_SIGNALS:
     void changed();
 
 private:
