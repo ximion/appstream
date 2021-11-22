@@ -1400,40 +1400,47 @@ test_xml_write_screenshots (void)
 }
 
 
-static const gchar *xmldata_recommends_requires = "<component>\n"
-						  "  <id>org.example.RelationsTest</id>\n"
-						  "  <requires>\n"
-						  "    <kernel version=\"4.15\" compare=\"ge\">Linux</kernel>\n"
-						  "    <id version=\"1.2\" compare=\"eq\">org.example.TestDependency</id>\n"
-						  "    <display_length>small</display_length>\n"
-						  "  </requires>\n"
-						  "  <recommends>\n"
-						  "    <memory>2500</memory>\n"
-						  "    <modalias>usb:v1130p0202d*</modalias>\n"
-						  "    <display_length side=\"longest\" compare=\"le\">4200</display_length>\n"
-						  "  </recommends>\n"
-						  "</component>\n";
+static const gchar *xmldata_relations = "<component>\n"
+					"  <id>org.example.RelationsTest</id>\n"
+					"  <requires>\n"
+					"    <kernel version=\"4.15\" compare=\"ge\">Linux</kernel>\n"
+					"    <id version=\"1.2\" compare=\"eq\">org.example.TestDependency</id>\n"
+					"    <display_length>small</display_length>\n"
+					"  </requires>\n"
+					"  <recommends>\n"
+					"    <memory>2500</memory>\n"
+					"    <modalias>usb:v1130p0202d*</modalias>\n"
+					"    <display_length side=\"longest\" compare=\"le\">4200</display_length>\n"
+					"  </recommends>\n"
+					"  <supports>\n"
+					"    <control>gamepad</control>\n"
+					"    <control>keyboard</control>\n"
+					"  </supports>\n"
+					"</component>\n";
 /**
- * test_xml_read_recommends_requires:
+ * test_xml_read_relations:
  *
- * Test reading the recommends/requires tags.
+ * Test reading the recommends/requires/supports tags.
  */
 static void
-test_xml_read_recommends_requires (void)
+test_xml_read_relations (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
 	GPtrArray *recommends;
 	GPtrArray *requires;
+	GPtrArray *supports;
 	AsRelation *relation;
 
-	cpt = as_xml_test_read_data (xmldata_recommends_requires, AS_FORMAT_STYLE_METAINFO);
+	cpt = as_xml_test_read_data (xmldata_relations, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.RelationsTest");
 
 	recommends = as_component_get_recommends (cpt);
 	requires = as_component_get_requires (cpt);
+	supports = as_component_get_supports (cpt);
 
-	g_assert_cmpint (recommends->len, ==, 3);
 	g_assert_cmpint (requires->len, ==, 3);
+	g_assert_cmpint (recommends->len, ==, 3);
+	g_assert_cmpint (supports->len, ==, 2);
 
 	/* memory relation */
 	relation = AS_RELATION (g_ptr_array_index (recommends, 0));
@@ -1476,15 +1483,25 @@ test_xml_read_recommends_requires (void)
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
 	g_assert_cmpint (as_relation_get_value_display_length_kind (relation), ==, AS_DISPLAY_LENGTH_KIND_SMALL);
 	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_GE);
+
+	/* control relation */
+	relation = AS_RELATION (g_ptr_array_index (supports, 0));
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_SUPPORTS);
+	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_CONTROL);
+	g_assert_cmpint (as_relation_get_value_control_kind (relation), ==, AS_CONTROL_KIND_GAMEPAD);
+	relation = AS_RELATION (g_ptr_array_index (supports, 1));
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_SUPPORTS);
+	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_CONTROL);
+	g_assert_cmpint (as_relation_get_value_control_kind (relation), ==, AS_CONTROL_KIND_KEYBOARD);
 }
 
 /**
- * test_xml_write_recommends_requires:
+ * test_xml_write_relations:
  *
- * Test writing the recommends/requires tags.
+ * Test writing the recommends/requires/supports tags.
  */
 static void
-test_xml_write_recommends_requires (void)
+test_xml_write_relations (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
@@ -1494,6 +1511,8 @@ test_xml_write_recommends_requires (void)
 	g_autoptr(AsRelation) id_relation = NULL;
 	g_autoptr(AsRelation) dl_relation1 = NULL;
 	g_autoptr(AsRelation) dl_relation2 = NULL;
+	g_autoptr(AsRelation) ctl_relation1 = NULL;
+	g_autoptr(AsRelation) ctl_relation2 = NULL;
 
 	cpt = as_component_new ();
 	as_component_set_id (cpt, "org.example.RelationsTest");
@@ -1504,6 +1523,8 @@ test_xml_write_recommends_requires (void)
 	id_relation = as_relation_new ();
 	dl_relation1 = as_relation_new ();
 	dl_relation2 = as_relation_new ();
+	ctl_relation1 = as_relation_new ();
+	ctl_relation2 = as_relation_new ();
 
 	as_relation_set_kind (mem_relation, AS_RELATION_KIND_RECOMMENDS);
 	as_relation_set_kind (moda_relation, AS_RELATION_KIND_RECOMMENDS);
@@ -1511,6 +1532,8 @@ test_xml_write_recommends_requires (void)
 	as_relation_set_kind (id_relation, AS_RELATION_KIND_REQUIRES);
 	as_relation_set_kind (dl_relation1, AS_RELATION_KIND_RECOMMENDS);
 	as_relation_set_kind (dl_relation2, AS_RELATION_KIND_REQUIRES);
+	as_relation_set_kind (ctl_relation1, AS_RELATION_KIND_SUPPORTS);
+	as_relation_set_kind (ctl_relation2, AS_RELATION_KIND_SUPPORTS);
 
 	as_relation_set_item_kind (mem_relation, AS_RELATION_ITEM_KIND_MEMORY);
 	as_relation_set_value_int (mem_relation, 2500);
@@ -1536,15 +1559,22 @@ test_xml_write_recommends_requires (void)
 	as_relation_set_value_display_length_kind (dl_relation2, AS_DISPLAY_LENGTH_KIND_SMALL);
 	as_relation_set_compare (dl_relation2, AS_RELATION_COMPARE_GE);
 
+	as_relation_set_item_kind (ctl_relation1, AS_RELATION_ITEM_KIND_CONTROL);
+	as_relation_set_item_kind (ctl_relation2, AS_RELATION_ITEM_KIND_CONTROL);
+	as_relation_set_value_control_kind (ctl_relation1, AS_CONTROL_KIND_GAMEPAD);
+	as_relation_set_value_control_kind (ctl_relation2, AS_CONTROL_KIND_KEYBOARD);
+
 	as_component_add_relation (cpt, mem_relation);
 	as_component_add_relation (cpt, moda_relation);
 	as_component_add_relation (cpt, kernel_relation);
 	as_component_add_relation (cpt, id_relation);
 	as_component_add_relation (cpt, dl_relation1);
 	as_component_add_relation (cpt, dl_relation2);
+	as_component_add_relation (cpt, ctl_relation1);
+	as_component_add_relation (cpt, ctl_relation2);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert_true (as_xml_test_compare_xml (res, xmldata_recommends_requires));
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_relations));
 }
 
 
@@ -1975,8 +2005,8 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Read/Screenshots", test_xml_read_screenshots);
 	g_test_add_func ("/XML/Write/Screenshots", test_xml_write_screenshots);
 
-	g_test_add_func ("/XML/Read/RecommendsRequires", test_xml_read_recommends_requires);
-	g_test_add_func ("/XML/Write/RecommendsRequires", test_xml_write_recommends_requires);
+	g_test_add_func ("/XML/Read/Relations", test_xml_read_relations);
+	g_test_add_func ("/XML/Write/Relations", test_xml_write_relations);
 
 	g_test_add_func ("/XML/Read/Agreements", test_xml_read_agreements);
 	g_test_add_func ("/XML/Write/Agreements", test_xml_write_agreements);

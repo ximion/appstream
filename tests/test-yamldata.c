@@ -1004,28 +1004,31 @@ test_yaml_read_launchable (void)
 	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 1), ==, "kde4-kool.desktop");
 }
 
-static const gchar *yamldata_requires_recommends_field =
-					"Type: generic\n"
-					"ID: org.example.RelationsTest\n"
-					"Recommends:\n"
-					"- memory: 2500\n"
-					"- modalias: usb:v1130p0202d*\n"
-					"- display_length: <= xlarge\n"
-					"  side: longest\n"
-					"Requires:\n"
-					"- kernel: Linux\n"
-					"  version: '>= 4.15'\n"
-					"- id: org.example.TestDependency\n"
-					"  version: == 1.2\n"
-					"- display_length: 4200\n";
+static const gchar *yamldata_relations_field =
+				"Type: generic\n"
+				"ID: org.example.RelationsTest\n"
+				"Requires:\n"
+				"- kernel: Linux\n"
+				"  version: '>= 4.15'\n"
+				"- id: org.example.TestDependency\n"
+				"  version: == 1.2\n"
+				"- display_length: 4200\n"
+				"Recommends:\n"
+				"- memory: 2500\n"
+				"- modalias: usb:v1130p0202d*\n"
+				"- display_length: <= xlarge\n"
+				"  side: longest\n"
+				"Supports:\n"
+				"- control: gamepad\n"
+				"- control: keyboard\n";
 
 /**
- * test_yaml_write_requires_recommends:
+ * test_yaml_write_relations:
  *
  * Test writing the Requires/Recommends fields.
  */
 static void
-test_yaml_write_requires_recommends (void)
+test_yaml_write_relations (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
@@ -1035,6 +1038,8 @@ test_yaml_write_requires_recommends (void)
 	g_autoptr(AsRelation) id_relation = NULL;
 	g_autoptr(AsRelation) dl_relation1 = NULL;
 	g_autoptr(AsRelation) dl_relation2 = NULL;
+	g_autoptr(AsRelation) ctl_relation1 = NULL;
+	g_autoptr(AsRelation) ctl_relation2 = NULL;
 
 	cpt = as_component_new ();
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
@@ -1046,6 +1051,8 @@ test_yaml_write_requires_recommends (void)
 	id_relation = as_relation_new ();
 	dl_relation1 = as_relation_new ();
 	dl_relation2 = as_relation_new ();
+	ctl_relation1 = as_relation_new ();
+	ctl_relation2 = as_relation_new ();
 
 	as_relation_set_kind (mem_relation, AS_RELATION_KIND_RECOMMENDS);
 	as_relation_set_kind (moda_relation, AS_RELATION_KIND_RECOMMENDS);
@@ -1053,6 +1060,8 @@ test_yaml_write_requires_recommends (void)
 	as_relation_set_kind (id_relation, AS_RELATION_KIND_REQUIRES);
 	as_relation_set_kind (dl_relation1, AS_RELATION_KIND_RECOMMENDS);
 	as_relation_set_kind (dl_relation2, AS_RELATION_KIND_REQUIRES);
+	as_relation_set_kind (ctl_relation1, AS_RELATION_KIND_SUPPORTS);
+	as_relation_set_kind (ctl_relation2, AS_RELATION_KIND_SUPPORTS);
 
 	as_relation_set_item_kind (mem_relation, AS_RELATION_ITEM_KIND_MEMORY);
 	as_relation_set_value_int (mem_relation, 2500);
@@ -1078,39 +1087,49 @@ test_yaml_write_requires_recommends (void)
 	as_relation_set_value_int (dl_relation2, 4200);
 	as_relation_set_compare (dl_relation2, AS_RELATION_COMPARE_GE);
 
+	as_relation_set_item_kind (ctl_relation1, AS_RELATION_ITEM_KIND_CONTROL);
+	as_relation_set_item_kind (ctl_relation2, AS_RELATION_ITEM_KIND_CONTROL);
+	as_relation_set_value_control_kind (ctl_relation1, AS_CONTROL_KIND_GAMEPAD);
+	as_relation_set_value_control_kind (ctl_relation2, AS_CONTROL_KIND_KEYBOARD);
+
 	as_component_add_relation (cpt, mem_relation);
 	as_component_add_relation (cpt, moda_relation);
 	as_component_add_relation (cpt, kernel_relation);
 	as_component_add_relation (cpt, id_relation);
 	as_component_add_relation (cpt, dl_relation1);
 	as_component_add_relation (cpt, dl_relation2);
+	as_component_add_relation (cpt, ctl_relation1);
+	as_component_add_relation (cpt, ctl_relation2);
 
 	/* test collection serialization */
 	res = as_yaml_test_serialize (cpt);
-	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_requires_recommends_field));
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_relations_field));
 }
 
 /**
- * test_yaml_read_requires_recommends:
+ * test_yaml_read_relations:
  *
  * Test if reading the Requires/Recommends fields works.
  */
 static void
-test_yaml_read_requires_recommends (void)
+test_yaml_read_relations (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
 	GPtrArray *recommends;
 	GPtrArray *requires;
+	GPtrArray *supports;
 	AsRelation *relation;
 
-	cpt = as_yaml_test_read_data (yamldata_requires_recommends_field, NULL);
+	cpt = as_yaml_test_read_data (yamldata_relations_field, NULL);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.RelationsTest");
 
-	recommends = as_component_get_recommends (cpt);
 	requires = as_component_get_requires (cpt);
+	recommends = as_component_get_recommends (cpt);
+	supports = as_component_get_supports (cpt);
 
-	g_assert_cmpint (recommends->len, ==, 3);
 	g_assert_cmpint (requires->len, ==, 3);
+	g_assert_cmpint (recommends->len, ==, 3);
+	g_assert_cmpint (supports->len, ==, 2);
 
 	/* memory relation */
 	relation = AS_RELATION (g_ptr_array_index (recommends, 0));
@@ -1153,6 +1172,16 @@ test_yaml_read_requires_recommends (void)
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
 	g_assert_cmpint (as_relation_get_value_px (relation), ==, 4200);
 	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_GE);
+
+	/* control relation */
+	relation = AS_RELATION (g_ptr_array_index (supports, 0));
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_SUPPORTS);
+	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_CONTROL);
+	g_assert_cmpint (as_relation_get_value_control_kind (relation), ==, AS_CONTROL_KIND_GAMEPAD);
+	relation = AS_RELATION (g_ptr_array_index (supports, 1));
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_SUPPORTS);
+	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_CONTROL);
+	g_assert_cmpint (as_relation_get_value_control_kind (relation), ==, AS_CONTROL_KIND_KEYBOARD);
 }
 
 
@@ -1673,8 +1702,8 @@ main (int argc, char **argv)
 	g_test_add_func ("/YAML/Read/Launchable", test_yaml_read_launchable);
 	g_test_add_func ("/YAML/Write/Launchable", test_yaml_write_launchable);
 
-	g_test_add_func ("/YAML/Read/RequiresRecommends", test_yaml_read_requires_recommends);
-	g_test_add_func ("/YAML/Write/RequiresRecommends", test_yaml_write_requires_recommends);
+	g_test_add_func ("/YAML/Read/Relations", test_yaml_read_relations);
+	g_test_add_func ("/YAML/Write/Relations", test_yaml_write_relations);
 
 	g_test_add_func ("/YAML/Read/Agreements", test_yaml_read_agreements);
 	g_test_add_func ("/YAML/Write/Agreements", test_yaml_write_agreements);

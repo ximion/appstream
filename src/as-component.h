@@ -392,8 +392,9 @@ AsContentRating		*as_component_get_content_rating (AsComponent *cpt,
 void			as_component_add_content_rating (AsComponent *cpt,
 							 AsContentRating *content_rating);
 
-GPtrArray		*as_component_get_recommends (AsComponent *cpt);
 GPtrArray		*as_component_get_requires (AsComponent *cpt);
+GPtrArray		*as_component_get_recommends (AsComponent *cpt);
+GPtrArray		*as_component_get_supports (AsComponent *cpt);
 void			as_component_add_relation (AsComponent *cpt,
 						   AsRelation *relation);
 

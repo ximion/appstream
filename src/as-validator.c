@@ -1045,10 +1045,10 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 }
 
 /**
- * as_validator_check_requires_recommends:
+ * as_validator_check_relations:
  **/
 static void
-as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, AsComponent *cpt, AsRelationKind kind)
+as_validator_check_relations (AsValidator *validator, xmlNode *node, AsComponent *cpt, AsRelationKind kind)
 {
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
@@ -1726,9 +1726,11 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_children_quick (validator, iter, "content_attribute", TRUE);
 			can_be_empty = TRUE;
 		} else if (g_strcmp0 (node_name, "requires") == 0) {
-			as_validator_check_requires_recommends (validator, iter, cpt, AS_RELATION_KIND_REQUIRES);
+			as_validator_check_relations (validator, iter, cpt, AS_RELATION_KIND_REQUIRES);
 		} else if (g_strcmp0 (node_name, "recommends") == 0) {
-			as_validator_check_requires_recommends (validator, iter, cpt, AS_RELATION_KIND_RECOMMENDS);
+			as_validator_check_relations (validator, iter, cpt, AS_RELATION_KIND_RECOMMENDS);
+		} else if (g_strcmp0 (node_name, "supports") == 0) {
+			as_validator_check_relations (validator, iter, cpt, AS_RELATION_KIND_SUPPORTS);
 		} else if (g_strcmp0 (node_name, "agreement") == 0) {
 			as_validator_check_children_quick (validator, iter, "agreement_section", FALSE);
 		} else if (g_strcmp0 (node_name, "name_variant_suffix") == 0) {

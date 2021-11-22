@@ -97,8 +97,9 @@ typedef struct
 	GPtrArray		*bundles; /* of AsBundle */
 	GPtrArray		*suggestions; /* of AsSuggested elements */
 	GPtrArray		*content_ratings; /* of AsContentRating */
-	GPtrArray		*recommends; /* of AsRelation */
 	GPtrArray		*requires; /* of AsRelation */
+	GPtrArray		*recommends; /* of AsRelation */
+	GPtrArray		*supports; /* of AsRelation */
 	GPtrArray		*agreements; /* of AsAgreement */
 	GHashTable		*urls; /* of int:utf8 */
 
@@ -364,8 +365,9 @@ as_component_init (AsComponent *cpt)
 	priv->suggestions = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->icons = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->content_ratings = g_ptr_array_new_with_free_func (g_object_unref);
-	priv->recommends = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->requires = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->recommends = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->supports = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->agreements = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->reviews = g_ptr_array_new_with_free_func (g_object_unref);
 
@@ -427,8 +429,9 @@ as_component_finalize (GObject* object)
 	g_ptr_array_unref (priv->content_ratings);
 	g_ptr_array_unref (priv->icons);
 
-	g_ptr_array_unref (priv->recommends);
 	g_ptr_array_unref (priv->requires);
+	g_ptr_array_unref (priv->recommends);
+	g_ptr_array_unref (priv->supports);
 	g_ptr_array_unref (priv->agreements);
 	g_ptr_array_unref (priv->reviews);
 
@@ -3108,6 +3111,23 @@ as_component_add_launchable (AsComponent *cpt, AsLaunchable *launchable)
 }
 
 /**
+ * as_component_get_requires:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get an array of items that are required by this component.
+ *
+ * Returns: (transfer none) (element-type AsRelation): an array
+ *
+ * Since: 0.12.0
+ **/
+GPtrArray*
+as_component_get_requires (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->requires;
+}
+
+/**
  * as_component_get_recommends:
  * @cpt: a #AsComponent instance.
  *
@@ -3125,20 +3145,21 @@ as_component_get_recommends (AsComponent *cpt)
 }
 
 /**
- * as_component_get_requires:
+ * as_component_get_supports:
  * @cpt: a #AsComponent instance.
  *
- * Get an array of items that are required by this component.
+ * Get an array of items that are supported by this component,
+ * e.g. to indicate support for a specific piece of hardware.
  *
  * Returns: (transfer none) (element-type AsRelation): an array
  *
- * Since: 0.12.0
+ * Since: 0.14.8
  **/
 GPtrArray*
-as_component_get_requires (AsComponent *cpt)
+as_component_get_supports (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->requires;
+	return priv->supports;
 }
 
 /**
@@ -3157,11 +3178,14 @@ as_component_add_relation (AsComponent *cpt, AsRelation *relation)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	AsRelationKind kind = as_relation_get_kind (relation);
 
-	if (kind == AS_RELATION_KIND_RECOMMENDS) {
+	if (kind == AS_RELATION_KIND_REQUIRES) {
+		g_ptr_array_add (priv->requires,
+				g_object_ref (relation));
+	} else if (kind == AS_RELATION_KIND_RECOMMENDS) {
 		g_ptr_array_add (priv->recommends,
 				g_object_ref (relation));
-	} else if (kind == AS_RELATION_KIND_REQUIRES) {
-		g_ptr_array_add (priv->requires,
+	} else if (kind == AS_RELATION_KIND_SUPPORTS) {
+		g_ptr_array_add (priv->supports,
 				g_object_ref (relation));
 	} else {
 		g_warning ("Tried to add relation of unknown kind to component %s", priv->data_id);
@@ -3835,10 +3859,12 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			g_autoptr(AsContentRating) ctrating = as_content_rating_new ();
 			if (as_content_rating_load_from_xml (ctrating, ctx, iter, NULL))
 				as_component_add_content_rating (cpt, ctrating);
-		} else if (tag_id == AS_TAG_RECOMMENDS) {
-			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_RECOMMENDS);
 		} else if (tag_id == AS_TAG_REQUIRES) {
 			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_REQUIRES);
+		} else if (tag_id == AS_TAG_RECOMMENDS) {
+			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_RECOMMENDS);
+		} else if (tag_id == AS_TAG_SUPPORTS) {
+			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_SUPPORTS);
 		} else if (tag_id == AS_TAG_AGREEMENT) {
 			g_autoptr(AsAgreement) agreement = as_agreement_new ();
 			if (as_agreement_load_from_xml (agreement, ctx, iter, NULL))
@@ -4150,6 +4176,16 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 		for (guint i = 0; i < priv->recommends->len; i++) {
 			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->recommends, i));
+			as_relation_to_xml_node (relation, ctx, rcnode);
+		}
+	}
+
+	/* supports */
+	if (priv->supports->len > 0) {
+		xmlNode *rcnode = xmlNewChild (cnode, NULL, (xmlChar*) "supports", NULL);
+
+		for (guint i = 0; i < priv->supports->len; i++) {
+			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->supports, i));
 			as_relation_to_xml_node (relation, ctx, rcnode);
 		}
 	}
@@ -4734,10 +4770,12 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 				if (as_content_rating_load_from_yaml (rating, ctx, n, NULL))
 					as_component_add_content_rating (cpt, rating);
 			}
-		} else if (field_id == AS_TAG_RECOMMENDS) {
-			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_RECOMMENDS);
 		} else if (field_id == AS_TAG_REQUIRES) {
 			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_REQUIRES);
+		} else if (field_id == AS_TAG_RECOMMENDS) {
+			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_RECOMMENDS);
+		} else if (field_id == AS_TAG_SUPPORTS) {
+			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_SUPPORTS);
 		} else if (field_id == AS_TAG_AGREEMENT) {
 			for (GNode *n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsAgreement) agreement = as_agreement_new ();
@@ -5313,6 +5351,19 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_mapping_end (emitter);
 	}
 
+	/* Requires */
+	if (priv->requires->len > 0) {
+		as_yaml_emit_scalar (emitter, "Requires");
+		as_yaml_sequence_start (emitter);
+
+		for (guint i = 0; i < priv->requires->len; i++) {
+			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->requires, i));
+			as_relation_emit_yaml (relation, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
 	/* Recommends */
 	if (priv->recommends->len > 0) {
 		as_yaml_emit_scalar (emitter, "Recommends");
@@ -5326,13 +5377,13 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_sequence_end (emitter);
 	}
 
-	/* Requires */
-	if (priv->requires->len > 0) {
-		as_yaml_emit_scalar (emitter, "Requires");
+	/* Supports */
+	if (priv->supports->len > 0) {
+		as_yaml_emit_scalar (emitter, "Supports");
 		as_yaml_sequence_start (emitter);
 
-		for (guint i = 0; i < priv->requires->len; i++) {
-			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->requires, i));
+		for (guint i = 0; i < priv->supports->len; i++) {
+			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->supports, i));
 			as_relation_emit_yaml (relation, ctx, emitter);
 		}
 

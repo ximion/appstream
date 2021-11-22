@@ -49,6 +49,7 @@ struct _AsRelationClass
  * @AS_RELATION_KIND_UNKNOWN:		Unknown kind
  * @AS_RELATION_KIND_REQUIRES:		The referenced item is required by the component
  * @AS_RELATION_KIND_RECOMMENDS:	The referenced item is recommended
+ * @AS_RELATION_KIND_SUPPORTS:		The referenced item is supported
  *
  * Type of a component's relation to other items.
  **/
@@ -56,6 +57,7 @@ typedef enum  {
 	AS_RELATION_KIND_UNKNOWN,
 	AS_RELATION_KIND_REQUIRES,
 	AS_RELATION_KIND_RECOMMENDS,
+	AS_RELATION_KIND_SUPPORTS,
 	/*< private >*/
 	AS_RELATION_KIND_LAST
 } AsRelationKind;

@@ -73,6 +73,8 @@ as_relation_kind_to_string (AsRelationKind kind)
 		return "requires";
 	if (kind == AS_RELATION_KIND_RECOMMENDS)
 		return "recommends";
+	if (kind == AS_RELATION_KIND_SUPPORTS)
+		return "supports";
 	return "unknown";
 }
 
@@ -93,6 +95,8 @@ as_relation_kind_from_string (const gchar *kind_str)
 		return AS_RELATION_KIND_REQUIRES;
 	if (g_strcmp0 (kind_str, "recommends") == 0)
 		return AS_RELATION_KIND_RECOMMENDS;
+	if (g_strcmp0 (kind_str, "supports") == 0)
+		return AS_RELATION_KIND_SUPPORTS;
 	return AS_RELATION_KIND_UNKNOWN;
 }
 
