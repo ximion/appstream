@@ -1037,8 +1037,8 @@ as_cache_load_section_internal (AsCache *cache,
 				     XB_SILO_LOAD_FLAG_NONE,
 				     NULL,
 				     &tmp_error)) {
-		g_warning ("Failed to load AppStream cache section '%s' - marking cache as outdated. Error: %s",
-			   internal_section_key, tmp_error->message);
+		g_debug ("Failed to load AppStream cache section '%s' - marking cache as outdated. Issue: %s",
+			 internal_section_key, tmp_error->message);
 		if (is_outdated != NULL)
 			*is_outdated = TRUE;
 		return;
