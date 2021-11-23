@@ -1285,9 +1285,9 @@ as_cache_query_components (AsCache *cache,
 	gpointer ht_value;
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
-	results_map = g_hash_table_new_full ((GHashFunc) as_utils_data_id_hash,
-					     (GEqualFunc) as_utils_data_id_equal,
-					     NULL,
+	results_map = g_hash_table_new_full (g_str_hash,
+					     g_str_equal,
+					     g_free,
 					     g_object_unref);
 	known_os_cids = g_hash_table_new_full (g_str_hash,
 						g_str_equal,
@@ -1372,7 +1372,7 @@ as_cache_query_components (AsCache *cache,
 
 			data_id = as_component_get_data_id (cpt);
 			g_hash_table_insert (results_map,
-					     (gchar*) data_id,
+					     g_strdup (data_id),
 					     g_steal_pointer (&cpt));
 		}
 	}
