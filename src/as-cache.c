@@ -1285,10 +1285,14 @@ as_cache_query_components (AsCache *cache,
 	gpointer ht_value;
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
-	results_map = g_hash_table_new_full (g_str_hash, g_str_equal,
-						g_free, g_object_unref);
-	known_os_cids = g_hash_table_new_full (g_str_hash, g_str_equal,
-						g_free, NULL);
+	results_map = g_hash_table_new_full ((GHashFunc) as_utils_data_id_hash,
+					     (GEqualFunc) as_utils_data_id_equal,
+					     NULL,
+					     g_object_unref);
+	known_os_cids = g_hash_table_new_full (g_str_hash,
+						g_str_equal,
+						g_free,
+						NULL);
 
 	for (guint i = 0; i < priv->sections->len; i++) {
 		g_autoptr(GPtrArray) array = NULL;
@@ -1322,8 +1326,8 @@ as_cache_query_components (AsCache *cache,
 
 		for (guint j = 0; j < array->len; j++) {
 			g_autoptr (AsComponent) cpt = NULL;
-			gchar *tmp;
 			g_autoptr(XbNode) cpt_node = NULL;
+			const gchar *data_id;
 			XbNode *qnode = g_ptr_array_index (array, j);
 
 			if (is_fts) {
@@ -1366,9 +1370,9 @@ as_cache_query_components (AsCache *cache,
 				g_hash_table_add (known_os_cids,
 						  g_strdup (as_component_get_id (cpt)));
 
-			tmp = g_strdup (as_component_get_data_id (cpt));
+			data_id = as_component_get_data_id (cpt);
 			g_hash_table_insert (results_map,
-					     tmp,
+					     (gchar*) data_id,
 					     g_steal_pointer (&cpt));
 		}
 	}
