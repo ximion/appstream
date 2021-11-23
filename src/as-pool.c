@@ -465,7 +465,6 @@ as_pool_add_collection_metadata_dir_internal (AsPool *pool,
 	g_autofree gchar *icon_dir = NULL;
 	gchar *path;
 
-
 	if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
 		g_debug ("Not adding metadata location '%s': Not a directory, or does not exist.",
 			 directory);
@@ -2579,7 +2578,10 @@ as_pool_get_cache_flags (AsPool *pool)
 void
 as_pool_set_cache_flags (AsPool *pool, AsCacheFlags flags)
 {
-	/* Legacy function that is supposed to do nothing */
+	/* Legacy function that is just providing some compatibility glue */
+	if (as_flags_contains (flags, AS_CACHE_FLAG_USE_USER))
+		as_pool_remove_flags (pool, AS_POOL_FLAG_LOAD_OS_COLLECTION |
+					    AS_POOL_FLAG_LOAD_OS_METAINFO);
 }
 
 /**
