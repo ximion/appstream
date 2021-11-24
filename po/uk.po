@@ -21,17 +21,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-11-24 19:44+0100\n"
-"PO-Revision-Date: 2021-10-08 16:48+0000\n"
+"PO-Revision-Date: 2021-11-24 21:03+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
-"translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.10-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -990,7 +988,7 @@ msgstr "Помилки у файлах метаданих:"
 
 #: src/as-pool.c:2376
 msgid "Group"
-msgstr ""
+msgstr "Група"
 
 #: src/as-pool.c:2422
 msgid "Iconsets"
@@ -999,12 +997,12 @@ msgstr "Набори піктограм"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2469
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Дані з встановленого локально програмного забезпечення"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2472
 msgid "Software catalog data"
-msgstr ""
+msgstr "Дані каталогу програмного забезпечення"
 
 #: src/as-provided.c:144
 msgid "Libraries"
@@ -1527,7 +1525,7 @@ msgstr ""
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
+msgstr "У цьому записі «hardware» міститься некоректне значення. Має бути вказано Computer Hardware ID (CHID) UUID без дужок."
 
 #: src/as-validator-issue-tag.h:326
 msgid ""
@@ -2349,7 +2347,7 @@ msgstr "Встановлене вручну розташування метад�
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
+msgstr "Ігнорувати вік кешу і будувати свіжий кеш до виконання запиту."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
@@ -2425,7 +2423,7 @@ msgstr "Примусове оновлення кешу."
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
+msgstr "Обмежити освіження кешу даними з певного джерела, наприклад `os` або `flatpak`. Може бути вказано декілька разів."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:478
@@ -2702,20 +2700,20 @@ msgstr "Вам слід вказати команду."
 #. TRANSLATORS: In ascli: Status information during a "refresh" action.
 #: tools/ascli-actions-mdata.c:48
 msgid "Only refreshing metadata cache specific to the current user."
-msgstr ""
+msgstr "Освіження лише кешу метаданих для поточного користувача."
 
 #: tools/ascli-actions-mdata.c:59
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
+msgstr "Оновлення кешу метаданих програмного забезпечення для операційної системи."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for Flatpak."
-msgstr ""
+msgstr "Оновлення кешу метаданих програмного забезпечення для Flatpak."
 
 #: tools/ascli-actions-mdata.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "Файла метаданих «%s» не існує."
+msgstr "Групи джерел метаданих із назвою «%s» не існує!"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
@@ -2724,15 +2722,13 @@ msgstr "Для виконання цієї дії потрібні права а
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
-#, fuzzy
 msgid "Metadata cache was updated successfully."
-msgstr "Оновлення кешу AppStream успішно завершено."
+msgstr "Оновлення кешу метаданих успішно завершено."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:102
-#, fuzzy
 msgid "Metadata cache update is not necessary."
-msgstr "Оновлення кешу AppStream непотрібне."
+msgstr "Потреби в оновлення кешу метаданих немає."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -2862,23 +2858,22 @@ msgstr "Версія: %s"
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:56
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "Джерела метаданих ОС:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:60
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "Метаданих ОС не знайдено. Це дивно."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:63
 msgid "Other metadata sources:"
-msgstr ""
+msgstr "Інші джерела метаданих:"
 
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:67
-#, fuzzy
 msgid "No metadata."
-msgstr "Компонуємо метадані…"
+msgstr "Немає метаданих."
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:70
