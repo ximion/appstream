@@ -291,9 +291,10 @@ ascli_validate_files (gchar **argv, gint argc, gboolean pedantic, gboolean expla
 	if (ret) {
 		if ((error_count == 0) && (warning_count == 0) &&
 		    (info_count == 0) && (pedantic_count == 0)) {
-			g_print ("%s\n", _("Validation was successful."));
+			g_print ("✔ %s\n", _("Validation was successful."));
 		} else {
-			g_print (_("Validation was successful: %s"), "");
+			g_autofree gchar *tmp = g_strdup_printf (_("Validation was successful: %s"), "");
+			g_print ("✔ %s", tmp);
 			ascli_validate_print_stats (error_count,
 						    warning_count,
 						    info_count,
@@ -303,7 +304,8 @@ ascli_validate_files (gchar **argv, gint argc, gboolean pedantic, gboolean expla
 
 		return 0;
 	} else {
-		g_print (_("Validation failed: %s"), "");
+		g_autofree gchar *tmp = g_strdup_printf (_("Validation failed: %s"), "");
+		g_print ("✘ %s", tmp);
 		ascli_validate_print_stats (error_count,
 					    warning_count,
 					    info_count,
@@ -432,9 +434,10 @@ ascli_validate_tree (const gchar *root_dir, gboolean pedantic, gboolean explain,
 	if (no_errors) {
 		if ((error_count == 0) && (warning_count == 0) &&
 		    (info_count == 0) && (pedantic_count == 0)) {
-			g_print ("%s\n", _("Validation was successful."));
+			g_print ("✔ %s\n", _("Validation was successful."));
 		} else {
-			g_print (_("Validation was successful: %s"), "");
+			g_autofree gchar *tmp = g_strdup_printf (_("Validation was successful: %s"), "");
+			g_print ("✔ %s", tmp);
 			ascli_validate_print_stats (error_count,
 						    warning_count,
 						    info_count,
@@ -444,7 +447,8 @@ ascli_validate_tree (const gchar *root_dir, gboolean pedantic, gboolean explain,
 
 		return 0;
 	} else {
-		g_print (_("Validation failed: %s"), "");
+		g_autofree gchar *tmp = g_strdup_printf (_("Validation failed: %s"), "");
+		g_print ("✘ %s", tmp);
 		ascli_validate_print_stats (error_count,
 					    warning_count,
 					    info_count,
