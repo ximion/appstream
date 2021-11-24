@@ -691,6 +691,7 @@ test_filemonitor_dir (void)
 	/* cleanup */
 	ret = as_utils_delete_dir_recursive (tmpdir);
 	g_assert_true (ret);
+	g_assert_true (!g_file_test (tmpdir, G_FILE_TEST_EXISTS));
 
 	/* create directory */
 	g_mkdir_with_parents (tmpdir, 0700);
@@ -698,8 +699,11 @@ test_filemonitor_dir (void)
 	/* prepare */
 	tmpfile = g_build_filename (tmpdir, "test.txt", NULL);
 	tmpfile_new = g_build_filename (tmpdir, "newtest.txt", NULL);
-	g_unlink (tmpfile);
-	g_unlink (tmpfile_new);
+	g_remove (tmpfile);
+	g_remove (tmpfile_new);
+
+	g_assert_true (!g_file_test (tmpfile, G_FILE_TEST_EXISTS));
+	g_assert_true (!g_file_test (tmpfile_new, G_FILE_TEST_EXISTS));
 
 	mon = as_file_monitor_new ();
 	g_signal_connect (mon, "added",
@@ -799,8 +803,10 @@ test_filemonitor_file (void)
 	const gchar *tmpfile_new = "/tmp/two.txt";
 	g_autofree gchar *cmd_touch = NULL;
 
-	g_unlink (tmpfile);
-	g_unlink (tmpfile_new);
+	g_remove (tmpfile);
+	g_remove (tmpfile_new);
+	g_assert_true (!g_file_test (tmpfile, G_FILE_TEST_EXISTS));
+	g_assert_true (!g_file_test (tmpfile_new, G_FILE_TEST_EXISTS));
 
 	mon = as_file_monitor_new ();
 	g_signal_connect (mon, "added",
