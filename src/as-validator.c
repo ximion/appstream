@@ -1095,6 +1095,7 @@ as_validator_check_relations (AsValidator *validator, xmlNode *node, AsComponent
 		switch (item_kind) {
 		case AS_RELATION_ITEM_KIND_MODALIAS:
 		case AS_RELATION_ITEM_KIND_CONTROL:
+		case AS_RELATION_ITEM_KIND_HARDWARE:
 			can_have_version = FALSE;
 			can_have_compare = FALSE;
 			break;
@@ -1160,6 +1161,19 @@ as_validator_check_relations (AsValidator *validator, xmlNode *node, AsComponent
 			side_str = as_xml_get_prop_value (iter, "side");
 			if (as_display_side_kind_from_string (side_str) == AS_DISPLAY_SIDE_KIND_UNKNOWN)
 				as_validator_add_issue (validator, iter, "relation-display-length-side-property-invalid", side_str);
+		}
+
+		/* check hardware for sanity */
+		if (item_kind == AS_RELATION_ITEM_KIND_HARDWARE) {
+			guint dash_count = 0;
+			for (guint i = 0; content[i] != '\0'; i++)
+			     if (content[i] == '-')
+				     dash_count++;
+
+			if (g_str_has_prefix (content, "{") || g_str_has_suffix (content, "}"))
+				as_validator_add_issue (validator, iter, "relation-hardware-value-invalid", content);
+			else if (dash_count != 4)
+				as_validator_add_issue (validator, iter, "relation-hardware-value-invalid", content);
 		}
 	}
 }

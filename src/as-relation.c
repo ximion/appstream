@@ -127,6 +127,8 @@ as_relation_item_kind_to_string (AsRelationItemKind kind)
 		return "control";
 	if (kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH)
 		return "display_length";
+	if (kind == AS_RELATION_ITEM_KIND_HARDWARE)
+		return "hardware";
 	return "unknown";
 }
 
@@ -157,6 +159,8 @@ as_relation_item_kind_from_string (const gchar *kind_str)
 		return AS_RELATION_ITEM_KIND_CONTROL;
 	if (g_strcmp0 (kind_str, "display_length") == 0)
 		return AS_RELATION_ITEM_KIND_DISPLAY_LENGTH;
+	if (g_strcmp0 (kind_str, "hardware") == 0)
+		return AS_RELATION_ITEM_KIND_HARDWARE;
 	return AS_RELATION_ITEM_KIND_UNKNOWN;
 }
 

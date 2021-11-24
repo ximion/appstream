@@ -72,6 +72,7 @@ typedef enum  {
  * @AS_RELATION_ITEM_KIND_FIRMWARE:		A device firmware requirement (used by fwupd)
  * @AS_RELATION_ITEM_KIND_CONTROL:		An input method for users to control software
  * @AS_RELATION_ITEM_KIND_DISPLAY_LENGTH:	Display edge length
+ * @AS_RELATION_ITEM_KIND_HARDWARE:		A Computer Hardware ID (CHID) to depend on system hardware
  *
  * Type of the item an #AsRelation is for.
  **/
@@ -84,6 +85,7 @@ typedef enum  {
 	AS_RELATION_ITEM_KIND_FIRMWARE,
 	AS_RELATION_ITEM_KIND_CONTROL,
 	AS_RELATION_ITEM_KIND_DISPLAY_LENGTH,
+	AS_RELATION_ITEM_KIND_HARDWARE,
 	/*< private >*/
 	AS_RELATION_ITEM_KIND_LAST
 } AsRelationItemKind;

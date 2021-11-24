@@ -315,6 +315,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	     "make the item value refer to either the shortest or longest side of the display.")
 	},
 
+	{ "relation-hardware-value-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This `hardware` item contains an invalid value. It should be a Computer Hardware ID (CHID) UUID without braces.")
+	},
+
 	{ "component-type-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("The set component type is not a recognized, valid AppStream component type.")

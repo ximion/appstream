@@ -882,7 +882,7 @@
 					Depend on a specific device firmware. The value of this tag should either be a name like <literal>bootloader</literal>, be
 					empty to reference the firmware itself described by the <literal>firmware</literal>-type component this tag is contained in,
 					or contain a GUID.
-					This tag is commonly used and interpreted by <ulink url="https://www.fwupd.org/">Fwupd</ulink>.
+					This tag is commonly used and interpreted by the <ulink url="https://fwupd.org/">LVFS</ulink>.
 					Example:
 				</para>
 				<programlisting language="XML"><![CDATA[<requires>
@@ -891,6 +891,28 @@
   <firmware compare="ge" version="0.3.4">bootloader</firmware>
 </requires>]]></programlisting>
 				<para>Valid for: <literal>requires</literal>, <literal>recommends</literal></para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="tag-relations-hardware">
+				<term>&lt;hardware/&gt;</term>
+				<listitem>
+				<para>
+					Require, recommend or support a specific system hardware configuration. The value of this item is a
+					<ulink url="https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/using-chids">Computer Hardware ID (CHID)</ulink>
+					without any surrounding braces.
+				</para>
+				<para>
+					On Linux systems, the CHIDs of the system can be queried using the <command>sudo fwupdtool hwids</command> command.
+				</para>
+				<para>
+					This tag is commonly used and interpreted by the <ulink url="https://fwupd.org/">LVFS</ulink> and fwupd tool.
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<requires>
+  <hardware>be6ab11f-af5f-572e-be18-84301d880764</hardware>
+</requires>]]></programlisting>
+				<para>Valid for: <literal>requires</literal>, <literal>recommends</literal>, <literal>supports</literal></para>
 				</listitem>
 			</varlistentry>
 
