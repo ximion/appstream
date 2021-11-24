@@ -32,76 +32,6 @@
 
 
 /**
- * ascli_status_print_location_group:
- */
-static gboolean
-ascli_status_print_location_group (AsLocationGroup *lgroup)
-{
-	gboolean data_found = FALSE;
-	ascli_print_stdout (" Group: %s", lgroup->cache_key);
-
-	for (guint i = 0; i < lgroup->locations->len; i++) {
-		AsLocationEntry *lentry = g_ptr_array_index (lgroup->locations, i);
-		g_autoptr(GPtrArray) files = NULL;
-		const gchar *format_kind_str;
-
-		if (!g_file_test (lentry->location, G_FILE_TEST_IS_DIR))
-			continue;
-
-		g_print ("  %s\n", lentry->location);
-		if (lentry->format_kind == AS_FORMAT_KIND_XML) {
-			files = as_utils_find_files_matching (lentry->location, "*.xml*", FALSE, NULL);
-			if (lgroup->format_style == AS_FORMAT_STYLE_METAINFO)
-				format_kind_str = "MetaInfo XML";
-			else
-				format_kind_str = "Collection XML";
-		} else if (lentry->format_kind == AS_FORMAT_KIND_YAML) {
-			files = as_utils_find_files_matching (lentry->location, "*.yml*", FALSE, NULL);
-			format_kind_str = "YAML";
-		} else if (lentry->format_kind == AS_FORMAT_KIND_DESKTOP_ENTRY) {
-			files = as_utils_find_files_matching (lentry->location, "*.desktop", FALSE, NULL);
-			format_kind_str = "Desktop Entry";
-		} else {
-			g_warning ("Unknown data format type detected: %s", as_format_kind_to_string (lentry->format_kind));
-			continue;
-		}
-
-		if (files != NULL) {
-			ascli_print_stdout ("    • %s:  %i", format_kind_str, files->len);
-			if (files->len > 0)
-				data_found = TRUE;
-		}
-	}
-
-
-	for (guint i = 0; i < lgroup->icon_dirs->len; i++) {
-		const gchar *icons_path = g_ptr_array_index (lgroup->icon_dirs, i);
-		g_autoptr(GPtrArray) icon_dirs = NULL;
-
-		if (!g_file_test (icons_path, G_FILE_TEST_IS_DIR))
-			continue;
-		g_print ("  %s\n", icons_path);
-
-
-
-		icon_dirs = as_utils_find_files_matching (icons_path, "*", FALSE, NULL);
-		if (icon_dirs != NULL) {
-			ascli_print_stdout ("    • %s:", _("Iconsets"));
-			for (guint j = 0; j < icon_dirs->len; j++) {
-				const gchar *ipath;
-				g_autofree gchar *dname = NULL;
-				ipath = (const gchar *) g_ptr_array_index (icon_dirs, j);
-
-				dname = g_path_get_basename (ipath);
-				g_print ("        %s\n", dname);
-			}
-		}
-	}
-
-	return data_found;
-}
-
-/**
  * ascli_show_status:
  *
  * Print various interesting status information.
@@ -111,11 +41,8 @@ ascli_show_status (void)
 {
 	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(GError) error = NULL;
-	GHashTable *std_locations;
-	GHashTableIter loc_iter;
 	gboolean os_metadata_found = FALSE;
 	gboolean other_metadata_found = FALSE;
-	gpointer loc_value;
 
 	/* TRANSLATORS: In the status report of ascli: Header */
 	ascli_print_highlight (_("AppStream Status:"));
@@ -124,45 +51,20 @@ ascli_show_status (void)
 
 	pool = as_pool_new ();
 	as_pool_remove_flags (pool, AS_POOL_FLAG_MONITOR);
-	std_locations = as_pool_get_std_data_locations_private (pool);
 
 	/* TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions */
 	ascli_print_highlight (_("OS metadata sources:"));
-	g_hash_table_iter_init (&loc_iter, std_locations);
-	while (g_hash_table_iter_next (&loc_iter, NULL, &loc_value)) {
-		AsLocationGroup *lgroup = loc_value;
-		if (!lgroup->is_os_data)
-			continue;
-
-		if (lgroup->format_style == AS_FORMAT_STYLE_METAINFO)
-			ascli_print_stdout (" %s", _("Data from locally installed software"));
-		else
-			ascli_print_stdout (" %s", _("Software catalog data"));
-
-		if (ascli_status_print_location_group (lgroup))
-			os_metadata_found = TRUE;
-		g_print ("\n");
-	}
-
+	os_metadata_found = as_pool_print_std_data_locations_info_private (pool, TRUE, FALSE);
 	if (!os_metadata_found)
 		/* TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug) */
 		g_print ("✘ %s\n", _("No OS metadata found. This is unusual."));
 
 	/* TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak) */
 	ascli_print_highlight (_("Other metadata sources:"));
-	g_hash_table_iter_init (&loc_iter, std_locations);
-	while (g_hash_table_iter_next (&loc_iter, NULL, &loc_value)) {
-		AsLocationGroup *lgroup = loc_value;
-		if (lgroup->is_os_data)
-			continue;
-		if (ascli_status_print_location_group (lgroup))
-			other_metadata_found = TRUE;
-	}
+	other_metadata_found = os_metadata_found = as_pool_print_std_data_locations_info_private (pool, FALSE, TRUE);
 	if (!other_metadata_found)
 		/* TRANSLATORS: In ascli status, no additional metadata sources have been found */
 		g_print ("• %s\n", _("No metadata."));
-
-	g_print ("\n");
 
 	/* TRANSLATORS: Status summary in ascli */
 	ascli_print_highlight (_("Summary:"));

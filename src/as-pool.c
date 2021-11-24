@@ -94,17 +94,6 @@ static guint signals [SIGNAL_LAST] = { 0 };
 
 #define GET_PRIVATE(o) (as_pool_get_instance_private (o))
 
-
-/**
- * SYSTEM_COLLECTION_METADATA_PATHS:
- *
- * Locations where system-wide AppStream collection metadata may be stored.
- */
-const gchar *SYSTEM_COLLECTION_METADATA_PATHS[4] = { "/usr/share/app-info",
-						     "/var/lib/app-info",
-						     "/var/cache/app-info",
-						     NULL};
-
 /* TRANSLATORS: List of "grey-listed" words sperated with ";"
  * Do not translate this list directly. Instead,
  * provide a list of words in your language that people are likely
@@ -112,6 +101,12 @@ const gchar *SYSTEM_COLLECTION_METADATA_PATHS[4] = { "/usr/share/app-info",
  * the search.
  */
 #define AS_SEARCH_GREYLIST_STR _("app;application;package;program;programme;suite;tool")
+
+/* Locations where system-wide AppStream collection metadata may be stored. */
+const gchar *SYSTEM_COLLECTION_METADATA_PATHS[4] = { "/usr/share/app-info",
+						     "/var/lib/app-info",
+						     "/var/cache/app-info",
+						     NULL};
 
 /* where .desktop files are installed to by packages to be registered with the system */
 static gchar *APPLICATIONS_DIR = "/usr/share/applications";
@@ -125,6 +120,22 @@ static gchar *LOCAL_METAINFO_CACHE_KEY = "local-metainfo";
 /* cache key used for AppStream collection metadata provided by the OS */
 static gchar *OS_COLLECTION_CACHE_KEY = "os-catalog";
 
+typedef struct {
+	AsFormatKind		format_kind;
+	GRefString		*location;
+	gboolean		compressed_only; /* load only compressed data, workaround for Flatpak */
+} AsLocationEntry;
+
+typedef struct {
+	AsPool			*owner;
+	AsComponentScope	scope;
+	AsFormatStyle		format_style;
+	gboolean		is_os_data;
+	GPtrArray		*locations;
+	GPtrArray		*icon_dirs;
+	GRefString		*cache_key;
+	AsFileMonitor		*monitor;
+} AsLocationGroup;
 
 static AsLocationEntry*
 as_location_entry_new (AsFormatKind format_kind,
@@ -2356,23 +2367,117 @@ as_pool_reset_extra_data_locations (AsPool *pool)
 }
 
 /**
- * as_pool_get_std_data_locations_private:
+ * as_pool_print_location_group_info:
+ */
+static gboolean
+as_pool_print_location_group_info (AsLocationGroup *lgroup)
+{
+	gboolean data_found = FALSE;
+	g_print (" %s: %s\n", _("Group"), lgroup->cache_key);
+
+	for (guint i = 0; i < lgroup->locations->len; i++) {
+		AsLocationEntry *lentry = g_ptr_array_index (lgroup->locations, i);
+		g_autoptr(GPtrArray) files = NULL;
+		const gchar *format_kind_str;
+
+		if (!g_file_test (lentry->location, G_FILE_TEST_IS_DIR))
+			continue;
+
+		g_print ("  %s\n", lentry->location);
+		if (lentry->format_kind == AS_FORMAT_KIND_XML) {
+			files = as_utils_find_files_matching (lentry->location, "*.xml*", FALSE, NULL);
+			if (lgroup->format_style == AS_FORMAT_STYLE_METAINFO)
+				format_kind_str = "MetaInfo XML";
+			else
+				format_kind_str = "Collection XML";
+		} else if (lentry->format_kind == AS_FORMAT_KIND_YAML) {
+			files = as_utils_find_files_matching (lentry->location, "*.yml*", FALSE, NULL);
+			format_kind_str = "YAML";
+		} else if (lentry->format_kind == AS_FORMAT_KIND_DESKTOP_ENTRY) {
+			files = as_utils_find_files_matching (lentry->location, "*.desktop", FALSE, NULL);
+			format_kind_str = "Desktop Entry";
+		} else {
+			g_warning ("Unknown data format type detected: %s", as_format_kind_to_string (lentry->format_kind));
+			continue;
+		}
+
+		if (files != NULL) {
+			g_print ("    • %s:  %i\n", format_kind_str, files->len);
+			if (files->len > 0)
+				data_found = TRUE;
+		}
+	}
+
+
+	for (guint i = 0; i < lgroup->icon_dirs->len; i++) {
+		const gchar *icons_path = g_ptr_array_index (lgroup->icon_dirs, i);
+		g_autoptr(GPtrArray) icon_dirs = NULL;
+
+		if (!g_file_test (icons_path, G_FILE_TEST_IS_DIR))
+			continue;
+		g_print ("  %s\n", icons_path);
+
+		icon_dirs = as_utils_find_files_matching (icons_path, "*", FALSE, NULL);
+		if (icon_dirs != NULL) {
+			g_print ("    • %s:\n", _("Iconsets"));
+			for (guint j = 0; j < icon_dirs->len; j++) {
+				const gchar *ipath;
+				g_autofree gchar *dname = NULL;
+				ipath = (const gchar *) g_ptr_array_index (icon_dirs, j);
+
+				dname = g_path_get_basename (ipath);
+				g_print ("        %s\n", dname);
+			}
+		}
+	}
+
+	return data_found;
+}
+
+/**
+ * as_pool_print_std_data_locations_info_private:
  *
- * Internal diagnostic function to funnel out information on metadata
- * locations.
+ * Internal diagnostic function to print information about the
+ * standard data directories to stdout.
  * Used in appstreamcli, but not exposed as public API.
  */
-GHashTable*
-as_pool_get_std_data_locations_private (AsPool *pool)
+gboolean
+as_pool_print_std_data_locations_info_private (AsPool *pool, gboolean print_os_data, gboolean print_extra_data)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	gboolean data_found = FALSE;
+	GHashTableIter loc_iter;
+	gpointer loc_value;
 	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 
 	/* find common locations that have metadata */
 	if (g_hash_table_size (priv->std_data_locations) == 0)
 		as_pool_detect_std_metadata_dirs (pool, TRUE);
 
-	return priv->std_data_locations;
+
+	g_hash_table_iter_init (&loc_iter, priv->std_data_locations);
+	while (g_hash_table_iter_next (&loc_iter, NULL, &loc_value)) {
+		AsLocationGroup *lgroup = loc_value;
+		if (!print_os_data && lgroup->is_os_data)
+			continue;
+		if (!print_extra_data && !lgroup->is_os_data)
+			continue;
+
+		if (lgroup->is_os_data) {
+			if (lgroup->format_style == AS_FORMAT_STYLE_METAINFO)
+				/* TRANSLATORS: Info in appstreamcli status about OS data origin */
+				g_print (" %s\n", _("Data from locally installed software"));
+			else
+				/* TRANSLATORS: Info in appstreamcli status about OS data origin */
+				g_print (" %s\n", _("Software catalog data"));
+		}
+
+		if (as_pool_print_location_group_info (lgroup))
+			data_found = TRUE;
+		g_print ("\n");
+	}
+
+	return data_found;
 }
 
 /**
