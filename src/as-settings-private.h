@@ -31,10 +31,6 @@ G_BEGIN_DECLS
 #define AS_CONFIG_NAME "/etc/appstream.conf"
 #define AS_APPSTREAM_SYS_CACHE_DIR "/var/cache/app-info/cache"
 
-/* declared in as-data-pool.c */
-AS_INTERNAL_VISIBLE
-extern const gchar *AS_SYSTEM_COLLECTION_METADATA_PATHS[4];
-
 #pragma GCC visibility pop
 G_END_DECLS
 

@@ -23,21 +23,29 @@
 
 #include "as-pool.h"
 #include "as-settings-private.h"
+#include "as-file-monitor.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
+typedef struct {
+	AsFormatKind		format_kind;
+	GRefString		*location;
+	gboolean		compressed_only; /* load only compressed data, workaround for Flatpak */
+} AsLocationEntry;
+
+typedef struct {
+	AsPool			*owner;
+	AsComponentScope	scope;
+	AsFormatStyle		format_style;
+	gboolean		is_os_data;
+	GPtrArray		*locations;
+	GPtrArray		*icon_dirs;
+	GRefString		*cache_key;
+	AsFileMonitor		*monitor;
+} AsLocationGroup;
+
 time_t			as_pool_get_os_metadata_cache_age (AsPool *pool);
-
-AS_INTERNAL_VISIBLE
-void			as_cache_file_save (const gchar *fname,
-						const gchar *locale,
-						GPtrArray *cpts,
-						GError **error);
-
-AS_INTERNAL_VISIBLE
-GPtrArray		*as_cache_file_read (const gchar *fname,
-						GError **error);
 
 AS_INTERNAL_VISIBLE
 gboolean		as_pool_refresh_system_cache (AsPool *pool,
@@ -49,6 +57,9 @@ AS_INTERNAL_VISIBLE
 void			as_pool_override_cache_locations (AsPool *pool,
 							  const gchar *dir_sys,
 							  const gchar *dir_user);
+
+AS_INTERNAL_VISIBLE
+GHashTable		*as_pool_get_std_data_locations_private (AsPool *pool);
 
 #pragma GCC visibility pop
 G_END_DECLS

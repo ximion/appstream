@@ -96,14 +96,14 @@ static guint signals [SIGNAL_LAST] = { 0 };
 
 
 /**
- * AS_SYSTEM_COLLECTION_METADATA_PATHS:
+ * SYSTEM_COLLECTION_METADATA_PATHS:
  *
  * Locations where system-wide AppStream collection metadata may be stored.
  */
-const gchar *AS_SYSTEM_COLLECTION_METADATA_PATHS[4] = { "/usr/share/app-info",
-							"/var/lib/app-info",
-							"/var/cache/app-info",
-							NULL};
+const gchar *SYSTEM_COLLECTION_METADATA_PATHS[4] = { "/usr/share/app-info",
+						     "/var/lib/app-info",
+						     "/var/cache/app-info",
+						     NULL};
 
 /* TRANSLATORS: List of "grey-listed" words sperated with ";"
  * Do not translate this list directly. Instead,
@@ -126,12 +126,6 @@ static gchar *LOCAL_METAINFO_CACHE_KEY = "local-metainfo";
 static gchar *OS_COLLECTION_CACHE_KEY = "os-catalog";
 
 
-typedef struct {
-	AsFormatKind		format_kind;
-	GRefString		*location;
-	gboolean		compressed_only; /* load only compressed data, workarounf for Flatpak */
-} AsLocationEntry;
-
 static AsLocationEntry*
 as_location_entry_new (AsFormatKind format_kind,
 		       const gchar *location)
@@ -151,17 +145,6 @@ as_location_entry_free (AsLocationEntry *entry)
 	as_ref_string_release (entry->location);
 	g_free (entry);
 }
-
-typedef struct {
-	AsPool			*owner;
-	AsComponentScope	scope;
-	AsFormatStyle		format_style;
-	gboolean		is_os_data;
-	GPtrArray		*locations;
-	GPtrArray		*icon_dirs;
-	GRefString		*cache_key;
-	AsFileMonitor		*monitor;
-} AsLocationGroup;
 
 static void as_pool_cache_refine_component_cb (AsComponent *cpt, gboolean is_serialization, gpointer user_data);
 static void as_pool_location_group_monitor_changed_cb (AsFileMonitor *monitor, const gchar *filename, AsLocationGroup *lgroup);
@@ -697,10 +680,10 @@ as_pool_detect_std_metadata_dirs (AsPool *pool, gboolean include_user_data)
 	/* add collection XML directories for the OS */
 	/* check if we are permitted to load this */
 	if (as_flags_contains (priv->flags, AS_POOL_FLAG_LOAD_OS_COLLECTION)) {
-		for (guint i = 0; AS_SYSTEM_COLLECTION_METADATA_PATHS[i] != NULL; i++) {
+		for (guint i = 0; SYSTEM_COLLECTION_METADATA_PATHS[i] != NULL; i++) {
 			as_pool_add_collection_metadata_dir_internal (pool,
 								lgroup_coll,
-								AS_SYSTEM_COLLECTION_METADATA_PATHS[i],
+								SYSTEM_COLLECTION_METADATA_PATHS[i],
 								FALSE);
 		}
 	}
@@ -2370,6 +2353,26 @@ as_pool_reset_extra_data_locations (AsPool *pool)
 	g_hash_table_remove_all (priv->extra_data_locations);
 
 	g_debug ("Cleared extra metadata search paths.");
+}
+
+/**
+ * as_pool_get_std_data_locations_private:
+ *
+ * Internal diagnostic function to funnel out information on metadata
+ * locations.
+ * Used in appstreamcli, but not exposed as public API.
+ */
+GHashTable*
+as_pool_get_std_data_locations_private (AsPool *pool)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
+
+	/* find common locations that have metadata */
+	if (g_hash_table_size (priv->std_data_locations) == 0)
+		as_pool_detect_std_metadata_dirs (pool, TRUE);
+
+	return priv->std_data_locations;
 }
 
 /**

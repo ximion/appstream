@@ -25,9 +25,81 @@
 
 #include "as-utils-private.h"
 #include "as-settings-private.h"
+#include "as-pool-private.h"
 #include "ascli-utils.h"
 #include "as-component.h"
 #include "as-news-convert.h"
+
+
+/**
+ * ascli_status_print_location_group:
+ */
+static gboolean
+ascli_status_print_location_group (AsLocationGroup *lgroup)
+{
+	gboolean data_found = FALSE;
+	ascli_print_stdout (" Group: %s", lgroup->cache_key);
+
+	for (guint i = 0; i < lgroup->locations->len; i++) {
+		AsLocationEntry *lentry = g_ptr_array_index (lgroup->locations, i);
+		g_autoptr(GPtrArray) files = NULL;
+		const gchar *format_kind_str;
+
+		if (!g_file_test (lentry->location, G_FILE_TEST_IS_DIR))
+			continue;
+
+		g_print ("  %s\n", lentry->location);
+		if (lentry->format_kind == AS_FORMAT_KIND_XML) {
+			files = as_utils_find_files_matching (lentry->location, "*.xml*", FALSE, NULL);
+			if (lgroup->format_style == AS_FORMAT_STYLE_METAINFO)
+				format_kind_str = "MetaInfo XML";
+			else
+				format_kind_str = "Collection XML";
+		} else if (lentry->format_kind == AS_FORMAT_KIND_YAML) {
+			files = as_utils_find_files_matching (lentry->location, "*.yml*", FALSE, NULL);
+			format_kind_str = "YAML";
+		} else if (lentry->format_kind == AS_FORMAT_KIND_DESKTOP_ENTRY) {
+			files = as_utils_find_files_matching (lentry->location, "*.desktop", FALSE, NULL);
+			format_kind_str = "Desktop Entry";
+		} else {
+			g_warning ("Unknown data format type detected: %s", as_format_kind_to_string (lentry->format_kind));
+			continue;
+		}
+
+		if (files != NULL) {
+			ascli_print_stdout ("    • %s:  %i", format_kind_str, files->len);
+			if (files->len > 0)
+				data_found = TRUE;
+		}
+	}
+
+
+	for (guint i = 0; i < lgroup->icon_dirs->len; i++) {
+		const gchar *icons_path = g_ptr_array_index (lgroup->icon_dirs, i);
+		g_autoptr(GPtrArray) icon_dirs = NULL;
+
+		if (!g_file_test (icons_path, G_FILE_TEST_IS_DIR))
+			continue;
+		g_print ("  %s\n", icons_path);
+
+
+
+		icon_dirs = as_utils_find_files_matching (icons_path, "*", FALSE, NULL);
+		if (icon_dirs != NULL) {
+			ascli_print_stdout ("    • %s:", _("Iconsets"));
+			for (guint j = 0; j < icon_dirs->len; j++) {
+				const gchar *ipath;
+				g_autofree gchar *dname = NULL;
+				ipath = (const gchar *) g_ptr_array_index (icon_dirs, j);
+
+				dname = g_path_get_basename (ipath);
+				g_print ("        %s\n", dname);
+			}
+		}
+	}
+
+	return data_found;
+}
 
 /**
  * ascli_show_status:
@@ -37,126 +109,82 @@
 gint
 ascli_show_status (void)
 {
-	guint i;
-	g_autoptr(AsPool) dpool = NULL;
+	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(GError) error = NULL;
-	const gchar *metainfo_path = "/usr/share/metainfo";
-	const gchar *appdata_path = "/usr/share/appdata";
+	GHashTable *std_locations;
+	GHashTableIter loc_iter;
+	gboolean os_metadata_found = FALSE;
+	gboolean other_metadata_found = FALSE;
+	gpointer loc_value;
 
 	/* TRANSLATORS: In the status report of ascli: Header */
 	ascli_print_highlight (_("AppStream Status:"));
 	ascli_print_stdout (_("Version: %s"), PACKAGE_VERSION);
 	g_print ("\n");
 
+	pool = as_pool_new ();
+	as_pool_remove_flags (pool, AS_POOL_FLAG_MONITOR);
+	std_locations = as_pool_get_std_data_locations_private (pool);
+
 	/* TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions */
-	ascli_print_highlight (_("Distribution metadata:"));
-	for (i = 0; AS_SYSTEM_COLLECTION_METADATA_PATHS[i] != NULL; i++) {
-		g_autofree gchar *xml_path = NULL;
-		g_autofree gchar *yaml_path = NULL;
-		g_autofree gchar *icons_path = NULL;
-		gboolean found = FALSE;
+	ascli_print_highlight (_("OS metadata sources:"));
+	g_hash_table_iter_init (&loc_iter, std_locations);
+	while (g_hash_table_iter_next (&loc_iter, NULL, &loc_value)) {
+		AsLocationGroup *lgroup = loc_value;
+		if (!lgroup->is_os_data)
+			continue;
 
-		xml_path = g_build_filename (AS_SYSTEM_COLLECTION_METADATA_PATHS[i], "xmls", NULL);
-		yaml_path = g_build_filename (AS_SYSTEM_COLLECTION_METADATA_PATHS[i], "yaml", NULL);
-		icons_path = g_build_filename (AS_SYSTEM_COLLECTION_METADATA_PATHS[i], "icons", NULL);
+		if (lgroup->format_style == AS_FORMAT_STYLE_METAINFO)
+			ascli_print_stdout (" %s", _("Data from locally installed software"));
+		else
+			ascli_print_stdout (" %s", _("Software catalog data"));
 
-		g_print (" %s\n", AS_SYSTEM_COLLECTION_METADATA_PATHS[i]);
-
-		/* display XML data count */
-		if (g_file_test (xml_path, G_FILE_TEST_IS_DIR)) {
-			g_autoptr(GPtrArray) xmls = NULL;
-
-			xmls = as_utils_find_files_matching (xml_path, "*.xml*", FALSE, NULL);
-			if (xmls != NULL) {
-				ascli_print_stdout ("  - XML:  %i", xmls->len);
-				found = TRUE;
-			}
-		}
-
-		/* display YAML data count */
-		if (g_file_test (yaml_path, G_FILE_TEST_IS_DIR)) {
-			g_autoptr(GPtrArray) yaml = NULL;
-
-			yaml = as_utils_find_files_matching (yaml_path, "*.yml*", FALSE, NULL);
-			if (yaml != NULL) {
-				ascli_print_stdout ("  - YAML: %i", yaml->len);
-				found = TRUE;
-			}
-		}
-
-		/* display icon information data count */
-		if (g_file_test (icons_path, G_FILE_TEST_IS_DIR)) {
-			guint j;
-			g_autoptr(GPtrArray) icon_dirs = NULL;
-			icon_dirs = as_utils_find_files_matching (icons_path, "*", FALSE, NULL);
-			if (icon_dirs != NULL) {
-				found = TRUE;
-				ascli_print_stdout ("  - %s:", _("Iconsets"));
-				for (j = 0; j < icon_dirs->len; j++) {
-					const gchar *ipath;
-					g_autofree gchar *dname = NULL;
-					ipath = (const gchar *) g_ptr_array_index (icon_dirs, j);
-
-					dname = g_path_get_basename (ipath);
-					g_print ("     %s\n", dname);
-				}
-			}
-		} else if (found) {
-			ascli_print_stdout ("  - %s", _("No icons."));
-		}
-
-		if (!found) {
-			ascli_print_stdout ("  - %s", _("Empty."));
-		}
-
+		if (ascli_status_print_location_group (lgroup))
+			os_metadata_found = TRUE;
 		g_print ("\n");
 	}
 
-	/* TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report */
-	ascli_print_highlight (_("Metainfo files:"));
-	if (g_file_test (metainfo_path, G_FILE_TEST_IS_DIR)) {
-		g_autoptr(GPtrArray) xmls = NULL;
-		g_autofree gchar *msg = NULL;
+	if (!os_metadata_found)
+		/* TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug) */
+		g_print ("✘ %s\n", _("No OS metadata found. This is unusual."));
 
-		xmls = as_utils_find_files_matching (metainfo_path, "*.xml", FALSE, NULL);
-		if (xmls != NULL) {
-			msg = g_strdup_printf (_("Found %i components."), xmls->len);
-			ascli_print_stdout ("  - %s", msg);
-		}
-	} else {
-		if (!g_file_test (appdata_path, G_FILE_TEST_IS_DIR))
-			/* TRANSLATORS: No metainfo files have been found */
-			ascli_print_stdout ("  - %s", _("Empty."));
+	/* TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak) */
+	ascli_print_highlight (_("Other metadata sources:"));
+	g_hash_table_iter_init (&loc_iter, std_locations);
+	while (g_hash_table_iter_next (&loc_iter, NULL, &loc_value)) {
+		AsLocationGroup *lgroup = loc_value;
+		if (lgroup->is_os_data)
+			continue;
+		if (ascli_status_print_location_group (lgroup))
+			other_metadata_found = TRUE;
 	}
-	if (g_file_test (appdata_path, G_FILE_TEST_IS_DIR)) {
-		g_autoptr(GPtrArray) xmls = NULL;
-		g_autofree gchar *msg = NULL;
+	if (!other_metadata_found)
+		/* TRANSLATORS: In ascli status, no additional metadata sources have been found */
+		g_print ("• %s\n", _("No metadata."));
 
-		xmls = as_utils_find_files_matching (appdata_path, "*.xml", FALSE, NULL);
-		if (xmls != NULL) {
-			/* TRANSLATORS: Found metainfo files in legacy directories */
-			msg = g_strdup_printf (_("Found %i components in legacy paths."), xmls->len);
-			ascli_print_stdout ("  - %s", msg);
-		}
-	}
 	g_print ("\n");
 
 	/* TRANSLATORS: Status summary in ascli */
 	ascli_print_highlight (_("Summary:"));
 
-	dpool = as_pool_new ();
-	as_pool_load (dpool, NULL, &error);
+	as_pool_load (pool, NULL, &error);
 	if (error == NULL) {
 		g_autoptr(GPtrArray) cpts = NULL;
-		cpts = as_pool_get_components (dpool);
+		g_autofree gchar *tmp = NULL;
+		const gchar *marker;
 
-		ascli_print_stdout (_("We have information on %i software components."), cpts->len);
-		/* TODO: Request the on-disk cache status from #AsPool and display it here.
-		 * ascli_print_stdout (_("The system metadata cache exists."));
-		 * ascli_print_stdout (_("The system metadata cache does not exist."));
-		 */
+		cpts = as_pool_get_components (pool);
+		if (cpts->len > 0)
+			marker = "✔";
+		else
+			marker = "✘";
+
+		tmp = g_strdup_printf (_("We have information on %i software components."), cpts->len);
+		ascli_print_stdout ("%s %s", marker, tmp);
 	} else {
-		ascli_print_stderr (_("Error while loading the metadata pool: %s"), error->message);
+		g_autofree gchar *tmp = NULL;
+		tmp = g_strdup_printf (_("Error while loading the metadata pool: %s"), error->message);
+		ascli_print_stderr ("✘ %s", tmp);
 	}
 
 	return 0;
