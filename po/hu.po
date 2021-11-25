@@ -26,16 +26,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-11-24 19:44+0100\n"
-"PO-Revision-Date: 2021-09-23 06:36+0000\n"
+"PO-Revision-Date: 2021-11-25 10:38+0000\n"
 "Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
-"translations/hu/>\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/translations/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.10-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -998,7 +997,7 @@ msgstr "A metaadat fájlok hibákat tartalmaznak:"
 
 #: src/as-pool.c:2376
 msgid "Group"
-msgstr ""
+msgstr "Csoport"
 
 #: src/as-pool.c:2422
 msgid "Iconsets"
@@ -1007,12 +1006,12 @@ msgstr "Ikonkészletek"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2469
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Adatok a helyileg telepített szoftverekből"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2472
 msgid "Software catalog data"
-msgstr ""
+msgstr "Szoftverkatalógus-adatok"
 
 #: src/as-provided.c:144
 msgid "Libraries"
@@ -1448,19 +1447,16 @@ msgstr ""
 "összehasonlítási műveletet."
 
 #: src/as-validator-issue-tag.h:276
-#, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are "
 "permitted."
-msgstr ""
-"Érvénytelen verzió-összehasonlító művelet a kapcsolat elemen. Csak eq/ne/lt/"
-"gt/le/ge engedélyezett."
+msgstr "Érvénytelen összehasonlító művelet a kapcsolat elemen. Csak az eq/ne/lt/gt/le/ge engedélyezett."
 
 #: src/as-validator-issue-tag.h:281
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
+msgstr "A kapcsolat elemen összehasonlítás művelet beállítva, de nem támogat semmilyen összehasonlítást."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:287
@@ -1504,7 +1500,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
+msgstr "Ez a `display_length` elem érvénytelen megjelenítési hosszt tartalmaz. Az értékének vagy egy rövidítés karakterláncnak kell lennie, vagy egy pozitív értéknek, amely logikai képpontszámot jelöl. Nézze meg az AppStream specifikációt a címke további információiért."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:314
@@ -1513,14 +1509,14 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
+msgstr "E `display_length` elem `side` tulajdonsága érvénytelen értéket tartalmaz. Vagy `shortest` vagy `longest` lehet az értéke, vagy távolítsa el, ami implicit `shortest` értéket jelöl; így az elem a kijelző rövidebb vagy hosszabb oldalát fogja jelenteni."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:321
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
+msgstr "Ez a `hardware` elem érvénytelen értéket tartalmaz. Az értékének egy Computer Hardware ID (CHID) UUID azonosítónak kell lennie, kapcsos zárójelek nélkül."
 
 #: src/as-validator-issue-tag.h:326
 msgid ""
@@ -1577,12 +1573,10 @@ msgstr ""
 "csomagnév meghatározását."
 
 #: src/as-validator-issue-tag.h:366
-#, fuzzy
 msgid "The component name should (likely) not end with a dot (`.`)."
 msgstr "Az összetevő neve (valószínűleg) nem végződhet ponttal („.”)."
 
 #: src/as-validator-issue-tag.h:371
-#, fuzzy
 msgid "The component summary should not end with a dot (`.`)."
 msgstr "Az összetevő összegzése nem végződhet ponttal („.”)."
 
