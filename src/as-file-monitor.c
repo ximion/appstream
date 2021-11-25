@@ -72,7 +72,13 @@ as_file_monitor_finalize (GObject *object)
 
 	if (priv->pending_id)
 		g_source_remove (priv->pending_id);
+
+	/* explicitly cancel file monitors before destroying them due to
+	 * https://gitlab.gnome.org/GNOME/glib/-/issues/1941 */
+	for (guint i = 0; i < priv->monitors->len; i++)
+		g_file_monitor_cancel (G_FILE_MONITOR (g_ptr_array_index (priv->monitors, i)));
 	g_ptr_array_unref (priv->monitors);
+
 	g_ptr_array_unref (priv->files);
 	g_ptr_array_unref (priv->queue_add);
 	g_ptr_array_unref (priv->queue_changed);
