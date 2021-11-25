@@ -259,7 +259,7 @@
 				<term>&lt;categories/&gt;</term>
 				<listitem>
 					<para>
-						This tag can contain one or more <code>&lt;category&gt;></code> entries, describing the categories this software component
+						This tag can contain one or more <code>&lt;category&gt;</code> entries, describing the categories this software component
 						is associated with.
 						This tag is usually applied to components of type <literal>desktop-application</literal>, but can be used with any component.
 						A list of valid category names can be found in the
@@ -349,7 +349,7 @@
 					URLs of this type should allow the user to contact the developer.
 				</para>
 				<para>
-					This could for example be a HTTPS URL to an online form or a page describing how to contact the developer.
+					This could for example be an HTTPS URL to an online form or a page describing how to contact the developer.
 				</para>
 				<note>
 					<title>Deprecation</title>
@@ -375,7 +375,7 @@
 		</para>
 
 		<para>
-		  The <code>&lt;launchable/&gt;</code> tag has a essential <literal>type</literal> property indicating the system that is used to launch the component.  The following types are allowed:
+		  The <code>&lt;launchable/&gt;</code> tag has an essential <literal>type</literal> property indicating the system that is used to launch the component.  The following types are allowed:
                 </para>
                 <variablelist>
                   <varlistentry>
@@ -509,10 +509,10 @@
 			</para>
 
 			<para>
-				A release may also have an <literal>url</literal> tag as child.
+				A release may also have a <literal>url</literal> tag as child.
 				The release url should point to detailed release notes that explain the changes made in this particular release.
 				The <literal>url</literal> tag may have a <literal>type</literal> property with <code>details</code> as the only currently
-				allowed value. If the <literal>type</literal> is missing, an URL type of <code>details</code> is implicitly assumed.
+				allowed value. If the <literal>type</literal> is missing, a URL type of <code>details</code> is implicitly assumed.
 			</para>
 
 			<para>
@@ -640,7 +640,7 @@
 			This includes binaries and libraries. Private interfaces should never be added to a <literal>provides</literal> tag.
 			</para>
 			<para>
-			A <literal>provides</literal> tag contain a number of children describing the type and name of the provided public interface items.
+			A <literal>provides</literal> tag contains a number of children describing the type and name of the provided public interface items.
 			It is suggested that the build system auto-generates this tag and its children.
 			Currently allowed item types are listed below. If you miss something,
 			<ulink url="https://github.com/ximion/appstream/issues/new">file a bug against AppStream</ulink> so we can add the new type.
@@ -710,7 +710,7 @@
 				<term>&lt;firmware/&gt;</term>
 				<listitem>
 				<para>
-					This provided element is described in details for the <literal>firmware</literal> component type, where it is mandatory.
+					This provided element is described in detail for the <literal>firmware</literal> component type, where it is mandatory.
 					Please see <xref linkend="tag-firmware-provides"/> for more information.
 				</para>
 				</listitem>
@@ -806,9 +806,9 @@
 			<itemizedlist>
 				<listitem><para><code>eq</code> - Equal to</para></listitem>
 				<listitem><para><code>ne</code> - Not equal to</para></listitem>
-				<listitem><para><code>lt</code> - Lesser than</para></listitem>
+				<listitem><para><code>lt</code> - Less than</para></listitem>
 				<listitem><para><code>gt</code> - Greater than</para></listitem>
-				<listitem><para><code>le</code> - Lesser than or equal to</para></listitem>
+				<listitem><para><code>le</code> - Less than or equal to</para></listitem>
 				<listitem><para><code>ge</code> - Greater than or equal to</para></listitem>
 			</itemizedlist>
 			<para>
@@ -834,7 +834,7 @@
 				<term>&lt;modalias/&gt;</term>
 				<listitem>
 				<para>
-					Check for a specific hardware to be present via its modalias. The modalias may contain a wildcard expression.
+					Check for specific hardware to be present via its modalias. The modalias may contain a wildcard expression.
 					Example:
 				</para>
 				<programlisting language="XML"><![CDATA[<recommends>
@@ -1122,7 +1122,7 @@
 		<listitem>
 			<para>
 				The <code>&lt;project_license/&gt;</code> tag is indicating the license of the component (application/library/addon/font/etc.) described in the metadata document.
-				It should be a <ulink url="https://spdx.org/specifications">SPDX license expression</ulink>. Please note the SPDX license IDs are case-sensitive in AppStream.
+				It should be an <ulink url="https://spdx.org/specifications">SPDX license expression</ulink>. Please note the SPDX license IDs are case-sensitive in AppStream.
 				Possible values include:
 				<itemizedlist>
 					<listitem><para><literal>GPL-2.0</literal></para></listitem>
@@ -1167,7 +1167,7 @@
 		</para>
 		<para>
 			Values might be for example "The GNOME Foundation" or "The KDE Community".
-			You must not include hyperlinks or emails in this field, if you want to link to the developer's homepage, use the <xref linkend="tag-url"/>-tag instead.
+			You must not include hyperlinks or emails in this field; if you want to link to the developer's homepage, use the <xref linkend="tag-url"/>-tag instead.
 		</para>
 		<para>
 			This tag is translatable.
@@ -1193,7 +1193,7 @@
 		</para>
 		<para>
 			The value of the <code>&lt;image/&gt;</code> tag is a direct HTTP/HTTPS URL to a screenshot uploaded to a public location on the web.
-			Images should ideally be provided in the PNG format, using JPEG or WebP is also permitted for images in metainfo files.
+			Images should ideally be provided in the PNG format; using JPEG or WebP is also permitted for images in metainfo files.
 		</para>
 		<para>
 			The <code>&lt;image/&gt;</code> tag may have the following properties:
@@ -1508,7 +1508,7 @@
 		<para>
 			The tag must have <literal>value</literal> children which must have a <literal>key</literal> property. The value of the <literal>value</literal>
 			tag denotes a user-defined value, while the key string set for the <literal>key</literal> property denotes a user-specified key string.
-			The key must be unique, multiple keys with the same name are not allowed.
+			The key must be unique; multiple keys with the same name are not allowed.
 		</para>
 		<para>
 			To avoid name conflicts, it is recommended to prefix keys with a vendor prefix, like <code>GNOME::</code> or <code>KDE::</code>.
