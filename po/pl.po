@@ -21,17 +21,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-11-24 19:44+0100\n"
-"PO-Revision-Date: 2021-10-10 10:11+0000\n"
+"PO-Revision-Date: 2021-11-25 12:08+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
-"translations/pl/>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.10-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -994,7 +992,7 @@ msgstr "Pliki metadanych mają błędy:"
 
 #: src/as-pool.c:2376
 msgid "Group"
-msgstr ""
+msgstr "Grupa"
 
 #: src/as-pool.c:2422
 msgid "Iconsets"
@@ -1003,12 +1001,12 @@ msgstr "Zestawy ikon"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2469
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Dane z lokalnie zainstalowanego oprogramowania"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2472
 msgid "Software catalog data"
-msgstr ""
+msgstr "Dane katalogu oprogramowania"
 
 #: src/as-provided.c:144
 msgid "Libraries"
@@ -1521,7 +1519,7 @@ msgstr ""
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
+msgstr "Ten element „hardware” zawiera nieprawidłową wartość. Musi to być UUID typu CHID (Computer Hardware ID) bez nawiasów klamrowych."
 
 #: src/as-validator-issue-tag.h:326
 msgid ""
@@ -2330,7 +2328,7 @@ msgstr "Ręcznie wybrane położenie metadanych AppStream do skanowania."
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
+msgstr "Ignoruje wiek pamięci podręcznej i buduje świeżą przed wykonaniem zapytania."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
@@ -2404,7 +2402,7 @@ msgstr "Wymusza odświeżenie pamięci podręcznej."
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
+msgstr "Ogranicza odświeżenie pamięci podręcznej do konkretnego źródła, np. „os” lub „flatpak”. Może zostać podane wielokrotnie."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:478
@@ -2666,20 +2664,20 @@ msgstr "Należy podać polecenie."
 #. TRANSLATORS: In ascli: Status information during a "refresh" action.
 #: tools/ascli-actions-mdata.c:48
 msgid "Only refreshing metadata cache specific to the current user."
-msgstr ""
+msgstr "Odświeża pamięć podręczną metadanych tylko dla bieżącego użytkownika."
 
 #: tools/ascli-actions-mdata.c:59
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
+msgstr "Aktualizowanie pamięci podręcznej metadanych oprogramowania dla systemu operacyjnego."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for Flatpak."
-msgstr ""
+msgstr "Aktualizowanie pamięci podręcznej metadanych oprogramowania dla pakietów Flatpak."
 
 #: tools/ascli-actions-mdata.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "Plik metadanych „%s” nie istnieje."
+msgstr "Grupa źródłowa metadanych o nazwie „%s” nie istnieje."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
@@ -2688,15 +2686,13 @@ msgstr "Wymagane są uprawnienia administratora, aby wykonać to działanie."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
-#, fuzzy
 msgid "Metadata cache was updated successfully."
-msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
+msgstr "Pomyślnie zaktualizowano pamięć podręczną metadanych."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:102
-#, fuzzy
 msgid "Metadata cache update is not necessary."
-msgstr "Aktualizacja pamięci podręcznej AppStream jest niepotrzebna."
+msgstr "Aktualizacja pamięci podręcznej metadanych jest niepotrzebna."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -2826,23 +2822,22 @@ msgstr "Wersja: %s"
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:56
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "Źródła metadanych systemu operacyjnego:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:60
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "Nie odnaleziono żadnych metadanych systemu operacyjnego. To nietypowe."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:63
 msgid "Other metadata sources:"
-msgstr ""
+msgstr "Inne źródła metadanych:"
 
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:67
-#, fuzzy
 msgid "No metadata."
-msgstr "Składanie metadanych…"
+msgstr "Brak metadanych."
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:70
