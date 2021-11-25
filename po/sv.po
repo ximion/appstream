@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-11-24 19:44+0100\n"
-"PO-Revision-Date: 2021-11-24 21:03+0000\n"
+"PO-Revision-Date: 2021-11-25 11:15+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
@@ -1510,7 +1510,7 @@ msgstr ""
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
+msgstr "Detta `hardware`-objekt innehåller ett ogiltigt värde. Det ska vara ett datorhårdvaru-ID (CHID) UUID utan klammerparenteser."
 
 #: src/as-validator-issue-tag.h:326
 msgid ""
@@ -2304,7 +2304,7 @@ msgstr "Manuellt angiven plats för AppStream-metadata att söka av."
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
+msgstr "Ignorera ålder på cache och bygg en ny cache före sökningen utförs."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
@@ -2381,7 +2381,7 @@ msgstr "Tvinga en cache-uppdatering."
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
+msgstr "Begränsa cacheuppdatering till data från en specifik källa, t.ex. `os` eller `flatpak`. Kan anges flera gånger."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:478
@@ -2642,20 +2642,20 @@ msgstr "Du måste ange ett kommando."
 #. TRANSLATORS: In ascli: Status information during a "refresh" action.
 #: tools/ascli-actions-mdata.c:48
 msgid "Only refreshing metadata cache specific to the current user."
-msgstr ""
+msgstr "Uppdatera endast metadatacache som är specifik för den aktuella användaren."
 
 #: tools/ascli-actions-mdata.c:59
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
+msgstr "Uppdaterar programvarumetadatacache för operativsystemet."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for Flatpak."
-msgstr ""
+msgstr "Uppdaterar programvarumetadatacache för Flatpak."
 
 #: tools/ascli-actions-mdata.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "Metadatafilen ”%s” finns inte."
+msgstr "Det finns ingen metadatakällgrupp med namnet ”%s”!"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
@@ -2664,9 +2664,8 @@ msgstr "Du kan behöva superanvändarrättigheter för att utföra denna åtgär
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
-#, fuzzy
 msgid "Metadata cache was updated successfully."
-msgstr "Uppdatering av AppStreams cache färdig."
+msgstr "Metadatacache uppdaterades."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:102
@@ -2800,12 +2799,12 @@ msgstr "Version: %s"
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:56
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "Källor för OS-metadata:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:60
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "Inga OS-metadata hittades. Detta är ovanligt."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:63
