@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-11-24 19:44+0100\n"
-"PO-Revision-Date: 2021-11-25 10:39+0000\n"
+"PO-Revision-Date: 2021-11-25 10:41+0000\n"
 "Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/translations/hu/>\n"
 "Language: hu\n"
@@ -1654,20 +1654,17 @@ msgstr "Egy web URL várt ehhez az értékhez."
 #: src/as-validator-issue-tag.h:436
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr "Ez a weblink az FTP protokollt használja. Fontolja meg a HTTP(S)-re váltást."
+msgstr "Ez a webes hivatkozás az FTP protokollt használja. Fontolja meg a HTTP(S)-re váltást."
 
 #: src/as-validator-issue-tag.h:441
 msgid "The <developer_name/> can not contain a hyperlink."
 msgstr "A <developer_name/> nem tartalmazhat hiperhivatkozást."
 
 #: src/as-validator-issue-tag.h:446
-#, fuzzy
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
-msgstr ""
-"A megadott értékek nem egy olyan asztali környezet azonosítói, ahogy a "
-"Freedesktop.org-nál regisztrálva vannak."
+msgstr "A megadott érték nem egy a Freedesktop.org-nál regisztrált asztali környezet azonosítója."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:452
@@ -1759,7 +1756,7 @@ msgstr ""
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
-msgstr ""
+msgstr "`console-application` összetevőtípus, de nincs információ megadva a $PATH környezeti változóban lévő binárisokról a `provides/binary` címkén keresztül."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:515
@@ -1863,9 +1860,8 @@ msgstr ""
 "kategórianevek listájához."
 
 #: src/as-validator-issue-tag.h:585
-#, fuzzy
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr "A képernyőkép felirata túl hosszú (legfeljebb 80 karakter lehet)"
+msgstr "A képernyőkép felirata túl hosszú (legfeljebb 100 karakter lehet)"
 
 #: src/as-validator-issue-tag.h:590
 msgid "Unable to read file."
