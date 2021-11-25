@@ -21,7 +21,7 @@
 
 /**
  * SECTION:as-file-monitor
- * @short_description: a hashed array monitor of software components
+ * @short_description: a hashed array monitor for software component metadata files
  * @include: appstream.h
  * @stability: unstable
  *
@@ -34,7 +34,7 @@
 
 typedef struct
 {
-	GPtrArray		*array;		/* of GFileMonitor */
+	GPtrArray		*monitors;		/* of GFileMonitor */
 	GPtrArray		*files;		/* of gchar* */
 	GPtrArray		*queue_add;	/* of gchar* */
 	GPtrArray		*queue_changed;	/* of gchar* */
@@ -72,7 +72,7 @@ as_file_monitor_finalize (GObject *object)
 
 	if (priv->pending_id)
 		g_source_remove (priv->pending_id);
-	g_ptr_array_unref (priv->array);
+	g_ptr_array_unref (priv->monitors);
 	g_ptr_array_unref (priv->files);
 	g_ptr_array_unref (priv->queue_add);
 	g_ptr_array_unref (priv->queue_changed);
@@ -85,7 +85,7 @@ static void
 as_file_monitor_init (AsFileMonitor *monitor)
 {
 	AsFileMonitorPrivate *priv = GET_PRIVATE (monitor);
-	priv->array = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
+	priv->monitors = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
 	priv->files = g_ptr_array_new_with_free_func (g_free);
 	priv->queue_add = g_ptr_array_new_with_free_func (g_free);
 	priv->queue_changed = g_ptr_array_new_with_free_func (g_free);
@@ -439,7 +439,7 @@ as_file_monitor_add_directory (AsFileMonitor *monitor,
 		return FALSE;
 	g_signal_connect (mon, "changed",
 			  G_CALLBACK (as_file_monitor_file_changed_cb), monitor);
-	g_ptr_array_add (priv->array, g_object_ref (mon));
+	g_ptr_array_add (priv->monitors, g_object_ref (mon));
 
 	return TRUE;
 }
@@ -481,7 +481,7 @@ as_file_monitor_add_file (AsFileMonitor *monitor,
 		return FALSE;
 	g_signal_connect (mon, "changed",
 			  G_CALLBACK (as_file_monitor_file_changed_cb), monitor);
-	g_ptr_array_add (priv->array, g_object_ref (mon));
+	g_ptr_array_add (priv->monitors, g_object_ref (mon));
 
 	/* only add if actually exists */
 	if (g_file_test (filename, G_FILE_TEST_EXISTS))
