@@ -27,8 +27,8 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-11-24 19:44+0100\n"
-"PO-Revision-Date: 2021-11-24 21:03+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"PO-Revision-Date: 2021-11-25 11:15+0000\n"
+"Last-Translator: Wellington Terumi Uemura <wellingtonuemura@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -1010,12 +1010,12 @@ msgstr "Conjunto de ícones"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2469
 msgid "Data from locally installed software"
-msgstr "Dados de software instalado localmente"
+msgstr "Dados do software instalado localmente"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2472
 msgid "Software catalog data"
-msgstr "Dados de categorias de software"
+msgstr "Dados das categorias do software"
 
 #: src/as-provided.c:144
 msgid "Libraries"
@@ -1533,7 +1533,7 @@ msgstr ""
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
+msgstr "Este item `hardware` possui um valor inválido. Deve ser um \"Computer Hardware ID\" (CHID) UUID sem chaves."
 
 #: src/as-validator-issue-tag.h:326
 msgid ""
@@ -2342,7 +2342,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
+msgstr "Ignore a idade do cache e construa um novo cache antes de realizar a consulta."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
@@ -2417,7 +2417,7 @@ msgstr "Reforçar uma atualização da cache."
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
+msgstr "Limite a atualização do cache para os dados de uma determinada fonte, por exemplo, `os` ou `flatpak`. Pode ser especificado diversas vezes."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:478
@@ -2694,20 +2694,20 @@ msgstr "Você precisa especificar um comando."
 #. TRANSLATORS: In ascli: Status information during a "refresh" action.
 #: tools/ascli-actions-mdata.c:48
 msgid "Only refreshing metadata cache specific to the current user."
-msgstr ""
+msgstr "Apenas atualizando o cache dos metadados específico para o usuário atual."
 
 #: tools/ascli-actions-mdata.c:59
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
+msgstr "Atualizando o cache dos metadados do software para o sistema operacional."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for Flatpak."
-msgstr ""
+msgstr "Atualizando o cache dos metadados do software para o Flatpak."
 
 #: tools/ascli-actions-mdata.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "Arquivo de metadados “%s” não existe."
+msgstr "Um grupo fonte de metadados com o nome '%s' não existe!"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
@@ -2717,15 +2717,13 @@ msgstr ""
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
-#, fuzzy
 msgid "Metadata cache was updated successfully."
-msgstr "Atualização do cache do AppStream concluído com sucesso."
+msgstr "O cache de metadados foi atualizado com sucesso."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:102
-#, fuzzy
 msgid "Metadata cache update is not necessary."
-msgstr "Atualização do cache do AppStream não é necessária."
+msgstr "A atualização do cache de metadados não é necessária."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -2855,23 +2853,22 @@ msgstr "Versão: %s"
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:56
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "Origem dos metadados do SO:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:60
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "Nenhum metadados do SO foi encontrado. Isto é anormal."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:63
 msgid "Other metadata sources:"
-msgstr ""
+msgstr "Outras origens para os metadados:"
 
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:67
-#, fuzzy
 msgid "No metadata."
-msgstr "Compondo metadados…"
+msgstr "Nenhum metadados."
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:70
