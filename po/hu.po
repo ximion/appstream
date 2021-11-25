@@ -26,8 +26,8 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-11-24 19:44+0100\n"
-"PO-Revision-Date: 2021-11-25 10:41+0000\n"
-"Last-Translator: SoftwareByRedline <krajczar.david41@gmail.com>\n"
+"PO-Revision-Date: 2021-11-25 11:15+0000\n"
+"Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/translations/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
@@ -1958,7 +1958,7 @@ msgstr "A kiadási sürgősségnek beállított érték nem egy ismert sürgőss
 
 #: src/as-validator-issue-tag.h:669
 msgid "The value set as release type is invalid."
-msgstr "A kiadás típusának beállított érték érvénytelen."
+msgstr "A kiadás típusaként beállított érték érvénytelen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:675
@@ -1976,7 +1976,7 @@ msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
+msgstr "A kiadás platform hármasa érvénytelen. A formátumának a következőnek kell lennie: `architecture-oskernel-osenv` – További információkért és az érvényes mezőkért nézze meg az AppStream dokumentációját a normalizált GNU hármasokkal kapcsolatban."
 
 #: src/as-validator-issue-tag.h:692
 msgid "The selected checksumming algorithm is unsupported or unknown."
