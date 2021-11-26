@@ -602,6 +602,41 @@ as_cache_register_addons_for_component (AsCache *cache, AsComponent *cpt, GError
 	return TRUE;
 }
 
+#if LIBXMLB_CHECK_VERSION(0, 3, 4)
+/**
+ * as_transmogrify_xbnode_to_xmlnode:
+ */
+static gboolean
+as_transmogrify_xbnode_to_xmlnode (XbNode *xbn, xmlNode *lxn)
+{
+	XbNodeAttrIter attr_iter;
+	const gchar *attr_name;
+	const gchar *attr_value;
+	g_autoptr(GPtrArray) children = NULL;
+	g_return_val_if_fail (XB_IS_NODE (xbn), FALSE);
+
+	xmlNodeSetName (lxn,
+			(xmlChar*) xb_node_get_element (xbn));
+	xmlNodeAddContent (lxn,
+			   (xmlChar*) xb_node_get_text (xbn));
+
+	xb_node_attr_iter_init (&attr_iter, xbn);
+	while (xb_node_attr_iter_next (&attr_iter, &attr_name, &attr_value))
+		xmlNewProp (lxn, (xmlChar*) attr_name, (xmlChar*) attr_value);
+
+	/* all children */
+	children = xb_node_get_children (xbn);
+	for (guint i = 0; i < children->len; i++) {
+		XbNode *c = XB_NODE (g_ptr_array_index (children, i));
+		xmlNode *lc = xmlNewChild (lxn, NULL, (xmlChar*) "", NULL);
+		if (!as_transmogrify_xbnode_to_xmlnode (c, lc))
+			return FALSE;
+	}
+
+	return TRUE;
+}
+#endif
+
 /**
  * as_cache_component_from_node:
  *
@@ -612,9 +647,21 @@ as_cache_component_from_node (AsCache *cache, AsCacheSection *csec, XbNode *node
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	g_autoptr(AsComponent) cpt = NULL;
+	xmlNode *root;
+
+#if LIBXMLB_CHECK_VERSION(0, 3, 4)
+	root = xmlNewNode (NULL, (xmlChar*) "");
+	as_transmogrify_xbnode_to_xmlnode (node, root);
+
+	cpt = as_component_new ();
+	if (!as_component_load_from_xml (cpt, priv->context, root, error)) {
+		xmlFreeNode (root);
+		return NULL;
+	}
+	xmlFreeNode (root);
+#else
 	g_autofree gchar *xml_data = NULL;
 	xmlDoc *doc;
-	xmlNode *root;
 
 	xml_data = xb_node_export (node, XB_NODE_EXPORT_FLAG_NONE, error);
 	if (xml_data == NULL)
@@ -630,12 +677,13 @@ as_cache_component_from_node (AsCache *cache, AsCacheSection *csec, XbNode *node
 		xmlFreeDoc (doc);
 		return NULL;
 	}
+	xmlFreeDoc (doc);
+#endif
 
 	/* find addons (if there are any) - ensure addons don't have addons themselves */
 	if (priv->auto_resolve_addons &&
 	    (as_component_get_kind (cpt) != AS_COMPONENT_KIND_ADDON) &&
 	    !as_cache_register_addons_for_component (cache, cpt, error)) {
-		xmlFreeDoc (doc);
 		return NULL;
 	}
 
@@ -643,7 +691,6 @@ as_cache_component_from_node (AsCache *cache, AsCacheSection *csec, XbNode *node
 	if (priv->cpt_refine_func != NULL && !csec->is_mask)
 		(*priv->cpt_refine_func) (cpt, FALSE, csec->refine_func_udata);
 
-	xmlFreeDoc (doc);
 	return g_steal_pointer (&cpt);
 }
 
