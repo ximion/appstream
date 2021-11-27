@@ -551,13 +551,13 @@ as_cache_components_to_internal_xb (AsCache *cache,
 	g_autoptr(XbBuilderNode) bnode_root = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 	XbSilo *silo;
-	xmlNode *root;
 
 	/* NOTE: This function is already write-lock protected by its callers */
 
-	root = xmlNewNode (NULL, (xmlChar*) "components");
+	bnode_root = xb_builder_node_new ("components");
 	for (guint i = 0; i < cpts->len; i++) {
-		xmlNode *node;
+		xmlNode *cnode;
+		g_autoptr(XbBuilderNode) xbnode = NULL;
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 
 		/* ensure search token cache is generated */
@@ -568,15 +568,17 @@ as_cache_components_to_internal_xb (AsCache *cache,
 			(*priv->cpt_refine_func) (cpt, TRUE, refine_func_udata);
 
 		/* serialize to node */
-		node = as_component_to_xml_node (cpt, priv->context, NULL);
-		if (node == NULL)
+		cnode = as_component_to_xml_node (cpt, priv->context, NULL);
+		if (cnode == NULL)
 			continue;
-		xmlAddChild (root, node);
-	}
 
-	bnode_root = xb_builder_node_new ("components");
-	as_transmogrify_xmlnode_to_xbuildernode (root, bnode_root);
-	xmlFreeNode (root);
+		/* convert component node to builder node */
+		xbnode = xb_builder_node_new ("component");
+		as_transmogrify_xmlnode_to_xbuildernode (cnode, xbnode);
+		xmlFreeNode (cnode);
+
+		xb_builder_node_add_child (bnode_root, xbnode);
+	}
 
 	builder = xb_builder_new ();
 	/* add our version to the correctness hash */
