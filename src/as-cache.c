@@ -499,6 +499,38 @@ as_cache_get_root_dir_with_scope (AsCache *cache, AsCacheScope cache_scope, AsCo
 }
 
 /**
+ * as_transmogrify_xmlnode_to_xbuildernode:
+ */
+static void
+as_transmogrify_xmlnode_to_xbuildernode (xmlNode *lxn, XbBuilderNode *xbn)
+{
+	g_autofree gchar *node_content = NULL;
+
+	node_content = (gchar*) xmlNodeGetContent (lxn);
+	xb_builder_node_set_text (xbn, node_content, -1);
+
+	/* attributes */
+	for (xmlAttr *iter = lxn->properties; iter != NULL; iter = iter->next) {
+		g_autofree gchar *attr_value = (gchar*) xmlNodeGetContent (iter->children);
+		xb_builder_node_set_attr (xbn,
+					  (gchar*) iter->name,
+					  attr_value);
+	}
+
+	/* children */
+	for (xmlNode *iter = lxn->children; iter != NULL; iter = iter->next) {
+		g_autoptr(XbBuilderNode) child = NULL;
+
+		/* discard spaces (just in case there are any for some reason) */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		child = xb_builder_node_new ((gchar*) iter->name);
+		as_transmogrify_xmlnode_to_xbuildernode (iter, child);
+		xb_builder_node_add_child (xbn, child);
+	}
+}
+
+/**
  * as_cache_components_to_internal_xml:
  *
  * Convert a list of components into internal binary XML that we will store
@@ -516,7 +548,7 @@ as_cache_components_to_internal_xb (AsCache *cache,
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	g_autofree gchar *xml_data = NULL;
 	g_autoptr(XbBuilder) builder = NULL;
-	g_autoptr(XbBuilderSource) bsource = NULL;
+	g_autoptr(XbBuilderNode) bnode_root = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 	XbSilo *silo;
 	xmlNode *root;
@@ -542,29 +574,14 @@ as_cache_components_to_internal_xb (AsCache *cache,
 		xmlAddChild (root, node);
 	}
 
-	xml_data = as_xml_node_to_str (root, &tmp_error);
-	if (xml_data == NULL) {
-		g_propagate_prefixed_error (error,
-					    tmp_error,
-					    "Unable to serialize XML for caching:");
-		return NULL;
-	}
+	bnode_root = xb_builder_node_new ("components");
+	as_transmogrify_xmlnode_to_xbuildernode (root, bnode_root);
+	xmlFreeNode (root);
 
 	builder = xb_builder_new ();
 	/* add our version to the correctness hash */
 	xb_builder_append_guid (builder, PACKAGE_VERSION);
-
-	bsource = xb_builder_source_new ();
-	if (!xb_builder_source_load_xml (bsource,
-					 xml_data,
-					 XB_BUILDER_SOURCE_FLAG_NONE,
-					 &tmp_error)) {
-		g_propagate_prefixed_error (error,
-					    tmp_error,
-					    "Unable to load XML for compiling:");
-		return NULL;
-	}
-	xb_builder_import_source (builder, bsource);
+	xb_builder_import_node (builder, bnode_root);
 
 	silo = xb_builder_compile (builder,
 				   XB_BUILDER_COMPILE_FLAG_NONE,
