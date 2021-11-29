@@ -637,7 +637,8 @@ as_transmogrify_xbnode_to_xmlnode (XbNode *xbn, xmlNode *lxn)
 	XbNodeAttrIter attr_iter;
 	const gchar *attr_name;
 	const gchar *attr_value;
-	g_autoptr(GPtrArray) children = NULL;
+	XbNodeChildIter child_iter;
+	XbNode *child = NULL;
 	g_return_val_if_fail (XB_IS_NODE (xbn), FALSE);
 
 	xmlNodeSetName (lxn,
@@ -645,17 +646,19 @@ as_transmogrify_xbnode_to_xmlnode (XbNode *xbn, xmlNode *lxn)
 	xmlNodeAddContent (lxn,
 			   (xmlChar*) xb_node_get_text (xbn));
 
+	/* attributes */
 	xb_node_attr_iter_init (&attr_iter, xbn);
 	while (xb_node_attr_iter_next (&attr_iter, &attr_name, &attr_value))
 		xmlNewProp (lxn, (xmlChar*) attr_name, (xmlChar*) attr_value);
 
-	/* all children */
-	children = xb_node_get_children (xbn);
-	for (guint i = 0; i < children->len; i++) {
-		XbNode *c = XB_NODE (g_ptr_array_index (children, i));
+	/* children */
+	xb_node_child_iter_init (&child_iter, xbn);
+	while (xb_node_child_iter_loop (&child_iter, &child)) {
 		xmlNode *lc = xmlNewChild (lxn, NULL, (xmlChar*) "", NULL);
-		if (!as_transmogrify_xbnode_to_xmlnode (c, lc))
+		if (!as_transmogrify_xbnode_to_xmlnode (child, lc)) {
+			g_clear_pointer (&child, g_object_unref);
 			return FALSE;
+		}
 	}
 
 	return TRUE;
