@@ -504,14 +504,21 @@ as_cache_get_root_dir_with_scope (AsCache *cache, AsCacheScope cache_scope, AsCo
 static void
 as_transmogrify_xmlnode_to_xbuildernode (xmlNode *lxn, XbBuilderNode *xbn)
 {
-	g_autofree gchar *node_content = NULL;
-
-	node_content = (gchar*) xmlNodeGetContent (lxn);
-	xb_builder_node_set_text (xbn, node_content, -1);
+	/* text node value */
+	if (lxn->children != NULL && xmlNodeIsText (lxn->children)) {
+		g_autofree gchar *node_content = NULL;
+		node_content = (gchar*) xmlNodeGetContent (lxn);
+		xb_builder_node_set_text (xbn, node_content, -1);
+	}
 
 	/* attributes */
 	for (xmlAttr *iter = lxn->properties; iter != NULL; iter = iter->next) {
-		g_autofree gchar *attr_value = (gchar*) xmlNodeGetContent (iter->children);
+		g_autofree gchar *attr_value = NULL;
+
+		/* ignore attributes that are set to NULL */
+		if (iter->children == NULL)
+			continue;
+		attr_value = (gchar*) xmlNodeGetContent (iter->children);
 		xb_builder_node_set_attr (xbn,
 					  (gchar*) iter->name,
 					  attr_value);
@@ -521,7 +528,7 @@ as_transmogrify_xmlnode_to_xbuildernode (xmlNode *lxn, XbBuilderNode *xbn)
 	for (xmlNode *iter = lxn->children; iter != NULL; iter = iter->next) {
 		g_autoptr(XbBuilderNode) child = NULL;
 
-		/* discard spaces (just in case there are any for some reason) */
+		/* discard text and spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 		child = xb_builder_node_new ((gchar*) iter->name);
@@ -546,11 +553,10 @@ as_cache_components_to_internal_xb (AsCache *cache,
 				    GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
-	g_autofree gchar *xml_data = NULL;
 	g_autoptr(XbBuilder) builder = NULL;
 	g_autoptr(XbBuilderNode) bnode_root = NULL;
 	g_autoptr(GError) tmp_error = NULL;
-	XbSilo *silo;
+	g_autoptr(XbSilo) silo = NULL;
 
 	/* NOTE: This function is already write-lock protected by its callers */
 
@@ -595,7 +601,7 @@ as_cache_components_to_internal_xb (AsCache *cache,
 					    "Unable to compile binary XML for caching:");
 		return NULL;
 	} else {
-		return silo;
+		return g_steal_pointer (&silo);
 	}
 }
 
