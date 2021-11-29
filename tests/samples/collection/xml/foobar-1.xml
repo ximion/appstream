@@ -487,4 +487,73 @@
       <mimetype>application/xye-xml</mimetype>
     </mimetypes>
   </component>
+  <component type="console-application">
+    <id>org.freedesktop.appstream.cli</id>
+    <name>AppStream CLI</name>
+    <summary>An utility to work with AppStream metadata</summary>
+    <metadata_license>FSFAP</metadata_license>
+    <project_license>GPL-2.0+</project_license>
+    <project_group>Freedesktop</project_group>
+    <description>
+      <p>
+        AppStream is a metadata specification which permits software components to provide information about themselves
+        to automated systems and end-users before the software is actually installed.
+        The AppStream project provides facilities to easily access and transform this metadata, as well as a few additional
+        services for building feature-rich software centers and similar applications that make use of software metadata.
+      </p>
+      <p>
+        The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata
+        as well as to validate it for compliance with the specification.
+        It also provides easy access to the system metadata pool, for example to query for software that provides a
+        specific Mediatype handler or for installing software by its component identifier.
+      </p>
+    </description>
+    <url type="homepage">https://www.freedesktop.org/wiki/Distributions/AppStream/</url>
+    <url type="bugtracker">https://github.com/ximion/appstream/issues</url>
+    <url type="help">https://www.freedesktop.org/software/appstream/docs/chap-AppStream-ManualPages.html</url>
+    <provides>
+      <binary>appstreamcli</binary>
+    </provides>
+    <translation type="gettext">appstream</translation>
+    <releases>
+      <release type="stable" version="0.14.6" date="2021-10-08T00:00:00Z">
+        <description>
+          <p>This release adds the following features:</p>
+          <ul>
+            <li>validator: Allow slightly longer screenshot captions</li>
+            <li>news-to-metainfo: Recognize the "Miscellaneous" section</li>
+            <li>ascli: Add check-license command to test license for compatibility</li>
+            <li>Emit URLs to choosealicense.com for certain popular licenses</li>
+            <li>Add manually curated list of DFSG-free licenses</li>
+            <li>news-to-metainfo: Allow only marking the last entries as translatable</li>
+            <li>compose: Add support for image and video screenshot handling</li>
+            <li>news-to-metainfo: Parse hyphens as header separators as well</li>
+            <li>ci: Add Fedora to the CI environment</li>
+            <li>as-translation: Add a new source-locale property</li>
+            <li>compose: Support source locales for translations</li>
+          </ul>
+          <p>This release updates documentation:</p>
+          <ul>
+            <li>docs: Clarify screenshot image/video dimensions, quickstart recommendations</li>
+            <li>docs: Clarify image scaling, drop fixed-size image width recommendation</li>
+            <li>spec: Mention the already-supported scale attribute of &lt;icon/&gt;</li>
+            <li>spec: Add support for source locales</li>
+          </ul>
+          <p>This release fixes the following bugs:</p>
+          <ul>
+            <li>cli: Properly forward parameters to compose binary when invoked via ascli</li>
+            <li>compose: Don't follow symlinks when processing raw directories</li>
+            <li>xml: Make NULL value handling for RefString value readers consistent</li>
+            <li>news-to-metainfo: Stop parsing data if we have reached our entry limit</li>
+            <li>news-to-metainfo: Don't attempt to override existing error on parsing failure</li>
+            <li>compose: Extract screenshot image dimension data even if we're not caching them</li>
+            <li>curl: Use less memory when downloading large files</li>
+          </ul>
+          <p>With contributions from:</p>
+          <p>Neal Gompa, Philip Withnall, Matthias Klumpp</p>
+        </description>
+      </release>
+    </releases>
+    <content_rating type="oars-1.1"/>
+  </component>
 </components>

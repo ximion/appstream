@@ -191,46 +191,95 @@ static void
 test_cache ()
 {
 	g_autoptr(AsPool) pool = NULL;
-	g_autoptr(GPtrArray) cpts_prev = NULL;
+	g_autoptr(GPtrArray) cpts_pool = NULL;
 	g_autoptr(GPtrArray) cpts_post = NULL;
+	g_autoptr(GPtrArray) cpts_pre = NULL;
+	g_autoptr(GHashTable) intercept_table = NULL;
 	g_autoptr(AsMetadata) mdata = NULL;
 	g_autoptr(AsCache) cache = NULL;
-	g_autoptr(AsComponent) ccpt = NULL;
 	g_autoptr(GError) error = NULL;
+	GHashTableIter ht_iter;
+	gpointer ht_value;
 	g_autofree gchar *mdata_dir = NULL;
 	g_autofree gchar *xmldata_precache = NULL;
 	g_autofree gchar *xmldata_postcache = NULL;
 	g_autofree gchar *cache_testpath = g_build_filename (cache_dummy_dir, "ctest", NULL);
 
+	mdata_dir = g_build_filename (datadir, "collection", NULL);
 	pool = test_get_sampledata_pool (FALSE);
 	as_pool_override_cache_locations (pool, cache_testpath, NULL);
 
+	/* intercept data as it is added to the pool */
+	intercept_table = g_hash_table_new_full (g_str_hash, g_str_equal,
+						 g_free, (GDestroyNotify) g_ptr_array_unref);
+	as_pool_set_cache_intercept_table (pool, intercept_table);
 	as_pool_load (pool, NULL, &error);
 	g_assert_no_error (error);
 
-	/* get XML representation of the data currently in the pool */
+	/* get XML representation of the data that was added to the pool cache */
+	cpts_pool = as_pool_get_components (pool);
+	as_sort_components (cpts_pool);
+	g_assert_cmpint (cpts_pool->len, ==, 20);
+
+	/* collect the raw components that were cached */
+	cpts_pre = g_ptr_array_new_with_free_func (g_object_unref);
+	g_hash_table_iter_init (&ht_iter, intercept_table);
+	while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value)) {
+		GPtrArray *cpts = ht_value;
+		for (guint i = 0; i < cpts->len; i++) {
+			g_autofree gchar *tmp = NULL;
+			g_autoptr(GString) desc = NULL;
+			GPtrArray *agreements;
+			AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+
+			/* keywords are not cached explicitly, they are stored in the search terms list instead. Therefore, we don't
+			* serialize them here */
+			as_component_set_keywords (cpt, NULL, NULL);
+
+			/* FIXME: language lists are not deterministic yet, so we ignore them for now */
+			g_hash_table_remove_all (as_component_get_languages_table (cpt));
+
+			/* AppStream preserves some spaces while libxmlb does not. Account for that with this hack */
+			tmp = as_sanitize_text_spaces (as_component_get_description (cpt));
+			desc = g_string_new (tmp);
+			g_clear_pointer (&tmp, g_free);
+			as_gstring_replace2 (desc, "\n", " ", -1);
+			as_component_set_description (cpt, desc->str, "C");
+
+
+			agreements = as_component_get_agreements (cpt);
+			for (guint j = 0; j < agreements->len; j++) {
+				AsAgreement *agreement = AS_AGREEMENT (g_ptr_array_index (agreements, j));
+				GPtrArray *sections = as_agreement_get_sections (agreement);
+				for (guint k = 0; k < sections->len; k++) {
+					g_autoptr(GString) adesc = NULL;
+					AsAgreementSection *asec = AS_AGREEMENT_SECTION (g_ptr_array_index (sections, k));
+
+					tmp = as_sanitize_text_spaces (as_agreement_section_get_description (asec));
+					adesc = g_string_new (tmp);
+					g_clear_pointer (&tmp, g_free);
+					as_gstring_replace2 (adesc, "\n", " ", -1);
+					as_agreement_section_set_description (asec, adesc->str, "C");
+				}
+			}
+
+			g_ptr_array_add (cpts_pre, g_object_ref (cpt));
+		}
+	}
+	g_assert_cmpint (cpts_pre->len, ==, 20);
+	as_pool_set_cache_intercept_table (pool, NULL);
+
+	/* generate XML of the components added to the cache */
 	mdata = as_metadata_new ();
-	cpts_prev = as_pool_get_components (pool);
-	as_sort_components (cpts_prev);
-	g_assert_cmpint (cpts_prev->len, ==, 19);
-	for (guint i = 0; i < cpts_prev->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts_prev, i));
-
-		/* keywords are not cached explicitly, they are stored in the search terms list instead. Therefore, we don't
-		 * serialize them here */
-		as_component_set_keywords (cpt, NULL, NULL);
-
-		/* FIXME: language lists are not deterministic yet, so we ignore them for now */
-		g_hash_table_remove_all (as_component_get_languages_table (cpt));
-
+	as_sort_components (cpts_pre);
+	for (guint i = 0; i < cpts_pre->len; i++) {
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts_pre, i));
 		as_metadata_add_component (mdata, cpt);
 	}
-
 	xmldata_precache = as_metadata_components_to_collection (mdata, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
 	/* ensure we get the same result back that we cached before */
-	mdata_dir = g_build_filename (datadir, "collection", NULL);
 	cache = as_cache_new ();
 	as_cache_set_locale (cache, "C");
 
@@ -239,9 +288,10 @@ test_cache ()
 
 	cpts_post = as_cache_get_components_all (cache, &error);
 	g_assert_no_error (error);
-	g_assert_cmpint (cpts_post->len, ==, 19);
-	as_assert_component_lists_equal (cpts_post, cpts_prev);
+	g_assert_cmpint (cpts_post->len, ==, 20);
+	as_assert_component_lists_equal (cpts_post, cpts_pre);
 
+	/* generate XML of the components retrieved from cache */
 	as_metadata_clear_components (mdata);
 	as_sort_components (cpts_post);
 	for (guint i = 0; i < cpts_post->len; i++) {
@@ -251,6 +301,7 @@ test_cache ()
 
 	xmldata_postcache = as_metadata_components_to_collection (mdata, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
+
 	g_assert_true (as_test_compare_lines (xmldata_precache, xmldata_postcache));
 
 	/* cleanup */
@@ -292,7 +343,7 @@ test_pool_read ()
 	/* check total pool component count */
 	all_cpts = as_pool_get_components (dpool);
 	g_assert_nonnull (all_cpts);
-	g_assert_cmpint (all_cpts->len, ==, 19);
+	g_assert_cmpint (all_cpts->len, ==, 20);
 
 	/* generic tests */
 	result = as_pool_search (dpool, "kig");
@@ -332,7 +383,7 @@ test_pool_read ()
 
 	/* we return all components if the search string is too short */
 	result = as_pool_search (dpool, "s");
-	g_assert_cmpint (result->len, ==, 19);
+	g_assert_cmpint (result->len, ==, 20);
 	g_clear_pointer (&result, g_ptr_array_unref);
 
 	strv = g_strsplit ("Science", ";", 0);
@@ -459,7 +510,7 @@ test_pool_read_async_ready_cb (AsPool *pool, GAsyncResult *result, gpointer user
 	/* check total retrieved component count */
 	all_cpts = as_pool_get_components (pool);
 	g_assert_nonnull (all_cpts);
-	g_assert_cmpint (all_cpts->len, ==, 19);
+	g_assert_cmpint (all_cpts->len, ==, 20);
 
 	/* we received the callback, so quit the loop */
 	as_test_loop_quit ();
@@ -518,7 +569,7 @@ test_pool_read_async ()
 
 	result = as_pool_get_components (pool);
 	g_assert_nonnull (result);
-	if (result->len != 0 && result->len != 19) {
+	if (result->len != 0 && result->len != 20) {
 		g_warning ("Invalid number of components retrieved: %i", result->len);
 		g_assert_not_reached ();
 	}
@@ -535,7 +586,7 @@ test_pool_read_async ()
 	g_debug ("AsPool-Async-Load: Checking component count (after loaded)");
 	result = as_pool_get_components (pool);
 	g_assert_nonnull (result);
-	g_assert_cmpint (result->len, ==, 19);
+	g_assert_cmpint (result->len, ==, 20);
 	g_clear_pointer (&result, g_ptr_array_unref);
 }
 
@@ -1022,7 +1073,7 @@ main (int argc, char **argv)
 	ret = g_test_run ();
 
 	/* cleanup */
-	as_utils_delete_dir_recursive (cache_dummy_dir);
+	//as_utils_delete_dir_recursive (cache_dummy_dir);
 	g_free (cache_dummy_dir);
 	g_free (datadir);
 

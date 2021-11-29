@@ -398,6 +398,7 @@ GPtrArray		*as_component_get_supports (AsComponent *cpt);
 void			as_component_add_relation (AsComponent *cpt,
 						   AsRelation *relation);
 
+GPtrArray		*as_component_get_agreements (AsComponent *cpt);
 void			as_component_add_agreement (AsComponent *cpt,
 						    AsAgreement *agreement);
 AsAgreement		*as_component_get_agreement_by_kind (AsComponent *cpt,

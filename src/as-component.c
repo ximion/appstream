@@ -3193,6 +3193,23 @@ as_component_add_relation (AsComponent *cpt, AsRelation *relation)
 }
 
 /**
+ * as_component_get_agreements:
+ * @cpt: an #AsComponent instance.
+ *
+ * Get a list of all agreements registered with this software component.
+ *
+ * Returns: (transfer none) (element-type AsAgreement): An array of #AsAgreement.
+ *
+ * Since: 0.14.8
+ **/
+GPtrArray*
+as_component_get_agreements (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->agreements;
+}
+
+/**
  * as_component_add_agreement:
  * @cpt: a #AsComponent instance.
  * @agreement: an #AsAgreement instance.

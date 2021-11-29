@@ -190,7 +190,7 @@ as_sanitize_text_spaces (const gchar *text)
 	strv = g_strsplit (text, "\n", -1);
 	for (guint i = 0; strv[i] != NULL; ++i)
 		g_strstrip (strv[i]);
-	return g_strjoinv (" ", strv);
+	return g_strstrip (g_strjoinv (" ", strv));
 }
 
 /**

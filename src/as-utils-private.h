@@ -198,6 +198,7 @@ gchar			*as_get_user_cache_dir ();
 
 gboolean		as_unichar_accepted (gunichar c);
 
+AS_INTERNAL_VISIBLE
 gchar			*as_sanitize_text_spaces (const gchar *text);
 
 AS_INTERNAL_VISIBLE

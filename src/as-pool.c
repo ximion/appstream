@@ -81,6 +81,8 @@ typedef struct
 	AsPoolFlags	flags;
 
 	GRWLock		rw_lock;
+
+	GHashTable	*cache_intercept;
 } AsPoolPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsPool, as_pool, G_TYPE_OBJECT)
@@ -406,6 +408,9 @@ as_pool_finalize (GObject *object)
 	g_strfreev (priv->term_greylist);
 
 	g_object_unref (priv->profile);
+
+	if (priv->cache_intercept != NULL)
+		g_hash_table_unref (priv->cache_intercept);
 
 	g_rw_lock_writer_unlock (&priv->rw_lock);
 	g_rw_lock_clear (&priv->rw_lock);
@@ -1555,6 +1560,12 @@ as_pool_loader_process_group (AsPool *pool,
 						error);
 	if (!ret)
 		return FALSE;
+
+	/* funnel out cache data for unit-testing purposes */
+	if (priv->cache_intercept != NULL)
+		g_hash_table_insert (priv->cache_intercept,
+				     g_strdup (lgroup->cache_key),
+				     g_ptr_array_ref (final_results));
 
 	/* we updated caches */
 	if (caches_updated != NULL)
@@ -2729,6 +2740,26 @@ as_pool_override_cache_locations (AsPool *pool, const gchar *dir_sys, const gcha
 		as_cache_set_locations (priv->cache, dir_sys, dir_sys);
 	else
 		as_cache_set_locations (priv->cache, dir_sys, dir_user);
+}
+
+/**
+ * as_pool_set_cache_intercept_table:
+ * @pool: An instance of #AsPool.
+ * @cache_divert: Hash table to add.
+ *
+ * Set a hash table to funnel out data that would be cached.
+ * Useful for debugging purposes.
+ */
+void
+as_pool_set_cache_intercept_table (AsPool *pool, GHashTable *cache_divert)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
+	if (priv->cache_intercept != NULL)
+		g_hash_table_unref (priv->cache_intercept);
+	priv->cache_intercept = NULL;
+	if (cache_divert != NULL)
+		priv->cache_intercept = g_hash_table_ref (cache_divert);
 }
 
 /**

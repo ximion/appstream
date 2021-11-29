@@ -424,12 +424,24 @@ static xmlNode*
 as_xml_markup_parse_helper_export_node (AsXMLMarkupParseHelper *helper, xmlNode *parent, gboolean localized)
 {
 	if ((helper->tag_id == AS_TAG_P) || (helper->tag_id == AS_TAG_LI)) {
-		xmlNode *cn = xmlAddChild (parent, xmlCopyNode (helper->node, TRUE));
+		xmlNode *cn;
+
+		/* sanitize text */
+		for (xmlNode *iter = helper->node->children; iter != NULL; iter = iter->next) {
+			if (xmlNodeIsText (iter)) {
+				if (iter->content != NULL)
+					as_strstripnl ((gchar*) iter->content);
+			}
+		}
+
+		/* add node and subnodes */
+		cn = xmlAddChild (parent, xmlCopyNode (helper->node, TRUE));
 		if (helper->localized && localized) {
 			xmlNewProp (cn,
 				    (xmlChar*) "xml:lang",
 				    (xmlChar*) helper->locale);
 		}
+
 		return cn;
 	}
 
