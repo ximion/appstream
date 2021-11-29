@@ -20,16 +20,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-11-24 19:44+0100\n"
-"PO-Revision-Date: 2021-10-13 07:38+0000\n"
+"PO-Revision-Date: 2021-11-29 21:52+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
-"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
-"translations/id/>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.10-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -985,7 +984,7 @@ msgstr "Berkas metadata punya kesalahan:"
 
 #: src/as-pool.c:2376
 msgid "Group"
-msgstr ""
+msgstr "Grup"
 
 #: src/as-pool.c:2422
 msgid "Iconsets"
@@ -994,12 +993,12 @@ msgstr "Set ikon"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2469
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Data dari perangkat lunak yang terpasang lokal"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2472
 msgid "Software catalog data"
-msgstr ""
+msgstr "Data katalog perangkat lunak"
 
 #: src/as-provided.c:144
 msgid "Libraries"
@@ -1516,7 +1515,7 @@ msgstr ""
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
+msgstr "Butir `perangkat keras` ini memuat nilai yang tidak valid. Itu mesti berupa suatu UUID Computer Hardware ID (CHID) tanpa kurawal."
 
 #: src/as-validator-issue-tag.h:326
 msgid ""
@@ -2317,7 +2316,7 @@ msgstr "Lokasi metadata AppStream yang dipilih secara manual untuk dipindai."
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
+msgstr "Abaikan usia singgahan dan bangun suatu singgahan segar sebelum melakukan kuiri."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
@@ -2395,7 +2394,7 @@ msgstr "Paksakan penyegaran tembolok."
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
+msgstr "Batasi penyegaran singgahan ke data dari sumber tertentu, mis. `os` atau `flatpak`. Dapat dinyatakan beberapa kali."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:478
@@ -2663,20 +2662,20 @@ msgstr "Anda perlu menyatakan suatu perintah."
 #. TRANSLATORS: In ascli: Status information during a "refresh" action.
 #: tools/ascli-actions-mdata.c:48
 msgid "Only refreshing metadata cache specific to the current user."
-msgstr ""
+msgstr "Hanya menyegarkan singgahan metadata yang spesifik ke pengguna saat ini."
 
 #: tools/ascli-actions-mdata.c:59
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
+msgstr "Memutakhirkan singgahan metadata perangkat lunak bagi sistem operasi."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for Flatpak."
-msgstr ""
+msgstr "Memutakhirkan singgahan metadata perangkat lunak bagi Flatpak."
 
 #: tools/ascli-actions-mdata.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "Berkas metadata '%s' tidak ada."
+msgstr "Grup sumber metadata dengan nama '%s' tidak ada!"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
@@ -2685,15 +2684,13 @@ msgstr "Anda mungkin perlu hak superuser untuk melakukan aksi ini."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
-#, fuzzy
 msgid "Metadata cache was updated successfully."
-msgstr "Pemutakhiran singgahan AppStream berakhir dengan sukses."
+msgstr "Singgahan metadata sukses dimutakhirkan."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:102
-#, fuzzy
 msgid "Metadata cache update is not necessary."
-msgstr "Pemutakhiran singgahan AppStream tidak perlu."
+msgstr "Pemutakhiran singgahan metadata tidak perlu."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -2825,23 +2822,22 @@ msgstr "Versi: %s"
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:56
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "Sumber metadata OS:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:60
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "Tidak ditemukan metadata OS. Ini tidak biasa."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:63
 msgid "Other metadata sources:"
-msgstr ""
+msgstr "Sumber metadata lain:"
 
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:67
-#, fuzzy
 msgid "No metadata."
-msgstr "Menyusun metadata..."
+msgstr "Tidak ada metadata."
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:70
