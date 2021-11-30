@@ -1510,19 +1510,17 @@
 		</para>
 		<para>
 			The <literal>tags</literal> tag must have <literal>tag</literal> children which must have a value comprised only of lower-case
-			ASCII characters, dots, hyphens and numbers. Spaces are not allowed.
-		</para>
-		<para>
-			It is strongly recommended to prefix the tag value with the client tool that will consume it, or another identifier to make it unique,
-			for example <code>gnome-software-featured</code> instead of just <code>featured</code> or <code>fwupd-vendor-2021q1</code>
-			instead of <code>2021q1</code>.
+			ASCII characters, dots, hyphens and numbers. Spaces are not allowed. The tag must also have a <literal>namespace</literal>
+			attribute to designate a namespace where the particular tag is valid. The namespace is an arbitrary string which has the
+			same character limitations as the tag value. It may for example be the name of the client too that consumes the data, or
+			the name of the organization the tag belongs to.
 		</para>
 		<para>
 			Example:
 		</para>
 		<programlisting language="XML"><![CDATA[<tags>
-  <tag>fwupd-vendor-2021q1</tag>
-  <tag>plasma-discover-featured</tag>
+  <tag namespace="lvfs">vendor-2021q1</tag>
+  <tag namespace="plasma">plasma</tag>
 </tags>]]></programlisting>
 		</listitem>
 		</varlistentry>
