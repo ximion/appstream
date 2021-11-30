@@ -46,10 +46,6 @@ gboolean		as_pool_print_std_data_locations_info_private (AsPool *pool,
 									gboolean print_os_data,
 									gboolean print_extra_data);
 
-AS_INTERNAL_VISIBLE
-void			as_pool_set_cache_intercept_table (AsPool *pool,
-							   GHashTable *cache_divert);
-
 #pragma GCC visibility pop
 G_END_DECLS
 

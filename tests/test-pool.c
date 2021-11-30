@@ -190,60 +190,61 @@ as_assert_component_lists_equal (GPtrArray *cpts_a, GPtrArray *cpts_b)
 static void
 test_cache ()
 {
-	g_autoptr(AsPool) pool = NULL;
-	g_autoptr(GPtrArray) cpts_pool = NULL;
-	g_autoptr(GPtrArray) cpts_post = NULL;
-	g_autoptr(GPtrArray) cpts_pre = NULL;
-	g_autoptr(GHashTable) intercept_table = NULL;
+	g_autoptr(GPtrArray) xml_files = NULL;
+	g_autoptr(GError) error = NULL;
 	g_autoptr(AsMetadata) mdata = NULL;
 	g_autoptr(AsCache) cache = NULL;
-	g_autoptr(GError) error = NULL;
-	GHashTableIter ht_iter;
-	gpointer ht_value;
+	g_autoptr(GPtrArray) cpts_pre = NULL;
+	g_autoptr(GPtrArray) cpts_post = NULL;
+	gboolean ret;
 	g_autofree gchar *mdata_dir = NULL;
 	g_autofree gchar *xmldata_precache = NULL;
 	g_autofree gchar *xmldata_postcache = NULL;
 	g_autofree gchar *cache_testpath = g_build_filename (cache_dummy_dir, "ctest", NULL);
 
-	mdata_dir = g_build_filename (datadir, "collection", NULL);
-	pool = test_get_sampledata_pool (FALSE);
-	as_pool_override_cache_locations (pool, cache_testpath, NULL);
+	mdata_dir = g_build_filename (datadir, "collection", "xml", NULL);
 
-	/* intercept data as it is added to the pool */
-	intercept_table = g_hash_table_new_full (g_str_hash, g_str_equal,
-						 g_free, (GDestroyNotify) g_ptr_array_unref);
-	as_pool_set_cache_intercept_table (pool, intercept_table);
-	as_pool_load (pool, NULL, &error);
+	xml_files = as_utils_find_files_matching (mdata_dir, "*.xml", FALSE, &error);
 	g_assert_no_error (error);
+	g_assert_nonnull (xml_files);
 
-	/* get XML representation of the data that was added to the pool cache */
-	cpts_pool = as_pool_get_components (pool);
-	as_sort_components (cpts_pool);
-	g_assert_cmpint (cpts_pool->len, ==, 20);
+	mdata = as_metadata_new ();
+	as_metadata_set_locale (mdata, "C");
+	as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_COLLECTION);
 
-	/* collect the raw components that were cached */
+	for (guint i = 0; i < xml_files->len; i++) {
+		g_autoptr(GFile) file = NULL;
+		const gchar *fname = g_ptr_array_index (xml_files, i);
+
+		if (g_str_has_suffix (fname, "merges.xml") || g_str_has_suffix (fname, "suggestions.xml"))
+			continue;
+
+		file = g_file_new_for_path (fname);
+		ret = as_metadata_parse_file (mdata, file, AS_FORMAT_KIND_XML, &error);
+		g_assert_no_error (error);
+		g_assert_true (ret);
+	}
+
 	cpts_pre = g_ptr_array_new_with_free_func (g_object_unref);
-	g_hash_table_iter_init (&ht_iter, intercept_table);
-	while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value)) {
-		GPtrArray *cpts = ht_value;
-		for (guint i = 0; i < cpts->len; i++) {
-			AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+	for (guint i = 0; i < as_metadata_get_components (mdata)->len; i++) {
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (as_metadata_get_components (mdata), i));
 
-			/* keywords are not cached explicitly, they are stored in the search terms list instead. Therefore, we don't
-			* serialize them here */
-			as_component_set_keywords (cpt, NULL, NULL);
+		if (g_strcmp0 (as_component_get_id (cpt), "org.example.DeleteMe") == 0)
+			continue;
 
-			/* FIXME: language lists are not deterministic yet, so we ignore them for now */
-			g_hash_table_remove_all (as_component_get_languages_table (cpt));
+		/* keywords are not cached explicitly, they are stored in the search terms list instead. Therefore, we don't
+		 * serialize them here */
+		as_component_set_keywords (cpt, NULL, NULL);
 
-			g_ptr_array_add (cpts_pre, g_object_ref (cpt));
-		}
+		/* FIXME: language lists are not deterministic yet, so we ignore them for now */
+		g_hash_table_remove_all (as_component_get_languages_table (cpt));
+
+		g_ptr_array_add (cpts_pre, g_object_ref (cpt));
 	}
 	g_assert_cmpint (cpts_pre->len, ==, 20);
-	as_pool_set_cache_intercept_table (pool, NULL);
 
 	/* generate XML of the components added to the cache */
-	mdata = as_metadata_new ();
+	as_metadata_clear_components (mdata);
 	as_sort_components (cpts_pre);
 	for (guint i = 0; i < cpts_pre->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts_pre, i));
@@ -252,11 +253,28 @@ test_cache ()
 	xmldata_precache = as_metadata_components_to_collection (mdata, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
-	/* ensure we get the same result back that we cached before */
+	/* create new cache for writing */
 	cache = as_cache_new ();
 	as_cache_set_locale (cache, "C");
-
 	as_cache_set_locations (cache, cache_testpath, cache_testpath);
+
+	/* add data */
+	ret = as_cache_set_contents_for_path (cache,
+					      cpts_pre,
+					      mdata_dir,
+					      NULL,
+					      &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+
+	/* new cache for loading */
+	g_clear_pointer (&cache, g_object_unref);
+	cache = as_cache_new ();
+	as_cache_set_locale (cache, "C");
+	as_cache_set_locations (cache, cache_testpath, cache_testpath);
+
+	/* ensure we get the same result back that we cached before */
 	as_cache_load_section_for_path (cache, mdata_dir, NULL, NULL);
 
 	cpts_post = as_cache_get_components_all (cache, &error);
@@ -1046,7 +1064,7 @@ main (int argc, char **argv)
 	ret = g_test_run ();
 
 	/* cleanup */
-	//as_utils_delete_dir_recursive (cache_dummy_dir);
+	as_utils_delete_dir_recursive (cache_dummy_dir);
 	g_free (cache_dummy_dir);
 	g_free (datadir);
 
