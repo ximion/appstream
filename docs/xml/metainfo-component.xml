@@ -1495,6 +1495,38 @@
 		</listitem>
 		</varlistentry>
 
+		<varlistentry id="tag-tags">
+		<term>&lt;tags/&gt;</term>
+		<listitem>
+		<para>
+			The <code>&lt;tags/&gt;</code> tag is an optional tag which can be used to give the component one or multiple arbitrary labels.
+			For example, it can be used for apps to tag themselves as "featured" in specific software centers, or to group software together
+			by some well-defined criteria.
+		</para>
+		<para>
+			The interpretation of tags is completely defined by the client application that is reading AppStream metadata. Tags defined
+			in metainfo files may be filtered by collection metadata generators, and may even be completely ignored by clients. Components
+			must not rely on the presence of specific tags to behave correctly.
+		</para>
+		<para>
+			The <literal>tags</literal> tag must have <literal>tag</literal> children which must have a value comprised only of lower-case
+			ASCII characters, dots, hyphens and numbers. Spaces are not allowed.
+		</para>
+		<para>
+			It is strongly recommended to prefix the tag value with the client tool that will consume it, or another identifier to make it unique,
+			for example <code>gnome-software-featured</code> instead of just <code>featured</code> or <code>fwupd-vendor-2021q1</code>
+			instead of <code>2021q1</code>.
+		</para>
+		<para>
+			Example:
+		</para>
+		<programlisting language="XML"><![CDATA[<tags>
+  <tag>fwupd-vendor-2021q1</tag>
+  <tag>plasma-discover-featured</tag>
+</tags>]]></programlisting>
+		</listitem>
+		</varlistentry>
+
 		<varlistentry id="tag-custom">
 		<term>&lt;custom/&gt;</term>
 		<listitem>
