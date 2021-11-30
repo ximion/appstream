@@ -227,9 +227,6 @@ test_cache ()
 	while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value)) {
 		GPtrArray *cpts = ht_value;
 		for (guint i = 0; i < cpts->len; i++) {
-			g_autofree gchar *tmp = NULL;
-			g_autoptr(GString) desc = NULL;
-			GPtrArray *agreements;
 			AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 
 			/* keywords are not cached explicitly, they are stored in the search terms list instead. Therefore, we don't
@@ -238,30 +235,6 @@ test_cache ()
 
 			/* FIXME: language lists are not deterministic yet, so we ignore them for now */
 			g_hash_table_remove_all (as_component_get_languages_table (cpt));
-
-			/* AppStream preserves some spaces while libxmlb does not. Account for that with this hack */
-			tmp = as_sanitize_text_spaces (as_component_get_description (cpt));
-			desc = g_string_new (tmp);
-			g_clear_pointer (&tmp, g_free);
-			as_gstring_replace2 (desc, "\n", " ", -1);
-			as_component_set_description (cpt, desc->str, "C");
-
-
-			agreements = as_component_get_agreements (cpt);
-			for (guint j = 0; j < agreements->len; j++) {
-				AsAgreement *agreement = AS_AGREEMENT (g_ptr_array_index (agreements, j));
-				GPtrArray *sections = as_agreement_get_sections (agreement);
-				for (guint k = 0; k < sections->len; k++) {
-					g_autoptr(GString) adesc = NULL;
-					AsAgreementSection *asec = AS_AGREEMENT_SECTION (g_ptr_array_index (sections, k));
-
-					tmp = as_sanitize_text_spaces (as_agreement_section_get_description (asec));
-					adesc = g_string_new (tmp);
-					g_clear_pointer (&tmp, g_free);
-					as_gstring_replace2 (adesc, "\n", " ", -1);
-					as_agreement_section_set_description (asec, adesc->str, "C");
-				}
-			}
 
 			g_ptr_array_add (cpts_pre, g_object_ref (cpt));
 		}

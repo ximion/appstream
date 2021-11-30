@@ -504,11 +504,28 @@ as_cache_get_root_dir_with_scope (AsCache *cache, AsCacheScope cache_scope, AsCo
 static void
 as_transmogrify_xmlnode_to_xbuildernode (xmlNode *lxn, XbBuilderNode *xbn)
 {
-	/* text node value */
+	/* text node */
 	if (lxn->children != NULL && xmlNodeIsText (lxn->children)) {
-		g_autofree gchar *node_content = NULL;
-		node_content = (gchar*) xmlNodeGetContent (lxn);
-		xb_builder_node_set_text (xbn, node_content, -1);
+		if (lxn->children->next == NULL) {
+			/* pure text node */
+			g_autofree gchar *node_content = NULL;
+			node_content = (gchar*) xmlNodeGetContent (lxn);
+			xb_builder_node_set_text (xbn, node_content, -1);
+		} else {
+			/* other inline nodes follow after the text */
+			xb_builder_node_set_text (xbn,
+						  (gchar*) lxn->children->content,
+						  -1);
+		}
+	}
+
+	/* tail, in case text follows */
+	if (xmlNodeIsText (lxn->next)) {
+		const gchar *content = (gchar*) lxn->next->content;
+		if (content != NULL)
+			xb_builder_node_set_tail (xbn,
+						  content,
+						  -1);
 	}
 
 	/* attributes */
@@ -532,6 +549,7 @@ as_transmogrify_xmlnode_to_xbuildernode (xmlNode *lxn, XbBuilderNode *xbn)
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 		child = xb_builder_node_new ((gchar*) iter->name);
+		xb_builder_node_add_flag (child, XB_BUILDER_NODE_FLAG_LITERAL_TEXT);
 		as_transmogrify_xmlnode_to_xbuildernode (iter, child);
 		xb_builder_node_add_child (xbn, child);
 	}
@@ -637,6 +655,7 @@ as_transmogrify_xbnode_to_xmlnode (XbNode *xbn, xmlNode *lxn)
 	XbNodeAttrIter attr_iter;
 	const gchar *attr_name;
 	const gchar *attr_value;
+	const gchar *tail;
 	XbNodeChildIter child_iter;
 	XbNode *child = NULL;
 	g_return_val_if_fail (XB_IS_NODE (xbn), FALSE);
@@ -645,6 +664,12 @@ as_transmogrify_xbnode_to_xmlnode (XbNode *xbn, xmlNode *lxn)
 			(xmlChar*) xb_node_get_element (xbn));
 	xmlNodeAddContent (lxn,
 			   (xmlChar*) xb_node_get_text (xbn));
+
+	tail = xb_node_get_tail (xbn);
+	if (tail != NULL) {
+		xmlNode *tn = xmlNewText ((xmlChar*) tail);
+		xmlAddNextSibling (lxn, tn);
+	}
 
 	/* attributes */
 	xb_node_attr_iter_init (&attr_iter, xbn);
