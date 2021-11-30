@@ -645,7 +645,6 @@ as_cache_register_addons_for_component (AsCache *cache, AsComponent *cpt, GError
 	return TRUE;
 }
 
-#if LIBXMLB_CHECK_VERSION(0, 3, 4)
 /**
  * as_transmogrify_xbnode_to_xmlnode:
  */
@@ -688,7 +687,6 @@ as_transmogrify_xbnode_to_xmlnode (XbNode *xbn, xmlNode *lxn)
 
 	return TRUE;
 }
-#endif
 
 /**
  * as_cache_component_from_node:
@@ -702,7 +700,6 @@ as_cache_component_from_node (AsCache *cache, AsCacheSection *csec, XbNode *node
 	g_autoptr(AsComponent) cpt = NULL;
 	xmlNode *root;
 
-#if LIBXMLB_CHECK_VERSION(0, 3, 4)
 	root = xmlNewNode (NULL, (xmlChar*) "");
 	as_transmogrify_xbnode_to_xmlnode (node, root);
 
@@ -712,26 +709,6 @@ as_cache_component_from_node (AsCache *cache, AsCacheSection *csec, XbNode *node
 		return NULL;
 	}
 	xmlFreeNode (root);
-#else
-	g_autofree gchar *xml_data = NULL;
-	xmlDoc *doc;
-
-	xml_data = xb_node_export (node, XB_NODE_EXPORT_FLAG_NONE, error);
-	if (xml_data == NULL)
-		return NULL;
-
-	doc = as_xml_parse_document (xml_data, -1, error);
-	if (doc == NULL)
-		return NULL;
-	root = xmlDocGetRootElement (doc);
-
-	cpt = as_component_new ();
-	if (!as_component_load_from_xml (cpt, priv->context, root, error)) {
-		xmlFreeDoc (doc);
-		return NULL;
-	}
-	xmlFreeDoc (doc);
-#endif
 
 	/* find addons (if there are any) - ensure addons don't have addons themselves */
 	if (priv->auto_resolve_addons &&
