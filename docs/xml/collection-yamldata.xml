@@ -1015,6 +1015,28 @@ Requires:
 				</listitem>
 			</varlistentry>
 
+			<varlistentry id="field-dep11-tags">
+				<term>Tags</term>
+				<listitem>
+					<para>See <xref linkend="tag-tags"/>.</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+					<para>Example:</para>
+					<programlisting language="YAML"><![CDATA[Tags:
+- namespace: lvfs
+  tag: vendor-2021q1
+- namespace: plasma
+  tag: featured]]></programlisting>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-custom">
+				<term>Custom</term>
+				<listitem>
+					<para>See <xref linkend="tag-custom"/>.</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
 		</variablelist>
 
 	</section>

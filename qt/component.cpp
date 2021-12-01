@@ -758,6 +758,26 @@ void Component::setNameVariantSuffix(const QString& variantSuffix, const QString
     as_component_set_name_variant_suffix(m_cpt, qPrintable(variantSuffix), lang.isEmpty()? NULL : qPrintable(lang));
 }
 
+bool Component::hasTag(const QString &ns, const QString &tagName)
+{
+    return as_component_has_tag(m_cpt, qPrintable(ns), qPrintable(tagName));
+}
+
+bool Component::addTag(const QString &ns, const QString &tagName)
+{
+    return as_component_add_tag(m_cpt, qPrintable(ns), qPrintable(tagName));
+}
+
+void Component::removeTag(const QString &ns, const QString &tagName)
+{
+    as_component_remove_tag(m_cpt, qPrintable(ns), qPrintable(tagName));
+}
+
+void Component::clearTags()
+{
+    as_component_clear_tags(m_cpt);
+}
+
 bool AppStream::Component::isIgnored() const
 {
     return as_component_is_ignored(m_cpt);

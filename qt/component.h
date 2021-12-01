@@ -256,6 +256,11 @@ class APPSTREAMQT_EXPORT Component {
         QString nameVariantSuffix() const;
         void setNameVariantSuffix(const QString& variantSuffix, const QString& lang = {});
 
+        bool hasTag(const QString &ns, const QString &tagName);
+        bool addTag(const QString &ns, const QString &tagName);
+        void removeTag(const QString &ns, const QString &tagName);
+        void clearTags();
+
         bool isIgnored() const;
         bool isValid() const;
 

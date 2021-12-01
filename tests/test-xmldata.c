@@ -1948,6 +1948,36 @@ test_xml_rw_reviews (void)
 }
 
 /**
+ * test_xml_rw_tags:
+ */
+static void
+test_xml_rw_tags (void)
+{
+	static const gchar *xmldata_tags =
+			"<component>\n"
+			"  <id>org.example.TagsTest</id>\n"
+			"  <tags>\n"
+			"    <tag namespace=\"lvfs\">vendor-2021q1</tag>\n"
+			"    <tag namespace=\"plasma\">featured</tag>\n"
+			"  </tags>\n"
+			"</component>\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+
+	/* read */
+	cpt = as_xml_test_read_data (xmldata_tags, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.TagsTest");
+
+	/* validate */
+	g_assert_true (as_component_has_tag (cpt, "lvfs", "vendor-2021q1"));
+	g_assert_true (as_component_has_tag (cpt, "plasma", "featured"));
+
+	/* write */
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_tags));
+}
+
+/**
  * main:
  */
 int
@@ -2016,6 +2046,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Read/ReleasesLegacy", test_xml_read_releases_legacy);
 
 	g_test_add_func ("/XML/ReadWrite/Reviews", test_xml_rw_reviews);
+	g_test_add_func ("/XML/ReadWrite/Tags", test_xml_rw_tags);
 
 	ret = g_test_run ();
 	g_free (datadir);

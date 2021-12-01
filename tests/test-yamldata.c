@@ -1653,6 +1653,36 @@ test_yaml_read_releases (void)
 }
 
 /**
+ * test_yaml_rw_tags:
+ */
+static void
+test_yaml_rw_tags (void)
+{
+	static const gchar *yamldata_tags =
+			"Type: generic\n"
+			"ID: org.example.TagsTest\n"
+			"Tags:\n"
+			"- namespace: lvfs\n"
+			"  tag: vendor-2021q1\n"
+			"- namespace: plasma\n"
+			"  tag: featured\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+
+	/* read */
+	cpt = as_yaml_test_read_data (yamldata_tags, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.TagsTest");
+
+	/* validate */
+	g_assert_true (as_component_has_tag (cpt, "lvfs", "vendor-2021q1"));
+	g_assert_true (as_component_has_tag (cpt, "plasma", "featured"));
+
+	/* write */
+	res = as_yaml_test_serialize (cpt);
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_tags));
+}
+
+/**
  * main:
  */
 int
@@ -1713,6 +1743,8 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/YAML/Read/Releases", test_yaml_read_releases);
 	g_test_add_func ("/YAML/Write/Releases", test_yaml_write_releases);
+
+	g_test_add_func ("/YAML/ReadWrite/Tags", test_yaml_rw_tags);
 
 	ret = g_test_run ();
 	g_free (datadir);

@@ -404,6 +404,17 @@ void			as_component_add_agreement (AsComponent *cpt,
 AsAgreement		*as_component_get_agreement_by_kind (AsComponent *cpt,
 							     AsAgreementKind kind);
 
+void			as_component_clear_tags (AsComponent *cpt);
+gboolean		as_component_add_tag (AsComponent *cpt,
+					      const gchar *ns,
+					      const gchar *tag);
+gboolean		as_component_remove_tag (AsComponent *cpt,
+						 const gchar *ns,
+						 const gchar *tag);
+gboolean		as_component_has_tag (AsComponent *cpt,
+					      const gchar *ns,
+					      const gchar *tag);
+
 const gchar		*as_component_get_name_variant_suffix (AsComponent *cpt);
 void			as_component_set_name_variant_suffix (AsComponent *cpt,
 								const gchar *value,

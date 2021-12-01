@@ -602,9 +602,7 @@ as_yaml_emit_long_localized_entry (yaml_emitter_t *emitter, const gchar *key, GH
 void
 as_yaml_list_to_str_array (GNode *node, GPtrArray *array)
 {
-	GNode *n;
-
-	for (n = node->children; n != NULL; n = n->next) {
+	for (GNode *n = node->children; n != NULL; n = n->next) {
 		const gchar *val = as_yaml_node_get_key (n);
 		if (val != NULL)
 			g_ptr_array_add (array, g_strdup (val));
