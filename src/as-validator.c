@@ -908,6 +908,76 @@ as_validator_validate_update_contact (AsValidator *validator, xmlNode *uc_node)
 }
 
 /**
+ * as_id_string_valid:
+ */
+gboolean
+as_id_string_valid (const gchar *str, gboolean allow_uppercase)
+{
+	if (str == NULL)
+		return FALSE;
+
+	for (guint i = 0; str[i] != '\0'; i++) {
+		/* check if we have a printable, alphanumeric ASCII character or a dot, hyphen or underscore */
+		if ((!g_ascii_isalnum (str[i])) &&
+		    (str[i] != '.') &&
+		    (str[i] != '-') &&
+		    (str[i] != '_')) {
+			/* found a character that is not whitelisted */
+			return FALSE;
+		}
+
+		if (!allow_uppercase && g_ascii_isalpha (str[i]) && g_ascii_isupper (str[i]))
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_validator_check_tags:
+ **/
+static void
+as_validator_check_tags (AsValidator *validator, xmlNode *node)
+{
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		const gchar *node_name;
+		g_autofree gchar *ns = NULL;
+		g_autofree gchar *value = NULL;
+
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		node_name = (const gchar*) iter->name;
+
+		if (g_strcmp0 (node_name, "tag") != 0) {
+			as_validator_add_issue (validator, node,
+						"invalid-child-tag-name",
+						/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
+						_("Found: %s - Allowed: %s"),
+						(const gchar*) node->name,
+						"tag");
+			continue;
+		}
+		as_validator_check_content_empty (validator, iter, "tags/tag");
+
+		ns = as_xml_get_prop_value (iter, "namespace");
+		if (ns == NULL) {
+			as_validator_add_issue (validator, iter, "component-tag-missing-namespace", NULL);
+			continue;
+		}
+
+		if (!as_id_string_valid (ns, FALSE)) {
+			as_validator_add_issue (validator, iter, "component-tag-invalid", ns);
+			continue;
+		}
+
+		value = as_xml_get_node_value (iter);
+		if (!as_id_string_valid (value, FALSE))
+			as_validator_add_issue (validator, iter, "component-tag-invalid", value);
+	}
+}
+
+/**
  * as_validator_check_screenshots:
  *
  * Validate a "screenshots" tag.
@@ -1747,6 +1817,9 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_relations (validator, iter, cpt, AS_RELATION_KIND_SUPPORTS);
 		} else if (g_strcmp0 (node_name, "agreement") == 0) {
 			as_validator_check_children_quick (validator, iter, "agreement_section", FALSE);
+		} else if (g_strcmp0 (node_name, "tags") == 0) {
+			as_validator_check_appear_once (validator, iter, found_tags);
+			as_validator_check_tags (validator, iter);
 		} else if (g_strcmp0 (node_name, "name_variant_suffix") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags);
 		} else if (g_strcmp0 (node_name, "custom") == 0) {
