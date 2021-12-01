@@ -1,8 +1,8 @@
 
 as_gettext_domain = 'appstream'
-i18n.gettext (as_gettext_domain,
+i18n.gettext(as_gettext_domain,
     preset : 'glib',
-    data_dirs: ['../data/its'],
+    data_dirs: [join_paths(meson.source_root(), 'data', 'its')],
     args: [
         '--default-domain=' + as_gettext_domain,
         '--from-code=UTF-8',
