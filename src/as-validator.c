@@ -520,7 +520,7 @@ as_validator_check_children_quick (AsValidator *validator, xmlNode *node, const 
 						"invalid-child-tag-name",
 						/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
 						_("Found: %s - Allowed: %s"),
-						(const gchar*) node->name,
+						node_name,
 						allowed_tagname);
 		}
 	}
