@@ -2562,9 +2562,10 @@ as_component_complete (AsComponent *cpt, gchar *scr_service_url, GPtrArray *icon
  */
 static void
 as_component_add_token_helper (AsComponent *cpt,
-			   const gchar *value,
-			   AsSearchTokenMatch match_flag,
-			   AsStemmer *stemmer)
+				const gchar *value,
+				AsSearchTokenMatch match_flag,
+				AsStemmer *stemmer,
+				GPtrArray *tokens_out)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	AsTokenType *match_pval;
@@ -2586,6 +2587,13 @@ as_component_add_token_helper (AsComponent *cpt,
 	if (token_stemmed == NULL)
 		return;
 
+	/* if we have an output array, we add to that and don't register tokens globally */
+	if (tokens_out != NULL) {
+		g_ptr_array_add (tokens_out,
+				 g_steal_pointer (&token_stemmed));
+		return;
+	}
+
 	/* does the token already exist */
 	match_pval = g_hash_table_lookup (priv->token_cache, token_stemmed);
 	if (match_pval != NULL) {
@@ -2606,9 +2614,10 @@ as_component_add_token_helper (AsComponent *cpt,
  */
 static void
 as_component_add_token (AsComponent *cpt,
-		  const gchar *value,
-		  gboolean allow_split,
-		  AsSearchTokenMatch match_flag)
+			const gchar *value,
+			gboolean allow_split,
+			AsSearchTokenMatch match_flag,
+			GPtrArray *tokens_out)
 {
 	/* get global stemmer instance (it's threadsafe and should survive this invocation) */
 	AsStemmer *stemmer = as_stemmer_get ();
@@ -2618,11 +2627,19 @@ as_component_add_token (AsComponent *cpt,
 		guint i;
 		g_auto(GStrv) split = g_strsplit (value, "-", -1);
 		for (i = 0; split[i] != NULL; i++)
-			as_component_add_token_helper (cpt, split[i], match_flag, stemmer);
+			as_component_add_token_helper (cpt,
+							split[i],
+							match_flag,
+							stemmer,
+							tokens_out);
 	}
 
 	/* add the whole token always, even when we split on hyphen */
-	as_component_add_token_helper (cpt, value, match_flag, stemmer);
+	as_component_add_token_helper (cpt,
+					value,
+					match_flag,
+					stemmer,
+					tokens_out);
 }
 
 /**
@@ -2660,9 +2677,10 @@ as_component_value_tokenize (AsComponent *cpt, const gchar *value, gchar ***toke
  */
 static void
 as_component_add_tokens (AsComponent *cpt,
-		   const gchar *value,
-		   gboolean allow_split,
-		   AsSearchTokenMatch match_flag)
+			 const gchar *value,
+			 gboolean allow_split,
+			 AsSearchTokenMatch match_flag,
+			 GPtrArray *tokens_out)
 {
 	guint i;
 	g_auto(GStrv) values_utf8 = NULL;
@@ -2681,84 +2699,128 @@ as_component_add_tokens (AsComponent *cpt,
 
 	/* add each token */
 	for (i = 0; values_utf8 != NULL && values_utf8[i] != NULL; i++)
-		as_component_add_token (cpt, values_utf8[i], allow_split, match_flag);
+		as_component_add_token (cpt, values_utf8[i], allow_split, match_flag, tokens_out);
 	for (i = 0; values_ascii != NULL && values_ascii[i] != NULL; i++)
-		as_component_add_token (cpt, values_ascii[i], allow_split, match_flag);
+		as_component_add_token (cpt, values_ascii[i], allow_split, match_flag, tokens_out);
 }
 
 /**
  * as_component_create_token_cache_target:
  */
 static void
-as_component_create_token_cache_target (AsComponent *cpt, AsComponent *donor)
+as_component_create_token_cache_target (AsComponent *cpt, AsComponent *donor, guint flags, GPtrArray *tokens_out)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (donor);
 	const gchar *tmp;
 	gchar **keywords;
 	AsProvided *prov;
-	guint i;
 
 	/* tokenize all the data we have */
-	if (priv->id != NULL) {
-		as_component_add_token (cpt, priv->id, FALSE,
-				  AS_SEARCH_TOKEN_MATCH_ID);
+	if (priv->id != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_ID)) {
+		as_component_add_token (cpt,
+					priv->id,
+					FALSE,
+					AS_SEARCH_TOKEN_MATCH_ID,
+					tokens_out);
 	}
 
 	tmp = as_component_get_name (cpt);
-	if (tmp != NULL) {
-		as_component_add_tokens (cpt, tmp, TRUE, AS_SEARCH_TOKEN_MATCH_NAME);
+	if (tmp != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_NAME)) {
+		as_component_add_tokens (cpt, tmp, TRUE, AS_SEARCH_TOKEN_MATCH_NAME, tokens_out);
 	}
 
 	tmp = as_component_get_summary (cpt);
-	if (tmp != NULL) {
-		as_component_add_tokens (cpt, tmp, TRUE, AS_SEARCH_TOKEN_MATCH_SUMMARY);
+	if (tmp != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_SUMMARY)) {
+		as_component_add_tokens (cpt, tmp, TRUE, AS_SEARCH_TOKEN_MATCH_SUMMARY, tokens_out);
 	}
 
 	tmp = as_component_get_description (cpt);
-	if (tmp != NULL) {
-		as_component_add_tokens (cpt, tmp, TRUE, AS_SEARCH_TOKEN_MATCH_DESCRIPTION);
+	if (tmp != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_DESCRIPTION)) {
+		as_component_add_tokens (cpt, tmp, TRUE, AS_SEARCH_TOKEN_MATCH_DESCRIPTION, tokens_out);
 	}
 
 	keywords = as_component_get_keywords (cpt);
-	if (keywords != NULL) {
-		for (i = 0; keywords[i] != NULL; i++)
-			as_component_add_tokens (cpt, keywords[i], FALSE, AS_SEARCH_TOKEN_MATCH_KEYWORD);
+	if (keywords != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_KEYWORD)) {
+		for (guint i = 0; keywords[i] != NULL; i++)
+			as_component_add_tokens (cpt, keywords[i], FALSE, AS_SEARCH_TOKEN_MATCH_KEYWORD, tokens_out);
 	}
 
 	prov = as_component_get_provided_for_kind (donor, AS_PROVIDED_KIND_MIMETYPE);
-	if (prov != NULL) {
+	if (prov != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_MEDIATYPE)) {
 		GPtrArray *items = as_provided_get_items (prov);
-		for (i = 0; i < items->len; i++)
+		for (guint i = 0; i < items->len; i++)
 			as_component_add_token (cpt,
 						(const gchar*) g_ptr_array_index (items, i),
 						FALSE,
-						AS_SEARCH_TOKEN_MATCH_MIMETYPE);
+						AS_SEARCH_TOKEN_MATCH_MEDIATYPE,
+						tokens_out);
 	}
 
-	if (priv->pkgnames != NULL) {
-		for (i = 0; priv->pkgnames[i] != NULL; i++)
-			as_component_add_token (cpt, priv->pkgnames[i], FALSE, AS_SEARCH_TOKEN_MATCH_PKGNAME);
+	if (priv->pkgnames != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_PKGNAME)) {
+		for (guint i = 0; priv->pkgnames[i] != NULL; i++)
+			as_component_add_token (cpt,
+						priv->pkgnames[i],
+						FALSE,
+						AS_SEARCH_TOKEN_MATCH_PKGNAME,
+						tokens_out);
 	}
 }
 
 /**
  * as_component_create_token_cache:
+ * @cpt: a #AsComponent instance.
+ *
+ * Internal API.
  */
 void
 as_component_create_token_cache (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	guint i;
+	guint flags;
 
 	if (priv->token_cache_valid)
 		return;
 
-	as_component_create_token_cache_target (cpt, cpt);
+	flags = AS_SEARCH_TOKEN_MATCH_MEDIATYPE |
+		AS_SEARCH_TOKEN_MATCH_PKGNAME |
+		AS_SEARCH_TOKEN_MATCH_ORIGIN |
+		AS_SEARCH_TOKEN_MATCH_DESCRIPTION |
+		AS_SEARCH_TOKEN_MATCH_SUMMARY |
+		AS_SEARCH_TOKEN_MATCH_KEYWORD |
+		AS_SEARCH_TOKEN_MATCH_NAME |
+		AS_SEARCH_TOKEN_MATCH_ID;
 
-	for (i = 0; i < priv->addons->len; i++) {
+	as_component_create_token_cache_target (cpt, cpt, flags, NULL);
+
+	for (guint i = 0; i < priv->addons->len; i++) {
 		AsComponent *donor = g_ptr_array_index (priv->addons, i);
-		as_component_create_token_cache_target (cpt, donor);
+		as_component_create_token_cache_target (cpt, donor, flags, NULL);
 	}
+
+	priv->token_cache_valid = TRUE;
+}
+
+/**
+ * as_component_generate_tokens_for:
+ * @cpt: a #AsComponent instance.
+ *
+ * Internal API to get tokens only for a specific aspect of this
+ * component.
+ */
+GPtrArray*
+as_component_generate_tokens_for (AsComponent *cpt, AsSearchTokenMatch token_kind)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_autoptr(GPtrArray) tokens = g_ptr_array_new_with_free_func (g_free);
+
+	as_component_create_token_cache_target (cpt, cpt, token_kind, tokens);
+
+	for (guint i = 0; i < priv->addons->len; i++) {
+		AsComponent *donor = g_ptr_array_index (priv->addons, i);
+		as_component_create_token_cache_target (cpt, donor, token_kind, tokens);
+	}
+
+	return g_steal_pointer (&tokens);
 }
 
 /**
@@ -2883,35 +2945,6 @@ as_component_get_search_tokens (AsComponent *cpt)
 		g_ptr_array_add (array, g_strdup (l->data));
 
 	return array;
-}
-
-/**
- * as_component_get_token_cache_table:
- * @cpt: a #AsComponent instance.
- *
- * Get the raw token table.
- *
- * This is internal API.
- **/
-GHashTable*
-as_component_get_token_cache_table (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->token_cache;
-}
-
-/**
- * as_component_set_token_cache_valid:
- * @cpt: a #AsComponent instance.
- * @valid: Whether the token cache is considered to be valid.
- *
- * This is internal API.
- **/
-void
-as_component_set_token_cache_valid (AsComponent *cpt, gboolean valid)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	priv->token_cache_valid = valid;
 }
 
 /**
