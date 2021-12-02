@@ -23,10 +23,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-11-24 19:44+0100\n"
+"POT-Creation-Date: 2021-12-02 18:15+0100\n"
 "PO-Revision-Date: 2021-11-25 23:40+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
+"translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,7 +75,7 @@ msgstr ""
 "tanımlayıcısıyla yazılım yüklemek için sistem üst veri havuzuna kolay erişim "
 "sağlar."
 
-#: src/as-cache.c:818
+#: src/as-cache.c:912
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Önbellek konumu '%s', yazılabilir değil."
@@ -1520,7 +1521,9 @@ msgstr ""
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr "Bu `hardware` ögesi geçersiz bir değer içeriyor. Parantezler olmadan bir Bilgisayar Donanım Kimliği (Computer Hardware ID - CHID) UUID'si olmalıdır."
+msgstr ""
+"Bu `hardware` ögesi geçersiz bir değer içeriyor. Parantezler olmadan bir "
+"Bilgisayar Donanım Kimliği (Computer Hardware ID - CHID) UUID'si olmalıdır."
 
 #: src/as-validator-issue-tag.h:326
 msgid ""
@@ -2092,6 +2095,21 @@ msgstr ""
 "etiketi yok. https://hughsie.github.io/oars/ adresinde birkaç soruyu "
 "yanıtlayarak etiket verilerini çevrim içi olarak oluşturabilirsiniz"
 
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
+#: src/as-validator-issue-tag.h:768
+msgid "This `tag` is missing a `namespace` attribute."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
+#: src/as-validator-issue-tag.h:774
+#, fuzzy
+msgid ""
+"This tag or its namespace contains invalid characters. Only lower-cased "
+"ASCII letters, numbers, dots, hyphens and underscores are permitted."
+msgstr ""
+"Bileşen kimliği geçersiz bir karakter içermektedir. Sadece ASCII "
+"karakterlerine, noktalara ve rakamlara izin verilmektedir."
+
 #: src/as-validator.c:150
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
@@ -2106,8 +2124,9 @@ msgid "URL format is invalid."
 msgstr "URL biçimi geçersiz."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:522 src/as-validator.c:937 src/as-validator.c:1031
-#: src/as-validator.c:1442 src/as-validator.c:1462 src/as-validator.c:1495
+#: src/as-validator.c:522 src/as-validator.c:956 src/as-validator.c:1007
+#: src/as-validator.c:1101 src/as-validator.c:1512 src/as-validator.c:1532
+#: src/as-validator.c:1565
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Bulunan: %s - İzin verilen: %s"
@@ -2316,7 +2335,9 @@ msgstr "Taranacak AppStream üst verilerinin elle seçilen konumu."
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr "Sorguyu gerçekleştirmeden önce önbellek yaşını yok say ve yeni bir önbellek oluştur."
+msgstr ""
+"Sorguyu gerçekleştirmeden önce önbellek yaşını yok say ve yeni bir önbellek "
+"oluştur."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
@@ -2391,7 +2412,9 @@ msgstr "Ön belleği yenilenmeye zorla."
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr "Önbellek yenilemesini belirli bir kaynaktan gelen verilerle sınırla, örn. `os` veya `flatpak`. Birden çok kez belirtilebilir."
+msgstr ""
+"Önbellek yenilemesini belirli bir kaynaktan gelen verilerle sınırla, örn. "
+"`os` veya `flatpak`. Birden çok kez belirtilebilir."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:478
@@ -2691,12 +2714,12 @@ msgstr "Üst veri önbelleği güncellemesi gerekli değil."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: tools/ascli-actions-mdata.c:149 tools/ascli-actions-mdata.c:270
+#: tools/ascli-actions-mdata.c:149 tools/ascli-actions-mdata.c:271
 #: tools/ascli-actions-pkgmgr.c:80
 msgid "You need to specify a component-ID."
 msgstr "Bir bileşen kimliği belirtmelisiniz."
 
-#: tools/ascli-actions-mdata.c:161 tools/ascli-actions-mdata.c:282
+#: tools/ascli-actions-mdata.c:161 tools/ascli-actions-mdata.c:283
 #: tools/ascli-actions-pkgmgr.c:93
 #, c-format
 msgid "Unable to find component with ID '%s'!"
@@ -2712,45 +2735,46 @@ msgstr "Arama için bir terim belirtmelisiniz."
 msgid "Unable to find component matching %s!"
 msgstr "%s ile eşleşen bileşen bulunamadı!"
 
-#: tools/ascli-actions-mdata.c:199
+#. TRANSLATORS: We got no full-text search results
+#: tools/ascli-actions-mdata.c:200
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "'%s' ile eşleşen bileşen bulunamadı."
 
-#: tools/ascli-actions-mdata.c:223
+#: tools/ascli-actions-mdata.c:224
 msgid "No value for the item to search for was defined."
 msgstr "Aranacak öge için değer tanımlanmadı."
 
-#: tools/ascli-actions-mdata.c:229
+#: tools/ascli-actions-mdata.c:230
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Sağlanmış öge için geçersiz tür seçildi. Geçerli değerler:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: tools/ascli-actions-mdata.c:244
+#: tools/ascli-actions-mdata.c:245
 #, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "'%s::%s' sağlayan bileşen bulunamadı."
 
-#: tools/ascli-actions-mdata.c:323
+#: tools/ascli-actions-mdata.c:324
 msgid "You need to specify a metadata file."
 msgstr "Bir üst veri dosyası belirtmeniz gerekmektedir."
 
-#: tools/ascli-actions-mdata.c:337
+#: tools/ascli-actions-mdata.c:338
 #, c-format
 msgid "Unable to install metadata file: %s"
 msgstr "Üst veri dosyası kurulamadı: %s"
 
-#: tools/ascli-actions-mdata.c:357
+#: tools/ascli-actions-mdata.c:358
 msgid "You need to specify an input and output file."
 msgstr "Bir girdi ve bir çıktı dosyası belirtmelisiniz."
 
-#: tools/ascli-actions-mdata.c:364
+#: tools/ascli-actions-mdata.c:365
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "'%s' üst veri dosyası yok."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:404
+#: tools/ascli-actions-mdata.c:405
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -2758,16 +2782,16 @@ msgstr ""
 "Dosya dönüştürülemedi: Çıktı biçimi belirlenemedi, lütfen '--format=' "
 "kullanarak açıkça belirtin."
 
-#: tools/ascli-actions-mdata.c:455
+#: tools/ascli-actions-mdata.c:456
 #, c-format
 msgid "Unable to find operating system component '%s'!"
 msgstr "'%s' işletim sistemi bileşeni bulunamadı!"
 
-#: tools/ascli-actions-mdata.c:460
+#: tools/ascli-actions-mdata.c:461
 msgid "Version"
 msgstr "Sürüm"
 
-#: tools/ascli-actions-mdata.c:484
+#: tools/ascli-actions-mdata.c:485
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
@@ -2775,29 +2799,29 @@ msgstr ""
 "Bir şablon oluşturmak için bir AppStream yazılım bileşeni türü "
 "sağlamalısınız. Olası değerler:"
 
-#: tools/ascli-actions-mdata.c:486
+#: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
 msgstr "Yazılım bileşen türü '%s' AppStream'de geçerli değil. Olası değerler:"
 
-#: tools/ascli-actions-mdata.c:504
+#: tools/ascli-actions-mdata.c:505
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop dosyası '%s' bulunmuyor."
 
-#: tools/ascli-actions-mdata.c:510
+#: tools/ascli-actions-mdata.c:511
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr ".desktop dosyası okunamadı: %s"
 
-#: tools/ascli-actions-mdata.c:581
+#: tools/ascli-actions-mdata.c:582
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "Şablon metainfo dosyası inşa edilemedi: %s"
 
-#: tools/ascli-actions-mdata.c:589
+#: tools/ascli-actions-mdata.c:590
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "Şablon metainfo dosyası kaydedilemedi: %s"

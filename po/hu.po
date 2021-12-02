@@ -25,10 +25,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-11-24 19:44+0100\n"
+"POT-Creation-Date: 2021-12-02 18:15+0100\n"
 "PO-Revision-Date: 2021-11-25 11:15+0000\n"
 "Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/translations/hu/>\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
+"translations/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,7 +73,7 @@ msgstr ""
 "MIME-típusokat biztosítanak, és telepíteni tudja a szoftverösszetevő-"
 "azonosítója alapján."
 
-#: src/as-cache.c:818
+#: src/as-cache.c:912
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "A(z) „%s” gyorsítótárhely nem írható."
@@ -1450,13 +1451,17 @@ msgstr ""
 msgid ""
 "Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are "
 "permitted."
-msgstr "Érvénytelen összehasonlító művelet a kapcsolat elemen. Csak az eq/ne/lt/gt/le/ge engedélyezett."
+msgstr ""
+"Érvénytelen összehasonlító művelet a kapcsolat elemen. Csak az eq/ne/lt/gt/"
+"le/ge engedélyezett."
 
 #: src/as-validator-issue-tag.h:281
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr "A kapcsolat elemen összehasonlítás művelet beállítva, de nem támogat semmilyen összehasonlítást."
+msgstr ""
+"A kapcsolat elemen összehasonlítás művelet beállítva, de nem támogat "
+"semmilyen összehasonlítást."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:287
@@ -1500,7 +1505,11 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr "Ez a `display_length` elem érvénytelen megjelenítési hosszt tartalmaz. Az értékének vagy egy rövidítés karakterláncnak kell lennie, vagy egy pozitív értéknek, amely logikai képpontszámot jelöl. Nézze meg az AppStream specifikációt a címke további információiért."
+msgstr ""
+"Ez a `display_length` elem érvénytelen megjelenítési hosszt tartalmaz. Az "
+"értékének vagy egy rövidítés karakterláncnak kell lennie, vagy egy pozitív "
+"értéknek, amely logikai képpontszámot jelöl. Nézze meg az AppStream "
+"specifikációt a címke további információiért."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:314
@@ -1509,14 +1518,21 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr "E `display_length` elem `side` tulajdonsága érvénytelen értéket tartalmaz. Vagy `shortest` vagy `longest` lehet az értéke, vagy távolítsa el, ami implicit `shortest` értéket jelöl; így az elem a kijelző rövidebb vagy hosszabb oldalát fogja jelenteni."
+msgstr ""
+"E `display_length` elem `side` tulajdonsága érvénytelen értéket tartalmaz. "
+"Vagy `shortest` vagy `longest` lehet az értéke, vagy távolítsa el, ami "
+"implicit `shortest` értéket jelöl; így az elem a kijelző rövidebb vagy "
+"hosszabb oldalát fogja jelenteni."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:321
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr "Ez a `hardware` elem érvénytelen értéket tartalmaz. Az értékének egy Computer Hardware ID (CHID) UUID azonosítónak kell lennie, kapcsos zárójelek nélkül."
+msgstr ""
+"Ez a `hardware` elem érvénytelen értéket tartalmaz. Az értékének egy "
+"Computer Hardware ID (CHID) UUID azonosítónak kell lennie, kapcsos zárójelek "
+"nélkül."
 
 #: src/as-validator-issue-tag.h:326
 msgid ""
@@ -1654,7 +1670,9 @@ msgstr "Egy web URL várt ehhez az értékhez."
 #: src/as-validator-issue-tag.h:436
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr "Ez a webes hivatkozás az FTP protokollt használja. Fontolja meg a HTTP(S)-re váltást."
+msgstr ""
+"Ez a webes hivatkozás az FTP protokollt használja. Fontolja meg a HTTP(S)-re "
+"váltást."
 
 #: src/as-validator-issue-tag.h:441
 msgid "The <developer_name/> can not contain a hyperlink."
@@ -1664,7 +1682,9 @@ msgstr "A <developer_name/> nem tartalmazhat hiperhivatkozást."
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
-msgstr "A megadott érték nem egy a Freedesktop.org-nál regisztrált asztali környezet azonosítója."
+msgstr ""
+"A megadott érték nem egy a Freedesktop.org-nál regisztrált asztali környezet "
+"azonosítója."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:452
@@ -1756,7 +1776,9 @@ msgstr ""
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
-msgstr "`console-application` összetevőtípus, de nincs információ megadva a $PATH környezeti változóban lévő binárisokról a `provides/binary` címkén keresztül."
+msgstr ""
+"`console-application` összetevőtípus, de nincs információ megadva a $PATH "
+"környezeti változóban lévő binárisokról a `provides/binary` címkén keresztül."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:515
@@ -1954,7 +1976,8 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:664
 msgid "The value set as release urgency is not a known urgency value."
-msgstr "A kiadási sürgősségnek beállított érték nem egy ismert sürgősségi érték."
+msgstr ""
+"A kiadási sürgősségnek beállított érték nem egy ismert sürgősségi érték."
 
 #: src/as-validator-issue-tag.h:669
 msgid "The value set as release type is invalid."
@@ -1976,11 +1999,16 @@ msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr "A kiadás platform hármasa érvénytelen. A formátumának a következőnek kell lennie: `architecture-oskernel-osenv` – További információkért és az érvényes mezőkért nézze meg az AppStream dokumentációját a normalizált GNU hármasokkal kapcsolatban."
+msgstr ""
+"A kiadás platform hármasa érvénytelen. A formátumának a következőnek kell "
+"lennie: `architecture-oskernel-osenv` – További információkért és az "
+"érvényes mezőkért nézze meg az AppStream dokumentációját a normalizált GNU "
+"hármasokkal kapcsolatban."
 
 #: src/as-validator-issue-tag.h:692
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr "A kiválasztott ellenőrzőösszeg algoritmus nem támogatott vagy nem ismert."
+msgstr ""
+"A kiválasztott ellenőrzőösszeg algoritmus nem támogatott vagy nem ismert."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:698
@@ -2069,6 +2097,21 @@ msgid ""
 "questions at https://hughsie.github.io/oars/"
 msgstr ""
 
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
+#: src/as-validator-issue-tag.h:768
+msgid "This `tag` is missing a `namespace` attribute."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
+#: src/as-validator-issue-tag.h:774
+#, fuzzy
+msgid ""
+"This tag or its namespace contains invalid characters. Only lower-cased "
+"ASCII letters, numbers, dots, hyphens and underscores are permitted."
+msgstr ""
+"Az összetevő-azonosító érvénytelen karaktert tartalmaz. Csak ASCII "
+"karakterek, pontok és számok engedélyezettek."
+
 #: src/as-validator.c:150
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
@@ -2082,8 +2125,9 @@ msgid "URL format is invalid."
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:522 src/as-validator.c:937 src/as-validator.c:1031
-#: src/as-validator.c:1442 src/as-validator.c:1462 src/as-validator.c:1495
+#: src/as-validator.c:522 src/as-validator.c:956 src/as-validator.c:1007
+#: src/as-validator.c:1101 src/as-validator.c:1512 src/as-validator.c:1532
+#: src/as-validator.c:1565
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Megtalálva: %s – Megengedett: %s"
@@ -2659,12 +2703,12 @@ msgstr "Az AppStream gyorsítótár frissítése nem szükséges."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: tools/ascli-actions-mdata.c:149 tools/ascli-actions-mdata.c:270
+#: tools/ascli-actions-mdata.c:149 tools/ascli-actions-mdata.c:271
 #: tools/ascli-actions-pkgmgr.c:80
 msgid "You need to specify a component-ID."
 msgstr "Meg kell adnia egy összetevő-azonosítót."
 
-#: tools/ascli-actions-mdata.c:161 tools/ascli-actions-mdata.c:282
+#: tools/ascli-actions-mdata.c:161 tools/ascli-actions-mdata.c:283
 #: tools/ascli-actions-pkgmgr.c:93
 #, c-format
 msgid "Unable to find component with ID '%s'!"
@@ -2680,47 +2724,48 @@ msgstr "Meg kell adnia egy kifejezést a kereséshez."
 msgid "Unable to find component matching %s!"
 msgstr "Nem található a következőre illeszkedő összetevő: %s!"
 
-#: tools/ascli-actions-mdata.c:199
+#. TRANSLATORS: We got no full-text search results
+#: tools/ascli-actions-mdata.c:200
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "Nem található erre illeszkedő összetevő: „%s”."
 
-#: tools/ascli-actions-mdata.c:223
+#: tools/ascli-actions-mdata.c:224
 msgid "No value for the item to search for was defined."
 msgstr "Nem lett érték meghatározva a keresendő elemhez."
 
-#: tools/ascli-actions-mdata.c:229
+#: tools/ascli-actions-mdata.c:230
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 "Érvénytelen típus lett kiválasztva a biztosított elemhez. Az érvényes "
 "értékek:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: tools/ascli-actions-mdata.c:244
+#: tools/ascli-actions-mdata.c:245
 #, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "Nem található a következőt biztosító összetevő: „%s::%s”."
 
-#: tools/ascli-actions-mdata.c:323
+#: tools/ascli-actions-mdata.c:324
 msgid "You need to specify a metadata file."
 msgstr "Meg kell adnia egy metaadatfájlt."
 
-#: tools/ascli-actions-mdata.c:337
+#: tools/ascli-actions-mdata.c:338
 #, fuzzy, c-format
 msgid "Unable to install metadata file: %s"
 msgstr "A .desktop fájl nem olvasható: %s"
 
-#: tools/ascli-actions-mdata.c:357
+#: tools/ascli-actions-mdata.c:358
 msgid "You need to specify an input and output file."
 msgstr "Meg kell adnia egy bemeneti és egy kimeneti fájlt."
 
-#: tools/ascli-actions-mdata.c:364
+#: tools/ascli-actions-mdata.c:365
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "A(z) „%s” metaadatfájl nem létezik."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:404
+#: tools/ascli-actions-mdata.c:405
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -2728,16 +2773,16 @@ msgstr ""
 "Nem lehet átalakítani a fájlt: nem sikerült meghatározni a kimeneti "
 "formátumot, állítsa be egyértelműen a „--format=” használatával."
 
-#: tools/ascli-actions-mdata.c:455
+#: tools/ascli-actions-mdata.c:456
 #, fuzzy, c-format
 msgid "Unable to find operating system component '%s'!"
 msgstr "Nem található összetevő a következő azonosítóval: „%s”!"
 
-#: tools/ascli-actions-mdata.c:460
+#: tools/ascli-actions-mdata.c:461
 msgid "Version"
 msgstr "Verzió"
 
-#: tools/ascli-actions-mdata.c:484
+#: tools/ascli-actions-mdata.c:485
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
@@ -2745,7 +2790,7 @@ msgstr ""
 "Meg kell adnia egy AppStream szoftverösszetevő-típust egy sablon "
 "előállításához. A lehetséges értékek:"
 
-#: tools/ascli-actions-mdata.c:486
+#: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
@@ -2754,22 +2799,22 @@ msgstr ""
 "A(z) „%s” szoftverösszetevő-típus nem érvényes az AppStreamben. A lehetséges "
 "értékek:"
 
-#: tools/ascli-actions-mdata.c:504
+#: tools/ascli-actions-mdata.c:505
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr "A(z) „%s” .desktop fájl nem létezik."
 
-#: tools/ascli-actions-mdata.c:510
+#: tools/ascli-actions-mdata.c:511
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Nem lehet olvasni a .desktop fájlt: %s"
 
-#: tools/ascli-actions-mdata.c:581
+#: tools/ascli-actions-mdata.c:582
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "Nem lehet összeállítani a sablon metainformációs fájlt: %s"
 
-#: tools/ascli-actions-mdata.c:589
+#: tools/ascli-actions-mdata.c:590
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "Nem lehet elmenteni a sablon metainformációs fájlt: %s"

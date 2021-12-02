@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-11-24 19:44+0100\n"
+"POT-Creation-Date: 2021-12-02 18:15+0100\n"
 "PO-Revision-Date: 2021-08-30 09:34+0000\n"
 "Last-Translator: Éfrit <efrit@posteo.net>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/"
@@ -84,7 +84,7 @@ msgstr ""
 "de type de média spécifique ou en installer un en utilisant son identifiant "
 "de composant."
 
-#: src/as-cache.c:818
+#: src/as-cache.c:912
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "L’emplacement de cache « %s » n’est pas accessible en écriture."
@@ -2147,6 +2147,21 @@ msgstr ""
 "cette balise en ligne en répondant à quelques questions sur https://hughsie."
 "github.io/oars/"
 
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
+#: src/as-validator-issue-tag.h:768
+msgid "This `tag` is missing a `namespace` attribute."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
+#: src/as-validator-issue-tag.h:774
+#, fuzzy
+msgid ""
+"This tag or its namespace contains invalid characters. Only lower-cased "
+"ASCII letters, numbers, dots, hyphens and underscores are permitted."
+msgstr ""
+"L’identifiant du composant contient un caractère invalide. Seuls les "
+"caractères ASCII, les points et les nombres sont autorisés."
+
 #: src/as-validator.c:150
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
@@ -2161,8 +2176,9 @@ msgid "URL format is invalid."
 msgstr "Le format de l’URL est invalide."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:522 src/as-validator.c:937 src/as-validator.c:1031
-#: src/as-validator.c:1442 src/as-validator.c:1462 src/as-validator.c:1495
+#: src/as-validator.c:522 src/as-validator.c:956 src/as-validator.c:1007
+#: src/as-validator.c:1101 src/as-validator.c:1512 src/as-validator.c:1532
+#: src/as-validator.c:1565
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Trouvé : %s – Permis : %s"
@@ -2768,12 +2784,12 @@ msgstr "La mise à jour du cache AppStream n’est pas nécessaire."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: tools/ascli-actions-mdata.c:149 tools/ascli-actions-mdata.c:270
+#: tools/ascli-actions-mdata.c:149 tools/ascli-actions-mdata.c:271
 #: tools/ascli-actions-pkgmgr.c:80
 msgid "You need to specify a component-ID."
 msgstr "Vous devez spécifier l’identifiant du composant."
 
-#: tools/ascli-actions-mdata.c:161 tools/ascli-actions-mdata.c:282
+#: tools/ascli-actions-mdata.c:161 tools/ascli-actions-mdata.c:283
 #: tools/ascli-actions-pkgmgr.c:93
 #, c-format
 msgid "Unable to find component with ID '%s'!"
@@ -2789,46 +2805,47 @@ msgstr "Vous devez spécifier un terme à rechercher."
 msgid "Unable to find component matching %s!"
 msgstr "Impossible de trouver le composant correspondant à %s !"
 
-#: tools/ascli-actions-mdata.c:199
+#. TRANSLATORS: We got no full-text search results
+#: tools/ascli-actions-mdata.c:200
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "Aucun composant correspondant à « %s » trouvé."
 
-#: tools/ascli-actions-mdata.c:223
+#: tools/ascli-actions-mdata.c:224
 msgid "No value for the item to search for was defined."
 msgstr "Aucune valeur n’a été définie pour l’item à rechercher."
 
-#: tools/ascli-actions-mdata.c:229
+#: tools/ascli-actions-mdata.c:230
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 "Type invalide pour l’item fourni sélectionné. Les valeurs valides sont :"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: tools/ascli-actions-mdata.c:244
+#: tools/ascli-actions-mdata.c:245
 #, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "Impossible de trouver des composants qui fournissent « %s::%s »."
 
-#: tools/ascli-actions-mdata.c:323
+#: tools/ascli-actions-mdata.c:324
 msgid "You need to specify a metadata file."
 msgstr "Vous devez spécifier un fichier de métadonnées."
 
-#: tools/ascli-actions-mdata.c:337
+#: tools/ascli-actions-mdata.c:338
 #, c-format
 msgid "Unable to install metadata file: %s"
 msgstr "Impossible d’installer le fichier de métadonnées : %s"
 
-#: tools/ascli-actions-mdata.c:357
+#: tools/ascli-actions-mdata.c:358
 msgid "You need to specify an input and output file."
 msgstr "Vous devez spécifier un fichier d’entrée et de sortie."
 
-#: tools/ascli-actions-mdata.c:364
+#: tools/ascli-actions-mdata.c:365
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "Le fichier de métadonnées « %s » n’existe pas."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:404
+#: tools/ascli-actions-mdata.c:405
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -2836,16 +2853,16 @@ msgstr ""
 "Impossible de convertir le fichier : le format de sortie n’a pas pu être "
 "déterminé, veuillez le définir explicitement en utilisant « --format= »."
 
-#: tools/ascli-actions-mdata.c:455
+#: tools/ascli-actions-mdata.c:456
 #, c-format
 msgid "Unable to find operating system component '%s'!"
 msgstr "Impossible de trouver le composant de système d’exploitation '%s' !"
 
-#: tools/ascli-actions-mdata.c:460
+#: tools/ascli-actions-mdata.c:461
 msgid "Version"
 msgstr "Version"
 
-#: tools/ascli-actions-mdata.c:484
+#: tools/ascli-actions-mdata.c:485
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
@@ -2853,7 +2870,7 @@ msgstr ""
 "Vous devez donner un type de composant logiciel AppStream pour générer un "
 "modèle. Les valeurs possibles sont :"
 
-#: tools/ascli-actions-mdata.c:486
+#: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
@@ -2862,22 +2879,22 @@ msgstr ""
 "Le type de composant logiciel « %s » n’est pas valide dans AppStream. Les "
 "valeurs possibles sont :"
 
-#: tools/ascli-actions-mdata.c:504
+#: tools/ascli-actions-mdata.c:505
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr "Le fichier .desktop « %s » n’existe pas."
 
-#: tools/ascli-actions-mdata.c:510
+#: tools/ascli-actions-mdata.c:511
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Impossible de lire le fichier bureau : %s"
 
-#: tools/ascli-actions-mdata.c:581
+#: tools/ascli-actions-mdata.c:582
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "Impossible de construire le fichier de modèle métainfo : %s"
 
-#: tools/ascli-actions-mdata.c:589
+#: tools/ascli-actions-mdata.c:590
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "Impossible d’enregistrer le fichier de modèle métainfo : %s"
