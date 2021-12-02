@@ -1891,11 +1891,18 @@ GPtrArray*
 as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	GPtrArray *result;
+	g_autoptr(GError) tmp_error = NULL;
 	g_autoptr(AsProfileTask) ptask = NULL;
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	ptask = as_profile_start_literal (priv->profile, "AsPool:get_components_by_id");
-	return as_cache_get_components_by_id (priv->cache, cid, NULL);
+	result = as_cache_get_components_by_id (priv->cache, cid, &tmp_error);
+	if (result == NULL) {
+		g_warning ("Error while trying to get components by ID: %s", tmp_error->message);
+		return g_ptr_array_new_with_free_func (g_object_unref);
+	}
+	return result;
 }
 
 /**

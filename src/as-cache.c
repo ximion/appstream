@@ -1601,10 +1601,13 @@ as_cache_get_components_all (AsCache *cache, GError **error)
 GPtrArray*
 as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
 {
+	g_autofree gchar *id_lower = NULL;
 	g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
-	xb_value_bindings_bind_str (xb_query_context_get_bindings (&context), 0, id, NULL);
+
+	id_lower = g_utf8_strdown (id, -1);
+	xb_value_bindings_bind_str (xb_query_context_get_bindings (&context), 0, id_lower, NULL);
 	return as_cache_query_components (cache,
-					  "components/component/id[text()=?]/..",
+					  "components/component/id[lower-case(text())=?]/..",
 					  &context,
 					  0,
 					  FALSE,
