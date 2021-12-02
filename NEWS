@@ -1,3 +1,57 @@
+Version 0.15.0
+~~~~~~~~~~~~~~
+Released: 2021-12-02
+
+Notes:
+ * This release contains a complete rewrite of AppStream's caching code, making use of
+   libxmlb instead of LMDB now. This will allow for more complex queries and simplifies
+   the caching code a bit.
+   As part of this change, AsPool is now quite a bit more powerful in what it can do.
+ * Caches are now always shared between applications, client-specific caches do no longer
+   exist. If requested, an AsPool can now also transparently reload metadata in the
+   background in case it changes on disk.
+ * A few new tags have also been added, most notably "supports" for indicating
+   hardware or input support.
+
+Features:
+ * Refactor the caching code and partition cache into sections
+ * cli: Display nicer status information when refreshing caches
+ * cli: Allow limiting refresh action to data from certain groups
+ * Allow clients to configure the addon autoresolve magic
+ * Allow clients to control the local metainfo preference
+ * qt: Add wrappers for new AsPool API
+ * Add directory monitoring helper for AsPool
+ * Add an auto-reload mechanism to refresh cache sections when data changes
+ * Implement support for a "supports" relation kind
+ * qt: Wrap the AsPool ::changed signal
+ * qt: Add version test macro for Qt library as well
+ * cli: Make validator output a bit nicer
+ * cli: Base "status" command on metadata source layout from AsPool
+ * Implement the new "Tags" tag
+ * Make component-ID search case-insensitive
+
+Specification:
+ * spec: Add a "supports" relation type
+ * Add support for specifying a graphics tablet as input control method
+ * Add support for the "hardware" relation item
+ * spec: Add "tags" tag for tagging components
+ * apidoc: Document file not found error code
+ * docs: Fix various typos and grammar issues
+
+Bugfixes:
+ * compose: Adjust to rsvg API changes
+ * qt: Pass NULL to C function when overriding cache location with empty string
+ * tests: Make unit tests clean up temporary caches if possible
+ * qt: Align API deprecations with C library API
+ * Cache Flatpak data properly, and add some quirk fixes for it
+ * file-monitor: Explicitly cancel GFileMonitor before unreffing it
+ * Fix broken markup by using itstool to generate final translated metainfo
+ * validator: Fix some issues pointing at the wrong node
+ * validator: Validate the "tags" tag group
+
+Contributors:
+ Phaedrus Leeds, Matthias Klumpp
+
 Version 0.14.6
 ~~~~~~~~~~~~~~
 Released: 2021-10-08
