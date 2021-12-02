@@ -101,8 +101,8 @@ as_cache_section_free (AsCacheSection *csec)
 gint
 as_cache_section_cmp (gconstpointer a, gconstpointer b)
 {
-	const AsCacheSection *s1 = a;
-	const AsCacheSection *s2 = b;
+	const AsCacheSection *s1 = *((AsCacheSection **) a);
+	const AsCacheSection *s2 = *((AsCacheSection **) a);
 
 	/* sort masking data last */
 	if (s1->is_mask && !s2->is_mask)
@@ -123,7 +123,7 @@ as_cache_section_cmp (gconstpointer a, gconstpointer b)
 		return 1;
 
 	/* alphabetic sorting if everything else is equal */
-	return g_strcmp0 (s1->key, s2->key);
+	return g_ascii_strcasecmp (s1->key, s2->key);
 }
 
 G_DEFINE_AUTOPTR_CLEANUP_FUNC(AsCacheSection, as_cache_section_free)
