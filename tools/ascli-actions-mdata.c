@@ -196,6 +196,7 @@ ascli_search_component (const gchar *cachepath, const gchar *search_term, gboole
 	}
 
 	if (result->len == 0) {
+		/* TRANSLATORS: We got no full-text search results */
 		ascli_print_stdout (_("No component matching '%s' found."), search_term);
 		return 0;
 	}

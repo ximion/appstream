@@ -556,6 +556,63 @@ as_transmogrify_xmlnode_to_xbuildernode (xmlNode *lxn, XbBuilderNode *xbn)
 }
 
 /**
+ * as_cache_builder_add_simple_tokens:
+ */
+static void
+as_cache_builder_add_simple_tokens (XbBuilderNode *root,
+				    AsComponent *cpt,
+				    const gchar *element,
+				    AsSearchTokenMatch token_kind)
+{
+	g_autoptr(XbBuilderNode) token_node = NULL;
+	g_autoptr(GPtrArray) token_array = NULL;
+
+	token_node = xb_builder_node_get_child (root, element, NULL);
+	if (token_node == NULL)
+		return;
+
+	token_array = as_component_generate_tokens_for (cpt, token_kind);
+	/* libxmlb only allows a maximum of 32 tokens per tag, so we clamp this here to
+	 * avoid cache corruption with older xmlb versions. See XB_OPCODE_TOKEN_MAX */
+	for (guint i = 0; i < MIN(token_array->len, 32); i++)
+		xb_builder_node_add_token (token_node,
+					   g_ptr_array_index (token_array, i));
+#if !(LIBXMLB_CHECK_VERSION(0, 3, 6))
+	xb_builder_node_add_flag (token_node, XB_BUILDER_NODE_FLAG_TOKENIZE_TEXT);
+#endif
+}
+
+/**
+ * as_cache_builder_add_manifold_tokens:
+ */
+static void
+as_cache_builder_add_manifold_tokens (XbBuilderNode *root, AsComponent *cpt)
+{
+	g_autoptr(XbBuilderNode) tokens_node = NULL;
+	g_autoptr(GPtrArray) token_array = NULL;
+
+	tokens_node = xb_builder_node_new ("_asi_tokens");
+
+	token_array = as_component_generate_tokens_for (cpt, AS_SEARCH_TOKEN_MATCH_KEYWORD);
+	for (guint i = 0; i < token_array->len; i++) {
+		g_autoptr(XbBuilderNode) child = xb_builder_node_new ("t");
+		xb_builder_node_set_text (child, g_ptr_array_index (token_array, i), -1);
+		xb_builder_node_add_child (tokens_node, child);
+	}
+	g_clear_pointer (&token_array, g_ptr_array_unref);
+
+	token_array = as_component_generate_tokens_for (cpt, AS_SEARCH_TOKEN_MATCH_DESCRIPTION);
+	for (guint i = 0; i < token_array->len; i++) {
+		g_autoptr(XbBuilderNode) child = xb_builder_node_new ("t");
+		xb_builder_node_set_text (child, g_ptr_array_index (token_array, i), -1);
+		xb_builder_node_add_child (tokens_node, child);
+	}
+	g_clear_pointer (&token_array, g_ptr_array_unref);
+
+	xb_builder_node_add_child (root, tokens_node);
+}
+
+/**
  * as_cache_components_to_internal_xml:
  *
  * Convert a list of components into internal binary XML that we will store
@@ -582,10 +639,8 @@ as_cache_components_to_internal_xb (AsCache *cache,
 	for (guint i = 0; i < cpts->len; i++) {
 		xmlNode *cnode;
 		g_autoptr(XbBuilderNode) xbnode = NULL;
+		g_autoptr(XbBuilderNode) tmp_node = NULL;
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
-
-		/* ensure search token cache is generated */
-		as_component_create_token_cache (cpt);
 
 		/* refine component data */
 		if (refine && priv->cpt_refine_func != NULL)
@@ -601,6 +656,13 @@ as_cache_components_to_internal_xb (AsCache *cache,
 		as_transmogrify_xmlnode_to_xbuildernode (cnode, xbnode);
 		xmlFreeNode (cnode);
 
+		/* add tokens */
+		as_cache_builder_add_simple_tokens (xbnode, cpt, "summary", AS_SEARCH_TOKEN_MATCH_SUMMARY);
+		as_cache_builder_add_simple_tokens (xbnode, cpt, "_asi_origin", AS_SEARCH_TOKEN_MATCH_ORIGIN);
+		as_cache_builder_add_simple_tokens (xbnode, cpt, "pkgname", AS_SEARCH_TOKEN_MATCH_PKGNAME);
+		as_cache_builder_add_manifold_tokens (xbnode, cpt);
+
+		/* add component to tree */
 		xb_builder_node_add_child (bnode_root, xbnode);
 	}
 
@@ -1343,6 +1405,115 @@ as_cache_set_refine_func (AsCache *cache, AsCacheDataRefineFn func)
 	priv->cpt_refine_func = func;
 }
 
+typedef struct {
+	GHashTable *results_map;
+	GHashTable *known_os_cids;
+} AsQueryContext;
+
+static AsQueryContext*
+as_query_context_new ()
+{
+	AsQueryContext *ctx;
+	ctx = g_new0 (AsQueryContext, 1);
+	ctx->results_map = g_hash_table_new_full (g_str_hash,
+						  g_str_equal,
+						  g_free,
+						  g_object_unref);
+	ctx->known_os_cids = g_hash_table_new_full (g_str_hash,
+						    g_str_equal,
+						    g_free,
+						    NULL);
+	return ctx;
+}
+
+static void
+as_query_context_free (AsQueryContext *ctx)
+{
+	g_hash_table_unref (ctx->results_map);
+	g_hash_table_unref (ctx->known_os_cids);
+	g_free (ctx);
+}
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC(AsQueryContext, as_query_context_free)
+
+static gboolean
+as_query_context_add_component_from_node (AsQueryContext *ctx,
+					  AsCache *cache,
+					  AsCacheSection *csec,
+					  XbNode *cpt_node,
+					  AsTokenType match_value,
+					  GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(AsComponent) cpt = NULL;
+	const gchar *data_id;
+
+	if (csec->is_os_data && csec->format_style == AS_FORMAT_STYLE_METAINFO) {
+		const gchar *cid = xb_node_query_text (cpt_node, "id", NULL);
+		if (g_hash_table_contains (ctx->known_os_cids, cid) &&
+			!priv->prefer_os_metainfo)
+			return TRUE;
+	}
+
+	cpt = as_cache_component_from_node (cache,
+						csec,
+						cpt_node,
+						error);
+	if (cpt == NULL)
+		return FALSE;
+	if (csec->format_style == AS_FORMAT_STYLE_METAINFO)
+		as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_METAINFO);
+
+	/* don't display masked components */
+	if (!csec->is_mask && g_hash_table_contains (priv->masked, as_component_get_data_id (cpt)))
+		return TRUE;
+
+	/* add match score (in case we are full-text searching) */
+	if (match_value != 0)
+		as_component_set_sort_score (cpt, match_value);
+
+	/* register */
+	if (csec->is_os_data)
+		g_hash_table_add (ctx->known_os_cids,
+					g_strdup (as_component_get_id (cpt)));
+
+	data_id = as_component_get_data_id (cpt);
+	g_hash_table_insert (ctx->results_map,
+				g_strdup (data_id),
+				g_steal_pointer (&cpt));
+
+	return TRUE;
+}
+
+static gboolean
+as_query_context_add_component_from_nodes (AsQueryContext *ctx,
+					   AsCache *cache,
+					   AsCacheSection *csec,
+					   GPtrArray *nodes,
+					   GError **error)
+{
+	for (guint i = 0; i < nodes->len; i++) {
+		XbNode *qnode = XB_NODE (g_ptr_array_index (nodes, i));
+		if (!as_query_context_add_component_from_node (ctx, cache, csec, qnode, 0, error))
+			return FALSE;
+	}
+	return TRUE;
+}
+
+static GPtrArray*
+as_query_context_retrieve_components (AsQueryContext *ctx)
+{
+	GHashTableIter ht_iter;
+	gpointer ht_value;
+	GPtrArray *results = g_ptr_array_new_with_free_func (g_object_unref);
+
+	g_hash_table_iter_init (&ht_iter, ctx->results_map);
+	while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value))
+		g_ptr_array_add (results, g_object_ref (ht_value));
+
+	return results;
+}
+
 /**
  * as_cache_query_components_internal:
  */
@@ -1355,22 +1526,10 @@ as_cache_query_components (AsCache *cache,
 			   GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
-	g_autoptr(GPtrArray) results = NULL;
-	g_autoptr(GHashTable) results_map = NULL;
-	g_autoptr(GHashTable) known_os_cids = NULL;
-	GHashTableIter ht_iter;
-	gpointer ht_value;
+	g_autoptr(AsQueryContext) qctx = NULL;
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
-	results_map = g_hash_table_new_full (g_str_hash,
-					     g_str_equal,
-					     g_free,
-					     g_object_unref);
-	known_os_cids = g_hash_table_new_full (g_str_hash,
-						g_str_equal,
-						g_free,
-						NULL);
-
+	qctx = as_query_context_new ();
 	for (guint i = 0; i < priv->sections->len; i++) {
 		g_autoptr(GPtrArray) array = NULL;
 		g_autoptr(GError) tmp_error = NULL;
@@ -1401,65 +1560,12 @@ as_cache_query_components (AsCache *cache,
 			return NULL;
 		}
 
-		for (guint j = 0; j < array->len; j++) {
-			g_autoptr (AsComponent) cpt = NULL;
-			g_autoptr(XbNode) cpt_node = NULL;
-			const gchar *data_id;
-			XbNode *qnode = g_ptr_array_index (array, j);
+		if (!as_query_context_add_component_from_nodes (qctx, cache, csec, array, error))
+			return NULL;
 
-			if (is_fts) {
-				g_autoptr(XbNode) token_node = xb_node_get_parent (qnode);
-				cpt_node = xb_node_get_parent (token_node);
-			} else {
-				cpt_node = g_object_ref (qnode);
-			}
-
-			if (csec->is_os_data && csec->format_style == AS_FORMAT_STYLE_METAINFO) {
-				const gchar *cid = xb_node_query_text (cpt_node, "id", NULL);
-				if (g_hash_table_contains (known_os_cids, cid) &&
-					!priv->prefer_os_metainfo)
-					continue;
-			}
-
-			cpt = as_cache_component_from_node (cache,
-							    csec,
-							    cpt_node,
-							    error);
-			if (cpt == NULL)
-				return NULL;
-			if (csec->format_style == AS_FORMAT_STYLE_METAINFO)
-				as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_METAINFO);
-
-			/* don't display masked components */
-			if (!csec->is_mask && g_hash_table_contains (priv->masked, as_component_get_data_id (cpt)))
-				continue;
-
-			/* add match score if we are full-text searching
-			 * TODO: We only got the last node of the query to add the score from at the moment, due to
-			 * libxmlb limitations. To improve fulltext search, we may need to extend libxmlb to return
-			 * all nodes that the query selector matches, and calculate an accumulated score.
-			 */
-			if (is_fts)
-				as_component_set_sort_score (cpt, xb_node_get_attr_as_uint (qnode, "score"));
-
-			/* register */
-			if (csec->is_os_data)
-				g_hash_table_add (known_os_cids,
-						  g_strdup (as_component_get_id (cpt)));
-
-			data_id = as_component_get_data_id (cpt);
-			g_hash_table_insert (results_map,
-					     g_strdup (data_id),
-					     g_steal_pointer (&cpt));
-		}
 	}
 
-	results = g_ptr_array_new_with_free_func (g_object_unref);
-	g_hash_table_iter_init (&ht_iter, results_map);
-	while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value))
-		g_ptr_array_add (results, g_object_ref (ht_value));
-
-	return g_steal_pointer (&results);
+	return as_query_context_retrieve_components (qctx);
 }
 
 /**
@@ -1670,6 +1776,53 @@ as_cache_get_components_by_launchable (AsCache *cache, AsLaunchableKind kind, co
 					  error);
 }
 
+typedef struct {
+	AsSearchTokenMatch	match_value;
+	XbQuery			*query;
+} AsFTSearchHelper;
+
+static void
+as_ftsearch_helper_free (AsFTSearchHelper *helper)
+{
+	g_object_unref (helper->query);
+	g_free (helper);
+}
+
+static AsTokenType
+as_cache_search_component_node_term (GPtrArray *array, XbNode *cpt_node, const gchar *term)
+{
+	AsTokenType match_value = 0;
+
+	/* run all queries on the component node */
+	for (guint i = 0; i < array->len; i++) {
+		g_autoptr(GPtrArray) n = NULL;
+		g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
+		AsFTSearchHelper *helper = g_ptr_array_index (array, i);
+
+		xb_value_bindings_bind_str (xb_query_context_get_bindings (&context), 0, term, NULL);
+		n = xb_node_query_with_context (cpt_node, helper->query, &context, NULL);
+		if (n != NULL)
+			match_value |= helper->match_value;
+	}
+
+	return match_value;
+}
+
+static AsTokenType
+as_cache_search_component_node_terms (GPtrArray *array, XbNode *cpt_node, const gchar * const *terms)
+{
+	AsTokenType matches_sum = 0;
+
+	/* match all search terms */
+	for (guint i = 0; terms[i] != NULL; i++) {
+		AsTokenType tmp = as_cache_search_component_node_term (array, cpt_node, terms[i]);
+		if (tmp == 0)
+			return 0;
+		matches_sum |= tmp;
+	}
+	return matches_sum;
+}
+
 /**
  * as_cache_search:
  * @cache: An instance of #AsCache.
@@ -1677,40 +1830,96 @@ as_cache_get_components_by_launchable (AsCache *cache, AsLaunchableKind kind, co
  * @sort: %TRUE if results should be sorted by score.
  * @error: A #GError or %NULL.
  *
- * Perform a search for the given terms.
+ * Perform a search for the given pre-stemmed terms.
  *
  * Returns: (transfer container): An array of #AsComponent
  */
 GPtrArray*
-as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
+as_cache_search (AsCache *cache, const gchar * const *terms, gboolean sort, GError **error)
 {
-	g_autoptr(GString) xpath = NULL;
-	GPtrArray *results;
-	g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
-	XbValueBindings *vbindings = xb_query_context_get_bindings (&context);
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GPtrArray) results = NULL;
+	g_autoptr(AsQueryContext) qctx = NULL;
+	g_autoptr(GRWLockReaderLocker) locker = NULL;
+
+	const struct {
+		AsSearchTokenMatch	match_value;
+		const gchar		*xpath;
+	} queries[] = {
+		{ AS_SEARCH_TOKEN_MATCH_MEDIATYPE,	"provides/mediatype[text()~=?]" },
+		{ AS_SEARCH_TOKEN_MATCH_PKGNAME,	"pkgname[text()~=?]" },
+		{ AS_SEARCH_TOKEN_MATCH_SUMMARY,	"summary[text()~=?]" },
+		{ AS_SEARCH_TOKEN_MATCH_NAME,		"name[text()~=?]" },
+		{ AS_SEARCH_TOKEN_MATCH_DESCRIPTION,	"_asi_tokens/t[text()~=?]" },
+		{ AS_SEARCH_TOKEN_MATCH_ID,		"id[text()~=?]" },
+		{ AS_SEARCH_TOKEN_MATCH_ORIGIN,		"_asi_origin[text()~=?]" },
+		{ AS_SEARCH_TOKEN_MATCH_NONE,		NULL }
+	};
 
 	if (terms == NULL || terms[0] == NULL)
 		return g_ptr_array_new_with_free_func (g_object_unref);
 
-	xpath = g_string_new ("components/component/_asi_tokens");
-	for (guint i = 0; terms[i] != NULL; i++) {
-		g_string_append (xpath, "/t[text()~=?]/..");
-		xb_value_bindings_bind_str (vbindings, i,
-					    terms[i],
-					    NULL);
-	}
-	g_string_truncate (xpath, xpath->len - 3);
+	/* lock for reading */
+	locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
-	results = as_cache_query_components (cache,
-						xpath->str,
-						&context,
-						0,
-						TRUE,
-						error);
+	qctx = as_query_context_new ();
+	for (guint i = 0; i < priv->sections->len; i++) {
+		g_autoptr(GPtrArray) array = NULL;
+		g_autoptr(GPtrArray) cpt_nodes = NULL;
+		g_autoptr(GError) tmp_error = NULL;
+		AsCacheSection *csec = (AsCacheSection*) g_ptr_array_index (priv->sections, i);
+
+		g_debug ("Full text search in %s", csec->key);
+
+		/* add weighted queries */
+		array = g_ptr_array_new_with_free_func ((GDestroyNotify) as_ftsearch_helper_free);
+		for (guint i = 0; queries[i].xpath != NULL; i++) {
+			g_autoptr(GError) error_query = NULL;
+			g_autoptr(XbQuery) query = xb_query_new (csec->silo, queries[i].xpath, &error_query);
+			if (query != NULL) {
+				AsFTSearchHelper *helper = g_new0 (AsFTSearchHelper, 1);
+				helper->match_value = queries[i].match_value;
+				helper->query = g_steal_pointer (&query);
+				g_ptr_array_add (array, helper);
+			} else {
+				g_debug ("Unable to create query (ignoring it): %s", error_query->message);
+			}
+		}
+
+		/* get nodes for all components */
+		cpt_nodes = xb_silo_query (csec->silo, "components/component", 0, &tmp_error);
+		if (cpt_nodes == NULL) {
+			if (g_error_matches (tmp_error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
+				continue;
+			if (g_error_matches (tmp_error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT))
+				continue;
+			g_propagate_prefixed_error (error,
+							g_steal_pointer (&tmp_error),
+							"Unable to run query: ");
+			return NULL;
+		}
+
+		for (guint i = 0; i < cpt_nodes->len; i++) {
+			XbNode *cpt_node = g_ptr_array_index (cpt_nodes, i);
+			AsTokenType match_value = as_cache_search_component_node_terms (array, cpt_node, terms);
+			if (match_value != 0) {
+				if (!as_query_context_add_component_from_node (qctx,
+									       cache,
+									       csec,
+									       cpt_node,
+									       match_value,
+									       error))
+					return NULL;
+			}
+		}
+
+	}
+
+	results = as_query_context_retrieve_components (qctx);
 
 	/* sort the results by their priority */
 	if (sort)
 		as_sort_components_by_score (results);
 
-	return results;
+	return g_steal_pointer (&results);
 }

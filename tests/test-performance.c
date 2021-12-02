@@ -171,7 +171,10 @@ test_pool_cache_perf (void)
 	g_timer_reset (timer);
 	for (guint i = 0; i < loops; i++) {
 		g_autoptr(GPtrArray) test_cpts = NULL;
-		test_cpts = as_cache_search (cache, strv, TRUE, &error);
+		test_cpts = as_cache_search (cache,
+					     (const gchar * const *) strv,
+					     TRUE,
+					     &error);
 		g_assert_no_error (error);
 
 		g_assert_cmpint (test_cpts->len, ==, 6);

@@ -183,7 +183,7 @@ GPtrArray		*as_cache_get_components_by_launchable (AsCache *cache,
 								GError **error);
 
 GPtrArray		*as_cache_search (AsCache *cache,
-					  gchar **terms,
+					  const gchar * const *terms,
 					  gboolean sort,
 					  GError **error);
 

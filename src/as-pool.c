@@ -2200,8 +2200,8 @@ as_pool_search (AsPool *pool, const gchar *search)
 	}
 
 	result = as_cache_search (priv->cache,
-				  tokens, /* sort */
-				  TRUE,
+				  (const gchar * const *) tokens,
+				  TRUE, /* sort */
 				  &tmp_error);
 	if (result == NULL) {
 		g_warning ("Search failed: %s", tmp_error->message);

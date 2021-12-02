@@ -2587,16 +2587,14 @@ as_component_add_token_helper (AsComponent *cpt,
 	if (token_stemmed == NULL)
 		return;
 
-	/* if we have an output array, we add to that and don't register tokens globally */
-	if (tokens_out != NULL) {
-		g_ptr_array_add (tokens_out,
-				 g_steal_pointer (&token_stemmed));
-		return;
-	}
-
 	/* does the token already exist */
 	match_pval = g_hash_table_lookup (priv->token_cache, token_stemmed);
 	if (match_pval != NULL) {
+		/* add token to the output array only if it was more important than the cached one */
+		if (tokens_out != NULL && *match_pval < match_flag)
+			g_ptr_array_add (tokens_out,
+					g_steal_pointer (&token_stemmed));
+
 		*match_pval |= match_flag;
 		return;
 	}
@@ -2607,6 +2605,11 @@ as_component_add_token_helper (AsComponent *cpt,
 	g_hash_table_insert (priv->token_cache,
 			     g_ref_string_new_intern (token_stemmed),
 			     match_pval);
+
+	/* add to the token output array, if we have one */
+	if (tokens_out != NULL)
+		g_ptr_array_add (tokens_out,
+				 g_steal_pointer (&token_stemmed));
 }
 
 /**
@@ -4508,10 +4511,6 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 	/* internal information */
 	if (as_context_get_internal_mode (ctx)) {
-		GHashTableIter tc_iter;
-		gpointer tc_value, tc_key;
-		xmlNode *tc_node;
-
 		const gchar *origin = as_component_get_origin (cpt);
 		if (priv->scope != AS_COMPONENT_SCOPE_UNKNOWN)
 			as_xml_add_text_node (cnode, "_asi_scope", as_component_scope_to_string (priv->scope));
@@ -4519,25 +4518,6 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 			as_xml_add_text_node (cnode, "_asi_origin", origin);
 		if (priv->branch != NULL)
 			as_xml_add_text_node (cnode, "_asi_branch", priv->branch);
-
-		tc_node = xmlNewChild (cnode,
-					NULL,
-					(xmlChar*) "_asi_tokens",
-					NULL);
-
-		g_hash_table_iter_init (&tc_iter, priv->token_cache);
-		while (g_hash_table_iter_next (&tc_iter, &tc_key, &tc_value)) {
-			g_autofree gchar *tmp = NULL;
-			AsTokenType *score_val;
-			xmlNode *tct = as_xml_add_text_node (tc_node,
-							     "t", (const gchar*) tc_key);
-			score_val = tc_value;
-			if (*score_val == 0)
-				continue;
-
-			tmp = g_strdup_printf ("%" G_GUINT16_FORMAT, *score_val);
-			as_xml_add_text_prop (tct, "score", tmp);
-		}
 	}
 
 	return cnode;
