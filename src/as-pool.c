@@ -103,10 +103,10 @@ static guint signals [SIGNAL_LAST] = { 0 };
 #define AS_SEARCH_GREYLIST_STR _("app;application;package;program;programme;suite;tool")
 
 /* Locations where system-wide AppStream collection metadata may be stored. */
-const gchar *SYSTEM_COLLECTION_METADATA_PATHS[4] = { "/usr/share/app-info",
-						     "/var/lib/app-info",
-						     "/var/cache/app-info",
-						     NULL};
+static const gchar *SYSTEM_COLLECTION_METADATA_PATHS[] = { "/usr/share/app-info",
+							   "/var/lib/app-info",
+							   "/var/cache/app-info",
+							   NULL};
 
 /* where .desktop files are installed to by packages to be registered with the system */
 static gchar *APPLICATIONS_DIR = "/usr/share/applications";
