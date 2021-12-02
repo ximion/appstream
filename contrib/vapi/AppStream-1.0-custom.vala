@@ -10,4 +10,14 @@ namespace AppStream {
 		[Version (deprecated = true, replacement = "INPUT_METHOD")]
 		INPUTMETHOD
 	}
+
+	[CCode (cheader_filename = "appstream.h", cprefix = "AS_POOL_FLAG_", has_type_id = false)]
+	public enum PoolFlag {
+		[Version (deprecated = true, replacement = "LOAD_OS_COLLECTION")]
+		READ_COLLECTION,
+		[Version (deprecated = true, replacement = "LOAD_OS_METAINFO")]
+		READ_METAINFO,
+		[Version (deprecated = true, replacement = "LOAD_OS_DESKTOP_FILES")]
+		READ_DESKTOP_FILES
+	}
 }
