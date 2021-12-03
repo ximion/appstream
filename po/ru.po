@@ -36,7 +36,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-02 18:15+0100\n"
-"PO-Revision-Date: 2021-11-16 00:29+0700\n"
+"PO-Revision-Date: 2021-12-04 03:13+0700\n"
 "Last-Translator: Dmitry <dmitrydmitry761@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
 "translations/ru/>\n"
@@ -2099,11 +2099,14 @@ msgid ""
 "information. You can generate the tag data online by answering a few "
 "questions at https://hughsie.github.io/oars/"
 msgstr ""
+"Этот компонент не имеет тега content_rating для предоставления "
+"информации о возрастном рейтинге. Вы можете сгенерировать данные тегов онлайн, ответив на несколько "
+"вопросов на https://hughsie.github.io/oars/"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:768
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "В этом `tag` отсутствует атрибут `namespace`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:774
@@ -2113,7 +2116,7 @@ msgid ""
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
 msgstr ""
 "Идентификатор компонента содержит недопустимый символ. Допускаются только "
-"ASCII-символы, точки и числа."
+"ASCII-символы в нижнем регистре, цифры, точки, дефисы и подчеркивания."
 
 #: src/as-validator.c:150
 msgid ""
