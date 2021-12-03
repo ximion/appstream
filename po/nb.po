@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:45+0000\n"
-"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
+"Last-Translator: Petter Reinholdtsen <pere-weblate@hungry.com>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/appstream/translations/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -46,12 +46,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Kommandolinjeverktøyet <em>appstreamcli</em> tillater lesing, skriving og "
-"godkjenning av transformering av AppStream sin XML- eller YAML-metadata. Det "
-"gir også tilgang til systemets metadatagrunnlag, for eksempel for spørringer "
-"til programvare som tilbyr en spesifikk MIME-type, og installasjon av dens "
-"programvarekomponentidentifikator."
+msgstr "Kommandolinjeverktøyet <em>appstreamcli</em> tillater lesing, skriving og godkjenning av transformering av AppStream sin XML- eller YAML-metadata. Det gir også tilgang til systemets metadatagrunnlag, for eksempel for spørringer til programvare som tilbyr en spesifikk MIME-type, og installasjon av dens programvarekomponentidentifikator."
 
 #: src/as-cache.c:909
 #, c-format
@@ -456,9 +451,7 @@ msgstr "Ingen fantasivold"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:852
 msgid "Characters in unsafe situations easily distinguishable from reality"
-msgstr ""
-"Karakterer i farlige situasjoner som er enkle å skille fra virkelige "
-"situasjoner"
+msgstr "Karakterer i farlige situasjoner som er enkle å skille fra virkelige situasjoner"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:854
@@ -1372,8 +1365,7 @@ msgstr ""
 #: src/as-validator-issue-tag.h:327
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Den angitte komponentypen er ikke en kjent, gyldig AppStream-komponenttype."
+msgstr "Den angitte komponentypen er ikke en kjent, gyldig AppStream-komponenttype."
 
 #: src/as-validator-issue-tag.h:332
 msgid ""
@@ -1446,8 +1438,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:405
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
-"Overvei å bruke en sikret (HTTPS-) nettadresse for ikonlenken annensteds fra."
+msgstr "Overvei å bruke en sikret (HTTPS-) nettadresse for ikonlenken annensteds fra."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
@@ -1683,8 +1674,7 @@ msgstr "Klarer ikke å lese .desktop-filen knyttet til denne komponenten."
 
 #: src/as-validator-issue-tag.h:628
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
-"Denne komponentens metadata henviser til en ikke-eksisterende .desktop-fil."
+msgstr "Denne komponentens metadata henviser til en ikke-eksisterende .desktop-fil."
 
 #: src/as-validator-issue-tag.h:633
 msgid ""
@@ -2696,9 +2686,7 @@ msgstr "Bekreftelse mislyktes: %s"
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
 "'yaml' or 'text' instead."
-msgstr ""
-"Validatoren kan ikke lage rapporter in '%s'-formatet. Du må velge «yaml» "
-"eller «text» i stedet."
+msgstr "Validatoren kan ikke lage rapporter in '%s'-formatet. Du må velge «yaml» eller «text» i stedet."
 
 #: tools/ascli-actions-validate.c:392 tools/ascli-actions-validate.c:488
 msgid "You need to specify a root directory to start validation!"
