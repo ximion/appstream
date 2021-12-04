@@ -20,10 +20,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-02 18:15+0100\n"
-"PO-Revision-Date: 2021-11-29 21:52+0000\n"
+"PO-Revision-Date: 2021-12-04 06:50+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
-"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
-"translations/id/>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2097,17 +2096,14 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:768
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "`tag` ini kurang atribut `namespace`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:774
-#, fuzzy
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"ID komponen berisi karakter yang tidak valid. Hanya karakter ASCII, titik, "
-"dan angka yang diizinkan."
+msgstr "Tag ini atau namespace-nya memuat karakter yang tidak valid. Hanya karakter ASCII huruf kecil, angka, titik, dan garis hubung yang diizinkan."
 
 #: src/as-validator.c:150
 msgid ""
