@@ -24,10 +24,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-02 18:15+0100\n"
-"PO-Revision-Date: 2021-11-25 23:40+0000\n"
+"PO-Revision-Date: 2021-12-04 06:50+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1102,15 +1101,11 @@ msgstr ""
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr ""
-"Bu açıklama paragrafında geçersiz işaretleme bulunmaktadır. Şu anda sadece "
-"<em/> ve <code/> etiketlerine izin verilmektedir."
+msgstr "Bu açıklama paragrafında geçersiz işaretleme bulunmaktadır. Şu anda yalnızca <em/> ve <code/> etiketlerine izin verilmektedir."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr ""
-"Numaralandırmalar alt öge olarak sadece liste ögelerine (<li/>) sahip "
-"olmalıdır."
+msgstr "Numaralandırmalar alt öge olarak yalnızca liste ögelerine (<li/>) sahip olmalıdır."
 
 #: src/as-validator-issue-tag.h:79
 msgid ""
@@ -1137,9 +1132,7 @@ msgstr ""
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr ""
-"AppStream tanımlamasına göre, belirtilen etiket bu bağlamda sadece bir kez "
-"görünmelidir. Bu türden birden fazla etikete sahip olmak geçerli değildir."
+msgstr "AppStream tanımlamasına göre, belirtilen etiket bu bağlamda yalnızca bir kez görünmelidir. Bu türden birden fazla etikete sahip olmak geçerli değildir."
 
 #: src/as-validator-issue-tag.h:96
 msgid ""
@@ -1190,9 +1183,7 @@ msgstr ""
 msgid ""
 "The component ID contains an invalid character. Only ASCII characters, dots "
 "and numbers are permitted."
-msgstr ""
-"Bileşen kimliği geçersiz bir karakter içermektedir. Sadece ASCII "
-"karakterlerine, noktalara ve rakamlara izin verilmektedir."
+msgstr "Bileşen kimliği geçersiz bir karakter içermektedir. Yalnızca ASCII karakterlerine, noktalara ve rakamlara izin verilmektedir."
 
 #: src/as-validator-issue-tag.h:124
 msgid ""
@@ -1219,7 +1210,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:136
 msgid "The component ID should only contain lowercase letters."
-msgstr "Bileşen kimliği sadece küçük harfler içermelidir."
+msgstr "Bileşen kimliği yalnızca küçük harfler içermelidir."
 
 #: src/as-validator-issue-tag.h:141
 msgid ""
@@ -1363,11 +1354,7 @@ msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
-"Seçilen video codec'i AppStream tarafından desteklenmemektedir ve yazılım "
-"merkezleri videoyu oynatamayabilir. Şu anda sadece AV1 ve VP9 codec'leri "
-"desteklenmekte, `codec` özelliği için `av1` ve `vp9` değerleri "
-"kullanılmaktadır."
+msgstr "Seçilen video codec'i AppStream tarafından desteklenmemektedir ve yazılım merkezleri videoyu oynatamayabilir. Şu anda yalnızca AV1 ve VP9 codec'leri desteklenmekte, `codec` özelliği için `av1` ve `vp9` değerleri kullanılmaktadır."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:236
@@ -1376,11 +1363,7 @@ msgid ""
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr ""
-"Seçilen video konteyner biçimi AppStream tarafından desteklenmemektedir ve "
-"yazılım merkezleri videoyu oynatamayabilir. Şu anda sadece WebM ve Matroska "
-"video konteynerleri desteklenmekte, `container` özelliği için `webm` ve "
-"`mkv` değerleri kullanılmaktadır."
+msgstr "Seçilen video konteyner biçimi AppStream tarafından desteklenmemektedir ve yazılım merkezleri videoyu oynatamayabilir. Şu anda yalnızca WebM ve Matroska video konteynerleri desteklenmekte, `container` özelliği için `webm` ve `mkv` değerleri kullanılmaktadır."
 
 #: src/as-validator-issue-tag.h:242
 msgid ""
@@ -1623,9 +1606,7 @@ msgstr "Uzak simge linki için güvenli (HTTPS) bir URL kullanmayı düşünün.
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr ""
-"Metainfo dosyaları sadece `stock` veya `remote` türünde simgeler içerebilir, "
-"set türüne izin verilmez."
+msgstr "Metainfo dosyaları yalnızca `stock` veya `remote` türünde simgeler içerebilir, set türüne izin verilmez."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:416
@@ -1877,9 +1858,7 @@ msgstr "Bu dosyanın XML'i bozuk."
 msgid ""
 "Invalid tag found in collection metadata. Only `component` tags are "
 "permitted."
-msgstr ""
-"Koleksiyon üst verilerinde geçersiz etiket bulundu. Sadece `component` "
-"etiketlerine izin verilir."
+msgstr "Koleksiyon üst verilerinde geçersiz etiket bulundu. Yalnızca `component` etiketlerine izin verilmektedir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:607
@@ -2098,17 +2077,14 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:768
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "Bu `tag` etiketinin `namespace` özniteliği eksik."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:774
-#, fuzzy
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"Bileşen kimliği geçersiz bir karakter içermektedir. Sadece ASCII "
-"karakterlerine, noktalara ve rakamlara izin verilmektedir."
+msgstr "Bu etiket veya ad uzayı geçersiz karakterler içeriyor. Yalnızca küçük harfli ASCII harflerine, rakamlara, noktalara, kısa çizgilere ve alt çizgilere izin verilmektedir."
 
 #: src/as-validator.c:150
 msgid ""
