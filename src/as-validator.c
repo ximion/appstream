@@ -349,7 +349,7 @@ as_validator_check_web_url (AsValidator *validator, xmlNode *node, const gchar *
 	if (!priv->check_urls)
 		return TRUE;
 
-	g_debug ("Checking URL availability: %s\n", url);
+	g_debug ("Checking URL availability: %s", url);
 
 	/* try to download first few bytes of the file, get error if that fails */
 	if (!as_curl_check_url_exists (priv->acurl, url, &tmp_error)) {
