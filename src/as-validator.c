@@ -1729,7 +1729,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_web_url (validator,
 						    iter,
 						    node_content,
-						    "url-not-found");
+						    "url-not-reachable");
 
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags);
