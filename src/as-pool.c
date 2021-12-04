@@ -2251,9 +2251,12 @@ as_pool_refresh_system_cache (AsPool *pool,
 			      gboolean *caches_updated,
 			      GError **error)
 {
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	gboolean ret = FALSE;
 	GError *tmp_error = NULL;
+
+	/* Ensure the pool is empty and cache is initialized before refreshing data
+	 * We need an initialized cache so the APT support can test for cache age correctly. */
+	as_pool_clear (pool);
 
 	/* collect metadata */
 #ifdef HAVE_APT_SUPPORT
@@ -2267,9 +2270,6 @@ as_pool_refresh_system_cache (AsPool *pool,
 		}
 	}
 #endif
-
-	/* ensure the cache is empty before refreshing data */
-	as_cache_clear (priv->cache);
 
 	/* load AppStream system metadata only and refine it */
 	ret = as_pool_load_internal (pool,
