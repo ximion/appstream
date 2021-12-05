@@ -98,11 +98,11 @@ as_cache_section_free (AsCacheSection *csec)
 	g_free (csec);
 }
 
-gint
+static gint
 as_cache_section_cmp (gconstpointer a, gconstpointer b)
 {
 	const AsCacheSection *s1 = *((AsCacheSection **) a);
-	const AsCacheSection *s2 = *((AsCacheSection **) a);
+	const AsCacheSection *s2 = *((AsCacheSection **) b);
 
 	/* sort masking data last */
 	if (s1->is_mask && !s2->is_mask)
