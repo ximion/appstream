@@ -433,12 +433,14 @@ process_font_data_for_component (AscResult *cres,
 	/* process font files */
 	has_icon = FALSE;
 	for (guint i = 0; i < selected_fonts->len; i++) {
+		g_autoptr(GList) language_list = NULL;
 		AscFont *font = ASC_FONT (g_ptr_array_index (selected_fonts, i));
 
 		g_debug ("Processing font '%s'", asc_font_get_id (font));
 
 		/* add language information */
-		for (GList *l = asc_font_get_language_list (font); l != NULL; l = l->next) {
+		language_list = asc_font_get_language_list (font);
+		for (GList *l = language_list; l != NULL; l = l->next) {
 			/* we have no idea how well the font supports the language's script,
 			 * but since it advertises support in its metadata, we just assume 100% here */
 			as_component_add_language (cpt,
