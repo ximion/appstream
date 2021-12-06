@@ -42,6 +42,7 @@
 #include "asc-utils-metainfo.h"
 #include "asc-utils-l10n.h"
 #include "asc-utils-screenshots.h"
+#include "asc-utils-fonts.h"
 #include "asc-image.h"
 
 typedef struct
@@ -55,7 +56,9 @@ typedef struct
 	gchar		*media_baseurl;
 	AsFormatKind	format;
 	guint		min_l10n_percentage;
+
 	AscComposeFlags	flags;
+	AscIconPolicy	icon_policy;
 
 	gchar		*data_result_dir;
 	gchar		*icons_result_dir;
@@ -92,7 +95,9 @@ asc_compose_init (AscCompose *compose)
 	priv->min_l10n_percentage = 25;
 	priv->flags = ASC_COMPOSE_FLAG_ALLOW_NET |
 			ASC_COMPOSE_FLAG_VALIDATE |
-			ASC_COMPOSE_FLAG_STORE_SCREENSHOTS;
+			ASC_COMPOSE_FLAG_STORE_SCREENSHOTS |
+			ASC_COMPOSE_FLAG_PROCESS_FONTS;
+	priv->icon_policy = ASC_ICON_POLICY_BALANCED;
 }
 
 static void
@@ -321,6 +326,34 @@ asc_compose_set_flags (AscCompose *compose, AscComposeFlags flags)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	priv->flags = flags;
+}
+
+/**
+ * asc_compose_get_icon_policy:
+ * @compose: an #AscCompose instance.
+ *
+ * Get the selected icon policy.
+ */
+AscIconPolicy
+asc_compose_get_icon_policy (AscCompose *compose)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	return priv->icon_policy;
+}
+
+/**
+ * asc_compose_set_icon_policy:
+ * @compose: an #AscCompose instance.
+ * @policy: an #AscIconPolicy
+ *
+ * Set a policy for how icons should be distributed to
+ * any AppStream clients.
+ */
+void
+asc_compose_set_icon_policy (AscCompose *compose, AscIconPolicy policy)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	priv->icon_policy = policy;
 }
 
 /**
@@ -913,6 +946,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	g_autoptr(GPtrArray) found_cpts = NULL;
 	g_autoptr(AsCurl) acurl = NULL;
 	g_autoptr(GError) tmp_error = NULL;
+	gboolean has_fonts = FALSE;
 	gboolean filter_cpts = FALSE;
 	GPtrArray *contents = NULL;
 
@@ -1169,6 +1203,18 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 						 acurl,
 						 priv->media_result_dir,
 						 as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS));
+
+		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_FONT)
+			has_fonts = TRUE;
+	}
+
+	/* handle all font components present in this unit */
+	if (has_fonts && as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_PROCESS_FONTS)) {
+		asc_process_fonts (ctask->result,
+				   ctask->unit,
+				   priv->media_result_dir,
+				   priv->icon_policy,
+				   priv->flags);
 	}
 
 	/* clean up superfluous hints in case we were filtering the results, as some rejected

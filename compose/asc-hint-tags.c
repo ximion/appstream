@@ -218,6 +218,23 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "as VP9 or AV1 using the WebM or Matroska container."
 	},
 
+	{ "font-load-error",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "Unable to load font '{{fname}}' from unit '{{unit_name}}: {{error}}"
+	},
+
+	{ "font-metainfo-but-no-font",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "A MetaInfo file with component-type <code>font</code> was found, but we could not find any matching font file (TrueType or OpenType) in the package.<br/> "
+	  "This can mean that the <code>&lt;provides&gt; - &lt;font&gt;</code> tags contain wrong values that we could not map to the actual fonts, or that the package simply contained no fonts at all.<br/> "
+	  "Fonts in this package: <em>{{font_names}}</em>"
+	},
+
+	{ "font-render-error",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "Unable to render image for font '{{name}}': {{error}}"
+	},
+
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
 };
 

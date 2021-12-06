@@ -24,7 +24,9 @@
 #include "asc-utils-metainfo.h"
 #include "asc-utils-l10n.h"
 #include "asc-utils-screenshots.h"
+#include "asc-utils-fonts.h"
 
+#include "as-utils-private.h"
 #include "as-test-utils.h"
 
 static gchar *datadir = NULL;
@@ -591,7 +593,7 @@ test_compose_directory_unit ()
 	g_assert_true (ret);
 
 	contents = asc_unit_get_contents (ASC_UNIT (dirunit));
-	g_assert_cmpint (contents->len, ==, 13);
+	g_assert_cmpint (contents->len, ==, 15);
 	as_sort_strings (contents);
 
 	g_assert_cmpstr (g_ptr_array_index (contents, 0), ==, "/Noto.LICENSE");
@@ -791,6 +793,58 @@ test_compose_video_info (void)
 	asc_video_info_free (vinfo);
 }
 
+static void
+test_compose_font (void)
+{
+	gboolean ret;
+	g_autoptr(GError) error = NULL;
+	g_autoptr(AscResult) cres = NULL;
+	g_autoptr(AsMetadata) mdata = NULL;
+	g_autoptr(AscDirectoryUnit) dirunit = asc_directory_unit_new (datadir);
+	const gchar *export_tmpdir = "/tmp/asc-font-export";
+
+	/* cleanup */
+	if (g_file_test (export_tmpdir, G_FILE_TEST_EXISTS)) {
+		ret = as_utils_delete_dir_recursive (export_tmpdir);
+		g_assert_true (ret);
+	}
+
+	/* open sample data directory unit */
+	asc_unit_set_bundle_id (ASC_UNIT (dirunit), "dummy");
+	ret = asc_unit_open (ASC_UNIT (dirunit), &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	/* load dummy font component and register it */
+	mdata = as_metadata_new ();
+	as_metadata_set_locale (mdata, "C");
+	as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_METAINFO);
+	{
+		g_autoptr(GFile) file = NULL;
+		g_autofree gchar *fname = g_build_filename (datadir, "usr", "share", "metainfo", "org.example.fonttest.metainfo.xml", NULL);
+		file = g_file_new_for_path (fname);
+		ret = as_metadata_parse_file (mdata, file, AS_FORMAT_KIND_XML, &error);
+		g_assert_no_error (error);
+		g_assert_true (ret);
+	}
+
+	cres = asc_result_new ();
+	ret = asc_result_add_component_with_string (cres,
+						    as_metadata_get_component (mdata),
+						    "<testdata_font/>",
+						    &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	asc_process_fonts (cres,
+			   ASC_UNIT (dirunit),
+			   export_tmpdir,
+			   ASC_ICON_POLICY_BALANCED,
+			   ASC_COMPOSE_FLAG_STORE_SCREENSHOTS |
+			   ASC_COMPOSE_FLAG_PROCESS_FONTS);
+	asc_assert_no_hints_in_result (cres);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -823,6 +877,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Compose/LocaleStats", test_compose_locale_stats);
 	g_test_add_func ("/AppStream/Compose/SourceLocale", test_compose_source_locale);
 	g_test_add_func ("/AppStream/Compose/VideoInfo", test_compose_video_info);
+	g_test_add_func ("/AppStream/Compose/Font", test_compose_font);
 
 	ret = g_test_run ();
 	g_free (datadir);

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="font">
+  <id>org.example.fonttest</id>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>SIL-1.1</project_license>
+
+  <name>FontTest (Noto)</name>
+  <summary>A type­face fam­ily</summary>
+  <description>
+    <p>
+      This font component is a unittest for AppStream. It borrows the Noto
+      font to test metadata extraction.
+    </p>
+  </description>
+
+  <url type="homepage">https://freedesktop.org/</url>
+
+  <provides>
+    <font>Noto Sans</font>
+  </provides>
+
+  <custom>
+    <value key="FontIconText">Nt</value>
+  </custom>
+</component>

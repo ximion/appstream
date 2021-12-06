@@ -49,6 +49,7 @@ struct _AscComposeClass
  * @ASC_COMPOSE_FLAG_ALLOW_NET:		Allow network access for downloading extra data.
  * @ASC_COMPOSE_FLAG_VALIDATE:		Validate metadata while processing.
  * @ASC_COMPOSE_FLAG_STORE_SCREENSHOTS:	Whether screenshots should be cached in the media directory.
+ * @ASC_COMPOSE_FLAG_PROCESS_FONTS:	Set if font components should be processed.
  *
  * Flags on how caching should be used.
  **/
@@ -56,8 +57,25 @@ typedef enum {
 	ASC_COMPOSE_FLAG_NONE			= 0,
 	ASC_COMPOSE_FLAG_ALLOW_NET		= 1 << 0,
 	ASC_COMPOSE_FLAG_VALIDATE		= 1 << 1,
-	ASC_COMPOSE_FLAG_STORE_SCREENSHOTS	= 1 << 2
+	ASC_COMPOSE_FLAG_STORE_SCREENSHOTS	= 1 << 2,
+	ASC_COMPOSE_FLAG_PROCESS_FONTS		= 1 << 3
 } AscComposeFlags;
+
+/**
+ * AscIconPolicy:
+ * @ASC_ICON_POLICY_BALANCED:		Create cache for all icons, but provide "remote" links for the bigger icons.
+ * @ASC_ICON_POLICY_CACHE_REMOTE:	Create cache for all icons, and provide "remote" links for all.
+ * @ASC_ICON_POLICY_ONLY_CACHED:	Do not create remote icons, only cached ones are possible.
+ * @ASC_ICON_POLICY_ONLY_REMOTE:	Create only remote icons, do not create cached ones.
+ *
+ * Policy for how to deliver icons.
+ **/
+typedef enum {
+	ASC_ICON_POLICY_BALANCED,
+	ASC_ICON_POLICY_CACHE_REMOTE,
+	ASC_ICON_POLICY_ONLY_CACHED,
+	ASC_ICON_POLICY_ONLY_REMOTE
+} AscIconPolicy;
 
 AscCompose		*asc_compose_new (void);
 
@@ -87,6 +105,10 @@ void			asc_compose_set_media_baseurl (AscCompose *compose,
 AscComposeFlags		asc_compose_get_flags (AscCompose *compose);
 void			asc_compose_set_flags (AscCompose *compose,
 					       AscComposeFlags flags);
+
+AscIconPolicy		asc_compose_get_icon_policy (AscCompose *compose);
+void			asc_compose_set_icon_policy (AscCompose *compose,
+							AscIconPolicy policy);
 
 const gchar		*asc_compose_get_data_result_dir (AscCompose *compose);
 void			asc_compose_set_data_result_dir (AscCompose *compose,

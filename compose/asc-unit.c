@@ -33,6 +33,7 @@ typedef struct
 {
 	AsBundleKind	bundle_kind;
 	gchar		*bundle_id;
+	gchar		*bundle_id_safe;
 	GPtrArray	*contents;
 	GPtrArray	*relevant_paths;
 
@@ -59,6 +60,7 @@ asc_unit_finalize (GObject *object)
 	AscUnitPrivate *priv = GET_PRIVATE (unit);
 
 	g_free (priv->bundle_id);
+	g_free (priv->bundle_id_safe);
 	g_ptr_array_unref (priv->contents);
 	g_ptr_array_unref (priv->relevant_paths);
 
@@ -113,6 +115,20 @@ asc_unit_get_bundle_id (AscUnit *unit)
 }
 
 /**
+ * asc_unit_get_bundle_id_safe:
+ * @unit: an #AscUnit instance.
+ *
+ * Gets the ID name of the bundle, normalized to be safe to use
+ * in filenames. This may *not* be the same name as set via asc_unit_get_bundle_id()
+ **/
+const gchar*
+asc_unit_get_bundle_id_safe (AscUnit *unit)
+{
+	AscUnitPrivate *priv = GET_PRIVATE (unit);
+	return priv->bundle_id_safe;
+}
+
+/**
  * asc_unit_set_bundle_id:
  * @unit: an #AscUnit instance.
  * @id: The new ID.
@@ -123,7 +139,16 @@ void
 asc_unit_set_bundle_id (AscUnit *unit, const gchar *id)
 {
 	AscUnitPrivate *priv = GET_PRIVATE (unit);
+	GString *tmp;
 	as_assign_string_safe (priv->bundle_id, id);
+
+	tmp = g_string_new (priv->bundle_id);
+	as_gstring_replace (tmp, "/", "-");
+	as_gstring_replace (tmp, "\\", "-");
+	as_gstring_replace (tmp, ":", "_");
+
+	g_free (priv->bundle_id_safe);
+	priv->bundle_id_safe = g_string_free (tmp, FALSE);
 }
 
 /**

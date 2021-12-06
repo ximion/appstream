@@ -16,6 +16,7 @@ ascompose_src = [
     'asc-utils-l10n.c',
     'asc-utils-metainfo.c',
     'asc-utils-screenshots.c',
+    'asc-utils-fonts.c',
     'asc-utils.c'
 ]
 
@@ -33,6 +34,7 @@ ascompose_pub_headers = [
     'asc-utils-l10n.h',
     'asc-utils-metainfo.h',
     'asc-utils-screenshots.h',
+    'asc-utils-fonts.h',
     'asc-utils.h'
 ]
 
