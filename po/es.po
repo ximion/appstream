@@ -33,10 +33,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-02 18:15+0100\n"
-"PO-Revision-Date: 2021-12-02 06:50+0000\n"
+"PO-Revision-Date: 2021-12-08 05:50+0000\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
-"translations/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2147,17 +2146,14 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:768
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "A esta `tag` le falta el atributo `namespace`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:774
-#, fuzzy
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"El ID del componente contiene un carácter no válido. Sólo se permiten "
-"caracteres ASCII, puntos y números."
+msgstr "Esta etiqueta o su «namespace» contiene caracteres no válidos. Sólo se permiten letras ASCII en minúsculas, números, puntos, guiones y guiones bajos."
 
 #: src/as-validator.c:150
 msgid ""
