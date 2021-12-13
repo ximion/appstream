@@ -1595,7 +1595,7 @@ as_component_set_developer_name (AsComponent *cpt, const gchar *value, const gch
  *
  * Remove all tags associated with this component.
  *
- * Since: 0.14.8
+ * Since: 0.15.0
  */
 void
 as_component_clear_tags (AsComponent *cpt)
@@ -1614,7 +1614,7 @@ as_component_clear_tags (AsComponent *cpt)
  *
  * Returns: %TRUE if the tag was added.
  *
- * Since: 0.14.8
+ * Since: 0.15.0
  */
 gboolean
 as_component_add_tag (AsComponent *cpt, const gchar *ns, const gchar *tag)
@@ -1647,7 +1647,7 @@ as_component_add_tag (AsComponent *cpt, const gchar *ns, const gchar *tag)
  *
  * Returns: %TRUE if the tag was removed.
  *
- * Since: 0.14.8
+ * Since: 0.15.0
  */
 gboolean
 as_component_remove_tag (AsComponent *cpt, const gchar *ns, const gchar *tag)
@@ -1677,7 +1677,7 @@ as_component_remove_tag (AsComponent *cpt, const gchar *ns, const gchar *tag)
  *
  * Returns: %TRUE if tag exists.
  *
- * Since: 0.14.8
+ * Since: 0.15.0
  */
 gboolean
 as_component_has_tag (AsComponent *cpt, const gchar *ns, const gchar *tag)
@@ -3296,7 +3296,7 @@ as_component_get_recommends (AsComponent *cpt)
  *
  * Returns: (transfer none) (element-type AsRelation): an array
  *
- * Since: 0.14.8
+ * Since: 0.15.0
  **/
 GPtrArray*
 as_component_get_supports (AsComponent *cpt)
@@ -3343,7 +3343,7 @@ as_component_add_relation (AsComponent *cpt, AsRelation *relation)
  *
  * Returns: (transfer none) (element-type AsAgreement): An array of #AsAgreement.
  *
- * Since: 0.14.8
+ * Since: 0.15.0
  **/
 GPtrArray*
 as_component_get_agreements (AsComponent *cpt)
