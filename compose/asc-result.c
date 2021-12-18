@@ -501,6 +501,31 @@ asc_result_add_component_with_string (AscResult *result, AsComponent *cpt, const
 }
 
 /**
+ * asc_result_remove_component_full:
+ * @result: an #AscResult instance.
+ * @cpt: The #AsComponent to remove.
+ * @remove_gcid: %TRUE if global component ID should be unregistered as well.
+ *
+ * Remove a component from the results set.
+ *
+ * Returns: %TRUE if the component was found and removed.
+ **/
+gboolean
+asc_result_remove_component_full (AscResult *result, AsComponent *cpt, gboolean remove_gcid)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	gboolean ret;
+
+	ret = g_hash_table_remove (priv->cpts,
+				   as_component_get_id (cpt));
+	if (remove_gcid)
+		g_hash_table_remove (priv->gcids, as_component_get_id (cpt));
+	g_hash_table_remove (priv->mdata_hashes, cpt);
+
+	return ret;
+}
+
+/**
  * asc_result_remove_component:
  * @result: an #AscResult instance.
  * @cpt: The #AsComponent to remove.
@@ -512,15 +537,7 @@ asc_result_add_component_with_string (AscResult *result, AsComponent *cpt, const
 gboolean
 asc_result_remove_component (AscResult *result, AsComponent *cpt)
 {
-	AscResultPrivate *priv = GET_PRIVATE (result);
-	gboolean ret;
-
-	ret = g_hash_table_remove (priv->cpts,
-				   as_component_get_id (cpt));
-	g_hash_table_remove (priv->gcids, as_component_get_id (cpt));
-	g_hash_table_remove (priv->mdata_hashes, cpt);
-
-	return ret;
+	return asc_result_remove_component_full (result, cpt, TRUE);
 }
 
 /**

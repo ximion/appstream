@@ -332,6 +332,34 @@ asc_compose_set_flags (AscCompose *compose, AscComposeFlags flags)
 }
 
 /**
+ * asc_compose_add_flags:
+ * @compose: an #AscCompose instance.
+ * @flags: The compose flags to add.
+ *
+ * Add compose flags.
+ */
+void
+asc_compose_add_flags (AscCompose *compose, AscComposeFlags flags)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	as_flags_add (priv->flags, flags);
+}
+
+/**
+ * asc_compose_remove_flags:
+ * @compose: an #AscCompose instance.
+ * @flags: The compose flags to remove.
+ *
+ * Remove compose flags.
+ */
+void
+asc_compose_remove_flags (AscCompose *compose, AscComposeFlags flags)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	as_flags_remove (priv->flags, flags);
+}
+
+/**
  * asc_compose_get_icon_policy:
  * @compose: an #AscCompose instance.
  *
