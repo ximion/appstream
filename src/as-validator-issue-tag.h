@@ -273,7 +273,8 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "relation-item-invalid-vercmp",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are permitted.")
+	  /* TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them. */
+	  N_("Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/ge` is permitted.")
 	},
 
 	{ "relation-item-has-vercmp",
