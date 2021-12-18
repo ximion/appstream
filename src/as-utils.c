@@ -2448,7 +2448,7 @@ as_utils_find_stock_icon_filename_full (const gchar *root_dir,
  *
  * Returns: the #AsComponentScope
  *
- * Since: 0.14.8
+ * Since: 0.15.0
  */
 AsComponentScope
 as_utils_guess_scope_from_path (const gchar *path)

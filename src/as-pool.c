@@ -428,7 +428,7 @@ as_pool_class_init (AsPoolClass *klass)
 	 * The ::changed signal is emitted when components have been added
 	 * or removed from the metadata pool.
 	 *
-	 * Since: 0.14.8
+	 * Since: 0.15.0
 	 **/
 	signals [SIGNAL_CHANGED] =
 		g_signal_new ("changed",
@@ -928,7 +928,7 @@ as_pool_add_component_internal (AsPool *pool,
  *
  * Returns: %TRUE if the new components were successfully added to the pool.
  *
- * Since: 0.14.8
+ * Since: 0.15.0
  */
 gboolean
 as_pool_add_components (AsPool *pool, GPtrArray *cpts, GError **error)
@@ -949,7 +949,7 @@ as_pool_add_components (AsPool *pool, GPtrArray *cpts, GError **error)
  *
  * Returns: %TRUE if the new component was successfully added to the pool.
  *
- * Deprecated: 0.14.7: This function is very inefficient. Collect all the components you need
+ * Deprecated: 0.15.0: This function is very inefficient. Collect all the components you need
  *                     to add, and then register them with %as_pool_add_components in one go.
  */
 gboolean
@@ -2038,7 +2038,7 @@ as_pool_get_components_by_launchable (AsPool *pool,
  *
  * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects.
  *
- * Since: 0.14.7
+ * Since: 0.15.0
  */
 GPtrArray*
 as_pool_get_components_by_extends (AsPool *pool, const gchar *extended_id)
@@ -2359,7 +2359,7 @@ as_pool_add_extra_data_location (AsPool *pool, const gchar *directory, AsFormatS
  *
  * Remove all explicitly added metadata locations.
  *
- * Since: 0.14.7
+ * Since: 0.15.0
  */
 void
 as_pool_reset_extra_data_locations (AsPool *pool)
@@ -2496,7 +2496,7 @@ as_pool_print_std_data_locations_info_private (AsPool *pool, gboolean print_os_d
  * If @directory contains a "xml", "xmls", "yaml" or "icons" subdirectory (or all of them),
  * those paths will be added to the search paths instead.
  *
- * Deprecated: 0.14.7: Use %as_pool_add_extra_data_location instead.
+ * Deprecated: 0.15.0: Use %as_pool_add_extra_data_location instead.
  */
 void
 as_pool_add_metadata_location (AsPool *pool, const gchar *directory)
@@ -2510,7 +2510,7 @@ as_pool_add_metadata_location (AsPool *pool, const gchar *directory)
  *
  * Remove all metadata locations from the list of watched locations.
  *
- * Deprecated: 0.14.7: Use %as_pool_reset_extra_data_locations and control system data loading via flags.
+ * Deprecated: 0.15.0: Use %as_pool_reset_extra_data_locations and control system data loading via flags.
  */
 void
 as_pool_clear_metadata_locations (AsPool *pool)
@@ -2564,7 +2564,7 @@ as_pool_set_flags (AsPool *pool, AsPoolFlags flags)
  * Convenience function to add one or multiple #AsPoolFlags to
  * the flag set of this data pool.
  *
- * Since: 0.14.7
+ * Since: 0.15.0
  */
 void
 as_pool_add_flags (AsPool *pool, AsPoolFlags flags)
@@ -2585,7 +2585,7 @@ as_pool_add_flags (AsPool *pool, AsPoolFlags flags)
  * Convenience function to remove one or multiple #AsPoolFlags from
  * the flag set of this data pool.
  *
- * Since: 0.14.7
+ * Since: 0.15.0
  */
 void
 as_pool_remove_flags (AsPool *pool, AsPoolFlags flags)
@@ -2610,7 +2610,7 @@ as_pool_remove_flags (AsPool *pool, AsPoolFlags flags)
  * files and Flatpak data.
  * If you need more fine-grained control, set the #AsPoolFlags explicitly.
  *
- * Since: 0.14.7
+ * Since: 0.15.0
  */
 void
 as_pool_set_load_std_data_locations (AsPool *pool, gboolean enabled)
@@ -2659,7 +2659,7 @@ as_pool_get_os_metadata_cache_age (AsPool *pool)
  *
  * Since: 0.12.7
  *
- * Deprecated: 0.14.7: Cache location can no longer be set explicitly.
+ * Deprecated: 0.15.0: Cache location can no longer be set explicitly.
  **/
 void
 as_pool_set_cache_location (AsPool *pool, const gchar *fname)
@@ -2673,7 +2673,7 @@ as_pool_set_cache_location (AsPool *pool, const gchar *fname)
  *
  * Get the #AsCacheFlags for this data pool.
  *
- * Deprecated: 0.14.7: Cache flags can no longer be changed.
+ * Deprecated: 0.15.0: Cache flags can no longer be changed.
  */
 AsCacheFlags
 as_pool_get_cache_flags (AsPool *pool)
@@ -2688,7 +2688,7 @@ as_pool_get_cache_flags (AsPool *pool)
  *
  * Set the #AsCacheFlags for this data pool.
  *
- * Deprecated: 0.14.7: Cache flags can no longer be modified.
+ * Deprecated: 0.15.0: Cache flags can no longer be modified.
  */
 void
 as_pool_set_cache_flags (AsPool *pool, AsCacheFlags flags)
@@ -2707,7 +2707,7 @@ as_pool_set_cache_flags (AsPool *pool, AsCacheFlags flags)
  *
  * Returns: Location of the cache, or %NULL if unknown.
  *
- * Deprecated: 0.14.7: Cache location can no longer be set explicitly.
+ * Deprecated: 0.15.0: Cache location can no longer be set explicitly.
  **/
 const gchar*
 as_pool_get_cache_location (AsPool *pool)

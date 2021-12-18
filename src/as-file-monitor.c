@@ -60,7 +60,7 @@ static guint signals [SIGNAL_LAST] = { 0 };
  *
  * Return value: An error quark.
  *
- * Since: 0.14.8
+ * Since: 0.15.0
  **/
 G_DEFINE_QUARK (as-file-monitor-error-quark, as_file_monitor_error)
 
@@ -110,7 +110,7 @@ as_file_monitor_class_init (AsFileMonitorClass *klass)
 	 *
 	 * The ::changed signal is emitted when a file has been added.
 	 *
-	 * Since: 0.14.8
+	 * Since: 0.15.0
 	 **/
 	signals [SIGNAL_ADDED] =
 		g_signal_new ("added",
@@ -126,7 +126,7 @@ as_file_monitor_class_init (AsFileMonitorClass *klass)
 	 *
 	 * The ::changed signal is emitted when a file has been removed.
 	 *
-	 * Since: 0.14.8
+	 * Since: 0.15.0
 	 **/
 	signals [SIGNAL_REMOVED] =
 		g_signal_new ("removed",
@@ -142,7 +142,7 @@ as_file_monitor_class_init (AsFileMonitorClass *klass)
 	 *
 	 * The ::changed signal is emitted when a watched file has changed.
 	 *
-	 * Since: 0.14.8
+	 * Since: 0.15.0
 	 **/
 	signals [SIGNAL_CHANGED] =
 		g_signal_new ("changed",
@@ -408,7 +408,7 @@ as_file_monitor_file_changed_cb (GFileMonitor *mon,
  *
  * Returns: %TRUE for success
  *
- * Since: 0.14.8
+ * Since: 0.15.0
  **/
 gboolean
 as_file_monitor_add_directory (AsFileMonitor *monitor,
@@ -461,7 +461,7 @@ as_file_monitor_add_directory (AsFileMonitor *monitor,
  *
  * Returns: %TRUE for success
  *
- * Since: 0.14.8
+ * Since: 0.15.0
  **/
 gboolean
 as_file_monitor_add_file (AsFileMonitor *monitor,
@@ -503,7 +503,7 @@ as_file_monitor_add_file (AsFileMonitor *monitor,
  *
  * Returns: (transfer full): a #AsFileMonitor
  *
- * Since: 0.14.8
+ * Since: 0.15.0
  **/
 AsFileMonitor *
 as_file_monitor_new (void)
