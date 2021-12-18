@@ -30,24 +30,20 @@
 # Валентин Цыбин <iiinkvizitor@gmail.com>, 2021.
 # Dmitry <dmitrydmitry761@gmail.com>, 2021.
 # Translators:
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-02 18:15+0100\n"
-"PO-Revision-Date: 2021-11-16 00:29+0700\n"
+"PO-Revision-Date: 2021-12-18 15:34+0000\n"
 "Last-Translator: Dmitry <dmitrydmitry761@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
-"translations/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 4.7.2-dev\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 4.10\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1007,7 +1003,7 @@ msgstr "Файлы метаданных содержат ошибки:"
 
 #: src/as-pool.c:2376
 msgid "Group"
-msgstr ""
+msgstr "Группа"
 
 #: src/as-pool.c:2422
 msgid "Iconsets"
@@ -1016,12 +1012,12 @@ msgstr "Наборы значков"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2469
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Данные из программного обеспечения установленного локально"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2472
 msgid "Software catalog data"
-msgstr ""
+msgstr "Данные каталога программного обеспечения"
 
 #: src/as-provided.c:144
 msgid "Libraries"
@@ -1073,7 +1069,7 @@ msgstr "Компонент"
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
-msgstr "Эта метка требует свойства типа."
+msgstr "Для этого тега требуется свойство типа."
 
 #: src/as-validator-issue-tag.h:46
 msgid "Tags of this name are not permitted in this section."
@@ -1327,9 +1323,7 @@ msgstr ""
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
-"Рассмотрим возможность использования безопасной ссылки (HTTPS) для "
-"нахождения изображения или видео."
+msgstr "Рассмотрите возможность использования безопасного (HTTPS) URL-адреса для ссылки на этот снимок экрана или видео."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
@@ -1451,9 +1445,7 @@ msgstr ""
 msgid ""
 "Invalid comparison operation on relation item. Only eq/ne/lt/gt/le/ge are "
 "permitted."
-msgstr ""
-"Недопустимая операция сравнения элемента отношения. Допускаются только eq/ne/"
-"lt/gt/le/ge."
+msgstr "Неверная операция сравнения элемента отношения. Допускаются только eq/ne/lt/gt/le/ge."
 
 #: src/as-validator-issue-tag.h:281
 msgid ""
@@ -1531,7 +1523,7 @@ msgstr ""
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
+msgstr "Этот элемент `hardware`содержит недопустимое значение. Это должен быть идентификатор аппаратного обеспечения компьютера (ID) UUID без фигурных скобок."
 
 #: src/as-validator-issue-tag.h:326
 msgid ""
@@ -1673,7 +1665,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:441
 msgid "The <developer_name/> can not contain a hyperlink."
-msgstr "<developer_name/> не может содержать ссылку."
+msgstr "<developer_name/> не может содержать гиперссылку."
 
 #: src/as-validator-issue-tag.h:446
 msgid ""
@@ -1737,9 +1729,7 @@ msgstr ""
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
-msgstr ""
-"Отсутствует полное описание компонента. Компоненты этого типа должны иметь "
-"длинное полное описание."
+msgstr "У компонента отсутствует подробное описание. Компоненты этого типа должны иметь длинное описание."
 
 #: src/as-validator-issue-tag.h:493
 msgid ""
@@ -1813,9 +1803,7 @@ msgstr ""
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
-msgstr ""
-"Тип компонента`драйвер`, но информация о модалиях не была предоставлена с "
-"помощью тега \"предоставляет/модалии\"."
+msgstr "Тип компонента `driver`, но информация о модальности не была предоставлена с помощью тега `provides/modalias`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:545
@@ -1870,9 +1858,8 @@ msgstr ""
 "см. в разделе \"Спецификация меню XDG\"."
 
 #: src/as-validator-issue-tag.h:585
-#, fuzzy
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr "Заголовок скриншота слишком длинный (должен быть <= 80 символов)"
+msgstr "Заголовок скриншота слишком длинный (должен быть <= 100 символов)"
 
 #: src/as-validator-issue-tag.h:590
 msgid "Unable to read file."
@@ -1978,9 +1965,7 @@ msgstr "Значение, заданное в качестве типа выпу
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr ""
-"Значение, заданное в качестве типа артефакта, недопустимо. Должно быть либо "
-"\"исходное`, либо\" двоичное`."
+msgstr "Значение, заданное в качестве типа артефакта, недопустимо. Должно быть либо `source`, либо `binary`."
 
 #: src/as-validator-issue-tag.h:680
 msgid "The value set as artifact bundle type is invalid."
@@ -2032,7 +2017,7 @@ msgstr ""
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
-msgstr ""
+msgstr "В этом компоненте отсутствует информация о выпусках. Рассмотрите возможность добавления тега \"releases\" для описания релизов и их изменений."
 
 #: src/as-validator-issue-tag.h:724
 msgid ""
@@ -2098,22 +2083,19 @@ msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
 "questions at https://hughsie.github.io/oars/"
-msgstr ""
+msgstr "Этот компонент не имеет тега `content_rating` для предоставления информации о возрастном рейтинге. Вы можете сгенерировать данные тегов онлайн, ответив на несколько вопросов по адресу: https://hughsie.github.io/oars/"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:768
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "В этом `tag` отсутствует атрибут `namespace`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:774
-#, fuzzy
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"Идентификатор компонента содержит недопустимый символ. Допускаются только "
-"ASCII-символы, точки и числа."
+msgstr "Этот тег или его пространство имен содержат недопустимые символы. Разрешены только буквы ASCII в нижнем регистре, цифры, точки, дефисы и подчеркивания."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2137,9 +2119,8 @@ msgstr "Найдено: %s - разрешено: %s"
 
 #. TRANSLATORS: ascompose flag description for: --verbose
 #: tools/appstream-compose.c:183
-#, fuzzy
 msgid "Show extra debugging information"
-msgstr "Показывать дополнительную отладочную информацию."
+msgstr "Показывать дополнительную отладочную информацию"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
@@ -2161,7 +2142,7 @@ msgstr "Не использовать сеть вообще, даже для п�
 #. TRANSLATORS: ascompose flag description for: --full-report
 #: tools/appstream-compose.c:195
 msgid "Set mode of the issue report that is printed to the console"
-msgstr "Установить режим отчета о проблеме, который выводится на консоль."
+msgstr "Установить режим отчета о проблеме, который выводится на консоль"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:198
@@ -2194,9 +2175,7 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:213
 msgid "Set a directory where HTML and text issue reports will be stored"
-msgstr ""
-"Установить каталог, в котором будут храниться отчеты о проблемах в формате "
-"HTML и текст."
+msgstr "Установить каталог, в котором будут храниться отчеты о проблемах в формате HTML и текст"
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:216
@@ -2235,7 +2214,7 @@ msgid ""
 "AppStream CLI tool version: %s\n"
 "AppStream library version: %s"
 msgstr ""
-"Версия  CLI-программы AppStream: %s\n"
+"Версия CLI-программы AppStream: %s\n"
 "Версия библиотеки AppStream: %s"
 
 #. TRANSLATORS: invalid value for the --print-report CLI option
@@ -2250,10 +2229,9 @@ msgid ""
 msgstr ""
 "Недопустимое значение для опции `--print-report`: %s\n"
 "Возможные значения:\n"
-"`on-error` - печатает короткий отчет, только если запуск не удался (по "
-"умолчанию)\n"
-"`short` - формирует сокращенный отчет`full` - будет распечатан подробный "
-"отчет"
+"`on-error` - печатает короткий отчет, только если запуск не удался (по умолчанию)\n"
+"`short` - формирует сокращенный отчет\n"
+"`full` - будет распечатан подробный отчет"
 
 #: tools/appstream-compose.c:296
 #, c-format
@@ -2303,9 +2281,8 @@ msgstr "Создание метаданных..."
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:385
-#, fuzzy
 msgid "Failed to compose AppStream metadata"
-msgstr "Утилита для работы с метаданными AppStream"
+msgstr "Не удалось создать метаданные AppStream"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:391
@@ -2348,7 +2325,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
+msgstr "Игнорировать возраст кэша и создать новый кэш перед выполнением запроса."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
@@ -2426,7 +2403,7 @@ msgstr "Принудительно обновить кэш."
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
+msgstr "Ограничить обновление кэша данными из определенного источника, например: \"os\" или \"flatpak\". Может быть указано несколько раз."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:478
@@ -2480,9 +2457,7 @@ msgstr ""
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Эта команда принимает необязательные позиционные аргументы TYPE и FILE, FILE "
-"- файл для записи (или \"-\" для стандартного вывода)."
+msgstr "Эта команда принимает необязательные позиционные аргументы TYPE и FILE, при этом FILE является файлом для записи (или \"-\" для стандартного вывода)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2505,13 +2480,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:848
-#, fuzzy
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr ""
-"Ограничить количество записей о выпуске, которые заканчиваются в файле "
-"metainfo (0 для неограниченного числа)."
+msgstr "Ограничить количество записей о выпуске, которые попадают в файл metainfo (<= 0 для неограниченного количества)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:854
@@ -2692,10 +2664,8 @@ msgstr "Напишите текст NEWS или файл YAML с информа�
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1244
-#, fuzzy
 msgid "Compose AppStream collection metadata from directory trees."
-msgstr ""
-"Метаданные AppStream не были найдены в этом каталоге или дереве каталогов."
+msgstr "Составить метаданные коллекции AppStream из деревьев каталогов."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1252
@@ -2705,20 +2675,20 @@ msgstr "Вам необходимо указать команду."
 #. TRANSLATORS: In ascli: Status information during a "refresh" action.
 #: tools/ascli-actions-mdata.c:48
 msgid "Only refreshing metadata cache specific to the current user."
-msgstr ""
+msgstr "Только обновление кэша метаданных для текущего пользователя."
 
 #: tools/ascli-actions-mdata.c:59
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
+msgstr "Обновление кеша метаданных программного обеспечения для операционной системы."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for Flatpak."
-msgstr ""
+msgstr "Обновление кеша метаданных программного обеспечения для Flatpak."
 
 #: tools/ascli-actions-mdata.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "Файл метаданных \"%s\" не существует."
+msgstr "Файл метаданных '%s' не существует!"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
@@ -2728,15 +2698,13 @@ msgstr ""
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
-#, fuzzy
 msgid "Metadata cache was updated successfully."
-msgstr "Обновление кэша AppStream завершено успешно."
+msgstr "Кэш метаданных успешно обновлен."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:102
-#, fuzzy
 msgid "Metadata cache update is not necessary."
-msgstr "Обновление кэша AppStream необязательно."
+msgstr "Обновление кеша метаданных не требуется."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -2765,7 +2733,7 @@ msgstr "Не удаётся найти компоненту, соответст�
 #: tools/ascli-actions-mdata.c:200
 #, c-format
 msgid "No component matching '%s' found."
-msgstr "Не найдено компоненты, соответствующей  '%s'."
+msgstr "Компонент, соответствующий '%s', не найден."
 
 #: tools/ascli-actions-mdata.c:224
 msgid "No value for the item to search for was defined."
@@ -2868,23 +2836,22 @@ msgstr "Версия: %s"
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:56
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "Источники метаданных Операционной Системы:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:60
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "Метаданные ОС не найдены. Это странно."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:63
 msgid "Other metadata sources:"
-msgstr ""
+msgstr "Другие источники метаданных:"
 
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:67
-#, fuzzy
 msgid "No metadata."
-msgstr "Создание метаданных..."
+msgstr "Нет метаданных."
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:70
@@ -2956,7 +2923,7 @@ msgstr "Не удалось создать входной файл рабоче�
 
 #: tools/ascli-actions-misc.c:328
 msgid "You need to specify a NEWS file as input."
-msgstr "Вам необходимо указать файл НОВОСТЕЙ в качестве входных данных."
+msgstr "Вам необходимо указать файл NEWS в качестве входных данных."
 
 #: tools/ascli-actions-misc.c:332
 msgid ""
@@ -3061,9 +3028,8 @@ msgstr "Вам необходимо указать корневой катало
 
 #. TRANSLATORS: A plain license ID
 #: tools/ascli-actions-validate.c:528
-#, fuzzy
 msgid "license"
-msgstr "Лицензия"
+msgstr "лицензия"
 
 #. TRANSLATORS: A license exception
 #: tools/ascli-actions-validate.c:531
@@ -3082,21 +3048,18 @@ msgstr "неверно"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:543
-#, fuzzy
 msgid "License Type"
-msgstr "Тип Лицензия"
+msgstr "Тип Лицензии"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:547
-#, fuzzy
 msgid "Canonical ID"
-msgstr "Внутренний ID"
+msgstr "Внутренний идентификатор"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
 #: tools/ascli-actions-validate.c:551
-#, fuzzy
 msgid "Suitable for AppStream metadata"
-msgstr "Утилита для работы с метаданными AppStream"
+msgstr "Утилита подходит для метаданных AppStream"
 
 #: tools/ascli-actions-validate.c:551 tools/ascli-actions-validate.c:554
 msgid "no"
