@@ -7,16 +7,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-02 18:15+0100\n"
-"PO-Revision-Date: 2021-10-11 00:25+0000\n"
+"PO-Revision-Date: 2021-12-18 06:51+0000\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
-"Language-Team: Esperanto <https://hosted.weblate.org/projects/appstream/"
-"translations/eo/>\n"
+"Language-Team: Esperanto <https://hosted.weblate.org/projects/appstream/translations/eo/>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.10\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -970,7 +969,7 @@ msgstr "Metadatenaj dosieroj enhavas erarojn:"
 
 #: src/as-pool.c:2376
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: src/as-pool.c:2422
 msgid "Iconsets"
@@ -979,12 +978,12 @@ msgstr "Ikonaroj"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2469
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Datenoj el loke instalitaj programoj"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2472
 msgid "Software catalog data"
-msgstr ""
+msgstr "Datenoj el katalogo de programoj"
 
 #: src/as-provided.c:144
 msgid "Libraries"
@@ -2067,13 +2066,10 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:774
-#, fuzzy
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"La identigilo de la komponanto enhavas nevalidan signon. Nur Askiaj literoj, "
-"punktoj kaj ciferoj estas permesataj."
+msgstr "La identigilo de la komponanto enhavas nevalidan signon. Nur minusklaj Askiaj literoj, ciferoj, punktoj, dividstrekoj kaj substrekoj estas permesataj."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2644,9 +2640,9 @@ msgid "Updating software metadata cache for Flatpak."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "Ne ekzistas metadatena dosiero '%s'."
+msgstr "Ne ekzistas metadatena fontogrupo de la nomo «%s»!"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
@@ -2655,15 +2651,13 @@ msgstr "Vi eble bezonas rajtojn de ĉefuzanto por fari tion."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
-#, fuzzy
 msgid "Metadata cache was updated successfully."
-msgstr "Sukcesis ĝisdatigo de kaŝmemoro de AppStream."
+msgstr "Sukcesis ĝisdatigo de metadatena kaŝmemoro."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:102
-#, fuzzy
 msgid "Metadata cache update is not necessary."
-msgstr "Ne necesas ĝisdatigo de kaŝmemoro de AppStream."
+msgstr "Ne necesas ĝisdatigo de metadatena kaŝmemoro."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -2794,23 +2788,22 @@ msgstr "Versio: %s"
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:56
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "Mastrumasistemaj metadatenaj fontoj:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:60
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "Neniu mastrumasistema metadateno troviĝis. Tio estas stranga."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:63
 msgid "Other metadata sources:"
-msgstr ""
+msgstr "Aliaj metadatenaj fontoj:"
 
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:67
-#, fuzzy
 msgid "No metadata."
-msgstr "Komponante metadatenojn…"
+msgstr "Neniu metadateno."
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:70
