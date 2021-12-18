@@ -27,6 +27,7 @@
 #include <appstream.h>
 
 #include "asc-unit.h"
+#include "asc-result.h"
 
 G_BEGIN_DECLS
 
@@ -50,15 +51,17 @@ struct _AscComposeClass
  * @ASC_COMPOSE_FLAG_VALIDATE:		Validate metadata while processing.
  * @ASC_COMPOSE_FLAG_STORE_SCREENSHOTS:	Whether screenshots should be cached in the media directory.
  * @ASC_COMPOSE_FLAG_PROCESS_FONTS:	Set if font components should be processed.
+ * @ASC_COMPOSE_FLAG_IGNORE_ICONS:	Any icon information is completely ignored. Useful for later manual icon processing.
  *
- * Flags on how caching should be used.
+ * Flags that affect the compose process.
  **/
 typedef enum {
 	ASC_COMPOSE_FLAG_NONE			= 0,
 	ASC_COMPOSE_FLAG_ALLOW_NET		= 1 << 0,
 	ASC_COMPOSE_FLAG_VALIDATE		= 1 << 1,
 	ASC_COMPOSE_FLAG_STORE_SCREENSHOTS	= 1 << 2,
-	ASC_COMPOSE_FLAG_PROCESS_FONTS		= 1 << 3
+	ASC_COMPOSE_FLAG_PROCESS_FONTS		= 1 << 3,
+	ASC_COMPOSE_FLAG_IGNORE_ICONS		= 1 << 4,
 } AscComposeFlags;
 
 /**
@@ -76,6 +79,26 @@ typedef enum {
 	ASC_ICON_POLICY_ONLY_CACHED,
 	ASC_ICON_POLICY_ONLY_REMOTE
 } AscIconPolicy;
+
+/**
+ * AscCheckMetadataEarlyFn:
+ * @cres: (not nullable): A pointer to generated #AscResult
+ * @unit: (not nullable): The unit we are currently processing.
+ * @user_data: Additional data.
+ *
+ * Function which is called after all metainfo and related data (e.g. desktop-entry files)
+ * has been loaded, but *before* any expensive operations such as screenshot downloads or
+ * font searches are performed.
+ *
+ * This function can be useful to filter out unwanted components early in the process and
+ * avoid unneeded downloads and other data processing.
+ *
+ * Please note that this function may be called from any thread, and thread safety needs
+ * to be taked care off by the callee.
+ */
+typedef void (*AscCheckMetadataEarlyFn)(AscResult *cres,
+					const AscUnit *unit,
+					gpointer user_data);
 
 AscCompose		*asc_compose_new (void);
 
@@ -125,6 +148,10 @@ void			asc_compose_set_media_result_dir (AscCompose *compose,
 const gchar		*asc_compose_get_hints_result_dir (AscCompose *compose);
 void			asc_compose_set_hints_result_dir (AscCompose *compose,
 							  const gchar *dir);
+
+void			asc_compose_set_check_metadata_early_callback (AscCompose *compose,
+									AscCheckMetadataEarlyFn func,
+									gpointer user_data);
 
 GPtrArray		*asc_compose_get_results (AscCompose *compose);
 GPtrArray		*asc_compose_fetch_components (AscCompose *compose);

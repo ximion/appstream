@@ -67,6 +67,9 @@ typedef struct
 
 	GHashTable	*known_cids;
 	GMutex		mutex;
+
+	AscCheckMetadataEarlyFn check_md_early_fn;
+	gpointer	check_md_early_fn_udata;
 } AscComposePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscCompose, asc_compose, G_TYPE_OBJECT)
@@ -466,6 +469,25 @@ asc_compose_set_hints_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	as_assign_string_safe (priv->hints_result_dir, dir);
+}
+
+/**
+ * asc_compose_set_check_metadata_early_callback:
+ * @compose: an #AscCompose instance.
+ * @func: (scope notified): the #AscCheckMetainfoLoadResultFn function to be called
+ * @user_data: user data for @func
+ *
+ * Set an custom callback to be run when most of the metadata has been loaded,
+ * but no expensive operations (like downloads or icon rendering) have been done yet.
+ * This can be used to ignore unwanted components early on.
+ * This function may be called from any thread, the called function needs to ensure thread safety.
+ */
+void
+asc_compose_set_check_metadata_early_callback (AscCompose *compose, AscCheckMetadataEarlyFn func, gpointer user_data)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	priv->check_md_early_fn = func;
+	priv->check_md_early_fn_udata = user_data;
 }
 
 /**
@@ -1179,6 +1201,12 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 		}
 	} /* end of metadata parsing loop */
 
+	/* allow external function to alter the detected components early on before we do expensive processing */
+	if (priv->check_md_early_fn != NULL)
+		priv->check_md_early_fn (ctask->result,
+					 ctask->unit,
+					 priv->check_md_early_fn_udata);
+
 	/* process translation status */
 	asc_read_translation_status (ctask->result,
 				     ctask->unit,
@@ -1191,10 +1219,11 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (found_cpts, i));
 
 		/* icons */
-		asc_compose_process_icons (compose,
-					   ctask->result,
-					   cpt,
-					   ctask->unit);
+		if (!as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_IGNORE_ICONS))
+			asc_compose_process_icons (compose,
+						   ctask->result,
+						   cpt,
+						   ctask->unit);
 
 		/* screenshots, but only if we allow network access */
 		if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_ALLOW_NET) && acurl != NULL)
