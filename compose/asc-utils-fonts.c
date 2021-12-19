@@ -41,7 +41,6 @@ struct {
 	{ 0, 0 }
 };
 
-
 /**
  * asc_render_font_screenshots:
  *

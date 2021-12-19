@@ -102,10 +102,12 @@ asc_compose_init (AscCompose *compose)
 	priv->format = AS_FORMAT_KIND_XML;
 	as_ref_string_assign_safe (&priv->prefix, "/usr");
 	priv->min_l10n_percentage = 25;
-	priv->flags = ASC_COMPOSE_FLAG_ALLOW_NET |
+	priv->flags = ASC_COMPOSE_FLAG_USE_THREADS |
+			ASC_COMPOSE_FLAG_ALLOW_NET |
 			ASC_COMPOSE_FLAG_VALIDATE |
 			ASC_COMPOSE_FLAG_STORE_SCREENSHOTS |
-			ASC_COMPOSE_FLAG_PROCESS_FONTS;
+			ASC_COMPOSE_FLAG_PROCESS_FONTS |
+			ASC_COMPOSE_FLAG_PROCESS_TRANSLATIONS;
 	priv->icon_policy = ASC_ICON_POLICY_BALANCED;
 }
 
@@ -1478,16 +1480,18 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 					 priv->check_md_early_fn_udata);
 
 	/* process translation status */
-	if (priv->locale_unit == NULL) {
-		asc_read_translation_status (ctask->result,
-					     ctask->unit,
-					     priv->prefix,
-					     priv->min_l10n_percentage);
-	} else {
-		asc_read_translation_status (ctask->result,
-					     priv->locale_unit,
-					     priv->prefix,
-					     priv->min_l10n_percentage);
+	if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_PROCESS_TRANSLATIONS)) {
+		if (priv->locale_unit == NULL) {
+			asc_read_translation_status (ctask->result,
+							ctask->unit,
+							priv->prefix,
+							priv->min_l10n_percentage);
+		} else {
+			asc_read_translation_status (ctask->result,
+							priv->locale_unit,
+							priv->prefix,
+							priv->min_l10n_percentage);
+		}
 	}
 
 	/* process icons and screenshots */
@@ -1898,11 +1902,10 @@ GPtrArray*
 asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	GThreadPool *tpool = NULL;
 	g_autoptr(GPtrArray) tasks = NULL;
 
 	/* ensure icon output dir is set, hint and data output dirs are optional */
-	if (priv->icons_result_dir == NULL) {
+	if (priv->icons_result_dir == NULL && !as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_IGNORE_ICONS)) {
 		g_set_error_literal (error,
 				     ASC_COMPOSE_ERROR,
 				     ASC_COMPOSE_ERROR_FAILED,
@@ -1922,21 +1925,14 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 	tasks = g_ptr_array_new_with_free_func ((GDestroyNotify) asc_compose_task_free);
 
 	for (guint i = 0; i < priv->units->len; i++) {
-		AscUnit *unit;
 		AscComposeTask *ctask;
-		unit = g_ptr_array_index (priv->units, i);
+		AscUnit *unit = g_ptr_array_index (priv->units, i);
 		ctask = asc_compose_task_new (unit);
 		g_ptr_array_add (tasks, ctask);
 	}
 
-
-
-	if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_NO_THREADS)) {
-		/* run everything in sequence */
-		for (guint i = 0; i < tasks->len; i++)
-			asc_compose_process_task_cb ((AscComposeTask *) g_ptr_array_index (tasks, i),
-						     compose);
-	} else {
+	if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_USE_THREADS)) {
+		GThreadPool *tpool = NULL;
 		tpool = g_thread_pool_new ((GFunc) asc_compose_process_task_cb,
 					   compose,
 					   -1, /* max threads */
@@ -1951,6 +1947,11 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 
 		/* shutdown thread pool, wait for all tasks to complete */
 		g_thread_pool_free (tpool, FALSE, TRUE);
+	} else {
+		/* run everything in sequence */
+		for (guint i = 0; i < tasks->len; i++)
+			asc_compose_process_task_cb ((AscComposeTask *) g_ptr_array_index (tasks, i),
+						     compose);
 	}
 
 	/* collect results */
