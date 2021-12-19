@@ -72,6 +72,9 @@ typedef struct
 
 	AscCheckMetadataEarlyFn check_md_early_fn;
 	gpointer	check_md_early_fn_udata;
+
+	AscTranslateDesktopTextFn de_l10n_fn;
+	gpointer	de_l10n_fn_udata;
 } AscComposePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscCompose, asc_compose, G_TYPE_OBJECT)
@@ -540,7 +543,7 @@ asc_compose_add_custom_allowed (AscCompose *compose, const gchar *key_id)
 }
 
 /**
- * asc_compose_set_check_metadata_early_callback:
+ * asc_compose_set_check_metadata_early_func:
  * @compose: an #AscCompose instance.
  * @func: (scope notified): the #AscCheckMetainfoLoadResultFn function to be called
  * @user_data: user data for @func
@@ -548,14 +551,34 @@ asc_compose_add_custom_allowed (AscCompose *compose, const gchar *key_id)
  * Set an custom callback to be run when most of the metadata has been loaded,
  * but no expensive operations (like downloads or icon rendering) have been done yet.
  * This can be used to ignore unwanted components early on.
- * This function may be called from any thread, the called function needs to ensure thread safety.
+ *
+ * The callback function may be called from any thread, so it needs to ensure thread safety on its own.
  */
 void
-asc_compose_set_check_metadata_early_callback (AscCompose *compose, AscCheckMetadataEarlyFn func, gpointer user_data)
+asc_compose_set_check_metadata_early_func (AscCompose *compose, AscCheckMetadataEarlyFn func, gpointer user_data)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	priv->check_md_early_fn = func;
 	priv->check_md_early_fn_udata = user_data;
+}
+
+/**
+ * asc_compose_set_desktop_entry_l10n_func:
+ * @compose: an #AscCompose instance.
+ * @func: (scope notified): the #AscTranslateDesktopTextFn function to be called
+ * @user_data: user data for @func
+ *
+ * Set a custom desktop-entry field localization functions to be run for specialized
+ * desktop-entry localization schemes such as used in Ubuntu.
+ *
+ * The callback function may be called from any thread, so it needs to ensure thread safety on its own.
+ */
+void
+asc_compose_set_desktop_entry_l10n_func (AscCompose *compose, AscTranslateDesktopTextFn func, gpointer user_data)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	priv->de_l10n_fn = func;
+	priv->de_l10n_fn_udata = user_data;
 }
 
 /**
@@ -1059,6 +1082,8 @@ asc_compose_component_known (AscCompose *compose, AsComponent *cpt)
 }
 
 /**
+ * asc_evaluate_custom_entry_cb:
+ *
  * Helper function for asc_compose_finalize_components()
  */
 static gboolean
@@ -1391,7 +1416,8 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 											de_basename,
 											TRUE, /* ignore NoDisplay & Co. */
 											AS_FORMAT_VERSION_CURRENT,
-											NULL, NULL);
+											priv->de_l10n_fn,
+										        priv->de_l10n_fn_udata);
 						if (de_cpt != NULL) {
 							/* update component hash based on new source data */
 							asc_result_update_component_gcid (ctask->result,
@@ -1440,7 +1466,8 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 								de_basename,
 								FALSE, /* don't ignore NoDisplay & Co. */
 								AS_FORMAT_VERSION_CURRENT,
-								NULL, NULL);
+								priv->de_l10n_fn,
+								priv->de_l10n_fn_udata);
 		}
 	}
 

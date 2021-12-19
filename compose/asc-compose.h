@@ -110,6 +110,24 @@ typedef void (*AscCheckMetadataEarlyFn)(AscResult *cres,
 					const AscUnit *unit,
 					gpointer user_data);
 
+/**
+ * AscTranslateDesktopTextFn:
+ * @de: (not nullable): A pointer to the desktop-entry data we are reading.
+ * @text: The string to translate.
+ * @user_data: Additional data.
+ *
+ * Function which is called while parsing a desktop-entry file to allow external
+ * translations of string values. This is used in e.g. the Ubuntu distribution.
+ *
+ * The return value must contain a list of strings with the locale name in even indices,
+ * and the text translated to the preceding locale in the following odd indices.
+ *
+ * Returns: (not nullable) (transfer full): A new #GPtrArray containing the translation mapping.
+ */
+typedef GPtrArray* (*AscTranslateDesktopTextFn)(const GKeyFile *de,
+						const gchar *text,
+						gpointer user_data);
+
 AscCompose		*asc_compose_new (void);
 
 void			asc_compose_reset (AscCompose *compose);
@@ -168,9 +186,12 @@ void			asc_compose_remove_custom_allowed (AscCompose *compose,
 void			asc_compose_add_custom_allowed (AscCompose *compose,
 							  const gchar *key_id);
 
-void			asc_compose_set_check_metadata_early_callback (AscCompose *compose,
-									AscCheckMetadataEarlyFn func,
-									gpointer user_data);
+void			asc_compose_set_check_metadata_early_func (AscCompose *compose,
+								   AscCheckMetadataEarlyFn func,
+								   gpointer user_data);
+void			asc_compose_set_desktop_entry_l10n_func (AscCompose *compose,
+								 AscTranslateDesktopTextFn func,
+								 gpointer user_data);
 
 AscUnit			*asc_compose_get_locale_unit (AscCompose *compose);
 void			asc_compose_set_locale_unit (AscCompose *compose,

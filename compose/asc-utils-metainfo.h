@@ -27,26 +27,9 @@
 #include <appstream.h>
 
 #include "asc-result.h"
+#include "asc-compose.h"
 
 G_BEGIN_DECLS
-
-/**
- * AscTranslateDesktopTextFn:
- * @de: (not nullable): A pointer to the desktop-entry data we are reading.
- * @text: The string to translate.
- * @user_data: Additional data.
- *
- * Function which is called while parsing a desktop-entry file to allow external
- * translations of string values. This is used in e.g. the Ubuntu distribution.
- *
- * The return value must contain a list of strings with the locale name in even indices,
- * and the text translated to the preceding locale in the following odd indices.
- *
- * Returns: (not nullable) (transfer full): A new #GPtrArray containing the translation mapping.
- */
-typedef GPtrArray* (*AscTranslateDesktopTextFn)(const GKeyFile *de,
-					       const gchar *text,
-					       gpointer user_data);
 
 AsComponent		*asc_parse_metainfo_data (AscResult *cres,
 						  AsMetadata *mdata,
