@@ -50,7 +50,7 @@ you may want to take a look at the [AppStream Generator](https://github.com/ximi
  * libxml2
  * libyaml
  * libcurl (>= 7.62)
- * libxmlb (>= 0.3.2)
+ * libxmlb (>= 0.3.6)
 
 #### Optional
  * Vala Compiler (vapigen) (for Vala VAPI file)

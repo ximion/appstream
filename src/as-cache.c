@@ -577,9 +577,6 @@ as_cache_builder_add_simple_tokens (XbBuilderNode *root,
 	for (guint i = 0; i < MIN(token_array->len, 32); i++)
 		xb_builder_node_add_token (token_node,
 					   g_ptr_array_index (token_array, i));
-#if !(LIBXMLB_CHECK_VERSION(0, 3, 6))
-	xb_builder_node_add_flag (token_node, XB_BUILDER_NODE_FLAG_TOKENIZE_TEXT);
-#endif
 }
 
 /**
