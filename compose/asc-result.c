@@ -98,7 +98,7 @@ asc_result_class_init (AscResultClass *klass)
  * asc_result_unit_ignored:
  * @result: an #AscResult instance.
  *
- * Returns: %TRUE if this result means the analyzed unit was ignored entirely..
+ * Returns: %TRUE if this result means the analyzed unit was ignored entirely.
  **/
 gboolean
 asc_result_unit_ignored (AscResult *result)
@@ -138,6 +138,24 @@ asc_result_hints_count (AscResult *result)
 	while (g_hash_table_iter_next (&iter, NULL, &value))
 		count += ((GPtrArray*) value)->len;
 	return count;
+}
+
+/**
+ * asc_result_is_ignored:
+ * @result: an #AscResult instance.
+ * @cpt: the component to check for.
+ *
+ * Check if an #AsComponent was set to be ignored in this result
+ * (usually due to errors).
+ *
+ * Returns: %TRUE if the component is ignored.
+ **/
+gboolean
+asc_result_is_ignored (AscResult *result, AsComponent *cpt)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	return !g_hash_table_contains (priv->cpts,
+				       as_component_get_id (cpt));
 }
 
 /**
