@@ -57,6 +57,7 @@ typedef struct
 	gchar		*media_baseurl;
 	AsFormatKind	format;
 	guint		min_l10n_percentage;
+	GPtrArray	*custom_allowed;
 
 	AscComposeFlags	flags;
 	AscIconPolicy	icon_policy;
@@ -91,6 +92,7 @@ asc_compose_init (AscCompose *compose)
 						  g_str_equal,
 						  g_free,
 						  NULL);
+	priv->custom_allowed = g_ptr_array_new_with_free_func (g_free);
 	g_mutex_init (&priv->mutex);
 
 	/* defaults */
@@ -112,6 +114,7 @@ asc_compose_finalize (GObject *object)
 
 	g_ptr_array_unref (priv->units);
 	g_ptr_array_unref (priv->results);
+	g_ptr_array_unref (priv->custom_allowed);
 
 	g_hash_table_unref (priv->allowed_cids);
 	g_hash_table_unref (priv->known_cids);
@@ -501,6 +504,39 @@ asc_compose_set_hints_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	as_assign_string_safe (priv->hints_result_dir, dir);
+}
+
+/**
+ * asc_compose_remove_custom_allowed:
+ * @compose: an #AscCompose instance.
+ * @key_id: the custom key to drop from the allowed list.
+ *
+ * Remove a key from the allowlist used to filter the `<custom/>` tag entries.
+ */
+void
+asc_compose_remove_custom_allowed (AscCompose *compose, const gchar *key_id)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	for (guint i = 0; i < priv->custom_allowed->len; i++) {
+		if (g_strcmp0 (g_ptr_array_index (priv->custom_allowed, i), key_id) == 0) {
+			g_ptr_array_remove_index_fast (priv->custom_allowed, i);
+			break;
+		}
+	}
+}
+
+/**
+ * asc_compose_add_custom_allowed:
+ * @compose: an #AscCompose instance.
+ * @key_id: the custom key to add to the allowed list.
+ *
+ * Add a key to the allowlist that is used to filter custom tag values.
+ */
+void
+asc_compose_add_custom_allowed (AscCompose *compose, const gchar *key_id)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_ptr_array_add (priv->custom_allowed, g_strdup (key_id));
 }
 
 /**
@@ -1022,6 +1058,135 @@ asc_compose_component_known (AscCompose *compose, AsComponent *cpt)
 	return g_hash_table_contains (priv->known_cids, as_component_get_id (cpt));
 }
 
+/**
+ * Helper function for asc_compose_finalize_components()
+ */
+static gboolean
+asc_evaluate_custom_entry_cb (gpointer key_p, gpointer value_p, gpointer user_data)
+{
+	const gchar *key = (const gchar*) key_p;
+	GPtrArray *whitelist = (GPtrArray*) value_p;
+
+	for (guint i = 0; i < whitelist->len; i++) {
+		if (g_strcmp0 (g_ptr_array_index (whitelist, i), key) == 0)
+			return FALSE; /* do not delete, key is in whitelist */
+	}
+
+	/* remove key that was not allowed */
+	return TRUE;
+}
+
+static void
+asc_compose_finalize_components (AscCompose *compose, AscResult *cres)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GPtrArray) final_cpts = NULL;
+
+	final_cpts = asc_result_fetch_components (cres);
+	for (guint i = 0; i < final_cpts->len; i++) {
+		AsValueFlags value_flags;
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (final_cpts, i));
+		AsComponentKind ckind = as_component_get_kind (cpt);
+
+		/* add bundle data if we have any */
+		if (asc_result_get_bundle_kind (cres) != AS_BUNDLE_KIND_UNKNOWN) {
+			AsBundleKind bundle_kind = asc_result_get_bundle_kind (cres);
+			g_ptr_array_set_size (as_component_get_bundles (cpt), 0);
+			as_component_set_pkgname (cpt, NULL);
+
+			if (bundle_kind == AS_BUNDLE_KIND_PACKAGE) {
+				as_component_set_pkgname (cpt, asc_result_get_bundle_id (cres));
+			} else {
+				g_autoptr(AsBundle) bundle = as_bundle_new ();
+				as_bundle_set_kind (bundle, bundle_kind);
+				as_bundle_set_id (bundle, asc_result_get_bundle_id (cres));
+			}
+		}
+
+		value_flags = as_component_get_value_flags (cpt);
+		as_component_set_value_flags (cpt, value_flags | AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK);
+		as_component_set_active_locale (cpt, "C");
+
+		if (ckind == AS_COMPONENT_KIND_UNKNOWN) {
+			if (!asc_result_add_hint_simple (cres, cpt, "metainfo-unknown-type"))
+				continue;
+		}
+
+		/* filter custom entries */
+		if (!as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_PROPAGATE_CUSTOM)) {
+			if (priv->custom_allowed->len == 0) {
+				GHashTable *custom_entries = as_component_get_custom (cpt);
+				/* no custom entries permitted in output */
+				g_hash_table_remove_all (custom_entries);
+			} else {
+				GHashTable *custom_entries = as_component_get_custom (cpt);
+				g_hash_table_foreach_remove (custom_entries,
+							asc_evaluate_custom_entry_cb,
+							priv->custom_allowed);
+			}
+		}
+
+		/* only perform the next checks if we don't have a merge-component
+		 * (which is by definition incomplete and only is required to have its ID present) */
+		if (as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE)
+			continue;
+
+		/* strip out release artifacts unless we were told to propagate them */
+		if (!as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_PROPAGATE_ARTIFACTS)) {
+			GPtrArray *releases = as_component_get_releases (cpt);
+			for (guint j = 0; j < releases->len; j++) {
+				AsRelease *rel = AS_RELEASE (g_ptr_array_index (releases, j));
+				g_ptr_array_set_size (as_release_get_artifacts (rel), 0);
+			}
+		}
+
+		if (as_is_empty (as_component_get_name (cpt)))
+			if (!asc_result_add_hint_simple (cres, cpt, "metainfo-no-name"))
+				continue;
+
+		if (as_is_empty (as_component_get_summary (cpt)))
+			if (!asc_result_add_hint_simple (cres, cpt, "metainfo-no-summary"))
+				continue;
+
+		/* ensure that everything that should have an icon has one */
+		if (as_component_get_icons (cpt)->len == 0) {
+			if (ckind == AS_COMPONENT_KIND_DESKTOP_APP) {
+				if (!asc_result_add_hint_simple (cres, cpt, "gui-app-without-icon"))
+					continue;
+			} else if (ckind == AS_COMPONENT_KIND_WEB_APP) {
+				if (!asc_result_add_hint_simple (cres, cpt, "web-app-without-icon"))
+					continue;
+			} else if (ckind == AS_COMPONENT_KIND_FONT) {
+				if (!asc_result_add_hint_simple (cres, cpt, "font-without-icon"))
+					continue;
+			} else if (ckind == AS_COMPONENT_KIND_OPERATING_SYSTEM) {
+				if (!asc_result_add_hint_simple (cres, cpt, "os-without-icon"))
+					continue;
+			}
+		}
+
+                if (ckind == AS_COMPONENT_KIND_DESKTOP_APP ||
+		    ckind == AS_COMPONENT_KIND_CONSOLE_APP ||
+		    ckind == AS_COMPONENT_KIND_WEB_APP) {
+			/* desktop-application components are required to have a category */
+			if (ckind != AS_COMPONENT_KIND_CONSOLE_APP) {
+				if (as_component_get_categories (cpt)->len <= 0)
+					if (!asc_result_add_hint_simple (cres, cpt, "no-valid-category"))
+							continue;
+			}
+
+			if (as_is_empty (as_component_get_description (cpt))) {
+				if (!asc_result_add_hint (cres,
+							  cpt,
+							  "description-missing",
+							  "kind", as_component_kind_to_string (ckind),
+							  NULL))
+					continue;
+			}
+                }
+	}
+}
+
 static void
 asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 {
@@ -1155,14 +1320,32 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 									mi_basename);
 		}
 
-		/* legacy support: synthesize launchable entry if none was set */
+		/* legacy support: Synthesize launchable entry if none was set,
+		 * but only if we actually need to do that.
+		 * At the moment we determine whether a .desktop file is needed by checking
+		 * if the metainfo file defines an icon (which is commonly provided by the .desktop
+		 * file instead of the metainfo file).
+		 * This heuristic is, of course, not ideal, which is why everything should have a launchable tag.
+		 */
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
 			AsLaunchable *launchable = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
 			if (launchable == NULL && g_str_has_suffix (as_component_get_id (cpt), ".desktop")) {
-				g_autoptr(AsLaunchable) launch = as_launchable_new ();
-				as_launchable_set_kind (launch, AS_LAUNCHABLE_KIND_DESKTOP_ID);
-				as_launchable_add_entry (launch, as_component_get_id (cpt));
-				as_component_add_launchable (cpt, launch);
+				AsIcon *stock_icon = NULL;
+				GPtrArray *icons = as_component_get_icons (cpt);
+
+				for (guint i = 0; i < icons->len; i++) {
+					AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
+					if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK) {
+						stock_icon = icon;
+						break;
+					}
+				}
+				if (stock_icon == NULL) {
+					g_autoptr(AsLaunchable) launch = as_launchable_new ();
+					as_launchable_set_kind (launch, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+					as_launchable_add_entry (launch, as_component_get_id (cpt));
+					as_component_add_launchable (cpt, launch);
+				}
 			}
 		}
 
@@ -1198,6 +1381,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 									     "msg", local_error->message,
 									     NULL);
 							g_error_free (g_steal_pointer (&local_error));
+							g_hash_table_remove (de_fname_map, de_basename);
 							continue;
 						}
 
@@ -1215,25 +1399,50 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 											  de_bytes);
 						}
 					}
+					g_hash_table_remove (de_fname_map, de_basename);
 				} /* end launch entry loop */
 			}
 		} /* end of desktop-entry support */
-
-		/* add bundle data */
-		if (asc_unit_get_bundle_kind (ctask->unit) != AS_BUNDLE_KIND_UNKNOWN) {
-			AsBundleKind bundle_kind = asc_unit_get_bundle_kind (ctask->unit);
-			g_ptr_array_set_size (as_component_get_bundles (cpt), 0);
-			as_component_set_pkgname (cpt, NULL);
-
-			if (bundle_kind == AS_BUNDLE_KIND_PACKAGE) {
-				as_component_set_pkgname (cpt, asc_unit_get_bundle_id (ctask->unit));
-			} else {
-				g_autoptr(AsBundle) bundle = as_bundle_new ();
-				as_bundle_set_kind (bundle, bundle_kind);
-				as_bundle_set_id (bundle, asc_unit_get_bundle_id (ctask->unit));
-			}
-		}
 	} /* end of metadata parsing loop */
+
+	/* process the remaining .desktop files */
+	if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_PROCESS_UNPAIRED_DESKTOP)) {
+		GHashTableIter ht_iter;
+		gpointer ht_key;
+		gpointer ht_value;
+
+		g_hash_table_iter_init (&ht_iter, de_fname_map);
+		while (g_hash_table_iter_next (&ht_iter, &ht_key, &ht_value)) {
+			const gchar *de_fname = (const gchar*) ht_value;
+			const gchar *de_basename = (const gchar*) ht_key;
+			g_autoptr(AsComponent) de_cpt = NULL;
+			g_autoptr(GBytes) de_bytes = NULL;
+			g_autoptr(GError) local_error = NULL;
+
+			g_debug ("Reading orphan desktop-entry: %s", de_fname);
+			de_bytes = asc_unit_read_data (ctask->unit, de_fname, &local_error);
+			if (de_bytes == NULL) {
+				asc_result_add_hint_by_cid (ctask->result,
+							    de_basename,
+							    "file-read-error",
+							    "fname", de_fname,
+							    "msg", local_error->message,
+							    NULL);
+				g_error_free (g_steal_pointer (&local_error));
+				continue;
+			}
+
+			/* synthesize component from desktop entry. The component will be auto-added
+			 * to the results set if it is valid. */
+			de_cpt = asc_parse_desktop_entry_data (ctask->result,
+								NULL, /* existing component */
+								de_bytes,
+								de_basename,
+								FALSE, /* don't ignore NoDisplay & Co. */
+								AS_FORMAT_VERSION_CURRENT,
+								NULL, NULL);
+		}
+	}
 
 	/* allow external function to alter the detected components early on before we do expensive processing */
 	if (priv->check_md_early_fn != NULL)
@@ -1246,12 +1455,12 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 		asc_read_translation_status (ctask->result,
 					     ctask->unit,
 					     priv->prefix,
-					     25 /* minimum translation percentage */);
+					     priv->min_l10n_percentage);
 	} else {
 		asc_read_translation_status (ctask->result,
 					     priv->locale_unit,
 					     priv->prefix,
-					     25 /* minimum translation percentage */);
+					     priv->min_l10n_percentage);
 	}
 
 	/* process icons and screenshots */
@@ -1296,6 +1505,10 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 				asc_result_remove_hints_for_cid (ctask->result, cids[i]);
 		}
 	}
+
+	/* postprocess components and add remaining values and hints */
+	if (!as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_NO_FINAL_CHECK))
+		asc_compose_finalize_components (compose, ctask->result);
 
 	asc_unit_close (ctask->unit);
 }
@@ -1611,6 +1824,39 @@ asc_compose_save_metadata_result (AscCompose *compose, GError **error)
 }
 
 /**
+ * asc_compose_finalize_results:
+ * @compose: an #AscCompose instance.
+ *
+ * Perform final validation of generated data.
+ * Calling this function is not necessary, unless the final check was explicitly
+ * disabled using the %ASC_COMPOSE_FLAG_NO_FINAL_CHECK flag.
+ */
+void
+asc_compose_finalize_results (AscCompose *compose)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+
+	for (guint i = 0; i < priv->results->len; i++) {
+		AscResult *cres = ASC_RESULT (g_ptr_array_index (priv->results, i));
+		asc_compose_finalize_components (compose, cres);
+	}
+}
+
+/**
+ * asc_compose_finalize_result:
+ * @compose: an #AscCompose instance.
+ * @result: the #AscResult to finalize
+ *
+ * Perform final validation of generated data for the specified
+ * result container.
+ */
+void
+asc_compose_finalize_result (AscCompose *compose, AscResult *result)
+{
+	asc_compose_finalize_components (compose, result);
+}
+
+/**
  * asc_compose_run:
  * @compose: an #AscCompose instance.
  * @cancellable: a #GCancellable.
@@ -1628,14 +1874,7 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 	GThreadPool *tpool = NULL;
 	g_autoptr(GPtrArray) tasks = NULL;
 
-	/* test if output directories are set */
-	if (priv->data_result_dir == NULL) {
-		g_set_error_literal (error,
-				     ASC_COMPOSE_ERROR,
-				     ASC_COMPOSE_ERROR_FAILED,
-				     _("Metadata output directory is not set."));
-		return NULL;
-	}
+	/* ensure icon output dir is set, hint and data output dirs are optional */
 	if (priv->icons_result_dir == NULL) {
 		g_set_error_literal (error,
 				     ASC_COMPOSE_ERROR,
@@ -1643,7 +1882,6 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 				     _("Icon output directory is not set."));
 		return NULL;
 	}
-	/* hint output directory is optional */
 
 	if (priv->media_baseurl == NULL && priv->media_result_dir != NULL) {
 		g_set_error_literal (error,

@@ -68,6 +68,19 @@ AscHintTagStatic asc_hint_tag_list[] =  {
           "The identifier tag is essential for AppStream metadata, and must not be missing."
 	},
 
+	{ "metainfo-no-name",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "Component has no name specified. Ensure that the AppStream MetaInfo file or the .desktop file (if there is any) specify a component name."
+	},
+
+	{ "metainfo-no-summary",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "Component does not contain a short summary. Ensure that the components MetaInfo file has a <code>summary</code> tag, or that its .desktop file "
+	  "has a <code>Comment=</code> field set.<br/>"
+	  "More information can be found in the <a href=\"http://standards.freedesktop.org/desktop-entry-spec/latest/ar01s05.html\">Desktop Entry specification</a> "
+	  "and the <a href=\"https://www.freedesktop.org/software/appstream/docs/sect-Metadata-Application.html#tag-dapp-summary\">MetaInfo specification</a>."
+	},
+
 	{ "metainfo-license-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  "The MetaInfo file does not seem to be licensed under a permissive license that is in the allowed set for AppStream metadata. "
@@ -233,6 +246,39 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	{ "font-render-error",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  "Unable to render image for font '{{name}}': {{error}}"
+	},
+
+	{ "gui-app-without-icon",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "The component is a GUI application (application which has a .desktop file for the XDG menu and <code>Type=Application</code>), "
+	  "but we could not find a matching icon for this application."
+	},
+
+	{ "web-app-without-icon",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "The component is a GUI web application, but it either has no icon set in its MetaInfo file, "
+	  "or we could not find a matching icon for this application."
+	},
+
+	{ "font-without-icon",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "The component is a font, but somehow we failed to automatically generate an icon for it, and no custom icon was set explicitly. "
+	  "Is there a font file in the analyzed package, and does the MetaInfo file set the right font name to look for?"
+	},
+
+	{ "os-without-icon",
+	  AS_ISSUE_SEVERITY_INFO,
+	  "The component is an operating system, but no icon was found for it. Setting an icon would improve the look of this component in GUIs."
+	},
+
+	{ "no-valid-category",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "This software component is no member of any valid category."
+	},
+
+	{ "description-missing",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "Software components of type '{{kind}}' require a long description, and we were unable to find one. Please add one via a MetaInfo file."
 	},
 
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }

@@ -46,22 +46,30 @@ struct _AscComposeClass
 
 /**
  * AsCacheFlags:
- * @ASC_COMPOSE_FLAG_NONE:		No flags.
- * @ASC_COMPOSE_FLAG_ALLOW_NET:		Allow network access for downloading extra data.
- * @ASC_COMPOSE_FLAG_VALIDATE:		Validate metadata while processing.
- * @ASC_COMPOSE_FLAG_STORE_SCREENSHOTS:	Whether screenshots should be cached in the media directory.
- * @ASC_COMPOSE_FLAG_PROCESS_FONTS:	Set if font components should be processed.
- * @ASC_COMPOSE_FLAG_IGNORE_ICONS:	Any icon information is completely ignored. Useful for later manual icon processing.
+ * @ASC_COMPOSE_FLAG_NONE:			No flags.
+ * @ASC_COMPOSE_FLAG_ALLOW_NET:			Allow network access for downloading extra data.
+ * @ASC_COMPOSE_FLAG_VALIDATE:			Validate metadata while processing.
+ * @ASC_COMPOSE_FLAG_STORE_SCREENSHOTS:		Whether screenshots should be cached in the media directory.
+ * @ASC_COMPOSE_FLAG_PROCESS_FONTS:		Set if font components should be processed.
+ * @ASC_COMPOSE_FLAG_IGNORE_ICONS:		Any icon information is completely ignored. Useful for later manual icon processing.
+ * @ASC_COMPOSE_FLAG_PROCESS_UNPAIRED_DESKTOP: Process desktop-entry files that do not have a corresponding metainfo file.
+ * @ASC_COMPOSE_FLAG_PROPAGATE_CUSTOM:		Whether all custom entries should be passed on to the output, ignoring the allowlist.
+ * @ASC_COMPOSE_FLAG_PROPAGATE_ARTIFACTS:	Whether artifact data should be passed through to the generated output.
+ * @ASC_COMPOSE_FLAG_NO_FINAL_CHECK:		Disable the automatic finalization check to perform it manually at a later time.
  *
  * Flags that affect the compose process.
  **/
 typedef enum {
-	ASC_COMPOSE_FLAG_NONE			= 0,
-	ASC_COMPOSE_FLAG_ALLOW_NET		= 1 << 0,
-	ASC_COMPOSE_FLAG_VALIDATE		= 1 << 1,
-	ASC_COMPOSE_FLAG_STORE_SCREENSHOTS	= 1 << 2,
-	ASC_COMPOSE_FLAG_PROCESS_FONTS		= 1 << 3,
-	ASC_COMPOSE_FLAG_IGNORE_ICONS		= 1 << 4,
+	ASC_COMPOSE_FLAG_NONE				= 0,
+	ASC_COMPOSE_FLAG_ALLOW_NET			= 1 << 0,
+	ASC_COMPOSE_FLAG_VALIDATE			= 1 << 1,
+	ASC_COMPOSE_FLAG_STORE_SCREENSHOTS		= 1 << 2,
+	ASC_COMPOSE_FLAG_PROCESS_FONTS			= 1 << 3,
+	ASC_COMPOSE_FLAG_IGNORE_ICONS			= 1 << 4,
+	ASC_COMPOSE_FLAG_PROCESS_UNPAIRED_DESKTOP 	= 1 << 5,
+	ASC_COMPOSE_FLAG_PROPAGATE_CUSTOM	 	= 1 << 6,
+	ASC_COMPOSE_FLAG_PROPAGATE_ARTIFACTS	 	= 1 << 7,
+	ASC_COMPOSE_FLAG_NO_FINAL_CHECK		 	= 1 << 8,
 } AscComposeFlags;
 
 /**
@@ -155,6 +163,11 @@ const gchar		*asc_compose_get_hints_result_dir (AscCompose *compose);
 void			asc_compose_set_hints_result_dir (AscCompose *compose,
 							  const gchar *dir);
 
+void			asc_compose_remove_custom_allowed (AscCompose *compose,
+							   const gchar *key_id);
+void			asc_compose_add_custom_allowed (AscCompose *compose,
+							  const gchar *key_id);
+
 void			asc_compose_set_check_metadata_early_callback (AscCompose *compose,
 									AscCheckMetadataEarlyFn func,
 									gpointer user_data);
@@ -170,5 +183,9 @@ gboolean		asc_compose_has_errors (AscCompose *compose);
 GPtrArray		*asc_compose_run (AscCompose *compose,
 					  GCancellable *cancellable,
 					  GError **error);
+
+void			asc_compose_finalize_results (AscCompose *compose);
+void			asc_compose_finalize_result (AscCompose *compose,
+						     AscResult *result);
 
 G_END_DECLS
