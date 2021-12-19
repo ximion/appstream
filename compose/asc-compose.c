@@ -49,6 +49,7 @@ typedef struct
 {
 	GPtrArray	*units;
 	GPtrArray	*results;
+	AscUnit		*locale_unit;
 
 	GHashTable	*allowed_cids;
 	GRefString	*prefix;
@@ -122,6 +123,9 @@ asc_compose_finalize (GObject *object)
 	g_free (priv->icons_result_dir);
 	g_free (priv->media_result_dir);
 	g_free (priv->hints_result_dir);
+
+	if (priv->locale_unit != NULL)
+		g_object_unref (priv->locale_unit);
 
 	g_mutex_clear (&priv->mutex);
 
@@ -516,6 +520,42 @@ asc_compose_set_check_metadata_early_callback (AscCompose *compose, AscCheckMeta
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	priv->check_md_early_fn = func;
 	priv->check_md_early_fn_udata = user_data;
+}
+
+/**
+ * asc_compose_get_locale_unit:
+ * @compose: an #AscCompose instance.
+ *
+ * Get the unit we use for locale processing
+ *
+ * Return: (transfer none) (nullable): The unit used for locale processing, or %NULL for default.
+ */
+AscUnit*
+asc_compose_get_locale_unit (AscCompose *compose)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	return priv->locale_unit;
+}
+
+/**
+ * asc_compose_set_locale_unit:
+ * @compose: an #AscCompose instance.
+ * @locale_unit: the unit used for locale processing.
+ *
+ * Set a specific unit that is used for fetching locale information.
+ * This may be useful in case a special language pack layout is used,
+ * but is generally not necessary to be set explicitly, as locale
+ * will be found in the unit where the metadata is by default.
+ */
+void
+asc_compose_set_locale_unit (AscCompose *compose, AscUnit *locale_unit)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	if (priv->locale_unit == locale_unit)
+		return;
+	if (priv->locale_unit != NULL)
+		g_object_unref (priv->locale_unit);
+	priv->locale_unit = g_object_ref (locale_unit);
 }
 
 /**
@@ -1236,10 +1276,17 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 					 priv->check_md_early_fn_udata);
 
 	/* process translation status */
-	asc_read_translation_status (ctask->result,
-				     ctask->unit,
-				     priv->prefix,
-				     25 /* minimum translation percentage */);
+	if (priv->locale_unit == NULL) {
+		asc_read_translation_status (ctask->result,
+					     ctask->unit,
+					     priv->prefix,
+					     25 /* minimum translation percentage */);
+	} else {
+		asc_read_translation_status (ctask->result,
+					     priv->locale_unit,
+					     priv->prefix,
+					     25 /* minimum translation percentage */);
+	}
 
 	/* process icons and screenshots */
 	found_cpts = asc_result_fetch_components (ctask->result);

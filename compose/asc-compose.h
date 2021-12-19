@@ -159,6 +159,10 @@ void			asc_compose_set_check_metadata_early_callback (AscCompose *compose,
 									AscCheckMetadataEarlyFn func,
 									gpointer user_data);
 
+AscUnit			*asc_compose_get_locale_unit (AscCompose *compose);
+void			asc_compose_set_locale_unit (AscCompose *compose,
+						     AscUnit *locale_unit);
+
 GPtrArray		*asc_compose_get_results (AscCompose *compose);
 GPtrArray		*asc_compose_fetch_components (AscCompose *compose);
 gboolean		asc_compose_has_errors (AscCompose *compose);
