@@ -267,10 +267,21 @@ asc_unit_close (AscUnit *unit)
 gboolean
 asc_unit_file_exists (AscUnit *unit, const gchar *filename)
 {
+	AscUnitPrivate *priv = GET_PRIVATE (unit);
 	AscUnitClass *klass;
 	g_return_val_if_fail (ASC_IS_UNIT (unit), FALSE);
 
 	klass = ASC_UNIT_GET_CLASS (unit);
+
+	if (klass->file_exists == NULL && priv->contents != NULL) {
+		/* fallback */
+		for (guint i = 0; i < priv->contents->len; i++) {
+			if (g_strcmp0 (filename, g_ptr_array_index (priv->contents, i)) == 0)
+				return TRUE;
+		}
+		return FALSE;
+	}
+
 	g_return_val_if_fail (klass->file_exists != NULL, FALSE);
 	return klass->file_exists (unit, filename);
 }

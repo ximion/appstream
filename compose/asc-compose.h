@@ -92,6 +92,8 @@ typedef enum {
  *
  * This function can be useful to filter out unwanted components early in the process and
  * avoid unneeded downloads and other data processing.
+ * By the time this function is called, the component's global ID should be finalized
+ * and should not change any longer.
  *
  * Please note that this function may be called from any thread, and thread safety needs
  * to be taked care off by the callee.
