@@ -52,10 +52,11 @@ struct _AscComposeClass
  * @ASC_COMPOSE_FLAG_STORE_SCREENSHOTS:		Whether screenshots should be cached in the media directory.
  * @ASC_COMPOSE_FLAG_PROCESS_FONTS:		Set if font components should be processed.
  * @ASC_COMPOSE_FLAG_IGNORE_ICONS:		Any icon information is completely ignored. Useful for later manual icon processing.
- * @ASC_COMPOSE_FLAG_PROCESS_UNPAIRED_DESKTOP: Process desktop-entry files that do not have a corresponding metainfo file.
+ * @ASC_COMPOSE_FLAG_PROCESS_UNPAIRED_DESKTOP:	Process desktop-entry files that do not have a corresponding metainfo file.
  * @ASC_COMPOSE_FLAG_PROPAGATE_CUSTOM:		Whether all custom entries should be passed on to the output, ignoring the allowlist.
  * @ASC_COMPOSE_FLAG_PROPAGATE_ARTIFACTS:	Whether artifact data should be passed through to the generated output.
  * @ASC_COMPOSE_FLAG_NO_FINAL_CHECK:		Disable the automatic finalization check to perform it manually at a later time.
+ * @ASC_COMPOSE_FLAG_NO_THREADS:		Disable threading for sync functions.
  *
  * Flags that affect the compose process.
  **/
@@ -70,6 +71,7 @@ typedef enum {
 	ASC_COMPOSE_FLAG_PROPAGATE_CUSTOM	 	= 1 << 6,
 	ASC_COMPOSE_FLAG_PROPAGATE_ARTIFACTS	 	= 1 << 7,
 	ASC_COMPOSE_FLAG_NO_FINAL_CHECK		 	= 1 << 8,
+	ASC_COMPOSE_FLAG_NO_THREADS		 	= 1 << 9,
 } AscComposeFlags;
 
 /**

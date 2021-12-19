@@ -1929,20 +1929,29 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 		g_ptr_array_add (tasks, ctask);
 	}
 
-	tpool = g_thread_pool_new ((GFunc) asc_compose_process_task_cb,
-				   compose,
-				   -1, /* max threads */
-				   FALSE, /* exclusive */
-				   error);
-	if (tpool == NULL)
-		return NULL;
 
-	/* launch all processing tasks in parallel */
-	for (guint i = 0; i < tasks->len; i++)
-		g_thread_pool_push (tpool, g_ptr_array_index (tasks, i), NULL);
 
-	/* shutdown thread pool, wait for all tasks to complete */
-	g_thread_pool_free (tpool, FALSE, TRUE);
+	if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_NO_THREADS)) {
+		/* run everything in sequence */
+		for (guint i = 0; i < tasks->len; i++)
+			asc_compose_process_task_cb ((AscComposeTask *) g_ptr_array_index (tasks, i),
+						     compose);
+	} else {
+		tpool = g_thread_pool_new ((GFunc) asc_compose_process_task_cb,
+					   compose,
+					   -1, /* max threads */
+					   FALSE, /* exclusive */
+					   error);
+		if (tpool == NULL)
+			return NULL;
+
+		/* launch all processing tasks in parallel */
+		for (guint i = 0; i < tasks->len; i++)
+			g_thread_pool_push (tpool, g_ptr_array_index (tasks, i), NULL);
+
+		/* shutdown thread pool, wait for all tasks to complete */
+		g_thread_pool_free (tpool, FALSE, TRUE);
+	}
 
 	/* collect results */
 	for (guint i = 0; i < tasks->len; i++) {
