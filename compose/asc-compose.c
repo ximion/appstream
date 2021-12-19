@@ -1155,11 +1155,20 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 									mi_basename);
 		}
 
+		/* legacy support: synthesize launchable entry if none was set */
+		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
+			AsLaunchable *launchable = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+			if (launchable == NULL && g_str_has_suffix (as_component_get_id (cpt), ".desktop")) {
+				g_autoptr(AsLaunchable) launch = as_launchable_new ();
+				as_launchable_set_kind (launch, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+				as_launchable_add_entry (launch, as_component_get_id (cpt));
+				as_component_add_launchable (cpt, launch);
+			}
+		}
+
 		/* find an accompanying desktop-entry file, if one exists */
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
-			const gchar *cid = NULL;
 			AsLaunchable *launchable = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
-			gboolean de_ref_found = FALSE;
 			if (launchable != NULL) {
 				GPtrArray *launch_entries = as_launchable_get_entries (launchable);
 				for (guint j = 0; j < launch_entries->len; j++) {
@@ -1179,7 +1188,6 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 						g_autoptr(AsComponent) de_cpt = NULL;
 						g_autoptr(GBytes) de_bytes = NULL;
 
-						de_ref_found = TRUE;
 						g_debug ("Reading: %s", de_fname);
 						de_bytes = asc_unit_read_data (ctask->unit, de_fname, &local_error);
 						if (de_bytes == NULL) {
@@ -1207,50 +1215,8 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 											  de_bytes);
 						}
 					}
-				}
+				} /* end launch entry loop */
 			}
-
-			/* legacy support */
-			cid = as_component_get_id (cpt);
-			if (!de_ref_found && g_str_has_suffix (cid, ".desktop")) {
-				if (!g_hash_table_contains (de_fname_map, cid)) {
-					asc_result_add_hint (ctask->result,
-								cpt,
-								"missing-launchable-desktop-file",
-								"desktop_id", cid,
-								NULL);
-				} else {
-					g_autoptr(GBytes) de_bytes = NULL;
-					g_autofree gchar *de_fname = g_build_filename (app_dir, cid, NULL);
-
-					g_debug ("Reading: %s", de_fname);
-					de_bytes = asc_unit_read_data (ctask->unit, de_fname, &local_error);
-					if (de_bytes == NULL) {
-						asc_result_add_hint (ctask->result,
-								     cpt,
-								     "file-read-error",
-								     "fname", de_fname,
-								     "msg", local_error->message,
-								     NULL);
-						g_error_free (g_steal_pointer (&local_error));
-					} else {
-						g_autoptr(AsComponent) de_cpt = NULL;
-						de_cpt = asc_parse_desktop_entry_data (ctask->result,
-											cpt,
-											de_bytes,
-											cid,
-											TRUE, /* ignore NoDisplay & Co. */
-											AS_FORMAT_VERSION_CURRENT,
-											NULL, NULL);
-						if (de_cpt != NULL) {
-							/* update component hash based on new source data */
-							asc_result_update_component_gcid (ctask->result,
-											  cpt,
-											  de_bytes);
-						}
-					}
-				}
-			} /* end of desktop-entry legacy support */
 		} /* end of desktop-entry support */
 
 		/* add bundle data */
