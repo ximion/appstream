@@ -93,7 +93,8 @@ gio_unix_dep = dependency('gio-unix-2.0', version: '>=2.58')
 curl_dep = dependency('libcurl', version: '>= 7.62')
 xml2_dep = dependency('libxml-2.0')
 yaml_dep = dependency('yaml-0.1')
-xmlb_dep = dependency('xmlb', version: '>= 0.3.6', fallback: ['libxmlb', 'libxmlb_dep'])
+xmlb_dep = dependency('xmlb', version: '>= 0.3.6',
+                      fallback: ['libxmlb', 'libxmlb_dep'], default_options: ['-Dgtkdoc=false'])
 
 if get_option ('gir')
     # ensure we have a version of GIR that isn't broken with Meson
