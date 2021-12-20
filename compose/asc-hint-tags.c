@@ -281,6 +281,17 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "Software components of type '{{kind}}' require a long description, and we were unable to find one. Please add one via a MetaInfo file."
 	},
 
+	{ "no-metainfo",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "This software component is missing a <a href=\"https://freedesktop.org/software/appstream/docs/chap-Metadata.html#sect-Metadata-GenericComponent\">MetaInfo file</a> to provide metadata about it.<br/>"
+	  "We currently took some data from its .desktop file and the long description of the package it is located in.<br/>"
+	  "This has several disadvantages, like poor markup, too technical descriptions for users of software centers, different components having the same description, etc.<br/>"
+	  "Additionally, a lot of software from .desktop files should either not be installable and searchable via the software catalog (like desktop-specific settings applications) or be properly tagged via MetaInfo files.<br/>"
+	  "Please consider to either hide this .desktop file from AppStream by adding a <code>X-AppStream-Ignore=true</code> field to its .desktop file, or to write a MetaInfo file for this component and send it upstream.<br/>"
+	  "Generating components from non-MetaInfo files is <b>deprecated</b>, if you do not add a MetaInfo file, this software will vanish from the metadata catalog (and if it is a GUI application, no longer be visible in software centers).<br>"
+	  "You can consult the <a href=\"http://freedesktop.org/software/appstream/docs/chap-Quickstart.html\">MetaInfo quickstart guides</a> for more information on how to write a MetaInfo file, or file a bug upstream."
+	},
+
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
 };
 
