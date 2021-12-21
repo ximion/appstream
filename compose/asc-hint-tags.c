@@ -231,6 +231,16 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "as VP9 or AV1 using the WebM or Matroska container."
 	},
 
+	{ "screenshot-video-too-big",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "The video '{{fname}}' exceeds the maximum allowed file size of {{max_size}} (its size is {{size}}). Please try to make a shorter screencast."
+	},
+
+	{ "screenshot-image-too-big",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "The image '{{fname}}' exceeds the maximum allowed file size of {{max_size}} (its size is {{size}}). Please create a smaller screenshot image."
+	},
+
 	{ "font-load-error",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  "Unable to load font '{{fname}}' from unit '{{unit_name}}: {{error}}"

@@ -58,6 +58,7 @@ typedef struct
 	AsFormatKind	format;
 	guint		min_l10n_percentage;
 	GPtrArray	*custom_allowed;
+	gssize		max_scr_size_bytes;
 
 	AscComposeFlags	flags;
 	AscIconPolicy	icon_policy;
@@ -102,6 +103,7 @@ asc_compose_init (AscCompose *compose)
 	priv->format = AS_FORMAT_KIND_XML;
 	as_ref_string_assign_safe (&priv->prefix, "/usr");
 	priv->min_l10n_percentage = 25;
+	priv->max_scr_size_bytes = -1;
 	priv->flags = ASC_COMPOSE_FLAG_USE_THREADS |
 			ASC_COMPOSE_FLAG_ALLOW_NET |
 			ASC_COMPOSE_FLAG_VALIDATE |
@@ -177,6 +179,8 @@ void
 asc_compose_add_unit (AscCompose *compose, AscUnit *unit)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+
 	/* sanity check */
 	for (guint i = 0; i < priv->units->len; i++) {
 		if (unit == g_ptr_array_index (priv->units, i)) {
@@ -200,6 +204,7 @@ void
 asc_compose_add_allowed_cid (AscCompose *compose, const gchar *component_id)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	g_hash_table_add (priv->allowed_cids,
 			  g_strdup (component_id));
 }
@@ -228,6 +233,7 @@ void
 asc_compose_set_prefix (AscCompose *compose, const gchar *prefix)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	as_ref_string_assign_safe (&priv->prefix, prefix);
 }
 
@@ -255,6 +261,7 @@ void
 asc_compose_set_origin (AscCompose *compose, const gchar *origin)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	g_autofree gchar *tmp = NULL;
 	tmp = g_markup_escape_text (origin, -1);
 	as_ref_string_assign_safe (&priv->origin, tmp);
@@ -424,6 +431,7 @@ void
 asc_compose_set_data_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	as_assign_string_safe (priv->data_result_dir, dir);
 }
 
@@ -452,6 +460,7 @@ void
 asc_compose_set_icons_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	as_assign_string_safe (priv->icons_result_dir, dir);
 }
 
@@ -480,6 +489,7 @@ void
 asc_compose_set_media_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	as_assign_string_safe (priv->media_result_dir, dir);
 }
 
@@ -508,6 +518,7 @@ void
 asc_compose_set_hints_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	as_assign_string_safe (priv->hints_result_dir, dir);
 }
 
@@ -522,6 +533,8 @@ void
 asc_compose_remove_custom_allowed (AscCompose *compose, const gchar *key_id)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+
 	for (guint i = 0; i < priv->custom_allowed->len; i++) {
 		if (g_strcmp0 (g_ptr_array_index (priv->custom_allowed, i), key_id) == 0) {
 			g_ptr_array_remove_index_fast (priv->custom_allowed, i);
@@ -541,7 +554,39 @@ void
 asc_compose_add_custom_allowed (AscCompose *compose, const gchar *key_id)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	g_ptr_array_add (priv->custom_allowed, g_strdup (key_id));
+}
+
+/**
+ * asc_compose_get_max_screenshot_size:
+ * @compose: an #AscCompose instance.
+ *
+ * Get the maximum size a screenshot video or image can have.
+ * A size < 0 may be returned for no limit, setting a limit of 0
+ * will disable screenshots.
+ */
+gssize
+asc_compose_get_max_screenshot_size (AscCompose *compose)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	return priv->max_scr_size_bytes;
+}
+
+/**
+ * asc_compose_get_max_screenshot_size:
+ * @compose: an #AscCompose instance.
+ * @size_bytes: maximum size of a screenshot image or video in bytes
+ *
+ * Set the maximum size a screenshot video or image can have.
+ * A size < 0 may be set to allow unlimited sizes, setting a limit of 0
+ * will disable screenshot caching entirely.
+ */
+void
+asc_compose_set_max_screenshot_size (AscCompose *compose, gssize size_bytes)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	priv->max_scr_size_bytes = size_bytes;
 }
 
 /**
@@ -1513,6 +1558,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 						 cpt,
 						 acurl,
 						 priv->media_result_dir,
+						 priv->max_scr_size_bytes,
 						 as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS));
 
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_FONT)

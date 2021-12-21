@@ -28,6 +28,8 @@
 #include "asc-utils-screenshots.h"
 
 #include <glib/gstdio.h>
+#include <sys/stat.h>
+#include <errno.h>
 
 #include "as-utils-private.h"
 
@@ -63,6 +65,19 @@ asc_video_info_free (AscVideoInfo *vinfo)
 	g_free (vinfo->audio_codec_name);
 	g_free (vinfo->format_name);
 	g_free (vinfo);
+}
+
+
+static gsize
+asc_get_filesize (const gchar *filename)
+{
+	struct stat st;
+	if (lstat (filename, &st) == -1) {
+		g_debug ("Unable to determine size of file '%s': %s",
+			 filename, g_strerror (errno));
+		return 0;
+	}
+	return st.st_size;
 }
 
 /**
@@ -248,6 +263,7 @@ asc_process_screenshot_videos (AscResult *cres,
 			       AsCurl *acurl,
 			       const gchar *scr_export_dir,
 			       const gchar *scr_base_url,
+			       const gssize max_size_bytes,
 			       gboolean store_screenshots,
 			       guint scr_no)
 {
@@ -259,6 +275,10 @@ asc_process_screenshot_videos (AscResult *cres,
 		asc_result_add_hint_simple (cres, cpt, "metainfo-screenshot-but-no-media");
 		return NULL;
 	}
+
+	/* if size is zero, we can't store any screenshots */
+	if (max_size_bytes == 0)
+		store_screenshots = FALSE;
 
 	/* ensure export dir exists */
 	if (g_mkdir_with_parents (scr_export_dir, 0755) != 0)
@@ -273,6 +293,7 @@ asc_process_screenshot_videos (AscResult *cres,
 		g_autofree gchar *fname_from_url = NULL;
 		AscVideoInfo *vinfo = NULL;
 		g_autoptr(GError) error = NULL;
+		gsize video_size;
 		AsVideo *vid = AS_VIDEO (g_ptr_array_index (vids, i));
 
 		orig_vid_url = as_video_get_url (vid);
@@ -292,6 +313,24 @@ asc_process_screenshot_videos (AscResult *cres,
 						"error", error->message,
 						NULL);
 			return NULL;
+		}
+
+		video_size = asc_get_filesize (scr_vid_path);
+		if (max_size_bytes > 0 && video_size > (gsize) max_size_bytes) {
+			g_autofree gchar *max_vid_size_str = NULL;
+			g_autofree gchar *vid_size_str = NULL;
+
+			max_vid_size_str = g_format_size (max_size_bytes);
+			vid_size_str = g_format_size (video_size);
+			asc_result_add_hint (cres,
+					     cpt,
+					     "screenshot-video-too-big",
+					     "fname", scr_vid_name,
+					     "max_size", max_vid_size_str,
+					     "size", vid_size_str,
+					     NULL);
+			g_unlink (scr_vid_path);
+			continue;
 		}
 
 		vinfo = asc_extract_video_info (cres, cpt, scr_vid_path);
@@ -354,6 +393,7 @@ asc_process_screenshot_images (AscResult *cres,
 			       AsCurl *acurl,
 			       const gchar *scr_export_dir,
 			       const gchar *scr_base_url,
+			       const gssize max_size_bytes,
 			       gboolean store_screenshots,
 			       guint scr_no)
 {
@@ -375,6 +415,10 @@ asc_process_screenshot_images (AscResult *cres,
 		asc_result_add_hint_simple (cres, cpt, "metainfo-screenshot-but-no-media");
 		return NULL;
 	}
+
+	/* if size is zero, we can't store any screenshots */
+	if (max_size_bytes == 0)
+		store_screenshots = FALSE;
 
 	/* try to find the source image, in case upstream has provided their own thumbnails */
 	for (guint i = 0; i < imgs->len; i++) {
@@ -418,6 +462,22 @@ asc_process_screenshot_images (AscResult *cres,
 				     "internal-error",
 				     "msg", "No global ID could be found for component when processing screenshot images.",
 				     NULL);
+		return NULL;
+	}
+
+	if (max_size_bytes > 0 && img_data_len > (gsize) max_size_bytes) {
+		g_autofree gchar *max_img_size_str = NULL;
+		g_autofree gchar *img_size_str = NULL;
+
+		max_img_size_str = g_format_size (max_size_bytes);
+		img_size_str = g_format_size (img_data_len);
+		asc_result_add_hint (cres,
+					cpt,
+					"screenshot-image-too-big",
+					"fname", orig_img_url,
+					"max_size", max_img_size_str,
+					"size", img_size_str,
+					NULL);
 		return NULL;
 	}
 
@@ -593,6 +653,7 @@ asc_process_screenshots (AscResult *cres,
 			 AsComponent *cpt,
 			 AsCurl *acurl,
 			 const gchar *media_export_root,
+			 const gssize max_size_bytes,
 			 gboolean store_screenshots)
 {
 	GPtrArray *screenshots = NULL;
@@ -639,6 +700,7 @@ asc_process_screenshots (AscResult *cres,
 								 acurl,
 								 scr_export_dir,
 								 scr_base_url,
+								 max_size_bytes,
 								 store_screenshots,
 								 i + 1);
 		} else {
@@ -648,6 +710,7 @@ asc_process_screenshots (AscResult *cres,
 								 acurl,
 								 scr_export_dir,
 								 scr_base_url,
+								 max_size_bytes,
 								 store_screenshots,
 								 i + 1);
 		}

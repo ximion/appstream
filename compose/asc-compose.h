@@ -190,6 +190,10 @@ void			asc_compose_remove_custom_allowed (AscCompose *compose,
 void			asc_compose_add_custom_allowed (AscCompose *compose,
 							  const gchar *key_id);
 
+gssize			asc_compose_get_max_screenshot_size (AscCompose *compose);
+void			asc_compose_set_max_screenshot_size (AscCompose *compose,
+							     gssize size_bytes);
+
 void			asc_compose_set_check_metadata_early_func (AscCompose *compose,
 								   AscCheckMetadataEarlyFn func,
 								   gpointer user_data);
