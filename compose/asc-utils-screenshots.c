@@ -654,6 +654,7 @@ asc_process_screenshots (AscResult *cres,
 			 AsCurl *acurl,
 			 const gchar *media_export_root,
 			 const gssize max_size_bytes,
+			 gboolean process_videos,
 			 gboolean store_screenshots)
 {
 	GPtrArray *screenshots = NULL;
@@ -694,15 +695,16 @@ asc_process_screenshots (AscResult *cres,
 		AsScreenshot *res_scr = NULL;
 
 		if (as_screenshot_get_media_kind (scr) == AS_SCREENSHOT_MEDIA_KIND_VIDEO) {
-			res_scr = asc_process_screenshot_videos (cres,
-								 cpt,
-								 scr,
-								 acurl,
-								 scr_export_dir,
-								 scr_base_url,
-								 max_size_bytes,
-								 store_screenshots,
-								 i + 1);
+			if (process_videos)
+				res_scr = asc_process_screenshot_videos (cres,
+									 cpt,
+									 scr,
+									 acurl,
+									 scr_export_dir,
+									 scr_base_url,
+									 max_size_bytes,
+									 store_screenshots,
+									 i + 1);
 		} else {
 			res_scr = asc_process_screenshot_images (cres,
 								 cpt,

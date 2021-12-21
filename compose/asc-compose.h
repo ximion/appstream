@@ -51,6 +51,7 @@ struct _AscComposeClass
  * @ASC_COMPOSE_FLAG_ALLOW_NET:			Allow network access for downloading extra data.
  * @ASC_COMPOSE_FLAG_VALIDATE:			Validate metadata while processing.
  * @ASC_COMPOSE_FLAG_STORE_SCREENSHOTS:		Whether screenshots should be cached in the media directory.
+ * @ASC_COMPOSE_FLAG_ALLOW_SCREENCASTS:		Handle & store video screenshots
  * @ASC_COMPOSE_FLAG_PROCESS_FONTS:		Set if font components should be processed.
  * @ASC_COMPOSE_FLAG_PROCESS_TRANSLATIONS:	Automatically extract component translation status.
  * @ASC_COMPOSE_FLAG_IGNORE_ICONS:		Any icon information is completely ignored. Useful for later manual icon processing.
@@ -67,13 +68,14 @@ typedef enum {
 	ASC_COMPOSE_FLAG_ALLOW_NET			= 1 << 1,
 	ASC_COMPOSE_FLAG_VALIDATE			= 1 << 2,
 	ASC_COMPOSE_FLAG_STORE_SCREENSHOTS		= 1 << 3,
-	ASC_COMPOSE_FLAG_PROCESS_FONTS			= 1 << 4,
-	ASC_COMPOSE_FLAG_PROCESS_TRANSLATIONS		= 1 << 5,
-	ASC_COMPOSE_FLAG_IGNORE_ICONS			= 1 << 6,
-	ASC_COMPOSE_FLAG_PROCESS_UNPAIRED_DESKTOP 	= 1 << 7,
-	ASC_COMPOSE_FLAG_PROPAGATE_CUSTOM	 	= 1 << 8,
-	ASC_COMPOSE_FLAG_PROPAGATE_ARTIFACTS	 	= 1 << 9,
-	ASC_COMPOSE_FLAG_NO_FINAL_CHECK		 	= 1 << 10,
+	ASC_COMPOSE_FLAG_ALLOW_SCREENCASTS		= 1 << 4,
+	ASC_COMPOSE_FLAG_PROCESS_FONTS			= 1 << 5,
+	ASC_COMPOSE_FLAG_PROCESS_TRANSLATIONS		= 1 << 6,
+	ASC_COMPOSE_FLAG_IGNORE_ICONS			= 1 << 7,
+	ASC_COMPOSE_FLAG_PROCESS_UNPAIRED_DESKTOP 	= 1 << 8,
+	ASC_COMPOSE_FLAG_PROPAGATE_CUSTOM	 	= 1 << 9,
+	ASC_COMPOSE_FLAG_PROPAGATE_ARTIFACTS	 	= 1 << 10,
+	ASC_COMPOSE_FLAG_NO_FINAL_CHECK		 	= 1 << 11,
 } AscComposeFlags;
 
 /**

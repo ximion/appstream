@@ -108,6 +108,7 @@ asc_compose_init (AscCompose *compose)
 			ASC_COMPOSE_FLAG_ALLOW_NET |
 			ASC_COMPOSE_FLAG_VALIDATE |
 			ASC_COMPOSE_FLAG_STORE_SCREENSHOTS |
+			ASC_COMPOSE_FLAG_ALLOW_SCREENCASTS |
 			ASC_COMPOSE_FLAG_PROCESS_FONTS |
 			ASC_COMPOSE_FLAG_PROCESS_TRANSLATIONS;
 	priv->icon_policy = ASC_ICON_POLICY_BALANCED;
@@ -1559,6 +1560,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 						 acurl,
 						 priv->media_result_dir,
 						 priv->max_scr_size_bytes,
+						 as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_ALLOW_SCREENCASTS),
 						 as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS));
 
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_FONT)
