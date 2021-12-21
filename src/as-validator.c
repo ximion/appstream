@@ -687,7 +687,6 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 			 * otherwise we just honor the is_localized var */
 			if (mode == AS_FORMAT_STYLE_METAINFO) {
 				g_autofree gchar *lang = as_xml_get_prop_value (iter, "lang");
-				lang = as_xml_get_prop_value (iter, "lang");
 				is_localized = lang != NULL;
 			}
 
