@@ -573,6 +573,35 @@ asc_result_remove_hints_for_cid (AscResult *result, const gchar *cid)
 }
 
 /**
+ * asc_result_has_hint:
+ * @result: an #AscResult instance.
+ * @cpt: the #AsComponent to check
+ * @tag: the hint tag to check for
+ *
+ * Test if a hint tag is associated with a given component in this result.
+ *
+ * Returns: %TRUE if a hint with this tag exists for the selected component.
+ */
+gboolean
+asc_result_has_hint (AscResult *result, AsComponent *cpt, const gchar *tag)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	GPtrArray *hints;
+	const gchar *cid = as_component_get_id (cpt);
+
+	hints = g_hash_table_lookup (priv->hints, cid);
+	if (hints == NULL)
+		return FALSE;
+	for (guint i = 0; i < hints->len; i++) {
+		AscHint *hint = ASC_HINT (g_ptr_array_index (hints, i));
+		if (g_strcmp0 (asc_hint_get_tag (hint), tag) == 0)
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+/**
  * asc_result_remove_component_by_id:
  * @result: an #AscResult instance.
  * @cid: a component-ID

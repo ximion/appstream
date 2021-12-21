@@ -95,6 +95,9 @@ gboolean		asc_result_remove_component_by_id (AscResult *result,
 							   const gchar *cid);
 void			asc_result_remove_hints_for_cid (AscResult *result,
 							 const gchar *cid);
+gboolean		asc_result_has_hint (AscResult *result,
+						AsComponent *cpt,
+						const gchar *tag);
 
 gboolean		asc_result_add_hint_by_cid (AscResult *result,
 						    const gchar *component_id,
