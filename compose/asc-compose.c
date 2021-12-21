@@ -1971,6 +1971,9 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 		return NULL;
 	}
 
+	/* sanity check to ensure resources can be loaded */
+	as_utils_ensure_resources ();
+
 	tasks = g_ptr_array_new_with_free_func ((GDestroyNotify) asc_compose_task_free);
 
 	for (guint i = 0; i < priv->units->len; i++) {

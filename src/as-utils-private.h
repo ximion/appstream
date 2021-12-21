@@ -209,6 +209,8 @@ gchar			*as_utils_find_stock_icon_filename_full (const gchar *root_dir,
 								 guint icon_size,
 								 guint icon_scale,
 								 GError **error);
+AS_INTERNAL_VISIBLE
+void			as_utils_ensure_resources ();
 
 #pragma GCC visibility pop
 G_END_DECLS

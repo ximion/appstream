@@ -1036,6 +1036,19 @@ as_utils_search_token_valid (const gchar *token)
 }
 
 /**
+ * as_utils_ensure_resources:
+ *
+ * Perform a sanity check to ensure GResource can be loaded.
+ */
+void
+as_utils_ensure_resources ()
+{
+	GResource *resource = as_get_resource ();
+	if (resource == NULL)
+		g_error ("Failed to load internal resources: as_get_resource() returned NULL!");
+}
+
+/**
  * as_utils_is_category_id:
  * @category_name: a XDG category name, e.g. "ProjectManagement"
  *
@@ -1146,7 +1159,7 @@ as_utils_is_platform_triplet_arch (const gchar *arch)
 {
 	g_autoptr(GBytes) data = NULL;
 	g_autofree gchar *key = NULL;
-	GResource *resource;
+	GResource *resource = NULL;
 
 	if (arch == NULL)
 		return FALSE;
