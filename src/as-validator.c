@@ -700,6 +700,16 @@ as_validator_check_appear_once (AsValidator *validator, xmlNode *node, GHashTabl
 	g_hash_table_add (known_tags, tag_id);
 }
 
+static gboolean
+as_validate_string_lowercase (const gchar *str)
+{
+	for (guint i = 0; str[i] != '\0'; i++) {
+		if (g_ascii_isalpha (str[i]) && g_ascii_isupper (str[i]))
+			return FALSE;
+	}
+	return TRUE;
+}
+
 /**
  * as_validator_validate_component_id:
  *
@@ -708,7 +718,6 @@ as_validator_check_appear_once (AsValidator *validator, xmlNode *node, GHashTabl
 static void
 as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsComponent *cpt)
 {
-	guint i;
 	g_auto(GStrv) cid_parts = NULL;
 	gboolean hyphen_found = FALSE;
 	g_autofree gchar *cid = (gchar*) xmlNodeGetContent (idnode);
@@ -729,10 +738,16 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 		if (!as_utils_is_tld (cid_parts[0])) {
 			as_validator_add_issue (validator, idnode, "cid-maybe-not-rdns", cid);
 		}
+
+		/* ensure first parts of the rDNS ID are always lowercase */
+		if (!as_validate_string_lowercase (cid_parts[0]))
+			as_validator_add_issue (validator, idnode, "cid-domain-not-lowercase", cid);
+		if (!as_validate_string_lowercase (cid_parts[1]))
+			as_validator_add_issue (validator, idnode, "cid-domain-not-lowercase", cid);
 	}
 
 	/* validate characters in AppStream ID */
-	for (i = 0; cid[i] != '\0'; i++) {
+	for (guint i = 0; cid[i] != '\0'; i++) {
 		/* check if we have a printable, alphanumeric ASCII character or a dot, hyphen or underscore */
 		if ((!g_ascii_isalnum (cid[i])) &&
 		    (cid[i] != '.') &&
@@ -755,7 +770,7 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	}
 
 	/* check if any segment starts with a number */
-	for (i = 0; cid_parts[i] != NULL; i++) {
+	for (guint i = 0; cid_parts[i] != NULL; i++) {
 		if (g_ascii_isdigit (cid_parts[i][0])) {
 			as_validator_add_issue (validator, idnode,
 						"cid-has-number-prefix",

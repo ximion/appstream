@@ -133,7 +133,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "cid-contains-uppercase-letter",
 	  AS_ISSUE_SEVERITY_PEDANTIC,
-	  N_("The component ID should only contain lowercase letters.")
+	  N_("The component ID should only contain lowercase characters.")
+	},
+
+	{ "cid-domain-not-lowercase",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The domain part of the rDNS component ID (first two parts) must only contain lowercase characters.")
 	},
 
 	{ "cid-missing-affiliation-freedesktop",
