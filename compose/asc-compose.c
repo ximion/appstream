@@ -1402,7 +1402,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 		 */
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
 			AsLaunchable *launchable = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
-			if (launchable == NULL && g_str_has_suffix (as_component_get_id (cpt), ".desktop")) {
+			if (launchable == NULL) {
 				AsIcon *stock_icon = NULL;
 				GPtrArray *icons = as_component_get_icons (cpt);
 
@@ -1415,8 +1415,16 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 				}
 				if (stock_icon == NULL) {
 					g_autoptr(AsLaunchable) launch = as_launchable_new ();
+					g_autofree gchar *synth_desktop_id = NULL;
+
+					if (g_str_has_suffix (as_component_get_id (cpt), ".desktop"))
+						synth_desktop_id = g_strdup (as_component_get_id (cpt));
+					else
+						synth_desktop_id = g_strdup_printf ("%s.desktop",
+										    as_component_get_id (cpt));
+
 					as_launchable_set_kind (launch, AS_LAUNCHABLE_KIND_DESKTOP_ID);
-					as_launchable_add_entry (launch, as_component_get_id (cpt));
+					as_launchable_add_entry (launch, synth_desktop_id);
 					as_component_add_launchable (cpt, launch);
 				}
 			}
