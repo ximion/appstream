@@ -1138,7 +1138,7 @@ static gboolean
 asc_evaluate_custom_entry_cb (gpointer key_p, gpointer value_p, gpointer user_data)
 {
 	const gchar *key = (const gchar*) key_p;
-	GPtrArray *whitelist = (GPtrArray*) value_p;
+	GPtrArray *whitelist = (GPtrArray*) user_data;
 
 	for (guint i = 0; i < whitelist->len; i++) {
 		if (g_strcmp0 (g_ptr_array_index (whitelist, i), key) == 0)
@@ -1194,8 +1194,8 @@ asc_compose_finalize_components (AscCompose *compose, AscResult *cres)
 			} else {
 				GHashTable *custom_entries = as_component_get_custom (cpt);
 				g_hash_table_foreach_remove (custom_entries,
-							asc_evaluate_custom_entry_cb,
-							priv->custom_allowed);
+								asc_evaluate_custom_entry_cb,
+								priv->custom_allowed);
 			}
 		}
 
