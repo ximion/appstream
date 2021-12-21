@@ -293,13 +293,15 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 
 	{ "no-metainfo",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  "This software component is missing a <a href=\"https://freedesktop.org/software/appstream/docs/chap-Metadata.html#sect-Metadata-GenericComponent\">MetaInfo file</a> to provide metadata about it.<br/>"
-	  "We currently took some data from its .desktop file and the long description of the package it is located in.<br/>"
-	  "This has several disadvantages, like poor markup, too technical descriptions for users of software centers, different components having the same description, etc.<br/>"
-	  "Additionally, a lot of software from .desktop files should either not be installable and searchable via the software catalog (like desktop-specific settings applications) or be properly tagged via MetaInfo files.<br/>"
-	  "Please consider to either hide this .desktop file from AppStream by adding a <code>X-AppStream-Ignore=true</code> field to its .desktop file, or to write a MetaInfo file for this component and send it upstream.<br/>"
-	  "Generating components from non-MetaInfo files is <b>deprecated</b>, if you do not add a MetaInfo file, this software will vanish from the metadata catalog (and if it is a GUI application, no longer be visible in software centers).<br>"
-	  "You can consult the <a href=\"http://freedesktop.org/software/appstream/docs/chap-Quickstart.html\">MetaInfo quickstart guides</a> for more information on how to write a MetaInfo file, or file a bug upstream."
+	  "This software component is missing a <a href=\"https://freedesktop.org/software/appstream/docs/chap-Metadata.html#sect-Metadata-GenericComponent\">MetaInfo file</a> "
+	  "as metadata source.<br/>"
+	  "To synthesize suitable metadata anyway, we took some data from its desktop-entry file.<br/>"
+	  "This has many disadvantages, like low-quality and incomplete metadata. Therefore clients may ignore this component entirely due to poor metadata.<br/>"
+	  "Additionally, a lot of software from desktop-entry files should either not be installable and searchable via the software catalog "
+	  "(like desktop-specific settings applications) or be tagged accordingly via MetaInfo files.<br/>"
+	  "Please consider to either hide this .desktop file from AppStream by adding a <code>X-AppStream-Ignore=true</code> field to it, or to write a MetaInfo file for this component.<br/>"
+	  "You can consult the <a href=\"http://freedesktop.org/software/appstream/docs/chap-Quickstart.html\">MetaInfo quickstart guides</a> for more information "
+	  "on how to write a MetaInfo file, or file a bug with the upstream author of this software component."
 	},
 
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
