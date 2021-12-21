@@ -62,18 +62,6 @@ gboolean	asc_canvas_render_svg (AscCanvas* canvas,
 					GInputStream *stream,
 					GError** error);
 
-gboolean	asc_canvas_draw_text_line (AscCanvas *canvas,
-					   AscFont *font,
-					   const gchar *text,
-					   gint border_width,
-					   GError **error);
-gboolean	asc_canvas_draw_text (AscCanvas *canvas,
-					AscFont *font,
-					const gchar *text,
-					gint border_width,
-					gint line_pad,
-					GError **error);
-
 gboolean	asc_canvas_save_png (AscCanvas *canvas,
 					const gchar *fname,
 					GError **error);

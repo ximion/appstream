@@ -25,16 +25,11 @@ ascompose_pub_headers = [
     'asc-canvas.h',
     'asc-compose.h',
     'asc-directory-unit.h',
-    'asc-font.h',
     'asc-globals.h',
     'asc-hint.h',
     'asc-image.h',
     'asc-result.h',
     'asc-unit.h',
-    'asc-utils-l10n.h',
-    'asc-utils-metainfo.h',
-    'asc-utils-screenshots.h',
-    'asc-utils-fonts.h',
     'asc-utils.h'
 ]
 
@@ -45,9 +40,14 @@ ascompose_pub_enums = glib.mkenums_simple('asc-enums-types',
 )
 
 ascompose_priv_headers = [
+    'asc-font.h',
     'asc-font-private.h',
     'asc-globals-private.h',
-    'asc-hint-tags.h'
+    'asc-hint-tags.h',
+    'asc-utils-l10n.h',
+    'asc-utils-metainfo.h',
+    'asc-utils-screenshots.h',
+    'asc-utils-fonts.h',
 ]
 
 asclib_res = glib.compile_resources (

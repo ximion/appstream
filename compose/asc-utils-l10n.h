@@ -18,22 +18,23 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_COMPOSE_H) && !defined (ASC_COMPILATION)
-#error "Only <appstream-compose.h> can be included directly."
-#endif
 #pragma once
 
 #include <glib-object.h>
 #include <appstream.h>
 
+#include "as-settings-private.h"
 #include "asc-result.h"
 #include "asc-unit.h"
 
 G_BEGIN_DECLS
+#pragma GCC visibility push(hidden)
 
+AS_INTERNAL_VISIBLE
 void		asc_read_translation_status (AscResult *cres,
 						AscUnit *unit,
 						const gchar *prefix,
 						guint min_percentage);
 
+#pragma GCC visibility pop
 G_END_DECLS

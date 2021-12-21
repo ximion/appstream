@@ -31,6 +31,7 @@
 #include "asc-globals.h"
 #include "asc-font.h"
 #include "asc-canvas.h"
+#include "asc-canvas-private.h"
 
 struct {
 	gint	width;

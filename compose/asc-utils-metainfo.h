@@ -18,18 +18,17 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_COMPOSE_H) && !defined (ASC_COMPILATION)
-#error "Only <appstream-compose.h> can be included directly."
-#endif
 #pragma once
 
 #include <glib-object.h>
 #include <appstream.h>
 
+#include "as-settings-private.h"
 #include "asc-result.h"
 #include "asc-compose.h"
 
 G_BEGIN_DECLS
+#pragma GCC visibility push(hidden)
 
 AsComponent		*asc_parse_metainfo_data (AscResult *cres,
 						  AsMetadata *mdata,
@@ -45,6 +44,7 @@ void			asc_validate_metainfo_data_for_component (AscResult *cres,
 								  GBytes *bytes,
 								  const gchar *mi_basename);
 
+AS_INTERNAL_VISIBLE
 AsComponent		*asc_parse_desktop_entry_data (AscResult *cres,
 							AsComponent *cpt,
 							GBytes *bytes,
@@ -54,4 +54,5 @@ AsComponent		*asc_parse_desktop_entry_data (AscResult *cres,
 							AscTranslateDesktopTextFn de_l10n_fn,
 							gpointer user_data);
 
+#pragma GCC visibility pop
 G_END_DECLS

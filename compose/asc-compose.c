@@ -575,7 +575,7 @@ asc_compose_get_max_screenshot_size (AscCompose *compose)
 }
 
 /**
- * asc_compose_get_max_screenshot_size:
+ * asc_compose_set_max_screenshot_size:
  * @compose: an #AscCompose instance.
  * @size_bytes: maximum size of a screenshot image or video in bytes
  *

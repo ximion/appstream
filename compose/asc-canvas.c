@@ -26,6 +26,7 @@
 
 #include "config.h"
 #include "asc-canvas.h"
+#include "asc-canvas-private.h"
 
 #include <cairo.h>
 #include <cairo-ft.h>

@@ -32,14 +32,14 @@
 #include <asc-globals.h>
 #include <asc-compose.h>
 #include <asc-utils.h>
-#include <asc-canvas.h>
-#include <asc-font.h>
 #include <asc-hint.h>
-#include <asc-image.h>
 #include <asc-unit.h>
 #include <asc-directory-unit.h>
 #include <asc-result.h>
 #include <asc-enums-types.h>
+
+#include <asc-image.h>
+#include <asc-canvas.h>
 
 #undef __APPSTREAM_COMPOSE_H_INSIDE__
 
