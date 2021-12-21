@@ -81,6 +81,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	     "and to provide more detailed information on this component immediately in the first paragraph.")
 	},
 
+	{ "description-first-word-not-capitalized",
+	  AS_ISSUE_SEVERITY_INFO,
+	  N_("The description line does not start with a capitalized word, project name or number.")
+	},
+
 	{ "description-has-plaintext-url",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("The description contains a web URL in plain text. This is not allowed, please use the <url/> tag instead to share links.")
@@ -384,7 +389,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "summary-has-url",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("The summary must not contain any URL. Use the <url/> tags for links.")
+	  N_("The summary must not contain any URL. Use the `<url/>` tags for links.")
+	},
+
+	{ "summary-first-word-not-capitalized",
+	  AS_ISSUE_SEVERITY_INFO,
+	  N_("The summary text does not start with a capitalized word, project name or number.")
 	},
 
 	{ "icon-stock-cached-has-url",

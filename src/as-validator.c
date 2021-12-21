@@ -544,6 +544,42 @@ as_validator_check_nolocalized (AsValidator *validator, xmlNode* node, const gch
 }
 
 /**
+ * as_validator_first_word_capitalized:
+ */
+static gboolean
+as_validator_first_word_capitalized (AsValidator *validator, const gchar *text)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	g_autofree gchar *first_word = NULL;
+	gchar *tmp;
+
+	if (text == NULL || text[0] == '\0')
+		return TRUE;
+
+	/* text starts with a number, that's fine */
+	if (g_ascii_isdigit (text[0]))
+		return TRUE;
+
+	/* get the first word */
+	first_word = g_strdup (text);
+	tmp = g_strstr_len (first_word, -1, " ");
+	if (tmp != NULL)
+		*tmp = '\0';
+
+	/* we accept a capitalization anywhere in the first word */
+	for (guint i = 0; first_word[i] != '\0'; i++) {
+		if (first_word[i] >= 'A' && first_word[i] <= 'Z')
+			return TRUE;
+	}
+
+	/* if the first word is the project's name, we accept whatever spelling they prefer */
+	if (g_strcmp0 (first_word, as_component_get_name (priv->current_cpt)) == 0)
+		return TRUE;
+
+	return FALSE;
+}
+
+/**
  * as_validator_check_description_paragraph:
  **/
 static void
@@ -601,12 +637,16 @@ static void
 as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFormatStyle mode, gboolean main_description)
 {
 	gboolean first_paragraph = TRUE;
+	gboolean is_localized = FALSE;
 
 	if (mode == AS_FORMAT_STYLE_METAINFO) {
 		as_validator_check_nolocalized (validator,
 						node,
 						"metainfo-localized-description-tag",
 						(const gchar*) node->name);
+	} else {
+		g_autofree gchar *lang = as_xml_get_prop_value (node, "lang");
+		is_localized = lang != NULL;
 	}
 
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
@@ -624,6 +664,8 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 		}
 
 		if (g_strcmp0 (node_name, "p") == 0) {
+			g_autofree gchar *p_content = as_strstripnl ((gchar*) xmlNodeGetContent (iter));
+
 			if (mode == AS_FORMAT_STYLE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
 								iter,
@@ -641,6 +683,21 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 			}
 			first_paragraph = FALSE;
 
+			/* in metainfo mode, we need to check every node for localization,
+			 * otherwise we just honor the is_localized var */
+			if (mode == AS_FORMAT_STYLE_METAINFO) {
+				g_autofree gchar *lang = as_xml_get_prop_value (iter, "lang");
+				lang = as_xml_get_prop_value (iter, "lang");
+				is_localized = lang != NULL;
+			}
+
+			/* validate spelling */
+			if (!is_localized && !as_validator_first_word_capitalized (validator, p_content))
+				as_validator_add_issue (validator, node,
+							"description-first-word-not-capitalized",
+							NULL);
+
+			/* validate common stuff */
 			as_validator_check_description_paragraph (validator, iter);
 		} else if (g_strcmp0 (node_name, "ul") == 0) {
 			if (mode == AS_FORMAT_STYLE_COLLECTION) {
@@ -1607,6 +1664,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	/* validate the resulting AsComponent for sanity */
 	cpt = as_component_new ();
 	as_component_load_from_xml (cpt, ctx, root, NULL);
+	as_component_set_active_locale (cpt, "C");
 	as_validator_set_current_cpt (validator, cpt);
 
 	/* check if component type is valid */
@@ -1654,6 +1712,8 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			continue;
 		node_name = (const gchar*) iter->name;
 		node_content = (gchar*) xmlNodeGetContent (iter);
+		if (node_content != NULL)
+			node_content = as_strstripnl (node_content);
 
 		if (g_strcmp0 (node_name, "id") == 0) {
 			g_autofree gchar *prop = as_xml_get_prop_value (iter, (xmlChar*) "type");
@@ -1681,6 +1741,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator, iter, "name-has-dot-suffix", node_content);
 
 		} else if (g_strcmp0 (node_name, "summary") == 0) {
+			g_autofree gchar *lang = NULL;
 			const gchar *summary = node_content;
 
 			as_validator_check_appear_once (validator, iter, found_tags);
@@ -1698,6 +1759,12 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							"summary-has-url",
 							node_name);
 			}
+
+			lang = as_xml_get_prop_value (iter, "lang");
+			if (lang == NULL && !as_validator_first_word_capitalized (validator, summary))
+				as_validator_add_issue (validator, iter,
+							"summary-first-word-not-capitalized",
+							NULL);
 
 		} else if (g_strcmp0 (node_name, "description") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags);
