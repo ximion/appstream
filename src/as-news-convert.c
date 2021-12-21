@@ -532,7 +532,7 @@ as_news_text_to_release_hdr (AsRelease *release, GString *desc, const gchar *txt
 	    (g_strstr_len (release_txt, -1, "-XX") != NULL) ||
 	    (g_strstr_len (release_txt, -1, "-??") != NULL)) {
 		g_autoptr(GDateTime) dt_now = g_date_time_new_now_local ();
-		date_str = as_date_time_format_iso8601 (dt_now);
+		date_str = g_date_time_format_iso8601 (dt_now);
 		as_release_set_kind (release, AS_RELEASE_KIND_DEVELOPMENT);
 		as_release_set_date (release, date_str);
 

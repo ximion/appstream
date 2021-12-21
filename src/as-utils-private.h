@@ -172,8 +172,6 @@ gchar			*as_ptr_array_to_str (GPtrArray *array,
 AS_INTERNAL_VISIBLE
 gchar			*as_filebasename_from_uri (const gchar *uri);
 
-gchar			*as_date_time_format_iso8601 (GDateTime *datetime);
-
 AS_INTERNAL_VISIBLE
 gchar			*as_strstripnl (gchar *string);
 

@@ -307,7 +307,7 @@ as_release_set_timestamp (AsRelease *release, guint64 timestamp)
 
 	priv->timestamp = timestamp;
 	g_free (priv->date);
-	priv->date = as_date_time_format_iso8601 (time);
+	priv->date = g_date_time_format_iso8601 (time);
 }
 
 /**
@@ -437,7 +437,7 @@ as_release_set_timestamp_eol (AsRelease *release, guint64 timestamp)
 
 	time = g_date_time_new_from_unix_utc (timestamp);
 	g_free (priv->date_eol);
-	priv->date_eol = as_date_time_format_iso8601 (time);
+	priv->date_eol = g_date_time_format_iso8601 (time);
 }
 
 /**
@@ -1046,7 +1046,7 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 					(xmlChar*) time_str);
 		} else {
 			g_autoptr(GDateTime) time = g_date_time_new_from_unix_utc (priv->timestamp);
-			time_str = as_date_time_format_iso8601 (time);
+			time_str = g_date_time_format_iso8601 (time);
 			xmlNewProp (subnode, (xmlChar*) "date",
 					(xmlChar*) time_str);
 		}
@@ -1202,7 +1202,7 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 						      priv->timestamp);
 		} else {
 			g_autoptr(GDateTime) time = g_date_time_new_from_unix_utc (priv->timestamp);
-			time_str = as_date_time_format_iso8601 (time);
+			time_str = g_date_time_format_iso8601 (time);
 			as_yaml_emit_entry (emitter, "date", time_str);
 		}
 	}
