@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:44+0000\n"
-"Last-Translator: Moo <hazap@hotmail.com>\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/translations/lt/>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
@@ -47,12 +47,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Šis įrankis leidžia skaityti, rašyti, patikrinti ir transformuoti AppStream "
-"XML ar YAML metaduomenis. Jis taip pat suteikia prieigą prie metaduomenų "
-"telkinio, pavyzdžiui, tam, kad užklausti programinę įrangą, kurį teikia tam "
-"tikrą MIME tipą, ir leidžia įdiegti ją pagal jos programinės įrangos "
-"komponento identifikatorių."
+msgstr "Šis įrankis leidžia skaityti, rašyti, patikrinti ir transformuoti AppStream XML ar YAML metaduomenis. Jis taip pat suteikia prieigą prie metaduomenų telkinio, pavyzdžiui, tam, kad užklausti programinę įrangą, kurį teikia tam tikrą MIME tipą, ir leidžia įdiegti ją pagal jos programinės įrangos komponento identifikatorių."
 
 #: src/as-cache.c:909
 #, c-format
@@ -672,8 +667,7 @@ msgstr "Produktų išdėstymas"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:980
 msgid "Explicit references to specific brands or trademarked products"
-msgstr ""
-"Atviros nuorodos į tam tikrus prekės ženklus ar produktus su prekyženkliu"
+msgstr "Atviros nuorodos į tam tikrus prekės ženklus ar produktus su prekyženkliu"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:982
@@ -748,8 +742,7 @@ msgstr "Neprižiūrimas garso ir vaizdo pokalbių funkcionalumas tarp žaidėjų
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1028
 msgid "No sharing of social network usernames or email addresses"
-msgstr ""
-"Nėra dalinimosi socialinių tinklų naudotojų vardais ar el. pašto adresais"
+msgstr "Nėra dalinimosi socialinių tinklų naudotojų vardais ar el. pašto adresais"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1030
@@ -769,8 +762,7 @@ msgstr "Tikrinama, ar naujausia programos versija"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1041
 msgid "Sharing diagnostic data that does not let others identify the user"
-msgstr ""
-"Dalinimasis diagnostikos duomenimis neleidžia kitiems identifikuoti naudotojų"
+msgstr "Dalinimasis diagnostikos duomenimis neleidžia kitiems identifikuoti naudotojų"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
@@ -1378,9 +1370,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Programinės įrangos komponento tipas \"%s\" nėra teisingas AppStream "
-"specifikacijoje. Galimos reikšmės yra:"
+msgstr "Programinės įrangos komponento tipas \"%s\" nėra teisingas AppStream specifikacijoje. Galimos reikšmės yra:"
 
 #: src/as-validator-issue-tag.h:332
 msgid ""
@@ -2093,9 +2083,7 @@ msgstr "Nenaudoti tinklo prieigą."
 #: tools/appstreamcli.c:134
 #, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr ""
-"Numatytasis metaduomenų formatas (teisingos reikšmės yra \"xml\" ir \"yaml"
-"\")."
+msgstr "Numatytasis metaduomenų formatas (teisingos reikšmės yra \"xml\" ir \"yaml\")."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -2251,9 +2239,7 @@ msgstr "Galite rasti informaciją apie tam tikram pakomandžiui specifinius para
 #, fuzzy, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Vykdykite \"%s --help\", kad pamatytumėte visą prieinamų komandų eilutės "
-"parametrų sąrašą."
+msgstr "Vykdykite \"%s --help\", kad pamatytumėte visą prieinamų komandų eilutės parametrų sąrašą."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1123
