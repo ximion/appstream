@@ -6,15 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2021-12-21 16:25+0100\n"
+"POT-Creation-Date: 2021-12-21 22:22+0100\n"
 "PO-Revision-Date: 2021-12-22 15:45+0000\n"
 "Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
-"Language-Team: Gaelic <https://hosted.weblate.org/projects/appstream/translations/gd/>\n"
+"Language-Team: Gaelic <https://hosted.weblate.org/projects/appstream/"
+"translations/gd/>\n"
 "Language: gd\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : (n > 2 && n < 20) ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
+"(n > 2 && n < 20) ? 2 : 3;\n"
 "X-Generator: Weblate 4.10.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -44,7 +46,12 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr "Leigidh an t-inneal seo leat meata-dàta XML no YAML AppStream a leughadh, a sgrìobhadh, a dhearbhadh agus cruth-atharrachadh. Leigidh e leat cuideachd amar meata-dàta an t-siostaim inntrigeadh, can airson ceasnachadh air bathar-bog a bheir seòrsa MIME sònraichte dhut agus airson a stàladh a-rèir an aithnichear co-phàirt bathair-bhog aige."
+msgstr ""
+"Leigidh an t-inneal seo leat meata-dàta XML no YAML AppStream a leughadh, a "
+"sgrìobhadh, a dhearbhadh agus cruth-atharrachadh. Leigidh e leat cuideachd "
+"amar meata-dàta an t-siostaim inntrigeadh, can airson ceasnachadh air bathar-"
+"bog a bheir seòrsa MIME sònraichte dhut agus airson a stàladh a-rèir an "
+"aithnichear co-phàirt bathair-bhog aige."
 
 #: src/as-cache.c:909
 #, c-format
@@ -949,7 +956,9 @@ msgstr ""
 #.
 #: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
-msgstr "app;application;package;program;programme;suite;tool;aplacaid;paca;pacaid;pacadh;pasgan;prògram;inneal"
+msgstr ""
+"app;application;package;program;programme;suite;tool;aplacaid;paca;pacaid;"
+"pacadh;pasgan;prògram;inneal"
 
 #: src/as-pool.c:1114
 msgid "Metadata files have errors:"
@@ -1059,7 +1068,9 @@ msgstr ""
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr "Tha markup mì-dhligheach ann am paragraf an tuairisgeil. Chan eil taic ach ri <em/> agus <code/> aig an à seo."
+msgstr ""
+"Tha markup mì-dhligheach ann am paragraf an tuairisgeil. Chan eil taic ach "
+"ri <em/> agus <code/> aig an à seo."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -1075,29 +1086,35 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
+"The description line does not start with a capitalized word, project name or "
+"number."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:91
+msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:91
+#: src/as-validator-issue-tag.h:96
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:96
+#: src/as-validator-issue-tag.h:101
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:101
+#: src/as-validator-issue-tag.h:106
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:106
+#: src/as-validator-issue-tag.h:111
 msgid ""
 "The component ID is not a reverse domain-name. Please update the ID to avoid "
 "future issues and be compatible with all AppStream implementations.\n"
@@ -1109,26 +1126,26 @@ msgid ""
 "associated with the metainfo data."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:114
+#: src/as-validator-issue-tag.h:119
 msgid ""
 "The component ID might not follow the reverse domain-name schema (the TLD "
 "used by it is not known to the validator)."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:119
+#: src/as-validator-issue-tag.h:124
 msgid ""
 "The component ID contains an invalid character. Only ASCII characters, dots "
 "and numbers are permitted."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:124
+#: src/as-validator-issue-tag.h:129
 msgid ""
 "The component ID contains a hyphen/minus. Using a hyphen is strongly "
 "discouraged, to improve interoperability with other tools such as D-Bus. A "
 "good option is to replace any hyphens with underscores (`_`)."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:130
+#: src/as-validator-issue-tag.h:135
 msgid ""
 "The component ID contains a segment starting with a number. Starting a "
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
@@ -1136,40 +1153,49 @@ msgid ""
 "segments with an underscore."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:136
-msgid "The component ID should only contain lowercase letters."
+#: src/as-validator-issue-tag.h:141
+msgid "The component ID should only contain lowercase characters."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:141
+#: src/as-validator-issue-tag.h:146
+msgid ""
+"The domain part of the rDNS component ID (first two parts) must only contain "
+"lowercase characters."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:151
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:146
+#: src/as-validator-issue-tag.h:156
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDEs reverse-DNS name (\"org.kde\")."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:151
+#: src/as-validator-issue-tag.h:161
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOMEs reverse-DNS name (\"org.gnome\")."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:156
+#: src/as-validator-issue-tag.h:166
 msgid "The SPDX license expression is invalid and could not be parsed."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:161
+#: src/as-validator-issue-tag.h:171
 msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr "Cha deach ID a’ cheadachais a lorg ann an stòr-dàta SPDX. Dèan cinnteach gun ceach ID a’ cheadachais a sgrìobhadh air dòigh a ghèilleas ri SPDX agus gur e ceadachas bathair-bhog shaoir dligheach a th’ ann."
+msgstr ""
+"Cha deach ID a’ cheadachais a lorg ann an stòr-dàta SPDX. Dèan cinnteach gun "
+"ceach ID a’ cheadachais a sgrìobhadh air dòigh a ghèilleas ri SPDX agus gur "
+"e ceadachas bathair-bhog shaoir dligheach a th’ ann."
 
-#: src/as-validator-issue-tag.h:167
+#: src/as-validator-issue-tag.h:177
 msgid ""
 "The metadata itself seems to be licensed under a complex collection of "
 "licenses. Please license the data under a simple permissive license, like "
@@ -1178,7 +1204,7 @@ msgid ""
 "incompatible licenses."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:173
+#: src/as-validator-issue-tag.h:183
 msgid ""
 "The metadata itself does not seem to be licensed under a permissive license. "
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
@@ -1186,64 +1212,64 @@ msgid ""
 "the risk of license violations due to mutually incompatible licenses."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:179
+#: src/as-validator-issue-tag.h:189
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:184
+#: src/as-validator-issue-tag.h:194
 msgid ""
 "Unable to reach the screenshot image on its remote location - does the image "
 "exist?"
 msgstr ""
 
-#: src/as-validator-issue-tag.h:189
+#: src/as-validator-issue-tag.h:199
 msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
 msgstr ""
 
-#: src/as-validator-issue-tag.h:194
+#: src/as-validator-issue-tag.h:204
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:200
+#: src/as-validator-issue-tag.h:210
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:205
+#: src/as-validator-issue-tag.h:215
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:211
+#: src/as-validator-issue-tag.h:221
 msgid "The screenshot does not have a caption text. Consider adding one."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:217
+#: src/as-validator-issue-tag.h:227
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:223
+#: src/as-validator-issue-tag.h:233
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:229
+#: src/as-validator-issue-tag.h:239
 msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
@@ -1251,7 +1277,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:236
+#: src/as-validator-issue-tag.h:246
 msgid ""
 "The selected video container format is not supported by AppStream and "
 "software centers may not be able to play the video. Only the WebM and "
@@ -1259,42 +1285,42 @@ msgid ""
 "values for the `container` property."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:242
+#: src/as-validator-issue-tag.h:252
 msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:248
+#: src/as-validator-issue-tag.h:258
 msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
 "screenshot."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:253
+#: src/as-validator-issue-tag.h:263
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:259
+#: src/as-validator-issue-tag.h:269
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
 msgstr ""
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
-#: src/as-validator-issue-tag.h:265
+#: src/as-validator-issue-tag.h:275
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
 msgstr ""
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
-#: src/as-validator-issue-tag.h:271
+#: src/as-validator-issue-tag.h:281
 msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
@@ -1302,21 +1328,23 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
-#: src/as-validator-issue-tag.h:277
+#: src/as-validator-issue-tag.h:287
 #, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
 "ge` is permitted."
-msgstr "Chaidh taga mì-dhligheach a lorg ann am meata-dàta a’ chruinneachaidh. Chan eil ach tagaichean “component” ceadaichte."
+msgstr ""
+"Chaidh taga mì-dhligheach a lorg ann am meata-dàta a’ chruinneachaidh. Chan "
+"eil ach tagaichean “component” ceadaichte."
 
-#: src/as-validator-issue-tag.h:282
+#: src/as-validator-issue-tag.h:292
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:288
+#: src/as-validator-issue-tag.h:298
 msgid ""
 "Found a memory size relation in a `requires` tag. This means users will not "
 "be able to even install the component without having enough RAM. This is "
@@ -1325,7 +1353,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:295
+#: src/as-validator-issue-tag.h:305
 msgid ""
 "Found a user input control relation in a `requires` tag. This means users "
 "will not be able to even install the component without having the defined "
@@ -1334,14 +1362,14 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:302
+#: src/as-validator-issue-tag.h:312
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:308
+#: src/as-validator-issue-tag.h:318
 msgid ""
 "This `display_length` item contains an invalid display length. Its value "
 "must either be a shorthand string, or positive integer value denoting "
@@ -1350,7 +1378,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:315
+#: src/as-validator-issue-tag.h:325
 msgid ""
 "This `side` property of this `display_length` item contains an invalid "
 "value. It must either be `shortest` or `longest`, or unset to imply "
@@ -1359,156 +1387,164 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:322
+#: src/as-validator-issue-tag.h:332
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:327
+#: src/as-validator-issue-tag.h:337
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr "Chan eil seòrsa a’ cho-phàirt a chaidh a shuidheachadh ’na seòrsa co-phàirt AppStream dligheach a dh’aithnicheadh sinn."
+msgstr ""
+"Chan eil seòrsa a’ cho-phàirt a chaidh a shuidheachadh ’na seòrsa co-phàirt "
+"AppStream dligheach a dh’aithnicheadh sinn."
 
-#: src/as-validator-issue-tag.h:332
+#: src/as-validator-issue-tag.h:342
 msgid ""
 "The component has a priority value set. This is not allowed in metainfo "
 "files."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:337
+#: src/as-validator-issue-tag.h:347
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:342
+#: src/as-validator-issue-tag.h:352
 msgid "The component is missing an ID (<id/> tag)."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:347
+#: src/as-validator-issue-tag.h:357
 msgid "The component is missing a name (<name/> tag)."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:352
+#: src/as-validator-issue-tag.h:362
 msgid "The component is missing a summary (<summary/> tag)."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:357
+#: src/as-validator-issue-tag.h:367
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:362
+#: src/as-validator-issue-tag.h:372
 msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
 "defining multiple package names per component."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:367
+#: src/as-validator-issue-tag.h:377
 msgid "The component name should (likely) not end with a dot (`.`)."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:372
+#: src/as-validator-issue-tag.h:382
 msgid "The component summary should not end with a dot (`.`)."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:377
+#: src/as-validator-issue-tag.h:387
 msgid "The component summary must not contain tabs or linebreaks."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:382
-msgid "The summary must not contain any URL. Use the <url/> tags for links."
+#: src/as-validator-issue-tag.h:392
+msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:397
+msgid ""
+"The summary text does not start with a capitalized word, project name or "
+"number."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:388
+#: src/as-validator-issue-tag.h:403
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:395
+#: src/as-validator-issue-tag.h:410
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:400
+#: src/as-validator-issue-tag.h:415
 msgid "Unable to reach remote icon at the given web location - does it exist?"
 msgstr ""
 
-#: src/as-validator-issue-tag.h:405
+#: src/as-validator-issue-tag.h:420
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:411
+#: src/as-validator-issue-tag.h:426
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:417
+#: src/as-validator-issue-tag.h:432
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:422
+#: src/as-validator-issue-tag.h:437
 msgid ""
 "Unable to reach remote location that this URL references - does it exist?"
 msgstr ""
 
-#: src/as-validator-issue-tag.h:427
+#: src/as-validator-issue-tag.h:442
 msgid "Consider using a secure (HTTPS) URL for this web link."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:432
+#: src/as-validator-issue-tag.h:447
 msgid "A web URL was expected for this value."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:437
+#: src/as-validator-issue-tag.h:452
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:442
+#: src/as-validator-issue-tag.h:457
 msgid "The <developer_name/> can not contain a hyperlink."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:447
+#: src/as-validator-issue-tag.h:462
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:453
+#: src/as-validator-issue-tag.h:468
 msgid "This `launchable` tag has an unknown type and can not be used."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:459
+#: src/as-validator-issue-tag.h:474
 msgid "This `bundle` tag has an unknown type and can not be used."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:465
+#: src/as-validator-issue-tag.h:480
 msgid ""
 "The `update_contact` tag should not be included in collection AppStream XML."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:470
+#: src/as-validator-issue-tag.h:485
 msgid ""
 "This tag is a GNOME-specific extension to AppStream and not part of the "
 "official specification. Do not expect it to work in all implementations and "
 "in all software centers."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:476
+#: src/as-validator-issue-tag.h:491
 msgid ""
 "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream "
 "also provides the <custom/> tag to add arbitrary custom data to metainfo "
@@ -1518,199 +1554,213 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:484
+#: src/as-validator-issue-tag.h:499
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:489
+#: src/as-validator-issue-tag.h:504
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:494
+#: src/as-validator-issue-tag.h:509
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:499
+#: src/as-validator-issue-tag.h:514
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:504
+#: src/as-validator-issue-tag.h:519
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:510
+#: src/as-validator-issue-tag.h:525
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:516
+#: src/as-validator-issue-tag.h:531
 #, fuzzy
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr "Tha taga “icon” a dhìth air a’ cho-phàirt “web-application” airson ìomhaigheag dhligheach a shònrachadh."
+msgstr ""
+"Tha taga “icon” a dhìth air a’ cho-phàirt “web-application” airson "
+"ìomhaigheag dhligheach a shònrachadh."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:522
+#: src/as-validator-issue-tag.h:537
 #, fuzzy
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
-msgstr "Tha taga “icon” a dhìth air a’ cho-phàirt “web-application” airson ìomhaigheag dhligheach a shònrachadh."
+msgstr ""
+"Tha taga “icon” a dhìth air a’ cho-phàirt “web-application” airson "
+"ìomhaigheag dhligheach a shònrachadh."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:528
+#: src/as-validator-issue-tag.h:543
 #, fuzzy
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
-msgstr "Tha taga “icon” a dhìth air a’ cho-phàirt “web-application” airson ìomhaigheag dhligheach a shònrachadh."
+msgstr ""
+"Tha taga “icon” a dhìth air a’ cho-phàirt “web-application” airson "
+"ìomhaigheag dhligheach a shònrachadh."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:534
+#: src/as-validator-issue-tag.h:549
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:540
+#: src/as-validator-issue-tag.h:555
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:546
+#: src/as-validator-issue-tag.h:561
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:552
+#: src/as-validator-issue-tag.h:567
 msgid "The component is an addon, but no `extends` tag was specified."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:558
+#: src/as-validator-issue-tag.h:573
 #, fuzzy
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
-msgstr "Tha taga “icon” a dhìth air a’ cho-phàirt “web-application” airson ìomhaigheag dhligheach a shònrachadh."
+msgstr ""
+"Tha taga “icon” a dhìth air a’ cho-phàirt “web-application” airson "
+"ìomhaigheag dhligheach a shònrachadh."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:564
+#: src/as-validator-issue-tag.h:579
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:570
+#: src/as-validator-issue-tag.h:585
 #, fuzzy
 msgid ""
 "This `service` component is missing a `launchable` tag of type `service`."
-msgstr "Tha taga “icon” a dhìth air a’ cho-phàirt “web-application” airson ìomhaigheag dhligheach a shònrachadh."
+msgstr ""
+"Tha taga “icon” a dhìth air a’ cho-phàirt “web-application” airson "
+"ìomhaigheag dhligheach a shònrachadh."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:576
+#: src/as-validator-issue-tag.h:591
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:581
+#: src/as-validator-issue-tag.h:596
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:586
+#: src/as-validator-issue-tag.h:601
 msgid "The screenshot caption is too long (should be <= 100 characters)"
 msgstr ""
 
-#: src/as-validator-issue-tag.h:591
+#: src/as-validator-issue-tag.h:606
 msgid "Unable to read file."
 msgstr "Cha deach leinn am faidhle a leughadh."
 
-#: src/as-validator-issue-tag.h:596
+#: src/as-validator-issue-tag.h:611
 msgid "The XML of this file is malformed."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:602
+#: src/as-validator-issue-tag.h:617
 #, fuzzy
 msgid ""
 "Invalid tag found in collection metadata. Only `component` tags are "
 "permitted."
-msgstr "Chaidh taga mì-dhligheach a lorg ann am meata-dàta a’ chruinneachaidh. Chan eil ach tagaichean “component” ceadaichte."
+msgstr ""
+"Chaidh taga mì-dhligheach a lorg ann am meata-dàta a’ chruinneachaidh. Chan "
+"eil ach tagaichean “component” ceadaichte."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:608
+#: src/as-validator-issue-tag.h:623
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher)."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:613
+#: src/as-validator-issue-tag.h:628
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
 msgstr ""
 
-#: src/as-validator-issue-tag.h:618
+#: src/as-validator-issue-tag.h:633
 #, fuzzy
 msgid "The metainfo filename does not match the component ID."
 msgstr "Thoir air falbh bathar-bog a fhreagras ris a’ component-ID."
 
-#: src/as-validator-issue-tag.h:623
+#: src/as-validator-issue-tag.h:638
 msgid "Unable to read the .desktop file associated with this component."
-msgstr "Cha deach leinn am faidhle .desktop a leughadh a tha co-cheangailte ris a’ cho-phàirt seo."
+msgstr ""
+"Cha deach leinn am faidhle .desktop a leughadh a tha co-cheangailte ris a’ "
+"cho-phàirt seo."
 
-#: src/as-validator-issue-tag.h:628
+#: src/as-validator-issue-tag.h:643
 msgid "This component metadata refers to a non-existing .desktop file."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:633
+#: src/as-validator-issue-tag.h:648
 msgid ""
 "The category defined in the .desktop file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:638
+#: src/as-validator-issue-tag.h:653
 msgid "No AppStream metadata was found in this directory or directory tree."
 msgstr ""
 
 #. pedantic because not everything which has metadata is an application
-#: src/as-validator-issue-tag.h:643
+#: src/as-validator-issue-tag.h:658
 msgid "No XDG applications directory found."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:648
+#: src/as-validator-issue-tag.h:663
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:653
+#: src/as-validator-issue-tag.h:668
 msgid "The metainfo file specifies multiple components. This is not allowed."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:658
+#: src/as-validator-issue-tag.h:673
 msgid ""
 "The releases are not sorted in a latest to oldest version order. This is "
 "required as some tools will assume that the latest version is always at the "
@@ -1718,72 +1768,72 @@ msgid ""
 "file."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:665
+#: src/as-validator-issue-tag.h:680
 msgid "The value set as release urgency is not a known urgency value."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:670
+#: src/as-validator-issue-tag.h:685
 msgid "The value set as release type is invalid."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:676
+#: src/as-validator-issue-tag.h:691
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:681
+#: src/as-validator-issue-tag.h:696
 msgid "The value set as artifact bundle type is invalid."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:686
+#: src/as-validator-issue-tag.h:701
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:693
+#: src/as-validator-issue-tag.h:708
 msgid "The selected checksumming algorithm is unsupported or unknown."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:699
+#: src/as-validator-issue-tag.h:714
 msgid "The size type is unknown. Must be `download` or `installed`."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:704
+#: src/as-validator-issue-tag.h:719
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:709
+#: src/as-validator-issue-tag.h:724
 msgid "The value set as release issue type is invalid."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:714
+#: src/as-validator-issue-tag.h:729
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:720
+#: src/as-validator-issue-tag.h:735
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:725
+#: src/as-validator-issue-tag.h:740
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:731
+#: src/as-validator-issue-tag.h:746
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
@@ -1791,7 +1841,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:738
+#: src/as-validator-issue-tag.h:753
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
@@ -1799,20 +1849,20 @@ msgid ""
 "example.com/licenses.html`"
 msgstr ""
 
-#: src/as-validator-issue-tag.h:744
+#: src/as-validator-issue-tag.h:759
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:749
+#: src/as-validator-issue-tag.h:764
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:755
+#: src/as-validator-issue-tag.h:770
 msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
@@ -1820,7 +1870,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
-#: src/as-validator-issue-tag.h:762
+#: src/as-validator-issue-tag.h:777
 msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
@@ -1828,12 +1878,12 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
-#: src/as-validator-issue-tag.h:769
+#: src/as-validator-issue-tag.h:784
 msgid "This `tag` is missing a `namespace` attribute."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
-#: src/as-validator-issue-tag.h:775
+#: src/as-validator-issue-tag.h:790
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
@@ -1850,9 +1900,9 @@ msgid "URL format is invalid."
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:522 src/as-validator.c:956 src/as-validator.c:1007
-#: src/as-validator.c:1101 src/as-validator.c:1512 src/as-validator.c:1532
-#: src/as-validator.c:1565
+#: src/as-validator.c:522 src/as-validator.c:1027 src/as-validator.c:1078
+#: src/as-validator.c:1172 src/as-validator.c:1583 src/as-validator.c:1603
+#: src/as-validator.c:1636
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
@@ -2048,7 +2098,8 @@ msgstr "Ionad tasgadan AppStream air a thaghadh à làimh."
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstreamcli.c:65
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr "Ionad tasgadan meata-dàta AppStream ri sganadh ’s air a thaghadh à làimh."
+msgstr ""
+"Ionad tasgadan meata-dàta AppStream ri sganadh ’s air a thaghadh à làimh."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
@@ -2058,7 +2109,8 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr "Fòrmat bunaiteach a’ mheata-dàta (is “xml” ’s “yaml” na luachan dligheach)."
+msgstr ""
+"Fòrmat bunaiteach a’ mheata-dàta (is “xml” ’s “yaml” na luachan dligheach)."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstreamcli.c:101
@@ -2084,7 +2136,9 @@ msgstr "Na cleachd inntrigeadh dhan lìonra."
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:134
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr "Fòrmat na h-aithisge a thèid a ghintinn (’s e “text” is “yaml” a tha sna luachan dligheach)."
+msgstr ""
+"Fòrmat na h-aithisge a thèid a ghintinn (’s e “text” is “yaml” a tha sna "
+"luachan dligheach)."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -2106,14 +2160,19 @@ msgstr "Chan aithne dhuinn an roghainn “%s”."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr "Ruith “%s --help” gus liosta shlàn dhe roghainnean na loidhne-àithne a tha ri fhaighinn a shealltainn."
+msgstr ""
+"Ruith “%s --help” gus liosta shlàn dhe roghainnean na loidhne-àithne a tha "
+"ri fhaighinn a shealltainn."
 
 #: tools/appstreamcli.c:199
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr "Ruith “%s --help” gus liosta shlàn dhe dh’àitheantan ’s roghainnean na loidhne-àithne a tha ri fhaighinn a shealltainn agus “%s %s --help” airson liosta dhe na roghainnean a tha sònraichte dhan fho-àithne seo."
+msgstr ""
+"Ruith “%s --help” gus liosta shlàn dhe dh’àitheantan ’s roghainnean na "
+"loidhne-àithne a tha ri fhaighinn a shealltainn agus “%s %s --help” airson "
+"liosta dhe na roghainnean a tha sònraichte dhan fho-àithne seo."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2146,7 +2205,9 @@ msgstr ""
 #: tools/appstreamcli.c:657
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr "Feumaidh tu co-dhiù dà àireamh tionndaidh a chur seachad mar pharamadairean a’ choimeis."
+msgstr ""
+"Feumaidh tu co-dhiù dà àireamh tionndaidh a chur seachad mar pharamadairean "
+"a’ choimeis."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:686
@@ -2158,20 +2219,27 @@ msgstr "Coimeas “’%s” nach aithne dhuinn. Seo na luachan dligheach:"
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr "Cus paramadairean: Tha feum air dà àireamh tionndaidh no àireamhan tionndaidh is gnìomharaiche coimeis."
+msgstr ""
+"Cus paramadairean: Tha feum air dà àireamh tionndaidh no àireamhan "
+"tionndaidh is gnìomharaiche coimeis."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:752
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr "Cleachd am faidhle .desktop sònraiche gus luachan bunaiteach a lìonadh ann am faidhle a’ mheata-fhiosrachaidh."
+msgstr ""
+"Cleachd am faidhle .desktop sònraiche gus luachan bunaiteach a lìonadh ann "
+"am faidhle a’ mheata-fhiosrachaidh."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstreamcli.c:757
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr "Gabhaidh an àithne seo ri argamaidean suidheachail TYPE is FILE ma thogras tu agus FILE ’na fhaidhle ris an dèid sgrìobhadh (no “-” airson an às-chuir stannardaich)."
+msgstr ""
+"Gabhaidh an àithne seo ri argamaidean suidheachail TYPE is FILE ma thogras "
+"tu agus FILE ’na fhaidhle ris an dèid sgrìobhadh (no “-” airson an às-chuir "
+"stannardaich)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2233,14 +2301,18 @@ msgstr "Fo-àitheantan:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr "Cuir “--help” ri fo-àithne gus fiosrachadh fhaighinn mu na roghainnean a tha sònraichte dhan fho-àithne sin."
+msgstr ""
+"Cuir “--help” ri fo-àithne gus fiosrachadh fhaighinn mu na roghainnean a tha "
+"sònraichte dhan fho-àithne sin."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
 #, fuzzy, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr "Ruith “%s --help” gus liosta shlàn dhe roghainnean na loidhne-àithne a tha ri fhaighinn a shealltainn."
+msgstr ""
+"Ruith “%s --help” gus liosta shlàn dhe roghainnean na loidhne-àithne a tha "
+"ri fhaighinn a shealltainn."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1123
@@ -2272,7 +2344,8 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1159
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr "Seall am meata-dàta XML amh airson co-phàirt a fhreagras ris an aithnichear."
+msgstr ""
+"Seall am meata-dàta XML amh airson co-phàirt a fhreagras ris an aithnichear."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
 #: tools/appstreamcli.c:1164
@@ -2287,7 +2360,9 @@ msgstr "Dearbhaich faidhlichean XML AppStream feuch a bheil duilgheadasan ann."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr "Dearbhaich craobh fhaidhlichean aig aplacaid a chaidh a stàladh feuch a bheil am meata-dàta a tha ann dligheach."
+msgstr ""
+"Dearbhaich craobh fhaidhlichean aig aplacaid a chaidh a stàladh feuch a "
+"bheil am meata-dàta a tha ann dligheach."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
@@ -2335,7 +2410,9 @@ msgstr "Dèan coimeas eadar dà àireamh tionndaidh."
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr "Cruthaich teamplaid airson faidhle meata-fhiosrachaidh (a thèid lìonadh le pròiseact upstream)."
+msgstr ""
+"Cruthaich teamplaid airson faidhle meata-fhiosrachaidh (a thèid lìonadh le "
+"pròiseact upstream)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1228
@@ -2432,7 +2509,9 @@ msgstr "Cha deach luach a mhìneachadh airson lorg an nì."
 
 #: tools/ascli-actions-mdata.c:230
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr "Chan eil an seòrsa a thagh thu dhan nì a chaidh a sholar dligheach. Seo na luachan dligheach:"
+msgstr ""
+"Chan eil an seòrsa a thagh thu dhan nì a chaidh a sholar dligheach. Seo na "
+"luachan dligheach:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:245
@@ -2463,7 +2542,9 @@ msgstr "Chan eil am faidhle meata-dàta “%s” ann."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr "Cha b’ urrainn dhuinn am faidhle iompachadh: Cha deach leinn mothachadh dha dh’fhòrmat an às-chuir, suidhich a làimh e le “--format=”."
+msgstr ""
+"Cha b’ urrainn dhuinn am faidhle iompachadh: Cha deach leinn mothachadh dha "
+"dh’fhòrmat an às-chuir, suidhich a làimh e le “--format=”."
 
 #: tools/ascli-actions-mdata.c:456
 #, fuzzy, c-format
@@ -2479,14 +2560,18 @@ msgstr "Tionndadh: %s"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr "Feumaidh tu seòrsa a’ cho-phàirt bathair-bhog AppStream a thoirt seachad gus teamplaid a ghintinn. Seo na luachan dligheach:"
+msgstr ""
+"Feumaidh tu seòrsa a’ cho-phàirt bathair-bhog AppStream a thoirt seachad gus "
+"teamplaid a ghintinn. Seo na luachan dligheach:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr "Chan eil seòrsa “%s” a’ cho-phàirt bathair-bhog dligheach an an AppStream. Seo na luachan dligheach:"
+msgstr ""
+"Chan eil seòrsa “%s” a’ cho-phàirt bathair-bhog dligheach an an AppStream. "
+"Seo na luachan dligheach:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
@@ -2506,7 +2591,8 @@ msgstr "Cha b’ urrainn dhuinn faidhle teamplaid a’ mheata-dàta a thogail: %
 #: tools/ascli-actions-mdata.c:590
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
-msgstr "Cha b’ urrainn dhuinn faidhle teamplaid a’ mheata-dàta a shàbhaladh: %s"
+msgstr ""
+"Cha b’ urrainn dhuinn faidhle teamplaid a’ mheata-dàta a shàbhaladh: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:48
@@ -2561,7 +2647,9 @@ msgstr "Feumaidh tu ainm faidhle meata-dàta a shònrachadh."
 #: tools/ascli-actions-misc.c:118
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "Feumaidh tu faidhle desktop-entry a shònrachadh ’na às-chur a thèid a chruthachadh no a chur ris."
+msgstr ""
+"Feumaidh tu faidhle desktop-entry a shònrachadh ’na às-chur a thèid a "
+"chruthachadh no a chur ris."
 
 #: tools/ascli-actions-misc.c:128 tools/ascli-actions-misc.c:371
 #: tools/ascli-actions-misc.c:448
@@ -2628,7 +2716,10 @@ msgstr "Feumaidh tu na faidhlichean ion-chur is às-chur a shònrachadh."
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr "Cha deach eadar-aghaidh loidhne-àithne manaidsear phacaidean iomchaidh a lorg. Dèan cinnteach gu bheil “pkcon” (pàirt dhe PackageKit) ri fhaighinn, mar eisimpleir."
+msgstr ""
+"Cha deach eadar-aghaidh loidhne-àithne manaidsear phacaidean iomchaidh a "
+"lorg. Dèan cinnteach gu bheil “pkcon” (pàirt dhe PackageKit) ri fhaighinn, "
+"mar eisimpleir."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -2698,7 +2789,8 @@ msgstr ""
 
 #: tools/ascli-actions-validate.c:392 tools/ascli-actions-validate.c:488
 msgid "You need to specify a root directory to start validation!"
-msgstr "Feumaidh tu pasgan freumha a shònrachadh gus tòiseachadh air an dearbhadh!"
+msgstr ""
+"Feumaidh tu pasgan freumha a shònrachadh gus tòiseachadh air an dearbhadh!"
 
 #. TRANSLATORS: A plain license ID
 #: tools/ascli-actions-validate.c:528
