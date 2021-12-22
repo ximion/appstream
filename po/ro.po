@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:45+0000\n"
-"Last-Translator: Daniel Șerbănescu <daniel@serbanescu.dk>\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/translations/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -45,12 +45,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Această unealtă permite citirea, scrierea, validarea și transformarea de "
-"date meta XML sau YAML AppStream. De asemenea, oferă accesul la rezerva de "
-"date meta a sistemului, de exemplu pentru a interoga pentru software care "
-"furnizează un tip MIME specific, și instalarea lui prin identificatorul de "
-"componentă software al acestuia."
+msgstr "Această unealtă permite citirea, scrierea, validarea și transformarea de date meta XML sau YAML AppStream. De asemenea, oferă accesul la rezerva de date meta a sistemului, de exemplu pentru a interoga pentru software care furnizează un tip MIME specific, și instalarea lui prin identificatorul de componentă software al acestuia."
 
 #: src/as-cache.c:909
 #, c-format
@@ -1312,9 +1307,7 @@ msgstr "S-a găsit proprietatea „versiune” la elementul necesar/recomandat, 
 msgid ""
 "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
 "ge` is permitted."
-msgstr ""
-"Operațiune de comparare a versiunii nevalide la elementul relațional. Doar "
-"eq/ne/lt/gt/le/ge sunt permise."
+msgstr "Operațiune de comparare a versiunii nevalide la elementul relațional. Doar eq/ne/lt/gt/le/ge sunt permise."
 
 #: src/as-validator-issue-tag.h:282
 msgid ""
@@ -1646,9 +1639,7 @@ msgstr "Numele categoriei nu este valid. Consultați specificația de meniu XDG 
 #: src/as-validator-issue-tag.h:586
 #, fuzzy
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr ""
-"Legenda capturii de ecran este prea lungă (ar trebui să fie <= 80 de "
-"caractere)"
+msgstr "Legenda capturii de ecran este prea lungă (ar trebui să fie <= 80 de caractere)"
 
 #: src/as-validator-issue-tag.h:591
 msgid "Unable to read file."
@@ -1843,9 +1834,7 @@ msgstr ""
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"ID-ul componentei conține un caracter nevalid. Doar caractere ASCII, puncte "
-"și numere sunt permise."
+msgstr "ID-ul componentei conține un caracter nevalid. Doar caractere ASCII, puncte și numere sunt permise."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2202,9 +2191,7 @@ msgstr "Presupuneți că fișierul de intrare este în formatul selectat („yam
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr ""
-"Limitează numărul de intrări ale lansării care ajung în fișierul de "
-"informații meta (0 pentru nelimitat)."
+msgstr "Limitează numărul de intrări ale lansării care ajung în fișierul de informații meta (0 pentru nelimitat)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:854
@@ -2250,9 +2237,7 @@ msgstr "Puteți găsi informații despre opțiunile specifice subcomenzii prin t
 #, fuzzy, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Rulați „%s -- help” pentru a vedea o listă completă a opțiunilor în linie de "
-"comandă disponibile."
+msgstr "Rulați „%s -- help” pentru a vedea o listă completă a opțiunilor în linie de comandă disponibile."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1123
@@ -2353,8 +2338,7 @@ msgstr "Creează un șablon pentru un fișier de informații meta (de completat 
 #: tools/appstreamcli.c:1228
 #, fuzzy
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr ""
-"Creează un fișier de intrare desktop XDG de la un fișier de informații meta."
+msgstr "Creează un fișier de intrare desktop XDG de la un fișier de informații meta."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstreamcli.c:1233
@@ -2370,8 +2354,7 @@ msgstr "Scrie un fișier text ȘTIRI sau YAML cu informații de la un fișier de
 #: tools/appstreamcli.c:1244
 #, fuzzy
 msgid "Compose AppStream collection metadata from directory trees."
-msgstr ""
-"Nu s-au găsit date meta AppStream în acest director sau arbore de directoare."
+msgstr "Nu s-au găsit date meta AppStream în acest director sau arbore de directoare."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1252
