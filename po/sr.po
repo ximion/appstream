@@ -22,17 +22,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
-"PO-Revision-Date: 2021-03-11 21:02+0000\n"
-"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: Serbian <https://hosted.weblate.org/projects/appstream/"
-"translations/sr/>\n"
+"PO-Revision-Date: 2021-12-22 15:44+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Serbian <https://hosted.weblate.org/projects/appstream/translations/sr/>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.5.2-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -678,9 +676,7 @@ msgstr "Дискриминација осмишљена да изазове ем
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:971
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
-msgstr ""
-"Експлицитна дискриминација на основу пола, сексуалности, расе или "
-"вероисповести"
+msgstr "Експлицитна дискриминација на основу пола, сексуалности, расе или вероисповести"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
@@ -777,8 +773,7 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1030
 msgid "Sharing social network usernames or email addresses"
-msgstr ""
-"Дељење корисничких имена на друштвеним мрежама или адреса електронске поште"
+msgstr "Дељење корисничких имена на друштвеним мрежама или адреса електронске поште"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1037
@@ -793,14 +788,12 @@ msgstr "Проверавање последње издање програма"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1041
 msgid "Sharing diagnostic data that does not let others identify the user"
-msgstr ""
-"Деле се дијагностички подаци преко којих други не могу препознати корисника"
+msgstr "Деле се дијагностички подаци преко којих други не могу препознати корисника"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
 msgid "Sharing information that lets others identify the user"
-msgstr ""
-"Деле се дијагностички подаци преко којих други могу препознати корисника"
+msgstr "Деле се дијагностички подаци преко којих други могу препознати корисника"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1048
@@ -1440,9 +1433,7 @@ msgstr ""
 msgid ""
 "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
 "ge` is permitted."
-msgstr ""
-"Неисправна радња поређења над ставком односа. Само „eq/ne/lt/gt/le/ge“ је "
-"дозвољено."
+msgstr "Неисправна радња поређења над ставком односа. Само „eq/ne/lt/gt/le/ge“ је дозвољено."
 
 #: src/as-validator-issue-tag.h:282
 msgid ""
@@ -2091,9 +2082,7 @@ msgstr ""
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"ИБ компоненте садржи неисправан знак. Допуштени су само АСКРИ знакови, тачке "
-"и бројеви."
+msgstr "ИБ компоненте садржи неисправан знак. Допуштени су само АСКРИ знакови, тачке и бројеви."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2465,9 +2454,7 @@ msgstr ""
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr ""
-"Ограничава број уноса издања који завршавају у датотеци метаподатака (0 за "
-"неограничено)."
+msgstr "Ограничава број уноса издања који завршавају у датотеци метаподатака (0 за неограничено)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:854
@@ -2642,9 +2629,7 @@ msgstr ""
 #: tools/appstreamcli.c:1244
 #, fuzzy
 msgid "Compose AppStream collection metadata from directory trees."
-msgstr ""
-"Нисам нашао никакве метаподатке Програмског тока у овом директоријуму или "
-"стаблу директоријума."
+msgstr "Нисам нашао никакве метаподатке Програмског тока у овом директоријуму или стаблу директоријума."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1252
