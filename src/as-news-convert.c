@@ -414,6 +414,7 @@ typedef enum {
 	AS_NEWS_SECTION_KIND_TRANSLATION,
 	AS_NEWS_SECTION_KIND_DOCUMENTATION,
 	AS_NEWS_SECTION_KIND_CONTRIBUTORS,
+	AS_NEWS_SECTION_KIND_TRANSLATORS,
 	AS_NEWS_SECTION_KIND_LAST
 } AsNewsSectionKind;
 
@@ -458,6 +459,8 @@ as_news_text_guess_section (const gchar *lines)
 		return AS_NEWS_SECTION_KIND_CONTRIBUTORS;
 	if (g_strstr_len (lines, -1, "Thanks to:\n") != NULL)
 		return AS_NEWS_SECTION_KIND_CONTRIBUTORS;
+	if (g_strstr_len (lines, -1, "Translators:\n") != NULL)
+		return AS_NEWS_SECTION_KIND_TRANSLATORS;
 	return AS_NEWS_SECTION_KIND_UNKNOWN;
 }
 
@@ -753,6 +756,20 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 		case AS_NEWS_SECTION_KIND_CONTRIBUTORS:
 			as_news_text_add_markup (desc, "p",
 						 "With contributions from:");
+
+			if (g_strstr_len (split[i], -1, "* ") != NULL ||
+			    g_strstr_len (split[i], -1, "- ") != NULL) {
+				lines = g_strsplit (split[i], "\n", -1);
+				if (!as_news_text_to_list_markup (desc, lines + 1, error))
+					return FALSE;
+			} else {
+				if (!as_news_text_to_para_markup (desc, split[i], error))
+					return FALSE;
+			}
+			break;
+		case AS_NEWS_SECTION_KIND_TRANSLATORS:
+			as_news_text_add_markup (desc, "p",
+						 "Updated localization by:");
 
 			if (g_strstr_len (split[i], -1, "* ") != NULL ||
 			    g_strstr_len (split[i], -1, "- ") != NULL) {
