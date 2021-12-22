@@ -19,26 +19,20 @@
 # Seong-ho Cho <darkcircle.0426@gmail.com>, 2015-2016
 # Shinjo Park <kde@peremen.name>, 2015
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
-"PO-Revision-Date: 2016-08-06 03:00+0000\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Korean (http://www.transifex.com/freedesktop/appstream-glib/"
-"language/ko/)\n"
+"PO-Revision-Date: 2021-12-22 15:43+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Korean <https://hosted.weblate.org/projects/appstream/translations/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  ko.po (AppStream)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.1\n"
-"#-#-#-#-#  ko.po (appstream-glib)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Zanata 4.6.2\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -67,11 +61,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"이 도구는 AppStream XML 또는 YAML 메타 데이터의 읽기, 쓰기, 유효성 검사 및 변"
-"환을 허용합니다. 또한 시스템 메타 데이터 풀에 대한 액세스를 제공합니다, 예를 "
-"들면 특정 MIME 유형을 제공하는 소프트웨어를 쿼리 하며 소프트웨어 구성 요소 식"
-"별자로 설치합니다."
+msgstr "이 도구는 AppStream XML 또는 YAML 메타 데이터의 읽기, 쓰기, 유효성 검사 및 변환을 허용합니다. 또한 시스템 메타 데이터 풀에 대한 액세스를 제공합니다, 예를 들면 특정 MIME 유형을 제공하는 소프트웨어를 쿼리 하며 소프트웨어 구성 요소 식별자로 설치합니다."
 
 #: src/as-cache.c:909
 #, c-format
@@ -1399,9 +1389,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"소프트웨어 구성 요소 유형 '%s'은 AppStream에서 유효하지 않습니다. 가능한 값"
-"은 다음과 같습니다:"
+msgstr "소프트웨어 구성 요소 유형 '%s'은 AppStream에서 유효하지 않습니다. 가능한 값은 다음과 같습니다:"
 
 #: src/as-validator-issue-tag.h:332
 msgid ""
@@ -2279,8 +2267,7 @@ msgstr ""
 #, fuzzy, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"'%s --help' 를 실행하면 사용 가능한 명령문 옵션 전체 목록을 볼 수 있습니다."
+msgstr "'%s --help' 를 실행하면 사용 가능한 명령문 옵션 전체 목록을 볼 수 있습니다."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1123
@@ -2327,8 +2314,7 @@ msgstr "AppStream XML 파일의 문제를 검증합니다."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"올바른 메타데이터를 가지고 있는지 프로그램의 설치 파일 트리를 검증합니다."
+msgstr "올바른 메타데이터를 가지고 있는지 프로그램의 설치 파일 트리를 검증합니다."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
@@ -2473,8 +2459,7 @@ msgstr "검색할 항목에 대한 값을 정의하지 않았습니다."
 
 #: tools/ascli-actions-mdata.c:230
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
-"선택한 항목을 제공하는 형식이 잘못되었습니다. 올바른 값은 다음과 같습니다:"
+msgstr "선택한 항목을 제공하는 형식이 잘못되었습니다. 올바른 값은 다음과 같습니다:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:245
