@@ -9,16 +9,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
-"PO-Revision-Date: 2020-05-26 19:41+0000\n"
-"Last-Translator: Benjamin Goodger <ben@goodger.nl>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/"
-"translations/nl/>\n"
+"PO-Revision-Date: 2021-12-22 15:45+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/translations/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -47,12 +46,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Dit hulpprogramma stelt u in staat AppStream XML of YAML-metagegevens te "
-"lezen, schrijven, valideren en wijzigen. Het stelt u tevens in staat om "
-"toegang te krijgen tot de systeem-metagegevenspool. U kunt daar bijv. zoeken "
-"naar software die een bepaald mimetype aanbiedt en deze installeren middels "
-"de ID."
+msgstr "Dit hulpprogramma stelt u in staat AppStream XML of YAML-metagegevens te lezen, schrijven, valideren en wijzigen. Het stelt u tevens in staat om toegang te krijgen tot de systeem-metagegevenspool. U kunt daar bijv. zoeken naar software die een bepaald mimetype aanbiedt en deze installeren middels de ID."
 
 #: src/as-cache.c:909
 #, c-format
@@ -1396,9 +1390,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Het software-onderdeel van het type '%s' is ongeldig in AppStream. Geldige "
-"waarden zijn:"
+msgstr "Het software-onderdeel van het type '%s' is ongeldig in AppStream. Geldige waarden zijn:"
 
 #: src/as-validator-issue-tag.h:332
 msgid ""
@@ -2117,9 +2109,7 @@ msgstr "Geen netwerkverbinding gebruiken."
 #: tools/appstreamcli.c:134
 #, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr ""
-"Standaard opgegeven metagegevens-soort (geldige waarden zijn 'xml' en "
-"'yaml')."
+msgstr "Standaard opgegeven metagegevens-soort (geldige waarden zijn 'xml' en 'yaml')."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -2291,9 +2281,7 @@ msgstr ""
 #, fuzzy, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Voer '%s --help' uit om een volledige lijst van beschikbare "
-"opdrachtregelopties te weergeven."
+msgstr "Voer '%s --help' uit om een volledige lijst van beschikbare opdrachtregelopties te weergeven."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1123
