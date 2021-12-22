@@ -1,3 +1,31 @@
+Version 0.15.1
+~~~~~~~~~~~~~~
+Released: 2021-12-22
+
+Features:
+ * Bump GLib version requirement to >= 2.62
+ * compose: Port over font support from appstream-generator
+ * compose: Allow overriding unit used for locale processing
+ * compose: Refine legacy support for desktop-id launchables
+ * compose: Allow setting the custom desktop-entry translation function
+ * compose: Allow to run with threading (mostly) disabled
+ * compose: Reorganize feature flags, allow to disable l10n
+ * compose: Allow setting a screenshot file size limit
+ * compose: Allow to disable screencast processing explicitly
+ * compose: Allow to test whether result has a specific hint tag
+ * news-convert: Support a "Translators" section
+ * validator: Check that first rDNS component-ID parts are always lowercased
+ * validator: Validate capitalization for some selected text blocks
+
+Bugfixes:
+ * vapi: Rename PoolFlag to PoolFlags to add the missing deprecated flags
+ * Fix cache always getting updated even if unnacessary on Debian systems
+ * Still verify download return codes if download was aborted intentionally
+ * compose: Warn if metainfo files are missing and data was processed anyway
+
+Contributors:
+ Corentin Noël, Matthias Klumpp
+
 Version 0.15.0
 ~~~~~~~~~~~~~~
 Released: 2021-12-02
