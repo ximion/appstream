@@ -42,16 +42,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
-"PO-Revision-Date: 2021-05-23 04:32+0000\n"
-"Last-Translator: Johannes Keyser <johanneskeyser@posteo.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"PO-Revision-Date: 2021-12-22 15:41+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -497,16 +496,12 @@ msgstr "Keine Gewalt in Fantasy"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:852
 msgid "Characters in unsafe situations easily distinguishable from reality"
-msgstr ""
-"Figuren in unsicheren Situationen, die einfach von der Realität zu "
-"unterscheiden sind"
+msgstr "Figuren in unsicheren Situationen, die einfach von der Realität zu unterscheiden sind"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:854
 msgid "Characters in aggressive conflict easily distinguishable from reality"
-msgstr ""
-"Figuren in aggressiven Konflikten, die einfach von der Realität zu "
-"unterscheiden sind"
+msgstr "Figuren in aggressiven Konflikten, die einfach von der Realität zu unterscheiden sind"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:856
@@ -526,9 +521,7 @@ msgstr "Harmlose realistische Figuren in unsicheren Situationen"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:865
 msgid "Depictions of realistic characters in aggressive conflict"
-msgstr ""
-"Darstellung von realistischen Charakteren, die im aggressiven Konflikt "
-"zueinander stehen"
+msgstr "Darstellung von realistischen Charakteren, die im aggressiven Konflikt zueinander stehen"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:867
@@ -703,8 +696,7 @@ msgstr "Diskriminierung mit dem Ziel der emotionellen Kränkung"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:971
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
-msgstr ""
-"Explizite Diskriminierung von Geschlecht, Sexualität, Rasse oder Religion"
+msgstr "Explizite Diskriminierung von Geschlecht, Sexualität, Rasse oder Religion"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
@@ -794,8 +786,7 @@ msgstr "Nicht kontrollierte Audio- oder Video-Chat-Funktion zwischen Benutzern"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1028
 msgid "No sharing of social network usernames or email addresses"
-msgstr ""
-"Kein Teilen von Benutzernamen in sozialen Netzwerken oder E-Mail-Adressen"
+msgstr "Kein Teilen von Benutzernamen in sozialen Netzwerken oder E-Mail-Adressen"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1030
@@ -815,16 +806,12 @@ msgstr "Suchen nach der neuesten Anwendungsversion"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1041
 msgid "Sharing diagnostic data that does not let others identify the user"
-msgstr ""
-"Teilen von Diagnosedaten, die eine Identifizierung des Benutzers durch "
-"andere nicht ermöglichen"
+msgstr "Teilen von Diagnosedaten, die eine Identifizierung des Benutzers durch andere nicht ermöglichen"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
 msgid "Sharing information that lets others identify the user"
-msgstr ""
-"Teilen von Informationen, die eine Identifizierung des Benutzers durch "
-"andere ermöglichen"
+msgstr "Teilen von Informationen, die eine Identifizierung des Benutzers durch andere ermöglichen"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1048
@@ -1471,9 +1458,7 @@ msgstr ""
 msgid ""
 "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
 "ge` is permitted."
-msgstr ""
-"Ungültiger Versionsvergleichsvorgang für Beziehungselement. Nur eq/ne/lt/gt/"
-"le/ge sind zulässig."
+msgstr "Ungültiger Versionsvergleichsvorgang für Beziehungselement. Nur eq/ne/lt/gt/le/ge sind zulässig."
 
 #: src/as-validator-issue-tag.h:282
 msgid ""
@@ -1910,9 +1895,7 @@ msgstr ""
 #: src/as-validator-issue-tag.h:586
 #, fuzzy
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr ""
-"Die Beschiftung der Bildschirmaufnahme ist zu lang (sollte <= 80 Zeichen "
-"sein)"
+msgstr "Die Beschiftung der Bildschirmaufnahme ist zu lang (sollte <= 80 Zeichen sein)"
 
 #: src/as-validator-issue-tag.h:591
 msgid "Unable to read file."
@@ -2152,9 +2135,7 @@ msgstr ""
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"Die Komponenten-ID enthält ein ungültiges Zeichen. Es sind nur ASCII-"
-"Zeichen, Punkte und Zahlen erlaubt."
+msgstr "Die Komponenten-ID enthält ein ungültiges Zeichen. Es sind nur ASCII-Zeichen, Punkte und Zahlen erlaubt."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2426,19 +2407,14 @@ msgstr "Option '%s' ist unbekannt."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Rufen Sie »%s --help« auf, um eine vollständige Liste der verfügbaren "
-"Befehlszeilenoptionen zu sehen."
+msgstr "Rufen Sie »%s --help« auf, um eine vollständige Liste der verfügbaren Befehlszeilenoptionen zu sehen."
 
 #: tools/appstreamcli.c:199
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Rufen Sie »%s --help« auf, um eine Liste der verfügbaren Befehle und "
-"Optionen zu sehen. Rufen Sie »%s %s --help« auf, um eine Liste der "
-"spezifischen Optionen für diesen Unterbefehl zu erhalten."
+msgstr "Rufen Sie »%s --help« auf, um eine Liste der verfügbaren Befehle und Optionen zu sehen. Rufen Sie »%s %s --help« auf, um eine Liste der spezifischen Optionen für diesen Unterbefehl zu erhalten."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2531,9 +2507,7 @@ msgstr "Setze das angenommene Dateiformat (»yaml« oder »text«)."
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr ""
-"Beschränke die Anzahl der Veröffentlichungseinträge die in der metainfo-"
-"Datei landen (0 für unbegrenzt)."
+msgstr "Beschränke die Anzahl der Veröffentlichungseinträge die in der metainfo-Datei landen (0 für unbegrenzt)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:854
@@ -2572,18 +2546,14 @@ msgstr "Unterbefehle:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"Sie erhalten Informationen zu Optionen für einen Unterbefehl, indem Sie »--"
-"help« an den Unterbefehl weitergeben."
+msgstr "Sie erhalten Informationen zu Optionen für einen Unterbefehl, indem Sie »--help« an den Unterbefehl weitergeben."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
 #, fuzzy, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Rufen Sie »%s --help« auf, um eine vollständige Liste der verfügbaren "
-"Befehlszeilenoptionen zu sehen."
+msgstr "Rufen Sie »%s --help« auf, um eine vollständige Liste der verfügbaren Befehlszeilenoptionen zu sehen."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1123
@@ -2630,9 +2600,7 @@ msgstr "AppStream-XML-Dateien für Probleme validieren."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Einen installierten Dateibaum einer Anwendung auf gültige Metadaten "
-"validieren."
+msgstr "Einen installierten Dateibaum einer Anwendung auf gültige Metadaten validieren."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
@@ -2707,9 +2675,7 @@ msgstr ""
 #: tools/appstreamcli.c:1244
 #, fuzzy
 msgid "Compose AppStream collection metadata from directory trees."
-msgstr ""
-"In diesem Verzeichnis oder diesem Verzeichnisbaum wurden keine AppStream-"
-"Metadaten gefunden."
+msgstr "In diesem Verzeichnis oder diesem Verzeichnisbaum wurden keine AppStream-Metadaten gefunden."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1252
@@ -2737,8 +2703,7 @@ msgstr "Metadaten-Datei »%s« existiert nicht."
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
-"Sie brauchen vielleicht Administratorrechte, um diese Aktion auszuführen."
+msgstr "Sie brauchen vielleicht Administratorrechte, um diese Aktion auszuführen."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
@@ -2750,9 +2715,7 @@ msgstr "AppStream-Zwischenspeicher wurde erfolgreich vervollständigt."
 #: tools/ascli-actions-mdata.c:102
 #, fuzzy
 msgid "Metadata cache update is not necessary."
-msgstr ""
-"Zwischenspeicher wurde nicht aktualisiert, so dass die Aktualisierung nicht "
-"notwendig war."
+msgstr "Zwischenspeicher wurde nicht aktualisiert, so dass die Aktualisierung nicht notwendig war."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -2789,8 +2752,7 @@ msgstr "Kein Wert für das zu suchende Objekt angegeben."
 
 #: tools/ascli-actions-mdata.c:230
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
-"Ungültiger Typ für bereitgestelltes Objekt angegeben. Gültige Werte sind:"
+msgstr "Ungültiger Typ für bereitgestelltes Objekt angegeben. Gültige Werte sind:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:245
@@ -2821,9 +2783,7 @@ msgstr "Metadaten-Datei »%s« existiert nicht."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"Datei kann nicht umgewandelt werden: Das Ausgabeformat konnte nicht bestimmt "
-"werden. Bitte legen Sie es explizit mit »--format=« fest."
+msgstr "Datei kann nicht umgewandelt werden: Das Ausgabeformat konnte nicht bestimmt werden. Bitte legen Sie es explizit mit »--format=« fest."
 
 #: tools/ascli-actions-mdata.c:456
 #, fuzzy, c-format
@@ -3001,10 +2961,7 @@ msgstr "Sie müssen ein NEWS-Formt zum Schreiben der Ausgabe angeben."
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"Keine verwendbare Befehlszeilenschnittstelle einer Paketverwaltung gefunden. "
-"Bitte stellen Sie sicher, dass zum Beispiel »pkcon« (Teil von PackageKit) "
-"verfügbar ist."
+msgstr "Keine verwendbare Befehlszeilenschnittstelle einer Paketverwaltung gefunden. Bitte stellen Sie sicher, dass zum Beispiel »pkcon« (Teil von PackageKit) verfügbar ist."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -3075,8 +3032,7 @@ msgstr ""
 
 #: tools/ascli-actions-validate.c:392 tools/ascli-actions-validate.c:488
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
-"Sie müssen ein Root-Verzeichnis angeben, um die Validierung zu starten!"
+msgstr "Sie müssen ein Root-Verzeichnis angeben, um die Validierung zu starten!"
 
 #. TRANSLATORS: A plain license ID
 #: tools/ascli-actions-validate.c:528
