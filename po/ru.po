@@ -36,7 +36,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:43+0000\n"
-"Last-Translator: Igor <f2404@yandex.ru>\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -689,9 +689,7 @@ msgstr "Дискриминация с целью причинить мораль
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:971
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
-msgstr ""
-"Явная дискриминация по признаку пола, сексуальной ориентации, расы или "
-"религии"
+msgstr "Явная дискриминация по признаку пола, сексуальной ориентации, расы или религии"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
@@ -711,8 +709,7 @@ msgstr "Явные упоминания конкретных брендов ил
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:982
 msgid "Users are encouraged to purchase specific real-world items"
-msgstr ""
-"Пользователям предлагается приобрести определенные предметы реального мира"
+msgstr "Пользователям предлагается приобрести определенные предметы реального мира"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:987
@@ -722,8 +719,7 @@ msgstr "Отсутствуют азартные игры в любом виде"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:989
 msgid "Gambling on random events using tokens or credits"
-msgstr ""
-"Азартные игры с использованием жетонов, основанные на случайных событиях"
+msgstr "Азартные игры с использованием жетонов, основанные на случайных событиях"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:991
@@ -803,9 +799,7 @@ msgstr "Проверка последней версии приложения"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1041
 msgid "Sharing diagnostic data that does not let others identify the user"
-msgstr ""
-"Совместное использование диагностических данных, которые не позволяют другим "
-"идентифицировать пользователя"
+msgstr "Совместное использование диагностических данных, которые не позволяют другим идентифицировать пользователя"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
@@ -820,8 +814,7 @@ msgstr "Нет общего физического местоположения 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1050
 msgid "Sharing physical location with other users"
-msgstr ""
-"Совместное использование физического местоположения с другими пользователями"
+msgstr "Совместное использование физического местоположения с другими пользователями"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1073
@@ -2187,9 +2180,7 @@ msgstr "Переопределить каталог вывода значка"
 #: tools/appstream-compose.c:210
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)"
-msgstr ""
-"Установить каталог вывода мультимедиа (для мультимедийных данных, которые "
-"будут обслуживаться веб-сервером)"
+msgstr "Установить каталог вывода мультимедиа (для мультимедийных данных, которые будут обслуживаться веб-сервером)"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:213
@@ -2206,16 +2197,12 @@ msgstr "Задать имя источника"
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:219
 msgid "Set the URL where the exported media content will be hosted"
-msgstr ""
-"Задать URL-адрес, по которому будет размещен экспортированный мультимедийный "
-"контент"
+msgstr "Задать URL-адрес, по которому будет размещен экспортированный мультимедийный контент"
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:222
 msgid "A comma-separated list of component-IDs to accept"
-msgstr ""
-"Список идентификаторов компонентов, разделенных запятыми, которые необходимо "
-"принять"
+msgstr "Список идентификаторов компонентов, разделенных запятыми, которые необходимо принять"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:236
@@ -2320,9 +2307,7 @@ msgstr "Во время выполнения этой компоновки во�
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
-msgstr ""
-"Обратитесь к сгенерированным данным отчета о проблемах для получения "
-"подробной информации об отдельных проблемах."
+msgstr "Обратитесь к сгенерированным данным отчета о проблемах для получения подробной информации об отдельных проблемах."
 
 #: tools/appstream-compose.c:397
 msgid "Overview of generated hints:"
@@ -2401,9 +2386,7 @@ msgstr "Опция \"%s 1\" неизвестна."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Запустите '%s --help' чтоб увидеть полный список доступных параметров "
-"командной строки."
+msgstr "Запустите '%s --help' чтоб увидеть полный список доступных параметров командной строки."
 
 #: tools/appstreamcli.c:199
 #, c-format
@@ -2430,9 +2413,7 @@ msgstr ""
 #: tools/appstreamcli.c:478
 msgid ""
 "No license, license expression or license exception string was provided."
-msgstr ""
-"Не было предоставлено ни лицензии, ни выдержки из лицензии, ни строки "
-"исключения из лицензии."
+msgstr "Не было предоставлено ни лицензии, ни выдержки из лицензии, ни строки исключения из лицензии."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:503
@@ -2509,10 +2490,7 @@ msgstr ""
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
-msgstr ""
-"Установите количество выпусков, описания которых должны быть помечены для "
-"перевода (сначала переводятся последние выпуски, -1 для неограниченного "
-"количества)."
+msgstr "Установите количество выпусков, описания которых должны быть помечены для перевода (сначала переводятся последние выпуски, -1 для неограниченного количества)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:898
@@ -2588,9 +2566,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1159
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
-"Создать дамп необработанных метаданных XML для компоненты с соответствующим "
-"идентификатором."
+msgstr "Создать дамп необработанных метаданных XML для компоненты с соответствующим идентификатором."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
 #: tools/appstreamcli.c:1164
@@ -2605,16 +2581,12 @@ msgstr "Проверить файлы XML AppStream на недостатки."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Проверить установленную иерархию файлов приложения на корректность "
-"метаданных."
+msgstr "Проверить установленную иерархию файлов приложения на корректность метаданных."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
 msgid "Check license string for validity and print details about it."
-msgstr ""
-"Проверьте строку лицензии на срок действия и распечатайте подробные сведения "
-"о ней."
+msgstr "Проверьте строку лицензии на срок действия и распечатайте подробные сведения о ней."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1186
@@ -2707,8 +2679,7 @@ msgstr "Файл метаданных '%s' не существует!"
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
-"Для выполнения этого действия Вам могут понадобиться права администратора."
+msgstr "Для выполнения этого действия Вам могут понадобиться права администратора."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
@@ -2755,8 +2726,7 @@ msgstr "Не определено значение элемента для по�
 
 #: tools/ascli-actions-mdata.c:230
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
-"Выбран неверный тип для предоставленного элемента. Допустимые значения:"
+msgstr "Выбран неверный тип для предоставленного элемента. Допустимые значения:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:245
@@ -2959,9 +2929,7 @@ msgstr "Вам необходимо указать формат NEWS для за
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"Не найден подходящий CLI-менеджер пакетов. Пожалуйста, убедитесь, что, "
-"например, «pkcon» (часть PackageKit) доступен."
+msgstr "Не найден подходящий CLI-менеджер пакетов. Пожалуйста, убедитесь, что, например, «pkcon» (часть PackageKit) доступен."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
