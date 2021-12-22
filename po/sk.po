@@ -17,26 +17,20 @@
 # Dušan Kazik <prescott66@gmail.com>, 2015-2016
 # helix84 <helix84@centrum.sk>, 2015
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
-"PO-Revision-Date: 2016-08-06 03:00+0000\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream-glib/"
-"language/sk/)\n"
+"PO-Revision-Date: 2021-12-22 15:43+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/translations/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  sk.po (AppStream)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.2-dev\n"
-"#-#-#-#-#  sk.po (appstream-glib)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Zanata 4.6.2\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -65,11 +59,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Tento nástroj umožňuje čítanie, zápis, overovanie a premenu AppStream XML "
-"alebo Yamli metaúdajov. Tiež sprístupňuje systémový fond metaúdajov "
-"napríklad pre dotazovanie sa na softvér, poskytujúci konkrétny MIME typ a "
-"jeho inštaláciu na základe identifikátora softvérovej súčasti."
+msgstr "Tento nástroj umožňuje čítanie, zápis, overovanie a premenu AppStream XML alebo Yamli metaúdajov. Tiež sprístupňuje systémový fond metaúdajov napríklad pre dotazovanie sa na softvér, poskytujúci konkrétny MIME typ a jeho inštaláciu na základe identifikátora softvérovej súčasti."
 
 #: src/as-cache.c:909
 #, c-format
@@ -677,9 +667,7 @@ msgstr "Diskriminácia s následkami emočnej ujmy"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:971
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
-msgstr ""
-"Jednoznačná diskriminácia založená na pohlaví, sexuálnej orientácii, rase "
-"alebo náboženstve"
+msgstr "Jednoznačná diskriminácia založená na pohlaví, sexuálnej orientácii, rase alebo náboženstve"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
@@ -694,15 +682,12 @@ msgstr "Umiestnenie výrobku"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:980
 msgid "Explicit references to specific brands or trademarked products"
-msgstr ""
-"Jednoznačné odkazy na produkty špecifických značiek alebo označené obchodnou "
-"známkou"
+msgstr "Jednoznačné odkazy na produkty špecifických značiek alebo označené obchodnou známkou"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:982
 msgid "Users are encouraged to purchase specific real-world items"
-msgstr ""
-"Používatelia sú vyzývaní na nákup špecifických položiek v skutočnom svete"
+msgstr "Používatelia sú vyzývaní na nákup špecifických položiek v skutočnom svete"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:987
@@ -776,15 +761,12 @@ msgstr "Nekontrolovateľné zvukové alebo video rozhovory medzi používateľmi
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1028
 msgid "No sharing of social network usernames or email addresses"
-msgstr ""
-"Žiadne zdieľanie používateľských mien alebo emailových adries zo sociálnych "
-"sietí"
+msgstr "Žiadne zdieľanie používateľských mien alebo emailových adries zo sociálnych sietí"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1030
 msgid "Sharing social network usernames or email addresses"
-msgstr ""
-"Zdieľanie používateľských mien alebo emailových adries zo sociálnych sietí"
+msgstr "Zdieľanie používateľských mien alebo emailových adries zo sociálnych sietí"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1037
@@ -808,8 +790,7 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
 msgid "Sharing information that lets others identify the user"
-msgstr ""
-"Zdieľanie informácií, ktoré umožňujú ostatným identifikovať používateľa"
+msgstr "Zdieľanie informácií, ktoré umožňujú ostatným identifikovať používateľa"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1048
@@ -1448,8 +1429,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Typ „%s“ softvérovej súčasti nie je platný pre AppStream. Možné hodnoty sú:"
+msgstr "Typ „%s“ softvérovej súčasti nie je platný pre AppStream. Možné hodnoty sú:"
 
 #: src/as-validator-issue-tag.h:332
 msgid ""
@@ -2188,9 +2168,7 @@ msgstr "Príkaz „%s“ je neznámy."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Spustením „%s --help“ zobrazíte úplný zoznam dostupných volieb príkazového "
-"riadka."
+msgstr "Spustením „%s --help“ zobrazíte úplný zoznam dostupných volieb príkazového riadka."
 
 #: tools/appstreamcli.c:199
 #, c-format
@@ -2338,9 +2316,7 @@ msgstr ""
 #, fuzzy, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Spustením „%s --help“ zobrazíte úplný zoznam dostupných volieb príkazového "
-"riadka."
+msgstr "Spustením „%s --help“ zobrazíte úplný zoznam dostupných volieb príkazového riadka."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1123
@@ -2738,9 +2714,7 @@ msgstr "Musíte určiť súbor metaúdajov."
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"Nenašiel sa vhodný CLI správca balíkov. Prosím, uistite sa, že máte "
-"dostupného napr. klienta „pkcon“ (je súčasťou nástroja PackageKit)."
+msgstr "Nenašiel sa vhodný CLI správca balíkov. Prosím, uistite sa, že máte dostupného napr. klienta „pkcon“ (je súčasťou nástroja PackageKit)."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
