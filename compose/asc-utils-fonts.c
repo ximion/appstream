@@ -113,7 +113,7 @@ asc_render_font_screenshots (AscResult *cres,
 				g_autoptr(GError) tmp_error = NULL;
 				gboolean ret;
 
-				/* we didn't create an icon yet - let's render it! */
+				/* we didn't create a screenshot image yet - let's render it! */
 				cv = asc_canvas_new (font_screenshot_sizes[j].width,
 						     font_screenshot_sizes[j].height);
 				ret = asc_canvas_draw_text_line (cv,
