@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:44+0000\n"
-"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -662,9 +662,7 @@ msgstr "Образи на підґрунті дискримінації"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:971
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
-msgstr ""
-"Чітка дискримінація, яка ґрунтується на статевій, сексуальний, расовій або "
-"релігійній ознаці"
+msgstr "Чітка дискримінація, яка ґрунтується на статевій, сексуальний, расовій або релігійній ознаці"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
@@ -749,8 +747,7 @@ msgstr "Без можливості звукового спілкування і
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1021
 msgid "Uncontrolled audio or video chat functionality between users"
-msgstr ""
-"Неконтрольовані можливості із звукового та відеоспілкування між користувачами"
+msgstr "Неконтрольовані можливості із звукового та відеоспілкування між користувачами"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1028
@@ -775,9 +772,7 @@ msgstr "Пошук найсвіжішої версії програми"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1041
 msgid "Sharing diagnostic data that does not let others identify the user"
-msgstr ""
-"Оприлюднення діагностичних даних, які не надають безпосередньої змоги "
-"ідентифікувати користувача"
+msgstr "Оприлюднення діагностичних даних, які не надають безпосередньої змоги ідентифікувати користувача"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
@@ -2119,9 +2114,7 @@ msgstr "Параметр «%s» є невідомим програмі."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Щоб переглянути повний список можливих параметрів командного рядка, віддайте "
-"команду «%s --help»."
+msgstr "Щоб переглянути повний список можливих параметрів командного рядка, віддайте команду «%s --help»."
 
 #: tools/appstreamcli.c:199
 #, c-format
@@ -2287,9 +2280,7 @@ msgstr "Отримати назви компонентів, які надают�
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1159
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
-"Створити дамп необроблених метаданих XML для компонента з відповідним "
-"ідентифікатором."
+msgstr "Створити дамп необроблених метаданих XML для компонента з відповідним ідентифікатором."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
 #: tools/appstreamcli.c:1164
@@ -2304,8 +2295,7 @@ msgstr "Перевірити файли XML AppStream на вади."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Перевіряти на коректність метаданих усю встановлену ієрархію файлів програми."
+msgstr "Перевіряти на коректність метаданих усю встановлену ієрархію файлів програми."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
@@ -2638,9 +2628,7 @@ msgstr "Вам слід вказати формат, у якому має бут
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"Не знайдено відповідного засобу керування пакунками з командного рядка. Будь "
-"ласка, встановіть, наприклад, «pkcon» (частину PackageKit)."
+msgstr "Не знайдено відповідного засобу керування пакунками з командного рядка. Будь ласка, встановіть, наприклад, «pkcon» (частину PackageKit)."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
