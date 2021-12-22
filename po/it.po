@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: Alessandro Mandelli <mandelli.alessandro@ngi.it>\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -467,14 +467,12 @@ msgstr "Nessuna violenza nel fantasy"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:852
 msgid "Characters in unsafe situations easily distinguishable from reality"
-msgstr ""
-"Personaggi in situazioni rischiose facilmente distinguibili dalla realtà"
+msgstr "Personaggi in situazioni rischiose facilmente distinguibili dalla realtà"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:854
 msgid "Characters in aggressive conflict easily distinguishable from reality"
-msgstr ""
-"Personaggi in conflitti aggressivi facilmente distinguibili dalla realtà"
+msgstr "Personaggi in conflitti aggressivi facilmente distinguibili dalla realtà"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:856
@@ -669,8 +667,7 @@ msgstr "Discriminazione progettata per causare danni emotivi"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:971
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
-msgstr ""
-"Discriminazione esplicita basata sul sesso, sessualità, razza o religione"
+msgstr "Discriminazione esplicita basata sul sesso, sessualità, razza o religione"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
@@ -690,8 +687,7 @@ msgstr "Riferimenti espliciti a specifici marchi o prodotti commerciali"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:982
 msgid "Users are encouraged to purchase specific real-world items"
-msgstr ""
-"Gli utenti sono incoraggiati ad acquistare specifici oggetti del mondo reale"
+msgstr "Gli utenti sono incoraggiati ad acquistare specifici oggetti del mondo reale"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:987
@@ -761,8 +757,7 @@ msgstr "Funzionalità di chat audio e video non controllata fra utenti"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1028
 msgid "No sharing of social network usernames or email addresses"
-msgstr ""
-"Nessuna condivisione di nomi utente di social network o di indirizzi email"
+msgstr "Nessuna condivisione di nomi utente di social network o di indirizzi email"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1030
@@ -782,15 +777,12 @@ msgstr "Verifica dell'ultima versione dell'applicazione"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1041
 msgid "Sharing diagnostic data that does not let others identify the user"
-msgstr ""
-"Condivisione di dati diagnostici che non consentono agli altri di "
-"identificare l'utente"
+msgstr "Condivisione di dati diagnostici che non consentono agli altri di identificare l'utente"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
 msgid "Sharing information that lets others identify the user"
-msgstr ""
-"Condivisione di informazioni che consentono ad altri di identificare l'utente"
+msgstr "Condivisione di informazioni che consentono ad altri di identificare l'utente"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1048
@@ -974,9 +966,7 @@ msgstr "La dimensione del file recuperato è zero."
 #.
 #: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
-"app;applicazione;applicazioni;pacchetto;programma;suite;tool;strumento;"
-"strumenti"
+msgstr "app;applicazione;applicazioni;pacchetto;programma;suite;tool;strumento;strumenti"
 
 #: src/as-pool.c:1114
 msgid "Metadata files have errors:"
@@ -1379,9 +1369,7 @@ msgstr "È stata trovata la proprietà `version`su questo elemento richiesto / r
 msgid ""
 "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
 "ge` is permitted."
-msgstr ""
-"Operazione di comparazione della versione non valida sull'elemento di "
-"relazione. Sono consentiti solo eq/ne/lt/gt/le/ge."
+msgstr "Operazione di comparazione della versione non valida sull'elemento di relazione. Sono consentiti solo eq/ne/lt/gt/le/ge."
 
 #: src/as-validator-issue-tag.h:282
 msgid ""
@@ -1418,9 +1406,7 @@ msgstr ""
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
-msgstr ""
-"La categoria definita nel file .desktop non è valida. Fare riferimento alla "
-"specifica XDG Menu per l'elenco delle categoria valide."
+msgstr "La categoria definita nel file .desktop non è valida. Fare riferimento alla specifica XDG Menu per l'elenco delle categoria valide."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:308
@@ -1492,10 +1478,7 @@ msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
 "defining multiple package names per component."
-msgstr ""
-"Il tag «pkgname» compare più volte. Potrebbe essere utile creare un meta-"
-"pacchetto contenente i file metainfo e .desktop per evitare la definizione "
-"di più nomi di pacchetto per componente."
+msgstr "Il tag «pkgname» compare più volte. Potrebbe essere utile creare un meta-pacchetto contenente i file metainfo e .desktop per evitare la definizione di più nomi di pacchetto per componente."
 
 #: src/as-validator-issue-tag.h:367
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -1524,8 +1507,7 @@ msgstr "Icone di tipo `stock` o `cached` non devono contenere un URL, un percors
 #: src/as-validator-issue-tag.h:395
 #, fuzzy
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
-msgstr ""
-"Icone di tipo «remote» devono contenere un URL all'icona di riferimento."
+msgstr "Icone di tipo «remote» devono contenere un URL all'icona di riferimento."
 
 #: src/as-validator-issue-tag.h:400
 msgid "Unable to reach remote icon at the given web location - does it exist?"
@@ -1542,9 +1524,7 @@ msgstr ""
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr ""
-"I file metainfo possono contenere solamente icone di tipo «stock» o "
-"«remote», il tipo impostato non è valido."
+msgstr "I file metainfo possono contenere solamente icone di tipo «stock» o «remote», il tipo impostato non è valido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
@@ -1552,9 +1532,7 @@ msgstr ""
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr ""
-"Proprietà «type» non valida per questo tag «url». Questo tipo di URL non è "
-"compreso nella specifica AppStream."
+msgstr "Proprietà «type» non valida per questo tag «url». Questo tipo di URL non è compreso nella specifica AppStream."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
@@ -1600,9 +1578,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in collection AppStream XML."
-msgstr ""
-"Il tag «update_contact» non dovrebbe essere incluso nelle collezione "
-"AppStream XML."
+msgstr "Il tag «update_contact» non dovrebbe essere incluso nelle collezione AppStream XML."
 
 #: src/as-validator-issue-tag.h:470
 msgid ""
@@ -1704,9 +1680,7 @@ msgstr ""
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"È stato specificato un tag «extends», ma il componente non è di tipo "
-"«addon», «localization» o «repository»."
+msgstr "È stato specificato un tag «extends», ma il componente non è di tipo «addon», «localization» o «repository»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:552
@@ -1751,9 +1725,7 @@ msgstr ""
 #: src/as-validator-issue-tag.h:586
 #, fuzzy
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr ""
-"La didascalia dello screenshot è troppo lunga (dovrebbe avere fino a 80 "
-"caratteri)"
+msgstr "La didascalia dello screenshot è troppo lunga (dovrebbe avere fino a 80 caratteri)"
 
 #: src/as-validator-issue-tag.h:591
 #, fuzzy
@@ -1770,8 +1742,7 @@ msgstr "L'XML di questo file non è corretto."
 msgid ""
 "Invalid tag found in collection metadata. Only `component` tags are "
 "permitted."
-msgstr ""
-"Tag non valido nei metadati, sono consentiti solamente tag «component»."
+msgstr "Tag non valido nei metadati, sono consentiti solamente tag «component»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
@@ -1957,9 +1928,7 @@ msgstr ""
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"L'ID del componente contiene un carattere non valido. Sono consentiti solo "
-"caratteri ASCII, punti e numeri."
+msgstr "L'ID del componente contiene un carattere non valido. Sono consentiti solo caratteri ASCII, punti e numeri."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2229,8 +2198,7 @@ msgstr "Opzione «%s» sconosciuta."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Eseguire \"%s --help\" per l'elenco completo delle opzioni a riga di comando."
+msgstr "Eseguire \"%s --help\" per l'elenco completo delle opzioni a riga di comando."
 
 #: tools/appstreamcli.c:199
 #, c-format
@@ -2329,9 +2297,7 @@ msgstr "Considera il file di input nel formato selezionato («yaml» o «text»)
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr ""
-"Limita il numero di voci di rilascio incluse nel file metainfo (0 per nessun "
-"limite)"
+msgstr "Limita il numero di voci di rilascio incluse nel file metainfo (0 per nessun limite)"
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:854
@@ -2411,8 +2377,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1159
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
-"Esegue il dump dei metadati XML per un componente che corrisponde all'ID"
+msgstr "Esegue il dump dei metadati XML per un componente che corrisponde all'ID"
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
 #: tools/appstreamcli.c:1164
@@ -2427,9 +2392,7 @@ msgstr "Esegue la validazione dei file XML AppStream"
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Esegue la validazione di un file di un'applicazione installata per metadati "
-"validi"
+msgstr "Esegue la validazione di un file di un'applicazione installata per metadati validi"
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
@@ -2449,8 +2412,7 @@ msgstr "Rimuove software tramite l'ID del componente"
 #. TRANSLATORS: `appstreamcli status` command description.
 #: tools/appstreamcli.c:1197
 msgid "Display status information about available AppStream metadata."
-msgstr ""
-"Visualizza informazioni di stato riguardo ai metadati AppStream installati."
+msgstr "Visualizza informazioni di stato riguardo ai metadati AppStream installati."
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
 #: tools/appstreamcli.c:1202
@@ -2530,9 +2492,7 @@ msgstr "Il file dei metadati «%s» non esiste."
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
-"Potrebbero essere necessari i permessi di amministrazione per eseguire "
-"questa azione."
+msgstr "Potrebbero essere necessari i permessi di amministrazione per eseguire questa azione."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
@@ -2860,9 +2820,7 @@ msgstr ""
 
 #: tools/ascli-actions-validate.c:392 tools/ascli-actions-validate.c:488
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
-"È necessario specificare una directory principale per iniziare la "
-"validazione."
+msgstr "È necessario specificare una directory principale per iniziare la validazione."
 
 #. TRANSLATORS: A plain license ID
 #: tools/ascli-actions-validate.c:528
