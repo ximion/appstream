@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 22:22+0100\n"
-"PO-Revision-Date: 2021-12-22 17:28+0000\n"
+"PO-Revision-Date: 2021-12-24 23:51+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
@@ -1221,11 +1221,10 @@ msgid "The component ID should only contain lowercase characters."
 msgstr "Komponent-ID:t bör endast innehålla gemena tecken."
 
 #: src/as-validator-issue-tag.h:146
-#, fuzzy
 msgid ""
 "The domain part of the rDNS component ID (first two parts) must only contain "
 "lowercase characters."
-msgstr "Komponent-ID:t bör endast innehålla gemener."
+msgstr "Domändelen av rDNS-komponent-ID:t (de första två delarna) får endast innehålla gemener."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
