@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 22:22+0100\n"
-"PO-Revision-Date: 2021-12-24 23:51+0000\n"
+"PO-Revision-Date: 2021-12-27 01:52+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
@@ -770,7 +770,7 @@ msgstr "Dijeljenje korisničkih imena društvenih mreža ili adresa e-pošte"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1037
 msgid "No sharing of user information with third parties"
-msgstr "Bez dijeljenja korisničkih podataka sa sporednim strankama"
+msgstr "Bez dijeljenja korisničkih podataka s trećim strankama"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1039
@@ -1338,18 +1338,14 @@ msgstr "Snimka ekrana nema podnaslov. Razmotri mogućnost dodavanja podnaslova."
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
-msgstr ""
-"Videosnimka ekrana ne navodi korišteni videokodek koji je korišten u `codec` "
-"svojstvu."
+msgstr "Videosnimka ekrana ne navodi korišteni videokodek koji je korišten u svojstvu `codec`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:233
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
-msgstr ""
-"Videosnimka ekrana ne navodi format spremnika koji je korišten u `container` "
-"svojstvu."
+msgstr "Videosnimka ekrana ne navodi format spremnika koji je korišten u svojstvu `container`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:239
@@ -1489,7 +1485,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
+msgstr "Ova stavka `display_length` (duljina_prikaza) sadrži nevažeću duljinu prikaza. Njegova vrijednost mora biti kratki niz ynakova ili pozitivna cjelobrojna vrijednost koja označava logičke piksele. Za više informacija o ovoj oznaci pogledaj AppStream specifikaciju."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:325
@@ -1498,7 +1494,7 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
+msgstr "Ovo svojstvo `side`(strana) ove stavke `display_length` (duljina_prikaza) sadrži nevažeću vrijednost. Mora biti `shortest` (najkraći) ili `longest` (najduži) ili mora biti isključen kako bi implicirao `shortest` (najkraći), da bi se vrijednost stavke odnosila na najkraću ili najdužu stranu prikaza."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:332
@@ -1765,9 +1761,7 @@ msgstr ""
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
-msgstr ""
-"Ovoj `web-application` komponenti nedostaje `icon` oznaka za navođenje "
-"ispravne ikone."
+msgstr "Ovoj `web-application` komponenti nedostaje `icon` oznaka za navođenje ispravne ikone."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:543
@@ -1801,23 +1795,19 @@ msgstr ""
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"Navedena je `extends` oznaka, ali komponenta nije vrste `addon`, "
-"`localization` ili `repository`."
+msgstr "Navedena je oznaka `extends`, ali komponenta nije vrste `addon`, `localization` ili `repository`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:567
 msgid "The component is an addon, but no `extends` tag was specified."
-msgstr "Komponenta je dodatak, ali `extends` oznaka nije navedena."
+msgstr "Komponenta je dodatak, ali oznaka `extends` nije navedena."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:573
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
-msgstr ""
-"Ovoj `localization` komponenti nedostaje `extends` oznaka za navođenje "
-"komponenata kojima dodaje lokalizaciju."
+msgstr "Ovoj komponenti `localization` nedostaje oznaka `extends` za navođenje komponenata kojima dodaje lokalizaciju."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:579
@@ -1971,7 +1961,7 @@ msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
+msgstr "Trojna platforma za ovo izdanje nije važeća. Mora biti u obliku `architecture-oskernel-osenv` – pogledajte dokumentaciju AppStreama ili informacije o normaliziranim trojnim GNU platformama za više informacija i valjana polja."
 
 #: src/as-validator-issue-tag.h:708
 msgid "The selected checksumming algorithm is unsupported or unknown."
@@ -2068,7 +2058,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
+msgstr "Oznaka najviše razine `mimetypes` je zastarjela. Umjesto toga, upotrijebite oznake `mediatype` u bloku `provides` kako biste naznačili da vaš softver pruža mogućnost baratanja medijima za zadane vrste."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:777
@@ -2076,12 +2066,12 @@ msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
 "questions at https://hughsie.github.io/oars/"
-msgstr ""
+msgstr "Ova komponenta nema oznaku `content_rating` (ocjenjivanje sadržaja) za pružanje informacija o dobnoj kategorizaciji. Podatke o oznakama možete generirati online, odgovaranjem na nekoliko pitanja na https://hughsie.github.io/oars/"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:784
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "Ovoj `tag` (oznaci) nedostaje atribut `namespace` (imenskog prostor)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:790
@@ -2374,9 +2364,7 @@ msgstr ""
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Pokreni „%s --help” za prikaz popisa dostupnih naredbi i mogućnosti. Koristi "
-"„%s %s --help” za prikaz popisa mogućnosti za navedenu podnaredbu."
+msgstr "Pokreni „%s --help” za prikaz popisa dostupnih naredbi i mogućnosti. Koristi „%s %s --help” za prikaz popisa mogućnosti koje su specifične za ovu podnaredbu."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2388,7 +2376,7 @@ msgstr "Prisilno aktualiziraj predmemoriju."
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
+msgstr "Ograničite osvježavanje predmemorije na podatke iz određenog izvora, npr. `os` ili `flatpak`. Može se navesti više puta."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:478
@@ -2482,7 +2470,7 @@ msgstr "Izradi rezultat u odabranom formatu („yaml” ili „text”)."
 #: tools/appstreamcli.c:930
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
-msgstr ""
+msgstr "Sastavljena binarna datoteka „%s” nije pronađena! Ne može se nastaviti."
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:938
@@ -2881,10 +2869,7 @@ msgstr ""
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
-msgstr ""
-"U datoteci metapodataka nije navedena nijedna pružena binarna datoteka. "
-"Također nijedna navedena nijedna izvršna naredba putem „--exec”. Nije moguće "
-"stvoriti „Exec=” ključ."
+msgstr "U datoteci metapodataka nije navedena nijedna binarna datoteka. Također nijedna navedena nijedna izvršna naredba putem „--exec”. Nije moguće stvoriti „Exec=” ključ."
 
 #: tools/ascli-actions-misc.c:300
 #, c-format
@@ -2916,7 +2901,7 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:473
 msgid "You need to specify a NEWS format to write the output in."
-msgstr "Mora se navesti jedan NEWS format u kojem će se zapisati rezultat."
+msgstr "Mora se navesti jedan NEWS format u koji će se zapisati rezultat."
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
