@@ -23,10 +23,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 22:22+0100\n"
-"PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: John Vandenberg <jayvdb@gmail.com>\n"
-"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
-"translations/id/>\n"
+"PO-Revision-Date: 2021-12-28 09:54+0000\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1123,7 +1122,7 @@ msgstr ""
 msgid ""
 "The description line does not start with a capitalized word, project name or "
 "number."
-msgstr ""
+msgstr "Baris deskripsi tidak dimulai dengan kata yang dikapitalkan, nama proyek, atau angka."
 
 #: src/as-validator-issue-tag.h:91
 msgid ""
@@ -1218,16 +1217,14 @@ msgstr ""
 "dengan garis bawah."
 
 #: src/as-validator-issue-tag.h:141
-#, fuzzy
 msgid "The component ID should only contain lowercase characters."
 msgstr "ID komponen hanya boleh berisi huruf kecil."
 
 #: src/as-validator-issue-tag.h:146
-#, fuzzy
 msgid ""
 "The domain part of the rDNS component ID (first two parts) must only contain "
 "lowercase characters."
-msgstr "ID komponen hanya boleh berisi huruf kecil."
+msgstr "Bagian domain dari ID komponen rDNS (dua bagian pertama) hanya boleh berisi huruf kecil."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
@@ -1453,13 +1450,10 @@ msgstr ""
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:287
-#, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
 "ge` is permitted."
-msgstr ""
-"Operasi perbandingan versi tidak valid pada item relasi. Hanya eq/ne/lt/gt/"
-"le/ge yang diizinkan."
+msgstr "Operasi perbandingan versi tidak valid pada item relasi. Hanya 'eq/ne/lt/gt/le/ge' yang diizinkan."
 
 #: src/as-validator-issue-tag.h:292
 msgid ""
@@ -1606,17 +1600,14 @@ msgid "The component summary must not contain tabs or linebreaks."
 msgstr "Ringkasan komponen tidak boleh mengandung tab atau putus baris."
 
 #: src/as-validator-issue-tag.h:392
-#, fuzzy
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr ""
-"Ringkasan tidak boleh mengandung URL apa pun. Gunakan tag <url/> untuk "
-"tautan."
+msgstr "Ringkasan tidak boleh mengandung URL apa pun. Gunakan tag '<url/>' untuk tautan."
 
 #: src/as-validator-issue-tag.h:397
 msgid ""
 "The summary text does not start with a capitalized word, project name or "
 "number."
-msgstr ""
+msgstr "Teks ringkasan tidak dimulai dengan kata yang dikapitalkan, nama proyek, atau angka."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:403
