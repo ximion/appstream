@@ -74,6 +74,16 @@
 			</varlistentry>
 
 			<varlistentry>
+			<term>media_baseurl</term>
+			<listitem>
+				<para>
+					The base URL for media (screenshots, icons, ...) referenced in the metadata file.
+					If this is set, all urls in the document referencing media will be treated relative to the base url.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
 			<term>architecture</term>
 			<listitem>
 				<para>
