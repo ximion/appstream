@@ -1519,6 +1519,12 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 {
 	gchar *prop;
 
+	/* validate presence of version property */
+	prop = as_xml_get_prop_value (node, "version");
+	if (prop == NULL)
+		as_validator_add_issue (validator, node, "release-version-missing", "version");
+	g_free (prop);
+
 	/* validate date strings */
 	prop = as_xml_get_prop_value (node, "date");
 	if (prop != NULL) {
