@@ -13,6 +13,7 @@
 # Joe Hansen <joedalton2@yahoo.dk>, 2015
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # scootergrisen <scootergrisen@gmail.com>, 2019. #zanata, 2021.
+# Egil Sandfeld <sandfeld@gmail.com>, 2022.
 #
 # Translators:
 msgid ""
@@ -20,10 +21,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 22:22+0100\n"
-"PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: Henrik Dankvardt <dankvardt@gmail.com>\n"
-"Language-Team: Danish <https://hosted.weblate.org/projects/appstream/"
-"translations/da/>\n"
+"PO-Revision-Date: 2022-01-02 21:56+0000\n"
+"Last-Translator: Egil Sandfeld <sandfeld@gmail.com>\n"
+"Language-Team: Danish <https://hosted.weblate.org/projects/appstream/translations/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -986,7 +986,7 @@ msgstr "Metadatafilen har fejl:"
 
 #: src/as-pool.c:2383
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 #: src/as-pool.c:2429
 msgid "Iconsets"
@@ -995,12 +995,12 @@ msgstr "Ikonsæt"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2476
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Data fra lokalt installeret software"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2479
 msgid "Software catalog data"
-msgstr ""
+msgstr "Software-katalogdata"
 
 #: src/as-provided.c:144
 msgid "Libraries"
@@ -1119,7 +1119,7 @@ msgstr ""
 msgid ""
 "The description line does not start with a capitalized word, project name or "
 "number."
-msgstr ""
+msgstr "Beskrivelseslinjen starter ikke med et ord, projektnavn eller tal med store bogstaver."
 
 #: src/as-validator-issue-tag.h:91
 msgid ""
@@ -1223,7 +1223,7 @@ msgstr "Komponent-id'et må kun indeholde små bogstaver."
 msgid ""
 "The domain part of the rDNS component ID (first two parts) must only contain "
 "lowercase characters."
-msgstr "Komponent-id'et må kun indeholde små bogstaver."
+msgstr "Domænedelen af rDNS-komponent-id'et (de to første dele) må kun indeholde små tegn."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
@@ -1527,7 +1527,7 @@ msgstr ""
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
+msgstr "Dette `hardware`element indeholder en ugyldig værdi. Det skal være et UUID-nummer (Computer Hardware ID (CHID)) uden parenteser."
 
 #: src/as-validator-issue-tag.h:337
 msgid ""
@@ -1596,16 +1596,15 @@ msgstr ""
 "Komponentens opsummering kan ikke indeholde tabulatorer eller linjeskift."
 
 #: src/as-validator-issue-tag.h:392
-#, fuzzy
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr ""
-"Opsummeringen må ikke indeholde nogen URL. Brug <url/>-taggene til links."
+msgstr "Opsummeringen må ikke indeholde URL. Brug <url/>-taggene til links."
 
 #: src/as-validator-issue-tag.h:397
+#, fuzzy
 msgid ""
 "The summary text does not start with a capitalized word, project name or "
 "number."
-msgstr ""
+msgstr "Beskrivelseslinjen starter ikke med et ord, projektnavn eller tal med store bogstaver."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:403
