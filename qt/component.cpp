@@ -139,6 +139,9 @@ Component::UrlKind Component::stringToUrlKind(const QString& urlKindString) {
     if (urlKindString == QLatin1String("contact")) {
         return UrlKindContact;
     }
+    if (urlKindString == QLatin1String("source")) {
+        return UrlKindSource;
+    }
     return UrlKindUnknown;
 }
 
@@ -150,6 +153,7 @@ Q_GLOBAL_STATIC_WITH_ARGS(UrlKindMap, urlKindMap, ({
         { Component::UrlKindFaq, QLatin1String("faq") },
         { Component::UrlKindHelp, QLatin1String("help") },
         { Component::UrlKindHomepage, QLatin1String("homepage") },
+        { Component::UrlKindSource, QLatin1String("source") },
         { Component::UrlKindUnknown, QLatin1String("unknown") },
     }));
 

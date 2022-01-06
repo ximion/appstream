@@ -526,7 +526,8 @@ test_yaml_read_url (void)
 				"  homepage: https://example.org\n"
 				"  faq: https://example.org/faq\n"
 				"  donation: https://example.org/donate\n"
-				"  contact: https://example.org/contact\n";
+				"  contact: https://example.org/contact\n"
+				"  source:  https://example.org/source\n";
 
 	cpt = as_yaml_test_read_data (yamldata_urls, NULL);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
@@ -535,6 +536,7 @@ test_yaml_read_url (void)
 	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_FAQ), ==, "https://example.org/faq");
 	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_DONATION), ==, "https://example.org/donate");
 	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_CONTACT), ==, "https://example.org/contact");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_SOURCE), ==, "https://example.org/source");
 }
 
 /**

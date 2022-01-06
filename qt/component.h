@@ -88,6 +88,7 @@ class APPSTREAMQT_EXPORT Component {
             UrlKindDonation,
             UrlTranslate,
             UrlKindContact
+            UrlKindSource
         };
         Q_ENUM(UrlKind)
 

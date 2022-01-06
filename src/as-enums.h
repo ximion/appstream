@@ -93,6 +93,7 @@ typedef enum {
 	AS_URL_KIND_DONATION,
 	AS_URL_KIND_TRANSLATE,
 	AS_URL_KIND_CONTACT,
+	AS_URL_KIND_SOURCE,
 	/*< private >*/
 	AS_URL_KIND_LAST
 } AsUrlKind;

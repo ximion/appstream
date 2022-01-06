@@ -91,6 +91,8 @@ as_url_kind_to_string (AsUrlKind url_kind)
 		return "translate";
 	if (url_kind == AS_URL_KIND_CONTACT)
 		return "contact";
+	if (url_kind == AS_URL_KIND_SOURCE)
+		return "source";
 	return "unknown";
 }
 
@@ -119,6 +121,8 @@ as_url_kind_from_string (const gchar *url_kind)
 		return AS_URL_KIND_TRANSLATE;
 	if (g_strcmp0 (url_kind, "contact") == 0)
 		return AS_URL_KIND_CONTACT;
+	if (g_strcmp0 (url_kind, "source") == 0)
+		return AS_URL_KIND_SOURCE;
 	return AS_URL_KIND_UNKNOWN;
 }
 
