@@ -201,6 +201,7 @@ Component& Component::operator=(const Component& other)
 Component::Component(Component&& other)
     : m_cpt(other.m_cpt)
 {
+    other.m_cpt = nullptr;
 }
 
 _AsComponent * AppStream::Component::asComponent() const
