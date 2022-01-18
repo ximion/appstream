@@ -201,7 +201,7 @@ Component& Component::operator=(const Component& other)
 Component::Component(Component&& other)
     : m_cpt(other.m_cpt)
 {
-    other.m_cpt = nullptr;
+    g_object_ref(other.m_cpt);
 }
 
 _AsComponent * AppStream::Component::asComponent() const
