@@ -4095,6 +4095,15 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 		as_component_set_pkgnames (cpt, strv);
 	}
 
+	/* sanity check */
+	if (as_is_empty (priv->id)) {
+		g_set_error_literal (error,
+				AS_METADATA_ERROR,
+				AS_METADATA_ERROR_FAILED,
+				"Component is invalid (essential tags are missing or empty).");
+		return FALSE;
+	}
+
 	return TRUE;
 }
 
@@ -5003,6 +5012,15 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 		}
 	}
 
+	/* sanity check */
+	if (as_is_empty (priv->id)) {
+		g_set_error_literal (error,
+				AS_METADATA_ERROR,
+				AS_METADATA_ERROR_FAILED,
+				"Component is invalid (essential tags are missing or empty).");
+		return FALSE;
+	}
+
 	return TRUE;
 }
 
@@ -5645,6 +5663,10 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
  * Load metadata for this component from an XML string.
  * You normally do not want to use this method directly and instead use the more
  * convenient API of #AsMetadata to create and update components.
+ *
+ * If this function returns %TRUE, a valid component is returned unless the selected
+ * format was %AS_FORMAT_KIND_DESKTOP_ENTRY, in which case a component ID will have to
+ * be set explicitly by the caller in order to make the component valid.
  *
  * Returns: %TRUE on success.
  *
