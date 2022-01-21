@@ -69,7 +69,8 @@ if get_option('maintainer')
                          '-Wnull-dereference',
                          '-Wfloat-equal',
                          #'-Wformat-signedness',
-                         '-Winline'
+                         '-Winline',
+                         '-Wno-error=comment',
     ]
     add_project_arguments(maintainer_c_args, language: 'c')
     add_project_arguments(maintainer_c_args, language: 'cpp')
