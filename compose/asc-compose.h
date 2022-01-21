@@ -171,6 +171,10 @@ AscIconPolicy		asc_compose_get_icon_policy (AscCompose *compose);
 void			asc_compose_set_icon_policy (AscCompose *compose,
 							AscIconPolicy policy);
 
+const gchar		*asc_compose_get_cainfo (AscCompose *compose);
+void			asc_compose_set_cainfo (AscCompose *compose,
+						const gchar *cainfo);
+
 const gchar		*asc_compose_get_data_result_dir (AscCompose *compose);
 void			asc_compose_set_data_result_dir (AscCompose *compose,
 							 const gchar *dir);

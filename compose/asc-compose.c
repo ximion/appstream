@@ -59,6 +59,7 @@ typedef struct
 	guint		min_l10n_percentage;
 	GPtrArray	*custom_allowed;
 	gssize		max_scr_size_bytes;
+	gchar		*cainfo;
 
 	AscComposeFlags	flags;
 	AscIconPolicy	icon_policy;
@@ -123,6 +124,7 @@ asc_compose_finalize (GObject *object)
 	g_ptr_array_unref (priv->units);
 	g_ptr_array_unref (priv->results);
 	g_ptr_array_unref (priv->custom_allowed);
+	g_free (priv->cainfo);
 
 	g_hash_table_unref (priv->allowed_cids);
 	g_hash_table_unref (priv->known_cids);
@@ -405,6 +407,35 @@ asc_compose_set_icon_policy (AscCompose *compose, AscIconPolicy policy)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	priv->icon_policy = policy;
+}
+
+/**
+ * asc_compose_get_cainfo:
+ * @compose: an #AscCompose instance.
+ *
+ * Get the CA file used to verify peers with, or %NULL for default.
+ */
+const gchar*
+asc_compose_get_cainfo (AscCompose *compose)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	return priv->cainfo;
+}
+
+/**
+ * asc_compose_set_cainfo:
+ * @compose: an #AscCompose instance.
+ * @cainfo: a valid file path
+ *
+ * Set a CA file holding one or more certificates to verify peers with
+ * for download operations performed by this #AscCompose.
+ */
+void
+asc_compose_set_cainfo (AscCompose *compose, const gchar *cainfo)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	as_assign_string_safe (priv->cainfo, cainfo);
 }
 
 /**
@@ -1298,6 +1329,8 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 		g_critical ("Unable to initialize networking: %s", tmp_error->message);
 		g_error_free (g_steal_pointer (&tmp_error));
 	}
+	if (priv->cainfo != NULL)
+		as_curl_set_cainfo (acurl, priv->cainfo);
 
 	/* give unit a hint as to which paths we want to read */
 	share_dir = g_build_filename (priv->prefix, "share", NULL);

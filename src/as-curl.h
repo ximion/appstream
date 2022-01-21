@@ -54,6 +54,9 @@ GQuark			as_curl_error_quark (void);
 
 AsCurl			*as_curl_new (GError **error);
 
+void			as_curl_set_cainfo (AsCurl *acurl,
+						const gchar *cainfo);
+
 GBytes			*as_curl_download_bytes (AsCurl *acurl,
 						 const gchar *url,
 						 GError **error);

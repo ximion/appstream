@@ -173,6 +173,20 @@ verify_and_return:
 }
 
 /**
+ * as_curl_set_cainfo:
+ * @acurl: an #AsCurl instance.
+ * @cainfo: Path to a CA file.
+ *
+ * Set a CA file holding one or more certificates to verify the peer with.
+ **/
+void
+as_curl_set_cainfo (AsCurl *acurl, const gchar *cainfo)
+{
+	AsCurlPrivate *priv = GET_PRIVATE (acurl);
+	curl_easy_setopt (priv->curl, CURLOPT_CAINFO, cainfo);
+}
+
+/**
  * as_curl_download_bytes:
  * @acurl: an #AsCurl instance.
  * @url: URL to download
