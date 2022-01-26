@@ -56,7 +56,10 @@ class APPSTREAMQT_EXPORT Metadata {
             FormatVersionV08,
             FormatVersionV09,
             FormatVersionV010,
-            FormatVersionV011
+            FormatVersionV011,
+            FormatVersionV012,
+            FormatVersionV013,
+            FormatVersionV014,
         };
         Q_ENUM(FormatVersion)
 

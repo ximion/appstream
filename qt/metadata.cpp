@@ -78,29 +78,14 @@ QString AppStream::Metadata::formatKindToString(AppStream::Metadata::FormatKind 
     return QLatin1String("unknown");
 }
 
-typedef QHash<Metadata::FormatVersion, QString> VersionMap;
-Q_GLOBAL_STATIC_WITH_ARGS(VersionMap, versionMap, ( {
-    { Metadata::FormatVersionV06, QLatin1String("0.6") },
-    { Metadata::FormatVersionV07, QLatin1String("0.7") },
-    { Metadata::FormatVersionV08, QLatin1String("0.8") },
-    { Metadata::FormatVersionV09, QLatin1String("0.9") },
-    { Metadata::FormatVersionV010, QLatin1String("0.10") },
-    { Metadata::FormatVersionV011, QLatin1String("0.11") },
-    }
-));
-
 AppStream::Metadata::FormatVersion AppStream::Metadata::stringToFormatVersion(const QString& formatVersionString)
 {
-    return versionMap->key(formatVersionString, AppStream::Metadata::FormatVersionV010);
+    return static_cast<Metadata::FormatVersion>(as_format_version_from_string(qPrintable(formatVersionString)));
 }
 
 QString AppStream::Metadata::formatVersionToString(AppStream::Metadata::FormatVersion version)
 {
-    const QString value = versionMap->value(version);
-    if (value.isEmpty()) {
-        return QLatin1String("?.??");
-    }
-    return value;
+    return QString::fromUtf8(as_format_version_to_string(static_cast<AsFormatVersion>(version)));
 }
 
 Metadata::Metadata()

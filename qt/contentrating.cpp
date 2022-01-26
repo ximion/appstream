@@ -56,24 +56,14 @@ public:
     AsContentRating* m_contentRating;
 };
 
-typedef QHash<ContentRating::RatingValue, QString> RatingMap;
-Q_GLOBAL_STATIC_WITH_ARGS(RatingMap, ratingMap, ( {
-    { ContentRating::RatingValueUnknown, QLatin1String("unknown") },
-    { ContentRating::RatingValueNone, QLatin1String("none") },
-    { ContentRating::RatingValueMild, QLatin1String("mild") },
-    { ContentRating::RatingValueModerate, QLatin1String("moderate") },
-    { ContentRating::RatingValueIntense, QLatin1String("intense") }
-    }
-));
-
 AppStream::ContentRating::RatingValue AppStream::ContentRating::stringToRatingValue(const QString& ratingValue)
 {
-    return ratingMap->key(ratingValue, AppStream::ContentRating::RatingValueUnknown);
+    return static_cast<ContentRating::RatingValue>(as_content_rating_value_from_string(qPrintable(ratingValue)));
 }
 
 QString AppStream::ContentRating::ratingValueToString(AppStream::ContentRating::RatingValue ratingValue)
 {
-    return ratingMap->value(ratingValue);
+    return QString::fromUtf8(as_content_rating_value_to_string(static_cast<AsContentRatingValue>(ratingValue)));
 }
 
 ContentRating::ContentRating()

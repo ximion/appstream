@@ -38,127 +38,27 @@
 
 using namespace AppStream;
 
-typedef QHash<Component::Kind, QString> KindMap;
-Q_GLOBAL_STATIC_WITH_ARGS(KindMap, kindMap, ( {
-    { Component::KindGeneric, QLatin1String("generic") },
-    { Component::KindDesktopApp, QLatin1String("desktop-application") },
-    { Component::KindConsoleApp, QLatin1String("console-application") },
-    { Component::KindWebApp, QLatin1String("web-application") },
-    { Component::KindAddon, QLatin1String("addon") },
-    { Component::KindFont, QLatin1String("font") },
-    { Component::KindCodec, QLatin1String("codec") },
-    { Component::KindInputmethod, QLatin1String("inputmethod") },
-    { Component::KindFirmware, QLatin1String("firmware") },
-    { Component::KindDriver, QLatin1String("driver") },
-    { Component::KindLocalization, QLatin1String("localization") },
-    { Component::KindService, QLatin1String("service") },
-    { Component::KindRepository, QLatin1String("repository") },
-    { Component::KindOperatingSystem, QLatin1String("operating-system") },
-    { Component::KindIconTheme, QLatin1String("icon-theme") },
-    { Component::KindRuntime, QLatin1String("runtime") },
-    { Component::KindUnknown, QLatin1String("unknown") }
-    }
-));
-
-QString Component::kindToString(Component::Kind kind) {
-    return kindMap->value(kind);
+QString Component::kindToString(Component::Kind kind)
+{
+    return QString::fromUtf8(as_component_kind_to_string(static_cast<AsComponentKind>(kind)));
 }
 
-Component::Kind Component::stringToKind(const QString& kindString) {
+Component::Kind Component::stringToKind(const QString& kindString)
+{
     if(kindString.isEmpty()) {
         return KindGeneric;
     }
-    if(kindString ==  QLatin1String("generic"))
-        return KindGeneric;
-
-    if (kindString == QLatin1String("desktop-application"))
-        return KindDesktopApp;
-
-    if (kindString == QLatin1String("console-application"))
-        return KindConsoleApp;
-
-    if (kindString == QLatin1String("web-application"))
-        return KindWebApp;
-
-    if (kindString == QLatin1String("addon"))
-        return KindAddon;
-
-    if (kindString == QLatin1String("font"))
-        return KindFont;
-
-    if (kindString == QLatin1String("codec"))
-        return KindCodec;
-
-    if (kindString==QLatin1String("inputmethod"))
-        return KindInputmethod;
-
-    if (kindString == QLatin1String("firmware"))
-        return KindFirmware;
-
-    if (kindString == QLatin1String("driver"))
-        return KindDriver;
-
-    if (kindString == QLatin1String("localization"))
-        return KindLocalization;
-
-    if (kindString == QLatin1String("service"))
-        return KindService;
-
-    if (kindString == QLatin1String("repository"))
-        return KindRepository;
-
-    if (kindString == QLatin1String("operating-system"))
-        return KindOperatingSystem;
-
-    if (kindString == QLatin1String("icon-theme"))
-        return KindIconTheme;
-
-    if (kindString == QLatin1String("runtime"))
-        return KindRuntime;
-
-    return KindUnknown;
-
+    return static_cast<Component::Kind>(as_component_kind_from_string(qPrintable(kindString)));
 }
 
-Component::UrlKind Component::stringToUrlKind(const QString& urlKindString) {
-    if (urlKindString == QLatin1String("homepage")) {
-        return UrlKindHomepage;
-    }
-    if (urlKindString == QLatin1String("bugtracker")) {
-        return UrlKindBugtracker;
-    }
-    if (urlKindString == QLatin1String("faq")) {
-        return UrlKindFaq;
-    }
-    if (urlKindString == QLatin1String("help")) {
-        return UrlKindHelp;
-    }
-    if (urlKindString == QLatin1String("donation")) {
-        return UrlKindDonation;
-    }
-    if (urlKindString == QLatin1String("contact")) {
-        return UrlKindContact;
-    }
-    if (urlKindString == QLatin1String("translate")) {
-        return UrlTranslate;
-    }
-    return UrlKindUnknown;
+QString Component::urlKindToString(Component::UrlKind kind)
+{
+    return QString::fromUtf8(as_url_kind_to_string(static_cast<AsUrlKind>(kind)));
 }
 
-typedef QHash<Component::UrlKind, QString> UrlKindMap;
-Q_GLOBAL_STATIC_WITH_ARGS(UrlKindMap, urlKindMap, ({
-        { Component::UrlKindBugtracker, QLatin1String("bugtracker") },
-        { Component::UrlKindContact, QLatin1String("contact") },
-        { Component::UrlKindDonation, QLatin1String("donation") },
-        { Component::UrlKindFaq, QLatin1String("faq") },
-        { Component::UrlKindHelp, QLatin1String("help") },
-        { Component::UrlKindHomepage, QLatin1String("homepage") },
-        { Component::UrlTranslate, QLatin1String("translate") },
-        { Component::UrlKindUnknown, QLatin1String("unknown") },
-    }));
-
-QString Component::urlKindToString(Component::UrlKind kind) {
-    return urlKindMap->value(kind);
+Component::UrlKind Component::stringToUrlKind(const QString& urlKindString)
+{
+    return static_cast<Component::UrlKind>(as_url_kind_from_string(qPrintable(urlKindString)));
 }
 
 QString Component::scopeToString(Component::Scope scope)
