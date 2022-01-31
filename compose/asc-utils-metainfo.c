@@ -51,7 +51,6 @@ asc_parse_metainfo_data (AscResult *cres, AsMetadata *mdata, GBytes *bytes, cons
 {
 	g_autoptr(GError) error = NULL;
 	AsComponent *cpt;
-	GPtrArray *releases;
 
 	g_return_val_if_fail (mi_basename != NULL, NULL);
 
@@ -99,9 +98,11 @@ asc_parse_metainfo_data (AscResult *cres, AsMetadata *mdata, GBytes *bytes, cons
 	/* limit the amount of releases that we add to the output metadata.
 	 * since releases are sorted with the newest one at the top, we will only
 	 * remove the older ones. */
-	releases = as_component_get_releases (cpt);
-	if (releases->len > MAX_RELEASE_INFO_COUNT)
-		g_ptr_array_set_size (releases, MAX_RELEASE_INFO_COUNT);
+	if (as_component_get_kind (cpt) != AS_COMPONENT_KIND_OPERATING_SYSTEM) {
+		GPtrArray *releases = as_component_get_releases (cpt);
+		if (releases->len > MAX_RELEASE_INFO_COUNT)
+			g_ptr_array_set_size (releases, MAX_RELEASE_INFO_COUNT);
+	}
 
 	return g_object_ref (cpt);
 }
