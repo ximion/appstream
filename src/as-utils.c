@@ -2180,16 +2180,14 @@ as_utils_install_metadata_file (AsMetadataLocation location,
  * Since: 0.14.2
  */
 gchar*
-as_get_user_cache_dir ()
+as_get_user_cache_dir (GError **error)
 {
 	const gchar *cache_root = g_get_user_cache_dir ();
 	if (cache_root == NULL) {
-		g_autoptr(GError) error = NULL;
-		gchar *tmp_dir = g_dir_make_tmp ("appstream-XXXXXX", &error);
+		gchar *tmp_dir = g_dir_make_tmp ("appstream-XXXXXX", error);
 		if (tmp_dir == NULL) {
 			/* something went very wrong here, we could neither get a user cache dir, nor
 			 * access to a temporary directory in /tmp */
-			g_error ("Unable to create temporary cache directory: %s", error->message);
 			return NULL;
 		}
 		return tmp_dir;

@@ -192,7 +192,7 @@ gboolean		as_utils_is_platform_triplet_arch (const gchar *arch);
 gboolean		as_utils_is_platform_triplet_oskernel (const gchar *os);
 gboolean		as_utils_is_platform_triplet_osenv (const gchar *env);
 
-gchar			*as_get_user_cache_dir ();
+gchar			*as_get_user_cache_dir (GError **error);
 
 gboolean		as_unichar_accepted (gunichar c);
 

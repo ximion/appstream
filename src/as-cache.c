@@ -170,10 +170,17 @@ as_cache_init (AsCache *cache)
 	/* we choose the system-wide cache directory if we are root, otherwise we will write to
 	 * a user-specific directory. The system cache dir is always considered immutable. */
 	priv->system_cache_dir = g_strdup (AS_APPSTREAM_SYS_CACHE_DIR);
-	if (as_utils_is_root ())
+	if (as_utils_is_root ()) {
 		priv->cache_root_dir = g_strdup (priv->system_cache_dir);
-	else
-		priv->cache_root_dir = as_get_user_cache_dir ();
+	} else {
+		g_autoptr(GError) tmp_error = NULL;
+		priv->cache_root_dir = as_get_user_cache_dir (&tmp_error);
+		if (priv->cache_root_dir == NULL) {
+			g_critical ("Failed to obtain user cache directory: %s", tmp_error->message);
+			priv->cache_root_dir = g_strdup ("/tmp");
+		}
+	}
+
 	priv->default_paths_changed = FALSE;
 }
 
