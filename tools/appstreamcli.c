@@ -1212,7 +1212,7 @@ as_client_run (char **argv, int argc)
 			_("Convert collection XML to YAML or vice versa."),
 			as_client_run_convert);
 	ascli_add_cmd (commands,
-			4, "compare-versions", "vercmp", "VER1 [COMP] VER2",
+			4, "vercmp", "compare-versions", "VER1 [COMP] VER2",
 			/* TRANSLATORS: `appstreamcli vercmp` command description. */
 			_("Compare two version numbers."),
 			as_client_run_compare_versions);
