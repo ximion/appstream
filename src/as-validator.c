@@ -778,6 +778,9 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	gboolean hyphen_found = FALSE;
 	g_autofree gchar *cid = (gchar*) xmlNodeGetContent (idnode);
 
+	if (g_str_has_prefix (cid, "."))
+		as_validator_add_issue (validator, idnode, "cid-dot-prefix", cid);
+
 	cid_parts = g_strsplit (cid, ".", -1);
 	if (g_strv_length (cid_parts) < 3) {
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
@@ -818,6 +821,7 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 
 		if (!hyphen_found && cid[i] == '-') {
 			hyphen_found = TRUE;
+			/* a hyphen in the ID is bad news, because we can't use the ID on DBus and it also clashes with other naming schemes */
 			as_validator_add_issue (validator, idnode, "cid-contains-hyphen", cid);
 		}
 
@@ -833,11 +837,6 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 						"%s: %s → _%s", cid, cid_parts[i], cid_parts[i]);
 			break;
 		}
-	}
-
-
-	/* a hyphen in the ID is bad news, because we can't use the ID on DBus and it also clashes with other naming schemes */
-	if (g_strstr_len (cid, -1, "-") != NULL) {
 	}
 
 	/* project-group specific constraints on the ID */

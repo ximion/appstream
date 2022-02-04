@@ -124,6 +124,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The component ID contains an invalid character. Only ASCII characters, dots and numbers are permitted.")
 	},
 
+	{ "cid-dot-prefix",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The component ID starts with a dot. This is not allowed.")
+	},
+
 	{ "cid-contains-hyphen",
 	  AS_ISSUE_SEVERITY_INFO,
 	  N_("The component ID contains a hyphen/minus. Using a hyphen is strongly discouraged, to improve interoperability with other tools such as D-Bus. "
