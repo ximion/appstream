@@ -777,9 +777,10 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	g_auto(GStrv) cid_parts = NULL;
 	gboolean hyphen_found = FALSE;
 	g_autofree gchar *cid = (gchar*) xmlNodeGetContent (idnode);
+	g_return_if_fail (cid != NULL);
 
-	if (g_str_has_prefix (cid, "."))
-		as_validator_add_issue (validator, idnode, "cid-dot-prefix", cid);
+	if (cid[0] != '\0' && g_ascii_ispunct (cid[0]))
+		as_validator_add_issue (validator, idnode, "cid-punctuation-prefix", cid);
 
 	cid_parts = g_strsplit (cid, ".", -1);
 	if (g_strv_length (cid_parts) < 3) {
@@ -816,7 +817,7 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 			c = g_utf8_substring (cid, i, i + 1);
 			as_validator_add_issue (validator, idnode,
 						"cid-invalid-character",
-						"%s: '%c'", cid, c);
+						"%s: '%s'", cid, c);
 		}
 
 		if (!hyphen_found && cid[i] == '-') {
