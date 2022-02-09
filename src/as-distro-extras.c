@@ -196,12 +196,10 @@ as_extract_icon_cache_tarball (const gchar *asicons_target,
 static gboolean
 as_pool_check_file_newer_than_cache (AsPool *pool, GPtrArray *file_list)
 {
-	guint i;
-
-	for (i = 0; i < file_list->len; i++) {
+	for (guint i = 0; i < file_list->len; i++) {
 		struct stat sb;
 		const gchar *fname = (const gchar*) g_ptr_array_index (file_list, i);
-		if (stat (fname, &sb) < 0)
+		if (stat (fname, &sb) == -1)
 			continue;
 		if (sb.st_ctime > as_pool_get_os_metadata_cache_age (pool)) {
 			/* we need to update the cache */
