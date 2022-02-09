@@ -253,6 +253,11 @@ as_description_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError
 			g_autofree gchar *clean_text = NULL;
 			g_autofree gchar *text_content = (gchar*) xmlNodeGetContent (iter);
 
+			/* Apparently the element is empty, which is odd. But we better add it instead
+			 * of completely ignoring it. */
+			if (text_content == NULL)
+				text_content = g_strdup ("");
+
 			/* remove extra whitespaces and linebreaks */
 			clean_text = as_sanitize_text_spaces (text_content);
 
@@ -288,6 +293,11 @@ as_description_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError
 					g_autofree gchar *clean_item = NULL;
 					g_autofree gchar *item_content = (gchar*) xmlNodeGetContent (iter2);
 					entry_no++;
+
+					/* Apparently the item text is empty, which is odd.
+					 * Let's add an empty entry, instead of ignoring it entirely. */
+					if (item_content == NULL)
+						item_content = g_strdup ("");
 
 					/* remove extra whitespaces and linebreaks */
 					clean_item = as_sanitize_text_spaces (item_content);

@@ -49,7 +49,7 @@ option('maintainer',
 )
 option('static-analysis',
        type : 'boolean',
-       value : true,
+       value : false,
        description : 'Enable GCC static analysis support'
 )
 
