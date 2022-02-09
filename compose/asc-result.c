@@ -360,7 +360,7 @@ asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, GBytes *b
 		g_autofree gchar *tmp = NULL;
 
 		old_hash_len = strlen (old_hash);
-		tmp = malloc(old_hash_len + data_len);
+		tmp = g_malloc (old_hash_len + data_len);
 		memcpy (tmp, old_hash, old_hash_len);
 		memcpy (tmp + old_hash_len, data, data_len);
 

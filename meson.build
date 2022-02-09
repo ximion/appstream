@@ -76,6 +76,10 @@ if get_option('maintainer')
     add_project_arguments(maintainer_c_args, language: 'cpp')
 endif
 
+if get_option('static-analysis') and host_machine.system() != 'windows'
+  add_project_arguments('-fanalyzer', language : 'c')
+endif
+
 # a few compiler warning flags we always want enabled
 add_project_arguments('-Werror=implicit-function-declaration', '-Wno-unused-parameter', language: 'c')
 add_project_arguments('-Wno-unused-parameter', language: 'cpp')

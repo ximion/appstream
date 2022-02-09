@@ -14,6 +14,7 @@ build_compose=true
 build_docs=false
 build_qt=true
 maintainer_mode=true
+static_analysis=false
 if [ "$ID" = "ubuntu" ] && [ "$VERSION_CODENAME" = "focal" ]; then
     # we don't make warnings fatal on Ubuntu 20.04
     maintainer_mode=false
@@ -37,6 +38,9 @@ if [ "$1" = "sanitize" ]; then
     echo "Running build with sanitizers 'address,undefined' enabled."
     # Slow unwind, but we get better backtraces
     export ASAN_OPTIONS=fast_unwind_on_malloc=0
+
+    echo "Running static analysis during build."
+    static_analysis=true
 fi;
 if [ "$1" = "codeql" ]; then
     build_type=debug
@@ -55,6 +59,7 @@ mkdir $build_dir && cd $build_dir
 meson --buildtype=$build_type \
       $sanitize_flags \
       -Dmaintainer=$maintainer_mode \
+      -Dstatic-analysis=$static_analysis \
       -Ddocs=$build_docs \
       -Dqt=$build_qt \
       -Dcompose=$build_compose \
