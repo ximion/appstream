@@ -77,7 +77,7 @@ if get_option('maintainer')
 endif
 
 if get_option('static-analysis') and host_machine.system() != 'windows'
-  add_project_arguments('-fanalyzer', language : 'c')
+  add_project_arguments(['-fanalyzer', '-Wno-analyzer-null-dereference'], language : 'c')
 endif
 
 # a few compiler warning flags we always want enabled
