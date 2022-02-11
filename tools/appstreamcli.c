@@ -915,6 +915,15 @@ as_client_run_metainfo_to_news (const gchar *command, char **argv, int argc)
 }
 
 /**
+ * as_client_check_compose_available:
+ */
+static gboolean
+as_client_check_compose_available (void)
+{
+	return g_file_test (LIBEXECDIR "/appstreamcli-compose", G_FILE_TEST_EXISTS);
+}
+
+/**
  * as_client_run_compose:
  *
  * Delegate the "compose" command to the appstream-compose binary,
@@ -927,7 +936,10 @@ as_client_run_compose (const gchar *command, char **argv, int argc)
 	g_autofree const gchar **asc_argv = NULL;
 
 	if (!g_file_test (ascompose_exe, G_FILE_TEST_EXISTS)) {
+		/* TRANSLATORS: appstreamcli-compose was not found */
 		ascli_print_stderr (_("Compose binary '%s' was not found! Can not continue."), ascompose_exe);
+		ascli_print_stderr (_("You may be able to install the AppStream Compose addon via: `%s`"),
+				    "sudo appstreamcli install org.freedesktop.appstream.compose");
 		return 4;
 	}
 
@@ -1015,6 +1027,7 @@ static gchar*
 as_client_get_help_summary (GPtrArray *commands)
 {
 	guint current_block_id = 0;
+	gboolean compose_available = FALSE;
 	g_autoptr(GArray) blocks_maxlen = NULL;
 	GString *string = g_string_new ("");
 
@@ -1023,6 +1036,7 @@ as_client_get_help_summary (GPtrArray *commands)
 				/* these are commands we can use with appstreamcli */
 				_("Subcommands:"));
 
+	compose_available = as_client_check_compose_available ();
 	blocks_maxlen = g_array_new (FALSE, FALSE, sizeof (guint));
 	for (guint i = 0; i < commands->len; i++) {
 		guint nlen;
@@ -1045,6 +1059,10 @@ as_client_get_help_summary (GPtrArray *commands)
 		guint synopsis_len;
 		g_autofree gchar *summary_wrap = NULL;
 		AsCliCommandItem *item = (AsCliCommandItem *) g_ptr_array_index (commands, i);
+
+		/* don't display compose help if ascompose binary was not found */
+		if (!compose_available && g_strcmp0 (item->name, "compose") == 0)
+			continue;
 
 		if (item->block_id != current_block_id) {
 			current_block_id = item->block_id;
@@ -1237,12 +1255,11 @@ as_client_run (char **argv, int argc)
 			/* TRANSLATORS: `appstreamcli metainfo-to-news` command description. */
 			_("Write NEWS text or YAML file with information from a metainfo file."),
 			as_client_run_metainfo_to_news);
-	if (g_file_test (LIBEXECDIR "/appstreamcli-compose", G_FILE_TEST_EXISTS))
-		ascli_add_cmd (commands,
-				5, "compose", NULL, NULL,
-				/* TRANSLATORS: `appstreamcli compose` command description. */
-				_("Compose AppStream collection metadata from directory trees."),
-				as_client_run_compose);
+	ascli_add_cmd (commands,
+			5, "compose", NULL, NULL,
+			/* TRANSLATORS: `appstreamcli compose` command description. */
+			_("Compose AppStream collection metadata from directory trees."),
+			as_client_run_compose);
 
 	/* we handle the unknown options later in the individual subcommands */
 	g_option_context_set_ignore_unknown_options (opt_context, TRUE);
