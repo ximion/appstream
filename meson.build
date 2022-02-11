@@ -1,5 +1,5 @@
 project('AppStream', 'c',
-  meson_version: '>=0.50',
+  meson_version: '>=0.56',
   default_options: ['c_std=c11', 'cpp_std=gnu++14'],
 
   license: 'LGPL-2.1+ and GPL-2.0+',
@@ -7,7 +7,7 @@ project('AppStream', 'c',
 )
 
 cc = meson.get_compiler('c')
-source_root = meson.source_root()
+source_root = meson.project_source_root()
 
 as_version = meson.project_version()
 as_api_level = '4'

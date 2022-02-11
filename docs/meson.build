@@ -136,7 +136,7 @@ if get_option('docs')
           timeout: 60
     )
 elif get_option('install-docs')
-    if run_command('[', '-d', join_paths(meson.current_source_dir(), 'html'), ']').returncode() == 0
+    if run_command('[', '-d', join_paths(meson.current_source_dir(), 'html'), ']', check: false).returncode() == 0
         # install documentation, if it exists
         install_subdir('html', install_dir: as_doc_target_dir)
 

@@ -24,22 +24,23 @@ if meson.version().version_compare('>=0.60')
     python_exe = find_program('python3', required: true)
 
     known_locale = run_command(python_exe,
-                           '-c',
-                           'print(open("'
-                                + join_paths(meson.source_root(), 'po', 'LINGUAS') +
-                            '", "r", encoding="utf-8").read())').stdout().split()
+                               '-c',
+                               'print(open("'
+                                    + join_paths(source_root, 'po', 'LINGUAS') +
+                                    '", "r", encoding="utf-8").read())',
+                               check: true).stdout().split()
 
     metainfo_i18n = custom_target('metainfo-i18n',
         input : [metainfo_with_relinfo, i18n_result[0]],
         output : 'org.freedesktop.appstream.cli.metainfo.xml',
         command : [python_exe,
                 join_paths(meson.current_source_dir(), 'translate-metainfo.py'),
-                itstool_exe.path(),
+                itstool_exe,
                 '@INPUT0@',
                 '@OUTPUT@',
                 'appstream',
                 join_paths(meson.current_source_dir(), 'its', 'metainfo.its'),
-                join_paths(meson.build_root(), 'po'),
+                join_paths(meson.project_build_root(), 'po'),
                 known_locale,
         ],
         install: true,

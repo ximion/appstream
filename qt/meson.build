@@ -2,7 +2,7 @@
 
 asqt_api_level = '2'
 
-add_languages('cpp')
+add_languages('cpp', native: true)
 
 qt = import('qt5')
 qt5_dep = dependency('qt5', modules: ['Core'])

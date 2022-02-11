@@ -141,7 +141,7 @@ aslib_gperf_xml = custom_target(
     output: 'as-tag-xml-private.h',
     input: 'as-tag-xml.gperf',
     command: [
-        gperf.path(),
+        gperf,
         '@INPUT@',
         '--output-file',
         '@OUTPUT@'
@@ -152,7 +152,7 @@ aslib_gperf_yaml = custom_target(
     output: 'as-tag-yaml-private.h',
     input: 'as-tag-yaml.gperf',
     command: [
-        gperf.path(),
+        gperf,
         '@INPUT@',
         '--output-file',
         '@OUTPUT@'
@@ -212,7 +212,8 @@ sed_prog = find_program('sed')
 pc_fixup = run_command(sed_prog,
                        '-i',
                        '/^Requires.private\|^Libs.private/ d',
-                       join_paths(meson.build_root(), 'meson-private', 'appstream.pc'))
+                       join_paths(meson.project_build_root(), 'meson-private', 'appstream.pc'),
+                       check: false)
 if pc_fixup.returncode() != 0
     error('Unable to fix up the .pc file:\n' + pc_fixup.stderr())
 endif
@@ -220,7 +221,7 @@ endif
 install_headers(aslib_pub_headers, subdir: 'appstream')
 
 if get_option ('gir')
-    as_gir_typelib = glib.generate_gir (
+    as_gir_typelib = glib.generate_gir(
         appstream_lib,
         sources: [aslib_src,
                   aslib_pub_headers,
