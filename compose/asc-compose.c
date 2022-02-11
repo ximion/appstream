@@ -1589,11 +1589,15 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (found_cpts, i));
 
 		/* icons */
-		if (!as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_IGNORE_ICONS))
+		if (!as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_IGNORE_ICONS)) {
 			asc_compose_process_icons (compose,
 						   ctask->result,
 						   cpt,
 						   ctask->unit);
+			/* skip the next steps if the component has been ignored */
+			if (asc_result_is_ignored (ctask->result, cpt))
+				continue;
+		}
 
 		/* screenshots, but only if we allow network access */
 		if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_ALLOW_NET) && acurl != NULL)
