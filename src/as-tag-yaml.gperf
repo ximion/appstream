@@ -12,6 +12,7 @@ struct yaml_tag_data { int name; unsigned int etag; };
 Type, AS_TAG_TYPE
 Priority, AS_TAG_PRIORITY
 Merge, AS_TAG_MERGE
+DateEOL, AS_TAG_DATE_EOL
 ID, AS_TAG_ID
 Package, AS_TAG_PKGNAME
 SourcePackage, AS_TAG_SOURCE_PKGNAME

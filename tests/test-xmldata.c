@@ -597,7 +597,7 @@ test_appstream_read_description (void)
 								 "<p>Paragraph</p>\n");
 }
 
-static const gchar *xmldata_simple =    "<component>\n"
+static const gchar *xmldata_simple =    "<component date_eol=\"2022-02-22T00:00:00Z\">\n"
 					"  <id>org.example.SimpleTest</id>\n"
 					"  <name>TestComponent</name>\n"
 					"  <name_variant_suffix>Generic</name_variant_suffix>\n"
@@ -620,6 +620,8 @@ test_xml_read_simple (void)
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "TestComponent");
 	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Just part of an unittest");
 	g_assert_cmpstr (as_component_get_name_variant_suffix (cpt), ==, "Generic");
+	g_assert_cmpstr (as_component_get_date_eol (cpt), ==, "2022-02-22T00:00:00Z");
+	g_assert_cmpint (as_component_get_timestamp_eol (cpt), ==, 1645488000);
 }
 
 /**
@@ -636,6 +638,7 @@ test_xml_write_simple (void)
 	cpt = as_component_new ();
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
 	as_component_set_id (cpt, "org.example.SimpleTest");
+	as_component_set_date_eol (cpt, "2022-02-22");
 
 	as_component_set_name (cpt, "TestComponent", "C");
 	as_component_set_summary (cpt, "Just part of an unittest", "C");

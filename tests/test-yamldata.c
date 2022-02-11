@@ -110,12 +110,12 @@ as_yaml_test_compare_yaml (const gchar *result, const gchar *expected)
 }
 
 /**
- * test_basic:
+ * test_yaml_basic:
  *
  * Test basic functions related to YAML processing.
  */
 static void
-test_basic (void)
+test_yaml_basic (void)
 {
 	g_autoptr(AsMetadata) mdata = NULL;
 	gchar *path;
@@ -216,6 +216,7 @@ test_yamlwrite_misc (void)
 	const gchar *expected_yaml =
 				"Type: firmware\n"
 				"ID: org.example.test.firmware\n"
+				"DateEOL: 2022-02-22T00:00:00Z\n"
 				"Package: fwdummy\n"
 				"Extends:\n"
 				"- org.example.alpha\n"
@@ -307,6 +308,7 @@ test_yamlwrite_misc (void)
 	cpt = as_component_new ();
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_FIRMWARE);
 	as_component_set_id (cpt, "org.example.test.firmware");
+	as_component_set_date_eol (cpt, "2022-02-22");
 	as_component_set_pkgnames (cpt, _PKGNAME1);
 	as_component_set_name (cpt, "Unittest Firmware", "C");
 	as_component_set_name (cpt, "Ünittest Fürmwäre (dummy Eintrag)", "de_DE");
@@ -559,6 +561,7 @@ test_yaml_corrupt_data (void)
 static const gchar *yamldata_simple_fields =
 					"Type: generic\n"
 					"ID: org.example.SimpleTest\n"
+					"DateEOL: 2022-02-22T00:00:00Z\n"
 					"Name:\n"
 					"  C: TestComponent\n"
 					"Summary:\n"
@@ -580,6 +583,7 @@ test_yaml_write_simple (void)
 	cpt = as_component_new ();
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
 	as_component_set_id (cpt, "org.example.SimpleTest");
+	as_component_set_date_eol (cpt, "2022-02-22");
 
 	as_component_set_name (cpt, "TestComponent", "C");
 	as_component_set_summary (cpt, "Just part of an unittest", "C");
@@ -606,6 +610,8 @@ test_yaml_read_simple (void)
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "TestComponent");
 	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Just part of an unittest");
 	g_assert_cmpstr (as_component_get_name_variant_suffix (cpt), ==, "Generic");
+	g_assert_cmpstr (as_component_get_date_eol (cpt), ==, "2022-02-22T00:00:00Z");
+	g_assert_cmpint (as_component_get_timestamp_eol (cpt), ==, 1645488000);
 }
 
 /**
@@ -1706,7 +1712,7 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
-	g_test_add_func ("/YAML/Basic", test_basic);
+	g_test_add_func ("/YAML/Basic", test_yaml_basic);
 	g_test_add_func ("/YAML/Write/Misc", test_yamlwrite_misc);
 
 	g_test_add_func ("/YAML/Read/CorruptData", test_yaml_corrupt_data);

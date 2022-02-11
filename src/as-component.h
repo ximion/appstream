@@ -218,6 +218,11 @@ AsComponentKind		as_component_get_kind (AsComponent *cpt);
 void			as_component_set_kind (AsComponent *cpt,
 						AsComponentKind value);
 
+const gchar		*as_component_get_date_eol (AsComponent *cpt);
+void			as_component_set_date_eol (AsComponent *cpt,
+						   const gchar *date);
+guint64			as_component_get_timestamp_eol (AsComponent *cpt);
+
 const gchar		*as_component_get_origin (AsComponent *cpt);
 void			as_component_set_origin (AsComponent *cpt,
 							const gchar *origin);

@@ -1664,6 +1664,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	AsComponent *cpt;
 	g_autofree gchar *cpttype = NULL;
 	g_autoptr(GHashTable) found_tags = NULL;
+	g_autofree gchar *date_eol_str = NULL;
 
 	AsFormatStyle mode;
 	gboolean has_metadata_license = FALSE;
@@ -1687,6 +1688,12 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		}
 	}
 
+	/* validate EOL date format */
+	date_eol_str = as_xml_get_prop_value (root, "date_eol");
+	if (date_eol_str != NULL)
+		as_validator_validate_iso8601_complete_date (validator, root, date_eol_str);
+
+	/* validate other component properties */
 	if ((as_component_get_priority (cpt) != 0) && (mode == AS_FORMAT_STYLE_METAINFO))
 		as_validator_add_issue (validator, root, "component-priority-in-metainfo", NULL);
 

@@ -36,6 +36,7 @@ G_BEGIN_DECLS
  * @AS_TAG_TYPE:			- / `Type`
  * @AS_TAG_PRIORITY:			- / `Priority`
  * @AS_TAG_MERGE:			- / `Merge`
+ * @AS_TAG_DATE_EOL:			- / `DateEOL`
  * @AS_TAG_ID:				`id` / `ID`
  * @AS_TAG_PKGNAME:			`pkgname` / `Package`
  * @AS_TAG_SOURCE_PKGNAME:		`source_pkgname` / `SourcePackage`
@@ -82,6 +83,7 @@ typedef enum {
 	AS_TAG_TYPE,
 	AS_TAG_PRIORITY,
 	AS_TAG_MERGE,
+	AS_TAG_DATE_EOL,
 	AS_TAG_ID,
 	AS_TAG_PKGNAME,
 	AS_TAG_SOURCE_PKGNAME,
