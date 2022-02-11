@@ -40,6 +40,7 @@ ascompose_pub_enums = glib.mkenums_simple('asc-enums-types',
 )
 
 ascompose_priv_headers = [
+    'asc-canvas-private.h',
     'asc-font.h',
     'asc-font-private.h',
     'asc-globals-private.h',

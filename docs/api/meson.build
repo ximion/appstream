@@ -24,3 +24,11 @@ meson.add_install_script ('sh', '-c',
                                   as_api_doc_target_dir,
                                   join_paths(gtk_doc_root, 'appstream'))
 )
+
+#
+# Build API documentation for libappstream-compose,
+# if the library is enabled.
+#
+if get_option('compose')
+    subdir('compose/')
+endif

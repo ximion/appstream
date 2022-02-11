@@ -1,6 +1,5 @@
 # Meson definition for AppStream Documentation
 
-
 #
 # Manual pages
 #
