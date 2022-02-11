@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Copyright (C) 2015-2021 Matthias Klumpp <mak@debian.org>
+# Copyright (C) 2015-2022 Matthias Klumpp <mak@debian.org>
 #
 # SPDX-License-Identifier: LGPL-2.1+
 

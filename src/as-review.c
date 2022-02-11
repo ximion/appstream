@@ -2,7 +2,7 @@
  *
  * Copyright (C) 2016 Canonical Ltd.
  * Copyright (C) 2016 Richard Hughes <richard@hughsie.com>
- * Copyright (C) 2020-2021 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2020-2022 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *

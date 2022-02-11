@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2020-2021 Matthias Klumpp <mak@debian.org>
+ * Copyright (C) 2020-2022 Matthias Klumpp <mak@debian.org>
  * Copyright (C) 2010 Julian Andres Klode <jak@debian.org>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
