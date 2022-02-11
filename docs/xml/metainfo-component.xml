@@ -57,9 +57,17 @@
 
 	<para>
 		The XML for a generic component definition starts with a <code>&lt;component&gt;</code> tag as the root element.
-		The <code>&lt;component&gt;</code> element must at least have an <literal>id</literal>, <literal>name</literal> and <literal>summary</literal> tag; and
+		The <code>&lt;component&gt;</code> element must at least have an <literal>id</literal>, <literal>name</literal> and <literal>summary</literal> tag;
 		a <literal>provides</literal> tag with appropriate children is highly recommended.
-		All possible tags in the generic set are:
+	</para>
+	<para>
+		In addition to the <literal>type</literal> attribute denoting the component type in case the component is not a <code>generic</code> component,
+		the <literal>component</literal> tag may also have a <literal>date_eol</literal> attribute that sets a date when the component stops to
+		be supported entirely (this may be the case for superseded legacy software like <code>org.python.python2</code>). The attribute value can be any
+		complete date or time in <ulink url="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</ulink>.
+	</para>
+	<para>
+		All possible tags which can be used with components of all types are:
 	</para>
 
 	<variablelist>
