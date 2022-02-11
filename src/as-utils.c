@@ -2115,7 +2115,7 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 			ret = as_utils_install_metadata_file_internal (filename, origin, path, destdir, TRUE, error);
 		} else {
 			path = g_build_filename (as_metadata_location_get_prefix (location),
-						 "app-info", "xmls", NULL);
+						 "app-info", "xml", NULL);
 			ret = as_utils_install_metadata_file_internal (filename, origin, path, destdir, FALSE, error);
 		}
 		break;

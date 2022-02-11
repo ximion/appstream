@@ -26,8 +26,8 @@
 			3rd-party repositories use a vendor name and repository-name combination, for example Ubuntu PPAs might get <filename>ppa-ubuntu12.04-username-foobar.xml</filename>.
 		</para>
 		<para>
-			There are two valid locations to store AppStream XML data. <filename>/usr/share/app-info/xmls</filename> stores all AppStream data which
-			has been installed via software packages, while <filename>/var/cache/app-info/xmls</filename> stores application data which was downloaded
+			There are two valid locations to store AppStream XML data. <filename>/usr/share/app-info/xml</filename> stores all AppStream data which
+			has been installed via software packages, while <filename>/var/cache/app-info/xml</filename> stores application data which was downloaded
 			by the package manager or placed there by other tools (for example, Limba).
 			The XML files can either be plain files or be compressed with gzip. It is always a good idea to compress the files, because they tend to become
 			quite large.
