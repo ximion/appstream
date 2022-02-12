@@ -44,7 +44,7 @@ you may want to take a look at the [AppStream Generator](https://github.com/ximi
 ### Dependencies
 
 #### Required
- * Meson (>= 0.48)
+ * Meson (>= 0.56)
  * glib2 (>= 2.58)
  * GObject-Introspection
  * libxml2
@@ -82,11 +82,12 @@ ninja test
 Possible AppStream-specific flags are:  
  -Dqt=true          -- Build the Qt interface library (default: false)  
  -Dvapi=true        -- Build Vala API to use the library with the Vala programming language (default: false)  
+ -Dcompose=true     -- Build libappstream-compose library and `appstreamcli compose` tool for composing metadata indices (default: false)  
+ -Dapt-support=true -- Enable integration with the APT package manager on Debian (default: false)  
  -Ddocs=true        -- Build specification and other documentation, requires DAPS (default: false)  
  -Dinstall-docs=true -- Install documentation (default: true)  
  -Dmaintainer=true  -- Enable strict compiler options - use this if you write a patch for AppStream (default: false)  
- -Dstemming=true    -- Enable support for stemming in fulltext searches (default: true)  
- -Dapt-support=true -- Enable integration with the APT package manager on Debian (default: false)
+ -Dstemming=true    -- Enable support for stemming in fulltext searches (default: true)
 
 ### Installation
 

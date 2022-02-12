@@ -13,6 +13,22 @@ option('qt',
        value : false,
        description : 'Build libappstream-qt'
 )
+option('compose',
+       type : 'boolean',
+       value : false,
+       description : 'Build libappstream-compose library and `appstreamcli compose` tool'
+)
+option('apt-support',
+       type : 'boolean',
+       value : false,
+       description : 'Enable integration with APT on Debian'
+)
+option('gir',
+       type : 'boolean',
+       value : true,
+       description : 'Build introspection data'
+)
+
 option('docs',
        type : 'boolean',
        value : false,
@@ -28,16 +44,6 @@ option('install-docs',
        value : true,
        description : 'Install documentation for API and specification'
 )
-option('apt-support',
-       type : 'boolean',
-       value : false,
-       description : 'Enable integration with APT on Debian'
-)
-option('gir',
-       type : 'boolean',
-       value : true,
-       description : 'Build introspection data'
-)
 
 #
 # For development
@@ -51,10 +57,4 @@ option('static-analysis',
        type : 'boolean',
        value : false,
        description : 'Enable GCC static analysis support'
-)
-
-option('compose',
-       type : 'boolean',
-       value : false,
-       description : 'Build experimental libappstream-compose library'
 )
