@@ -11,8 +11,15 @@
 		<ulink url="api/index.html">API reference pages</ulink>.
 	</para>
 	<para>
+		AppStream provides a second library with building blocks to compose metadata catalogs.
+		It is used by the <command>appstreamcli compose</command> utility as well as
+		<ulink url="https://github.com/ximion/appstream-generator">AppStream Generator</ulink>.
+		You can find its API description on the <ulink url="compose-api/index.html">libappstream-compose API reference</ulink>.
+		Please keep in mind that the compose library interface is still not fully stabilized.
+	</para>
+	<para>
 		If you want to use the PackageKit API, look at
-		<ulink url="http://www.packagekit.org/gtk-doc/">the PackageKit reference manual</ulink>.
+		<ulink url="https://www.freedesktop.org/software/PackageKit/gtk-doc/">the PackageKit reference manual</ulink>.
 	</para>
 
 </chapter>
