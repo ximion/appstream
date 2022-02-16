@@ -16,14 +16,14 @@ glib.gtkdoc (
 # duplicating the data in two places.
 # We hardcore the gtk-doc path here, because gtkdoc_html_dir('appstream') creates a
 # wrong path due to a Meson bug at the moment
-# This code sucks until Meson gains the install_symlink command proposed by the systemd guys
 gtk_doc_root = join_paths(get_option('prefix'), get_option('datadir'), 'gtk-doc', 'html')
-meson.add_install_script ('sh', '-c',
-                          'mkdir -p $DESTDIR@0@ && ln -sf ../../../@1@ $DESTDIR/@2@'
-                          .format(gtk_doc_root,
-                                  as_api_doc_target_dir,
-                                  join_paths(gtk_doc_root, 'appstream'))
-)
+if meson.version().version_compare('>=0.61')
+    install_symlink(
+        'appstream',
+        pointing_to: join_paths(get_option('prefix'), as_api_doc_target_dir),
+        install_dir: gtk_doc_root
+    )
+endif
 
 #
 # Build API documentation for libappstream-compose,

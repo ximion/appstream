@@ -13,9 +13,11 @@ glib.gtkdoc (
     install: true,
     install_dir: join_paths(get_option('prefix'), as_composeapi_doc_target_dir) # requires an absolute path
 )
-meson.add_install_script('sh', '-c',
-                         'mkdir -p $DESTDIR@0@ && ln -sf ../../../@1@ $DESTDIR/@2@'
-                         .format(gtk_doc_root,
-                                 as_composeapi_doc_target_dir,
-                                 join_paths(gtk_doc_root, 'appstream-compose'))
-)
+
+if meson.version().version_compare('>=0.61')
+    install_symlink(
+        'appstream-compose',
+        pointing_to: join_paths(get_option('prefix'), as_composeapi_doc_target_dir),
+        install_dir: gtk_doc_root
+    )
+endif
