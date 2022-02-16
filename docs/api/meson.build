@@ -18,6 +18,9 @@ glib.gtkdoc (
 # wrong path due to a Meson bug at the moment
 gtk_doc_root = join_paths(get_option('prefix'), get_option('datadir'), 'gtk-doc', 'html')
 if meson.version().version_compare('>=0.61')
+    # we need to install the empty dir, as the gtkdoc generation happens last
+    # and a symlink target must exist first.
+    install_emptydir(join_paths(get_option('prefix'), as_api_doc_target_dir))
     install_symlink(
         'appstream',
         pointing_to: '..' / '..' / '..' / as_api_doc_target_dir,

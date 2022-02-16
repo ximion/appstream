@@ -15,6 +15,9 @@ glib.gtkdoc (
 )
 
 if meson.version().version_compare('>=0.61')
+    # we need to install the empty dir, as the gtkdoc generation happens last
+    # and a symlink target must exist first.
+    install_emptydir(join_paths(get_option('prefix'), as_composeapi_doc_target_dir))
     install_symlink(
         'appstream-compose',
         pointing_to: '..' / '..' / '..' / as_composeapi_doc_target_dir,
