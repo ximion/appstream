@@ -93,6 +93,7 @@ as_doc_src = [
     'xml/quickstart-translation.xml',
 ]
 
+hljs_installed_file = '/usr/share/javascript/highlight.js/highlight.min.js'
 if get_option('docs')
     daps_exe = find_program('daps')
     python_exe = find_program('python3', 'python')
@@ -121,15 +122,17 @@ if get_option('docs')
         install_subdir('html', install_dir: as_doc_target_dir)
 
         if meson.version().version_compare('>=0.61')
-            install_symlink(
-                'highlight.min.js',
-                pointing_to: '/usr/share/javascript/highlight.js/highlight.min.js',
-                install_dir: join_paths(get_option('prefix'), as_doc_target_dir, 'html', 'static', 'js')
-            )
+            if fs.is_file(hljs_installed_file)
+                install_symlink(
+                    'highlight.min.js',
+                    pointing_to: hljs_installed_file,
+                    install_dir: join_paths(get_option('prefix'), as_doc_target_dir, 'html', 'static', 'js')
+                )
+            endif
         else
             meson.add_install_script('sh', '-c',
                           'if [ -f "@0@" ]; then mkdir -p $DESTDIR/@1@ && ln -sf @0@ $DESTDIR/@1@; fi'
-                          .format('/usr/share/javascript/highlight.js/highlight.min.js',
+                          .format(hljs_installed_file,
                                   join_paths(get_option('prefix'), as_doc_target_dir, 'html', 'static', 'js'))
             )
         endif
@@ -144,20 +147,22 @@ if get_option('docs')
           timeout: 60
     )
 elif get_option('install-docs')
-    if run_command('[', '-d', join_paths(meson.current_source_dir(), 'html'), ']', check: false).returncode() == 0
+    if fs.is_dir(join_paths(meson.current_source_dir(), 'html'))
         # install documentation, if it exists
         install_subdir('html', install_dir: as_doc_target_dir)
 
         if meson.version().version_compare('>=0.61')
-            install_symlink(
-                'highlight.min.js',
-                pointing_to: '/usr/share/javascript/highlight.js/highlight.min.js',
-                install_dir: join_paths(get_option('prefix'), as_doc_target_dir, 'html', 'static', 'js')
-            )
+            if fs.is_file(hljs_installed_file)
+                install_symlink(
+                    'highlight.min.js',
+                    pointing_to: hljs_installed_file,
+                    install_dir: join_paths(get_option('prefix'), as_doc_target_dir, 'html', 'static', 'js')
+                )
+            endif
         else
             meson.add_install_script('sh', '-c',
                           'if [ -f "@0@" ]; then mkdir -p $DESTDIR/@1@ && ln -sf @0@ $DESTDIR/@1@; fi'
-                          .format('/usr/share/javascript/highlight.js/highlight.min.js',
+                          .format(hljs_installed_file,
                                   join_paths(get_option('prefix'), as_doc_target_dir, 'html', 'static', 'js'))
             )
         endif

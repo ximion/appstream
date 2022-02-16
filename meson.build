@@ -125,6 +125,7 @@ gperf = find_program('gperf')
 #
 # Modules
 #
+fs   = import('fs')
 glib = import('gnome')
 i18n = import('i18n')
 pkgc = import('pkgconfig')

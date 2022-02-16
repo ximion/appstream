@@ -20,7 +20,7 @@ gtk_doc_root = join_paths(get_option('prefix'), get_option('datadir'), 'gtk-doc'
 if meson.version().version_compare('>=0.61')
     install_symlink(
         'appstream',
-        pointing_to: join_paths(get_option('prefix'), as_api_doc_target_dir),
+        pointing_to: '..' / '..' / '..' / as_api_doc_target_dir,
         install_dir: gtk_doc_root
     )
 endif
