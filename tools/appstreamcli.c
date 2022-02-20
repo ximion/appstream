@@ -525,6 +525,24 @@ as_client_run_put (const gchar *command, char **argv, int argc)
 	return ascli_put_metainfo (fname, optn_origin, optn_usermode);
 }
 
+static const gchar *optn_bundle_type = NULL;
+static gboolean optn_choose_first = FALSE;
+
+const GOptionEntry pkgmanage_options[] = {
+	{ "bundle-type", 0, 0,
+		G_OPTION_ARG_STRING,
+		&optn_bundle_type,
+		/* TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands) */
+		N_("Limit the command to use only components from the given bundling system (`flatpak` or `package`)."), NULL },
+	{ "first", 0, 0,
+		G_OPTION_ARG_NONE,
+		&optn_choose_first,
+		/* TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands) */
+		N_("Do not ask for which software component should be used and always choose the first entry."),
+		NULL },
+	{ NULL }
+};
+
 /**
  * as_client_run_install:
  *
@@ -533,7 +551,15 @@ as_client_run_put (const gchar *command, char **argv, int argc)
 static int
 as_client_run_install (const gchar *command, char **argv, int argc)
 {
+	g_autoptr(GOptionContext) opt_context = NULL;
 	const gchar *value = NULL;
+	AsBundleKind bundle_kind;
+	gint ret;
+
+	opt_context = as_client_new_subcommand_option_context (command, pkgmanage_options);
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
 
 	if (argc > 2)
 		value = argv[2];
@@ -542,7 +568,16 @@ as_client_run_install (const gchar *command, char **argv, int argc)
 		return 1;
 	}
 
-	return ascli_install_component (value);
+	bundle_kind = as_bundle_kind_from_string (optn_bundle_type);
+	if (optn_bundle_type != NULL && bundle_kind == AS_BUNDLE_KIND_UNKNOWN) {
+		/* TRANSLATORS: ascli install currently only supports two values for --bundle-type. */
+		ascli_print_stderr (_("No valid bundle kind was specified. Only `package` and `flatpak` are currently recognized."));
+		return ASCLI_EXIT_CODE_BAD_INPUT;
+	}
+
+	return ascli_install_component (value,
+					bundle_kind,
+					optn_choose_first);
 }
 
 /**
@@ -553,7 +588,15 @@ as_client_run_install (const gchar *command, char **argv, int argc)
 static int
 as_client_run_remove (const gchar *command, char **argv, int argc)
 {
+	g_autoptr(GOptionContext) opt_context = NULL;
 	const gchar *value = NULL;
+	AsBundleKind bundle_kind;
+	gint ret;
+
+	opt_context = as_client_new_subcommand_option_context (command, pkgmanage_options);
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
 
 	if (argc > 2)
 		value = argv[2];
@@ -562,7 +605,16 @@ as_client_run_remove (const gchar *command, char **argv, int argc)
 		return 1;
 	}
 
-	return ascli_remove_component (value);
+	bundle_kind = as_bundle_kind_from_string (optn_bundle_type);
+	if (optn_bundle_type != NULL && bundle_kind == AS_BUNDLE_KIND_UNKNOWN) {
+		/* TRANSLATORS: ascli install currently only supports two values for --bundle-type. */
+		ascli_print_stderr (_("No valid bundle kind was specified. Only `package` and `flatpak` are currently recognized."));
+		return ASCLI_EXIT_CODE_BAD_INPUT;
+	}
+
+	return ascli_remove_component (value,
+					bundle_kind,
+					optn_choose_first);
 }
 
 /**

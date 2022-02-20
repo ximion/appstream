@@ -21,6 +21,8 @@
 #include "ascli-utils.h"
 
 #include <config.h>
+#include <stdio.h>
+#include <unistd.h>
 #include <glib/gi18n-lib.h>
 
 /**
@@ -180,14 +182,13 @@ ascli_get_output_colored ()
 static gchar*
 as_get_bundle_str (AsComponent *cpt)
 {
-	guint i;
 	GString *gstr;
 
 	if (!as_component_has_bundle (cpt))
 		return NULL;
 
 	gstr = g_string_new ("");
-	for (i = 0; i < AS_BUNDLE_KIND_LAST; i++) {
+	for (guint i = 0; i < AS_BUNDLE_KIND_LAST; i++) {
 		AsBundleKind kind = (AsBundleKind) i;
 		AsBundle *bundle;
 
@@ -410,4 +411,43 @@ ascli_print_components (GPtrArray *cpts, gboolean show_detailed)
 		if (i < cpts->len-1)
 			ascli_print_separator ();
 	}
+}
+
+/**
+ * ascli_query_numer:
+ * @question: question to ask user
+ * @maxnum: maximum number allowed
+ *
+ * Prompt the user to enter a number and confirm.
+ *
+ * Return value: a number entered by the user.
+ **/
+guint
+ascli_prompt_numer (const gchar *question, guint maxnum)
+{
+	gint answer = 0;
+	gint retval;
+
+	/* pretty print */
+	g_print ("%s ", question);
+
+	do {
+		char buffer[64];
+
+		/* swallow the \n at end of line too */
+		if (!fgets (buffer, sizeof (buffer), stdin))
+			break;
+		if (strlen (buffer) == sizeof (buffer) - 1)
+			continue;
+
+		/* get a number */
+		retval = sscanf (buffer, "%u", &answer);
+
+		/* positive */
+		if (retval == 1 && answer > 0 && answer <= (gint) maxnum)
+			break;
+		g_print (_("Please enter a number from 1 to %i: "), maxnum);
+	} while (TRUE);
+
+	return answer;
 }
