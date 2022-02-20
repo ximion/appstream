@@ -28,6 +28,7 @@
 
 #include "asc-unit.h"
 #include "asc-result.h"
+#include "asc-icon-policy.h"
 
 G_BEGIN_DECLS
 
@@ -77,22 +78,6 @@ typedef enum {
 	ASC_COMPOSE_FLAG_PROPAGATE_ARTIFACTS	 	= 1 << 10,
 	ASC_COMPOSE_FLAG_NO_FINAL_CHECK		 	= 1 << 11,
 } AscComposeFlags;
-
-/**
- * AscIconPolicy:
- * @ASC_ICON_POLICY_BALANCED:		Create cache for all icons, but provide "remote" links for the bigger icons.
- * @ASC_ICON_POLICY_CACHE_REMOTE:	Create cache for all icons, and provide "remote" links for all.
- * @ASC_ICON_POLICY_ONLY_CACHED:	Do not create remote icons, only cached ones are possible.
- * @ASC_ICON_POLICY_ONLY_REMOTE:	Create only remote icons, do not create cached ones.
- *
- * Policy for how to deliver icons.
- **/
-typedef enum {
-	ASC_ICON_POLICY_BALANCED,
-	ASC_ICON_POLICY_CACHE_REMOTE,
-	ASC_ICON_POLICY_ONLY_CACHED,
-	ASC_ICON_POLICY_ONLY_REMOTE
-} AscIconPolicy;
 
 /**
  * AscCheckMetadataEarlyFn:
@@ -167,9 +152,7 @@ void			asc_compose_add_flags (AscCompose *compose,
 void			asc_compose_remove_flags (AscCompose *compose,
 						  AscComposeFlags flags);
 
-AscIconPolicy		asc_compose_get_icon_policy (AscCompose *compose);
-void			asc_compose_set_icon_policy (AscCompose *compose,
-							AscIconPolicy policy);
+AscIconPolicy		*asc_compose_get_icon_policy (AscCompose *compose);
 
 const gchar		*asc_compose_get_cainfo (AscCompose *compose);
 void			asc_compose_set_cainfo (AscCompose *compose,

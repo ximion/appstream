@@ -31,6 +31,7 @@
 
 #include <asc-globals.h>
 #include <asc-compose.h>
+#include <asc-icon-policy.h>
 #include <asc-utils.h>
 #include <asc-hint.h>
 #include <asc-unit.h>

@@ -35,7 +35,7 @@ AS_INTERNAL_VISIBLE
 void		asc_process_fonts (AscResult *cres,
 				   AscUnit *unit,
 				   const gchar *media_export_root,
-				   AscIconPolicy icon_policy,
+				   AscIconPolicy *icon_policy,
 				   AscComposeFlags flags);
 
 #pragma GCC visibility pop

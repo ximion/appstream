@@ -62,7 +62,7 @@ typedef struct
 	gchar		*cainfo;
 
 	AscComposeFlags	flags;
-	AscIconPolicy	icon_policy;
+	AscIconPolicy	*icon_policy;
 
 	gchar		*data_result_dir;
 	gchar		*icons_result_dir;
@@ -112,7 +112,9 @@ asc_compose_init (AscCompose *compose)
 			ASC_COMPOSE_FLAG_ALLOW_SCREENCASTS |
 			ASC_COMPOSE_FLAG_PROCESS_FONTS |
 			ASC_COMPOSE_FLAG_PROCESS_TRANSLATIONS;
-	priv->icon_policy = ASC_ICON_POLICY_BALANCED;
+
+	/* the icon policy will initialize with default settings */
+	priv->icon_policy = asc_icon_policy_new ();
 }
 
 static void
@@ -385,28 +387,16 @@ asc_compose_remove_flags (AscCompose *compose, AscComposeFlags flags)
  * asc_compose_get_icon_policy:
  * @compose: an #AscCompose instance.
  *
- * Get the selected icon policy.
+ * Get the policy for how icons should be distributed to
+ * any AppStream clients.
+ *
+ * Returns: (transfer none): an #AscIconPolicy
  */
-AscIconPolicy
+AscIconPolicy*
 asc_compose_get_icon_policy (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	return priv->icon_policy;
-}
-
-/**
- * asc_compose_set_icon_policy:
- * @compose: an #AscCompose instance.
- * @policy: an #AscIconPolicy
- *
- * Set a policy for how icons should be distributed to
- * any AppStream clients.
- */
-void
-asc_compose_set_icon_policy (AscCompose *compose, AscIconPolicy policy)
-{
-	AscComposePrivate *priv = GET_PRIVATE (compose);
-	priv->icon_policy = policy;
 }
 
 /**
@@ -932,17 +922,14 @@ asc_compose_process_icons (AscCompose *compose,
 			   AscUnit *unit)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	const gint sizes[] = {  48,
-				64,
-				128,
-				-1 };
-	const gint scale_factors[] = {  1,
-					2,
-					-1 };
 	GPtrArray *icons = NULL;
 	g_autoptr(AsIcon) stock_icon = NULL;
 	gboolean stock_icon_found = FALSE;
 	const gchar *icon_name = NULL;
+	AscIconPolicyIter iter;
+	guint size;
+	guint scale_factor;
+	AscIconState icon_state;
 
 	/* do nothing if we have no icons to process */
 	icons = as_component_get_icons (cpt);
@@ -973,145 +960,151 @@ asc_compose_process_icons (AscCompose *compose,
 	}
 
 	icon_name = as_icon_get_name (stock_icon);
-	for (guint k = 0; scale_factors[k] > 0; k++) {
-		for (guint i = 0; sizes[i] > 0; i++) {
-			g_autofree gchar *icon_fname = NULL;
-			g_autofree gchar *res_icon_fname = NULL;
-			g_autofree gchar *res_icon_size_str = NULL;
-			g_autofree gchar *res_icon_sizedir = NULL;
-			g_autofree gchar *res_icon_basename = NULL;
-			g_autoptr(AscImage) img = NULL;
-			g_autoptr(AsIcon) icon = NULL;
-			g_autoptr(GBytes) img_bytes = NULL;
-			gboolean is_vector_icon = FALSE;
-			const void *img_data;
-			gsize img_len;
-			g_autoptr(GError) error = NULL;
-			icon_fname = asc_compose_find_icon_filename (compose,
-									unit,
-									icon_name,
-									sizes[i],
-									scale_factors[k]);
+	asc_icon_policy_iter_init (&iter, priv->icon_policy);
+	while (asc_icon_policy_iter_next (&iter, &size, &scale_factor, &icon_state)) {
+		g_autofree gchar *icon_fname = NULL;
+		g_autofree gchar *res_icon_fname = NULL;
+		g_autofree gchar *res_icon_size_str = NULL;
+		g_autofree gchar *res_icon_sizedir = NULL;
+		g_autofree gchar *res_icon_basename = NULL;
+		g_autoptr(AscImage) img = NULL;
+		g_autoptr(AsIcon) icon = NULL;
+		g_autoptr(GBytes) img_bytes = NULL;
+		gboolean is_vector_icon = FALSE;
+		const void *img_data;
+		gsize img_len;
+		g_autoptr(GError) error = NULL;
 
-			if (icon_fname == NULL) {
-				/* only a 64x64px icon is mandatory, everything else is optional */
-				if (sizes[i] == 64 && scale_factors[k] == 1) {
-					asc_result_add_hint (cres, cpt,
-								"icon-not-found",
-								"icon_fname", icon_name,
-								NULL);
-					return;
-				}
-				continue;
-			}
+		/* skip icon if its size should be skipped */
+		if (icon_state == ASC_ICON_STATE_IGNORE)
+			continue;
 
-			is_vector_icon = g_str_has_suffix (icon_fname, ".svgz") || g_str_has_suffix (icon_fname, ".svg");
-			img_bytes = asc_unit_read_data (unit, icon_fname, &error);
-			if (img_bytes == NULL) {
+		icon_fname = asc_compose_find_icon_filename (compose,
+								unit,
+								icon_name,
+								size,
+								scale_factor);
+
+		if (icon_fname == NULL) {
+			/* only a 64x64px icon is mandatory, everything else is optional */
+			if (size == 64 && scale_factor == 1) {
 				asc_result_add_hint (cres, cpt,
-							"file-read-error",
-							"fname", icon_fname,
-							"msg", error->message,
+							"icon-not-found",
+							"icon_fname", icon_name,
 							NULL);
 				return;
 			}
-			img_data = g_bytes_get_data (img_bytes, &img_len);
-			img = asc_image_new_from_data (img_data, img_len,
-							is_vector_icon? sizes[i] * scale_factors[k] : 0,
-							g_str_has_suffix (icon_fname, ".svgz"),
-							ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE,
-							&error);
-			if (img == NULL) {
-				asc_result_add_hint (cres, cpt,
-							"file-read-error",
-							"fname", icon_fname,
-							"msg", error->message,
+			continue;
+		}
+
+		is_vector_icon = g_str_has_suffix (icon_fname, ".svgz") || g_str_has_suffix (icon_fname, ".svg");
+		img_bytes = asc_unit_read_data (unit, icon_fname, &error);
+		if (img_bytes == NULL) {
+			asc_result_add_hint (cres, cpt,
+						"file-read-error",
+						"fname", icon_fname,
+						"msg", error->message,
+						NULL);
+			return;
+		}
+		img_data = g_bytes_get_data (img_bytes, &img_len);
+		img = asc_image_new_from_data (img_data, img_len,
+						is_vector_icon? size * scale_factor : 0,
+						g_str_has_suffix (icon_fname, ".svgz"),
+						ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE,
+						&error);
+		if (img == NULL) {
+			asc_result_add_hint (cres, cpt,
+						"file-read-error",
+						"fname", icon_fname,
+						"msg", error->message,
+						NULL);
+			return;
+		}
+
+		/* we only take exact-ish size matches for 48x48px */
+		if (size == 48 && asc_image_get_width (img) > 48)
+			continue;
+
+		res_icon_size_str = (scale_factor == 1)?
+					g_strdup_printf ("%ix%i",
+							 size, size)
+					: g_strdup_printf ("%ix%i@%i",
+							   size, size,
+							   scale_factor);
+		res_icon_sizedir = g_build_filename (priv->icons_result_dir, res_icon_size_str, NULL);
+
+		g_mkdir_with_parents (res_icon_sizedir, 0755);
+		res_icon_basename = g_strdup_printf ("%s.png", as_component_get_id (cpt));
+		res_icon_fname = g_build_filename (res_icon_sizedir,
+							res_icon_basename,
 							NULL);
-				return;
-			}
 
-			/* we only take exact-ish size matches for 48x48px */
-			if (sizes[i] == 48 && asc_image_get_width (img) > 48)
-				continue;
+		/* scale & save the image */
+		g_debug ("Saving icon: %s", res_icon_fname);
+		if (!asc_image_save_filename (img,
+						res_icon_fname,
+						size * scale_factor, size * scale_factor,
+						ASC_IMAGE_SAVE_FLAG_OPTIMIZE,
+						&error)) {
+			asc_result_add_hint (cres, cpt,
+						"icon-write-error",
+						"fname", icon_fname,
+						"msg", error->message,
+						NULL);
+			return;
+		}
 
-			res_icon_size_str = (scale_factors[k] == 1)?
-						g_strdup_printf ("%ix%i",
-								 sizes[i], sizes[i])
-						: g_strdup_printf ("%ix%i@%i",
-								   sizes[i], sizes[i],
-								   scale_factors[k]);
-			res_icon_sizedir = g_build_filename (priv->icons_result_dir, res_icon_size_str, NULL);
-
-			g_mkdir_with_parents (res_icon_sizedir, 0755);
-			res_icon_basename = g_strdup_printf ("%s.png", as_component_get_id (cpt));
-			res_icon_fname = g_build_filename (res_icon_sizedir,
-							   res_icon_basename,
-							   NULL);
-
-			/* scale & save the image */
-			g_debug ("Saving icon: %s", res_icon_fname);
-			if (!asc_image_save_filename (img,
-							res_icon_fname,
-							sizes[i] * scale_factors[k], sizes[i] * scale_factors[k],
-							ASC_IMAGE_SAVE_FLAG_OPTIMIZE,
-							&error)) {
-				asc_result_add_hint (cres, cpt,
-							"icon-write-error",
-							"fname", icon_fname,
-							"msg", error->message,
-							NULL);
-				return;
-			}
-
-			/* create a remote reference if we have data for it */
-			if (priv->media_result_dir != NULL) {
-				g_autofree gchar *icons_media_urlpart_dir = NULL;
-				g_autofree gchar *icons_media_urlpart_fname = NULL;
-				g_autofree gchar *icons_media_path = NULL;
-				g_autofree gchar *icon_media_fname = NULL;
-				g_autoptr(AsIcon) remote_icon = NULL;
-				icons_media_urlpart_dir = g_strdup_printf ("%s/%s/%s",
-								           asc_result_gcid_for_component (cres, cpt),
-								           "icons",
-								           res_icon_size_str);
-				icons_media_urlpart_fname = g_strdup_printf ("%s/%s",
-									     icons_media_urlpart_dir,
-									     res_icon_basename);
-				icons_media_path = g_build_filename (priv->media_result_dir,
+		/* create a remote reference if we have data for it */
+		if (priv->media_result_dir != NULL && icon_state != ASC_ICON_STATE_CACHED_ONLY) {
+			g_autofree gchar *icons_media_urlpart_dir = NULL;
+			g_autofree gchar *icons_media_urlpart_fname = NULL;
+			g_autofree gchar *icons_media_path = NULL;
+			g_autofree gchar *icon_media_fname = NULL;
+			g_autoptr(AsIcon) remote_icon = NULL;
+			icons_media_urlpart_dir = g_strdup_printf ("%s/%s/%s",
+								   asc_result_gcid_for_component (cres, cpt),
+								   "icons",
+								   res_icon_size_str);
+			icons_media_urlpart_fname = g_strdup_printf ("%s/%s",
 								     icons_media_urlpart_dir,
-								     NULL);
-				icon_media_fname = g_build_filename (icons_media_path,
-								     res_icon_basename,
-								     NULL);
-				g_mkdir_with_parents (icons_media_path, 0755);
+								     res_icon_basename);
+			icons_media_path = g_build_filename (priv->media_result_dir,
+								icons_media_urlpart_dir,
+								NULL);
+			icon_media_fname = g_build_filename (icons_media_path,
+								res_icon_basename,
+								NULL);
+			g_mkdir_with_parents (icons_media_path, 0755);
 
-				g_debug ("Adding media pool icon: %s", icon_media_fname);
-				if (!as_copy_file (res_icon_fname, icon_media_fname, &error)) {
-					g_warning ("Unable to write media pool icon: %s", icon_media_fname);
-					asc_result_add_hint (cres, cpt,
-							     "icon-write-error",
-							     "fname", icon_fname,
-							     "msg", error->message,
-							     NULL);
-					return;
-				}
-
-				/* add remote icon to metadata */
-				remote_icon = as_icon_new ();
-				as_icon_set_kind (remote_icon, AS_ICON_KIND_REMOTE);
-				as_icon_set_width (remote_icon, sizes[i]);
-				as_icon_set_height (remote_icon, sizes[i]);
-				as_icon_set_scale (remote_icon, scale_factors[k]);
-				as_icon_set_url (remote_icon, icons_media_urlpart_fname);
-				as_component_add_icon (cpt, remote_icon);
+			g_debug ("Adding media pool icon: %s", icon_media_fname);
+			if (!as_copy_file (res_icon_fname, icon_media_fname, &error)) {
+				g_warning ("Unable to write media pool icon: %s", icon_media_fname);
+				asc_result_add_hint (cres, cpt,
+						     "icon-write-error",
+						     "fname", icon_fname,
+						     "msg", error->message,
+						     NULL);
+				return;
 			}
 
-			/* add icon to metadata */
+			/* add remote icon to metadata */
+			remote_icon = as_icon_new ();
+			as_icon_set_kind (remote_icon, AS_ICON_KIND_REMOTE);
+			as_icon_set_width (remote_icon, size);
+			as_icon_set_height (remote_icon, size);
+			as_icon_set_scale (remote_icon, scale_factor);
+			as_icon_set_url (remote_icon, icons_media_urlpart_fname);
+			as_component_add_icon (cpt, remote_icon);
+		}
+
+		/* add icon to metadata */
+		if (icon_state != ASC_ICON_STATE_REMOTE_ONLY) {
 			icon = as_icon_new ();
 			as_icon_set_kind (icon, AS_ICON_KIND_CACHED);
-			as_icon_set_width (icon, sizes[i]);
-			as_icon_set_height (icon, sizes[i]);
-			as_icon_set_scale (icon, scale_factors[k]);
+			as_icon_set_width (icon, size);
+			as_icon_set_height (icon, size);
+			as_icon_set_scale (icon, scale_factor);
 			as_icon_set_name (icon, res_icon_basename);
 			as_component_add_icon (cpt, icon);
 		}
