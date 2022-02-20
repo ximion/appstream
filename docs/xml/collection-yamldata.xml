@@ -25,10 +25,6 @@
 		</important>
 
 		<para>
-			The DEP-11 YAML metadata can be validated for correctness using the <command>dep11-validate</command> tool from the
-			<ulink url="https://packages.debian.org/source/sid/appstream-dep11">AppStream DEP-11 utils</ulink>.
-		</para>
-		<para>
 			Fields not mentioned in this document are not recognized by DEP-11 YAML parsers.
 		</para>
 	</section>
@@ -37,9 +33,9 @@
 	<section id="spec-dep11-filenaming">
 		<title>File naming and location</title>
 		<para>
-			Take a look at <xref linkend="spec-asxml-filenaming"/> for AppStream XML files. While the XML data belongs into the <filename>xmls</filename> subdirectory in
-			<filename>/usr/share/app-info</filename> (or <filename>/var/cache/app-info</filename>), the YAML data is stored in the <filename>yaml</filename> subdirectory.
-			All other rules affecting the XML apply the DEP-11 YAML as well, including the recommendation to compress the files with gzip.
+			Take a look at <xref linkend="spec-asxml-filenaming"/> for AppStream XML files. While the XML data belongs into the <filename>xml</filename> subdirectory in
+			<filename>/usr/share/swcatalog</filename> (or <filename>/var/cache/swcatalog</filename>), the YAML data is stored in the <filename>yaml</filename> subdirectory.
+			All other rules affecting the XML apply the DEP-11 YAML as well, including the recommendation to compress the files with gzip and the icon search logic.
 		</para>
 	</section>
 

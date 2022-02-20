@@ -2046,7 +2046,7 @@ as_utils_install_icon_tarball (AsMetadataLocation location,
 				GError **error)
 {
 	g_autofree gchar *dir = NULL;
-	dir = g_strdup_printf ("%s%s/app-info/icons/%s/%s",
+	dir = g_strdup_printf ("%s%s/swcatalog/icons/%s/%s",
 			       destdir,
 			       as_metadata_location_get_prefix (location),
 			       origin,
@@ -2111,11 +2111,11 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 	case AS_FORMAT_STYLE_COLLECTION:
 		if (g_strstr_len (filename, -1, ".yml.gz") != NULL) {
 			path = g_build_filename (as_metadata_location_get_prefix (location),
-						 "app-info", "yaml", NULL);
+						 "swcatalog", "yaml", NULL);
 			ret = as_utils_install_metadata_file_internal (filename, origin, path, destdir, TRUE, error);
 		} else {
 			path = g_build_filename (as_metadata_location_get_prefix (location),
-						 "app-info", "xml", NULL);
+						 "swcatalog", "xml", NULL);
 			ret = as_utils_install_metadata_file_internal (filename, origin, path, destdir, FALSE, error);
 		}
 		break;

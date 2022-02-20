@@ -313,10 +313,10 @@ main (int argc, char **argv)
 	asc_compose_set_origin (compose, origin);
 
 	if (mdata_dir == NULL)
-		mdata_dir = g_build_filename (res_root_dir, prefix, "share/app-info/xml", NULL);
+		mdata_dir = g_build_filename (res_root_dir, prefix, "share/swcatalog/xml", NULL);
 	asc_compose_set_data_result_dir (compose, mdata_dir);
 	if (icons_dir == NULL)
-		icons_dir = g_build_filename (res_root_dir, prefix, "share/app-info/icons", origin, NULL);
+		icons_dir = g_build_filename (res_root_dir, prefix, "share/swcatalog/icons", origin, NULL);
 	asc_compose_set_icons_result_dir (compose, icons_dir);
 
 	/* optional */

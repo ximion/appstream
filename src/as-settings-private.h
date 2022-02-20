@@ -29,7 +29,6 @@ G_BEGIN_DECLS
 #define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
 
 #define AS_CONFIG_NAME "/etc/appstream.conf"
-#define AS_APPSTREAM_SYS_CACHE_DIR "/var/cache/app-info/cache"
 
 #pragma GCC visibility pop
 G_END_DECLS

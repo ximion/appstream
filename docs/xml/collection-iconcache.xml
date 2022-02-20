@@ -20,19 +20,19 @@
 	<section id="spec-iconcache-location">
 		<title>Filesystem locations</title>
 		<para>
-			All icons of type <literal>cached</literal> must be placed in <filename>/usr/share/app-info/icons/%{origin}/%{size}/</filename> or <filename>/var/cache/app-info/icons/%{origin}/%{size}/</filename>,
+			All icons of type <literal>cached</literal> must be placed in <filename>/usr/share/swcatalog/icons/%{origin}/%{size}/</filename> or <filename>/var/cache/swcatalog/icons/%{origin}/%{size}/</filename>,
 			where <literal>origin</literal> is the AppStream data origin defined in the AppStream data file (see <xref linkend="spec-asxml-general"/>), and <literal>size</literal>
 			is <code>64x64</code> or <code>128x128</code> depending on the size of the icon. And icon might be present with different sizes in both directories.
 		</para>
 		<para>
 			For example the cache icon <code>krita.png</code> of a component in a data file with the origin <code>jessie</code> should be stored in
-			<filename>/usr/share/app-info/icons/jessie/64x64/krita.png</filename> (or in the <filename>/var/cache</filename> location).
+			<filename>/usr/share/swcatalog/icons/jessie/64x64/krita.png</filename> (or in the <filename>/var/cache</filename> location).
 		</para>
 		<para>
 			Icon scaling factors commonly used for HiDPI display support are part of the size-directory filename and are separated from the regular size via an <code>@</code> sign.
 			If the scaling factor is 1, it must be omitted from the directory name.
 			For example, if the icon scaling factor is <literal>2</literal> for icons of size <literal>64x64</literal> from origin <literal>jessie</literal>, the icon must be placed
-			in <filename>/usr/share/app-info/icons/jessie/64x64@2/</filename>.
+			in <filename>/usr/share/swcatalog/icons/jessie/64x64@2/</filename>.
 		</para>
 		<note>
 			<title>Legacy Support</title>

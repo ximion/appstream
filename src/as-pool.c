@@ -102,10 +102,12 @@ static guint signals [SIGNAL_LAST] = { 0 };
  */
 #define AS_SEARCH_GREYLIST_STR _("app;application;package;program;programme;suite;tool")
 
-/* Locations where system-wide AppStream collection metadata may be stored. */
-static const gchar *SYSTEM_COLLECTION_METADATA_PATHS[] = { "/usr/share/app-info",
-							   "/var/lib/app-info",
-							   "/var/cache/app-info",
+/* Prefixes of locations where system-wide AppStream catalog metadata can be found.
+ * TODO: We should really parse $XDG_DATA_DIRS for the /usr location in a safe way,
+ * instead of hardcoding one canonical path here. */
+static const gchar *SYSTEM_CATALOG_METADATA_PREFIXES[] = { "/usr/share",
+							   "/var/lib",
+							   "/var/cache",
 							   NULL};
 
 /* where .desktop files are installed to by packages to be registered with the system */
@@ -441,26 +443,28 @@ as_pool_class_init (AsPoolClass *klass)
 }
 
 /**
- * as_pool_add_collection_metadata_dir_internal:
+ * as_pool_add_catalog_metadata_dir_internal:
  * @pool: An instance of #AsPool.
  * @lgroup: The location grouping to add to.
  * @directory: An existing filesystem location.
  * @add_root: Whether to add the root directory if necessary.
+ * @with_legacy_support: Whether some legacy support should be enabled.
  *
  * See %as_pool_add_metadata_location()
  */
 static void
-as_pool_add_collection_metadata_dir_internal (AsPool *pool,
-					      AsLocationGroup *lgroup,
-					      const gchar *directory,
-					      gboolean add_root)
+as_pool_add_catalog_metadata_dir_internal (AsPool *pool,
+					   AsLocationGroup *lgroup,
+					   const gchar *directory,
+					   gboolean add_root,
+					   gboolean with_legacy_support)
 {
 	gboolean dir_added = FALSE;
 	g_autofree gchar *icon_dir = NULL;
 	gchar *path;
 
 	if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
-		g_debug ("Not adding metadata location '%s': Not a directory, or does not exist.",
+		g_debug ("Not adding metadata catalog location '%s': Not a directory, or does not exist.",
 			 directory);
 		return;
 	}
@@ -481,15 +485,17 @@ as_pool_add_collection_metadata_dir_internal (AsPool *pool,
 	}
 	g_free (path);
 
-	path = g_build_filename (directory, "xmls", NULL);
-	if (g_file_test (path, G_FILE_TEST_IS_DIR)) {
-		as_location_group_add_dir (lgroup,
-					   path,
-					   icon_dir,
-					   AS_FORMAT_KIND_XML);
-		dir_added = TRUE;
+	if (with_legacy_support) {
+		path = g_build_filename (directory, "xmls", NULL);
+		if (g_file_test (path, G_FILE_TEST_IS_DIR)) {
+			as_location_group_add_dir (lgroup,
+						path,
+						icon_dir,
+						AS_FORMAT_KIND_XML);
+			dir_added = TRUE;
+		}
+		g_free (path);
 	}
-	g_free (path);
 
 	path = g_build_filename (directory, "yaml", NULL);
 	if (g_file_test (path, G_FILE_TEST_IS_DIR)) {
@@ -637,7 +643,7 @@ static void
 as_pool_detect_std_metadata_dirs (AsPool *pool, gboolean include_user_data)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	AsLocationGroup *lgroup_coll;
+	AsLocationGroup *lgroup_catalog;
 	AsLocationGroup *lgroup_metainfo;
 
 	/* NOTE: Data must be write-locked by the calling function. */
@@ -646,14 +652,14 @@ as_pool_detect_std_metadata_dirs (AsPool *pool, gboolean include_user_data)
 	g_hash_table_remove_all (priv->std_data_locations);
 
 	/* create location groups and register them */
-	lgroup_coll = as_location_group_new (pool,
+	lgroup_catalog = as_location_group_new (pool,
 					     AS_COMPONENT_SCOPE_SYSTEM,
 					     AS_FORMAT_STYLE_COLLECTION,
 					     TRUE, /* is OS data */
 					     OS_COLLECTION_CACHE_KEY);
 	g_hash_table_insert (priv->std_data_locations,
-			     g_strdup (lgroup_coll->cache_key),
-			     lgroup_coll);
+			     g_strdup (lgroup_catalog->cache_key),
+			     lgroup_catalog);
 	lgroup_metainfo = as_location_group_new (pool,
 						 AS_COMPONENT_SCOPE_SYSTEM,
 						 AS_FORMAT_STYLE_METAINFO,
@@ -691,11 +697,37 @@ as_pool_detect_std_metadata_dirs (AsPool *pool, gboolean include_user_data)
 	/* add collection XML directories for the OS */
 	/* check if we are permitted to load this */
 	if (as_flags_contains (priv->flags, AS_POOL_FLAG_LOAD_OS_COLLECTION)) {
-		for (guint i = 0; SYSTEM_COLLECTION_METADATA_PATHS[i] != NULL; i++) {
-			as_pool_add_collection_metadata_dir_internal (pool,
-								lgroup_coll,
-								SYSTEM_COLLECTION_METADATA_PATHS[i],
-								FALSE);
+		for (guint i = 0; SYSTEM_CATALOG_METADATA_PREFIXES[i] != NULL; i++) {
+			g_autofree gchar *catalog_path = NULL;
+			g_autofree gchar *catalog_legacy_path = NULL;
+			gboolean ignore_legacy_path = FALSE;
+
+			catalog_path = g_build_filename (SYSTEM_CATALOG_METADATA_PREFIXES[i], "swcatalog", NULL);
+			catalog_legacy_path = g_build_filename (SYSTEM_CATALOG_METADATA_PREFIXES[i], "app-info", NULL);
+
+			/* ignore compatibility symlink if one exists */
+			if (g_file_test (catalog_legacy_path, G_FILE_TEST_IS_SYMLINK)) {
+				g_autofree gchar *link_target = g_file_read_link (catalog_legacy_path, NULL);
+				if (link_target != NULL) {
+					if (g_strcmp0 (link_target, catalog_path) == 0) {
+						ignore_legacy_path = TRUE;
+						g_debug ("Ignoring legacy catalog location '%s'.", catalog_legacy_path);
+					}
+				}
+			}
+
+			as_pool_add_catalog_metadata_dir_internal (pool,
+								   lgroup_catalog,
+								   catalog_path,
+								   FALSE, /* add root */
+								   FALSE /* no legacy support */);
+
+			if (!ignore_legacy_path)
+				as_pool_add_catalog_metadata_dir_internal (pool,
+									   lgroup_catalog,
+									   catalog_legacy_path,
+									   FALSE, /* add root */
+									   TRUE /* enable legacy support */);
 		}
 	}
 
@@ -2347,10 +2379,11 @@ as_pool_add_extra_data_location (AsPool *pool, const gchar *directory, AsFormatS
 	g_hash_table_insert (priv->extra_data_locations,
 			     g_strdup (extra_group->cache_key),
 			     extra_group);
-	as_pool_add_collection_metadata_dir_internal (pool,
-						      extra_group,
-						      directory,
-						      TRUE);
+	as_pool_add_catalog_metadata_dir_internal (pool,
+						   extra_group,
+						   directory,
+						   TRUE /* add root */,
+						   FALSE /* no legacy support */);
 }
 
 /**

@@ -66,6 +66,9 @@ typedef struct
 G_DEFINE_TYPE_WITH_PRIVATE (AsCache, as_cache, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_cache_get_instance_private (o))
 
+/* location of the system-wide cache */
+static const gchar *AS_APPSTREAM_SYS_CACHE_DIR = "/var/cache/swcatalog/cache";
+
 typedef struct {
 	gboolean		is_os_data;
 	gboolean		is_mask;

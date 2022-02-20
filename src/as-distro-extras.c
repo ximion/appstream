@@ -45,8 +45,10 @@
 #define YAML_SEPARATOR_LEN strlen(YAML_SEPARATOR)
 
 static const gchar *apt_lists_dir = "/var/lib/apt/lists/";
-static const gchar *appstream_yml_target = "/var/lib/app-info/yaml";
-static const gchar *appstream_icons_target = "/var/lib/app-info/icons";
+static const gchar *appstream_yaml_target = "/var/lib/swcatalog/yaml";
+static const gchar *appstream_icons_target = "/var/lib/swcatalog/icons";
+static const gchar *appstream_catalog_root = "/var/lib/swcatalog";
+static const gchar *appstream_catalog_legacy_root = "/var/lib/app-info";
 
 static const gchar* const default_icon_sizes[] = { "48x48", "48x48@2", "64x64", "64x64@2", "128x128", "128x128@2", NULL };
 
@@ -222,7 +224,7 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 	g_autoptr(GError) tmp_error = NULL;
 	gboolean data_changed = FALSE;
 	gboolean icons_available = FALSE;
-	guint i;
+	gboolean yaml_target_dir_exists = FALSE;
 
 	g_debug ("Scanning for metadata changes in the APT cache.");
 
@@ -232,23 +234,24 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 		return;
 	}
 
-	if (g_file_test (appstream_yml_target, G_FILE_TEST_IS_DIR)) {
+	yaml_target_dir_exists = g_file_test (appstream_yaml_target, G_FILE_TEST_IS_DIR);
+	if (yaml_target_dir_exists) {
 		g_autoptr(GPtrArray) ytfiles = NULL;
 
 		/* we can't modify the files here if we don't have write access */
-		if (!as_utils_is_writable (appstream_yml_target)) {
-			g_debug ("Unable to write to '%s': Can't add AppStream data from APT to the pool.", appstream_yml_target);
+		if (!as_utils_is_writable (appstream_yaml_target)) {
+			g_debug ("Unable to write to '%s': Can't add AppStream data from APT to the pool.", appstream_yaml_target);
 			return;
 		}
 
-		ytfiles = as_utils_find_files_matching (appstream_yml_target, "*", FALSE, &tmp_error);
+		ytfiles = as_utils_find_files_matching (appstream_yaml_target, "*", FALSE, &tmp_error);
 		if (tmp_error != NULL) {
 			g_warning ("Could not scan for broken symlinks in DEP-11 target: %s", tmp_error->message);
 			return;
 		}
 
 		if (ytfiles != NULL) {
-			for (i = 0; i < ytfiles->len; i++) {
+			for (guint i = 0; i < ytfiles->len; i++) {
 				const gchar *fname = (const gchar*) g_ptr_array_index (ytfiles, i);
 				if (!g_file_test (fname, G_FILE_TEST_EXISTS)) {
 					g_remove (fname);
@@ -277,13 +280,13 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 	 *
 	 * We also check for available icons, to install icons again if they were disabled (and removed) previously.
 	 */
-	for (i = 0; i < yml_files->len; i++) {
+	for (guint i = 0; i < yml_files->len; i++) {
 		g_autofree gchar *fbasename = NULL;
 		g_autofree gchar *dest_fname = NULL;
 		const gchar *fname = (const gchar*) g_ptr_array_index (yml_files, i);
 
 		fbasename = g_path_get_basename (fname);
-		dest_fname = g_build_filename (appstream_yml_target, fbasename, NULL);
+		dest_fname = g_build_filename (appstream_yaml_target, fbasename, NULL);
 		if (!g_file_test (dest_fname, G_FILE_TEST_EXISTS)) {
 			data_changed = TRUE;
 			g_debug ("File '%s' missing, cache update is needed.", dest_fname);
@@ -332,15 +335,27 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 	 * So, we hereby simply "own" the icons directory and all it's contents, anything put in there by 3rd-parties will
 	 * be deleted.
 	 * (And there should actually be no cases 3rd-parties put icons there on a Debian machine, since metadata in packages
-	 * will land in /usr/share/app-info anyway)
+	 * will land in /usr/share/swcatalog anyway)
 	 */
 	as_utils_delete_dir_recursive (appstream_icons_target);
-	if (g_mkdir_with_parents (appstream_yml_target, 0755) > 0) {
-		g_debug ("Unable to create '%s': %s", appstream_yml_target, g_strerror (errno));
-		return;
+
+	if (!yaml_target_dir_exists) {
+
+		/* create YAML target directory */
+		if (g_mkdir_with_parents (appstream_yaml_target, 0755) > 0) {
+			g_warning ("Unable to create '%s': %s", appstream_yaml_target, g_strerror (errno));
+			return;
+		}
+
+		/* create compatibility symlink for old location */
+		if (!g_file_test (appstream_catalog_legacy_root, G_FILE_TEST_EXISTS)) {
+			if (symlink (appstream_catalog_root, appstream_catalog_legacy_root) != 0)
+				g_debug ("Unable to create compatibility symlink '%s': %s",
+					 appstream_catalog_legacy_root, g_strerror (errno));
+		}
 	}
 
-	for (i = 0; i < yml_files->len; i++) {
+	for (guint i = 0; i < yml_files->len; i++) {
 		g_autofree gchar *fbasename = NULL;
 		g_autofree gchar *dest_fname = NULL;
 		g_autofree gchar *origin = NULL;
@@ -349,7 +364,7 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 		const gchar *fname = (const gchar*) g_ptr_array_index (yml_files, i);
 
 		fbasename = g_path_get_basename (fname);
-		dest_fname = g_build_filename (appstream_yml_target, fbasename, NULL);
+		dest_fname = g_build_filename (appstream_yaml_target, fbasename, NULL);
 
 		if (!g_file_test (fname, G_FILE_TEST_EXISTS)) {
 			/* broken symlinks in the dest will have been removed earlier */
@@ -391,5 +406,5 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 	}
 
 	/* ensure the cache-rebuild process notices these changes */
-	as_touch_location (appstream_yml_target);
+	as_touch_location (appstream_yaml_target);
 }
