@@ -400,6 +400,23 @@ asc_compose_get_icon_policy (AscCompose *compose)
 }
 
 /**
+ * asc_compose_set_icon_policy:
+ * @compose: an #AscCompose instance.
+ * @policy: (not nullable): an #AscIconPolicy instance
+ *
+ * Set an icon policy object, overriding the existing one.
+ */
+void
+asc_compose_set_icon_policy (AscCompose *compose, AscIconPolicy *policy)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_if_fail (policy != NULL);
+
+	g_object_unref (priv->icon_policy);
+	priv->icon_policy = g_object_ref (policy);
+}
+
+/**
  * asc_compose_get_cainfo:
  * @compose: an #AscCompose instance.
  *

@@ -153,6 +153,8 @@ void			asc_compose_remove_flags (AscCompose *compose,
 						  AscComposeFlags flags);
 
 AscIconPolicy		*asc_compose_get_icon_policy (AscCompose *compose);
+void			asc_compose_set_icon_policy (AscCompose *compose,
+							AscIconPolicy *policy);
 
 const gchar		*asc_compose_get_cainfo (AscCompose *compose);
 void			asc_compose_set_cainfo (AscCompose *compose,

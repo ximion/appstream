@@ -55,11 +55,11 @@ typedef struct
 /**
  * AscIconState:
  * @ASC_ICON_STATE_IGNORE:		Ignore icons of this size.
- * @ASC_ICON_STATE_CACHED_REMOTE:	Create cache for the icon, and provide "remote" link as well.
- * @ASC_ICON_STATE_CACHED_ONLY:		Only create cache for this icon.
- * @ASC_ICON_STATE_REMOTE_ONLY:		Only create remote link for this icon.
+ * @ASC_ICON_STATE_CACHED_REMOTE:	Create cache for the icon, and provide remote link as well.
+ * @ASC_ICON_STATE_CACHED_ONLY:		Set if the icon should be stored in an icon tarball and be cached locally.
+ * @ASC_ICON_STATE_REMOTE_ONLY:		Set if this icon should be stored remotely and fetched on demand.
  *
- * Policy for how to store icon of a given size.
+ * Designated state for an icon of a given size.
  **/
 typedef enum {
 	ASC_ICON_STATE_IGNORE,
