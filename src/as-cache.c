@@ -1608,17 +1608,35 @@ as_cache_get_components_all (AsCache *cache, GError **error)
 GPtrArray*
 as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
 {
+	GPtrArray *results = NULL;
 	g_autofree gchar *id_lower = NULL;
 	g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
 
 	id_lower = g_utf8_strdown (id, -1);
 	xb_value_bindings_bind_str (xb_query_context_get_bindings (&context), 0, id_lower, NULL);
-	return as_cache_query_components (cache,
-					  "components/component/id[lower-case(text())=?]/..",
-					  &context,
-					  0,
-					  FALSE,
-					  error);
+	results = as_cache_query_components (cache,
+					     "components/component/id[lower-case(text())=?]/..",
+					     &context,
+					     0,
+					     FALSE,
+					     error);
+
+	/* don't continue if we have an error */
+	if (results == NULL)
+		return results;
+
+	if (results->len == 0) {
+		/* we found no exact matches, try components providing this ID */
+		g_ptr_array_unref (results);
+		results = as_cache_query_components (cache,
+						     "components/component/provides/id[lower-case(text())=?]/../..",
+						     &context,
+						     0,
+						     FALSE,
+						     error);
+	}
+
+	return results;
 }
 
 /**
