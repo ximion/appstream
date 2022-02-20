@@ -15,7 +15,7 @@
 # XoD DarK <xod@xoddark.com>, 2020.
 # Jeannette L <j.lavoie@net-c.ca>, 2020.
 # Bastien Tréhoux <ildegarde59@mailo.com>, 2020.
-# Éfrit <efrit@posteo.net>, 2020, 2021.
+# Éfrit <efrit@posteo.net>, 2020, 2021, 2022.
 # Julien Humbert <julroy67@gmail.com>, 2020.
 # #-#-#-#-#  fr.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
@@ -36,16 +36,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 22:22+0100\n"
-"PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: Emmanuel Gil Peyrot <linkmauve@linkmauve.fr>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/appstream/"
-"translations/fr/>\n"
+"PO-Revision-Date: 2022-02-20 23:28+0000\n"
+"Last-Translator: Éfrit <efrit@posteo.net>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.11-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1007,7 +1006,7 @@ msgstr "Les fichiers de métadonnées comportent des erreurs :"
 
 #: src/as-pool.c:2383
 msgid "Group"
-msgstr ""
+msgstr "Groupe"
 
 #: src/as-pool.c:2429
 msgid "Iconsets"
@@ -1016,12 +1015,12 @@ msgstr "Jeux d’icônes"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2476
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Données provenant des logiciels installés localement"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2479
 msgid "Software catalog data"
-msgstr ""
+msgstr "Données du catalogue des logiciels"
 
 #: src/as-provided.c:144
 msgid "Libraries"
@@ -1146,7 +1145,7 @@ msgstr ""
 msgid ""
 "The description line does not start with a capitalized word, project name or "
 "number."
-msgstr ""
+msgstr "La ligne de description ne commence pas par une majuscule, un nom de projet ou un nombre."
 
 #: src/as-validator-issue-tag.h:91
 msgid ""
@@ -1243,16 +1242,14 @@ msgstr ""
 "outils tel que D-Bus. L’idéal est de préfixer ces segments avec un souligné."
 
 #: src/as-validator-issue-tag.h:141
-#, fuzzy
 msgid "The component ID should only contain lowercase characters."
 msgstr "L’ID du composant ne doit contenir que des lettres minuscules."
 
 #: src/as-validator-issue-tag.h:146
-#, fuzzy
 msgid ""
 "The domain part of the rDNS component ID (first two parts) must only contain "
 "lowercase characters."
-msgstr "L’ID du composant ne doit contenir que des lettres minuscules."
+msgstr "La partie domaine de l’ID du composant rDNS (les deux premières) ne doit contenir que des caractères en minuscule."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
@@ -1479,13 +1476,10 @@ msgstr ""
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:287
-#, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
 "ge` is permitted."
-msgstr ""
-"Opération de comparaison invalide sur l’item de relation. Seules « eq », "
-"« ne », « lt », « gt », « le » et « ge » sont autorisées."
+msgstr "Opération de comparaison invalide sur l’item de relation. Seules « eq », « ne », « lt », « gt », « le » et « ge » sont autorisées."
 
 #: src/as-validator-issue-tag.h:292
 msgid ""
@@ -1562,7 +1556,7 @@ msgstr ""
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
+msgstr "Cet item `hardware` contient une valeur invalide. Cela doit être un CHID (Computer Hardware ID) UUID sans accolades."
 
 #: src/as-validator-issue-tag.h:337
 msgid ""
@@ -1635,17 +1629,14 @@ msgstr ""
 "ligne."
 
 #: src/as-validator-issue-tag.h:392
-#, fuzzy
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr ""
-"Le résumé ne doit contenir aucune URL. Utilisez les balises <url/> pour les "
-"liens."
+msgstr "Le résumé ne doit contenir aucune URL. Utilisez les balises `<url/>` pour les liens."
 
 #: src/as-validator-issue-tag.h:397
 msgid ""
 "The summary text does not start with a capitalized word, project name or "
 "number."
-msgstr ""
+msgstr "Le texte du résumé ne commence pas par une majuscule, un nom de projet ou un nombre."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:403
@@ -1926,11 +1917,8 @@ msgstr ""
 "pour une liste de noms de catégorie valides."
 
 #: src/as-validator-issue-tag.h:601
-#, fuzzy
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr ""
-"La légende de la capture d’écran est trop longue (elle devrait être "
-"inférieure à 80 caractères)"
+msgstr "La légende de la capture d’écran est trop longue (elle doit être inférieure à 100 caractères)"
 
 #: src/as-validator-issue-tag.h:606
 msgid "Unable to read file."
@@ -2177,17 +2165,14 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:784
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "Ce `tag` manque d’un attribut `namespace`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:790
-#, fuzzy
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"L’identifiant du composant contient un caractère invalide. Seuls les "
-"caractères ASCII, les points et les nombres sont autorisés."
+msgstr "Cette balise ou son espace de nom contient des caractères invalides. Seuls les lettres minuscules ASCII, les chiffres, le point et les tirets du milieu et du bas sont autorisés."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2230,7 +2215,7 @@ msgstr "Affiche la version du programme."
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:192
 msgid "Do not use the network at all, not even for URL validity checks."
-msgstr ""
+msgstr "Ne pas utiliser le réseau, même pour vérifier validité des URL."
 
 #. TRANSLATORS: ascompose flag description for: --full-report
 #: tools/appstream-compose.c:195
@@ -2280,7 +2265,7 @@ msgstr "Définit le nom d’origine"
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:219
 msgid "Set the URL where the exported media content will be hosted"
-msgstr ""
+msgstr "Définir l’URL où le contenu du média exporté sera hébergé"
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:222
@@ -2421,7 +2406,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
+msgstr "Ignorer l’âge du cache et en construire un neuf avant d’exécuter la requête."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
@@ -2500,13 +2485,13 @@ msgstr "Force une mise à jour du cache."
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
+msgstr "Limite le rafraîchissement du cache aux données de la source spécifiée, p. ex. `os` ou `flatpak`. Peut être spécifié plusieurs fois."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:478
 msgid ""
 "No license, license expression or license exception string was provided."
-msgstr ""
+msgstr "Aucune licence, expression de licence ou exception de licence n’a été fournie."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:503
@@ -2554,9 +2539,7 @@ msgstr ""
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Cette commande prend les arguments positionnels optionnels TYPE et FILE, "
-"FILE étant un fichier dans lequel écrire (ou « - » pour la sortie standard)."
+msgstr "Cette commande prend l’argument optionnel TYPE et positionnel FILE, ce dernier étant un fichier dans lequel écrire (ou « - » pour la sortie standard)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2578,20 +2561,17 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:848
-#, fuzzy
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr ""
-"Limite le nombre d’entrées de version stockées dans le fichier métainfo (0 "
-"pour illimité)."
+msgstr "Limite le nombre d’entrées de version stockées dans le fichier métainfo (<= 0 pour illimité)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:854
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
-msgstr ""
+msgstr "Définit le nombre de versions dont les descriptions doivent être marquées pour la traduction (les dernières versions sont traduites en premier, -1 pour illimité)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:898
@@ -2607,7 +2587,7 @@ msgstr ""
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:938
 msgid "Invalid number of parameters"
-msgstr ""
+msgstr "Nombre de paramètres invalide"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:997
@@ -2693,7 +2673,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
 msgid "Check license string for validity and print details about it."
-msgstr ""
+msgstr "Vérifie la validité de la licence et affiche ses détails."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1186
@@ -2775,20 +2755,20 @@ msgstr "Vous devez spécifier une commande."
 #. TRANSLATORS: In ascli: Status information during a "refresh" action.
 #: tools/ascli-actions-mdata.c:48
 msgid "Only refreshing metadata cache specific to the current user."
-msgstr ""
+msgstr "Rafraîchissement du seul cache de métadonnées spécifique à l’utilisateur actuel."
 
 #: tools/ascli-actions-mdata.c:59
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
+msgstr "Mise à jour du cache des métadonnées logicielles pour le système d’exploitation."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for Flatpak."
-msgstr ""
+msgstr "Mise à jour du cache des métadonnées logicielles pour Flatpak."
 
 #: tools/ascli-actions-mdata.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "Le fichier de métadonnées « %s » n’existe pas."
+msgstr "Un groupe de sources de métadonnées pourtant le nom « %s » n’existe pas !"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
@@ -2799,15 +2779,13 @@ msgstr ""
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
-#, fuzzy
 msgid "Metadata cache was updated successfully."
-msgstr "La mise à jour du cache AppStream a été réalisée avec succès."
+msgstr "Le cache des métadonnées a été mis à jour avec succès."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:102
-#, fuzzy
 msgid "Metadata cache update is not necessary."
-msgstr "La mise à jour du cache AppStream n’est pas nécessaire."
+msgstr "La mise à jour du cache des métadonnées n’est pas nécessaire."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -2939,23 +2917,22 @@ msgstr "Version : %s"
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:56
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "Sources des métadonnées du système d’exploitation :"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:60
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "Aucune métadonnée du système d’exploitation n’a été trouvée. Cela est inhabituel."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:63
 msgid "Other metadata sources:"
-msgstr ""
+msgstr "Autres sources de métadonnées :"
 
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:67
-#, fuzzy
 msgid "No metadata."
-msgstr "Composition des métadonnées…"
+msgstr "Aucune métadonnée."
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:70
@@ -3133,60 +3110,56 @@ msgstr ""
 
 #. TRANSLATORS: A plain license ID
 #: tools/ascli-actions-validate.c:528
-#, fuzzy
 msgid "license"
-msgstr "Licence"
+msgstr "licence"
 
 #. TRANSLATORS: A license exception
 #: tools/ascli-actions-validate.c:531
 msgid "license exception"
-msgstr ""
+msgstr "exception de licence"
 
 #. TRANSLATORS: A complex license expression
 #: tools/ascli-actions-validate.c:534
 msgid "license expression"
-msgstr ""
+msgstr "expression de licence"
 
 #. TRANSLATORS: An invalid license
 #: tools/ascli-actions-validate.c:538
 msgid "invalid"
-msgstr ""
+msgstr "invalide"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:543
-#, fuzzy
 msgid "License Type"
-msgstr "Licence"
+msgstr "Type de licence"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:547
-#, fuzzy
 msgid "Canonical ID"
-msgstr "Identifiant interne"
+msgstr "ID canonique"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
 #: tools/ascli-actions-validate.c:551
-#, fuzzy
 msgid "Suitable for AppStream metadata"
-msgstr "Échec de la composition des métadonnées AppStream"
+msgstr "Adaptée aux métadonnées AppStream"
 
 #: tools/ascli-actions-validate.c:551 tools/ascli-actions-validate.c:554
 msgid "no"
-msgstr ""
+msgstr "non"
 
 #: tools/ascli-actions-validate.c:551 tools/ascli-actions-validate.c:554
 msgid "yes"
-msgstr ""
+msgstr "oui"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
 #: tools/ascli-actions-validate.c:554
 msgid "Free and Open Source"
-msgstr ""
+msgstr "Libre et open source"
 
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:559
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: tools/ascli-utils.c:266
 msgid "Identifier"
