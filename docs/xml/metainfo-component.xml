@@ -1503,6 +1503,36 @@
 		</listitem>
 		</varlistentry>
 
+		<varlistentry id="tag-branding">
+		<term>&lt;branding/&gt;</term>
+		<listitem>
+		<para>
+			The <code>&lt;branding/&gt;</code> tag is an optional tag which defines properties affecting the branding and presentation of the
+			component. It usually affects how it is displayed in software centers and on websites.
+		</para>
+		<para>
+			The tag may currently only contain <literal>color</literal> tags as children, defining accent colors for the component as HTML
+			hexadecimal color string as value. And accent color may for example be used as background behind the logo/icon of an application.
+		</para>
+		<para>
+			A <literal>color</literal> tag must have a <literal>type</literal> attribute which denotes the color type. It may either
+			be <code>primary</code> for the primary accent color, or <code>primary-text</code> for a matching contrasting text color
+			to the primary color.
+			A <literal>color</literal> tag may have an optional <literal>scheme_preference</literal> attribute which denotes a preference
+			for a particular color scheme where this color should be used over other colors. Values for this attribute may either be
+			<code>light</code> or <code>dark</code> for a light or dark theme preference.
+			Each color type/scheme combination may only appear once.
+		</para>
+		<para>
+			Example:
+		</para>
+		<programlisting language="XML"><![CDATA[<branding>
+  <color type="primary" scheme_preference="light">#ff00ff</color>
+  <color type="primary" scheme_preference="dark">#993d3d</color>
+</branding>]]></programlisting>
+		</listitem>
+		</varlistentry>
+
 		<varlistentry id="tag-tags">
 		<term>&lt;tags/&gt;</term>
 		<listitem>
