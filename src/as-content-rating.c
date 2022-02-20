@@ -588,7 +588,7 @@ static guint content_rating_csm_ages[AS_CONTENT_RATING_SYSTEM_LAST][7] = {
 /**
  * as_content_rating_system_get_csm_ages:
  * @system: an #AsContentRatingSystem
- * @length_out: (out) (not optional): return location for the length of the
+ * @length_out: (out) (not nullable): return location for the length of the
  *    returned array
  *
  * Get the CSM ages corresponding to the entries returned by
