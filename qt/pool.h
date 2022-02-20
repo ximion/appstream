@@ -80,6 +80,8 @@ public:
      * None:      No flags.
      * UseUser:   Create an user-specific metadata cache.
      * UseSystem: Use and - if possible - update the global metadata cache.
+     * NoClear:   Don't clear the cache when opening it.
+     * RefreshSystem: Refresh the system cache that is shared between applications.
      *
      * Flags on how caching should be used.
      **/
@@ -87,6 +89,8 @@ public:
         CacheFlagNone      [[deprecated]] = 0,
         CacheFlagUseUser   [[deprecated]] = 1 << 0,
         CacheFlagUseSystem [[deprecated]] = 1 << 1,
+        CacheFlagNoClear [[deprecated]] = 1 << 2,
+        CacheFlagRefreshSystem [[deprecated]] = 1 << 3,
     };
 
     /**
