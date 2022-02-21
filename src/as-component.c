@@ -443,6 +443,9 @@ as_component_finalize (GObject* object)
 	g_ptr_array_unref (priv->agreements);
 	g_ptr_array_unref (priv->reviews);
 
+	if (priv->branding != NULL)
+		g_object_unref (priv->branding);
+
 	if (priv->translations != NULL)
 		g_ptr_array_unref (priv->translations);
 
