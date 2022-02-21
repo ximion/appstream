@@ -216,11 +216,54 @@ as_news_yaml_to_releases (const gchar *yaml_data,
 						g_string_append (str, "</ul>");
 
 					} else {
-						/* we only have one list entry, or no list at all and a freefor text instead. Convert to a paragraph */
+
+						/* we only have one list entry, or no list at all and a freeform text instead. Convert to paragraphs */
 						g_auto(GStrv) paras = g_strsplit (value, "\n\n", -1);
 						for (guint i = 0; paras[i] != NULL; i++) {
+							g_auto(GStrv) lines = NULL;
+							g_autoptr(GString) para = NULL;
+							gboolean in_listing = FALSE;
+							gboolean in_paragraph = FALSE;
 							g_autofree gchar *escaped = g_markup_escape_text (paras[i], -1);
-							g_string_append_printf (str, "<p>%s</p>", escaped);
+
+							para = g_string_new ("");
+							lines = g_strsplit (escaped, "\n", -1);
+							for (guint j = 0; lines[j] != NULL; j++) {
+								if (g_str_has_prefix (lines[j], "  -") || g_str_has_prefix (lines[j], "  *")) {
+									/* we have a list */
+									if (in_paragraph) {
+										g_string_truncate (str, str->len - 1);
+										g_string_append (str, "</p>\n");
+										in_paragraph = FALSE;
+									}
+									if (in_listing) {
+										g_string_append (str, "</li>\n<li>");
+									} else {
+										g_string_append (str, "<ul>\n<li>");
+									}
+									g_string_append (str, lines[j] + 4);
+									in_listing = TRUE;
+									continue;
+								} else if (in_listing) {
+									if (g_str_has_prefix (lines[j], "   ")) {
+										g_string_append_printf (str, " %s", lines[j] + 4);
+									} else {
+										g_string_append (str, "</li>\n</ul>\n");
+										in_listing = FALSE;
+										g_string_append_printf (str, "<p>%s\n", lines[j]);
+										in_paragraph = TRUE;
+									}
+								} else {
+									g_string_append_printf (str, "<p>%s\n", lines[j]);
+									in_paragraph = TRUE;
+								}
+							}
+							if (in_listing)
+								g_string_append (str, "</li>\n</ul>\n");
+							if (in_paragraph) {
+									g_string_truncate (str, str->len - 1);
+									g_string_append (str, "</p>\n");
+							}
 						}
 					}
 

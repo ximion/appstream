@@ -309,8 +309,8 @@ as_description_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError
 					}
 
 					/* break to 100 chars, leaving room for the dot/indent */
-					spl = as_markup_strsplit_words (clean_item, 100 - 4);
-					g_string_append_printf (str, " %s %s", item_c, spl[0]);
+					spl = as_markup_strsplit_words (clean_item, 100 - 5);
+					g_string_append_printf (str, "  %s %s", item_c, spl[0]);
 					for (guint i = 1; spl[i] != NULL; i++)
 						g_string_append_printf (str, "   %s", spl[i]);
 				} else {

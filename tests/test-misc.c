@@ -50,6 +50,11 @@ test_readwrite_yaml_news ()
 		"  A freeform description text.\n"
 		"\n"
 		"  Second paragraph. XML <> YAML\n"
+		"    * List item 1\n"
+		"    * List item 2\n"
+		"      Line two of list item.\n"
+		"\n"
+		"  Third paragraph.\n"
 		"---\n"
 		"Version: 1.0\n"
 		"Date: 2019-02-24\n"
@@ -72,6 +77,11 @@ test_readwrite_yaml_news ()
 		"      <description>\n"
 		"        <p>A freeform description text.</p>\n"
 		"        <p>Second paragraph. XML &lt;&gt; YAML</p>\n"
+		"        <ul>\n"
+		"          <li>List item 1</li>\n"
+		"          <li>List item 2 Line two of list item.</li>\n"
+		"        </ul>\n"
+		"        <p>Third paragraph.</p>\n"
 		"      </description>\n"
 		"    </release>\n"
 		"    <release type=\"stable\" version=\"1.0\" date=\"2019-02-24T00:00:00Z\">\n"
@@ -99,6 +109,11 @@ test_readwrite_yaml_news ()
 		"      <description translatable=\"no\">\n"
 		"        <p>A freeform description text.</p>\n"
 		"        <p>Second paragraph. XML &lt;&gt; YAML</p>\n"
+		"        <ul>\n"
+		"          <li>List item 1</li>\n"
+		"          <li>List item 2 Line two of list item.</li>\n"
+		"        </ul>\n"
+		"        <p>Third paragraph.</p>\n"
 		"      </description>\n"
 		"    </release>\n"
 		"    <release type=\"stable\" version=\"1.0\" date=\"2019-02-24T00:00:00Z\">\n"
@@ -116,6 +131,10 @@ test_readwrite_yaml_news ()
 	g_autoptr(GError) error = NULL;
 	gchar *tmp;
 	gboolean ret;
+	g_autofree gchar *yaml_news_data_brclean = as_str_replace (yaml_news_data,
+								   "item 2\n      Line two",
+								   "item 2 Line two",
+								   -1);
 
 	/* read */
 	releases = as_news_to_releases_from_data (yaml_news_data,
@@ -139,7 +158,7 @@ test_readwrite_yaml_news ()
 					&error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
-	g_assert_true (as_test_compare_lines (tmp, yaml_news_data));
+	g_assert_true (as_test_compare_lines (tmp, yaml_news_data_brclean));
 	g_free (tmp);
 
 	/* read for translatable test */
@@ -211,13 +230,13 @@ test_readwrite_text_news ()
 			"This release changes the output of appstreamcli\n"
 			"\n"
 			"This release adds the following features:\n"
-			" * Alpha\n"
-			" * Beta\n"
+			"  * Alpha\n"
+			"  * Beta\n"
 			"\n"
 			"This release fixes the following bugs:\n"
-			" * Restore compatibility with GLib < 2.58\n"
-			" * Gamma\n"
-			" * Delta\n";
+			"  * Restore compatibility with GLib < 2.58\n"
+			"  * Gamma\n"
+			"  * Delta\n";
 
 	g_autoptr(GPtrArray) releases = NULL;
 	g_autoptr(GError) error = NULL;
