@@ -1981,6 +1981,45 @@ test_xml_rw_tags (void)
 }
 
 /**
+ * test_xml_rw_branding:
+ */
+static void
+test_xml_rw_branding (void)
+{
+	static const gchar *xmldata_tags =
+			"<component>\n"
+			"  <id>org.example.BrandingTest</id>\n"
+			"  <branding>\n"
+			"    <color type=\"primary\" scheme_preference=\"light\">#ff00ff</color>\n"
+			"    <color type=\"primary\" scheme_preference=\"dark\">#993d3d</color>\n"
+			"    <color type=\"primary-text\">#ffffff</color>\n"
+			"  </branding>\n"
+			"</component>\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	AsBranding *branding;
+
+	/* read */
+	cpt = as_xml_test_read_data (xmldata_tags, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.BrandingTest");
+
+	/* validate */
+	branding = as_component_get_branding (cpt);
+	g_assert_nonnull (branding);
+
+	g_assert_cmpstr (as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY, AS_COLOR_SCHEME_KIND_LIGHT),
+			 ==, "#ff00ff");
+	g_assert_cmpstr (as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY, AS_COLOR_SCHEME_KIND_DARK),
+			 ==, "#993d3d");
+	g_assert_cmpstr (as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY_TEXT, AS_COLOR_SCHEME_KIND_LIGHT),
+			 ==, "#ffffff");
+
+	/* write */
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_tags));
+}
+
+/**
  * main:
  */
 int
@@ -2050,6 +2089,7 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/XML/ReadWrite/Reviews", test_xml_rw_reviews);
 	g_test_add_func ("/XML/ReadWrite/Tags", test_xml_rw_tags);
+	g_test_add_func ("/XML/ReadWrite/Branding", test_xml_rw_branding);
 
 	ret = g_test_run ();
 	g_free (datadir);

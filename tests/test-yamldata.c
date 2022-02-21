@@ -1196,7 +1196,7 @@ static const gchar *yamldata_agreements =
 				"ID: org.example.AgreementsTest\n"
 				"Agreements:\n"
 				"- type: eula\n"
-				"  version_id: 1.2.3a\n"
+				"  version-id: 1.2.3a\n"
 				"  sections:\n"
 				"  - type: intro\n"
 				"    name:\n"
@@ -1689,6 +1689,49 @@ test_yaml_rw_tags (void)
 }
 
 /**
+ * test_yaml_rw_branding:
+ */
+static void
+test_yaml_rw_branding (void)
+{
+	static const gchar *yamldata_tags =
+			"Type: generic\n"
+			"ID: org.example.BrandingTest\n"
+			"Branding:\n"
+			"  colors:\n"
+			"  - type: primary\n"
+			"    scheme-preference: light\n"
+			"    value: '#ff00ff'\n"
+			"  - type: primary\n"
+			"    scheme-preference: dark\n"
+			"    value: '#993d3d'\n"
+			"  - type: primary-text\n"
+			"    value: '#ffffff'\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	AsBranding *branding;
+
+	/* read */
+	cpt = as_yaml_test_read_data (yamldata_tags, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.BrandingTest");
+
+	/* validate */
+	branding = as_component_get_branding (cpt);
+	g_assert_nonnull (branding);
+
+	g_assert_cmpstr (as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY, AS_COLOR_SCHEME_KIND_LIGHT),
+			 ==, "#ff00ff");
+	g_assert_cmpstr (as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY, AS_COLOR_SCHEME_KIND_DARK),
+			 ==, "#993d3d");
+	g_assert_cmpstr (as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY_TEXT, AS_COLOR_SCHEME_KIND_LIGHT),
+			 ==, "#ffffff");
+
+	/* write */
+	res = as_yaml_test_serialize (cpt);
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_tags));
+}
+
+/**
  * main:
  */
 int
@@ -1751,6 +1794,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/YAML/Write/Releases", test_yaml_write_releases);
 
 	g_test_add_func ("/YAML/ReadWrite/Tags", test_yaml_rw_tags);
+	g_test_add_func ("/YAML/ReadWrite/Branding", test_yaml_rw_branding);
 
 	ret = g_test_run ();
 	g_free (datadir);

@@ -1656,6 +1656,45 @@ as_validator_check_releases (AsValidator *validator, xmlNode *node, AsFormatStyl
 }
 
 /**
+ * as_validator_check_branding:
+ **/
+static void
+as_validator_check_branding (AsValidator *validator, xmlNode *node)
+{
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (g_strcmp0 ((gchar*) iter->name, "color") == 0) {
+			gchar *tmp;
+			guint len;
+
+			tmp = as_xml_get_prop_value (iter, "type");
+			if (as_color_kind_from_string (tmp) == AS_COLOR_KIND_UNKNOWN)
+				as_validator_add_issue (validator, iter, "branding-color-type-invalid", tmp);
+			g_free (tmp);
+
+			tmp = as_xml_get_prop_value (iter, "scheme_preference");
+			if (tmp != NULL && as_color_scheme_kind_from_string (tmp) == AS_COLOR_SCHEME_KIND_UNKNOWN)
+				as_validator_add_issue (validator, iter, "branding-color-scheme-type-invalid", tmp);
+			g_free (tmp);
+
+			tmp = as_xml_get_node_value (iter);
+			len = strlen (tmp);
+			if (!g_str_has_prefix (tmp, "#") || (len != 7 && len != 9))
+				as_validator_add_issue (validator, iter, "branding-color-invalid", tmp);
+		} else {
+			as_validator_add_issue (validator, iter,
+						"invalid-child-tag-name",
+						/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted names. */
+						_("Found: %s - Allowed: %s"),
+						(const gchar*) iter->name,
+						"color");
+		}
+	}
+}
+
+/**
  * as_validator_validate_component_node:
  **/
 static AsComponent*
@@ -1916,6 +1955,9 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_relations (validator, iter, cpt, AS_RELATION_KIND_SUPPORTS);
 		} else if (g_strcmp0 (node_name, "agreement") == 0) {
 			as_validator_check_children_quick (validator, iter, "agreement_section", FALSE);
+		} else if (g_strcmp0 (node_name, "branding") == 0) {
+			as_validator_check_appear_once (validator, iter, found_tags);
+			as_validator_check_branding (validator, iter);
 		} else if (g_strcmp0 (node_name, "tags") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags);
 			as_validator_check_tags (validator, iter);

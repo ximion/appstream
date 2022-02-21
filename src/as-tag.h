@@ -71,6 +71,7 @@ G_BEGIN_DECLS
  * @AS_TAG_REVIEWS:			`reviews` / `Reviews`
  * @AS_TAG_NAME_VARIANT_SUFFIX:		`name_variant_suffix` / `NameVariantSuffix`
  * @AS_TAG_TAGS:			`tags` / `Tags`
+ * @AS_TAG_BRANDING:			`branding` / `Branding`
  * @AS_TAG_P:				Description markup `p`
  * @AS_TAG_LI:				Description markup `li`
  * @AS_TAG_OL:				Description markup `ol`
@@ -118,6 +119,7 @@ typedef enum {
 	AS_TAG_REVIEWS,
 	AS_TAG_NAME_VARIANT_SUFFIX,
 	AS_TAG_TAGS,
+	AS_TAG_BRANDING,
 	AS_TAG_P,
 	AS_TAG_LI,
 	AS_TAG_UL,

@@ -806,6 +806,21 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."),
 	},
 
+	{ "branding-color-type-invalid",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The type of this color is not valid."),
+	},
+
+	{ "branding-color-scheme-type-invalid",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The value of this color scheme preference is not valid."),
+	},
+
+	{ "branding-color-invalid",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("This color is not a valid HTML color code."),
+	},
+
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
 };
 

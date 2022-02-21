@@ -41,6 +41,7 @@
 #include "as-relation-private.h"
 #include "as-agreement-private.h"
 #include "as-review-private.h"
+#include "as-branding-private.h"
 #include "as-desktop-entry.h"
 
 
@@ -109,6 +110,8 @@ typedef struct
 
 	GPtrArray		*icons; /* of AsIcon elements */
 	GPtrArray		*reviews; /* of AsReview */
+
+	AsBranding		*branding;
 
 	GRefString		*arch; /* the architecture this data was generated from */
 	gint			priority; /* used internally */
@@ -3474,6 +3477,44 @@ as_component_get_agreement_by_kind (AsComponent *cpt, AsAgreementKind kind)
 }
 
 /**
+ * as_component_get_branding:
+ * @cpt: an #AsComponent instance.
+ *
+ * Get the branding associated with this component, or %NULL
+ * in case this component has no special branding.
+ *
+ * Returns: (transfer none) (nullable): An #AsBranding.
+ *
+ * Since: 0.15.2
+ **/
+AsBranding*
+as_component_get_branding (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->branding;
+}
+
+/**
+ * as_component_set_branding:
+ * @cpt: a #AsComponent instance.
+ * @branding: an #AsBranding instance.
+ *
+ * Set branding for this component.
+ *
+ * Since: 0.15.2
+ **/
+void
+as_component_set_branding (AsComponent *cpt, AsBranding *branding)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (branding == priv->branding)
+		return;
+	if (priv->branding != NULL)
+		g_object_unref (priv->branding);
+	priv->branding = g_object_ref (branding);
+}
+
+/**
  * as_component_get_context:
  * @cpt: a #AsComponent instance.
  *
@@ -4145,6 +4186,10 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 						as_component_add_review (cpt, review);
 				}
 			}
+		} else if (tag_id == AS_TAG_BRANDING) {
+			g_autoptr(AsBranding) branding = as_branding_new ();
+			if (as_branding_load_from_xml (branding, ctx, iter, NULL))
+				as_component_set_branding (cpt, branding);
 		} else if (tag_id == AS_TAG_TAGS) {
 			for (xmlNode *sn = iter->children; sn != NULL; sn = sn->next) {
 				g_autofree gchar *ns = NULL;
@@ -4569,6 +4614,10 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 		AsAgreement *agreement = AS_AGREEMENT (g_ptr_array_index (priv->agreements, i));
 		as_agreement_to_xml_node (agreement, ctx, cnode);
 	}
+
+	/* branding */
+	if (priv->branding != NULL)
+		as_branding_to_xml_node (priv->branding, ctx, cnode);
 
 	/* releases */
 	if (priv->releases->len > 0) {
@@ -5077,6 +5126,10 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 				if (as_agreement_load_from_yaml (agreement, ctx, n, NULL))
 					as_component_add_agreement (cpt, agreement);
 			}
+		} else if (field_id == AS_TAG_BRANDING) {
+			g_autoptr(AsBranding) branding = as_branding_new ();
+			if (as_branding_load_from_yaml (branding, ctx, node, NULL))
+				as_component_set_branding (cpt, branding);
 		} else if (field_id == AS_TAG_NAME_VARIANT_SUFFIX) {
 			if (priv->name_variant_suffix != NULL)
 				g_hash_table_unref (priv->name_variant_suffix);
@@ -5637,6 +5690,10 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 
 		as_yaml_sequence_end (emitter);
 	}
+
+	/* Branding */
+	if (priv->branding != NULL)
+		as_branding_emit_yaml (priv->branding, ctx, emitter);
 
 	/* Releases */
 	if (priv->releases->len > 0) {

@@ -37,6 +37,7 @@
 #include <as-screenshot.h>
 #include <as-image.h>
 #include <as-video.h>
+#include <as-branding.h>
 #include <as-bundle.h>
 #include <as-release.h>
 #include <as-artifact.h>

@@ -42,6 +42,7 @@
 #include "as-relation.h"
 #include "as-agreement.h"
 #include "as-review.h"
+#include "as-branding.h"
 
 G_BEGIN_DECLS
 
@@ -408,6 +409,10 @@ void			as_component_add_agreement (AsComponent *cpt,
 						    AsAgreement *agreement);
 AsAgreement		*as_component_get_agreement_by_kind (AsComponent *cpt,
 							     AsAgreementKind kind);
+
+AsBranding		*as_component_get_branding (AsComponent *cpt);
+void			as_component_set_branding (AsComponent *cpt,
+						    AsBranding *branding);
 
 void			as_component_clear_tags (AsComponent *cpt);
 gboolean		as_component_add_tag (AsComponent *cpt,
