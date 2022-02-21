@@ -194,8 +194,8 @@ asc_icon_policy_iter_init (AscIconPolicyIter *iter, AscIconPolicy *ipolicy)
  * guint icon_scale;
  * AscIconState istate;
  *
- * xb_node_child_iter_init (&iter, ipolicy);
- * while (xb_node_child_iter_next (&iter, &icon_size, &icon_scale, &istate)) {
+ * asc_icon_policy_iter_init (&iter, ipolicy);
+ * while (asc_icon_policy_iter_next (&iter, &icon_size, &icon_scale, &istate)) {
  *     // do something with the icon entry data
  * }
  * ]|
