@@ -129,6 +129,8 @@ asc_render_font_screenshots (AscResult *cres,
 								NULL);
 					continue;
 				}
+
+				g_debug ("Saving font screenshot image: %s", img_name);
 				ret = asc_canvas_save_png (cv, img_filename, &tmp_error);
 				if (!ret) {
 					asc_result_add_hint (cres, cpt,
@@ -165,6 +167,7 @@ asc_render_font_icon (AscResult *cres,
 		      AscUnit *unit,
 		      AscFont *font,
 		      const gchar *cpt_icons_path,
+		      const gchar *icons_export_dir,
 		      AsComponent *cpt,
 		      AscIconPolicy *icon_policy)
 {
@@ -182,7 +185,7 @@ asc_render_font_icon (AscResult *cres,
 		const gchar *custom_icon_text = NULL;
 
 		/* skip icon if it should be skipped */
-		if (icon_state == ASC_ICON_STATE_IGNORE)
+		if (icon_state == ASC_ICON_STATE_IGNORED)
 			continue;
 
 		size_str = (scale_factor == 1)
@@ -225,6 +228,7 @@ asc_render_font_icon (AscResult *cres,
 						     NULL);
 				continue;
 			}
+			g_debug ("Saving font icon: %s/%s", size_str, icon_name);
 			ret = asc_canvas_save_png (cv, icon_full_path, &tmp_error);
 			if (!ret) {
 				asc_result_add_hint (cres, cpt,
@@ -233,6 +237,27 @@ asc_render_font_icon (AscResult *cres,
 						     "error", tmp_error->message,
 						     NULL);
 				continue;
+			}
+
+			if (icons_export_dir != NULL) {
+				g_autofree gchar *icon_export_dir = NULL;
+				g_autofree gchar *icon_export_fname = NULL;
+
+				g_debug ("Copying icon to icon export dir: %s/%s", size_str, icon_name);
+				icon_export_dir = g_build_filename (icons_export_dir, size_str, NULL);
+				icon_export_fname = g_build_filename (icon_export_dir, icon_name, NULL);
+
+				g_mkdir_with_parents (icon_export_dir, 0755);
+				if (!as_copy_file (icon_full_path, icon_export_fname, &tmp_error)) {
+					g_autofree gchar *tmp_icon_fname = g_strdup_printf ("%s/%s", size_str, icon_name);
+					g_warning ("Unable to write exported icon: %s", icon_export_fname);
+					asc_result_add_hint (cres, cpt,
+							     "icon-write-error",
+							     "fname", tmp_icon_fname,
+							     "msg", tmp_error->message,
+							     NULL);
+					continue;
+				}
 			}
 		}
 
@@ -292,6 +317,7 @@ process_font_data_for_component (AscResult *cres,
 				 AsComponent *cpt,
 				 GHashTable *all_fonts,
 				 const gchar *media_export_root,
+				 const gchar *icons_export_dir,
 				 AscIconPolicy *icon_policy,
 				 AscComposeFlags flags)
 {
@@ -326,8 +352,13 @@ process_font_data_for_component (AscResult *cres,
 	}
 
 	/* data export paths */
-	cpt_icons_path = g_build_filename (media_export_root, gcid, "icons", NULL);
-	cpt_screenshots_path = g_build_filename (media_export_root, gcid, "screenshots", NULL);
+	if (media_export_root == NULL)
+		cpt_icons_path = g_build_filename (asc_globals_get_tmp_dir (), gcid, NULL);
+	else
+		cpt_icons_path = g_build_filename (media_export_root, gcid, "icons", NULL);
+
+	if (media_export_root != NULL)
+		cpt_screenshots_path = g_build_filename (media_export_root, gcid, "screenshots", NULL);
 
 	/* if we have no fonts hints, we simply process all the fonts
 	 * that we found in this unit. */
@@ -455,6 +486,7 @@ process_font_data_for_component (AscResult *cres,
 							 unit,
 							 font,
 							 cpt_icons_path,
+							 icons_export_dir,
 							 cpt,
 							 icon_policy);
 
@@ -470,11 +502,16 @@ process_font_data_for_component (AscResult *cres,
 	}
 
 	/* render all sample screenshots for all font styles we have */
-	if (as_flags_contains (flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS))
-		asc_render_font_screenshots (cres,
-					     selected_fonts,
-					     cpt_screenshots_path,
-					     cpt);
+	if (as_flags_contains (flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS)) {
+		if (cpt_screenshots_path == NULL)
+			g_warning ("Screenshot storage is enabled, but no screenshot media path could be constructed for %s.",
+				   as_component_get_id (cpt));
+		else
+			asc_render_font_screenshots (cres,
+						     selected_fonts,
+						     cpt_screenshots_path,
+						     cpt);
+	}
 }
 
 /**
@@ -486,6 +523,7 @@ void
 asc_process_fonts (AscResult *cres,
 		   AscUnit *unit,
 		   const gchar *media_export_root,
+		   const gchar *icons_export_dir,
 		   AscIconPolicy *icon_policy,
 		   AscComposeFlags flags)
 {
@@ -565,6 +603,7 @@ asc_process_fonts (AscResult *cres,
 						 cpt,
 						 all_fonts,
 						 media_export_root,
+						 icons_export_dir,
 						 icon_policy,
 						 flags);
 	}

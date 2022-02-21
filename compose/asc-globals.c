@@ -108,10 +108,14 @@ static void
 asc_globals_init (AscGlobals *globals)
 {
 	AscGlobalsPrivate *priv = GET_PRIVATE (globals);
+	g_autofree gchar *tmp_str1 = NULL;
+	g_autofree gchar *tmp_str2 = NULL;
 	g_assert (g_globals == NULL);
 	g_globals = globals;
 
-	priv->tmp_dir = g_build_filename (g_get_tmp_dir (), "as-compose", NULL);
+	tmp_str1 = as_random_alnum_string (6);
+	tmp_str2 = g_strconcat ("as-compose_", tmp_str1, NULL);
+	priv->tmp_dir = g_build_filename (g_get_tmp_dir (), tmp_str2, NULL);
 
 	priv->optipng_bin = g_find_program_in_path ("optipng");
 	if (priv->optipng_bin != NULL)

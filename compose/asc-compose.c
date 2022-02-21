@@ -936,7 +936,8 @@ static void
 asc_compose_process_icons (AscCompose *compose,
 			   AscResult *cres,
 			   AsComponent *cpt,
-			   AscUnit *unit)
+			   AscUnit *unit,
+			   const gchar *icon_export_dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	GPtrArray *icons = NULL;
@@ -993,7 +994,7 @@ asc_compose_process_icons (AscCompose *compose,
 		g_autoptr(GError) error = NULL;
 
 		/* skip icon if its size should be skipped */
-		if (icon_state == ASC_ICON_STATE_IGNORE)
+		if (icon_state == ASC_ICON_STATE_IGNORED)
 			continue;
 
 		icon_fname = asc_compose_find_icon_filename (compose,
@@ -1049,7 +1050,7 @@ asc_compose_process_icons (AscCompose *compose,
 					: g_strdup_printf ("%ix%i@%i",
 							   size, size,
 							   scale_factor);
-		res_icon_sizedir = g_build_filename (priv->icons_result_dir, res_icon_size_str, NULL);
+		res_icon_sizedir = g_build_filename (icon_export_dir, res_icon_size_str, NULL);
 
 		g_mkdir_with_parents (res_icon_sizedir, 0755);
 		res_icon_basename = g_strdup_printf ("%s.png", as_component_get_id (cpt));
@@ -1600,10 +1601,20 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 
 		/* icons */
 		if (!as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_IGNORE_ICONS)) {
+			g_autofree gchar *icons_export_dir = NULL;
+			if (priv->icons_result_dir == NULL)
+				icons_export_dir = g_build_filename (asc_globals_get_tmp_dir (),
+									asc_result_gcid_for_component (ctask->result, cpt),
+									"icons",
+									NULL);
+			else
+				icons_export_dir = g_strdup (priv->icons_result_dir);
+
 			asc_compose_process_icons (compose,
 						   ctask->result,
 						   cpt,
-						   ctask->unit);
+						   ctask->unit,
+						   icons_export_dir);
 			/* skip the next steps if the component has been ignored */
 			if (asc_result_is_ignored (ctask->result, cpt))
 				continue;
@@ -1628,6 +1639,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 		asc_process_fonts (ctask->result,
 				   ctask->unit,
 				   priv->media_result_dir,
+				   priv->icons_result_dir,
 				   priv->icon_policy,
 				   priv->flags);
 	}
@@ -2008,6 +2020,7 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GPtrArray) tasks = NULL;
+	gboolean temp_dir_created = FALSE;
 
 	/* ensure icon output dir is set, hint and data output dirs are optional */
 	if (priv->icons_result_dir == NULL && !as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_IGNORE_ICONS)) {
@@ -2025,6 +2038,42 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 				     _("Media result directory is set, but media base URL is not. A media base URL is needed "
 				       "to export media that is served via the media URL."));
 		return NULL;
+	}
+
+	if (priv->media_result_dir == NULL) {
+		AscIconPolicyIter ip_iter;
+		guint icon_size;
+		guint scale_factor;
+		AscIconState icon_state;
+		asc_icon_policy_iter_init (&ip_iter, priv->icon_policy);
+		while (asc_icon_policy_iter_next (&ip_iter, &icon_size, &scale_factor, &icon_state)) {
+			if (icon_state == ASC_ICON_STATE_IGNORED)
+				continue;
+			if (icon_state == ASC_ICON_STATE_REMOTE_ONLY || icon_state == ASC_ICON_STATE_CACHED_REMOTE) {
+				g_debug ("No media export directory set, but icon %ix%i@%i is set for remote delivery. Disabling remote for this icon type.",
+					 icon_size, icon_size, scale_factor);
+				asc_icon_policy_set_policy (priv->icon_policy,
+							    icon_size,
+							    scale_factor,
+							    ASC_ICON_STATE_CACHED_ONLY);
+			}
+
+		}
+
+		if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS)) {
+			g_debug ("No media export directory set, but screenshots are supposed to be stored. Disabling screenshot storage.");
+			as_flags_remove (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS);
+		}
+	}
+
+	if (g_file_test (asc_globals_get_tmp_dir (), G_FILE_TEST_EXISTS)) {
+		g_debug ("Will use existing directory '%s' for temporary data (and will not delete it later).",
+			 asc_globals_get_tmp_dir ());
+		temp_dir_created = FALSE;
+	} else {
+		g_debug ("Will use temporary directory '%s' and delete it after this run.",
+			 asc_globals_get_tmp_dir ());
+		temp_dir_created = TRUE;
 	}
 
 	/* sanity check to ensure resources can be loaded */
@@ -2080,6 +2129,13 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 			return NULL;
 		if (!asc_compose_export_hints_data_html (compose, error))
 			return NULL;
+	}
+
+	/* clean up */
+	if (temp_dir_created) {
+		g_debug ("Removing temporary directory '%s'", asc_globals_get_tmp_dir ());
+		if (!as_utils_delete_dir_recursive (asc_globals_get_tmp_dir ()))
+			g_debug ("Failed to remove temporary directory.");
 	}
 
 	return priv->results;

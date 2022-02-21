@@ -72,7 +72,7 @@ asc_icon_policy_entry_new (guint size, guint scale)
 	entry = g_slice_new0 (AscIconPolicyEntry);
 	entry->size = size;
 	entry->scale = scale;
-	entry->state = ASC_ICON_STATE_IGNORE;
+	entry->state = ASC_ICON_STATE_IGNORED;
 	return entry;
 }
 

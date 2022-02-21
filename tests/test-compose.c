@@ -844,6 +844,7 @@ test_compose_font (void)
 	asc_process_fonts (cres,
 			   ASC_UNIT (dirunit),
 			   export_tmpdir,
+			   NULL, /* no icon export dir */
 			   icon_policy,
 			   ASC_COMPOSE_FLAG_STORE_SCREENSHOTS |
 			   ASC_COMPOSE_FLAG_PROCESS_FONTS);

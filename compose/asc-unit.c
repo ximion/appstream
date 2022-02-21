@@ -143,9 +143,14 @@ asc_unit_set_bundle_id (AscUnit *unit, const gchar *id)
 	as_assign_string_safe (priv->bundle_id, id);
 
 	tmp = g_string_new (priv->bundle_id);
-	as_gstring_replace (tmp, "/", "-");
-	as_gstring_replace (tmp, "\\", "-");
-	as_gstring_replace (tmp, ":", "_");
+	if (g_strcmp0 (tmp->str, "/") == 0) {
+		g_string_truncate (tmp, 0);
+		g_string_append (tmp, "root");
+	} else {
+		as_gstring_replace (tmp, "/", "-");
+		as_gstring_replace (tmp, "\\", "-");
+		as_gstring_replace (tmp, ":", "_");
+	}
 
 	g_free (priv->bundle_id_safe);
 	priv->bundle_id_safe = g_string_free (tmp, FALSE);
