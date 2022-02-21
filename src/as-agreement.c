@@ -374,7 +374,7 @@ as_agreement_load_from_yaml (AsAgreement *agreement, AsContext *ctx, GNode *node
 
 		if (g_strcmp0 (key, "type") == 0) {
 			priv->kind = as_agreement_kind_from_string (value);
-		} else if (g_strcmp0 (key, "version_id") == 0) {
+		} else if (g_strcmp0 (key, "version-id") == 0) {
 			as_agreement_set_version_id (agreement, value);
 		} else if (g_strcmp0 (key, "sections") == 0) {
 			GNode *sn;
@@ -414,9 +414,7 @@ as_agreement_emit_yaml (AsAgreement *agreement, AsContext *ctx, yaml_emitter_t *
 	as_yaml_emit_entry (emitter, "type", as_agreement_kind_to_string (priv->kind));
 
 	/* version */
-	as_yaml_emit_entry (emitter, "version_id", priv->version_id);
-
-
+	as_yaml_emit_entry (emitter, "version-id", priv->version_id);
 
 	as_yaml_emit_scalar (emitter, "sections");
 	as_yaml_sequence_start (emitter);
