@@ -229,7 +229,7 @@ as_news_yaml_to_releases (const gchar *yaml_data,
 							para = g_string_new ("");
 							lines = g_strsplit (escaped, "\n", -1);
 							for (guint j = 0; lines[j] != NULL; j++) {
-								if (g_str_has_prefix (lines[j], "  -") || g_str_has_prefix (lines[j], "  *")) {
+								if (g_str_has_prefix (lines[j], " -") || g_str_has_prefix (lines[j], " *")) {
 									/* we have a list */
 									if (in_paragraph) {
 										g_string_truncate (str, str->len - 1);
@@ -241,12 +241,12 @@ as_news_yaml_to_releases (const gchar *yaml_data,
 									} else {
 										g_string_append (str, "<ul>\n<li>");
 									}
-									g_string_append (str, lines[j] + 4);
+									g_string_append (str, lines[j] + 3);
 									in_listing = TRUE;
 									continue;
 								} else if (in_listing) {
 									if (g_str_has_prefix (lines[j], "   ")) {
-										g_string_append_printf (str, " %s", lines[j] + 4);
+										g_string_append_printf (str, " %s", lines[j] + 3);
 									} else {
 										g_string_append (str, "</li>\n</ul>\n");
 										in_listing = FALSE;

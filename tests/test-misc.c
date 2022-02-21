@@ -50,9 +50,9 @@ test_readwrite_yaml_news ()
 		"  A freeform description text.\n"
 		"\n"
 		"  Second paragraph. XML <> YAML\n"
-		"    * List item 1\n"
-		"    * List item 2\n"
-		"      Line two of list item.\n"
+		"   * List item 1\n"
+		"   * List item 2\n"
+		"     Line two of list item.\n"
 		"\n"
 		"  Third paragraph.\n"
 		"---\n"
@@ -132,7 +132,7 @@ test_readwrite_yaml_news ()
 	gchar *tmp;
 	gboolean ret;
 	g_autofree gchar *yaml_news_data_brclean = as_str_replace (yaml_news_data,
-								   "item 2\n      Line two",
+								   "item 2\n     Line two",
 								   "item 2 Line two",
 								   -1);
 
@@ -230,13 +230,13 @@ test_readwrite_text_news ()
 			"This release changes the output of appstreamcli\n"
 			"\n"
 			"This release adds the following features:\n"
-			"  * Alpha\n"
-			"  * Beta\n"
+			" * Alpha\n"
+			" * Beta\n"
 			"\n"
 			"This release fixes the following bugs:\n"
-			"  * Restore compatibility with GLib < 2.58\n"
-			"  * Gamma\n"
-			"  * Delta\n";
+			" * Restore compatibility with GLib < 2.58\n"
+			" * Gamma\n"
+			" * Delta\n";
 
 	g_autoptr(GPtrArray) releases = NULL;
 	g_autoptr(GError) error = NULL;
