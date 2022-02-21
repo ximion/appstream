@@ -150,6 +150,11 @@ asc_unit_set_bundle_id (AscUnit *unit, const gchar *id)
 		as_gstring_replace (tmp, "/", "-");
 		as_gstring_replace (tmp, "\\", "-");
 		as_gstring_replace (tmp, ":", "_");
+
+		if (g_str_has_prefix (tmp->str, "-") || g_str_has_prefix (tmp->str, "."))
+			g_string_erase (tmp, 0, 1);
+		if (g_strcmp0 (tmp->str, "") == 0)
+			g_string_append (tmp, "BADNAME");
 	}
 
 	g_free (priv->bundle_id_safe);
