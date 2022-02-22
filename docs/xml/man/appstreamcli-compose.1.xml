@@ -14,7 +14,7 @@
 	<refentryinfo>
 	<title>appstreamcli compose</title>
 	<copyright>
-		<year>2020-2021</year>
+		<year>2020-2022</year>
 		<holder>Matthias Klumpp</holder>
 	</copyright>
 	<productname>AppStream</productname>
@@ -222,7 +222,10 @@
 
 	<refsect1>
 		<title>See Also</title>
-		<para>appstreamcli(1), appstream-generator(1).</para>
+		<para>
+			<citerefentry><refentrytitle>appstreamcli</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+			<citerefentry><refentrytitle>appstream-generator</refentrytitle><manvolnum>1</manvolnum></citerefentry>.
+		</para>
 	</refsect1>
 <refsect1>
 <title>AUTHOR</title>

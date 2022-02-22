@@ -15,7 +15,7 @@
 	<refentryinfo>
 	<title>appstreamcli</title>
 	<copyright>
-		<year>2012-2021</year>
+		<year>2012-2022</year>
 		<holder>Matthias Klumpp</holder>
 	</copyright>
 	<productname>AppStream</productname>
@@ -61,21 +61,10 @@
 	<refsect1>
 		<title>Options</title>
 		<variablelist>
-
-			<varlistentry>
-				<term><option>status</option></term>
-				<listitem>
-					<para>
-						Display various information about the installed metadata and
-						the metadata cache.
-					</para>
-				</listitem>
-			</varlistentry>
-
 			<varlistentry>
 				<term><option>get <replaceable>ID</replaceable></option></term>
 				<listitem>
-					<para>Get a component by it's identifier.</para>
+					<para>Get a component from the matadata pool by its identifier.</para>
 				</listitem>
 			</varlistentry>
 
@@ -83,7 +72,7 @@
 				<term><option>s</option></term>
 				<term><option>search <replaceable>TERM</replaceable></option></term>
 				<listitem>
-					<para>Search the AppStream component database for a given search term.</para>
+					<para>Search the AppStream component pool for a given search term.</para>
 				</listitem>
 			</varlistentry>
 
@@ -124,10 +113,33 @@
 			</varlistentry>
 
 			<varlistentry>
+				<term><option>status</option></term>
+				<listitem>
+					<para>
+						Display various information about the installed metadata and
+						the metadata cache.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>os-info</option></term>
+				<listitem>
+					<para>
+						Show information about the current operating system from the metadata
+						index.
+						This requires the operating system to provide a <literal>operating-system</literal>
+						component for itself.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
 				<term><option>dump <replaceable>ID</replaceable></option></term>
 				<listitem>
 					<para>
-						Dump the XML description of a component with the given ID.
+						Dump the complete XML descriptions of components with the given ID that were found in the
+						metadata pool.
 					</para>
 				</listitem>
 			</varlistentry>
@@ -140,7 +152,7 @@
 					</para>
 					<para>
 						Both XML metadata types, upstream and distro XML, are handled.
-						The filetype which should be validated is determined automatically.
+						The format type which should be validated is determined automatically.
 					</para>
 					<para>
 						The <option>--pedantic</option> flag triggers a more pedantic
@@ -166,7 +178,7 @@
 				<term><option>check-license <replaceable>LICENSE</replaceable></option></term>
 				<listitem>
 					<para>
-						Test a license string for validity and display details about it.
+						Test a license string or license expression for validity and display details about it.
 					</para>
 					<para>
 						This will check whether the license string is considered to be valid for AppStream, and return
@@ -186,14 +198,25 @@
 				<term><option>install <replaceable>ID</replaceable></option></term>
 				<listitem>
 					<para>
-						Install a software component by its ID.
+						Install a software component by its ID using the package manager or Flatpak.
 					</para>
 					<para>
-						This resolves the AppStream component ID to the package name which provides it and
-						then calls the distribution's package manager to install the software.
+						This resolves the AppStream component ID to an installation candidate and then
+						calls either the native package manager or Flatpak (if available) to install
+						the component.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>remove <replaceable>ID</replaceable></option></term>
+				<listitem>
+					<para>
+						Uninstall a software component by its ID using the package manager or Flatpak.
 					</para>
 					<para>
-						This feature is experimental.
+						This will uninstall software matching the selected ID using either the native
+						package manager or Flatpak (if available).
 					</para>
 				</listitem>
 			</varlistentry>
@@ -208,7 +231,8 @@
 			</varlistentry>
 
 			<varlistentry>
-				<term><option>compare-versions <replaceable>VER1</replaceable> <replaceable>[CMP]</replaceable> <replaceable>VER2</replaceable></option></term>
+				<term><option>compare-versions</option></term>
+				<term><option>vercmp <replaceable>VER1</replaceable> <replaceable>[CMP]</replaceable> <replaceable>VER2</replaceable></option></term>
 				<listitem>
 					<para>
 						Compare two version numbers. If two version numbers are given as parameters, the versions will be compared and the
@@ -307,6 +331,28 @@
 			</varlistentry>
 
 			<varlistentry>
+				<term><option>convert <replaceable>FILE1</replaceable> <replaceable>FILE1</replaceable></option></term>
+				<listitem>
+					<para>
+						Converts AppStream XML metadata into its YAML representation and vice versa.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>compose</option></term>
+				<listitem>
+					<para>
+						Composes an AppStream metadata catalog from a directory tree with metainfo files.
+						This command is only available if the <code>org.freedesktop.appstream.compose</code>
+						component is installed.
+						See <citerefentry><refentrytitle>appstreamcli-compose</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+						for more information.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
 				<term><option>--details</option></term>
 				<listitem>
 					<para>Print out more information about a found component.</para>
@@ -343,7 +389,7 @@
 
 	<refsect1>
 		<title>See Also</title>
-		<para>pkcon (1).</para>
+		<para><citerefentry><refentrytitle>pkcon</refentrytitle><manvolnum>1</manvolnum></citerefentry>.</para>
 	</refsect1>
 <refsect1>
 <title>AUTHOR</title>
