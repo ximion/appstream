@@ -5,7 +5,7 @@
 # Translators:
 # sebras <sebras@gmail.com>, 2015-2016.
 # Josef Andersson <l10nl18nsweja@gmail.com>, 2015, 2017.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2021.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2021, 2022.
 # Mattias Münster <mattiasmun@gmail.com>, 2019.
 # #-#-#-#-#  sv.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
@@ -15,9 +15,9 @@
 # sebras <sebras@gmail.com>, 2015-2016
 # Göran Uddeborg <goeran@uddeborg.se>, 2016. #zanata
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2017. #zanata, 2021.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2017. #zanata, 2021, 2022.
 # Göran Uddeborg <goeran@uddeborg.se>, 2018. #zanata
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019. #zanata, 2021.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019. #zanata, 2021, 2022.
 # Ulf Lundh <ulf@lundh.me>, 2020.
 # Luna Jernberg <droidbittin@gmail.com>, 2022.
 #
@@ -28,7 +28,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-02-22 12:04+0100\n"
 "PO-Revision-Date: 2022-02-22 21:02+0000\n"
-"Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -3038,7 +3038,7 @@ msgstr "Kunde inte starta pakethanterare: %s"
 #: tools/ascli-actions-pkgmgr.c:154
 #, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "Kunde inte identifiera komponenten med ID '%s' och de valda filterkriterierna!"
+msgstr "Kunde inte identifiera komponenten med ID ”%s” och de valda filterkriterierna!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
