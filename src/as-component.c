@@ -917,7 +917,7 @@ as_component_get_timestamp_eol (AsComponent *cpt)
 /**
  * as_component_sanitize_date_eol:
  */
-gchar*
+static gchar*
 as_component_sanitize_date_eol (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
