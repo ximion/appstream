@@ -37,6 +37,7 @@
 # Eric <spice2wolf@gmail.com>, 2021.
 # 刘韬 <lyuutau@outlook.com>, 2021.
 # Dingzhong Chen <wsxy162@gmail.com>, 2021.
+# Eric <alchemillatruth@purelymail.com>, 2022.
 #
 # Translators:
 msgid ""
@@ -44,16 +45,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-02-22 12:04+0100\n"
-"PO-Revision-Date: 2021-12-24 23:51+0000\n"
-"Last-Translator: Eric <spice2wolf@gmail.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_Hans/>\n"
+"PO-Revision-Date: 2022-02-22 16:37+0000\n"
+"Last-Translator: Eric <alchemillatruth@purelymail.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.11-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1191,9 +1191,8 @@ msgid ""
 msgstr "组件ID包含一个无效字符。 只允许ASCII字符、英文点和数字。"
 
 #: src/as-validator-issue-tag.h:129
-#, fuzzy
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr "组件有一个优先级值集。 这在 metainfo 文件中是不允许的。"
+msgstr "组件 ID 以标点符号开头。这是不允许的。"
 
 #: src/as-validator-issue-tag.h:134
 msgid ""
@@ -2017,14 +2016,12 @@ msgstr ""
 "划线。"
 
 #: src/as-validator-issue-tag.h:811
-#, fuzzy
 msgid "The type of this color is not valid."
-msgstr "这个文件的XML格式不正确。"
+msgstr "此颜色类型无效。"
 
 #: src/as-validator-issue-tag.h:816
-#, fuzzy
 msgid "The value of this color scheme preference is not valid."
-msgstr "该设定值作为发布类型设定无效。"
+msgstr "此配色方案首选项的值无效。"
 
 #: src/as-validator-issue-tag.h:821
 msgid "This color is not a valid HTML color code."
@@ -2863,19 +2860,18 @@ msgid "Unable to spawn package manager: %s"
 msgstr "无法启动软件包管理器：%s"
 
 #: tools/ascli-actions-pkgmgr.c:84
-#, fuzzy
 msgid "Flatpak was not found! Please install it to continue."
-msgstr "未找到组合二进制文件“%s”！无法继续。"
+msgstr "没找到 Flatpak！请安装它以继续。"
 
 #: tools/ascli-actions-pkgmgr.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "无法启动软件包管理器：%s"
+msgstr "无法衍生 Flatpak 进程：%s"
 
 #: tools/ascli-actions-pkgmgr.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "未找到 id 为“%s”的组件！"
+msgstr "找不到 ID 为 '%s' 的组件以及所选的过滤标准！"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
