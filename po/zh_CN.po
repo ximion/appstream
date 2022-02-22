@@ -33,7 +33,7 @@
 # Liu Tao <lyuutau@outlook.com>, 2021.
 # Zhou Nan <zhounan@nfschina.com>, 2021.
 # Donald Yiu <1456762857@qq.com>, 2021.
-# Flywater Zh <lumingzh@qq.com>, 2021.
+# Flywater Zh <lumingzh@qq.com>, 2021, 2022.
 # Eric <spice2wolf@gmail.com>, 2021.
 # 刘韬 <lyuutau@outlook.com>, 2021.
 # Dingzhong Chen <wsxy162@gmail.com>, 2021.
@@ -46,7 +46,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-02-22 12:04+0100\n"
 "PO-Revision-Date: 2022-02-22 16:37+0000\n"
-"Last-Translator: Eric <alchemillatruth@purelymail.com>\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -1872,14 +1872,14 @@ msgstr "该设定值作为发布类型设定无效。"
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:696
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "该发布缺少 `version` 属性。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:702
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
-msgstr ""
+msgstr "该发布缺少 `date` (首选) 或 `timestamp` 属性。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:707
@@ -2025,7 +2025,7 @@ msgstr "此配色方案首选项的值无效。"
 
 #: src/as-validator-issue-tag.h:821
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "该颜色不是有效的 HTML 颜色代码。"
 
 #: src/as-validator.c:150
 msgid ""
@@ -2344,21 +2344,21 @@ msgstr "为当前用户而不是全局的安装该文件。"
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
-msgstr ""
+msgstr "限制该命令仅使用来自给定的捆绑包系统的组件（“flatpak”或“package”）。"
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:541
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
-msgstr ""
+msgstr "不要询问应使用哪个软件组件而总是选择首个条目。"
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:574 tools/appstreamcli.c:611
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
-msgstr ""
+msgstr "未指定有效的捆绑包类型。当前仅能识别“package”和“flatpak”。"
 
 #: tools/appstreamcli.c:709
 msgid ""
@@ -2437,7 +2437,7 @@ msgstr "未找到组合二进制文件“%s”！无法继续。"
 #: tools/appstreamcli.c:993
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
-msgstr ""
+msgstr "您可以通过“%s”安装 AppStream 合成附件"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1002
@@ -2876,22 +2876,22 @@ msgstr "找不到 ID 为 '%s' 的组件以及所选的过滤标准！"
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "为该移除找到多个候选："
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "为该安装找到多个候选："
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:186
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "请输入要移除的组件号码："
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:190
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "请输入要安装的组件号码："
 
 #: tools/ascli-actions-pkgmgr.c:200
 #, c-format
@@ -3083,7 +3083,7 @@ msgstr "提供的项目"
 #: tools/ascli-utils.c:449
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "请输入从 1 到 %i 的数字： "
 
 #~ msgid "Unable to remove old cache."
 #~ msgstr "无法移除旧缓存。"
