@@ -19,6 +19,7 @@
 # Göran Uddeborg <goeran@uddeborg.se>, 2018. #zanata
 # Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019. #zanata, 2021.
 # Ulf Lundh <ulf@lundh.me>, 2020.
+# Luna Jernberg <droidbittin@gmail.com>, 2022.
 #
 # Translators:
 msgid ""
@@ -26,16 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-02-22 12:04+0100\n"
-"PO-Revision-Date: 2021-12-24 23:51+0000\n"
-"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"PO-Revision-Date: 2022-02-22 21:02+0000\n"
+"Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.11-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2153,7 +2153,7 @@ msgstr "Värdet som ställt in som utgåvetyp är ogiltigt."
 
 #: src/as-validator-issue-tag.h:821
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Denna färg är inte en giltig HTML-färgkod."
 
 #: src/as-validator.c:150
 msgid ""
@@ -3027,9 +3027,8 @@ msgid "Unable to spawn package manager: %s"
 msgstr "Kunde inte starta pakethanterare: %s"
 
 #: tools/ascli-actions-pkgmgr.c:84
-#, fuzzy
 msgid "Flatpak was not found! Please install it to continue."
-msgstr "Sammansättningsbinär ”%s” hittades inte! Kan inte fortsätta."
+msgstr "Flatpak hittades inte! Installera det för att fortsätta."
 
 #: tools/ascli-actions-pkgmgr.c:95
 #, fuzzy, c-format
@@ -3037,29 +3036,29 @@ msgid "Unable to spawn Flatpak process: %s"
 msgstr "Kunde inte starta pakethanterare: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "Kunde inte identifiera komponenten med ID ”%s”!"
+msgstr "Kunde inte identifiera komponenten med ID '%s' och de valda filterkriterierna!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "Flera kandidater hittades för borttagning:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "Flera kandidater hittades för installation:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:186
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Ange numret på den komponent som ska tas bort:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:190
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Ange numret på den komponent som ska installeras:"
 
 #: tools/ascli-actions-pkgmgr.c:200
 #, c-format
@@ -3253,7 +3252,7 @@ msgstr "Tillhandahållna objekt"
 #: tools/ascli-utils.c:449
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "Ange ett nummer från 1 till %i: "
 
 #~ msgid "Unable to remove old cache."
 #~ msgstr "Kunde inte ta bort gammal cache."
