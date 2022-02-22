@@ -1,3 +1,51 @@
+Version 0.15.2
+~~~~~~~~~~~~~~
+Released: 2022-02-22
+
+Features:
+ * compose: Allow setting a custom CAInfo file
+ * qt: Always use C library for enum-to-string conversions
+ * compose: Allow any amount of release entries for OS components
+ * compose: Implement more flexible icon policy
+ * validator: Ensure component-ID has no punctuation prefix
+ * validator: Check existence of version and date release properties
+ * Implement component-wide end-of-life date attribute
+ * compose: Build API documentation
+ * Relicense remaining GPL-2.0 code to LGPL-2.1+
+ * No longer mark compose build option as experimental
+ * Support the new swcatalog catalog metadata location and add app-info fallback
+ * When finding components by ID, use provided IDs if no exact matches were found
+ * ascli: Fix install/remove commands, add Flatpak support
+ * Implement XML & YAML read/write of the "branding" tag group
+ * Handle embedded lists in YAML release info paragraphs
+
+Specification:
+ * spec: Specify a "date_eol" property for the component itself
+ * spec: Specify the new "branding" tag
+ * docs: Update links to API reference pages
+ * spec: Require that branding colours start with a hash symbol
+ * docs: Clarify license and ship license copies
+ * docs: Document media_baseurl property of components
+
+Bugfixes:
+ * qt: Fix crash when moving a Component
+ * qt: Fix translate URL string<->enum conversion
+ * qt: Deprecate mistyped UrlTranslate enum value
+ * Filter out components without ID as early as possible (resolves crash)
+ * Don't terminate the client if we can't get a writable cache location
+ * Fix a possible parsing crash when converting markup
+ * ascli: Display better messages if appstream-compose is unavailable
+ * Install new collection XML to the right location
+ * compose: Skip further processing if component was already dropped
+ * compose: Fix SVG scaling with librsvg 2.52
+ * compose: Handle missing export paths gracefully
+ * Replace symlink hacks with new Meson install_symlink function
+ * ci: Drop outdated libsoup dep
+
+Contributors:
+ Aleix Pol, fortysixandtwo, JakobDev, Jan Alexander Steffens, pabloyoyoista,
+ Phaedrus Leeds, Philip Withnall, Matthias Klumpp
+
 Version 0.15.1
 ~~~~~~~~~~~~~~
 Released: 2021-12-22
