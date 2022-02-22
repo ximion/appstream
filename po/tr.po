@@ -7,7 +7,7 @@
 # Necdet Yücel <necdetyucel@gmail.com>, 2014-2015
 # Çağatay Yiğit Şahin <cyigitsahin@outlook.com>, 2017.
 # Mesut Akcan <makcan@gmail.com>, 2019, 2021.
-# Oğuz Ersen <oguzersen@protonmail.com>, 2019, 2020, 2021.
+# Oğuz Ersen <oguzersen@protonmail.com>, 2019, 2020, 2021, 2022.
 # #-#-#-#-#  tr.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -27,16 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-02-22 12:04+0100\n"
-"PO-Revision-Date: 2021-12-22 17:28+0000\n"
+"PO-Revision-Date: 2022-02-22 16:37+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.11-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -44,7 +43,7 @@ msgstr "AppStream CLI"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr "AppStream üst verisiyle çalışmak için bir araç"
+msgstr "AppStream üst verileriyle çalışmak için bir araç"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
@@ -246,7 +245,7 @@ msgstr "Takvim"
 #: src/as-category.c:196
 msgctxt "Category of Office"
 msgid "Database"
-msgstr "Veritabanı"
+msgstr "Veri tabanı"
 
 #: src/as-category.c:199
 msgctxt "Category of Office"
@@ -795,9 +794,7 @@ msgstr "En son uygulama sürümünün denetlenmesi"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1041
 msgid "Sharing diagnostic data that does not let others identify the user"
-msgstr ""
-"Başkalarının kullanıcıyı tanımasını sağlamayacak tanılama verisinin "
-"paylaşılması"
+msgstr "Başkalarının kullanıcıyı tanımasını sağlamayacak tanılama verilerinin paylaşılması"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
@@ -1206,11 +1203,8 @@ msgstr ""
 "karakterlerine, noktalara ve rakamlara izin verilmektedir."
 
 #: src/as-validator-issue-tag.h:129
-#, fuzzy
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
-"Bileşenin ayarlanmış bir öncelik değeri var. Buna metainfo dosyalarında izin "
-"verilmemektedir."
+msgstr "Bileşen kimliği noktalama işaretiyle başlıyor. Buna izin verilmemektedir."
 
 #: src/as-validator-issue-tag.h:134
 msgid ""
@@ -1280,10 +1274,7 @@ msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
-"Lisans kimliği SPDX veritabanında bulunamadı. Lütfen lisans kimliğinin "
-"SPDX'e uygun bir şekilde yazıldığını ve geçerli bir özgür yazılım lisansı "
-"olduğunu kontrol edin."
+msgstr "Lisans kimliği SPDX veri tabanında bulunamadı. Lütfen lisans kimliğinin SPDX'e uygun bir şekilde yazıldığını ve geçerli bir özgür yazılım lisansı olduğunu denetleyin."
 
 #: src/as-validator-issue-tag.h:182
 msgid ""
@@ -1502,20 +1493,14 @@ msgid ""
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr ""
-"Bir `requires` etiketinde bir kullanıcı giriş kontrol ilişkisi bulundu. Bu, "
-"kullanıcıların sistemde tanımlı giriş kontrolü olmadan bileşeni kurma "
-"işlemini bile yapamayacakları anlamına gelir. Bu genellikle amaçlanmamıştır "
-"ve bunun yerine `recommends` etiketinde `control` kullanmak istersiniz."
+msgstr "Bir `requires` etiketinde bir kullanıcı giriş denetim ilişkisi bulundu. Bu, kullanıcıların sistemde tanımlı giriş denetimi olmadan bileşeni kurma işlemini bile yapamayacakları anlamına gelir. Bu genellikle amaçlanmamıştır ve bunun yerine `recommends` etiketinde `control` kullanmak istersiniz."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:317
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
-msgstr ""
-"Bu `control` ögesi bilinmeyen bir giriş yöntemi tanımlamaktadır ve "
-"geçersizdir. İzin verilen değerlerin listesi için tanımlamayı kontrol edin."
+msgstr "Bu `control` ögesi bilinmeyen bir giriş yöntemi tanımlamaktadır ve geçersizdir. İzin verilen değerlerin listesi için tanımlamaya göz atın."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:323
@@ -2002,14 +1987,14 @@ msgstr "Yayın türü olarak ayarlanan değer geçersiz."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:696
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "Yayın için `version` özelliği eksik."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:702
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
-msgstr ""
+msgstr "Yayın için `date` (tercih edilen) veya `timestamp` özelliği eksik."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:707
@@ -2158,18 +2143,16 @@ msgstr ""
 "verilmektedir."
 
 #: src/as-validator-issue-tag.h:811
-#, fuzzy
 msgid "The type of this color is not valid."
-msgstr "Bu dosyanın XML'i bozuk."
+msgstr "Bu rengin türü geçerli değil."
 
 #: src/as-validator-issue-tag.h:816
-#, fuzzy
 msgid "The value of this color scheme preference is not valid."
-msgstr "Yayın türü olarak ayarlanan değer geçersiz."
+msgstr "Bu renk düzeni tercihinin değeri geçerli değil."
 
 #: src/as-validator-issue-tag.h:821
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Bu renk, geçerli bir HTML renk kodu değil."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2500,21 +2483,21 @@ msgstr "Dosyayı genel olarak değil, geçerli kullanıcı için kur."
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
-msgstr ""
+msgstr "Komutu, yalnızca verilen paketleme sisteminden (`flatpak` veya `package`) bileşenleri kullanacak şekilde sınırla."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:541
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
-msgstr ""
+msgstr "Hangi yazılım bileşeninin kullanılması gerektiğini sorma ve her zaman ilk girdiyi seç."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:574 tools/appstreamcli.c:611
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
-msgstr ""
+msgstr "Geçerli bir paket türü belirtilmedi. Şu anda yalnızca `package` veya `flatpak` tanınmaktadır."
 
 #: tools/appstreamcli.c:709
 msgid ""
@@ -2603,7 +2586,7 @@ msgstr "Oluşturma ikili dosyası '%s' bulunamadı! Devam edilemiyor."
 #: tools/appstreamcli.c:993
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
-msgstr ""
+msgstr "AppStream Compose eklentisini şu şekilde kurabilirsiniz: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1002
@@ -2670,7 +2653,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1229
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr "Kimlik ile eşleşen bileşen için ham XML üst verisini dök."
+msgstr "Kimlik ile eşleşen bileşen için ham XML üst verilerini dök."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
 #: tools/appstreamcli.c:1234
@@ -3050,39 +3033,38 @@ msgid "Unable to spawn package manager: %s"
 msgstr "Paket yöneticisi meydana getirilemiyor: %s"
 
 #: tools/ascli-actions-pkgmgr.c:84
-#, fuzzy
 msgid "Flatpak was not found! Please install it to continue."
-msgstr "Oluşturma ikili dosyası '%s' bulunamadı! Devam edilemiyor."
+msgstr "Flatpak bulunamadı! Devam etmek için lütfen kurun."
 
 #: tools/ascli-actions-pkgmgr.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "Paket yöneticisi meydana getirilemiyor: %s"
+msgstr "Flatpak işlemi çalıştırılamıyor: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "'%s' kimliğine sahip bileşen bulunamadı!"
+msgstr "'%s' kimliğine ve seçilen filtre ölçütlerine sahip bileşen bulunamadı!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "Kaldırılması için birden fazla aday bulundu:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "Kurulum için birden fazla aday bulundu:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:186
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Lütfen kaldırılacak bileşenin numarasını girin:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:190
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Lütfen kurulacak bileşenin numarasını girin:"
 
 #: tools/ascli-actions-pkgmgr.c:200
 #, c-format
@@ -3276,7 +3258,7 @@ msgstr "Sağlanan Ögeler"
 #: tools/ascli-utils.c:449
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "Lütfen 1 ile %i arasında bir sayı girin: "
 
 #~ msgid "Unable to remove old cache."
 #~ msgstr "Eski önbellek kaldırılamıyor."
