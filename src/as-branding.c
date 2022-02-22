@@ -102,8 +102,6 @@ as_color_kind_to_string (AsColorKind kind)
 {
 	if (kind == AS_COLOR_KIND_PRIMARY)
 		return "primary";
-	if (kind == AS_COLOR_KIND_PRIMARY_TEXT)
-		return "primary-text";
 	return "unknown";
 }
 
@@ -122,8 +120,6 @@ as_color_kind_from_string (const gchar *str)
 {
 	if (g_strcmp0 (str, "primary") == 0)
 		return AS_COLOR_KIND_PRIMARY;
-	if (g_strcmp0 (str, "primary-text") == 0)
-		return AS_COLOR_KIND_PRIMARY_TEXT;
 	return AS_COLOR_KIND_UNKNOWN;
 }
 

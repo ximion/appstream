@@ -59,14 +59,12 @@ typedef struct
  * AsColorKind:
  * @AS_COLOR_KIND_UNKNOWN:	Color type invalid or not known
  * @AS_COLOR_KIND_PRIMARY:	Primary accent color
- * @AS_COLOR_KIND_PRIMARY_TEXT:	Text color that goes with the primary accent color.
  *
  * A branding color type.
  **/
 typedef enum {
 	AS_COLOR_KIND_UNKNOWN,
 	AS_COLOR_KIND_PRIMARY,
-	AS_COLOR_KIND_PRIMARY_TEXT,
 	/*< private >*/
 	AS_COLOR_KIND_LAST
 } AsColorKind;

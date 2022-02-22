@@ -1704,9 +1704,7 @@ test_yaml_rw_branding (void)
 			"    value: '#ff00ff'\n"
 			"  - type: primary\n"
 			"    scheme-preference: dark\n"
-			"    value: '#993d3d'\n"
-			"  - type: primary-text\n"
-			"    value: '#ffffff'\n";
+			"    value: '#993d3d'\n";
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
 	AsBranding *branding;
@@ -1723,8 +1721,6 @@ test_yaml_rw_branding (void)
 			 ==, "#ff00ff");
 	g_assert_cmpstr (as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY, AS_COLOR_SCHEME_KIND_DARK),
 			 ==, "#993d3d");
-	g_assert_cmpstr (as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY_TEXT, AS_COLOR_SCHEME_KIND_LIGHT),
-			 ==, "#ffffff");
 
 	/* write */
 	res = as_yaml_test_serialize (cpt);

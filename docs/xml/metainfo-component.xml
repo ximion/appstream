@@ -1516,9 +1516,8 @@
 			An accent color may for example be used as the background behind the logo/icon of an application.
 		</para>
 		<para>
-			A <literal>color</literal> tag must have a <literal>type</literal> attribute which denotes the color type. It may either
-			be <code>primary</code> for the primary accent color, or <code>primary-text</code> for a matching contrasting text color
-			to the primary color.
+			A <literal>color</literal> tag must have a <literal>type</literal> attribute which denotes the color type. The color type
+			may currently only be <literal>primary</literal>.
 			A <literal>color</literal> tag may have an optional <literal>scheme_preference</literal> attribute which denotes a preference
 			for a particular color scheme where this color should be used over other colors. Values for this attribute may either be
 			<code>light</code> or <code>dark</code> for a light or dark theme preference.
