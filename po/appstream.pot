@@ -7,7 +7,7 @@
 msgid   ""
 msgstr  "Project-Id-Version: appstream\n"
         "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-        "POT-Creation-Date: 2022-02-21 00:26+0100\n"
+        "POT-Creation-Date: 2022-02-22 12:04+0100\n"
         "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
         "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
         "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1607,6 +1607,18 @@ msgstr  ""
 msgid   "This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."
 msgstr  ""
 
+#: src/as-validator-issue-tag.h:811
+msgid   "The type of this color is not valid."
+msgstr  ""
+
+#: src/as-validator-issue-tag.h:816
+msgid   "The value of this color scheme preference is not valid."
+msgstr  ""
+
+#: src/as-validator-issue-tag.h:821
+msgid   "This color is not a valid HTML color code."
+msgstr  ""
+
 #: src/as-validator.c:150
 msgid   "The emitted issue tag is unknown in the tag registry of AppStream. This is a bug in the validator itself, please report this issue in our bugtracker."
 msgstr  ""
@@ -1616,9 +1628,10 @@ msgid   "URL format is invalid."
 msgstr  ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
+#. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:522 src/as-validator.c:1027 src/as-validator.c:1078
 #: src/as-validator.c:1172 src/as-validator.c:1594 src/as-validator.c:1614
-#: src/as-validator.c:1647
+#: src/as-validator.c:1647 src/as-validator.c:1690
 #, c-format
 msgid   "Found: %s - Allowed: %s"
 msgstr  ""
