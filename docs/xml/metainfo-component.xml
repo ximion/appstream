@@ -1508,11 +1508,12 @@
 		<listitem>
 		<para>
 			The <code>&lt;branding/&gt;</code> tag is an optional tag which defines properties affecting the branding and presentation of the
-			component. It usually affects how it is displayed in software centers and on websites.
+			component. It usually affects how the component is displayed in software centers and on websites.
 		</para>
 		<para>
-			The tag may currently only contain <literal>color</literal> tags as children, defining accent colors for the component as HTML
-			hexadecimal color string as value. And accent color may for example be used as background behind the logo/icon of an application.
+			The tag may currently only contain <literal>color</literal> tags as children, defining accent colors for the component. Each
+			<literal>color</literal> element contains an HTML hexadecimal color string as its value.
+			An accent color may for example be used as the background behind the logo/icon of an application.
 		</para>
 		<para>
 			A <literal>color</literal> tag must have a <literal>type</literal> attribute which denotes the color type. It may either
