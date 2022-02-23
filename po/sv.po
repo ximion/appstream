@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-02-22 12:04+0100\n"
-"PO-Revision-Date: 2022-02-22 21:02+0000\n"
+"PO-Revision-Date: 2022-02-23 10:58+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
@@ -1197,11 +1197,8 @@ msgstr ""
 "och siffror tillåts."
 
 #: src/as-validator-issue-tag.h:129
-#, fuzzy
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
-"Komponenten har ett prioritetsvärde inställt. Detta är inte tillåtet i "
-"metainfofiler."
+msgstr "Komponent-ID:t börjar med skiljetecken. Detta är inte tillåtet."
 
 #: src/as-validator-issue-tag.h:134
 msgid ""
@@ -1985,14 +1982,14 @@ msgstr "Värdet som ställt in som utgåvetyp är ogiltigt."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:696
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "Utgåvan saknar egenskapen `version`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:702
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
-msgstr ""
+msgstr "Utgåvan saknar antingen egenskapen `date` (föredras) eller `timestamp`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:707
@@ -2142,14 +2139,12 @@ msgstr ""
 "ASCII-tecken, siffror, punkter, bindestreck och understreck tillåts."
 
 #: src/as-validator-issue-tag.h:811
-#, fuzzy
 msgid "The type of this color is not valid."
-msgstr "XML för denna fil är felformaterad."
+msgstr "Typen för denna färg är ogiltig."
 
 #: src/as-validator-issue-tag.h:816
-#, fuzzy
 msgid "The value of this color scheme preference is not valid."
-msgstr "Värdet som ställt in som utgåvetyp är ogiltigt."
+msgstr "Värdet för denna färgschemeinställning är ogiltigt."
 
 #: src/as-validator-issue-tag.h:821
 msgid "This color is not a valid HTML color code."
@@ -2484,21 +2479,21 @@ msgstr "Installera filen för aktuell användare snarare än globalt."
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
-msgstr ""
+msgstr "Begränsa kommandot till att endast använda komponenter från angivet buntsystem (`flatpak` eller `package`)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:541
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
-msgstr ""
+msgstr "Fråga inte vilken programvarukomponent som ska användas och välj alltid första posten."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:574 tools/appstreamcli.c:611
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
-msgstr ""
+msgstr "Ingen giltig bunttyp angavs. Endast `package` och `flatpak` känns igen för tillfället."
 
 #: tools/appstreamcli.c:709
 msgid ""
@@ -2585,7 +2580,7 @@ msgstr "Sammansättningsbinär ”%s” hittades inte! Kan inte fortsätta."
 #: tools/appstreamcli.c:993
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
-msgstr ""
+msgstr "Du kan installera tillägget AppStream Compose genom: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1002
@@ -3031,9 +3026,9 @@ msgid "Flatpak was not found! Please install it to continue."
 msgstr "Flatpak hittades inte! Installera det för att fortsätta."
 
 #: tools/ascli-actions-pkgmgr.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "Kunde inte starta pakethanterare: %s"
+msgstr "Kunde inte starta Flatpak-process: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
 #, c-format
