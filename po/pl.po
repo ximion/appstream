@@ -3,17 +3,17 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
-# Piotr Drąg <piotrdrag@gmail.com>, 2014-2016, 2019, 2020, 2021.
+# Piotr Drąg <piotrdrag@gmail.com>, 2014-2016, 2019, 2020, 2021, 2022.
 # Matthias Klumpp <matthias@tenstral.net>, 2020.
 # #-#-#-#-#  pl.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Piotr Drąg <piotrdrag@gmail.com>, 2014-2016, 2021.
-# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2021.
+# Piotr Drąg <piotrdrag@gmail.com>, 2014-2016, 2021, 2022.
+# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2021, 2022.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
-# Piotr Drąg <piotrdrag@gmail.com>, 2017. #zanata, 2021.
-# Piotr Drąg <piotrdrag@gmail.com>, 2018. #zanata, 2021.
+# Piotr Drąg <piotrdrag@gmail.com>, 2017. #zanata, 2021, 2022.
+# Piotr Drąg <piotrdrag@gmail.com>, 2018. #zanata, 2021, 2022.
 #
 # Translators:
 msgid ""
@@ -21,17 +21,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-02-22 12:04+0100\n"
-"PO-Revision-Date: 2021-12-24 10:38+0000\n"
+"PO-Revision-Date: 2022-02-26 11:44+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
-"translations/pl/>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.10.1\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.11.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1202,11 +1200,8 @@ msgstr ""
 "kropki i cyfry są dozwolone."
 
 #: src/as-validator-issue-tag.h:129
-#, fuzzy
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
-"Składnik ma ustawioną wartość priorytetu. Nie jest to dozwolone w plikach "
-"Metainfo."
+msgstr "Identyfikator składnika zaczyna się od znaku interpunkcyjnego. Nie jest to dozwolone."
 
 #: src/as-validator-issue-tag.h:134
 msgid ""
@@ -2000,14 +1995,14 @@ msgstr "Wartość ustawiona jako typ wydania jest nieprawidłowa."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:696
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "Wydanie nie ma właściwości „version”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:702
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
-msgstr ""
+msgstr "Wydanie nie ma właściwości „date” (preferowana) ani „timestamp”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:707
@@ -2159,18 +2154,16 @@ msgstr ""
 "małe litery ASCII, cyfry, kropki, myślniki i podkreślenia są dozwolone."
 
 #: src/as-validator-issue-tag.h:811
-#, fuzzy
 msgid "The type of this color is not valid."
-msgstr "Kod XML tego pliku jest błędnie sformatowany."
+msgstr "Typ tego koloru jest nieprawidłowy."
 
 #: src/as-validator-issue-tag.h:816
-#, fuzzy
 msgid "The value of this color scheme preference is not valid."
-msgstr "Wartość ustawiona jako typ wydania jest nieprawidłowa."
+msgstr "Wartość tej preferencji schematu kolorów jest nieprawidłowa."
 
 #: src/as-validator-issue-tag.h:821
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Ten kolor nie jest prawidłowym kodem koloru HTML."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2504,21 +2497,21 @@ msgstr "Instaluje plik dla bieżącego użytkownika zamiast globalnie."
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
-msgstr ""
+msgstr "Ogranicza polecenie do użycia tylko składników z podanego systemu paczkowania („flatpak” lub „package”)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:541
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
-msgstr ""
+msgstr "Bez pytania, którego składnika oprogramowania użyć i wybieranie pierwszego wpisu za każdym razem."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:574 tools/appstreamcli.c:611
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
-msgstr ""
+msgstr "Nie podano prawidłowego rodzaju paczek. Obecnie rozpoznawane są tylko „package” i „flatpak”."
 
 #: tools/appstreamcli.c:709
 msgid ""
@@ -2606,7 +2599,7 @@ msgstr "Nie odnaleziono pliku binarnego składania „%s”. Nie można kontynuo
 #: tools/appstreamcli.c:993
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
-msgstr ""
+msgstr "Można zainstalować dodatek AppStream Compose za pomocą: „%s”"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1002
@@ -3055,39 +3048,38 @@ msgid "Unable to spawn package manager: %s"
 msgstr "Nie można wywołać menedżera pakietów: %s"
 
 #: tools/ascli-actions-pkgmgr.c:84
-#, fuzzy
 msgid "Flatpak was not found! Please install it to continue."
-msgstr "Nie odnaleziono pliku binarnego składania „%s”. Nie można kontynuować."
+msgstr "Nie odnaleziono systemu Flatpak. Proszę go zainstalować, aby kontynuować."
 
 #: tools/ascli-actions-pkgmgr.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "Nie można wywołać menedżera pakietów: %s"
+msgstr "Nie można wywołać procesu Flatpak: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "Nie można odnaleźć składnika o identyfikatorze „%s”."
+msgstr "Nie można odnaleźć składnika o identyfikatorze „%s” i wybranych kryteriach filtrowania."
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "Odnaleziono wielu kandydatów do usunięcia:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "Odnaleziono wielu kandydatów do instalacji:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:186
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Proszę podać numer składnika do usunięcia:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:190
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Proszę podać numer składnika do instalacji:"
 
 #: tools/ascli-actions-pkgmgr.c:200
 #, c-format
@@ -3281,7 +3273,7 @@ msgstr "Dostarczane elementy"
 #: tools/ascli-utils.c:449
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "Proszę podać liczbę od 1 do %i: "
 
 #~ msgid "Unable to remove old cache."
 #~ msgstr "Nie można usunąć starej pamięci podręcznej."
