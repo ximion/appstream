@@ -2867,7 +2867,7 @@ as_component_create_token_cache (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	guint flags;
 
-	if (priv->token_cache_valid)
+	if (!g_once_init_enter (&priv->token_cache_valid))
 		return;
 
 	flags = AS_SEARCH_TOKEN_MATCH_MEDIATYPE |
@@ -2886,7 +2886,7 @@ as_component_create_token_cache (AsComponent *cpt)
 		as_component_create_token_cache_target (cpt, donor, flags, NULL);
 	}
 
-	priv->token_cache_valid = TRUE;
+	g_once_init_leave (&priv->token_cache_valid, TRUE);
 }
 
 /**
@@ -2937,10 +2937,7 @@ as_component_search_matches (AsComponent *cpt, const gchar *term)
 		return 0;
 
 	/* ensure the token cache is created */
-	if (g_once_init_enter (&priv->token_cache_valid)) {
-		as_component_create_token_cache (cpt);
-		g_once_init_leave (&priv->token_cache_valid, TRUE);
-	}
+	as_component_create_token_cache (cpt);
 
 	/* find the exact match (which is more awesome than a partial match) */
 	match_pval = g_hash_table_lookup (priv->token_cache, term);
@@ -3022,10 +3019,7 @@ as_component_get_search_tokens (AsComponent *cpt)
 	g_autoptr(GList) keys = NULL;
 
 	/* ensure the token cache is created */
-	if (g_once_init_enter (&priv->token_cache_valid)) {
-		as_component_create_token_cache (cpt);
-		g_once_init_leave (&priv->token_cache_valid, TRUE);
-	}
+	as_component_create_token_cache (cpt);
 
 	/* return all the token cache */
 	keys = g_hash_table_get_keys (priv->token_cache);
