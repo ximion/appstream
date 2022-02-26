@@ -2861,7 +2861,7 @@ as_component_create_token_cache_target (AsComponent *cpt, AsComponent *donor, gu
  *
  * Internal API.
  */
-void
+static void
 as_component_create_token_cache (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);

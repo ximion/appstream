@@ -67,7 +67,6 @@ const gchar		*as_component_get_architecture (AsComponent *cpt);
 void			 as_component_set_architecture (AsComponent *cpt,
 							const gchar *arch);
 
-void			as_component_create_token_cache (AsComponent *cpt);
 GPtrArray		*as_component_generate_tokens_for (AsComponent *cpt,
 							   AsSearchTokenMatch token_kind);
 
