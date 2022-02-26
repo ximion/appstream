@@ -4,14 +4,14 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
-# Andika Triwidada <andika@gmail.com>, 2014-2016, 2020, 2021.
+# Andika Triwidada <andika@gmail.com>, 2014-2016, 2020, 2021, 2022.
 # #-#-#-#-#  id.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Andika Triwidada <andika@gmail.com>, 2016, 2021.
+# Andika Triwidada <andika@gmail.com>, 2016, 2021, 2022.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
-# Andika Triwidada <andika@gmail.com>, 2017. #zanata, 2021.
+# Andika Triwidada <andika@gmail.com>, 2017. #zanata, 2021, 2022.
 # Reza Almanda <rezaalmanda27@gmail.com>, 2021, 2022.
 # Prasasto Adi <prasastoadi@gmail.com>, 2021.
 # se7entime <se7entime@protonmail.com>, 2021.
@@ -24,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-02-22 12:04+0100\n"
 "PO-Revision-Date: 2022-02-26 04:54+0000\n"
-"Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -2156,13 +2156,12 @@ msgid "The type of this color is not valid."
 msgstr "Jenis warna ini tidak valid."
 
 #: src/as-validator-issue-tag.h:816
-#, fuzzy
 msgid "The value of this color scheme preference is not valid."
-msgstr "Nilai yang ditetapkan sebagai jenis rilis tidak valid."
+msgstr "Nilai dari preferensi skema warna ini tidak valid."
 
 #: src/as-validator-issue-tag.h:821
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Warna ini bukan suatu kode warna HTML yang valid."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2498,21 +2497,21 @@ msgstr "Instal file untuk --pengguna saat ini, bukan secara global."
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
-msgstr ""
+msgstr "Membatasi perintah untuk hanya menggunakan komponen dari sistem bundling yang diberikan (`flatpak` atau `package`)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:541
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
-msgstr ""
+msgstr "Jangan tanya komponen perangkat lunak mana yang mesti digunakan dan selalu pilih entri pertama."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:574 tools/appstreamcli.c:611
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
-msgstr ""
+msgstr "Tidak ada jenis bundel yang valid yang ditentukan. Hanya `package` dan `flatpak` yang saat ini dikenali."
 
 #: tools/appstreamcli.c:709
 msgid ""
@@ -2605,7 +2604,7 @@ msgstr "Biner penyusunan '%s' tidak ditemukan! Tidak bisa melanjutkan."
 #: tools/appstreamcli.c:993
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
-msgstr ""
+msgstr "Anda mungkin dapat memasang addon AppStream Compose melalui: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1002
@@ -3055,39 +3054,38 @@ msgid "Unable to spawn package manager: %s"
 msgstr "Tidak bisa men-spawn manajer paket: %s"
 
 #: tools/ascli-actions-pkgmgr.c:84
-#, fuzzy
 msgid "Flatpak was not found! Please install it to continue."
-msgstr "Biner penyusunan '%s' tidak ditemukan! Tidak bisa melanjutkan."
+msgstr "Flatpak tidak ditemukan! Silakan pasang untuk melanjutkan."
 
 #: tools/ascli-actions-pkgmgr.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "Tidak bisa men-spawn manajer paket: %s"
+msgstr "Tidak bisa men-spawn proses Flatpak: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "Tidak bisa menemukan komponen dengan ID '%s'!"
+msgstr "Tidak bisa menemukan komponen dengan ID '%s' dan kriteria filter yang dipilih!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "Ditemukan beberapa kandidat untuk penghapusan:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "Beberapa kandidat ditemukan untuk instalasi:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:186
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Masukkan banyaknya komponen yang akan dihapus:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:190
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Silakan masukkan banyaknya komponen yang akan dipasang:"
 
 #: tools/ascli-actions-pkgmgr.c:200
 #, c-format
@@ -3281,7 +3279,7 @@ msgstr "Butir Yang Disediakan"
 #: tools/ascli-utils.c:449
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "Silakan masukkan angka dari 1 hingga %i: "
 
 #~ msgid "Unable to remove old cache."
 #~ msgstr "Tidak dapat menghapus singgahan lama."
