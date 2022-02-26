@@ -12,7 +12,7 @@
 # Andika Triwidada <andika@gmail.com>, 2016, 2021.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Andika Triwidada <andika@gmail.com>, 2017. #zanata, 2021.
-# Reza Almanda <rezaalmanda27@gmail.com>, 2021.
+# Reza Almanda <rezaalmanda27@gmail.com>, 2021, 2022.
 # Prasasto Adi <prasastoadi@gmail.com>, 2021.
 # se7entime <se7entime@protonmail.com>, 2021.
 # John Vandenberg <jayvdb@gmail.com>, 2021.
@@ -23,16 +23,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-02-22 12:04+0100\n"
-"PO-Revision-Date: 2021-12-28 09:54+0000\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
-"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
-"translations/id/>\n"
+"PO-Revision-Date: 2022-02-26 04:54+0000\n"
+"Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.11.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1197,11 +1196,8 @@ msgstr ""
 "dan angka yang diizinkan."
 
 #: src/as-validator-issue-tag.h:129
-#, fuzzy
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
-"Komponen memiliki set nilai prioritas. Ini tidak diizinkan dalam berkas "
-"metainfo."
+msgstr "ID komponen dimulai dengan tanda baca tidak diperbolehkan."
 
 #: src/as-validator-issue-tag.h:134
 msgid ""
@@ -1999,14 +1995,14 @@ msgstr "Nilai yang ditetapkan sebagai jenis rilis tidak valid."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:696
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "Rilis ini kehilangan properti 'versi'."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:702
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
-msgstr ""
+msgstr "Rilis ini kehilangan baik 'tanggal' (disarankan) atau properti 'stempel waktu'."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:707
@@ -2156,9 +2152,8 @@ msgstr ""
 "ASCII huruf kecil, angka, titik, dan garis hubung yang diizinkan."
 
 #: src/as-validator-issue-tag.h:811
-#, fuzzy
 msgid "The type of this color is not valid."
-msgstr "XML berkas ini salah bentuk."
+msgstr "Jenis warna ini tidak valid."
 
 #: src/as-validator-issue-tag.h:816
 #, fuzzy
