@@ -6,7 +6,7 @@
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2016
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2015-2016
 # Rafael Fontenelle <rafaelff@gnome.org>, 2017, 2019, 2020, 2021.
-# Wellington Terumi Uemura <wellingtonuemura@gmail.com>, 2020, 2021.
+# Wellington Terumi Uemura <wellingtonuemura@gmail.com>, 2020, 2021, 2022.
 # André Marcelo Alvarenga <andrealvarenga@gmx.net>, 2020, 2021.
 # #-#-#-#-#  pt_BR.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
@@ -32,16 +32,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-02-22 12:04+0100\n"
-"PO-Revision-Date: 2021-12-24 23:51+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"appstream/translations/pt_BR/>\n"
+"PO-Revision-Date: 2022-02-27 06:54+0000\n"
+"Last-Translator: Wellington Terumi Uemura <wellingtonuemura@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.11.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1218,11 +1217,8 @@ msgstr ""
 "pontos e números são permitidos."
 
 #: src/as-validator-issue-tag.h:129
-#, fuzzy
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
-"O componente tem um valor de prioridade definido. Isso não é permitido em "
-"arquivos metainfo."
+msgstr "O ID do componente começa com pontuação. Isso não é permitido."
 
 #: src/as-validator-issue-tag.h:134
 msgid ""
@@ -2022,14 +2018,14 @@ msgstr "O valor definido como tipo de lançamento é inválido."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:696
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "Falta a propriedade `version` ao lançamento."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:702
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
-msgstr ""
+msgstr "Falta a `date` (de preferência) ou a propriedade `timestamp`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:707
@@ -2181,18 +2177,16 @@ msgstr ""
 "permitidas."
 
 #: src/as-validator-issue-tag.h:811
-#, fuzzy
 msgid "The type of this color is not valid."
-msgstr "O XML neste arquivo está malformado."
+msgstr "O tipo desta cor não é válido."
 
 #: src/as-validator-issue-tag.h:816
-#, fuzzy
 msgid "The value of this color scheme preference is not valid."
-msgstr "O valor definido como tipo de lançamento é inválido."
+msgstr "O valor desta preferência do esquema de cores não é válido."
 
 #: src/as-validator-issue-tag.h:821
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Esta cor não é um código de cor HTML válido."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2531,21 +2525,21 @@ msgstr "Instala o arquivo para o usuário atual, em vez de globalmente."
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
-msgstr ""
+msgstr "Limite o comando para utilizar apenas os componentes do sistema de empacotamento informado (`flatpak` ou `package`)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:541
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
-msgstr ""
+msgstr "Não pergunte qual componente de software deve ser utilizado e escolha sempre a primeira entrada."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:574 tools/appstreamcli.c:611
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
-msgstr ""
+msgstr "Não foi especificado nenhum tipo de pacote válido. Atualmente, são reconhecidos apenas os pacotes `package` e `flatpak`."
 
 #: tools/appstreamcli.c:709
 msgid ""
@@ -2639,7 +2633,7 @@ msgstr ""
 #: tools/appstreamcli.c:993
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
-msgstr ""
+msgstr "Você pode ser capaz de instalar a extensão do AppStream Compose via: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1002
@@ -3097,40 +3091,38 @@ msgid "Unable to spawn package manager: %s"
 msgstr "Não foi possível invocar o gerenciador de pacotes: %s"
 
 #: tools/ascli-actions-pkgmgr.c:84
-#, fuzzy
 msgid "Flatpak was not found! Please install it to continue."
-msgstr ""
-"O binário de composição \"%s\" não foi encontrado! Não é possível continuar."
+msgstr "O flatpak não foi encontrado! Instale-o para continuar."
 
 #: tools/ascli-actions-pkgmgr.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "Não foi possível invocar o gerenciador de pacotes: %s"
+msgstr "Não é possível gerar o processo Flatpak: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "Não foi possível encontrar um componente com ID “%s”!"
+msgstr "Não é possível encontrar o componente com a ID '%s' com os critérios de filtro selecionados!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "Vários candidatos foram encontrados para remoção:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "Vários candidatos foram encontrados para a instalação:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:186
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Insira o número do componente que será removido:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:190
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Insira o número do componente que será instalado:"
 
 #: tools/ascli-actions-pkgmgr.c:200
 #, c-format
@@ -3324,7 +3316,7 @@ msgstr "Itens fornecidos"
 #: tools/ascli-utils.c:449
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "Insira um número de 1 a %i: "
 
 #~ msgid "Unable to remove old cache."
 #~ msgstr "Não foi possível remover o cache antigo."
