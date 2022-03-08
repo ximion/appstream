@@ -91,12 +91,14 @@ QString Release::version() const
 
 QDateTime Release::timestamp() const
 {
-    return QDateTime::fromTime_t(as_release_get_timestamp(d->m_release));
+    const guint64 timestamp = as_release_get_timestamp(d->m_release);
+    return timestamp > 0 ? QDateTime::fromTime_t(timestamp) : QDateTime();
 }
 
 QDateTime Release::timestampEol() const
 {
-    return QDateTime::fromTime_t(as_release_get_timestamp_eol(d->m_release));
+    const guint64 timestamp = as_release_get_timestamp_eol(d->m_release);
+    return timestamp > 0 ? QDateTime::fromTime_t(timestamp) : QDateTime();
 }
 
 QString Release::description() const
