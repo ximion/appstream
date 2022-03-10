@@ -28,7 +28,7 @@
 # Чтабс <chtabs2k19@gmail.com>, 2021.
 # Anna Malinovskaia <tacitcoast@gmail.com>, 2021.
 # Валентин Цыбин <iiinkvizitor@gmail.com>, 2021.
-# Dmitry <dmitrydmitry761@gmail.com>, 2021.
+# Dmitry <dmitrydmitry761@gmail.com>, 2021, 2022.
 # Translators:
 # Nataliia <sunfly22@bigmir.net>, 2021.
 # Maxim Taranov <png2378@gmail.com>, 2021.
@@ -38,18 +38,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-02-22 12:04+0100\n"
-"PO-Revision-Date: 2021-12-22 17:28+0000\n"
+"PO-Revision-Date: 2022-03-10 08:54+0000\n"
 "Last-Translator: Dmitry <dmitrydmitry761@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
-"translations/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 4.10.1\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 4.12-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1218,11 +1215,8 @@ msgstr ""
 "ASCII-символы, точки и числа."
 
 #: src/as-validator-issue-tag.h:129
-#, fuzzy
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
-"Компонент имеет установленное значение приоритета. Это недопустимо в файлах "
-"с метаинформацией."
+msgstr "Идентификатор компонента должен начинаться со знаков препинания. Это недопустимо."
 
 #: src/as-validator-issue-tag.h:134
 msgid ""
@@ -2008,14 +2002,14 @@ msgstr "Значение, заданное в качестве типа выпу
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:696
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "В выпуске отсутствует свойство `version`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:702
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
-msgstr ""
+msgstr "В выпуске отсутствует либо свойство `date` (предпочтительно), либо свойство `timestamp`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:707
@@ -2164,18 +2158,16 @@ msgstr ""
 "только буквы ASCII в нижнем регистре, цифры, точки, дефисы и подчеркивания."
 
 #: src/as-validator-issue-tag.h:811
-#, fuzzy
 msgid "The type of this color is not valid."
-msgstr "XML этого файла является некорректным."
+msgstr "Тип этого цвета недопустим."
 
 #: src/as-validator-issue-tag.h:816
-#, fuzzy
 msgid "The value of this color scheme preference is not valid."
-msgstr "Значение, заданное в качестве типа выпуска, недопустимо."
+msgstr "Значение этого предпочтения цветовой схемы недопустимо."
 
 #: src/as-validator-issue-tag.h:821
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Этот цвет не является допустимым цветовым кодом HTML."
 
 #: src/as-validator.c:150
 msgid ""
@@ -2515,21 +2507,21 @@ msgstr "Установите файл для текущего пользоват
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
-msgstr ""
+msgstr "Ограничить команду, чтобы использовать только компоненты из данной системы комплектации («flatpak» или «package»)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:541
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
-msgstr ""
+msgstr "Не спрашивать, какой программный компонент следует использовать, и всегда выбирать первую запись."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:574 tools/appstreamcli.c:611
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
-msgstr ""
+msgstr "Не указан допустимый тип пакета. В настоящее время распознаются только «package» и «flatpak»."
 
 #: tools/appstreamcli.c:709
 msgid ""
@@ -2621,7 +2613,7 @@ msgstr "Составить двоичный файл '%s' не удалось! �
 #: tools/appstreamcli.c:993
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
-msgstr ""
+msgstr "Вы можете установить надстройку AppStream Compose через: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1002
@@ -3080,39 +3072,38 @@ msgid "Unable to spawn package manager: %s"
 msgstr "Не удаётся запустить процесс менеджера пакетов: %s"
 
 #: tools/ascli-actions-pkgmgr.c:84
-#, fuzzy
 msgid "Flatpak was not found! Please install it to continue."
-msgstr "Составить двоичный файл '%s' не удалось! Не могу продолжать."
+msgstr "Flatpak не был найден! Пожалуйста, установите его, чтобы продолжить."
 
 #: tools/ascli-actions-pkgmgr.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "Не удаётся запустить процесс менеджера пакетов: %s"
+msgstr "Невозможно запустить процесс Flatpack: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "Не удаётся найти компоненту с идентификатором \"%s\"!"
+msgstr "Не удалось найти компонент с идентификатором '%s' и выбранными критериями фильтрации!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "Было найдено несколько кандидатов на удаление:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "Было найдено несколько кандидатов для установки:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:186
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Пожалуйста, введите номер компонента для удаления:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:190
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Пожалуйста, введите номер компонента для установки:"
 
 #: tools/ascli-actions-pkgmgr.c:200
 #, c-format
@@ -3306,7 +3297,7 @@ msgstr "Предоставленные элементы"
 #: tools/ascli-utils.c:449
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "Пожалуйста, введите число от 1 до %i: "
 
 #~ msgid "Unable to remove old cache."
 #~ msgstr "Невозможно удалить старый кэш."
