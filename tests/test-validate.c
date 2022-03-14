@@ -41,7 +41,7 @@ typedef struct {
 static gboolean
 _astest_validate_sample_fname (AsValidator *validator, const gchar *basename)
 {
-	g_autofree gchar *fname;
+	g_autofree gchar *fname = NULL;
 	g_autoptr(GFile) file = NULL;
 
 	fname = g_build_filename (datadir, basename, NULL);

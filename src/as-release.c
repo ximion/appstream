@@ -945,7 +945,7 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 		} else if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
 			g_hash_table_remove_all (priv->description);
 			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
-				g_autofree gchar *lang;
+				g_autofree gchar *lang = NULL;
 
 				/* for collection XML, the "description" tag has a language property, so parsing it is simple */
 				content = as_xml_dump_node_children (iter);

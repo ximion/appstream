@@ -127,8 +127,7 @@ test_safe_assign ()
 static void
 test_categories ()
 {
-	g_autoptr(GPtrArray) default_cats;
-
+	g_autoptr(GPtrArray) default_cats = NULL;
 	default_cats = as_get_default_categories (TRUE);
 	g_assert_cmpint (default_cats->len, ==, 10);
 }

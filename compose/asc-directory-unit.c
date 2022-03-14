@@ -133,7 +133,7 @@ static gboolean
 asc_directory_unit_open (AscUnit *unit, GError **error)
 {
 	AscDirectoryUnitPrivate *priv = GET_PRIVATE (ASC_DIRECTORY_UNIT (unit));
-	g_autoptr(GPtrArray) contents;
+	g_autoptr(GPtrArray) contents = NULL;
 	GPtrArray *relevant_paths;
 	guint root_dir_len = (guint) strlen (priv->root_dir);
 

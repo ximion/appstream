@@ -505,9 +505,7 @@ as_artifact_to_xml_node (AsArtifact *artifact, AsContext *ctx, xmlNode *root)
 		guint64 asize = as_artifact_get_size (artifact, j);
 		if (asize > 0) {
 			xmlNode *s_node;
-			g_autofree gchar *size_str;
-
-			size_str = g_strdup_printf ("%" G_GUINT64_FORMAT, asize);
+			g_autofree gchar *size_str = g_strdup_printf ("%" G_GUINT64_FORMAT, asize);
 			s_node = xmlNewTextChild (n_artifact,
 						  NULL,
 						  (xmlChar*) "size",
