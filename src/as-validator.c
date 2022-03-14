@@ -623,7 +623,7 @@ as_validator_check_description_enumeration (AsValidator *validator, xmlNode *nod
 							  tag_path);
 			as_validator_check_description_paragraph (validator, iter);
 		} else {
-			as_validator_add_issue (validator, node,
+			as_validator_add_issue (validator, iter,
 						"description-enum-item-invalid",
 						node_name);
 		}
