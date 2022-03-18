@@ -2528,16 +2528,29 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 	/* check if we actually have a directory which could hold metadata */
 	if ((!g_file_test (metainfo_dir, G_FILE_TEST_IS_DIR)) &&
 	    (!g_file_test (legacy_metainfo_dir, G_FILE_TEST_IS_DIR))) {
-		as_validator_add_issue (validator, NULL,
-					"dir-no-metadata.found",
-					NULL);
-		goto out;
+		g_clear_pointer (&metainfo_dir, g_free);
+		metainfo_dir = g_build_filename (root_dir, "share", "metainfo", NULL);
+		if (g_file_test (metainfo_dir, G_FILE_TEST_IS_DIR)) {
+			/* success, we found some metadata without /usr prefix! */
+			g_clear_pointer (&legacy_metainfo_dir, g_free);
+			g_clear_pointer (&apps_dir, g_free);
+			legacy_metainfo_dir = g_build_filename (root_dir, "share", "appdata", NULL);
+			apps_dir = g_build_filename (root_dir, "share", "applications", NULL);
+		} else {
+			/* no metadata directory */
+			as_validator_add_issue (validator, NULL,
+						"dir-no-metadata-found",
+						NULL);
+			goto out;
+		}
 	}
+
+	g_debug ("Looking for metadata in %s", metainfo_dir);
 
 	/* check if we actually have a directory which could hold application information */
 	if (!g_file_test (apps_dir, G_FILE_TEST_IS_DIR)) {
 		as_validator_add_issue (validator, NULL,
-					"dir-applications-not.found",
+					"dir-applications-not-found",
 					NULL);
 	}
 

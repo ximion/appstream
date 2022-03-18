@@ -653,12 +653,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The category defined in the .desktop file is not valid. Refer to the XDG Menu Specification for a list of valid categories."),
 	},
 
-	{ "dir-no-metadata.found",
+	{ "dir-no-metadata-found",
 	  AS_ISSUE_SEVERITY_INFO,
 	  N_("No AppStream metadata was found in this directory or directory tree."),
 	},
 
-	{ "dir-applications-not.found",
+	{ "dir-applications-not-found",
 	  AS_ISSUE_SEVERITY_PEDANTIC, /* pedantic because not everything which has metadata is an application */
 	  N_("No XDG applications directory found."),
 	},
