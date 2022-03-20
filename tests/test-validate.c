@@ -21,6 +21,7 @@
 #include <glib.h>
 #include "appstream.h"
 #include "as-component-private.h"
+#include "as-validator-issue-tag.h"
 
 #include "as-test-utils.h"
 
@@ -121,6 +122,28 @@ _astest_check_validate_issues (GList *issues, AsVResultCheck *checks_all)
 }
 
 /**
+ * test_validator_tag_sanity:
+ */
+static void
+test_validator_tag_sanity ()
+{
+	g_autoptr(GHashTable) tag_map = NULL;
+	tag_map = g_hash_table_new_full (g_str_hash,
+					 g_str_equal,
+					 g_free,
+					 NULL);
+	for (guint i = 0; as_validator_issue_tag_list[i].tag != NULL; i++) {
+		gboolean r = g_hash_table_insert (tag_map,
+						  g_strdup (as_validator_issue_tag_list[i].tag),
+						  &as_validator_issue_tag_list[i]);
+		if (!r) {
+			g_critical ("Duplicate issue-tag '%s' found in tag list. This is a bug in the validator.", as_validator_issue_tag_list[i].tag);
+			g_assert_not_reached ();
+		}
+	}
+}
+
+/**
  * test_validator_manyerrors_desktopapp:
  *
  * Test desktop-application metainfo file with many issues.
@@ -209,6 +232,10 @@ test_validator_manyerrors_desktopapp ()
 		  "", -1,
 		  AS_ISSUE_SEVERITY_INFO,
 		},
+		{ "desktop-app-no-launchable",
+		  "", -1,
+		  AS_ISSUE_SEVERITY_INFO,
+		},
 
 		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }
 	};
@@ -258,6 +285,10 @@ test_validator_relationissues ()
 		  "", -1,
 		  AS_ISSUE_SEVERITY_PEDANTIC,
 		},
+		{ "desktop-app-no-launchable",
+		  "", -1,
+		  AS_ISSUE_SEVERITY_INFO,
+		},
 
 		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }
 	};
@@ -290,6 +321,7 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
+	g_test_add_func ("/AppStream/Validate/TagSanity", test_validator_tag_sanity);
 	g_test_add_func ("/AppStream/Validate/DesktopAppManyErrors", test_validator_manyerrors_desktopapp);
 	g_test_add_func ("/AppStream/Validate/RelationIssues", test_validator_relationissues);
 

@@ -113,6 +113,30 @@ test_utils ()
 }
 
 /**
+ * test_compose_issue_tag_sanity:
+ */
+static void
+test_compose_issue_tag_sanity ()
+{
+	g_autoptr(GHashTable) tag_map = NULL;
+	g_auto(GStrv) all_hint_tags = NULL;
+
+	tag_map = g_hash_table_new_full (g_str_hash,
+					 g_str_equal,
+					 NULL,
+					 NULL);
+
+	all_hint_tags = asc_globals_get_hint_tags ();
+	for (guint i = 0; all_hint_tags[i] != NULL; i++) {
+		gboolean r = g_hash_table_add (tag_map, all_hint_tags[i]);
+		if (!r) {
+			g_critical ("Duplicate compose issue-tag '%s' found in tag list.", all_hint_tags[i]);
+			g_assert_not_reached ();
+		}
+	}
+}
+
+/**
  * test_read_fontinfo:
  *
  * Extract font information from a font file.
@@ -543,7 +567,7 @@ test_compose_desktop_entry ()
 	g_assert_cmpint (hints->len, ==, 2);
 	for (guint i = 0; i < hints->len; i++) {
 		AscHint *hint = ASC_HINT (g_ptr_array_index (hints, i));
-		g_assert_cmpstr (asc_hint_get_tag (hint), ==, "desktop-entry-bad-data");
+		g_assert_cmpstr (asc_hint_get_tag (hint), ==, "asv-desktop-entry-bad-data");
 	}
 	g_clear_pointer (&cpt, g_object_unref);
 }
@@ -873,6 +897,7 @@ main (int argc, char **argv)
 
 	g_test_add ("/AppStream/Compose/OptipngNotfound", Fixture, NULL, setup, test_compose_optipng_not_found, teardown);
 	g_test_add_func ("/AppStream/Compose/Utils", test_utils);
+	g_test_add_func ("/AppStream/Compose/IssueTagSanity", test_compose_issue_tag_sanity);
 	g_test_add_func ("/AppStream/Compose/FontInfo", test_read_fontinfo);
 	g_test_add_func ("/AppStream/Compose/Image", test_image_transform);
 	g_test_add_func ("/AppStream/Compose/Canvas", test_canvas);

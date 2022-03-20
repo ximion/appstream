@@ -295,14 +295,28 @@ asc_parse_desktop_entry_data (AscResult *cres,
 	/* register all the hints we may have found */
 	for (guint i = 0; i < issues->len; i++) {
 		AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (g_ptr_array_index (issues, i));
+		g_autofree gchar *asv_tag = NULL;
+		const gchar *issue_hint = NULL;
+		const gchar *orig_tag = NULL;
 
-		if (as_validator_issue_get_hint (issue) == NULL)
-			asc_result_add_hint_simple (cres, ncpt, as_validator_issue_get_tag (issue));
-		else
-			asc_result_add_hint (cres, ncpt,
-						as_validator_issue_get_tag (issue),
-						"hint", as_validator_issue_get_hint (issue),
+		orig_tag = as_validator_issue_get_tag (issue);
+		if ((g_strcmp0 (orig_tag, "desktop-entry-hidden-set") == 0) ||
+		    (g_strcmp0 (orig_tag, "desktop-entry-empty-onlyshowin") == 0)) {
+			/* these tags get special treatment with links & co */
+			asv_tag = g_strdup (orig_tag);
+		} else {
+			asv_tag = g_strconcat ("asv-",
+						orig_tag,
 						NULL);
+		}
+		issue_hint = as_validator_issue_get_hint (issue);
+		if (issue_hint == NULL)
+			issue_hint = "";
+		asc_result_add_hint (cres, ncpt,
+				     asv_tag,
+				     "location", de_basename,
+				     "hint", issue_hint,
+				     NULL);
 	}
 
 	return g_steal_pointer (&ncpt);

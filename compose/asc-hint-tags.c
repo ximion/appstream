@@ -108,36 +108,16 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "Unable to read data from .desktop file: {{msg}}",
 	},
 
-	{ "desktop-entry-bad-data",
+	{ "desktop-entry-hidden-set",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  "Error while reading some data from the desktop-entry file: {{hint}}",
-	},
-
-	{ "desktop-entry-category-invalid",
-	  AS_ISSUE_SEVERITY_WARNING,
-	  "The category name {{hint}} is invalid. The software can not be shown in this category.",
-	},
-
-	{ "desktop-entry-value-invalid-chars",
-	  AS_ISSUE_SEVERITY_WARNING,
-	  "The desktop-entry field value for {{hint}} contains invalid or non-printable UTF-8 characters, which can not be properly displayed.",
-	},
-
-	{ "desktop-file-hidden-set",
-	  AS_ISSUE_SEVERITY_WARNING,
-	  "This .desktop file has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and "
+	  "The desktop-entry file `{{location}}` has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and "
 	  "nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional. "
 	  "See <a href=\"https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html\">the specification</a> for details."
 	},
 
-	{ "desktop-entry-value-quoted",
-	  AS_ISSUE_SEVERITY_WARNING,
-	  "The desktop entry field value {{hint}} is quoted, which is likely unintentional."
-	},
-
 	{ "desktop-entry-empty-onlyshowin",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  "This .desktop file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide "
+	  "The desktop-entry file `{{location}}` has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide "
 	  "the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit. "
 	  "See <a href=\"https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html\">the specification</a> for details."
 	},

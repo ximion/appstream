@@ -48,6 +48,7 @@
 #include "as-component.h"
 #include "as-component-private.h"
 #include "as-yaml.h"
+#include "as-desktop-entry.h"
 
 typedef struct
 {
@@ -2006,6 +2007,13 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		}
 	}
 
+	/* validate GUI app specific stuff */
+	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
+		AsLaunchable *launchable = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+		if (launchable == NULL || as_launchable_get_entries (launchable)->len == 0)
+			as_validator_add_issue (validator, NULL, "desktop-app-no-launchable", NULL);
+	}
+
 	/* validate console-app specific stuff */
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_CONSOLE_APP) {
 		if (as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_BINARY) == NULL)
@@ -2412,6 +2420,7 @@ as_matches_metainfo (const gchar *fname, const gchar *basename)
 static void
 as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsComponent *cpt, struct MInfoCheckData *data)
 {
+	AsValidatorPrivate *priv = GET_PRIVATE (data->validator);
 	g_autofree gchar *cid_base = NULL;
 
 	/* if we have no component-id, we can't check anything */
@@ -2445,43 +2454,56 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 
 			if (g_hash_table_contains (data->desktop_fnames, desktop_id)) {
 				g_autofree gchar *desktop_fname_full = NULL;
-				g_autoptr(GKeyFile) dfile = NULL;
-				GError *tmp_error = NULL;
+				g_autoptr(GFile) dfile = NULL;
+				g_autoptr(GPtrArray) de_issues = NULL;
+				g_autoptr(GError) tmp_error = NULL;
 
 				desktop_fname_full = g_build_filename (data->apps_dir, desktop_id, NULL);
-				dfile = g_key_file_new ();
-
-				g_key_file_load_from_file (dfile, desktop_fname_full, G_KEY_FILE_NONE, &tmp_error);
+				dfile = g_file_new_for_path (desktop_fname_full);
+				de_issues = g_ptr_array_new_with_free_func (g_object_unref);
+				as_desktop_entry_parse_file (cpt,
+							     dfile,
+							     AS_FORMAT_VERSION_CURRENT,
+							     TRUE, /* ignore NoDisplay */
+							     de_issues,
+							     NULL, NULL,
+							     &tmp_error);
 				if (tmp_error != NULL) {
 					as_validator_add_issue (data->validator, NULL,
-								"desktop-file-read-failed",
+								"desktop-file-load-failed",
 								tmp_error->message);
-					g_error_free (tmp_error);
-					tmp_error = NULL;
 				} else {
-					/* we successfully opened the .desktop file, now perform some checks */
+					/* we successfully loaded the desktop-entry data into the component, now perform some checks */
 
-					/* categories */
-					if (g_key_file_has_key (dfile, G_KEY_FILE_DESKTOP_GROUP,
-									G_KEY_FILE_DESKTOP_KEY_CATEGORIES, NULL)) {
-						g_autofree gchar *cats_str = NULL;
-						g_auto(GStrv) cats = NULL;
-						guint i;
+					/* pass on the found desktop-entry issues */
+					for (guint i = 0; i < de_issues->len; i++) {
+						AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (g_ptr_array_index (de_issues, i));
+						g_autofree gchar *issue_id_str = NULL;
 
-						cats_str = g_key_file_get_string (dfile, G_KEY_FILE_DESKTOP_GROUP,
-											G_KEY_FILE_DESKTOP_KEY_CATEGORIES, NULL);
-						cats = g_strsplit (cats_str, ";", -1);
-						for (i = 0; cats[i] != NULL; i++) {
-							if (as_is_empty (cats[i]))
-								continue;
-							if (!as_utils_is_category_name (cats[i])) {
-								as_validator_add_issue (data->validator, NULL,
-											"desktop-file-category-invalid",
-											cats[i]);
+						as_validator_issue_set_filename (issue, desktop_id);
+						issue_id_str = g_strdup_printf ("%s/%s/%s",
+										desktop_id,
+										as_validator_issue_get_tag (issue),
+										as_validator_issue_get_hint (issue));
+
+						/* str ownership is transferred to the hashtable */
+						if (g_hash_table_insert (priv->issues, g_steal_pointer (&issue_id_str), issue)) {
+							/* the issue is new, we can add it to our by-file listing */
+							GPtrArray *ilist = g_hash_table_lookup (priv->issues_per_file, desktop_id);
+							if (ilist == NULL) {
+								ilist = g_ptr_array_new_with_free_func (g_object_unref);
+								g_hash_table_insert (priv->issues_per_file, g_strdup (desktop_id), ilist);
 							}
+							g_ptr_array_add (ilist, g_object_ref (issue));
 						}
 					}
 
+					/* check if we have any categories */
+					if (as_component_get_categories (cpt)->len == 0) {
+						as_validator_add_issue (data->validator, NULL,
+									"app-category-missing",
+									NULL);
+					}
 				}
 			} else {
 				as_validator_add_issue (data->validator, NULL, "desktop-file-not-found", NULL);

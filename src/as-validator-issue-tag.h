@@ -524,6 +524,14 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("This generic component is missing a long description. It may be useful to add one."),
 	},
 
+	{ "desktop-app-no-launchable",
+	  AS_ISSUE_SEVERITY_INFO,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This `desktop-application` component is missing a `desktop-id` launchable tag. "
+	     "This means that this application can not be launched and has no association with its desktop-entry file, "
+	     "which is usually not intentional for GUI applications."),
+	},
+
 	{ "console-app-no-binary",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
@@ -601,6 +609,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The category name is not valid. Refer to the XDG Menu Specification for a list of valid category names."),
 	},
 
+	{ "app-category-missing",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("This component is in no valid categories, even though it should be. Please check its metainfo file and desktop-entry file."),
+	},
+
 	{ "screenshot-caption-too-long",
 	  AS_ISSUE_SEVERITY_PEDANTIC,
 	  N_("The screenshot caption is too long (should be <= 100 characters)"),
@@ -638,9 +651,9 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The metainfo filename does not match the component ID."),
 	},
 
-	{ "desktop-file-read-failed",
+	{ "desktop-file-load-failed",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("Unable to read the .desktop file associated with this component."),
+	  N_("Unable to load the desktop-entry file associated with this component."),
 	},
 
 	{ "desktop-file-not-found",
@@ -648,9 +661,36 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("This component metadata refers to a non-existing .desktop file."),
 	},
 
-	{ "desktop-file-category-invalid",
+	{ "desktop-entry-category-invalid",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  N_("The category defined in the .desktop file is not valid. Refer to the XDG Menu Specification for a list of valid categories."),
+	  N_("A category defined in the desktop-entry file is not valid. Refer to the XDG Menu Specification for a list of valid categories."),
+	},
+
+	{ "desktop-entry-bad-data",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("Error while reading some data from the desktop-entry file."),
+	},
+
+	{ "desktop-entry-value-invalid-chars",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The value of this desktop-entry field contains invalid or non-printable UTF-8 characters, which can not be displayed properly."),
+	},
+
+	{ "desktop-entry-value-quoted",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("This desktop-entry field value is quoted, which is likely unintentional."),
+	},
+
+	{ "desktop-entry-hidden-set",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("This desktop-entry file has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and "
+	     "nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional."),
+	},
+
+	{ "desktop-entry-empty-onlyshowin",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("This desktop-entry file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide "
+	     "the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit."),
 	},
 
 	{ "dir-no-metadata-found",
