@@ -2009,9 +2009,37 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 
 	/* validate GUI app specific stuff */
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
-		AsLaunchable *launchable = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
-		if (launchable == NULL || as_launchable_get_entries (launchable)->len == 0)
-			as_validator_add_issue (validator, NULL, "desktop-app-no-launchable", NULL);
+		AsIcon *stock_icon = NULL;
+		AsLaunchable *launchable = NULL;
+
+		/* try to find desktop-id launchable */
+		launchable = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+
+		/* try to find a stock icon for this component */
+		stock_icon = as_component_get_icon_stock (cpt);
+		if (stock_icon == NULL) {
+			/* no stock icon, we require a desktop-entry file association */
+			if (launchable == NULL || as_launchable_get_entries (launchable)->len == 0) {
+				/* legacy compatibility: this is only an error if the component ID doesn't have a .desktop suffix */
+				if (g_str_has_suffix (as_component_get_id (cpt), ".desktop"))
+					as_validator_add_issue (validator, NULL, "desktop-app-launchable-omitted", NULL);
+				else
+					as_validator_add_issue (validator, NULL, "desktop-app-launchable-missing", NULL);
+			}
+		} else {
+			/* this app has a stock icon, so we may not need a desktop-entry file */
+
+			/* check if we have any categories */
+			if (as_component_get_categories (cpt)->len == 0) {
+				as_validator_add_issue (validator, NULL,
+							"app-categories-missing",
+							NULL);
+			}
+
+			/* check for launchable, but this time the omission may actually be intended */
+			if (launchable == NULL || as_launchable_get_entries (launchable)->len == 0)
+				as_validator_add_issue (validator, NULL, "desktop-app-launchable-omitted", NULL);
+		}
 	}
 
 	/* validate console-app specific stuff */
@@ -2501,7 +2529,7 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 					/* check if we have any categories */
 					if (as_component_get_categories (cpt)->len == 0) {
 						as_validator_add_issue (data->validator, NULL,
-									"app-category-missing",
+									"app-categories-missing",
 									NULL);
 					}
 				}

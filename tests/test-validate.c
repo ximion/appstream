@@ -232,9 +232,9 @@ test_validator_manyerrors_desktopapp ()
 		  "", -1,
 		  AS_ISSUE_SEVERITY_INFO,
 		},
-		{ "desktop-app-no-launchable",
+		{ "desktop-app-launchable-missing",
 		  "", -1,
-		  AS_ISSUE_SEVERITY_INFO,
+		  AS_ISSUE_SEVERITY_ERROR,
 		},
 
 		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }
@@ -285,9 +285,9 @@ test_validator_relationissues ()
 		  "", -1,
 		  AS_ISSUE_SEVERITY_PEDANTIC,
 		},
-		{ "desktop-app-no-launchable",
+		{ "desktop-app-launchable-missing",
 		  "", -1,
-		  AS_ISSUE_SEVERITY_INFO,
+		  AS_ISSUE_SEVERITY_ERROR,
 		},
 
 		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }

@@ -524,12 +524,23 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("This generic component is missing a long description. It may be useful to add one."),
 	},
 
-	{ "desktop-app-no-launchable",
-	  AS_ISSUE_SEVERITY_INFO,
+	{ "desktop-app-launchable-missing",
+	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("This `desktop-application` component is missing a `desktop-id` launchable tag. "
-	     "This means that this application can not be launched and has no association with its desktop-entry file, "
-	     "which is usually not intentional for GUI applications."),
+	     "This means that this application can not be launched and has no association with its desktop-entry file. "
+	     "It also means no icon data or category information from the desktop-entry file will be available, which "
+	     "will result in this application being ignored entirely."),
+	},
+
+	{ "desktop-app-launchable-omitted",
+	  AS_ISSUE_SEVERITY_INFO,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This `desktop-application` component has no `desktop-id` launchable tag, "
+	     "however it contains all the necessary information to display the application. "
+	     "The omission of the launchable entry means that the application can not be launched directly from "
+	     "installers or software centers. If this is intended, this information can be ignored, otherwise "
+	     "it is strongly recommended to add a launchable tag as well."),
 	},
 
 	{ "console-app-no-binary",
@@ -609,7 +620,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The category name is not valid. Refer to the XDG Menu Specification for a list of valid category names."),
 	},
 
-	{ "app-category-missing",
+	{ "app-categories-missing",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("This component is in no valid categories, even though it should be. Please check its metainfo file and desktop-entry file."),
 	},

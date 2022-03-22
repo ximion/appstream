@@ -1488,6 +1488,30 @@ as_component_get_icon_by_size (AsComponent *cpt, guint width, guint height)
 }
 
 /**
+ * as_component_get_icon_stock:
+ * @cpt: an #AsComponent instance
+ *
+ * Gets a stock icon for this component if one is associated with it.
+ * Will return %NULL otherwise.
+ *
+ * Returns: (transfer none) (nullable): An stock icon, or %NULL if none found.
+ */
+AsIcon*
+as_component_get_icon_stock (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	for (guint i = 0; i < priv->icons->len; i++) {
+		AsIcon *icon = AS_ICON (g_ptr_array_index (priv->icons, i));
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK) {
+			return icon;
+		}
+	}
+
+	return NULL;
+}
+
+/**
  * as_component_add_icon:
  * @cpt: an #AsComponent instance
  * @icon: the valid #AsIcon instance to add.

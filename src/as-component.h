@@ -310,6 +310,7 @@ GPtrArray		*as_component_get_icons (AsComponent *cpt);
 AsIcon			*as_component_get_icon_by_size (AsComponent *cpt,
 							guint width,
 							guint height);
+AsIcon			*as_component_get_icon_stock (AsComponent *cpt);
 void			as_component_add_icon (AsComponent *cpt,
 						AsIcon *icon);
 
