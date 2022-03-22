@@ -281,6 +281,28 @@
 				</listitem>
 		</varlistentry>
 
+		<varlistentry id="tag-keywords">
+				<term>&lt;keywords/&gt;</term>
+				<listitem>
+					<para>
+						This tag can contain one or more <code>&lt;keyword&gt;</code> children, describing keywords for the component,
+						to make it easier to find in a software center.
+						For translated keyword lists, the root node (<code>&lt;keywords/&gt;</code>) has the language property.
+						Example:
+					</para>
+					<programlisting language="XML"><![CDATA[<keywords>
+  <keyword>IDE</keyword>
+  <keyword>development</keyword>
+  <keyword>programming</keyword>
+</keywords>
+<keywords xml:lang="de">
+  <keyword>IDE</keyword>
+  <keyword>entwicklung</keyword>
+  <keyword>programmierung</keyword>
+</keywords>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
 		<varlistentry id="tag-url">
 		<term>&lt;url/&gt;</term>
 		<listitem>
