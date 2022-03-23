@@ -528,8 +528,8 @@ test_yaml_read_url (void)
 				"  homepage: https://example.org\n"
 				"  faq: https://example.org/faq\n"
 				"  donation: https://example.org/donate\n"
-				"  contact: https://example.org/contact\n";
-				"  vcs-browser: https://example.org/source\n";
+				"  contact: https://example.org/contact\n"
+				"  vcs-browser: https://example.org/source\n"
 				"  contribute: https://example.org/contribute\n";
 
 	cpt = as_yaml_test_read_data (yamldata_urls, NULL);
