@@ -21,17 +21,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-03-22 23:16+0100\n"
-"PO-Revision-Date: 2022-02-22 16:37+0000\n"
+"PO-Revision-Date: 2022-03-24 11:56+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
-"translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.11-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.12-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1806,7 +1804,7 @@ msgid ""
 "association with its desktop-entry file. It also means no icon data or "
 "category information from the desktop-entry file will be available, which "
 "will result in this application being ignored entirely."
-msgstr ""
+msgstr "У цьому компоненті «desktop-application» пропущено теґ придатності до запуску «desktop-id». Це означає, що цю програму не можна буде запустити, і її не буде пов'язано із її файлом desktop. Це також означає, що будуть недоступними дані з файла запису desktop щодо піктограми та категорії, тобто система ігноруватиме програму повністю."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:539
@@ -1817,7 +1815,7 @@ msgid ""
 "can not be launched directly from installers or software centers. If this is "
 "intended, this information can be ignored, otherwise it is strongly "
 "recommended to add a launchable tag as well."
-msgstr ""
+msgstr "У цьому компоненті «desktop-application» пропущено теґ придатності до запуску «desktop-id». Втім, там містяться усі дані, які потрібні для показу програми. Те, що пропущено теґ придатності до запуску, означає, що програму не можна буде безпосередньо запустити із засобу для встановлення або центру програмного забезпечення. Якщо так і має бути, це повідомлення можна проігнорувати. Якщо ж це не так, наполегливо рекомендуємо додати також теґ придатності до запуску."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:549
@@ -1933,7 +1931,7 @@ msgstr ""
 msgid ""
 "This component is in no valid categories, even though it should be. Please "
 "check its metainfo file and desktop-entry file."
-msgstr ""
+msgstr "Для цього компонента не вказано коректних категорій, хоча так мало бути. Будь ласка, перевірте його файл metainfo і файл запису desktop."
 
 #: src/as-validator-issue-tag.h:630
 msgid "The screenshot caption is too long (should be <= 100 characters)"
@@ -1980,9 +1978,8 @@ msgid "The metainfo filename does not match the component ID."
 msgstr "Назва файла metainfo не відповідає ідентифікатору компонента."
 
 #: src/as-validator-issue-tag.h:667
-#, fuzzy
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr "Не вдалося прочитати файл .desktop, пов'язаний із цим компонентом."
+msgstr "Не вдалося завантажити файл запису desktop, який пов'язано із цим компонентом."
 
 #: src/as-validator-issue-tag.h:672
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -1990,28 +1987,25 @@ msgstr ""
 "Метадані цього компонента посилаються на файл .desktop, якого не існує."
 
 #: src/as-validator-issue-tag.h:677
-#, fuzzy
 msgid ""
 "A category defined in the desktop-entry file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
-"Категорія, яку визначено у файлі .desktop, є некоректною. Зверніться до "
-"специфікації меню XDG, щоб ознайомитися зі списком коректних категорій."
+msgstr "Категорія, яку визначено у файлі запису desktop, є некоректною. Зверніться до специфікації меню XDG, щоб ознайомитися зі списком коректних категорій."
 
 #: src/as-validator-issue-tag.h:682
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "Помилка під час читання певних даних з файла запису desktop."
 
 #: src/as-validator-issue-tag.h:687
 msgid ""
 "The value of this desktop-entry field contains invalid or non-printable "
 "UTF-8 characters, which can not be displayed properly."
-msgstr ""
+msgstr "Значення цього поля запису desktop містить некоректні або непридатні до друку символи UTF-8, які не може бути показано належним чином."
 
 #: src/as-validator-issue-tag.h:692
 msgid ""
 "This desktop-entry field value is quoted, which is likely unintentional."
-msgstr ""
+msgstr "Значення цього поля запису desktop взято у лапки. Не варто так робити."
 
 #: src/as-validator-issue-tag.h:697
 msgid ""
@@ -2019,7 +2013,7 @@ msgid ""
 "vendor-installed .desktop files, and nullifies all effects this .desktop "
 "file has (including MIME associations), which most certainly is not "
 "intentional."
-msgstr ""
+msgstr "Для цього файла запису desktop встановлено властивість «прихований». Так не слід робити для встановлених виробником файлів .desktop, оскільки це робить файл .desktop непрацездатним (зокрема, не працюють прив'язки до типів MIME). Ймовірно, варто позбутися від цієї властивості."
 
 #: src/as-validator-issue-tag.h:703
 msgid ""
@@ -2027,7 +2021,7 @@ msgid ""
 "value. This might not be intended, as this will hide the application from "
 "all desktops. If you do want to hide the application from all desktops, "
 "using 'NoDisplay=true' is more explicit."
-msgstr ""
+msgstr "У цьому файлів запису desktop для властивості «OnlyShowIn» встановлено порожнє значення. Навряд чи це варто було робити, оскільки таким чином програму буде приховано в усіх стільничних середовищах. Якщо ви справді хочете, щоб програму було приховано в усіх стільничних середовищах, варто просто явним чином вказати «NoDisplay=true»."
 
 #: src/as-validator-issue-tag.h:709
 msgid "No AppStream metadata was found in this directory or directory tree."
