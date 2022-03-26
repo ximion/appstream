@@ -21,17 +21,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-03-22 23:16+0100\n"
-"PO-Revision-Date: 2022-02-26 11:44+0000\n"
+"PO-Revision-Date: 2022-03-26 12:20+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
-"translations/pl/>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.11.1-dev\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.12-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1795,7 +1793,7 @@ msgid ""
 "association with its desktop-entry file. It also means no icon data or "
 "category information from the desktop-entry file will be available, which "
 "will result in this application being ignored entirely."
-msgstr ""
+msgstr "Ten składnik „desktop-application” nie ma znacznika uruchamiania „desktop-id”. Oznacza to, że ten program nie może być uruchamiany i nie ma powiązania ze swoim plikiem .desktop. Oznacza to także, że informacje o ikonie i kategoriach z pliku .desktop nie będą dostępne, co spowoduje całkowite ignorowanie tego programu."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:539
@@ -1806,7 +1804,7 @@ msgid ""
 "can not be launched directly from installers or software centers. If this is "
 "intended, this information can be ignored, otherwise it is strongly "
 "recommended to add a launchable tag as well."
-msgstr ""
+msgstr "Ten składnik „desktop-application” nie ma znacznika uruchamiania „desktop-id”, ale zawiera wszystkie informacje potrzebne do wyświetlania programu. Pominięcie wpisu uruchamiania oznacza, że program nie może być uruchamiany bezpośrednio z instalatorów i centrów oprogramowania. Jeśli jest to zamierzone, to można zignorować tę informację, a w przeciwnym wypadku mocno zalecane jest dodanie także znacznika uruchamiania."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:549
@@ -1918,7 +1916,7 @@ msgstr ""
 msgid ""
 "This component is in no valid categories, even though it should be. Please "
 "check its metainfo file and desktop-entry file."
-msgstr ""
+msgstr "Ten składnik nie jest w żadnych prawidłowych kategoriach, chociaż powinien być. Proszę sprawdzić poprawność jego pliku Metainfo i pliku .desktop."
 
 #: src/as-validator-issue-tag.h:630
 msgid "The screenshot caption is too long (should be <= 100 characters)"
@@ -1964,37 +1962,33 @@ msgid "The metainfo filename does not match the component ID."
 msgstr "Nazwa pliku Metainfo nie pasuje do identyfikatora składnika."
 
 #: src/as-validator-issue-tag.h:667
-#, fuzzy
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr "Nie można odczytać pliku .desktop powiązanego z tym składnikiem."
+msgstr "Nie można wczytać pliku .desktop powiązanego z tym składnikiem."
 
 #: src/as-validator-issue-tag.h:672
 msgid "This component metadata refers to a non-existing .desktop file."
 msgstr "Te metadane składnika odnoszą się do nieistniejącego pliku .desktop."
 
 #: src/as-validator-issue-tag.h:677
-#, fuzzy
 msgid ""
 "A category defined in the desktop-entry file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
-"Kategoria określona w pliku .desktop jest nieprawidłowa. Specyfikacja menu "
-"XDG zawiera listę prawidłowych kategorii."
+msgstr "Kategoria określona w pliku .desktop jest nieprawidłowa. Specyfikacja menu XDG zawiera listę prawidłowych kategorii."
 
 #: src/as-validator-issue-tag.h:682
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "Błąd podczas odczytywania części danych z pliku .desktop."
 
 #: src/as-validator-issue-tag.h:687
 msgid ""
 "The value of this desktop-entry field contains invalid or non-printable "
 "UTF-8 characters, which can not be displayed properly."
-msgstr ""
+msgstr "Wartość tego pola pliku .desktop zawiera nieprawidłowe lub niewidoczne znaki UTF-8, których nie można poprawnie wyświetlić."
 
 #: src/as-validator-issue-tag.h:692
 msgid ""
 "This desktop-entry field value is quoted, which is likely unintentional."
-msgstr ""
+msgstr "Wartość tego pola pliku .desktop jest w cudzysłowach, co prawdopodobnie nie jest zamierzone."
 
 #: src/as-validator-issue-tag.h:697
 msgid ""
@@ -2002,7 +1996,7 @@ msgid ""
 "vendor-installed .desktop files, and nullifies all effects this .desktop "
 "file has (including MIME associations), which most certainly is not "
 "intentional."
-msgstr ""
+msgstr "Ten plik .desktop ma ustawioną właściwość „Hidden”. Jest to błędne w przypadku plików .desktop zainstalowanych przez producenta i unieważnia wszystkie efekty tego pliku .desktop (w tym powiązania MIME), co niewątpliwie nie jest zamierzone."
 
 #: src/as-validator-issue-tag.h:703
 msgid ""
@@ -2010,7 +2004,7 @@ msgid ""
 "value. This might not be intended, as this will hide the application from "
 "all desktops. If you do want to hide the application from all desktops, "
 "using 'NoDisplay=true' is more explicit."
-msgstr ""
+msgstr "Ten plik .desktop ma ustawioną właściwość „OnlyShowIn” z pustą wartością. To może nie być zamierzone, jako że spowoduje to ukrycie programu we wszystkich środowiskach. Użycie „NoDisplay=true” jest lepszym rozwiązaniem."
 
 #: src/as-validator-issue-tag.h:709
 msgid "No AppStream metadata was found in this directory or directory tree."
