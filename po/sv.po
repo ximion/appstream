@@ -27,16 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-03-22 23:16+0100\n"
-"PO-Revision-Date: 2022-03-04 12:57+0000\n"
+"PO-Revision-Date: 2022-03-26 06:19+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11.1-dev\n"
+"X-Generator: Weblate 4.12-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1947,9 +1946,8 @@ msgid "The metainfo filename does not match the component ID."
 msgstr "Metainfofilnamnet matchar inte komponent-ID:t."
 
 #: src/as-validator-issue-tag.h:667
-#, fuzzy
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr "Kunde inte läsa .desktop-filen som är associerad med denna komponent."
+msgstr "Kunde inte läsa in desktop-entry-filen som är associerad med denna komponent."
 
 #: src/as-validator-issue-tag.h:672
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -1957,17 +1955,14 @@ msgstr ""
 "Metadata för denna komponent hänvisar till en .desktop-fil som inte finns."
 
 #: src/as-validator-issue-tag.h:677
-#, fuzzy
 msgid ""
 "A category defined in the desktop-entry file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
-"Kategorin som definieras i .desktop-filen är inte giltig. Se XDG-"
-"menyspecifikationen för en lista över giltiga kategorier."
+msgstr "En kategori som definieras i desktop-entry-filen är inte giltig. Se XDG-menyspecifikationen för en lista över giltiga kategorier."
 
 #: src/as-validator-issue-tag.h:682
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "Fel vid läsning av data från desktop-entry-filen."
 
 #: src/as-validator-issue-tag.h:687
 msgid ""
@@ -2609,7 +2604,7 @@ msgstr "TYP måste vara en giltig komponenttyp, såsom: %s"
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstreamcli.c:853
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
-msgstr "Använd den angivna raden för nyckeln ”Exec=” för desktop-postfilen."
+msgstr "Använd den angivna raden för nyckeln ”Exec=” för desktop-entry-filen."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:894
@@ -2786,7 +2781,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1298
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr "Skapa en desktop-postfil från en metainfofil."
+msgstr "Skapa en desktop-entry-fil från en metainfofil."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstreamcli.c:1303
@@ -3009,8 +3004,7 @@ msgstr "Du måste ange en metainfofil som indata."
 #: tools/ascli-actions-misc.c:118
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr ""
-"Du måste ange en desktop-postfil att skapa eller att lägga till i som utdata."
+msgstr "Du måste ange en desktop-entry-fil att skapa eller att lägga till i som utdata."
 
 #: tools/ascli-actions-misc.c:128 tools/ascli-actions-misc.c:371
 #: tools/ascli-actions-misc.c:448
@@ -3021,17 +3015,17 @@ msgstr "Metainfofilen ”%s” finns inte."
 #: tools/ascli-actions-misc.c:149
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr "Sätter samman befintlig desktop-postfil ”%s” med data från ”%s”."
+msgstr "Sätter samman befintlig desktop-entry-fil ”%s” med data från ”%s”."
 
 #: tools/ascli-actions-misc.c:154
 #, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr "Kunde inte läsa in befintlig desktop-postfilmall: %s"
+msgstr "Kunde inte läsa in befintlig desktop-entry-filmall: %s"
 
 #: tools/ascli-actions-misc.c:158
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr "Skapar ny desktop-postfil ”%s” med data från ”%s”"
+msgstr "Skapar ny desktop-entry-fil ”%s” med data från ”%s”"
 
 #: tools/ascli-actions-misc.c:214
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
