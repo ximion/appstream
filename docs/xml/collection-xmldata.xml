@@ -216,7 +216,7 @@
 				<term>&lt;description/&gt;</term>
 				<listitem>
 					<para>
-						A long description of the component. It is usually taken from the package descriptions or meta-info files, if they were provided.
+						A long description of the component. It is usually taken from the package descriptions or metainfo files, if they were provided.
 						The description might use markup. Right now, only paragraph, ordered list and unordered list are supported.
 						An example description element might look like this:
 						<programlisting language="XML"><![CDATA[<description>
@@ -237,8 +237,8 @@
 </description>]]></programlisting>
 					</para>
 					<para>
-						As opposed to the by-paragraph translation used in meta-info files, this tag is translated "as a whole", meaning that the
-						<literal>&lt;description/&gt;</literal> tag itself has a language property and contain the translated paragraphs for the given language.
+						As opposed to the by-paragraph translation used in metainfo files, this tag is translated "as a whole", meaning that the
+						<literal>&lt;description/&gt;</literal> tag itself has a language property and contains the translated paragraphs for the given language.
 						This allows faster parsing of the Appstream XML file, and does not increase it's size much, as long as it is compressed.
 					</para>
 					<para>

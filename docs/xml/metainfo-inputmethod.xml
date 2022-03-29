@@ -11,7 +11,7 @@
 		<title>Introduction</title>
 		<para>
 			It is a nice feature for a software center to allows users the installation of additional input methods.
-			This meta-info specification describes how metadata about input methods should be structured.
+			This metainfo specification describes how metadata about input methods should be structured.
 		</para>
 		<para>
 			Software components providing an input method can ship one or more files in
@@ -25,7 +25,7 @@
 	<section id="spec-imdata-example">
 		<title>Example file</title>
 		<para>
-			The input method meta-info file should look like this:
+			The input method metainfo file should look like this:
 		</para>
 		<programlisting language="XML">
 <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
