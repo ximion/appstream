@@ -700,7 +700,7 @@ as_xml_add_description_node (AsContext *ctx, xmlNode *root, GHashTable *desc_tab
 
 		dnode = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
 		if (!mi_translatable)
-			as_xml_add_text_prop (dnode, "translatable", "no");
+			as_xml_add_text_prop (dnode, "translate", "no");
 
 		cnode = dnode;
 		do {

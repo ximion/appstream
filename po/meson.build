@@ -4,7 +4,7 @@ as_gettext_domain = 'appstream'
 if meson.version().version_compare('>=0.60')
     i18n_result = i18n.gettext(as_gettext_domain,
         preset : 'glib',
-        data_dirs: [join_paths(source_root, 'data', 'its')],
+        data_dirs: [join_paths(source_root, 'data')],
         args: [
             '--default-domain=' + as_gettext_domain,
             '--from-code=UTF-8',
@@ -17,7 +17,7 @@ if meson.version().version_compare('>=0.60')
 else
 i18n.gettext(as_gettext_domain,
     preset : 'glib',
-    data_dirs: [join_paths(source_root, 'data', 'its')],
+    data_dirs: [join_paths(source_root, 'data')],
     args: [
         '--default-domain=' + as_gettext_domain,
         '--from-code=UTF-8',
