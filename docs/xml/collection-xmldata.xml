@@ -369,7 +369,7 @@
 						unlike its metainfo counterpart that has individual keywords translated. This means that the <literal>&lt;keywords/&gt;</literal> tag
 						itself has a language property and contains only the translated keywords for the given language.
 					</para>
-					</para>
+					<para>
 						In case of type <literal>desktop-application</literal> components, this data is taken from .desktop files. For <literal>addon</literal>
 						components, the upstream metadata file usually provides this tag.
 					</para>

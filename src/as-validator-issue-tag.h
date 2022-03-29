@@ -872,6 +872,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("This color is not a valid HTML color code."),
 	},
 
+	{ "metainfo-localized-keywords-tag",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("A <keywords/> tag must not be localized in metainfo files (upstream metadata). "
+	     "Localize the individual keyword entries instead.")
+	},
+
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
 };
 
