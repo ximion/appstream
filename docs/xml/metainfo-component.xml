@@ -287,18 +287,17 @@
 					<para>
 						This tag can contain one or more <code>&lt;keyword&gt;</code> children, describing keywords for the component,
 						to make it easier to find in a software center.
-						For translated keyword lists, the root node (<code>&lt;keywords/&gt;</code>) has the language property.
+						For translated keywords in metainfo files, the individual <literal>keyword</literal> tags should be translated.
+					</para>
+					<para>
 						Example:
 					</para>
 					<programlisting language="XML"><![CDATA[<keywords>
-  <keyword>IDE</keyword>
+  <keyword translate="no">IDE</keyword>
   <keyword>development</keyword>
   <keyword>programming</keyword>
-</keywords>
-<keywords xml:lang="de">
-  <keyword>IDE</keyword>
-  <keyword>entwicklung</keyword>
-  <keyword>programmierung</keyword>
+  <keyword xml:lang="de">entwicklung</keyword>
+  <keyword xml:lang="de">programmierung</keyword>
 </keywords>]]></programlisting>
 				</listitem>
 			</varlistentry>

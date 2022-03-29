@@ -362,12 +362,30 @@
 				<listitem>
 					<para>
 						This tag can contain one or more <code><![CDATA[<keyword>]]></code> tags, describing keywords for the component,
-						to make it easier to find in a software center. See <xref linkend="tag-keywords"/> for reference.
+						to make it easier to find in a software center.
+					</para>
+					<para>
+						This tag behaves like the <xref linkend="tag-keywords"/> tag used in metainfo files, but is translated "as a whole",
+						unlike its metainfo counterpart that has individual keywords translated. This means that the <literal>&lt;keywords/&gt;</literal> tag
+						itself has a language property and contains only the translated keywords for the given language.
+					</para>
+					</para>
 						In case of type <literal>desktop-application</literal> components, this data is taken from .desktop files. For <literal>addon</literal>
 						components, the upstream metadata file usually provides this tag.
-						For translated keyword lists, the root node (<code>&lt;keywords/&gt;</code>) has the language property.
+					</para>
+					<para>
 						Example:
 					</para>
+					<programlisting language="XML"><![CDATA[<keywords>
+  <keyword>IDE</keyword>
+  <keyword>development</keyword>
+  <keyword>programming</keyword>
+</keywords>
+<keywords xml:lang="de">
+  <keyword>IDE</keyword>
+  <keyword>entwicklung</keyword>
+  <keyword>programmierung</keyword>
+</keywords>]]></programlisting>
 				</listitem>
 			</varlistentry>
 
