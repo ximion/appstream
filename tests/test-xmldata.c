@@ -674,7 +674,7 @@ test_xml_read_url (void)
 	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_FAQ), ==, "https://example.org/faq");
 	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_DONATION), ==, "https://example.org/donate");
 	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_CONTACT), ==, "https://example.org/contact");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_VCS), ==, "https://example.org/source");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_VCS_BROWSER), ==, "https://example.org/source");
 	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_CONTRIBUTE), ==, "https://example.org/contribute");
 }
 

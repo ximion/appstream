@@ -91,7 +91,7 @@ as_url_kind_to_string (AsUrlKind url_kind)
 		return "translate";
 	if (url_kind == AS_URL_KIND_CONTACT)
 		return "contact";
-	if (url_kind == AS_URL_KIND_VCS)
+	if (url_kind == AS_URL_KIND_VCS_BROWSER)
 		return "vcs-browser";
 	if (url_kind == AS_URL_KIND_CONTRIBUTE)
 		return "contribute";
@@ -124,7 +124,7 @@ as_url_kind_from_string (const gchar *url_kind)
 	if (g_strcmp0 (url_kind, "contact") == 0)
 		return AS_URL_KIND_CONTACT;
 	if (g_strcmp0 (url_kind, "vcs-browser") == 0)
-		return AS_URL_KIND_VCS;
+		return AS_URL_KIND_VCS_BROWSER;
 	if (g_strcmp0 (url_kind, "contribute") == 0)
 		return AS_URL_KIND_CONTRIBUTE;
 	return AS_URL_KIND_UNKNOWN;
