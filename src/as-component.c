@@ -3931,6 +3931,70 @@ as_component_load_relations_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode 
 }
 
 /**
+ * as_component_load_keywords_from_xml:
+ */
+static void
+as_component_load_keywords_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) {
+		GHashTableIter ht_iter;
+		gpointer ht_key;
+		gpointer ht_value;
+		g_autoptr(GHashTable) temp_kw = g_hash_table_new_full (g_str_hash,
+								       g_str_equal,
+								       NULL,
+								       (GDestroyNotify) g_ptr_array_unref);
+
+		for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+			g_autofree gchar *lang = NULL;
+			GPtrArray *array = NULL;
+
+			if (iter->type != XML_ELEMENT_NODE)
+				continue;
+			lang = as_xml_get_node_locale_match (ctx, iter);
+			if (lang == NULL)
+				continue;
+
+			array = g_hash_table_lookup (temp_kw, lang);
+			if (array == NULL) {
+				array = g_ptr_array_new ();
+				g_hash_table_insert (temp_kw,
+						     g_ref_string_new_intern (lang),
+						     array);
+			}
+
+			g_ptr_array_add (array,	as_xml_get_node_value (iter));
+		}
+
+		/* Deconstruct hash table and add contents to internal table.
+		 * We try to duplicate as little memory as possible, as this function
+		 * may be called quite often when processing many metainfo files.
+		 * Note the the PtrArray with the terms will not auto-free its contents,
+		 * and the hash table does not own its key and will not free it wither. */
+		g_hash_table_iter_init (&ht_iter, temp_kw);
+		while (g_hash_table_iter_next (&ht_iter, &ht_key, &ht_value)) {
+			GPtrArray *array = (GPtrArray*) ht_value;
+			gchar **strv = g_new0 (gchar*, array->len + 1);
+			for (guint i = 0; i < array->len; i++)
+				strv[i] = (gchar*) g_ptr_array_index (array, i);
+
+			g_hash_table_insert (priv->keywords,
+					     ht_key, /* GRefString */
+					     strv);
+		}
+	} else {
+		g_autofree gchar *lang = as_xml_get_node_locale_match (ctx, node);
+		if (lang != NULL) {
+			g_auto(GStrv) kw_array = NULL;
+			kw_array = as_xml_get_children_as_strv (node, "keyword");
+			as_component_set_keywords (cpt, kw_array, lang);
+		}
+	}
+}
+
+/**
  * as_component_releases_sort_cb:
  *
  * Callback for releases #GPtrArray sorting.
@@ -4097,12 +4161,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 							     "category",
 							     priv->categories);
 		} else if (tag_id == AS_TAG_KEYWORDS) {
-			g_autofree gchar *lang = as_xml_get_node_locale_match (ctx, iter);
-			if (lang != NULL) {
-				g_auto(GStrv) kw_array = NULL;
-				kw_array = as_xml_get_children_as_strv (iter, "keyword");
-				as_component_set_keywords (cpt, kw_array, lang);
-			}
+			as_component_load_keywords_from_xml (cpt, ctx, iter);
 		} else if (tag_id == AS_TAG_MIMETYPES) {
 			g_autoptr(GPtrArray) mime_list = NULL;
 			guint i;
@@ -4265,16 +4324,24 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
  * as_component_xml_keywords_to_node:
  */
 static void
-as_component_xml_keywords_to_node (AsComponent *cpt, xmlNode *root)
+as_component_xml_keywords_to_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_autoptr(GList) keys = NULL;
-	GList *link;
+	xmlNode *mi_kw_node = NULL;
 
+	if (g_hash_table_size (priv->keywords) == 0)
+		return;
+
+	/* we need to sort the keys here to get reproductible output */
 	keys = g_hash_table_get_keys (priv->keywords);
-	keys = g_list_sort (keys, (GCompareFunc) g_ascii_strcasecmp);
-	for (link = keys; link != NULL; link = link->next) {
-		xmlNode *node;
+	keys = g_list_sort (keys, (GCompareFunc) g_strcmp0);
+
+	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO)
+		mi_kw_node = as_xml_add_node (root, "keywords");
+
+	for (GList *link = keys; link != NULL; link = link->next) {
+		gboolean has_locale = FALSE;
 		const gchar *locale = (const gchar*) link->data;
 		gchar **kws = (gchar**) g_hash_table_lookup (priv->keywords, locale);
 
@@ -4282,13 +4349,23 @@ as_component_xml_keywords_to_node (AsComponent *cpt, xmlNode *root)
 		if (as_is_cruft_locale (locale))
 			continue;
 
-		node = as_xml_add_node_list_strv (root, "keywords", "keyword", kws);
-		if (node == NULL)
-			continue;
-		if (g_strcmp0 (locale, "C") != 0) {
-			xmlNewProp (node,
-				(xmlChar*) "xml:lang",
-				(xmlChar*) locale);
+		has_locale = g_strcmp0 (locale, "C") != 0;
+		if (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) {
+
+			for (guint i = 0; kws[i] != NULL; i++) {
+				xmlNode *kw_node = as_xml_add_text_node (mi_kw_node,
+									 "keyword",
+									 kws[i]);
+
+				if (has_locale)
+					as_xml_add_text_prop (kw_node, "xml:lang", locale);
+			}
+		} else {
+			xmlNode *kws_node = as_xml_add_node_list_strv (root, "keywords", "keyword", kws);
+			if (kws_node == NULL)
+				continue;
+			if (has_locale)
+				as_xml_add_text_prop (kws_node, "xml:lang", locale);
 		}
 	}
 }
@@ -4421,7 +4498,7 @@ as_component_xml_serialize_languages (AsComponent *cpt, xmlNode *cptnode)
 
 	node = xmlNewChild (cptnode, NULL, (xmlChar*) "languages", NULL);
 	keys = g_hash_table_get_keys (priv->languages);
-	keys = g_list_sort (keys, (GCompareFunc) g_ascii_strcasecmp);
+	keys = g_list_sort (keys, (GCompareFunc) g_strcmp0);
 	for (link = keys; link != NULL; link = link->next) {
 		guint percentage;
 		const gchar *locale;
@@ -4628,7 +4705,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	}
 
 	/* keywords */
-	as_component_xml_keywords_to_node (cpt, cnode);
+	as_component_xml_keywords_to_node (cpt, ctx, cnode);
 
 	/* agreements */
 	for (guint i = 0; i < priv->agreements->len; i++) {
@@ -5486,7 +5563,7 @@ as_component_yaml_emit_languages (AsComponent *cpt, yaml_emitter_t *emitter)
 	as_yaml_sequence_start (emitter);
 
 	keys = g_hash_table_get_keys (priv->languages);
-	keys = g_list_sort (keys, (GCompareFunc) g_ascii_strcasecmp);
+	keys = g_list_sort (keys, (GCompareFunc) g_strcmp0);
 	for (link = keys; link != NULL; link = link->next) {
 		guint percentage;
 		const gchar *locale;

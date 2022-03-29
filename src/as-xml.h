@@ -88,6 +88,7 @@ void		as_xml_add_custom_node (xmlNode *root,
 					const gchar *node_name,
 					GHashTable *custom);
 
+#define as_xml_add_node(root, name)	xmlNewChild (root, NULL, (xmlChar*) name, NULL)
 xmlNode		*as_xml_add_text_node (xmlNode *root,
 					const gchar *name,
 					const gchar *value);
