@@ -468,6 +468,11 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 			g_auto(GStrv) kws = NULL;
 			g_autoptr(GPtrArray) l10n_data = NULL;
 
+			/* skip adding keywords if the metainfo file or previous component has
+			 * already had some for this locale */
+			if (g_hash_table_contains (as_component_get_keywords_table (cpt), locale))
+				continue;
+
 			kws = g_strsplit (val, ";", -1);
 			as_component_set_keywords (cpt, kws, locale);
 
