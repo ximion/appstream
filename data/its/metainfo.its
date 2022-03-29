@@ -23,11 +23,19 @@
                                /component/agreement/agreement_section/description"
                      translate="yes"/>
 
+  <its:translateRule selector="/component/name[@translate = 'no']"
+                     translate="no"/>
+  <its:translateRule selector="/component/developer_name[@translate = 'no']"
+                     translate="no"/>
+  <its:translateRule selector="/component/name_variant_suffix[@translate = 'no']"
+                     translate="no"/>
+  <its:translateRule selector="/component/releases/release/description[@translate = 'no']"
+                     translate="no"/>
+
+  <!-- DEPRECATED -->
   <its:translateRule selector="/component/name[@translatable = 'no']"
                      translate="no"/>
   <its:translateRule selector="/component/developer_name[@translatable = 'no']"
-                     translate="no"/>
-  <its:translateRule selector="/component/name_variant_suffix[@translatable = 'no']"
                      translate="no"/>
   <its:translateRule selector="/component/releases/release/description[@translatable = 'no']"
                      translate="no"/>
