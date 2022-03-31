@@ -14,17 +14,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-03-22 23:16+0100\n"
-"PO-Revision-Date: 2022-02-26 04:54+0000\n"
+"PO-Revision-Date: 2022-03-31 02:07+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
-"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/"
-"translations/hr/>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.11.1-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.12-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1898,7 +1896,7 @@ msgstr ""
 msgid ""
 "This component is in no valid categories, even though it should be. Please "
 "check its metainfo file and desktop-entry file."
-msgstr ""
+msgstr "Ova komponenta nije u nijednoj valjanoj kategoriji, iako bi trebala biti. Provjeri njenu datoteku metapodataka i desktop datoteku."
 
 #: src/as-validator-issue-tag.h:630
 msgid "The screenshot caption is too long (should be <= 100 characters)"
@@ -1945,10 +1943,8 @@ msgid "The metainfo filename does not match the component ID."
 msgstr "Ime datoteke metapodataka ne se poklapa s ID oznakom komponente."
 
 #: src/as-validator-issue-tag.h:667
-#, fuzzy
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr ""
-"Nije moguće čitati .desktop datoteku koja je povezana s ovom komponentom."
+msgstr "Nije moguće učitati desktop datoteku koja je povezana s ovom komponentom."
 
 #: src/as-validator-issue-tag.h:672
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -1956,17 +1952,14 @@ msgstr ""
 "Ovaj se metapodatak komponente poziva na nepostojeću .desktop datoteku."
 
 #: src/as-validator-issue-tag.h:677
-#, fuzzy
 msgid ""
 "A category defined in the desktop-entry file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
-"U .desktop datoteci definirana kategorija nije ispravna. Popis ispravnih "
-"kategorija nalazi se u specifikaciji XDG izbornika."
+msgstr "U desktop datoteci definirana kategorija nije ispravna. Pronađi popis ispravnih kategorija u specifikaciji XDG izbornika."
 
 #: src/as-validator-issue-tag.h:682
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "Pogreška prilikom čitanja nekih podataka iz desktop datoteke."
 
 #: src/as-validator-issue-tag.h:687
 msgid ""
