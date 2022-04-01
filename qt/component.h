@@ -88,6 +88,8 @@ class APPSTREAMQT_EXPORT Component {
             UrlKindDonation,
             UrlKindTranslate,
             UrlKindContact,
+            UrlKindVcsBrowser,
+            UrlKindContribute,
 
             // deprecated
             UrlTranslate   [[deprecated]] = UrlKindTranslate,
