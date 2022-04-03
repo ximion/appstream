@@ -37,6 +37,7 @@
 # J. Lavoie <j.lavoie@net-c.ca>, 2020, 2021.
 # CurlingTongs <jobiwaff@googlemail.com>, 2021.
 # Johannes Keyser <joke@fsfe.org>, 2021.
+# Niclas <schroeder.niclas2001@gmail.com>, 2022.
 #
 # Translators:
 msgid ""
@@ -44,16 +45,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-03-22 23:16+0100\n"
-"PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"PO-Revision-Date: 2022-04-03 04:06+0000\n"
+"Last-Translator: Niclas <schroeder.niclas2001@gmail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.12-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1018,7 +1018,7 @@ msgstr "Metadaten-Dateien haben Fehler:"
 
 #: src/as-pool.c:2416
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 #: src/as-pool.c:2462
 msgid "Iconsets"
@@ -1027,7 +1027,7 @@ msgstr "Symbolsätze"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2509
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Daten von lokal installierter Software"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2512
