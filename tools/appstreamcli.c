@@ -238,6 +238,7 @@ as_client_run_refresh_cache (const gchar *command, char **argv, int argc)
 	gint ret;
 	gboolean optn_force = FALSE;
 	g_auto(GStrv) optn_sources = NULL;
+	g_auto(GStrv) optn_sources_real = NULL;
 
 	const GOptionEntry refresh_options[] = {
 		{ "force", (gchar) 0, 0,
@@ -263,9 +264,16 @@ as_client_run_refresh_cache (const gchar *command, char **argv, int argc)
 	if (ret != 0)
 		return ret;
 
+	if (optn_sources != NULL) {
+		if (g_strv_length (optn_sources) == 1)
+			optn_sources_real = g_strsplit (optn_sources[0], ",", -1);
+		else
+			optn_sources_real = g_steal_pointer (&optn_sources);
+	}
+
 	return ascli_refresh_cache (optn_cachepath,
 				    optn_datapath,
-				    (const gchar * const*) optn_sources,
+				    (const gchar * const*) optn_sources_real,
 				    optn_force);
 }
 
