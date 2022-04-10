@@ -21,16 +21,14 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-04-10 17:24+0200\n"
-"PO-Revision-Date: 2022-03-26 12:20+0000\n"
+"PO-Revision-Date: 2022-04-10 16:23+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
-"translations/pl/>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.12-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -2252,13 +2250,10 @@ msgid "This color is not a valid HTML color code."
 msgstr "Ten kolor nie jest prawidłowym kodem koloru HTML."
 
 #: src/as-validator-issue-tag.h:877
-#, fuzzy
 msgid ""
 "A <keywords/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"Znacznik <description/> nie może być tłumaczony w plikach Metainfo "
-"(metadanych projektu). Zamiast tego należy tłumaczyć poszczególne akapity."
+msgstr "Znacznik <keywords/> nie może być tłumaczony w plikach Metainfo (metadanych projektu). Zamiast tego należy tłumaczyć poszczególne słowa kluczowe."
 
 #: src/as-validator.c:151
 msgid ""
