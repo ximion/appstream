@@ -159,6 +159,9 @@ verify_and_return:
 			     /* TRANSLATORS: We tried to download an URL, but received a 404 error code */
 			     _("URL was not found on the server."));
 		return FALSE;
+	} else if (status_code == 302) {
+		/* redirects are fine, we ignore them until we reach a different code */
+		return TRUE;
 	} else if (status_code != 200) {
 		g_set_error (error,
 			     AS_CURL_ERROR,
