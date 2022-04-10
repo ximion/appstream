@@ -44,7 +44,7 @@ you may want to take a look at the [AppStream Generator](https://github.com/ximi
 ### Dependencies
 
 #### Required
- * Meson (>= 0.56)
+ * Meson (>= 0.62)
  * glib2 (>= 2.58)
  * GObject-Introspection
  * libxml2
