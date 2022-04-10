@@ -26,10 +26,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2022-03-22 23:16+0100\n"
+"POT-Creation-Date: 2022-04-10 17:24+0200\n"
 "PO-Revision-Date: 2022-03-28 01:08+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
+"translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -964,13 +965,13 @@ msgid "URL was not found on the server."
 msgstr "URL hittades inte på servern."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
-#: src/as-curl.c:167
+#: src/as-curl.c:170
 #, c-format
 msgid "Unexpected status code: %ld"
 msgstr "Oväntad statuskod: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-curl.c:329
+#: src/as-curl.c:332
 #, c-format
 msgid "Retrieved file size was zero."
 msgstr "Erhållen filstorlek var noll."
@@ -1779,7 +1780,13 @@ msgid ""
 "association with its desktop-entry file. It also means no icon data or "
 "category information from the desktop-entry file will be available, which "
 "will result in this application being ignored entirely."
-msgstr "Denna `desktop-application`-komponent saknar en startbar `desktop-id`-tagg. Detta betyder att detta program inte kan startas och inte har någon association med sin desktop-entry-fil. Det betyder också att ingen kategoriinformation eller ikondata från desktop-entry-filen kommer vara tillgängligt, vilket kommer leda till att detta program ignoreras fullständigt."
+msgstr ""
+"Denna `desktop-application`-komponent saknar en startbar `desktop-id`-tagg. "
+"Detta betyder att detta program inte kan startas och inte har någon "
+"association med sin desktop-entry-fil. Det betyder också att ingen "
+"kategoriinformation eller ikondata från desktop-entry-filen kommer vara "
+"tillgängligt, vilket kommer leda till att detta program ignoreras "
+"fullständigt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:539
@@ -1790,7 +1797,13 @@ msgid ""
 "can not be launched directly from installers or software centers. If this is "
 "intended, this information can be ignored, otherwise it is strongly "
 "recommended to add a launchable tag as well."
-msgstr "Denna `desktop-application`-komponent saknar en startbar `desktop-id`-tagg, men den innehåller all nödvändig information för att visa programmet. Uteslutandet av den startbara posten betyder att programmet inte kan startas direkt från installerare och programvarucentraler. Om detta är avsikten kan denna information ignoreras, annars rekommenderas det starkt att även lägga till en startbar tagg."
+msgstr ""
+"Denna `desktop-application`-komponent saknar en startbar `desktop-id`-tagg, "
+"men den innehåller all nödvändig information för att visa programmet. "
+"Uteslutandet av den startbara posten betyder att programmet inte kan startas "
+"direkt från installerare och programvarucentraler. Om detta är avsikten kan "
+"denna information ignoreras, annars rekommenderas det starkt att även lägga "
+"till en startbar tagg."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:549
@@ -1902,7 +1915,9 @@ msgstr ""
 msgid ""
 "This component is in no valid categories, even though it should be. Please "
 "check its metainfo file and desktop-entry file."
-msgstr "Denna komponent är inte i någon giltig kategori även om den borde vara det. Kontrollera dess metainfofil och desktop-entry-fil."
+msgstr ""
+"Denna komponent är inte i någon giltig kategori även om den borde vara det. "
+"Kontrollera dess metainfofil och desktop-entry-fil."
 
 #: src/as-validator-issue-tag.h:630
 msgid "The screenshot caption is too long (should be <= 100 characters)"
@@ -1947,7 +1962,8 @@ msgstr "Metainfofilnamnet matchar inte komponent-ID:t."
 
 #: src/as-validator-issue-tag.h:667
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr "Kunde inte läsa in desktop-entry-filen som är associerad med denna komponent."
+msgstr ""
+"Kunde inte läsa in desktop-entry-filen som är associerad med denna komponent."
 
 #: src/as-validator-issue-tag.h:672
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -1958,7 +1974,9 @@ msgstr ""
 msgid ""
 "A category defined in the desktop-entry file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr "En kategori som definieras i desktop-entry-filen är inte giltig. Se XDG-menyspecifikationen för en lista över giltiga kategorier."
+msgstr ""
+"En kategori som definieras i desktop-entry-filen är inte giltig. Se XDG-"
+"menyspecifikationen för en lista över giltiga kategorier."
 
 #: src/as-validator-issue-tag.h:682
 msgid "Error while reading some data from the desktop-entry file."
@@ -1968,12 +1986,16 @@ msgstr "Fel vid läsning av data från desktop-entry-filen."
 msgid ""
 "The value of this desktop-entry field contains invalid or non-printable "
 "UTF-8 characters, which can not be displayed properly."
-msgstr "Värdet för detta desktop-entry-fält innehåller ogiltiga eller ej utskrivbara UTF-8-tecken som inte kan visas korrekt."
+msgstr ""
+"Värdet för detta desktop-entry-fält innehåller ogiltiga eller ej utskrivbara "
+"UTF-8-tecken som inte kan visas korrekt."
 
 #: src/as-validator-issue-tag.h:692
 msgid ""
 "This desktop-entry field value is quoted, which is likely unintentional."
-msgstr "Värdet för detta desktop-entry-fält är citerat, vilket troligen inte var meningen."
+msgstr ""
+"Värdet för detta desktop-entry-fält är citerat, vilket troligen inte var "
+"meningen."
 
 #: src/as-validator-issue-tag.h:697
 msgid ""
@@ -1981,7 +2003,11 @@ msgid ""
 "vendor-installed .desktop files, and nullifies all effects this .desktop "
 "file has (including MIME associations), which most certainly is not "
 "intentional."
-msgstr "Denna desktop-entry-fil har egenskapen ”Hidden” inställd. Detta är fel för leverantörsinstallerade .desktop-filer, och gör alla effekter som denna .desktop-fil har ogjorda (inklusive MIME-associationer), vilket uppenbarligen inte är avsikten."
+msgstr ""
+"Denna desktop-entry-fil har egenskapen ”Hidden” inställd. Detta är fel för "
+"leverantörsinstallerade .desktop-filer, och gör alla effekter som denna ."
+"desktop-fil har ogjorda (inklusive MIME-associationer), vilket uppenbarligen "
+"inte är avsikten."
 
 #: src/as-validator-issue-tag.h:703
 msgid ""
@@ -1989,7 +2015,11 @@ msgid ""
 "value. This might not be intended, as this will hide the application from "
 "all desktops. If you do want to hide the application from all desktops, "
 "using 'NoDisplay=true' is more explicit."
-msgstr "Denna desktop-entry-fil har egenskapen 'OnlyShowIn' inställd med ett tomt värde. Detta kanske inte är avsett då det kommer dölja programmet från alla skrivbord. Om du vill dölja programmet från alla skrivbord är det mer explicit att använda 'NoDisplay=true'."
+msgstr ""
+"Denna desktop-entry-fil har egenskapen 'OnlyShowIn' inställd med ett tomt "
+"värde. Detta kanske inte är avsett då det kommer dölja programmet från alla "
+"skrivbord. Om du vill dölja programmet från alla skrivbord är det mer "
+"explicit att använda 'NoDisplay=true'."
 
 #: src/as-validator-issue-tag.h:709
 msgid "No AppStream metadata was found in this directory or directory tree."
@@ -2207,6 +2237,15 @@ msgstr "Värdet för denna färgschemeinställning är ogiltigt."
 msgid "This color is not a valid HTML color code."
 msgstr "Denna färg är inte en giltig HTML-färgkod."
 
+#: src/as-validator-issue-tag.h:877
+#, fuzzy
+msgid ""
+"A <keywords/> tag must not be localized in metainfo files (upstream "
+"metadata). Localize the individual keyword entries instead."
+msgstr ""
+"En <description/>-tagg får inte lokaliseras i metainfofilerna "
+"(uppströmsmetadata). Lokalisera de individuella paragraferna istället."
+
 #: src/as-validator.c:151
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
@@ -2236,13 +2275,13 @@ msgstr "Visa extra felsökningsinformation"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-compose.c:186 tools/appstreamcli.c:1198
+#: tools/appstream-compose.c:186 tools/appstreamcli.c:1206
 msgid "Don't show colored output."
 msgstr "Visa inte färgade utdata."
 
 #. TRANSLATORS: ascompose flag description for: --version
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-compose.c:189 tools/appstreamcli.c:1187
+#: tools/appstream-compose.c:189 tools/appstreamcli.c:1195
 msgid "Show the program version."
 msgstr "Visa programversion."
 
@@ -2310,13 +2349,13 @@ msgid "Failed to parse arguments"
 msgstr "Misslyckades med att tolka argument"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:247 tools/appstreamcli.c:1345
+#: tools/appstream-compose.c:247 tools/appstreamcli.c:1353
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream-version: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:250 tools/appstreamcli.c:1348
+#: tools/appstream-compose.c:250 tools/appstreamcli.c:1356
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2468,7 +2507,7 @@ msgstr ""
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstreamcli.c:154 tools/appstreamcli.c:1087
+#: tools/appstreamcli.c:154 tools/appstreamcli.c:1095
 msgid "AppStream command-line interface"
 msgstr "AppStreams kommandoradsgränssnitt"
 
@@ -2483,7 +2522,7 @@ msgstr "”%s”-kommando"
 msgid "Option '%s' is unknown."
 msgstr "Flaggan ”%s” är okänd."
 
-#: tools/appstreamcli.c:197 tools/appstreamcli.c:1322
+#: tools/appstreamcli.c:197 tools/appstreamcli.c:1330
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -2501,12 +2540,12 @@ msgstr ""
 "specifika för detta underkommando."
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstreamcli.c:247
+#: tools/appstreamcli.c:248
 msgid "Enforce a cache refresh."
 msgstr "Tvinga en cache-uppdatering."
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
-#: tools/appstreamcli.c:253
+#: tools/appstreamcli.c:254
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
@@ -2515,24 +2554,24 @@ msgstr ""
 "`flatpak`. Kan anges flera gånger."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
-#: tools/appstreamcli.c:478
+#: tools/appstreamcli.c:486
 msgid ""
 "No license, license expression or license exception string was provided."
 msgstr ""
 "Ingen sträng för licens, licensuttryck eller licensundantag tillhandahölls."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstreamcli.c:503
+#: tools/appstreamcli.c:511
 msgid "Set the data origin for the installed metadata collection file."
 msgstr "Ställ in dataursprunget för den installerade metadatasamlingsfilen."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:508
+#: tools/appstreamcli.c:516
 msgid "Install the file for the current user, instead of globally."
 msgstr "Installera filen för aktuell användare snarare än globalt."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:536
+#: tools/appstreamcli.c:544
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
@@ -2541,7 +2580,7 @@ msgstr ""
 "buntsystem (`flatpak` eller `package`)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:541
+#: tools/appstreamcli.c:549
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
@@ -2550,7 +2589,7 @@ msgstr ""
 "första posten."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
-#: tools/appstreamcli.c:574 tools/appstreamcli.c:611
+#: tools/appstreamcli.c:582 tools/appstreamcli.c:619
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
@@ -2558,19 +2597,19 @@ msgstr ""
 "Ingen giltig bunttyp angavs. Endast `package` och `flatpak` känns igen för "
 "tillfället."
 
-#: tools/appstreamcli.c:709
+#: tools/appstreamcli.c:717
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
 "Du måste tillhandahålla minst två versionsnummer att jämföra som parametrar."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:738
+#: tools/appstreamcli.c:746
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Okänd jämförelserelation ”%s”. Giltiga värden är:"
 
-#: tools/appstreamcli.c:778
+#: tools/appstreamcli.c:786
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -2579,7 +2618,7 @@ msgstr ""
 "jämförelseoperator."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:804
+#: tools/appstreamcli.c:812
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -2587,7 +2626,7 @@ msgstr ""
 "metainfofilen."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstreamcli.c:809
+#: tools/appstreamcli.c:817
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -2596,23 +2635,23 @@ msgstr ""
 "att skriva till (eller ”-” för standard ut)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstreamcli.c:812
+#: tools/appstreamcli.c:820
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYP måste vara en giltig komponenttyp, såsom: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:853
+#: tools/appstreamcli.c:861
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr "Använd den angivna raden för nyckeln ”Exec=” för desktop-entry-filen."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:894
+#: tools/appstreamcli.c:902
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr "Anta att indatafilen är i valt format (”yaml” eller ”text”)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:900
+#: tools/appstreamcli.c:908
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
@@ -2621,7 +2660,7 @@ msgstr ""
 "obegränsat)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
-#: tools/appstreamcli.c:906
+#: tools/appstreamcli.c:914
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
@@ -2630,38 +2669,38 @@ msgstr ""
 "(senaste utgåvor översätts först, -1 för obegränsat)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:950
+#: tools/appstreamcli.c:958
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr "Generera utdata i valt format (”yaml” eller ”text”)."
 
 #. TRANSLATORS: appstreamcli-compose was not found
-#: tools/appstreamcli.c:992
+#: tools/appstreamcli.c:1000
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
 msgstr "Sammansättningsbinär ”%s” hittades inte! Kan inte fortsätta."
 
-#: tools/appstreamcli.c:993
+#: tools/appstreamcli.c:1001
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr "Du kan installera tillägget AppStream Compose genom: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
-#: tools/appstreamcli.c:1002
+#: tools/appstreamcli.c:1010
 msgid "Invalid number of parameters"
 msgstr "Ogiltigt antal parametrar"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:1061
+#: tools/appstreamcli.c:1069
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(Alias: ”%s”)"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1089
+#: tools/appstreamcli.c:1097
 msgid "Subcommands:"
 msgstr "Underkommandon:"
 
-#: tools/appstreamcli.c:1140
+#: tools/appstreamcli.c:1148
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -2670,7 +2709,7 @@ msgstr ""
 "skicka in ”--help” till underkommandot."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstreamcli.c:1163
+#: tools/appstreamcli.c:1171
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -2679,27 +2718,27 @@ msgstr ""
 "kommandon."
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstreamcli.c:1193
+#: tools/appstreamcli.c:1201
 msgid "Show extra debugging information."
 msgstr "Visa extra felsökningsinformation."
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstreamcli.c:1201
+#: tools/appstreamcli.c:1209
 msgid "Enable profiling"
 msgstr "Aktivera profilering"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1213
+#: tools/appstreamcli.c:1221
 msgid "Search the component database."
 msgstr "Sök i komponentdatabasen."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1218
+#: tools/appstreamcli.c:1226
 msgid "Get information about a component by its ID."
 msgstr "Hämta information om en komponent givet dess ID."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1223
+#: tools/appstreamcli.c:1231
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
@@ -2708,70 +2747,70 @@ msgstr ""
 "objekttyp (t.ex. lib, bin, python3, …) och objektvärde som parameter."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1229
+#: tools/appstreamcli.c:1237
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Dumpa råa XML-metadata för en komponent som matchar ID:t."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1234
+#: tools/appstreamcli.c:1242
 msgid "Rebuild the component metadata cache."
 msgstr "Bygg om cachen för komponentmetadata."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1240
+#: tools/appstreamcli.c:1248
 msgid "Validate AppStream XML files for issues."
 msgstr "Genomsök AppStream XML-filer efter fel."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1245
+#: tools/appstreamcli.c:1253
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Genomsök ett installerat filträd för ett program efter giltig metadata."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1250
+#: tools/appstreamcli.c:1258
 msgid "Check license string for validity and print details about it."
 msgstr "Kontrollera licenssträngen för giltighet och skriv ut detaljer om den."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1256
+#: tools/appstreamcli.c:1264
 msgid "Install software matching the component-ID."
 msgstr "Installera programvara som matchar komponent-ID:t."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1261
+#: tools/appstreamcli.c:1269
 msgid "Remove software matching the component-ID."
 msgstr "Ta bort programvara som matchar komponent-ID:t."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1267
+#: tools/appstreamcli.c:1275
 msgid "Display status information about available AppStream metadata."
 msgstr "Visa statusinformation om tillgängliga AppStream-metadata."
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstreamcli.c:1272
+#: tools/appstreamcli.c:1280
 msgid ""
 "Show information about the current operating system from the metadata index."
 msgstr ""
 "Visa information om det aktuella operativsystemet från metadataindexet."
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1277
+#: tools/appstreamcli.c:1285
 msgid "Install a metadata file into the right location."
 msgstr "Installera en metadatafil på rätt plats."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1282
+#: tools/appstreamcli.c:1290
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Konvertera samlings-XML till YAML eller tvärtom."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1287
+#: tools/appstreamcli.c:1295
 msgid "Compare two version numbers."
 msgstr "Jämför två versionsnummer."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1293
+#: tools/appstreamcli.c:1301
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -2779,27 +2818,27 @@ msgstr ""
 "Skapa en mall för en metainfofil (att fyllas i av projektet uppströms)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1298
+#: tools/appstreamcli.c:1306
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Skapa en desktop-entry-fil från en metainfofil."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1303
+#: tools/appstreamcli.c:1311
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "Konvertera en YAML-fil eller NEWS-text till metainfoutgåvor."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1308
+#: tools/appstreamcli.c:1316
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr "Skriv en NEWS-text eller YAML-fil med information från en metainfofil."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1313
+#: tools/appstreamcli.c:1321
 msgid "Compose AppStream collection metadata from directory trees."
 msgstr "Sätt samman AppStream-samlingsmetadata från katalogträd."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1321
+#: tools/appstreamcli.c:1329
 msgid "You need to specify a command."
 msgstr "Du måste ange ett kommando."
 
@@ -3004,7 +3043,9 @@ msgstr "Du måste ange en metainfofil som indata."
 #: tools/ascli-actions-misc.c:118
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "Du måste ange en desktop-entry-fil att skapa eller att lägga till i som utdata."
+msgstr ""
+"Du måste ange en desktop-entry-fil att skapa eller att lägga till i som "
+"utdata."
 
 #: tools/ascli-actions-misc.c:128 tools/ascli-actions-misc.c:371
 #: tools/ascli-actions-misc.c:448

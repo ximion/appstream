@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2022-03-22 23:16+0100\n"
+"POT-Creation-Date: 2022-04-10 17:24+0200\n"
 "PO-Revision-Date: 2022-02-26 04:54+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
@@ -961,13 +961,13 @@ msgid "URL was not found on the server."
 msgstr "URL tidak ditemukan di server."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
-#: src/as-curl.c:167
+#: src/as-curl.c:170
 #, c-format
 msgid "Unexpected status code: %ld"
 msgstr "Kode status tak terduga: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-curl.c:329
+#: src/as-curl.c:332
 #, c-format
 msgid "Retrieved file size was zero."
 msgstr "Ukuran berkas yang diambil adalah nol."
@@ -2226,6 +2226,15 @@ msgstr "Nilai dari preferensi skema warna ini tidak valid."
 msgid "This color is not a valid HTML color code."
 msgstr "Warna ini bukan suatu kode warna HTML yang valid."
 
+#: src/as-validator-issue-tag.h:877
+#, fuzzy
+msgid ""
+"A <keywords/> tag must not be localized in metainfo files (upstream "
+"metadata). Localize the individual keyword entries instead."
+msgstr ""
+"Sebuah tag <description/> tidak boleh dilokalkan dalam berkas metainfo "
+"(metadata hulu). Lokalkan masing-masing paragraf saja."
+
 #: src/as-validator.c:151
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
@@ -2254,13 +2263,13 @@ msgstr "Tampilkan informasi debug ekstra"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-compose.c:186 tools/appstreamcli.c:1198
+#: tools/appstream-compose.c:186 tools/appstreamcli.c:1206
 msgid "Don't show colored output."
 msgstr "Jangan tampilkan keluaran berwarna."
 
 #. TRANSLATORS: ascompose flag description for: --version
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-compose.c:189 tools/appstreamcli.c:1187
+#: tools/appstream-compose.c:189 tools/appstreamcli.c:1195
 msgid "Show the program version."
 msgstr "Tampilkan versi program."
 
@@ -2329,13 +2338,13 @@ msgid "Failed to parse arguments"
 msgstr "Gagal mengurai argumen"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:247 tools/appstreamcli.c:1345
+#: tools/appstream-compose.c:247 tools/appstreamcli.c:1353
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream versi: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:250 tools/appstreamcli.c:1348
+#: tools/appstream-compose.c:250 tools/appstreamcli.c:1356
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2491,7 +2500,7 @@ msgstr ""
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstreamcli.c:154 tools/appstreamcli.c:1087
+#: tools/appstreamcli.c:154 tools/appstreamcli.c:1095
 msgid "AppStream command-line interface"
 msgstr "Antarmuka baris perintah AppStream"
 
@@ -2506,7 +2515,7 @@ msgstr "perintah '%s'"
 msgid "Option '%s' is unknown."
 msgstr "Opsi '%s' tak dikenal."
 
-#: tools/appstreamcli.c:197 tools/appstreamcli.c:1322
+#: tools/appstreamcli.c:197 tools/appstreamcli.c:1330
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -2524,12 +2533,12 @@ msgstr ""
 "perintah ini."
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstreamcli.c:247
+#: tools/appstreamcli.c:248
 msgid "Enforce a cache refresh."
 msgstr "Paksakan penyegaran tembolok."
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
-#: tools/appstreamcli.c:253
+#: tools/appstreamcli.c:254
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
@@ -2538,7 +2547,7 @@ msgstr ""
 "`flatpak`. Dapat dinyatakan beberapa kali."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
-#: tools/appstreamcli.c:478
+#: tools/appstreamcli.c:486
 msgid ""
 "No license, license expression or license exception string was provided."
 msgstr ""
@@ -2546,17 +2555,17 @@ msgstr ""
 "diberikan."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstreamcli.c:503
+#: tools/appstreamcli.c:511
 msgid "Set the data origin for the installed metadata collection file."
 msgstr "Atur asal data untuk file pengumpulan metadata yang terinstal."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:508
+#: tools/appstreamcli.c:516
 msgid "Install the file for the current user, instead of globally."
 msgstr "Instal file untuk --pengguna saat ini, bukan secara global."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:536
+#: tools/appstreamcli.c:544
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
@@ -2565,7 +2574,7 @@ msgstr ""
 "yang diberikan (`flatpak` atau `package`)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:541
+#: tools/appstreamcli.c:549
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
@@ -2574,7 +2583,7 @@ msgstr ""
 "pilih entri pertama."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
-#: tools/appstreamcli.c:574 tools/appstreamcli.c:611
+#: tools/appstreamcli.c:582 tools/appstreamcli.c:619
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
@@ -2582,7 +2591,7 @@ msgstr ""
 "Tidak ada jenis bundel yang valid yang ditentukan. Hanya `package` dan "
 "`flatpak` yang saat ini dikenali."
 
-#: tools/appstreamcli.c:709
+#: tools/appstreamcli.c:717
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
@@ -2590,13 +2599,13 @@ msgstr ""
 "parameter."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:738
+#: tools/appstreamcli.c:746
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr ""
 "Hubungan perbandingan tidak dikenal '%s'. Nilai-nilai yang valid adalah:"
 
-#: tools/appstreamcli.c:778
+#: tools/appstreamcli.c:786
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -2605,7 +2614,7 @@ msgstr ""
 "dan sebuah operator perbandingan."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:804
+#: tools/appstreamcli.c:812
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -2613,7 +2622,7 @@ msgstr ""
 "berkas metainfo."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstreamcli.c:809
+#: tools/appstreamcli.c:817
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -2622,26 +2631,26 @@ msgstr ""
 "berkas tujuan tulis (atau \"-\" untuk keluaran standar)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstreamcli.c:812
+#: tools/appstreamcli.c:820
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TIPE mesti berupa suatu tipe komponen yang valid, seperti misalnya: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:853
+#: tools/appstreamcli.c:861
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 "Menggunakan baris yang dinyatakan untuk kunci 'Exec=' dari berkas entri "
 "desktop."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:894
+#: tools/appstreamcli.c:902
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 "Asumsikan berkas masukan dalam format yang dipilih ('yaml' atau 'teks')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:900
+#: tools/appstreamcli.c:908
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
@@ -2650,7 +2659,7 @@ msgstr ""
 "tidak terbatas)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
-#: tools/appstreamcli.c:906
+#: tools/appstreamcli.c:914
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
@@ -2660,38 +2669,38 @@ msgstr ""
 "terbatas)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:950
+#: tools/appstreamcli.c:958
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr "Menghasilkan luaran dalam format yang dipilih ('yaml' atau 'teks')."
 
 #. TRANSLATORS: appstreamcli-compose was not found
-#: tools/appstreamcli.c:992
+#: tools/appstreamcli.c:1000
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
 msgstr "Biner penyusunan '%s' tidak ditemukan! Tidak bisa melanjutkan."
 
-#: tools/appstreamcli.c:993
+#: tools/appstreamcli.c:1001
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr "Anda mungkin dapat memasang addon AppStream Compose melalui: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
-#: tools/appstreamcli.c:1002
+#: tools/appstreamcli.c:1010
 msgid "Invalid number of parameters"
 msgstr "Cacah parameter tidak valid"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:1061
+#: tools/appstreamcli.c:1069
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(Alias: '%s')"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1089
+#: tools/appstreamcli.c:1097
 msgid "Subcommands:"
 msgstr "Subperintah:"
 
-#: tools/appstreamcli.c:1140
+#: tools/appstreamcli.c:1148
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -2700,7 +2709,7 @@ msgstr ""
 "memberikan \"--help\" ke sub perintah."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstreamcli.c:1163
+#: tools/appstreamcli.c:1171
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -2709,27 +2718,27 @@ msgstr ""
 "perintah yang tersedia."
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstreamcli.c:1193
+#: tools/appstreamcli.c:1201
 msgid "Show extra debugging information."
 msgstr "Tampilkan informasi debug ekstra."
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstreamcli.c:1201
+#: tools/appstreamcli.c:1209
 msgid "Enable profiling"
 msgstr "Aktifkan pembuatan profil"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1213
+#: tools/appstreamcli.c:1221
 msgid "Search the component database."
 msgstr "Cari basis data komponen."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1218
+#: tools/appstreamcli.c:1226
 msgid "Get information about a component by its ID."
 msgstr "Dapatkan informasi tentang suatu komponen berdasarkan ID-nya."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1223
+#: tools/appstreamcli.c:1231
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
@@ -2738,69 +2747,69 @@ msgstr ""
 "item (misalnya lib, bin, python3,…) dan nilai item sebagai parameter."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1229
+#: tools/appstreamcli.c:1237
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Curahkan metadata XML mentah bagi suatu komponen yang cocok ID-nya."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1234
+#: tools/appstreamcli.c:1242
 msgid "Rebuild the component metadata cache."
 msgstr "Bangun ulang singgahan metadata komponen."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1240
+#: tools/appstreamcli.c:1248
 msgid "Validate AppStream XML files for issues."
 msgstr "Validasikan berkas XML AppStream apakah bermasalah."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1245
+#: tools/appstreamcli.c:1253
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "Validasikan metadata pohon berkas terpasang dari suatu aplikasi."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1250
+#: tools/appstreamcli.c:1258
 msgid "Check license string for validity and print details about it."
 msgstr "Periksa string lisensi untuk validitas dan cetak rincian tentang itu."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1256
+#: tools/appstreamcli.c:1264
 msgid "Install software matching the component-ID."
 msgstr "Pasang perangkat lunak dengan component-ID yang cocok."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1261
+#: tools/appstreamcli.c:1269
 msgid "Remove software matching the component-ID."
 msgstr "Buang perangkat lunak dengan component-ID yang cocok."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1267
+#: tools/appstreamcli.c:1275
 msgid "Display status information about available AppStream metadata."
 msgstr "Tampilkan informasi status tentang metadata AppStream yang tersedia."
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstreamcli.c:1272
+#: tools/appstreamcli.c:1280
 msgid ""
 "Show information about the current operating system from the metadata index."
 msgstr ""
 "Menampilkan informasi tentang sistem operasi saat ini dari indeks metadata."
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1277
+#: tools/appstreamcli.c:1285
 msgid "Install a metadata file into the right location."
 msgstr "Pasang suatu berkas metadata ke lokasi yang benar."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1282
+#: tools/appstreamcli.c:1290
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Mengonversi koleksi XML ke YAML atau sebaliknya."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1287
+#: tools/appstreamcli.c:1295
 msgid "Compare two version numbers."
 msgstr "Bandingkan dua nomor versi."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1293
+#: tools/appstreamcli.c:1301
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -2808,28 +2817,28 @@ msgstr ""
 "Buat suatu templat bagi berkas metainfo (untuk diisi oleh projek upstream)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1298
+#: tools/appstreamcli.c:1306
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Membuat berkas entri-desktop XDG dari berkas metainfo."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1303
+#: tools/appstreamcli.c:1311
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "Mengubah berkas YAML atau teks NEWS menjadi rilis metainfo."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1308
+#: tools/appstreamcli.c:1316
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 "Menulis teks NEWS atau berkas YAML dengan informasi dari berkas metainfo."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1313
+#: tools/appstreamcli.c:1321
 msgid "Compose AppStream collection metadata from directory trees."
 msgstr "Susun metadata koleksi AppStream dari pohon direktori."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1321
+#: tools/appstreamcli.c:1329
 msgid "You need to specify a command."
 msgstr "Anda perlu menyatakan suatu perintah."
 
