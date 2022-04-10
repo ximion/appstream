@@ -17,47 +17,14 @@ metainfo_with_relinfo = custom_target('gen-output',
     command : [ascli_exe, 'news-to-metainfo', '--limit=6', '@INPUT0@', '@INPUT1@', '@OUTPUT@']
 )
 
-if meson.version().version_compare('>=0.60')
-    # starting with Meson 0.60 we can use a crazy hack to generate sane output data
-    # using itstool - hopefully Meson will gain the ability to do this natively soon
-    itstool_exe = find_program('itstool', required: true)
-    python_exe = find_program('python3', required: true)
-
-    known_locale = run_command(python_exe,
-                               '-c',
-                               'print(open("'
-                                    + join_paths(source_root, 'po', 'LINGUAS') +
-                                    '", "r", encoding="utf-8").read())',
-                               check: true).stdout().split()
-
-    metainfo_i18n = custom_target('metainfo-i18n',
-        input : [metainfo_with_relinfo, i18n_result[0]],
-        output : 'org.freedesktop.appstream.cli.metainfo.xml',
-        command : [python_exe,
-                join_paths(meson.current_source_dir(), 'translate-metainfo.py'),
-                itstool_exe,
-                '@INPUT0@',
-                '@OUTPUT@',
-                'appstream',
-                join_paths(meson.current_source_dir(), 'its', 'metainfo.its'),
-                join_paths(meson.project_build_root(), 'po'),
-                known_locale,
-        ],
-        install: true,
-        install_dir: metainfo_dir
-    )
-else
-    # generates XML with mangled description markup tags, but better than nothing...
-    metainfo_i18n = i18n.merge_file (
-        input:  metainfo_with_relinfo,
-        output: 'org.freedesktop.appstream.cli.metainfo.xml',
-        type: 'xml',
-        data_dirs: [meson.current_source_dir()],
-        po_dir: join_paths (source_root, 'po'),
-        install: true,
-        install_dir: metainfo_dir
-    )
-endif
+metainfo_i18n = i18n.itstool_join(
+    input:  metainfo_with_relinfo,
+    output: 'org.freedesktop.appstream.cli.metainfo.xml',
+    mo_targets: i18n_result[0],
+    its_files: [join_paths(meson.current_source_dir(), 'its', 'metainfo.its')],
+    install: true,
+    install_dir: metainfo_dir,
+)
 
 test('as-validate_metainfo.cli',
     ascli_exe,

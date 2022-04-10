@@ -1,5 +1,5 @@
 project('AppStream', 'c',
-  meson_version: '>=0.56',
+  meson_version: '>=0.62',
   default_options: ['c_std=c11', 'cpp_std=gnu++14'],
 
   license: 'LGPL-2.1+',

@@ -1,21 +1,6 @@
 
 as_gettext_domain = 'appstream'
-
-if meson.version().version_compare('>=0.60')
-    i18n_result = i18n.gettext(as_gettext_domain,
-        preset : 'glib',
-        data_dirs: [join_paths(source_root, 'data')],
-        args: [
-            '--default-domain=' + as_gettext_domain,
-            '--from-code=UTF-8',
-            '-i', '-F', '-c', '--no-wrap',
-            '--package-name=' + as_gettext_domain,
-            '--copyright-holder=Matthias Klumpp',
-            '--msgid-bugs-address=appstream@lists.freedesktop.org'
-        ]
-    )
-else
-i18n.gettext(as_gettext_domain,
+i18n_result = i18n.gettext(as_gettext_domain,
     preset : 'glib',
     data_dirs: [join_paths(source_root, 'data')],
     args: [
@@ -27,7 +12,6 @@ i18n.gettext(as_gettext_domain,
         '--msgid-bugs-address=appstream@lists.freedesktop.org'
     ]
 )
-endif
 
 run_target ('make-linguas',
     command: ['sh',
