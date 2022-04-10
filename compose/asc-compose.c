@@ -2111,6 +2111,16 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 						     compose);
 	}
 
+	if (g_hash_table_size (priv->allowed_cids) > 0 &&
+	    priv->results->len == 0 &&
+	    tasks->len > 0) {
+		/* we had filters set but generated no results - this was most certainly not intended */
+		AscComposeTask *ctask = g_ptr_array_index (tasks, 0);
+		asc_result_add_hint_simple (ctask->result,
+						NULL,
+						"filters-but-no-output");
+	}
+
 	/* collect results */
 	for (guint i = 0; i < tasks->len; i++) {
 		AscComposeTask *ctask = g_ptr_array_index (tasks, i);

@@ -284,6 +284,12 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "on how to write a MetaInfo file, or file a bug with the upstream author of this software component."
 	},
 
+	{ "filters-but-no-output",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "Component filters were set, but no output was generated at all. Likely none of the filtered components were found, "
+	  "try to relax the filters and ensure the input data is valid."
+	},
+
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
 };
 

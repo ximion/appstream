@@ -129,7 +129,7 @@ composecli_print_hints_report (GPtrArray *results, const gchar *title, AscReport
 					as_gstring_replace (text_md, "&lt;", "<");
 					as_gstring_replace (text_md, "&gt;", ">");
 
-					text_md_wrap = ascli_format_long_output (text_md->str, 100, 4);
+					text_md_wrap = ascli_format_long_output (text_md->str, 100, 5);
 					g_string_append (report, text_md_wrap);
 					g_string_append_c (report, '\n');
 				}
