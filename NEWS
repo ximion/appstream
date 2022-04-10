@@ -1,3 +1,36 @@
+Version 0.15.3
+~~~~~~~~~~~~~~
+Released: 2022-04-10
+
+Features:
+ * qt: Include enums for VcsBrowser and Contribute
+ * Add vcs-browser and contribute URL type
+ * validate: Improve validation of desktop files alongside metainfo data
+ * its: Mark deprecated rules as deprecated
+ * Implement l10n support for metainfo keyword tags
+ * validator: Perform basic validation of keywords in metainfo data
+ * compose: Prefer metainfo keywords over desktop-entry keywords
+ * meson: Bump minimum version to 0.62
+
+Specification:
+ * docs: Document keywords for metainfo files as well
+ * docs: Spell it metainfo, not meta-info if referencing metainfo.xml files
+ * spec: Document how keywords in metainfo files should be translated
+
+Bugfixes:
+ * qt: If the timestamp is 0, return a default QDateTime()
+ * docs: Include compose manual page
+ * validate: Point at the right line for description-enum-item-invalid
+ * validator: Find data if /usr prefix is missing as well
+ * validator: Make insufficient launch data for desktop-apps a hard error
+ * Don't fail downloads or URL checks if redirects were involved
+ * apt: Only refresh the OS data cache (not the whole system cache) on APT update
+ * compose: Emit error if filters are set but no output was generated
+ * Centralize GOnce guard to fix an assertion failure in AsComponent
+
+Contributors:
+ Aleix Pol, JakobDev, Matthias Klumpp, Simon McVittie
+
 Version 0.15.2
 ~~~~~~~~~~~~~~
 Released: 2022-02-22
