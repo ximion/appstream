@@ -14,16 +14,14 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-04-10 17:24+0200\n"
-"PO-Revision-Date: 2022-03-31 23:06+0000\n"
+"PO-Revision-Date: 2022-04-12 01:55+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
-"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/"
-"translations/hr/>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.12-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -2237,13 +2235,10 @@ msgid "This color is not a valid HTML color code."
 msgstr "Ova boja nije valjani HTML kod boje."
 
 #: src/as-validator-issue-tag.h:877
-#, fuzzy
 msgid ""
 "A <keywords/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"<description/> oznaka se ne smije lokalizirati u datotekama metapodataka "
-"(metapodaci glevne grane). Umjesto toga lokaliziraj pojedinačne odlomke."
+msgstr "Nemoj prevoditi oznaku <keywords/> u datotekama metapodataka (metapodaci glavne grane). Umjesto toga prevedi pojedinačne unose ključnih riječi."
 
 #: src/as-validator.c:151
 msgid ""
