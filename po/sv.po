@@ -27,10 +27,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-04-10 17:24+0200\n"
-"PO-Revision-Date: 2022-03-28 01:08+0000\n"
-"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"PO-Revision-Date: 2022-04-12 01:55+0000\n"
+"Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2238,13 +2237,10 @@ msgid "This color is not a valid HTML color code."
 msgstr "Denna färg är inte en giltig HTML-färgkod."
 
 #: src/as-validator-issue-tag.h:877
-#, fuzzy
 msgid ""
 "A <keywords/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"En <description/>-tagg får inte lokaliseras i metainfofilerna "
-"(uppströmsmetadata). Lokalisera de individuella paragraferna istället."
+msgstr "En <keywords/>-tagg får inte lokaliseras i metainfofilerna (uppströmsmetadata). Lokalisera de individuella sökordsposterna istället."
 
 #: src/as-validator.c:151
 msgid ""
