@@ -38,17 +38,14 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-04-10 17:24+0200\n"
-"PO-Revision-Date: 2022-03-28 17:43+0000\n"
+"PO-Revision-Date: 2022-04-15 09:11+0000\n"
 "Last-Translator: Dmitry <dmitrydmitry761@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
-"translations/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 4.12-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -2262,13 +2259,10 @@ msgid "This color is not a valid HTML color code."
 msgstr "Этот цвет не является допустимым цветовым кодом HTML."
 
 #: src/as-validator-issue-tag.h:877
-#, fuzzy
 msgid ""
 "A <keywords/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"Тег <description/> не должен быть локализован в файлах metainfo (вышестоящие "
-"метаданные). Вместо этого локализуйте отдельные абзацы."
+msgstr "Тег <keywords/> не должен быть локализован в файлах метаинформации (метаданные вышестоящего уровня). Вместо этого локализуйте отдельные записи ключевых слов."
 
 #: src/as-validator.c:151
 msgid ""
