@@ -1076,7 +1076,7 @@ asc_compose_process_icons (AscCompose *compose,
 		/* create a remote reference if we have data for it */
 		if (priv->media_result_dir != NULL && icon_state != ASC_ICON_STATE_CACHED_ONLY) {
 			g_autofree gchar *icons_media_urlpart_dir = NULL;
-			g_autofree gchar *icons_media_urlpart_fname = NULL;
+			g_autofree gchar *icon_media_urlpart_fname = NULL;
 			g_autofree gchar *icons_media_path = NULL;
 			g_autofree gchar *icon_media_fname = NULL;
 			g_autoptr(AsIcon) remote_icon = NULL;
@@ -1084,7 +1084,7 @@ asc_compose_process_icons (AscCompose *compose,
 								   asc_result_gcid_for_component (cres, cpt),
 								   "icons",
 								   res_icon_size_str);
-			icons_media_urlpart_fname = g_strdup_printf ("%s/%s",
+			icon_media_urlpart_fname = g_strdup_printf ("%s/%s",
 								     icons_media_urlpart_dir,
 								     res_icon_basename);
 			icons_media_path = g_build_filename (priv->media_result_dir,
@@ -1112,7 +1112,18 @@ asc_compose_process_icons (AscCompose *compose,
 			as_icon_set_width (remote_icon, size);
 			as_icon_set_height (remote_icon, size);
 			as_icon_set_scale (remote_icon, scale_factor);
-			as_icon_set_url (remote_icon, icons_media_urlpart_fname);
+
+			/* We can only make use of the media-baseurl-using partial URLs if screenshot storage
+			 * is also enabled, because otherwise screenshots will use full URLs which conflicts
+			 * with the media baseurl (as it is unconditionally prefixed to *all* media URLs */
+			if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS)) {
+				as_icon_set_url (remote_icon, icon_media_urlpart_fname);
+			} else {
+				g_autofree gchar *icon_remote_url = g_strconcat (priv->media_baseurl, "/", icon_media_urlpart_fname, NULL);
+				/* if priv->media_result_dir is set, media_baseurl will be set too (checked before each run) */
+				as_icon_set_url (remote_icon, icon_remote_url);
+			}
+
 			as_component_add_icon (cpt, remote_icon);
 		}
 
@@ -1939,7 +1950,10 @@ asc_compose_save_metadata_result (AscCompose *compose, GError **error)
 	mdata = as_metadata_new ();
 	as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_COLLECTION);
 	as_metadata_set_format_version (mdata, AS_FORMAT_VERSION_CURRENT);
-	if (priv->media_baseurl != NULL)
+
+	/* Set baseurl only if one is set and we actually store any screenshot media. If no screenshot media
+	 * is stored, upstream's URLs are used and having a media base URL makes no sense */
+	if (priv->media_baseurl != NULL && as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS))
 		as_metadata_set_media_baseurl (mdata, priv->media_baseurl);
 
 	if (priv->format == AS_FORMAT_KIND_YAML)
