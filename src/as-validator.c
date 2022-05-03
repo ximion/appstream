@@ -1519,12 +1519,22 @@ static void
 as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle mode)
 {
 	gchar *prop;
+	AsReleaseKind rel_kind = AS_RELEASE_KIND_UNKNOWN;
 
 	/* validate presence of version property */
 	prop = as_xml_get_prop_value (node, "version");
 	if (prop == NULL)
 		as_validator_add_issue (validator, node, "release-version-missing", "version");
 	g_free (prop);
+
+	/* validate type */
+	prop = as_xml_get_prop_value (node, "type");
+	if (prop != NULL) {
+		rel_kind = as_release_kind_from_string (prop);
+		if (rel_kind == AS_RELEASE_KIND_UNKNOWN)
+			as_validator_add_issue (validator, node, "release-type-invalid", prop);
+		g_free (prop);
+	}
 
 	/* validate date strings */
 	prop = as_xml_get_prop_value (node, "date");
@@ -1534,20 +1544,16 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 	} else {
 		g_autofree gchar *timestamp = as_xml_get_prop_value (node, "timestamp");
 		/* Neither timestamp, nor date property exists */
-		if (timestamp == NULL)
-			as_validator_add_issue (validator, node, "release-time-missing", "date");
+		if (timestamp == NULL) {
+			if (rel_kind == AS_RELEASE_KIND_DEVELOPMENT)
+				as_validator_add_issue (validator, node, "release-time-missing-devel", "date");
+			else
+				as_validator_add_issue (validator, node, "release-time-missing", "date");
+		}
 	}
 	prop = as_xml_get_prop_value (node, "date_eol");
 	if (prop != NULL) {
 		as_validator_validate_iso8601_complete_date (validator, node, prop);
-		g_free (prop);
-	}
-
-	/* validate type */
-	prop = as_xml_get_prop_value (node, "type");
-	if (prop != NULL) {
-		if (as_release_kind_from_string (prop) == AS_RELEASE_KIND_UNKNOWN)
-			as_validator_add_issue (validator, node, "release-type-invalid", prop);
 		g_free (prop);
 	}
 

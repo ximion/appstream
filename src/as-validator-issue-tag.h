@@ -752,6 +752,13 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("The release is missing either the `date` (preferred) or the `timestamp` property."),
 	},
+
+	{ "release-time-missing-devel",
+	  AS_ISSUE_SEVERITY_INFO,
+	  N_("The development release is missing a date. This is fine if the release has not been published yet, "
+	     "but a date should be added once the release can reach users."),
+	},
+
 	{ "artifact-type-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
