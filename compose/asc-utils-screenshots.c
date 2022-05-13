@@ -410,7 +410,7 @@ asc_process_screenshot_images (AscResult *cres,
 	gboolean thumbnails_generated = FALSE;
 	g_autoptr(GError) error = NULL;
 
-	imgs = as_screenshot_get_images (scr);
+	imgs = as_screenshot_get_images_all (scr);
 	if (imgs->len == 0) {
 		asc_result_add_hint_simple (cres, cpt, "metainfo-screenshot-but-no-media");
 		return NULL;
@@ -434,7 +434,7 @@ asc_process_screenshot_images (AscResult *cres,
 		orig_img = g_object_ref (AS_IMAGE (g_ptr_array_index (imgs, 0)));
 
 	/* drop metainfo images */
-	g_ptr_array_remove_range (imgs, 0, imgs->len);
+	as_screenshot_clear_images (scr);
 
 	orig_img_url = as_image_get_url (orig_img);
 	orig_img_locale = as_image_get_locale (orig_img);
@@ -621,7 +621,7 @@ asc_process_screenshot_images (AscResult *cres,
 			continue;
 		}
 
-		// finally prepare the thumbnail definition and add it to the metadata
+		/* finally prepare the thumbnail definition and add it to the metadata */
 		img = as_image_new ();
 		as_image_set_locale (img, orig_img_locale);
 		as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);

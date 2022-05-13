@@ -265,6 +265,23 @@ as_screenshot_add_image (AsScreenshot *screenshot, AsImage *image)
 }
 
 /**
+ * as_screenshot_clear_images:
+ * @screenshot: a #AsScreenshot instance.
+ *
+ * Remove all images associated with this screenshot.
+ *
+ * Since: 0.15.4
+ **/
+void
+as_screenshot_clear_images (AsScreenshot *screenshot)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+
+	g_ptr_array_remove_range (priv->images, 0, priv->images->len);
+	g_ptr_array_remove_range (priv->images_lang, 0, priv->images_lang->len);
+}
+
+/**
  * as_screenshot_get_videos:
  * @screenshot: a #AsScreenshot instance.
  *

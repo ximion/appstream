@@ -32,6 +32,8 @@ AsContext		*as_screenshot_get_context (AsScreenshot *screenshot);
 void			as_screenshot_set_context (AsScreenshot *screenshot,
 						   AsContext *context);
 
+void			as_screenshot_clear_images (AsScreenshot *screenshot);
+
 gboolean		as_screenshot_load_from_xml (AsScreenshot *screenshot,
 							AsContext *ctx,
 							xmlNode *node,
