@@ -104,6 +104,7 @@ AsImage				*as_screenshot_get_image (AsScreenshot *screenshot,
 							  guint height);
 void				as_screenshot_add_image (AsScreenshot *screenshot,
 							 AsImage *image);
+void				as_screenshot_clear_images (AsScreenshot *screenshot);
 
 GPtrArray			*as_screenshot_get_videos (AsScreenshot *screenshot);
 void				as_screenshot_add_video (AsScreenshot *screenshot,
