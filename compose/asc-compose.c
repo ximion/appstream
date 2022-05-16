@@ -239,7 +239,12 @@ asc_compose_set_prefix (AscCompose *compose, const gchar *prefix)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
-	as_ref_string_assign_safe (&priv->prefix, prefix);
+
+	/* do a bit of sanitizing: "no prefix" means the prefix directory is the root directory */
+	if (prefix == NULL || g_strcmp0 (prefix, "") == 0)
+		as_ref_string_assign_safe (&priv->prefix, "/");
+	else
+		as_ref_string_assign_safe (&priv->prefix, prefix);
 }
 
 /**
@@ -1371,6 +1376,8 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	mi_fnames = g_ptr_array_new_with_free_func (g_free);
 	de_fname_map = g_hash_table_new_full (g_str_hash, g_str_equal,
 					      g_free, g_free);
+
+	g_debug ("Looking for metainfo files in: %s", metainfo_dir);
 	for (guint i = 0; i < contents->len; i++) {
 		const gchar *fname = g_ptr_array_index (contents, i);
 
@@ -2125,6 +2132,13 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 						     compose);
 	}
 
+	/* collect results */
+	for (guint i = 0; i < tasks->len; i++) {
+		AscComposeTask *ctask = g_ptr_array_index (tasks, i);
+		g_ptr_array_add (priv->results, g_object_ref (ctask->result));
+	}
+
+	/* check if we (unexpectedly) had no results */
 	if (g_hash_table_size (priv->allowed_cids) > 0 &&
 	    priv->results->len == 0 &&
 	    tasks->len > 0) {
@@ -2133,12 +2147,6 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 		asc_result_add_hint_simple (ctask->result,
 						NULL,
 						"filters-but-no-output");
-	}
-
-	/* collect results */
-	for (guint i = 0; i < tasks->len; i++) {
-		AscComposeTask *ctask = g_ptr_array_index (tasks, i);
-		g_ptr_array_add (priv->results, g_object_ref (ctask->result));
 	}
 
 	/* write result */
