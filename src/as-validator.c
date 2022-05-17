@@ -1544,12 +1544,8 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 	} else {
 		g_autofree gchar *timestamp = as_xml_get_prop_value (node, "timestamp");
 		/* Neither timestamp, nor date property exists */
-		if (timestamp == NULL) {
-			if (rel_kind == AS_RELEASE_KIND_DEVELOPMENT)
-				as_validator_add_issue (validator, node, "release-time-missing-devel", "date");
-			else
-				as_validator_add_issue (validator, node, "release-time-missing", "date");
-		}
+		if (timestamp == NULL)
+			as_validator_add_issue (validator, node, "release-time-missing", "date");
 	}
 	prop = as_xml_get_prop_value (node, "date_eol");
 	if (prop != NULL) {
