@@ -61,6 +61,7 @@ typedef struct
 	gchar		*current_fname;
 
 	gboolean	check_urls;
+	gboolean	strict;
 	AsCurl		*acurl;
 } AsValidatorPrivate;
 
@@ -110,6 +111,7 @@ as_validator_init (AsValidator *validator)
 	priv->current_fname = NULL;
 	priv->current_cpt = NULL;
 	priv->check_urls = FALSE;
+	priv->strict = FALSE;
 }
 
 /**
@@ -291,8 +293,16 @@ as_validator_check_success (AsValidator *validator)
 		AsIssueSeverity severity;
 		AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (value);
 		severity = as_validator_issue_get_severity (issue);
-		if (severity == AS_ISSUE_SEVERITY_ERROR || severity == AS_ISSUE_SEVERITY_WARNING)
-			return FALSE;
+
+		if (priv->strict) {
+			/* in strict mode we fail for anything that's not a pedantic issue */
+			if (severity != AS_ISSUE_SEVERITY_PEDANTIC)
+				return FALSE;
+		} else {
+			/* any error or warning means validation has failed */
+			if (severity == AS_ISSUE_SEVERITY_ERROR || severity == AS_ISSUE_SEVERITY_WARNING)
+				return FALSE;
+		}
 	}
 
 	return TRUE;
@@ -390,6 +400,7 @@ as_validator_get_check_urls (AsValidator *validator)
 /**
  * as_validator_set_check_urls:
  * @validator: a #AsValidator instance.
+ * @value: %TRUE if remote URLs should be checked for availability.
  *
  * Set this value to make the #AsValidator check whether remote URLs
  * actually exist.
@@ -402,6 +413,39 @@ as_validator_set_check_urls (AsValidator *validator, gboolean value)
 
 	/* initialize networking, in case URLs should be checked */
 	as_validator_setup_networking (validator);
+}
+
+/**
+ * as_validator_get_strict:
+ * @validator: a #AsValidator instance.
+ *
+ * Returns: %TRUE in case we are in strict mode and consider any issues as fatal.
+ *
+ * Since: 0.15.4
+ */
+gboolean
+as_validator_get_strict (AsValidator *validator)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	return priv->strict;
+}
+
+/**
+ * as_validator_set_strict:
+ * @validator: a #AsValidator instance.
+ * @is_strict: %TRUE to enable strict mode.
+ *
+ * Enable or disable strict mode. In strict mode, any found issue will result
+ * in a failed validation (except for issues of "pedantic" severity).
+ * Otherwise, only a "warning" or "error" will cause the validation to fail.
+ *
+ * Since: 0.15.4
+ */
+void
+as_validator_set_strict (AsValidator *validator, gboolean is_strict)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	priv->strict = is_strict;
 }
 
 /**
