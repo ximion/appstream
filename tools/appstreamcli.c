@@ -106,7 +106,8 @@ const GOptionEntry find_options[] = {
 /* used by validate_options */
 static gboolean optn_pedantic = FALSE;
 static gboolean optn_explain = FALSE;
-static gboolean optn_nonet = FALSE;
+static gboolean optn_no_net = FALSE;
+static gboolean optn_validate_strict = FALSE;
 static gchar *optn_issue_overrides = NULL;
 
 /**
@@ -125,9 +126,14 @@ const GOptionEntry validate_options[] = {
 		N_("Print detailed explanation for found issues."), NULL },
 	{ "no-net", (gchar) 0, 0,
 		G_OPTION_ARG_NONE,
-		&optn_nonet,
+		&optn_no_net,
 		/* TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command) */
 		N_("Do not use network access."), NULL },
+	{ "strict", (gchar) 0, 0,
+		G_OPTION_ARG_NONE,
+		&optn_validate_strict,
+		/* TRANSLATORS: ascli flag description for: --strict (used by the "validate" command) */
+		N_("Fail validation if any issue is emitted that is not of pedantic severity."), NULL },
 	{ "format", 0, 0,
 		G_OPTION_ARG_STRING,
 		&optn_format,
@@ -142,7 +148,7 @@ const GOptionEntry validate_options[] = {
 	/* DEPRECATED */
 	{ "nonet", (gchar) 0, G_OPTION_FLAG_HIDDEN,
 		G_OPTION_ARG_NONE,
-		&optn_nonet,
+		&optn_no_net,
 		NULL, NULL },
 	{ NULL }
 };
@@ -431,13 +437,15 @@ as_client_run_validate (const gchar *command, char **argv, int argc)
 					     argc-2,
 					     optn_pedantic,
 					     optn_explain,
-					     !optn_nonet,
+					     optn_validate_strict,
+					     !optn_no_net,
 					     optn_issue_overrides);
 	} else {
 		return ascli_validate_files_format (&argv[2],
 						    argc-2,
 						    optn_format,
-						    !optn_nonet,
+						    optn_validate_strict,
+						    !optn_no_net,
 						    optn_issue_overrides);
 	}
 }
@@ -467,12 +475,14 @@ as_client_run_validate_tree (const gchar *command, char **argv, int argc)
 		return ascli_validate_tree (value,
 					    optn_pedantic,
 					    optn_explain,
-					    !optn_nonet,
+					    optn_validate_strict,
+					    !optn_no_net,
 					    optn_issue_overrides);
 	} else {
 		return ascli_validate_tree_format (value,
 						   optn_format,
-						   !optn_nonet,
+						   optn_validate_strict,
+						   !optn_no_net,
 						   optn_issue_overrides);
 	}
 }
@@ -1378,7 +1388,7 @@ as_client_run (char **argv, int argc)
 	/* allow disabling network access via an environment variable */
 	if (g_getenv ("AS_VALIDATE_NONET") != NULL) {
 		g_debug ("Disabling network usage: Environment variable AS_VALIDATE_NONET is set.");
-		optn_nonet = TRUE;
+		optn_no_net = TRUE;
 	}
 
 	/* set some global defaults, in case we run as root in an unsafe environment */

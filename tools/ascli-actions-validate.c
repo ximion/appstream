@@ -214,6 +214,7 @@ ascli_validate_file (gchar *fname,
 		     gboolean print_filename,
 		     gboolean pedantic,
 		     gboolean explain,
+		     gboolean validate_strict,
 		     gboolean use_net,
 		     const gchar *overrides_str,
 		     gulong *error_count,
@@ -222,7 +223,7 @@ ascli_validate_file (gchar *fname,
 		     gulong *pedantic_count)
 {
 	GFile *file;
-	gboolean errors_found = FALSE;
+	gboolean validation_passed = TRUE;
 	AsValidator *validator;
 	GList *issues;
 	GList *l;
@@ -237,6 +238,7 @@ ascli_validate_file (gchar *fname,
 
 	validator = as_validator_new ();
 	as_validator_set_check_urls (validator, use_net);
+	as_validator_set_strict (validator, validate_strict);
 
 	/* apply user overrides */
 	if (!ascli_validate_apply_overrides_from_string (validator, overrides_str))
@@ -244,7 +246,7 @@ ascli_validate_file (gchar *fname,
 
 	/* validate ! */
 	if (!as_validator_validate_file (validator, file))
-		errors_found = TRUE;
+		validation_passed = FALSE;
 	issues = as_validator_get_issues (validator);
 
 	if (print_filename) {
@@ -264,14 +266,17 @@ ascli_validate_file (gchar *fname,
 					 warning_count,
 					 info_count,
 					 pedantic_count))
-			errors_found = TRUE;
+			validation_passed = FALSE;
+
+		if (validate_strict && as_validator_issue_get_severity (issue) != AS_ISSUE_SEVERITY_PEDANTIC)
+			validation_passed = FALSE;
 	}
 
 	g_list_free (issues);
 	g_object_unref (file);
 	g_object_unref (validator);
 
-	return !errors_found;
+	return validation_passed;
 }
 
 /**
@@ -323,6 +328,7 @@ ascli_validate_files (gchar **argv,
 		      gint argc,
 		      gboolean pedantic,
 		      gboolean explain,
+		      gboolean validate_strict,
 		      gboolean use_net,
 		      const gchar *overrides_str)
 {
@@ -343,6 +349,7 @@ ascli_validate_files (gchar **argv,
 						argc >= 2, /* print filenames if we validate multiple files */
 						pedantic,
 						explain,
+						validate_strict,
 						use_net,
 						overrides_str,
 						&error_count,
@@ -394,6 +401,7 @@ gint
 ascli_validate_files_format (gchar **argv,
 			     gint argc,
 			     const gchar *format,
+			     gboolean validate_strict,
 			     gboolean use_net,
 			     const gchar *overrides_str)
 {
@@ -405,6 +413,7 @@ ascli_validate_files_format (gchar **argv,
 					     argc,
 					     TRUE, /* pedantic */
 					     TRUE, /* explain */
+					     validate_strict,
 					     use_net,
 					     overrides_str);
 	}
@@ -421,6 +430,7 @@ ascli_validate_files_format (gchar **argv,
 
 		validator = as_validator_new ();
 		as_validator_set_check_urls (validator, use_net);
+		as_validator_set_strict (validator, validate_strict);
 
 		for (gint i = 0; i < argc; i++) {
 			g_autoptr(GFile) file = NULL;
@@ -453,10 +463,11 @@ gint
 ascli_validate_tree (const gchar *root_dir,
 		     gboolean pedantic,
 		     gboolean explain,
+		     gboolean validate_strict,
 		     gboolean use_net,
 		     const gchar *overrides_str)
 {
-	gboolean no_errors = TRUE;
+	gboolean validation_passed = TRUE;
 	AsValidator *validator;
 	GHashTable *issues_files;
 	GHashTableIter hiter;
@@ -473,6 +484,7 @@ ascli_validate_tree (const gchar *root_dir,
 
 	validator = as_validator_new ();
 	as_validator_set_check_urls (validator, use_net);
+	as_validator_set_strict (validator, validate_strict);
 
 	if (!ascli_validate_apply_overrides_from_string (validator, overrides_str))
 		return 1;
@@ -503,7 +515,10 @@ ascli_validate_tree (const gchar *root_dir,
 						 &warning_count,
 						 &info_count,
 						 &pedantic_count))
-			no_errors = FALSE;
+			validation_passed = FALSE;
+
+			if (validate_strict && as_validator_issue_get_severity (issue) != AS_ISSUE_SEVERITY_PEDANTIC)
+				validation_passed = FALSE;
 		}
 
 		/* space out contents from different files a bit more if we only show tags */
@@ -512,7 +527,7 @@ ascli_validate_tree (const gchar *root_dir,
 	}
 	g_object_unref (validator);
 
-	if (no_errors) {
+	if (validation_passed) {
 		if ((error_count == 0) && (warning_count == 0) &&
 		    (info_count == 0) && (pedantic_count == 0)) {
 			g_print ("✔ %s\n", _("Validation was successful."));
@@ -550,6 +565,7 @@ ascli_validate_tree (const gchar *root_dir,
 gint
 ascli_validate_tree_format (const gchar *root_dir,
 			    const gchar *format,
+			    gboolean validate_strict,
 			    gboolean use_net,
 			    const gchar *overrides_str)
 {
@@ -560,6 +576,7 @@ ascli_validate_tree_format (const gchar *root_dir,
 		return ascli_validate_tree (root_dir,
 					    TRUE, /* pedantic */
 					    TRUE, /* explain */
+					    validate_strict,
 					    use_net,
 					    overrides_str);
 	}
@@ -576,6 +593,7 @@ ascli_validate_tree_format (const gchar *root_dir,
 
 		validator = as_validator_new ();
 		as_validator_set_check_urls (validator, use_net);
+		as_validator_set_strict (validator, validate_strict);
 		as_validator_validate_tree (validator, root_dir);
 
 		validation_passed = as_validator_get_report_yaml (validator, &yaml_result);
