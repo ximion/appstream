@@ -107,6 +107,7 @@ const GOptionEntry find_options[] = {
 static gboolean optn_pedantic = FALSE;
 static gboolean optn_explain = FALSE;
 static gboolean optn_nonet = FALSE;
+static gchar *optn_issue_overrides = NULL;
 
 /**
  * General options for validation.
@@ -132,6 +133,13 @@ const GOptionEntry validate_options[] = {
 		&optn_format,
 		/* TRANSLATORS: ascli flag description for: --format  when validating XML files */
 		N_("Format of the generated report (valid values are 'text' and 'yaml')."), NULL },
+	{ "override", 0, 0,
+		G_OPTION_ARG_STRING,
+		&optn_issue_overrides,
+		/* TRANSLATORS: ascli flag description for: --override  when validating XML files */
+		N_("Override the severities of selected issue tags."), NULL },
+
+	/* DEPRECATED */
 	{ "nonet", (gchar) 0, G_OPTION_FLAG_HIDDEN,
 		G_OPTION_ARG_NONE,
 		&optn_nonet,
@@ -423,12 +431,14 @@ as_client_run_validate (const gchar *command, char **argv, int argc)
 					     argc-2,
 					     optn_pedantic,
 					     optn_explain,
-					     !optn_nonet);
+					     !optn_nonet,
+					     optn_issue_overrides);
 	} else {
 		return ascli_validate_files_format (&argv[2],
 						    argc-2,
 						    optn_format,
-						    !optn_nonet);
+						    !optn_nonet,
+						    optn_issue_overrides);
 	}
 }
 
@@ -457,11 +467,13 @@ as_client_run_validate_tree (const gchar *command, char **argv, int argc)
 		return ascli_validate_tree (value,
 					    optn_pedantic,
 					    optn_explain,
-					    !optn_nonet);
+					    !optn_nonet,
+					    optn_issue_overrides);
 	} else {
 		return ascli_validate_tree_format (value,
 						   optn_format,
-						   !optn_nonet);
+						   !optn_nonet,
+						   optn_issue_overrides);
 	}
 }
 

@@ -482,6 +482,17 @@ as_validator_add_override (AsValidator *validator,
 		NULL
 	};
 
+	/* sanity checks */
+	if (severity_override == AS_ISSUE_SEVERITY_UNKNOWN || severity_override >= AS_ISSUE_SEVERITY_LAST) {
+		g_set_error (error,
+				AS_VALIDATOR_ERROR,
+				AS_VALIDATOR_ERROR_OVERRIDE_INVALID,
+				/* TRANSLATORS: The user tried to set an invalid severity for a validator issue tag */
+				_("The new issue severity for tag '%s' is invalid."),
+				tag);
+		return FALSE;
+	}
+
 	tag_data = g_hash_table_lookup (priv->issue_tags, tag);
 	if (tag_data == NULL) {
 		g_set_error (error,

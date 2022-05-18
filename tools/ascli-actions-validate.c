@@ -25,6 +25,8 @@
 #include <glib/gi18n-lib.h>
 #include <appstream.h>
 
+#include "as-utils-private.h"
+
 #include "ascli-utils.h"
 
 /**
@@ -112,8 +114,14 @@ create_issue_info_print_string (AsValidatorIssue *issue, guint indent)
  * print_single_issue:
  **/
 static gboolean
-print_single_issue (AsValidatorIssue *issue, gboolean pedantic, gboolean explained, gint indent,
-		    gulong *error_count, gulong *warning_count, gulong *info_count, gulong *pedantic_count)
+print_single_issue (AsValidatorIssue *issue,
+		    gboolean pedantic,
+		    gboolean explained,
+		    gint indent,
+		    gulong *error_count,
+		    gulong *warning_count,
+		    gulong *info_count,
+		    gulong *pedantic_count)
 {
 	AsIssueSeverity severity;
 	gboolean no_errors = TRUE;
@@ -159,11 +167,59 @@ print_single_issue (AsValidatorIssue *issue, gboolean pedantic, gboolean explain
 }
 
 /**
+ * ascli_validate_apply_overrides_from_string:
+ *
+ * Parse overrides from user-supplied string and set them on the validator.
+ */
+static gboolean
+ascli_validate_apply_overrides_from_string (AsValidator *validator, const gchar *overrides_str)
+{
+	g_auto(GStrv) overrides = NULL;
+	g_autoptr(GError) error = NULL;
+
+	/* check if we have anything to do */
+	if (as_is_empty (overrides_str))
+		return TRUE;
+
+	/* overrides strings supplied by the user have the format tag1=severity1,tag2=severity2 */
+	overrides = g_strsplit (overrides_str, ",", -1);
+	for (guint i = 0; overrides[i] != NULL; i++) {
+		g_auto(GStrv) parts = NULL;
+
+		parts = g_strsplit (overrides[i], "=", 2);
+		if (parts[0] == NULL || parts[1] == NULL) {
+			/* TRANSLATORS: User-supplied overrides string for appstreamcli was badly formatted. */
+			g_printerr (_("The format of validator issue override '%s' is invalid (should be 'tag=severity')"), overrides[i]);
+			g_printerr ("\n");
+			return FALSE;
+		}
+		if (!as_validator_add_override (validator,
+						parts[0],
+						as_issue_severity_from_string (parts[1]),
+						&error)) {
+			g_printerr (_("Can not override issue tag: %s"), error->message);
+			g_printerr ("\n");
+			return FALSE;
+		}
+	}
+
+	return TRUE;
+}
+
+/**
  * ascli_validate_file:
  **/
 static gboolean
-ascli_validate_file (gchar *fname, gboolean print_filename, gboolean pedantic, gboolean explain, gboolean use_net,
-		     gulong *error_count, gulong *warning_count, gulong *info_count, gulong *pedantic_count)
+ascli_validate_file (gchar *fname,
+		     gboolean print_filename,
+		     gboolean pedantic,
+		     gboolean explain,
+		     gboolean use_net,
+		     const gchar *overrides_str,
+		     gulong *error_count,
+		     gulong *warning_count,
+		     gulong *info_count,
+		     gulong *pedantic_count)
 {
 	GFile *file;
 	gboolean errors_found = FALSE;
@@ -173,8 +229,8 @@ ascli_validate_file (gchar *fname, gboolean print_filename, gboolean pedantic, g
 
 	file = g_file_new_for_path (fname);
 	if (!g_file_query_exists (file, NULL)) {
-		g_print (_("File '%s' does not exist."), fname);
-		g_print ("\n");
+		g_printerr (_("File '%s' does not exist."), fname);
+		g_printerr ("\n");
 		g_object_unref (file);
 		return FALSE;
 	}
@@ -182,6 +238,11 @@ ascli_validate_file (gchar *fname, gboolean print_filename, gboolean pedantic, g
 	validator = as_validator_new ();
 	as_validator_set_check_urls (validator, use_net);
 
+	/* apply user overrides */
+	if (!ascli_validate_apply_overrides_from_string (validator, overrides_str))
+		return FALSE;
+
+	/* validate ! */
 	if (!as_validator_validate_file (validator, file))
 		errors_found = TRUE;
 	issues = as_validator_get_issues (validator);
@@ -219,7 +280,10 @@ ascli_validate_file (gchar *fname, gboolean print_filename, gboolean pedantic, g
  * Print issue statistic to stdout.
  */
 static void
-ascli_validate_print_stats (gulong error_count, gulong warning_count, gulong info_count, gulong pedantic_count)
+ascli_validate_print_stats (gulong error_count,
+			    gulong warning_count,
+			    gulong info_count,
+			    gulong pedantic_count)
 {
 	gboolean add_spacer = FALSE;
 
@@ -255,9 +319,13 @@ ascli_validate_print_stats (gulong error_count, gulong warning_count, gulong inf
  * ascli_validate_files:
  */
 gint
-ascli_validate_files (gchar **argv, gint argc, gboolean pedantic, gboolean explain, gboolean use_net)
+ascli_validate_files (gchar **argv,
+		      gint argc,
+		      gboolean pedantic,
+		      gboolean explain,
+		      gboolean use_net,
+		      const gchar *overrides_str)
 {
-	gint i;
 	gboolean ret = TRUE;
 	gulong error_count = 0;
 	gulong warning_count = 0;
@@ -269,13 +337,14 @@ ascli_validate_files (gchar **argv, gint argc, gboolean pedantic, gboolean expla
 		return 1;
 	}
 
-	for (i = 0; i < argc; i++) {
+	for (gint i = 0; i < argc; i++) {
 		gboolean tmp_ret;
 		tmp_ret = ascli_validate_file (argv[i],
 						argc >= 2, /* print filenames if we validate multiple files */
 						pedantic,
 						explain,
 						use_net,
+						overrides_str,
 						&error_count,
 						&warning_count,
 						&info_count,
@@ -322,7 +391,11 @@ ascli_validate_files (gchar **argv, gint argc, gboolean pedantic, gboolean expla
  * Validate files and return result in a machine-readable format.
  */
 gint
-ascli_validate_files_format (gchar **argv, gint argc, const gchar *format, gboolean use_net)
+ascli_validate_files_format (gchar **argv,
+			     gint argc,
+			     const gchar *format,
+			     gboolean use_net,
+			     const gchar *overrides_str)
 {
 	if (g_strcmp0 (format, "text") == 0) {
 		/* "text" is pretty much the default output,
@@ -332,7 +405,8 @@ ascli_validate_files_format (gchar **argv, gint argc, const gchar *format, gbool
 					     argc,
 					     TRUE, /* pedantic */
 					     TRUE, /* explain */
-					     use_net);
+					     use_net,
+					     overrides_str);
 	}
 
 	if (g_strcmp0 (format, "yaml") == 0) {
@@ -376,7 +450,11 @@ ascli_validate_files_format (gchar **argv, gint argc, const gchar *format, gbool
  * ascli_validate_tree:
  */
 gint
-ascli_validate_tree (const gchar *root_dir, gboolean pedantic, gboolean explain, gboolean use_net)
+ascli_validate_tree (const gchar *root_dir,
+		     gboolean pedantic,
+		     gboolean explain,
+		     gboolean use_net,
+		     const gchar *overrides_str)
 {
 	gboolean no_errors = TRUE;
 	AsValidator *validator;
@@ -395,6 +473,9 @@ ascli_validate_tree (const gchar *root_dir, gboolean pedantic, gboolean explain,
 
 	validator = as_validator_new ();
 	as_validator_set_check_urls (validator, use_net);
+
+	if (!ascli_validate_apply_overrides_from_string (validator, overrides_str))
+		return 1;
 
 	as_validator_validate_tree (validator, root_dir);
 	issues_files = as_validator_get_issues_per_file (validator);
@@ -467,7 +548,10 @@ ascli_validate_tree (const gchar *root_dir, gboolean pedantic, gboolean explain,
  * Validate directory tree and return result in a machine-readable format.
  */
 gint
-ascli_validate_tree_format (const gchar *root_dir, const gchar *format, gboolean use_net)
+ascli_validate_tree_format (const gchar *root_dir,
+			    const gchar *format,
+			    gboolean use_net,
+			    const gchar *overrides_str)
 {
 	if (g_strcmp0 (format, "text") == 0) {
 		/* "text" is pretty much the default output,
@@ -476,7 +560,8 @@ ascli_validate_tree_format (const gchar *root_dir, const gchar *format, gboolean
 		return ascli_validate_tree (root_dir,
 					    TRUE, /* pedantic */
 					    TRUE, /* explain */
-					    use_net);
+					    use_net,
+					    overrides_str);
 	}
 
 	if (g_strcmp0 (format, "yaml") == 0) {
