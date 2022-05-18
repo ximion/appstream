@@ -67,6 +67,15 @@ typedef struct
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidator, as_validator, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_validator_get_instance_private (o))
 
+/**
+ * as_validator_error_quark:
+ *
+ * Return value: An error quark.
+ *
+ * Since: 0.15.4
+ **/
+G_DEFINE_QUARK (as-validator-error-quark, as_validator_error)
+
 
 /**
  * as_validator_init:
@@ -396,13 +405,93 @@ as_validator_set_check_urls (AsValidator *validator, gboolean value)
 }
 
 /**
+ * as_validator_add_override:
+ * @validator: a #AsValidator instance.
+ * @tag: the issue tag to override, e.g. "release-time-missing"
+ * @severity_override: the new severity for the tag.
+ * @error: a #GError or %NULL
+ *
+ * Override the severity of a selected tag. For most tags, the severity
+ * can not be lowered to a value that makes a validation
+ * that would otherwise fail pass (so e.g. an ERROR can not become an INFO).
+ * Some tags are explicitly allowed to have their severity lowered to enable
+ * validation of e.g. incomplete metadata during development.
+ * Increasing the severity of any tag is always allowed.
+ *
+ * Since: 0.15.4
+ */
+gboolean
+as_validator_add_override (AsValidator *validator,
+			   const gchar *tag,
+			   AsIssueSeverity severity_override,
+			   GError **error)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	AsValidatorIssueTag *tag_data = NULL;
+	AsIssueSeverity real_severity;
+
+	const gchar* demotion_allowlist[] = {
+		"release-time-missing",  /* needed for some in-development metainfo which doesn't have a release time yet */
+		"cid-desktopapp-is-not-rdns", /* allowed for apps which intentionally *must* keep the old ID for some reason */
+		"root-tag-unknown",
+		"tag-empty",
+		NULL
+	};
+
+	tag_data = g_hash_table_lookup (priv->issue_tags, tag);
+	if (tag_data == NULL) {
+		g_set_error (error,
+				AS_VALIDATOR_ERROR,
+				AS_VALIDATOR_ERROR_OVERRIDE_INVALID,
+				/* TRANSLATORS: The user tried to override a validator issue tag that we don't know */
+				_("The issue tag '%s' is not recognized."),
+				tag);
+		return FALSE;
+	}
+
+	real_severity = tag_data->severity;
+
+	if (real_severity == AS_ISSUE_SEVERITY_ERROR || real_severity == AS_ISSUE_SEVERITY_WARNING) {
+		if (severity_override != AS_ISSUE_SEVERITY_ERROR && severity_override != AS_ISSUE_SEVERITY_WARNING) {
+			/* check if we can downgrade the severity of this issue */
+			gboolean severity_downgrade_allowed = FALSE;
+
+			for (guint i = 0; demotion_allowlist[i] != NULL; i++) {
+				if (g_strcmp0 (demotion_allowlist[i], tag) == 0) {
+					severity_downgrade_allowed = TRUE;
+					break;
+				}
+			}
+
+			if (!severity_downgrade_allowed) {
+				g_set_error (error,
+						AS_VALIDATOR_ERROR,
+						AS_VALIDATOR_ERROR_OVERRIDE_INVALID,
+						/* TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
+						 * whitelisted for that. */
+						_("It is not allowed to downgrade the severity of tag '%s' to one that allows validation to pass."),
+						tag);
+				return FALSE;
+			}
+		}
+	}
+
+	/* actually apply the override, if we are here everything was fine with it */
+	g_debug ("Overriding severity of validator issue tag: %s == %s", tag, as_issue_severity_to_string (severity_override));
+	tag_data->severity = severity_override;
+
+	return TRUE;
+}
+
+/**
  * as_validator_check_type_property:
  **/
 static gchar*
 as_validator_check_type_property (AsValidator *validator, AsComponent *cpt, xmlNode *node)
 {
-	gchar *prop;
-	gchar *content;
+	g_autofree gchar *prop = NULL;
+	g_autofree gchar *content = NULL;
+
 	prop = as_xml_get_prop_value (node, "type");
 	content = (gchar*) xmlNodeGetContent (node);
 	if (prop == NULL) {
@@ -412,9 +501,8 @@ as_validator_check_type_property (AsValidator *validator, AsComponent *cpt, xmlN
 					(const gchar*) node->name,
 					content);
 	}
-	g_free (content);
 
-	return prop;
+	return g_steal_pointer (&prop);
 }
 
 /**

@@ -301,6 +301,84 @@ test_validator_relationissues ()
 	g_assert_false (ret);
 }
 
+/**
+ * test_validator_relationissues:
+ *
+ * Test requires/recommends & Co.
+ */
+static void
+test_validator_overrides ()
+{
+	gboolean ret;
+	g_autoptr(GList) issues = NULL;
+	gboolean has_noreltime_issue = FALSE;
+	g_autoptr(GError) error = NULL;
+
+	const gchar *SAMPLE_XML = "<component>\n"
+				  "  <id>org.example.Test</id>\n"
+				  "  <name>Test</name>\n"
+				  "  <summary>Just a unittest.</summary>\n"
+				  "  <description>\n"
+				  "    <p>First paragraph</p>\n"
+				  "  </description>\n"
+				  "  <icon type=\"stock\">test-icon</icon>\n"
+				  "  <releases>\n"
+				  "    <release type=\"stable\" version=\"1.0\"/>\n"
+				  "  </releases>\n"
+				  "</component>\n";
+
+	g_autoptr(AsValidator) validator = as_validator_new ();
+
+	/* try without override */
+	ret = as_validator_validate_data (validator, SAMPLE_XML);
+	g_assert_false (ret);
+
+	has_noreltime_issue = FALSE;
+	issues = as_validator_get_issues (validator);
+	for (GList *l = issues; l != NULL; l = l->next) {
+		AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (l->data);
+		const gchar *tag = as_validator_issue_get_tag (issue);
+
+		if (g_strcmp0 (tag, "release-time-missing") == 0) {
+			has_noreltime_issue = TRUE;
+			g_assert_cmpint (as_validator_issue_get_severity (issue), ==, AS_ISSUE_SEVERITY_ERROR);
+			break;
+		}
+	}
+	g_assert_true (has_noreltime_issue);
+
+	/* apply override and check again */
+	as_validator_clear_issues (validator);
+
+	/* try something invalid */
+	ret = as_validator_add_override (validator, "cid-punctuation-prefix", AS_ISSUE_SEVERITY_INFO, &error);
+	g_assert_error (error, AS_VALIDATOR_ERROR, AS_VALIDATOR_ERROR_OVERRIDE_INVALID);
+	g_assert_false (ret);
+	g_clear_error (&error);
+
+	/* npw test an override that works */
+	ret = as_validator_add_override (validator, "release-time-missing", AS_ISSUE_SEVERITY_PEDANTIC, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	ret = as_validator_validate_data (validator, SAMPLE_XML);
+	g_assert_false (ret);
+
+	has_noreltime_issue = FALSE;
+	issues = as_validator_get_issues (validator);
+	for (GList *l = issues; l != NULL; l = l->next) {
+		AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (l->data);
+		const gchar *tag = as_validator_issue_get_tag (issue);
+
+		if (g_strcmp0 (tag, "release-time-missing") == 0) {
+			has_noreltime_issue = TRUE;
+			g_assert_cmpint (as_validator_issue_get_severity (issue), ==, AS_ISSUE_SEVERITY_PEDANTIC);
+			break;
+		}
+	}
+	g_assert_true (has_noreltime_issue);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -324,6 +402,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Validate/TagSanity", test_validator_tag_sanity);
 	g_test_add_func ("/AppStream/Validate/DesktopAppManyErrors", test_validator_manyerrors_desktopapp);
 	g_test_add_func ("/AppStream/Validate/RelationIssues", test_validator_relationissues);
+	g_test_add_func ("/AppStream/Validate/Overrides", test_validator_overrides);
 
 	ret = g_test_run ();
 	g_free (datadir);
