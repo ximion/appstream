@@ -346,6 +346,7 @@ test_validator_overrides ()
 		}
 	}
 	g_assert_true (has_noreltime_issue);
+	g_list_free (g_steal_pointer (&issues));
 
 	/* apply override and check again */
 	as_validator_clear_issues (validator);
