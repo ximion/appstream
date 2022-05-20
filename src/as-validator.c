@@ -1690,9 +1690,9 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 		if (timestamp == NULL)
 			as_validator_add_issue (validator, node, "release-time-missing", "date");
 		else {
-			/* check if the timestamp is both a number and higher than 3000. The 3000 is used to check, that it is not a year */
 			if (g_ascii_strtoll (timestamp, NULL, 10) < 3000) {
-				as_validator_add_issue (validator, node, "release-timestamp-invalid", "timestamp");
+				/* check if the timestamp is both a number and higher than 3000. The 3000 is used to check that it is not a year */
+				as_validator_add_issue (validator, node, "release-timestamp-invalid", timestamp);
 			}
 		}
 	}
