@@ -1689,6 +1689,11 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 		/* Neither timestamp, nor date property exists */
 		if (timestamp == NULL)
 			as_validator_add_issue (validator, node, "release-time-missing", "date");
+		else {
+			if (atoi(timestamp) <= 3000) {
+				as_validator_add_issue (validator, node, "release-timestamp-invalid", "timestamp");
+			}
+		}
 	}
 	prop = as_xml_get_prop_value (node, "date_eol");
 	if (prop != NULL) {
