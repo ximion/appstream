@@ -44,10 +44,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2022-04-10 17:24+0200\n"
+"POT-Creation-Date: 2022-05-22 17:37+0200\n"
 "PO-Revision-Date: 2022-04-12 01:55+0000\n"
 "Last-Translator: Eric <alchemillatruth@purelymail.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1952,18 +1953,23 @@ msgid ""
 "property."
 msgstr "该发布缺少 `date` (首选) 或 `timestamp` 属性。"
 
-#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:758
+#, fuzzy
+msgid "The release timestamp is invalid."
+msgstr "该设定值作为发布类型设定无效。"
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
+#: src/as-validator-issue-tag.h:764
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
 msgstr "该设定值作为人工类型无效。必须为 `source` 或 `binary`。"
 
-#: src/as-validator-issue-tag.h:763
+#: src/as-validator-issue-tag.h:769
 msgid "The value set as artifact bundle type is invalid."
 msgstr "该设定值作为人工捆绑包类型无效。"
 
-#: src/as-validator-issue-tag.h:768
+#: src/as-validator-issue-tag.h:774
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
@@ -1972,26 +1978,26 @@ msgstr ""
 "该发布的平台三联体无效。它必须是 `architecture-oskernel-osenv` 的形式，请参"
 "阅 AppStream 文档或标准化的 GNU 三联体信息获取更多信息和有效域。"
 
-#: src/as-validator-issue-tag.h:775
+#: src/as-validator-issue-tag.h:781
 msgid "The selected checksumming algorithm is unsupported or unknown."
 msgstr "选择的校验和算法不受支持或未知。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:781
+#: src/as-validator-issue-tag.h:787
 msgid "The size type is unknown. Must be `download` or `installed`."
 msgstr "该大小类型未知。必须为 `download` 或 `installed`。"
 
-#: src/as-validator-issue-tag.h:786
+#: src/as-validator-issue-tag.h:792
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
 msgstr "该人造文件名必须为文件 basename，而不是（相对或绝对）路径。"
 
-#: src/as-validator-issue-tag.h:791
+#: src/as-validator-issue-tag.h:797
 msgid "The value set as release issue type is invalid."
 msgstr "该设定值作为发布问题类型无效。"
 
-#: src/as-validator-issue-tag.h:796
+#: src/as-validator-issue-tag.h:802
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
@@ -2000,7 +2006,7 @@ msgstr ""
 "识。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:802
+#: src/as-validator-issue-tag.h:808
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
@@ -2008,7 +2014,7 @@ msgstr ""
 "该组件缺少关于版本的信息。考虑添加一个`releases` 标签来描述发行版和它们的变"
 "化。"
 
-#: src/as-validator-issue-tag.h:807
+#: src/as-validator-issue-tag.h:813
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
@@ -2017,7 +2023,7 @@ msgstr ""
 "AppStream 规范要求了完整的带有至少精确到天的 ISO 8601 数据字符串来表示日期。"
 "请确保日期字符串有效。"
 
-#: src/as-validator-issue-tag.h:813
+#: src/as-validator-issue-tag.h:819
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
@@ -2027,7 +2033,7 @@ msgstr ""
 "元数据的设备。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:820
+#: src/as-validator-issue-tag.h:826
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
@@ -2038,7 +2044,7 @@ msgstr ""
 "考虑为该组件的 `project_license` 使用 `LicenseRef` 且用网址作为设定值。比如 "
 "`LicenseRef-free=https://example.com/licenses.html`"
 
-#: src/as-validator-issue-tag.h:826
+#: src/as-validator-issue-tag.h:832
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
@@ -2047,13 +2053,13 @@ msgstr ""
 "由于 `runtime` 组件是由多个其它软件组件构成的，它们的组件 ID 可能被列在该运行"
 "时的 `<provides/>` 部分。"
 
-#: src/as-validator-issue-tag.h:831
+#: src/as-validator-issue-tag.h:837
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr "该组件提供的项目类型对于 AppStream 来说是未知的。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:837
+#: src/as-validator-issue-tag.h:843
 msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
@@ -2063,7 +2069,7 @@ msgstr ""
 "代来提示您的软件提供了指定类型的多媒体处理功能。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
-#: src/as-validator-issue-tag.h:844
+#: src/as-validator-issue-tag.h:850
 msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
@@ -2073,12 +2079,12 @@ msgstr ""
 "github.io/oars/ 上回答几个问题，在线生成标签数据"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
-#: src/as-validator-issue-tag.h:851
+#: src/as-validator-issue-tag.h:857
 msgid "This `tag` is missing a `namespace` attribute."
 msgstr "该 `tag` 缺少 `namespace` 属性。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
-#: src/as-validator-issue-tag.h:857
+#: src/as-validator-issue-tag.h:863
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
@@ -2086,25 +2092,26 @@ msgstr ""
 "此标记或其名称空间包含无效字符。只能使用小写 ASCII 字母、数字、点、连字符和下"
 "划线。"
 
-#: src/as-validator-issue-tag.h:862
+#: src/as-validator-issue-tag.h:868
 msgid "The type of this color is not valid."
 msgstr "此颜色类型无效。"
 
-#: src/as-validator-issue-tag.h:867
+#: src/as-validator-issue-tag.h:873
 msgid "The value of this color scheme preference is not valid."
 msgstr "此配色方案首选项的值无效。"
 
-#: src/as-validator-issue-tag.h:872
+#: src/as-validator-issue-tag.h:878
 msgid "This color is not a valid HTML color code."
 msgstr "该颜色不是有效的 HTML 颜色代码。"
 
-#: src/as-validator-issue-tag.h:877
+#: src/as-validator-issue-tag.h:883
 msgid ""
 "A <keywords/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr "不要在 metainfo 文件中翻译 <keywords/> 标签（上游元数据）。翻译单个关键词。"
+msgstr ""
+"不要在 metainfo 文件中翻译 <keywords/> 标签（上游元数据）。翻译单个关键词。"
 
-#: src/as-validator.c:151
+#: src/as-validator.c:162
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
@@ -2112,15 +2119,36 @@ msgstr ""
 "该发出的问题标签在 AppStream 的标签注册表中是未知的。这是验证器自身的缺陷，请"
 "在我们的缺陷追踪系统中报告该问题。"
 
-#: src/as-validator.c:345
+#: src/as-validator.c:364
 msgid "URL format is invalid."
 msgstr "网址格式无效。"
 
+#. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
+#: src/as-validator.c:491
+#, c-format
+msgid "The new issue severity for tag '%s' is invalid."
+msgstr ""
+
+#. TRANSLATORS: The user tried to override a validator issue tag that we don't know
+#: src/as-validator.c:502
+#, c-format
+msgid "The issue tag '%s' is not recognized."
+msgstr ""
+
+#. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
+#. * whitelisted for that.
+#: src/as-validator.c:527
+#, c-format
+msgid ""
+"It is not allowed to downgrade the severity of tag '%s' to one that allows "
+"validation to pass."
+msgstr ""
+
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
-#: src/as-validator.c:523 src/as-validator.c:1028 src/as-validator.c:1079
-#: src/as-validator.c:1173 src/as-validator.c:1595 src/as-validator.c:1615
-#: src/as-validator.c:1648 src/as-validator.c:1691
+#: src/as-validator.c:666 src/as-validator.c:1171 src/as-validator.c:1222
+#: src/as-validator.c:1316 src/as-validator.c:1746 src/as-validator.c:1766
+#: src/as-validator.c:1799 src/as-validator.c:1842
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "发现的：%s - 允许的：%s"
@@ -2132,13 +2160,13 @@ msgstr "显示额外的调试信息"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-compose.c:186 tools/appstreamcli.c:1206
+#: tools/appstream-compose.c:186 tools/appstreamcli.c:1228
 msgid "Don't show colored output."
 msgstr "不要显示彩色输出。"
 
 #. TRANSLATORS: ascompose flag description for: --version
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-compose.c:189 tools/appstreamcli.c:1195
+#: tools/appstream-compose.c:189 tools/appstreamcli.c:1217
 msgid "Show the program version."
 msgstr "显示程序版本."
 
@@ -2204,13 +2232,13 @@ msgid "Failed to parse arguments"
 msgstr "解析参数失败"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:247 tools/appstreamcli.c:1353
+#: tools/appstream-compose.c:247 tools/appstreamcli.c:1375
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream 版本：%s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:250 tools/appstreamcli.c:1356
+#: tools/appstream-compose.c:250 tools/appstreamcli.c:1378
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2337,48 +2365,59 @@ msgid "Print detailed output about found components."
 msgstr "打印关于寻找到的组件的详细输出。"
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
-#: tools/appstreamcli.c:119
+#: tools/appstreamcli.c:121
 msgid "Also show pedantic hints."
 msgstr "同时显示详细提示。"
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
-#: tools/appstreamcli.c:124
+#: tools/appstreamcli.c:126
 msgid "Print detailed explanation for found issues."
 msgstr "打印出所发现问题的详细说明。"
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
-#: tools/appstreamcli.c:129
+#: tools/appstreamcli.c:131
 msgid "Do not use network access."
 msgstr "不使用网络访问。"
 
+#. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
+#: tools/appstreamcli.c:136
+msgid ""
+"Fail validation if any issue is emitted that is not of pedantic severity."
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
-#: tools/appstreamcli.c:134
+#: tools/appstreamcli.c:141
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr "生成报告的格式 (有效的值为“xml”和“yaml”)。"
 
+#. TRANSLATORS: ascli flag description for: --override  when validating XML files
+#: tools/appstreamcli.c:146
+msgid "Override the severities of selected issue tags."
+msgstr ""
+
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstreamcli.c:154 tools/appstreamcli.c:1095
+#: tools/appstreamcli.c:168 tools/appstreamcli.c:1117
 msgid "AppStream command-line interface"
 msgstr "AppStream 命令行界面"
 
-#: tools/appstreamcli.c:157
+#: tools/appstreamcli.c:171
 #, c-format
 msgid "'%s' command"
 msgstr "“%s”命令"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstreamcli.c:193
+#: tools/appstreamcli.c:207
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "选项“%s”未知。"
 
-#: tools/appstreamcli.c:197 tools/appstreamcli.c:1330
+#: tools/appstreamcli.c:211 tools/appstreamcli.c:1352
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "运行“%s --help”以查看可用命令行选项完整的列表。"
 
-#: tools/appstreamcli.c:199
+#: tools/appstreamcli.c:213
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
@@ -2388,12 +2427,12 @@ msgstr ""
 "的选项列表。"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstreamcli.c:248
+#: tools/appstreamcli.c:262
 msgid "Enforce a cache refresh."
 msgstr "强制刷新缓存。"
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
-#: tools/appstreamcli.c:254
+#: tools/appstreamcli.c:268
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
@@ -2401,67 +2440,67 @@ msgstr ""
 "限制对来自指定源的数据缓存刷新，比如： `os` 或 `flatpak`。可以指定多次。"
 
 #. TRANSLATORS: ascli check-license is missing its parameter
-#: tools/appstreamcli.c:486
+#: tools/appstreamcli.c:508
 msgid ""
 "No license, license expression or license exception string was provided."
 msgstr "没有提供许可证、许可证表述或许可证例外字符串。"
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstreamcli.c:511
+#: tools/appstreamcli.c:533
 msgid "Set the data origin for the installed metadata collection file."
 msgstr "为安装的元数据集合文件设置数据来源。"
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:516
+#: tools/appstreamcli.c:538
 msgid "Install the file for the current user, instead of globally."
 msgstr "为当前用户而不是全局的安装该文件。"
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:544
+#: tools/appstreamcli.c:566
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
 msgstr "限制该命令仅使用来自给定的捆绑包系统的组件（“flatpak”或“package”）。"
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:549
+#: tools/appstreamcli.c:571
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
 msgstr "不要询问应使用哪个软件组件而总是选择首个条目。"
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
-#: tools/appstreamcli.c:582 tools/appstreamcli.c:619
+#: tools/appstreamcli.c:604 tools/appstreamcli.c:641
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
 msgstr "未指定有效的捆绑包类型。当前仅能识别“package”和“flatpak”。"
 
-#: tools/appstreamcli.c:717
+#: tools/appstreamcli.c:739
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr "您需要提供至少两个版本号码作为参数进行比较。"
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:746
+#: tools/appstreamcli.c:768
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "未知的比较关系式“%s”。有效的设定值为："
 
-#: tools/appstreamcli.c:786
+#: tools/appstreamcli.c:808
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr "参数过多：需要两个版本号码或版本号码与对比运算符。"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:812
+#: tools/appstreamcli.c:834
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "使用给定的 .desktop 文件填写元信息文件的基本值。"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstreamcli.c:817
+#: tools/appstreamcli.c:839
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -2470,30 +2509,30 @@ msgstr ""
 "输出）。"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstreamcli.c:820
+#: tools/appstreamcli.c:842
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPE 必须为有效的组件类型，例如：%s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:861
+#: tools/appstreamcli.c:883
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr "为 desktop-entry 文件的“Exec=”设定键使用指定行。"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:902
+#: tools/appstreamcli.c:924
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr "假设输入文件是所选的格式（'yaml' 或者 'text'）。"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:908
+#: tools/appstreamcli.c:930
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
 msgstr "限制元信息文件中出现的发行条目数量（<=0 为不限制）。"
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
-#: tools/appstreamcli.c:914
+#: tools/appstreamcli.c:936
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
@@ -2501,72 +2540,72 @@ msgstr ""
 "设置具有应标记为翻译的描述的发布数量（最新的发布优先翻译，-1 为不限制）。"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:958
+#: tools/appstreamcli.c:980
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr "以选择的格式生成输出结果（“yaml”或“text”）。"
 
 #. TRANSLATORS: appstreamcli-compose was not found
-#: tools/appstreamcli.c:1000
+#: tools/appstreamcli.c:1022
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
 msgstr "未找到组合二进制文件“%s”！无法继续。"
 
-#: tools/appstreamcli.c:1001
+#: tools/appstreamcli.c:1023
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr "您可以通过“%s”安装 AppStream 合成附件"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
-#: tools/appstreamcli.c:1010
+#: tools/appstreamcli.c:1032
 msgid "Invalid number of parameters"
 msgstr "无效的参数数量"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:1069
+#: tools/appstreamcli.c:1091
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "（别名：“%s”）"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1097
+#: tools/appstreamcli.c:1119
 msgid "Subcommands:"
 msgstr "子命令："
 
-#: tools/appstreamcli.c:1148
+#: tools/appstreamcli.c:1170
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr "您可以借由传递“--help”给子命令来查找子命令专属的选项信息。"
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstreamcli.c:1171
+#: tools/appstreamcli.c:1193
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
 msgstr "未知命令“%s”。运行“%s --help”查看可用命令列表。"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstreamcli.c:1201
+#: tools/appstreamcli.c:1223
 msgid "Show extra debugging information."
 msgstr "显示额外的调试信息。"
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstreamcli.c:1209
+#: tools/appstreamcli.c:1231
 msgid "Enable profiling"
 msgstr "启用配置文件"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1221
+#: tools/appstreamcli.c:1243
 msgid "Search the component database."
 msgstr "搜索组件数据库。"
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1226
+#: tools/appstreamcli.c:1248
 msgid "Get information about a component by its ID."
 msgstr "根据 ID 获取相应组件的信息。"
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1231
+#: tools/appstreamcli.c:1253
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
@@ -2575,95 +2614,95 @@ msgstr ""
 "数。"
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1237
+#: tools/appstreamcli.c:1259
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "为 ID 匹配的组件转储原始 XML 元数据。"
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1242
+#: tools/appstreamcli.c:1264
 msgid "Rebuild the component metadata cache."
 msgstr "重建组件元数据缓存。"
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1248
+#: tools/appstreamcli.c:1270
 msgid "Validate AppStream XML files for issues."
 msgstr "验证 AppStream XML 文件以寻找问题。"
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1253
+#: tools/appstreamcli.c:1275
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "检验已安装应用程序的文件树以查找有效元数据。"
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1258
+#: tools/appstreamcli.c:1280
 msgid "Check license string for validity and print details about it."
 msgstr "检查许可证字符串的有效性并显示其详情。"
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1264
+#: tools/appstreamcli.c:1286
 msgid "Install software matching the component-ID."
 msgstr "安装匹配 component-ID 的软件。"
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1269
+#: tools/appstreamcli.c:1291
 msgid "Remove software matching the component-ID."
 msgstr "卸载匹配 component-id 的软件。"
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1275
+#: tools/appstreamcli.c:1297
 msgid "Display status information about available AppStream metadata."
 msgstr "显示关于可用的 AppStream 元数据的状态信息。"
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstreamcli.c:1280
+#: tools/appstreamcli.c:1302
 msgid ""
 "Show information about the current operating system from the metadata index."
 msgstr "显示来自元数据索引有关当前操作系统的信息。"
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1285
+#: tools/appstreamcli.c:1307
 msgid "Install a metadata file into the right location."
 msgstr "将元数据文件安装到正确的位置。"
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1290
+#: tools/appstreamcli.c:1312
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "将收藏集 XML 转换成 YAML，或是相反。"
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1295
+#: tools/appstreamcli.c:1317
 msgid "Compare two version numbers."
 msgstr "比较两个版本号。"
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1301
+#: tools/appstreamcli.c:1323
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr "为元信息文件创建一个模板（由上游项目填写）。"
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1306
+#: tools/appstreamcli.c:1328
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "从元信息文件中创建 desktop-entry 文件。"
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1311
+#: tools/appstreamcli.c:1333
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "将 YAML 或纯文本的 NEWS 文件转换为元信息发布。"
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1316
+#: tools/appstreamcli.c:1338
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr "使用来自元信息文件的信息编写 NEWS 纯文本或 YAML 文件。"
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1321
+#: tools/appstreamcli.c:1343
 msgid "Compose AppStream collection metadata from directory trees."
 msgstr "从目录树整合 AppStream 集合元数据。"
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1329
+#: tools/appstreamcli.c:1351
 msgid "You need to specify a command."
 msgstr "您需要指定一个命令。"
 
@@ -2975,114 +3014,127 @@ msgstr "请输入要安装的组件号码："
 msgid "Component '%s' has no installation candidate."
 msgstr "'%s' 组件没有安装候选版本。"
 
-#: tools/ascli-actions-validate.c:176 tools/ascli-actions-validate.c:356
+#. TRANSLATORS: User-supplied overrides string for appstreamcli was badly formatted.
+#: tools/ascli-actions-validate.c:192
+#, c-format
+msgid ""
+"The format of validator issue override '%s' is invalid (should be "
+"'tag=severity')"
+msgstr ""
+
+#: tools/ascli-actions-validate.c:200
+#, c-format
+msgid "Can not override issue tag: %s"
+msgstr ""
+
+#: tools/ascli-actions-validate.c:233 tools/ascli-actions-validate.c:440
 #, c-format
 msgid "File '%s' does not exist."
 msgstr "文件 “%s” 不存在。"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "error"-type hints
-#: tools/ascli-actions-validate.c:228
+#: tools/ascli-actions-validate.c:297
 #, c-format
 msgid "errors: %lu"
 msgstr "错误：%lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "warning"-type hints
-#: tools/ascli-actions-validate.c:235
+#: tools/ascli-actions-validate.c:304
 #, c-format
 msgid "warnings: %lu"
 msgstr "警告：%lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "info"-type hints
-#: tools/ascli-actions-validate.c:242
+#: tools/ascli-actions-validate.c:311
 #, c-format
 msgid "infos: %lu"
 msgstr "信息：%lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "pedantic"-type hints
-#: tools/ascli-actions-validate.c:249
+#: tools/ascli-actions-validate.c:318
 #, c-format
 msgid "pedantic: %lu"
 msgstr "迂腐的：%lu"
 
-#: tools/ascli-actions-validate.c:268 tools/ascli-actions-validate.c:344
+#: tools/ascli-actions-validate.c:342 tools/ascli-actions-validate.c:427
 msgid "You need to specify at least one file to validate!"
 msgstr "您需要指定至少一个要进行验证的文件！"
 
-#: tools/ascli-actions-validate.c:294 tools/ascli-actions-validate.c:437
+#: tools/ascli-actions-validate.c:370 tools/ascli-actions-validate.c:533
 msgid "Validation was successful."
 msgstr "验证成功。"
 
-#: tools/ascli-actions-validate.c:296 tools/ascli-actions-validate.c:439
+#: tools/ascli-actions-validate.c:372 tools/ascli-actions-validate.c:535
 #, c-format
 msgid "Validation was successful: %s"
 msgstr "验证成功：%s"
 
-#: tools/ascli-actions-validate.c:307 tools/ascli-actions-validate.c:450
+#: tools/ascli-actions-validate.c:383 tools/ascli-actions-validate.c:546
 #, c-format
 msgid "Validation failed: %s"
 msgstr "验证失败：%s"
 
-#: tools/ascli-actions-validate.c:370 tools/ascli-actions-validate.c:501
+#: tools/ascli-actions-validate.c:454 tools/ascli-actions-validate.c:604
 #, c-format
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
 "'yaml' or 'text' instead."
 msgstr "验证器无法以“%s”格式创建报告。您可以选择“yaml”或“text”替代。"
 
-#: tools/ascli-actions-validate.c:392 tools/ascli-actions-validate.c:488
+#: tools/ascli-actions-validate.c:481 tools/ascli-actions-validate.c:590
 msgid "You need to specify a root directory to start validation!"
 msgstr "您需要指定根目录以开始验证！"
 
 #. TRANSLATORS: A plain license ID
-#: tools/ascli-actions-validate.c:528
+#: tools/ascli-actions-validate.c:631
 msgid "license"
 msgstr "许可证"
 
 #. TRANSLATORS: A license exception
-#: tools/ascli-actions-validate.c:531
+#: tools/ascli-actions-validate.c:634
 msgid "license exception"
 msgstr "许可证例外"
 
 #. TRANSLATORS: A complex license expression
-#: tools/ascli-actions-validate.c:534
+#: tools/ascli-actions-validate.c:637
 msgid "license expression"
 msgstr "许可证表述"
 
 #. TRANSLATORS: An invalid license
-#: tools/ascli-actions-validate.c:538
+#: tools/ascli-actions-validate.c:641
 msgid "invalid"
 msgstr "无效的"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
-#: tools/ascli-actions-validate.c:543
+#: tools/ascli-actions-validate.c:646
 msgid "License Type"
 msgstr "许可证类型"
 
 #. TRANSLATORS: Canonical identifier of a software license
-#: tools/ascli-actions-validate.c:547
+#: tools/ascli-actions-validate.c:650
 msgid "Canonical ID"
 msgstr "Canonical ID"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
-#: tools/ascli-actions-validate.c:551
+#: tools/ascli-actions-validate.c:654
 msgid "Suitable for AppStream metadata"
 msgstr "适用于 AppStream 元数据"
 
-#: tools/ascli-actions-validate.c:551 tools/ascli-actions-validate.c:554
+#: tools/ascli-actions-validate.c:654 tools/ascli-actions-validate.c:657
 msgid "no"
 msgstr "否"
 
-#: tools/ascli-actions-validate.c:551 tools/ascli-actions-validate.c:554
+#: tools/ascli-actions-validate.c:654 tools/ascli-actions-validate.c:657
 msgid "yes"
 msgstr "是"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
-#: tools/ascli-actions-validate.c:554
+#: tools/ascli-actions-validate.c:657
 msgid "Free and Open Source"
 msgstr "自由且开源"
 
 #. TRANSLATORS: Software license URL
-#: tools/ascli-actions-validate.c:559
+#: tools/ascli-actions-validate.c:662
 msgid "URL"
 msgstr "网址"
 

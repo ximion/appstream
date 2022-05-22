@@ -37,15 +37,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2022-04-10 17:24+0200\n"
+"POT-Creation-Date: 2022-05-22 17:37+0200\n"
 "PO-Revision-Date: 2022-04-15 09:11+0000\n"
 "Last-Translator: Dmitry <dmitrydmitry761@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
+"translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 4.12-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -2100,8 +2103,13 @@ msgstr ""
 "В выпуске отсутствует либо свойство `date` (предпочтительно), либо свойство "
 "`timestamp`."
 
-#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:758
+#, fuzzy
+msgid "The release timestamp is invalid."
+msgstr "Значение, заданное в качестве типа выпуска, недопустимо."
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
+#: src/as-validator-issue-tag.h:764
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
@@ -2109,11 +2117,11 @@ msgstr ""
 "Значение, заданное в качестве типа артефакта, недопустимо. Должно быть либо "
 "`source`, либо `binary`."
 
-#: src/as-validator-issue-tag.h:763
+#: src/as-validator-issue-tag.h:769
 msgid "The value set as artifact bundle type is invalid."
 msgstr "Значение, заданное в качестве типа пакета артефактов, недопустимо."
 
-#: src/as-validator-issue-tag.h:768
+#: src/as-validator-issue-tag.h:774
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
@@ -2124,16 +2132,16 @@ msgstr ""
 "информации о нормализованных триплетах GNU для получения дополнительной "
 "информации и допустимых полей."
 
-#: src/as-validator-issue-tag.h:775
+#: src/as-validator-issue-tag.h:781
 msgid "The selected checksumming algorithm is unsupported or unknown."
 msgstr "Выбранный алгоритм контрольной суммы не поддерживается или неизвестен."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:781
+#: src/as-validator-issue-tag.h:787
 msgid "The size type is unknown. Must be `download` or `installed`."
 msgstr "Тип размера неизвестен. Должно быть \"загрузить` или `установить\"."
 
-#: src/as-validator-issue-tag.h:786
+#: src/as-validator-issue-tag.h:792
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
@@ -2141,12 +2149,12 @@ msgstr ""
 "Имя файла артефакта должно быть базовым именем файла, а не (относительным "
 "или абсолютным) путем."
 
-#: src/as-validator-issue-tag.h:791
+#: src/as-validator-issue-tag.h:797
 msgid "The value set as release issue type is invalid."
 msgstr ""
 "Значение, установленное в качестве типа выпуска релиза, недействительно."
 
-#: src/as-validator-issue-tag.h:796
+#: src/as-validator-issue-tag.h:802
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
@@ -2155,7 +2163,7 @@ msgstr ""
 "похоже на действительный идентификатор CVE."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:802
+#: src/as-validator-issue-tag.h:808
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
@@ -2163,7 +2171,7 @@ msgstr ""
 "В этом компоненте отсутствует информация о выпусках. Рассмотрите возможность "
 "добавления тега \"releases\" для описания релизов и их изменений."
 
-#: src/as-validator-issue-tag.h:807
+#: src/as-validator-issue-tag.h:813
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
@@ -2173,7 +2181,7 @@ msgstr ""
 "соответствии со стандартом ISO 8601 с гранулярностью как минимум по дням. "
 "Пожалуйста, убедитесь, что строка даты действительна."
 
-#: src/as-validator-issue-tag.h:813
+#: src/as-validator-issue-tag.h:819
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
@@ -2183,7 +2191,7 @@ msgstr ""
 "естественно не должно быть и может вызвать сбой."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:820
+#: src/as-validator-issue-tag.h:826
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
@@ -2195,7 +2203,7 @@ msgstr ""
 "`LicenseRef` и web URL в качестве значения для `project_license` этого "
 "компонента. Например, `LicenseRef-free=https://example.com/licenses.html`"
 
-#: src/as-validator-issue-tag.h:826
+#: src/as-validator-issue-tag.h:832
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
@@ -2205,13 +2213,13 @@ msgstr ""
 "компонентов, их идентификаторы компонентов могут быть перечислены в разделе "
 "`<provides/>` для этого времени выполнения."
 
-#: src/as-validator-issue-tag.h:831
+#: src/as-validator-issue-tag.h:837
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr "Тип элемента, который предоставляет компонент, неизвестен AppStream."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:837
+#: src/as-validator-issue-tag.h:843
 msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
@@ -2222,7 +2230,7 @@ msgstr ""
 "обеспечение предоставляет обработчик медиа для заданных типов."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
-#: src/as-validator-issue-tag.h:844
+#: src/as-validator-issue-tag.h:850
 msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
@@ -2233,12 +2241,12 @@ msgstr ""
 "на несколько вопросов по адресу: https://hughsie.github.io/oars/"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
-#: src/as-validator-issue-tag.h:851
+#: src/as-validator-issue-tag.h:857
 msgid "This `tag` is missing a `namespace` attribute."
 msgstr "В этом `tag` отсутствует атрибут `namespace`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
-#: src/as-validator-issue-tag.h:857
+#: src/as-validator-issue-tag.h:863
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
@@ -2246,25 +2254,28 @@ msgstr ""
 "Этот тег или его пространство имен содержат недопустимые символы. Разрешены "
 "только буквы ASCII в нижнем регистре, цифры, точки, дефисы и подчеркивания."
 
-#: src/as-validator-issue-tag.h:862
+#: src/as-validator-issue-tag.h:868
 msgid "The type of this color is not valid."
 msgstr "Тип этого цвета недопустим."
 
-#: src/as-validator-issue-tag.h:867
+#: src/as-validator-issue-tag.h:873
 msgid "The value of this color scheme preference is not valid."
 msgstr "Значение этого предпочтения цветовой схемы недопустимо."
 
-#: src/as-validator-issue-tag.h:872
+#: src/as-validator-issue-tag.h:878
 msgid "This color is not a valid HTML color code."
 msgstr "Этот цвет не является допустимым цветовым кодом HTML."
 
-#: src/as-validator-issue-tag.h:877
+#: src/as-validator-issue-tag.h:883
 msgid ""
 "A <keywords/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr "Тег <keywords/> не должен быть локализован в файлах метаинформации (метаданные вышестоящего уровня). Вместо этого локализуйте отдельные записи ключевых слов."
+msgstr ""
+"Тег <keywords/> не должен быть локализован в файлах метаинформации "
+"(метаданные вышестоящего уровня). Вместо этого локализуйте отдельные записи "
+"ключевых слов."
 
-#: src/as-validator.c:151
+#: src/as-validator.c:162
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
@@ -2272,15 +2283,36 @@ msgstr ""
 "Случившаяся проблему неизвестна реестру AppStream. Это ошибка в нашем "
 "валидаторе, пожалуйста сообщите о данной проблеме в наш багтрекер."
 
-#: src/as-validator.c:345
+#: src/as-validator.c:364
 msgid "URL format is invalid."
 msgstr "Недопустимый URL формат."
 
+#. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
+#: src/as-validator.c:491
+#, c-format
+msgid "The new issue severity for tag '%s' is invalid."
+msgstr ""
+
+#. TRANSLATORS: The user tried to override a validator issue tag that we don't know
+#: src/as-validator.c:502
+#, c-format
+msgid "The issue tag '%s' is not recognized."
+msgstr ""
+
+#. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
+#. * whitelisted for that.
+#: src/as-validator.c:527
+#, c-format
+msgid ""
+"It is not allowed to downgrade the severity of tag '%s' to one that allows "
+"validation to pass."
+msgstr ""
+
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
-#: src/as-validator.c:523 src/as-validator.c:1028 src/as-validator.c:1079
-#: src/as-validator.c:1173 src/as-validator.c:1595 src/as-validator.c:1615
-#: src/as-validator.c:1648 src/as-validator.c:1691
+#: src/as-validator.c:666 src/as-validator.c:1171 src/as-validator.c:1222
+#: src/as-validator.c:1316 src/as-validator.c:1746 src/as-validator.c:1766
+#: src/as-validator.c:1799 src/as-validator.c:1842
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Найдено: %s - разрешено: %s"
@@ -2292,13 +2324,13 @@ msgstr "Показывать дополнительную отладочную �
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-compose.c:186 tools/appstreamcli.c:1206
+#: tools/appstream-compose.c:186 tools/appstreamcli.c:1228
 msgid "Don't show colored output."
 msgstr "Не показывать цветной вывод."
 
 #. TRANSLATORS: ascompose flag description for: --version
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-compose.c:189 tools/appstreamcli.c:1195
+#: tools/appstream-compose.c:189 tools/appstreamcli.c:1217
 msgid "Show the program version."
 msgstr "Показать версию программы."
 
@@ -2372,13 +2404,13 @@ msgid "Failed to parse arguments"
 msgstr "Не удалось проанализировать аргументы"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:247 tools/appstreamcli.c:1353
+#: tools/appstream-compose.c:247 tools/appstreamcli.c:1375
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Версия AppStream: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:250 tools/appstreamcli.c:1356
+#: tools/appstream-compose.c:250 tools/appstreamcli.c:1378
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2511,52 +2543,63 @@ msgid "Print detailed output about found components."
 msgstr "Напечатать подробный вывод о найденных компонентах."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
-#: tools/appstreamcli.c:119
+#: tools/appstreamcli.c:121
 msgid "Also show pedantic hints."
 msgstr "Кроме того, выводить педантичные подсказки."
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
-#: tools/appstreamcli.c:124
+#: tools/appstreamcli.c:126
 msgid "Print detailed explanation for found issues."
 msgstr "Распечатайте подробное объяснение по найденным вопросам."
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
-#: tools/appstreamcli.c:129
+#: tools/appstreamcli.c:131
 msgid "Do not use network access."
 msgstr "Не использовать доступ к сети."
 
+#. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
+#: tools/appstreamcli.c:136
+msgid ""
+"Fail validation if any issue is emitted that is not of pedantic severity."
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
-#: tools/appstreamcli.c:134
+#: tools/appstreamcli.c:141
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr ""
 "Формат генерируемого отчета (действительными значениями являются 'text' и "
 "'yaml')."
 
+#. TRANSLATORS: ascli flag description for: --override  when validating XML files
+#: tools/appstreamcli.c:146
+msgid "Override the severities of selected issue tags."
+msgstr ""
+
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstreamcli.c:154 tools/appstreamcli.c:1095
+#: tools/appstreamcli.c:168 tools/appstreamcli.c:1117
 msgid "AppStream command-line interface"
 msgstr "Интерфейс командной строки AppStream"
 
-#: tools/appstreamcli.c:157
+#: tools/appstreamcli.c:171
 #, c-format
 msgid "'%s' command"
 msgstr "Команда «%s»"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstreamcli.c:193
+#: tools/appstreamcli.c:207
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "Опция \"%s 1\" неизвестна."
 
-#: tools/appstreamcli.c:197 tools/appstreamcli.c:1330
+#: tools/appstreamcli.c:211 tools/appstreamcli.c:1352
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Запустите '%s --help' чтоб увидеть полный список доступных параметров "
 "командной строки."
 
-#: tools/appstreamcli.c:199
+#: tools/appstreamcli.c:213
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
@@ -2566,12 +2609,12 @@ msgstr ""
 "\"%s %s --help\", чтобы увидеть список опций для конкретной команды."
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstreamcli.c:248
+#: tools/appstreamcli.c:262
 msgid "Enforce a cache refresh."
 msgstr "Принудительно обновить кэш."
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
-#: tools/appstreamcli.c:254
+#: tools/appstreamcli.c:268
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
@@ -2580,7 +2623,7 @@ msgstr ""
 "\"os\" или \"flatpak\". Может быть указано несколько раз."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
-#: tools/appstreamcli.c:486
+#: tools/appstreamcli.c:508
 msgid ""
 "No license, license expression or license exception string was provided."
 msgstr ""
@@ -2588,17 +2631,17 @@ msgstr ""
 "исключения из лицензии."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstreamcli.c:511
+#: tools/appstreamcli.c:533
 msgid "Set the data origin for the installed metadata collection file."
 msgstr "Установите источник данных для установленного файла сбора метаданных."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:516
+#: tools/appstreamcli.c:538
 msgid "Install the file for the current user, instead of globally."
 msgstr "Установите файл для текущего пользователя, а не глобально."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:544
+#: tools/appstreamcli.c:566
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
@@ -2607,7 +2650,7 @@ msgstr ""
 "комплектации («flatpak» или «package»)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:549
+#: tools/appstreamcli.c:571
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
@@ -2616,7 +2659,7 @@ msgstr ""
 "выбирать первую запись."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
-#: tools/appstreamcli.c:582 tools/appstreamcli.c:619
+#: tools/appstreamcli.c:604 tools/appstreamcli.c:641
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
@@ -2624,7 +2667,7 @@ msgstr ""
 "Не указан допустимый тип пакета. В настоящее время распознаются только "
 "«package» и «flatpak»."
 
-#: tools/appstreamcli.c:717
+#: tools/appstreamcli.c:739
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
@@ -2632,12 +2675,12 @@ msgstr ""
 "параметры."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:746
+#: tools/appstreamcli.c:768
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Неизвестный оператор сравнения: \"%s\". Правильные значения:"
 
-#: tools/appstreamcli.c:786
+#: tools/appstreamcli.c:808
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -2646,7 +2689,7 @@ msgstr ""
 "оператор сравнения."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:812
+#: tools/appstreamcli.c:834
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -2654,7 +2697,7 @@ msgstr ""
 "метаинформации."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstreamcli.c:817
+#: tools/appstreamcli.c:839
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -2663,26 +2706,26 @@ msgstr ""
 "этом FILE является файлом для записи (или \"-\" для стандартного вывода)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstreamcli.c:820
+#: tools/appstreamcli.c:842
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPE должен быть типом программного компонента, таким как: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:861
+#: tools/appstreamcli.c:883
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 "Используйте указанную строку для ключа \"Exec=\" файла записи рабочего стола."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:902
+#: tools/appstreamcli.c:924
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 "Предположим, что входной файл находится в выбранном формате ('yaml' или "
 "'text')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:908
+#: tools/appstreamcli.c:930
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
@@ -2691,7 +2734,7 @@ msgstr ""
 "(<= 0 для неограниченного количества)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
-#: tools/appstreamcli.c:914
+#: tools/appstreamcli.c:936
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
@@ -2701,38 +2744,38 @@ msgstr ""
 "количества)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:958
+#: tools/appstreamcli.c:980
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr "Сгенерируйте вывод в выбранном формате ('yaml' или 'text')."
 
 #. TRANSLATORS: appstreamcli-compose was not found
-#: tools/appstreamcli.c:1000
+#: tools/appstreamcli.c:1022
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
 msgstr "Составить двоичный файл '%s' не удалось! Не могу продолжать."
 
-#: tools/appstreamcli.c:1001
+#: tools/appstreamcli.c:1023
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr "Вы можете установить надстройку AppStream Compose через: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
-#: tools/appstreamcli.c:1010
+#: tools/appstreamcli.c:1032
 msgid "Invalid number of parameters"
 msgstr "Неверное количество параметров"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:1069
+#: tools/appstreamcli.c:1091
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(Alias: '%s')"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1097
+#: tools/appstreamcli.c:1119
 msgid "Subcommands:"
 msgstr "Подкоманды:"
 
-#: tools/appstreamcli.c:1148
+#: tools/appstreamcli.c:1170
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -2741,7 +2784,7 @@ msgstr ""
 "\"--help\"."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstreamcli.c:1171
+#: tools/appstreamcli.c:1193
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -2750,27 +2793,27 @@ msgstr ""
 "доступных команд."
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstreamcli.c:1201
+#: tools/appstreamcli.c:1223
 msgid "Show extra debugging information."
 msgstr "Показывать дополнительную отладочную информацию."
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstreamcli.c:1209
+#: tools/appstreamcli.c:1231
 msgid "Enable profiling"
 msgstr "Включить профилирование"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1221
+#: tools/appstreamcli.c:1243
 msgid "Search the component database."
 msgstr "Поиск по базе данных компонентов."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1226
+#: tools/appstreamcli.c:1248
 msgid "Get information about a component by its ID."
 msgstr "Получить информацию о компоненте по его идентификатору."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1231
+#: tools/appstreamcli.c:1253
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
@@ -2780,78 +2823,78 @@ msgstr ""
 "параметра."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1237
+#: tools/appstreamcli.c:1259
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Создать дамп необработанных метаданных XML для компоненты с соответствующим "
 "идентификатором."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1242
+#: tools/appstreamcli.c:1264
 msgid "Rebuild the component metadata cache."
 msgstr "Перестроить кэш метаданных компонентах."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1248
+#: tools/appstreamcli.c:1270
 msgid "Validate AppStream XML files for issues."
 msgstr "Проверить файлы XML AppStream на недостатки."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1253
+#: tools/appstreamcli.c:1275
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Проверить установленную иерархию файлов приложения на корректность "
 "метаданных."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1258
+#: tools/appstreamcli.c:1280
 msgid "Check license string for validity and print details about it."
 msgstr ""
 "Проверьте строку лицензии на срок действия и распечатайте подробные сведения "
 "о ней."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1264
+#: tools/appstreamcli.c:1286
 msgid "Install software matching the component-ID."
 msgstr ""
 "Установить программное обеспечение, соответствующее идентификатору "
 "компоненты."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1269
+#: tools/appstreamcli.c:1291
 msgid "Remove software matching the component-ID."
 msgstr ""
 "Удалить программное обеспечение, соответствующее идентификатору компоненты."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1275
+#: tools/appstreamcli.c:1297
 msgid "Display status information about available AppStream metadata."
 msgstr "Показать информацию о состоянии доступных метаданных AppStream."
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstreamcli.c:1280
+#: tools/appstreamcli.c:1302
 msgid ""
 "Show information about the current operating system from the metadata index."
 msgstr ""
 "Отображение информации о текущей операционной системе из индекса метаданных."
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1285
+#: tools/appstreamcli.c:1307
 msgid "Install a metadata file into the right location."
 msgstr "Установить файл метаданных в нужное место."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1290
+#: tools/appstreamcli.c:1312
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Конвертировать коллекцию из XML в YAML или наоборот."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1295
+#: tools/appstreamcli.c:1317
 msgid "Compare two version numbers."
 msgstr "Сравнить два номера версий."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1301
+#: tools/appstreamcli.c:1323
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -2859,27 +2902,27 @@ msgstr ""
 "Создать шаблон для файла метаинформации (будет заполнен апстрим-проектом)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1306
+#: tools/appstreamcli.c:1328
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Создайте файл записи рабочего стола из файла metainfo."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1311
+#: tools/appstreamcli.c:1333
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "Преобразование YAML или текстового файла NEWS в выпуски мета-файлов."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1316
+#: tools/appstreamcli.c:1338
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr "Напишите текст NEWS или файл YAML с информацией из файла metainfo."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1321
+#: tools/appstreamcli.c:1343
 msgid "Compose AppStream collection metadata from directory trees."
 msgstr "Составить метаданные коллекции AppStream из деревьев каталогов."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1329
+#: tools/appstreamcli.c:1351
 msgid "You need to specify a command."
 msgstr "Вам необходимо указать команду."
 
@@ -3213,54 +3256,67 @@ msgstr "Пожалуйста, введите номер компонента д�
 msgid "Component '%s' has no installation candidate."
 msgstr "Компонент '%s' не имеет кандидата установки."
 
-#: tools/ascli-actions-validate.c:176 tools/ascli-actions-validate.c:356
+#. TRANSLATORS: User-supplied overrides string for appstreamcli was badly formatted.
+#: tools/ascli-actions-validate.c:192
+#, c-format
+msgid ""
+"The format of validator issue override '%s' is invalid (should be "
+"'tag=severity')"
+msgstr ""
+
+#: tools/ascli-actions-validate.c:200
+#, c-format
+msgid "Can not override issue tag: %s"
+msgstr ""
+
+#: tools/ascli-actions-validate.c:233 tools/ascli-actions-validate.c:440
 #, c-format
 msgid "File '%s' does not exist."
 msgstr "Файл '%s' не существует."
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "error"-type hints
-#: tools/ascli-actions-validate.c:228
+#: tools/ascli-actions-validate.c:297
 #, c-format
 msgid "errors: %lu"
 msgstr "ошибки: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "warning"-type hints
-#: tools/ascli-actions-validate.c:235
+#: tools/ascli-actions-validate.c:304
 #, c-format
 msgid "warnings: %lu"
 msgstr "предупреждения: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "info"-type hints
-#: tools/ascli-actions-validate.c:242
+#: tools/ascli-actions-validate.c:311
 #, c-format
 msgid "infos: %lu"
 msgstr "инфо: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "pedantic"-type hints
-#: tools/ascli-actions-validate.c:249
+#: tools/ascli-actions-validate.c:318
 #, c-format
 msgid "pedantic: %lu"
 msgstr "строгие: %lu"
 
-#: tools/ascli-actions-validate.c:268 tools/ascli-actions-validate.c:344
+#: tools/ascli-actions-validate.c:342 tools/ascli-actions-validate.c:427
 msgid "You need to specify at least one file to validate!"
 msgstr "Вам необходимо указать хотя бы один файл для проверки!"
 
-#: tools/ascli-actions-validate.c:294 tools/ascli-actions-validate.c:437
+#: tools/ascli-actions-validate.c:370 tools/ascli-actions-validate.c:533
 msgid "Validation was successful."
 msgstr "Проверка успешно пройдена."
 
-#: tools/ascli-actions-validate.c:296 tools/ascli-actions-validate.c:439
+#: tools/ascli-actions-validate.c:372 tools/ascli-actions-validate.c:535
 #, c-format
 msgid "Validation was successful: %s"
 msgstr "Проверка успешно пройдена: %s"
 
-#: tools/ascli-actions-validate.c:307 tools/ascli-actions-validate.c:450
+#: tools/ascli-actions-validate.c:383 tools/ascli-actions-validate.c:546
 #, c-format
 msgid "Validation failed: %s"
 msgstr "Проверка прошла неудачно: %s"
 
-#: tools/ascli-actions-validate.c:370 tools/ascli-actions-validate.c:501
+#: tools/ascli-actions-validate.c:454 tools/ascli-actions-validate.c:604
 #, c-format
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
@@ -3269,60 +3325,60 @@ msgstr ""
 "Валидатор не может создать отчет в формате '%s'. Вы можете выбрать 'yaml' "
 "или 'text'."
 
-#: tools/ascli-actions-validate.c:392 tools/ascli-actions-validate.c:488
+#: tools/ascli-actions-validate.c:481 tools/ascli-actions-validate.c:590
 msgid "You need to specify a root directory to start validation!"
 msgstr "Вам необходимо указать корневой каталог для начала проверки!"
 
 #. TRANSLATORS: A plain license ID
-#: tools/ascli-actions-validate.c:528
+#: tools/ascli-actions-validate.c:631
 msgid "license"
 msgstr "лицензия"
 
 #. TRANSLATORS: A license exception
-#: tools/ascli-actions-validate.c:531
+#: tools/ascli-actions-validate.c:634
 msgid "license exception"
 msgstr "исключение из лицензии"
 
 #. TRANSLATORS: A complex license expression
-#: tools/ascli-actions-validate.c:534
+#: tools/ascli-actions-validate.c:637
 msgid "license expression"
 msgstr "выдержка из лицензии"
 
 #. TRANSLATORS: An invalid license
-#: tools/ascli-actions-validate.c:538
+#: tools/ascli-actions-validate.c:641
 msgid "invalid"
 msgstr "неверно"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
-#: tools/ascli-actions-validate.c:543
+#: tools/ascli-actions-validate.c:646
 msgid "License Type"
 msgstr "Тип Лицензии"
 
 #. TRANSLATORS: Canonical identifier of a software license
-#: tools/ascli-actions-validate.c:547
+#: tools/ascli-actions-validate.c:650
 msgid "Canonical ID"
 msgstr "Внутренний идентификатор"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
-#: tools/ascli-actions-validate.c:551
+#: tools/ascli-actions-validate.c:654
 msgid "Suitable for AppStream metadata"
 msgstr "Утилита подходит для метаданных AppStream"
 
-#: tools/ascli-actions-validate.c:551 tools/ascli-actions-validate.c:554
+#: tools/ascli-actions-validate.c:654 tools/ascli-actions-validate.c:657
 msgid "no"
 msgstr "нет"
 
-#: tools/ascli-actions-validate.c:551 tools/ascli-actions-validate.c:554
+#: tools/ascli-actions-validate.c:654 tools/ascli-actions-validate.c:657
 msgid "yes"
 msgstr "да"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
-#: tools/ascli-actions-validate.c:554
+#: tools/ascli-actions-validate.c:657
 msgid "Free and Open Source"
 msgstr "Свободный и открытый исходный код"
 
 #. TRANSLATORS: Software license URL
-#: tools/ascli-actions-validate.c:559
+#: tools/ascli-actions-validate.c:662
 msgid "URL"
 msgstr "URL"
 
