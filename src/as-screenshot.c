@@ -282,6 +282,22 @@ as_screenshot_clear_images (AsScreenshot *screenshot)
 }
 
 /**
+ * as_screenshot_get_videos_all:
+ * @screenshot: a #AsScreenshot instance.
+ *
+ * Returns an array of all screencast videos we have, regardless of their
+ * size and locale.
+ *
+ * Returns: (transfer none) (element-type AsVideo): an array
+ **/
+GPtrArray*
+as_screenshot_get_videos_all (AsScreenshot *screenshot)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	return priv->images;
+}
+
+/**
  * as_screenshot_get_videos:
  * @screenshot: a #AsScreenshot instance.
  *

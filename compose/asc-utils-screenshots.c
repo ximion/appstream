@@ -270,7 +270,7 @@ asc_process_screenshot_videos (AscResult *cres,
 	GPtrArray *vids = NULL;
 	g_autoptr(GPtrArray) valid_vids = NULL;
 
-	vids = as_screenshot_get_videos (scr);
+	vids = as_screenshot_get_videos_all (scr);
 	if (vids->len == 0) {
 		asc_result_add_hint_simple (cres, cpt, "metainfo-screenshot-but-no-media");
 		return NULL;
