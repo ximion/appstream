@@ -28,16 +28,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-05-22 17:37+0200\n"
-"PO-Revision-Date: 2022-04-12 01:55+0000\n"
+"PO-Revision-Date: 2022-05-22 19:53+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2094,9 +2093,8 @@ msgid ""
 msgstr "Yayın için `date` (tercih edilen) veya `timestamp` özelliği eksik."
 
 #: src/as-validator-issue-tag.h:758
-#, fuzzy
 msgid "The release timestamp is invalid."
-msgstr "Yayın türü olarak ayarlanan değer geçersiz."
+msgstr "Yayın zaman damgası geçersiz."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:764
@@ -2282,13 +2280,13 @@ msgstr "URL biçimi geçersiz."
 #: src/as-validator.c:491
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
-msgstr ""
+msgstr "'%s' etiketi için yeni sorun önem derecesi geçersiz."
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
 #: src/as-validator.c:502
 #, c-format
 msgid "The issue tag '%s' is not recognized."
-msgstr ""
+msgstr "'%s' sorun etiketi tanınmıyor."
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 #. * whitelisted for that.
@@ -2297,7 +2295,7 @@ msgstr ""
 msgid ""
 "It is not allowed to downgrade the severity of tag '%s' to one that allows "
 "validation to pass."
-msgstr ""
+msgstr "'%s' etiketinin önem derecesini doğrulamanın geçmesine izin veren bir değere düşürmeye izin verilmiyor."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
@@ -2545,7 +2543,7 @@ msgstr "Ağ erişimini kullanmayın."
 #: tools/appstreamcli.c:136
 msgid ""
 "Fail validation if any issue is emitted that is not of pedantic severity."
-msgstr ""
+msgstr "Ayrıntılı öneme sahip olmayan herhangi bir sorun yayınlanırsa doğrulama başarısız olsun."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:141
@@ -2555,7 +2553,7 @@ msgstr "Oluşturulan raporun biçimi (geçerli değerler 'text' ve 'yaml')."
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:146
 msgid "Override the severities of selected issue tags."
-msgstr ""
+msgstr "Seçilen sorun etiketlerinin önem derecelerini geçersiz kıl."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -3226,12 +3224,12 @@ msgstr "'%s' bileşeninin hiçbir kurulum adayı yok."
 msgid ""
 "The format of validator issue override '%s' is invalid (should be "
 "'tag=severity')"
-msgstr ""
+msgstr "Doğrulayıcı sorunu geçersiz kılma biçimi '%s' geçersiz ('etiket=önem derecesi' şeklinde olmalıdır)"
 
 #: tools/ascli-actions-validate.c:200
 #, c-format
 msgid "Can not override issue tag: %s"
-msgstr ""
+msgstr "Sorun etiketi geçersiz kılınamıyor: %s"
 
 #: tools/ascli-actions-validate.c:233 tools/ascli-actions-validate.c:440
 #, c-format
