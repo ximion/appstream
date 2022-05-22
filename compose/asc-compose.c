@@ -1366,6 +1366,12 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	/* open our unit for reading */
 	if (!asc_unit_open (ctask->unit, &tmp_error)) {
 		g_warning ("Failed to open unit: %s", tmp_error->message);
+		asc_result_add_hint (ctask->result,
+					NULL,
+					"unit-read-error",
+					"name", asc_unit_get_bundle_id (ctask->unit),
+					"msg", tmp_error->message,
+					NULL);
 		return;
 	}
 	contents = asc_unit_get_contents (ctask->unit);

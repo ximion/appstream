@@ -50,6 +50,11 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "Dummy info hint for the testsuite. Var1: {{var1}}."
 	},
 
+	{ "unit-read-error",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "Error while reading data from unit <code>{{name}}</code>: {{msg}}",
+	},
+
 	{ "ancient-metadata",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  "The AppStream metadata should be updated to follow a more recent version of the specification.<br/>"
