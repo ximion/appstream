@@ -1953,7 +1953,7 @@ asc_compose_export_hints_data_html (AscCompose *compose, GError **error)
 }
 
 static gboolean
-asc_compose_save_metadata_result (AscCompose *compose, GError **error)
+asc_compose_save_metadata_result (AscCompose *compose, gboolean *results_not_empty, GError **error)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(AsMetadata) mdata = NULL;
@@ -1984,14 +1984,19 @@ asc_compose_save_metadata_result (AscCompose *compose, GError **error)
 		return FALSE;
 	}
 
+	if (results_not_empty != NULL)
+		*results_not_empty = FALSE;
+
 	for (guint i = 0; i < priv->results->len; i++) {
 		g_autoptr(GPtrArray) cpts = NULL;
 		AscResult *result = ASC_RESULT (g_ptr_array_index (priv->results, i));
 		cpts = asc_result_fetch_components (result);
-		for (guint j = 0; j < cpts->len; j++) {
+		for (guint j = 0; j < cpts->len; j++)
 			as_metadata_add_component (mdata,
 						   AS_COMPONENT(g_ptr_array_index (cpts, j)));
-		}
+
+		if (cpts->len > 0 && results_not_empty != NULL)
+			*results_not_empty = TRUE;
 	}
 
 	data_fname = g_build_filename (priv->data_result_dir, data_basename, NULL);
@@ -2048,6 +2053,7 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GPtrArray) tasks = NULL;
 	gboolean temp_dir_created = FALSE;
+	gboolean results_generated = FALSE;
 
 	/* ensure icon output dir is set, hint and data output dirs are optional */
 	if (priv->icons_result_dir == NULL && !as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_IGNORE_ICONS)) {
@@ -2144,21 +2150,19 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 		g_ptr_array_add (priv->results, g_object_ref (ctask->result));
 	}
 
+	/* write result */
+	if (priv->data_result_dir != NULL) {
+		if (!asc_compose_save_metadata_result (compose, &results_generated, error))
+			return NULL;
+	}
+
 	/* check if we (unexpectedly) had no results */
-	if (g_hash_table_size (priv->allowed_cids) > 0 &&
-	    priv->results->len == 0 &&
-	    tasks->len > 0) {
+	if (g_hash_table_size (priv->allowed_cids) > 0 && !results_generated) {
 		/* we had filters set but generated no results - this was most certainly not intended */
 		AscComposeTask *ctask = g_ptr_array_index (tasks, 0);
 		asc_result_add_hint_simple (ctask->result,
 						NULL,
 						"filters-but-no-output");
-	}
-
-	/* write result */
-	if (priv->data_result_dir != NULL) {
-		if (!asc_compose_save_metadata_result (compose, error))
-			return NULL;
 	}
 
 	/* write hints */
