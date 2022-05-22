@@ -27,16 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-05-22 17:37+0200\n"
-"PO-Revision-Date: 2022-04-15 09:11+0000\n"
+"PO-Revision-Date: 2022-05-22 19:53+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2079,9 +2078,8 @@ msgstr ""
 "Utgåvan saknar antingen egenskapen `date` (föredras) eller `timestamp`."
 
 #: src/as-validator-issue-tag.h:758
-#, fuzzy
 msgid "The release timestamp is invalid."
-msgstr "Värdet som ställt in som utgåvetyp är ogiltigt."
+msgstr "Utgåvans tidsstämpel är ogiltig."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:764
