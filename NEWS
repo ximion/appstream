@@ -1,3 +1,27 @@
+Version 0.15.4
+~~~~~~~~~~~~~~
+Released: 2022-05-22
+
+Features:
+ * validator: Check timestamp validity
+ * validator: Allow (limited) overriding of issue tag severities
+ * validator: Add strict mode
+ * ascli: validate: Allow simple overriding of issue tags
+ * validator: Check for exact relation item redefinitions
+
+Bugfixes:
+ * Add vcs-browser URL to metainfo.xml
+ * compose: Improve media-baseurl sanity checks for icon/screenshot policies
+ * compose: Don't create bad data when localized screenshots exist
+ * compose: Sanitize prefix value and verify all units for results
+ * compose: Fail and not just warn if we couldn't open a unit
+ * compose: Make no-result detection a bit more robust
+ * compose: Properly handle localized screenshots
+ * compose: Ignore current locale when analyzing screencasts
+
+Contributors:
+ JakobDev, Matthias Klumpp
+
 Version 0.15.3
 ~~~~~~~~~~~~~~
 Released: 2022-04-10
