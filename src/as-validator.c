@@ -1686,10 +1686,10 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 		g_free (prop);
 	} else {
 		g_autofree gchar *timestamp = as_xml_get_prop_value (node, "timestamp");
-		if (timestamp == NULL)
+		if (timestamp == NULL) {
 			/* Neither timestamp, nor date property exists */
 			as_validator_add_issue (validator, node, "release-time-missing", "date");
-		else {
+		} else {
 			if (g_ascii_strtoll (timestamp, NULL, 10) < 3000) {
 				/* check if the timestamp is both a number and higher than 3000. The 3000 is used to check that it is not a year */
 				as_validator_add_issue (validator, node, "release-timestamp-invalid", timestamp);
