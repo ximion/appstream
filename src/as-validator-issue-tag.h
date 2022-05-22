@@ -297,6 +297,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The relation item has a comparison operation set, but does not support any comparisons.")
 	},
 
+	{ "relation-item-redefined",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("This relation item has already been defined once for this or a different relation type. Please do not redefine relations.")
+	},
+
 	{ "relation-memory-in-requires",
 	  AS_ISSUE_SEVERITY_INFO,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
@@ -538,7 +543,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("This `desktop-application` component has no `desktop-id` launchable tag, "
 	     "however it contains all the necessary information to display the application. "
-	     "The omission of the launchable entry means that the application can not be launched directly from "
+	     "The omission of the launchable entry means that this application can not be launched directly from "
 	     "installers or software centers. If this is intended, this information can be ignored, otherwise "
 	     "it is strongly recommended to add a launchable tag as well."),
 	},

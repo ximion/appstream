@@ -1333,13 +1333,19 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
  * as_validator_check_relations:
  **/
 static void
-as_validator_check_relations (AsValidator *validator, xmlNode *node, AsComponent *cpt, AsRelationKind kind)
+as_validator_check_relations (AsValidator *validator,
+			      xmlNode *node,
+			      AsComponent *cpt,
+			      GHashTable *known_entries,
+			      AsRelationKind kind)
 {
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
+		const gchar *rel_dupe_type = NULL;
 		g_autofree gchar *content = NULL;
 		g_autofree gchar *version = NULL;
 		g_autofree gchar *compare_str = NULL;
+		g_autofree gchar *rel_item_id = NULL;
 		gboolean can_have_version = FALSE;
 		gboolean can_have_compare = FALSE;
 		AsRelationItemKind item_kind;
@@ -1459,6 +1465,19 @@ as_validator_check_relations (AsValidator *validator, xmlNode *node, AsComponent
 				as_validator_add_issue (validator, iter, "relation-hardware-value-invalid", content);
 			else if (dash_count != 4)
 				as_validator_add_issue (validator, iter, "relation-hardware-value-invalid", content);
+		}
+
+		/* check for redefinition */
+		rel_item_id = g_strdup_printf ("%s%s%s%s", node_name, content, compare_str, version);
+		rel_dupe_type = g_hash_table_lookup (known_entries, rel_item_id);
+		if (rel_dupe_type == NULL) {
+			g_hash_table_insert (known_entries,
+					     g_strdup (rel_item_id),
+					     g_strdup (as_relation_kind_to_string (kind)));
+		} else {
+			as_validator_add_issue (validator,
+						iter, "relation-item-redefined",
+						"%s & %s", rel_dupe_type, as_relation_kind_to_string (kind));
 		}
 	}
 }
@@ -1855,12 +1874,16 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	AsComponent *cpt;
 	g_autofree gchar *cpttype = NULL;
 	g_autoptr(GHashTable) found_tags = NULL;
+	g_autoptr(GHashTable) known_relation_items = NULL;
 	g_autofree gchar *date_eol_str = NULL;
 
 	AsFormatStyle mode;
 	gboolean has_metadata_license = FALSE;
 
+	/* hash tables for finding duplicates */
 	found_tags = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+	known_relation_items = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+
 	mode = as_context_get_style (ctx);
 
 	/* validate the resulting AsComponent for sanity */
@@ -2107,11 +2130,23 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_children_quick (validator, iter, "content_attribute", TRUE);
 			can_be_empty = TRUE;
 		} else if (g_strcmp0 (node_name, "requires") == 0) {
-			as_validator_check_relations (validator, iter, cpt, AS_RELATION_KIND_REQUIRES);
+			as_validator_check_relations (validator,
+						      iter,
+						      cpt,
+						      known_relation_items,
+						      AS_RELATION_KIND_REQUIRES);
 		} else if (g_strcmp0 (node_name, "recommends") == 0) {
-			as_validator_check_relations (validator, iter, cpt, AS_RELATION_KIND_RECOMMENDS);
+			as_validator_check_relations (validator,
+						      iter,
+						      cpt,
+						      known_relation_items,
+						      AS_RELATION_KIND_RECOMMENDS);
 		} else if (g_strcmp0 (node_name, "supports") == 0) {
-			as_validator_check_relations (validator, iter, cpt, AS_RELATION_KIND_SUPPORTS);
+			as_validator_check_relations (validator,
+						      iter,
+						      cpt,
+						      known_relation_items,
+						      AS_RELATION_KIND_SUPPORTS);
 		} else if (g_strcmp0 (node_name, "agreement") == 0) {
 			as_validator_check_children_quick (validator, iter, "agreement_section", FALSE);
 		} else if (g_strcmp0 (node_name, "branding") == 0) {
