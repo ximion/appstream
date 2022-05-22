@@ -611,18 +611,15 @@ as_get_current_locale (void)
 	locale_names = g_get_language_names ();
 
 	if (g_strstr_len (locale_names[0], -1, "_") == NULL) {
-		/* The locale doesn't have a region code - see if LANG has more to offer.
-		 * Some users expect LANG to take priority, and PackageKit uses region codes
-		 * as well since frontends submit them (based on LANG).
-		 * So if we don't have them in LANGUAGE but do have them in LANG, we have
-		 * different localization depending on how the application was launched as well as
-		 * multiple caches on systems which generate them via a backend in PackageKit. */
+		/* The locale doesn't have a region code - see if LANG has more to offer. */
 		const gchar *env_lang = g_getenv ("LANG");
 		if ((env_lang != NULL) && (g_strstr_len (env_lang, -1, "_") != NULL))
 			locale = env_lang;
 	}
 	if (locale == NULL)
 		locale = locale_names[0];
+	if (locale == NULL)
+		locale = g_strdup ("C");
 
 	/* return active locale without UTF-8 suffix, UTF-8 is default in AppStream */
 	return as_locale_strip_encoding (locale);

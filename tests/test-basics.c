@@ -273,6 +273,7 @@ test_locale_compat (void)
 	g_assert_true (!as_utils_locale_is_compatible ("ca@valencia", "de"));
 	g_assert_true (!as_utils_locale_is_compatible ("de_CH", "de_DE"));
 	g_assert_true (as_utils_locale_is_compatible ("de", "de_CH"));
+	g_assert_true (as_utils_locale_is_compatible ("C", "C"));
 }
 
 /**

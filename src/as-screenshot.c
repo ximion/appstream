@@ -428,11 +428,10 @@ as_screenshot_get_active_locale (AsScreenshot *screenshot)
 	const gchar *locale;
 
 	/* return context locale, if the locale isn't explicitly overridden for this component */
-	if ((priv->context != NULL) && (priv->active_locale_override == NULL)) {
+	if (priv->context != NULL && priv->active_locale_override == NULL)
 		locale = as_context_get_locale (priv->context);
-	} else {
+	else
 		locale = priv->active_locale_override;
-	}
 
 	if (locale == NULL)
 		return "C";
