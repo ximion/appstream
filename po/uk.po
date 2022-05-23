@@ -21,16 +21,14 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-05-22 21:54+0200\n"
-"PO-Revision-Date: 2022-05-22 19:53+0000\n"
+"PO-Revision-Date: 2022-05-23 18:18+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
-"translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.13-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -1485,7 +1483,7 @@ msgstr ""
 msgid ""
 "This relation item has already been defined once for this or a different "
 "relation type. Please do not redefine relations."
-msgstr ""
+msgstr "Цей запис порівняння вже одного разу було визначено або тип порівняння є іншим. Будь ласка, змініть визначення порівнянь."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:308
@@ -1821,7 +1819,6 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:544
-#, fuzzy
 msgid ""
 "This `desktop-application` component has no `desktop-id` launchable tag, "
 "however it contains all the necessary information to display the "
@@ -1829,14 +1826,7 @@ msgid ""
 "application can not be launched directly from installers or software "
 "centers. If this is intended, this information can be ignored, otherwise it "
 "is strongly recommended to add a launchable tag as well."
-msgstr ""
-"У цьому компоненті «desktop-application» пропущено теґ придатності до "
-"запуску «desktop-id». Втім, там містяться усі дані, які потрібні для показу "
-"програми. Те, що пропущено теґ придатності до запуску, означає, що програму "
-"не можна буде безпосередньо запустити із засобу для встановлення або центру "
-"програмного забезпечення. Якщо так і має бути, це повідомлення можна "
-"проігнорувати. Якщо ж це не так, наполегливо рекомендуємо додати також теґ "
-"придатності до запуску."
+msgstr "У цьому компоненті «desktop-application» пропущено теґ придатності до запуску «desktop-id». Втім, там містяться усі дані, які потрібні для показу програми. Те, що пропущено теґ придатності до запуску, означає, що програму не можна буде безпосередньо запустити із засобу для встановлення або центру програмного забезпечення. Якщо так і має бути, це повідомлення можна проігнорувати. Якщо ж це не так, наполегливо рекомендуємо додати також теґ придатності до запуску."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:554
