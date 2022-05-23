@@ -28,10 +28,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-05-22 21:54+0200\n"
-"PO-Revision-Date: 2022-05-22 19:53+0000\n"
+"PO-Revision-Date: 2022-05-23 18:18+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1485,7 +1484,7 @@ msgstr ""
 msgid ""
 "This relation item has already been defined once for this or a different "
 "relation type. Please do not redefine relations."
-msgstr ""
+msgstr "Bu ilişki ögesi, bu veya farklı bir ilişki türü için zaten bir kez tanımlandı. Lütfen ilişkileri yeniden tanımlamayın."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:308
@@ -1808,7 +1807,6 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:544
-#, fuzzy
 msgid ""
 "This `desktop-application` component has no `desktop-id` launchable tag, "
 "however it contains all the necessary information to display the "
@@ -1816,13 +1814,7 @@ msgid ""
 "application can not be launched directly from installers or software "
 "centers. If this is intended, this information can be ignored, otherwise it "
 "is strongly recommended to add a launchable tag as well."
-msgstr ""
-"Bu `desktop-application` bileşeninin `desktop-id` başlatılabilir etiketi "
-"yok, ancak uygulamayı görüntülemek için gerekli tüm bilgileri içeriyor. "
-"Başlatılabilir girdinin eksikliği, uygulamanın doğrudan kuruculardan veya "
-"yazılım merkezlerinden başlatılamayacağı anlamına gelir. Bu bilinçli ise, bu "
-"bilgiler göz ardı edilebilir, aksi takdirde başlatılabilir bir etiket de "
-"eklenmesi şiddetle tavsiye edilir."
+msgstr "Bu `desktop-application` bileşeninin `desktop-id` başlatılabilir etiketi yok, ancak uygulamayı görüntülemek için gerekli tüm bilgileri içeriyor. Başlatılabilir girdinin eksikliği, uygulamanın doğrudan kuruculardan veya yazılım merkezlerinden başlatılamayacağı anlamına gelir. Bu bilinçli ise, bu bilgiler göz ardı edilebilir, aksi takdirde başlatılabilir bir etiket de eklenmesi şiddetle tavsiye edilir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:554
