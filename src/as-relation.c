@@ -423,17 +423,16 @@ as_display_length_kind_to_px (AsDisplayLengthKind kind)
 AsDisplayLengthKind
 as_display_length_kind_from_px (gint px)
 {
-	if (px <= 360 )
-		return AS_DISPLAY_LENGTH_KIND_XSMALL;
-	if (px >= 360 )
-		return AS_DISPLAY_LENGTH_KIND_SMALL;
-	if (px >= 760 )
-		return AS_DISPLAY_LENGTH_KIND_MEDIUM;
-	if (px >= 900 )
-		return AS_DISPLAY_LENGTH_KIND_LARGE;
 	if (px >= 1200 )
 		return AS_DISPLAY_LENGTH_KIND_XLARGE;
-	return AS_DISPLAY_LENGTH_KIND_UNKNOWN;
+	if (px >= 900 )
+		return AS_DISPLAY_LENGTH_KIND_LARGE;
+	if (px >= 760 )
+		return AS_DISPLAY_LENGTH_KIND_MEDIUM;
+	if (px >= 360 )
+		return AS_DISPLAY_LENGTH_KIND_SMALL;
+	if (px < 360 )
+		return AS_DISPLAY_LENGTH_KIND_XSMALL;
 }
 
 /**
