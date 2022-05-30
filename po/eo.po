@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-# phlostically <phlostically@mailinator.com>, 2021.
+# phlostically <phlostically@mailinator.com>, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-05-22 21:54+0200\n"
-"PO-Revision-Date: 2021-12-22 15:45+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
-"Language-Team: Esperanto <https://hosted.weblate.org/projects/appstream/"
-"translations/eo/>\n"
+"PO-Revision-Date: 2022-05-30 11:14+0000\n"
+"Last-Translator: phlostically <phlostically@mailinator.com>\n"
+"Language-Team: Esperanto <https://hosted.weblate.org/projects/appstream/translations/eo/>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1204,7 +1203,6 @@ msgstr ""
 "Konsideru meti substrekon antaŭ tiaj segmentoj."
 
 #: src/as-validator-issue-tag.h:146
-#, fuzzy
 msgid "The component ID should only contain lowercase characters."
 msgstr "La identigilo de komponanto devas konsisti nur el minuskloj."
 
@@ -1588,11 +1586,8 @@ msgid "The component summary must not contain tabs or linebreaks."
 msgstr "La resumo de komponanto devas ne enhavi tabeligon aŭ linifinon."
 
 #: src/as-validator-issue-tag.h:402
-#, fuzzy
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr ""
-"La resumo devas enhavi neniun retpaĝan adreson. Uzu la elementon <url/> por "
-"hiperligoj."
+msgstr "La resumo devas enhavi neniun retpaĝan adreson. Uzu la elementon `<url/>` por hiperligoj."
 
 #: src/as-validator-issue-tag.h:407
 msgid ""
@@ -2031,7 +2026,7 @@ msgstr "La tipo de eldono ne validas."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:752
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "La atributo `version` mankas pri la eldono."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:758
@@ -2176,7 +2171,7 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:862
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "En la elemento `tag` mankas la atributo `namespace`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:868
@@ -2189,9 +2184,8 @@ msgstr ""
 "permesataj."
 
 #: src/as-validator-issue-tag.h:873
-#, fuzzy
 msgid "The type of this color is not valid."
-msgstr "La XML-dosiero estas misformita."
+msgstr "Jen nevalida tipo de koloro."
 
 #: src/as-validator-issue-tag.h:878
 #, fuzzy
@@ -2200,17 +2194,13 @@ msgstr "La tipo de eldono ne validas."
 
 #: src/as-validator-issue-tag.h:883
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Jen nevalida HTML-kolorkodo."
 
 #: src/as-validator-issue-tag.h:888
-#, fuzzy
 msgid ""
 "A <keywords/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"Elemento <description/> devas esti ne rekte tradukita en metainformaja "
-"dosieroj (metadatenoj el la originaj programistoj). Traduku la individuajn "
-"alineojn anstataŭe."
+msgstr "Elemento <keywords/> devas esti ne rekte tradukita en metainformaja dosieroj (metadatenoj el la originaj programistoj). Traduku la individuajn alineojn anstataŭe."
 
 #: src/as-validator.c:162
 msgid ""
@@ -3114,9 +3104,9 @@ msgid "Flatpak was not found! Please install it to continue."
 msgstr ""
 
 #: tools/ascli-actions-pkgmgr.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "Ne eblas lanĉi pakadministrilon: %s"
+msgstr "Ne eblas lanĉi procezon de Flatpak: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
 #, fuzzy, c-format
@@ -3136,12 +3126,12 @@ msgstr ""
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:186
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Bonvolu tajpi la numeron de malinstalota komponanto:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:190
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Bonvolu tajpi la numeron de instalota komponanto:"
 
 #: tools/ascli-actions-pkgmgr.c:200
 #, c-format
