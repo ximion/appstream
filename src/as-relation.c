@@ -433,6 +433,7 @@ as_display_length_kind_from_px (gint px)
 		return AS_DISPLAY_LENGTH_KIND_SMALL;
 	if (px < 360 )
 		return AS_DISPLAY_LENGTH_KIND_XSMALL;
+	return AS_DISPLAY_LENGTH_KIND_UNKNOWN;
 }
 
 /**
