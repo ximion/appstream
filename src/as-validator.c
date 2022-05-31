@@ -483,6 +483,8 @@ as_validator_add_override (AsValidator *validator,
 		"cid-desktopapp-is-not-rdns",
 		/* in case the empty tag was actually intended */
 		"tag-empty",
+		/* allow GNOME to validate metadata using its new versioning scheme (until a better solution is found) */
+		"releases-not-in-order",
 		NULL
 	};
 
