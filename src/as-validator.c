@@ -474,10 +474,14 @@ as_validator_add_override (AsValidator *validator,
 	AsValidatorIssueTag *tag_data = NULL;
 	AsIssueSeverity real_severity;
 
+	/* we only allow some tags to be downgraded in order to keep validation pass/fail consistent
+	 * and prevent people from ignoring truly fatal errors instead of fixing them */
 	const gchar* demotion_allowlist[] = {
-		"release-time-missing",  /* needed for some in-development metainfo which doesn't have a release time yet */
-		"cid-desktopapp-is-not-rdns", /* allowed for apps which intentionally *must* keep the old ID for some reason */
-		"root-tag-unknown",
+		/* needed for some in-development metainfo which doesn't have a release time yet */
+		"release-time-missing",
+		/* allowed for apps which intentionally *must* keep the old ID for some reason */
+		"cid-desktopapp-is-not-rdns",
+		/* in case the empty tag was actually intended */
 		"tag-empty",
 		NULL
 	};
