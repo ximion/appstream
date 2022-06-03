@@ -66,6 +66,7 @@ asc_locale_ctx_new (void)
 {
 	AscLocaleContext *ctx;
 	ctx = g_new0 (AscLocaleContext, 1);
+	ctx->translations = NULL;
 	return ctx;
 }
 
@@ -341,7 +342,7 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
 	/* search for each translation ID */
 	for (guint i = 0; i < ctx->translations->len; i++) {
 		const gchar *location_hint;
-		AsTranslation *t = g_ptr_array_index (ctx->translations, i);
+		AsTranslation *t = AS_TRANSLATION (g_ptr_array_index (ctx->translations, i));
 
 		if (as_translation_get_kind (t) != AS_TRANSLATION_KIND_QT &&
 		    as_translation_get_kind (t) != AS_TRANSLATION_KIND_UNKNOWN)
