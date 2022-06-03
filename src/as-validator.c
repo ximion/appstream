@@ -1881,6 +1881,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	g_autofree gchar *cpttype = NULL;
 	g_autoptr(GHashTable) found_tags = NULL;
 	g_autoptr(GHashTable) known_relation_items = NULL;
+	g_autoptr(GHashTable) known_url_types = NULL;
 	g_autofree gchar *date_eol_str = NULL;
 
 	AsFormatStyle mode;
@@ -1889,6 +1890,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	/* hash tables for finding duplicates */
 	found_tags = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	known_relation_items = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	known_url_types = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
 	mode = as_context_get_style (ctx);
 
@@ -2049,6 +2051,13 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 						    iter,
 						    node_content,
 						    "url-not-reachable");
+
+			if (g_hash_table_lookup (known_url_types, prop) == NULL) {
+				g_hash_table_insert (known_url_types, g_strdup(prop), g_strdup(""));
+			}
+			else {
+				as_validator_add_issue (validator, iter, "url-type-redefined", prop);
+			}
 
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags);

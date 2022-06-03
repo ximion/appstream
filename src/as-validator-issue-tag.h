@@ -442,6 +442,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("Invalid `type` property for this `url` tag. URLs of this type are not known in the AppStream specification."),
 	},
 
+	{ "url-type-redefined",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This relation item has already been defined."),
+	},
+
 	{ "url-not-reachable",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("Unable to reach remote location that this URL references - does it exist?"),
