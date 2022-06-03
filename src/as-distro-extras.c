@@ -198,8 +198,9 @@ as_extract_icon_cache_tarball (const gchar *asicons_target,
 static gboolean
 as_pool_check_file_newer_than_cache (AsPool *pool, GPtrArray *file_list)
 {
+	struct stat sb = { .st_ctime = 0 };
+
 	for (guint i = 0; i < file_list->len; i++) {
-		struct stat sb;
 		const gchar *fname = (const gchar*) g_ptr_array_index (file_list, i);
 		if (stat (fname, &sb) == -1)
 			continue;
