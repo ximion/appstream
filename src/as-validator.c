@@ -1966,10 +1966,10 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			/* validate the AppStream ID */
 			as_validator_validate_component_id (validator, iter, cpt);
 
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 		} else if (g_strcmp0 (node_name, "metadata_license") == 0) {
 			has_metadata_license = TRUE;
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 
 			/* the license must allow easy mixing of metadata in metainfo files */
 			if (mode == AS_FORMAT_STYLE_METAINFO)
@@ -1978,9 +1978,9 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			if (g_hash_table_contains (found_tags, node_name))
 				as_validator_add_issue (validator, iter, "multiple-pkgname", NULL);
 		} else if (g_strcmp0 (node_name, "source_pkgname") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 		} else if (g_strcmp0 (node_name, "name") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, true);
+			as_validator_check_appear_once (validator, iter, found_tags, TRUE);
 			if (g_str_has_suffix (node_content, "."))
 				as_validator_add_issue (validator, iter, "name-has-dot-suffix", node_content);
 
@@ -1988,7 +1988,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			g_autofree gchar *lang = NULL;
 			const gchar *summary = node_content;
 
-			as_validator_check_appear_once (validator, iter, found_tags, true);
+			as_validator_check_appear_once (validator, iter, found_tags, TRUE);
 			if (g_str_has_suffix (summary, "."))
 				as_validator_add_issue (validator, iter,
 							"summary-has-dot-suffix",
@@ -2011,7 +2011,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							NULL);
 
 		} else if (g_strcmp0 (node_name, "description") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, true);
+			as_validator_check_appear_once (validator, iter, found_tags, TRUE);
 			as_validator_check_description_tag (validator, iter, mode, TRUE);
 		} else if (g_strcmp0 (node_name, "icon") == 0) {
 			g_autofree gchar *prop = as_validator_check_type_property (validator, cpt, iter);
@@ -2058,37 +2058,37 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 						    "url-not-reachable");
 
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_children_quick (validator, iter, "category", FALSE);
 		} else if (g_strcmp0 (node_name, "keywords") == 0) {
 			as_validator_check_children_quick (validator, iter, "keyword", FALSE);
 
 			if (mode == AS_FORMAT_STYLE_METAINFO) {
-				as_validator_check_appear_once (validator, iter, found_tags, true);
+				as_validator_check_appear_once (validator, iter, found_tags, TRUE);
 				as_validator_check_nolocalized (validator,
 								iter,
 								"metainfo-localized-keywords-tag",
 								(const gchar*) iter->name);
 			}
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_children_quick (validator, iter, "mimetype", FALSE);
 			as_validator_add_issue (validator, iter,
 						"mimetypes-tag-deprecated",
 						NULL);
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_provides (validator, iter, cpt);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_screenshots (validator, iter, cpt);
 		} else if (g_strcmp0 (node_name, "project_license") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_validate_project_license (validator, iter);
 		} else if (g_strcmp0 (node_name, "project_group") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, true);
+			as_validator_check_appear_once (validator, iter, found_tags, TRUE);
 
 			if (as_validate_has_hyperlink (node_content))
 				as_validator_add_issue (validator, iter, "developer-name-has-url", NULL);
@@ -2100,11 +2100,11 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							node_content);
 			}
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_releases (validator, iter, mode);
 			can_be_empty = TRUE;
 		} else if (g_strcmp0 (node_name, "languages") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_children_quick (validator, iter, "lang", FALSE);
 		} else if ((g_strcmp0 (node_name, "translation") == 0) && (mode == AS_FORMAT_STYLE_METAINFO)) {
 			g_autofree gchar *prop = NULL;
@@ -2136,32 +2136,32 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			if (mode == AS_FORMAT_STYLE_COLLECTION) {
 				as_validator_add_issue (validator, iter, "update-contact-in-collection-data", NULL);
 			} else {
-				as_validator_check_appear_once (validator, iter, found_tags, false);
+				as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 				as_validator_validate_update_contact (validator, iter);
 			}
 		} else if (g_strcmp0 (node_name, "suggests") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_children_quick (validator, iter, "id", FALSE);
 		} else if (g_strcmp0 (node_name, "content_rating") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_children_quick (validator, iter, "content_attribute", TRUE);
 			can_be_empty = TRUE;
 		} else if (g_strcmp0 (node_name, "requires") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_relations (validator,
 						      iter,
 						      cpt,
 						      known_relation_items,
 						      AS_RELATION_KIND_REQUIRES);
 		} else if (g_strcmp0 (node_name, "recommends") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_relations (validator,
 						      iter,
 						      cpt,
 						      known_relation_items,
 						      AS_RELATION_KIND_RECOMMENDS);
 		} else if (g_strcmp0 (node_name, "supports") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_relations (validator,
 						      iter,
 						      cpt,
@@ -2170,15 +2170,15 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		} else if (g_strcmp0 (node_name, "agreement") == 0) {
 			as_validator_check_children_quick (validator, iter, "agreement_section", FALSE);
 		} else if (g_strcmp0 (node_name, "branding") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_branding (validator, iter);
 		} else if (g_strcmp0 (node_name, "tags") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_tags (validator, iter);
 		} else if (g_strcmp0 (node_name, "name_variant_suffix") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 		} else if (g_strcmp0 (node_name, "custom") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, false);
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_children_quick (validator, iter, "value", FALSE);
 		} else if ((g_strcmp0 (node_name, "metadata") == 0) || (g_strcmp0 (node_name, "kudos") == 0)) {
 			/* these tags are GNOME / Fedora specific extensions and are therefore quite common. They shouldn't make the validation fail,
