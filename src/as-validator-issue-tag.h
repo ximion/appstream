@@ -91,6 +91,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The description contains a web URL in plain text. This is not allowed, please use the <url/> tag instead to share links.")
 	},
 
+	{ "unsupported-translation",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("As per AppStream specification, the mention tag doesn't support translations.")
+	},
+
 	{ "tag-duplicated",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("As per AppStream specification, the mentioned tag must only appear once in this context. Having multiple tags of this kind is not valid.")
