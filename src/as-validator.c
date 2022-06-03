@@ -882,7 +882,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
  * as_validator_check_appear_once:
  **/
 static void
-as_validator_check_appear_once (AsValidator *validator, xmlNode *node, GHashTable *known_tags, bool allowTranslations)
+as_validator_check_appear_once (AsValidator *validator, xmlNode *node, GHashTable *known_tags, gboolean allowTranslations)
 {
 	g_autofree gchar *lang = NULL;
 	gchar *tag_id;
