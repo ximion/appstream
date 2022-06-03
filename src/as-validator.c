@@ -1473,6 +1473,15 @@ as_validator_check_relations (AsValidator *validator,
 				as_validator_add_issue (validator, iter, "relation-hardware-value-invalid", content);
 		}
 
+		/* check memory for sanity */
+		if (item_kind == AS_RELATION_ITEM_KIND_MEMORY) {
+			for (guint i = 0; content[i] != '\0'; i++) {
+				if (!g_ascii_isdigit(content[i])) {
+					as_validator_add_issue (validator, iter, "relation-memory-value-invalid", content);
+				}
+			}
+		}
+
 		/* check for redefinition */
 		rel_item_id = g_strdup_printf ("%s%s%s%s", node_name, content, compare_str, version);
 		rel_dupe_type = g_hash_table_lookup (known_entries, rel_item_id);
