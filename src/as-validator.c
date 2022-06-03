@@ -2052,11 +2052,13 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 						    node_content,
 						    "url-not-reachable");
 
-			if (g_hash_table_lookup (known_url_types, prop) == NULL) {
-				g_hash_table_insert (known_url_types, g_strdup(prop), g_strdup(""));
-			}
-			else {
-				as_validator_add_issue (validator, iter, "url-type-redefined", prop);
+			if (prop) {
+				if (g_hash_table_lookup (known_url_types, prop) == NULL) {
+					g_hash_table_insert (known_url_types, g_strdup(prop), g_strdup(""));
+				}
+				else {
+					as_validator_add_issue (validator, iter, "url-type-redefined", prop);
+				}
 			}
 
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
