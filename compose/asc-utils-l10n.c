@@ -341,14 +341,8 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
 
 	/* search for each translation ID */
 	for (guint i = 0; i < ctx->translations->len; i++) {
-#pragma GCC diagnostic push
-#if __GNUC__ >= 12
-/* try to ignore a static analyzer false-positive */
-#pragma GCC diagnostic ignored "-Wanalyzer-use-of-uninitialized-value"
-#endif
 		const gchar *location_hint;
 		AsTranslation *t = AS_TRANSLATION (g_ptr_array_index (ctx->translations, i));
-#pragma GCC diagnostic pop
 
 		if (as_translation_get_kind (t) != AS_TRANSLATION_KIND_QT &&
 		    as_translation_get_kind (t) != AS_TRANSLATION_KIND_UNKNOWN)
