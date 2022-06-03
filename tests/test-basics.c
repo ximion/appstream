@@ -120,6 +120,21 @@ test_safe_assign ()
 }
 
 /**
+ * test_verify_int_str:
+ */
+static void
+test_verify_int_str ()
+{
+	g_assert_false (as_str_verify_integer ("", G_MININT64, G_MAXINT64));
+	g_assert_true (as_str_verify_integer ("64", G_MININT64, G_MAXINT64));
+	g_assert_false (as_str_verify_integer ("128Kb", G_MININT64, G_MAXINT64));
+	g_assert_false (as_str_verify_integer ("Hello42", G_MININT64, G_MAXINT64));
+	g_assert_true (as_str_verify_integer ("-400", G_MININT64, G_MAXINT64));
+	g_assert_false (as_str_verify_integer ("-400", 1, G_MAXINT64));
+	g_assert_false (as_str_verify_integer ("4800", G_MININT64, 4000));
+}
+
+/**
  * test_categories:
  *
  * Test #AsCategory properties.
@@ -1006,6 +1021,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Strstrip", test_strstripnl);
 	g_test_add_func ("/AppStream/Random", test_random);
 	g_test_add_func ("/AppStream/SafeAssign", test_safe_assign);
+	g_test_add_func ("/AppStream/VerifyIntStr", test_verify_int_str);
 	g_test_add_func ("/AppStream/Categories", test_categories);
 	g_test_add_func ("/AppStream/SimpleMarkupConvert", test_simplemarkup);
 	g_test_add_func ("/AppStream/Component", test_component);

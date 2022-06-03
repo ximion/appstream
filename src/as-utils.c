@@ -405,6 +405,34 @@ as_iso8601_to_datetime (const gchar *iso_date)
 }
 
 /**
+ * as_str_verify_integer:
+ * @str: The string to test.
+ * @min_value: Minimal value to be considered valid, e.g. %G_MININT64
+ * @max_value: Maximum value to be considered valie, e.g. %G_MAXINT64
+ *
+ * Verify that a string is an integer in the given range.
+ * Unlike strtoll(), this function will only pass if the whole string
+ * consists of numbers, and will not succeed if the string has a text suffix.
+ */
+gboolean
+as_str_verify_integer (const gchar *str, gint64 min_value, gint64 max_value)
+{
+	gchar *endptr;
+	gint64 res;
+	g_return_val_if_fail (min_value < max_value, FALSE);
+
+	if (as_is_empty (str))
+		return FALSE;
+
+	res = g_ascii_strtoll (str, &endptr, 10);
+	/* check if we used the whole string for conversion */
+	if (endptr[0] != '\0')
+		return FALSE;
+
+	return res >= min_value && res <= max_value;
+}
+
+/**
  * as_utils_delete_dir_recursive:
  * @dirname: Directory to remove
  *
