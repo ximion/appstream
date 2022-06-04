@@ -1451,7 +1451,7 @@ as_validator_check_relations (AsValidator *validator,
 			g_autofree gchar *side_str = NULL;
 			if (as_display_length_kind_from_string (content) == AS_DISPLAY_LENGTH_KIND_UNKNOWN) {
 				/* no text name, but we still may have an integer */
-				if (g_ascii_strtoll (content, NULL, 10) == 0)
+				if (!as_str_verify_integer (content, 1, G_MAXINT64))
 					as_validator_add_issue (validator, iter, "relation-display-length-value-invalid", content);
 			}
 
@@ -1724,12 +1724,13 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 			/* Neither timestamp, nor date property exists */
 			as_validator_add_issue (validator, node, "release-time-missing", "date");
 		} else {
-			if (g_ascii_strtoll (timestamp, NULL, 10) < 3000) {
+			if (as_str_verify_integer (timestamp, 3000, G_MAXINT64)) {
 				/* check if the timestamp is both a number and higher than 3000. The 3000 is used to check that it is not a year */
 				as_validator_add_issue (validator, node, "release-timestamp-invalid", timestamp);
 			}
 		}
 	}
+
 	prop = as_xml_get_prop_value (node, "date_eol");
 	if (prop != NULL) {
 		as_validator_validate_iso8601_complete_date (validator, node, prop);
