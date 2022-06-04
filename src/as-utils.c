@@ -413,6 +413,8 @@ as_iso8601_to_datetime (const gchar *iso_date)
  * Verify that a string is an integer in the given range.
  * Unlike strtoll(), this function will only pass if the whole string
  * consists of numbers, and will not succeed if the string has a text suffix.
+ *
+ * Returns: %TRUE if verified correctly according to the set conditions, %FALSE otherwise.
  */
 gboolean
 as_str_verify_integer (const gchar *str, gint64 min_value, gint64 max_value)
