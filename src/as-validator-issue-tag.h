@@ -345,7 +345,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "relation-memory-value-invalid",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("This `memory` item contains an invalid value. It should only contain digits")
+	  N_("A `memory` item must only contain a non-zero integer value, depicting a system memory size in mebibyte (MiB)")
 	},
 
 	{ "component-type-invalid",
