@@ -39,7 +39,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-05-22 21:54+0200\n"
-"PO-Revision-Date: 2022-06-03 01:18+0000\n"
+"PO-Revision-Date: 2022-06-08 00:20+0000\n"
 "Last-Translator: Сергей <sw@atrus.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
@@ -1489,7 +1489,7 @@ msgstr ""
 msgid ""
 "This relation item has already been defined once for this or a different "
 "relation type. Please do not redefine relations."
-msgstr ""
+msgstr "Этот элемент отношения уже был однажды определен для этого или другого типа отношения. Пожалуйста, не переопределяйте отношения."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:308
@@ -1818,7 +1818,6 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:544
-#, fuzzy
 msgid ""
 "This `desktop-application` component has no `desktop-id` launchable tag, "
 "however it contains all the necessary information to display the "
@@ -1826,13 +1825,7 @@ msgid ""
 "application can not be launched directly from installers or software "
 "centers. If this is intended, this information can be ignored, otherwise it "
 "is strongly recommended to add a launchable tag as well."
-msgstr ""
-"Этот компонент `desktop-application` не имеет запускаемого тега `desktop-"
-"id`, однако он содержит всю необходимую информацию для отображения "
-"приложения. Отсутствие запускаемой записи означает, что приложение нельзя "
-"запустить напрямую из установщиков или программных центров. Если так "
-"задумано, эту информацию можно игнорировать, в противном случае настоятельно "
-"рекомендуется добавить еще и запускаемый тег."
+msgstr "Этот компонент `desktop-application` не имеет запускаемого тега `desktop-id`, однако он содержит всю необходимую информацию для отображения приложения. Отсутствие запускаемой записи означает, что приложение нельзя запустить напрямую из установщиков или программных центров. Если так задумано, эту информацию можно игнорировать, в противном случае настоятельно рекомендуется добавить еще и запускаемый тег."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:554
@@ -2310,7 +2303,7 @@ msgstr "Тег проблемы «%s» не распознан."
 msgid ""
 "It is not allowed to downgrade the severity of tag '%s' to one that allows "
 "validation to pass."
-msgstr ""
+msgstr "Не допускается понижение серьезности тега «%s» до уровня, позволяющего пройти проверку."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
@@ -2577,7 +2570,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:146
 msgid "Override the severities of selected issue tags."
-msgstr ""
+msgstr "Не учитывать серьезность выбранных тегов проблем."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -3266,12 +3259,12 @@ msgstr "Компонент '%s' не имеет кандидата устано�
 msgid ""
 "The format of validator issue override '%s' is invalid (should be "
 "'tag=severity')"
-msgstr ""
+msgstr "Недопустимый формат переопределения проблемы проверки «%s» (должен быть «tag=severity»)"
 
 #: tools/ascli-actions-validate.c:200
 #, c-format
 msgid "Can not override issue tag: %s"
-msgstr ""
+msgstr "Не удалось переопределить тег проблемы: %s"
 
 #: tools/ascli-actions-validate.c:233 tools/ascli-actions-validate.c:440
 #, c-format
