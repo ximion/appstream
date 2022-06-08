@@ -5,7 +5,7 @@
 # Translators:
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2016
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2015-2016
-# Rafael Fontenelle <rafaelff@gnome.org>, 2017, 2019, 2020, 2021.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2017, 2019, 2020, 2021, 2022.
 # Wellington Terumi Uemura <wellingtonuemura@gmail.com>, 2020, 2021, 2022.
 # André Marcelo Alvarenga <andrealvarenga@gmx.net>, 2020, 2021.
 # #-#-#-#-#  pt_BR.po (appstream-glib)  #-#-#-#-#
@@ -32,16 +32,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-05-22 21:54+0200\n"
-"PO-Revision-Date: 2022-03-24 11:56+0000\n"
-"Last-Translator: Wellington Terumi Uemura <wellingtonuemura@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"appstream/translations/pt_BR/>\n"
+"PO-Revision-Date: 2022-06-08 00:20+0000\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1498,7 +1497,7 @@ msgstr ""
 msgid ""
 "This relation item has already been defined once for this or a different "
 "relation type. Please do not redefine relations."
-msgstr ""
+msgstr "Este item de relação já foi definido uma vez para este ou um tipo de relação diferente. Por favor, não redefina as relações."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:308
@@ -1832,7 +1831,7 @@ msgid ""
 "application can not be launched directly from installers or software "
 "centers. If this is intended, this information can be ignored, otherwise it "
 "is strongly recommended to add a launchable tag as well."
-msgstr ""
+msgstr "Este componente `desktop-application` não possui tag de inicialização `desktop-id`, porém contém todas as informações necessárias para exibir o aplicativo. A omissão da entrada inicializável significa que este aplicativo não pode ser iniciado diretamente de instaladores ou centros de software. Se isso for pretendido, essas informações podem ser ignoradas, caso contrário, é altamente recomendável adicionar também uma tag inicializável."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:554
@@ -1947,7 +1946,7 @@ msgstr ""
 msgid ""
 "This component is in no valid categories, even though it should be. Please "
 "check its metainfo file and desktop-entry file."
-msgstr ""
+msgstr "Este componente não está em categorias válidas, mesmo que devesse estar. Por favor, verifique o arquivo metainfo e o arquivo de entrada de desktop."
 
 #: src/as-validator-issue-tag.h:635
 msgid "The screenshot caption is too long (should be <= 100 characters)"
@@ -1995,7 +1994,7 @@ msgstr "O nome do arquivo metainfo não corresponde ao ID do componente."
 #: src/as-validator-issue-tag.h:672
 #, fuzzy
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr "Não foi possível ler o arquivo .desktop associado com este componente."
+msgstr "Não foi possível ler o arquivo de entrada de desktop associado com este componente."
 
 #: src/as-validator-issue-tag.h:677
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -2007,24 +2006,22 @@ msgstr ""
 msgid ""
 "A category defined in the desktop-entry file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
-"A categoria definida no arquivo .desktop não é válida. Consulte XDG Menu "
-"Specification para obter uma lista de categorias válidas."
+msgstr "A categoria definida no arquivo de entrada de desktop não é válida. Consulte XDG Menu Specification para obter uma lista de categorias válidas."
 
 #: src/as-validator-issue-tag.h:687
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "Erro ao ler alguns dados do arquivo de entrada de desktop."
 
 #: src/as-validator-issue-tag.h:692
 msgid ""
 "The value of this desktop-entry field contains invalid or non-printable "
 "UTF-8 characters, which can not be displayed properly."
-msgstr ""
+msgstr "O valor deste campo de entrada de desktop contém caracteres UTF-8 inválidos ou não imprimíveis, que não podem ser exibidos corretamente."
 
 #: src/as-validator-issue-tag.h:697
 msgid ""
 "This desktop-entry field value is quoted, which is likely unintentional."
-msgstr ""
+msgstr "Este valor de campo de entrada de desktop está entre aspas, o que provavelmente não é intencional."
 
 #: src/as-validator-issue-tag.h:702
 msgid ""
