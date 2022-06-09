@@ -3,7 +3,7 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2020, 2021.
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2020, 2021, 2022.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016, 2021.
 # Matthias Klumpp <matthias@tenstral.net>, 2014, 2021, 2022.
 # Andreas Kleinert <Andy.Kleinert@gmail.com>, 2019, 2021.
@@ -25,7 +25,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2021.
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2021, 2022.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016. #zanata, 2021.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Tobias Weise <tobias.weise@web.de>, 2019. #zanata
@@ -45,16 +45,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-05-22 21:54+0200\n"
-"PO-Revision-Date: 2022-04-10 16:37+0000\n"
-"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"PO-Revision-Date: 2022-06-09 23:19+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1033,7 +1032,7 @@ msgstr "Daten von lokal installierter Software"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2512
 msgid "Software catalog data"
-msgstr ""
+msgstr "Softwarekatalogdaten"
 
 #: src/as-provided.c:144
 msgid "Libraries"
@@ -1152,7 +1151,7 @@ msgstr ""
 msgid ""
 "The description line does not start with a capitalized word, project name or "
 "number."
-msgstr ""
+msgstr "Die Beschreibungszeile beginnt nicht mit einem großgeschriebenen Wort, Projektnamen oder einer Nummer."
 
 #: src/as-validator-issue-tag.h:91
 msgid ""
@@ -1226,11 +1225,8 @@ msgstr ""
 "Zeichen, Punkte und Zahlen erlaubt."
 
 #: src/as-validator-issue-tag.h:129
-#, fuzzy
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
-"Die Komponente hat eine Prioritätswert gesetzt. Dies ist nicht erlaubt in "
-"Metainfo Dateien."
+msgstr "Die Komponentenkennung beginnt mit einem Interpunktionszeichen. Dies ist nicht erlaubt."
 
 #: src/as-validator-issue-tag.h:134
 msgid ""
@@ -1256,16 +1252,14 @@ msgstr ""
 "Idealerweise hängen Sie einen Unterstrich vor diese Ziffern."
 
 #: src/as-validator-issue-tag.h:146
-#, fuzzy
 msgid "The component ID should only contain lowercase characters."
 msgstr "Die Komponentenkennung sollte nur Kleinbuchstaben enthalten."
 
 #: src/as-validator-issue-tag.h:151
-#, fuzzy
 msgid ""
 "The domain part of the rDNS component ID (first two parts) must only contain "
 "lowercase characters."
-msgstr "Die Komponentenkennung sollte nur Kleinbuchstaben enthalten."
+msgstr "Der Domänenteil der rDNS-Komponentenkennung (die ersten beiden Teile) darf nur Kleinbuchstaben enthalten."
 
 #: src/as-validator-issue-tag.h:156
 msgid ""
@@ -1491,13 +1485,10 @@ msgstr ""
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:292
-#, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
 "ge` is permitted."
-msgstr ""
-"Ungültiger Versionsvergleichsvorgang für Beziehungselement. Nur eq/ne/lt/gt/"
-"le/ge sind zulässig."
+msgstr "Ungültige Vergleichsoperation für Beziehungselement. Nur eine von `eq/ne/lt/gt/le/ge` ist erlaubt."
 
 #: src/as-validator-issue-tag.h:297
 msgid ""
@@ -1511,7 +1502,7 @@ msgstr ""
 msgid ""
 "This relation item has already been defined once for this or a different "
 "relation type. Please do not redefine relations."
-msgstr ""
+msgstr "Dieses Beziehungselement wurde bereits einmal für diesen oder einen anderen Beziehungstyp definiert. Bitte definieren Sie Beziehungen nicht neu."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:308
@@ -1581,7 +1572,7 @@ msgstr ""
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
+msgstr "Dieses Element `hardware` enthält einen ungültigen Wert. Es sollte eine Computer-Hardware-Kennung (CHID) UUID ohne geschweifte Klammern sein."
 
 #: src/as-validator-issue-tag.h:347
 msgid ""
@@ -1654,16 +1645,14 @@ msgstr ""
 "enthalten."
 
 #: src/as-validator-issue-tag.h:402
-#, fuzzy
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr ""
-"Die Zusammenfassung darf keine URL enthalten. Benutze <url/>-Tags für Links."
+msgstr "Die Zusammenfassung darf keine URL enthalten. Verwenden Sie für Links die Kennzeichnung `<url/>`."
 
 #: src/as-validator-issue-tag.h:407
 msgid ""
 "The summary text does not start with a capitalized word, project name or "
 "number."
-msgstr ""
+msgstr "Der Zusammenfassungstext beginnt nicht mit einem großgeschriebenen Wort, Projektnamen oder einer Nummer."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:413
@@ -1972,11 +1961,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:635
-#, fuzzy
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr ""
-"Die Beschiftung der Bildschirmaufnahme ist zu lang (sollte <= 80 Zeichen "
-"sein)"
+msgstr "Die Beschriftung des Bildschirmfotos ist zu lang (sollte <= 100 Zeichen sein)"
 
 #: src/as-validator-issue-tag.h:640
 msgid "Unable to read file."
@@ -2020,8 +2006,7 @@ msgstr "Der Metainfo-Dateiname stimmt nicht mit der Komponenten-ID überein."
 #: src/as-validator-issue-tag.h:672
 #, fuzzy
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr ""
-"Die zur Kompomente gehörige .desktop-Datei konnte nicht gelesen werden."
+msgstr "Die zur Komponente gehörige .desktop-Datei konnte nicht gelesen werden."
 
 #: src/as-validator-issue-tag.h:677
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -2107,27 +2092,27 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:741
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "Der als Freigabedringlichkeit festgelegte Wert ist kein bekannter Dringlichkeitswert."
 
 #: src/as-validator-issue-tag.h:746
 msgid "The value set as release type is invalid."
-msgstr ""
+msgstr "Der als Freigabetyp festgelegte Wert ist ungültig."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:752
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "Der Veröffentlichung fehlt die Eigenschaft `version`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:758
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
-msgstr ""
+msgstr "Der Veröffentlichung fehlt entweder die Eigenschaft `date` (bevorzugt) oder die Eigenschaft `timestamp`."
 
 #: src/as-validator-issue-tag.h:763
 msgid "The release timestamp is invalid."
-msgstr ""
+msgstr "Der Veröffentlichungszeitstempel ist ungültig."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:769
@@ -2257,30 +2242,26 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:862
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "Diesem `tag` fehlt ein Attribut `namespace`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:868
-#, fuzzy
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"Die Komponenten-ID enthält ein ungültiges Zeichen. Es sind nur ASCII-"
-"Zeichen, Punkte und Zahlen erlaubt."
+msgstr "Diese Kennzeichnung oder sein Namensraum enthält ungültige Zeichen. Erlaubt sind nur ASCII-Kleinbuchstaben, Zahlen, Punkte, Bindestriche und Unterstriche."
 
 #: src/as-validator-issue-tag.h:873
-#, fuzzy
 msgid "The type of this color is not valid."
-msgstr "Das XML in dieser Datei ist fehlerhaft."
+msgstr "Der Typ dieser Farbe ist nicht gültig."
 
 #: src/as-validator-issue-tag.h:878
 msgid "The value of this color scheme preference is not valid."
-msgstr ""
+msgstr "Der Wert dieser Farbschema-Einstellung ist nicht gültig."
 
 #: src/as-validator-issue-tag.h:883
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Diese Farbe ist kein gültiger HTML-Farbcode."
 
 #: src/as-validator-issue-tag.h:888
 #, fuzzy
@@ -2338,7 +2319,7 @@ msgstr "Gefunden: %s - Zugelassen: %s"
 #: tools/appstream-compose.c:183
 #, fuzzy
 msgid "Show extra debugging information"
-msgstr "Zusätzliche Fehlersuchinformationen anzeigen."
+msgstr "Zusätzliche Fehlersuchinformationen anzeigen"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
@@ -2355,58 +2336,58 @@ msgstr "Programmversion anzeigen."
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:192
 msgid "Do not use the network at all, not even for URL validity checks."
-msgstr ""
+msgstr "Netzwerk überhaupt nicht verwenden, auch nicht für URL-Gültigkeitsprüfungen."
 
 #. TRANSLATORS: ascompose flag description for: --full-report
 #: tools/appstream-compose.c:195
 msgid "Set mode of the issue report that is printed to the console"
-msgstr ""
+msgstr "Modus des Fehlerberichts festlegen, der auf der Konsole ausgegeben wird"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:198
 msgid "Override the default prefix (`/usr` by default)"
-msgstr ""
+msgstr "Standardpräfix überschreiben (standardmäßig `/usr`)"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:201
 msgid "Set the result output directory"
-msgstr ""
+msgstr "Ausgabeverzeichnis der Ergebnisse festlegen"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
 #: tools/appstream-compose.c:204
 msgid "Override the collection metadata output directory"
-msgstr ""
+msgstr "Überschreiben des Ausgabeverzeichnisses für Sammlungsmetadaten"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:207
 msgid "Override the icon output directory"
-msgstr ""
+msgstr "Symbolausgabeverzeichnis überschreiben"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:210
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)"
-msgstr ""
+msgstr "Medienausgabeverzeichnis festlegen (für Mediendaten, die von einem Webserver bereitgestellt werden sollen)"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:213
 msgid "Set a directory where HTML and text issue reports will be stored"
-msgstr ""
+msgstr "Verzeichnis festlegen, in dem HTML- und Textausgabeberichte gespeichert werden sollen"
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:216
 msgid "Set the origin name"
-msgstr ""
+msgstr "Ursprungsnamen festlegen"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:219
 msgid "Set the URL where the exported media content will be hosted"
-msgstr ""
+msgstr "URL festlegen, unter der die exportierten Medieninhalte gehostet werden sollen"
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:222
 msgid "A comma-separated list of component-IDs to accept"
-msgstr ""
+msgstr "Eine durch Kommata getrennte Liste der zu akzeptierenden Komponentenkennungen"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:236
@@ -2443,79 +2424,78 @@ msgstr ""
 #: tools/appstream-compose.c:296
 #, c-format
 msgid "Automatically selected '%s' as data output location."
-msgstr ""
+msgstr "'%s' automatisch als Speicherort für die Datenausgabe ausgewählt."
 
 #. TRANSLATORS: we don't have a destination directory for compose
 #: tools/appstream-compose.c:299
 msgid "No destination directory set, please provide a data output location!"
-msgstr ""
+msgstr "Kein Zielverzeichnis festgelegt, bitte geben Sie einen Speicherort für die Datenausgabe an!"
 
 #: tools/appstream-compose.c:309 tools/appstream-compose.c:311
 msgid "WARNING"
-msgstr ""
+msgstr "WARNUNG"
 
 #. TRANSLATORS: information about as-compose allowlist
 #: tools/appstream-compose.c:348
 #, c-format
 msgid "Only accepting components: %s"
-msgstr ""
+msgstr "Es werden nur Komponenten akzeptiert: %s"
 
 #. TRANSLATORS: information about as-compose allowlist
 #: tools/appstream-compose.c:351
 #, c-format
 msgid "Only accepting component: %s"
-msgstr ""
+msgstr "Es wird nur eine Komponente akzeptiert: %s"
 
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:356
 msgid "Processing directories:"
-msgstr ""
+msgstr "Verarbeitungsverzeichnisse:"
 
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:359
 msgid "Processing directory:"
-msgstr ""
+msgstr "Verarbeitungsverzeichnis:"
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:368
 msgid "Can not process invalid directory"
-msgstr ""
+msgstr "Ungültiges Verzeichnis kann nicht verarbeitet werden"
 
 #. TRANSLATORS: information message
 #: tools/appstream-compose.c:380
 msgid "Composing metadata..."
-msgstr ""
+msgstr "Metadaten werden zusammengestellt..."
 
 #. TRANSLATORS: error message
 #: tools/appstream-compose.c:385
-#, fuzzy
 msgid "Failed to compose AppStream metadata"
-msgstr "Ein Dienstprogramm zum Arbeiten mit AppStream-Metadaten"
+msgstr "AppStream-Metadaten konnten nicht zusammengestellt werden"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:391
 msgid "Run failed, some data was ignored."
-msgstr ""
+msgstr "Ausführung fehlgeschlagen, einige Daten wurden ignoriert."
 
 #. TRANSLATORS: information message of appstream-compose
 #: tools/appstream-compose.c:393
 msgid "Errors were raised during this compose run:"
-msgstr ""
+msgstr "Während dieses Zusammenstellungsdurchlaufs traten Fehler auf:"
 
 #: tools/appstream-compose.c:394
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
-msgstr ""
+msgstr "Details zu den einzelnen Problemen finden Sie in den generierten Problemberichtsdaten."
 
 #: tools/appstream-compose.c:397
 msgid "Overview of generated hints:"
-msgstr ""
+msgstr "Übersicht der generierten Hinweise:"
 
 #. TRANSLATORS: information message
 #: tools/appstream-compose.c:399
 msgid "Success!"
-msgstr ""
+msgstr "Erfolg!"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstreamcli.c:60
@@ -2624,17 +2604,17 @@ msgstr ""
 #: tools/appstreamcli.c:508
 msgid ""
 "No license, license expression or license exception string was provided."
-msgstr ""
+msgstr "Es wurde keine Lizenz, kein Lizenzausdruck und keine Lizenzausnahmezeichenkette angegeben."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:533
 msgid "Set the data origin for the installed metadata collection file."
-msgstr ""
+msgstr "Legen Sie die Datenherkunft für die installierte Metadatensammlungsdatei fest."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:538
 msgid "Install the file for the current user, instead of globally."
-msgstr ""
+msgstr "Die Datei für den aktuellen Benutzer installieren, statt global."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:566
@@ -2648,7 +2628,7 @@ msgstr ""
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
-msgstr ""
+msgstr "Nicht nachfragen, welche Softwarekomponente verwendet werden soll und immer den ersten Eintrag auswählen."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:604 tools/appstreamcli.c:641
@@ -2716,20 +2696,17 @@ msgstr "Setze das angenommene Dateiformat (»yaml« oder »text«)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:930
-#, fuzzy
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr ""
-"Beschränke die Anzahl der Veröffentlichungseinträge die in der metainfo-"
-"Datei landen (0 für unbegrenzt)."
+msgstr "Die Anzahl der Veröffentlichungseinträge, die in der Metainfo-Datei landen, begrenzen (<= 0 für unbegrenzt)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:936
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
-msgstr ""
+msgstr "Die Anzahl der Versionen festlegen, deren Beschreibungen zur Übersetzung markiert werden sollen (neueste Versionen werden zuerst übersetzt, -1 für unbegrenzt)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:980
@@ -2750,13 +2727,13 @@ msgstr ""
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1032
 msgid "Invalid number of parameters"
-msgstr ""
+msgstr "Ungültige Anzahl von Parametern"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:1091
 #, c-format
 msgid "(Alias: '%s')"
-msgstr ""
+msgstr "(Alias: '%s')"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstreamcli.c:1119
@@ -2788,7 +2765,7 @@ msgstr "Zusätzliche Fehlersuchinformationen anzeigen."
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstreamcli.c:1231
 msgid "Enable profiling"
-msgstr ""
+msgstr "Profilerstellung aktivieren"
 
 #. TRANSLATORS: `appstreamcli search` command description.
 #: tools/appstreamcli.c:1243
@@ -2832,7 +2809,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1280
 msgid "Check license string for validity and print details about it."
-msgstr ""
+msgstr "Lizenzzeichenkette auf Gültigkeit überprüfen und Details dazu ausgeben."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1286
@@ -2853,7 +2830,7 @@ msgstr "Statusinformationen über verfügbare AppStream-Metadaten anzeigen."
 #: tools/appstreamcli.c:1302
 msgid ""
 "Show information about the current operating system from the metadata index."
-msgstr ""
+msgstr "Informationen über das aktuelle Betriebssystem aus dem Metadaten-Index anzeigen."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1307
@@ -2900,11 +2877,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1343
-#, fuzzy
 msgid "Compose AppStream collection metadata from directory trees."
-msgstr ""
-"In diesem Verzeichnis oder diesem Verzeichnisbaum wurden keine AppStream-"
-"Metadaten gefunden."
+msgstr "AppStream-Sammlungsmetadaten aus Verzeichnisbäumen zusammenstellen."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1351
@@ -2925,9 +2899,9 @@ msgid "Updating software metadata cache for Flatpak."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "Metadaten-Datei »%s« existiert nicht."
+msgstr "Eine Metadatenquellengruppe mit dem Namen '%s' existiert nicht!"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
@@ -2937,17 +2911,13 @@ msgstr ""
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
-#, fuzzy
 msgid "Metadata cache was updated successfully."
-msgstr "AppStream-Zwischenspeicher wurde erfolgreich vervollständigt."
+msgstr "Metadaten-Zwischenspeicher wurde erfolgreich aktualisiert."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:102
-#, fuzzy
 msgid "Metadata cache update is not necessary."
-msgstr ""
-"Zwischenspeicher wurde nicht aktualisiert, so dass die Aktualisierung nicht "
-"notwendig war."
+msgstr "Metadaten-Zwischenspeicher-Aktualisierung ist nicht erforderlich."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -2998,9 +2968,9 @@ msgid "You need to specify a metadata file."
 msgstr "Sie müssen eine Metadatendatei angeben."
 
 #: tools/ascli-actions-mdata.c:338
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr "Der Desktop-Eintrag konnte nicht gespeichert werden: %s"
+msgstr "Metadatendatei kann nicht installiert werden: %s"
 
 #: tools/ascli-actions-mdata.c:358
 msgid "You need to specify an input and output file."
@@ -3021,14 +2991,13 @@ msgstr ""
 "werden. Bitte legen Sie es explizit mit »--format=« fest."
 
 #: tools/ascli-actions-mdata.c:456
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr "Komponente mit Kennung »%s« kann nicht gefunden werden!"
+msgstr "Betriebssystemkomponente '%s' kann nicht gefunden werden!"
 
 #: tools/ascli-actions-mdata.c:461
-#, fuzzy
 msgid "Version"
-msgstr "Version: %s"
+msgstr "Version"
 
 #: tools/ascli-actions-mdata.c:485
 msgid ""
@@ -3080,22 +3049,22 @@ msgstr "Version: %s"
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:56
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "OS-Metadatenquellen:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:60
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "Keine OS-Metadaten gefunden. Dies ist ungewöhnlich."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:63
 msgid "Other metadata sources:"
-msgstr ""
+msgstr "Andere Metadatenquellen:"
 
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:67
 msgid "No metadata."
-msgstr ""
+msgstr "Keine Metadaten."
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:70
@@ -3208,12 +3177,12 @@ msgstr "Paketverwaltung konnte nicht aufgerufen werden: %s"
 
 #: tools/ascli-actions-pkgmgr.c:84
 msgid "Flatpak was not found! Please install it to continue."
-msgstr ""
+msgstr "Flatpak wurde nicht gefunden! Bitte installieren Sie es, um fortzufahren."
 
 #: tools/ascli-actions-pkgmgr.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "Paketverwaltung konnte nicht aufgerufen werden: %s"
+msgstr "Flatpak-Prozess kann nicht gestartet werden: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
 #, fuzzy, c-format
@@ -3223,22 +3192,22 @@ msgstr "Komponente mit Kennung »%s« kann nicht gefunden werden!"
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "Es wurden mehrere Kandidaten für die Entfernung gefunden:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "Es wurden mehrere Kandidaten für die Installation gefunden:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:186
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Bitte geben Sie die Nummer der zu entfernenden Komponente ein:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:190
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Bitte geben Sie die Nummer der zu installierenden Komponente ein:"
 
 #: tools/ascli-actions-pkgmgr.c:200
 #, c-format
@@ -3321,59 +3290,56 @@ msgstr ""
 
 #. TRANSLATORS: A plain license ID
 #: tools/ascli-actions-validate.c:631
-#, fuzzy
 msgid "license"
 msgstr "Lizenz"
 
 #. TRANSLATORS: A license exception
 #: tools/ascli-actions-validate.c:634
 msgid "license exception"
-msgstr ""
+msgstr "Lizenzausnahme"
 
 #. TRANSLATORS: A complex license expression
 #: tools/ascli-actions-validate.c:637
 msgid "license expression"
-msgstr ""
+msgstr "Lizenzausdruck"
 
 #. TRANSLATORS: An invalid license
 #: tools/ascli-actions-validate.c:641
 msgid "invalid"
-msgstr ""
+msgstr "ungültig"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:646
-#, fuzzy
 msgid "License Type"
-msgstr "Lizenz"
+msgstr "Lizenztyp"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:650
 msgid "Canonical ID"
-msgstr ""
+msgstr "Kanonische Kennung"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
 #: tools/ascli-actions-validate.c:654
-#, fuzzy
 msgid "Suitable for AppStream metadata"
-msgstr "Ein Dienstprogramm zum Arbeiten mit AppStream-Metadaten"
+msgstr "Geeignet für AppStream-Metadaten"
 
 #: tools/ascli-actions-validate.c:654 tools/ascli-actions-validate.c:657
 msgid "no"
-msgstr ""
+msgstr "nein"
 
 #: tools/ascli-actions-validate.c:654 tools/ascli-actions-validate.c:657
 msgid "yes"
-msgstr ""
+msgstr "ja"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
 #: tools/ascli-actions-validate.c:657
 msgid "Free and Open Source"
-msgstr ""
+msgstr "Frei und quelloffen"
 
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:662
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: tools/ascli-utils.c:267
 msgid "Identifier"
@@ -3381,7 +3347,7 @@ msgstr "Bezeichner"
 
 #: tools/ascli-utils.c:269
 msgid "Internal ID"
-msgstr ""
+msgstr "Interne Kennung"
 
 #: tools/ascli-utils.c:270
 msgid "Name"
@@ -3449,7 +3415,7 @@ msgstr "Bereitgestellte Objekte"
 #: tools/ascli-utils.c:449
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "Bitte geben Sie eine Zahl von 1 bis %i ein: "
 
 #~ msgid "Unable to remove old cache."
 #~ msgstr "Leeren des Zwischenspeichers fehlgeschlagen."
