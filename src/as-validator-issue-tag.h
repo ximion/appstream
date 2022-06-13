@@ -468,6 +468,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("This web link uses the FTP protocol. Consider switching to HTTP(S) instead."),
 	},
 
+	{ "url-redefined",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("An URL of this type has already been defined."),
+	},
+
 	{ "developer-name-has-url",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("The <developer_name/> can not contain a hyperlink."),

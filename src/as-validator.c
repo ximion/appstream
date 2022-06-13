@@ -1888,6 +1888,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	g_autoptr(GHashTable) found_tags = NULL;
 	g_autoptr(GHashTable) known_relation_items = NULL;
 	g_autofree gchar *date_eol_str = NULL;
+	guint64 known_url_kinds = 0;
 
 	AsFormatStyle mode;
 	gboolean has_metadata_license = FALSE;
@@ -2039,9 +2040,23 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			}
 
 		} else if (g_strcmp0 (node_name, "url") == 0) {
+			AsUrlKind url_kind;
 			g_autofree gchar *prop = as_validator_check_type_property (validator, cpt, iter);
-			if (as_url_kind_from_string (prop) == AS_URL_KIND_UNKNOWN)
+
+			url_kind = as_url_kind_from_string (prop);
+			if (url_kind == AS_URL_KIND_UNKNOWN) {
 				as_validator_add_issue (validator, iter, "url-invalid-type", prop);
+			} else {
+				/* check for URL kind duplicates */
+				guint64 url_kind_flag = 1 << url_kind;
+				if (as_flags_contains (known_url_kinds, url_kind_flag))
+					as_validator_add_issue (validator,
+								iter,
+								"url-redefined",
+								as_url_kind_to_string (url_kind));
+				else
+					as_flags_add (known_url_kinds, url_kind_flag);
+			}
 
 			if (!as_validate_is_url (node_content)) {
 				as_validator_add_issue (validator, iter, "web-url-expected", node_content);
