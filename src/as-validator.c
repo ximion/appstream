@@ -893,8 +893,7 @@ as_validator_check_appear_once (AsValidator *validator, xmlNode *node, GHashTabl
 	lang = as_xml_get_prop_value (node, "lang");
 	if (lang == NULL) {
 		tag_id = g_strdup (node_name);
-	}
-	else {
+	} else {
 		if (translatable) {
     		tag_id = g_strdup_printf ("%s (lang=%s)", node_name, lang);
 		} else {
