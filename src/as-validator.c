@@ -882,7 +882,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
  * as_validator_check_appear_once:
  **/
 static void
-as_validator_check_appear_once (AsValidator *validator, xmlNode *node, GHashTable *known_tags, gboolean allowTranslations)
+as_validator_check_appear_once (AsValidator *validator, xmlNode *node, GHashTable *known_tags, gboolean translatable)
 {
 	g_autofree gchar *lang = NULL;
 	gchar *tag_id;
@@ -891,14 +891,16 @@ as_validator_check_appear_once (AsValidator *validator, xmlNode *node, GHashTabl
 	/* generate tag-id to make a unique identifier for localized and unlocalized tags */
 	node_name = (const gchar*) node->name;
 	lang = as_xml_get_prop_value (node, "lang");
-	if (lang == NULL)
+	if (lang == NULL) {
 		tag_id = g_strdup (node_name);
+	}
 	else {
-		if (!allowTranslations) {
-			as_validator_add_issue (validator, node, "unsupported-translation", node_name);
+		if (translatable) {
+    		tag_id = g_strdup_printf ("%s (lang=%s)", node_name, lang);
+		} else {
+    		tag_id = g_strdup (node_name);
+    		as_validator_add_issue (validator, node, "tag-not-translatable", node_name);
 		}
-
-		tag_id = g_strdup_printf ("%s (lang=%s)", node_name, lang);
 	}
 
 	if (g_hash_table_contains (known_tags, tag_id)) {
@@ -1965,7 +1967,6 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 
 			/* validate the AppStream ID */
 			as_validator_validate_component_id (validator, iter, cpt);
-
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 		} else if (g_strcmp0 (node_name, "metadata_license") == 0) {
 			has_metadata_license = TRUE;
