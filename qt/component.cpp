@@ -361,7 +361,14 @@ void Component::addReplaces(const QString &cid)
     as_component_add_replaces(m_cpt, qPrintable(cid));
 }
 
+#if __cplusplus < 202002L
 QList<Relation> Component::requires() const
+{
+    return requirements();
+}
+#endif
+
+QList<Relation> Component::requirements() const
 {
     QList<AppStream::Relation> res;
 

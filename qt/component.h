@@ -199,7 +199,10 @@ class APPSTREAMQT_EXPORT Component {
         QStringList replaces() const;
         void addReplaces(const QString& cid);
 
-        QList<AppStream::Relation> requires() const;
+#if __cplusplus < 202002L
+        Q_DECL_DEPRECATED QList<AppStream::Relation> requires() const;
+#endif
+        QList<AppStream::Relation> requirements() const;
         QList<AppStream::Relation> recommends() const;
         QList<AppStream::Relation> supports() const;
         void addRelation(const AppStream::Relation &relation);
