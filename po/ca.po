@@ -27,16 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-05-22 21:54+0200\n"
-"PO-Revision-Date: 2022-01-23 23:53+0000\n"
+"PO-Revision-Date: 2022-06-26 03:19+0000\n"
 "Last-Translator: Maite Guix <maite.guix@gmail.com>\n"
-"Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
-"translations/ca/>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/translations/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11-dev\n"
+"X-Generator: Weblate 4.13.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1075,9 +1074,7 @@ msgstr "Etiquetes amb aquest nom no es permeten en aquesta secció."
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"Una etiqueta <description/> no s'ha d'ubicar en fitxers de metainformació "
-"(metadades originals). En comptes d'això, ubiqueu els paràgrafs individuals."
+msgstr "No s'ha de regionalitzar l'etiqueta <description/> als fitxers de metainformació (metadades originals). En lloc d'això, regionalitzeu els paràgrafs individuals."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1212,11 +1209,8 @@ msgstr ""
 "ASCII, punts i números ."
 
 #: src/as-validator-issue-tag.h:129
-#, fuzzy
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
-"El component té un conjunt de valors prioritari. Això no està permès als "
-"fitxers metainfo."
+msgstr "L'ID del component comença amb un signe de puntuació. Això no es permet."
 
 #: src/as-validator-issue-tag.h:134
 msgid ""
@@ -1496,7 +1490,7 @@ msgstr ""
 msgid ""
 "This relation item has already been defined once for this or a different "
 "relation type. Please do not redefine relations."
-msgstr ""
+msgstr "Aquest element de relació ja ha estat definit una vegada per a aquesta o un tipus de relació diferent. Si us plau, no redefineixis les relacions."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:308
@@ -1821,7 +1815,7 @@ msgid ""
 "association with its desktop-entry file. It also means no icon data or "
 "category information from the desktop-entry file will be available, which "
 "will result in this application being ignored entirely."
-msgstr ""
+msgstr "A aquest component `desktop-application` li manca una etiqueta de llançament `desktop-id`. Això vol dir que aquesta aplicació no pot ser llançada i no té cap associació amb el fitxer d'entrada de l'escriptori. També vol dir que no hi haurà dades d'icones o informació de categories del fitxer d'entrada de l'escriptori, cosa que farà que aquesta aplicació sigui ignorada del tot."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:544
@@ -1832,7 +1826,7 @@ msgid ""
 "application can not be launched directly from installers or software "
 "centers. If this is intended, this information can be ignored, otherwise it "
 "is strongly recommended to add a launchable tag as well."
-msgstr ""
+msgstr "Aquest component `desktop-application` no té una etiqueta executable `desktop-id`, però conté tota la informació necessària per a mostrar l'aplicació. L'omissió de l'entrada executable vol dir que aquesta aplicació no es pot executar directament des d'instal·ladors o centres de programari. Si això és el que es pretén, aquesta informació pot ser ignorada, altrament és molt recomanable afegir també una etiqueta executable."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:554
@@ -1950,7 +1944,7 @@ msgstr ""
 msgid ""
 "This component is in no valid categories, even though it should be. Please "
 "check its metainfo file and desktop-entry file."
-msgstr ""
+msgstr "Aquest component no està en cap categoria vàlida i hauria d'estar. Comproveu el vostre fitxer metainfo i el vostre fitxer desktop-entry."
 
 #: src/as-validator-issue-tag.h:635
 msgid "The screenshot caption is too long (should be <= 100 characters)"
@@ -1996,9 +1990,8 @@ msgid "The metainfo filename does not match the component ID."
 msgstr "El nom del fitxer de metainfo no coincideix amb l'ID del component."
 
 #: src/as-validator-issue-tag.h:672
-#, fuzzy
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr "No es pot llegir el fitxer .desktop associat a aquest component."
+msgstr "No s'ha pogut carregar el fitxer d'entrada de l'escriptori associat a aquest component."
 
 #: src/as-validator-issue-tag.h:677
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -2007,28 +2000,25 @@ msgstr ""
 "existent."
 
 #: src/as-validator-issue-tag.h:682
-#, fuzzy
 msgid ""
 "A category defined in the desktop-entry file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
-"La categoria definida al fitxer .desktop no és vàlida. Consulteu "
-"l'especificació del menú XDG per a una llista de categories vàlides."
+msgstr "Una categoria definida al fitxer d'entrada de l'escriptori no és vàlida. Consulteu l'especificació del menú XDG per a veure una llista de categories vàlides."
 
 #: src/as-validator-issue-tag.h:687
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "Error en llegir algunes dades del fitxer d'entrada de l'escriptori."
 
 #: src/as-validator-issue-tag.h:692
 msgid ""
 "The value of this desktop-entry field contains invalid or non-printable "
 "UTF-8 characters, which can not be displayed properly."
-msgstr ""
+msgstr "El valor d'aquest camp d'entrada de l'escriptori conté caràcters UTF-8 no vàlids o no imprimibles, que no es poden mostrar correctament."
 
 #: src/as-validator-issue-tag.h:697
 msgid ""
 "This desktop-entry field value is quoted, which is likely unintentional."
-msgstr ""
+msgstr "El valor d'aquest camp d'entrada de l'escriptori està entrecometes, cosa que probablement no és intencionada."
 
 #: src/as-validator-issue-tag.h:702
 msgid ""
@@ -2036,7 +2026,7 @@ msgid ""
 "vendor-installed .desktop files, and nullifies all effects this .desktop "
 "file has (including MIME associations), which most certainly is not "
 "intentional."
-msgstr ""
+msgstr "Aquest fitxer desktop-entry té la propietat 'Hidden' establerta. Això és incorrecte per als fitxers .desktop instal·lats pel proveïdor, i anul·la tots els efectes que té aquest fitxer .desktop (incloent-hi les associacions MIME), cosa que segurament no és intencional."
 
 #: src/as-validator-issue-tag.h:708
 msgid ""
@@ -2044,7 +2034,7 @@ msgid ""
 "value. This might not be intended, as this will hide the application from "
 "all desktops. If you do want to hide the application from all desktops, "
 "using 'NoDisplay=true' is more explicit."
-msgstr ""
+msgstr "Aquest fitxer d'entrada d'escriptori té la propietat 'OnlyShowIn' establerta amb un valor buit. Aquesta podria no ser la intenció, ja que amagarà l'aplicació de tots els escriptoris. Si voleu ocultar l'aplicació de tots els escriptoris, utilitzeu 'NoDisplay=true' que és més explícit."
 
 #: src/as-validator-issue-tag.h:714
 msgid "No AppStream metadata was found in this directory or directory tree."
@@ -2095,19 +2085,18 @@ msgstr "El valor definit com a tipus de versió no és vàlid."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:752
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "Aquesta versió no té la propietat `version`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:758
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
-msgstr ""
+msgstr "Aquesta versió no té la propietat `date` (preferida) o la propietat `timestamp`."
 
 #: src/as-validator-issue-tag.h:763
-#, fuzzy
 msgid "The release timestamp is invalid."
-msgstr "El valor definit com a tipus de versió no és vàlid."
+msgstr "La data de publicació no és vàlida."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:769
@@ -2260,27 +2249,22 @@ msgstr ""
 "permeten lletres ASCII en minúscula, números, punts, guions i guions baixos."
 
 #: src/as-validator-issue-tag.h:873
-#, fuzzy
 msgid "The type of this color is not valid."
-msgstr "L'XML d'aquest fitxer té un format incorrecte."
+msgstr "El tipus d'aquest color no és vàlid."
 
 #: src/as-validator-issue-tag.h:878
-#, fuzzy
 msgid "The value of this color scheme preference is not valid."
-msgstr "El valor definit com a tipus de versió no és vàlid."
+msgstr "El valor d'aquesta preferència de color no és vàlid."
 
 #: src/as-validator-issue-tag.h:883
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Aquest color no és un codi de color HTML vàlid."
 
 #: src/as-validator-issue-tag.h:888
-#, fuzzy
 msgid ""
 "A <keywords/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"Una etiqueta <description/> no s'ha d'ubicar en fitxers de metainformació "
-"(metadades originals). En comptes d'això, ubiqueu els paràgrafs individuals."
+msgstr "Una etiqueta <keywords/> no s'ha d'ubicar en fitxers de metainformació (metadades originals). En comptes d'això, ubiqueu els paràgrafs individuals."
 
 #: src/as-validator.c:162
 msgid ""
@@ -2656,21 +2640,21 @@ msgstr "Instal·la el fitxer per a l'usuari actual, en comptes de globalment."
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
-msgstr ""
+msgstr "Limita l'ordre per a utilitzar només components del sistema d'empaquetat donat (flatpak o package)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:571
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
-msgstr ""
+msgstr "No pregunteu pel component de programari que cal utilitzar i triar sempre la primera entrada."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:604 tools/appstreamcli.c:641
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
-msgstr ""
+msgstr "No s'ha especificat cap mena de paquet vàlid. Actualment només es reconeixen els tipus `package` i `flatpak`."
 
 #: tools/appstreamcli.c:739
 msgid ""
@@ -2763,7 +2747,7 @@ msgstr "No s'ha trobat el binari «%s». No es pot continuar."
 #: tools/appstreamcli.c:1023
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
-msgstr ""
+msgstr "Podeu instal·lar el complement AppStream Compose mitjançant: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1032
@@ -3235,39 +3219,38 @@ msgid "Unable to spawn package manager: %s"
 msgstr "No s'ha pogut generar el gestor de paquets: %s"
 
 #: tools/ascli-actions-pkgmgr.c:84
-#, fuzzy
 msgid "Flatpak was not found! Please install it to continue."
-msgstr "No s'ha trobat el binari «%s». No es pot continuar."
+msgstr "No s'ha trobat Flatpak. Si us plau, instal·leu-lo per a continuar."
 
 #: tools/ascli-actions-pkgmgr.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "No s'ha pogut generar el gestor de paquets: %s"
+msgstr "No se ha podido iniciar el proceso Flatpak: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "No s'ha pogut trobar el component amb l'id. «%s»!"
+msgstr "No s'ha pogut trobar el component amb l'identificador '%s' i els criteris de filtre seleccionats!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "S'han trobat diversos candidats per a l'eliminació:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "S'han trobat diversos candidats per a la instal·lació:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:186
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Si us plau, introduïu el número del component a eliminar:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:190
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Si us plau, introduïu el número del component a instal·lar:"
 
 #: tools/ascli-actions-pkgmgr.c:200
 #, c-format
@@ -3474,7 +3457,7 @@ msgstr "Elements proporcionats"
 #: tools/ascli-utils.c:449
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "Si us plau, introduïu un número de l'1 al %i: "
 
 #~ msgid ""
 #~ "Many components have been recognized as invalid. See debug output for "
