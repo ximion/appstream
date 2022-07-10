@@ -45,15 +45,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-05-22 21:54+0200\n"
-"PO-Revision-Date: 2022-05-23 18:18+0000\n"
-"Last-Translator: Eric <alchemillatruth@purelymail.com>\n"
+"PO-Revision-Date: 2022-07-10 16:17+0000\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 4.13.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1427,7 +1427,7 @@ msgstr "关系项有比较操作集，但不支持任何比较。"
 msgid ""
 "This relation item has already been defined once for this or a different "
 "relation type. Please do not redefine relations."
-msgstr ""
+msgstr "该关系项已为此或不同关系类型定义过一次。请不要重新定义关系。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:308
@@ -2127,13 +2127,13 @@ msgstr "网址格式无效。"
 #: src/as-validator.c:491
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
-msgstr ""
+msgstr "标签“%s”的新问题严重程度是无效的。"
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
 #: src/as-validator.c:502
 #, c-format
 msgid "The issue tag '%s' is not recognized."
-msgstr ""
+msgstr "问题标签“%s”未被识别。"
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 #. * whitelisted for that.
@@ -2142,7 +2142,7 @@ msgstr ""
 msgid ""
 "It is not allowed to downgrade the severity of tag '%s' to one that allows "
 "validation to pass."
-msgstr ""
+msgstr "将标签“%s”的严重性降级至允许通过验证是不允许的。"
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
@@ -2383,7 +2383,7 @@ msgstr "不使用网络访问。"
 #: tools/appstreamcli.c:136
 msgid ""
 "Fail validation if any issue is emitted that is not of pedantic severity."
-msgstr ""
+msgstr "如果任何发出的问题不具有迂腐的严重性则验证失败。"
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:141
@@ -2393,7 +2393,7 @@ msgstr "生成报告的格式 (有效的值为“xml”和“yaml”)。"
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:146
 msgid "Override the severities of selected issue tags."
-msgstr ""
+msgstr "覆盖选中问题标签的严重性。"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -3020,12 +3020,12 @@ msgstr "'%s' 组件没有安装候选版本。"
 msgid ""
 "The format of validator issue override '%s' is invalid (should be "
 "'tag=severity')"
-msgstr ""
+msgstr "验证器问题覆盖的格式“%s”无效（应为“tag=severity”）"
 
 #: tools/ascli-actions-validate.c:200
 #, c-format
 msgid "Can not override issue tag: %s"
-msgstr ""
+msgstr "无法覆盖问题标签：%s"
 
 #: tools/ascli-actions-validate.c:233 tools/ascli-actions-validate.c:440
 #, c-format
