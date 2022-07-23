@@ -50,6 +50,9 @@ typedef struct
 	/* specific to "display_length" relations */
 	AsDisplaySideKind display_side_kind;
 	AsDisplayLengthKind display_length_kind;
+
+	/* specific to "internet" relations */
+	guint bandwidth_mbitps;
 } AsRelationPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsRelation, as_relation, G_TYPE_OBJECT)
@@ -129,6 +132,8 @@ as_relation_item_kind_to_string (AsRelationItemKind kind)
 		return "display_length";
 	if (kind == AS_RELATION_ITEM_KIND_HARDWARE)
 		return "hardware";
+	if (kind == AS_RELATION_ITEM_KIND_INTERNET)
+		return "internet";
 	return "unknown";
 }
 
@@ -161,6 +166,8 @@ as_relation_item_kind_from_string (const gchar *kind_str)
 		return AS_RELATION_ITEM_KIND_DISPLAY_LENGTH;
 	if (g_strcmp0 (kind_str, "hardware") == 0)
 		return AS_RELATION_ITEM_KIND_HARDWARE;
+	if (g_strcmp0 (kind_str, "internet") == 0)
+		return AS_RELATION_ITEM_KIND_INTERNET;
 	return AS_RELATION_ITEM_KIND_UNKNOWN;
 }
 
@@ -489,6 +496,50 @@ as_display_length_kind_to_string (AsDisplayLengthKind kind)
 }
 
 /**
+ * as_internet_kind_from_string:
+ * @kind_str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsInternetKind or %AS_INTERNET_KIND_UNKNOWN for unknown
+ *
+ * Since: 0.15.5
+ **/
+AsInternetKind
+as_internet_kind_from_string (const gchar *kind_str)
+{
+	if (g_strcmp0 (kind_str, "always") == 0)
+		return AS_INTERNET_KIND_ALWAYS;
+	if (g_strcmp0 (kind_str, "offline-only") == 0)
+		return AS_INTERNET_KIND_OFFLINE_ONLY;
+	if (g_strcmp0 (kind_str, "first-run") == 0)
+		return AS_INTERNET_KIND_FIRST_RUN;
+	return AS_INTERNET_KIND_UNKNOWN;
+}
+
+/**
+ * as_internet_kind_to_string:
+ * @kind: the #AsInternetKind.
+ *
+ * Converts the enumerated value to a text representation.
+ *
+ * Returns: string version of @kind
+ *
+ * Since: 0.15.5
+ **/
+const gchar *
+as_internet_kind_to_string (AsInternetKind kind)
+{
+	if (kind == AS_INTERNET_KIND_ALWAYS)
+		return "always";
+	if (kind == AS_INTERNET_KIND_OFFLINE_ONLY)
+		return "offline-only";
+	if (kind == AS_INTERNET_KIND_FIRST_RUN)
+		return "first-run";
+	return "unknown";
+}
+
+/**
  * as_relation_finalize:
  **/
 static void
@@ -807,6 +858,93 @@ as_relation_set_value_control_kind (AsRelation *relation, AsControlKind kind)
 }
 
 /**
+ * as_relation_get_value_internet_kind:
+ * @relation: an #AsRelation instance.
+ *
+ * Get the value of this #AsRelation item as #AsInternetKind if the
+ * type of this relation is %AS_RELATION_ITEM_KIND_INTERNET.
+ * Otherwise return %AS_INTERNET_KIND_UNKNOWN
+ *
+ * Returns: a #AsInternetKind or %AS_INTERNET_KIND_UNKNOWN in case the item is not of the right kind.
+ *
+ * Since: 0.15.5
+ **/
+AsInternetKind
+as_relation_get_value_internet_kind (AsRelation *relation)
+{
+	AsRelationPrivate *priv = GET_PRIVATE (relation);
+	if (priv->item_kind != AS_RELATION_ITEM_KIND_INTERNET)
+		return AS_INTERNET_KIND_UNKNOWN;
+	if (priv->value == NULL)
+		return AS_INTERNET_KIND_UNKNOWN;
+	return (AsInternetKind) g_variant_get_int32 (priv->value);
+}
+
+/**
+ * as_relation_set_value_internet_kind:
+ * @relation: an #AsRelation instance.
+ * @kind: an #AsInternetKind
+ *
+ * Set relation item value from an #AsInternetKind.
+ *
+ * Since: 0.15.5
+ **/
+void
+as_relation_set_value_internet_kind (AsRelation *relation, AsInternetKind kind)
+{
+	as_relation_set_value_var (relation, g_variant_new_int32 (kind));
+}
+
+/**
+ * as_relation_get_value_internet_bandwidth:
+ * @relation: an #AsRelation instance.
+ *
+ * If this #AsRelation is of kind %AS_RELATION_ITEM_KIND_INTERNET, return the
+ * minimum bandwidth requirement of the component, if set.
+ *
+ * If the relation is of a different kind, or the requirement isn’t set, this
+ * returns `0`.
+ *
+ * Returns: The minimum bandwidth requirement, in Mbit/s.
+ * Since: 0.15.5
+ */
+guint
+as_relation_get_value_internet_bandwidth (AsRelation *relation)
+{
+	AsRelationPrivate *priv = GET_PRIVATE (relation);
+
+	if (priv->item_kind != AS_RELATION_ITEM_KIND_INTERNET)
+		return 0;
+
+	return priv->bandwidth_mbitps;
+}
+
+/**
+ * as-relation_set_value_internet_bandwidth:
+ * @relation: an #AsRelation instance.
+ * @bandwidth_mbitps: Minimum bandwidth requirement, in Mbit/s, or `0` for no
+ *     requirement.
+ *
+ * Sets the minimum bandwidth requirement of the component.
+ *
+ * This requires the relation to be of item kind
+ * %AS_RELATION_ITEM_KIND_INTERNET.
+ *
+ * Since: 0.15.5
+ */
+void
+as_relation_set_value_internet_bandwidth (AsRelation *relation,
+                                          guint       bandwidth_mbitps)
+{
+	AsRelationPrivate *priv = GET_PRIVATE (relation);
+
+	if (priv->item_kind != AS_RELATION_ITEM_KIND_INTERNET)
+		return;
+
+	priv->bandwidth_mbitps = bandwidth_mbitps;
+}
+
+/**
  * as_relation_get_value_px:
  * @relation: an #AsRelation instance.
  *
@@ -1036,6 +1174,8 @@ as_relation_load_from_xml (AsRelation *relation, AsContext *ctx, xmlNode *node, 
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
 		as_relation_set_value_var (relation, g_variant_new_int32 (as_control_kind_from_string (content)));
+	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_INTERNET) {
+		as_relation_set_value_var (relation, g_variant_new_int32 (as_internet_kind_from_string (content)));
 	} else {
 		as_relation_set_value_str (relation, content);
 	}
@@ -1043,6 +1183,16 @@ as_relation_load_from_xml (AsRelation *relation, AsContext *ctx, xmlNode *node, 
 	if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
 		g_autofree gchar *side_str = (gchar*) xmlGetProp (node, (xmlChar*) "side");
 		priv->display_side_kind = as_display_side_kind_from_string (side_str);
+
+		g_free (priv->version);
+		priv->version = NULL;
+	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_INTERNET) {
+		g_autofree gchar *bandwidth_str = (gchar*) xmlGetProp (node, (xmlChar*) "bandwidth_mbitps");
+
+		if (bandwidth_str != NULL)
+			priv->bandwidth_mbitps = g_ascii_strtoll (bandwidth_str, NULL, 10);
+		else
+			priv->bandwidth_mbitps = 0;
 
 		g_free (priv->version);
 		priv->version = NULL;
@@ -1101,6 +1251,11 @@ as_relation_to_xml_node (AsRelation *relation, AsContext *ctx, xmlNode *root)
 			     (xmlChar*) as_relation_item_kind_to_string (priv->item_kind),
 			     (xmlChar*) as_control_kind_to_string (as_relation_get_value_control_kind (relation)));
 
+	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_INTERNET) {
+		n = xmlNewTextChild (root, NULL,
+			     (xmlChar*) as_relation_item_kind_to_string (priv->item_kind),
+			     (xmlChar*) as_internet_kind_to_string (as_relation_get_value_internet_kind (relation)));
+
 	} else {
 		n = xmlNewTextChild (root, NULL,
 			     (xmlChar*) as_relation_item_kind_to_string (priv->item_kind),
@@ -1114,6 +1269,13 @@ as_relation_to_xml_node (AsRelation *relation, AsContext *ctx, xmlNode *root)
 		if (priv->compare != AS_RELATION_COMPARE_GE)
 			xmlNewProp (n, (xmlChar*) "compare",
 					(xmlChar*) as_relation_compare_to_string (priv->compare));
+
+	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_INTERNET) {
+		if (priv->bandwidth_mbitps > 0) {
+			g_autofree gchar *bandwidth_str = g_strdup_printf ("%u", priv->bandwidth_mbitps);
+			xmlNewProp (n, (xmlChar*) "bandwidth_mbitps",
+				    (xmlChar*) bandwidth_str);
+		}
 
 	} else if ((priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) || (priv->item_kind == AS_RELATION_ITEM_KIND_MEMORY)) {
 	} else if (priv->version != NULL) {
@@ -1161,6 +1323,8 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 			g_strstrip (priv->version);
 		} else if (g_strcmp0 (entry, "side") == 0) {
 			priv->display_side_kind = as_display_side_kind_from_string (as_yaml_node_get_value (n));
+		} else if (g_strcmp0 (entry, "bandwidth_mbitps") == 0) {
+			priv->bandwidth_mbitps = g_ascii_strtoll (as_yaml_node_get_value (n), NULL, 10);
 		} else {
 			AsRelationItemKind kind = as_relation_item_kind_from_string (entry);
 			if (kind == AS_RELATION_ITEM_KIND_UNKNOWN) {
@@ -1203,6 +1367,10 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 			} else if (kind == AS_RELATION_ITEM_KIND_CONTROL) {
 				as_relation_set_value_var (relation,
 							   g_variant_new_int32 (as_control_kind_from_string (as_yaml_node_get_value (n))));
+
+			} else if (kind == AS_RELATION_ITEM_KIND_INTERNET) {
+				as_relation_set_value_var (relation,
+							   g_variant_new_int32 (as_internet_kind_from_string (as_yaml_node_get_value (n))));
 
 			} else {
 				as_relation_set_value_str (relation, as_yaml_node_get_value (n));
@@ -1267,6 +1435,15 @@ as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emi
 		as_yaml_emit_entry_uint64 (emitter,
 					   as_relation_item_kind_to_string (priv->item_kind),
 					   as_relation_get_value_int (relation));
+
+	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_INTERNET) {
+		as_yaml_emit_entry (emitter,
+				    as_relation_item_kind_to_string (priv->item_kind),
+				    as_internet_kind_to_string (as_relation_get_value_internet_kind (relation)));
+		if (priv->bandwidth_mbitps > 0)
+			as_yaml_emit_entry_uint64 (emitter,
+						   "bandwidth_mbitps",
+						   priv->bandwidth_mbitps);
 
 	} else {
 		as_yaml_emit_entry (emitter,

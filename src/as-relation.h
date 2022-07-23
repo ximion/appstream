@@ -73,6 +73,7 @@ typedef enum  {
  * @AS_RELATION_ITEM_KIND_CONTROL:		An input method for users to control software
  * @AS_RELATION_ITEM_KIND_DISPLAY_LENGTH:	Display edge length
  * @AS_RELATION_ITEM_KIND_HARDWARE:		A Computer Hardware ID (CHID) to depend on system hardware
+ * @AS_RELATION_ITEM_KIND_INTERNET:		Internet connectivity (Since: 0.15.5)
  *
  * Type of the item an #AsRelation is for.
  **/
@@ -86,6 +87,7 @@ typedef enum  {
 	AS_RELATION_ITEM_KIND_CONTROL,
 	AS_RELATION_ITEM_KIND_DISPLAY_LENGTH,
 	AS_RELATION_ITEM_KIND_HARDWARE,
+	AS_RELATION_ITEM_KIND_INTERNET,
 	/*< private >*/
 	AS_RELATION_ITEM_KIND_LAST
 } AsRelationItemKind;
@@ -182,6 +184,27 @@ typedef enum  {
 	AS_DISPLAY_LENGTH_KIND_LAST
 } AsDisplayLengthKind;
 
+/**
+ * AsInternetKind:
+ * @AS_INTERNET_KIND_UNKNOWN:		Unknown
+ * @AS_INTERNET_KIND_ALWAYS:		Always requires/recommends internet
+ * @AS_INTERNET_KIND_OFFLINE_ONLY:	Application is offline-only
+ * @AS_INTERNET_KIND_FIRST_RUN:	Requires/Recommends internet on first run only
+ *
+ * Different internet connectivity requirements or recommendations for an
+ * application.
+ *
+ * Since: 0.15.5
+ **/
+typedef enum  {
+	AS_INTERNET_KIND_UNKNOWN,
+	AS_INTERNET_KIND_ALWAYS,
+	AS_INTERNET_KIND_OFFLINE_ONLY,
+	AS_INTERNET_KIND_FIRST_RUN,
+	/*< private >*/
+	AS_INTERNET_KIND_LAST
+} AsInternetKind;
+
 const gchar		*as_relation_kind_to_string (AsRelationKind kind);
 AsRelationKind		as_relation_kind_from_string (const gchar *kind_str);
 
@@ -200,6 +223,9 @@ AsDisplaySideKind	as_display_side_kind_from_string (const gchar *kind_str);
 
 const gchar		*as_display_length_kind_to_string (AsDisplayLengthKind kind);
 AsDisplayLengthKind	as_display_length_kind_from_string (const gchar *kind_str);
+
+const gchar		*as_internet_kind_to_string (AsInternetKind kind);
+AsInternetKind		as_internet_kind_from_string (const gchar *kind_str);
 
 AsRelation		*as_relation_new (void);
 
@@ -241,6 +267,13 @@ void			as_relation_set_value_px (AsRelation *relation,
 AsDisplayLengthKind	as_relation_get_value_display_length_kind (AsRelation *relation);
 void			as_relation_set_value_display_length_kind (AsRelation *relation,
 								   AsDisplayLengthKind kind);
+
+AsInternetKind		as_relation_get_value_internet_kind (AsRelation *relation);
+void			as_relation_set_value_internet_kind (AsRelation *relation,
+							     AsInternetKind kind);
+guint			as_relation_get_value_internet_bandwidth (AsRelation *relation);
+void			as_relation_set_value_internet_bandwidth (AsRelation *relation,
+								  guint bandwidth_mbitps);
 
 gboolean		as_relation_version_compare (AsRelation *relation,
 						     const gchar *version,
