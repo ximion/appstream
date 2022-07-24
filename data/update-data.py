@@ -9,17 +9,21 @@
 #
 
 import os
+import io
 import json
 import requests
 import subprocess
 import yaml
 from datetime import date
+from lxml import etree
 from tempfile import TemporaryDirectory
 
 
 IANA_TLD_LIST_URL = 'https://data.iana.org/TLD/tlds-alpha-by-domain.txt'
 SPDX_REPO_URL = 'https://github.com/spdx/license-list-data.git'
 MENU_SPEC_URL = 'https://gitlab.freedesktop.org/xdg/xdg-specs/raw/master/menu/menu-spec.xml'
+XPATH_MAIN_CATEGORIES = '/article/appendix[@id="category-registry"]/sect1[@id="main-category-registry"]//tbody/row/*[1]'
+XPATH_ADDITIONAL_CATEGORIES = '/article/appendix[@id="category-registry"]/sect1[@id="additional-category-registry"]//tbody/row/*[1]'
 
 
 def update_tld_list(url, fname):
@@ -163,95 +167,18 @@ def update_platforms_data():
 
 
 def update_categories_list(spec_url, cat_fname):
-    ''' The worst parser ever, extracting category information directoly from the spec Docbook file '''
-    from enum import Enum, auto
+    print('Updating XDG categories data...')
 
     req = requests.get(spec_url)
+    tree = etree.parse(io.BytesIO(req.content))
 
-    class SpecSection(Enum):
-        NONE = auto()
-        MAIN_CATS = auto()
-        MAIN_CATS_BODY = auto()
-        EXTRA_CATS = auto()
-        EXTRA_CATS_BODY = auto()
-
-    def get_entry(line):
-        start = line.index('<entry>') + 7
-        end = line.index('</entry>')
-        return line[start:end].strip()
-
-    main_cats = []
-    extra_cats = []
-
-    current_cat = {}
-    spec_sect = SpecSection.NONE
-    for line in str(req.content, 'utf-8').splitlines():
-        if '<entry>Main Category</entry>' in line:
-            spec_sect = SpecSection.MAIN_CATS
-            continue
-
-        if '<entry>Additional Category</entry>' in line:
-            spec_sect = SpecSection.EXTRA_CATS
-            continue
-
-        if '<tbody>' in line:
-            current_cat = {}
-            if spec_sect == SpecSection.MAIN_CATS:
-                spec_sect = SpecSection.MAIN_CATS_BODY
-            else:
-                spec_sect = SpecSection.EXTRA_CATS_BODY
-            continue
-
-        if spec_sect == SpecSection.MAIN_CATS_BODY:
-            if '<row>' in line:
-                if current_cat:
-                    main_cats.append(current_cat)
-                    current_cat = {}
-                continue
-            if '</tbody>' in line:
-                if current_cat:
-                    main_cats.append(current_cat)
-                    current_cat = {}
-                spec_sect = SpecSection.NONE
-                continue
-
-            if '<entry>' in line:
-                if current_cat.get('desc'):
-                    continue
-                if current_cat:
-                    current_cat['desc'] = get_entry(line)
-                else:
-                    current_cat['name'] = get_entry(line)
-            continue
-
-        if spec_sect == SpecSection.EXTRA_CATS_BODY:
-            if '<row>' in line:
-                if current_cat:
-                    extra_cats.append(current_cat)
-                    current_cat = {}
-                continue
-            if '</tbody>' in line:
-                if current_cat:
-                    main_cats.append(current_cat)
-                    current_cat = {}
-                spec_sect = SpecSection.NONE
-                # nothing interesting follows for us after the additional categories are done
-                break
-
-            if '<entry>' in line:
-                if current_cat.get('rel'):
-                    continue
-                if current_cat:
-                    if not current_cat.get('desc'):
-                        current_cat['desc'] = get_entry(line)
-                    if not current_cat.get('rel'):
-                        current_cat['rel'] = get_entry(line)
-                else:
-                    current_cat['name'] = get_entry(line)
-            continue
-
-    all_cat_names = [cat['name'] for cat in main_cats]
-    all_cat_names.extend([cat['name'] for cat in extra_cats])
+    all_cat_names = []
+    entries = tree.xpath(XPATH_MAIN_CATEGORIES)
+    assert len(entries) > 0
+    all_cat_names.extend([e.text for e in entries])
+    entries = tree.xpath(XPATH_ADDITIONAL_CATEGORIES)
+    assert len(entries) > 0
+    all_cat_names.extend([e.text for e in entries])
     all_cat_names.sort()
 
     with open(cat_fname, 'w') as f:
