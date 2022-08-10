@@ -1041,18 +1041,17 @@ as_relation_load_from_xml (AsRelation *relation, AsContext *ctx, xmlNode *node, 
 	}
 
 	if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
-		g_autofree gchar *side_str = (gchar*) xmlGetProp (node, (xmlChar*) "side");
+		g_autofree gchar *side_str = as_xml_get_prop_value (node, "side");
 		priv->display_side_kind = as_display_side_kind_from_string (side_str);
 
-		g_free (priv->version);
-		priv->version = NULL;
+		g_free (g_steal_pointer (&priv->version));
 	} else if (priv->item_kind != AS_RELATION_ITEM_KIND_CONTROL) {
 		g_free (priv->version);
-		priv->version = (gchar*) xmlGetProp (node, (xmlChar*) "version");
+		priv->version = as_xml_get_prop_value (node, "version");
 	}
 
 	if ((priv->version != NULL) || (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH)) {
-		g_autofree gchar *compare_str = (gchar*) xmlGetProp (node, (xmlChar*) "compare");
+		g_autofree gchar *compare_str = as_xml_get_prop_value (node, "compare");
 		priv->compare = as_relation_compare_from_string (compare_str);
 	}
 
@@ -1080,49 +1079,49 @@ as_relation_to_xml_node (AsRelation *relation, AsContext *ctx, xmlNode *root)
 
 	if (priv->item_kind == AS_RELATION_ITEM_KIND_MEMORY) {
 		g_autofree gchar *value_str = g_strdup_printf("%i", as_relation_get_value_int (relation));
-		n = xmlNewTextChild (root, NULL,
-			     (xmlChar*) as_relation_item_kind_to_string (priv->item_kind),
-			     (xmlChar*) value_str);
+		n = as_xml_add_text_node (root,
+					  as_relation_item_kind_to_string (priv->item_kind),
+					  value_str);
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
 		if (priv->display_length_kind != AS_DISPLAY_LENGTH_KIND_UNKNOWN) {
-			n = xmlNewTextChild (root, NULL,
-					     (xmlChar*) as_relation_item_kind_to_string (priv->item_kind),
-					     (xmlChar*) as_display_length_kind_to_string (priv->display_length_kind));
+			n = as_xml_add_text_node (root,
+						  as_relation_item_kind_to_string (priv->item_kind),
+						  as_display_length_kind_to_string (priv->display_length_kind));
 		} else {
 			g_autofree gchar *value_str = g_strdup_printf("%i", as_relation_get_value_int (relation));
-			n = xmlNewTextChild (root, NULL,
-				(xmlChar*) as_relation_item_kind_to_string (priv->item_kind),
-				(xmlChar*) value_str);
+			n = as_xml_add_text_node (root,
+						  as_relation_item_kind_to_string (priv->item_kind),
+						  value_str);
 		}
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
-		n = xmlNewTextChild (root, NULL,
-			     (xmlChar*) as_relation_item_kind_to_string (priv->item_kind),
-			     (xmlChar*) as_control_kind_to_string (as_relation_get_value_control_kind (relation)));
+		n = as_xml_add_text_node (root,
+					  as_relation_item_kind_to_string (priv->item_kind),
+					  as_control_kind_to_string (as_relation_get_value_control_kind (relation)));
 
 	} else {
-		n = xmlNewTextChild (root, NULL,
-			     (xmlChar*) as_relation_item_kind_to_string (priv->item_kind),
-			     (xmlChar*) as_relation_get_value_str (relation));
+		n = as_xml_add_text_node (root,
+					  as_relation_item_kind_to_string (priv->item_kind),
+					  as_relation_get_value_str (relation));
 	}
 
 	if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
 		if ((priv->display_side_kind != AS_DISPLAY_SIDE_KIND_SHORTEST) && (priv->display_side_kind != AS_DISPLAY_SIDE_KIND_UNKNOWN))
-			xmlNewProp (n, (xmlChar*) "side",
-				    (xmlChar*) as_display_side_kind_to_string (priv->display_side_kind));
+			as_xml_add_text_prop (n, "side",
+					      as_display_side_kind_to_string (priv->display_side_kind));
 		if (priv->compare != AS_RELATION_COMPARE_GE)
-			xmlNewProp (n, (xmlChar*) "compare",
-					(xmlChar*) as_relation_compare_to_string (priv->compare));
+			as_xml_add_text_prop (n, "compare",
+					      as_relation_compare_to_string (priv->compare));
 
 	} else if ((priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) || (priv->item_kind == AS_RELATION_ITEM_KIND_MEMORY)) {
 	} else if (priv->version != NULL) {
-		xmlNewProp (n,
-			    (xmlChar*) "version",
-			    (xmlChar*) priv->version);
-		xmlNewProp (n,
-			    (xmlChar*) "compare",
-			    (xmlChar*) as_relation_compare_to_string (priv->compare));
+		as_xml_add_text_prop (n,
+				      "version",
+				      priv->version);
+		as_xml_add_text_prop (n,
+				      "compare",
+				      as_relation_compare_to_string (priv->compare));
 	}
 }
 
