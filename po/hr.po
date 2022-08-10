@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-05-22 21:54+0200\n"
-"PO-Revision-Date: 2022-07-28 16:20+0000\n"
+"PO-Revision-Date: 2022-08-10 23:17+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
@@ -1789,7 +1789,6 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:544
-#, fuzzy
 msgid ""
 "This `desktop-application` component has no `desktop-id` launchable tag, "
 "however it contains all the necessary information to display the "
@@ -1797,13 +1796,7 @@ msgid ""
 "application can not be launched directly from installers or software "
 "centers. If this is intended, this information can be ignored, otherwise it "
 "is strongly recommended to add a launchable tag as well."
-msgstr ""
-"Ova komponenta `desktop-application` nema oznaku za pokretanje `desktop-id`, "
-"međutim sadrži sve potrebne informacije za prikaz aplikacije. Izostavljanje "
-"unosa za pokretanje znači da se aplikacija ne može pokrenuti izravno iz "
-"instalacijskog softvera ili softverskih centara. Ako je to namjera, ove se "
-"informacije mogu zanemariti, u protivnom se preporuča dodati i oznaku za "
-"pokretanje."
+msgstr "Ova komponenta `desktop-application` nema oznaku za pokretanje `desktop-id`, međutim sadrži sve potrebne informacije za prikaz aplikacije. Izostavljanje unosa za pokretanje znači da se aplikacija ne može pokrenuti izravno iz instalacijskog softvera ili softverskih centara. Ako je to namjera, ove se informacije mogu zanemariti, u protivnom se preporučuje dodati i oznaku za pokretanje."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:554
@@ -2270,7 +2263,7 @@ msgstr "URL format je neispravan."
 #: src/as-validator.c:491
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
-msgstr ""
+msgstr "Kritičnost novog problema za oznaku „%s” je neispravna."
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
 #: src/as-validator.c:502
@@ -2285,7 +2278,7 @@ msgstr "Oznaka „%s” za problem nije prepoznata."
 msgid ""
 "It is not allowed to downgrade the severity of tag '%s' to one that allows "
 "validation to pass."
-msgstr ""
+msgstr "Nije dopušteno smanjiti kritičnost oznake „%s” na onu koja dopušta prolazak provjere."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
@@ -2336,12 +2329,12 @@ msgstr "Postavi mapu za ispis rezultata"
 #. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
 #: tools/appstream-compose.c:204
 msgid "Override the collection metadata output directory"
-msgstr "Prepiši mapu rezultata od collection metadata"
+msgstr "Prepiši mapu rezultata za „collection metadata”"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:207
 msgid "Override the icon output directory"
-msgstr "Prepiši mapu rezultata ikone"
+msgstr "Prepiši mapu rezultata ikona"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:210
@@ -2535,7 +2528,7 @@ msgstr "Nemoj koristiti mrežni pristup."
 #: tools/appstreamcli.c:136
 msgid ""
 "Fail validation if any issue is emitted that is not of pedantic severity."
-msgstr ""
+msgstr "Provjera ne prolazi ako se prikaže bilo koji problem čija kritičnost nije pedantna."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:141
@@ -2545,7 +2538,7 @@ msgstr "Format izrađenog izvještaja (ispravne vrijednosti su „text” i „y
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:146
 msgid "Override the severities of selected issue tags."
-msgstr ""
+msgstr "Nadjačaj kritičnosti odabranih oznaka problema."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -3224,12 +3217,12 @@ msgstr "Komponenta „%s” nema kandidata za instalaciju."
 msgid ""
 "The format of validator issue override '%s' is invalid (should be "
 "'tag=severity')"
-msgstr ""
+msgstr "Format nadjačavanja problema validatora „%s” je neispravan (trebao bi biti 'tag=severity')"
 
 #: tools/ascli-actions-validate.c:200
 #, c-format
 msgid "Can not override issue tag: %s"
-msgstr "Nije moguće prepisati oznaku problema: %s"
+msgstr "Nije moguće nadjačati oznaku problema: %s"
 
 #: tools/ascli-actions-validate.c:233 tools/ascli-actions-validate.c:440
 #, c-format
