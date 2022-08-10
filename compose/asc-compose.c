@@ -947,7 +947,6 @@ asc_compose_process_icons (AscCompose *compose,
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	GPtrArray *icons = NULL;
 	g_autoptr(AsIcon) stock_icon = NULL;
-	gboolean stock_icon_found = FALSE;
 	const gchar *icon_name = NULL;
 	AscIconPolicyIter iter;
 	guint size;
@@ -964,25 +963,29 @@ asc_compose_process_icons (AscCompose *compose,
 		AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
 		if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK) {
 			stock_icon = icon;
-			stock_icon_found = TRUE;
 			break;
 		}
-		if (as_icon_get_kind (icon) == AS_ICON_KIND_LOCAL) {
+
+		/* we cheat here to accomodate for apps which used the "local" icon type wrong */
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_LOCAL)
 			stock_icon = icon;
-			stock_icon_found = TRUE;
-		}
 	}
 	/* drop all preexisting icons */
 	if (stock_icon != NULL)
 		stock_icon = g_object_ref (stock_icon);
 	g_ptr_array_set_size (as_component_get_icons (cpt), 0);
 
-	if (!stock_icon_found) {
+	if (stock_icon == NULL) {
+		asc_result_add_hint_simple (cres, cpt, "no-stock-icon");
+		return;
+	}
+	icon_name = as_icon_get_name (stock_icon);
+	if (as_is_empty (icon_name) || icon_name[0] == ' ') {
+		/* and invalid stock icon is like having none at all */
 		asc_result_add_hint_simple (cres, cpt, "no-stock-icon");
 		return;
 	}
 
-	icon_name = as_icon_get_name (stock_icon);
 	asc_icon_policy_iter_init (&iter, priv->icon_policy);
 	while (asc_icon_policy_iter_next (&iter, &size, &scale_factor, &icon_state)) {
 		g_autofree gchar *icon_fname = NULL;
