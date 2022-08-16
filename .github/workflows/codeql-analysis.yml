@@ -11,7 +11,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     strategy:
       fail-fast: false
@@ -27,9 +27,6 @@ jobs:
 
     - name: Install dependencies
       run: sudo ./tests/ci/install-deps-deb.sh
-
-    - name: Update Meson
-      run: sudo pip3 install 'meson>=0.56'
 
     - name: Build
       run: CC=gcc CXX=g++ ./tests/ci/run-build.sh codeql

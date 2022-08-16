@@ -15,11 +15,7 @@ build_docs=false
 build_qt=true
 maintainer_mode=true
 static_analysis=false
-if [ "$ID" = "ubuntu" ] && [ "$VERSION_CODENAME" = "focal" ]; then
-    # we don't make warnings fatal on Ubuntu 20.04
-    maintainer_mode=false
-    build_qt=false
-fi;
+
 if [ "$ID" = "debian" ] || [ "$ID" = "ubuntu" ]; then
     # apt support is required for debian(-ish) systems
     apt_support=true
