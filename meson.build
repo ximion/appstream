@@ -77,7 +77,22 @@ if get_option('maintainer')
 endif
 
 if get_option('static-analysis') and host_machine.system() != 'windows'
-  add_project_arguments(['-fanalyzer', '-Wno-analyzer-null-dereference'], language : 'c')
+  if cc.get_id() != 'gcc'
+    error('You need to compile with GCC to run the static analyzer!')
+  endif
+
+  # enable statuc analyzer
+  add_project_arguments(['-fanalyzer'], language : 'c')
+
+  # silence false-positives with older static analyzer versions
+  if cc.version().version_compare('<12')
+    add_project_arguments(['-Wno-analyzer-null-dereference'], language : 'c')
+  endif
+
+  # make false-positive non-fatal with GCC 12 for now
+  if cc.version().version_compare('>11<13')
+    add_project_arguments(['-Wno-error=analyzer-use-of-uninitialized-value'], language : 'c')
+  endif
 endif
 
 # a few compiler warning flags we always want enabled
