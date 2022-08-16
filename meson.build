@@ -84,10 +84,11 @@ if get_option('static-analysis') and host_machine.system() != 'windows'
   # enable statuc analyzer
   add_project_arguments(['-fanalyzer'], language : 'c')
 
-  # silence false-positives with older static analyzer versions
-  if cc.version().version_compare('<12')
-    add_project_arguments(['-Wno-analyzer-null-dereference'], language : 'c')
-  endif
+  # silence false-positives for NULL dereference.
+  # GCC does not appear to recognize that functions like as_is_empty()
+  # ensure that a pointer can not be NULL, and therefore is emitting it
+  # even in cases where it shouldn't.
+  add_project_arguments(['-Wno-analyzer-null-dereference'], language : 'c')
 
   # make false-positive non-fatal with GCC 12 for now
   if cc.version().version_compare('>11<13')
