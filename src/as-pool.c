@@ -618,7 +618,12 @@ as_pool_register_flatpak_dir (AsPool *pool, const gchar *flatpak_root_dir, AsCom
 								    fp_appstream_dir,
 								    fp_appstream_icons_dir,
 								    AS_FORMAT_KIND_XML);
-				/* flatpak keeps an uncompressed copy of the same data in the same directory - AppStream does not expect
+				if (lentry == NULL) {
+					g_critical ("Unable to watch possibly invalid Flatpak metadata directory %s", fp_appstream_dir);
+					continue;
+				}
+
+				/* Flatpak keeps an uncompressed copy of the same data in the same directory - AppStream does not expect
 				 * that, so we work around this issue to not load unnecessary data. Loading the compressed data was faster
 				 * in every tested scenario, so that's the way to go. */
 				lentry->compressed_only = TRUE;

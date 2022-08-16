@@ -266,8 +266,10 @@ as_description_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError
 
 			if (to_kind == AS_MARKUP_KIND_MARKDOWN) {
 				g_auto(GStrv) spl = as_markup_strsplit_words (clean_text, 100);
-				for (guint i = 0; spl[i] != NULL; i++)
-					g_string_append (str, spl[i]);
+				if (spl != NULL) {
+					for (guint i = 0; spl[i] != NULL; i++)
+						g_string_append (str, spl[i]);
+				}
 			} else {
 				g_string_append_printf (str, "%s\n", clean_text);
 			}
@@ -310,9 +312,11 @@ as_description_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError
 
 					/* break to 100 chars, leaving room for the dot/indent */
 					spl = as_markup_strsplit_words (clean_item, 100 - 4);
-					g_string_append_printf (str, " %s %s", item_c, spl[0]);
-					for (guint i = 1; spl[i] != NULL; i++)
-						g_string_append_printf (str, "   %s", spl[i]);
+					if (spl != NULL) {
+						g_string_append_printf (str, " %s %s", item_c, spl[0]);
+						for (guint i = 1; spl[i] != NULL; i++)
+							g_string_append_printf (str, "   %s", spl[i]);
+					}
 				} else {
 					/* only <li> is valid in lists */
 					ret = FALSE;
