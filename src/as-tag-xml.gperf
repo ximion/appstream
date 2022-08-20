@@ -21,6 +21,11 @@ categories, AS_TAG_CATEGORIES
 keywords, AS_TAG_KEYWORDS
 mimetypes, AS_TAG_MIMETYPES
 provides, AS_TAG_PROVIDES
+requires, AS_TAG_REQUIRES
+recommends, AS_TAG_RECOMMENDS
+supports, AS_TAG_SUPPORTS
+replaces, AS_TAG_REPLACES
+extends, AS_TAG_EXTENDS
 screenshots, AS_TAG_SCREENSHOTS
 metadata_license, AS_TAG_METADATA_LICENSE
 project_license, AS_TAG_PROJECT_LICENSE
@@ -28,7 +33,6 @@ project_group, AS_TAG_PROJECT_GROUP
 developer_name, AS_TAG_DEVELOPER_NAME
 compulsory_for_desktop, AS_TAG_COMPULSORY_FOR_DESKTOP
 releases, AS_TAG_RELEASES
-extends, AS_TAG_EXTENDS
 languages, AS_TAG_LANGUAGES
 launchable, AS_TAG_LAUNCHABLE
 bundle, AS_TAG_BUNDLE
@@ -36,9 +40,6 @@ translation, AS_TAG_TRANSLATION
 suggests, AS_TAG_SUGGESTS
 custom, AS_TAG_CUSTOM
 content_rating, AS_TAG_CONTENT_RATING
-requires, AS_TAG_REQUIRES
-recommends, AS_TAG_RECOMMENDS
-supports, AS_TAG_SUPPORTS
 agreement, AS_TAG_AGREEMENT
 reviews, AS_TAG_REVIEWS
 name_variant_suffix, AS_TAG_NAME_VARIANT_SUFFIX

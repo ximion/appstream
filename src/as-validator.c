@@ -2167,6 +2167,9 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_children_quick (validator, iter, "content_attribute", TRUE);
 			can_be_empty = TRUE;
+		} else if (g_strcmp0 (node_name, "replaces") == 0) {
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
+			as_validator_check_children_quick (validator, iter, "id", FALSE);
 		} else if (g_strcmp0 (node_name, "requires") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_relations (validator,

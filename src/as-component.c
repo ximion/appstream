@@ -102,6 +102,7 @@ typedef struct
 	GPtrArray		*requires; /* of AsRelation */
 	GPtrArray		*recommends; /* of AsRelation */
 	GPtrArray		*supports; /* of AsRelation */
+	GPtrArray		*replaces; /* of utf8 */
 	GPtrArray		*agreements; /* of AsAgreement */
 	GHashTable		*urls; /* of int:utf8 */
 
@@ -442,6 +443,9 @@ as_component_finalize (GObject* object)
 	g_ptr_array_unref (priv->supports);
 	g_ptr_array_unref (priv->agreements);
 	g_ptr_array_unref (priv->reviews);
+
+	if (priv->replaces != NULL)
+		g_ptr_array_unref (priv->replaces);
 
 	if (priv->branding != NULL)
 		g_object_unref (priv->branding);
@@ -3440,6 +3444,42 @@ as_component_add_relation (AsComponent *cpt, AsRelation *relation)
 }
 
 /**
+ * as_component_get_replaces:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get a list of component IDs of components that this software replaces entirely.
+ *
+ * Returns: (transfer none) (element-type utf8): an array of component-IDs
+ */
+GPtrArray*
+as_component_get_replaces (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (priv->replaces == NULL)
+		priv->replaces = g_ptr_array_new_with_free_func (g_free);
+	return priv->replaces;
+}
+
+/**
+ * as_component_add_replaces:
+ * @cpt: a #AsComponent instance.
+ * @cid: an AppStream component ID
+ *
+ * Add the component ID of a component that gets replaced by the current component.
+ **/
+void
+as_component_add_replaces (AsComponent *cpt, const gchar *cid)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_return_if_fail (cid != NULL);
+	if (priv->replaces == NULL)
+		priv->replaces = g_ptr_array_new_with_free_func (g_free);
+
+	g_ptr_array_add (priv->replaces,
+			 g_strdup (cid));
+}
+
+/**
  * as_component_get_agreements:
  * @cpt: an #AsComponent instance.
  *
@@ -4246,6 +4286,10 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			g_autoptr(AsContentRating) ctrating = as_content_rating_new ();
 			if (as_content_rating_load_from_xml (ctrating, ctx, iter, NULL))
 				as_component_add_content_rating (cpt, ctrating);
+		} else if (tag_id == AS_TAG_REPLACES) {
+			if (priv->replaces != NULL)
+				g_ptr_array_unref (priv->replaces);
+			priv->replaces = as_xml_get_children_as_string_list (iter, "id");
 		} else if (tag_id == AS_TAG_REQUIRES) {
 			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_REQUIRES);
 		} else if (tag_id == AS_TAG_RECOMMENDS) {
@@ -4604,6 +4648,9 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	/* extends nodes */
 	as_xml_add_node_list (cnode, NULL, "extends", priv->extends);
 
+	/* replaces */
+	as_xml_add_node_list (cnode, "replaces", "id", priv->replaces);
+
 	/* requires */
 	if (priv->requires->len > 0) {
 		xmlNode *rqnode = xmlNewChild (cnode, NULL, (xmlChar*) "requires", NULL);
@@ -4810,10 +4857,8 @@ as_component_yaml_parse_keywords (AsComponent *cpt, AsContext *ctx, GNode *node)
 static void
 as_component_yaml_parse_urls (AsComponent *cpt, GNode *node)
 {
-	GNode *n;
 	AsUrlKind url_kind;
-
-	for (n = node->children; n != NULL; n = n->next) {
+	for (GNode *n = node->children; n != NULL; n = n->next) {
 		const gchar *key = as_yaml_node_get_key (n);
 		const gchar *value = as_yaml_node_get_value (n);
 
@@ -5211,6 +5256,18 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 				g_autoptr(AsContentRating) rating = as_content_rating_new ();
 				if (as_content_rating_load_from_yaml (rating, ctx, n, NULL))
 					as_component_add_content_rating (cpt, rating);
+			}
+		} else if (field_id == AS_TAG_REPLACES) {
+			if (priv->replaces != NULL)
+				g_ptr_array_unref (priv->replaces);
+			priv->replaces = g_ptr_array_new_with_free_func (g_free);
+			for (GNode *n = node->children; n != NULL; n = n->next) {
+				for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
+					if (g_strcmp0 (as_yaml_node_get_key (sn), "id") != 0)
+						continue;
+					g_ptr_array_add (priv->replaces,
+							g_strdup (as_yaml_node_get_value (sn)));
+				}
 			}
 		} else if (field_id == AS_TAG_REQUIRES) {
 			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_REQUIRES);
@@ -5757,8 +5814,74 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_mapping_end (emitter);
 	}
 
+	/* Replaces */
+	if (priv->replaces != NULL && priv->replaces->len > 0) {
+		as_yaml_emit_scalar (emitter, "Replaces");
+		as_yaml_sequence_start (emitter);
+
+		for (guint i = 0; i < priv->replaces->len; i++) {
+			as_yaml_mapping_start (emitter);
+			as_yaml_emit_entry (emitter, "id", (const gchar*) g_ptr_array_index (priv->replaces, i));
+			as_yaml_mapping_end (emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* Requires */
+	if (priv->requires->len > 0) {
+		as_yaml_emit_scalar (emitter, "Requires");
+		as_yaml_sequence_start (emitter);
+
+		for (guint i = 0; i < priv->requires->len; i++) {
+			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->requires, i));
+			as_relation_emit_yaml (relation, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* Recommends */
+	if (priv->recommends->len > 0) {
+		as_yaml_emit_scalar (emitter, "Recommends");
+		as_yaml_sequence_start (emitter);
+
+		for (guint i = 0; i < priv->recommends->len; i++) {
+			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->recommends, i));
+			as_relation_emit_yaml (relation, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* Supports */
+	if (priv->supports->len > 0) {
+		as_yaml_emit_scalar (emitter, "Supports");
+		as_yaml_sequence_start (emitter);
+
+		for (guint i = 0; i < priv->supports->len; i++) {
+			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->supports, i));
+			as_relation_emit_yaml (relation, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
 	/* Provides */
 	as_component_yaml_emit_provides (cpt, emitter);
+
+	/* Suggests */
+	if (priv->suggestions->len > 0) {
+		as_yaml_emit_scalar (emitter, "Suggests");
+		as_yaml_sequence_start (emitter);
+
+		for (guint i = 0; i < priv->suggestions->len; i++) {
+			AsSuggested *suggested = AS_SUGGESTED (g_ptr_array_index (priv->suggestions, i));
+			as_suggested_emit_yaml (suggested, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
 
 	/* Screenshots */
 	if (priv->screenshots->len > 0) {
@@ -5809,19 +5932,6 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_sequence_end (emitter);
 	}
 
-	/* Suggests */
-	if (priv->suggestions->len > 0) {
-		as_yaml_emit_scalar (emitter, "Suggests");
-		as_yaml_sequence_start (emitter);
-
-		for (guint i = 0; i < priv->suggestions->len; i++) {
-			AsSuggested *suggested = AS_SUGGESTED (g_ptr_array_index (priv->suggestions, i));
-			as_suggested_emit_yaml (suggested, ctx, emitter);
-		}
-
-		as_yaml_sequence_end (emitter);
-	}
-
 	/* ContentRating */
 	if (priv->content_ratings->len > 0) {
 		as_yaml_emit_scalar (emitter, "ContentRating");
@@ -5833,45 +5943,6 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		}
 
 		as_yaml_mapping_end (emitter);
-	}
-
-	/* Requires */
-	if (priv->requires->len > 0) {
-		as_yaml_emit_scalar (emitter, "Requires");
-		as_yaml_sequence_start (emitter);
-
-		for (guint i = 0; i < priv->requires->len; i++) {
-			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->requires, i));
-			as_relation_emit_yaml (relation, ctx, emitter);
-		}
-
-		as_yaml_sequence_end (emitter);
-	}
-
-	/* Recommends */
-	if (priv->recommends->len > 0) {
-		as_yaml_emit_scalar (emitter, "Recommends");
-		as_yaml_sequence_start (emitter);
-
-		for (guint i = 0; i < priv->recommends->len; i++) {
-			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->recommends, i));
-			as_relation_emit_yaml (relation, ctx, emitter);
-		}
-
-		as_yaml_sequence_end (emitter);
-	}
-
-	/* Supports */
-	if (priv->supports->len > 0) {
-		as_yaml_emit_scalar (emitter, "Supports");
-		as_yaml_sequence_start (emitter);
-
-		for (guint i = 0; i < priv->supports->len; i++) {
-			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->supports, i));
-			as_relation_emit_yaml (relation, ctx, emitter);
-		}
-
-		as_yaml_sequence_end (emitter);
 	}
 
 	/* Tags */

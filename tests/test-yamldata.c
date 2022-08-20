@@ -1017,6 +1017,8 @@ test_yaml_read_launchable (void)
 static const gchar *yamldata_relations_field =
 				"Type: generic\n"
 				"ID: org.example.RelationsTest\n"
+				"Replaces:\n"
+				"- id: org.example.old_test\n"
 				"Requires:\n"
 				"- kernel: Linux\n"
 				"  version: '>= 4.15'\n"
@@ -1111,6 +1113,8 @@ test_yaml_write_relations (void)
 	as_component_add_relation (cpt, ctl_relation1);
 	as_component_add_relation (cpt, ctl_relation2);
 
+	as_component_add_replaces (cpt, "org.example.old_test");
+
 	/* test collection serialization */
 	res = as_yaml_test_serialize (cpt);
 	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_relations_field));
@@ -1192,6 +1196,10 @@ test_yaml_read_relations (void)
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_SUPPORTS);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_CONTROL);
 	g_assert_cmpint (as_relation_get_value_control_kind (relation), ==, AS_CONTROL_KIND_KEYBOARD);
+
+	/* component replacement */
+	g_assert_cmpint (as_component_get_replaces (cpt)->len, ==, 1);
+	g_assert_cmpstr (g_ptr_array_index (as_component_get_replaces (cpt), 0), ==, "org.example.old_test");
 }
 
 

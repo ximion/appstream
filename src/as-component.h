@@ -405,6 +405,10 @@ GPtrArray		*as_component_get_supports (AsComponent *cpt);
 void			as_component_add_relation (AsComponent *cpt,
 						   AsRelation *relation);
 
+GPtrArray		*as_component_get_replaces (AsComponent *cpt);
+void			as_component_add_replaces (AsComponent *cpt,
+						    const gchar *cid);
+
 GPtrArray		*as_component_get_agreements (AsComponent *cpt);
 void			as_component_add_agreement (AsComponent *cpt,
 						    AsAgreement *agreement);

@@ -1419,6 +1419,9 @@ test_xml_write_screenshots (void)
 
 static const gchar *xmldata_relations = "<component>\n"
 					"  <id>org.example.RelationsTest</id>\n"
+					"  <replaces>\n"
+					"    <id>org.example.old_test</id>\n"
+					"  </replaces>\n"
 					"  <requires>\n"
 					"    <kernel version=\"4.15\" compare=\"ge\">Linux</kernel>\n"
 					"    <id version=\"1.2\" compare=\"eq\">org.example.TestDependency</id>\n"
@@ -1510,6 +1513,10 @@ test_xml_read_relations (void)
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_SUPPORTS);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_CONTROL);
 	g_assert_cmpint (as_relation_get_value_control_kind (relation), ==, AS_CONTROL_KIND_KEYBOARD);
+
+	/* component replacement */
+	g_assert_cmpint (as_component_get_replaces (cpt)->len, ==, 1);
+	g_assert_cmpstr (g_ptr_array_index (as_component_get_replaces (cpt), 0), ==, "org.example.old_test");
 }
 
 /**
@@ -1589,6 +1596,8 @@ test_xml_write_relations (void)
 	as_component_add_relation (cpt, dl_relation2);
 	as_component_add_relation (cpt, ctl_relation1);
 	as_component_add_relation (cpt, ctl_relation2);
+
+	as_component_add_replaces (cpt, "org.example.old_test");
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
 	g_assert_true (as_xml_test_compare_xml (res, xmldata_relations));

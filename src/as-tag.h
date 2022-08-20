@@ -49,6 +49,11 @@ G_BEGIN_DECLS
  * @AS_TAG_KEYWORDS:			`keywords` / `Keywords`
  * @AS_TAG_MIMETYPES:			``mimetypes` / -
  * @AS_TAG_PROVIDES:			`provides` / `Provides`
+ * @AS_TAG_REQUIRES:			`requires` / `Requires`
+ * @AS_TAG_RECOMMENDS:			`recommends` / `Recommends`
+ * @AS_TAG_SUPPORTS:			`supports` / `Supports`
+ * @AS_TAG_REPLACES:			`replaces` / `Replaces`
+ * @AS_TAG_EXTENDS:			`extends` / `Extends`
  * @AS_TAG_SCREENSHOTS:			`screenshots` / `Screenshots`
  * @AS_TAG_METADATA_LICENSE:		`metadata_license` / `MetadataLicense`
  * @AS_TAG_PROJECT_LICENSE:		`project_license` / `ProjectLicense`
@@ -56,7 +61,6 @@ G_BEGIN_DECLS
  * @AS_TAG_DEVELOPER_NAME:		`developer_name` / `DeveloperName`
  * @AS_TAG_COMPULSORY_FOR_DESKTOP:	`compulsory_for_desktop` / `CompulsoryForDesktops`
  * @AS_TAG_RELEASES:			`releases` / `Releases`
- * @AS_TAG_EXTENDS:			`extends` / `Extends`
  * @AS_TAG_LANGUAGES:			`languages` / `Languages`
  * @AS_TAG_LAUNCHABLE:			`launchable` / `Launchables`
  * @AS_TAG_BUNDLE:			`bundle` / `Bundles`
@@ -64,9 +68,6 @@ G_BEGIN_DECLS
  * @AS_TAG_SUGGESTS:			`suggests` / `Suggests`
  * @AS_TAG_CUSTOM:			`custom` / `Custom`
  * @AS_TAG_CONTENT_RATING:		`content_rating` / `ContentRating`
- * @AS_TAG_REQUIRES:			`requires` / `Requires`
- * @AS_TAG_RECOMMENDS:			`recommends` / `Recommends`
- * @AS_TAG_SUPPORTS:			`supports` / `Supports`
  * @AS_TAG_AGREEMENT:			`agreement` / `Agreement`
  * @AS_TAG_REVIEWS:			`reviews` / `Reviews`
  * @AS_TAG_NAME_VARIANT_SUFFIX:		`name_variant_suffix` / `NameVariantSuffix`
@@ -97,6 +98,11 @@ typedef enum {
 	AS_TAG_KEYWORDS,
 	AS_TAG_MIMETYPES,
 	AS_TAG_PROVIDES,
+	AS_TAG_REQUIRES,
+	AS_TAG_RECOMMENDS,
+	AS_TAG_SUPPORTS,
+	AS_TAG_REPLACES,
+	AS_TAG_EXTENDS,
 	AS_TAG_SCREENSHOTS,
 	AS_TAG_METADATA_LICENSE,
 	AS_TAG_PROJECT_LICENSE,
@@ -104,7 +110,6 @@ typedef enum {
 	AS_TAG_DEVELOPER_NAME,
 	AS_TAG_COMPULSORY_FOR_DESKTOP,
 	AS_TAG_RELEASES,
-	AS_TAG_EXTENDS,
 	AS_TAG_LANGUAGES,
 	AS_TAG_LAUNCHABLE,
 	AS_TAG_BUNDLE,
@@ -112,9 +117,6 @@ typedef enum {
 	AS_TAG_SUGGESTS,
 	AS_TAG_CUSTOM,
 	AS_TAG_CONTENT_RATING,
-	AS_TAG_REQUIRES,
-	AS_TAG_RECOMMENDS,
-	AS_TAG_SUPPORTS,
 	AS_TAG_AGREEMENT,
 	AS_TAG_REVIEWS,
 	AS_TAG_NAME_VARIANT_SUFFIX,
