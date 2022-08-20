@@ -1111,6 +1111,36 @@
 
 		</varlistentry>
 
+		<varlistentry id="tag-replaces">
+		<term>&lt;replaces/&gt;</term>
+		<listitem>
+			<para>
+				The <literal>replaces</literal> tag denotes indicates that the given component completely replaces
+				another one on the system. In most cases, the replaced component and the one that replaces it can not be
+				coinstalled. Compared to a <xref linkend="tag-provides"/> ↪ <literal>id</literal> relationship,
+				for a replaced component there is no common interface that two components can provide at once.
+			</para>
+			<para>
+				A <literal>replaces</literal> tag has <literal>id</literal> children which have the component-IDs of the
+				components that the current component replaces as value.
+			</para>
+			<para>
+				This feature is usually used for components that have to change their ID. While metainfo data may
+				contain <literal>replaces</literal> tags, software repository providers should filter these tags
+				carefully to ensure that the new component has the right to replace an old one.
+			</para>
+			<para>
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<!-- the 7-zip application changes its ID and therefore replaces the component with its old ID -->
+<id>org._7_zip._7zip</id>
+[...]
+<replaces>
+  <id>org.7-zip.7zip</id>
+</replaces>]]></programlisting>
+		</listitem>
+		</varlistentry>
+
 		<varlistentry id="tag-mimetypes">
 		<term>&lt;mimetypes/&gt;</term>
 		<listitem>
@@ -1132,11 +1162,13 @@
 		<listitem>
 		<para>
 			If you include the <code>&lt;project_group/&gt;</code> tag then this identifies your project with a specific upstream umbrella project.
-			Known values include <literal>GNOME</literal>, <literal>KDE</literal>, <literal>XFCE</literal>, <literal>MATE</literal> and <literal>LXDE</literal>, although other umbrella projects like Yorba or Mozilla make sense too.
+			Known values include <literal>GNOME</literal>, <literal>KDE</literal>, <literal>XFCE</literal>, <literal>MATE</literal> and <literal>LXDE</literal>,
+			although other umbrella projects like Yorba or Mozilla make sense too.
 		</para>
 		<note>
 			<para>
-			You should only identify with an umbrella project if you use <emphasis>all</emphasis> their infrastructure and policies, for instance string freezes dates, bugtracker and source control instance.
+				You should only identify with an umbrella project if you use <emphasis>all</emphasis> their infrastructure and policies, for instance string
+				freezes dates, bugtracker and source control instance.
 			</para>
 		</note>
 		</listitem>
