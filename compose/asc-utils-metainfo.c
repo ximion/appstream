@@ -281,6 +281,25 @@ asc_parse_desktop_entry_data (AscResult *cres,
 	if (!ret)
 		return NULL;
 
+	if (!ignore_nodisplay && cpt == NULL) {
+		/* If we shouldn't ignore NoDisplay & Co. and have no preexisting component, we
+		 * will also skip any kind of settings or console app.
+		 * Otherwise we would sythesize a component with usually extremely low-quality
+		 * metadata for it (and additionally flood the software catalog with tons of settings apps
+		 * for various DEs). This means any kind of settings app needs a metainfo file in order to be
+		 * added to the software catalogs. */
+		GPtrArray *categories = as_component_get_categories (ncpt);
+		for (guint i = 0; i < categories->len; i++) {
+			const gchar *tmp = g_ptr_array_index (categories, i);
+			if (g_strcmp0 (tmp, "Settings") == 0)
+				return NULL;
+			if (g_strcmp0 (tmp, "DesktopSettings") == 0)
+				return NULL;
+			if (g_strcmp0 (tmp, "ConsoleOnly") == 0)
+				return NULL;
+		}
+	}
+
 	/* the desktop-entry parsing function may have overridden this, so we reset the original value if we had one */
 	if (prev_cid != NULL)
 		as_component_set_id (ncpt, prev_cid);

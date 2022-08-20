@@ -972,10 +972,8 @@ as_utils_locale_to_language (const gchar *locale)
 const gchar*
 as_ptr_array_find_string (GPtrArray *array, const gchar *value)
 {
-	const gchar *tmp;
-	guint i;
-	for (i = 0; i < array->len; i++) {
-		tmp = g_ptr_array_index (array, i);
+	for (guint i = 0; i < array->len; i++) {
+		const gchar *tmp = g_ptr_array_index (array, i);
 		if (g_strcmp0 (tmp, value) == 0)
 			return tmp;
 	}
