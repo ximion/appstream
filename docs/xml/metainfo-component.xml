@@ -1113,7 +1113,12 @@
 					Require, recommend or support connectivity to the internet. The value of this item one of the following:
 				</para>
 				<itemizedlist>
-					<listitem><para><code>always</code> - Needs internet connectivity to work. If used in a <literal>recommends</literal> element, then this indicates that the app can work without internet, but the experience will be significantly degraded.</para></listitem>
+					<listitem>
+						<para>
+							<code>always</code> - Needs internet connectivity to work. If used in a <literal>recommends</literal> element,
+							then this indicates that the app can work without internet, but the experience will be degraded.
+						</para>
+					</listitem>
 					<listitem><para><code>offline-only</code> - Never uses the internet, even if it’s available.</para></listitem>
 					<listitem><para><code>first-run</code> - Uses the internet the first time the application is run, but not normally afterwards.</para></listitem>
 				</itemizedlist>
@@ -1153,6 +1158,14 @@
 <!-- recommends the internet for when it’s first run, but can work without -->
 <recommends>
   <internet>first-run</internet>
+</recommends>
+
+<!-- requires the internet on first run, can run without it afterwards but with a degraded experience -->
+<requires>
+  <internet>first-run</internet>
+</requires>
+<recommends>
+  <internet>always</internet>
 </recommends>]]></programlisting>
 				<para>Valid for: <literal>requires</literal>, <literal>recommends</literal>, <literal>supports</literal></para>
 				</listitem>
