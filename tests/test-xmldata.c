@@ -1426,15 +1426,18 @@ static const gchar *xmldata_relations = "<component>\n"
 					"    <kernel version=\"4.15\" compare=\"ge\">Linux</kernel>\n"
 					"    <id version=\"1.2\" compare=\"eq\">org.example.TestDependency</id>\n"
 					"    <display_length>small</display_length>\n"
+					"    <internet bandwidth_mbitps=\"2\">always</internet>\n"
 					"  </requires>\n"
 					"  <recommends>\n"
 					"    <memory>2500</memory>\n"
 					"    <modalias>usb:v1130p0202d*</modalias>\n"
 					"    <display_length side=\"longest\" compare=\"le\">4200</display_length>\n"
+					"    <internet>first-run</internet>\n"
 					"  </recommends>\n"
 					"  <supports>\n"
 					"    <control>gamepad</control>\n"
 					"    <control>keyboard</control>\n"
+					"    <internet>offline-only</internet>\n"
 					"  </supports>\n"
 					"</component>\n";
 /**
@@ -1458,9 +1461,13 @@ test_xml_read_relations (void)
 	requires = as_component_get_requires (cpt);
 	supports = as_component_get_supports (cpt);
 
-	g_assert_cmpint (requires->len, ==, 3);
-	g_assert_cmpint (recommends->len, ==, 3);
-	g_assert_cmpint (supports->len, ==, 2);
+	g_assert_cmpint (requires->len, ==, 4);
+	g_assert_cmpint (recommends->len, ==, 4);
+	g_assert_cmpint (supports->len, ==, 3);
+
+	/* component replacement */
+	g_assert_cmpint (as_component_get_replaces (cpt)->len, ==, 1);
+	g_assert_cmpstr (g_ptr_array_index (as_component_get_replaces (cpt), 0), ==, "org.example.old_test");
 
 	/* memory relation */
 	relation = AS_RELATION (g_ptr_array_index (recommends, 0));
@@ -1480,6 +1487,13 @@ test_xml_read_relations (void)
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
 	g_assert_cmpint (as_relation_get_value_px (relation), ==, 4200);
 	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_LE);
+
+	/* internet relation (REC) */
+	relation = AS_RELATION (g_ptr_array_index (recommends, 3));
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_RECOMMENDS);
+	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_INTERNET);
+	g_assert_cmpint (as_relation_get_value_internet_kind (relation), ==, AS_INTERNET_KIND_FIRST_RUN);
+	g_assert_cmpint (as_relation_get_value_internet_bandwidth (relation), ==, 0);
 
 	/* kernel relation */
 	relation = AS_RELATION (g_ptr_array_index (requires, 0));
@@ -1504,6 +1518,13 @@ test_xml_read_relations (void)
 	g_assert_cmpint (as_relation_get_value_display_length_kind (relation), ==, AS_DISPLAY_LENGTH_KIND_SMALL);
 	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_GE);
 
+	/* internet relation (REQ) */
+	relation = AS_RELATION (g_ptr_array_index (requires, 3));
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_REQUIRES);
+	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_INTERNET);
+	g_assert_cmpint (as_relation_get_value_internet_kind (relation), ==, AS_INTERNET_KIND_ALWAYS);
+	g_assert_cmpint (as_relation_get_value_internet_bandwidth (relation), ==, 2);
+
 	/* control relation */
 	relation = AS_RELATION (g_ptr_array_index (supports, 0));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_SUPPORTS);
@@ -1514,9 +1535,12 @@ test_xml_read_relations (void)
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_CONTROL);
 	g_assert_cmpint (as_relation_get_value_control_kind (relation), ==, AS_CONTROL_KIND_KEYBOARD);
 
-	/* component replacement */
-	g_assert_cmpint (as_component_get_replaces (cpt)->len, ==, 1);
-	g_assert_cmpstr (g_ptr_array_index (as_component_get_replaces (cpt), 0), ==, "org.example.old_test");
+	/* internet relation (supports) */
+	relation = AS_RELATION (g_ptr_array_index (supports, 2));
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_SUPPORTS);
+	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_INTERNET);
+	g_assert_cmpint (as_relation_get_value_internet_kind (relation), ==, AS_INTERNET_KIND_OFFLINE_ONLY);
+	g_assert_cmpint (as_relation_get_value_internet_bandwidth (relation), ==, 0);
 }
 
 /**
@@ -1537,6 +1561,9 @@ test_xml_write_relations (void)
 	g_autoptr(AsRelation) dl_relation2 = NULL;
 	g_autoptr(AsRelation) ctl_relation1 = NULL;
 	g_autoptr(AsRelation) ctl_relation2 = NULL;
+	g_autoptr(AsRelation) internet_relation1 = NULL;
+	g_autoptr(AsRelation) internet_relation2 = NULL;
+	g_autoptr(AsRelation) internet_relation3 = NULL;
 
 	cpt = as_component_new ();
 	as_component_set_id (cpt, "org.example.RelationsTest");
@@ -1549,6 +1576,9 @@ test_xml_write_relations (void)
 	dl_relation2 = as_relation_new ();
 	ctl_relation1 = as_relation_new ();
 	ctl_relation2 = as_relation_new ();
+	internet_relation1 = as_relation_new ();
+	internet_relation2 = as_relation_new ();
+	internet_relation3 = as_relation_new ();
 
 	as_relation_set_kind (mem_relation, AS_RELATION_KIND_RECOMMENDS);
 	as_relation_set_kind (moda_relation, AS_RELATION_KIND_RECOMMENDS);
@@ -1558,6 +1588,9 @@ test_xml_write_relations (void)
 	as_relation_set_kind (dl_relation2, AS_RELATION_KIND_REQUIRES);
 	as_relation_set_kind (ctl_relation1, AS_RELATION_KIND_SUPPORTS);
 	as_relation_set_kind (ctl_relation2, AS_RELATION_KIND_SUPPORTS);
+	as_relation_set_kind (internet_relation1, AS_RELATION_KIND_REQUIRES);
+	as_relation_set_kind (internet_relation2, AS_RELATION_KIND_RECOMMENDS);
+	as_relation_set_kind (internet_relation3, AS_RELATION_KIND_SUPPORTS);
 
 	as_relation_set_item_kind (mem_relation, AS_RELATION_ITEM_KIND_MEMORY);
 	as_relation_set_value_int (mem_relation, 2500);
@@ -1583,6 +1616,16 @@ test_xml_write_relations (void)
 	as_relation_set_value_display_length_kind (dl_relation2, AS_DISPLAY_LENGTH_KIND_SMALL);
 	as_relation_set_compare (dl_relation2, AS_RELATION_COMPARE_GE);
 
+	as_relation_set_item_kind (internet_relation1, AS_RELATION_ITEM_KIND_INTERNET);
+	as_relation_set_value_internet_kind (internet_relation1, AS_INTERNET_KIND_ALWAYS);
+	as_relation_set_value_internet_bandwidth (internet_relation1, 2);
+
+	as_relation_set_item_kind (internet_relation2, AS_RELATION_ITEM_KIND_INTERNET);
+	as_relation_set_value_internet_kind (internet_relation2, AS_INTERNET_KIND_FIRST_RUN);
+
+	as_relation_set_item_kind (internet_relation3, AS_RELATION_ITEM_KIND_INTERNET);
+	as_relation_set_value_internet_kind (internet_relation3, AS_INTERNET_KIND_OFFLINE_ONLY);
+
 	as_relation_set_item_kind (ctl_relation1, AS_RELATION_ITEM_KIND_CONTROL);
 	as_relation_set_item_kind (ctl_relation2, AS_RELATION_ITEM_KIND_CONTROL);
 	as_relation_set_value_control_kind (ctl_relation1, AS_CONTROL_KIND_GAMEPAD);
@@ -1596,6 +1639,9 @@ test_xml_write_relations (void)
 	as_component_add_relation (cpt, dl_relation2);
 	as_component_add_relation (cpt, ctl_relation1);
 	as_component_add_relation (cpt, ctl_relation2);
+	as_component_add_relation (cpt, internet_relation1);
+	as_component_add_relation (cpt, internet_relation2);
+	as_component_add_relation (cpt, internet_relation3);
 
 	as_component_add_replaces (cpt, "org.example.old_test");
 

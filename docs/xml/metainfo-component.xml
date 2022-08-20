@@ -1106,6 +1106,58 @@
 				</listitem>
 			</varlistentry>
 
+			<varlistentry id="tag-relations-internet">
+				<term>&lt;internet/&gt;</term>
+				<listitem>
+				<para>
+					Require, recommend or support connectivity to the internet. The value of this item one of the following:
+				</para>
+				<itemizedlist>
+					<listitem><para><code>always</code> - Needs internet connectivity to work. If used in a <literal>recommends</literal> element, then this indicates that the app can work without internet, but the experience will be significantly degraded.</para></listitem>
+					<listitem><para><code>offline-only</code> - Never uses the internet, even if it’s available.</para></listitem>
+					<listitem><para><code>first-run</code> - Uses the internet the first time the application is run, but not normally afterwards.</para></listitem>
+				</itemizedlist>
+				<para>
+					If the value of <literal>&lt;internet/&gt;</literal> is not <literal>offline-only</literal>, the <literal>bandwidth_mbitps</literal> attribute can be
+					set to a bandwidth (in Mbit/s) which is the minimum internet bandwidth needed for the application to be usable. If this attribute is not set, it’s
+					assumed that the application is usable with all internet connections.
+				</para>
+				<para>
+					Examples:
+				</para>
+				<programlisting language="XML"><![CDATA[<!-- always needs the internet -->
+<requires>
+  <internet>always</internet>
+</requires>
+
+<!-- always needs the internet and has a degraded experience if it’s not at least 2Mbit/s -->
+<requires>
+  <internet bandwidth_mbitps="2">always</internet>
+</requires>
+
+<!-- never uses the internet, even if available -->
+<requires>
+  <internet>never</internet>
+</requires>
+
+<!-- requires the internet on first run -->
+<requires>
+  <internet>first-run</internet>
+</requires>
+
+<!-- can work without the internet, but with a degraded experience -->
+<recommends>
+  <internet>always</internet>
+</recommends>
+
+<!-- recommends the internet for when it’s first run, but can work without -->
+<recommends>
+  <internet>first-run</internet>
+</recommends>]]></programlisting>
+				<para>Valid for: <literal>requires</literal>, <literal>recommends</literal>, <literal>supports</literal></para>
+				</listitem>
+			</varlistentry>
+
 			</variablelist>
 		</listitem>
 
