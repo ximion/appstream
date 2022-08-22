@@ -1488,18 +1488,27 @@ as_validator_check_relations (AsValidator *validator,
 		/* check internet for sanity */
 		if (item_kind == AS_RELATION_ITEM_KIND_INTERNET) {
 			g_autofree gchar *bandwidth_str = as_xml_get_prop_value (iter, "bandwidth_mbitps");
+			g_autofree gchar *internet_tag_id = g_strdup_printf ("rel::%s/internet", as_relation_kind_to_string (kind));
 			if (as_internet_kind_from_string (content) == AS_INTERNET_KIND_UNKNOWN)
 				as_validator_add_issue (validator, iter, "relation-internet-value-invalid", content);
 			if (bandwidth_str != NULL && !as_str_verify_integer (bandwidth_str, 1, G_MAXINT64))
 				as_validator_add_issue (validator, iter, "relation-internet-bandwidth-value-invalid", bandwidth_str);
+
+			/* the internet item must only appear once per relation kind */
+			if (g_hash_table_lookup (known_entries, internet_tag_id) == NULL)
+				g_hash_table_insert (known_entries,
+							g_steal_pointer (&internet_tag_id),
+							g_strdup (content));
+			else
+				as_validator_add_issue (validator, iter, "tag-duplicated", "internet");
 		}
 
 		/* check for redefinition */
-		rel_item_id = g_strdup_printf ("%s%s%s%s", node_name, content, compare_str, version);
+		rel_item_id = g_strdup_printf ("rel::%s/%s%s%s", node_name, content, compare_str, version);
 		rel_dupe_type = g_hash_table_lookup (known_entries, rel_item_id);
 		if (rel_dupe_type == NULL) {
 			g_hash_table_insert (known_entries,
-					     g_strdup (rel_item_id),
+					     g_steal_pointer (&rel_item_id),
 					     g_strdup (as_relation_kind_to_string (kind)));
 		} else {
 			as_validator_add_issue (validator,
