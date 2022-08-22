@@ -2845,7 +2845,10 @@ as_component_create_token_cache_target (AsComponent *cpt, AsComponent *donor, gu
 
 	tmp = as_component_get_name (cpt);
 	if (tmp != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_NAME)) {
+		const gchar *name_c = g_hash_table_lookup (priv->name, "C");
 		as_component_add_tokens (cpt, tmp, TRUE, AS_SEARCH_TOKEN_MATCH_NAME, tokens_out);
+		if (name_c != NULL && g_strcmp0 (tmp, name_c) != 0)
+			as_component_add_tokens (cpt, name_c, TRUE, AS_SEARCH_TOKEN_MATCH_NAME, tokens_out);
 	}
 
 	tmp = as_component_get_summary (cpt);
