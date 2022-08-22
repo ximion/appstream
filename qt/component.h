@@ -196,8 +196,12 @@ class APPSTREAMQT_EXPORT Component {
         QList<AppStream::Component> addons() const;
         void addAddon(const AppStream::Component& addon);
 
-        QList<AppStream::Relation> recommends() const;
+        QStringList replaces() const;
+        void addReplaces(const QString& cid);
+
         QList<AppStream::Relation> requires() const;
+        QList<AppStream::Relation> recommends() const;
+        QList<AppStream::Relation> supports() const;
         void addRelation(const AppStream::Relation &relation);
 
         QStringList languages() const;
@@ -266,6 +270,7 @@ class APPSTREAMQT_EXPORT Component {
         void removeTag(const QString &ns, const QString &tagName);
         void clearTags();
 
+        bool isFree() const;
         bool isIgnored() const;
         bool isValid() const;
 

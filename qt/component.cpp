@@ -351,27 +351,50 @@ void AppStream::Component::addAddon(const AppStream::Component& addon)
     as_component_add_addon(m_cpt, addon.asComponent());
 }
 
-QList<Relation> Component::recommends() const
+QStringList Component::replaces() const
 {
-    QList<AppStream::Relation> res;
+    return valueWrap(as_component_get_replaces(m_cpt));
+}
 
-    auto recommends = as_component_get_recommends (m_cpt);
-    res.reserve(recommends->len);
-    for (uint i = 0; i < recommends->len; i++) {
-        auto rel = AS_RELATION (g_ptr_array_index (recommends, i));
-        res.append(Relation(rel));
-    }
-    return res;
+void Component::addReplaces(const QString &cid)
+{
+    as_component_add_replaces(m_cpt, qPrintable(cid));
 }
 
 QList<Relation> Component::requires() const
 {
     QList<AppStream::Relation> res;
 
-    auto requires = as_component_get_requires (m_cpt);
+    auto requires = as_component_get_requires(m_cpt);
     res.reserve(requires->len);
     for (uint i = 0; i < requires->len; i++) {
-        auto rel = AS_RELATION (g_ptr_array_index (requires, i));
+        auto rel = AS_RELATION (g_ptr_array_index(requires, i));
+        res.append(Relation(rel));
+    }
+    return res;
+}
+
+QList<Relation> Component::recommends() const
+{
+    QList<AppStream::Relation> res;
+
+    auto recommends = as_component_get_recommends(m_cpt);
+    res.reserve(recommends->len);
+    for (uint i = 0; i < recommends->len; i++) {
+        auto rel = AS_RELATION (g_ptr_array_index(recommends, i));
+        res.append(Relation(rel));
+    }
+    return res;
+}
+
+QList<Relation> Component::supports() const
+{
+    QList<AppStream::Relation> res;
+
+    auto supports = as_component_get_supports(m_cpt);
+    res.reserve(supports->len);
+    for (uint i = 0; i < supports->len; i++) {
+        auto rel = AS_RELATION (g_ptr_array_index(supports, i));
         res.append(Relation(rel));
     }
     return res;
@@ -681,6 +704,11 @@ void Component::removeTag(const QString &ns, const QString &tagName)
 void Component::clearTags()
 {
     as_component_clear_tags(m_cpt);
+}
+
+bool Component::isFree() const
+{
+    return as_component_is_free(m_cpt);
 }
 
 bool AppStream::Component::isIgnored() const
