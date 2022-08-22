@@ -29,10 +29,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-08-22 13:44+0200\n"
-"PO-Revision-Date: 2022-08-08 09:22+0000\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"PO-Revision-Date: 2022-08-22 17:31+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1147,18 +1146,14 @@ msgstr ""
 "kullanın."
 
 #: src/as-validator-issue-tag.h:96
-#, fuzzy
 msgid "This tag is not translatable."
-msgstr "'%s' sorun etiketi tanınmıyor."
+msgstr "Bu etiket çevrilebilir değil."
 
 #: src/as-validator-issue-tag.h:101
-#, fuzzy
 msgid ""
 "This tag must only appear once in this context. Having multiple tags of this "
 "kind is not valid."
-msgstr ""
-"AppStream tanımlamasına göre, belirtilen etiket bu bağlamda yalnızca bir kez "
-"görünmelidir. Bu türden birden fazla etikete sahip olmak geçerli değildir."
+msgstr "Bu etiket bu bağlamda yalnızca bir kez görünmelidir. Bu türden birden fazla etikete sahip olmak geçerli değildir."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
@@ -1571,18 +1566,18 @@ msgstr ""
 msgid ""
 "A `memory` item must only contain a non-zero integer value, depicting a "
 "system memory size in mebibyte (MiB)"
-msgstr ""
+msgstr "`memory` ögesi, yalnızca MiB cinsinden sistem belleği boyutunu gösteren sıfır olmayan bir tam sayı değeri içermelidir"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:359
 msgid "The set tag value is not valid for an `internet` relation."
-msgstr ""
+msgstr "Ayarlanan etiket değeri bir `internet` ilişkisi için geçerli değildir."
 
 #: src/as-validator-issue-tag.h:364
 msgid ""
 "The value of this property must be a positive integer value, describing the "
 "minimum required bandwidth in mbit/s."
-msgstr ""
+msgstr "Bu özelliğin değeri, mbit/sn cinsinden gerekli asgari bant genişliğini tanımlayan pozitif bir tam sayı değeri olmalıdır."
 
 #: src/as-validator-issue-tag.h:369
 msgid ""
@@ -1725,7 +1720,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:489
 msgid "An URL of this type has already been defined."
-msgstr ""
+msgstr "Bu türde bir URL zaten tanımlandı."
 
 #: src/as-validator-issue-tag.h:494
 msgid "The <developer_name/> can not contain a hyperlink."
