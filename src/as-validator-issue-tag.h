@@ -98,7 +98,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "tag-duplicated",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("As per AppStream specification, the mentioned tag must only appear once in this context. Having multiple tags of this kind is not valid.")
+	  N_("This tag must only appear once in this context. Having multiple tags of this kind is not valid.")
 	},
 
 	{ "tag-empty",
