@@ -23,10 +23,12 @@
 
 #include <glib.h>
 #include <glib-object.h>
+#include <fnmatch.h>
 
 #include "as-utils.h"
 #include "as-utils-private.h"
 #include "as-stemmer.h"
+#include "as-spdx.h"
 
 #include "as-context-private.h"
 #include "as-icon-private.h"
@@ -3573,6 +3575,55 @@ as_component_set_branding (AsComponent *cpt, AsBranding *branding)
 	if (priv->branding != NULL)
 		g_object_unref (priv->branding);
 	priv->branding = g_object_ref (branding);
+}
+
+/**
+ * as_component_is_free:
+ * @cpt: a #AsComponent instance.
+ *
+ * Returns %TRUE if this component is free and open source software.
+ * To determine this status, this function will check if it comes
+ * from a vetted free-software-only source or whether its licenses
+ * are only free software licenses.
+ *
+ * Returns: %TRUE if this component is free software.
+ *
+ * Since: 0.15.5
+ */
+gboolean
+as_component_is_free (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	gboolean is_free = as_license_is_free_license (priv->project_license);
+	if (is_free)
+		return TRUE;
+
+	/* The license check yielded a non-free license, which is also returned
+	 * if no license was set. We also need to check the repository origin
+	 * for packaged components */
+	if (as_is_empty (priv->origin))
+		return FALSE;
+	if (as_utils_get_component_bundle_kind (cpt) == AS_BUNDLE_KIND_PACKAGE) {
+		gboolean ret;
+		g_auto(GStrv) origin_globs = NULL;
+		g_autoptr(GKeyFile) kf = g_key_file_new ();
+		ret = g_key_file_load_from_file (kf, AS_CONFIG_NAME, G_KEY_FILE_NONE, NULL);
+		if (!ret) {
+			g_debug ("Unable to read configuration file %s", AS_CONFIG_NAME);
+			return FALSE;
+		}
+		origin_globs = g_key_file_get_string_list (kf, "general", "FreeRepos", NULL, NULL);
+		if (origin_globs == NULL)
+			return FALSE;
+
+		/* return a free component if any of the origin wildcards matches */
+		for (guint i = 0; origin_globs[i] != NULL; i++) {
+			if (fnmatch (origin_globs[i], priv->origin, FNM_NOESCAPE) == 0)
+				return TRUE;
+		}
+	}
+
+	return is_free;
 }
 
 /**
