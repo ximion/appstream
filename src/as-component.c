@@ -3600,11 +3600,14 @@ as_component_is_free (AsComponent *cpt)
 
 	/* The license check yielded a non-free license, which is also returned
 	 * if no license was set. We also need to check the repository origin
-	 * for packaged components */
+	 * for packaged components
+	 * TODO: We probably want a lot of this logic in a singleton, so we don't parse
+	 * text files too often. */
 	if (as_is_empty (priv->origin))
 		return FALSE;
 	if (as_utils_get_component_bundle_kind (cpt) == AS_BUNDLE_KIND_PACKAGE) {
 		gboolean ret;
+		g_autofree gchar *distro_id = NULL;
 		g_auto(GStrv) origin_globs = NULL;
 		g_autoptr(GKeyFile) kf = g_key_file_new ();
 		ret = g_key_file_load_from_file (kf, AS_CONFIG_NAME, G_KEY_FILE_NONE, NULL);
@@ -3612,7 +3615,16 @@ as_component_is_free (AsComponent *cpt)
 			g_debug ("Unable to read configuration file %s", AS_CONFIG_NAME);
 			return FALSE;
 		}
-		origin_globs = g_key_file_get_string_list (kf, "general", "FreeRepos", NULL, NULL);
+#if GLIB_CHECK_VERSION(2,64,0)
+		distro_id = g_get_os_info (G_OS_INFO_KEY_ID);
+		if (distro_id == NULL) {
+			g_warning ("Unable to determine the ID for this operating system.");
+			return FALSE;
+		}
+#else
+		distro_id = g_strdup ("general");
+#endif
+		origin_globs = g_key_file_get_string_list (kf, distro_id, "FreeRepos", NULL, NULL);
 		if (origin_globs == NULL)
 			return FALSE;
 
