@@ -27,16 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-08-22 13:44+0200\n"
-"PO-Revision-Date: 2022-05-22 20:54+0000\n"
+"PO-Revision-Date: 2022-08-22 17:31+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1138,18 +1137,14 @@ msgstr ""
 "använd istället <url/>-taggen för att dela länkar."
 
 #: src/as-validator-issue-tag.h:96
-#, fuzzy
 msgid "This tag is not translatable."
-msgstr "Problemtaggen ”%s” känns inte igen."
+msgstr "Denna tagg är inte översättbar."
 
 #: src/as-validator-issue-tag.h:101
-#, fuzzy
 msgid ""
 "This tag must only appear once in this context. Having multiple tags of this "
 "kind is not valid."
-msgstr ""
-"Enligt AppStream-specifikationen får den nämnda taggen endast dyka upp en "
-"gång i denna kontext. Att ha flera taggar av denna sort är inte giltigt."
+msgstr "Denna tagg får endast dyka upp en gång i denna kontext. Att ha flera taggar av denna sort är inte giltigt."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
@@ -1556,18 +1551,18 @@ msgstr ""
 msgid ""
 "A `memory` item must only contain a non-zero integer value, depicting a "
 "system memory size in mebibyte (MiB)"
-msgstr ""
+msgstr "Ett `memory`-objekt får endast innehålla ett nollskilt heltalsvärde som beskriver en systemminnesstorlek i mebibyte (MiB)"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:359
 msgid "The set tag value is not valid for an `internet` relation."
-msgstr ""
+msgstr "Det satta taggvärdet är inte giltigt för en `internet`-relation."
 
 #: src/as-validator-issue-tag.h:364
 msgid ""
 "The value of this property must be a positive integer value, describing the "
 "minimum required bandwidth in mbit/s."
-msgstr ""
+msgstr "Värdet för denna egenskap måste vara ett positivt heltalsvärde som beskriver den minsta bandbredden som krävs i mbit/s."
 
 #: src/as-validator-issue-tag.h:369
 msgid ""
@@ -1712,7 +1707,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:489
 msgid "An URL of this type has already been defined."
-msgstr ""
+msgstr "En URL av denna typ har redan definierats."
 
 #: src/as-validator-issue-tag.h:494
 msgid "The <developer_name/> can not contain a hyperlink."
