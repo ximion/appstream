@@ -1399,6 +1399,7 @@ as_validator_check_relations (AsValidator *validator,
 		case AS_RELATION_ITEM_KIND_MODALIAS:
 		case AS_RELATION_ITEM_KIND_CONTROL:
 		case AS_RELATION_ITEM_KIND_HARDWARE:
+		case AS_RELATION_ITEM_KIND_INTERNET:
 			can_have_version = FALSE;
 			can_have_compare = FALSE;
 			break;
@@ -1483,6 +1484,15 @@ as_validator_check_relations (AsValidator *validator,
 		if (item_kind == AS_RELATION_ITEM_KIND_MEMORY)
 			if (!as_str_verify_integer (content, 1, G_MAXINT64))
 				as_validator_add_issue (validator, iter, "relation-memory-value-invalid", content);
+
+		/* check internet for sanity */
+		if (item_kind == AS_RELATION_ITEM_KIND_INTERNET) {
+			g_autofree gchar *bandwidth_str = as_xml_get_prop_value (iter, "bandwidth_mbitps");
+			if (as_internet_kind_from_string (content) == AS_INTERNET_KIND_UNKNOWN)
+				as_validator_add_issue (validator, iter, "relation-internet-value-invalid", content);
+			if (bandwidth_str != NULL && !as_str_verify_integer (bandwidth_str, 1, G_MAXINT64))
+				as_validator_add_issue (validator, iter, "relation-internet-bandwidth-value-invalid", bandwidth_str);
+		}
 
 		/* check for redefinition */
 		rel_item_id = g_strdup_printf ("%s%s%s%s", node_name, content, compare_str, version);

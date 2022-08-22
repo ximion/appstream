@@ -353,6 +353,17 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("A `memory` item must only contain a non-zero integer value, depicting a system memory size in mebibyte (MiB)")
 	},
 
+	{ "relation-internet-value-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The set tag value is not valid for an `internet` relation.")
+	},
+
+	{ "relation-internet-bandwidth-value-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The value of this property must be a positive integer value, describing the minimum required bandwidth in mbit/s.")
+	},
+
 	{ "component-type-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("The set component type is not a recognized, valid AppStream component type.")
