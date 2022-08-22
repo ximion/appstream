@@ -643,7 +643,7 @@ as_component_add_url (AsComponent *cpt, AsUrlKind url_kind, const gchar *url)
   *
   * Returns: (element-type utf8) (transfer none) (nullable): A #GPtrArray or %NULL if not set.
   *
-  * Since: 0.7.0
+  * Since: 0.15.5
 **/
 GPtrArray*
 as_component_get_extends (AsComponent *cpt)
@@ -659,7 +659,7 @@ as_component_get_extends (AsComponent *cpt)
  *
  * Add a reference to the extended component
  *
- * Since: 0.7.0
+ * Since: 0.15.5
  **/
 void
 as_component_add_extends (AsComponent* cpt, const gchar* cpt_id)
