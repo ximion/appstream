@@ -1271,8 +1271,8 @@ as_relation_to_xml_node (AsRelation *relation, AsContext *ctx, xmlNode *root)
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_INTERNET) {
 		if (priv->bandwidth_mbitps > 0) {
 			g_autofree gchar *bandwidth_str = g_strdup_printf ("%u", priv->bandwidth_mbitps);
-			xmlNewProp (n, (xmlChar*) "bandwidth_mbitps",
-				    (xmlChar*) bandwidth_str);
+			as_xml_add_text_prop (n, "bandwidth_mbitps",
+					      bandwidth_str);
 		}
 
 	} else if ((priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) || (priv->item_kind == AS_RELATION_ITEM_KIND_MEMORY)) {
