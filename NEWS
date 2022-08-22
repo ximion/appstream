@@ -1,3 +1,38 @@
+Version 0.15.5
+~~~~~~~~~~~~~~
+Released: 2022-08-22
+
+Features:
+ * validator: Allow severity downgrade of releases-not-in-order for GNOME
+ * validator: Perform stricter integer validation
+ * validator: Check for url redefinitions
+ * Implement the "replaces" tag
+ * Add convenience function that check if component is free by license and origin
+ * qt: Add wrappers for AsComponent isFree/supports/replaces
+ * Always add untranslated component names to the search index
+ * validator: Validate the "internet" relation item
+ * validator: Add validation for memory relation
+ * Implement internet relation item
+
+Specification:
+ * spec: Specify a proper "replaces" tag
+ * spec: Add an <internet/> kind to requires/recommends/supports
+
+Bugfixes:
+ * validator: Don't permit overriding the unknown root tag issue
+ * compose: Don't crash if metainfo file contains an invalid stock icon
+ * spdx: Fix possible crash when NULL is passed to is_free_license
+ * compose: Don't synthesize components for desktop files of settings apps
+ * Return the correct values in as_display_length_kind_from_px()
+ * validator: Distinguish translatable from not-translatable tags in duplicate checks
+
+Miscellaneous:
+ * Silence static analyzer false-positives based on GCC version
+ * data: use lxml to get the XDG categories
+
+Contributors:
+ JakobDev, Philip Withnall, Pino Toscano, Matthias Klumpp
+
 Version 0.15.4
 ~~~~~~~~~~~~~~
 Released: 2022-05-22
