@@ -1491,6 +1491,12 @@ as_validator_check_relations (AsValidator *validator,
 			g_autofree gchar *internet_tag_id = g_strdup_printf ("rel::%s/internet", as_relation_kind_to_string (kind));
 			if (as_internet_kind_from_string (content) == AS_INTERNET_KIND_UNKNOWN)
 				as_validator_add_issue (validator, iter, "relation-internet-value-invalid", content);
+
+			/* check if bandwidth_mbitps does not exists when value is offline-only */
+			if (bandwidth_str != NULL && as_internet_kind_from_string (content) == AS_INTERNET_KIND_OFFLINE_ONLY)
+				as_validator_add_issue (validator, iter, "relation-internet-bandwidth-offline", NULL);
+
+			/* check if bandwidth_mbitps is a integer */
 			if (bandwidth_str != NULL && !as_str_verify_integer (bandwidth_str, 1, G_MAXINT64))
 				as_validator_add_issue (validator, iter, "relation-internet-bandwidth-value-invalid", bandwidth_str);
 

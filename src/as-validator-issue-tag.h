@@ -359,6 +359,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The set tag value is not valid for an `internet` relation.")
 	},
 
+	{ "relation-internet-bandwidth-offline",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The `bandwidth_mbitps` property is not allowed when using `offline-only` as value.")
+	},
+
 	{ "relation-internet-bandwidth-value-invalid",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("The value of this property must be a positive integer value, describing the minimum required bandwidth in mbit/s.")
