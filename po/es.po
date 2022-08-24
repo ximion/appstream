@@ -6,7 +6,7 @@
 # Adolfo Jayme-Barrientos, 2014
 # Adolfo Jayme-Barrientos, 2016
 # advocatux <advocatux@airpost.net>, 2019, 2021.
-# Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2019, 2020, 2021.
+# Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2019, 2020, 2021, 2022.
 # Katerina Katapodi <katerinakatapodi@gmail.com>, 2019, 2021.
 # Robert Schneider <robertschneider1999.rs@gmail.com>, 2019.
 # J <joaquinfc@protonmail.com>, 2019.
@@ -35,16 +35,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-08-22 13:44+0200\n"
-"PO-Revision-Date: 2022-06-13 10:21+0000\n"
-"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
-"translations/es/>\n"
+"PO-Revision-Date: 2022-08-24 02:20+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1159,17 +1158,13 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:96
 msgid "This tag is not translatable."
-msgstr ""
+msgstr "Esta etiqueta no es traducible."
 
 #: src/as-validator-issue-tag.h:101
-#, fuzzy
 msgid ""
 "This tag must only appear once in this context. Having multiple tags of this "
 "kind is not valid."
-msgstr ""
-"De acuerdo con la especificación AppStream, la etiqueta mencionada ha de "
-"aparecer sólo una vez en este contexto. No es válido tener varias etiquetas "
-"de este tipo."
+msgstr "Esta etiqueta ha de aparecer solo una vez en este contexto. No es válido tener varias etiquetas de este tipo."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
@@ -1755,7 +1750,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:489
 msgid "An URL of this type has already been defined."
-msgstr ""
+msgstr "Ya se definió un URL de este tipo."
 
 #: src/as-validator-issue-tag.h:494
 msgid "The <developer_name/> can not contain a hyperlink."
@@ -2598,7 +2593,7 @@ msgstr "¡Éxito!"
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstreamcli.c:60
 msgid "Manually selected location of AppStream cache."
-msgstr "Ubicación seleccionada manualmente de la caché de AppStream."
+msgstr "Ubicación seleccionada manualmente de la antememoria de AppStream."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstreamcli.c:65
@@ -2610,9 +2605,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
-"Ignora la antigüedad de la caché y construye una caché nueva antes de "
-"realizar la consulta."
+msgstr "Ignora la antigüedad de la antememoria y construye una nueva antes de efectuar la consulta."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
@@ -2693,16 +2686,14 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:262
 msgid "Enforce a cache refresh."
-msgstr "Forzar la actualización de la caché."
+msgstr "Forzar la actualización de la antememoria."
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
 #: tools/appstreamcli.c:268
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
-"Limita la actualización de la caché a los datos de una fuente específica, "
-"por ejemplo, `os` o `flatpak`. Puede especificarse varias veces."
+msgstr "Limita la actualización de la antememoria a los datos de una fuente específica, como `os` o `flatpak`. Puede especificarse varias veces."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:508
@@ -2838,8 +2829,7 @@ msgstr "Generar la salida en el formato seleccionado («yaml» o «text»)."
 #: tools/appstreamcli.c:1022
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
-msgstr ""
-"¡No se ha encontrado el binario de composición '%s'! No se puede continuar."
+msgstr "No se encontró el binario de composición «%s». No se puede continuar."
 
 #: tools/appstreamcli.c:1023
 #, c-format
@@ -2855,7 +2845,7 @@ msgstr "Número de parámetros no válido"
 #: tools/appstreamcli.c:1091
 #, c-format
 msgid "(Alias: '%s')"
-msgstr "(Alias: '%s')"
+msgstr "(Alias: «%s»)"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstreamcli.c:1119
@@ -2887,7 +2877,7 @@ msgstr "Mostrar información adicional de depuración."
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstreamcli.c:1231
 msgid "Enable profiling"
-msgstr "Habilitar profiling"
+msgstr "Activar perfilado"
 
 #. TRANSLATORS: `appstreamcli search` command description.
 #: tools/appstreamcli.c:1243
@@ -2919,7 +2909,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
 #: tools/appstreamcli.c:1264
 msgid "Rebuild the component metadata cache."
-msgstr "Reconstruir la caché de metadatos del componente."
+msgstr "Reconstruir la antememoria de metadatos del componente."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
 #: tools/appstreamcli.c:1270
@@ -3024,16 +3014,15 @@ msgstr "Debe especificar una orden."
 #. TRANSLATORS: In ascli: Status information during a "refresh" action.
 #: tools/ascli-actions-mdata.c:48
 msgid "Only refreshing metadata cache specific to the current user."
-msgstr "Sólo refresca la caché de metadatos específica del usuario actual."
+msgstr "Solo se actualiza la antememoria de metadatos específica de la cuenta de usuario actual."
 
 #: tools/ascli-actions-mdata.c:59
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
-"Actualizando la caché de metadatos de software para el sistema operativo."
+msgstr "Actualizando la antememoria de metadatos de software del sistema operativo."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for Flatpak."
-msgstr "Actualizando la caché de metadatos de software para Flatpak."
+msgstr "Actualizando la antememoria de metadatos de software de Flatpak."
 
 #: tools/ascli-actions-mdata.c:64
 #, c-format
@@ -3050,12 +3039,12 @@ msgstr ""
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
 msgid "Metadata cache was updated successfully."
-msgstr "La caché de metadatos se ha actualizado con éxito."
+msgstr "Se actualizó la antememoria de metadatos correctamente."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:102
 msgid "Metadata cache update is not necessary."
-msgstr "La actualización de la caché de metadatos no es necesaria."
+msgstr "No hace falta actualizar la antememoria de metadatos."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
