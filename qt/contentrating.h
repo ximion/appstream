@@ -70,6 +70,9 @@ class APPSTREAMQT_EXPORT ContentRating {
         RatingValue value(const QString& id) const;
         void setValue(const QString& id, RatingValue ratingValue);
 
+        QStringList ratingIds() const;
+        QString description(const QString& id) const;
+
     private:
         QSharedDataPointer<ContentRatingData> d;
 };

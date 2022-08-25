@@ -41,6 +41,17 @@ inline QStringList valueWrap(gchar **strv)
     return res;
 }
 
+inline QStringList valueWrap(const gchar **strv)
+{
+    QStringList res;
+    if (strv == NULL)
+        return res;
+    for (uint i = 0; strv[i] != NULL; i++) {
+        res.append (QString::fromUtf8(strv[i]));
+    }
+    return res;
+}
+
 inline QStringList valueWrap(GPtrArray *array)
 {
     QStringList res;
