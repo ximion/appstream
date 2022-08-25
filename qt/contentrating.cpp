@@ -121,9 +121,18 @@ void AppStream::ContentRating::setValue(const QString& id, AppStream::ContentRat
     as_content_rating_set_value(d->m_contentRating, qPrintable(id), (AsContentRatingValue) ratingValue);
 }
 
+QString AppStream::ContentRating::description(const QString& id) const
+{
+    return QString::fromUtf8(as_content_rating_attribute_get_description(qPrintable(id), as_content_rating_get_value(d->m_contentRating, qPrintable(id))));
+}
+
+QStringList AppStream::ContentRating::ratingIds() const
+{
+    return AppStream::valueWrap(as_content_rating_get_rating_ids(d->m_contentRating));
+}
+
 QDebug operator<<(QDebug s, const AppStream::ContentRating& contentRating)
 {
     s.nospace() << "AppStream::ContentRating(" << contentRating.kind() << contentRating.minimumAge() << ")";
     return s.space();
 }
-
