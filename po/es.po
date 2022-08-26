@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-08-22 13:44+0200\n"
-"PO-Revision-Date: 2022-08-26 03:20+0000\n"
+"PO-Revision-Date: 2022-08-26 16:18+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
@@ -2099,11 +2099,7 @@ msgid ""
 "value. This might not be intended, as this will hide the application from "
 "all desktops. If you do want to hide the application from all desktops, "
 "using 'NoDisplay=true' is more explicit."
-msgstr ""
-"Este archivo de entrada de escritorio tiene la propiedad 'OnlyShowIn' "
-"establecida con un valor vacío. Esta podría no ser la intención, ya que "
-"ocultará la aplicación de todos los escritorios. Si quiere ocultar la "
-"aplicación de todos los escritorios, usar 'NoDisplay=true' es más explícito."
+msgstr "Este archivo de entrada de escritorio tiene la propiedad «OnlyShowIn» establecida con un valor vacío. Esta podría no ser la intención, ya que ocultará la aplicación de todos los escritorios. Si quiere ocultar la aplicación de todos los escritorios, usar «NoDisplay=true» es más explícito."
 
 #: src/as-validator-issue-tag.h:741
 msgid "No AppStream metadata was found in this directory or directory tree."
@@ -2505,7 +2501,7 @@ msgstr ""
 #: tools/appstream-compose.c:296
 #, c-format
 msgid "Automatically selected '%s' as data output location."
-msgstr "Seleccionado automáticamente '%s' como ubicación de salida de datos."
+msgstr "Se seleccionó automáticamente «%s» como ubicación de salida de datos."
 
 #. TRANSLATORS: we don't have a destination directory for compose
 #: tools/appstream-compose.c:299
@@ -3017,7 +3013,7 @@ msgstr "Actualizando la antememoria de metadatos de software de Flatpak."
 #: tools/ascli-actions-mdata.c:64
 #, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "¡No existe un grupo de fuentes de metadatos con el nombre '%s'!"
+msgstr "No existe un grupo de fuentes de metadatos llamado «%s»."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
