@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-08-22 13:44+0200\n"
-"PO-Revision-Date: 2022-08-24 02:20+0000\n"
+"PO-Revision-Date: 2022-08-26 00:16+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
@@ -234,7 +234,7 @@ msgstr "Digitalización"
 #: src/as-category.c:178
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr "Gráficos vectorizados"
+msgstr "Gráficos vectoriales"
 
 #: src/as-category.c:181
 msgctxt "Category of Graphics"
@@ -439,7 +439,7 @@ msgstr "TODO"
 
 #: src/as-content-rating.c:457 src/as-content-rating.c:560
 msgid "Adults Only"
-msgstr "Sólo adultos"
+msgstr "Solo para adultos"
 
 #: src/as-content-rating.c:459 src/as-content-rating.c:559
 msgid "Mature"
@@ -451,7 +451,7 @@ msgstr "Adolescentes"
 
 #: src/as-content-rating.c:463 src/as-content-rating.c:557
 msgid "Everyone 10+"
-msgstr "Todos los de 10+"
+msgstr "A partir de 10 años"
 
 #: src/as-content-rating.c:465 src/as-content-rating.c:556
 msgid "Everyone"
@@ -511,7 +511,7 @@ msgstr "Sin violencia realista"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:863
 msgid "Mildly realistic characters in unsafe situations"
-msgstr "Personajes semi-realistas en situaciones no seguras"
+msgstr "Personajes semirrealistas en situaciones no seguras"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:865
@@ -586,7 +586,7 @@ msgstr "Uso de drogas ilegales"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:912
 msgid "No references to tobacco products"
-msgstr "Si referencias al tabaco"
+msgstr "Sin referencias al tabaco"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:914
@@ -1461,9 +1461,7 @@ msgstr ""
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Un ítem 'require ' o 'recommends' necesita un valor para indicar una "
-"relación válida."
+msgstr "Los elementos «requires» o «recommends» necesitan un valor para indicar una relación válida."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:285
@@ -2095,11 +2093,7 @@ msgid ""
 "vendor-installed .desktop files, and nullifies all effects this .desktop "
 "file has (including MIME associations), which most certainly is not "
 "intentional."
-msgstr ""
-"Este archivo desktop-entry tiene la propiedad 'Hidden' establecida. Esto es "
-"incorrecto para los archivos .desktop instalados por el proveedor, y anula "
-"todos los efectos que tiene este archivo .desktop (incluyendo las "
-"asociaciones MIME), lo que seguramente no es intencional."
+msgstr "Este archivo de entrada de escritorio tiene la propiedad «Hidden» establecida. Esto es incorrecto para los archivos .desktop instalados por el proveedor y anula todos los efectos que tiene este archivo .desktop (incluidas las asociaciones MIME), lo que seguramente no es intencional."
 
 #: src/as-validator-issue-tag.h:735
 msgid ""
@@ -2518,9 +2512,7 @@ msgstr "Seleccionado automáticamente '%s' como ubicación de salida de datos."
 #. TRANSLATORS: we don't have a destination directory for compose
 #: tools/appstream-compose.c:299
 msgid "No destination directory set, please provide a data output location!"
-msgstr ""
-"No se ha establecido ningún directorio de destino, ¡por favor, indique una "
-"ubicación de salida de datos!"
+msgstr "No se ha establecido ningún directorio de destino. Proporcione una ubicación para la salida de datos."
 
 #: tools/appstream-compose.c:309 tools/appstream-compose.c:311
 msgid "WARNING"
@@ -2530,13 +2522,13 @@ msgstr "ADVERTENCIA"
 #: tools/appstream-compose.c:348
 #, c-format
 msgid "Only accepting components: %s"
-msgstr "Sólo se aceptan componentes: %s"
+msgstr "Solo se aceptan componentes: %s"
 
 #. TRANSLATORS: information about as-compose allowlist
 #: tools/appstream-compose.c:351
 #, c-format
 msgid "Only accepting component: %s"
-msgstr "Sólo se acepta el componente: %s"
+msgstr "Solo se acepta el componente: %s"
 
 #. TRANSLATORS: information about as-compose units to be processed
 #: tools/appstream-compose.c:356
@@ -2566,7 +2558,7 @@ msgstr "Fallo al componer los metadatos de AppStream"
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:391
 msgid "Run failed, some data was ignored."
-msgstr "La ejecución ha fallado, algunos datos han sido ignorados."
+msgstr "La ejecución ha fallado; algunos datos se han ignorado."
 
 #. TRANSLATORS: information message of appstream-compose
 #: tools/appstream-compose.c:393
