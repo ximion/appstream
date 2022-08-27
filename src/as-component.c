@@ -478,8 +478,7 @@ as_component_invalidate_data_id (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	if (priv->data_id == NULL)
 		return;
-	g_free (priv->data_id);
-	priv->data_id = NULL;
+	g_free (g_steal_pointer (&priv->data_id));
 }
 
 /**
@@ -3683,8 +3682,7 @@ as_component_set_context (AsComponent *cpt, AsContext *context)
 	as_ref_string_assign_safe (&priv->active_locale_override, NULL);
 	as_ref_string_assign_safe (&priv->origin, NULL);
 
-	g_free (priv->arch);
-	priv->arch = NULL;
+	g_free (g_steal_pointer (&priv->arch));
 }
 
 /**

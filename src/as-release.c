@@ -691,8 +691,7 @@ as_release_set_context (AsRelease *release, AsContext *context)
 	priv->context = g_object_ref (context);
 
 	/* reset individual properties, so the new context overrides them */
-	g_free (priv->active_locale_override);
-	priv->active_locale_override = NULL;
+	g_free (g_steal_pointer (&priv->active_locale_override));
 }
 
 /**

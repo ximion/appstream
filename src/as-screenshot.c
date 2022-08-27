@@ -513,8 +513,7 @@ as_screenshot_set_context (AsScreenshot *screenshot, AsContext *context)
 	priv->context = g_object_ref (context);
 
 	/* reset individual properties, so the new context overrides them */
-	g_free (priv->active_locale_override);
-	priv->active_locale_override = NULL;
+	g_free (g_steal_pointer (&priv->active_locale_override));
 
 	as_screenshot_rebuild_suitable_media_list (screenshot);
 }

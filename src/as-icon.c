@@ -252,8 +252,7 @@ as_icon_set_filename (AsIcon *icon, const gchar *filename)
 
 	/* invalidate URL */
 	if (priv->url != NULL) {
-		g_free (priv->url);
-		priv->url = NULL;
+		g_free (g_steal_pointer (&priv->url));
 	}
 }
 

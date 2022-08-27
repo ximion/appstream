@@ -141,8 +141,7 @@ as_xml_get_node_locale_match (AsContext *ctx, xmlNode *node)
 	/* If we are here, we haven't found a matching locale.
 	 * In that case, we return %NULL to indicate that this element should not be added.
 	 */
-	g_free (lang);
-	lang = NULL;
+	g_free (g_steal_pointer (&lang));
 
 out:
 	return lang;

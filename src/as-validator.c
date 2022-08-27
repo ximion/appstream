@@ -230,8 +230,7 @@ static void
 as_validator_clear_current_fname (AsValidator *validator)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
-	g_free (priv->current_fname);
-	priv->current_fname = NULL;
+	g_free (g_steal_pointer (&priv->current_fname));
 }
 
 /**
