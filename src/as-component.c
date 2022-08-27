@@ -4610,9 +4610,9 @@ as_component_xml_serialize_languages (AsComponent *cpt, xmlNode *cptnode)
 		percentage_str = g_strdup_printf("%i", percentage);
 
 		l_node = as_xml_add_text_node (node, "lang", locale);
-		xmlNewProp (l_node,
-			    (xmlChar*) "percentage",
-			    (xmlChar*) percentage_str);
+		as_xml_add_text_prop (l_node,
+				      "percentage",
+				      percentage_str);
 	}
 }
 
@@ -4642,8 +4642,9 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 			kind_str = "desktop";
 		else
 			kind_str = as_component_kind_to_string (priv->kind);
-		xmlNewProp (cnode, (xmlChar*) "type",
-					(xmlChar*) kind_str);
+		as_xml_add_text_prop (cnode,
+				      "type",
+				      kind_str);
 	}
 
 	/* set end-of-life date */
@@ -4659,13 +4660,16 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
 		/* write some propties which only exist in collection XML */
 		if (priv->merge_kind != AS_MERGE_KIND_NONE) {
-			xmlNewProp (cnode, (xmlChar*) "merge",
-						(xmlChar*) as_merge_kind_to_string (priv->merge_kind));
+			as_xml_add_text_prop (cnode,
+					      "merge",
+					      as_merge_kind_to_string (priv->merge_kind));
 		}
 
 		if (priv->priority != 0) {
 			g_autofree gchar *priority_str = g_strdup_printf ("%i", priv->priority);
-			xmlNewProp (cnode, (xmlChar*) "priority", (xmlChar*) priority_str);
+			as_xml_add_text_prop (cnode,
+					      "priority",
+					      priority_str);
 		}
 	}
 
@@ -4773,8 +4777,9 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 			continue;
 
 		n = as_xml_add_text_node (cnode, "url", value);
-		xmlNewProp (n, (xmlChar*) "type",
-					(xmlChar*) as_url_kind_to_string (i));
+		as_xml_add_text_prop (n,
+				      "type",
+				      as_url_kind_to_string (i));
 	}
 
 	/* software sorting catgories */

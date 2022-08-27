@@ -604,7 +604,7 @@ as_screenshot_to_xml_node (AsScreenshot *screenshot, AsContext *ctx, xmlNode *ro
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 	xmlNode *subnode;
 
-	subnode = xmlNewChild (root, NULL, (xmlChar*) "screenshot", NULL);
+	subnode = as_xml_add_node (root, "screenshot");
 	if (priv->kind == AS_SCREENSHOT_KIND_DEFAULT)
 		as_xml_add_text_prop (subnode, "type", "default");
 

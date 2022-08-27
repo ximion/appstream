@@ -1936,7 +1936,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	as_validator_set_current_cpt (validator, cpt);
 
 	/* check if component type is valid */
-	cpttype = as_xml_get_prop_value (root, (xmlChar*) "type");
+	cpttype = as_xml_get_prop_value (root, "type");
 	if (cpttype != NULL) {
 		if (as_component_kind_from_string (cpttype) == AS_COMPONENT_KIND_UNKNOWN) {
 			as_validator_add_issue (validator, root,
@@ -1990,7 +1990,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			node_content = as_strstripnl (node_content);
 
 		if (g_strcmp0 (node_name, "id") == 0) {
-			g_autofree gchar *prop = as_xml_get_prop_value (iter, (xmlChar*) "type");
+			g_autofree gchar *prop = as_xml_get_prop_value (iter, "type");
 			if (prop != NULL) {
 				as_validator_add_issue (validator, iter, "id-tag-has-type", node_content);
 			}

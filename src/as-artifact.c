@@ -432,7 +432,7 @@ as_artifact_load_from_xml (AsArtifact *artifact, AsContext *ctx, xmlNode *node, 
 				as_artifact_add_checksum (artifact, cs);
 		} else if (g_strcmp0 ((gchar*) iter->name, "size") == 0) {
 			AsSizeKind s_kind;
-			gchar *prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+			gchar *prop = as_xml_get_prop_value (iter, "type");
 
 			s_kind = as_size_kind_from_string (prop);
 			if (s_kind != AS_SIZE_KIND_UNKNOWN) {
@@ -467,7 +467,7 @@ as_artifact_to_xml_node (AsArtifact *artifact, AsContext *ctx, xmlNode *root)
 	if (priv->kind == AS_ARTIFACT_KIND_UNKNOWN)
 		return;
 
-	n_artifact = xmlNewChild (root, NULL, (xmlChar*) "artifact", (xmlChar*) "");
+	n_artifact = as_xml_add_node (root, "artifact");
 
 	as_xml_add_text_prop (n_artifact,
 			      "type",

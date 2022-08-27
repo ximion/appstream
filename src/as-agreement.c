@@ -339,7 +339,7 @@ as_agreement_to_xml_node (AsAgreement *agreement, AsContext *ctx, xmlNode *root)
 	xmlNode *agnode;
 	guint i;
 
-	agnode = xmlNewChild (root, NULL, (xmlChar*) "agreement", (xmlChar*) "");
+	agnode = as_xml_add_node (root, "agreement");
 	as_xml_add_text_prop (agnode, "type", as_agreement_kind_to_string (priv->kind));
 	as_xml_add_text_prop (agnode, "version_id", priv->version_id);
 

@@ -1030,9 +1030,12 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 
 	/* set release version */
 	subnode = as_xml_add_node (root, "release");
-	xmlNewProp (subnode, (xmlChar*) "type",
-		    (xmlChar*) as_release_kind_to_string (priv->kind));
-	xmlNewProp (subnode, (xmlChar*) "version", (xmlChar*) priv->version);
+	as_xml_add_text_prop (subnode,
+			      "type",
+			      as_release_kind_to_string (priv->kind));
+	as_xml_add_text_prop (subnode,
+			      "version",
+			      priv->version);
 
 	/* set release timestamp / date */
 	if (priv->timestamp > 0) {
@@ -1040,13 +1043,15 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 
 		if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
 			time_str = g_strdup_printf ("%" G_GUINT64_FORMAT, priv->timestamp);
-			xmlNewProp (subnode, (xmlChar*) "timestamp",
-					(xmlChar*) time_str);
+			as_xml_add_text_prop (subnode,
+						"timestamp",
+						time_str);
 		} else {
 			g_autoptr(GDateTime) time = g_date_time_new_from_unix_utc (priv->timestamp);
 			time_str = g_date_time_format_iso8601 (time);
-			xmlNewProp (subnode, (xmlChar*) "date",
-					(xmlChar*) time_str);
+			as_xml_add_text_prop (subnode,
+						"date",
+						time_str);
 		}
 	}
 

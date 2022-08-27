@@ -877,7 +877,7 @@ as_review_to_xml_node (AsReview *review, AsContext *ctx, xmlNode *root)
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 	xmlNode *n_review;
 
-	n_review = xmlNewChild (root, NULL, (xmlChar*) "review", (xmlChar*) "");
+	n_review = as_xml_add_node (root, "review");
 	if (priv->id != NULL) {
 		as_xml_add_text_prop (n_review, "id", priv->id);
 	}

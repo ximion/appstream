@@ -1486,7 +1486,7 @@ as_content_rating_to_xml_node (AsContentRating *content_rating, AsContext *ctx, 
 	guint i;
 	xmlNode *rnode;
 
-	rnode = xmlNewChild (root, NULL, (xmlChar*) "content_rating", NULL);
+	rnode = as_xml_add_node (root, "content_rating");
 	as_xml_add_text_prop (rnode, "type", priv->kind);
 
 	for (i = 0; i < priv->keys->len; i++) {
