@@ -4491,7 +4491,7 @@ as_component_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 	if (priv->provided->len == 0)
 		return;
 
-	node = xmlNewChild (cnode, NULL, (xmlChar*) "provides", NULL);
+	node = as_xml_add_node (cnode, "provides");
 	for (guint i = 0; i < priv->provided->len; i++) {
 		guint j;
 		AsProvided *prov = AS_PROVIDED (g_ptr_array_index (priv->provided, i));
@@ -4541,9 +4541,9 @@ as_component_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 			case AS_PROVIDED_KIND_FIRMWARE_RUNTIME:
 				for (j = 0; j < items->len; j++) {
 					xmlNode *n;
-					n = xmlNewTextChild (node, NULL,
-							     (xmlChar*) "firmware",
-							     (xmlChar*) g_ptr_array_index (items, j));
+					n = as_xml_add_text_node (node,
+								  "firmware",
+								  g_ptr_array_index (items, j));
 					xmlNewProp (n,
 						    (xmlChar*) "type",
 						    (xmlChar*) "runtime");
@@ -4552,9 +4552,9 @@ as_component_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 			case AS_PROVIDED_KIND_FIRMWARE_FLASHED:
 				for (j = 0; j < items->len; j++) {
 					xmlNode *n;
-					n = xmlNewTextChild (node, NULL,
-							     (xmlChar*) "firmware",
-							     (xmlChar*) g_ptr_array_index (items, j));
+					n = as_xml_add_text_node (node,
+								  "firmware",
+								  g_ptr_array_index (items, j));
 					xmlNewProp (n,
 						    (xmlChar*) "type",
 						    (xmlChar*) "flashed");
@@ -4563,9 +4563,9 @@ as_component_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 			case AS_PROVIDED_KIND_DBUS_SYSTEM:
 				for (j = 0; j < items->len; j++) {
 					xmlNode *n;
-					n = xmlNewTextChild (node, NULL,
-							     (xmlChar*) "dbus",
-							     (xmlChar*) g_ptr_array_index (items, j));
+					n = as_xml_add_text_node (node,
+								  "dbus",
+								  g_ptr_array_index (items, j));
 					xmlNewProp (n,
 						    (xmlChar*) "type",
 						    (xmlChar*) "system");
@@ -4574,9 +4574,9 @@ as_component_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 			case AS_PROVIDED_KIND_DBUS_USER:
 				for (j = 0; j < items->len; j++) {
 					xmlNode *n;
-					n = xmlNewTextChild (node, NULL,
-							     (xmlChar*) "dbus",
-							     (xmlChar*) g_ptr_array_index (items, j));
+					n = as_xml_add_text_node (node,
+								  "dbus",
+								  g_ptr_array_index (items, j));
 					xmlNewProp (n,
 						    (xmlChar*) "type",
 						    (xmlChar*) "user");
@@ -4604,7 +4604,7 @@ as_component_xml_serialize_languages (AsComponent *cpt, xmlNode *cptnode)
 	if (g_hash_table_size (priv->languages) == 0)
 		return;
 
-	node = xmlNewChild (cptnode, NULL, (xmlChar*) "languages", NULL);
+	node = as_xml_add_node (cptnode, "languages");
 	keys = g_hash_table_get_keys (priv->languages);
 	keys = g_list_sort (keys, (GCompareFunc) g_strcmp0);
 	for (link = keys; link != NULL; link = link->next) {
@@ -4617,10 +4617,7 @@ as_component_xml_serialize_languages (AsComponent *cpt, xmlNode *cptnode)
 		percentage = GPOINTER_TO_INT (g_hash_table_lookup (priv->languages, locale));
 		percentage_str = g_strdup_printf("%i", percentage);
 
-		l_node = xmlNewTextChild (node,
-					  NULL,
-					  (xmlChar*) "lang",
-					  (xmlChar*) locale);
+		l_node = as_xml_add_text_node (node, "lang", locale);
 		xmlNewProp (l_node,
 			    (xmlChar*) "percentage",
 			    (xmlChar*) percentage_str);
@@ -4645,7 +4642,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	if (root == NULL)
 		cnode = xmlNewNode (NULL, (xmlChar*) "component");
 	else
-		cnode = xmlNewChild (root, NULL, (xmlChar*) "component", NULL);
+		cnode = as_xml_add_node (root, "component");
 
 	if ((priv->kind != AS_COMPONENT_KIND_GENERIC) && (priv->kind != AS_COMPONENT_KIND_UNKNOWN)) {
 		const gchar *kind_str;
@@ -4717,7 +4714,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 	/* requires */
 	if (priv->requires->len > 0) {
-		xmlNode *rqnode = xmlNewChild (cnode, NULL, (xmlChar*) "requires", NULL);
+		xmlNode *rqnode = as_xml_add_node (cnode, "requires");
 
 		for (guint i = 0; i < priv->requires->len; i++) {
 			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->requires, i));
@@ -4727,7 +4724,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 	/* recommends */
 	if (priv->recommends->len > 0) {
-		xmlNode *rcnode = xmlNewChild (cnode, NULL, (xmlChar*) "recommends", NULL);
+		xmlNode *rcnode = as_xml_add_node (cnode, "recommends");
 
 		for (guint i = 0; i < priv->recommends->len; i++) {
 			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->recommends, i));
@@ -4737,7 +4734,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 	/* supports */
 	if (priv->supports->len > 0) {
-		xmlNode *rcnode = xmlNewChild (cnode, NULL, (xmlChar*) "supports", NULL);
+		xmlNode *rcnode = as_xml_add_node (cnode, "supports");
 
 		for (guint i = 0; i < priv->supports->len; i++) {
 			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->supports, i));
@@ -4783,7 +4780,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 		if (value == NULL)
 			continue;
 
-		n = xmlNewTextChild (cnode, NULL, (xmlChar*) "url", (xmlChar*) value);
+		n = as_xml_add_text_node (cnode, "url", value);
 		xmlNewProp (n, (xmlChar*) "type",
 					(xmlChar*) as_url_kind_to_string (i));
 	}
@@ -4807,7 +4804,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 	/* screenshots */
 	if (priv->screenshots->len > 0) {
-		xmlNode *rnode = xmlNewChild (cnode, NULL, (xmlChar*) "screenshots", NULL);
+		xmlNode *rnode = as_xml_add_node (cnode, "screenshots");
 
 		for (guint i = 0; i < priv->screenshots->len; i++) {
 			AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
@@ -4830,7 +4827,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 	/* releases */
 	if (priv->releases->len > 0) {
-		xmlNode *rnode = xmlNewChild (cnode, NULL, (xmlChar*) "releases", NULL);
+		xmlNode *rnode = as_xml_add_node (cnode, "releases");
 
 		/* ensure releases are sorted, then emit XML nodes */
 		as_component_sort_releases (cpt);
@@ -4848,10 +4845,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 	/* tags */
 	if (priv->tags->len > 0) {
-		xmlNode *tags_node = xmlNewChild (cnode,
-						  NULL,
-						  (xmlChar*) "tags",
-						  NULL);
+		xmlNode *tags_node = as_xml_add_node (cnode, "tags");
 		for (guint i = 0; i < priv->tags->len; i++) {
 			xmlNode *tag_node = NULL;
 			g_auto(GStrv) parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
@@ -4866,7 +4860,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 	/* reviews */
 	if (priv->reviews->len > 0) {
-		xmlNode *rnode = xmlNewChild (cnode, NULL, (xmlChar*) "reviews", NULL);
+		xmlNode *rnode = as_xml_add_node (cnode, "reviews");
 
 		for (guint i = 0; i < priv->reviews->len; i++) {
 			AsReview *review = AS_REVIEW (g_ptr_array_index (priv->reviews, i));

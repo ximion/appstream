@@ -250,15 +250,13 @@ as_suggested_to_xml_node (AsSuggested *suggested, AsContext *ctx, xmlNode *root)
 	if ((priv->kind != AS_SUGGESTED_KIND_UPSTREAM) && (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO))
 		return;
 
-	node = xmlNewChild (root, NULL, (xmlChar*) "suggests", NULL);
+	node = as_xml_add_node (root, "suggests");
 	xmlNewProp (node, (xmlChar*) "type",
 		    (xmlChar*) as_suggested_kind_to_string (priv->kind));
 
 	for (j = 0; j < priv->cpt_ids->len; j++) {
 		const gchar *cid = (const gchar*) g_ptr_array_index (priv->cpt_ids, j);
-		xmlNewTextChild (node, NULL,
-					(xmlChar*) "id",
-					(xmlChar*) cid);
+		as_xml_add_text_node (node, "id", cid);
 	}
 }
 

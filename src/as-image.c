@@ -359,9 +359,7 @@ as_image_to_xml_node (AsImage *image, AsContext *ctx, xmlNode *root)
 	AsImagePrivate *priv = GET_PRIVATE (image);
 	xmlNode* n_image = NULL;
 
-	n_image = xmlNewTextChild (root, NULL,
-				   (xmlChar*) "image",
-				   (xmlChar*) priv->url);
+	n_image = as_xml_add_text_node (root, "image", priv->url);
 
 	if (priv->kind == AS_IMAGE_KIND_THUMBNAIL)
 		xmlNewProp (n_image, (xmlChar*) "type", (xmlChar*) "thumbnail");

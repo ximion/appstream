@@ -102,7 +102,7 @@ as_releases_to_metainfo_xml_chunk (GPtrArray *releases, GError **error)
 	as_context_set_style (ctx, AS_FORMAT_STYLE_METAINFO);
 
 	root = xmlNewNode (NULL, (xmlChar*) "component");
-	n_releases = xmlNewChild (root, NULL, (xmlChar*) "releases", NULL);
+	n_releases = as_xml_add_node (root, "releases");
 
 	for (guint i = 0; i < releases->len; ++i) {
 		AsRelease *release = AS_RELEASE (g_ptr_array_index (releases, i));

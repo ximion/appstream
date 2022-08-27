@@ -1495,10 +1495,9 @@ as_content_rating_to_xml_node (AsContentRating *content_rating, AsContext *ctx, 
 		xmlNode *anode;
 		AsContentRatingKey *key = (AsContentRatingKey*) g_ptr_array_index (priv->keys, i);
 
-		anode = xmlNewTextChild (rnode,
-					 NULL,
-					 (xmlChar*) "content_attribute",
-					 (xmlChar*) as_content_rating_value_to_string (key->value));
+		anode = as_xml_add_text_node (rnode,
+					      "content_attribute",
+					      as_content_rating_value_to_string (key->value));
 		xmlNewProp (anode,
 			    (xmlChar*) "id",
 			    (xmlChar*) key->id);

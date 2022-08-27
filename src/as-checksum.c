@@ -216,9 +216,7 @@ as_checksum_to_xml_node (AsChecksum *cs, AsContext *ctx, xmlNode *root)
 	if (priv->kind == AS_CHECKSUM_KIND_NONE)
 		return;
 
-	n = xmlNewTextChild (root, NULL,
-			     (xmlChar*) "checksum",
-			     (xmlChar*) priv->value);
+	n = as_xml_add_text_node (root, "checksum", priv->value);
 	xmlNewProp (n,
 		    (xmlChar*) "type",
 		    (xmlChar*) as_checksum_kind_to_string (priv->kind));

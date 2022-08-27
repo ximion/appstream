@@ -237,9 +237,7 @@ as_bundle_to_xml_node (AsBundle *bundle, AsContext *ctx, xmlNode *root)
 	if (priv->id == NULL)
 		return;
 
-	n = xmlNewTextChild (root, NULL,
-			     (xmlChar*) "bundle",
-			     (xmlChar*) priv->id);
+	n = as_xml_add_text_node (root, "bundle", priv->id);
 	xmlNewProp (n,
 		    (xmlChar*) "type",
 		    (xmlChar*) as_bundle_kind_to_string (priv->kind));

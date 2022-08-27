@@ -249,9 +249,7 @@ as_issue_to_xml_node (AsIssue *issue, AsContext *ctx, xmlNode *root)
 	if (priv->id == NULL)
 		return;
 
-	n = xmlNewTextChild (root, NULL,
-			     (xmlChar*) "issue",
-			     (xmlChar*) priv->id);
+	n = as_xml_add_text_node (root, "issue", priv->id);
 
 	if (priv->kind != AS_ISSUE_KIND_GENERIC)
 		xmlNewProp (n,

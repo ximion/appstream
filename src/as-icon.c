@@ -440,7 +440,7 @@ as_icon_to_xml_node (AsIcon *icon, AsContext *ctx, xmlNode *root)
 	if (value == NULL)
 		return;
 
-	n = xmlNewTextChild (root, NULL, (xmlChar*) "icon", (xmlChar*) value);
+	n = as_xml_add_text_node (root, "icon", value);
 	xmlNewProp (n, (xmlChar*) "type",
 			(xmlChar*) as_icon_kind_to_string (priv->kind));
 

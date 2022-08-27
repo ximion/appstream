@@ -259,7 +259,7 @@ as_translation_to_xml_node (AsTranslation *tr, AsContext *ctx, xmlNode *root)
 	if (as_context_get_style (ctx) != AS_FORMAT_STYLE_METAINFO)
 		return;
 
-	n = xmlNewTextChild (root, NULL, (xmlChar*) "translation", (xmlChar*) priv->id);
+	n = as_xml_add_text_node (root, "translation", priv->id);
 	xmlNewProp (n, (xmlChar*) "type",
 			(xmlChar*) as_translation_kind_to_string (priv->kind));
 

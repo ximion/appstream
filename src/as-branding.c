@@ -420,7 +420,7 @@ as_branding_to_xml_node (AsBranding *branding, AsContext *ctx, xmlNode *root)
 	AsBrandingPrivate *priv = GET_PRIVATE (branding);
 	xmlNode *branding_n;
 
-	branding_n = xmlNewChild (root, NULL, (xmlChar*) "branding", (xmlChar*) "");
+	branding_n = as_xml_add_node (root, "branding");
 
 	for (guint i = 0; i < priv->colors->len; i++) {
 		xmlNode *n;

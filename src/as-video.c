@@ -411,9 +411,7 @@ as_video_to_xml_node (AsVideo *video, AsContext *ctx, xmlNode *root)
 	AsVideoPrivate *priv = GET_PRIVATE (video);
 	xmlNode* n_video = NULL;
 
-	n_video = xmlNewTextChild (root, NULL,
-				   (xmlChar*) "video",
-				   (xmlChar*) priv->url);
+	n_video = as_xml_add_text_node (root, "video", priv->url);
 
 	if (priv->codec != AS_VIDEO_CODEC_KIND_UNKNOWN)
 		xmlNewProp (n_video, (xmlChar*) "codec", (xmlChar*) as_video_codec_kind_to_string (priv->codec));

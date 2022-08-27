@@ -346,7 +346,7 @@ as_agreement_section_to_xml_node (AsAgreementSection *agreement_section, AsConte
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
 	xmlNode *asnode;
 
-	asnode = xmlNewChild (root, NULL, (xmlChar*) "agreement_section", (xmlChar*) "");
+	asnode = as_xml_add_node (root, "agreement_section");
 	xmlNewProp (asnode, (xmlChar*) "type", (xmlChar*) priv->kind);
 
 	as_xml_add_localized_text_node (asnode, "name", priv->name);

@@ -1029,7 +1029,7 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 	xmlNode *subnode;
 
 	/* set release version */
-	subnode = xmlNewChild (root, NULL, (xmlChar*) "release", (xmlChar*) "");
+	subnode = as_xml_add_node (root, "release");
 	xmlNewProp (subnode, (xmlChar*) "type",
 		    (xmlChar*) as_release_kind_to_string (priv->kind));
 	xmlNewProp (subnode, (xmlChar*) "version", (xmlChar*) priv->version);
@@ -1069,11 +1069,11 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 
 	/* add details URL */
 	if (priv->url_details != NULL)
-		xmlNewTextChild (subnode, NULL, (xmlChar*) "url", (xmlChar*) priv->url_details);
+		as_xml_add_text_node (subnode, "url", priv->url_details);
 
 	/* issues */
 	if (priv->issues->len > 0) {
-		xmlNode *n_issues = xmlNewChild (subnode, NULL, (xmlChar*) "issues", (xmlChar*) "");
+		xmlNode *n_issues = as_xml_add_node (subnode, "issues");
 		for (guint i = 0; i < priv->issues->len; i++) {
 			AsIssue *issue = AS_ISSUE (g_ptr_array_index (priv->issues, i));
 			as_issue_to_xml_node (issue, ctx, n_issues);
@@ -1082,7 +1082,7 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 
 	/* artifacts */
 	if (priv->artifacts->len > 0) {
-		xmlNode *n_artifacts = xmlNewChild (subnode, NULL, (xmlChar*) "artifacts", (xmlChar*) "");
+		xmlNode *n_artifacts = as_xml_add_node (subnode, "artifacts");
 		for (guint i = 0; i < priv->artifacts->len; i++) {
 			AsArtifact *artifact = AS_ARTIFACT (g_ptr_array_index (priv->artifacts, i));
 			as_artifact_to_xml_node (artifact, ctx, n_artifacts);
