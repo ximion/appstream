@@ -21,17 +21,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-08-22 13:44+0200\n"
-"PO-Revision-Date: 2022-05-26 10:31+0000\n"
+"PO-Revision-Date: 2022-08-27 13:09+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
-"translations/pl/>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1141,18 +1139,14 @@ msgstr ""
 "odnośników."
 
 #: src/as-validator-issue-tag.h:96
-#, fuzzy
 msgid "This tag is not translatable."
-msgstr "Etykieta problemu „%s” jest nieznana."
+msgstr "Tego znacznika nie można tłumaczyć."
 
 #: src/as-validator-issue-tag.h:101
-#, fuzzy
 msgid ""
 "This tag must only appear once in this context. Having multiple tags of this "
 "kind is not valid."
-msgstr ""
-"Według specyfikacji AppStream wymieniony znacznik musi występować tylko raz "
-"w tym kontekście. Użycie wielu znaczników tego rodzaju jest nieprawidłowe."
+msgstr "Ten znacznik musi występować tylko raz w tym kontekście. Użycie wielu znaczników tego rodzaju jest nieprawidłowe."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
@@ -1431,18 +1425,14 @@ msgstr ""
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr ""
-"Odnaleziono nieznany znacznik w grupie wymagań/zaleceń. To prawdopodobnie "
-"błąd, ponieważ związek składników tego typu jest nieznany."
+msgstr "Odnaleziono nieznany znacznik w grupie wymagań/zaleceń. To prawdopodobnie błąd, ponieważ zależność składników tego typu jest nieznana."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:279
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Element „requires” lub „recommends” wymaga wartości oznaczającej prawidłowy "
-"związek."
+msgstr "Element „requires” lub „recommends” wymaga wartości oznaczającej prawidłową zależność."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:285
@@ -1469,25 +1459,19 @@ msgstr ""
 msgid ""
 "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
 "ge` is permitted."
-msgstr ""
-"Nieprawidłowe działanie porównania w elemencie związku. Dozwolone jest tylko "
-"jedno z „eq/ne/lt/gt/le/ge”."
+msgstr "Nieprawidłowe działanie porównania w elemencie zależności. Dozwolone jest tylko jedno z „eq/ne/lt/gt/le/ge”."
 
 #: src/as-validator-issue-tag.h:302
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
-"Element związku ma ustawione działanie porównania, ale nie obsługuje żadnych "
-"porównań."
+msgstr "Element zależności ma ustawione działanie porównania, ale nie obsługuje żadnych porównań."
 
 #: src/as-validator-issue-tag.h:307
 msgid ""
 "This relation item has already been defined once for this or a different "
 "relation type. Please do not redefine relations."
-msgstr ""
-"Ten element związku został już raz określony dla tego lub innego typu "
-"związku. Proszę nie zmieniać rodzajów związków."
+msgstr "Ten element zależności został już raz określony dla tego lub innego typu zależności. Proszę nie zmieniać rodzajów zależności."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:313
@@ -1565,18 +1549,18 @@ msgstr ""
 msgid ""
 "A `memory` item must only contain a non-zero integer value, depicting a "
 "system memory size in mebibyte (MiB)"
-msgstr ""
+msgstr "Element „memory” może zawierać tylko niezerową wartość całkowitą, przedstawiającą rozmiar pamięci komputera w mebibajtach (MiB)"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:359
 msgid "The set tag value is not valid for an `internet` relation."
-msgstr ""
+msgstr "Ustawiona wartość znacznika jest nieprawidłowa dla zależności „internet”."
 
 #: src/as-validator-issue-tag.h:364
 msgid ""
 "The value of this property must be a positive integer value, describing the "
 "minimum required bandwidth in mbit/s."
-msgstr ""
+msgstr "Wartość tej właściwości musi być dodatnią wartością całkowitą, opisującą minimalną wymaganą przepustowość w megabitach na sekundę."
 
 #: src/as-validator-issue-tag.h:369
 msgid ""
@@ -1727,7 +1711,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:489
 msgid "An URL of this type has already been defined."
-msgstr ""
+msgstr "Adres URL tego typu został już określony."
 
 #: src/as-validator-issue-tag.h:494
 msgid "The <developer_name/> can not contain a hyperlink."
@@ -2699,7 +2683,7 @@ msgstr ""
 #: tools/appstreamcli.c:768
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr "Nieznany stosunek porównania „%s”. Prawidłowe wartości:"
+msgstr "Nieznana zależność porównania „%s”. Prawidłowe wartości:"
 
 #: tools/appstreamcli.c:808
 msgid ""
