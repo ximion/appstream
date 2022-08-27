@@ -469,20 +469,20 @@ as_artifact_to_xml_node (AsArtifact *artifact, AsContext *ctx, xmlNode *root)
 
 	n_artifact = xmlNewChild (root, NULL, (xmlChar*) "artifact", (xmlChar*) "");
 
-	xmlNewProp (n_artifact,
-		    (xmlChar*) "type",
-		    (xmlChar*) as_artifact_kind_to_string (priv->kind));
+	as_xml_add_text_prop (n_artifact,
+			      "type",
+			      as_artifact_kind_to_string (priv->kind));
 
 	if (priv->platform != NULL) {
-		xmlNewProp (n_artifact,
-				(xmlChar*) "platform",
-				(xmlChar*) priv->platform);
+		as_xml_add_text_prop (n_artifact,
+				      "platform",
+				      priv->platform);
 	}
 
 	if (priv->bundle_kind != AS_BUNDLE_KIND_UNKNOWN) {
-		xmlNewProp (n_artifact,
-				(xmlChar*) "bundle",
-				(xmlChar*) as_bundle_kind_to_string (priv->bundle_kind));
+		as_xml_add_text_prop (n_artifact,
+				      "bundle",
+				      as_bundle_kind_to_string (priv->bundle_kind));
 	}
 
 	/* add location urls */
@@ -507,9 +507,7 @@ as_artifact_to_xml_node (AsArtifact *artifact, AsContext *ctx, xmlNode *root)
 			xmlNode *s_node;
 			g_autofree gchar *size_str = g_strdup_printf ("%" G_GUINT64_FORMAT, asize);
 			s_node = as_xml_add_text_node (n_artifact, "size", size_str);
-			xmlNewProp (s_node,
-				(xmlChar*) "type",
-				(xmlChar*) as_size_kind_to_string (j));
+			as_xml_add_text_prop (s_node, "type", as_size_kind_to_string (j));
 		}
 	}
 

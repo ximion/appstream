@@ -63,5 +63,5 @@ position pos : script:python() {
         not (pos[0].file.endswith("src/as-xml.c"))
 };
 @@
-- xmlNewProp (node, (xmlChar*) name, (xmlChar*) value);
+- xmlNewProp@pos (node, (xmlChar*) name, (xmlChar*) value);
 + as_xml_add_text_prop (node, name, value);

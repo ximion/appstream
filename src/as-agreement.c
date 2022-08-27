@@ -340,9 +340,8 @@ as_agreement_to_xml_node (AsAgreement *agreement, AsContext *ctx, xmlNode *root)
 	guint i;
 
 	agnode = xmlNewChild (root, NULL, (xmlChar*) "agreement", (xmlChar*) "");
-	xmlNewProp (agnode, (xmlChar*) "type",
-		    (xmlChar*) as_agreement_kind_to_string (priv->kind));
-	xmlNewProp (agnode, (xmlChar*) "version_id", (xmlChar*) priv->version_id);
+	as_xml_add_text_prop (agnode, "type", as_agreement_kind_to_string (priv->kind));
+	as_xml_add_text_prop (agnode, "version_id", priv->version_id);
 
 	for (i = 0; i < priv->sections->len; i++) {
 		AsAgreementSection *agsec = AS_AGREEMENT_SECTION (g_ptr_array_index (priv->sections, i));

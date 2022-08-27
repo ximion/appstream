@@ -362,24 +362,24 @@ as_image_to_xml_node (AsImage *image, AsContext *ctx, xmlNode *root)
 	n_image = as_xml_add_text_node (root, "image", priv->url);
 
 	if (priv->kind == AS_IMAGE_KIND_THUMBNAIL)
-		xmlNewProp (n_image, (xmlChar*) "type", (xmlChar*) "thumbnail");
+		as_xml_add_text_prop (n_image, "type", "thumbnail");
 	else
-		xmlNewProp (n_image, (xmlChar*) "type", (xmlChar*) "source");
+		as_xml_add_text_prop (n_image, "type", "source");
 
 	if ((priv->width > 0) && (priv->height > 0)) {
 		gchar *size;
 
 		size = g_strdup_printf("%i", priv->width);
-		xmlNewProp (n_image, (xmlChar*) "width", (xmlChar*) size);
+		as_xml_add_text_prop (n_image, "width", size);
 		g_free (size);
 
 		size = g_strdup_printf("%i", priv->height);
-		xmlNewProp (n_image, (xmlChar*) "height", (xmlChar*) size);
+		as_xml_add_text_prop (n_image, "height", size);
 		g_free (size);
 	}
 
 	if ((priv->locale != NULL) && (g_strcmp0 (priv->locale, "C") != 0))
-		xmlNewProp (n_image, (xmlChar*) "xml:lang", (xmlChar*) priv->locale);
+		as_xml_add_text_prop (n_image, "xml:lang", priv->locale);
 
 	xmlAddChild (root, n_image);
 }

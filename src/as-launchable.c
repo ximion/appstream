@@ -217,8 +217,7 @@ as_launchable_to_xml_node (AsLaunchable *launchable, AsContext *ctx, xmlNode *ro
 			continue;
 
 		n = as_xml_add_text_node (root, "launchable", entry);
-		xmlNewProp (n, (xmlChar*) "type",
-			    (xmlChar*) as_launchable_kind_to_string (priv->kind));
+		as_xml_add_text_prop (n, "type", as_launchable_kind_to_string (priv->kind));
 	}
 }
 

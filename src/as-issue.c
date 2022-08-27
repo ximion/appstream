@@ -252,15 +252,11 @@ as_issue_to_xml_node (AsIssue *issue, AsContext *ctx, xmlNode *root)
 	n = as_xml_add_text_node (root, "issue", priv->id);
 
 	if (priv->kind != AS_ISSUE_KIND_GENERIC)
-		xmlNewProp (n,
-			    (xmlChar*) "type",
-			    (xmlChar*) as_issue_kind_to_string (priv->kind));
+		as_xml_add_text_prop (n, "type", as_issue_kind_to_string (priv->kind));
 
 	if (priv->url != NULL) {
 		g_strstrip (priv->url);
-		xmlNewProp (n,
-			    (xmlChar*) "url",
-			    (xmlChar*) priv->url);
+		as_xml_add_text_prop (n, "url", priv->url);
 	}
 }
 

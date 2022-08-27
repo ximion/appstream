@@ -441,26 +441,25 @@ as_icon_to_xml_node (AsIcon *icon, AsContext *ctx, xmlNode *root)
 		return;
 
 	n = as_xml_add_text_node (root, "icon", value);
-	xmlNewProp (n, (xmlChar*) "type",
-			(xmlChar*) as_icon_kind_to_string (priv->kind));
+	as_xml_add_text_prop (n, "type", as_icon_kind_to_string (priv->kind));
 
 	if (priv->kind != AS_ICON_KIND_STOCK) {
 		if (priv->width > 0) {
 			g_autofree gchar *size = NULL;
 			size = g_strdup_printf ("%i", as_icon_get_width (icon));
-			xmlNewProp (n, (xmlChar*) "width", (xmlChar*) size);
+			as_xml_add_text_prop (n, "width", size);
 		}
 
 		if (priv->height > 0) {
 			g_autofree gchar *size = NULL;
 			size = g_strdup_printf ("%i", as_icon_get_height (icon));
-			xmlNewProp (n, (xmlChar*) "height", (xmlChar*) size);
+			as_xml_add_text_prop (n, "height", size);
 		}
 
 		if (priv->scale > 1) {
 			g_autofree gchar *scale = NULL;
 			scale = g_strdup_printf ("%i", as_icon_get_scale (icon));
-			xmlNewProp (n, (xmlChar*) "scale", (xmlChar*) scale);
+			as_xml_add_text_prop (n, "scale", scale);
 		}
 	}
 }

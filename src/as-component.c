@@ -4544,9 +4544,7 @@ as_component_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 					n = as_xml_add_text_node (node,
 								  "firmware",
 								  g_ptr_array_index (items, j));
-					xmlNewProp (n,
-						    (xmlChar*) "type",
-						    (xmlChar*) "runtime");
+					as_xml_add_text_prop (n, "type", "runtime");
 				}
 				break;
 			case AS_PROVIDED_KIND_FIRMWARE_FLASHED:
@@ -4555,9 +4553,7 @@ as_component_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 					n = as_xml_add_text_node (node,
 								  "firmware",
 								  g_ptr_array_index (items, j));
-					xmlNewProp (n,
-						    (xmlChar*) "type",
-						    (xmlChar*) "flashed");
+					as_xml_add_text_prop (n, "type", "flashed");
 				}
 				break;
 			case AS_PROVIDED_KIND_DBUS_SYSTEM:
@@ -4566,9 +4562,7 @@ as_component_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 					n = as_xml_add_text_node (node,
 								  "dbus",
 								  g_ptr_array_index (items, j));
-					xmlNewProp (n,
-						    (xmlChar*) "type",
-						    (xmlChar*) "system");
+					as_xml_add_text_prop (n, "type", "system");
 				}
 				break;
 			case AS_PROVIDED_KIND_DBUS_USER:
@@ -4577,9 +4571,7 @@ as_component_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 					n = as_xml_add_text_node (node,
 								  "dbus",
 								  g_ptr_array_index (items, j));
-					xmlNewProp (n,
-						    (xmlChar*) "type",
-						    (xmlChar*) "user");
+					as_xml_add_text_prop (n, "type", "user");
 				}
 				break;
 

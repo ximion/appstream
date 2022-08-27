@@ -217,9 +217,7 @@ as_checksum_to_xml_node (AsChecksum *cs, AsContext *ctx, xmlNode *root)
 		return;
 
 	n = as_xml_add_text_node (root, "checksum", priv->value);
-	xmlNewProp (n,
-		    (xmlChar*) "type",
-		    (xmlChar*) as_checksum_kind_to_string (priv->kind));
+	as_xml_add_text_prop (n, "type", as_checksum_kind_to_string (priv->kind));
 }
 
 /**

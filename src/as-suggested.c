@@ -251,8 +251,7 @@ as_suggested_to_xml_node (AsSuggested *suggested, AsContext *ctx, xmlNode *root)
 		return;
 
 	node = as_xml_add_node (root, "suggests");
-	xmlNewProp (node, (xmlChar*) "type",
-		    (xmlChar*) as_suggested_kind_to_string (priv->kind));
+	as_xml_add_text_prop (node, "type", as_suggested_kind_to_string (priv->kind));
 
 	for (j = 0; j < priv->cpt_ids->len; j++) {
 		const gchar *cid = (const gchar*) g_ptr_array_index (priv->cpt_ids, j);

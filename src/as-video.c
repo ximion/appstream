@@ -414,24 +414,24 @@ as_video_to_xml_node (AsVideo *video, AsContext *ctx, xmlNode *root)
 	n_video = as_xml_add_text_node (root, "video", priv->url);
 
 	if (priv->codec != AS_VIDEO_CODEC_KIND_UNKNOWN)
-		xmlNewProp (n_video, (xmlChar*) "codec", (xmlChar*) as_video_codec_kind_to_string (priv->codec));
+		as_xml_add_text_prop (n_video, "codec", as_video_codec_kind_to_string (priv->codec));
 	if (priv->container != AS_VIDEO_CONTAINER_KIND_UNKNOWN)
-		xmlNewProp (n_video, (xmlChar*) "container", (xmlChar*) as_video_container_kind_to_string (priv->container));
+		as_xml_add_text_prop (n_video, "container", as_video_container_kind_to_string (priv->container));
 
 	if ((priv->width > 0) && (priv->height > 0)) {
 		gchar *size;
 
 		size = g_strdup_printf("%i", priv->width);
-		xmlNewProp (n_video, (xmlChar*) "width", (xmlChar*) size);
+		as_xml_add_text_prop (n_video, "width", size);
 		g_free (size);
 
 		size = g_strdup_printf("%i", priv->height);
-		xmlNewProp (n_video, (xmlChar*) "height", (xmlChar*) size);
+		as_xml_add_text_prop (n_video, "height", size);
 		g_free (size);
 	}
 
 	if ((priv->locale != NULL) && (g_strcmp0 (priv->locale, "C") != 0))
-		xmlNewProp (n_video, (xmlChar*) "xml:lang", (xmlChar*) priv->locale);
+		as_xml_add_text_prop (n_video, "xml:lang", priv->locale);
 
 	xmlAddChild (root, n_video);
 }

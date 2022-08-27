@@ -1487,9 +1487,7 @@ as_content_rating_to_xml_node (AsContentRating *content_rating, AsContext *ctx, 
 	xmlNode *rnode;
 
 	rnode = xmlNewChild (root, NULL, (xmlChar*) "content_rating", NULL);
-	xmlNewProp (rnode,
-		    (xmlChar*) "type",
-		    (xmlChar*) priv->kind);
+	as_xml_add_text_prop (rnode, "type", priv->kind);
 
 	for (i = 0; i < priv->keys->len; i++) {
 		xmlNode *anode;
@@ -1498,9 +1496,7 @@ as_content_rating_to_xml_node (AsContentRating *content_rating, AsContext *ctx, 
 		anode = as_xml_add_text_node (rnode,
 					      "content_attribute",
 					      as_content_rating_value_to_string (key->value));
-		xmlNewProp (anode,
-			    (xmlChar*) "id",
-			    (xmlChar*) key->id);
+		as_xml_add_text_prop (anode, "id", key->id);
 	}
 }
 

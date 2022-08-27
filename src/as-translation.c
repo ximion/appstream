@@ -260,8 +260,7 @@ as_translation_to_xml_node (AsTranslation *tr, AsContext *ctx, xmlNode *root)
 		return;
 
 	n = as_xml_add_text_node (root, "translation", priv->id);
-	xmlNewProp (n, (xmlChar*) "type",
-			(xmlChar*) as_translation_kind_to_string (priv->kind));
+	as_xml_add_text_prop (n, "type", as_translation_kind_to_string (priv->kind));
 
 	as_xml_add_text_prop (n, "source_locale", priv->source_locale);
 }

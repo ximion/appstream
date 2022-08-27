@@ -742,7 +742,7 @@ as_transmogrify_xbnode_to_xmlnode (XbNode *xbn, xmlNode *lxn)
 	/* attributes */
 	xb_node_attr_iter_init (&attr_iter, xbn);
 	while (xb_node_attr_iter_next (&attr_iter, &attr_name, &attr_value))
-		xmlNewProp (lxn, (xmlChar*) attr_name, (xmlChar*) attr_value);
+		as_xml_add_text_prop (lxn, attr_name, attr_value);
 
 	/* children */
 	xb_node_child_iter_init (&child_iter, xbn);

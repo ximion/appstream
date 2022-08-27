@@ -606,7 +606,7 @@ as_screenshot_to_xml_node (AsScreenshot *screenshot, AsContext *ctx, xmlNode *ro
 
 	subnode = xmlNewChild (root, NULL, (xmlChar*) "screenshot", NULL);
 	if (priv->kind == AS_SCREENSHOT_KIND_DEFAULT)
-		xmlNewProp (subnode, (xmlChar*) "type", (xmlChar*) "default");
+		as_xml_add_text_prop (subnode, "type", "default");
 
 	as_xml_add_localized_text_node (subnode, "caption", priv->caption);
 
