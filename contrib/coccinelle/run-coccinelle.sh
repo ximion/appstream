@@ -19,6 +19,12 @@ esac
 
 for script in "${SCRIPTS[@]}"; do
     echo "--x-- Processing $script --x--"
-    spatch --smpl-spacing --sp-file "$script" "${ARGS[@]}" "${FILES[@]}"
+    spatch \
+        --smpl-spacing \
+        --macro-file "/usr/include/glib-2.0/glib/gmacros.h" \
+        --sp-file \
+        "$script" \
+        "${ARGS[@]}" \
+        "${FILES[@]}"
     echo -e "--x-- Processed $script --x--\n"
 done
