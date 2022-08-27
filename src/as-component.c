@@ -3971,7 +3971,7 @@ as_component_xml_parse_languages_node (AsComponent* cpt, xmlNode* node)
 			g_autofree gchar *locale = NULL;
 			g_autofree gchar *prop = NULL;
 
-			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "percentage");
+			prop = as_xml_get_prop_value (iter, "percentage");
 			if (prop != NULL)
 				percentage = g_ascii_strtoll (prop, NULL, 10);
 
@@ -4173,7 +4173,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 	}
 
 	/* set the priority for this component */
-	priority_str = (gchar*) xmlGetProp (node, (xmlChar*) "priority");
+	priority_str = as_xml_get_prop_value (node, "priority");
 	if (priority_str == NULL) {
 		priv->priority = as_context_get_priority (ctx);
 	} else {
@@ -4181,7 +4181,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 	}
 
 	/* set the merge method for this component */
-	merge_str = (gchar*) xmlGetProp (node, (xmlChar*) "merge");
+	merge_str = as_xml_get_prop_value (node, "merge");
 	if (merge_str != NULL) {
 		priv->merge_kind = as_merge_kind_from_string (merge_str);
 	}
@@ -4255,7 +4255,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			if (content != NULL) {
 				g_autofree gchar *urltype_str = NULL;
 				AsUrlKind url_kind;
-				urltype_str = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+				urltype_str = as_xml_get_prop_value (iter, "type");
 				url_kind = as_url_kind_from_string (urltype_str);
 				if (url_kind != AS_URL_KIND_UNKNOWN)
 					as_component_add_url (cpt, url_kind, content);

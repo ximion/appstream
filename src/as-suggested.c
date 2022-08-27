@@ -207,7 +207,7 @@ as_suggested_load_from_xml (AsSuggested *suggested, AsContext *ctx, xmlNode *nod
 	xmlNode *iter;
 	g_autofree gchar *type_str = NULL;
 
-	type_str = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	type_str = as_xml_get_prop_value (node, "type");
 	priv->kind = as_suggested_kind_from_string (type_str);
 	if (priv->kind == AS_SUGGESTED_KIND_UNKNOWN) {
 		g_debug ("Found suggests tag of unknown type '%s' at %s:%li. Ignoring it.",

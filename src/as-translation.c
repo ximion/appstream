@@ -227,7 +227,7 @@ as_translation_load_from_xml (AsTranslation *tr, AsContext *ctx, xmlNode *node, 
 	g_autofree gchar *prop = NULL;
 	g_autofree gchar *content = NULL;
 
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	prop = as_xml_get_prop_value (node, "type");
 	priv->kind = as_translation_kind_from_string (prop);
 	if (priv->kind == AS_TRANSLATION_KIND_UNKNOWN)
 		return FALSE;

@@ -210,7 +210,7 @@ as_bundle_load_from_xml (AsBundle *bundle, AsContext *ctx, xmlNode *node, GError
 	if (content == NULL)
 		return FALSE;
 
-	type_str = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	type_str = as_xml_get_prop_value (node, "type");
 	priv->kind = as_bundle_kind_from_string (type_str);
 	if (priv->kind == AS_BUNDLE_KIND_UNKNOWN)
 		priv->kind = AS_BUNDLE_KIND_LIMBA;

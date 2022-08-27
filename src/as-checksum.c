@@ -188,7 +188,7 @@ as_checksum_load_from_xml (AsChecksum *cs, AsContext *ctx, xmlNode *node, GError
 	AsChecksumPrivate *priv = GET_PRIVATE (cs);
 	g_autofree gchar *prop = NULL;
 
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	prop = as_xml_get_prop_value (node, "type");
 	priv->kind = as_checksum_kind_from_string (prop);
 	if (priv->kind == AS_CHECKSUM_KIND_NONE)
 		return FALSE;

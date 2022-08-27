@@ -405,11 +405,11 @@ as_artifact_load_from_xml (AsArtifact *artifact, AsContext *ctx, xmlNode *node, 
 	as_ref_string_assign_safe (&priv->platform, str);
 	g_free (str);
 
-	str = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	str = as_xml_get_prop_value (node, "type");
 	priv->kind = as_artifact_kind_from_string (str);
 	g_free (str);
 
-	str = (gchar*) xmlGetProp (node, (xmlChar*) "bundle");
+	str = as_xml_get_prop_value (node, "bundle");
 	priv->bundle_kind = as_bundle_kind_from_string (str);
 	g_free (str);
 

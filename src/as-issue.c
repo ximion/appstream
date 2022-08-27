@@ -216,7 +216,7 @@ as_issue_load_from_xml (AsIssue *issue, AsContext *ctx, xmlNode *node, GError **
 	AsIssuePrivate *priv = GET_PRIVATE (issue);
 	g_autofree gchar *prop = NULL;
 
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	prop = as_xml_get_prop_value (node, "type");
 	priv->kind = as_issue_kind_from_string (prop);
 	if (priv->kind == AS_ISSUE_KIND_UNKNOWN)
 		return FALSE;
@@ -225,7 +225,7 @@ as_issue_load_from_xml (AsIssue *issue, AsContext *ctx, xmlNode *node, GError **
 	priv->id = as_xml_get_node_value (node);
 
 	g_free (priv->url);
-	priv->url = (gchar*) xmlGetProp (node, (xmlChar*) "url");
+	priv->url = as_xml_get_prop_value (node, "url");
 
 	return TRUE;
 }

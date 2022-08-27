@@ -349,17 +349,17 @@ as_xml_icon_set_size_from_node (xmlNode *node, AsIcon *icon)
 {
 	gchar *val;
 
-	val = (gchar*) xmlGetProp (node, (xmlChar*) "width");
+	val = as_xml_get_prop_value (node, "width");
 	if (val != NULL) {
 		as_icon_set_width (icon, g_ascii_strtoll (val, NULL, 10));
 		g_free (val);
 	}
-	val = (gchar*) xmlGetProp (node, (xmlChar*) "height");
+	val = as_xml_get_prop_value (node, "height");
 	if (val != NULL) {
 		as_icon_set_height (icon, g_ascii_strtoll (val, NULL, 10));
 		g_free (val);
 	}
-	val = (gchar*) xmlGetProp (node, (xmlChar*) "scale");
+	val = as_xml_get_prop_value (node, "scale");
 	if (val != NULL) {
 		as_icon_set_scale (icon, g_ascii_strtoll (val, NULL, 10));
 		g_free (val);
@@ -386,7 +386,7 @@ as_icon_load_from_xml (AsIcon *icon, AsContext *ctx, xmlNode *node, GError **err
 	if (content == NULL)
 		return FALSE;
 
-	type_str = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	type_str = as_xml_get_prop_value (node, "type");
 
 	if (g_strcmp0 (type_str, "stock") == 0) {
 		priv->kind = AS_ICON_KIND_STOCK;

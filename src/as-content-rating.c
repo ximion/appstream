@@ -1445,7 +1445,7 @@ as_content_rating_load_from_xml (AsContentRating *content_rating, AsContext *ctx
 	g_autofree gchar *type_str = NULL;
 
 	/* set selected content-rating type (usually oars-1.0) */
-	type_str = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	type_str = as_xml_get_prop_value (node, "type");
 	as_content_rating_set_kind (content_rating, (gchar*) type_str);
 
 	/* read attributes */
@@ -1459,7 +1459,7 @@ as_content_rating_load_from_xml (AsContentRating *content_rating, AsContext *ctx
 		if (g_strcmp0 ((gchar*) iter->name, "content_attribute") != 0)
 			continue;
 
-		attr_id = (gchar*) xmlGetProp (iter, (xmlChar*) "id");
+		attr_id = as_xml_get_prop_value (iter, "id");
 		str_value = as_xml_get_node_value (iter);
 		attr_value = as_content_rating_value_from_string (str_value);
 		if ((attr_value == AS_CONTENT_RATING_VALUE_UNKNOWN) || (attr_id == NULL))

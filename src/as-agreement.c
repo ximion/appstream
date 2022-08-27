@@ -295,13 +295,13 @@ as_agreement_load_from_xml (AsAgreement *agreement, AsContext *ctx, xmlNode *nod
 	/* propagate context */
 	as_agreement_set_context (agreement, ctx);
 
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	prop = as_xml_get_prop_value (node, "type");
 	if (prop != NULL) {
 		priv->kind = as_agreement_kind_from_string (prop);
 		g_free (prop);
 	}
 
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "version_id");
+	prop = as_xml_get_prop_value (node, "version_id");
 	if (prop != NULL) {
 		as_agreement_set_version_id (agreement, prop);
 		g_free (prop);

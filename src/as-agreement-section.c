@@ -293,7 +293,7 @@ as_agreement_section_load_from_xml (AsAgreementSection *agreement_section, AsCon
 	/* propagate context */
 	as_agreement_section_set_context (agreement_section, ctx);
 
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	prop = as_xml_get_prop_value (node, "type");
 	if (prop != NULL) {
 		as_agreement_section_set_kind (agreement_section, prop);
 		g_free (prop);

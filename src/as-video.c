@@ -363,7 +363,7 @@ as_video_load_from_xml (AsVideo *video, AsContext *ctx, xmlNode *node, GError **
 		return FALSE;
 	as_video_set_locale (video, lang);
 
-	str = (gchar*) xmlGetProp (node, (xmlChar*) "width");
+	str = as_xml_get_prop_value (node, "width");
 	if (str == NULL) {
 		priv->width = 0;
 	} else {
@@ -371,7 +371,7 @@ as_video_load_from_xml (AsVideo *video, AsContext *ctx, xmlNode *node, GError **
 		g_free (str);
 	}
 
-	str = (gchar*) xmlGetProp (node, (xmlChar*) "height");
+	str = as_xml_get_prop_value (node, "height");
 	if (str == NULL) {
 		priv->height = 0;
 	} else {
@@ -379,10 +379,10 @@ as_video_load_from_xml (AsVideo *video, AsContext *ctx, xmlNode *node, GError **
 		g_free (str);
 	}
 
-	codec_kind = (gchar*) xmlGetProp (node, (xmlChar*) "codec");
+	codec_kind = as_xml_get_prop_value (node, "codec");
 	priv->codec = as_video_codec_kind_from_string (codec_kind);
 
-	container_kind = (gchar*) xmlGetProp (node, (xmlChar*) "container");
+	container_kind = as_xml_get_prop_value (node, "container");
 	priv->container = as_video_container_kind_from_string (container_kind);
 
 	if (!as_context_has_media_baseurl (ctx)) {

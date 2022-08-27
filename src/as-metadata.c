@@ -190,27 +190,27 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
 	gchar *tmp;
 
 	/* set origin of this metadata */
-	tmp = (gchar*) xmlGetProp (node, (xmlChar*) "origin");
+	tmp = as_xml_get_prop_value (node, "origin");
 	as_context_set_origin (context, tmp);
 	as_metadata_set_origin (metad, tmp);
 	g_free (tmp);
 
 	/* set baseurl for the media files */
 	if (!as_flags_contains (priv->parse_flags, AS_PARSE_FLAG_IGNORE_MEDIABASEURL)) {
-		tmp = (gchar*) xmlGetProp (node, (xmlChar*) "media_baseurl");
+		tmp = as_xml_get_prop_value (node, "media_baseurl");
 		as_context_set_media_baseurl (context, tmp);
 		as_metadata_set_media_baseurl (metad, tmp);
 		g_free (tmp);
 	}
 
 	/* set architecture for the components */
-	tmp = (gchar*) xmlGetProp (node, (xmlChar*) "architecture");
+	tmp = as_xml_get_prop_value (node, "architecture");
 	as_context_set_architecture (context, tmp);
 	as_metadata_set_architecture (metad, tmp);
 	g_free (tmp);
 
 	/* collection metadata allows setting a priority for components */
-	priority_str = (gchar*) xmlGetProp (node, (xmlChar*) "priority");
+	priority_str = as_xml_get_prop_value (node, "priority");
 	if (priority_str != NULL) {
 		gint default_priority;
 		default_priority = g_ascii_strtoll (priority_str, NULL, 10);

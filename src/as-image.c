@@ -295,7 +295,7 @@ as_image_load_from_xml (AsImage *image, AsContext *ctx, xmlNode *node, GError **
 		return FALSE;
 	as_image_set_locale (image, lang);
 
-	str = (gchar*) xmlGetProp (node, (xmlChar*) "width");
+	str = as_xml_get_prop_value (node, "width");
 	if (str == NULL) {
 		priv->width = 0;
 	} else {
@@ -303,7 +303,7 @@ as_image_load_from_xml (AsImage *image, AsContext *ctx, xmlNode *node, GError **
 		g_free (str);
 	}
 
-	str = (gchar*) xmlGetProp (node, (xmlChar*) "height");
+	str = as_xml_get_prop_value (node, "height");
 	if (str == NULL) {
 		priv->height = 0;
 	} else {
@@ -311,7 +311,7 @@ as_image_load_from_xml (AsImage *image, AsContext *ctx, xmlNode *node, GError **
 		g_free (str);
 	}
 
-	stype = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	stype = as_xml_get_prop_value (node, "type");
 	if (g_strcmp0 (stype, "thumbnail") == 0)
 		priv->kind = AS_IMAGE_KIND_THUMBNAIL;
 	else

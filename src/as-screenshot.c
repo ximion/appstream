@@ -535,7 +535,7 @@ as_screenshot_load_from_xml (AsScreenshot *screenshot, AsContext *ctx, xmlNode *
 	g_autofree gchar *prop = NULL;
 	gboolean children_found = FALSE;
 
-	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	prop = as_xml_get_prop_value (node, "type");
 	if (g_strcmp0 (prop, "default") == 0)
 		priv->kind = AS_SCREENSHOT_KIND_DEFAULT;
 	else
