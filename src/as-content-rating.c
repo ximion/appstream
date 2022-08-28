@@ -1182,7 +1182,7 @@ as_content_rating_attribute_get_description (const gchar *id, AsContentRatingVal
 	}
 
 	/* This means the requested @id is missing from @oars_descriptions, so
-	 * presumably the OARS spec has been updated but appstream-glib hasn’t. */
+	 * presumably the OARS spec has been updated but AppStream hasn’t. */
 	g_warn_if_reached ();
 
 	return NULL;
@@ -1336,7 +1336,7 @@ as_content_rating_attribute_from_csm_age (const gchar *id, guint age)
  *
  * Returns: (array zero-terminated=1) (transfer container): a %NULL-terminated
  *    array of IDs, to be freed with g_free() (the element values are owned by
- *    libappstream-glib and must not be freed)
+ *    libappstream and must not be freed)
  * Since: 0.12.10
  */
 const gchar **
