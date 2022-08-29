@@ -29,6 +29,7 @@
 # Deleted User <noreply+19746@weblate.org>, 2021.
 # Deleted User <noreply+20298@weblate.org>, 2021.
 # Emmanuel Gil Peyrot <linkmauve@linkmauve.fr>, 2021.
+# Maxime Leroy <lisacintosh@gmail.com>, 2022.
 #
 # Translators:
 msgid ""
@@ -36,16 +37,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-08-22 13:44+0200\n"
-"PO-Revision-Date: 2022-02-20 23:28+0000\n"
-"Last-Translator: Éfrit <efrit@posteo.net>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/appstream/"
-"translations/fr/>\n"
+"PO-Revision-Date: 2022-08-29 06:14+0000\n"
+"Last-Translator: Maxime Leroy <lisacintosh@gmail.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.11-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1590,7 +1590,7 @@ msgstr ""
 msgid ""
 "A `memory` item must only contain a non-zero integer value, depicting a "
 "system memory size in mebibyte (MiB)"
-msgstr ""
+msgstr "L'élément `memory` ne doit contenir qu'un entier supérieur à zéro, représentant la taille de la mémoire système en mebibyte (MiB)"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:359
@@ -1994,7 +1994,7 @@ msgstr ""
 msgid ""
 "This component is in no valid categories, even though it should be. Please "
 "check its metainfo file and desktop-entry file."
-msgstr ""
+msgstr "Ce composant n'est pas dans une catégorie valide, alors qu'il devrait. Veuillez vérifier ses fichiers \"metainfo\" et \"desktop-entry\"."
 
 #: src/as-validator-issue-tag.h:662
 msgid "The screenshot caption is too long (should be <= 100 characters)"
@@ -2141,7 +2141,7 @@ msgstr "La valeur définie comme type de version est invalide."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:779
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "Cette version n'a pas la propriété `version`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:785
@@ -2151,9 +2151,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:790
-#, fuzzy
 msgid "The release timestamp is invalid."
-msgstr "La valeur définie comme type de version est invalide."
+msgstr "L'horodatage de la version est invalide."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:796
@@ -2310,9 +2309,8 @@ msgstr ""
 "et du bas sont autorisés."
 
 #: src/as-validator-issue-tag.h:900
-#, fuzzy
 msgid "The type of this color is not valid."
-msgstr "L’XML de ce fichier est malformé."
+msgstr "Le type de cette couleur est invalide."
 
 #: src/as-validator-issue-tag.h:905
 #, fuzzy
@@ -2321,17 +2319,13 @@ msgstr "La valeur définie comme type de version est invalide."
 
 #: src/as-validator-issue-tag.h:910
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Cette couleur n'est pas un code couleur HTML valide."
 
 #: src/as-validator-issue-tag.h:915
-#, fuzzy
 msgid ""
 "A <keywords/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"Une balise <description/> ne doit pas être régionalisée dans les fichiers "
-"métainfo (métadonnées en amont). Régionalisez les paragraphes individuels à "
-"la place."
+msgstr "Une balise <keywords/> ne doit pas être régionalisée dans les fichiers \"metainfo\" (métadonnées en amont). Régionalisez les mots clés individuellement à la place."
 
 #: src/as-validator.c:162
 msgid ""
@@ -3281,15 +3275,13 @@ msgid "Unable to spawn package manager: %s"
 msgstr "Impossible de lancer le gestionnaire de paquet : %s"
 
 #: tools/ascli-actions-pkgmgr.c:84
-#, fuzzy
 msgid "Flatpak was not found! Please install it to continue."
-msgstr ""
-"Le binaire de composition '%s' n’a pas été trouvé ! Impossible de continuer."
+msgstr "Flatpak n’a pas été trouvé ! Veuillez l'installer avant de continuer."
 
 #: tools/ascli-actions-pkgmgr.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "Impossible de lancer le gestionnaire de paquet : %s"
+msgstr "Impossible de lancer le processus de Flatpak : %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
 #, fuzzy, c-format
@@ -3299,22 +3291,22 @@ msgstr "Impossible de trouver un composant avec l’identifiant « %s » !
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "Plusieurs éléments peuvent être supprimés :"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "Plusieurs éléments peuvent être installés :"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:186
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Veuillez entrer le numéro du composant à supprimer :"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:190
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Veuillez entrer le numéro du composant à installer :"
 
 #: tools/ascli-actions-pkgmgr.c:200
 #, c-format
@@ -3522,7 +3514,7 @@ msgstr "Éléments fournis"
 #: tools/ascli-utils.c:449
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "Veuillez entrer un nombre entre 1 et %i : "
 
 #~ msgid "Unable to remove old cache."
 #~ msgstr "Impossible de supprimer l’ancien cache."
