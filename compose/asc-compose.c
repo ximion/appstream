@@ -1595,7 +1595,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 								AS_FORMAT_VERSION_CURRENT,
 								priv->de_l10n_fn,
 								priv->de_l10n_fn_udata);
-			if (de_cpt != NULL)
+			if (de_cpt != NULL && !asc_result_is_ignored (ctask->result, de_cpt))
 				asc_result_add_hint_simple (ctask->result, de_cpt, "no-metainfo");
 		}
 	}
