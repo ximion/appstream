@@ -2,29 +2,29 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Priit Jõerüüt <hwlate@joeruut.com>, 2022.
+# words wave <wordswave6162@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-08-22 13:44+0200\n"
-"PO-Revision-Date: 2022-01-17 09:53+0000\n"
-"Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
-"Language-Team: Estonian <https://hosted.weblate.org/projects/appstream/"
-"translations/et/>\n"
+"PO-Revision-Date: 2022-09-16 05:17+0000\n"
+"Last-Translator: words wave <wordswave6162@gmail.com>\n"
+"Language-Team: Estonian <https://hosted.weblate.org/projects/appstream/translations/et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
-msgstr ""
+msgstr "AppStream CLI"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr ""
+msgstr "AppStream metaandmetega töötamise utiliit"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
@@ -34,7 +34,7 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
+msgstr "AppStream on metaandmete spetsifikatsioon, mis võimaldab tarkvarakomponentidel anda teavet enda kohta automatiseeritud süsteemidele ja lõppkasutajatele enne tarkvara tegelikku paigaldamist. AppStream-projekt pakub võimalusi, et nendele metaandmetele hõlpsasti ligi pääseda ja neid ümber kujundada, ning pakub ka mõningaid lisateenuseid, mis võimaldavad luua funktsionaalselt rikkalikke tarkvarakeskusi ja sarnaseid rakendusi, mis kasutavad tarkvara metaandmeid."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -44,37 +44,37 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
+msgstr "Käsurea tööriist <em>appstreamcli</em> võimaldab lugeda, kirjutada ja teisendada AppStream XML- või YAML-metaandmeid ning kontrollida nende vastavust spetsifikatsioonile. Samuti võimaldab see lihtsat juurdepääsu süsteemi metaandmete kogule, näiteks konkreetse Mediatype'i käsitsitajat pakkuva tarkvara päringu tegemiseks või tarkvara paigaldamiseks selle komponendi identifikaatori järgi."
 
 #: src/as-cache.c:919
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "Vahemälu asukoht '%s' ei ole kirjutatav."
 
 #: src/as-category.c:66
 msgctxt "Category of AudioVideo"
 msgid "Featured"
-msgstr ""
+msgstr "Esiletõstetud"
 
 #: src/as-category.c:69
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr ""
+msgstr "Heli loomine ja redigeerimine"
 
 #: src/as-category.c:75
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
-msgstr ""
+msgstr "Muusikamängijad"
 
 #: src/as-category.c:84
 msgctxt "Category of Development"
 msgid "Featured"
-msgstr ""
+msgstr "Esiletõstetud"
 
 #: src/as-category.c:87
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "Debuggerid"
 
 #: src/as-category.c:90
 msgctxt "Category of Development"
@@ -124,37 +124,37 @@ msgstr "Seiklus"
 #: src/as-category.c:130
 msgctxt "Category of Games"
 msgid "Arcade"
-msgstr ""
+msgstr "Arkaad"
 
 #: src/as-category.c:133
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr ""
+msgstr "Plokid"
 
 #: src/as-category.c:136
 msgctxt "Category of Games"
 msgid "Board"
-msgstr ""
+msgstr "Juhatus"
 
 #: src/as-category.c:139
 msgctxt "Category of Games"
 msgid "Card"
-msgstr ""
+msgstr "Kaart"
 
 #: src/as-category.c:142
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr ""
+msgstr "Emulaatorid"
 
 #: src/as-category.c:145
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr ""
+msgstr "Lapsed"
 
 #: src/as-category.c:148
 msgctxt "Category of Games"
 msgid "Logic"
-msgstr ""
+msgstr "Loogika"
 
 #: src/as-category.c:151
 msgctxt "Category of Games"
@@ -391,7 +391,7 @@ msgstr "%s (%s)"
 
 #: src/as-content-rating.c:444
 msgid "General"
-msgstr ""
+msgstr "Üldine"
 
 #: src/as-content-rating.c:453
 msgid "ALL"
@@ -403,15 +403,15 @@ msgstr "Vaid täiskasvanutele"
 
 #: src/as-content-rating.c:459 src/as-content-rating.c:559
 msgid "Mature"
-msgstr ""
+msgstr "Täiskasvanud"
 
 #: src/as-content-rating.c:461 src/as-content-rating.c:558
 msgid "Teen"
-msgstr ""
+msgstr "Teismeline"
 
 #: src/as-content-rating.c:463 src/as-content-rating.c:557
 msgid "Everyone 10+"
-msgstr ""
+msgstr "Kõik 10+"
 
 #: src/as-content-rating.c:465 src/as-content-rating.c:556
 msgid "Everyone"
@@ -424,427 +424,427 @@ msgstr "Väikelastele"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:839
 msgid "No cartoon violence"
-msgstr ""
+msgstr "Ei mingit koomiksite vägivalda"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:841
 msgid "Cartoon characters in unsafe situations"
-msgstr ""
+msgstr "Karikatuuritegelased ebaturvalistes olukordades"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:843
 msgid "Cartoon characters in aggressive conflict"
-msgstr ""
+msgstr "Karikatuuritegelased agressiivses konfliktis"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:845
 msgid "Graphic violence involving cartoon characters"
-msgstr ""
+msgstr "Graafiline vägivald seotud koomiksitegelastega"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:850
 msgid "No fantasy violence"
-msgstr ""
+msgstr "Ei mingit fantaasiavägivalda"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:852
 msgid "Characters in unsafe situations easily distinguishable from reality"
-msgstr ""
+msgstr "Ohtlikes olukordades olevad tegelased on reaalsusest kergesti eristatavad"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:854
 msgid "Characters in aggressive conflict easily distinguishable from reality"
-msgstr ""
+msgstr "Agressiivses konfliktis olevad tegelased on reaalsusest kergesti eristatavad"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:856
 msgid "Graphic violence easily distinguishable from reality"
-msgstr ""
+msgstr "Graafiline vägivald, mis on kergesti eristatav tegelikkusest"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:861
 msgid "No realistic violence"
-msgstr ""
+msgstr "Ei mingit realistlikku vägivalda"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:863
 msgid "Mildly realistic characters in unsafe situations"
-msgstr ""
+msgstr "Kergelt realistlikud tegelased ebaturvalistes olukordades"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:865
 msgid "Depictions of realistic characters in aggressive conflict"
-msgstr ""
+msgstr "Realistlike tegelaste kujutamine agressiivses konfliktis"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:867
 msgid "Graphic violence involving realistic characters"
-msgstr ""
+msgstr "Graafiline vägivald, mis hõlmab realistlikke tegelasi"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:872
 msgid "No bloodshed"
-msgstr ""
+msgstr "Ei mingit verevalamist"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:874
 msgid "Unrealistic bloodshed"
-msgstr ""
+msgstr "Ebareaalne verevalamine"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:876
 msgid "Realistic bloodshed"
-msgstr ""
+msgstr "Realistlik verevalamine"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:878
 msgid "Depictions of bloodshed and the mutilation of body parts"
-msgstr ""
+msgstr "verevalamise ja kehaosade moonutamise kujutamine"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:883
 msgid "No sexual violence"
-msgstr ""
+msgstr "Ei mingit seksuaalset vägivalda"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:885
 msgid "Rape or other violent sexual behavior"
-msgstr ""
+msgstr "Vägistamine või muu vägivaldne seksuaalkäitumine"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:892
 msgid "No references to alcohol"
-msgstr ""
+msgstr "Puuduvad viited alkoholile"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:894
 msgid "References to alcoholic beverages"
-msgstr ""
+msgstr "Viited alkohoolsetele jookidele"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:896
 msgid "Use of alcoholic beverages"
-msgstr ""
+msgstr "Alkohoolsete jookide kasutamine"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:902
 msgid "No references to illicit drugs"
-msgstr ""
+msgstr "Puuduvad viited ebaseaduslikele uimastitele"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:904
 msgid "References to illicit drugs"
-msgstr ""
+msgstr "Viited ebaseaduslikele uimastitele"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:906
 msgid "Use of illicit drugs"
-msgstr ""
+msgstr "Ebaseaduslike uimastite kasutamine"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:912
 msgid "No references to tobacco products"
-msgstr ""
+msgstr "Puuduvad viited tubakatoodetele"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:914
 msgid "References to tobacco products"
-msgstr ""
+msgstr "Viited tubakatoodetele"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:916
 msgid "Use of tobacco products"
-msgstr ""
+msgstr "Tubakatoodete kasutamine"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:922
 msgid "No nudity of any sort"
-msgstr ""
+msgstr "Mingit alastust ei tohi teha"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:924
 msgid "Brief artistic nudity"
-msgstr ""
+msgstr "Lühike kunstiline alastus"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:926
 msgid "Prolonged nudity"
-msgstr ""
+msgstr "Pikaajaline alastiolek"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:932
 msgid "No references to or depictions of sexual nature"
-msgstr ""
+msgstr "Puuduvad viited seksuaalsele olemusele ega selle kujutamine"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:934
 msgid "Provocative references or depictions"
-msgstr ""
+msgstr "Provokatiivsed viited või kujutised"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:936
 msgid "Sexual references or depictions"
-msgstr ""
+msgstr "Seksuaalsed viited või kujutised"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:938
 msgid "Graphic sexual behavior"
-msgstr ""
+msgstr "Graafiline seksuaalne käitumine"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:943
 msgid "No profanity of any kind"
-msgstr ""
+msgstr "Igasugune rõvedus on keelatud"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:945
 msgid "Mild or infrequent use of profanity"
-msgstr ""
+msgstr "Kerge või harva esinev kasutamine rõvedus"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:947
 msgid "Moderate use of profanity"
-msgstr ""
+msgstr "Mõõdukas roppuste kasutamine"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:949
 msgid "Strong or frequent use of profanity"
-msgstr ""
+msgstr "Roppuste tugev või sagedane kasutamine"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:954
 msgid "No inappropriate humor"
-msgstr ""
+msgstr "Ei mingit sobimatut huumorit"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:956
 msgid "Slapstick humor"
-msgstr ""
+msgstr "Slapstick huumor"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:958
 msgid "Vulgar or bathroom humor"
-msgstr ""
+msgstr "Vulgaarne või vannitoa huumor"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:960
 msgid "Mature or sexual humor"
-msgstr ""
+msgstr "Küps või seksuaalne huumor"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:965
 msgid "No discriminatory language of any kind"
-msgstr ""
+msgstr "Ei mingit diskrimineerivat keelekasutust"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:967
 msgid "Negativity towards a specific group of people"
-msgstr ""
+msgstr "Negatiivsus konkreetse inimrühma suhtes"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:969
 msgid "Discrimination designed to cause emotional harm"
-msgstr ""
+msgstr "Diskrimineerimine, mille eesmärk on tekitada emotsionaalset kahju"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:971
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
-msgstr ""
+msgstr "Selgesõnaline diskrimineerimine soo, seksuaalsuse, rassi või usutunnistuse alusel"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
 msgid "No advertising of any kind"
-msgstr ""
+msgstr "Mitte mingisugust reklaami"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:978
 msgid "Product placement"
-msgstr ""
+msgstr "Tootepaigutus"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:980
 msgid "Explicit references to specific brands or trademarked products"
-msgstr ""
+msgstr "Selgesõnalised viited konkreetsetele kaubamärkidele või kaubamärgiga toodetele"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:982
 msgid "Users are encouraged to purchase specific real-world items"
-msgstr ""
+msgstr "Kasutajaid julgustatakse ostma konkreetseid reaalse maailma esemeid"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:987
 msgid "No gambling of any kind"
-msgstr ""
+msgstr "Ei mingisugused hasartmängud"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:989
 msgid "Gambling on random events using tokens or credits"
-msgstr ""
+msgstr "Hasartmängud juhuslikel sündmustel, kasutades märke või krediiti"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:991
 msgid "Gambling using “play” money"
-msgstr ""
+msgstr "Hasartmängud \"mänguraha\" abil"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:993
 msgid "Gambling using real money"
-msgstr ""
+msgstr "Hasartmängud pärisraha kasutades"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:998
 msgid "No ability to spend money"
-msgstr ""
+msgstr "Puudub võime raha kulutada"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1000
 msgid "Users are encouraged to donate real money"
-msgstr ""
+msgstr "Kasutajaid julgustatakse annetama päris raha"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1003
 msgid "Ability to spend real money in-app"
-msgstr ""
+msgstr "Võimalus kulutada rakenduses päris raha"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1008
 msgid "No way to chat with other users"
-msgstr ""
+msgstr "Pole võimalust teiste kasutajatega vestelda"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1010
 msgid "User-to-user interactions without chat functionality"
-msgstr ""
+msgstr "Kasutaja ja kasutaja vaheline suhtlus ilma vestlusfunktsioonita"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1012
 msgid "Moderated chat functionality between users"
-msgstr ""
+msgstr "Modereeritud kasutajatevahelise vestluse funktsionaalsus"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1014
 msgid "Uncontrolled chat functionality between users"
-msgstr ""
+msgstr "Kontrollimatu vestlusfunktsioon kasutajate vahel"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1019
 msgid "No way to talk with other users"
-msgstr ""
+msgstr "Teiste kasutajatega pole võimalik rääkida"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1021
 msgid "Uncontrolled audio or video chat functionality between users"
-msgstr ""
+msgstr "Kontrollimatu audio- või videovestluse funktsionaalsus kasutajate vahel"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1028
 msgid "No sharing of social network usernames or email addresses"
-msgstr ""
+msgstr "Sotsiaalvõrgustike kasutajanimede ja e-posti aadresside jagamist ei toimu"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1030
 msgid "Sharing social network usernames or email addresses"
-msgstr ""
+msgstr "Sotsiaalvõrgustike kasutajanimede või e-posti aadresside jagamine"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1037
 msgid "No sharing of user information with third parties"
-msgstr ""
+msgstr "Kasutajateabe mittejagamine kolmandate isikutega"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1039
 msgid "Checking for the latest application version"
-msgstr ""
+msgstr "Rakenduse uusima versiooni kontrollimine"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1041
 msgid "Sharing diagnostic data that does not let others identify the user"
-msgstr ""
+msgstr "Selliste diagnostikaandmete ühiskasutus, mis ei võimalda teistel kasutajat tuvastada"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
 msgid "Sharing information that lets others identify the user"
-msgstr ""
+msgstr "Teabe jagamine, mis võimaldab teistel kasutajat tuvastada"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1048
 msgid "No sharing of physical location with other users"
-msgstr ""
+msgstr "Füüsilise asukoha mitte jagamine teiste kasutajatega"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1050
 msgid "Sharing physical location with other users"
-msgstr ""
+msgstr "Füüsilise asukoha jagamine teiste kasutajatega"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1073
 msgid "No references to homosexuality"
-msgstr ""
+msgstr "Ei mingeid viiteid homoseksuaalsusele"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1075
 msgid "Indirect references to homosexuality"
-msgstr ""
+msgstr "Kaudsed viited homoseksuaalsusele"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1077
 msgid "Kissing between people of the same gender"
-msgstr ""
+msgstr "Suudlemine samast soost inimeste vahel"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1079
 msgid "Graphic sexual behavior between people of the same gender"
-msgstr ""
+msgstr "Graafiline seksuaalkäitumine samast soost inimeste vahel"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1084
 msgid "No references to prostitution"
-msgstr ""
+msgstr "Ei mingeid viiteid prostitutsioonile"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1086
 msgid "Indirect references to prostitution"
-msgstr ""
+msgstr "Kaudsed viited prostitutsioonile"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1088
 msgid "Direct references to prostitution"
-msgstr ""
+msgstr "Otsesed viited prostitutsioonile"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1090
 msgid "Graphic depictions of the act of prostitution"
-msgstr ""
+msgstr "Prostitutsiooniakti graafiline kujutamine"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1095
 msgid "No references to adultery"
-msgstr ""
+msgstr "Ei mingeid viiteid abielurikkumisele"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1097
 msgid "Indirect references to adultery"
-msgstr ""
+msgstr "Kaudsed viited abielurikkumisele"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1099
 msgid "Direct references to adultery"
-msgstr ""
+msgstr "Otsesed viited abielurikkumisele"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1101
 msgid "Graphic depictions of the act of adultery"
-msgstr ""
+msgstr "Abielurikkumise akti graafilised kujutised"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1106
 msgid "No sexualized characters"
-msgstr ""
+msgstr "Ei mingeid seksualiseeritud tegelasi"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1109
 msgid "Scantily clad human characters"
-msgstr ""
+msgstr "Napisõnaliselt riietatud inimtegelased"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1111
