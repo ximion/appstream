@@ -27,16 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-08-22 13:44+0200\n"
-"PO-Revision-Date: 2022-08-01 06:27+0000\n"
+"PO-Revision-Date: 2022-09-16 05:17+0000\n"
 "Last-Translator: Maite Guix <maite.guix@gmail.com>\n"
-"Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
-"translations/ca/>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/translations/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1150,19 +1149,14 @@ msgstr ""
 "utilitzeu l'etiqueta <url/> per a compartir enllaços."
 
 #: src/as-validator-issue-tag.h:96
-#, fuzzy
 msgid "This tag is not translatable."
-msgstr "L'etiqueta del problema «%s» no es reconeix."
+msgstr "Aquesta etiqueta no és traduïble."
 
 #: src/as-validator-issue-tag.h:101
-#, fuzzy
 msgid ""
 "This tag must only appear once in this context. Having multiple tags of this "
 "kind is not valid."
-msgstr ""
-"D'acord amb l'especifiació AppStream, l'etiqueta esmentada ha d'aparèixer "
-"només una vegada en aquest context. No és vàlid tenir diverses etiquetes "
-"d'aquest tipus."
+msgstr "Aquesta etiqueta només ha d'aparèixer una vegada en aquest context. Tenir diverses etiquetes d'aquest tipus no és vàlid."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
@@ -1581,18 +1575,18 @@ msgstr ""
 msgid ""
 "A `memory` item must only contain a non-zero integer value, depicting a "
 "system memory size in mebibyte (MiB)"
-msgstr ""
+msgstr "Un element de `memory` només ha de contenir un valor enter no nul, que representa una mida de memòria del sistema en mebibyte (MiB)"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:359
 msgid "The set tag value is not valid for an `internet` relation."
-msgstr ""
+msgstr "El valor de l'etiqueta establert no és vàlid per a una relació `internet`."
 
 #: src/as-validator-issue-tag.h:364
 msgid ""
 "The value of this property must be a positive integer value, describing the "
 "minimum required bandwidth in mbit/s."
-msgstr ""
+msgstr "El valor d'aquesta propietat ha de ser un valor enter positiu, descrivint l'ample de banda mínim requerit en mbit/s."
 
 #: src/as-validator-issue-tag.h:369
 msgid ""
@@ -1743,7 +1737,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:489
 msgid "An URL of this type has already been defined."
-msgstr ""
+msgstr "Ja s'ha definit una URL d'aquest tipus."
 
 #: src/as-validator-issue-tag.h:494
 msgid "The <developer_name/> can not contain a hyperlink."
