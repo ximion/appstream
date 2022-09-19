@@ -81,7 +81,7 @@ ascli_refresh_cache (const gchar *cachepath,
 		ret = as_pool_refresh_system_cache (pool, forced, &cache_updated, &error);
 	} else {
 		as_pool_override_cache_locations (pool, cachepath, NULL);
-		as_pool_load (pool, NULL, &error);
+		ret = as_pool_load (pool, NULL, &error);
 		cache_updated = TRUE;
 	}
 
