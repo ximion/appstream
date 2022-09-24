@@ -60,12 +60,18 @@ asclib_res = glib.compile_resources (
 )
 
 # extra dependencies we need just for AppStream Compose
-cairo_dep      = dependency('cairo', version : '>= 1.12')
+cairo_dep      = dependency('cairo', version: '>= 1.12')
 gdkpixbuf_dep  = dependency('gdk-pixbuf-2.0')
-rsvg_dep       = dependency('librsvg-2.0', version : '>= 2.48')
 freetype_dep   = dependency('freetype2')
 pango_dep      = dependency('pango')
 fontconfig_dep = dependency('fontconfig')
+m_dep          = cc.find_library('m', required: false)
+if get_option ('svg-support')
+    rsvg_dep       = dependency('librsvg-2.0', version: '>= 2.48')
+else
+    rsvg_dep = dependency('', required: false)
+    warning('Building without SVG support. Therefore appstream-compose will be unable to render SVG icons.')
+endif
 
 appstream_compose_lib = library ('appstream-compose',
     [ascompose_src,
@@ -76,6 +82,7 @@ appstream_compose_lib = library ('appstream-compose',
     soversion: '0',
     version: as_version,
     dependencies: [appstream_dep,
+                   m_dep,
                    gio_dep,
                    cairo_dep,
                    gdkpixbuf_dep,
@@ -101,7 +108,7 @@ pkgc.generate(
                'gio-2.0',
                'gobject-2.0',
                'gdk-pixbuf-2.0',
-               'appstream']
+               'appstream'],
 )
 
 appstream_compose_dep = declare_dependency(

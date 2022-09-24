@@ -49,6 +49,7 @@ conf.set_quoted('SYSCONFDIR',
                            get_option('sysconfdir')))
 conf.set('HAVE_APT_SUPPORT', get_option('apt-support'))
 conf.set('HAVE_STEMMING', get_option('stemming'))
+conf.set('HAVE_SVG_SUPPORT', get_option('svg-support'))
 
 configure_file(output: 'config.h', configuration: conf)
 root_inc_dir = include_directories ('.')

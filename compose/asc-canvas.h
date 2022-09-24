@@ -35,9 +35,10 @@ G_DECLARE_FINAL_TYPE (AscCanvas, asc_canvas, ASC, CANVAS, GObject)
 
 /**
  * AscCanvasError:
- * @ASC_CANVAS_ERROR_FAILED:	Generic failure.
- * @ASC_CANVAS_ERROR_DRAWING:	Drawing operation failed.
- * @ASC_CANVAS_ERROR_FONT:	Issue with font or font selection.
+ * @ASC_CANVAS_ERROR_FAILED:	  Generic failure.
+ * @ASC_CANVAS_ERROR_DRAWING:	  Drawing operation failed.
+ * @ASC_CANVAS_ERROR_FONT:	  Issue with font or font selection.
+ * @ASC_CANVAS_ERROR_UNSUPPORTED: The requested action was not supported.
  *
  * A drawing error.
  **/
@@ -45,6 +46,7 @@ typedef enum {
 	ASC_CANVAS_ERROR_FAILED,
 	ASC_CANVAS_ERROR_DRAWING,
 	ASC_CANVAS_ERROR_FONT,
+	ASC_CANVAS_ERROR_UNSUPPORTED,
 	/*< private >*/
 	ASC_CANVAS_ERROR_LAST
 } AscCanvasError;

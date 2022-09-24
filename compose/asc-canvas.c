@@ -30,7 +30,9 @@
 
 #include <cairo.h>
 #include <cairo-ft.h>
+#ifdef HAVE_SVG_SUPPORT
 #include <librsvg/rsvg.h>
+#endif
 
 #include "asc-font-private.h"
 #include "asc-image.h"
@@ -152,6 +154,7 @@ asc_canvas_get_height (AscCanvas *canvas)
 gboolean
 asc_canvas_render_svg (AscCanvas *canvas, GInputStream *stream, GError **error)
 {
+#ifdef HAVE_SVG_SUPPORT
 	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
 	RsvgHandle *handle = NULL;
 	gboolean ret = FALSE;
@@ -220,6 +223,15 @@ out:
 	if (handle != NULL)
 		g_object_unref (handle);
 	return ret;
+#else
+	g_warning ("Unable to render SVG graphic: AppStream built without SVG support.");
+	g_set_error_literal (error,
+			     ASC_CANVAS_ERROR,
+			     ASC_CANVAS_ERROR_UNSUPPORTED,
+			     "AppStream was built without SVG support. This is an issue with your AppStream distribution. "
+			     "Please rebuild AppStream with SVG support enabled or contact your distributor to enable it for you.");
+	return FALSE;
+#endif
 }
 
 /**

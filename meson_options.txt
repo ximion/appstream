@@ -28,6 +28,11 @@ option('gir',
        value : true,
        description : 'Build introspection data'
 )
+option('svg-support',
+       type : 'boolean',
+       value : true,
+       description : 'SVG graphics support for compose (only disable this for bootstrapping purposes)'
+)
 
 option('docs',
        type : 'boolean',
