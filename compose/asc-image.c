@@ -559,8 +559,22 @@ asc_image_load_filename (AscImage *image,
 			 GError **error)
 {
 	g_autoptr(GdkPixbuf) pixbuf_src = NULL;
+	gboolean is_svg = FALSE;
 
 	g_return_val_if_fail (ASC_IS_IMAGE (image), FALSE);
+
+	is_svg = g_str_has_suffix (filename, ".svg") || g_str_has_suffix (filename, ".svgz");
+#ifndef HAVE_SVG_SUPPORT
+	if (is_svg) {
+		g_warning ("Unable to load SVG graphic: AppStream built without SVG support.");
+		g_set_error_literal (error,
+				     ASC_IMAGE_ERROR,
+				     ASC_IMAGE_ERROR_UNSUPPORTED,
+				     "AppStream was built without SVG support. This is an issue with your AppStream distribution. "
+				     "Please rebuild AppStream with SVG support enabled or contact your distributor to enable it for you.");
+			return FALSE;
+	}
+#endif
 
 	/* only support allowed types, unless support for any image is explicitly requested */
 	if (!as_flags_contains(flags, ASC_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED)) {
@@ -578,7 +592,7 @@ asc_image_load_filename (AscImage *image,
 		if (asc_image_format_from_string (name) == ASC_IMAGE_FORMAT_UNKNOWN) {
 			g_set_error (error,
 				     ASC_IMAGE_ERROR,
-				     ASC_IMAGE_ERROR_FAILED,
+				     ASC_IMAGE_ERROR_UNSUPPORTED,
 				     "Image format %s is not supported",
 				     name);
 			return FALSE;
@@ -596,7 +610,7 @@ asc_image_load_filename (AscImage *image,
 	}
 
 	/* open file in native size */
-	if (g_str_has_suffix (filename, ".svg") || g_str_has_suffix (filename, ".svgz")) {
+	if (is_svg) {
 		pixbuf_src = asc_image_pixbuf_new_from_gz (filename,
 							   (gint) dest_size,
 							   (gint) dest_size,

@@ -20,7 +20,7 @@
 
 /**
  * SECTION:asc-canvas
- * @short_description: Draw text and render SVG canvass.
+ * @short_description: Draw text and render SVG graphics.
  * @include: appstream-compose.h
  */
 

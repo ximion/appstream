@@ -100,12 +100,14 @@ typedef enum {
 
 /**
  * AscImageError:
- * @ASC_IMAGE_ERROR_FAILED:	Generic failure.
+ * @ASC_IMAGE_ERROR_FAILED:	 Generic failure.
+ * @ASC_IMAGE_ERROR_UNSUPPORTED: The graphic type is not supported.
  *
  * An image processing error.
  **/
 typedef enum {
 	ASC_IMAGE_ERROR_FAILED,
+	ASC_IMAGE_ERROR_UNSUPPORTED,
 	/*< private >*/
 	ASC_IMAGE_ERROR_LAST
 } AscImageError;
