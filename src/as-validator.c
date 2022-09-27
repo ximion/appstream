@@ -1750,10 +1750,9 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 			/* Neither timestamp, nor date property exists */
 			as_validator_add_issue (validator, node, "release-time-missing", "date");
 		} else {
-			if (as_str_verify_integer (timestamp, 3000, G_MAXINT64)) {
-				/* check if the timestamp is both a number and higher than 3000. The 3000 is used to check that it is not a year */
+			/* check if the timestamp is both a number and higher than 3000. The 3000 is used to check that it is not a year */
+			if (!as_str_verify_integer (timestamp, 3000, G_MAXINT64))
 				as_validator_add_issue (validator, node, "release-timestamp-invalid", timestamp);
-			}
 		}
 	}
 
