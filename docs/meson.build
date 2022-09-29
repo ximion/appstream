@@ -82,6 +82,7 @@ as_doc_src = [
     'xml/metainfo-runtime.xml',
     'xml/metainfo-service.xml',
     'xml/metainfo-webapp.xml',
+    'xml/releases-data.xml',
     'xml/Miscellaneous.xml',
     'xml/misc-vercmp.xml',
     'xml/misc-urihandler.xml',
