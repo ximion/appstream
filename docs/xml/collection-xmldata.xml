@@ -505,8 +505,7 @@
 				<term>&lt;releases/&gt;</term>
 				<listitem>
 					<para>
-						The <literal>releases</literal> tag and its <literal>release</literal> children are structured as described in <xref linkend="tag-releases"/>, with the
-						additional requirement that releases must be sorted in a latest-to-oldest order.
+						The <literal>releases</literal> tag and its <literal>release</literal> children are structured as described in <xref linkend="sect-Metadata-Releases"/>.
 					</para>
 					<para>
 						Each <literal>release</literal> tag may have a <literal>description</literal> tag as child, containing a brief description of what is new in the release.
@@ -516,6 +515,11 @@
 						The AppStream collection XML generator may shorten overlong lists of releases to a smaller list, for example of 4 <literal>release</literal> tags.
 						It may also convert ISO 8601 <literal>date</literal> properties of the metainfo file into an UNIX timestamp <literal>timestamp</literal> property.
 						It should avoid generating metadata containing both properties on a <literal>release</literal> tag.
+					</para>
+					<para>
+						If a <xref linkend="tag-releases"/> tag in a metainfo file references an <literal>external</literal> release description, the release description should
+						be read either from the release file provided locally, or, if possible and provided, be downloaded from the URL referenced in the component's <literal>releases</literal>
+						tag.
 					</para>
 					<para>
 						Example for a valid releases tag:

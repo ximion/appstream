@@ -499,11 +499,53 @@
 		<term>&lt;releases/&gt;</term>
 		<listitem>
 			<para>
-				The <code><![CDATA[<releases>]]></code> tag contains multiple <literal>release</literal> children that contain
-				metadata about releases made for this software component.
+				The <code><![CDATA[<releases>]]></code> tag contains multiple <literal>release</literal> children that
+				themselves contain metadata about releases made for this software component.
 				The release information XML is described in-depth in <xref linkend="sect-Metadata-Releases"/>,
 				examples for a valid <literal>releases</literal> tag with artifacts are also provided there.
 			</para>
+			<para>
+				Release information can be embedded in the component's metainfo file, following the XML
+				description outlined in <xref linkend="sect-Metadata-Releases"/>. Alternatively, it can also
+				be split into its own metadata file as described in that section. In case of external metadata,
+				a <literal>releases</literal> tag must still be present in the component's metainfo file, and
+				must have a <literal>type</literal> property set to value <code>external</code> (if the <literal>type</literal>
+				property is missing, a value of <code>embedded</code> is implicitly assumed for it).
+			</para>
+			<para>
+				In case of external metadata, the <literal>releases</literal> tag may also have an <literal>url</literal>
+				property linking to a web location where the release XML can be found and updated separately from the
+				main component metadata. An <literal>url</literal> property must not be present without <literal>type</literal>
+				set to <code>external</code>.
+			</para>
+			<para>
+				Only HTTPS links are allowed for the web URL, and any <literal>artifact</literal> defined in a
+				release description from an external website should not be trusted without further verification, as external
+				release information can currently not be signed.
+			</para>
+			<para>
+				AppStream catalog metadata generators may choose to update the locally provided release information with the data from
+				the web location provided by the URL in <literal>url</literal>.
+				This allow projects to complete release localization after a release was made, or include further information that was
+				not yet available directly at release time.
+				The generated catalog XML data must be complete and must not contain references to external release information.
+			</para>
+			<para>
+				Example for a <literal>releases</literal> block that points to an external metadata file:
+			</para>
+			<programlisting language="XML"><![CDATA[<releases type="external" url="https://example.org/releases/org.example.myapp.releases.xml" />]]></programlisting>
+			<important>
+				<title>Local Release Data</title>
+				<para>
+					Please note that even if release data is external and also provided on a remote location, it also <emphasis>must</emphasis> be
+					available locally, installed as a file into <filename>/usr/share/metainfo/releases/%{cid}.releases.xml</filename>.
+					The local file may not contain all information (for example it may not have a complete release description or all translations),
+					but basic data such as the released versions and their release dates should be present.
+				</para>
+				<para>
+					It is an error to reference an external release data file, but not provide a local copy of it.
+				</para>
+			</important>
 		</listitem>
 		</varlistentry>
 
