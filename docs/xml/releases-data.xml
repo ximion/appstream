@@ -13,6 +13,27 @@
 			This section documents the <xref linkend="tag-releases"/> tag that can be part of a <literal>component</literal> to provide
 			information about releases made for the respective component.
 		</para>
+		<para>
+			Alternatively to being embedded in a component metainfo file, the data may also be split into a dedicated XML file to be updated separately.
+		</para>
+	</section>
+
+	<section id="spec-releases-location">
+		<title>Locations</title>
+
+		<para>
+			Release data may be present directly in a component metainfo file, but also optionally be split out into an external metadata file.
+		</para>
+		<para>
+			If the <literal>releases</literal> XML is part of a metainfo file, it is embedded into it following the semantics described in the document.
+		</para>
+		<para>
+			If the <literal>releases</literal> XML is external, the metainfo file must contain a <xref linkend="tag-releases"/> tag with the <literal>type</literal>
+			property set to <code>external</code> as described for component XML.
+			The data described in this section is placed in a separate XML file with <literal>releases</literal> being its root node.
+			The file must be installed as <filename>/usr/share/metainfo/releases/%{cid}.releases.xml</filename>, where <code>cid</code> is the component ID of the component
+			the release information belongs to.
+		</para>
 	</section>
 
 	<section id="spec-releases-example">
