@@ -8,7 +8,7 @@
 # Seong-ho Cho <darkcircle.0426@gmail.com>, 2015-2016
 # Shinjo Park <kde@peremen.name>, 2015
 # 가석현 <shga89@naver.com>, 2020, 2021.
-# 이정희 <daemul72@gmail.com>, 2020, 2021.
+# 이정희 <daemul72@gmail.com>, 2020, 2021, 2022.
 # #-#-#-#-#  ko.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -27,16 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-08-22 13:44+0200\n"
-"PO-Revision-Date: 2022-04-13 04:10+0000\n"
-"Last-Translator: Shinjo Park <peremen@gmail.com>\n"
-"Language-Team: Korean <https://hosted.weblate.org/projects/appstream/"
-"translations/ko/>\n"
+"PO-Revision-Date: 2022-10-01 02:23+0000\n"
+"Last-Translator: 이정희 <daemul72@gmail.com>\n"
+"Language-Team: Korean <https://hosted.weblate.org/projects/appstream/translations/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -62,7 +61,6 @@ msgstr ""
 "비스를 제공합니다."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
-#, fuzzy
 msgid ""
 "The <em>appstreamcli</em> command-line tool allows to read, write, and "
 "transform AppStream XML or YAML metadata as well as to validate it for "
@@ -70,11 +68,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"이 도구는 AppStream XML 또는 YAML 메타 데이터의 읽기, 쓰기, 유효성 검사 및 변"
-"환을 허용합니다. 또한 시스템 메타 데이터 풀에 대한 액세스를 제공합니다, 예를 "
-"들면 특정 MIME 유형을 제공하는 소프트웨어를 쿼리 하며 소프트웨어 구성 요소 식"
-"별자로 설치합니다."
+msgstr "<em>appstreamcli</em> 명령줄 도구를 사용하면 AppStream XML 또는 YAML 메타데이터를 읽고, 쓰고, 변환하고 사양 준수 여부를 확인할 수 있습니다. 또한 예를 들어 특정 Mediatype 핸들러를 제공하는 소프트웨어를 쿼리하거나 구성 요소 식별자로 소프트웨어를 설치하기 위해 시스템 메타데이터 풀에 쉽게 액세스할 수 있습니다."
 
 #: src/as-cache.c:919
 #, c-format
@@ -948,9 +942,9 @@ msgid "Failed to download due to server limit"
 msgstr ""
 
 #: src/as-curl.c:142 src/as-curl.c:149
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to download file: %s"
-msgstr "해당 .desktop 파일을 읽을 수 없습니다: %s"
+msgstr "파일을 다운로드하지 못했습니다. %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
 #: src/as-curl.c:160
@@ -978,7 +972,7 @@ msgstr ""
 #.
 #: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
-msgstr "앱;애플리케이션;패키지;프로그램;프로그램;모음;도구"
+msgstr "app;application;package;program;programme;suite;tool;앱;애플리케이션;패키지;프로그램;모음;도구;응용프로그램"
 
 #: src/as-pool.c:1151
 msgid "Metadata files have errors:"
@@ -1011,9 +1005,8 @@ msgid "Binaries"
 msgstr "바이너리"
 
 #: src/as-provided.c:148
-#, fuzzy
 msgid "Media types"
-msgstr "MIME 형식"
+msgstr "미디어 유형"
 
 #: src/as-provided.c:150
 msgid "Fonts"
@@ -1032,14 +1025,12 @@ msgid "Python 3"
 msgstr "파이썬 3"
 
 #: src/as-provided.c:158
-#, fuzzy
 msgid "D-Bus System Services"
-msgstr "DBus 시스템 서비스"
+msgstr "D-Bus 시스템 서비스"
 
 #: src/as-provided.c:160
-#, fuzzy
 msgid "D-Bus Session Services"
-msgstr "DBus 세션 서비스"
+msgstr "D-Bus 세션 서비스"
 
 #: src/as-provided.c:162
 msgid "Runtime Firmware"
@@ -1084,7 +1075,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
+msgstr "AppStream 설명은 단락(<p/>) 및 목록(<ul/>, <ol/>)과 같이 텍스트 형식을 지정하는 제한된 태그 세트만 지원합니다. 이 설명 마크업에는 메타정보 사양을 지원하는 응용 프로그램에서 올바르게 렌더링되지 않는 잘못된 XML 태그가 포함되어 있습니다."
 
 #: src/as-validator-issue-tag.h:69
 msgid ""
@@ -1443,24 +1434,21 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:369
-#, fuzzy
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"소프트웨어 구성 요소 유형 '%s'은 AppStream에서 유효하지 않습니다. 가능한 값"
-"은 다음과 같습니다:"
+msgstr "지정된 구성 요소 유형은 인식 가능한 유효한 AppStream 구성 요소 유형이 아닙니다."
 
 #: src/as-validator-issue-tag.h:374
 msgid ""
 "The component has a priority value set. This is not allowed in metainfo "
 "files."
-msgstr ""
+msgstr "구성 요소에는 우선 순위 값이 설정되어 있습니다. 메타정보 파일에서는 허용되지 않습니다."
 
 #: src/as-validator-issue-tag.h:379
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
-msgstr ""
+msgstr "구성 요소에는 '병합' 방법이 정의되어 있습니다. 메타정보 파일에서는 허용되지 않습니다."
 
 #: src/as-validator-issue-tag.h:384
 msgid "The component is missing an ID (<id/> tag)."
@@ -1478,14 +1466,14 @@ msgstr ""
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
-msgstr ""
+msgstr "<id/> 태그에는 여전히 'type'속성이 포함되어 있으며, 아마도 이전 변환에서 최신 메타정보 형식으로 변환될 수 있습니다."
 
 #: src/as-validator-issue-tag.h:404
 msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
 "defining multiple package names per component."
-msgstr ""
+msgstr "'pkgname' 태그가 여러 번 나타납니다. 구성 요소당 여러 패키지 이름을 정의하지 않도록, 메타정보 및 .desktop 파일이 포함된 메타패키지 만들기를 평가해야 합니다."
 
 #: src/as-validator-issue-tag.h:409
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -1534,7 +1522,7 @@ msgstr ""
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr ""
+msgstr "메타정보 파일에는 'stock' 또는 'remote' 유형의 아이콘만 포함될 수 있으며 설정된 유형은 허용되지 않습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:464
@@ -1756,9 +1744,8 @@ msgid "The screenshot caption is too long (should be <= 100 characters)"
 msgstr ""
 
 #: src/as-validator-issue-tag.h:667
-#, fuzzy
 msgid "Unable to read file."
-msgstr "해당 .desktop 파일을 읽을 수 없습니다: %s"
+msgstr "파일을 읽을 수 없습니다."
 
 #: src/as-validator-issue-tag.h:672
 msgid "The XML of this file is malformed."
@@ -1785,14 +1772,12 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:694
-#, fuzzy
 msgid "The metainfo filename does not match the component ID."
-msgstr "component-ID와 일치하는 소프트웨어를 제거하세요."
+msgstr "metainfo 파일 이름이 구성 요소 ID와 일치하지 않습니다."
 
 #: src/as-validator-issue-tag.h:699
-#, fuzzy
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr "해당 .desktop 파일을 읽을 수 없습니다: %s"
+msgstr "이 구성 요소와 연결된 데스크톱 항목 파일을 불러올 수 없습니다."
 
 #: src/as-validator-issue-tag.h:704
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -2012,13 +1997,10 @@ msgid "This color is not a valid HTML color code."
 msgstr ""
 
 #: src/as-validator-issue-tag.h:915
-#, fuzzy
 msgid ""
 "A <keywords/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"<description/>태그는 메타정보 파일(업스트림 메타데이터)에서 로컬화해서는 안 "
-"됩니다. 대신 개별 단락을 현지화하십시오."
+msgstr "<keywords/> 태그는 metainfo 파일(업스트림 메타데이터)에서 현지화되어서는 안 됩니다. 대신 개별 키워드 항목을 지역화합니다."
 
 #: src/as-validator.c:162
 msgid ""
@@ -2062,9 +2044,8 @@ msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --verbose
 #: tools/appstream-compose.c:183
-#, fuzzy
 msgid "Show extra debugging information"
-msgstr "추가 디버깅 정보 보이기."
+msgstr "추가 디버깅 정보 표시하기"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
@@ -2275,9 +2256,8 @@ msgstr "검증할 때 세세한 힌트도 출력."
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
 #: tools/appstreamcli.c:126
-#, fuzzy
 msgid "Print detailed explanation for found issues."
-msgstr "찾은 구성 요소에 대한 자세한 출력 표시."
+msgstr "발견된 문제에 대한 자세한 설명을 인쇄합니다."
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstreamcli.c:131
@@ -2294,7 +2274,7 @@ msgstr ""
 #: tools/appstreamcli.c:141
 #, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr "기본 메타데이터 포맷 (유효한 값은 'xml'과 'yaml'입니다)."
+msgstr "생성된 보고서의 형식(유효한 값은 'text' 및 'yaml'임)."
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:146
@@ -2488,11 +2468,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1193
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"'%s --help' 를 실행하면 사용 가능한 명령문 옵션 전체 목록을 볼 수 있습니다."
+msgstr "'%s' 명령을 알 수 없습니다. 사용 가능한 명령 목록을 보려면 '%s --help'를 실행합니다."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1223
@@ -2588,22 +2567,22 @@ msgstr "두 버전 비교하기."
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr "업스트림 프로젝트로 채울 metainfo 파일의 템플릿을 만듭니다."
+msgstr "(업스트림 프로젝트에서 채울) 메타정보 파일의 템플릿을 만듭니다."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1328
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr ""
+msgstr "메타정보 파일에서 데스크톱 항목 파일을 만듭니다."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstreamcli.c:1333
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr ""
+msgstr "YAML 또는 텍스트 [뉴스] 파일을 메타정보 릴리스로 변환합니다."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
 #: tools/appstreamcli.c:1338
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr ""
+msgstr "메타정보 파일의 정보로 [뉴스] 텍스트 또는 YAML 파일을 작성하십시오."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1343
@@ -2629,9 +2608,9 @@ msgid "Updating software metadata cache for Flatpak."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "메타데이터 파일 '%s' 없습니다."
+msgstr "이름이 '%s'인 메타데이터 소스 그룹이 존재하지 않습니다!"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
@@ -2699,9 +2678,9 @@ msgid "You need to specify a metadata file."
 msgstr "메타데이터 파일을 지정해야합니다."
 
 #: tools/ascli-actions-mdata.c:338
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr "해당 .desktop 파일을 읽을 수 없습니다: %s"
+msgstr "메타데이터 파일을 설치할 수 없음: %s"
 
 #: tools/ascli-actions-mdata.c:358
 msgid "You need to specify an input and output file."
@@ -2722,14 +2701,13 @@ msgstr ""
 "용하여 명확하게 설정하세요."
 
 #: tools/ascli-actions-mdata.c:456
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr "ID가 '%s'인 구성 요소를 찾을 수 없습니다!"
+msgstr "운영 체제 구성 요소 '%s'을(를) 찾을 수 없습니다!"
 
 #: tools/ascli-actions-mdata.c:461
-#, fuzzy
 msgid "Version"
-msgstr "버전: %s"
+msgstr "버전"
 
 #: tools/ascli-actions-mdata.c:485
 msgid ""
@@ -2761,12 +2739,12 @@ msgstr "해당 .desktop 파일을 읽을 수 없습니다: %s"
 #: tools/ascli-actions-mdata.c:582
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr "metainfo 파일을 빌드할 수 없습니다: %s"
+msgstr "메타정보 파일을 빌드할 수 없습니다: %s"
 
 #: tools/ascli-actions-mdata.c:590
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
-msgstr "템플릿 metainfo 파일을 저장할 수 없습니다: %s"
+msgstr "템플릿 메타정보 파일을 저장할 수 없습니다: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:48
@@ -2814,21 +2792,19 @@ msgid "Error while loading the metadata pool: %s"
 msgstr "메타데이터 풀을 불러오는 동안 생긴 오류: %s"
 
 #: tools/ascli-actions-misc.c:114 tools/ascli-actions-misc.c:438
-#, fuzzy
 msgid "You need to specify a metainfo file as input."
-msgstr "메타데이터 파일을 지정해야합니다."
+msgstr "메타정보 파일을 입력으로 지정해야 합니다."
 
 #: tools/ascli-actions-misc.c:118
-#, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "검증할 파일을 지정해야 합니다!"
+msgstr "생성하거나 출력으로 보강하려면 데스크톱 항목 파일을 지정해야 합니다."
 
 #: tools/ascli-actions-misc.c:128 tools/ascli-actions-misc.c:371
 #: tools/ascli-actions-misc.c:448
-#, fuzzy, c-format
+#, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr "메타데이터 파일 '%s' 없습니다."
+msgstr "메타정보 파일 '%s'이(가) 존재하지 않습니다."
 
 #: tools/ascli-actions-misc.c:149
 #, c-format
@@ -2836,9 +2812,9 @@ msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
 msgstr ""
 
 #: tools/ascli-actions-misc.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr "해당 .desktop 파일을 읽을 수 없습니다: %s"
+msgstr "기존 데스크톱 항목 파일 템플릿을 불러올 수 없음: %s"
 
 #: tools/ascli-actions-misc.c:158
 #, c-format
@@ -2856,29 +2832,26 @@ msgid ""
 msgstr ""
 
 #: tools/ascli-actions-misc.c:300
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save desktop entry file: %s"
-msgstr "해당 .desktop 파일을 읽을 수 없습니다: %s"
+msgstr "데스크톱 항목 파일을 저장할 수 없음: %s"
 
 #: tools/ascli-actions-misc.c:328
-#, fuzzy
 msgid "You need to specify a NEWS file as input."
-msgstr "메타데이터 파일을 지정해야합니다."
+msgstr "[뉴스] 파일을 입력으로 지정해야 합니다."
 
 #: tools/ascli-actions-misc.c:332
-#, fuzzy
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr "메타데이터 파일을 지정해야합니다."
+msgstr "보강할 메타정보 파일을 지정하거나, stdout으로 인쇄하려면 '-'를 지정해야합니다."
 
 #: tools/ascli-actions-misc.c:337
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr ""
+msgstr "출력 파일 이름이 지정되지 않아, 메타정보 파일을 직접 수정합니다."
 
 #: tools/ascli-actions-misc.c:442
-#, fuzzy
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "메타데이터 파일을 지정해야합니다."
+msgstr "[뉴스] 파일을 출력으로 지정하거나, stdout으로 인쇄하려면 '-'를 지정해야합니다."
 
 #: tools/ascli-actions-misc.c:473
 #, fuzzy
