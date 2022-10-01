@@ -32,7 +32,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-08-22 13:44+0200\n"
-"PO-Revision-Date: 2022-08-22 17:31+0000\n"
+"PO-Revision-Date: 2022-10-01 02:23+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -40,7 +40,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2321,13 +2321,13 @@ msgstr "O formato de URL é inválido."
 #: src/as-validator.c:497
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
-msgstr ""
+msgstr "A nova severidade de problema para a tag \"%s\" é inválida."
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
 #: src/as-validator.c:508
 #, c-format
 msgid "The issue tag '%s' is not recognized."
-msgstr ""
+msgstr "A tag de problema \"%s\" não é reconhecida."
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 #. * whitelisted for that.
@@ -2336,7 +2336,7 @@ msgstr ""
 msgid ""
 "It is not allowed to downgrade the severity of tag '%s' to one that allows "
 "validation to pass."
-msgstr ""
+msgstr "Não é permitido fazer downgrade da severidade da tag \"%s\" para uma que permita a aprovação da validação."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
@@ -2590,7 +2590,7 @@ msgstr "Não usa acesso de rede."
 #: tools/appstreamcli.c:136
 msgid ""
 "Fail validation if any issue is emitted that is not of pedantic severity."
-msgstr ""
+msgstr "Falha na validação se algum problema for emitido que não seja de severidade pedante."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:141
@@ -2600,7 +2600,7 @@ msgstr "Formato de relatório gerado (valores válidos são “texto” e “yam
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:146
 msgid "Override the severities of selected issue tags."
-msgstr ""
+msgstr "Substitui as severidades das tags de problema selecionadas."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -3292,12 +3292,12 @@ msgstr "O componente “%s” não possui candidato a instalação."
 msgid ""
 "The format of validator issue override '%s' is invalid (should be "
 "'tag=severity')"
-msgstr ""
+msgstr "O formato da substituição de problema do validador \"%s\" é inválido (deve ser \"tag=severidade\")"
 
 #: tools/ascli-actions-validate.c:200
 #, c-format
 msgid "Can not override issue tag: %s"
-msgstr ""
+msgstr "Não é possível substituir a tag de problema: %s"
 
 #: tools/ascli-actions-validate.c:233 tools/ascli-actions-validate.c:440
 #, c-format
