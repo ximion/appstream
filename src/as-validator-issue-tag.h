@@ -106,6 +106,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The mentioned tag is empty, which is highly likely not intended as it should have content.")
 	},
 
+	{ "tag-invalid-text-content",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The mentioned tag has text content, even though it is not allowed to contain text.")
+	},
+
 	{ "cid-is-not-rdns",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("The component ID is required to follow a reverse domain-name scheme for its name. See the AppStream specification for details.")

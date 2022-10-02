@@ -645,11 +645,28 @@ as_validate_is_secure_url (const gchar *str)
 }
 
 /**
+ * as_validator_ensure_node_no_text:
+ *
+ * Check that the given node has no text content.
+ **/
+static void
+as_validator_ensure_node_no_text (AsValidator *validator, xmlNode *node)
+{
+	if (node == NULL)
+		return;
+	if (xmlNodeIsText (node) || xmlNodeIsText (node->children))
+		as_validator_add_issue (validator, node,
+					"tag-invalid-text-content",
+					(const gchar*) node->name);
+}
+
+/**
  * as_validator_check_children_quick:
  **/
 static void
 as_validator_check_children_quick (AsValidator *validator, xmlNode *node, const gchar *allowed_tagname, gboolean allow_empty)
 {
+	as_validator_ensure_node_no_text (validator, node);
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		/* discard spaces */
@@ -1350,6 +1367,7 @@ as_validator_check_relations (AsValidator *validator,
 			      GHashTable *known_entries,
 			      AsRelationKind kind)
 {
+	as_validator_ensure_node_no_text (validator, node);
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		const gchar *rel_dupe_type = NULL;
