@@ -230,6 +230,7 @@ bool Pool::addComponent(const AppStream::Component& cpt)
 
 uint Pool::cacheFlags() const
 {
+#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     return as_pool_get_cache_flags(d->pool);
 #pragma GCC diagnostic pop
@@ -237,6 +238,7 @@ uint Pool::cacheFlags() const
 
 void Pool::setCacheFlags(uint flags)
 {
+#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     as_pool_set_cache_flags(d->pool,
                             (AsCacheFlags) flags);
@@ -245,6 +247,7 @@ void Pool::setCacheFlags(uint flags)
 
 void Pool::clearMetadataLocations()
 {
+#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     as_pool_clear_metadata_locations(d->pool);
 #pragma GCC diagnostic pop
@@ -252,6 +255,7 @@ void Pool::clearMetadataLocations()
 
 void Pool::addMetadataLocation(const QString& directory)
 {
+#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     as_pool_add_metadata_location (d->pool, qPrintable(directory));
 #pragma GCC diagnostic pop
@@ -259,6 +263,7 @@ void Pool::addMetadataLocation(const QString& directory)
 
 QString AppStream::Pool::cacheLocation() const
 {
+#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     return QString::fromUtf8(as_pool_get_cache_location(d->pool));
 #pragma GCC diagnostic pop
@@ -266,6 +271,7 @@ QString AppStream::Pool::cacheLocation() const
 
 void Pool::setCacheLocation(const QString &location)
 {
+#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     as_pool_set_cache_location(d->pool, qPrintable(location));
 #pragma GCC diagnostic pop
