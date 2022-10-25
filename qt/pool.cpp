@@ -24,6 +24,7 @@
 #include <QStringList>
 #include <QUrl>
 #include <QLoggingCategory>
+#include "chelpers.h"
 
 Q_LOGGING_CATEGORY(APPSTREAMQT_POOL, "appstreamqt.pool")
 
@@ -147,9 +148,15 @@ QList<AppStream::Component> Pool::componentsByCategories(const QStringList& cate
     QList<AppStream::Component> res;
     g_autofree gchar **cats_strv = NULL;
 
-    cats_strv = g_new0(gchar *, categories.size() + 1);
-    for (int i = 0; i < categories.size(); ++i)
-        cats_strv[i] = (gchar*) qPrintable(categories.at(i));
+    QVector<QByteArray> utf8Categories;
+    utf8Categories.reserve(categories.size());
+    for (const QString &category : categories) {
+        utf8Categories += category.toUtf8();
+    }
+
+    cats_strv = g_new0(gchar *, utf8Categories.size() + 1);
+    for (int i = 0; i < utf8Categories.size(); ++i)
+        cats_strv[i] = (gchar*) utf8Categories[i].constData();
 
     return cptArrayToQList(as_pool_get_components_by_categories (d->pool, cats_strv));
 }
