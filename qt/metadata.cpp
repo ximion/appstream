@@ -313,7 +313,8 @@ void AppStream::Metadata::setArchitecture(const QString& architecture)
 QDebug operator<<(QDebug s, const AppStream::Metadata& metadata)
 {
     QStringList list;
-    foreach (const AppStream::Component& component, metadata.components()) {
+    const auto components = metadata.components();
+    for (const AppStream::Component& component : components) {
         list << component.id();
     }
     s.nospace() << "AppStream::Metadata(" << list << ")";
