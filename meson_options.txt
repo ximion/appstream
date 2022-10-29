@@ -18,6 +18,11 @@ option('qt',
        value : false,
        description : 'Build libappstream-qt'
 )
+option('qt6',
+       type : 'boolean',
+       value : false,
+       description: 'Build libappstream-qt6'
+)
 option('compose',
        type : 'boolean',
        value : false,

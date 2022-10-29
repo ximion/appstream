@@ -2,11 +2,17 @@
 
 asqt_api_level = '2'
 
+if get_option('qt6')
+    qt_major_version = '6'
+else
+    qt_major_version = '5'
+endif
+
 add_languages('cpp', native: true)
 add_languages('cpp', native: false)
 
-qt = import('qt5')
-qt5_dep = dependency('qt5', modules: ['Core'])
+qt = import(f'qt@qt_major_version@')
+qt_dep = dependency(f'qt@qt_major_version@', modules: ['Core'])
 
 asqt_src = [
     'bundle.cpp',
@@ -61,9 +67,9 @@ asqt_moc = qt.preprocess (
     #moc_sources: asqt_src
 )
 
-asqt_cpp_args = []
+asqt_cpp_args = ['-DQT_NO_KEYWORDS']
 if get_option('maintainer')
-    asqt_cpp_args = ['-Wno-inline']
+    asqt_cpp_args += ['-Wno-inline']
 endif
 
 appstreamqt_lib = library ('AppStreamQt',
@@ -73,10 +79,11 @@ appstreamqt_lib = library ('AppStreamQt',
      asqt_moc],
     soversion: asqt_api_level,
     version: as_version,
-    dependencies: [qt5_dep,
+    dependencies: [qt_dep,
                    appstream_dep,
                    gio_dep],
     cpp_args: asqt_cpp_args,
+    override_options : ['cpp_std=gnu++17'],
     install: true
 )
 
