@@ -38,6 +38,7 @@
 # CurlingTongs <jobiwaff@googlemail.com>, 2021.
 # Johannes Keyser <joke@fsfe.org>, 2021.
 # Niclas <schroeder.niclas2001@gmail.com>, 2022.
+# Sebin Nyshkim <sebin.nyshkim@icloud.com>, 2022.
 #
 # Translators:
 msgid ""
@@ -45,15 +46,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-08-22 13:44+0200\n"
-"PO-Revision-Date: 2022-09-11 07:16+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2022-10-29 11:23+0000\n"
+"Last-Translator: Sebin Nyshkim <sebin.nyshkim@icloud.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
+"X-Generator: Weblate 4.14.2-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1467,9 +1468,7 @@ msgstr ""
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Ein Element »requires« oder »recommends« benötigt einen Wert, um ein "
-"gültiges Verhältnis darzustellen."
+msgstr "Ein `requires` oder `recommends`-Element benötigt einen Wert, um ein gültiges Verhältnis darzustellen."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:285
@@ -1593,7 +1592,7 @@ msgstr ""
 msgid ""
 "A `memory` item must only contain a non-zero integer value, depicting a "
 "system memory size in mebibyte (MiB)"
-msgstr ""
+msgstr "Ein `memory`-Element darf nur einen ganzzahligen Wert ungleich Null enthalten, der die Größe des Systemspeichers in Mebibyte (MiB) angibt"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:359
