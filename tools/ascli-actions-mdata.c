@@ -253,6 +253,50 @@ ascli_what_provides (const gchar *cachepath, const gchar *kind_str, const gchar 
 }
 
 /**
+ * ascli_by_categories:
+ *
+ * Get components that match the given @p categories
+ */
+int
+ascli_by_categories (const gchar *cachepath, const gchar *categories, gboolean detailed, gboolean no_cache)
+{
+    g_autoptr(AsPool) dpool = NULL;
+    g_autoptr(GPtrArray) result = NULL;
+    g_autoptr(GError) error = NULL;
+
+    if (categories == NULL) {
+        fprintf (stderr, "%s\n", _("You need to specify a categories to look up."));
+        return 2;
+    }
+
+    dpool = ascli_data_pool_new_and_open (cachepath, no_cache, &error);
+    if (error != NULL) {
+        g_printerr ("%s\n", error->message);
+        return 1;
+    }
+
+    g_auto(GStrv) cats = g_strsplit(categories, ",", 0);
+
+    result = as_pool_get_components_by_categories (dpool, cats);
+    if (result->len == 0) {
+        /* TRANSLATORS: We failed to find any component in the database, likely due to an error */
+        ascli_print_stderr (_("Unable to find components matching %s!"), categories);
+        return 4;
+    }
+
+    if (result->len == 0) {
+        /* TRANSLATORS: We got no full-text search results */
+        ascli_print_stdout (_("No component matching '%s' categories found."), categories);
+        return 0;
+    }
+
+    /* show the result */
+    ascli_print_components (result, detailed);
+
+    return 0;
+}
+
+/**
  * ascli_dump_component:
  *
  * Dump the raw upstream XML for a component.
