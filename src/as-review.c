@@ -57,6 +57,7 @@ typedef enum {
 	PROP_SUMMARY,
 	PROP_DESCRIPTION,
 	PROP_LOCALE,
+	PROP_PRIORITY,
 	PROP_RATING,
 	PROP_VERSION,
 	PROP_REVIEWER_ID,
@@ -121,6 +122,9 @@ as_review_get_property (GObject *object, guint prop_id,
 	case PROP_LOCALE:
 		g_value_set_string (value, priv->locale);
 		break;
+	case PROP_PRIORITY:
+		g_value_set_int (value, priv->priority);
+		break;
 	case PROP_RATING:
 		g_value_set_int (value, priv->rating);
 		break;
@@ -163,6 +167,9 @@ as_review_set_property (GObject *object, guint prop_id,
 		break;
 	case PROP_LOCALE:
 		as_review_set_locale (review, g_value_get_string (value));
+		break;
+	case PROP_PRIORITY:
+		as_review_set_priority (review, g_value_get_int (value));
 		break;
 	case PROP_RATING:
 		as_review_set_rating (review, g_value_get_int (value));
@@ -235,6 +242,19 @@ as_review_class_init (AsReviewClass *klass)
 		g_param_spec_string ("locale", NULL, NULL,
 				     NULL,
 				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+	/**
+	 * AsReview:priority:
+	 *
+	 * The priority for the review, where positive numbers indicate
+	 * a better review for the specific user.
+	 *
+	 * Since: 0.15.6
+	 */
+	pspecs[PROP_PRIORITY] =
+		g_param_spec_int ("priority", NULL, NULL,
+				  G_MININT, G_MAXINT, 0,
+				  G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:rating:
@@ -335,7 +355,11 @@ as_review_set_priority (AsReview *review, gint priority)
 {
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 	g_return_if_fail (AS_IS_REVIEW (review));
-	priv->priority = priority;
+
+	if (priv->priority != priority) {
+		priv->priority = priority;
+		g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_PRIORITY]);
+	}
 }
 
 /**
