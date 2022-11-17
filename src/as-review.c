@@ -65,6 +65,8 @@ typedef enum {
 	PROP_FLAGS,
 } AsReviewProperty;
 
+GParamSpec *pspecs[PROP_FLAGS + 1] = { NULL, };
+
 G_DEFINE_TYPE_WITH_PRIVATE (AsReview, as_review, G_TYPE_OBJECT)
 
 #define GET_PRIVATE(o) (as_review_get_instance_private (o))
@@ -189,7 +191,6 @@ as_review_set_property (GObject *object, guint prop_id,
 static void
 as_review_class_init (AsReviewClass *klass)
 {
-	GParamSpec *pspec;
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	object_class->finalize = as_review_finalize;
 	object_class->get_property = as_review_get_property;
@@ -200,102 +201,104 @@ as_review_class_init (AsReviewClass *klass)
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_string ("id", NULL, NULL,
+	pspecs[PROP_ID] =
+		g_param_spec_string ("id", NULL, NULL,
 				     NULL,
 				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_ID, pspec);
 
 	/**
 	 * AsReview:summary:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_string ("summary", NULL, NULL,
+	pspecs[PROP_SUMMARY] =
+		g_param_spec_string ("summary", NULL, NULL,
 				     NULL,
 				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_SUMMARY, pspec);
 
 	/**
 	 * AsReview:description:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_string ("description", NULL, NULL,
+	pspecs[PROP_DESCRIPTION] =
+		g_param_spec_string ("description", NULL, NULL,
 				     NULL,
 				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_DESCRIPTION, pspec);
 
 	/**
 	 * AsReview:locale:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_string ("locale", NULL, NULL,
+	pspecs[PROP_LOCALE] =
+		g_param_spec_string ("locale", NULL, NULL,
 				     NULL,
 				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_LOCALE, pspec);
 
 	/**
 	 * AsReview:rating:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_int ("rating", NULL, NULL,
+	pspecs[PROP_RATING] =
+		g_param_spec_int ("rating", NULL, NULL,
 				  -1, 100, 0,
 				  G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_RATING, pspec);
 
 	/**
 	 * AsReview:flags:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_uint64 ("flags", NULL, NULL,
+	pspecs[PROP_FLAGS] =
+		g_param_spec_uint64 ("flags", NULL, NULL,
 				     AS_REVIEW_FLAG_NONE,
 				     AS_REVIEW_FLAG_LAST,
 				     AS_REVIEW_FLAG_NONE,
 				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_FLAGS, pspec);
 
 	/**
 	 * AsReview:version:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_string ("version", NULL, NULL,
+	pspecs[PROP_VERSION] =
+		g_param_spec_string ("version", NULL, NULL,
 				     NULL,
 				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_VERSION, pspec);
 
 	/**
 	 * AsReview:reviewer-id:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_string ("reviewer-id", NULL, NULL,
+	pspecs[PROP_REVIEWER_ID] =
+		g_param_spec_string ("reviewer-id", NULL, NULL,
 				     NULL,
 				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_REVIEWER_ID, pspec);
 
 	/**
 	 * AsReview:reviewer-name:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_string ("reviewer-name", NULL, NULL,
+	pspecs[PROP_REVIEWER_NAME] =
+		g_param_spec_string ("reviewer-name", NULL, NULL,
 				     NULL,
 				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_REVIEWER_NAME, pspec);
 
 	/**
 	 * AsReview:date:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_object ("date", NULL, NULL,
+	pspecs[PROP_DATE] =
+		g_param_spec_object ("date", NULL, NULL,
 				     AS_TYPE_REVIEW,
 				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_DATE, pspec);
+
+	g_object_class_install_properties (object_class, G_N_ELEMENTS (pspecs), pspecs);
 }
 
 /**
