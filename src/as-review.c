@@ -204,7 +204,7 @@ as_review_class_init (AsReviewClass *klass)
 	pspecs[PROP_ID] =
 		g_param_spec_string ("id", NULL, NULL,
 				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
 
 	/**
 	 * AsReview:summary:
@@ -214,7 +214,7 @@ as_review_class_init (AsReviewClass *klass)
 	pspecs[PROP_SUMMARY] =
 		g_param_spec_string ("summary", NULL, NULL,
 				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
 
 	/**
 	 * AsReview:description:
@@ -224,7 +224,7 @@ as_review_class_init (AsReviewClass *klass)
 	pspecs[PROP_DESCRIPTION] =
 		g_param_spec_string ("description", NULL, NULL,
 				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
 
 	/**
 	 * AsReview:locale:
@@ -234,7 +234,7 @@ as_review_class_init (AsReviewClass *klass)
 	pspecs[PROP_LOCALE] =
 		g_param_spec_string ("locale", NULL, NULL,
 				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
 
 	/**
 	 * AsReview:rating:
@@ -244,7 +244,7 @@ as_review_class_init (AsReviewClass *klass)
 	pspecs[PROP_RATING] =
 		g_param_spec_int ("rating", NULL, NULL,
 				  -1, 100, 0,
-				  G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+				  G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
 
 	/**
 	 * AsReview:flags:
@@ -256,7 +256,7 @@ as_review_class_init (AsReviewClass *klass)
 				     AS_REVIEW_FLAG_NONE,
 				     AS_REVIEW_FLAG_LAST,
 				     AS_REVIEW_FLAG_NONE,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
 
 	/**
 	 * AsReview:version:
@@ -266,7 +266,7 @@ as_review_class_init (AsReviewClass *klass)
 	pspecs[PROP_VERSION] =
 		g_param_spec_string ("version", NULL, NULL,
 				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
 
 	/**
 	 * AsReview:reviewer-id:
@@ -276,7 +276,7 @@ as_review_class_init (AsReviewClass *klass)
 	pspecs[PROP_REVIEWER_ID] =
 		g_param_spec_string ("reviewer-id", NULL, NULL,
 				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
 
 	/**
 	 * AsReview:reviewer-name:
@@ -286,7 +286,7 @@ as_review_class_init (AsReviewClass *klass)
 	pspecs[PROP_REVIEWER_NAME] =
 		g_param_spec_string ("reviewer-name", NULL, NULL,
 				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
 
 	/**
 	 * AsReview:date:
@@ -296,7 +296,7 @@ as_review_class_init (AsReviewClass *klass)
 	pspecs[PROP_DATE] =
 		g_param_spec_object ("date", NULL, NULL,
 				     AS_TYPE_REVIEW,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
 
 	g_object_class_install_properties (object_class, G_N_ELEMENTS (pspecs), pspecs);
 }
