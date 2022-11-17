@@ -52,9 +52,8 @@ typedef struct
 	GHashTable		*metadata; /* GRefString : GRefString */
 } AsReviewPrivate;
 
-enum {
-	PROP_0,
-	PROP_ID,
+typedef enum {
+	PROP_ID = 1,
 	PROP_SUMMARY,
 	PROP_DESCRIPTION,
 	PROP_LOCALE,
@@ -64,8 +63,7 @@ enum {
 	PROP_REVIEWER_NAME,
 	PROP_DATE,
 	PROP_FLAGS,
-	PROP_LAST
-};
+} AsReviewProperty;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsReview, as_review, G_TYPE_OBJECT)
 
@@ -108,7 +106,7 @@ as_review_get_property (GObject *object, guint prop_id,
 	AsReview *review = AS_REVIEW (object);
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 
-	switch (prop_id) {
+	switch ((AsReviewProperty) prop_id) {
 	case PROP_ID:
 		g_value_set_string (value, priv->id);
 		break;
@@ -151,7 +149,7 @@ as_review_set_property (GObject *object, guint prop_id,
 {
 	AsReview *review = AS_REVIEW (object);
 
-	switch (prop_id) {
+	switch ((AsReviewProperty) prop_id) {
 	case PROP_ID:
 		as_review_set_id (review, g_value_get_string (value));
 		break;
