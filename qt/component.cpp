@@ -363,6 +363,11 @@ void Component::addReplaces(const QString &cid)
 
 QList<Relation> Component::requires() const
 {
+    return requirements();
+}
+
+QList<Relation> Component::requirements() const
+{
     QList<AppStream::Relation> res;
 
     auto requires = as_component_get_requires(m_cpt);
