@@ -1925,7 +1925,7 @@ as_validator_check_branding (AsValidator *validator, xmlNode *node)
 }
 
 /**
- * as_validator_check_branding:
+ * as_validator_check_custom:
  **/
 static void
 as_validator_check_custom (AsValidator *validator, xmlNode *node)
