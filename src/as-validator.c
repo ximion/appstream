@@ -1925,6 +1925,49 @@ as_validator_check_branding (AsValidator *validator, xmlNode *node)
 }
 
 /**
+ * as_validator_check_branding:
+ **/
+static void
+as_validator_check_custom (AsValidator *validator, xmlNode *node)
+{
+	g_autoptr(GHashTable) known_keys = NULL;
+	known_keys = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		g_autofree gchar *node_content = NULL;
+		const gchar *node_name;
+
+		node_name = (const gchar*) iter->name;
+
+		if (g_strcmp0 (node_name, "value") != 0) {
+			as_validator_add_issue (validator, iter, "custom-invalid-tag", node_name);
+			continue;
+		}
+
+		gchar *key_name = NULL;
+		key_name = as_xml_get_prop_value (iter, "key");
+
+		if (key_name == NULL) {
+			as_validator_add_issue (validator, iter, "custom-key-missing", NULL);
+			continue;
+		}
+
+		if (g_hash_table_contains (known_keys, key_name))
+			as_validator_add_issue (validator, iter, "custom-key-duplicated", key_name);
+		else
+			g_hash_table_add (known_keys, key_name);
+
+		node_content = (gchar*) xmlNodeGetContent (iter);
+		if (strlen(node_content) == 0) {
+			as_validator_add_issue (validator, iter, "custom-value-missing", NULL);
+		}
+	}
+}
+
+/**
  * as_validator_validate_component_node:
  **/
 static AsComponent*
@@ -2244,7 +2287,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 		} else if (g_strcmp0 (node_name, "custom") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
-			as_validator_check_children_quick (validator, iter, "value", FALSE);
+			as_validator_check_custom (validator, iter);
 		} else if ((g_strcmp0 (node_name, "metadata") == 0) || (g_strcmp0 (node_name, "kudos") == 0)) {
 			/* these tags are GNOME / Fedora specific extensions and are therefore quite common. They shouldn't make the validation fail,
 			 * especially if we might standardize at leat the <kudos/> tag one day, but we should still complain about those tags to make
