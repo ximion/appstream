@@ -43,6 +43,7 @@
 #pragma GCC diagnostic ignored "-Wconversion"
 #pragma GCC diagnostic ignored "-Wsign-conversion"
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
 #include "as-tag-xml-private.h"
 #include "as-tag-yaml-private.h"
 #pragma GCC diagnostic pop

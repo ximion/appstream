@@ -411,7 +411,7 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 							if (iter2->type != XML_ELEMENT_NODE)
 								continue;
 							if (g_strcmp0 ((gchar*) iter2->name, "li") == 0) {
-								g_autofree gchar *content = (gchar*) xmlNodeGetContent (iter2);
+								g_autofree gchar *content = as_xml_get_node_value_raw (iter2);
 								as_yaml_emit_scalar (&emitter, as_strstripnl (content));
 							}
 						}

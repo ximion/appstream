@@ -22,6 +22,7 @@
 #define __AS_CONTEXT_PRIVATE_H
 
 #include "as-context.h"
+#include "as-component.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)

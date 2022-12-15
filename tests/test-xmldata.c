@@ -104,7 +104,7 @@ as_xml_test_compare_xml (const gchar *result, const gchar *expected)
  * Test parsing legacy metainfo files.
  */
 static void
-test_appstream_parser_legacy ()
+test_appstream_parser_legacy (void)
 {
 	AsMetadata *metad;
 	GFile *file;
@@ -140,7 +140,7 @@ test_appstream_parser_legacy ()
  * Test reading localized tags.
  */
 static void
-test_appstream_parser_locale ()
+test_appstream_parser_locale (void)
 {
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GFile) file = NULL;
@@ -204,7 +204,7 @@ test_appstream_parser_locale ()
  * Test writing fully localized entries.
  */
 static void
-test_appstream_write_locale ()
+test_appstream_write_locale (void)
 {
 	AsMetadata *metad;
 	GFile *file;
@@ -278,7 +278,7 @@ test_appstream_write_locale ()
  * Test writing the description tag for catalog and metainfo XML.
  */
 static void
-test_appstream_write_description ()
+test_appstream_write_description (void)
 {
 	guint i;
 	gchar *tmp;

@@ -42,7 +42,7 @@ typedef struct
 /**
  * asc_assert_no_results_issue:
  */
-void
+static void
 asc_assert_no_hints_in_result (AscResult *cres)
 {
 	g_autoptr(GPtrArray) hints = asc_result_fetch_hints_all (cres);
@@ -65,7 +65,7 @@ asc_assert_no_hints_in_result (AscResult *cres)
  * Test global and utility functions.
  */
 static void
-test_utils ()
+test_utils (void)
 {
 	gchar *tmp;
 
@@ -116,7 +116,7 @@ test_utils ()
  * test_compose_issue_tag_sanity:
  */
 static void
-test_compose_issue_tag_sanity ()
+test_compose_issue_tag_sanity (void)
 {
 	g_autoptr(GHashTable) tag_map = NULL;
 	g_auto(GStrv) all_hint_tags = NULL;
@@ -142,7 +142,7 @@ test_compose_issue_tag_sanity ()
  * Extract font information from a font file.
  */
 static void
-test_read_fontinfo ()
+test_read_fontinfo (void)
 {
 	g_autofree gchar *font_fname = NULL;
 	g_autoptr(AscFont) font = NULL;
@@ -207,7 +207,7 @@ test_read_fontinfo ()
  * Test image related things, like transformations.
  */
 static void
-test_image_transform ()
+test_image_transform (void)
 {
 	g_autoptr(GHashTable) supported_fmts = NULL;
 	g_autofree gchar *sample_img_fname = NULL;
@@ -281,7 +281,7 @@ test_image_transform ()
  * Test canvas.
  */
 static void
-test_canvas ()
+test_canvas (void)
 {
 	g_autofree gchar *sample_svg_fname = NULL;
 	g_autofree gchar *font_fname = NULL;
@@ -334,7 +334,7 @@ test_canvas ()
  * Test compose hints and issue reporting.
  */
 static void
-test_compose_hints ()
+test_compose_hints (void)
 {
 	g_autoptr(AscHint) hint = NULL;
 	g_autoptr(GError) error = NULL;
@@ -372,7 +372,7 @@ test_compose_hints ()
  * Test the result object.
  */
 static void
-test_compose_result ()
+test_compose_result (void)
 {
 	g_autoptr(AscResult) cres = NULL;
 	g_autoptr(AsComponent) cpt = NULL;
@@ -430,7 +430,7 @@ test_compose_result ()
  * test_compose_desktop_entry:
  */
 static void
-test_compose_desktop_entry ()
+test_compose_desktop_entry (void)
 {
 	g_autoptr(GError) error = NULL;
 	g_autoptr(AscResult) cres = NULL;
@@ -607,7 +607,7 @@ test_compose_optipng_not_found (Fixture *fixture, gconstpointer user_data)
  * test_compose_directory_unit:
  */
 static void
-test_compose_directory_unit ()
+test_compose_directory_unit (void)
 {
 	g_autoptr(GError) error = NULL;
 	gboolean ret;
@@ -645,7 +645,7 @@ test_compose_directory_unit ()
  * test_compose_locale_stats:
  */
 static void
-test_compose_locale_stats ()
+test_compose_locale_stats (void)
 {
 	gboolean ret;
 	g_autoptr(GError) error = NULL;

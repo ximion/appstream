@@ -331,7 +331,7 @@ asc_globals_get_pangrams_for (const gchar *lang)
  * on the hint tag table mutex.
  */
 static void
-asc_globals_create_hint_tag_table ()
+asc_globals_create_hint_tag_table (void)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
 	g_return_if_fail (priv->hint_tags == NULL);
@@ -344,9 +344,10 @@ asc_globals_create_hint_tag_table ()
 	/* add compose issue hint tags */
 	for (guint i = 0; asc_hint_tag_list[i].tag != NULL; i++) {
 		AscHintTag *htag;
+		gboolean r;
 		const AscHintTagStatic s = asc_hint_tag_list[i];
 		htag = asc_hint_tag_new (s.tag, s.severity, s.explanation);
-		gboolean r = g_hash_table_insert (priv->hint_tags,
+		r = g_hash_table_insert (priv->hint_tags,
 							g_ref_string_new_intern (asc_hint_tag_list[i].tag),
 							htag);
 		if (G_UNLIKELY (!r))

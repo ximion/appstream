@@ -65,11 +65,9 @@ if get_option('maintainer')
                          '-Wcast-align',
                          '-Wno-uninitialized',
                          '-Wempty-body',
-                         '-Wformat-security',
                          '-Winit-self',
                          '-Wnull-dereference',
                          '-Wfloat-equal',
-                         #'-Wformat-signedness',
                          '-Winline',
                          '-Wno-error=comment',
     ]
@@ -98,8 +96,40 @@ if get_option('static-analysis') and host_machine.system() != 'windows'
 endif
 
 # a few compiler warning flags we always want enabled
-add_project_arguments('-Werror=implicit-function-declaration', '-Wno-unused-parameter', language: 'c')
-add_project_arguments('-Wno-unused-parameter', language: 'cpp')
+add_project_arguments(
+  cc.get_supported_arguments([
+    '-Werror=shadow',
+    '-Werror=empty-body',
+    '-Werror=strict-prototypes',
+    '-Werror=missing-prototypes',
+    '-Werror=implicit-function-declaration',
+    '-Werror=pointer-arith',
+    '-Werror=missing-declarations',
+    '-Werror=return-type',
+    '-Werror=int-conversion',
+    '-Werror=incompatible-pointer-types',
+    '-Werror=misleading-indentation',
+    '-Werror=missing-include-dirs',
+    '-Werror=declaration-after-statement',
+    '-Werror=format-security',
+
+    '-Wno-unused-parameter',
+    '-Wno-error=unused-parameter',
+  ]),
+  language: 'c'
+)
+add_project_arguments(
+  '-Wno-unused-parameter',
+  '-Werror=shadow',
+  '-Werror=empty-body',
+  '-Werror=pointer-arith',
+  '-Werror=init-self',
+  '-Werror=missing-declarations',
+  '-Werror=return-type',
+  '-Werror=misleading-indentation',
+  '-Werror=format-security',
+  language: 'cpp'
+)
 add_project_arguments('-DAS_COMPILATION', language: 'c')
 
 # Vendor extensions in system headers

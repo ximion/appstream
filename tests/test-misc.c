@@ -33,7 +33,7 @@ static gchar *datadir = NULL;
  * Read & write YAML NEWS file.
  */
 static void
-test_readwrite_yaml_news ()
+test_readwrite_yaml_news (void)
 {
 	static const gchar *yaml_news_data =
 		"---\n"
@@ -184,7 +184,7 @@ test_readwrite_yaml_news ()
  * Read & write text NEWS file.
  */
 static void
-test_readwrite_text_news ()
+test_readwrite_text_news (void)
 {
 	static const gchar *text_news_data =
 			"Version 0.12.8\n"
@@ -265,7 +265,7 @@ test_readwrite_text_news ()
 }
 
 static void
-test_locale_strip_encoding ()
+test_locale_strip_encoding (void)
 {
 	g_autofree gchar *c = NULL;
 	g_autofree gchar *cutf8 = NULL;

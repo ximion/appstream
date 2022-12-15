@@ -1477,8 +1477,8 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 				AsIcon *stock_icon = NULL;
 				GPtrArray *icons = as_component_get_icons (cpt);
 
-				for (guint i = 0; i < icons->len; i++) {
-					AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
+				for (guint k = 0; k < icons->len; k++) {
+					AsIcon *icon = AS_ICON (g_ptr_array_index (icons, k));
 					if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK) {
 						stock_icon = icon;
 						break;

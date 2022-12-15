@@ -188,7 +188,7 @@ as_assert_component_lists_equal (GPtrArray *cpts_a, GPtrArray *cpts_b)
  * Test if cache file (de)serialization works.
  */
 static void
-test_cache ()
+test_cache (void)
 {
 	g_autoptr(GPtrArray) xml_files = NULL;
 	g_autoptr(GError) error = NULL;
@@ -305,7 +305,7 @@ test_cache ()
  * Test reading information from the metadata pool.
  */
 static void
-test_pool_read ()
+test_pool_read (void)
 {
 	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GPtrArray) all_cpts = NULL;
@@ -514,7 +514,7 @@ test_pool_read_async_ready_cb (AsPool *pool, GAsyncResult *result, gpointer user
  * are important, but we specifically want to ignore them for this
  * particular test case.
  */
-gboolean
+static gboolean
 test_log_allow_warnings (const gchar *log_domain,
 			     GLogLevelFlags log_level,
 			     const gchar *message,
@@ -529,7 +529,7 @@ test_log_allow_warnings (const gchar *log_domain,
  * Test reading information from the metadata pool asynchronously.
  */
 static void
-test_pool_read_async ()
+test_pool_read_async (void)
 {
 	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(GPtrArray) result = NULL;
@@ -587,7 +587,7 @@ test_pool_read_async ()
  * Test merging of component data via the "merge" pseudo-component.
  */
 static void
-test_merge_components ()
+test_merge_components (void)
 {
 	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(AsComponent) cpt = NULL;
@@ -642,7 +642,7 @@ test_merge_components ()
  * Test if stemming works as expected.
  */
 static void
-test_search_stemming ()
+test_search_stemming (void)
 {
 	gchar *tmp;
 	AsStemmer *stemmer = as_stemmer_get ();
@@ -664,7 +664,7 @@ test_search_stemming ()
  * Test if working on a fresh, empty pool works.
  */
 static void
-test_pool_empty ()
+test_pool_empty (void)
 {
 	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(GPtrArray) result = NULL;
@@ -931,7 +931,7 @@ pool_changed_cb (AsPool *pool, gboolean *data_changed)
  * Test automatic pool data reloading
  */
 static void
-test_pool_autoreload ()
+test_pool_autoreload (void)
 {
 	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(GError) error = NULL;

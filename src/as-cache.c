@@ -519,7 +519,7 @@ as_transmogrify_xmlnode_to_xbuildernode (xmlNode *lxn, XbBuilderNode *xbn)
 		if (lxn->children->next == NULL) {
 			/* pure text node */
 			g_autofree gchar *node_content = NULL;
-			node_content = (gchar*) xmlNodeGetContent (lxn);
+			node_content = as_xml_get_node_value_raw (lxn);
 			xb_builder_node_set_text (xbn, node_content, -1);
 		} else {
 			/* other inline nodes follow after the text */
@@ -545,7 +545,7 @@ as_transmogrify_xmlnode_to_xbuildernode (xmlNode *lxn, XbBuilderNode *xbn)
 		/* ignore attributes that are set to NULL */
 		if (iter->children == NULL)
 			continue;
-		attr_value = (gchar*) xmlNodeGetContent (iter->children);
+		attr_value = as_xml_get_node_value_raw (iter->children);
 		xb_builder_node_set_attr (xbn,
 					  (gchar*) iter->name,
 					  attr_value);
@@ -1418,7 +1418,7 @@ typedef struct {
 } AsQueryContext;
 
 static AsQueryContext*
-as_query_context_new ()
+as_query_context_new (void)
 {
 	AsQueryContext *ctx;
 	ctx = g_new0 (AsQueryContext, 1);
@@ -1901,12 +1901,12 @@ as_cache_search (AsCache *cache, const gchar * const *terms, gboolean sort, GErr
 
 		/* add weighted queries */
 		array = g_ptr_array_new_with_free_func ((GDestroyNotify) as_ftsearch_helper_free);
-		for (guint i = 0; queries[i].xpath != NULL; i++) {
+		for (guint j = 0; queries[j].xpath != NULL; j++) {
 			g_autoptr(GError) error_query = NULL;
-			g_autoptr(XbQuery) query = xb_query_new (csec->silo, queries[i].xpath, &error_query);
+			g_autoptr(XbQuery) query = xb_query_new (csec->silo, queries[j].xpath, &error_query);
 			if (query != NULL) {
 				AsFTSearchHelper *helper = g_new0 (AsFTSearchHelper, 1);
-				helper->match_value = queries[i].match_value;
+				helper->match_value = queries[j].match_value;
 				helper->query = g_steal_pointer (&query);
 				g_ptr_array_add (array, helper);
 			} else {
@@ -1927,8 +1927,8 @@ as_cache_search (AsCache *cache, const gchar * const *terms, gboolean sort, GErr
 			return NULL;
 		}
 
-		for (guint i = 0; i < cpt_nodes->len; i++) {
-			XbNode *cpt_node = g_ptr_array_index (cpt_nodes, i);
+		for (guint k = 0; k < cpt_nodes->len; k++) {
+			XbNode *cpt_node = g_ptr_array_index (cpt_nodes, k);
 			AsTokenType match_value = as_cache_search_component_node_terms (array, cpt_node, terms);
 			if (match_value != 0) {
 				if (!as_query_context_add_component_from_node (qctx,
@@ -1940,7 +1940,6 @@ as_cache_search (AsCache *cache, const gchar * const *terms, gboolean sort, GErr
 					return NULL;
 			}
 		}
-
 	}
 
 	results = as_query_context_retrieve_components (qctx);

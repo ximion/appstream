@@ -26,6 +26,7 @@
 #include <QLoggingCategory>
 #include "chelpers.h"
 
+Q_DECLARE_LOGGING_CATEGORY(APPSTREAMQT_POOL)
 Q_LOGGING_CATEGORY(APPSTREAMQT_POOL, "appstreamqt.pool")
 
 using namespace AppStream;
