@@ -573,7 +573,7 @@ as_validator_check_content_empty (AsValidator *validator, xmlNode *node, const g
 {
 	g_autofree gchar *node_content = NULL;
 
-	node_content = as_strstripnl (as_xml_get_node_value_raw (node));
+	node_content = as_xml_get_node_value (node);
 	if (!as_is_empty (node_content))
 		return;
 
@@ -830,7 +830,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 		}
 
 		if (g_strcmp0 (node_name, "p") == 0) {
-			g_autofree gchar *p_content = as_strstripnl (as_xml_get_node_value_raw (iter));
+			g_autofree gchar *p_content = as_xml_get_node_value (iter);
 
 			if (mode == AS_FORMAT_STYLE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
@@ -1258,7 +1258,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				continue;
 
 			if (g_strcmp0 (node_name, "image") == 0) {
-				g_autofree gchar *image_url = as_strstripnl (as_xml_get_node_value_raw (iter2));
+				g_autofree gchar *image_url = as_xml_get_node_value (iter2);
 
 				image_found = TRUE;
 				if (!as_validate_is_url (image_url)) {
@@ -1283,7 +1283,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				g_autofree gchar *container_str = NULL;
 				g_autofree gchar *video_url_basename = NULL;
 				g_autofree gchar *video_url_base_lower = NULL;
-				g_autofree gchar *video_url = as_strstripnl (as_xml_get_node_value_raw (iter2));
+				g_autofree gchar *video_url = as_xml_get_node_value (iter2);
 
 				video_found = TRUE;
 
