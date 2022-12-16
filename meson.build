@@ -113,6 +113,8 @@ add_project_arguments(
     '-Werror=declaration-after-statement',
     '-Werror=format-security',
 
+    '-Wno-missing-field-initializers',
+    '-Wno-error=missing-field-initializers',
     '-Wno-unused-parameter',
     '-Wno-error=unused-parameter',
   ]),
