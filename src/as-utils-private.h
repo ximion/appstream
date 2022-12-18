@@ -72,6 +72,27 @@ G_BEGIN_DECLS
   } G_STMT_END
 
 /**
+ * as_str_equal0:
+ * Returns TRUE if strings are equal, ignoring NULL strings.
+ * This is a convenience wrapper around g_strcmp0
+ */
+#define as_str_equal0(str1,str2) (g_strcmp0 ((gchar*) str1,(gchar*) str2) == 0)
+
+#define AS_PTR_ARRAY_CLEAR_FREE_FUNC(array) \
+  AS_PTR_ARRAY_SET_FREE_FUNC(array, NULL)
+#define AS_PTR_ARRAY_SET_FREE_FUNC(array, func) \
+  G_STMT_START { \
+    if ((array) != NULL) \
+      g_ptr_array_set_free_func ((array), (GDestroyNotify)(func)); \
+  } G_STMT_END
+#define AS_PTR_ARRAY_STEAL_FULL(arrptr) \
+  ({ AS_PTR_ARRAY_CLEAR_FREE_FUNC (*(arrptr)); \
+     g_steal_pointer ((arrptr)); })
+#define AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC(array) \
+  ({ AS_PTR_ARRAY_CLEAR_FREE_FUNC (array); \
+     return array; })
+
+/**
  * AsMarkupKind:
  * @AS_MARKUP_KIND_UNKNOWN:	Unknown markup.
  * @AS_MARKUP_KIND_XML:		XML markup.

@@ -40,6 +40,7 @@
 
 #include "config.h"
 #include "as-pool.h"
+#include "as-pool-gir.h"
 #include "as-pool-private.h"
 
 #include <glib.h>
@@ -1886,7 +1887,7 @@ as_pool_save_cache_file (AsPool *pool, const gchar *fname, GError **error)
 }
 
 /**
- * as_pool_get_components:
+ * as_pool_get_components: (skip)
  * @pool: An instance of #AsPool.
  *
  * Get a list of found components.
@@ -1914,7 +1915,24 @@ as_pool_get_components (AsPool *pool)
 }
 
 /**
- * as_pool_get_components_by_id:
+ * as_pool_get_components_gir: (rename-to as_pool_get_components)
+ * @pool: An instance of #AsPool.
+ *
+ * Get a list of found components.
+ *
+ * This function fully transfers ownership of the returned container,
+ * to be used in GIR bindings.
+ *
+ * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent instances.
+ */
+GPtrArray*
+as_pool_get_components_gir (AsPool *pool)
+{
+	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components (pool));
+}
+
+/**
+ * as_pool_get_components_by_id: (skip)
  * @pool: An instance of #AsPool.
  * @cid: The AppStream-ID to look for.
  *
@@ -1943,7 +1961,27 @@ as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
 }
 
 /**
- * as_pool_get_components_by_provided_item:
+ * as_pool_get_components_by_id_gir: (rename-to as_pool_get_components_by_id)
+ * @pool: An instance of #AsPool.
+ * @cid: The AppStream-ID to look for.
+ *
+ * Get a specific component by its ID.
+ * This function may contain multiple results if we have
+ * data describing this component from multiple scopes/origin types.
+ *
+ * This function fully transfers ownership of the returned container,
+ * to be used in GIR bindings.
+ *
+ * Returns: (transfer full) (element-type AsComponent): An #AsComponent
+ */
+GPtrArray*
+as_pool_get_components_by_id_gir (AsPool *pool, const gchar *cid)
+{
+	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_id (pool, cid));
+}
+
+/**
+ * as_pool_get_components_by_provided_item: (skip)
  * @pool: An instance of #AsPool.
  * @kind: An #AsProvidesKind
  * @item: The value of the provided item.
@@ -1972,7 +2010,28 @@ as_pool_get_components_by_provided_item (AsPool *pool,
 }
 
 /**
- * as_pool_get_components_by_kind:
+ * as_pool_get_components_by_provided_item_gir: (rename-to as_pool_get_components_by_provided_item)
+ * @pool: An instance of #AsPool.
+ * @kind: An #AsProvidesKind
+ * @item: The value of the provided item.
+ *
+ * Find components in the AppStream data pool which provide a certain item.
+ *
+ * This function fully transfers ownership of the returned container,
+ * to be used in GIR bindings.
+ *
+ * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
+ */
+GPtrArray*
+as_pool_get_components_by_provided_item_gir (AsPool *pool,
+					      AsProvidedKind kind,
+					      const gchar *item)
+{
+	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_provided_item (pool, kind, item));
+}
+
+/**
+ * as_pool_get_components_by_kind: (skip)
  * @pool: An instance of #AsDatabase.
  * @kind: An #AsComponentKind.
  *
@@ -1998,9 +2057,27 @@ as_pool_get_components_by_kind (AsPool *pool, AsComponentKind kind)
 }
 
 /**
- * as_pool_get_components_by_categories:
+ * as_pool_get_components_by_kind_gir: (rename-to as_pool_get_components_by_kind)
  * @pool: An instance of #AsDatabase.
- * @categories: An array of XDG categories to include.
+ * @kind: An #AsComponentKind.
+ *
+ * Return a list of all components in the pool which are of a certain kind.
+ *
+ * This function fully transfers ownership of the returned container,
+ * to be used in GIR bindings.
+ *
+ * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
+ */
+GPtrArray*
+as_pool_get_components_by_kind_gir (AsPool *pool, AsComponentKind kind)
+{
+	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_kind (pool, kind));
+}
+
+/**
+ * as_pool_get_components_by_categories: (skip)
+ * @pool: An instance of #AsDatabase.
+ * @categories: (array zero-terminated=1): An array of XDG categories to include.
  *
  * Return a list of components which are in one of the categories.
  *
@@ -2031,7 +2108,25 @@ as_pool_get_components_by_categories (AsPool *pool, gchar **categories)
 }
 
 /**
- * as_pool_get_components_by_launchable:
+ * as_pool_get_components_by_categories_gir: (rename-to as_pool_get_components_by_categories)
+ * @pool: An instance of #AsDatabase.
+ * @categories: (array zero-terminated=1): An array of XDG categories to include.
+ *
+ * Return a list of components which are in one of the categories.
+ *
+ * This function fully transfers ownership of the returned container,
+ * to be used in GIR bindings.
+ *
+ * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
+ */
+GPtrArray*
+as_pool_get_components_by_categories_gir (AsPool *pool, gchar **categories)
+{
+	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_categories (pool, categories));
+}
+
+/**
+ * as_pool_get_components_by_launchable: (skip)
  * @pool: An instance of #AsPool.
  * @kind: An #AsLaunchableKind
  * @id: The ID of the launchable.
@@ -2063,7 +2158,31 @@ as_pool_get_components_by_launchable (AsPool *pool,
 }
 
 /**
- * as_pool_get_components_by_extends:
+ * as_pool_get_components_by_launchable_gir: (rename-to as_pool_get_components_by_launchable)
+ * @pool: An instance of #AsPool.
+ * @kind: An #AsLaunchableKind
+ * @id: The ID of the launchable.
+ *
+ * Find components in the AppStream data pool which provide a specific launchable.
+ * See #AsLaunchable for details on launchables, or refer to the AppStream specification.
+ *
+ * This function fully transfers ownership of the returned container,
+ * to be used in GIR bindings.
+ *
+ * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
+ *
+ * Since: 0.11.4
+ */
+GPtrArray*
+as_pool_get_components_by_launchable_gir (AsPool *pool,
+					  AsLaunchableKind kind,
+					  const gchar *id)
+{
+	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_launchable (pool, kind, id));
+}
+
+/**
+ * as_pool_get_components_by_extends: (skip)
  * @pool: An instance of #AsPool.
  * @extended_id: The ID of the component to search extensions for.
  *
@@ -2092,6 +2211,30 @@ as_pool_get_components_by_extends (AsPool *pool, const gchar *extended_id)
 	}
 
 	return result;
+}
+
+/**
+ * as_pool_get_components_by_extends_gir: (rename-to as_pool_get_components_by_extends)
+ * @pool: An instance of #AsPool.
+ * @extended_id: The ID of the component to search extensions for.
+ *
+ * Find components extending the component with the given ID. They can then be registered to the
+ * #AsComponent they extend via %as_component_add_addon.
+ * If the %AS_POOL_FLAG_RESOLVE_ADDONS pool flag is set, addons are automatically resolved and
+ * this explicit function is not needed, but overall query time will be increased (so only use
+ * this flag if you will be resolving addon information later anyway).
+ *
+ * This function fully transfers ownership of the returned container,
+ * to be used in GIR bindings.
+ *
+ * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects.
+ *
+ * Since: 0.15.0
+ */
+GPtrArray*
+as_pool_get_components_by_extends_gir (AsPool *pool, const gchar *extended_id)
+{
+	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_extends (pool, extended_id));
 }
 
 /**
@@ -2129,7 +2272,7 @@ as_user_search_term_valid (const gchar *term)
  * run it explicitly when you need to check which search tokens the pool will actually
  * use internally for a given phrase.
  *
- * Returns: (transfer full): Valid tokens to search for, or %NULL for error
+ * Returns: (transfer full): (array zero-terminated=1): Valid tokens to search for, or %NULL for error
  */
 gchar**
 as_pool_build_search_tokens (AsPool *pool, const gchar *search)
@@ -2199,7 +2342,7 @@ as_pool_build_search_tokens (AsPool *pool, const gchar *search)
 }
 
 /**
- * as_pool_search:
+ * as_pool_search: (skip)
  * @pool: An instance of #AsPool
  * @search: A search string
  *
@@ -2253,6 +2396,27 @@ as_pool_search (AsPool *pool, const gchar *search)
 	}
 
 	return result;
+}
+
+/**
+ * as_pool_search_gir: (rename-to as_pool_search)
+ * @pool: An instance of #AsPool
+ * @search: A search string
+ *
+ * Search for a list of components matching the search term.
+ * The list will be ordered by match score.
+ *
+ * This function fully transfers ownership of the returned container,
+ * to be used in GIR bindings.
+ *
+ * Returns: (transfer container) (element-type AsComponent): an array of the found #AsComponent objects.
+ *
+ * Since: 0.9.7
+ */
+GPtrArray*
+as_pool_search_gir (AsPool *pool, const gchar *search)
+{
+	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_search (pool, search));
 }
 
 /**

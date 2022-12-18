@@ -85,6 +85,11 @@ aslib_pub_headers = [
     'as-video.h'
 ]
 
+aslib_gir_headers = [
+    'as-pool-gir.h',
+    'as-category-gir.h',
+]
+
 aslib_priv_headers = [
     'as-agreement-private.h',
     'as-agreement-section-private.h',
@@ -176,6 +181,7 @@ endif
 appstream_lib = library ('appstream',
     [aslib_src,
      aslib_pub_headers,
+     aslib_gir_headers,
      aslib_priv_headers,
      aslib_res,
      aslib_pub_enums],
@@ -191,6 +197,7 @@ appstream_dep = declare_dependency(
     link_with: appstream_lib,
     sources: [
         aslib_pub_headers,
+        aslib_gir_headers,
         aslib_pub_enums
     ],
     dependencies: [glib_dep,
@@ -220,13 +227,14 @@ if pc_fixup.returncode() != 0
     error('Unable to fix up the .pc file:\n' + pc_fixup.stderr())
 endif
 
-install_headers(aslib_pub_headers, subdir: 'appstream')
+install_headers(aslib_pub_headers, aslib_gir_headers, subdir: 'appstream')
 
 if get_option ('gir')
     as_gir_typelib = glib.generate_gir(
         appstream_lib,
         sources: [aslib_src,
                   aslib_pub_headers,
+                  aslib_gir_headers,
                   aslib_pub_enums,
                   as_version_h],
         nsversion: '1.0',
