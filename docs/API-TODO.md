@@ -37,3 +37,5 @@ libappstream API break for the AppStream 1.0 release.
  * AS_FORMAT_STYLE_COLLECTION -> AS_FORMAT_STYLE_CATALOG
 
  * Review AsContext enums
+
+ * Drop AS_IMAGE_LARGE_HEIGHT & Co, they are now misleading and less useful than when we had stricter image dimensions
