@@ -1245,7 +1245,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 			continue;
 
 		scr_kind_str = as_xml_get_prop_value (iter, "type");
-		if (g_strcmp0 (scr_kind_str, "default") == 0) {
+		if (as_screenshot_kind_from_string (scr_kind_str) == AS_SCREENSHOT_KIND_DEFAULT) {
 			default_screenshot_found = TRUE;
 			default_screenshot = TRUE;
 		}
@@ -1260,12 +1260,13 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 		}
 
 		for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+			g_autofree gchar *screenshot_width = NULL;
+			g_autofree gchar *screenshot_height = NULL;
+			
 			const gchar *node_name = (const gchar*) iter2->name;
 			if (iter2->type != XML_ELEMENT_NODE)
 				continue;
 
-			g_autofree gchar *screenshot_width = NULL;
-			g_autofree gchar *screenshot_height = NULL;
 
 			screenshot_width = as_xml_get_prop_value (iter2, "width");
 			if (screenshot_width != NULL && !as_str_verify_integer (screenshot_width, 1, G_MAXINT64))
