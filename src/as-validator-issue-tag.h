@@ -205,38 +205,45 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	},
 
 	{ "screenshot-invalid-width",
-	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("The width property must be a positive integer")
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
+	  N_("The `width` property must be a positive integer.")
 	},
 
 	{ "screenshot-invalid-height",
-	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("The width property must be a integer")
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
+	  N_("The `height` property must be a positive integer.")
 	},
 
 	{ "screenshot-image-invalid-type",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("The type of the image is neither `source` or `thumbnail`")
+	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
+	  N_("The image type must be either `source` or `thumbnail`.")
 	},
 
 	{ "screenshot-image-missing-width",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  N_("The `width` property must be present if the type is `thumbnail`")
+	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
+	  N_("The `width` property must be present if the image type is `thumbnail`.")
 	},
 
 	{ "screenshot-image-missing-height",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  N_("The `height` property must be present if the type is thumbnail")
+	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
+	  N_("The `height` property must be present if the image type is `thumbnail`.")
 	},
 
 	{ "screenshot-image-source-duplicated",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("The 'source' type can only be used once for a image and a language")
+	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
+	  N_("There can only be one `source` image per screenshot and language.")
 	},
 
 	{ "screenshot-image-source-missing",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("A screenshot must have at least one image of type `source`")
+	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
+	  N_("A screenshot must have at least one image of type `source`.")
 	},
 
 	{ "screenshot-image-not-found",
@@ -309,8 +316,8 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	},
 
 	{ "screenshot-default-missing",
-	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("A default screenshot is missing.")
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("No screenshot is marked as default.")
 	},
 
 	{ "relation-invalid-tag",

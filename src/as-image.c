@@ -83,7 +83,7 @@ as_image_init (AsImage *image)
 AsImageKind
 as_image_kind_from_string (const gchar *kind)
 {
-	if (g_strcmp0 (kind, "source") == 0)
+	if (g_strcmp0 (kind, "source") == 0 || kind == NULL || g_strcmp0 (kind, "") == 0)
 		return AS_IMAGE_KIND_SOURCE;
 	if (g_strcmp0 (kind, "thumbnail") == 0)
 		return AS_IMAGE_KIND_THUMBNAIL;

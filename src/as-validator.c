@@ -1228,26 +1228,27 @@ as_validator_check_tags (AsValidator *validator, xmlNode *node)
 static void
 as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsComponent *cpt)
 {
-	gboolean default_screenshot_found = FALSE;
+	gboolean have_default_screenshot = FALSE;
+
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		xmlNode *iter2;
 		gboolean image_found = FALSE;
 		gboolean video_found = FALSE;
 		gboolean caption_found = FALSE;
-		gboolean default_screenshot = FALSE;
+		gboolean is_default_screenshot = FALSE;
 		g_autofree gchar *scr_kind_str = NULL;
-		gboolean default_source_found = FALSE;
-		g_autoptr(GHashTable) known_source_lang = NULL;
+		gboolean have_source_image = FALSE;
+		g_autoptr(GHashTable) known_source_locale = NULL;
 
-		known_source_lang = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+		known_source_locale = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
 		scr_kind_str = as_xml_get_prop_value (iter, "type");
 		if (as_screenshot_kind_from_string (scr_kind_str) == AS_SCREENSHOT_KIND_DEFAULT) {
-			default_screenshot_found = TRUE;
-			default_screenshot = TRUE;
+			have_default_screenshot = TRUE;
+			is_default_screenshot = TRUE;
 		}
 
 		if (g_strcmp0 ((const gchar*) iter->name, "screenshot") != 0) {
@@ -1262,8 +1263,8 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 		for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 			g_autofree gchar *screenshot_width = NULL;
 			g_autofree gchar *screenshot_height = NULL;
-			
 			const gchar *node_name = (const gchar*) iter2->name;
+
 			if (iter2->type != XML_ELEMENT_NODE)
 				continue;
 
@@ -1271,60 +1272,57 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 			screenshot_width = as_xml_get_prop_value (iter2, "width");
 			if (screenshot_width != NULL && !as_str_verify_integer (screenshot_width, 1, G_MAXINT64))
 				as_validator_add_issue (validator, iter2,
-					"screenshot-invalid-width",
-					screenshot_width);
+							"screenshot-invalid-width",
+							screenshot_width);
 
 			screenshot_height = as_xml_get_prop_value (iter2, "height");
 			if (screenshot_height != NULL && !as_str_verify_integer (screenshot_height, 1, G_MAXINT64))
 				as_validator_add_issue (validator, iter2,
-					"screenshot-invalid-height",
-					screenshot_height);
+							"screenshot-invalid-height",
+							screenshot_height);
 
 			if (g_strcmp0 (node_name, "image") == 0) {
+				AsImageKind image_kind;
 				g_autofree gchar *image_url = as_xml_get_node_value (iter2);
-        g_autofree gchar *image_type = NULL;
+				g_autofree gchar *image_kind_str = NULL;
 
 				image_found = TRUE;
+				image_kind_str = as_xml_get_prop_value (iter2, "type");
+				image_kind = as_image_kind_from_string (image_kind_str);
 
-				image_type = as_xml_get_prop_value (iter2, "type");
-				if (image_type == NULL)
-					image_type = "source";
-
-				if (g_strcmp0 (image_type, "source") != 0 && g_strcmp0 (image_type, "thumbnail") != 0)
+				if (image_kind == AS_IMAGE_KIND_UNKNOWN)
 					as_validator_add_issue (validator, iter2,
 								"screenshot-image-invalid-type",
-								image_type);
+								image_kind_str);
 
-				if (screenshot_width == NULL && g_strcmp0 (image_type, "thumbnail") == 0)
-					as_validator_add_issue (validator, iter2,
-						"screenshot-image-missing-width",
-						NULL);
+				if (image_kind == AS_IMAGE_KIND_THUMBNAIL) {
+					if (screenshot_width == NULL)
+						as_validator_add_issue (validator, iter2,
+									"screenshot-image-missing-width",
+									NULL);
+					if (screenshot_height == NULL)
+						as_validator_add_issue (validator, iter2,
+									"screenshot-image-missing-height",
+									NULL);
+				}
 
-				if (screenshot_height == NULL && g_strcmp0 (image_type, "thumbnail") == 0)
-					as_validator_add_issue (validator, iter2,
-						"screenshot-image-missing-height",
-						NULL);
-
-				if (g_strcmp0(image_type, "source") == 0) {
-					gchar *image_lang = NULL;
-
-					image_lang = as_xml_get_prop_value (iter2, "lang");
+				if (image_kind == AS_IMAGE_KIND_SOURCE) {
+					g_autofree gchar *image_lang = as_xml_get_prop_value (iter2, "lang");
 
 					if (image_lang == NULL) {
-						if (default_source_found)
+						if (have_source_image)
 							as_validator_add_issue (validator, iter2,
-								"screenshot-image-source-duplicated",
-								NULL);
+										"screenshot-image-source-duplicated",
+										NULL);
 
-						default_source_found = TRUE;
-					}
-					else {
-						if (g_hash_table_contains (known_source_lang, image_lang))
+						have_source_image = TRUE;
+					} else {
+						if (g_hash_table_contains (known_source_locale, image_lang))
 							as_validator_add_issue (validator, iter2,
-							"screenshot-image-source-duplicated",
-							image_lang);
+										"screenshot-image-source-duplicated",
+										image_lang);
 
-						g_hash_table_add (known_source_lang, image_lang);
+						g_hash_table_add (known_source_locale, g_steal_pointer (&image_lang));
 					}
 				}
 
@@ -1355,7 +1353,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				video_found = TRUE;
 
 				/* the default screenshot must not be a video */
-				if (default_screenshot)
+				if (is_default_screenshot)
 					as_validator_add_issue (validator, iter, "screenshot-default-contains-video", NULL);
 
 				as_validator_check_web_url (validator,
@@ -1418,14 +1416,14 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 			as_validator_add_issue (validator, iter, "screenshot-no-media", NULL);
 		else if (image_found && video_found)
 			as_validator_add_issue (validator, iter, "screenshot-mixed-images-videos", NULL);
-		else if (image_found && !default_source_found)
+		else if (image_found && !have_source_image)
 			as_validator_add_issue (validator, iter, "screenshot-image-source-missing", NULL);
 
 		if (!caption_found)
 			as_validator_add_issue (validator, iter, "screenshot-no-caption", NULL);
 	}
 
-	if (!default_screenshot_found)
+	if (!have_default_screenshot)
 		as_validator_add_issue (validator, node, "screenshot-default-missing", NULL);
 }
 
