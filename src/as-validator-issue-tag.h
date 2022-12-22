@@ -108,7 +108,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "tag-invalid-text-content",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("The mentioned tag has text content, even though it is not allowed to contain text.")
+	  N_("The mentioned tag has text content, even though it must not contain text.")
 	},
 
 	{ "cid-is-not-rdns",
