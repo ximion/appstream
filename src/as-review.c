@@ -66,7 +66,7 @@ typedef enum {
 	PROP_FLAGS,
 } AsReviewProperty;
 
-GParamSpec *pspecs[PROP_FLAGS + 1] = { NULL, };
+static GParamSpec *pspecs[PROP_FLAGS + 1] = { NULL, };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsReview, as_review, G_TYPE_OBJECT)
 
