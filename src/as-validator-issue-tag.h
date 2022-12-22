@@ -921,6 +921,26 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("This color is not a valid HTML color code."),
 	},
 
+	{ "custom-invalid-tag",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The custom tags can only contains value tags"),
+	},
+
+	{ "custom-key-missing",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("This custom tag is missing the 'key attribute"),
+	},
+
+	{ "custom-key-duplicated",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("A key can only be used once"),
+	},
+
+	{ "custom-value-missing",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("This custom tag is missing a value"),
+	},
+
 	{ "metainfo-localized-keywords-tag",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("A <keywords/> tag must not be localized in metainfo files (upstream metadata). "
