@@ -204,6 +204,41 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The update-contact does not appear to be a valid email address (escaping of `@` is only allowed as `_at_` or `_AT_`).")
 	},
 
+	{ "screenshot-invalid-width",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The width property must be a positive integer")
+	},
+
+	{ "screenshot-invalid-height",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The width property must be a integer")
+	},
+
+	{ "screenshot-image-invalid-type",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The type of the image is neither `source` or `thumbnail`")
+	},
+
+	{ "screenshot-image-missing-width",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The `width` property must be present if the type is `thumbnail`")
+	},
+
+	{ "screenshot-image-missing-height",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The `height` property must be present if the type is thumbnail")
+	},
+
+	{ "screenshot-image-source-duplicated",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The 'source' type can only be used once for a image and a language")
+	},
+
+	{ "screenshot-image-source-missing",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("A screenshot must have at least one image of type `source`")
+	},
+
 	{ "screenshot-image-not-found",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("Unable to reach the screenshot image on its remote location - does the image exist?")
@@ -271,6 +306,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "screenshot-default-contains-video",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("The default screenshot of a software component must not be a video. Use a static image as default screenshot and set the video as a secondary screenshot.")
+	},
+
+	{ "screenshot-default-missing",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("A default screenshot is missing.")
 	},
 
 	{ "relation-invalid-tag",
