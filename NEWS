@@ -1,3 +1,46 @@
+Version 0.15.6
+~~~~~~~~~~~~~~
+Released: 2022-12-22
+
+Features:
+ * qt: Add API for ContentRating descriptions and ratingIds
+ * Add some coccinelle semantic patches for common style issues
+ * compose: Allow building without SVG support (for bootstrap only)
+ * validator: Check for nodes that are text nodes even though they shouldn't be
+ * validator: Extend validation for custom tag
+ * validator: Improve Screenshot validation
+
+Specification:
+ * docs: Fix typos in <extends> documentation
+
+Bugfixes:
+ * validator: internat: Don't allow bandwidth_mbitps when value is offline-only
+ * validator: Fix timestamp validation
+ * validator: Allow release descriptions to start with punctuation
+ * compose: Only add no-metainfo tag if component isn't already ignored
+ * compose: Show better error in AscImage if compose was build without rsvg
+ * Add a hack to clarify proper PtrArray element ownership for language bindings
+ * qt: Port away from deprecated QDateTime API
+ * qt: Deprecate Component::requires
+ * qt: Fix warning
+ * qt: Fix stringListToCharArray and Pool::componentsByCategories
+ * qt: Port away from deprecated foreach
+ * as-review: Add a typedef for property enums
+ * as-review: Install properties at once rather than individually
+ * as-review: Specify G_PARAM_STATIC_STRINGS for properties
+ * as-review: Emit GObject::notify on property value changes
+ * as-review: Add missing property for as_review_{get,set}_priority()
+ * ascli: fix NULL pointer dereference
+
+Miscellaneous:
+ * docs: Split releases specification into its own section
+ * style: Make code easier to read by using helper macros in all places
+ * Make some compiler warnings fatal unconditionally
+
+Contributors:
+ Aleix Pol, JakobDev, Matthias Klumpp, Nicolas Fella, Philip Withnall,
+ r-ricci, Will Thompson
+
 Version 0.15.5
 ~~~~~~~~~~~~~~
 Released: 2022-08-22
