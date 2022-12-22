@@ -713,7 +713,7 @@ as_validator_check_nolocalized (AsValidator *validator, xmlNode* node, const gch
  * as_validator_first_word_capitalized:
  */
 static gboolean
-as_validator_first_word_capitalized (AsValidator *validator, const gchar *text)
+as_validator_first_word_capitalized (AsValidator *validator, const gchar *text, gboolean allow_punct)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	g_autofree gchar *first_word = NULL;
@@ -724,6 +724,10 @@ as_validator_first_word_capitalized (AsValidator *validator, const gchar *text)
 
 	/* text starts with a number, that's fine */
 	if (g_ascii_isdigit (text[0]))
+		return TRUE;
+
+	/* allow punctuation in some cases */
+	if (allow_punct && g_ascii_ispunct (text[0]))
 		return TRUE;
 
 	/* get the first word */
@@ -857,7 +861,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 			}
 
 			/* validate spelling */
-			if (!is_localized && !as_validator_first_word_capitalized (validator, p_content))
+			if (!is_localized && !as_validator_first_word_capitalized (validator, p_content, !main_description))
 				as_validator_add_issue (validator, node,
 							"description-first-word-not-capitalized",
 							NULL);
@@ -2162,7 +2166,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			}
 
 			lang = as_xml_get_prop_value (iter, "lang");
-			if (lang == NULL && !as_validator_first_word_capitalized (validator, summary))
+			if (lang == NULL && !as_validator_first_word_capitalized (validator, summary, FALSE))
 				as_validator_add_issue (validator, iter,
 							"summary-first-word-not-capitalized",
 							NULL);
