@@ -62,7 +62,7 @@ gboolean			asc_globals_add_hint_tag (const gchar *tag,
 							  AsIssueSeverity severity,
 							  const gchar *explanation,
 							  gboolean overrideExisting);
-gchar				**asc_globals_get_hint_tags ();
+gchar				**asc_globals_get_hint_tags (void);
 AsIssueSeverity			asc_globals_hint_tag_severity (const gchar *tag);
 const gchar			*asc_globals_hint_tag_explanation (const gchar *tag);
 

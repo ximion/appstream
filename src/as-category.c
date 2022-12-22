@@ -20,6 +20,7 @@
  */
 
 #include "as-category.h"
+#include "as-category-gir.h"
 
 #include "config.h"
 #include <glib/gi18n.h>
@@ -742,7 +743,7 @@ as_category_new (void)
 }
 
 /**
- * as_get_default_categories:
+ * as_get_default_categories: (skip)
  * @with_special: Include special categories (e.g. "addons", and "all"/"featured" in submenus)
  *
  * Get a list of the default Freedesktop and AppStream categories
@@ -819,4 +820,23 @@ as_get_default_categories (gboolean with_special)
 	}
 
 	return main_cats;
+}
+
+/**
+ * as_get_default_categories_gir: (rename-to as_get_default_categories)
+ * @with_special: Include special categories (e.g. "addons", and "all"/"featured" in submenus)
+ *
+ * Get a list of the default Freedesktop and AppStream categories
+ * that software components (especially GUI applications) can be sorted
+ * into in software centers.
+ *
+ * This function fully transfers ownership of the returned container,
+ * to be used in GIR bindings.
+ *
+ * Returns: (transfer full) (element-type AsCategory): a list of #AsCategory
+ */
+GPtrArray*
+as_get_default_categories_gir (gboolean with_special)
+{
+	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_get_default_categories (with_special));
 }

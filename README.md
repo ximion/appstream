@@ -75,7 +75,7 @@ Use Meson to configure AppStream and build it with ninja:
 ```bash
 mkdir build
 cd build
-meson <flags> ..
+meson setup <flags> ..
 ninja
 ninja test
 ```

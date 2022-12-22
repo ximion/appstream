@@ -37,6 +37,7 @@ G_BEGIN_DECLS
 
 gchar		*as_xml_get_node_value (const xmlNode *node);
 GRefString	*as_xml_get_node_value_refstr (const xmlNode *node);
+#define as_xml_get_node_value_raw(node)	(gchar*) (xmlNodeGetContent (node))
 
 #define as_xml_get_prop_value(node, prop_name)	(gchar*) (xmlGetProp (node, (xmlChar*) prop_name))
 GRefString	*as_xml_get_prop_value_refstr (const xmlNode *node, const gchar *prop_name);

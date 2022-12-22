@@ -25,8 +25,7 @@
  */
 
 #include "config.h"
-#include "asc-result.h"
-
+#include "asc-utils.h"
 #include "as-utils-private.h"
 
 /**

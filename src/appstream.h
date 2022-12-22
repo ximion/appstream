@@ -57,6 +57,10 @@
 #include <as-vercmp.h>
 #include <as-spdx.h>
 
+/* Helpers for languages using GIR */
+#include <as-category-gir.h>
+#include <as-pool-gir.h>
+
 #undef __APPSTREAM_H_INSIDE__
 
 #endif /* __APPSTREAM_H */

@@ -494,8 +494,8 @@ asc_read_translation_status (AscResult *cres,
 		 * to exist, so would break that check.
 		 * as_component_add_language() will deduplicate in case that’s
 		 * needed. */
-		for (guint i = 0; i < ctx->translations->len; i++) {
-			AsTranslation *t = g_ptr_array_index (ctx->translations, i);
+		for (guint j = 0; j < ctx->translations->len; j++) {
+			AsTranslation *t = g_ptr_array_index (ctx->translations, j);
 
 			as_component_add_language (cpt,
 						   as_translation_get_source_locale (t),

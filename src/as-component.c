@@ -5353,12 +5353,12 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 				const gchar *tag_value = NULL;
 
 				for (GNode *tag_n = tags_n->children; tag_n != NULL; tag_n = tag_n->next) {
-					const gchar *key = as_yaml_node_get_key (tag_n);
-					const gchar *value = as_yaml_node_get_value (tag_n);
-					if (g_strcmp0 (key, "namespace") == 0)
-						ns = value;
-					else if (g_strcmp0 (key, "tag") == 0)
-						tag_value = value;
+					const gchar *c_key = as_yaml_node_get_key (tag_n);
+					const gchar *c_value = as_yaml_node_get_value (tag_n);
+					if (g_strcmp0 (c_key, "namespace") == 0)
+						ns = c_value;
+					else if (g_strcmp0 (c_key, "tag") == 0)
+						tag_value = c_value;
 				}
 				as_component_add_tag (cpt, ns, tag_value);
 			}
@@ -6215,8 +6215,9 @@ static void
 as_component_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec)
 {
 	AsComponent *cpt;
+	AsComponentPrivate *priv;
 	cpt = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_COMPONENT, AsComponent);
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	priv = GET_PRIVATE (cpt);
 
 	switch (property_id) {
 		case AS_COMPONENT_KIND:

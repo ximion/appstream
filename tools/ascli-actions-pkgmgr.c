@@ -108,7 +108,7 @@ ascli_get_component_instrm_candidate (const gchar *identifier,
 	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(GPtrArray) result = NULL;
 	g_autoptr(GPtrArray) result_filtered = NULL;
-	AsComponent *cpt;
+	AsComponent *r_cpt;
 
 	if (identifier == NULL) {
 		ascli_print_stderr (_("You need to specify a component-ID."));
@@ -157,7 +157,7 @@ ascli_get_component_instrm_candidate (const gchar *identifier,
 	}
 
 	if (choose_first || result_filtered->len == 1) {
-		cpt = AS_COMPONENT (g_ptr_array_index (result_filtered, 0));
+		r_cpt = AS_COMPONENT (g_ptr_array_index (result_filtered, 0));
 	} else {
 		gint selection;
 		if (is_removal)
@@ -189,14 +189,14 @@ ascli_get_component_instrm_candidate (const gchar *identifier,
 			/* TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one. */
 			selection = ascli_prompt_numer (_("Please enter the number of the component to install:"),
 							result_filtered->len);
-		cpt = AS_COMPONENT (g_ptr_array_index (result_filtered, selection - 1));
+		r_cpt = AS_COMPONENT (g_ptr_array_index (result_filtered, selection - 1));
 	}
 
 	g_assert (result_cpt != NULL);
-	*result_cpt = g_object_ref (cpt);
+	*result_cpt = g_object_ref (r_cpt);
 
-	if (as_component_get_bundle (cpt, AS_BUNDLE_KIND_FLATPAK) == NULL &&
-	    as_component_get_pkgname (cpt) == NULL) {
+	if (as_component_get_bundle (r_cpt, AS_BUNDLE_KIND_FLATPAK) == NULL &&
+	    as_component_get_pkgname (r_cpt) == NULL) {
 		ascli_print_stderr (_("Component '%s' has no installation candidate."), identifier);
 		return ASCLI_EXIT_CODE_FAILED;
 	}

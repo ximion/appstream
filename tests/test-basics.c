@@ -34,7 +34,7 @@ static gchar *datadir = NULL;
  * Test our version of strstrip.
  */
 static void
-test_strstripnl ()
+test_strstripnl (void)
 {
 	gchar *tmp;
 
@@ -63,7 +63,7 @@ test_strstripnl ()
  * test_random:
  */
 static void
-test_random ()
+test_random (void)
 {
 	g_autofree gchar *str1 = NULL;
 	g_autofree gchar *str2 = NULL;
@@ -83,7 +83,7 @@ test_random ()
  * Test safe variable assignment macros.
  */
 static void
-test_safe_assign ()
+test_safe_assign (void)
 {
 	gchar *tmp;
 	g_autofree gchar *member1 = g_strdup ("Test A");
@@ -123,7 +123,7 @@ test_safe_assign ()
  * test_verify_int_str:
  */
 static void
-test_verify_int_str ()
+test_verify_int_str (void)
 {
 	g_assert_false (as_str_verify_integer ("", G_MININT64, G_MAXINT64));
 	g_assert_true (as_str_verify_integer ("64", G_MININT64, G_MAXINT64));
@@ -140,7 +140,7 @@ test_verify_int_str ()
  * Test #AsCategory properties.
  */
 static void
-test_categories ()
+test_categories (void)
 {
 	g_autoptr(GPtrArray) default_cats = NULL;
 	default_cats = as_get_default_categories (TRUE);
@@ -153,7 +153,7 @@ test_categories ()
  * Test as_description_markup_convert_simple()
  */
 static void
-test_simplemarkup ()
+test_simplemarkup (void)
 {
 	g_autofree gchar *str = NULL;
 	g_autoptr(GError) error = NULL;
@@ -200,7 +200,7 @@ _get_dummy_strv (const gchar *value)
  * Test basic properties of an #AsComponent.
  */
 static void
-test_component ()
+test_component (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autoptr(AsMetadata) metad = NULL;
@@ -483,7 +483,7 @@ test_spdx (void)
  * Read XDG desktop-entry file.
  */
 static void
-test_read_desktop_entry_simple ()
+test_read_desktop_entry_simple (void)
 {
 	static const gchar *desktop_entry_data =
 		"[Desktop Entry]\n"
@@ -555,7 +555,7 @@ test_read_desktop_entry_simple ()
  * Test reading a desktop-entry.
  */
 static void
-test_desktop_entry_convert ()
+test_desktop_entry_convert (void)
 {
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autofree gchar *nautilus_de_fname = NULL;
@@ -638,7 +638,7 @@ test_desktop_entry_convert ()
  * Test version comparisons.
  */
 static void
-test_version_compare ()
+test_version_compare (void)
 {
 	g_assert_cmpint (as_vercmp_simple ("6", "8"), <, 0);
 	g_assert_cmpint (as_vercmp_simple ("0.6.12b-d", "0.6.12a"), >, 0);
@@ -720,7 +720,7 @@ test_version_compare ()
  * Test fetching distro details.
  */
 static void
-test_distro_details ()
+test_distro_details (void)
 {
 	g_autofree gchar *osrelease_fname = NULL;
 	g_autoptr(AsDistroDetails) distro = as_distro_details_new ();
@@ -743,7 +743,7 @@ test_distro_details ()
  * Test URL to component-ID conversion.
  */
 static void
-test_rdns_convert ()
+test_rdns_convert (void)
 {
 	gchar *tmp;
 
@@ -772,7 +772,7 @@ test_rdns_convert ()
  * test_filebasename_from_uri:
  */
 static void
-test_filebasename_from_uri ()
+test_filebasename_from_uri (void)
 {
 	gchar *tmp;
 
@@ -892,7 +892,7 @@ as_test_content_rating_from_locale (void)
  *
  * Shows the data-id globbing functions at work
  */
-void
+static void
 test_utils_data_id_hash (void)
 {
 	AsComponent *found;
@@ -952,7 +952,7 @@ test_utils_data_id_hash (void)
  *
  * Shows the as_utils_data_id_* functions are safe with bare text.
  */
-void
+static void
 test_utils_data_id_hash_str (void)
 {
 	AsComponent *found;
@@ -980,7 +980,7 @@ test_utils_data_id_hash_str (void)
 /**
  * test_utils_platform_triplet:
  */
-void
+static void
 test_utils_platform_triplet (void)
 {
 	g_assert_true (as_utils_is_platform_triplet ("x86_64-linux-gnu"));

@@ -553,7 +553,7 @@ as_validator_check_type_property (AsValidator *validator, AsComponent *cpt, xmlN
 	g_autofree gchar *content = NULL;
 
 	prop = as_xml_get_prop_value (node, "type");
-	content = (gchar*) xmlNodeGetContent (node);
+	content = as_xml_get_node_value_raw (node);
 	if (prop == NULL) {
 		as_validator_add_issue (validator, node,
 					"type-property-required",
@@ -573,7 +573,7 @@ as_validator_check_content_empty (AsValidator *validator, xmlNode *node, const g
 {
 	g_autofree gchar *node_content = NULL;
 
-	node_content = as_strstripnl ((gchar*) xmlNodeGetContent (node));
+	node_content = as_xml_get_node_value (node);
 	if (!as_is_empty (node_content))
 		return;
 
@@ -817,7 +817,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name = (gchar*) iter->name;
-		g_autofree gchar *node_content = (gchar*) xmlNodeGetContent (iter);
+		g_autofree gchar *node_content = as_xml_get_node_value_raw (iter);
 
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
@@ -830,7 +830,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 		}
 
 		if (g_strcmp0 (node_name, "p") == 0) {
-			g_autofree gchar *p_content = as_strstripnl ((gchar*) xmlNodeGetContent (iter));
+			g_autofree gchar *p_content = as_xml_get_node_value (iter);
 
 			if (mode == AS_FORMAT_STYLE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
@@ -948,7 +948,7 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 {
 	g_auto(GStrv) cid_parts = NULL;
 	gboolean hyphen_found = FALSE;
-	g_autofree gchar *cid = (gchar*) xmlNodeGetContent (idnode);
+	g_autofree gchar *cid = as_xml_get_node_value_raw (idnode);
 	g_return_if_fail (cid != NULL);
 
 	if (cid[0] != '\0' && g_ascii_ispunct (cid[0]))
@@ -1037,7 +1037,7 @@ as_validator_validate_project_license (AsValidator *validator, xmlNode *license_
 {
 	guint i;
 	g_auto(GStrv) licenses = NULL;
-	g_autofree gchar *license_id = (gchar*) xmlNodeGetContent (license_node);
+	g_autofree gchar *license_id = as_xml_get_node_value_raw (license_node);
 
 	licenses = as_spdx_license_tokenize (license_id);
 	if (licenses == NULL) {
@@ -1077,7 +1077,7 @@ as_validator_validate_metadata_license (AsValidator *validator, xmlNode *license
 	guint license_bad_cnt = 0;
 	guint license_good_cnt = 0;
 	g_auto(GStrv) tokens = NULL;
-	g_autofree gchar *license_expression = (gchar*) xmlNodeGetContent (license_node);
+	g_autofree gchar *license_expression = as_xml_get_node_value_raw (license_node);
 
 	tokens = as_spdx_license_tokenize (license_expression);
 	if (tokens == NULL) {
@@ -1137,7 +1137,7 @@ as_validator_validate_metadata_license (AsValidator *validator, xmlNode *license
 static void
 as_validator_validate_update_contact (AsValidator *validator, xmlNode *uc_node)
 {
-	g_autofree gchar *text = (gchar*) xmlNodeGetContent (uc_node);
+	g_autofree gchar *text = as_xml_get_node_value_raw (uc_node);
 
 	if ((g_strstr_len (text, -1, "@") == NULL) &&
 	    (g_strstr_len (text, -1, "_at_") == NULL) &&
@@ -1153,7 +1153,7 @@ as_validator_validate_update_contact (AsValidator *validator, xmlNode *uc_node)
 /**
  * as_id_string_valid:
  */
-gboolean
+static gboolean
 as_id_string_valid (const gchar *str, gboolean allow_uppercase)
 {
 	if (str == NULL)
@@ -1281,8 +1281,8 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 					screenshot_height);
 
 			if (g_strcmp0 (node_name, "image") == 0) {
-				g_autofree gchar *image_url = as_strstripnl ((gchar*) xmlNodeGetContent (iter2));
-				g_autofree gchar *image_type = NULL;
+				g_autofree gchar *image_url = as_xml_get_node_value (iter2);
+        g_autofree gchar *image_type = NULL;
 
 				image_found = TRUE;
 
@@ -1350,7 +1350,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				g_autofree gchar *container_str = NULL;
 				g_autofree gchar *video_url_basename = NULL;
 				g_autofree gchar *video_url_base_lower = NULL;
-				g_autofree gchar *video_url = as_strstripnl ((gchar*) xmlNodeGetContent (iter2));
+				g_autofree gchar *video_url = as_xml_get_node_value (iter2);
 
 				video_found = TRUE;
 
@@ -1997,6 +1997,45 @@ as_validator_check_branding (AsValidator *validator, xmlNode *node)
 }
 
 /**
+ * as_validator_check_custom:
+ **/
+static void
+as_validator_check_custom (AsValidator *validator, xmlNode *node)
+{
+	g_autoptr(GHashTable) known_keys = g_hash_table_new_full (g_str_hash, g_str_equal,
+								  g_free, NULL);
+
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		g_autofree gchar *value_data = NULL;
+		g_autofree gchar *key_name = NULL;
+
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (!as_str_equal0 (iter->name, "value")) {
+			as_validator_add_issue (validator, iter, "custom-invalid-tag",
+						(gchar*) iter->name);
+			continue;
+		}
+
+		key_name = as_xml_get_prop_value (iter, "key");
+		if (key_name == NULL) {
+			as_validator_add_issue (validator, iter, "custom-key-missing", NULL);
+			continue;
+		}
+
+		if (g_hash_table_contains (known_keys, key_name))
+			as_validator_add_issue (validator, iter, "custom-key-duplicated", key_name);
+		else
+			g_hash_table_add (known_keys, g_steal_pointer (&key_name));
+
+		value_data = as_xml_get_node_value (iter);
+		if (value_data == NULL || value_data[0] == '\0')
+			as_validator_add_issue (validator, iter, "custom-value-empty", NULL);
+	}
+}
+
+/**
  * as_validator_validate_component_node:
  **/
 static AsComponent*
@@ -2074,7 +2113,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 		node_name = (const gchar*) iter->name;
-		node_content = (gchar*) xmlNodeGetContent (iter);
+		node_content = as_xml_get_node_value_raw (iter);
 		if (node_content != NULL)
 			node_content = as_strstripnl (node_content);
 
@@ -2316,7 +2355,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 		} else if (g_strcmp0 (node_name, "custom") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
-			as_validator_check_children_quick (validator, iter, "value", FALSE);
+			as_validator_check_custom (validator, iter);
 		} else if ((g_strcmp0 (node_name, "metadata") == 0) || (g_strcmp0 (node_name, "kudos") == 0)) {
 			/* these tags are GNOME / Fedora specific extensions and are therefore quite common. They shouldn't make the validation fail,
 			 * especially if we might standardize at leat the <kudos/> tag one day, but we should still complain about those tags to make

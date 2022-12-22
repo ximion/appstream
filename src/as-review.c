@@ -52,20 +52,21 @@ typedef struct
 	GHashTable		*metadata; /* GRefString : GRefString */
 } AsReviewPrivate;
 
-enum {
-	PROP_0,
-	PROP_ID,
+typedef enum {
+	PROP_ID = 1,
 	PROP_SUMMARY,
 	PROP_DESCRIPTION,
 	PROP_LOCALE,
+	PROP_PRIORITY,
 	PROP_RATING,
 	PROP_VERSION,
 	PROP_REVIEWER_ID,
 	PROP_REVIEWER_NAME,
 	PROP_DATE,
 	PROP_FLAGS,
-	PROP_LAST
-};
+} AsReviewProperty;
+
+GParamSpec *pspecs[PROP_FLAGS + 1] = { NULL, };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsReview, as_review, G_TYPE_OBJECT)
 
@@ -108,7 +109,7 @@ as_review_get_property (GObject *object, guint prop_id,
 	AsReview *review = AS_REVIEW (object);
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 
-	switch (prop_id) {
+	switch ((AsReviewProperty) prop_id) {
 	case PROP_ID:
 		g_value_set_string (value, priv->id);
 		break;
@@ -120,6 +121,9 @@ as_review_get_property (GObject *object, guint prop_id,
 		break;
 	case PROP_LOCALE:
 		g_value_set_string (value, priv->locale);
+		break;
+	case PROP_PRIORITY:
+		g_value_set_int (value, priv->priority);
 		break;
 	case PROP_RATING:
 		g_value_set_int (value, priv->rating);
@@ -151,7 +155,7 @@ as_review_set_property (GObject *object, guint prop_id,
 {
 	AsReview *review = AS_REVIEW (object);
 
-	switch (prop_id) {
+	switch ((AsReviewProperty) prop_id) {
 	case PROP_ID:
 		as_review_set_id (review, g_value_get_string (value));
 		break;
@@ -163,6 +167,9 @@ as_review_set_property (GObject *object, guint prop_id,
 		break;
 	case PROP_LOCALE:
 		as_review_set_locale (review, g_value_get_string (value));
+		break;
+	case PROP_PRIORITY:
+		as_review_set_priority (review, g_value_get_int (value));
 		break;
 	case PROP_RATING:
 		as_review_set_rating (review, g_value_get_int (value));
@@ -191,7 +198,6 @@ as_review_set_property (GObject *object, guint prop_id,
 static void
 as_review_class_init (AsReviewClass *klass)
 {
-	GParamSpec *pspec;
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	object_class->finalize = as_review_finalize;
 	object_class->get_property = as_review_get_property;
@@ -202,102 +208,117 @@ as_review_class_init (AsReviewClass *klass)
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_string ("id", NULL, NULL,
+	pspecs[PROP_ID] =
+		g_param_spec_string ("id", NULL, NULL,
 				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_ID, pspec);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:summary:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_string ("summary", NULL, NULL,
+	pspecs[PROP_SUMMARY] =
+		g_param_spec_string ("summary", NULL, NULL,
 				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_SUMMARY, pspec);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:description:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_string ("description", NULL, NULL,
+	pspecs[PROP_DESCRIPTION] =
+		g_param_spec_string ("description", NULL, NULL,
 				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_DESCRIPTION, pspec);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:locale:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_string ("locale", NULL, NULL,
+	pspecs[PROP_LOCALE] =
+		g_param_spec_string ("locale", NULL, NULL,
 				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_LOCALE, pspec);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+	/**
+	 * AsReview:priority:
+	 *
+	 * The priority for the review, where positive numbers indicate
+	 * a better review for the specific user.
+	 *
+	 * Since: 0.15.6
+	 */
+	pspecs[PROP_PRIORITY] =
+		g_param_spec_int ("priority", NULL, NULL,
+				  G_MININT, G_MAXINT, 0,
+				  G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:rating:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_int ("rating", NULL, NULL,
+	pspecs[PROP_RATING] =
+		g_param_spec_int ("rating", NULL, NULL,
 				  -1, 100, 0,
-				  G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_RATING, pspec);
+				  G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:flags:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_uint64 ("flags", NULL, NULL,
+	pspecs[PROP_FLAGS] =
+		g_param_spec_uint64 ("flags", NULL, NULL,
 				     AS_REVIEW_FLAG_NONE,
 				     AS_REVIEW_FLAG_LAST,
 				     AS_REVIEW_FLAG_NONE,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_FLAGS, pspec);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:version:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_string ("version", NULL, NULL,
+	pspecs[PROP_VERSION] =
+		g_param_spec_string ("version", NULL, NULL,
 				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_VERSION, pspec);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:reviewer-id:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_string ("reviewer-id", NULL, NULL,
+	pspecs[PROP_REVIEWER_ID] =
+		g_param_spec_string ("reviewer-id", NULL, NULL,
 				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_REVIEWER_ID, pspec);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:reviewer-name:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_string ("reviewer-name", NULL, NULL,
+	pspecs[PROP_REVIEWER_NAME] =
+		g_param_spec_string ("reviewer-name", NULL, NULL,
 				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_REVIEWER_NAME, pspec);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:date:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspec = g_param_spec_object ("date", NULL, NULL,
+	pspecs[PROP_DATE] =
+		g_param_spec_object ("date", NULL, NULL,
 				     AS_TYPE_REVIEW,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
-	g_object_class_install_property (object_class, PROP_DATE, pspec);
+				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+	g_object_class_install_properties (object_class, G_N_ELEMENTS (pspecs), pspecs);
 }
 
 /**
@@ -334,7 +355,11 @@ as_review_set_priority (AsReview *review, gint priority)
 {
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 	g_return_if_fail (AS_IS_REVIEW (review));
-	priv->priority = priority;
+
+	if (priv->priority != priority) {
+		priv->priority = priority;
+		g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_PRIORITY]);
+	}
 }
 
 /**
@@ -388,6 +413,7 @@ as_review_set_id (AsReview *review, const gchar *id)
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 	g_return_if_fail (AS_IS_REVIEW (review));
 	as_ref_string_assign_safe (&priv->id, id);
+	g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_ID]);
 }
 
 /**
@@ -405,6 +431,7 @@ as_review_set_summary (AsReview *review, const gchar *summary)
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 	g_return_if_fail (AS_IS_REVIEW (review));
 	as_ref_string_assign_safe (&priv->summary, summary);
+	g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_SUMMARY]);
 }
 
 /**
@@ -440,6 +467,7 @@ as_review_set_description (AsReview *review, const gchar *description)
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 	g_return_if_fail (AS_IS_REVIEW (review));
 	as_ref_string_assign_safe (&priv->description, description);
+	g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_DESCRIPTION]);
 }
 
 /**
@@ -475,6 +503,7 @@ as_review_set_locale (AsReview *review, const gchar *locale)
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 	g_return_if_fail (AS_IS_REVIEW (review));
 	as_ref_string_assign_safe (&priv->locale, locale);
+	g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_LOCALE]);
 }
 
 /**
@@ -509,7 +538,11 @@ as_review_set_rating (AsReview *review, gint rating)
 {
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 	g_return_if_fail (AS_IS_REVIEW (review));
-	priv->rating = rating;
+
+	if (priv->rating != rating) {
+		priv->rating = rating;
+		g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_RATING]);
+	}
 }
 
 /**
@@ -546,7 +579,11 @@ as_review_set_flags (AsReview *review, AsReviewFlags flags)
 {
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 	g_return_if_fail (AS_IS_REVIEW (review));
-	priv->flags = flags;
+
+	if (priv->flags != flags) {
+		priv->flags = flags;
+		g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_FLAGS]);
+	}
 }
 
 /**
@@ -563,7 +600,11 @@ as_review_add_flags (AsReview *review, AsReviewFlags flags)
 {
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 	g_return_if_fail (AS_IS_REVIEW (review));
-	priv->flags |= flags;
+
+	if ((priv->flags & flags) != flags) {
+		priv->flags |= flags;
+		g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_FLAGS]);
+	}
 }
 
 /**
@@ -617,6 +658,7 @@ as_review_set_reviewer_id (AsReview *review, const gchar *reviewer_id)
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 	g_return_if_fail (AS_IS_REVIEW (review));
 	as_ref_string_assign_safe (&priv->reviewer_id, reviewer_id);
+	g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_REVIEWER_ID]);
 }
 
 /**
@@ -634,6 +676,7 @@ as_review_set_reviewer_name (AsReview *review, const gchar *reviewer_name)
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 	g_return_if_fail (AS_IS_REVIEW (review));
 	as_ref_string_assign_safe (&priv->reviewer_name, reviewer_name);
+	g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_REVIEWER_NAME]);
 }
 
 /**
@@ -651,6 +694,7 @@ as_review_set_version (AsReview *review, const gchar *version)
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 	g_return_if_fail (AS_IS_REVIEW (review));
 	as_ref_string_assign_safe (&priv->version, version);
+	g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_VERSION]);
 }
 
 /**
@@ -703,9 +747,15 @@ as_review_set_date (AsReview *review, GDateTime *date)
 {
 	AsReviewPrivate *priv = GET_PRIVATE (review);
 	g_return_if_fail (AS_IS_REVIEW (review));
+
+	if ((date == NULL && priv->date == NULL) ||
+	    (date != NULL && priv->date != NULL && g_date_time_equal (date, priv->date)))
+		return;
+
 	g_clear_pointer (&priv->date, g_date_time_unref);
 	if (date != NULL)
 		priv->date = g_date_time_ref (date);
+	g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_DATE]);
 }
 
 /**
@@ -838,22 +888,28 @@ as_review_load_from_xml (AsReview *review, AsContext *ctx, xmlNode *node, GError
 
 		} else if (g_strcmp0 ((gchar*) iter->name, "summary") == 0) {
 			as_ref_string_assign_transfer (&priv->summary, as_xml_get_node_value_refstr (iter));
+			g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_SUMMARY]);
 
 		} else if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
 			g_autofree gchar *desc = as_xml_dump_node_children (iter);
 			as_ref_string_assign_transfer (&priv->description, g_ref_string_new_intern (desc));
+			g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_DESCRIPTION]);
 
 		} else if (g_strcmp0 ((gchar*) iter->name, "version") == 0) {
 			as_ref_string_assign_transfer (&priv->version, as_xml_get_node_value_refstr (iter));
+			g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_VERSION]);
 
 		} else if (g_strcmp0 ((gchar*) iter->name, "reviewer_id") == 0) {
 			as_ref_string_assign_transfer (&priv->reviewer_id, as_xml_get_node_value_refstr (iter));
+			g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_REVIEWER_ID]);
 
 		} else if (g_strcmp0 ((gchar*) iter->name, "reviewer_name") == 0) {
 			as_ref_string_assign_transfer (&priv->reviewer_name, as_xml_get_node_value_refstr (iter));
+			g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_REVIEWER_NAME]);
 
 		} else if (g_strcmp0 ((gchar*) iter->name, "lang") == 0) {
 			as_ref_string_assign_transfer (&priv->locale, as_xml_get_node_value_refstr (iter));
+			g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_LOCALE]);
 
 		} else if (g_strcmp0 ((gchar*) iter->name, "metadata") == 0) {
 			as_xml_parse_custom_node (iter, priv->metadata);

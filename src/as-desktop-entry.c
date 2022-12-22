@@ -223,7 +223,7 @@ as_get_desktop_entry_value (GKeyFile *df, GPtrArray *issues, const gchar *key)
 /**
  * as_check_desktop_string:
  */
-void
+static void
 as_check_desktop_string (GPtrArray *issues, const gchar *field, const gchar *str)
 {
 	if (issues == NULL)

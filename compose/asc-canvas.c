@@ -323,6 +323,7 @@ asc_canvas_draw_text (AscCanvas *canvas, AscFont *font, const gchar *text, gint 
 	gboolean ret = FALSE;
 	cairo_font_face_t *cff = NULL;
 	cairo_status_t status;
+	cairo_text_extents_t te;
 	g_auto(GStrv) lines = NULL;
 	guint lines_len;
 	guint line_padding;
@@ -376,7 +377,6 @@ asc_canvas_draw_text (AscCanvas *canvas, AscFont *font, const gchar *text, gint 
 		}
         }
 
-        cairo_text_extents_t te;
 	text_size = 128;
 	while (text_size-- > 0) {
 		cairo_set_font_size (priv->cr, text_size);

@@ -1108,12 +1108,11 @@ gboolean
 as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GError **error)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-	GNode *n;
 
 	/* propagate locale */
 	as_release_set_context (release, ctx);
 
-	for (n = node->children; n != NULL; n = n->next) {
+	for (GNode *n = node->children; n != NULL; n = n->next) {
 		const gchar *key = as_yaml_node_get_key (n);
 		const gchar *value = as_yaml_node_get_value (n);
 
@@ -1143,12 +1142,12 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 			AsReleaseUrlKind url_kind;
 
 			for (urls_n = n->children; urls_n != NULL; urls_n = urls_n->next) {
-				const gchar *key = as_yaml_node_get_key (urls_n);
-				const gchar *value = as_yaml_node_get_value (urls_n);
+				const gchar *c_key = as_yaml_node_get_key (urls_n);
+				const gchar *c_value = as_yaml_node_get_value (urls_n);
 
-				url_kind = as_release_url_kind_from_string (key);
-				if ((url_kind != AS_RELEASE_URL_KIND_UNKNOWN) && (value != NULL))
-					as_release_set_url (release, url_kind, value);
+				url_kind = as_release_url_kind_from_string (c_key);
+				if ((url_kind != AS_RELEASE_URL_KIND_UNKNOWN) && (c_value != NULL))
+					as_release_set_url (release, url_kind, c_value);
 			}
 
 		} else if (g_strcmp0 (key, "issues") == 0) {

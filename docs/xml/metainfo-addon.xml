@@ -58,10 +58,10 @@
 			<term>&lt;extends/&gt;</term>
 			<listitem>
 				<para>
-					This tag is refers to the ID of the component this addon is extending.
+					This tag refers to the ID of the component this addon is extending.
 				</para>
 				<para>
-					For example, if there is a plugin "kipi" which extens the application "Gwenview", it needs to be referred to as:
+					For example, if there is a plugin "kipi" which extends the application "Gwenview", it needs to be referred to as:
 				</para>
 				<programlisting language="XML"><![CDATA[<extends>org.kde.Gwenview</extends>]]></programlisting>
 				<para>

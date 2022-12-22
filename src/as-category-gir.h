@@ -18,33 +18,16 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __AS_CONTEXT_PRIVATE_H
-#define __AS_CONTEXT_PRIVATE_H
+#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#error "Only <appstream.h> can be included directly."
+#endif
 
-#include "as-context.h"
-#include "as-component.h"
+#pragma once
+
+#include <glib-object.h>
 
 G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
 
-const gchar		*as_context_get_architecture (AsContext *ctx);
-void			as_context_set_architecture (AsContext *ctx,
-						     const gchar *value);
+GPtrArray		*as_get_default_categories_gir (gboolean with_special);
 
-gboolean		as_context_get_internal_mode (AsContext *ctx);
-void			as_context_set_internal_mode (AsContext *ctx,
-						      gboolean enabled);
-
-const gchar		*as_context_localized_ht_get (AsContext *ctx,
-						      GHashTable *lht,
-						      const gchar *locale_override,
-						      AsValueFlags value_flags);
-void			as_context_localized_ht_set (AsContext *ctx,
-						     GHashTable *lht,
-						     const gchar *value,
-						     const gchar *locale);
-
-#pragma GCC visibility pop
 G_END_DECLS
-
-#endif /* __AS_CONTEXT_PRIVATE_H */

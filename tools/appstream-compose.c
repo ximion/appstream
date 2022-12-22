@@ -34,7 +34,7 @@ typedef enum {
 	ASC_REPORT_MODE_FULL
 } AscReportMode;
 
-void
+static void
 composecli_add_report_hint (GString *report, AscHint *hint)
 {
 	const gchar *tag = asc_hint_get_tag (hint);
@@ -76,7 +76,7 @@ composecli_add_report_hint (GString *report, AscHint *hint)
 	}
 }
 
-void
+static void
 composecli_print_hints_report (GPtrArray *results, const gchar *title, AscReportMode mode)
 {
 	g_autoptr(GString) report = NULL;

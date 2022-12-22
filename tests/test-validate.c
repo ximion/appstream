@@ -125,7 +125,7 @@ _astest_check_validate_issues (GList *issues, AsVResultCheck *checks_all)
  * test_validator_tag_sanity:
  */
 static void
-test_validator_tag_sanity ()
+test_validator_tag_sanity (void)
 {
 	g_autoptr(GHashTable) tag_map = NULL;
 	tag_map = g_hash_table_new_full (g_str_hash,
@@ -149,7 +149,7 @@ test_validator_tag_sanity ()
  * Test desktop-application metainfo file with many issues.
  */
 static void
-test_validator_manyerrors_desktopapp ()
+test_validator_manyerrors_desktopapp (void)
 {
 	gboolean ret;
 	g_autoptr(GList) issues = NULL;
@@ -258,7 +258,7 @@ test_validator_manyerrors_desktopapp ()
  * Test requires/recommends & Co.
  */
 static void
-test_validator_relationissues ()
+test_validator_relationissues (void)
 {
 	gboolean ret;
 	g_autoptr(GList) issues = NULL;
@@ -315,7 +315,7 @@ test_validator_relationissues ()
  * Test requires/recommends & Co.
  */
 static void
-test_validator_overrides ()
+test_validator_overrides (void)
 {
 	gboolean ret;
 	g_autoptr(GList) issues = NULL;

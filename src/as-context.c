@@ -35,6 +35,7 @@
 
 #include "config.h"
 #include "as-context.h"
+#include "as-context-private.h"
 
 #include "as-utils-private.h"
 

@@ -42,8 +42,7 @@
 gchar*
 as_xml_get_node_value (const xmlNode *node)
 {
-	gchar *content;
-	content = (gchar*) xmlNodeGetContent (node);
+	gchar *content = as_xml_get_node_value_raw (node);
 	if (content != NULL)
 		as_strstripnl (content);
 
@@ -60,8 +59,7 @@ as_xml_get_node_value (const xmlNode *node)
 GRefString*
 as_xml_get_node_value_refstr (const xmlNode *node)
 {
-	g_autofree gchar *content = NULL;
-	content = (gchar*) xmlNodeGetContent (node);
+	g_autofree gchar *content = as_xml_get_node_value_raw (node);
 	if (content != NULL)
 		as_strstripnl (content);
 	if (content == NULL)
@@ -451,7 +449,7 @@ typedef struct
  * as_xml_metainfo_desc_parse_helper_new: (skip)
  **/
 static AsXMLMetaInfoDescParseHelper*
-as_xml_metainfo_desc_parse_helper_new ()
+as_xml_metainfo_desc_parse_helper_new (void)
 {
 	AsXMLMetaInfoDescParseHelper *helper = g_slice_new0 (AsXMLMetaInfoDescParseHelper);
 	helper->data = g_string_new ("");

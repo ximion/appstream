@@ -29,6 +29,8 @@
 
 #include "config.h"
 #include "as-artifact.h"
+#include "as-artifact-private.h"
+
 #include "as-checksum-private.h"
 #include "as-utils-private.h"
 
