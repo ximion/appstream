@@ -1930,26 +1930,23 @@ as_validator_check_branding (AsValidator *validator, xmlNode *node)
 static void
 as_validator_check_custom (AsValidator *validator, xmlNode *node)
 {
-	g_autoptr(GHashTable) known_keys = NULL;
-	known_keys = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+	g_autoptr(GHashTable) known_keys = g_hash_table_new_full (g_str_hash, g_str_equal,
+								  g_free, NULL);
 
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		g_autofree gchar *value_data = NULL;
+		g_autofree gchar *key_name = NULL;
+
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		g_autofree gchar *node_content = NULL;
-		const gchar *node_name;
-
-		node_name = (const gchar*) iter->name;
-
-		if (g_strcmp0 (node_name, "value") != 0) {
-			as_validator_add_issue (validator, iter, "custom-invalid-tag", node_name);
+		if (!as_str_equal0 (iter->name, "value")) {
+			as_validator_add_issue (validator, iter, "custom-invalid-tag",
+						(gchar*) iter->name);
 			continue;
 		}
 
-		gchar *key_name = NULL;
 		key_name = as_xml_get_prop_value (iter, "key");
-
 		if (key_name == NULL) {
 			as_validator_add_issue (validator, iter, "custom-key-missing", NULL);
 			continue;
@@ -1958,12 +1955,11 @@ as_validator_check_custom (AsValidator *validator, xmlNode *node)
 		if (g_hash_table_contains (known_keys, key_name))
 			as_validator_add_issue (validator, iter, "custom-key-duplicated", key_name);
 		else
-			g_hash_table_add (known_keys, key_name);
+			g_hash_table_add (known_keys, g_steal_pointer (&key_name));
 
-		node_content = (gchar*) xmlNodeGetContent (iter);
-		if (strlen(node_content) == 0) {
-			as_validator_add_issue (validator, iter, "custom-value-missing", NULL);
-		}
+		value_data = as_xml_get_node_value (iter);
+		if (value_data == NULL || value_data[0] == '\0')
+			as_validator_add_issue (validator, iter, "custom-value-empty", NULL);
 	}
 }
 

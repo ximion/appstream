@@ -889,20 +889,20 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "content-rating-missing",
 	  AS_ISSUE_SEVERITY_INFO,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact. */
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("This component has no `content_rating` tag to provide age rating information. "
 	     "You can generate the tag data online by answering a few questions at https://hughsie.github.io/oars/"),
 	},
 
 	{ "component-tag-missing-namespace",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact. */
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("This `tag` is missing a `namespace` attribute."),
 	},
 
 	{ "component-tag-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact. */
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."),
 	},
 
@@ -923,27 +923,30 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "custom-invalid-tag",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("The custom tags can only contains value tags"),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The `custom` tag can only contain `value` children."),
 	},
 
 	{ "custom-key-missing",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("This custom tag is missing the 'key attribute"),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This `custom` tag value is missing a `key` attribute."),
 	},
 
 	{ "custom-key-duplicated",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("A key can only be used once"),
+	  N_("A key can only be used once."),
 	},
 
-	{ "custom-value-missing",
-	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("This custom tag is missing a value"),
+	{ "custom-value-empty",
+	  AS_ISSUE_SEVERITY_INFO,
+	  N_("This custom value is empty."),
 	},
 
 	{ "metainfo-localized-keywords-tag",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("A <keywords/> tag must not be localized in metainfo files (upstream metadata). "
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("A `keywords` tag must not be localized in metainfo files (upstream metadata). "
 	     "Localize the individual keyword entries instead.")
 	},
 
