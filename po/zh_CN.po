@@ -39,6 +39,7 @@
 # Dingzhong Chen <wsxy162@gmail.com>, 2021.
 # Eric <alchemillatruth@purelymail.com>, 2022.
 # Hugel <qihu@nfschina.com>, 2022.
+# Eric <hamburger1024@duck.com>, 2022.
 #
 # Translators:
 msgid ""
@@ -46,16 +47,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-12-22 23:35+0100\n"
-"PO-Revision-Date: 2022-08-24 16:16+0000\n"
-"Last-Translator: Hugel <qihu@nfschina.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_Hans/>\n"
+"PO-Revision-Date: 2022-12-24 03:49+0000\n"
+"Last-Translator: Eric <hamburger1024@duck.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1158,10 +1158,9 @@ msgid ""
 msgstr "提及的标签空白，因为这里应该有内容所以很可能不是故意的。"
 
 #: src/as-validator-issue-tag.h:111
-#, fuzzy
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
-msgstr "组件有一个优先级值集。 这在 metainfo 文件中是不允许的。"
+msgstr "提到的标签有文本内容，即使它不能包含文本。"
 
 #: src/as-validator-issue-tag.h:116
 msgid ""
@@ -1311,9 +1310,8 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:222
-#, fuzzy
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr "该设定值作为人工类型无效。必须为 `source` 或 `binary`。"
+msgstr "图片类型必须为 `source` 或 `thumbnail`。"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:228
@@ -2193,9 +2191,8 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:980
-#, fuzzy
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr "该 `tag` 缺少 `namespace` 属性。"
+msgstr "这个 `custom` 标签值缺少`key` 属性。"
 
 #: src/as-validator-issue-tag.h:985
 msgid "A key can only be used once."
@@ -2207,12 +2204,10 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:996
-#, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"不要在 metainfo 文件中翻译 <keywords/> 标签（上游元数据）。翻译单个关键词。"
+msgstr "`keywords` 标签不得在元信息文件（上游元数据）中本地化。 而是本地化单个关键词条目。"
 
 #: src/as-validator.c:162
 msgid ""
