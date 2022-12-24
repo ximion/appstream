@@ -27,16 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-12-22 23:35+0100\n"
-"PO-Revision-Date: 2022-08-22 17:31+0000\n"
+"PO-Revision-Date: 2022-12-24 03:49+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1068,9 +1067,7 @@ msgstr "Taggar med detta namn tillåts inte i detta avsnitt."
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"En <description/>-tagg får inte lokaliseras i metainfofilerna "
-"(uppströmsmetadata). Lokalisera de individuella paragraferna istället."
+msgstr "En <description/>-tagg får inte lokaliseras i metainfofilerna (uppströmsmetadata). Lokalisera de individuella paragraferna i stället."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1079,11 +1076,7 @@ msgid ""
 "<description/> tag instead. The AppStream collection metadata generator (e."
 "g. `appstream-generator`) will already do the right thing when compiling the "
 "data."
-msgstr ""
-"Detta element (paragraf, lista o.s.v.) för en <description/>-tagg får inte "
-"lokaliseras individuellt i samlingsmetadata. Lokalisera hela <description/>-"
-"taggen istället. AppStream-samlingsmetadatageneratorn (t.ex. `appstream-"
-"generator`) kommer redan göra rätt sak när dessa data kompileras."
+msgstr "Detta element (paragraf, lista o.s.v.) för en <description/>-tagg får inte lokaliseras individuellt i samlingsmetadata. Lokalisera hela <description/>-taggen i stället. AppStream-samlingsmetadatageneratorn (t.ex. `appstream-generator`) kommer redan göra rätt sak när dessa data kompileras."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -1133,9 +1126,7 @@ msgstr ""
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
-"Beskrivningen innehåller en webb-URL i klartext. Detta är inte tillåtet, "
-"använd istället <url/>-taggen för att dela länkar."
+msgstr "Beskrivningen innehåller en webb-URL i klartext. Detta är inte tillåtet, använd i stället <url/>-taggen för att dela länkar."
 
 #: src/as-validator-issue-tag.h:96
 msgid "This tag is not translatable."
@@ -1158,12 +1149,9 @@ msgstr ""
 "ha innehåll."
 
 #: src/as-validator-issue-tag.h:111
-#, fuzzy
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
-msgstr ""
-"Komponenten har ett prioritetsvärde inställt. Detta är inte tillåtet i "
-"metainfofiler."
+msgstr "Den nämnda taggen har textinnehåll, även om den inte får innehålla text."
 
 #: src/as-validator-issue-tag.h:116
 msgid ""
@@ -1323,40 +1311,37 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:210
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "Egenskapen `width` måste vara ett positivt heltal."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:216
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "Egenskapen `height` måste vara ett positivt heltal."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:222
-#, fuzzy
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
-"Värdet som ställts in som artefakttyp är ogiltigt. Måste vara antingen "
-"`source` eller `binary`."
+msgstr "Bildtypen måste vara antingen `source` eller `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:228
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "Egenskapen `width` måste finnas om bildtypen är `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:234
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "Egenskapen `height` måste finnas om bildtypen är `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:240
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "Det kan endast finnas en `source`-bild per skärmbild och språk."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:246
 msgid "A screenshot must have at least one image of type `source`."
-msgstr ""
+msgstr "En skärmbild måste ha minst en bild av typen `source`."
 
 #: src/as-validator-issue-tag.h:251
 msgid ""
@@ -1464,7 +1449,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:320
 msgid "No screenshot is marked as default."
-msgstr ""
+msgstr "Ingen skärmbild markerad som standard."
 
 #: src/as-validator-issue-tag.h:325
 msgid ""
@@ -1535,11 +1520,7 @@ msgid ""
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr ""
-"Hittade en minnesstorleksrelation i en `requires`-tagg. Detta betyder att "
-"användare inte ens kommer kunna installera komponenten utan att ha "
-"tillräckligt med RAM-minne. Detta är vanligen inte avsikten, och du kommer "
-"vilja använda `memory` i `recommends`-taggen istället."
+msgstr "Hittade en minnesstorleksrelation i en `requires`-tagg. Detta betyder att användare inte ens kommer kunna installera komponenten utan att ha tillräckligt med RAM-minne. Detta är vanligen inte avsikten, och du kommer vilja använda `memory` i `recommends`-taggen i stället."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:372
@@ -1548,12 +1529,7 @@ msgid ""
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr ""
-"Hittade en användarinmatningskontrollrelation i en `requires`-tagg. Detta "
-"betyder att användare inte ens kommer kunna installera komponenten utan att "
-"ha den definierade inmatningskontrollen tillgänglig på systemet. Detta är "
-"vanligen inte avsikten, och du kommer vilja använda `control` i `recommends`-"
-"taggen istället."
+msgstr "Hittade en användarinmatningskontrollrelation i en `requires`-tagg. Detta betyder att användare inte ens kommer kunna installera komponenten utan att ha den definierade inmatningskontrollen tillgänglig på systemet. Detta är vanligen inte avsikten, och du kommer vilja använda `control` i `recommends`-taggen i stället."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:379
@@ -1618,7 +1594,7 @@ msgstr "Det satta taggvärdet är inte giltigt för en `internet`-relation."
 msgid ""
 "The `bandwidth_mbitps` property is not allowed when using `offline-only` as "
 "value."
-msgstr ""
+msgstr "Egenskapen `bandwidth_mbitps` är inte tillåten när `offline-only` används som värde."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
@@ -1765,9 +1741,7 @@ msgstr "En webb-URL förväntades för detta värde."
 #: src/as-validator-issue-tag.h:542
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr ""
-"Denna webblänk använder FTP-protokollet. Överväg att växla till HTTP(S) "
-"istället."
+msgstr "Denna webblänk använder FTP-protokollet. Överväg att växla till HTTP(S) i stället."
 
 #: src/as-validator-issue-tag.h:547
 msgid "An URL of this type has already been defined."
@@ -1818,13 +1792,7 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"Hittade ogiltig tagg. Icke-standardtaggar ska ha prefixet ”x-”. AppStream "
-"tillhandahåller också taggen <custom/> för att lägga till godtyckliga "
-"anpassade data till metainfofiler. Denna tagg läses av AppStream-bibliotek "
-"och kan vara användbar istället för att definiera nya anpassade "
-"toppnivåtaggar eller taggar med prefixet ”x-” om du bara vill lägga till "
-"anpassade data till en metainfofil."
+msgstr "Hittade ogiltig tagg. Icke-standardtaggar ska ha prefixet ”x-”. AppStream tillhandahåller också taggen <custom/> för att lägga till godtyckliga anpassade data till metainfofiler. Denna tagg läses av AppStream-bibliotek och kan vara användbar i stället för att definiera nya anpassade toppnivåtaggar eller taggar med prefixet ”x-” om du bara vill lägga till anpassade data till en metainfofil."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:594
@@ -2294,10 +2262,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
-"`mimetypes`-taggen på toppnivå är föråldrad. Använd `mediatype`-taggar i ett "
-"`provides`-block istället för att indikera att din programvara "
-"tillhandahåller en mediahanterare för de angivna typerna."
+msgstr "`mimetypes`-taggen på toppnivå är föråldrad. Använd `mediatype`-taggar i ett `provides`-block i stället för att indikera att din programvara tillhandahåller en mediahanterare för de angivna typerna."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:940
@@ -2339,31 +2304,27 @@ msgstr "Denna färg är inte en giltig HTML-färgkod."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:974
 msgid "The `custom` tag can only contain `value` children."
-msgstr ""
+msgstr "Taggen `custom` kan endast innehålla `value`-underordnade."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:980
-#, fuzzy
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr "Denna `tag` saknar ett `namespace`-attribut."
+msgstr "Detta `custom`-taggvärde saknar ett `key`-attribut."
 
 #: src/as-validator-issue-tag.h:985
 msgid "A key can only be used once."
-msgstr ""
+msgstr "En nyckel kan endast användas en gång."
 
 #: src/as-validator-issue-tag.h:990
 msgid "This custom value is empty."
-msgstr ""
+msgstr "Detta anpassade värde är tomt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:996
-#, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"En <keywords/>-tagg får inte lokaliseras i metainfofilerna "
-"(uppströmsmetadata). Lokalisera de individuella nyckelordsposterna istället."
+msgstr "En `keywords`-tagg får inte lokaliseras i metainfofilerna (uppströmsmetadata). Lokalisera de individuella nyckelordsposterna i stället."
 
 #: src/as-validator.c:162
 msgid ""
@@ -3388,9 +3349,7 @@ msgstr "Misslyckades med validering: %s"
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
 "'yaml' or 'text' instead."
-msgstr ""
-"Valideraren kan inte skapa rapporter i formatet ”%s”. Du kan välja ”yaml” "
-"eller ”text” istället."
+msgstr "Valideraren kan inte skapa rapporter i formatet ”%s”. Du kan välja ”yaml” eller ”text” i stället."
 
 #: tools/ascli-actions-validate.c:481 tools/ascli-actions-validate.c:590
 msgid "You need to specify a root directory to start validation!"
