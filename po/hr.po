@@ -14,17 +14,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-12-22 23:35+0100\n"
-"PO-Revision-Date: 2022-08-24 02:20+0000\n"
+"PO-Revision-Date: 2022-12-31 03:47+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
-"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/"
-"translations/hr/>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1145,12 +1143,9 @@ msgstr ""
 "imati sadržaj."
 
 #: src/as-validator-issue-tag.h:111
-#, fuzzy
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
-msgstr ""
-"Komponenta ima postavljenu vrijednost prioriteta. To nije dozvoljeno u "
-"datotekama metapodataka."
+msgstr "Spomenuta oznaka sadrži tekstualni zadržaj, iako ne smije sadržati tekst."
 
 #: src/as-validator-issue-tag.h:116
 msgid ""
@@ -1321,11 +1316,8 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:222
-#, fuzzy
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
-"Vrijednost koja je postavljena kao vrsta artefakta je neispravna. Mora biti "
-"`source` ili `binary`."
+msgstr "Vrsta slike mora biti `source` ili `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:228
@@ -2342,9 +2334,8 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:980
-#, fuzzy
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr "Ovoj `tag` (oznaci) nedostaje atribut `namespace` (imenski prostor)."
+msgstr "Ovoj vrijednosti oznake `custom`nedostaje atribut `key`."
 
 #: src/as-validator-issue-tag.h:985
 msgid "A key can only be used once."
