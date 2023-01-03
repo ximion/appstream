@@ -132,10 +132,21 @@ add_project_arguments(
   '-Werror=format-security',
   language: 'cpp'
 )
-add_project_arguments('-DAS_COMPILATION', language: 'c')
 
 # Vendor extensions in system headers
 add_project_arguments('-D_POSIX_C_SOURCE=200112L', language: 'c')
+
+if cc.get_id() == 'clang'
+    # Clang doesn't understand autofree helpers on GMutexLocker and thinks
+    # these variables are irrelevant, so this warning when used with Clang
+    # gives many false-positives
+    add_project_arguments(
+      '-Wno-unused-variable',
+      language: 'c'
+    )
+endif
+
+add_project_arguments('-DAS_COMPILATION', language: 'c')
 
 #
 # Dependencies

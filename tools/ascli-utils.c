@@ -113,7 +113,7 @@ ascli_print_highlight (const gchar* msg)
  * ascli_print_separator:
  */
 void
-ascli_print_separator ()
+ascli_print_separator (void)
 {
 	if (_colored_output) {
 		g_print ("%c[%dm%s\n%c[%dm", 0x1B, 36, "---", 0x1B, 0);
@@ -171,7 +171,7 @@ ascli_set_output_colored (gboolean colored)
  * ascli_get_output_colored:
  */
 gboolean
-ascli_get_output_colored ()
+ascli_get_output_colored (void)
 {
 	return _colored_output;
 }

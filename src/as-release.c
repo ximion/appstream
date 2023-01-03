@@ -967,12 +967,14 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 			as_release_set_url (release, AS_RELEASE_URL_KIND_DETAILS, content);
 		} else if (g_strcmp0 ((gchar*) iter->name, "location") == 0) {
 			/* DEPRECATED */
+			#pragma GCC diagnostic push
 			#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 			content = as_xml_get_node_value (iter);
 			as_release_add_location (release, content);
 			#pragma GCC diagnostic pop
 		} else if (g_strcmp0 ((gchar*) iter->name, "checksum") == 0) {
 			/* DEPRECATED */
+			#pragma GCC diagnostic push
 			#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 			g_autoptr(AsChecksum) cs = NULL;
 
@@ -982,6 +984,7 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 			#pragma GCC diagnostic pop
 		} else if (g_strcmp0 ((gchar*) iter->name, "size") == 0) {
 			/* DEPRECATED */
+			#pragma GCC diagnostic push
 			#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 			AsSizeKind s_kind;
 			prop = as_xml_get_prop_value (iter, "type");

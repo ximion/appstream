@@ -32,6 +32,12 @@ G_BEGIN_DECLS
 #define AS_DATA_ID_WILDCARD	"*"
 #define	AS_DATA_ID_PARTS_COUNT	5
 
+/**
+ * as_str_equal0:
+ * Returns TRUE if strings are equal, ignoring NULL strings.
+ * This is a convenience wrapper around g_strcmp0
+ */
+#define as_str_equal0(str1, str2) (g_strcmp0 ((gchar*) str1,(gchar*) str2) == 0)
 
 /**
  * as_assign_string_safe:
@@ -46,7 +52,7 @@ G_BEGIN_DECLS
  */
 #define as_assign_string_safe(target, new_val) \
   G_STMT_START { \
-    if (G_LIKELY ((target) != (new_val))) { \
+    if (G_LIKELY (!as_str_equal0(target, new_val))) { \
 	g_free (target); \
 	target = g_strdup (new_val); \
       } \
@@ -70,13 +76,6 @@ G_BEGIN_DECLS
 	target = g_ptr_array_ref (new_ptrarray); \
       } \
   } G_STMT_END
-
-/**
- * as_str_equal0:
- * Returns TRUE if strings are equal, ignoring NULL strings.
- * This is a convenience wrapper around g_strcmp0
- */
-#define as_str_equal0(str1,str2) (g_strcmp0 ((gchar*) str1,(gchar*) str2) == 0)
 
 #define AS_PTR_ARRAY_CLEAR_FREE_FUNC(array) \
   AS_PTR_ARRAY_SET_FREE_FUNC(array, NULL)
