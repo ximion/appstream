@@ -3,7 +3,7 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2020, 2021, 2022.
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2020, 2021, 2022, 2023.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016, 2021.
 # Matthias Klumpp <matthias@tenstral.net>, 2014, 2021, 2022.
 # Andreas Kleinert <Andy.Kleinert@gmail.com>, 2019, 2021.
@@ -25,7 +25,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2021, 2022.
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2021, 2022, 2023.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016. #zanata, 2021.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Tobias Weise <tobias.weise@web.de>, 2019. #zanata
@@ -46,16 +46,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-12-22 23:35+0100\n"
-"PO-Revision-Date: 2022-10-29 11:23+0000\n"
-"Last-Translator: Sebin Nyshkim <sebin.nyshkim@icloud.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"PO-Revision-Date: 2023-01-05 08:48+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.2-dev\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1186,12 +1185,9 @@ msgstr ""
 "da es einen Inhalt haben sollte."
 
 #: src/as-validator-issue-tag.h:111
-#, fuzzy
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
 msgstr ""
-"Die Komponente hat eine Prioritätswert gesetzt. Dies ist nicht erlaubt in "
-"Metainfo Dateien."
 
 #: src/as-validator-issue-tag.h:116
 msgid ""
@@ -1357,40 +1353,37 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:210
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "Die Eigenschaft `width` muss eine positive Ganzzahl sein."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:216
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "Die Eigenschaft `height` muss eine positive Ganzzahl sein."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:222
-#, fuzzy
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
-"Der als Artefakttyp eingestellte Wert ist ungültig. Muss entweder `source` "
-"oder `binary` sein."
+msgstr "Der Bildtyp muss entweder `source` oder `thumbnail` sein."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:228
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "Die Eigenschaft `width` muss vorhanden sein, wenn der Bildtyp `thumbnail` ist."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:234
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "Die Eigenschaft `height` muss vorhanden sein, wenn der Bildtyp `thumbnail` ist."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:240
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "Pro Bildschirmfoto und Sprache kann es nur ein Bild für `source` geben."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:246
 msgid "A screenshot must have at least one image of type `source`."
-msgstr ""
+msgstr "Ein Bildschirmfoto muss mindestens ein Bild vom Typ `source` enthalten."
 
 #: src/as-validator-issue-tag.h:251
 msgid ""
@@ -1506,7 +1499,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:320
 msgid "No screenshot is marked as default."
-msgstr ""
+msgstr "Es ist kein Bildschirmfoto als Standard markiert."
 
 #: src/as-validator-issue-tag.h:325
 msgid ""
@@ -1661,7 +1654,7 @@ msgstr ""
 msgid ""
 "The `bandwidth_mbitps` property is not allowed when using `offline-only` as "
 "value."
-msgstr ""
+msgstr "Die Eigenschaft `bandwidth_mbitps` ist nicht zulässig, wenn als Wert `offline-only` verwendet wird."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
