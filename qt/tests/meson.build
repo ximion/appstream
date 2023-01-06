@@ -3,7 +3,7 @@
 qt5_test_dep = dependency('qt5', modules: ['Core', 'Test'])
 
 testpaths_h = configuration_data()
-testpaths_h.set_quoted('AS_SAMPLE_DATA_PATH', join_paths(source_root, 'tests', 'samples', 'collection'))
+testpaths_h.set_quoted('AS_SAMPLE_DATA_PATH', join_paths(source_root, 'tests', 'samples', 'catalog'))
 configure_file (output: 'testpaths.h', configuration: testpaths_h)
 
 asqt_test_src = [
