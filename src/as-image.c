@@ -318,7 +318,7 @@ as_image_load_from_xml (AsImage *image, AsContext *ctx, xmlNode *node, GError **
 		priv->kind = AS_IMAGE_KIND_SOURCE;
 
 	/* discard invalid elements */
-	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
+	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG) {
 		/* no sizes are okay for upstream XML, but not for distro XML */
 		if ((priv->width == 0) || (priv->height == 0)) {
 			if (priv->kind != AS_IMAGE_KIND_SOURCE) {

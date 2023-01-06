@@ -86,7 +86,7 @@ as_cache_section_new (const gchar *key)
 {
 	AsCacheSection *csec;
 	csec = g_new0 (AsCacheSection, 1);
-	csec->format_style = AS_FORMAT_STYLE_COLLECTION;
+	csec->format_style = AS_FORMAT_STYLE_CATALOG;
 	csec->key = g_strdup (key);
 	return csec;
 }
@@ -163,7 +163,7 @@ as_cache_init (AsCache *cache)
 
 
 	priv->context = as_context_new ();
-	as_context_set_style (priv->context, AS_FORMAT_STYLE_COLLECTION);
+	as_context_set_style (priv->context, AS_FORMAT_STYLE_CATALOG);
 	/* we need to write some special tags only used in the cache */
 	as_context_set_internal_mode (priv->context, TRUE);
 
@@ -1021,7 +1021,7 @@ as_cache_set_contents_for_path (AsCache *cache,
 
 	return as_cache_set_contents_internal (cache,
 						as_utils_guess_scope_from_path (filename),
-						AS_FORMAT_STYLE_COLLECTION,
+						AS_FORMAT_STYLE_CATALOG,
 						FALSE, /* no OS data */
 						cpts,
 						filename,
@@ -1252,7 +1252,7 @@ as_cache_load_section_for_path (AsCache *cache,
 	as_cache_load_section_internal (cache,
 					scope,
 					filename,
-					AS_FORMAT_STYLE_COLLECTION,
+					AS_FORMAT_STYLE_CATALOG,
 					FALSE,
 					is_outdated,
 					refinefn_user_data);
@@ -1354,7 +1354,7 @@ as_cache_add_masking_components (AsCache *cache, GPtrArray *cpts, GError **error
 	/* create new section */
 	mcsec = as_cache_section_new ("memory:volatile_mask");
 	mcsec->scope = AS_COMPONENT_SCOPE_USER;
-	mcsec->format_style = AS_FORMAT_STYLE_COLLECTION;
+	mcsec->format_style = AS_FORMAT_STYLE_CATALOG;
 	mcsec->fname = g_steal_pointer (&volatile_fname);
 	mcsec->is_mask = TRUE;
 

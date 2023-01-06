@@ -82,11 +82,11 @@ AsFormatStyle
 as_metadata_file_guess_style (const gchar *filename)
 {
 	if (g_str_has_suffix (filename, ".xml.gz"))
-		return AS_FORMAT_STYLE_COLLECTION;
+		return AS_FORMAT_STYLE_CATALOG;
 	if (g_str_has_suffix (filename, ".yml"))
-		return AS_FORMAT_STYLE_COLLECTION;
+		return AS_FORMAT_STYLE_CATALOG;
 	if (g_str_has_suffix (filename, ".yml.gz"))
-		return AS_FORMAT_STYLE_COLLECTION;
+		return AS_FORMAT_STYLE_CATALOG;
 	if (g_str_has_suffix (filename, ".appdata.xml"))
 		return AS_FORMAT_STYLE_METAINFO;
 	if (g_str_has_suffix (filename, ".appdata.xml.in"))
@@ -96,7 +96,7 @@ as_metadata_file_guess_style (const gchar *filename)
 	if (g_str_has_suffix (filename, ".metainfo.xml.in"))
 		return AS_FORMAT_STYLE_METAINFO;
 	if (g_str_has_suffix (filename, ".xml"))
-		return AS_FORMAT_STYLE_COLLECTION;
+		return AS_FORMAT_STYLE_CATALOG;
 	return AS_FORMAT_STYLE_UNKNOWN;
 }
 
@@ -428,9 +428,9 @@ as_metadata_parse_data (AsMetadata *metad, const gchar *data, gssize data_len, A
 			return FALSE;
 		root = xmlDocGetRootElement (doc);
 
-		if (priv->mode == AS_FORMAT_STYLE_COLLECTION) {
+		if (priv->mode == AS_FORMAT_STYLE_CATALOG) {
 			/* prepare context */
-			g_autoptr(AsContext) context = as_metadata_new_context (metad, AS_FORMAT_STYLE_COLLECTION, NULL);
+			g_autoptr(AsContext) context = as_metadata_new_context (metad, AS_FORMAT_STYLE_CATALOG, NULL);
 
 			if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
 				as_metadata_xml_parse_components_node (metad, context, root, error);
@@ -482,12 +482,12 @@ as_metadata_parse_data (AsMetadata *metad, const gchar *data, gssize data_len, A
 	}
 
 	if (format == AS_FORMAT_KIND_YAML) {
-		if (priv->mode == AS_FORMAT_STYLE_COLLECTION) {
+		if (priv->mode == AS_FORMAT_STYLE_CATALOG) {
 			g_autoptr(AsContext) context = NULL;
 			g_autoptr(GPtrArray) new_cpts = NULL;
 			guint i;
 
-			context = as_metadata_new_context (metad, AS_FORMAT_STYLE_COLLECTION, NULL);
+			context = as_metadata_new_context (metad, AS_FORMAT_STYLE_CATALOG, NULL);
 			new_cpts = as_metadata_yaml_parse_collection_doc (metad,
 									  context,
 									  data,
@@ -1143,7 +1143,7 @@ as_metadata_components_to_collection (AsMetadata *metad, AsFormatKind format, GE
 	if (priv->cpts->len == 0)
 		return g_strdup ("");
 
-	context = as_metadata_new_context (metad, AS_FORMAT_STYLE_COLLECTION, NULL);
+	context = as_metadata_new_context (metad, AS_FORMAT_STYLE_CATALOG, NULL);
 
 	if (format == AS_FORMAT_KIND_XML) {
 		if (priv->write_header)

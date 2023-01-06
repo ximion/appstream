@@ -943,7 +943,7 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 			}
 		} else if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
 			g_hash_table_remove_all (priv->description);
-			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
+			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG) {
 				g_autofree gchar *lang = NULL;
 
 				/* for collection XML, the "description" tag has a language property, so parsing it is simple */
@@ -1044,7 +1044,7 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 	if (priv->timestamp > 0) {
 		g_autofree gchar *time_str = NULL;
 
-		if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
+		if (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG) {
 			time_str = g_strdup_printf ("%" G_GUINT64_FORMAT, priv->timestamp);
 			as_xml_add_text_prop (subnode,
 						"timestamp",
@@ -1201,7 +1201,7 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 	if (priv->timestamp > 0) {
 		g_autofree gchar *time_str = NULL;
 
-		if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
+		if (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG) {
 			as_yaml_emit_entry_timestamp (emitter,
 						      "unix-timestamp",
 						      priv->timestamp);

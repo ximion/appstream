@@ -348,7 +348,7 @@ test_appstream_write_description (void)
 						"  </releases>\n"
 						"</component>\n";
 
-	const gchar *EXPECTED_XML_DISTRO = "<components version=\"0.14\">\n"
+	const gchar *EXPECTED_XML_DISTRO = "<components version=\"0.16\">\n"
 					   "  <component>\n"
 					   "    <id>org.example.Test</id>\n"
 					   "    <name>Test</name>\n"
@@ -451,7 +451,7 @@ test_appstream_write_description (void)
 
 	/* test collection XMl -> metainfo XML */
 	as_metadata_clear_components (metad);
-	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
 	as_metadata_parse (metad, EXPECTED_XML_DISTRO, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 	tmp = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, NULL);
@@ -812,7 +812,7 @@ test_xml_write_suggests (void)
 					   "    <id>org.example.Awesome</id>\n"
 					   "  </suggests>\n"
 					   "</component>\n";
-	const gchar *expected_sug_xml_coll = "<components version=\"0.14\">\n"
+	const gchar *expected_sug_xml_coll = "<components version=\"0.16\">\n"
 					"  <component>\n"
 					"    <id>org.example.SuggestsTest</id>\n"
 					"    <suggests type=\"upstream\">\n"
@@ -845,7 +845,7 @@ test_xml_write_suggests (void)
 	g_free (res);
 
 	/* test collection serialization */
-	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_COLLECTION);
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_CATALOG);
 	g_assert_true (as_xml_test_compare_xml (res, expected_sug_xml_coll));
 }
 
@@ -1094,7 +1094,7 @@ test_appstream_write_metainfo_to_collection (void)
 					"  </releases>\n"
 					"</component>\n";
 
-	const gchar *EXPECTED_XML_COLL =   "<components version=\"0.14\">\n"
+	const gchar *EXPECTED_XML_COLL =   "<components version=\"0.16\">\n"
 					   "  <component>\n"
 					   "    <id>org.example.Test</id>\n"
 					   "    <name>Test</name>\n"
@@ -1154,7 +1154,7 @@ test_appstream_write_metainfo_to_collection (void)
 	as_metadata_parse (metad, METAINFO_XML, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
-	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
 
 	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, NULL);
 	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML_COLL));

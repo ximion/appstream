@@ -59,7 +59,7 @@ test_get_sampledata_pool (gboolean use_caches)
 		as_flags_add (flags, AS_POOL_FLAG_IGNORE_CACHE_AGE);
 	as_pool_set_flags (pool, flags);
 
-	as_pool_add_extra_data_location (pool, mdata_dir, AS_FORMAT_STYLE_COLLECTION);
+	as_pool_add_extra_data_location (pool, mdata_dir, AS_FORMAT_STYLE_CATALOG);
 
 	return pool;
 }

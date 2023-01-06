@@ -836,7 +836,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 		if (g_strcmp0 (node_name, "p") == 0) {
 			g_autofree gchar *p_content = as_xml_get_node_value (iter);
 
-			if (mode == AS_FORMAT_STYLE_COLLECTION) {
+			if (mode == AS_FORMAT_STYLE_CATALOG) {
 				as_validator_check_nolocalized (validator,
 								iter,
 								"collection-localized-description-section",
@@ -869,7 +869,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 			/* validate common stuff */
 			as_validator_check_description_paragraph (validator, iter);
 		} else if (g_strcmp0 (node_name, "ul") == 0) {
-			if (mode == AS_FORMAT_STYLE_COLLECTION) {
+			if (mode == AS_FORMAT_STYLE_CATALOG) {
 				as_validator_check_nolocalized (validator,
 								iter,
 								"collection-localized-description-section",
@@ -877,7 +877,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 			}
 			as_validator_check_description_enumeration (validator, iter);
 		} else if (g_strcmp0 (node_name, "ol") == 0) {
-			if (mode == AS_FORMAT_STYLE_COLLECTION) {
+			if (mode == AS_FORMAT_STYLE_CATALOG) {
 				as_validator_check_nolocalized (validator,
 								iter,
 								"collection-localized-description-section",
@@ -2308,7 +2308,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator, iter, "bundle-unknown-type", prop);
 
 		} else if (g_strcmp0 (node_name, "update_contact") == 0) {
-			if (mode == AS_FORMAT_STYLE_COLLECTION) {
+			if (mode == AS_FORMAT_STYLE_CATALOG) {
 				as_validator_add_issue (validator, iter, "update-contact-in-collection-data", NULL);
 			} else {
 				as_validator_check_appear_once (validator, iter, found_tags, FALSE);
@@ -2748,7 +2748,7 @@ as_validator_validate_bytes (AsValidator *validator, GBytes *metadata)
 	} else if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
 		const gchar *node_name;
 
-		as_context_set_style (ctx, AS_FORMAT_STYLE_COLLECTION);
+		as_context_set_style (ctx, AS_FORMAT_STYLE_CATALOG);
 		for (xmlNode *iter = root->children; iter != NULL; iter = iter->next) {
 			/* discard spaces */
 			if (iter->type != XML_ELEMENT_NODE)

@@ -612,7 +612,7 @@ as_pool_register_flatpak_dir (AsPool *pool, const gchar *flatpak_root_dir, AsCom
 				cache_key = g_strconcat ("flatpak-", repo_name, "-", arch_name, NULL);
 				lgroup = as_location_group_new (pool,
 								scope,
-								AS_FORMAT_STYLE_COLLECTION,
+								AS_FORMAT_STYLE_CATALOG,
 								FALSE, /* no OS data, external from Flatpak */
 								cache_key);
 				lentry = as_location_group_add_dir (lgroup,
@@ -660,7 +660,7 @@ as_pool_detect_std_metadata_dirs (AsPool *pool, gboolean include_user_data)
 	/* create location groups and register them */
 	lgroup_catalog = as_location_group_new (pool,
 					     AS_COMPONENT_SCOPE_SYSTEM,
-					     AS_FORMAT_STYLE_COLLECTION,
+					     AS_FORMAT_STYLE_CATALOG,
 					     TRUE, /* is OS data */
 					     OS_COLLECTION_CACHE_KEY);
 	g_hash_table_insert (priv->std_data_locations,
@@ -1052,14 +1052,14 @@ as_pool_load_collection_data (AsPool *pool,
 	/* NOTE: Write-lock is held by the caller. */
 
 	/* do nothing if the group has the wrong format */
-	if (lgroup->format_style != AS_FORMAT_STYLE_COLLECTION)
+	if (lgroup->format_style != AS_FORMAT_STYLE_CATALOG)
 		return TRUE;
 
 	ptask = as_profile_start_literal (priv->profile, "AsPool:load_collection_data");
 
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
-	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
 	as_metadata_set_locale (metad, priv->locale);
 
 	/* find AppStream metadata */
@@ -2527,7 +2527,7 @@ as_pool_get_locale (AsPool *pool)
  * as_pool_add_extra_data_location:
  * @pool: An instance of #AsPool.
  * @directory: An existing filesystem location.
- * @format_style: The expected format style of the metadata, e.g. %AS_FORMAT_STYLE_COLLECTION
+ * @format_style: The expected format style of the metadata, e.g. %AS_FORMAT_STYLE_CATALOG
  *
  * Add an additional non-standard location to the metadata pool where metadata will be read from.
  * If @directory contains a "xml", "xmls", "yaml" or "icons" subdirectory (or all of them),
@@ -2703,7 +2703,7 @@ as_pool_print_std_data_locations_info_private (AsPool *pool, gboolean print_os_d
 void
 as_pool_add_metadata_location (AsPool *pool, const gchar *directory)
 {
-	as_pool_add_extra_data_location (pool, directory, AS_FORMAT_STYLE_COLLECTION);
+	as_pool_add_extra_data_location (pool, directory, AS_FORMAT_STYLE_CATALOG);
 }
 
 /**

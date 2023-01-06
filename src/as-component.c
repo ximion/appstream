@@ -4230,7 +4230,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			if (lang != NULL)
 				as_component_set_summary (cpt, content, lang);
 		} else if (tag_id == AS_TAG_DESCRIPTION) {
-			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
+			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG) {
 				g_autofree gchar *lang = as_xml_get_node_locale_match (ctx, iter);
 				/* for collection XML, the "description" tag has a language property, so parsing it is simple */
 				if (lang != NULL) {
@@ -4657,7 +4657,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 			as_xml_add_text_prop (cnode, "date_eol", time_str);
 	}
 
-	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
+	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG) {
 		/* write some propties which only exist in collection XML */
 		if (priv->merge_kind != AS_MERGE_KIND_NONE) {
 			as_xml_add_text_prop (cnode,

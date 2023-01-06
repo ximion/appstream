@@ -117,10 +117,10 @@ test_get_sampledata_pool (gboolean use_caches)
 	g_assert_nonnull (cache_dummy_dir);
 
 	/* create AsPool and load sample metadata */
-	mdata_dir = g_build_filename (datadir, "collection", NULL);
+	mdata_dir = g_build_filename (datadir, "catalog", NULL);
 
 	pool = as_pool_new ();
-	as_pool_add_extra_data_location (pool, mdata_dir, AS_FORMAT_STYLE_COLLECTION);
+	as_pool_add_extra_data_location (pool, mdata_dir, AS_FORMAT_STYLE_CATALOG);
 	as_pool_set_locale (pool, "C");
 
 	flags = as_pool_get_flags (pool);
@@ -202,7 +202,7 @@ test_cache (void)
 	g_autofree gchar *xmldata_postcache = NULL;
 	g_autofree gchar *cache_testpath = g_build_filename (cache_dummy_dir, "ctest", NULL);
 
-	mdata_dir = g_build_filename (datadir, "collection", "xml", NULL);
+	mdata_dir = g_build_filename (datadir, "catalog", "xml", NULL);
 
 	xml_files = as_utils_find_files_matching (mdata_dir, "*.xml", FALSE, &error);
 	g_assert_no_error (error);
@@ -210,7 +210,7 @@ test_cache (void)
 
 	mdata = as_metadata_new ();
 	as_metadata_set_locale (mdata, "C");
-	as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_COLLECTION);
+	as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_CATALOG);
 
 	for (guint i = 0; i < xml_files->len; i++) {
 		g_autoptr(GFile) file = NULL;
@@ -961,7 +961,7 @@ test_pool_autoreload (void)
 	g_mkdir_with_parents (tmpdir, 0700);
 
 	/* add new data directory */
-	as_pool_add_extra_data_location (pool, tmpdir, AS_FORMAT_STYLE_COLLECTION);
+	as_pool_add_extra_data_location (pool, tmpdir, AS_FORMAT_STYLE_CATALOG);
 
 	/* ensure cache is empty */
 	result = as_pool_get_components_by_id (pool, "org.inkscape.Inkscape");
@@ -970,7 +970,7 @@ test_pool_autoreload (void)
 
 	/* add data and wait for auto-reload */
 	data_changed = FALSE;
-	src_datafile1 = g_build_filename (datadir, "collection", "xml", "foobar-1.xml", NULL);
+	src_datafile1 = g_build_filename (datadir, "catalog", "xml", "foobar-1.xml", NULL);
 	dst_datafile1 = g_build_filename (tmpdir, "foobar-1.xml", NULL);
 	ret = as_copy_file (src_datafile1, dst_datafile1, &error);
 	g_assert_no_error (error);
@@ -987,7 +987,7 @@ test_pool_autoreload (void)
 
 	/* add more data */
 	data_changed = FALSE;
-	src_datafile2 = g_build_filename (datadir, "collection", "xml", "lvfs-gdpr.xml", NULL);
+	src_datafile2 = g_build_filename (datadir, "catalog", "xml", "lvfs-gdpr.xml", NULL);
 	dst_datafile2 = g_build_filename (tmpdir, "lvfs-gdpr.xml", NULL);
 	ret = as_copy_file (src_datafile2, dst_datafile2, &error);
 	g_assert_no_error (error);

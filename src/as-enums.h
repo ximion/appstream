@@ -37,21 +37,25 @@ G_BEGIN_DECLS
 
 /**
  * AsFormatStyle:
+ * @AS_FORMAT_STYLE_UNKNOWN:	The format style is unknown.
  * @AS_FORMAT_STYLE_METAINFO:	Parse AppStream upstream metadata (metainfo files)
- * @AS_FORMAT_STYLE_COLLECTION:	Parse AppStream metadata collections (shipped by software distributors)
+ * @AS_FORMAT_STYLE_CATALOG:	Parse AppStream metadata catalog (shipped by software distributors)
  *
  * There are a few differences between AppStream's metainfo files (shipped by upstream projects)
- * and the collection metadata (shipped by distributors).
+ * and the catalog metadata (shipped by distributors).
  * The data source kind indicates which style we should process.
  * Usually you do not want to set this explicitly.
  **/
 typedef enum {
 	AS_FORMAT_STYLE_UNKNOWN,
 	AS_FORMAT_STYLE_METAINFO,
-	AS_FORMAT_STYLE_COLLECTION,
+	AS_FORMAT_STYLE_CATALOG,
 	/*< private >*/
 	AS_FORMAT_STYLE_LAST
 } AsFormatStyle;
+
+/* DEPRECATED */
+#define AS_FORMAT_STYLE_COLLECTION AS_FORMAT_STYLE_CATALOG
 
 /**
  * AsFormatKind:

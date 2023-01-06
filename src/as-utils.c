@@ -2137,7 +2137,7 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 		destdir = "";
 
 	switch (as_metadata_file_guess_style (filename)) {
-	case AS_FORMAT_STYLE_COLLECTION:
+	case AS_FORMAT_STYLE_CATALOG:
 		if (g_strstr_len (filename, -1, ".yml.gz") != NULL) {
 			path = g_build_filename (as_metadata_location_get_prefix (location),
 						 "swcatalog", "yaml", NULL);

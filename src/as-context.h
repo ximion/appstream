@@ -57,6 +57,8 @@ struct _AsContextClass
  * @AS_FORMAT_VERSION_V0_12:	0.12
  * @AS_FORMAT_VERSION_V0_13:	0.13
  * @AS_FORMAT_VERSION_V0_14:	0.14
+ * @AS_FORMAT_VERSION_V0_15:	0.15
+ * @AS_FORMAT_VERSION_V0_16:	0.16
  *
  * Format version / API level of the AppStream metadata.
  **/
@@ -70,12 +72,14 @@ typedef enum {
 	AS_FORMAT_VERSION_V0_12,
 	AS_FORMAT_VERSION_V0_13,
 	AS_FORMAT_VERSION_V0_14,
+	AS_FORMAT_VERSION_V0_15,
+	AS_FORMAT_VERSION_V0_16,
 	AS_FORMAT_VERSION_UNKNOWN, /* added to work around GIR inconsistencies */
 	/*< private >*/
 	AS_FORMAT_VERSION_LAST
 } AsFormatVersion;
 
-#define AS_FORMAT_VERSION_CURRENT AS_FORMAT_VERSION_V0_14
+#define AS_FORMAT_VERSION_CURRENT AS_FORMAT_VERSION_V0_16
 
 const gchar		*as_format_version_to_string (AsFormatVersion version);
 AsFormatVersion		 as_format_version_from_string (const gchar *version_str);

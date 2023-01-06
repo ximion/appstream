@@ -1964,7 +1964,7 @@ asc_compose_save_metadata_result (AscCompose *compose, gboolean *results_not_emp
 	g_autofree gchar *data_fname = NULL;
 
 	mdata = as_metadata_new ();
-	as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_COLLECTION);
+	as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_CATALOG);
 	as_metadata_set_format_version (mdata, AS_FORMAT_VERSION_CURRENT);
 
 	/* Set baseurl only if one is set and we actually store any screenshot media. If no screenshot media

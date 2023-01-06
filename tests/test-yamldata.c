@@ -64,12 +64,12 @@ as_yaml_test_read_data (const gchar *data, GError **error)
 
 	data_full = g_strdup_printf ("---\n"
 				     "File: DEP-11\n"
-				     "Version: '0.14'\n"
+				     "Version: '0.16'\n"
 				     "---\n%s", data);
 
 	metad = as_metadata_new ();
 	as_metadata_set_locale (metad, "ALL");
-	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
 
 	if (error == NULL) {
 		g_autoptr(GError) local_error = NULL;
@@ -104,7 +104,7 @@ as_yaml_test_compare_yaml (const gchar *result, const gchar *expected)
 	g_autofree gchar *expected_full = NULL;
 	expected_full = g_strdup_printf ("---\n"
 					 "File: DEP-11\n"
-					 "Version: '0.14'\n"
+					 "Version: '0.16'\n"
 					 "---\n%s", expected);
 	return as_test_compare_lines (result, expected_full);
 }
@@ -127,7 +127,7 @@ test_yaml_basic (void)
 
 	mdata = as_metadata_new ();
 	as_metadata_set_locale (mdata, "C");
-	as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_COLLECTION);
+	as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_CATALOG);
 
 	path = g_build_filename (datadir, "dep11-0.8.yml", NULL);
 	file = g_file_new_for_path (path);

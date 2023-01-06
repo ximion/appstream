@@ -74,7 +74,7 @@ ascli_refresh_cache (const gchar *cachepath,
 		/* the user wants data from a different path to be used */
 		as_pool_add_extra_data_location (pool,
 						 datapath,
-						 AS_FORMAT_STYLE_COLLECTION);
+						 AS_FORMAT_STYLE_CATALOG);
 	}
 
 	if (cachepath == NULL) {
@@ -374,11 +374,11 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 	    (g_str_has_suffix (in_fname, ".yml")) ||
 	    (g_str_has_suffix (in_fname, ".yaml"))) {
 		/* if we have YAML, we also automatically assume a collection style */
-		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
+		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
 	} else if (g_str_has_suffix (in_fname, ".metainfo.xml") || g_str_has_suffix (in_fname, ".appdata.xml")) {
 		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_METAINFO);
 	} else {
-		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
+		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
 	}
 
 	as_metadata_parse_file (metad,
@@ -391,7 +391,7 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 	}
 
 	/* since YAML files are always collection-YAMLs, we will always run in collection mode */
-	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
 
 	if (mformat == AS_FORMAT_KIND_UNKNOWN) {
 		if (g_str_has_suffix (in_fname, ".xml") || g_str_has_suffix (in_fname, ".xml.gz"))

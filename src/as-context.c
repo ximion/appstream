@@ -71,24 +71,28 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsContext, as_context, G_TYPE_OBJECT)
 const gchar*
 as_format_version_to_string (AsFormatVersion version)
 {
-	if (version == AS_FORMAT_VERSION_V0_6)
-		return "0.6";
-	if (version == AS_FORMAT_VERSION_V0_7)
-		return "0.7";
-	if (version == AS_FORMAT_VERSION_V0_8)
-		return "0.8";
-	if (version == AS_FORMAT_VERSION_V0_9)
-		return "0.9";
-	if (version == AS_FORMAT_VERSION_V0_10)
-		return "0.10";
-	if (version == AS_FORMAT_VERSION_V0_11)
-		return "0.11";
-	if (version == AS_FORMAT_VERSION_V0_12)
-		return "0.12";
-	if (version == AS_FORMAT_VERSION_V0_13)
-		return "0.13";
+	if (version == AS_FORMAT_VERSION_V0_16)
+		return "0.16";
+	if (version == AS_FORMAT_VERSION_V0_15)
+		return "0.15";
 	if (version == AS_FORMAT_VERSION_V0_14)
 		return "0.14";
+	if (version == AS_FORMAT_VERSION_V0_13)
+		return "0.13";
+	if (version == AS_FORMAT_VERSION_V0_12)
+		return "0.12";
+	if (version == AS_FORMAT_VERSION_V0_11)
+		return "0.11";
+	if (version == AS_FORMAT_VERSION_V0_10)
+		return "0.10";
+	if (version == AS_FORMAT_VERSION_V0_9)
+		return "0.9";
+	if (version == AS_FORMAT_VERSION_V0_8)
+		return "0.8";
+	if (version == AS_FORMAT_VERSION_V0_7)
+		return "0.7";
+	if (version == AS_FORMAT_VERSION_V0_6)
+		return "0.6";
 	return "?.??";
 }
 
@@ -106,6 +110,10 @@ as_format_version_to_string (AsFormatVersion version)
 AsFormatVersion
 as_format_version_from_string (const gchar *version_str)
 {
+	if (g_strcmp0 (version_str, "0.16") == 0)
+		return AS_FORMAT_VERSION_V0_16;
+	if (g_strcmp0 (version_str, "0.15") == 0)
+		return AS_FORMAT_VERSION_V0_15;
 	if (g_strcmp0 (version_str, "0.14") == 0)
 		return AS_FORMAT_VERSION_V0_14;
 	if (g_strcmp0 (version_str, "0.13") == 0)
@@ -124,7 +132,7 @@ as_format_version_from_string (const gchar *version_str)
 		return AS_FORMAT_VERSION_V0_7;
 	if (g_strcmp0 (version_str, "0.6") == 0)
 		return AS_FORMAT_VERSION_V0_6;
-	return AS_FORMAT_VERSION_V0_10;
+	return AS_FORMAT_VERSION_UNKNOWN;
 }
 
 static void
