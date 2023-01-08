@@ -198,6 +198,27 @@ typedef enum /*< skip >*/ __attribute__((__packed__)) {
 /* DEPRECATED */
 #define AS_SEARCH_TOKEN_MATCH_MIMETYPE AS_SEARCH_TOKEN_MATCH_MEDIATYPE
 
+/**
+ * AsReleasesKind:
+ * @AS_RELEASES_KIND_UNKNOWN:		Unknown releases type
+ * @AS_RELEASES_KIND_EMBEDDED:		Release info is embedded in metainfo file
+ * @AS_RELEASES_KIND_EXTERNAL:		Release info is split to a separate file
+ *
+ * The kind of a releases block.
+ *
+ * Since: 0.16.0
+ **/
+typedef enum {
+	AS_RELEASES_KIND_UNKNOWN,
+	AS_RELEASES_KIND_EMBEDDED,
+	AS_RELEASES_KIND_EXTERNAL,
+	/*< private >*/
+	AS_RELEASES_KIND_LAST
+} AsReleasesKind;
+
+const gchar	*as_releases_kind_to_string (AsReleasesKind kind);
+AsReleasesKind	as_releases_kind_from_string (const gchar *kind_str);
+
 AsComponent		*as_component_new (void);
 
 AsValueFlags		as_component_get_value_flags (AsComponent *cpt);
@@ -330,9 +351,24 @@ void			as_component_add_url (AsComponent *cpt,
 						AsUrlKind url_kind,
 						const gchar *url);
 
+gboolean		as_component_load_releases_from_bytes (AsComponent *cpt,
+								GBytes *bytes,
+								GError **error);
+gboolean		as_component_load_releases (AsComponent *cpt,
+						    gboolean reload,
+						    gboolean allow_net,
+						    GError **error);
 GPtrArray		*as_component_get_releases (AsComponent *cpt);
 void			as_component_add_release (AsComponent *cpt,
-							AsRelease* release);
+						  AsRelease* release);
+
+AsReleasesKind		as_component_get_releases_kind (AsComponent *cpt);
+void			as_component_set_releases_kind (AsComponent *cpt,
+							AsReleasesKind kind);
+
+const gchar		*as_component_get_releases_url (AsComponent *cpt);
+void			as_component_set_releases_url (AsComponent *cpt,
+						       const gchar *url);
 
 GPtrArray		*as_component_get_extends (AsComponent *cpt);
 void			as_component_add_extends (AsComponent *cpt,

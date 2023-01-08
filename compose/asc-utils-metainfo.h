@@ -37,6 +37,11 @@ AsComponent		*asc_parse_metainfo_data (AscResult *cres,
 AsComponent		*asc_parse_metainfo_data_simple (AscResult *cres,
 							 GBytes *bytes,
 							 const gchar *mi_basename);
+void			asc_process_metainfo_releases (AscResult *cres,
+						       AscUnit *unit,
+						       AsComponent *cpt,
+						       const gchar *mi_filename,
+						       gboolean allow_net);
 
 void			asc_validate_metainfo_data_for_component (AscResult *cres,
 								  AsValidator *validator,

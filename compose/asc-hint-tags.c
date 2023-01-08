@@ -103,6 +103,16 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "<code>type=</code> property of the component root-node in the MetaInfo XML file does not contain a spelling mistake."
 	},
 
+	{ "metainfo-releases-download-failed",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "Unable to download release information from <code>{{url}}</code>. The error message was: {{msg}}."
+	},
+
+	{ "metainfo-releases-read-failed",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "Unable to read release information from <code>{{path}}</code>. The error message was: {{msg}}."
+	},
+
 	{ "file-read-error",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  "Unable to read data from file <code>{{fname}}</code>: {{msg}}",

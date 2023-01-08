@@ -52,6 +52,9 @@ typedef struct
 
 	gboolean		internal_mode;
 	gboolean		all_locale;
+
+	AsCurl			*curl;
+	GMutex			mutex;
 } AsContextPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsContext, as_context, G_TYPE_OBJECT)
@@ -146,6 +149,10 @@ as_context_finalize (GObject *object)
 	as_ref_string_release (priv->media_baseurl);
 	as_ref_string_release (priv->arch);
 	as_ref_string_release (priv->fname);
+	g_mutex_clear (&priv->mutex);
+
+	if (priv->curl != NULL)
+		g_object_unref (priv->curl);
 
 	G_OBJECT_CLASS (as_context_parent_class)->finalize (object);
 }
@@ -155,6 +162,7 @@ as_context_init (AsContext *ctx)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 
+	g_mutex_init (&priv->mutex);
 	priv->format_version = AS_FORMAT_VERSION_CURRENT;
 	priv->style = AS_FORMAT_STYLE_UNKNOWN;
 	priv->priority = 0;
@@ -525,6 +533,28 @@ as_context_localized_ht_set (AsContext *ctx, GHashTable *lht, const gchar *value
 	g_hash_table_insert (lht,
 			     g_ref_string_new_intern (locale_noenc),
 			     g_strdup (value));
+}
+
+/**
+ * as_context_get_curl:
+ * @ctx: a #AsContext instance, or %NULL
+ * @error: a #GError
+ *
+ * Get an #AsCurl instance.
+ *
+ * Returns: (transfer full): an #AsCurl reference.
+ */
+AsCurl*
+as_context_get_curl (AsContext *ctx, GError **error)
+{
+	AsContextPrivate *priv = GET_PRIVATE (ctx);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	if (priv->curl == NULL) {
+		priv->curl = as_curl_new (error);
+		if (priv->curl == NULL)
+			return NULL;
+	}
+	return g_object_ref (priv->curl);
 }
 
 /**

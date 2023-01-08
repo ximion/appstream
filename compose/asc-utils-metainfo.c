@@ -95,15 +95,6 @@ asc_parse_metainfo_data (AscResult *cres, AsMetadata *mdata, GBytes *bytes, cons
 		return NULL;
 	}
 
-	/* limit the amount of releases that we add to the output metadata.
-	 * since releases are sorted with the newest one at the top, we will only
-	 * remove the older ones. */
-	if (as_component_get_kind (cpt) != AS_COMPONENT_KIND_OPERATING_SYSTEM) {
-		GPtrArray *releases = as_component_get_releases (cpt);
-		if (releases->len > MAX_RELEASE_INFO_COUNT)
-			g_ptr_array_set_size (releases, MAX_RELEASE_INFO_COUNT);
-	}
-
 	return g_object_ref (cpt);
 }
 
@@ -130,6 +121,80 @@ asc_parse_metainfo_data_simple (AscResult *cres, GBytes *bytes, const gchar *mi_
 					mdata,
 					bytes,
 					mi_basename);
+}
+
+/**
+ * asc_process_metainfo_releases:
+ * @cres: an #AscResult instance.
+ * @unit: an #AscUnit where release information could be read from.
+ * @cpt: the #AsComponent to read release data for.
+ * @mi_filename: the metadata filename for the component, as found in the passed unit.
+ * @allow_net: set to %TRUE if network access should be allowed.
+ *
+ * Reads an external release description file, either from a network location or from
+ * the given unit. Also performs further processing on the release information, like sorting
+ * releases or pruning old ones.
+ **/
+void
+asc_process_metainfo_releases (AscResult *cres, AscUnit *unit, AsComponent *cpt, const gchar *mi_filename, gboolean allow_net)
+{
+	g_autoptr(GError) local_error = NULL;
+
+	/* download external release metadata or fetch local release data */
+	if (as_component_get_releases_kind (cpt) == AS_RELEASES_KIND_EXTERNAL) {
+		if (allow_net && as_component_get_releases_url (cpt) != NULL) {
+			/* get the release data from a network location */
+			if (!as_component_load_releases (cpt,
+							 TRUE, /* reload */
+							 TRUE, /* use network */
+							 &local_error)) {
+				asc_result_add_hint (cres, NULL,
+						     "metainfo-releases-download-failed",
+						     "url", as_component_get_releases_url (cpt),
+						     "msg", local_error->message,
+						     NULL);
+				return;
+			}
+		} else {
+			/* we need to find local release information */
+			g_autofree gchar *relfile_path = NULL;
+			g_autofree gchar *relfile_name = NULL;
+			g_autofree gchar *tmp = NULL;
+			g_autoptr(GBytes) relmd_bytes = NULL;
+
+			relfile_name = g_strconcat (as_component_get_id (cpt), ".releases.xml", NULL);
+			tmp = g_path_get_dirname (mi_filename);
+			relfile_path = g_build_filename (tmp, "releases", relfile_name, NULL);
+
+			relmd_bytes = asc_unit_read_data (unit, relfile_path, &local_error);
+			if (relmd_bytes == NULL) {
+				asc_result_add_hint (cres, NULL,
+						     "metainfo-releases-read-failed",
+						     "path", relfile_path,
+						     "msg", local_error->message,
+						     NULL);
+				return;
+			}
+
+			if (!as_component_load_releases_from_bytes (cpt, relmd_bytes, &local_error)) {
+				asc_result_add_hint (cres, NULL,
+						     "metainfo-releases-read-failed",
+						     "path", relfile_path,
+						     "msg", local_error->message,
+						     NULL);
+				return;
+			}
+		}
+	}
+
+	/* limit the amount of releases that we add to the output metadata.
+	 * since releases are sorted with the newest one at the top, we will only
+	 * remove the older ones. */
+	if (as_component_get_kind (cpt) != AS_COMPONENT_KIND_OPERATING_SYSTEM) {
+		GPtrArray *releases = as_component_get_releases (cpt);
+		if (releases->len > MAX_RELEASE_INFO_COUNT)
+			g_ptr_array_set_size (releases, MAX_RELEASE_INFO_COUNT);
+	}
 }
 
 /**

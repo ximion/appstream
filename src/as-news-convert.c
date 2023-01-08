@@ -111,7 +111,7 @@ as_releases_to_metainfo_xml_chunk (GPtrArray *releases, GError **error)
 					n_releases);
 	}
 
-	xml_raw = as_xml_node_to_str (root, error);
+	xml_raw = as_xml_node_free_to_str (root, error);
 	if ((error != NULL) && (*error != NULL))
 		return NULL;
 
