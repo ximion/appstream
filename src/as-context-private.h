@@ -23,6 +23,7 @@
 
 #include "as-context.h"
 #include "as-component.h"
+#include "as-curl.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
@@ -43,6 +44,9 @@ void			as_context_localized_ht_set (AsContext *ctx,
 						     GHashTable *lht,
 						     const gchar *value,
 						     const gchar *locale);
+
+AsCurl			*as_context_get_curl (AsContext *ctx,
+					      GError **error);
 
 #pragma GCC visibility pop
 G_END_DECLS

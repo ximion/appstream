@@ -99,6 +99,20 @@ as_xml_test_compare_xml (const gchar *result, const gchar *expected)
 }
 
 /**
+ * test_log_allow_warnings:
+ *
+ * Helper function to temporarily allow warnings to be non-fatal.
+ */
+static gboolean
+test_log_allow_warnings (const gchar *log_domain,
+			     GLogLevelFlags log_level,
+			     const gchar *message,
+			     gpointer user_data)
+{
+	return ((log_level & G_LOG_LEVEL_MASK) <= G_LOG_LEVEL_CRITICAL);
+}
+
+/**
  * test_appstream_parser_legacy:
  *
  * Test parsing legacy metainfo files.
@@ -1776,6 +1790,7 @@ test_xml_read_releases (void)
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReleaseTest");
 
 	g_assert_cmpint (as_component_get_releases (cpt)->len, ==, 1);
+	g_assert_cmpint (as_component_get_releases_kind (cpt), ==, AS_RELEASES_KIND_EMBEDDED);
 
 	rel = AS_RELEASE (g_ptr_array_index (as_component_get_releases (cpt), 0));
 	g_assert_cmpint (as_release_get_kind (rel), ==, AS_RELEASE_KIND_STABLE);
@@ -2086,6 +2101,65 @@ test_xml_rw_branding (void)
 }
 
 /**
+ * test_xml_rw_external_releases:
+ */
+static void
+test_xml_rw_external_releases (void)
+{
+	static const gchar *xmldata_tags =
+			"<component>\n"
+			"  <id>org.example.ExternalReleaseTest</id>\n"
+			"  <releases type=\"external\" url=\"https://example.com/releases/test.releases.xml\"/>\n"
+			"</component>\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GFile) file = NULL;
+	g_autofree gchar *path = NULL;
+	g_autofree gchar *res = NULL;
+	GPtrArray *releases;
+	g_autoptr(GError) error = NULL;
+
+	/* read */
+	cpt = as_xml_test_read_data (xmldata_tags, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ExternalReleaseTest");
+
+	/* validate */
+
+	/* we ignore warnings, as this will throw one since we can not find the external release info file */
+	g_test_log_set_fatal_handler (test_log_allow_warnings, NULL);
+	releases = as_component_get_releases (cpt);
+	g_test_log_set_fatal_handler (NULL, NULL);
+
+	g_assert_nonnull (releases);
+	g_assert_cmpint (releases->len, ==, 0);
+
+	g_assert_cmpstr (as_component_get_releases_url (cpt), ==, "https://example.com/releases/test.releases.xml");
+	g_assert_cmpint (as_component_get_releases_kind (cpt), ==, AS_RELEASES_KIND_EXTERNAL);
+
+	/* write */
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_tags));
+
+	/* test reading from file */
+	metad = as_metadata_new ();
+
+	path = g_build_filename (datadir, "org.example.pomidaq.metainfo.xml", NULL);
+	file = g_file_new_for_path (path);
+
+	as_metadata_parse_file (metad, file, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+	g_object_unref (g_steal_pointer (&cpt));
+	cpt = g_object_ref (as_metadata_get_component (metad));
+
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.pomidaq");
+	releases = as_component_get_releases (cpt);
+	g_assert_nonnull (releases);
+	g_assert_cmpint (releases->len, ==, 4);
+	g_assert_cmpstr (as_component_get_releases_url (cpt), ==, "https://raw.githubusercontent.com/ximion/appstream/master/tests/samples/releases/org.example.pomidaq.releases.xml");
+	g_assert_cmpint (as_component_get_releases_kind (cpt), ==, AS_RELEASES_KIND_EXTERNAL);
+}
+
+/**
  * main:
  */
 int
@@ -2156,6 +2230,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/ReadWrite/Reviews", test_xml_rw_reviews);
 	g_test_add_func ("/XML/ReadWrite/Tags", test_xml_rw_tags);
 	g_test_add_func ("/XML/ReadWrite/Branding", test_xml_rw_branding);
+	g_test_add_func ("/XML/ReadWrite/ExternalReleases", test_xml_rw_external_releases);
 
 	ret = g_test_run ();
 	g_free (datadir);

@@ -107,6 +107,16 @@ gboolean		as_metadata_parse_desktop_data (AsMetadata *metad,
 							const gchar *cid,
 							GError **error);
 
+GPtrArray		*as_metadata_parse_releases_bytes (AsMetadata *metad,
+							   GBytes *bytes,
+							   GError **error);
+GPtrArray		*as_metadata_parse_releases_file (AsMetadata *metad,
+							  GFile *file,
+							  GError **error);
+gchar			*as_metadata_releases_to_data (AsMetadata *metad,
+						       GPtrArray *releases,
+						       GError **error);
+
 AsComponent		*as_metadata_get_component (AsMetadata *metad);
 GPtrArray		*as_metadata_get_components (AsMetadata *metad);
 

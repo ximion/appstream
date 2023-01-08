@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<releases>
+  <release type="stable" version="0.4.5" date="2022-08-20T00:00:00Z">
+    <description>
+      <p>This release adds the following features:</p>
+      <ul>
+        <li>Display device name for camera ID on Linux</li>
+        <li>Don't store data in temporary location by default</li>
+        <li>Update screenshots</li>
+        <li>Add Flatpak bundle build recipe</li>
+        <li>Validate &amp; augment metainfo file using appstreamcli</li>
+      </ul>
+      <p>This release fixes the following bugs:</p>
+      <ul>
+        <li>Prevent in-tree builds</li>
+        <li>Give a better error when trying to build against GLES instead of OpenGL</li>
+        <li>cmake: Find more recent FFmpeg versions as well</li>
+      </ul>
+    </description>
+  </release>
+  <release type="stable" version="0.4.4" date="2021-12-16T00:00:00Z">
+    <description>
+      <p>This release adds the following features:</p>
+      <ul>
+        <li>Implement z-stack capture feature for Miniscopes with an EWL</li>
+        <li>Run display image rendering as event loop callback</li>
+      </ul>
+      <p>This release fixes the following bug:</p>
+      <ul>
+        <li>Resolve a few compiler warnings</li>
+      </ul>
+    </description>
+  </release>
+  <release type="stable" version="0.4.3" date="2021-09-21T00:00:00Z">
+    <description>
+      <p>This release adds the following feature:</p>
+      <ul>
+        <li>Make build instructions a bit more beginner-friendly</li>
+      </ul>
+      <p>This release fixes the following bugs:</p>
+      <ul>
+        <li>Give video display container a minimum width</li>
+        <li>Don't use deprecated FFmpeg API</li>
+        <li>Save view splitter sizes as byte array, instead of variant</li>
+      </ul>
+    </description>
+  </release>
+  <release type="stable" version="0.4.2" date="2021-05-24T00:00:00Z">
+    <description>
+      <p>This release adds the following features:</p>
+      <ul>
+        <li>Add spin boxes for sliding values, in addition to slider widgets</li>
+        <li>Start Miniscopes on highest framerate by default</li>
+      </ul>
+      <p>This release fixes the following bugs:</p>
+      <ul>
+        <li>Tell DAQ board when we are recording data</li>
+        <li>Consistently sort Miniscope controls</li>
+        <li>Save &amp; restore main window splitter position</li>
+      </ul>
+    </description>
+  </release>
+</releases>

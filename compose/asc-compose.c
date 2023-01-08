@@ -1455,6 +1455,13 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 					  g_strdup (as_component_get_id (cpt)));
 		}
 
+		/* process any release information of this component and download release data if needed */
+		asc_process_metainfo_releases (ctask->result,
+					       ctask->unit,
+					       cpt,
+					       mi_fname,
+					       as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_ALLOW_NET));
+
 		/* validate the data */
 		if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_VALIDATE)) {
 			asc_validate_metainfo_data_for_component (ctask->result,

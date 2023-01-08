@@ -1089,7 +1089,7 @@ as_xml_parse_document (const gchar *data, gssize len, GError **error)
 }
 
 /**
- * as_xml_node_to_str:
+ * as_xml_node_free_to_str:
  * @root: The document root node.
  *
  * Converts an XML node into its textural representation.
@@ -1099,7 +1099,7 @@ as_xml_parse_document (const gchar *data, gssize len, GError **error)
  * Returns: XML metadata.
  */
 gchar*
-as_xml_node_to_str (xmlNode *root, GError **error)
+as_xml_node_free_to_str (xmlNode *root, GError **error)
 {
 	xmlDoc *doc;
 	gchar *xmlstr = NULL;

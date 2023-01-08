@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop-application">
+  <id>org.example.pomidaq</id>
+  <name>PoMiDAQ</name>
+  <summary>View and record videos from UCLA Miniscopes</summary>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>LGPL-3.0+</project_license>
+  <description>
+    <p>
+      PoMiDAQ is a recording software for UCLA Miniscopes for neuroscientific research.
+      It provides an easy way to record videos from Miniscopes, create Z-stacks to give an
+      overview of visible cells or tissue features and provides an online background subtraction
+      feature to gain an initial insight into cellular calcium activity while data is recorded.
+      Recorded data is encoded with the FFV1 codec by default, to allow for smaller,
+      lossless video files that are safe to archive.
+    </p>
+  </description>
+  <launchable type="desktop-id">pomidaq.desktop</launchable>
+  <url type="homepage">https://github.com/bothlab/pomidaq</url>
+  <url type="bugtracker">https://github.com/bothlab/pomidaq/issues</url>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Recording a raw video of calcium activity while displaying the difference to the average background</caption>
+      <image type="source">https://raw.githubusercontent.com/bothlab/pomidaq/master/contrib/screenshots/v0.4.4_diffdisplay.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Displaying the raw image data recorded from a GRIN lens in CA1 of a mouse hippocampus</caption>
+      <image type="source">https://raw.githubusercontent.com/bothlab/pomidaq/master/contrib/screenshots/v0.4.4_rawdisplay.png</image>
+    </screenshot>
+  </screenshots>
+
+  <content_rating type="oars-1.1"/>
+
+  <releases type="external" url="https://raw.githubusercontent.com/ximion/appstream/master/tests/samples/releases/org.example.pomidaq.releases.xml" />
+</component>

@@ -40,6 +40,7 @@
 #include "as-utils-private.h"
 #include "as-component.h"
 #include "as-component-private.h"
+#include "as-release-private.h"
 #include "as-context-private.h"
 #include "as-distro-details.h"
 #include "as-desktop-entry.h"
@@ -414,7 +415,11 @@ as_metadata_yaml_parse_collection_doc (AsMetadata *metad, AsContext *context, co
  * Parses AppStream metadata.
  **/
 static gboolean
-as_metadata_parse_data (AsMetadata *metad, const gchar *data, gssize data_len, AsFormatKind format, GError **error)
+as_metadata_parse_data (AsMetadata *metad,
+			const gchar *data, gssize data_len,
+			AsFormatKind format,
+			const gchar *filename,
+			GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	g_return_val_if_fail (format > AS_FORMAT_KIND_UNKNOWN && format < AS_FORMAT_KIND_LAST, FALSE);
@@ -430,7 +435,7 @@ as_metadata_parse_data (AsMetadata *metad, const gchar *data, gssize data_len, A
 
 		if (priv->mode == AS_FORMAT_STYLE_CATALOG) {
 			/* prepare context */
-			g_autoptr(AsContext) context = as_metadata_new_context (metad, AS_FORMAT_STYLE_CATALOG, NULL);
+			g_autoptr(AsContext) context = as_metadata_new_context (metad, AS_FORMAT_STYLE_CATALOG, filename);
 
 			if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
 				as_metadata_xml_parse_components_node (metad, context, root, error);
@@ -451,7 +456,7 @@ as_metadata_parse_data (AsMetadata *metad, const gchar *data, gssize data_len, A
 			g_autoptr(AsContext) context = NULL;
 			g_autoptr(AsComponent) cpt = NULL;
 
-			context = as_metadata_new_context (metad, AS_FORMAT_STYLE_METAINFO, NULL);
+			context = as_metadata_new_context (metad, AS_FORMAT_STYLE_METAINFO, filename);
 			if (priv->update_existing) {
 				/* we should update the existing component with new metadata */
 				cpt = as_metadata_get_component (metad);
@@ -487,7 +492,7 @@ as_metadata_parse_data (AsMetadata *metad, const gchar *data, gssize data_len, A
 			g_autoptr(GPtrArray) new_cpts = NULL;
 			guint i;
 
-			context = as_metadata_new_context (metad, AS_FORMAT_STYLE_CATALOG, NULL);
+			context = as_metadata_new_context (metad, AS_FORMAT_STYLE_CATALOG, filename);
 			new_cpts = as_metadata_yaml_parse_collection_doc (metad,
 									  context,
 									  data,
@@ -544,6 +549,7 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 					data,
 					-1,
 					format,
+					NULL,
 					error);
 }
 
@@ -569,6 +575,7 @@ as_metadata_parse_bytes (AsMetadata *metad, GBytes *bytes, AsFormatKind format, 
 					data,
 					data_len,
 					format,
+					NULL,
 					error);
 }
 
@@ -650,6 +657,7 @@ gboolean
 as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GError **error)
 {
 	g_autofree gchar *file_basename = NULL;
+	g_autofree gchar *filename = NULL;
 	g_autoptr(GFileInfo) info = NULL;
 	g_autoptr(GInputStream) file_stream = NULL;
 	g_autoptr(GInputStream) stream_data = NULL;
@@ -669,6 +677,7 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 
 	file_basename = g_file_get_basename (file);
+	filename = g_file_get_path (file);
 	if (format == AS_FORMAT_KIND_UNKNOWN) {
 		/* we should autodetect the format type. assume XML until we can find evidence that it's YAML */
 		format = AS_FORMAT_KIND_XML;
@@ -730,12 +739,131 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 					asdata->str,
 					asdata->len,
 					format,
+					filename,
 					&tmp_error);
 	if (tmp_error != NULL) {
 		g_propagate_error (error, tmp_error);
 		return FALSE;
 	}
 	return TRUE;
+}
+
+/**
+ * as_metadata_parse_releases_bytes:
+ * @metad: An instance of #AsMetadata.
+ * @bytes: Metadata describing release notes.
+ * @error: A #GError or %NULL.
+ *
+ * Parses any AppStream release metadata into #AsRelease objects.
+ *
+ * Returns: (element-type AsRelease) (transfer container) (nullable): A list of releases or %NULL on error.
+ *
+ * Since: 0.16.0
+ **/
+GPtrArray*
+as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **error)
+{
+	g_autoptr(GPtrArray) releases = NULL;
+	g_autoptr(AsContext) context = NULL;
+	xmlDoc *xdoc;
+	xmlNode *xroot;
+	gsize data_len;
+	const gchar *data = g_bytes_get_data (bytes, &data_len);
+
+	xdoc = as_xml_parse_document (data, data_len, error);
+	if (xdoc == NULL)
+		return NULL;
+
+	context = as_metadata_new_context (metad, AS_FORMAT_STYLE_METAINFO, NULL);
+	releases = g_ptr_array_new_with_free_func (g_object_unref);
+
+	/* load releases */
+	xroot = xmlDocGetRootElement (xdoc);
+	for (xmlNode *iter = xroot->children; iter != NULL; iter = iter->next) {
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		if (as_str_equal0 (iter->name, "release")) {
+			g_autoptr(AsRelease) release = as_release_new ();
+			if (as_release_load_from_xml (release, context, iter, NULL))
+				g_ptr_array_add (releases, g_steal_pointer (&release));
+		}
+	}
+	xmlFreeDoc (xdoc);
+
+	return g_steal_pointer (&releases);
+}
+
+/**
+ * as_metadata_parse_releases_file:
+ * @metad: A valid #AsMetadata instance
+ * @file: #GFile for the release metadata
+ * @error: A #GError or %NULL.
+ *
+ * Parses any AppStream release metadata into #AsRelease objects
+ * using the provided file.
+ *
+ * Returns: (element-type AsRelease) (transfer container) (nullable): A list of releases or %NULL on error.
+ *
+ * Since: 0.16.0
+ **/
+GPtrArray*
+as_metadata_parse_releases_file (AsMetadata *metad, GFile *file, GError **error)
+{
+	g_autoptr(GFileInputStream) input_stream = NULL;
+	g_autoptr(GByteArray) byte_array = NULL;
+	g_autoptr(GBytes) bytes = NULL;
+	gsize bytes_read;
+
+	input_stream = g_file_read (file, NULL, error);
+	if (input_stream == NULL)
+		return NULL;
+
+	byte_array = g_byte_array_new ();
+	do {
+		guint8 buffer[1024];
+		if (!g_input_stream_read_all (G_INPUT_STREAM(input_stream),
+						buffer, sizeof(buffer),
+						&bytes_read,
+						NULL,
+						error))
+			return NULL;
+
+		if (bytes_read > 0)
+			g_byte_array_append (byte_array, buffer, bytes_read);
+	} while (bytes_read > 0);
+
+	bytes = g_byte_array_free_to_bytes (g_steal_pointer (&byte_array));
+	return as_metadata_parse_releases_bytes (metad, bytes, error);
+}
+
+/**
+ * as_metadata_releases_to_data:
+ * @metad: A valid #AsMetadata instance
+ * @releases: (element-type AsRelease): the list of #Asrelease to convert.
+ * @error: A #GError or %NULL.
+ *
+ * Convert a list of #Asrelease entities into a release metadata XML representation.
+ *
+ * Returns: The XML representation or %NULL on error.
+ *
+ * Since: 0.16.0
+ **/
+gchar*
+as_metadata_releases_to_data (AsMetadata *metad, GPtrArray *releases, GError **error)
+{
+	xmlNode *root;
+	g_autoptr(AsContext) context = NULL;
+
+	root = as_xml_node_new ("releases");
+	context = as_metadata_new_context (metad, AS_FORMAT_STYLE_METAINFO, NULL);
+
+	g_ptr_array_sort (releases, as_component_releases_compare);
+	for (guint i = 0; i < releases->len; i++) {
+		AsRelease *rel = AS_RELEASE (g_ptr_array_index (releases, i));
+		as_release_to_xml_node (rel, context, root);
+	}
+
+	return as_xml_node_free_to_str (root, error);
 }
 
 /**
@@ -915,7 +1043,7 @@ as_metadata_component_to_metainfo (AsMetadata *metad, AsFormatKind format, GErro
 		return NULL;
 
 	node = as_component_to_xml_node (cpt, context, NULL);
-	xmlstr = as_xml_node_to_str (node, error);
+	xmlstr = as_xml_node_free_to_str (node, error);
 
 	return xmlstr;
 }
@@ -930,9 +1058,8 @@ as_metadata_xml_serialize_to_collection_with_rootnode (AsMetadata *metad, AsCont
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	xmlNode *root;
-	guint i;
 
-	root = xmlNewNode (NULL, (xmlChar*) "components");
+	root = as_xml_node_new ("components");
 	as_xml_add_text_prop (root,
 			      "version",
 			      as_format_version_to_string (priv->format_version));
@@ -949,7 +1076,7 @@ as_metadata_xml_serialize_to_collection_with_rootnode (AsMetadata *metad, AsCont
 				      "media_baseurl",
 				      as_context_get_media_baseurl (context));
 
-	for (i = 0; i < cpts->len; i++) {
+	for (guint i = 0; i < cpts->len; i++) {
 		xmlNode *node;
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 
@@ -959,7 +1086,7 @@ as_metadata_xml_serialize_to_collection_with_rootnode (AsMetadata *metad, AsCont
 		xmlAddChild (root, node);
 	}
 
-	return as_xml_node_to_str (root, NULL);
+	return as_xml_node_free_to_str (root, NULL);
 }
 
 /**
