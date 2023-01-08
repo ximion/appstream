@@ -195,6 +195,7 @@ typedef enum /*< skip >*/ __attribute__((__packed__)) {
 	AS_SEARCH_TOKEN_MATCH_LAST		= 0xffff
 } AsSearchTokenMatch;
 
+/* DEPRECATED */
 #define AS_SEARCH_TOKEN_MATCH_MIMETYPE AS_SEARCH_TOKEN_MATCH_MEDIATYPE
 
 AsComponent		*as_component_new (void);

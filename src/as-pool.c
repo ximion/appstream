@@ -880,7 +880,7 @@ as_pool_add_component_internal (AsPool *pool,
 			g_debug ("Merged desktop-entry data into metainfo data for '%s'.", cdid);
 			return TRUE;
 		}
-		if (existing_cpt_orig_kind == AS_ORIGIN_KIND_COLLECTION) {
+		if (existing_cpt_orig_kind == AS_ORIGIN_KIND_CATALOG) {
 			g_debug ("Ignored desktop-entry component '%s': We already have better data.", cdid);
 			return FALSE;
 		}

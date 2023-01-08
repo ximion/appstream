@@ -53,7 +53,7 @@ struct _AsReleaseClass
  * @AS_RELEASE_KIND_STABLE:		A stable release for end-users
  * @AS_RELEASE_KIND_DEVELOPMENT:	A development release or pre-release for testing
  *
- * The release size kind.
+ * The release kind.
  *
  * Since: 0.12.0
  **/

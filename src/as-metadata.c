@@ -228,7 +228,7 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
 
 		cpt = as_component_new ();
 		if (as_component_load_from_xml (cpt, context, iter, &tmp_error)) {
-			as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_COLLECTION);
+			as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_CATALOG);
 			g_ptr_array_add (priv->cpts, g_object_ref (cpt));
 		} else {
 			if (tmp_error != NULL) {
@@ -497,7 +497,7 @@ as_metadata_parse_data (AsMetadata *metad, const gchar *data, gssize data_len, A
 				return TRUE;
 			for (i = 0; i < new_cpts->len; i++) {
 				AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (new_cpts, i));
-				as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_COLLECTION);
+				as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_CATALOG);
 
 				g_ptr_array_add (priv->cpts, g_object_ref (cpt));
 			}

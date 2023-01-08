@@ -34,7 +34,7 @@ G_BEGIN_DECLS
  * AsOriginKind:
  * @AS_ORIGIN_KIND_UNKNOWN:		Unknown origin kind.
  * @AS_ORIGIN_KIND_METAINFO:		Origin was a metainfo file.
- * @AS_ORIGIN_KIND_COLLECTION:		Origin was an AppStream collection file.
+ * @AS_ORIGIN_KIND_CATALOG:		Origin was an AppStream catalog file.
  * @AS_ORIGIN_KIND_DESKTOP_ENTRY:	Origin was a .desktop file.
  *
  * Scope of the #AsComponent (system-wide or user-scope)
@@ -42,7 +42,7 @@ G_BEGIN_DECLS
 typedef enum {
 	AS_ORIGIN_KIND_UNKNOWN,
 	AS_ORIGIN_KIND_METAINFO,
-	AS_ORIGIN_KIND_COLLECTION,
+	AS_ORIGIN_KIND_CATALOG,
 	AS_ORIGIN_KIND_DESKTOP_ENTRY,
 	/*< private >*/
 	AS_ORIGIN_KIND_LAST

@@ -572,7 +572,7 @@ as_component_add_screenshot (AsComponent *cpt, AsScreenshot* sshot)
  * Get an array of the #AsRelease items this component
  * provides.
  *
- * Return value: (element-type AsRelease) (transfer none): A list of releases
+ * Returns: (element-type AsRelease) (transfer none): A list of releases
  **/
 GPtrArray*
 as_component_get_releases (AsComponent *cpt)
