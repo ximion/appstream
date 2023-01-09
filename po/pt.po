@@ -12,7 +12,7 @@
 # Gustavo Maciel <gustamaciel2012@hotmail.com>, 2020, 2021.
 # Manuela Silva <mmsrs@sky.com>, 2020, 2021.
 # Allan Lago <allanlago1@gmail.com>, 2020.
-# ssantos <ssantos@web.de>, 2020, 2021, 2022.
+# ssantos <ssantos@web.de>, 2020, 2021, 2022, 2023.
 # #-#-#-#-#  pt.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -30,16 +30,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-12-22 23:35+0100\n"
-"PO-Revision-Date: 2022-01-02 21:56+0000\n"
+"PO-Revision-Date: 2023-01-09 23:49+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/"
-"translations/pt/>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1152,16 +1151,13 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:96
 msgid "This tag is not translatable."
-msgstr ""
+msgstr "Esta tag não é traduzível."
 
 #: src/as-validator-issue-tag.h:101
-#, fuzzy
 msgid ""
 "This tag must only appear once in this context. Having multiple tags of this "
 "kind is not valid."
-msgstr ""
-"Conforme a especificação do AppStream, a tag mencionada só deve aparecer uma "
-"vez neste contexto. Ter várias tags desse tipo não é válido."
+msgstr "Esta tag só deve aparecer uma vez neste contexto. Ter várias tags desse tipo não é válido."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
@@ -1172,12 +1168,9 @@ msgstr ""
 "intenção, pois ela deve ter um conteúdo."
 
 #: src/as-validator-issue-tag.h:111
-#, fuzzy
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
-msgstr ""
-"O componente tem um valor de prioridade definido. Isso não é permitido em "
-"ficheiros metainfo."
+msgstr "A tag mencionada possui um conteúdo de texto, embora não deveria."
 
 #: src/as-validator-issue-tag.h:116
 msgid ""
@@ -1226,11 +1219,8 @@ msgstr ""
 "pontos e números são permitidos."
 
 #: src/as-validator-issue-tag.h:139
-#, fuzzy
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
-"O componente tem um valor de prioridade definido. Isso não é permitido em "
-"ficheiros metainfo."
+msgstr "O ID do componente começa com pontuação. Isso não é permitido."
 
 #: src/as-validator-issue-tag.h:144
 msgid ""
@@ -1343,40 +1333,37 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:210
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "A propriedade `largura` deve ser um número inteiro e positivo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:216
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "A propriedade `altura` deve ser um número inteiro e positivo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:222
-#, fuzzy
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
-"O valor definido como tipo de artefato é inválido. Deve ser `source` ou "
-"`binary`."
+msgstr "O tipo da imagem deve ser `source` ou `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:228
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "A propriedade `largura` deve estar presente se o tipo da imagem for `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:234
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "A propriedade `altura` deve estar presente se o tipo da imagem for `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:240
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "Só pode haver uma imagem de `source` por captura de ecrã e por idioma."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:246
 msgid "A screenshot must have at least one image of type `source`."
-msgstr ""
+msgstr "Uma captura de ecrã deve ter pelo menos uma imagem do tipo `source`."
 
 #: src/as-validator-issue-tag.h:251
 msgid ""
@@ -1491,7 +1478,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:320
 msgid "No screenshot is marked as default."
-msgstr ""
+msgstr "Nenhuma captura de ecrã está marcada como padrão."
 
 #: src/as-validator-issue-tag.h:325
 msgid ""
@@ -1552,7 +1539,7 @@ msgstr ""
 msgid ""
 "This relation item has already been defined once for this or a different "
 "relation type. Please do not redefine relations."
-msgstr ""
+msgstr "Este item de relação já foi definido uma vez para este ou um tipo de relação diferente. Por favor, não redefina as relações."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:365
@@ -1629,25 +1616,25 @@ msgstr ""
 msgid ""
 "A `memory` item must only contain a non-zero integer value, depicting a "
 "system memory size in mebibyte (MiB)"
-msgstr ""
+msgstr "Um item `memory` só deve conter um valor inteiro diferente de zero, representando um tamanho de memória do sistema em mebibyte (MiB)"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
 msgid "The set tag value is not valid for an `internet` relation."
-msgstr ""
+msgstr "O valor da tag definida não é válido para uma relação `internet`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
 msgid ""
 "The `bandwidth_mbitps` property is not allowed when using `offline-only` as "
 "value."
-msgstr ""
+msgstr "A propriedade `bandwidth_mbitps` não é permitida ao usar o `offline-only` como valor."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
 "The value of this property must be a positive integer value, describing the "
 "minimum required bandwidth in mbit/s."
-msgstr ""
+msgstr "O valor desta propriedade deve ser um valor inteiro positivo, descrevendo a largura de banda mínima necessária em mbit/s."
 
 #: src/as-validator-issue-tag.h:427
 msgid ""
@@ -1796,7 +1783,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:547
 msgid "An URL of this type has already been defined."
-msgstr ""
+msgstr "Já foi definido um URL deste tipo."
 
 #: src/as-validator-issue-tag.h:552
 msgid "The <developer_name/> can not contain a hyperlink."
@@ -1902,7 +1889,7 @@ msgid ""
 "association with its desktop-entry file. It also means no icon data or "
 "category information from the desktop-entry file will be available, which "
 "will result in this application being ignored entirely."
-msgstr ""
+msgstr "Este componente `desktop-application` não possui uma etiqueta `desktop-id` inicializável. Isso significa que esta aplicação não pode ser iniciada e não tem associação com o ficheiro de entrada dele da área de trabalho. Isso também significa que nenhum ícone de dados ou de informação da categoria do ficheiro de entrada da área de trabalho estará disponível, o que fará com que esta aplicação seja totalmente ignorada."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:629
@@ -1913,7 +1900,7 @@ msgid ""
 "application can not be launched directly from installers or software "
 "centers. If this is intended, this information can be ignored, otherwise it "
 "is strongly recommended to add a launchable tag as well."
-msgstr ""
+msgstr "Este componente `desktop-application` não possui tag de inicialização `desktop-id`, porém contém todas as informações necessárias para exibir a aplicação. A omissão da entrada inicializável significa que este aplicação não pode ser iniciado diretamente de instaladores ou centros de software. Se isso for pretendido, essas informações podem ser ignoradas, caso contrário, é altamente recomendável adicionar também uma tag inicializável."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:639
@@ -2028,7 +2015,7 @@ msgstr ""
 msgid ""
 "This component is in no valid categories, even though it should be. Please "
 "check its metainfo file and desktop-entry file."
-msgstr ""
+msgstr "Este componente não está em categorias válidas, mesmo que devesse estar. Por favor, verifique o ficheiro metainfo e o ficheiro de entrada de desktop."
 
 #: src/as-validator-issue-tag.h:720
 msgid "The screenshot caption is too long (should be <= 100 characters)"
@@ -2075,9 +2062,8 @@ msgstr ""
 "O nome de ficheiro de \"metainfo\" não corresponde à Id. do componente."
 
 #: src/as-validator-issue-tag.h:757
-#, fuzzy
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr "Não é possível ler o ficheiro .desktop associado com este componente."
+msgstr "Não foi possível ler o ficheiro de entrada de desktop associado com este componente."
 
 #: src/as-validator-issue-tag.h:762
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -2086,28 +2072,25 @@ msgstr ""
 "existente."
 
 #: src/as-validator-issue-tag.h:767
-#, fuzzy
 msgid ""
 "A category defined in the desktop-entry file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
-"A categoria definida no ficheiro .desktop não é válida. Consulte XDG Menu "
-"Specification para obter uma lista de categorias válidas."
+msgstr "A categoria definida no ficheiro de entrada de desktop não é válida. Consulte XDG Menu Specification para obter uma lista de categorias válidas."
 
 #: src/as-validator-issue-tag.h:772
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "Erro ao ler alguns dados do ficheiro de entrada de desktop."
 
 #: src/as-validator-issue-tag.h:777
 msgid ""
 "The value of this desktop-entry field contains invalid or non-printable "
 "UTF-8 characters, which can not be displayed properly."
-msgstr ""
+msgstr "O valor deste campo de entrada de desktop contém caracteres UTF-8 inválidos ou não imprimíveis, que não podem ser exibidos corretamente."
 
 #: src/as-validator-issue-tag.h:782
 msgid ""
 "This desktop-entry field value is quoted, which is likely unintentional."
-msgstr ""
+msgstr "Este valor de campo de entrada de desktop está entre aspas, o que provavelmente não é intencional."
 
 #: src/as-validator-issue-tag.h:787
 msgid ""
@@ -2115,7 +2098,7 @@ msgid ""
 "vendor-installed .desktop files, and nullifies all effects this .desktop "
 "file has (including MIME associations), which most certainly is not "
 "intentional."
-msgstr ""
+msgstr "Este ficheiro de entrada de desktop tem o conjunto de propriedades 'Hidden'. Isso é errado para ficheiros .desktop instalados pelo fornecedor e anula todos os efeitos que esse ficheiro .desktop tem (incluindo associações MIME), o que certamente não é intencional."
 
 #: src/as-validator-issue-tag.h:793
 msgid ""
@@ -2123,7 +2106,7 @@ msgid ""
 "value. This might not be intended, as this will hide the application from "
 "all desktops. If you do want to hide the application from all desktops, "
 "using 'NoDisplay=true' is more explicit."
-msgstr ""
+msgstr "Este ficheiro de desktop tem a propriedade 'OnlyShowIn' definida com um valor vazio. Isso pode não ser intencional, pois isso ocultará a aplicação de todas os desktops. Se deseja ocultar a aplicaçao de todas as áreas de trabalho, usar 'NoDisplay=true' é mais explícito."
 
 #: src/as-validator-issue-tag.h:799
 msgid "No AppStream metadata was found in this directory or directory tree."
@@ -2174,19 +2157,18 @@ msgstr "O valor definido como tipo de lançamento é inválido."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:837
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "Falta a propriedade `version` ao lançamento."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:843
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
-msgstr ""
+msgstr "Falta a `date` (de preferência) ou a propriedade `timestamp`."
 
 #: src/as-validator-issue-tag.h:848
-#, fuzzy
 msgid "The release timestamp is invalid."
-msgstr "O valor definido como tipo de lançamento é inválido."
+msgstr "O carimbo de data/hora de lançamento é inválido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:854
@@ -2339,48 +2321,41 @@ msgstr ""
 "permitidas."
 
 #: src/as-validator-issue-tag.h:958
-#, fuzzy
 msgid "The type of this color is not valid."
-msgstr "O XML neste ficheiro está malformado."
+msgstr "O tipo desta cor não é válido."
 
 #: src/as-validator-issue-tag.h:963
-#, fuzzy
 msgid "The value of this color scheme preference is not valid."
-msgstr "O valor definido como tipo de lançamento é inválido."
+msgstr "O valor desta preferência do esquema de cores não é válido."
 
 #: src/as-validator-issue-tag.h:968
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Esta cor não é um código de cor HTML válido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:974
 msgid "The `custom` tag can only contain `value` children."
-msgstr ""
+msgstr "A tag `personalizado` só pode conter `valor` relacionado."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:980
-#, fuzzy
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr "A `etiqueta` não possui o atributo `namespace`."
+msgstr "Este valor da tag `personalizado` não possui um atributo `key`."
 
 #: src/as-validator-issue-tag.h:985
 msgid "A key can only be used once."
-msgstr ""
+msgstr "Uma chave só pode ser usada uma vez."
 
 #: src/as-validator-issue-tag.h:990
 msgid "This custom value is empty."
-msgstr ""
+msgstr "Este valor personalizado está vazio."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:996
-#, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"A etiqueta <description/> não deverá ser traduzida nos ficheiros "
-"\"metainfo\" (metadados \"upstream\"). Em vez disso, traduza parágrafos "
-"individuais."
+msgstr "Uma tag `keywords` não deve ser localizada nos ficheiros metainfo (metadados upstream). Em vez disso, localize as entradas individuais das palavras-chave."
 
 #: src/as-validator.c:162
 msgid ""
@@ -2399,13 +2374,13 @@ msgstr "O formato de URL é inválido."
 #: src/as-validator.c:496
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
-msgstr ""
+msgstr "A nova severidade de problema para a tag \"%s\" é inválida."
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
 #: src/as-validator.c:507
 #, c-format
 msgid "The issue tag '%s' is not recognized."
-msgstr ""
+msgstr "A tag de problema \"%s\" não é reconhecida."
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 #. * whitelisted for that.
@@ -2414,7 +2389,7 @@ msgstr ""
 msgid ""
 "It is not allowed to downgrade the severity of tag '%s' to one that allows "
 "validation to pass."
-msgstr ""
+msgstr "Não é permitido fazer downgrade da severidade da tag \"%s\" para uma que permita a aprovação da validação."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
@@ -2668,7 +2643,7 @@ msgstr "Não usa acesso de rede."
 #: tools/appstreamcli.c:136
 msgid ""
 "Fail validation if any issue is emitted that is not of pedantic severity."
-msgstr ""
+msgstr "Falha na validação se algum problema for emitido que não seja de severidade pedante."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:141
@@ -2678,7 +2653,7 @@ msgstr "O formato do relatório gerado (os valores válidos são 'xml' e 'yaml')
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:146
 msgid "Override the severities of selected issue tags."
-msgstr ""
+msgstr "Substitui as severidades das tags de problema selecionadas."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -2752,21 +2727,21 @@ msgstr "Instala o ficheiro para o utilizador atual, em vez de globalmente."
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
-msgstr ""
+msgstr "Limite o comando para utilizar apenas os componentes do sistema de empacotamento informado (`flatpak` ou `package`)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:571
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
-msgstr ""
+msgstr "Não pergunte qual componente de software deve ser utilizado e escolha sempre a primeira entrada."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:604 tools/appstreamcli.c:641
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
-msgstr ""
+msgstr "Não foi especificado nenhum tipo de pacote válido. Atualmente, são reconhecidos apenas os pacotes `package` e `flatpak`."
 
 #: tools/appstreamcli.c:739
 msgid ""
@@ -2860,7 +2835,7 @@ msgstr ""
 #: tools/appstreamcli.c:1023
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
-msgstr ""
+msgstr "Pode ser capaz de instalar a extensão do AppStream Compose via: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1032
@@ -3323,41 +3298,38 @@ msgid "Unable to spawn package manager: %s"
 msgstr "Não foi possível iniciar o gestor de pacotes: %s"
 
 #: tools/ascli-actions-pkgmgr.c:84
-#, fuzzy
 msgid "Flatpak was not found! Please install it to continue."
-msgstr ""
-"O binário de composição \"%s\" não foi encontrado! Não é possível continuar."
+msgstr "O flatpak não foi encontrado! Instale-o para continuar."
 
 #: tools/ascli-actions-pkgmgr.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "Não foi possível iniciar o gestor de pacotes: %s"
+msgstr "Não é possível gerar o processo Flatpak: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr ""
-"Não foi possível encontrar o componente com o identificador (ID) \"%s\"!"
+msgstr "Não é possível encontrar o componente com a ID '%s' com os critérios de filtro selecionados!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "Vários candidatos foram encontrados para remoção:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "Vários candidatos foram encontrados para a instalação:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:186
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Insira o número do componente que será removido:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:190
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Insira o número do componente que será instalado:"
 
 #: tools/ascli-actions-pkgmgr.c:200
 #, c-format
@@ -3370,12 +3342,12 @@ msgstr "O componente “%s” não tem nenhum candidato a instalação."
 msgid ""
 "The format of validator issue override '%s' is invalid (should be "
 "'tag=severity')"
-msgstr ""
+msgstr "O formato da substituição de problema do validador \"%s\" é inválido (deve ser \"tag=severidade\")"
 
 #: tools/ascli-actions-validate.c:200
 #, c-format
 msgid "Can not override issue tag: %s"
-msgstr ""
+msgstr "Não é possível substituir a tag de problema: %s"
 
 #: tools/ascli-actions-validate.c:233 tools/ascli-actions-validate.c:440
 #, c-format
@@ -3564,7 +3536,7 @@ msgstr "Itens fornecidos"
 #: tools/ascli-utils.c:449
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "Insira um número de 1 a %i: "
 
 #~ msgid "Unable to remove old cache."
 #~ msgstr "Não foi possível remover cache antiga."
