@@ -821,6 +821,28 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	     "Sorting releases also increases overall readability of the metainfo file."),
 	},
 
+	{ "releases-type-invalid",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
+	  N_("The type of the releases block is invalid. It needs to either `embedded` (the default) or `external`."),
+	},
+
+	{ "releases-url-insecure",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The URL to an external release metadata file is insecure. This is not allowed, please use HTTPS URLs only."),
+	},
+
+	{ "releases-download-failed",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("Failed to download release metadata."),
+	},
+
+	{ "releases-external-not-found",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("A local release metadata file was not found. It is strongly recommended to validate this metadata "
+	     "together with the main MetaInfo file."),
+	},
+
 	{ "release-urgency-invalid",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("The value set as release urgency is not a known urgency value."),

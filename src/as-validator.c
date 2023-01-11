@@ -59,6 +59,8 @@ typedef struct
 
 	AsComponent	*current_cpt;
 	gchar		*current_fname;
+	gchar		*current_dir;
+	GPtrArray	*release_data; /* of AsReleaseDataPair */
 
 	gboolean	check_urls;
 	gboolean	strict;
@@ -77,6 +79,29 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsValidator, as_validator, G_TYPE_OBJECT)
  **/
 G_DEFINE_QUARK (as-validator-error-quark, as_validator_error)
 
+
+typedef struct {
+	gchar		*fname;
+	GBytes		*bytes;
+} AsReleaseDataPair;
+
+static AsReleaseDataPair*
+as_release_data_pair_new (const gchar *fname, GBytes *bytes)
+{
+	AsReleaseDataPair *pair;
+	pair = g_new0 (AsReleaseDataPair, 1);
+	pair->fname = g_strdup (fname);
+	pair->bytes = g_bytes_ref (bytes);
+	return pair;
+}
+
+static void
+as_release_data_pair_free (AsReleaseDataPair *pair)
+{
+	g_free (pair->fname);
+	g_bytes_unref (pair->bytes);
+	g_free (pair);
+}
 
 /**
  * as_validator_init:
@@ -108,6 +133,9 @@ as_validator_init (AsValidator *validator)
 							g_str_equal,
 							g_free,
 							(GDestroyNotify) g_ptr_array_unref);
+	/* registry for injected release metadata */
+	priv->release_data = g_ptr_array_new_with_free_func ((GDestroyNotify) as_release_data_pair_free);
+
 	priv->current_fname = NULL;
 	priv->current_cpt = NULL;
 	priv->check_urls = FALSE;
@@ -129,8 +157,10 @@ as_validator_finalize (GObject *object)
 	g_hash_table_unref (priv->issues);
 
 	g_free (priv->current_fname);
+	g_free (priv->current_dir);
 	if (priv->current_cpt != NULL)
 		g_object_unref (priv->current_cpt);
+	g_ptr_array_unref (priv->release_data);
 
 	if (priv->acurl != NULL)
 		g_object_unref (priv->acurl);
@@ -211,7 +241,7 @@ as_validator_add_issue (AsValidator *validator, xmlNode *node, const gchar *tag,
 /**
  * as_validator_set_current_fname:
  *
- * Sets the name of the file we are currently dealing with.
+ * Sets the basename of the file we are currently dealing with.
  **/
 static void
 as_validator_set_current_fname (AsValidator *validator, const gchar *fname)
@@ -219,6 +249,19 @@ as_validator_set_current_fname (AsValidator *validator, const gchar *fname)
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	g_free (priv->current_fname);
 	priv->current_fname = g_strdup (fname);
+}
+
+/**
+ * as_validator_set_current_dir:
+ *
+ * Sets the path to the directory with the metainfo file that we are currently dealing with.
+ **/
+static void
+as_validator_set_current_dir (AsValidator *validator, const gchar *dirname)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	g_free (priv->current_dir);
+	priv->current_dir = g_strdup (dirname);
 }
 
 /**
@@ -380,6 +423,120 @@ as_validator_check_web_url (AsValidator *validator, xmlNode *node, const gchar *
 	}
 
 	/* if we we din't get a zero-length file, we just assume everything is fine here */
+	return TRUE;
+}
+
+/**
+ * as_validator_clear_release_data:
+ * @validator: a #AsValidator instance.
+ *
+ * Clear all release information that was explicitly added to the
+ * validation process.
+ *
+ * Since: 0.16.0
+ */
+void
+as_validator_clear_release_data (AsValidator *validator)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	g_ptr_array_set_size (priv->release_data, 0);
+}
+
+/**
+ * as_validator_add_release_bytes:
+ * @validator: a #AsValidator instance.
+ * @release_fname: File basename of the release metadata file to add.
+ * @release_metadata: Data of the release metadata file.
+ * @error: a #GError or %NULL
+ *
+ * Add release metadata explicitly from bytes.
+ *
+ * Since: 0.16.0
+ */
+gboolean
+as_validator_add_release_bytes (AsValidator *validator,
+				const gchar *release_fname,
+				GBytes *release_metadata,
+				GError **error)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+
+	/* sanity check */
+	if (!g_str_has_suffix (release_fname, ".releases.xml") &&
+	    !g_str_has_suffix (release_fname, ".releases.xml.in")) {
+		g_set_error (error,
+			     AS_VALIDATOR_ERROR,
+			     AS_VALIDATOR_ERROR_INVALID_FILENAME,
+			     _("The release metadata file '%s' is named incorrectly."),
+			     release_fname);
+		return FALSE;
+	}
+	if (g_strstr_len (release_fname, -1, "/") != NULL) {
+		g_set_error (error,
+			     AS_VALIDATOR_ERROR,
+			     AS_VALIDATOR_ERROR_INVALID_FILENAME,
+			     "Expected a basename for release file '%s', but got a full path instead.",
+			     release_fname);
+		return FALSE;
+	}
+
+	g_ptr_array_add (priv->release_data,
+			 as_release_data_pair_new (release_fname, release_metadata));
+	return TRUE;
+}
+
+/**
+ * as_validator_add_release_file:
+ * @validator: a #AsValidator instance.
+ * @release_file: Release metadata file to add.
+ * @error: a #GError or %NULL
+ *
+ * Add a release metadata file to the validation process.
+ *
+ * Since: 0.16.0
+ */
+gboolean
+as_validator_add_release_file (AsValidator *validator, GFile *release_file, GError **error)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	g_autoptr(GFileInputStream) input_stream = NULL;
+	g_autoptr(GByteArray) byte_array = NULL;
+	g_autoptr(GBytes) bytes = NULL;
+	g_autofree gchar *basename = NULL;
+	gsize bytes_read;
+
+	basename = g_file_get_basename (release_file);
+	if (!g_str_has_suffix (basename, ".releases.xml") &&
+	    !g_str_has_suffix (basename, ".releases.xml.in")) {
+		g_set_error (error,
+			     AS_VALIDATOR_ERROR,
+			     AS_VALIDATOR_ERROR_INVALID_FILENAME,
+			     _("The release metadata file '%s' is named incorrectly."),
+			     basename);
+		return FALSE;
+	}
+
+	input_stream = g_file_read (release_file, NULL, error);
+	if (input_stream == NULL)
+		return FALSE;
+
+	byte_array = g_byte_array_new ();
+	do {
+		guint8 buffer[1024];
+		if (!g_input_stream_read_all (G_INPUT_STREAM(input_stream),
+						buffer, sizeof(buffer),
+						&bytes_read,
+						NULL,
+						error))
+			return FALSE;
+
+		if (bytes_read > 0)
+			g_byte_array_append (byte_array, buffer, bytes_read);
+	} while (bytes_read > 0);
+
+	bytes = g_byte_array_free_to_bytes (g_steal_pointer (&byte_array));
+	g_ptr_array_add (priv->release_data,
+			 as_release_data_pair_new (basename, bytes));
 	return TRUE;
 }
 
@@ -1932,10 +2089,78 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 }
 
 /**
- * as_validator_check_releases:
+ * as_validator_find_release_data_for_current:
+ *
+ * Find release metadata for the current component, if any data was provided.
+ */
+static AsReleaseDataPair*
+as_validator_find_release_data_for_current (AsValidator *validator)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	g_autofree gchar *expected_name = NULL;
+	const gchar *cid = as_component_get_id (priv->current_cpt);
+
+	expected_name = g_strconcat (cid, ".releases.xml", NULL);
+	for (guint i = 0; i < priv->release_data->len; i++) {
+		AsReleaseDataPair *pair = g_ptr_array_index (priv->release_data, i);
+		if (g_str_has_prefix (pair->fname, expected_name))
+			return pair;
+	}
+
+	/* it's not explicitly provided, try to cheat and apply some heuristics */
+	if (priv->current_dir != NULL) {
+		g_autofree gchar *guessed_path = NULL;
+		gchar *contents;
+		gsize contents_len;
+		g_autoptr(GError) error = NULL;
+
+		guessed_path = g_build_filename (priv->current_dir, "releases", expected_name, NULL);
+		g_debug ("Trying to find release metadata in %s", guessed_path);
+		if (!g_file_test (guessed_path, G_FILE_TEST_EXISTS)) {
+			g_free (guessed_path);
+			guessed_path = g_build_filename (priv->current_dir, expected_name, NULL);
+			g_debug ("Trying to find release metadata in %s", guessed_path);
+			if (!g_file_test (guessed_path, G_FILE_TEST_EXISTS)) {
+				g_autofree gchar *tmp = g_strconcat (expected_name, ".in", NULL);
+				guessed_path = g_build_filename (priv->current_dir, tmp, NULL);
+				g_debug ("Trying to find release metadata in %s", guessed_path);
+				if (!g_file_test (guessed_path, G_FILE_TEST_EXISTS))
+					g_free (g_steal_pointer (&guessed_path));
+			}
+		}
+
+		if (guessed_path == NULL)
+			return NULL;
+
+		if (g_file_get_contents (guessed_path, &contents, &contents_len, &error)) {
+			AsReleaseDataPair *pair;
+			g_autofree gchar *basename = NULL;
+			g_autoptr(GBytes) bytes = g_bytes_new_take (contents, contents_len);
+			basename = g_path_get_basename (guessed_path);
+			pair = as_release_data_pair_new (basename, bytes);
+			g_ptr_array_add (priv->release_data, pair);
+			return pair;
+		} else {
+			g_autofree gchar *cpt_fname = g_steal_pointer (&priv->current_fname);
+			as_validator_set_current_fname (validator, expected_name);
+
+			as_validator_add_issue (validator, NULL,
+						"file-read-failed",
+						error->message);
+
+			/* restore currently analyzed file name */
+			as_validator_set_current_fname (validator, cpt_fname);
+		}
+	}
+
+	return NULL;
+}
+
+/**
+ * as_validator_check_releases_node:
  **/
 static void
-as_validator_check_releases (AsValidator *validator, xmlNode *node, AsFormatStyle mode)
+as_validator_check_releases_node (AsValidator *validator, xmlNode *node, AsFormatStyle mode)
 {
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
@@ -1957,6 +2182,111 @@ as_validator_check_releases (AsValidator *validator, xmlNode *node, AsFormatStyl
 		/* validate the individual release */
 		as_validator_check_release (validator, iter, mode);
 	}
+}
+
+/**
+ * as_validator_check_external_releases:
+ **/
+static void
+as_validator_check_external_releases (AsValidator *validator, xmlNode *rels_node, GBytes *bytes, const gchar *releases_uri, AsFormatStyle mode)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	const gchar *rel_data = NULL;
+	gsize rel_data_len;
+	xmlDoc *xdoc;
+	xmlNode *xroot;
+	g_autofree gchar *rel_basename = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *cpt_fname = g_steal_pointer (&priv->current_fname);
+
+	if (g_str_has_prefix (releases_uri, "http"))
+		rel_basename = g_strdup (releases_uri);
+	else
+		rel_basename = g_path_get_basename (releases_uri);
+	as_validator_set_current_fname (validator, rel_basename);
+
+	rel_data = g_bytes_get_data (bytes, &rel_data_len);
+	xdoc = as_xml_parse_document (rel_data, rel_data_len, &error);
+	if (xdoc == NULL) {
+		as_validator_add_issue (validator, rels_node,
+			"xml-markup-invalid", error->message);
+		goto out;
+	}
+
+	/* check remote releases */
+	xroot = xmlDocGetRootElement (xdoc);
+	as_validator_check_releases_node (validator, xroot, mode);
+	xmlFreeDoc (xdoc);
+
+out:
+	/* restore currently analyzed file name */
+	as_validator_set_current_fname (validator, cpt_fname);
+}
+
+/**
+ * as_validator_check_releases:
+ **/
+static void
+as_validator_check_releases (AsValidator *validator, xmlNode *node, AsFormatStyle mode)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	AsReleasesKind releases_kind;
+	AsReleaseDataPair *rel_pair;
+	g_autofree gchar *release_url_prop = NULL;
+	g_autofree gchar *releases_kind_str = as_xml_get_prop_value (node, "type");
+	releases_kind = as_releases_kind_from_string (releases_kind_str);
+
+	if (releases_kind == AS_RELEASES_KIND_UNKNOWN) {
+		as_validator_add_issue (validator, node,
+					"releases-type-invalid", releases_kind_str);
+	}
+
+	if (releases_kind != AS_RELEASES_KIND_EXTERNAL) {
+		as_validator_check_releases_node (validator, node, mode);
+		return;
+	}
+
+	/* if we are here, we have external release metadata and need to find and validate it */
+
+	release_url_prop = as_xml_get_prop_value (node, "url");
+	if (release_url_prop != NULL) {
+		if (!g_str_has_prefix (release_url_prop, "https:"))
+			as_validator_add_issue (validator, node,
+					"releases-url-insecure", release_url_prop);
+
+		/* only download & validate the file if network access is allowed */
+		if (priv->check_urls) {
+			g_autoptr(GBytes) bytes = NULL;
+			GError *tmp_error = NULL;
+
+			g_debug ("Downloading release metadata: %s", release_url_prop);
+			bytes = as_curl_download_bytes (priv->acurl, release_url_prop, &tmp_error);
+			if (bytes == NULL) {
+				as_validator_add_issue (validator, node,
+					"releases-download-failed", tmp_error->message);
+			} else {
+				as_validator_check_external_releases (validator,
+									node,
+									bytes,
+									release_url_prop,
+									mode);
+			}
+		}
+	}
+
+	rel_pair = as_validator_find_release_data_for_current (validator);
+	if (rel_pair == NULL) {
+		as_validator_add_issue (validator, node,
+					"releases-external-not-found", NULL);
+		return;
+	}
+
+	as_validator_check_external_releases (validator,
+						node,
+						rel_pair->bytes,
+						rel_pair->fname,
+						mode);
+	as_component_load_releases_from_bytes (priv->current_cpt, rel_pair->bytes, NULL);
 }
 
 /**
@@ -2622,6 +2952,8 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 	g_autoptr(GString) asxmldata = NULL;
 	g_autoptr(GBytes) bytes = NULL;
 	g_autofree gchar *fname = NULL;
+	g_autofree gchar *dirname = NULL;
+	g_autofree gchar *tmp = NULL;
 	gssize len;
 	const gsize buffer_size = 1024 * 32;
 	g_autofree gchar *buffer = NULL;
@@ -2637,7 +2969,10 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 
 	fname = g_file_get_basename (metadata_file);
+	tmp = g_file_get_path (metadata_file);
+	dirname = g_path_get_dirname (tmp);
 	as_validator_set_current_fname (validator, fname);
+	as_validator_set_current_dir (validator, dirname);
 
 	file_stream = G_INPUT_STREAM (g_file_read (metadata_file, NULL, &tmp_error));
 	if (tmp_error != NULL) {
@@ -3140,6 +3475,23 @@ out:
 		g_hash_table_unref (validated_cpts);
 
 	return ret && as_validator_check_success (validator);
+}
+
+/**
+ * as_validator_get_issue_files_count:
+ * @validator: An instance of #AsValidator.
+ *
+ * Get the number of files for which issues have been found.
+ *
+ * Returns: The number of files that have issues.
+ *
+ * Since: 0.16.0
+ */
+guint
+as_validator_get_issue_files_count (AsValidator *validator)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	return g_hash_table_size (priv->issues_per_file);
 }
 
 /**

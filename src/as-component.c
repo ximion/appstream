@@ -761,7 +761,7 @@ as_component_get_releases (AsComponent *cpt)
 	g_autoptr(GError) error = NULL;
 
 	if (!as_component_load_releases (cpt, FALSE, FALSE, &error))
-		g_warning ("Error loading data for %s: %s",
+		g_debug ("Error loading data for %s: %s",
 			   as_component_get_data_id (cpt), error->message);
 	return priv->releases;
 }
