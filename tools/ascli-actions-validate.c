@@ -167,6 +167,68 @@ print_single_issue (AsValidatorIssue *issue,
 }
 
 /**
+ * ascli_print_validation_result:
+ */
+static gboolean
+ascli_print_validation_result (AsValidator *validator,
+				gboolean pedantic,
+				gboolean explain,
+				gboolean strict,
+				gboolean always_print_fnames,
+				gulong *error_count,
+				gulong *warning_count,
+				gulong *info_count,
+				gulong *pedantic_count)
+{
+	GHashTable *issues_files;
+	GHashTableIter hiter;
+	gpointer hkey, hvalue;
+	gboolean print_filenames;
+	gboolean validation_passed = TRUE;
+
+	print_filenames = as_validator_get_issue_files_count (validator) > 1 || always_print_fnames;
+	issues_files = as_validator_get_issues_per_file (validator);
+
+	g_hash_table_iter_init (&hiter, issues_files);
+	while (g_hash_table_iter_next (&hiter, &hkey, &hvalue)) {
+		const gchar *filename = (const gchar*) hkey;
+		const GPtrArray *issues = (const GPtrArray*) hvalue;
+
+		if (print_filenames) {
+			if (filename == NULL)
+				filename = "<unknown>";
+			if (ascli_get_output_colored ())
+				g_print ("%c[%dm%s%c[%dm\n", 0x1B, 1, filename, 0x1B, 0);
+			else
+				g_print ("%s\n", filename);
+		}
+
+		for (guint i = 0; i < issues->len; i++) {
+			AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (g_ptr_array_index (issues, i));
+
+			if (!print_single_issue (issue,
+						 pedantic,
+						 explain,
+						 print_filenames? 2 : 0,
+						 error_count,
+						 warning_count,
+						 info_count,
+						 pedantic_count))
+			validation_passed = FALSE;
+
+			if (strict && as_validator_issue_get_severity (issue) != AS_ISSUE_SEVERITY_PEDANTIC)
+				validation_passed = FALSE;
+		}
+
+		/* space out contents from different files a bit more if we only show tags */
+		if (!explain)
+			g_print("\n");
+	}
+
+	return validation_passed;
+}
+
+/**
  * ascli_validate_apply_overrides_from_string:
  *
  * Parse overrides from user-supplied string and set them on the validator.
@@ -210,7 +272,8 @@ ascli_validate_apply_overrides_from_string (AsValidator *validator, const gchar 
  * ascli_validate_file:
  **/
 static gboolean
-ascli_validate_file (gchar *fname,
+ascli_validate_file (AsValidator *validator,
+		     const gchar *fname,
 		     gboolean print_filename,
 		     gboolean pedantic,
 		     gboolean explain,
@@ -224,9 +287,6 @@ ascli_validate_file (gchar *fname,
 {
 	GFile *file;
 	gboolean validation_passed = TRUE;
-	AsValidator *validator;
-	GList *issues;
-	GList *l;
 
 	file = g_file_new_for_path (fname);
 	if (!g_file_query_exists (file, NULL)) {
@@ -236,7 +296,6 @@ ascli_validate_file (gchar *fname,
 		return FALSE;
 	}
 
-	validator = as_validator_new ();
 	as_validator_set_check_urls (validator, use_net);
 	as_validator_set_strict (validator, validate_strict);
 
@@ -244,37 +303,21 @@ ascli_validate_file (gchar *fname,
 	if (!ascli_validate_apply_overrides_from_string (validator, overrides_str))
 		return FALSE;
 
-	/* validate ! */
+	/* validate! */
 	if (!as_validator_validate_file (validator, file))
 		validation_passed = FALSE;
-	issues = as_validator_get_issues (validator);
 
-	if (print_filename) {
-		if (ascli_get_output_colored ())
-			g_print ("%c[%dm%s%c[%dm\n", 0x1B, 1, fname, 0x1B, 0);
-		else
-			g_print ("%s\n", fname);
-	}
+	validation_passed = ascli_print_validation_result (validator,
+							   pedantic,
+							   explain,
+							   validate_strict,
+							   print_filename,
+							   error_count,
+							   warning_count,
+							   info_count,
+							   pedantic_count)? validation_passed : FALSE;
 
-	for (l = issues; l != NULL; l = l->next) {
-		AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (l->data);
-		if (!print_single_issue (issue,
-					 pedantic,
-					 explain,
-					 print_filename? 2 : 0,
-					 error_count,
-					 warning_count,
-					 info_count,
-					 pedantic_count))
-			validation_passed = FALSE;
-
-		if (validate_strict && as_validator_issue_get_severity (issue) != AS_ISSUE_SEVERITY_PEDANTIC)
-			validation_passed = FALSE;
-	}
-
-	g_list_free (issues);
 	g_object_unref (file);
-	g_object_unref (validator);
 
 	return validation_passed;
 }
@@ -337,31 +380,49 @@ ascli_validate_files (gchar **argv,
 	gulong warning_count = 0;
 	gulong info_count = 0;
 	gulong pedantic_count = 0;
+	g_autoptr(AsValidator) validator = NULL;
+	g_autoptr(GPtrArray) metainfo_files = NULL;
 
 	if (argc < 1) {
-		g_print ("%s\n", _("You need to specify at least one file to validate!"));
-		return 1;
+		g_printerr ("%s\n", _("You need to specify at least one file to validate!"));
+		return ASCLI_EXIT_CODE_FAILED;
 	}
 
+	validator = as_validator_new ();
+	metainfo_files = g_ptr_array_new ();
 	for (gint i = 0; i < argc; i++) {
-		gboolean tmp_ret;
-		tmp_ret = ascli_validate_file (argv[i],
-						argc >= 2, /* print filenames if we validate multiple files */
-						pedantic,
-						explain,
-						validate_strict,
-						use_net,
-						overrides_str,
-						&error_count,
-						&warning_count,
-						&info_count,
-						&pedantic_count);
-		if (!tmp_ret)
-			ret = FALSE;
+		if (g_strstr_len (argv[i], -1, ".releases.xml") != NULL) {
+			g_autoptr(GError) local_error = NULL;
+			g_autoptr(GFile) file = g_file_new_for_path (argv[i]);
+			if (!as_validator_add_release_file (validator, file, &local_error)) {
+				ascli_print_stderr (_("Unable to add release metadata file: %s"),
+						    local_error->message);
+				return ASCLI_EXIT_CODE_FATAL;
+			}
+		} else {
+			g_ptr_array_add (metainfo_files, argv[i]);
+		}
+	}
+	if (metainfo_files->len == 0) {
+		g_printerr ("%s\n", _("You need to specify at least one MetaInfo file to validate.\n"
+				      "Release metadata files can currently not be validated without their accompanying MetaInfo file."));
+		return ASCLI_EXIT_CODE_FAILED;
+	}
 
-		/* space out contents from different files a bit more if we only show tags */
-		if (!explain)
-			g_print("\n");
+	for (guint i = 0; i < metainfo_files->len; i++) {
+		const gchar *fname = (const gchar*) g_ptr_array_index (metainfo_files, i);
+		ret = ascli_validate_file (validator,
+					   fname,
+					   metainfo_files->len >= 2, /* print filenames if we validate multiple files */
+					   pedantic,
+					   explain,
+					   validate_strict,
+					   use_net,
+					   overrides_str,
+					   &error_count,
+					   &warning_count,
+					   &info_count,
+					   &pedantic_count)? ret : FALSE;
 	}
 
 	if (ret) {
@@ -378,7 +439,7 @@ ascli_validate_files (gchar **argv,
 			g_print ("\n");
 		}
 
-		return 0;
+		return ASCLI_EXIT_CODE_SUCCESS;
 	} else {
 		g_autofree gchar *tmp = g_strdup_printf (_("Validation failed: %s"), "");
 		g_print ("✘ %s", tmp);
@@ -388,7 +449,7 @@ ascli_validate_files (gchar **argv,
 					    pedantic_count);
 		g_print ("\n");
 
-		return 3;
+		return ASCLI_EXIT_CODE_BAD_INPUT;
 	}
 }
 
@@ -469,9 +530,6 @@ ascli_validate_tree (const gchar *root_dir,
 {
 	gboolean validation_passed = TRUE;
 	AsValidator *validator;
-	GHashTable *issues_files;
-	GHashTableIter hiter;
-	gpointer hkey, hvalue;
 	gulong error_count = 0;
 	gulong warning_count = 0;
 	gulong info_count = 0;
@@ -490,41 +548,15 @@ ascli_validate_tree (const gchar *root_dir,
 		return 1;
 
 	as_validator_validate_tree (validator, root_dir);
-	issues_files = as_validator_get_issues_per_file (validator);
-
-	g_hash_table_iter_init (&hiter, issues_files);
-	while (g_hash_table_iter_next (&hiter, &hkey, &hvalue)) {
-		const gchar *filename = (const gchar*) hkey;
-		const GPtrArray *issues = (const GPtrArray*) hvalue;
-
-		if (filename != NULL) {
-			if (ascli_get_output_colored ())
-				g_print ("%c[%dm%s%c[%dm\n", 0x1B, 1, filename, 0x1B, 0);
-			else
-				g_print ("%s\n", filename);
-		}
-
-		for (guint i = 0; i < issues->len; i++) {
-			AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (g_ptr_array_index (issues, i));
-
-			if (!print_single_issue (issue,
-						 pedantic,
-						 explain,
-						 2,
-						 &error_count,
-						 &warning_count,
-						 &info_count,
-						 &pedantic_count))
-			validation_passed = FALSE;
-
-			if (validate_strict && as_validator_issue_get_severity (issue) != AS_ISSUE_SEVERITY_PEDANTIC)
-				validation_passed = FALSE;
-		}
-
-		/* space out contents from different files a bit more if we only show tags */
-		if (!explain)
-			g_print("\n");
-	}
+	validation_passed = ascli_print_validation_result (validator,
+							   pedantic,
+							   explain,
+							   validate_strict,
+							   TRUE, /* always print filenames */
+							   &error_count,
+							   &warning_count,
+							   &info_count,
+							   &pedantic_count);
 	g_object_unref (validator);
 
 	if (validation_passed) {
