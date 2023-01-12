@@ -1409,6 +1409,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	/* process metadata */
 	for (guint i = 0; i < mi_fnames->len; i++) {
 		g_autoptr(GBytes) mi_bytes = NULL;
+		g_autoptr(GBytes) rel_bytes = NULL;
 		g_autoptr(GError) local_error = NULL;
 		g_autoptr(AsComponent) cpt = NULL;
 		g_autofree gchar *mi_basename = NULL;
@@ -1460,15 +1461,18 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 					       ctask->unit,
 					       cpt,
 					       mi_fname,
-					       as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_ALLOW_NET));
+					       as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_ALLOW_NET),
+					       acurl,
+					       &rel_bytes);
 
 		/* validate the data */
 		if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_VALIDATE)) {
 			asc_validate_metainfo_data_for_component (ctask->result,
-									validator,
-									cpt,
-									mi_bytes,
-									mi_basename);
+								  validator,
+								  cpt,
+								  mi_bytes,
+								  mi_basename,
+								  rel_bytes);
 		}
 
 		/* legacy support: Synthesize launchable entry if none was set,
