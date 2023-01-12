@@ -24,6 +24,7 @@
 #include <appstream.h>
 
 #include "as-settings-private.h"
+#include "as-curl.h"
 #include "asc-result.h"
 #include "asc-compose.h"
 
@@ -41,13 +42,16 @@ void			asc_process_metainfo_releases (AscResult *cres,
 						       AscUnit *unit,
 						       AsComponent *cpt,
 						       const gchar *mi_filename,
-						       gboolean allow_net);
+						       gboolean allow_net,
+						       AsCurl *acurl,
+						       GBytes **used_reldata);
 
 void			asc_validate_metainfo_data_for_component (AscResult *cres,
 								  AsValidator *validator,
 								  AsComponent *cpt,
 								  GBytes *bytes,
-								  const gchar *mi_basename);
+								  const gchar *mi_basename,
+								  GBytes *relmd_bytes);
 
 AS_INTERNAL_VISIBLE
 AsComponent		*asc_parse_desktop_entry_data (AscResult *cres,
