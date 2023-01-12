@@ -35,6 +35,13 @@
   <its:translateRule selector="/component/releases/release/description[@translate = 'no']"
                      translate="no"/>
 
+  <!-- Release metadata -->
+  <its:translateRule selector="/releases" translate="no"/>
+  <its:translateRule selector="/releases/release/description"
+                     translate="yes"/>
+  <its:translateRule selector="/releases/release/description[@translate = 'no']"
+                     translate="no"/>
+
   <!-- DEPRECATED -->
   <its:translateRule selector="/component/name[@translatable = 'no']"
                      translate="no"/>

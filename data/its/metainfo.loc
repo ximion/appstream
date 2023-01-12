@@ -5,10 +5,14 @@
   SPDX-License-Identifier: FSFAP
 -->
 <locatingRules>
+  <locatingRule name="MetaInfo" pattern="*.metainfo.xml">
+    <documentRule localName="component" target="metainfo.its"/>
+  </locatingRule>
   <locatingRule name="MetaInfo" pattern="*.appdata.xml">
     <documentRule localName="component" target="metainfo.its"/>
   </locatingRule>
-  <locatingRule name="MetaInfo" pattern="*.metainfo.xml">
-    <documentRule localName="component" target="metainfo.its"/>
+
+  <locatingRule name="ReleaseData" pattern="*.releases.xml">
+    <documentRule localName="releases" target="metainfo.its"/>
   </locatingRule>
 </locatingRules>
