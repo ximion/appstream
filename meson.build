@@ -47,8 +47,10 @@ conf.set_quoted('BINDIR',
 conf.set_quoted('SYSCONFDIR',
                 join_paths(get_option('prefix'),
                            get_option('sysconfdir')))
+conf.set('_DEFAULT_SOURCE', true)
 conf.set('HAVE_APT_SUPPORT', get_option('apt-support'))
 conf.set('HAVE_STEMMING', get_option('stemming'))
+conf.set('HAVE_UDEV', get_option('udev'))
 conf.set('HAVE_SVG_SUPPORT', get_option('svg-support'))
 
 configure_file(output: 'config.h', configuration: conf)
@@ -134,7 +136,7 @@ add_project_arguments(
 )
 
 # Vendor extensions in system headers
-add_project_arguments('-D_POSIX_C_SOURCE=200112L', language: 'c')
+add_project_arguments('-D_POSIX_C_SOURCE=200809L', language: 'c')
 
 if cc.get_id() == 'clang'
     # Clang doesn't understand autofree helpers on GMutexLocker and thinks
@@ -160,6 +162,7 @@ xml2_dep = dependency('libxml-2.0')
 yaml_dep = dependency('yaml-0.1')
 xmlb_dep = dependency('xmlb', version: '>= 0.3.6',
                       fallback: ['libxmlb', 'libxmlb_dep'], default_options: ['gtkdoc=false'])
+udev_dep = dependency('libudev', required: get_option('udev'))
 
 if get_option ('gir')
     # ensure we have a version of GIR that isn't broken with Meson

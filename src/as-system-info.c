@@ -40,12 +40,16 @@
 #include <gio/gio.h>
 #include <errno.h>
 #include <sys/utsname.h>
+#include <dirent.h>
 
 #if defined(__linux__)
 #include <sys/sysinfo.h>
 #elif defined(__FreeBSD__)
 #include <sys/types.h>
 #include <sys/sysctl.h>
+#endif
+#ifdef HAVE_UDEV
+#include <libudev.h>
 #endif
 
 #include "as-utils-private.h"
@@ -67,6 +71,9 @@ typedef struct
 
 	GPtrArray	*modaliases;
 	GHashTable	*modalias_to_sysfs;
+#ifdef HAVE_UDEV
+	struct udev	*udev;
+#endif
 } AsSystemInfoPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsSystemInfo, as_system_info, G_TYPE_OBJECT)
@@ -99,6 +106,9 @@ as_system_info_finalize (GObject *object)
 
 	g_ptr_array_unref (priv->modaliases);
 	g_hash_table_unref (priv->modalias_to_sysfs);
+#ifdef HAVE_UDEV
+	udev_unref (priv->udev);
+#endif
 
 	G_OBJECT_CLASS (as_system_info_parent_class)->finalize (object);
 }
@@ -383,73 +393,47 @@ as_system_info_get_memory_total (AsSystemInfo *sysinfo)
 }
 
 /**
- * as_system_info_populate_modaliases_map:
+ * as_system_info_populate_modaliases_map_cb:
  */
 static gboolean
-as_system_info_populate_modaliases_map (AsSystemInfo *sysinfo, const gchar *dir)
+as_system_info_populate_modaliases_map_cb (AsSystemInfo *sysinfo, const gchar *root_path)
 {
 	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
-	GFileInfo *file_info;
-	g_autoptr(GFileEnumerator) enumerator = NULL;
-	g_autoptr(GFile) fdir = NULL;
-	g_autoptr(GError) tmp_error = NULL;
+	DIR *dir;
+	struct dirent *ent;
 
-	fdir =  g_file_new_for_path (dir);
-	enumerator = g_file_enumerate_children (fdir, G_FILE_ATTRIBUTE_STANDARD_NAME, 0, NULL, &tmp_error);
-	if (tmp_error != NULL)
-		goto out;
+	if ((dir = opendir (root_path)) != NULL) {
+		while ((ent = readdir (dir)) != NULL) {
+			if (ent->d_type == DT_LNK)
+				continue;
 
-	while ((file_info = g_file_enumerator_next_file (enumerator, NULL, &tmp_error)) != NULL) {
-		g_autofree gchar *path = NULL;
+			if (ent->d_type == DT_DIR) {
+				g_autofree gchar *subdir_path = g_build_filename (root_path, ent->d_name, NULL);
+				if (!as_str_equal0 (ent->d_name, ".") && !as_str_equal0 (ent->d_name, ".."))
+					as_system_info_populate_modaliases_map_cb (sysinfo, subdir_path);
+			} else {
+				if (as_str_equal0 (ent->d_name, "modalias")) {
+					gchar *contents = NULL;
+					g_autoptr(GError) read_error = NULL;
+					g_autofree gchar *path = g_build_filename (root_path, ent->d_name, NULL);
 
-		if (tmp_error != NULL) {
-			g_object_unref (file_info);
-			break;
-		}
-		if (g_file_info_get_is_hidden (file_info)) {
-			g_object_unref (file_info);
-			continue;
-		}
-
-		path = g_build_filename (dir,
-					 g_file_info_get_name (file_info),
-					 NULL);
-
-		if (as_str_equal0 (g_file_info_get_name (file_info), "subsystem")) {
-			g_object_unref (file_info);
-			goto out;
-		}
-
-		if (!g_file_test (path, G_FILE_TEST_IS_REGULAR)) {
-			g_object_unref (file_info);
-			if (!as_system_info_populate_modaliases_map (sysinfo, path))
-				goto out;
-			continue;
-		}
-
-		if (g_str_has_suffix (g_file_info_get_name (file_info), "modalias")) {
-			gchar *contents = NULL;
-			g_autoptr(GError) read_error = NULL;
-
-			if (!g_file_get_contents (path, &contents, NULL, &read_error)) {
-				g_object_unref (file_info);
-				g_warning ("Error while reading modalias file %s: %s", path, read_error->message);
-				return FALSE;
+					if (!g_file_get_contents (path, &contents, NULL, &read_error)) {
+						g_warning ("Error while reading modalias file %s: %s", path, read_error->message);
+						closedir (dir);
+						return FALSE;
+					}
+					contents = as_strstripnl (contents);
+					g_hash_table_insert (priv->modalias_to_sysfs,
+								contents,
+								g_path_get_dirname (path));
+				}
 			}
-			contents = as_strstripnl (contents);
-			g_hash_table_insert (priv->modalias_to_sysfs,
-						contents,
-						g_path_get_dirname (path));
 		}
-
-		g_object_unref (file_info);
+		closedir (dir);
+	} else {
+		g_warning ("Error while searching for modalias entries in %s: %s", root_path, g_strerror (errno));
 	}
 
-out:
-	if (tmp_error != NULL) {
-		g_warning ("Error while searching for modalias entries in %s: %s", dir, tmp_error->message);
-		return FALSE;
-	}
 	return TRUE;
 }
 
@@ -467,7 +451,7 @@ as_system_info_populate_modaliases (AsSystemInfo *sysinfo)
 	if (priv->modaliases->len != 0)
 		return;
 
-	as_system_info_populate_modaliases_map (sysinfo, "/sys/devices");
+	as_system_info_populate_modaliases_map_cb (sysinfo, "/sys/devices");
 	g_hash_table_iter_init (&ht_iter, priv->modalias_to_sysfs);
 	while (g_hash_table_iter_next (&ht_iter, &ht_key, NULL))
 		g_ptr_array_add (priv->modaliases, ht_key);
@@ -505,6 +489,93 @@ as_system_info_modalias_to_syspath (AsSystemInfo *sysinfo, const gchar *modalias
 	as_system_info_populate_modaliases (sysinfo);
 	return g_hash_table_lookup (priv->modalias_to_sysfs, modalias);
 }
+
+/**
+ * as_system_info_get_device_name_for_modalias:
+ * @sysinfo: a #AsSystemInfo instance.
+ * @modalias: the modalias value to resolve.
+ * @error: a #GError
+ *
+ * Return a human readable device name for the given modalias.
+ * Will return the modalias again if no device name could be found,
+ * and returns %NULL on error.
+ *
+ * Returns: a human-readable device name, or %NULL on error.
+ */
+gchar*
+as_system_info_get_device_name_for_modalias (AsSystemInfo *sysinfo, const gchar *modalias, GError **error)
+{
+	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+#ifdef HAVE_UDEV
+	struct udev_device *device;
+	struct udev_list_entry *entry, *e;
+	const gchar *device_vendor = NULL;
+	const gchar *device_model = NULL;
+	const gchar *usb_class = NULL;
+	const gchar *driver = NULL;
+	const gchar *syspath = NULL;
+	gchar *result = NULL;
+
+	syspath = g_hash_table_lookup (priv->modalias_to_sysfs, modalias);
+	if (syspath == NULL) {
+		g_set_error (error,
+				AS_UTILS_ERROR,
+				AS_UTILS_ERROR_FAILED,
+				"No path found for device with modalias '%s'.", modalias);
+		return NULL;
+	}
+
+	if (priv->udev == NULL)
+		priv->udev = udev_new ();
+
+	device = udev_device_new_from_syspath (priv->udev, syspath);
+	if (device == NULL) {
+		g_set_error (error,
+				AS_UTILS_ERROR,
+				AS_UTILS_ERROR_FAILED,
+				"Failure to read device information for %s: %s",
+				modalias, g_strerror (errno));
+		return NULL;
+	}
+
+	entry = udev_device_get_properties_list_entry (device);
+        udev_list_entry_foreach(e, entry) {
+		const gchar *e_name = udev_list_entry_get_name (e);
+		if (g_strstr_len (e_name, -1, "_VENDOR") != NULL)
+			device_vendor = udev_list_entry_get_value (e);
+		else if (g_strstr_len (e_name, -1, "_MODEL") != NULL)
+			device_model = udev_list_entry_get_value (e);
+		else if (as_str_equal0 (e_name, "DRIVER"))
+			driver = udev_list_entry_get_value (e);
+		else if (g_strstr_len (e_name, -1, "_USB_CLASS"))
+			usb_class = udev_list_entry_get_value (e);
+	}
+
+	if (device_vendor != NULL) {
+		if (device_model != NULL)
+			result = g_strdup_printf ("%s - %s", device_vendor, device_model);
+		else if (usb_class != NULL)
+			result = g_strdup_printf ("%s - %s", device_vendor, usb_class);
+	}
+	if (result == NULL) {
+		if (driver != NULL)
+			result = g_strdup (driver);
+		else
+			result = g_strdup (modalias);
+	}
+
+	udev_device_unref (device);
+	return result;
+#else
+	g_set_error_literal (error,
+				AS_UTILS_ERROR,
+				AS_UTILS_ERROR_FAILED,
+				"Unable to determine device name: AppStream was built without udev support.");
+	return NULL;
+#endif
+}
+
+
 
 /**
  * as_system_info_new:

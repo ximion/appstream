@@ -563,10 +563,24 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 
 	modaliases = as_system_info_get_modaliases (sysinfo);
 	if (modaliases->len > 0) {
-		ascli_print_stdout ("%s:", "Modaliases");
+		ascli_print_stdout ("%s:", "Devices");
 		for (guint i = 0; i < modaliases->len; i++) {
+			g_autoptr(GError) tmp_error = NULL;
+			g_autofree gchar *dev_name = NULL;
 			const gchar *modalias = (const gchar*) g_ptr_array_index (modaliases, i);
-			ascli_print_stdout (" • %s", modalias);
+
+			dev_name = as_system_info_get_device_name_for_modalias (sysinfo, modalias, &tmp_error);
+			if (dev_name == NULL) {
+				g_warning ("Unable to read device info: %s", tmp_error->message);
+				continue;
+			}
+			if (g_strcmp0 (dev_name, modalias) == 0) {
+				continue;
+			} else {
+				ascli_print_stdout (" • %s", dev_name);
+				if (detailed)
+					ascli_print_stdout ("     %s", modalias);
+			}
 		}
 	}
 

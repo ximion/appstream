@@ -61,6 +61,10 @@ GPtrArray		*as_system_info_get_modaliases (AsSystemInfo *sysinfo);
 const gchar		*as_system_info_modalias_to_syspath (AsSystemInfo *sysinfo,
 							     const gchar *modalias);
 
+gchar			*as_system_info_get_device_name_for_modalias (AsSystemInfo *sysinfo,
+								      const gchar *modalias,
+								      GError **error);
+
 gchar 			*as_get_current_distro_component_id (void);
 
 G_END_DECLS
