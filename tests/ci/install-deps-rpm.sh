@@ -23,6 +23,7 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     libasan \
     libstemmer-devel \
     libubsan \
+    'pkgconfig(libudev)' \
     'pkgconfig(cairo)' \
     'pkgconfig(freetype2)' \
     'pkgconfig(fontconfig)' \
@@ -35,7 +36,6 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     'pkgconfig(xmlb)' \
     'pkgconfig(packagekit-glib2)' \
     'pkgconfig(pango)' \
-    'pkgconfig(protobuf-lite)' \
     'pkgconfig(Qt5Core)' \
     qt5-linguist \
     'pkgconfig(yaml-0.1)' \
