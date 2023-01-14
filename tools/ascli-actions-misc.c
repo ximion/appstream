@@ -498,3 +498,77 @@ ascli_metainfo_to_news (const gchar *mi_fname, const gchar *news_fname, const gc
 		return 0;
 	}
 }
+
+/**
+ * ascli_show_sysinfo:
+ *
+ * Display information about the current operating system from the AppStream
+ * metadata cache, as well as system information that we know about and that
+ * is relevant for AppStream components.
+ */
+int
+ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed)
+{
+	g_autoptr(AsPool) pool = NULL;
+	g_autoptr(GPtrArray) result = NULL;
+	g_autoptr(AsSystemInfo) sysinfo = NULL;
+	g_autoptr(GError) error = NULL;
+	gulong total_memory;
+	GPtrArray *modaliases;
+
+	sysinfo = as_system_info_new ();
+	pool = ascli_data_pool_new_and_open (cachepath, no_cache, &error);
+	if (error != NULL) {
+		g_printerr ("%s\n", error->message);
+		return 1;
+	}
+
+	ascli_print_highlight ("%s:", _("Operating System Details"));
+	result = as_pool_get_components_by_id (pool, as_system_info_get_os_cid (sysinfo));
+	if (result->len == 0) {
+		g_printerr ("• ");
+		ascli_print_stderr (_("Unable to find operating system component '%s'!"), as_system_info_get_os_cid (sysinfo));
+	}
+
+	for (guint i = 0; i < result->len; i++) {
+		AsComponent *cpt = AS_COMPONENT(g_ptr_array_index (result, i));
+
+		ascli_print_stdout ("%s: %s", _("ID"), as_component_get_id (cpt));
+		ascli_print_stdout ("%s: %s", _("Name"), as_component_get_name (cpt));
+		ascli_print_stdout ("%s: %s", _("Summary"), as_component_get_summary (cpt));
+		if (as_system_info_get_os_version (sysinfo) != NULL)
+			ascli_print_stdout (_("Version: %s"), as_system_info_get_os_version (sysinfo));
+		ascli_print_stdout ("%s: %s", _("Homepage"), as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE));
+		ascli_print_stdout ("%s: %s", _("Developer"), as_component_get_developer_name (cpt));
+		if (detailed) {
+			g_autofree gchar *tmp2 = NULL;
+			g_autofree gchar *tmp1 = as_markup_convert_simple (as_component_get_description (cpt), NULL);
+			tmp2 = ascli_format_long_output (tmp1, 100, 2);
+			ascli_print_stdout ("%s:\n%s", _("Description"), tmp2);
+		}
+
+		if (i < result->len-1)
+			ascli_print_separator ();
+	}
+
+	g_print ("\n");
+	ascli_print_highlight ("%s:", _("Kernel"));
+	ascli_print_stdout ("%s: %s", _("Name"), as_system_info_get_kernel_name (sysinfo));
+	ascli_print_stdout ("%s: %s", _("Version"), as_system_info_get_kernel_version (sysinfo));
+
+	g_print ("\n");
+	ascli_print_highlight ("%s:", _("Hardware"));
+	total_memory = as_system_info_get_memory_total (sysinfo);
+	ascli_print_stdout ("%s: %lu MiB (%.2f GiB)", _("Memory"), total_memory, total_memory / 1024.0);
+
+	modaliases = as_system_info_get_modaliases (sysinfo);
+	if (modaliases->len > 0) {
+		ascli_print_stdout ("%s:", "Modaliases");
+		for (guint i = 0; i < modaliases->len; i++) {
+			const gchar *modalias = (const gchar*) g_ptr_array_index (modaliases, i);
+			ascli_print_stdout (" • %s", modalias);
+		}
+	}
+
+	return 0;
+}

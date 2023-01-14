@@ -21,7 +21,7 @@
 #include <glib.h>
 #include "appstream.h"
 #include "as-component-private.h"
-#include "as-distro-details-private.h"
+#include "as-system-info-private.h"
 #include "as-utils-private.h"
 
 #include "as-test-utils.h"
@@ -715,26 +715,31 @@ test_version_compare (void)
 }
 
 /**
- * test_distro_details:
+ * test_system_info:
  *
- * Test fetching distro details.
+ * Test fetching OS details and device info.
  */
 static void
-test_distro_details (void)
+test_system_info (void)
 {
 	g_autofree gchar *osrelease_fname = NULL;
-	g_autoptr(AsDistroDetails) distro = as_distro_details_new ();
+	g_autoptr(AsSystemInfo) sysinfo = as_system_info_new ();
 
 	osrelease_fname = g_build_filename (datadir, "os-release-1", NULL);
 
-	as_distro_details_load_data (distro, osrelease_fname, NULL);
+	as_system_info_load_os_release (sysinfo, osrelease_fname);
 
-	g_assert_cmpstr (as_distro_details_get_name (distro), ==, "Debian GNU/Linux");
-	g_assert_cmpstr (as_distro_details_get_version (distro), ==, "10.0");
-	g_assert_cmpstr (as_distro_details_get_homepage (distro), ==, "https://www.debian.org/");
+	g_assert_cmpstr (as_system_info_get_os_name (sysinfo), ==, "Debian GNU/Linux");
+	g_assert_cmpstr (as_system_info_get_os_version (sysinfo), ==, "10.0");
+	g_assert_cmpstr (as_system_info_get_os_homepage (sysinfo), ==, "https://www.debian.org/");
 
-	g_assert_cmpstr (as_distro_details_get_id (distro), ==, "debian");
-	g_assert_cmpstr (as_distro_details_get_cid (distro), ==, "org.debian.debian");
+	g_assert_cmpstr (as_system_info_get_os_id (sysinfo), ==, "debian");
+	g_assert_cmpstr (as_system_info_get_os_cid (sysinfo), ==, "org.debian.debian");
+
+	g_assert_nonnull (as_system_info_get_kernel_name (sysinfo));
+	g_assert_nonnull (as_system_info_get_kernel_version (sysinfo));
+
+	g_assert_cmpint (as_system_info_get_memory_total (sysinfo), >=, 128);
 }
 
 /**
@@ -1031,7 +1036,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/ReadDesktopEntry", test_read_desktop_entry_simple);
 	g_test_add_func ("/AppStream/ConvertDesktopEntry", test_desktop_entry_convert);
 	g_test_add_func ("/AppStream/VersionCompare", test_version_compare);
-	g_test_add_func ("/AppStream/DistroDetails", test_distro_details);
+	g_test_add_func ("/AppStream/SystemInfo", test_system_info);
 	g_test_add_func ("/AppStream/rDNSConvert", test_rdns_convert);
 	g_test_add_func ("/AppStream/URIToBasename", test_filebasename_from_uri);
 	g_test_add_func ("/AppStream/ContentRating/Mapings", test_content_rating_mappings);

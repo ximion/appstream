@@ -44,12 +44,16 @@ void		ascli_print_separator (void);
 
 void		ascli_print_stdout (const gchar *format, ...);
 void		ascli_print_stderr (const gchar *format, ...);
-void		ascli_print_highlight (const gchar* msg);
+void		ascli_print_highlight (const gchar *format, ...);
 
 void		ascli_print_component (AsComponent *cpt,
 				       gboolean show_detailed);
 void		ascli_print_components (GPtrArray *cpts,
 					gboolean show_detailed);
+
+AsPool		*ascli_data_pool_new_and_open (const gchar *cachepath,
+						gboolean no_cache,
+						GError **error);
 
 void		ascli_set_output_colored (gboolean colored);
 gboolean	ascli_get_output_colored (void);

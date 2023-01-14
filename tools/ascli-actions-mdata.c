@@ -106,33 +106,6 @@ ascli_refresh_cache (const gchar *cachepath,
 }
 
 /**
- * ascli_data_pool_new_and_open:
- */
-static AsPool*
-ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache, GError **error)
-{
-	AsPool *dpool;
-	AsPoolFlags flags;
-
-	dpool = as_pool_new ();
-	flags = as_pool_get_flags (dpool);
-	if (no_cache)
-		as_flags_add (flags, AS_POOL_FLAG_IGNORE_CACHE_AGE);
-
-	if (cachepath == NULL) {
-		/* no cache object to load, we can use a normal pool */
-		as_pool_load (dpool, NULL, error);
-	} else {
-		/* use an exported cache object */
-		as_pool_override_cache_locations (dpool, cachepath, cachepath);
-		as_pool_load (dpool, NULL, error);
-	}
-	as_pool_set_flags (dpool, flags);
-
-	return dpool;
-}
-
-/**
  * ascli_get_component:
  *
  * Get component by id
@@ -426,39 +399,6 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 			return 1;
 		}
 	}
-
-	return 0;
-}
-
-/**
- * ascli_show_os_info:
- *
- * Display information about the current operating system from the AppStream
- * metadata cache.
- */
-int
-ascli_show_os_info (const gchar *cachepath, gboolean no_cache)
-{
-	g_autoptr(AsPool) pool = NULL;
-	g_autoptr(GPtrArray) result = NULL;
-	g_autoptr(AsDistroDetails) distro = NULL;
-	g_autoptr(GError) error = NULL;
-
-	distro = as_distro_details_new ();
-	pool = ascli_data_pool_new_and_open (cachepath, no_cache, &error);
-	if (error != NULL) {
-		g_printerr ("%s\n", error->message);
-		return 1;
-	}
-
-	result = as_pool_get_components_by_id (pool, as_distro_details_get_cid (distro));
-	if (result->len == 0) {
-		ascli_print_stderr (_("Unable to find operating system component '%s'!"), as_distro_details_get_cid (distro));
-		return 4;
-	}
-
-	ascli_print_components (result, TRUE);
-	ascli_print_key_value (_("Version"), as_distro_details_get_version (distro), FALSE);
 
 	return 0;
 }

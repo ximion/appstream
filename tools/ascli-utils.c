@@ -25,6 +25,8 @@
 #include <unistd.h>
 #include <glib/gi18n-lib.h>
 
+#include "as-pool-private.h"
+
 /**
  * Set to true if we don't want colored output
  */
@@ -100,8 +102,15 @@ ascli_print_key_value (const gchar* key, const gchar* val, gboolean line_wrap)
  * ascli_print_highlight:
  */
 void
-ascli_print_highlight (const gchar* msg)
+ascli_print_highlight (const gchar *format, ...)
 {
+	va_list args;
+	g_autofree gchar *msg = NULL;
+
+	va_start (args, format);
+	msg = g_strdup_vprintf (format, args);
+	va_end (args);
+
 	if (_colored_output) {
 		g_print ("%c[%dm%s%c[%dm\n", 0x1B, 1, msg, 0x1B, 0);
 	} else {
@@ -129,15 +138,13 @@ void
 ascli_print_stderr (const gchar *format, ...)
 {
 	va_list args;
-	gchar *str;
+	g_autofree gchar *str = NULL;
 
 	va_start (args, format);
 	str = g_strdup_vprintf (format, args);
 	va_end (args);
 
 	g_printerr ("%s\n", str);
-
-	g_free (str);
 }
 
 /**
@@ -411,6 +418,33 @@ ascli_print_components (GPtrArray *cpts, gboolean show_detailed)
 		if (i < cpts->len-1)
 			ascli_print_separator ();
 	}
+}
+
+/**
+ * ascli_data_pool_new_and_open:
+ */
+AsPool*
+ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache, GError **error)
+{
+	AsPool *dpool;
+	AsPoolFlags flags;
+
+	dpool = as_pool_new ();
+	flags = as_pool_get_flags (dpool);
+	if (no_cache)
+		as_flags_add (flags, AS_POOL_FLAG_IGNORE_CACHE_AGE);
+
+	if (cachepath == NULL) {
+		/* no cache object to load, we can use a normal pool */
+		as_pool_load (dpool, NULL, error);
+	} else {
+		/* use an exported cache object */
+		as_pool_override_cache_locations (dpool, cachepath, cachepath);
+		as_pool_load (dpool, NULL, error);
+	}
+	as_pool_set_flags (dpool, flags);
+
+	return dpool;
 }
 
 /**

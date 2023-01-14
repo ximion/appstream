@@ -56,6 +56,7 @@
 #include <as-utils.h>
 #include <as-vercmp.h>
 #include <as-spdx.h>
+#include <as-system-info.h>
 
 /* Helpers for languages using GIR */
 #include <as-category-gir.h>

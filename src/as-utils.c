@@ -570,6 +570,7 @@ out:
 			g_debug ("Error while searching for files in %s: %s", dir, tmp_error->message);
 		else
 			g_propagate_error (error, tmp_error);
+		g_error_free (tmp_error);
 		g_ptr_array_unref (list);
 		return NULL;
 	}
