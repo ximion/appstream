@@ -8,6 +8,11 @@ option('udev',
        value : true,
        description : 'Build with udev support'
 )
+option('systemd',
+       type : 'boolean',
+       value : true,
+       description : 'Build with systemd support'
+)
 option('vapi',
        type : 'boolean',
        value : false,

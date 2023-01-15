@@ -32,7 +32,7 @@ G_BEGIN_DECLS
 
 /**
  * AsUtilsError:
- * @AS_UTILS_ERROR_FAILED:			Generic failure
+ * @AS_UTILS_ERROR_FAILED:		Generic failure
  *
  * The error type.
  **/

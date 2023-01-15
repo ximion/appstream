@@ -51,6 +51,7 @@ conf.set('_DEFAULT_SOURCE', true)
 conf.set('HAVE_APT_SUPPORT', get_option('apt-support'))
 conf.set('HAVE_STEMMING', get_option('stemming'))
 conf.set('HAVE_UDEV', get_option('udev'))
+conf.set('HAVE_SYSTEMD', get_option('systemd'))
 conf.set('HAVE_SVG_SUPPORT', get_option('svg-support'))
 
 configure_file(output: 'config.h', configuration: conf)
@@ -162,7 +163,8 @@ xml2_dep = dependency('libxml-2.0')
 yaml_dep = dependency('yaml-0.1')
 xmlb_dep = dependency('xmlb', version: '>= 0.3.6',
                       fallback: ['libxmlb', 'libxmlb_dep'], default_options: ['gtkdoc=false'])
-udev_dep = dependency('libudev', required: get_option('udev'))
+libudev_dep = dependency('libudev', required: get_option('udev'))
+libsystemd_dep = dependency('libsystemd', required: get_option('systemd'))
 
 if get_option ('gir')
     # ensure we have a version of GIR that isn't broken with Meson

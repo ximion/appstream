@@ -18,6 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <config.h>
 #include <glib.h>
 #include "appstream.h"
 #include "as-component-private.h"
@@ -722,8 +723,10 @@ test_version_compare (void)
 static void
 test_system_info (void)
 {
-	g_autofree gchar *osrelease_fname = NULL;
 	g_autoptr(AsSystemInfo) sysinfo = as_system_info_new ();
+	g_autofree gchar *osrelease_fname = NULL;
+	g_autofree gchar *dev_name = NULL;
+	g_autoptr(GError) error = NULL;
 
 	osrelease_fname = g_build_filename (datadir, "os-release-1", NULL);
 
@@ -740,6 +743,15 @@ test_system_info (void)
 	g_assert_nonnull (as_system_info_get_kernel_version (sysinfo));
 
 	g_assert_cmpint (as_system_info_get_memory_total (sysinfo), >=, 128);
+
+	dev_name = as_system_info_get_device_name_for_modalias (sysinfo, "usb:v1130p0202d*", FALSE, &error);
+#ifdef HAVE_SYSTEMD
+	g_assert_no_error (error);
+	g_assert_cmpstr (dev_name, ==, "Tenx Technology, Inc. - Rocket Launcher");
+#else
+	if (error != NULL)
+		g_error_free (g_steal_pointer (&error));
+#endif
 }
 
 /**

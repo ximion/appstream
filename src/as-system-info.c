@@ -51,6 +51,9 @@
 #ifdef HAVE_UDEV
 #include <libudev.h>
 #endif
+#ifdef HAVE_SYSTEMD
+#include <systemd/sd-hwdb.h>
+#endif
 
 #include "as-utils-private.h"
 
@@ -74,10 +77,22 @@ typedef struct
 #ifdef HAVE_UDEV
 	struct udev	*udev;
 #endif
+#ifdef HAVE_SYSTEMD
+	sd_hwdb		*hwdb;
+#endif
 } AsSystemInfoPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsSystemInfo, as_system_info, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_system_info_get_instance_private (o))
+
+/**
+ * as_system_info_error_quark:
+ *
+ * Return value: An error quark.
+ *
+ * Since: 0.16.0
+ **/
+G_DEFINE_QUARK (as-system-info-error-quark, as_system_info_error)
 
 static void
 as_system_info_init (AsSystemInfo *sysinfo)
@@ -107,7 +122,12 @@ as_system_info_finalize (GObject *object)
 	g_ptr_array_unref (priv->modaliases);
 	g_hash_table_unref (priv->modalias_to_sysfs);
 #ifdef HAVE_UDEV
-	udev_unref (priv->udev);
+	if (priv->udev != NULL)
+		udev_unref (priv->udev);
+#endif
+#ifdef HAVE_SYSTEMD
+	if (priv->hwdb != NULL)
+		sd_hwdb_unref (priv->hwdb);
 #endif
 
 	G_OBJECT_CLASS (as_system_info_parent_class)->finalize (object);
@@ -491,39 +511,24 @@ as_system_info_modalias_to_syspath (AsSystemInfo *sysinfo, const gchar *modalias
 }
 
 /**
- * as_system_info_get_device_name_for_modalias:
- * @sysinfo: a #AsSystemInfo instance.
- * @modalias: the modalias value to resolve.
- * @error: a #GError
- *
- * Return a human readable device name for the given modalias.
- * Will return the modalias again if no device name could be found,
- * and returns %NULL on error.
- *
- * Returns: a human-readable device name, or %NULL on error.
+ * as_system_info_get_device_name_from_syspath:
  */
-gchar*
-as_system_info_get_device_name_for_modalias (AsSystemInfo *sysinfo, const gchar *modalias, GError **error)
+static gchar*
+as_system_info_get_device_name_from_syspath (AsSystemInfo *sysinfo,
+					     const gchar *syspath,
+					     const gchar *modalias,
+					     gboolean allow_fallback,
+					     GError **error)
 {
-	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
 #ifdef HAVE_UDEV
+	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
 	struct udev_device *device;
 	struct udev_list_entry *entry, *e;
 	const gchar *device_vendor = NULL;
 	const gchar *device_model = NULL;
 	const gchar *usb_class = NULL;
 	const gchar *driver = NULL;
-	const gchar *syspath = NULL;
 	gchar *result = NULL;
-
-	syspath = g_hash_table_lookup (priv->modalias_to_sysfs, modalias);
-	if (syspath == NULL) {
-		g_set_error (error,
-				AS_UTILS_ERROR,
-				AS_UTILS_ERROR_FAILED,
-				"No path found for device with modalias '%s'.", modalias);
-		return NULL;
-	}
 
 	if (priv->udev == NULL)
 		priv->udev = udev_new ();
@@ -531,10 +536,10 @@ as_system_info_get_device_name_for_modalias (AsSystemInfo *sysinfo, const gchar 
 	device = udev_device_new_from_syspath (priv->udev, syspath);
 	if (device == NULL) {
 		g_set_error (error,
-				AS_UTILS_ERROR,
-				AS_UTILS_ERROR_FAILED,
+				AS_SYSTEM_INFO_ERROR,
+				AS_SYSTEM_INFO_ERROR_FAILED,
 				"Failure to read device information for %s: %s",
-				modalias, g_strerror (errno));
+				syspath, g_strerror (errno));
 		return NULL;
 	}
 
@@ -558,21 +563,111 @@ as_system_info_get_device_name_for_modalias (AsSystemInfo *sysinfo, const gchar 
 			result = g_strdup_printf ("%s - %s", device_vendor, usb_class);
 	}
 	if (result == NULL) {
-		if (driver != NULL)
-			result = g_strdup (driver);
-		else
-			result = g_strdup (modalias);
+		if (allow_fallback) {
+			if (driver != NULL)
+				result = g_strdup (driver);
+			else
+				result = g_strdup (modalias);
+		} else {
+			g_set_error (error,
+					AS_SYSTEM_INFO_ERROR,
+					AS_SYSTEM_INFO_ERROR_NOT_FOUND,
+					"Unable to find good human-readable description for device %s",
+					modalias);
+		}
 	}
 
 	udev_device_unref (device);
 	return result;
 #else
 	g_set_error_literal (error,
-				AS_UTILS_ERROR,
-				AS_UTILS_ERROR_FAILED,
+				AS_SYSTEM_INFO_ERROR,
+				AS_SYSTEM_INFO_ERROR_FAILED,
 				"Unable to determine device name: AppStream was built without udev support.");
 	return NULL;
 #endif
+}
+
+/**
+ * as_system_info_get_device_name_from_hwdb:
+ */
+static gchar*
+as_system_info_get_device_name_from_hwdb (AsSystemInfo *sysinfo, const gchar *modalias_glob, gboolean allow_fallback, GError **error)
+{
+#ifdef HAVE_SYSTEMD
+		AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+		gint ret = 0;
+		const gchar *device_vendor = NULL;
+		const gchar *device_model = NULL;
+
+		if (priv->hwdb == NULL) {
+			ret = sd_hwdb_new(&priv->hwdb);
+			if (ret < 0) {
+				g_set_error (error,
+					     AS_SYSTEM_INFO_ERROR,
+					     AS_SYSTEM_INFO_ERROR_FAILED,
+					     "Unable to open hardware database: %s",
+					     g_strerror (ret));
+				return NULL;
+			}
+		}
+
+		sd_hwdb_get (priv->hwdb, modalias_glob, "ID_VENDOR_FROM_DATABASE", &device_vendor);
+		sd_hwdb_get (priv->hwdb, modalias_glob, "ID_MODEL_FROM_DATABASE", &device_model);
+
+		if (device_vendor != NULL && device_model != NULL)
+			return g_strdup_printf ("%s - %s", device_vendor, device_model);
+		if (allow_fallback)
+			return g_strdup (modalias_glob);
+
+		g_set_error (error,
+				AS_SYSTEM_INFO_ERROR,
+				AS_SYSTEM_INFO_ERROR_NOT_FOUND,
+				"Unable to find good human-readable description for device %s",
+				modalias_glob);
+		return NULL;
+#else
+	g_set_error_literal (error,
+				AS_SYSTEM_INFO_ERROR,
+				AS_SYSTEM_INFO_ERROR_FAILED,
+				"Unable to determine device name: AppStream was built without systemd-hwdb support.");
+	return NULL;
+#endif
+}
+
+/**
+ * as_system_info_get_device_name_for_modalias:
+ * @sysinfo: a #AsSystemInfo instance.
+ * @modalias: the modalias value to resolve (may contain wildcards).
+ * @allow_fallback: fall back to low-quality data if no better information is available
+ * @error: a #GError
+ *
+ * Return a human readable device name for the given modalias.
+ * Will return the modalias again if no device name could be found,
+ * and returns %NULL on error.
+ * If @allow_fallback is set to %FALSE, this function will return %NULL and error
+ * %AS_SYSTEM_INFO_ERROR_NOT_FOUND in case no suitable description could be found.
+ *
+ * Returns: a human-readable device name, or %NULL on error.
+ */
+gchar*
+as_system_info_get_device_name_for_modalias (AsSystemInfo *sysinfo, const gchar *modalias, gboolean allow_fallback, GError **error)
+{
+	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	const gchar *syspath;
+
+	syspath = g_hash_table_lookup (priv->modalias_to_sysfs, modalias);
+	if (syspath == NULL)
+		return as_system_info_get_device_name_from_hwdb (sysinfo,
+								 modalias,
+								 allow_fallback,
+								 error);
+	else
+		return as_system_info_get_device_name_from_syspath (sysinfo,
+								    syspath,
+								    modalias,
+								    allow_fallback,
+								    error);
 }
 
 

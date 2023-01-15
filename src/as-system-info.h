@@ -44,6 +44,24 @@ struct _AsSystemInfoClass
 	void (*_as_reserved6) (void);
 };
 
+/**
+ * AsSystemInfoError:
+ * @AS_SYSTEM_INFO_ERROR_FAILED:		Generic failure
+ * @AS_SYSTEM_INFO_ERROR_NOT_FOUND:		Information was not found.
+ *
+ * The error type.
+ **/
+typedef enum {
+	AS_SYSTEM_INFO_ERROR_FAILED,
+	AS_SYSTEM_INFO_ERROR_NOT_FOUND,
+	/*< private >*/
+	AS_SYSTEM_INFO_ERROR_LAST
+} AsSystemInfoError;
+
+#define	AS_SYSTEM_INFO_ERROR				as_system_info_error_quark ()
+
+GQuark		 	as_system_info_error_quark (void);
+
 AsSystemInfo		*as_system_info_new (void);
 
 const gchar		*as_system_info_get_os_id (AsSystemInfo *sysinfo);
@@ -63,6 +81,7 @@ const gchar		*as_system_info_modalias_to_syspath (AsSystemInfo *sysinfo,
 
 gchar			*as_system_info_get_device_name_for_modalias (AsSystemInfo *sysinfo,
 								      const gchar *modalias,
+								      gboolean allow_fallback,
 								      GError **error);
 
 gchar 			*as_get_current_distro_component_id (void);

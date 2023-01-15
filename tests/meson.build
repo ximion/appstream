@@ -21,6 +21,7 @@ as_test_basic_exe = executable ('as-test_basic',
     dependencies: [appstream_dep,
                    gio_dep,
                    xml2_dep],
+    include_directories: [root_inc_dir]
 )
 test ('as-test_basic',
     as_test_basic_exe,
@@ -35,11 +36,12 @@ as_test_xml_exe = executable ('as-test_xml',
     dependencies: [appstream_dep,
                    gio_dep,
                    xml2_dep],
+    include_directories: [root_inc_dir]
 )
 test ('as-test_xml',
     as_test_xml_exe,
     args: as_test_args,
-    env: as_test_env
+    env: as_test_env,
 )
 
 # YAML read/write
@@ -49,6 +51,7 @@ as_test_yaml_exe = executable ('as-test_yaml',
     dependencies: [appstream_dep,
                    gio_dep,
                    xml2_dep],
+    include_directories: [root_inc_dir]
 )
 test ('as-test_yaml',
     as_test_yaml_exe,
@@ -79,6 +82,7 @@ as_test_validate_exe = executable ('as-test_validate',
     dependencies: [appstream_dep,
                    gio_dep,
                    xml2_dep],
+    include_directories: [root_inc_dir]
 )
 test ('as-test_validate',
     as_test_validate_exe,
@@ -108,6 +112,7 @@ as_test_misc_exe = executable ('as-test_misc',
     dependencies: [appstream_dep,
                    gio_dep,
                    xml2_dep],
+    include_directories: [root_inc_dir]
 )
 test ('as-test_misc',
     as_test_misc_exe,

@@ -176,7 +176,8 @@ aslib_deps = [glib_dep,
               xmlb_dep,
               xml2_dep,
               yaml_dep,
-              udev_dep]
+              libudev_dep,
+              libsystemd_dep]
 if get_option ('stemming')
     aslib_deps += [stemmer_lib]
 endif
