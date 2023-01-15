@@ -744,14 +744,11 @@ test_system_info (void)
 
 	g_assert_cmpint (as_system_info_get_memory_total (sysinfo), >=, 128);
 
+	/* We can't properly test this as most build environments lack the udev hardware database.
+	 * We still run the code for potential leak detection etc. */
 	dev_name = as_system_info_get_device_name_for_modalias (sysinfo, "usb:v1130p0202d*", FALSE, &error);
-#ifdef HAVE_SYSTEMD
-	g_assert_no_error (error);
-	g_assert_cmpstr (dev_name, ==, "Tenx Technology, Inc. - Rocket Launcher");
-#else
 	if (error != NULL)
 		g_error_free (g_steal_pointer (&error));
-#endif
 }
 
 /**
