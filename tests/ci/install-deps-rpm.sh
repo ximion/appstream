@@ -28,7 +28,6 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     'pkgconfig(libxml-2.0)' \
     'pkgconfig(yaml-0.1)' \
     'pkgconfig(libcurl)' \
-    'pkgconfig(libudev)' \
     'pkgconfig(libsystemd)' \
     'pkgconfig(librsvg-2.0)' \
     'pkgconfig(cairo)' \

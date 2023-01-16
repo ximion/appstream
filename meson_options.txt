@@ -3,11 +3,6 @@ option('stemming',
        value : true,
        description : 'Use stemming while searching. Requires Snowball (libstemmer)'
 )
-option('udev',
-       type : 'boolean',
-       value : true,
-       description : 'Build with udev support'
-)
 option('systemd',
        type : 'boolean',
        value : true,

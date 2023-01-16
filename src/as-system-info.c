@@ -48,11 +48,9 @@
 #include <sys/types.h>
 #include <sys/sysctl.h>
 #endif
-#ifdef HAVE_UDEV
-#include <libudev.h>
-#endif
 #ifdef HAVE_SYSTEMD
 #include <systemd/sd-hwdb.h>
+#include <systemd/sd-device.h>
 #endif
 
 #include "as-utils-private.h"
@@ -74,9 +72,7 @@ typedef struct
 
 	GPtrArray	*modaliases;
 	GHashTable	*modalias_to_sysfs;
-#ifdef HAVE_UDEV
-	struct udev	*udev;
-#endif
+
 #ifdef HAVE_SYSTEMD
 	sd_hwdb		*hwdb;
 #endif
@@ -121,10 +117,7 @@ as_system_info_finalize (GObject *object)
 
 	g_ptr_array_unref (priv->modaliases);
 	g_hash_table_unref (priv->modalias_to_sysfs);
-#ifdef HAVE_UDEV
-	if (priv->udev != NULL)
-		udev_unref (priv->udev);
-#endif
+
 #ifdef HAVE_SYSTEMD
 	if (priv->hwdb != NULL)
 		sd_hwdb_unref (priv->hwdb);
@@ -520,21 +513,18 @@ as_system_info_get_device_name_from_syspath (AsSystemInfo *sysinfo,
 					     gboolean allow_fallback,
 					     GError **error)
 {
-#ifdef HAVE_UDEV
-	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
-	struct udev_device *device;
-	struct udev_list_entry *entry, *e;
+#ifdef HAVE_SYSTEMD
+	__attribute__((cleanup (sd_device_unrefp))) sd_device *device = NULL;
+	const gchar *key, *value;
+	gint r;
 	const gchar *device_vendor = NULL;
 	const gchar *device_model = NULL;
 	const gchar *usb_class = NULL;
 	const gchar *driver = NULL;
 	gchar *result = NULL;
 
-	if (priv->udev == NULL)
-		priv->udev = udev_new ();
-
-	device = udev_device_new_from_syspath (priv->udev, syspath);
-	if (device == NULL) {
+	r = sd_device_new_from_syspath (&device, syspath);
+        if (r < 0) {
 		g_set_error (error,
 				AS_SYSTEM_INFO_ERROR,
 				AS_SYSTEM_INFO_ERROR_FAILED,
@@ -543,17 +533,19 @@ as_system_info_get_device_name_from_syspath (AsSystemInfo *sysinfo,
 		return NULL;
 	}
 
-	entry = udev_device_get_properties_list_entry (device);
-        udev_list_entry_foreach(e, entry) {
-		const gchar *e_name = udev_list_entry_get_name (e);
-		if (g_strstr_len (e_name, -1, "_VENDOR") != NULL)
-			device_vendor = udev_list_entry_get_value (e);
-		else if (g_strstr_len (e_name, -1, "_MODEL") != NULL)
-			device_model = udev_list_entry_get_value (e);
-		else if (as_str_equal0 (e_name, "DRIVER"))
-			driver = udev_list_entry_get_value (e);
-		else if (g_strstr_len (e_name, -1, "_USB_CLASS"))
-			usb_class = udev_list_entry_get_value (e);
+	for (key = sd_device_get_property_first (device, &value);
+	     key;
+             key = sd_device_get_property_next (device, &value)) {
+		if (g_strstr_len (key, -1, "_VENDOR") != NULL) {
+			if (g_strstr_len (key, -1, "VENDOR_ID") == NULL && !g_str_has_suffix (key, "_ENC"))
+				device_vendor = value;
+		} else if (g_strstr_len (key, -1, "_MODEL") != NULL) {
+			if (g_strstr_len (key, -1, "MODEL_ID") == NULL && !g_str_has_suffix (key, "_ENC"))
+				device_model = value;
+		} else if (as_str_equal0 (key, "DRIVER"))
+			driver = value;
+		else if (g_strstr_len (key, -1, "_USB_CLASS"))
+			usb_class = value;
 	}
 
 	if (device_vendor != NULL) {
@@ -577,13 +569,12 @@ as_system_info_get_device_name_from_syspath (AsSystemInfo *sysinfo,
 		}
 	}
 
-	udev_device_unref (device);
 	return result;
 #else
 	g_set_error_literal (error,
 				AS_SYSTEM_INFO_ERROR,
 				AS_SYSTEM_INFO_ERROR_FAILED,
-				"Unable to determine device name: AppStream was built without udev support.");
+				"Unable to determine device name: AppStream was built without systemd-udevd support.");
 	return NULL;
 #endif
 }

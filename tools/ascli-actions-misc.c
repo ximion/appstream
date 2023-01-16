@@ -559,11 +559,11 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 	g_print ("\n");
 	ascli_print_highlight ("%s:", _("Hardware"));
 	total_memory = as_system_info_get_memory_total (sysinfo);
-	ascli_print_stdout ("%s: %lu MiB (%.2f GiB)", _("Memory"), total_memory, total_memory / 1024.0);
+	ascli_print_stdout ("%s: %lu MiB (%.2f GiB)", _("Physical Memory"), total_memory, total_memory / 1024.0);
 
 	modaliases = as_system_info_get_modaliases (sysinfo);
 	if (modaliases->len > 0) {
-		ascli_print_stdout ("%s:", "Devices");
+		ascli_print_stdout ("%s:", _("Devices with Modaliases"));
 		for (guint i = 0; i < modaliases->len; i++) {
 			g_autoptr(GError) tmp_error = NULL;
 			g_autofree gchar *dev_name = NULL;
