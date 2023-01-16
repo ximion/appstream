@@ -586,5 +586,24 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 		}
 	}
 
+	g_print ("\n");
+	ascli_print_highlight ("%s:", _("User Input Controls"));
+	for (guint i = 0; i < AS_CONTROL_KIND_LAST; i++) {
+		g_autoptr(GError) tmp_error = NULL;
+		const gchar *found_str = _("unknown");
+		AsCheckResult res = as_system_info_has_input_control (sysinfo, i, &tmp_error);
+		if (res == AS_CHECK_RESULT_ERROR) {
+			g_warning ("Unable to read input info: %s", tmp_error->message);
+			continue;
+		}
+		if (res == AS_CHECK_RESULT_TRUE)
+			found_str = _("yes");
+		else if (res == AS_CHECK_RESULT_FALSE)
+			found_str = _("no");
+		else if (!detailed)
+			continue;
+		ascli_print_stdout (" • %s: %s", as_control_kind_to_string (i), found_str);
+	}
+
 	return 0;
 }

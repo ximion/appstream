@@ -27,6 +27,8 @@
 
 #include <glib-object.h>
 
+#include "as-relation.h"
+
 G_BEGIN_DECLS
 
 #define AS_TYPE_SYSTEM_INFO (as_system_info_get_type ())
@@ -43,6 +45,22 @@ struct _AsSystemInfoClass
 	void (*_as_reserved5) (void);
 	void (*_as_reserved6) (void);
 };
+
+/**
+ * AsCheckResult:
+ * @AS_SYSTEM_INFO_ERROR_FAILED:		Generic failure
+ * @AS_SYSTEM_INFO_ERROR_NOT_FOUND:		Information was not found.
+ *
+ * The error type.
+ **/
+typedef enum {
+	AS_CHECK_RESULT_ERROR,
+	AS_CHECK_RESULT_UNKNOWN,
+	AS_CHECK_RESULT_TRUE,
+	AS_CHECK_RESULT_FALSE,
+	/*< private >*/
+	AS_CHECK_RESULT_LAST
+} AsCheckResult;
 
 /**
  * AsSystemInfoError:
@@ -83,6 +101,19 @@ gchar			*as_system_info_get_device_name_for_modalias (AsSystemInfo *sysinfo,
 								      const gchar *modalias,
 								      gboolean allow_fallback,
 								      GError **error);
+
+AsCheckResult		as_system_info_has_input_control (AsSystemInfo *sysinfo,
+							  AsControlKind kind,
+							  GError **error);
+void			as_system_info_set_input_control (AsSystemInfo *sysinfo,
+							  AsControlKind kind,
+							  gboolean found);
+
+gulong			as_system_info_get_display_length (AsSystemInfo *sysinfo,
+							   AsDisplaySideKind side);
+void			as_system_info_set_display_length (AsSystemInfo *sysinfo,
+							   AsDisplaySideKind side,
+							   gulong value_dip);
 
 gchar 			*as_get_current_distro_component_id (void);
 

@@ -73,6 +73,13 @@ typedef struct
 	GPtrArray	*modaliases;
 	GHashTable	*modalias_to_sysfs;
 
+	gboolean	inputs_scanned;
+	guint		input_controls;
+	guint		tested_input_controls;
+
+	gulong		display_length_shortest;
+	gulong		display_length_longest;
+
 #ifdef HAVE_SYSTEMD
 	sd_hwdb		*hwdb;
 #endif
@@ -661,7 +668,198 @@ as_system_info_get_device_name_for_modalias (AsSystemInfo *sysinfo, const gchar 
 								    error);
 }
 
+/**
+ * as_system_info_has_device_with_property:
+ */
+static AsCheckResult
+as_system_info_has_device_with_property (AsSystemInfo *sysinfo, const gchar *prop_key, const gchar *prop_value, GError **error)
+{
+#ifdef HAVE_SYSTEMD
+	__attribute__((cleanup (sd_device_enumerator_unrefp))) sd_device_enumerator *e = NULL;
+	gint r;
 
+	r = sd_device_enumerator_new (&e);
+	if (r < 0) {
+		g_set_error (error,
+				AS_SYSTEM_INFO_ERROR,
+				AS_SYSTEM_INFO_ERROR_FAILED,
+				"Unable to enumerate devices: %s",
+				g_strerror (r));
+		return AS_CHECK_RESULT_ERROR;
+	}
+	r = sd_device_enumerator_allow_uninitialized (e);
+	if (r < 0) {
+		g_set_error (error,
+				AS_SYSTEM_INFO_ERROR,
+				AS_SYSTEM_INFO_ERROR_FAILED,
+				"Unable to enumerate uninitialized devices: %s",
+				g_strerror (r));
+		return AS_CHECK_RESULT_ERROR;
+	}
+	r = sd_device_enumerator_add_match_property (e, prop_key, prop_value);
+	if (r < 0) {
+		g_set_error (error,
+				AS_SYSTEM_INFO_ERROR,
+				AS_SYSTEM_INFO_ERROR_FAILED,
+				"Unable to enumerate devices by property: %s",
+				g_strerror (r));
+		return AS_CHECK_RESULT_ERROR;
+	}
+
+	return sd_device_enumerator_get_device_first (e) != NULL? AS_CHECK_RESULT_TRUE : AS_CHECK_RESULT_FALSE;
+#else
+	g_set_error_literal (error,
+				AS_SYSTEM_INFO_ERROR,
+				AS_SYSTEM_INFO_ERROR_FAILED,
+				"Unable to look for input device: AppStream was built without systemd-udevd support.");
+	return NULL;
+#endif
+}
+
+/**
+ * as_system_info_mark_input_control_status:
+ *
+ * Mark an input control as set to a specific value.
+ */
+static void
+as_system_info_mark_input_control_status (AsSystemInfo *sysinfo, AsControlKind kind, gboolean found)
+{
+	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	as_flags_add (priv->tested_input_controls, (1 << kind));
+	if (found)
+		as_flags_add (priv->input_controls, (1 << kind));
+}
+
+/**
+ * as_system_info_find_input_controls:
+ */
+static gboolean
+as_system_info_find_input_controls (AsSystemInfo *sysinfo, GError **error)
+{
+	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	AsCheckResult res;
+
+	/* skip scan if we have already tried it once */
+	if (priv->inputs_scanned)
+		return TRUE;
+
+	/* console input is always present, unless the API user explicitly forbids it */
+	as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_CONSOLE, TRUE);
+	priv->inputs_scanned = TRUE;
+
+	/* autodetect all inputs we can */
+	res = as_system_info_has_device_with_property (sysinfo, "ID_INPUT_KEYBOARD", "1", error);
+	if (res == AS_CHECK_RESULT_ERROR)
+		return FALSE;
+	as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_KEYBOARD, res == AS_CHECK_RESULT_TRUE);
+
+	res = as_system_info_has_device_with_property (sysinfo, "ID_INPUT_MOUSE", "1", error);
+	if (res == AS_CHECK_RESULT_ERROR)
+		return FALSE;
+	as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_POINTING, res == AS_CHECK_RESULT_TRUE);
+	if (res != AS_CHECK_RESULT_TRUE) {
+		res = as_system_info_has_device_with_property (sysinfo, "ID_INPUT_TOUCHPAD", "1", error);
+		if (res == AS_CHECK_RESULT_ERROR)
+			return FALSE;
+		as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_POINTING, res == AS_CHECK_RESULT_TRUE);
+	}
+
+	res = as_system_info_has_device_with_property (sysinfo, "ID_INPUT_JOYSTICK", "1", error);
+	if (res == AS_CHECK_RESULT_ERROR)
+		return FALSE;
+	as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_GAMEPAD, res == AS_CHECK_RESULT_TRUE);
+
+	res = as_system_info_has_device_with_property (sysinfo, "ID_INPUT_TABLET", "1", error);
+	if (res == AS_CHECK_RESULT_ERROR)
+		return FALSE;
+	as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_TABLET, res == AS_CHECK_RESULT_TRUE);
+
+	return TRUE;
+}
+
+/**
+ * as_system_info_has_input_control:
+ * @sysinfo: a #AsSystemInfo instance.
+ * @kind: the #AsControlKind to test for.
+ * @error: a #GError
+ *
+ * Test if the current system has a specific user input control method.
+ * Returns %AS_CHECK_RESULT_UNKNOWN if we could not test for an input control method,
+ * %AS_CHECK_RESULT_ERROR on error and %AS_CHECK_RESULT_FALSE if the control was not found.
+ *
+ * Returns: %AS_CHECK_RESULT_TRUE if control was found
+ */
+AsCheckResult
+as_system_info_has_input_control (AsSystemInfo *sysinfo, AsControlKind kind, GError **error)
+{
+	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+
+	if (!as_system_info_find_input_controls (sysinfo, error))
+		return AS_CHECK_RESULT_ERROR;
+
+	/* if we tried to autodetect and haven't found a device, return FALSE,
+	 * but if we didn't even try to autodetect an input control, return UNKNOWN */
+
+	if (as_flags_contains (priv->input_controls, (1 << kind)))
+		return AS_CHECK_RESULT_TRUE;
+	else if (!as_flags_contains (priv->tested_input_controls, (1 << kind)))
+		return AS_CHECK_RESULT_UNKNOWN;
+	return AS_CHECK_RESULT_FALSE;
+}
+
+/**
+ * as_system_info_set_input_control:
+ * @sysinfo: a #AsSystemInfo instance.
+ * @kind: the #AsControlKind to set.
+ * @found: %TRUE if the control should be marked as found.
+ *
+ * Explicitly mark a user input control as present or not present on this system.
+ */
+void
+as_system_info_set_input_control (AsSystemInfo *sysinfo, AsControlKind kind, gboolean found)
+{
+	as_system_info_find_input_controls (sysinfo, NULL);
+	as_system_info_mark_input_control_status (sysinfo, kind, found);
+}
+
+/**
+ * as_system_info_get_display_length:
+ * @sysinfo: a #AsSystemInfo instance.
+ * @side: the #AsDisplaySideKind to select.
+ *
+ * Get the current display length for the given side kind.
+ * If the display size is unknown, this function will return 0.
+ *
+ * Returns: the display size in logical pixels.
+ */
+gulong
+as_system_info_get_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side)
+{
+	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	if (side == AS_DISPLAY_SIDE_KIND_LONGEST)
+		return priv->display_length_longest;
+	return priv->display_length_shortest;
+}
+
+/**
+ * as_system_info_set_display_length:
+ * @sysinfo: a #AsSystemInfo instance.
+ * @side: the #AsDisplaySideKind to select.
+ * @value_dip: the length value in device-independt pixels.
+ *
+ * Set the current display length for the given side kind.
+ * The size needs to be in device-independent pixels, see the
+ * AppStream documentation for more information:
+ * https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-relations-display_length
+ */
+void
+as_system_info_set_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side, gulong value_dip)
+{
+	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	if (side == AS_DISPLAY_SIDE_KIND_LONGEST)
+		priv->display_length_longest = value_dip;
+	priv->display_length_shortest = value_dip;
+}
 
 /**
  * as_system_info_new:
