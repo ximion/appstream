@@ -774,6 +774,11 @@ as_system_info_find_input_controls (AsSystemInfo *sysinfo, GError **error)
 		return FALSE;
 	as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_TABLET, res == AS_CHECK_RESULT_TRUE);
 
+	res = as_system_info_has_device_with_property (sysinfo, "ID_INPUT_TOUCHSCREEN", "1", error);
+	if (res == AS_CHECK_RESULT_ERROR)
+		return FALSE;
+	as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_TOUCH, res == AS_CHECK_RESULT_TRUE);
+
 	return TRUE;
 }
 

@@ -588,7 +588,7 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 
 	g_print ("\n");
 	ascli_print_highlight ("%s:", _("User Input Controls"));
-	for (guint i = 0; i < AS_CONTROL_KIND_LAST; i++) {
+	for (guint i = 1; i < AS_CONTROL_KIND_LAST; i++) {
 		g_autoptr(GError) tmp_error = NULL;
 		const gchar *found_str = _("unknown");
 		AsCheckResult res = as_system_info_has_input_control (sysinfo, i, &tmp_error);
