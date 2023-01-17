@@ -36,23 +36,21 @@
 # Сергей <sw@atrus.ru>, 2022.
 # faveoled <faveoled@yandex.com>, 2022.
 # Сергей <asvmail.as@gmail.com>, 2022.
+# lenemter <lenemter@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-12-22 23:35+0100\n"
-"PO-Revision-Date: 2022-09-11 23:18+0000\n"
-"Last-Translator: Сергей <asvmail.as@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
-"translations/ru/>\n"
+"PO-Revision-Date: 2023-01-17 03:30+0000\n"
+"Last-Translator: lenemter <lenemter@gmail.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 4.14.1-dev\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -70,14 +68,7 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
-"AppStream - это спецификация метаданных, которая позволяет программным "
-"компонентам предоставлять информацию о себе автоматизированным системам и "
-"конечным пользователям еще до установки программного обеспечения. Проект "
-"AppStream предоставляет средства для легкого доступа и преобразования этих "
-"метаданных, а также несколько дополнительных сервисов для создания "
-"многофункциональных программных центров и подобных приложений, использующих "
-"метаданные программного обеспечения."
+msgstr "AppStream — это спецификация метаданных, которая позволяет программным компонентам предоставлять информацию о себе автоматизированным системам и конечным пользователям еще до установки программного обеспечения. Проект AppStream предоставляет средства для лёгкого доступа и преобразования этих метаданных, а также несколько дополнительных сервисов для создания многофункциональных программных центров и подобных приложений, использующих метаданные программного обеспечения."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -87,13 +78,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Инструмент командной строки <em>appstreamcli</em> позволяет читать, "
-"записывать и преобразовывать метаданные AppStream XML или YAML, а также "
-"проверять их на соответствие спецификации. Он также обеспечивает легкий "
-"доступ к пулу метаданных системы, например, для запроса программного "
-"обеспечения, предоставляющего определенный обработчик Mediatype, или для "
-"установки программного обеспечения по идентификатору компонента."
+msgstr "Инструмент командной строки <em>appstreamcli</em> позволяет читать, записывать и преобразовывать метаданные AppStream XML или YAML, а также проверять их на соответствие спецификации. Он также обеспечивает лёгкий доступ к пулу метаданных системы, например, для запроса программного обеспечения, предоставляющего определенный обработчик Mediatype, или для установки программного обеспечения по идентификатору компонента."
 
 #: src/as-cache.c:919
 #, c-format
@@ -1307,9 +1292,7 @@ msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
-"ID лицензии не найдет в SPDX базе. Пожалуйста убедитесь, что ID лицензии "
-"прописан в SPDX-совместимом способе и это действительно свободная лицензия."
+msgstr "ID лицензии не найден в базе SPDX. Пожалуйста, убедитесь, что ID лицензии прописан в SPDX-совместимом способе и это действительно свободная лицензия."
 
 #: src/as-validator-issue-tag.h:192
 msgid ""
@@ -1318,11 +1301,7 @@ msgid ""
 "FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
 "collections without the risk of license violations due to mutually "
 "incompatible licenses."
-msgstr ""
-"Метаданные, сами по себе, попадают под комплекс лицензий. Пожалуйста "
-"лицензируйте данные под разрешающими лицензиями, такими как FSFAP, CC0-1.0 "
-"или 0BSD, для разрешения распространителям включить весь набор данных без "
-"риска нарушения наложения друг на друга несовместимых лицензий."
+msgstr "Метаданные, сами по себе, попадают под комплекс лицензий. Пожалуйста, лицензируйте данные под разрешающими лицензиями, такими как FSFAP, CC0-1.0 или 0BSD, для разрешения распространителям включить весь набор данных без риска нарушения наложения друг на друга несовместимых лицензий."
 
 #: src/as-validator-issue-tag.h:198
 msgid ""
@@ -1330,11 +1309,7 @@ msgid ""
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
 "0BSD to allow distributors to include it in mixed data collections without "
 "the risk of license violations due to mutually incompatible licenses."
-msgstr ""
-"Метаданные, сами по себе, не попадают по разрешающие лицензии. Пожалуйста "
-"лицензируйте данные под разрешающими лицензиями, такими как FSFAP, CC0-1.0 "
-"или 0BSD, для разрешения распространителям включить весь набор данных без "
-"риска нарушения наложения друг на друга несовместимых лицензий."
+msgstr "Метаданные, сами по себе, не попадают по разрешающие лицензии. Пожалуйста, лицензируйте данные под разрешающими лицензиями, такими как FSFAP, CC0-1.0 или 0BSD, для разрешения распространителям включить весь набор данных без риска нарушения наложения друг на друга несовместимых лицензий."
 
 #: src/as-validator-issue-tag.h:204
 msgid ""
@@ -1347,7 +1322,7 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:210
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "Свойство `width` должно быть целым положительным числом."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:216
