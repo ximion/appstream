@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-12-22 23:35+0100\n"
-"PO-Revision-Date: 2023-01-17 03:30+0000\n"
+"PO-Revision-Date: 2023-01-17 22:50+0000\n"
 "Last-Translator: lenemter <lenemter@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
@@ -445,7 +445,7 @@ msgstr "Для подростков"
 
 #: src/as-content-rating.c:463 src/as-content-rating.c:557
 msgid "Everyone 10+"
-msgstr "каждый 10+"
+msgstr "Для всех 10+"
 
 #: src/as-content-rating.c:465 src/as-content-rating.c:556
 msgid "Everyone"
@@ -453,7 +453,7 @@ msgstr "Все"
 
 #: src/as-content-rating.c:467 src/as-content-rating.c:555
 msgid "Early Childhood"
-msgstr "Раннее Детство"
+msgstr "Раннее детство"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:839
@@ -548,7 +548,7 @@ msgstr "Изнасилование или другое сексуальное н
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:892
 msgid "No references to alcohol"
-msgstr "Отсутствие упоминания алкоголя"
+msgstr "Отсутствуют упоминания алкоголя"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:894
@@ -673,7 +673,7 @@ msgstr "Отсутствуют фразы с дискриминацией люб
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:967
 msgid "Negativity towards a specific group of people"
-msgstr "Негативное отношение к определенной группе людей"
+msgstr "Негативное отношение к определённой группе людей"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:969
@@ -925,7 +925,7 @@ msgstr "Видимые мертвые человеческие останки"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1131
 msgid "Dead human remains that are exposed to the elements"
-msgstr "Мертвые человеческие останки, которые имеют неприкрытые части"
+msgstr "Мёртвые человеческие останки, которые имеют неприкрытые части"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1133
@@ -935,7 +935,7 @@ msgstr "Графические изображения осквернения ч�
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1138
 msgid "No references to slavery"
-msgstr "Отсутствие упоминания рабства"
+msgstr "Отсутствуют упоминания рабства"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1140
@@ -967,7 +967,7 @@ msgstr "Не удалось загрузить файл: %s"
 #: src/as-curl.c:160
 #, c-format
 msgid "URL was not found on the server."
-msgstr "URL - адрес не был найден на сервере."
+msgstr "URL-адрес не был найден на сервере."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:170
@@ -1084,12 +1084,7 @@ msgid ""
 "<description/> tag instead. The AppStream collection metadata generator (e."
 "g. `appstream-generator`) will already do the right thing when compiling the "
 "data."
-msgstr ""
-"Этот элемент (параграф, список и т.д.) в теге <description/> должен быть "
-"локализован отдельно в процессе сбора метаданных. Вместо этого полностью "
-"локализовать тэг <description/>. AppStream обеспечивает генератор метаданных "
-"(к примеру 'appstream-generator'), который сделает всё правильно в процессе "
-"компиляции данных."
+msgstr "Этот элемент (параграф, список и т. д.) в теге <description/> должен быть локализован отдельно в процессе сбора метаданных. Вместо этого полностью локализовать тег <description/>. AppStream обеспечивает генератор метаданных (к примеру 'appstream-generator'), который сделает всё правильно в процессе компиляции данных."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -1123,10 +1118,7 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
-"Первый абзац описания компонента `description/p`должен быть достаточно "
-"коротким (<80 символов). Пожалуйста учитывайте это для улучшения описания и "
-"вносите больше деталей в описание компонента в первый абзац ."
+msgstr "Первый абзац описания компонента `description/p`должен быть достаточно коротким (< 80 символов). Пожалуйста учитывайте это для улучшения описания и вносите больше деталей в описание компонента в первый абзац ."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -1139,13 +1131,11 @@ msgstr ""
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
-"Описание содержит ссылки в тексте. Это не допустимо, используйте тег <url/> "
-"для вставки ссылок."
+msgstr "Описание содержит ссылки в тексте. Это недопустимо, используйте тег <url/> для вставки ссылок."
 
 #: src/as-validator-issue-tag.h:96
 msgid "This tag is not translatable."
-msgstr "Этот тэг не следует переводить."
+msgstr "Этот тег не следует переводить."
 
 #: src/as-validator-issue-tag.h:101
 msgid ""
@@ -1159,17 +1149,12 @@ msgstr ""
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
-msgstr ""
-"Упомянутый тег пустой, что очень похоже что он не содержит контент, хотя "
-"должен."
+msgstr "Упомянутый тег пустой, что наверное не подразумевалось, так как он должен содержать данные."
 
 #: src/as-validator-issue-tag.h:111
-#, fuzzy
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
-msgstr ""
-"Компонент имеет установленное значение приоритета. Это недопустимо в файлах "
-"с метаинформацией."
+msgstr "Упомянутый тег имеет текстовое содержимое, хотя он не должен содержать текста."
 
 #: src/as-validator-issue-tag.h:116
 msgid ""
@@ -1227,11 +1212,7 @@ msgid ""
 "The component ID contains a hyphen/minus. Using a hyphen is strongly "
 "discouraged, to improve interoperability with other tools such as D-Bus. A "
 "good option is to replace any hyphens with underscores (`_`)."
-msgstr ""
-"Идентификатор компонента содержит дефис/минус. Использование дефиса "
-"настоятельно рекомендуется для улучшения совместимости с другими "
-"инструментами, такими как D-Bus. Хорошим вариантом является замена любых "
-"дефисов на подчеркивания (`_`)."
+msgstr "Идентификатор компонента содержит дефис/минус. Использование дефиса настоятельно рекомендуется для улучшения совместимости с другими инструментами, такими как D-Bus. Хорошим вариантом является замена любых дефисов на подчёркивания (`_`)."
 
 #: src/as-validator-issue-tag.h:150
 msgid ""
@@ -1239,11 +1220,7 @@ msgid ""
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr ""
-"Идентификатор компонента содержит сегмент, начинающийся с числа. Запускать "
-"сегмент обратно-DNS ID с номером категорически не рекомендуется, чтобы "
-"сохранить функциональную совместимость с другими инструментами, такими как D-"
-"Bus. В идеале, префикс этих сегментов должен быть подчеркнут."
+msgstr "Идентификатор компонента содержит сегмент, начинающийся с числа. Запускать сегмент обратно-DNS ID с номером категорически не рекомендуется, чтобы сохранить функциональную совместимость с другими инструментами, такими как D-Bus. В идеале, префикс этих сегментов должен быть подчёркнут."
 
 #: src/as-validator-issue-tag.h:156
 msgid "The component ID should only contain lowercase characters."
@@ -1261,25 +1238,19 @@ msgstr ""
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr ""
-"Компонент является частью проекта Freedesktop, но его ID не начинается с "
-"имени fd.o's reverse-DNS (\"org.freedesktop\")."
+msgstr "Компонент является частью проекта Freedesktop, но его ID не начинается с имени fd.o reverse-DNS (\"org.freedesktop\")."
 
 #: src/as-validator-issue-tag.h:171
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDEs reverse-DNS name (\"org.kde\")."
-msgstr ""
-"Компонент является частью KDE проекта, но его ID не начинается с имени KDEs "
-"reverse-DNS (\"org.kde\")."
+msgstr "Компонент является частью KDE проекта, но его ID не начинается с имени KDE reverse-DNS (\"org.kde\")."
 
 #: src/as-validator-issue-tag.h:176
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOMEs reverse-DNS name (\"org.gnome\")."
-msgstr ""
-"Компонент является частью проекта GNOME, но его ID не начинается с имени "
-"GNOMEs reverse-DNS (\"org.gnome\")."
+msgstr "Компонент является частью проекта GNOME, но его ID не начинается с имени GNOME reverse-DNS (\"org.gnome\")."
 
 #: src/as-validator-issue-tag.h:181
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1327,51 +1298,44 @@ msgstr "Свойство `width` должно быть целым положит
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:216
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "Свойство `height` должно быть целым положительным числом."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:222
-#, fuzzy
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
-"Значение, заданное в качестве типа артефакта, недопустимо. Должно быть либо "
-"`source`, либо `binary`."
+msgstr "Тип изображений должен быть либо `source`, либо `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:228
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "Свойство `width` должно присутствовать, если тип изображения `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:234
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "Свойство `height` должно присутствовать, если тип изображения `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:240
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "Может быть только одно свойство `source` на снимок и язык."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:246
 msgid "A screenshot must have at least one image of type `source`."
-msgstr ""
+msgstr "Снимок должен содержать хотя бы одно изображение типа `source`."
 
 #: src/as-validator-issue-tag.h:251
 msgid ""
 "Unable to reach the screenshot image on its remote location - does the image "
 "exist?"
-msgstr ""
-"Невозможно получить снимок экрана в удаленном месте - существует ли "
-"изображение?"
+msgstr "Невозможно получить снимок экрана в удалённом месте. Существует ли изображение?"
 
 #: src/as-validator-issue-tag.h:256
 msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
-msgstr ""
-"Невозможно получить доступ к снимку экрана видео в удаленном месте - "
-"существует ли видеофайл?"
+msgstr "Невозможно получить доступ к снимку экрана видео в удалённом месте. Существует ли видеофайл?"
 
 #: src/as-validator-issue-tag.h:261
 msgid ""
@@ -1386,9 +1350,7 @@ msgstr ""
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Скриншот должен содержать хотя бы одно изображение или видео, чтобы быть "
-"полезным. Пожалуйста, добавьте <image /> к нему."
+msgstr "Скриншот должен содержать хотя бы одно изображение или видео, чтобы быть полезным. Пожалуйста, добавьте <image/> к нему."
 
 #: src/as-validator-issue-tag.h:272
 msgid ""
@@ -1463,15 +1425,13 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:320
 msgid "No screenshot is marked as default."
-msgstr ""
+msgstr "Ни один скриншот не помечен как используемый по умолчанию."
 
 #: src/as-validator-issue-tag.h:325
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr ""
-"Найден неизвестный тег в группе \"Требования/рекомендации\". Скорее всего, "
-"это ошибка, так как компонентное отношение данного типа неизвестно."
+msgstr "Найден неизвестный тег в группе «Требования/рекомендации». Скорее всего, это ошибка, так как компонентное отношение данного типа неизвестно."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:331
@@ -1618,7 +1578,7 @@ msgstr "Заданное значение тега недопустимо для
 msgid ""
 "The `bandwidth_mbitps` property is not allowed when using `offline-only` as "
 "value."
-msgstr ""
+msgstr "Свойство `bandwidth_mbitps` недопустимо при использовании `offline-only` как значение."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
@@ -2340,32 +2300,27 @@ msgstr "Этот цвет не является допустимым цвето�
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:974
 msgid "The `custom` tag can only contain `value` children."
-msgstr ""
+msgstr "Тег `custom` может содержать только дочерние элементы `value`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:980
-#, fuzzy
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr "В этом `tag` отсутствует атрибут `namespace`."
+msgstr "В этом теге `custom` отсутствует атрибут `key`."
 
 #: src/as-validator-issue-tag.h:985
 msgid "A key can only be used once."
-msgstr ""
+msgstr "Ключ может быть использовать только один раз."
 
 #: src/as-validator-issue-tag.h:990
 msgid "This custom value is empty."
-msgstr ""
+msgstr "Это пользовательское значение пустое."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:996
-#, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"Тег <keywords/> не должен быть локализован в файлах метаинформации "
-"(метаданные вышестоящего уровня). Вместо этого локализуйте отдельные записи "
-"ключевых слов."
+msgstr "Тег `keywords` не должен быть локализован в файлах метаинформации (метаданные вышестоящего уровня). Вместо этого локализуйте отдельные записи ключевых слов."
 
 #: src/as-validator.c:162
 msgid ""
