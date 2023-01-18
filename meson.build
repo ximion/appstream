@@ -132,6 +132,9 @@ add_project_arguments(
   '-Werror=return-type',
   '-Werror=misleading-indentation',
   '-Werror=format-security',
+
+  # NOTE: Can be removed with AppStream 1.0
+  '-Wno-error=c++20-compat',
   language: 'cpp'
 )
 
