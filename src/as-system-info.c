@@ -41,6 +41,7 @@
 #include <errno.h>
 #include <sys/utsname.h>
 #include <dirent.h>
+#include <fnmatch.h>
 
 #if defined(__linux__)
 #include <sys/sysinfo.h>
@@ -508,6 +509,33 @@ as_system_info_modalias_to_syspath (AsSystemInfo *sysinfo, const gchar *modalias
 	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
 	as_system_info_populate_modaliases (sysinfo);
 	return g_hash_table_lookup (priv->modalias_to_sysfs, modalias);
+}
+
+/**
+ * as_system_info_has_device_matching_modalias:
+ * @sysinfo: a #AsSystemInfo instance.
+ * @modalias_glob: the modalias value to to look for, may contain wildcards.
+ *
+ * Check if there is a device on this system that matches the given modalias glob.
+ *
+ * Returns: %TRUE if a matching device was found.
+ */
+gboolean
+as_system_info_has_device_matching_modalias (AsSystemInfo *sysinfo, const gchar *modalias_glob)
+{
+	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	as_system_info_populate_modaliases (sysinfo);
+
+	for (guint i = 0; i < priv->modaliases->len; i++) {
+		const gchar *modalias = (const gchar*) g_ptr_array_index (priv->modaliases, i);
+		if (g_strcmp0 (modalias, modalias_glob) == 0)
+			return TRUE;
+
+		if (fnmatch (modalias, modalias_glob, FNM_NOESCAPE) == 0)
+			return TRUE;
+	}
+
+	return FALSE;
 }
 
 /**

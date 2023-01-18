@@ -47,22 +47,6 @@ struct _AsSystemInfoClass
 };
 
 /**
- * AsCheckResult:
- * @AS_SYSTEM_INFO_ERROR_FAILED:		Generic failure
- * @AS_SYSTEM_INFO_ERROR_NOT_FOUND:		Information was not found.
- *
- * The error type.
- **/
-typedef enum {
-	AS_CHECK_RESULT_ERROR,
-	AS_CHECK_RESULT_UNKNOWN,
-	AS_CHECK_RESULT_TRUE,
-	AS_CHECK_RESULT_FALSE,
-	/*< private >*/
-	AS_CHECK_RESULT_LAST
-} AsCheckResult;
-
-/**
  * AsSystemInfoError:
  * @AS_SYSTEM_INFO_ERROR_FAILED:		Generic failure
  * @AS_SYSTEM_INFO_ERROR_NOT_FOUND:		Information was not found.
@@ -96,6 +80,8 @@ gulong			as_system_info_get_memory_total (AsSystemInfo *sysinfo);
 GPtrArray		*as_system_info_get_modaliases (AsSystemInfo *sysinfo);
 const gchar		*as_system_info_modalias_to_syspath (AsSystemInfo *sysinfo,
 							     const gchar *modalias);
+gboolean		as_system_info_has_device_matching_modalias (AsSystemInfo *sysinfo,
+								     const gchar *modalias_glob);
 
 gchar			*as_system_info_get_device_name_for_modalias (AsSystemInfo *sysinfo,
 								      const gchar *modalias,
