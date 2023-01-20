@@ -182,6 +182,12 @@ GPtrArray		*as_cache_get_components_by_launchable (AsCache *cache,
 								const gchar *id,
 								GError **error);
 
+GPtrArray		*as_cache_get_components_by_bundle_id (AsCache *cache,
+								AsBundleKind kind,
+								const gchar *id,
+								gboolean match_prefix,
+								GError **error);
+
 GPtrArray		*as_cache_search (AsCache *cache,
 					  const gchar * const *terms,
 					  gboolean sort,

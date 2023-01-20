@@ -1812,6 +1812,36 @@ as_cache_get_components_by_launchable (AsCache *cache, AsLaunchableKind kind, co
 					  error);
 }
 
+/**
+ * as_cache_get_components_by_bundle_id:
+ * @cache: An instance of #AsCache.
+ * @kind: Type of the bundle.
+ * @id: ID of the bundle.
+ * @error: A #GError or %NULL.
+ *
+ * Get components which are provided by a bundle with the given kind and ID.
+ *
+ * Returns: (transfer full): An array of #AsComponent
+ */
+
+GPtrArray*
+as_cache_get_components_by_bundle_id (AsCache *cache, AsBundleKind kind, const gchar *id, gboolean match_prefix, GError **error)
+{
+	g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
+	g_autofree gchar *xpath = NULL;
+	const char *match = match_prefix ? "components/component/bundle[@type='%s'][starts-with(text(), ?)]/.."
+					 : "components/component/bundle[@type='%s'][text()=?]/..";
+	xb_value_bindings_bind_str (xb_query_context_get_bindings (&context),
+				    0, id, NULL);
+	xpath = g_strdup_printf (match, as_bundle_kind_to_string (kind));
+	return as_cache_query_components (cache,
+					  xpath,
+					  &context,
+					  0,
+					  FALSE,
+					  error);
+}
+
 typedef struct {
 	AsSearchTokenMatch	match_value;
 	XbQuery			*query;

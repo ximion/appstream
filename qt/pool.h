@@ -134,6 +134,8 @@ public:
 
     QList<AppStream::Component> componentsByExtends(const QString& extendedId) const;
 
+    QList<AppStream::Component> componentsByBundleId(Bundle::Kind kind, const QString& bundleId, bool matchPrefix) const;
+
     QList<AppStream::Component> search(const QString& term) const;
 
 

@@ -175,6 +175,14 @@ QList<Component> Pool::componentsByExtends(const QString &extendedId) const
                                                              qPrintable(extendedId)));
 }
 
+QList<Component> Pool::componentsByBundleId(Bundle::Kind kind, const QString &extendedId, bool matchPrefix) const
+{
+    return cptArrayToQList(as_pool_get_components_by_bundle_id(d->pool,
+                                                               static_cast<AsBundleKind>(kind),
+                                                               qPrintable(extendedId),
+                                                               matchPrefix));
+}
+
 QList<AppStream::Component> Pool::search(const QString& term) const
 {
     return cptArrayToQList(as_pool_search(d->pool, qPrintable(term)));
