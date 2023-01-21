@@ -46,7 +46,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2022-12-22 23:35+0100\n"
-"PO-Revision-Date: 2023-01-05 08:48+0000\n"
+"PO-Revision-Date: 2023-01-21 11:26+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
@@ -54,7 +54,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.15.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -3014,20 +3014,18 @@ msgstr ""
 #: tools/appstreamcli.c:1328
 #, fuzzy
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr "Erzeuge einen XDG Desktop-Eintrag aus einer Metainfo-Datei."
+msgstr "Eine Desktop-Eintragsdatei aus einer Metainfo-Datei erstellen."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstreamcli.c:1333
+#, fuzzy
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr ""
-"Konvertiere ein YAML oder text NEWS Datei in das metainfo release Format."
+msgstr "Eine YAML- oder Text-NEWS-Datei in Metainfo-Releases umwandeln."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
 #: tools/appstreamcli.c:1338
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr ""
-"Schreiben Sie NEWS-Text oder YAML-Datei mit Informationen aus einer Metainfo-"
-"Datei."
+msgstr "NEWS Text- oder YAML-Datei mit Informationen aus einer Metainfo-Datei schreiben."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1343
@@ -3042,15 +3040,15 @@ msgstr "Sie müssen einen Befehl angeben."
 #. TRANSLATORS: In ascli: Status information during a "refresh" action.
 #: tools/ascli-actions-mdata.c:48
 msgid "Only refreshing metadata cache specific to the current user."
-msgstr ""
+msgstr "Es wird nur der Metadaten-Zwischenspeicher für den aktuellen Benutzer aktualisiert."
 
 #: tools/ascli-actions-mdata.c:59
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
+msgstr "Software-Metadaten-Zwischenspeicher für das Betriebssystem wird aktualisiert."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for Flatpak."
-msgstr ""
+msgstr "Software-Metadaten-Zwischenspeicher für Flatpak wird aktualisiert."
 
 #: tools/ascli-actions-mdata.c:64
 #, c-format
@@ -3340,9 +3338,9 @@ msgid "Unable to spawn Flatpak process: %s"
 msgstr "Flatpak-Prozess kann nicht gestartet werden: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "Komponente mit Kennung »%s« kann nicht gefunden werden!"
+msgstr "Komponente mit Kennung »%s« und den ausgewählten Filterkriterien kann nicht gefunden werden!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
