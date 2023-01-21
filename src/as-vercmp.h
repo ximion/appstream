@@ -43,17 +43,21 @@ typedef enum {
 } AsVercmpFlags;
 
 
-gint		as_vercmp (const gchar* a,
-			   const gchar *b,
-			   AsVercmpFlags flags);
-gint		as_vercmp_simple (const gchar* a,
-				  const gchar *b);
+gint			as_vercmp (const gchar* a,
+				   const gchar *b,
+				   AsVercmpFlags flags);
+gint			as_vercmp_simple (const gchar* a,
+					  const gchar *b);
 
+gboolean		as_vercmp_test_match (const gchar *ver1,
+						AsRelationCompare compare,
+						const gchar *ver2,
+						AsVercmpFlags flags);
 
 /* DEPRECATED */
 
 G_DEPRECATED_FOR(as_vercmp_simple)
-gint		as_utils_compare_versions (const gchar* a,
-					   const gchar *b);
+gint			as_utils_compare_versions (const gchar* a,
+						   const gchar *b);
 
 G_END_DECLS

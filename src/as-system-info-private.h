@@ -27,10 +27,14 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-AS_INTERNAL_VISIBLE
-void
-as_system_info_load_os_release (AsSystemInfo *sysinfo,
-				const gchar *os_release_fname);
+AS_INTERNAL_VISIBLE void		as_system_info_load_os_release (AsSystemInfo *sysinfo,
+									const gchar *os_release_fname);
+
+AS_INTERNAL_VISIBLE void		as_system_info_set_kernel (AsSystemInfo *sysinfo,
+								   const gchar *name,
+								   const gchar *version);
+
+AS_INTERNAL_VISIBLE void		as_system_info_set_memory_total (AsSystemInfo *sysinfo, gulong size_mib);
 
 #pragma GCC visibility pop
 G_END_DECLS

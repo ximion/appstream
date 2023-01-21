@@ -713,6 +713,14 @@ test_version_compare (void)
 	g_assert_cmpint (as_vercmp_simple ("9+", "10"), <, 0);
 	g_assert_cmpint (as_vercmp_simple ("9half", "10"), <, 0);
 	g_assert_cmpint (as_vercmp_simple ("9.5", "10"), <, 0);
+
+	/* test match */
+	g_assert_true (as_vercmp_test_match ("1", AS_RELATION_COMPARE_LT, "2", AS_VERCMP_FLAG_NONE));
+	g_assert_true (as_vercmp_test_match ("2", AS_RELATION_COMPARE_GT, "1", AS_VERCMP_FLAG_NONE));
+	g_assert_true (as_vercmp_test_match ("3", AS_RELATION_COMPARE_EQ, "3", AS_VERCMP_FLAG_NONE));
+	g_assert_true (as_vercmp_test_match ("4", AS_RELATION_COMPARE_NE, "3", AS_VERCMP_FLAG_NONE));
+	g_assert_true (as_vercmp_test_match ("4", AS_RELATION_COMPARE_GE, "3", AS_VERCMP_FLAG_NONE));
+	g_assert_false (as_vercmp_test_match ("5", AS_RELATION_COMPARE_GE, "6", AS_VERCMP_FLAG_NONE));
 }
 
 /**

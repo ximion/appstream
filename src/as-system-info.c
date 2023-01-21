@@ -376,6 +376,24 @@ as_system_info_get_kernel_version (AsSystemInfo *sysinfo)
 }
 
 /**
+ * as_system_info_set_kernel:
+ * @sysinfo: a #AsSystemInfo instance.
+ * @name: the kernel name.
+ * @version: the kernel version.
+ *
+ * Override the kernel data.
+ *
+ * Internal API.
+ */
+void
+as_system_info_set_kernel (AsSystemInfo *sysinfo, const gchar *name, const gchar *version)
+{
+	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	as_assign_string_safe (priv->kernel_name, name);
+	as_assign_string_safe (priv->kernel_version, version);
+}
+
+/**
  * as_get_physical_memory_total:
  */
 static gulong
@@ -411,6 +429,22 @@ as_system_info_get_memory_total (AsSystemInfo *sysinfo)
 	if (priv->memory_total == 0)
 		priv->memory_total = as_get_physical_memory_total ();
 	return priv->memory_total;
+}
+
+/**
+ * as_system_info_set_memory_total:
+ * @sysinfo: a #AsSystemInfo instance.
+ * @size_mib: the size to set.
+ *
+ * Override the memory size.
+ *
+ * Internal API.
+ */
+void
+as_system_info_set_memory_total (AsSystemInfo *sysinfo, gulong size_mib)
+{
+	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	priv->memory_total = size_mib;
 }
 
 /**

@@ -22,6 +22,7 @@
 #include "appstream.h"
 #include "as-news-convert.h"
 #include "as-utils-private.h"
+#include "as-system-info-private.h"
 
 #include "as-test-utils.h"
 
@@ -264,6 +265,9 @@ test_readwrite_text_news (void)
 	g_free (tmp);
 }
 
+/**
+ * test_locale_strip_encoding:
+ */
 static void
 test_locale_strip_encoding (void)
 {
@@ -278,6 +282,63 @@ test_locale_strip_encoding (void)
 	g_assert_cmpstr (c, ==, "C");
 	g_assert_cmpstr (cutf8, ==, "C");
 	g_assert_cmpstr (cutf8valencia, ==, "C@valencia");
+}
+
+/**
+ * test_relation_satisfy_check:
+ */
+static void
+test_relation_satisfy_check (void)
+{
+	g_autoptr(AsSystemInfo) sysinfo = NULL;
+	g_autoptr(AsRelation) relation = NULL;
+	g_autofree gchar *osrelease_fname = NULL;
+	AsCheckResult r;
+	g_autoptr(GError) error = NULL;
+
+	sysinfo = as_system_info_new ();
+	relation = as_relation_new ();
+
+	osrelease_fname = g_build_filename (datadir, "os-release-1", NULL);
+	as_system_info_load_os_release (sysinfo, osrelease_fname);
+	as_system_info_set_kernel (sysinfo, "Linux", "6.2.0-1");
+	as_system_info_set_memory_total (sysinfo, 4096);
+
+	/* test memory */
+	as_relation_set_kind (relation, AS_RELATION_KIND_RECOMMENDS);
+	as_relation_set_item_kind (relation, AS_RELATION_ITEM_KIND_MEMORY);
+	as_relation_set_value_int (relation, 2500);
+
+	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (r, ==, AS_CHECK_RESULT_TRUE);
+
+	as_relation_set_value_int (relation, 8000);
+	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (r, ==, AS_CHECK_RESULT_FALSE);
+
+	/* test kernel */
+	as_relation_set_kind (relation, AS_RELATION_KIND_REQUIRES);
+	as_relation_set_item_kind (relation, AS_RELATION_ITEM_KIND_KERNEL);
+	as_relation_set_value_str (relation, "Linux");
+	as_relation_set_version (relation, "6.2");
+	as_relation_set_compare (relation, AS_RELATION_COMPARE_GE);
+
+	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (r, ==, AS_CHECK_RESULT_TRUE);
+
+	as_relation_set_value_str (relation, "FreeBSD");
+	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (r, ==, AS_CHECK_RESULT_FALSE);
+
+	as_relation_set_value_str (relation, "Linux");
+	as_relation_set_compare (relation, AS_RELATION_COMPARE_LT);
+	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (r, ==, AS_CHECK_RESULT_FALSE);
 }
 
 int
@@ -303,6 +364,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Misc/YAMLNews", test_readwrite_yaml_news);
 	g_test_add_func ("/AppStream/Misc/TextNews", test_readwrite_text_news);
 	g_test_add_func ("/AppStream/Misc/StripLocaleEncoding", test_locale_strip_encoding);
+	g_test_add_func ("/AppStream/Misc/RelationSatisfyCheck", test_relation_satisfy_check);
 
 	ret = g_test_run ();
 	g_free (datadir);

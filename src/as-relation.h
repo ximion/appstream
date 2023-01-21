@@ -227,6 +227,26 @@ typedef enum  {
 	AS_INTERNET_KIND_LAST
 } AsInternetKind;
 
+/**
+ * AsRelationError:
+ * @AS_RELATION_ERROR_FAILED:			Generic failure
+ * @AS_RELATION_ERROR_BAD_VALUE:		A metadata value was bad.
+ * @AS_RELATION_ERROR_NOT_IMPLEMENTED:		Some check was not (yet) implemented.
+ *
+ * The error type.
+ **/
+typedef enum {
+	AS_RELATION_ERROR_FAILED,
+	AS_RELATION_ERROR_BAD_VALUE,
+	AS_RELATION_ERROR_NOT_IMPLEMENTED,
+	/*< private >*/
+	AS_RELATION_ERROR_LAST
+} AsRelationError;
+
+#define	AS_RELATION_ERROR				as_relation_error_quark ()
+
+GQuark		 	as_relation_error_quark (void);
+
 const gchar		*as_relation_kind_to_string (AsRelationKind kind);
 AsRelationKind		as_relation_kind_from_string (const gchar *kind_str);
 
@@ -300,6 +320,12 @@ void			as_relation_set_value_internet_bandwidth (AsRelation *relation,
 gboolean		as_relation_version_compare (AsRelation *relation,
 						     const gchar *version,
 						     GError **error);
+
+AsCheckResult		as_relation_is_satisfied (AsRelation *relation,
+						  AsSystemInfo *system_info,
+						  AsPool *pool,
+						  gchar **message,
+						  GError **error);
 
 /* DEPRECATED */
 

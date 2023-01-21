@@ -21,10 +21,14 @@
 #include "as-relation-private.h"
 
 #include <config.h>
+#include <glib/gi18n-lib.h>
 #include <glib.h>
 
 #include "as-utils.h"
 #include "as-vercmp.h"
+
+#include "as-pool.h"
+#include "as-system-info.h"
 
 /**
  * SECTION:as-relation
@@ -58,6 +62,15 @@ typedef struct
 G_DEFINE_TYPE_WITH_PRIVATE (AsRelation, as_relation, G_TYPE_OBJECT)
 
 #define GET_PRIVATE(o) (as_relation_get_instance_private (o))
+
+/**
+ * as_relation_error_quark:
+ *
+ * Return value: An error quark.
+ *
+ * Since: 0.16.0
+ */
+G_DEFINE_QUARK (as-relation-error-quark, as_relation_error)
 
 /**
  * as_relation_kind_to_string:
@@ -1462,6 +1475,386 @@ as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emi
 	}
 
 	as_yaml_mapping_end (emitter);
+}
+
+/**
+ * as_compare_int_match:
+ *
+ * Compare two integers and check if the comparison operator matches.
+ */
+static gboolean
+as_compare_int_match (glong first, AsRelationCompare compare, glong second)
+{
+	g_return_val_if_fail (compare != AS_RELATION_COMPARE_UNKNOWN, FALSE);
+
+	switch (compare) {
+	case AS_RELATION_COMPARE_EQ:
+		return first == second;
+	case AS_RELATION_COMPARE_NE:
+		return first != 0;
+	case AS_RELATION_COMPARE_LT:
+		return first < second;
+	case AS_RELATION_COMPARE_GT:
+		return first > second;
+	case AS_RELATION_COMPARE_LE:
+		return first <= second;
+	case AS_RELATION_COMPARE_GE:
+		return first >= second;
+	default:
+		return FALSE;
+	}
+}
+
+/**
+ * _as_set_satify_message:
+ */
+static void
+_as_set_satify_message (gchar **message, gchar *text)
+{
+	if (message == NULL) {
+		g_free (text);
+		return;
+	}
+	*message = text;
+}
+
+/**
+ * _as_get_control_missing_message:
+ */
+static gchar*
+_as_get_control_missing_message (AsControlKind c_kind, AsRelationKind r_kind)
+{
+	const gchar *ctl_name = NULL;
+
+	if (c_kind == AS_CONTROL_KIND_POINTING)
+		ctl_name = _("pointing device (e.g. a mouse)");
+	if (c_kind == AS_CONTROL_KIND_KEYBOARD)
+		ctl_name = _("keyboard");
+	if (c_kind == AS_CONTROL_KIND_GAMEPAD)
+		ctl_name = _("gamepad");
+	if (c_kind == AS_CONTROL_KIND_TV_REMOTE)
+		ctl_name = _("tv remote");
+	if (c_kind == AS_CONTROL_KIND_TABLET)
+		ctl_name = _("graphics tablet");
+
+	if (r_kind == AS_RELATION_KIND_REQUIRES) {
+		if (ctl_name != NULL) {
+			/* TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad" */
+			return g_strdup_printf (_("This software requires a %s for input."),
+						  ctl_name);
+		}
+
+		if (c_kind == AS_CONTROL_KIND_TOUCH)
+			return g_strdup (_("This software requires a touch input device."));
+		if (c_kind == AS_CONTROL_KIND_VOICE)
+			return g_strdup (_("This software requires a microphone to be controlled via voice input."));
+		if (c_kind == AS_CONTROL_KIND_VISION)
+			return g_strdup (_("This software requires a camera for input control."));
+		if (c_kind == AS_CONTROL_KIND_CONSOLE)
+			return g_strdup (_("This software requires a method for console input."));
+
+	} else if (r_kind == AS_RELATION_KIND_RECOMMENDS) {
+		if (ctl_name != NULL) {
+			/* TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad" */
+			return g_strdup_printf (_("This software recommends a %s for input."),
+						  ctl_name);
+		}
+
+		if (c_kind == AS_CONTROL_KIND_TOUCH)
+			return g_strdup (_("This software recommends a touch input device."));
+		if (c_kind == AS_CONTROL_KIND_VOICE)
+			return g_strdup (_("This software recommends a microphone to be controlled via voice input."));
+		if (c_kind == AS_CONTROL_KIND_VISION)
+			return g_strdup (_("This software recommends a camera for input control."));
+		if (c_kind == AS_CONTROL_KIND_CONSOLE)
+			return g_strdup (_("This software recommends a method for console input."));
+
+	} else if (r_kind == AS_RELATION_KIND_SUPPORTS) {
+
+		if (c_kind == AS_CONTROL_KIND_POINTING)
+			ctl_name = _("pointing devices (e.g. mice)");
+		if (c_kind == AS_CONTROL_KIND_KEYBOARD)
+			ctl_name = _("keyboards");
+		if (c_kind == AS_CONTROL_KIND_GAMEPAD)
+			ctl_name = _("gamepads");
+		if (c_kind == AS_CONTROL_KIND_TV_REMOTE)
+			ctl_name = _("tv remotes");
+		if (c_kind == AS_CONTROL_KIND_TABLET)
+			ctl_name = _("graphics tablets");
+
+		if (ctl_name != NULL) {
+			/* TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads" */
+			return g_strdup_printf (_("This software supports %s."),
+						  ctl_name);
+		}
+
+		if (c_kind == AS_CONTROL_KIND_TOUCH)
+			return g_strdup (_("This software supports touch input."));
+		if (c_kind == AS_CONTROL_KIND_VOICE)
+			return g_strdup (_("This software can be controlled via voice input."));
+		if (c_kind == AS_CONTROL_KIND_VISION)
+			return g_strdup (_("This software can be controlled via a camera."));
+		if (c_kind == AS_CONTROL_KIND_CONSOLE)
+			return g_strdup (_("This software supports operation via console commands."));
+	}
+
+	return NULL;
+}
+
+/**
+ * as_relation_is_satisfied:
+ * @relation: a #AsRelation instance.
+ * @system_info: (nullable): an #AsSystemInfo to use for system information.
+ * @pool: (nullable): an #AsPool to find component dependencies in.
+ * @message: (out) (optional): receive a localized status message.
+ * @error: a #GError.
+ *
+ * Test if this relation is satisfied on the current system or with the
+ * provided #AsPool. If no #AsSystemInfo is found, a temporary one will be
+ * created. If no #AsPool is provided, any component relationships can not
+ * be validated and an error will be thrown.
+ *
+ * Returns: %AS_CHECK_RESULT_TRUE if the system satisfies the relation, %AS_CHECK_RESULT_ERROR on error
+ */
+AsCheckResult
+as_relation_is_satisfied (AsRelation *relation,
+			  AsSystemInfo *system_info,
+			  AsPool *pool,
+			  gchar **message,
+			  GError **error)
+{
+	AsRelationPrivate *priv = GET_PRIVATE (relation);
+	g_autoptr(AsSystemInfo) sysinfo = NULL;
+
+	sysinfo = (system_info == NULL)? as_system_info_new () : g_object_ref (system_info);
+
+	/* Components */
+	if (priv->item_kind == AS_RELATION_ITEM_KIND_ID) {
+		g_autoptr(GPtrArray) cpts = NULL;
+		const gchar *cid;
+		if (pool == NULL) {
+			g_set_error_literal (error,
+						AS_RELATION_ERROR,
+						AS_RELATION_ERROR_FAILED,
+						"Unable to check ID relation status: No valid metadata pool was provided.");
+			return AS_CHECK_RESULT_ERROR;
+		}
+
+		cid = as_relation_get_value_str (relation);
+		if (cid == NULL) {
+			g_set_error_literal (error,
+						AS_RELATION_ERROR,
+						AS_RELATION_ERROR_BAD_VALUE,
+						"Unable to check ID relation status: This relation is invalid, it has no valid value.");
+			return AS_CHECK_RESULT_ERROR;
+		}
+		cpts = as_pool_get_components_by_id (pool, cid);
+
+		if (cpts->len > 0) {
+			_as_set_satify_message (message,
+						g_strdup_printf (_("Software '%s' was found"),
+								 as_component_get_name (g_ptr_array_index (cpts, 0))));
+			return AS_CHECK_RESULT_TRUE;
+		} else {
+			if (priv->kind == AS_RELATION_KIND_REQUIRES)
+				_as_set_satify_message (message,
+							g_strdup_printf (_("Required software component '%s' is missing."),
+									cid));
+			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
+				_as_set_satify_message (message,
+							g_strdup_printf (_("Recommended software component '%s' is missing."),
+									cid));
+			return AS_CHECK_RESULT_FALSE;
+		}
+	}
+
+	/* Modaliases */
+	if (priv->item_kind == AS_RELATION_ITEM_KIND_MODALIAS) {
+		const gchar *modalias;
+		g_autofree gchar *device_name = NULL;
+
+		modalias = as_relation_get_value_str (relation);
+		if (modalias == NULL) {
+			g_set_error_literal (error,
+						AS_RELATION_ERROR,
+						AS_RELATION_ERROR_BAD_VALUE,
+						"Unable to check modalias relation status: This relation is invalid, it has no valid value.");
+			return AS_CHECK_RESULT_ERROR;
+		}
+
+		device_name = as_system_info_get_device_name_for_modalias (sysinfo,
+									   modalias,
+									   TRUE,
+									   NULL);
+		if (device_name == NULL)
+			device_name = g_strdup (modalias);
+
+		if (as_system_info_has_device_matching_modalias (sysinfo, modalias)) {
+			_as_set_satify_message (message,
+						g_strdup_printf (_("Found hardware that is supported by this software: '%s'"),
+								 device_name));
+			return AS_CHECK_RESULT_TRUE;
+		} else {
+			if (priv->kind == AS_RELATION_KIND_REQUIRES)
+				_as_set_satify_message (message,
+							g_strdup_printf (_("Required hardware for this software was not found on this system: '%s'"),
+									device_name));
+			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
+				_as_set_satify_message (message,
+							g_strdup_printf (_("Recommended hardware for this software was not found on this system: '%s'"),
+									device_name));
+			else
+				_as_set_satify_message (message,
+							g_strdup_printf (_("This software supports hardware not present in this system: '%s'"),
+									device_name));
+			return AS_CHECK_RESULT_FALSE;
+		}
+	}
+
+	/* Kernels */
+	if (priv->item_kind == AS_RELATION_ITEM_KIND_KERNEL) {
+		const gchar *req_kernel_name;
+		const gchar *current_kernel_name;
+		const gchar *current_kernel_version;
+		const gchar *req_kernel_version;
+
+		current_kernel_name = as_system_info_get_kernel_name (sysinfo);
+		if (current_kernel_name == NULL) {
+			g_set_error_literal (error,
+						AS_SYSTEM_INFO_ERROR,
+						AS_SYSTEM_INFO_ERROR_NOT_FOUND,
+						"Unable to determine the current kernel name.");
+			return AS_CHECK_RESULT_ERROR;
+		}
+
+		req_kernel_name = as_relation_get_value_str (relation);
+		if (req_kernel_name == NULL) {
+			g_set_error_literal (error,
+						AS_RELATION_ERROR,
+						AS_RELATION_ERROR_BAD_VALUE,
+						"Unable to check kernel relation status: No valid value set for relation.");
+			return AS_CHECK_RESULT_ERROR;
+		}
+
+		if (g_ascii_strcasecmp (current_kernel_name, req_kernel_name) != 0) {
+			if (priv->kind == AS_RELATION_KIND_REQUIRES)
+				_as_set_satify_message (message,
+							g_strdup_printf (_("This software requires a %s kernel, but this system is running %s."),
+									req_kernel_name, current_kernel_name));
+			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
+				_as_set_satify_message (message,
+							g_strdup_printf (_("This software recommends a %s kernel, but this system is running %s."),
+									req_kernel_name, current_kernel_name));
+			else
+				_as_set_satify_message (message,
+							g_strdup_printf (_("This software only supports a %s kernel, but my run on %s anyway."),
+									req_kernel_name, current_kernel_name));
+			return AS_CHECK_RESULT_FALSE;
+		}
+
+		current_kernel_version = as_system_info_get_kernel_version (sysinfo);
+		req_kernel_version = as_relation_get_version (relation);
+
+		/* if no version was specified, we just needed to test for a kernel name */
+		if (req_kernel_version == NULL)
+			return AS_CHECK_RESULT_TRUE;
+
+		if (!as_vercmp_test_match (current_kernel_version,
+					   as_relation_get_compare (relation),
+					   req_kernel_version,
+					   AS_VERCMP_FLAG_NONE)) {
+			const gchar *compare_symbols = as_relation_compare_to_symbols_string (as_relation_get_compare (relation));
+			if (priv->kind == AS_RELATION_KIND_REQUIRES)
+				/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
+				 * second is comparison operator (e.g. >=), third is the expected version number and fourth is the version we are running. */
+				_as_set_satify_message (message,
+							g_strdup_printf (_("This software requires %s %s %s, but this system is running version %s."),
+									current_kernel_name, compare_symbols, req_kernel_version, current_kernel_version));
+			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
+				/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
+				 * second is comparison operator (e.g. >=), third is the expected version number and fourth is the version we are running. */
+				_as_set_satify_message (message,
+							g_strdup_printf (_("The use of %s %s %s is recommended, but this system is running version %s."),
+									current_kernel_name, compare_symbols, req_kernel_version, current_kernel_version));
+			return AS_CHECK_RESULT_FALSE;
+		}
+
+		/* if we are here, we are running an acceptable kernel version */
+		return AS_CHECK_RESULT_TRUE;
+	}
+
+	/* Physical Memory */
+	if (priv->item_kind == AS_RELATION_ITEM_KIND_MEMORY) {
+		gulong req_memory;
+		gulong current_memory;
+
+		req_memory = as_relation_get_value_int (relation);
+		if (req_memory == 0) {
+			g_set_error_literal (error,
+						AS_RELATION_ERROR,
+						AS_RELATION_ERROR_BAD_VALUE,
+						"Unable to check memory relation: No valid value set in metadata.");
+			return AS_CHECK_RESULT_ERROR;
+		}
+
+		current_memory = as_system_info_get_memory_total (sysinfo);
+
+		if (!as_compare_int_match (current_memory, as_relation_get_compare (relation), req_memory)) {
+			const gchar *compare_symbols = as_relation_compare_to_symbols_string (as_relation_get_compare (relation));
+			if (priv->kind == AS_RELATION_KIND_REQUIRES)
+				/* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
+				 * second is the expected amount of memory and fourth is the amount of memory we have. */
+				_as_set_satify_message (message,
+							g_strdup_printf (_("This software requires %s %.2f GiB of memory, but this system has %.2f GiB."),
+									compare_symbols, req_memory / 1024.0, current_memory / 1024.0));
+			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
+				/* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
+				 * second is the expected amount of memory and fourth is the amount of memory we have. */
+				_as_set_satify_message (message,
+							g_strdup_printf (_("This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."),
+									compare_symbols, req_memory / 1024.0, current_memory / 1024.0));
+			return AS_CHECK_RESULT_FALSE;
+		}
+
+		/* if we are here, we have sufficient memory */
+		return AS_CHECK_RESULT_TRUE;
+	}
+
+	/* User Input Controls */
+	if (priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
+		AsCheckResult res;
+		AsControlKind control_kind;
+		GError *tmp_error = NULL;
+
+		control_kind = as_relation_get_value_control_kind (relation);
+		res = as_system_info_has_input_control (sysinfo,
+							control_kind,
+							&tmp_error);
+		if (res == AS_CHECK_RESULT_ERROR) {
+			g_propagate_error (error, tmp_error);
+			return AS_CHECK_RESULT_ERROR;
+		}
+
+		if (res == AS_CHECK_RESULT_FALSE || priv->kind == AS_RELATION_KIND_SUPPORTS)
+			_as_set_satify_message (message,
+						_as_get_control_missing_message (control_kind, priv->kind));
+		return res;
+	}
+
+	/* TODO: Still needs implementation:
+	 *   AS_RELATION_ITEM_KIND_FIRMWARE
+	 *   AS_RELATION_ITEM_KIND_DISPLAY_LENGTH
+	 *   AS_RELATION_ITEM_KIND_HARDWARE
+	 *   AS_RELATION_ITEM_KIND_INTERNET
+	 */
+
+	g_set_error (error,
+		     AS_RELATION_ERROR,
+		     AS_RELATION_ERROR_NOT_IMPLEMENTED,
+		     "Relation satisfy check for items of type '%s' is not implemented yet.",
+		     as_relation_item_kind_to_string (priv->item_kind));
+
+	return AS_CHECK_RESULT_ERROR;
 }
 
 /**
