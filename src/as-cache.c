@@ -1746,7 +1746,7 @@ as_cache_get_components_by_provided_item (AsCache *cache, AsProvidedKind kind, c
  * @categories: List of category names.
  * @error: A #GError or %NULL.
  *
- * get a list of components in the selected categories.
+ * Get a list of components in the selected categories.
  *
  * Returns: (transfer full): An array of #AsComponent
  */
@@ -1762,6 +1762,14 @@ as_cache_get_components_by_categories (AsCache *cache, gchar **categories, GErro
 
 	xpath = g_string_new ("components/component/categories");
 	for (guint i = 0; categories[i] != NULL; i++) {
+		if (i >= 4) {
+			g_set_error_literal (error,
+						AS_CACHE_ERROR,
+						AS_CACHE_ERROR_PERMISSIONS,
+						"Due to limitations in libxmlb, we currently can not search for software "
+						"in more than 4 categories.");
+			return NULL;
+		}
 		g_string_append (xpath, "/category[text()=?]/..");
 		xb_value_bindings_bind_str (vbindings, i,
 					    categories[i],
