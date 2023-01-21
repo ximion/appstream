@@ -417,6 +417,37 @@ as_client_run_what_provides (const gchar *command, char **argv, int argc)
 }
 
 /**
+ * as_client_run_list_categories:
+ *
+ * Find components that are in the listed categories.
+ */
+static int
+as_client_run_list_categories (const gchar *command, char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+	g_auto(GStrv) categories = NULL;
+
+	opt_context = as_client_new_subcommand_option_context (command, find_options);
+	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
+
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 2) {
+		categories = g_new0 (gchar*, argc - 1);
+		for (gint i = 0; i < (argc - 2); i++)
+			categories[i] = g_strdup (argv[i + 2]);
+	}
+
+	return ascli_list_categories (optn_cachepath,
+					categories,
+					optn_details,
+					optn_no_cache);
+}
+
+/**
  * as_client_run_validate:
  *
  * Validate single metadata files.
@@ -1252,6 +1283,11 @@ as_client_run (char **argv, int argc)
 			/* TRANSLATORS: `appstreamcli what-provides` command description. */
 			_("Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."),
 			as_client_run_what_provides);
+	ascli_add_cmd (commands,
+			0, "list-categories", NULL, "NAMES",
+			/* TRANSLATORS: `appstreamcli list-categories` command description. */
+			_("List components that are part of the specified categories."),
+			as_client_run_list_categories);
 
 	ascli_add_cmd (commands,
 			1, "dump", NULL, "COMPONENT-ID",

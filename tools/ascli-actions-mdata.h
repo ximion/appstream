@@ -41,6 +41,11 @@ int		ascli_get_component (const gchar *cachepath,
 					gboolean detailed,
 					gboolean no_cache);
 
+int		ascli_list_categories (const gchar *cachepath,
+					gchar **categories,
+					gboolean detailed,
+					gboolean no_cache);
+
 int		ascli_refresh_cache (const gchar *cachepath,
 					const gchar *datapath,
 					const gchar * const* sources_str,
