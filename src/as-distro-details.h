@@ -46,15 +46,15 @@ struct _AsDistroDetailsClass
 
 AsDistroDetails		*as_distro_details_new (void);
 
-G_DEPRECATED
+G_DEPRECATED_FOR(as_system_info_get_os_id)
 const gchar		*as_distro_details_get_id (AsDistroDetails *distro);
-G_DEPRECATED
+G_DEPRECATED_FOR(as_system_info_get_os_cid)
 const gchar		*as_distro_details_get_cid (AsDistroDetails *distro);
-G_DEPRECATED
+G_DEPRECATED_FOR(as_system_info_get_os_name)
 const gchar		*as_distro_details_get_name (AsDistroDetails *distro);
-G_DEPRECATED
+G_DEPRECATED_FOR(as_system_info_get_os_version)
 const gchar		*as_distro_details_get_version (AsDistroDetails *distro);
-G_DEPRECATED
+G_DEPRECATED_FOR(as_system_info_get_os_homepage)
 const gchar		*as_distro_details_get_homepage (AsDistroDetails *distro);
 
 gchar			*as_distro_details_get_str (AsDistroDetails *distro,
