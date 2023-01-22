@@ -1115,6 +1115,12 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	if (cid[0] != '\0' && g_ascii_ispunct (cid[0]))
 		as_validator_add_issue (validator, idnode, "cid-punctuation-prefix", cid);
 
+	/* There is no point in validating component IDs for merge components, as those must follow
+	 * their counterparts, so they may need to replicate any error present there. We therefore
+	 * skip this entire check if we have a merge component. */
+	if (as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE)
+		return;
+
 	cid_parts = g_strsplit (cid, ".", -1);
 	if (g_strv_length (cid_parts) < 3) {
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
@@ -2379,6 +2385,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	g_autoptr(GHashTable) known_relation_items = NULL;
 	g_autofree gchar *date_eol_str = NULL;
 	guint64 known_url_kinds = 0;
+	gboolean is_merge_cpt = FALSE;
 
 	AsFormatStyle mode;
 	gboolean has_metadata_license = FALSE;
@@ -2394,6 +2401,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	as_component_load_from_xml (cpt, ctx, root, NULL);
 	as_component_set_active_locale (cpt, "C");
 	as_validator_set_current_cpt (validator, cpt);
+	is_merge_cpt = as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE;
 
 	/* check if component type is valid */
 	cpttype = as_xml_get_prop_value (root, "type");
@@ -2414,7 +2422,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	if ((as_component_get_priority (cpt) != 0) && (mode == AS_FORMAT_STYLE_METAINFO))
 		as_validator_add_issue (validator, root, "component-priority-in-metainfo", NULL);
 
-	if ((as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) && (mode == AS_FORMAT_STYLE_METAINFO))
+	if (is_merge_cpt && mode == AS_FORMAT_STYLE_METAINFO)
 		as_validator_add_issue (validator, root, "component-merge-in-metainfo", NULL);
 
 	/* the component must have an id */
@@ -2424,13 +2432,13 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	}
 
 	/* the component must have a name */
-	if (as_is_empty (as_component_get_name (cpt))) {
+	if (as_is_empty (as_component_get_name (cpt)) && !is_merge_cpt) {
 		/* we don't have a name */
 		as_validator_add_issue (validator, NULL, "component-name-missing", NULL);
 	}
 
 	/* the component must have a summary */
-	if (as_is_empty (as_component_get_summary (cpt))) {
+	if (as_is_empty (as_component_get_summary (cpt)) && !is_merge_cpt) {
 		/* we don't have a summary */
 		as_validator_add_issue (validator, NULL, "component-summary-missing", NULL);
 	}
@@ -2917,7 +2925,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	}
 
 	/* check content_rating */
-	if (as_component_get_content_ratings (cpt)->len == 0) {
+	if (as_component_get_content_ratings (cpt)->len == 0 && !is_merge_cpt) {
 		AsComponentKind kind = as_component_get_kind (cpt);
 		if (kind == AS_COMPONENT_KIND_DESKTOP_APP ||
 		    kind == AS_COMPONENT_KIND_CONSOLE_APP ||
