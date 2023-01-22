@@ -5,7 +5,7 @@
 # Translators:
 # sebras <sebras@gmail.com>, 2015-2016.
 # Josef Andersson <l10nl18nsweja@gmail.com>, 2015, 2017.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2021, 2022.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2021, 2022, 2023.
 # Mattias Münster <mattiasmun@gmail.com>, 2019.
 # #-#-#-#-#  sv.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
@@ -15,9 +15,9 @@
 # sebras <sebras@gmail.com>, 2015-2016
 # Göran Uddeborg <goeran@uddeborg.se>, 2016. #zanata
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2017. #zanata, 2021, 2022.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2017. #zanata, 2021, 2022, 2023.
 # Göran Uddeborg <goeran@uddeborg.se>, 2018. #zanata
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019. #zanata, 2021, 2022.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019. #zanata, 2021, 2022, 2023.
 # Ulf Lundh <ulf@lundh.me>, 2020.
 # Luna Jernberg <droidbittin@gmail.com>, 2022.
 #
@@ -27,16 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-22 02:22+0100\n"
-"PO-Revision-Date: 2022-12-24 03:49+0000\n"
+"PO-Revision-Date: 2023-01-22 20:09+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.15.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1058,39 +1057,37 @@ msgstr "Komponent"
 
 #: src/as-relation.c:1530
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "ett pekdon (t.ex. en mus)"
 
 #: src/as-relation.c:1532
-#, fuzzy
 msgid "keyboard"
-msgstr "Brädspel"
+msgstr "ett tangentbord"
 
 #: src/as-relation.c:1534
 msgid "gamepad"
-msgstr ""
+msgstr "en handkontroll"
 
 #: src/as-relation.c:1536
 msgid "tv remote"
-msgstr ""
+msgstr "en tv-fjärrkontroll"
 
 #: src/as-relation.c:1538
 msgid "graphics tablet"
-msgstr ""
+msgstr "en ritplatta"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1543
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires a %s for input."
-msgstr "Denna tagg kräver en typegenskap."
+msgstr "Denna tagg kräver %s för inmatning."
 
 #: src/as-relation.c:1548
-#, fuzzy
 msgid "This software requires a touch input device."
-msgstr "Denna tagg kräver en typegenskap."
+msgstr "Denna programvara kräver en pekinmatningsenhet."
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Denna programvara kräver en mikrofon för att styras via röstinmatning."
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."
