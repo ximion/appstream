@@ -42,18 +42,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-22 02:22+0100\n"
-"PO-Revision-Date: 2023-01-18 22:47+0000\n"
+"PO-Revision-Date: 2023-01-22 20:09+0000\n"
 "Last-Translator: lenemter <lenemter@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
-"translations/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 4.15.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1079,127 +1076,124 @@ msgstr "Компонент"
 
 #: src/as-relation.c:1530
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "устройство управления (например, мышь)"
 
 #: src/as-relation.c:1532
-#, fuzzy
 msgid "keyboard"
-msgstr "Настольные"
+msgstr "клавиатуру"
 
 #: src/as-relation.c:1534
 msgid "gamepad"
-msgstr ""
+msgstr "геймпад"
 
 #: src/as-relation.c:1536
 msgid "tv remote"
-msgstr ""
+msgstr "телевизионный пульт"
 
 #: src/as-relation.c:1538
 msgid "graphics tablet"
-msgstr ""
+msgstr "графический планшет"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1543
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires a %s for input."
-msgstr "Для этого тега требуется свойство типа."
+msgstr "Это приложение требует %s для управления."
 
 #: src/as-relation.c:1548
-#, fuzzy
 msgid "This software requires a touch input device."
-msgstr "Для этого тега требуется свойство типа."
+msgstr "Это приложение требует устройство сенсорного ввода."
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Это приложение требует микрофон для управления с помощью голоса."
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "Это приложение требует камеру для управления."
 
 #: src/as-relation.c:1554
-#, fuzzy
 msgid "This software requires a method for console input."
-msgstr "Для этого тега требуется свойство типа."
+msgstr "Это приложение требует консоль для управления."
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1559
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "Это приложение рекомендует %s для управления."
 
 #: src/as-relation.c:1564
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "Это приложение рекомендует устройство сенсорного ввода."
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Это приложение рекомендует микрофон для управления с помощью голоса."
 
 #: src/as-relation.c:1568
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "Это приложение рекомендует камеру для управления."
 
 #: src/as-relation.c:1570
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "Это приложение рекомендует консоль для управления."
 
 #: src/as-relation.c:1575
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "устройства управления (например, мыши)"
 
 #: src/as-relation.c:1577
 msgid "keyboards"
-msgstr ""
+msgstr "клавиатуры"
 
 #: src/as-relation.c:1579
 msgid "gamepads"
-msgstr ""
+msgstr "геймпады"
 
 #: src/as-relation.c:1581
 msgid "tv remotes"
-msgstr ""
+msgstr "телевизионные пульты"
 
 #: src/as-relation.c:1583
 msgid "graphics tablets"
-msgstr ""
+msgstr "графические планшеты"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1587
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "Это приложение поддерживает %s."
 
 #: src/as-relation.c:1592
 msgid "This software supports touch input."
-msgstr ""
+msgstr "Это приложение поддерживает сенсорный ввод."
 
 #: src/as-relation.c:1594
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "Это приложение поддерживает голосовое управление."
 
 #: src/as-relation.c:1596
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "Это приложение поддерживает камеру для управления."
 
 #: src/as-relation.c:1598
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "Это приложение поддерживает управление через консоль."
 
 #: src/as-relation.c:1655
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "Приложение «%s» было найдено"
 
 #: src/as-relation.c:1661
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Необходимый программный компонент «%s» отсутствует."
 
 #: src/as-relation.c:1665
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Рекомендуемый программный компонент «%s» отсутствует."
 
 #: src/as-relation.c:1694
 #, c-format
@@ -2372,9 +2366,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:837
-#, fuzzy
 msgid "Failed to download release metadata."
-msgstr "Не удалось загрузить файл: %s"
+msgstr "Не удалось загрузить метаданные выпуска."
 
 #: src/as-validator-issue-tag.h:842
 msgid ""
