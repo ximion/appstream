@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-22 02:22+0100\n"
-"PO-Revision-Date: 2023-01-22 07:23+0000\n"
+"PO-Revision-Date: 2023-01-22 20:09+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
@@ -1203,35 +1203,35 @@ msgstr "Для цього програмного забезпечення пот
 #: src/as-relation.c:1746
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Для цього програмного забезпечення рекомендоване ядро %s, але у цій системі працює ядро %s."
 
 #: src/as-relation.c:1750
 #, c-format
 msgid "This software only supports a %s kernel, but my run on %s anyway."
-msgstr ""
+msgstr "У цьому програмному забезпеченні передбачено підтримку лише ядра %s, але, попри це, воно може працювати і на ядрі %s."
 
 #: src/as-relation.c:1771
 #, c-format
 msgid "This software requires %s %s %s, but this system is running version %s."
-msgstr ""
+msgstr "Для цього програмного забезпечення потрібна версія %s %s %s, але у цій системі маємо версію %s."
 
 #: src/as-relation.c:1777
 #, c-format
 msgid ""
 "The use of %s %s %s is recommended, but this system is running version %s."
-msgstr ""
+msgstr "Рекомендоване використання %s %s %s, але у цій системі використано версію %s."
 
 #: src/as-relation.c:1808
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Для роботи цього програмного забезпечення потрібно %s %.2f ГіБ оперативної пам'яті, але у цій системі лише %.2f ГіБ."
 
 #: src/as-relation.c:1814
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Для роботи цього програмного забезпечення рекомендовано %s %.2f ГіБ оперативної пам'яті, але у цій системі лише %.2f ГіБ."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1250,18 +1250,12 @@ msgstr ""
 "проекту). Замiсть цього перекладiть окремі абзаци вмісту."
 
 #: src/as-validator-issue-tag.h:57
-#, fuzzy
 msgid ""
 "This element (paragraph, list, etc.) of a <description/> tag must not be "
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr ""
-"Цей елемент (абзац, список тощо) теґу <description/> не варто перекладати "
-"окремо у збірці метаданих. Замість цього, має бути здійснено переклад цілого "
-"теґу <description/>. Засіб створення збірок AppStream (наприклад «appstream-"
-"generator») має автоматично виконати правильне форматування під час "
-"компілювання даних."
+msgstr "Цей елемент (абзац, список тощо) теґу <description/> не варто перекладати окремо у збірці метаданих. Замість цього, має бути здійснено переклад цілого теґу <description/>. Засіб створення збірок AppStream (наприклад «appstream-generator») має автоматично виконати потрібні дії під час компілювання даних."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -1337,12 +1331,9 @@ msgstr ""
 "міститися дані."
 
 #: src/as-validator-issue-tag.h:111
-#, fuzzy
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
-msgstr ""
-"У компоненті встановлено значення пріоритетності (priority). Цього не можна "
-"робити у файлах metainfo."
+msgstr "У згаданому тезі містяться текстові дані, хоча у ньому не повинно бути таких даних."
 
 #: src/as-validator-issue-tag.h:116
 msgid ""
@@ -1509,40 +1500,37 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:210
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "Значення властивості «width» має бути додатним цілим числом."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:216
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "Значення властивості «height» має бути додатним цілим числом."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:222
-#, fuzzy
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
-"Встановлене як тип об'єкта значення є некоректним. Має бути «source» або "
-"«binary»."
+msgstr "Типом зображення має бути «source» або «thumbnail»."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:228
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "Якщо типом зображення є «thumbnail», має бути вказано властивість «width»."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:234
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "Якщо типом зображення є «thumbnail», має бути вказано властивість «height»."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:240
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "На один знімок і одну мову має бути лише один запис «source» зображення."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:246
 msgid "A screenshot must have at least one image of type `source`."
-msgstr ""
+msgstr "У знімка вікна має бути принаймні одне зображення типу «source»."
 
 #: src/as-validator-issue-tag.h:251
 msgid ""
@@ -1657,7 +1645,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:320
 msgid "No screenshot is marked as default."
-msgstr ""
+msgstr "Як типовий не позначено жоден зі знімків вікон."
 
 #: src/as-validator-issue-tag.h:325
 msgid ""
@@ -1813,7 +1801,7 @@ msgstr "Встановлене значення теґу не є коректн�
 msgid ""
 "The `bandwidth_mbitps` property is not allowed when using `offline-only` as "
 "value."
-msgstr ""
+msgstr "Не можна використовувати властивість «bandwidth_mbitps», якщо використано «offline-only» як значення."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
@@ -2001,11 +1989,9 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:575
-#, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr ""
-"Теґ «update_contact» не можна включати до XML збірки (collection) AppStream."
+msgstr "Теґ «update_contact» не можна включати до XML каталогу AppStream."
 
 #: src/as-validator-issue-tag.h:580
 msgid ""
@@ -2238,12 +2224,9 @@ msgstr "Форматування XML у цьому файлі є помилко�
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:736
-#, fuzzy
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr ""
-"У метаданих збірки виявлено некоректний теґ. Можна використовувати лише теґи "
-"«component»."
+msgstr "У метаданих каталогу виявлено некоректний теґ. Можна використовувати лише теґи «component»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:742
@@ -2367,24 +2350,23 @@ msgstr ""
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
-msgstr ""
+msgstr "Тип блокування за випуском є некоректним. Мало бути вказано «embedded» (типовий варіант) або «external»."
 
 #: src/as-validator-issue-tag.h:832
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
-msgstr ""
+msgstr "Адреса файла зовнішніх метаданих випуску не є безпечною. Так не можна робити. Будь ласка, використовуйте лише адреси HTTPS."
 
 #: src/as-validator-issue-tag.h:837
-#, fuzzy
 msgid "Failed to download release metadata."
-msgstr "Не вдалося отримати файл: %s"
+msgstr "Не вдалося отримати метадані випуску."
 
 #: src/as-validator-issue-tag.h:842
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
-msgstr ""
+msgstr "Не знайдено локального файла метаданих випуску. Наполегливо рекомендуємо виконати перевірку коректності цих метаданих разом із основним файлом MetaInfo."
 
 #: src/as-validator-issue-tag.h:848
 msgid "The value set as release urgency is not a known urgency value."
@@ -2581,31 +2563,27 @@ msgstr "Запис цього кольору не є коректним кодо
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:996
 msgid "The `custom` tag can only contain `value` children."
-msgstr ""
+msgstr "Дочірніми щодо теґу «custom» можуть бути лише теґи «value»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1002
-#, fuzzy
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr "У запис «tag» пропущено атрибут «namespace»."
+msgstr "У значенні теґу «custom» пропущено атрибут «key»."
 
 #: src/as-validator-issue-tag.h:1007
 msgid "A key can only be used once."
-msgstr ""
+msgstr "Ключ можна використовувати лише один раз."
 
 #: src/as-validator-issue-tag.h:1012
 msgid "This custom value is empty."
-msgstr ""
+msgstr "Це нетипове значення є порожнім."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1018
-#, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"Тег <keywords/> не потребує локалiзацiї у метафайлах (метадані основного "
-"проекту). Замiсть цього, перекладiть окремі записи ключових слів."
+msgstr "Тег «keywords» не потребує локалізацiї у метафайлах (метадані основного проєкту). Замість цього, перекладіть окремі записи ключових слів."
 
 #: src/as-validator.c:192
 msgid ""
@@ -2623,7 +2601,7 @@ msgstr "Формат адреси є некоректним."
 #: src/as-validator.c:470 src/as-validator.c:514
 #, c-format
 msgid "The release metadata file '%s' is named incorrectly."
-msgstr ""
+msgstr "Назва файла метаданих випуску «%s» є некоректною."
 
 #. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
 #: src/as-validator.c:653
@@ -2972,9 +2950,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:564
-#, fuzzy
 msgid "Set the data origin for the installed metadata catalog file."
-msgstr "Встановити дату походження для встановленого файла збірки метаданих."
+msgstr "Встановити дату походження для встановленого файла каталогу метаданих."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:569
@@ -3169,7 +3146,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1289
 msgid "List components that are part of the specified categories."
-msgstr ""
+msgstr "Вивести список компонентів, які є частиною вказаних категорій."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1295
@@ -3218,10 +3195,8 @@ msgstr "Вивести дані щодо стану доступних мета�
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1338
-#, fuzzy
 msgid "Show information about the current device and used operating system."
-msgstr ""
-"Показати відомості щодо поточної операційної системи з покажчика метаданих."
+msgstr "Показати відомості щодо поточного пристрою та використаної операційної системи."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1343
@@ -3230,9 +3205,8 @@ msgstr "Встановити файл метаданих у належному �
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1348
-#, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr "Перетворити XML збірки на YAML або навпаки."
+msgstr "Перетворити XML збірки метаданих на YAML або навпаки."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1353
@@ -3268,9 +3242,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1379
-#, fuzzy
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr "Скомпонувати метадані збірки AppStream з ієрархії каталогів."
+msgstr "Скомпонувати каталог метаданих AppStream з ієрархії каталогів."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1387
@@ -3355,21 +3328,20 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Не вдалося знайти компонент, що містить «%s::%s»."
 
 #: tools/ascli-actions-mdata.c:244
-#, fuzzy
 msgid "You need to specify categories to list."
-msgstr "Вам слід вказати ключ пошуку."
+msgstr "Вам слід вказати категорії для побудови списку."
 
 #. TRANSLATORS: We failed to find any component in these categories, likely due to an error
 #: tools/ascli-actions-mdata.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find components in %s!"
-msgstr "Не вдалося знайти компонент, що відповідає запиту %s!"
+msgstr "Не вдалося знайти компоненти у %s!"
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:265
 #, c-format
 msgid "No component found in categories %s."
-msgstr ""
+msgstr "У категоріях %s не знайдено компонентів."
 
 #: tools/ascli-actions-mdata.c:344
 msgid "You need to specify a metadata file."
@@ -3560,7 +3532,7 @@ msgstr "Вам слід вказати формат, у якому має бут
 
 #: tools/ascli-actions-misc.c:526
 msgid "Operating System Details"
-msgstr ""
+msgstr "Дані щодо операційної системи"
 
 #: tools/ascli-actions-misc.c:530
 #, c-format
@@ -3568,9 +3540,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr "Не вдалося знайти компонент операційної системи «%s»!"
 
 #: tools/ascli-actions-misc.c:536
-#, fuzzy
 msgid "ID"
-msgstr "Інтегровані середовища розробки (IDE)"
+msgstr "Ідентифікатор"
 
 #: tools/ascli-actions-misc.c:537 tools/ascli-actions-misc.c:556
 #: tools/ascli-utils.c:277
@@ -3596,7 +3567,7 @@ msgstr "Опис"
 
 #: tools/ascli-actions-misc.c:555
 msgid "Kernel"
-msgstr ""
+msgstr "Ядро"
 
 #: tools/ascli-actions-misc.c:557
 msgid "Version"
@@ -3604,24 +3575,23 @@ msgstr "Версія"
 
 #: tools/ascli-actions-misc.c:560
 msgid "Hardware"
-msgstr ""
+msgstr "Обладнання"
 
 #: tools/ascli-actions-misc.c:562
 msgid "Physical Memory"
-msgstr ""
+msgstr "Фізична пам'ять"
 
 #: tools/ascli-actions-misc.c:566
-#, fuzzy
 msgid "Devices with Modaliases"
-msgstr "Альтернативні режими"
+msgstr "Пристрої із файлами modaliases"
 
 #: tools/ascli-actions-misc.c:590
 msgid "User Input Controls"
-msgstr ""
+msgstr "Елементи введення користувачем"
 
 #: tools/ascli-actions-misc.c:593
 msgid "unknown"
-msgstr ""
+msgstr "невідомо"
 
 #: tools/ascli-actions-misc.c:600 tools/ascli-actions-validate.c:686
 #: tools/ascli-actions-validate.c:689
@@ -3736,9 +3706,9 @@ msgid "You need to specify at least one file to validate!"
 msgstr "Вам слід вказати принаймні один файл для перевірки!"
 
 #: tools/ascli-actions-validate.c:398
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to add release metadata file: %s"
-msgstr "Не вдалося зберегти файл метаданих: %s"
+msgstr "Не вдалося додати файл метаданих випуску: %s"
 
 #: tools/ascli-actions-validate.c:407
 msgid ""
@@ -3746,6 +3716,8 @@ msgid ""
 "Release metadata files can currently not be validated without their "
 "accompanying MetaInfo file."
 msgstr ""
+"Вам слід вказати принаймні один файл MetaInfo для перевірки.\n"
+"Файли метаданих випуску у поточній версії не можна перевірити, якщо їх не супроводжено файлом MetaInfo."
 
 #: tools/ascli-actions-validate.c:431 tools/ascli-actions-validate.c:565
 msgid "Validation was successful."
