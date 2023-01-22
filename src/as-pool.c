@@ -2079,7 +2079,7 @@ as_pool_get_components_by_kind_gir (AsPool *pool, AsComponentKind kind)
  * @pool: An instance of #AsDatabase.
  * @categories: (array zero-terminated=1): An array of XDG categories to include.
  *
- * Return a list of components which are in one of the categories.
+ * Return a list of components which are in all of the categories.
  *
  * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
  */
