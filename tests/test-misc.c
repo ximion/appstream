@@ -303,6 +303,8 @@ test_relation_satisfy_check (void)
 	as_system_info_load_os_release (sysinfo, osrelease_fname);
 	as_system_info_set_kernel (sysinfo, "Linux", "6.2.0-1");
 	as_system_info_set_memory_total (sysinfo, 4096);
+	as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_LONGEST, 3840);
+	as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_SHORTEST, 2160);
 
 	/* test memory */
 	as_relation_set_kind (relation, AS_RELATION_KIND_RECOMMENDS);
@@ -339,6 +341,22 @@ test_relation_satisfy_check (void)
 	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
 	g_assert_no_error (error);
 	g_assert_cmpint (r, ==, AS_CHECK_RESULT_FALSE);
+
+	/* test display length */
+	as_relation_set_kind (relation, AS_RELATION_KIND_RECOMMENDS);
+	as_relation_set_item_kind (relation, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
+	as_relation_set_display_side_kind (relation, AS_DISPLAY_SIDE_KIND_LONGEST);
+	as_relation_set_compare (relation, AS_RELATION_COMPARE_LE);
+	as_relation_set_value_int (relation, 640);
+
+	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (r, ==, AS_CHECK_RESULT_FALSE);
+
+	as_relation_set_compare (relation, AS_RELATION_COMPARE_GE);
+	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (r, ==, AS_CHECK_RESULT_TRUE);
 }
 
 int

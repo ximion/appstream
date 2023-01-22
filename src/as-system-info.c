@@ -787,6 +787,7 @@ static void
 as_system_info_mark_input_control_status (AsSystemInfo *sysinfo, AsControlKind kind, gboolean found)
 {
 	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+
 	as_flags_add (priv->tested_input_controls, (1 << kind));
 	if (found)
 		as_flags_add (priv->input_controls, (1 << kind));
@@ -860,6 +861,8 @@ AsCheckResult
 as_system_info_has_input_control (AsSystemInfo *sysinfo, AsControlKind kind, GError **error)
 {
 	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	g_return_val_if_fail (kind < AS_CONTROL_KIND_LAST, AS_CHECK_RESULT_UNKNOWN);
+	g_return_val_if_fail (kind != AS_CONTROL_KIND_UNKNOWN, AS_CHECK_RESULT_UNKNOWN);
 
 	if (!as_system_info_find_input_controls (sysinfo, error))
 		return AS_CHECK_RESULT_ERROR;
@@ -885,6 +888,8 @@ as_system_info_has_input_control (AsSystemInfo *sysinfo, AsControlKind kind, GEr
 void
 as_system_info_set_input_control (AsSystemInfo *sysinfo, AsControlKind kind, gboolean found)
 {
+	g_return_if_fail (kind < AS_CONTROL_KIND_LAST);
+	g_return_if_fail (kind != AS_CONTROL_KIND_UNKNOWN);
 	as_system_info_find_input_controls (sysinfo, NULL);
 	as_system_info_mark_input_control_status (sysinfo, kind, found);
 }
@@ -903,6 +908,9 @@ gulong
 as_system_info_get_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side)
 {
 	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	g_return_val_if_fail (side < AS_DISPLAY_SIDE_KIND_LAST, 0);
+	g_return_val_if_fail (side != AS_DISPLAY_SIDE_KIND_UNKNOWN, 0);
+
 	if (side == AS_DISPLAY_SIDE_KIND_LONGEST)
 		return priv->display_length_longest;
 	return priv->display_length_shortest;
@@ -923,6 +931,9 @@ void
 as_system_info_set_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side, gulong value_dip)
 {
 	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	g_return_if_fail (side < AS_DISPLAY_SIDE_KIND_LAST);
+	g_return_if_fail (side != AS_DISPLAY_SIDE_KIND_UNKNOWN);
+
 	if (side == AS_DISPLAY_SIDE_KIND_LONGEST)
 		priv->display_length_longest = value_dip;
 	priv->display_length_shortest = value_dip;

@@ -1841,9 +1841,81 @@ as_relation_is_satisfied (AsRelation *relation,
 		return res;
 	}
 
+	/* Display Length */
+	if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
+		gulong req_length;
+		gulong current_length;
+		AsDisplaySideKind side_kind;
+
+		req_length = as_relation_get_value_px (relation);
+		side_kind = as_relation_get_display_side_kind (relation);
+		if (req_length == 0) {
+			g_set_error_literal (error,
+						AS_RELATION_ERROR,
+						AS_RELATION_ERROR_BAD_VALUE,
+						"Unable to check display size relation: No valid size value set in metadata.");
+			return AS_CHECK_RESULT_ERROR;
+		}
+		if (side_kind == AS_DISPLAY_SIDE_KIND_UNKNOWN) {
+			g_set_error_literal (error,
+						AS_RELATION_ERROR,
+						AS_RELATION_ERROR_BAD_VALUE,
+						"Unable to check display size relation: No valid side type value set in metadata.");
+			return AS_CHECK_RESULT_ERROR;
+		}
+
+		current_length = as_system_info_get_display_length (sysinfo, side_kind);
+		if (current_length == 0) {
+			g_set_error_literal (error,
+						AS_SYSTEM_INFO_ERROR,
+						AS_SYSTEM_INFO_ERROR_NOT_FOUND,
+						"Unable to determine the display length of this device: This value needs to be provided "
+						"by a GUI frontent for AppStream.");
+			return AS_CHECK_RESULT_ERROR;
+		}
+
+		if (!as_compare_int_match (current_length, as_relation_get_compare (relation), req_length)) {
+			const gchar *compare_symbols = as_relation_compare_to_symbols_string (as_relation_get_compare (relation));
+			if (priv->kind == AS_RELATION_KIND_REQUIRES) {
+				if (side_kind == AS_DISPLAY_SIDE_KIND_LONGEST)
+					/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+					 * second is the expected size and fourth is the size the current device has. */
+					_as_set_satify_message (message,
+								g_strdup_printf (_("This software requires a display with its longest edge being %s %lu px in size, "
+										   "but the display of this device has %lu px."),
+										compare_symbols, req_length, current_length));
+				else
+					/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+					 * second is the expected size and fourth is the size the current device has. */
+					_as_set_satify_message (message,
+								g_strdup_printf (_("This software requires a display with its shortest edge being %s %lu px in size, "
+										   "but the display of this device has %lu px."),
+										compare_symbols, req_length, current_length));
+			} else if (priv->kind == AS_RELATION_KIND_RECOMMENDS) {
+				if (side_kind == AS_DISPLAY_SIDE_KIND_LONGEST)
+					/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+					 * second is the expected size and fourth is the size the current device has. */
+					_as_set_satify_message (message,
+								g_strdup_printf (_("This software recommends a display with its longest edge being %s %lu px in size, "
+										   "but the display of this device has %lu px."),
+										compare_symbols, req_length, current_length));
+				else
+					/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+					 * second is the expected size and fourth is the size the current device has. */
+					_as_set_satify_message (message,
+								g_strdup_printf (_("This software recommends a display with its shortest edge being %s %lu px in size, "
+										   "but the display of this device has %lu px."),
+										compare_symbols, req_length, current_length));
+			}
+			return AS_CHECK_RESULT_FALSE;
+		}
+
+		/* if we are here, we have sufficient memory */
+		return AS_CHECK_RESULT_TRUE;
+	}
+
 	/* TODO: Still needs implementation:
 	 *   AS_RELATION_ITEM_KIND_FIRMWARE
-	 *   AS_RELATION_ITEM_KIND_DISPLAY_LENGTH
 	 *   AS_RELATION_ITEM_KIND_HARDWARE
 	 *   AS_RELATION_ITEM_KIND_INTERNET
 	 */
