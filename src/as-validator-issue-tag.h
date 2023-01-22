@@ -52,10 +52,10 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	     "Localize the individual paragraphs instead.")
 	},
 
-	{ "collection-localized-description-section",
+	{ "catalog-localized-description-section",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("This element (paragraph, list, etc.) of a <description/> tag must not be localized individually in collection metadata. "
-	     "Localize the whole <description/> tag instead. The AppStream collection metadata generator (e.g. `appstream-generator`) will already do the right thing when compiling the data.")
+	  N_("This element (paragraph, list, etc.) of a <description/> tag must not be localized individually in catalog metadata. "
+	     "Localize the whole <description/> tag instead. The AppStream metadata catalog generator (e.g. `appstream-generator`) will already do the right thing when compiling the data.")
 	},
 
 	{ "description-markup-invalid",
@@ -569,10 +569,10 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("This `bundle` tag has an unknown type and can not be used."),
 	},
 
-	{ "update-contact-in-collection-data",
+	{ "update-contact-in-catalog-data",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("The `update_contact` tag should not be included in collection AppStream XML."),
+	  N_("The `update_contact` tag should not be included in catalog AppStream XML."),
 	},
 
 	{ "nonstandard-gnome-extension",
@@ -730,10 +730,10 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The XML of this file is malformed."),
 	},
 
-	{ "component-collection-tag-invalid",
+	{ "component-catalog-tag-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("Invalid tag found in collection metadata. Only `component` tags are permitted."),
+	  N_("Invalid tag found in catalog metadata. Only `component` tags are permitted."),
 	},
 
 	{ "metainfo-ancient",

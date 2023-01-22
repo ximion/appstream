@@ -40,7 +40,7 @@ void PoolReadTest::testRead01()
     pool->setLocale("C");
     pool->setLoadStdDataLocations(false);
     pool->addExtraDataLocation(AS_SAMPLE_DATA_PATH,
-                               Metadata::FormatStyleCollection);
+                               Metadata::FormatStyleCatalog);
 
     // temporary cache location, so we don't use any system cache ever during tests
     QTemporaryDir cacheDir;

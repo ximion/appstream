@@ -77,7 +77,7 @@ as_xml_test_serialize (AsComponent *cpt, AsFormatStyle mode)
 		data = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, &error);
 		g_assert_no_error (error);
 	} else {
-		data = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, &error);
+		data = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_XML, &error);
 		g_assert_no_error (error);
 	}
 
@@ -458,12 +458,12 @@ test_appstream_write_description (void)
 	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML_LOCALIZED));
 	g_free (tmp);
 
-	/* test collection-xml conversion */
-	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, NULL);
+	/* test catalog XML conversion */
+	tmp = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_XML, NULL);
 	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML_DISTRO));
 	g_free (tmp);
 
-	/* test collection XMl -> metainfo XML */
+	/* test catalog XMl -> metainfo XML */
 	as_metadata_clear_components (metad);
 	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
 	as_metadata_parse (metad, EXPECTED_XML_DISTRO, AS_FORMAT_KIND_XML, &error);
@@ -472,12 +472,12 @@ test_appstream_write_description (void)
 	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML_LOCALIZED));
 	g_free (tmp);
 
-	/* test metainfo XMl -> collection XML */
+	/* test metainfo XMl -> catalog XML */
 	as_metadata_clear_components (metad);
 	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_METAINFO);
 	as_metadata_parse (metad, EXPECTED_XML_LOCALIZED, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
-	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, NULL);
+	tmp = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_XML, NULL);
 	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML_DISTRO));
 	g_free (tmp);
 }
@@ -858,7 +858,7 @@ test_xml_write_suggests (void)
 	g_assert_true (as_xml_test_compare_xml (res, expected_sug_xml_mi));
 	g_free (res);
 
-	/* test collection serialization */
+	/* test catalog serialization */
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_CATALOG);
 	g_assert_true (as_xml_test_compare_xml (res, expected_sug_xml_coll));
 }
@@ -1053,10 +1053,10 @@ test_xml_write_launchable (void)
 }
 
 /**
- * test_appstream_write_metainfo_to_collection:
+ * test_appstream_write_metainfo_to_catalog:
  */
 static void
-test_appstream_write_metainfo_to_collection (void)
+test_appstream_write_metainfo_to_catalog (void)
 {
 	gchar *tmp;
 	g_autoptr(AsMetadata) metad = NULL;
@@ -1170,7 +1170,7 @@ test_appstream_write_metainfo_to_collection (void)
 
 	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
 
-	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, NULL);
+	tmp = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_XML, NULL);
 	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML_COLL));
 	g_free (tmp);
 }
@@ -2191,7 +2191,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Write/Description", test_appstream_write_description);
 	g_test_add_func ("/XML/DescriptionL10NCleanup", test_appstream_description_l10n_cleanup);
 
-	g_test_add_func ("/XML/Write/MetainfoToCollection", test_appstream_write_metainfo_to_collection);
+	g_test_add_func ("/XML/Write/MetainfoToCatalog", test_appstream_write_metainfo_to_catalog);
 
 	g_test_add_func ("/XML/Read/Simple", test_xml_read_simple);
 	g_test_add_func ("/XML/Write/Simple", test_xml_write_simple);

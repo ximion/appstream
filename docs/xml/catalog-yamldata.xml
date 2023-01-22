@@ -5,13 +5,13 @@
 ]>
 
 <section id="sect-AppStream-YAML">
-	<title>AppStream collection YAML</title>
+	<title>AppStream Catalog YAML</title>
 
 	<section id="spec-dep11-introduction">
 		<title>Introduction</title>
 
 		<para>
-			DEP-11 is a YAML implementation of the AppStream collection specification, which is primarily used by Debian and its derivatives.
+			DEP-11 is a YAML implementation of the AppStream catalog specification, which is primarily used by Debian and its derivatives.
 			This document describes the DEP-11 YAML.
 			All AppStream support libraries available today are able to read both the YAML and the XML specification.
 		</para>
@@ -20,7 +20,7 @@
 			<para>
 				If you want to use AppStream in your distribution, and are not based on Debian, please use the XML specification (unless
 				you have strong reasons for preferring YAML).
-				XML is the official format for AppStream collection metadata.
+				XML is the official format for AppStream catalog metadata.
 			</para>
 		</important>
 

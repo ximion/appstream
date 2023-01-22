@@ -221,8 +221,8 @@
 				If targeting a hi-DPI screen, this icon type may have a <literal>scale</literal> property.
 			</para>
 			<para>
-				The semantics of each property in the <code>&lt;icon/&gt;</code> tag are the same as for the <code>&lt;icon/&gt;</code> tag for collections.
-				See <xref linkend="tag-ct-icon"/>.
+				The semantics of each property in the <code>&lt;icon/&gt;</code> tag are the same as for the <code>&lt;icon/&gt;</code> tag
+				for catalog metadata. See <xref linkend="tag-ct-icon"/>.
 			</para>
 		</listitem>
 		</varlistentry>
@@ -1557,7 +1557,7 @@
 		</para>
 		<para>
 			The interpretation of tags is completely defined by the client application that is reading AppStream metadata. Tags defined
-			in metainfo files may be filtered by collection metadata generators, and may even be completely ignored by clients. Components
+			in metainfo files may be filtered by catalog metadata generators, and may even be completely ignored by clients. Components
 			must not rely on the presence of specific tags to behave correctly.
 		</para>
 		<para>
@@ -1582,7 +1582,7 @@
 		<listitem>
 		<para>
 			The <code>&lt;custom/&gt;</code> tag is an optional tag which can be used as a key-value store for custom values that are not covered by the AppStream specification.
-			The tag is usually stripped out or filtered by collection metadata generators, such as <literal>appstream-generator</literal>.
+			The tag is usually stripped out or filtered by catalog metadata generators, such as <literal>appstream-generator</literal>.
 			When present, the data contained in a <literal>custom</literal> can be read by all tools making use of AppStream metadata, making it an ideal extension point when using
 			an existing AppStream library is desired and some custom additions to the metadata are still required.
 			The <literal>custom</literal> tag is also often used for prototyping new features in AppStream.

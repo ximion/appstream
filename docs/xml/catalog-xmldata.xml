@@ -5,13 +5,13 @@
 ]>
 
 <section id="sect-AppStream-XML">
-	<title>AppStream collection XML</title>
+	<title>AppStream Catalog XML</title>
 
 	<section id="spec-asxml-introduction">
 		<title>Introduction</title>
 
 		<para>
-			AppStream collection XML files are text files describing all available software components a software repository (usually
+			AppStream catalog XML files are text files describing all available software components a software repository (usually
 			from a Linux distributor) offers for installation.
 			The XML files might be compressed with GZip.
 		</para>
@@ -111,13 +111,13 @@
 			is described in the AppStream metadata.
 		</para>
 		<para>
-			Additionally to the <literal>type</literal> property, every <literal>&lt;component/&gt;</literal> tag in AppStream collection data
+			Additionally to the <literal>type</literal> property, every <literal>&lt;component/&gt;</literal> tag in AppStream catalog data
 			may have a <literal>priority</literal> property, defining the priority of this specific metadata over other metadata from different
 			AppStream XML files (for example, from a different repository) which have the same component-id. The value of this tag is an integer, if the
 			property is missing, a value of <code>"0"</code> is assumed.
 		</para>
 		<para>
-			In order to <emphasis>merge</emphasis> metadata, each component in collection data may also have a <literal>merge</literal> property, assuming the
+			In order to <emphasis>merge</emphasis> metadata, each component in catalog data may also have a <literal>merge</literal> property, assuming the
 			values <code>append</code>, <code>replace</code> or <code>remove-component</code>. If the value is <code>append</code>, all data this component describes will be appended
 			to data of the component with the same ID. If the value is <code>replace</code> the fields of the target component will be replaced with the
 			ones present in the merge component. If the merge type is <code>remove-component</code>, the entore component matching the ID of the merge-component should
@@ -149,7 +149,7 @@
 					<important>
 						<para>
 							The preferred way is to create metapackages containing the component metadata, and referencing them
-							from the collection metadata, and not to use multiple <literal>pkgname</literal> tags.
+							from the catalog metadata, and not to use multiple <literal>pkgname</literal> tags.
 							They should only be used multiple times as a workaround or if there is no sensible way of creating a
 							matching metapackage.
 						</para>
@@ -398,7 +398,7 @@
 						which primarily represents it in a software center.
 					</para>
 					<para>
-						The <literal>screenshots</literal> tag is described for metainfo files in <xref linkend="tag-screenshots"/>. In collection metadata, the tag
+						The <literal>screenshots</literal> tag is described for metainfo files in <xref linkend="tag-screenshots"/>. In catalog metadata, the tag
 						has the exact same format as in metainfo files.
 						The metadata generator may add an arbitrary number of resized thumbnails for <literal>image</literal> type screenshots though.
 					</para>
@@ -431,7 +431,7 @@
 						on the image shown. The tag is translatable.
 					</para>
 					<para>
-						For <code><![CDATA[<screenshot>]]></code> tags that contain <literal>video</literal> elements, a collection metadata generator may impose any restrictions to them,
+						For <code><![CDATA[<screenshot>]]></code> tags that contain <literal>video</literal> elements, a catalog metadata generator may impose any restrictions to them,
 						including completely removing them from the output, imposing filesize limits, etc.
 						Upstream metainfo files should not rely on the videos being present and must always have a static screenhot for the software component as well.
 					</para>
@@ -512,7 +512,7 @@
 						The <literal>description</literal> tag is structured as described in <xref linkend="tag-ct-description"/>. This also applies to its translation rules.
 					</para>
 					<para>
-						The AppStream collection XML generator may shorten overlong lists of releases to a smaller list, for example of 4 <literal>release</literal> tags.
+						The AppStream catalog XML generator may shorten overlong lists of releases to a smaller list, for example of 4 <literal>release</literal> tags.
 						It may also convert ISO 8601 <literal>date</literal> properties of the metainfo file into an UNIX timestamp <literal>timestamp</literal> property.
 						It should avoid generating metadata containing both properties on a <literal>release</literal> tag.
 					</para>
@@ -646,7 +646,7 @@
 					<para>
 						This optional tag follows the same schema as described for metainfo files in <xref linkend="tag-agreement"/>, with the exception
 						of <literal>description</literal> tags in its <literal>agreement_section</literal> child tags now following the same translation
-						rules as the toplevel <xref linkend="tag-ct-description"/> tag in collection metadata.
+						rules as the toplevel <xref linkend="tag-ct-description"/> tag in catalog metadata.
 					</para>
 				</listitem>
 			</varlistentry>

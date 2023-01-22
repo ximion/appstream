@@ -72,7 +72,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsMetadata, as_metadata, G_TYPE_OBJECT)
  * as_metadata_file_guess_style:
  * @filename: a file name
  *
- * Guesses the AppStream metadata style (metainfo or collection) based on
+ * Guesses the AppStream metadata style (metainfo or catalog) based on
  * the filename.
  *
  * Return value: An #AsFormatStyle, e.g. %AS_FORMAT_STYLE_METAINFO.
@@ -210,7 +210,7 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
 	as_metadata_set_architecture (metad, tmp);
 	g_free (tmp);
 
-	/* collection metadata allows setting a priority for components */
+	/* catalog metadata allows setting a priority for components */
 	priority_str = as_xml_get_prop_value (node, "priority");
 	if (priority_str != NULL) {
 		gint default_priority;
@@ -241,7 +241,7 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
 }
 
 /**
- * as_metadata_yaml_parse_collection_doc:
+ * as_metadata_yaml_parse_catalog_doc:
  * @metad: an instance of #AsMetadata.
  * @context: an #AsContext
  * @data: YAML metadata to parse
@@ -253,7 +253,7 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
  * Returns: (transfer container) (element-type AsComponent) (nullable): An array of #AsComponent or %NULL
  */
 static GPtrArray*
-as_metadata_yaml_parse_collection_doc (AsMetadata *metad, AsContext *context, const gchar *data, gssize data_len, GError **error)
+as_metadata_yaml_parse_catalog_doc (AsMetadata *metad, AsContext *context, const gchar *data, gssize data_len, GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	yaml_parser_t parser;
@@ -493,7 +493,7 @@ as_metadata_parse_data (AsMetadata *metad,
 			guint i;
 
 			context = as_metadata_new_context (metad, AS_FORMAT_STYLE_CATALOG, filename);
-			new_cpts = as_metadata_yaml_parse_collection_doc (metad,
+			new_cpts = as_metadata_yaml_parse_catalog_doc (metad,
 									  context,
 									  data,
 									  data_len,
@@ -510,7 +510,7 @@ as_metadata_parse_data (AsMetadata *metad,
 			g_set_error_literal (error,
 				     AS_METADATA_ERROR,
 				     AS_METADATA_ERROR_FORMAT_UNEXPECTED,
-				     "Can not load non-collection AppStream YAML data, because their format is not specified.");
+				     "Can not load non-catalog AppStream YAML data, because their format is not specified.");
 			return FALSE;
 		}
 		return TRUE;
@@ -982,7 +982,7 @@ as_metadata_save_metainfo (AsMetadata *metad, const gchar *fname, AsFormatKind f
 }
 
 /**
- * as_metadata_save_collection_xml:
+ * as_metadata_save_catalog:
  * @metad: An instance of #AsMetadata.
  * @fname: The filename for the new metadata file.
  *
@@ -993,17 +993,32 @@ as_metadata_save_metainfo (AsMetadata *metad, const gchar *fname, AsFormatKind f
  * Returns: %TRUE if the file was written without error.
  */
 gboolean
-as_metadata_save_collection (AsMetadata *metad, const gchar *fname, AsFormatKind format, GError **error)
+as_metadata_save_catalog (AsMetadata *metad, const gchar *fname, AsFormatKind format, GError **error)
 {
 	g_autofree gchar *data = NULL;
 	GError *tmp_error = NULL;
 
-	data = as_metadata_components_to_collection (metad, format, &tmp_error);
+	data = as_metadata_components_to_catalog (metad, format, &tmp_error);
 	if (tmp_error != NULL) {
 		g_propagate_error (error, tmp_error);
 		return FALSE;
 	}
 	return as_metadata_save_data (metad, fname, data, error);
+}
+
+/**
+ * as_metadata_save_collection:
+ * @metad: An instance of #AsMetadata.
+ * @fname: The filename for the new metadata file.
+ *
+ * Deprecated, use %as_metadata_save_catalog instead.
+ *
+ * Returns: %TRUE if the file was written without error.
+ */
+gboolean
+as_metadata_save_collection (AsMetadata *metad, const gchar *fname, AsFormatKind format, GError **error)
+{
+	return as_metadata_save_catalog (metad, fname, format, error);
 }
 
 /**
@@ -1049,12 +1064,12 @@ as_metadata_component_to_metainfo (AsMetadata *metad, AsFormatKind format, GErro
 }
 
 /**
- * as_metadata_xml_serialize_to_collection_with_rootnode:
+ * as_metadata_xml_serialize_to_catalog_with_rootnode:
  *
- * Returns: Valid collection XML metadata.
+ * Returns: Valid catalog XML metadata.
  */
 static gchar*
-as_metadata_xml_serialize_to_collection_with_rootnode (AsMetadata *metad, AsContext *context, GPtrArray *cpts)
+as_metadata_xml_serialize_to_catalog_with_rootnode (AsMetadata *metad, AsContext *context, GPtrArray *cpts)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	xmlNode *root;
@@ -1090,12 +1105,12 @@ as_metadata_xml_serialize_to_collection_with_rootnode (AsMetadata *metad, AsCont
 }
 
 /**
- * as_metadata_xml_serialize_to_collection_without_rootnode:
+ * as_metadata_xml_serialize_to_catalog_without_rootnode:
  *
- * Returns: Collection XML metadata slices without rootnode.
+ * Returns: Catalog XML metadata slices without rootnode.
  */
 static gchar*
-as_metadata_xml_serialize_to_collection_without_rootnode (AsMetadata *metad, AsContext *context, GPtrArray *cpts)
+as_metadata_xml_serialize_to_catalog_without_rootnode (AsMetadata *metad, AsContext *context, GPtrArray *cpts)
 {
 	guint i;
 	GString *out_data;
@@ -1182,10 +1197,15 @@ as_yamldata_write_handler (void *ptr, unsigned char *buffer, size_t size)
 }
 
 /**
- * as_yamldata_serialize_to_collection:
+ * as_metadata_yaml_serialize_to_catalog:
  */
 static gchar*
-as_metadata_yaml_serialize_to_collection (AsMetadata *metad, AsContext *context, GPtrArray *cpts, gboolean write_header, gboolean add_timestamp, GError **error)
+as_metadata_yaml_serialize_to_catalog (AsMetadata *metad,
+				       AsContext *context,
+				       GPtrArray *cpts,
+				       gboolean write_header,
+				       gboolean add_timestamp,
+				       GError **error)
 {
 	yaml_emitter_t emitter;
 	yaml_event_t event;
@@ -1248,22 +1268,21 @@ out:
 }
 
 /**
- * as_metadata_components_to_collection:
+ * as_metadata_components_to_catalog:
  * @metad: An instance of #AsMetadata.
  * @format: The format to serialize the data to (XML or YAML).
  * @error: A #GError
  *
  * Serialize all #AsComponent instances into AppStream
- * collection metadata.
+ * catalog metadata.
  * %NULL is returned if there is nothing to serialize.
  *
  * Returns: (transfer full): A string containing the YAML or XML data. Free with g_free()
  */
 gchar*
-as_metadata_components_to_collection (AsMetadata *metad, AsFormatKind format, GError **error)
+as_metadata_components_to_catalog (AsMetadata *metad, AsFormatKind format, GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-	gchar *data = NULL;
 	g_autoptr(AsContext) context = NULL;
 	g_return_val_if_fail (format > AS_FORMAT_KIND_UNKNOWN && format < AS_FORMAT_KIND_LAST, NULL);
 
@@ -1274,21 +1293,39 @@ as_metadata_components_to_collection (AsMetadata *metad, AsFormatKind format, GE
 
 	if (format == AS_FORMAT_KIND_XML) {
 		if (priv->write_header)
-			return as_metadata_xml_serialize_to_collection_with_rootnode (metad, context, priv->cpts);
+			return as_metadata_xml_serialize_to_catalog_with_rootnode (metad, context, priv->cpts);
 		else
-			return as_metadata_xml_serialize_to_collection_without_rootnode (metad, context, priv->cpts);
+			return as_metadata_xml_serialize_to_catalog_without_rootnode (metad, context, priv->cpts);
 	} else if (format == AS_FORMAT_KIND_YAML) {
-		data = as_metadata_yaml_serialize_to_collection (metad,
-								 context,
-								 priv->cpts,
-								 priv->write_header,
-								 TRUE, /* add timestamp */
-								 NULL);
+		return as_metadata_yaml_serialize_to_catalog (metad,
+								context,
+								priv->cpts,
+								priv->write_header,
+								TRUE, /* add timestamp */
+								error);
 	} else {
-		g_warning ("Unknown metadata format (%i).", format);
+		g_set_error (error,
+			     AS_METADATA_ERROR,
+			     AS_METADATA_ERROR_FAILED,
+			     "Unknown metadata format (%i).", format);
+		return NULL;
 	}
+}
 
-	return data;
+/**
+ * as_metadata_components_to_collection:
+ * @metad: An instance of #AsMetadata.
+ * @format: The format to serialize the data to (XML or YAML).
+ * @error: A #GError
+ *
+ * Deprecated, use %as_metadata_components_to_catalog instead.
+ *
+ * Returns: (transfer full): A string containing the YAML or XML data. Free with g_free()
+ */
+gchar*
+as_metadata_components_to_collection (AsMetadata *metad, AsFormatKind format, GError **error)
+{
+	return as_metadata_components_to_catalog (metad, format, error);
 }
 
 /**
@@ -1526,7 +1563,7 @@ as_metadata_get_update_existing (AsMetadata *metad)
  * header document when in YAML mode, and will not write a root components node
  * when writing XML data.
  * Please keep in mind that this will create an invalid DEP-11 YAML AppStream
- * collection metadata file, and an invalid XML file.
+ * catalog metadata file, and an invalid XML file.
  * This parameter should only be changed e.g. by the appstream-generator tool.
  *
  * NOTE: Right now, this feature is only implemented for YAML!
@@ -1542,7 +1579,7 @@ as_metadata_set_write_header (AsMetadata *metad, gboolean wheader)
  * as_metadata_get_write_header:
  * @metad: an #AsMetadata instance.
  *
- * Returns: Whether we will write a header/root node in collection metadata.
+ * Returns: Whether we will write a header/root node in catalog metadata.
  **/
 gboolean
 as_metadata_get_write_header (AsMetadata *metad)

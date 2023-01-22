@@ -38,7 +38,10 @@ class APPSTREAMQT_EXPORT Metadata {
         enum FormatStyle {
             FormatStyleUnknown,
             FormatStyleMetainfo,
-            FormatStyleCollection
+            FormatStyleCatalog,
+
+            // DEPRECATED
+            FormatStyleCollection   [[deprecated]] = FormatStyleCatalog,
         };
         Q_ENUM(FormatStyle)
 
@@ -110,9 +113,9 @@ class APPSTREAMQT_EXPORT Metadata {
 
         MetadataError saveMetainfo(const QString& fname, FormatKind format);
 
-        QString componentsToCollection(FormatKind format) const;
+        QString componentsToCatalog(FormatKind format) const;
 
-        MetadataError saveCollection(const QString& collection, FormatKind format);
+        MetadataError saveCatalog(const QString& filename, FormatKind format);
 
         FormatVersion formatVersion() const;
         void setFormatVersion(FormatVersion formatVersion);
@@ -139,6 +142,13 @@ class APPSTREAMQT_EXPORT Metadata {
          * \return The last error message received.
          */
         QString lastError() const;
+
+        // DEPRECATED
+
+        Q_DECL_DEPRECATED
+        QString componentsToCollection(FormatKind format) const;
+        Q_DECL_DEPRECATED
+        MetadataError saveCollection(const QString& collection, FormatKind format);
 
     private:
         QSharedDataPointer<MetadataData> d;

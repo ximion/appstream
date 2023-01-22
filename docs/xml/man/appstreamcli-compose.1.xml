@@ -27,7 +27,7 @@
 	</refmeta>
 	<refnamediv>
 		<refname>appstreamcli-compose</refname>
-		<refpurpose>Compose AppStream collection metadata from directory trees</refpurpose>
+		<refpurpose>Compose AppStream metadata catalog from directory trees</refpurpose>
 	</refnamediv>
 
        <refsynopsisdiv>
@@ -45,7 +45,7 @@
 			This manual page documents briefly the <command>&package;</command> command.
 		</para>
 		<para>
-			<command>&package;</command> is a tool to construct AppStream collection metadata from directory trees.
+			The <command>&package;</command> tool is used to construct AppStream metadata catalogs from directory trees.
 			The tool will also perform many related metadata generation actions, like resizing icons and
 			screenshots and merging in data from referenced desktop-entry files as well as translation status
 			information.
@@ -108,7 +108,7 @@
 				<term><option>--data-dir <replaceable>DIR</replaceable></option></term>
 				<listitem>
 					<para>
-						Override the directory where the generated AppStream collection metadata
+						Override the directory where the generated AppStream metadata catalog
 						will be written to. Data will be written directly to this directory, and
 						no supdirectories will be created (unlike when using <option>--result-root</option>
 						to set an output location).

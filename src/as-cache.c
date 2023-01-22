@@ -113,7 +113,7 @@ as_cache_section_cmp (gconstpointer a, gconstpointer b)
 	if (!s1->is_mask && s2->is_mask)
 		return -1;
 
-	/* sort collection metadata before metainfo data */
+	/* sort catalog metadata before metainfo data */
 	if (s1->format_style > s2->format_style)
 		return -1;
 	if (s1->format_style < s2->format_style)
@@ -301,7 +301,7 @@ as_cache_set_locations (AsCache *cache, const gchar *system_cache_dir, const gch
  * as_cache_get_prefer_os_metainfo:
  * @cache: an #AsCache instance.
  *
- * Get whether metainfo data should be preferred over collection data for OS components.
+ * Get whether metainfo data should be preferred over catalog data for OS components.
  *
  * Returns: %TRUE if metainfo data is preferred.
  */
@@ -317,7 +317,7 @@ as_cache_get_prefer_os_metainfo (AsCache *cache)
  * @cache: an #AsCache instance.
  * @prefer_os_metainfo: Whether Metainfo data is preferred.
  *
- * Set whether metainfo data should be preferred over collection data for OS components.
+ * Set whether metainfo data should be preferred over catalog data for OS components.
  */
 void
 as_cache_set_prefer_os_metainfo (AsCache *cache, gboolean prefer_os_metainfo)
@@ -625,7 +625,7 @@ as_cache_builder_add_manifold_tokens (XbBuilderNode *root, AsComponent *cpt)
  * Convert a list of components into internal binary XML that we will store
  * on disk for fast querying.
  *
- * Returns: Valid collection XML metadata for internal cache use.
+ * Returns: Valid catalog XML metadata for internal cache use.
  */
 static XbSilo*
 as_cache_components_to_internal_xb (AsCache *cache,

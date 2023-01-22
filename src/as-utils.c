@@ -2031,7 +2031,7 @@ as_utils_install_metadata_file_internal (const gchar *filename,
 			g_set_error (error,
 				     AS_UTILS_ERROR,
 				     AS_UTILS_ERROR_FAILED,
-				     "Name of metadata collection file is invalid %s",
+				     "Name of metadata catalog file is invalid %s",
 				     basename);
 			return FALSE;
 		}
@@ -2056,7 +2056,7 @@ as_utils_install_metadata_file_internal (const gchar *filename,
 		if (!as_metadata_parse_file (mdata, file_dest, AS_FORMAT_KIND_XML, error))
 			return FALSE;
 		as_metadata_set_origin (mdata, origin);
-		if (!as_metadata_save_collection (mdata, path_dest, AS_FORMAT_KIND_XML, error))
+		if (!as_metadata_save_catalog (mdata, path_dest, AS_FORMAT_KIND_XML, error))
 			return FALSE;
 	}
 
@@ -2102,7 +2102,7 @@ as_utils_install_icon_tarball (AsMetadataLocation location,
  * @destdir: the destdir to use, or %NULL
  * @error: A #GError or %NULL
  *
- * Installs an AppStream MetaInfo, AppStream Metadata Collection or AppStream Icon tarball file
+ * Installs an AppStream MetaInfo, AppStream Metadata Catalog or AppStream Icon tarball file
  * to the right place on the filesystem.
  * Please note that this function does almost no validation and may guess missing values such
  * as icon sizes and origin names.

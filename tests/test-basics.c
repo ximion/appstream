@@ -222,7 +222,7 @@ test_component (void)
 	metad = as_metadata_new ();
 	as_metadata_add_component (metad, cpt);
 	str = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, NULL);
-	str2 = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, NULL);
+	str2 = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_XML, NULL);
 	g_debug ("%s", str2);
 
 	g_assert_cmpstr (str, ==, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
@@ -627,7 +627,7 @@ test_desktop_entry_convert (void)
 	g_assert_no_error (error);
 	g_free (tmp);
 
-	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, &error);
+	tmp = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 	g_assert_true (as_test_compare_lines (tmp, expected_xml));
 	g_free (tmp);

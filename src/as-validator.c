@@ -23,7 +23,7 @@
  * @short_description: Validator and report-generator about AppStream XML metadata
  * @include: appstream.h
  *
- * This object is able to validate AppStream XML metadata (collection and metainfo)
+ * This object is able to validate AppStream XML metadata (catalog and metainfo)
  * and to generate a report about issues found with it.
  *
  * See also: #AsMetadata
@@ -996,7 +996,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 			if (mode == AS_FORMAT_STYLE_CATALOG) {
 				as_validator_check_nolocalized (validator,
 								iter,
-								"collection-localized-description-section",
+								"catalog-localized-description-section",
 								"description/p");
 			}
 			if (main_description) {
@@ -1029,7 +1029,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 			if (mode == AS_FORMAT_STYLE_CATALOG) {
 				as_validator_check_nolocalized (validator,
 								iter,
-								"collection-localized-description-section",
+								"catalog-localized-description-section",
 								"description/ul");
 			}
 			as_validator_check_description_enumeration (validator, iter);
@@ -1037,7 +1037,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsFor
 			if (mode == AS_FORMAT_STYLE_CATALOG) {
 				as_validator_check_nolocalized (validator,
 								iter,
-								"collection-localized-description-section",
+								"catalog-localized-description-section",
 								"description/ol");
 			}
 			as_validator_check_description_enumeration (validator, iter);
@@ -2639,7 +2639,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 
 		} else if (g_strcmp0 (node_name, "update_contact") == 0) {
 			if (mode == AS_FORMAT_STYLE_CATALOG) {
-				as_validator_add_issue (validator, iter, "update-contact-in-collection-data", NULL);
+				as_validator_add_issue (validator, iter, "update-contact-in-catalog-data", NULL);
 			} else {
 				as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 				as_validator_validate_update_contact (validator, iter);
@@ -3095,7 +3095,7 @@ as_validator_validate_bytes (AsValidator *validator, GBytes *metadata)
 					g_object_unref (cpt);
 			} else {
 				as_validator_add_issue (validator, iter,
-							"component-collection-tag-invalid",
+							"component-catalog-tag-invalid",
 							node_name);
 				ret = FALSE;
 			}

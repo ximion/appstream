@@ -561,7 +561,7 @@ as_client_run_put (const gchar *command, char **argv, int argc)
 			G_OPTION_ARG_STRING,
 			&optn_origin,
 			/* TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand) */
-			N_("Set the data origin for the installed metadata collection file."), NULL },
+			N_("Set the data origin for the installed metadata catalog file."), NULL },
 		{ "user", 0, 0,
 			G_OPTION_ARG_NONE,
 			&optn_usermode,
@@ -1344,8 +1344,8 @@ as_client_run (char **argv, int argc)
 			as_client_run_put);
 	ascli_add_cmd (commands,
 			4, "convert", NULL, "FILE FILE",
-			/* TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data. */
-			_("Convert collection XML to YAML or vice versa."),
+			/* TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data. */
+			_("Convert metadata catalog XML to YAML or vice versa."),
 			as_client_run_convert);
 	ascli_add_cmd (commands,
 			4, "vercmp", "compare-versions", "VER1 [COMP] VER2",
@@ -1376,7 +1376,7 @@ as_client_run (char **argv, int argc)
 	ascli_add_cmd (commands,
 			5, "compose", NULL, NULL,
 			/* TRANSLATORS: `appstreamcli compose` command description. */
-			_("Compose AppStream collection metadata from directory trees."),
+			_("Compose AppStream metadata catalog from directory trees."),
 			as_client_run_compose);
 
 	/* we handle the unknown options later in the individual subcommands */

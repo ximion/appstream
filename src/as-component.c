@@ -4485,7 +4485,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 		} else if (tag_id == AS_TAG_DESCRIPTION) {
 			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG) {
 				g_autofree gchar *lang = as_xml_get_node_locale_match (ctx, iter);
-				/* for collection XML, the "description" tag has a language property, so parsing it is simple */
+				/* for catalog XML, the "description" tag has a language property, so parsing it is simple */
 				if (lang != NULL) {
 					gchar *desc;
 					desc = as_xml_dump_node_children (iter);
@@ -4928,7 +4928,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	}
 
 	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG) {
-		/* write some propties which only exist in collection XML */
+		/* write some propties which only exist in catalog XML */
 		if (priv->merge_kind != AS_MERGE_KIND_NONE) {
 			as_xml_add_text_prop (cnode,
 					      "merge",

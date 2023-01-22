@@ -120,8 +120,8 @@ static gchar *METAINFO_DIR = "/usr/share/metainfo";
 /* cache key used for local metainfo / desktop-entry data */
 static gchar *LOCAL_METAINFO_CACHE_KEY = "local-metainfo";
 
-/* cache key used for AppStream collection metadata provided by the OS */
-static gchar *OS_COLLECTION_CACHE_KEY = "os-catalog";
+/* cache key used for AppStream catalog metadata provided by the OS */
+static gchar *OS_CATALOG_CACHE_KEY = "os-catalog";
 
 typedef struct {
 	AsFormatKind		format_kind;
@@ -355,7 +355,7 @@ as_pool_init (AsPool *pool)
 	priv->std_data_locations = g_hash_table_new_full (g_str_hash, g_str_equal,
 							  g_free, (GDestroyNotify) as_location_group_free);
 
-	/* user-defined collection metadata locations */
+	/* user-defined catalog metadata locations */
 	priv->extra_data_locations = g_hash_table_new_full (g_str_hash, g_str_equal,
 							    g_free, (GDestroyNotify) as_location_group_free);
 
@@ -375,7 +375,7 @@ as_pool_init (AsPool *pool)
 	priv->screenshot_service_url = as_distro_details_get_str (distro, "ScreenshotUrl");
 
 	/* set default pool flags */
-	priv->flags = AS_POOL_FLAG_LOAD_OS_COLLECTION |
+	priv->flags = AS_POOL_FLAG_LOAD_OS_CATALOG |
 		      AS_POOL_FLAG_LOAD_OS_METAINFO |
 		      AS_POOL_FLAG_LOAD_FLATPAK;
 
@@ -662,7 +662,7 @@ as_pool_detect_std_metadata_dirs (AsPool *pool, gboolean include_user_data)
 					     AS_COMPONENT_SCOPE_SYSTEM,
 					     AS_FORMAT_STYLE_CATALOG,
 					     TRUE, /* is OS data */
-					     OS_COLLECTION_CACHE_KEY);
+					     OS_CATALOG_CACHE_KEY);
 	g_hash_table_insert (priv->std_data_locations,
 			     g_strdup (lgroup_catalog->cache_key),
 			     lgroup_catalog);
@@ -700,9 +700,9 @@ as_pool_detect_std_metadata_dirs (AsPool *pool, gboolean include_user_data)
 		}
 	}
 
-	/* add collection XML directories for the OS */
+	/* add catalog XML directories for the OS */
 	/* check if we are permitted to load this */
-	if (as_flags_contains (priv->flags, AS_POOL_FLAG_LOAD_OS_COLLECTION)) {
+	if (as_flags_contains (priv->flags, AS_POOL_FLAG_LOAD_OS_CATALOG)) {
 		for (guint i = 0; SYSTEM_CATALOG_METADATA_PREFIXES[i] != NULL; i++) {
 			g_autofree gchar *catalog_path = NULL;
 			g_autofree gchar *catalog_legacy_path = NULL;
@@ -890,7 +890,7 @@ as_pool_add_component_internal (AsPool *pool,
 	if (as_flags_contains (priv->flags, AS_POOL_FLAG_PREFER_OS_METAINFO) &&
 	    (new_cpt_orig_kind == AS_ORIGIN_KIND_METAINFO)) {
 		/* update package info, metainfo files do never have this data.
-		 * (we hope that collection data was loaded first here, so the existing_cpt already contains
+		 * (we hope that catalog data was loaded first here, so the existing_cpt already contains
 		 *  the information we want - if that's not the case, no harm is done here) */
 		as_component_set_pkgnames (cpt, as_component_get_pkgnames (existing_cpt));
 		as_component_set_bundles_array (cpt, as_component_get_bundles (existing_cpt));
@@ -1029,13 +1029,13 @@ as_pool_clear2 (AsPool *pool, GError **error)
 }
 
 /**
- * as_pool_load_collection_data:
+ * as_pool_load_catalog_data:
  *
- * Load metadata from AppStream collection data directories,
+ * Load metadata from AppStream catalog data directories,
  * which are usually provided by some kind of software repository.
  */
 static gboolean
-as_pool_load_collection_data (AsPool *pool,
+as_pool_load_catalog_data (AsPool *pool,
 			      AsComponentRegistry *registry,
 			      AsLocationGroup *lgroup,
 			      GError **error)
@@ -1055,7 +1055,7 @@ as_pool_load_collection_data (AsPool *pool,
 	if (lgroup->format_style != AS_FORMAT_STYLE_CATALOG)
 		return TRUE;
 
-	ptask = as_profile_start_literal (priv->profile, "AsPool:load_collection_data");
+	ptask = as_profile_start_literal (priv->profile, "AsPool:load_catalog_data");
 
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
@@ -1575,8 +1575,8 @@ as_pool_loader_process_group (AsPool *pool,
 					lgroup,
 					lgroup->cache_key);
 
-	/* process collection data - we intentionally ignore errors here, and just skip any broken metadata*/
-	as_pool_load_collection_data (pool,
+	/* process catalog data - we intentionally ignore errors here, and just skip any broken metadata*/
+	as_pool_load_catalog_data (pool,
 					registry,
 					lgroup,
 					NULL);
@@ -2598,7 +2598,7 @@ as_pool_print_location_group_info (AsLocationGroup *lgroup)
 			if (lgroup->format_style == AS_FORMAT_STYLE_METAINFO)
 				format_kind_str = "MetaInfo XML";
 			else
-				format_kind_str = "Collection XML";
+				format_kind_str = "Catalog XML";
 		} else if (lentry->format_kind == AS_FORMAT_KIND_YAML) {
 			files = as_utils_find_files_matching (lentry->location, "*.yml*", FALSE, NULL);
 			format_kind_str = "YAML";
@@ -2821,12 +2821,12 @@ as_pool_set_load_std_data_locations (AsPool *pool, gboolean enabled)
 	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 
 	if (enabled) {
-		as_flags_add (priv->flags, AS_POOL_FLAG_LOAD_OS_COLLECTION);
+		as_flags_add (priv->flags, AS_POOL_FLAG_LOAD_OS_CATALOG);
 		as_flags_add (priv->flags, AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
 		as_flags_add (priv->flags, AS_POOL_FLAG_LOAD_OS_METAINFO);
 		as_flags_add (priv->flags, AS_POOL_FLAG_LOAD_FLATPAK);
 	} else {
-		as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_OS_COLLECTION);
+		as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_OS_CATALOG);
 		as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
 		as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_OS_METAINFO);
 		as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_FLATPAK);
@@ -2837,7 +2837,7 @@ as_pool_set_load_std_data_locations (AsPool *pool, gboolean enabled)
  * as_pool_get_os_metadata_cache_age:
  * @pool: An instance of #AsPool.
  *
- * Get the age of the system cache for OS collection data.
+ * Get the age of the system cache for OS catalog data.
  */
 time_t
 as_pool_get_os_metadata_cache_age (AsPool *pool)
@@ -2846,7 +2846,7 @@ as_pool_get_os_metadata_cache_age (AsPool *pool)
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 	return as_cache_get_ctime (priv->cache,
 				   AS_COMPONENT_SCOPE_SYSTEM,
-				   OS_COLLECTION_CACHE_KEY,
+				   OS_CATALOG_CACHE_KEY,
 				   NULL);
 }
 
@@ -2897,7 +2897,7 @@ as_pool_set_cache_flags (AsPool *pool, AsCacheFlags flags)
 {
 	/* Legacy function that is just providing some compatibility glue */
 	if (as_flags_contains (flags, AS_CACHE_FLAG_USE_USER))
-		as_pool_remove_flags (pool, AS_POOL_FLAG_LOAD_OS_COLLECTION |
+		as_pool_remove_flags (pool, AS_POOL_FLAG_LOAD_OS_CATALOG |
 					    AS_POOL_FLAG_LOAD_OS_METAINFO);
 }
 

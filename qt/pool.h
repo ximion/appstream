@@ -46,21 +46,21 @@ public:
 
     /**
      * Pool::Flags:
-     * FlagNone:             No flags.
-     * FlagReadCollection:   Add AppStream collection metadata to the pool.
-     * FlagReadMetainfo:     Add data from AppStream metainfo files to the pool.
-     * FlagReadDesktopFiles: Add metadata from desktop-entry files to the pool.
-     * FlagLoadFlatpak:      Add AppStream metadata from Flatpak to the pool.
-     * FlagIgnoreCacheAge:   Ignore cache age and always load data from scratch.
-     * FlagResolveAddons:    Always resolve addons for returned components
-     * FlagPreferOsMetainfo: Prefer local metainfo data over the system-provided collection data. Useful for debugging.
-     * FlagMonitor:          Monitor registered directories for changes, and auto-reload metadata if necessary.
+     * FlagNone:               No flags.
+     * FlagLoadOsCatalog:      Add AppStream catalog metadata to the pool.
+     * FlagLoadOsMetainfo:     Add data from AppStream metainfo files to the pool.
+     * FlagLoadOsDesktopFiles: Add metadata from desktop-entry files to the pool.
+     * FlagLoadFlatpak:        Add AppStream metadata from Flatpak to the pool.
+     * FlagIgnoreCacheAge:     Ignore cache age and always load data from scratch.
+     * FlagResolveAddons:      Always resolve addons for returned components
+     * FlagPreferOsMetainfo:   Prefer local metainfo data over the system-provided catalog data. Useful for debugging.
+     * FlagMonitor:            Monitor registered directories for changes, and auto-reload metadata if necessary.
      *
      * Flags controlling the metadata pool behavior.
      **/
     enum Flags {
         FlagNone = 0,
-        FlagLoadOsCollection   = 1 << 0,
+        FlagLoadOsCatalog   = 1 << 0,
         FlagLoadOsMetainfo     = 1 << 1,
         FlagLoadOsDesktopFiles = 1 << 2,
         FlagLoadFlatpak        = 1 << 3,
@@ -69,8 +69,9 @@ public:
         FlagPreferOsMetainfo   = 1 << 6,
         FlagMonitor            = 1 << 7,
 
-        // deprecated
-        FlagReadCollection   [[deprecated]] = FlagLoadOsCollection,
+        // DEPRECATED
+        FlagLoadOsCollection   [[deprecated]] = FlagLoadOsCatalog,
+        FlagReadCollection   [[deprecated]] = FlagLoadOsCatalog,
         FlagReadMetainfo     [[deprecated]] = FlagLoadOsMetainfo,
         FlagReadDesktopFiles [[deprecated]] = FlagLoadOsDesktopFiles,
     };

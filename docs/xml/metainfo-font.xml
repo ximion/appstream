@@ -184,7 +184,7 @@
   <font>FontAwesome Regular</font>
 </provides>]]></programlisting>
 				<para>
-					If no <code>&lt;font/&gt;</code> tags were defined, the AppStream collection data generator should try to extract them from the actual font files found in the
+					If no <code>&lt;font/&gt;</code> tags were defined, the AppStream catalog data generator should try to extract them from the actual font files found in the
 					software package/bundle.
 				</para>
 				<para>
@@ -208,7 +208,7 @@
 						information from the font files themselves, but it is useful to define to hint the generator in the right direction.
 					</para>
 					<para>
-						If samples of the font are rendered as screenshots by the collection metadata generator, the locale mentioned in the
+						If samples of the font are rendered as screenshots by the catalog metadata generator, the locale mentioned in the
 						metainfo file will be preferred over automatically (or heuristically) defined ones.
 					</para>
 					<para>

@@ -162,7 +162,7 @@ as_assert_component_lists_equal (GPtrArray *cpts_a, GPtrArray *cpts_b)
 		as_metadata_add_component (metad, cpt);
 	}
 
-	cpts_a_xml = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, &error);
+	cpts_a_xml = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
 	as_metadata_clear_components (metad);
@@ -176,7 +176,7 @@ as_assert_component_lists_equal (GPtrArray *cpts_a, GPtrArray *cpts_b)
 		as_metadata_add_component (metad, cpt);
 	}
 
-	cpts_b_xml = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, &error);
+	cpts_b_xml = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
 	g_assert_true (as_test_compare_lines (cpts_a_xml, cpts_b_xml));
@@ -250,7 +250,7 @@ test_cache (void)
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts_pre, i));
 		as_metadata_add_component (mdata, cpt);
 	}
-	xmldata_precache = as_metadata_components_to_collection (mdata, AS_FORMAT_KIND_XML, &error);
+	xmldata_precache = as_metadata_components_to_catalog (mdata, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
 	/* create new cache for writing */
@@ -290,7 +290,7 @@ test_cache (void)
 		as_metadata_add_component (mdata, cpt);
 	}
 
-	xmldata_postcache = as_metadata_components_to_collection (mdata, AS_FORMAT_KIND_XML, &error);
+	xmldata_postcache = as_metadata_components_to_catalog (mdata, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
 	g_assert_true (as_test_compare_lines (xmldata_precache, xmldata_postcache));

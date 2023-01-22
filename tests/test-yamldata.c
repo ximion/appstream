@@ -44,7 +44,7 @@ as_yaml_test_serialize (AsComponent *cpt)
 	as_metadata_add_component (metad, cpt);
 	as_metadata_set_write_header (metad, TRUE);
 
-	data = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_YAML, &error);
+	data = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_YAML, &error);
 	g_assert_no_error (error);
 
 	return data;
@@ -398,7 +398,7 @@ test_yamlwrite_misc (void)
 	g_object_unref (cpt);
 
 	/* serialize and validate */
-	resdata = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_YAML, &error);
+	resdata = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_YAML, &error);
 	g_assert_no_error (error);
 
 	g_assert_true (as_yaml_test_compare_yaml (resdata, expected_yaml));
@@ -593,7 +593,7 @@ test_yaml_write_simple (void)
 	as_component_set_summary (cpt, "Just part of an unittest", "C");
 	as_component_set_name_variant_suffix (cpt, "Generic", "C");
 
-	/* test collection serialization */
+	/* test catalog serialization */
 	res = as_yaml_test_serialize (cpt);
 	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_simple_fields));
 }
@@ -684,7 +684,7 @@ test_yaml_write_provides (void)
 	as_provided_add_item (prov_firmware_flashed, "84f40464-9272-4ef7-9399-cd95f12da696");
 	as_component_add_provided (cpt, prov_firmware_flashed);
 
-	/* test collection serialization */
+	/* test catalog serialization */
 	res = as_yaml_test_serialize (cpt);
 	g_assert_true (as_yaml_test_compare_yaml (res, expected_prov_yaml));
 }
@@ -798,7 +798,7 @@ test_yaml_write_suggests (void)
 	as_suggested_add_id (sug_hr, "org.example.Stuff");
 	as_component_add_suggested (cpt, sug_hr);
 
-	/* test collection serialization */
+	/* test catalog serialization */
 	res = as_yaml_test_serialize (cpt);
 	g_assert_true (as_yaml_test_compare_yaml (res, expected_sug_yaml));
 }
@@ -874,7 +874,7 @@ test_yaml_write_custom (void)
 	as_component_insert_custom_value (cpt, "foo bar", "value-with space");
 	as_component_insert_custom_value (cpt, "Oh::Snap::Punctuation!", "Awesome!");
 
-	/* test collection serialization */
+	/* test catalog serialization */
 	res = as_yaml_test_serialize (cpt);
 	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_custom_field));
 }
@@ -929,7 +929,7 @@ test_yaml_write_content_rating (void)
 
 	as_component_add_content_rating (cpt, rating);
 
-	/* test collection serialization */
+	/* test catalog serialization */
 	res = as_yaml_test_serialize (cpt);
 	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_content_rating_field));
 }
@@ -987,7 +987,7 @@ test_yaml_write_launchable (void)
 
 	as_component_add_launchable (cpt, launch);
 
-	/* test collection serialization */
+	/* test catalog serialization */
 	res = as_yaml_test_serialize (cpt);
 	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_launchable_field));
 }
@@ -1141,7 +1141,7 @@ test_yaml_write_relations (void)
 
 	as_component_add_replaces (cpt, "org.example.old_test");
 
-	/* test collection serialization */
+	/* test catalog serialization */
 	res = as_yaml_test_serialize (cpt);
 	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_relations_field));
 }
@@ -1298,7 +1298,7 @@ test_yaml_write_agreements (void)
 	as_agreement_add_section (agreement, sect);
 	as_component_add_agreement (cpt, agreement);
 
-	/* test collection serialization */
+	/* test catalog serialization */
 	res = as_yaml_test_serialize (cpt);
 	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_agreements));
 }
@@ -1429,7 +1429,7 @@ test_yaml_write_screenshots (void)
 	as_component_add_screenshot (cpt, scr1);
 	as_component_add_screenshot (cpt, scr2);
 
-	/* test collection serialization */
+	/* test catalog serialization */
 	res = as_yaml_test_serialize (cpt);
 	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_screenshots));
 }
@@ -1640,7 +1640,7 @@ test_yaml_write_releases (void)
 	as_artifact_set_platform (af2, "x86_64-linux-gnu");
 	as_release_add_artifact (rel2, af2);
 
-	/* test collection serialization */
+	/* test catalog serialization */
 	res = as_yaml_test_serialize (cpt);
 	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_releases_field));
 }

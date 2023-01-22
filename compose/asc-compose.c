@@ -20,7 +20,7 @@
 
 /**
  * SECTION:asc-compose
- * @short_description: Compose collection metadata easily.
+ * @short_description: Compose catalog metadata easily.
  * @include: appstream-compose.h
  */
 
@@ -295,7 +295,7 @@ asc_compose_get_format (AscCompose *compose)
  * @compose: an #AscCompose instance.
  * @kind: The format, e.g. %AS_FORMAT_KIND_XML
  *
- * Set the format kind of the collection metadata that we should generate.
+ * Set the format kind of the catalog metadata that we should generate.
  */
 void
 asc_compose_set_format (AscCompose *compose, AsFormatKind kind)
@@ -2014,7 +2014,7 @@ asc_compose_save_metadata_result (AscCompose *compose, gboolean *results_not_emp
 	}
 
 	data_fname = g_build_filename (priv->data_result_dir, data_basename, NULL);
-	return as_metadata_save_collection (mdata, data_fname, priv->format, error);
+	return as_metadata_save_catalog (mdata, data_fname, priv->format, error);
 }
 
 /**
@@ -2056,7 +2056,7 @@ asc_compose_finalize_result (AscCompose *compose, AscResult *result)
  * @cancellable: a #GCancellable.
  * @error: A #GError or %NULL.
  *
- * Process the registered units and generate collection metadata from
+ * Process the registered units and generate catalog metadata from
  * found components.
  *
  * Returns: (transfer none) (element-type AscResult): The results, or %NULL on error

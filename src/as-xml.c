@@ -599,12 +599,12 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 }
 
 /**
- * as_xml_add_description_collection_mode_helper:
+ * as_xml_add_description_catalog_mode_helper:
  *
- * Add the description markup for AppStream collection XML to the tree.
+ * Add the description markup for AppStream catalog XML to the tree.
  */
 static gboolean
-as_xml_add_description_collection_mode_helper (xmlNode *parent, const gchar *description_markup, const gchar *lang)
+as_xml_add_description_catalog_mode_helper (xmlNode *parent, const gchar *description_markup, const gchar *lang)
 {
 	xmlNode *dnode;
 	xmlNode *cnode;
@@ -741,7 +741,7 @@ as_xml_add_description_node (AsContext *ctx, xmlNode *root, GHashTable *desc_tab
 			} while (as_xml_markup_parse_helper_next (helper));
 		}
 	} else {
-		/* we have a collection XML file, so write in that format (which is much faster and easier to do) */
+		/* we have a catalog XML file, so write in that format (which is much faster and easier to do) */
 		for (GList *link = keys; link != NULL; link = link->next) {
 			const gchar *locale = (const gchar*) link->data;
 			const gchar *desc_markup = g_hash_table_lookup (desc_table, locale);
@@ -749,7 +749,7 @@ as_xml_add_description_node (AsContext *ctx, xmlNode *root, GHashTable *desc_tab
 			if (as_is_cruft_locale (locale))
 				continue;
 
-			as_xml_add_description_collection_mode_helper (root, desc_markup, locale);
+			as_xml_add_description_catalog_mode_helper (root, desc_markup, locale);
 		}
 	}
 }

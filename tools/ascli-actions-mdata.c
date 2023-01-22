@@ -53,7 +53,7 @@ ascli_refresh_cache (const gchar *cachepath,
 
 		for (guint i = 0; sources_str[i] != NULL; i++) {
 			if (g_strcmp0 (sources_str[i], "os") == 0) {
-				as_pool_add_flags (pool, AS_POOL_FLAG_LOAD_OS_COLLECTION |
+				as_pool_add_flags (pool, AS_POOL_FLAG_LOAD_OS_CATALOG |
 							 AS_POOL_FLAG_LOAD_OS_METAINFO |
 							 AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
 				g_print ("• %s\n", _("Updating software metadata cache for the operating system."));
@@ -318,7 +318,7 @@ ascli_dump_component (const gchar *cachepath, const gchar *identifier, AsFormatK
 		as_metadata_add_component (metad, cpt);
 		if (mformat == AS_FORMAT_KIND_YAML) {
 			/* we allow YAML serialization just this once */
-			metadata = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_YAML, NULL);
+			metadata = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_YAML, NULL);
 		} else {
 			metadata = as_metadata_component_to_metainfo (metad, mformat, NULL);
 		}
@@ -393,7 +393,7 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 	    (g_str_has_suffix (in_fname, ".yaml.gz")) ||
 	    (g_str_has_suffix (in_fname, ".yml")) ||
 	    (g_str_has_suffix (in_fname, ".yaml"))) {
-		/* if we have YAML, we also automatically assume a collection style */
+		/* if we have YAML, we also automatically assume a catalog style */
 		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
 	} else if (g_str_has_suffix (in_fname, ".metainfo.xml") || g_str_has_suffix (in_fname, ".appdata.xml")) {
 		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_METAINFO);
@@ -410,7 +410,7 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 		return 1;
 	}
 
-	/* since YAML files are always collection-YAMLs, we will always run in collection mode */
+	/* since YAML files are always catalog-YAMLs, we will always run in catalog mode */
 	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
 
 	if (mformat == AS_FORMAT_KIND_UNKNOWN) {
@@ -431,7 +431,7 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 		g_autofree gchar *data = NULL;
 
 		/* print to stdout */
-		data = as_metadata_components_to_collection (metad, mformat, &error);
+		data = as_metadata_components_to_catalog (metad, mformat, &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
 			return 1;
@@ -440,7 +440,7 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 	} else {
 		/* save to file */
 
-		as_metadata_save_collection (metad, out_fname, mformat, &error);
+		as_metadata_save_catalog (metad, out_fname, mformat, &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
 			return 1;

@@ -65,7 +65,7 @@ typedef enum {
  * AsMetadataError:
  * @AS_METADATA_ERROR_FAILED:			Generic failure.
  * @AS_METADATA_ERROR_PARSE:			Unable to parse the metadata file.
- * @AS_METADATA_ERROR_FORMAT_UNEXPECTED:	Expected collection metadata but got metainfo metadata, or vice versa.
+ * @AS_METADATA_ERROR_FORMAT_UNEXPECTED:	Expected catalog metadata but got metainfo metadata, or vice versa.
  * @AS_METADATA_ERROR_NO_COMPONENT:		We expected a component in the pool, but couldn't find one.
  * @AS_METADATA_ERROR_VALUE_MISSING:		A essential value is missing in the source document.
  *
@@ -132,13 +132,13 @@ gboolean		as_metadata_save_metainfo (AsMetadata *metad,
 							AsFormatKind format,
 							GError **error);
 
-gchar			*as_metadata_components_to_collection (AsMetadata *metad,
-								AsFormatKind format,
-								GError **error);
-gboolean		as_metadata_save_collection (AsMetadata *metad,
-							const gchar *fname,
-							AsFormatKind format,
-							GError **error);
+gchar			*as_metadata_components_to_catalog (AsMetadata *metad,
+							    AsFormatKind format,
+							    GError **error);
+gboolean		as_metadata_save_catalog (AsMetadata *metad,
+						  const gchar *fname,
+						  AsFormatKind format,
+						  GError **error);
 
 AsFormatVersion		as_metadata_get_format_version (AsMetadata *metad);
 void			as_metadata_set_format_version (AsMetadata *metad,
@@ -175,6 +175,18 @@ void			as_metadata_set_architecture (AsMetadata *metad,
 AsParseFlags		as_metadata_get_parse_flags (AsMetadata *metad);
 void			as_metadata_set_parse_flags (AsMetadata *metad,
 						     AsParseFlags flags);
+
+/* DEPRECATED */
+
+G_DEPRECATED_FOR(as_metadata_components_to_catalog)
+gchar			*as_metadata_components_to_collection (AsMetadata *metad,
+								AsFormatKind format,
+								GError **error);
+G_DEPRECATED_FOR(as_metadata_save_catalog)
+gboolean		as_metadata_save_collection (AsMetadata *metad,
+							const gchar *fname,
+							AsFormatKind format,
+							GError **error);
 
 G_END_DECLS
 

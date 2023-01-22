@@ -45,13 +45,13 @@ test_get_sampledata_pool (gboolean use_caches)
 	g_autofree gchar *mdata_dir = NULL;
 
 	/* create AsPool and load sample metadata */
-	mdata_dir = g_build_filename (datadir, "collection", NULL);
+	mdata_dir = g_build_filename (datadir, "catalog", NULL);
 
 	pool = as_pool_new ();
 	as_pool_set_locale (pool, "C");
 
 	flags = as_pool_get_flags (pool);
-	as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_COLLECTION);
+	as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_CATALOG);
 	as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
 	as_flags_remove (flags, AS_POOL_FLAG_LOAD_OS_METAINFO);
 	as_flags_remove (flags, AS_POOL_FLAG_LOAD_FLATPAK);
@@ -106,7 +106,7 @@ test_pool_cache_perf (void)
 
 	guint loops = 1000;
 	const gchar *cache_location = "/tmp/as-unittest-perfcache";
-	mdata_dir = g_build_filename (datadir, "collection", NULL);
+	mdata_dir = g_build_filename (datadir, "catalog", NULL);
 
 	/* prepare a cache file and list of components to work with */
 	as_utils_delete_dir_recursive (cache_location);

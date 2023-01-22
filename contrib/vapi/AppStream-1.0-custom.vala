@@ -15,6 +15,8 @@ namespace AppStream {
 	public enum PoolFlags {
 		[Version (deprecated = true, replacement = "LOAD_OS_COLLECTION")]
 		READ_COLLECTION,
+		[Version (deprecated = true, replacement = "LOAD_OS_CATALOG")]
+		LOAD_OS_COLLECTION,
 		[Version (deprecated = true, replacement = "LOAD_OS_METAINFO")]
 		READ_METAINFO,
 		[Version (deprecated = true, replacement = "LOAD_OS_DESKTOP_FILES")]

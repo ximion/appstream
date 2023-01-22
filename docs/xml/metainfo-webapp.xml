@@ -20,7 +20,7 @@
 			A web application metainfo file is special in the regard that it is usually not combined with the software it is describing and that it has no
 			installable.
 			It usually is equivalent to a weblink that gets special treatment by software centers. Web application metainfo files are therefore
-			injected directly into the collection metadata generation process, or can be installed as usual into <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
+			injected directly into the catalog metadata generation process, or can be installed as usual into <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
 		</para>
 		<para>
 			Software centers may display web applications in special, chrome-less web browser windows to achieve better desktop integration and

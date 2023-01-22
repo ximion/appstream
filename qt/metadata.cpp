@@ -219,15 +219,20 @@ AppStream::Metadata::MetadataError AppStream::Metadata::saveMetainfo(const QStri
     return AppStream::Metadata::MetadataErrorNoError;
 }
 
-QString AppStream::Metadata::componentsToCollection(AppStream::Metadata::FormatKind format) const
+QString AppStream::Metadata::componentsToCatalog(AppStream::Metadata::FormatKind format) const
 {
-    return valueWrap(as_metadata_components_to_collection(d->m_metadata, (AsFormatKind) format, nullptr));
+    return valueWrap(as_metadata_components_to_catalog(d->m_metadata, (AsFormatKind) format, nullptr));
 }
 
-AppStream::Metadata::MetadataError AppStream::Metadata::saveCollection(const QString& collection, AppStream::Metadata::FormatKind format)
+QString AppStream::Metadata::componentsToCollection(AppStream::Metadata::FormatKind format) const
+{
+    return componentsToCatalog(format);
+}
+
+AppStream::Metadata::MetadataError AppStream::Metadata::saveCatalog(const QString& filename, AppStream::Metadata::FormatKind format)
 {
     g_autoptr(GError) error = nullptr;
-    as_metadata_save_collection(d->m_metadata, qPrintable(collection), (AsFormatKind) format, &error);
+    as_metadata_save_catalog(d->m_metadata, qPrintable(filename), (AsFormatKind) format, &error);
 
     if (error != nullptr) {
         d->lastError = QString::fromUtf8(error->message);
@@ -238,6 +243,11 @@ AppStream::Metadata::MetadataError AppStream::Metadata::saveCollection(const QSt
     }
 
     return AppStream::Metadata::MetadataErrorNoError;
+}
+
+AppStream::Metadata::MetadataError AppStream::Metadata::saveCollection(const QString& collection, AppStream::Metadata::FormatKind format)
+{
+    return saveCatalog(collection, format);
 }
 
 AppStream::Metadata::FormatVersion AppStream::Metadata::formatVersion() const
