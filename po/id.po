@@ -22,10 +22,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2022-12-22 23:35+0100\n"
+"POT-Creation-Date: 2023-01-22 02:22+0100\n"
 "PO-Revision-Date: 2022-12-24 03:49+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
-"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
+"translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -389,7 +390,7 @@ msgstr "Perkantoran"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:322 tools/ascli-utils.c:372
+#: src/as-category.c:322 tools/ascli-utils.c:379
 msgid "Add-ons"
 msgstr "Pengaya"
 
@@ -1051,6 +1052,189 @@ msgstr "Firmware yang di-flash"
 msgid "Component"
 msgstr "Komponen"
 
+#: src/as-relation.c:1530
+msgid "pointing device (e.g. a mouse)"
+msgstr ""
+
+#: src/as-relation.c:1532
+#, fuzzy
+msgid "keyboard"
+msgstr "Papan"
+
+#: src/as-relation.c:1534
+msgid "gamepad"
+msgstr ""
+
+#: src/as-relation.c:1536
+msgid "tv remote"
+msgstr ""
+
+#: src/as-relation.c:1538
+msgid "graphics tablet"
+msgstr ""
+
+#. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
+#: src/as-relation.c:1543
+#, fuzzy, c-format
+msgid "This software requires a %s for input."
+msgstr "Tag ini membutuhkan suatu properti tipe."
+
+#: src/as-relation.c:1548
+#, fuzzy
+msgid "This software requires a touch input device."
+msgstr "Tag ini membutuhkan suatu properti tipe."
+
+#: src/as-relation.c:1550
+msgid "This software requires a microphone to be controlled via voice input."
+msgstr ""
+
+#: src/as-relation.c:1552
+msgid "This software requires a camera for input control."
+msgstr ""
+
+#: src/as-relation.c:1554
+#, fuzzy
+msgid "This software requires a method for console input."
+msgstr "Tag ini membutuhkan suatu properti tipe."
+
+#. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
+#: src/as-relation.c:1559
+#, c-format
+msgid "This software recommends a %s for input."
+msgstr ""
+
+#: src/as-relation.c:1564
+msgid "This software recommends a touch input device."
+msgstr ""
+
+#: src/as-relation.c:1566
+msgid "This software recommends a microphone to be controlled via voice input."
+msgstr ""
+
+#: src/as-relation.c:1568
+msgid "This software recommends a camera for input control."
+msgstr ""
+
+#: src/as-relation.c:1570
+msgid "This software recommends a method for console input."
+msgstr ""
+
+#: src/as-relation.c:1575
+msgid "pointing devices (e.g. mice)"
+msgstr ""
+
+#: src/as-relation.c:1577
+msgid "keyboards"
+msgstr ""
+
+#: src/as-relation.c:1579
+msgid "gamepads"
+msgstr ""
+
+#: src/as-relation.c:1581
+msgid "tv remotes"
+msgstr ""
+
+#: src/as-relation.c:1583
+msgid "graphics tablets"
+msgstr ""
+
+#. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
+#: src/as-relation.c:1587
+#, c-format
+msgid "This software supports %s."
+msgstr ""
+
+#: src/as-relation.c:1592
+msgid "This software supports touch input."
+msgstr ""
+
+#: src/as-relation.c:1594
+msgid "This software can be controlled via voice input."
+msgstr ""
+
+#: src/as-relation.c:1596
+msgid "This software can be controlled via a camera."
+msgstr ""
+
+#: src/as-relation.c:1598
+msgid "This software supports operation via console commands."
+msgstr ""
+
+#: src/as-relation.c:1655
+#, c-format
+msgid "Software '%s' was found"
+msgstr ""
+
+#: src/as-relation.c:1661
+#, c-format
+msgid "Required software component '%s' is missing."
+msgstr ""
+
+#: src/as-relation.c:1665
+#, c-format
+msgid "Recommended software component '%s' is missing."
+msgstr ""
+
+#: src/as-relation.c:1694
+#, c-format
+msgid "Found hardware that is supported by this software: '%s'"
+msgstr ""
+
+#: src/as-relation.c:1700
+#, c-format
+msgid "Required hardware for this software was not found on this system: '%s'"
+msgstr ""
+
+#: src/as-relation.c:1704
+#, c-format
+msgid ""
+"Recommended hardware for this software was not found on this system: '%s'"
+msgstr ""
+
+#: src/as-relation.c:1708
+#, c-format
+msgid "This software supports hardware not present in this system: '%s'"
+msgstr ""
+
+#: src/as-relation.c:1742
+#, c-format
+msgid "This software requires a %s kernel, but this system is running %s."
+msgstr ""
+
+#: src/as-relation.c:1746
+#, c-format
+msgid "This software recommends a %s kernel, but this system is running %s."
+msgstr ""
+
+#: src/as-relation.c:1750
+#, c-format
+msgid "This software only supports a %s kernel, but my run on %s anyway."
+msgstr ""
+
+#: src/as-relation.c:1771
+#, c-format
+msgid "This software requires %s %s %s, but this system is running version %s."
+msgstr ""
+
+#: src/as-relation.c:1777
+#, c-format
+msgid ""
+"The use of %s %s %s is recommended, but this system is running version %s."
+msgstr ""
+
+#: src/as-relation.c:1808
+#, c-format
+msgid ""
+"This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
+msgstr ""
+
+#: src/as-relation.c:1814
+#, c-format
+msgid ""
+"This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
+msgstr ""
+
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
 msgstr "Tag ini membutuhkan suatu properti tipe."
@@ -1068,12 +1252,12 @@ msgstr ""
 "(metadata hulu). Lokalkan masing-masing paragraf saja."
 
 #: src/as-validator-issue-tag.h:57
+#, fuzzy
 msgid ""
 "This element (paragraph, list, etc.) of a <description/> tag must not be "
-"localized individually in collection metadata. Localize the whole "
-"<description/> tag instead. The AppStream collection metadata generator (e."
-"g. `appstream-generator`) will already do the right thing when compiling the "
-"data."
+"localized individually in catalog metadata. Localize the whole <description/"
+"> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
+"generator`) will already do the right thing when compiling the data."
 msgstr ""
 "Elemen (paragraf, daftar, dll.) dari suatu tag <description/> ini tidak "
 "boleh dilokalkan secara individual dalam metadata koleksi. Lokalkan "
@@ -1157,7 +1341,8 @@ msgstr ""
 #: src/as-validator-issue-tag.h:111
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
-msgstr "Tag yang disebutkan memiliki konten teks, meskipun tidak boleh berisi teks."
+msgstr ""
+"Tag yang disebutkan memiliki konten teks, meskipun tidak boleh berisi teks."
 
 #: src/as-validator-issue-tag.h:116
 msgid ""
@@ -1349,7 +1534,8 @@ msgstr "Hanya boleh ada satu gambar `source` per tangkapan layar dan bahasa."
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:246
 msgid "A screenshot must have at least one image of type `source`."
-msgstr "Tangkapan layar harus memiliki setidaknya satu gambar dari tipe `source`."
+msgstr ""
+"Tangkapan layar harus memiliki setidaknya satu gambar dari tipe `source`."
 
 #: src/as-validator-issue-tag.h:251
 msgid ""
@@ -1618,7 +1804,9 @@ msgstr "Nilai tag yang ditata tidak valid untuk relasi `internet`."
 msgid ""
 "The `bandwidth_mbitps` property is not allowed when using `offline-only` as "
 "value."
-msgstr "Properti `bandwidth_mbitps` tidak diizinkan ketika menggunakan `offline-only` sebagai nilai."
+msgstr ""
+"Properti `bandwidth_mbitps` tidak diizinkan ketika menggunakan `offline-"
+"only` sebagai nilai."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
@@ -1804,8 +1992,9 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:575
+#, fuzzy
 msgid ""
-"The `update_contact` tag should not be included in collection AppStream XML."
+"The `update_contact` tag should not be included in catalog AppStream XML."
 msgstr ""
 "Tag `update_contact` tidak boleh dimasukkan dalam koleksi AppStream XML."
 
@@ -2034,9 +2223,9 @@ msgstr "XML berkas ini salah bentuk."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:736
+#, fuzzy
 msgid ""
-"Invalid tag found in collection metadata. Only `component` tags are "
-"permitted."
+"Invalid tag found in catalog metadata. Only `component` tags are permitted."
 msgstr ""
 "Tag tidak valid ditemukan dalam metadata koleksi. Hanya tag `component` yang "
 "diizinkan."
@@ -2154,23 +2343,47 @@ msgstr ""
 "karena beberapa alat akan menganggap bahwa versi terbaru selalu di atas. "
 "Menyortir rilis juga meningkatkan keterbacaan keseluruhan berkas metainfo."
 
-#: src/as-validator-issue-tag.h:826
+#. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
+#: src/as-validator-issue-tag.h:827
+msgid ""
+"The type of the releases block is invalid. It needs to either `embedded` "
+"(the default) or `external`."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:832
+msgid ""
+"The URL to an external release metadata file is insecure. This is not "
+"allowed, please use HTTPS URLs only."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:837
+#, fuzzy
+msgid "Failed to download release metadata."
+msgstr "Tidak dapat mengunduh berkas: %s"
+
+#: src/as-validator-issue-tag.h:842
+msgid ""
+"A local release metadata file was not found. It is strongly recommended to "
+"validate this metadata together with the main MetaInfo file."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:848
 msgid "The value set as release urgency is not a known urgency value."
 msgstr ""
 "Nilai yang ditetapkan sebagai urgensi rilis bukanlah nilai urgensi yang "
 "diketahui."
 
-#: src/as-validator-issue-tag.h:831
+#: src/as-validator-issue-tag.h:853
 msgid "The value set as release type is invalid."
 msgstr "Nilai yang ditetapkan sebagai jenis rilis tidak valid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:837
+#: src/as-validator-issue-tag.h:859
 msgid "The release is missing the `version` property."
 msgstr "Rilis ini kehilangan properti 'versi'."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:843
+#: src/as-validator-issue-tag.h:865
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
@@ -2178,12 +2391,12 @@ msgstr ""
 "Rilis ini kehilangan baik 'tanggal' (disarankan) atau properti 'stempel "
 "waktu'."
 
-#: src/as-validator-issue-tag.h:848
+#: src/as-validator-issue-tag.h:870
 msgid "The release timestamp is invalid."
 msgstr "Stempel waktu rilis tidak valid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:854
+#: src/as-validator-issue-tag.h:876
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
@@ -2191,11 +2404,11 @@ msgstr ""
 "Nilai yang ditetapkan sebagai jenis artefak tidak valid. Harus salah satu "
 "dari `source` atau `binary`."
 
-#: src/as-validator-issue-tag.h:859
+#: src/as-validator-issue-tag.h:881
 msgid "The value set as artifact bundle type is invalid."
 msgstr "Nilai yang ditetapkan sebagai jenis paket artefak tidak valid."
 
-#: src/as-validator-issue-tag.h:864
+#: src/as-validator-issue-tag.h:886
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
@@ -2206,17 +2419,17 @@ msgstr ""
 "tentang GNU triplets yang dinormalisasi untuk informasi lebih lanjut dan "
 "bidang yang valid."
 
-#: src/as-validator-issue-tag.h:871
+#: src/as-validator-issue-tag.h:893
 msgid "The selected checksumming algorithm is unsupported or unknown."
 msgstr ""
 "Algoritma checksumming yang dipilih tidak didukung atau tidak diketahui."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:877
+#: src/as-validator-issue-tag.h:899
 msgid "The size type is unknown. Must be `download` or `installed`."
 msgstr "Jenis ukuran tidak diketahui. Harus `download` atau `installed`."
 
-#: src/as-validator-issue-tag.h:882
+#: src/as-validator-issue-tag.h:904
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
@@ -2224,11 +2437,11 @@ msgstr ""
 "Nama file artefak harus berupa nama dasar file, bukan jalur (relatif atau "
 "absolut)."
 
-#: src/as-validator-issue-tag.h:887
+#: src/as-validator-issue-tag.h:909
 msgid "The value set as release issue type is invalid."
 msgstr "Nilai yang ditetapkan sebagai jenis rilis issue tidak valid."
 
-#: src/as-validator-issue-tag.h:892
+#: src/as-validator-issue-tag.h:914
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
@@ -2237,7 +2450,7 @@ msgstr ""
 "nilainya tidak terlihat seperti pengenal CVE yang valid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:898
+#: src/as-validator-issue-tag.h:920
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
@@ -2245,7 +2458,7 @@ msgstr ""
 "Komponen ini kurang informasi tentang rilis. Pertimbangkan menambah suatu "
 "tag `releases` untuk menjelaskan rilis dan perubahan mereka."
 
-#: src/as-validator-issue-tag.h:903
+#: src/as-validator-issue-tag.h:925
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
@@ -2255,7 +2468,7 @@ msgstr ""
 "dengan setidaknya granularitas hari untuk menunjukkan tanggal. Harap "
 "pastikan string tanggal valid."
 
-#: src/as-validator-issue-tag.h:909
+#: src/as-validator-issue-tag.h:931
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
@@ -2266,7 +2479,7 @@ msgstr ""
 "pengguna atau mesin yang berurusan dengan metadata ini."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:916
+#: src/as-validator-issue-tag.h:938
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
@@ -2278,7 +2491,7 @@ msgstr ""
 "menggunakan `LicenseRef` dan URL web sebagai nilai untuk `project_license` "
 "komponen ini. Misalnya `LicenseRef-free=https://example.com/licenses.html`"
 
-#: src/as-validator-issue-tag.h:922
+#: src/as-validator-issue-tag.h:944
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
@@ -2288,13 +2501,13 @@ msgstr ""
 "lain, ID-komponennya dapat dicantumkan dalam bagian `<provides/>` untuk "
 "runtime ini."
 
-#: src/as-validator-issue-tag.h:927
+#: src/as-validator-issue-tag.h:949
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr "Tipe butir yang disediakan komponen tidak diketahui oleh AppStream."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:933
+#: src/as-validator-issue-tag.h:955
 msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
@@ -2305,7 +2518,7 @@ msgstr ""
 "menyediakan pengendali media untuk jenis yang diberikan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:940
+#: src/as-validator-issue-tag.h:962
 msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
@@ -2316,12 +2529,12 @@ msgstr ""
 "beberapa pertanyaan pada https://hughsie.github.io/oars/"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:947
+#: src/as-validator-issue-tag.h:969
 msgid "This `tag` is missing a `namespace` attribute."
 msgstr "`tag` ini kurang atribut `namespace`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:953
+#: src/as-validator-issue-tag.h:975
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
@@ -2329,44 +2542,46 @@ msgstr ""
 "Tag ini atau namespace-nya memuat karakter yang tidak valid. Hanya karakter "
 "ASCII huruf kecil, angka, titik, dan garis hubung yang diizinkan."
 
-#: src/as-validator-issue-tag.h:958
+#: src/as-validator-issue-tag.h:980
 msgid "The type of this color is not valid."
 msgstr "Jenis warna ini tidak valid."
 
-#: src/as-validator-issue-tag.h:963
+#: src/as-validator-issue-tag.h:985
 msgid "The value of this color scheme preference is not valid."
 msgstr "Nilai dari preferensi skema warna ini tidak valid."
 
-#: src/as-validator-issue-tag.h:968
+#: src/as-validator-issue-tag.h:990
 msgid "This color is not a valid HTML color code."
 msgstr "Warna ini bukan suatu kode warna HTML yang valid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:974
+#: src/as-validator-issue-tag.h:996
 msgid "The `custom` tag can only contain `value` children."
 msgstr "Tag `custom` hanya boleh berisi turunan `value`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:980
+#: src/as-validator-issue-tag.h:1002
 msgid "This `custom` tag value is missing a `key` attribute."
 msgstr "Nilai tag `custom` ini kurang atribut `key`."
 
-#: src/as-validator-issue-tag.h:985
+#: src/as-validator-issue-tag.h:1007
 msgid "A key can only be used once."
 msgstr "Kunci hanya dapat digunakan sekali."
 
-#: src/as-validator-issue-tag.h:990
+#: src/as-validator-issue-tag.h:1012
 msgid "This custom value is empty."
 msgstr "Nilai ubahan ini kosong."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:996
+#: src/as-validator-issue-tag.h:1018
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr "Tag `keywords` tidak boleh dilokalkan dalam file metainfo (upstream metadata). Lokalkan saja entri kata kunci individu."
+msgstr ""
+"Tag `keywords` tidak boleh dilokalkan dalam file metainfo (upstream "
+"metadata). Lokalkan saja entri kata kunci individu."
 
-#: src/as-validator.c:162
+#: src/as-validator.c:192
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
@@ -2374,25 +2589,30 @@ msgstr ""
 "Tag masalah yang dikeluarkan tidak dikenal di registri tag AppStream. Ini "
 "adalah bug di validator itu sendiri, laporkan masalah ini di bugtracker kami."
 
-#: src/as-validator.c:363
+#: src/as-validator.c:406
 msgid "URL format is invalid."
 msgstr "Format URL tidak valid."
 
+#: src/as-validator.c:470 src/as-validator.c:514
+#, c-format
+msgid "The release metadata file '%s' is named incorrectly."
+msgstr ""
+
 #. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
-#: src/as-validator.c:496
+#: src/as-validator.c:653
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
 msgstr "Tingkat keparahan masalah baru untuk tag '%s' tidak valid."
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
-#: src/as-validator.c:507
+#: src/as-validator.c:664
 #, c-format
 msgid "The issue tag '%s' is not recognized."
 msgstr "Tag masalah '%s' tidak dikenali."
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 #. * whitelisted for that.
-#: src/as-validator.c:532
+#: src/as-validator.c:689
 #, c-format
 msgid ""
 "It is not allowed to downgrade the severity of tag '%s' to one that allows "
@@ -2403,9 +2623,9 @@ msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
-#: src/as-validator.c:688 src/as-validator.c:1203 src/as-validator.c:1262
-#: src/as-validator.c:1413 src/as-validator.c:1898 src/as-validator.c:1918
-#: src/as-validator.c:1951 src/as-validator.c:1994
+#: src/as-validator.c:845 src/as-validator.c:1360 src/as-validator.c:1419
+#: src/as-validator.c:1570 src/as-validator.c:2055 src/as-validator.c:2075
+#: src/as-validator.c:2176 src/as-validator.c:2324
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Ditemukan: %s - Diizinkan: %s"
@@ -2417,13 +2637,13 @@ msgstr "Tampilkan informasi debug ekstra"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-compose.c:186 tools/appstreamcli.c:1228
+#: tools/appstream-compose.c:186 tools/appstreamcli.c:1259
 msgid "Don't show colored output."
 msgstr "Jangan tampilkan keluaran berwarna."
 
 #. TRANSLATORS: ascompose flag description for: --version
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-compose.c:189 tools/appstreamcli.c:1217
+#: tools/appstream-compose.c:189 tools/appstreamcli.c:1248
 msgid "Show the program version."
 msgstr "Tampilkan versi program."
 
@@ -2492,13 +2712,13 @@ msgid "Failed to parse arguments"
 msgstr "Gagal mengurai argumen"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:247 tools/appstreamcli.c:1375
+#: tools/appstream-compose.c:247 tools/appstreamcli.c:1411
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream versi: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:250 tools/appstreamcli.c:1378
+#: tools/appstream-compose.c:250 tools/appstreamcli.c:1414
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2667,7 +2887,7 @@ msgstr "Timpa tingkat keparahan tag masalah yang dipilih."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstreamcli.c:168 tools/appstreamcli.c:1117
+#: tools/appstreamcli.c:168 tools/appstreamcli.c:1148
 msgid "AppStream command-line interface"
 msgstr "Antarmuka baris perintah AppStream"
 
@@ -2682,7 +2902,7 @@ msgstr "perintah '%s'"
 msgid "Option '%s' is unknown."
 msgstr "Opsi '%s' tak dikenal."
 
-#: tools/appstreamcli.c:211 tools/appstreamcli.c:1352
+#: tools/appstreamcli.c:211 tools/appstreamcli.c:1388
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -2714,7 +2934,7 @@ msgstr ""
 "`flatpak`. Dapat dinyatakan beberapa kali."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
-#: tools/appstreamcli.c:508
+#: tools/appstreamcli.c:539
 msgid ""
 "No license, license expression or license exception string was provided."
 msgstr ""
@@ -2722,17 +2942,18 @@ msgstr ""
 "diberikan."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstreamcli.c:533
-msgid "Set the data origin for the installed metadata collection file."
+#: tools/appstreamcli.c:564
+#, fuzzy
+msgid "Set the data origin for the installed metadata catalog file."
 msgstr "Atur asal data untuk file pengumpulan metadata yang terinstal."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:538
+#: tools/appstreamcli.c:569
 msgid "Install the file for the current user, instead of globally."
 msgstr "Instal file untuk --pengguna saat ini, bukan secara global."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:566
+#: tools/appstreamcli.c:597
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
@@ -2741,7 +2962,7 @@ msgstr ""
 "yang diberikan (`flatpak` atau `package`)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:571
+#: tools/appstreamcli.c:602
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
@@ -2750,7 +2971,7 @@ msgstr ""
 "pilih entri pertama."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
-#: tools/appstreamcli.c:604 tools/appstreamcli.c:641
+#: tools/appstreamcli.c:635 tools/appstreamcli.c:672
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
@@ -2758,7 +2979,7 @@ msgstr ""
 "Tidak ada jenis bundel yang valid yang ditentukan. Hanya `package` dan "
 "`flatpak` yang saat ini dikenali."
 
-#: tools/appstreamcli.c:739
+#: tools/appstreamcli.c:770
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
@@ -2766,13 +2987,13 @@ msgstr ""
 "parameter."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:768
+#: tools/appstreamcli.c:799
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr ""
 "Hubungan perbandingan tidak dikenal '%s'. Nilai-nilai yang valid adalah:"
 
-#: tools/appstreamcli.c:808
+#: tools/appstreamcli.c:839
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -2781,7 +3002,7 @@ msgstr ""
 "dan sebuah operator perbandingan."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:834
+#: tools/appstreamcli.c:865
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -2789,7 +3010,7 @@ msgstr ""
 "berkas metainfo."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstreamcli.c:839
+#: tools/appstreamcli.c:870
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -2798,26 +3019,26 @@ msgstr ""
 "berkas tujuan tulis (atau \"-\" untuk keluaran standar)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstreamcli.c:842
+#: tools/appstreamcli.c:873
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TIPE mesti berupa suatu tipe komponen yang valid, seperti misalnya: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:883
+#: tools/appstreamcli.c:914
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 "Menggunakan baris yang dinyatakan untuk kunci 'Exec=' dari berkas entri "
 "desktop."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:924
+#: tools/appstreamcli.c:955
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 "Asumsikan berkas masukan dalam format yang dipilih ('yaml' atau 'teks')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:930
+#: tools/appstreamcli.c:961
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
@@ -2826,7 +3047,7 @@ msgstr ""
 "tidak terbatas)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
-#: tools/appstreamcli.c:936
+#: tools/appstreamcli.c:967
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
@@ -2836,38 +3057,38 @@ msgstr ""
 "terbatas)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:980
+#: tools/appstreamcli.c:1011
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr "Menghasilkan luaran dalam format yang dipilih ('yaml' atau 'teks')."
 
 #. TRANSLATORS: appstreamcli-compose was not found
-#: tools/appstreamcli.c:1022
+#: tools/appstreamcli.c:1053
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
 msgstr "Biner penyusunan '%s' tidak ditemukan! Tidak bisa melanjutkan."
 
-#: tools/appstreamcli.c:1023
+#: tools/appstreamcli.c:1054
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr "Anda mungkin dapat memasang addon AppStream Compose melalui: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
-#: tools/appstreamcli.c:1032
+#: tools/appstreamcli.c:1063
 msgid "Invalid number of parameters"
 msgstr "Cacah parameter tidak valid"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:1091
+#: tools/appstreamcli.c:1122
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(Alias: '%s')"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1119
+#: tools/appstreamcli.c:1150
 msgid "Subcommands:"
 msgstr "Subperintah:"
 
-#: tools/appstreamcli.c:1170
+#: tools/appstreamcli.c:1201
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -2876,7 +3097,7 @@ msgstr ""
 "memberikan \"--help\" ke sub perintah."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstreamcli.c:1193
+#: tools/appstreamcli.c:1224
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -2885,27 +3106,27 @@ msgstr ""
 "perintah yang tersedia."
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstreamcli.c:1223
+#: tools/appstreamcli.c:1254
 msgid "Show extra debugging information."
 msgstr "Tampilkan informasi debug ekstra."
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstreamcli.c:1231
+#: tools/appstreamcli.c:1262
 msgid "Enable profiling"
 msgstr "Aktifkan pembuatan profil"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1243
+#: tools/appstreamcli.c:1274
 msgid "Search the component database."
 msgstr "Cari basis data komponen."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1248
+#: tools/appstreamcli.c:1279
 msgid "Get information about a component by its ID."
 msgstr "Dapatkan informasi tentang suatu komponen berdasarkan ID-nya."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1253
+#: tools/appstreamcli.c:1284
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
@@ -2913,70 +3134,76 @@ msgstr ""
 "Dapatkan komponen yang menyediakan item yang diberikan. Membutuhkan tipe "
 "item (misalnya lib, bin, python3,…) dan nilai item sebagai parameter."
 
+#. TRANSLATORS: `appstreamcli list-categories` command description.
+#: tools/appstreamcli.c:1289
+msgid "List components that are part of the specified categories."
+msgstr ""
+
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1259
+#: tools/appstreamcli.c:1295
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Curahkan metadata XML mentah bagi suatu komponen yang cocok ID-nya."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1264
+#: tools/appstreamcli.c:1300
 msgid "Rebuild the component metadata cache."
 msgstr "Bangun ulang singgahan metadata komponen."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1270
+#: tools/appstreamcli.c:1306
 msgid "Validate AppStream XML files for issues."
 msgstr "Validasikan berkas XML AppStream apakah bermasalah."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1275
+#: tools/appstreamcli.c:1311
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "Validasikan metadata pohon berkas terpasang dari suatu aplikasi."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1280
+#: tools/appstreamcli.c:1316
 msgid "Check license string for validity and print details about it."
 msgstr "Periksa string lisensi untuk validitas dan cetak rincian tentang itu."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1286
+#: tools/appstreamcli.c:1322
 msgid "Install software matching the component-ID."
 msgstr "Pasang perangkat lunak dengan component-ID yang cocok."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1291
+#: tools/appstreamcli.c:1327
 msgid "Remove software matching the component-ID."
 msgstr "Buang perangkat lunak dengan component-ID yang cocok."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1297
+#: tools/appstreamcli.c:1333
 msgid "Display status information about available AppStream metadata."
 msgstr "Tampilkan informasi status tentang metadata AppStream yang tersedia."
 
-#. TRANSLATORS: `appstreamcli os-info` command description.
-#: tools/appstreamcli.c:1302
-msgid ""
-"Show information about the current operating system from the metadata index."
+#. TRANSLATORS: `appstreamcli sysinfo` command description.
+#: tools/appstreamcli.c:1338
+#, fuzzy
+msgid "Show information about the current device and used operating system."
 msgstr ""
 "Menampilkan informasi tentang sistem operasi saat ini dari indeks metadata."
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1307
+#: tools/appstreamcli.c:1343
 msgid "Install a metadata file into the right location."
 msgstr "Pasang suatu berkas metadata ke lokasi yang benar."
 
-#. TRANSLATORS: `appstreamcli convert` command description. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1312
-msgid "Convert collection XML to YAML or vice versa."
+#. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
+#: tools/appstreamcli.c:1348
+#, fuzzy
+msgid "Convert metadata catalog XML to YAML or vice versa."
 msgstr "Mengonversi koleksi XML ke YAML atau sebaliknya."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1317
+#: tools/appstreamcli.c:1353
 msgid "Compare two version numbers."
 msgstr "Bandingkan dua nomor versi."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1323
+#: tools/appstreamcli.c:1359
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -2984,28 +3211,29 @@ msgstr ""
 "Buat suatu templat bagi berkas metainfo (untuk diisi oleh projek upstream)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1328
+#: tools/appstreamcli.c:1364
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Membuat berkas entri-desktop XDG dari berkas metainfo."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1333
+#: tools/appstreamcli.c:1369
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "Mengubah berkas YAML atau teks NEWS menjadi rilis metainfo."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1338
+#: tools/appstreamcli.c:1374
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 "Menulis teks NEWS atau berkas YAML dengan informasi dari berkas metainfo."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1343
-msgid "Compose AppStream collection metadata from directory trees."
+#: tools/appstreamcli.c:1379
+#, fuzzy
+msgid "Compose AppStream metadata catalog from directory trees."
 msgstr "Susun metadata koleksi AppStream dari pohon direktori."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1351
+#: tools/appstreamcli.c:1387
 msgid "You need to specify a command."
 msgstr "Anda perlu menyatakan suatu perintah."
 
@@ -3045,69 +3273,86 @@ msgstr "Pemutakhiran singgahan metadata tidak perlu."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: tools/ascli-actions-mdata.c:149 tools/ascli-actions-mdata.c:271
+#: tools/ascli-actions-mdata.c:122 tools/ascli-actions-mdata.c:291
 #: tools/ascli-actions-pkgmgr.c:114
 msgid "You need to specify a component-ID."
 msgstr "Anda perlu menyatakan sebuah ID komponen."
 
-#: tools/ascli-actions-mdata.c:161 tools/ascli-actions-mdata.c:283
+#: tools/ascli-actions-mdata.c:134 tools/ascli-actions-mdata.c:303
 #: tools/ascli-actions-pkgmgr.c:127
 #, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "Tidak bisa menemukan komponen dengan ID '%s'!"
 
-#: tools/ascli-actions-mdata.c:181
+#: tools/ascli-actions-mdata.c:154
 msgid "You need to specify a term to search for."
 msgstr "Anda perlu menyatakan istilah yang akan dicari."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
-#: tools/ascli-actions-mdata.c:194
+#: tools/ascli-actions-mdata.c:167
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Tidak bisa menemukan komponen yang cocok %s!"
 
 #. TRANSLATORS: We got no full-text search results
-#: tools/ascli-actions-mdata.c:200
+#: tools/ascli-actions-mdata.c:173
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "Tidak ditemukan komponen yang cocok '%s'."
 
-#: tools/ascli-actions-mdata.c:224
+#: tools/ascli-actions-mdata.c:197
 msgid "No value for the item to search for was defined."
 msgstr "Tidak ada nilai yang didefinisikan bagi butir yang dicari."
 
-#: tools/ascli-actions-mdata.c:230
+#: tools/ascli-actions-mdata.c:203
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 "Tipe yang dipilih tak valid bagi butir yang disediakan. Nilai yang valid "
 "adalah:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: tools/ascli-actions-mdata.c:245
+#: tools/ascli-actions-mdata.c:218
 #, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "Tidak bisa menemukan komponen yang menyediakan '%s::%s'."
 
-#: tools/ascli-actions-mdata.c:324
+#: tools/ascli-actions-mdata.c:244
+#, fuzzy
+msgid "You need to specify categories to list."
+msgstr "Anda perlu menyatakan istilah yang akan dicari."
+
+#. TRANSLATORS: We failed to find any component in these categories, likely due to an error
+#: tools/ascli-actions-mdata.c:258
+#, fuzzy, c-format
+msgid "Unable to find components in %s!"
+msgstr "Tidak bisa menemukan komponen yang cocok %s!"
+
+#. TRANSLATORS: We got no category list results
+#: tools/ascli-actions-mdata.c:265
+#, c-format
+msgid "No component found in categories %s."
+msgstr ""
+
+#: tools/ascli-actions-mdata.c:344
 msgid "You need to specify a metadata file."
 msgstr "Anda perlu menyatakan suatu berkas metadata."
 
-#: tools/ascli-actions-mdata.c:338
+#: tools/ascli-actions-mdata.c:358
 #, c-format
 msgid "Unable to install metadata file: %s"
 msgstr "Tidak dapat menginstal file metadata: %s"
 
-#: tools/ascli-actions-mdata.c:358
+#: tools/ascli-actions-mdata.c:378
 msgid "You need to specify an input and output file."
 msgstr "Anda perlu menyatakan berkas masukan dan keluaran."
 
-#: tools/ascli-actions-mdata.c:365
+#: tools/ascli-actions-mdata.c:385
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "Berkas metadata '%s' tidak ada."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:405
+#: tools/ascli-actions-mdata.c:425
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -3115,16 +3360,7 @@ msgstr ""
 "Tidak bisa mengonversi berkas: Tidak bisa menentukan format keluaran, harap "
 "atur secara eksplisit memakai '--format='."
 
-#: tools/ascli-actions-mdata.c:456
-#, c-format
-msgid "Unable to find operating system component '%s'!"
-msgstr "Tidak bisa menemukan komponen dengan ID '%s'!"
-
-#: tools/ascli-actions-mdata.c:461
-msgid "Version"
-msgstr "Versi"
-
-#: tools/ascli-actions-mdata.c:485
+#: tools/ascli-actions-mdata.c:472
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
@@ -3132,7 +3368,7 @@ msgstr ""
 "Anda perlu memberi tipe komponen perangkat lunak AppStream untuk "
 "menjangkitkan suatu templat. Nilai yang mungkin adalah:"
 
-#: tools/ascli-actions-mdata.c:487
+#: tools/ascli-actions-mdata.c:474
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
@@ -3141,22 +3377,22 @@ msgstr ""
 "Tipe komponen perangkat lunak '%s' tidak valid dalam AppStream. Nilai yang "
 "mungkin adalah:"
 
-#: tools/ascli-actions-mdata.c:505
+#: tools/ascli-actions-mdata.c:492
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr "Berkas .desktop '%s' tidak ada."
 
-#: tools/ascli-actions-mdata.c:511
+#: tools/ascli-actions-mdata.c:498
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Tidak bisa membaca berkas .desktop: %s"
 
-#: tools/ascli-actions-mdata.c:582
+#: tools/ascli-actions-mdata.c:569
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "Tidak bisa membangun templat berkas metainfo: %s"
 
-#: tools/ascli-actions-mdata.c:590
+#: tools/ascli-actions-mdata.c:577
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "Tidak bisa menyimpan templat berkas metainfo: %s"
@@ -3166,7 +3402,7 @@ msgstr "Tidak bisa menyimpan templat berkas metainfo: %s"
 msgid "AppStream Status:"
 msgstr "Status AppStream:"
 
-#: tools/ascli-actions-misc.c:49
+#: tools/ascli-actions-misc.c:49 tools/ascli-actions-misc.c:540
 #, c-format
 msgid "Version: %s"
 msgstr "Versi: %s"
@@ -3285,6 +3521,81 @@ msgstr ""
 msgid "You need to specify a NEWS format to write the output in."
 msgstr "Anda perlu menyatakan suatu format NEWS tempat menulis luaran."
 
+#: tools/ascli-actions-misc.c:526
+msgid "Operating System Details"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:530
+#, c-format
+msgid "Unable to find operating system component '%s'!"
+msgstr "Tidak bisa menemukan komponen dengan ID '%s'!"
+
+#: tools/ascli-actions-misc.c:536
+#, fuzzy
+msgid "ID"
+msgstr "IDE"
+
+#: tools/ascli-actions-misc.c:537 tools/ascli-actions-misc.c:556
+#: tools/ascli-utils.c:277
+msgid "Name"
+msgstr "Nama"
+
+#: tools/ascli-actions-misc.c:538 tools/ascli-utils.c:278
+msgid "Summary"
+msgstr "Ringkasan"
+
+#: tools/ascli-actions-misc.c:541 tools/ascli-utils.c:281
+msgid "Homepage"
+msgstr "Beranda"
+
+#. developer name
+#: tools/ascli-actions-misc.c:542 tools/ascli-utils.c:302
+msgid "Developer"
+msgstr "Pengembang"
+
+#: tools/ascli-actions-misc.c:547 tools/ascli-utils.c:314
+msgid "Description"
+msgstr "Deskripsi"
+
+#: tools/ascli-actions-misc.c:555
+msgid "Kernel"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:557
+msgid "Version"
+msgstr "Versi"
+
+#: tools/ascli-actions-misc.c:560
+msgid "Hardware"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:562
+msgid "Physical Memory"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:566
+#, fuzzy
+msgid "Devices with Modaliases"
+msgstr "Modalias"
+
+#: tools/ascli-actions-misc.c:590
+msgid "User Input Controls"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:593
+msgid "unknown"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:600 tools/ascli-actions-validate.c:686
+#: tools/ascli-actions-validate.c:689
+msgid "yes"
+msgstr "ya"
+
+#: tools/ascli-actions-misc.c:602 tools/ascli-actions-validate.c:686
+#: tools/ascli-actions-validate.c:689
+msgid "no"
+msgstr "tidak"
+
 #: tools/ascli-actions-pkgmgr.c:52
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. "
@@ -3340,7 +3651,7 @@ msgid "Component '%s' has no installation candidate."
 msgstr "Komponen '%s' tidak punya kandidat instalasi."
 
 #. TRANSLATORS: User-supplied overrides string for appstreamcli was badly formatted.
-#: tools/ascli-actions-validate.c:192
+#: tools/ascli-actions-validate.c:254
 #, c-format
 msgid ""
 "The format of validator issue override '%s' is invalid (should be "
@@ -3349,59 +3660,71 @@ msgstr ""
 "Format penimpaan masalah validator '%s' tidak valid (seharusnya "
 "'tag=severity')"
 
-#: tools/ascli-actions-validate.c:200
+#: tools/ascli-actions-validate.c:262
 #, c-format
 msgid "Can not override issue tag: %s"
 msgstr "Tidak bisa menimpa tag masalah: %s"
 
-#: tools/ascli-actions-validate.c:233 tools/ascli-actions-validate.c:440
+#: tools/ascli-actions-validate.c:293 tools/ascli-actions-validate.c:501
 #, c-format
 msgid "File '%s' does not exist."
 msgstr "Berkas '%s' tidak ada."
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "error"-type hints
-#: tools/ascli-actions-validate.c:297
+#: tools/ascli-actions-validate.c:340
 #, c-format
 msgid "errors: %lu"
 msgstr "kesalahan: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "warning"-type hints
-#: tools/ascli-actions-validate.c:304
+#: tools/ascli-actions-validate.c:347
 #, c-format
 msgid "warnings: %lu"
 msgstr "peringatan: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "info"-type hints
-#: tools/ascli-actions-validate.c:311
+#: tools/ascli-actions-validate.c:354
 #, c-format
 msgid "infos: %lu"
 msgstr "info: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "pedantic"-type hints
-#: tools/ascli-actions-validate.c:318
+#: tools/ascli-actions-validate.c:361
 #, c-format
 msgid "pedantic: %lu"
 msgstr "pedantik: %lu"
 
-#: tools/ascli-actions-validate.c:342 tools/ascli-actions-validate.c:427
+#: tools/ascli-actions-validate.c:387 tools/ascli-actions-validate.c:488
 msgid "You need to specify at least one file to validate!"
 msgstr "Anda perlu menyatakan paling tidak sebuah berkas yang akan divalidasi!"
 
-#: tools/ascli-actions-validate.c:370 tools/ascli-actions-validate.c:533
+#: tools/ascli-actions-validate.c:398
+#, fuzzy, c-format
+msgid "Unable to add release metadata file: %s"
+msgstr "Tidak dapat menginstal file metadata: %s"
+
+#: tools/ascli-actions-validate.c:407
+msgid ""
+"You need to specify at least one MetaInfo file to validate.\n"
+"Release metadata files can currently not be validated without their "
+"accompanying MetaInfo file."
+msgstr ""
+
+#: tools/ascli-actions-validate.c:431 tools/ascli-actions-validate.c:565
 msgid "Validation was successful."
 msgstr "Validasi sukses."
 
-#: tools/ascli-actions-validate.c:372 tools/ascli-actions-validate.c:535
+#: tools/ascli-actions-validate.c:433 tools/ascli-actions-validate.c:567
 #, c-format
 msgid "Validation was successful: %s"
 msgstr "Validasi sukses: %s"
 
-#: tools/ascli-actions-validate.c:383 tools/ascli-actions-validate.c:546
+#: tools/ascli-actions-validate.c:444 tools/ascli-actions-validate.c:578
 #, c-format
 msgid "Validation failed: %s"
 msgstr "Validasi gagal: %s"
 
-#: tools/ascli-actions-validate.c:454 tools/ascli-actions-validate.c:604
+#: tools/ascli-actions-validate.c:515 tools/ascli-actions-validate.c:636
 #, c-format
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
@@ -3410,135 +3733,106 @@ msgstr ""
 "Validator tidak dapat membuat laporan dalam format '%s'. Anda dapat memilih "
 "'yaml' atau 'teks' sebagai gantinya."
 
-#: tools/ascli-actions-validate.c:481 tools/ascli-actions-validate.c:590
+#: tools/ascli-actions-validate.c:539 tools/ascli-actions-validate.c:622
 msgid "You need to specify a root directory to start validation!"
 msgstr "Anda perlu menyatakan suatu direktori akar untuk memulai validasi!"
 
 #. TRANSLATORS: A plain license ID
-#: tools/ascli-actions-validate.c:631
+#: tools/ascli-actions-validate.c:663
 msgid "license"
 msgstr "lisensi"
 
 #. TRANSLATORS: A license exception
-#: tools/ascli-actions-validate.c:634
+#: tools/ascli-actions-validate.c:666
 msgid "license exception"
 msgstr "pengecualian lisensi"
 
 #. TRANSLATORS: A complex license expression
-#: tools/ascli-actions-validate.c:637
+#: tools/ascli-actions-validate.c:669
 msgid "license expression"
 msgstr "ekspresi lisensi"
 
 #. TRANSLATORS: An invalid license
-#: tools/ascli-actions-validate.c:641
+#: tools/ascli-actions-validate.c:673
 msgid "invalid"
 msgstr "tidak valid"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
-#: tools/ascli-actions-validate.c:646
+#: tools/ascli-actions-validate.c:678
 msgid "License Type"
 msgstr "Tipe Lisensi"
 
 #. TRANSLATORS: Canonical identifier of a software license
-#: tools/ascli-actions-validate.c:650
+#: tools/ascli-actions-validate.c:682
 msgid "Canonical ID"
 msgstr "ID Canonical"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
-#: tools/ascli-actions-validate.c:654
+#: tools/ascli-actions-validate.c:686
 msgid "Suitable for AppStream metadata"
 msgstr "Cocok bagi metadata AppStream"
 
-#: tools/ascli-actions-validate.c:654 tools/ascli-actions-validate.c:657
-msgid "no"
-msgstr "tidak"
-
-#: tools/ascli-actions-validate.c:654 tools/ascli-actions-validate.c:657
-msgid "yes"
-msgstr "ya"
-
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
-#: tools/ascli-actions-validate.c:657
+#: tools/ascli-actions-validate.c:689
 msgid "Free and Open Source"
 msgstr "Bebas dan Sumber Terbuka"
 
 #. TRANSLATORS: Software license URL
-#: tools/ascli-actions-validate.c:662
+#: tools/ascli-actions-validate.c:694
 msgid "URL"
 msgstr "URL"
 
-#: tools/ascli-utils.c:267
+#: tools/ascli-utils.c:274
 msgid "Identifier"
 msgstr "Pengenal"
 
-#: tools/ascli-utils.c:269
+#: tools/ascli-utils.c:276
 msgid "Internal ID"
 msgstr "ID Internal"
 
-#: tools/ascli-utils.c:270
-msgid "Name"
-msgstr "Nama"
-
-#: tools/ascli-utils.c:271
-msgid "Summary"
-msgstr "Ringkasan"
-
-#: tools/ascli-utils.c:272
+#: tools/ascli-utils.c:279
 msgid "Package"
 msgstr "Paket"
 
-#: tools/ascli-utils.c:273
+#: tools/ascli-utils.c:280
 msgid "Bundle"
 msgstr "Bundel"
 
-#: tools/ascli-utils.c:274
-msgid "Homepage"
-msgstr "Beranda"
-
-#: tools/ascli-utils.c:275
+#: tools/ascli-utils.c:282
 msgid "Icon"
 msgstr "Ikon"
 
-#. developer name
-#: tools/ascli-utils.c:295
-msgid "Developer"
-msgstr "Pengembang"
-
-#: tools/ascli-utils.c:301
+#: tools/ascli-utils.c:308
 msgid "Extends"
 msgstr "Memperluas"
 
-#: tools/ascli-utils.c:307
-msgid "Description"
-msgstr "Deskripsi"
-
-#: tools/ascli-utils.c:327
+#: tools/ascli-utils.c:334
 msgid "Default Screenshot URL"
 msgstr "Cuplikan Layar URL bawaan"
 
 #. project group
-#: tools/ascli-utils.c:334
+#: tools/ascli-utils.c:341
 msgid "Project Group"
 msgstr "Grup Proyek"
 
 #. license
-#: tools/ascli-utils.c:337
+#: tools/ascli-utils.c:344
 msgid "License"
 msgstr "Lisensi"
 
-#: tools/ascli-utils.c:343
+#: tools/ascli-utils.c:350
 msgid "Categories"
 msgstr "Kategori"
 
-#: tools/ascli-utils.c:351
+#: tools/ascli-utils.c:358
 msgid "Compulsory for"
 msgstr "Wajib bagi"
 
-#: tools/ascli-utils.c:379
+#: tools/ascli-utils.c:386
 msgid "Provided Items"
 msgstr "Butir Yang Disediakan"
 
-#: tools/ascli-utils.c:449
+#: tools/ascli-utils.c:483
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr "Silakan masukkan angka dari 1 hingga %i: "
