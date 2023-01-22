@@ -27,7 +27,7 @@
 # Óscar Fernández Díaz <oscfdezdz@tuta.io>, 2021, 2022.
 # Piotr Drąg <piotrdrag@gmail.com>, 2021.
 # Tatiana Canales <tcanales@gmail.com>, 2021.
-# gallegonovato <fran-carro@hotmail.es>, 2022.
+# gallegonovato <fran-carro@hotmail.es>, 2022, 2023.
 #
 # Translators:
 # Adolfo Jayme Barrientos, 2014
@@ -36,16 +36,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-22 02:22+0100\n"
-"PO-Revision-Date: 2022-12-26 05:48+0000\n"
+"PO-Revision-Date: 2023-01-22 20:09+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
-"translations/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.15.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1074,186 +1073,183 @@ msgstr "Componente"
 
 #: src/as-relation.c:1530
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "dispositivo señalador (por ejemplo, un ratón)"
 
 #: src/as-relation.c:1532
-#, fuzzy
 msgid "keyboard"
-msgstr "De mesa"
+msgstr "Teclado"
 
 #: src/as-relation.c:1534
 msgid "gamepad"
-msgstr ""
+msgstr "gamepad"
 
 #: src/as-relation.c:1536
 msgid "tv remote"
-msgstr ""
+msgstr "Mando a distancia"
 
 #: src/as-relation.c:1538
 msgid "graphics tablet"
-msgstr ""
+msgstr "tableta gráfica"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1543
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires a %s for input."
-msgstr "Esta etiqueta requiere una propiedad tipo."
+msgstr "Este software requiere un %s para la entrada."
 
 #: src/as-relation.c:1548
-#, fuzzy
 msgid "This software requires a touch input device."
-msgstr "Esta etiqueta requiere una propiedad tipo."
+msgstr "Este software requiere un dispositivo de táctil."
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Este software requiere un micrófono para ser controlado mediante la voz."
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "Este software requiere una cámara para el control de entrada."
 
 #: src/as-relation.c:1554
-#, fuzzy
 msgid "This software requires a method for console input."
-msgstr "Esta etiqueta requiere una propiedad tipo."
+msgstr "Este software requiere un método para la entrada en la consola."
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1559
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "Este software recomienda un %s para la entrada."
 
 #: src/as-relation.c:1564
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "Este software recomienda un dispositivo de entrada táctil."
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Este software recomienda un micrófono para ser controlado mediante la voz."
 
 #: src/as-relation.c:1568
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "Este software recomienda una cámara para el control de entrada."
 
 #: src/as-relation.c:1570
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "Este software recomienda un método para la entrada en la consola."
 
 #: src/as-relation.c:1575
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "dispositivos señaladores (por ejemplo, ratones)"
 
 #: src/as-relation.c:1577
 msgid "keyboards"
-msgstr ""
+msgstr "teclados"
 
 #: src/as-relation.c:1579
 msgid "gamepads"
-msgstr ""
+msgstr "gamepads"
 
 #: src/as-relation.c:1581
 msgid "tv remotes"
-msgstr ""
+msgstr "mandos a distancia"
 
 #: src/as-relation.c:1583
 msgid "graphics tablets"
-msgstr ""
+msgstr "tabletas gráficas"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1587
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "Este software es compatible con %s."
 
 #: src/as-relation.c:1592
 msgid "This software supports touch input."
-msgstr ""
+msgstr "Este software admite la entrada táctil."
 
 #: src/as-relation.c:1594
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "Este software puede controlarse por voz."
 
 #: src/as-relation.c:1596
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "Este software puede controlarse a través de una cámara."
 
 #: src/as-relation.c:1598
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "Este software admite el funcionamiento mediante la consola de comandos."
 
 #: src/as-relation.c:1655
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "Se ha encontrado el software '%s'"
 
 #: src/as-relation.c:1661
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Falta el componente de software requerido '%s'."
 
 #: src/as-relation.c:1665
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Falta el componente de software recomendado '%s'."
 
 #: src/as-relation.c:1694
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "Encontrado hardware compatible con este software: '%s'"
 
 #: src/as-relation.c:1700
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "El hardware necesario para este software no se ha encontrado en este sistema: '%s'"
 
 #: src/as-relation.c:1704
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "El hardware recomendado para este software no se ha encontrado en este sistema: '%s'"
 
 #: src/as-relation.c:1708
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "Este software es compatible con hardware no presente en este sistema: '%s'"
 
 #: src/as-relation.c:1742
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Este software requiere un kernel %s, pero este sistema está ejecutando %s."
 
 #: src/as-relation.c:1746
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Este software recomienda un kernel %s, pero este sistema está ejecutando %s."
 
 #: src/as-relation.c:1750
 #, c-format
 msgid "This software only supports a %s kernel, but my run on %s anyway."
-msgstr ""
+msgstr "Este software sólo es compatible con un kernel %s, pero mi ejecución en %s de todos modos."
 
 #: src/as-relation.c:1771
 #, c-format
 msgid "This software requires %s %s %s, but this system is running version %s."
-msgstr ""
+msgstr "Este software requiere %s %s %s, pero este sistema está ejecutando la versión %s."
 
 #: src/as-relation.c:1777
 #, c-format
 msgid ""
 "The use of %s %s %s is recommended, but this system is running version %s."
-msgstr ""
+msgstr "Se recomienda el uso de %s %s %s, pero este sistema está ejecutando la versión %s."
 
 #: src/as-relation.c:1808
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Este software requiere %s %.2f GiB de memoria, pero este sistema tiene %.2f GiB."
 
 #: src/as-relation.c:1814
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Este software recomienda %s %.2f GiB de memoria, pero este sistema tiene %.2f GiB."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1273,18 +1269,12 @@ msgstr ""
 "párrafos individuales."
 
 #: src/as-validator-issue-tag.h:57
-#, fuzzy
 msgid ""
 "This element (paragraph, list, etc.) of a <description/> tag must not be "
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr ""
-"Este elemento (paragraph, list, etc.) de una etiqueta <description/> no debe "
-"ser localizada individualmente en los metadatos de la colección. En su "
-"lugar, localice toda la etiqueta <description/>. El generador de metadatos "
-"de la colección AppStream (por ejemplo, `appstream-generator`) se encargará "
-"de hacer lo correcto al compilar los datos."
+msgstr "Este elemento (párrafo, lista, etc.) de una etiqueta <description/> no debe localizarse individualmente en los metadatos del catálogo. En su lugar, localice toda la etiqueta <description/>. El generador de catálogos de metadatos AppStream (por ejemplo, `appstream-generator`) ya hará lo correcto al compilar los datos."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -2029,12 +2019,9 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:575
-#, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr ""
-"La etiqueta `update_contact` no debe incluirse en el XML de la colección "
-"AppStream."
+msgstr "La etiqueta `update_contact` no debe incluirse en el catálogo AppStream XML."
 
 #: src/as-validator-issue-tag.h:580
 msgid ""
@@ -2271,12 +2258,9 @@ msgstr "El XML de este archivo está mal formado."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:736
-#, fuzzy
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr ""
-"Se ha encontrado una etiqueta no válida en los metadatos de la colección. "
-"Sólo se permiten las etiquetas `component`."
+msgstr "Se ha encontrado una etiqueta no válida en los metadatos del catálogo. Sólo se permiten las etiquetas `component`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:742
@@ -2405,24 +2389,23 @@ msgstr ""
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
-msgstr ""
+msgstr "El tipo del bloque releases no es válido. Debe ser `embedded` (por defecto) o `external`."
 
 #: src/as-validator-issue-tag.h:832
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
-msgstr ""
+msgstr "La URL a un archivo externo de metadatos de lanzamiento es insegura. Esto no está permitido, por favor utilice sólo URLs HTTPS."
 
 #: src/as-validator-issue-tag.h:837
-#, fuzzy
 msgid "Failed to download release metadata."
-msgstr "No se ha podido descargar el archivo: %s"
+msgstr "No se han podido descargar los metadatos de la versión."
 
 #: src/as-validator-issue-tag.h:842
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
-msgstr ""
+msgstr "No se ha encontrado un archivo de metadatos de la versión local. Se recomienda encarecidamente validar estos metadatos junto con el archivo MetaInfo principal."
 
 #: src/as-validator-issue-tag.h:848
 msgid "The value set as release urgency is not a known urgency value."
@@ -2661,7 +2644,7 @@ msgstr "El formato de la URL no es válido."
 #: src/as-validator.c:470 src/as-validator.c:514
 #, c-format
 msgid "The release metadata file '%s' is named incorrectly."
-msgstr ""
+msgstr "El archivo de metadatos de lanzamiento '%s' tiene un nombre incorrecto."
 
 #. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
 #: src/as-validator.c:653
@@ -3015,11 +2998,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:564
-#, fuzzy
 msgid "Set the data origin for the installed metadata catalog file."
-msgstr ""
-"Establece el origen de los datos para el archivo de colección de metadatos "
-"instalado."
+msgstr "Establezca el origen de los datos para el archivo del catálogo de los metadatos instalados."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:569
@@ -3213,7 +3193,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1289
 msgid "List components that are part of the specified categories."
-msgstr ""
+msgstr "Enumera los componentes que forman parte de las categorías especificadas."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1295
@@ -3268,11 +3248,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1338
-#, fuzzy
 msgid "Show information about the current device and used operating system."
-msgstr ""
-"Mostrar información sobre el sistema operativo actual desde el índice de "
-"metadatos."
+msgstr "Muestra información sobre el dispositivo actual y el sistema operativo utilizado."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1343
@@ -3281,9 +3258,8 @@ msgstr "Instalar un archivo de metadatos en el sitio correcto."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1348
-#, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr "Convertir XML de colección en YAML o viceversa."
+msgstr "Convierta el catálogo de metadatos XML a YAML o viceversa."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1353
@@ -3318,11 +3294,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1379
-#, fuzzy
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr ""
-"Compone los metadatos de la colección AppStream a partir de árboles de "
-"directorios."
+msgstr "Componer el catálogo de los metadatos de AppStream a partir de los árboles de directorios."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1387
@@ -3413,21 +3386,20 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "No se pudo encontrar un componente que proporcione «%s::%s»."
 
 #: tools/ascli-actions-mdata.c:244
-#, fuzzy
 msgid "You need to specify categories to list."
-msgstr "Debe especificar un término de búsqueda."
+msgstr "Debe especificar las categorías que desea listar."
 
 #. TRANSLATORS: We failed to find any component in these categories, likely due to an error
 #: tools/ascli-actions-mdata.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find components in %s!"
-msgstr "¡No se ha podido encontrar un componente que coincida con %s!"
+msgstr "¡No se pueden encontrar componentes en %s!"
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:265
 #, c-format
 msgid "No component found in categories %s."
-msgstr ""
+msgstr "No se ha encontrado ningún componente en las categorías %s."
 
 #: tools/ascli-actions-mdata.c:344
 msgid "You need to specify a metadata file."
@@ -3623,7 +3595,7 @@ msgstr "Es necesario especificar un formato de NEWS para escribir la salida."
 
 #: tools/ascli-actions-misc.c:526
 msgid "Operating System Details"
-msgstr ""
+msgstr "Detalles del sistema operativo"
 
 #: tools/ascli-actions-misc.c:530
 #, c-format
@@ -3631,9 +3603,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr "¡No se ha podido encontrar el componente del sistema operativo '%s'!"
 
 #: tools/ascli-actions-misc.c:536
-#, fuzzy
 msgid "ID"
-msgstr "EID"
+msgstr "Identificador"
 
 #: tools/ascli-actions-misc.c:537 tools/ascli-actions-misc.c:556
 #: tools/ascli-utils.c:277
@@ -3659,7 +3630,7 @@ msgstr "Descripción"
 
 #: tools/ascli-actions-misc.c:555
 msgid "Kernel"
-msgstr ""
+msgstr "Kernel"
 
 #: tools/ascli-actions-misc.c:557
 msgid "Version"
@@ -3667,24 +3638,23 @@ msgstr "Versión"
 
 #: tools/ascli-actions-misc.c:560
 msgid "Hardware"
-msgstr ""
+msgstr "Hardware"
 
 #: tools/ascli-actions-misc.c:562
 msgid "Physical Memory"
-msgstr ""
+msgstr "Memoria física"
 
 #: tools/ascli-actions-misc.c:566
-#, fuzzy
 msgid "Devices with Modaliases"
-msgstr "Modalias"
+msgstr "Dispositivos con Modalias"
 
 #: tools/ascli-actions-misc.c:590
 msgid "User Input Controls"
-msgstr ""
+msgstr "Controles de entrada del usuario"
 
 #: tools/ascli-actions-misc.c:593
 msgid "unknown"
-msgstr ""
+msgstr "desconocido"
 
 #: tools/ascli-actions-misc.c:600 tools/ascli-actions-validate.c:686
 #: tools/ascli-actions-validate.c:689
@@ -3800,9 +3770,9 @@ msgid "You need to specify at least one file to validate!"
 msgstr "¡Debe especificar por lo menos un archivo para validar!"
 
 #: tools/ascli-actions-validate.c:398
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to add release metadata file: %s"
-msgstr "No se ha podido instalar el archivo de metadatos: %s"
+msgstr "No se ha podido añadir el archivo de metadatos de la versión: %s"
 
 #: tools/ascli-actions-validate.c:407
 msgid ""
@@ -3810,6 +3780,8 @@ msgid ""
 "Release metadata files can currently not be validated without their "
 "accompanying MetaInfo file."
 msgstr ""
+"Es necesario especificar al menos un archivo MetaInfo para validar.\n"
+"Actualmente, los archivos de metadatos de publicación no pueden validarse sin el archivo MetaInfo que los acompaña."
 
 #: tools/ascli-actions-validate.c:431 tools/ascli-actions-validate.c:565
 msgid "Validation was successful."
