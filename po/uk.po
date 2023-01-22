@@ -2,18 +2,18 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
-# Yuri Chornoivan <yurchor@ukr.net>, 2014-2016, 2019, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2014-2016, 2019, 2020, 2021, 2022, 2023.
 # kyanukovich <ianu0001@algonquinlive.com>, 2020, 2021.
 # #-#-#-#-#  uk.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Yuri Chornoivan <yurchor@ukr.net>, 2014-2016, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2014-2016, 2021, 2022, 2023.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
-# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2021, 2022.
-# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2021, 2022.
-# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2021, 2022.
-# Yuri Chornoivan <yurchor@ukr.net>, 2019. #zanata, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2021, 2022, 2023.
+# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2021, 2022, 2023.
+# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2021, 2022, 2023.
+# Yuri Chornoivan <yurchor@ukr.net>, 2019. #zanata, 2021, 2022, 2023.
 # Artem <artem@molotov.work>, 2022.
 #
 # Translators:
@@ -22,17 +22,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-22 02:22+0100\n"
-"PO-Revision-Date: 2022-08-22 17:31+0000\n"
+"PO-Revision-Date: 2023-01-22 07:23+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
-"translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.15.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1057,153 +1055,150 @@ msgstr "Компонент"
 
 #: src/as-relation.c:1530
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "координатний пристрій (наприклад миша)"
 
 #: src/as-relation.c:1532
-#, fuzzy
 msgid "keyboard"
-msgstr "Ігри на дошці"
+msgstr "клавіатура"
 
 #: src/as-relation.c:1534
 msgid "gamepad"
-msgstr ""
+msgstr "ігровий пульт"
 
 #: src/as-relation.c:1536
 msgid "tv remote"
-msgstr ""
+msgstr "пульт керування телевізором"
 
 #: src/as-relation.c:1538
 msgid "graphics tablet"
-msgstr ""
+msgstr "графічний планшет"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1543
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires a %s for input."
-msgstr "У цьому тезі має бути властивість type."
+msgstr "Цьому програмному забезпеченню для введення даних потрібен %s."
 
 #: src/as-relation.c:1548
-#, fuzzy
 msgid "This software requires a touch input device."
-msgstr "У цьому тезі має бути властивість type."
+msgstr "Цьому програмному забезпеченню потрібен сенсорний пристрій введення даних."
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Цьому програмному забезпеченню потрібен мікрофон для керування за допомогою голосу."
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "Цьому програмному забезпеченню потрібна відеокамера для керування вхідними даними."
 
 #: src/as-relation.c:1554
-#, fuzzy
 msgid "This software requires a method for console input."
-msgstr "У цьому тезі має бути властивість type."
+msgstr "Цьому програмному забезпеченню потрібен метод для введення з консолі."
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1559
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "Для введення у цьому програмному забезпеченні рекомендовано %s."
 
 #: src/as-relation.c:1564
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "Для цього програмного забезпечення рекомендовано сенсорний пристрій введення."
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Для цього програмного забезпечення рекомендований мікрофон для керування за допомогою голосу."
 
 #: src/as-relation.c:1568
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "Для програмного забезпечення рекомендовано використовувати відеокамеру для керування."
 
 #: src/as-relation.c:1570
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "Для цього програмного забезпечення рекомендовано метод для введення з консолі."
 
 #: src/as-relation.c:1575
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "координатних пристроїв (наприклад мишей)"
 
 #: src/as-relation.c:1577
 msgid "keyboards"
-msgstr ""
+msgstr "клавіатур"
 
 #: src/as-relation.c:1579
 msgid "gamepads"
-msgstr ""
+msgstr "ігрових пультів"
 
 #: src/as-relation.c:1581
 msgid "tv remotes"
-msgstr ""
+msgstr "пультів для телевізора"
 
 #: src/as-relation.c:1583
 msgid "graphics tablets"
-msgstr ""
+msgstr "графічних планшетів"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1587
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "У цьому програмному забезпеченні передбачено підтримку %s."
 
 #: src/as-relation.c:1592
 msgid "This software supports touch input."
-msgstr ""
+msgstr "У цьому програмному забезпеченні передбачено підтримку сенсорного введення даних."
 
 #: src/as-relation.c:1594
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "Цим програмним забезпеченням можна керувати за допомогою голосу."
 
 #: src/as-relation.c:1596
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "Цим програмним забезпеченням можна керувати за допомогою відеокамери."
 
 #: src/as-relation.c:1598
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "У цьому програмному забезпеченні передбачено підтримку керування за допомогою команд консолі."
 
 #: src/as-relation.c:1655
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "Було виявлено програмне забезпечення «%s»"
 
 #: src/as-relation.c:1661
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Не вистачає потрібного програмного компонента «%s»."
 
 #: src/as-relation.c:1665
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Не вистачає рекомендованого компонента програмного забезпечення «%s»."
 
 #: src/as-relation.c:1694
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "Виявлено обладнання, підтримку якого передбачено цим програмним забезпеченням: «%s»"
 
 #: src/as-relation.c:1700
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "У цій системі не значено потрібного для цього програмного забезпечення обладнання: «%s»"
 
 #: src/as-relation.c:1704
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "У цій системі не значено рекомендованого для цього програмного забезпечення обладнання: «%s»"
 
 #: src/as-relation.c:1708
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "У цьому програмному забезпеченні передбачено підтримку обладнання, якого немає у цій системі: «%s»"
 
 #: src/as-relation.c:1742
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Для цього програмного забезпечення потрібне ядро %s, але у цій системі працює ядро %s."
 
 #: src/as-relation.c:1746
 #, c-format
