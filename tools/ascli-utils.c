@@ -166,6 +166,31 @@ ascli_print_stdout (const gchar *format, ...)
 }
 
 /**
+ * ascli_get_char_success:
+ */
+const gchar*
+ascli_get_char_success (void)
+{
+	if (_colored_output)
+		return "\x1B[32m" "✔" "\033[0m";
+	else
+		return "✔";
+}
+
+/**
+ * ascli_get_char_failure:
+ */
+const gchar*
+ascli_get_char_failure (void)
+{
+	if (_colored_output)
+		return "\x1B[31m" "✘" "\033[0m";
+	else
+		return "✘";
+}
+
+
+/**
  * ascli_set_output_colored:
  */
 void

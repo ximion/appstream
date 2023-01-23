@@ -57,7 +57,7 @@ ascli_show_status (void)
 	os_metadata_found = as_pool_print_std_data_locations_info_private (pool, TRUE, FALSE);
 	if (!os_metadata_found)
 		/* TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug) */
-		g_print ("✘ %s\n", _("No OS metadata found. This is unusual."));
+		g_print ("%s %s\n", ASCLI_CHAR_FAIL, _("No OS metadata found. This is unusual."));
 
 	/* TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak) */
 	ascli_print_highlight (_("Other metadata sources:"));
@@ -77,16 +77,16 @@ ascli_show_status (void)
 
 		cpts = as_pool_get_components (pool);
 		if (cpts->len > 0)
-			marker = "✔";
+			marker = ASCLI_CHAR_SUCCESS;
 		else
-			marker = "✘";
+			marker = ASCLI_CHAR_FAIL;
 
 		tmp = g_strdup_printf (_("We have information on %i software components."), cpts->len);
 		ascli_print_stdout ("%s %s", marker, tmp);
 	} else {
 		g_autofree gchar *tmp = NULL;
 		tmp = g_strdup_printf (_("Error while loading the metadata pool: %s"), error->message);
-		ascli_print_stderr ("✘ %s", tmp);
+		ascli_print_stderr ("%s %s", ASCLI_CHAR_FAIL, tmp);
 	}
 
 	return 0;

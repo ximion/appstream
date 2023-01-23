@@ -34,6 +34,9 @@ G_BEGIN_DECLS
 #define		ASCLI_EXIT_CODE_FATAL 5
 #define		ASCLI_EXIT_CODE_VALIDATION_FAILED 6
 
+#define		ASCLI_CHAR_SUCCESS ascli_get_char_success ()
+#define		ASCLI_CHAR_FAIL ascli_get_char_failure ()
+
 gchar		*ascli_format_long_output (const gchar *str,
 					   guint line_length,
 					   guint indent_level);
@@ -45,6 +48,9 @@ void		ascli_print_separator (void);
 void		ascli_print_stdout (const gchar *format, ...);
 void		ascli_print_stderr (const gchar *format, ...);
 void		ascli_print_highlight (const gchar *format, ...);
+
+const gchar	*ascli_get_char_success (void);
+const gchar	*ascli_get_char_failure (void);
 
 void		ascli_print_component (AsComponent *cpt,
 				       gboolean show_detailed);

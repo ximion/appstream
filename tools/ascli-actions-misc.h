@@ -42,8 +42,6 @@ gint		ascli_metainfo_to_news (const gchar *mi_fname,
 					const gchar *news_fname,
 					const gchar *format_str);
 
-gint		ascli_check_license (const gchar *license);
-
 int		ascli_show_sysinfo (const gchar *cachepath,
 				    gboolean no_cache,
 				    gboolean detailed);
