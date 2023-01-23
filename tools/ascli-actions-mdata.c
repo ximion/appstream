@@ -581,3 +581,157 @@ ascli_create_metainfo_template (const gchar *out_fname, const gchar *cpt_kind_st
 
 	return 0;
 }
+
+/**
+ * ascli_print_satisfy_check_results:
+ *
+ * Helper for %ascli_check_is_satisfied
+ */
+static gboolean
+ascli_print_satisfy_check_results (GPtrArray *relations, AsSystemInfo *sysinfo, AsPool *pool, AsRelationKind kind)
+{
+	gboolean res = TRUE;
+	const gchar *fail_char = ASCLI_CHAR_FAIL;
+
+	if (kind == AS_RELATION_KIND_SUPPORTS)
+		fail_char = "•";
+
+	for (guint i = 0; i < relations->len; i++) {
+		AsRelation *relation = AS_RELATION (g_ptr_array_index (relations, i));
+		g_autofree gchar *message = NULL;
+		g_autoptr(GError) tmp_error = NULL;
+		AsCheckResult r;
+
+		r = as_relation_is_satisfied (relation,
+						sysinfo,
+						pool,
+						&message,
+						&tmp_error);
+		if (r == AS_CHECK_RESULT_ERROR) {
+			if (as_relation_get_item_kind (relation) == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH &&
+				as_system_info_get_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_LONGEST) == 0) {
+				g_print ("  • %s\n", _("Unable to check display size: Can not read information without GUI toolkit access."));
+			} else {
+				g_print ("  %s %s: %s\n", fail_char, _("ERROR"), tmp_error->message);
+				res = FALSE;
+			}
+		} else if (r == AS_CHECK_RESULT_TRUE) {
+			g_print ("  %s %s\n", ASCLI_CHAR_SUCCESS, message);
+		} else {
+			g_print ("  %s %s\n", fail_char, message);
+			res = FALSE;
+		}
+	}
+
+	return res;
+}
+
+/**
+ * ascli_check_is_satisfied:
+ *
+ * Verify if the selected component is satisfied on the current system.
+ */
+gint
+ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gboolean no_cache)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autoptr(AsPool) pool = NULL;
+	g_autoptr(AsSystemInfo) sysinfo = NULL;
+	GPtrArray *requires, *recommends, *supports;
+	gboolean res = TRUE;
+
+	if (fname_or_cid == NULL) {
+		ascli_print_stderr (_("You need to specify a MetaInfo filename or component ID."));
+		return 2;
+	}
+
+	/* open the metadata pool with default options */
+	pool = ascli_data_pool_new_and_open (cachepath, no_cache, &error);
+	if (error != NULL) {
+		g_printerr ("%s\n", error->message);
+		return ASCLI_EXIT_CODE_FAILED;
+	}
+
+	/* get the current component, either from file or from the pool */
+	if (g_strstr_len (fname_or_cid, -1, "/") != NULL || g_file_test (fname_or_cid, G_FILE_TEST_EXISTS)) {
+		g_autoptr(GFile) mi_file = NULL;
+		g_autoptr(AsMetadata) mdata = NULL;
+
+		mi_file = g_file_new_for_path (fname_or_cid);
+		if (!g_file_query_exists (mi_file, NULL)) {
+			ascli_print_stderr (_("Metainfo file '%s' does not exist."), fname_or_cid);
+			return 4;
+		}
+
+		/* read the metainfo file */
+		mdata = as_metadata_new ();
+		as_metadata_set_locale (mdata, "ALL");
+
+		as_metadata_parse_file (mdata,
+					mi_file,
+					AS_FORMAT_KIND_XML,
+					&error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			return 1;
+		}
+
+		cpt = g_object_ref (as_metadata_get_component (mdata));
+	} else {
+		g_autoptr(GPtrArray) cpts = NULL;
+
+		cpts = as_pool_get_components_by_id (pool, fname_or_cid);
+		if (cpts->len == 0) {
+			ascli_print_stderr (_("Unable to find component with ID '%s'!"), fname_or_cid);
+			return ASCLI_EXIT_CODE_NO_RESULT;
+		}
+
+		cpt = g_object_ref (AS_COMPONENT (g_ptr_array_index (cpts, 0)));
+	}
+
+	requires = as_component_get_requires (cpt);
+	recommends = as_component_get_recommends (cpt);
+	supports = as_component_get_supports (cpt);
+
+	sysinfo = as_system_info_new ();
+
+	/* TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system. */
+	ascli_print_stdout (_("Relation check for: %s"), as_component_get_data_id (cpt));
+	g_print ("\n");
+
+	ascli_print_highlight (_("Requirements:"));
+	if (requires->len == 0) {
+		g_print ("  • %s\n", _("No required items are set for this software."));
+	} else {
+		res = ascli_print_satisfy_check_results (requires,
+							 sysinfo,
+							 pool,
+							 AS_RELATION_KIND_REQUIRES)? res : FALSE;
+	}
+
+	ascli_print_highlight (_("Recommendations:"));
+	if (recommends->len == 0) {
+		g_print ("  • %s\n", _("No recommended items are set for this software."));
+	} else {
+		res = ascli_print_satisfy_check_results (recommends,
+							 sysinfo,
+							 pool,
+							 AS_RELATION_KIND_RECOMMENDS)? res : FALSE;
+	}
+
+	ascli_print_highlight (_("Supported:"));
+	if (supports->len == 0) {
+		g_print ("  • %s\n", _("No supported items are set for this software."));
+	} else {
+		ascli_print_satisfy_check_results (supports,
+						   sysinfo,
+						   pool,
+						   AS_RELATION_KIND_SUPPORTS);
+	}
+
+
+
+
+	return res? ASCLI_EXIT_CODE_SUCCESS : ASCLI_EXIT_CODE_FAILED;
+}

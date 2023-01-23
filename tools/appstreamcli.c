@@ -543,6 +543,33 @@ as_client_run_check_license (const gchar *command, char **argv, int argc)
 }
 
 /**
+ * as_client_run_is_satisfied:
+ *
+ * Test if a component has its relations satisfied on the current system.
+ */
+static int
+as_client_run_is_satisfied (const gchar *command, char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+	const gchar *fname_or_cid = NULL;
+
+	opt_context = as_client_new_subcommand_option_context (command, find_options);
+	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
+
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 2)
+		fname_or_cid = argv[2];
+
+	return ascli_check_is_satisfied (fname_or_cid,
+					 optn_cachepath,
+					 optn_no_cache);
+}
+
+/**
  * as_client_run_put:
  *
  * Place a metadata file in the right directory.
@@ -1315,6 +1342,11 @@ as_client_run (char **argv, int argc)
 			/* TRANSLATORS: `appstreamcli `check-license` command description. */
 			_("Check license string for validity and print details about it."),
 			as_client_run_check_license);
+	ascli_add_cmd (commands,
+			2, "is-satisfied", NULL, "FILE|COMPONENT-ID",
+			/* TRANSLATORS: `appstreamcli `check-license` command description. */
+			_("Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."),
+			as_client_run_is_satisfied);
 
 	ascli_add_cmd (commands,
 			3, "install", NULL, "COMPONENT-ID",

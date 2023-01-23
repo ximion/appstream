@@ -68,6 +68,10 @@ int		ascli_create_metainfo_template (const gchar *out_fname,
 						const gchar *cpt_kind_str,
 						const gchar *desktop_file);
 
+gint		ascli_check_is_satisfied (const gchar *fname_or_cid,
+					  const gchar *cachepath,
+					  gboolean no_cache);
+
 
 G_END_DECLS
 

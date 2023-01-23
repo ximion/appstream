@@ -1602,6 +1602,35 @@ _as_get_control_missing_message (AsControlKind c_kind, AsRelationKind r_kind)
 }
 
 /**
+ * _as_get_control_found_message:
+ */
+static gchar*
+_as_get_control_found_message (AsControlKind c_kind)
+{
+	if (c_kind == AS_CONTROL_KIND_POINTING)
+		return g_strdup (_("Pointing device (e.g. a mouse or touchpad) found."));
+	if (c_kind == AS_CONTROL_KIND_KEYBOARD)
+		return g_strdup (_("Physical keyboard found."));
+	if (c_kind == AS_CONTROL_KIND_GAMEPAD)
+		return g_strdup (_("Gamepad found."));
+	if (c_kind == AS_CONTROL_KIND_TV_REMOTE)
+		return g_strdup (_("TV remote found."));
+	if (c_kind == AS_CONTROL_KIND_TABLET)
+		return g_strdup (_("Graphics tablet found."));
+
+	if (c_kind == AS_CONTROL_KIND_TOUCH)
+		return g_strdup (_("Touch input device found."));
+	if (c_kind == AS_CONTROL_KIND_VOICE)
+		return g_strdup (_("Microphone for voice input control found."));
+	if (c_kind == AS_CONTROL_KIND_VISION)
+		return g_strdup (_("Camera for input control found."));
+	if (c_kind == AS_CONTROL_KIND_CONSOLE)
+		return g_strdup (_("Console interface available."));
+
+	return NULL;
+}
+
+/**
  * as_relation_is_satisfied:
  * @relation: a #AsRelation instance.
  * @system_info: (nullable): an #AsSystemInfo to use for system information.
@@ -1664,6 +1693,10 @@ as_relation_is_satisfied (AsRelation *relation,
 				_as_set_satify_message (message,
 							g_strdup_printf (_("Recommended software component '%s' is missing."),
 									cid));
+			else if (priv->kind == AS_RELATION_KIND_SUPPORTS)
+				_as_set_satify_message (message,
+							g_strdup_printf (_("Found supported software component '%s'."),
+									cid));
 			return AS_CHECK_RESULT_FALSE;
 		}
 	}
@@ -1713,9 +1746,9 @@ as_relation_is_satisfied (AsRelation *relation,
 
 	/* Kernels */
 	if (priv->item_kind == AS_RELATION_ITEM_KIND_KERNEL) {
-		const gchar *req_kernel_name;
 		const gchar *current_kernel_name;
 		const gchar *current_kernel_version;
+		const gchar *req_kernel_name;
 		const gchar *req_kernel_version;
 
 		current_kernel_name = as_system_info_get_kernel_name (sysinfo);
@@ -1765,19 +1798,37 @@ as_relation_is_satisfied (AsRelation *relation,
 					   AS_VERCMP_FLAG_NONE)) {
 			const gchar *compare_symbols = as_relation_compare_to_symbols_string (as_relation_get_compare (relation));
 			if (priv->kind == AS_RELATION_KIND_REQUIRES)
-				/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
-				 * second is comparison operator (e.g. >=), third is the expected version number and fourth is the version we are running. */
+				/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
+				 * second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
+				 * and fifth is the version we are running. */
 				_as_set_satify_message (message,
-							g_strdup_printf (_("This software requires %s %s %s, but this system is running version %s."),
-									current_kernel_name, compare_symbols, req_kernel_version, current_kernel_version));
+							g_strdup_printf (_("This software requires %s %s %s, but this system is running %s %s."),
+									req_kernel_name, compare_symbols, req_kernel_version,
+									current_kernel_name, current_kernel_version));
 			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
-				/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
-				 * second is comparison operator (e.g. >=), third is the expected version number and fourth is the version we are running. */
+				/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
+				 * second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
+				 * and fifth is the version we are running. */
 				_as_set_satify_message (message,
-							g_strdup_printf (_("The use of %s %s %s is recommended, but this system is running version %s."),
-									current_kernel_name, compare_symbols, req_kernel_version, current_kernel_version));
+							g_strdup_printf (_("The use of %s %s %s is recommended, but this system is running %s %s."),
+									req_kernel_name, compare_symbols, req_kernel_version,
+									current_kernel_name, current_kernel_version));
+			else if (priv->kind == AS_RELATION_KIND_SUPPORTS) {
+				/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
+				 * second is comparison operator (e.g. >=), third is the expected version number. */
+				_as_set_satify_message (message,
+							g_strdup_printf (_("This software supports %s %s %s."),
+									req_kernel_name, compare_symbols, req_kernel_version));
+				/* this is not an error, supports is only a hint for kernels */
+				return AS_CHECK_RESULT_TRUE;
+			}
 			return AS_CHECK_RESULT_FALSE;
 		}
+
+		/* TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number. */
+		_as_set_satify_message (message,
+					g_strdup_printf (_("Kernel %s %s is supported."),
+							 current_kernel_name, current_kernel_version));
 
 		/* if we are here, we are running an acceptable kernel version */
 		return AS_CHECK_RESULT_TRUE;
@@ -1813,8 +1864,20 @@ as_relation_is_satisfied (AsRelation *relation,
 				_as_set_satify_message (message,
 							g_strdup_printf (_("This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."),
 									compare_symbols, req_memory / 1024.0, current_memory / 1024.0));
+			else if (priv->kind == AS_RELATION_KIND_SUPPORTS) {
+				/* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
+				 * second is the expected amount of memory. */
+				_as_set_satify_message (message,
+							g_strdup_printf (_("This software supports %s %.2f GiB of memory."),
+									compare_symbols, req_memory / 1024.0));
+				/* this is not an error, supports is only a hint for memory */
+				return AS_CHECK_RESULT_TRUE;
+			}
 			return AS_CHECK_RESULT_FALSE;
 		}
+
+		_as_set_satify_message (message,
+					g_strdup_printf (_("This system has sufficient memory for this software.")));
 
 		/* if we are here, we have sufficient memory */
 		return AS_CHECK_RESULT_TRUE;
@@ -1838,6 +1901,10 @@ as_relation_is_satisfied (AsRelation *relation,
 		if (res == AS_CHECK_RESULT_FALSE || priv->kind == AS_RELATION_KIND_SUPPORTS)
 			_as_set_satify_message (message,
 						_as_get_control_missing_message (control_kind, priv->kind));
+		if (res == AS_CHECK_RESULT_TRUE)
+			_as_set_satify_message (message,
+						_as_get_control_found_message (control_kind));
+
 		return res;
 	}
 
@@ -1909,6 +1976,9 @@ as_relation_is_satisfied (AsRelation *relation,
 			}
 			return AS_CHECK_RESULT_FALSE;
 		}
+
+		_as_set_satify_message (message,
+					g_strdup (_("Display size is sufficient for this software.")));
 
 		/* if we are here, we have sufficient memory */
 		return AS_CHECK_RESULT_TRUE;
