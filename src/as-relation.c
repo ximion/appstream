@@ -1993,7 +1993,7 @@ as_relation_is_satisfied (AsRelation *relation,
 	g_set_error (error,
 		     AS_RELATION_ERROR,
 		     AS_RELATION_ERROR_NOT_IMPLEMENTED,
-		     "Relation satisfy check for items of type '%s' is not implemented yet.",
+		     _("Relation satisfy check for items of type '%s' is not implemented yet."),
 		     as_relation_item_kind_to_string (priv->item_kind));
 
 	return AS_CHECK_RESULT_ERROR;

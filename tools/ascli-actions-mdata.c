@@ -610,15 +610,18 @@ ascli_print_satisfy_check_results (GPtrArray *relations, AsSystemInfo *sysinfo, 
 		if (r == AS_CHECK_RESULT_ERROR) {
 			if (as_relation_get_item_kind (relation) == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH &&
 				as_system_info_get_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_LONGEST) == 0) {
-				g_print ("  • %s\n", _("Unable to check display size: Can not read information without GUI toolkit access."));
+				g_print (" • %s\n", _("Unable to check display size: Can not read information without GUI toolkit access."));
+			} else if (g_error_matches (tmp_error, AS_RELATION_ERROR, AS_RELATION_ERROR_NOT_IMPLEMENTED)) {
+				g_print (" • %s\n", tmp_error->message);
+				res = FALSE;
 			} else {
-				g_print ("  %s %s: %s\n", fail_char, _("ERROR"), tmp_error->message);
+				g_print (" %s %s: %s\n", fail_char, _("ERROR"), tmp_error->message);
 				res = FALSE;
 			}
 		} else if (r == AS_CHECK_RESULT_TRUE) {
-			g_print ("  %s %s\n", ASCLI_CHAR_SUCCESS, message);
+			g_print (" %s %s\n", ASCLI_CHAR_SUCCESS, message);
 		} else {
-			g_print ("  %s %s\n", fail_char, message);
+			g_print (" %s %s\n", fail_char, message);
 			res = FALSE;
 		}
 	}
@@ -702,7 +705,7 @@ ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gbo
 
 	ascli_print_highlight (_("Requirements:"));
 	if (requires->len == 0) {
-		g_print ("  • %s\n", _("No required items are set for this software."));
+		g_print (" • %s\n", _("No required items are set for this software."));
 	} else {
 		res = ascli_print_satisfy_check_results (requires,
 							 sysinfo,
@@ -712,7 +715,7 @@ ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gbo
 
 	ascli_print_highlight (_("Recommendations:"));
 	if (recommends->len == 0) {
-		g_print ("  • %s\n", _("No recommended items are set for this software."));
+		g_print (" • %s\n", _("No recommended items are set for this software."));
 	} else {
 		res = ascli_print_satisfy_check_results (recommends,
 							 sysinfo,
@@ -722,7 +725,7 @@ ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gbo
 
 	ascli_print_highlight (_("Supported:"));
 	if (supports->len == 0) {
-		g_print ("  • %s\n", _("No supported items are set for this software."));
+		g_print (" • %s\n", _("No supported items are set for this software."));
 	} else {
 		ascli_print_satisfy_check_results (supports,
 						   sysinfo,
