@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-22 02:22+0100\n"
-"PO-Revision-Date: 2023-01-22 20:09+0000\n"
+"PO-Revision-Date: 2023-01-23 10:51+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.1\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1091,150 +1091,149 @@ msgstr "Denna programvara kräver en mikrofon för att styras via röstinmatning
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "Denna programvara kräver en kamera för inmatningskontroll."
 
 #: src/as-relation.c:1554
-#, fuzzy
 msgid "This software requires a method for console input."
-msgstr "Denna tagg kräver en typegenskap."
+msgstr "Denna programvara kräver en metod för konsolinmatning."
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1559
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "Denna programvara rekommenderar %s för inmatning."
 
 #: src/as-relation.c:1564
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "Denna programvara rekommenderar en pekinmatningsenhet."
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Denna programvara rekommenderar en mikrofon för att styras via röstinmatning."
 
 #: src/as-relation.c:1568
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "Denna programvara rekommenderar en kamera för inmatningskontroll."
 
 #: src/as-relation.c:1570
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "Denna programvara rekommenderar en metod för konsolinmatning."
 
 #: src/as-relation.c:1575
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "pekdon (t.ex. möss)"
 
 #: src/as-relation.c:1577
 msgid "keyboards"
-msgstr ""
+msgstr "tangentbord"
 
 #: src/as-relation.c:1579
 msgid "gamepads"
-msgstr ""
+msgstr "handkontroller"
 
 #: src/as-relation.c:1581
 msgid "tv remotes"
-msgstr ""
+msgstr "tv-fjärrkontroller"
 
 #: src/as-relation.c:1583
 msgid "graphics tablets"
-msgstr ""
+msgstr "ritplattor"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1587
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "Denna programvara stöder %s."
 
 #: src/as-relation.c:1592
 msgid "This software supports touch input."
-msgstr ""
+msgstr "Denna programvara stöder pekinmatning."
 
 #: src/as-relation.c:1594
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "Denna programvara kan styras via röstinmatning."
 
 #: src/as-relation.c:1596
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "Denna programvara kan styras via en kamera."
 
 #: src/as-relation.c:1598
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "Denna programvara stöder styrning via konsolkommandon."
 
 #: src/as-relation.c:1655
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "Programvaran ”%s” hittades"
 
 #: src/as-relation.c:1661
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Nödvändiga programvarukomponenten ”%s” saknas."
 
 #: src/as-relation.c:1665
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Rekommenderade programvarukomponenten ”%s” saknas."
 
 #: src/as-relation.c:1694
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "Hittade hårdvara som stöds av denna programvara: ”%s”"
 
 #: src/as-relation.c:1700
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Nödvändig hårdvara för denna programvara hittades inte på detta system: ”%s”"
 
 #: src/as-relation.c:1704
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Rekommenderad hårdvara för denna programvara hittades inte på detta system: ”%s”"
 
 #: src/as-relation.c:1708
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "Denna programvara stöder hårdvara som inte finns på detta system: ”%s”"
 
 #: src/as-relation.c:1742
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Denna programvara kräver en %s-kärna, men systemet kör %s."
 
 #: src/as-relation.c:1746
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Denna programvara rekommenderar en %s-kärna, men systemet kör %s."
 
 #: src/as-relation.c:1750
 #, c-format
 msgid "This software only supports a %s kernel, but my run on %s anyway."
-msgstr ""
+msgstr "Denna programvara stöder bara en %s-kärna, men kan kanske köra på %s i alla fall."
 
 #: src/as-relation.c:1771
 #, c-format
 msgid "This software requires %s %s %s, but this system is running version %s."
-msgstr ""
+msgstr "Denna programvara kräver %s %s %s, men systemet kör version %s."
 
 #: src/as-relation.c:1777
 #, c-format
 msgid ""
 "The use of %s %s %s is recommended, but this system is running version %s."
-msgstr ""
+msgstr "Användning av %s %s %s rekommenderas, men systemet kör version %s."
 
 #: src/as-relation.c:1808
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Denna programvara kräver %s %.2f GiB minne, men systemet har %.2f GiB."
 
 #: src/as-relation.c:1814
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Denna programvara rekommenderar %s %.2f GiB minne, men systemet har %.2f GiB."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1253,17 +1252,12 @@ msgstr ""
 "(uppströmsmetadata). Lokalisera de individuella paragraferna i stället."
 
 #: src/as-validator-issue-tag.h:57
-#, fuzzy
 msgid ""
 "This element (paragraph, list, etc.) of a <description/> tag must not be "
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr ""
-"Detta element (paragraf, lista o.s.v.) för en <description/>-tagg får inte "
-"lokaliseras individuellt i samlingsmetadata. Lokalisera hela <description/>-"
-"taggen i stället. AppStream-samlingsmetadatageneratorn (t.ex. `appstream-"
-"generator`) kommer redan göra rätt sak när dessa data kompileras."
+msgstr "Detta element (paragraf, lista o.s.v.) för en <description/>-tagg får inte lokaliseras individuellt i katalogmetadata. Lokalisera hela <description/>-taggen i stället. AppStream-metadatakataloggeneratorn (t.ex. `appstream-generator`) kommer redan göra rätt sak när dessa data kompileras."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -1974,10 +1968,9 @@ msgstr "Denna `bundle`-tagg har en okänd typ och kan inte användas."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:575
-#, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr "`update_contact`-taggen får inte inkluderas i samlings-AppStream XML."
+msgstr "`update_contact`-taggen får inte inkluderas i katalog-AppStream XML."
 
 #: src/as-validator-issue-tag.h:580
 msgid ""
@@ -2206,11 +2199,9 @@ msgstr "XML för denna fil är felformaterad."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:736
-#, fuzzy
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr ""
-"Ogiltig tagg hittad i samlingsmetadata. Endast `component`-taggar tillåts."
+msgstr "Ogiltig tagg hittad i katalogmetadata. Endast `component`-taggar tillåts."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:742
@@ -2333,24 +2324,23 @@ msgstr ""
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
-msgstr ""
+msgstr "Typen av utgåveblock är ogiltig. Den måste vara antingen `embedded` (standard) eller `external`."
 
 #: src/as-validator-issue-tag.h:832
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
-msgstr ""
+msgstr "Osäker URL till en extern utgåvemetadatafil. Detta är inte tillåtet, använd endast HTTPS-URL:er."
 
 #: src/as-validator-issue-tag.h:837
-#, fuzzy
 msgid "Failed to download release metadata."
-msgstr "Misslyckades med att hämta fil: %s"
+msgstr "Misslyckades med att hämta metadata för utgåva."
 
 #: src/as-validator-issue-tag.h:842
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
-msgstr ""
+msgstr "Ingen lokal utgåvemetadatafil hittades. Det rekommenderas starkt att validera dessa metadata tillsammans med MetaInfo-huvudfilen."
 
 #: src/as-validator-issue-tag.h:848
 msgid "The value set as release urgency is not a known urgency value."
@@ -2581,7 +2571,7 @@ msgstr "URL-formatet är ogiltigt."
 #: src/as-validator.c:470 src/as-validator.c:514
 #, c-format
 msgid "The release metadata file '%s' is named incorrectly."
-msgstr ""
+msgstr "Felaktigt namn på utgåvemetadatafilen ”%s”."
 
 #. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
 #: src/as-validator.c:653
@@ -2923,9 +2913,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:564
-#, fuzzy
 msgid "Set the data origin for the installed metadata catalog file."
-msgstr "Ställ in dataursprunget för den installerade metadatasamlingsfilen."
+msgstr "Ställ in dataursprunget för den installerade metadatakatalogfilen."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:569
@@ -3111,7 +3100,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1289
 msgid "List components that are part of the specified categories."
-msgstr ""
+msgstr "Lista komponenter som är del av de angivna kategorierna."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1295
@@ -3156,10 +3145,8 @@ msgstr "Visa statusinformation om tillgängliga AppStream-metadata."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1338
-#, fuzzy
 msgid "Show information about the current device and used operating system."
-msgstr ""
-"Visa information om det aktuella operativsystemet från metadataindexet."
+msgstr "Visa information om den aktuella enheten och operativsystemet som används."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1343
@@ -3168,9 +3155,8 @@ msgstr "Installera en metadatafil på rätt plats."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1348
-#, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr "Konvertera samlings-XML till YAML eller tvärtom."
+msgstr "Konvertera metadatakatalog-XML till YAML eller tvärtom."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1353
@@ -3202,9 +3188,8 @@ msgstr "Skriv en NEWS-text eller YAML-fil med information från en metainfofil."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1379
-#, fuzzy
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr "Sätt samman AppStream-samlingsmetadata från katalogträd."
+msgstr "Sätt samman AppStream-metadatakatalog från katalogträd."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1387
@@ -3289,21 +3274,20 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Kunde inte hitta komponent som tillhandahåller ”%s::%s”."
 
 #: tools/ascli-actions-mdata.c:244
-#, fuzzy
 msgid "You need to specify categories to list."
-msgstr "Du måste ange en term att söka efter."
+msgstr "Du måste ange kategorier att lista."
 
 #. TRANSLATORS: We failed to find any component in these categories, likely due to an error
 #: tools/ascli-actions-mdata.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find components in %s!"
-msgstr "Kunde inte hitta komponenten matchandes %s!"
+msgstr "Kunde inte hitta komponenter i %s!"
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:265
 #, c-format
 msgid "No component found in categories %s."
-msgstr ""
+msgstr "Ingen komponent hittades i kategorierna %s."
 
 #: tools/ascli-actions-mdata.c:344
 msgid "You need to specify a metadata file."
@@ -3490,7 +3474,7 @@ msgstr "Du måste ange ett NEWS-format att skriva utdata i."
 
 #: tools/ascli-actions-misc.c:526
 msgid "Operating System Details"
-msgstr ""
+msgstr "Operativsystemsdetaljer"
 
 #: tools/ascli-actions-misc.c:530
 #, c-format
@@ -3498,9 +3482,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr "Kunde inte hitta operativsystemskomponenten ”%s”!"
 
 #: tools/ascli-actions-misc.c:536
-#, fuzzy
 msgid "ID"
-msgstr "Utvecklingsmiljöer"
+msgstr "ID"
 
 #: tools/ascli-actions-misc.c:537 tools/ascli-actions-misc.c:556
 #: tools/ascli-utils.c:277
@@ -3526,7 +3509,7 @@ msgstr "Beskrivning"
 
 #: tools/ascli-actions-misc.c:555
 msgid "Kernel"
-msgstr ""
+msgstr "Kärna"
 
 #: tools/ascli-actions-misc.c:557
 msgid "Version"
@@ -3534,24 +3517,23 @@ msgstr "Version"
 
 #: tools/ascli-actions-misc.c:560
 msgid "Hardware"
-msgstr ""
+msgstr "Hårdvara"
 
 #: tools/ascli-actions-misc.c:562
 msgid "Physical Memory"
-msgstr ""
+msgstr "Fysiskt minne"
 
 #: tools/ascli-actions-misc.c:566
-#, fuzzy
 msgid "Devices with Modaliases"
-msgstr "Mod-alias"
+msgstr "Enheter med modalias"
 
 #: tools/ascli-actions-misc.c:590
 msgid "User Input Controls"
-msgstr ""
+msgstr "Användarinmatningskontroller"
 
 #: tools/ascli-actions-misc.c:593
 msgid "unknown"
-msgstr ""
+msgstr "okänt"
 
 #: tools/ascli-actions-misc.c:600 tools/ascli-actions-validate.c:686
 #: tools/ascli-actions-validate.c:689
@@ -3666,9 +3648,9 @@ msgid "You need to specify at least one file to validate!"
 msgstr "Du måste ange minst en fil att validera!"
 
 #: tools/ascli-actions-validate.c:398
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to add release metadata file: %s"
-msgstr "Kunde inte installera metadatafil: %s"
+msgstr "Kunde inte lägga till metadatafil för utgåva: %s"
 
 #: tools/ascli-actions-validate.c:407
 msgid ""
@@ -3676,6 +3658,8 @@ msgid ""
 "Release metadata files can currently not be validated without their "
 "accompanying MetaInfo file."
 msgstr ""
+"Du behöver ange minst en MetaInfo-fil att validera.\n"
+"Utgåvemetadatafiler kan för närvarande inte valideras utan deras medföljande MetaInfo-fil."
 
 #: tools/ascli-actions-validate.c:431 tools/ascli-actions-validate.c:565
 msgid "Validation was successful."
