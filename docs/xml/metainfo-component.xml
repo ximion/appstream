@@ -75,7 +75,7 @@
 		<term>&lt;id/&gt;</term>
 		<listitem>
 		<para>
-			The <code language="XML"><![CDATA[<id>]]></code> tag is a unique identifier for this component. It must contain only ASCII characters, dots, hyphens and numbers. Spaces are
+			The <literal>id</literal> tag is a unique identifier for this component. It must contain only alphanumeric ASCII characters, dots, hyphens and underscores. Spaces are
 			not allowed. While hyphens are allowed for legacy compatibility, their usage is strongly discouraged to ensure interoperability of the AppStream ID with other tools such
 			as D-Bus (and thereby making the ID more generic and useful). For the same reason it is also strongly discouraged to start any segment of the ID with a digit.
 			Additionally, even though uppercase letters are permitted in a component-ID, it is strongly encouraged to only use lowercase letters for the ID.
