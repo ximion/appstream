@@ -166,7 +166,8 @@
 				</para>
 				<para>
 					The value of an <literal>issue</literal> tag must be the bug number, ticket name, or CVE ID and is typically displayed to the user, but may also in case of CVE IDs be read by
-					machines. If the value is a CVE ID, the <literal>type</literal> property of the <literal>issue</literal> tag must be set to <code>cve</code>.
+					machines. The content of an <literal>issue</literal> element is not translatable, but can be a string appropriate for the project's bug tracker.
+					If the element's value is a CVE ID, the <literal>type</literal> property of the <literal>issue</literal> tag must be set to <code>cve</code>.
 					If the <literal>type</literal> property is missing, an issue type of <code>generic</code> is assumed. The <literal>url</literal> property can be used to provide
 					a web URL to a details page on the respective issue. It is required for all issue types, except for the <code>cve</code> type, where it is optional.
 				</para>
