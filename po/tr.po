@@ -28,10 +28,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-22 02:22+0100\n"
+"POT-Creation-Date: 2023-01-24 12:56+0100\n"
 "PO-Revision-Date: 2023-01-22 20:09+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
+"translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -396,7 +397,7 @@ msgstr "Ofis"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:322 tools/ascli-utils.c:379
+#: src/as-category.c:322 tools/ascli-utils.c:404
 msgid "Add-ons"
 msgstr "Eklentiler"
 
@@ -416,7 +417,7 @@ msgid "Utilities"
 msgstr "Araçlar"
 
 #. TRANSLATORS: This is the formatting of English and localized name
-#. * of the rating e.g. "Adults Only (solo adultos)"
+#. of the rating e.g. "Adults Only (solo adultos)"
 #: src/as-content-rating.c:298
 #, c-format
 msgid "%s (%s)"
@@ -980,34 +981,33 @@ msgid "Retrieved file size was zero."
 msgstr "Alınan dosya boyutu sıfırdı."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
-#. * Do not translate this list directly. Instead,
-#. * provide a list of words in your language that people are likely
-#. * to include in a search but that should normally be ignored in
-#. * the search.
-#.
-#: src/as-pool.c:104
+#. Do not translate this list directly. Instead,
+#. provide a list of words in your language that people are likely
+#. to include in a search but that should normally be ignored in
+#. the search.
+#: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "uygulama;paket;program;takım;araç"
 
-#: src/as-pool.c:1152
+#: src/as-pool.c:1151
 msgid "Metadata files have errors:"
 msgstr "Üst veri dosyalarında hata var:"
 
-#: src/as-pool.c:2585
+#: src/as-pool.c:2584
 msgid "Group"
 msgstr "Grup"
 
-#: src/as-pool.c:2631
+#: src/as-pool.c:2630
 msgid "Iconsets"
 msgstr "Simge Kümeleri"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2678
+#: src/as-pool.c:2677
 msgid "Data from locally installed software"
 msgstr "Yerel olarak kurulan yazılımlardan gelen veriler"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2681
+#: src/as-pool.c:2680
 msgid "Software catalog data"
 msgstr "Yazılım kataloğu verileri"
 
@@ -1091,7 +1091,8 @@ msgstr "Bu yazılım bir dokunmatik giriş aygıtı gerektirir."
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr "Bu yazılım, ses girişi yoluyla denetlenebilmesi için bir mikrofon gerektirir."
+msgstr ""
+"Bu yazılım, ses girişi yoluyla denetlenebilmesi için bir mikrofon gerektirir."
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."
@@ -1113,7 +1114,9 @@ msgstr "Bu yazılım bir dokunmatik giriş aygıtı tavsiye etmektedir."
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr "Bu yazılım, ses girişi yoluyla denetlenebilmesi için bir mikrofon tavsiye etmektedir."
+msgstr ""
+"Bu yazılım, ses girişi yoluyla denetlenebilmesi için bir mikrofon tavsiye "
+"etmektedir."
 
 #: src/as-relation.c:1568
 msgid "This software recommends a camera for input control."
@@ -1165,79 +1168,214 @@ msgstr "Bu yazılım bir kamera ile denetlenebilir."
 msgid "This software supports operation via console commands."
 msgstr "Bu yazılım, konsol komutları aracılığıyla çalışmayı destekler."
 
-#: src/as-relation.c:1655
+#: src/as-relation.c:1611
+#, fuzzy
+msgid "Pointing device (e.g. a mouse or touchpad) found."
+msgstr "işaretleme aygıtı (örn. fare)"
+
+#: src/as-relation.c:1613
+#, fuzzy
+msgid "Physical keyboard found."
+msgstr "Fiziksel Bellek"
+
+#: src/as-relation.c:1615
+msgid "Gamepad found."
+msgstr ""
+
+#: src/as-relation.c:1617
+msgid "TV remote found."
+msgstr ""
+
+#: src/as-relation.c:1619
+#, fuzzy
+msgid "Graphics tablet found."
+msgstr "grafik tableti"
+
+#: src/as-relation.c:1622
+msgid "Touch input device found."
+msgstr ""
+
+#: src/as-relation.c:1624
+msgid "Microphone for voice input control found."
+msgstr ""
+
+#: src/as-relation.c:1626
+msgid "Camera for input control found."
+msgstr ""
+
+#: src/as-relation.c:1628
+msgid "Console interface available."
+msgstr ""
+
+#: src/as-relation.c:1684
 #, c-format
 msgid "Software '%s' was found"
 msgstr "'%s' yazılımı bulundu"
 
-#: src/as-relation.c:1661
+#: src/as-relation.c:1690
 #, c-format
 msgid "Required software component '%s' is missing."
 msgstr "Gerekli yazılım bileşeni '%s' eksik."
 
-#: src/as-relation.c:1665
+#: src/as-relation.c:1694
 #, c-format
 msgid "Recommended software component '%s' is missing."
 msgstr "Tavsiye edilen yazılım bileşeni '%s' eksik."
 
-#: src/as-relation.c:1694
+#: src/as-relation.c:1698
+#, fuzzy, c-format
+msgid "Found supported software component '%s'."
+msgstr "Gerekli yazılım bileşeni '%s' eksik."
+
+#: src/as-relation.c:1727
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
 msgstr "Bu yazılım tarafından desteklenen donanım bulundu: '%s'"
 
-#: src/as-relation.c:1700
+#: src/as-relation.c:1733
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
 msgstr "Bu yazılım için gerekli donanım bu sistemde bulunamadı: '%s'"
 
-#: src/as-relation.c:1704
+#: src/as-relation.c:1737
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
 msgstr "Bu yazılım için tavsiye edilen donanım bu sistemde bulunamadı: '%s'"
 
-#: src/as-relation.c:1708
+#: src/as-relation.c:1741
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
 msgstr "Bu yazılım, bu sistemde bulunmayan donanımları destekler: '%s'"
 
-#: src/as-relation.c:1742
+#: src/as-relation.c:1775
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr "Bu yazılım bir %s çekirdeği gerektirir, ancak bu sistem %s çalıştırıyor."
+msgstr ""
+"Bu yazılım bir %s çekirdeği gerektirir, ancak bu sistem %s çalıştırıyor."
 
-#: src/as-relation.c:1746
+#: src/as-relation.c:1779
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr "Bu yazılım bir %s çekirdeği tavsiye etmektedir, ancak bu sistem %s çalıştırıyor."
+msgstr ""
+"Bu yazılım bir %s çekirdeği tavsiye etmektedir, ancak bu sistem %s "
+"çalıştırıyor."
 
-#: src/as-relation.c:1750
+#: src/as-relation.c:1783
 #, c-format
 msgid "This software only supports a %s kernel, but my run on %s anyway."
-msgstr "Bu yazılım yalnızca %s çekirdeğini destekler, ancak yine de %s üzerinde çalışıyor."
+msgstr ""
+"Bu yazılım yalnızca %s çekirdeğini destekler, ancak yine de %s üzerinde "
+"çalışıyor."
 
-#: src/as-relation.c:1771
+#. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
+#. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
+#. and fifth is the version we are running.
+#: src/as-relation.c:1805
+#, fuzzy, c-format
+msgid "This software requires %s %s %s, but this system is running %s %s."
+msgstr ""
+"Bu yazılım %s %s %s gerektirir, ancak bu sistem %s sürümünü çalıştırıyor."
+
+#. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
+#. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
+#. and fifth is the version we are running.
+#: src/as-relation.c:1813
+#, fuzzy, c-format
+msgid "The use of %s %s %s is recommended, but this system is running %s %s."
+msgstr ""
+"%s %s %s kullanılması tavsiye edilmektedir, ancak bu sistem %s sürümünü "
+"çalıştırıyor."
+
+#. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
+#. second is comparison operator (e.g. >=), third is the expected version number.
+#: src/as-relation.c:1820
+#, fuzzy, c-format
+msgid "This software supports %s %s %s."
+msgstr "Bu yazılım %s destekler."
+
+#. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
+#: src/as-relation.c:1830
 #, c-format
-msgid "This software requires %s %s %s, but this system is running version %s."
-msgstr "Bu yazılım %s %s %s gerektirir, ancak bu sistem %s sürümünü çalıştırıyor."
+msgid "Kernel %s %s is supported."
+msgstr ""
 
-#: src/as-relation.c:1777
-#, c-format
-msgid ""
-"The use of %s %s %s is recommended, but this system is running version %s."
-msgstr "%s %s %s kullanılması tavsiye edilmektedir, ancak bu sistem %s sürümünü çalıştırıyor."
-
-#: src/as-relation.c:1808
+#. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
+#. second is the expected amount of memory and fourth is the amount of memory we have.
+#: src/as-relation.c:1859
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr "Bu yazılım %s %.2f GiB bellek gerektirir, ancak bu sistemde %.2f GiB bellek var."
+msgstr ""
+"Bu yazılım %s %.2f GiB bellek gerektirir, ancak bu sistemde %.2f GiB bellek "
+"var."
 
-#: src/as-relation.c:1814
+#. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
+#. second is the expected amount of memory and fourth is the amount of memory we have.
+#: src/as-relation.c:1865
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr "Bu yazılım %s %.2f GiB bellek tavsiye etmektedir, ancak bu sistemde %.2f GiB bellek var."
+msgstr ""
+"Bu yazılım %s %.2f GiB bellek tavsiye etmektedir, ancak bu sistemde %.2f GiB "
+"bellek var."
+
+#. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
+#. second is the expected amount of memory.
+#: src/as-relation.c:1871
+#, fuzzy, c-format
+msgid "This software supports %s %.2f GiB of memory."
+msgstr "Bu yazılım %s destekler."
+
+#: src/as-relation.c:1880
+#, c-format
+msgid "This system has sufficient memory for this software."
+msgstr ""
+
+#. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+#. second is the expected size and fourth is the size the current device has.
+#: src/as-relation.c:1951
+#, c-format
+msgid ""
+"This software requires a display with its longest edge being %s %lu px in "
+"size, but the display of this device has %lu px."
+msgstr ""
+
+#. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+#. second is the expected size and fourth is the size the current device has.
+#: src/as-relation.c:1958
+#, c-format
+msgid ""
+"This software requires a display with its shortest edge being %s %lu px in "
+"size, but the display of this device has %lu px."
+msgstr ""
+
+#. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+#. second is the expected size and fourth is the size the current device has.
+#: src/as-relation.c:1966
+#, c-format
+msgid ""
+"This software recommends a display with its longest edge being %s %lu px in "
+"size, but the display of this device has %lu px."
+msgstr ""
+
+#. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+#. second is the expected size and fourth is the size the current device has.
+#: src/as-relation.c:1973
+#, c-format
+msgid ""
+"This software recommends a display with its shortest edge being %s %lu px in "
+"size, but the display of this device has %lu px."
+msgstr ""
+
+#: src/as-relation.c:1981
+msgid "Display size is sufficient for this software."
+msgstr ""
+
+#: src/as-relation.c:1996
+#, c-format
+msgid "Relation satisfy check for items of type '%s' is not implemented yet."
+msgstr ""
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1262,7 +1400,12 @@ msgid ""
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr "Bir <description/> etiketinin bu ögesi (paragraf, liste vb.) koleksiyon üst verilerinde bireysel olarak yerelleştirilmemelidir. Bunun yerine <description/> etiketinin tamamını yerelleştirin. AppStream koleksiyonu üst veri üreticisi (örneğin, `appstream-generator`) verileri derlerken zaten doğru olanı yapacaktır."
+msgstr ""
+"Bir <description/> etiketinin bu ögesi (paragraf, liste vb.) koleksiyon üst "
+"verilerinde bireysel olarak yerelleştirilmemelidir. Bunun yerine "
+"<description/> etiketinin tamamını yerelleştirin. AppStream koleksiyonu üst "
+"veri üreticisi (örneğin, `appstream-generator`) verileri derlerken zaten "
+"doğru olanı yapacaktır."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -1314,7 +1457,9 @@ msgstr ""
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr "Açıklama, düz metin şeklinde bir web URL'si içeriyor. Buna izin verilmez, lütfen bağlantıları paylaşmak için <url/> etiketini kullanın."
+msgstr ""
+"Açıklama, düz metin şeklinde bir web URL'si içeriyor. Buna izin verilmez, "
+"lütfen bağlantıları paylaşmak için <url/> etiketini kullanın."
 
 #: src/as-validator-issue-tag.h:96
 msgid "This tag is not translatable."
@@ -1819,13 +1964,17 @@ msgstr ""
 msgid ""
 "The component has a priority value set. This is not allowed in metainfo "
 "files."
-msgstr "Bileşenin ayarlanmış bir öncelik değeri var. Buna metainfo dosyalarında izin verilmez."
+msgstr ""
+"Bileşenin ayarlanmış bir öncelik değeri var. Buna metainfo dosyalarında izin "
+"verilmez."
 
 #: src/as-validator-issue-tag.h:437
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
-msgstr "Bileşenin tanımlanmış bir `merge` metodu var. Buna metainfo dosyalarında izin verilmez."
+msgstr ""
+"Bileşenin tanımlanmış bir `merge` metodu var. Buna metainfo dosyalarında "
+"izin verilmez."
 
 #: src/as-validator-issue-tag.h:442
 msgid "The component is missing an ID (<id/> tag)."
@@ -1974,7 +2123,8 @@ msgstr "Bu `bundle` etiketi bilinmeyen bir türe sahiptir ve kullanılamaz."
 #: src/as-validator-issue-tag.h:575
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr "`update_contact` etiketi AppStream XML koleksiyonuna dahil edilmemelidir."
+msgstr ""
+"`update_contact` etiketi AppStream XML koleksiyonuna dahil edilmemelidir."
 
 #: src/as-validator-issue-tag.h:580
 msgid ""
@@ -2207,7 +2357,9 @@ msgstr "Bu dosyanın XML'i bozuk."
 #: src/as-validator-issue-tag.h:736
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr "Koleksiyon üst verilerinde geçersiz etiket bulundu. Yalnızca `component` etiketlerine izin verilmektedir."
+msgstr ""
+"Koleksiyon üst verilerinde geçersiz etiket bulundu. Yalnızca `component` "
+"etiketlerine izin verilmektedir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:742
@@ -2310,7 +2462,8 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:814
 msgid "The metainfo file specifies multiple components. This is not allowed."
-msgstr "Metainfo dosyası birden fazla bileşen belirtmektedir. Buna izin verilmez."
+msgstr ""
+"Metainfo dosyası birden fazla bileşen belirtmektedir. Buna izin verilmez."
 
 #: src/as-validator-issue-tag.h:819
 msgid ""
@@ -2329,13 +2482,17 @@ msgstr ""
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
-msgstr "Yayın bloğunun türü geçersiz. `embedded` (öntanımlı) veya `external` olması gerekir."
+msgstr ""
+"Yayın bloğunun türü geçersiz. `embedded` (öntanımlı) veya `external` olması "
+"gerekir."
 
 #: src/as-validator-issue-tag.h:832
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
-msgstr "Harici bir yayın üst veri dosyasına giden URL güvenli değil. Buna izin verilmez, lütfen yalnızca HTTPS URL'ler kullanın."
+msgstr ""
+"Harici bir yayın üst veri dosyasına giden URL güvenli değil. Buna izin "
+"verilmez, lütfen yalnızca HTTPS URL'ler kullanın."
 
 #: src/as-validator-issue-tag.h:837
 msgid "Failed to download release metadata."
@@ -2345,7 +2502,9 @@ msgstr "Yayın üst verileri indirilemedi."
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
-msgstr "Yerel bir yayın üst veri dosyası bulunamadı. Bu üst verilerin ana MetaInfo dosyası ile birlikte doğrulanması şiddetle tavsiye edilir."
+msgstr ""
+"Yerel bir yayın üst veri dosyası bulunamadı. Bu üst verilerin ana MetaInfo "
+"dosyası ile birlikte doğrulanması şiddetle tavsiye edilir."
 
 #: src/as-validator-issue-tag.h:848
 msgid "The value set as release urgency is not a known urgency value."
@@ -2589,7 +2748,7 @@ msgid "The issue tag '%s' is not recognized."
 msgstr "'%s' sorun etiketi tanınmıyor."
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
-#. * whitelisted for that.
+#. whitelisted for that.
 #: src/as-validator.c:689
 #, c-format
 msgid ""
@@ -2599,11 +2758,11 @@ msgstr ""
 "'%s' etiketinin önem derecesini doğrulamanın geçmesine izin veren bir değere "
 "düşürmeye izin verilmiyor."
 
-#. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
-#: src/as-validator.c:845 src/as-validator.c:1360 src/as-validator.c:1419
-#: src/as-validator.c:1570 src/as-validator.c:2055 src/as-validator.c:2075
-#: src/as-validator.c:2176 src/as-validator.c:2324
+#. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
+#. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
+#: src/as-validator.c:845 src/as-validator.c:1366 src/as-validator.c:1425
+#: src/as-validator.c:1576 src/as-validator.c:2061 src/as-validator.c:2081
+#: src/as-validator.c:2182 src/as-validator.c:2330
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Bulunan: %s - İzin verilen: %s"
@@ -2615,13 +2774,13 @@ msgstr "Ek hata ayıklama bilgilerini göster"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-compose.c:186 tools/appstreamcli.c:1259
+#: tools/appstream-compose.c:186 tools/appstreamcli.c:1287
 msgid "Don't show colored output."
 msgstr "Renklendirilmiş çıktı gösterme."
 
 #. TRANSLATORS: ascompose flag description for: --version
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-compose.c:189 tools/appstreamcli.c:1248
+#: tools/appstream-compose.c:189 tools/appstreamcli.c:1276
 msgid "Show the program version."
 msgstr "Program sürümünü göster."
 
@@ -2683,19 +2842,19 @@ msgstr "Dışa aktarılan ortam içeriğinin barındırılacağı URL'yi ayarla"
 msgid "A comma-separated list of component-IDs to accept"
 msgstr "Kabul edilecek bileşen kimliklerinin virgülle ayrılmış listesi"
 
-#. TRANSLATORS: error message
+#. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:236
 msgid "Failed to parse arguments"
 msgstr "Argümanlar ayrıştırılamadı"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:247 tools/appstreamcli.c:1411
+#: tools/appstream-compose.c:247 tools/appstreamcli.c:1444
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream sürümü: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:250 tools/appstreamcli.c:1414
+#: tools/appstream-compose.c:250 tools/appstreamcli.c:1447
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2726,7 +2885,7 @@ msgstr ""
 msgid "Automatically selected '%s' as data output location."
 msgstr "Veri çıktı konumu olarak '%s' otomatik seçildi."
 
-#. TRANSLATORS: we don't have a destination directory for compose
+#. TRANSLATORS: We don't have a destination directory for compose
 #: tools/appstream-compose.c:299
 msgid "No destination directory set, please provide a data output location!"
 msgstr "Hedef dizin ayarlanmadı, lütfen bir veri çıktı konumu sağlayın!"
@@ -2735,39 +2894,39 @@ msgstr "Hedef dizin ayarlanmadı, lütfen bir veri çıktı konumu sağlayın!"
 msgid "WARNING"
 msgstr "UYARI"
 
-#. TRANSLATORS: information about as-compose allowlist
+#. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:348
 #, c-format
 msgid "Only accepting components: %s"
 msgstr "Yalnızca kabul edilen bileşenler: %s"
 
-#. TRANSLATORS: information about as-compose allowlist
+#. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:351
 #, c-format
 msgid "Only accepting component: %s"
 msgstr "Yalnızca kabul edilen bileşen: %s"
 
-#. TRANSLATORS: information about as-compose units to be processed
+#. TRANSLATORS: Information about as-compose units to be processed
 #: tools/appstream-compose.c:356
 msgid "Processing directories:"
 msgstr "İşleme dizinleri:"
 
-#. TRANSLATORS: information about as-compose units to be processed
+#. TRANSLATORS: Information about as-compose units to be processed
 #: tools/appstream-compose.c:359
 msgid "Processing directory:"
 msgstr "İşleme dizini:"
 
-#. TRANSLATORS: error message
+#. TRANSLATORS: Error message
 #: tools/appstream-compose.c:368
 msgid "Can not process invalid directory"
 msgstr "Geçersiz dizin işlenemiyor"
 
-#. TRANSLATORS: information message
+#. TRANSLATORS: Information message
 #: tools/appstream-compose.c:380
 msgid "Composing metadata..."
 msgstr "Üst veriler oluşturuluyor..."
 
-#. TRANSLATORS: error message
+#. TRANSLATORS: Error message
 #: tools/appstream-compose.c:385
 msgid "Failed to compose AppStream metadata"
 msgstr "AppStream üst verileri oluşturulamadı"
@@ -2794,7 +2953,7 @@ msgstr ""
 msgid "Overview of generated hints:"
 msgstr "Oluşturulan ipuçlarına genel bakış:"
 
-#. TRANSLATORS: information message
+#. TRANSLATORS: Information message
 #: tools/appstream-compose.c:399
 msgid "Success!"
 msgstr "Başarılı!"
@@ -2861,7 +3020,7 @@ msgstr "Seçilen sorun etiketlerinin önem derecelerini geçersiz kıl."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstreamcli.c:168 tools/appstreamcli.c:1148
+#: tools/appstreamcli.c:168 tools/appstreamcli.c:1176
 msgid "AppStream command-line interface"
 msgstr "AppStream komut satırı arayüzü"
 
@@ -2876,7 +3035,7 @@ msgstr "'%s' komutu"
 msgid "Option '%s' is unknown."
 msgstr "'%s' seçeneği bilinmiyor."
 
-#: tools/appstreamcli.c:211 tools/appstreamcli.c:1388
+#: tools/appstreamcli.c:211 tools/appstreamcli.c:1421
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -2914,17 +3073,17 @@ msgstr ""
 "Hiçbir lisans, lisans ifadesi veya lisans istisnası dizgesi sağlanmadı."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstreamcli.c:564
+#: tools/appstreamcli.c:591
 msgid "Set the data origin for the installed metadata catalog file."
 msgstr "Kurulu üst veri koleksiyon dosyası için veri kaynağını ayarla."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:569
+#: tools/appstreamcli.c:596
 msgid "Install the file for the current user, instead of globally."
 msgstr "Dosyayı genel olarak değil, geçerli kullanıcı için kur."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:597
+#: tools/appstreamcli.c:624
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
@@ -2933,7 +3092,7 @@ msgstr ""
 "bileşenleri kullanacak şekilde sınırla."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:602
+#: tools/appstreamcli.c:629
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
@@ -2942,7 +3101,7 @@ msgstr ""
 "girdiyi seç."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
-#: tools/appstreamcli.c:635 tools/appstreamcli.c:672
+#: tools/appstreamcli.c:662 tools/appstreamcli.c:699
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
@@ -2950,7 +3109,7 @@ msgstr ""
 "Geçerli bir paket türü belirtilmedi. Şu anda yalnızca `package` veya "
 "`flatpak` tanınmaktadır."
 
-#: tools/appstreamcli.c:770
+#: tools/appstreamcli.c:797
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
@@ -2958,12 +3117,12 @@ msgstr ""
 "gerekmektedir."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:799
+#: tools/appstreamcli.c:826
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Bilinmeyen karşılaştırma ilişkisi '%s'. Geçerli değerler:"
 
-#: tools/appstreamcli.c:839
+#: tools/appstreamcli.c:866
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -2972,7 +3131,7 @@ msgstr ""
 "karşılaştırma operatörüne ihtiyaç var."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:865
+#: tools/appstreamcli.c:892
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -2980,7 +3139,7 @@ msgstr ""
 "dosyasını kullanın."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstreamcli.c:870
+#: tools/appstreamcli.c:897
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -2989,24 +3148,24 @@ msgstr ""
 "yazılacak bir dosyadır (veya standart çıktı için \"-\")."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstreamcli.c:873
+#: tools/appstreamcli.c:900
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPE, şunun gibi geçerli bir bileşen türü olmalıdır: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:914
+#: tools/appstreamcli.c:941
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 "Masaüstü girdi dosyasının 'Exec =' anahtarı için belirtilen satırı kullanın."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:955
+#: tools/appstreamcli.c:982
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr "Giriş dosyasının seçilen biçimde ('yaml' veya 'text') olduğunu varsay."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:961
+#: tools/appstreamcli.c:988
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
@@ -3015,7 +3174,7 @@ msgstr ""
 "(sınırsız için <= 0)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
-#: tools/appstreamcli.c:967
+#: tools/appstreamcli.c:994
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
@@ -3024,38 +3183,39 @@ msgstr ""
 "(en son sürümler önce çevrilir, sınırsız için -1)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:1011
+#: tools/appstreamcli.c:1038
 msgid "Generate the output in the selected format ('yaml' or 'text')."
 msgstr "Çıktıyı seçilen biçimde ('yaml' veya 'text') oluştur."
 
 #. TRANSLATORS: appstreamcli-compose was not found
-#: tools/appstreamcli.c:1053
+#: tools/appstreamcli.c:1080
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
 msgstr "Oluşturma ikili dosyası '%s' bulunamadı! Devam edilemiyor."
 
-#: tools/appstreamcli.c:1054
+#. TRANSLATORS: appstreamcli-compose was not found - info text
+#: tools/appstreamcli.c:1082
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr "AppStream Compose eklentisini şu şekilde kurabilirsiniz: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
-#: tools/appstreamcli.c:1063
+#: tools/appstreamcli.c:1091
 msgid "Invalid number of parameters"
 msgstr "Geçersiz parametre sayısı"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:1122
+#: tools/appstreamcli.c:1150
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(Takma ad: '%s')"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1150
+#: tools/appstreamcli.c:1178
 msgid "Subcommands:"
 msgstr "Alt komutlar:"
 
-#: tools/appstreamcli.c:1201
+#: tools/appstreamcli.c:1229
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -3064,7 +3224,7 @@ msgstr ""
 "bulabilirsiniz."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstreamcli.c:1224
+#: tools/appstreamcli.c:1252
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -3073,27 +3233,27 @@ msgstr ""
 "komutunu çalıştırın."
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstreamcli.c:1254
+#: tools/appstreamcli.c:1282
 msgid "Show extra debugging information."
 msgstr "Ek hata ayıklama bilgisi göster."
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstreamcli.c:1262
+#: tools/appstreamcli.c:1290
 msgid "Enable profiling"
 msgstr "Profil oluşturmayı etkinleştir"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1274
+#: tools/appstreamcli.c:1302
 msgid "Search the component database."
 msgstr "Bileşen veri tabanında arama yapın."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1279
+#: tools/appstreamcli.c:1307
 msgid "Get information about a component by its ID."
 msgstr "Kimliğiyle bir bileşen hakkında bilgi edin."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1284
+#: tools/appstreamcli.c:1312
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
@@ -3102,75 +3262,82 @@ msgstr ""
 "(örn. lib, bin, python3, …) ve öge değerine ihtiyaç duyar."
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
-#: tools/appstreamcli.c:1289
+#: tools/appstreamcli.c:1317
 msgid "List components that are part of the specified categories."
 msgstr "Belirtilen kategorilerin parçası olan bileşenleri listele."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1295
+#: tools/appstreamcli.c:1323
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Kimlik ile eşleşen bileşen için ham XML üst verilerini dök."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1300
+#: tools/appstreamcli.c:1328
 msgid "Rebuild the component metadata cache."
 msgstr "Bileşen üst veri önbelleğini yeniden oluştur."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1306
+#: tools/appstreamcli.c:1334
 msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML dosyalarını sorunlar için doğrula."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1311
+#: tools/appstreamcli.c:1339
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Bir uygulamanın kurulu bir dosya ağacını geçerli üst veri için doğrula."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1316
+#: tools/appstreamcli.c:1344
 msgid "Check license string for validity and print details about it."
 msgstr ""
 "Lisans dizgesinin geçerliliğini denetle ve onunla ilgili ayrıntıları yazdır."
 
+#. TRANSLATORS: `appstreamcli `check-license` command description.
+#: tools/appstreamcli.c:1349
+msgid ""
+"Check if requirements of a component (via its ID or MetaInfo file) are "
+"satisfied on this system."
+msgstr ""
+
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1322
+#: tools/appstreamcli.c:1355
 msgid "Install software matching the component-ID."
 msgstr "Bileşen kimliğiyle eşleşen yazılım kur."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1327
+#: tools/appstreamcli.c:1360
 msgid "Remove software matching the component-ID."
 msgstr "Bileşen kimliğiyle eşleşen yazılımı kaldır."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1333
+#: tools/appstreamcli.c:1366
 msgid "Display status information about available AppStream metadata."
 msgstr ""
 "Kullanılabilir AppStream üst verileri hakkındaki durum bilgilerini görüntüle."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
-#: tools/appstreamcli.c:1338
+#: tools/appstreamcli.c:1371
 msgid "Show information about the current device and used operating system."
 msgstr "Geçerli aygıt ve kullanılan işletim sistemi hakkında bilgi göster."
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1343
+#: tools/appstreamcli.c:1376
 msgid "Install a metadata file into the right location."
 msgstr "Bir üst veri dosyasını doğru konuma kur."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1348
+#: tools/appstreamcli.c:1381
 msgid "Convert metadata catalog XML to YAML or vice versa."
 msgstr "Üst veri kataloğu XML'ini YAML'ye veya YAML'sini XML'e dönüştür."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1353
+#: tools/appstreamcli.c:1386
 msgid "Compare two version numbers."
 msgstr "İki sürüm numarasını karşılaştır."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1359
+#: tools/appstreamcli.c:1392
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -3179,27 +3346,28 @@ msgstr ""
 "doldurulacak)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1364
+#: tools/appstreamcli.c:1397
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Bir metainfo dosyasından bir masaüstü girdi dosyası oluştur."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1369
+#: tools/appstreamcli.c:1402
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "Bir YAML veya metin NEWS dosyasını metainfo sürümlerine dönüştür."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1374
+#: tools/appstreamcli.c:1407
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr "NEWS metin veya YAML dosyasını bir metainfo dosyasındaki bilgilerle yaz."
+msgstr ""
+"NEWS metin veya YAML dosyasını bir metainfo dosyasındaki bilgilerle yaz."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1379
+#: tools/appstreamcli.c:1412
 msgid "Compose AppStream metadata catalog from directory trees."
 msgstr "Dizin ağaçlarından AppStream koleksiyonu üst verileri oluştur."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1387
+#: tools/appstreamcli.c:1420
 msgid "You need to specify a command."
 msgstr "Bir komut belirtmelisiniz."
 
@@ -3246,7 +3414,7 @@ msgid "You need to specify a component-ID."
 msgstr "Bir bileşen kimliği belirtmelisiniz."
 
 #: tools/ascli-actions-mdata.c:134 tools/ascli-actions-mdata.c:303
-#: tools/ascli-actions-pkgmgr.c:127
+#: tools/ascli-actions-mdata.c:690 tools/ascli-actions-pkgmgr.c:127
 #, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "'%s' kimliğine sahip bileşen bulunamadı!"
@@ -3324,7 +3492,8 @@ msgstr ""
 "Dosya dönüştürülemedi: Çıktı biçimi belirlenemedi, lütfen '--format=' "
 "kullanarak açıkça belirtin."
 
-#: tools/ascli-actions-mdata.c:472
+#. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
+#: tools/ascli-actions-mdata.c:471
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
@@ -3332,6 +3501,7 @@ msgstr ""
 "Bir şablon oluşturmak için bir AppStream yazılım bileşeni türü "
 "sağlamalısınız. Olası değerler:"
 
+#. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
 #: tools/ascli-actions-mdata.c:474
 #, c-format
 msgid ""
@@ -3339,25 +3509,77 @@ msgid ""
 "are:"
 msgstr "Yazılım bileşen türü '%s' AppStream'de geçerli değil. Olası değerler:"
 
-#: tools/ascli-actions-mdata.c:492
+#: tools/ascli-actions-mdata.c:493
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop dosyası '%s' bulunmuyor."
 
-#: tools/ascli-actions-mdata.c:498
+#: tools/ascli-actions-mdata.c:499
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr ".desktop dosyası okunamadı: %s"
 
-#: tools/ascli-actions-mdata.c:569
+#: tools/ascli-actions-mdata.c:570
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "Şablon metainfo dosyası inşa edilemedi: %s"
 
-#: tools/ascli-actions-mdata.c:577
+#: tools/ascli-actions-mdata.c:578
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "Şablon metainfo dosyası kaydedilemedi: %s"
+
+#: tools/ascli-actions-mdata.c:614
+msgid ""
+"Unable to check display size: Can not read information without GUI toolkit "
+"access."
+msgstr ""
+
+#: tools/ascli-actions-mdata.c:619
+msgid "ERROR"
+msgstr ""
+
+#: tools/ascli-actions-mdata.c:649
+#, fuzzy
+msgid "You need to specify a MetaInfo filename or component ID."
+msgstr "Giriş olarak bir metainfo dosyası belirtmeniz gerekmektedir."
+
+#: tools/ascli-actions-mdata.c:667 tools/ascli-actions-misc.c:128
+#: tools/ascli-actions-misc.c:371 tools/ascli-actions-misc.c:448
+#, c-format
+msgid "Metainfo file '%s' does not exist."
+msgstr "Metainfo dosyası '%s' mevcut değil."
+
+#. TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system.
+#: tools/ascli-actions-mdata.c:704
+#, c-format
+msgid "Relation check for: %s"
+msgstr ""
+
+#: tools/ascli-actions-mdata.c:707
+msgid "Requirements:"
+msgstr ""
+
+#: tools/ascli-actions-mdata.c:709
+msgid "No required items are set for this software."
+msgstr ""
+
+#: tools/ascli-actions-mdata.c:717
+msgid "Recommendations:"
+msgstr ""
+
+#: tools/ascli-actions-mdata.c:719
+msgid "No recommended items are set for this software."
+msgstr ""
+
+#: tools/ascli-actions-mdata.c:727
+#, fuzzy
+msgid "Supported:"
+msgstr "Spor"
+
+#: tools/ascli-actions-mdata.c:729
+msgid "No supported items are set for this software."
+msgstr ""
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:48
@@ -3414,12 +3636,6 @@ msgid ""
 msgstr ""
 "Çıktı olarak oluşturmak veya eklemek için bir masaüstü girdi dosyası "
 "belirtmeniz gerekmektedir."
-
-#: tools/ascli-actions-misc.c:128 tools/ascli-actions-misc.c:371
-#: tools/ascli-actions-misc.c:448
-#, c-format
-msgid "Metainfo file '%s' does not exist."
-msgstr "Metainfo dosyası '%s' mevcut değil."
 
 #: tools/ascli-actions-misc.c:149
 #, c-format
@@ -3494,24 +3710,24 @@ msgid "ID"
 msgstr "Kimlik"
 
 #: tools/ascli-actions-misc.c:537 tools/ascli-actions-misc.c:556
-#: tools/ascli-utils.c:277
+#: tools/ascli-utils.c:302
 msgid "Name"
 msgstr "İsim"
 
-#: tools/ascli-actions-misc.c:538 tools/ascli-utils.c:278
+#: tools/ascli-actions-misc.c:538 tools/ascli-utils.c:303
 msgid "Summary"
 msgstr "Özet"
 
-#: tools/ascli-actions-misc.c:541 tools/ascli-utils.c:281
+#: tools/ascli-actions-misc.c:541 tools/ascli-utils.c:306
 msgid "Homepage"
 msgstr "Web Sitesi"
 
 #. developer name
-#: tools/ascli-actions-misc.c:542 tools/ascli-utils.c:302
+#: tools/ascli-actions-misc.c:542 tools/ascli-utils.c:327
 msgid "Developer"
 msgstr "Geliştirici"
 
-#: tools/ascli-actions-misc.c:547 tools/ascli-utils.c:314
+#: tools/ascli-actions-misc.c:547 tools/ascli-utils.c:339
 msgid "Description"
 msgstr "Tanımlama"
 
@@ -3543,13 +3759,13 @@ msgstr "Kullanıcı Giriş Denetimleri"
 msgid "unknown"
 msgstr "bilinmiyor"
 
-#: tools/ascli-actions-misc.c:600 tools/ascli-actions-validate.c:686
-#: tools/ascli-actions-validate.c:689
+#: tools/ascli-actions-misc.c:600 tools/ascli-actions-validate.c:687
+#: tools/ascli-actions-validate.c:690
 msgid "yes"
 msgstr "evet"
 
-#: tools/ascli-actions-misc.c:602 tools/ascli-actions-validate.c:686
-#: tools/ascli-actions-validate.c:689
+#: tools/ascli-actions-misc.c:602 tools/ascli-actions-validate.c:687
+#: tools/ascli-actions-validate.c:690
 msgid "no"
 msgstr "hayır"
 
@@ -3605,8 +3821,9 @@ msgstr "Lütfen kurulacak bileşenin numarasını girin:"
 msgid "Component '%s' has no installation candidate."
 msgstr "'%s' bileşeninin hiçbir kurulum adayı yok."
 
-#. TRANSLATORS: User-supplied overrides string for appstreamcli was badly formatted.
-#: tools/ascli-actions-validate.c:254
+#. TRANSLATORS: User-supplied overrides string for appstreamcli was badly formatted
+#. (tag is an issue tag, severity is the desired severity that it should be set to).
+#: tools/ascli-actions-validate.c:255
 #, c-format
 msgid ""
 "The format of validator issue override '%s' is invalid (should be "
@@ -3615,73 +3832,74 @@ msgstr ""
 "Doğrulayıcı sorunu geçersiz kılma biçimi '%s' geçersiz ('etiket=önem "
 "derecesi' şeklinde olmalıdır)"
 
-#: tools/ascli-actions-validate.c:262
+#: tools/ascli-actions-validate.c:263
 #, c-format
 msgid "Can not override issue tag: %s"
 msgstr "Sorun etiketi geçersiz kılınamıyor: %s"
 
-#: tools/ascli-actions-validate.c:293 tools/ascli-actions-validate.c:501
+#: tools/ascli-actions-validate.c:294 tools/ascli-actions-validate.c:502
 #, c-format
 msgid "File '%s' does not exist."
 msgstr "'%s' dosyası mevcut değil."
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "error"-type hints
-#: tools/ascli-actions-validate.c:340
+#: tools/ascli-actions-validate.c:341
 #, c-format
 msgid "errors: %lu"
 msgstr "hatalar: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "warning"-type hints
-#: tools/ascli-actions-validate.c:347
+#: tools/ascli-actions-validate.c:348
 #, c-format
 msgid "warnings: %lu"
 msgstr "uyarılar: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "info"-type hints
-#: tools/ascli-actions-validate.c:354
+#: tools/ascli-actions-validate.c:355
 #, c-format
 msgid "infos: %lu"
 msgstr "bilgiler: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "pedantic"-type hints
-#: tools/ascli-actions-validate.c:361
+#: tools/ascli-actions-validate.c:362
 #, c-format
 msgid "pedantic: %lu"
 msgstr "detaylı: %lu"
 
-#: tools/ascli-actions-validate.c:387 tools/ascli-actions-validate.c:488
+#: tools/ascli-actions-validate.c:388 tools/ascli-actions-validate.c:489
 msgid "You need to specify at least one file to validate!"
 msgstr "Doğrulamak için en az bir dosya belirtmeniz gerekmektedir!"
 
-#: tools/ascli-actions-validate.c:398
+#: tools/ascli-actions-validate.c:399
 #, c-format
 msgid "Unable to add release metadata file: %s"
 msgstr "Yayın üst veri dosyası eklenemiyor: %s"
 
-#: tools/ascli-actions-validate.c:407
+#: tools/ascli-actions-validate.c:408
 msgid ""
 "You need to specify at least one MetaInfo file to validate.\n"
 "Release metadata files can currently not be validated without their "
 "accompanying MetaInfo file."
 msgstr ""
 "Doğrulamak için en az bir MetaInfo dosyası belirtmeniz gerekir.\n"
-"Yayın üst veri dosyaları şu anda kendilerine eşlik eden MetaInfo dosyası olmadan doğrulanamaz."
+"Yayın üst veri dosyaları şu anda kendilerine eşlik eden MetaInfo dosyası "
+"olmadan doğrulanamaz."
 
-#: tools/ascli-actions-validate.c:431 tools/ascli-actions-validate.c:565
+#: tools/ascli-actions-validate.c:432 tools/ascli-actions-validate.c:566
 msgid "Validation was successful."
 msgstr "Doğrulama işlemi tamamlandı."
 
-#: tools/ascli-actions-validate.c:433 tools/ascli-actions-validate.c:567
+#: tools/ascli-actions-validate.c:434 tools/ascli-actions-validate.c:568
 #, c-format
 msgid "Validation was successful: %s"
 msgstr "Doğrulama işlemi tamamlandı: %s"
 
-#: tools/ascli-actions-validate.c:444 tools/ascli-actions-validate.c:578
+#: tools/ascli-actions-validate.c:445 tools/ascli-actions-validate.c:579
 #, c-format
 msgid "Validation failed: %s"
 msgstr "Doğrulama başarısız: %s"
 
-#: tools/ascli-actions-validate.c:515 tools/ascli-actions-validate.c:636
+#: tools/ascli-actions-validate.c:516 tools/ascli-actions-validate.c:637
 #, c-format
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
@@ -3690,106 +3908,107 @@ msgstr ""
 "Doğrulayıcı '%s' biçiminde rapor oluşturamaz. Bunun yerine 'yaml' veya "
 "'text' seçebilirsiniz."
 
-#: tools/ascli-actions-validate.c:539 tools/ascli-actions-validate.c:622
+#: tools/ascli-actions-validate.c:540 tools/ascli-actions-validate.c:623
 msgid "You need to specify a root directory to start validation!"
 msgstr "Doğrulamayı başlatmak için bir kök dizini belirtmelisiniz!"
 
-#. TRANSLATORS: A plain license ID
-#: tools/ascli-actions-validate.c:663
+#. TRANSLATORS: A plain license ID (used as value in a key-value pair, like "Type: license")
+#: tools/ascli-actions-validate.c:664
 msgid "license"
 msgstr "lisans"
 
-#. TRANSLATORS: A license exception
-#: tools/ascli-actions-validate.c:666
+#. TRANSLATORS: A license exception (used as value in a key-value pair, like "Type: exception")
+#: tools/ascli-actions-validate.c:667
 msgid "license exception"
 msgstr "lisans istisnası"
 
-#. TRANSLATORS: A complex license expression
-#: tools/ascli-actions-validate.c:669
+#. TRANSLATORS: A complex license expression (used as value in a key-value pair, like "Type: exception")
+#: tools/ascli-actions-validate.c:670
 msgid "license expression"
 msgstr "lisans ifadesi"
 
-#. TRANSLATORS: An invalid license
-#: tools/ascli-actions-validate.c:673
+#. TRANSLATORS: An invalid license (used as value in a key-value pair, like "Type: invalid")
+#: tools/ascli-actions-validate.c:674
 msgid "invalid"
 msgstr "geçersiz"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
-#: tools/ascli-actions-validate.c:678
+#: tools/ascli-actions-validate.c:679
 msgid "License Type"
 msgstr "Lisans Türü"
 
 #. TRANSLATORS: Canonical identifier of a software license
-#: tools/ascli-actions-validate.c:682
+#: tools/ascli-actions-validate.c:683
 msgid "Canonical ID"
 msgstr "Temel Tanımlayıcı"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
-#: tools/ascli-actions-validate.c:686
+#: tools/ascli-actions-validate.c:687
 msgid "Suitable for AppStream metadata"
 msgstr "AppStream üst verileri için uygun"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
-#: tools/ascli-actions-validate.c:689
+#: tools/ascli-actions-validate.c:690
 msgid "Free and Open Source"
 msgstr "Özgür ve Açık Kaynaklı"
 
 #. TRANSLATORS: Software license URL
-#: tools/ascli-actions-validate.c:694
+#: tools/ascli-actions-validate.c:695
 msgid "URL"
 msgstr "URL"
 
-#: tools/ascli-utils.c:274
+#: tools/ascli-utils.c:299
 msgid "Identifier"
 msgstr "Tanımlayıcı"
 
-#: tools/ascli-utils.c:276
+#: tools/ascli-utils.c:301
 msgid "Internal ID"
 msgstr "Dahili Kimlik"
 
-#: tools/ascli-utils.c:279
+#: tools/ascli-utils.c:304
 msgid "Package"
 msgstr "Paket"
 
-#: tools/ascli-utils.c:280
+#: tools/ascli-utils.c:305
 msgid "Bundle"
 msgstr "Takım"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:307
 msgid "Icon"
 msgstr "Simge"
 
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:333
 msgid "Extends"
 msgstr "Genişletir"
 
-#: tools/ascli-utils.c:334
+#: tools/ascli-utils.c:359
 msgid "Default Screenshot URL"
 msgstr "Öntanımlı Ekran Görüntüsü URL'si"
 
 #. project group
-#: tools/ascli-utils.c:341
+#: tools/ascli-utils.c:366
 msgid "Project Group"
 msgstr "Proje Grubu"
 
 #. license
-#: tools/ascli-utils.c:344
+#: tools/ascli-utils.c:369
 msgid "License"
 msgstr "Lisans"
 
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:375
 msgid "Categories"
 msgstr "Sınıflandırmalar"
 
-#: tools/ascli-utils.c:358
+#: tools/ascli-utils.c:383
 msgid "Compulsory for"
 msgstr "Zorunlu"
 
-#: tools/ascli-utils.c:386
+#. TRANSLATORS: Other software or interfaces that this software component provides
+#: tools/ascli-utils.c:412
 msgid "Provided Items"
 msgstr "Sağlanan Ögeler"
 
-#: tools/ascli-utils.c:483
+#: tools/ascli-utils.c:510
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr "Lütfen 1 ile %i arasında bir sayı girin: "
