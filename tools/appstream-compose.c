@@ -232,7 +232,7 @@ main (int argc, char **argv)
 	g_option_context_add_main_entries (option_context, options, NULL);
 	ret = g_option_context_parse (option_context, &argc, &argv, &error);
 	if (!ret) {
-		/* TRANSLATORS: error message */
+		/* TRANSLATORS: Error message of appstream-compose */
 		g_print ("%s: %s\n", _("Failed to parse arguments"), error->message);
 		return EXIT_FAILURE;
 	}
@@ -295,7 +295,7 @@ main (int argc, char **argv)
 			res_root_dir = g_strdup (argv[1]);
 			ascli_print_stdout (_("Automatically selected '%s' as data output location."), res_root_dir);
 		} else {
-			/* TRANSLATORS: we don't have a destination directory for compose */
+			/* TRANSLATORS: We don't have a destination directory for compose */
 			g_printerr ("%s\n", _("No destination directory set, please provide a data output location!"));
 			return EXIT_FAILURE;
 		}
@@ -303,7 +303,7 @@ main (int argc, char **argv)
 	if (origin == NULL) {
 		g_autofree gchar *tmp = NULL;
 		origin = g_strdup ("example");
-		/* TRANSLATORS: information message of appstream-compose */
+		/* TRANSLATORS: Information message of appstream-compose */
 		tmp = g_strdup_printf ("Metadata origin not set, using '%s'", origin);
 		if (ascli_get_output_colored ())
 			ascli_print_stderr ("%c[%dm%s%c[%dm: %s", 0x1B, 33, _("WARNING"), 0x1B, 0, tmp);
@@ -344,18 +344,18 @@ main (int argc, char **argv)
 
 		cid_list = g_strjoinv (", ", cid_allowlist);
 		if (i > 1)
-			/* TRANSLATORS: information about as-compose allowlist */
+			/* TRANSLATORS: Information about as-compose allowlist */
 			ascli_print_stdout (_("Only accepting components: %s"), cid_list);
 		else
-			/* TRANSLATORS: information about as-compose allowlist */
+			/* TRANSLATORS: Information about as-compose allowlist */
 			ascli_print_stdout (_("Only accepting component: %s"), cid_list);
 	}
 
 	if (argc > 2)
-		/* TRANSLATORS: information about as-compose units to be processed */
+		/* TRANSLATORS: Information about as-compose units to be processed */
 		g_print ("%s\n", _("Processing directories:"));
 	else
-		/* TRANSLATORS: information about as-compose units to be processed */
+		/* TRANSLATORS: Information about as-compose units to be processed */
 		g_print ("%s ", _("Processing directory:"));
 
 	/* add locations for data processing */
@@ -364,7 +364,7 @@ main (int argc, char **argv)
 		const gchar *dir_path = argv[i];
 
 		if (!g_file_test (dir_path, G_FILE_TEST_IS_DIR)) {
-			/* TRANSLATORS: error message */
+			/* TRANSLATORS: Error message */
 			g_print ("%s: %s\n", _("Can not process invalid directory"), dir_path);
 			return EXIT_FAILURE;
 		}
@@ -376,12 +376,12 @@ main (int argc, char **argv)
 			g_print ("%s\n", dir_path);
 	}
 
-	/* TRANSLATORS: information message */
+	/* TRANSLATORS: Information message */
 	g_print ("%s\n", _("Composing metadata..."));
 
 	results = asc_compose_run (compose, NULL, &error);
 	if (results == NULL) {
-		/* TRANSLATORS: error message */
+		/* TRANSLATORS: Error message */
 		g_print ("%s: %s\n", _("Failed to compose AppStream metadata"), error->message);
 		return EXIT_FAILURE;
 	}
@@ -395,7 +395,7 @@ main (int argc, char **argv)
 		return EXIT_FAILURE;
 	} else {
 		composecli_print_hints_report (results, _("Overview of generated hints:"), report_mode);
-		/* TRANSLATORS: information message */
+		/* TRANSLATORS: Information message */
 		g_print ("%s\n", _("Success!"));
 
 		return EXIT_SUCCESS;

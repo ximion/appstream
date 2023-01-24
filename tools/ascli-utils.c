@@ -407,8 +407,10 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 
 		/* Provided Items */
 		provided = as_component_get_provided (cpt);
-		if (provided->len > 0)
+		if (provided->len > 0) {
+			/* TRANSLATORS: Other software or interfaces that this software component provides */
 			ascli_print_key_value (_("Provided Items"), "↓", FALSE);
+		}
 		for (i = 0; i < provided->len; i++) {
 			GPtrArray *items = NULL;
 			AsProvided *prov = AS_PROVIDED (g_ptr_array_index (provided, i));

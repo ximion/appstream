@@ -294,7 +294,7 @@ get_esrb_string (const gchar *source, const gchar *translate)
 	if (g_strcmp0 (source, translate) == 0)
 		return g_strdup (source);
 	/* TRANSLATORS: This is the formatting of English and localized name
-	 * of the rating e.g. "Adults Only (solo adultos)" */
+	   of the rating e.g. "Adults Only (solo adultos)" */
 	return g_strdup_printf (_("%s (%s)"), source, translate);
 }
 

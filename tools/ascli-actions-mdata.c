@@ -462,17 +462,18 @@ ascli_create_metainfo_template (const gchar *out_fname, const gchar *cpt_kind_st
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autoptr(GError) error = NULL;
 	AsComponentKind cpt_kind = AS_COMPONENT_KIND_UNKNOWN;
-	guint i;
 
 	/* check if we have a component-kind set */
 	cpt_kind = as_component_kind_from_string (cpt_kind_str);
 	if (cpt_kind == AS_COMPONENT_KIND_UNKNOWN) {
-		/* TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string */
-		if (cpt_kind_str == NULL)
+		if (cpt_kind_str == NULL) {
+			/* TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string */
 			ascli_print_stderr (_("You need to give an AppStream software component type to generate a template. Possible values are:"));
-		else
+		} else {
+			/* TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string */
 			ascli_print_stderr (_("The software component type '%s' is not valid in AppStream. Possible values are:"), cpt_kind_str);
-		for (i = 1; i < AS_COMPONENT_KIND_LAST; i++)
+		}
+		for (guint i = 1; i < AS_COMPONENT_KIND_LAST; i++)
 			ascli_print_stderr (" • %s", as_component_kind_to_string (i));
 		return 3;
 	}

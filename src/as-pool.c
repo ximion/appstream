@@ -96,11 +96,10 @@ static guint signals [SIGNAL_LAST] = { 0 };
 #define GET_PRIVATE(o) (as_pool_get_instance_private (o))
 
 /* TRANSLATORS: List of "grey-listed" words sperated with ";"
- * Do not translate this list directly. Instead,
- * provide a list of words in your language that people are likely
- * to include in a search but that should normally be ignored in
- * the search.
- */
+   Do not translate this list directly. Instead,
+   provide a list of words in your language that people are likely
+   to include in a search but that should normally be ignored in
+   the search. */
 #define AS_SEARCH_GREYLIST_STR _("app;application;package;program;programme;suite;tool")
 
 /* Prefixes of locations where system-wide AppStream catalog metadata can be found.

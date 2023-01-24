@@ -1078,6 +1078,7 @@ as_client_run_compose (const gchar *command, char **argv, int argc)
 	if (!g_file_test (ascompose_exe, G_FILE_TEST_EXISTS)) {
 		/* TRANSLATORS: appstreamcli-compose was not found */
 		ascli_print_stderr (_("Compose binary '%s' was not found! Can not continue."), ascompose_exe);
+		/* TRANSLATORS: appstreamcli-compose was not found - info text */
 		ascli_print_stderr (_("You may be able to install the AppStream Compose addon via: `%s`"),
 				    "sudo appstreamcli install org.freedesktop.appstream.compose");
 		return 4;

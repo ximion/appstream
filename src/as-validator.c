@@ -685,7 +685,7 @@ as_validator_add_override (AsValidator *validator,
 						AS_VALIDATOR_ERROR,
 						AS_VALIDATOR_ERROR_OVERRIDE_INVALID,
 						/* TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
-						 * whitelisted for that. */
+						   whitelisted for that. */
 						_("It is not allowed to downgrade the severity of tag '%s' to one that allows validation to pass."),
 						tag);
 				return FALSE;
@@ -841,7 +841,7 @@ as_validator_check_children_quick (AsValidator *validator, xmlNode *node, const 
 		} else {
 			as_validator_add_issue (validator, node,
 						"invalid-child-tag-name",
-						/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
+						/* TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
 						_("Found: %s - Allowed: %s"),
 						node_name,
 						allowed_tagname);
@@ -1362,7 +1362,7 @@ as_validator_check_tags (AsValidator *validator, xmlNode *node)
 		if (g_strcmp0 (node_name, "tag") != 0) {
 			as_validator_add_issue (validator, node,
 						"invalid-child-tag-name",
-						/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
+						/* TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
 						_("Found: %s - Allowed: %s"),
 						(const gchar*) node->name,
 						"tag");
@@ -1421,7 +1421,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 		if (g_strcmp0 ((const gchar*) iter->name, "screenshot") != 0) {
 			as_validator_add_issue (validator, iter,
 						"invalid-child-tag-name",
-						/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
+						/* TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
 						_("Found: %s - Allowed: %s"),
 						(const gchar*) iter->name,
 						"screenshot");
@@ -1572,7 +1572,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 			} else {
 				as_validator_add_issue (validator, iter2,
 							"invalid-child-tag-name",
-							/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
+							/* TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
 							_("Found: %s - Allowed: %s"),
 							(const gchar*) iter2->name,
 							"caption; image; video");
@@ -2057,7 +2057,7 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 				if (g_strcmp0 ((const gchar*) iter2->name, "artifact") != 0) {
 					as_validator_add_issue (validator, iter2,
 								"invalid-child-tag-name",
-								/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
+								/* TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
 								_("Found: %s - Allowed: %s"),
 								(const gchar*) iter2->name,
 								"artifact");
@@ -2077,7 +2077,7 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 				if (g_strcmp0 ((const gchar*) iter2->name, "issue") != 0) {
 					as_validator_add_issue (validator, iter2,
 								"invalid-child-tag-name",
-								/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
+								/* TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
 								_("Found: %s - Allowed: %s"),
 								(const gchar*) iter2->name,
 								"issue");
@@ -2178,7 +2178,7 @@ as_validator_check_releases_node (AsValidator *validator, xmlNode *node, AsForma
 		if (g_strcmp0 (node_name, "release") != 0) {
 			as_validator_add_issue (validator, iter,
 						"invalid-child-tag-name",
-						/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
+						/* TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
 						_("Found: %s - Allowed: %s"),
 						(const gchar*) iter->name,
 						"release");
@@ -2326,7 +2326,7 @@ as_validator_check_branding (AsValidator *validator, xmlNode *node)
 		} else {
 			as_validator_add_issue (validator, iter,
 						"invalid-child-tag-name",
-						/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted names. */
+						/* TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names. */
 						_("Found: %s - Allowed: %s"),
 						(const gchar*) iter->name,
 						"color");

@@ -1798,25 +1798,25 @@ as_relation_is_satisfied (AsRelation *relation,
 					   AS_VERCMP_FLAG_NONE)) {
 			const gchar *compare_symbols = as_relation_compare_to_symbols_string (as_relation_get_compare (relation));
 			if (priv->kind == AS_RELATION_KIND_REQUIRES)
-				/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
-				 * second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
-				 * and fifth is the version we are running. */
 				_as_set_satify_message (message,
+							/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
+							   second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
+							   and fifth is the version we are running. */
 							g_strdup_printf (_("This software requires %s %s %s, but this system is running %s %s."),
 									req_kernel_name, compare_symbols, req_kernel_version,
 									current_kernel_name, current_kernel_version));
 			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
-				/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
-				 * second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
-				 * and fifth is the version we are running. */
 				_as_set_satify_message (message,
+							/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
+							   second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
+							   and fifth is the version we are running. */
 							g_strdup_printf (_("The use of %s %s %s is recommended, but this system is running %s %s."),
 									req_kernel_name, compare_symbols, req_kernel_version,
 									current_kernel_name, current_kernel_version));
 			else if (priv->kind == AS_RELATION_KIND_SUPPORTS) {
-				/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
-				 * second is comparison operator (e.g. >=), third is the expected version number. */
 				_as_set_satify_message (message,
+							/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
+							   second is comparison operator (e.g. >=), third is the expected version number. */
 							g_strdup_printf (_("This software supports %s %s %s."),
 									req_kernel_name, compare_symbols, req_kernel_version));
 				/* this is not an error, supports is only a hint for kernels */
@@ -1825,8 +1825,8 @@ as_relation_is_satisfied (AsRelation *relation,
 			return AS_CHECK_RESULT_FALSE;
 		}
 
-		/* TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number. */
 		_as_set_satify_message (message,
+					/* TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number. */
 					g_strdup_printf (_("Kernel %s %s is supported."),
 							 current_kernel_name, current_kernel_version));
 
@@ -1853,21 +1853,21 @@ as_relation_is_satisfied (AsRelation *relation,
 		if (!as_compare_int_match (current_memory, as_relation_get_compare (relation), req_memory)) {
 			const gchar *compare_symbols = as_relation_compare_to_symbols_string (as_relation_get_compare (relation));
 			if (priv->kind == AS_RELATION_KIND_REQUIRES)
-				/* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
-				 * second is the expected amount of memory and fourth is the amount of memory we have. */
 				_as_set_satify_message (message,
+							/* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
+							   second is the expected amount of memory and fourth is the amount of memory we have. */
 							g_strdup_printf (_("This software requires %s %.2f GiB of memory, but this system has %.2f GiB."),
 									compare_symbols, req_memory / 1024.0, current_memory / 1024.0));
 			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
-				/* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
-				 * second is the expected amount of memory and fourth is the amount of memory we have. */
 				_as_set_satify_message (message,
+							/* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
+							   second is the expected amount of memory and fourth is the amount of memory we have. */
 							g_strdup_printf (_("This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."),
 									compare_symbols, req_memory / 1024.0, current_memory / 1024.0));
 			else if (priv->kind == AS_RELATION_KIND_SUPPORTS) {
-				/* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
-				 * second is the expected amount of memory. */
 				_as_set_satify_message (message,
+							/* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
+							   second is the expected amount of memory. */
 							g_strdup_printf (_("This software supports %s %.2f GiB of memory."),
 									compare_symbols, req_memory / 1024.0));
 				/* this is not an error, supports is only a hint for memory */
@@ -1945,31 +1945,31 @@ as_relation_is_satisfied (AsRelation *relation,
 			const gchar *compare_symbols = as_relation_compare_to_symbols_string (as_relation_get_compare (relation));
 			if (priv->kind == AS_RELATION_KIND_REQUIRES) {
 				if (side_kind == AS_DISPLAY_SIDE_KIND_LONGEST)
-					/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-					 * second is the expected size and fourth is the size the current device has. */
 					_as_set_satify_message (message,
+								/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+								   second is the expected size and fourth is the size the current device has. */
 								g_strdup_printf (_("This software requires a display with its longest edge being %s %lu px in size, "
 										   "but the display of this device has %lu px."),
 										compare_symbols, req_length, current_length));
 				else
-					/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-					 * second is the expected size and fourth is the size the current device has. */
 					_as_set_satify_message (message,
+								/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+								   second is the expected size and fourth is the size the current device has. */
 								g_strdup_printf (_("This software requires a display with its shortest edge being %s %lu px in size, "
 										   "but the display of this device has %lu px."),
 										compare_symbols, req_length, current_length));
 			} else if (priv->kind == AS_RELATION_KIND_RECOMMENDS) {
 				if (side_kind == AS_DISPLAY_SIDE_KIND_LONGEST)
-					/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-					 * second is the expected size and fourth is the size the current device has. */
 					_as_set_satify_message (message,
+								/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+								   second is the expected size and fourth is the size the current device has. */
 								g_strdup_printf (_("This software recommends a display with its longest edge being %s %lu px in size, "
 										   "but the display of this device has %lu px."),
 										compare_symbols, req_length, current_length));
 				else
-					/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-					 * second is the expected size and fourth is the size the current device has. */
 					_as_set_satify_message (message,
+								/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+								   second is the expected size and fourth is the size the current device has. */
 								g_strdup_printf (_("This software recommends a display with its shortest edge being %s %lu px in size, "
 										   "but the display of this device has %lu px."),
 										compare_symbols, req_length, current_length));

@@ -250,7 +250,8 @@ ascli_validate_apply_overrides_from_string (AsValidator *validator, const gchar 
 
 		parts = g_strsplit (overrides[i], "=", 2);
 		if (parts[0] == NULL || parts[1] == NULL) {
-			/* TRANSLATORS: User-supplied overrides string for appstreamcli was badly formatted. */
+			/* TRANSLATORS: User-supplied overrides string for appstreamcli was badly formatted
+			   (tag is an issue tag, severity is the desired severity that it should be set to). */
 			g_printerr (_("The format of validator issue override '%s' is invalid (should be 'tag=severity')"), overrides[i]);
 			g_printerr ("\n");
 			return FALSE;
@@ -659,17 +660,17 @@ ascli_check_license (const gchar *license)
 
 	if (as_is_spdx_license_id (license_id)) {
 		is_expression = FALSE;
-		/* TRANSLATORS: A plain license ID */
+		/* TRANSLATORS: A plain license ID (used as value in a key-value pair, like "Type: license") */
 		type_str = _("license");
 	} else if (as_is_spdx_license_exception_id (license_id))
-		/* TRANSLATORS: A license exception */
+		/* TRANSLATORS: A license exception (used as value in a key-value pair, like "Type: exception") */
 		type_str = _("license exception");
 	else if (is_expression)
-		/* TRANSLATORS: A complex license expression */
+		/* TRANSLATORS: A complex license expression (used as value in a key-value pair, like "Type: exception") */
 		type_str = _("license expression");
 
 	if (type_str == NULL) {
-		/* TRANSLATORS: An invalid license */
+		/* TRANSLATORS: An invalid license (used as value in a key-value pair, like "Type: invalid") */
 		type_str = _("invalid");
 		valid = FALSE;
 	}
