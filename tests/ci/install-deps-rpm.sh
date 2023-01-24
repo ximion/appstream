@@ -30,6 +30,7 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     'pkgconfig(libcurl)' \
     'pkgconfig(libsystemd)' \
     'pkgconfig(librsvg-2.0)' \
+    'pkgconfig(libzstd)' \
     'pkgconfig(cairo)' \
     'pkgconfig(freetype2)' \
     'pkgconfig(fontconfig)' \

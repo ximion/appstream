@@ -30,6 +30,7 @@ eatmydata apt-get install -yq --no-install-recommends \
     libyaml-dev \
     libxmlb-dev \
     liblzma-dev \
+    libzstd-dev \
     libcurl4-gnutls-dev \
     libsystemd-dev \
     gtk-doc-tools \
