@@ -35,6 +35,7 @@ G_BEGIN_DECLS
  * @AS_NEWS_FORMAT_KIND_UNKNOWN:	Unknown release info format.
  * @AS_NEWS_FORMAT_KIND_YAML:		YAML release information.
  * @AS_NEWS_FORMAT_KIND_TEXT:		Pure text release information.
+ * @AS_NEWS_FORMAT_KIND_MARKDOWN:	Release information formatted in Markdown.
  *
  * Format of a NEWS file.
  **/
@@ -42,6 +43,7 @@ typedef enum {
 	AS_NEWS_FORMAT_KIND_UNKNOWN,
 	AS_NEWS_FORMAT_KIND_YAML,
 	AS_NEWS_FORMAT_KIND_TEXT,
+	AS_NEWS_FORMAT_KIND_MARKDOWN,
 	/*< private >*/
 	AS_NEWS_FORMAT_KIND_LAST
 } AsNewsFormatKind;

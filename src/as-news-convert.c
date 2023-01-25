@@ -57,6 +57,8 @@ as_news_format_kind_to_string (AsNewsFormatKind kind)
 		return "yaml";
 	if (kind == AS_NEWS_FORMAT_KIND_TEXT)
 		return "text";
+	if (kind == AS_NEWS_FORMAT_KIND_MARKDOWN)
+		return "markdown";
 	return "unknown";
 }
 
@@ -79,6 +81,8 @@ as_news_format_kind_from_string (const gchar *kind_str)
 		return AS_NEWS_FORMAT_KIND_YAML;
 	if (g_strcmp0 (kind_str, "text") == 0)
 		return AS_NEWS_FORMAT_KIND_TEXT;
+	if (g_strcmp0 (kind_str, "markdown") == 0)
+		return AS_NEWS_FORMAT_KIND_MARKDOWN;
 	return AS_NEWS_FORMAT_KIND_UNKNOWN;
 }
 
@@ -849,13 +853,18 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
  * as_news_releases_to_text:
  */
 static gboolean
-as_news_releases_to_text (GPtrArray *releases, gchar **md_data)
+as_news_releases_to_text (GPtrArray *releases, gchar **md_data, AsNewsFormatKind kind)
 {
+	const gchar *header_line_char;
 	g_autoptr(GString) str = NULL;
+
+	if (kind == AS_NEWS_FORMAT_KIND_MARKDOWN)
+		header_line_char = "-";
+	else
+		header_line_char = "~";
 
 	str = g_string_new ("");
 	for (guint i = 0; i < releases->len; i++) {
-
 		const gchar *tmp;
 		g_autofree gchar *version = NULL;
 		g_autofree gchar *date = NULL;
@@ -866,7 +875,7 @@ as_news_releases_to_text (GPtrArray *releases, gchar **md_data)
 		version = g_strdup_printf ("Version %s", as_release_get_version (rel));
 		g_string_append_printf (str, "%s\n", version);
 		for (guint j = 0; version[j] != '\0'; j++)
-			g_string_append (str, "~");
+			g_string_append (str, header_line_char);
 		g_string_append (str, "\n");
 
 		/* write release */
@@ -961,7 +970,9 @@ as_news_to_releases_from_filename (const gchar *fname,
 	if (kind == AS_NEWS_FORMAT_KIND_UNKNOWN) {
 		if (g_str_has_suffix (fname, ".yml") || g_str_has_suffix (fname, ".yaml"))
 			kind = AS_NEWS_FORMAT_KIND_YAML;
-		else if (g_str_has_suffix (fname, "NEWS") || g_str_has_suffix (fname, ".txt") || g_str_has_suffix (fname, "news"))
+		else if (g_str_has_suffix (fname, ".md"))
+			kind = AS_NEWS_FORMAT_KIND_MARKDOWN;
+		else if (g_str_has_suffix (fname, "NEWS") || g_str_has_suffix (fname, "news") || g_str_has_suffix (fname, ".txt"))
 			kind = AS_NEWS_FORMAT_KIND_TEXT;
 		else
 			kind = AS_NEWS_FORMAT_KIND_YAML;
@@ -989,8 +1000,8 @@ as_releases_to_news_data (GPtrArray *releases, AsNewsFormatKind kind, gchar **ne
 	if (kind == AS_NEWS_FORMAT_KIND_YAML)
 		return as_news_releases_to_yaml (releases, news_data);
 
-	if (kind == AS_NEWS_FORMAT_KIND_TEXT)
-		return as_news_releases_to_text (releases, news_data);
+	if (kind == AS_NEWS_FORMAT_KIND_TEXT || kind == AS_NEWS_FORMAT_KIND_MARKDOWN)
+		return as_news_releases_to_text (releases, news_data, kind);
 
 	g_set_error (error,
 			AS_METADATA_ERROR,
@@ -1013,7 +1024,9 @@ as_releases_to_news_file (GPtrArray *releases, const gchar *fname, AsNewsFormatK
 	if (kind == AS_NEWS_FORMAT_KIND_UNKNOWN) {
 		if (g_str_has_suffix (fname, ".yml") || g_str_has_suffix (fname, ".yaml"))
 			kind = AS_NEWS_FORMAT_KIND_YAML;
-		else if (g_str_has_suffix (fname, "NEWS") || g_str_has_suffix (fname, ".txt") || g_str_has_suffix (fname, "news"))
+		else if (g_str_has_suffix (fname, ".md"))
+			kind = AS_NEWS_FORMAT_KIND_MARKDOWN;
+		else if (g_str_has_suffix (fname, "NEWS") || g_str_has_suffix (fname, "news") || g_str_has_suffix (fname, ".txt"))
 			kind = AS_NEWS_FORMAT_KIND_TEXT;
 		else
 			kind = AS_NEWS_FORMAT_KIND_YAML;
