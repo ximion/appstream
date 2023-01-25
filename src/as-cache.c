@@ -1829,11 +1829,18 @@ as_cache_get_components_by_bundle_id (AsCache *cache, AsBundleKind kind, const g
 {
 	g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
 	g_autofree gchar *xpath = NULL;
-	const char *match = match_prefix ? "components/component/bundle[@type='%s'][starts-with(text(), ?)]/.."
-					 : "components/component/bundle[@type='%s'][text()=?]/..";
+
+	if (kind == AS_BUNDLE_KIND_PACKAGE) {
+		xpath = g_strdup (match_prefix ? "components/component/pkgname[starts-with(text(), ?)]/.."
+					       : "components/component/pkgname[text()=?]/..");
+	} else {
+		const gchar *match = match_prefix ? "components/component/bundle[@type='%s'][starts-with(text(), ?)]/.."
+						  : "components/component/bundle[@type='%s'][text()=?]/..";
+		xpath = g_strdup_printf (match, as_bundle_kind_to_string (kind));
+	}
+
 	xb_value_bindings_bind_str (xb_query_context_get_bindings (&context),
 				    0, id, NULL);
-	xpath = g_strdup_printf (match, as_bundle_kind_to_string (kind));
 	return as_cache_query_components (cache,
 					  xpath,
 					  &context,
