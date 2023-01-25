@@ -320,6 +320,11 @@ void AppStream::Metadata::setArchitecture(const QString& architecture)
     as_metadata_set_architecture(d->m_metadata, qPrintable(architecture));
 }
 
+QString Metadata::lastError() const
+{
+    return d->lastError;
+}
+
 QDebug operator<<(QDebug s, const AppStream::Metadata& metadata)
 {
     QStringList list;

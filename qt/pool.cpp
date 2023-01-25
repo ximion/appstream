@@ -78,6 +78,11 @@ Pool::~Pool()
     // empty. needed for the scoped pointer for the private pointer
 }
 
+_AsPool *AppStream::Pool::asPool() const
+{
+    return d->pool;
+}
+
 bool AppStream::Pool::load()
 {
     g_autoptr(GError) error = nullptr;

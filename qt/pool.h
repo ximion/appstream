@@ -28,6 +28,7 @@
 #include "component.h"
 #include "metadata.h"
 
+struct _AsPool;
 namespace AppStream {
 
 /**
@@ -43,6 +44,11 @@ class APPSTREAMQT_EXPORT Pool : public QObject
 public:
     Pool(QObject *parent = nullptr);
     ~Pool();
+
+    /**
+     * \returns the internally stored AsPool
+     */
+    _AsPool *asPool() const;
 
     /**
      * Pool::Flags:

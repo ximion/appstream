@@ -24,6 +24,7 @@ asqt_src = [
     'screenshot.cpp',
     'spdx.cpp',
     'suggested.cpp',
+    'systeminfo.cpp',
     'translation.cpp',
     'utils.cpp',
     'video.cpp'
@@ -46,6 +47,7 @@ asqt_pub_headers = [
     'screenshot.h',
     'spdx.h',
     'suggested.h',
+    'systeminfo.h',
     'translation.h',
     'utils.h',
     'video.h'

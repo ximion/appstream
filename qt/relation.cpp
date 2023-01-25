@@ -22,6 +22,8 @@
 
 #include <QDebug>
 #include "chelpers.h"
+#include "systeminfo.h"
+#include "pool.h"
 
 using namespace AppStream;
 
@@ -268,6 +270,24 @@ bool Relation::versionCompare(const QString &version)
     if (!ret && error)
         d->lastError = QString::fromUtf8(error->message);
     return ret;
+}
+
+CheckResult Relation::isSatisfied(SystemInfo *sysInfo, Pool *pool, QString *message)
+{
+    g_autoptr(GError) error = nullptr;
+    g_autofree gchar *c_message = nullptr;
+
+    auto result = as_relation_is_satisfied (d->relation(),
+                                            sysInfo != nullptr? sysInfo->asSystemInfo() : nullptr,
+                                            pool != nullptr? pool->asPool() : nullptr,
+                                            message != nullptr? &c_message : nullptr,
+                                            &error);
+    if (result == AS_CHECK_RESULT_ERROR)
+        d->lastError = QString::fromUtf8(error->message);
+    if (message != nullptr)
+        *message = QString::fromUtf8(c_message);
+
+    return static_cast<CheckResult>(result);
 }
 
 QString Relation::lastError() const
