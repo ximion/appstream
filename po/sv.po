@@ -27,10 +27,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-24 12:56+0100\n"
-"PO-Revision-Date: 2023-01-23 10:51+0000\n"
+"PO-Revision-Date: 2023-01-25 07:48+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1163,43 +1162,40 @@ msgid "This software supports operation via console commands."
 msgstr "Denna programvara stöder styrning via konsolkommandon."
 
 #: src/as-relation.c:1611
-#, fuzzy
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr "ett pekdon (t.ex. en mus)"
+msgstr "Pekdon (t.ex. en mus eller styrplatta) hittades."
 
 #: src/as-relation.c:1613
-#, fuzzy
 msgid "Physical keyboard found."
-msgstr "Fysiskt minne"
+msgstr "Fysiskt tangentbord hittades."
 
 #: src/as-relation.c:1615
 msgid "Gamepad found."
-msgstr ""
+msgstr "Handkontroll hittades."
 
 #: src/as-relation.c:1617
 msgid "TV remote found."
-msgstr ""
+msgstr "TV-fjärrkontroll hittades."
 
 #: src/as-relation.c:1619
-#, fuzzy
 msgid "Graphics tablet found."
-msgstr "en ritplatta"
+msgstr "Ritplatta hittades."
 
 #: src/as-relation.c:1622
 msgid "Touch input device found."
-msgstr ""
+msgstr "Pekinmatningsenhet hittades."
 
 #: src/as-relation.c:1624
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "Mikron för röstinmatningskontroll hittades."
 
 #: src/as-relation.c:1626
 msgid "Camera for input control found."
-msgstr ""
+msgstr "Kamera för inmatningskontroll hittades."
 
 #: src/as-relation.c:1628
 msgid "Console interface available."
-msgstr ""
+msgstr "Konsolgränssnitt tillgängligt."
 
 #: src/as-relation.c:1684
 #, c-format
@@ -1217,9 +1213,9 @@ msgid "Recommended software component '%s' is missing."
 msgstr "Rekommenderade programvarukomponenten ”%s” saknas."
 
 #: src/as-relation.c:1698
-#, fuzzy, c-format
+#, c-format
 msgid "Found supported software component '%s'."
-msgstr "Nödvändiga programvarukomponenten ”%s” saknas."
+msgstr "Hittade programvarukomponenten ”%s” som stöds."
 
 #: src/as-relation.c:1727
 #, c-format
@@ -1266,30 +1262,30 @@ msgstr ""
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
 #. and fifth is the version we are running.
 #: src/as-relation.c:1805
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr "Denna programvara kräver %s %s %s, men systemet kör version %s."
+msgstr "Denna programvara kräver %s %s %s, men systemet kör %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
 #. and fifth is the version we are running.
 #: src/as-relation.c:1813
-#, fuzzy, c-format
+#, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr "Användning av %s %s %s rekommenderas, men systemet kör version %s."
+msgstr "Användning av %s %s %s rekommenderas, men systemet kör %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1820
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %s %s."
-msgstr "Denna programvara stöder %s."
+msgstr "Denna programvara stöder %s %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1830
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "Kärnan %s %s stöds."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1311,14 +1307,14 @@ msgstr ""
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1871
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr "Denna programvara stöder %s."
+msgstr "Denna programvara stöder %s %.2f GiB minne."
 
 #: src/as-relation.c:1880
 #, c-format
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "Detta system har tillräckligt med minne för programvaran."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1327,7 +1323,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Denna programvara kräver en skärm vars längsta kant är %s %lu bildpunkter, men skärmen på denna enhet har %lu bildpunkter."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1336,7 +1332,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Denna programvara kräver en skärm vars kortaste kant är %s %lu bildpunkter, men skärmen på denna enhet har %lu bildpunkter."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1345,7 +1341,7 @@ msgstr ""
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Denna programvara rekommenderar en skärm vars längsta kant är %s %lu bildpunkter, men skärmen på denna enhet har %lu bildpunkter."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1354,16 +1350,16 @@ msgstr ""
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Denna programvara rekommenderar en skärm vars kortaste kant är %s %lu bildpunkter, men skärmen på denna enhet har %lu bildpunkter."
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "Skärmstorleken är tillräcklig för denna programvara."
 
 #: src/as-relation.c:1996
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "Kontroll av relationsuppfyllande för objekt av typen ”%s” är inte ännu implementerad."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -3275,7 +3271,7 @@ msgstr "Kontrollera licenssträngen för giltighet och skriv ut detaljer om den.
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
-msgstr ""
+msgstr "Kontrollera om krav för en komponent (via dess ID eller MetaInfo-fil) uppfylls på detta system."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1355
@@ -3508,16 +3504,15 @@ msgstr "Kunde inte spara mallmetainfofilen: %s"
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr ""
+msgstr "Kunde inte kontrollera skärmstorlek: kan inte läsa information utan åtkomst till GUI-verktygslåda."
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"
-msgstr ""
+msgstr "FEL"
 
 #: tools/ascli-actions-mdata.c:649
-#, fuzzy
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr "Du måste ange en metainfofil som indata."
+msgstr "Du måste ange ett MetaInfo-filnamn eller komponent-ID."
 
 #: tools/ascli-actions-mdata.c:667 tools/ascli-actions-misc.c:128
 #: tools/ascli-actions-misc.c:371 tools/ascli-actions-misc.c:448
@@ -3529,32 +3524,31 @@ msgstr "Metainfofilen ”%s” finns inte."
 #: tools/ascli-actions-mdata.c:704
 #, c-format
 msgid "Relation check for: %s"
-msgstr ""
+msgstr "Relationskontroll för: %s"
 
 #: tools/ascli-actions-mdata.c:707
 msgid "Requirements:"
-msgstr ""
+msgstr "Krav:"
 
 #: tools/ascli-actions-mdata.c:709
 msgid "No required items are set for this software."
-msgstr ""
+msgstr "Inga objekt som krävs har satts för denna programvara."
 
 #: tools/ascli-actions-mdata.c:717
 msgid "Recommendations:"
-msgstr ""
+msgstr "Rekommendationer:"
 
 #: tools/ascli-actions-mdata.c:719
 msgid "No recommended items are set for this software."
-msgstr ""
+msgstr "Inga objekt som rekommenderas har satts för denna programvara."
 
 #: tools/ascli-actions-mdata.c:727
-#, fuzzy
 msgid "Supported:"
-msgstr "Sport"
+msgstr "Stöds:"
 
 #: tools/ascli-actions-mdata.c:729
 msgid "No supported items are set for this software."
-msgstr ""
+msgstr "Inga objekt som stöds har satts för denna programvara."
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:48
