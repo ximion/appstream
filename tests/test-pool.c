@@ -395,6 +395,12 @@ test_pool_read (void)
 
 	g_clear_pointer (&result, g_ptr_array_unref);
 
+	/* by bundle ID */
+	result = as_pool_get_components_by_bundle_id (dpool, AS_BUNDLE_KIND_LIMBA, "neverball-", TRUE);
+	print_cptarray (result);
+	g_assert_cmpint (result->len, ==, 1);
+	g_clear_pointer (&result, g_ptr_array_unref);
+
 	/* test a component in a different file, with no package but a bundle instead */
 	cpt_a = _as_get_single_component_by_cid (dpool, "org.neverball.Neverball");
 	g_assert_nonnull (cpt_a);

@@ -1831,10 +1831,10 @@ as_cache_get_components_by_bundle_id (AsCache *cache, AsBundleKind kind, const g
 	g_autofree gchar *xpath = NULL;
 
 	if (kind == AS_BUNDLE_KIND_PACKAGE) {
-		xpath = g_strdup (match_prefix ? "components/component/pkgname[starts-with(text(), ?)]/.."
+		xpath = g_strdup (match_prefix ? "components/component/pkgname[starts-with(text(),?)]/.."
 					       : "components/component/pkgname[text()=?]/..");
 	} else {
-		const gchar *match = match_prefix ? "components/component/bundle[@type='%s'][starts-with(text(), ?)]/.."
+		const gchar *match = match_prefix ? "components/component/bundle[@type='%s'][starts-with(text(),?)]/.."
 						  : "components/component/bundle[@type='%s'][text()=?]/..";
 		xpath = g_strdup_printf (match, as_bundle_kind_to_string (kind));
 	}
