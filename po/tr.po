@@ -30,7 +30,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-24 12:56+0100\n"
 "PO-Revision-Date: 2023-01-25 07:48+0000\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -1168,43 +1168,40 @@ msgid "This software supports operation via console commands."
 msgstr "Bu yazılım, konsol komutları aracılığıyla çalışmayı destekler."
 
 #: src/as-relation.c:1611
-#, fuzzy
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr "işaretleme aygıtı (örn. fare)"
+msgstr "İşaretleme aygıtı (örn. fare veya dokunmatik yüzey) bulundu."
 
 #: src/as-relation.c:1613
-#, fuzzy
 msgid "Physical keyboard found."
-msgstr "Fiziksel Bellek"
+msgstr "Fiziksel klavye bulundu."
 
 #: src/as-relation.c:1615
 msgid "Gamepad found."
-msgstr ""
+msgstr "Oyun kumandası bulundu."
 
 #: src/as-relation.c:1617
 msgid "TV remote found."
-msgstr ""
+msgstr "TV kumandası bulundu."
 
 #: src/as-relation.c:1619
-#, fuzzy
 msgid "Graphics tablet found."
-msgstr "grafik tableti"
+msgstr "Grafik tableti bulundu."
 
 #: src/as-relation.c:1622
 msgid "Touch input device found."
-msgstr ""
+msgstr "Dokunmatik giriş aygıtı bulundu."
 
 #: src/as-relation.c:1624
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "Ses girişi ile denetlemek için mikrofon bulundu."
 
 #: src/as-relation.c:1626
 msgid "Camera for input control found."
-msgstr ""
+msgstr "Giriş denetim için kamera bulundu."
 
 #: src/as-relation.c:1628
 msgid "Console interface available."
-msgstr ""
+msgstr "Konsol arayüzü var."
 
 #: src/as-relation.c:1684
 #, c-format
@@ -1222,9 +1219,9 @@ msgid "Recommended software component '%s' is missing."
 msgstr "Tavsiye edilen yazılım bileşeni '%s' eksik."
 
 #: src/as-relation.c:1698
-#, fuzzy, c-format
+#, c-format
 msgid "Found supported software component '%s'."
-msgstr "Gerekli yazılım bileşeni '%s' eksik."
+msgstr "Desteklenen yazılım bileşeni '%s' bulundu."
 
 #: src/as-relation.c:1727
 #, c-format
@@ -1271,33 +1268,30 @@ msgstr ""
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
 #. and fifth is the version we are running.
 #: src/as-relation.c:1805
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
-"Bu yazılım %s %s %s gerektirir, ancak bu sistem %s sürümünü çalıştırıyor."
+msgstr "Bu yazılım %s %s %s gerektirir, ancak bu sistem %s %s sürümünü çalıştırıyor."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
 #. and fifth is the version we are running.
 #: src/as-relation.c:1813
-#, fuzzy, c-format
+#, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
-"%s %s %s kullanılması tavsiye edilmektedir, ancak bu sistem %s sürümünü "
-"çalıştırıyor."
+msgstr "%s %s %s kullanılması tavsiye edilmektedir, ancak bu sistem %s %s sürümünü çalıştırıyor."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1820
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %s %s."
-msgstr "Bu yazılım %s destekler."
+msgstr "Bu yazılım %s %s %s destekler."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1830
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "Çekirdek %s %s desteklenir."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1322,14 +1316,14 @@ msgstr ""
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1871
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr "Bu yazılım %s destekler."
+msgstr "Bu yazılım %s %.2f GiB belleği destekler."
 
 #: src/as-relation.c:1880
 #, c-format
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "Bu sistem bu yazılım için yeterli belleğe sahip."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1338,7 +1332,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Bu yazılım, en uzun kenarı %s %lu px boyutunda olan bir ekran gerektirir, ancak bu aygıtın ekranı %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1347,7 +1341,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Bu yazılım, en kısa kenarı %s %lu px boyutunda olan bir ekran gerektirir, ancak bu aygıtın ekranı %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1356,7 +1350,7 @@ msgstr ""
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Bu yazılım, en uzun kenarı %s %lu px boyutunda olan bir ekran tavsiye etmektedir, ancak bu aygıtın ekranı %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1365,16 +1359,16 @@ msgstr ""
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Bu yazılım, en kısa kenarı %s %lu px boyutunda olan bir ekran tavsiye etmektedir, ancak bu aygıtın ekranı %lu px."
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "Ekran boyutu bu yazılım için yeterli."
 
 #: src/as-relation.c:1996
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "'%s' türündeki ögeler için ilişki karşılama denetimi henüz uygulanmadı."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -3297,7 +3291,7 @@ msgstr ""
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
-msgstr ""
+msgstr "Bir bileşenin gereksinimlerinin (kimliği veya MetaInfo dosyası aracılığıyla) bu sistemde karşılanıp karşılanmadığını denetle."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1355
@@ -3532,16 +3526,15 @@ msgstr "Şablon metainfo dosyası kaydedilemedi: %s"
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr ""
+msgstr "Ekran boyutu denetlenemedi: Grafiksel kullanıcı arayüzü araç seti erişimi olmadan bilgi okunamıyor."
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"
-msgstr ""
+msgstr "HATA"
 
 #: tools/ascli-actions-mdata.c:649
-#, fuzzy
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr "Giriş olarak bir metainfo dosyası belirtmeniz gerekmektedir."
+msgstr "Bir MetaInfo dosya adı veya bileşen kimliği belirtmelisiniz."
 
 #: tools/ascli-actions-mdata.c:667 tools/ascli-actions-misc.c:128
 #: tools/ascli-actions-misc.c:371 tools/ascli-actions-misc.c:448
@@ -3553,32 +3546,31 @@ msgstr "Metainfo dosyası '%s' mevcut değil."
 #: tools/ascli-actions-mdata.c:704
 #, c-format
 msgid "Relation check for: %s"
-msgstr ""
+msgstr "İlişki denetimi: %s"
 
 #: tools/ascli-actions-mdata.c:707
 msgid "Requirements:"
-msgstr ""
+msgstr "Gereksinimler:"
 
 #: tools/ascli-actions-mdata.c:709
 msgid "No required items are set for this software."
-msgstr ""
+msgstr "Bu yazılım için gerekli ögeler ayarlanmadı."
 
 #: tools/ascli-actions-mdata.c:717
 msgid "Recommendations:"
-msgstr ""
+msgstr "Tavsiyeler:"
 
 #: tools/ascli-actions-mdata.c:719
 msgid "No recommended items are set for this software."
-msgstr ""
+msgstr "Bu yazılım için tavsiye edilen ögeler ayarlanmadı."
 
 #: tools/ascli-actions-mdata.c:727
-#, fuzzy
 msgid "Supported:"
-msgstr "Spor"
+msgstr "Desteklenen:"
 
 #: tools/ascli-actions-mdata.c:729
 msgid "No supported items are set for this software."
-msgstr ""
+msgstr "Bu yazılım için desteklenen ögeler ayarlanmadı."
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:48
