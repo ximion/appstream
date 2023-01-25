@@ -2213,11 +2213,35 @@ as_pool_get_components_by_extends (AsPool *pool, const gchar *extended_id)
 }
 
 /**
+ * as_pool_get_components_by_extends_gir: (rename-to as_pool_get_components_by_extends)
+ * @pool: An instance of #AsPool.
+ * @extended_id: The ID of the component to search extensions for.
+ *
+ * Find components extending the component with the given ID. They can then be registered to the
+ * #AsComponent they extend via %as_component_add_addon.
+ * If the %AS_POOL_FLAG_RESOLVE_ADDONS pool flag is set, addons are automatically resolved and
+ * this explicit function is not needed, but overall query time will be increased (so only use
+ * this flag if you will be resolving addon information later anyway).
+ *
+ * This function fully transfers ownership of the returned container,
+ * to be used in GIR bindings.
+ *
+ * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects.
+ *
+ * Since: 0.15.0
+ */
+GPtrArray*
+as_pool_get_components_by_extends_gir (AsPool *pool, const gchar *extended_id)
+{
+	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_extends (pool, extended_id));
+}
+
+/**
  * as_pool_get_components_by_bundle_id: (skip)
  * @pool: An instance of #AsPool.
  * @kind: The kind of the bundle we are looking for
  * @bundle_id: The bundle ID to match, as specified in #AsBundle
- * @match_prefix: If the provided bundle id is the prefix or it needs to match exactly
+ * @match_prefix: %TRUE to match the ID by prefix, %FALSE to perform an absolute match.
  *
  * Find components that are provided by a bundle with a specific ID by its prefix.
  * For example, given a AS_BUNDLE_KIND_FLATPAK and a bundle_id "org.kde.dolphin/",
@@ -2244,27 +2268,28 @@ as_pool_get_components_by_bundle_id (AsPool *pool, AsBundleKind kind, const gcha
 }
 
 /**
- * as_pool_get_components_by_extends_gir: (rename-to as_pool_get_components_by_extends)
+ * as_pool_get_components_by_bundle_id_gir: (rename-to as_pool_get_components_by_bundle_id)
  * @pool: An instance of #AsPool.
- * @extended_id: The ID of the component to search extensions for.
+ * @kind: The kind of the bundle we are looking for
+ * @bundle_id: The bundle ID to match, as specified in #AsBundle
+ * @match_prefix: %TRUE to match the ID by prefix, %FALSE to perform an absolute match.
  *
- * Find components extending the component with the given ID. They can then be registered to the
- * #AsComponent they extend via %as_component_add_addon.
- * If the %AS_POOL_FLAG_RESOLVE_ADDONS pool flag is set, addons are automatically resolved and
- * this explicit function is not needed, but overall query time will be increased (so only use
- * this flag if you will be resolving addon information later anyway).
+ * Find components that are provided by a bundle with a specific ID by its prefix.
+ * For example, given a AS_BUNDLE_KIND_FLATPAK and a bundle_id "org.kde.dolphin/",
+ * it will list all the components that bundle dolphin. If the bundle_id is
+ * "org.kde.dolphin/x86_64" it will give those with also the architecture.
  *
  * This function fully transfers ownership of the returned container,
  * to be used in GIR bindings.
  *
  * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects.
  *
- * Since: 0.15.0
+ * Since: 0.16.0
  */
 GPtrArray*
-as_pool_get_components_by_extends_gir (AsPool *pool, const gchar *extended_id)
+as_pool_get_components_by_bundle_id_gir (AsPool *pool, AsBundleKind kind, const gchar *bundle_id, gboolean match_prefix)
 {
-	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_extends (pool, extended_id));
+	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_bundle_id (pool, kind, bundle_id, match_prefix));
 }
 
 /**

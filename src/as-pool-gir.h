@@ -41,7 +41,12 @@ GPtrArray		*as_pool_get_components_by_categories_gir (AsPool *pool, gchar **cate
 GPtrArray		*as_pool_get_components_by_launchable_gir (AsPool *pool,
 								   AsLaunchableKind kind,
 								   const gchar *id);
-GPtrArray		*as_pool_get_components_by_extends_gir (AsPool *pool, const gchar *extended_id);
+GPtrArray		*as_pool_get_components_by_extends_gir (AsPool *pool,
+								const gchar *extended_id);
+GPtrArray		*as_pool_get_components_by_bundle_id_gir (AsPool *pool,
+								  AsBundleKind kind,
+								  const gchar *bundle_id,
+								  gboolean match_prefix);
 GPtrArray		*as_pool_search_gir (AsPool *pool, const gchar *search);
 
 G_END_DECLS
