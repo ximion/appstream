@@ -156,6 +156,10 @@ GPtrArray		*as_pool_get_components_by_launchable (AsPool *pool,
 							       const gchar *id);
 GPtrArray		*as_pool_get_components_by_extends (AsPool *pool,
 							       const gchar *extended_id);
+GPtrArray		*as_pool_get_components_by_bundle_id (AsPool *pool,
+							      AsBundleKind kind,
+							      const gchar *bundle_id,
+							      gboolean match_prefix);
 GPtrArray		*as_pool_search (AsPool *pool,
 					 const gchar *search);
 gchar			**as_pool_build_search_tokens (AsPool *pool,

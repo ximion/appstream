@@ -2213,6 +2213,37 @@ as_pool_get_components_by_extends (AsPool *pool, const gchar *extended_id)
 }
 
 /**
+ * as_pool_get_components_by_bundle_id: (skip)
+ * @pool: An instance of #AsPool.
+ * @kind: The kind of the bundle we are looking for
+ * @bundle_id: The bundle ID to match, as specified in #AsBundle
+ * @match_prefix: If the provided bundle id is the prefix or it needs to match exactly
+ *
+ * Find components that are provided by a bundle with a specific ID by its prefix.
+ * For example, given a AS_BUNDLE_KIND_FLATPAK and a bundle_id "org.kde.dolphin/",
+ * it will list all the components that bundle dolphin. If the bundle_id is
+ * "org.kde.dolphin/x86_64" it will give those with also the architecture.
+ *
+ * Since: 0.16.0
+ */
+GPtrArray*
+as_pool_get_components_by_bundle_id (AsPool *pool, AsBundleKind kind, const gchar *bundle_id, gboolean match_prefix)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GError) tmp_error = NULL;
+	GPtrArray *result = NULL;
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
+
+	result = as_cache_get_components_by_bundle_id (priv->cache, kind, bundle_id, match_prefix, &tmp_error);
+	if (result == NULL) {
+		g_warning ("Unable find components by bundle ID in session cache: %s", tmp_error->message);
+		return g_ptr_array_new_with_free_func (g_object_unref);
+	}
+
+	return result;
+}
+
+/**
  * as_pool_get_components_by_extends_gir: (rename-to as_pool_get_components_by_extends)
  * @pool: An instance of #AsPool.
  * @extended_id: The ID of the component to search extensions for.
