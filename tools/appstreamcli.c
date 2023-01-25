@@ -979,7 +979,7 @@ as_client_run_news_to_metainfo (const gchar *command, char **argv, int argc)
 			G_OPTION_ARG_STRING,
 			&optn_format_text,
 			/* TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command */
-			N_("Assume the input file is in the selected format ('yaml' or 'text')."),
+			N_("Assume the input file is in the selected format ('yaml', 'text' or 'markdown')."),
 			NULL },
 		{ "limit", 'l', 0,
 			G_OPTION_ARG_INT,
@@ -1035,7 +1035,7 @@ as_client_run_metainfo_to_news (const gchar *command, char **argv, int argc)
 			G_OPTION_ARG_STRING,
 			&optn_format_text,
 			/* TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command */
-			N_("Generate the output in the selected format ('yaml' or 'text')."), NULL },
+			N_("Generate the output in the selected format ('yaml', 'text' or 'markdown')."), NULL },
 		{ NULL }
 	};
 
