@@ -1937,7 +1937,7 @@ as_relation_is_satisfied (AsRelation *relation,
 						AS_SYSTEM_INFO_ERROR,
 						AS_SYSTEM_INFO_ERROR_NOT_FOUND,
 						"Unable to determine the display length of this device: This value needs to be provided "
-						"by a GUI frontent for AppStream.");
+						"by a GUI frontend for AppStream.");
 			return AS_CHECK_RESULT_ERROR;
 		}
 
