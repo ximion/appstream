@@ -27,10 +27,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-26 13:34+0100\n"
-"PO-Revision-Date: 2023-01-25 07:48+0000\n"
+"PO-Revision-Date: 2023-01-26 19:01+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1253,11 +1252,9 @@ msgid "This software recommends a %s kernel, but this system is running %s."
 msgstr "Denna programvara rekommenderar en %s-kärna, men systemet kör %s."
 
 #: src/as-relation.c:1783
-#, fuzzy, c-format
+#, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr ""
-"Denna programvara stöder bara en %s-kärna, men kan kanske köra på %s i alla "
-"fall."
+msgstr "Denna programvara stöder bara en %s-kärna, men kan kanske köra på %s i alla fall."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -3146,11 +3143,10 @@ msgstr "Använd den angivna raden för nyckeln ”Exec=” för desktop-entry-fi
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-#, fuzzy
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr "Anta att indatafilen är i valt format (”yaml” eller ”text”)."
+msgstr "Anta att indatafilen är i valt format (”yaml”, ”text” eller ”markdown”)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:988
@@ -3172,10 +3168,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-#, fuzzy
 msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr "Generera utdata i valt format (”yaml” eller ”text”)."
+msgstr "Generera utdata i valt format (”yaml”, ”text” eller ”markdown”)."
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1080
