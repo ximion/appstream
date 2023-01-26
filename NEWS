@@ -1,3 +1,38 @@
+Version 0.16.0
+~~~~~~~~~~~~~~
+Released: 2023-01-26
+
+Features:
+ * pool: Offer API to look up components by bundles
+ * Bump format version to 0.16
+ * Add new AsSystemInfo to read information about the current OS and device
+ * Add helper to get device names from a modalias
+ * Implement support for external release metadata
+ * Add validation support for external release metadata
+ * compose: Validate external release metadata used for the catalog as well
+ * its: Add rule for standalone release metadata
+ * Add function to test if an AsRelation is satisfied on the current system
+ * cli: Add command to list category contents
+ * cli: Display colored checkmarks if possible
+ * cli: Add new is-satisfied check to test relations from the command-line
+ * cli: Add Markdown export support for metainfo-to-news
+ * qt: Add support for SystemInfo & relation satisfication checks
+
+Specification:
+ * spec: Specify a metadata format for external release descriptions
+
+Bugfixes:
+ * Fix build with Clang 15
+ * Give a better error message if trying to list too many categories
+ * Adjust documentation of AsPool.get_components_by_categories to reflect reality
+ * validator: Validate merge component catalog data properly again
+
+Miscellaneous:
+ * Consistently name catalog metadata as such everywhere
+
+Contributors:
+ Aleix Pol, Matthias Klumpp, Rafael Fontenelle
+
 Version 0.15.6
 ~~~~~~~~~~~~~~
 Released: 2022-12-22
