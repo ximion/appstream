@@ -922,7 +922,7 @@ as_news_to_releases_from_data (const gchar *data,
 
 	if (kind == AS_NEWS_FORMAT_KIND_YAML)
 		releases = as_news_yaml_to_releases (data, entry_limit, error);
-	if (kind == AS_NEWS_FORMAT_KIND_TEXT)
+	if (kind == AS_NEWS_FORMAT_KIND_TEXT || kind == AS_NEWS_FORMAT_KIND_MARKDOWN)
 		releases = as_news_text_to_releases (data, entry_limit, error);
 
 	if (releases == NULL) {
