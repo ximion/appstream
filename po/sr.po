@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-24 12:56+0100\n"
+"POT-Creation-Date: 2023-01-26 11:45+0100\n"
 "PO-Revision-Date: 2021-12-22 15:44+0000\n"
 "Last-Translator: Слободан Симић(Slobodan Simić) <slsimic@gmail.com>\n"
 "Language-Team: Serbian <https://hosted.weblate.org/projects/appstream/"
@@ -992,21 +992,21 @@ msgstr ""
 msgid "Metadata files have errors:"
 msgstr "Датотеке метаподатака имају грешке:"
 
-#: src/as-pool.c:2584
+#: src/as-pool.c:2640
 msgid "Group"
 msgstr ""
 
-#: src/as-pool.c:2630
+#: src/as-pool.c:2686
 msgid "Iconsets"
 msgstr "Скупови иконица"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2677
+#: src/as-pool.c:2733
 msgid "Data from locally installed software"
 msgstr ""
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2680
+#: src/as-pool.c:2736
 msgid "Software catalog data"
 msgstr ""
 
@@ -3080,7 +3080,10 @@ msgstr "Користи наведени ред за „Exec=“ кључ дат�
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-msgid "Assume the input file is in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Assume the input file is in the selected format ('yaml', 'text' or "
+"'markdown')."
 msgstr ""
 "Подразумева да је улазна датотека у изабраном формату („yaml“ или „text“)."
 
@@ -3103,7 +3106,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-msgid "Generate the output in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "Ствара излаз у изабраном формату („yaml“ или „text“)."
 
 #. TRANSLATORS: appstreamcli-compose was not found

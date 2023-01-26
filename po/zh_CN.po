@@ -46,7 +46,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-24 12:56+0100\n"
+"POT-Creation-Date: 2023-01-26 11:45+0100\n"
 "PO-Revision-Date: 2022-12-24 03:49+0000\n"
 "Last-Translator: Eric <hamburger1024@duck.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -1002,21 +1002,21 @@ msgstr ""
 msgid "Metadata files have errors:"
 msgstr "元数据文件有错误："
 
-#: src/as-pool.c:2584
+#: src/as-pool.c:2640
 msgid "Group"
 msgstr "组"
 
-#: src/as-pool.c:2630
+#: src/as-pool.c:2686
 msgid "Iconsets"
 msgstr "图标集"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2677
+#: src/as-pool.c:2733
 msgid "Data from locally installed software"
 msgstr "来自本地已安装软件的数据"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2680
+#: src/as-pool.c:2736
 msgid "Software catalog data"
 msgstr "软件分类数据"
 
@@ -2955,7 +2955,10 @@ msgstr "为 desktop-entry 文件的“Exec=”设定键使用指定行。"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-msgid "Assume the input file is in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Assume the input file is in the selected format ('yaml', 'text' or "
+"'markdown')."
 msgstr "假设输入文件是所选的格式（'yaml' 或者 'text'）。"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
@@ -2975,7 +2978,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-msgid "Generate the output in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "以选择的格式生成输出结果（“yaml”或“text”）。"
 
 #. TRANSLATORS: appstreamcli-compose was not found

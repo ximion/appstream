@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-24 12:56+0100\n"
+"POT-Creation-Date: 2023-01-26 11:45+0100\n"
 "PO-Revision-Date: 2023-01-22 20:09+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
@@ -991,21 +991,21 @@ msgstr ""
 msgid "Metadata files have errors:"
 msgstr "Pliki metadanych mają błędy:"
 
-#: src/as-pool.c:2584
+#: src/as-pool.c:2640
 msgid "Group"
 msgstr "Grupa"
 
-#: src/as-pool.c:2630
+#: src/as-pool.c:2686
 msgid "Iconsets"
 msgstr "Zestawy ikon"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2677
+#: src/as-pool.c:2733
 msgid "Data from locally installed software"
 msgstr "Dane z lokalnie zainstalowanego oprogramowania"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2680
+#: src/as-pool.c:2736
 msgid "Software catalog data"
 msgstr "Dane katalogu oprogramowania"
 
@@ -3149,7 +3149,10 @@ msgstr "Używa podanego wiersza dla klucza „Exec=” pliku .desktop."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-msgid "Assume the input file is in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Assume the input file is in the selected format ('yaml', 'text' or "
+"'markdown')."
 msgstr ""
 "Przyjmuje, że plik wejściowy jest w wybranym formacie („yaml” lub „text”)."
 
@@ -3173,7 +3176,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-msgid "Generate the output in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "Tworzy wyjście w wybranym formacie („yaml” lub „text”)."
 
 #. TRANSLATORS: appstreamcli-compose was not found

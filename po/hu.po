@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-24 12:56+0100\n"
+"POT-Creation-Date: 2023-01-26 11:45+0100\n"
 "PO-Revision-Date: 2022-09-26 08:20+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
@@ -998,21 +998,21 @@ msgstr "app;alkalmazás;csomag;program;alkalmazáscsomag;eszköz"
 msgid "Metadata files have errors:"
 msgstr "A metaadatfájlok hibákat tartalmaznak:"
 
-#: src/as-pool.c:2584
+#: src/as-pool.c:2640
 msgid "Group"
 msgstr "Csoport"
 
-#: src/as-pool.c:2630
+#: src/as-pool.c:2686
 msgid "Iconsets"
 msgstr "Ikonkészletek"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2677
+#: src/as-pool.c:2733
 msgid "Data from locally installed software"
 msgstr "Adatok a helyileg telepített szoftverekből"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2680
+#: src/as-pool.c:2736
 msgid "Software catalog data"
 msgstr "Szoftverkatalógus-adatok"
 
@@ -3184,7 +3184,10 @@ msgstr "A megadott sor használata az asztali bejegyzés fájl „Exec=” kulcs
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-msgid "Assume the input file is in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Assume the input file is in the selected format ('yaml', 'text' or "
+"'markdown')."
 msgstr ""
 "Annak feltételezése, hogy a bemeneti fájl a kiválasztott formátumban van "
 "(„yaml” vagy „text”)."
@@ -3210,7 +3213,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-msgid "Generate the output in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "Kimenet előállítása a kiválasztott formátumban („yaml” vagy „text”)."
 
 #. TRANSLATORS: appstreamcli-compose was not found

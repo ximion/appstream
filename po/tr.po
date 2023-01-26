@@ -28,10 +28,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-24 12:56+0100\n"
+"POT-Creation-Date: 2023-01-26 11:45+0100\n"
 "PO-Revision-Date: 2023-01-25 07:48+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
+"translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -992,21 +993,21 @@ msgstr "uygulama;paket;program;takım;araç"
 msgid "Metadata files have errors:"
 msgstr "Üst veri dosyalarında hata var:"
 
-#: src/as-pool.c:2584
+#: src/as-pool.c:2640
 msgid "Group"
 msgstr "Grup"
 
-#: src/as-pool.c:2630
+#: src/as-pool.c:2686
 msgid "Iconsets"
 msgstr "Simge Kümeleri"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2677
+#: src/as-pool.c:2733
 msgid "Data from locally installed software"
 msgstr "Yerel olarak kurulan yazılımlardan gelen veriler"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2680
+#: src/as-pool.c:2736
 msgid "Software catalog data"
 msgstr "Yazılım kataloğu verileri"
 
@@ -1270,7 +1271,8 @@ msgstr ""
 #: src/as-relation.c:1805
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr "Bu yazılım %s %s %s gerektirir, ancak bu sistem %s %s sürümünü çalıştırıyor."
+msgstr ""
+"Bu yazılım %s %s %s gerektirir, ancak bu sistem %s %s sürümünü çalıştırıyor."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1278,7 +1280,9 @@ msgstr "Bu yazılım %s %s %s gerektirir, ancak bu sistem %s %s sürümünü ça
 #: src/as-relation.c:1813
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr "%s %s %s kullanılması tavsiye edilmektedir, ancak bu sistem %s %s sürümünü çalıştırıyor."
+msgstr ""
+"%s %s %s kullanılması tavsiye edilmektedir, ancak bu sistem %s %s sürümünü "
+"çalıştırıyor."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
@@ -1332,7 +1336,9 @@ msgstr "Bu sistem bu yazılım için yeterli belleğe sahip."
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Bu yazılım, en uzun kenarı %s %lu px boyutunda olan bir ekran gerektirir, ancak bu aygıtın ekranı %lu px."
+msgstr ""
+"Bu yazılım, en uzun kenarı %s %lu px boyutunda olan bir ekran gerektirir, "
+"ancak bu aygıtın ekranı %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1341,7 +1347,9 @@ msgstr "Bu yazılım, en uzun kenarı %s %lu px boyutunda olan bir ekran gerekti
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Bu yazılım, en kısa kenarı %s %lu px boyutunda olan bir ekran gerektirir, ancak bu aygıtın ekranı %lu px."
+msgstr ""
+"Bu yazılım, en kısa kenarı %s %lu px boyutunda olan bir ekran gerektirir, "
+"ancak bu aygıtın ekranı %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1350,7 +1358,9 @@ msgstr "Bu yazılım, en kısa kenarı %s %lu px boyutunda olan bir ekran gerekt
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Bu yazılım, en uzun kenarı %s %lu px boyutunda olan bir ekran tavsiye etmektedir, ancak bu aygıtın ekranı %lu px."
+msgstr ""
+"Bu yazılım, en uzun kenarı %s %lu px boyutunda olan bir ekran tavsiye "
+"etmektedir, ancak bu aygıtın ekranı %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1359,7 +1369,9 @@ msgstr "Bu yazılım, en uzun kenarı %s %lu px boyutunda olan bir ekran tavsiye
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Bu yazılım, en kısa kenarı %s %lu px boyutunda olan bir ekran tavsiye etmektedir, ancak bu aygıtın ekranı %lu px."
+msgstr ""
+"Bu yazılım, en kısa kenarı %s %lu px boyutunda olan bir ekran tavsiye "
+"etmektedir, ancak bu aygıtın ekranı %lu px."
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
@@ -1368,7 +1380,8 @@ msgstr "Ekran boyutu bu yazılım için yeterli."
 #: src/as-relation.c:1996
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr "'%s' türündeki ögeler için ilişki karşılama denetimi henüz uygulanmadı."
+msgstr ""
+"'%s' türündeki ögeler için ilişki karşılama denetimi henüz uygulanmadı."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -3154,7 +3167,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-msgid "Assume the input file is in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Assume the input file is in the selected format ('yaml', 'text' or "
+"'markdown')."
 msgstr "Giriş dosyasının seçilen biçimde ('yaml' veya 'text') olduğunu varsay."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
@@ -3177,7 +3193,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-msgid "Generate the output in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "Çıktıyı seçilen biçimde ('yaml' veya 'text') oluştur."
 
 #. TRANSLATORS: appstreamcli-compose was not found
@@ -3291,7 +3309,9 @@ msgstr ""
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
-msgstr "Bir bileşenin gereksinimlerinin (kimliği veya MetaInfo dosyası aracılığıyla) bu sistemde karşılanıp karşılanmadığını denetle."
+msgstr ""
+"Bir bileşenin gereksinimlerinin (kimliği veya MetaInfo dosyası aracılığıyla) "
+"bu sistemde karşılanıp karşılanmadığını denetle."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1355
@@ -3526,7 +3546,9 @@ msgstr "Şablon metainfo dosyası kaydedilemedi: %s"
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr "Ekran boyutu denetlenemedi: Grafiksel kullanıcı arayüzü araç seti erişimi olmadan bilgi okunamıyor."
+msgstr ""
+"Ekran boyutu denetlenemedi: Grafiksel kullanıcı arayüzü araç seti erişimi "
+"olmadan bilgi okunamıyor."
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"

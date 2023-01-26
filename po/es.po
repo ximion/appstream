@@ -35,10 +35,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-24 12:56+0100\n"
+"POT-Creation-Date: 2023-01-26 11:45+0100\n"
 "PO-Revision-Date: 2023-01-25 07:48+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
+"translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1004,21 +1005,21 @@ msgstr "app;aplicación;paquete;programa;suite;conjunto;herramienta"
 msgid "Metadata files have errors:"
 msgstr "Los archivos de metadatos tienen errores:"
 
-#: src/as-pool.c:2584
+#: src/as-pool.c:2640
 msgid "Group"
 msgstr "Grupo"
 
-#: src/as-pool.c:2630
+#: src/as-pool.c:2686
 msgid "Iconsets"
 msgstr "Conjuntos de iconos"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2677
+#: src/as-pool.c:2733
 msgid "Data from locally installed software"
 msgstr "Datos del software instalado localmente"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2680
+#: src/as-pool.c:2736
 msgid "Software catalog data"
 msgstr "Datos del catálogo de software"
 
@@ -1181,7 +1182,9 @@ msgstr ""
 
 #: src/as-relation.c:1611
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr "Se ha encontrado un dispositivo señalador (por ejemplo, un ratón o un panel táctil)."
+msgstr ""
+"Se ha encontrado un dispositivo señalador (por ejemplo, un ratón o un panel "
+"táctil)."
 
 #: src/as-relation.c:1613
 msgid "Physical keyboard found."
@@ -1286,7 +1289,8 @@ msgstr ""
 #: src/as-relation.c:1805
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr "Este software requiere %s %s %s, pero este sistema está ejecutando %s %s."
+msgstr ""
+"Este software requiere %s %s %s, pero este sistema está ejecutando %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1294,7 +1298,8 @@ msgstr "Este software requiere %s %s %s, pero este sistema está ejecutando %s %
 #: src/as-relation.c:1813
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr "Se recomienda el uso de %s %s %s, pero este sistema está ejecutando %s %s."
+msgstr ""
+"Se recomienda el uso de %s %s %s, pero este sistema está ejecutando %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
@@ -1348,7 +1353,9 @@ msgstr "Este sistema tiene memoria suficiente para este software."
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Este software requiere una pantalla cuyo borde más largo tenga un tamaño de %s %lu px, pero la pantalla de este dispositivo tiene %lu px."
+msgstr ""
+"Este software requiere una pantalla cuyo borde más largo tenga un tamaño de "
+"%s %lu px, pero la pantalla de este dispositivo tiene %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1357,7 +1364,9 @@ msgstr "Este software requiere una pantalla cuyo borde más largo tenga un tama�
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Este software requiere una pantalla cuyo borde más corto tenga un tamaño de %s %lu px, pero la pantalla de este dispositivo tiene %lu px."
+msgstr ""
+"Este software requiere una pantalla cuyo borde más corto tenga un tamaño de "
+"%s %lu px, pero la pantalla de este dispositivo tiene %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1366,7 +1375,9 @@ msgstr "Este software requiere una pantalla cuyo borde más corto tenga un tama�
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Este software recomienda una pantalla cuyo borde más largo tenga un tamaño de %s %lu px, pero la pantalla de este dispositivo tiene %lu px."
+msgstr ""
+"Este software recomienda una pantalla cuyo borde más largo tenga un tamaño "
+"de %s %lu px, pero la pantalla de este dispositivo tiene %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1375,7 +1386,9 @@ msgstr "Este software recomienda una pantalla cuyo borde más largo tenga un tam
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Este software recomienda una pantalla cuyo borde más corto tenga un tamaño de %s %lu px, pero la pantalla de este dispositivo tiene %lu px."
+msgstr ""
+"Este software recomienda una pantalla cuyo borde más corto tenga un tamaño "
+"de %s %lu px, pero la pantalla de este dispositivo tiene %lu px."
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
@@ -1384,7 +1397,9 @@ msgstr "El tamaño de la pantalla es suficiente para este software."
 #: src/as-relation.c:1996
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr "La verificación de satisfacción para elementos del tipo '%s' aún no está implementada."
+msgstr ""
+"La verificación de satisfacción para elementos del tipo '%s' aún no está "
+"implementada."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -3240,7 +3255,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-msgid "Assume the input file is in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Assume the input file is in the selected format ('yaml', 'text' or "
+"'markdown')."
 msgstr ""
 "Asumir que el archivo de entrada está en el formato seleccionado («yaml» o "
 "«text»)."
@@ -3266,7 +3284,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-msgid "Generate the output in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "Generar la salida en el formato seleccionado («yaml» o «text»)."
 
 #. TRANSLATORS: appstreamcli-compose was not found
@@ -3386,7 +3406,9 @@ msgstr ""
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
-msgstr "Comprueba si los requisitos de un componente (a través de su ID o archivo MetaInfo) se cumplen en este sistema."
+msgstr ""
+"Comprueba si los requisitos de un componente (a través de su ID o archivo "
+"MetaInfo) se cumplen en este sistema."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1355
@@ -3639,7 +3661,9 @@ msgstr ""
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr "No se puede comprobar el tamaño de la pantalla: No se puede leer la información sin acceso al conjunto de herramientas GUI."
+msgstr ""
+"No se puede comprobar el tamaño de la pantalla: No se puede leer la "
+"información sin acceso al conjunto de herramientas GUI."
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"

@@ -26,10 +26,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-24 12:56+0100\n"
+"POT-Creation-Date: 2023-01-26 11:45+0100\n"
 "PO-Revision-Date: 2023-01-25 07:48+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
+"translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -988,21 +989,21 @@ msgstr "app;program;paket;svit;verktyg"
 msgid "Metadata files have errors:"
 msgstr "Metadatafilen har fel:"
 
-#: src/as-pool.c:2584
+#: src/as-pool.c:2640
 msgid "Group"
 msgstr "Grupp"
 
-#: src/as-pool.c:2630
+#: src/as-pool.c:2686
 msgid "Iconsets"
 msgstr "Ikonuppsättningar"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2677
+#: src/as-pool.c:2733
 msgid "Data from locally installed software"
 msgstr "Data från lokalt installerad programvara"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2680
+#: src/as-pool.c:2736
 msgid "Software catalog data"
 msgstr "Programvarukatalogdata"
 
@@ -1323,7 +1324,9 @@ msgstr "Detta system har tillräckligt med minne för programvaran."
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Denna programvara kräver en skärm vars längsta kant är %s %lu bildpunkter, men skärmen på denna enhet har %lu bildpunkter."
+msgstr ""
+"Denna programvara kräver en skärm vars längsta kant är %s %lu bildpunkter, "
+"men skärmen på denna enhet har %lu bildpunkter."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1332,7 +1335,9 @@ msgstr "Denna programvara kräver en skärm vars längsta kant är %s %lu bildpu
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Denna programvara kräver en skärm vars kortaste kant är %s %lu bildpunkter, men skärmen på denna enhet har %lu bildpunkter."
+msgstr ""
+"Denna programvara kräver en skärm vars kortaste kant är %s %lu bildpunkter, "
+"men skärmen på denna enhet har %lu bildpunkter."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1341,7 +1346,9 @@ msgstr "Denna programvara kräver en skärm vars kortaste kant är %s %lu bildpu
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Denna programvara rekommenderar en skärm vars längsta kant är %s %lu bildpunkter, men skärmen på denna enhet har %lu bildpunkter."
+msgstr ""
+"Denna programvara rekommenderar en skärm vars längsta kant är %s %lu "
+"bildpunkter, men skärmen på denna enhet har %lu bildpunkter."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1350,7 +1357,9 @@ msgstr "Denna programvara rekommenderar en skärm vars längsta kant är %s %lu 
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Denna programvara rekommenderar en skärm vars kortaste kant är %s %lu bildpunkter, men skärmen på denna enhet har %lu bildpunkter."
+msgstr ""
+"Denna programvara rekommenderar en skärm vars kortaste kant är %s %lu "
+"bildpunkter, men skärmen på denna enhet har %lu bildpunkter."
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
@@ -1359,7 +1368,9 @@ msgstr "Skärmstorleken är tillräcklig för denna programvara."
 #: src/as-relation.c:1996
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr "Kontroll av relationsuppfyllande för objekt av typen ”%s” är inte ännu implementerad."
+msgstr ""
+"Kontroll av relationsuppfyllande för objekt av typen ”%s” är inte ännu "
+"implementerad."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -3135,7 +3146,10 @@ msgstr "Använd den angivna raden för nyckeln ”Exec=” för desktop-entry-fi
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-msgid "Assume the input file is in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Assume the input file is in the selected format ('yaml', 'text' or "
+"'markdown')."
 msgstr "Anta att indatafilen är i valt format (”yaml” eller ”text”)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
@@ -3158,7 +3172,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-msgid "Generate the output in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "Generera utdata i valt format (”yaml” eller ”text”)."
 
 #. TRANSLATORS: appstreamcli-compose was not found
@@ -3271,7 +3287,9 @@ msgstr "Kontrollera licenssträngen för giltighet och skriv ut detaljer om den.
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
-msgstr "Kontrollera om krav för en komponent (via dess ID eller MetaInfo-fil) uppfylls på detta system."
+msgstr ""
+"Kontrollera om krav för en komponent (via dess ID eller MetaInfo-fil) "
+"uppfylls på detta system."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1355
@@ -3504,7 +3522,9 @@ msgstr "Kunde inte spara mallmetainfofilen: %s"
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr "Kunde inte kontrollera skärmstorlek: kan inte läsa information utan åtkomst till GUI-verktygslåda."
+msgstr ""
+"Kunde inte kontrollera skärmstorlek: kan inte läsa information utan åtkomst "
+"till GUI-verktygslåda."
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"

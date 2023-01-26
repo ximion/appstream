@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-24 12:56+0100\n"
+"POT-Creation-Date: 2023-01-26 11:45+0100\n"
 "PO-Revision-Date: 2022-01-02 21:56+0000\n"
 "Last-Translator: Egil Sandfeld <sandfeld@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/appstream/"
@@ -984,21 +984,21 @@ msgstr "app;applikation;pakke;program;programpakke;værktøj;redskab"
 msgid "Metadata files have errors:"
 msgstr "Metadatafilen har fejl:"
 
-#: src/as-pool.c:2584
+#: src/as-pool.c:2640
 msgid "Group"
 msgstr "Gruppe"
 
-#: src/as-pool.c:2630
+#: src/as-pool.c:2686
 msgid "Iconsets"
 msgstr "Ikonsæt"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2677
+#: src/as-pool.c:2733
 msgid "Data from locally installed software"
 msgstr "Data fra lokalt installeret software"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2680
+#: src/as-pool.c:2736
 msgid "Software catalog data"
 msgstr "Software-katalogdata"
 
@@ -3082,7 +3082,10 @@ msgstr "Brug den angivne linje til 'Exec='-nøglen i desktop-entry-filen."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-msgid "Assume the input file is in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Assume the input file is in the selected format ('yaml', 'text' or "
+"'markdown')."
 msgstr "Formod at inputfilen er i det valgte format ('yaml' eller 'text')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
@@ -3104,7 +3107,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-msgid "Generate the output in the selected format ('yaml' or 'text')."
+#, fuzzy
+msgid ""
+"Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "Generer outputtet i det valgte format ('yaml' eller 'text')."
 
 #. TRANSLATORS: appstreamcli-compose was not found
