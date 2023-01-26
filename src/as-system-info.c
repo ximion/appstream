@@ -774,7 +774,7 @@ as_system_info_has_device_with_property (AsSystemInfo *sysinfo, const gchar *pro
 				AS_SYSTEM_INFO_ERROR,
 				AS_SYSTEM_INFO_ERROR_FAILED,
 				"Unable to look for input device: AppStream was built without systemd-udevd support.");
-	return NULL;
+	return AS_CHECK_RESULT_ERROR;
 #endif
 }
 
