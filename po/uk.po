@@ -22,17 +22,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-26 13:34+0100\n"
-"PO-Revision-Date: 2023-01-22 20:09+0000\n"
+"PO-Revision-Date: 2023-01-26 19:01+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
-"translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.15.1\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1177,43 +1175,40 @@ msgstr ""
 "допомогою команд консолі."
 
 #: src/as-relation.c:1611
-#, fuzzy
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr "координатний пристрій (наприклад миша)"
+msgstr "Виявлено координатний пристрій (наприклад мишу або сенсорну панель)."
 
 #: src/as-relation.c:1613
-#, fuzzy
 msgid "Physical keyboard found."
-msgstr "Фізична пам'ять"
+msgstr "Виявлено фізичну клавіатуру."
 
 #: src/as-relation.c:1615
 msgid "Gamepad found."
-msgstr ""
+msgstr "Виявлено ігровий пульт."
 
 #: src/as-relation.c:1617
 msgid "TV remote found."
-msgstr ""
+msgstr "Виявлено пульт керування телевізором."
 
 #: src/as-relation.c:1619
-#, fuzzy
 msgid "Graphics tablet found."
-msgstr "графічний планшет"
+msgstr "Виявлено графічний планшет."
 
 #: src/as-relation.c:1622
 msgid "Touch input device found."
-msgstr ""
+msgstr "Виявлено пристрій сенсорного введення."
 
 #: src/as-relation.c:1624
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "Виявлено мікрофон для керування голосом."
 
 #: src/as-relation.c:1626
 msgid "Camera for input control found."
-msgstr ""
+msgstr "Виявлено відеокамеру для керування."
 
 #: src/as-relation.c:1628
 msgid "Console interface available."
-msgstr ""
+msgstr "Доступний інтерфейс консолі."
 
 #: src/as-relation.c:1684
 #, c-format
@@ -1231,9 +1226,9 @@ msgid "Recommended software component '%s' is missing."
 msgstr "Не вистачає рекомендованого компонента програмного забезпечення «%s»."
 
 #: src/as-relation.c:1698
-#, fuzzy, c-format
+#, c-format
 msgid "Found supported software component '%s'."
-msgstr "Не вистачає потрібного програмного компонента «%s»."
+msgstr "Виявлено підтримуваний програмний компонент «%s»."
 
 #: src/as-relation.c:1727
 #, c-format
@@ -1279,43 +1274,38 @@ msgstr ""
 "працює ядро %s."
 
 #: src/as-relation.c:1783
-#, fuzzy, c-format
+#, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr ""
-"У цьому програмному забезпеченні передбачено підтримку лише ядра %s, але, "
-"попри це, воно може працювати і на ядрі %s."
+msgstr "У цьому програмному забезпеченні передбачено підтримку лише ядра %s, але, попри це, воно може працювати і на ядрі %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
 #. and fifth is the version we are running.
 #: src/as-relation.c:1805
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
-"Для цього програмного забезпечення потрібна версія %s %s %s, але у цій "
-"системі маємо версію %s."
+msgstr "Для цього програмного забезпечення потрібна версія %s %s %s, але у цій системі маємо версію %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
 #. and fifth is the version we are running.
 #: src/as-relation.c:1813
-#, fuzzy, c-format
+#, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
-"Рекомендоване використання %s %s %s, але у цій системі використано версію %s."
+msgstr "Рекомендоване використання %s %s %s, але у цій системі використано версію %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1820
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %s %s."
-msgstr "У цьому програмному забезпеченні передбачено підтримку %s."
+msgstr "У цьому програмному забезпеченні передбачено підтримку %s %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1830
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "Передбачено підтримку ядра %s %s."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1340,14 +1330,14 @@ msgstr ""
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1871
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr "У цьому програмному забезпеченні передбачено підтримку %s."
+msgstr "У цьому програмному забезпеченні передбачено підтримку %s %.2f ГіБ пам'яті."
 
 #: src/as-relation.c:1880
 #, c-format
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "У цій системі достатньо пам'яті для цього програмного забезпечення."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1356,7 +1346,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Для цього програмного забезпечення потрібен дисплей із довшим краєм %s %lu пк, але дисплей цього пристрою має лише %lu пк."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1365,7 +1355,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Для цього програмного забезпечення потрібен дисплей із коротшим краєм %s %lu пк, але дисплей цього пристрою має лише %lu пк."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1374,7 +1364,7 @@ msgstr ""
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Для цього програмного забезпечення рекомендовано дисплей із довшим краєм %s %lu пк, але дисплей цього пристрою має лише %lu пк."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1383,16 +1373,16 @@ msgstr ""
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Для цього програмного забезпечення рекомендовано дисплей із коротшим краєм %s %lu пк, але дисплей цього пристрою має лише %lu пк."
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "Розміри дисплея достатні для цього програмного забезпечення."
 
 #: src/as-relation.c:1996
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "Перевірку співвідношення для записів типу «%s» ще не реалізовано."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -3221,13 +3211,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-#, fuzzy
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr ""
-"Вважати, що дані у вхідному файлі записано у вибраному форматі («yaml» або "
-"«text»)."
+msgstr "Вважати, що дані у вхідному файлі записано у вибраному форматі («yaml», «text» або «markdown»)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:988
@@ -3249,10 +3236,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-#, fuzzy
 msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr "Вивести дані у вибраному форматі («yaml» або «text»)."
+msgstr "Вивести дані у вибраному форматі («yaml», «text» або «markdown»)."
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1080
@@ -3371,7 +3357,7 @@ msgstr ""
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
-msgstr ""
+msgstr "Перевірити, чи виконано вимоги щодо компонента (за його ідентифікатором або файлом MetaInfo) у цій системі."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1355
@@ -3611,16 +3597,15 @@ msgstr "Не вдалося зберегти файл метаінформаці
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr ""
+msgstr "Не вдалося перевірити розміри дисплея: не вдалося прочитати відомості без доступу до набору інструментів графічного інтерфейсу."
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"
-msgstr ""
+msgstr "ПОМИЛКА"
 
 #: tools/ascli-actions-mdata.c:649
-#, fuzzy
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr "Вам слід вказати вхідний файл метаінформації."
+msgstr "Вам слід вказати назву файла MetaInfo або ідентифікатор компонента."
 
 #: tools/ascli-actions-mdata.c:667 tools/ascli-actions-misc.c:128
 #: tools/ascli-actions-misc.c:371 tools/ascli-actions-misc.c:448
@@ -3632,32 +3617,31 @@ msgstr "Файла метаінформації «%s» не існує."
 #: tools/ascli-actions-mdata.c:704
 #, c-format
 msgid "Relation check for: %s"
-msgstr ""
+msgstr "Перевірка співвідношення для такого: %s"
 
 #: tools/ascli-actions-mdata.c:707
 msgid "Requirements:"
-msgstr ""
+msgstr "Вимоги:"
 
 #: tools/ascli-actions-mdata.c:709
 msgid "No required items are set for this software."
-msgstr ""
+msgstr "Вимог для цього програмного забезпечення не встановлено."
 
 #: tools/ascli-actions-mdata.c:717
 msgid "Recommendations:"
-msgstr ""
+msgstr "Рекомендації:"
 
 #: tools/ascli-actions-mdata.c:719
 msgid "No recommended items are set for this software."
-msgstr ""
+msgstr "Рекомендацій для цього програмного забезпечення не встановлено."
 
 #: tools/ascli-actions-mdata.c:727
-#, fuzzy
 msgid "Supported:"
-msgstr "Спортивні ігри"
+msgstr "Підтримуване:"
 
 #: tools/ascli-actions-mdata.c:729
 msgid "No supported items are set for this software."
-msgstr ""
+msgstr "Записів підтримуваного для цього програмного забезпечення не встановлено."
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:48
