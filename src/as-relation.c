@@ -1780,7 +1780,7 @@ as_relation_is_satisfied (AsRelation *relation,
 									req_kernel_name, current_kernel_name));
 			else
 				_as_set_satify_message (message,
-							g_strdup_printf (_("This software only supports a %s kernel, but my run on %s anyway."),
+							g_strdup_printf (_("This software only supports a %s kernel, but may run on %s anyway."),
 									req_kernel_name, current_kernel_name));
 			return AS_CHECK_RESULT_FALSE;
 		}
