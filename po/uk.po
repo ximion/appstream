@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-26 11:45+0100\n"
+"POT-Creation-Date: 2023-01-26 13:34+0100\n"
 "PO-Revision-Date: 2023-01-22 20:09+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
@@ -1279,8 +1279,8 @@ msgstr ""
 "працює ядро %s."
 
 #: src/as-relation.c:1783
-#, c-format
-msgid "This software only supports a %s kernel, but my run on %s anyway."
+#, fuzzy, c-format
+msgid "This software only supports a %s kernel, but may run on %s anyway."
 msgstr ""
 "У цьому програмному забезпеченні передбачено підтримку лише ядра %s, але, "
 "попри це, воно може працювати і на ядрі %s."

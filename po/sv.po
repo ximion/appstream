@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-26 11:45+0100\n"
+"POT-Creation-Date: 2023-01-26 13:34+0100\n"
 "PO-Revision-Date: 2023-01-25 07:48+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
@@ -1253,8 +1253,8 @@ msgid "This software recommends a %s kernel, but this system is running %s."
 msgstr "Denna programvara rekommenderar en %s-kärna, men systemet kör %s."
 
 #: src/as-relation.c:1783
-#, c-format
-msgid "This software only supports a %s kernel, but my run on %s anyway."
+#, fuzzy, c-format
+msgid "This software only supports a %s kernel, but may run on %s anyway."
 msgstr ""
 "Denna programvara stöder bara en %s-kärna, men kan kanske köra på %s i alla "
 "fall."

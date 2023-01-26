@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-26 11:45+0100\n"
+"POT-Creation-Date: 2023-01-26 13:34+0100\n"
 "PO-Revision-Date: 2021-12-22 15:42+0000\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
@@ -1242,9 +1242,9 @@ msgid "This software recommends a %s kernel, but this system is running %s."
 msgstr ""
 
 #: src/as-relation.c:1783
-#, c-format
-msgid "This software only supports a %s kernel, but my run on %s anyway."
-msgstr ""
+#, fuzzy, c-format
+msgid "This software only supports a %s kernel, but may run on %s anyway."
+msgstr "This tag requires a type property."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
