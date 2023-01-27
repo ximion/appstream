@@ -35,25 +35,22 @@
 # Deleted User <noreply+31751@weblate.org>, 2021.
 # Сергей <sw@atrus.ru>, 2022.
 # faveoled <faveoled@yandex.com>, 2022.
-# Сергей <asvmail.as@gmail.com>, 2022.
+# Сергей <asvmail.as@gmail.com>, 2022, 2023.
 # lenemter <lenemter@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-26 13:34+0100\n"
-"PO-Revision-Date: 2023-01-22 20:09+0000\n"
-"Last-Translator: lenemter <lenemter@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
-"translations/ru/>\n"
+"PO-Revision-Date: 2023-01-27 18:09+0000\n"
+"Last-Translator: Сергей <asvmail.as@gmail.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 4.15.1\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1183,38 +1180,36 @@ msgid "This software supports operation via console commands."
 msgstr "Это приложение поддерживает управление через консоль."
 
 #: src/as-relation.c:1611
-#, fuzzy
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr "устройство управления (например, мышь)"
+msgstr "Найдено устройство управления (например, мышь или сенсорная панель)."
 
 #: src/as-relation.c:1613
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "Найдена физическая клавиатура."
 
 #: src/as-relation.c:1615
 msgid "Gamepad found."
-msgstr ""
+msgstr "Найден геймпад."
 
 #: src/as-relation.c:1617
 msgid "TV remote found."
-msgstr ""
+msgstr "Найден телевизионный пульт."
 
 #: src/as-relation.c:1619
-#, fuzzy
 msgid "Graphics tablet found."
-msgstr "графический планшет"
+msgstr "Найден графический планшет."
 
 #: src/as-relation.c:1622
 msgid "Touch input device found."
-msgstr ""
+msgstr "Найдено устройство сенсорного ввода."
 
 #: src/as-relation.c:1624
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "Найден микрофон для управления голосом."
 
 #: src/as-relation.c:1626
 msgid "Camera for input control found."
-msgstr ""
+msgstr "Найдена камера для управления."
 
 #: src/as-relation.c:1628
 msgid "Console interface available."
@@ -1236,9 +1231,9 @@ msgid "Recommended software component '%s' is missing."
 msgstr "Рекомендуемый программный компонент «%s» отсутствует."
 
 #: src/as-relation.c:1698
-#, fuzzy, c-format
+#, c-format
 msgid "Found supported software component '%s'."
-msgstr "Необходимый программный компонент «%s» отсутствует."
+msgstr "Найден поддерживаемый программный компонент «%s»."
 
 #: src/as-relation.c:1727
 #, c-format
@@ -1272,9 +1267,9 @@ msgid "This software recommends a %s kernel, but this system is running %s."
 msgstr ""
 
 #: src/as-relation.c:1783
-#, fuzzy, c-format
+#, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr "Это приложение поддерживает %s."
+msgstr "Это приложение поддерживает только ядро %s, но, несмотря на это, оно может работать и на ядре %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1295,9 +1290,9 @@ msgstr ""
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1820
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %s %s."
-msgstr "Это приложение поддерживает %s."
+msgstr "Это приложение поддерживает %s %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1830
@@ -1324,9 +1319,9 @@ msgstr ""
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1871
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr "Это приложение поддерживает %s."
+msgstr "Это приложение поддерживает %s %.2f ГиБ памяти."
 
 #: src/as-relation.c:1880
 #, c-format
@@ -2123,10 +2118,9 @@ msgstr "Этот `bundle` тег имеет неизвестный тип и н�
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:575
-#, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr "Тег `update_contact` не должен быть включён в коллекцию AppStream XML."
+msgstr "Тег `update_contact` не должен быть включён в каталог AppStream XML."
 
 #: src/as-validator-issue-tag.h:580
 msgid ""
@@ -2352,12 +2346,9 @@ msgstr "XML этого файла является некорректным."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:736
-#, fuzzy
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr ""
-"Недействительный тег, найденный в метаданных коллекции. Разрешены только "
-"теги `component`."
+msgstr "В каталоге метаданных обнаружен недействительный тег. Разрешены только теги `component`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:742
@@ -3560,16 +3551,15 @@ msgstr "Не удаётся сохранить файл шаблона мета�
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr ""
+msgstr "Невозможно проверить размер экрана: невозможно прочитать информацию без доступа к инструментарию GUI."
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"
-msgstr ""
+msgstr "ОШИБКА"
 
 #: tools/ascli-actions-mdata.c:649
-#, fuzzy
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr "Вам необходимо указать файл metainfo в качестве входных данных."
+msgstr "Вам необходимо указать название файла MetaInfo или ID компонента."
 
 #: tools/ascli-actions-mdata.c:667 tools/ascli-actions-misc.c:128
 #: tools/ascli-actions-misc.c:371 tools/ascli-actions-misc.c:448
@@ -3585,28 +3575,27 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:707
 msgid "Requirements:"
-msgstr ""
+msgstr "Требования:"
 
 #: tools/ascli-actions-mdata.c:709
 msgid "No required items are set for this software."
-msgstr ""
+msgstr "Для этого программного обеспечения не установлены обязательные элементы."
 
 #: tools/ascli-actions-mdata.c:717
 msgid "Recommendations:"
-msgstr ""
+msgstr "Рекомендации:"
 
 #: tools/ascli-actions-mdata.c:719
 msgid "No recommended items are set for this software."
-msgstr ""
+msgstr "Для этого программного обеспечения не заданы рекомендуемые элементы."
 
 #: tools/ascli-actions-mdata.c:727
-#, fuzzy
 msgid "Supported:"
-msgstr "Спортивные"
+msgstr "Поддерживаемые:"
 
 #: tools/ascli-actions-mdata.c:729
 msgid "No supported items are set for this software."
-msgstr ""
+msgstr "Для этого программного обеспечения не заданы поддерживаемые элементы."
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:48
@@ -3728,7 +3717,7 @@ msgstr "Вам необходимо указать формат NEWS для за
 
 #: tools/ascli-actions-misc.c:526
 msgid "Operating System Details"
-msgstr ""
+msgstr "Сведения об операционной системе"
 
 #: tools/ascli-actions-misc.c:530
 #, c-format
@@ -3736,9 +3725,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr "Невозможно найти компонент операционной системы '%s'!"
 
 #: tools/ascli-actions-misc.c:536
-#, fuzzy
 msgid "ID"
-msgstr "Интегрированные среды разработки (IDE)"
+msgstr "Идентификатор (ID)"
 
 #: tools/ascli-actions-misc.c:537 tools/ascli-actions-misc.c:556
 #: tools/ascli-utils.c:302
@@ -3764,7 +3752,7 @@ msgstr "Описание"
 
 #: tools/ascli-actions-misc.c:555
 msgid "Kernel"
-msgstr ""
+msgstr "Ядро"
 
 #: tools/ascli-actions-misc.c:557
 msgid "Version"
@@ -3776,12 +3764,11 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:562
 msgid "Physical Memory"
-msgstr ""
+msgstr "Физическая память"
 
 #: tools/ascli-actions-misc.c:566
-#, fuzzy
 msgid "Devices with Modaliases"
-msgstr "Modalias'ы"
+msgstr "Устройства с modaliases"
 
 #: tools/ascli-actions-misc.c:590
 msgid "User Input Controls"
