@@ -200,8 +200,8 @@ main (int argc, char **argv)
 			/* TRANSLATORS: ascompose flag description for: --result-root */
 			_("Set the result output directory"), "DIR" },
 		{ "data-dir", '\0', 0, G_OPTION_ARG_FILENAME, &mdata_dir,
-			/* TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term */
-			_("Override the collection metadata output directory"), "DIR" },
+			/* TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term */
+			_("Override the catalog metadata output directory"), "DIR" },
 		{ "icons-dir", '\0', 0, G_OPTION_ARG_FILENAME, &icons_dir,
 			/* TRANSLATORS: ascompose flag description for: --icons-dir */
 			_("Override the icon output directory"), "DIR" },

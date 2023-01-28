@@ -43,16 +43,16 @@ static gboolean optn_no_color = FALSE;
 
 /*** COMMAND OPTIONS ***/
 
-/* for data_collection_options */
+/* for data_catalog_options */
 static gchar *optn_cachepath = NULL;
 static gchar *optn_datapath = NULL;
 static gboolean optn_no_cache = FALSE;
 
 /**
  * General options used for any operations on
- * metadata collections and the cache.
+ * metadata catalogs and the cache.
  */
-const GOptionEntry data_collection_options[] = {
+const GOptionEntry data_catalog_options[] = {
 	{ "cachepath", 0, 0,
 		G_OPTION_ARG_STRING,
 		&optn_cachepath,
@@ -271,7 +271,7 @@ as_client_run_refresh_cache (const gchar *command, char **argv, int argc)
 	};
 
 	opt_context = as_client_new_subcommand_option_context (command, refresh_options);
-	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
+	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context,
 					      command, &argc, &argv);
@@ -304,7 +304,7 @@ as_client_run_search (const gchar *command, char **argv, int argc)
 	gint ret;
 
 	opt_context = as_client_new_subcommand_option_context (command, find_options);
-	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
+	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
 	if (ret != 0)
@@ -340,7 +340,7 @@ as_client_run_get (const gchar *command, char **argv, int argc)
 	const gchar *value = NULL;
 
 	opt_context = as_client_new_subcommand_option_context (command, find_options);
-	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
+	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
 	if (ret != 0)
@@ -368,7 +368,7 @@ as_client_run_dump (const gchar *command, char **argv, int argc)
 	const gchar *value = NULL;
 	AsFormatKind mformat;
 
-	opt_context = as_client_new_subcommand_option_context (command, data_collection_options);
+	opt_context = as_client_new_subcommand_option_context (command, data_catalog_options);
 	g_option_context_add_main_entries (opt_context, format_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
@@ -399,7 +399,7 @@ as_client_run_what_provides (const gchar *command, char **argv, int argc)
 	const gchar *vvalue = NULL;
 
 	opt_context = as_client_new_subcommand_option_context (command, find_options);
-	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
+	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
 	if (ret != 0)
@@ -429,7 +429,7 @@ as_client_run_list_categories (const gchar *command, char **argv, int argc)
 	g_auto(GStrv) categories = NULL;
 
 	opt_context = as_client_new_subcommand_option_context (command, find_options);
-	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
+	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
 	if (ret != 0)
@@ -555,7 +555,7 @@ as_client_run_is_satisfied (const gchar *command, char **argv, int argc)
 	const gchar *fname_or_cid = NULL;
 
 	opt_context = as_client_new_subcommand_option_context (command, find_options);
-	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
+	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
 	if (ret != 0)
@@ -733,7 +733,7 @@ as_client_run_sysinfo (const gchar *command, char **argv, int argc)
 	gint ret;
 
 	opt_context = as_client_new_subcommand_option_context (command, find_options);
-	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
+	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
 	if (ret != 0)
