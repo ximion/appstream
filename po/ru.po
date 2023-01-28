@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-26 13:34+0100\n"
-"PO-Revision-Date: 2023-01-27 18:09+0000\n"
+"PO-Revision-Date: 2023-01-28 15:44+0000\n"
 "Last-Translator: Сергей <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
@@ -1259,12 +1259,12 @@ msgstr ""
 #: src/as-relation.c:1775
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Это приложение требует ядро %s, но система работает на %s."
 
 #: src/as-relation.c:1779
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Для этого приложения рекомендуется ядро %s, но система работает на %s."
 
 #: src/as-relation.c:1783
 #, c-format
@@ -1277,7 +1277,7 @@ msgstr "Это приложение поддерживает только ядр
 #: src/as-relation.c:1805
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
+msgstr "Это приложение требует %s %s %s, но система работает на %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1285,7 +1285,7 @@ msgstr ""
 #: src/as-relation.c:1813
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
+msgstr "Рекомендуется использовать %s %s %s, но эта система работает на %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
@@ -1298,7 +1298,7 @@ msgstr "Это приложение поддерживает %s %s %s."
 #: src/as-relation.c:1830
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "Ядро %s %s поддерживается."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1306,7 +1306,7 @@ msgstr ""
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Это приложение требует %s %.2f ГиБ памяти, но в системе установлено лишь %.2f ГиБ."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1314,7 +1314,7 @@ msgstr ""
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Для этого приложения рекомендуется %s %.2f ГиБ памяти, но в системе установлено лишь %.2f ГиБ."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
@@ -1326,7 +1326,7 @@ msgstr "Это приложение поддерживает %s %.2f ГиБ па
 #: src/as-relation.c:1880
 #, c-format
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "В этой системе достаточно памяти для данного программного обеспечения."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -3330,10 +3330,8 @@ msgstr "Показать информацию о состоянии доступ
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1371
-#, fuzzy
 msgid "Show information about the current device and used operating system."
-msgstr ""
-"Отображение информации о текущей операционной системе из индекса метаданных."
+msgstr "Отображение информации о текущем устройстве и используемой операционной системе."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1376
@@ -3776,7 +3774,7 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:593
 msgid "unknown"
-msgstr ""
+msgstr "неизвестно"
 
 #: tools/ascli-actions-misc.c:600 tools/ascli-actions-validate.c:687
 #: tools/ascli-actions-validate.c:690
