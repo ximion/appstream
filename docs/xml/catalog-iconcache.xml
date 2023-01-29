@@ -20,9 +20,11 @@
 	<section id="spec-iconcache-location">
 		<title>Filesystem locations</title>
 		<para>
-			All icons of type <literal>cached</literal> must be placed in <filename>/usr/share/swcatalog/icons/%{origin}/%{size}/</filename> or <filename>/var/cache/swcatalog/icons/%{origin}/%{size}/</filename>,
+			All icons of type <literal>cached</literal> must be placed in <filename>/usr/share/swcatalog/icons/%{origin}/%{size}/</filename> or <filename>/var/(lib|cache)/swcatalog/icons/%{origin}/%{size}/</filename>,
 			where <literal>origin</literal> is the AppStream data origin defined in the AppStream data file (see <xref linkend="spec-asxml-general"/>), and <literal>size</literal>
 			is <code>64x64</code> or <code>128x128</code> depending on the size of the icon. And icon might be present with different sizes in both directories.
+			When finding cached icons, they must only be searched for in the same location where the accompanying catalog metadata is located.
+			For example, icons for <filename>/var/lib/swcatalog/xml/debian-jessie-main.xml.gz</filename> must only be looked up in <filename>/var/lib/swcatalog/icons/debian-jessie-main/</filename> and not also in locations in <filename>/var/cache/</filename> or elsewhere.
 		</para>
 		<para>
 			For example the cache icon <code>krita.png</code> of a component in a data file with the origin <code>jessie</code> should be stored in
