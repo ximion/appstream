@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-26 13:34+0100\n"
-"PO-Revision-Date: 2023-01-28 22:55+0000\n"
+"PO-Revision-Date: 2023-01-29 10:06+0000\n"
 "Last-Translator: Сергей <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
@@ -1238,23 +1238,23 @@ msgstr "Найден поддерживаемый программный ком�
 #: src/as-relation.c:1727
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "Найдено оборудование, поддерживаемое этим приложением: «%s»"
 
 #: src/as-relation.c:1733
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Необходимое оборудование для данного приложения в этой системе не найдено: «%s»"
 
 #: src/as-relation.c:1737
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Рекомендуемое оборудование для данного приложения в этой системе не найдено: «%s»"
 
 #: src/as-relation.c:1741
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "Это приложение поддерживает оборудование, отсутствующее в этой системе: «%s»"
 
 #: src/as-relation.c:1775
 #, c-format
@@ -1335,7 +1335,7 @@ msgstr "В этой системе достаточно памяти для да
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Для этого приложения требуется дисплей с размером длинного края %s %lu пикс., но дисплей на этом устройстве имеет размер %lu пикс."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1344,7 +1344,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Для этого приложения требуется дисплей с размером короткого края %s %lu пикс., но дисплей на этом устройстве имеет размер %lu пикс."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1353,7 +1353,7 @@ msgstr ""
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Для этого приложения рекомендуемый размер длинного края дисплея %s %lu пикс., но дисплей на этом устройстве имеет размер %lu пикс."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1362,16 +1362,16 @@ msgstr ""
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Для этого приложения рекомендуемый размер короткого края дисплея %s %lu пикс., но дисплей на этом устройстве имеет размер %lu пикс."
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "Размер дисплея достаточен для этого приложения."
 
 #: src/as-relation.c:1996
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "Проверка соотношения для элементов типа «%s» еще не реализована."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
