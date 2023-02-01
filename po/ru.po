@@ -42,8 +42,8 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-26 13:34+0100\n"
-"PO-Revision-Date: 2023-01-31 05:41+0000\n"
-"Last-Translator: lenemter <lenemter@gmail.com>\n"
+"PO-Revision-Date: 2023-02-01 11:05+0000\n"
+"Last-Translator: Сергей <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -3884,9 +3884,9 @@ msgid "You need to specify at least one file to validate!"
 msgstr "Вам необходимо указать хотя бы один файл для проверки!"
 
 #: tools/ascli-actions-validate.c:399
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to add release metadata file: %s"
-msgstr "Не удалось установить файл метаданных: %s"
+msgstr "Невозможно добавить файл метаданных выпуска: %s"
 
 #: tools/ascli-actions-validate.c:408
 msgid ""
