@@ -140,7 +140,12 @@
 			<listitem>
 				<para>
 					A <literal>description</literal> tag contains a brief description of what is new in the release.
-					The <literal>description</literal> tag is structured as described in <xref linkend="tag-description"/>.
+					The intended audience of the description are the users of the component (who are typically not developers), and so the description should mention only the user visible changes in the release.
+					The <literal>description</literal> tag supports child tags as described in <xref linkend="tag-description"/>.
+				</para>
+				<para>
+					It is recommended to not link to issue trackers or bug reports, as these typically make no sense to users.
+					If particular issues need to be highlighted (for example, CVEs fixed in this release), they should be listed in the <literal>issues</literal> tag.
 				</para>
 			</listitem>
 			</varlistentry>
