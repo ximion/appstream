@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-26 13:34+0100\n"
+"POT-Creation-Date: 2023-02-02 23:56+0100\n"
 "PO-Revision-Date: 2022-12-31 03:47+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/"
@@ -2772,9 +2772,10 @@ msgstr "Prepiši standardni prefiks (standardno je `/usr`)"
 msgid "Set the result output directory"
 msgstr "Postavi mapu za ispis rezultata"
 
-#. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
+#. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:204
-msgid "Override the collection metadata output directory"
+#, fuzzy
+msgid "Override the catalog metadata output directory"
 msgstr "Prepiši mapu rezultata za „collection metadata”"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir

@@ -46,7 +46,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-26 13:34+0100\n"
+"POT-Creation-Date: 2023-02-02 23:56+0100\n"
 "PO-Revision-Date: 2022-12-24 03:49+0000\n"
 "Last-Translator: Eric <hamburger1024@duck.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -2623,9 +2623,10 @@ msgstr "覆盖默认前缀（默认为“/usr”）"
 msgid "Set the result output directory"
 msgstr "设置结果输出目录"
 
-#. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
+#. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:204
-msgid "Override the collection metadata output directory"
+#, fuzzy
+msgid "Override the catalog metadata output directory"
 msgstr "覆盖集合元数据输出目录"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir

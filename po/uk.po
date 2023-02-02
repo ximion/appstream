@@ -21,15 +21,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-26 13:34+0100\n"
+"POT-Creation-Date: 2023-02-02 23:56+0100\n"
 "PO-Revision-Date: 2023-01-26 19:01+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
+"translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.16-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -1276,7 +1278,9 @@ msgstr ""
 #: src/as-relation.c:1783
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr "У цьому програмному забезпеченні передбачено підтримку лише ядра %s, але, попри це, воно може працювати і на ядрі %s."
+msgstr ""
+"У цьому програмному забезпеченні передбачено підтримку лише ядра %s, але, "
+"попри це, воно може працювати і на ядрі %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1284,7 +1288,9 @@ msgstr "У цьому програмному забезпеченні перед
 #: src/as-relation.c:1805
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr "Для цього програмного забезпечення потрібна версія %s %s %s, але у цій системі маємо версію %s %s."
+msgstr ""
+"Для цього програмного забезпечення потрібна версія %s %s %s, але у цій "
+"системі маємо версію %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1292,7 +1298,9 @@ msgstr "Для цього програмного забезпечення пот
 #: src/as-relation.c:1813
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr "Рекомендоване використання %s %s %s, але у цій системі використано версію %s %s."
+msgstr ""
+"Рекомендоване використання %s %s %s, але у цій системі використано версію %s "
+"%s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
@@ -1332,7 +1340,8 @@ msgstr ""
 #: src/as-relation.c:1871
 #, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr "У цьому програмному забезпеченні передбачено підтримку %s %.2f ГіБ пам'яті."
+msgstr ""
+"У цьому програмному забезпеченні передбачено підтримку %s %.2f ГіБ пам'яті."
 
 #: src/as-relation.c:1880
 #, c-format
@@ -1346,7 +1355,9 @@ msgstr "У цій системі достатньо пам'яті для цьо�
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Для цього програмного забезпечення потрібен дисплей із довшим краєм %s %lu пк, але дисплей цього пристрою має лише %lu пк."
+msgstr ""
+"Для цього програмного забезпечення потрібен дисплей із довшим краєм %s %lu "
+"пк, але дисплей цього пристрою має лише %lu пк."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1355,7 +1366,9 @@ msgstr "Для цього програмного забезпечення пот
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Для цього програмного забезпечення потрібен дисплей із коротшим краєм %s %lu пк, але дисплей цього пристрою має лише %lu пк."
+msgstr ""
+"Для цього програмного забезпечення потрібен дисплей із коротшим краєм %s %lu "
+"пк, але дисплей цього пристрою має лише %lu пк."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1364,7 +1377,9 @@ msgstr "Для цього програмного забезпечення пот
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Для цього програмного забезпечення рекомендовано дисплей із довшим краєм %s %lu пк, але дисплей цього пристрою має лише %lu пк."
+msgstr ""
+"Для цього програмного забезпечення рекомендовано дисплей із довшим краєм %s "
+"%lu пк, але дисплей цього пристрою має лише %lu пк."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1373,7 +1388,9 @@ msgstr "Для цього програмного забезпечення рек
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Для цього програмного забезпечення рекомендовано дисплей із коротшим краєм %s %lu пк, але дисплей цього пристрою має лише %lu пк."
+msgstr ""
+"Для цього програмного забезпечення рекомендовано дисплей із коротшим краєм "
+"%s %lu пк, але дисплей цього пристрою має лише %lu пк."
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
@@ -2847,9 +2864,10 @@ msgstr "Перевизначити типовий префікс (типовим
 msgid "Set the result output directory"
 msgstr "Встановити каталог для виведення результатів"
 
-#. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
+#. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:204
-msgid "Override the collection metadata output directory"
+#, fuzzy
+msgid "Override the catalog metadata output directory"
 msgstr "Перевизначити каталог виведення метаданих збірки"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
@@ -3214,7 +3232,9 @@ msgstr ""
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr "Вважати, що дані у вхідному файлі записано у вибраному форматі («yaml», «text» або «markdown»)."
+msgstr ""
+"Вважати, що дані у вхідному файлі записано у вибраному форматі («yaml», "
+"«text» або «markdown»)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:988
@@ -3357,7 +3377,9 @@ msgstr ""
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
-msgstr "Перевірити, чи виконано вимоги щодо компонента (за його ідентифікатором або файлом MetaInfo) у цій системі."
+msgstr ""
+"Перевірити, чи виконано вимоги щодо компонента (за його ідентифікатором або "
+"файлом MetaInfo) у цій системі."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1355
@@ -3597,7 +3619,9 @@ msgstr "Не вдалося зберегти файл метаінформаці
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr "Не вдалося перевірити розміри дисплея: не вдалося прочитати відомості без доступу до набору інструментів графічного інтерфейсу."
+msgstr ""
+"Не вдалося перевірити розміри дисплея: не вдалося прочитати відомості без "
+"доступу до набору інструментів графічного інтерфейсу."
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"
@@ -3641,7 +3665,8 @@ msgstr "Підтримуване:"
 
 #: tools/ascli-actions-mdata.c:729
 msgid "No supported items are set for this software."
-msgstr "Записів підтримуваного для цього програмного забезпечення не встановлено."
+msgstr ""
+"Записів підтримуваного для цього програмного забезпечення не встановлено."
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:48

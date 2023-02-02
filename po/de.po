@@ -45,10 +45,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-01-26 13:34+0100\n"
+"POT-Creation-Date: 2023-02-02 23:56+0100\n"
 "PO-Revision-Date: 2023-01-28 15:44+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
+"translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1114,7 +1115,9 @@ msgstr "Diese Software erfordert ein Touch-Eingabegerät."
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr "Diese Software benötigt ein Mikrofon, um über die Spracheingabe gesteuert zu werden."
+msgstr ""
+"Diese Software benötigt ein Mikrofon, um über die Spracheingabe gesteuert zu "
+"werden."
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."
@@ -1136,7 +1139,9 @@ msgstr "Diese Software empfiehlt ein Touch-Eingabegerät."
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr "Diese Software empfiehlt ein Mikrofon, um über die Spracheingabe gesteuert zu werden."
+msgstr ""
+"Diese Software empfiehlt ein Mikrofon, um über die Spracheingabe gesteuert "
+"zu werden."
 
 #: src/as-relation.c:1568
 msgid "This software recommends a camera for input control."
@@ -1252,33 +1257,43 @@ msgstr "Hardware gefunden, die von dieser Software unterstützt wird: '%s'"
 #: src/as-relation.c:1733
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr "Für diese Software erforderliche Hardware wurde auf diesem System nicht gefunden: '%s'"
+msgstr ""
+"Für diese Software erforderliche Hardware wurde auf diesem System nicht "
+"gefunden: '%s'"
 
 #: src/as-relation.c:1737
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr "Für diese Software empfohlene Hardware wurde auf diesem System nicht gefunden: '%s'"
+msgstr ""
+"Für diese Software empfohlene Hardware wurde auf diesem System nicht "
+"gefunden: '%s'"
 
 #: src/as-relation.c:1741
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr "Diese Software unterstützt Hardware, die in diesem System nicht vorhanden ist: '%s'"
+msgstr ""
+"Diese Software unterstützt Hardware, die in diesem System nicht vorhanden "
+"ist: '%s'"
 
 #: src/as-relation.c:1775
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr "Diese Software erfordert einen Kernel %s, aber auf diesem System läuft %s."
+msgstr ""
+"Diese Software erfordert einen Kernel %s, aber auf diesem System läuft %s."
 
 #: src/as-relation.c:1779
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr "Diese Software empfiehlt einen Kernel %s, aber auf diesem System läuft %s."
+msgstr ""
+"Diese Software empfiehlt einen Kernel %s, aber auf diesem System läuft %s."
 
 #: src/as-relation.c:1783
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr "Diese Software unterstützt nur einen Kernel %s, könnte aber trotzdem auf %s laufen."
+msgstr ""
+"Diese Software unterstützt nur einen Kernel %s, könnte aber trotzdem auf %s "
+"laufen."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1294,7 +1309,9 @@ msgstr "Diese Software erfordert %s %s %s, aber auf diesem System läuft %s %s."
 #: src/as-relation.c:1813
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr "Die Verwendung von %s %s %s wird empfohlen, aber auf diesem System läuft %s %s."
+msgstr ""
+"Die Verwendung von %s %s %s wird empfohlen, aber auf diesem System läuft %s "
+"%s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
@@ -1315,7 +1332,9 @@ msgstr "Kernel %s %s wird unterstützt."
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr "Diese Software benötigt %s %.2f GiB Speicher, aber dieses System hat %.2f GiB."
+msgstr ""
+"Diese Software benötigt %s %.2f GiB Speicher, aber dieses System hat %.2f "
+"GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1323,7 +1342,9 @@ msgstr "Diese Software benötigt %s %.2f GiB Speicher, aber dieses System hat %.
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr "Diese Software empfiehlt %s %.2f GiB Speicher, aber dieses System hat %.2f GiB."
+msgstr ""
+"Diese Software empfiehlt %s %.2f GiB Speicher, aber dieses System hat %.2f "
+"GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
@@ -1344,7 +1365,9 @@ msgstr "Dieses System verfügt über ausreichend Speicher für diese Software."
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Diese Software benötigt einen Bildschirm, dessen längste Seite %s %lu px groß ist, aber der Bildschirm dieses Geräts hat %lu px."
+msgstr ""
+"Diese Software benötigt einen Bildschirm, dessen längste Seite %s %lu px "
+"groß ist, aber der Bildschirm dieses Geräts hat %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1353,7 +1376,9 @@ msgstr "Diese Software benötigt einen Bildschirm, dessen längste Seite %s %lu 
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Diese Software benötigt einen Bildschirm, dessen kürzeste Seite %s %lu px groß ist, aber der Bildschirm dieses Geräts hat %lu px."
+msgstr ""
+"Diese Software benötigt einen Bildschirm, dessen kürzeste Seite %s %lu px "
+"groß ist, aber der Bildschirm dieses Geräts hat %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1362,7 +1387,9 @@ msgstr "Diese Software benötigt einen Bildschirm, dessen kürzeste Seite %s %lu
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Diese Software empfiehlt einen Bildschirm, dessen längste Seite %s %lu px groß ist, aber der Bildschirm dieses Geräts hat %lu px."
+msgstr ""
+"Diese Software empfiehlt einen Bildschirm, dessen längste Seite %s %lu px "
+"groß ist, aber der Bildschirm dieses Geräts hat %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1371,7 +1398,9 @@ msgstr "Diese Software empfiehlt einen Bildschirm, dessen längste Seite %s %lu 
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Diese Software empfiehlt einen Bildschirm, dessen kürzeste Seite %s %lu px groß ist, aber der Bildschirm dieses Geräts hat %lu px."
+msgstr ""
+"Diese Software empfiehlt einen Bildschirm, dessen kürzeste Seite %s %lu px "
+"groß ist, aber der Bildschirm dieses Geräts hat %lu px."
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
@@ -2819,9 +2848,10 @@ msgstr "Standardpräfix überschreiben (standardmäßig `/usr`)"
 msgid "Set the result output directory"
 msgstr "Ausgabeverzeichnis der Ergebnisse festlegen"
 
-#. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
+#. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:204
-msgid "Override the collection metadata output directory"
+#, fuzzy
+msgid "Override the catalog metadata output directory"
 msgstr "Überschreiben des Ausgabeverzeichnisses für Sammlungsmetadaten"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
