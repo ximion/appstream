@@ -167,10 +167,35 @@
 				<para>
 					The value of an <literal>issue</literal> tag must be the bug number, ticket name, or CVE ID and is typically displayed to the user, but may also in case of CVE IDs be read by
 					machines. The content of an <literal>issue</literal> element is not translatable, but can be a string appropriate for the project's bug tracker.
-					If the element's value is a CVE ID, the <literal>type</literal> property of the <literal>issue</literal> tag must be set to <code>cve</code>.
-					If the <literal>type</literal> property is missing, an issue type of <code>generic</code> is assumed. The <literal>url</literal> property can be used to provide
-					a web URL to a details page on the respective issue. It is required for all issue types, except for the <code>cve</code> type, where it is optional.
 				</para>
+				<para>
+					The <literal>issue</literal> tag may have a <literal>type</literal> property, which should have a value of <literal>generic</literal> or <literal>cve</literal>.
+					If the <literal>type</literal> property is missing, a type of <literal>generic</literal> is assumed.
+				</para>
+				<para>
+					It may also have a <literal>url</literal> property, which should be a URL for a details page on the respective issue.
+				</para>
+				<para>
+					If <literal>type</literal> is <literal>cve</literal>, the element’s value must be a CVE ID in the <ulink url="https://www.cve.org/About/Process#cve-id">format defined by MITRE</ulink>.
+					For example, <literal>CVE-2023-12345</literal>. Software consuming the release data of a component should be able to append the element’s value to <literal>https://nvd.nist.gov/vuln/detail/</literal> to get a page of information about the CVE.
+					If a <literal>url</literal> property is given, its value overrides any URL constructed from the CVE identifier.
+					The <literal>url</literal> property is optional if <literal>type</literal> is <literal>cve</literal>.
+				</para>
+				<para>
+					For example:
+				</para>
+				<programlisting language="XML"><![CDATA[<issue url="https://example.com/bugzilla/12345">bz#12345</issue>]]></programlisting>
+				<para>
+					If <literal>type</literal> is <literal>generic</literal> or unspecified, the element’s value is a free-form issue identifier, and the <literal>url</literal> property must be specified.
+					The issue identifier should be shorthand for an issue in the project’s bug tracker, and it does not have to be globally unique. It should be human readable, but does not have to be appropriate for non-technical audiences.
+				</para>
+				<para>
+					For example:
+				</para>
+				<programlisting language="XML"><![CDATA[<issues>
+  <issue type="cve">CVE-2021-28153</issue>
+  <issue url="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-27218">CVE-2021-27218</issue>
+</issues>]]></programlisting>
 			</listitem>
 			</varlistentry>
 
