@@ -4100,10 +4100,10 @@ as_component_merge_with_mode (AsComponent *cpt, AsComponent *source, AsMergeKind
 			as_component_set_bundles_array (dest_cpt, as_component_get_bundles (src_cpt));
 
 		/* merge icons */
-		as_copy_gobject_array (src_priv->icons, src_priv->icons);
+		as_copy_gobject_array (src_priv->icons, dest_priv->icons);
 
 		/* merge provided items */
-		as_copy_gobject_array (src_priv->provided, src_priv->provided);
+		as_copy_gobject_array (src_priv->provided, dest_priv->provided);
 	}
 
 	g_debug ("Merged data for '[%i] %s' <<- '[%i] %s'",
