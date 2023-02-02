@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-01-26 13:34+0100\n"
-"PO-Revision-Date: 2023-02-01 11:05+0000\n"
+"PO-Revision-Date: 2023-02-02 01:06+0000\n"
 "Last-Translator: Сергей <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
@@ -3064,9 +3064,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:591
-#, fuzzy
 msgid "Set the data origin for the installed metadata catalog file."
-msgstr "Установите источник данных для установленного файла сбора метаданных."
+msgstr "Установите источник данных для установленного файла каталога метаданных."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:596
@@ -3152,13 +3151,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-#, fuzzy
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr ""
-"Предположим, что входной файл находится в выбранном формате ('yaml' или "
-"'text')."
+msgstr "Предположим, что входной файл находится в выбранном формате ('yaml', 'text' или 'markdown')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:988
@@ -3181,10 +3177,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-#, fuzzy
 msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr "Сгенерируйте вывод в выбранном формате ('yaml' или 'text')."
+msgstr "Сгенерируйте вывод в выбранном формате ('yaml', 'text' или 'markdown')."
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1080
@@ -3334,9 +3329,8 @@ msgstr "Установить файл метаданных в нужное ме�
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1381
-#, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr "Конвертировать коллекцию из XML в YAML или наоборот."
+msgstr "Конвертировать каталог метаданных из XML в YAML или наоборот."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1386
@@ -3368,9 +3362,8 @@ msgstr "Напишите текст NEWS или файл YAML с информа�
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1412
-#, fuzzy
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr "Составить метаданные коллекции AppStream из деревьев каталогов."
+msgstr "Составить каталог метаданных AppStream из дерева каталогов."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1420
@@ -3457,15 +3450,14 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Не удалось найти компоненту, предоставляющую \"%s::%s\"."
 
 #: tools/ascli-actions-mdata.c:244
-#, fuzzy
 msgid "You need to specify categories to list."
-msgstr "Вам необходимо указать термин для поиска."
+msgstr "Вам необходимо указать категории для построения списка."
 
 #. TRANSLATORS: We failed to find any component in these categories, likely due to an error
 #: tools/ascli-actions-mdata.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find components in %s!"
-msgstr "Не удаётся найти компоненту, соответствующую %s!"
+msgstr "Не удалось найти компоненты в %s!"
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:265
@@ -3752,7 +3744,7 @@ msgstr "Версия"
 
 #: tools/ascli-actions-misc.c:560
 msgid "Hardware"
-msgstr ""
+msgstr "Оборудование"
 
 #: tools/ascli-actions-misc.c:562
 msgid "Physical Memory"
@@ -3764,7 +3756,7 @@ msgstr "Устройства с modaliases"
 
 #: tools/ascli-actions-misc.c:590
 msgid "User Input Controls"
-msgstr ""
+msgstr "Элементы управления пользовательским вводом"
 
 #: tools/ascli-actions-misc.c:593
 msgid "unknown"
