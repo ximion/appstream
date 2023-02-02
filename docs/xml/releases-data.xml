@@ -162,7 +162,7 @@
 			<listitem>
 				<para>
 					The <literal>issues</literal> tag contains <literal>issue</literal> children defining issues resolved by this release.
-					It is used most commonly to mention <ulink url="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">CVE</ulink> IDs,
+					It is used most commonly to mention <ulink url="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">CVE</ulink> IDs.
 				</para>
 				<para>
 					The value of an <literal>issue</literal> tag must be the bug number, ticket name, or CVE ID and is typically displayed to the user, but may also in case of CVE IDs be read by
