@@ -163,6 +163,7 @@
 				<para>
 					The <literal>issues</literal> tag contains <literal>issue</literal> children defining issues resolved by this release.
 					It is used most commonly to mention <ulink url="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">CVE</ulink> IDs.
+					Software which is interpreting the release notes for the component should present the list of issues separately from the release description. They should not be thought of as a bullet-point list of issues which follow straight on in prose from the <literal>description</literal> element’s value.
 				</para>
 				<para>
 					The value of an <literal>issue</literal> tag must be the bug number, ticket name, or CVE ID and is typically displayed to the user, but may also in case of CVE IDs be read by
