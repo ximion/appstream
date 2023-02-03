@@ -81,7 +81,7 @@ msgstr "মিউজিক প্লেয়ারসমূহ"
 #: src/as-category.c:85
 msgctxt "Category of Development"
 msgid "Featured"
-msgstr ""
+msgstr "নির্বাচিত"
 
 #: src/as-category.c:88
 msgctxt "Category of Development"
@@ -3375,8 +3375,8 @@ msgstr ""
 
 #: tools/ascli-actions-pkgmgr.c:52
 msgid ""
-"No suitable package manager CLI found. Please make sure that e.g. "
-"\"pkcon\" (part of PackageKit) is available."
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
 msgstr ""
 
 #: tools/ascli-actions-pkgmgr.c:66
@@ -3607,6 +3607,11 @@ msgstr ""
 #: tools/ascli-utils.c:510
 #, c-format
 msgid "Please enter a number from 1 to %i: "
+msgstr ""
+
+#. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
+#: tools/appstream-compose.c:204
+msgid "Override the collection metadata output directory"
 msgstr ""
 
 #~ msgid "An item type (e.g. lib, bin, python3, …)"
