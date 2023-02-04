@@ -2,22 +2,21 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Oymate <dhruboadittya96@gmail.com>, 2020, 2021, 2022.
-# Abu Huraira <abuhuraira@tutamail.com>, 2022.
+# Abu Huraira <abuhuraira@tutamail.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-02-02 23:56+0100\n"
-"PO-Revision-Date: 2022-08-14 17:17+0000\n"
+"PO-Revision-Date: 2023-02-04 22:37+0000\n"
 "Last-Translator: Abu Huraira <abuhuraira@tutamail.com>\n"
-"Language-Team: Bengali (Bangladesh) <https://hosted.weblate.org/projects/"
-"appstream/translations/bn_BD/>\n"
+"Language-Team: Bengali (Bangladesh) <https://hosted.weblate.org/projects/appstream/translations/bn_BD/>\n"
 "Language: bn_BD\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -86,17 +85,17 @@ msgstr "নির্বাচিত"
 #: src/as-category.c:88
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "ত্রুটিমুক্তকারীগণ"
 
 #: src/as-category.c:91
 msgctxt "Category of Development"
 msgid "IDEs"
-msgstr ""
+msgstr "সমম্বিত ডেভেলপমেন্ট পরিবেশগুলো"
 
 #: src/as-category.c:100
 msgctxt "Category of Education"
 msgid "Featured"
-msgstr ""
+msgstr "নির্বাচিত"
 
 #: src/as-category.c:103
 msgctxt "Category of Education"
@@ -121,7 +120,7 @@ msgstr "গণিত"
 #: src/as-category.c:122
 msgctxt "Category of Games"
 msgid "Featured"
-msgstr ""
+msgstr "নির্বাচিত"
 
 #: src/as-category.c:125
 msgctxt "Category of Games"
@@ -186,7 +185,7 @@ msgstr "কৌশল"
 #: src/as-category.c:167
 msgctxt "Category of Graphics"
 msgid "Featured"
-msgstr ""
+msgstr "নির্বাচিত"
 
 #: src/as-category.c:170
 msgctxt "Category of Graphics"
@@ -216,7 +215,7 @@ msgstr "প্রদর্শক"
 #: src/as-category.c:190
 msgctxt "Category of Office"
 msgid "Featured"
-msgstr ""
+msgstr "নির্বাচিত"
 
 #: src/as-category.c:193
 msgctxt "Category of Office"
@@ -266,7 +265,7 @@ msgstr "স্থানীয়করণ"
 #: src/as-category.c:233
 msgctxt "Category of Science"
 msgid "Featured"
-msgstr ""
+msgstr "নির্বাচিত"
 
 #: src/as-category.c:236
 msgctxt "Category of Science"
@@ -296,7 +295,7 @@ msgstr "রোবোটিক্স"
 #: src/as-category.c:258
 msgctxt "Category of Communication"
 msgid "Featured"
-msgstr ""
+msgstr "নির্বাচিত"
 
 #: src/as-category.c:261
 msgctxt "Category of Communication"
@@ -316,7 +315,7 @@ msgstr "ওয়েব ব্রাউজার"
 #: src/as-category.c:280
 msgctxt "Category of Utility"
 msgid "Featured"
-msgstr ""
+msgstr "নির্বাচিত"
 
 #: src/as-category.c:283
 msgctxt "Category of Utility"
@@ -895,9 +894,8 @@ msgstr "দৃশ্যমান মৃত মানুষের অবশিষ
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1131
-#, fuzzy
 msgid "Dead human remains that are exposed to the elements"
-msgstr "এমন উপাদান যাতে দৃশ্যমান মৃত মানুষের অবশিষ্টাংশ রয়েছে"
+msgstr "এমন উপাদান যাতে মৃত মানুষের অবশিষ্টাংশ দৃশ্যমান রয়েছে"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1133
@@ -959,9 +957,8 @@ msgstr "পুনরুদ্ধার করা ফাইলটির আকা
 #. to include in a search but that should normally be ignored in
 #. the search.
 #: src/as-pool.c:103
-#, fuzzy
 msgid "app;application;package;program;programme;suite;tool"
-msgstr "এ্যাপ;এপ্লিকেশন,প্যাকেজ,প্রোগ্রাম,প্রোগ্রাম,সুইট,টুল"
+msgstr "এ্যাপ;এপ্লিকেশন,প্যাকেজ,প্রোগ্রাম,অনুষ্ঠান,সুইট,টুল"
 
 #: src/as-pool.c:1151
 msgid "Metadata files have errors:"
@@ -983,11 +980,11 @@ msgstr "স্থানীয়ভাবে ইনস্টল করা সফ
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2736
 msgid "Software catalog data"
-msgstr ""
+msgstr "সফটওয়্যার তালিকার তথ্য"
 
 #: src/as-provided.c:144
 msgid "Libraries"
-msgstr ""
+msgstr "লাইব্রেরিসমূহ"
 
 #: src/as-provided.c:146
 msgid "Binaries"
@@ -995,11 +992,11 @@ msgstr "বাইনারি"
 
 #: src/as-provided.c:148
 msgid "Media types"
-msgstr ""
+msgstr "মিডিয়া ধরণ সমূহ"
 
 #: src/as-provided.c:150
 msgid "Fonts"
-msgstr ""
+msgstr "ফন্ট সমূহ"
 
 #: src/as-provided.c:152
 msgid "Modaliases"
@@ -1007,158 +1004,157 @@ msgstr ""
 
 #: src/as-provided.c:154
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "পাইথন (ভার্সন ২)"
 
 #: src/as-provided.c:156
 msgid "Python 3"
-msgstr ""
+msgstr "পাইথন ৩"
 
 #: src/as-provided.c:158
 msgid "D-Bus System Services"
-msgstr ""
+msgstr "ডি-বাস সিস্টেম সেবাগুলো"
 
 #: src/as-provided.c:160
 msgid "D-Bus Session Services"
-msgstr ""
+msgstr "ডি-বাস সেশন সেবাগুলো"
 
 #: src/as-provided.c:162
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "রানটাইম ফার্মওয়্যার"
 
 #: src/as-provided.c:164
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "ফ্লাশকৃত ফার্মওয়্যার"
 
 #: src/as-provided.c:166
 msgid "Component"
-msgstr ""
+msgstr "উপাদান"
 
 #: src/as-relation.c:1530
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "নির্দেশক যন্ত্র (যথা মাউস)"
 
 #: src/as-relation.c:1532
-#, fuzzy
 msgid "keyboard"
-msgstr "বোর্ড"
+msgstr "কীবোর্ড"
 
 #: src/as-relation.c:1534
 msgid "gamepad"
-msgstr ""
+msgstr "গেমপ্যাড"
 
 #: src/as-relation.c:1536
 msgid "tv remote"
-msgstr ""
+msgstr "টিভি রিমোট"
 
 #: src/as-relation.c:1538
 msgid "graphics tablet"
-msgstr ""
+msgstr "গ্রাফিক্স ট্যাবলেট"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1543
 #, c-format
 msgid "This software requires a %s for input."
-msgstr ""
+msgstr "এই সফটওয়্যারে ইনপুট গ্রহণের জন্য একটি %s প্রয়োজন।"
 
 #: src/as-relation.c:1548
 msgid "This software requires a touch input device."
-msgstr ""
+msgstr "এই সফটওয়্যারের জন্য একটি টাচ ইনপুট যন্ত্র প্রয়োজন।"
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "এই সফটওয়্যারে ধ্বনি ইনপুট দ্বারা নিয়ন্ত্রণের জন্য একটি মাইক্রোফোন প্রয়োজন।"
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "এই সফটওয়্যারে ইনপুট কন্ট্রোলের জন্য একটি ক্যামেরা প্রয়োজন।"
 
 #: src/as-relation.c:1554
 msgid "This software requires a method for console input."
-msgstr ""
+msgstr "এই সফটওয়্যারে কনসোল ইনপুটের কোনো মাধ্যম প্রয়োজন।"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1559
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "এই সফটওয়্যারটি ইনপুটের জন্য একটি %s রাখার পরামর্শ দেয়।"
 
 #: src/as-relation.c:1564
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "এই সফটওয়্যারটি একটি টাচ ইনপুট যন্ত্র ব্যবহারের পরামর্শ দেয়।"
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "এই সফটওয়্যারটি ধ্বনি ইনপুট দ্বারা নিয়ন্ত্রণের জন্য একটি মাইক্রোফোন ব্যবহারের পরামর্শ দেয়।"
 
 #: src/as-relation.c:1568
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "এই সফটওয়্যারটি ইনপুট নিয়ন্ত্রণের জন্য একটি ক্যামেরা ব্যবহারের পরামর্শ দেয়।"
 
 #: src/as-relation.c:1570
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "এই সফটওয়্যারটি কনসোল ইনপুটের কোনো মাধ্যম ব্যাবহারের পরামর্শ দেয়।"
 
 #: src/as-relation.c:1575
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "নির্দেশক যন্ত্র (মাউস ইত্যাদি)"
 
 #: src/as-relation.c:1577
 msgid "keyboards"
-msgstr ""
+msgstr "কীবোর্ড সমূহ"
 
 #: src/as-relation.c:1579
 msgid "gamepads"
-msgstr ""
+msgstr "গেমপ্যাড সমূহ"
 
 #: src/as-relation.c:1581
 msgid "tv remotes"
-msgstr ""
+msgstr "টিভি রিমোট সমূহ"
 
 #: src/as-relation.c:1583
 msgid "graphics tablets"
-msgstr ""
+msgstr "গ্রাফিক্স ট্যাবলেট সমূহ"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1587
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "এই সফটওয়্যারটি %s সমর্থন করে।"
 
 #: src/as-relation.c:1592
 msgid "This software supports touch input."
-msgstr ""
+msgstr "এই সফটওয়্যারটি টাচ ইনপুট সমর্থন করে।"
 
 #: src/as-relation.c:1594
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "এই সফটওয়্যারটি ধ্বনি ইনপুটের মাধ্যমে নিয়ন্ত্রণ করা সম্ভব।"
 
 #: src/as-relation.c:1596
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "এই সফটওয়্যারটি ক্যামেরার মাধ্যমে নিয়ন্ত্রণ করা সম্ভব।"
 
 #: src/as-relation.c:1598
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "এই সফটওয়্যারটি কন্ট্রোল নির্দেশনার মাধ্যমে ক্রিয়াকলাপ সমর্থন করে।"
 
 #: src/as-relation.c:1611
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "নির্দেশক যন্ত্র (মাউস বা টাচপ্যাড ইত্যাদি) পাওয়া গিয়েছে।"
 
 #: src/as-relation.c:1613
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "যান্ত্রিক কীবোর্ড পাওয়া গেছে।"
 
 #: src/as-relation.c:1615
 msgid "Gamepad found."
-msgstr ""
+msgstr "গেমপ্যাড পাওয়া গেছে।"
 
 #: src/as-relation.c:1617
 msgid "TV remote found."
-msgstr ""
+msgstr "টিভি রিমোট পাওয়া গিয়েছে।"
 
 #: src/as-relation.c:1619
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "গ্রাফিক্স ট্যাবলেট পাওয়া গিয়েছে।"
 
 #: src/as-relation.c:1622
 msgid "Touch input device found."
