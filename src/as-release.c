@@ -212,6 +212,7 @@ AsReleaseKind
 as_release_get_kind (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_val_if_fail (AS_IS_RELEASE (release), AS_RELEASE_KIND_UNKNOWN);
 	return priv->kind;
 }
 
@@ -229,6 +230,7 @@ void
 as_release_set_kind (AsRelease *release, AsReleaseKind kind)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_if_fail (AS_IS_RELEASE (release));
 	priv->kind = kind;
 }
 
@@ -244,6 +246,7 @@ const gchar*
 as_release_get_version (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
 	return priv->version;
 }
 
@@ -258,6 +261,7 @@ void
 as_release_set_version (AsRelease *release, const gchar *version)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_if_fail (AS_IS_RELEASE (release));
 	as_assign_string_safe (priv->version, version);
 }
 
@@ -273,6 +277,8 @@ as_release_set_version (AsRelease *release, const gchar *version)
 gint
 as_release_vercmp (AsRelease *rel1, AsRelease *rel2)
 {
+	g_return_val_if_fail (AS_IS_RELEASE (rel1), 0);
+	g_return_val_if_fail (AS_IS_RELEASE (rel2), 0);
 	return as_vercmp_simple (as_release_get_version (rel1),
 				 as_release_get_version (rel2));
 }
@@ -289,6 +295,7 @@ guint64
 as_release_get_timestamp (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_val_if_fail (AS_IS_RELEASE (release), 0);
 	return priv->timestamp;
 }
 
@@ -305,6 +312,8 @@ as_release_set_timestamp (AsRelease *release, guint64 timestamp)
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	g_autoptr(GDateTime) time = g_date_time_new_from_unix_utc (timestamp);
 
+	g_return_if_fail (AS_IS_RELEASE (release));
+
 	priv->timestamp = timestamp;
 	g_free (priv->date);
 	priv->date = g_date_time_format_iso8601 (time);
@@ -316,7 +325,7 @@ as_release_set_timestamp (AsRelease *release, guint64 timestamp)
  *
  * Gets the release date.
  *
- * Returns: The date in ISO8601 format.
+ * Returns: (nullable): The date in ISO8601 format.
  *
  * Since: 0.12.5
  **/
@@ -324,6 +333,7 @@ const gchar*
 as_release_get_date (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
 	return priv->date;
 }
 
@@ -342,6 +352,9 @@ as_release_set_date (AsRelease *release, const gchar *date)
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	g_autoptr(GDateTime) time = NULL;
 
+	g_return_if_fail (AS_IS_RELEASE (release));
+	g_return_if_fail (date != NULL);
+
 	time = as_iso8601_to_datetime (date);
 	if (time != NULL) {
 		priv->timestamp = g_date_time_to_unix (time);
@@ -359,7 +372,7 @@ as_release_set_date (AsRelease *release, const gchar *date)
  *
  * Gets the end-of-life date for this release.
  *
- * Returns: The EOL date in ISO8601 format.
+ * Returns: (nullable): The EOL date in ISO8601 format.
  *
  * Since: 0.12.5
  **/
@@ -367,6 +380,7 @@ const gchar*
 as_release_get_date_eol (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
 	return priv->date_eol;
 }
 
@@ -383,6 +397,8 @@ void
 as_release_set_date_eol (AsRelease *release, const gchar *date)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_if_fail (AS_IS_RELEASE (release));
+	g_return_if_fail (date != NULL);
 	as_assign_string_safe (priv->date_eol, date);
 }
 
@@ -402,6 +418,8 @@ as_release_get_timestamp_eol (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	g_autoptr(GDateTime) time = NULL;
+
+	g_return_val_if_fail (AS_IS_RELEASE (release), 0);
 
 	if (priv->date_eol == NULL)
 		return 0;
@@ -431,6 +449,8 @@ as_release_set_timestamp_eol (AsRelease *release, guint64 timestamp)
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	g_autoptr(GDateTime) time = NULL;
 
+	g_return_if_fail (AS_IS_RELEASE (release));
+
 	if (timestamp == 0)
 		return;
 
@@ -454,6 +474,7 @@ AsUrgencyKind
 as_release_get_urgency (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_val_if_fail (AS_IS_RELEASE (release), AS_URGENCY_KIND_UNKNOWN);
 	return priv->urgency;
 }
 
@@ -470,6 +491,7 @@ void
 as_release_set_urgency (AsRelease *release, AsUrgencyKind urgency)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_if_fail (AS_IS_RELEASE (release));
 	priv->urgency = urgency;
 }
 
@@ -485,6 +507,7 @@ const gchar*
 as_release_get_description (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
 	return as_context_localized_ht_get (priv->context,
 					    priv->description,
 					    priv->active_locale_override,
@@ -495,6 +518,7 @@ as_release_get_description (AsRelease *release)
  * as_release_set_description:
  * @release: a #AsRelease instance.
  * @description: the description markup.
+ * @locale: (nullable): the locale, or %NULL. e.g. "en_GB".
  *
  * Sets the description release markup.
  **/
@@ -502,6 +526,8 @@ void
 as_release_set_description (AsRelease *release, const gchar *description, const gchar *locale)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_if_fail (AS_IS_RELEASE (release));
+	g_return_if_fail (description != NULL);
 	as_context_localized_ht_set (priv->context,
 				     priv->description,
 				     description,
@@ -510,15 +536,20 @@ as_release_set_description (AsRelease *release, const gchar *description, const 
 
 /**
  * as_release_get_active_locale:
+ * @release: a #AsRelease instance.
  *
  * Get the current active locale, which
  * is used to get localized messages.
+ *
+ * Returns: the current active locale
  */
 const gchar*
 as_release_get_active_locale (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	const gchar *locale;
+
+	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
 
 	/* return context locale, if the locale isn't explicitly overridden for this component */
 	if ((priv->context != NULL) && (priv->active_locale_override == NULL)) {
@@ -535,6 +566,8 @@ as_release_get_active_locale (AsRelease *release)
 
 /**
  * as_release_set_active_locale:
+ * @release: a #AsRelease instance.
+ * @locale: the locale. e.g. "en_GB".
  *
  * Set the current active locale, which
  * is used to get localized messages.
@@ -546,6 +579,9 @@ void
 as_release_set_active_locale (AsRelease *release, const gchar *locale)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+
+	g_return_if_fail (AS_IS_RELEASE (release));
+	g_return_if_fail (locale != NULL);
 
 	g_free (priv->active_locale_override);
 	priv->active_locale_override = g_strdup (locale);
@@ -565,6 +601,7 @@ GPtrArray*
 as_release_get_artifacts (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
 	return priv->artifacts;
 }
 
@@ -581,6 +618,10 @@ void
 as_release_add_artifact (AsRelease *release, AsArtifact *artifact)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+
+	g_return_if_fail (AS_IS_RELEASE (release));
+	g_return_if_fail (AS_IS_ARTIFACT (artifact));
+
 	g_ptr_array_add (priv->artifacts, g_object_ref (artifact));
 }
 
@@ -597,6 +638,7 @@ GPtrArray*
 as_release_get_issues (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
 	return priv->issues;
 }
 
@@ -613,6 +655,10 @@ void
 as_release_add_issue (AsRelease *release, AsIssue *issue)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+
+	g_return_if_fail (AS_IS_RELEASE (release));
+	g_return_if_fail (AS_IS_ISSUE (issue));
+
 	g_ptr_array_add (priv->issues, g_object_ref (issue));
 }
 
@@ -631,6 +677,8 @@ const gchar*
 as_release_get_url (AsRelease *release, AsReleaseUrlKind url_kind)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+
+	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
 
 	if (url_kind == AS_RELEASE_URL_KIND_DETAILS)
 		return priv->url_details;
@@ -652,6 +700,8 @@ as_release_set_url (AsRelease *release, AsReleaseUrlKind url_kind, const gchar *
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 
+	g_return_if_fail (AS_IS_RELEASE (release));
+
 	if (url_kind == AS_RELEASE_URL_KIND_DETAILS)
 		as_assign_string_safe (priv->url_details, url);
 }
@@ -660,7 +710,7 @@ as_release_set_url (AsRelease *release, AsReleaseUrlKind url_kind, const gchar *
  * as_release_get_context:
  * @release: An instance of #AsRelease.
  *
- * Returns: the #AsContext associated with this release.
+ * Returns: (nullable): the #AsContext associated with this release.
  * This function may return %NULL if no context is set.
  *
  * Since: 0.11.2
@@ -669,6 +719,9 @@ AsContext*
 as_release_get_context (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+
+	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
+
 	return priv->context;
 }
 
@@ -686,10 +739,10 @@ void
 as_release_set_context (AsRelease *release, AsContext *context)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-	if (priv->context != NULL)
-		g_object_unref (priv->context);
-	priv->context = g_object_ref (context);
 
+	g_return_if_fail (AS_IS_RELEASE (release));
+
+	g_set_object (&priv->context, context);
 	/* reset individual properties, so the new context overrides them */
 	g_free (g_steal_pointer (&priv->active_locale_override));
 }
@@ -732,6 +785,7 @@ as_release_legacy_get_default_artifact (AsRelease *release)
 guint64
 as_release_get_size (AsRelease *release, AsSizeKind kind)
 {
+	g_return_val_if_fail (AS_IS_RELEASE (release), 0);
 	return as_artifact_get_size (as_release_legacy_get_default_artifact (release), kind);
 }
 
@@ -749,6 +803,7 @@ as_release_get_size (AsRelease *release, AsSizeKind kind)
 void
 as_release_set_size (AsRelease *release, guint64 size, AsSizeKind kind)
 {
+	g_return_if_fail (AS_IS_RELEASE (release));
 	return as_artifact_set_size (as_release_legacy_get_default_artifact (release), size, kind);
 }
 
@@ -765,6 +820,7 @@ as_release_set_size (AsRelease *release, guint64 size, AsSizeKind kind)
 GPtrArray*
 as_release_get_locations (AsRelease *release)
 {
+	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
 	return as_artifact_get_locations (as_release_legacy_get_default_artifact (release));
 }
 
@@ -780,8 +836,13 @@ as_release_get_locations (AsRelease *release)
 void
 as_release_add_location (AsRelease *release, const gchar *location)
 {
-    AsArtifact *artifact = as_release_legacy_get_default_artifact (release);
-    as_artifact_add_location (artifact, location);
+	AsArtifact *artifact;
+
+	g_return_if_fail (AS_IS_RELEASE (release));
+	g_return_if_fail (location != NULL);
+
+	artifact = as_release_legacy_get_default_artifact (release);
+	as_artifact_add_location (artifact, location);
 }
 
 /**
@@ -797,6 +858,7 @@ as_release_add_location (AsRelease *release, const gchar *location)
 GPtrArray*
 as_release_get_checksums (AsRelease *release)
 {
+	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
 	return as_artifact_get_checksums (as_release_legacy_get_default_artifact (release));
 }
 
@@ -814,6 +876,7 @@ as_release_get_checksums (AsRelease *release)
 AsChecksum*
 as_release_get_checksum (AsRelease *release, AsChecksumKind kind)
 {
+	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
 	return as_artifact_get_checksum (as_release_legacy_get_default_artifact (release), kind);
 }
 
@@ -830,6 +893,8 @@ as_release_get_checksum (AsRelease *release, AsChecksumKind kind)
 void
 as_release_add_checksum (AsRelease *release, AsChecksum *cs)
 {
+	g_return_if_fail (AS_IS_RELEASE (release));
+	g_return_if_fail (AS_IS_CHECKSUM (cs));
 	as_artifact_add_checksum (as_release_legacy_get_default_artifact (release), cs);
 }
 
@@ -846,6 +911,7 @@ gboolean
 as_release_description_translatable (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_val_if_fail (AS_IS_RELEASE (release), FALSE);
 	return priv->desc_translatable;
 }
 
@@ -861,6 +927,7 @@ void
 as_release_set_description_translatable (AsRelease *release, gboolean translatable)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_if_fail (AS_IS_RELEASE (release));
 	priv->desc_translatable = translatable;
 }
 
