@@ -19,6 +19,7 @@
  */
 
 #include <config.h>
+#include <locale.h>
 #include <glib.h>
 #include <glib/gstdio.h>
 #include <glib/gprintf.h>
@@ -1037,6 +1038,10 @@ main (int argc, char **argv)
 		g_error ("No test directory specified!");
 		return 1;
 	}
+
+	/* ensure locale is reset, to avoid interference when stemming is enabled & tested */
+	if (setlocale (LC_ALL, "C.UTF-8") == NULL)
+		g_warning ("Failed to set locale to C.UTF-8");
 
 	datadir = argv[1];
 	g_assert_nonnull (datadir);
