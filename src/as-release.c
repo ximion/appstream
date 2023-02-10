@@ -719,7 +719,6 @@ AsContext*
 as_release_get_context (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-
 	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
 
 	return priv->context;
