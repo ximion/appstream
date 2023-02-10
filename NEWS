@@ -1,3 +1,28 @@
+Version 0.16.1
+~~~~~~~~~~~~~~
+Released: 2023-02-10
+
+Notes:
+ * This is a bugfix-only release to primarily address an issue introduced
+   in v0.15.6 that caused any clients using GIR bindings to crash after a while.
+
+Specification:
+ * docs: Clarify the locations where catalog icons should be placed
+ * spec: Expand documentation for <issue> elements
+ * spec: Mention that <issues> is not part of the description
+ * spec: Give some guidance about tone in release descriptions
+
+Bugfixes:
+ * Fix binding helper macro to behave correctly if a function is passed directly
+ * Override-merge icons and provided items correctly
+ * tests: Ensure locale is C.UTF-8 in pool tests
+
+Miscellaneous:
+ * release: Add sanity checks at beginning of each function
+
+Contributors:
+ Corentin Noël, Matthias Klumpp, Pablo Correa Gómez, Philip Withnall
+
 Version 0.16.0
 ~~~~~~~~~~~~~~
 Released: 2023-01-26
