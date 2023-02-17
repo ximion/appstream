@@ -129,7 +129,7 @@ appstream_compose_dep = declare_dependency(
 # builds using libappstream. Fix this issue by post-processing the file.
 sed_prog = find_program('sed')
 pc_fixup = run_command(sed_prog,
-                       '-i',
+                       '-i.bak',
                        '/^Requires.private\|^Libs.private/ d',
                        join_paths(meson.project_build_root(), 'meson-private', 'appstream-compose.pc'),
                        check: false)
