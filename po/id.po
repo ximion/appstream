@@ -4,14 +4,14 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
-# Andika Triwidada <andika@gmail.com>, 2014-2016, 2020, 2021, 2022.
+# Andika Triwidada <andika@gmail.com>, 2014-2016, 2020, 2021, 2022, 2023.
 # #-#-#-#-#  id.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Andika Triwidada <andika@gmail.com>, 2016, 2021, 2022.
+# Andika Triwidada <andika@gmail.com>, 2016, 2021, 2022, 2023.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
-# Andika Triwidada <andika@gmail.com>, 2017. #zanata, 2021, 2022.
+# Andika Triwidada <andika@gmail.com>, 2017. #zanata, 2021, 2022, 2023.
 # Reza Almanda <rezaalmanda27@gmail.com>, 2021, 2022.
 # Prasasto Adi <prasastoadi@gmail.com>, 2021.
 # se7entime <se7entime@protonmail.com>, 2021.
@@ -23,16 +23,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-02-02 23:56+0100\n"
-"PO-Revision-Date: 2022-12-24 03:49+0000\n"
+"PO-Revision-Date: 2023-02-19 12:28+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
-"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
-"translations/id/>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1053,163 +1052,160 @@ msgstr "Komponen"
 
 #: src/as-relation.c:1530
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "peranti penunjuk (mis. tetikus)"
 
 #: src/as-relation.c:1532
-#, fuzzy
 msgid "keyboard"
-msgstr "Papan"
+msgstr "papan ketik"
 
 #: src/as-relation.c:1534
 msgid "gamepad"
-msgstr ""
+msgstr "gamepad"
 
 #: src/as-relation.c:1536
 msgid "tv remote"
-msgstr ""
+msgstr "remote tv"
 
 #: src/as-relation.c:1538
 msgid "graphics tablet"
-msgstr ""
+msgstr "tablet grafis"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1543
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires a %s for input."
-msgstr "Tag ini membutuhkan suatu properti tipe."
+msgstr "Perangkat lunak ini membutuhkan %s untuk masukan."
 
 #: src/as-relation.c:1548
-#, fuzzy
 msgid "This software requires a touch input device."
-msgstr "Tag ini membutuhkan suatu properti tipe."
+msgstr "Perangkat lunak ini membutuhkan perangkat masukan sentuh."
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Perangkat lunak ini membutuhkan mikrofon untuk dikontrol melalui masukan suara."
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "Perangkat lunak ini membutuhkan kamera untuk kontrol masukan."
 
 #: src/as-relation.c:1554
-#, fuzzy
 msgid "This software requires a method for console input."
-msgstr "Tag ini membutuhkan suatu properti tipe."
+msgstr "Perangkat lunak ini membutuhkan metode untuk masukan konsol."
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1559
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "Perangkat lunak ini merekomendasikan %s untuk masukan."
 
 #: src/as-relation.c:1564
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "Perangkat lunak ini merekomendasikan perangkat masukan sentuh."
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Perangkat lunak ini merekomendasikan mikrofon untuk dikontrol melalui masukan suara."
 
 #: src/as-relation.c:1568
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "Perangkat lunak ini merekomendasikan kamera untuk kontrol masukan."
 
 #: src/as-relation.c:1570
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "Perangkat lunak ini merekomendasikan metode untuk masukan konsol."
 
 #: src/as-relation.c:1575
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "perangkat penunjuk (mis. tetikus)"
 
 #: src/as-relation.c:1577
 msgid "keyboards"
-msgstr ""
+msgstr "papan ketik"
 
 #: src/as-relation.c:1579
 msgid "gamepads"
-msgstr ""
+msgstr "gamepad"
 
 #: src/as-relation.c:1581
 msgid "tv remotes"
-msgstr ""
+msgstr "remote tv"
 
 #: src/as-relation.c:1583
 msgid "graphics tablets"
-msgstr ""
+msgstr "tablet grafis"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1587
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "Perangkat lunak ini mendukung %s."
 
 #: src/as-relation.c:1592
 msgid "This software supports touch input."
-msgstr ""
+msgstr "Perangkat lunak ini mendukung masukan sentuh."
 
 #: src/as-relation.c:1594
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "Perangkat lunak ini dapat dikontrol melalui masukan suara."
 
 #: src/as-relation.c:1596
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "Perangkat lunak ini dapat dikontrol melalui kamera."
 
 #: src/as-relation.c:1598
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "Perangkat lunak ini mendukung operasi melalui perintah konsol."
 
 #: src/as-relation.c:1611
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "Perangkat penunjuk (mis. tetikus atau touchpad) ditemukan."
 
 #: src/as-relation.c:1613
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "Papan ketik fisik ditemukan."
 
 #: src/as-relation.c:1615
 msgid "Gamepad found."
-msgstr ""
+msgstr "Gamepad ditemukan."
 
 #: src/as-relation.c:1617
 msgid "TV remote found."
-msgstr ""
+msgstr "Remote TV ditemukan."
 
 #: src/as-relation.c:1619
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "Tablet grafis ditemukan."
 
 #: src/as-relation.c:1622
 msgid "Touch input device found."
-msgstr ""
+msgstr "Perangkat masukan sentuh ditemukan."
 
 #: src/as-relation.c:1624
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "Mikrofon untuk kontrol masukan suara ditemukan."
 
 #: src/as-relation.c:1626
 msgid "Camera for input control found."
-msgstr ""
+msgstr "Kamera untuk kontrol masukan ditemukan."
 
 #: src/as-relation.c:1628
 msgid "Console interface available."
-msgstr ""
+msgstr "Antarmuka konsol tersedia."
 
 #: src/as-relation.c:1684
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "Perangkat lunak '%s' ditemukan"
 
 #: src/as-relation.c:1690
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Komponen perangkat lunak '%s' yang diperlukan kurang."
 
 #: src/as-relation.c:1694
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Komponen perangkat lunak '%s' yang disarankan kurang."
 
 #: src/as-relation.c:1698
 #, fuzzy, c-format
