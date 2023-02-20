@@ -2,21 +2,21 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Oymate <dhruboadittya96@gmail.com>, 2022.
+# Abu Huraira <abuhuraira@tutamail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-02-02 23:56+0100\n"
-"PO-Revision-Date: 2022-06-30 08:20+0000\n"
-"Last-Translator: Oymate <dhruboadittya96@gmail.com>\n"
-"Language-Team: Bengali <https://hosted.weblate.org/projects/appstream/"
-"translations/bn/>\n"
+"PO-Revision-Date: 2023-02-20 07:36+0000\n"
+"Last-Translator: Abu Huraira <abuhuraira@tutamail.com>\n"
+"Language-Team: Bengali <https://hosted.weblate.org/projects/appstream/translations/bn/>\n"
 "Language: bn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.13.1-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -64,7 +64,7 @@ msgstr ""
 #: src/as-category.c:76
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
-msgstr ""
+msgstr "মিউজিক প্লেয়ার"
 
 #: src/as-category.c:85
 msgctxt "Category of Development"
@@ -74,12 +74,13 @@ msgstr "প্রদর্শনী"
 #: src/as-category.c:88
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "ডিবাগারস্"
 
 #: src/as-category.c:91
+#, fuzzy
 msgctxt "Category of Development"
 msgid "IDEs"
-msgstr ""
+msgstr "আইডিই"
 
 #: src/as-category.c:100
 msgctxt "Category of Education"
@@ -159,7 +160,7 @@ msgstr "যুক্তি"
 #: src/as-category.c:152
 msgctxt "Category of Games"
 msgid "Role Playing"
-msgstr ""
+msgstr "ভূমিকা পালন"
 
 #: src/as-category.c:155
 msgctxt "Category of Games"
@@ -169,7 +170,7 @@ msgstr "খেলাধুলা"
 #: src/as-category.c:159
 msgctxt "Category of Games"
 msgid "Strategy"
-msgstr ""
+msgstr "কৌশল"
 
 #: src/as-category.c:167
 msgctxt "Category of Graphics"
@@ -189,12 +190,12 @@ msgstr "আলোকচিত্র"
 #: src/as-category.c:176
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr ""
+msgstr "স্ক্যান"
 
 #: src/as-category.c:179
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr ""
+msgstr "ভেক্টর গ্রাফিক্স"
 
 #: src/as-category.c:182
 msgctxt "Category of Graphics"
@@ -224,7 +225,7 @@ msgstr "অর্থায়ন"
 #: src/as-category.c:204
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr ""
+msgstr "ওয়ার্ড প্রসেসর"
 
 #: src/as-category.c:213
 msgctxt "Category of Addons"
@@ -239,12 +240,12 @@ msgstr "কোডেক"
 #: src/as-category.c:219
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr ""
+msgstr "ইনপুট উৎস"
 
 #: src/as-category.c:222
 msgctxt "Category of Addons"
 msgid "Language Packs"
-msgstr ""
+msgstr "ভাষা প্যাক"
 
 #: src/as-category.c:225
 msgctxt "Category of Addons"
@@ -259,7 +260,7 @@ msgstr "প্রদর্শিত"
 #: src/as-category.c:236
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
-msgstr ""
+msgstr "কৃত্রিম বুদ্ধিমত্তা"
 
 #: src/as-category.c:239
 msgctxt "Category of Science"
@@ -274,62 +275,62 @@ msgstr "রসায়ন"
 #: src/as-category.c:245
 msgctxt "Category of Science"
 msgid "Math"
-msgstr ""
+msgstr "গণিত"
 
 #: src/as-category.c:250
 msgctxt "Category of Science"
 msgid "Robotics"
-msgstr ""
+msgstr "রোবোটিক্স"
 
 #: src/as-category.c:258
 msgctxt "Category of Communication"
 msgid "Featured"
-msgstr ""
+msgstr "নির্বাচিত"
 
 #: src/as-category.c:261
 msgctxt "Category of Communication"
 msgid "Chat"
-msgstr ""
+msgstr "আলাপ"
 
 #: src/as-category.c:268
 msgctxt "Category of Communication"
 msgid "News"
-msgstr ""
+msgstr "সংবাদ"
 
 #: src/as-category.c:272
 msgctxt "Category of Communication"
 msgid "Web Browsers"
-msgstr ""
+msgstr "ওয়েব ব্রাউজার"
 
 #: src/as-category.c:280
 msgctxt "Category of Utility"
 msgid "Featured"
-msgstr ""
+msgstr "নির্বাচিত"
 
 #: src/as-category.c:283
 msgctxt "Category of Utility"
 msgid "Text Editors"
-msgstr ""
+msgstr "টেক্সট এডিটর"
 
 #: src/as-category.c:286
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "টার্মিনাল এমুলেটর"
 
 #: src/as-category.c:289
 msgctxt "Category of Utility"
 msgid "File System"
-msgstr ""
+msgstr "ফাইল সিস্টেম"
 
 #: src/as-category.c:292
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr ""
+msgstr "সিস্টেম মনিটরিং"
 
 #: src/as-category.c:295
 msgctxt "Category of Utility"
 msgid "Security"
-msgstr ""
+msgstr "নিরাপত্তা"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: src/as-category.c:304
@@ -339,17 +340,17 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:307
 msgid "Developer Tools"
-msgstr ""
+msgstr "ডেভেলপার সরঞ্জাম"
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:310
 msgid "Education"
-msgstr ""
+msgstr "শিক্ষা"
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:313
 msgid "Games"
-msgstr ""
+msgstr "গেমস"
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:316
@@ -359,18 +360,18 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:319
 msgid "Office"
-msgstr ""
+msgstr "অফিস"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
 #: src/as-category.c:322 tools/ascli-utils.c:404
 msgid "Add-ons"
-msgstr ""
+msgstr "অ্যাড-অন"
 
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:325
 msgid "Science"
-msgstr ""
+msgstr "বিজ্ঞান"
 
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:328
@@ -380,46 +381,46 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:331
 msgid "Utilities"
-msgstr ""
+msgstr "ইউটিলিটিস"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. of the rating e.g. "Adults Only (solo adultos)"
 #: src/as-content-rating.c:298
-#, c-format
+#, c-format, fuzzy
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: src/as-content-rating.c:444
 msgid "General"
-msgstr ""
+msgstr "সাধারন"
 
 #: src/as-content-rating.c:453
 msgid "ALL"
-msgstr ""
+msgstr "সকল"
 
 #: src/as-content-rating.c:457 src/as-content-rating.c:560
 msgid "Adults Only"
-msgstr ""
+msgstr "শুধুমাত্র প্রাপ্তবয়স্কদের জন্য"
 
 #: src/as-content-rating.c:459 src/as-content-rating.c:559
 msgid "Mature"
-msgstr ""
+msgstr "পরিপক্ক"
 
 #: src/as-content-rating.c:461 src/as-content-rating.c:558
 msgid "Teen"
-msgstr ""
+msgstr "কিশোর"
 
 #: src/as-content-rating.c:463 src/as-content-rating.c:557
 msgid "Everyone 10+"
-msgstr ""
+msgstr "১০ বছরের উপরে সকলের জন্য"
 
 #: src/as-content-rating.c:465 src/as-content-rating.c:556
 msgid "Everyone"
-msgstr ""
+msgstr "সবাই"
 
 #: src/as-content-rating.c:467 src/as-content-rating.c:555
 msgid "Early Childhood"
-msgstr ""
+msgstr "প্রারম্ভিক শৈশব"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:839
@@ -484,17 +485,17 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:872
 msgid "No bloodshed"
-msgstr ""
+msgstr "রক্তপাত নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:874
 msgid "Unrealistic bloodshed"
-msgstr ""
+msgstr "অবাস্তব দেখতে এমন রক্তপাত"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:876
 msgid "Realistic bloodshed"
-msgstr ""
+msgstr "বাস্তবের মতো দেখতে এমন রক্তপাত"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:878
@@ -569,7 +570,7 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:926
 msgid "Prolonged nudity"
-msgstr ""
+msgstr "দীর্ঘায়িত নগ্নতা"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:932
@@ -619,7 +620,7 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:956
 msgid "Slapstick humor"
-msgstr ""
+msgstr "লজ্জাজনক হাস্যরস"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:958
@@ -946,8 +947,9 @@ msgstr ""
 #. to include in a search but that should normally be ignored in
 #. the search.
 #: src/as-pool.c:103
+#, fuzzy
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
+msgstr "অ্যাপ;অ্যাপ্লিকেশন;প্যাকেজ;প্রোগ্রাম;এ্যাপ;এ্যাপ্লিকেশন;স্যুট;টুল;সফটওয়ার; সফটওয়্যার"
 
 #: src/as-pool.c:1151
 msgid "Metadata files have errors:"
@@ -955,11 +957,12 @@ msgstr ""
 
 #: src/as-pool.c:2640
 msgid "Group"
-msgstr ""
+msgstr "গ্রুপ"
 
 #: src/as-pool.c:2686
+#, fuzzy
 msgid "Iconsets"
-msgstr ""
+msgstr "আইকনসেট"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2733
@@ -972,20 +975,23 @@ msgid "Software catalog data"
 msgstr ""
 
 #: src/as-provided.c:144
+#, fuzzy
 msgid "Libraries"
-msgstr ""
+msgstr "লাইব্রেরি"
 
 #: src/as-provided.c:146
+#, fuzzy
 msgid "Binaries"
-msgstr ""
+msgstr "বাইনারি"
 
 #: src/as-provided.c:148
 msgid "Media types"
 msgstr ""
 
 #: src/as-provided.c:150
+#, fuzzy
 msgid "Fonts"
-msgstr ""
+msgstr "ফন্ট"
 
 #: src/as-provided.c:152
 msgid "Modaliases"
@@ -1017,20 +1023,19 @@ msgstr ""
 
 #: src/as-provided.c:166
 msgid "Component"
-msgstr ""
+msgstr "উপাদান"
 
 #: src/as-relation.c:1530
 msgid "pointing device (e.g. a mouse)"
 msgstr ""
 
 #: src/as-relation.c:1532
-#, fuzzy
 msgid "keyboard"
-msgstr "বোর্ড"
+msgstr "কীবোর্ড"
 
 #: src/as-relation.c:1534
 msgid "gamepad"
-msgstr ""
+msgstr "গেমপ্যাড"
 
 #: src/as-relation.c:1536
 msgid "tv remote"
@@ -1090,11 +1095,11 @@ msgstr ""
 
 #: src/as-relation.c:1577
 msgid "keyboards"
-msgstr ""
+msgstr "কীবোর্ডসমূহ"
 
 #: src/as-relation.c:1579
 msgid "gamepads"
-msgstr ""
+msgstr "গেমপ্যাডসমূহ"
 
 #: src/as-relation.c:1581
 msgid "tv remotes"
@@ -2524,7 +2529,7 @@ msgstr ""
 
 #: tools/appstream-compose.c:309 tools/appstream-compose.c:311
 msgid "WARNING"
-msgstr ""
+msgstr "সতর্কীকরণ"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:348
@@ -2586,7 +2591,7 @@ msgstr ""
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:399
 msgid "Success!"
-msgstr ""
+msgstr "সফল হয়েছে!"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstreamcli.c:60
@@ -2815,8 +2820,9 @@ msgstr ""
 
 #. these are commands we can use with appstreamcli
 #: tools/appstreamcli.c:1178
+#, fuzzy
 msgid "Subcommands:"
-msgstr ""
+msgstr "সাবকমান্ডস:"
 
 #: tools/appstreamcli.c:1229
 msgid ""
@@ -3122,7 +3128,7 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"
-msgstr ""
+msgstr "ত্রুটি"
 
 #: tools/ascli-actions-mdata.c:649
 msgid "You need to specify a MetaInfo filename or component ID."
@@ -3142,7 +3148,7 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:707
 msgid "Requirements:"
-msgstr ""
+msgstr "আবশ্যকীয় বিষয়াদি:"
 
 #: tools/ascli-actions-mdata.c:709
 msgid "No required items are set for this software."
@@ -3150,16 +3156,15 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:717
 msgid "Recommendations:"
-msgstr ""
+msgstr "প্রস্তাবনাগুলি:"
 
 #: tools/ascli-actions-mdata.c:719
 msgid "No recommended items are set for this software."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:727
-#, fuzzy
 msgid "Supported:"
-msgstr "খেলাধুলা"
+msgstr "সমর্থিত:"
 
 #: tools/ascli-actions-mdata.c:729
 msgid "No supported items are set for this software."
@@ -3198,7 +3203,7 @@ msgstr ""
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:70
 msgid "Summary:"
-msgstr ""
+msgstr "সারাংশ:"
 
 #: tools/ascli-actions-misc.c:84
 #, c-format
@@ -3281,41 +3286,41 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:536
 msgid "ID"
-msgstr ""
+msgstr "আইডি"
 
 #: tools/ascli-actions-misc.c:537 tools/ascli-actions-misc.c:556
 #: tools/ascli-utils.c:302
 msgid "Name"
-msgstr ""
+msgstr "নাম"
 
 #: tools/ascli-actions-misc.c:538 tools/ascli-utils.c:303
 msgid "Summary"
-msgstr ""
+msgstr "সারাংশ"
 
 #: tools/ascli-actions-misc.c:541 tools/ascli-utils.c:306
 msgid "Homepage"
-msgstr ""
+msgstr "মূলপাতা"
 
 #. developer name
 #: tools/ascli-actions-misc.c:542 tools/ascli-utils.c:327
 msgid "Developer"
-msgstr ""
+msgstr "ডেভেলপার"
 
 #: tools/ascli-actions-misc.c:547 tools/ascli-utils.c:339
 msgid "Description"
-msgstr ""
+msgstr "বিবরণ"
 
 #: tools/ascli-actions-misc.c:555
 msgid "Kernel"
-msgstr ""
+msgstr "কার্নেল"
 
 #: tools/ascli-actions-misc.c:557
 msgid "Version"
-msgstr ""
+msgstr "সংস্করণ"
 
 #: tools/ascli-actions-misc.c:560
 msgid "Hardware"
-msgstr ""
+msgstr "হার্ডওয়্যার"
 
 #: tools/ascli-actions-misc.c:562
 msgid "Physical Memory"
@@ -3331,17 +3336,17 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:593
 msgid "unknown"
-msgstr ""
+msgstr "অজানা"
 
 #: tools/ascli-actions-misc.c:600 tools/ascli-actions-validate.c:687
 #: tools/ascli-actions-validate.c:690
 msgid "yes"
-msgstr ""
+msgstr "হ্যাঁ"
 
 #: tools/ascli-actions-misc.c:602 tools/ascli-actions-validate.c:687
 #: tools/ascli-actions-validate.c:690
 msgid "no"
-msgstr ""
+msgstr "না"
 
 #: tools/ascli-actions-pkgmgr.c:52
 msgid ""
@@ -3480,7 +3485,7 @@ msgstr ""
 #. TRANSLATORS: A plain license ID (used as value in a key-value pair, like "Type: license")
 #: tools/ascli-actions-validate.c:664
 msgid "license"
-msgstr ""
+msgstr "লাইসেন্স"
 
 #. TRANSLATORS: A license exception (used as value in a key-value pair, like "Type: exception")
 #: tools/ascli-actions-validate.c:667
@@ -3495,7 +3500,7 @@ msgstr ""
 #. TRANSLATORS: An invalid license (used as value in a key-value pair, like "Type: invalid")
 #: tools/ascli-actions-validate.c:674
 msgid "invalid"
-msgstr ""
+msgstr "অবৈধ"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:679
@@ -3520,11 +3525,11 @@ msgstr ""
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:695
 msgid "URL"
-msgstr ""
+msgstr "ইউআরএল (URL)"
 
 #: tools/ascli-utils.c:299
 msgid "Identifier"
-msgstr ""
+msgstr "শনাক্তকারী"
 
 #: tools/ascli-utils.c:301
 msgid "Internal ID"
@@ -3532,19 +3537,19 @@ msgstr ""
 
 #: tools/ascli-utils.c:304
 msgid "Package"
-msgstr ""
+msgstr "প্যাকেজ"
 
 #: tools/ascli-utils.c:305
 msgid "Bundle"
-msgstr ""
+msgstr "বান্ডিল"
 
 #: tools/ascli-utils.c:307
 msgid "Icon"
-msgstr ""
+msgstr "আইকন"
 
 #: tools/ascli-utils.c:333
 msgid "Extends"
-msgstr ""
+msgstr "প্রসারিত করে"
 
 #: tools/ascli-utils.c:359
 msgid "Default Screenshot URL"
@@ -3558,11 +3563,11 @@ msgstr ""
 #. license
 #: tools/ascli-utils.c:369
 msgid "License"
-msgstr ""
+msgstr "লাইসেন্স"
 
 #: tools/ascli-utils.c:375
 msgid "Categories"
-msgstr ""
+msgstr "বিভাগসমূহ"
 
 #: tools/ascli-utils.c:383
 msgid "Compulsory for"
