@@ -159,6 +159,8 @@ public:
     void overrideCacheLocations(const QString &sysDir,
                                 const QString &userDir);
 
+    bool isEmpty() const;
+
     Q_DECL_DEPRECATED bool addComponent(const AppStream::Component& cpt);
 
     Q_DECL_DEPRECATED uint cacheFlags() const;

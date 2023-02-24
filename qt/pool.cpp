@@ -249,6 +249,11 @@ bool Pool::addComponent(const AppStream::Component& cpt)
     return addComponents(cpts);
 }
 
+bool AppStream::Pool::isEmpty() const
+{
+    return as_pool_is_empty(d->pool);
+}
+
 uint Pool::cacheFlags() const
 {
 #pragma GCC diagnostic push

@@ -193,6 +193,8 @@ GPtrArray		*as_cache_search (AsCache *cache,
 					  gboolean sort,
 					  GError **error);
 
+guint			as_cache_get_component_count (AsCache *cache);
+
 G_END_DECLS
 
 #endif /* __AS_CACHE_H */
