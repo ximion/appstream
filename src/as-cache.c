@@ -1995,3 +1995,16 @@ as_cache_search (AsCache *cache, const gchar * const *terms, gboolean sort, GErr
 
 	return g_steal_pointer (&results);
 }
+
+guint
+as_cache_get_component_count (AsCache* cache)
+{
+	g_autoptr(GError) error = NULL;
+	g_autoptr(GPtrArray) components = as_cache_query_components (cache,
+					  "components/component",
+					  NULL,
+					  0,
+					  FALSE,
+					  &error);
+	return components->len;
+}

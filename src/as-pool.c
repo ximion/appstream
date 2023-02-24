@@ -2888,6 +2888,13 @@ as_pool_set_load_std_data_locations (AsPool *pool, gboolean enabled)
 	}
 }
 
+gboolean
+as_pool_is_empty (AsPool* pool)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	return as_cache_get_component_count (priv->cache) == 0;
+}
+
 /**
  * as_pool_get_os_metadata_cache_age:
  * @pool: An instance of #AsPool.

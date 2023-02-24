@@ -486,6 +486,8 @@ test_pool_read (void)
 	cpt_s = AS_COMPONENT (g_ptr_array_index (result, 0));
 	g_assert_cmpstr (as_component_get_id (cpt_s), ==, "org.inkscape.Inkscape");
 	g_clear_pointer (&result, g_ptr_array_unref);
+
+	g_assert_false (as_pool_is_empty (dpool));
 }
 
 /**

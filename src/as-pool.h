@@ -181,6 +181,8 @@ void			as_pool_remove_flags (AsPool *pool,
 void			as_pool_set_load_std_data_locations (AsPool *pool,
 							     gboolean enabled);
 
+gboolean		as_pool_is_empty (AsPool *pool);
+
 /* DEPRECATED */
 
 gboolean		as_pool_add_component (AsPool *pool,
