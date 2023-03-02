@@ -31,11 +31,11 @@ endmacro()
 add_library(AppStreamQt SHARED IMPORTED)
 set_target_properties(AppStreamQt PROPERTIES
   INTERFACE_INCLUDE_DIRECTORIES "${PACKAGE_PREFIX_DIR}/include/"
-  INTERFACE_LINK_LIBRARIES "Qt5::Core"
+  INTERFACE_LINK_LIBRARIES "Qt::Core"
   IMPORTED_LOCATION "@LIBDIR_FULL@/libAppStreamQt.so.${AppStreamQt_VERSION}"
   IMPORTED_SONAME "libAppStreamQt.${AppStreamQt_VERSION_MAJOR}"
 )
 
 ####################################################################################
 
-check_required_components(Qt5Core)
+check_required_components(Qt6Core)
