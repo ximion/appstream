@@ -23,6 +23,7 @@
 # Marvin SIlc <marvinsilc@protonmail.ch>, 2020, 2021.
 # Rui Mendes <xz9@protonmail.com>, 2021.
 # Manuela Silva <manuela.silva@sky.com>, 2021.
+# Felipe Nogueira <contato.fnog@gmail.com>, 2023.
 #
 # Translators:
 msgid ""
@@ -30,16 +31,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-02-02 23:56+0100\n"
-"PO-Revision-Date: 2023-01-09 23:49+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/"
-"translations/pt/>\n"
+"PO-Revision-Date: 2023-03-04 16:38+0000\n"
+"Last-Translator: Felipe Nogueira <contato.fnog@gmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1070,9 +1070,8 @@ msgid "pointing device (e.g. a mouse)"
 msgstr ""
 
 #: src/as-relation.c:1532
-#, fuzzy
 msgid "keyboard"
-msgstr "Tabuleiro"
+msgstr "Teclado"
 
 #: src/as-relation.c:1534
 msgid "gamepad"
@@ -1099,11 +1098,11 @@ msgstr "Esta marcação requer a propriedade tipo."
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Este programa precisa um microfone para ser controlado via entrada de voz."
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "Este programa precisa uma câmera para o controle de entrada."
 
 #: src/as-relation.c:1554
 #, fuzzy
