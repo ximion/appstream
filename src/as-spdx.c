@@ -264,6 +264,10 @@ as_is_spdx_license_expression (const gchar *license)
 			continue;
 		if (g_strcmp0 (tokens[i], "+") == 0)
 			continue;
+		if (g_strcmp0 (tokens[i], "(") == 0)
+			continue;
+		if (g_strcmp0 (tokens[i], ")") == 0)
+			continue;
 		if (g_strcmp0 (tokens[i], "^") == 0) {
 			expect_exception = TRUE;
 			continue;
