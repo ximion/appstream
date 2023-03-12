@@ -511,7 +511,12 @@ as_utils_find_files_matching (const gchar* dir, const gchar* pattern, gboolean r
 
 	list = g_ptr_array_new_with_free_func (g_free);
 	fdir =  g_file_new_for_path (dir);
-	enumerator = g_file_enumerate_children (fdir, G_FILE_ATTRIBUTE_STANDARD_NAME, 0, NULL, &tmp_error);
+	enumerator = g_file_enumerate_children (fdir,
+						G_FILE_ATTRIBUTE_STANDARD_NAME ","
+						G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
+						0,
+						NULL,
+						&tmp_error);
 	if (tmp_error != NULL)
 		goto out;
 
