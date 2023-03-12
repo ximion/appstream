@@ -46,16 +46,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-02-02 23:56+0100\n"
-"PO-Revision-Date: 2023-01-28 15:44+0000\n"
+"PO-Revision-Date: 2023-03-12 06:40+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1409,7 +1408,7 @@ msgstr "Bildschirmgröße ist für diese Software ausreichend."
 #: src/as-relation.c:1996
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "Prüfung auf Relationserfüllung für Elemente des Typs ‚%s‘ ist noch nicht implementiert."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1428,17 +1427,12 @@ msgstr ""
 "lokalisiert werden. Lokalisieren Sie stattdessen die Absätze einzeln."
 
 #: src/as-validator-issue-tag.h:57
-#, fuzzy
 msgid ""
 "This element (paragraph, list, etc.) of a <description/> tag must not be "
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr ""
-"Dieses Element (Absatz, Liste etc.) eines <description/>-Tags darf nicht "
-"eigens übersetzt werden. Übersetze stattdessen das gesamte <description/>-"
-"Tag. Der Metadatengenerator (z.B. `appstream-generator`) der AppStream-"
-"Sammlung wid schon das richtige tun, wenn er die Daten zusammenstellt."
+msgstr "Dieses Element (Absatz, Liste etc.) eines <description/>-Tags darf nicht eigens übersetzt werden. Übersetze stattdessen das gesamte <description/>-Tag. Der Metadatengenerator (z. B. `appstream-generator`) der AppStream-Sammlung wid schon das Richtige tun, wenn er die Daten zusammenstellt."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
