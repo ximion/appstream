@@ -1591,10 +1591,12 @@ as_cache_is_empty (AsCache* cache)
 
 	for (guint i = 0; i < priv->sections->len; i++) {
 		g_autoptr(XbNode) node = NULL;
+		g_autoptr(XbNode) child = NULL;
 		AsCacheSection *csec = (AsCacheSection*) g_ptr_array_index (priv->sections, i);
 
 		node = xb_silo_get_root (csec->silo);
-		if (xb_node_get_child (node) != NULL)
+		child = xb_node_get_child (node);
+		if (child != NULL)
 			return FALSE;
 	}
 
@@ -1617,7 +1619,7 @@ as_cache_get_component_count (AsCache* cache)
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	for (guint i = 0; i < priv->sections->len; i++) {
-		XbNode *n;
+		g_autoptr(XbNode) n = NULL;
 		g_autoptr(XbNode) node = NULL;
 		AsCacheSection *csec = (AsCacheSection*) g_ptr_array_index (priv->sections, i);
 
@@ -1625,6 +1627,7 @@ as_cache_get_component_count (AsCache* cache)
 		n = xb_node_get_child (node);
 		while (n != NULL) {
 			cpt_node_count++;
+			g_object_unref (n);
 			n = xb_node_get_next(n);
 		}
 	}
