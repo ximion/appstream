@@ -60,6 +60,7 @@ jobs:
   build-fedora-rawhide:
     name: Fedora Rawhide
     runs-on: ubuntu-latest
+    continue-on-error: true  # with a Git snapshot of GCC, this build is exceptionally flaky
     steps:
     - uses: actions/checkout@v2
 
