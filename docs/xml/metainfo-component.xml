@@ -1457,7 +1457,7 @@
 			Example:
 		</para>
 		<programlisting language="XML"><![CDATA[<agreement type="privacy" version_id="1.0">
-    <agreement_section type="introduction">
+    <agreement_section id="introduction">
       <name>Introduction</name>
       <description>
         <p>
@@ -1468,7 +1468,7 @@
       </description>
     </agreement_section>
 
-    <agreement_section type="scope">
+    <agreement_section id="scope">
       <name>Scope</name>
       <description>
         <p>
