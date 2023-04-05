@@ -1028,6 +1028,21 @@ as_pool_clear2 (AsPool *pool, GError **error)
 }
 
 /**
+ * as_pool_is_empty:
+ * @pool: An instance of #AsPool.
+ *
+ * Check if this pool contains any data.
+ *
+ * Returns: %TRUE if the pool is empty.
+ */
+gboolean
+as_pool_is_empty (AsPool* pool)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	return as_cache_is_empty (priv->cache);
+}
+
+/**
  * as_pool_load_catalog_data:
  *
  * Load metadata from AppStream catalog data directories,
@@ -2886,13 +2901,6 @@ as_pool_set_load_std_data_locations (AsPool *pool, gboolean enabled)
 		as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_OS_METAINFO);
 		as_flags_remove (priv->flags, AS_POOL_FLAG_LOAD_FLATPAK);
 	}
-}
-
-gboolean
-as_pool_is_empty (AsPool* pool)
-{
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	return as_cache_get_component_count (priv->cache) == 0;
 }
 
 /**

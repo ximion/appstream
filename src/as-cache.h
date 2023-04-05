@@ -153,6 +153,9 @@ gboolean		as_cache_add_masking_components (AsCache *cache,
 void			as_cache_set_refine_func (AsCache *cache,
 						  AsCacheDataRefineFn func);
 
+gboolean		as_cache_is_empty (AsCache *cache);
+guint			as_cache_get_component_count (AsCache *cache);
+
 GPtrArray		*as_cache_get_components_all (AsCache *cache,
 							GError **error);
 
@@ -192,8 +195,6 @@ GPtrArray		*as_cache_search (AsCache *cache,
 					  const gchar * const *terms,
 					  gboolean sort,
 					  GError **error);
-
-guint			as_cache_get_component_count (AsCache *cache);
 
 G_END_DECLS
 

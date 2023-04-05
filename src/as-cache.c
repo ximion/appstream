@@ -1576,6 +1576,63 @@ as_cache_query_components (AsCache *cache,
 }
 
 /**
+ * as_cache_is_empty:
+ * @cache: An instance of #AsCache.
+ *
+ * Test if the cache is empty.
+ *
+ * Returns: %TRUE if the cache is empty, %FALSE otherwise.
+ */
+gboolean
+as_cache_is_empty (AsCache* cache)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
+
+	for (guint i = 0; i < priv->sections->len; i++) {
+		g_autoptr(XbNode) node = NULL;
+		AsCacheSection *csec = (AsCacheSection*) g_ptr_array_index (priv->sections, i);
+
+		node = xb_silo_get_root (csec->silo);
+		if (xb_node_get_child (node) != NULL)
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_cache_get_component_count:
+ * @cache: An instance of #AsCache.
+ *
+ * Get the number of components present in this cache.
+ *
+ * Returns: The number of components present in the cache.
+ */
+guint
+as_cache_get_component_count (AsCache* cache)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	guint cpt_node_count = 0;
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
+
+	for (guint i = 0; i < priv->sections->len; i++) {
+		XbNode *n;
+		g_autoptr(XbNode) node = NULL;
+		AsCacheSection *csec = (AsCacheSection*) g_ptr_array_index (priv->sections, i);
+
+		node = xb_silo_get_root (csec->silo);
+		n = xb_node_get_child (node);
+		while (n != NULL) {
+			cpt_node_count++;
+			n = xb_node_get_next(n);
+		}
+	}
+
+	return cpt_node_count;
+}
+
+/**
  * as_cache_get_components_all:
  * @cache: An instance of #AsCache.
  * @error: A #GError or %NULL.
@@ -1994,17 +2051,4 @@ as_cache_search (AsCache *cache, const gchar * const *terms, gboolean sort, GErr
 		as_sort_components_by_score (results);
 
 	return g_steal_pointer (&results);
-}
-
-guint
-as_cache_get_component_count (AsCache* cache)
-{
-	g_autoptr(GError) error = NULL;
-	g_autoptr(GPtrArray) components = as_cache_query_components (cache,
-					  "components/component",
-					  NULL,
-					  0,
-					  FALSE,
-					  &error);
-	return components->len;
 }

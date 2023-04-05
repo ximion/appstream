@@ -136,6 +136,7 @@ gboolean		as_pool_load_finish (AsPool *pool,
 					     GAsyncResult *result,
 					     GError **error);
 
+gboolean		as_pool_is_empty (AsPool *pool);
 void			as_pool_clear (AsPool *pool);
 gboolean		as_pool_add_components (AsPool *pool,
 						GPtrArray *cpts,
@@ -180,8 +181,6 @@ void			as_pool_remove_flags (AsPool *pool,
 
 void			as_pool_set_load_std_data_locations (AsPool *pool,
 							     gboolean enabled);
-
-gboolean		as_pool_is_empty (AsPool *pool);
 
 /* DEPRECATED */
 
