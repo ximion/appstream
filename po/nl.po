@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-02-02 23:56+0100\n"
-"PO-Revision-Date: 2023-04-05 01:38+0000\n"
+"PO-Revision-Date: 2023-04-05 22:52+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/translations/nl/>\n"
 "Language: nl\n"
@@ -1386,7 +1386,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:96
 msgid "This tag is not translatable."
-msgstr ""
+msgstr "Deze tag is niet vertaalbaar"
 
 #: src/as-validator-issue-tag.h:101
 msgid ""
@@ -1644,7 +1644,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:320
 msgid "No screenshot is marked as default."
-msgstr ""
+msgstr "Geen schermafdruk gemarkeerd als standaard"
 
 #: src/as-validator-issue-tag.h:325
 msgid ""
@@ -2168,7 +2168,7 @@ msgstr ""
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:804
 msgid "No XDG applications directory found."
-msgstr ""
+msgstr "Geen XDG-toepassingsmap gevonden"
 
 #: src/as-validator-issue-tag.h:809
 msgid ""
@@ -2233,7 +2233,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:870
 msgid "The release timestamp is invalid."
-msgstr ""
+msgstr "Uitgavetijdstempel is ongeldig"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:876
@@ -2376,7 +2376,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:1012
 msgid "This custom value is empty."
-msgstr ""
+msgstr "Deze aangepaste waarde is leeg"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1018
@@ -2469,7 +2469,7 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:201
 msgid "Set the result output directory"
-msgstr ""
+msgstr "Uitvoermap met resultaten instellen"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:204
@@ -2479,7 +2479,7 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:207
 msgid "Override the icon output directory"
-msgstr ""
+msgstr "Uitvoermap met pictogrammen overschrijven"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:210
@@ -2578,7 +2578,7 @@ msgstr "Map verwerken:"
 #. TRANSLATORS: Error message
 #: tools/appstream-compose.c:368
 msgid "Can not process invalid directory"
-msgstr ""
+msgstr "Kan ongeldige map niet verwerken"
 
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:380
@@ -2587,14 +2587,13 @@ msgstr "Metagegevens samenstellen…"
 
 #. TRANSLATORS: Error message
 #: tools/appstream-compose.c:385
-#, fuzzy
 msgid "Failed to compose AppStream metadata"
-msgstr "Een hulpmiddel om te werken met AppStream-metagegevens"
+msgstr "Kan AppStream-metagegevens niet samenstellen"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:391
 msgid "Run failed, some data was ignored."
-msgstr ""
+msgstr "Uitvoeren mislukt, sommige gegevens zijn genegeerd."
 
 #. TRANSLATORS: information message of appstream-compose
 #: tools/appstream-compose.c:393
@@ -2650,9 +2649,8 @@ msgstr "Ook pedante tips weergeven."
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
 #: tools/appstreamcli.c:126
-#, fuzzy
 msgid "Print detailed explanation for found issues."
-msgstr "Gedetailleerde uitvoer weergeven over gevonden onderdelen."
+msgstr "Gedetailleerde uitleg over gevonden problemen afdrukken"
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstreamcli.c:131
@@ -2965,7 +2963,7 @@ msgstr "Statusinformatie weergeven over beschikbare AppStream-metagegevens."
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1371
 msgid "Show information about the current device and used operating system."
-msgstr ""
+msgstr "Informatie tonen over het huidige apparaat en gebruikte besturingssysteem"
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1376
@@ -3025,11 +3023,11 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:59
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
+msgstr "Cache van softwaremetagegevens voor het besturingssysteem bijwerken"
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for Flatpak."
-msgstr ""
+msgstr "Metagegevenscache voor Flatpak-software bijwerken"
 
 #: tools/ascli-actions-mdata.c:64
 #, c-format
@@ -3045,15 +3043,13 @@ msgstr ""
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
-#, fuzzy
 msgid "Metadata cache was updated successfully."
-msgstr "De AppStream-cache is succesvol bijgewerkt."
+msgstr "Metagegevenscache succesvol bijgewerkt"
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:102
-#, fuzzy
 msgid "Metadata cache update is not necessary."
-msgstr "Het bijwerken van de AppStream-cache is niet nodig."
+msgstr "Bijwerken van metagegevens-cache niet nodig"
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -3121,9 +3117,9 @@ msgid "You need to specify a metadata file."
 msgstr "U moet een metagegevens-bestand opgeven."
 
 #: tools/ascli-actions-mdata.c:358
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr "Het lezen van het .desktop-bestand is mislukt: %s"
+msgstr "Kan metagegevensbestand niet installeren: %s"
 
 #: tools/ascli-actions-mdata.c:378
 msgid "You need to specify an input and output file."
@@ -3199,9 +3195,9 @@ msgstr "U moet een metagegevens-bestand opgeven."
 
 #: tools/ascli-actions-mdata.c:667 tools/ascli-actions-misc.c:128
 #: tools/ascli-actions-misc.c:371 tools/ascli-actions-misc.c:448
-#, fuzzy, c-format
+#, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr "Het metagegevens-bestand '%s' bestaat niet."
+msgstr "Metagegevensbestand ‘%s‘ bestaat niet"
 
 #. TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system.
 #: tools/ascli-actions-mdata.c:704
@@ -3349,9 +3345,9 @@ msgid "Operating System Details"
 msgstr "Details van besturingssysteem"
 
 #: tools/ascli-actions-misc.c:530
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr "Het vinden van een onderdeel met ID %s is mislukt!"
+msgstr "Kan onderdeel ‘%s’ van besturingssysteem niet vinden!"
 
 #: tools/ascli-actions-misc.c:536
 msgid "ID"
@@ -3401,7 +3397,7 @@ msgstr "Apparaten met modaliassen"
 
 #: tools/ascli-actions-misc.c:590
 msgid "User Input Controls"
-msgstr ""
+msgstr "Bedieningselementen voor gebruikersinvoer"
 
 #: tools/ascli-actions-misc.c:593
 msgid "unknown"
@@ -3435,9 +3431,9 @@ msgid "Flatpak was not found! Please install it to continue."
 msgstr ""
 
 #: tools/ascli-actions-pkgmgr.c:95
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "De pakketbeheerder kon niet worden gestart: %s"
+msgstr "Kan Flatpak-proces niet starten: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
 #, fuzzy, c-format
@@ -3447,12 +3443,12 @@ msgstr "Het vinden van een onderdeel met ID %s is mislukt!"
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "Meerdere kandidaten gevonden voor verwijdering:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "Meerdere kandidaten gevonden voor installatie:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:186
@@ -3481,7 +3477,7 @@ msgstr ""
 #: tools/ascli-actions-validate.c:263
 #, c-format
 msgid "Can not override issue tag: %s"
-msgstr ""
+msgstr "Kan probleem-tag niet overschrijven: %s"
 
 #: tools/ascli-actions-validate.c:294 tools/ascli-actions-validate.c:502
 #, c-format
