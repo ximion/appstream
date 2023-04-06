@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-02-02 23:56+0100\n"
-"PO-Revision-Date: 2023-04-05 22:52+0000\n"
+"PO-Revision-Date: 2023-04-06 21:47+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/translations/nl/>\n"
 "Language: nl\n"
@@ -782,22 +782,22 @@ msgstr "Uitwisseling van fysieke locatie met andere gebruikers"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1073
 msgid "No references to homosexuality"
-msgstr ""
+msgstr "(deze vertaling is weggelaten wegens discriminatie)"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1075
 msgid "Indirect references to homosexuality"
-msgstr ""
+msgstr "(deze vertaling is weggelaten wegens discriminatie)"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1077
 msgid "Kissing between people of the same gender"
-msgstr ""
+msgstr "(deze vertaling is weggelaten wegens discriminatie)"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1079
 msgid "Graphic sexual behavior between people of the same gender"
-msgstr ""
+msgstr "(deze vertaling is weggelaten wegens discriminatie)"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1084
@@ -1320,7 +1320,7 @@ msgstr "De schermgrootte is voldoende voor deze software."
 #: src/as-relation.c:1996
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "Relatievoldoeningscontrole voor items van type ‘%s’ is nog niet geïmplementeerd."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1328,7 +1328,7 @@ msgstr "Deze tag vereist een type-eigenschap."
 
 #: src/as-validator-issue-tag.h:46
 msgid "Tags of this name are not permitted in this section."
-msgstr ""
+msgstr "Tags met deze naam zijn niet toegestaan in deze sectie."
 
 #: src/as-validator-issue-tag.h:51
 msgid ""
@@ -1894,7 +1894,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:552
 msgid "The <developer_name/> can not contain a hyperlink."
-msgstr ""
+msgstr "<developer_name/> mag geen hyperlink bevatten"
 
 #: src/as-validator-issue-tag.h:557
 msgid ""
@@ -2090,7 +2090,7 @@ msgstr "Kan bestand niet lezen"
 
 #: src/as-validator-issue-tag.h:730
 msgid "The XML of this file is malformed."
-msgstr ""
+msgstr "De XML van dit bestand is misvormd"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:736
@@ -2112,9 +2112,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:752
-#, fuzzy
 msgid "The metainfo filename does not match the component ID."
-msgstr "Verwijder software die overeenkomt met de onderdeel-id."
+msgstr "De metainfo-bestandsnaam komt niet overeen met de component-ID."
 
 #: src/as-validator-issue-tag.h:757
 msgid "Unable to load the desktop-entry file associated with this component."
@@ -2222,7 +2221,7 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:859
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "Uitgave mist de ‘version’-eigenschap"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:865
@@ -2339,7 +2338,7 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:969
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "Deze ‘tag’ mist een ‘namespace’-attribuut."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:975
@@ -2372,7 +2371,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:1007
 msgid "A key can only be used once."
-msgstr ""
+msgstr "Een sleutel kan maar één keer gebruikt worden."
 
 #: src/as-validator-issue-tag.h:1012
 msgid "This custom value is empty."
@@ -2380,14 +2379,10 @@ msgstr "Deze aangepaste waarde is leeg"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1018
-#, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"Een <description/>-tag moet niet in MetaInfo-bestanden (upstream metadata) "
-"gelokaliseerd worden. Lokaliseren in plaats daarvan de paragrafen "
-"afzonderlijk."
+msgstr "Een ‘keywords’-tag mag niet worden gelokaliseerd in metainfo-bestanden (upstream-metadata). Lokaliseer in plaats daarvan de afzonderlijke trefwoorden."
 
 #: src/as-validator.c:192
 msgid ""
@@ -2414,7 +2409,7 @@ msgstr ""
 #: src/as-validator.c:664
 #, c-format
 msgid "The issue tag '%s' is not recognized."
-msgstr ""
+msgstr "Issue-tag ‘%s’ wordt niet herkend"
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 #. whitelisted for that.
@@ -2464,7 +2459,7 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:198
 msgid "Override the default prefix (`/usr` by default)"
-msgstr ""
+msgstr "Standaard-prefix overschrijven (standaard: ‘/usr’)"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:201
@@ -2474,7 +2469,7 @@ msgstr "Uitvoermap met resultaten instellen"
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:204
 msgid "Override the catalog metadata output directory"
-msgstr ""
+msgstr "Uitvoermap van catalogusmetagegevens overschrijven"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:207
@@ -2505,7 +2500,7 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:222
 msgid "A comma-separated list of component-IDs to accept"
-msgstr ""
+msgstr "Door komma's gescheiden lijst van te aanvaarden component-ID's"
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:236
@@ -2542,7 +2537,7 @@ msgstr ""
 #: tools/appstream-compose.c:296
 #, c-format
 msgid "Automatically selected '%s' as data output location."
-msgstr ""
+msgstr "‘%s’ automatisch geselecteerd als gegevensuitvoerlocatie"
 
 #. TRANSLATORS: We don't have a destination directory for compose
 #: tools/appstream-compose.c:299
@@ -2598,7 +2593,7 @@ msgstr "Uitvoeren mislukt, sommige gegevens zijn genegeerd."
 #. TRANSLATORS: information message of appstream-compose
 #: tools/appstream-compose.c:393
 msgid "Errors were raised during this compose run:"
-msgstr ""
+msgstr "Er zijn fouten opgetreden tijdens deze compose-run:"
 
 #: tools/appstream-compose.c:394
 msgid ""
@@ -2665,16 +2660,13 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:141
-#, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr ""
-"Standaard opgegeven metagegevens-soort (geldige waarden zijn 'xml' en "
-"'yaml')."
+msgstr "Formaat van het gegenereerde rapport (geldige waarden zijn ‘text’ en ‘yaml’)"
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:146
 msgid "Override the severities of selected issue tags."
-msgstr ""
+msgstr "Ernst van geselecteerde issue-tags overschrijven"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -2807,12 +2799,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-#, fuzzy
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr ""
-"Stel dat het invoerbestand in het geselecteerde format (‘yaml’ of ‘text’) is."
+msgstr "Aannemen dat het invoerbestand het geselecteerde formaat heeft (‘yaml’, ‘text’ of ‘markdown’)"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:988
@@ -2830,11 +2820,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-#, fuzzy
 msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr ""
-"Stel dat het invoerbestand in het geselecteerde format (‘yaml’ of ‘text’) is."
+msgstr "Uitvoer genereren in het geselecteerde formaat (‘yaml’, ‘text’ of ‘markdown’)"
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1080
@@ -2972,9 +2960,8 @@ msgstr "Installeer een metagegevensbestand in de juiste locatie."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1381
-#, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr "Een collectie XML naar YAML (of vice-versa) converteren."
+msgstr "Metagegevenscatalogus converteren van XML naar YAML of andersom"
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1386
@@ -2992,9 +2979,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1397
-#, fuzzy
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr "Maak een XDG desktop-bestand van een MetaInfo-bestand."
+msgstr "Desktop-entry-bestand aanmaken vanuit een metainfo-bestand"
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstreamcli.c:1402
@@ -3096,21 +3082,20 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Het onderdeel dat '%s::%s' bevat kan niet worden gevonden."
 
 #: tools/ascli-actions-mdata.c:244
-#, fuzzy
 msgid "You need to specify categories to list."
-msgstr "U moet een zoekterm opgeven."
+msgstr "U moet categorieën opgeven om op te sommen."
 
 #. TRANSLATORS: We failed to find any component in these categories, likely due to an error
 #: tools/ascli-actions-mdata.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find components in %s!"
-msgstr "Het vinden van een onderdeel dat overeenkomt met %s is mislukt!"
+msgstr "Kan onderdelen niet vinden in %s!"
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:265
 #, c-format
 msgid "No component found in categories %s."
-msgstr ""
+msgstr "Geen onderdeel gevonden in de categorieën %s"
 
 #: tools/ascli-actions-mdata.c:344
 msgid "You need to specify a metadata file."
@@ -3189,9 +3174,8 @@ msgid "ERROR"
 msgstr "FOUT"
 
 #: tools/ascli-actions-mdata.c:649
-#, fuzzy
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr "U moet een metagegevens-bestand opgeven."
+msgstr "U moet een metainfo-bestandsnaam of component-ID opgeven."
 
 #: tools/ascli-actions-mdata.c:667 tools/ascli-actions-misc.c:128
 #: tools/ascli-actions-misc.c:371 tools/ascli-actions-misc.c:448
@@ -3247,7 +3231,7 @@ msgstr "Metagegevensbronnen van besturingssysteem:"
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:60
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "Geen OS-metagegevens gevonden. Dit is ongebruikelijk."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:63
@@ -3276,9 +3260,8 @@ msgstr ""
 "Er is een fout opgetreden tijdens het laden van de metagegevens-pool: %s"
 
 #: tools/ascli-actions-misc.c:114 tools/ascli-actions-misc.c:438
-#, fuzzy
 msgid "You need to specify a metainfo file as input."
-msgstr "U moet een metagegevens-bestand opgeven."
+msgstr "U moet een metainfo-bestand opgeven als invoer."
 
 #: tools/ascli-actions-misc.c:118
 msgid ""
@@ -3291,9 +3274,9 @@ msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
 msgstr "Uitbreiding de bestaande desktop-bestand ‘%s’ met gegevens uit ‘%s’."
 
 #: tools/ascli-actions-misc.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr "Het lezen van het .desktop-bestand is mislukt: %s"
+msgstr "Kan bestaande sjabloon voor desktop-entry niet laden: %s"
 
 #: tools/ascli-actions-misc.c:158
 #, c-format
@@ -3311,34 +3294,30 @@ msgid ""
 msgstr ""
 
 #: tools/ascli-actions-misc.c:300
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save desktop entry file: %s"
-msgstr "Het lezen van het .desktop-bestand is mislukt: %s"
+msgstr "Kan desktop-entry-bestand niet opslaan: %s"
 
 #: tools/ascli-actions-misc.c:328
-#, fuzzy
 msgid "You need to specify a NEWS file as input."
-msgstr "U moet een metagegevens-bestand opgeven."
+msgstr "U moet een NEWS-bestand opgeven als invoer."
 
 #: tools/ascli-actions-misc.c:332
-#, fuzzy
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr "U moet een metagegevens-bestand opgeven."
+msgstr "U moet een metainfo-bestand opgeven om uit te breiden, of ‘-’ om af te drukken naar stdout."
 
 #: tools/ascli-actions-misc.c:337
 msgid "No output filename specified, modifying metainfo file directly."
 msgstr ""
 
 #: tools/ascli-actions-misc.c:442
-#, fuzzy
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "U moet een metagegevens-bestand opgeven."
+msgstr "U moet een NEWS-bestand opgeven als uitvoer, of ‘-’ om af te drukken naar stdout."
 
 #: tools/ascli-actions-misc.c:473
-#, fuzzy
 msgid "You need to specify a NEWS format to write the output in."
-msgstr "U moet een invoer- en uitvoerbestand opgeven."
+msgstr "U moet een NEWS-indeling opgeven om de uitvoer in te schrijven."
 
 #: tools/ascli-actions-misc.c:526
 msgid "Operating System Details"
@@ -3436,9 +3415,9 @@ msgid "Unable to spawn Flatpak process: %s"
 msgstr "Kan Flatpak-proces niet starten: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "Het vinden van een onderdeel met ID %s is mislukt!"
+msgstr "Kan component met ID ‘%s’ en de geselecteerde filtercriteria niet vinden!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
@@ -3509,14 +3488,13 @@ msgid "pedantic: %lu"
 msgstr "pedant: %lu"
 
 #: tools/ascli-actions-validate.c:388 tools/ascli-actions-validate.c:489
-#, fuzzy
 msgid "You need to specify at least one file to validate!"
-msgstr "U moet een te valideren bestand opgeven!"
+msgstr "U moet ten minste één bestand opgeven om te valideren!"
 
 #: tools/ascli-actions-validate.c:399
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to add release metadata file: %s"
-msgstr "Het lezen van het .desktop-bestand is mislukt: %s"
+msgstr "Kan uitgavemetagegevensbestand niet toevoegen: %s"
 
 #: tools/ascli-actions-validate.c:408
 msgid ""
