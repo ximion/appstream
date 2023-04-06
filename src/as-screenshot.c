@@ -50,7 +50,7 @@ typedef struct
 	GPtrArray *videos_lang;
 
 	AsContext *context;
-	gchar *active_locale_override;
+	GRefString *active_locale_override;
 } AsScreenshotPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsScreenshot, as_screenshot, G_TYPE_OBJECT)
@@ -84,7 +84,7 @@ as_screenshot_finalize (GObject *object)
 	AsScreenshot *screenshot = AS_SCREENSHOT (object);
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 
-	g_free (priv->active_locale_override);
+	as_ref_string_release (priv->active_locale_override);
 	g_ptr_array_unref (priv->images);
 	g_ptr_array_unref (priv->images_lang);
 	g_ptr_array_unref (priv->videos);
@@ -441,6 +441,8 @@ as_screenshot_get_active_locale (AsScreenshot *screenshot)
 
 /**
  * as_screenshot_set_active_locale:
+ * @screenshot: a #AsScreenshot instance.
+ * @locale: (nullable): a POSIX or BCP47 locale, or %NULL. e.g. "de_DE"
  *
  * Set the current active locale, which
  * is used to get localized messages.
@@ -453,8 +455,12 @@ as_screenshot_set_active_locale (AsScreenshot *screenshot, const gchar *locale)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 
-	g_free (priv->active_locale_override);
-	priv->active_locale_override = g_strdup (locale);
+	if (as_locale_is_bcp47 (locale)) {
+		as_ref_string_assign_safe (&priv->active_locale_override, locale);
+	} else {
+		g_autofree gchar *bcp47 = as_utils_posix_locale_to_bcp47 (locale);
+		as_ref_string_assign_safe (&priv->active_locale_override, bcp47);
+	}
 
 	/* rebuild our list of images suitable for the current locale */
 	as_screenshot_rebuild_suitable_media_list (screenshot);
@@ -513,7 +519,7 @@ as_screenshot_set_context (AsScreenshot *screenshot, AsContext *context)
 	priv->context = g_object_ref (context);
 
 	/* reset individual properties, so the new context overrides them */
-	g_free (g_steal_pointer (&priv->active_locale_override));
+	as_ref_string_assign_safe (&priv->active_locale_override, NULL);
 
 	as_screenshot_rebuild_suitable_media_list (screenshot);
 }

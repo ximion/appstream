@@ -93,6 +93,8 @@ gchar			*as_markup_convert_simple (const gchar *markup,
 
 gboolean		as_utils_locale_is_compatible (const gchar *locale1,
 						       const gchar *locale2);
+gchar			*as_utils_posix_locale_to_bcp47 (const gchar *locale);
+
 gboolean		as_utils_is_category_name (const gchar *category_name);
 gboolean		as_utils_is_tld (const gchar *tld);
 gboolean		as_utils_is_desktop_environment (const gchar *desktop);

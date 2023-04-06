@@ -195,8 +195,7 @@ as_translation_get_source_locale (AsTranslation *tr)
 /**
  * as_translation_set_source_locale:
  * @tr: a #AsTranslation instance.
- * @locale: (nullable): The locale that the source strings are in, or %NULL if
- *    unknown or default.
+ * @locale: (nullable): The POSIX locale that the source strings are in, or %NULL if unknown or default.
  *
  * Set the locale of the source strings for this component. In gettext, this is
  * referred to as the `C` locale. It’s almost always `en_US`, but for some

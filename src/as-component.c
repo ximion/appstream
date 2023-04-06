@@ -1490,7 +1490,7 @@ as_component_get_active_locale (AsComponent *cpt)
 /**
  * as_component_set_active_locale:
  * @cpt: a #AsComponent instance.
- * @locale: (nullable): the locale, or %NULL. e.g. "en_GB"
+ * @locale: (nullable): a POSIX or BCP47 locale, or %NULL. e.g. "en_GB"
  *
  * Set the current active locale for this component, which
  * is used to get localized messages.
@@ -1501,7 +1501,13 @@ void
 as_component_set_active_locale (AsComponent *cpt, const gchar *locale)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	as_ref_string_assign_safe (&priv->active_locale_override, locale);
+
+	if (as_locale_is_bcp47 (locale)) {
+		as_ref_string_assign_safe (&priv->active_locale_override, locale);
+	} else {
+		g_autofree gchar *bcp47 = as_utils_posix_locale_to_bcp47 (locale);
+		as_ref_string_assign_safe (&priv->active_locale_override, bcp47);
+	}
 }
 
 /**
@@ -1526,7 +1532,7 @@ as_component_get_name (AsComponent *cpt)
  * as_component_set_name:
  * @cpt: A valid #AsComponent
  * @value: The name
- * @locale: (nullable): The locale the used for this value, or %NULL to use the current active one.
+ * @locale: (nullable): The BCP47 locale for this value, or %NULL to use the current active one.
  *
  * Set a human-readable name for this component.
  */
@@ -1564,7 +1570,7 @@ as_component_get_summary (AsComponent *cpt)
  * as_component_set_summary:
  * @cpt: A valid #AsComponent
  * @value: The summary
- * @locale: (nullable): The locale the used for this value, or %NULL to use the current active one.
+ * @locale: (nullable): The BCP47 locale for this value, or %NULL to use the current active one.
  *
  * Set a short description for this component.
  */
@@ -1602,7 +1608,7 @@ as_component_get_description (AsComponent *cpt)
  * as_component_set_description:
  * @cpt: A valid #AsComponent
  * @value: The long description
- * @locale: (nullable): The locale the used for this value, or %NULL to use the current active one.
+ * @locale: (nullable): The BCP47 locale for this value, or %NULL to use the current active one.
  *
  * Set long description for this component.
  */
@@ -1659,7 +1665,7 @@ as_component_get_keywords_table (AsComponent *cpt)
  * as_component_set_keywords:
  * @cpt: a #AsComponent instance.
  * @value: (array zero-terminated=1): String-array of keywords
- * @locale: (nullable): Locale of the values, or %NULL to use current locale.
+ * @locale: (nullable): BCP47 locale of the values, or %NULL to use current locale.
  *
  * Set keywords for this component.
  */
@@ -1943,7 +1949,7 @@ as_component_get_developer_name (AsComponent *cpt)
  * as_component_set_developer_name:
  * @cpt: a #AsComponent instance.
  * @value: the developer or developer team name
- * @locale: (nullable): the locale, or %NULL. e.g. "en_GB"
+ * @locale: (nullable): the BCP47 locale, or %NULL. e.g. "en-GB"
  *
  * Set the the component's developer or development team name.
  */
@@ -2088,7 +2094,7 @@ as_component_get_name_variant_suffix (AsComponent *cpt)
  * as_component_set_name_variant_suffix:
  * @cpt: a #AsComponent instance.
  * @value: the developer or developer team name
- * @locale: (nullable): the locale, or %NULL. e.g. "en_GB"
+ * @locale: (nullable): the BCP47 locale, or %NULL. e.g. "en-GB"
  *
  * Set a variant suffix for the component name
  * (only to be displayed if components have the same name).
@@ -2418,7 +2424,7 @@ as_component_set_sort_score (AsComponent *cpt, guint score)
 /**
  * as_component_add_language:
  * @cpt: an #AsComponent instance.
- * @locale: (nullable): the locale, or %NULL. e.g. "en_GB"
+ * @locale: (nullable): the BCP47 locale, or %NULL. e.g. "en-GB"
  * @percentage: the percentage completion of the translation, 0 for locales with unknown amount of translation
  *
  * Adds a language to the component.
@@ -2440,7 +2446,7 @@ as_component_add_language (AsComponent *cpt, const gchar *locale, gint percentag
 /**
  * as_component_get_language:
  * @cpt: an #AsComponent instance.
- * @locale: (nullable): the locale, or %NULL. e.g. "en_GB"
+ * @locale: (nullable): the BCP47 locale, or %NULL. e.g. "en-GB"
  *
  * Gets the translation coverage in percent for a specific locale
  *

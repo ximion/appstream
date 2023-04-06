@@ -410,6 +410,7 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 
 	keys = g_key_file_get_keys (df, DESKTOP_GROUP, NULL, NULL);
 	for (guint i = 0; keys[i] != NULL; i++) {
+		g_autofree gchar *locale_posix = NULL;
 		g_autofree gchar *locale = NULL;
 		g_autofree gchar *val = NULL;
 		gchar *key = keys[i];
@@ -418,11 +419,12 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 			continue;
 
 		g_strstrip (key);
-		locale = as_get_locale_from_key (key);
+		locale_posix = as_get_locale_from_key (key);
 
 		/* skip invalid stuff */
-		if (locale == NULL)
+		if (locale_posix == NULL)
 			continue;
+		locale = as_utils_posix_locale_to_bcp47 (locale_posix);
 
 		val = as_get_desktop_entry_value (df, issues, key);
 		if (val == NULL)

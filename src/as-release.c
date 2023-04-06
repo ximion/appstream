@@ -54,7 +54,7 @@ typedef struct
 	gchar		*date_eol;
 
 	AsContext	*context;
-	gchar		*active_locale_override;
+	GRefString	*active_locale_override;
 	gboolean	desc_translatable;
 
 	GPtrArray	*issues;
@@ -176,10 +176,10 @@ as_release_finalize (GObject *object)
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 
 	g_free (priv->version);
-	g_free (priv->active_locale_override);
 	g_free (priv->date);
 	g_free (priv->date_eol);
 	g_free (priv->url_details);
+	as_ref_string_release (priv->active_locale_override);
 	g_hash_table_unref (priv->description);
 	g_ptr_array_unref (priv->issues);
 	g_ptr_array_unref (priv->artifacts);
@@ -518,7 +518,7 @@ as_release_get_description (AsRelease *release)
  * as_release_set_description:
  * @release: a #AsRelease instance.
  * @description: the description markup.
- * @locale: (nullable): the locale, or %NULL. e.g. "en_GB".
+ * @locale: (nullable): the BCP47 locale, or %NULL. e.g. "en-GB".
  *
  * Sets the description release markup.
  **/
@@ -567,7 +567,7 @@ as_release_get_active_locale (AsRelease *release)
 /**
  * as_release_set_active_locale:
  * @release: a #AsRelease instance.
- * @locale: the locale. e.g. "en_GB".
+ * @locale: (nullable): a POSIX or BCP47 locale, or %NULL. e.g. "de_DE"
  *
  * Set the current active locale, which
  * is used to get localized messages.
@@ -583,8 +583,12 @@ as_release_set_active_locale (AsRelease *release, const gchar *locale)
 	g_return_if_fail (AS_IS_RELEASE (release));
 	g_return_if_fail (locale != NULL);
 
-	g_free (priv->active_locale_override);
-	priv->active_locale_override = g_strdup (locale);
+	if (as_locale_is_bcp47 (locale)) {
+		as_ref_string_assign_safe (&priv->active_locale_override, locale);
+	} else {
+		g_autofree gchar *bcp47 = as_utils_posix_locale_to_bcp47 (locale);
+		as_ref_string_assign_safe (&priv->active_locale_override, bcp47);
+	}
 }
 
 /**
@@ -738,12 +742,12 @@ void
 as_release_set_context (AsRelease *release, AsContext *context)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-
 	g_return_if_fail (AS_IS_RELEASE (release));
 
 	g_set_object (&priv->context, context);
+
 	/* reset individual properties, so the new context overrides them */
-	g_free (g_steal_pointer (&priv->active_locale_override));
+	as_ref_string_assign_safe (&priv->active_locale_override, NULL);
 }
 
 /**

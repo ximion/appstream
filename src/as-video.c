@@ -322,7 +322,7 @@ as_video_get_locale (AsVideo *video)
 /**
  * as_video_set_locale:
  * @video: a #AsVideo instance.
- * @locale: the locale string.
+ * @locale: the BCP47 locale string.
  *
  * Sets the locale for this video.
  **/

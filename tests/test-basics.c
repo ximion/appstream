@@ -136,6 +136,51 @@ test_verify_int_str (void)
 }
 
 /**
+ * test_locale_conversion:
+ */
+static void
+test_locale_conversion (void)
+{
+	g_autofree gchar *tmp = NULL;
+
+	tmp = as_utils_posix_locale_to_bcp47 ("de_DE");
+	g_assert_cmpstr (tmp, ==, "de-DE");
+	g_free (g_steal_pointer (&tmp));
+
+	tmp = as_utils_posix_locale_to_bcp47 ("uz_UZ@cyrillic");
+	g_assert_cmpstr (tmp, ==, "uz-UZ-Cyrl");
+	g_free (g_steal_pointer (&tmp));
+
+	tmp = as_utils_posix_locale_to_bcp47 ("en_UK@euro");
+	g_assert_cmpstr (tmp, ==, "en-UK");
+	g_free (g_steal_pointer (&tmp));
+
+	tmp = as_utils_posix_locale_to_bcp47 ("en");
+	g_assert_cmpstr (tmp, ==, "en");
+	g_free (g_steal_pointer (&tmp));
+
+	tmp = as_utils_posix_locale_to_bcp47 ("ca@valencia");
+	g_assert_cmpstr (tmp, ==, "ca-valencia");
+	g_free (g_steal_pointer (&tmp));
+
+	tmp = as_utils_posix_locale_to_bcp47 ("sr@latin");
+	g_assert_cmpstr (tmp, ==, "sr-Latn");
+	g_free (g_steal_pointer (&tmp));
+
+	g_assert_true (as_locale_is_posix ("de_DE"));
+	g_assert_true (as_locale_is_posix ("en"));
+	g_assert_true (as_locale_is_posix ("ca@valencia"));
+	g_assert_true (as_locale_is_posix (NULL));
+	g_assert_false (as_locale_is_posix ("de-DE"));
+
+	g_assert_false (as_locale_is_bcp47 ("de_DE"));
+	g_assert_false (as_locale_is_bcp47 ("ca@valencia"));
+	g_assert_true (as_locale_is_bcp47 ("en"));
+	g_assert_true (as_locale_is_bcp47 ("de-DE"));
+	g_assert_true (as_locale_is_bcp47 (NULL));
+}
+
+/**
  * test_categories:
  *
  * Test #AsCategory properties.
@@ -1044,6 +1089,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Random", test_random);
 	g_test_add_func ("/AppStream/SafeAssign", test_safe_assign);
 	g_test_add_func ("/AppStream/VerifyIntStr", test_verify_int_str);
+	g_test_add_func ("/AppStream/LocaleConvert", test_locale_conversion);
 	g_test_add_func ("/AppStream/Categories", test_categories);
 	g_test_add_func ("/AppStream/SimpleMarkupConvert", test_simplemarkup);
 	g_test_add_func ("/AppStream/Component", test_component);

@@ -491,7 +491,7 @@ as_review_get_locale (AsReview *review)
 /**
  * as_review_set_locale:
  * @review: a #AsReview
- * @locale: locale, e.g. "en_GB"
+ * @locale: a BCP47 locale, e.g. "en-GB"
  *
  * Sets the locale for the review.
  *
