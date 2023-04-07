@@ -123,16 +123,16 @@ QList<Component> Pool::components() const
     return cptArrayToQList(as_pool_get_components(d->pool));
 }
 
-QList<Component> Pool::componentsById(const QString& cid) const
+QList<Component> Pool::componentsById(QAnyStringView cid) const
 {
-    return cptArrayToQList(as_pool_get_components_by_id(d->pool, qPrintable(cid)));
+    return cptArrayToQList(as_pool_get_components_by_id(d->pool, stringViewToChar(cid)));
 }
 
-QList<Component> Pool::componentsByProvided(Provided::Kind kind, const QString& item) const
+QList<Component> Pool::componentsByProvided(Provided::Kind kind, QAnyStringView item) const
 {
     return cptArrayToQList(as_pool_get_components_by_provided_item(d->pool,
                                                                    static_cast<AsProvidedKind>(kind),
-                                                                   qPrintable(item)));
+                                                                   stringViewToChar(item)));
 }
 
 QList<AppStream::Component> Pool::componentsByKind(Component::Kind kind) const
@@ -140,15 +140,19 @@ QList<AppStream::Component> Pool::componentsByKind(Component::Kind kind) const
     return cptArrayToQList(as_pool_get_components_by_kind(d->pool, static_cast<AsComponentKind>(kind)));
 }
 
-QList<AppStream::Component> Pool::componentsByCategories(const QStringList& categories) const
+QList<AppStream::Component> Pool::componentsByCategories(QList<QAnyStringView> categories) const
 {
     QList<AppStream::Component> res;
     g_autofree gchar **cats_strv = NULL;
 
     QVector<QByteArray> utf8Categories;
     utf8Categories.reserve(categories.size());
-    for (const QString &category : categories) {
-        utf8Categories += category.toUtf8();
+    for (QAnyStringView category : categories) {
+        QByteArray bytes = QByteArray();
+        bytes.resize(category.size_bytes() + 1);
+        bytes.append((char*)category.data(), category.size_bytes());
+        bytes.append('\0');
+        utf8Categories += bytes;
     }
 
     cats_strv = g_new0(gchar *, utf8Categories.size() + 1);
@@ -158,35 +162,35 @@ QList<AppStream::Component> Pool::componentsByCategories(const QStringList& cate
     return cptArrayToQList(as_pool_get_components_by_categories (d->pool, cats_strv));
 }
 
-QList<Component> Pool::componentsByLaunchable(Launchable::Kind kind, const QString& value) const
+QList<Component> Pool::componentsByLaunchable(Launchable::Kind kind, QAnyStringView value) const
 {
     return cptArrayToQList(as_pool_get_components_by_launchable(d->pool,
                                                                 static_cast<AsLaunchableKind>(kind),
-                                                                qPrintable(value)));
+                                                                stringViewToChar(value)));
 }
 
-QList<Component> Pool::componentsByExtends(const QString &extendedId) const
+QList<Component> Pool::componentsByExtends(QAnyStringView extendedId) const
 {
     return cptArrayToQList(as_pool_get_components_by_extends(d->pool,
-                                                             qPrintable(extendedId)));
+                                                             stringViewToChar(extendedId)));
 }
 
-QList<Component> Pool::componentsByBundleId(Bundle::Kind kind, const QString &extendedId, bool matchPrefix) const
+QList<Component> Pool::componentsByBundleId(Bundle::Kind kind, QAnyStringView extendedId, bool matchPrefix) const
 {
     return cptArrayToQList(as_pool_get_components_by_bundle_id(d->pool,
                                                                static_cast<AsBundleKind>(kind),
-                                                               qPrintable(extendedId),
+                                                               stringViewToChar(extendedId),
                                                                matchPrefix));
 }
 
-QList<AppStream::Component> Pool::search(const QString& term) const
+QList<AppStream::Component> Pool::search(QAnyStringView term) const
 {
-    return cptArrayToQList(as_pool_search(d->pool, qPrintable(term)));
+    return cptArrayToQList(as_pool_search(d->pool, stringViewToChar(term)));
 }
 
-void Pool::setLocale(const QString& locale)
+void Pool::setLocale(QAnyStringView locale)
 {
-    as_pool_set_locale (d->pool, qPrintable(locale));
+    as_pool_set_locale (d->pool, stringViewToChar(locale));
 }
 
 uint Pool::flags() const
@@ -214,10 +218,10 @@ void Pool::resetExtraDataLocations()
     as_pool_reset_extra_data_locations (d->pool);
 }
 
-void Pool::addExtraDataLocation(const QString &directory, Metadata::FormatStyle formatStyle)
+void Pool::addExtraDataLocation(QAnyStringView directory, Metadata::FormatStyle formatStyle)
 {
     as_pool_add_extra_data_location (d->pool,
-                                     qPrintable(directory),
+                                     stringViewToChar(directory),
                                      (AsFormatStyle) formatStyle);
 }
 
@@ -226,11 +230,11 @@ void Pool::setLoadStdDataLocations(bool enabled)
     as_pool_set_load_std_data_locations(d->pool, enabled);
 }
 
-void Pool::overrideCacheLocations(const QString &sysDir, const QString &userDir)
+void Pool::overrideCacheLocations(QAnyStringView sysDir, QAnyStringView userDir)
 {
     as_pool_override_cache_locations (d->pool,
-                                      sysDir.isEmpty()? nullptr : qPrintable(sysDir),
-                                      userDir.isEmpty()? nullptr : qPrintable(userDir));
+                                      sysDir.isEmpty()? nullptr : stringViewToChar(sysDir),
+                                      userDir.isEmpty()? nullptr : stringViewToChar(userDir));
 }
 
 bool AppStream::Pool::isEmpty() const

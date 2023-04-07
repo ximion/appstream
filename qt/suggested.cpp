@@ -95,18 +95,22 @@ void Suggested::setKind(Suggested::Kind kind)
     as_suggested_set_kind(d->m_suggested, (AsSuggestedKind) kind);
 }
 
-const QStringList AppStream::Suggested::ids() const
+const QList<QAnyStringView> AppStream::Suggested::ids() const
 {
     return valueWrap(as_suggested_get_ids(d->m_suggested));
 }
 
-void AppStream::Suggested::addSuggested(const QString& id)
+void AppStream::Suggested::addSuggested(QAnyStringView id)
 {
-    as_suggested_add_id(d->m_suggested, qPrintable(id));
+    as_suggested_add_id(d->m_suggested, stringViewToChar(id));
 }
 
 QDebug operator<<(QDebug s, const AppStream::Suggested& suggested)
 {
-    s.nospace() << "AppStream::Suggested(" << suggested.ids() << ")";
+    QStringList ids = QStringList();
+    for(int i = 0; i < suggested.ids().size(); i++) {
+        ids.append(suggested.ids()[i].toString());
+    }
+    s.nospace() << "AppStream::Suggested(" << ids << ")";
     return s.space();
 }

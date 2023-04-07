@@ -20,7 +20,7 @@
 #pragma once
 
 #include <QSharedDataPointer>
-#include <QString>
+#include <QAnyStringView>
 #include <QObject>
 #include "appstreamqt_export.h"
 
@@ -105,24 +105,24 @@ class APPSTREAMQT_EXPORT Relation {
         };
         Q_ENUM(DisplayLengthKind)
 
-        static QString kindToString(Kind kind);
-        static Kind stringToKind(const QString &string);
+        static QAnyStringView kindToString(Kind kind);
+        static Kind stringToKind(QAnyStringView string);
 
-        static QString itemKindToString(ItemKind ikind);
-        static ItemKind stringToItemKind(const QString &string);
+        static QAnyStringView itemKindToString(ItemKind ikind);
+        static ItemKind stringToItemKind(QAnyStringView string);
 
-        static Compare stringToCompare(const QString &string);
-        static QString compareToString(Compare cmp);
-        static QString compareToSymbolsString(Compare cmp);
+        static Compare stringToCompare(QAnyStringView string);
+        static QAnyStringView compareToString(Compare cmp);
+        static QAnyStringView compareToSymbolsString(Compare cmp);
 
-        static QString controlKindToString(ControlKind ckind);
-        static ControlKind controlKindFromString(const QString &string);
+        static QAnyStringView controlKindToString(ControlKind ckind);
+        static ControlKind controlKindFromString(QAnyStringView string);
 
-        static QString displaySideKindToString(DisplaySideKind kind);
-        static DisplaySideKind stringToDisplaySideKind(const QString &string);
+        static QAnyStringView displaySideKindToString(DisplaySideKind kind);
+        static DisplaySideKind stringToDisplaySideKind(QAnyStringView string);
 
-        static QString displayLengthKindToString(DisplayLengthKind kind);
-        static DisplayLengthKind stringToDisplayLengthKind(const QString &string);
+        static QAnyStringView displayLengthKindToString(DisplayLengthKind kind);
+        static DisplayLengthKind stringToDisplayLengthKind(QAnyStringView string);
 
         Relation();
         Relation(_AsRelation* relation);
@@ -146,11 +146,11 @@ class APPSTREAMQT_EXPORT Relation {
         Compare compare() const;
         void setCompare(Compare compare);
 
-        QString version() const;
-        void setVersion(const QString &version);
+        QAnyStringView version() const;
+        void setVersion(QAnyStringView version);
 
-        QString valueStr() const;
-        void setValueStr(const QString &value);
+        QAnyStringView valueStr() const;
+        void setValueStr(QAnyStringView value);
 
         int valueInt() const;
         void setValueInt(int value);
@@ -167,13 +167,13 @@ class APPSTREAMQT_EXPORT Relation {
         DisplayLengthKind valueDisplayLengthKind() const;
         void setValueDisplayLengthKind(DisplayLengthKind kind);
 
-        bool versionCompare(const QString &version);
+        bool versionCompare(QAnyStringView version);
 
         CheckResult isSatisfied(SystemInfo *sysInfo,
                                 Pool *pool,
                                 QString *message);
 
-        QString lastError() const;
+        QAnyStringView lastError() const;
 
     private:
         QSharedDataPointer<RelationData> d;

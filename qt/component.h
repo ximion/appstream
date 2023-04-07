@@ -23,7 +23,8 @@
 #include <QSharedDataPointer>
 #include <QObject>
 #include <QUrl>
-#include <QStringList>
+#include <QAnyStringView>
+#include <QList>
 #include <QSize>
 #include "appstreamqt_export.h"
 #include "provided.h"
@@ -107,14 +108,14 @@ class APPSTREAMQT_EXPORT Component {
         };
         Q_ENUM(ValueFlags)
 
-        static Kind stringToKind(const QString& kindString);
-        static QString kindToString(Kind kind);
+        static Kind stringToKind(QAnyStringView kindString);
+        static QAnyStringView kindToString(Kind kind);
 
-        static UrlKind stringToUrlKind(const QString& urlKindString);
-        static QString urlKindToString(AppStream::Component::UrlKind kind);
+        static UrlKind stringToUrlKind(QAnyStringView urlKindString);
+        static QAnyStringView urlKindToString(AppStream::Component::UrlKind kind);
 
-        static Scope stringToScope(const QString& scopeString);
-        static QString scopeToString(AppStream::Component::Scope scope);
+        static Scope stringToScope(QAnyStringView scopeString);
+        static QAnyStringView scopeToString(AppStream::Component::Scope scope);
 
         Component(_AsComponent *cpt);
         Component();
@@ -129,87 +130,87 @@ class APPSTREAMQT_EXPORT Component {
         uint valueFlags() const;
         void setValueFlags(uint flags);
 
-        QString activeLocale() const;
-        void setActiveLocale(const QString& locale);
+        QAnyStringView activeLocale() const;
+        void setActiveLocale(QAnyStringView locale);
 
         Kind kind () const;
         void setKind (Component::Kind kind);
 
-        QString origin() const;
-        void setOrigin(const QString& origin);
+        QAnyStringView origin() const;
+        void setOrigin(QAnyStringView origin);
 
-        QString id() const;
-        void setId(const QString& id);
+        QAnyStringView id() const;
+        void setId(QAnyStringView id);
 
-        QString dataId() const;
-        void setDataId(const QString& cdid);
+        QAnyStringView dataId() const;
+        void setDataId(QAnyStringView cdid);
 
         Scope scope () const;
         void setScope (Component::Scope scope);
 
-        QStringList packageNames() const;
-        void setPackageNames(const QStringList& list);
+        QList<QAnyStringView> packageNames() const;
+        void setPackageNames(QList<QAnyStringView> list);
 
-        QString sourcePackageName() const;
-        void setSourcePackageName(const QString& sourcePkg);
+        QAnyStringView sourcePackageName() const;
+        void setSourcePackageName(QAnyStringView sourcePkg);
 
-        QString name() const;
-        void setName(const QString& name, const QString& lang = {});
+        QAnyStringView name() const;
+        void setName(QAnyStringView name, QAnyStringView lang = {});
 
-        QString summary() const;
-        void setSummary(const QString& summary, const QString& lang = {});
+        QAnyStringView summary() const;
+        void setSummary(QAnyStringView summary, QAnyStringView lang = {});
 
-        QString description() const;
-        void setDescription(const QString& description, const QString& lang = {});
+        QAnyStringView description() const;
+        void setDescription(QAnyStringView description, QAnyStringView lang = {});
 
         AppStream::Launchable launchable(AppStream::Launchable::Kind kind) const;
         void addLaunchable(const AppStream::Launchable& launchable);
 
-        QString metadataLicense() const;
-        void setMetadataLicense(const QString& license);
+        QAnyStringView metadataLicense() const;
+        void setMetadataLicense(QAnyStringView license);
 
-        QString projectLicense() const;
-        void setProjectLicense(const QString& license);
+        QAnyStringView projectLicense() const;
+        void setProjectLicense(QAnyStringView license);
 
-        QString projectGroup() const;
-        void setProjectGroup(const QString& group);
+        QAnyStringView projectGroup() const;
+        void setProjectGroup(QAnyStringView group);
 
-        QString developerName() const;
-        void setDeveloperName(const QString& developerName, const QString& lang = {});
+        QAnyStringView developerName() const;
+        void setDeveloperName(QAnyStringView developerName, QAnyStringView lang = {});
 
-        QStringList compulsoryForDesktops() const;
-        void setCompulsoryForDesktop(const QString& desktop);
-        bool isCompulsoryForDesktop(const QString& desktop) const;
+        QList<QAnyStringView> compulsoryForDesktops() const;
+        void setCompulsoryForDesktop(QAnyStringView desktop);
+        bool isCompulsoryForDesktop(QAnyStringView desktop) const;
 
-        QStringList categories() const;
-        void addCategory(const QString& category);
-        bool hasCategory(const QString& category) const;
+        QList<QAnyStringView> categories() const;
+        void addCategory(QAnyStringView category);
+        bool hasCategory(QAnyStringView category) const;
         bool isMemberOfCategory(const AppStream::Category& category) const;
 
-        QStringList extends() const;
-        void setExtends(const QStringList& extends);
-        void addExtends(const QString& extend);
+        QList<QAnyStringView> extends() const;
+        void setExtends(QList<QAnyStringView> extends);
+        void addExtends(QAnyStringView extend);
 
         QList<AppStream::Component> addons() const;
         void addAddon(const AppStream::Component& addon);
 
-        QStringList replaces() const;
-        void addReplaces(const QString& cid);
+        QList<QAnyStringView> replaces() const;
+        void addReplaces(QAnyStringView cid);
 
         QList<AppStream::Relation> requirements() const;
         QList<AppStream::Relation> recommends() const;
         QList<AppStream::Relation> supports() const;
         void addRelation(const AppStream::Relation &relation);
 
-        QStringList languages() const;
-        int language(const QString& locale) const;
-        void addLanguage(const QString& locale, int percentage);
+        QList<QAnyStringView> languages() const;
+        int language(QAnyStringView locale) const;
+        void addLanguage(QAnyStringView locale, int percentage);
 
         QList<AppStream::Translation> translations() const;
         void addTranslation(const AppStream::Translation& translation);
 
         QUrl url(UrlKind kind) const;
-        void addUrl(UrlKind kind, const QString& url);
+        void addUrl(UrlKind kind, QAnyStringView url);
 
         QList<AppStream::Icon> icons() const;
         AppStream::Icon icon(const QSize& size) const;
@@ -241,9 +242,9 @@ class APPSTREAMQT_EXPORT Component {
         QList<AppStream::Suggested> suggested() const;
         void addSuggested(const AppStream::Suggested& suggested);
 
-        QStringList searchTokens() const;
-        uint searchMatches(const QString& term) const;
-        uint searchMatchesAll(const QStringList& terms) const;
+        QList<QAnyStringView> searchTokens() const;
+        uint searchMatches(QAnyStringView term) const;
+        uint searchMatchesAll(QList<QAnyStringView> terms) const;
 
         uint sortScore() const;
         void setSortScore(uint score);
@@ -252,26 +253,26 @@ class APPSTREAMQT_EXPORT Component {
         void setMergeKind(MergeKind kind);
 
         QHash<QString,QString> custom() const;
-        QString customValue(const QString& key);
-        bool insertCustomValue(const QString& key, const QString& value);
+        QAnyStringView customValue(QAnyStringView key);
+        bool insertCustomValue(QAnyStringView key, QAnyStringView value);
 
         QList<AppStream::ContentRating> contentRatings() const;
-        AppStream::ContentRating contentRating(const QString& kind) const;
+        AppStream::ContentRating contentRating(QAnyStringView kind) const;
         void addContentRating(const AppStream::ContentRating& contentRating);
 
-        QString nameVariantSuffix() const;
-        void setNameVariantSuffix(const QString& variantSuffix, const QString& lang = {});
+        QAnyStringView nameVariantSuffix() const;
+        void setNameVariantSuffix(QAnyStringView variantSuffix, QAnyStringView lang = {});
 
-        bool hasTag(const QString &ns, const QString &tagName);
-        bool addTag(const QString &ns, const QString &tagName);
-        void removeTag(const QString &ns, const QString &tagName);
+        bool hasTag(QAnyStringView ns, QAnyStringView tagName);
+        bool addTag(QAnyStringView ns, QAnyStringView tagName);
+        void removeTag(QAnyStringView ns, QAnyStringView tagName);
         void clearTags();
 
         bool isFree() const;
         bool isIgnored() const;
         bool isValid() const;
 
-        QString toString() const;
+        QAnyStringView toString() const;
 
     private:
         _AsComponent *m_cpt;

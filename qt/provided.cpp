@@ -61,14 +61,14 @@ public:
     AsProvided *m_prov;
 };
 
-QString Provided::kindToString(Provided::Kind kind)
+QAnyStringView Provided::kindToString(Provided::Kind kind)
 {
     return valueWrap(as_provided_kind_to_string((AsProvidedKind) kind));
 }
 
-Provided::Kind Provided::stringToKind(const QString& kindString)
+Provided::Kind Provided::stringToKind(QAnyStringView kindString)
 {
-    return Provided::Kind(as_provided_kind_from_string(qPrintable(kindString)));
+    return Provided::Kind(as_provided_kind_from_string(stringViewToChar(kindString)));
 }
 
 Provided::Provided(const Provided& other)
@@ -113,14 +113,14 @@ Provided::Kind Provided::kind() const
     return Provided::Kind(as_provided_get_kind(d->m_prov));
 }
 
-QStringList Provided::items() const
+QList<QAnyStringView> Provided::items() const
 {
     return valueWrap(as_provided_get_items(d->m_prov));
 }
 
-bool Provided::hasItem(const QString& item) const
+bool Provided::hasItem(QAnyStringView item) const
 {
-    return as_provided_has_item (d->m_prov, qPrintable(item));
+    return as_provided_has_item (d->m_prov, stringViewToChar(item));
 }
 
 bool Provided::isEmpty() const
@@ -132,6 +132,10 @@ bool Provided::isEmpty() const
 }
 
 QDebug operator<<(QDebug s, const AppStream::Provided& Provided) {
-    s.nospace() << "AppStream::Provided(" << Provided.kind() << ',' << Provided.items() << "])";
+    QStringList items = QStringList();
+    for(int i = 0; i < Provided.items().size(); i++) {
+        items.append(Provided.items()[i].toString());
+    }
+    s.nospace() << "AppStream::Provided(" << Provided.kind() << ',' << items << "])";
     return s.space();
 }

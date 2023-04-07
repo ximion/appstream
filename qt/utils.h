@@ -20,18 +20,18 @@
 #ifndef APPSTREAMQT_UTILS_H
 #define APPSTREAMQT_UTILS_H
 
-#include <QStringList>
+#include <QAnyStringView>
 #include "appstreamqt_export.h"
 
 namespace AppStream {
 
 namespace Utils {
 
-APPSTREAMQT_EXPORT QString currentDistroComponentId();
+APPSTREAMQT_EXPORT QAnyStringView currentDistroComponentId();
 
-APPSTREAMQT_EXPORT QString currentAppStreamVersion();
+APPSTREAMQT_EXPORT QAnyStringView currentAppStreamVersion();
 
-APPSTREAMQT_EXPORT int vercmpSimple(const QString &a, const QString &b);
+APPSTREAMQT_EXPORT int vercmpSimple(QAnyStringView a, QAnyStringView b);
 
 }
 

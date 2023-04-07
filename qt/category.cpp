@@ -76,22 +76,22 @@ _AsCategory * AppStream::Category::asCategory() const
     return d->category();
 }
 
-QString Category::id() const
+QAnyStringView Category::id() const
 {
     return valueWrap(as_category_get_id(d->m_category));
 }
 
-QString Category::name() const
+QAnyStringView Category::name() const
 {
     return valueWrap(as_category_get_name(d->m_category));
 }
 
-QString Category::summary() const
+QAnyStringView Category::summary() const
 {
     return valueWrap(as_category_get_summary(d->m_category));
 }
 
-QString Category::icon() const
+QAnyStringView Category::icon() const
 {
     return valueWrap(as_category_get_icon(d->m_category));
 }
@@ -108,10 +108,10 @@ QList<Category> Category::children() const
     return ret;
 }
 
-QStringList Category::desktopGroups() const
+QList<QAnyStringView> Category::desktopGroups() const
 {
     auto dgs = as_category_get_desktop_groups(d->m_category);
-    QStringList ret;
+    QList<QAnyStringView> ret;
     ret.reserve(dgs->len);
     for(uint i = 0; i < dgs->len; i++) {
         auto dg = (const gchar*) g_ptr_array_index (dgs, i);
@@ -122,7 +122,7 @@ QStringList Category::desktopGroups() const
 
 QDebug operator<<(QDebug s, const AppStream::Category& category)
 {
-    s.nospace() << "AppStream::Category(" << category.id() << ")";
+    s.nospace() << "AppStream::Category(" << stringViewToChar(category.id()) << ")";
     return s.space();
 }
 

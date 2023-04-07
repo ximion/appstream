@@ -56,14 +56,14 @@ public:
     AsContentRating* m_contentRating;
 };
 
-AppStream::ContentRating::RatingValue AppStream::ContentRating::stringToRatingValue(const QString& ratingValue)
+AppStream::ContentRating::RatingValue AppStream::ContentRating::stringToRatingValue(QAnyStringView ratingValue)
 {
-    return static_cast<ContentRating::RatingValue>(as_content_rating_value_from_string(qPrintable(ratingValue)));
+    return static_cast<ContentRating::RatingValue>(as_content_rating_value_from_string(stringViewToChar(ratingValue)));
 }
 
-QString AppStream::ContentRating::ratingValueToString(AppStream::ContentRating::RatingValue ratingValue)
+QAnyStringView AppStream::ContentRating::ratingValueToString(AppStream::ContentRating::RatingValue ratingValue)
 {
-    return QString::fromUtf8(as_content_rating_value_to_string(static_cast<AsContentRatingValue>(ratingValue)));
+    return valueWrap(as_content_rating_value_to_string(static_cast<AsContentRatingValue>(ratingValue)));
 }
 
 ContentRating::ContentRating()
@@ -96,14 +96,14 @@ _AsContentRating * AppStream::ContentRating::asContentRating() const
     return d->contentRating();
 }
 
-QString AppStream::ContentRating::kind() const
+QAnyStringView AppStream::ContentRating::kind() const
 {
     return valueWrap(as_content_rating_get_kind(d->m_contentRating));
 }
 
-void AppStream::ContentRating::setKind(const QString& kind)
+void AppStream::ContentRating::setKind(QAnyStringView kind)
 {
-    as_content_rating_set_kind(d->m_contentRating, qPrintable(kind));
+    as_content_rating_set_kind(d->m_contentRating, stringViewToChar(kind));
 }
 
 uint AppStream::ContentRating::minimumAge() const
@@ -111,28 +111,28 @@ uint AppStream::ContentRating::minimumAge() const
     return as_content_rating_get_minimum_age(d->m_contentRating);
 }
 
-AppStream::ContentRating::RatingValue AppStream::ContentRating::value(const QString& id) const
+AppStream::ContentRating::RatingValue AppStream::ContentRating::value(QAnyStringView id) const
 {
-    return static_cast<AppStream::ContentRating::RatingValue>(as_content_rating_get_value(d->m_contentRating, qPrintable(id)));
+    return static_cast<AppStream::ContentRating::RatingValue>(as_content_rating_get_value(d->m_contentRating, stringViewToChar(id)));
 }
 
-void AppStream::ContentRating::setValue(const QString& id, AppStream::ContentRating::RatingValue ratingValue)
+void AppStream::ContentRating::setValue(QAnyStringView id, AppStream::ContentRating::RatingValue ratingValue)
 {
-    as_content_rating_set_value(d->m_contentRating, qPrintable(id), (AsContentRatingValue) ratingValue);
+    as_content_rating_set_value(d->m_contentRating, stringViewToChar(id), (AsContentRatingValue) ratingValue);
 }
 
-QString AppStream::ContentRating::description(const QString& id) const
+QAnyStringView AppStream::ContentRating::description(QAnyStringView id) const
 {
-    return QString::fromUtf8(as_content_rating_attribute_get_description(qPrintable(id), as_content_rating_get_value(d->m_contentRating, qPrintable(id))));
+    return valueWrap(as_content_rating_attribute_get_description(stringViewToChar(id), as_content_rating_get_value(d->m_contentRating, stringViewToChar(id))));
 }
 
-QStringList AppStream::ContentRating::ratingIds() const
+QList<QAnyStringView> AppStream::ContentRating::ratingIds() const
 {
     return AppStream::valueWrap(as_content_rating_get_rating_ids(d->m_contentRating));
 }
 
 QDebug operator<<(QDebug s, const AppStream::ContentRating& contentRating)
 {
-    s.nospace() << "AppStream::ContentRating(" << contentRating.kind() << contentRating.minimumAge() << ")";
+    s.nospace() << "AppStream::ContentRating(" << stringViewToChar(contentRating.kind()) << contentRating.minimumAge() << ")";
     return s.space();
 }

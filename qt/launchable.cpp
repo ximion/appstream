@@ -57,7 +57,7 @@ public:
 };
 
 
-AppStream::Launchable::Kind AppStream::Launchable::stringToKind(const QString& kindString)
+AppStream::Launchable::Kind AppStream::Launchable::stringToKind(QAnyStringView kindString)
 {
     if (kindString == QLatin1String("desktop-id")) {
         return AppStream::Launchable::KindDesktopId;
@@ -65,7 +65,7 @@ AppStream::Launchable::Kind AppStream::Launchable::stringToKind(const QString& k
     return AppStream::Launchable::KindUnknown;
 }
 
-QString AppStream::Launchable::kindToString(AppStream::Launchable::Kind kind)
+QAnyStringView AppStream::Launchable::kindToString(AppStream::Launchable::Kind kind)
 {
     if (kind == AppStream::Launchable::KindDesktopId) {
         return QLatin1String("desktop-id");
@@ -113,7 +113,7 @@ void AppStream::Launchable::setKind(AppStream::Launchable::Kind kind)
     as_launchable_set_kind(d->m_launchable, (AsLaunchableKind) kind);
 }
 
-QStringList AppStream::Launchable::entries() const
+QList<QAnyStringView> AppStream::Launchable::entries() const
 {
     return valueWrap(as_launchable_get_entries(d->m_launchable));
 }
@@ -125,8 +125,12 @@ void AppStream::Launchable::addEntry(const QString& entry)
 
 QDebug operator<<(QDebug s, const AppStream::Launchable& launchable)
 {
+    QStringList launchEntries = QStringList();
+    for(int i = 0; i < launchable.entries().size(); i++) {
+        launchEntries.append(launchable.entries()[i].toString());
+    }
     s.nospace() << "AppStream::Launchable("
-                << Launchable::kindToString(launchable.kind()) << ":"
-                << launchable.entries() << ")";
+                << Launchable::kindToString(launchable.kind()).toString() << ":"
+                << launchEntries << ")";
     return s.space();
 }

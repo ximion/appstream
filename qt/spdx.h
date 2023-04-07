@@ -21,24 +21,25 @@
 #define APPSTREAMQT_SPDX_H
 
 #include <QStringList>
+#include <QAnyStringView>
 #include "appstreamqt_export.h"
 
 namespace AppStream {
 
 namespace SPDX {
-APPSTREAMQT_EXPORT bool isLicenseId(const QString &license_id);
-APPSTREAMQT_EXPORT bool isLicenseExceptionId(const QString &exception_id);
-APPSTREAMQT_EXPORT bool isLicenseExpression(const QString &license);
+APPSTREAMQT_EXPORT bool isLicenseId(QAnyStringView license_id);
+APPSTREAMQT_EXPORT bool isLicenseExceptionId(QAnyStringView exception_id);
+APPSTREAMQT_EXPORT bool isLicenseExpression(QAnyStringView license);
 
-APPSTREAMQT_EXPORT bool isMetadataLicense(const QString &license);
-APPSTREAMQT_EXPORT bool isFreeLicense(const QString &license);
+APPSTREAMQT_EXPORT bool isMetadataLicense(QAnyStringView license);
+APPSTREAMQT_EXPORT bool isFreeLicense(QAnyStringView license);
 
-APPSTREAMQT_EXPORT QStringList tokenizeLicense(const QString &license);
-APPSTREAMQT_EXPORT QString detokenizeLicense(const QStringList &license_tokens);
+APPSTREAMQT_EXPORT QList<QAnyStringView> tokenizeLicense(QAnyStringView license);
+APPSTREAMQT_EXPORT QAnyStringView detokenizeLicense(QList<QAnyStringView> license_tokens);
 
-APPSTREAMQT_EXPORT QString asSpdxId(const QString &license);
+APPSTREAMQT_EXPORT QAnyStringView asSpdxId(QAnyStringView license);
 
-APPSTREAMQT_EXPORT QString licenseUrl(const QString &license);
+APPSTREAMQT_EXPORT QAnyStringView licenseUrl(QAnyStringView license);
 
 }
 

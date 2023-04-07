@@ -22,7 +22,7 @@
 #define APPSTREAMQT_LAUNCHABLE_H
 
 #include <QSharedDataPointer>
-#include <QString>
+#include <QAnyStringView>
 #include <QObject>
 #include "appstreamqt_export.h"
 
@@ -48,8 +48,8 @@ class APPSTREAMQT_EXPORT Launchable {
         Launchable(const Launchable& launchable);
         ~Launchable();
 
-        static Kind stringToKind(const QString& kindString);
-        static QString kindToString(Kind kind);
+        static Kind stringToKind(QAnyStringView kindString);
+        static QAnyStringView kindToString(Kind kind);
 
         Launchable& operator=(const Launchable& launchable);
         bool operator==(const Launchable& r) const;
@@ -62,7 +62,7 @@ class APPSTREAMQT_EXPORT Launchable {
         Kind kind() const;
         void setKind(Kind kind);
 
-        QStringList entries() const;
+        QList<QAnyStringView> entries() const;
         void addEntry(const QString& entry);
 
     private:

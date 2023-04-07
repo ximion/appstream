@@ -64,13 +64,13 @@ class APPSTREAMQT_EXPORT Provided {
         };
         Q_ENUM(Kind)
 
-        static Kind stringToKind(const QString& kind);
-        static QString kindToString(Kind kind);
+        static Kind stringToKind(QAnyStringView kind);
+        static QAnyStringView kindToString(Kind kind);
 
         Kind kind() const;
 
-        QStringList items() const;
-        bool hasItem(const QString &item) const;
+        QList<QAnyStringView> items() const;
+        bool hasItem(QAnyStringView item) const;
 
         bool isEmpty() const;
 

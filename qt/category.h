@@ -22,6 +22,7 @@
 
 #include <QSharedDataPointer>
 #include <QString>
+#include <QAnyStringView>
 #include <QObject>
 #include "appstreamqt_export.h"
 
@@ -46,13 +47,13 @@ class APPSTREAMQT_EXPORT Category {
          */
         _AsCategory *asCategory() const;
 
-        QString id() const;
-        QString name() const;
-        QString summary() const;
-        QString icon() const;
+        QAnyStringView id() const;
+        QAnyStringView name() const;
+        QAnyStringView summary() const;
+        QAnyStringView icon() const;
 
         QList<Category> children() const;
-        QStringList desktopGroups() const;
+        QList<QAnyStringView> desktopGroups() const;
 
     private:
         QSharedDataPointer<CategoryData> d;

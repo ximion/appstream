@@ -22,7 +22,7 @@
 #define APPSTREAMQT_RELEASE_H
 
 #include <QSharedDataPointer>
-#include <QString>
+#include <QAnyStringView>
 #include <QObject>
 #include <QCryptographicHash>
 #include "appstreamqt_export.h"
@@ -83,14 +83,14 @@ class APPSTREAMQT_EXPORT Release {
 
         Kind kind() const;
 
-        QString version() const;
+        QAnyStringView version() const;
 
         QDateTime timestamp() const;
         QDateTime timestampEol() const;
 
-        QString description() const;
+        QAnyStringView description() const;
 
-        QString activeLocale() const;
+        QAnyStringView activeLocale() const;
 
         UrgencyKind urgency() const;
 

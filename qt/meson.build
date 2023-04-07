@@ -65,6 +65,9 @@ asqt_cpp_args = ['-DQT_NO_KEYWORDS']
 if get_option('maintainer')
     asqt_cpp_args += ['-Wno-inline']
 endif
+if get_option('qt6')
+    asqt_cpp_args += ['-DUSE_QANYSTRINGVIEW']
+endif
 
 appstreamqt_lib = library ('AppStreamQt',
     [asqt_src,

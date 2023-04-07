@@ -21,6 +21,7 @@
 #include "appstream.h"
 
 #include "release.h"
+#include "chelpers.h"
 
 #include <QDateTime>
 #include <QDebug>
@@ -84,9 +85,9 @@ Release::Kind Release::kind() const
     return Release::Kind(as_release_get_kind(d->m_release));
 }
 
-QString Release::version() const
+QAnyStringView Release::version() const
 {
-    return QString::fromUtf8(as_release_get_version(d->m_release));
+    return valueWrap(as_release_get_version(d->m_release));
 }
 
 QDateTime Release::timestamp() const
@@ -101,14 +102,14 @@ QDateTime Release::timestampEol() const
     return timestamp > 0 ? QDateTime::fromSecsSinceEpoch(timestamp) : QDateTime();
 }
 
-QString Release::description() const
+QAnyStringView Release::description() const
 {
-    return QString::fromUtf8(as_release_get_description(d->m_release));
+    return valueWrap(as_release_get_description(d->m_release));
 }
 
-QString Release::activeLocale() const
+QAnyStringView Release::activeLocale() const
 {
-    return QString::fromUtf8(as_release_get_active_locale(d->m_release));
+    return valueWrap(as_release_get_active_locale(d->m_release));
 }
 
 Release::UrgencyKind Release::urgency() const
@@ -118,6 +119,6 @@ Release::UrgencyKind Release::urgency() const
 
 QDebug operator<<(QDebug s, const AppStream::Release& release)
 {
-    s.nospace() << "AppStream::Release(" << release.version() << ": " << release.description() << ")";
+    s.nospace() << "AppStream::Release(" << release.version().toString() << ": " << release.description().toString() << ")";
     return s.space();
 }

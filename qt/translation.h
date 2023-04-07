@@ -22,7 +22,7 @@
 #define APPSTREAMQT_TRANSLATION_H
 
 #include <QSharedDataPointer>
-#include <QString>
+#include <QAnyStringView>
 #include <QObject>
 #include "appstreamqt_export.h"
 
@@ -47,8 +47,8 @@ class APPSTREAMQT_EXPORT Translation {
         Translation(const Translation& category);
         ~Translation();
 
-        static Kind stringToKind(const QString& kindString);
-        static QString kindToString(Kind kind);
+        static Kind stringToKind(QAnyStringView kindString);
+        static QAnyStringView kindToString(Kind kind);
 
         Translation& operator=(const Translation& category);
         bool operator==(const Translation& r) const;
@@ -61,8 +61,8 @@ class APPSTREAMQT_EXPORT Translation {
         Kind kind() const;
         void setKind(Kind kind);
 
-        QString id() const;
-        void setId(const QString& id);
+        QAnyStringView id() const;
+        void setId(QAnyStringView id);
 
     private:
         QSharedDataPointer<TranslationData> d;

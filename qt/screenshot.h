@@ -25,7 +25,7 @@
 #include <QSharedDataPointer>
 #include "appstreamqt_export.h"
 
-#include <QString>
+#include <QAnyStringView>
 #include <QList>
 
 
@@ -86,8 +86,8 @@ public:
     /**
      * \return caption for this image or a null QString if no caption
      */
-    QString caption() const;
-    void setCaption(const QString& caption, const QString& lang = {});
+    QAnyStringView caption() const;
+    void setCaption(QAnyStringView caption, QAnyStringView lang = {});
 
 private:
     QSharedDataPointer<ScreenshotData> d;

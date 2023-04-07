@@ -27,14 +27,14 @@
 
 using namespace AppStream;
 
-QString Bundle::kindToString(Bundle::Kind kind)
+QAnyStringView Bundle::kindToString(Bundle::Kind kind)
 {
     return as_bundle_kind_to_string((AsBundleKind) kind);
 }
 
-Bundle::Kind Bundle::stringToKind(const QString& kindString)
+Bundle::Kind Bundle::stringToKind(const QAnyStringView& kindString)
 {
-    return Bundle::Kind(as_bundle_kind_from_string(qPrintable(kindString)));
+    return Bundle::Kind(as_bundle_kind_from_string(stringViewToChar(kindString)));
 }
 
 class AppStream::BundleData : public QSharedData {
@@ -108,14 +108,14 @@ void Bundle::setKind(Kind kind)
     as_bundle_set_kind(d->m_bundle, (AsBundleKind) kind);
 }
 
-QString Bundle::id() const
+QAnyStringView Bundle::id() const
 {
     return valueWrap(as_bundle_get_id(d->m_bundle));
 }
 
-void Bundle::setId(const QString& id)
+void Bundle::setId(const QAnyStringView& id)
 {
-    as_bundle_set_id(d->m_bundle, qPrintable(id));
+    as_bundle_set_id(d->m_bundle, stringViewToChar(id));
 }
 
 bool Bundle::isEmpty() const
@@ -125,6 +125,6 @@ bool Bundle::isEmpty() const
 
 QDebug operator<<(QDebug s, const AppStream::Bundle& bundle)
 {
-    s.nospace() << "AppStream::Bundle(" << bundle.id() << ")";
+    s.nospace() << "AppStream::Bundle(" << stringViewToChar(bundle.id()) << ")";
     return s.space();
 }

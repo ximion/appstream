@@ -21,6 +21,7 @@
 #include "appstream.h"
 #include "metadata.h"
 #include "chelpers.h"
+#include "qanystringview.h"
 
 #include <QDebug>
 
@@ -58,7 +59,7 @@ public:
     AsMetadata* m_metadata;
 };
 
-AppStream::Metadata::FormatKind AppStream::Metadata::stringToFormatKind(const QString& kindString)
+AppStream::Metadata::FormatKind AppStream::Metadata::stringToFormatKind(QAnyStringView kindString)
 {
     if (kindString == QLatin1String("xml")) {
         return FormatKind::FormatKindXml;
@@ -68,7 +69,7 @@ AppStream::Metadata::FormatKind AppStream::Metadata::stringToFormatKind(const QS
     return FormatKind::FormatKindUnknown;
 }
 
-QString AppStream::Metadata::formatKindToString(AppStream::Metadata::FormatKind kind)
+QAnyStringView AppStream::Metadata::formatKindToString(AppStream::Metadata::FormatKind kind)
 {
     if (kind == FormatKind::FormatKindXml) {
         return QLatin1String("xml");
@@ -78,14 +79,14 @@ QString AppStream::Metadata::formatKindToString(AppStream::Metadata::FormatKind 
     return QLatin1String("unknown");
 }
 
-AppStream::Metadata::FormatVersion AppStream::Metadata::stringToFormatVersion(const QString& formatVersionString)
+AppStream::Metadata::FormatVersion AppStream::Metadata::stringToFormatVersion(QAnyStringView formatVersionString)
 {
-    return static_cast<Metadata::FormatVersion>(as_format_version_from_string(qPrintable(formatVersionString)));
+    return static_cast<Metadata::FormatVersion>(as_format_version_from_string(stringViewToChar(formatVersionString)));
 }
 
-QString AppStream::Metadata::formatVersionToString(AppStream::Metadata::FormatVersion version)
+QAnyStringView AppStream::Metadata::formatVersionToString(AppStream::Metadata::FormatVersion version)
 {
-    return QString::fromUtf8(as_format_version_to_string(static_cast<AsFormatVersion>(version)));
+    return valueWrap(as_format_version_to_string(static_cast<AsFormatVersion>(version)));
 }
 
 Metadata::Metadata()
@@ -118,10 +119,10 @@ _AsMetadata * AppStream::Metadata::asMetadata() const
     return d->metadata();
 }
 
-AppStream::Metadata::MetadataError AppStream::Metadata::parseFile(const QString& file, AppStream::Metadata::FormatKind format)
+AppStream::Metadata::MetadataError AppStream::Metadata::parseFile(QAnyStringView file, AppStream::Metadata::FormatKind format)
 {
     g_autoptr(GError) error = nullptr;
-    g_autoptr(GFile) gFile = g_file_new_for_path(qPrintable(file));
+    g_autoptr(GFile) gFile = g_file_new_for_path(stringViewToChar(file));
     as_metadata_parse_file(d->m_metadata, gFile, (AsFormatKind) format, &error);
 
     if (error != nullptr) {
@@ -135,10 +136,10 @@ AppStream::Metadata::MetadataError AppStream::Metadata::parseFile(const QString&
     return AppStream::Metadata::MetadataErrorNoError;
 }
 
-AppStream::Metadata::MetadataError AppStream::Metadata::parse(const QString& data, AppStream::Metadata::FormatKind format)
+AppStream::Metadata::MetadataError AppStream::Metadata::parse(QAnyStringView data, AppStream::Metadata::FormatKind format)
 {
     g_autoptr(GError) error = nullptr;
-    as_metadata_parse(d->m_metadata, qPrintable(data), (AsFormatKind) format, &error);
+    as_metadata_parse(d->m_metadata, stringViewToChar(data), (AsFormatKind) format, &error);
 
     if (error != nullptr) {
         d->lastError = QString::fromUtf8(error->message);
@@ -151,10 +152,10 @@ AppStream::Metadata::MetadataError AppStream::Metadata::parse(const QString& dat
     return AppStream::Metadata::MetadataErrorNoError;
 }
 
-AppStream::Metadata::MetadataError AppStream::Metadata::parseDesktopData(const QString& data, const QString& cid)
+AppStream::Metadata::MetadataError AppStream::Metadata::parseDesktopData(QAnyStringView data, QAnyStringView cid)
 {
     g_autoptr(GError) error = nullptr;
-    as_metadata_parse_desktop_data(d->m_metadata, qPrintable(data), qPrintable(cid), &error);
+    as_metadata_parse_desktop_data(d->m_metadata, stringViewToChar(data), stringViewToChar(cid), &error);
 
     if (error != nullptr) {
         d->lastError = QString::fromUtf8(error->message);
@@ -198,15 +199,15 @@ void AppStream::Metadata::addComponent(const AppStream::Component& component)
     as_metadata_add_component(d->m_metadata, component.asComponent());
 }
 
-QString AppStream::Metadata::componentToMetainfo(AppStream::Metadata::FormatKind format) const
+QAnyStringView AppStream::Metadata::componentToMetainfo(AppStream::Metadata::FormatKind format) const
 {
     return valueWrap(as_metadata_component_to_metainfo(d->m_metadata, (AsFormatKind) format, nullptr));
 }
 
-AppStream::Metadata::MetadataError AppStream::Metadata::saveMetainfo(const QString& fname, AppStream::Metadata::FormatKind format)
+AppStream::Metadata::MetadataError AppStream::Metadata::saveMetainfo(QAnyStringView fname, AppStream::Metadata::FormatKind format)
 {
     g_autoptr(GError) error = nullptr;
-    as_metadata_save_metainfo(d->m_metadata, qPrintable(fname), (AsFormatKind) format, &error);
+    as_metadata_save_metainfo(d->m_metadata, stringViewToChar(fname), (AsFormatKind) format, &error);
 
     if (error != nullptr) {
         d->lastError = QString::fromUtf8(error->message);
@@ -219,15 +220,15 @@ AppStream::Metadata::MetadataError AppStream::Metadata::saveMetainfo(const QStri
     return AppStream::Metadata::MetadataErrorNoError;
 }
 
-QString AppStream::Metadata::componentsToCatalog(AppStream::Metadata::FormatKind format) const
+QAnyStringView AppStream::Metadata::componentsToCatalog(AppStream::Metadata::FormatKind format) const
 {
     return valueWrap(as_metadata_components_to_catalog(d->m_metadata, (AsFormatKind) format, nullptr));
 }
 
-AppStream::Metadata::MetadataError AppStream::Metadata::saveCatalog(const QString& filename, AppStream::Metadata::FormatKind format)
+AppStream::Metadata::MetadataError AppStream::Metadata::saveCatalog(QAnyStringView filename, AppStream::Metadata::FormatKind format)
 {
     g_autoptr(GError) error = nullptr;
-    as_metadata_save_catalog(d->m_metadata, qPrintable(filename), (AsFormatKind) format, &error);
+    as_metadata_save_catalog(d->m_metadata, stringViewToChar(filename), (AsFormatKind) format, &error);
 
     if (error != nullptr) {
         d->lastError = QString::fromUtf8(error->message);
@@ -240,6 +241,14 @@ AppStream::Metadata::MetadataError AppStream::Metadata::saveCatalog(const QStrin
     return AppStream::Metadata::MetadataErrorNoError;
 }
 
+<<<<<<< HEAD
+=======
+AppStream::Metadata::MetadataError AppStream::Metadata::saveCollection(QAnyStringView collection, AppStream::Metadata::FormatKind format)
+{
+    return saveCatalog(collection, format);
+}
+
+>>>>>>> c26dd9b0 (Port Qt6 API to use QAnyStringView instead of QString)
 AppStream::Metadata::FormatVersion AppStream::Metadata::formatVersion() const
 {
     return static_cast<AppStream::Metadata::FormatVersion>(as_metadata_get_format_version(d->m_metadata));
@@ -260,24 +269,24 @@ void AppStream::Metadata::setFormatStyle(AppStream::Metadata::FormatStyle format
     as_metadata_set_format_style(d->m_metadata, (AsFormatStyle) format);
 }
 
-QString AppStream::Metadata::locale() const
+QAnyStringView AppStream::Metadata::locale() const
 {
-    return valueWrap(as_metadata_get_locale(d->m_metadata));
+    return stringViewToChar(as_metadata_get_locale(d->m_metadata));
 }
 
-void AppStream::Metadata::setLocale(const QString& locale)
+void AppStream::Metadata::setLocale(QAnyStringView locale)
 {
-    as_metadata_set_locale(d->m_metadata, qPrintable(locale));
+    as_metadata_set_locale(d->m_metadata, stringViewToChar(locale));
 }
 
-QString AppStream::Metadata::origin() const
+QAnyStringView AppStream::Metadata::origin() const
 {
     return valueWrap(as_metadata_get_origin(d->m_metadata));
 }
 
-void AppStream::Metadata::setOrigin(const QString& origin)
+void AppStream::Metadata::setOrigin(QAnyStringView origin)
 {
-    as_metadata_set_origin(d->m_metadata, qPrintable(origin));
+    as_metadata_set_origin(d->m_metadata, stringViewToChar(origin));
 }
 
 bool AppStream::Metadata::updateExisting() const
@@ -300,14 +309,14 @@ void AppStream::Metadata::setWriteHeader(bool writeHeader)
     as_metadata_set_write_header(d->m_metadata, writeHeader);
 }
 
-QString AppStream::Metadata::architecture() const
+QAnyStringView AppStream::Metadata::architecture() const
 {
     return valueWrap(as_metadata_get_architecture(d->m_metadata));
 }
 
-void AppStream::Metadata::setArchitecture(const QString& architecture)
+void AppStream::Metadata::setArchitecture(QAnyStringView architecture)
 {
-    as_metadata_set_architecture(d->m_metadata, qPrintable(architecture));
+    as_metadata_set_architecture(d->m_metadata, stringViewToChar(architecture));
 }
 
 QString Metadata::lastError() const
@@ -320,7 +329,7 @@ QDebug operator<<(QDebug s, const AppStream::Metadata& metadata)
     QStringList list;
     const auto components = metadata.components();
     for (const AppStream::Component& component : components) {
-        list << component.id();
+        list << component.id().toString();
     }
     s.nospace() << "AppStream::Metadata(" << list << ")";
     return s.space();

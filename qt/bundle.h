@@ -21,7 +21,7 @@
 #define APPSTREAMQT_BUNDLE_H
 
 #include <QSharedDataPointer>
-#include <QString>
+#include <QAnyStringView>
 #include <QObject>
 #include "appstreamqt_export.h"
 
@@ -57,8 +57,8 @@ class APPSTREAMQT_EXPORT Bundle {
         };
         Q_ENUM(Kind)
 
-        static Kind stringToKind(const QString& kindString);
-        static QString kindToString(Kind kind);
+        static Kind stringToKind(const QAnyStringView& kindString);
+        static QAnyStringView kindToString(Kind kind);
 
         /**
          * \return the bundle kind.
@@ -69,8 +69,8 @@ class APPSTREAMQT_EXPORT Bundle {
         /**
          * \return the bundle ID.
          */
-        QString id() const;
-        void setId(const QString& id);
+        QAnyStringView id() const;
+        void setId(const QAnyStringView& id);
 
         bool isEmpty() const;
 
