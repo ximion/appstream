@@ -80,7 +80,7 @@ inline QList<QAnyStringView> valueWrap(GList *list)
 
 inline QByteArray stringViewToBytes(QAnyStringView str) {
     if(str.isNull()) {
-        return nullptr;
+        return QByteArray();
     }
     QByteArray bytes = QByteArray();
     bytes.reserve(str.size_bytes() + 1);
