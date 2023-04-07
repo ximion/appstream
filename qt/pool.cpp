@@ -149,7 +149,7 @@ QList<AppStream::Component> Pool::componentsByCategories(QList<QAnyStringView> c
     utf8Categories.reserve(categories.size());
     for (QAnyStringView category : categories) {
         QByteArray bytes = QByteArray();
-        bytes.resize(category.size_bytes() + 1);
+        bytes.reserve(category.size_bytes() + 1);
         bytes.append((char*)category.data(), category.size_bytes());
         bytes.append('\0');
         utf8Categories += bytes;

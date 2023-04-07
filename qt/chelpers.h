@@ -78,13 +78,22 @@ inline QList<QAnyStringView> valueWrap(GList *list)
     return res;
 }
 
-inline const char* stringViewToChar(QAnyStringView str) {
+inline QByteArray stringViewToBytes(QAnyStringView str) {
+    if(str.isNull()) {
+        return nullptr;
+    }
     QByteArray bytes = QByteArray();
-    bytes.resize(str.size_bytes() + 1);
+    bytes.reserve(str.size_bytes() + 1);
     bytes.append((char*)str.data(), str.size_bytes());
     bytes.append('\0');
-    return bytes.constData();
+    return bytes;
 }
+
+// This needs to be a macro otherwise the QByteArray we used will
+// be freed before we are done with its data
+#ifndef stringViewToChar
+#define stringViewToChar(STR) (stringViewToBytes(STR).constData())
+#endif
 
 inline char ** stringListToCharArray(QList<QAnyStringView> list)
 {
