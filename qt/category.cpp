@@ -122,7 +122,7 @@ QList<QAnyStringView> Category::desktopGroups() const
 
 QDebug operator<<(QDebug s, const AppStream::Category& category)
 {
-    s.nospace() << "AppStream::Category(" << stringViewToChar(category.id()) << ")";
+    s.nospace() << "AppStream::Category(" << category.id().toString() << ")";
     return s.space();
 }
 

@@ -125,6 +125,6 @@ bool Bundle::isEmpty() const
 
 QDebug operator<<(QDebug s, const AppStream::Bundle& bundle)
 {
-    s.nospace() << "AppStream::Bundle(" << stringViewToChar(bundle.id()) << ")";
+    s.nospace() << "AppStream::Bundle(" << bundle.id().toString() << ")";
     return s.space();
 }

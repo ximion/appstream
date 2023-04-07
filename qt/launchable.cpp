@@ -118,9 +118,9 @@ QList<QAnyStringView> AppStream::Launchable::entries() const
     return valueWrap(as_launchable_get_entries(d->m_launchable));
 }
 
-void AppStream::Launchable::addEntry(const QString& entry)
+void AppStream::Launchable::addEntry(QAnyStringView entry)
 {
-    as_launchable_add_entry(d->m_launchable, qPrintable(entry));
+    as_launchable_add_entry(d->m_launchable, stringViewToChar(entry));
 }
 
 QDebug operator<<(QDebug s, const AppStream::Launchable& launchable)

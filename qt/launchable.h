@@ -63,7 +63,7 @@ class APPSTREAMQT_EXPORT Launchable {
         void setKind(Kind kind);
 
         QList<QAnyStringView> entries() const;
-        void addEntry(const QString& entry);
+        void addEntry(QAnyStringView entry);
 
     private:
         QSharedDataPointer<LaunchableData> d;

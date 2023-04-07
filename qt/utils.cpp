@@ -25,13 +25,13 @@
 
 QAnyStringView AppStream::Utils::currentDistroComponentId()
 {
-    return QString::fromUtf8(as_get_current_distro_component_id());
+    return valueWrap(as_get_current_distro_component_id());
 }
 
 
 QAnyStringView AppStream::Utils::currentAppStreamVersion()
 {
-    return QString::fromUtf8(as_version_string());
+    return valueWrap(as_version_string());
 }
 
 int AppStream::Utils::vercmpSimple(QAnyStringView a, QAnyStringView b)

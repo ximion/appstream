@@ -133,6 +133,6 @@ QList<QAnyStringView> AppStream::ContentRating::ratingIds() const
 
 QDebug operator<<(QDebug s, const AppStream::ContentRating& contentRating)
 {
-    s.nospace() << "AppStream::ContentRating(" << stringViewToChar(contentRating.kind()) << contentRating.minimumAge() << ")";
+    s.nospace() << "AppStream::ContentRating(" << contentRating.kind().toString() << contentRating.minimumAge() << ")";
     return s.space();
 }
