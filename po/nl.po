@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-02-02 23:56+0100\n"
-"PO-Revision-Date: 2023-04-06 21:47+0000\n"
+"PO-Revision-Date: 2023-04-09 02:48+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/translations/nl/>\n"
 "Language: nl\n"
@@ -1342,7 +1342,7 @@ msgid ""
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr ""
+msgstr "Dit element (paragraaf, lijst, enz.) van een <description/>-tag mag niet afzonderlijk worden gelokaliseerd in catalogusmetagegevens. Lokaliseer in plaats daarvan de hele tag <description/>. De catalogusgenerator voor AppStream-metagegevens (bijv. ‘appstream-generator’) zal al het juiste doen bij het compileren van de gegevens."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -1356,7 +1356,7 @@ msgstr "AppStream-omschrijvingen steunen een beperkte set van tags om tekst te o
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr ""
+msgstr "Deze omschrijvingsparagraaf bevat ongeldige opmaak. Momenteel zijn alleen <em/> en <code/> toegestaan."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -1370,19 +1370,19 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
+msgstr "De eerste ‘description/p’-paragraaf van dit component is wellicht te kort (< 80 tekens). Overweeg om met een langere paragraaf te beginnen, zodat de beschrijving er beter uitziet in softwarecentra en om direct in de eerste paragraaf meer gedetailleerde informatie over deze component te geven."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
 "The description line does not start with a capitalized word, project name or "
 "number."
-msgstr ""
+msgstr "De beschrijvingsregel begint niet met een hoofdletter, projectnaam of nummer."
 
 #: src/as-validator-issue-tag.h:91
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
+msgstr "De beschrijving bevat een web URL in platte tekst. Dit is niet toegestaan, gebruik in plaats daarvan de tag <url/> om links te delen."
 
 #: src/as-validator-issue-tag.h:96
 msgid "This tag is not translatable."
@@ -1392,24 +1392,24 @@ msgstr "Deze tag is niet vertaalbaar"
 msgid ""
 "This tag must only appear once in this context. Having multiple tags of this "
 "kind is not valid."
-msgstr ""
+msgstr "Deze tag mag in deze context slechts eenmaal voorkomen. Meerdere tags van dit type zijn niet geldig."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
-msgstr ""
+msgstr "De genoemde tag is leeg, wat hoogstwaarschijnlijk niet de bedoeling is, want het zou inhoud moeten hebben."
 
 #: src/as-validator-issue-tag.h:111
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
-msgstr ""
+msgstr "De genoemde tag heeft tekstinhoud, ook al mag deze geen tekst bevatten."
 
 #: src/as-validator-issue-tag.h:116
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
-msgstr ""
+msgstr "De component-ID moet voor zijn naam een omgekeerd domeinnaamschema volgen. Zie de AppStream-specificatie voor details."
 
 #: src/as-validator-issue-tag.h:121
 msgid ""
@@ -1422,6 +1422,8 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
+"De component-ID is geen omgekeerde domeinnaam. Update de ID om toekomstige problemen te voorkomen en compatibel te zijn met alle AppStream-implementaties.\n"
+"U kunt ook overwegen om de naam van het bijbehorende ‘.desktop’-bestand aan te passen aan de laatste versie van de desktop-entry-specificatie en er ook een rDNS-naam voor te gebruiken. Vergeet in ieder geval niet de nieuwe desktop-entry te vermelden in een <launchable/>-tag voor dit component om de toepassing startbaar te houden vanuit softwarecentra en de ‘.desktop’-bestandsgegevens geassocieerd te houden met de metainfo-gegevens."
 
 #: src/as-validator-issue-tag.h:129
 msgid ""
