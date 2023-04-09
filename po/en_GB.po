@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-02-02 23:56+0100\n"
-"PO-Revision-Date: 2023-04-08 05:49+0000\n"
+"PO-Revision-Date: 2023-04-09 02:48+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/appstream/translations/en_GB/>\n"
 "Language: en_GB\n"
@@ -938,21 +938,21 @@ msgid "Failed to download due to server limit"
 msgstr "Failed to download due to server limit"
 
 #: src/as-curl.c:142 src/as-curl.c:149
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to download file: %s"
-msgstr "Unable to save desktop entry file: %s"
+msgstr "Failed to download file: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
 #: src/as-curl.c:160
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "URL was not found on the server."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:170
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Unexpected status code: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:332
@@ -975,7 +975,7 @@ msgstr "Metadata files have errors:"
 
 #: src/as-pool.c:2640
 msgid "Group"
-msgstr ""
+msgstr "Group"
 
 #: src/as-pool.c:2686
 msgid "Iconsets"
@@ -984,12 +984,12 @@ msgstr "Iconsets"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2733
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Data from locally installed software"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2736
 msgid "Software catalog data"
-msgstr ""
+msgstr "Software catalogue data"
 
 #: src/as-provided.c:144
 msgid "Libraries"
