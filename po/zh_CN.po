@@ -40,6 +40,7 @@
 # Eric <alchemillatruth@purelymail.com>, 2022.
 # Hugel <qihu@nfschina.com>, 2022.
 # Eric <hamburger1024@duck.com>, 2022.
+# Gary Wang <wzc782970009@gmail.com>, 2023.
 #
 # Translators:
 msgid ""
@@ -47,16 +48,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-02-02 23:56+0100\n"
-"PO-Revision-Date: 2022-12-24 03:49+0000\n"
-"Last-Translator: Eric <hamburger1024@duck.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_Hans/>\n"
+"PO-Revision-Date: 2023-04-10 14:48+0000\n"
+"Last-Translator: Gary Wang <wzc782970009@gmail.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1073,40 +1073,38 @@ msgid "pointing device (e.g. a mouse)"
 msgstr ""
 
 #: src/as-relation.c:1532
-#, fuzzy
 msgid "keyboard"
-msgstr "棋类"
+msgstr "键盘"
 
 #: src/as-relation.c:1534
 msgid "gamepad"
-msgstr ""
+msgstr "游戏手柄"
 
 #: src/as-relation.c:1536
 msgid "tv remote"
-msgstr ""
+msgstr "电视遥控"
 
 #: src/as-relation.c:1538
 msgid "graphics tablet"
-msgstr ""
+msgstr "绘图板"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1543
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires a %s for input."
-msgstr "此标签需要类型属性。"
+msgstr "此软件需要 %s 以进行输入。"
 
 #: src/as-relation.c:1548
-#, fuzzy
 msgid "This software requires a touch input device."
-msgstr "此标签需要类型属性。"
+msgstr "此软件需要触摸输入设备。"
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "此软件需要麦克风以使用语音进行输入。"
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "此软件需要摄像头以进行输入控制。"
 
 #: src/as-relation.c:1554
 #, fuzzy
@@ -1117,11 +1115,11 @@ msgstr "此标签需要类型属性。"
 #: src/as-relation.c:1559
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "此软件建议使用 %s 进行输入。"
 
 #: src/as-relation.c:1564
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "此软件推荐使用触控输入设备。"
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
@@ -1141,41 +1139,41 @@ msgstr ""
 
 #: src/as-relation.c:1577
 msgid "keyboards"
-msgstr ""
+msgstr "键盘"
 
 #: src/as-relation.c:1579
 msgid "gamepads"
-msgstr ""
+msgstr "游戏手柄"
 
 #: src/as-relation.c:1581
 msgid "tv remotes"
-msgstr ""
+msgstr "电视遥控"
 
 #: src/as-relation.c:1583
 msgid "graphics tablets"
-msgstr ""
+msgstr "绘图板"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1587
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "此软件支持 %s。"
 
 #: src/as-relation.c:1592
 msgid "This software supports touch input."
-msgstr ""
+msgstr "此软件支持触控输入。"
 
 #: src/as-relation.c:1594
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "此软件可通过语音输入的形式控制。"
 
 #: src/as-relation.c:1596
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "此软件可通过摄像头进行控制。"
 
 #: src/as-relation.c:1598
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "此软件支持通过终端命令的方式进行操作。"
 
 #: src/as-relation.c:1611
 msgid "Pointing device (e.g. a mouse or touchpad) found."
@@ -1257,7 +1255,7 @@ msgstr ""
 #: src/as-relation.c:1775
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "此软件需要使用 %s 内核，但当前系统正在使用的是 %s。"
 
 #: src/as-relation.c:1779
 #, c-format
@@ -1288,15 +1286,15 @@ msgstr ""
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1820
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %s %s."
-msgstr "此标签需要类型属性。"
+msgstr "此软件支持 %s %s %s。"
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1830
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "支持内核 %s %s。"
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1304,7 +1302,7 @@ msgstr ""
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "此软件需要 %s %.2f GiB 内存，但当前系统只具备 %.2f GiB。"
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
