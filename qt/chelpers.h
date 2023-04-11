@@ -82,10 +82,7 @@ inline QByteArray stringViewToBytes(QAnyStringView str) {
     if(str.isNull()) {
         return QByteArray();
     }
-    QByteArray bytes = QByteArray();
-    bytes.reserve(str.size_bytes() + 1);
-    bytes.append((char*)str.data(), str.size_bytes());
-    bytes.append('\0');
+    QByteArray bytes = QByteArray((char*)str.data(), str.size_bytes());
     return bytes;
 }
 
