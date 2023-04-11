@@ -41,7 +41,7 @@ typedef struct {
 	GHashTable	*description;
 
 	AsContext	*context;
-	gchar		*active_locale_override;
+	GRefString	*active_locale_override;
 } AsAgreementSectionPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsAgreementSection, as_agreement_section, G_TYPE_OBJECT)
@@ -58,7 +58,7 @@ as_agreement_section_finalize (GObject *object)
 	g_hash_table_unref (priv->name);
 	g_hash_table_unref (priv->description);
 
-	g_free (priv->active_locale_override);
+	as_ref_string_release (priv->active_locale_override);
 	if (priv->context != NULL)
 		g_object_unref (priv->context);
 
@@ -184,7 +184,7 @@ as_agreement_section_get_description (AsAgreementSection *agreement_section)
 /**
  * as_agreement_section_set_description:
  * @agreement_section: a #AsAgreementSection instance.
- * @locale: (nullable): the locale. e.g. "en_GB"
+ * @locale: (nullable): the locale in BCP47 format. e.g. "en-GB"
  * @desc: the agreement description, e.g. "GDPR"
  *
  * Sets the agreement section desc.
@@ -235,6 +235,7 @@ as_agreement_section_set_context (AsAgreementSection *agreement_section, AsConte
 	if (priv->context != NULL)
 		g_object_unref (priv->context);
 	priv->context = g_object_ref (context);
+	as_ref_string_assign_safe (&priv->active_locale_override, NULL);
 }
 
 /**
@@ -264,6 +265,8 @@ as_agreement_section_get_active_locale (AsAgreementSection *agreement_section)
 
 /**
  * as_agreement_section_set_active_locale:
+ * @agreement_section: an #AsAgreement
+ * @locale: (nullable): a POSIX or BCP47 locale, or %NULL. e.g. "de_DE"
  *
  * Set the current active locale, which
  * is used to get localized messages.
@@ -272,7 +275,13 @@ void
 as_agreement_section_set_active_locale (AsAgreementSection *agreement_section, const gchar *locale)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
-	as_assign_string_safe (priv->active_locale_override, locale);
+
+	if (as_locale_is_bcp47 (locale)) {
+		as_ref_string_assign_safe (&priv->active_locale_override, locale);
+	} else {
+		g_autofree gchar *bcp47 = as_utils_posix_locale_to_bcp47 (locale);
+		as_ref_string_assign_safe (&priv->active_locale_override, bcp47);
+	}
 }
 
 /**

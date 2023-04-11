@@ -229,10 +229,10 @@ test_appstream_write_locale (void)
 	const gchar *EXPECTED_XML = "<component type=\"desktop-application\">\n"
 				    "  <id>org.mozilla.firefox</id>\n"
 				    "  <name>Firefox</name>\n"
-				    "  <name xml:lang=\"de_DE\">Feuerfuchs</name>\n"
-				    "  <name xml:lang=\"fr_FR\">Renard de feu</name>\n"
+				    "  <name xml:lang=\"de-DE\">Feuerfuchs</name>\n"
+				    "  <name xml:lang=\"fr-FR\">Renard de feu</name>\n"
 				    "  <summary>Web browser</summary>\n"
-				    "  <summary xml:lang=\"fr_FR\">Navigateur web</summary>\n"
+				    "  <summary xml:lang=\"fr-FR\">Navigateur web</summary>\n"
 				    "  <pkgname>firefox-bin</pkgname>\n"
 				    "  <icon type=\"stock\">web-browser</icon>\n"
 				    "  <icon type=\"cached\" width=\"64\" height=\"64\">firefox_web-browser.png</icon>\n"
@@ -256,7 +256,7 @@ test_appstream_write_locale (void)
 				    "    <keyword>internet</keyword>\n"
 				    "    <keyword>web</keyword>\n"
 				    "    <keyword>browser</keyword>\n"
-				    "    <keyword xml:lang=\"fr_FR\">navigateur</keyword>\n"
+				    "    <keyword xml:lang=\"fr-FR\">navigateur</keyword>\n"
 				    "  </keywords>\n"
 				    "</component>\n";
 
@@ -1181,18 +1181,18 @@ static const gchar *xmldata_screenshots = "<component>\n"
 					  "  <screenshots>\n"
 					  "    <screenshot type=\"default\">\n"
 					  "      <caption>The main window displaying a thing</caption>\n"
-					  "      <caption xml:lang=\"de_DE\">Das Hauptfenster, welches irgendwas zeigt</caption>\n"
+					  "      <caption xml:lang=\"de-DE\">Das Hauptfenster, welches irgendwas zeigt</caption>\n"
 					  "      <image type=\"source\" width=\"1916\" height=\"1056\">https://example.org/alpha.png</image>\n"
 					  "      <image type=\"thumbnail\" width=\"800\" height=\"600\">https://example.org/alpha_small.png</image>\n"
 					  "    </screenshot>\n"
 					  "    <screenshot>\n"
 					  "      <image type=\"source\" width=\"1916\" height=\"1056\">https://example.org/beta.png</image>\n"
 					  "      <image type=\"thumbnail\" width=\"800\" height=\"600\">https://example.org/beta_small.png</image>\n"
-					  "      <image type=\"source\" xml:lang=\"de_DE\">https://example.org/localized_de.png</image>\n"
+					  "      <image type=\"source\" xml:lang=\"de-DE\">https://example.org/localized_de.png</image>\n"
 					  "    </screenshot>\n"
 					  "    <screenshot>\n"
 					  "      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\">https://example.org/screencast.mkv</video>\n"
-					  "      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\" xml:lang=\"de_DE\">https://example.org/screencast_de.mkv</video>\n"
+					  "      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\" xml:lang=\"de-DE\">https://example.org/screencast_de.mkv</video>\n"
 					  "    </screenshot>\n"
 					  "  </screenshots>\n"
 					  "</component>\n";
@@ -1361,7 +1361,7 @@ test_xml_write_screenshots (void)
 	scr1 = as_screenshot_new ();
 	as_screenshot_set_kind (scr1, AS_SCREENSHOT_KIND_DEFAULT);
 	as_screenshot_set_caption (scr1, "The main window displaying a thing", "C");
-	as_screenshot_set_caption (scr1, "Das Hauptfenster, welches irgendwas zeigt", "de_DE");
+	as_screenshot_set_caption (scr1, "Das Hauptfenster, welches irgendwas zeigt", "de-DE");
 	img = as_image_new ();
 	as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
 	as_image_set_width (img, 1916);
@@ -1397,7 +1397,7 @@ test_xml_write_screenshots (void)
 
 	img = as_image_new ();
 	as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
-	as_image_set_locale (img, "de_DE");
+	as_image_set_locale (img, "de-DE");
 	as_image_set_url (img, "https://example.org/localized_de.png");
 	as_screenshot_add_image (scr2, img);
 	g_object_unref (img);
@@ -1415,7 +1415,7 @@ test_xml_write_screenshots (void)
 	vid = as_video_new ();
 	as_video_set_codec_kind (vid, AS_VIDEO_CODEC_KIND_AV1);
 	as_video_set_container_kind (vid, AS_VIDEO_CONTAINER_KIND_MKV);
-	as_video_set_locale (vid, "de_DE");
+	as_video_set_locale (vid, "de-DE");
 	as_video_set_width (vid, 1916);
 	as_video_set_height (vid, 1056);
 	as_video_set_url (vid, "https://example.org/screencast_de.mkv");
@@ -1669,7 +1669,7 @@ static const gchar *xmldata_agreements = 	"<component>\n"
 						"  <agreement type=\"eula\" version_id=\"1.2.3a\">\n"
 						"    <agreement_section type=\"intro\">\n"
 						"      <name>Intro</name>\n"
-						"      <name xml:lang=\"de_DE\">Einführung</name>\n"
+						"      <name xml:lang=\"de-DE\">Einführung</name>\n"
 						"      <description>\n"
 						"        <p>Mighty Fine</p>\n"
 						"      </description>\n"
@@ -1733,7 +1733,7 @@ test_xml_write_agreements (void)
 
 	as_agreement_section_set_kind (sect, "intro");
 	as_agreement_section_set_name (sect, "Intro", "C");
-	as_agreement_section_set_name (sect, "Einführung", "de_DE");
+	as_agreement_section_set_name (sect, "Einführung", "de-DE");
 
 	as_agreement_section_set_description (sect, "<p>Mighty Fine</p>", "C");
 

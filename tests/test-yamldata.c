@@ -222,8 +222,8 @@ test_yamlwrite_misc (void)
 				"- org.example.alpha\n"
 				"- org.example.beta\n"
 				"Name:\n"
-				"  de_DE: Ünittest Fürmwäre (dummy Eintrag)\n"
 				"  C: Unittest Firmware\n"
+				"  de-DE: Ünittest Fürmwäre (dummy Eintrag)\n"
 				"Summary:\n"
 				"  C: Just part of an unittest.\n"
 				"Url:\n"
@@ -285,14 +285,14 @@ test_yamlwrite_misc (void)
 				"  type: development\n"
 				"  unix-timestamp: 1460463132\n"
 				"  description:\n"
-				"    de_DE: >-\n"
-				"      <p>Großartige erste Veröffentlichung.</p>\n"
-				"\n"
-				"      <p>Zweite zeile.</p>\n"
 				"    C: >-\n"
 				"      <p>Awesome initial release.</p>\n"
 				"\n"
 				"      <p>Second paragraph.</p>\n"
+				"    de-DE: >-\n"
+				"      <p>Großartige erste Veröffentlichung.</p>\n"
+				"\n"
+				"      <p>Zweite zeile.</p>\n"
 				"  url:\n"
 				"    details: https://example.org/releases/1.0.html\n"
 				"---\n"
@@ -311,7 +311,7 @@ test_yamlwrite_misc (void)
 	as_component_set_date_eol (cpt, "2022-02-22");
 	as_component_set_pkgnames (cpt, _PKGNAME1);
 	as_component_set_name (cpt, "Unittest Firmware", "C");
-	as_component_set_name (cpt, "Ünittest Fürmwäre (dummy Eintrag)", "de_DE");
+	as_component_set_name (cpt, "Ünittest Fürmwäre (dummy Eintrag)", "de-DE");
 	as_component_set_summary (cpt, "Just part of an unittest.", "C");
 	as_component_add_extends (cpt, "org.example.alpha");
 	as_component_add_extends (cpt, "org.example.beta");
@@ -355,7 +355,7 @@ test_yamlwrite_misc (void)
 	as_release_set_kind (rel1, AS_RELEASE_KIND_DEVELOPMENT);
 	as_release_set_timestamp (rel1, 1460463132);
 	as_release_set_description (rel1, "<p>Awesome initial release.</p>\n<p>Second paragraph.</p>", "C");
-	as_release_set_description (rel1, "<p>Großartige erste Veröffentlichung.</p>\n<p>Zweite zeile.</p>", "de_DE");
+	as_release_set_description (rel1, "<p>Großartige erste Veröffentlichung.</p>\n<p>Zweite zeile.</p>", "de-DE");
 	as_release_set_url (rel1, AS_RELEASE_URL_KIND_DETAILS, "https://example.org/releases/1.0.html");
 	as_component_add_release (cpt, rel1);
 
@@ -1260,7 +1260,7 @@ static const gchar *yamldata_agreements =
 				"  - type: intro\n"
 				"    name:\n"
 				"      C: Intro\n"
-				"      xde_DE: Einführung\n"
+				"      xde-DE: Einführung\n"
 				"    description:\n"
 				"      C: >-\n"
 				"        <p>Mighty Fine</p>\n";
@@ -1291,7 +1291,7 @@ test_yaml_write_agreements (void)
 
 	as_agreement_section_set_kind (sect, "intro");
 	as_agreement_section_set_name (sect, "Intro", "C");
-	as_agreement_section_set_name (sect, "Einführung", "xde_DE");
+	as_agreement_section_set_name (sect, "Einführung", "xde-DE");
 
 	as_agreement_section_set_description (sect, "<p>Mighty Fine</p>", "C");
 
@@ -1341,8 +1341,8 @@ static const gchar *yamldata_screenshots =
 				"Screenshots:\n"
 				"- default: true\n"
 				"  caption:\n"
-				"    de_DE: Das Hauptfenster, welches irgendwas zeigt\n"
 				"    C: The main window displaying a thing\n"
+				"    de-DE: Das Hauptfenster, welches irgendwas zeigt\n"
 				"  thumbnails:\n"
 				"  - url: https://example.org/alpha_small.png\n"
 				"    width: 800\n"
@@ -1364,7 +1364,7 @@ static const gchar *yamldata_screenshots =
 				"    url: https://example.org/screencast_de.mkv\n"
 				"    width: 1916\n"
 				"    height: 1056\n"
-				"    lang: de_DE\n";
+				"    lang: de-DE\n";
 
 /**
  * test_yaml_write_screenshots:
@@ -1388,7 +1388,7 @@ test_yaml_write_screenshots (void)
 	scr1 = as_screenshot_new ();
 	as_screenshot_set_kind (scr1, AS_SCREENSHOT_KIND_DEFAULT);
 	as_screenshot_set_caption (scr1, "The main window displaying a thing", "C");
-	as_screenshot_set_caption (scr1, "Das Hauptfenster, welches irgendwas zeigt", "de_DE");
+	as_screenshot_set_caption (scr1, "Das Hauptfenster, welches irgendwas zeigt", "de-DE");
 	img = as_image_new ();
 	as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
 	as_image_set_width (img, 1916);
@@ -1419,7 +1419,7 @@ test_yaml_write_screenshots (void)
 	vid = as_video_new ();
 	as_video_set_codec_kind (vid, AS_VIDEO_CODEC_KIND_AV1);
 	as_video_set_container_kind (vid, AS_VIDEO_CONTAINER_KIND_MKV);
-	as_video_set_locale (vid, "de_DE");
+	as_video_set_locale (vid, "de-DE");
 	as_video_set_width (vid, 1916);
 	as_video_set_height (vid, 1056);
 	as_video_set_url (vid, "https://example.org/screencast_de.mkv");
@@ -1556,14 +1556,14 @@ static const gchar *yamldata_releases_field =
 				"  type: development\n"
 				"  unix-timestamp: 1460463132\n"
 				"  description:\n"
-				"    de_DE: >-\n"
-				"      <p>Großartige erste Veröffentlichung.</p>\n"
-				"\n"
-				"      <p>Zweite zeile.</p>\n"
 				"    C: >-\n"
 				"      <p>Awesome initial release.</p>\n"
 				"\n"
 				"      <p>Second paragraph.</p>\n"
+				"    de-DE: >-\n"
+				"      <p>Großartige erste Veröffentlichung.</p>\n"
+				"\n"
+				"      <p>Zweite zeile.</p>\n"
 				"  url:\n"
 				"    details: https://example.org/releases/1.0.html\n";
 
@@ -1593,7 +1593,7 @@ test_yaml_write_releases (void)
 	as_release_set_kind (rel1, AS_RELEASE_KIND_DEVELOPMENT);
 	as_release_set_timestamp (rel1, 1460463132);
 	as_release_set_description (rel1, "<p>Awesome initial release.</p>\n<p>Second paragraph.</p>", "C");
-	as_release_set_description (rel1, "<p>Großartige erste Veröffentlichung.</p>\n<p>Zweite zeile.</p>", "de_DE");
+	as_release_set_description (rel1, "<p>Großartige erste Veröffentlichung.</p>\n<p>Zweite zeile.</p>", "de-DE");
 	as_release_set_url (rel1, AS_RELEASE_URL_KIND_DETAILS, "https://example.org/releases/1.0.html");
 	as_component_add_release (cpt, rel1);
 

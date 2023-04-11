@@ -110,8 +110,8 @@ as_metadata_init (AsMetadata *metad)
 	gchar *str;
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
-	/* set active locale without UTF-8 suffix */
-	str = as_get_current_locale ();
+	/* set active BCP47 locale */
+	str = as_get_current_locale_bcp47 ();
 	as_metadata_set_locale (metad, str);
 	g_free (str);
 
@@ -1378,7 +1378,7 @@ as_metadata_get_components (AsMetadata *metad)
 /**
  * as_metadata_set_locale:
  * @metad: a #AsMetadata instance.
- * @locale: the locale.
+ * @locale: the BCP47 locale.
  *
  * Sets the locale which should be read when processing metadata.
  * All other locales are ignored, which increases parsing speed and
@@ -1391,7 +1391,7 @@ as_metadata_set_locale (AsMetadata *metad, const gchar *locale)
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	g_free (priv->locale);
-	priv->locale = g_strdup (locale);
+	priv->locale = as_utils_posix_locale_to_bcp47 (locale);
 }
 
 /**

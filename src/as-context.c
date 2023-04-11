@@ -311,11 +311,12 @@ as_context_set_locale (AsContext *ctx, const gchar *value)
 
 	g_atomic_int_set (&priv->all_locale, FALSE);
 	if (g_strcmp0 (value, "ALL") == 0) {
-		g_autofree gchar *tmp = as_get_current_locale ();
+		g_autofree gchar *tmp = as_get_current_locale_bcp47 ();
 		g_atomic_int_set (&priv->all_locale, TRUE);
 		as_ref_string_assign_safe (&priv->locale, tmp);
 	} else {
-		as_ref_string_assign_safe (&priv->locale, value);
+		g_autofree gchar *bcp47 = as_utils_posix_locale_to_bcp47 (value);
+		as_ref_string_assign_safe (&priv->locale, bcp47);
 	}
 }
 
@@ -505,7 +506,7 @@ as_context_localized_ht_get (AsContext *ctx, GHashTable *lht, const gchar *local
  * @ctx: a #AsContext instance, or %NULL
  * @lht: (element-type utf8 utf8): the #GHashTable to which the value will be added.
  * @value: the value to add.
- * @locale: (nullable): the locale, or %NULL. e.g. "en_GB".
+ * @locale: (nullable): the BCP47 locale, or %NULL. e.g. "en-GB".
  *
  * Helper function to set a localized value on a trabslation mapping.
  *

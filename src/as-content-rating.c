@@ -613,7 +613,7 @@ as_content_rating_system_get_csm_ages (AsContentRatingSystem system, gsize *leng
 
 /*
  * parse_locale:
- * @locale: (transfer full): a locale to parse
+ * @locale: (transfer full): a POSIX locale to parse
  * @language_out: (out) (optional) (nullable): return location for the parsed
  *    language, or %NULL to ignore
  * @territory_out: (out) (optional) (nullable): return location for the parsed

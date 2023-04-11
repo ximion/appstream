@@ -255,7 +255,7 @@ as_cache_get_locale (AsCache *cache)
 /**
  * as_cache_set_locale:
  * @cache: an #AsCache instance.
- * @locale: the locale name.
+ * @locale: the locale in BCP47 format.
  *
  * Set the cache locale.
  */

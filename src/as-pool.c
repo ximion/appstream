@@ -68,7 +68,8 @@
 typedef struct
 {
 	gchar		*screenshot_service_url;
-	gchar		*locale;
+	gchar		*locale_bcp47;
+	gchar		*locale_posix;
 	gchar		*current_arch;
 	AsProfile	*profile;
 
@@ -348,7 +349,8 @@ as_pool_init (AsPool *pool)
 	priv->profile = as_profile_new ();
 
 	/* set active locale */
-	priv->locale = as_get_current_locale ();
+	priv->locale_posix = as_get_current_locale_posix ();
+	priv->locale_bcp47 = as_utils_posix_locale_to_bcp47 (priv->locale_posix);
 
 	/* well-known default metadata directories */
 	priv->std_data_locations = g_hash_table_new_full (g_str_hash, g_str_equal,
@@ -403,7 +405,8 @@ as_pool_finalize (GObject *object)
 
 	g_object_unref (priv->cache);
 
-	g_free (priv->locale);
+	g_free (priv->locale_posix);
+	g_free (priv->locale_bcp47);
 	g_free (priv->current_arch);
 	g_strfreev (priv->term_greylist);
 
@@ -1011,7 +1014,7 @@ as_pool_clear (AsPool *pool)
 	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 
 	as_cache_clear (priv->cache);
-	as_cache_set_locale (priv->cache, priv->locale);
+	as_cache_set_locale (priv->cache, priv->locale_bcp47);
 }
 
 /**
@@ -1074,7 +1077,7 @@ as_pool_load_catalog_data (AsPool *pool,
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
 	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
-	as_metadata_set_locale (metad, priv->locale);
+	as_metadata_set_locale (metad, priv->locale_bcp47);
 
 	/* find AppStream metadata */
 	ret = TRUE;
@@ -1252,7 +1255,7 @@ as_pool_update_desktop_entries_table (AsPool *pool, GHashTable *de_cpt_table, co
 
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
-	as_metadata_set_locale (metad, priv->locale);
+	as_metadata_set_locale (metad, priv->locale_bcp47);
 
 	/* find .desktop files */
 	g_debug ("Searching for data in: %s", apps_dir);
@@ -1324,7 +1327,7 @@ as_pool_load_metainfo_data (AsPool *pool,
 
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
-	as_metadata_set_locale (metad, priv->locale);
+	as_metadata_set_locale (metad, priv->locale_bcp47);
 
 	/* find metainfo files */
 	g_debug ("Searching for data in: %s", metainfo_dir);
@@ -2381,7 +2384,7 @@ as_pool_build_search_tokens (AsPool *pool, const gchar *search)
 		search_norm = g_utf8_casefold (search, -1);
 	}
 
-	strv = g_str_tokenize_and_fold (search_norm, priv->locale, NULL);
+	strv = g_str_tokenize_and_fold (search_norm, priv->locale_posix, NULL);
 	/* we might still be able to extract tokens if g_str_tokenize_and_fold() can't do it or +/- were found */
 	if (strv == NULL) {
 		g_autofree gchar *delim = NULL;
@@ -2562,7 +2565,7 @@ as_pool_refresh_system_cache (AsPool *pool,
 /**
  * as_pool_set_locale:
  * @pool: An instance of #AsPool.
- * @locale: the locale.
+ * @locale: the BCP47 or POSIX locale to use for this pool.
  *
  * Sets the current locale which should be used when parsing metadata.
  **/
@@ -2572,9 +2575,11 @@ as_pool_set_locale (AsPool *pool, const gchar *locale)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 
-	g_free (priv->locale);
-	priv->locale = g_strdup (locale);
-	as_cache_set_locale (priv->cache, locale);
+	g_free (priv->locale_bcp47);
+	g_free (priv->locale_posix);
+	priv->locale_posix = g_strdup (locale);
+	priv->locale_bcp47 = as_utils_posix_locale_to_bcp47 (priv->locale_posix);
+	as_cache_set_locale (priv->cache, priv->locale_bcp47);
 }
 
 /**
@@ -2590,7 +2595,7 @@ as_pool_get_locale (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
-	return priv->locale;
+	return priv->locale_posix;
 }
 
 /**

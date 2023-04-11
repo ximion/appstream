@@ -75,7 +75,8 @@ as_stemmer_init (AsStemmer *stemmer)
 
 	g_mutex_init (&stemmer->mutex);
 
-	locale = as_get_current_locale ();
+	/* we don't use the locale in XML, so it can be POSIX */
+	locale = as_get_current_locale_posix ();
 	lang = as_utils_locale_to_language (locale);
 
 	as_stemmer_reload (stemmer, lang);

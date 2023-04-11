@@ -253,7 +253,7 @@ as_image_get_locale (AsImage *image)
 /**
  * as_image_set_locale:
  * @image: a #AsImage instance.
- * @locale: the locale string.
+ * @locale: the BCP47 locale string.
  *
  * Sets the locale for this image.
  *

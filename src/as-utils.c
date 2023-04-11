@@ -634,15 +634,14 @@ as_utils_is_writable (const gchar *path)
 }
 
 /**
- * as_get_current_locale:
+ * as_get_current_locale_posix:
  *
- * Returns the current locale string in the format
- * used by the AppStream.
+ * Returns the current locale string in the POSIX format.
  *
  * Returns: (transfer full): A locale string, free with g_free()
  */
 gchar*
-as_get_current_locale (void)
+as_get_current_locale_posix (void)
 {
 	const gchar * const *locale_names;
 	const gchar *locale = NULL;
@@ -663,6 +662,129 @@ as_get_current_locale (void)
 
 	/* return active locale without UTF-8 suffix, UTF-8 is default in AppStream */
 	return as_locale_strip_encoding (locale);
+}
+
+/**
+ * as_get_current_locale_bcp47:
+ *
+ * Returns the current locale string in the IETF BCP 47 format
+ * for use in AppStream XML.
+ *
+ * Returns: (transfer full): A locale string, free with g_free()
+ */
+gchar*
+as_get_current_locale_bcp47 (void)
+{
+	g_autofree gchar *locale = as_get_current_locale_posix ();
+	return as_utils_posix_locale_to_bcp47 (locale);
+}
+
+/**
+ * as_utils_posix_locale_to_bcp47:
+ *
+ * Converts a POSIX locale string to the corresponding IETF BCP47 format.
+ * If the given locale is already in BCP47 format, no change will be done.
+ *
+ * Returns: (transfer full): A locale string, free with g_free()
+ */
+gchar*
+as_utils_posix_locale_to_bcp47 (const gchar *locale)
+{
+	g_autoptr(GString) bcp47 = NULL;
+	gboolean has_variant = FALSE;
+	guint i;
+	if (locale == NULL)
+		return NULL;
+
+	bcp47 = g_string_sized_new (strlen (locale));
+	for (i = 0; locale[i] != '\0'; i++) {
+		if (locale[i] == '_') {
+			g_string_append_c (bcp47, '-');
+		} else if (locale[i] == '@') {
+			has_variant = TRUE;
+			break;
+		} else {
+			g_string_append_c (bcp47, locale[i]);
+		}
+	}
+
+	if (has_variant) {
+		if (g_str_has_prefix (locale + i, "@cyrillic"))
+			g_string_append (bcp47, "-Cyrl");
+		else if (g_str_has_prefix (locale + i, "@devanagari"))
+			g_string_append (bcp47, "-Deva");
+		else if (g_str_has_prefix (locale + i, "@latin"))
+			g_string_append (bcp47, "-Latn");
+		else if (g_str_has_prefix (locale + i, "@shaw"))
+			g_string_append (bcp47, "-Shaw");
+		else if (!g_str_has_prefix (locale + i, "@euro")) {
+			g_string_append_c (bcp47, '-');
+			g_string_append (bcp47, locale + i + 1);
+		}
+	}
+
+	return g_string_free (g_steal_pointer (&bcp47), FALSE);
+}
+
+/**
+ * as_locale_is_posix:
+ * @locale: (nullable): The locale to test.
+ *
+ * Guess if the given locale is in POSIX format, or whether it is
+ * in another format, e.g. BCP47.
+ *
+ * Returns: %TRUE if we have a POSIX locale, %FALSE otherwise.
+ */
+gboolean
+as_locale_is_posix (const gchar *locale)
+{
+	/* we assume NULL is valid, for compatibility */
+	if (locale == NULL)
+		return TRUE;
+
+	for (guint i = 0; locale[i] != '\0'; i++) {
+		if (locale[i] == '-')
+			return FALSE;
+		if (locale[i] == '_')
+			return TRUE;
+		if (locale[i] == '@')
+			return TRUE;
+	}
+
+	/* if we are here, the string contained no hyphens (which would indicate BCP47),
+	 * but also no underscores or @ (which would indicate POSIX), so it may be something
+	 * like "de", for which we simply assume it is a POSIX locale. */
+	return TRUE;
+}
+
+/**
+ * as_locale_is_bcp47:
+ * @locale: (nullable): The locale to test.
+ *
+ * Guess if the given locale is in BCP47 format.
+ *
+ * Returns: %TRUE if we likely have a BCP47 locale, %FALSE otherwise.
+ */
+gboolean
+as_locale_is_bcp47 (const gchar *locale)
+{
+	/* we assume NULL is valid, for compatibility */
+	if (locale == NULL)
+		return TRUE;
+
+	for (guint i = 0; locale[i] != '\0'; i++) {
+		if (locale[i] == '-')
+			return TRUE;
+		if (locale[i] == '_')
+			return FALSE;
+		if (locale[i] == '@')
+			return FALSE;
+	}
+
+	/* if we are here, the string contained no hyphens (which would indicate BCP47),
+	 * but also no underscores or @ (which would indicate POSIX), so it may be something
+	 * like "de", for which we simply assume it is a BCP47 locale. */
+	return TRUE;
 }
 
 /**
@@ -938,9 +1060,9 @@ as_arch_compatible (const gchar *arch1, const gchar *arch2)
 
 /**
  * as_utils_locale_to_language:
- * @locale: The locale string.
+ * @locale: (nullable): the BCP47 or POSIX locale string.
  *
- * Get language part from a locale string.
+ * Get language part from a locale string in either BCP47 or POSIX format.
  */
 gchar*
 as_utils_locale_to_language (const gchar *locale)
@@ -952,11 +1074,17 @@ as_utils_locale_to_language (const gchar *locale)
 	if (locale == NULL)
 		return NULL;
 
-	/* return the part before the _ (not always 2 chars!) */
+	/* return the part before the - for BCP47 locale */
 	country_code = g_strdup (locale);
-	tmp = g_strstr_len (country_code, -1, "_");
-	if (tmp != NULL)
+	tmp = g_strstr_len (country_code, -1, "-");
+	if (tmp != NULL) {
 		*tmp = '\0';
+	} else {
+		/* return the part before the _ for POSIX locale (not always 2 chars!) */
+		tmp = g_strstr_len (country_code, -1, "_");
+		if (tmp != NULL)
+			*tmp = '\0';
+	}
 
 	/* return the part before any "@" for locale with modifiers like "ca@valencia" */
 	tmp = g_strstr_len (country_code, -1, "@");
@@ -1010,8 +1138,8 @@ as_hash_table_string_keys_to_array (GHashTable *table, GPtrArray *array)
 
 /**
  * as_utils_locale_is_compatible:
- * @locale1: a locale string, or %NULL
- * @locale2: a locale string, or %NULL
+ * @locale1: (nullable): a BCP47 or POSIX locale string, or %NULL
+ * @locale2: (nullable): a BCP47 or POSIX locale string, or %NULL
  *
  * Calculates if one locale is compatible with another.
  * When doing the calculation the locale and language code is taken into

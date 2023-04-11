@@ -118,7 +118,13 @@ gchar			*as_description_markup_convert (const gchar *markup,
 							AsMarkupKind to_kind,
 							GError **error);
 
-gchar			*as_get_current_locale (void);
+gchar			*as_get_current_locale_posix (void);
+gchar			*as_get_current_locale_bcp47 (void);
+
+AS_INTERNAL_VISIBLE
+gboolean		as_locale_is_posix (const gchar *locale);
+AS_INTERNAL_VISIBLE
+gboolean		as_locale_is_bcp47 (const gchar *locale);
 
 AS_INTERNAL_VISIBLE
 gboolean		as_is_empty (const gchar *str);
