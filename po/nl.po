@@ -10,10 +10,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-02-02 23:56+0100\n"
+"POT-Creation-Date: 2023-04-11 20:37+0200\n"
 "PO-Revision-Date: 2023-04-09 21:50+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/translations/nl/>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/"
+"translations/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,7 +38,14 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr "AppStream is een specificatie voor metagegevens waarmee softwarecomponenten informatie over zichzelf kunnen verstrekken aan geautomatiseerde systemen en eindgebruikers voordat de software daadwerkelijk is geïnstalleerd. Het AppStream-project biedt faciliteiten om deze metagegevens gemakkelijk te ontsluiten en te transformeren, alsmede enkele aanvullende diensten voor het bouwen van functierijke softwarecentra en soortgelijke toepassingen die gebruik maken van software-metagegevens."
+msgstr ""
+"AppStream is een specificatie voor metagegevens waarmee softwarecomponenten "
+"informatie over zichzelf kunnen verstrekken aan geautomatiseerde systemen en "
+"eindgebruikers voordat de software daadwerkelijk is geïnstalleerd. Het "
+"AppStream-project biedt faciliteiten om deze metagegevens gemakkelijk te "
+"ontsluiten en te transformeren, alsmede enkele aanvullende diensten voor het "
+"bouwen van functierijke softwarecentra en soortgelijke toepassingen die "
+"gebruik maken van software-metagegevens."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -47,7 +55,13 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr "Met de opdrachtregel-tool <em>appstreamcli</em> kunt u AppStream-metagegevens in XML- of YAML-formaat lezen, schrijven en omzetten, en deze valideren op overeenstemming met de specificatie. Het biedt ook gemakkelijk toegang tot de metagegevens-pool van het systeem, bijvoorbeeld om te zoeken naar software die een specifieke Mediatype-handler biedt of om software te installeren op basis van de componentidentificatie."
+msgstr ""
+"Met de opdrachtregel-tool <em>appstreamcli</em> kunt u AppStream-"
+"metagegevens in XML- of YAML-formaat lezen, schrijven en omzetten, en deze "
+"valideren op overeenstemming met de specificatie. Het biedt ook gemakkelijk "
+"toegang tot de metagegevens-pool van het systeem, bijvoorbeeld om te zoeken "
+"naar software die een specifieke Mediatype-handler biedt of om software te "
+"installeren op basis van de componentidentificatie."
 
 #: src/as-cache.c:919
 #, c-format
@@ -452,12 +466,16 @@ msgstr "Geen fantasiegeweld"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:852
 msgid "Characters in unsafe situations easily distinguishable from reality"
-msgstr "Personages in onveilige situaties gemakkelijk te onderscheiden van de werkelijkheid"
+msgstr ""
+"Personages in onveilige situaties gemakkelijk te onderscheiden van de "
+"werkelijkheid"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:854
 msgid "Characters in aggressive conflict easily distinguishable from reality"
-msgstr "Personages in agressief conflict gemakkelijk te onderscheiden van de werkelijkheid"
+msgstr ""
+"Personages in agressief conflict gemakkelijk te onderscheiden van de "
+"werkelijkheid"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:856
@@ -652,7 +670,9 @@ msgstr "Discriminatie bedoeld om emotionele schade te veroorzaken"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:971
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
-msgstr "Expliciete discriminatie op grond van geslacht, seksualiteit, ras of godsdienst"
+msgstr ""
+"Expliciete discriminatie op grond van geslacht, seksualiteit, ras of "
+"godsdienst"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
@@ -667,7 +687,9 @@ msgstr "Sluikreclame"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:980
 msgid "Explicit references to specific brands or trademarked products"
-msgstr "Expliciete verwijzingen naar specifieke merken of producten met een handelsmerk"
+msgstr ""
+"Expliciete verwijzingen naar specifieke merken of producten met een "
+"handelsmerk"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:982
@@ -742,12 +764,14 @@ msgstr "Ongecontroleerde audio- of videochatfunctionaliteit tussen gebruikers"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1028
 msgid "No sharing of social network usernames or email addresses"
-msgstr "Geen uitwisseling van gebruikersnamen van sociale netwerken of e-mailadressen"
+msgstr ""
+"Geen uitwisseling van gebruikersnamen van sociale netwerken of e-mailadressen"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1030
 msgid "Sharing social network usernames or email addresses"
-msgstr "Uitwisseling van gebruikersnamen van sociale netwerken of e-mailadressen"
+msgstr ""
+"Uitwisseling van gebruikersnamen van sociale netwerken of e-mailadressen"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1037
@@ -762,12 +786,15 @@ msgstr "Controleren op de nieuwste toepassingsversie"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1041
 msgid "Sharing diagnostic data that does not let others identify the user"
-msgstr "Uitwisseling van diagnostische gegevens waardoor anderen de gebruiker niet kunnen identificeren"
+msgstr ""
+"Uitwisseling van diagnostische gegevens waardoor anderen de gebruiker niet "
+"kunnen identificeren"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
 msgid "Sharing information that lets others identify the user"
-msgstr "Uitwisseling van informatie waarmee anderen de gebruiker kunnen identificeren"
+msgstr ""
+"Uitwisseling van informatie waarmee anderen de gebruiker kunnen identificeren"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1048
@@ -948,29 +975,29 @@ msgstr "Opgehaalde bestandsgrootte was nul."
 #. provide a list of words in your language that people are likely
 #. to include in a search but that should normally be ignored in
 #. the search.
-#: src/as-pool.c:103
+#: src/as-pool.c:104
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;applicatie;pakket;programma;toepassing;hulpmiddel;hulpprogramma"
 
-#: src/as-pool.c:1151
+#: src/as-pool.c:1169
 msgid "Metadata files have errors:"
 msgstr "Metagegevens-bestanden bevatten fouten:"
 
-#: src/as-pool.c:2640
+#: src/as-pool.c:2660
 msgid "Group"
 msgstr "Groep"
 
-#: src/as-pool.c:2686
+#: src/as-pool.c:2706
 msgid "Iconsets"
 msgstr "Pictogrammensets"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2733
+#: src/as-pool.c:2753
 msgid "Data from locally installed software"
 msgstr "Gegevens van lokaal geïnstalleerde software"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2736
+#: src/as-pool.c:2756
 msgid "Software catalog data"
 msgstr "Gegevens van softwarecatalogus"
 
@@ -1076,7 +1103,8 @@ msgstr "Deze software beveelt een touchscreen aan."
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr "Deze software beveelt een microfoon aan voor bediening via spraakinvoer."
+msgstr ""
+"Deze software beveelt een microfoon aan voor bediening via spraakinvoer."
 
 #: src/as-relation.c:1568
 msgid "This software recommends a camera for input control."
@@ -1208,17 +1236,22 @@ msgstr "Door software ondersteunde hardware niet gevonden: ‘%s’"
 #: src/as-relation.c:1775
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr "Deze software vereist een %s-kernel, maar dit systeem maakt gebruik van %s."
+msgstr ""
+"Deze software vereist een %s-kernel, maar dit systeem maakt gebruik van %s."
 
 #: src/as-relation.c:1779
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr "Deze software beveelt een %s-kernel aan, maar dit systeem maakt gebruik van %s."
+msgstr ""
+"Deze software beveelt een %s-kernel aan, maar dit systeem maakt gebruik van "
+"%s."
 
 #: src/as-relation.c:1783
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr "Deze software ondersteunt enkel een %s-kernel, maar werkt mogelijk ook met %s."
+msgstr ""
+"Deze software ondersteunt enkel een %s-kernel, maar werkt mogelijk ook met "
+"%s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1226,7 +1259,8 @@ msgstr "Deze software ondersteunt enkel een %s-kernel, maar werkt mogelijk ook m
 #: src/as-relation.c:1805
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr "Deze software vereist %s %s %s, maar dit systeem maakt gebruik van %s %s."
+msgstr ""
+"Deze software vereist %s %s %s, maar dit systeem maakt gebruik van %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1234,7 +1268,9 @@ msgstr "Deze software vereist %s %s %s, maar dit systeem maakt gebruik van %s %s
 #: src/as-relation.c:1813
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr "Het gebruik van %s %s %s wordt aanbevolen, maar dit systeem maakt gebruik van %s %s."
+msgstr ""
+"Het gebruik van %s %s %s wordt aanbevolen, maar dit systeem maakt gebruik "
+"van %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
@@ -1255,7 +1291,8 @@ msgstr "Kernel %s %s wordt ondersteund"
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr "Deze software vereist %s %.2f GiB geheugen, maar dit systeem heeft %.2f GiB."
+msgstr ""
+"Deze software vereist %s %.2f GiB geheugen, maar dit systeem heeft %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1263,7 +1300,9 @@ msgstr "Deze software vereist %s %.2f GiB geheugen, maar dit systeem heeft %.2f 
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr "Deze software beveelt %s %.2f GiB geheugen aan, maar dit systeem heeft %.2f GiB."
+msgstr ""
+"Deze software beveelt %s %.2f GiB geheugen aan, maar dit systeem heeft %.2f "
+"GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
@@ -1284,7 +1323,9 @@ msgstr "Dit systeem heeft voldoende geheugen voor deze software."
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Deze software vereist een scherm waarvan de langste zijde %s %lu px groot is, maar het scherm van dit apparaat is %lu px groot."
+msgstr ""
+"Deze software vereist een scherm waarvan de langste zijde %s %lu px groot "
+"is, maar het scherm van dit apparaat is %lu px groot."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1293,7 +1334,9 @@ msgstr "Deze software vereist een scherm waarvan de langste zijde %s %lu px groo
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Deze software vereist een scherm waarvan de kortste zijde %s %lu px groot is, maar het scherm van dit apparaat is %lu px groot."
+msgstr ""
+"Deze software vereist een scherm waarvan de kortste zijde %s %lu px groot "
+"is, maar het scherm van dit apparaat is %lu px groot."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1302,7 +1345,9 @@ msgstr "Deze software vereist een scherm waarvan de kortste zijde %s %lu px groo
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Deze software beveelt een scherm aan waarvan de langste zijde %s %lu px groot is, maar het scherm van dit apparaat is %lu px groot."
+msgstr ""
+"Deze software beveelt een scherm aan waarvan de langste zijde %s %lu px "
+"groot is, maar het scherm van dit apparaat is %lu px groot."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1311,7 +1356,9 @@ msgstr "Deze software beveelt een scherm aan waarvan de langste zijde %s %lu px 
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Deze software beveelt een scherm aan waarvan de kortste zijde %s %lu px groot is, maar het scherm van dit apparaat is %lu px groot."
+msgstr ""
+"Deze software beveelt een scherm aan waarvan de kortste zijde %s %lu px "
+"groot is, maar het scherm van dit apparaat is %lu px groot."
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
@@ -1320,7 +1367,9 @@ msgstr "De schermgrootte is voldoende voor deze software."
 #: src/as-relation.c:1996
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr "Relatievoldoeningscontrole voor items van type ‘%s’ is nog niet geïmplementeerd."
+msgstr ""
+"Relatievoldoeningscontrole voor items van type ‘%s’ is nog niet "
+"geïmplementeerd."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1334,7 +1383,10 @@ msgstr "Tags met deze naam zijn niet toegestaan in deze sectie."
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr "Een <description/>-tag moet niet in metainfo-bestanden (upstream-metadata) gelokaliseerd worden. Lokaliseer in plaats daarvan de paragrafen afzonderlijk."
+msgstr ""
+"Een <description/>-tag moet niet in metainfo-bestanden (upstream-metadata) "
+"gelokaliseerd worden. Lokaliseer in plaats daarvan de paragrafen "
+"afzonderlijk."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1342,7 +1394,12 @@ msgid ""
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr "Dit element (paragraaf, lijst, enz.) van een <description/>-tag mag niet afzonderlijk worden gelokaliseerd in catalogusmetagegevens. Lokaliseer in plaats daarvan de hele tag <description/>. De catalogusgenerator voor AppStream-metagegevens (bijv. ‘appstream-generator’) zal al het juiste doen bij het compileren van de gegevens."
+msgstr ""
+"Dit element (paragraaf, lijst, enz.) van een <description/>-tag mag niet "
+"afzonderlijk worden gelokaliseerd in catalogusmetagegevens. Lokaliseer in "
+"plaats daarvan de hele tag <description/>. De catalogusgenerator voor "
+"AppStream-metagegevens (bijv. ‘appstream-generator’) zal al het juiste doen "
+"bij het compileren van de gegevens."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -1350,13 +1407,19 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr "AppStream-omschrijvingen steunen een beperkte set van tags om tekst te opmaken: paragrafen (<p/>) en lijsten (<ul/>, <ol/>). Deze omschrijving-opmaak bevat een ongeldige XML-tag die zou verkeerd gerendeerd door toepassingen die de metainfo-specificatie ondersteunen."
+msgstr ""
+"AppStream-omschrijvingen steunen een beperkte set van tags om tekst te "
+"opmaken: paragrafen (<p/>) en lijsten (<ul/>, <ol/>). Deze omschrijving-"
+"opmaak bevat een ongeldige XML-tag die zou verkeerd gerendeerd door "
+"toepassingen die de metainfo-specificatie ondersteunen."
 
 #: src/as-validator-issue-tag.h:69
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr "Deze omschrijvingsparagraaf bevat ongeldige opmaak. Momenteel zijn alleen <em/> en <code/> toegestaan."
+msgstr ""
+"Deze omschrijvingsparagraaf bevat ongeldige opmaak. Momenteel zijn alleen "
+"<em/> en <code/> toegestaan."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -1370,19 +1433,26 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr "De eerste ‘description/p’-paragraaf van dit component is wellicht te kort (< 80 tekens). Overweeg om met een langere paragraaf te beginnen, zodat de beschrijving er beter uitziet in softwarecentra en om direct in de eerste paragraaf meer gedetailleerde informatie over deze component te geven."
+msgstr ""
+"De eerste ‘description/p’-paragraaf van dit component is wellicht te kort (< "
+"80 tekens). Overweeg om met een langere paragraaf te beginnen, zodat de "
+"beschrijving er beter uitziet in softwarecentra en om direct in de eerste "
+"paragraaf meer gedetailleerde informatie over deze component te geven."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
 "The description line does not start with a capitalized word, project name or "
 "number."
-msgstr "De beschrijvingsregel begint niet met een hoofdletter, projectnaam of nummer."
+msgstr ""
+"De beschrijvingsregel begint niet met een hoofdletter, projectnaam of nummer."
 
 #: src/as-validator-issue-tag.h:91
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr "De beschrijving bevat een web URL in platte tekst. Dit is niet toegestaan, gebruik in plaats daarvan de tag <url/> om links te delen."
+msgstr ""
+"De beschrijving bevat een web URL in platte tekst. Dit is niet toegestaan, "
+"gebruik in plaats daarvan de tag <url/> om links te delen."
 
 #: src/as-validator-issue-tag.h:96
 msgid "This tag is not translatable."
@@ -1392,24 +1462,31 @@ msgstr "Deze tag is niet vertaalbaar"
 msgid ""
 "This tag must only appear once in this context. Having multiple tags of this "
 "kind is not valid."
-msgstr "Deze tag mag in deze context slechts eenmaal voorkomen. Meerdere tags van dit type zijn niet geldig."
+msgstr ""
+"Deze tag mag in deze context slechts eenmaal voorkomen. Meerdere tags van "
+"dit type zijn niet geldig."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
-msgstr "De genoemde tag is leeg, wat hoogstwaarschijnlijk niet de bedoeling is, want het zou inhoud moeten hebben."
+msgstr ""
+"De genoemde tag is leeg, wat hoogstwaarschijnlijk niet de bedoeling is, want "
+"het zou inhoud moeten hebben."
 
 #: src/as-validator-issue-tag.h:111
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
-msgstr "De genoemde tag heeft tekstinhoud, ook al mag deze geen tekst bevatten."
+msgstr ""
+"De genoemde tag heeft tekstinhoud, ook al mag deze geen tekst bevatten."
 
 #: src/as-validator-issue-tag.h:116
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
-msgstr "De component-ID moet voor zijn naam een omgekeerd domeinnaamschema volgen. Zie de AppStream-specificatie voor details."
+msgstr ""
+"De component-ID moet voor zijn naam een omgekeerd domeinnaamschema volgen. "
+"Zie de AppStream-specificatie voor details."
 
 #: src/as-validator-issue-tag.h:121
 msgid ""
@@ -1422,8 +1499,15 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
-"De component-ID is geen omgekeerde domeinnaam. Update de ID om toekomstige problemen te voorkomen en compatibel te zijn met alle AppStream-implementaties.\n"
-"U kunt ook overwegen om de naam van het bijbehorende ‘.desktop’-bestand aan te passen aan de laatste versie van de desktop-entry-specificatie en er ook een rDNS-naam voor te gebruiken. Vergeet in ieder geval niet de nieuwe desktop-entry te vermelden in een <launchable/>-tag voor dit component om de toepassing startbaar te houden vanuit softwarecentra en de ‘.desktop’-bestandsgegevens geassocieerd te houden met de metainfo-gegevens."
+"De component-ID is geen omgekeerde domeinnaam. Update de ID om toekomstige "
+"problemen te voorkomen en compatibel te zijn met alle AppStream-"
+"implementaties.\n"
+"U kunt ook overwegen om de naam van het bijbehorende ‘.desktop’-bestand aan "
+"te passen aan de laatste versie van de desktop-entry-specificatie en er ook "
+"een rDNS-naam voor te gebruiken. Vergeet in ieder geval niet de nieuwe "
+"desktop-entry te vermelden in een <launchable/>-tag voor dit component om de "
+"toepassing startbaar te houden vanuit softwarecentra en de ‘.desktop’-"
+"bestandsgegevens geassocieerd te houden met de metainfo-gegevens."
 
 #: src/as-validator-issue-tag.h:129
 msgid ""
@@ -1775,7 +1859,8 @@ msgstr ""
 #: src/as-validator-issue-tag.h:427
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr "Het ingestelde componenttype is geen erkend geldig AppStream-componenttype."
+msgstr ""
+"Het ingestelde componenttype is geen erkend geldig AppStream-componenttype."
 
 #: src/as-validator-issue-tag.h:432
 msgid ""
@@ -2384,7 +2469,10 @@ msgstr "Deze aangepaste waarde is leeg"
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr "Een ‘keywords’-tag mag niet worden gelokaliseerd in metainfo-bestanden (upstream-metadata). Lokaliseer in plaats daarvan de afzonderlijke trefwoorden."
+msgstr ""
+"Een ‘keywords’-tag mag niet worden gelokaliseerd in metainfo-bestanden "
+"(upstream-metadata). Lokaliseer in plaats daarvan de afzonderlijke "
+"trefwoorden."
 
 #: src/as-validator.c:192
 msgid ""
@@ -2663,7 +2751,8 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:141
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr "Formaat van het gegenereerde rapport (geldige waarden zijn ‘text’ en ‘yaml’)"
+msgstr ""
+"Formaat van het gegenereerde rapport (geldige waarden zijn ‘text’ en ‘yaml’)"
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:146
@@ -2699,7 +2788,10 @@ msgstr ""
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr "Voer ‘%s --help’ uit om een volledige lijst van beschikbare opdrachten en opties te weergeven en ‘%s %s --help’ om een lijst van opties te zien voor deze subopdracht."
+msgstr ""
+"Voer ‘%s --help’ uit om een volledige lijst van beschikbare opdrachten en "
+"opties te weergeven en ‘%s %s --help’ om een lijst van opties te zien voor "
+"deze subopdracht."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:262
@@ -2804,7 +2896,9 @@ msgstr ""
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr "Aannemen dat het invoerbestand het geselecteerde formaat heeft (‘yaml’, ‘text’ of ‘markdown’)"
+msgstr ""
+"Aannemen dat het invoerbestand het geselecteerde formaat heeft (‘yaml’, "
+"‘text’ of ‘markdown’)"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:988
@@ -2824,7 +2918,8 @@ msgstr ""
 #: tools/appstreamcli.c:1038
 msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr "Uitvoer genereren in het geselecteerde formaat (‘yaml’, ‘text’ of ‘markdown’)"
+msgstr ""
+"Uitvoer genereren in het geselecteerde formaat (‘yaml’, ‘text’ of ‘markdown’)"
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1080
@@ -2858,14 +2953,18 @@ msgstr "Subopdrachten:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr "U kunt informatie vinden over subopdracht-specifieke opties door ‘--help’ toe te voegen aan de subopdracht."
+msgstr ""
+"U kunt informatie vinden over subopdracht-specifieke opties door ‘--help’ "
+"toe te voegen aan de subopdracht."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1252
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr "Opdracht ‘%s’ is onbekend. Voer ‘%s --help’ uit voor een lijst met beschikbare opdrachten."
+msgstr ""
+"Opdracht ‘%s’ is onbekend. Voer ‘%s --help’ uit voor een lijst met "
+"beschikbare opdrachten."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1282
@@ -2953,7 +3052,8 @@ msgstr "Statusinformatie weergeven over beschikbare AppStream-metagegevens."
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1371
 msgid "Show information about the current device and used operating system."
-msgstr "Informatie tonen over het huidige apparaat en gebruikte besturingssysteem"
+msgstr ""
+"Informatie tonen over het huidige apparaat en gebruikte besturingssysteem"
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1376
@@ -3268,7 +3368,9 @@ msgstr "U moet een metainfo-bestand opgeven als invoer."
 #: tools/ascli-actions-misc.c:118
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "U moet een desktop-entry-bestand opgeven om aan te maken of als uitvoer aan te vullen."
+msgstr ""
+"U moet een desktop-entry-bestand opgeven om aan te maken of als uitvoer aan "
+"te vullen."
 
 #: tools/ascli-actions-misc.c:149
 #, c-format
@@ -3307,7 +3409,9 @@ msgstr "U moet een NEWS-bestand opgeven als invoer."
 #: tools/ascli-actions-misc.c:332
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr "U moet een metainfo-bestand opgeven om uit te breiden, of ‘-’ om af te drukken naar stdout."
+msgstr ""
+"U moet een metainfo-bestand opgeven om uit te breiden, of ‘-’ om af te "
+"drukken naar stdout."
 
 #: tools/ascli-actions-misc.c:337
 msgid "No output filename specified, modifying metainfo file directly."
@@ -3315,7 +3419,9 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:442
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "U moet een NEWS-bestand opgeven als uitvoer, of ‘-’ om af te drukken naar stdout."
+msgstr ""
+"U moet een NEWS-bestand opgeven als uitvoer, of ‘-’ om af te drukken naar "
+"stdout."
 
 #: tools/ascli-actions-misc.c:473
 msgid "You need to specify a NEWS format to write the output in."
@@ -3419,7 +3525,8 @@ msgstr "Kan Flatpak-proces niet starten: %s"
 #: tools/ascli-actions-pkgmgr.c:154
 #, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "Kan component met ID ‘%s’ en de geselecteerde filtercriteria niet vinden!"
+msgstr ""
+"Kan component met ID ‘%s’ en de geselecteerde filtercriteria niet vinden!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165

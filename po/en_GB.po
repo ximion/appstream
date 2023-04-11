@@ -27,10 +27,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-02-02 23:56+0100\n"
+"POT-Creation-Date: 2023-04-11 20:37+0200\n"
 "PO-Revision-Date: 2023-04-09 02:48+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
-"Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/appstream/translations/en_GB/>\n"
+"Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
+"appstream/translations/en_GB/>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,7 +55,13 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr "AppStream is a metadata specification which permits software components to provide information about themselves to automated systems and end-users before the software is actually installed. The AppStream project provides facilities to easily access and transform this metadata, as well as a few additional services for building feature-rich software centres and similar applications that make use of software metadata."
+msgstr ""
+"AppStream is a metadata specification which permits software components to "
+"provide information about themselves to automated systems and end-users "
+"before the software is actually installed. The AppStream project provides "
+"facilities to easily access and transform this metadata, as well as a few "
+"additional services for building feature-rich software centres and similar "
+"applications that make use of software metadata."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -64,7 +71,13 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr "The <em>appstreamcli</em> command-line tool allows reading, writing, and transforming AppStream XML or YAML metadata as well as validating it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
+msgstr ""
+"The <em>appstreamcli</em> command-line tool allows reading, writing, and "
+"transforming AppStream XML or YAML metadata as well as validating it for "
+"compliance with the specification. It also provides easy access to the "
+"system metadata pool, for example to query for software that provides a "
+"specific Mediatype handler or for installing software by its component "
+"identifier."
 
 #: src/as-cache.c:919
 #, c-format
@@ -965,29 +978,29 @@ msgstr "Retrieved file size was zero."
 #. provide a list of words in your language that people are likely
 #. to include in a search but that should normally be ignored in
 #. the search.
-#: src/as-pool.c:103
+#: src/as-pool.c:104
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;application;package;program;programme;suite;tool"
 
-#: src/as-pool.c:1151
+#: src/as-pool.c:1169
 msgid "Metadata files have errors:"
 msgstr "Metadata files have errors:"
 
-#: src/as-pool.c:2640
+#: src/as-pool.c:2660
 msgid "Group"
 msgstr "Group"
 
-#: src/as-pool.c:2686
+#: src/as-pool.c:2706
 msgid "Iconsets"
 msgstr "Iconsets"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2733
+#: src/as-pool.c:2753
 msgid "Data from locally installed software"
 msgstr "Data from locally installed software"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2736
+#: src/as-pool.c:2756
 msgid "Software catalog data"
 msgstr "Software catalogue data"
 

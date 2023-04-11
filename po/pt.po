@@ -31,10 +31,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-02-02 23:56+0100\n"
+"POT-Creation-Date: 2023-04-11 20:37+0200\n"
 "PO-Revision-Date: 2023-03-15 16:39+0000\n"
 "Last-Translator: Fernando Lopes <fefehex12@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/"
+"translations/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -992,29 +993,29 @@ msgstr "O tamanho do ficheiro obtido foi zero."
 #. provide a list of words in your language that people are likely
 #. to include in a search but that should normally be ignored in
 #. the search.
-#: src/as-pool.c:103
+#: src/as-pool.c:104
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplicação;aplicativo;pacote;programa;ferramenta"
 
-#: src/as-pool.c:1151
+#: src/as-pool.c:1169
 msgid "Metadata files have errors:"
 msgstr "Os ficheiros de metadados têm erros:"
 
-#: src/as-pool.c:2640
+#: src/as-pool.c:2660
 msgid "Group"
 msgstr "Grupo"
 
-#: src/as-pool.c:2686
+#: src/as-pool.c:2706
 msgid "Iconsets"
 msgstr "Conjunto de ícones"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2733
+#: src/as-pool.c:2753
 msgid "Data from locally installed software"
 msgstr "Dados do software instalado localmente"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2736
+#: src/as-pool.c:2756
 msgid "Software catalog data"
 msgstr "Dados das categorias do software"
 
@@ -1099,7 +1100,8 @@ msgstr "Esta marcação requer a propriedade tipo."
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr "Este programa precisa um microfone para ser controlado via entrada de voz."
+msgstr ""
+"Este programa precisa um microfone para ser controlado via entrada de voz."
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."

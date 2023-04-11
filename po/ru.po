@@ -41,15 +41,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-02-02 23:56+0100\n"
+"POT-Creation-Date: 2023-04-11 20:37+0200\n"
 "PO-Revision-Date: 2023-04-02 12:37+0000\n"
 "Last-Translator: Сергей <asvmail.as@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
+"translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 4.17-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -999,29 +1002,29 @@ msgstr "Размер полученного файла был равен нул�
 #. provide a list of words in your language that people are likely
 #. to include in a search but that should normally be ignored in
 #. the search.
-#: src/as-pool.c:103
+#: src/as-pool.c:104
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "приложение;приложения;пакет;программа;программы;комплект;инструмент"
 
-#: src/as-pool.c:1151
+#: src/as-pool.c:1169
 msgid "Metadata files have errors:"
 msgstr "Файлы метаданных содержат ошибки:"
 
-#: src/as-pool.c:2640
+#: src/as-pool.c:2660
 msgid "Group"
 msgstr "Группа"
 
-#: src/as-pool.c:2686
+#: src/as-pool.c:2706
 msgid "Iconsets"
 msgstr "Наборы значков"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2733
+#: src/as-pool.c:2753
 msgid "Data from locally installed software"
 msgstr "Данные из программного обеспечения установленного локально"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2736
+#: src/as-pool.c:2756
 msgid "Software catalog data"
 msgstr "Данные каталога программного обеспечения"
 
@@ -2286,7 +2289,9 @@ msgstr ""
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
-msgstr "Тип компонента `driver`, но не указаны сведения о modalias с помощью тега `provides/modalias`."
+msgstr ""
+"Тип компонента `driver`, но не указаны сведения о modalias с помощью тега "
+"`provides/modalias`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:675
@@ -2490,13 +2495,17 @@ msgstr ""
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
-msgstr "Тип блокировки для выпусков некорректен. Должно быть указано «embedded» (по умолчанию) или «external»."
+msgstr ""
+"Тип блокировки для выпусков некорректен. Должно быть указано «embedded» (по "
+"умолчанию) или «external»."
 
 #: src/as-validator-issue-tag.h:832
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
-msgstr "URL внешнего файла метаданных выпуска не является безопасным. Это недопустимо. Пожалуйста, используйте только адреса HTTPS."
+msgstr ""
+"URL внешнего файла метаданных выпуска не является безопасным. Это "
+"недопустимо. Пожалуйста, используйте только адреса HTTPS."
 
 #: src/as-validator-issue-tag.h:837
 msgid "Failed to download release metadata."
@@ -2506,7 +2515,9 @@ msgstr "Не удалось загрузить метаданные выпуск
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
-msgstr "Файл метаданных локального выпуска не найден. Настоятельно рекомендуется проверить эти метаданные вместе с основным файлом MetaInfo."
+msgstr ""
+"Файл метаданных локального выпуска не найден. Настоятельно рекомендуется "
+"проверить эти метаданные вместе с основным файлом MetaInfo."
 
 #: src/as-validator-issue-tag.h:848
 msgid "The value set as release urgency is not a known urgency value."
@@ -2595,7 +2606,9 @@ msgstr ""
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
-msgstr "В этом компоненте отсутствует информация о выпусках. Рассмотрите возможность добавления тега `releases` для описания выпусков и их изменений."
+msgstr ""
+"В этом компоненте отсутствует информация о выпусках. Рассмотрите возможность "
+"добавления тега `releases` для описания выпусков и их изменений."
 
 #: src/as-validator-issue-tag.h:925
 msgid ""
@@ -3248,7 +3261,9 @@ msgstr ""
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr "Неизвестная команда '%s'. Выполните '%s --help' чтоб увидеть полный список доступных параметров командной строки."
+msgstr ""
+"Неизвестная команда '%s'. Выполните '%s --help' чтоб увидеть полный список "
+"доступных параметров командной строки."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1282
@@ -3321,7 +3336,9 @@ msgstr ""
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
-msgstr "Проверьте, выполняются ли требования к компоненту (по его ID или файлу MetaInfo) в этой системе."
+msgstr ""
+"Проверьте, выполняются ли требования к компоненту (по его ID или файлу "
+"MetaInfo) в этой системе."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1355
@@ -3726,7 +3743,8 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:473
 msgid "You need to specify a NEWS format to write the output in."
-msgstr "Вам необходимо указать формат, в котором должны быть выведены данные NEWS."
+msgstr ""
+"Вам необходимо указать формат, в котором должны быть выведены данные NEWS."
 
 #: tools/ascli-actions-misc.c:526
 msgid "Operating System Details"
@@ -3916,7 +3934,8 @@ msgid ""
 "accompanying MetaInfo file."
 msgstr ""
 "Для проверки вам необходимо указать хотя бы один файл MetaInfo.\n"
-"В настоящее время файлы метаданных выпуска не могут быть проверены, если не сопровождаются файлом MetaInfo."
+"В настоящее время файлы метаданных выпуска не могут быть проверены, если не "
+"сопровождаются файлом MetaInfo."
 
 #: tools/ascli-actions-validate.c:432 tools/ascli-actions-validate.c:566
 msgid "Validation was successful."

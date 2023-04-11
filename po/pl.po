@@ -20,15 +20,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-02-02 23:56+0100\n"
+"POT-Creation-Date: 2023-04-11 20:37+0200\n"
 "PO-Revision-Date: 2023-02-19 11:38+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
+"translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.16-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -979,31 +981,31 @@ msgstr "Rozmiar odebranego pliku wynosi zero."
 #. provide a list of words in your language that people are likely
 #. to include in a search but that should normally be ignored in
 #. the search.
-#: src/as-pool.c:103
+#: src/as-pool.c:104
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "aplikacja;apka;app;application;pakiet;paczka;package;program;programme;"
 "zestaw;suite;narzędzie;tool"
 
-#: src/as-pool.c:1151
+#: src/as-pool.c:1169
 msgid "Metadata files have errors:"
 msgstr "Pliki metadanych mają błędy:"
 
-#: src/as-pool.c:2640
+#: src/as-pool.c:2660
 msgid "Group"
 msgstr "Grupa"
 
-#: src/as-pool.c:2686
+#: src/as-pool.c:2706
 msgid "Iconsets"
 msgstr "Zestawy ikon"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2733
+#: src/as-pool.c:2753
 msgid "Data from locally installed software"
 msgstr "Dane z lokalnie zainstalowanego oprogramowania"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2736
+#: src/as-pool.c:2756
 msgid "Software catalog data"
 msgstr "Dane katalogu oprogramowania"
 
@@ -1225,13 +1227,17 @@ msgstr "Odnaleziono sprzęt obsługiwany przez to oprogramowanie: „%s”"
 #: src/as-relation.c:1733
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr "Nie odnaleziono na komputerze sprzętu wymaganego dla tego oprogramowania: „%s”"
+msgstr ""
+"Nie odnaleziono na komputerze sprzętu wymaganego dla tego oprogramowania: "
+"„%s”"
 
 #: src/as-relation.c:1737
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr "Nie odnaleziono na komputerze sprzętu zalecanego dla tego oprogramowania: „%s”"
+msgstr ""
+"Nie odnaleziono na komputerze sprzętu zalecanego dla tego oprogramowania: "
+"„%s”"
 
 #: src/as-relation.c:1741
 #, c-format
@@ -1251,7 +1257,8 @@ msgstr "To oprogramowanie zaleca jądro %s, ale na tym komputerze działa %s."
 #: src/as-relation.c:1783
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr "To oprogramowanie obsługuje tylko jądro %s, ale może działać na %s mimo to."
+msgstr ""
+"To oprogramowanie obsługuje tylko jądro %s, ale może działać na %s mimo to."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1259,7 +1266,8 @@ msgstr "To oprogramowanie obsługuje tylko jądro %s, ale może działać na %s 
 #: src/as-relation.c:1805
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr "To oprogramowanie wymaga jądra %s %s %s, ale na tym komputerze działa %s %s."
+msgstr ""
+"To oprogramowanie wymaga jądra %s %s %s, ale na tym komputerze działa %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1267,7 +1275,8 @@ msgstr "To oprogramowanie wymaga jądra %s %s %s, ale na tym komputerze działa 
 #: src/as-relation.c:1813
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr "Użycie jądra %s %s %s jest zalecane, ale na tym komputerze działa %s %s."
+msgstr ""
+"Użycie jądra %s %s %s jest zalecane, ale na tym komputerze działa %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
@@ -1288,7 +1297,9 @@ msgstr "Jądro %s %s jest obsługiwane."
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr "To oprogramowanie wymaga %s %.2f GiB pamięci, ale na tym komputerze jest %.2f GiB."
+msgstr ""
+"To oprogramowanie wymaga %s %.2f GiB pamięci, ale na tym komputerze jest "
+"%.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1296,7 +1307,9 @@ msgstr "To oprogramowanie wymaga %s %.2f GiB pamięci, ale na tym komputerze j
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr "To oprogramowanie zaleca %s %.2f GiB pamięci, ale na tym komputerze jest %.2f GiB."
+msgstr ""
+"To oprogramowanie zaleca %s %.2f GiB pamięci, ale na tym komputerze jest "
+"%.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
@@ -1317,7 +1330,9 @@ msgstr "Ten komputer ma wystarczająco pamięci dla tego oprogramowania."
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "To oprogramowanie wymaga ekranu z najdłuższą krawędzią o wymiarach %s %lu px, ale ekran tego urządzenia ma %lu px."
+msgstr ""
+"To oprogramowanie wymaga ekranu z najdłuższą krawędzią o wymiarach %s %lu "
+"px, ale ekran tego urządzenia ma %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1326,7 +1341,9 @@ msgstr "To oprogramowanie wymaga ekranu z najdłuższą krawędzią o wymiarac
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "To oprogramowanie wymaga ekranu z najkrótszą krawędzią o wymiarach %s %lu px, ale ekran tego urządzenia ma %lu px."
+msgstr ""
+"To oprogramowanie wymaga ekranu z najkrótszą krawędzią o wymiarach %s %lu "
+"px, ale ekran tego urządzenia ma %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1335,7 +1352,9 @@ msgstr "To oprogramowanie wymaga ekranu z najkrótszą krawędzią o wymiarach
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "To oprogramowanie zaleca ekran z najdłuższą krawędzią o wymiarach %s %lu px, ale ekran tego urządzenia ma %lu px."
+msgstr ""
+"To oprogramowanie zaleca ekran z najdłuższą krawędzią o wymiarach %s %lu px, "
+"ale ekran tego urządzenia ma %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1344,7 +1363,9 @@ msgstr "To oprogramowanie zaleca ekran z najdłuższą krawędzią o wymiarach
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "To oprogramowanie zaleca ekran z najkrótszą krawędzią o wymiarach %s %lu px, ale ekran tego urządzenia ma %lu px."
+msgstr ""
+"To oprogramowanie zaleca ekran z najkrótszą krawędzią o wymiarach %s %lu px, "
+"ale ekran tego urządzenia ma %lu px."
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
@@ -1353,7 +1374,9 @@ msgstr "Wymiary ekranu są wystarczające dla tego oprogramowania."
 #: src/as-relation.c:1996
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr "Sprawdzanie spełniania zależności dla elementów typu „%s” nie jest jeszcze zaimplementowane."
+msgstr ""
+"Sprawdzanie spełniania zależności dla elementów typu „%s” nie jest jeszcze "
+"zaimplementowane."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1377,7 +1400,12 @@ msgid ""
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr "Ten element (akapit, lista itp.) znacznika <description/> nie może być tłumaczony oddzielnie w metadanych katalogu. Zamiast tego należy tłumaczyć cały znacznik <description/>. Generator katalogu metadanych AppStream (tzn. „appstream-generator”) prawidłowo przetworzy ten element podczas kompilowania danych."
+msgstr ""
+"Ten element (akapit, lista itp.) znacznika <description/> nie może być "
+"tłumaczony oddzielnie w metadanych katalogu. Zamiast tego należy tłumaczyć "
+"cały znacznik <description/>. Generator katalogu metadanych AppStream (tzn. "
+"„appstream-generator”) prawidłowo przetworzy ten element podczas "
+"kompilowania danych."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -2103,7 +2131,8 @@ msgstr "Ten znacznik „bundle” ma nieznany typ i nie może zostać użyty."
 #: src/as-validator-issue-tag.h:575
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr "Znacznik „update_contact” nie może być zawarty w XML katalogu AppStream."
+msgstr ""
+"Znacznik „update_contact” nie może być zawarty w XML katalogu AppStream."
 
 #: src/as-validator-issue-tag.h:580
 msgid ""
@@ -2332,7 +2361,9 @@ msgstr "Kod XML tego pliku jest błędnie sformatowany."
 #: src/as-validator-issue-tag.h:736
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr "Odnaleziono nieprawidłowy znacznik w metadanych katalogu. Dozwolone są tylko znaczniki „component”."
+msgstr ""
+"Odnaleziono nieprawidłowy znacznik w metadanych katalogu. Dozwolone są tylko "
+"znaczniki „component”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:742
@@ -2454,13 +2485,17 @@ msgstr ""
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
-msgstr "Typ części wydań jest nieprawidłowy. Musi być „embedded” (domyślna wartość) lub „external”."
+msgstr ""
+"Typ części wydań jest nieprawidłowy. Musi być „embedded” (domyślna wartość) "
+"lub „external”."
 
 #: src/as-validator-issue-tag.h:832
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
-msgstr "Adres URL do zewnętrznego pliku metadanych wydań jest niezabezpieczony. Nie jest to dozwolone, proszę używać wyłącznie adresów URL typu HTTPS."
+msgstr ""
+"Adres URL do zewnętrznego pliku metadanych wydań jest niezabezpieczony. Nie "
+"jest to dozwolone, proszę używać wyłącznie adresów URL typu HTTPS."
 
 #: src/as-validator-issue-tag.h:837
 msgid "Failed to download release metadata."
@@ -2470,7 +2505,9 @@ msgstr "Pobranie metadanych wydań się nie powiodło."
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
-msgstr "Nie odnaleziono lokalnego pliku metadanych wydań. Mocno zalecane jest sprawdzanie poprawności tych metadanych razem z głównym plikiem Metainfo."
+msgstr ""
+"Nie odnaleziono lokalnego pliku metadanych wydań. Mocno zalecane jest "
+"sprawdzanie poprawności tych metadanych razem z głównym plikiem Metainfo."
 
 #: src/as-validator-issue-tag.h:848
 msgid "The value set as release urgency is not a known urgency value."
@@ -2616,7 +2653,10 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr "Znacznik „mimetypes” najwyższego poziomu jest przestarzały. Proszę zamiast tego użyć znaczników „mediatype” w części „provides”, aby wskazać, że oprogramowanie dostarcza obsługę multimediów o podanych typach."
+msgstr ""
+"Znacznik „mimetypes” najwyższego poziomu jest przestarzały. Proszę zamiast "
+"tego użyć znaczników „mediatype” w części „provides”, aby wskazać, że "
+"oprogramowanie dostarcza obsługę multimediów o podanych typach."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:962
@@ -3042,7 +3082,8 @@ msgstr "Nie podano ciągu licencji, wyrażenia licencji lub wyjątku licencji."
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:591
 msgid "Set the data origin for the installed metadata catalog file."
-msgstr "Ustawia pochodzenie danych dla zainstalowanego pliku katalogu metadanych."
+msgstr ""
+"Ustawia pochodzenie danych dla zainstalowanego pliku katalogu metadanych."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:596
@@ -3129,7 +3170,9 @@ msgstr "Używa podanego wiersza dla klucza „Exec=” pliku .desktop."
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr "Przyjmuje, że plik wejściowy jest w wybranym formacie („yaml”, „text” lub „markdown”)."
+msgstr ""
+"Przyjmuje, że plik wejściowy jest w wybranym formacie („yaml”, „text” lub "
+"„markdown”)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:988
@@ -3264,7 +3307,9 @@ msgstr "Sprawdza poprawność ciągu licencji i wyświetla o tym informacje."
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
-msgstr "Sprawdza, czy wymagania składnika (przez jego identyfikator lub plik Metainfo) są spełnione na tym komputerze."
+msgstr ""
+"Sprawdza, czy wymagania składnika (przez jego identyfikator lub plik "
+"Metainfo) są spełnione na tym komputerze."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1355
@@ -3284,7 +3329,8 @@ msgstr "Wyświetla informacje o stanie dostępnych metadanych AppStream."
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1371
 msgid "Show information about the current device and used operating system."
-msgstr "Wyświetla informacje o bieżącym urządzeniu i używanym systemie operacyjnym."
+msgstr ""
+"Wyświetla informacje o bieżącym urządzeniu i używanym systemie operacyjnym."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1376
@@ -3501,7 +3547,9 @@ msgstr "Nie można zapisać pliku szablonu Metainfo: %s"
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr "Nie można sprawdzić wymiarów ekranu: nie można odczytać informacji bez dostępu do interfejsu graficznego."
+msgstr ""
+"Nie można sprawdzić wymiarów ekranu: nie można odczytać informacji bez "
+"dostępu do interfejsu graficznego."
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"
@@ -3852,7 +3900,8 @@ msgid ""
 "accompanying MetaInfo file."
 msgstr ""
 "Należy podać co najmniej jeden plik Metainfo do sprawdzenia poprawności.\n"
-"Pliki metadanych wydań obecnie nie mogą być sprawdzane bez towarzyszącego pliku Metainfo."
+"Pliki metadanych wydań obecnie nie mogą być sprawdzane bez towarzyszącego "
+"pliku Metainfo."
 
 #: tools/ascli-actions-validate.c:432 tools/ascli-actions-validate.c:566
 msgid "Validation was successful."

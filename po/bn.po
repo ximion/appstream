@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-02-02 23:56+0100\n"
+"POT-Creation-Date: 2023-04-11 20:37+0200\n"
 "PO-Revision-Date: 2023-02-20 07:36+0000\n"
 "Last-Translator: Abu Huraira <abuhuraira@tutamail.com>\n"
-"Language-Team: Bengali <https://hosted.weblate.org/projects/appstream/translations/bn/>\n"
+"Language-Team: Bengali <https://hosted.weblate.org/projects/appstream/"
+"translations/bn/>\n"
 "Language: bn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -386,7 +387,7 @@ msgstr "ইউটিলিটিস"
 #. TRANSLATORS: This is the formatting of English and localized name
 #. of the rating e.g. "Adults Only (solo adultos)"
 #: src/as-content-rating.c:298
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
@@ -946,31 +947,32 @@ msgstr ""
 #. provide a list of words in your language that people are likely
 #. to include in a search but that should normally be ignored in
 #. the search.
-#: src/as-pool.c:103
+#: src/as-pool.c:104
 #, fuzzy
 msgid "app;application;package;program;programme;suite;tool"
-msgstr "অ্যাপ;অ্যাপ্লিকেশন;প্যাকেজ;প্রোগ্রাম;এ্যাপ;এ্যাপ্লিকেশন;স্যুট;টুল;সফটওয়ার; সফটওয়্যার"
+msgstr ""
+"অ্যাপ;অ্যাপ্লিকেশন;প্যাকেজ;প্রোগ্রাম;এ্যাপ;এ্যাপ্লিকেশন;স্যুট;টুল;সফটওয়ার; সফটওয়্যার"
 
-#: src/as-pool.c:1151
+#: src/as-pool.c:1169
 msgid "Metadata files have errors:"
 msgstr ""
 
-#: src/as-pool.c:2640
+#: src/as-pool.c:2660
 msgid "Group"
 msgstr "গ্রুপ"
 
-#: src/as-pool.c:2686
+#: src/as-pool.c:2706
 #, fuzzy
 msgid "Iconsets"
 msgstr "আইকনসেট"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2733
+#: src/as-pool.c:2753
 msgid "Data from locally installed software"
 msgstr ""
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2736
+#: src/as-pool.c:2756
 msgid "Software catalog data"
 msgstr ""
 

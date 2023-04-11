@@ -22,10 +22,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-02-02 23:56+0100\n"
+"POT-Creation-Date: 2023-04-11 20:37+0200\n"
 "PO-Revision-Date: 2023-02-20 07:36+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
-"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
+"translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -976,29 +977,29 @@ msgstr "Ukuran berkas yang diambil adalah nol."
 #. provide a list of words in your language that people are likely
 #. to include in a search but that should normally be ignored in
 #. the search.
-#: src/as-pool.c:103
+#: src/as-pool.c:104
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;application;package;program;programme;suite;tool;aplikasi;paket"
 
-#: src/as-pool.c:1151
+#: src/as-pool.c:1169
 msgid "Metadata files have errors:"
 msgstr "Berkas metadata punya kesalahan:"
 
-#: src/as-pool.c:2640
+#: src/as-pool.c:2660
 msgid "Group"
 msgstr "Grup"
 
-#: src/as-pool.c:2686
+#: src/as-pool.c:2706
 msgid "Iconsets"
 msgstr "Set ikon"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2733
+#: src/as-pool.c:2753
 msgid "Data from locally installed software"
 msgstr "Data dari perangkat lunak yang terpasang lokal"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2736
+#: src/as-pool.c:2756
 msgid "Software catalog data"
 msgstr "Data katalog perangkat lunak"
 
@@ -1082,7 +1083,9 @@ msgstr "Perangkat lunak ini membutuhkan perangkat masukan sentuh."
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr "Perangkat lunak ini membutuhkan mikrofon untuk dikontrol melalui masukan suara."
+msgstr ""
+"Perangkat lunak ini membutuhkan mikrofon untuk dikontrol melalui masukan "
+"suara."
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."
@@ -1104,7 +1107,9 @@ msgstr "Perangkat lunak ini merekomendasikan perangkat masukan sentuh."
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr "Perangkat lunak ini merekomendasikan mikrofon untuk dikontrol melalui masukan suara."
+msgstr ""
+"Perangkat lunak ini merekomendasikan mikrofon untuk dikontrol melalui "
+"masukan suara."
 
 #: src/as-relation.c:1568
 msgid "This software recommends a camera for input control."
@@ -1220,33 +1225,44 @@ msgstr "Ditemukan perangkat keras yang didukung oleh perangkat lunak ini: '%s'"
 #: src/as-relation.c:1733
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr "Perangkat keras yang diperlukan untuk perangkat lunak ini tidak ditemukan pada sistem ini: '%s'"
+msgstr ""
+"Perangkat keras yang diperlukan untuk perangkat lunak ini tidak ditemukan "
+"pada sistem ini: '%s'"
 
 #: src/as-relation.c:1737
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr "Perangkat keras yang disarankan untuk perangkat lunak ini tidak ditemukan pada sistem ini: '%s'"
+msgstr ""
+"Perangkat keras yang disarankan untuk perangkat lunak ini tidak ditemukan "
+"pada sistem ini: '%s'"
 
 #: src/as-relation.c:1741
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr "Perangkat lunak ini mendukung perangkat keras yang tidak ada dalam sistem ini: '%s'"
+msgstr ""
+"Perangkat lunak ini mendukung perangkat keras yang tidak ada dalam sistem "
+"ini: '%s'"
 
 #: src/as-relation.c:1775
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr "Perangkat lunak ini membutuhkan kernel %s, tetapi sistem ini menjalankan %s."
+msgstr ""
+"Perangkat lunak ini membutuhkan kernel %s, tetapi sistem ini menjalankan %s."
 
 #: src/as-relation.c:1779
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr "Perangkat lunak ini merekomendasikan kernel %s, tetapi sistem ini menjalankan %s."
+msgstr ""
+"Perangkat lunak ini merekomendasikan kernel %s, tetapi sistem ini "
+"menjalankan %s."
 
 #: src/as-relation.c:1783
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr "Perangkat lunak ini hanya mendukung kernel %s, tetapi mungkin dapat berjalan di %s pula."
+msgstr ""
+"Perangkat lunak ini hanya mendukung kernel %s, tetapi mungkin dapat berjalan "
+"di %s pula."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1254,7 +1270,9 @@ msgstr "Perangkat lunak ini hanya mendukung kernel %s, tetapi mungkin dapat berj
 #: src/as-relation.c:1805
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr "Perangkat lunak ini membutuhkan %s %s %s, tetapi sistem ini menjalankan %s %s."
+msgstr ""
+"Perangkat lunak ini membutuhkan %s %s %s, tetapi sistem ini menjalankan %s "
+"%s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1283,7 +1301,9 @@ msgstr "Kernel %s %s didukung."
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr "Perangkat lunak ini membutuhkan memori %s %.2f GiB, tetapi sistem ini memiliki %.2f GiB."
+msgstr ""
+"Perangkat lunak ini membutuhkan memori %s %.2f GiB, tetapi sistem ini "
+"memiliki %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1291,7 +1311,9 @@ msgstr "Perangkat lunak ini membutuhkan memori %s %.2f GiB, tetapi sistem ini me
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr "Perangkat lunak ini merekomendasikan memori %s %.2f GiB, tetapi sistem ini memiliki %.2f GiB."
+msgstr ""
+"Perangkat lunak ini merekomendasikan memori %s %.2f GiB, tetapi sistem ini "
+"memiliki %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
@@ -1312,7 +1334,9 @@ msgstr "Sistem ini memiliki memori yang cukup untuk perangkat lunak ini."
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Perangkat lunak ini membutuhkan layar dengan tepi terpanjangnya berukuran %s %lu px, tetapi tampilan perangkat ini memiliki %lu px."
+msgstr ""
+"Perangkat lunak ini membutuhkan layar dengan tepi terpanjangnya berukuran %s "
+"%lu px, tetapi tampilan perangkat ini memiliki %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1321,7 +1345,9 @@ msgstr "Perangkat lunak ini membutuhkan layar dengan tepi terpanjangnya berukura
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Perangkat lunak ini membutuhkan layar dengan tepi terpendeknya berukuran %s %lu px, tetapi tampilan perangkat ini memiliki %lu px."
+msgstr ""
+"Perangkat lunak ini membutuhkan layar dengan tepi terpendeknya berukuran %s "
+"%lu px, tetapi tampilan perangkat ini memiliki %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1330,7 +1356,9 @@ msgstr "Perangkat lunak ini membutuhkan layar dengan tepi terpendeknya berukuran
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Perangkat lunak ini merekomendasikan layar dengan tepi terpanjangnya berukuran %s %lu px, tetapi tampilan perangkat ini memiliki %lu px."
+msgstr ""
+"Perangkat lunak ini merekomendasikan layar dengan tepi terpanjangnya "
+"berukuran %s %lu px, tetapi tampilan perangkat ini memiliki %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1339,7 +1367,9 @@ msgstr "Perangkat lunak ini merekomendasikan layar dengan tepi terpanjangnya ber
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Perangkat lunak ini merekomendasikan layar dengan tepi terpendeknya berukuran %s %lu px, tetapi tampilan perangkat ini memiliki %lu px."
+msgstr ""
+"Perangkat lunak ini merekomendasikan layar dengan tepi terpendeknya "
+"berukuran %s %lu px, tetapi tampilan perangkat ini memiliki %lu px."
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
@@ -1348,7 +1378,8 @@ msgstr "Ukuran layar cukup untuk perangkat lunak ini."
 #: src/as-relation.c:1996
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr "Pemeriksaan pemenuhan relasi untuk item jenis '%s' belum diimplementasikan."
+msgstr ""
+"Pemeriksaan pemenuhan relasi untuk item jenis '%s' belum diimplementasikan."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1372,7 +1403,12 @@ msgid ""
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr "Elemen (paragraf, daftar, dll.) dari suatu tag <description/> ini tidak boleh dilokalkan secara individual dalam metadata koleksi. Lokalkan keseluruhan tag <description/> sebagai gantinya. Generator metadata koleksi AppStream (mis. `appstream-generator`) sudah akan melakukan hal yang benar ketika mengkompilasi data."
+msgstr ""
+"Elemen (paragraf, daftar, dll.) dari suatu tag <description/> ini tidak "
+"boleh dilokalkan secara individual dalam metadata koleksi. Lokalkan "
+"keseluruhan tag <description/> sebagai gantinya. Generator metadata koleksi "
+"AppStream (mis. `appstream-generator`) sudah akan melakukan hal yang benar "
+"ketika mengkompilasi data."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -2103,7 +2139,8 @@ msgstr ""
 #: src/as-validator-issue-tag.h:575
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr "Tag `update_contact` tidak boleh dimasukkan dalam koleksi XML AppStream."
+msgstr ""
+"Tag `update_contact` tidak boleh dimasukkan dalam koleksi XML AppStream."
 
 #: src/as-validator-issue-tag.h:580
 msgid ""
@@ -2332,7 +2369,9 @@ msgstr "XML berkas ini salah bentuk."
 #: src/as-validator-issue-tag.h:736
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr "Tag tidak valid ditemukan dalam metadata katalog. Hanya tag `component` yang diizinkan."
+msgstr ""
+"Tag tidak valid ditemukan dalam metadata katalog. Hanya tag `component` yang "
+"diizinkan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:742
@@ -2452,13 +2491,16 @@ msgstr ""
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
-msgstr "Jenis blok rilis tidak valid. Itu perlu 'embedded' (default) atau 'external'."
+msgstr ""
+"Jenis blok rilis tidak valid. Itu perlu 'embedded' (default) atau 'external'."
 
 #: src/as-validator-issue-tag.h:832
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
-msgstr "URL ke berkas metadata rilis eksternal tidak aman. Ini tidak diperbolehkan, harap hanya gunakan URL HTTPS."
+msgstr ""
+"URL ke berkas metadata rilis eksternal tidak aman. Ini tidak diperbolehkan, "
+"harap hanya gunakan URL HTTPS."
 
 #: src/as-validator-issue-tag.h:837
 msgid "Failed to download release metadata."
@@ -2468,7 +2510,9 @@ msgstr "Gagal mengunduh metadata rilis."
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
-msgstr "Berkas metadata rilis lokal tidak ditemukan. Sangat disarankan untuk memvalidasi metadata ini bersama dengan berkas MetaInfo utama."
+msgstr ""
+"Berkas metadata rilis lokal tidak ditemukan. Sangat disarankan untuk "
+"memvalidasi metadata ini bersama dengan berkas MetaInfo utama."
 
 #: src/as-validator-issue-tag.h:848
 msgid "The value set as release urgency is not a known urgency value."
@@ -3138,7 +3182,9 @@ msgstr ""
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr "Asumsikan berkas masukan dalam format yang dipilih ('yaml', 'text', atau 'markdown')."
+msgstr ""
+"Asumsikan berkas masukan dalam format yang dipilih ('yaml', 'text', atau "
+"'markdown')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:988
@@ -3163,7 +3209,9 @@ msgstr ""
 #: tools/appstreamcli.c:1038
 msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr "Menghasilkan luaran dalam format yang dipilih ('yaml', 'text', atau 'markdown')."
+msgstr ""
+"Menghasilkan luaran dalam format yang dipilih ('yaml', 'text', atau "
+"'markdown')."
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1080
@@ -3242,7 +3290,8 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1317
 msgid "List components that are part of the specified categories."
-msgstr "Buat daftar komponen yang merupakan bagian dari kategori yang ditentukan."
+msgstr ""
+"Buat daftar komponen yang merupakan bagian dari kategori yang ditentukan."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1323
@@ -3274,7 +3323,9 @@ msgstr "Periksa string lisensi untuk validitas dan cetak rincian tentang itu."
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
-msgstr "Periksa apakah persyaratan komponen (melalui ID atau berkas MetaInfo-nya) terpenuhi pada sistem ini."
+msgstr ""
+"Periksa apakah persyaratan komponen (melalui ID atau berkas MetaInfo-nya) "
+"terpenuhi pada sistem ini."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1355
@@ -3294,7 +3345,9 @@ msgstr "Tampilkan informasi status tentang metadata AppStream yang tersedia."
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1371
 msgid "Show information about the current device and used operating system."
-msgstr "Tampilkan informasi tentang perangkat saat ini dan sistem operasi yang digunakan."
+msgstr ""
+"Tampilkan informasi tentang perangkat saat ini dan sistem operasi yang "
+"digunakan."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1376
@@ -3510,7 +3563,9 @@ msgstr "Tidak bisa menyimpan templat berkas metainfo: %s"
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr "Tidak dapat memeriksa ukuran tampilan: Tidak dapat membaca informasi tanpa akses toolkit GUI."
+msgstr ""
+"Tidak dapat memeriksa ukuran tampilan: Tidak dapat membaca informasi tanpa "
+"akses toolkit GUI."
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"
@@ -3538,7 +3593,8 @@ msgstr "Persyaratan:"
 
 #: tools/ascli-actions-mdata.c:709
 msgid "No required items are set for this software."
-msgstr "Tidak ada item yang diperlukan yang ditetapkan untuk perangkat lunak ini."
+msgstr ""
+"Tidak ada item yang diperlukan yang ditetapkan untuk perangkat lunak ini."
 
 #: tools/ascli-actions-mdata.c:717
 msgid "Recommendations:"
@@ -3546,7 +3602,8 @@ msgstr "Rekomendasi:"
 
 #: tools/ascli-actions-mdata.c:719
 msgid "No recommended items are set for this software."
-msgstr "Tidak ada butir yang disarankan yang ditetapkan untuk perangkat lunak ini."
+msgstr ""
+"Tidak ada butir yang disarankan yang ditetapkan untuk perangkat lunak ini."
 
 #: tools/ascli-actions-mdata.c:727
 msgid "Supported:"
@@ -3554,7 +3611,8 @@ msgstr "Didukung:"
 
 #: tools/ascli-actions-mdata.c:729
 msgid "No supported items are set for this software."
-msgstr "Tidak ada butir yang didukung yang ditetapkan untuk perangkat lunak ini."
+msgstr ""
+"Tidak ada butir yang didukung yang ditetapkan untuk perangkat lunak ini."
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:48
@@ -3862,7 +3920,8 @@ msgid ""
 "accompanying MetaInfo file."
 msgstr ""
 "Anda perlu menentukan setidaknya satu berkas MetaInfo untuk divalidasi.\n"
-"Berkas metadata rilis saat ini tidak dapat divalidasi tanpa berkas MetaInfo yang menyertainya."
+"Berkas metadata rilis saat ini tidak dapat divalidasi tanpa berkas MetaInfo "
+"yang menyertainya."
 
 #: tools/ascli-actions-validate.c:432 tools/ascli-actions-validate.c:566
 msgid "Validation was successful."

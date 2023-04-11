@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-02-02 23:56+0100\n"
+"POT-Creation-Date: 2023-04-11 20:37+0200\n"
 "PO-Revision-Date: 2023-02-04 22:37+0000\n"
 "Last-Translator: Abu Huraira <abuhuraira@tutamail.com>\n"
-"Language-Team: Bengali (Bangladesh) <https://hosted.weblate.org/projects/appstream/translations/bn_BD/>\n"
+"Language-Team: Bengali (Bangladesh) <https://hosted.weblate.org/projects/"
+"appstream/translations/bn_BD/>\n"
 "Language: bn_BD\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -956,29 +957,29 @@ msgstr "পুনরুদ্ধার করা ফাইলটির আকা
 #. provide a list of words in your language that people are likely
 #. to include in a search but that should normally be ignored in
 #. the search.
-#: src/as-pool.c:103
+#: src/as-pool.c:104
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "এ্যাপ;এপ্লিকেশন,প্যাকেজ,প্রোগ্রাম,অনুষ্ঠান,সুইট,টুল"
 
-#: src/as-pool.c:1151
+#: src/as-pool.c:1169
 msgid "Metadata files have errors:"
 msgstr "মেটাডেটা ফাইলগুলির ত্রুটি রয়েছে:"
 
-#: src/as-pool.c:2640
+#: src/as-pool.c:2660
 msgid "Group"
 msgstr "গ্রুপ"
 
-#: src/as-pool.c:2686
+#: src/as-pool.c:2706
 msgid "Iconsets"
 msgstr "আইকনসেট"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2733
+#: src/as-pool.c:2753
 msgid "Data from locally installed software"
 msgstr "স্থানীয়ভাবে ইনস্টল করা সফ্টওয়্যার থেকে ডেটা"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2736
+#: src/as-pool.c:2756
 msgid "Software catalog data"
 msgstr "সফটওয়্যার তালিকার তথ্য"
 
@@ -1084,7 +1085,9 @@ msgstr "এই সফটওয়্যারটি একটি টাচ ইন�
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr "এই সফটওয়্যারটি ধ্বনি ইনপুট দ্বারা নিয়ন্ত্রণের জন্য একটি মাইক্রোফোন ব্যবহারের পরামর্শ দেয়।"
+msgstr ""
+"এই সফটওয়্যারটি ধ্বনি ইনপুট দ্বারা নিয়ন্ত্রণের জন্য একটি মাইক্রোফোন ব্যবহারের পরামর্শ "
+"দেয়।"
 
 #: src/as-relation.c:1568
 msgid "This software recommends a camera for input control."
@@ -3371,8 +3374,8 @@ msgstr ""
 
 #: tools/ascli-actions-pkgmgr.c:52
 msgid ""
-"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
-"\" (part of PackageKit) is available."
+"No suitable package manager CLI found. Please make sure that e.g. "
+"\"pkcon\" (part of PackageKit) is available."
 msgstr ""
 
 #: tools/ascli-actions-pkgmgr.c:66
@@ -3603,11 +3606,6 @@ msgstr ""
 #: tools/ascli-utils.c:510
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
-
-#. TRANSLATORS: ascompose flag description for: --data-dir, `collection metadata` is an AppStream term
-#: tools/appstream-compose.c:204
-msgid "Override the collection metadata output directory"
 msgstr ""
 
 #~ msgid "An item type (e.g. lib, bin, python3, …)"
