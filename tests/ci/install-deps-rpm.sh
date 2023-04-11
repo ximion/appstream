@@ -36,8 +36,8 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     'pkgconfig(fontconfig)' \
     'pkgconfig(gdk-pixbuf-2.0)' \
     'pkgconfig(pango)' \
-    'pkgconfig(Qt5Core)' \
-    qt5-linguist \
+    'pkgconfig(Qt6Core)' \
+    qt6-linguist \
     sed \
     vala \
     xmlto

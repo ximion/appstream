@@ -35,7 +35,7 @@ eatmydata apt-get install -yq --no-install-recommends \
     libsystemd-dev \
     gtk-doc-tools \
     libgirepository1.0-dev \
-    qtbase5-dev \
+    qt6-base-dev \
     xmlto \
     daps \
     gobject-introspection \

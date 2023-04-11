@@ -57,7 +57,7 @@ you may want to take a look at the [AppStream Generator](https://github.com/ximi
  * [Snowball](https://snowballstem.org/download.html) (for stemming support)
 
 #### Qt (for libappstream-qt)
- * Qt5 Core
+ * Qt6 Core
 
 #### Documentation / Specification
  * [DAPS](https://github.com/openSUSE/daps)
