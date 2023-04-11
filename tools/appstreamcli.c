@@ -145,11 +145,6 @@ const GOptionEntry validate_options[] = {
 		/* TRANSLATORS: ascli flag description for: --override  when validating XML files */
 		N_("Override the severities of selected issue tags."), NULL },
 
-	/* DEPRECATED */
-	{ "nonet", (gchar) 0, G_OPTION_FLAG_HIDDEN,
-		G_OPTION_ARG_NONE,
-		&optn_no_net,
-		NULL, NULL },
 	{ NULL }
 };
 
