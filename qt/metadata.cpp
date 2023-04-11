@@ -241,14 +241,6 @@ AppStream::Metadata::MetadataError AppStream::Metadata::saveCatalog(QAnyStringVi
     return AppStream::Metadata::MetadataErrorNoError;
 }
 
-<<<<<<< HEAD
-=======
-AppStream::Metadata::MetadataError AppStream::Metadata::saveCollection(QAnyStringView collection, AppStream::Metadata::FormatKind format)
-{
-    return saveCatalog(collection, format);
-}
-
->>>>>>> c26dd9b0 (Port Qt6 API to use QAnyStringView instead of QString)
 AppStream::Metadata::FormatVersion AppStream::Metadata::formatVersion() const
 {
     return static_cast<AppStream::Metadata::FormatVersion>(as_metadata_get_format_version(d->m_metadata));
