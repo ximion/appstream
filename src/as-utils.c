@@ -55,20 +55,6 @@
 
 
 /**
- * as_get_appstream_version:
- *
- * Get the version of the AppStream library that is currently used
- * as a string.
- *
- * Returns: The AppStream version.
- */
-const gchar*
-as_get_appstream_version (void)
-{
-	return as_version_string ();
-}
-
-/**
  * as_utils_error_quark:
  *
  * Return value: An error quark.

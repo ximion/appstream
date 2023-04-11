@@ -90,9 +90,6 @@ class APPSTREAMQT_EXPORT Component {
             UrlKindContact,
             UrlKindVcsBrowser,
             UrlKindContribute,
-
-            // deprecated
-            UrlTranslate   [[deprecated]] = UrlKindTranslate,
         };
         Q_ENUM(UrlKind)
 
@@ -199,7 +196,6 @@ class APPSTREAMQT_EXPORT Component {
         QStringList replaces() const;
         void addReplaces(const QString& cid);
 
-        Q_DECL_DEPRECATED QList<AppStream::Relation> requires() const;
         QList<AppStream::Relation> requirements() const;
         QList<AppStream::Relation> recommends() const;
         QList<AppStream::Relation> supports() const;
@@ -276,9 +272,6 @@ class APPSTREAMQT_EXPORT Component {
         bool isValid() const;
 
         QString toString() const;
-
-        // DEPRECATED
-        Q_DECL_DEPRECATED QString desktopId() const;
 
     private:
         _AsComponent *m_cpt;

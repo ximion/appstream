@@ -224,11 +224,6 @@ QString AppStream::Metadata::componentsToCatalog(AppStream::Metadata::FormatKind
     return valueWrap(as_metadata_components_to_catalog(d->m_metadata, (AsFormatKind) format, nullptr));
 }
 
-QString AppStream::Metadata::componentsToCollection(AppStream::Metadata::FormatKind format) const
-{
-    return componentsToCatalog(format);
-}
-
 AppStream::Metadata::MetadataError AppStream::Metadata::saveCatalog(const QString& filename, AppStream::Metadata::FormatKind format)
 {
     g_autoptr(GError) error = nullptr;
@@ -243,11 +238,6 @@ AppStream::Metadata::MetadataError AppStream::Metadata::saveCatalog(const QStrin
     }
 
     return AppStream::Metadata::MetadataErrorNoError;
-}
-
-AppStream::Metadata::MetadataError AppStream::Metadata::saveCollection(const QString& collection, AppStream::Metadata::FormatKind format)
-{
-    return saveCatalog(collection, format);
 }
 
 AppStream::Metadata::FormatVersion AppStream::Metadata::formatVersion() const

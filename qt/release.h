@@ -94,11 +94,6 @@ class APPSTREAMQT_EXPORT Release {
 
         UrgencyKind urgency() const;
 
-        // DEPRECATED
-        Q_DECL_DEPRECATED QHash<SizeKind, quint64> sizes() const;
-	Q_DECL_DEPRECATED QList<QUrl> locations() const;
-        Q_DECL_DEPRECATED Checksum checksum() const;
-
     private:
         QSharedDataPointer<ReleaseData> d;
 };

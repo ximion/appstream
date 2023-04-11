@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2018-2022 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2022 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -18,22 +18,16 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __AS_DISTRO_DETAILS_PRIVATE_H
-#define __AS_DISTRO_DETAILS_PRIVATE_H
+#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#error "Only <appstream.h> can be included directly."
+#endif
 
-#include "as-distro-details.h"
-#include "as-settings-private.h"
+#pragma once
+
+#include <glib-object.h>
 
 G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
 
-AS_INTERNAL_VISIBLE
-void
-as_distro_details_load_data (AsDistroDetails *distro,
-			     const gchar *os_release_fname,
-			     const gchar *as_config_fname);
+GPtrArray		*as_get_default_categories_gi (gboolean with_special);
 
-#pragma GCC visibility pop
 G_END_DECLS
-
-#endif /* __AS_DISTRO_DETAILS_PRIVATE_H */

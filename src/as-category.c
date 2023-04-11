@@ -20,7 +20,7 @@
  */
 
 #include "as-category.h"
-#include "as-category-gir.h"
+#include "as-category-gi.h"
 
 #include "config.h"
 #include <glib/gi18n.h>
@@ -823,7 +823,7 @@ as_get_default_categories (gboolean with_special)
 }
 
 /**
- * as_get_default_categories_gir: (rename-to as_get_default_categories)
+ * as_get_default_categories_gi: (rename-to as_get_default_categories)
  * @with_special: Include special categories (e.g. "addons", and "all"/"featured" in submenus)
  *
  * Get a list of the default Freedesktop and AppStream categories
@@ -836,7 +836,7 @@ as_get_default_categories (gboolean with_special)
  * Returns: (transfer full) (element-type AsCategory): a list of #AsCategory
  */
 GPtrArray*
-as_get_default_categories_gir (gboolean with_special)
+as_get_default_categories_gi (gboolean with_special)
 {
 	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_get_default_categories (with_special));
 }

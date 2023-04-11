@@ -1,6 +1,6 @@
 # Meson definition for AppStream Qt
 
-asqt_api_level = '2'
+asqt_api_level = '3'
 
 add_languages('cpp', native: true)
 add_languages('cpp', native: false)

@@ -63,6 +63,7 @@ struct _AsContextClass
  * Format version / API level of the AppStream metadata.
  **/
 typedef enum {
+	AS_FORMAT_VERSION_UNKNOWN,
 	AS_FORMAT_VERSION_V0_6,
 	AS_FORMAT_VERSION_V0_7,
 	AS_FORMAT_VERSION_V0_8,
@@ -74,7 +75,6 @@ typedef enum {
 	AS_FORMAT_VERSION_V0_14,
 	AS_FORMAT_VERSION_V0_15,
 	AS_FORMAT_VERSION_V0_16,
-	AS_FORMAT_VERSION_UNKNOWN, /* added to work around GIR inconsistencies */
 	/*< private >*/
 	AS_FORMAT_VERSION_LAST
 } AsFormatVersion;

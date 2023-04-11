@@ -182,46 +182,6 @@ void			as_pool_remove_flags (AsPool *pool,
 void			as_pool_set_load_std_data_locations (AsPool *pool,
 							     gboolean enabled);
 
-/* DEPRECATED */
-
-gboolean		as_pool_add_component (AsPool *pool,
-						AsComponent *cpt,
-						GError **error);
-
-G_DEPRECATED
-gboolean		as_pool_load_cache_file (AsPool *pool,
-						 const gchar *fname,
-						 GError **error);
-G_DEPRECATED
-gboolean		as_pool_save_cache_file (AsPool *pool,
-						 const gchar *fname,
-						 GError **error);
-G_DEPRECATED
-gboolean		as_pool_refresh_cache (AsPool *pool,
-						gboolean force,
-						GError **error);
-G_DEPRECATED
-gboolean		as_pool_clear2 (AsPool *pool,
-					GError **error);
-
-G_DEPRECATED
-const gchar 		*as_pool_get_cache_location (AsPool *pool);
-G_DEPRECATED
-void			as_pool_set_cache_location (AsPool *pool,
-						const gchar *fname);
-
-G_DEPRECATED
-AsCacheFlags		as_pool_get_cache_flags (AsPool *pool);
-G_DEPRECATED
-void			as_pool_set_cache_flags (AsPool *pool,
-						      AsCacheFlags flags);
-
-G_DEPRECATED
-void			as_pool_clear_metadata_locations (AsPool *pool);
-G_DEPRECATED
-void			as_pool_add_metadata_location (AsPool *pool,
-						       const gchar *directory);
-
 G_END_DECLS
 
 #endif /* __AS_POOL_H */

@@ -259,23 +259,3 @@ as_vercmp_test_match (const gchar *ver1,
 		return FALSE;
 	}
 }
-
-/**
- * as_utils_compare_versions:
- *
- * Compare alpha and numeric segments of two versions.
- * The version compare algorithm is also used by RPM.
- *
- * Returns: 1: a is newer than b
- *	    0: a and b are the same version
- *	   -1: b is newer than a
- */
-gint
-as_utils_compare_versions (const gchar* a, const gchar *b)
-{
-	gint r;
-	r = as_vercmp (a, b, AS_VERCMP_FLAG_NONE);
-	if (r == 0)
-		return 0;
-	return (r < 0)? -1 : 1;
-}

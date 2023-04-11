@@ -141,31 +141,6 @@ void			as_release_set_url (AsRelease *release,
 					    AsReleaseUrlKind url_kind,
 					    const gchar *url);
 
-/* DEPRECATED */
-
-G_DEPRECATED
-guint64			as_release_get_size (AsRelease *release,
-						AsSizeKind kind);
-G_DEPRECATED
-void			as_release_set_size (AsRelease *release,
-						guint64 size,
-						AsSizeKind kind);
-
-G_DEPRECATED
-GPtrArray		*as_release_get_locations (AsRelease *release);
-G_DEPRECATED
-void			as_release_add_location (AsRelease *release,
-						 const gchar *location);
-
-G_DEPRECATED
-GPtrArray		*as_release_get_checksums (AsRelease *release);
-G_DEPRECATED
-AsChecksum		*as_release_get_checksum (AsRelease *release,
-						  AsChecksumKind kind);
-G_DEPRECATED
-void			as_release_add_checksum (AsRelease *release,
-						 AsChecksum *cs);
-
 G_END_DECLS
 
 #endif /* __AS_RELEASE_H */

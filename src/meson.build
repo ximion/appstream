@@ -27,7 +27,6 @@ aslib_src = [
     'as-component.c',
     'as-content-rating.c',
     'as-context.c',
-    'as-distro-details.c',
     'as-enums.c',
     'as-icon.c',
     'as-image.c',
@@ -63,7 +62,6 @@ aslib_pub_headers = [
     'as-component.h',
     'as-content-rating.h',
     'as-context.h',
-    'as-distro-details.h',
     'as-enums.h',
     'as-icon.h',
     'as-image.h',
@@ -88,8 +86,8 @@ aslib_pub_headers = [
 ]
 
 aslib_gir_headers = [
-    'as-pool-gir.h',
-    'as-category-gir.h',
+    'as-pool-gi.h',
+    'as-category-gi.h',
 ]
 
 aslib_priv_headers = [
@@ -103,7 +101,6 @@ aslib_priv_headers = [
     'as-context-private.h',
     'as-curl.h',
     'as-desktop-entry.h',
-    'as-distro-details-private.h',
     'as-distro-extras.h',
     'as-file-monitor.h',
     'as-icon-private.h',

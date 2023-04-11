@@ -63,14 +63,6 @@ typedef enum {
 	AS_ISSUE_SEVERITY_LAST
 } AsIssueSeverity;
 
-/* DEPRECATED */
-#define AsIssueImportance G_DEPRECATED AsIssueSeverity
-#define AS_ISSUE_IMPORTANCE_UNKNOWN AS_ISSUE_SEVERITY_UNKNOWN
-#define AS_ISSUE_IMPORTANCE_ERROR AS_ISSUE_SEVERITY_ERROR
-#define AS_ISSUE_IMPORTANCE_WARNING AS_ISSUE_SEVERITY_WARNING
-#define AS_ISSUE_IMPORTANCE_INFO AS_ISSUE_SEVERITY_INFO
-#define AS_ISSUE_IMPORTANCE_PEDANTIC AS_ISSUE_SEVERITY_PEDANTIC
-
 AsIssueSeverity	 as_issue_severity_from_string (const gchar *str);
 const gchar	*as_issue_severity_to_string (AsIssueSeverity severity);
 
@@ -105,20 +97,6 @@ void			as_validator_issue_set_line (AsValidatorIssue *issue,
 						     glong line);
 
 gchar			*as_validator_issue_get_location (AsValidatorIssue *issue);
-
-/* DEPRECATED */
-
-G_DEPRECATED
-AsIssueSeverity		as_validator_issue_get_importance (AsValidatorIssue *issue);
-G_DEPRECATED
-void 			as_validator_issue_set_importance (AsValidatorIssue *issue,
-								AsIssueSeverity importance);
-
-G_DEPRECATED
-const gchar		*as_validator_issue_get_message (AsValidatorIssue *issue);
-G_DEPRECATED
-void			as_validator_issue_set_message (AsValidatorIssue *issue,
-							const gchar *message);
 
 G_END_DECLS
 

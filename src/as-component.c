@@ -6406,32 +6406,6 @@ as_component_load_from_bytes (AsComponent *cpt, AsContext *context, AsFormatKind
 }
 
 /**
- * as_component_load_from_xml_data:
- * @cpt: an #AsComponent instance.
- * @context: an #AsContext instance.
- * @data: The XML data to load.
- * @error: a #GError.
- *
- * Load metadata for this component from an XML string.
- * You normally do not want to use this method directly and instead use the more
- * convenient API of #AsMetadata to create and update components.
- *
- * Returns: %TRUE on success.
- *
- * Since: 0.12.10
- */
-gboolean
-as_component_load_from_xml_data (AsComponent *cpt, AsContext *context, const gchar *data, GError **error)
-{
-	g_autoptr(GBytes) bytes = g_bytes_new_static (data, strlen (data));
-	return as_component_load_from_bytes (cpt,
-					     context,
-					     AS_FORMAT_KIND_XML,
-					     bytes,
-					     error);
-}
-
-/**
  * as_component_to_xml_data:
  * @cpt: an #AsComponent instance.
  * @context: an #AsContext instance.
@@ -6453,40 +6427,6 @@ as_component_to_xml_data (AsComponent *cpt, AsContext *context, GError **error)
 
 	node = as_component_to_xml_node (cpt, context, NULL);
 	return as_xml_node_free_to_str (node, error);
-}
-
-/**
- * as_component_get_desktop_id:
- * @cpt: a #AsComponent instance.
- *
- * Get the Desktop Entry ID for this component, if it is
- * of type "desktop-application".
- * For most desktop-application components, this is the name
- * of the .desktop file.
- *
- * Refer to https://specifications.freedesktop.org/desktop-entry-spec/latest/ape.html for more
- * information.
- *
- * Returns: The desktop file id.
- *
- * Since: 0.9.8
- * Deprecated: 0.11.0: Replaced by #AsLaunchable and %as_component_get_launchable
- */
-const gchar*
-as_component_get_desktop_id (AsComponent *cpt)
-{
-	AsLaunchable *launch;
-	GPtrArray *entries;
-
-	launch = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
-	if (launch == NULL)
-		return NULL;
-
-	entries = as_launchable_get_entries (launch);
-	if (entries->len <= 0)
-		return 0;
-
-	return (const gchar*) g_ptr_array_index (entries, 0);
 }
 
 /**

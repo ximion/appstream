@@ -1926,59 +1926,6 @@ test_xml_write_releases (void)
 }
 
 /**
- * test_xml_read_releases_legacy:
- *
- * Test reading the releases tag with legacy artifacts.
- */
-static void
-test_xml_read_releases_legacy (void)
-{
-	g_autoptr(AsComponent) cpt = NULL;
-	AsRelease *rel;
-	GPtrArray *artifacts;
-	AsArtifact *artifact;
-	AsChecksum *cs;
-
-	static const gchar *xmldata_releases_legacy =
-					"<component>\n"
-					"  <id>org.example.ReleaseTestLegacy</id>\n"
-					"  <releases>\n"
-					"    <release type=\"stable\" version=\"1.2\">\n"
-					"      <description>\n"
-					"        <p>A release description.</p>\n"
-					"        <p xml:lang=\"de\">Eine Beschreibung der Veröffentlichung.</p>\n"
-					"      </description>\n"
-					"      <url>https://example.org/releases/1.2.html</url>\n"
-					"      <location>https://example.com/mytarball.bin.tar.xz</location>\n"
-					"      <checksum type=\"sha256\">f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8</checksum>\n"
-					"      <size type=\"download\">112358</size>\n"
-					"      <size type=\"installed\">42424242</size>\n"
-					"    </release>\n"
-					"  </releases>\n"
-					"</component>\n";
-
-	cpt = as_xml_test_read_data (xmldata_releases_legacy, AS_FORMAT_STYLE_METAINFO);
-	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReleaseTestLegacy");
-
-	g_assert_cmpint (as_component_get_releases (cpt)->len, ==, 1);
-
-	rel = AS_RELEASE (g_ptr_array_index (as_component_get_releases (cpt), 0));
-
-	artifacts = as_release_get_artifacts (rel);
-	g_assert_cmpint (artifacts->len, ==, 1);
-	artifact = AS_ARTIFACT (g_ptr_array_index (artifacts, 0));
-
-	g_assert_cmpint (as_artifact_get_locations (artifact)->len, ==, 1);
-	g_assert_cmpstr (g_ptr_array_index (as_artifact_get_locations (artifact), 0), ==, "https://example.com/mytarball.bin.tar.xz");
-
-	cs = as_artifact_get_checksum (artifact, AS_CHECKSUM_KIND_SHA256);
-	g_assert_cmpstr (as_checksum_get_value (cs), ==, "f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8");
-
-	g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_DOWNLOAD), ==, 112358);
-	g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_INSTALLED), ==, 42424242);
-}
-
-/**
  * test_xml_rw_reviews:
  */
 static void
@@ -2225,7 +2172,6 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/XML/Read/Releases", test_xml_read_releases);
 	g_test_add_func ("/XML/Write/Releases", test_xml_write_releases);
-	g_test_add_func ("/XML/Read/ReleasesLegacy", test_xml_read_releases_legacy);
 
 	g_test_add_func ("/XML/ReadWrite/Reviews", test_xml_rw_reviews);
 	g_test_add_func ("/XML/ReadWrite/Tags", test_xml_rw_tags);

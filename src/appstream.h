@@ -32,7 +32,6 @@
 #include <as-metadata.h>
 #include <as-pool.h>
 #include <as-category.h>
-#include <as-distro-details.h>
 #include <as-icon.h>
 #include <as-screenshot.h>
 #include <as-image.h>
@@ -59,8 +58,8 @@
 #include <as-system-info.h>
 
 /* Helpers for languages using GIR */
-#include <as-category-gir.h>
-#include <as-pool-gir.h>
+#include <as-category-gi.h>
+#include <as-pool-gi.h>
 
 #undef __APPSTREAM_H_INSIDE__
 

@@ -74,26 +74,6 @@ public:
         FlagResolveAddons      = 1 << 5,
         FlagPreferOsMetainfo   = 1 << 6,
         FlagMonitor            = 1 << 7,
-
-        // DEPRECATED
-        FlagLoadOsCollection   [[deprecated]] = FlagLoadOsCatalog,
-        FlagReadCollection   [[deprecated]] = FlagLoadOsCatalog,
-        FlagReadMetainfo     [[deprecated]] = FlagLoadOsMetainfo,
-        FlagReadDesktopFiles [[deprecated]] = FlagLoadOsDesktopFiles,
-    };
-
-    /**
-     * Pool::CacheFlags:
-     * None:      No flags.
-     * UseUser:   Create an user-specific metadata cache.
-     * UseSystem: Use and - if possible - update the global metadata cache.
-     *
-     * Flags on how caching should be used.
-     **/
-    enum CacheFlags {
-        CacheFlagNone      [[deprecated]] = 0,
-        CacheFlagUseUser   [[deprecated]] = 1 << 0,
-        CacheFlagUseSystem [[deprecated]] = 1 << 1,
     };
 
     /**
@@ -103,13 +83,6 @@ public:
      * \sa lastError() will contain the error message.
      */
     bool load();
-
-    /**
-     * \return true on success. False on failure
-     *
-     * In case of failure, @p error will be initialized with the error message
-     */
-    Q_DECL_DEPRECATED bool load(QString* error);
 
     /**
      * Remove all software component information from the pool.
@@ -160,17 +133,6 @@ public:
                                 const QString &userDir);
 
     bool isEmpty() const;
-
-    Q_DECL_DEPRECATED bool addComponent(const AppStream::Component& cpt);
-
-    Q_DECL_DEPRECATED uint cacheFlags() const;
-    Q_DECL_DEPRECATED void setCacheFlags(uint flags);
-
-    Q_DECL_DEPRECATED void setCacheLocation(const QString &path);
-    Q_DECL_DEPRECATED QString cacheLocation() const;
-
-    Q_DECL_DEPRECATED void clearMetadataLocations();
-    Q_DECL_DEPRECATED void addMetadataLocation(const QString& directory);
 
 Q_SIGNALS:
     void changed();

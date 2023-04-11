@@ -176,18 +176,6 @@ AsParseFlags		as_metadata_get_parse_flags (AsMetadata *metad);
 void			as_metadata_set_parse_flags (AsMetadata *metad,
 						     AsParseFlags flags);
 
-/* DEPRECATED */
-
-G_DEPRECATED_FOR(as_metadata_components_to_catalog)
-gchar			*as_metadata_components_to_collection (AsMetadata *metad,
-								AsFormatKind format,
-								GError **error);
-G_DEPRECATED_FOR(as_metadata_save_catalog)
-gboolean		as_metadata_save_collection (AsMetadata *metad,
-							const gchar *fname,
-							AsFormatKind format,
-							GError **error);
-
 G_END_DECLS
 
 #endif /* __AS_METADATA_H */

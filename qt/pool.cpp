@@ -92,15 +92,6 @@ bool AppStream::Pool::load()
     return ret;
 }
 
-bool Pool::load(QString* strerror)
-{
-    auto ret = load();
-    if (!ret && strerror) {
-        *strerror = d->lastError;
-    }
-    return ret;
-}
-
 void Pool::clear()
 {
     as_pool_clear (d->pool);
@@ -242,63 +233,7 @@ void Pool::overrideCacheLocations(const QString &sysDir, const QString &userDir)
                                       userDir.isEmpty()? nullptr : qPrintable(userDir));
 }
 
-bool Pool::addComponent(const AppStream::Component& cpt)
-{
-    QList<AppStream::Component> cpts;
-    cpts.append(cpt);
-    return addComponents(cpts);
-}
-
 bool AppStream::Pool::isEmpty() const
 {
     return as_pool_is_empty(d->pool);
-}
-
-uint Pool::cacheFlags() const
-{
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    return as_pool_get_cache_flags(d->pool);
-#pragma GCC diagnostic pop
-}
-
-void Pool::setCacheFlags(uint flags)
-{
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    as_pool_set_cache_flags(d->pool,
-                            (AsCacheFlags) flags);
-#pragma GCC diagnostic pop
-}
-
-void Pool::clearMetadataLocations()
-{
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    as_pool_clear_metadata_locations(d->pool);
-#pragma GCC diagnostic pop
-}
-
-void Pool::addMetadataLocation(const QString& directory)
-{
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    as_pool_add_metadata_location (d->pool, qPrintable(directory));
-#pragma GCC diagnostic pop
-}
-
-QString AppStream::Pool::cacheLocation() const
-{
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    return QString::fromUtf8(as_pool_get_cache_location(d->pool));
-#pragma GCC diagnostic pop
-}
-
-void Pool::setCacheLocation(const QString &location)
-{
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    as_pool_set_cache_location(d->pool, qPrintable(location));
-#pragma GCC diagnostic pop
 }

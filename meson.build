@@ -10,7 +10,7 @@ cc = meson.get_compiler('c')
 source_root = meson.project_source_root()
 
 as_version = meson.project_version()
-as_api_level = '4'
+as_api_level = '5'
 
 varr = as_version.split('.')
 as_major_version = varr[0]

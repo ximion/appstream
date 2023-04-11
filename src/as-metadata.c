@@ -42,7 +42,6 @@
 #include "as-component-private.h"
 #include "as-release-private.h"
 #include "as-context-private.h"
-#include "as-distro-details.h"
 #include "as-desktop-entry.h"
 
 #include "as-xml.h"
@@ -1007,21 +1006,6 @@ as_metadata_save_catalog (AsMetadata *metad, const gchar *fname, AsFormatKind fo
 }
 
 /**
- * as_metadata_save_collection:
- * @metad: An instance of #AsMetadata.
- * @fname: The filename for the new metadata file.
- *
- * Deprecated, use %as_metadata_save_catalog instead.
- *
- * Returns: %TRUE if the file was written without error.
- */
-gboolean
-as_metadata_save_collection (AsMetadata *metad, const gchar *fname, AsFormatKind format, GError **error)
-{
-	return as_metadata_save_catalog (metad, fname, format, error);
-}
-
-/**
  * as_metadata_component_to_metainfo:
  * @metad: An instance of #AsMetadata.
  * @format: The format to use (XML or YAML)
@@ -1310,22 +1294,6 @@ as_metadata_components_to_catalog (AsMetadata *metad, AsFormatKind format, GErro
 			     "Unknown metadata format (%i).", format);
 		return NULL;
 	}
-}
-
-/**
- * as_metadata_components_to_collection:
- * @metad: An instance of #AsMetadata.
- * @format: The format to serialize the data to (XML or YAML).
- * @error: A #GError
- *
- * Deprecated, use %as_metadata_components_to_catalog instead.
- *
- * Returns: (transfer full): A string containing the YAML or XML data. Free with g_free()
- */
-gchar*
-as_metadata_components_to_collection (AsMetadata *metad, AsFormatKind format, GError **error)
-{
-	return as_metadata_components_to_catalog (metad, format, error);
 }
 
 /**

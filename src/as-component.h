@@ -195,9 +195,6 @@ typedef enum /*< skip >*/ __attribute__((__packed__)) {
 	AS_SEARCH_TOKEN_MATCH_LAST		= 0xffff
 } AsSearchTokenMatch;
 
-/* DEPRECATED */
-#define AS_SEARCH_TOKEN_MATCH_MIMETYPE AS_SEARCH_TOKEN_MATCH_MEDIATYPE
-
 /**
  * AsReleasesKind:
  * @AS_RELEASES_KIND_UNKNOWN:		Unknown releases type
@@ -496,17 +493,6 @@ gboolean		as_component_load_from_bytes (AsComponent *cpt,
 gchar			*as_component_to_xml_data (AsComponent *cpt,
 						   AsContext *context,
 						   GError **error);
-
-/* DEPRECATED */
-
-G_DEPRECATED
-const gchar		*as_component_get_desktop_id (AsComponent *cpt);
-
-G_DEPRECATED
-gboolean		as_component_load_from_xml_data (AsComponent *cpt,
-							 AsContext *context,
-							 const gchar *data,
-							 GError **error);
 
 G_END_DECLS
 

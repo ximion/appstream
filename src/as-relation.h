@@ -327,14 +327,6 @@ AsCheckResult		as_relation_is_satisfied (AsRelation *relation,
 						  gchar **message,
 						  GError **error);
 
-/* DEPRECATED */
-
-G_DEPRECATED
-const gchar		*as_relation_get_value (AsRelation *relation);
-G_DEPRECATED
-void			as_relation_set_value (AsRelation *relation,
-					        const gchar *value);
-
 G_END_DECLS
 
 #endif /* __AS_RELATION_H */

@@ -361,19 +361,14 @@ void Component::addReplaces(const QString &cid)
     as_component_add_replaces(m_cpt, qPrintable(cid));
 }
 
-QList<Relation> Component::requires() const
-{
-    return requirements();
-}
-
 QList<Relation> Component::requirements() const
 {
     QList<AppStream::Relation> res;
 
-    auto requires = as_component_get_requires(m_cpt);
-    res.reserve(requires->len);
-    for (uint i = 0; i < requires->len; i++) {
-        auto rel = AS_RELATION (g_ptr_array_index(requires, i));
+    auto reqs = as_component_get_requires(m_cpt);
+    res.reserve(reqs->len);
+    for (uint i = 0; i < reqs->len; i++) {
+        auto rel = AS_RELATION (g_ptr_array_index(reqs, i));
         res.append(Relation(rel));
     }
     return res;
@@ -729,18 +724,4 @@ bool Component::isValid() const
 QString AppStream::Component::toString() const
 {
     return valueWrap(as_component_to_string(m_cpt));
-}
-
-QString Component::desktopId() const
-{
-    auto de_launchable = as_component_get_launchable (m_cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
-    if (de_launchable == NULL)
-        return QString();
-
-    auto entries = as_launchable_get_entries (de_launchable);
-    if (entries->len <= 0)
-        return QString();
-
-    auto desktop_id = (const gchar*) g_ptr_array_index (entries, 0);
-    return QString::fromUtf8(desktop_id);
 }

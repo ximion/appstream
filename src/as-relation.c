@@ -1079,35 +1079,6 @@ as_relation_set_display_side_kind (AsRelation *relation, AsDisplaySideKind kind)
 }
 
 /**
- * as_relation_get_value:
- * @relation: an #AsRelation instance.
- *
- * Deprecated method. Use %as_relation_get_value_str instead.
- *
- * Since: 0.12.0
- **/
-const gchar*
-as_relation_get_value (AsRelation *relation)
-{
-	return as_relation_get_value_str (relation);
-}
-
-/**
- * as_relation_set_value:
- * @relation: an #AsRelation instance.
- * @value: the new value.
- *
- * Deprecated method. Use %as_relation_set_value_str instead.
- *
- * Since: 0.12.0
- **/
-void
-as_relation_set_value (AsRelation *relation, const gchar *value)
-{
-	as_relation_set_value_str (relation, value);
-}
-
-/**
  * as_relation_version_compare:
  * @relation: an #AsRelation instance.
  * @version: a version number, e.g. `1.2.0`

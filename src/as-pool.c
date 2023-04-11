@@ -40,7 +40,7 @@
 
 #include "config.h"
 #include "as-pool.h"
-#include "as-pool-gir.h"
+#include "as-pool-gi.h"
 #include "as-pool-private.h"
 
 #include <glib.h>
@@ -55,7 +55,6 @@
 #include "as-utils.h"
 #include "as-utils-private.h"
 #include "as-component-private.h"
-#include "as-distro-details.h"
 #include "as-settings-private.h"
 #include "as-distro-extras.h"
 #include "as-stemmer.h"
@@ -342,7 +341,6 @@ as_pool_init (AsPool *pool)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autofree gchar *cache_root = NULL;
 	g_autoptr(GError) tmp_error = NULL;
-	g_autoptr(AsDistroDetails) distro = NULL;
 
 	g_rw_lock_init (&priv->rw_lock);
 
@@ -372,8 +370,8 @@ as_pool_init (AsPool *pool)
 	/* set callback to refine components after deserialization */
 	as_cache_set_refine_func (priv->cache, as_pool_cache_refine_component_cb);
 
-	distro = as_distro_details_new ();
-	priv->screenshot_service_url = as_distro_details_get_str (distro, "ScreenshotUrl");
+	// FIXME
+	//priv->screenshot_service_url = as_distro_details_get_str (distro, "ScreenshotUrl");
 
 	/* set default pool flags */
 	priv->flags = AS_POOL_FLAG_LOAD_OS_CATALOG |
@@ -381,8 +379,9 @@ as_pool_init (AsPool *pool)
 		      AS_POOL_FLAG_LOAD_FLATPAK;
 
 	/* check whether we might want to prefer local metainfo files over remote data */
-	if (as_distro_details_get_bool (distro, "PreferLocalMetainfoData", FALSE))
-		as_pool_add_flags (pool, AS_POOL_FLAG_PREFER_OS_METAINFO);
+	// FIXME
+	//if (as_distro_details_get_bool (distro, "PreferLocalMetainfoData", FALSE))
+	//	as_pool_add_flags (pool, AS_POOL_FLAG_PREFER_OS_METAINFO);
 }
 
 /**
@@ -453,7 +452,7 @@ as_pool_class_init (AsPoolClass *klass)
  * @add_root: Whether to add the root directory if necessary.
  * @with_legacy_support: Whether some legacy support should be enabled.
  *
- * See %as_pool_add_metadata_location()
+ * See %as_pool_add_extra_data_location()
  */
 static void
 as_pool_add_catalog_metadata_dir_internal (AsPool *pool,
@@ -980,27 +979,6 @@ as_pool_add_components (AsPool *pool, GPtrArray *cpts, GError **error)
 }
 
 /**
- * as_pool_add_component:
- * @pool: An instance of #AsPool
- * @cpt: The #AsComponent to add to the pool.
- * @error: A #GError or %NULL
- *
- * Register a new component in the AppStream metadata pool.
- *
- * Returns: %TRUE if the new component was successfully added to the pool.
- *
- * Deprecated: 0.15.0: This function is very inefficient. Collect all the components you need
- *                     to add, and then register them with %as_pool_add_components in one go.
- */
-gboolean
-as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
-{
-	g_autoptr(GPtrArray) array = g_ptr_array_new ();
-	g_ptr_array_add (array, cpt);
-	return as_pool_add_components (pool, array, error);
-}
-
-/**
  * as_pool_clear:
  * @pool: An #AsPool.
  *
@@ -1015,19 +993,6 @@ as_pool_clear (AsPool *pool)
 
 	as_cache_clear (priv->cache);
 	as_cache_set_locale (priv->cache, priv->locale_bcp47);
-}
-
-/**
- * as_pool_clear2:
- * @pool: An #AsPool.
- *
- * Remove all metadata from the pool.
- */
-gboolean
-as_pool_clear2 (AsPool *pool, GError **error)
-{
-	as_pool_clear (pool);
-	return TRUE;
 }
 
 /**
@@ -1868,42 +1833,6 @@ as_pool_location_group_monitor_changed_cb (AsFileMonitor *monitor,
 }
 
 /**
- * as_pool_load_cache_file:
- * @pool: An instance of #AsPool.
- * @fname: Filename of the cache file to load into the pool.
- * @error: A #GError or %NULL.
- *
- * Load AppStream metadata from a cache file.
- */
-gboolean
-as_pool_load_cache_file (AsPool *pool, const gchar *fname, GError **error)
-{
-	g_set_error (error,
-			AS_POOL_ERROR,
-			AS_POOL_ERROR_FAILED,
-			"Can not load cache file '%s': Direct cache injection is no longer possible.", fname);
-	return FALSE;
-}
-
-/**
- * as_pool_save_cache_file:
- * @pool: An instance of #AsPool.
- * @fname: Filename of the cache file the pool contents should be dumped to.
- * @error: A #GError or %NULL.
- *
- * Serialize AppStream metadata to a cache file.
- */
-gboolean
-as_pool_save_cache_file (AsPool *pool, const gchar *fname, GError **error)
-{
-	g_set_error (error,
-			AS_POOL_ERROR,
-			AS_POOL_ERROR_FAILED,
-			"Can not write cache file '%s': Single-file cache export is no longer possible.", fname);
-	return FALSE;
-}
-
-/**
  * as_pool_get_components: (skip)
  * @pool: An instance of #AsPool.
  *
@@ -1932,7 +1861,7 @@ as_pool_get_components (AsPool *pool)
 }
 
 /**
- * as_pool_get_components_gir: (rename-to as_pool_get_components)
+ * as_pool_get_components_gi: (rename-to as_pool_get_components)
  * @pool: An instance of #AsPool.
  *
  * Get a list of found components.
@@ -1943,7 +1872,7 @@ as_pool_get_components (AsPool *pool)
  * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent instances.
  */
 GPtrArray*
-as_pool_get_components_gir (AsPool *pool)
+as_pool_get_components_gi (AsPool *pool)
 {
 	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components (pool));
 }
@@ -1978,7 +1907,7 @@ as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
 }
 
 /**
- * as_pool_get_components_by_id_gir: (rename-to as_pool_get_components_by_id)
+ * as_pool_get_components_by_id_gi: (rename-to as_pool_get_components_by_id)
  * @pool: An instance of #AsPool.
  * @cid: The AppStream-ID to look for.
  *
@@ -1992,7 +1921,7 @@ as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
  * Returns: (transfer full) (element-type AsComponent): An #AsComponent
  */
 GPtrArray*
-as_pool_get_components_by_id_gir (AsPool *pool, const gchar *cid)
+as_pool_get_components_by_id_gi (AsPool *pool, const gchar *cid)
 {
 	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_id (pool, cid));
 }
@@ -2027,7 +1956,7 @@ as_pool_get_components_by_provided_item (AsPool *pool,
 }
 
 /**
- * as_pool_get_components_by_provided_item_gir: (rename-to as_pool_get_components_by_provided_item)
+ * as_pool_get_components_by_provided_item_gi: (rename-to as_pool_get_components_by_provided_item)
  * @pool: An instance of #AsPool.
  * @kind: An #AsProvidesKind
  * @item: The value of the provided item.
@@ -2040,7 +1969,7 @@ as_pool_get_components_by_provided_item (AsPool *pool,
  * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
  */
 GPtrArray*
-as_pool_get_components_by_provided_item_gir (AsPool *pool,
+as_pool_get_components_by_provided_item_gi (AsPool *pool,
 					      AsProvidedKind kind,
 					      const gchar *item)
 {
@@ -2074,7 +2003,7 @@ as_pool_get_components_by_kind (AsPool *pool, AsComponentKind kind)
 }
 
 /**
- * as_pool_get_components_by_kind_gir: (rename-to as_pool_get_components_by_kind)
+ * as_pool_get_components_by_kind_gi: (rename-to as_pool_get_components_by_kind)
  * @pool: An instance of #AsDatabase.
  * @kind: An #AsComponentKind.
  *
@@ -2086,7 +2015,7 @@ as_pool_get_components_by_kind (AsPool *pool, AsComponentKind kind)
  * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
  */
 GPtrArray*
-as_pool_get_components_by_kind_gir (AsPool *pool, AsComponentKind kind)
+as_pool_get_components_by_kind_gi (AsPool *pool, AsComponentKind kind)
 {
 	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_kind (pool, kind));
 }
@@ -2125,7 +2054,7 @@ as_pool_get_components_by_categories (AsPool *pool, gchar **categories)
 }
 
 /**
- * as_pool_get_components_by_categories_gir: (rename-to as_pool_get_components_by_categories)
+ * as_pool_get_components_by_categories_gi: (rename-to as_pool_get_components_by_categories)
  * @pool: An instance of #AsDatabase.
  * @categories: (array zero-terminated=1): An array of XDG categories to include.
  *
@@ -2137,7 +2066,7 @@ as_pool_get_components_by_categories (AsPool *pool, gchar **categories)
  * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
  */
 GPtrArray*
-as_pool_get_components_by_categories_gir (AsPool *pool, gchar **categories)
+as_pool_get_components_by_categories_gi (AsPool *pool, gchar **categories)
 {
 	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_categories (pool, categories));
 }
@@ -2175,7 +2104,7 @@ as_pool_get_components_by_launchable (AsPool *pool,
 }
 
 /**
- * as_pool_get_components_by_launchable_gir: (rename-to as_pool_get_components_by_launchable)
+ * as_pool_get_components_by_launchable_gi: (rename-to as_pool_get_components_by_launchable)
  * @pool: An instance of #AsPool.
  * @kind: An #AsLaunchableKind
  * @id: The ID of the launchable.
@@ -2191,7 +2120,7 @@ as_pool_get_components_by_launchable (AsPool *pool,
  * Since: 0.11.4
  */
 GPtrArray*
-as_pool_get_components_by_launchable_gir (AsPool *pool,
+as_pool_get_components_by_launchable_gi (AsPool *pool,
 					  AsLaunchableKind kind,
 					  const gchar *id)
 {
@@ -2231,7 +2160,7 @@ as_pool_get_components_by_extends (AsPool *pool, const gchar *extended_id)
 }
 
 /**
- * as_pool_get_components_by_extends_gir: (rename-to as_pool_get_components_by_extends)
+ * as_pool_get_components_by_extends_gi: (rename-to as_pool_get_components_by_extends)
  * @pool: An instance of #AsPool.
  * @extended_id: The ID of the component to search extensions for.
  *
@@ -2249,7 +2178,7 @@ as_pool_get_components_by_extends (AsPool *pool, const gchar *extended_id)
  * Since: 0.15.0
  */
 GPtrArray*
-as_pool_get_components_by_extends_gir (AsPool *pool, const gchar *extended_id)
+as_pool_get_components_by_extends_gi (AsPool *pool, const gchar *extended_id)
 {
 	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_extends (pool, extended_id));
 }
@@ -2286,7 +2215,7 @@ as_pool_get_components_by_bundle_id (AsPool *pool, AsBundleKind kind, const gcha
 }
 
 /**
- * as_pool_get_components_by_bundle_id_gir: (rename-to as_pool_get_components_by_bundle_id)
+ * as_pool_get_components_by_bundle_id_gi: (rename-to as_pool_get_components_by_bundle_id)
  * @pool: An instance of #AsPool.
  * @kind: The kind of the bundle we are looking for
  * @bundle_id: The bundle ID to match, as specified in #AsBundle
@@ -2305,7 +2234,7 @@ as_pool_get_components_by_bundle_id (AsPool *pool, AsBundleKind kind, const gcha
  * Since: 0.16.0
  */
 GPtrArray*
-as_pool_get_components_by_bundle_id_gir (AsPool *pool, AsBundleKind kind, const gchar *bundle_id, gboolean match_prefix)
+as_pool_get_components_by_bundle_id_gi (AsPool *pool, AsBundleKind kind, const gchar *bundle_id, gboolean match_prefix)
 {
 	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_bundle_id (pool, kind, bundle_id, match_prefix));
 }
@@ -2472,7 +2401,7 @@ as_pool_search (AsPool *pool, const gchar *search)
 }
 
 /**
- * as_pool_search_gir: (rename-to as_pool_search)
+ * as_pool_search_gi: (rename-to as_pool_search)
  * @pool: An instance of #AsPool
  * @search: A search string
  *
@@ -2487,25 +2416,9 @@ as_pool_search (AsPool *pool, const gchar *search)
  * Since: 0.9.7
  */
 GPtrArray*
-as_pool_search_gir (AsPool *pool, const gchar *search)
+as_pool_search_gi (AsPool *pool, const gchar *search)
 {
 	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_search (pool, search));
-}
-
-/**
- * as_pool_refresh_cache:
- * @pool: An instance of #AsPool.
- * @force: Enforce refresh, even if source data has not changed.
- *
- * Update the AppStream cache. There is normally no need to call this function manually, because cache updates are handled
- * transparently in the background.
- *
- * Returns: %TRUE on success, %FALSE on error.
- */
-gboolean
-as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
-{
-	return as_pool_refresh_system_cache (pool, force, NULL, error);
 }
 
 /**
@@ -2765,43 +2678,6 @@ as_pool_print_std_data_locations_info_private (AsPool *pool, gboolean print_os_d
 }
 
 /**
- * as_pool_add_metadata_location:
- * @pool: An instance of #AsPool.
- * @directory: An existing filesystem location.
- *
- * Add a location for the data pool to read data from.
- * If @directory contains a "xml", "xmls", "yaml" or "icons" subdirectory (or all of them),
- * those paths will be added to the search paths instead.
- *
- * Deprecated: 0.15.0: Use %as_pool_add_extra_data_location instead.
- */
-void
-as_pool_add_metadata_location (AsPool *pool, const gchar *directory)
-{
-	as_pool_add_extra_data_location (pool, directory, AS_FORMAT_STYLE_CATALOG);
-}
-
-/**
- * as_pool_clear_metadata_locations:
- * @pool: An instance of #AsPool.
- *
- * Remove all metadata locations from the list of watched locations.
- *
- * Deprecated: 0.15.0: Use %as_pool_reset_extra_data_locations and control system data loading via flags.
- */
-void
-as_pool_clear_metadata_locations (AsPool *pool)
-{
-	/* don't load stuff from default locations to mimic previous behavior */
-	as_pool_set_load_std_data_locations (pool, FALSE);
-
-	/* clear arrays */
-	as_pool_reset_extra_data_locations (pool);
-
-	g_debug ("Cleared all metadata search paths.");
-}
-
-/**
  * as_pool_get_flags:
  * @pool: An instance of #AsPool.
  *
@@ -2923,74 +2799,6 @@ as_pool_get_os_metadata_cache_age (AsPool *pool)
 				   AS_COMPONENT_SCOPE_SYSTEM,
 				   OS_CATALOG_CACHE_KEY,
 				   NULL);
-}
-
-/**
- * as_pool_set_cache_location:
- * @pool: An instance of #AsPool.
- * @fname: Filename of the cache file, or special identifier.
- *
- * Sets the name of the cache file. If @fname is ":memory", the cache will be
- * kept in memory, if it is set to ":temporary", the cache will be stored in
- * a temporary directory. In any other case, the given filename is used.
- *
- * Since: 0.12.7
- *
- * Deprecated: 0.15.0: Cache location can no longer be set explicitly.
- **/
-void
-as_pool_set_cache_location (AsPool *pool, const gchar *fname)
-{
-	g_warning ("Not changing AppStream cache location: No longer supported.");
-}
-
-/**
- * as_pool_get_cache_flags:
- * @pool: An instance of #AsPool.
- *
- * Get the #AsCacheFlags for this data pool.
- *
- * Deprecated: 0.15.0: Cache flags can no longer be changed.
- */
-AsCacheFlags
-as_pool_get_cache_flags (AsPool *pool)
-{
-	return AS_CACHE_FLAG_USE_SYSTEM | AS_CACHE_FLAG_USE_USER | AS_CACHE_FLAG_REFRESH_SYSTEM;
-}
-
-/**
- * as_pool_set_cache_flags:
- * @pool: An instance of #AsPool.
- * @flags: The new #AsCacheFlags.
- *
- * Set the #AsCacheFlags for this data pool.
- *
- * Deprecated: 0.15.0: Cache flags can no longer be modified.
- */
-void
-as_pool_set_cache_flags (AsPool *pool, AsCacheFlags flags)
-{
-	/* Legacy function that is just providing some compatibility glue */
-	if (as_flags_contains (flags, AS_CACHE_FLAG_USE_USER))
-		as_pool_remove_flags (pool, AS_POOL_FLAG_LOAD_OS_CATALOG |
-					    AS_POOL_FLAG_LOAD_OS_METAINFO);
-}
-
-/**
- * as_pool_get_cache_location:
- * @pool: An instance of #AsPool.
- *
- * Gets the location of the session cache.
- *
- * Returns: Location of the cache, or %NULL if unknown.
- *
- * Deprecated: 0.15.0: Cache location can no longer be set explicitly.
- **/
-const gchar*
-as_pool_get_cache_location (AsPool *pool)
-{
-	/* No-op */
-	return NULL;
 }
 
 /**

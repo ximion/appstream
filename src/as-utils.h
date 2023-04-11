@@ -136,12 +136,6 @@ gboolean		as_utils_install_metadata_file (AsMetadataLocation location,
 
 AsComponentScope	as_utils_guess_scope_from_path (const gchar *path);
 
-
-/* DEPRECATED */
-
-G_DEPRECATED_FOR(as_version_string)
-const gchar		*as_get_appstream_version (void);
-
 G_END_DECLS
 
 #endif /* __AS_UTILS_H */

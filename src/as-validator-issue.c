@@ -388,60 +388,6 @@ as_validator_issue_get_location (AsValidatorIssue *issue)
 }
 
 /**
- * as_validator_issue_get_importance:
- * @issue: a #AsValidatorIssue instance.
- *
- * This function is deprecated and should not be used in new code.
- *
- * Returns: a #AsIssueSeverity
- **/
-AsIssueSeverity
-as_validator_issue_get_importance (AsValidatorIssue *issue)
-{
-	return as_validator_issue_get_severity (issue);
-}
-
-/**
- * as_validator_issue_set_importance:
- * @issue: a #AsValidatorIssue instance.
- * @importance: the #AsIssueSeverity.
- *
- * This function is deprecated and should not be used in new code.
- **/
-void
-as_validator_issue_set_importance (AsValidatorIssue *issue, AsIssueSeverity importance)
-{
-	as_validator_issue_set_severity (issue, importance);
-}
-
-/**
- * as_validator_issue_get_message:
- * @issue: a #AsValidatorIssue instance.
- *
- * This function is deprecated.
- *
- * Returns: the message
- **/
-const gchar*
-as_validator_issue_get_message (AsValidatorIssue *issue)
-{
-	return as_validator_issue_get_hint (issue);
-}
-
-/**
- * as_validator_issue_set_message:
- * @issue: a #AsValidatorIssue instance.
- * @message: the message text.
- *
- * This function is deprecated.
- **/
-void
-as_validator_issue_set_message (AsValidatorIssue *issue, const gchar *message)
-{
-	as_validator_issue_set_hint (issue, message);
-}
-
-/**
  * as_validator_issue_new:
  *
  * Creates a new #AsValidatorIssue.
