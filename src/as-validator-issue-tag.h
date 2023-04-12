@@ -872,7 +872,8 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "release-description-outside-tag",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("The release description must be put inside a description tag"),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The release description must be put inside a `description` tag"),
 	},
 
 	{ "artifact-type-invalid",
