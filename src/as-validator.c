@@ -2089,6 +2089,10 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 			continue;
 		}
 
+		/* checks if the description is put outside a description tag */
+		if (g_strcmp0 (node_name, "p") == 0 || g_strcmp0 (node_name, "ol") == 0 || g_strcmp0 (node_name, "ul") == 0 || g_strcmp0 (node_name, "li") == 0)
+			as_validator_add_issue (validator, node, "release-description-outside-tag", node_name);
+
 		/* if we are here, we have an unknown tag */
 		as_validator_add_issue (validator, iter, "unknown-tag", node_name);
 	}
