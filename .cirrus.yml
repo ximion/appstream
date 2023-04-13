@@ -1,0 +1,26 @@
+task:
+  freebsd_instance:
+    matrix:
+      - image_family: freebsd-13-2-snap
+  env:
+    # /usr/ports/Mk/Uses/localbase.mk localbase:ldflags
+    LOCALBASE: /usr/local
+    CFLAGS: -isystem $LOCALBASE/include -D__BSD_VISIBLE=1
+    CPPFLAGS: $CFLAGS
+    CXXFLAGS: $CFLAGS
+    LDFLAGS: -L$LOCALBASE/lib
+  deps_script:
+    - sed -i.bak 's/quarterly/latest/' /etc/pkg/FreeBSD.conf
+    - env ASSUME_ALWAYS_YES=yes pkg update -f
+    - env ASSUME_ALWAYS_YES=yes pkg install -y docbook-xsl gperf itstool lmdb gettext-tools gobject-introspection
+        vala meson ninja glib pkgconf python3 curl snowballstemmer libxmlb libyaml gettext-runtime libxml2
+        libxslt cairo gdk-pixbuf2 librsvg2-rust qt5-buildtools qt5-qmake qt5-testlib qt5-core pango gcab gtk-doc
+        docbook-xml docbook-xsl json-glib e2fsprogs-libuuid fontconfig 	freetype2 at-spi2-core gdk-pixbuf2
+        gtk3 libarchive sqlite3
+  build_script:
+    - sed -i '' "s/'-i'/'-i \"\"'/" src/meson.build
+    - meson --auto-features=enabled -Db_colorout=never --buildtype debug -Dstemming=true -Dvapi=true
+        -Ddocs=false  -Dsystemd=false -Dqt=true -Dcompose=true _build
+    - cd _build
+    - ninja -v all
+
