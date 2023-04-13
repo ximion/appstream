@@ -224,7 +224,7 @@ pkgc.generate(
 # builds using libappstream. Fix this issue by post-processing the file.
 sed_prog = find_program('sed')
 pc_fixup = run_command(sed_prog,
-                       '-i',
+                       '-i ""',
                        '/^Requires.private\|^Libs.private/ d',
                        join_paths(meson.global_build_root(), 'meson-private', 'appstream.pc'),
                        check: false)
