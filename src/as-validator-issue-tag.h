@@ -969,6 +969,54 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	     "You can generate the tag data online by answering a few questions at https://hughsie.github.io/oars/"),
 	},
 
+	{ "content-rating-type-missing",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The  `type ` attribute of the  `content_rating` is missing or empty."),
+	},
+
+	{ "content-rating-type-invalid",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The  `type ` attribute of the  `content_rating` has a invalid value."),
+	},
+
+	{ "content-rating-invalid-tag",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The `content_rating` tag can only contain `content_attribute` children."),
+	},
+
+	{ "content-attribute-id-missing",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The  `id ` attribute of the  `content_attribute` is missing or empty."),
+	},
+
+	{ "content-attribute-id-invalid",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The  `id ` attribute of the  `content_attribute` has a invalid value."),
+	},
+
+	{ "content-attribute-value-empty",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The `content_attribute` tag needs a value."),
+	},
+
+	{ "content-attribute-value-unknown",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The `content_attribute` tag value is unknown."),
+	},
+
+	{ "content-attribute-value-invalid",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The `content_attribute` tag value is invalid for the given id."),
+	},
+
 	{ "component-tag-missing-namespace",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
