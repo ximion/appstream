@@ -28,10 +28,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-04-09 02:48+0000\n"
+"PO-Revision-Date: 2023-04-14 09:51+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
-"Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
-"appstream/translations/en_GB/>\n"
+"Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/appstream/translations/en_GB/>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1054,43 +1053,41 @@ msgstr "Component"
 
 #: src/as-relation.c:1530
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "pointing device (e.g. a mouse)"
 
 #: src/as-relation.c:1532
-#, fuzzy
 msgid "keyboard"
-msgstr "Board"
+msgstr "keyboard"
 
 #: src/as-relation.c:1534
 msgid "gamepad"
-msgstr ""
+msgstr "gamepad"
 
 #: src/as-relation.c:1536
 msgid "tv remote"
-msgstr ""
+msgstr "tv remote"
 
 #: src/as-relation.c:1538
 msgid "graphics tablet"
-msgstr ""
+msgstr "graphics tablet"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1543
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires a %s for input."
-msgstr "This tag requires a type property."
+msgstr "This software requires a %s for input."
 
 #: src/as-relation.c:1548
-#, fuzzy
 msgid "This software requires a touch input device."
-msgstr "This tag requires a type property."
+msgstr "This software requires a touch input device."
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "This software requires a microphone to be controlled via voice input."
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "This software requires a camera for input control."
 
 #: src/as-relation.c:1554
 #, fuzzy
