@@ -338,22 +338,26 @@ asc_parse_desktop_entry_data (AscResult *cres,
 	g_autoptr(AsComponent) ncpt = NULL;
 	g_autoptr(GPtrArray) issues = NULL;
 	g_autoptr(GError) error = NULL;
-	g_autofree gchar *prev_cid = NULL;
+	g_autofree gchar *real_cid = NULL;
 	gboolean cpt_is_new = FALSE;
 	const gchar *data;
 	gsize data_len;
 	gboolean ret;
 
-
+	/* NOTE: The cid needs to be the exact desktop-entry name briefly, as as_desktop_entry_parse_data
+	 * uses it to synthesize a Launchable. We can reset it later. */
 	if (cpt != NULL) {
 		ncpt = g_object_ref (cpt);
-		prev_cid = g_strdup (as_component_get_id (cpt));
+		real_cid = g_strdup (as_component_get_id (cpt));
 		as_component_set_id (ncpt, de_basename);
 		cpt_is_new = FALSE;
 	} else {
 		ncpt = as_component_new ();
 		as_component_set_id (ncpt, de_basename);
 		cpt_is_new = TRUE;
+
+		/* for components synthesized from desktop-entry files, we need a lower-cased ID */
+		real_cid = g_utf8_strdown (de_basename, -1);
 	}
 	/* we shouldn't even try to use cpt from this point forward */
 	cpt = NULL;
@@ -412,8 +416,8 @@ asc_parse_desktop_entry_data (AscResult *cres,
 	}
 
 	/* the desktop-entry parsing function may have overridden this, so we reset the original value if we had one */
-	if (prev_cid != NULL)
-		as_component_set_id (ncpt, prev_cid);
+	if (real_cid != NULL)
+		as_component_set_id (ncpt, real_cid);
 
 	/* reset component priority to neutral (may be lowest) */
 	as_component_set_priority (ncpt, 0);
