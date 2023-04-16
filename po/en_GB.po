@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-04-14 22:51+0000\n"
+"PO-Revision-Date: 2023-04-16 01:48+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/appstream/translations/en_GB/>\n"
 "Language: en_GB\n"
@@ -1245,9 +1245,9 @@ msgid "This software recommends a %s kernel, but this system is running %s."
 msgstr "This software recommends a %s kernel, but this system is running %s."
 
 #: src/as-relation.c:1783
-#, fuzzy, c-format
+#, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr "This tag requires a type property."
+msgstr "This software only supports a %s kernel, but may run on %s anyway."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1255,7 +1255,7 @@ msgstr "This tag requires a type property."
 #: src/as-relation.c:1805
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
+msgstr "This software requires %s %s %s, but this system is running %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1263,20 +1263,20 @@ msgstr ""
 #: src/as-relation.c:1813
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
+msgstr "The use of %s %s %s is recommended, but this system is running %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1820
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %s %s."
-msgstr "This tag requires a type property."
+msgstr "This software supports %s %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1830
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "Kernel %s %s is supported."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1284,7 +1284,7 @@ msgstr ""
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
