@@ -400,6 +400,11 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 
 				as_component_set_id (cpt, id_raw);
 			}
+		} else {
+			/* for components synthesized from desktop-entry files, that we can't guess
+			 * a rDNS ID for, we need a lower-cased ID instead */
+			g_autofree gchar *cid_low = g_utf8_strdown (desktop_basename, -1);
+			as_component_set_id (cpt, cid_low);
 		}
 	}
 
