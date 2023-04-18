@@ -124,7 +124,6 @@ add_project_arguments(
 )
 add_project_arguments(
   '-Wno-unused-parameter',
-  '-Werror=shadow',
   '-Werror=empty-body',
   '-Werror=pointer-arith',
   '-Werror=init-self',
@@ -133,8 +132,6 @@ add_project_arguments(
   '-Werror=misleading-indentation',
   '-Werror=format-security',
 
-  # NOTE: Can be removed with AppStream 1.0
-  '-Wno-error=c++20-compat',
   language: 'cpp'
 )
 
