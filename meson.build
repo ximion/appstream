@@ -100,7 +100,6 @@ endif
 # a few compiler warning flags we always want enabled
 add_project_arguments(
   cc.get_supported_arguments([
-    '-Werror=shadow',
     '-Werror=empty-body',
     '-Werror=strict-prototypes',
     '-Werror=missing-prototypes',
@@ -124,7 +123,6 @@ add_project_arguments(
 )
 add_project_arguments(
   '-Wno-unused-parameter',
-  '-Werror=shadow',
   '-Werror=empty-body',
   '-Werror=pointer-arith',
   '-Werror=init-self',
