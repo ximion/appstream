@@ -1,6 +1,10 @@
 # Meson definition for AppStream Qt Tests
 
-qt_test_dep = dependency('qt6', modules: ['Core', 'Test'])
+qt_test_dep = dependency(
+    'qt6',
+    modules: ['Core', 'Test'],
+    include_type: 'system'
+)
 
 testpaths_h = configuration_data()
 testpaths_h.set_quoted('AS_SAMPLE_DATA_PATH', join_paths(source_root, 'tests', 'samples', 'catalog'))
