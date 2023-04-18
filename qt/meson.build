@@ -6,7 +6,12 @@ add_languages('cpp', native: true)
 add_languages('cpp', native: false)
 
 qt = import('qt6')
-qt_dep = dependency('qt6', modules: ['Core'], version: '>= 6.2.4')
+qt_dep = dependency(
+    'qt6',
+    modules: ['Core'],
+    version: '>= 6.2.4',
+    include_type: 'system'
+)
 
 asqt_src = [
     'bundle.cpp',
