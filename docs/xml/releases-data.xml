@@ -123,12 +123,16 @@
 		<itemizedlist>
 			<listitem><para><literal>stable</literal></para></listitem>
 			<listitem><para><literal>development</literal></para></listitem>
+			<listitem><para><literal>snapshot</literal></para></listitem>
 		</itemizedlist>
 		<para>
 			By default, if no release type is defined, <code>stable</code> is assumed.
 			A software displaying a listing of releases should only show stable releases and
 			discard any development release if the current version is itself stable. It can
-			show all versions when development versions of the software are also distributed.
+			show both <code>stable</code> and <code>development</code> versions when
+			development versions of the software are also distributed.
+			Instead, a <code>snapshot</code> release identifies an automated snapshot of
+			the current development status. It should not be shown unless instructed to.
 		</para>
 
 		<para>
