@@ -48,6 +48,7 @@ typedef struct
 {
 	AsReleaseKind	kind;
 	gchar		*version;
+	gchar		*name;
 	GHashTable	*description;
 	guint64		timestamp;
 	gchar		*date;
@@ -176,6 +177,7 @@ as_release_finalize (GObject *object)
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 
 	g_free (priv->version);
+	g_free (priv->name);
 	g_free (priv->date);
 	g_free (priv->date_eol);
 	g_free (priv->url_details);
@@ -784,6 +786,39 @@ as_release_set_description_translatable (AsRelease *release, gboolean translatab
 }
 
 /**
+ * as_release_get_name:
+ * @release: a #AsRelease instance.
+ *
+ * Gets the release name, or version if unset.
+ *
+ * Returns: (nullable): string, or %NULL for invalid
+ **/
+const gchar*
+as_release_get_name (AsRelease *release)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
+	if (priv->name == NULL)
+		return priv->version;
+	return priv->name;
+}
+
+/**
+ * as_release_set_name:
+ * @release: a #AsRelease instance.
+ * @name: the name string.
+ *
+ * Sets the release name.
+ **/
+void
+as_release_set_name (AsRelease *release, const gchar *name)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_if_fail (AS_IS_RELEASE (release));
+	as_assign_string_safe (priv->name, name);
+}
+
+/**
  * as_release_load_from_xml:
  * @release: an #AsRelease
  * @ctx: the AppStream document context.
@@ -811,6 +846,12 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 	prop = as_xml_get_prop_value (node, "version");
 	as_release_set_version (release, prop);
 	g_free (prop);
+
+	prop = as_xml_get_prop_value (node, "name");
+	if (prop != NULL) {
+		as_release_set_name (release, prop);
+		g_free (prop);
+	}
 
 	prop = as_xml_get_prop_value (node, "date");
 	if (prop != NULL) {
@@ -923,6 +964,8 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 	as_xml_add_text_prop (subnode,
 			      "version",
 			      priv->version);
+	if (priv->name != NULL)
+		as_xml_add_text_prop (subnode, "name", priv->name);
 
 	/* set release timestamp / date */
 	if (priv->timestamp > 0) {
@@ -1020,6 +1063,8 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 			priv->kind = as_release_kind_from_string (value);
 		} else if (g_strcmp0 (key, "version") == 0) {
 			as_release_set_version (release, value);
+		} else if (g_strcmp0 (key, "name") == 0) {
+			as_release_set_name (release, value);
 		} else if (g_strcmp0 (key, "urgency") == 0) {
 			priv->urgency = as_urgency_kind_from_string (value);
 		} else if (g_strcmp0 (key, "description") == 0) {
@@ -1077,6 +1122,8 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 
 	/* version */
 	as_yaml_emit_entry (emitter, "version", priv->version);
+	if (priv->name)
+		as_yaml_emit_entry (emitter, "name", priv->name);
 
 	/* type */
 	as_yaml_emit_entry (emitter, "type", as_release_kind_to_string (priv->kind));

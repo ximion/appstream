@@ -89,6 +89,11 @@ QString Release::version() const
     return QString::fromUtf8(as_release_get_version(d->m_release));
 }
 
+QString Release::name() const
+{
+    return QString::fromUtf8(as_release_get_name(d->m_release));
+}
+
 QDateTime Release::timestamp() const
 {
     const guint64 timestamp = as_release_get_timestamp(d->m_release);
