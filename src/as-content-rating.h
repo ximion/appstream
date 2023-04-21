@@ -110,13 +110,6 @@ typedef enum {
 	AS_CONTENT_RATING_VALUE_LAST
 } AsContentRatingValue;
 
-typedef enum
-{
-	AS_OARS_VERSION_1_0,
-	AS_OARS_VERSION_1_1,
-	AS_OARS_VERSION_UNKNOWN
-} AsOarsVersion;
-
 const gchar		*as_content_rating_value_to_string (AsContentRatingValue value);
 AsContentRatingValue	 as_content_rating_value_from_string (const gchar *value);
 
@@ -159,12 +152,6 @@ const gchar		**as_content_rating_get_rating_ids (AsContentRating *content_rating
 void			as_content_rating_add_attribute (AsContentRating *content_rating,
 							const gchar *id,
 							AsContentRatingValue value);
-
-gboolean	as_is_oars_key (const gchar *id, AsOarsVersion version);
-
-AsOarsVersion	as_oars_version_from_string (const gchar *value);
-
-gboolean	as_content_rating_value_is_valid (const gchar *id, AsContentRatingValue value);
 
 G_END_DECLS
 

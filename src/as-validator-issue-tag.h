@@ -1017,6 +1017,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The `content_attribute` tag value is invalid for the given id."),
 	},
 
+	{ "content-attribute-id-duplicated",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("An `content_attribute` tag with this id has already been defined."),
+	},
+
 	{ "component-tag-missing-namespace",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */

@@ -40,12 +40,6 @@ G_BEGIN_DECLS
 #define as_str_equal0(str1, str2) (g_strcmp0 ((gchar*) str1,(gchar*) str2) == 0)
 
 /**
- * as_str_empty::
- * Returns TRUE if a string is null or empty
- */
-#define as_str_empty(str) (str == NULL || str[0] == '\0')
-
-/**
  * as_assign_string_safe:
  * @target: target variable variable to assign string to
  * @new_val: the value to set the target variable to

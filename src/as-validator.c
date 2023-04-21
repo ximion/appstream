@@ -49,6 +49,7 @@
 #include "as-component-private.h"
 #include "as-yaml.h"
 #include "as-desktop-entry.h"
+#include "as-content-rating-private.h"
 
 typedef struct
 {
@@ -2310,9 +2311,12 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 	g_autofree gchar *oars_type = NULL;
 	AsOarsVersion oars_version;
 
+	g_autoptr(GHashTable) known_ids = g_hash_table_new_full (g_str_hash, g_str_equal,
+								  g_free, NULL);
+
 	oars_type = as_xml_get_prop_value (node, "type");
 
-	if (as_str_empty(oars_type)) {
+	if (as_is_empty(oars_type)) {
 		as_validator_add_issue (validator, node, "content-rating-type-missing", NULL);
 		return;
 	}
@@ -2340,7 +2344,7 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 
 		id = as_xml_get_prop_value (iter, "id");
 
-		if (as_str_empty(id)) {
+		if (as_is_empty(id)) {
 			as_validator_add_issue (validator, iter, "content-attribute-id-missing", NULL);
 			continue;
 		}
@@ -2352,7 +2356,7 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 
 		value_data = as_xml_get_node_value (iter);
 
-		if (as_str_empty(value_data)) {
+		if (as_is_empty(value_data)) {
 			as_validator_add_issue (validator, iter, "content-attribute-value-empty", NULL);
 			continue;
 		}
@@ -2364,8 +2368,15 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 			continue;
 		}
 
-		if (!as_content_rating_value_is_valid(id, content_rating))
+		if (!as_content_rating_value_is_valid(id, content_rating)) {
 			as_validator_add_issue (validator, iter, "content-attribute-value-invalid", value_data);
+			continue;
+		}
+
+		if (g_hash_table_contains (known_ids, id))
+			as_validator_add_issue (validator, iter, "content-attribute-id-duplicated", id);
+		else
+			g_hash_table_add (known_ids, g_steal_pointer (&id));
 	}
 }
 
@@ -2442,7 +2453,7 @@ as_validator_check_custom (AsValidator *validator, xmlNode *node)
 			g_hash_table_add (known_keys, g_steal_pointer (&key_name));
 
 		value_data = as_xml_get_node_value (iter);
-		if (value_data == NULL || value_data[0] == '\0')
+		if (as_is_empty(value_data))
 			as_validator_add_issue (validator, iter, "custom-value-empty", NULL);
 	}
 }
