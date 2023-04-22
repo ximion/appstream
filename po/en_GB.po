@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-04-21 08:51+0000\n"
+"PO-Revision-Date: 2023-04-22 08:52+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/appstream/translations/en_GB/>\n"
 "Language: en_GB\n"
@@ -1493,11 +1493,8 @@ msgstr ""
 "and numbers are permitted."
 
 #: src/as-validator-issue-tag.h:139
-#, fuzzy
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
-"The component has a priority value set. This is not allowed in metainfo "
-"files."
+msgstr "The component ID starts with punctuation. This is not allowed."
 
 #: src/as-validator-issue-tag.h:144
 msgid ""
@@ -1522,16 +1519,14 @@ msgstr ""
 "segments with an underscore."
 
 #: src/as-validator-issue-tag.h:156
-#, fuzzy
 msgid "The component ID should only contain lowercase characters."
-msgstr "A Id. do componente deverá conter apenas letras minúsculas."
+msgstr "The component ID should only contain lowercase characters."
 
 #: src/as-validator-issue-tag.h:161
-#, fuzzy
 msgid ""
 "The domain part of the rDNS component ID (first two parts) must only contain "
 "lowercase characters."
-msgstr "A Id. do componente deverá conter apenas letras minúsculas."
+msgstr "The domain part of the rDNS component ID (first two parts) must only contain lowercase characters."
 
 #: src/as-validator-issue-tag.h:166
 msgid ""
@@ -1608,17 +1603,17 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:210
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "The `width` property must be a positive integer."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:216
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "The `height` property must be a positive integer."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:222
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
+msgstr "The image type must be either `source` or `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:228
