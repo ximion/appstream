@@ -39,14 +39,14 @@
 #include "as-utils-private.h"
 
 typedef struct {
-	gchar *id;
+	gchar			*id;
 	AsContentRatingValue	 value;
 } AsContentRatingKey;
 
 typedef struct
 {
-	gchar *kind;
-	GPtrArray *keys; /* of AsContentRatingKey */
+	gchar		*kind;
+	GPtrArray	*keys; /* of AsContentRatingKey */
 } AsContentRatingPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsContentRating, as_content_rating, G_TYPE_OBJECT)
@@ -646,6 +646,7 @@ parse_locale (gchar *locale  /* (transfer full) */,
 {
 	gchar *separator;
 	const gchar *language = NULL, *territory = NULL, *codeset = NULL, *modifier = NULL;
+	g_return_val_if_fail (locale, FALSE);
 
 	separator = strrchr (locale, '@');
 	if (separator != NULL) {
