@@ -764,6 +764,8 @@ as_license_is_free_license (const gchar *license)
 	/* assume we have a free software license, unless proven otherwise */
 	is_free = TRUE;
 	tokens = as_spdx_license_tokenize (license);
+	if (tokens == NULL)
+		return FALSE;
 	for (guint i = 0; tokens[i] != NULL; i++) {
 		g_autofree gchar *lkey = NULL;
 
