@@ -130,12 +130,12 @@ as_get_yml_data_origin (const gchar *fname)
 		return NULL;
 	/* start points to the start of the document, i.e. "File:" normally */
 	start = g_strstr_len (data, 400, YAML_SEPARATOR) + YAML_SEPARATOR_LEN;
-	if (start[0] == '\0')
+	if (start == NULL || start[0] == '\0')
 		return NULL;
 	/* Find the end of the first document - can be NULL if there is only one,
 	 * for example if we're given YAML for an empty archive */
 	end = g_strstr_len (start, -1, YAML_SEPARATOR);
-	str = g_strndup (start, strlen(start) - (end ? strlen(end) : 0));
+	str = g_strndup (start, strlen (start) - (end ? strlen (end) : 0));
 
 	strv = g_strsplit (str, "\n", -1);
 	for (i = 0; strv[i] != NULL; i++) {
