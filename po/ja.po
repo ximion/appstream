@@ -8,21 +8,21 @@
 # Allan Nordhøy <epost@anotheragency.no>, 2020.
 # Baka Gaijin <lewdwarrior@waifu.club>, 2020, 2021.
 # phlostically <phlostically@mailinator.com>, 2021.
+# "OOTA, Masato" <ooyooxei+gh@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2021-12-22 15:43+0000\n"
-"Last-Translator: phlostically <phlostically@mailinator.com>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/"
-"translations/ja/>\n"
+"PO-Revision-Date: 2023-04-25 23:52+0000\n"
+"Last-Translator: \"OOTA, Masato\" <ooyooxei+gh@gmail.com>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/translations/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -3347,9 +3347,7 @@ msgstr "既存のデスクトップエントリファイルのテンプレート
 #: tools/ascli-actions-misc.c:158
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
-"「%s」のデータを使用して新しいデスクトップエントリファイル「%s」を作成してい"
-"ます"
+msgstr "新しいデスクトップエントリファイル「%s」を「%s」のデータを使用して作成しています"
 
 #: tools/ascli-actions-misc.c:214
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
