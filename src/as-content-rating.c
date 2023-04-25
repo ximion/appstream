@@ -1234,8 +1234,6 @@ static const struct {
  * Checks if a OARS type exists in the given version.
  *
  * Returns: If the type exists.
- *
- * Since: 1.0
  **/
 gboolean
 as_is_oars_key (const gchar *id, AsOarsVersion version)
@@ -1586,9 +1584,7 @@ as_content_rating_new (void)
  *
  * Converts the text representation to an enumerated value.
  *
- * Returns: a #AsOarsVersion or %AS_OARS_VERSION_UNKNWON for unknown
- *
- * Since: 1.0
+ * Returns: a #AsOarsVersion or %AS_OARS_VERSION_UNKNOWN for unknown
  **/
 AsOarsVersion
 as_oars_version_from_string (const gchar *value)

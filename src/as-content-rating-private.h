@@ -31,9 +31,9 @@ G_BEGIN_DECLS
 
 typedef enum
 {
+	AS_OARS_VERSION_UNKNOWN,
 	AS_OARS_VERSION_1_0,
-	AS_OARS_VERSION_1_1,
-	AS_OARS_VERSION_UNKNOWN
+	AS_OARS_VERSION_1_1
 } AsOarsVersion;
 
 gboolean	as_content_rating_load_from_xml (AsContentRating *content_rating,

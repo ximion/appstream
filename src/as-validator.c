@@ -2316,12 +2316,12 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 
 	oars_type = as_xml_get_prop_value (node, "type");
 
-	if (as_is_empty(oars_type)) {
+	if (as_is_empty (oars_type)) {
 		as_validator_add_issue (validator, node, "content-rating-type-missing", NULL);
 		return;
 	}
 
-	oars_version = as_oars_version_from_string(oars_type);
+	oars_version = as_oars_version_from_string (oars_type);
 
 	if (oars_version == AS_OARS_VERSION_UNKNOWN) {
 		as_validator_add_issue (validator, node, "content-rating-type-invalid", oars_type);
@@ -2344,31 +2344,31 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 
 		id = as_xml_get_prop_value (iter, "id");
 
-		if (as_is_empty(id)) {
+		if (as_is_empty (id)) {
 			as_validator_add_issue (validator, iter, "content-attribute-id-missing", NULL);
 			continue;
 		}
 
-		if (!as_is_oars_key(id, oars_version)) {
+		if (!as_is_oars_key (id, oars_version)) {
 			as_validator_add_issue (validator, iter, "content-attribute-id-invalid", id);
 			continue;
 		}
 
 		value_data = as_xml_get_node_value (iter);
 
-		if (as_is_empty(value_data)) {
+		if (as_is_empty (value_data)) {
 			as_validator_add_issue (validator, iter, "content-attribute-value-empty", NULL);
 			continue;
 		}
 
-		content_rating = as_content_rating_value_from_string(value_data);
+		content_rating = as_content_rating_value_from_string (value_data);
 
 		if (content_rating == AS_CONTENT_RATING_VALUE_UNKNOWN) {
 			as_validator_add_issue (validator, iter, "content-attribute-value-unknown", value_data);
 			continue;
 		}
 
-		if (!as_content_rating_value_is_valid(id, content_rating)) {
+		if (!as_content_rating_value_is_valid (id, content_rating)) {
 			as_validator_add_issue (validator, iter, "content-attribute-value-invalid", value_data);
 			continue;
 		}
@@ -2453,7 +2453,7 @@ as_validator_check_custom (AsValidator *validator, xmlNode *node)
 			g_hash_table_add (known_keys, g_steal_pointer (&key_name));
 
 		value_data = as_xml_get_node_value (iter);
-		if (as_is_empty(value_data))
+		if (as_is_empty (value_data))
 			as_validator_add_issue (validator, iter, "custom-value-empty", NULL);
 	}
 }
@@ -2742,7 +2742,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_children_quick (validator, iter, "id", FALSE);
 		} else if (g_strcmp0 (node_name, "content_rating") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
-			as_validator_check_content_rating(validator, iter);
+			as_validator_check_content_rating (validator, iter);
 			can_be_empty = TRUE;
 		} else if (g_strcmp0 (node_name, "replaces") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
