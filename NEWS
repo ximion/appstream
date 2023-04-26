@@ -1,3 +1,37 @@
+Version 0.16.2
+~~~~~~~~~~~~~~
+Released: 2023-04-26
+
+Notes:
+ * Due to a past mistake, AppStream until now assumed xml:lang was
+   using POSIX locale, while in fact XML locale need to be in BCP47 format.
+   Most of the translation tools do this correctly, but notably msgfmt
+   when used in batch mode doesn't (which affects anything using Meson's
+   i18n module). AppStream is now behaving according to spec, with some
+   fallback code in place, but please check your XML is translated
+   correctly to ensure all translations are visible.
+
+Features:
+ * Add API for asking whether the pool is empty
+ * Add DDE to known desktop-environment list
+ * validator: Check if Release Description is inside description tag
+ * Make AppStream use BCP47 for locale in XML data
+
+Bugfixes:
+ * Add missing standard::is-hidden attribute to file search enumerator
+ * spdx: Accept brackets in spdx license expression check
+ * introspection: Bring back AS_FORMAT_STYLE_COLLECTION into its enum
+ * compose: Fix crash in asc_l10n_search_translations_qt()
+ * compose: Set lower-cased CID for synthesized components again
+ * Don't crash when non-YAML documents are read as YAML
+
+Miscellaneous:
+ * sanitizers: Allow null-dereference check again
+
+Contributors:
+ Aleix Pol, Caolán McNamara, Corentin Noël, Gary Wang,
+ Gleb Popov, JakobDev, Matthias Klumpp, Will Thompson
+
 Version 0.16.1
 ~~~~~~~~~~~~~~
 Released: 2023-02-10
