@@ -21,13 +21,12 @@
 #pragma once
 
 #include "asc-font.h"
-#include "as-settings-private.h"
+#include "as-macros-private.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 extern GMutex fontconfig_mutex;
 
@@ -41,5 +40,4 @@ const gchar	*asc_font_find_pangram (AscFont *font,
 					const gchar *lang,
 					const gchar *rand_id);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS

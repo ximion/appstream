@@ -23,13 +23,12 @@
 #include <glib-object.h>
 #include <appstream.h>
 
-#include "as-settings-private.h"
+#include "as-macros-private.h"
 #include "asc-result.h"
 #include "asc-unit.h"
 #include "asc-compose.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 AS_INTERNAL_VISIBLE
 void		asc_process_fonts (AscResult *cres,
@@ -39,5 +38,4 @@ void		asc_process_fonts (AscResult *cres,
 				   AscIconPolicy *icon_policy,
 				   AscComposeFlags flags);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS

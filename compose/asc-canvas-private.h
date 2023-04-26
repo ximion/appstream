@@ -21,12 +21,11 @@
 #pragma once
 
 #include <glib-object.h>
-#include "as-settings-private.h"
+#include "as-macros-private.h"
 #include "asc-canvas.h"
 #include "asc-font.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 AS_INTERNAL_VISIBLE
 gboolean	asc_canvas_draw_text_line (AscCanvas *canvas,
@@ -42,5 +41,4 @@ gboolean	asc_canvas_draw_text (AscCanvas *canvas,
 					gint line_pad,
 					GError **error);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS

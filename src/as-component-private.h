@@ -22,13 +22,12 @@
 #define __AS_COMPONENT_PRIVATE_H
 
 #include "as-component.h"
-#include "as-settings-private.h"
+#include "as-macros-private.h"
 #include "as-tag.h"
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 /**
  * AsOriginKind:
@@ -105,7 +104,6 @@ void			as_component_emit_yaml (AsComponent *cpt,
 						AsContext *ctx,
 						yaml_emitter_t *emitter);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_COMPONENT_PRIVATE_H */

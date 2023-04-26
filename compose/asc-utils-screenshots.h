@@ -22,13 +22,12 @@
 
 #include <glib-object.h>
 #include <appstream.h>
-#include "as-settings-private.h"
+#include "as-macros-private.h"
 #include "as-curl.h"
 
 #include "asc-result.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 /**
  * AscVideoInfo: (skip):
@@ -62,5 +61,4 @@ void		asc_process_screenshots (AscResult *cres,
 					 gboolean process_videos,
 					 gboolean store_screenshots);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS

@@ -23,12 +23,11 @@
 #include <glib-object.h>
 #include <appstream.h>
 
-#include "as-settings-private.h"
+#include "as-macros-private.h"
 #include "asc-result.h"
 #include "asc-unit.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 AS_INTERNAL_VISIBLE
 void		asc_read_translation_status (AscResult *cres,
@@ -36,5 +35,4 @@ void		asc_read_translation_status (AscResult *cres,
 						const gchar *prefix,
 						guint min_percentage);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS

@@ -24,7 +24,7 @@
 #include <glib/gi18n-lib.h>
 
 #include "as-utils-private.h"
-#include "as-settings-private.h"
+#include "as-macros-private.h"
 #include "as-pool-private.h"
 #include "ascli-utils.h"
 #include "as-component.h"

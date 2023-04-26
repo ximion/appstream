@@ -22,11 +22,10 @@
 #define __AS_UTILS_PRIVATE_H
 
 #include <glib-object.h>
-#include "as-settings-private.h"
+#include "as-macros-private.h"
 #include "as-utils.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 /* component data-ID constants */
 #define AS_DATA_ID_WILDCARD	"*"
@@ -244,7 +243,6 @@ gchar			*as_utils_find_stock_icon_filename_full (const gchar *root_dir,
 AS_INTERNAL_VISIBLE
 void			as_utils_ensure_resources (void);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_UTILS_PRIVATE_H */

@@ -22,11 +22,10 @@
 #define __AS_POOL_PRIVATE_H
 
 #include "as-pool.h"
-#include "as-settings-private.h"
+#include "as-macros-private.h"
 #include "as-file-monitor.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 time_t			as_pool_get_os_metadata_cache_age (AsPool *pool);
 
@@ -46,7 +45,6 @@ gboolean		as_pool_print_std_data_locations_info_private (AsPool *pool,
 									gboolean print_os_data,
 									gboolean print_extra_data);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_POOL_PRIVATE_H */

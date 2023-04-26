@@ -55,7 +55,7 @@
 #include "as-utils.h"
 #include "as-utils-private.h"
 #include "as-component-private.h"
-#include "as-settings-private.h"
+#include "as-macros-private.h"
 #include "as-distro-extras.h"
 #include "as-stemmer.h"
 #include "as-cache.h"

@@ -23,13 +23,12 @@
 #include <glib-object.h>
 #include <appstream.h>
 
-#include "as-settings-private.h"
+#include "as-macros-private.h"
 #include "as-curl.h"
 #include "asc-result.h"
 #include "asc-compose.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 AsComponent		*asc_parse_metainfo_data (AscResult *cres,
 						  AsMetadata *mdata,
@@ -63,5 +62,4 @@ AsComponent		*asc_parse_desktop_entry_data (AscResult *cres,
 							AscTranslateDesktopTextFn de_l10n_fn,
 							gpointer user_data);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS

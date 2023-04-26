@@ -18,13 +18,21 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __AS_SETTINGS_PRIVATE_H
-#define __AS_SETTINGS_PRIVATE_H
+#ifndef __AS_MACROS_PRIVATE_H
+#define __AS_MACROS_PRIVATE_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
+
+#define AS_BEGIN_PRIVATE_DECLS \
+  G_BEGIN_DECLS \
+  _Pragma("GCC visibility push(hidden)")
+
+#define AS_END_PRIVATE_DECLS \
+  _Pragma("GCC visibility pop") \
+  G_END_DECLS
 
 #define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
 
@@ -33,4 +41,4 @@ G_BEGIN_DECLS
 #pragma GCC visibility pop
 G_END_DECLS
 
-#endif /* __AS_SETTINGS_PRIVATE_H */
+#endif /* __AS_MACROS_PRIVATE_H */
