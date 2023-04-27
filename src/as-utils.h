@@ -120,11 +120,8 @@ guint			as_utils_data_id_hash (const gchar *data_id);
 
 guint			as_gstring_replace (GString *string,
 					    const gchar *find,
-					    const gchar *replace);
-guint			as_gstring_replace2 (GString *string,
-					     const gchar *find,
-					     const gchar *replace,
-					     guint limit);
+					    const gchar *replace,
+					    guint limit);
 
 gboolean		as_utils_is_platform_triplet (const gchar *triplet);
 

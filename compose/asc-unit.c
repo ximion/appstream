@@ -147,9 +147,9 @@ asc_unit_set_bundle_id (AscUnit *unit, const gchar *id)
 		g_string_truncate (tmp, 0);
 		g_string_append (tmp, "root");
 	} else {
-		as_gstring_replace (tmp, "/", "-");
-		as_gstring_replace (tmp, "\\", "-");
-		as_gstring_replace (tmp, ":", "_");
+		as_gstring_replace (tmp, "/", "-", 0);
+		as_gstring_replace (tmp, "\\", "-", 0);
+		as_gstring_replace (tmp, ":", "_", 0);
 
 		if (g_str_has_prefix (tmp->str, "-") || g_str_has_prefix (tmp->str, "."))
 			g_string_erase (tmp, 0, 1);

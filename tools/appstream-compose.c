@@ -121,13 +121,13 @@ composecli_print_hints_report (GPtrArray *results, const gchar *title, AscReport
 
 					text = asc_hint_format_explanation (hint);
 					text_md = g_string_new (text);
-					as_gstring_replace (text_md, "<code>", "`");
-					as_gstring_replace (text_md, "</code>", "`");
-					as_gstring_replace (text_md, "<br/>", "\n");
-					as_gstring_replace (text_md, "<em>", "");
-					as_gstring_replace (text_md, "</em>", "");
-					as_gstring_replace (text_md, "&lt;", "<");
-					as_gstring_replace (text_md, "&gt;", ">");
+					as_gstring_replace (text_md, "<code>", "`", 0);
+					as_gstring_replace (text_md, "</code>", "`", 0);
+					as_gstring_replace (text_md, "<br/>", "\n", 0);
+					as_gstring_replace (text_md, "<em>", "", 0);
+					as_gstring_replace (text_md, "</em>", "", 0);
+					as_gstring_replace (text_md, "&lt;", "<", 0);
+					as_gstring_replace (text_md, "&gt;", ">", 0);
 
 					text_md_wrap = ascli_format_long_output (text_md->str, 100, 5);
 					g_string_append (report, text_md_wrap);

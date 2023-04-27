@@ -713,7 +713,7 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 
 	/* try to unsplit lines */
 	data_str = g_string_new (data);
-	as_gstring_replace2 (data_str, "\n   ", " ", 0);
+	as_gstring_replace (data_str, "\n   ", " ", 0);
 
 	/* break up into sections */
 	desc = g_string_new ("");

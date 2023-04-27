@@ -60,7 +60,7 @@ ascli_format_long_output (const gchar *str, guint line_length, guint indent_leve
 	if (indent_level > 0) {
 		g_autofree gchar *spacing = g_strnfill (indent_level, ' ');
 		g_autofree gchar *spacing_nl = g_strconcat ("\n", spacing, NULL);
-		as_gstring_replace2 (res, "\n", spacing_nl, 0);
+		as_gstring_replace (res, "\n", spacing_nl, 0);
 		g_string_prepend (res, spacing);
 	}
 
