@@ -706,35 +706,13 @@ as_pool_detect_std_metadata_dirs (AsPool *pool, gboolean include_user_data)
 	if (as_flags_contains (priv->flags, AS_POOL_FLAG_LOAD_OS_CATALOG)) {
 		for (guint i = 0; SYSTEM_CATALOG_METADATA_PREFIXES[i] != NULL; i++) {
 			g_autofree gchar *catalog_path = NULL;
-			g_autofree gchar *catalog_legacy_path = NULL;
-			gboolean ignore_legacy_path = FALSE;
 
 			catalog_path = g_build_filename (SYSTEM_CATALOG_METADATA_PREFIXES[i], "swcatalog", NULL);
-			catalog_legacy_path = g_build_filename (SYSTEM_CATALOG_METADATA_PREFIXES[i], "app-info", NULL);
-
-			/* ignore compatibility symlink if one exists */
-			if (g_file_test (catalog_legacy_path, G_FILE_TEST_IS_SYMLINK)) {
-				g_autofree gchar *link_target = g_file_read_link (catalog_legacy_path, NULL);
-				if (link_target != NULL) {
-					if (g_strcmp0 (link_target, catalog_path) == 0) {
-						ignore_legacy_path = TRUE;
-						g_debug ("Ignoring legacy catalog location '%s'.", catalog_legacy_path);
-					}
-				}
-			}
-
 			as_pool_add_catalog_metadata_dir_internal (pool,
 								   lgroup_catalog,
 								   catalog_path,
 								   FALSE, /* add root */
 								   FALSE /* no legacy support */);
-
-			if (!ignore_legacy_path)
-				as_pool_add_catalog_metadata_dir_internal (pool,
-									   lgroup_catalog,
-									   catalog_legacy_path,
-									   FALSE, /* add root */
-									   TRUE /* enable legacy support */);
 		}
 	}
 

@@ -459,7 +459,7 @@ test_compose_desktop_entry (void)
 					    de_bytes,
 					    "foobar.desktop",
 					    FALSE, /* don't ignore nodisplay */
-					    AS_FORMAT_VERSION_CURRENT,
+					    AS_FORMAT_VERSION_LATEST,
 					    NULL, NULL);
 	g_assert_nonnull (cpt);
 	g_clear_pointer (&cpt, g_object_unref);
@@ -480,7 +480,7 @@ test_compose_desktop_entry (void)
 					    de_bytes,
 					    "org.example.foobar.desktop",
 					    FALSE, /* don't ignore nodisplay */
-					    AS_FORMAT_VERSION_CURRENT,
+					    AS_FORMAT_VERSION_LATEST,
 					    NULL, NULL);
 	g_assert_nonnull (cpt);
 	g_clear_pointer (&cpt, g_object_unref);
@@ -507,7 +507,7 @@ test_compose_desktop_entry (void)
 					    de_bytes,
 					    "org.example.foobar.desktop",
 					    TRUE, /* ignore nodisplay */
-					    AS_FORMAT_VERSION_CURRENT,
+					    AS_FORMAT_VERSION_LATEST,
 					    NULL, NULL);
 	g_assert_nonnull (cpt);
 	g_clear_pointer (&cpt, g_object_unref);
@@ -547,7 +547,7 @@ test_compose_desktop_entry (void)
 					    de_bytes2,
 					    "gnome-breakout.desktop",
 					    FALSE, /* don't ignore nodisplay */
-					    AS_FORMAT_VERSION_CURRENT,
+					    AS_FORMAT_VERSION_LATEST,
 					    NULL, NULL);
 	g_assert_nonnull (cpt);
 

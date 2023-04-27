@@ -248,10 +248,8 @@ as_component_kind_from_string (const gchar *kind_str)
 	if (g_strcmp0 (kind_str, "runtime") == 0)
 		return AS_COMPONENT_KIND_RUNTIME;
 
-	/* legacy */
+	/* legacy compatibility */
 	if (g_strcmp0 (kind_str, "desktop") == 0)
-		return AS_COMPONENT_KIND_DESKTOP_APP;
-	if (g_strcmp0 (kind_str, "desktop-app") == 0)
 		return AS_COMPONENT_KIND_DESKTOP_APP;
 
 	return AS_COMPONENT_KIND_UNKNOWN;
@@ -4913,14 +4911,9 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 		cnode = as_xml_add_node (root, "component");
 
 	if ((priv->kind != AS_COMPONENT_KIND_GENERIC) && (priv->kind != AS_COMPONENT_KIND_UNKNOWN)) {
-		const gchar *kind_str;
-		if ((as_context_get_format_version (ctx) < AS_FORMAT_VERSION_V0_10) && (priv->kind == AS_COMPONENT_KIND_DESKTOP_APP))
-			kind_str = "desktop";
-		else
-			kind_str = as_component_kind_to_string (priv->kind);
 		as_xml_add_text_prop (cnode,
 				      "type",
-				      kind_str);
+				      as_component_kind_to_string (priv->kind));
 	}
 
 	/* set end-of-life date */
@@ -6013,7 +6006,6 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	gint res;
-	const gchar *cstr;
 	yaml_event_t event;
 
 	/* new document for this component */
@@ -6025,11 +6017,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 	as_yaml_mapping_start (emitter);
 
 	/* write component kind */
-	if ((as_context_get_format_version (ctx) < AS_FORMAT_VERSION_V0_10) && (priv->kind == AS_COMPONENT_KIND_DESKTOP_APP))
-		cstr = "desktop-app";
-	else
-		cstr = as_component_kind_to_string (priv->kind);
-	as_yaml_emit_entry (emitter, "Type", cstr);
+	as_yaml_emit_entry (emitter, "Type", as_component_kind_to_string (priv->kind));
 
 	/* AppStream-ID */
 	as_yaml_emit_entry (emitter, "ID", priv->id);
@@ -6380,7 +6368,7 @@ as_component_load_from_bytes (AsComponent *cpt, AsContext *context, AsFormatKind
 		as_desktop_entry_parse_data (cpt,
 					     data,
 					     data_len,
-					     AS_FORMAT_VERSION_CURRENT,
+					     AS_FORMAT_VERSION_LATEST,
 					     TRUE,
 					     NULL, /* issues */
 					     NULL, /* l10n function */

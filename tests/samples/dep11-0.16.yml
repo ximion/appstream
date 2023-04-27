@@ -1,0 +1,3442 @@
+---
+File: DEP-11
+Version: '0.16'
+Origin: debian-bookworm-main
+MediaBaseUrl: https://appstream.debian.org/media/bookworm
+Time: 20230426T082201
+---
+Type: desktop-application
+ID: org.kde.gwenview.desktop
+Package: gwenview
+Name:
+  pa: ਜੀਵੀਨ-ਵਿਊ
+  eu: Gwenview
+  nds: Gwenview
+  sr-ijekavianlatin: GwenView
+  ka: Gwenview
+  az: Gwenview
+  nb: Gwenview
+  sr-ijekavian: Гвенвју
+  de: Gwenview
+  zh-TW: 影像檢視_Gwenview
+  ia: Gwenview
+  gl: Gwenview
+  nn: Gwenview
+  pt-BR: Gwenview
+  pt: Gwenview
+  zh-CN: Gwenview 图像查看器
+  ru: Gwenview
+  el: Gwenview
+  fr: Gwenview
+  C: Gwenview
+  is: Gwenview
+  da: Gwenview
+  lt: Gwenview
+  ca: Gwenview
+  sk: Gwenview
+  ro: Gwenview
+  sv: Gwenview
+  uk: Gwenview
+  it: Gwenview
+  es: Gwenview
+  ar: جونفيو
+  ko: Gwenview
+  hi: ग्वेन-व्यू
+  sl: Gwenview
+  bg: Gwenview
+  id: Gwenview
+  cs: Gwenview
+  sr: Гвенвју
+  fi: Gwenview
+  bs: Gwenview
+  et: Gwenview
+  pl: Gwenview
+  en-GB: Gwenview
+  ca-valencia: Gwenview
+  tr: Gwenview
+  hu: Gwenview
+  sr-Latn: GwenView
+  nl: Gwenview
+  hsb: Gwenview
+  ta: குவென்வியூ
+Summary:
+  hu: Képmegjelenítő
+  eu: Irudi erakuslea
+  sr-ijekavianlatin: Prikazivač slika
+  ka: სურათების გალერეა
+  az: Şəkilə Baxış
+  sr-ijekavian: Приказивач слика
+  de: Bildbetrachter
+  zh-TW: 影像檢視器
+  ia: Visor de image
+  gl: Visor de imaxes
+  nn: Biletvisar
+  pt-BR: Visualizador de imagens
+  pt: Visualizador de Imagens
+  zh-CN: 图像查看器
+  ru: Программа просмотра изображений
+  el: Προβολέας εικόνων
+  fr: Afficheur d'image
+  C: Image Viewer
+  is: Myndskoðari
+  da: Billedfremviser
+  lt: Paveikslų žiūryklė
+  ca: Visualitzador d'imatges
+  sk: Prehliadač obrázkov
+  ro: Vizualizor de imagini
+  sv: Bildvisare
+  uk: Програма для перегляду зображень
+  ko: 그림 뷰어
+  es: Visor de imágenes
+  ar: عارض الصور
+  it: Visualizzatore di immagini
+  hi: छवि प्रदर्शक
+  sl: Pregledovalnik slik
+  bg: Преглед на изображения
+  id: Penampil Citra
+  cs: Prohlížeč obrázků
+  sr: Приказивач слика
+  fi: Kuvankatselin
+  et: Pildinäitaja
+  pl: Przeglądarka obrazów
+  en-GB: Image Viewer
+  ca-valencia: Visor d'imatges
+  tr: Görsel Görüntüleyici
+  pa: ਚਿੱਤਰ ਦਰਸ਼ਕ
+  sr-Latn: Prikazivač slika
+  nl: Afbeeldingenviewer
+  hsb: Wobhladowar za wobrazy
+  ta: படக் காட்டி
+Description:
+  eu: >-
+    <p>Gwenview KDEk egindako irudi erakusle azkar eta erabilerraza da, irudi bilduma  bat arakatu eta bistaratzeko aproposa.</p>
+
+    <p>Eginbideak:</p>
+
+    <ul>
+      <li>Irudien manipulazio errazak egin ditzake: biratu, ispilatu, irauli eta handiera aldatu</li>
+      <li>Fitxategi kudeaketarako oinarrizko ekintzak egin ditzake, hala nola kopiatu, mugitu, ezabatu eta beste batzuk</li>
+      <li>Aplikazio autonomo gisa erabili daiteke, baita kapsulatutako erakusle gisa Konqueror web arakatzailean</li>
+    </ul>
+  nds: >-
+    <p>Markmalen:</p>
+
+    <ul>
+      <li>Ünnerstütt eenfach Bildbewerken: Dreihen, Spegeln, Ümdreihen und Grött topassen</li>
+      <li>Ünnerstütt eenfach Dateipleegakschonen as Koperen, Verschuven, Wegdoon un en poor anner.</li>
+      <li>Funkscheneert för sik oder inbett na den Nettkieker Konqueror</li>
+    </ul>
+  sr-ijekavianlatin: >-
+    <p>GwenView je brz i lak za upotrebu prikazivač slika od KDE‑a, idealan za pregledanje zbirki slika.</p>
+
+    <p>Mogućnosti:</p>
+
+    <ul>
+      <li>Jednostavne obrade slike: obrtanje, preslikavanje, prevrtanje i promena veličine.</li>
+      <li>Osnovne radnje upravljanja fajlovima, poput kopiranja, premeštanja, brisanja, itd.</li>
+      <li>Radi i kao samostalan program i kao ugnežđeni prikazivač u K‑osvajaču.</li>
+    </ul>
+  ka: >-
+    <p>Gwenview სწრაფი და ადვილად გამოსაყენებელი პროგრამაა KDE-სგან. ის იდეალურია სურათების კოლექციების დასათვალიერებლად და
+    დასალაგებლად.</p>
+
+    <p>თვისებები:</p>
+
+    <ul>
+      <li>აქვს სურათების ისეთი მარტივი მანიპულაციების მხარდაჭერა, როგორიცაა შემობრუნება, სარკისებური ანარეკლი, გადაბრუნება
+    და ზომის შეცვლა</li>
+      <li>აქვს სურათების ფაილების ისეთი მარტივი მანიპულაციების მხარდაჭერა, როგორიცაა კოპირება, გადატანა, წაშლა და სხვა</li>
+      <li>შეუძლია ფუნქციონირება როგორც ცალკე აპლიკაციას, ისე, როგორც Konquero-ში ჩადგმულ პროგრამას</li>
+    </ul>
+  az: >-
+    <p>Gwenview KDE-nin təqdim etdiyi istifadəsi rahat şəkillərə baxış vasitəsidir və şəkil kolleksiyalarına baxmaq və onları
+    göstərmək üçün idealdır.</p>
+
+    <p>İmkanlar:</p>
+
+    <ul>
+      <li>Şəkil üzərində bu kimi sadə əməlləri dəstəkləyir: döndərmə, əks etdirmə və ölçüsünü dəyişdirmə</li>
+      <li>Kopyalamaq, köçürmək, silmək, və bu kimi bir çox əsas faylı idarəetmə əməllərini dəstəkləyir</li>
+      <li>Həm ayrıca proqram, həm də Konqueror veb bələdçisində daxili baxış proqramı kimi işləyir</li>
+    </ul>
+  zh-TW: >-
+    <p>Gwenview 是 KDE 裡一套快速並簡易使用的影像檢視器，用來瀏覽與顯示圖片集相當理想。</p>
+
+    <p>功能：</p>
+
+    <ul>
+      <li>支援簡單影像處理：旋轉、鏡射、翻轉與調整大小</li>
+      <li>支援基本的管理動作，如複製、移動、刪除與其他</li>
+      <li>可以是單獨的應用程式，也可以嵌入在 Konqueror 瀏覽器中</li>
+    </ul>
+  nb: >-
+    <p>Funksjoner:</p>
+
+    <ul>
+      <li>Støtter enkle bildemanipuleringer: rotere, speilvende, snu om og endre størrelse</li>
+      <li>Støtter enkle filhandlinger som kopiere, flytte, slette og andre</li>
+      <li>Virker både som et frittstående program og som innebygget viser i nettleseren Konqueror</li>
+    </ul>
+  de: >-
+    <p>Gwenview ist ein schneller und einfach zu verwendender Bildbetrachter besonders für die Anzeige einer Sammlung von
+    Bildern.</p>
+
+    <p>Funktionen:</p>
+
+    <ul>
+      <li>Unterstützt einfache Bildbearbeitung wie Drehen, Spiegeln waagerecht und senkrecht und Größenänderung</li>
+      <li>Grundlegende Dateiverwaltungsaktionen wie Kopieren, Verschieben, Löschen und weitere Aktionen</li>
+      <li>Funktioniert sowohl als eigenständiges Programm als auch als eingebetteter Betrachter im Webbrowser Konqueror.</li>
+    </ul>
+  sr-ijekavian: >-
+    <p>Гвенвју је брз и лак за употребу приказивач слика од КДЕ‑а, идеалан за прегледање збирки слика.</p>
+
+    <p>Могућности:</p>
+
+    <ul>
+      <li>Једноставне обраде слике: обртање, пресликавање, превртање и промена величине.</li>
+      <li>Основне радње управљања фајловима, попут копирања, премештања, брисања, итд.</li>
+      <li>Ради и као самосталан програм и као угнежђени приказивач у К‑освајачу.</li>
+    </ul>
+  ia: >-
+    <p>Gwenview es un visor de imagine per KDE rapide e facile de usar, ideal per monstrar e navigar  in un colection de images.</p>
+
+    <p>Characteristicas:</p>
+
+    <ul>
+      <li>Il supporta simple manipultiones de imagine: rotar, reflecter,  girar e redimensionar</li>
+      <li>Il suppporta actiones de gestion de file basic tal como copiar,mover, deler, e alteres</li>
+      <li>Il functiona e como application per se mesme e un visor incorporate in le navigator web Konqueror</li>
+    </ul>
+  gl: >-
+    <p>Gwenview é un visor de imaxes por KDE rápido e doado de utilizar, ideal para examinar e mostrar unha colección de imaxes.</p>
+
+    <p>Funcionalidades:</p>
+
+    <ul>
+      <li>Permite manipulacións sinxelas de imaxes de maneira individual: rotar, reflectir, inverter e cambiar o tamaño.</li>
+      <li>Permite realizar accións básicas de xestión de ficheiros como copiar, mover, eliminar, etc.</li>
+      <li>Pode usarse como unha aplicación autónoma e tamén como un visor incrustado no navegador web Konqueror.</li>
+    </ul>
+  pt: >-
+    <p>O Gwenview é um visualizador de imagens rápido e simples de usar do KDE, ideal para a navegação e apresentação de uma
+    colecção de imagens.</p>
+
+    <p>Funcionalidades:</p>
+
+    <ul>
+      <li>Suporta as manipulações simples de imagens: rotação, espelho, inversão e dimensionamento</li>
+      <li>Suporta as acções básicas de gestão de ficheiros, como a cópia, movimentação, remoção, entre outras</li>
+      <li>Funciona tanto como uma aplicação independente como um visualizador incorporado no navegador Web Konqueror</li>
+    </ul>
+  nn: >-
+    <p>Gwenview er ein biletvisar frå KDE. Han passar svært godt for å bla gjennom og visa ei samling med bilete.</p>
+
+    <p>Funksjonar:</p>
+
+    <ul>
+      <li>Støttar enkel biletmanipulering: rotering, spegelvending og endring av biletstorleik</li>
+      <li>Støtter enkle filhandlingar, som kopiering, flytting og sletting</li>
+      <li>Kan brukast både som eit frittståande program og som innebygd biletviser i nettlesaren Konqueror</li>
+    </ul>
+  ro: >-
+    <p>Gwenview e un vizualizor de imagini rapid și ușor de folosit de la KDE, ideal pentru răsfoirea și afișarea unei colecții
+    de imagini.</p>
+
+    <p>Caracteristici:</p>
+
+    <ul>
+      <li>Susține manipulări simple ale imaginilor: rotire, oglindire, răsturnare și redimensionare</li>
+      <li>Susține acțiuni de bază pentru gestiunea fișierelor, cum ar fi copiere, mutare, ștergere, și altele</li>
+      <li>Funcționează atât ca aplicație de sine stătătoare, precum și ca vizualizor înglobat în navigatorul web Konqueror</li>
+    </ul>
+  zh-CN: >-
+    <p>Gwenview 是 KDE 出品的一款轻便易用的图像查看器，是浏览、显示多张图像时的理想工具。</p>
+
+    <p>程序功能：</p>
+
+    <ul>
+      <li>支持简单的图片操作：旋转、镜像、翻转和缩放</li>
+      <li>支持基本文件管理操作，例如复制、移动、删除等</li>
+      <li>既可以独立运行，也可以作为 Konqueror 网页浏览器的内建图片查看器使用。</li>
+    </ul>
+  ru: >-
+    <p>Gwenview — быстрая и простая в использовании программа просмотра изображений от KDE.</p>
+
+    <p>Возможности:</p>
+
+    <ul>
+      <li>Поддержка простых преобразований изображения: поворот, отражение, переворот и изменение размера</li>
+      <li>Поддержка базовых действий с файлами: копирование, перемещение, удаление и другие</li>
+      <li>Доступен как отдельное приложение и как встроенный инструмент просмотра изображений в веб-браузере Konqueror</li>
+    </ul>
+  el: >-
+    <p>Το Gwenview είναι ένας γρήγορος και εύχρηστος προβολέας εικόνων για το KDE, ιδανικός για περιήγηση και εμφάνιση συλλογών
+    από εικόνες.</p>
+
+    <p>Χαρακτηριστικά:</p>
+
+    <ul>
+      <li>Υποστηρίζει απλές λειτουργίες διαχείρισης εικόνας: περιστροφή, καθρεπτισμό, αναστροφή και αλλαγή μεγέθους</li>
+      <li>Υποστηρίζει βασικές ενέργειες διαχείρισης αρχείων όπως αντιγραφή, μετακίνηση, διαγραφή κ.α.</li>
+      <li>Λειτουργεί και ως αυτόνομη εφαρμογή και ως ενσωματωμένος προβολέας στον περιηγητή ιστού Konqueror</li>
+    </ul>
+  uk: >-
+    <p>Gwenview — швидка і проста у користування програма для перегляду зображень від KDE, ідеальна для навігації збіркою
+    зображень та показу зображень.</p>
+
+    <p>Можливості:</p>
+
+    <ul>
+      <li>підтримка обробки зображень: обертання, віддзеркалення, перевертання та зміни розмірів;</li>
+      <li>підтримка базових дій з керування файлами: копіювання, пересування, вилучення тощо;</li>
+      <li>можливість роботи у режимі окремої програми та вбудованого переглядача у програмі для керування файлами Konqueror;</li>
+    </ul>
+  fr: >-
+    <p>Gwenview est un afficheur d'images rapide et facile à utiliser pour KDE, idéal pour parcourir et afficher une collection
+    d'images.</p>
+
+    <p>Fonctionnalités :</p>
+
+    <ul>
+      <li>Prise en charge des manipulations d'image simples : rotation, miroir, basculer, et redimensionner</li>
+      <li>Prise en charge d'actions basiques de gestion de fichiers comme copier, déplacer, supprimer, et autres</li>
+      <li>Fonctionne à la fois comme application autonome et comme afficheur embarqué dans le navigateur web Konqueror</li>
+    </ul>
+  da: >-
+    <p>Gwenview er en hurtig og brugervenlig billedfremviser fra KDE, ideel til at gennemse og vise en samling af billeder.</p>
+
+    <p>Funktioner:</p>
+
+    <ul>
+      <li>Understøtter simpel billedredigering: Rotér, spejlvend, vend og ændre størrelse</li>
+      <li>Understøtter basal filhåndteringshandlinger, såsom kopiér, flyt, slet m.m.</li>
+      <li>Fungerer både som selvstændigt program og som indlejret fremviser i webbrowseren Konqueror</li>
+    </ul>
+  is: >-
+    <p>Gwenview er hraðvirkur og auðveldur myndskoðari frá KDE, hentugur til að vafra og birta myndir í myndasafni.</p>
+
+    <p>Eiginleikar:</p>
+
+    <ul>
+      <li>Styður einfaldar myndvinnsluaðgerðir: snúa, spegla, fletta og breyta stærð</li>
+      <li>Styður einfaldar skráastjórnunaraðgerðir á borð við afritun, færslu, eyðingu og fleira</li>
+      <li>Virkar bæði sem sjálfstætt forrit og sem ívafinn skoðari í Konqueror netvafranum</li>
+    </ul>
+  lt: >-
+    <p>Gwenview yra greita ir lengva naudoti paveikslų žiūryklė pagal KDE, tobulai tinkanti naršyti ir atvaizduoti paveikslų
+    kolekcijas.</p>
+
+    <p>Ypatybės:</p>
+
+    <ul>
+      <li>Palaiko paprastas paveikslėlių manipuliacijas: pasukimas, veidrodis, apvertimas ir dydžio keitimą</li>
+      <li>Palaiko paprastą failų tvarkymo veiksmus kaip kopijavimą, perkėlimą, trynimą ir kitus</li>
+      <li>Veikia kaip pavienė programa ir kaip įterpta žiūryklė Konqueror naršyklėje</li>
+    </ul>
+  ca: >-
+    <p>El Gwenview és un visualitzador d'imatges ràpid i senzill d'ús, creat per la comunitat KDE, ideal per a navegar i visualitzar
+    col·leccions d'imatges.</p>
+
+    <p>Característiques:</p>
+
+    <ul>
+      <li>Permet la manipulació senzilla d'imatges: gira, mirall, inverteix i canvia la mida</li>
+      <li>Permet les accions bàsiques de gestió de fitxers com copia, mou, suprimeix i altres</li>
+      <li>Funciona tant com una aplicació independent o un visualitzador incrustat al navegador web Konqueror</li>
+    </ul>
+  sk: >-
+    <p>Gwenview je rýchly a jednoducho použiteľný prehliadač obrázkov pre KDE, ideálny na prehliadanie a zobrazenie kolekcie
+    obrázkov.</p>
+
+    <p>Funkcie:</p>
+
+    <ul>
+      <li>Podporuje jednoduché manipulácie s obrázkami: otáčanie, zrkadlenie, prevrátenie a zmenu veľkosti</li>
+      <li>Podporuje základné akcie správy súborov ako kopírovanie, presúvanie, mazanie a iné</li>
+      <li>Funguje tak ako samostatná aplikácia, ako aj vstavaný prehliadač vo webovom prehliadači Konqueror</li>
+    </ul>
+  sv: >-
+    <p>Gwenview är en snabb och lättanvänd bild- och videovisare av KDE, idealisk för att bläddra i och visa en bildsamling.</p>
+
+    <p>Funktioner:</p>
+
+    <ul>
+      <li>Stöder enkla bildändringar: Rotera, spegla, vänd och ändra storlek</li>
+      <li>Stöder grundläggande filhanteringsåtgärder som kopiera, flytta, ta bort, med mera</li>
+      <li>Fungerar både som ett fristående program och för inbäddad visning i webbläsaren Konqueror</li>
+    </ul>
+  pt-BR: >-
+    <p>Gwenview é um visualizador de imagens rápido e fácil de usar, da KDE, ideal para navegar e exibir uma coleção de imagens.</p>
+
+    <p>Funcionalidades:</p>
+
+    <ul>
+      <li>Suporta manipulações simples de imagens: rotação, espelhamento, inversão e redimensionamento</li>
+      <li>Suporta ações básicas de gerenciamento de arquivos, como cópia, movimentação, exclusão, entre outras</li>
+      <li>Funciona tanto como um aplicativo independente quanto como visualizador incorporado ao navegador web Konqueror</li>
+    </ul>
+  C: >-
+    <p>
+          Gwenview is a fast and easy to use image viewer by KDE, ideal for browsing and displaying a collection of images.
+        </p>
+    <p>Features:</p>
+
+    <ul>
+      <li>Supports simple image manipulations: rotate, mirror, flip, and resize</li>
+      <li>Supports basic file management actions such as copy, move, delete, and others</li>
+      <li>Functions both as a standalone application and an embedded viewer in the Konqueror web browser</li>
+    </ul>
+  ko: >-
+    <p>Gwenview는 KDE의 빠르고 사용하기 편한 그림 뷰어입니다.</p>
+
+    <p>기능:</p>
+
+    <ul>
+      <li>간단한 그림 조작: 회전, 대칭, 반전, 크기 조정</li>
+      <li>파일 복사, 이동, 삭제와 같은 기본 파일 관리 작업</li>
+      <li>단독 프로그램 및 Konqueror 웹 브라우저의 플러그인으로 작동</li>
+    </ul>
+  es: >-
+    <p>Gwenview es un visor de imágenes rápido y fácil de usar creado por KDE, ideal para explorar y mostrar una colección
+    de imágenes.</p>
+
+    <p>Funcionalidades:</p>
+
+    <ul>
+      <li>Permite manipulaciones simples de imágenes: rotar, reflejar, invertir y cambiar de tamaño</li>
+      <li>Permite acciones básicas de gestión de archivos, como copiar, mover y borrar, entre otras</li>
+      <li>Funciona como aplicación independiente o como visor integrado en el navegador web Konqueror</li>
+    </ul>
+  ar: >-
+    <p>جونفيو عارض صور سريع وسهل الاستخدام بواسطة كدي ، وهو مثالي لتصفح وعرض مجموعة من الصور.</p>
+
+    <p>الميزات:</p>
+
+    <ul>
+      <li>دعم التّلاعب البسيط بالصّورة: التّدوير، والعكس، والقلب وتغيير الحجم</li>
+      <li>دعم إجراءات إدارة الملفّات البسيطة كالنّسخ، والنّقل، والحذف وغيرها</li>
+      <li>يعمل كتطبيق مستقلّ وعارض مضمّن في متصفّح الوِبّ كنكر</li>
+    </ul>
+  it: >-
+    <p>Gwenview è un visore di immagini veloce e semplice da usare di KDE, ideale per sfogliare e visualizzare una raccolta
+    di immagini.</p>
+
+    <p>Caratteristiche:</p>
+
+    <ul>
+      <li>Supporta semplici operazioni di manipolazione di immagini: ruota, rispecchia, rifletti e ridimensioni</li>
+      <li>Supporta semplici azioni di gestione file come copia, spostamento, eliminazione ed altre</li>
+      <li>Funziona sia come applicazione indipendente che come visore integrabile nel browser web Konqueror</li>
+    </ul>
+  hi: >-
+    <p>केडीई द्वारा ग्वेनव्यू एक तेज़ और उपयोग में आसान छवि दर्शक है, जो छवियों के संग्रह को ब्राउज़ करने और प्रदर्शित करने
+    के लिए आदर्श है।</p>
+
+    <p>विशेषताएँ :</p>
+
+    <ul>
+      <li>सरल छवि जोड़तोड़ का समर्थन करता है: घुमाना, दर्पण, पलटना और आकार बदलना</li>
+      <li>मूल फ़ाइल प्रबंधन क्रियाओं का समर्थन करता है जैसे कॉपी करना, स्थानांतरित करना, हटाना, और अन्य</li>
+      <li>यह कॉन्करर वेब ब्राउज़र एम्बेडेड व्यूअरमें और स्टैंडअलोन एप्लिकेशन दोनों के रूप में कार्य करता है</li>
+    </ul>
+  sl: >-
+    <p>Gwenview je hiter in enostaven pregledovalnik slik za KDE. Idealen je za brskanje po in prikazovanje zbirk slik.</p>
+
+    <p>Zmožnosti:</p>
+
+    <ul>
+      <li>Podpira preproste spremembe slik: vrtenje, zrcaljenje, obračanje in spreminjanje velikosti</li>
+      <li>Podpira osnovne ukaze za delo z datotekami: kopiranje, premikanje, brisanje in drugo</li>
+      <li>Deluje tako kot samostojen program, kot tudi v brskalnik Konqueror vgrajen pregledovalnik</li>
+    </ul>
+  bg: >-
+    <p>Gwenview е програма на KDE за бързо и лесно преглеждане на колекция от изображения.</p>
+
+    <p>Функции:</p>
+
+    <ul>
+      <li>Поддържа прости методи на обработка на изображения: завъртване, огледален образ, обръщане и преоразмеряване</li>
+      <li>Поддържа основни файлови операции като копиране, преместване, изтриване и други</li>
+      <li>Действа като самостоятелно приложение и като вградена програма за преглед на изображения в Konqueror</li>
+    </ul>
+  id: >-
+    <p>Gwenview adalah cepat dan mudah untuk penggunaan penampil citra oleh KDE, sangat baik untuk menelusuri dan menampilkan
+    citra dari sebuah koleksi.</p>
+
+    <p>Fitur:</p>
+
+    <ul>
+      <li>Mendukung manipulasi citra sederhana: rotasi, cermin, jungkir, dan ubah ukuran</li>
+      <li>Mendukung aksi pengelolaan file dasar seperti salin, pindah, hapus, dan lainnya</li>
+      <li>Fungsi sebagai aplikasi mandiri dan penampil tertanam dalam browser web Konqueror</li>
+    </ul>
+  cs: >-
+    <p>Gwenview je jednoduchý a rychlý prohlížeč obrázků od KDE. Ideální pro procházení a prohlížení sbírek obrázků.</p>
+
+    <p>Vlastnosti:</p>
+
+    <ul>
+      <li>Podporuje základní nástroje pro manipulaci s obrázky: Otočení, zrcadlení, převrácení a změnu velikosti</li>
+      <li>Podporuje běžnou správu souborů, jako například kopírování, přesun, vymazání a podobně</li>
+      <li>Pracuje jako samostatná aplikace i jako vložená komponenta ve webovém prohlížeči Konqueror</li>
+    </ul>
+  sr: >-
+    <p>Гвенвју је брз и лак за употребу приказивач слика од КДЕ‑а, идеалан за прегледање збирки слика.</p>
+
+    <p>Могућности:</p>
+
+    <ul>
+      <li>Једноставне обраде слике: обртање, пресликавање, превртање и промена величине.</li>
+      <li>Основне радње управљања фајловима, попут копирања, премештања, брисања, итд.</li>
+      <li>Ради и као самосталан програм и као угнежђени приказивач у К‑освајачу.</li>
+    </ul>
+  fi: >-
+    <p>Gwenview on KDE:n nopea ja helppokäyttöinen kuvakatselin, joka on ihanteellinen kuvakokoelmien selaukseen ja esittämiseen.</p>
+
+    <p>Ominaisuudet:</p>
+
+    <ul>
+      <li>Tukee yksinkertaista kuvien manipulointia: kiertämistä, kääntämistä, peilaamista ja koon muuttamista</li>
+      <li>Tukee tiedostonhallinnan perusasioita kuten kopiointia, siirtämistä, poistamista ynnä muuta</li>
+      <li>Toimii sekä erillisenä ohjelmana että upotettuna katselimena Konqueror-verkkoselaimessa</li>
+    </ul>
+  et: >-
+    <p>Gwenview on KDE kiire ja kasutajasõbralik piltide näitaja, ideaale vahend pildikogude sirvimiseks ja kuvamiseks.</p>
+
+    <p>Omadused:</p>
+
+    <ul>
+      <li>Toetab lihtsaid pilditöötlusvõimalusi: pööramine, peegeldamine ja suuruse muutmine</li>
+      <li>Toetab lihtsamaid failihaldusvõimalusi: kopeerimine, liigutamine, kustutamine jms</li>
+      <li>Töötab nii eraldi rakendusena kui ka põimituna veebibrauserisse Konqueror</li>
+    </ul>
+  pl: >-
+    <p>Gwenview to szybka i łatwa w użyciu przeglądarka obrazów dla KDE. Świetnie nadaje się do przeglądania i wyświetlania
+    zbiorów obrazów.</p>
+
+    <p>Możliwości:</p>
+
+    <ul>
+      <li>Obsługa prostych działań na obrazach: obrót, odbicie w poziomie, odbicie w pionie oraz zmiana rozmiaru</li>
+      <li>Możliwość wykonywania prostych działań plikowych takich jak kopiuj, przenieś, usuń i innych</li>
+      <li>Możliwość działania jako samodzielny program lub jako osadzona przeglądarka w przeglądarce sieciowej Konqueror</li>
+    </ul>
+  hu: >-
+    <p>A Gwenview egy gyors és egyszerűen használható képmegjelenítő a KDE-hez, ideális képgyűjtemények böngészéséhez és megjelenítéséhez.</p>
+
+    <p>Szolgáltatások:</p>
+
+    <ul>
+      <li>Egyszerű képműveletek támogatása: forgatás, tükrözés, átméretezés</li>
+      <li>Egyszerű fájlművelet, mint például másolás, áthelyezés, törlés támogatása</li>
+      <li>Önálló alkalmazásként és a Konqueror webböngészőbe épített képmegjelenítőként is működik</li>
+    </ul>
+  en-GB: >-
+    <p>Gwenview is a fast and easy to use image viewer by KDE, ideal for browsing and displaying a collection of images.</p>
+
+    <p>Features:</p>
+
+    <ul>
+      <li>Supports simple image manipulations: rotate, mirror, flip, and resize</li>
+      <li>Supports basic file management actions such as copy, move, delete, and others</li>
+      <li>Functions both as a standalone application and an embedded viewer in the Konqueror web browser</li>
+    </ul>
+  ca-valencia: >-
+    <p>Gwenview és un visor d'imatges ràpid i senzill d'ús, creat per la comunitat KDE, ideal per a navegar i visualitzar
+    col·leccions d'imatges.</p>
+
+    <p>Característiques:</p>
+
+    <ul>
+      <li>Permet la manipulació senzilla d'imatges: gira, espill, invertix i canvia la mida</li>
+      <li>Permet les accions bàsiques de gestió de fitxers com copia, mou, suprimix i altres</li>
+      <li>Funciona tant com una aplicació independent o un visor incrustat en el navegador web Konqueror</li>
+    </ul>
+  pa: >-
+    <p>ਜੀਵੀਨ-ਵਿਊ KDE ਲਈ ਤੇਜ਼ ਤੇ ਵਰਤਣ ਲਈ ਸੌਖਾ ਚਿੱਤਰ ਦਰਸ਼ਕ ਹੈ, ਜੋ ਕਿ ਚਿੱਤਰਾਂ ਦੇ ਭੰਡਾਰ ਨੂੰ ਬਰਾਊਜ਼ ਕਰਨ ਤੇ ਦਿਖਾਉਣ ਲਈ ਢੁੱਕਵਾਂ ਹੈ।</p>
+
+    <p>ਫੀਚਰ:</p>
+
+    <ul>
+      <li>ਸਧਾਰਨ ਚਿੱਤਰ ਤਬਦੀਲੀਆਂ ਲਈ ਸਹਾਇਕ ਹੈ: ਘੁੰਮਾਉਣਾ, ਮਿਰਰ ਕਰਨਾ, ਪਲਟਣਾ ਤੇ ਮੁੜ-ਆਕਾਰ ਦੇਣਾ</li>
+      <li>ਮੁੱਢਲੇ ਫ਼ਾਈਲ ਇੰਤਜ਼ਾਮ ਕਾਰਵਾਈਆਂ ਜਿਵੇਂ ਕਿ ਕਾਪੀ ਕਰਨਾ, ਭੇਜਣਾ, ਹਟਾਉਣਾ ਤੇ ਹੋਰ ਲਈ ਸਹਾਇਕ ਹੈ</li>
+    </ul>
+  sr-Latn: >-
+    <p>GwenView je brz i lak za upotrebu prikazivač slika od KDE‑a, idealan za pregledanje zbirki slika.</p>
+
+    <p>Mogućnosti:</p>
+
+    <ul>
+      <li>Jednostavne obrade slike: obrtanje, preslikavanje, prevrtanje i promena veličine.</li>
+      <li>Osnovne radnje upravljanja fajlovima, poput kopiranja, premeštanja, brisanja, itd.</li>
+      <li>Radi i kao samostalan program i kao ugnežđeni prikazivač u K‑osvajaču.</li>
+    </ul>
+  nl: >-
+    <p>Gwenview is een snelle en gemakkelijk te gebruiken viewer voor afbeeldingen door KDE, ideaal voor bladeren door en
+    weergeven van een verzameling afbeeldingen.</p>
+
+    <p>Mogelijkheden:</p>
+
+    <ul>
+      <li>Ondersteunt eenvoudige bewerking van afbeeldingen: roteren, spiegelen, omdraaien en grootte wijzigen</li>
+      <li>Ondersteunt acties voor basis bestandsbeheer zoals kopiëren, verplaatsen, verwijderen en andere</li>
+      <li>Functies zowel als een alleenstaande toepassing als een ingebedde viewer in de webbrowser Konqueror</li>
+    </ul>
+  hsb: >-
+    <p>Gwenview je spěšny a přihódny wobhladowar za wobrazy we KDE, idealny za přehladowanje a pokazowanje zběrki wobrazow.</p>
+
+    <p>Wosebitosće:</p>
+
+    <ul>
+      <li>Podpěruje jednoru manipulaciju wobrazow: wjerćeć, špihelować, wobroćić a powjetšić/pomjeńšić</li>
+      <li>Podpěruje jednore rjadowanske akcije za dataje kaž kopěrowanje, přesunjenje, zničenje a druhe</li>
+      <li>Funguje jako samostatna aplikacija a tež jako integrowana přehladowarka w konquerorje</li>
+    </ul>
+  tr: >-
+    <p>Gwenview, KDE için hızlı ve kolay kullanılır bir görsel görüntüleyicisidir; bir görsel koleksiyonu içinde gezinmek
+    ve onu görüntülemek için idealdir.</p>
+
+    <p>Özellikler:</p>
+
+    <ul>
+      <li>Basit görsel manipülasyonlarını destekler: Döndürme, yansılama, ters çevirme ve yeniden boyutlandırma</li>
+      <li>Kopyalama, taşıma, silme ve diğerleri gibi basit dosya yönetimi işlevlerini destekler</li>
+      <li>Hem tek başına hem de Konqueror web tarayıcısı içinde gömülü görüntüleyici olarak kullanılabilir</li>
+    </ul>
+  ta: >-
+    <p>அம்சங்கள்:</p>
+
+    <ul>
+      <li>திருப்புதல், புரட்டுதல், மற்றும் அளவுமாற்றம் போன்ற அடிப்படையான படத்திருத்தங்களை ஆதரிக்கும்</li>
+      <li>நகலெடுத்தல், நகர்த்தல், மற்றும் அகற்றல் போன்ற அடிப்படை கோப்புநிர்வாக செய்லகளை ஆதரிக்கும்</li>
+      <li>தனிப்பட்ட செயலியாகவும், கான்கொரர் உலாவியில் உட்பொதிந்த காட்டியாகவும் பயன்படுத்தலாம்</li>
+    </ul>
+ProjectGroup: KDE
+ProjectLicense: GPL-2.0+
+Categories:
+- Graphics
+- Viewer
+- Photography
+Url:
+  homepage: https://userbase.kde.org/Gwenview
+  bugtracker: https://bugs.kde.org/enter_bug.cgi?format=guided&product=gwenview
+  help: https://docs.kde.org/?application=gwenview
+  donation: https://www.kde.org/community/donations/?app=gwenview&source=appdata
+Icon:
+  cached:
+  - name: gwenview_gwenview.png
+    width: 48
+    height: 48
+  - name: gwenview_gwenview.png
+    width: 64
+    height: 64
+  - name: gwenview_gwenview.png
+    width: 128
+    height: 128
+  remote:
+  - url: org/kde/gwenview.desktop/6c63c6c6710d417ae61ab8e5950cb540/icons/128x128/gwenview_gwenview.png
+    width: 128
+    height: 128
+  stock: gwenview
+Launchable:
+  desktop-id:
+  - org.kde.gwenview.desktop
+Provides:
+  binaries:
+  - gwenview
+  mediatypes:
+  - inode/directory
+  - image/avif
+  - image/gif
+  - image/heif
+  - image/jpeg
+  - image/jxl
+  - image/png
+  - image/bmp
+  - image/x-eps
+  - image/x-icns
+  - image/x-ico
+  - image/x-portable-bitmap
+  - image/x-portable-graymap
+  - image/x-portable-pixmap
+  - image/x-xbitmap
+  - image/x-xpixmap
+  - image/tiff
+  - image/x-psd
+  - image/x-webp
+  - image/webp
+  - image/x-tga
+  - image/x-xcf
+  - application/x-krita
+  - image/x-kde-raw
+  - image/x-canon-cr2
+  - image/x-canon-crw
+  - image/x-kodak-dcr
+  - image/x-adobe-dng
+  - image/x-kodak-k25
+  - image/x-kodak-kdc
+  - image/x-minolta-mrw
+  - image/x-nikon-nef
+  - image/x-olympus-orf
+  - image/x-pentax-pef
+  - image/x-fuji-raf
+  - image/x-panasonic-rw
+  - image/x-sony-sr2
+  - image/x-sony-srf
+  - image/x-sigma-x3f
+  - image/x-sony-arw
+  - image/x-panasonic-rw2
+Screenshots:
+- default: true
+  caption:
+    pa: ਜੀਵੀਨ-ਵਿਊ
+    eu: Gwenview
+    nds: Gwenview
+    sr-ijekavianlatin: GwenView
+    ka: Gwenview
+    az: Gwenview
+    nb: Gwenview
+    sr-ijekavian: Гвенвју
+    de: Gwenview
+    zh-TW: 影像檢視_Gwenview
+    ia: Gwenview
+    gl: Gwenview
+    nn: Gwenview
+    pt-BR: Gwenview
+    pt: Gwenview
+    zh-CN: Gwenview 图像查看器
+    ru: Gwenview
+    el: Gwenview
+    fr: Gwenview
+    C: Gwenview
+    is: Gwenview
+    da: Gwenview
+    lt: Gwenview
+    ca: Gwenview
+    sk: Gwenview
+    ro: Gwenview
+    sv: Gwenview
+    uk: Gwenview
+    it: Gwenview
+    es: Gwenview
+    ar: جونفيو
+    ko: Gwenview
+    hi: ग्वेन-व्यू
+    sl: Gwenview
+    bg: Gwenview
+    id: Gwenview
+    cs: Gwenview
+    sr: Гвенвју
+    fi: Gwenview
+    bs: Gwenview
+    et: Gwenview
+    pl: Gwenview
+    en-GB: Gwenview
+    ca-valencia: Gwenview
+    tr: Gwenview
+    hu: Gwenview
+    sr-Latn: GwenView
+    nl: Gwenview
+    hsb: Gwenview
+    ta: குவென்வியூ
+  thumbnails:
+  - url: org/kde/gwenview.desktop/6c63c6c6710d417ae61ab8e5950cb540/screenshots/image-1_752x524.png
+    width: 752
+    height: 524
+  - url: org/kde/gwenview.desktop/6c63c6c6710d417ae61ab8e5950cb540/screenshots/image-1_624x435.png
+    width: 624
+    height: 435
+  - url: org/kde/gwenview.desktop/6c63c6c6710d417ae61ab8e5950cb540/screenshots/image-1_224x156.png
+    width: 224
+    height: 156
+  source-image:
+    url: org/kde/gwenview.desktop/6c63c6c6710d417ae61ab8e5950cb540/screenshots/image-1_orig.png
+    width: 1208
+    height: 843
+- caption:
+    eu: Erabili Gwenview zure irudi-bilduma kudeatzeko
+    az: Şəkil kolleksiyasını idarəetmək üçün Gwenview istifadə edin
+    ka: გამოიყენეთ Gwenview თქვენი სურათების კოლექციების სამართავად
+    de: Verwenden Sie Gwenview zur Verwaltung Ihrer Bildersammlung
+    ia: Usa Guenview pro gerer tu collection de image
+    pt: Use o Gwenview para gerir a sua colecção de imagens
+    ro: Folosiți Gwenview pentru a vă gestiona colecția de imagini
+    pt-BR: Use o Gwenview para gerenciar sua coleção de imagens
+    nn: Bruk Gwenview til å halda styr på biletsamlinga di
+    ru: Используйте Gwenview для работы с коллекцией изображений
+    el: Χρησιμοποίησε το Gwenview για να διαχειριστείς τη συλλογή των φωτογραφιών σου
+    zh-CN: 使用 Gwenview 来管理您的图像
+    fr: Utiliser Gwenview pour gérer votre collection d'images.
+    C: Use Gwenview to manage your image collection
+    is: Notaðu Gwenview til að sýsla með myndasafnið þitt
+    uk: Використання Gwenview для керування вашою збіркою зображень
+    ca: Empreu el Gwenview per a gestionar la vostra col·lecció d'imatges
+    sk: Použite Gwenview na správu vašej kolekcie obrázkov
+    sv: Använd Gwenview för att hantera din bildsamling
+    bg: Използвайте Gwenview да управлявате вашата колекция от изображения
+    es: Use Gwenview para la gestión de su colección de imágenes
+    ar: استعمل جونفيو لإدارة مجموعة صورك
+    it: Usa Gwenview per gestire la raccolta delle immagini
+    sl: Uporabite Gwenview za upravljanje svoje zbirke slik
+    hi: अपने छवि संग्रह को प्रबंधित करने के लिए ग्वेन-व्यू का उपयोग करें
+    ko: Gwenview로 그림 모음집 관리
+    id: Gunakan Gwenview untuk mengelola koleksi citra Anda
+    cs: Používejte Gwenview pro správu vaší sbírky
+    tr: Gwenview'ü görsel koleksiyonunuzu yönetmek için kullanın
+    fi: Hallitse kuvakokoelmaasi Gwenview’lla
+    ta: உங்கள் படத்தோகுப்பைக் கையாள குவென்வியூவைப் பயன்படுத்துங்கள்
+    pl: Użyj Gwenview do zarządzania twoimi zbiorami obrazów
+    en-GB: Use Gwenview to manage your image collection
+    ca-valencia: Utilitzeu Gwenview per a gestionar la vostra col·lecció d'imatges
+    hu: A Gwenview használata a képgyűjteménye kezeléséhez
+    nl: Gwenview gebruiken om uw verzameling afbeeldingen te beheren
+  thumbnails:
+  - url: org/kde/gwenview.desktop/6c63c6c6710d417ae61ab8e5950cb540/screenshots/image-2_752x514.png
+    width: 752
+    height: 514
+  - url: org/kde/gwenview.desktop/6c63c6c6710d417ae61ab8e5950cb540/screenshots/image-2_624x426.png
+    width: 624
+    height: 426
+  - url: org/kde/gwenview.desktop/6c63c6c6710d417ae61ab8e5950cb540/screenshots/image-2_224x153.png
+    width: 224
+    height: 153
+  source-image:
+    url: org/kde/gwenview.desktop/6c63c6c6710d417ae61ab8e5950cb540/screenshots/image-2_orig.png
+    width: 1208
+    height: 826
+Releases:
+- version: 22.12.3
+  type: stable
+  unix-timestamp: 1677715200
+- version: 22.12.2
+  type: stable
+  unix-timestamp: 1675296000
+- version: 22.12.1
+  type: stable
+  unix-timestamp: 1672876800
+- version: 22.12.0
+  type: stable
+  unix-timestamp: 1670457600
+ContentRating:
+  oars-1.1: {}
+---
+Type: desktop-application
+ID: org.gnome.Software.desktop
+Package: gnome-software
+Name:
+  kab: Aseɣẓan
+  ckb: نەرمەکاڵا
+  oc: Logicials
+  be: Software
+  ie: Programmarium
+  ca@valencia: Programari
+  nb: Programvare
+  ml: സോഫ്റ്റ്‌വെയർ
+  lv: Programmatūra
+  sv: Programvara
+  cs: Software
+  fa: نرم‌افزارها
+  pt_BR: Programas
+  C: Software
+  ru: Центр приложений
+  sk: Softvér
+  he: תכנה
+  mjw: Software
+  bg: Програми
+  el: Λογισμικό
+  sl: Programi GNOME
+  gd: Bathar-bog
+  bs: Program
+  is: Hugbúnaður
+  af: Sagteware
+  kk: Бағд. қамтама
+  ar: برمجيّات
+  hr: Softver
+  ne: सफ्टवेयर
+  it: Software
+  pt: Software
+  as: চফ্টৱেৰ
+  da: Software
+  ka: პროგრამები
+  sr@latin: Programi
+  km: កម្មវិធី
+  zh_CN: 软件
+  eo: Programaro
+  te: సాఫ్ట్‌వేర్
+  zh_HK: 軟件
+  hi: सॉफ्टवेयर
+  vi: Phần mềm
+  ca: Programari
+  ja: ソフトウェア
+  hu: Szoftver
+  fr: Logiciels
+  tr: Yazılımlar
+  ko: 소프트웨어
+  ro: Aplicații
+  pl: Oprogramowanie
+  ms: Perisian
+  pa: ਸਾਫਟਵੇਅਰ
+  th: ซอฟต์แวร์
+  de: Software
+  sr: Програми
+  fi: Ohjelmistot
+  es: Software
+  zh_TW: 軟體
+  uk: Програми
+  en_GB: Software
+  lt: Programinė įranga
+  gl: Software
+  fur: Software
+  nl: Software
+  id: Perangkat Lunak
+  ga: Bogearraí
+  eu: Softwarea
+Summary:
+  he: התקנה ועדכון יישומים
+  fur: Instale e inzorne lis aplicazions
+  eu: Instalatu eta eguneratu aplikazioak
+  hu: Alkalmazások telepítése és frissítése
+  ka: აპების დაყენება და განახლება
+  zh_CN: 安装和更新应用
+  pt_BR: Instale e atualize aplicativos
+  de: Anwendungen installieren und aktualisieren
+  be: Усталяваць і абнавіць праграмы
+  pt: Instalar e atualizar aplicações
+  gl: Instale e actualice aplicacións
+  hr: Instalirajte i nadopunite aplikacije
+  fa: نصب و به‌روز رسانی کاره‌ها
+  ru: Установка и обновление приложений
+  el: Εγκαταστήστε και αναβαθμίστε εφαρμογές
+  fr: Installer et mettre à jour des applications
+  uk: Встановлення і оновлення програм
+  is: Uppsetning og uppfærsla forrita
+  C: Install and update apps
+  lt: Įdiegti ir atnaujinti programas
+  sv: Installera och uppdatera program
+  ca: Instal·la i actualitza aplicacions
+  da: Installér og opdatér programmer
+  it: Installa e aggiorna le applicazione
+  ko: 앱 설치 및 업데이트
+  es: Instalar y actualizar aplicaciones
+  bg: Инсталиране и обновяване на програми
+  sl: Namesti in posodobi programe
+  en_GB: Install and update apps
+  tr: Uygulamaları kur ve güncelle
+  id: Pasang dan mutakhirkan aplikasi
+  cs: Instalujte a aktualizujte aplikace
+  sr: Инсталирај и ажурирај програме
+  fi: Asenna ja päivitä sovellukset
+  lv: Instalēt un atjaunināt lietotnes
+  pl: Instalowanie i aktualizowanie programów
+  pa: ਐਪਾਂ ਇੰਸਟਾਲ ਤੇ ਅੱਪਡੇਟ
+  kk: Қолданбаларды орнату және жаңарту
+  zh_TW: 安裝與更新應用程式
+  nl: Installeer en update apps
+Description:
+  he: >-
+    <p>תכנה מאפשר לך למצוא ולהתקין יישומים חדשים והרחבות מערכת ולהסיר יישומים מותקנים קיימים.</p>
+
+    <p>תכנה מציג יישומים מומלצים ופופולריים עם תיאור שימושי ומספר צילומי מסך לכל יישום. נתן למצוא יישומים דרך קטגוריות או
+    דרך חיפוש.  כמו כן נתן אף לעדכן את המערכת שלך באמצעות עדכונים לא מקוונים.</p>
+  fur: >-
+    <p>Software al permet di cjatâ e instalâ gnovis aplicazions e estensions di sisteme e gjavâ aplicazions esistentis.</p>
+
+    <p>Software al met in evidence te bacheche lis aplicazions popolârs cun descrizions utilis e tantis videadis par ogni
+    aplicazion. Al è pussibil cjatâ lis aplicazions sedi esplorant la liste des categoriis, sedi doprant la ricercje. Al permet
+    ancje di inzornâ il sisteme doprant un inzornament fûr rêt.</p>
+  vi: >-
+    <p>Phần mềm cho phép bạn tìm kiếm và cài đặt các ứng dụng mới và phần mở rộng hệ thống, cũng như loại bỏ các ứng dụng
+    đã cài đặt hiện có.</p>
+
+    <p>Phần mềm hiển thị các ứng dụng nổi bật và phổ biến với các mô tả hữu ích và nhiều ảnh chụp màn hình cho mỗi ứng dụng.
+    Có thể tìm được các ứng dụng nhờ tìm duyệt danh sách các danh mục hoặc bằng cách tìm kiếm. Nó cũng cho phép bạn cập nhật
+    hệ thống của mình bằng một bản cập nhật ngoại tuyến.</p>
+  eu: >-
+    <p>'Software' aplikazioak aplikazio berriak eta sistemaren hedapenak bilatzea eta instalatzea, edo eta instalatutako aplikazioak
+    kentzea, baimentzen dizu.</p>
+
+    <p>Software programak aplikazio ezagunak azalpen erabilgarriekin eta aplikazioko hainbat argazkirekin bistaratzen ditu.
+    Aplikazioak kategorien zerrendak arakatuz aurki daitezke, edo bilaketak eginez. Lineaz kanpoko eguneratzearen bidez sistema
+    eguneratzea baimentzen du.</p>
+  zh_CN: >-
+    <p>“软件”允许您查找并安装新的应用程序和系统扩展，移除已安装的应用程序。</p>
+
+    <p>软件向您展示特色和流行的应用程序，并提供每个应用程序的描述、截图等有用信息。您可以通过浏览分类列表或搜索来找到应用程序。您还可以用它离线更新您的系统。</p>
+  ja: >-
+    <p>GNOME ソフトウェアでは、新しいアプリケーションやシステム拡張の検索、インストールができます。また、インストール済みアプリケーションの削除も可能です。</p>
+
+    <p>“ソフトウェア”では、注目アプリケーションやよく使用されるアプリケーションを、役立つ説明や豊富なスクリーンショットとともにわかりやすく紹介しています。お探しのアプリケーションを探すのに適した、カテゴリーリストや検索機能も備えています。また、オフラインアップデートによるシステムの更新も可能です。</p>
+  de: >-
+    <p>Software ermöglicht es Ihnen, neue Anwendungen und Systemerweiterungen zu finden und zu installieren sowie bereits
+    installierte Anwendungen zu entfernen.</p>
+
+    <p>Software präsentiert vorgestellte und beliebte Anwendungen mit nützlichen Beschreibungen und mehreren Bildschirmfotos
+    je Anwendung. Anwendungen können entweder durch Stöbern in den verschiedenen Kategorien oder mithilfe der Suchfunktion
+    gefunden werden. Zudem ermöglicht es Ihnen, Ihr System mittels einer Offline-Aktualisierung auf den neuesten Stand zu
+    bringen.</p>
+  pt_BR: >-
+    <p>O aplicativo Programas permite que você encontre e instale novos aplicativos e extensões do sistema, além de remover
+    aplicativos já instalados.</p>
+
+    <p>O Programas apresenta aplicativos populares e em destaque com descrições úteis e várias capturas de tela por aplicativo.
+    Os aplicativos podem ser encontrados navegando na lista de categorias ou pesquisando. Ele também permite que você atualize
+    seu sistema usando uma atualização offline.</p>
+  be: >-
+    <p>Праз Software можна знайсці і ўсталяваць новыя праграмы і пашырэнні сістэмы, а таксама выдаліць ужо ўсталяваныя праграмы.</p>
+
+    <p>Software паказвае вартыя ўвагі і папулярныя праграмы, для кожнай з іх маюцца карысныя апісанні і некалькі здымкаў.
+    Праграмы можна шукаць па катэгорыях у спісе або праз поле пошуку. Таксама Software дазваляе абнаўляць сістэму праз пазасеткавае
+    абнаўленне.</p>
+  pt: >-
+    <p>O Software permite-lhe encontrar e instalar novas aplicações e extensões do sistema, além de remover aplicações já
+    instaladas.</p>
+
+    <p>O Software apresenta aplicações populares em destaque com descrições úteis e várias capturas de ecrã por aplicação.
+    As aplicações podem ser encontradas tanto ao navegar pela lista de categorias como ao procurar. Também lhe permite atualizar
+    o seu sistema utilizando uma atualização offline.</p>
+  gl: >-
+    <p>Software permítelle atopar e instalar novas aplicacións e extensións do sistema, así como eliminar aplicacións instaladas
+    actualmente.</p>
+
+    <p>Software móstralle aplicacións populares e destacados con descricións útiles e varias capturas por aplicación. Pode
+    atopar aplicacións explorando a lista de categorías ou buscándoas. Tamén lle permite actualizar o seu sistema usando unha
+    actualización fóra de liña.</p>
+  hr: >-
+    <p>Softver vam omogućuje pretraživanje i instalaciju novih aplikacija proširenja sustava i uklanjanje postojećih instaliranih
+    aplikacija.</p>
+
+    <p>Softver prikazuje istaknute i popularne aplikacije s korisnim opisima i snimkama aplikacija. Aplikacije se mogu pronaći
+    pregledavanjem popisa kategorija ili pretraživanjem. Isto tako vam omogućuje nadopunu vašeg sustava kada nemate pristup
+    Internetu.</p>
+  fa: >-
+    <p>نرم‌افزارها می‌گذارد برنامه‌های جدید و افزونه‌های سامانه‌ای را یافته و نصب کنید و برنامه‌های پیش‌تر نصب‌شده را بردارید.</p>
+
+    <p>نرم‌افزارها برنامه‌های محبوب و برتر را همراه با توضیحات مفید و چندین نماگرفت از هر برنامه نمایش می‌دهد. برنامه‌ها می‌توانند
+    از طریق مرور دسته‌بندی‌ها یا با استفاده از جست‌وجو پیدا و نصب شوند. همچنین به شما اجازه به‌روز رسانی سامانه از طریق به‌روز
+    رسانی برون‌خط را می‌دهد.</p>
+  ru: >-
+    <p>Центр приложений позволяет находить и устанавливать новые приложения и системные расширения, а также удалять уже установленные
+    приложения.</p>
+
+    <p>Центр приложений предоставляет рекомендуемые и популярные приложения с описанием и несколькими снимками экрана к ним.
+    Приложения можно находить, просматривая по категориям, либо с помощью функции поиска. Также центр приложений позволяет
+    обновлять систему с помощью отложенных обновлений.</p>
+  el: >-
+    <p>Η εφαρμογή Λογισμικό σας επιτρέπει να βρείτε και να εγκαταστήσετε νέες εφαρμογές και επεκτάσεις συστήματος και να αφαιρέσετε
+    υπάρχουσες εγκατεστημένες εφαρμογές.</p>
+
+    <p>Η εφαρμογή Λογισμικό προβάλλει επιλεγμένες και δημοφιλείς εφαρμογές με χρήσιμες περιγραφές και πολλαπλά στιγμιότυπα
+    οθόνης ανά εφαρμογή. Οι εφαρμογές μπορούν να βρεθούν είτε μέσα από περιήγηση της λίστας των κατηγοριών ή με αναζήτηση.
+    Σας επιτρέπει επίσης να ενημερώνετε το σύστημά σας χρησιμοποιώντας μια ενημέρωση χωρίς σύνδεση.</p>
+  uk: >-
+    <p>Програми дозволяють знайти і встановити нові програми та системні розширення, вилучити встановлені програми.</p>
+
+    <p>«Програми» показують рекомендовані та популярні програми з корисним описом і кількома знімками для кожної. Програми
+    можна знайти переглядом списку категорій або через пошук. Також можна оновлювати вашу систему через безмережеве оновлення.</p>
+  fr: >-
+    <p>Logiciels sert à rechercher et installer de nouvelles applications et extensions du système, ainsi qu’à supprimer celles
+    qui sont installées sur votre ordinateur.</p>
+
+    <p>Logiciels présente une vitrine d’applications en vedette et populaires à l’aide de descriptions utiles et de plusieurs
+    captures d’écran pour chacune d’elle. Vous pouvez rechercher des logiciels soit en consultant la liste des catégories,
+    soit en interrogeant le moteur de recherche. Logiciels permet aussi de mettre à jour votre système hors ligne.</p>
+  da: >-
+    <p>Software lader dig finde og installere nye programmer og systemudvidelser, samt fjerne allerede installerede programmer.</p>
+
+    <p>Software fremviser udvalgte og populære programmer med nyttige beskrivelser og adskillige skærmbilleder per program.
+    Programmer kan findes enten ved gennemsyn af oversigten over kategorier eller gennem søgning. Dette program giver dig
+    også mulighed for at opdatere dit system ved brug af offlineopdatering.</p>
+  C: >-
+    <p>
+          Software allows you to find and install new applications and system
+          extensions and remove existing installed applications.
+        </p>
+    <p>
+          Software showcases featured and popular applications with useful
+          descriptions and multiple screenshots per application.
+          Applications can be found either through browsing the list of categories
+          or by searching.
+          It also allows you to update your system using an offline update.
+        </p>
+  lt: >-
+    <p>Programinė įranga leidžia jums rasti ir įdiegti naujos programas bei sistemos plėtinius, taip pat pašalinti įdiegtas
+    programas.</p>
+
+    <p>Programinė įranga parodo siūlomas bei populiarias programas su naudingais aprašymais bei kelios ekrano nuotraukomis
+    kiekvienai programai. Programas galima rasti naršant po kategorijų sąrašą arba ieškant. Taip pat galima atnaujinti sistemą
+    naudojant atnaujinimą atsijungus.</p>
+  sv: >-
+    <p>Programvara gör det möjligt att hitta och installera nya program och systemkomponenter, samt att ta bort befintligt
+    installerade program.</p>
+
+    <p>Programvara förevisar föreslagna och populära program med användbara beskrivningar och ett flertal skärmbilder per
+    program. Program kan antingen hittas genom att bläddra igenom kategorilistan eller genom att söka. Det gör det även möjligt
+    att uppdatera systemet genom ett frånkopplat uppdateringsförfarande.</p>
+  ca: >-
+    <p>El Programari us permet cercar i instal·lar aplicacions noves i extensions del sistema així com eliminar aplicacions
+    ja instal·lades.</p>
+
+    <p>El programari mostra aplicacions destacades i populars amb descripcions útils i diverses captures de pantalla per aplicació.
+    Les aplicacions es poden trobar navegant per la llista de categories o fent una cerca. També us permet actualitzar el
+    vostre sistema mitjançant una actualització fora de línia.</p>
+  bg: >-
+    <p>С тази програма може да търсите и инсталирате нови приложения и системни разширения, както и да премахвате вече инсталираните
+    приложения.</p>
+
+    <p>Програмата показва на преден план избрани и популярни приложения, като за всяко може да се види описание и няколко
+    снимки. Приложенията може да бъдат намерени чрез преглеждане на категоризирания списък или чрез търсене. Освен това, програмата
+    може да обновява системата без връзка с мрежата.</p>
+  es: >-
+    <p>Software le permite buscar e instalar aplicaciones nuevas y extensiones del sistema y quitar aplicaciones instaladas.</p>
+
+    <p>Software muestra aplicaciones destacadas y populares con descripciones útiles y múltiples capturas de pantalla por
+    aplicación. Las aplicaciones se pueden encontrar navegando por la lista de categorías o buscando. También le permite actualizar
+    su sistema mediante una actualización fuera de línea.</p>
+  it: >-
+    <p>Software consente di trovare e installare nuove applicazioni, estensioni di sistema e rimuovere applicazioni già esistenti.</p>
+
+    <p>Software mette in mostra e in evidenza le applicazioni più popolari con utili descrizioni e varie schermate per ognuna
+    di esse. Le applicazioni possono essere trovate tramite l'esplorazione dell'elenco delle categorie o tramite la ricerca.
+    Software consente anche di aggiornare il sistema usando un aggiornamento non in linea.</p>
+  ne: >-
+    <p>सफ्टवेयरले तपाईंलाई नयाँ अनुप्रयोगहरू र प्रणाली एक्सटेन्सनहरू फेला पार्न र स्थापना गर्न र अवस्थित स्थापना गरिएका अनुप्रयोगहरू
+    हटाउन अनुमति दिन्छ।</p>
+
+    <p>सफ्टवेयरले उपयोगी विवरणहरू र प्रति अनुप्रयोग बहुविध स्क्रिनशटहरूको साथ प्रदर्शित र लोकप्रिय अनुप्रयोगहरू प्रदर्शन गर्दछ।
+    अनुप्रयोगहरू श्रेणीहरूको सूची ब्राउज गरेर वा खोजी गरेर फेला पार्न सकिन्छ। यसले तपाईंलाई अफलाइन अपडेट प्रयोग गरेर तपाईंको
+    प्रणाली अद्यावधिक गर्न अनुमति दिन्छ।</p>
+  sl: >-
+    <p>Program omogoča iskanje, nameščanje in odstranjevanje novih programov in sistemskih razširitev.</p>
+
+    <p>Program za nameščanje programske opreme namizja GNOME predstavlja priljubljene programe s kratkimi opisi in zaslonskimi
+    posnetki. Programe je mogoče iskati ali pa jih pobrskati po seznamih. Obenem omogoča tudi posodabljanje sistema s posodobitvami
+    brez povezave.</p>
+  tr: >-
+    <p>Yazılımlar; yeni uygulama ve sistem uzantıları bulup kurmanızı, kurulu uygulamaları kaldırmanızı sağlar.</p>
+
+    <p>Yazılımlar; seçkin ve gözde uygulamaları, her uygulama için anlaşılır açıklama ve çoklu ekran görüntüleriyle beğeninize
+    sunar. Uygulamalar, kategori listesinde gezinerek veya arayarak bulunabilir. Ayrıca çevrim dışı güncelleme kullanarak
+    sisteminizi güncellemenizi sağlar.</p>
+  cs: >-
+    <p>Aplikace Software umožňuje vyhledávat a instalovat aplikace a systémová rozšíření a odebírat stávající nainstalované
+    aplikace.</p>
+
+    <p>Aplikace Software vám představí významné a oblíbené aplikace pomocí srozumitelného popisu a několika snímků obrazovky.
+    Aplikace můžete najít buď ručním procházením podle kategorií nebo pomocí textového vyhledávání. Rovněž můžete aktualizovat
+    svůj systém a to i bez aktuálního připojení k Internetu.</p>
+  id: >-
+    <p>Perangkat Lunak memungkinkan Anda menemukan dan memasang aplikasi dan ekstensi sistem baru dan menghapus aplikasi yang
+    telah dipasang.</p>
+
+    <p>Perangkat Lunak memajang aplikasi-aplikasi populer dan pilihan dengan deskripsi yang berguna dan beberapa cuplikan
+    layar per aplikasi. Aplikasi bisa ditemukan dengan meramban daftar kategori atau dengan mencari. Itu juga memungkinkan
+    Anda memutakhirkan sistem Anda memakai pemutakhiran luring.</p>
+  sr: >-
+    <p>Програми вам дозвољавају да пронађете и инсталирате нове програме и проширења система и да уклоните постојеће инсталиране
+    програме.</p>
+
+    <p>Програми приказују издвојене и популарне програме са корисним описима и неколико снимака екрана по програму. Програми
+    могу бити пронађени прегледањем списка категорија или претраживањем. Такође вам омогућава одржавање ажурног система коришћењем
+    технологије ванмрежних ажурирања.</p>
+  ko: >-
+    <p>소프트웨어에서 새 프로그램과 시스템 확장을 찾아 설치할 수 있고, 기존에 설치한 프로그램을 제거할 수 있습니다.</p>
+
+    <p>소프트웨어 프로그램은 각각의 추천 항목과 인기 있는 프로그램을 유용한 설명과 여러가지 미리보기 화면을 곁들여 선보입니다. 분류 목록을 탐색하거나 검색을 통해 프로그램을 찾을 수 있습니다. 오프라인 업데이트를
+    사용하여 시스템을 업데이트할 수도 있습니다.</p>
+  en_GB: >-
+    <p>Software allows you to find and install new applications and system extensions and remove existing installed applications.</p>
+
+    <p>Software showcases featured and popular applications with useful descriptions and multiple screenshots per application.
+    Applications can be found either through browsing the list of categories or by searching. It also allows you to update
+    your system using an offline update.</p>
+  fi: >-
+    <p>Ohjelmistot mahdollistaa uusien sovellusten löytämisen ja asennuksen sekä nykyisten sovellusten poistamisen.</p>
+
+    <p>Ohjelmistot esittelee suosittuja sovelluksia lukuisten kuvakaappausten ja kuvauksen kera. Sovellukset ovat löydettävissä
+    eri luokkia selaamalla tai nimellä etsimällä. Voit myös päivittää järjestelmän offline-päivityksenä.</p>
+  pl: >-
+    <p>Menedżer oprogramowania umożliwia wyszukiwanie i instalowanie nowych programów i rozszerzeń systemu oraz usuwanie już
+    zainstalowanych programów.</p>
+
+    <p>Menedżer oprogramowania prezentuje polecane i popularne programy z przydatnymi opisami i wieloma zrzutami ekranu. Programy
+    mogą być wyszukiwane lub przeglądane według kategorii. Możliwe jest także aktualizowanie systemu za pomocą funkcji aktualizacji
+    w trybie offline.</p>
+  pa: >-
+    <p>ਸਾਫਟਵੇਅਰ ਤੁਹਾਨੂੰ ਨਵੇਂ ਐਪਲੀਕੇਸ਼ਨ ਤੇ ਸਿਸਟਮ ਇਕਸਟੈਂਸ਼ਨ ਲੱਭਣ ਤੇ ਇੰਸਟਾਲ ਕਰਨ ਅਤੇ ਮੌਜੂਦਾ ਇੰਸਟਾਲ ਹੋਈਆਂ ਐਪਲੀਕੇਸ਼ਨ ਹਟਾਉਣ ਲਈ ਸਹਾਇਕ
+    ਹੈ।</p>
+
+    <p>ਸਾਫਟਵੇਅਰ ਖਾਸ ਅਤੇ ਹਰਮਨਪਿਆਰੀਆਂ ਐਪਲੀਕੇਸ਼ਨਾਂ ਨੂੰ ਹਰੇਕ ਐਪਲੀਕੇਸ਼ਨ ਲਈ ਫਾਇਦੇਮੰਦ ਵੇਰਵੇ ਅਤੇ ਕਈ ਤਸਵੀਰਾਂ ਨਾਲ ਵੇਖਾਉਂਦਾ ਹੈ। ਐਪਲੀਕੇਸ਼ਨਾਂ
+    ਨੂੰ ਵਰਗਾਂ ਦੀ ਸੂਚੀ ਵਿਚੋਂ ਚੁਣਿਆ ਜਾਂ ਖੋਜ ਕਰਕੇ ਲੱਭਿਆ ਜਾ ਸਕਦਾ ਹੈ। ਇਹ ਤੁਹਾਨੂੰ ਤੁਹਾਡੇ ਸਿਸਟਮ ਨੂੰ ਆਫਲਾਈਨ ਅੱਪਡੇਟ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਅੱਪਡੇਟ
+    ਕਰਨ ਲਈ ਵੀ ਸਹਾਇਕ ਹੈ।</p>
+  lv: >-
+    <p>“Programmatūra” jums ļauj atrast un instalēt jaunas lietotnes un sistēmas paplašinājumus, kā arī izņemt jau instalētās
+    lietotnes.</p>
+
+    <p>“Programmatūra” rāda izceltās un populārās lietotnes, ar noderīgiem aprakstiem un vairākiem ekrānattēliem uz lietotni.
+    Lietotnes var atrast vai nu pārlūkojot kategoriju sarakstu, vai arī meklējot. Tā jums ļauj arī atrast sistēmas atjauninājumus,
+    izmantojot nesaistes atjaunināšanu.</p>
+  hu: >-
+    <p>A Szoftverek lehetővé teszi új alkalmazások és rendszerkiterjesztések keresését, telepítését, valamint a meglévő telepített
+    alkalmazások eltávolítását.</p>
+
+    <p>A Szoftver bemutatja a kiemelt és népszerű alkalmazásokat, hasznos leírásokat és alkalmazásonként több képernyőképet
+    is megjelenít. Az alkalmazások a kategóriák listáinak tallózásával vagy kereséssel találhatók meg. A program lehetővé
+    teszi a rendszer frissítését kapcsolat nélküli frissítés használatával is.</p>
+  kk: >-
+    <p>Software қолданбасы сізге жаңа қолданбалар мен жүйелік кеңейтулерді тауып, орнатуды және орнатылған қолданбаларды өшіруді
+    мүмкін қылады.</p>
+
+    <p>БҚ қолданбасы ұсынылатын және әйгілі қолданбаларды көрсетіп отырады, олардың пайдалы сипаттамасы және әрбіреуінің бірнеше
+    скриншоты бар болады. Қолданбаларды санаттар тізімдерін шолу арқылы немесе тікелеі іздеу арқылы табуға болады. Сонымен
+    қатар, бұл қолданба арқылы жүйеңізді желіден тыс жаңартуларымен жаңартуға болады.</p>
+  nl: >-
+    <p>Met Gnome Software kunt u nieuwe toepassingen en systeemuitbreidingen vinden en installeren, en bestaande geïnstalleerde
+    toepassingen verwijderen.</p>
+
+    <p>Software geeft aanbevolen en populaire toepassingen weer met nuttige beschrijvingen en meerdere schermafdrukken per
+    toepassing. U vindt toepassingen door ofwel de lijst van categorieën te bekijken of door te zoeken. U kunt ook uw systeem
+    bijwerken met behulp van een offline-update.</p>
+  zh_TW: >-
+    <p>《軟體》能讓您尋找及安裝新的應用程式與系統擴充套件，也能對已安裝的應用程式進行移除動作。</p>
+
+    <p>《軟體》中陳列了各式各樣富有特色又受歡迎的應用程式，並提供描述與螢幕快照等實用訊息讓您能深入瞭解。您可以透過瀏覽分類列表或是使用搜尋功能找出所需的應用程式，亦可透過離線更新的方式更新系統。</p>
+DeveloperName:
+  ckb: پرۆژەی گنۆم
+  oc: Lo projècte GNOME
+  be: Праект GNOME
+  ie: Li projecte GNOME
+  ca@valencia: El projecte GNOME
+  nb: GNOME prosjektet
+  ml: ഗ്നോം പദ്ധതി
+  lv: GNOME projekts
+  sv: GNOME-projektet
+  cs: Projekt GNOME
+  fa: پروژهٔ گنوم
+  pt_BR: O projeto GNOME
+  C: The GNOME Project
+  ru: The GNOME Project
+  sk: Projekt GNOME
+  he: מיזם GNOME
+  mjw: GNOME Project
+  bg: Проектът GNOME
+  el: Το έργο GNOME
+  sl: Projekt GNOME
+  gd: Pròiseact GNOME
+  is: GNOME verkefnið
+  af: Die GNOME Projek
+  kk: GNOME жобасы
+  ar: مشروع جنوم
+  hr: GNOME projekt
+  ne: जिनोम परियोजना
+  it: Il progetto GNOME
+  pt: O Projeto GNOME
+  da: GNOME-projektet
+  ka: პროექტი "GNOME"
+  sr@latin: Gnomov projekat
+  zh_CN: GNOME 项目
+  eo: La GNOME-projekto
+  hi: GNOME प्रोजेक्ट
+  vi: Dự án GNOME
+  ja: The GNOME Project
+  hu: A GNOME projekt
+  fr: Le projet GNOME
+  tr: GNOME Projesi
+  ca: El projecte GNOME
+  ro: Proiectul GNOME
+  ko: 그놈 프로젝트
+  pl: Projekt GNOME
+  ms: Projek GNOME
+  pa: ਗਨੋਮ ਪਰੋਜੈੱਕਟ
+  de: Das GNOME-Projekt
+  sr: Гномов пројекат
+  bn: GNOME প্রজেক্ট
+  es: El proyecto GNOME
+  fi: Gnome-projekti
+  zh_TW: GNOME 專案
+  uk: Проєкт GNOME
+  en_GB: The GNOME Project
+  lt: GNOME projektas
+  ab: The GNOME Project
+  gl: O Proxecto GNOME
+  nl: Het Gnome-project
+  fur: Il progjet GNOME
+  id: Proyek GNOME
+  eu: GNOME proiektua
+ProjectGroup: GNOME
+ProjectLicense: GPL-2.0+
+CompulsoryForDesktops:
+- GNOME
+Categories:
+- System
+- PackageManager
+Keywords:
+  he:
+  - עדכונים
+  - שדרוג
+  - מקורות
+  - מאגרים
+  - העדפות
+  - התקנה
+  - הסרה
+  - מחיקה
+  - תכנית
+  - תכנה
+  - יישום
+  - חנות
+  fur:
+  - Inzornaments
+  - Avanzament
+  - Sorzints
+  - Repositories
+  - Dipuesits
+  - Preferencis
+  - Instalâ
+  - Disinstalâ
+  - Program
+  - Software
+  - Aplicazion
+  - Negozi
+  eu:
+  - Eguneratzeak
+  - Bertsio-berritzeak
+  - Iturburuak
+  - Biltegiak
+  - Hobespenak
+  - Instalatu
+  - Desinstalatu
+  - Programa
+  - Softwarea
+  - Aplikazioa
+  - Denda
+  - App
+  sr-Latn:
+  - ažuriranja
+  - osveženja
+  - dogradnje
+  - nadogradnje
+  - izvori
+  - riznice
+  - skladišta
+  - postavke
+  - instalacija
+  - uklanjanje
+  - program
+  - softver
+  - aplikacija
+  - radnja
+  - ispravke
+  - apdejtovi
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  - ažuriranja
+  - osveženja
+  - dogradnje
+  - nadogradnje
+  - izvori
+  - riznice
+  - skladišta
+  - postavke
+  - instalacija
+  - uklanjanje
+  - program
+  - softver
+  - aplikacija
+  - radnja
+  - ispravke
+  - apdejtovi
+  ml:
+  - പുതുക്കലുകൾ
+  - നവീകരണങ്ങൾ
+  - ഉറവിടങ്ങൾ
+  - റിപ്പോസിറ്ററികൾ
+  - മുൻഗണനകൾ
+  - ഇൻസ്റ്റാൾ ചെയ്യുക
+  - അൺഇൻസ്റ്റാൾ ചെയ്യുക
+  - പ്രോഗ്രാം
+  - സോഫ്റ്റ്‌വെയർ
+  - ആപ്പ്
+  - കലവറ
+  pa:
+  - ਅੱਪਡੇਟ
+  - ਸਰੋਤ
+  - ਰਿਪੋਜ਼ਟਰੀ
+  - ਪਸੰਦ,ਇੰਸਟਾਲ
+  - ਸਟੋਰ
+  - ਅੱਪਗਰੇਡ
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Store
+  - ਅਣਇੰਸਟਾਲ
+  - ਅਣ-ਇੰਸਟਾਲ
+  - ਪ੍ਰੋਗਰਾਮ
+  - ਸਾਫਟਵੇਅਰ
+  - ਐਪ
+  mjw:
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  zh-TW:
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  - 更新
+  - 升級
+  - 來源
+  - 套件庫
+  - 軟體庫
+  - 倉庫
+  - 偏好設定
+  - 安裝
+  - 解除安裝
+  - 程式
+  - 軟體
+  - 應用
+  - 商店
+  vi:
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  - Bản cập nhật
+  - Nâng cấp
+  - Mã nguồn
+  - Kho chứa
+  - Ưu tiên
+  - Cài đặt
+  - Gỡ bỏ
+  - Chương trình
+  - Phần mềm
+  - Ứng dụng
+  - Cửa hàng
+  nb:
+  - Oppdateringer
+  - Oppgrader
+  - Kilder
+  - Repo
+  - Brukervalg
+  - Installer
+  - Avinstaller
+  - Program
+  - Programvare
+  - App
+  - Butikk
+  ja:
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  - 更新
+  - アップデート
+  - アップグレード
+  - ソース
+  - リポジトリ
+  - レポジトリ
+  - 設定
+  - インストール
+  - アンインストール
+  - プログラム
+  - ソフトウェア
+  - アプリケーション
+  - ストア
+  de:
+  - Aktualisierungen
+  - Systemaktualisierung
+  - Quellen
+  - Einstellungen
+  - Installieren
+  - Entfernen
+  - Programm
+  - Software
+  - App
+  - Store
+  - Anwendung
+  - Update
+  C:
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  ms:
+  - Kemas kini
+  - Tatar
+  - Sumber
+  - Repositori
+  - Keutamaan
+  - Pasang
+  - Nyahpasang
+  - Program
+  - Perisian
+  - Apl
+  - Kedai
+  be:
+  - Абнаўленні
+  - Абнавіць
+  - Крыніцы
+  - Сховішчы
+  - Рэпазіторыі
+  - Параметры
+  - Усталяваць
+  - Высталяваць
+  - Выдаліць
+  - Праграма
+  - Праграмнае
+  - забеспячэнне
+  - Крама
+  - Program
+  - Software
+  - App
+  - Store
+  gl:
+  - Actualizacións
+  - Anovar
+  - Orixes
+  - Repositorios
+  - Preferencias
+  - Instalar
+  - Desinstalar
+  - Programa
+  - Software
+  - Aplicación
+  - Tenda
+  pt:
+  - Atualizações
+  - Fontes
+  - Origens
+  - Repositórios
+  - Preferências
+  - Instalar
+  - Desinstalar
+  - Programa
+  - Software
+  - App
+  - Loja
+  hr:
+  - Nadopune
+  - Nadogradnja
+  - Izvori
+  - Repozitoriji
+  - Osobitosti
+  - Instaliraj
+  - Deinstaliraj
+  - Program
+  - Softver
+  - Aplikacija
+  - Trgovina
+  pt-BR:
+  - Atualizações
+  - Upgrade
+  - Atualização
+  - Fontes
+  - Repositórios
+  - Preferências
+  - Instalação
+  - Instalar
+  - Desinstalar
+  - Programa
+  - Software
+  - Aplicativo
+  - App
+  - Loja
+  - Store
+  fa:
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  - به‌روز رسانی‌ها
+  - ارتقا
+  - منابع
+  - مخازن
+  - ترجیحات
+  - نصب
+  - حذف
+  - برنامه
+  - نرم‌افزار
+  - اپ
+  - استور
+  oc:
+  - Actualizacion
+  - mesas a jorn
+  - mesa a nivèl
+  - fonts
+  - depauses
+  - preferéncias
+  - installar
+  - desinstallar
+  - programa
+  - aplicacion
+  - logicial
+  - magazin
+  el:
+  - Ενημερώσεις
+  - Αναβαθμίσεις
+  - Πηγές
+  - Αποθετήρια
+  - Προτιμήσεις
+  - Εγκατάσταση
+  - Απεγκατάσταση
+  - Πρόγραμμα
+  - Λογισμικό
+  - Εφαρμογή
+  - Αποθήκευση
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  zh-CN:
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  - 更新
+  - 升级
+  - 源
+  - 仓库
+  - 首选项
+  - 安装
+  - 卸载
+  - 程序
+  - 软件
+  - 应用
+  - 商店
+  fr:
+  - mises à jour
+  - mise à niveau
+  - sources
+  - dépôts
+  - préférences
+  - installer
+  - désinstaller
+  - programmes
+  - logiciels
+  - applications
+  - magasin
+  - boutique
+  uk:
+  - Оновлення
+  - Джерело
+  - Сховище
+  - Параметри
+  - Налаштування
+  - Встановити
+  - Вилучити
+  - Програма
+  - Магазин
+  da:
+  - Opdateringer
+  - Opgrader
+  - Kilder
+  - Pakkearkiver
+  - Indstillinger
+  - Installer
+  - Afinstaller
+  - Program
+  - Software
+  - App
+  - Butik
+  ru:
+  - Обновления
+  - Источники
+  - Репозитории
+  - Параметры
+  - Установить
+  - Удалить
+  - Программа
+  - Приложение
+  - Магазин
+  - ПО
+  lt:
+  - Atnaujinimai
+  - Šaltiniai
+  - Saugyklos
+  - Nuostatos
+  - Įdiegti
+  - Išdiegti
+  - Programa
+  - Programinė
+  - Įranga
+  ca:
+  - Actualitzacions
+  - Actualització
+  - Fonts
+  - Repositoris
+  - Preferències
+  - Instal·lació
+  - Desinstal·lació
+  - Aplicació
+  - Programa
+  - Apli
+  - Botiga
+  af:
+  - bywerkings
+  - opgradeer
+  - bronne
+  - lêerstoor
+  - voorkeure
+  - installeer
+  - verwyder
+  - program
+  - sagteware
+  - toep
+  - winkel
+  pl:
+  - Aktualizacje
+  - Aktualizuj
+  - Zaktualizuj
+  - Uaktualnienia
+  - Uaktualnij
+  - Update
+  - Upgrade
+  - Źródła
+  - Źródło
+  - Repozytoria
+  - Repozytorium,Preferencje
+  - Opcje
+  - Ustawienia
+  - Instalacja
+  - Zainstaluj
+  - Odinstaluj
+  - Deinstalacja
+  - Deinstaluj
+  - Program
+  - Oprogramowanie
+  - Software
+  - Aplikacja
+  - Aplikacje
+  - App
+  - Apps
+  - Sklep
+  - Store
+  sv:
+  - Uppdateringar
+  - Uppgradera
+  - Källor
+  - Programvarukällor
+  - Inställningar
+  - Installera
+  - Avinstallera
+  - Program
+  - Programvara
+  - Mjukvara
+  - Butik
+  - App
+  - Store
+  sk:
+  - Aktualizácie
+  - Inovácia
+  - Zdroje
+  - Repozitáre
+  - Nastavenia
+  - Inštalácia
+  - Inštalovanie
+  - Odinštalovanie
+  - Program
+  - Softvér
+  - Aplikácia
+  - Obchod
+  ro:
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  - Surse
+  - Instalează
+  - Aplicații
+  - Depozite,Preferințe
+  - Instalare
+  - Dezinstalare
+  - Actualizare
+  - Actualizări
+  zh-HK:
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  - 更新
+  - 升級
+  - 來源
+  - 套件庫
+  - 軟件庫
+  - 倉庫
+  - 偏好設定
+  - 安裝
+  - 解除安裝
+  - 程式
+  - 軟件
+  - 應用
+  - 商店
+  it:
+  - Aggiornamenti
+  - Avanzamento
+  - Sorgenti
+  - Repository
+  - Preferenze
+  - Installare
+  - Disinstallare
+  - Programma
+  - Software
+  - Applicazione
+  - Negozio
+  es:
+  - Actualizaciones
+  - Actualizar
+  - Fuentes
+  - Repositorios:Preferencias
+  - Instalar
+  - Desinstalar
+  - Programa
+  - Software
+  - App
+  - Almacén
+  ar:
+  - تحديثات
+  - ترقيات
+  - مصادر
+  - مستودعات
+  - تفضيلات
+  - تنصيب
+  - إزالة
+  - برنامج
+  - برمجية
+  - تطبيق
+  - سوق
+  - تحديث
+  - ترقية
+  - مصدر
+  - مستودع
+  bg:
+  - updates
+  - upgrade
+  - sources
+  - repositories
+  - preferences
+  - install
+  - uninstall
+  - program
+  - software
+  - app
+  - store
+  - обновления
+  - надграждане
+  - източници
+  - хранилища
+  - предпочитания
+  - настройки
+  - инсталиране
+  - деинсталиране
+  - програма
+  - софтуер
+  - приложение
+  - магазин
+  hi:
+  - अपडेट
+  - नवीनीकरण
+  - स्रोत
+  - भंडार
+  - प्राथमिकताएँ
+  - स्थापित करें
+  - स्थापना रद्द करें
+  - प्रोग्राम
+  - सॉफ़्टवेयर
+  - ऐप
+  - स्टोर
+  sl:
+  - Posodobitve
+  - Posodobitev
+  - Viri
+  - Skladišča
+  - Programi
+  - Namestitev
+  - Lastnosti
+  - Odnamestitev
+  - App
+  - Trgovina
+  - Update
+  ko:
+  - Updates
+  - 업데이트
+  - Upgrade
+  - 업그레이드
+  - Sources
+  - 공급원
+  - Repositories
+  - 저장소
+  - Preferences
+  - 기본 설정
+  - Install
+  - 설치
+  - Uninstall
+  - 설치 제거
+  - Program
+  - 프로그램
+  - Software
+  - 소프트웨어
+  - App
+  - 앱
+  - Store
+  - 스토어
+  id:
+  - Pemutakhiran
+  - Peningkatan
+  - Sumber
+  - Repositori
+  - Preferensi
+  - Pasang
+  - Copot
+  - Program
+  - Perangkat Lunak
+  - App
+  - Toko
+  cs:
+  - aktualizace
+  - povýšení
+  - zdroje
+  - repozitáře
+  - předvolby
+  - nastavení
+  - instalace
+  - odinstalace
+  - odebrání
+  - program
+  - software
+  - aplikace
+  - obchod
+  sr:
+  - Ажурирања
+  - освежења
+  - доградње
+  - надоградње
+  - извори
+  - ризнице
+  - складишта
+  - поставке
+  - инсталација
+  - уклањање
+  - програм
+  - софтвер
+  - апликација
+  - радња
+  - исправке
+  - апдејтови
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  - ažuriranja
+  - osveženja
+  - dogradnje
+  - nadogradnje
+  - izvori
+  - riznice
+  - skladišta
+  - postavke
+  - instalacija
+  - uklanjanje
+  - program
+  - softver
+  - aplikacija
+  - radnja
+  - ispravke
+  - apdejtovi
+  fi:
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  - Päivitys
+  - Päivitykset
+  - Lähteet
+  - Ohjelmistolähteet
+  - Ohjelmistovarastot
+  - Asenna
+  - Poista
+  - Ohjelma
+  - Sovellus
+  - Kauppa
+  bs:
+  - Ažuriranje
+  - Nadogradnja
+  - Izvor
+  - Repozicija
+  - Postavke
+  - Instalacija
+  - Deinstalacija
+  - Program
+  - Sofver
+  - App
+  - Radnja
+  tr:
+  - Güncellemeler
+  - Güncelleştirmeler
+  - Yükseltme
+  - Depolar
+  - Sürüm Depoları
+  - Tercihler
+  - Yeğler
+  - Yükle
+  - Kur
+  - Kaldır
+  - Program
+  - Yazılım
+  - Uygulama
+  - Mağaza
+  - Market
+  gd:
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  - ùrachadh
+  - ùrachaidhean
+  - ùraich
+  - àrdachadh
+  - àrdaich
+  - tùsan
+  - ionad-tasgaidh
+  - ionadan-tasgaidh
+  - stàlaidh
+  - stàladh
+  - dì-stàlaich
+  - dì-stàladh
+  - prògram
+  - bathar-bog
+  - aplacaid
+  - bùth
+  as:
+  - আপডেইটসমূহ
+  - উন্নয়ন
+  - উৎসসমূহ
+  - ভঁৰালসমূহ
+  - পছন্দসমূহ
+  - ইনস্টল
+  - আনইনস্টল
+  - প্ৰগ্ৰাম
+  - চফ্টৱেৰ
+  - এপ
+  - সংৰক্ষণ
+  ca-valencia:
+  - Actualitzacions
+  - Actualització
+  - Fonts
+  - Dipòsits
+  - Preferències
+  - Instal·lació
+  - Desinstal·lació
+  - Aplicació
+  - Programa
+  - Apli
+  - Botiga
+  bn:
+  - আপডেট
+  - আপগ্রেড
+  - উৎস
+  - ভান্ডার
+  - পছন্দ
+  - সংস্থাপন
+  - অসংস্থাপন
+  - প্রোগ্রাম
+  - সফটওয়্যার
+  - এ্যাপ
+  - দোকান
+  en-GB:
+  - Updates
+  - Upgrade
+  - Sources
+  - Repositories
+  - Preferences
+  - Install
+  - Uninstall
+  - Program
+  - Software
+  - App
+  - Store
+  kk:
+  - Жаңарту
+  - Қайнар көздер
+  - Репозиторийлер
+  - Баптаулар
+  - Орнату
+  - Өшіру
+  - Бағдарлама
+  - БҚ
+  - Қолданба
+  - Дүкен
+  eo:
+  - Ĝisdatigoj
+  - Altgradigo
+  - Fontoj
+  - Deponejoj
+  - Agordoj
+  - Instali
+  - Malinstali
+  - Programo
+  - Programaro
+  - Aplikaĵo
+  - Butiko
+  hu:
+  - Frissítések
+  - Frissítés
+  - Források
+  - Tárolók
+  - Beállítások
+  - Telepítés
+  - Eltávolítás
+  - Program
+  - Szoftver
+  - Alkalmazás
+  - Bolt
+  th:
+  - ปรับรุ่น
+  - แหล่งซอฟต์แวร์
+  - คลังแพกเกจ
+  - ปรับแต่ง
+  - ติดตั้ง
+  - ถอดถอน
+  - โปรแกรม
+  - ซอฟต์แวร์
+  - แอ็ป
+  - ร้าน
+  nl:
+  - Updates
+  - Upgrade
+  - Sources
+  - Bronnen
+  - Repositories
+  - Preferences
+  - Voorkeuren
+  - Install
+  - Installeren
+  - Uninstall
+  - Verwijderen
+  - Program
+  - Programma
+  - Software
+  - App
+  - Toepassing
+  - Applicatie
+  - Store
+  - Winkel
+  - Pakketbronnen
+  - Softwarebronnen
+  - Broncode
+  - Opslagbronnen
+  lv:
+  - Atjauninājumi
+  - Uzlabojumi
+  - Avoti
+  - Krātuves
+  - Repozitoriji
+  - Iestatījumi
+  - Instalēt
+  - Uzstādīt
+  - Atinstalēt
+  - Noņemt
+  - Programmatūra
+  - Lietotne
+  - Veikals
+Url:
+  bugtracker: https://gitlab.gnome.org/GNOME/gnome-software/-/issues/new
+  homepage: https://wiki.gnome.org/Design/Apps/Software
+  translate: https://wiki.gnome.org/TranslationProject
+  vcs-browser: https://gitlab.gnome.org/GNOME/gnome-software/
+  donation: https://www.gnome.org/donate/
+Icon:
+  cached:
+  - name: gnome-software_org.gnome.Software.png
+    width: 48
+    height: 48
+  - name: gnome-software_org.gnome.Software.png
+    width: 64
+    height: 64
+  - name: gnome-software_org.gnome.Software.png
+    width: 128
+    height: 128
+  remote:
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/icons/128x128/gnome-software_org.gnome.Software.png
+    width: 128
+    height: 128
+  stock: org.gnome.Software
+Launchable:
+  desktop-id:
+  - org.gnome.Software.desktop
+Requires:
+- display_length: 360
+Recommends:
+- control: pointing
+- control: keyboard
+- control: touch
+Provides:
+  ids:
+  - gnome-software.desktop
+  mediatypes:
+  - x-scheme-handler/appstream
+  - x-scheme-handler/apt
+  - x-scheme-handler/snap
+Screenshots:
+- default: true
+  caption:
+    hu: Áttekintés panel
+    ml: അവലോകന പട്ടിക
+    vi: Bảng tổng thể
+    he: עמוד סקירה
+    fur: Panel di panoramiche
+    eu: Ikuspegi orokorraren panela
+    bn: পরিচিতি প্যানেল
+    ka: გადახედვის პანელი
+    ca@valencia: Quadre de resum
+    nb: Oversiktspanel
+    ja: 概要パネル
+    zh_CN: 概览面板
+    pt_BR: Painel de visão geral
+    de: Übersichtsseite
+    ms: Panel selayang pandang
+    oc: Panèl de vista d'ensemble
+    pt: Painel de visão geral
+    ro: Panoul de ansamblu
+    hr: Panel prikaza
+    gl: Páxina de vista xeral
+    fa: تابلوی نمای‌کلی
+    ru: Панель обзора
+    el: Πίνακας επισκόπησης
+    C: Overview panel
+    uk: Панель огляду
+    is: Yfirlitsspjald
+    fr: Panneau de vue d’ensemble
+    lt: Apžvalgos skydelis
+    sv: Översiktspanel
+    sk: Panel s náhľadom
+    ca: Quadre de resum
+    da: Oversigtspanel
+    ckb: بەشی پوختە
+    af: Oorsigpaneel
+    cs: Panel s přehledem
+    be: Панэль агляду
+    it: Riquadro panoramica
+    ko: 개요 패널
+    es: Página de vista general
+    ne: समिक्षा प्यानल
+    sl: Okno predogleda
+    hi: ओवरव्यू पैनल
+    tr: Genel bakış bölmesi
+    id: Panel ringkasan
+    en_GB: Overview panel
+    sr: Панел прегледа
+    fi: Yhteenvetosivu
+    ar: لوحة النّظرة العامّة
+    lv: Pārskata rūts
+    pl: Panel przeglądu
+    pa: ਸਾਰ ਪੈਨਲ
+    gd: Panail an fhoir-sheallaidh
+    kk: Шолу панелі
+    eo: Superrigarda panelo
+    nl: Overzichtstabblad
+    zh_TW: 概覽面板
+    bg: Преглед
+    sr@latin: Panel pregleda
+  thumbnails:
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-1_752x581.png
+    width: 752
+    height: 581
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-1_624x482.png
+    width: 624
+    height: 482
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-1_224x173.png
+    width: 224
+    height: 173
+  source-image:
+    url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-1_orig.png
+    width: 1127
+    height: 871
+- caption:
+    hu: Részletek panel
+    ml: വിശദാംശ പട്ടിക
+    vi: Bảng chi tiết
+    he: לוח פרטים
+    fur: Panel di detais
+    eu: Xehetasunen panela
+    bn: বিস্তারিত প্যানেল
+    ka: დეტალების პანელი
+    ca@valencia: Quadre de detalls
+    nb: Panel med detaljer
+    ja: 詳細パネル
+    zh_CN: 详情面板
+    pt_BR: Painel de detalhes
+    de: Seite mit Details
+    ms: Panel perincian
+    oc: Panèl de las descripcions
+    pt: Painel de detalhes
+    ro: Panoul cu detalii
+    hr: Panel pojedinosti
+    gl: Páxina de detalles
+    fa: تابلوی جزییات
+    ru: Панель подробностей
+    el: Πίνακας λεπτομερειών
+    C: Details panel
+    uk: Панель подробиць
+    is: Spjald með nánari upplýsingum
+    fr: Panneau des descriptions
+    lt: Detalių skydelis
+    sv: Detaljpanel
+    sk: Panel s podrobnosťami
+    ca: Quadre de detalls
+    da: Detaljepanel
+    ckb: بەشی زانیاری
+    af: Besonderhedepaneel
+    cs: Panel s podrobnostmi o softwaru
+    be: Панэль падрабязнасцей
+    it: Riquadro dettagli
+    ko: 세부 정보 패널
+    es: Panel de detalles
+    ne: विस्तृत विवरणहरू
+    sl: Okno podrobnosti
+    hi: विवरण पैनल
+    tr: Ayrıntılar bölmesi
+    id: Panel rincian
+    en_GB: Details panel
+    sr: Панел појединости
+    fi: Tietosivu
+    ar: لوحة التّفاصيل
+    lv: Sīkākas informācijas rūts
+    pl: Panel informacji o programie
+    pa: ਵੇਰਵਾ ਪੈਨਲ
+    gd: Panail an fhiosrachaidh
+    kk: Көбірек ақпарат панелі
+    eo: Panelo de detaloj
+    nl: Tabblad met details
+    zh_TW: 詳細資訊面板
+    bg: Подробности
+    sr@latin: Panel pojedinosti
+  thumbnails:
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-2_752x581.png
+    width: 752
+    height: 581
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-2_624x482.png
+    width: 624
+    height: 482
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-2_224x173.png
+    width: 224
+    height: 173
+  source-image:
+    url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-2_orig.png
+    width: 1127
+    height: 871
+- caption:
+    hu: Részletek panel
+    ml: വിശദാംശ പട്ടിക
+    vi: Bảng chi tiết
+    he: לוח פרטים
+    fur: Panel di detais
+    eu: Xehetasunen panela
+    bn: বিস্তারিত প্যানেল
+    ka: დეტალების პანელი
+    ca@valencia: Quadre de detalls
+    nb: Panel med detaljer
+    ja: 詳細パネル
+    zh_CN: 详情面板
+    pt_BR: Painel de detalhes
+    de: Seite mit Details
+    ms: Panel perincian
+    oc: Panèl de las descripcions
+    pt: Painel de detalhes
+    ro: Panoul cu detalii
+    hr: Panel pojedinosti
+    gl: Páxina de detalles
+    fa: تابلوی جزییات
+    ru: Панель подробностей
+    el: Πίνακας λεπτομερειών
+    C: Details panel
+    uk: Панель подробиць
+    is: Spjald með nánari upplýsingum
+    fr: Panneau des descriptions
+    lt: Detalių skydelis
+    sv: Detaljpanel
+    sk: Panel s podrobnosťami
+    ca: Quadre de detalls
+    da: Detaljepanel
+    ckb: بەشی زانیاری
+    af: Besonderhedepaneel
+    cs: Panel s podrobnostmi o softwaru
+    be: Панэль падрабязнасцей
+    it: Riquadro dettagli
+    ko: 세부 정보 패널
+    es: Panel de detalles
+    ne: विस्तृत विवरणहरू
+    sl: Okno podrobnosti
+    hi: विवरण पैनल
+    tr: Ayrıntılar bölmesi
+    id: Panel rincian
+    en_GB: Details panel
+    sr: Панел појединости
+    fi: Tietosivu
+    ar: لوحة التّفاصيل
+    lv: Sīkākas informācijas rūts
+    pl: Panel informacji o programie
+    pa: ਵੇਰਵਾ ਪੈਨਲ
+    gd: Panail an fhiosrachaidh
+    kk: Көбірек ақпарат панелі
+    eo: Panelo de detaloj
+    nl: Tabblad met details
+    zh_TW: 詳細資訊面板
+    bg: Подробности
+    sr@latin: Panel pojedinosti
+  thumbnails:
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-3_752x581.png
+    width: 752
+    height: 581
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-3_624x482.png
+    width: 624
+    height: 482
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-3_224x173.png
+    width: 224
+    height: 173
+  source-image:
+    url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-3_orig.png
+    width: 1127
+    height: 871
+- caption:
+    hu: Telepített panel
+    ml: ഇൻസ്റ്റാൾ ചെയ്തതിൻ്റെ പട്ടിക
+    vi: Bảng đã cài đặt
+    he: עמוד מותקנים
+    fur: Panel instalâts
+    eu: Instalatutakoen panela
+    bn: সংস্থাপিত প্যানেল
+    ka: დაყენებულების პანელი
+    ca@valencia: S'ha instal·lat el quadre
+    nb: Panel med installert programvare
+    ja: インストール済みパネル
+    zh_CN: 已安装面板
+    pt_BR: Painel de instalados
+    de: Seite der Installationen
+    ms: Panel terpasang
+    oc: Panèl de las installacions
+    pt: Painel das aplicações instaladas
+    ro: Panoul cu instalate
+    hr: Panel instaliranog
+    gl: Páxina de instalados
+    fa: تابلوی نصب شده‌ها
+    ru: Панель установленного
+    el: Πίνακας εγκατεστημένων
+    C: Installed panel
+    uk: Панель установлення
+    is: Spjald með uppsettu
+    fr: Panneau des installations
+    lt: Įdiegtų skydelis
+    sv: Installerat-panel
+    sk: Panel s nainštalovaným softvérom
+    ca: S'ha instal·lat el quadre
+    da: Installerede-panel
+    ckb: بەشی دامەزراوەکان
+    af: Geïnstalleerpaneel
+    cs: Panel s nainstalovaným softwarem
+    be: Панэль усталяванага
+    it: Riquadro installate
+    ko: 설치한 항목 패널
+    es: Panel de instalados
+    ne: स्थापित प्यानल
+    sl: Okno nameščenih programov
+    hi: स्थापित पैनल
+    tr: Kurulan bölmesi
+    id: Panel terpasang
+    en_GB: Installed panel
+    sr: Панел инсталираних
+    fi: Asennussivu
+    ar: لوحة المنصّبة
+    lv: Instalēto lietotņu rūts
+    pl: Panel zainstalowanych programów
+    pa: ਇੰਸਟਾਲ ਹੋਏ ਪੈਨਲ
+    gd: Panail na feadhainn stàlaichte
+    kk: Орнатылған панелі
+    eo: Panelo de instalitaj aplikaĵoj
+    nl: Tabblad met geïnstalleerde toepassingen
+    zh_TW: 已安裝面板
+    bg: Инсталирани
+    sr@latin: Panel instaliranih
+  thumbnails:
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-4_1248x870.png
+    width: 1248
+    height: 870
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-4_752x524.png
+    width: 752
+    height: 524
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-4_624x435.png
+    width: 624
+    height: 435
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-4_224x156.png
+    width: 224
+    height: 156
+  source-image:
+    url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-4_orig.png
+    width: 1322
+    height: 922
+- caption:
+    hu: Frissítések panel
+    ml: പുതുക്കലുകളുടെ പട്ടിക
+    vi: Bảng điều khiển cập nhật
+    he: דף עדכונים
+    fur: Panel inzornaments
+    eu: Eguneratzeen panela
+    bn: হালনাগাদ প্যানেল
+    ka: განახლებების პანელი
+    ca@valencia: Quadre d'actualitzacions
+    nb: Panel med oppdateringer
+    ja: アップデートパネル
+    zh_CN: 更新面板
+    pt_BR: Painel de atualizações
+    de: Seite mit Aktualisierungen
+    ms: Panel kemas kini
+    oc: Panèl de las mesas a jorn
+    pt: Painel das atualizações
+    ro: Panoul cu actualizări
+    hr: Panel nadopuna
+    gl: Panel de actualizacións
+    fa: تابلوی به‌روز رسانی‌ها
+    ru: Панель обновлений
+    el: Πίνακας ενημερώσεων
+    C: Updates panel
+    uk: Панель оновлення
+    is: Spjald með uppfærslum
+    fr: Panneau des mises à jour
+    lt: Atnaujinimų skydelis
+    sv: Uppdateringspanel
+    sk: Panel s aktualizáciami
+    ca: Quadre d'actualitzacions
+    da: Opdateringspanel
+    ckb: بەشی نوێکاری
+    af: Bywerkingspaneel
+    cs: Panel s aktualizacemi
+    be: Панэль абнаўленняў
+    it: Riquadro aggiornamenti
+    ko: 업데이트 패널
+    es: Panel de actualizaciones
+    ne: अपडेट प्यानल
+    sl: Okno posodobitev
+    hi: अपडेट पैनल
+    tr: Güncellemeler bölmesi
+    id: Panel pemutakhiran
+    en_GB: Updates panel
+    sr: Панел ажурирања
+    fi: Päivityssivu
+    ar: لوحة التّحديثات
+    lv: Atjauninājumu rūts
+    pl: Panel aktualizacji
+    pa: ਅੱਪਡੇਟ ਪੈਨਲ
+    gd: Panail nan ùrachaidhean
+    kk: Жаңартулар панелі
+    eo: Panelo de ĝisdatigoj
+    nl: Tabblad met updates
+    zh_TW: 更新面板
+    bg: Обновления
+    sr@latin: Panel ažuriranja
+  thumbnails:
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-5_752x581.png
+    width: 752
+    height: 581
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-5_624x482.png
+    width: 624
+    height: 482
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-5_224x173.png
+    width: 224
+    height: 173
+  source-image:
+    url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-5_orig.png
+    width: 1127
+    height: 871
+- caption:
+    hu: Frissítések panel
+    ml: പുതുക്കലുകളുടെ പട്ടിക
+    vi: Bảng điều khiển cập nhật
+    he: דף עדכונים
+    fur: Panel inzornaments
+    eu: Eguneratzeen panela
+    bn: হালনাগাদ প্যানেল
+    ka: განახლებების პანელი
+    ca@valencia: Quadre d'actualitzacions
+    nb: Panel med oppdateringer
+    ja: アップデートパネル
+    zh_CN: 更新面板
+    pt_BR: Painel de atualizações
+    de: Seite mit Aktualisierungen
+    ms: Panel kemas kini
+    oc: Panèl de las mesas a jorn
+    pt: Painel das atualizações
+    ro: Panoul cu actualizări
+    hr: Panel nadopuna
+    gl: Panel de actualizacións
+    fa: تابلوی به‌روز رسانی‌ها
+    ru: Панель обновлений
+    el: Πίνακας ενημερώσεων
+    C: Updates panel
+    uk: Панель оновлення
+    is: Spjald með uppfærslum
+    fr: Panneau des mises à jour
+    lt: Atnaujinimų skydelis
+    sv: Uppdateringspanel
+    sk: Panel s aktualizáciami
+    ca: Quadre d'actualitzacions
+    da: Opdateringspanel
+    ckb: بەشی نوێکاری
+    af: Bywerkingspaneel
+    cs: Panel s aktualizacemi
+    be: Панэль абнаўленняў
+    it: Riquadro aggiornamenti
+    ko: 업데이트 패널
+    es: Panel de actualizaciones
+    ne: अपडेट प्यानल
+    sl: Okno posodobitev
+    hi: अपडेट पैनल
+    tr: Güncellemeler bölmesi
+    id: Panel pemutakhiran
+    en_GB: Updates panel
+    sr: Панел ажурирања
+    fi: Päivityssivu
+    ar: لوحة التّحديثات
+    lv: Atjauninājumu rūts
+    pl: Panel aktualizacji
+    pa: ਅੱਪਡੇਟ ਪੈਨਲ
+    gd: Panail nan ùrachaidhean
+    kk: Жаңартулар панелі
+    eo: Panelo de ĝisdatigoj
+    nl: Tabblad met updates
+    zh_TW: 更新面板
+    bg: Обновления
+    sr@latin: Panel ažuriranja
+  thumbnails:
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-6_1248x870.png
+    width: 1248
+    height: 870
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-6_752x524.png
+    width: 752
+    height: 524
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-6_624x435.png
+    width: 624
+    height: 435
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-6_224x156.png
+    width: 224
+    height: 156
+  source-image:
+    url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-6_orig.png
+    width: 1322
+    height: 922
+- caption:
+    hu: A frissítés részletei
+    ml: പുതുക്കിയതിൻ്റെ വിശദാംശങ്ങൾ
+    vi: Chi tiết cập nhật
+    he: פרטי עדכון
+    fur: I detais dal inzornament
+    eu: Eguneratzeen xehetasunak
+    bn: হালনাগাদের বিস্তারিত
+    ka: განახლების დეტალები
+    ca@valencia: Detalls de l'actualització
+    nb: Vis detaljer for oppdatering
+    ja: アップデートの詳細
+    zh_CN: 更新详情
+    pt_BR: Os detalhes da atualização
+    de: Details zur Aktualisierung
+    ms: Perincian kemas kini
+    oc: Detalhs de la mesa a jorn
+    pt: Detalhes sobre as atualizações
+    ro: Detaliile actualizărilor
+    hr: Pojedinosti nadopune
+    gl: Os detalles da actualización
+    fa: جزییات به‌روز رسانی
+    ru: Подробности об обновлении
+    el: Λεπτομέρειες ενημέρωσης
+    C: The update details
+    uk: Подробиці оновлення
+    is: Nánari upplýsingar um uppfærslu
+    fr: Détails de la mise à jour
+    lt: Atnaujinimo detalės
+    sv: Detaljerna för uppdateringen
+    sk: Podrobnosti o aktualizácii
+    ca: Detalls de l'actualització
+    da: Opdateringsdetaljerne
+    ckb: زانیاری نوێکردنەوە
+    af: Die bywerkingsbesonderhede
+    cs: Podrobnosti o aktualizaci
+    be: Падрабязнасці абнаўлення
+    it: I dettagli dell'aggiornamento
+    ko: 업데이트 세부 항목
+    es: Los detalles de la actualización
+    ne: अद्यावधिक विवरण
+    sl: Podrobnosti posodobitve
+    hi: अपडेट विवरण
+    tr: Güncelleme ayrıntıları
+    id: Detail pemutakhiran
+    en_GB: The update details
+    sr: Појединости ажурирања
+    fi: Päivityksen tiedot
+    ar: تفاصيل التحديث
+    lv: Atjauninājumu informācija
+    pl: Informacje o aktualizacji
+    pa: ਅੱਪਡੇਟ ਦੇ ਵੇਰਵੇ
+    gd: Fiosrachadh an ùrachaidh
+    kk: Жаңарту ақпараты
+    eo: La detaloj de la ĝisdatigo
+    nl: Details van de update
+    zh_TW: 更新的詳細資訊
+    bg: Подробности за обновлението
+    sr@latin: Pojedinosti ažuriranja
+  thumbnails:
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-7_752x688.png
+    width: 752
+    height: 688
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-7_624x571.png
+    width: 624
+    height: 571
+  - url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-7_224x205.png
+    width: 224
+    height: 205
+  source-image:
+    url: org/gnome/Software.desktop/4e08ea77598585f86413a5f9b1b6eba1/screenshots/image-7_orig.png
+    width: 762
+    height: 698
+Languages:
+- locale: af
+  percentage: 78
+- locale: ar
+  percentage: 64
+- locale: as
+  percentage: 40
+- locale: be
+  percentage: 99
+- locale: bg
+  percentage: 99
+- locale: bn
+  percentage: 49
+- locale: bs
+  percentage: 45
+- locale: ca
+  percentage: 99
+- locale: ca@valencia
+  percentage: 75
+- locale: cs
+  percentage: 99
+- locale: da
+  percentage: 99
+- locale: de
+  percentage: 99
+- locale: el
+  percentage: 99
+- locale: en_GB
+  percentage: 99
+- locale: en_US
+  percentage: 100
+- locale: eo
+  percentage: 80
+- locale: es
+  percentage: 99
+- locale: eu
+  percentage: 99
+- locale: fa
+  percentage: 97
+- locale: fi
+  percentage: 98
+- locale: fr
+  percentage: 99
+- locale: fur
+  percentage: 99
+- locale: gd
+  percentage: 80
+- locale: gl
+  percentage: 99
+- locale: he
+  percentage: 99
+- locale: hi
+  percentage: 76
+- locale: hr
+  percentage: 99
+- locale: hu
+  percentage: 99
+- locale: id
+  percentage: 99
+- locale: ie
+  percentage: 26
+- locale: is
+  percentage: 63
+- locale: it
+  percentage: 99
+- locale: ja
+  percentage: 86
+- locale: ka
+  percentage: 75
+- locale: kk
+  percentage: 94
+- locale: km
+  percentage: 38
+- locale: ko
+  percentage: 99
+- locale: lt
+  percentage: 99
+- locale: lv
+  percentage: 99
+- locale: ml
+  percentage: 82
+- locale: ms
+  percentage: 81
+- locale: nb
+  percentage: 61
+- locale: ne
+  percentage: 81
+- locale: nl
+  percentage: 99
+- locale: oc
+  percentage: 91
+- locale: pa
+  percentage: 87
+- locale: pl
+  percentage: 99
+- locale: pt
+  percentage: 99
+- locale: pt_BR
+  percentage: 99
+- locale: ro
+  percentage: 90
+- locale: ru
+  percentage: 99
+- locale: sk
+  percentage: 60
+- locale: sl
+  percentage: 99
+- locale: sr
+  percentage: 99
+- locale: sr@latin
+  percentage: 80
+- locale: sv
+  percentage: 99
+- locale: te
+  percentage: 34
+- locale: th
+  percentage: 54
+- locale: tr
+  percentage: 99
+- locale: uk
+  percentage: 99
+- locale: vi
+  percentage: 100
+- locale: zh_CN
+  percentage: 99
+- locale: zh_HK
+  percentage: 40
+- locale: zh_TW
+  percentage: 99
+Releases:
+- version: '43.4'
+  type: stable
+  unix-timestamp: 1675987200
+  description:
+    C: >-
+      <p>This is a stable release with the following changes:</p>
+
+      <ul>
+        <li>Stop cancelled search in appstream data early</li>
+        <li>Lookup for appstream-provided icons in more directories</li>
+      </ul>
+- version: '43.3'
+  type: stable
+  unix-timestamp: 1672963200
+  description:
+    C: >-
+      <p>This is a stable release with the following changes:</p>
+
+      <ul>
+        <li>Periodically expire cached app icons</li>
+        <li>Stop notifying about unprepared critical updates</li>
+      </ul>
+
+      <p>This release also updates translations:</p>
+
+      <ul>
+        <li>Abkhazian (Nart Tlisha)</li>
+        <li>Georgian (Ekaterine Papava)</li>
+        <li>Hebrew (Yosef Or Boczko)</li>
+        <li>Interlingue (Olga Smirnova)</li>
+        <li>Occitan (post 1500) (Quentin PAGÈS)</li>
+        <li>Persian (Danial Behzadi)</li>
+      </ul>
+- version: '43.2'
+  type: stable
+  unix-timestamp: 1669939200
+  description:
+    C: >-
+      <p>This is a stable release with the following changes:</p>
+
+      <ul>
+        <li>Fix show of updatable app in the details page</li>
+        <li>Fix search for apps providing some feature under rpm-ostree</li>
+        <li>Fix sending of ODRS data when using libsoup3</li>
+        <li>Fix occasional crash when installing apps</li>
+      </ul>
+
+      <p>This release also updates translations:</p>
+
+      <ul>
+        <li>Abkhazian (Nart Tlisha)</li>
+        <li>Belarusian (Vasil Pupkin)</li>
+        <li>Czech (Daniel Rusek)</li>
+        <li>Georgian (Zurab Kargareteli)</li>
+        <li>Greek (Kosmas Martakidis)</li>
+        <li>Hebrew (Yosef Or Boczko)</li>
+        <li>Hungarian (Balázs Meskó)</li>
+        <li>Russian (Aleksandr Melman)</li>
+        <li>Turkish (Sabri Ünal)</li>
+      </ul>
+- version: '43.1'
+  type: stable
+  unix-timestamp: 1666310400
+  description:
+    C: >-
+      <p>This is a stable release with the following changes:</p>
+
+      <ul>
+        <li>Fix searches not completing if installing or uninstalling an app at the same time</li>
+        <li>Notify of errors when running a flatpak app whose runtime is missing</li>
+        <li>Fix installing local RPM packages</li>
+        <li>Fix distribution upgrades when package conflicts are present</li>
+        <li>Fix opening web apps from their details page</li>
+        <li>Improve appearance of app ratings if ratings data cannot be downloaded</li>
+        <li>Fix crash when showing offline update errors on startup</li>
+        <li>Highlight priority of firmware updates, making security fixes more obvious</li>
+        <li>Fix installation of pending apps in some situations</li>
+        <li>Fix downloading of rpm-ostree app updates from the Updates page</li>
+      </ul>
+
+      <p>This release also updates translations:</p>
+
+      <ul>
+        <li>Abkhazian (Nart Tlisha)</li>
+        <li>Catalan (Jordi Mas)</li>
+        <li>Chinese (Taiwan) (Cheng-Chia Tseng)</li>
+        <li>Croatian (Goran Vidović)</li>
+        <li>French (Claude Paroz)</li>
+        <li>Friulian (Fabio Tomat)</li>
+        <li>Georgian (Zurab Kargareteli)</li>
+        <li>German (Philipp Kiemle, Jürgen Benvenuti)</li>
+        <li>Icelandic (Sveinn í Felli)</li>
+        <li>Italian (Gianvito Cavasoli)</li>
+        <li>Kazakh (Baurzhan Muftakhidinov)</li>
+        <li>Panjabi (A S Alam)</li>
+        <li>Slovenian (Matej Urbančič)</li>
+      </ul>
+ContentRating:
+  oars-1.0:
+    violence-cartoon: none
+    violence-fantasy: none
+    violence-realistic: none
+    violence-bloodshed: none
+    violence-sexual: none
+    drugs-alcohol: none
+    drugs-narcotics: none
+    drugs-tobacco: none
+    sex-nudity: none
+    sex-themes: none
+    language-profanity: none
+    language-humor: none
+    language-discrimination: none
+    social-chat: moderate
+    social-info: mild
+    social-audio: none
+    social-location: none
+    social-contacts: none
+    money-purchasing: none
+    money-gambling: none
+---
+Type: addon
+ID: org.gnome.Software.Plugin.Epiphany
+Package: gnome-software
+Extends:
+- org.gnome.Software.desktop
+Name:
+  he: תמיקה ביישומי רשת
+  ml: വെബ് അപ്ലിക്കേഷനുകളുടെ പിന്തുണ
+  vi: Hỗ trợ Ứng dụng Web
+  eu: Web aplikazioen euskarria
+  fur: Supuart aplicazions Web
+  ka: ვებ აპების მხარდაჭერა
+  ca@valencia: Compatibilitat amb Web Apps
+  zh_CN: Web 应用支持
+  pt_BR: Suporte a aplicativos web
+  de: Unterstützung für Web-Anwendungen
+  oc: Presa en carga de las aplicacions web
+  gl: Compatibilidade con aplicacións web
+  pt: Suporte de aplicações web
+  hr: Web Apps podrška
+  fa: پشتیبانی برنامه‌های وبی
+  ru: Поддержка веб-приложений
+  el: Υποστήριξη εφαρμογών Ιστού
+  uk: Підтримка вебпрограм
+  C: Web Apps Support
+  is: Stuðningur við vefforrit
+  fr: Prise en charge d’applications web
+  lt: Žiniatinklio programų palaikymas
+  sv: Stöd för webbapplikationer
+  ca: Compatibilitat amb aplicacions Web
+  af: Webtoepassing ondersteuning
+  da: Understøttelse af webprogrammer
+  cs: Podpora pro webové aplikace
+  be: Падтрымка вэб-праграм
+  ko: 웹 앱 지원
+  it: Supporto applicazione web
+  es: Soporte de aplicaciones web
+  bg: Поддръжка на уеб приложения
+  sl: Podpora Web Apps
+  hi: वेब ऐप्लिकेशन सहायता
+  tr: Web Uygulamaları Desteği
+  id: Dukungan Aplikasi Web
+  en_GB: Web Apps Support
+  sr: Подршка за веб апликације
+  fi: Verkkosovellusten tuki
+  ab: Веб-апшьқәа рыдкылара
+  lv: Tīmekļa lietotņu atbalsts
+  pl: Obsługa programów WWW
+  hu: Webalkalmazások támogatása
+  gd: Taic ri aplacaidean-lìn
+  pa: ਵੈੱਬ ਐਪ ਸਹਿਯੋਗ
+  kk: Веб қолданбалар қолдауы
+  nl: Ondersteuning voor webapps
+  zh_TW: 網頁應用程式支援
+  sr@latin: Podrška za veb aplikacije
+Summary:
+  he: הרצת יישומי רשת פופולריים בדפדפן
+  ml: ജനപ്രിയ ബ്രൗസറിൽ വെബ് ആപ്ലിക്കേഷനുകൾ പ്രവർത്തിപ്പിക്കുക
+  vi: Chạy các ứng dụng web phổ biến trên một trình duyệt
+  eu: Exekutatu webeko aplikazio ezagunak nabigatzaile batean
+  fur: Eseguìs lis aplicazions web popolârs intun browser
+  hu: Népszerű webalkalmazások futtatása egy böngészőben
+  ca@valencia: Executeu aplicacions populars al navegador
+  zh_CN: 在浏览器里运行流行的网络应用程序
+  pt_BR: Execute aplicativos populares da web em um navegador
+  de: Beliebte Web-Anwendungen in einem Browser ausführen
+  oc: Aviar d'aplicacions web dins un navigador
+  pt: Executar aplicações web populares num navegador
+  gl: Execute aplicacións web nun navegador
+  hr: Pokrenite popularne web aplikacije u pregledniku
+  fa: برنامه‌های وبی مشهور را در یک مرورگر اجرا کنید
+  ru: Запуск популярных веб-приложений в браузере
+  el: Εκτέλεση δημοφιλών εφαρμογών Ιστού στον περιηγητή
+  uk: Запуск популярних вебпрограм у програмі для перегляду інтернету
+  C: Run popular web applications in a browser
+  da: Kør populære webprogrammer i en browser
+  fr: Exécuter des applications web connues dans un navigateur
+  lt: Vykdyti populiarias žiniatinklio programas naršyklėje
+  sv: Kör populära webbapplikationer i en webbläsare
+  ca: Executa aplicacions web populars en un navegador
+  af: Gebruik populêre webtoepassings in 'n webblaaier
+  cs: Spouštějte populární webové aplikace v prohlížeči
+  be: Запуск папулярных вэб-праграм праз браўзер
+  ko: 브라우저에서 인기있는 웹 프로그램 실행
+  it: Lancia popolari applicazioni web in un browser
+  es: Ejecutar aplicaciones web populares en un navegador
+  bg: Изпълнение на популярни уеб приложения в браузър
+  sl: Zaganjanje spletnih programov v oknu brskalnika
+  hi: किसी ब्राउज़र में लोकप्रिय वेब ऐप्लिकेशन्स चलाएँ
+  tr: Gözde web uygulamalarını tarayıcıda çalıştır
+  id: Jalankan aplikasi web populer di peramban
+  en_GB: Run popular web applications in a browser
+  sr: Изврши популарне веб програме унутар прегледача
+  fi: Suorita suosittuja verkkosovelluksia selaimessa
+  gd: Ruith aplacaidean-lìn mòr-còrdte am broinn brabhsair
+  lv: Palaist populāras tīmekļa lietotnes pārlūkā
+  pa: ਬਰਾਊਜ਼ਰ ਵਿੱਚ ਹਰਮਨਪਿਆਰੇ ਵੈੱਬ ਐਪਲੀਕੇਸ਼ਨ ਚਲਾਓ
+  pl: Uruchamianie popularnych programów WWW w przeglądarce
+  kk: Әйгілі веб қолданбаларын браузер ішінде жөнелту
+  nl: Voer populaire webtoepassingen uit in een browser
+  zh_TW: 在瀏覽器中執行知名的網頁應用程式
+  sr@latin: Izvrši popularne veb programe unutar pregledača
+ProjectLicense: GPL-2.0+
+---
+Type: desktop-application
+ID: klog.desktop
+Package: klog
+Name:
+  C: KLog
+Summary:
+  C: The free ham radio logging multiplatform program
+Description:
+  fr: >-
+    <p>Ce paquet fournit un programme de journal de trafic pour radioamateur. Cette application prend en charge la journalisation
+    pour les opérations HF et VHF et satellitaires. Il prend en charge beaucoup de fonctions comme les QSL, DXCC, IOTA, WAZ
+    et diplômes/certificats. KLog produit du ADIF comme format de fichier par défaut. Cette application fournit également
+    un client DX- Cluster pleinement intégré à l&apos;interface principale et aussi intégré avec WSJT-X. Klog fonctionne sur
+    les systèmes Linux, OS X et Windows</p>
+  pl: >-
+    <p>Pakiet zawiera program do logowania dla krótkofalowców. Obsługuje on rejestrowanie operacji HF, VHF oraz satelitarnych.
+    Obsługuje wiele funkcji, takich jak: QSL, DXCC, IOTA, WAZ i awards. KLog generuje pliki ADIF jako domyślny format pliku.
+    Program zawiera również klienta DX-Cluster w pełni zintegrowanego z głównym interfejsem oraz z WSJT-X. KLog może być uruchamiany
+    w następujących systemach: Linux, OSX i Windows.</p>
+  it: >-
+    <p>Questo pacchetto fornisce un programma per log radioamatoriali. Questa applicazione gestisce log per funzionamento
+    in HF, VHF e satellitare, e gestisce molte funzionalità come QSL, DXCC, IOTA, WAZ e premi. KLog produce in modo predefinito
+    file in formato ADIF. Questa applicazione include anche un client DX-Cluster pienamente integrato nell&apos;interfaccia
+    principale ed anche con WSJT-X. KLog può essere eseguito in sistemi Linux, OSX e Windows.</p>
+  da: >-
+    <p>Denne pakke tilbyder et logningsprogram for amatørradio. Dette program understøtter logning for HF-, VHF- og sats-operationer.
+    Dette program understøtter mange funktioner såsom QDL, DXCC, IOTA, WAZ og awards. KLog fremstiller ADIF som standardfilformat.
+    Dette program inkluderer også en DX-Cluster-klient, som er fuldt integreret i hovedbrugerfladen. KLog kan køre på Linux-,
+    OSX- og Windows-systemer.</p>
+  C: >-
+    <p>This package provides a ham radio logging program. This application supports logging for HF, VHF and sats operations.
+    It supports many features like QSL, DXCC, IOTA, WAZ and awards. KLog produces ADIF as default file format. This application
+    also includes a DX-Cluster client fully integrated into the main interface and is also integrated with WSJT-X. KLog can
+    run in Linux, OSX &amp; Windows systems.</p>
+  de: >-
+    <p>Dieses Paket enthält ein Amateurfunk-Protokollierungsprogramm. Diese Anwendung unterstützt die Protokollierung für
+    den HF-, VHF- und Satelliten-Betrieb. Sie unterstützt viele Funktionen wie QSL, DXCC, IOTA, WAZ und Auszeichnungen. KLog
+    erzeugt als Standard-Dateiformat ADIF. Diese Anwendung enthält außerdem einen Client für DX-Cluster, der vollständig in
+    die Hauptschnittstelle integriert und mit WSJT verflochten ist. KLog kann auf Linux-, OSX- und Windows-Systemen ausgeführt
+    werden.</p>
+  en: >-
+    <p>This package provides a ham radio logging program. This application supports logging for HF, VHF and sats operations.
+    It supports many features like QSL, DXCC, IOTA, WAZ and awards. KLog produces ADIF as default file format. This application
+    also includes a DX-Cluster client fully integrated into the main interface and is also integrated with WSJT-X. KLog can
+    run in Linux, OSX &amp; Windows systems.</p>
+Categories:
+- Network
+- HamRadio
+Keywords:
+  C:
+  - Hamradio
+  - Logger
+  - Ham
+  - Amateur
+  - Log
+Icon:
+  cached:
+  - name: klog_klog.png
+    width: 64
+    height: 64
+  stock: klog
+Launchable:
+  desktop-id:
+  - klog.desktop
+---
+Type: desktop-application
+ID: tomatoes.desktop
+Package: tomatoes
+Name:
+  C: I Have No Tomatoes
+  de: Ich Habe Keine Tomaten
+Summary:
+  C: How many tomatoes can you smash in ten short minutes?
+  de: Wieviele Tomaten können Sie in zehn kurzen Minuten quetschen?
+Description:
+  uk: >-
+    <p>„У мене немає більше помідорів“ {I Have No Tomatoes} — ідея екстремального активного дозвілля, яке можна виразити таким
+    питанням: скільки помідорів Ви можете знищити за 10 коротких хвилин? Якщо у Вас є вільний час, у цій грі овочі так і чекають
+    знищення!</p>
+  fr: >-
+    <p>« I Have No Tomatoes » est une idée d&apos;activité lorsqu&apos;on est vraiment désœuvré, qui se résume à la question
+    suivante : combien de tomates puis-je écraser en dix petites minutes ? Si vous avez du temps à perdre, ce jeu a des légumes
+    qui n&apos;attendent que cela !</p>
+  ko: >-
+    <p>I Have No Tomatoes는 극단적인 여가 활동의 아이디어로, 다음과 같은 질문으로 마무리가 됩니다: 10분안에 몇개의 토마토를 부술 수 있나요? 만약 시간이 남는다면, 이 게임에는 제거되기를 기다리는
+    야채들이 있습니다.</p>
+  de: >-
+    <p>I Have No Tomatoes ist eine Idee für eine extreme Freizeitaktivität, die in der folgenden Frage gipfelt: Wie viele
+    Tomaten können Sie in zehn Minuten zerschlagen? Wenn Sie Zeit haben, wartet das Gemüse in diesem Spiel nur darauf, beseitigt
+    zu werden!</p>
+  pt_BR: >-
+    <p>I Have No Tomatoes (Eu não tenho tomates) é uma ideia de atividade de lazer extrema que culmina na seguinte questão:
+    quantos tomates você pode esmagar em dez curtos minutos? Se você tem tempo para perder, este jogo tem vegetais aguardando
+    para serem eliminados!</p>
+  sk: >-
+    <p>Nemám rajčiny (I Have No Tomatoes) je myšlienka extrémnej voľnočasovej aktivity, ktorá ústi do nasledovnej otázky:
+    Koľko rajčín dokážete rozbiť za desať krátkych minút? Ak chcete zabiť čas, táto hra má zeleninu, ktorá čaká na zničenie.</p>
+  it: >-
+    <p>I Have No Tomatoes (non ho pomodori) è un&apos;idea estrema per il tempo libero che culmina nella questione seguente:
+    quanti pomodori puoi spiaccicare in 10 cortissimi minuti? Se si ha del tempo da perdere, questo gioco ha i giusti vegetali
+    che aspettano solo di essere eliminati!</p>
+  ru: >-
+    <p>I Have No Tomatoes — идея экстремального активного досуга, которую можно выразить следующим вопросом: сколько помидоров
+    вы можете уничтожить за 10 коротких минут? Если у вас есть свободное время, в этой игре овощи так и ждут уничтожения!</p>
+  C: >-
+    <p>I Have No Tomatoes is an extreme leisure time activity idea of which culminates in the following question: How many
+    tomatoes can you smash in ten short minutes? If you have the time to spare, this game has the vegetables just waiting
+    to be eliminated!</p>
+  da: >-
+    <p>I Have No Tomatoes er en ekstrem fritidsaktivitet, som kulminerer i det følgende spørgsmål: Hvor mange tomater kan
+    du smadre på ti minutter? Hvis du har tiden, så har spillet grønsagerne, der bare venter på at blive knust!</p>
+  en: >-
+    <p>I Have No Tomatoes is an extreme leisure time activity idea of which culminates in the following question: How many
+    tomatoes can you smash in ten short minutes? If you have the time to spare, this game has the vegetables just waiting
+    to be eliminated!</p>
+Categories:
+- Game
+- ArcadeGame
+Keywords:
+  C:
+  - game
+Icon:
+  cached:
+  - name: tomatoes_icon.png
+    width: 64
+    height: 64
+Launchable:
+  desktop-id:
+  - tomatoes.desktop
+---
+Type: console-application
+ID: io.github.darrylb123.usbrelay
+Package: usbrelay
+Name:
+  C: usbrelay
+Summary:
+  C: USB-connected electrical relay control, based on hidapi
+Description:
+  C: >-
+    <p>
+          A small utility to control USB HID based relays that can be used for home automation or other switching needs. The
+    devices are available from several sources and are able to handle up to 10A 250VAC.
+        </p>
+    <p>
+          An example application are USB controllable power switches. You may use such a switch to control the power supply
+    of an external hard disk drive for backup purposes.
+        </p>
+ProjectLicense: GPL-2.0-or-later
+Categories:
+- Utility
+- Electronics
+Icon:
+  cached:
+  - name: usbrelay_utilities-terminal.png
+    width: 48
+    height: 48
+  - name: usbrelay_utilities-terminal.png
+    width: 64
+    height: 64
+  - name: usbrelay_utilities-terminal.png
+    width: 128
+    height: 128
+  remote:
+  - url: io/github/darrylb123.usbrelay/6be9a7cfb107a735e8c6edde73d16cef/icons/128x128/usbrelay_utilities-terminal.png
+    width: 128
+    height: 128
+  stock: utilities-terminal
+Provides:
+  binaries:
+  - usbrelay
+  modaliases:
+  - hid:b0003g0001v000016C0p000005DF
+---
+Type: desktop-application
+ID: simulide.desktop
+Package: simulide
+Name:
+  C: SimulIDE
+Summary:
+  C: Build and simulate electronic circuits
+Description:
+  it: >-
+    <p>Simulide è un simulatore di circuiti elettronici in tempo reale pensato per la sperimentazione di hobbisti e studenti
+    con semplici circuiti elettronici di uso generale e simulazione di microcontrollori PIC, AVR e Arduino.</p>
+
+    <p>Le simulazioni di PIC e AVR sono fornite da gpsim e simavr.</p>
+  fr: >-
+    <p>Simulide est un simulateur de circuit électronique destiné à l’expérimentation par des amateurs ou des étudiants de
+    circuits électroniques d’usage général et à la simulation de microcontrôleur PIC, AVR ou Arduino.</p>
+
+    <p>La simulation de PIC et AVR est fournie par gpsim et simavr.</p>
+  C: >-
+    <p>Simulide is a real time electronic circuit simulator intended for hobbist and student experimentation with simple general
+    purpose electronic circuits and PIC, AVR and Arduino microcontroller simulations.</p>
+
+    <p>PIC and AVR simulation are provided by gpsim and simavr.</p>
+  da: >-
+    <p>Simulide er en elektronisk kredsløbssimulator i realtid lavet til hobbybrugere og studenteksperimenter med simple og
+    almene elektroniske kredsløb og PIC-, AVR- og Arduino microcontroller-simuleringer.</p>
+
+    <p>PIC- og AVR-simulering tilbydes af gpsim og simavr.</p>
+  en: >-
+    <p>Simulide is a real time electronic circuit simulator intended for hobbist and student experimentation with simple general
+    purpose electronic circuits and PIC, AVR and Arduino microcontroller simulations.</p>
+
+    <p>PIC and AVR simulation are provided by gpsim and simavr.</p>
+Categories:
+- Development
+- Engineering
+- Electronics
+Keywords:
+  C:
+  - embedded electronics
+  - electronics
+  - avr
+  - pic
+  - microcontroller
+Icon:
+  cached:
+  - name: simulide_simulide.png
+    width: 64
+    height: 64
+  stock: simulide
+Launchable:
+  desktop-id:
+  - simulide.desktop
+---
+Type: firmware
+ID: org.debian.packages.firmware_linux_free
+Package: firmware-linux-free
+Name:
+  C: Binary firmware for various drivers in the Linux kernel
+Summary:
+  C: Binary firmware for  This package contains firmware which was previously included in the Linux kernel and which is compliant
+    with the Debian Free Software Guidelines. . Most firmware previously included in the Linux kernel is non-free and has
+    been moved to the firmware-linux-nonfree package..
+Provides:
+  firmware:
+  - type: runtime
+    file: av7110/bootcode.bin
+  - type: runtime
+    file: carl9170-1.fw
+  - type: runtime
+    file: cis/3CCFEM556.cis
+  - type: runtime
+    file: cis/3CXEM556.cis
+  - type: runtime
+    file: cis/COMpad2.cis
+  - type: runtime
+    file: cis/COMpad4.cis
+  - type: runtime
+    file: cis/DP83903.cis
+  - type: runtime
+    file: cis/LA-PCM.cis
+  - type: runtime
+    file: cis/MT5634ZLX.cis
+  - type: runtime
+    file: cis/NE2K.cis
+  - type: runtime
+    file: cis/PCMLM28.cis
+  - type: runtime
+    file: cis/PE-200.cis
+  - type: runtime
+    file: cis/PE520.cis
+  - type: runtime
+    file: cis/RS-COM-2P.cis
+  - type: runtime
+    file: cis/SW_555_SER.cis
+  - type: runtime
+    file: cis/SW_7xx_SER.cis
+  - type: runtime
+    file: cis/SW_8xx_SER.cis
+  - type: runtime
+    file: cis/tamarack.cis
+  - type: runtime
+    file: dsp56k/bootstrap.bin
+  - type: runtime
+    file: isci/isci_firmware.bin
+  - type: runtime
+    file: keyspan_pda/keyspan_pda.fw
+  - type: runtime
+    file: keyspan_pda/xircom_pgs.fw
+  - type: runtime
+    file: usbdux_firmware.bin
+  - type: runtime
+    file: usbduxfast_firmware.bin
+  - type: runtime
+    file: usbduxsigma_firmware.bin

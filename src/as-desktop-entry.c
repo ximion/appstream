@@ -389,7 +389,7 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 
 	/* strip .desktop suffix if the reverse-domain-name scheme is followed and we build for
          * a recent AppStream version */
-        if (fversion >= AS_FORMAT_VERSION_V0_10) {
+        {
 		g_auto(GStrv) parts = g_strsplit (desktop_basename, ".", 3);
 		if (g_strv_length (parts) == 3) {
 			if (as_utils_is_tld (parts[0]) && g_str_has_suffix (desktop_basename, ".desktop")) {

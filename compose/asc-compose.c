@@ -1553,7 +1553,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 											de_bytes,
 											de_basename,
 											TRUE, /* ignore NoDisplay & Co. */
-											AS_FORMAT_VERSION_CURRENT,
+											AS_FORMAT_VERSION_LATEST,
 											priv->de_l10n_fn,
 										        priv->de_l10n_fn_udata);
 						if (de_cpt != NULL) {
@@ -1603,7 +1603,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 								de_bytes,
 								de_basename,
 								FALSE, /* don't ignore NoDisplay & Co. */
-								AS_FORMAT_VERSION_CURRENT,
+								AS_FORMAT_VERSION_LATEST,
 								priv->de_l10n_fn,
 								priv->de_l10n_fn_udata);
 			if (de_cpt != NULL && !asc_result_is_ignored (ctask->result, de_cpt))
@@ -1976,7 +1976,7 @@ asc_compose_save_metadata_result (AscCompose *compose, gboolean *results_not_emp
 
 	mdata = as_metadata_new ();
 	as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_CATALOG);
-	as_metadata_set_format_version (mdata, AS_FORMAT_VERSION_CURRENT);
+	as_metadata_set_format_version (mdata, AS_FORMAT_VERSION_LATEST);
 
 	/* Set baseurl only if one is set and we actually store any screenshot media. If no screenshot media
 	 * is stored, upstream's URLs are used and having a media base URL makes no sense */
