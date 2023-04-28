@@ -1604,7 +1604,6 @@ as_oars_version_from_string (const gchar *value)
  * Checks if the value is valid for the given id.
  *
  * Returns: if the value is valid
- * Since: 1.0
  */
 gboolean
 as_content_rating_value_is_valid (const gchar *id, AsContentRatingValue value)
