@@ -972,13 +972,13 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "content-rating-type-missing",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("The  `type ` attribute of the  `content_rating` is missing or empty."),
+	  N_("The  `type` attribute of this `content_rating` element is missing or empty."),
 	},
 
 	{ "content-rating-type-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("The  `type ` attribute of the  `content_rating` has a invalid value."),
+	  N_("The  `type` attribute of the `content_rating` element has a invalid value."),
 	},
 
 	{ "content-rating-invalid-tag",
@@ -990,13 +990,13 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "content-attribute-id-missing",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("The  `id ` attribute of the  `content_attribute` is missing or empty."),
+	  N_("The  `id` attribute of the `content_attribute` element is missing or empty."),
 	},
 
 	{ "content-attribute-id-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("The  `id ` attribute of the  `content_attribute` has a invalid value."),
+	  N_("The  `id` attribute of the `content_attribute` element has a invalid value."),
 	},
 
 	{ "content-attribute-value-empty",
