@@ -15,7 +15,7 @@
 # XoD DarK <xod@xoddark.com>, 2020.
 # Jeannette L <j.lavoie@net-c.ca>, 2020.
 # Bastien Tréhoux <ildegarde59@mailo.com>, 2020.
-# Éfrit <efrit@posteo.net>, 2020, 2021, 2022.
+# Éfrit <efrit@posteo.net>, 2020, 2021, 2022, 2023.
 # Julien Humbert <julroy67@gmail.com>, 2020.
 # #-#-#-#-#  fr.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
@@ -38,16 +38,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2022-08-30 03:57+0000\n"
-"Last-Translator: ALIENOR PICAUD <alienor.picaud@orange.fr>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/appstream/"
-"translations/fr/>\n"
+"PO-Revision-Date: 2023-04-28 11:51+0000\n"
+"Last-Translator: Éfrit <efrit@posteo.net>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1074,204 +1073,201 @@ msgstr "Composant"
 
 #: src/as-relation.c:1530
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "périphérique de pointage (p. ex. une souris)"
 
 #: src/as-relation.c:1532
-#, fuzzy
 msgid "keyboard"
-msgstr "Plateau"
+msgstr "clavier"
 
 #: src/as-relation.c:1534
 msgid "gamepad"
-msgstr ""
+msgstr "manette de jeu"
 
 #: src/as-relation.c:1536
 msgid "tv remote"
-msgstr ""
+msgstr "télécommande"
 
 #: src/as-relation.c:1538
 msgid "graphics tablet"
-msgstr ""
+msgstr "tablette graphique"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1543
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires a %s for input."
-msgstr "Cette balise requiert une propriété de type."
+msgstr "Ce logiciel nécessite le périphérique d’entrée %s."
 
 #: src/as-relation.c:1548
-#, fuzzy
 msgid "This software requires a touch input device."
-msgstr "Cette balise requiert une propriété de type."
+msgstr "Ce logiciel nécessite un périphérique d’entrée tactile."
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Ce logiciel nécessite un microphone pour être contrôlé par commande vocale."
 
 #: src/as-relation.c:1552
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "Ce logiciel nécessite une caméra pour les commandes visuelles."
 
 #: src/as-relation.c:1554
-#, fuzzy
 msgid "This software requires a method for console input."
-msgstr "Cette balise requiert une propriété de type."
+msgstr "Ce logiciel nécessite une méthode pour des entrées de console."
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1559
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "Ce logiciel nécessite le périphérique d’entrée %s."
 
 #: src/as-relation.c:1564
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "Ce logiciel recommande un périphérique d’entrée tactile."
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Ce logiciel recommande un microphone pour être contrôlé par commande vocale."
 
 #: src/as-relation.c:1568
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "Ce logiciel recommande une caméra pour les commandes visuelles."
 
 #: src/as-relation.c:1570
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "Ce logiciel recommande une méthode pour des entrées de console."
 
 #: src/as-relation.c:1575
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "périphériques de pointage (p. ex. les souris)"
 
 #: src/as-relation.c:1577
 msgid "keyboards"
-msgstr ""
+msgstr "claviers"
 
 #: src/as-relation.c:1579
 msgid "gamepads"
-msgstr ""
+msgstr "manettes de jeu"
 
 #: src/as-relation.c:1581
 msgid "tv remotes"
-msgstr ""
+msgstr "télécommandes"
 
 #: src/as-relation.c:1583
 msgid "graphics tablets"
-msgstr ""
+msgstr "tablettes graphiques"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1587
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "Ce logiciel prend en charge les %s."
 
 #: src/as-relation.c:1592
 msgid "This software supports touch input."
-msgstr ""
+msgstr "Ce logiciel prend en charge les entrées tactiles."
 
 #: src/as-relation.c:1594
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "Ce logiciel peut être contrôlé par commande vocale."
 
 #: src/as-relation.c:1596
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "Ce logiciel peut être contrôlé par une caméra."
 
 #: src/as-relation.c:1598
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "Ce logiciel prend en charge les opérations par commandes de console."
 
 #: src/as-relation.c:1611
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "Périphérique de pointage (p. ex. une souris ou un pavé tactile) détecté."
 
 #: src/as-relation.c:1613
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "Clavier physique détecté."
 
 #: src/as-relation.c:1615
 msgid "Gamepad found."
-msgstr ""
+msgstr "Manette de jeu détectée."
 
 #: src/as-relation.c:1617
 msgid "TV remote found."
-msgstr ""
+msgstr "Télécommande détectée."
 
 #: src/as-relation.c:1619
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "Tablette graphique détectée."
 
 #: src/as-relation.c:1622
 msgid "Touch input device found."
-msgstr ""
+msgstr "Périphérique d’entrée tactile détecté."
 
 #: src/as-relation.c:1624
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "Microphone pour contrôle par commande vocale détecté."
 
 #: src/as-relation.c:1626
 msgid "Camera for input control found."
-msgstr ""
+msgstr "Caméra pour contrôle par commande visuelle détectée."
 
 #: src/as-relation.c:1628
 msgid "Console interface available."
-msgstr ""
+msgstr "Interface console disponible."
 
 #: src/as-relation.c:1684
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "Le logiciel « %s » a été trouvé"
 
 #: src/as-relation.c:1690
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Le composant logiciel « %s » nécessaire est manquant."
 
 #: src/as-relation.c:1694
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Le composant logiciel « %s » recommandé est manquant."
 
 #: src/as-relation.c:1698
-#, fuzzy, c-format
+#, c-format
 msgid "Found supported software component '%s'."
-msgstr "%i composants trouvés."
+msgstr "Détection du composant logiciel « %s » pris en charge."
 
 #: src/as-relation.c:1727
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "Détection du matériel pris en charge par ce logiciel : « %s »"
 
 #: src/as-relation.c:1733
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Le matériel nécessaire pour ce logiciel n’a pas été trouvé sur ce système : « %s »"
 
 #: src/as-relation.c:1737
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Le matériel recommandé pour ce logiciel n’a pas été trouvé sur ce système : « %s »"
 
 #: src/as-relation.c:1741
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "Ce logiciel prend en charge du matériel non présent sur ce système : « %s »"
 
 #: src/as-relation.c:1775
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Ce logiciel nécessite un noyau %s, mais ce système utilise %s."
 
 #: src/as-relation.c:1779
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Ce logiciel recommande un noyau %s, mais ce système utilise %s."
 
 #: src/as-relation.c:1783
-#, fuzzy, c-format
+#, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr "Cette balise requiert une propriété de type."
+msgstr "Ce logiciel prend uniquement en charge un noyau %s, mais il est tout de même possible qu’il fonctionne sur %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1279,7 +1275,7 @@ msgstr "Cette balise requiert une propriété de type."
 #: src/as-relation.c:1805
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
+msgstr "Ce logiciel nécessite %s %s %s, mais ce système utilise %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1287,20 +1283,20 @@ msgstr ""
 #: src/as-relation.c:1813
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
+msgstr "L’utilisation de %s %s %s est recommandé, mais ce système utilise %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1820
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %s %s."
-msgstr "Cette balise requiert une propriété de type."
+msgstr "Ce logiciel prend en charge %s %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1830
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "Le noyau %s %s est pris en charge."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1308,7 +1304,7 @@ msgstr ""
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Ce logiciel nécessite %s %.2f Gio de mémoire, mais ce système a %.2f Gio."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1316,19 +1312,19 @@ msgstr ""
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Ce logiciel recommande %s %.2f Gio de mémoire, mais ce système a %.2f Gio."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1871
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr "Cette balise requiert une propriété de type."
+msgstr "Ce logiciel prend en charge %s %.2f Gio de mémoire."
 
 #: src/as-relation.c:1880
 #, c-format
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "Ce système a suffisamment de mémoire pour ce logiciel."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1337,7 +1333,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Ce logiciel nécessite un écran avec son bord le plus long de %s %lu px, mais l’écran de cet appareil a %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1346,7 +1342,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Ce logiciel nécessite un écran avec son bord le plus court de %s %lu px, mais l’écran de cet appareil a %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1355,7 +1351,7 @@ msgstr ""
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Ce logiciel recommande un écran avec le bord plus long de %s %lu px, mais l’écran de cet appareil a %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1364,16 +1360,16 @@ msgstr ""
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Ce logiciel recommande un écran avec le bord le plus court de %s %lu px, mais l’écran de cet appareil a %lu px."
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "La taille de l’écran est suffisant pour ce logiciel."
 
 #: src/as-relation.c:1996
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "La vérification de satisfaction de relation pour les items de type « %s » n’est pas encore implémentée."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1393,18 +1389,12 @@ msgstr ""
 "la place."
 
 #: src/as-validator-issue-tag.h:57
-#, fuzzy
 msgid ""
 "This element (paragraph, list, etc.) of a <description/> tag must not be "
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr ""
-"Cet élément (paragraphe, liste, etc.) d’une balise <description/> ne doit "
-"pas être régionalisée individuellement dans une collection de métadonnées. "
-"Régionalisez la balise <description/> entière à la place. Le générateur de "
-"collection de métadonnées AppStream (p. ex. « appstream-generator ») "
-"compilera les données de la bonne manière."
+msgstr "Cet élément (paragraphe, liste, etc.) d’une balise <description/> ne doit pas être régionalisée individuellement dans une collection de métadonnées. Régionalisez la balise <description/> entière à la place. Le générateur de collection de métadonnées AppStream (p. ex. « appstream-generator ») compilera les données de la bonne manière."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -1463,19 +1453,14 @@ msgstr ""
 "veuillez utiliser une balise <url/> pour partager des liens."
 
 #: src/as-validator-issue-tag.h:96
-#, fuzzy
 msgid "This tag is not translatable."
-msgstr "Ce mot clef ne peut pas être traduit."
+msgstr "Cette balise n’est pas traduisible."
 
 #: src/as-validator-issue-tag.h:101
-#, fuzzy
 msgid ""
 "This tag must only appear once in this context. Having multiple tags of this "
 "kind is not valid."
-msgstr ""
-"Conformément à la spécification AppStream, la balise mentionnée ne doit "
-"apparaître qu’une seule fois dans ce contexte. Avoir plusieurs balises de ce "
-"type n’est pas valide."
+msgstr "Cette balise ne doit apparaître qu’une seule fois dans ce contexte. Avoir plusieurs balises de ce type n’est pas valide."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
@@ -1486,12 +1471,9 @@ msgstr ""
 "elle devrait avoir du contenu."
 
 #: src/as-validator-issue-tag.h:111
-#, fuzzy
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
-msgstr ""
-"Le composant a une valeur de priorité définie. Ce n’est pas autorisé dans "
-"les fichiers métainfo."
+msgstr "La balise mentionnée a du contenu texte, même si elle ne doit pas en contenir."
 
 #: src/as-validator-issue-tag.h:116
 msgid ""
@@ -1540,11 +1522,8 @@ msgstr ""
 "caractères ASCII, les points et les nombres sont autorisés."
 
 #: src/as-validator-issue-tag.h:139
-#, fuzzy
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
-"Le composant a une valeur de priorité définie. Ce n’est pas autorisé dans "
-"les fichiers métainfo."
+msgstr "L’identifiant du composant commence par un signe de ponctuation. Cela n’est pas autorisé."
 
 #: src/as-validator-issue-tag.h:144
 msgid ""
@@ -1659,40 +1638,37 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:210
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "La propriété « width » doit être un entier positif."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:216
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "La propriété « height » doit être un entier positif."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:222
-#, fuzzy
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
-"La valeur définie comme type d’artéfact est invalide. Elle doit être soit "
-"`source` soit `binary`."
+msgstr "Le type de l’image doit être « source » ou « thumbnail »."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:228
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "La propriété « width » doit être présent si le type de l’image est « thumbnail »."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:234
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "La propriété « height » doit être présent si le type de l’image est « thumbnail »."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:240
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "Il ne peut y avoir qu’une seule image « source » par capture d’écran et langue."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:246
 msgid "A screenshot must have at least one image of type `source`."
-msgstr ""
+msgstr "Une capture d’écran doit avoir au moins une image de type « source »."
 
 #: src/as-validator-issue-tag.h:251
 msgid ""
@@ -1806,7 +1782,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:320
 msgid "No screenshot is marked as default."
-msgstr ""
+msgstr "Aucune capture d’écran n’est marquée comme valeur par défaut."
 
 #: src/as-validator-issue-tag.h:325
 msgid ""
@@ -1867,7 +1843,7 @@ msgstr ""
 msgid ""
 "This relation item has already been defined once for this or a different "
 "relation type. Please do not redefine relations."
-msgstr ""
+msgstr "Cet item de relation a déjà été défini une fois pour ceci ou pour un type de relation différent. Veuillez ne pas redéfinir les relations."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:365
@@ -1952,20 +1928,20 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
 msgid "The set tag value is not valid for an `internet` relation."
-msgstr ""
+msgstr "La valeur définie de la balise n’est pas valide pour une relation « internet »."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
 msgid ""
 "The `bandwidth_mbitps` property is not allowed when using `offline-only` as "
 "value."
-msgstr ""
+msgstr "La propriété « bandwidth_mbitps » n’est pas autorisée lors de l’utilisation de « offline-only » comme valeur."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
 "The value of this property must be a positive integer value, describing the "
 "minimum required bandwidth in mbit/s."
-msgstr ""
+msgstr "La valeur de cette propriété doit être une valeur entière positive décrivant le débit binaire minimum nécessaire, en Mbit/s."
 
 #: src/as-validator-issue-tag.h:427
 msgid ""
@@ -2148,12 +2124,9 @@ msgstr "Cette balise « bundle » a un type inconnu et ne peut être utilis�
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:575
-#, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr ""
-"La balise « update_contact » ne devrait pas être incluse dans une collection "
-"AppStream XML."
+msgstr "La balise « update_contact » ne devrait pas être incluse dans le catalogue AppStream XML."
 
 #: src/as-validator-issue-tag.h:580
 msgid ""
@@ -2230,7 +2203,7 @@ msgid ""
 "association with its desktop-entry file. It also means no icon data or "
 "category information from the desktop-entry file will be available, which "
 "will result in this application being ignored entirely."
-msgstr ""
+msgstr "Il manque une balise « desktop-id » lançable à ce composant « desktop-application ». Cela signifie que cette application ne peut être lancée et qu’elle n’a pas d’association avec son fichier bureau. Cela signifie également qu’aucune icône de données ou de catégorie d’information du fichier bureau ne sera disponible, ce qui aura pour effet que cette application sera entièrement ignorée."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:629
@@ -2241,7 +2214,7 @@ msgid ""
 "application can not be launched directly from installers or software "
 "centers. If this is intended, this information can be ignored, otherwise it "
 "is strongly recommended to add a launchable tag as well."
-msgstr ""
+msgstr "Ce composant « desktop-application » n’a aucune balise « desktop-id » lançable, cependant il contient toutes les informations nécessaires pour afficher l’application. L’omission de la mention lançable signifie que cette application ne peut être lancée directement depuis les installeurs ou les centres logiciels. Si cela est voulu, cette information peut être ignorée, sinon il est fortement recommandé d’ajouter une balise lançable."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:639
@@ -2379,12 +2352,9 @@ msgstr "L’XML de ce fichier est malformé."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:736
-#, fuzzy
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr ""
-"Balise invalide trouvée dans la collection de métadonnées. Seules les "
-"balises « component » sont autorisées."
+msgstr "Balise invalide détectée dans le catalogue de métadonnées. Seules les balises « component » sont autorisées."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:742
@@ -2410,9 +2380,8 @@ msgstr ""
 "Le nom du fichier métainfo ne correspond pas à l’identifiant du composant."
 
 #: src/as-validator-issue-tag.h:757
-#, fuzzy
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr "Impossible de lire le fichier bureau associé avec ce composant."
+msgstr "Impossible de charger le fichier bureau associé à ce composant."
 
 #: src/as-validator-issue-tag.h:762
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -2420,28 +2389,25 @@ msgstr ""
 "Les métadonnées de ce composant réfèrent un fichier bureau non-existant."
 
 #: src/as-validator-issue-tag.h:767
-#, fuzzy
 msgid ""
 "A category defined in the desktop-entry file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
-"La catégorie définie dans le fichier bureau est invalide. Consulter la "
-"spécification « XDG Menu » pour une liste de catégories valides."
+msgstr "La catégorie définie dans le fichier bureau est invalide. Consulter la spécification « XDG Menu » pour une liste de catégories valides."
 
 #: src/as-validator-issue-tag.h:772
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "Erreur lors de la lecture de certaines données depuis le fichier bureau."
 
 #: src/as-validator-issue-tag.h:777
 msgid ""
 "The value of this desktop-entry field contains invalid or non-printable "
 "UTF-8 characters, which can not be displayed properly."
-msgstr ""
+msgstr "La valeur de ce champ d’entrée de bureau contient des caractères UTF-8 invalide ou non imprimable, ce qui ne peut être affiché proprement."
 
 #: src/as-validator-issue-tag.h:782
 msgid ""
 "This desktop-entry field value is quoted, which is likely unintentional."
-msgstr ""
+msgstr "La valeur de ce champ d’entrée de bureau est entourée de guillemets, ce qui est probablement involontaire."
 
 #: src/as-validator-issue-tag.h:787
 msgid ""
@@ -2449,7 +2415,7 @@ msgid ""
 "vendor-installed .desktop files, and nullifies all effects this .desktop "
 "file has (including MIME associations), which most certainly is not "
 "intentional."
-msgstr ""
+msgstr "Ce fichier bureau a la propriété « Hidden » définie. Cela est erroné pour les fichiers .desktop installés par les fournisseurs, et annule tous les effets que ce fichier .desktop a (y compris les associations de type de média), ce qui est très certainement involontaire."
 
 #: src/as-validator-issue-tag.h:793
 msgid ""
@@ -2457,7 +2423,7 @@ msgid ""
 "value. This might not be intended, as this will hide the application from "
 "all desktops. If you do want to hide the application from all desktops, "
 "using 'NoDisplay=true' is more explicit."
-msgstr ""
+msgstr "Ce fichier bureau a la propriété « OnlyShowIn » définie avec une valeur vide. Cela n’est peut-être pas intentionnel, car cela cachera l’application de tous les bureaux. Si vous souhaitez cacher cette application de tous les bureaux, l’utilisation de « NoDisplay=true » est plus explicite."
 
 #: src/as-validator-issue-tag.h:799
 msgid "No AppStream metadata was found in this directory or directory tree."
@@ -2500,24 +2466,23 @@ msgstr ""
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
-msgstr ""
+msgstr "Le type du bloc de versions est invalide. Il nécessite la valeur « embedded » (par défaut) ou « external »."
 
 #: src/as-validator-issue-tag.h:832
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
-msgstr ""
+msgstr "L’URL vers un fichier externe de métadonnées de version est insécurisée. Cela n’est pas autorisé, veuillez seulement utiliser des URL HTTPS."
 
 #: src/as-validator-issue-tag.h:837
-#, fuzzy
 msgid "Failed to download release metadata."
-msgstr "Échec du téléchargement du fichier : %s"
+msgstr "Échec du téléchargement des métadonnées de version."
 
 #: src/as-validator-issue-tag.h:842
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
-msgstr ""
+msgstr "Un fichier local de métadonnées n’a pas été trouvé. Il est fortement recommandé de valider ces métadonnées avec le fichier métainfo principal."
 
 #: src/as-validator-issue-tag.h:848
 msgid "The value set as release urgency is not a known urgency value."
@@ -2539,7 +2504,7 @@ msgstr "Cette version n'a pas la propriété `version`."
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
-msgstr ""
+msgstr "Il manque à cette version soit la propriété « date » (préférée) soit « timestamp »."
 
 #: src/as-validator-issue-tag.h:870
 msgid "The release timestamp is invalid."
@@ -2704,9 +2669,8 @@ msgid "The type of this color is not valid."
 msgstr "Le type de cette couleur est invalide."
 
 #: src/as-validator-issue-tag.h:985
-#, fuzzy
 msgid "The value of this color scheme preference is not valid."
-msgstr "La valeur définie comme type de version est invalide."
+msgstr "La valeur de cette préférence de palette de couleurs n’est pas valide."
 
 #: src/as-validator-issue-tag.h:990
 msgid "This color is not a valid HTML color code."
@@ -2715,32 +2679,27 @@ msgstr "Cette couleur n'est pas un code couleur HTML valide."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:996
 msgid "The `custom` tag can only contain `value` children."
-msgstr ""
+msgstr "La balise « custom » ne peut contenir que des enfants « value »."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1002
-#, fuzzy
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr "Ce `tag` manque d’un attribut `namespace`."
+msgstr "Il manque à cette balise « custom » un attribut « key »."
 
 #: src/as-validator-issue-tag.h:1007
 msgid "A key can only be used once."
-msgstr ""
+msgstr "Une clé ne peut être utilisée qu’une seule fois."
 
 #: src/as-validator-issue-tag.h:1012
 msgid "This custom value is empty."
-msgstr ""
+msgstr "Cette valeur personnalisée est vide."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1018
-#, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"Une balise <keywords/> ne doit pas être régionalisée dans les fichiers "
-"\"metainfo\" (métadonnées en amont). Régionalisez les mots clés "
-"individuellement à la place."
+msgstr "Une balise « keywords » ne doit pas être régionalisée dans les fichiers métainfo (métadonnées en amont). Régionalisez les mots clés individuellement à la place."
 
 #: src/as-validator.c:192
 msgid ""
@@ -2758,19 +2717,19 @@ msgstr "Le format de l’URL est invalide."
 #: src/as-validator.c:470 src/as-validator.c:514
 #, c-format
 msgid "The release metadata file '%s' is named incorrectly."
-msgstr ""
+msgstr "Le fichier de métadonnées de version « %s » est incorrectement nommé."
 
 #. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
 #: src/as-validator.c:653
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
-msgstr ""
+msgstr "La nouvelle sévérité de bogue pour la balise « %s » est invalide."
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
 #: src/as-validator.c:664
 #, c-format
 msgid "The issue tag '%s' is not recognized."
-msgstr ""
+msgstr "La balise de bogue « %s » n’est pas reconnue."
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 #. whitelisted for that.
@@ -2779,7 +2738,7 @@ msgstr ""
 msgid ""
 "It is not allowed to downgrade the severity of tag '%s' to one that allows "
 "validation to pass."
-msgstr ""
+msgstr "Il n’est pas autorisé de rétrograder la sévérité de la balise « %s » vers une valeur qui permet la validation pour passer."
 
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
@@ -2829,9 +2788,8 @@ msgstr "Définit le répertoire de sortie du résultat"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:204
-#, fuzzy
 msgid "Override the catalog metadata output directory"
-msgstr "Remplace le répertoire de sortie de la collection de métadonnées"
+msgstr "Remplace le répertoire de sortie du catalogue de métadonnées"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:207
@@ -3036,7 +2994,7 @@ msgstr "Ne pas utiliser l’accès au réseau."
 #: tools/appstreamcli.c:136
 msgid ""
 "Fail validation if any issue is emitted that is not of pedantic severity."
-msgstr ""
+msgstr "Fait échouer la validation si n’importe quel problème est émis qui n’est pas d’une sévérité pédante."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:141
@@ -3047,7 +3005,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:146
 msgid "Override the severities of selected issue tags."
-msgstr ""
+msgstr "Remplace les sévérités des balises de problème sélectionnés."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -3107,11 +3065,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:591
-#, fuzzy
 msgid "Set the data origin for the installed metadata catalog file."
-msgstr ""
-"Définit l’origine des données pour le fichier de collection des métadonnées "
-"installé."
+msgstr "Définit l’origine des données pour le fichier de catalogue des métadonnées installé."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:596
@@ -3123,21 +3078,21 @@ msgstr "Installe le fichier pour l’utilisateur courant au lieu de tous."
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
-msgstr ""
+msgstr "Limite la commande à utiliser seulement les composants du système de paquets donné (« flatpak » ou « package »)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:629
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
-msgstr ""
+msgstr "Ne pas demander quel composant logiciel devrait être utiliser et toujours choisir la première entrée."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:662 tools/appstreamcli.c:699
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
-msgstr ""
+msgstr "Aucune valeur valide de type de paquets n’a été spécifiée. Seules « package » et « flatpak » sont actuellement reconnues."
 
 #: tools/appstreamcli.c:797
 msgid ""
@@ -3191,13 +3146,10 @@ msgstr "Utilise la ligne spécifiée pour la clé « Exec= » du fichier bur
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-#, fuzzy
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr ""
-"Suppose que le fichier d’entrée est dans le format sélectionné (« yaml » ou "
-"« text »)."
+msgstr "Suppose que le fichier d’entrée est dans le format sélectionné (« yaml », « text » ou « markdown »)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:988
@@ -3220,10 +3172,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-#, fuzzy
 msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr "Génère la sortie dans le format sélectionné (« yaml » ou « text »)."
+msgstr "Génère la sortie dans le format sélectionné (« yaml », « text » ou « markdown »)."
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1080
@@ -3236,7 +3187,7 @@ msgstr ""
 #: tools/appstreamcli.c:1082
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
-msgstr ""
+msgstr "Vous pouvez peut-être installer l’extension AppStream Compose via : « %s »"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1091
@@ -3303,7 +3254,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1317
 msgid "List components that are part of the specified categories."
-msgstr ""
+msgstr "Liste les composants qui font partie des catégories spécifiées."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1323
@@ -3339,7 +3290,7 @@ msgstr "Vérifie la validité de la licence et affiche ses détails."
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
-msgstr ""
+msgstr "Vérifie si les prérequis d’un composant (via son identifiant ou son fichier métainfo) sont satisfaits sur ce système."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1355
@@ -3359,11 +3310,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1371
-#, fuzzy
 msgid "Show information about the current device and used operating system."
-msgstr ""
-"Affiche les informations sur le système d’exploitation courant depuis "
-"l’index des métadonnées."
+msgstr "Affiche les informations sur l’appareil courant et le système d’exploitation utilisé."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1376
@@ -3372,9 +3320,8 @@ msgstr "Installe un fichier de métadonnées au bon emplacement."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1381
-#, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr "Converti une collection XML en YAML ou vice versa."
+msgstr "Converti un catalogue XML en YAML ou vice versa."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1386
@@ -3409,11 +3356,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1412
-#, fuzzy
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr ""
-"Compose la collection de métadonnées AppStream depuis l’arborescence des "
-"répertoires."
+msgstr "Compose le catalogue de métadonnées AppStream depuis l’arborescence des répertoires."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1420
@@ -3505,21 +3449,20 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Impossible de trouver des composants qui fournissent « %s::%s »."
 
 #: tools/ascli-actions-mdata.c:244
-#, fuzzy
 msgid "You need to specify categories to list."
-msgstr "Vous devez spécifier un terme à rechercher."
+msgstr "Vous devez spécifier les catégories à lister."
 
 #. TRANSLATORS: We failed to find any component in these categories, likely due to an error
 #: tools/ascli-actions-mdata.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find components in %s!"
-msgstr "Impossible de trouver le composant correspondant à %s !"
+msgstr "Impossible de trouver les composants dans %s !"
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:265
 #, c-format
 msgid "No component found in categories %s."
-msgstr ""
+msgstr "Aucun composant n’a été trouvé dans les catégories %s."
 
 #: tools/ascli-actions-mdata.c:344
 msgid "You need to specify a metadata file."
@@ -3591,16 +3534,15 @@ msgstr "Impossible d’enregistrer le fichier de modèle métainfo : %s"
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr ""
+msgstr "Impossible de vérifier la taille de l’affichage : l’information ne peut être lue sans l’accès à la boîte à outils de l’interface graphique."
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"
-msgstr ""
+msgstr "ERREUR"
 
 #: tools/ascli-actions-mdata.c:649
-#, fuzzy
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr "Vous devez spécifier un fichier métainfo comme entrée."
+msgstr "Vous devez spécifier un nom de fichier métainfo ou un identifiant de composant."
 
 #: tools/ascli-actions-mdata.c:667 tools/ascli-actions-misc.c:128
 #: tools/ascli-actions-misc.c:371 tools/ascli-actions-misc.c:448
@@ -3612,32 +3554,31 @@ msgstr "Le fichier métainfo « %s » n’existe pas."
 #: tools/ascli-actions-mdata.c:704
 #, c-format
 msgid "Relation check for: %s"
-msgstr ""
+msgstr "Vérification de relation pour : %s"
 
 #: tools/ascli-actions-mdata.c:707
 msgid "Requirements:"
-msgstr ""
+msgstr "Prérequis :"
 
 #: tools/ascli-actions-mdata.c:709
 msgid "No required items are set for this software."
-msgstr ""
+msgstr "Aucun item requis n’est défini pour ce logiciel."
 
 #: tools/ascli-actions-mdata.c:717
 msgid "Recommendations:"
-msgstr ""
+msgstr "Recommendations :"
 
 #: tools/ascli-actions-mdata.c:719
 msgid "No recommended items are set for this software."
-msgstr ""
+msgstr "Aucun item recommandé n’est défini pour ce logiciel."
 
 #: tools/ascli-actions-mdata.c:727
-#, fuzzy
 msgid "Supported:"
-msgstr "Sports"
+msgstr "Pris en charge :"
 
 #: tools/ascli-actions-mdata.c:729
 msgid "No supported items are set for this software."
-msgstr ""
+msgstr "Aucun item pris en charge n’est défini pour ce logiciel."
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:48
@@ -3760,7 +3701,7 @@ msgstr "Vous devez spécifier un format NEWS pour écrire la sortie."
 
 #: tools/ascli-actions-misc.c:526
 msgid "Operating System Details"
-msgstr ""
+msgstr "Détails du système d’exploitation"
 
 #: tools/ascli-actions-misc.c:530
 #, c-format
@@ -3768,9 +3709,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr "Impossible de trouver le composant de système d’exploitation '%s' !"
 
 #: tools/ascli-actions-misc.c:536
-#, fuzzy
 msgid "ID"
-msgstr "EDI"
+msgstr "Identifiant"
 
 #: tools/ascli-actions-misc.c:537 tools/ascli-actions-misc.c:556
 #: tools/ascli-utils.c:302
@@ -3796,7 +3736,7 @@ msgstr "Description"
 
 #: tools/ascli-actions-misc.c:555
 msgid "Kernel"
-msgstr ""
+msgstr "Noyau"
 
 #: tools/ascli-actions-misc.c:557
 msgid "Version"
@@ -3804,24 +3744,23 @@ msgstr "Version"
 
 #: tools/ascli-actions-misc.c:560
 msgid "Hardware"
-msgstr ""
+msgstr "Matériel"
 
 #: tools/ascli-actions-misc.c:562
 msgid "Physical Memory"
-msgstr ""
+msgstr "Mémoire physique"
 
 #: tools/ascli-actions-misc.c:566
-#, fuzzy
 msgid "Devices with Modaliases"
-msgstr "Modalias"
+msgstr "Appareils avec des modalias"
 
 #: tools/ascli-actions-misc.c:590
 msgid "User Input Controls"
-msgstr ""
+msgstr "Commandes d’entrée utilisateur"
 
 #: tools/ascli-actions-misc.c:593
 msgid "unknown"
-msgstr ""
+msgstr "inconnu"
 
 #: tools/ascli-actions-misc.c:600 tools/ascli-actions-validate.c:687
 #: tools/ascli-actions-validate.c:690
@@ -3857,9 +3796,9 @@ msgid "Unable to spawn Flatpak process: %s"
 msgstr "Impossible de lancer le processus de Flatpak : %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "Impossible de trouver un composant avec l’identifiant « %s » !"
+msgstr "Impossible de trouver un composant avec l’identifiant « %s » et les critères de filtre sélectionnés !"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
@@ -3893,12 +3832,12 @@ msgstr "Le composant « %s » n’a pas de candidat à l’installation."
 msgid ""
 "The format of validator issue override '%s' is invalid (should be "
 "'tag=severity')"
-msgstr ""
+msgstr "Le format du validateur de problème de remplacement « %s » est invalide (devrait être « tag=severity »)"
 
 #: tools/ascli-actions-validate.c:263
 #, c-format
 msgid "Can not override issue tag: %s"
-msgstr ""
+msgstr "Impossible de remplacer la balise de problème : %s"
 
 #: tools/ascli-actions-validate.c:294 tools/ascli-actions-validate.c:502
 #, c-format
@@ -3934,9 +3873,9 @@ msgid "You need to specify at least one file to validate!"
 msgstr "Vous devez spécifier au moins un fichier à valider !"
 
 #: tools/ascli-actions-validate.c:399
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to add release metadata file: %s"
-msgstr "Impossible d’installer le fichier de métadonnées : %s"
+msgstr "Impossible d’ajouter le fichier de métadonnées de version : %s"
 
 #: tools/ascli-actions-validate.c:408
 msgid ""
@@ -3944,6 +3883,8 @@ msgid ""
 "Release metadata files can currently not be validated without their "
 "accompanying MetaInfo file."
 msgstr ""
+"Vous devez spécifier au moins un fichier métainfo pour valider.\n"
+"Les fichiers de métadonnées de version ne peuvent actuellement être validés sans leur fichier métainfo d’accompagnement."
 
 #: tools/ascli-actions-validate.c:432 tools/ascli-actions-validate.c:566
 msgid "Validation was successful."
