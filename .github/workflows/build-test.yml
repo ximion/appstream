@@ -7,7 +7,7 @@ jobs:
     name: Debian Stable
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Create Build Environment
       run: cd tests/ci/ && podman build -t appstream -f ./Dockerfile-debian-stable .
@@ -25,7 +25,7 @@ jobs:
     name: Debian Testing
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Create Build Environment
       run: cd tests/ci/ && podman build -t appstream -f ./Dockerfile-debian-testing .
@@ -43,7 +43,7 @@ jobs:
     name: Fedora Latest Stable
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Create Build Environment
       run: cd tests/ci/ && podman build -t appstream -f ./Dockerfile-fedora-latest .
@@ -63,7 +63,7 @@ jobs:
     name: Fedora Rawhide
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Create Build Environment
       run: cd tests/ci/ && podman build -t appstream -f ./Dockerfile-fedora-rawhide .
@@ -83,7 +83,7 @@ jobs:
     name: Ubuntu LTS
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Create Build Environment
       run: sudo ./tests/ci/install-deps-deb.sh
@@ -102,7 +102,7 @@ jobs:
     name: Sanitizers on Debian
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Create Build Environment
       run: cd tests/ci/ && podman build -t appstream -f ./Dockerfile-debian-testing .
@@ -120,7 +120,7 @@ jobs:
     name: Sanitizers on Fedora
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Create Build Environment
       run: cd tests/ci/ && podman build -t appstream -f ./Dockerfile-fedora-latest .
