@@ -49,6 +49,7 @@
 #include "as-component-private.h"
 #include "as-yaml.h"
 #include "as-desktop-entry.h"
+#include "as-content-rating-private.h"
 
 typedef struct
 {
@@ -2302,6 +2303,84 @@ as_validator_check_releases (AsValidator *validator, xmlNode *node, AsFormatStyl
 }
 
 /**
+ * as_validator_check_content_rating:
+ **/
+static void
+as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
+{
+	g_autofree gchar *oars_type = NULL;
+	AsOarsVersion oars_version;
+
+	g_autoptr(GHashTable) known_ids = g_hash_table_new_full (g_str_hash, g_str_equal,
+								  g_free, NULL);
+
+	oars_type = as_xml_get_prop_value (node, "type");
+
+	if (as_is_empty (oars_type)) {
+		as_validator_add_issue (validator, node, "content-rating-type-missing", NULL);
+		return;
+	}
+
+	oars_version = as_oars_version_from_string (oars_type);
+
+	if (oars_version == AS_OARS_VERSION_UNKNOWN) {
+		as_validator_add_issue (validator, node, "content-rating-type-invalid", oars_type);
+		return;
+	}
+
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		AsContentRatingValue content_rating;
+		g_autofree gchar *value_data = NULL;
+		g_autofree gchar *id = NULL;
+
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (!as_str_equal0 (iter->name, "content_attribute")) {
+			as_validator_add_issue (validator, iter, "content-rating-invalid-tag",
+						(gchar*) iter->name);
+			continue;
+		}
+
+		id = as_xml_get_prop_value (iter, "id");
+
+		if (as_is_empty (id)) {
+			as_validator_add_issue (validator, iter, "content-attribute-id-missing", NULL);
+			continue;
+		}
+
+		if (!as_is_oars_key (id, oars_version)) {
+			as_validator_add_issue (validator, iter, "content-attribute-id-invalid", id);
+			continue;
+		}
+
+		value_data = as_xml_get_node_value (iter);
+
+		if (as_is_empty (value_data)) {
+			as_validator_add_issue (validator, iter, "content-attribute-value-empty", NULL);
+			continue;
+		}
+
+		content_rating = as_content_rating_value_from_string (value_data);
+
+		if (content_rating == AS_CONTENT_RATING_VALUE_UNKNOWN) {
+			as_validator_add_issue (validator, iter, "content-attribute-value-unknown", value_data);
+			continue;
+		}
+
+		if (!as_content_rating_value_is_valid (id, content_rating)) {
+			as_validator_add_issue (validator, iter, "content-attribute-value-invalid", value_data);
+			continue;
+		}
+
+		if (g_hash_table_contains (known_ids, id))
+			as_validator_add_issue (validator, iter, "content-attribute-id-duplicated", id);
+		else
+			g_hash_table_add (known_ids, g_steal_pointer (&id));
+	}
+}
+
+/**
  * as_validator_check_branding:
  **/
 static void
@@ -2374,7 +2453,7 @@ as_validator_check_custom (AsValidator *validator, xmlNode *node)
 			g_hash_table_add (known_keys, g_steal_pointer (&key_name));
 
 		value_data = as_xml_get_node_value (iter);
-		if (value_data == NULL || value_data[0] == '\0')
+		if (as_is_empty (value_data))
 			as_validator_add_issue (validator, iter, "custom-value-empty", NULL);
 	}
 }
@@ -2663,7 +2742,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_children_quick (validator, iter, "id", FALSE);
 		} else if (g_strcmp0 (node_name, "content_rating") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
-			as_validator_check_children_quick (validator, iter, "content_attribute", TRUE);
+			as_validator_check_content_rating (validator, iter);
 			can_be_empty = TRUE;
 		} else if (g_strcmp0 (node_name, "replaces") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);

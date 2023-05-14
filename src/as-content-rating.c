@@ -53,14 +53,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsContentRating, as_content_rating, G_TYPE_OBJECT)
 
 #define GET_PRIVATE(o) (as_content_rating_get_instance_private (o))
 
-typedef enum
-{
-	OARS_1_0,
-	OARS_1_1,
-} OarsVersion;
-
-static gboolean is_oars_key (const gchar *id, OarsVersion version);
-
 static void
 as_content_rating_finalize (GObject *object)
 {
@@ -193,8 +185,8 @@ as_content_rating_get_value (AsContentRating *content_rating, const gchar *id)
 	 * overall. Only return %AS_CONTENT_RATING_VALUE_UNKNOWN if the
 	 * #AsContentRating doesn’t exist at all (or for other types of content
 	 * rating). */
-	if ((g_strcmp0 (priv->kind, "oars-1.0") == 0 && is_oars_key (id, OARS_1_0)) ||
-	    (g_strcmp0 (priv->kind, "oars-1.1") == 0 && is_oars_key (id, OARS_1_1)))
+	if ((g_strcmp0 (priv->kind, "oars-1.0") == 0 && as_is_oars_key (id, AS_OARS_VERSION_1_0)) ||
+	    (g_strcmp0 (priv->kind, "oars-1.1") == 0 && as_is_oars_key (id, AS_OARS_VERSION_1_1)))
 		return AS_CONTENT_RATING_VALUE_NONE;
 	else
 		return AS_CONTENT_RATING_VALUE_UNKNOWN;
@@ -1195,7 +1187,7 @@ G_STATIC_ASSERT (AS_CONTENT_RATING_VALUE_LAST == AS_CONTENT_RATING_VALUE_INTENSE
 
 static const struct {
 	const gchar	*id;
-	OarsVersion	 oars_version;  /* when the key was first added */
+	AsOarsVersion	 oars_version;  /* when the key was first added */
 	guint		 csm_age_none;  /* for %AS_CONTENT_RATING_VALUE_NONE */
 	guint		 csm_age_mild;  /* for %AS_CONTENT_RATING_VALUE_MILD */
 	guint		 csm_age_moderate;  /* for %AS_CONTENT_RATING_VALUE_MODERATE */
@@ -1204,39 +1196,48 @@ static const struct {
 	/* Each @id must only appear once. The set of @csm_age_* values for a
 	 * given @id must be complete and non-decreasing. */
 	/* v1.0 */
-	{ "violence-cartoon",	OARS_1_0, 0, 3, 4, 6 },
-	{ "violence-fantasy",	OARS_1_0, 0, 3, 7, 8 },
-	{ "violence-realistic",	OARS_1_0, 0, 4, 9, 14 },
-	{ "violence-bloodshed",	OARS_1_0, 0, 9, 11, 18 },
-	{ "violence-sexual",	OARS_1_0, 0, 18, 18, 18 },
-	{ "drugs-alcohol",	OARS_1_0, 0, 11, 13, 16 },
-	{ "drugs-narcotics",	OARS_1_0, 0, 12, 14, 17 },
-	{ "drugs-tobacco",	OARS_1_0, 0, 10, 13, 13 },
-	{ "sex-nudity",		OARS_1_0, 0, 12, 14, 14 },
-	{ "sex-themes",		OARS_1_0, 0, 13, 14, 15 },
-	{ "language-profanity",	OARS_1_0, 0, 8, 11, 14 },
-	{ "language-humor",	OARS_1_0, 0, 3, 8, 14 },
-	{ "language-discrimination", OARS_1_0, 0, 9, 10, 11 },
-	{ "money-advertising",	OARS_1_0, 0, 7, 8, 10 },
-	{ "money-gambling",	OARS_1_0, 0, 7, 10, 18 },
-	{ "money-purchasing",	OARS_1_0, 0, 12, 14, 15 },
-	{ "social-chat",	OARS_1_0, 0, 4, 10, 13 },
-	{ "social-audio",	OARS_1_0, 0, 15, 15, 15 },
-	{ "social-contacts",	OARS_1_0, 0, 12, 12, 12 },
-	{ "social-info",	OARS_1_0, 0, 0, 13, 13 },
-	{ "social-location",	OARS_1_0, 0, 13, 13, 13 },
+	{ "violence-cartoon",	AS_OARS_VERSION_1_0, 0, 3, 4, 6 },
+	{ "violence-fantasy",	AS_OARS_VERSION_1_0, 0, 3, 7, 8 },
+	{ "violence-realistic",	AS_OARS_VERSION_1_0, 0, 4, 9, 14 },
+	{ "violence-bloodshed",	AS_OARS_VERSION_1_0, 0, 9, 11, 18 },
+	{ "violence-sexual",	AS_OARS_VERSION_1_0, 0, 18, 18, 18 },
+	{ "drugs-alcohol",	AS_OARS_VERSION_1_0, 0, 11, 13, 16 },
+	{ "drugs-narcotics",	AS_OARS_VERSION_1_0, 0, 12, 14, 17 },
+	{ "drugs-tobacco",	AS_OARS_VERSION_1_0, 0, 10, 13, 13 },
+	{ "sex-nudity",		AS_OARS_VERSION_1_0, 0, 12, 14, 14 },
+	{ "sex-themes",		AS_OARS_VERSION_1_0, 0, 13, 14, 15 },
+	{ "language-profanity",	AS_OARS_VERSION_1_0, 0, 8, 11, 14 },
+	{ "language-humor",	AS_OARS_VERSION_1_0, 0, 3, 8, 14 },
+	{ "language-discrimination", AS_OARS_VERSION_1_0, 0, 9, 10, 11 },
+	{ "money-advertising",	AS_OARS_VERSION_1_0, 0, 7, 8, 10 },
+	{ "money-gambling",	AS_OARS_VERSION_1_0, 0, 7, 10, 18 },
+	{ "money-purchasing",	AS_OARS_VERSION_1_0, 0, 12, 14, 15 },
+	{ "social-chat",	AS_OARS_VERSION_1_0, 0, 4, 10, 13 },
+	{ "social-audio",	AS_OARS_VERSION_1_0, 0, 15, 15, 15 },
+	{ "social-contacts",	AS_OARS_VERSION_1_0, 0, 12, 12, 12 },
+	{ "social-info",	AS_OARS_VERSION_1_0, 0, 0, 13, 13 },
+	{ "social-location",	AS_OARS_VERSION_1_0, 0, 13, 13, 13 },
 	/* v1.1 additions */
-	{ "sex-homosexuality",	OARS_1_1, 0, 13, 14, 15 },
-	{ "sex-prostitution",	OARS_1_1, 0, 12, 14, 18 },
-	{ "sex-adultery",	OARS_1_1, 0, 8, 10, 18 },
-	{ "sex-appearance",	OARS_1_1, 0, 10, 10, 15 },
-	{ "violence-worship",	OARS_1_1, 0, 13, 15, 18 },
-	{ "violence-desecration", OARS_1_1, 0, 13, 15, 18 },
-	{ "violence-slavery",	OARS_1_1, 0, 13, 15, 18 },
+	{ "sex-homosexuality",	AS_OARS_VERSION_1_1, 0, 13, 14, 15 },
+	{ "sex-prostitution",	AS_OARS_VERSION_1_1, 0, 12, 14, 18 },
+	{ "sex-adultery",	AS_OARS_VERSION_1_1, 0, 8, 10, 18 },
+	{ "sex-appearance",	AS_OARS_VERSION_1_1, 0, 10, 10, 15 },
+	{ "violence-worship",	AS_OARS_VERSION_1_1, 0, 13, 15, 18 },
+	{ "violence-desecration", AS_OARS_VERSION_1_1, 0, 13, 15, 18 },
+	{ "violence-slavery",	AS_OARS_VERSION_1_1, 0, 13, 15, 18 },
 };
 
-static gboolean
-is_oars_key (const gchar *id, OarsVersion version)
+/**
+ * as_is_oars_key:
+ * @id: the subsection ID e.g. `violence-cartoon`
+ * @version: the #AsOarsVersion, e.g. %AS_OARS_VERSION_1_1
+ *
+ * Checks if a OARS type exists in the given version.
+ *
+ * Returns: If the type exists.
+ **/
+gboolean
+as_is_oars_key (const gchar *id, AsOarsVersion version)
 {
 	for (gsize i = 0; i < G_N_ELEMENTS (oars_to_csm_mappings); i++) {
 		if (g_str_equal (id, oars_to_csm_mappings[i].id))
@@ -1576,4 +1577,57 @@ as_content_rating_new (void)
 	AsContentRating *content_rating;
 	content_rating = g_object_new (AS_TYPE_CONTENT_RATING, NULL);
 	return AS_CONTENT_RATING (content_rating);
+}
+
+/**
+ * as_oars_version_from_string:
+ * @value: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsOarsVersion or %AS_OARS_VERSION_UNKNOWN for unknown
+ **/
+AsOarsVersion
+as_oars_version_from_string (const gchar *value)
+{
+	if (as_str_equal0 (value, "oars-1.0"))
+		return AS_OARS_VERSION_1_0;
+	if (as_str_equal0 (value, "oars-1.1"))
+		return AS_OARS_VERSION_1_1;
+	return AS_OARS_VERSION_UNKNOWN;
+}
+
+/**
+ * as_content_rating_value_is_valid:
+ * @id: the subsection ID e.g. `violence-cartoon`
+ * @value: the #AsContentRatingValue, e.g. %AS_CONTENT_RATING_VALUE_INTENSE
+ *
+ * Checks if the value is valid for the given id.
+ *
+ * Returns: if the value is valid
+ */
+gboolean
+as_content_rating_value_is_valid (const gchar *id, AsContentRatingValue value)
+{
+	gsize i;
+
+	for (i = 0; i < G_N_ELEMENTS (oars_descriptions); i++) {
+		if (!g_str_equal (oars_descriptions[i].id, id))
+			continue;
+
+		switch (value) {
+			case AS_CONTENT_RATING_VALUE_NONE:
+				return oars_descriptions[i].desc_none != NULL;
+			case AS_CONTENT_RATING_VALUE_MILD:
+				return oars_descriptions[i].desc_mild != NULL;
+			case AS_CONTENT_RATING_VALUE_MODERATE:
+				return oars_descriptions[i].desc_moderate != NULL;
+			case AS_CONTENT_RATING_VALUE_INTENSE:
+				return oars_descriptions[i].desc_intense != NULL;
+			default:
+				return FALSE;
+		}
+	}
+
+	return FALSE;
 }

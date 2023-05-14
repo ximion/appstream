@@ -29,6 +29,13 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
+typedef enum
+{
+	AS_OARS_VERSION_UNKNOWN,
+	AS_OARS_VERSION_1_0,
+	AS_OARS_VERSION_1_1
+} AsOarsVersion;
+
 gboolean	as_content_rating_load_from_xml (AsContentRating *content_rating,
 						 AsContext *ctx,
 						 xmlNode *node,
@@ -44,6 +51,12 @@ gboolean	as_content_rating_load_from_yaml (AsContentRating *content_rating,
 void		as_content_rating_emit_yaml (AsContentRating *content_rating,
 						AsContext *ctx,
 						yaml_emitter_t *emitter);
+
+gboolean	as_is_oars_key (const gchar *id, AsOarsVersion version);
+
+AsOarsVersion	as_oars_version_from_string (const gchar *value);
+
+gboolean	as_content_rating_value_is_valid (const gchar *id, AsContentRatingValue value);
 
 #pragma GCC visibility pop
 G_END_DECLS
