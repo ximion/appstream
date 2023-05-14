@@ -220,17 +220,14 @@ as_news_yaml_to_releases (const gchar *yaml_data,
 						g_string_append (str, "</ul>");
 
 					} else {
-
 						/* we only have one list entry, or no list at all and a freeform text instead. Convert to paragraphs */
 						g_auto(GStrv) paras = g_strsplit (value, "\n\n", -1);
 						for (guint i = 0; paras[i] != NULL; i++) {
 							g_auto(GStrv) lines = NULL;
-							g_autoptr(GString) para = NULL;
 							gboolean in_listing = FALSE;
 							gboolean in_paragraph = FALSE;
 							g_autofree gchar *escaped = g_markup_escape_text (paras[i], -1);
 
-							para = g_string_new ("");
 							lines = g_strsplit (escaped, "\n", -1);
 							for (guint j = 0; lines[j] != NULL; j++) {
 								if (g_str_has_prefix (lines[j], " -") || g_str_has_prefix (lines[j], " *")) {
@@ -270,6 +267,10 @@ as_news_yaml_to_releases (const gchar *yaml_data,
 							}
 						}
 					}
+
+					/* FIXME: Silences an invalid null-dereference warning in GCC 13 which happens when
+					 * GString is used in g_autoptr() */
+					g_assert (str != NULL);
 
 					as_release_set_description (rel, str->str, "C");
 				}

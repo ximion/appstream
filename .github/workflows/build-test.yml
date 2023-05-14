@@ -49,12 +49,10 @@ jobs:
       run: cd tests/ci/ && podman build -t appstream -f ./Dockerfile-fedora-latest .
 
     - name: Build
-      continue-on-error: true  # with a Git snapshot of GCC, this build is exceptionally flaky
       run: podman run -a stdout -a stderr -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
            ./tests/ci/run-build.sh
 
     - name: Test
-      continue-on-error: true  # with a Git snapshot of GCC, this build is exceptionally flaky
       run: podman run -a stdout -a stderr -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
            ./tests/ci/run-tests.sh
 
