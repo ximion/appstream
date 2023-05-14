@@ -56,7 +56,7 @@ gboolean	as_is_oars_key (const gchar *id, AsOarsVersion version);
 
 AsOarsVersion	as_oars_version_from_string (const gchar *value);
 
-gboolean	as_content_rating_value_is_valid (const gchar *id, AsContentRatingValue value);
+gboolean	as_content_rating_id_is_valid (const gchar *id, AsContentRatingValue value);
 
 #pragma GCC visibility pop
 G_END_DECLS

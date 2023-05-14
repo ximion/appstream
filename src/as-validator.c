@@ -2368,7 +2368,7 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 			continue;
 		}
 
-		if (!as_content_rating_value_is_valid (id, content_rating)) {
+		if (!as_content_rating_id_is_valid (id, content_rating)) {
 			as_validator_add_issue (validator, iter, "content-attribute-value-invalid", value_data);
 			continue;
 		}

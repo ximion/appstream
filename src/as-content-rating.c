@@ -1232,9 +1232,9 @@ static const struct {
  * @id: the subsection ID e.g. `violence-cartoon`
  * @version: the #AsOarsVersion, e.g. %AS_OARS_VERSION_1_1
  *
- * Checks if a OARS type exists in the given version.
+ * Checks if a OARS ID exists in the given version.
  *
- * Returns: If the type exists.
+ * Returns: %TRUE if the ID exists.
  **/
 gboolean
 as_is_oars_key (const gchar *id, AsOarsVersion version)
@@ -1598,20 +1598,18 @@ as_oars_version_from_string (const gchar *value)
 }
 
 /**
- * as_content_rating_value_is_valid:
+ * as_content_rating_id_is_valid:
  * @id: the subsection ID e.g. `violence-cartoon`
  * @value: the #AsContentRatingValue, e.g. %AS_CONTENT_RATING_VALUE_INTENSE
  *
- * Checks if the value is valid for the given id.
+ * Checks if the ID is valid for the given rating value.
  *
- * Returns: if the value is valid
+ * Returns: %TRUE if the ID is valid
  */
 gboolean
-as_content_rating_value_is_valid (const gchar *id, AsContentRatingValue value)
+as_content_rating_id_is_valid (const gchar *id, AsContentRatingValue value)
 {
-	gsize i;
-
-	for (i = 0; i < G_N_ELEMENTS (oars_descriptions); i++) {
+	for (gsize i = 0; i < G_N_ELEMENTS (oars_descriptions); i++) {
 		if (!g_str_equal (oars_descriptions[i].id, id))
 			continue;
 
