@@ -46,16 +46,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-03-26 22:00+0000\n"
+"PO-Revision-Date: 2023-05-18 21:51+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -3308,12 +3307,12 @@ msgstr "Informationen zu einer Komponente anhand deren Kennung ermitteln."
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr ""
+msgstr "Liefert Komponenten, die das angegebene Element bereitstellen. Benötigt einen Elementtyp (z. B. lib, bin, python3, …) und einen Elementwert als Parameter."
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1317
 msgid "List components that are part of the specified categories."
-msgstr ""
+msgstr "Komponenten auflisten, die zu den angegebenen Kategorien gehören."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1323
@@ -3367,11 +3366,8 @@ msgstr "Statusinformationen über verfügbare AppStream-Metadaten anzeigen."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1371
-#, fuzzy
 msgid "Show information about the current device and used operating system."
-msgstr ""
-"Informationen über das aktuelle Betriebssystem aus dem Metadaten-Index "
-"anzeigen."
+msgstr "Informationen über das aktuelle Gerät und das verwendete Betriebssystem anzeigen."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1376
@@ -3380,9 +3376,8 @@ msgstr "Metadaten im richtigen Ort installieren."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1381
-#, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr "Konvertiert XML-Sammlungen nach YAML und umgekehrt."
+msgstr "Metadatenkatalog XML nach YAML konvertieren oder umgekehrt."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1386
@@ -3419,9 +3414,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1412
-#, fuzzy
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr "AppStream-Sammlungsmetadaten aus Verzeichnisbäumen zusammenstellen."
+msgstr "AppStream-Metadatenkatalog aus Verzeichnisbäumen zusammenstellen."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1420
@@ -3510,21 +3504,20 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Es konnte keine Komponente gefunden werden, die »%s;%s« bereitstellt."
 
 #: tools/ascli-actions-mdata.c:244
-#, fuzzy
 msgid "You need to specify categories to list."
-msgstr "Sie müssen einen Suchbegriff angeben."
+msgstr "Sie müssen Kategorien angeben, die aufgelistet werden sollen."
 
 #. TRANSLATORS: We failed to find any component in these categories, likely due to an error
 #: tools/ascli-actions-mdata.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find components in %s!"
-msgstr "Eine %s entsprechende Komponente konnte nicht gefunden werden!"
+msgstr "Es konnten keine Komponenten in %s gefunden werden!"
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:265
 #, c-format
 msgid "No component found in categories %s."
-msgstr ""
+msgstr "Keine Komponente in den Kategorien %s gefunden."
 
 #: tools/ascli-actions-mdata.c:344
 msgid "You need to specify a metadata file."
@@ -3600,12 +3593,11 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"
-msgstr ""
+msgstr "FEHLER"
 
 #: tools/ascli-actions-mdata.c:649
-#, fuzzy
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr "Sie müssen eine Metadatendatei als Eingabe angeben."
+msgstr "Sie müssen einen MetaInfo-Dateinamen oder eine Komponentenkennung angeben."
 
 #: tools/ascli-actions-mdata.c:667 tools/ascli-actions-misc.c:128
 #: tools/ascli-actions-misc.c:371 tools/ascli-actions-misc.c:448
@@ -3617,32 +3609,31 @@ msgstr "Metainfo-Datei »%s« existiert nicht."
 #: tools/ascli-actions-mdata.c:704
 #, c-format
 msgid "Relation check for: %s"
-msgstr ""
+msgstr "Relationsprüfung für: %s"
 
 #: tools/ascli-actions-mdata.c:707
 msgid "Requirements:"
-msgstr ""
+msgstr "Voraussetzungen:"
 
 #: tools/ascli-actions-mdata.c:709
 msgid "No required items are set for this software."
-msgstr ""
+msgstr "Für diese Software sind keine erforderlichen Elemente festgelegt."
 
 #: tools/ascli-actions-mdata.c:717
 msgid "Recommendations:"
-msgstr ""
+msgstr "Empfehlungen:"
 
 #: tools/ascli-actions-mdata.c:719
 msgid "No recommended items are set for this software."
-msgstr ""
+msgstr "Für diese Software sind keine empfohlenen Elemente festgelegt."
 
 #: tools/ascli-actions-mdata.c:727
-#, fuzzy
 msgid "Supported:"
-msgstr "Sport"
+msgstr "Unterstützt:"
 
 #: tools/ascli-actions-mdata.c:729
 msgid "No supported items are set for this software."
-msgstr ""
+msgstr "Für diese Software sind keine unterstützten Elemente festgelegt."
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:48
@@ -3765,7 +3756,7 @@ msgstr "Sie müssen ein NEWS-Formt zum Schreiben der Ausgabe angeben."
 
 #: tools/ascli-actions-misc.c:526
 msgid "Operating System Details"
-msgstr ""
+msgstr "Betriebssystem-Details"
 
 #: tools/ascli-actions-misc.c:530
 #, c-format
@@ -3773,9 +3764,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr "Betriebssystemkomponente '%s' kann nicht gefunden werden!"
 
 #: tools/ascli-actions-misc.c:536
-#, fuzzy
 msgid "ID"
-msgstr "Entwicklungsumgebungen"
+msgstr "Kennung"
 
 #: tools/ascli-actions-misc.c:537 tools/ascli-actions-misc.c:556
 #: tools/ascli-utils.c:302
@@ -3801,7 +3791,7 @@ msgstr "Beschreibung"
 
 #: tools/ascli-actions-misc.c:555
 msgid "Kernel"
-msgstr ""
+msgstr "Kernel"
 
 #: tools/ascli-actions-misc.c:557
 msgid "Version"
@@ -3809,24 +3799,23 @@ msgstr "Version"
 
 #: tools/ascli-actions-misc.c:560
 msgid "Hardware"
-msgstr ""
+msgstr "Hardware"
 
 #: tools/ascli-actions-misc.c:562
 msgid "Physical Memory"
-msgstr ""
+msgstr "Physikalischer Speicher"
 
 #: tools/ascli-actions-misc.c:566
-#, fuzzy
 msgid "Devices with Modaliases"
-msgstr "Mod-Aliasse"
+msgstr "Geräte mit Modaliasse"
 
 #: tools/ascli-actions-misc.c:590
 msgid "User Input Controls"
-msgstr ""
+msgstr "Steuerelemente für Benutzereingaben"
 
 #: tools/ascli-actions-misc.c:593
 msgid "unknown"
-msgstr ""
+msgstr "unbekannt"
 
 #: tools/ascli-actions-misc.c:600 tools/ascli-actions-validate.c:687
 #: tools/ascli-actions-validate.c:690
