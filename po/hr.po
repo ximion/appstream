@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-05-17 11:28+0000\n"
+"PO-Revision-Date: 2023-05-18 05:51+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
@@ -416,7 +416,7 @@ msgstr "SVE"
 
 #: src/as-content-rating.c:457 src/as-content-rating.c:560
 msgid "Adults Only"
-msgstr "Samo za odrasle osobe"
+msgstr "Samo odrasle osobe"
 
 #: src/as-content-rating.c:459 src/as-content-rating.c:559
 msgid "Mature"
@@ -1173,71 +1173,71 @@ msgstr "Pronađen je uređaj za unos dodirom."
 
 #: src/as-relation.c:1624
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "Pronađen je mikrofon za upravljanje govorom."
 
 #: src/as-relation.c:1626
 msgid "Camera for input control found."
-msgstr ""
+msgstr "Pronađena je kamera za upravljanje unosom."
 
 #: src/as-relation.c:1628
 msgid "Console interface available."
-msgstr ""
+msgstr "Sučelje konzole je dostupno."
 
 #: src/as-relation.c:1684
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "Pronađen je softver „%s”"
 
 #: src/as-relation.c:1690
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Nedostaje potrebna softverska komponenta „%s”."
 
 #: src/as-relation.c:1694
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Nedostaje preporučena softverska komponenta „%s”."
 
 #: src/as-relation.c:1698
-#, fuzzy, c-format
+#, c-format
 msgid "Found supported software component '%s'."
-msgstr "Pronađene su %i komponente."
+msgstr "Pronađena je podržana softverska komponenta „%s”."
 
 #: src/as-relation.c:1727
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "Pronađen je hardver kojeg podržava ovaj softver: „%s”"
 
 #: src/as-relation.c:1733
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Za ovaj softver nije pronađen potreban hardver na ovom sustavu: „%s”"
 
 #: src/as-relation.c:1737
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Preporučeni hardver za ovaj softver nije pronađen na ovom sustavu: „%s”"
 
 #: src/as-relation.c:1741
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "Ovaj softver podržava hardver koji ne postoji u ovom sustavu: „%s”"
 
 #: src/as-relation.c:1775
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Ovaj softver zahtijeva %s jezgru, ali ovaj sustav pokreće %s."
 
 #: src/as-relation.c:1779
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Ovaj softver preporučuje %s jezgru, ali ovaj sustav pokreće %s."
 
 #: src/as-relation.c:1783
-#, fuzzy, c-format
+#, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr "Ova oznaka treba jedno svojstvo vrste."
+msgstr "Ovaj softver podržava samo %s jezgru, ali možda ipak radi s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1245,7 +1245,7 @@ msgstr "Ova oznaka treba jedno svojstvo vrste."
 #: src/as-relation.c:1805
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
+msgstr "Ovaj softver zahtijeva %s %s %s, ali ovaj sustav pokreće %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1253,20 +1253,20 @@ msgstr ""
 #: src/as-relation.c:1813
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
+msgstr "Preporučuje se upotreba %s %s %s, ali ovaj sustav pokreće %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1820
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %s %s."
-msgstr "Ova oznaka treba jedno svojstvo vrste."
+msgstr "Ovaj softver podržava %s %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1830
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "Podržana je jezgra %s %s."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1274,7 +1274,7 @@ msgstr ""
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Ovaj softver zahtijeva %s %.2f GiB memorije, ali ovaj sustav ima %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1282,19 +1282,19 @@ msgstr ""
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Ovaj softver preporučuje %s %.2f GiB memorije, ali ovaj sustav ima %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1871
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr "Ova oznaka treba jedno svojstvo vrste."
+msgstr "Ovaj softver podržava %s %.2f GiB memorije."
 
 #: src/as-relation.c:1880
 #, c-format
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "Ovaj sustav ima dovoljno memorije za ovaj softver."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1303,7 +1303,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Ovaj softver zahtijeva ekran čija je najduža strana %s %lu px, ali ekran ovog uređaja ima %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1312,7 +1312,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Ovaj softver zahtijeva ekran čija je najkraća strana %s %lu px, ali ekran ovog uređaja ima %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1321,7 +1321,7 @@ msgstr ""
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Ovaj softver preporučuje ekran čija je najduža strana %s %lu px, ali ekran ovog uređaja ima %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1330,11 +1330,11 @@ msgstr ""
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Ovaj softver preporučuje ekran čija je najkraća strana %s %lu px, ali ekran ovog uređaja ima %lu px."
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "Veličina prikaza je dovoljna za ovaj softver."
 
 #: src/as-relation.c:1996
 #, c-format
@@ -1358,18 +1358,12 @@ msgstr ""
 "(metapodaci glevne grane). Umjesto toga lokaliziraj pojedinačne odlomke."
 
 #: src/as-validator-issue-tag.h:57
-#, fuzzy
 msgid ""
 "This element (paragraph, list, etc.) of a <description/> tag must not be "
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr ""
-"Ovaj element (odlomak, popis itd.) oznake <description/> ne smije se "
-"pojedinačno lokalizirati u metapodacima zbirke. Umjesto toga lokaliziraj "
-"cijelu oznaku <description/>. AppStream generator metapodataka zbirke (npr. "
-"`appstream-generator`) će već sam od sebe ispravno postupiti pri "
-"sastavljanju podataka."
+msgstr "Ovaj element (odlomak, popis itd.) s oznakom <description/> nije potrebno pojedinačno prevoditi u metapodacima zbirke. Umjesto toga prevedi cijelu oznaku <description/>. AppStream generator metapodataka zbirke (npr. `appstream-generator`) će već sam od sebe ispravno postupiti pri sastavljanju podataka."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -1607,12 +1601,12 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:210
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "Svojstvo `width` mora biti pozitivan cijeli broj."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:216
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "Svojstvo `height` mora biti pozitivan cijeli broj."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:222
@@ -1622,22 +1616,22 @@ msgstr "Vrsta slike mora biti `source` ili `thumbnail`."
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:228
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "Svojstvo `width` mora postojati ako je vrsta slike `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:234
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "Svojstvo `height` mora postojati ako je vrsta slike `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:240
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "Za snimku ekrana i jezika smije postojati samo jedna slika vrste `source`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:246
 msgid "A screenshot must have at least one image of type `source`."
-msgstr ""
+msgstr "Snimka ekrana mora imati barem jednu sliku vrste `source`."
 
 #: src/as-validator-issue-tag.h:251
 msgid ""
@@ -1749,7 +1743,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:320
 msgid "No screenshot is marked as default."
-msgstr ""
+msgstr "Nijedna snimka ekrana nije označena kao standardna."
 
 #: src/as-validator-issue-tag.h:325
 msgid ""
@@ -1902,7 +1896,7 @@ msgstr "Postavljena vrijednost oznake nije ispravna za `internet` odnos."
 msgid ""
 "The `bandwidth_mbitps` property is not allowed when using `offline-only` as "
 "value."
-msgstr ""
+msgstr "Svojstvo `bandwidth_mbitps` nije dopušteno kada se kao vrijednost koristi `offline-only`."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
@@ -2085,10 +2079,9 @@ msgstr "Ova `bundle` oznaka sadrži nepoznatu vrstu i ne može se koristiti."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:575
-#, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr "Oznaku `update_contact` ne treba uključivati u AppStream XML zbirku."
+msgstr "Oznaku `update_contact` ne treba dodati u AppStream XML zbirku."
 
 #: src/as-validator-issue-tag.h:580
 msgid ""
@@ -2317,12 +2310,9 @@ msgstr "XML ove datoteke nije ispravno formatiran."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:736
-#, fuzzy
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr ""
-"Pronađena je neispravna oznaka u metapodacima zbirke. Dopuštene su samo "
-"oznake `component`."
+msgstr "Pronađena je neispravna oznaka u metapodacima zbirke. Dopuštene su samo oznake `component`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:742
@@ -2450,12 +2440,11 @@ msgstr ""
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
-msgstr ""
+msgstr "URL adresa datoteke metapodataka eksternog izdanja nije sigurna. To nije dozvoljeno. Koristi samo HTTPS URL adrese."
 
 #: src/as-validator-issue-tag.h:837
-#, fuzzy
 msgid "Failed to download release metadata."
-msgstr "Neuspjelo preuzimanje datoteke: %s"
+msgstr "Neuspjelo preuzimanje metapodataka izdanja."
 
 #: src/as-validator-issue-tag.h:842
 msgid ""
@@ -2655,7 +2644,7 @@ msgstr "Ova boja nije ispravni HTML kod boje."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:996
 msgid "The `custom` tag can only contain `value` children."
-msgstr ""
+msgstr "Oznaka `custom` može sadržati samo podređena svojstva `value`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1002
@@ -2664,21 +2653,18 @@ msgstr "Ovoj vrijednosti oznake `custom`nedostaje atribut `key`."
 
 #: src/as-validator-issue-tag.h:1007
 msgid "A key can only be used once."
-msgstr ""
+msgstr "Ključ se može koristiti samo jednom."
 
 #: src/as-validator-issue-tag.h:1012
 msgid "This custom value is empty."
-msgstr ""
+msgstr "Prilagođena vrijednost je prazna."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1018
-#, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"Nemoj prevoditi oznaku <keywords/> u datotekama metapodataka (metapodaci "
-"glavne grane). Umjesto toga prevedi pojedinačne unose ključnih riječi."
+msgstr "Nemoj prevoditi oznaku `keywords` u datotekama metapodataka (metapodaci glavne grane). Umjesto toga prevedi pojedinačne unose ključnih riječi."
 
 #: src/as-validator.c:192
 msgid ""
@@ -2696,7 +2682,7 @@ msgstr "URL format je neispravan."
 #: src/as-validator.c:470 src/as-validator.c:514
 #, c-format
 msgid "The release metadata file '%s' is named incorrectly."
-msgstr ""
+msgstr "Datoteka metapodataka izdanja „%s” nije ispravno imenovana."
 
 #. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
 #: src/as-validator.c:653
@@ -2769,9 +2755,8 @@ msgstr "Postavi mapu za ispis rezultata"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:204
-#, fuzzy
 msgid "Override the catalog metadata output directory"
-msgstr "Prepiši mapu rezultata za „collection metadata”"
+msgstr "Prepiši mapu rezultata metapodataka zbirke"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:207
@@ -3040,7 +3025,6 @@ msgstr "Nije navedena licenca, izraz licence niti izraz iznimke licence."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:591
-#, fuzzy
 msgid "Set the data origin for the installed metadata catalog file."
 msgstr "Postavi izvor podataka za instaliranu datoteku zbirke metapodataka."
 
@@ -3126,12 +3110,10 @@ msgstr "Koristi navedeni redak za „Exec=” ključ .desktop datoteke."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-#, fuzzy
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr ""
-"Pretpostavi, da je datoteka unosa odabranog formata („yaml” ili „text”)."
+msgstr "Pretpostavi da je datoteka unosa u odabranom formatu („yaml” ili „markdown”)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:988
@@ -3153,10 +3135,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-#, fuzzy
 msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr "Izradi rezultat u odabranom formatu („yaml” ili „text”)."
+msgstr "Generiraj rezultat u odabranom formatu („yaml” ili „markdown”)."
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1080
@@ -3236,7 +3217,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1317
 msgid "List components that are part of the specified categories."
-msgstr ""
+msgstr "Navedi komponente koje su dio određene kategorije."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1323
@@ -3270,7 +3251,7 @@ msgstr "Provjeri valjanost izraza licence i ispiši detalje o njoj."
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
-msgstr ""
+msgstr "Provjeri, jesu li zahtjevi komponente (putem njenog ID-a ili MetaInfo datoteke) zadovoljeni na ovom sustavu."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1355
@@ -3289,10 +3270,8 @@ msgstr "Prikaži podatke stanja dostupnih AppStream metapodataka."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1371
-#, fuzzy
 msgid "Show information about the current device and used operating system."
-msgstr ""
-"Prikaži podatke trenutačnog operacijskog sustava iz indeksa metapodataka."
+msgstr "Prikaži podatke trenutačnog uređaja i korištenog operacijskog sustava."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1376
@@ -3301,9 +3280,8 @@ msgstr "Instaliraj jednu datoteku metapodataka na ispravno mjesto."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1381
-#, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr "Pretvori XML zbirku u YAML ili obratno."
+msgstr "Pretvori XML zbirku metapodataka u YAML ili obratno."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1386
@@ -3336,9 +3314,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1412
-#, fuzzy
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr "Sastavi metapodatke AppStream zbirke iz stabla mapa."
+msgstr "Sastavi AppStream zbirku metapodataka iz stabla mapa."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1420
@@ -3426,21 +3403,20 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Nije bilo moguće pronaći komponentu, koja omogućuje „%s::%s”."
 
 #: tools/ascli-actions-mdata.c:244
-#, fuzzy
 msgid "You need to specify categories to list."
-msgstr "Mora se navesti jedan traženi pojam."
+msgstr "Za izradu popisa moraš odrediti kategorije."
 
 #. TRANSLATORS: We failed to find any component in these categories, likely due to an error
 #: tools/ascli-actions-mdata.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find components in %s!"
-msgstr "Nije moguće pronaći komponentu koja se poklapa s %s!"
+msgstr "Nije moguće pronaći komponente u %s!"
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:265
 #, c-format
 msgid "No component found in categories %s."
-msgstr ""
+msgstr "Nema komponenti u kategorijama %s."
 
 #: tools/ascli-actions-mdata.c:344
 msgid "You need to specify a metadata file."
@@ -3512,53 +3488,51 @@ msgstr "Nije moguće spremiti predložak datoteke metapodataka: %s"
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr ""
+msgstr "Nije moguće provjeriti veličinu prikaza: Informacije se ne mogu pročitati bez pristupa skupu alata grafičkog korisničkog sučelja."
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"
-msgstr ""
+msgstr "GREŠKA"
 
 #: tools/ascli-actions-mdata.c:649
-#, fuzzy
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr "Mora se navesti jedna datoteka metapodataka kao unos."
+msgstr "Moraš odrediti ime MetaInfo datoteke ili ID komponente."
 
 #: tools/ascli-actions-mdata.c:667 tools/ascli-actions-misc.c:128
 #: tools/ascli-actions-misc.c:371 tools/ascli-actions-misc.c:448
 #, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr "Datoteka metapodataka „%s” ne postoji."
+msgstr "Metainfo datoteka „%s” ne postoji."
 
 #. TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system.
 #: tools/ascli-actions-mdata.c:704
 #, c-format
 msgid "Relation check for: %s"
-msgstr ""
+msgstr "Provjera odnosa za: %s"
 
 #: tools/ascli-actions-mdata.c:707
 msgid "Requirements:"
-msgstr ""
+msgstr "Preduvjeti:"
 
 #: tools/ascli-actions-mdata.c:709
 msgid "No required items are set for this software."
-msgstr ""
+msgstr "Za ovaj softver nisu određeni obavezni elementi."
 
 #: tools/ascli-actions-mdata.c:717
 msgid "Recommendations:"
-msgstr ""
+msgstr "Preporuke:"
 
 #: tools/ascli-actions-mdata.c:719
 msgid "No recommended items are set for this software."
-msgstr ""
+msgstr "Za ovaj softver nisu određeni preporučeni elementi."
 
 #: tools/ascli-actions-mdata.c:727
-#, fuzzy
 msgid "Supported:"
-msgstr "Sportske igre"
+msgstr "Podržano:"
 
 #: tools/ascli-actions-mdata.c:729
 msgid "No supported items are set for this software."
-msgstr ""
+msgstr "Za ovaj softver nisu određeni podržavajući elementi."
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:48
@@ -3680,7 +3654,7 @@ msgstr "Mora se navesti jedan NEWS format u koji će se zapisati rezultat."
 
 #: tools/ascli-actions-misc.c:526
 msgid "Operating System Details"
-msgstr ""
+msgstr "Detalji operacijskog sustava"
 
 #: tools/ascli-actions-misc.c:530
 #, c-format
@@ -3688,9 +3662,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr "Nije moguće pronaći komponentu operacijskog sustava „%s”!"
 
 #: tools/ascli-actions-misc.c:536
-#, fuzzy
 msgid "ID"
-msgstr "Integrirana razvojna okruženja"
+msgstr "ID"
 
 #: tools/ascli-actions-misc.c:537 tools/ascli-actions-misc.c:556
 #: tools/ascli-utils.c:302
@@ -3716,7 +3689,7 @@ msgstr "Opis"
 
 #: tools/ascli-actions-misc.c:555
 msgid "Kernel"
-msgstr ""
+msgstr "Jezgra"
 
 #: tools/ascli-actions-misc.c:557
 msgid "Version"
@@ -3724,16 +3697,15 @@ msgstr "Verzija"
 
 #: tools/ascli-actions-misc.c:560
 msgid "Hardware"
-msgstr ""
+msgstr "Hardver"
 
 #: tools/ascli-actions-misc.c:562
 msgid "Physical Memory"
-msgstr ""
+msgstr "Fizička memorija"
 
 #: tools/ascli-actions-misc.c:566
-#, fuzzy
 msgid "Devices with Modaliases"
-msgstr "Modaliasi"
+msgstr "Uređaji s Modaliases"
 
 #: tools/ascli-actions-misc.c:590
 msgid "User Input Controls"
@@ -3741,7 +3713,7 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:593
 msgid "unknown"
-msgstr ""
+msgstr "nepoznato"
 
 #: tools/ascli-actions-misc.c:600 tools/ascli-actions-validate.c:687
 #: tools/ascli-actions-validate.c:690
@@ -3857,9 +3829,9 @@ msgid "You need to specify at least one file to validate!"
 msgstr "Za provjeru se mora navesti barem jedna datoteka!"
 
 #: tools/ascli-actions-validate.c:399
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to add release metadata file: %s"
-msgstr "Nije moguće instalirati datoteku metapodaka: %s"
+msgstr "Nije moguće dodati datoteku metapodataka izdanja: %s"
 
 #: tools/ascli-actions-validate.c:408
 msgid ""
