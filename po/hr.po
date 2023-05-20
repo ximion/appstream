@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-05-18 05:51+0000\n"
+"PO-Revision-Date: 2023-05-20 22:51+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
@@ -1334,12 +1334,12 @@ msgstr "Ovaj softver preporučuje ekran čija je najkraća strana %s %lu px, ali
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
-msgstr "Veličina prikaza je dovoljna za ovaj softver."
+msgstr "Veličina ekrana je dovoljna za ovaj softver."
 
 #: src/as-relation.c:1996
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "Provjera ispunjenja odnosa za elemente vrste „%s” još nije implementirana."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1849,11 +1849,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
-"Ova `display_length` stavka sadrži neispravnu duljinu prikaza. Njena "
-"vrijednost mora biti kratki niz znakova ili pozitivan cijeli broj koji "
-"označava logičke piksele. Za više informacija o ovoj oznaci pogledaj "
-"AppStream specifikaciju."
+msgstr "Ova `display_length` stavka sadrži neispravnu duljinu ekrana. Njena vrijednost mora biti kratki niz znakova ili pozitivan cijeli broj koji označava logičke piksele. Za više informacija o ovoj oznaci pogledaj AppStream specifikaciju."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:392
@@ -1862,11 +1858,7 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
-"Ovo svojstvo `side` (strana) ove `display_length` stavke (duljina_prikaza) "
-"sadrži neispravnu vrijednost. Mora biti `shortest` (najkraća) ili `longest` "
-"(najduža) ili se mora isključiti kako bi se impliciralo `shortest`, kako bi "
-"se vrijednost stavke odnosila na najkraću ili najdužu stranu prikaza."
+msgstr "Ovo svojstvo `side` (strana) ove `display_length` stavke (duljina_prikaza) sadrži neispravnu vrijednost. Mora biti `shortest` (najkraća) ili `longest` (najduža) ili se mora isključiti kako bi se impliciralo `shortest`, kako bi se vrijednost stavke odnosila na najkraću ili najdužu stranu ekrana."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:399
@@ -2434,7 +2426,7 @@ msgstr ""
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
-msgstr ""
+msgstr "Vrsta bloka izdanja je neispravna. Mora biti `embedded` (zadano) ili `external`."
 
 #: src/as-validator-issue-tag.h:832
 msgid ""
@@ -2450,7 +2442,7 @@ msgstr "Neuspjelo preuzimanje metapodataka izdanja."
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
-msgstr ""
+msgstr "Datoteka metapodataka lokalnog izdanja nije pronađena. Preporučujemo da provjeriš ove metapodatke zajedno s glavnom MetaInfo datotekom."
 
 #: src/as-validator-issue-tag.h:848
 msgid "The value set as release urgency is not a known urgency value."
@@ -3488,7 +3480,7 @@ msgstr "Nije moguće spremiti predložak datoteke metapodataka: %s"
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr "Nije moguće provjeriti veličinu prikaza: Informacije se ne mogu pročitati bez pristupa skupu alata grafičkog korisničkog sučelja."
+msgstr "Nije moguće provjeriti veličinu ekrana: Informacije se ne mogu pročitati bez pristupa skupu alata grafičkog korisničkog sučelja."
 
 #: tools/ascli-actions-mdata.c:619
 msgid "ERROR"
@@ -3709,7 +3701,7 @@ msgstr "Uređaji s Modaliases"
 
 #: tools/ascli-actions-misc.c:590
 msgid "User Input Controls"
-msgstr ""
+msgstr "Interaktivni elementi za unos"
 
 #: tools/ascli-actions-misc.c:593
 msgid "unknown"
@@ -3839,6 +3831,8 @@ msgid ""
 "Release metadata files can currently not be validated without their "
 "accompanying MetaInfo file."
 msgstr ""
+"Za provjeru moraš navesti barem jednu MetaInfo datoteku.\n"
+"Datoteke metapodataka izdanja se trenutačno ne mogu provjeriti bez popratne MetaInfo datoteke."
 
 #: tools/ascli-actions-validate.c:432 tools/ascli-actions-validate.c:566
 msgid "Validation was successful."
