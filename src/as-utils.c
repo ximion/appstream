@@ -259,6 +259,28 @@ as_description_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError
 			} else {
 				g_string_append_printf (str, "%s\n", clean_text);
 			}
+		} else if ((g_strcmp0 ((gchar*) iter->name, "heading") == 0)) {
+			g_autofree gchar *clean_text = NULL;
+			g_autofree gchar *text_content = as_xml_get_node_value_raw (iter);
+			g_auto(GStrv) spl = NULL;
+
+			/* Apparently the element is empty, which is odd. But we better add it instead
+			 * of completely ignoring it. */
+			if (text_content == NULL)
+				text_content = g_strdup ("");
+
+			/* remove extra whitespaces and linebreaks */
+			clean_text = as_sanitize_text_spaces (text_content);
+
+			if (str->len > 0)
+				g_string_append (str, "\n");
+
+			spl = as_markup_strsplit_words (clean_text, 100);
+			if (spl != NULL) {
+				for (guint i = 0; spl[i] != NULL; i++) {
+					g_string_append_printf (str, "## %s\n", clean_text);
+				}
+			}
 		} else if ((g_strcmp0 ((gchar*) iter->name, "ul") == 0) || (g_strcmp0 ((gchar*) iter->name, "ol") == 0)) {
 			g_autofree gchar *item_c = NULL;
 			gboolean is_ordered_list = g_strcmp0 ((gchar*) iter->name, "ol") == 0;
