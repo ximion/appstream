@@ -25,6 +25,7 @@
 # Manuela Silva <manuela.silva@sky.com>, 2021.
 # Felipe Nogueira <contato.fnog@gmail.com>, 2023.
 # Fernando Lopes <fefehex12@gmail.com>, 2023.
+# "Peter J. Mello" <admin@petermello.net>, 2023.
 #
 # Translators:
 msgid ""
@@ -32,16 +33,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-03-15 16:39+0000\n"
-"Last-Translator: Fernando Lopes <fefehex12@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/"
-"translations/pt/>\n"
+"PO-Revision-Date: 2023-06-02 15:49+0000\n"
+"Last-Translator: \"Peter J. Mello\" <admin@petermello.net>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1089,14 +1089,13 @@ msgstr "mesa digitalizadora"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1543
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires a %s for input."
-msgstr "Esta marcação requer a propriedade tipo."
+msgstr "Este software precisa de um %s para a digitação."
 
 #: src/as-relation.c:1548
-#, fuzzy
 msgid "This software requires a touch input device."
-msgstr "Esta marcação requer a propriedade tipo."
+msgstr "Este software precisa de um dispositivo de entrada táctil."
 
 #: src/as-relation.c:1550
 msgid "This software requires a microphone to be controlled via voice input."
@@ -1108,35 +1107,34 @@ msgid "This software requires a camera for input control."
 msgstr "Este programa precisa uma câmera para o controle de entrada."
 
 #: src/as-relation.c:1554
-#, fuzzy
 msgid "This software requires a method for console input."
-msgstr "Esta marcação requer a propriedade tipo."
+msgstr "Este software precisa de um método de entrada para a consola."
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1559
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "Este software recomenda um %s para a entrada."
 
 #: src/as-relation.c:1564
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "Este software recomenda um dispositivo de entrada táctil."
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Este software recomenda um microfone para controlo por voz."
 
 #: src/as-relation.c:1568
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "Este software recomenda uma câmara para a transmissão de imagens."
 
 #: src/as-relation.c:1570
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "Este software recomenda um método para a entrada da consola."
 
 #: src/as-relation.c:1575
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "dispositivos apontadores (p. ex., ratinhos)"
 
 #: src/as-relation.c:1577
 msgid "keyboards"
@@ -1144,25 +1142,25 @@ msgstr "teclados"
 
 #: src/as-relation.c:1579
 msgid "gamepads"
-msgstr ""
+msgstr "controladores de jogo"
 
 #: src/as-relation.c:1581
 msgid "tv remotes"
-msgstr ""
+msgstr "comandos de televisão"
 
 #: src/as-relation.c:1583
 msgid "graphics tablets"
-msgstr ""
+msgstr "pastilhas gráficas"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1587
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "Este software suporta %s."
 
 #: src/as-relation.c:1592
 msgid "This software supports touch input."
-msgstr ""
+msgstr "Este software suporta a entrada por controlo táctil."
 
 #: src/as-relation.c:1594
 msgid "This software can be controlled via voice input."
@@ -1174,11 +1172,11 @@ msgstr "Este programa pode ser controlado via câmera."
 
 #: src/as-relation.c:1598
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "Este software suporta a operação através de comandos da consola."
 
 #: src/as-relation.c:1611
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "Foi encontrado um dispositivo apontador (p. ex., um ratinho ou um touchpad)."
 
 #: src/as-relation.c:1613
 msgid "Physical keyboard found."
@@ -1186,67 +1184,67 @@ msgstr "Teclado físico encontrado."
 
 #: src/as-relation.c:1615
 msgid "Gamepad found."
-msgstr ""
+msgstr "Foi encontrado um controlador de jogo."
 
 #: src/as-relation.c:1617
 msgid "TV remote found."
-msgstr ""
+msgstr "Foi encontrado o comando da televisão."
 
 #: src/as-relation.c:1619
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "Foi encontrada uma pastilha gráfica."
 
 #: src/as-relation.c:1622
 msgid "Touch input device found."
-msgstr ""
+msgstr "Foi encontrado um dispositivo de entrada táctil."
 
 #: src/as-relation.c:1624
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "Foi encontrado um microfone para a entrada do controlo por voz."
 
 #: src/as-relation.c:1626
 msgid "Camera for input control found."
-msgstr ""
+msgstr "Foi encontrada uma câmara para transmissão de imagens."
 
 #: src/as-relation.c:1628
 msgid "Console interface available."
-msgstr ""
+msgstr "Está disponível uma interface de consola."
 
 #: src/as-relation.c:1684
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "Foi encontrado o software '%s'"
 
 #: src/as-relation.c:1690
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Falta o componente de software necessário '%s'."
 
 #: src/as-relation.c:1694
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Falta o componente de software recomendado '%s'."
 
 #: src/as-relation.c:1698
-#, fuzzy, c-format
+#, c-format
 msgid "Found supported software component '%s'."
-msgstr "Encontrados %i componentes."
+msgstr "Foi encontrado o componente de software suportado '%s'."
 
 #: src/as-relation.c:1727
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "Foi encontrado equipamento que é suportado por este software: '%s'"
 
 #: src/as-relation.c:1733
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Não foi encontrado neste sistema o equipamento necessário para este software: '%s'"
 
 #: src/as-relation.c:1737
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Não foi encontrado neste sistema o equipamento recomendado para este software: '%s'"
 
 #: src/as-relation.c:1741
 #, c-format
