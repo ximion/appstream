@@ -41,6 +41,7 @@
 # Hugel <qihu@nfschina.com>, 2022.
 # Eric <hamburger1024@duck.com>, 2022.
 # Gary Wang <wzc782970009@gmail.com>, 2023.
+# Jason Li <jasonmli@outlook.com>, 2023.
 #
 # Translators:
 msgid ""
@@ -48,16 +49,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-04-10 14:48+0000\n"
-"Last-Translator: Gary Wang <wzc782970009@gmail.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_Hans/>\n"
+"PO-Revision-Date: 2023-06-04 18:51+0000\n"
+"Last-Translator: Jason Li <jasonmli@outlook.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1228,9 +1228,9 @@ msgid "Recommended software component '%s' is missing."
 msgstr ""
 
 #: src/as-relation.c:1698
-#, fuzzy, c-format
+#, c-format
 msgid "Found supported software component '%s'."
-msgstr "找到 %i 个组件。"
+msgstr "找到 %s 个组件。"
 
 #: src/as-relation.c:1727
 #, c-format
@@ -1264,9 +1264,9 @@ msgid "This software recommends a %s kernel, but this system is running %s."
 msgstr ""
 
 #: src/as-relation.c:1783
-#, fuzzy, c-format
+#, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr "此标签需要类型属性。"
+msgstr "此软件仅支持%s内核，但也可能能在%s上运行。"
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1316,9 +1316,9 @@ msgstr ""
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1871
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr "此标签需要类型属性。"
+msgstr "此软件支持 %s %.2f GiB 的内存"
 
 #: src/as-relation.c:1880
 #, c-format
