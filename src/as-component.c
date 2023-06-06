@@ -23,7 +23,6 @@
 
 #include <glib.h>
 #include <glib-object.h>
-#include <fnmatch.h>
 
 #include "as-utils.h"
 #include "as-utils-private.h"
@@ -3949,7 +3948,7 @@ as_component_is_free (AsComponent *cpt)
 
 		/* return a free component if any of the origin wildcards matches */
 		for (guint i = 0; origin_globs[i] != NULL; i++) {
-			if (fnmatch (origin_globs[i], priv->origin, FNM_NOESCAPE) == 0)
+			if (g_pattern_match_simple (origin_globs[i], priv->origin))
 				return TRUE;
 		}
 	}
