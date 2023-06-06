@@ -363,7 +363,7 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
 				const gchar *fname = g_ptr_array_index (contents, j);
 				if (!g_str_has_suffix (fname, ".qm"))
 					continue;
-				if (! g_pattern_match_simple (match_path, fname, FNM_NOESCAPE))
+				if (! g_pattern_match_simple (match_path, fname))
 					continue;
 
 				segments = g_strsplit (fname + prefix_len, G_DIR_SEPARATOR_S, 4);

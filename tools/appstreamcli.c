@@ -24,7 +24,7 @@
 #include <glib/gi18n-lib.h>
 #include <locale.h>
 #include <stdio.h>
-
+#include <unistd.h>
 #include "as-profile.h"
 #include "as-utils-private.h"
 
@@ -1068,7 +1068,7 @@ static int
 as_client_run_compose (const gchar *command, char **argv, int argc)
 {
 	const gchar *ascompose_exe = LIBEXECDIR "/appstreamcli-compose";
-	g_autofree const gchar **asc_argv = NULL;
+	g_autofree gchar **asc_argv = NULL;
 
 	if (!g_file_test (ascompose_exe, G_FILE_TEST_EXISTS)) {
 		/* TRANSLATORS: appstreamcli-compose was not found */
@@ -1079,7 +1079,7 @@ as_client_run_compose (const gchar *command, char **argv, int argc)
 		return 4;
 	}
 
-	asc_argv = g_new0 (const gchar*, argc + 2);
+	asc_argv = g_new0 (gchar*, argc + 2);
 	asc_argv[0] = ascompose_exe;
 	if (argc < 2) {
 		/* TRANSLATORS: Unexpected number of parameters on the command-line */
@@ -1089,7 +1089,7 @@ as_client_run_compose (const gchar *command, char **argv, int argc)
 	for (gint i = 2; i < argc; i++)
 		asc_argv[i-1] = argv[i];
 
-	return execv(ascompose_exe, (gchar * const*) asc_argv);
+	return g_spawn_sync(ascompose_exe, asc_argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 typedef gboolean (*AsCliCommandCb) (const gchar *command,

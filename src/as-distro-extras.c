@@ -350,7 +350,7 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 
 		/* create compatibility symlink for old location */
 		if (!g_file_test (appstream_catalog_legacy_root, G_FILE_TEST_EXISTS)) {
-			if (symlink (appstream_catalog_root, appstream_catalog_legacy_root) != 0)
+			if (! g_file_make_symbolic_link(g_file_new_for_path(appstream_catalog_root), appstream_catalog_legacy_root, NULL, NULL))
 				g_debug ("Unable to create compatibility symlink '%s': %s",
 					 appstream_catalog_legacy_root, g_strerror (errno));
 		}
@@ -373,7 +373,7 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 			continue;
 		} else if (!g_file_test (dest_fname, G_FILE_TEST_EXISTS)) {
 			/* file not found, let's symlink */
-			if (symlink (fname, dest_fname) != 0) {
+			if (! g_file_make_symbolic_link(g_file_new_for_path(fname), dest_fname, NULL, NULL)) {
 				g_debug ("Unable to set symlink (%s -> %s): %s",
 							fname,
 							dest_fname,
