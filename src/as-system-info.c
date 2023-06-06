@@ -41,7 +41,7 @@
 #include <errno.h>
 #include <sys/utsname.h>
 #include <dirent.h>
-#include <glib/gpattern.h>
+#include <glib.h>
 
 #if defined(__linux__)
 #include <sys/sysinfo.h>

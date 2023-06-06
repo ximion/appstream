@@ -29,7 +29,7 @@
 #include "config.h"
 #include "asc-utils-l10n.h"
 
-#include <glib/gpattern.h>
+#include <glib.h>
 
 #include "as-utils-private.h"
 #include "asc-globals.h"

@@ -23,7 +23,6 @@
 
 #include <glib.h>
 #include <glib-object.h>
-#include <glib/gpattern.h>
 
 #include "as-utils.h"
 #include "as-utils-private.h"

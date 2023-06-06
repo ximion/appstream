@@ -24,7 +24,6 @@
 #include <config.h>
 #include <glib/gi18n-lib.h>
 #include <glib.h>
-#include <glib/gpattern.h>
 
 #include "as-utils.h"
 
