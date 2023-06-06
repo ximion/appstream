@@ -29,7 +29,7 @@
 #include "config.h"
 #include "asc-utils-l10n.h"
 
-#include <fnmatch.h>
+#include <glib/gpattern.h>
 
 #include "as-utils-private.h"
 #include "asc-globals.h"
@@ -177,7 +177,7 @@ asc_l10n_search_translations_gettext (AscLocaleContext *ctx,
 		for (guint j = 0; j < contents->len; j++) {
 			const gchar *fname = g_ptr_array_index (contents, j);
 			g_auto(GStrv) segments = NULL;
-			if (fnmatch (match_path, fname, FNM_NOESCAPE) != 0)
+			if (! g_pattern_match_simple(match_path, fname))
 				continue;
 
 			/* fetch locale name from path */
@@ -363,7 +363,7 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
 				const gchar *fname = g_ptr_array_index (contents, j);
 				if (!g_str_has_suffix (fname, ".qm"))
 					continue;
-				if (fnmatch (match_path, fname, FNM_NOESCAPE) != 0)
+				if (! g_pattern_match_simple (match_path, fname, FNM_NOESCAPE))
 					continue;
 
 				segments = g_strsplit (fname + prefix_len, G_DIR_SEPARATOR_S, 4);

@@ -62,18 +62,18 @@ static gboolean
 directory_is_empty (const gchar *dirname)
 {
 	gint n = 0;
-	struct dirent *d;
-	DIR *dir = opendir (dirname);
+	const gchar *d;
+	GDir *dir = g_dir_open (dirname, 0, NULL);
 
 	if (dir == NULL)
 		return TRUE;
 
-	while ((d = readdir (dir)) != NULL) {
+	while ((d = g_dir_read_name (dir)) != NULL) {
 		if (++n > 2)
 			break;
 	}
 
-	closedir (dir);
+	g_dir_close (dir);
 
 	/* empty directory contains . and .. */
 	if (n <= 2)
