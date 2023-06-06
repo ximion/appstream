@@ -41,7 +41,7 @@
 #include <errno.h>
 #include <sys/utsname.h>
 #include <dirent.h>
-#include <fnmatch.h>
+#include <glib.h>
 
 #if defined(__linux__)
 #include <sys/sysinfo.h>
@@ -569,7 +569,7 @@ as_system_info_has_device_matching_modalias (AsSystemInfo *sysinfo, const gchar 
 		if (g_strcmp0 (modalias, modalias_glob) == 0)
 			return TRUE;
 
-		if (fnmatch (modalias, modalias_glob, FNM_NOESCAPE) == 0)
+		if (g_pattern_match_simple (modalias, modalias_glob))
 			return TRUE;
 	}
 

@@ -62,18 +62,18 @@ static gboolean
 directory_is_empty (const gchar *dirname)
 {
 	gint n = 0;
-	struct dirent *d;
-	DIR *dir = opendir (dirname);
+	const gchar *d;
+	GDir *dir = g_dir_open (dirname, 0, NULL);
 
 	if (dir == NULL)
 		return TRUE;
 
-	while ((d = readdir (dir)) != NULL) {
+	while ((d = g_dir_read_name (dir)) != NULL) {
 		if (++n > 2)
 			break;
 	}
 
-	closedir (dir);
+	g_dir_close (dir);
 
 	/* empty directory contains . and .. */
 	if (n <= 2)
@@ -223,6 +223,7 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 {
 	g_autoptr(GPtrArray) yml_files = NULL;
 	g_autoptr(GError) tmp_error = NULL;
+	g_autoptr(GFile) file_catalog = NULL;
 	gboolean data_changed = FALSE;
 	gboolean icons_available = FALSE;
 	gboolean yaml_target_dir_exists = FALSE;
@@ -350,7 +351,8 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 
 		/* create compatibility symlink for old location */
 		if (!g_file_test (appstream_catalog_legacy_root, G_FILE_TEST_EXISTS)) {
-			if (symlink (appstream_catalog_root, appstream_catalog_legacy_root) != 0)
+			file_catalog = g_file_new_for_path (appstream_catalog_root);
+			if (!g_file_make_symbolic_link (file_catalog, appstream_catalog_legacy_root, NULL, NULL))
 				g_debug ("Unable to create compatibility symlink '%s': %s",
 					 appstream_catalog_legacy_root, g_strerror (errno));
 		}
@@ -361,6 +363,7 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 		g_autofree gchar *dest_fname = NULL;
 		g_autofree gchar *origin = NULL;
 		g_autofree gchar *file_baseprefix = NULL;
+		g_autoptr(GFile) file_fname = NULL;
 		guint j;
 		const gchar *fname = (const gchar*) g_ptr_array_index (yml_files, i);
 
@@ -373,7 +376,8 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 			continue;
 		} else if (!g_file_test (dest_fname, G_FILE_TEST_EXISTS)) {
 			/* file not found, let's symlink */
-			if (symlink (fname, dest_fname) != 0) {
+			file_fname = g_file_new_for_path (fname);
+			if (!g_file_make_symbolic_link (file_fname, dest_fname, NULL, NULL)) {
 				g_debug ("Unable to set symlink (%s -> %s): %s",
 							fname,
 							dest_fname,
