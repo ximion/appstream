@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-06-04 18:51+0000\n"
+"PO-Revision-Date: 2023-06-09 21:50+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/appstream/translations/en_GB/>\n"
 "Language: en_GB\n"
@@ -1846,7 +1846,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
+msgstr "This `display_length` item contains an invalid display length. Its value must either be a shorthand string, or positive integer value denoting logical pixels. Please refer to the AppStream specification for more information on this tag."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:392
@@ -1855,39 +1855,39 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
+msgstr "This `side` property of this `display_length` item contains an invalid value. It must either be `shortest` or `longest`, or unset to imply `shortest` to make the item value refer to either the shortest or longest side of the display."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:399
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
+msgstr "This `hardware` item contains an invalid value. It should be a Computer Hardware ID (CHID) UUID without braces."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:405
 msgid ""
 "A `memory` item must only contain a non-zero integer value, depicting a "
 "system memory size in mebibyte (MiB)"
-msgstr ""
+msgstr "A `memory` item must only contain a non-zero integer value, depicting a system memory size in mebibyte (MiB)"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
 msgid "The set tag value is not valid for an `internet` relation."
-msgstr ""
+msgstr "The set tag value is not valid for an `Internet` relation."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
 msgid ""
 "The `bandwidth_mbitps` property is not allowed when using `offline-only` as "
 "value."
-msgstr ""
+msgstr "The `bandwidth_mbitps` property is not allowed when using `offline-only` as value."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
 "The value of this property must be a positive integer value, describing the "
 "minimum required bandwidth in mbit/s."
-msgstr ""
+msgstr "The value of this property must be a positive integer value, describing the minimum required bandwidth in mbit/s."
 
 #: src/as-validator-issue-tag.h:427
 msgid ""
@@ -1954,15 +1954,14 @@ msgid "The component summary must not contain tabs or linebreaks."
 msgstr "The component summary must not contain tabs or linebreaks."
 
 #: src/as-validator-issue-tag.h:482
-#, fuzzy
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr "The summary must not contain any URL. Use the <url/> tags for links."
+msgstr "The summary must not contain any URL. Use the `<url/>` tags for links."
 
 #: src/as-validator-issue-tag.h:487
 msgid ""
 "The summary text does not start with a capitalized word, project name or "
 "number."
-msgstr ""
+msgstr "The summary text does not start with a capitalised word, project name or number."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:493
@@ -2016,7 +2015,7 @@ msgstr "Consider using a secure (HTTPS) URL for this web link."
 
 #: src/as-validator-issue-tag.h:537
 msgid "A web URL was expected for this value."
-msgstr ""
+msgstr "A web URL was expected for this value."
 
 #: src/as-validator-issue-tag.h:542
 msgid ""
@@ -2026,7 +2025,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:547
 msgid "An URL of this type has already been defined."
-msgstr ""
+msgstr "An URL of this type has already been defined."
 
 #: src/as-validator-issue-tag.h:552
 msgid "The <developer_name/> can not contain a hyperlink."
@@ -2052,11 +2051,9 @@ msgstr "This `bundle` tag has an unknown type and can not be used."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:575
-#, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr ""
-"The `update_contact` tag should not be included in collection AppStream XML."
+msgstr "The `update_contact` tag should not be included in catalog AppStream XML."
 
 #: src/as-validator-issue-tag.h:580
 msgid ""
@@ -2131,7 +2128,7 @@ msgid ""
 "association with its desktop-entry file. It also means no icon data or "
 "category information from the desktop-entry file will be available, which "
 "will result in this application being ignored entirely."
-msgstr ""
+msgstr "This `desktop-application` component is missing a `desktop-id` launchable tag. This means that this application can not be launched and has no association with its desktop-entry file. It also means no icon data or category information from the desktop-entry file will be available, which will result in this application being ignored entirely."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:629
@@ -2142,7 +2139,7 @@ msgid ""
 "application can not be launched directly from installers or software "
 "centers. If this is intended, this information can be ignored, otherwise it "
 "is strongly recommended to add a launchable tag as well."
-msgstr ""
+msgstr "This `desktop-application` component has no `desktop-id` launchable tag, however it contains all the necessary information to display the application. The omission of the launchable entry means that this application can not be launched directly from installers or software centers. If this is intended, this information can be ignored, otherwise it is strongly recommended to add a launchable tag as well."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:639
