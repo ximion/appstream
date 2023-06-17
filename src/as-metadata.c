@@ -213,10 +213,9 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
 	/* catalog metadata allows setting a priority for components */
 	priority_str = as_xml_get_prop_value (node, "priority");
 	if (priority_str != NULL) {
-		gint default_priority;
-		default_priority = g_ascii_strtoll (priority_str, NULL, 10);
-		as_context_set_priority (context, default_priority);
-		priv->default_priority = default_priority;
+		gint priority;
+		priority = g_ascii_strtoll (priority_str, NULL, 10);
+		as_context_set_priority (context, priority);
 	}
 	g_free (priority_str);
 
@@ -354,7 +353,6 @@ as_metadata_yaml_parse_catalog_doc (AsMetadata *metad, AsContext *context, const
 						if (value != NULL) {
 							gint priority = g_ascii_strtoll (value, NULL, 10);
 							as_context_set_priority (context, priority);
-							priv->default_priority = priority;
 						}
 					} else if (g_strcmp0 (key, "MediaBaseUrl") == 0) {
 						if (value != NULL &&
