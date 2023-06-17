@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-06-14 09:52+0000\n"
+"PO-Revision-Date: 2023-06-17 09:53+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/appstream/translations/en_GB/>\n"
 "Language: en_GB\n"
@@ -36,7 +36,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 4.18.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2295,37 +2295,33 @@ msgid "The metainfo filename does not match the component ID."
 msgstr "The metainfo filename does not match the component ID."
 
 #: src/as-validator-issue-tag.h:757
-#, fuzzy
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr "Unable to read the .desktop file associated with this component."
+msgstr "Unable to load the desktop-entry file associated with this component."
 
 #: src/as-validator-issue-tag.h:762
 msgid "This component metadata refers to a non-existing .desktop file."
 msgstr "This component metadata refers to a non-existing .desktop file."
 
 #: src/as-validator-issue-tag.h:767
-#, fuzzy
 msgid ""
 "A category defined in the desktop-entry file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
-"The category defined in the .desktop file is not valid. Refer to the XDG "
-"Menu Specification for a list of valid categories."
+msgstr "A category defined in the desktop-entry file is not valid. Refer to the XDG Menu Specification for a list of valid categories."
 
 #: src/as-validator-issue-tag.h:772
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "Error while reading some data from the desktop-entry file."
 
 #: src/as-validator-issue-tag.h:777
 msgid ""
 "The value of this desktop-entry field contains invalid or non-printable "
 "UTF-8 characters, which can not be displayed properly."
-msgstr ""
+msgstr "The value of this desktop-entry field contains invalid or non-printable UTF-8 characters, which can not be displayed properly."
 
 #: src/as-validator-issue-tag.h:782
 msgid ""
 "This desktop-entry field value is quoted, which is likely unintentional."
-msgstr ""
+msgstr "This desktop-entry field value is quoted, which is likely unintentional."
 
 #: src/as-validator-issue-tag.h:787
 msgid ""
@@ -2333,7 +2329,7 @@ msgid ""
 "vendor-installed .desktop files, and nullifies all effects this .desktop "
 "file has (including MIME associations), which most certainly is not "
 "intentional."
-msgstr ""
+msgstr "This desktop-entry file has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional."
 
 #: src/as-validator-issue-tag.h:793
 msgid ""
@@ -2341,7 +2337,7 @@ msgid ""
 "value. This might not be intended, as this will hide the application from "
 "all desktops. If you do want to hide the application from all desktops, "
 "using 'NoDisplay=true' is more explicit."
-msgstr ""
+msgstr "This desktop-entry file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit."
 
 #: src/as-validator-issue-tag.h:799
 msgid "No AppStream metadata was found in this directory or directory tree."
@@ -2381,24 +2377,23 @@ msgstr ""
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
-msgstr ""
+msgstr "The type of the releases block is invalid. It needs to either `embedded` (the default) or `external`."
 
 #: src/as-validator-issue-tag.h:832
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
-msgstr ""
+msgstr "The URL to an external release metadata file is insecure. This is not allowed, please use HTTPS URLs only."
 
 #: src/as-validator-issue-tag.h:837
-#, fuzzy
 msgid "Failed to download release metadata."
-msgstr "Unable to save desktop entry file: %s"
+msgstr "Failed to download release metadata."
 
 #: src/as-validator-issue-tag.h:842
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
-msgstr ""
+msgstr "A local release metadata file was not found. It is strongly recommended to validate this metadata together with the main MetaInfo file."
 
 #: src/as-validator-issue-tag.h:848
 msgid "The value set as release urgency is not a known urgency value."
