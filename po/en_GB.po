@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-06-17 09:53+0000\n"
+"PO-Revision-Date: 2023-06-18 02:49+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/appstream/translations/en_GB/>\n"
 "Language: en_GB\n"
@@ -2397,60 +2397,60 @@ msgstr "A local release metadata file was not found. It is strongly recommended 
 
 #: src/as-validator-issue-tag.h:848
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "The value set as release urgency is not a known urgency value."
 
 #: src/as-validator-issue-tag.h:853
 msgid "The value set as release type is invalid."
-msgstr ""
+msgstr "The value set as release type is invalid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:859
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "The release is missing the `version` property."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:865
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
-msgstr ""
+msgstr "The release is missing either the `date` (preferred) or the `timestamp` property."
 
 #: src/as-validator-issue-tag.h:870
 msgid "The release timestamp is invalid."
-msgstr ""
+msgstr "The release timestamp is invalid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:876
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr ""
+msgstr "The value set as artifact type is invalid. Must be either `source` or `binary`."
 
 #: src/as-validator-issue-tag.h:881
 msgid "The value set as artifact bundle type is invalid."
-msgstr ""
+msgstr "The value set as artifact bundle type is invalid."
 
 #: src/as-validator-issue-tag.h:886
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
+msgstr "The platform triplet for this release is invalid. It must be in the form of `architecture-oskernel-osenv` - refer to the AppStream documentation or information on normalized GNU triplets for more information and valid fields."
 
 #: src/as-validator-issue-tag.h:893
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
+msgstr "The selected checksumming algorithm is unsupported or unknown."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:899
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
+msgstr "The size type is unknown. Must be `download` or `installed`."
 
 #: src/as-validator-issue-tag.h:904
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr ""
+msgstr "The artifact filename must be a file basename, not a (relative or absolute) path."
 
 #: src/as-validator-issue-tag.h:909
 msgid "The value set as release issue type is invalid."
@@ -2556,39 +2556,36 @@ msgstr "The XML of this file is malformed."
 
 #: src/as-validator-issue-tag.h:985
 msgid "The value of this color scheme preference is not valid."
-msgstr ""
+msgstr "The value of this colour scheme preference is not valid."
 
 #: src/as-validator-issue-tag.h:990
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "This colour is not a valid HTML colour code."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:996
 msgid "The `custom` tag can only contain `value` children."
-msgstr ""
+msgstr "The `custom` tag can only contain `value` children."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1002
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr ""
+msgstr "This `custom` tag value is missing a `key` attribute."
 
 #: src/as-validator-issue-tag.h:1007
 msgid "A key can only be used once."
-msgstr ""
+msgstr "A key can only be used once."
 
 #: src/as-validator-issue-tag.h:1012
 msgid "This custom value is empty."
-msgstr ""
+msgstr "This custom value is empty."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1018
-#, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"A <description/> tag must not be localised in metainfo files (upstream "
-"metadata). Localise the individual paragraphs instead."
+msgstr "A `keywords` tag must not be localized in metainfo files (upstream metadata). Localize the individual keyword entries instead."
 
 #: src/as-validator.c:192
 msgid ""
@@ -2605,19 +2602,19 @@ msgstr "URL format is invalid."
 #: src/as-validator.c:470 src/as-validator.c:514
 #, c-format
 msgid "The release metadata file '%s' is named incorrectly."
-msgstr ""
+msgstr "The release metadata file '%s' is named incorrectly."
 
 #. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
 #: src/as-validator.c:653
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
-msgstr ""
+msgstr "The new issue severity for tag '%s' is invalid."
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
 #: src/as-validator.c:664
 #, c-format
 msgid "The issue tag '%s' is not recognized."
-msgstr ""
+msgstr "The issue tag '%s' is not recognised."
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 #. whitelisted for that.
@@ -2626,7 +2623,7 @@ msgstr ""
 msgid ""
 "It is not allowed to downgrade the severity of tag '%s' to one that allows "
 "validation to pass."
-msgstr ""
+msgstr "It is not allowed to downgrade the severity of tag '%s' to one that allows validation to pass."
 
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
@@ -2639,9 +2636,8 @@ msgstr "Found: %s – Allowed: %s"
 
 #. TRANSLATORS: ascompose flag description for: --verbose
 #: tools/appstream-compose.c:183
-#, fuzzy
 msgid "Show extra debugging information"
-msgstr "Show extra debugging information."
+msgstr "Show extra debugging information"
 
 #. TRANSLATORS: ascompose flag description for: --no-color
 #. TRANSLATORS: ascli flag description for: --no-color
@@ -2658,22 +2654,22 @@ msgstr "Show the program version."
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:192
 msgid "Do not use the network at all, not even for URL validity checks."
-msgstr ""
+msgstr "Do not use the network at all, not even for URL validity checks."
 
 #. TRANSLATORS: ascompose flag description for: --full-report
 #: tools/appstream-compose.c:195
 msgid "Set mode of the issue report that is printed to the console"
-msgstr ""
+msgstr "Set mode of the issue report that is printed to the console"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:198
 msgid "Override the default prefix (`/usr` by default)"
-msgstr ""
+msgstr "Override the default prefix (`/usr` by default)"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:201
 msgid "Set the result output directory"
-msgstr ""
+msgstr "Set the result output directory"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:204
