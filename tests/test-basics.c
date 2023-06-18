@@ -560,13 +560,13 @@ test_read_desktop_entry_simple (void)
 	as_component_set_active_locale (cpt, "C.UTF-8");
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "foobar.desktop");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "FooBar");
-	tmp = g_strjoinv (", ", as_component_get_keywords (cpt));
+	tmp = as_ptr_array_strjoin (as_component_get_keywords (cpt), ", ");
 	g_assert_cmpstr (tmp, ==, "Hobbes, Bentham, Locke");
 	g_free (tmp);
 
 	as_component_set_active_locale (cpt, "de_DE");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "FööBär");
-	tmp = g_strjoinv (", ", as_component_get_keywords (cpt));
+	tmp = as_ptr_array_strjoin (as_component_get_keywords (cpt), ", ");
 	g_assert_cmpstr (tmp, ==, "Heidegger, Kant, Hegel");
 	g_free (tmp);
 

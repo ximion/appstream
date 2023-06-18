@@ -280,18 +280,25 @@ ascli_make_desktop_entry_file (const gchar *mi_fname, const gchar *de_fname, con
 	/* Keywords */
 	g_hash_table_iter_init (&ht_iter, as_component_get_keywords_table (cpt));
 	while (g_hash_table_iter_next (&ht_iter, &ht_key, &ht_value)) {
-		g_autofree gchar *keywords_str = g_strjoinv (";", (gchar**) ht_value);
+		GPtrArray *kws = ht_value;
+		g_autoptr(GString) keywords = g_string_new ("");
+
+		for (guint i = 0; i < kws->len; ++i) {
+			g_string_append_printf (keywords, "%s;",
+						(const gchar*) g_ptr_array_index (kws, i));
+		}
+
 		if (g_strcmp0 ((const gchar*) ht_key, "C") == 0) {
 			g_key_file_set_string (de_file,
 						G_KEY_FILE_DESKTOP_GROUP,
 						"Keywords",
-						keywords_str);
+						keywords->str);
 		} else {
 			g_autofree gchar *keywords_key = g_strdup_printf ("Keywords[%s]", (const gchar*) ht_key);
 			g_key_file_set_string (de_file,
 						G_KEY_FILE_DESKTOP_GROUP,
 						keywords_key,
-						keywords_str);
+						keywords->str);
 		}
 	}
 

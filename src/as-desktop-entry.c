@@ -473,6 +473,7 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 			as_add_filtered_categories (cats, cpt, issues);
 		} else if (g_str_has_prefix (key, "Keywords")) {
 			g_auto(GStrv) kws = NULL;
+			g_autoptr(GPtrArray) kws_list = NULL;
 			g_autoptr(GPtrArray) l10n_data = NULL;
 
 			/* skip adding keywords if the metainfo file or previous component has
@@ -481,18 +482,22 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 				continue;
 
 			kws = g_strsplit (val, ";", -1);
-			as_component_set_keywords (cpt, kws, locale);
+			kws_list = as_strv_to_ptr_array (kws, TRUE, TRUE);
+			as_component_set_keywords (cpt, kws_list, locale, FALSE);
 
 			l10n_data = as_get_external_desktop_translations (df, val, locale,
 									  de_l10n_fn, user_data);
 			if (l10n_data != NULL) {
 				for (guint j = 0; j < l10n_data->len; j += 2) {
-					g_auto(GStrv) e_kws = NULL;
+					g_auto(GStrv) tmp_strv = NULL;
+					g_autoptr(GPtrArray) e_kws = NULL;
+
 					const gchar *e_locale = g_ptr_array_index (l10n_data, j);
 					gchar *e_value = g_ptr_array_index (l10n_data, j + 1);
 
-					e_kws = g_strsplit (e_value, ";", -1);
-					as_component_set_keywords (cpt, e_kws, e_locale);
+					tmp_strv = g_strsplit (e_value, ";", -1);
+					e_kws = as_strv_to_ptr_array (tmp_strv, TRUE, TRUE);
+					as_component_set_keywords (cpt, e_kws, e_locale, FALSE);
 				}
 			}
 		} else if (g_strcmp0 (key, "MimeType") == 0) {

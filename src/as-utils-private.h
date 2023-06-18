@@ -160,6 +160,9 @@ gchar			*as_str_replace (const gchar *str,
 					 guint limit);
 
 gchar			**as_ptr_array_to_strv (GPtrArray *array);
+GPtrArray		*as_strv_to_ptr_array (gchar **strv,
+					       gboolean ignore_empty,
+					       gboolean copy);
 const gchar		*as_ptr_array_find_string (GPtrArray *array,
 						   const gchar *value);
 void			as_hash_table_string_keys_to_array (GHashTable *table,

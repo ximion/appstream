@@ -156,7 +156,7 @@ as_assert_component_lists_equal (GPtrArray *cpts_a, GPtrArray *cpts_b)
 	for (i = 0; i < cpts_a->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts_a, i));
 		/* we ignore keywords for now */
-		as_component_set_keywords (cpt, NULL, "C");
+		as_component_clear_keywords (cpt, "C");
 		/* FIXME: And languages, because their ordering on serialization is random. */
 		g_hash_table_remove_all (as_component_get_languages_table (cpt));
 
@@ -170,7 +170,7 @@ as_assert_component_lists_equal (GPtrArray *cpts_a, GPtrArray *cpts_b)
 	for (i = 0; i < cpts_b->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts_b, i));
 		/* we ignore keywords for now */
-		as_component_set_keywords (cpt, NULL, "C");
+		as_component_clear_keywords (cpt, "C");
 		/* FIXME: And languages, because their ordering on serialization is random. */
 		g_hash_table_remove_all (as_component_get_languages_table (cpt));
 
@@ -235,7 +235,7 @@ test_cache (void)
 
 		/* keywords are not cached explicitly, they are stored in the search terms list instead. Therefore, we don't
 		 * serialize them here */
-		as_component_set_keywords (cpt, NULL, NULL);
+		as_component_clear_keywords (cpt, NULL);
 
 		/* FIXME: language lists are not deterministic yet, so we ignore them for now */
 		g_hash_table_remove_all (as_component_get_languages_table (cpt));

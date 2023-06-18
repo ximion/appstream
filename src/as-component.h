@@ -320,10 +320,16 @@ GPtrArray		*as_component_get_screenshots (AsComponent *cpt);
 void			as_component_add_screenshot (AsComponent *cpt,
 							AsScreenshot *sshot);
 
-gchar			**as_component_get_keywords (AsComponent *cpt);
+GPtrArray		*as_component_get_keywords (AsComponent *cpt);
 void			as_component_set_keywords (AsComponent *cpt,
-							gchar **value,
-							const gchar *locale);
+						   GPtrArray *new_keywords,
+						   const gchar *locale,
+						   gboolean deep_copy);
+void			as_component_add_keyword (AsComponent *cpt,
+						   const gchar *keyword,
+						   const gchar *locale);
+void			as_component_clear_keywords (AsComponent *cpt,
+						   const gchar *locale);
 
 GPtrArray		*as_component_get_icons (AsComponent *cpt);
 AsIcon			*as_component_get_icon_by_size (AsComponent *cpt,

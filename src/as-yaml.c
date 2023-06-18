@@ -640,7 +640,6 @@ static void
 as_yaml_localized_list_helper (gchar *key, gchar **strv, yaml_emitter_t *emitter)
 {
 	g_autofree gchar *locale_noenc = NULL;
-	guint i;
 	if (strv == NULL)
 		return;
 
@@ -651,7 +650,7 @@ as_yaml_localized_list_helper (gchar *key, gchar **strv, yaml_emitter_t *emitter
 	locale_noenc = as_locale_strip_encoding (key);
 	as_yaml_emit_scalar (emitter, locale_noenc);
 	as_yaml_sequence_start (emitter);
-	for (i = 0; strv[i] != NULL; i++) {
+	for (guint i = 0; strv[i] != NULL; i++) {
 		as_yaml_emit_scalar (emitter, strv[i]);
 	}
 	as_yaml_sequence_end (emitter);
@@ -659,6 +658,7 @@ as_yaml_localized_list_helper (gchar *key, gchar **strv, yaml_emitter_t *emitter
 
 /**
  * as_yaml_emit_localized_strv:
+ * @ltab: Hash table of utf8->strv
  */
 void
 as_yaml_emit_localized_strv (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
@@ -676,6 +676,48 @@ as_yaml_emit_localized_strv (yaml_emitter_t *emitter, const gchar *key, GHashTab
 	g_hash_table_foreach (ltab,
 				(GHFunc) as_yaml_localized_list_helper,
 				emitter);
+	/* finalize */
+	as_yaml_mapping_end (emitter);
+}
+
+/**
+ * as_yaml_emit_localized_str_array:
+ * @ltab: Hash table of utf8->GPtrArray[utf8]
+ */
+void
+as_yaml_emit_localized_str_array (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
+{
+	GHashTableIter iter;
+	gpointer ht_key, ht_value;
+
+	if (ltab == NULL)
+		return;
+	if (g_hash_table_size (ltab) == 0)
+		return;
+
+	as_yaml_emit_scalar (emitter, key);
+
+	/* start mapping for localized entry */
+	as_yaml_mapping_start (emitter);
+
+	/* emit entries */
+	g_hash_table_iter_init (&iter, ltab);
+	while (g_hash_table_iter_next (&iter, &ht_key, &ht_value)) {
+		g_autofree gchar *locale_noenc = NULL;
+		GPtrArray *array = ht_value;
+
+		/* skip cruft */
+		if (as_is_cruft_locale (ht_key))
+			return;
+
+		locale_noenc = as_locale_strip_encoding (ht_key);
+		as_yaml_emit_scalar (emitter, locale_noenc);
+		as_yaml_sequence_start (emitter);
+		for (guint i = 0; i < array->len; i++)
+			as_yaml_emit_scalar (emitter, g_ptr_array_index (array, i));
+		as_yaml_sequence_end (emitter);
+	}
+
 	/* finalize */
 	as_yaml_mapping_end (emitter);
 }

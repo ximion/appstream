@@ -522,7 +522,7 @@ test_compose_desktop_entry (void)
 
 
 	as_component_set_active_locale (cpt, "C.UTF-8");
-	tmp = g_strjoinv (", ", as_component_get_keywords (cpt));
+	tmp = as_ptr_array_strjoin (as_component_get_keywords (cpt), ", ");
 	g_assert_cmpstr (tmp, ==, "Hobbes, Bentham, Locke");
 	g_free (tmp);
 

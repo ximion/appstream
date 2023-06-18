@@ -400,7 +400,7 @@ as_component_init (AsComponent *cpt)
 						      g_free);
 	priv->keywords = g_hash_table_new_full (g_str_hash, g_str_equal,
 						(GDestroyNotify) as_ref_string_release,
-						(GDestroyNotify) g_strfreev);
+						(GDestroyNotify) g_ptr_array_unref);
 
 	/* lists */
 	priv->launchables = g_ptr_array_new_with_free_func (g_object_unref);
@@ -1626,21 +1626,29 @@ as_component_set_description (AsComponent *cpt, const gchar* value, const gchar 
  * as_component_get_keywords:
  * @cpt: a #AsComponent instance.
  *
- * Returns: (transfer none): String array of keywords
+ * Returns: (transfer none) (element-type utf8): String array of keywords
  */
-gchar**
+GPtrArray*
 as_component_get_keywords (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	gchar **strv;
+	GPtrArray *keywords;
 
-	strv = g_hash_table_lookup (priv->keywords, as_component_get_active_locale (cpt));
-	if (strv == NULL) {
+	keywords = g_hash_table_lookup (priv->keywords, as_component_get_active_locale (cpt));
+	if (keywords == NULL) {
 		/* fall back to untranslated */
-		strv = g_hash_table_lookup (priv->keywords, "C");
+		keywords = g_hash_table_lookup (priv->keywords, "C");
+	}
+	if (keywords == NULL) {
+		/* add an empty list to return, so checking for "no keywords" is easier
+		 * for the callers of this method. */
+		keywords = g_ptr_array_new_with_free_func (g_free);
+		g_hash_table_insert (priv->keywords,
+					g_ref_string_new_intern (as_component_get_active_locale (cpt)),
+					keywords);
 	}
 
-	return strv;
+	return keywords;
 }
 
 /**
@@ -1662,13 +1670,14 @@ as_component_get_keywords_table (AsComponent *cpt)
 /**
  * as_component_set_keywords:
  * @cpt: a #AsComponent instance.
- * @value: (array zero-terminated=1): String-array of keywords
+ * @new_keywords: (element-type utf8): Array of keywords
  * @locale: (nullable): BCP47 locale of the values, or %NULL to use current locale.
+ * @deep_copy: Set to %TRUE if the keywords array should be copied, %FALSE to set by reference.
  *
- * Set keywords for this component.
+ * Set keywords for this component, replacing all existing ones for the selected locale.
  */
 void
-as_component_set_keywords (AsComponent *cpt, gchar **value, const gchar *locale)
+as_component_set_keywords (AsComponent *cpt, GPtrArray *new_keywords, const gchar *locale, gboolean deep_copy)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_autoptr(GPtrArray) keywords = NULL;
@@ -1677,26 +1686,73 @@ as_component_set_keywords (AsComponent *cpt, gchar **value, const gchar *locale)
 	if (locale == NULL)
 		locale = as_component_get_active_locale (cpt);
 
-	keywords = g_ptr_array_new ();
-
-	if (value != NULL) {
-		for (guint i = 0; value[i] != NULL; ++i) {
-			if (g_strcmp0 (value[i], "") != 0)
-				g_ptr_array_add (keywords, g_strdup (value[i]));
+	if (deep_copy) {
+		keywords = g_ptr_array_new_with_free_func (g_free);
+		for (guint i = 0; i < new_keywords->len; ++i) {
+			const gchar *value = g_ptr_array_index (new_keywords, i);
+			if (!as_is_empty (value))
+				g_ptr_array_add (keywords, g_strdup (value));
 		}
+	} else {
+		keywords = g_ptr_array_ref (new_keywords);
 	}
-	g_ptr_array_add (keywords, NULL);
 
-#if GLIB_CHECK_VERSION(2,64,0)
 	g_hash_table_insert (priv->keywords,
-				g_ref_string_new_intern (locale),
-				(gchar **) (g_ptr_array_steal (keywords, NULL)));
-#else
-	g_hash_table_insert (priv->keywords,
-				g_ref_string_new_intern (locale),
-				(gchar **) g_ptr_array_free (g_steal_pointer (&keywords), FALSE));
-#endif
+			     g_ref_string_new_intern (locale),
+			     g_steal_pointer (&keywords));
+	g_object_notify ((GObject *) cpt, "keywords");
+}
 
+/**
+ * as_component_add_keyword:
+ * @cpt: an #AsComponent instance.
+ * @keyword: The new keyword to add.
+ * @locale: (nullable): BCP47 locale of the values, or %NULL to use current locale.
+ *
+ * Add a new keyword to the keywords list for the given locale. This function does not
+ * check for duplicate keywords.
+ */
+void
+as_component_add_keyword (AsComponent *cpt, const gchar *keyword, const gchar *locale)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	GPtrArray *keywords = NULL;
+
+	if (as_is_empty (keyword))
+		return;
+
+	/* if no locale was specified, we assume the default locale */
+	if (locale == NULL)
+		locale = as_component_get_active_locale (cpt);
+
+	keywords = g_hash_table_lookup (priv->keywords, locale);
+	if (keywords == NULL) {
+		keywords = g_ptr_array_new_with_free_func (g_free);
+		g_hash_table_insert (priv->keywords,
+					g_ref_string_new_intern (locale),
+					keywords);
+	}
+
+	g_ptr_array_add (keywords, g_strdup (keyword));
+}
+
+/**
+ * as_component_clear_keywords:
+ * @cpt: an #AsComponent instance.
+ * @locale: (nullable): BCP47 locale of the values, or %NULL to use current locale.
+ *
+ * Remove all keywords for the given locale.
+ */
+void
+as_component_clear_keywords (AsComponent *cpt, const gchar *locale)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	/* if no locale was specified, we assume the default locale */
+	if (locale == NULL)
+		locale = as_component_get_active_locale (cpt);
+
+	g_hash_table_remove (priv->keywords, locale);
 	g_object_notify ((GObject *) cpt, "keywords");
 }
 
@@ -3087,7 +3143,7 @@ as_component_create_token_cache_target (AsComponent *cpt, AsComponent *donor, gu
 {
 	AsComponentPrivate *priv = GET_PRIVATE (donor);
 	const gchar *tmp;
-	gchar **keywords;
+	GPtrArray *keywords;
 	AsProvided *prov;
 
 	/* tokenize all the data we have */
@@ -3118,9 +3174,13 @@ as_component_create_token_cache_target (AsComponent *cpt, AsComponent *donor, gu
 	}
 
 	keywords = as_component_get_keywords (cpt);
-	if (keywords != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_KEYWORD)) {
-		for (guint i = 0; keywords[i] != NULL; i++)
-			as_component_add_tokens (cpt, keywords[i], FALSE, AS_SEARCH_TOKEN_MATCH_KEYWORD, tokens_out);
+	if (keywords->len > 0 && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_KEYWORD)) {
+		for (guint i = 0; i < keywords->len; i++)
+			as_component_add_tokens (cpt,
+						 (const gchar*) g_ptr_array_index (keywords, i),
+						 FALSE,
+						 AS_SEARCH_TOKEN_MATCH_KEYWORD,
+						 tokens_out);
 	}
 
 	prov = as_component_get_provided_for_kind (donor, AS_PROVIDED_KIND_MIMETYPE);
@@ -4297,20 +4357,10 @@ as_component_load_relations_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode 
 static void
 as_component_load_keywords_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node)
 {
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
 	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) {
-		GHashTableIter ht_iter;
-		gpointer ht_key;
-		gpointer ht_value;
-		g_autoptr(GHashTable) temp_kw = g_hash_table_new_full (g_str_hash,
-								       g_str_equal,
-								       NULL,
-								       (GDestroyNotify) g_ptr_array_unref);
-
 		for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 			g_autofree gchar *lang = NULL;
-			GPtrArray *array = NULL;
+			g_autofree gchar *keyword = NULL;
 
 			if (iter->type != XML_ELEMENT_NODE)
 				continue;
@@ -4318,39 +4368,15 @@ as_component_load_keywords_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *
 			if (lang == NULL)
 				continue;
 
-			array = g_hash_table_lookup (temp_kw, lang);
-			if (array == NULL) {
-				array = g_ptr_array_new ();
-				g_hash_table_insert (temp_kw,
-						     g_ref_string_new_intern (lang),
-						     array);
-			}
-
-			g_ptr_array_add (array,	as_xml_get_node_value (iter));
-		}
-
-		/* Deconstruct hash table and add contents to internal table.
-		 * We try to duplicate as little memory as possible, as this function
-		 * may be called quite often when processing many metainfo files.
-		 * Note the the PtrArray with the terms will not auto-free its contents,
-		 * and the hash table does not own its key and will not free it wither. */
-		g_hash_table_iter_init (&ht_iter, temp_kw);
-		while (g_hash_table_iter_next (&ht_iter, &ht_key, &ht_value)) {
-			GPtrArray *array = (GPtrArray*) ht_value;
-			gchar **strv = g_new0 (gchar*, array->len + 1);
-			for (guint i = 0; i < array->len; i++)
-				strv[i] = (gchar*) g_ptr_array_index (array, i);
-
-			g_hash_table_insert (priv->keywords,
-					     ht_key, /* GRefString */
-					     strv);
+			keyword = as_xml_get_node_value (iter);
+			as_component_add_keyword (cpt, keyword, lang);
 		}
 	} else {
 		g_autofree gchar *lang = as_xml_get_node_locale_match (ctx, node);
 		if (lang != NULL) {
-			g_auto(GStrv) kw_array = NULL;
-			kw_array = as_xml_get_children_as_strv (node, "keyword");
-			as_component_set_keywords (cpt, kw_array, lang);
+			g_autoptr(GPtrArray) keywords = NULL;
+			keywords = as_xml_get_children_as_string_list (node, "keyword");
+			as_component_set_keywords (cpt, keywords, lang, FALSE);
 		}
 	}
 }
@@ -4725,7 +4751,7 @@ as_component_xml_keywords_to_node (AsComponent *cpt, AsContext *ctx, xmlNode *ro
 	for (GList *link = keys; link != NULL; link = link->next) {
 		gboolean has_locale = FALSE;
 		const gchar *locale = (const gchar*) link->data;
-		gchar **kws = (gchar**) g_hash_table_lookup (priv->keywords, locale);
+		GPtrArray *kws = g_hash_table_lookup (priv->keywords, locale);
 
 		/* skip cruft */
 		if (as_is_cruft_locale (locale))
@@ -4733,17 +4759,16 @@ as_component_xml_keywords_to_node (AsComponent *cpt, AsContext *ctx, xmlNode *ro
 
 		has_locale = g_strcmp0 (locale, "C") != 0;
 		if (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) {
-
-			for (guint i = 0; kws[i] != NULL; i++) {
+			for (guint i = 0; i < kws->len; i++) {
 				xmlNode *kw_node = as_xml_add_text_node (mi_kw_node,
 									 "keyword",
-									 kws[i]);
+									 (const gchar*) g_ptr_array_index (kws, i));
 
 				if (has_locale)
 					as_xml_add_text_prop (kw_node, "xml:lang", locale);
 			}
 		} else {
-			xmlNode *kws_node = as_xml_add_node_list_strv (root, "keywords", "keyword", kws);
+			xmlNode *kws_node = as_xml_add_node_list (root, "keywords", "keyword", kws);
 			if (kws_node == NULL)
 				continue;
 			if (has_locale)
@@ -5167,15 +5192,14 @@ as_component_yaml_parse_keywords (AsComponent *cpt, AsContext *ctx, GNode *node)
 		const gchar *locale = as_yaml_get_node_locale (ctx, tnode);
 		if (locale != NULL) {
 			g_autoptr(GPtrArray) keywords = NULL;
-			g_auto(GStrv) strv = NULL;
 
 			keywords = g_ptr_array_new_with_free_func (g_free);
 			as_yaml_list_to_str_array (tnode, keywords);
 
-			strv = as_ptr_array_to_strv (keywords);
 			as_component_set_keywords (cpt,
-						   strv,
-						   locale);
+						   keywords,
+						   locale,
+						   FALSE);
 		}
 	}
 }
@@ -6087,7 +6111,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 	as_yaml_emit_sequence_from_str_array (emitter, "Categories", priv->categories);
 
 	/* Keywords */
-	as_yaml_emit_localized_strv (emitter, "Keywords", priv->keywords);
+	as_yaml_emit_localized_str_array (emitter, "Keywords", priv->keywords);
 
 	/* Urls */
 	if (g_hash_table_size (priv->urls) > 0) {
@@ -6506,7 +6530,7 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 			as_component_set_description (cpt, g_value_get_string (value), NULL);
 			break;
 		case AS_COMPONENT_KEYWORDS:
-			as_component_set_keywords (cpt, g_value_get_boxed (value), NULL);
+			as_component_set_keywords (cpt, g_value_get_pointer (value), NULL, TRUE);
 			break;
 		case AS_COMPONENT_PROJECT_LICENSE:
 			as_component_set_project_license (cpt, g_value_get_string (value));

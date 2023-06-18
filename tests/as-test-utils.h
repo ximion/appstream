@@ -16,6 +16,9 @@ void 		as_sort_strings (GPtrArray *utf8);
 
 GBytes		*as_gbytes_from_literal (const gchar *string);
 
+gchar		*as_ptr_array_strjoin (GPtrArray *array,
+				       const gchar *sep);
+
 G_END_DECLS
 
 #endif /* __AS_TEST_UTILS_H */

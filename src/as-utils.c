@@ -784,18 +784,47 @@ as_ptr_array_to_strv (GPtrArray *array)
 {
 	gchar **value;
 	const gchar *value_temp;
-	guint i;
 
 	g_return_val_if_fail (array != NULL, NULL);
 
 	/* copy the array to a strv */
 	value = g_new0 (gchar*, array->len + 1);
-	for (i = 0; i < array->len; i++) {
+	for (guint i = 0; i < array->len; i++) {
 		value_temp = (const gchar*) g_ptr_array_index (array, i);
 		value[i] = g_strdup (value_temp);
 	}
 
 	return value;
+}
+
+/**
+ * as_strv_to_ptr_array:
+ * @strv: The strings to convert.
+ * @ignore_empty: %TRUE if empty entries should be ignored.
+ * @copy: %TRUE if a deep copy should be created.
+ *
+ * Returns: (transfer full): strv of the string array
+ */
+GPtrArray*
+as_strv_to_ptr_array (gchar **strv, gboolean ignore_empty, gboolean copy)
+{
+	GPtrArray *array;
+
+	g_return_val_if_fail (strv != NULL, NULL);
+
+	array = copy? g_ptr_array_new_with_free_func (g_free)
+		    : g_ptr_array_new ();
+
+	for (guint i = 0; strv[i] != NULL; ++i) {
+		if (ignore_empty && as_is_empty (strv[i]))
+			continue;
+		if (copy)
+			g_ptr_array_add (array, g_strdup (strv[i]));
+		else
+			g_ptr_array_add (array, strv[i]);
+	}
+
+	return array;
 }
 
 /**

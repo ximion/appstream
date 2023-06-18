@@ -134,3 +134,24 @@ as_gbytes_from_literal (const gchar *string)
 {
 	return g_bytes_new_static (string, strlen (string));
 }
+
+/**
+ * as_ptr_array_strjoin:
+ */
+gchar*
+as_ptr_array_strjoin (GPtrArray *array, const gchar *sep)
+{
+	gsize sep_len;
+	GString *str = g_string_new ("");
+
+	sep_len = strlen (sep);
+	for (guint i = 0; i < array->len; ++i) {
+		g_string_append_printf (str, "%s%s",
+					(const gchar*) g_ptr_array_index (array, i),
+					sep);
+	}
+	if (str->len > sep_len)
+		g_string_truncate (str, str->len - sep_len);
+
+	return g_string_free (str, FALSE);
+}

@@ -282,9 +282,9 @@ as_xml_add_children_values_to_array (xmlNode *node, const gchar *element_name, G
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */
-		if (iter->type != XML_ELEMENT_NODE) {
+		if (iter->type != XML_ELEMENT_NODE)
 			continue;
-		}
+
 		if (g_strcmp0 ((const gchar*) iter->name, element_name) == 0) {
 			gchar *content = as_xml_get_node_value (iter);
 			/* transfer ownership of content to array */
@@ -837,7 +837,6 @@ xmlNode*
 as_xml_add_node_list_strv (xmlNode *root, const gchar *name, const gchar *child_name, gchar **strv)
 {
 	xmlNode *node;
-	guint i;
 
 	/* don't add the node if we have no values */
 	if (strv == NULL)
@@ -852,7 +851,7 @@ as_xml_add_node_list_strv (xmlNode *root, const gchar *name, const gchar *child_
 				    NULL,
 				    (xmlChar*) name,
 				    NULL);
-	for (i = 0; strv[i] != NULL; i++) {
+	for (guint i = 0; strv[i] != NULL; i++) {
 		xmlNewTextChild (node,
 				 NULL,
 				 (xmlChar*) child_name,
@@ -867,17 +866,16 @@ as_xml_add_node_list_strv (xmlNode *root, const gchar *name, const gchar *child_
  *
  * Add node with a list of children containing the string array contents.
  */
-void
+xmlNode*
 as_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *child_name, GPtrArray *array)
 {
 	xmlNode *node;
-	guint i;
 
 	/* don't add the node if we have no values */
 	if (array == NULL)
-		return;
+		return NULL;
 	if (array->len == 0)
-		return;
+		return NULL;
 
 	if (name == NULL)
 		node = root;
@@ -887,13 +885,15 @@ as_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *child_name,
 				    (xmlChar*) name,
 				    NULL);
 
-	for (i = 0; i < array->len; i++) {
+	for (guint i = 0; i < array->len; i++) {
 		const xmlChar *value = (const xmlChar*) g_ptr_array_index (array, i);
 		xmlNewTextChild (node,
 				 NULL,
 				 (xmlChar*) child_name,
 				 value);
 	}
+
+	return node;
 }
 
 /**

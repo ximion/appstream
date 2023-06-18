@@ -78,7 +78,7 @@ xmlNode		*as_xml_add_node_list_strv (xmlNode *root,
 						const gchar *child_name,
 						gchar **strv);
 
-void		as_xml_add_node_list (xmlNode *root,
+xmlNode		*as_xml_add_node_list (xmlNode *root,
 					const gchar *name,
 					const gchar *child_name,
 					GPtrArray *array);
