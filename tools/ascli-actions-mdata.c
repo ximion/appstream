@@ -739,3 +739,69 @@ ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gbo
 
 	return res? ASCLI_EXIT_CODE_SUCCESS : ASCLI_EXIT_CODE_FAILED;
 }
+
+gint
+ascli_get_latest_version_file (const gchar *fname)
+{
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(GFile) infile = NULL;
+	g_autoptr(GError) error = NULL;
+
+	if (fname == NULL) {
+		ascli_print_stderr (_("You need to specify an input file."));
+		return 1;
+	}
+
+	/* load input file */
+	infile = g_file_new_for_path (fname);
+	if (!g_file_query_exists (infile, NULL)) {
+		ascli_print_stderr (_("Metadata file '%s' does not exist."), fname);
+		return 2;
+	}
+
+	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "ALL");
+
+	if ((g_str_has_suffix (fname, ".yml.gz")) ||
+	    (g_str_has_suffix (fname, ".yaml.gz")) ||
+	    (g_str_has_suffix (fname, ".yml")) ||
+	    (g_str_has_suffix (fname, ".yaml"))) {
+		/* if we have YAML, we also automatically assume a catalog style */
+		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
+	} else if (g_str_has_suffix (fname, ".metainfo.xml") || g_str_has_suffix (fname, ".appdata.xml")) {
+		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_METAINFO);
+	} else {
+		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
+	}
+
+	as_metadata_parse_file (metad,
+				infile,
+				AS_FORMAT_KIND_UNKNOWN,
+				&error);
+	if (error != NULL) {
+		g_printerr ("%s\n", error->message);
+		return 3;
+	}
+
+	cpt = g_object_ref (as_metadata_get_component (metad));
+
+	if (as_component_get_releases (cpt)->len > 0) {
+		GPtrArray *releases = as_component_get_releases (cpt);
+		AsRelease *release_newest = NULL;
+
+		for (guint i = 0; i < releases->len; i++) {
+			AsRelease *release_tmp = g_ptr_array_index (releases, i);
+			if (release_newest == NULL ||
+			    as_release_get_timestamp (release_tmp) > as_release_get_timestamp (release_newest))
+				release_newest = release_tmp;
+		}
+
+		g_print ("%s\n", as_release_get_version (release_newest));
+	} else {
+		ascli_print_stderr (_("No releases information available in '%s'."), fname);
+		return 4;
+	}
+
+	return ASCLI_EXIT_CODE_SUCCESS;
+}

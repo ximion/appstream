@@ -72,6 +72,8 @@ gint		ascli_check_is_satisfied (const gchar *fname_or_cid,
 					  const gchar *cachepath,
 					  gboolean no_cache);
 
+gint		ascli_get_latest_version_file (const gchar *fname);
+
 
 G_END_DECLS
 
