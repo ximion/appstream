@@ -3888,7 +3888,7 @@ as_component_is_free (AsComponent *cpt)
 
 		/* return a free component if any of the origin wildcards matches */
 		for (guint i = 0; origin_globs[i] != NULL; i++) {
-			if (g_pattern_match_simple(origin_globs[i], priv->origin))
+			if (g_pattern_match_simple (origin_globs[i], priv->origin))
 				return TRUE;
 		}
 	}

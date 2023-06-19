@@ -565,7 +565,7 @@ as_system_info_has_device_matching_modalias (AsSystemInfo *sysinfo, const gchar 
 		if (g_strcmp0 (modalias, modalias_glob) == 0)
 			return TRUE;
 
-		if (g_pattern_match_simple(modalias, modalias_glob))
+		if (g_pattern_match_simple (modalias, modalias_glob))
 			return TRUE;
 	}
 

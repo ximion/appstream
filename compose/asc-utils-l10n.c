@@ -177,7 +177,7 @@ asc_l10n_search_translations_gettext (AscLocaleContext *ctx,
 		for (guint j = 0; j < contents->len; j++) {
 			const gchar *fname = g_ptr_array_index (contents, j);
 			g_auto(GStrv) segments = NULL;
-			if (! g_pattern_match_simple(match_path, fname))
+			if (!g_pattern_match_simple (match_path, fname))
 				continue;
 
 			/* fetch locale name from path */
@@ -363,7 +363,7 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
 				const gchar *fname = g_ptr_array_index (contents, j);
 				if (!g_str_has_suffix (fname, ".qm"))
 					continue;
-				if (! g_pattern_match_simple (match_path, fname))
+				if (!g_pattern_match_simple (match_path, fname))
 					continue;
 
 				segments = g_strsplit (fname + prefix_len, G_DIR_SEPARATOR_S, 4);

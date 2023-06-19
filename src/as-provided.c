@@ -254,7 +254,7 @@ as_provided_has_item (AsProvided *prov, const gchar *item)
 
 		/* modalias entries may provide wildcards, we match them by default */
 		if (priv->kind == AS_PROVIDED_KIND_MODALIAS) {
-			if (g_pattern_match_simple(pitem, item))
+			if (g_pattern_match_simple (pitem, item))
 				return TRUE;
 		}
 	}
