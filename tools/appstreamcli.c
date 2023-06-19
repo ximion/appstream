@@ -1340,7 +1340,7 @@ as_client_run (char **argv, int argc)
 			as_client_run_check_license);
 	ascli_add_cmd (commands,
 			2, "is-satisfied", NULL, "FILE|COMPONENT-ID",
-			/* TRANSLATORS: `appstreamcli `check-license` command description. */
+			/* TRANSLATORS: `appstreamcli `is-satisfied` command description. */
 			_("Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."),
 			as_client_run_is_satisfied);
 
