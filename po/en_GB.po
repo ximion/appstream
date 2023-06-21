@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-06-18 02:49+0000\n"
+"PO-Revision-Date: 2023-06-21 10:49+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/appstream/translations/en_GB/>\n"
 "Language: en_GB\n"
@@ -2454,20 +2454,20 @@ msgstr "The artifact filename must be a file basename, not a (relative or absolu
 
 #: src/as-validator-issue-tag.h:909
 msgid "The value set as release issue type is invalid."
-msgstr ""
+msgstr "The value set as release issue type is invalid."
 
 #: src/as-validator-issue-tag.h:914
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
+msgstr "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:920
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
-msgstr ""
+msgstr "This component is missing information about releases. Consider adding a `releases` tag to describe releases and their changes."
 
 #: src/as-validator-issue-tag.h:925
 msgid ""
@@ -2524,7 +2524,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
+msgstr "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead to indicate that your software provides a media handler for the given types."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:962
@@ -2532,27 +2532,23 @@ msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
 "questions at https://hughsie.github.io/oars/"
-msgstr ""
+msgstr "This component has no `content_rating` tag to provide age rating information. You can generate the tag data online by answering a few questions at https://hughsie.github.io/oars/"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:969
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "This `tag` is missing a `namespace` attribute."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:975
-#, fuzzy
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"The component ID contains an invalid character. Only ASCII characters, dots "
-"and numbers are permitted."
+msgstr "This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."
 
 #: src/as-validator-issue-tag.h:980
-#, fuzzy
 msgid "The type of this color is not valid."
-msgstr "The XML of this file is malformed."
+msgstr "The type of this colour is not valid."
 
 #: src/as-validator-issue-tag.h:985
 msgid "The value of this color scheme preference is not valid."
@@ -2674,43 +2670,43 @@ msgstr "Set the result output directory"
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:204
 msgid "Override the catalog metadata output directory"
-msgstr ""
+msgstr "Override the catalogue metadata output directory"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:207
 msgid "Override the icon output directory"
-msgstr ""
+msgstr "Override the icon output directory"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:210
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)"
-msgstr ""
+msgstr "Set the media output directory (for media data to be served by a webserver)"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:213
 msgid "Set a directory where HTML and text issue reports will be stored"
-msgstr ""
+msgstr "Set a directory where HTML and text issue reports will be stored"
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:216
 msgid "Set the origin name"
-msgstr ""
+msgstr "Set the origin name"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:219
 msgid "Set the URL where the exported media content will be hosted"
-msgstr ""
+msgstr "Set the URL where the exported media content will be hosted"
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:222
 msgid "A comma-separated list of component-IDs to accept"
-msgstr ""
+msgstr "A comma-separated list of component-IDs to accept"
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:236
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Failed to parse arguments"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-compose.c:247 tools/appstreamcli.c:1444
@@ -2738,37 +2734,42 @@ msgid ""
 "`short` - generates an abridged report\n"
 "`full` - a detailed report will be printed"
 msgstr ""
+"Invalid value for `--print-report` option: %s\n"
+"Possible values are:\n"
+"`on-error` - only prints a short report if the run failed (default)\n"
+"`short` - generates an abridged report\n"
+"`full` - a detailed report will be printed"
 
 #: tools/appstream-compose.c:296
 #, c-format
 msgid "Automatically selected '%s' as data output location."
-msgstr ""
+msgstr "Automatically selected '%s' as data output location."
 
 #. TRANSLATORS: We don't have a destination directory for compose
 #: tools/appstream-compose.c:299
 msgid "No destination directory set, please provide a data output location!"
-msgstr ""
+msgstr "No destination directory set, please provide a data output location!"
 
 #: tools/appstream-compose.c:309 tools/appstream-compose.c:311
 msgid "WARNING"
-msgstr ""
+msgstr "WARNING"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:348
 #, c-format
 msgid "Only accepting components: %s"
-msgstr ""
+msgstr "Only accepting components: %s"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:351
 #, c-format
 msgid "Only accepting component: %s"
-msgstr ""
+msgstr "Only accepting component: %s"
 
 #. TRANSLATORS: Information about as-compose units to be processed
 #: tools/appstream-compose.c:356
 msgid "Processing directories:"
-msgstr ""
+msgstr "Processing directories:"
 
 #. TRANSLATORS: Information about as-compose units to be processed
 #: tools/appstream-compose.c:359
