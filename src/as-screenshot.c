@@ -51,6 +51,7 @@ typedef struct
 
 	AsContext *context;
 	GRefString *active_locale_override;
+	GRefString *platform;
 } AsScreenshotPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsScreenshot, as_screenshot, G_TYPE_OBJECT)
@@ -85,6 +86,7 @@ as_screenshot_finalize (GObject *object)
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 
 	as_ref_string_release (priv->active_locale_override);
+	as_ref_string_release (priv->platform);
 	g_ptr_array_unref (priv->images);
 	g_ptr_array_unref (priv->images_lang);
 	g_ptr_array_unref (priv->videos);
@@ -540,12 +542,17 @@ as_screenshot_load_from_xml (AsScreenshot *screenshot, AsContext *ctx, xmlNode *
 	xmlNode *iter;
 	g_autofree gchar *prop = NULL;
 	gboolean children_found = FALSE;
+	gchar *str;
 
 	prop = as_xml_get_prop_value (node, "type");
 	if (g_strcmp0 (prop, "default") == 0)
 		priv->kind = AS_SCREENSHOT_KIND_DEFAULT;
 	else
 		priv->kind = AS_SCREENSHOT_KIND_EXTRA;
+
+	str = as_xml_get_prop_value (node, "platform");
+	as_ref_string_assign_safe (&priv->platform, str);
+	g_free (str);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
@@ -738,6 +745,35 @@ as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, yaml_emitter_
 	}
 
 	as_yaml_mapping_end (emitter);
+}
+
+/**
+ * as_screenshot_get_platform:
+ * @screenshot: a #AsScreenshot instance.
+ *
+ * Gets the screenshot platform string (e.g. a triplet like "x86_64-linux-gnu").
+ *
+ * Returns: The screenshot triplet or identifier string.
+ **/
+const gchar*
+as_screenshot_get_platform (AsScreenshot *screenshot)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	return priv->platform;
+}
+
+/**
+ * as_screenshot_set_platform:
+ * @screenshot: a #AsScreenshot instance.
+ * @platform: the platform triplet.
+ *
+ * Sets the screenshot platform triplet or identifier string.
+ **/
+void
+as_screenshot_set_platform (AsScreenshot *screenshot, const gchar *platform)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	as_ref_string_assign_safe (&priv->platform, platform);
 }
 
 /**

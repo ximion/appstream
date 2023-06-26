@@ -42,7 +42,8 @@ class ScreenshotData;
  */
 
 class APPSTREAMQT_EXPORT Screenshot {
-Q_GADGET
+    Q_GADGET
+    Q_PROPERTY(QString platform READ platform WRITE setPlatform)
 public:
     enum MediaKind {
         MediaKindUnknown,
@@ -88,6 +89,9 @@ public:
      */
     QString caption() const;
     void setCaption(const QString& caption, const QString& lang = {});
+
+    QString platform() const;
+    void setPlatform(const QString &platform);
 
 private:
     QSharedDataPointer<ScreenshotData> d;

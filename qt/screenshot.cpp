@@ -106,6 +106,16 @@ void Screenshot::setCaption(const QString& caption, const QString& lang)
     as_screenshot_set_caption(d->m_scr, qPrintable(caption), lang.isEmpty()? NULL : qPrintable(lang));
 }
 
+QString Screenshot::platform() const
+{
+    return valueWrap(as_screenshot_get_platform(d->m_scr));
+}
+
+void Screenshot::setPlatform(const QString& platform)
+{
+    as_screenshot_set_platform(d->m_scr, qPrintable(platform));
+}
+
 QList<Image> Screenshot::images() const
 {
     QList<Image> res;

@@ -431,6 +431,9 @@
 						on the image shown. The tag is translatable.
 					</para>
 					<para>
+						Optionally, a screenshot can contain a <code><![CDATA[<platform>]]></code> tag, describing which platform the screenshot is for.
+					</para>
+					<para>
 						For <code><![CDATA[<screenshot>]]></code> tags that contain <literal>video</literal> elements, a catalog metadata generator may impose any restrictions to them,
 						including completely removing them from the output, imposing filesize limits, etc.
 						Upstream metainfo files should not rely on the videos being present and must always have a static screenhot for the software component as well.

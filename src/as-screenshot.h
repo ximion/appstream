@@ -111,6 +111,10 @@ GPtrArray			*as_screenshot_get_videos (AsScreenshot *screenshot);
 void				as_screenshot_add_video (AsScreenshot *screenshot,
 							 AsVideo *video);
 
+const gchar			*as_screenshot_get_platform (AsScreenshot *screenshot);
+void				as_screenshot_set_platform (AsScreenshot *screenshot,
+								const gchar *platform);
+
 const gchar			*as_screenshot_get_active_locale (AsScreenshot *screenshot);
 void				as_screenshot_set_active_locale (AsScreenshot *screenshot,
 									const gchar *locale);
