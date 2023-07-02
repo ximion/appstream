@@ -22,7 +22,7 @@
 #define APPSTREAMQT_METADATA_H
 
 #include <QSharedDataPointer>
-#include <QString>
+#include <QAnyStringView>
 #include <QObject>
 #include "appstreamqt_export.h"
 
@@ -76,11 +76,11 @@ class APPSTREAMQT_EXPORT Metadata {
         };
         Q_ENUM(MetadataError)
 
-        static FormatKind stringToFormatKind(const QString& kindString);
-        static QString formatKindToString(FormatKind format);
+        static FormatKind stringToFormatKind(QAnyStringView kindString);
+        static QAnyStringView formatKindToString(FormatKind format);
 
-        static FormatVersion stringToFormatVersion(const QString& formatVersionString);
-        static QString formatVersionToString(FormatVersion version);
+        static FormatVersion stringToFormatVersion(QAnyStringView formatVersionString);
+        static QAnyStringView formatVersionToString(FormatVersion version);
 
         Metadata();
         explicit Metadata(_AsMetadata *metadata);
@@ -95,24 +95,24 @@ class APPSTREAMQT_EXPORT Metadata {
          */
         _AsMetadata *asMetadata() const;
 
-        MetadataError parseFile(const QString& file, FormatKind format);
+        MetadataError parseFile(QAnyStringView file, FormatKind format);
 
-        MetadataError parse(const QString& data, FormatKind format);
+        MetadataError parse(QAnyStringView data, FormatKind format);
 
-        MetadataError parseDesktopData(const QString& data, const QString& cid);
+        MetadataError parseDesktopData(QAnyStringView data, QAnyStringView cid);
 
         AppStream::Component component() const;
         QList<AppStream::Component> components() const;
         void clearComponents();
         void addComponent(const AppStream::Component& component);
 
-        QString componentToMetainfo(FormatKind format) const;
+        QAnyStringView componentToMetainfo(FormatKind format) const;
 
-        MetadataError saveMetainfo(const QString& fname, FormatKind format);
+        MetadataError saveMetainfo(QAnyStringView fname, FormatKind format);
 
-        QString componentsToCatalog(FormatKind format) const;
+        QAnyStringView componentsToCatalog(FormatKind format) const;
 
-        MetadataError saveCatalog(const QString& filename, FormatKind format);
+        MetadataError saveCatalog(QAnyStringView filename, FormatKind format);
 
         FormatVersion formatVersion() const;
         void setFormatVersion(FormatVersion formatVersion);
@@ -120,11 +120,11 @@ class APPSTREAMQT_EXPORT Metadata {
         FormatStyle formatStyle() const;
         void setFormatStyle(FormatStyle format);
 
-        QString locale() const;
-        void setLocale(const QString& locale);
+        QAnyStringView locale() const;
+        void setLocale(QAnyStringView locale);
 
-        QString origin() const;
-        void setOrigin(const QString& origin);
+        QAnyStringView origin() const;
+        void setOrigin(QAnyStringView origin);
 
         bool updateExisting() const;
         void setUpdateExisting(bool updateExisting);
@@ -132,8 +132,8 @@ class APPSTREAMQT_EXPORT Metadata {
         bool writeHeader() const;
         void setWriteHeader(bool writeHeader);
 
-        QString architecture() const;
-        void setArchitecture(const QString& architecture);
+        QAnyStringView architecture() const;
+        void setArchitecture(QAnyStringView architecture);
 
         /**
          * \return The last error message received.

@@ -82,37 +82,37 @@ _AsSystemInfo * AppStream::SystemInfo::asSystemInfo() const
     return d->sysInfo;
 }
 
-QString SystemInfo::osId() const
+QAnyStringView SystemInfo::osId() const
 {
     return valueWrap(as_system_info_get_os_id(d->sysInfo));
 }
 
-QString SystemInfo::osCid() const
+QAnyStringView SystemInfo::osCid() const
 {
     return valueWrap(as_system_info_get_os_cid(d->sysInfo));
 }
 
-QString SystemInfo::osName() const
+QAnyStringView SystemInfo::osName() const
 {
     return valueWrap(as_system_info_get_os_name(d->sysInfo));
 }
 
-QString SystemInfo::osVersion() const
+QAnyStringView SystemInfo::osVersion() const
 {
     return valueWrap(as_system_info_get_os_version(d->sysInfo));
 }
 
-QString SystemInfo::osHomepage() const
+QAnyStringView SystemInfo::osHomepage() const
 {
     return valueWrap(as_system_info_get_os_homepage(d->sysInfo));
 }
 
-QString SystemInfo::kernelName() const
+QAnyStringView SystemInfo::kernelName() const
 {
     return valueWrap(as_system_info_get_kernel_name(d->sysInfo));
 }
 
-QString SystemInfo::kernelVersion() const
+QAnyStringView SystemInfo::kernelVersion() const
 {
     return valueWrap(as_system_info_get_kernel_version(d->sysInfo));
 }
@@ -122,28 +122,28 @@ ulong SystemInfo::memoryTotal() const
     return as_system_info_get_memory_total(d->sysInfo);
 }
 
-QStringList SystemInfo::modaliases() const
+QList<QAnyStringView> SystemInfo::modaliases() const
 {
     return valueWrap(as_system_info_get_modaliases(d->sysInfo));
 }
 
-QString SystemInfo::modaliasToSyspath(const QString &modalias)
+QAnyStringView SystemInfo::modaliasToSyspath(QAnyStringView modalias)
 {
-    return valueWrap(as_system_info_modalias_to_syspath(d->sysInfo, qPrintable(modalias)));
+    return valueWrap(as_system_info_modalias_to_syspath(d->sysInfo, stringViewToChar(modalias)));
 }
 
-bool SystemInfo::hasDeviceMatchingModalias(const QString &modaliasGlob)
+bool SystemInfo::hasDeviceMatchingModalias(QAnyStringView modaliasGlob)
 {
-    return as_system_info_has_device_matching_modalias(d->sysInfo, qPrintable(modaliasGlob));
+    return as_system_info_has_device_matching_modalias(d->sysInfo, stringViewToChar(modaliasGlob));
 }
 
-QString SystemInfo::deviceNameForModalias(const QString &modalias, bool allowFallback)
+QAnyStringView SystemInfo::deviceNameForModalias(QAnyStringView modalias, bool allowFallback)
 {
     g_autoptr(GError) error = nullptr;
-    QString result;
+    QAnyStringView result;
 
     result = valueWrap(as_system_info_get_device_name_for_modalias(d->sysInfo,
-                                                                   qPrintable(modalias),
+                                                                   stringViewToChar(modalias),
                                                                    allowFallback,
                                                                    &error));
     if (error != nullptr)
@@ -184,7 +184,7 @@ void SystemInfo::setDisplayLength(Relation::DisplaySideKind kind, ulong valueDip
                                        valueDip);
 }
 
-QString SystemInfo::lastError() const
+QAnyStringView SystemInfo::lastError() const
 {
     return d->lastError;
 }

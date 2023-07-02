@@ -96,14 +96,14 @@ Screenshot::MediaKind Screenshot::mediaKind() const
     return Screenshot::MediaKind(as_screenshot_get_media_kind(d->screenshot()));
 }
 
-QString Screenshot::caption() const
+QAnyStringView Screenshot::caption() const
 {
     return valueWrap(as_screenshot_get_caption(d->m_scr));
 }
 
-void Screenshot::setCaption(const QString& caption, const QString& lang)
+void Screenshot::setCaption(QAnyStringView caption, QAnyStringView lang)
 {
-    as_screenshot_set_caption(d->m_scr, qPrintable(caption), lang.isEmpty()? NULL : qPrintable(lang));
+    as_screenshot_set_caption(d->m_scr, stringViewToChar(caption), lang.isEmpty()? NULL : stringViewToChar(lang));
 }
 
 QList<Image> Screenshot::images() const
@@ -135,7 +135,7 @@ QList<Video> Screenshot::videos() const
 QDebug operator<<(QDebug s, const AppStream::Screenshot& screenshot) {
     s.nospace() << "AppStream::Screenshot(";
     if (!screenshot.caption().isEmpty())
-        s.nospace() << screenshot.caption() << ":";
+        s.nospace() << screenshot.caption().toString() << ":";
     s.nospace() << screenshot.images() << ')';
     return s.space();
 }

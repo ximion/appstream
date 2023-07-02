@@ -23,7 +23,7 @@
 #define APPSTREAMQT_CONTENT_RATING_H
 
 #include <QSharedDataPointer>
-#include <QString>
+#include <QAnyStringView>
 #include <QObject>
 #include "appstreamqt_export.h"
 
@@ -51,8 +51,8 @@ class APPSTREAMQT_EXPORT ContentRating {
         ContentRating(const ContentRating& category);
         ~ContentRating();
 
-        static RatingValue stringToRatingValue(const QString& ratingValue);
-        static QString ratingValueToString(RatingValue ratingValue);
+        static RatingValue stringToRatingValue(QAnyStringView ratingValue);
+        static QAnyStringView ratingValueToString(RatingValue ratingValue);
 
         ContentRating& operator=(const ContentRating& category);
         bool operator==(const ContentRating& r) const;
@@ -62,16 +62,16 @@ class APPSTREAMQT_EXPORT ContentRating {
          */
         _AsContentRating *asContentRating() const;
 
-        QString kind() const;
-        void setKind(const QString& kind);
+        QAnyStringView kind() const;
+        void setKind(QAnyStringView kind);
 
         uint minimumAge() const;
 
-        RatingValue value(const QString& id) const;
-        void setValue(const QString& id, RatingValue ratingValue);
+        RatingValue value(QAnyStringView id) const;
+        void setValue(QAnyStringView id, RatingValue ratingValue);
 
-        QStringList ratingIds() const;
-        QString description(const QString& id) const;
+        QList<QAnyStringView> ratingIds() const;
+        QAnyStringView description(QAnyStringView id) const;
 
     private:
         QSharedDataPointer<ContentRatingData> d;

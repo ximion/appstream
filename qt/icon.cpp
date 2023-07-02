@@ -128,14 +128,14 @@ const QUrl Icon::url() const {
         return QUrl::fromLocalFile(as_icon_get_filename(d->m_icon));
 }
 
-const QString Icon::name() const
+const QAnyStringView Icon::name() const
 {
     return valueWrap(as_icon_get_name(d->m_icon));
 }
 
-void Icon::setName(const QString& name)
+void Icon::setName(QAnyStringView name)
 {
-    as_icon_set_name(d->m_icon, qPrintable(name));
+    as_icon_set_name(d->m_icon, stringViewToChar(name));
 }
 
 bool Icon::isEmpty() const
@@ -153,7 +153,7 @@ QDebug operator<<(QDebug s, const AppStream::Icon& image) {
     if (!image.url().isEmpty())
         s.nospace() << ',' << image.url();
     if (!image.name().isEmpty())
-        s.nospace() << ',' << image.name();
+        s.nospace() << ',' << image.name().toString();
     s.nospace() << "[" << image.width() << "x" << image.height() << "])";
     return s;
 }

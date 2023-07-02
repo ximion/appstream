@@ -54,7 +54,7 @@ void PoolReadTest::testRead01()
     pool->setFlags(flags);
 
     // use clean caches
-    pool->overrideCacheLocations(cacheDir.path(), nullptr);
+    pool->overrideCacheLocations(cacheDir.path().toUtf8(), QAnyStringView(nullptr));
 
     // read metadata
     bool ret = pool->load();

@@ -20,7 +20,7 @@
 #pragma once
 
 #include <QSharedDataPointer>
-#include <QString>
+#include <QAnyStringView>
 #include <QObject>
 #include "relation.h"
 #include "appstreamqt_export.h"
@@ -45,22 +45,22 @@ class APPSTREAMQT_EXPORT SystemInfo {
          */
         _AsSystemInfo *asSystemInfo() const;
 
-        QString osId() const;
-        QString osCid() const;
-        QString osName() const;
-        QString osVersion() const;
-        QString osHomepage() const;
+        QAnyStringView osId() const;
+        QAnyStringView osCid() const;
+        QAnyStringView osName() const;
+        QAnyStringView osVersion() const;
+        QAnyStringView osHomepage() const;
 
-        QString kernelName() const;
-        QString kernelVersion() const;
+        QAnyStringView kernelName() const;
+        QAnyStringView kernelVersion() const;
 
         ulong memoryTotal() const;
 
-        QStringList modaliases() const;
-        QString modaliasToSyspath(const QString &modalias);
+        QList<QAnyStringView> modaliases() const;
+        QAnyStringView modaliasToSyspath(QAnyStringView modalias);
 
-        bool hasDeviceMatchingModalias(const QString &modaliasGlob);
-        QString deviceNameForModalias(const QString &modalias, bool allowFallback);
+        bool hasDeviceMatchingModalias(QAnyStringView modaliasGlob);
+        QAnyStringView deviceNameForModalias(QAnyStringView modalias, bool allowFallback);
 
         CheckResult hasInputControl(Relation::ControlKind kind);
         void setInputControl(Relation::ControlKind kind, bool found);
@@ -71,7 +71,7 @@ class APPSTREAMQT_EXPORT SystemInfo {
         /**
          * \return The last error message received.
          */
-        QString lastError() const;
+        QAnyStringView lastError() const;
 
     private:
         QSharedDataPointer<SystemInfoData> d;

@@ -74,8 +74,8 @@ class APPSTREAMQT_EXPORT Icon {
         /**
          * \return the icon (stock) name
          */
-        const QString name() const;
-        void setName(const QString& name);
+        const QAnyStringView name() const;
+        void setName(QAnyStringView name);
 
         /**
          * \return the expected width of this image

@@ -22,6 +22,7 @@
 
 #include <QSharedDataPointer>
 #include <QObject>
+#include <QAnyStringView>
 #include "appstreamqt_export.h"
 
 class QUrl;
@@ -67,8 +68,8 @@ class APPSTREAMQT_EXPORT Suggested {
         /**
          * \return the local or remote url for this suggested
          */
-        const QStringList ids() const;
-        void addSuggested(const QString &id);
+        const QList<QAnyStringView> ids() const;
+        void addSuggested(QAnyStringView id);
 
     private:
         QSharedDataPointer<SuggestedData> d;

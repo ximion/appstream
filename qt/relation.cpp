@@ -59,69 +59,69 @@ public:
 };
 
 
-QString Relation::kindToString(Relation::Kind kind)
+QAnyStringView Relation::kindToString(Relation::Kind kind)
 {
-    return QString::fromUtf8(as_relation_kind_to_string(static_cast<AsRelationKind>(kind)));
+    return valueWrap(as_relation_kind_to_string(static_cast<AsRelationKind>(kind)));
 }
 
-Relation::Kind Relation::stringToKind(const QString &string)
+Relation::Kind Relation::stringToKind(QAnyStringView string)
 {
-    return static_cast<Kind>(as_relation_kind_from_string(qPrintable(string)));
+    return static_cast<Kind>(as_relation_kind_from_string(stringViewToChar(string)));
 }
 
-QString Relation::itemKindToString(Relation::ItemKind ikind)
+QAnyStringView Relation::itemKindToString(Relation::ItemKind ikind)
 {
-    return QString::fromUtf8(as_relation_item_kind_to_string(static_cast<AsRelationItemKind>(ikind)));
+    return valueWrap(as_relation_item_kind_to_string(static_cast<AsRelationItemKind>(ikind)));
 }
 
-Relation::ItemKind Relation::stringToItemKind(const QString &string)
+Relation::ItemKind Relation::stringToItemKind(QAnyStringView string)
 {
-    return static_cast<ItemKind>(as_relation_item_kind_from_string(qPrintable(string)));
+    return static_cast<ItemKind>(as_relation_item_kind_from_string(stringViewToChar(string)));
 }
 
-Relation::Compare Relation::stringToCompare(const QString &string)
+Relation::Compare Relation::stringToCompare(QAnyStringView string)
 {
-    return static_cast<Compare>(as_relation_compare_from_string(qPrintable(string)));
+    return static_cast<Compare>(as_relation_compare_from_string(stringViewToChar(string)));
 }
 
-QString Relation::compareToString(Relation::Compare cmp)
+QAnyStringView Relation::compareToString(Relation::Compare cmp)
 {
-    return QString::fromUtf8(as_relation_compare_to_string(static_cast<AsRelationCompare>(cmp)));
+    return valueWrap(as_relation_compare_to_string(static_cast<AsRelationCompare>(cmp)));
 }
 
-QString Relation::compareToSymbolsString(Relation::Compare cmp)
+QAnyStringView Relation::compareToSymbolsString(Relation::Compare cmp)
 {
     return QString::fromUtf8(as_relation_compare_to_symbols_string(static_cast<AsRelationCompare>(cmp)));
 }
 
-QString Relation::controlKindToString(Relation::ControlKind ckind)
+QAnyStringView Relation::controlKindToString(Relation::ControlKind ckind)
 {
-    return QString::fromUtf8(as_control_kind_to_string(static_cast<AsControlKind>(ckind)));
+    return valueWrap(as_control_kind_to_string(static_cast<AsControlKind>(ckind)));
 }
 
-Relation::ControlKind Relation::controlKindFromString(const QString &string)
+Relation::ControlKind Relation::controlKindFromString(QAnyStringView string)
 {
-    return static_cast<ControlKind>(as_control_kind_from_string(qPrintable(string)));
+    return static_cast<ControlKind>(as_control_kind_from_string(stringViewToChar(string)));
 }
 
-QString Relation::displaySideKindToString(Relation::DisplaySideKind kind)
+QAnyStringView Relation::displaySideKindToString(Relation::DisplaySideKind kind)
 {
-    return QString::fromUtf8(as_display_side_kind_to_string(static_cast<AsDisplaySideKind>(kind)));
+    return valueWrap(as_display_side_kind_to_string(static_cast<AsDisplaySideKind>(kind)));
 }
 
-Relation::DisplaySideKind Relation::stringToDisplaySideKind(const QString &string)
+Relation::DisplaySideKind Relation::stringToDisplaySideKind(QAnyStringView string)
 {
-    return static_cast<DisplaySideKind>(as_display_side_kind_from_string(qPrintable(string)));
+    return static_cast<DisplaySideKind>(as_display_side_kind_from_string(stringViewToChar(string)));
 }
 
-QString Relation::displayLengthKindToString(Relation::DisplayLengthKind kind)
+QAnyStringView Relation::displayLengthKindToString(Relation::DisplayLengthKind kind)
 {
-    return QString::fromUtf8(as_display_length_kind_to_string(static_cast<AsDisplayLengthKind>(kind)));
+    return valueWrap(as_display_length_kind_to_string(static_cast<AsDisplayLengthKind>(kind)));
 }
 
-Relation::DisplayLengthKind Relation::stringToDisplayLengthKind(const QString &string)
+Relation::DisplayLengthKind Relation::stringToDisplayLengthKind(QAnyStringView string)
 {
-    return static_cast<DisplayLengthKind>(as_display_length_kind_from_string(qPrintable(string)));
+    return static_cast<DisplayLengthKind>(as_display_length_kind_from_string(stringViewToChar(string)));
 }
 
 Relation::Relation()
@@ -157,9 +157,9 @@ _AsRelation* AppStream::Relation::asRelation() const
 QDebug operator<<(QDebug s, const AppStream::Relation& relation)
 {
     s.nospace() << "AppStream::Relation("
-                << Relation::kindToString(relation.kind()) << ":"
-                << Relation::itemKindToString(relation.itemKind()) << ":"
-                << relation.valueStr() << ")";
+                << Relation::kindToString(relation.kind()).toString() << ":"
+                << Relation::itemKindToString(relation.itemKind()).toString() << ":"
+                << relation.valueStr().toString() << ")";
     return s.space();
 }
 
@@ -193,24 +193,24 @@ void Relation::setCompare(Relation::Compare compare)
     as_relation_set_compare(d->relation(), static_cast<AsRelationCompare>(compare));
 }
 
-QString Relation::version() const
+QAnyStringView Relation::version() const
 {
     return valueWrap(as_relation_get_version(d->relation()));
 }
 
-void Relation::setVersion(const QString &version)
+void Relation::setVersion(QAnyStringView version)
 {
-    as_relation_set_version(d->relation(), qPrintable(version));
+    as_relation_set_version(d->relation(), stringViewToChar(version));
 }
 
-QString Relation::valueStr() const
+QAnyStringView Relation::valueStr() const
 {
     return valueWrap(as_relation_get_value_str(d->relation()));
 }
 
-void Relation::setValueStr(const QString &value)
+void Relation::setValueStr(QAnyStringView value)
 {
-    as_relation_set_value_str(d->relation(), qPrintable(value));
+    as_relation_set_value_str(d->relation(), stringViewToChar(value));
 }
 
 int Relation::valueInt() const
@@ -263,10 +263,10 @@ void Relation::setValueDisplayLengthKind(Relation::DisplayLengthKind kind)
     as_relation_set_value_display_length_kind(d->relation(), static_cast<AsDisplayLengthKind>(kind));
 }
 
-bool Relation::versionCompare(const QString &version)
+bool Relation::versionCompare(QAnyStringView version)
 {
     g_autoptr(GError) error = NULL;
-    bool ret = as_relation_version_compare(d->relation(), qPrintable(version), &error);
+    bool ret = as_relation_version_compare(d->relation(), stringViewToChar(version), &error);
     if (!ret && error)
         d->lastError = QString::fromUtf8(error->message);
     return ret;
@@ -290,7 +290,7 @@ CheckResult Relation::isSatisfied(SystemInfo *sysInfo, Pool *pool, QString *mess
     return static_cast<CheckResult>(result);
 }
 
-QString Relation::lastError() const
+QAnyStringView Relation::lastError() const
 {
     return d->lastError;
 }

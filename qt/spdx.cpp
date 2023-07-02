@@ -22,55 +22,55 @@
 #include "appstream.h"
 #include "chelpers.h"
 
-bool AppStream::SPDX::isLicenseId(const QString &license_id)
+bool AppStream::SPDX::isLicenseId(QAnyStringView license_id)
 {
-    return as_is_spdx_license_id(qPrintable(license_id));
+    return as_is_spdx_license_id(stringViewToChar(license_id));
 }
 
-bool AppStream::SPDX::isLicenseExceptionId(const QString &exception_id)
+bool AppStream::SPDX::isLicenseExceptionId(QAnyStringView exception_id)
 {
-    return as_is_spdx_license_exception_id(qPrintable(exception_id));
+    return as_is_spdx_license_exception_id(stringViewToChar(exception_id));
 }
 
-bool AppStream::SPDX::isLicenseExpression(const QString &license)
+bool AppStream::SPDX::isLicenseExpression(QAnyStringView license)
 {
-    return as_is_spdx_license_expression(qPrintable(license));
+    return as_is_spdx_license_expression(stringViewToChar(license));
 }
 
-bool AppStream::SPDX::isMetadataLicense(const QString &license)
+bool AppStream::SPDX::isMetadataLicense(QAnyStringView license)
 {
-    return as_license_is_metadata_license(qPrintable(license));
+    return as_license_is_metadata_license(stringViewToChar(license));
 }
 
-bool AppStream::SPDX::isFreeLicense(const QString &license)
+bool AppStream::SPDX::isFreeLicense(QAnyStringView license)
 {
-    return as_license_is_free_license(qPrintable(license));
+    return as_license_is_free_license(stringViewToChar(license));
 }
 
-QStringList AppStream::SPDX::tokenizeLicense(const QString &license)
+QList<QAnyStringView> AppStream::SPDX::tokenizeLicense(QAnyStringView license)
 {
-    g_auto(GStrv) strv = as_spdx_license_tokenize(qPrintable(license));
+    g_auto(GStrv) strv = as_spdx_license_tokenize(stringViewToChar(license));
     return AppStream::valueWrap(strv);
 }
 
-QString AppStream::SPDX::detokenizeLicense(const QStringList &license_tokens)
+QAnyStringView AppStream::SPDX::detokenizeLicense(QList<QAnyStringView> license_tokens)
 {
     g_autofree gchar *res = NULL;
     g_auto(GStrv) tokens = NULL;
 
     tokens = AppStream::stringListToCharArray(license_tokens);
     res = as_spdx_license_detokenize(tokens);
-    return QString::fromUtf8(res);
+    return valueWrap(res);
 }
 
-QString AppStream::SPDX::asSpdxId(const QString &license)
+QAnyStringView AppStream::SPDX::asSpdxId(QAnyStringView license)
 {
-    g_autofree gchar *res = as_license_to_spdx_id(qPrintable(license));
-    return QString::fromUtf8(res);
+    g_autofree gchar *res = as_license_to_spdx_id(stringViewToChar(license));
+    return valueWrap(res);
 }
 
-QString AppStream::SPDX::licenseUrl(const QString &license)
+QAnyStringView AppStream::SPDX::licenseUrl(QAnyStringView license)
 {
-    g_autofree gchar *res = as_get_license_url(qPrintable(license));
-    return QString::fromUtf8(res);
+    g_autofree gchar *res = as_get_license_url(stringViewToChar(license));
+    return valueWrap(res);
 }

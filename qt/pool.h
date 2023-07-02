@@ -101,24 +101,24 @@ public:
 
     QList<AppStream::Component> components() const;
 
-    QList<AppStream::Component> componentsById(const QString& cid) const;
+    QList<AppStream::Component> componentsById(QAnyStringView cid) const;
 
-    QList<AppStream::Component> componentsByProvided(Provided::Kind kind, const QString& item) const;
+    QList<AppStream::Component> componentsByProvided(Provided::Kind kind, QAnyStringView item) const;
 
     QList<AppStream::Component> componentsByKind(Component::Kind kind) const;
 
-    QList<AppStream::Component> componentsByCategories(const QStringList& categories) const;
+    QList<AppStream::Component> componentsByCategories(QList<QAnyStringView> categories) const;
 
-    QList<AppStream::Component> componentsByLaunchable(Launchable::Kind kind, const QString& value) const;
+    QList<AppStream::Component> componentsByLaunchable(Launchable::Kind kind, QAnyStringView value) const;
 
-    QList<AppStream::Component> componentsByExtends(const QString& extendedId) const;
+    QList<AppStream::Component> componentsByExtends(QAnyStringView extendedId) const;
 
-    QList<AppStream::Component> componentsByBundleId(Bundle::Kind kind, const QString& bundleId, bool matchPrefix) const;
+    QList<AppStream::Component> componentsByBundleId(Bundle::Kind kind, QAnyStringView bundleId, bool matchPrefix) const;
 
-    QList<AppStream::Component> search(const QString& term) const;
+    QList<AppStream::Component> search(QAnyStringView term) const;
 
 
-    void setLocale(const QString& locale);
+    void setLocale(QAnyStringView locale);
 
     uint flags() const;
     void setFlags(uint flags);
@@ -126,11 +126,11 @@ public:
     void removeFlags(uint flags);
 
     void resetExtraDataLocations();
-    void addExtraDataLocation(const QString &directory, Metadata::FormatStyle formatStyle);
+    void addExtraDataLocation(QAnyStringView directory, Metadata::FormatStyle formatStyle);
 
     void setLoadStdDataLocations(bool enabled);
-    void overrideCacheLocations(const QString &sysDir,
-                                const QString &userDir);
+    void overrideCacheLocations(QAnyStringView sysDir,
+                                QAnyStringView userDir);
 
     bool isEmpty() const;
 

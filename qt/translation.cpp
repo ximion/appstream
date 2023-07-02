@@ -56,7 +56,7 @@ public:
     AsTranslation* m_translation;
 };
 
-AppStream::Translation::Kind AppStream::Translation::stringToKind(const QString& kindString)
+AppStream::Translation::Kind AppStream::Translation::stringToKind(QAnyStringView kindString)
 {
     if (kindString == QLatin1String("gettext")) {
         return AppStream::Translation::KindGettext;
@@ -66,7 +66,7 @@ AppStream::Translation::Kind AppStream::Translation::stringToKind(const QString&
     return AppStream::Translation::KindUnknown;
 }
 
-QString AppStream::Translation::kindToString(AppStream::Translation::Kind kind)
+QAnyStringView AppStream::Translation::kindToString(AppStream::Translation::Kind kind)
 {
     if (kind == AppStream::Translation::KindGettext) {
         return QLatin1String("gettext");
@@ -116,18 +116,18 @@ void AppStream::Translation::setKind(AppStream::Translation::Kind kind)
     as_translation_set_kind(d->m_translation, (AsTranslationKind) kind);
 }
 
-QString AppStream::Translation::id() const
+QAnyStringView AppStream::Translation::id() const
 {
     return valueWrap(as_translation_get_id(d->m_translation));
 }
 
-void AppStream::Translation::setId(const QString& id)
+void AppStream::Translation::setId(QAnyStringView id)
 {
-    as_translation_set_id(d->m_translation, qPrintable(id));
+    as_translation_set_id(d->m_translation, stringViewToChar(id));
 }
 
 QDebug operator<<(QDebug s, const AppStream::Translation& translation)
 {
-    s.nospace() << "AppStream::Translation(" << translation.id() << ")";
+    s.nospace() << "AppStream::Translation(" << translation.id().toString() << ")";
     return s.space();
 }
