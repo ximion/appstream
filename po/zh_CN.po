@@ -42,6 +42,7 @@
 # Eric <hamburger1024@duck.com>, 2022.
 # Gary Wang <wzc782970009@gmail.com>, 2023.
 # Jason Li <jasonmli@outlook.com>, 2023.
+# tjw123hh <tjw123hh@outlook.com>, 2023.
 #
 # Translators:
 msgid ""
@@ -49,15 +50,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-06-04 18:51+0000\n"
-"Last-Translator: Jason Li <jasonmli@outlook.com>\n"
+"PO-Revision-Date: 2023-07-04 21:48+0000\n"
+"Last-Translator: tjw123hh <tjw123hh@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1071,7 +1072,7 @@ msgstr "组件"
 
 #: src/as-relation.c:1530
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "指点设备（Pointing device，例如鼠标）"
 
 #: src/as-relation.c:1532
 msgid "keyboard"
@@ -1108,9 +1109,8 @@ msgid "This software requires a camera for input control."
 msgstr "此软件需要摄像头以进行输入控制。"
 
 #: src/as-relation.c:1554
-#, fuzzy
 msgid "This software requires a method for console input."
-msgstr "此标签需要类型属性。"
+msgstr "此软件需要一种控制台输入方法。"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1559
@@ -1124,19 +1124,19 @@ msgstr "此软件推荐使用触控输入设备。"
 
 #: src/as-relation.c:1566
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "此软件建议通过语音输入控制麦克风。"
 
 #: src/as-relation.c:1568
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "此软件建议使用摄像头进行输入控制。"
 
 #: src/as-relation.c:1570
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "此软件推荐控制台输入的方法。"
 
 #: src/as-relation.c:1575
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "指点设备（Pointing devices，例如鼠标）"
 
 #: src/as-relation.c:1577
 msgid "keyboards"
@@ -1178,54 +1178,54 @@ msgstr "此软件支持通过终端命令的方式进行操作。"
 
 #: src/as-relation.c:1611
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "发现指点设备（Pointing device，例如鼠标或触摸板）。"
 
 #: src/as-relation.c:1613
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "发现物理键盘。"
 
 #: src/as-relation.c:1615
 msgid "Gamepad found."
-msgstr ""
+msgstr "发现游戏手柄。"
 
 #: src/as-relation.c:1617
 msgid "TV remote found."
-msgstr ""
+msgstr "发现电视遥控器。"
 
 #: src/as-relation.c:1619
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "发现图形输入板。"
 
 #: src/as-relation.c:1622
 msgid "Touch input device found."
-msgstr ""
+msgstr "发现触摸输入设备。"
 
 #: src/as-relation.c:1624
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "发现用于语音输入控制的麦克风。"
 
 #: src/as-relation.c:1626
 msgid "Camera for input control found."
-msgstr ""
+msgstr "发现用于输入控制的摄像头。"
 
 #: src/as-relation.c:1628
 msgid "Console interface available."
-msgstr ""
+msgstr "控制台界面可用。"
 
 #: src/as-relation.c:1684
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "发现软件“%s”"
 
 #: src/as-relation.c:1690
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "缺少必需的软件组件“%s”。"
 
 #: src/as-relation.c:1694
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "缺少推荐的软件组件“%s”。"
 
 #: src/as-relation.c:1698
 #, c-format
@@ -1235,23 +1235,23 @@ msgstr "找到 %s 个组件。"
 #: src/as-relation.c:1727
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "发现此软件支持的硬件：'%s'"
 
 #: src/as-relation.c:1733
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "在此系统上找不到此软件所需的硬件：“%s”"
 
 #: src/as-relation.c:1737
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "在此系统上找不到此软件的推荐硬件：“%s”"
 
 #: src/as-relation.c:1741
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "此软件支持此系统中不存在的硬件：“%s”"
 
 #: src/as-relation.c:1775
 #, c-format
@@ -1261,7 +1261,7 @@ msgstr "此软件需要使用 %s 内核，但当前系统正在使用的是 %s�
 #: src/as-relation.c:1779
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "此软件建议使用 %s 内核，但此系统正在运行 %s 。"
 
 #: src/as-relation.c:1783
 #, c-format
@@ -1274,7 +1274,7 @@ msgstr "此软件仅支持%s内核，但也可能能在%s上运行。"
 #: src/as-relation.c:1805
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
+msgstr "此软件需要 %s %s %s，但此系统正在运行 %s %s。"
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1282,7 +1282,7 @@ msgstr ""
 #: src/as-relation.c:1813
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
+msgstr "建议使用 %s %s %s，但此系统正在运行 %s %s。"
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
@@ -1311,7 +1311,7 @@ msgstr "此软件需要 %s %.2f GiB 内存，但当前系统只具备 %.2f GiB�
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "此软件建议使用%s %.2f GiB内存，但此系统有%.2f GiB内存。"
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
@@ -1323,7 +1323,7 @@ msgstr "此软件支持 %s %.2f GiB 的内存"
 #: src/as-relation.c:1880
 #, c-format
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "此系统有足够的内存用于此软件。"
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1332,7 +1332,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "此软件要求显示器的最长边为 %s %lu px，但此设备的显示器为 %lu px。"
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1341,7 +1341,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "此软件要求显示器的最短边大小为 %s %lu px，但此设备的显示器为 %lu px。"
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1350,7 +1350,7 @@ msgstr ""
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "此软件建议显示器的最长边大小为 %s %lu px，但此设备的显示器为 %lu px。"
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
