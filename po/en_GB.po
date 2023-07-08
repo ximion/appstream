@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-07-02 09:52+0000\n"
+"PO-Revision-Date: 2023-07-08 09:48+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/appstream/translations/en_GB/>\n"
 "Language: en_GB\n"
@@ -2784,38 +2784,37 @@ msgstr "Can not process invalid directory"
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:380
 msgid "Composing metadata..."
-msgstr ""
+msgstr "Composing metadata..."
 
 #. TRANSLATORS: Error message
 #: tools/appstream-compose.c:385
-#, fuzzy
 msgid "Failed to compose AppStream metadata"
-msgstr "An utility to work with AppStream metadata"
+msgstr "Failed to compose AppStream metadata"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:391
 msgid "Run failed, some data was ignored."
-msgstr ""
+msgstr "Run failed, some data was ignored."
 
 #. TRANSLATORS: information message of appstream-compose
 #: tools/appstream-compose.c:393
 msgid "Errors were raised during this compose run:"
-msgstr ""
+msgstr "Errors were raised during this compose run:"
 
 #: tools/appstream-compose.c:394
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
-msgstr ""
+msgstr "Refer to the generated issue report data for details on the individual problems."
 
 #: tools/appstream-compose.c:397
 msgid "Overview of generated hints:"
-msgstr ""
+msgstr "Overview of generated hints:"
 
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:399
 msgid "Success!"
-msgstr ""
+msgstr "Success!"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstreamcli.c:60
@@ -2830,7 +2829,7 @@ msgstr "Manually selected location of AppStream metadata to scan."
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
+msgstr "Ignore cache age and build a fresh cache before performing the query."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
@@ -2861,7 +2860,7 @@ msgstr "Do not use network access."
 #: tools/appstreamcli.c:136
 msgid ""
 "Fail validation if any issue is emitted that is not of pedantic severity."
-msgstr ""
+msgstr "Fail validation if any issue is emitted that is not of pedantic severity."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:141
@@ -2871,7 +2870,7 @@ msgstr "Format of the generated report (valid values are 'text' and 'yaml')."
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:146
 msgid "Override the severities of selected issue tags."
-msgstr ""
+msgstr "Override the severities of selected issue tags."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -2914,7 +2913,7 @@ msgstr "Enforce a cache refresh."
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
+msgstr "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:539
