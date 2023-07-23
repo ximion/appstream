@@ -3,21 +3,21 @@
 # This file is distributed under the same license as the appstream package.
 # Oymate <dhruboadittya96@gmail.com>, 2022.
 # Abu Huraira <abuhuraira@tutamail.com>, 2023.
+# Kom nake <kominak310@svcache.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-02-20 07:36+0000\n"
-"Last-Translator: Abu Huraira <abuhuraira@tutamail.com>\n"
-"Language-Team: Bengali <https://hosted.weblate.org/projects/appstream/"
-"translations/bn/>\n"
+"PO-Revision-Date: 2023-07-23 15:07+0000\n"
+"Last-Translator: Kom nake <kominak310@svcache.com>\n"
+"Language-Team: Bengali <https://hosted.weblate.org/projects/appstream/translations/bn/>\n"
 "Language: bn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -78,7 +78,6 @@ msgid "Debuggers"
 msgstr "ডিবাগারস্"
 
 #: src/as-category.c:91
-#, fuzzy
 msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "আইডিই"
@@ -387,7 +386,7 @@ msgstr "ইউটিলিটিস"
 #. TRANSLATORS: This is the formatting of English and localized name
 #. of the rating e.g. "Adults Only (solo adultos)"
 #: src/as-content-rating.c:298
-#, fuzzy, c-format
+#, c-format
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
@@ -948,10 +947,8 @@ msgstr ""
 #. to include in a search but that should normally be ignored in
 #. the search.
 #: src/as-pool.c:104
-#, fuzzy
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
-"অ্যাপ;অ্যাপ্লিকেশন;প্যাকেজ;প্রোগ্রাম;এ্যাপ;এ্যাপ্লিকেশন;স্যুট;টুল;সফটওয়ার; সফটওয়্যার"
+msgstr "অ্যাপ;অ্যাপ্লিকেশন;প্যাকেজ;প্রোগ্রাম;এ্যাপ;এ্যাপ্লিকেশন;স্যুট;টুল;সফটওয়ার; সফটওয়্যার;সুট;সফ্টওয়্যার"
 
 #: src/as-pool.c:1169
 msgid "Metadata files have errors:"
@@ -962,7 +959,6 @@ msgid "Group"
 msgstr "গ্রুপ"
 
 #: src/as-pool.c:2706
-#, fuzzy
 msgid "Iconsets"
 msgstr "আইকনসেট"
 
@@ -977,21 +973,18 @@ msgid "Software catalog data"
 msgstr ""
 
 #: src/as-provided.c:144
-#, fuzzy
 msgid "Libraries"
 msgstr "লাইব্রেরি"
 
 #: src/as-provided.c:146
-#, fuzzy
 msgid "Binaries"
 msgstr "বাইনারি"
 
 #: src/as-provided.c:148
 msgid "Media types"
-msgstr ""
+msgstr "মিডিয়া ধরণ"
 
 #: src/as-provided.c:150
-#, fuzzy
 msgid "Fonts"
 msgstr "ফন্ট"
 
@@ -1005,7 +998,7 @@ msgstr ""
 
 #: src/as-provided.c:156
 msgid "Python 3"
-msgstr ""
+msgstr "পাইথন ৩"
 
 #: src/as-provided.c:158
 msgid "D-Bus System Services"
@@ -2822,9 +2815,8 @@ msgstr ""
 
 #. these are commands we can use with appstreamcli
 #: tools/appstreamcli.c:1178
-#, fuzzy
 msgid "Subcommands:"
-msgstr "সাবকমান্ডস:"
+msgstr "সাবকমান্ড:"
 
 #: tools/appstreamcli.c:1229
 msgid ""
@@ -3180,7 +3172,7 @@ msgstr ""
 #: tools/ascli-actions-misc.c:49 tools/ascli-actions-misc.c:540
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "সংস্করণ: %s"
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:56
@@ -3200,7 +3192,7 @@ msgstr ""
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:67
 msgid "No metadata."
-msgstr ""
+msgstr "কোনো উপতথ্য নেই।"
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:70
@@ -3423,19 +3415,19 @@ msgstr ""
 #: tools/ascli-actions-validate.c:341
 #, c-format
 msgid "errors: %lu"
-msgstr ""
+msgstr "ত্রুটি: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "warning"-type hints
 #: tools/ascli-actions-validate.c:348
 #, c-format
 msgid "warnings: %lu"
-msgstr ""
+msgstr "সতর্কতা: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "info"-type hints
 #: tools/ascli-actions-validate.c:355
 #, c-format
 msgid "infos: %lu"
-msgstr ""
+msgstr "তথ্য: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "pedantic"-type hints
 #: tools/ascli-actions-validate.c:362
