@@ -324,6 +324,9 @@ as_system_info_get_os_homepage (AsSystemInfo *sysinfo)
 static void
 as_system_info_read_kernel_details (AsSystemInfo *sysinfo)
 {
+#ifdef G_OS_WIN32
+	g_warning ("Reading Windows version is not supported");
+#else
 	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
 	struct utsname utsbuf;
 	gchar *tmp;
@@ -345,6 +348,7 @@ as_system_info_read_kernel_details (AsSystemInfo *sysinfo)
 
 	g_free (priv->kernel_version);
 	priv->kernel_version = g_strdup (utsbuf.release);
+#endif
 }
 
 /**
