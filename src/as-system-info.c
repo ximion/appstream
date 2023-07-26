@@ -447,6 +447,7 @@ as_system_info_set_memory_total (AsSystemInfo *sysinfo, gulong size_mib)
 	priv->memory_total = size_mib;
 }
 
+#if defined(__linux__)
 /**
  * as_system_info_populate_modaliases_map_cb:
  */
@@ -491,6 +492,7 @@ as_system_info_populate_modaliases_map_cb (AsSystemInfo *sysinfo, const gchar *r
 
 	return TRUE;
 }
+#endif
 
 /**
  * as_system_info_populate_modaliases:
@@ -498,6 +500,7 @@ as_system_info_populate_modaliases_map_cb (AsSystemInfo *sysinfo, const gchar *r
 static void
 as_system_info_populate_modaliases (AsSystemInfo *sysinfo)
 {
+#if defined(__linux__)
 	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
 	GHashTableIter ht_iter;
 	gpointer ht_key;
@@ -510,6 +513,7 @@ as_system_info_populate_modaliases (AsSystemInfo *sysinfo)
 	g_hash_table_iter_init (&ht_iter, priv->modalias_to_sysfs);
 	while (g_hash_table_iter_next (&ht_iter, &ht_key, NULL))
 		g_ptr_array_add (priv->modaliases, ht_key);
+#endif
 }
 
 /**
