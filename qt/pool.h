@@ -85,6 +85,13 @@ public:
     bool load();
 
     /**
+     * Loads all available metadata and opens the cache asynchronously.
+     * Once finished, the \sa loaded() signal will be emitted, with
+     * its bool argument indicating whether it was successful.
+     */
+    void loadAsync();
+
+    /**
      * Remove all software component information from the pool.
      */
     void clear();
@@ -136,6 +143,14 @@ public:
 
 Q_SIGNALS:
     void changed();
+
+    /**
+     * Emitted when the pool has been loaded asynchronously.
+     * \param success Whether loading was successful.
+     * \sa lastError() will contain the error message.
+     * \sa loadAsync()
+     */
+    void loadFinished(bool success);
 
 private:
     Q_DISABLE_COPY(Pool);

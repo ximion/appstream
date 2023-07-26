@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2023 Kai Uwe Broulik <kde@broulik.de>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -27,11 +28,12 @@ class PoolReadTest : public QObject {
     Q_OBJECT
     private Q_SLOTS:
         void testRead01();
+        void testLoadAsync();
 };
 
 using namespace AppStream;
 
-void PoolReadTest::testRead01()
+static std::unique_ptr<Pool> createPool()
 {
     // set up the data pool to read our sample data, without localization
     auto pool = std::make_unique<Pool>();
@@ -42,16 +44,23 @@ void PoolReadTest::testRead01()
     pool->addExtraDataLocation(AS_SAMPLE_DATA_PATH,
                                Metadata::FormatStyleCatalog);
 
-    // temporary cache location, so we don't use any system cache ever during tests
-    QTemporaryDir cacheDir;
-    QVERIFY(cacheDir.isValid());
-
     // don't load system metainfo/desktop files
     auto flags = pool->flags();
     flags &= ~Pool::FlagLoadOsDesktopFiles;
     flags &= ~Pool::FlagLoadOsMetainfo;
     flags &= ~Pool::FlagIgnoreCacheAge;
     pool->setFlags(flags);
+
+    return pool;
+}
+
+void PoolReadTest::testRead01()
+{
+    auto pool = createPool();
+
+    // temporary cache location, so we don't use any system cache ever during tests
+    QTemporaryDir cacheDir;
+    QVERIFY(cacheDir.isValid());
 
     // use clean caches
     pool->overrideCacheLocations(cacheDir.path(), nullptr);
@@ -61,6 +70,37 @@ void PoolReadTest::testRead01()
     if (!ret)
         qWarning() << pool->lastError();
     QVERIFY(ret);
+
+    auto cpts = pool->components();
+    QCOMPARE(cpts.size(), 20);
+
+    cpts = pool->componentsById("org.neverball.Neverball");
+    QCOMPARE(cpts.size(), 1);
+
+    auto cpt = cpts[0];
+    QVERIFY(!cpt.id().isEmpty());
+
+    QCOMPARE(cpt.name(), QLatin1String("Neverball"));
+}
+
+void PoolReadTest::testLoadAsync()
+{
+    auto pool = createPool();
+
+    QTemporaryDir cacheDir;
+    QVERIFY(cacheDir.isValid());
+
+    pool->overrideCacheLocations(cacheDir.path(), nullptr);
+
+    QSignalSpy loadedSpy(pool.get(), &Pool::loadFinished);
+    QVERIFY(loadedSpy.isValid());
+
+    pool->loadAsync();
+
+    QVERIFY(loadedSpy.wait());
+    QCOMPARE(loadedSpy.count(), 1);
+    const QList<QVariant> arguments = loadedSpy.takeFirst();
+    QCOMPARE(arguments.first().toBool(), true);
 
     auto cpts = pool->components();
     QCOMPARE(cpts.size(), 20);

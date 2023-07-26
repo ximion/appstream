@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2023 Kai Uwe Broulik <kde@broulik.de>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -33,10 +34,12 @@ using namespace AppStream;
 
 class AppStream::PoolPrivate {
     public:
+        Pool *q;
         AsPool *pool;
         QString lastError;
 
-        PoolPrivate()
+        PoolPrivate(Pool *q)
+            : q(q)
         {
             pool = as_pool_new();
         }
@@ -65,9 +68,24 @@ pool_changed_cb (AsPool *cpool, AppStream::Pool *qpool)
     qpool->changed();
 }
 
+static void
+pool_ready_async_cb (AsPool *cpool, GAsyncResult *result, gpointer user_data)
+{
+    auto *d = static_cast<PoolPrivate *>(user_data);
+    g_autoptr(GError) error = NULL;
+
+    if (as_pool_load_finish (cpool, result, &error)) {
+        Q_EMIT d->q->loadFinished(true);
+    } else {
+        const QString errorMessage = QString::fromUtf8(error->message);
+        d->lastError = errorMessage;
+        Q_EMIT d->q->loadFinished(false);
+    }
+}
+
 Pool::Pool(QObject *parent)
     : QObject (parent),
-      d(new PoolPrivate())
+      d(new PoolPrivate(this))
 {
     g_signal_connect (d->pool, "changed",
                       G_CALLBACK (pool_changed_cb), this);
@@ -90,6 +108,14 @@ bool AppStream::Pool::load()
     if (!ret && error)
         d->lastError = QString::fromUtf8(error->message);
     return ret;
+}
+
+void AppStream::Pool::loadAsync()
+{
+    as_pool_load_async (d->pool,
+                        NULL, // cancellable
+                        (GAsyncReadyCallback)pool_ready_async_cb,
+                        d.get());
 }
 
 void Pool::clear()
