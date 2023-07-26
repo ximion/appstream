@@ -1069,7 +1069,10 @@ as_client_run_compose (const gchar *command, char **argv, int argc)
 {
 	const gchar *ascompose_exe = LIBEXECDIR "/appstreamcli-compose";
 	g_autofree const gchar **asc_argv = NULL;
-
+#ifdef G_OS_WIN32
+	gint wait_status = 0;
+	g_autoptr(GError) error = NULL;
+#endif
 	if (!g_file_test (ascompose_exe, G_FILE_TEST_EXISTS)) {
 		/* TRANSLATORS: appstreamcli-compose was not found */
 		ascli_print_stderr (_("Compose binary '%s' was not found! Can not continue."), ascompose_exe);
@@ -1089,7 +1092,27 @@ as_client_run_compose (const gchar *command, char **argv, int argc)
 	for (gint i = 2; i < argc; i++)
 		asc_argv[i-1] = argv[i];
 
-	return execv(ascompose_exe, (gchar * const*) asc_argv);
+#ifdef G_OS_WIN32
+	if (!g_spawn_sync (ascompose_exe, (gchar **)asc_argv,
+			   NULL, G_SPAWN_DEFAULT, NULL, NULL, NULL, NULL,
+			   &wait_status, &error)) {
+		ascli_print_stderr (_("Compose failed to execute: %s"), error->message);
+		return 6;
+	}
+
+#if GLIB_CHECK_VERSION(2,70,0)
+	if (!g_spawn_check_wait_status (wait_status, &error))
+#else
+	if (!g_spawn_check_exit_status (wait_status, &error))
+#endif
+	{
+		ascli_print_stderr (_("Compose failed: %s"), error->message);
+		return error->code;
+	}
+	return 0;
+#else
+	return execv (ascompose_exe, (char * const *)asc_argv);
+#endif
 }
 
 typedef gboolean (*AsCliCommandCb) (const gchar *command,
