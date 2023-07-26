@@ -7,6 +7,13 @@ install_data('its/metainfo.its',
 install_data('its/metainfo.loc',
               install_dir: join_paths(get_option('datadir'), 'gettext', 'its'))
 
+# Do not rely on an exe wrapper for rel-info, use the system one in that case
+if meson.is_cross_build()
+    dependency('appstream', version: '>=' + as_version, native: true,
+               not_found_message: 'Native appstream required for cross-building')
+    ascli_exe = find_program('appstreamcli')
+endif
+
 # NOTE: We do not translate the release notes on purpose here.
 # If you do want to give translators a chance to translate them,
 # ascli news-to-metainfo needs to produce a temporary file to translate
