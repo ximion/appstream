@@ -164,9 +164,10 @@ if get_option ('gir')
     dependency('gobject-introspection-1.0', version: '>=1.56')
 endif
 
-stemmer_inc_dirs = include_directories(['/usr/include'])
+stemmer_inc_dirs = include_directories()
 if get_option('stemming')
     stemmer_lib = cc.find_library('stemmer', required: true)
+    stemmer_inc_dirs = include_directories(['/usr/include'])
     if not cc.has_header('libstemmer.h')
         if cc.has_header('libstemmer/libstemmer.h')
             stemmer_inc_dirs = include_directories('/usr/include/libstemmer')
