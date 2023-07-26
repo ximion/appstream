@@ -24,6 +24,9 @@
 #include <glib/gi18n-lib.h>
 #include <locale.h>
 #include <stdio.h>
+#ifdef G_OS_WIN32
+#include <io.h>
+#endif
 
 #include "as-profile.h"
 #include "as-utils-private.h"
@@ -1490,7 +1493,11 @@ as_client_run (char **argv, int argc)
 	ascli_set_output_colored (!optn_no_color);
 
 	/* if out terminal is no tty, disable colors automatically */
+#ifdef G_OS_WIN32
+	if (!_isatty (fileno (stdout)))
+#else
 	if (!isatty (fileno (stdout)))
+#endif
 		ascli_set_output_colored (FALSE);
 
 	/* don't let gvfsd start its own session bus: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=852696 */
