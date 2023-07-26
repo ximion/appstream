@@ -1020,6 +1020,26 @@ as_locale_strip_encoding (const gchar *locale)
 gchar*
 as_get_current_arch (void)
 {
+#ifdef G_OS_WIN32
+	SYSTEM_INFO si;
+
+	GetSystemInfo (&si);
+
+	switch (si.wProcessorArchitecture) {
+	case PROCESSOR_ARCHITECTURE_AMD64:
+		return g_strdup ("amd64");
+	case PROCESSOR_ARCHITECTURE_ARM:
+		return g_strdup ("arm");
+	case PROCESSOR_ARCHITECTURE_ARM64:
+		return g_strdup ("arm64");
+	case PROCESSOR_ARCHITECTURE_IA64:
+		return g_strdup ("ia64");
+	case PROCESSOR_ARCHITECTURE_INTEL:
+		return g_strdup ("i386");
+	default:
+		return g_strdup ("unknown");
+	}
+#else
 	gchar *arch;
 	struct utsname uts;
 
@@ -1036,6 +1056,7 @@ as_get_current_arch (void)
 	}
 
 	return arch;
+#endif
 }
 
 /**
