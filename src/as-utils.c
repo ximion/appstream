@@ -34,7 +34,11 @@
 #include <libxml/parser.h>
 #include <time.h>
 #include <utime.h>
+#ifdef G_OS_WIN32
+#include <windows.h>
+#else
 #include <sys/utsname.h>
+#endif
 #include <sys/stat.h>
 #include <errno.h>
 
@@ -588,9 +592,26 @@ as_utils_find_files (const gchar *dir, gboolean recursive, GError **error)
 gboolean
 as_utils_is_root (void)
 {
+#ifdef G_OS_WIN32
+	PSID sid = NULL;
+	SID_IDENTIFIER_AUTHORITY auth = SECURITY_NT_AUTHORITY;
+	BOOL is_admin = FALSE;
+
+	if (AllocateAndInitializeSid (&auth, 2, SECURITY_BUILTIN_DOMAIN_RID,
+				      DOMAIN_ALIAS_RID_ADMINS, 0, 0, 0, 0, 0, 0, &sid)) {
+		if (!CheckTokenMembership (NULL, sid, &is_admin)) {
+			is_admin = FALSE;
+		}
+
+		FreeSid (sid);
+	}
+
+	return is_admin;
+#else
 	uid_t vuid;
 	vuid = getuid ();
 	return (vuid == ((uid_t) 0));
+#endif
 }
 
 /**
