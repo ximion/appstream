@@ -43,6 +43,7 @@
 # Gary Wang <wzc782970009@gmail.com>, 2023.
 # Jason Li <jasonmli@outlook.com>, 2023.
 # tjw123hh <tjw123hh@outlook.com>, 2023.
+# Red Star Over Earth <rs0vere@outlook.com>, 2023.
 #
 # Translators:
 msgid ""
@@ -50,8 +51,8 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-07-04 21:48+0000\n"
-"Last-Translator: tjw123hh <tjw123hh@outlook.com>\n"
+"PO-Revision-Date: 2023-07-26 22:06+0000\n"
+"Last-Translator: Red Star Over Earth <rs0vere@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -1359,11 +1360,11 @@ msgstr "此软件建议显示器的最长边大小为 %s %lu px，但此设备�
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "此软件要求显示器的最长边为 %s %lu px，但此设备的显示器为 %lu px。"
 
 #: src/as-relation.c:1981
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "显示尺寸足以满足此软件的需求。"
 
 #: src/as-relation.c:1996
 #, c-format
