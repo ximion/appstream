@@ -168,7 +168,6 @@ aslib_src = aslib_src + [aslib_gperf_xml, aslib_gperf_yaml]
 
 aslib_deps = [glib_dep,
               gobject_dep,
-              gio_unix_dep,
               curl_dep,
               xmlb_dep,
               xml2_dep,
