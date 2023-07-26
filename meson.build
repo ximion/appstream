@@ -35,9 +35,6 @@ conf.set_quoted('LOCALSTATEDIR',
 conf.set_quoted('LIBEXECDIR',
                 join_paths(get_option('prefix'),
                            get_option('libexecdir')))
-conf.set_quoted('DATADIR',
-                join_paths(get_option('prefix'),
-                           get_option('datadir')))
 conf.set_quoted('LIBDIR',
                 join_paths(get_option('prefix'),
                            get_option('libdir')))
