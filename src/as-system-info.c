@@ -39,7 +39,11 @@
 
 #include <gio/gio.h>
 #include <errno.h>
+#ifdef G_OS_WIN32
+#include <windows.h>
+#else
 #include <sys/utsname.h>
+#endif
 #include <dirent.h>
 #include <glib.h>
 
@@ -409,6 +413,12 @@ as_get_physical_memory_total (void)
 	unsigned long physmem;
 	sysctl ((int[]){ CTL_HW, HW_PHYSMEM }, 2, &physmem, &(size_t){ sizeof (physmem) }, NULL, 0);
 	return physmem / MB_IN_BYTES;
+#elif defined(G_OS_WIN32)
+	MEMORYSTATUSEX statex;
+
+	statex.dwLength = sizeof (statex);
+	GlobalMemoryStatusEx (&statex);
+	return statex.ullTotalPhys / (1024 * 1024);
 #else
 #error "Implementation of as_get_physical_memory_total() missing for this OS."
 #endif
