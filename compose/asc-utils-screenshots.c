@@ -724,6 +724,7 @@ asc_process_screenshots (AscResult *cres,
 			 AsComponent *cpt,
 			 AsCurl *acurl,
 			 const gchar *media_export_root,
+			 const gchar *media_url_prefix,
 			 const gssize max_size_bytes,
 			 gboolean process_videos,
 			 gboolean store_screenshots)
@@ -758,8 +759,13 @@ asc_process_screenshots (AscResult *cres,
 	else
 		scr_export_dir = g_build_filename (asc_globals_get_tmp_dir (), gcid, NULL);
 
-	scr_base_url = g_build_path (G_DIR_SEPARATOR_S, gcid, "screenshots", NULL);
+	/* the media URL prefix is used to embed absolute URLs for screenshots, if needed */
+	if (media_url_prefix == NULL)
+		scr_base_url = g_build_path (G_DIR_SEPARATOR_S, gcid, "screenshots", NULL);
+	else
+		scr_base_url = g_build_path (G_DIR_SEPARATOR_S, media_url_prefix, gcid, "screenshots", NULL);
 
+	/* process screenshots */
 	valid_scrs = g_ptr_array_new_with_free_func (g_object_unref);
 	for (guint i = 0; i < screenshots->len; i++) {
 		AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (screenshots, i));

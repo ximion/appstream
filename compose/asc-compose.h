@@ -60,6 +60,7 @@ struct _AscComposeClass
  * @ASC_COMPOSE_FLAG_PROPAGATE_CUSTOM:		Whether all custom entries should be passed on to the output, ignoring the allowlist.
  * @ASC_COMPOSE_FLAG_PROPAGATE_ARTIFACTS:	Whether artifact data should be passed through to the generated output.
  * @ASC_COMPOSE_FLAG_NO_FINAL_CHECK:		Disable the automatic finalization check to perform it manually at a later time.
+ * @ASC_COMPOSE_FLAG_NO_PARTIAL_URLS:		Do not use `media_baseurl` and always embed complete URLs in generated metadata.
  *
  * Flags that affect the compose process.
  **/
@@ -77,6 +78,7 @@ typedef enum {
 	ASC_COMPOSE_FLAG_PROPAGATE_CUSTOM	 	= 1 << 9,
 	ASC_COMPOSE_FLAG_PROPAGATE_ARTIFACTS	 	= 1 << 10,
 	ASC_COMPOSE_FLAG_NO_FINAL_CHECK		 	= 1 << 11,
+	ASC_COMPOSE_FLAG_NO_PARTIAL_URLS	 	= 1 << 12,
 } AscComposeFlags;
 
 /**

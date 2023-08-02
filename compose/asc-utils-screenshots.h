@@ -57,6 +57,7 @@ void		asc_process_screenshots (AscResult *cres,
 					 AsComponent *cpt,
 					 AsCurl *acurl,
 					 const gchar *media_export_root,
+					 const gchar *media_url_prefix,
 					 const gssize max_size_bytes,
 					 gboolean process_videos,
 					 gboolean store_screenshots);

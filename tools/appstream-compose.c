@@ -160,7 +160,6 @@ main (int argc, char **argv)
 	gboolean verbose = FALSE;
 	gboolean no_color = FALSE;
 	gboolean show_version = FALSE;
-	g_autoptr(GError) error = NULL;
 	gboolean no_net = FALSE;
 	AscReportMode report_mode;
 	g_autofree gchar *report_mode_str = NULL;
@@ -173,6 +172,8 @@ main (int argc, char **argv)
 	g_autofree gchar *media_baseurl = NULL;
 	g_autofree gchar *prefix = NULL;
 	g_autofree gchar *components_str = NULL;
+	gboolean no_partial_urls = FALSE;
+	g_autoptr(GError) error = NULL;
 	g_autoptr(AscCompose) compose = NULL;
 	AscComposeFlags compose_flags;
 	GPtrArray *results;
@@ -191,7 +192,7 @@ main (int argc, char **argv)
 			/* TRANSLATORS: ascompose flag description for: --no-net */
 			_("Do not use the network at all, not even for URL validity checks."), NULL },
 		{ "print-report", '\0', 0, G_OPTION_ARG_STRING, &report_mode_str,
-			/* TRANSLATORS: ascompose flag description for: --full-report */
+			/* TRANSLATORS: ascompose flag description for: --print-report */
 			_("Set mode of the issue report that is printed to the console"), "MODE" },
 		{ "prefix", '\0', 0, G_OPTION_ARG_FILENAME, &prefix,
 			/* TRANSLATORS: ascompose flag description for: --prefix */
@@ -217,6 +218,9 @@ main (int argc, char **argv)
 		{ "media-baseurl", '\0', 0, G_OPTION_ARG_STRING, &media_baseurl,
 			/* TRANSLATORS: ascompose flag description for: --media-baseurl */
 			_("Set the URL where the exported media content will be hosted"), "NAME" },
+		{ "no-partial-urls", '\0', 0, G_OPTION_ARG_NONE, &no_partial_urls,
+			/* TRANSLATORS: ascompose flag description for: --no-partial-urls */
+			_("Makes all URLs in output data complete URLs and avoids the use of a shared URL prefix for all metadata."), NULL },
 		{ "components", '\0', 0, G_OPTION_ARG_STRING, &components_str,
 			/* TRANSLATORS: ascompose flag description for: --components */
 			_("A comma-separated list of component-IDs to accept"), "COMPONENT-IDs" },
@@ -282,6 +286,8 @@ main (int argc, char **argv)
 	compose_flags = asc_compose_get_flags (compose);
 	if (no_net)
 		as_flags_remove (compose_flags, ASC_COMPOSE_FLAG_ALLOW_NET);
+	if (no_partial_urls)
+		as_flags_add (compose_flags, ASC_COMPOSE_FLAG_NO_PARTIAL_URLS);
 	asc_compose_set_flags (compose, compose_flags);
 
 	/* sanity checks & defaults */
