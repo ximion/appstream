@@ -138,7 +138,7 @@ AppStream::Metadata::MetadataError AppStream::Metadata::parseFile(const QString&
 AppStream::Metadata::MetadataError AppStream::Metadata::parse(const QString& data, AppStream::Metadata::FormatKind format)
 {
     g_autoptr(GError) error = nullptr;
-    as_metadata_parse(d->m_metadata, qPrintable(data), (AsFormatKind) format, &error);
+    as_metadata_parse_data(d->m_metadata, qPrintable(data), -1, (AsFormatKind) format, &error);
 
     if (error != nullptr) {
         d->lastError = QString::fromUtf8(error->message);
@@ -151,10 +151,10 @@ AppStream::Metadata::MetadataError AppStream::Metadata::parse(const QString& dat
     return AppStream::Metadata::MetadataErrorNoError;
 }
 
-AppStream::Metadata::MetadataError AppStream::Metadata::parseDesktopData(const QString& data, const QString& cid)
+AppStream::Metadata::MetadataError AppStream::Metadata::parseDesktopData(const QString& cid, const QString& data)
 {
     g_autoptr(GError) error = nullptr;
-    as_metadata_parse_desktop_data(d->m_metadata, qPrintable(data), qPrintable(cid), &error);
+    as_metadata_parse_desktop_data(d->m_metadata, qPrintable(cid), qPrintable(data), -1, &error);
 
     if (error != nullptr) {
         d->lastError = QString::fromUtf8(error->message);

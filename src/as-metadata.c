@@ -20,14 +20,16 @@
 
 /**
  * SECTION:as-metadata
- * @short_description: Parser for AppStream metadata
+ * @short_description: Parse & serialize various AppStream metadata
  * @include: appstream.h
  *
- * This object parses AppStream metadata, including AppStream
- * upstream metadata, which is defined by upstream projects.
- * It returns an #AsComponent of the data.
+ * This object parses MetaInfo data, AppStream Catalog metadata
+ * and AppStream release metadata into #AsComponent representations.
  *
- * See also: #AsComponent, #AsDatabase
+ * It is also able to serialize #AsComponent entities into their
+ * various AppStream XML/YAML representations.
+ *
+ * See also: #AsComponent, #AsRelease, #AsPool
  */
 
 #include <config.h>
@@ -407,12 +409,12 @@ as_metadata_yaml_parse_catalog_doc (AsMetadata *metad, AsContext *context, const
 }
 
 /**
- * as_metadata_parse_data:
+ * as_metadata_parse_raw:
  *
  * Parses AppStream metadata.
  **/
 static gboolean
-as_metadata_parse_data (AsMetadata *metad,
+as_metadata_parse_raw (AsMetadata *metad,
 			const gchar *data, gssize data_len,
 			AsFormatKind format,
 			const gchar *filename,
@@ -529,9 +531,10 @@ as_metadata_parse_data (AsMetadata *metad,
 }
 
 /**
- * as_metadata_parse:
+ * as_metadata_parse_data:
  * @metad: An instance of #AsMetadata.
- * @data: Metadata describing one or more software components as null-terminated string.
+ * @data: Metadata describing one or more software components as string.
+ * @data_len: Length of @data, or -1 if length is unknown and @data is NULL-terminated.
  * @format: The format of the data (XML or YAML).
  * @error: A #GError or %NULL.
  *
@@ -540,11 +543,11 @@ as_metadata_parse_data (AsMetadata *metad,
  * Returns: %TRUE on success.
  **/
 gboolean
-as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GError **error)
+as_metadata_parse_data (AsMetadata *metad, const gchar *data, gssize data_len, AsFormatKind format, GError **error)
 {
-	return as_metadata_parse_data (metad,
+	return as_metadata_parse_raw (metad,
 					data,
-					-1,
+					data_len,
 					format,
 					NULL,
 					error);
@@ -568,7 +571,7 @@ as_metadata_parse_bytes (AsMetadata *metad, GBytes *bytes, AsFormatKind format, 
 {
 	gsize data_len;
 	const gchar *data = g_bytes_get_data (bytes, &data_len);
-	return as_metadata_parse_data (metad,
+	return as_metadata_parse_raw (metad,
 					data,
 					data_len,
 					format,
@@ -579,8 +582,9 @@ as_metadata_parse_bytes (AsMetadata *metad, GBytes *bytes, AsFormatKind format, 
 /**
  * as_metadata_parse_desktop_data:
  * @metad: An instance of #AsMetadata.
- * @data: Metadata describing one or more software components.
  * @cid: The component-id the new #AsComponent should have.
+ * @data: Metadata describing one or more software components.
+ * @data_len: The data length, or -1 if unknown and null-terminated.
  * @error: A #GError or %NULL.
  *
  * Parses XDG Desktop Entry metadata and adds it to the list of parsed entities.
@@ -592,7 +596,7 @@ as_metadata_parse_bytes (AsMetadata *metad, GBytes *bytes, AsFormatKind format, 
  * Returns: %TRUE if the file was parsed without error.
  **/
 gboolean
-as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *data, const gchar *cid, GError **error)
+as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *cid, const gchar *data, gssize data_len, GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	gboolean ret;
@@ -602,7 +606,7 @@ as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *data, const gcha
 	as_component_set_id (cpt, cid);
 	ret = as_desktop_entry_parse_data (cpt,
 					   data,
-					   -1,
+					   data_len,
 					   priv->format_version,
 					   TRUE,
 					   NULL, /* issues */
@@ -728,11 +732,12 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 	/* parse metadata */
 	if (format == AS_FORMAT_KIND_DESKTOP_ENTRY)
 		as_metadata_parse_desktop_data (metad,
-						asdata->str,
 						file_basename,
+						asdata->str,
+						asdata->len,
 						&tmp_error);
 	else
-		as_metadata_parse_data (metad,
+		as_metadata_parse_raw (metad,
 					asdata->str,
 					asdata->len,
 					format,

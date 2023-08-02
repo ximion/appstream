@@ -93,18 +93,20 @@ gboolean		as_metadata_parse_file (AsMetadata *metad,
 						AsFormatKind format,
 						GError **error);
 
-gboolean		as_metadata_parse (AsMetadata *metad,
-					   const gchar *data,
-					   AsFormatKind format,
-					   GError **error);
+gboolean		as_metadata_parse_data (AsMetadata *metad,
+						const gchar *data,
+						gssize data_len,
+						AsFormatKind format,
+						GError **error);
 gboolean		as_metadata_parse_bytes (AsMetadata *metad,
 						 GBytes *bytes,
 						 AsFormatKind format,
 						 GError **error);
 
 gboolean		as_metadata_parse_desktop_data (AsMetadata *metad,
-							const gchar *data,
 							const gchar *cid,
+							const gchar *data,
+							gssize data_len,
 							GError **error);
 
 GPtrArray		*as_metadata_parse_releases_bytes (AsMetadata *metad,

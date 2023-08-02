@@ -551,7 +551,7 @@ test_read_desktop_entry_simple (void)
 
 	metad = as_metadata_new ();
 
-	ret = as_metadata_parse_desktop_data (metad, desktop_entry_data, "foobar.desktop", &error);
+	ret = as_metadata_parse_desktop_data (metad, "foobar.desktop", desktop_entry_data, -1, &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 
@@ -579,7 +579,7 @@ test_read_desktop_entry_simple (void)
 
 	/* test component-id trimming */
 	as_metadata_clear_components (metad);
-	ret = as_metadata_parse_desktop_data (metad, desktop_entry_data, "org.example.foobar.desktop", &error);
+	ret = as_metadata_parse_desktop_data (metad, "org.example.foobar.desktop", desktop_entry_data, -1, &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 	cpt = as_metadata_get_component (metad);

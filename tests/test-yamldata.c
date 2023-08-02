@@ -73,7 +73,7 @@ as_yaml_test_read_data (const gchar *data, GError **error)
 
 	if (error == NULL) {
 		g_autoptr(GError) local_error = NULL;
-		as_metadata_parse (metad, data_full, AS_FORMAT_KIND_YAML, &local_error);
+		as_metadata_parse_data (metad, data_full, -1, AS_FORMAT_KIND_YAML, &local_error);
 		g_assert_no_error (local_error);
 
 		g_assert_cmpint (as_metadata_get_components (metad)->len, >, 0);
@@ -81,7 +81,7 @@ as_yaml_test_read_data (const gchar *data, GError **error)
 
 		return g_object_ref (cpt);
 	} else {
-		as_metadata_parse (metad, data_full, AS_FORMAT_KIND_YAML, error);
+		as_metadata_parse_data (metad, data_full, -1, AS_FORMAT_KIND_YAML, error);
 
 		if (as_metadata_get_components (metad)->len > 0) {
 			cpt = AS_COMPONENT (g_ptr_array_index (as_metadata_get_components (metad), 0));

@@ -99,7 +99,7 @@ class APPSTREAMQT_EXPORT Metadata {
 
         MetadataError parse(const QString& data, FormatKind format);
 
-        MetadataError parseDesktopData(const QString& data, const QString& cid);
+        MetadataError parseDesktopData(const QString& cid, const QString& data);
 
         AppStream::Component component() const;
         QList<AppStream::Component> components() const;

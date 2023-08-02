@@ -46,7 +46,7 @@ as_xml_test_read_data (const gchar *data, AsFormatStyle mode)
 
 	metad = as_metadata_new ();
 	as_metadata_set_locale (metad, "ALL");
-	as_metadata_parse (metad, data_full, AS_FORMAT_KIND_XML, &error);
+	as_metadata_parse_data (metad, data_full, -1, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
 	cpts = as_metadata_get_components (metad);
@@ -466,7 +466,7 @@ test_appstream_write_description (void)
 	/* test catalog XMl -> metainfo XML */
 	as_metadata_clear_components (metad);
 	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
-	as_metadata_parse (metad, EXPECTED_XML_DISTRO, AS_FORMAT_KIND_XML, &error);
+	as_metadata_parse_data (metad, EXPECTED_XML_DISTRO, -1, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 	tmp = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, NULL);
 	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML_LOCALIZED));
@@ -475,7 +475,7 @@ test_appstream_write_description (void)
 	/* test metainfo XMl -> catalog XML */
 	as_metadata_clear_components (metad);
 	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_METAINFO);
-	as_metadata_parse (metad, EXPECTED_XML_LOCALIZED, AS_FORMAT_KIND_XML, &error);
+	as_metadata_parse_data (metad, EXPECTED_XML_LOCALIZED, -1, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 	tmp = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_XML, NULL);
 	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML_DISTRO));
@@ -1165,7 +1165,7 @@ test_appstream_write_metainfo_to_catalog (void)
 	metad = as_metadata_new ();
 	as_metadata_set_locale (metad, "ALL");
 
-	as_metadata_parse (metad, METAINFO_XML, AS_FORMAT_KIND_XML, &error);
+	as_metadata_parse_data (metad, METAINFO_XML, -1, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
 	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
