@@ -2091,7 +2091,7 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 		}
 
 		/* checks if the description is put outside a description tag */
-		if (as_str_equal0 (node_name, "p") || as_str_equal0 (node_name, "ol") || as_str_equal0 (node_name, "ul") || as_str_equal0 (node_name, "li")) {
+		if (as_str_equal0 (node_name, "p") || as_str_equal0 (node_name, "ol") || as_str_equal0 (node_name, "ul") || as_str_equal0 (node_name, "li") || as_str_equal0 (node_name, "heading")) {
 			as_validator_add_issue (validator, node, "release-description-outside-tag", node_name);
 			continue;
 		}
