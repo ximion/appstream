@@ -309,7 +309,7 @@ asc_compose_set_format (AscCompose *compose, AsFormatKind kind)
  * @compose: an #AscCompose instance.
  *
  * Get the media base URL to be used for the generated data,
- * or %NULL if this feature is not used.
+ * or %NULL if no media is cached.
  */
 const gchar*
 asc_compose_get_media_baseurl (AscCompose *compose)
@@ -323,7 +323,8 @@ asc_compose_get_media_baseurl (AscCompose *compose)
  * @compose: an #AscCompose instance.
  * @url: (nullable): the media base URL.
  *
- * Set the media base URL for the generated metadata. Can be %NULL.
+ * Set the media base URL for the generated metadata. Can be %NULL if no media
+ * should be cached and the original URLs should be kept.
  */
 void
 asc_compose_set_media_baseurl (AscCompose *compose, const gchar *url)
@@ -1124,7 +1125,8 @@ asc_compose_process_icons (AscCompose *compose,
 			/* We can only make use of the media-baseurl-using partial URLs if screenshot storage
 			 * is also enabled, because otherwise screenshots will use full URLs which conflicts
 			 * with the media baseurl (as it is unconditionally prefixed to *all* media URLs */
-			if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS)) {
+			if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS)
+			    && !as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_NO_PARTIAL_URLS)) {
 				as_icon_set_url (remote_icon, icon_media_urlpart_fname);
 			} else {
 				g_autofree gchar *icon_remote_url = g_strconcat (priv->media_baseurl, "/", icon_media_urlpart_fname, NULL);
@@ -1664,6 +1666,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 						 cpt,
 						 acurl,
 						 priv->media_result_dir,
+						 as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_NO_PARTIAL_URLS)? priv->media_baseurl : NULL,
 						 priv->max_scr_size_bytes,
 						 as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_ALLOW_SCREENCASTS),
 						 as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS));
@@ -1979,8 +1982,11 @@ asc_compose_save_metadata_result (AscCompose *compose, gboolean *results_not_emp
 	as_metadata_set_format_version (mdata, AS_FORMAT_VERSION_CURRENT);
 
 	/* Set baseurl only if one is set and we actually store any screenshot media. If no screenshot media
-	 * is stored, upstream's URLs are used and having a media base URL makes no sense */
-	if (priv->media_baseurl != NULL && as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS))
+	 * is stored, upstream's URLs are used and having a media base URL makes no sense.
+	 * In addition, we *must not* set a media-baseurl if *any* represented component uses full URLs. */
+	if (priv->media_baseurl != NULL
+	    && as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS)
+	    && !as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_NO_PARTIAL_URLS))
 		as_metadata_set_media_baseurl (mdata, priv->media_baseurl);
 
 	if (priv->format == AS_FORMAT_KIND_YAML)
@@ -2084,6 +2090,14 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 				     ASC_COMPOSE_ERROR_FAILED,
 				     _("Media result directory is set, but media base URL is not. A media base URL is needed "
 				       "to export media that is served via the media URL."));
+		return NULL;
+	}
+
+	if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_NO_PARTIAL_URLS) && priv->media_baseurl == NULL) {
+		g_set_error_literal (error,
+				     ASC_COMPOSE_ERROR,
+				     ASC_COMPOSE_ERROR_FAILED,
+				     _("Partial URLs are not allowed, but no base URL is set to create full URLs."));
 		return NULL;
 	}
 
