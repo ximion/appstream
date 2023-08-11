@@ -5,7 +5,7 @@
 # Translators:
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2016
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2015-2016
-# Rafael Fontenelle <rafaelff@gnome.org>, 2017, 2019, 2020, 2021, 2022.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2017, 2019, 2020, 2021, 2022, 2023.
 # Wellington Terumi Uemura <wellingtonuemura@gmail.com>, 2020, 2021, 2022.
 # André Marcelo Alvarenga <andrealvarenga@gmx.net>, 2020, 2021.
 # #-#-#-#-#  pt_BR.po (appstream-glib)  #-#-#-#-#
@@ -35,17 +35,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-04-11 20:37+0200\n"
-"PO-Revision-Date: 2023-03-23 12:41+0000\n"
-"Last-Translator: Fernando Lopes <118869201+plasmus777@users.noreply.github."
-"com>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"appstream/translations/pt_BR/>\n"
+"PO-Revision-Date: 2023-08-11 03:51+0000\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1121,8 +1119,7 @@ msgstr "Este software requer um método para a entrada do console."
 #: src/as-relation.c:1559
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
-"Este software recomenda o uso de um dispositivo do tipo \"\" como entrada."
+msgstr "Este software recomenda o uso de um dispositivo do tipo %s como entrada."
 
 #: src/as-relation.c:1564
 msgid "This software recommends a touch input device."
@@ -2844,7 +2841,6 @@ msgstr "Define o diretório de saída do resultado"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:204
-#, fuzzy
 msgid "Override the catalog metadata output directory"
 msgstr "Substitui o diretório de saída de metadados da coleção"
 
@@ -3118,10 +3114,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:591
-#, fuzzy
 msgid "Set the data origin for the installed metadata catalog file."
-msgstr ""
-"Define a origem dos dados para o arquivo de coleção de metadados instalados."
+msgstr "Define a origem dos dados para o arquivo de coleção de metadados instalados."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:596
@@ -3208,13 +3202,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:982
-#, fuzzy
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr ""
-"Presume que o arquivo de entrada está no formato selecionado (“yaml” ou "
-"“text”)."
+msgstr "Presume que o arquivo de entrada está no formato selecionado (“yaml”, “text” ou “markdown”)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:988
@@ -3237,10 +3228,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1038
-#, fuzzy
 msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr "Gera a saída no formato selecionado (“yaml” ou “text”)."
+msgstr "Gera a saída no formato selecionado (“yaml”, “text” ou “markdown”)."
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1080
@@ -3379,11 +3369,8 @@ msgstr "Exibir informações sobre metadados disponíveis do AppStream."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1371
-#, fuzzy
 msgid "Show information about the current device and used operating system."
-msgstr ""
-"Mostra informações sobre o sistema operacional atual a partir do índice de "
-"metadados."
+msgstr "Mostra informações sobre o dispositivo atual e o sistema operacional usado."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1376
@@ -3392,9 +3379,8 @@ msgstr "Instala um arquivo de metadados na localização certa."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1381
-#, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr "Converter XML para YAML ou vice-versa."
+msgstr "Converte coleção de metadados XML para YAML ou vice-versa."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1386
@@ -3427,10 +3413,8 @@ msgstr "Escreve arquivo texto NEWS ou YAML com info de um arquivo metainfo."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1412
-#, fuzzy
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr ""
-"Compõe metadados de coleção AppStream a partir de árvores de diretório."
+msgstr "Compõe coleção de metadados AppStream a partir de árvores de diretório."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1420
@@ -3517,15 +3501,14 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Não foi possível localizar componente fornecendo “%s::%s”."
 
 #: tools/ascli-actions-mdata.c:244
-#, fuzzy
 msgid "You need to specify categories to list."
-msgstr "Você precisa especificar um termo para pesquisar por."
+msgstr "Você precisa especificar categorias para listar."
 
 #. TRANSLATORS: We failed to find any component in these categories, likely due to an error
 #: tools/ascli-actions-mdata.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find components in %s!"
-msgstr "Não foi possível encontrar um componente correspondendo a %s!"
+msgstr "Não foi possível encontrar componentes em %s!"
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:265
@@ -3612,9 +3595,8 @@ msgid "ERROR"
 msgstr "ERRO"
 
 #: tools/ascli-actions-mdata.c:649
-#, fuzzy
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr "Você precisa especificar um arquivo metainfo como entrada."
+msgstr "Você precisa especificar um arquivo Metainfo ou ID do componente."
 
 #: tools/ascli-actions-mdata.c:667 tools/ascli-actions-misc.c:128
 #: tools/ascli-actions-misc.c:371 tools/ascli-actions-misc.c:448
@@ -3645,9 +3627,8 @@ msgid "No recommended items are set for this software."
 msgstr "Nenhum item recomendado está definido para este software."
 
 #: tools/ascli-actions-mdata.c:727
-#, fuzzy
 msgid "Supported:"
-msgstr "Esportes"
+msgstr "Compatível:"
 
 #: tools/ascli-actions-mdata.c:729
 msgid "No supported items are set for this software."
@@ -3782,9 +3763,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr "Não foi possível encontrar um componente de sistema operacional “%s”!"
 
 #: tools/ascli-actions-misc.c:536
-#, fuzzy
 msgid "ID"
-msgstr "IDEs"
+msgstr "ID"
 
 #: tools/ascli-actions-misc.c:537 tools/ascli-actions-misc.c:556
 #: tools/ascli-utils.c:302
@@ -3825,9 +3805,8 @@ msgid "Physical Memory"
 msgstr "Memória Física"
 
 #: tools/ascli-actions-misc.c:566
-#, fuzzy
 msgid "Devices with Modaliases"
-msgstr "Modos alternativos"
+msgstr "Dispositivos com Modaliases"
 
 #: tools/ascli-actions-misc.c:590
 msgid "User Input Controls"
@@ -3951,9 +3930,9 @@ msgid "You need to specify at least one file to validate!"
 msgstr "Você precisa especificar pelo menos um arquivo para validar!"
 
 #: tools/ascli-actions-validate.c:399
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to add release metadata file: %s"
-msgstr "Não foi possível instalar o arquivo de metadados: %s"
+msgstr "Não foi possível adicionar o arquivo de metadados de lançamento: %s"
 
 #: tools/ascli-actions-validate.c:408
 msgid ""
