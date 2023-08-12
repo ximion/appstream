@@ -141,6 +141,10 @@ void			as_release_set_url (AsRelease *release,
 					    AsReleaseUrlKind url_kind,
 					    const gchar *url);
 
+const gchar		*as_release_get_name (AsRelease *release);
+void			as_release_set_name (AsRelease *release,
+						const gchar *name);
+
 G_END_DECLS
 
 #endif /* __AS_RELEASE_H */

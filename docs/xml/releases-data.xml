@@ -130,6 +130,10 @@
 			discard any development release if the current version is itself stable. It can
 			show all versions when development versions of the software are also distributed.
 		</para>
+		<para>
+			A <literal>release</literal> tag may have a <literal>name</literal> property. This may be a prettier name to present the user.
+			By default, it is assumed to be the release <literal>version</literal>.
+		</para>
 
 		<para>
 			The <literal>release</literal> itself may have the following children:

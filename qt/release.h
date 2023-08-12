@@ -84,6 +84,7 @@ class APPSTREAMQT_EXPORT Release {
         Kind kind() const;
 
         QString version() const;
+        QString name() const;
 
         QDateTime timestamp() const;
         QDateTime timestampEol() const;
