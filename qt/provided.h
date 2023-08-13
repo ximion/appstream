@@ -28,57 +28,60 @@
 
 struct _AsProvided;
 
-namespace AppStream {
+namespace AppStream
+{
 
 class ProvidedData;
 
-class APPSTREAMQT_EXPORT Provided {
+class APPSTREAMQT_EXPORT Provided
+{
     Q_GADGET
-    public:
-        Provided();
-        Provided(_AsProvided *prov);
-        Provided(const Provided& other);
-        ~Provided();
-        Provided& operator=(const Provided& other);
-        bool operator==(const Provided& other) const;
 
-        /**
-         * \returns the internally stored AsProvided
-         */
-        _AsProvided *asProvided() const;
+public:
+    Provided();
+    Provided(_AsProvided *prov);
+    Provided(const Provided &other);
+    ~Provided();
+    Provided &operator=(const Provided &other);
+    bool operator==(const Provided &other) const;
 
-        enum Kind {
-            KindUnknown,
-            KindLibrary,
-            KindBinary,
-            KindMimetype,
-            KindFont,
-            KindModalias,
-            KindPython2Module,
-            KindPython3Module,
-            KindDBusSystemService,
-            KindDBusUserService,
-            KindFirmwareRuntime,
-            KindFirmwareFlashed,
-            KindId,
-        };
-        Q_ENUM(Kind)
+    /**
+     * \returns the internally stored AsProvided
+     */
+    _AsProvided *asProvided() const;
 
-        static Kind stringToKind(const QString& kind);
-        static QString kindToString(Kind kind);
+    enum Kind {
+        KindUnknown,
+        KindLibrary,
+        KindBinary,
+        KindMimetype,
+        KindFont,
+        KindModalias,
+        KindPython2Module,
+        KindPython3Module,
+        KindDBusSystemService,
+        KindDBusUserService,
+        KindFirmwareRuntime,
+        KindFirmwareFlashed,
+        KindId,
+    };
+    Q_ENUM(Kind)
 
-        Kind kind() const;
+    static Kind stringToKind(const QString &kind);
+    static QString kindToString(Kind kind);
 
-        QStringList items() const;
-        bool hasItem(const QString &item) const;
+    Kind kind() const;
 
-        bool isEmpty() const;
+    QStringList items() const;
+    bool hasItem(const QString &item) const;
 
-    private:
-        QSharedDataPointer<ProvidedData> d;
+    bool isEmpty() const;
+
+private:
+    QSharedDataPointer<ProvidedData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Provided& provides);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Provided &provides);
 
 #endif // APPSTREAMQT_PROVIDED_H

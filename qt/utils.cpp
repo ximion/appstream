@@ -27,7 +27,6 @@ QString AppStream::Utils::currentDistroComponentId()
     return QString::fromUtf8(as_get_current_distro_component_id());
 }
 
-
 QString AppStream::Utils::currentAppStreamVersion()
 {
     return QString::fromUtf8(as_version_string());
@@ -35,5 +34,5 @@ QString AppStream::Utils::currentAppStreamVersion()
 
 int AppStream::Utils::vercmpSimple(const QString &a, const QString &b)
 {
-    return as_vercmp (qPrintable(a), qPrintable(b), AS_VERCMP_FLAG_NONE);
+    return as_vercmp(qPrintable(a), qPrintable(b), AS_VERCMP_FLAG_NONE);
 }

@@ -26,14 +26,16 @@
 
 using namespace AppStream;
 
-class AppStream::TranslationData : public QSharedData {
+class AppStream::TranslationData : public QSharedData
+{
 public:
     TranslationData()
     {
         m_translation = as_translation_new();
     }
 
-    TranslationData(AsTranslation* cat) : m_translation(cat)
+    TranslationData(AsTranslation *cat)
+        : m_translation(cat)
     {
         g_object_ref(m_translation);
     }
@@ -43,7 +45,7 @@ public:
         g_object_unref(m_translation);
     }
 
-    bool operator==(const TranslationData& rd) const
+    bool operator==(const TranslationData &rd) const
     {
         return rd.m_translation == m_translation;
     }
@@ -53,10 +55,10 @@ public:
         return m_translation;
     }
 
-    AsTranslation* m_translation;
+    AsTranslation *m_translation;
 };
 
-AppStream::Translation::Kind AppStream::Translation::stringToKind(const QString& kindString)
+AppStream::Translation::Kind AppStream::Translation::stringToKind(const QString &kindString)
 {
     if (kindString == QLatin1String("gettext")) {
         return AppStream::Translation::KindGettext;
@@ -78,30 +80,32 @@ QString AppStream::Translation::kindToString(AppStream::Translation::Kind kind)
 
 Translation::Translation()
     : d(new TranslationData)
-{}
+{
+}
 
-Translation::Translation(_AsTranslation* translation)
+Translation::Translation(_AsTranslation *translation)
     : d(new TranslationData(translation))
-{}
+{
+}
 
 Translation::Translation(const Translation &translation) = default;
 
 Translation::~Translation() = default;
 
-Translation& Translation::operator=(const Translation &translation) = default;
+Translation &Translation::operator=(const Translation &translation) = default;
 
 bool Translation::operator==(const Translation &other) const
 {
-    if(this->d == other.d) {
+    if (this->d == other.d) {
         return true;
     }
-    if(this->d && other.d) {
+    if (this->d && other.d) {
         return *(this->d) == *other.d;
     }
     return false;
 }
 
-_AsTranslation * AppStream::Translation::asTranslation() const
+_AsTranslation *AppStream::Translation::asTranslation() const
 {
     return d->translation();
 }
@@ -121,12 +125,12 @@ QString AppStream::Translation::id() const
     return valueWrap(as_translation_get_id(d->m_translation));
 }
 
-void AppStream::Translation::setId(const QString& id)
+void AppStream::Translation::setId(const QString &id)
 {
     as_translation_set_id(d->m_translation, qPrintable(id));
 }
 
-QDebug operator<<(QDebug s, const AppStream::Translation& translation)
+QDebug operator<<(QDebug s, const AppStream::Translation &translation)
 {
     s.nospace() << "AppStream::Translation(" << translation.id() << ")";
     return s.space();

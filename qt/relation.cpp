@@ -27,14 +27,16 @@
 
 using namespace AppStream;
 
-class AppStream::RelationData : public QSharedData {
+class AppStream::RelationData : public QSharedData
+{
 public:
     RelationData()
     {
         m_relation = as_relation_new();
     }
 
-    RelationData(AsRelation* cat) : m_relation(cat)
+    RelationData(AsRelation *cat)
+        : m_relation(cat)
     {
         g_object_ref(m_relation);
     }
@@ -44,7 +46,7 @@ public:
         g_object_unref(m_relation);
     }
 
-    bool operator==(const RelationData& rd) const
+    bool operator==(const RelationData &rd) const
     {
         return rd.m_relation == m_relation;
     }
@@ -55,9 +57,8 @@ public:
     }
 
     QString lastError;
-    AsRelation* m_relation;
+    AsRelation *m_relation;
 };
-
 
 QString Relation::kindToString(Relation::Kind kind)
 {
@@ -71,7 +72,8 @@ Relation::Kind Relation::stringToKind(const QString &string)
 
 QString Relation::itemKindToString(Relation::ItemKind ikind)
 {
-    return QString::fromUtf8(as_relation_item_kind_to_string(static_cast<AsRelationItemKind>(ikind)));
+    return QString::fromUtf8(
+        as_relation_item_kind_to_string(static_cast<AsRelationItemKind>(ikind)));
 }
 
 Relation::ItemKind Relation::stringToItemKind(const QString &string)
@@ -91,7 +93,8 @@ QString Relation::compareToString(Relation::Compare cmp)
 
 QString Relation::compareToSymbolsString(Relation::Compare cmp)
 {
-    return QString::fromUtf8(as_relation_compare_to_symbols_string(static_cast<AsRelationCompare>(cmp)));
+    return QString::fromUtf8(
+        as_relation_compare_to_symbols_string(static_cast<AsRelationCompare>(cmp)));
 }
 
 QString Relation::controlKindToString(Relation::ControlKind ckind)
@@ -116,7 +119,8 @@ Relation::DisplaySideKind Relation::stringToDisplaySideKind(const QString &strin
 
 QString Relation::displayLengthKindToString(Relation::DisplayLengthKind kind)
 {
-    return QString::fromUtf8(as_display_length_kind_to_string(static_cast<AsDisplayLengthKind>(kind)));
+    return QString::fromUtf8(
+        as_display_length_kind_to_string(static_cast<AsDisplayLengthKind>(kind)));
 }
 
 Relation::DisplayLengthKind Relation::stringToDisplayLengthKind(const QString &string)
@@ -126,46 +130,47 @@ Relation::DisplayLengthKind Relation::stringToDisplayLengthKind(const QString &s
 
 Relation::Relation()
     : d(new RelationData)
-{}
+{
+}
 
-Relation::Relation(_AsRelation* relation)
+Relation::Relation(_AsRelation *relation)
     : d(new RelationData(relation))
-{}
+{
+}
 
 Relation::Relation(const Relation &relation) = default;
 
 Relation::~Relation() = default;
 
-Relation& Relation::operator=(const Relation &relation) = default;
+Relation &Relation::operator=(const Relation &relation) = default;
 
 bool Relation::operator==(const Relation &other) const
 {
-    if(this->d == other.d) {
+    if (this->d == other.d) {
         return true;
     }
-    if(this->d && other.d) {
+    if (this->d && other.d) {
         return *(this->d) == *other.d;
     }
     return false;
 }
 
-_AsRelation* AppStream::Relation::asRelation() const
+_AsRelation *AppStream::Relation::asRelation() const
 {
     return d->relation();
 }
 
-QDebug operator<<(QDebug s, const AppStream::Relation& relation)
+QDebug operator<<(QDebug s, const AppStream::Relation &relation)
 {
-    s.nospace() << "AppStream::Relation("
-                << Relation::kindToString(relation.kind()) << ":"
-                << Relation::itemKindToString(relation.itemKind()) << ":"
-                << relation.valueStr() << ")";
+    s.nospace() << "AppStream::Relation(" << Relation::kindToString(relation.kind()) << ":"
+                << Relation::itemKindToString(relation.itemKind()) << ":" << relation.valueStr()
+                << ")";
     return s.space();
 }
 
 Relation::Kind Relation::kind() const
 {
-    return static_cast<Kind>(as_relation_get_kind (d->relation()));
+    return static_cast<Kind>(as_relation_get_kind(d->relation()));
 }
 
 void Relation::setKind(Relation::Kind kind)
@@ -175,7 +180,7 @@ void Relation::setKind(Relation::Kind kind)
 
 Relation::ItemKind Relation::itemKind() const
 {
-    return static_cast<ItemKind>(as_relation_get_item_kind (d->relation()));
+    return static_cast<ItemKind>(as_relation_get_item_kind(d->relation()));
 }
 
 void Relation::setItemKind(Relation::ItemKind kind)
@@ -185,7 +190,7 @@ void Relation::setItemKind(Relation::ItemKind kind)
 
 Relation::Compare Relation::compare() const
 {
-    return static_cast<Compare>(as_relation_get_compare (d->relation()));
+    return static_cast<Compare>(as_relation_get_compare(d->relation()));
 }
 
 void Relation::setCompare(Relation::Compare compare)
@@ -260,7 +265,8 @@ Relation::DisplayLengthKind Relation::valueDisplayLengthKind() const
 
 void Relation::setValueDisplayLengthKind(Relation::DisplayLengthKind kind)
 {
-    as_relation_set_value_display_length_kind(d->relation(), static_cast<AsDisplayLengthKind>(kind));
+    as_relation_set_value_display_length_kind(d->relation(),
+                                              static_cast<AsDisplayLengthKind>(kind));
 }
 
 bool Relation::versionCompare(const QString &version)
@@ -277,11 +283,11 @@ CheckResult Relation::isSatisfied(SystemInfo *sysInfo, Pool *pool, QString *mess
     g_autoptr(GError) error = nullptr;
     g_autofree gchar *c_message = nullptr;
 
-    auto result = as_relation_is_satisfied (d->relation(),
-                                            sysInfo != nullptr? sysInfo->asSystemInfo() : nullptr,
-                                            pool != nullptr? pool->asPool() : nullptr,
-                                            message != nullptr? &c_message : nullptr,
-                                            &error);
+    auto result = as_relation_is_satisfied(d->relation(),
+                                           sysInfo != nullptr ? sysInfo->asSystemInfo() : nullptr,
+                                           pool != nullptr ? pool->asPool() : nullptr,
+                                           message != nullptr ? &c_message : nullptr,
+                                           &error);
     if (result == AS_CHECK_RESULT_ERROR)
         d->lastError = QString::fromUtf8(error->message);
     if (message != nullptr)

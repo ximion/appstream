@@ -27,14 +27,16 @@
 
 using namespace AppStream;
 
-class AppStream::VideoData : public QSharedData {
+class AppStream::VideoData : public QSharedData
+{
 public:
     VideoData()
     {
         m_vid = as_video_new();
     }
 
-    VideoData(AsVideo *vid) : m_vid(vid)
+    VideoData(AsVideo *vid)
+        : m_vid(vid)
     {
         g_object_ref(m_vid);
     }
@@ -44,7 +46,7 @@ public:
         g_object_unref(m_vid);
     }
 
-    bool operator==(const VideoData& rd) const
+    bool operator==(const VideoData &rd) const
     {
         return rd.m_vid == m_vid;
     }
@@ -57,28 +59,30 @@ public:
     AsVideo *m_vid;
 };
 
-Video::Video(const Video& other)
+Video::Video(const Video &other)
     : d(other.d)
-{}
+{
+}
 
 Video::Video()
     : d(new VideoData)
-{}
+{
+}
 
 Video::Video(_AsVideo *vid)
     : d(new VideoData(vid))
-{}
+{
+}
 
-Video::~Video()
-{}
+Video::~Video() { }
 
-Video& Video::operator=(const Video& other)
+Video &Video::operator=(const Video &other)
 {
     this->d = other.d;
     return *this;
 }
 
-_AsVideo * AppStream::Video::asVideo() const
+_AsVideo *AppStream::Video::asVideo() const
 {
     return d->video();
 }
@@ -108,7 +112,8 @@ uint Video::height() const
     return as_video_get_height(d->m_vid);
 }
 
-void Video::setHeight(uint height) {
+void Video::setHeight(uint height)
+{
     as_video_set_height(d->m_vid, height);
 }
 
@@ -122,12 +127,13 @@ void Video::setWidth(uint width)
     as_video_set_width(d->m_vid, width);
 }
 
-void Video::setUrl(const QUrl& url)
+void Video::setUrl(const QUrl &url)
 {
     as_video_set_url(d->m_vid, qPrintable(url.toString()));
 }
 
-const QUrl Video::url() const {
+const QUrl Video::url() const
+{
     return QUrl(as_video_get_url(d->m_vid));
 }
 
@@ -136,7 +142,9 @@ QSize AppStream::Video::size() const
     return QSize(width(), height());
 }
 
-QDebug operator<<(QDebug s, const AppStream::Video& video) {
-    s.nospace() << "AppStream::Video(" << video.url() << ',' << video.container() << ':' << video.codec() << "[" << video.width() << "x" << video.height() << "])";
+QDebug operator<<(QDebug s, const AppStream::Video &video)
+{
+    s.nospace() << "AppStream::Video(" << video.url() << ',' << video.container() << ':'
+                << video.codec() << "[" << video.width() << "x" << video.height() << "])";
     return s.space();
 }

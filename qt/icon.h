@@ -27,7 +27,8 @@
 class QUrl;
 class QString;
 struct _AsIcon;
-namespace AppStream {
+namespace AppStream
+{
 
 class IconData;
 
@@ -35,72 +36,68 @@ class IconData;
  * A reference to n icon which can be loaded from a locale file
  * or remote URI.
  */
-class APPSTREAMQT_EXPORT Icon {
+class APPSTREAMQT_EXPORT Icon
+{
     Q_GADGET
-    public:
-        enum Kind {
-            KindUnknown,
-            KindCached,
-            KindStock,
-            KindLocal,
-            KindRemote
-        };
-        Q_ENUM(Kind)
 
-        Icon();
-        Icon(_AsIcon *icon);
-        Icon(const Icon& other);
-        ~Icon();
+public:
+    enum Kind { KindUnknown, KindCached, KindStock, KindLocal, KindRemote };
+    Q_ENUM(Kind)
 
-        Icon& operator=(const Icon& other);
+    Icon();
+    Icon(_AsIcon *icon);
+    Icon(const Icon &other);
+    ~Icon();
 
-        /**
-         * \returns the internally stored AsIcon
-         */
-        _AsIcon *asIcon() const;
+    Icon &operator=(const Icon &other);
 
-        /**
-         * \return the kind of icon
-         */
-        Kind kind() const;
-        void setKind(Kind kind);
+    /**
+     * \returns the internally stored AsIcon
+     */
+    _AsIcon *asIcon() const;
 
-        /**
-         * \return the local or remote url for this image
-         */
-        const QUrl url() const;
-        void setUrl(const QUrl& url);
+    /**
+     * \return the kind of icon
+     */
+    Kind kind() const;
+    void setKind(Kind kind);
 
-        /**
-         * \return the icon (stock) name
-         */
-        const QString name() const;
-        void setName(const QString& name);
+    /**
+     * \return the local or remote url for this image
+     */
+    const QUrl url() const;
+    void setUrl(const QUrl &url);
 
-        /**
-         * \return the expected width of this image
-         */
-        uint width() const;
-        void setWidth(uint width);
+    /**
+     * \return the icon (stock) name
+     */
+    const QString name() const;
+    void setName(const QString &name);
 
-        /**
-         * \return the expected height of this image
-         */
-        uint height() const;
-        void setHeight(uint height);
+    /**
+     * \return the expected width of this image
+     */
+    uint width() const;
+    void setWidth(uint width);
 
-        /**
-         * \returns the expected size of the image
-         */
-        QSize size() const;
+    /**
+     * \return the expected height of this image
+     */
+    uint height() const;
+    void setHeight(uint height);
 
-        bool isEmpty() const;
+    /**
+     * \returns the expected size of the image
+     */
+    QSize size() const;
 
-    private:
-        QSharedDataPointer<IconData> d;
+    bool isEmpty() const;
+
+private:
+    QSharedDataPointer<IconData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Icon& image);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Icon &image);
 
 #endif // APPSTREAMQT_ICON_H

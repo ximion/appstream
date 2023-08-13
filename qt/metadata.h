@@ -29,123 +29,120 @@
 #include "component.h"
 
 struct _AsMetadata;
-namespace AppStream {
+namespace AppStream
+{
 
 class MetadataData;
-class APPSTREAMQT_EXPORT Metadata {
+class APPSTREAMQT_EXPORT Metadata
+{
     Q_GADGET
-    public:
-        enum FormatStyle {
-            FormatStyleUnknown,
-            FormatStyleMetainfo,
-            FormatStyleCatalog,
-        };
-        Q_ENUM(FormatStyle)
 
-        enum FormatKind {
-            FormatKindUnknown,
-            FormatKindXml,
-            FormatKindYaml,
-            FormatKindDesktopEntry
-        };
-        Q_ENUM(FormatKind)
+public:
+    enum FormatStyle {
+        FormatStyleUnknown,
+        FormatStyleMetainfo,
+        FormatStyleCatalog,
+    };
+    Q_ENUM(FormatStyle)
 
-        enum FormatVersion {
-            FormatVersionV06,
-            FormatVersionV07,
-            FormatVersionV08,
-            FormatVersionV09,
-            FormatVersionV010,
-            FormatVersionV011,
-            FormatVersionV012,
-            FormatVersionV013,
-            FormatVersionV014,
-        };
-        Q_ENUM(FormatVersion)
+    enum FormatKind { FormatKindUnknown, FormatKindXml, FormatKindYaml, FormatKindDesktopEntry };
+    Q_ENUM(FormatKind)
 
-        enum MetadataError {
-            /*
-             * Needed to identify whether parsing was successful or not
-             */
-            MetadataErrorNoError = -1,
-            MetadataErrorFailed,
-            MetadataErrorParse,
-            MetadataErrorFormatUnexpected,
-            MetadataErrorNoComponent,
-            MetadataErrorValueMissing
-        };
-        Q_ENUM(MetadataError)
+    enum FormatVersion {
+        FormatVersionV06,
+        FormatVersionV07,
+        FormatVersionV08,
+        FormatVersionV09,
+        FormatVersionV010,
+        FormatVersionV011,
+        FormatVersionV012,
+        FormatVersionV013,
+        FormatVersionV014,
+    };
+    Q_ENUM(FormatVersion)
 
-        static FormatKind stringToFormatKind(const QString& kindString);
-        static QString formatKindToString(FormatKind format);
-
-        static FormatVersion stringToFormatVersion(const QString& formatVersionString);
-        static QString formatVersionToString(FormatVersion version);
-
-        Metadata();
-        explicit Metadata(_AsMetadata *metadata);
-        Metadata(const Metadata& metadata);
-        ~Metadata();
-
-        Metadata& operator=(const Metadata& metadata);
-        bool operator==(const Metadata& r) const;
-
-        /**
-         * \returns the internally stored AsMetadata
+    enum MetadataError {
+        /*
+         * Needed to identify whether parsing was successful or not
          */
-        _AsMetadata *asMetadata() const;
+        MetadataErrorNoError = -1,
+        MetadataErrorFailed,
+        MetadataErrorParse,
+        MetadataErrorFormatUnexpected,
+        MetadataErrorNoComponent,
+        MetadataErrorValueMissing
+    };
+    Q_ENUM(MetadataError)
 
-        MetadataError parseFile(const QString& file, FormatKind format);
+    static FormatKind stringToFormatKind(const QString &kindString);
+    static QString formatKindToString(FormatKind format);
 
-        MetadataError parse(const QString& data, FormatKind format);
+    static FormatVersion stringToFormatVersion(const QString &formatVersionString);
+    static QString formatVersionToString(FormatVersion version);
 
-        MetadataError parseDesktopData(const QString& cid, const QString& data);
+    Metadata();
+    explicit Metadata(_AsMetadata *metadata);
+    Metadata(const Metadata &metadata);
+    ~Metadata();
 
-        AppStream::Component component() const;
-        QList<AppStream::Component> components() const;
-        void clearComponents();
-        void addComponent(const AppStream::Component& component);
+    Metadata &operator=(const Metadata &metadata);
+    bool operator==(const Metadata &r) const;
 
-        QString componentToMetainfo(FormatKind format) const;
+    /**
+     * \returns the internally stored AsMetadata
+     */
+    _AsMetadata *asMetadata() const;
 
-        MetadataError saveMetainfo(const QString& fname, FormatKind format);
+    MetadataError parseFile(const QString &file, FormatKind format);
 
-        QString componentsToCatalog(FormatKind format) const;
+    MetadataError parse(const QString &data, FormatKind format);
 
-        MetadataError saveCatalog(const QString& filename, FormatKind format);
+    MetadataError parseDesktopData(const QString &cid, const QString &data);
 
-        FormatVersion formatVersion() const;
-        void setFormatVersion(FormatVersion formatVersion);
+    AppStream::Component component() const;
+    QList<AppStream::Component> components() const;
+    void clearComponents();
+    void addComponent(const AppStream::Component &component);
 
-        FormatStyle formatStyle() const;
-        void setFormatStyle(FormatStyle format);
+    QString componentToMetainfo(FormatKind format) const;
 
-        QString locale() const;
-        void setLocale(const QString& locale);
+    MetadataError saveMetainfo(const QString &fname, FormatKind format);
 
-        QString origin() const;
-        void setOrigin(const QString& origin);
+    QString componentsToCatalog(FormatKind format) const;
 
-        bool updateExisting() const;
-        void setUpdateExisting(bool updateExisting);
+    MetadataError saveCatalog(const QString &filename, FormatKind format);
 
-        bool writeHeader() const;
-        void setWriteHeader(bool writeHeader);
+    FormatVersion formatVersion() const;
+    void setFormatVersion(FormatVersion formatVersion);
 
-        QString architecture() const;
-        void setArchitecture(const QString& architecture);
+    FormatStyle formatStyle() const;
+    void setFormatStyle(FormatStyle format);
 
-        /**
-         * \return The last error message received.
-         */
-        QString lastError() const;
+    QString locale() const;
+    void setLocale(const QString &locale);
 
-    private:
-        QSharedDataPointer<MetadataData> d;
+    QString origin() const;
+    void setOrigin(const QString &origin);
+
+    bool updateExisting() const;
+    void setUpdateExisting(bool updateExisting);
+
+    bool writeHeader() const;
+    void setWriteHeader(bool writeHeader);
+
+    QString architecture() const;
+    void setArchitecture(const QString &architecture);
+
+    /**
+     * \return The last error message received.
+     */
+    QString lastError() const;
+
+private:
+    QSharedDataPointer<MetadataData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Metadata& metadata);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Metadata &metadata);
 
 #endif // APPSTREAMQT_METADATA_H
-

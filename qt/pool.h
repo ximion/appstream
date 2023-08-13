@@ -29,7 +29,8 @@
 #include "metadata.h"
 
 struct _AsPool;
-namespace AppStream {
+namespace AppStream
+{
 
 /**
  * Access the AppStream metadata pool.
@@ -66,14 +67,14 @@ public:
      **/
     enum Flags {
         FlagNone = 0,
-        FlagLoadOsCatalog   = 1 << 0,
-        FlagLoadOsMetainfo     = 1 << 1,
+        FlagLoadOsCatalog = 1 << 0,
+        FlagLoadOsMetainfo = 1 << 1,
         FlagLoadOsDesktopFiles = 1 << 2,
-        FlagLoadFlatpak        = 1 << 3,
-        FlagIgnoreCacheAge     = 1 << 4,
-        FlagResolveAddons      = 1 << 5,
-        FlagPreferOsMetainfo   = 1 << 6,
-        FlagMonitor            = 1 << 7,
+        FlagLoadFlatpak = 1 << 3,
+        FlagIgnoreCacheAge = 1 << 4,
+        FlagResolveAddons = 1 << 5,
+        FlagPreferOsMetainfo = 1 << 6,
+        FlagMonitor = 1 << 7,
     };
 
     /**
@@ -104,28 +105,30 @@ public:
     /**
      * Add a component to the pool.
      */
-    bool addComponents(const QList<AppStream::Component>& cpts);
+    bool addComponents(const QList<AppStream::Component> &cpts);
 
     QList<AppStream::Component> components() const;
 
-    QList<AppStream::Component> componentsById(const QString& cid) const;
+    QList<AppStream::Component> componentsById(const QString &cid) const;
 
-    QList<AppStream::Component> componentsByProvided(Provided::Kind kind, const QString& item) const;
+    QList<AppStream::Component> componentsByProvided(Provided::Kind kind,
+                                                     const QString &item) const;
 
     QList<AppStream::Component> componentsByKind(Component::Kind kind) const;
 
-    QList<AppStream::Component> componentsByCategories(const QStringList& categories) const;
+    QList<AppStream::Component> componentsByCategories(const QStringList &categories) const;
 
-    QList<AppStream::Component> componentsByLaunchable(Launchable::Kind kind, const QString& value) const;
+    QList<AppStream::Component> componentsByLaunchable(Launchable::Kind kind,
+                                                       const QString &value) const;
 
-    QList<AppStream::Component> componentsByExtends(const QString& extendedId) const;
+    QList<AppStream::Component> componentsByExtends(const QString &extendedId) const;
 
-    QList<AppStream::Component> componentsByBundleId(Bundle::Kind kind, const QString& bundleId, bool matchPrefix) const;
+    QList<AppStream::Component>
+    componentsByBundleId(Bundle::Kind kind, const QString &bundleId, bool matchPrefix) const;
 
-    QList<AppStream::Component> search(const QString& term) const;
+    QList<AppStream::Component> search(const QString &term) const;
 
-
-    void setLocale(const QString& locale);
+    void setLocale(const QString &locale);
 
     uint flags() const;
     void setFlags(uint flags);
@@ -136,8 +139,7 @@ public:
     void addExtraDataLocation(const QString &directory, Metadata::FormatStyle formatStyle);
 
     void setLoadStdDataLocations(bool enabled);
-    void overrideCacheLocations(const QString &sysDir,
-                                const QString &userDir);
+    void overrideCacheLocations(const QString &sysDir, const QString &userDir);
 
     bool isEmpty() const;
 

@@ -29,76 +29,60 @@
 
 struct _AsRelease;
 
-namespace AppStream {
+namespace AppStream
+{
 
 class ReleaseData;
 
 struct Checksum {
-    enum ChecksumKind {
-        KindNone,
-        KindSha256,
-        KindSha1
-    };
+    enum ChecksumKind { KindNone, KindSha256, KindSha1 };
     const ChecksumKind kind;
     const QByteArray data;
 };
 
-class APPSTREAMQT_EXPORT Release {
+class APPSTREAMQT_EXPORT Release
+{
     Q_GADGET
-    public:
-        Release(_AsRelease* release);
-        Release(const Release& release);
-        ~Release();
+public:
+    Release(_AsRelease *release);
+    Release(const Release &release);
+    ~Release();
 
-        Release& operator=(const Release& release);
-        bool operator==(const Release& r) const;
+    Release &operator=(const Release &release);
+    bool operator==(const Release &r) const;
 
-        /**
-         * \returns the internally stored AsRelease
-         */
-        _AsRelease *asRelease() const;
+    /**
+     * \returns the internally stored AsRelease
+     */
+    _AsRelease *asRelease() const;
 
-        enum Kind  {
-            KindUnknown,
-            KindStable,
-            KindDevelopment
-        };
-        Q_ENUM(Kind)
+    enum Kind { KindUnknown, KindStable, KindDevelopment };
+    Q_ENUM(Kind)
 
-        enum SizeKind {
-            SizeUnknown,
-            SizeDownload,
-            SizeInstalled
-        };
-        Q_ENUM(SizeKind)
+    enum SizeKind { SizeUnknown, SizeDownload, SizeInstalled };
+    Q_ENUM(SizeKind)
 
-        enum UrgencyKind {
-            UrgencyUnknown,
-            UrgencyLow,
-            UrgencyMedium,
-            UrgencyHigh,
-            UrgencyCritical
-        };
-        Q_ENUM(UrgencyKind)
+    enum UrgencyKind { UrgencyUnknown, UrgencyLow, UrgencyMedium, UrgencyHigh, UrgencyCritical };
+    Q_ENUM(UrgencyKind)
 
-        Kind kind() const;
+    Kind kind() const;
 
-        QString version() const;
+    QString version() const;
 
-        QDateTime timestamp() const;
-        QDateTime timestampEol() const;
+    QDateTime timestamp() const;
+    QDateTime timestampEol() const;
 
-        QString description() const;
+    QString description() const;
 
-        QString activeLocale() const;
+    QString activeLocale() const;
 
-        UrgencyKind urgency() const;
+    UrgencyKind urgency() const;
 
-    private:
-        QSharedDataPointer<ReleaseData> d;
+private:
+    QSharedDataPointer<ReleaseData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Release& release);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Release &release);
 
 #endif // APPSTREAMQT_RELEASE_H

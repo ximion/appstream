@@ -26,14 +26,10 @@
 
 struct _AsRelation;
 
-namespace AppStream {
+namespace AppStream
+{
 
-enum class CheckResult {
-    Error,
-    Unknown,
-    False,
-    True
-};
+enum class CheckResult { Error, Unknown, False, True };
 
 class Pool;
 class SystemInfo;
@@ -42,142 +38,138 @@ class RelationData;
 /**
  * Description of relations a software component has with other components and entities.
  */
-class APPSTREAMQT_EXPORT Relation {
+class APPSTREAMQT_EXPORT Relation
+{
     Q_GADGET
-    public:
-        enum Kind {
-            KindUnknown,
-            KindRequires,
-            KindRecommends
-        };
-        Q_ENUM(Kind)
 
-        enum ItemKind {
-            ItemKindUnknown,
-            ItemKindId,
-            ItemKindModalias,
-            ItemKindKernel,
-            ItemKindMemory,
-            ItemKindFirmware,
-            ItemKindControl,
-            ItemKindDisplayLength
-        };
-        Q_ENUM(ItemKind)
+public:
+    enum Kind { KindUnknown, KindRequires, KindRecommends };
+    Q_ENUM(Kind)
 
-        enum Compare {
-            CompareUnknown,
-            CompareEq,
-            CompareNe,
-            CompareLt,
-            CompareGt,
-            CompareLe,
-            CompareGe
-        };
-        Q_ENUM(Compare)
+    enum ItemKind {
+        ItemKindUnknown,
+        ItemKindId,
+        ItemKindModalias,
+        ItemKindKernel,
+        ItemKindMemory,
+        ItemKindFirmware,
+        ItemKindControl,
+        ItemKindDisplayLength
+    };
+    Q_ENUM(ItemKind)
 
-        enum ControlKind {
-            ControlKindUnknown,
-            ControlKindPointing,
-            ControlKindKeyboard,
-            ControlKindConsole,
-            ControlKindTouch,
-            ControlKindGamepad,
-            ControlKindVoice,
-            ControlKindVision,
-            ControlKindTvRemote
-        };
-        Q_ENUM(ControlKind)
+    enum Compare {
+        CompareUnknown,
+        CompareEq,
+        CompareNe,
+        CompareLt,
+        CompareGt,
+        CompareLe,
+        CompareGe
+    };
+    Q_ENUM(Compare)
 
-        enum DisplaySideKind {
-            DisplaySideKindUnknown,
-            DisplaySideKindShortest,
-            DisplaySideKindLongest
-        };
-        Q_ENUM(DisplaySideKind)
+    enum ControlKind {
+        ControlKindUnknown,
+        ControlKindPointing,
+        ControlKindKeyboard,
+        ControlKindConsole,
+        ControlKindTouch,
+        ControlKindGamepad,
+        ControlKindVoice,
+        ControlKindVision,
+        ControlKindTvRemote
+    };
+    Q_ENUM(ControlKind)
 
-        enum DisplayLengthKind {
-            DisplayLengthKindUnknown,
-            DisplayLengthKindXSmall,
-            DisplayLengthKindSmall,
-            DisplayLengthKindMedium,
-            DisplayLengthKindLarge,
-            DisplayLengthKindXLarge
-        };
-        Q_ENUM(DisplayLengthKind)
+    enum DisplaySideKind {
+        DisplaySideKindUnknown,
+        DisplaySideKindShortest,
+        DisplaySideKindLongest
+    };
+    Q_ENUM(DisplaySideKind)
 
-        static QString kindToString(Kind kind);
-        static Kind stringToKind(const QString &string);
+    enum DisplayLengthKind {
+        DisplayLengthKindUnknown,
+        DisplayLengthKindXSmall,
+        DisplayLengthKindSmall,
+        DisplayLengthKindMedium,
+        DisplayLengthKindLarge,
+        DisplayLengthKindXLarge
+    };
+    Q_ENUM(DisplayLengthKind)
 
-        static QString itemKindToString(ItemKind ikind);
-        static ItemKind stringToItemKind(const QString &string);
+    static QString kindToString(Kind kind);
+    static Kind stringToKind(const QString &string);
 
-        static Compare stringToCompare(const QString &string);
-        static QString compareToString(Compare cmp);
-        static QString compareToSymbolsString(Compare cmp);
+    static QString itemKindToString(ItemKind ikind);
+    static ItemKind stringToItemKind(const QString &string);
 
-        static QString controlKindToString(ControlKind ckind);
-        static ControlKind controlKindFromString(const QString &string);
+    static Compare stringToCompare(const QString &string);
+    static QString compareToString(Compare cmp);
+    static QString compareToSymbolsString(Compare cmp);
 
-        static QString displaySideKindToString(DisplaySideKind kind);
-        static DisplaySideKind stringToDisplaySideKind(const QString &string);
+    static QString controlKindToString(ControlKind ckind);
+    static ControlKind controlKindFromString(const QString &string);
 
-        static QString displayLengthKindToString(DisplayLengthKind kind);
-        static DisplayLengthKind stringToDisplayLengthKind(const QString &string);
+    static QString displaySideKindToString(DisplaySideKind kind);
+    static DisplaySideKind stringToDisplaySideKind(const QString &string);
 
-        Relation();
-        Relation(_AsRelation* relation);
-        Relation(const Relation& relation);
-        ~Relation();
+    static QString displayLengthKindToString(DisplayLengthKind kind);
+    static DisplayLengthKind stringToDisplayLengthKind(const QString &string);
 
-        Relation& operator=(const Relation& relation);
-        bool operator==(const Relation& r) const;
+    Relation();
+    Relation(_AsRelation *relation);
+    Relation(const Relation &relation);
+    ~Relation();
 
-        /**
-         * \returns the internally stored AsRelation
-         */
-        _AsRelation *asRelation() const;
+    Relation &operator=(const Relation &relation);
+    bool operator==(const Relation &r) const;
 
-        Kind kind() const;
-        void setKind(Kind kind);
+    /**
+     * \returns the internally stored AsRelation
+     */
+    _AsRelation *asRelation() const;
 
-        ItemKind itemKind() const;
-        void setItemKind(ItemKind kind);
+    Kind kind() const;
+    void setKind(Kind kind);
 
-        Compare compare() const;
-        void setCompare(Compare compare);
+    ItemKind itemKind() const;
+    void setItemKind(ItemKind kind);
 
-        QString version() const;
-        void setVersion(const QString &version);
+    Compare compare() const;
+    void setCompare(Compare compare);
 
-        QString valueStr() const;
-        void setValueStr(const QString &value);
+    QString version() const;
+    void setVersion(const QString &version);
 
-        int valueInt() const;
-        void setValueInt(int value);
+    QString valueStr() const;
+    void setValueStr(const QString &value);
 
-        ControlKind valueControlKind() const;
-        void setValueControlKind(ControlKind kind);
+    int valueInt() const;
+    void setValueInt(int value);
 
-        DisplaySideKind displaySideKind() const;
-        void setDisplaySideKind(DisplaySideKind kind);
+    ControlKind valueControlKind() const;
+    void setValueControlKind(ControlKind kind);
 
-        int valuePx() const;
-        void setValuePx(int logicalPx);
+    DisplaySideKind displaySideKind() const;
+    void setDisplaySideKind(DisplaySideKind kind);
 
-        DisplayLengthKind valueDisplayLengthKind() const;
-        void setValueDisplayLengthKind(DisplayLengthKind kind);
+    int valuePx() const;
+    void setValuePx(int logicalPx);
 
-        bool versionCompare(const QString &version);
+    DisplayLengthKind valueDisplayLengthKind() const;
+    void setValueDisplayLengthKind(DisplayLengthKind kind);
 
-        CheckResult isSatisfied(SystemInfo *sysInfo,
-                                Pool *pool,
-                                QString *message);
+    bool versionCompare(const QString &version);
 
-        QString lastError() const;
+    CheckResult isSatisfied(SystemInfo *sysInfo, Pool *pool, QString *message);
 
-    private:
-        QSharedDataPointer<RelationData> d;
+    QString lastError() const;
+
+private:
+    QSharedDataPointer<RelationData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Relation& relation);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Relation &relation);

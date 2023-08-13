@@ -23,9 +23,12 @@
 #include <QStringList>
 #include "appstreamqt_export.h"
 
-namespace AppStream {
+namespace AppStream
+{
 
-namespace SPDX {
+namespace SPDX
+{
+
 APPSTREAMQT_EXPORT bool isLicenseId(const QString &license_id);
 APPSTREAMQT_EXPORT bool isLicenseExceptionId(const QString &exception_id);
 APPSTREAMQT_EXPORT bool isLicenseExpression(const QString &license);

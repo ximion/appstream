@@ -26,59 +26,62 @@
 #include "appstreamqt_export.h"
 
 struct _AsBundle;
-namespace AppStream {
+namespace AppStream
+{
 
 class BundleData;
-class APPSTREAMQT_EXPORT Bundle {
+class APPSTREAMQT_EXPORT Bundle
+{
     Q_GADGET
-    public:
-        Bundle();
-        Bundle(_AsBundle *bundle);
-        Bundle(const Bundle& bundle);
-        ~Bundle();
 
-        Bundle& operator=(const Bundle& bundle);
-        bool operator==(const Bundle& r) const;
+public:
+    Bundle();
+    Bundle(_AsBundle *bundle);
+    Bundle(const Bundle &bundle);
+    ~Bundle();
 
-        /**
-         * \returns the internally stored AsBundle
-         */
-        _AsBundle *asBundle() const;
+    Bundle &operator=(const Bundle &bundle);
+    bool operator==(const Bundle &r) const;
 
-        enum Kind {
-            KindUnknown,
-            KindPackage,
-            KindLimba,
-            KindFlatpak,
-            KindAppImage,
-            KindSnap,
-            KindTarball,
-            KindCabinet
-        };
-        Q_ENUM(Kind)
+    /**
+     * \returns the internally stored AsBundle
+     */
+    _AsBundle *asBundle() const;
 
-        static Kind stringToKind(const QString& kindString);
-        static QString kindToString(Kind kind);
+    enum Kind {
+        KindUnknown,
+        KindPackage,
+        KindLimba,
+        KindFlatpak,
+        KindAppImage,
+        KindSnap,
+        KindTarball,
+        KindCabinet
+    };
+    Q_ENUM(Kind)
 
-        /**
-         * \return the bundle kind.
-         */
-        Kind kind() const;
-        void setKind(Kind kind);
+    static Kind stringToKind(const QString &kindString);
+    static QString kindToString(Kind kind);
 
-        /**
-         * \return the bundle ID.
-         */
-        QString id() const;
-        void setId(const QString& id);
+    /**
+     * \return the bundle kind.
+     */
+    Kind kind() const;
+    void setKind(Kind kind);
 
-        bool isEmpty() const;
+    /**
+     * \return the bundle ID.
+     */
+    QString id() const;
+    void setId(const QString &id);
 
-    private:
-        QSharedDataPointer<BundleData> d;
+    bool isEmpty() const;
+
+private:
+    QSharedDataPointer<BundleData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Bundle& bundle);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Bundle &bundle);
 
 #endif // APPSTREAMQT_BUNDLE_H

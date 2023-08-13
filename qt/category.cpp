@@ -25,9 +25,11 @@
 
 using namespace AppStream;
 
-class AppStream::CategoryData : public QSharedData {
+class AppStream::CategoryData : public QSharedData
+{
 public:
-    CategoryData(AsCategory* cat) : m_category(cat)
+    CategoryData(AsCategory *cat)
+        : m_category(cat)
     {
         g_object_ref(m_category);
     }
@@ -37,7 +39,7 @@ public:
         g_object_unref(m_category);
     }
 
-    bool operator==(const CategoryData& rd) const
+    bool operator==(const CategoryData &rd) const
     {
         return rd.m_category == m_category;
     }
@@ -47,31 +49,32 @@ public:
         return m_category;
     }
 
-    AsCategory* m_category;
+    AsCategory *m_category;
 };
 
-Category::Category(_AsCategory* category)
+Category::Category(_AsCategory *category)
     : d(new CategoryData(category))
-{}
+{
+}
 
 Category::Category(const Category &category) = default;
 
 Category::~Category() = default;
 
-Category& Category::operator=(const Category &category) = default;
+Category &Category::operator=(const Category &category) = default;
 
 bool Category::operator==(const Category &other) const
 {
-    if(this->d == other.d) {
+    if (this->d == other.d) {
         return true;
     }
-    if(this->d && other.d) {
+    if (this->d && other.d) {
         return *(this->d) == *other.d;
     }
     return false;
 }
 
-_AsCategory * AppStream::Category::asCategory() const
+_AsCategory *AppStream::Category::asCategory() const
 {
     return d->category();
 }
@@ -101,8 +104,8 @@ QList<Category> Category::children() const
     auto children = as_category_get_children(d->m_category);
     QList<Category> ret;
     ret.reserve(children->len);
-    for(uint i = 0; i < children->len; i++) {
-        auto ccat = AS_CATEGORY (g_ptr_array_index (children, i));
+    for (uint i = 0; i < children->len; i++) {
+        auto ccat = AS_CATEGORY(g_ptr_array_index(children, i));
         ret << Category(ccat);
     }
     return ret;
@@ -113,14 +116,14 @@ QStringList Category::desktopGroups() const
     auto dgs = as_category_get_desktop_groups(d->m_category);
     QStringList ret;
     ret.reserve(dgs->len);
-    for(uint i = 0; i < dgs->len; i++) {
-        auto dg = (const gchar*) g_ptr_array_index (dgs, i);
+    for (uint i = 0; i < dgs->len; i++) {
+        auto dg = (const gchar *) g_ptr_array_index(dgs, i);
         ret << valueWrap(dg);
     }
     return ret;
 }
 
-QDebug operator<<(QDebug s, const AppStream::Category& category)
+QDebug operator<<(QDebug s, const AppStream::Category &category)
 {
     s.nospace() << "AppStream::Category(" << category.id() << ")";
     return s.space();
@@ -131,8 +134,8 @@ QList<Category> getDefaultCategories(bool withSpecial)
     auto cats = as_get_default_categories(withSpecial);
     QList<Category> ret;
     ret.reserve(cats->len);
-    for(uint i = 0; i < cats->len; i++) {
-        auto cat = AS_CATEGORY (g_ptr_array_index (cats, i));
+    for (uint i = 0; i < cats->len; i++) {
+        auto cat = AS_CATEGORY(g_ptr_array_index(cats, i));
         ret << Category(cat);
     }
     return ret;

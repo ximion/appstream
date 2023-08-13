@@ -25,7 +25,8 @@
 
 using namespace AppStream;
 
-class AppStream::SystemInfoData : public QSharedData {
+class AppStream::SystemInfoData : public QSharedData
+{
 public:
     SystemInfoData()
     {
@@ -43,41 +44,43 @@ public:
         g_object_unref(sysInfo);
     }
 
-    bool operator==(const SystemInfoData& rd) const
+    bool operator==(const SystemInfoData &rd) const
     {
         return rd.sysInfo == sysInfo;
     }
 
-    AsSystemInfo* sysInfo;
+    AsSystemInfo *sysInfo;
     QString lastError;
 };
 
 SystemInfo::SystemInfo()
     : d(new SystemInfoData())
-{}
+{
+}
 
-SystemInfo::SystemInfo(_AsSystemInfo* sysInfo)
+SystemInfo::SystemInfo(_AsSystemInfo *sysInfo)
     : d(new SystemInfoData(sysInfo))
-{}
+{
+}
 
 SystemInfo::SystemInfo(const SystemInfo &sysInfo) = default;
 
 SystemInfo::~SystemInfo() = default;
 
-SystemInfo& SystemInfo::operator=(const SystemInfo &sysInfo) = default;
+SystemInfo &SystemInfo::operator=(const SystemInfo &sysInfo) = default;
 
 bool SystemInfo::operator==(const SystemInfo &other) const
 {
-    if(this->d == other.d) {
+    if (this->d == other.d) {
         return true;
     }
-    if(this->d && other.d) {
+    if (this->d && other.d) {
         return *(this->d) == *other.d;
     }
     return false;
 }
 
-_AsSystemInfo * AppStream::SystemInfo::asSystemInfo() const
+_AsSystemInfo *AppStream::SystemInfo::asSystemInfo() const
 {
     return d->sysInfo;
 }
@@ -156,9 +159,8 @@ CheckResult SystemInfo::hasInputControl(Relation::ControlKind kind)
     g_autoptr(GError) error = nullptr;
     CheckResult result;
 
-    result = static_cast<CheckResult>(as_system_info_has_input_control(d->sysInfo,
-                                                                       static_cast<AsControlKind>(kind),
-                                                                       &error));
+    result = static_cast<CheckResult>(
+        as_system_info_has_input_control(d->sysInfo, static_cast<AsControlKind>(kind), &error));
     if (error != nullptr)
         d->lastError = QString::fromUtf8(error->message);
     return result;
@@ -166,22 +168,17 @@ CheckResult SystemInfo::hasInputControl(Relation::ControlKind kind)
 
 void SystemInfo::setInputControl(Relation::ControlKind kind, bool found)
 {
-    as_system_info_set_input_control(d->sysInfo,
-                                     static_cast<AsControlKind>(kind),
-                                     found);
+    as_system_info_set_input_control(d->sysInfo, static_cast<AsControlKind>(kind), found);
 }
 
 ulong SystemInfo::displayLength(Relation::DisplaySideKind kind)
 {
-    return as_system_info_get_display_length(d->sysInfo,
-                                             static_cast<AsDisplaySideKind>(kind));
+    return as_system_info_get_display_length(d->sysInfo, static_cast<AsDisplaySideKind>(kind));
 }
 
 void SystemInfo::setDisplayLength(Relation::DisplaySideKind kind, ulong valueDip)
 {
-    as_system_info_set_display_length (d->sysInfo,
-                                       static_cast<AsDisplaySideKind>(kind),
-                                       valueDip);
+    as_system_info_set_display_length(d->sysInfo, static_cast<AsDisplaySideKind>(kind), valueDip);
 }
 
 QString SystemInfo::lastError() const

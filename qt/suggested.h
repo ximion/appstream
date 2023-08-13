@@ -27,7 +27,8 @@
 class QUrl;
 class QString;
 struct _AsSuggested;
-namespace AppStream {
+namespace AppStream
+{
 
 class SuggestedData;
 
@@ -36,45 +37,43 @@ class SuggestedData;
  * as an origin of the suggestion (manually suggested by the upstream project, or
  * automatically determined by heuristics)..
  */
-class APPSTREAMQT_EXPORT Suggested {
+class APPSTREAMQT_EXPORT Suggested
+{
     Q_GADGET
-    public:
-        enum Kind {
-            KindUnknown,
-            KindUpstream,
-            KindHeuristic
-        };
-        Q_ENUM(Kind)
 
-        Suggested();
-        Suggested(_AsSuggested *suggested);
-        Suggested(const Suggested& other);
-        ~Suggested();
+public:
+    enum Kind { KindUnknown, KindUpstream, KindHeuristic };
+    Q_ENUM(Kind)
 
-        Suggested& operator=(const Suggested& other);
+    Suggested();
+    Suggested(_AsSuggested *suggested);
+    Suggested(const Suggested &other);
+    ~Suggested();
 
-        /**
-         * \returns the internally stored AsSuggested
-         */
-        _AsSuggested *suggested() const;
+    Suggested &operator=(const Suggested &other);
 
-        /**
-         * \return the kind of suggestion
-         */
-        Kind kind() const;
-        void setKind(Kind kind);
+    /**
+     * \returns the internally stored AsSuggested
+     */
+    _AsSuggested *suggested() const;
 
-        /**
-         * \return the local or remote url for this suggested
-         */
-        const QStringList ids() const;
-        void addSuggested(const QString &id);
+    /**
+     * \return the kind of suggestion
+     */
+    Kind kind() const;
+    void setKind(Kind kind);
 
-    private:
-        QSharedDataPointer<SuggestedData> d;
+    /**
+     * \return the local or remote url for this suggested
+     */
+    const QStringList ids() const;
+    void addSuggested(const QString &id);
+
+private:
+    QSharedDataPointer<SuggestedData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Suggested& suggested);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Suggested &suggested);
 
 #endif // APPSTREAMQT_SUGGESTED_H

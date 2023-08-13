@@ -26,14 +26,16 @@
 
 using namespace AppStream;
 
-class AppStream::ContentRatingData : public QSharedData {
+class AppStream::ContentRatingData : public QSharedData
+{
 public:
     ContentRatingData()
     {
         m_contentRating = as_content_rating_new();
     }
 
-    ContentRatingData(AsContentRating* cat) : m_contentRating(cat)
+    ContentRatingData(AsContentRating *cat)
+        : m_contentRating(cat)
     {
         g_object_ref(m_contentRating);
     }
@@ -43,7 +45,7 @@ public:
         g_object_unref(m_contentRating);
     }
 
-    bool operator==(const ContentRatingData& rd) const
+    bool operator==(const ContentRatingData &rd) const
     {
         return rd.m_contentRating == m_contentRating;
     }
@@ -53,45 +55,51 @@ public:
         return m_contentRating;
     }
 
-    AsContentRating* m_contentRating;
+    AsContentRating *m_contentRating;
 };
 
-AppStream::ContentRating::RatingValue AppStream::ContentRating::stringToRatingValue(const QString& ratingValue)
+AppStream::ContentRating::RatingValue
+AppStream::ContentRating::stringToRatingValue(const QString &ratingValue)
 {
-    return static_cast<ContentRating::RatingValue>(as_content_rating_value_from_string(qPrintable(ratingValue)));
+    return static_cast<ContentRating::RatingValue>(
+        as_content_rating_value_from_string(qPrintable(ratingValue)));
 }
 
-QString AppStream::ContentRating::ratingValueToString(AppStream::ContentRating::RatingValue ratingValue)
+QString
+AppStream::ContentRating::ratingValueToString(AppStream::ContentRating::RatingValue ratingValue)
 {
-    return QString::fromUtf8(as_content_rating_value_to_string(static_cast<AsContentRatingValue>(ratingValue)));
+    return QString::fromUtf8(
+        as_content_rating_value_to_string(static_cast<AsContentRatingValue>(ratingValue)));
 }
 
 ContentRating::ContentRating()
     : d(new ContentRatingData)
-{}
+{
+}
 
-ContentRating::ContentRating(_AsContentRating* contentRating)
+ContentRating::ContentRating(_AsContentRating *contentRating)
     : d(new ContentRatingData(contentRating))
-{}
+{
+}
 
 ContentRating::ContentRating(const ContentRating &contentRating) = default;
 
 ContentRating::~ContentRating() = default;
 
-ContentRating& ContentRating::operator=(const ContentRating &contentRating) = default;
+ContentRating &ContentRating::operator=(const ContentRating &contentRating) = default;
 
 bool ContentRating::operator==(const ContentRating &other) const
 {
-    if(this->d == other.d) {
+    if (this->d == other.d) {
         return true;
     }
-    if(this->d && other.d) {
+    if (this->d && other.d) {
         return *(this->d) == *other.d;
     }
     return false;
 }
 
-_AsContentRating * AppStream::ContentRating::asContentRating() const
+_AsContentRating *AppStream::ContentRating::asContentRating() const
 {
     return d->contentRating();
 }
@@ -101,7 +109,7 @@ QString AppStream::ContentRating::kind() const
     return valueWrap(as_content_rating_get_kind(d->m_contentRating));
 }
 
-void AppStream::ContentRating::setKind(const QString& kind)
+void AppStream::ContentRating::setKind(const QString &kind)
 {
     as_content_rating_set_kind(d->m_contentRating, qPrintable(kind));
 }
@@ -111,19 +119,25 @@ uint AppStream::ContentRating::minimumAge() const
     return as_content_rating_get_minimum_age(d->m_contentRating);
 }
 
-AppStream::ContentRating::RatingValue AppStream::ContentRating::value(const QString& id) const
+AppStream::ContentRating::RatingValue AppStream::ContentRating::value(const QString &id) const
 {
-    return static_cast<AppStream::ContentRating::RatingValue>(as_content_rating_get_value(d->m_contentRating, qPrintable(id)));
+    return static_cast<AppStream::ContentRating::RatingValue>(
+        as_content_rating_get_value(d->m_contentRating, qPrintable(id)));
 }
 
-void AppStream::ContentRating::setValue(const QString& id, AppStream::ContentRating::RatingValue ratingValue)
+void AppStream::ContentRating::setValue(const QString &id,
+                                        AppStream::ContentRating::RatingValue ratingValue)
 {
-    as_content_rating_set_value(d->m_contentRating, qPrintable(id), (AsContentRatingValue) ratingValue);
+    as_content_rating_set_value(d->m_contentRating,
+                                qPrintable(id),
+                                (AsContentRatingValue) ratingValue);
 }
 
-QString AppStream::ContentRating::description(const QString& id) const
+QString AppStream::ContentRating::description(const QString &id) const
 {
-    return QString::fromUtf8(as_content_rating_attribute_get_description(qPrintable(id), as_content_rating_get_value(d->m_contentRating, qPrintable(id))));
+    return QString::fromUtf8(as_content_rating_attribute_get_description(
+        qPrintable(id),
+        as_content_rating_get_value(d->m_contentRating, qPrintable(id))));
 }
 
 QStringList AppStream::ContentRating::ratingIds() const
@@ -131,8 +145,9 @@ QStringList AppStream::ContentRating::ratingIds() const
     return AppStream::valueWrap(as_content_rating_get_rating_ids(d->m_contentRating));
 }
 
-QDebug operator<<(QDebug s, const AppStream::ContentRating& contentRating)
+QDebug operator<<(QDebug s, const AppStream::ContentRating &contentRating)
 {
-    s.nospace() << "AppStream::ContentRating(" << contentRating.kind() << contentRating.minimumAge() << ")";
+    s.nospace() << "AppStream::ContentRating(" << contentRating.kind() << contentRating.minimumAge()
+                << ")";
     return s.space();
 }

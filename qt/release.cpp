@@ -28,9 +28,11 @@
 
 using namespace AppStream;
 
-class AppStream::ReleaseData : public QSharedData {
+class AppStream::ReleaseData : public QSharedData
+{
 public:
-    ReleaseData(AsRelease* rel) : m_release(rel)
+    ReleaseData(AsRelease *rel)
+        : m_release(rel)
     {
         g_object_ref(m_release);
     }
@@ -40,7 +42,7 @@ public:
         g_object_unref(m_release);
     }
 
-    bool operator==(const ReleaseData& rd) const
+    bool operator==(const ReleaseData &rd) const
     {
         return rd.m_release == m_release;
     }
@@ -50,31 +52,32 @@ public:
         return m_release;
     }
 
-    AsRelease* m_release;
+    AsRelease *m_release;
 };
 
-Release::Release(_AsRelease* release)
+Release::Release(_AsRelease *release)
     : d(new ReleaseData(release))
-{}
+{
+}
 
 Release::Release(const Release &release) = default;
 
 Release::~Release() = default;
 
-Release& Release::operator=(const Release &release) = default;
+Release &Release::operator=(const Release &release) = default;
 
 bool Release::operator==(const Release &other) const
 {
-    if(this->d == other.d) {
+    if (this->d == other.d) {
         return true;
     }
-    if(this->d && other.d) {
+    if (this->d && other.d) {
         return *(this->d) == *other.d;
     }
     return false;
 }
 
-_AsRelease * AppStream::Release::asRelease() const
+_AsRelease *AppStream::Release::asRelease() const
 {
     return d->release();
 }
@@ -116,8 +119,9 @@ Release::UrgencyKind Release::urgency() const
     return Release::UrgencyKind(as_release_get_urgency(d->m_release));
 }
 
-QDebug operator<<(QDebug s, const AppStream::Release& release)
+QDebug operator<<(QDebug s, const AppStream::Release &release)
 {
-    s.nospace() << "AppStream::Release(" << release.version() << ": " << release.description() << ")";
+    s.nospace() << "AppStream::Release(" << release.version() << ": " << release.description()
+                << ")";
     return s.space();
 }

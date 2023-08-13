@@ -28,14 +28,16 @@
 
 using namespace AppStream;
 
-class AppStream::ImageData : public QSharedData {
+class AppStream::ImageData : public QSharedData
+{
 public:
     ImageData()
     {
         m_img = as_image_new();
     }
 
-    ImageData(AsImage *img) : m_img(img)
+    ImageData(AsImage *img)
+        : m_img(img)
     {
         g_object_ref(m_img);
     }
@@ -45,7 +47,7 @@ public:
         g_object_unref(m_img);
     }
 
-    bool operator==(const ImageData& rd) const
+    bool operator==(const ImageData &rd) const
     {
         return rd.m_img == m_img;
     }
@@ -58,28 +60,30 @@ public:
     AsImage *m_img;
 };
 
-Image::Image(const Image& other)
+Image::Image(const Image &other)
     : d(other.d)
-{}
+{
+}
 
 Image::Image()
     : d(new ImageData)
-{}
+{
+}
 
 Image::Image(_AsImage *img)
     : d(new ImageData(img))
-{}
+{
+}
 
-Image::~Image()
-{}
+Image::~Image() { }
 
-Image& Image::operator=(const Image& other)
+Image &Image::operator=(const Image &other)
 {
     this->d = other.d;
     return *this;
 }
 
-_AsImage * AppStream::Image::asImage() const
+_AsImage *AppStream::Image::asImage() const
 {
     return d->image();
 }
@@ -99,7 +103,8 @@ uint Image::height() const
     return as_image_get_height(d->m_img);
 }
 
-void Image::setHeight(uint height) {
+void Image::setHeight(uint height)
+{
     as_image_set_height(d->m_img, height);
 }
 
@@ -113,12 +118,13 @@ void Image::setWidth(uint width)
     as_image_set_width(d->m_img, width);
 }
 
-void Image::setUrl(const QUrl& url)
+void Image::setUrl(const QUrl &url)
 {
     as_image_set_url(d->m_img, qPrintable(url.toString()));
 }
 
-const QUrl Image::url() const {
+const QUrl Image::url() const
+{
     return QUrl(as_image_get_url(d->m_img));
 }
 
@@ -127,7 +133,9 @@ QSize AppStream::Image::size() const
     return QSize(width(), height());
 }
 
-QDebug operator<<(QDebug s, const AppStream::Image& image) {
-    s.nospace() << "AppStream::Image(" << image.url() << ',' << image.kind() << "[" << image.width() << "x" << image.height() << "])";
+QDebug operator<<(QDebug s, const AppStream::Image &image)
+{
+    s.nospace() << "AppStream::Image(" << image.url() << ',' << image.kind() << "[" << image.width()
+                << "x" << image.height() << "])";
     return s.space();
 }

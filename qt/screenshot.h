@@ -28,9 +28,9 @@
 #include <QString>
 #include <QList>
 
-
 struct _AsScreenshot;
-namespace AppStream {
+namespace AppStream
+{
 
 class Image;
 class Video;
@@ -41,21 +41,19 @@ class ScreenshotData;
  * A screenshot might appear in various resolutions
  */
 
-class APPSTREAMQT_EXPORT Screenshot {
-Q_GADGET
+class APPSTREAMQT_EXPORT Screenshot
+{
+    Q_GADGET
+
 public:
-    enum MediaKind {
-        MediaKindUnknown,
-        MediaKindImage,
-        MediaKindVideo
-    };
+    enum MediaKind { MediaKindUnknown, MediaKindImage, MediaKindVideo };
     Q_ENUM(MediaKind)
 
     Screenshot();
     Screenshot(_AsScreenshot *scr);
-    Screenshot(const Screenshot& other);
+    Screenshot(const Screenshot &other);
     ~Screenshot();
-    Screenshot& operator=(const Screenshot& other);
+    Screenshot &operator=(const Screenshot &other);
 
     /**
      * \returns the internally stored AsScreenshot
@@ -87,14 +85,13 @@ public:
      * \return caption for this image or a null QString if no caption
      */
     QString caption() const;
-    void setCaption(const QString& caption, const QString& lang = {});
+    void setCaption(const QString &caption, const QString &lang = {});
 
 private:
     QSharedDataPointer<ScreenshotData> d;
-
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Screenshot& screenshot);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Screenshot &screenshot);
 
 #endif // APPSTREAMQT_SCREENSHOT_H

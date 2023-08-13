@@ -26,14 +26,16 @@
 
 using namespace AppStream;
 
-class AppStream::LaunchableData : public QSharedData {
+class AppStream::LaunchableData : public QSharedData
+{
 public:
     LaunchableData()
     {
         m_launchable = as_launchable_new();
     }
 
-    LaunchableData(AsLaunchable* cat) : m_launchable(cat)
+    LaunchableData(AsLaunchable *cat)
+        : m_launchable(cat)
     {
         g_object_ref(m_launchable);
     }
@@ -43,7 +45,7 @@ public:
         g_object_unref(m_launchable);
     }
 
-    bool operator==(const LaunchableData& rd) const
+    bool operator==(const LaunchableData &rd) const
     {
         return rd.m_launchable == m_launchable;
     }
@@ -53,11 +55,10 @@ public:
         return m_launchable;
     }
 
-    AsLaunchable* m_launchable;
+    AsLaunchable *m_launchable;
 };
 
-
-AppStream::Launchable::Kind AppStream::Launchable::stringToKind(const QString& kindString)
+AppStream::Launchable::Kind AppStream::Launchable::stringToKind(const QString &kindString)
 {
     if (kindString == QLatin1String("desktop-id")) {
         return AppStream::Launchable::KindDesktopId;
@@ -75,30 +76,32 @@ QString AppStream::Launchable::kindToString(AppStream::Launchable::Kind kind)
 
 Launchable::Launchable()
     : d(new LaunchableData)
-{}
+{
+}
 
-Launchable::Launchable(_AsLaunchable* launchable)
+Launchable::Launchable(_AsLaunchable *launchable)
     : d(new LaunchableData(launchable))
-{}
+{
+}
 
 Launchable::Launchable(const Launchable &launchable) = default;
 
 Launchable::~Launchable() = default;
 
-Launchable& Launchable::operator=(const Launchable &launchable) = default;
+Launchable &Launchable::operator=(const Launchable &launchable) = default;
 
 bool Launchable::operator==(const Launchable &other) const
 {
-    if(this->d == other.d) {
+    if (this->d == other.d) {
         return true;
     }
-    if(this->d && other.d) {
+    if (this->d && other.d) {
         return *(this->d) == *other.d;
     }
     return false;
 }
 
-_AsLaunchable * AppStream::Launchable::asLaunchable() const
+_AsLaunchable *AppStream::Launchable::asLaunchable() const
 {
     return d->launchable();
 }
@@ -118,15 +121,14 @@ QStringList AppStream::Launchable::entries() const
     return valueWrap(as_launchable_get_entries(d->m_launchable));
 }
 
-void AppStream::Launchable::addEntry(const QString& entry)
+void AppStream::Launchable::addEntry(const QString &entry)
 {
     as_launchable_add_entry(d->m_launchable, qPrintable(entry));
 }
 
-QDebug operator<<(QDebug s, const AppStream::Launchable& launchable)
+QDebug operator<<(QDebug s, const AppStream::Launchable &launchable)
 {
-    s.nospace() << "AppStream::Launchable("
-                << Launchable::kindToString(launchable.kind()) << ":"
+    s.nospace() << "AppStream::Launchable(" << Launchable::kindToString(launchable.kind()) << ":"
                 << launchable.entries() << ")";
     return s.space();
 }

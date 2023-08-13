@@ -28,49 +28,46 @@
 
 struct _AsTranslation;
 
-namespace AppStream {
+namespace AppStream
+{
 
 class TranslationData;
 
-class APPSTREAMQT_EXPORT Translation {
+class APPSTREAMQT_EXPORT Translation
+{
     Q_GADGET
-    public:
-        enum Kind {
-            KindUnknown,
-            KindGettext,
-            KindQt
-        };
-        Q_ENUM(Kind)
 
-        Translation();
-        Translation(_AsTranslation* category);
-        Translation(const Translation& category);
-        ~Translation();
+public:
+    enum Kind { KindUnknown, KindGettext, KindQt };
+    Q_ENUM(Kind)
 
-        static Kind stringToKind(const QString& kindString);
-        static QString kindToString(Kind kind);
+    Translation();
+    Translation(_AsTranslation *category);
+    Translation(const Translation &category);
+    ~Translation();
 
-        Translation& operator=(const Translation& category);
-        bool operator==(const Translation& r) const;
+    static Kind stringToKind(const QString &kindString);
+    static QString kindToString(Kind kind);
 
-        /**
-         * \returns the internally stored AsTranslation
-         */
-        _AsTranslation *asTranslation() const;
+    Translation &operator=(const Translation &category);
+    bool operator==(const Translation &r) const;
 
-        Kind kind() const;
-        void setKind(Kind kind);
+    /**
+     * \returns the internally stored AsTranslation
+     */
+    _AsTranslation *asTranslation() const;
 
-        QString id() const;
-        void setId(const QString& id);
+    Kind kind() const;
+    void setKind(Kind kind);
 
-    private:
-        QSharedDataPointer<TranslationData> d;
+    QString id() const;
+    void setId(const QString &id);
+
+private:
+    QSharedDataPointer<TranslationData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Translation& category);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Translation &category);
 
 #endif // APPSTREAMQT_TRANSLATION_H
-
-

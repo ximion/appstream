@@ -28,7 +28,8 @@
 class QUrl;
 class QString;
 struct _AsImage;
-namespace AppStream {
+namespace AppStream
+{
 
 class ImageData;
 
@@ -42,62 +43,60 @@ class ImageData;
  * Discrepancies between the data and the actual data are very rare, but might happen.
  * image at the end of the url.
  */
-class APPSTREAMQT_EXPORT Image {
+class APPSTREAMQT_EXPORT Image
+{
     Q_GADGET
-    public:
-        enum Kind {
-            KindUnknown,
-            KindSource,
-            KindThumbnail
-        };
-        Q_ENUM(Kind)
 
-        Image();
-        Image(_AsImage *img);
-        Image(const Image& other);
-        ~Image();
+public:
+    enum Kind { KindUnknown, KindSource, KindThumbnail };
+    Q_ENUM(Kind)
 
-        Image& operator=(const Image& other);
+    Image();
+    Image(_AsImage *img);
+    Image(const Image &other);
+    ~Image();
 
-        /**
-         * \returns the internally stored AsImage
-         */
-        _AsImage *asImage() const;
+    Image &operator=(const Image &other);
 
-        /**
-         * \return the kind of image
-         */
-        Kind kind() const;
-        void setKind(Kind kind);
+    /**
+     * \returns the internally stored AsImage
+     */
+    _AsImage *asImage() const;
 
-        /**
-         * \return the url for this image
-         */
-        const QUrl url() const;
-        void setUrl(const QUrl& url);
+    /**
+     * \return the kind of image
+     */
+    Kind kind() const;
+    void setKind(Kind kind);
 
-        /**
-         * \return the expected width of this image
-         */
-        uint width() const;
-        void setWidth(uint width);
+    /**
+     * \return the url for this image
+     */
+    const QUrl url() const;
+    void setUrl(const QUrl &url);
 
-        /**
-         * \return the expected height of this image
-         */
-        uint height() const;
-        void setHeight(uint height);
+    /**
+     * \return the expected width of this image
+     */
+    uint width() const;
+    void setWidth(uint width);
 
-        /**
-         * \returns the expected size of the image
-         */
-        QSize size() const;
+    /**
+     * \return the expected height of this image
+     */
+    uint height() const;
+    void setHeight(uint height);
 
-    private:
-        QSharedDataPointer<ImageData> d;
+    /**
+     * \returns the expected size of the image
+     */
+    QSize size() const;
+
+private:
+    QSharedDataPointer<ImageData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Image& image);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Image &image);
 
 #endif // APPSTREAMQT_IMAGE_H

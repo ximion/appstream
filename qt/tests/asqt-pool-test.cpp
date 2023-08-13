@@ -24,11 +24,12 @@
 #include "pool.h"
 #include "testpaths.h"
 
-class PoolReadTest : public QObject {
+class PoolReadTest : public QObject
+{
     Q_OBJECT
-    private Q_SLOTS:
-        void testRead01();
-        void testLoadAsync();
+private Q_SLOTS:
+    void testRead01();
+    void testLoadAsync();
 };
 
 using namespace AppStream;
@@ -41,8 +42,7 @@ static std::unique_ptr<Pool> createPool()
     pool->resetExtraDataLocations();
     pool->setLocale("C");
     pool->setLoadStdDataLocations(false);
-    pool->addExtraDataLocation(AS_SAMPLE_DATA_PATH,
-                               Metadata::FormatStyleCatalog);
+    pool->addExtraDataLocation(AS_SAMPLE_DATA_PATH, Metadata::FormatStyleCatalog);
 
     // don't load system metainfo/desktop files
     auto flags = pool->flags();

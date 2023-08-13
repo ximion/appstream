@@ -29,57 +29,57 @@
 
 struct _AsContentRating;
 
-namespace AppStream {
+namespace AppStream
+{
 
 class ContentRatingData;
 
-class APPSTREAMQT_EXPORT ContentRating {
+class APPSTREAMQT_EXPORT ContentRating
+{
     Q_GADGET
 
-    public:
-        enum RatingValue {
-            RatingValueUnknown,
-            RatingValueNone,
-            RatingValueMild,
-            RatingValueModerate,
-            RatingValueIntense
-        };
-        Q_ENUM(RatingValue)
+public:
+    enum RatingValue {
+        RatingValueUnknown,
+        RatingValueNone,
+        RatingValueMild,
+        RatingValueModerate,
+        RatingValueIntense
+    };
+    Q_ENUM(RatingValue)
 
-        ContentRating();
-        ContentRating(_AsContentRating* category);
-        ContentRating(const ContentRating& category);
-        ~ContentRating();
+    ContentRating();
+    ContentRating(_AsContentRating *category);
+    ContentRating(const ContentRating &category);
+    ~ContentRating();
 
-        static RatingValue stringToRatingValue(const QString& ratingValue);
-        static QString ratingValueToString(RatingValue ratingValue);
+    static RatingValue stringToRatingValue(const QString &ratingValue);
+    static QString ratingValueToString(RatingValue ratingValue);
 
-        ContentRating& operator=(const ContentRating& category);
-        bool operator==(const ContentRating& r) const;
+    ContentRating &operator=(const ContentRating &category);
+    bool operator==(const ContentRating &r) const;
 
-        /**
-         * \returns the internally stored AsContentRating
-         */
-        _AsContentRating *asContentRating() const;
+    /**
+     * \returns the internally stored AsContentRating
+     */
+    _AsContentRating *asContentRating() const;
 
-        QString kind() const;
-        void setKind(const QString& kind);
+    QString kind() const;
+    void setKind(const QString &kind);
 
-        uint minimumAge() const;
+    uint minimumAge() const;
 
-        RatingValue value(const QString& id) const;
-        void setValue(const QString& id, RatingValue ratingValue);
+    RatingValue value(const QString &id) const;
+    void setValue(const QString &id, RatingValue ratingValue);
 
-        QStringList ratingIds() const;
-        QString description(const QString& id) const;
+    QStringList ratingIds() const;
+    QString description(const QString &id) const;
 
-    private:
-        QSharedDataPointer<ContentRatingData> d;
+private:
+    QSharedDataPointer<ContentRatingData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::ContentRating& category);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::ContentRating &category);
 
 #endif // APPSTREAMQT_CONTENT_RATING_H
-
-

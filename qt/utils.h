@@ -23,9 +23,11 @@
 #include <QStringList>
 #include "appstreamqt_export.h"
 
-namespace AppStream {
+namespace AppStream
+{
 
-namespace Utils {
+namespace Utils
+{
 
 APPSTREAMQT_EXPORT QString currentDistroComponentId();
 

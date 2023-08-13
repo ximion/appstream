@@ -28,7 +28,8 @@
 
 using namespace AppStream;
 
-class AppStream::SuggestedData : public QSharedData {
+class AppStream::SuggestedData : public QSharedData
+{
 public:
     SuggestedData()
     {
@@ -46,7 +47,7 @@ public:
         g_object_unref(m_suggested);
     }
 
-    bool operator==(const SuggestedData& rd) const
+    bool operator==(const SuggestedData &rd) const
     {
         return rd.m_suggested == m_suggested;
     }
@@ -59,28 +60,30 @@ public:
     AsSuggested *m_suggested;
 };
 
-Suggested::Suggested(const Suggested& other)
+Suggested::Suggested(const Suggested &other)
     : d(other.d)
-{}
+{
+}
 
 Suggested::Suggested()
     : d(new SuggestedData)
-{}
+{
+}
 
 Suggested::Suggested(_AsSuggested *suggested)
     : d(new SuggestedData(suggested))
-{}
+{
+}
 
-Suggested::~Suggested()
-{}
+Suggested::~Suggested() { }
 
-Suggested& Suggested::operator=(const Suggested& other)
+Suggested &Suggested::operator=(const Suggested &other)
 {
     this->d = other.d;
     return *this;
 }
 
-_AsSuggested * AppStream::Suggested::suggested() const
+_AsSuggested *AppStream::Suggested::suggested() const
 {
     return d->suggested();
 }
@@ -100,12 +103,12 @@ const QStringList AppStream::Suggested::ids() const
     return valueWrap(as_suggested_get_ids(d->m_suggested));
 }
 
-void AppStream::Suggested::addSuggested(const QString& id)
+void AppStream::Suggested::addSuggested(const QString &id)
 {
     as_suggested_add_id(d->m_suggested, qPrintable(id));
 }
 
-QDebug operator<<(QDebug s, const AppStream::Suggested& suggested)
+QDebug operator<<(QDebug s, const AppStream::Suggested &suggested)
 {
     s.nospace() << "AppStream::Suggested(" << suggested.ids() << ")";
     return s.space();

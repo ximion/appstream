@@ -15,7 +15,17 @@ import subprocess
 import tempfile
 from glob import glob
 
-INCLUDE_LOCATIONS = ['autoformat.py', 'compose', 'contrib', 'data', 'docs', 'src', 'tests', 'tools']
+INCLUDE_LOCATIONS = [
+    'autoformat.py',
+    'compose',
+    'contrib',
+    'data',
+    'docs',
+    'src',
+    'qt',
+    'tests',
+    'tools',
+]
 
 EXCLUDE_MATCH = []
 

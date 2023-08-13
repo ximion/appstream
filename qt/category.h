@@ -27,39 +27,42 @@
 
 struct _AsCategory;
 
-namespace AppStream {
+namespace AppStream
+{
 
 class CategoryData;
 
-class APPSTREAMQT_EXPORT Category {
+class APPSTREAMQT_EXPORT Category
+{
     Q_GADGET
-    public:
-        Category(_AsCategory* category);
-        Category(const Category& category);
-        ~Category();
 
-        Category& operator=(const Category& category);
-        bool operator==(const Category& r) const;
+public:
+    Category(_AsCategory *category);
+    Category(const Category &category);
+    ~Category();
 
-        /**
-         * \returns the internally stored AsCategory
-         */
-        _AsCategory *asCategory() const;
+    Category &operator=(const Category &category);
+    bool operator==(const Category &r) const;
 
-        QString id() const;
-        QString name() const;
-        QString summary() const;
-        QString icon() const;
+    /**
+     * \returns the internally stored AsCategory
+     */
+    _AsCategory *asCategory() const;
 
-        QList<Category> children() const;
-        QStringList desktopGroups() const;
+    QString id() const;
+    QString name() const;
+    QString summary() const;
+    QString icon() const;
 
-    private:
-        QSharedDataPointer<CategoryData> d;
+    QList<Category> children() const;
+    QStringList desktopGroups() const;
+
+private:
+    QSharedDataPointer<CategoryData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Category& category);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Category &category);
 
 QList<AppStream::Category> getDefaultCategories(bool withSpecial);
 

@@ -34,7 +34,8 @@
 #include "translation.h"
 
 struct _AsComponent;
-namespace AppStream {
+namespace AppStream
+{
 
 class Icon;
 class Screenshot;
@@ -47,234 +48,228 @@ class ComponentData;
 /**
  * Describes a software component (application, driver, font, ...)
  */
-class APPSTREAMQT_EXPORT Component {
+class APPSTREAMQT_EXPORT Component
+{
     Q_GADGET
     friend class Pool;
-    public:
-        enum Kind  {
-            KindUnknown,
-            KindGeneric,
-            KindDesktopApp,
-            KindConsoleApp,
-            KindWebApp,
-            KindAddon,
-            KindFont,
-            KindCodec,
-            KindInputmethod,
-            KindFirmware,
-            KindDriver,
-            KindLocalization,
-            KindService,
-            KindRepository,
-            KindOperatingSystem,
-            KindIconTheme,
-            KindRuntime
-        };
-        Q_ENUM(Kind)
 
-        enum MergeKind {
-            MergeKindNone,
-            MergeKindReplace,
-            MergeKindAppend
-        };
-        Q_ENUM(MergeKind)
+public:
+    enum Kind {
+        KindUnknown,
+        KindGeneric,
+        KindDesktopApp,
+        KindConsoleApp,
+        KindWebApp,
+        KindAddon,
+        KindFont,
+        KindCodec,
+        KindInputmethod,
+        KindFirmware,
+        KindDriver,
+        KindLocalization,
+        KindService,
+        KindRepository,
+        KindOperatingSystem,
+        KindIconTheme,
+        KindRuntime
+    };
+    Q_ENUM(Kind)
 
-        enum UrlKind {
-            UrlKindUnknown,
-            UrlKindHomepage,
-            UrlKindBugtracker,
-            UrlKindFaq,
-            UrlKindHelp,
-            UrlKindDonation,
-            UrlKindTranslate,
-            UrlKindContact,
-            UrlKindVcsBrowser,
-            UrlKindContribute,
-        };
-        Q_ENUM(UrlKind)
+    enum MergeKind { MergeKindNone, MergeKindReplace, MergeKindAppend };
+    Q_ENUM(MergeKind)
 
-        enum Scope {
-            ScopeUnknown,
-            ScopeSystem,
-            ScopeUser
-        };
-        Q_ENUM(Scope)
+    enum UrlKind {
+        UrlKindUnknown,
+        UrlKindHomepage,
+        UrlKindBugtracker,
+        UrlKindFaq,
+        UrlKindHelp,
+        UrlKindDonation,
+        UrlKindTranslate,
+        UrlKindContact,
+        UrlKindVcsBrowser,
+        UrlKindContribute,
+    };
+    Q_ENUM(UrlKind)
 
-        enum ValueFlags {
-            FlagNone = 0,
-            FlagDuplicateCheck = 1 << 0,
-            FlagNoTranslationFallback = 1 << 1
-        };
-        Q_ENUM(ValueFlags)
+    enum Scope { ScopeUnknown, ScopeSystem, ScopeUser };
+    Q_ENUM(Scope)
 
-        static Kind stringToKind(const QString& kindString);
-        static QString kindToString(Kind kind);
+    enum ValueFlags {
+        FlagNone = 0,
+        FlagDuplicateCheck = 1 << 0,
+        FlagNoTranslationFallback = 1 << 1
+    };
+    Q_ENUM(ValueFlags)
 
-        static UrlKind stringToUrlKind(const QString& urlKindString);
-        static QString urlKindToString(AppStream::Component::UrlKind kind);
+    static Kind stringToKind(const QString &kindString);
+    static QString kindToString(Kind kind);
 
-        static Scope stringToScope(const QString& scopeString);
-        static QString scopeToString(AppStream::Component::Scope scope);
+    static UrlKind stringToUrlKind(const QString &urlKindString);
+    static QString urlKindToString(AppStream::Component::UrlKind kind);
 
-        Component(_AsComponent *cpt);
-        Component();
-        Component(const Component& other);
-        Component(Component&& other);
-        ~Component();
+    static Scope stringToScope(const QString &scopeString);
+    static QString scopeToString(AppStream::Component::Scope scope);
 
-        Component& operator=(const Component& c);
+    Component(_AsComponent *cpt);
+    Component();
+    Component(const Component &other);
+    Component(Component &&other);
+    ~Component();
 
-        _AsComponent *asComponent() const;
+    Component &operator=(const Component &c);
 
-        uint valueFlags() const;
-        void setValueFlags(uint flags);
+    _AsComponent *asComponent() const;
 
-        QString activeLocale() const;
-        void setActiveLocale(const QString& locale);
+    uint valueFlags() const;
+    void setValueFlags(uint flags);
 
-        Kind kind () const;
-        void setKind (Component::Kind kind);
+    QString activeLocale() const;
+    void setActiveLocale(const QString &locale);
 
-        QString origin() const;
-        void setOrigin(const QString& origin);
+    Kind kind() const;
+    void setKind(Component::Kind kind);
 
-        QString id() const;
-        void setId(const QString& id);
+    QString origin() const;
+    void setOrigin(const QString &origin);
 
-        QString dataId() const;
-        void setDataId(const QString& cdid);
+    QString id() const;
+    void setId(const QString &id);
 
-        Scope scope () const;
-        void setScope (Component::Scope scope);
+    QString dataId() const;
+    void setDataId(const QString &cdid);
 
-        QStringList packageNames() const;
-        void setPackageNames(const QStringList& list);
+    Scope scope() const;
+    void setScope(Component::Scope scope);
 
-        QString sourcePackageName() const;
-        void setSourcePackageName(const QString& sourcePkg);
+    QStringList packageNames() const;
+    void setPackageNames(const QStringList &list);
 
-        QString name() const;
-        void setName(const QString& name, const QString& lang = {});
+    QString sourcePackageName() const;
+    void setSourcePackageName(const QString &sourcePkg);
 
-        QString summary() const;
-        void setSummary(const QString& summary, const QString& lang = {});
+    QString name() const;
+    void setName(const QString &name, const QString &lang = {});
 
-        QString description() const;
-        void setDescription(const QString& description, const QString& lang = {});
+    QString summary() const;
+    void setSummary(const QString &summary, const QString &lang = {});
 
-        AppStream::Launchable launchable(AppStream::Launchable::Kind kind) const;
-        void addLaunchable(const AppStream::Launchable& launchable);
+    QString description() const;
+    void setDescription(const QString &description, const QString &lang = {});
 
-        QString metadataLicense() const;
-        void setMetadataLicense(const QString& license);
+    AppStream::Launchable launchable(AppStream::Launchable::Kind kind) const;
+    void addLaunchable(const AppStream::Launchable &launchable);
 
-        QString projectLicense() const;
-        void setProjectLicense(const QString& license);
+    QString metadataLicense() const;
+    void setMetadataLicense(const QString &license);
 
-        QString projectGroup() const;
-        void setProjectGroup(const QString& group);
+    QString projectLicense() const;
+    void setProjectLicense(const QString &license);
 
-        QString developerName() const;
-        void setDeveloperName(const QString& developerName, const QString& lang = {});
+    QString projectGroup() const;
+    void setProjectGroup(const QString &group);
 
-        QStringList compulsoryForDesktops() const;
-        void setCompulsoryForDesktop(const QString& desktop);
-        bool isCompulsoryForDesktop(const QString& desktop) const;
+    QString developerName() const;
+    void setDeveloperName(const QString &developerName, const QString &lang = {});
 
-        QStringList categories() const;
-        void addCategory(const QString& category);
-        bool hasCategory(const QString& category) const;
-        bool isMemberOfCategory(const AppStream::Category& category) const;
+    QStringList compulsoryForDesktops() const;
+    void setCompulsoryForDesktop(const QString &desktop);
+    bool isCompulsoryForDesktop(const QString &desktop) const;
 
-        QStringList extends() const;
-        void setExtends(const QStringList& extends);
-        void addExtends(const QString& extend);
+    QStringList categories() const;
+    void addCategory(const QString &category);
+    bool hasCategory(const QString &category) const;
+    bool isMemberOfCategory(const AppStream::Category &category) const;
 
-        QList<AppStream::Component> addons() const;
-        void addAddon(const AppStream::Component& addon);
+    QStringList extends() const;
+    void setExtends(const QStringList &extends);
+    void addExtends(const QString &extend);
 
-        QStringList replaces() const;
-        void addReplaces(const QString& cid);
+    QList<AppStream::Component> addons() const;
+    void addAddon(const AppStream::Component &addon);
 
-        QList<AppStream::Relation> requirements() const;
-        QList<AppStream::Relation> recommends() const;
-        QList<AppStream::Relation> supports() const;
-        void addRelation(const AppStream::Relation &relation);
+    QStringList replaces() const;
+    void addReplaces(const QString &cid);
 
-        QStringList languages() const;
-        int language(const QString& locale) const;
-        void addLanguage(const QString& locale, int percentage);
+    QList<AppStream::Relation> requirements() const;
+    QList<AppStream::Relation> recommends() const;
+    QList<AppStream::Relation> supports() const;
+    void addRelation(const AppStream::Relation &relation);
 
-        QList<AppStream::Translation> translations() const;
-        void addTranslation(const AppStream::Translation& translation);
+    QStringList languages() const;
+    int language(const QString &locale) const;
+    void addLanguage(const QString &locale, int percentage);
 
-        QUrl url(UrlKind kind) const;
-        void addUrl(UrlKind kind, const QString& url);
+    QList<AppStream::Translation> translations() const;
+    void addTranslation(const AppStream::Translation &translation);
 
-        QList<AppStream::Icon> icons() const;
-        AppStream::Icon icon(const QSize& size) const;
-        void addIcon(const AppStream::Icon& icon);
+    QUrl url(UrlKind kind) const;
+    void addUrl(UrlKind kind, const QString &url);
 
-        /**
-         * \return the full list of provided entries for all kinds.
-         */
-        QList<AppStream::Provided> provided() const;
+    QList<AppStream::Icon> icons() const;
+    AppStream::Icon icon(const QSize &size) const;
+    void addIcon(const AppStream::Icon &icon);
 
-        /**
-         * \param kind for provides
-         * \return provided items for this \param kind
-         */
-        AppStream::Provided provided(Provided::Kind kind) const;
-        void addProvided(const AppStream::Provided& provided);
+    /**
+     * \return the full list of provided entries for all kinds.
+     */
+    QList<AppStream::Provided> provided() const;
 
-        QList<AppStream::Screenshot> screenshots() const;
-        void addScreenshot(const AppStream::Screenshot& screenshot);
+    /**
+     * \param kind for provides
+     * \return provided items for this \param kind
+     */
+    AppStream::Provided provided(Provided::Kind kind) const;
+    void addProvided(const AppStream::Provided &provided);
 
-        QList<AppStream::Release> releases() const;
-        void addRelease(const AppStream::Release& release);
+    QList<AppStream::Screenshot> screenshots() const;
+    void addScreenshot(const AppStream::Screenshot &screenshot);
 
-        bool hasBundle() const;
-        QList<AppStream::Bundle> bundles() const;
-        AppStream::Bundle bundle(Bundle::Kind kind) const;
-        void addBundle(const AppStream::Bundle& bundle) const;
+    QList<AppStream::Release> releases() const;
+    void addRelease(const AppStream::Release &release);
 
-        QList<AppStream::Suggested> suggested() const;
-        void addSuggested(const AppStream::Suggested& suggested);
+    bool hasBundle() const;
+    QList<AppStream::Bundle> bundles() const;
+    AppStream::Bundle bundle(Bundle::Kind kind) const;
+    void addBundle(const AppStream::Bundle &bundle) const;
 
-        QStringList searchTokens() const;
-        uint searchMatches(const QString& term) const;
-        uint searchMatchesAll(const QStringList& terms) const;
+    QList<AppStream::Suggested> suggested() const;
+    void addSuggested(const AppStream::Suggested &suggested);
 
-        uint sortScore() const;
-        void setSortScore(uint score);
+    QStringList searchTokens() const;
+    uint searchMatches(const QString &term) const;
+    uint searchMatchesAll(const QStringList &terms) const;
 
-        MergeKind mergeKind() const;
-        void setMergeKind(MergeKind kind);
+    uint sortScore() const;
+    void setSortScore(uint score);
 
-        QHash<QString,QString> custom() const;
-        QString customValue(const QString& key);
-        bool insertCustomValue(const QString& key, const QString& value);
+    MergeKind mergeKind() const;
+    void setMergeKind(MergeKind kind);
 
-        QList<AppStream::ContentRating> contentRatings() const;
-        AppStream::ContentRating contentRating(const QString& kind) const;
-        void addContentRating(const AppStream::ContentRating& contentRating);
+    QHash<QString, QString> custom() const;
+    QString customValue(const QString &key);
+    bool insertCustomValue(const QString &key, const QString &value);
 
-        QString nameVariantSuffix() const;
-        void setNameVariantSuffix(const QString& variantSuffix, const QString& lang = {});
+    QList<AppStream::ContentRating> contentRatings() const;
+    AppStream::ContentRating contentRating(const QString &kind) const;
+    void addContentRating(const AppStream::ContentRating &contentRating);
 
-        bool hasTag(const QString &ns, const QString &tagName);
-        bool addTag(const QString &ns, const QString &tagName);
-        void removeTag(const QString &ns, const QString &tagName);
-        void clearTags();
+    QString nameVariantSuffix() const;
+    void setNameVariantSuffix(const QString &variantSuffix, const QString &lang = {});
 
-        bool isFree() const;
-        bool isIgnored() const;
-        bool isValid() const;
+    bool hasTag(const QString &ns, const QString &tagName);
+    bool addTag(const QString &ns, const QString &tagName);
+    void removeTag(const QString &ns, const QString &tagName);
+    void clearTags();
 
-        QString toString() const;
+    bool isFree() const;
+    bool isIgnored() const;
+    bool isValid() const;
 
-    private:
-        _AsComponent *m_cpt;
+    QString toString() const;
+
+private:
+    _AsComponent *m_cpt;
 };
 }
 

@@ -43,9 +43,9 @@ QString Component::kindToString(Component::Kind kind)
     return QString::fromUtf8(as_component_kind_to_string(static_cast<AsComponentKind>(kind)));
 }
 
-Component::Kind Component::stringToKind(const QString& kindString)
+Component::Kind Component::stringToKind(const QString &kindString)
 {
-    if(kindString.isEmpty()) {
+    if (kindString.isEmpty()) {
         return KindGeneric;
     }
     return static_cast<Component::Kind>(as_component_kind_from_string(qPrintable(kindString)));
@@ -56,7 +56,7 @@ QString Component::urlKindToString(Component::UrlKind kind)
     return QString::fromUtf8(as_url_kind_to_string(static_cast<AsUrlKind>(kind)));
 }
 
-Component::UrlKind Component::stringToUrlKind(const QString& urlKindString)
+Component::UrlKind Component::stringToUrlKind(const QString &urlKindString)
 {
     return static_cast<Component::UrlKind>(as_url_kind_from_string(qPrintable(urlKindString)));
 }
@@ -66,12 +66,12 @@ QString Component::scopeToString(Component::Scope scope)
     return QString::fromUtf8(as_component_scope_to_string(static_cast<AsComponentScope>(scope)));
 }
 
-Component::Scope Component::stringToScope(const QString& scopeString)
+Component::Scope Component::stringToScope(const QString &scopeString)
 {
     return static_cast<Component::Scope>(as_component_scope_from_string(qPrintable(scopeString)));
 }
 
-Component::Component(const Component& other)
+Component::Component(const Component &other)
     : m_cpt(other.m_cpt)
 {
     g_object_ref(m_cpt);
@@ -93,7 +93,7 @@ Component::~Component()
     g_object_unref(m_cpt);
 }
 
-Component& Component::operator=(const Component& other)
+Component &Component::operator=(const Component &other)
 {
     if (&other != this) {
         g_object_unref(m_cpt);
@@ -102,13 +102,13 @@ Component& Component::operator=(const Component& other)
     return *this;
 }
 
-Component::Component(Component&& other)
+Component::Component(Component &&other)
     : m_cpt(other.m_cpt)
 {
     g_object_ref(other.m_cpt);
 }
 
-_AsComponent * AppStream::Component::asComponent() const
+_AsComponent *AppStream::Component::asComponent() const
 {
     return m_cpt;
 }
@@ -128,14 +128,14 @@ QString AppStream::Component::activeLocale() const
     return valueWrap(as_component_get_active_locale(m_cpt));
 }
 
-void AppStream::Component::setActiveLocale(const QString& locale)
+void AppStream::Component::setActiveLocale(const QString &locale)
 {
     as_component_set_active_locale(m_cpt, qPrintable(locale));
 }
 
 Component::Kind Component::kind() const
 {
-    return static_cast<Component::Kind>(as_component_get_kind (m_cpt));
+    return static_cast<Component::Kind>(as_component_get_kind(m_cpt));
 }
 
 void Component::setKind(Component::Kind kind)
@@ -148,7 +148,7 @@ QString AppStream::Component::origin() const
     return valueWrap(as_component_get_origin(m_cpt));
 }
 
-void AppStream::Component::setOrigin(const QString& origin)
+void AppStream::Component::setOrigin(const QString &origin)
 {
     as_component_set_origin(m_cpt, qPrintable(origin));
 }
@@ -158,7 +158,7 @@ QString Component::id() const
     return valueWrap(as_component_get_id(m_cpt));
 }
 
-void Component::setId(const QString& id)
+void Component::setId(const QString &id)
 {
     as_component_set_id(m_cpt, qPrintable(id));
 }
@@ -168,14 +168,14 @@ QString Component::dataId() const
     return valueWrap(as_component_get_data_id(m_cpt));
 }
 
-void Component::setDataId(const QString& cdid)
+void Component::setDataId(const QString &cdid)
 {
     as_component_set_data_id(m_cpt, qPrintable(cdid));
 }
 
 Component::Scope Component::scope() const
 {
-    return static_cast<Component::Scope>(as_component_get_scope (m_cpt));
+    return static_cast<Component::Scope>(as_component_get_scope(m_cpt));
 }
 
 void Component::setScope(Component::Scope scope)
@@ -188,7 +188,7 @@ QStringList Component::packageNames() const
     return valueWrap(as_component_get_pkgnames(m_cpt));
 }
 
-void AppStream::Component::setPackageNames(const QStringList& list)
+void AppStream::Component::setPackageNames(const QStringList &list)
 {
     char **packageList = stringListToCharArray(list);
     as_component_set_pkgnames(m_cpt, packageList);
@@ -200,7 +200,7 @@ QString AppStream::Component::sourcePackageName() const
     return valueWrap(as_component_get_source_pkgname(m_cpt));
 }
 
-void AppStream::Component::setSourcePackageName(const QString& sourcePkg)
+void AppStream::Component::setSourcePackageName(const QString &sourcePkg)
 {
     as_component_set_source_pkgname(m_cpt, qPrintable(sourcePkg));
 }
@@ -210,9 +210,9 @@ QString Component::name() const
     return valueWrap(as_component_get_name(m_cpt));
 }
 
-void Component::setName(const QString& name, const QString& lang)
+void Component::setName(const QString &name, const QString &lang)
 {
-    as_component_set_name(m_cpt, qPrintable(name), lang.isEmpty()? NULL : qPrintable(lang));
+    as_component_set_name(m_cpt, qPrintable(name), lang.isEmpty() ? NULL : qPrintable(lang));
 }
 
 QString Component::summary() const
@@ -220,9 +220,9 @@ QString Component::summary() const
     return valueWrap(as_component_get_summary(m_cpt));
 }
 
-void Component::setSummary(const QString& summary, const QString& lang)
+void Component::setSummary(const QString &summary, const QString &lang)
 {
-    as_component_set_summary(m_cpt, qPrintable(summary), lang.isEmpty()? NULL : qPrintable(lang));
+    as_component_set_summary(m_cpt, qPrintable(summary), lang.isEmpty() ? NULL : qPrintable(lang));
 }
 
 QString Component::description() const
@@ -230,9 +230,11 @@ QString Component::description() const
     return valueWrap(as_component_get_description(m_cpt));
 }
 
-void Component::setDescription(const QString& description, const QString& lang)
+void Component::setDescription(const QString &description, const QString &lang)
 {
-    as_component_set_description(m_cpt, qPrintable(description), lang.isEmpty()? NULL : qPrintable(lang));
+    as_component_set_description(m_cpt,
+                                 qPrintable(description),
+                                 lang.isEmpty() ? NULL : qPrintable(lang));
 }
 
 AppStream::Launchable AppStream::Component::launchable(AppStream::Launchable::Kind kind) const
@@ -243,7 +245,7 @@ AppStream::Launchable AppStream::Component::launchable(AppStream::Launchable::Ki
     return Launchable(launch);
 }
 
-void AppStream::Component::addLaunchable(const AppStream::Launchable& launchable)
+void AppStream::Component::addLaunchable(const AppStream::Launchable &launchable)
 {
     as_component_add_launchable(m_cpt, launchable.asLaunchable());
 }
@@ -253,7 +255,7 @@ QString AppStream::Component::metadataLicense() const
     return valueWrap(as_component_get_metadata_license(m_cpt));
 }
 
-void AppStream::Component::setMetadataLicense(const QString& license)
+void AppStream::Component::setMetadataLicense(const QString &license)
 {
     as_component_set_metadata_license(m_cpt, qPrintable(license));
 }
@@ -263,7 +265,7 @@ QString Component::projectLicense() const
     return valueWrap(as_component_get_project_license(m_cpt));
 }
 
-void Component::setProjectLicense(const QString& license)
+void Component::setProjectLicense(const QString &license)
 {
     as_component_set_project_license(m_cpt, qPrintable(license));
 }
@@ -273,7 +275,7 @@ QString Component::projectGroup() const
     return valueWrap(as_component_get_project_group(m_cpt));
 }
 
-void Component::setProjectGroup(const QString& group)
+void Component::setProjectGroup(const QString &group)
 {
     as_component_set_project_group(m_cpt, qPrintable(group));
 }
@@ -283,9 +285,11 @@ QString Component::developerName() const
     return valueWrap(as_component_get_developer_name(m_cpt));
 }
 
-void Component::setDeveloperName(const QString& developerName, const QString& lang)
+void Component::setDeveloperName(const QString &developerName, const QString &lang)
 {
-    as_component_set_developer_name(m_cpt, qPrintable(developerName), lang.isEmpty()? NULL : qPrintable(lang));
+    as_component_set_developer_name(m_cpt,
+                                    qPrintable(developerName),
+                                    lang.isEmpty() ? NULL : qPrintable(lang));
 }
 
 QStringList Component::compulsoryForDesktops() const
@@ -293,12 +297,12 @@ QStringList Component::compulsoryForDesktops() const
     return valueWrap(as_component_get_compulsory_for_desktops(m_cpt));
 }
 
-void AppStream::Component::setCompulsoryForDesktop(const QString& desktop)
+void AppStream::Component::setCompulsoryForDesktop(const QString &desktop)
 {
     as_component_set_compulsory_for_desktop(m_cpt, qPrintable(desktop));
 }
 
-bool Component::isCompulsoryForDesktop(const QString& desktop) const
+bool Component::isCompulsoryForDesktop(const QString &desktop) const
 {
     return as_component_is_compulsory_for_desktop(m_cpt, qPrintable(desktop));
 }
@@ -308,17 +312,17 @@ QStringList Component::categories() const
     return valueWrap(as_component_get_categories(m_cpt));
 }
 
-void AppStream::Component::addCategory(const QString& category)
+void AppStream::Component::addCategory(const QString &category)
 {
     as_component_add_category(m_cpt, qPrintable(category));
 }
 
-bool Component::hasCategory(const QString& category) const
+bool Component::hasCategory(const QString &category) const
 {
     return as_component_has_category(m_cpt, qPrintable(category));
 }
 
-bool AppStream::Component::isMemberOfCategory(const AppStream::Category& category) const
+bool AppStream::Component::isMemberOfCategory(const AppStream::Category &category) const
 {
     return as_component_is_member_of_category(m_cpt, category.asCategory());
 }
@@ -328,7 +332,7 @@ QStringList Component::extends() const
     return valueWrap(as_component_get_extends(m_cpt));
 }
 
-void AppStream::Component::addExtends(const QString& extend)
+void AppStream::Component::addExtends(const QString &extend)
 {
     as_component_add_extends(m_cpt, qPrintable(extend));
 }
@@ -337,16 +341,16 @@ QList<AppStream::Component> Component::addons() const
 {
     QList<AppStream::Component> res;
 
-    auto addons = as_component_get_addons (m_cpt);
+    auto addons = as_component_get_addons(m_cpt);
     res.reserve(addons->len);
     for (uint i = 0; i < addons->len; i++) {
-        auto cpt = AS_COMPONENT (g_ptr_array_index (addons, i));
+        auto cpt = AS_COMPONENT(g_ptr_array_index(addons, i));
         res.append(Component(cpt));
     }
     return res;
 }
 
-void AppStream::Component::addAddon(const AppStream::Component& addon)
+void AppStream::Component::addAddon(const AppStream::Component &addon)
 {
     as_component_add_addon(m_cpt, addon.asComponent());
 }
@@ -368,7 +372,7 @@ QList<Relation> Component::requirements() const
     auto reqs = as_component_get_requires(m_cpt);
     res.reserve(reqs->len);
     for (uint i = 0; i < reqs->len; i++) {
-        auto rel = AS_RELATION (g_ptr_array_index(reqs, i));
+        auto rel = AS_RELATION(g_ptr_array_index(reqs, i));
         res.append(Relation(rel));
     }
     return res;
@@ -381,7 +385,7 @@ QList<Relation> Component::recommends() const
     auto recommends = as_component_get_recommends(m_cpt);
     res.reserve(recommends->len);
     for (uint i = 0; i < recommends->len; i++) {
-        auto rel = AS_RELATION (g_ptr_array_index(recommends, i));
+        auto rel = AS_RELATION(g_ptr_array_index(recommends, i));
         res.append(Relation(rel));
     }
     return res;
@@ -394,7 +398,7 @@ QList<Relation> Component::supports() const
     auto supports = as_component_get_supports(m_cpt);
     res.reserve(supports->len);
     for (uint i = 0; i < supports->len; i++) {
-        auto rel = AS_RELATION (g_ptr_array_index(supports, i));
+        auto rel = AS_RELATION(g_ptr_array_index(supports, i));
         res.append(Relation(rel));
     }
     return res;
@@ -410,12 +414,12 @@ QStringList AppStream::Component::languages() const
     return valueWrap(as_component_get_languages(m_cpt));
 }
 
-int AppStream::Component::language(const QString& locale) const
+int AppStream::Component::language(const QString &locale) const
 {
     return as_component_get_language(m_cpt, qPrintable(locale));
 }
 
-void AppStream::Component::addLanguage(const QString& locale, int percentage)
+void AppStream::Component::addLanguage(const QString &locale, int percentage)
 {
     as_component_add_language(m_cpt, qPrintable(locale), percentage);
 }
@@ -427,13 +431,13 @@ QList<AppStream::Translation> AppStream::Component::translations() const
     auto translations = as_component_get_translations(m_cpt);
     res.reserve(translations->len);
     for (uint i = 0; i < translations->len; i++) {
-        auto translation = AS_TRANSLATION (g_ptr_array_index (translations, i));
+        auto translation = AS_TRANSLATION(g_ptr_array_index(translations, i));
         res.append(Translation(translation));
     }
     return res;
 }
 
-void AppStream::Component::addTranslation(const AppStream::Translation& translation)
+void AppStream::Component::addTranslation(const AppStream::Translation &translation)
 {
     as_component_add_translation(m_cpt, translation.asTranslation());
 }
@@ -446,7 +450,7 @@ QUrl Component::url(Component::UrlKind kind) const
     return QUrl(url);
 }
 
-void AppStream::Component::addUrl(AppStream::Component::UrlKind kind, const QString& url)
+void AppStream::Component::addUrl(AppStream::Component::UrlKind kind, const QString &url)
 {
     as_component_add_url(m_cpt, (AsUrlKind) kind, qPrintable(url));
 }
@@ -458,21 +462,21 @@ QList<Icon> Component::icons() const
     auto icons = as_component_get_icons(m_cpt);
     res.reserve(icons->len);
     for (uint i = 0; i < icons->len; i++) {
-        auto icon = AS_ICON (g_ptr_array_index (icons, i));
+        auto icon = AS_ICON(g_ptr_array_index(icons, i));
         res.append(Icon(icon));
     }
     return res;
 }
 
-Icon Component::icon(const QSize& size) const
+Icon Component::icon(const QSize &size) const
 {
-    auto res = as_component_get_icon_by_size (m_cpt, size.width(), size.height());
+    auto res = as_component_get_icon_by_size(m_cpt, size.width(), size.height());
     if (res == NULL)
         return Icon();
     return Icon(res);
 }
 
-void AppStream::Component::addIcon(const AppStream::Icon& icon)
+void AppStream::Component::addIcon(const AppStream::Icon &icon)
 {
     as_component_add_icon(m_cpt, icon.asIcon());
 }
@@ -484,7 +488,7 @@ QList<Provided> Component::provided() const
     auto provEntries = as_component_get_provided(m_cpt);
     res.reserve(provEntries->len);
     for (uint i = 0; i < provEntries->len; i++) {
-        auto prov = AS_PROVIDED (g_ptr_array_index (provEntries, i));
+        auto prov = AS_PROVIDED(g_ptr_array_index(provEntries, i));
         res.append(Provided(prov));
     }
     return res;
@@ -498,7 +502,7 @@ AppStream::Provided Component::provided(Provided::Kind kind) const
     return Provided(prov);
 }
 
-void AppStream::Component::addProvided(const AppStream::Provided& provided)
+void AppStream::Component::addProvided(const AppStream::Provided &provided)
 {
     as_component_add_provided(m_cpt, provided.asProvided());
 }
@@ -510,13 +514,13 @@ QList<Screenshot> Component::screenshots() const
     auto screenshots = as_component_get_screenshots(m_cpt);
     res.reserve(screenshots->len);
     for (uint i = 0; i < screenshots->len; i++) {
-        auto scr = AS_SCREENSHOT (g_ptr_array_index (screenshots, i));
+        auto scr = AS_SCREENSHOT(g_ptr_array_index(screenshots, i));
         res.append(Screenshot(scr));
     }
     return res;
 }
 
-void AppStream::Component::addScreenshot(const AppStream::Screenshot& screenshot)
+void AppStream::Component::addScreenshot(const AppStream::Screenshot &screenshot)
 {
     as_component_add_screenshot(m_cpt, screenshot.asScreenshot());
 }
@@ -528,13 +532,13 @@ QList<Release> Component::releases() const
     auto rels = as_component_get_releases(m_cpt);
     res.reserve(rels->len);
     for (uint i = 0; i < rels->len; i++) {
-        auto rel = AS_RELEASE (g_ptr_array_index (rels, i));
+        auto rel = AS_RELEASE(g_ptr_array_index(rels, i));
         res.append(Release(rel));
     }
     return res;
 }
 
-void AppStream::Component::addRelease(const AppStream::Release& release)
+void AppStream::Component::addRelease(const AppStream::Release &release)
 {
     as_component_add_release(m_cpt, release.asRelease());
 }
@@ -551,7 +555,7 @@ QList<Bundle> Component::bundles() const
     auto bdls = as_component_get_bundles(m_cpt);
     res.reserve(bdls->len);
     for (uint i = 0; i < bdls->len; i++) {
-        auto bundle = AS_BUNDLE (g_ptr_array_index (bdls, i));
+        auto bundle = AS_BUNDLE(g_ptr_array_index(bdls, i));
         res.append(Bundle(bundle));
     }
     return res;
@@ -565,7 +569,7 @@ Bundle Component::bundle(Bundle::Kind kind) const
     return Bundle(bundle);
 }
 
-void AppStream::Component::addBundle(const AppStream::Bundle& bundle) const
+void AppStream::Component::addBundle(const AppStream::Bundle &bundle) const
 {
     as_component_add_bundle(m_cpt, bundle.asBundle());
 }
@@ -577,13 +581,13 @@ QList<AppStream::Suggested> AppStream::Component::suggested() const
     auto suggestions = as_component_get_suggested(m_cpt);
     res.reserve(suggestions->len);
     for (uint i = 0; i < suggestions->len; i++) {
-        auto suggestion = AS_SUGGESTED (g_ptr_array_index (suggestions, i));
+        auto suggestion = AS_SUGGESTED(g_ptr_array_index(suggestions, i));
         res.append(Suggested(suggestion));
     }
     return res;
 }
 
-void AppStream::Component::addSuggested(const AppStream::Suggested& suggested)
+void AppStream::Component::addSuggested(const AppStream::Suggested &suggested)
 {
     as_component_add_suggested(m_cpt, suggested.suggested());
 }
@@ -593,12 +597,12 @@ QStringList AppStream::Component::searchTokens() const
     return valueWrap(as_component_get_search_tokens(m_cpt));
 }
 
-uint AppStream::Component::searchMatches(const QString& term) const
+uint AppStream::Component::searchMatches(const QString &term) const
 {
     return as_component_search_matches(m_cpt, qPrintable(term));
 }
 
-uint AppStream::Component::searchMatchesAll(const QStringList& terms) const
+uint AppStream::Component::searchMatchesAll(const QStringList &terms) const
 {
     char **termList = stringListToCharArray(terms);
     const uint searchMatches = as_component_search_matches_all(m_cpt, termList);
@@ -635,17 +639,17 @@ QHash<QString, QString> AppStream::Component::custom() const
     auto custom = as_component_get_custom(m_cpt);
     g_hash_table_iter_init(&iter, custom);
     while (g_hash_table_iter_next(&iter, &key, &value)) {
-        result.insert(valueWrap(static_cast<char*>(key)), valueWrap(static_cast<char*>(value)));
+        result.insert(valueWrap(static_cast<char *>(key)), valueWrap(static_cast<char *>(value)));
     }
     return result;
 }
 
-QString AppStream::Component::customValue(const QString& key)
+QString AppStream::Component::customValue(const QString &key)
 {
     return valueWrap(as_component_get_custom_value(m_cpt, qPrintable(key)));
 }
 
-bool AppStream::Component::insertCustomValue(const QString& key, const QString& value)
+bool AppStream::Component::insertCustomValue(const QString &key, const QString &value)
 {
     return as_component_insert_custom_value(m_cpt, qPrintable(key), qPrintable(value));
 }
@@ -657,13 +661,13 @@ QList<AppStream::ContentRating> AppStream::Component::contentRatings() const
     auto ratings = as_component_get_content_ratings(m_cpt);
     res.reserve(ratings->len);
     for (uint i = 0; i < ratings->len; i++) {
-        auto rating = AS_CONTENT_RATING (g_ptr_array_index (ratings, i));
+        auto rating = AS_CONTENT_RATING(g_ptr_array_index(ratings, i));
         res.append(ContentRating(rating));
     }
     return res;
 }
 
-AppStream::ContentRating AppStream::Component::contentRating(const QString& kind) const
+AppStream::ContentRating AppStream::Component::contentRating(const QString &kind) const
 {
     auto rating = as_component_get_content_rating(m_cpt, qPrintable(kind));
     if (rating == NULL)
@@ -671,7 +675,7 @@ AppStream::ContentRating AppStream::Component::contentRating(const QString& kind
     return ContentRating(rating);
 }
 
-void AppStream::Component::addContentRating(const AppStream::ContentRating& contentRating)
+void AppStream::Component::addContentRating(const AppStream::ContentRating &contentRating)
 {
     as_component_add_content_rating(m_cpt, contentRating.asContentRating());
 }
@@ -681,9 +685,11 @@ QString Component::nameVariantSuffix() const
     return valueWrap(as_component_get_name_variant_suffix(m_cpt));
 }
 
-void Component::setNameVariantSuffix(const QString& variantSuffix, const QString& lang)
+void Component::setNameVariantSuffix(const QString &variantSuffix, const QString &lang)
 {
-    as_component_set_name_variant_suffix(m_cpt, qPrintable(variantSuffix), lang.isEmpty()? NULL : qPrintable(lang));
+    as_component_set_name_variant_suffix(m_cpt,
+                                         qPrintable(variantSuffix),
+                                         lang.isEmpty() ? NULL : qPrintable(lang));
 }
 
 bool Component::hasTag(const QString &ns, const QString &tagName)

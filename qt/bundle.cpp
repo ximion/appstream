@@ -32,12 +32,13 @@ QString Bundle::kindToString(Bundle::Kind kind)
     return as_bundle_kind_to_string((AsBundleKind) kind);
 }
 
-Bundle::Kind Bundle::stringToKind(const QString& kindString)
+Bundle::Kind Bundle::stringToKind(const QString &kindString)
 {
     return Bundle::Kind(as_bundle_kind_from_string(qPrintable(kindString)));
 }
 
-class AppStream::BundleData : public QSharedData {
+class AppStream::BundleData : public QSharedData
+{
 public:
     BundleData()
     {
@@ -55,7 +56,7 @@ public:
         g_object_unref(m_bundle);
     }
 
-    bool operator==(const BundleData& rd) const
+    bool operator==(const BundleData &rd) const
     {
         return rd.m_bundle == m_bundle;
     }
@@ -65,35 +66,37 @@ public:
         return m_bundle;
     }
 
-    AsBundle* m_bundle;
+    AsBundle *m_bundle;
 };
 
 Bundle::Bundle()
     : d(new BundleData())
-{}
+{
+}
 
-Bundle::Bundle(_AsBundle* bundle)
+Bundle::Bundle(_AsBundle *bundle)
     : d(new BundleData(bundle))
-{}
+{
+}
 
 Bundle::Bundle(const Bundle &bundle) = default;
 
 Bundle::~Bundle() = default;
 
-Bundle& Bundle::operator=(const Bundle &bundle) = default;
+Bundle &Bundle::operator=(const Bundle &bundle) = default;
 
 bool Bundle::operator==(const Bundle &other) const
 {
-    if(this->d == other.d) {
+    if (this->d == other.d) {
         return true;
     }
-    if(this->d && other.d) {
+    if (this->d && other.d) {
         return *(this->d) == *other.d;
     }
     return false;
 }
 
-_AsBundle * AppStream::Bundle::asBundle() const
+_AsBundle *AppStream::Bundle::asBundle() const
 {
     return d->bundle();
 }
@@ -113,7 +116,7 @@ QString Bundle::id() const
     return valueWrap(as_bundle_get_id(d->m_bundle));
 }
 
-void Bundle::setId(const QString& id)
+void Bundle::setId(const QString &id)
 {
     as_bundle_set_id(d->m_bundle, qPrintable(id));
 }
@@ -123,7 +126,7 @@ bool Bundle::isEmpty() const
     return as_bundle_get_id(d->m_bundle) == NULL;
 }
 
-QDebug operator<<(QDebug s, const AppStream::Bundle& bundle)
+QDebug operator<<(QDebug s, const AppStream::Bundle &bundle)
 {
     s.nospace() << "AppStream::Bundle(" << bundle.id() << ")";
     return s.space();
