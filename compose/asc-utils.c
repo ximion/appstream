@@ -41,7 +41,7 @@
  * Its primary usecase is to identify a media directory on the filesystem which is
  * associated with this component.
  **/
-gchar*
+gchar *
 asc_build_component_global_id (const gchar *component_id, const gchar *checksum)
 {
 	gboolean rdns_split;

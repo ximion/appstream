@@ -22,7 +22,9 @@ from tempfile import TemporaryDirectory
 IANA_TLD_LIST_URL = 'https://data.iana.org/TLD/tlds-alpha-by-domain.txt'
 SPDX_REPO_URL = 'https://github.com/spdx/license-list-data.git'
 MENU_SPEC_URL = 'https://gitlab.freedesktop.org/xdg/xdg-specs/raw/master/menu/menu-spec.xml'
-XPATH_MAIN_CATEGORIES = '/article/appendix[@id="category-registry"]/sect1[@id="main-category-registry"]//tbody/row/*[1]'
+XPATH_MAIN_CATEGORIES = (
+    '/article/appendix[@id="category-registry"]/sect1[@id="main-category-registry"]//tbody/row/*[1]'
+)
 XPATH_ADDITIONAL_CATEGORIES = '/article/appendix[@id="category-registry"]/sect1[@id="additional-category-registry"]//tbody/row/*[1]'
 
 
@@ -89,14 +91,16 @@ def _read_spdx_licenses(data_dir, last_tag_ver, only_free=False):
     for exception in exceptions_data['exceptions']:
         eid_list.append(exception['licenseExceptionId'])
 
-    return {'licenses': lid_list,
-            'exceptions': eid_list,
-            'license_list_ver': license_ver_ref,
-            'eceptions_list_ver': exceptions_ver_ref}
+    return {
+        'licenses': lid_list,
+        'exceptions': eid_list,
+        'license_list_ver': license_ver_ref,
+        'eceptions_list_ver': exceptions_ver_ref,
+    }
 
 
 def _read_dfsg_free_license_list():
-    ''' Obtain a (manually curated) list of DFSG-free licenses '''
+    '''Obtain a (manually curated) list of DFSG-free licenses'''
     licenses = set()
     with open('dfsg-free-licenses.txt', 'r') as f:
         for line in f.readlines():
@@ -106,14 +110,16 @@ def _read_dfsg_free_license_list():
     return licenses
 
 
-def update_spdx_id_list(git_url, licenselist_fname, licenselist_free_fname, exceptionlist_fname, with_deprecated=True):
+def update_spdx_id_list(
+    git_url, licenselist_fname, licenselist_free_fname, exceptionlist_fname, with_deprecated=True
+):
     print('Updating list of SPDX license IDs...')
     tdir = TemporaryDirectory(prefix='spdx_master-')
 
-    subprocess.check_call(['git',
-                           'clone',
-                           git_url, tdir.name])
-    last_tag_ver = subprocess.check_output(['git', 'describe', '--abbrev=0',  '--tags'], cwd=tdir.name)
+    subprocess.check_call(['git', 'clone', git_url, tdir.name])
+    last_tag_ver = subprocess.check_output(
+        ['git', 'describe', '--abbrev=0', '--tags'], cwd=tdir.name
+    )
     last_tag_ver = str(last_tag_ver.strip(), 'utf-8')
     if last_tag_ver.startswith('v'):
         last_tag_ver = last_tag_ver[1:]
@@ -131,19 +137,28 @@ def update_spdx_id_list(git_url, licenselist_fname, licenselist_free_fname, exce
 
     eid_list.sort()
     with open(exceptionlist_fname, 'w') as f:
-        f.write('# The list of license exceptions recognized by SPDX, v{}\n'.format(license_data['eceptions_list_ver']))
+        f.write(
+            '# The list of license exceptions recognized by SPDX, v{}\n'.format(
+                license_data['eceptions_list_ver']
+            )
+        )
         f.write('\n'.join(eid_list))
         f.write('\n')
 
     license_free_data = _read_spdx_licenses(tdir.name, last_tag_ver, only_free=True)
     with open(licenselist_free_fname, 'w') as f:
-        f.write('# The list of free (OSI, FSF approved or DFSG-free) licenses recognized by SPDX, v{}\n'.format(
-            license_list_ver))
+        f.write(
+            '# The list of free (OSI, FSF approved or DFSG-free) licenses recognized by SPDX, v{}\n'.format(
+                license_list_ver
+            )
+        )
         lid_set = set(lid_list)
         free_lid_set = set(license_free_data['licenses'])
         for dfsg_lid in _read_dfsg_free_license_list():
             if dfsg_lid not in lid_set:
-                raise Exception('Unknown license-ID "{}" found in DFSG-free license list!'.format(dfsg_lid))
+                raise Exception(
+                    'Unknown license-ID "{}" found in DFSG-free license list!'.format(dfsg_lid)
+                )
             free_lid_set.add(dfsg_lid)
         f.write('\n'.join(sorted(free_lid_set)))
         f.write('\n')
@@ -194,7 +209,12 @@ def main():
     os.chdir(data_dir)
 
     update_tld_list(IANA_TLD_LIST_URL, 'iana-filtered-tld-list.txt')
-    update_spdx_id_list(SPDX_REPO_URL, 'spdx-license-ids.txt', 'spdx-free-license-ids.txt', 'spdx-license-exception-ids.txt')
+    update_spdx_id_list(
+        SPDX_REPO_URL,
+        'spdx-license-ids.txt',
+        'spdx-free-license-ids.txt',
+        'spdx-license-exception-ids.txt',
+    )
     update_categories_list(MENU_SPEC_URL, 'xdg-category-names.txt')
     update_platforms_data()
 

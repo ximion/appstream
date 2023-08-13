@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -32,8 +32,7 @@ G_BEGIN_DECLS
 #define AS_TYPE_BRANDING (as_branding_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsBranding, as_branding, AS, BRANDING, GObject)
 
-struct _AsBrandingClass
-{
+struct _AsBrandingClass {
 	GObjectClass parent_class;
 	/*< private >*/
 	void (*_as_reserved1) (void);
@@ -44,15 +43,14 @@ struct _AsBrandingClass
 	void (*_as_reserved6) (void);
 };
 
-typedef struct
-{
-  /*< private >*/
-  gpointer	dummy1;
-  guint		dummy2;
-  gpointer	dummy3;
-  gpointer	dummy4;
-  gpointer	dummy5;
-  gpointer	dummy6;
+typedef struct {
+	/*< private >*/
+	gpointer dummy1;
+	guint	 dummy2;
+	gpointer dummy3;
+	gpointer dummy4;
+	gpointer dummy5;
+	gpointer dummy6;
 } AsBrandingColorIter;
 
 /**
@@ -85,32 +83,31 @@ typedef enum {
 	AS_COLOR_SCHEME_KIND_LAST
 } AsColorSchemeKind;
 
-const gchar		*as_color_kind_to_string (AsColorKind kind);
-AsColorKind		as_color_kind_from_string (const gchar *str);
+const gchar	 *as_color_kind_to_string (AsColorKind kind);
+AsColorKind	  as_color_kind_from_string (const gchar *str);
 
-const gchar		*as_color_scheme_kind_to_string (AsColorSchemeKind kind);
-AsColorSchemeKind	as_color_scheme_kind_from_string (const gchar *str);
+const gchar	 *as_color_scheme_kind_to_string (AsColorSchemeKind kind);
+AsColorSchemeKind as_color_scheme_kind_from_string (const gchar *str);
 
-AsBranding		*as_branding_new (void);
+AsBranding	 *as_branding_new (void);
 
-void		 	as_branding_set_color (AsBranding *branding,
-					       AsColorKind kind,
-					       AsColorSchemeKind scheme_preference,
-					       const gchar *colorcode);
-void		 	as_branding_remove_color (AsBranding *branding,
-						  AsColorKind kind,
-						  AsColorSchemeKind scheme_preference);
+void		  as_branding_set_color (AsBranding	  *branding,
+					 AsColorKind	   kind,
+					 AsColorSchemeKind scheme_preference,
+					 const gchar	  *colorcode);
+void		  as_branding_remove_color (AsBranding	     *branding,
+					    AsColorKind	      kind,
+					    AsColorSchemeKind scheme_preference);
 
-void			as_branding_color_iter_init (AsBrandingColorIter *iter,
-						     AsBranding *branding);
-gboolean		as_branding_color_iter_next (AsBrandingColorIter *iter,
-							AsColorKind *kind,
-							AsColorSchemeKind *scheme_preference,
-							const gchar **value);
+void		  as_branding_color_iter_init (AsBrandingColorIter *iter, AsBranding *branding);
+gboolean	  as_branding_color_iter_next (AsBrandingColorIter *iter,
+					       AsColorKind	   *kind,
+					       AsColorSchemeKind   *scheme_preference,
+					       const gchar	  **value);
 
-const gchar		*as_branding_get_color (AsBranding *branding,
-						AsColorKind kind,
-						AsColorSchemeKind scheme_kind);
+const gchar	 *as_branding_get_color (AsBranding	  *branding,
+					 AsColorKind	   kind,
+					 AsColorSchemeKind scheme_kind);
 
 G_END_DECLS
 

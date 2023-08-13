@@ -31,10 +31,9 @@
 #include "config.h"
 #include "as-checksum-private.h"
 
-typedef struct
-{
-	AsChecksumKind		 kind;
-	gchar			*value;
+typedef struct {
+	AsChecksumKind kind;
+	gchar *value;
 } AsChecksumPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsChecksum, as_checksum, G_TYPE_OBJECT)
@@ -49,7 +48,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsChecksum, as_checksum, G_TYPE_OBJECT)
  *
  * Returns: string version of @kind
  **/
-const gchar*
+const gchar *
 as_checksum_kind_to_string (AsChecksumKind kind)
 {
 	if (kind == AS_CHECKSUM_KIND_NONE)
@@ -151,7 +150,7 @@ as_checksum_set_kind (AsChecksum *cs, AsChecksumKind kind)
  *
  * Returns: the checksum.
  **/
-const gchar*
+const gchar *
 as_checksum_get_value (AsChecksum *cs)
 {
 	AsChecksumPrivate *priv = GET_PRIVATE (cs);
@@ -273,7 +272,7 @@ as_checksum_emit_yaml (AsChecksum *cs, AsContext *ctx, yaml_emitter_t *emitter)
  *
  * Since: 0.12.11
  **/
-AsChecksum*
+AsChecksum *
 as_checksum_new_for_kind_value (AsChecksumKind kind, const gchar *value)
 {
 	AsChecksum *cs = as_checksum_new ();
@@ -289,7 +288,7 @@ as_checksum_new_for_kind_value (AsChecksumKind kind, const gchar *value)
  *
  * Returns: (transfer full): an #AsChecksum
  **/
-AsChecksum*
+AsChecksum *
 as_checksum_new (void)
 {
 	AsChecksum *cs;

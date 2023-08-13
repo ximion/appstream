@@ -24,31 +24,29 @@
 
 #include "as-profile.h"
 
-struct _AsProfile
-{
-	GObject		 parent_instance;
-	GPtrArray	*current;
-	GPtrArray	*archived;
-	GMutex		 mutex;
-	GThread		*unthreaded;
-	guint		 autodump_id;
-	guint		 autoprune_duration;
-	guint		 duration_min;
+struct _AsProfile {
+	GObject parent_instance;
+	GPtrArray *current;
+	GPtrArray *archived;
+	GMutex mutex;
+	GThread *unthreaded;
+	guint autodump_id;
+	guint autoprune_duration;
+	guint duration_min;
 };
 
 typedef struct {
-	gchar		*id;
-	gint64		 time_start;
-	gint64		 time_stop;
-	gboolean	 threaded;
+	gchar *id;
+	gint64 time_start;
+	gint64 time_stop;
+	gboolean threaded;
 } AsProfileItem;
 
 G_DEFINE_TYPE (AsProfile, as_profile, G_TYPE_OBJECT)
 
-struct _AsProfileTask
-{
-	AsProfile	*profile;
-	gchar		*id;
+struct _AsProfileTask {
+	AsProfile *profile;
+	gchar *id;
 };
 
 static gpointer as_profile_object = NULL;
@@ -185,8 +183,7 @@ as_profile_dump_safe (AsProfile *profile)
 			continue;
 
 		/* print a timechart of what we've done */
-		bar_offset = (guint) (scale * (gdouble) (item->time_start -
-							 time_start) / 1000);
+		bar_offset = (guint) (scale * (gdouble) (item->time_start - time_start) / 1000);
 		for (j = 0; j < bar_offset; j++)
 			g_printerr (" ");
 		bar_length = (guint) (scale * (gdouble) time_ms);
@@ -197,8 +194,7 @@ as_profile_dump_safe (AsProfile *profile)
 			g_printerr ("%s", printable);
 		for (j = bar_offset + bar_length; j < console_width + 1; j++)
 			g_printerr (" ");
-		g_printerr ("@%04" G_GINT64_FORMAT "ms ",
-			    (item->time_stop - time_start) / 1000);
+		g_printerr ("@%04" G_GINT64_FORMAT "ms ", (item->time_stop - time_start) / 1000);
 		g_printerr ("%s %" G_GINT64_FORMAT "ms\n", item->id, time_ms);
 	}
 
@@ -210,8 +206,7 @@ as_profile_dump_safe (AsProfile *profile)
 			for (j = 0; j < console_width; j++)
 				g_print ("$");
 			time_ms = (item->time_stop - item->time_start) / 1000;
-			g_printerr (" @????ms %s %" G_GINT64_FORMAT "ms\n",
-				    item->id, time_ms);
+			g_printerr (" @????ms %s %" G_GINT64_FORMAT "ms\n", item->id, time_ms);
 		}
 	}
 }
@@ -468,8 +463,7 @@ as_profile_finalize (GObject *object)
 
 	if (profile->autodump_id != 0)
 		g_source_remove (profile->autodump_id);
-	g_ptr_array_foreach (profile->current,
-			     (GFunc) as_profile_item_free_cb, NULL);
+	g_ptr_array_foreach (profile->current, (GFunc) as_profile_item_free_cb, NULL);
 	g_ptr_array_unref (profile->current);
 	g_ptr_array_unref (profile->archived);
 	g_mutex_clear (&profile->mutex);

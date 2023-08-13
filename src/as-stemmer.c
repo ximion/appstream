@@ -35,8 +35,7 @@
  * @short_description: Stemming helper singleton for AppStream searches.
  */
 
-struct _AsStemmer
-{
+struct _AsStemmer {
 	GObject parent_instance;
 
 	struct sb_stemmer *sb;
@@ -116,7 +115,7 @@ as_stemmer_reload (AsStemmer *stemmer, const gchar *lang)
  *
  * Returns: A stemmed string.
  **/
-gchar*
+gchar *
 as_stemmer_stem (AsStemmer *stemmer, const gchar *term)
 {
 #ifdef HAVE_STEMMING
@@ -127,9 +126,8 @@ as_stemmer_stem (AsStemmer *stemmer, const gchar *term)
 		return g_strdup (term);
 	}
 
-	result = g_strdup ((gchar*) sb_stemmer_stem (stemmer->sb,
-						     (unsigned char*) term,
-						     strlen (term)));
+	result = g_strdup (
+	    (gchar *) sb_stemmer_stem (stemmer->sb, (unsigned char *) term, strlen (term)));
 
 	g_mutex_locker_free (locker);
 
@@ -163,7 +161,7 @@ as_stemmer_class_init (AsStemmerClass *klass)
  *
  * Returns: (transfer none): an #AsStemmer
  **/
-AsStemmer*
+AsStemmer *
 as_stemmer_get (void)
 {
 	if (as_stemmer_object == NULL) {

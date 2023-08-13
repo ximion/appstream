@@ -26,25 +26,23 @@
 
 G_BEGIN_DECLS
 
-gint		ascli_show_status (void);
+gint ascli_show_status (void);
 
-gint		ascli_make_desktop_entry_file (const gchar *mi_fname,
-					       const gchar *de_fname,
-					       const gchar *exec_line);
+gint ascli_make_desktop_entry_file (const gchar *mi_fname,
+				    const gchar *de_fname,
+				    const gchar *exec_line);
 
-gint		ascli_news_to_metainfo (const gchar *news_fname,
-					const gchar *mi_fname,
-					const gchar *out_fname,
-					guint entry_limit,
-					guint translate_limit,
-					const gchar *format_str);
-gint		ascli_metainfo_to_news (const gchar *mi_fname,
-					const gchar *news_fname,
-					const gchar *format_str);
+gint ascli_news_to_metainfo (const gchar *news_fname,
+			     const gchar *mi_fname,
+			     const gchar *out_fname,
+			     guint	  entry_limit,
+			     guint	  translate_limit,
+			     const gchar *format_str);
+gint ascli_metainfo_to_news (const gchar *mi_fname,
+			     const gchar *news_fname,
+			     const gchar *format_str);
 
-int		ascli_show_sysinfo (const gchar *cachepath,
-				    gboolean no_cache,
-				    gboolean detailed);
+int  ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed);
 
 G_END_DECLS
 

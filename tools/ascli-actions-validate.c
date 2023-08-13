@@ -32,7 +32,7 @@
 /**
  * create_issue_info_print_string:
  **/
-static gchar*
+static gchar *
 create_issue_info_print_string (AsValidatorIssue *issue, guint indent)
 {
 	GString *str;
@@ -58,38 +58,38 @@ create_issue_info_print_string (AsValidatorIssue *issue, guint indent)
 	str = g_string_new ("");
 	g_string_append_printf (str, "%*s", indent, "");
 	switch (severity) {
-		case AS_ISSUE_SEVERITY_ERROR:
-			g_string_append_printf (str, "E: %s: ", location);
-			break;
-		case AS_ISSUE_SEVERITY_WARNING:
-			g_string_append_printf (str, "W: %s: ", location);
-			break;
-		case AS_ISSUE_SEVERITY_INFO:
-			g_string_append_printf (str, "I: %s: ", location);
-			break;
-		case AS_ISSUE_SEVERITY_PEDANTIC:
-			g_string_append_printf (str, "P: %s: ", location);
-			break;
-		default:
-			g_string_append_printf (str, "U: %s: ", location);
+	case AS_ISSUE_SEVERITY_ERROR:
+		g_string_append_printf (str, "E: %s: ", location);
+		break;
+	case AS_ISSUE_SEVERITY_WARNING:
+		g_string_append_printf (str, "W: %s: ", location);
+		break;
+	case AS_ISSUE_SEVERITY_INFO:
+		g_string_append_printf (str, "I: %s: ", location);
+		break;
+	case AS_ISSUE_SEVERITY_PEDANTIC:
+		g_string_append_printf (str, "P: %s: ", location);
+		break;
+	default:
+		g_string_append_printf (str, "U: %s: ", location);
 	}
 
 	if (ascli_get_output_colored ()) {
 		switch (severity) {
-			case AS_ISSUE_SEVERITY_ERROR:
-				g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 31, tag, 0x1B, 0);
-				break;
-			case AS_ISSUE_SEVERITY_WARNING:
-				g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 33, tag, 0x1B, 0);
-				break;
-			case AS_ISSUE_SEVERITY_INFO:
-				g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 32, tag, 0x1B, 0);
-				break;
-			case AS_ISSUE_SEVERITY_PEDANTIC:
-				g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 37, tag, 0x1B, 0);
-				break;
-			default:
-				g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 35, tag, 0x1B, 0);
+		case AS_ISSUE_SEVERITY_ERROR:
+			g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 31, tag, 0x1B, 0);
+			break;
+		case AS_ISSUE_SEVERITY_WARNING:
+			g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 33, tag, 0x1B, 0);
+			break;
+		case AS_ISSUE_SEVERITY_INFO:
+			g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 32, tag, 0x1B, 0);
+			break;
+		case AS_ISSUE_SEVERITY_PEDANTIC:
+			g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 37, tag, 0x1B, 0);
+			break;
+		default:
+			g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 35, tag, 0x1B, 0);
 		}
 	} else {
 		g_string_append (str, tag);
@@ -100,7 +100,9 @@ create_issue_info_print_string (AsValidatorIssue *issue, guint indent)
 			g_autofree gchar *wrap = NULL;
 			/* the hint string is too long, move it to the next line and indent it,
 			 * to visually separate it from a possible explanation text */
-			wrap = ascli_format_long_output (hint, 100 - (indent + 3 + 2), indent + 3 + 2);
+			wrap = ascli_format_long_output (hint,
+							 100 - (indent + 3 + 2),
+							 indent + 3 + 2);
 			g_string_append_printf (str, "\n%s", wrap);
 		} else {
 			g_string_append_printf (str, " %s", hint);
@@ -130,21 +132,22 @@ print_single_issue (AsValidatorIssue *issue,
 	/* if there are errors or warnings, we consider the validation to be failed */
 	severity = as_validator_issue_get_severity (issue);
 	switch (severity) {
-		case AS_ISSUE_SEVERITY_ERROR:
-			(*error_count)++;
-			no_errors = FALSE;
-			break;
-		case AS_ISSUE_SEVERITY_WARNING:
-			(*warning_count)++;
-			no_errors = FALSE;
-			break;
-		case AS_ISSUE_SEVERITY_INFO:
-			(*info_count)++;
-			break;
-		case AS_ISSUE_SEVERITY_PEDANTIC:
-			(*pedantic_count)++;
-			break;
-		default: break;
+	case AS_ISSUE_SEVERITY_ERROR:
+		(*error_count)++;
+		no_errors = FALSE;
+		break;
+	case AS_ISSUE_SEVERITY_WARNING:
+		(*warning_count)++;
+		no_errors = FALSE;
+		break;
+	case AS_ISSUE_SEVERITY_INFO:
+		(*info_count)++;
+		break;
+	case AS_ISSUE_SEVERITY_PEDANTIC:
+		(*pedantic_count)++;
+		break;
+	default:
+		break;
 	}
 
 	/* skip pedantic issues if we should not show them */
@@ -153,15 +156,14 @@ print_single_issue (AsValidatorIssue *issue,
 
 	title = create_issue_info_print_string (issue, indent);
 	if (explained) {
-		g_autofree gchar *explanation = ascli_format_long_output (as_validator_issue_get_explanation (issue),
-									  100, indent + 3);
-		g_print ("%s\n%s\n\n",
-			 title,
-			 explanation);
+		g_autofree gchar *explanation = ascli_format_long_output (
+		    as_validator_issue_get_explanation (issue),
+		    100,
+		    indent + 3);
+		g_print ("%s\n%s\n\n", title, explanation);
 	} else {
 		g_print ("%s\n", title);
 	}
-
 
 	return no_errors;
 }
@@ -171,14 +173,14 @@ print_single_issue (AsValidatorIssue *issue,
  */
 static gboolean
 ascli_print_validation_result (AsValidator *validator,
-				gboolean pedantic,
-				gboolean explain,
-				gboolean strict,
-				gboolean always_print_fnames,
-				gulong *error_count,
-				gulong *warning_count,
-				gulong *info_count,
-				gulong *pedantic_count)
+			       gboolean pedantic,
+			       gboolean explain,
+			       gboolean strict,
+			       gboolean always_print_fnames,
+			       gulong *error_count,
+			       gulong *warning_count,
+			       gulong *info_count,
+			       gulong *pedantic_count)
 {
 	GHashTable *issues_files;
 	GHashTableIter hiter;
@@ -191,8 +193,8 @@ ascli_print_validation_result (AsValidator *validator,
 
 	g_hash_table_iter_init (&hiter, issues_files);
 	while (g_hash_table_iter_next (&hiter, &hkey, &hvalue)) {
-		const gchar *filename = (const gchar*) hkey;
-		const GPtrArray *issues = (const GPtrArray*) hvalue;
+		const gchar *filename = (const gchar *) hkey;
+		const GPtrArray *issues = (const GPtrArray *) hvalue;
 
 		if (print_filenames) {
 			if (filename == NULL)
@@ -204,25 +206,27 @@ ascli_print_validation_result (AsValidator *validator,
 		}
 
 		for (guint i = 0; i < issues->len; i++) {
-			AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (g_ptr_array_index (issues, i));
+			AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (
+			    g_ptr_array_index (issues, i));
 
 			if (!print_single_issue (issue,
 						 pedantic,
 						 explain,
-						 print_filenames? 2 : 0,
+						 print_filenames ? 2 : 0,
 						 error_count,
 						 warning_count,
 						 info_count,
 						 pedantic_count))
-			validation_passed = FALSE;
+				validation_passed = FALSE;
 
-			if (strict && as_validator_issue_get_severity (issue) != AS_ISSUE_SEVERITY_PEDANTIC)
+			if (strict &&
+			    as_validator_issue_get_severity (issue) != AS_ISSUE_SEVERITY_PEDANTIC)
 				validation_passed = FALSE;
 		}
 
 		/* space out contents from different files a bit more if we only show tags */
 		if (!explain)
-			g_print("\n");
+			g_print ("\n");
 	}
 
 	return validation_passed;
@@ -252,7 +256,8 @@ ascli_validate_apply_overrides_from_string (AsValidator *validator, const gchar 
 		if (parts[0] == NULL || parts[1] == NULL) {
 			/* TRANSLATORS: User-supplied overrides string for appstreamcli was badly formatted
 			   (tag is an issue tag, severity is the desired severity that it should be set to). */
-			g_printerr (_("The format of validator issue override '%s' is invalid (should be 'tag=severity')"), overrides[i]);
+			g_printerr (_("The format of validator issue override '%s' is invalid (should be 'tag=severity')"),
+				       overrides[i]);
 			g_printerr ("\n");
 			return FALSE;
 		}
@@ -316,7 +321,9 @@ ascli_validate_file (AsValidator *validator,
 							   error_count,
 							   warning_count,
 							   info_count,
-							   pedantic_count)? validation_passed : FALSE;
+							   pedantic_count)
+				? validation_passed
+				: FALSE;
 
 	g_object_unref (file);
 
@@ -397,7 +404,7 @@ ascli_validate_files (gchar **argv,
 			g_autoptr(GFile) file = g_file_new_for_path (argv[i]);
 			if (!as_validator_add_release_file (validator, file, &local_error)) {
 				ascli_print_stderr (_("Unable to add release metadata file: %s"),
-						    local_error->message);
+						       local_error->message);
 				return ASCLI_EXIT_CODE_FATAL;
 			}
 		} else {
@@ -405,33 +412,39 @@ ascli_validate_files (gchar **argv,
 		}
 	}
 	if (metainfo_files->len == 0) {
-		g_printerr ("%s\n", _("You need to specify at least one MetaInfo file to validate.\n"
+		g_printerr ("%s\n",
+			    _("You need to specify at least one MetaInfo file to validate.\n"
 				      "Release metadata files can currently not be validated without their accompanying MetaInfo file."));
 		return ASCLI_EXIT_CODE_FAILED;
 	}
 
 	for (guint i = 0; i < metainfo_files->len; i++) {
-		const gchar *fname = (const gchar*) g_ptr_array_index (metainfo_files, i);
-		ret = ascli_validate_file (validator,
-					   fname,
-					   metainfo_files->len >= 2, /* print filenames if we validate multiple files */
-					   pedantic,
-					   explain,
-					   validate_strict,
-					   use_net,
-					   overrides_str,
-					   &error_count,
-					   &warning_count,
-					   &info_count,
-					   &pedantic_count)? ret : FALSE;
+		const gchar *fname = (const gchar *) g_ptr_array_index (metainfo_files, i);
+		ret = ascli_validate_file (
+			  validator,
+			  fname,
+			  metainfo_files->len >=
+			      2, /* print filenames if we validate multiple files */
+			  pedantic,
+			  explain,
+			  validate_strict,
+			  use_net,
+			  overrides_str,
+			  &error_count,
+			  &warning_count,
+			  &info_count,
+			  &pedantic_count)
+			  ? ret
+			  : FALSE;
 	}
 
 	if (ret) {
-		if ((error_count == 0) && (warning_count == 0) &&
-		    (info_count == 0) && (pedantic_count == 0)) {
+		if ((error_count == 0) && (warning_count == 0) && (info_count == 0) &&
+		    (pedantic_count == 0)) {
 			g_print ("%s %s\n", ASCLI_CHAR_SUCCESS, _("Validation was successful."));
 		} else {
-			g_autofree gchar *tmp = g_strdup_printf (_("Validation was successful: %s"), "");
+			g_autofree gchar *tmp = g_strdup_printf (
+			    _("Validation was successful: %s"), "");
 			g_print ("%s %s", ASCLI_CHAR_SUCCESS, tmp);
 			ascli_validate_print_stats (error_count,
 						    warning_count,
@@ -444,10 +457,7 @@ ascli_validate_files (gchar **argv,
 	} else {
 		g_autofree gchar *tmp = g_strdup_printf (_("Validation failed: %s"), "");
 		g_print ("%s %s", ASCLI_CHAR_FAIL, tmp);
-		ascli_validate_print_stats (error_count,
-					    warning_count,
-					    info_count,
-					    pedantic_count);
+		ascli_validate_print_stats (error_count, warning_count, info_count, pedantic_count);
 		g_print ("\n");
 
 		return ASCLI_EXIT_CODE_BAD_INPUT;
@@ -510,10 +520,11 @@ ascli_validate_files_format (gchar **argv,
 
 		validation_passed = as_validator_get_report_yaml (validator, &yaml_result);
 		g_print ("%s", yaml_result);
-		return validation_passed? 0 : 3;
+		return validation_passed ? 0 : 3;
 	}
 
-	g_print (_("The validator can not create reports in the '%s' format. You may select 'yaml' or 'text' instead."), format);
+	g_print (_("The validator can not create reports in the '%s' format. You may select 'yaml' or 'text' instead."),
+		    format);
 	g_print ("\n");
 	return 1;
 }
@@ -561,11 +572,12 @@ ascli_validate_tree (const gchar *root_dir,
 	g_object_unref (validator);
 
 	if (validation_passed) {
-		if ((error_count == 0) && (warning_count == 0) &&
-		    (info_count == 0) && (pedantic_count == 0)) {
+		if ((error_count == 0) && (warning_count == 0) && (info_count == 0) &&
+		    (pedantic_count == 0)) {
 			g_print ("%s %s\n", ASCLI_CHAR_SUCCESS, _("Validation was successful."));
 		} else {
-			g_autofree gchar *tmp = g_strdup_printf (_("Validation was successful: %s"), "");
+			g_autofree gchar *tmp = g_strdup_printf (
+			    _("Validation was successful: %s"), "");
 			g_print ("%s %s", ASCLI_CHAR_SUCCESS, tmp);
 			ascli_validate_print_stats (error_count,
 						    warning_count,
@@ -578,10 +590,7 @@ ascli_validate_tree (const gchar *root_dir,
 	} else {
 		g_autofree gchar *tmp = g_strdup_printf (_("Validation failed: %s"), "");
 		g_print ("%s %s", ASCLI_CHAR_FAIL, tmp);
-		ascli_validate_print_stats (error_count,
-					    warning_count,
-					    info_count,
-					    pedantic_count);
+		ascli_validate_print_stats (error_count, warning_count, info_count, pedantic_count);
 		g_print ("\n");
 
 		return 3;
@@ -620,7 +629,8 @@ ascli_validate_tree_format (const gchar *root_dir,
 		g_autofree gchar *yaml_result = NULL;
 
 		if (root_dir == NULL) {
-			g_print ("%s\n", _("You need to specify a root directory to start validation!"));
+			g_print ("%s\n",
+				 _("You need to specify a root directory to start validation!"));
 			return 1;
 		}
 
@@ -631,10 +641,11 @@ ascli_validate_tree_format (const gchar *root_dir,
 
 		validation_passed = as_validator_get_report_yaml (validator, &yaml_result);
 		g_print ("%s", yaml_result);
-		return validation_passed? 0 : 3;
+		return validation_passed ? 0 : 3;
 	}
 
-	g_print (_("The validator can not create reports in the '%s' format. You may select 'yaml' or 'text' instead."), format);
+	g_print (_("The validator can not create reports in the '%s' format. You may select 'yaml' or 'text' instead."),
+		    format);
 	g_print ("\n");
 	return 1;
 }
@@ -684,10 +695,16 @@ ascli_check_license (const gchar *license)
 	}
 
 	/* TRANSLATORS: Whether a license is suitable for AppStream metadata */
-	ascli_print_key_value (_("Suitable for AppStream metadata"), as_license_is_metadata_license (license_id)? _("yes") : _("no"), FALSE);
+	ascli_print_key_value (_("Suitable for AppStream metadata"),
+				  as_license_is_metadata_license (license_id)
+				  ? _("yes")
+				  : _("no"), FALSE);
 
 	/* TRANSLATORS: Whether a license considered suitable for Free and Open Source software */
-	ascli_print_key_value (_("Free and Open Source"), as_license_is_free_license (license_id)? _("yes") : _("no"), FALSE);
+	ascli_print_key_value (_("Free and Open Source"),
+				  as_license_is_free_license (license_id)
+				  ? _("yes")
+				  : _("no"), FALSE);
 
 	if (!is_expression) {
 		g_autofree gchar *url = as_get_license_url (license_id);
@@ -695,5 +712,5 @@ ascli_check_license (const gchar *license)
 		ascli_print_key_value (_("URL"), url, FALSE);
 	}
 
-	return valid? 0 : 1;
+	return valid ? 0 : 1;
 }

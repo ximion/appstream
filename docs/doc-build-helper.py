@@ -30,8 +30,7 @@ from pathlib import Path
 
 
 # additional CSS from system locations, we use it if available
-EXTRA_CSS = [['/usr/share/javascript/highlight.js/styles/routeros.css',
-              'highlight.css']]
+EXTRA_CSS = [['/usr/share/javascript/highlight.js/styles/routeros.css', 'highlight.css']]
 
 
 def daps_build(src_dir, project_name, daps_exe):
@@ -39,9 +38,7 @@ def daps_build(src_dir, project_name, daps_exe):
     sys.stdout.flush()
 
     build_dir = os.path.join(src_dir, '_docbuild')
-    cmd = [daps_exe,
-           'html',
-           '--clean']
+    cmd = [daps_exe, 'html', '--clean']
     if project_name:
         cmd.extend(['--name', project_name])
 
@@ -57,14 +54,15 @@ def daps_build(src_dir, project_name, daps_exe):
     html_out_dir = os.path.join(build_dir, project_name, 'html', project_name)
 
     # copy the (usually missing) plain SVG project icon
-    shutil.copy(os.path.join(src_dir, 'images', 'src', 'svg', 'appstream-logo.svg'),
-                os.path.join(html_out_dir, 'images'))
+    shutil.copy(
+        os.path.join(src_dir, 'images', 'src', 'svg', 'appstream-logo.svg'),
+        os.path.join(html_out_dir, 'images'),
+    )
 
     # copy extra CSS if it is available
     for css_fname in EXTRA_CSS:
         if os.path.exists(css_fname[0]):
-            shutil.copy(css_fname[0], os.path.join(html_out_dir, 'static',
-                                                   'css', css_fname[1]))
+            shutil.copy(css_fname[0], os.path.join(html_out_dir, 'static', 'css', css_fname[1]))
 
     return build_dir
 
@@ -74,8 +72,9 @@ def copy_result(build_dir, project_name, dest_dir):
     if os.path.exists(dest_dir):
         shutil.rmtree(dest_dir)
 
-    shutil.copytree(os.path.join(build_dir, project_name, 'html', project_name),
-                    dest_dir, symlinks=True)
+    shutil.copytree(
+        os.path.join(build_dir, project_name, 'html', project_name), dest_dir, symlinks=True
+    )
 
 
 def cleanup_build_dir(build_dir):
@@ -126,8 +125,7 @@ def main(args):
         build_dir = daps_build(options.src, options.project, options.daps)
 
         # copy to output HTML folder, overriding all previous contents
-        copy_result(build_dir, options.project,
-                    os.path.join(options.src, 'html'))
+        copy_result(build_dir, options.project, os.path.join(options.src, 'html'))
 
         # remove temporary directory
         cleanup_build_dir(build_dir)
@@ -149,4 +147,5 @@ def main(args):
 
 if __name__ == '__main__':
     import sys
+
     sys.exit(main(sys.argv[1:]))

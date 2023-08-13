@@ -28,21 +28,17 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-gboolean	as_branding_load_from_xml (AsBranding *branding,
-					   AsContext *ctx,
-					   xmlNode *node,
-					   GError **error);
-void		as_branding_to_xml_node (AsBranding *branding,
-				         AsContext *ctx,
-				         xmlNode *root);
+gboolean	       as_branding_load_from_xml (AsBranding *branding,
+						  AsContext  *ctx,
+						  xmlNode    *node,
+						  GError    **error);
+void	 as_branding_to_xml_node (AsBranding *branding, AsContext *ctx, xmlNode *root);
 
-gboolean	as_branding_load_from_yaml (AsBranding *branding,
-					    AsContext *ctx,
-					    GNode *node,
-					    GError **error);
-void		as_branding_emit_yaml (AsBranding *branding,
-					AsContext *ctx,
-					yaml_emitter_t *emitter);
+gboolean as_branding_load_from_yaml (AsBranding *branding,
+				     AsContext	*ctx,
+				     GNode	*node,
+				     GError    **error);
+void	 as_branding_emit_yaml (AsBranding *branding, AsContext *ctx, yaml_emitter_t *emitter);
 
 #pragma GCC visibility pop
 G_END_DECLS

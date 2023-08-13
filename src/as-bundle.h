@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -32,8 +32,7 @@ G_BEGIN_DECLS
 #define AS_TYPE_BUNDLE (as_bundle_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsBundle, as_bundle, AS, BUNDLE, GObject)
 
-struct _AsBundleClass
-{
+struct _AsBundleClass {
 	GObjectClass parent_class;
 	/*< private >*/
 	void (*_as_reserved1) (void);
@@ -70,18 +69,16 @@ typedef enum {
 	AS_BUNDLE_KIND_LAST
 } AsBundleKind;
 
-const gchar	*as_bundle_kind_to_string (AsBundleKind kind);
-AsBundleKind	as_bundle_kind_from_string (const gchar *bundle_str);
+const gchar *as_bundle_kind_to_string (AsBundleKind kind);
+AsBundleKind as_bundle_kind_from_string (const gchar *bundle_str);
 
-AsBundle	*as_bundle_new (void);
+AsBundle    *as_bundle_new (void);
 
-AsBundleKind	 as_bundle_get_kind (AsBundle *bundle);
-void		 as_bundle_set_kind (AsBundle *bundle,
-					AsBundleKind kind);
+AsBundleKind as_bundle_get_kind (AsBundle *bundle);
+void	     as_bundle_set_kind (AsBundle *bundle, AsBundleKind kind);
 
-const gchar	*as_bundle_get_id (AsBundle *bundle);
-void		 as_bundle_set_id (AsBundle *bundle,
-					const gchar *id);
+const gchar *as_bundle_get_id (AsBundle *bundle);
+void	     as_bundle_set_id (AsBundle *bundle, const gchar *id);
 
 G_END_DECLS
 

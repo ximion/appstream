@@ -34,8 +34,7 @@
 #include "as-suggested.h"
 #include "as-suggested-private.h"
 
-typedef struct
-{
+typedef struct {
 	AsSuggestedKind kind;
 	GPtrArray *cpt_ids; /* of utf8 */
 } AsSuggestedPrivate;
@@ -51,7 +50,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsSuggested, as_suggested, G_TYPE_OBJECT)
  *
  * Returns: string version of @kind
  **/
-const gchar*
+const gchar *
 as_suggested_kind_to_string (AsSuggestedKind kind)
 {
 	if (kind == AS_SUGGESTED_KIND_UPSTREAM)
@@ -147,13 +146,12 @@ as_suggested_set_kind (AsSuggested *suggested, AsSuggestedKind kind)
  *
  * Returns: (transfer none) (element-type utf8): an array of components id
  */
-GPtrArray*
+GPtrArray *
 as_suggested_get_ids (AsSuggested *suggested)
 {
 	AsSuggestedPrivate *priv = GET_PRIVATE (suggested);
 	return priv->cpt_ids;
 }
-
 
 /**
  * as_suggested_add_id:
@@ -211,7 +209,9 @@ as_suggested_load_from_xml (AsSuggested *suggested, AsContext *ctx, xmlNode *nod
 	priv->kind = as_suggested_kind_from_string (type_str);
 	if (priv->kind == AS_SUGGESTED_KIND_UNKNOWN) {
 		g_debug ("Found suggests tag of unknown type '%s' at %s:%li. Ignoring it.",
-			 type_str, as_context_get_filename (ctx), xmlGetLineNo (node));
+			 type_str,
+			 as_context_get_filename (ctx),
+			 xmlGetLineNo (node));
 		return FALSE;
 	}
 
@@ -219,7 +219,7 @@ as_suggested_load_from_xml (AsSuggested *suggested, AsContext *ctx, xmlNode *nod
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 ((gchar*) iter->name, "id") == 0) {
+		if (g_strcmp0 ((gchar *) iter->name, "id") == 0) {
 			g_autofree gchar *content = NULL;
 			content = as_xml_get_node_value (iter);
 
@@ -247,14 +247,15 @@ as_suggested_to_xml_node (AsSuggested *suggested, AsContext *ctx, xmlNode *root)
 	xmlNode *node;
 
 	/* non-upstream tags are not allowed in metainfo files */
-	if ((priv->kind != AS_SUGGESTED_KIND_UPSTREAM) && (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO))
+	if ((priv->kind != AS_SUGGESTED_KIND_UPSTREAM) &&
+	    (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO))
 		return;
 
 	node = as_xml_add_node (root, "suggests");
 	as_xml_add_text_prop (node, "type", as_suggested_kind_to_string (priv->kind));
 
 	for (j = 0; j < priv->cpt_ids->len; j++) {
-		const gchar *cid = (const gchar*) g_ptr_array_index (priv->cpt_ids, j);
+		const gchar *cid = (const gchar *) g_ptr_array_index (priv->cpt_ids, j);
 		as_xml_add_text_node (node, "id", cid);
 	}
 }
@@ -323,7 +324,7 @@ as_suggested_emit_yaml (AsSuggested *suggested, AsContext *ctx, yaml_emitter_t *
  *
  * Returns: (transfer full): a new #AsSuggested
  **/
-AsSuggested*
+AsSuggested *
 as_suggested_new (void)
 {
 	AsSuggested *suggested;

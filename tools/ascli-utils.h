@@ -26,46 +26,37 @@
 
 G_BEGIN_DECLS
 
-#define		ASCLI_EXIT_CODE_SUCCESS 0
-#define		ASCLI_EXIT_CODE_FAILED 1
-#define		ASCLI_EXIT_CODE_MISSING_DATA 2
-#define		ASCLI_EXIT_CODE_BAD_INPUT 3
-#define		ASCLI_EXIT_CODE_NO_RESULT 4
-#define		ASCLI_EXIT_CODE_FATAL 5
-#define		ASCLI_EXIT_CODE_VALIDATION_FAILED 6
+#define ASCLI_EXIT_CODE_SUCCESS		  0
+#define ASCLI_EXIT_CODE_FAILED		  1
+#define ASCLI_EXIT_CODE_MISSING_DATA	  2
+#define ASCLI_EXIT_CODE_BAD_INPUT	  3
+#define ASCLI_EXIT_CODE_NO_RESULT	  4
+#define ASCLI_EXIT_CODE_FATAL		  5
+#define ASCLI_EXIT_CODE_VALIDATION_FAILED 6
 
-#define		ASCLI_CHAR_SUCCESS ascli_get_char_success ()
-#define		ASCLI_CHAR_FAIL ascli_get_char_failure ()
+#define ASCLI_CHAR_SUCCESS ascli_get_char_success ()
+#define ASCLI_CHAR_FAIL	   ascli_get_char_failure ()
 
-gchar		*ascli_format_long_output (const gchar *str,
-					   guint line_length,
-					   guint indent_level);
-void		ascli_print_key_value (const gchar *key,
-				       const gchar *val,
-				       gboolean line_wrap);
-void		ascli_print_separator (void);
+gchar	    *ascli_format_long_output (const gchar *str, guint line_length, guint indent_level);
+void	     ascli_print_key_value (const gchar *key, const gchar *val, gboolean line_wrap);
+void	     ascli_print_separator (void);
 
-void		ascli_print_stdout (const gchar *format, ...);
-void		ascli_print_stderr (const gchar *format, ...);
-void		ascli_print_highlight (const gchar *format, ...);
+void	     ascli_print_stdout (const gchar *format, ...);
+void	     ascli_print_stderr (const gchar *format, ...);
+void	     ascli_print_highlight (const gchar *format, ...);
 
-const gchar	*ascli_get_char_success (void);
-const gchar	*ascli_get_char_failure (void);
+const gchar *ascli_get_char_success (void);
+const gchar *ascli_get_char_failure (void);
 
-void		ascli_print_component (AsComponent *cpt,
-				       gboolean show_detailed);
-void		ascli_print_components (GPtrArray *cpts,
-					gboolean show_detailed);
+void	     ascli_print_component (AsComponent *cpt, gboolean show_detailed);
+void	     ascli_print_components (GPtrArray *cpts, gboolean show_detailed);
 
-AsPool		*ascli_data_pool_new_and_open (const gchar *cachepath,
-						gboolean no_cache,
-						GError **error);
+AsPool	*ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache, GError **error);
 
-void		ascli_set_output_colored (gboolean colored);
-gboolean	ascli_get_output_colored (void);
+void	 ascli_set_output_colored (gboolean colored);
+gboolean ascli_get_output_colored (void);
 
-guint		ascli_prompt_numer (const gchar *question,
-				    guint maxnum);
+guint	 ascli_prompt_numer (const gchar *question, guint maxnum);
 
 G_END_DECLS
 

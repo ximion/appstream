@@ -30,9 +30,9 @@
 AS_BEGIN_PRIVATE_DECLS
 
 AS_INTERNAL_VISIBLE
-void		asc_read_translation_status (AscResult *cres,
-						AscUnit *unit,
-						const gchar *prefix,
-						guint min_percentage);
+void asc_read_translation_status (AscResult   *cres,
+				  AscUnit     *unit,
+				  const gchar *prefix,
+				  guint	       min_percentage);
 
 AS_END_PRIVATE_DECLS

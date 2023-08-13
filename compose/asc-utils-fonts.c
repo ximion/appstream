@@ -34,12 +34,12 @@
 #include "asc-canvas-private.h"
 
 struct {
-	gint	width;
-	gint	height;
+	gint width;
+	gint height;
 } font_screenshot_sizes[] = {
-	{ 1024, 78 },
-	{ 640, 48 },
-	{ 0, 0 }
+	{1024, 78},
+	{ 640, 48},
+	{ 0,   0 }
 };
 
 /**
@@ -93,7 +93,9 @@ asc_render_font_screenshots (AscResult *cres,
 		if (!as_is_empty (custom_sample_text))
 			asc_font_set_sample_text (font, custom_sample_text);
 
-		scr_url_root = g_build_filename (asc_result_gcid_for_component (cres, cpt), "screenshots", NULL);
+		scr_url_root = g_build_filename (asc_result_gcid_for_component (cres, cpt),
+						 "screenshots",
+						 NULL);
 
 		for (guint j = 0; font_screenshot_sizes[j].width > 0; j++) {
 			g_autofree gchar *img_name = NULL;
@@ -122,22 +124,28 @@ asc_render_font_screenshots (AscResult *cres,
 								 -1, /* border width */
 								 &tmp_error);
 				if (!ret) {
-					asc_result_add_hint (cres, cpt,
-								"font-render-error",
-								"name", asc_font_get_fullname (font),
-								"error", tmp_error->message,
-								NULL);
+					asc_result_add_hint (cres,
+							     cpt,
+							     "font-render-error",
+							     "name",
+							     asc_font_get_fullname (font),
+							     "error",
+							     tmp_error->message,
+							     NULL);
 					continue;
 				}
 
 				g_debug ("Saving font screenshot image: %s", img_name);
 				ret = asc_canvas_save_png (cv, img_filename, &tmp_error);
 				if (!ret) {
-					asc_result_add_hint (cres, cpt,
-								"font-render-error",
-								"name", asc_font_get_fullname (font),
-								"error", tmp_error->message,
-								NULL);
+					asc_result_add_hint (cres,
+							     cpt,
+							     "font-render-error",
+							     "name",
+							     asc_font_get_fullname (font),
+							     "error",
+							     tmp_error->message,
+							     NULL);
 					continue;
 				}
 			}
@@ -189,22 +197,21 @@ asc_render_font_icon (AscResult *cres,
 			continue;
 
 		size_str = (scale_factor == 1)
-				? g_strdup_printf ("%ix%i",
-						   size, size)
-				: g_strdup_printf ("%ix%i@%i",
-						   size, size,
-						   scale_factor);
+			       ? g_strdup_printf ("%ix%i", size, size)
+			       : g_strdup_printf ("%ix%i@%i", size, size, scale_factor);
 		icon_dir = g_build_filename (cpt_icons_path, size_str, NULL);
 		g_mkdir_with_parents (icon_dir, 0755);
 
 		/* check if we have a custom icon text value (useful for symbolic fonts) */
 		custom_icon_text = as_component_get_custom_value (cpt, "FontIconText");
 		if (!as_is_empty (custom_icon_text))
-			asc_font_set_sample_icon_text (font, custom_icon_text); /* Font will ensure that the value does not exceed 3 chars */
+			asc_font_set_sample_icon_text (
+			    font,
+			    custom_icon_text); /* Font will ensure that the value does not exceed 3 chars */
 
 		icon_name = g_strdup_printf ("%s_%s.png",
-						asc_unit_get_bundle_id_safe (unit),
-						asc_font_get_id (font));
+					     asc_unit_get_bundle_id_safe (unit),
+					     asc_font_get_id (font));
 		icon_full_path = g_build_filename (icon_dir, icon_name, NULL);
 
 		if (!g_file_test (icon_full_path, G_FILE_TEST_EXISTS)) {
@@ -213,28 +220,33 @@ asc_render_font_icon (AscResult *cres,
 			gboolean ret;
 
 			/* we didn't create an icon yet - let's render it! */
-			cv = asc_canvas_new (size * scale_factor,
-						size * scale_factor);
+			cv = asc_canvas_new (size * scale_factor, size * scale_factor);
 			ret = asc_canvas_draw_text_line (cv,
 							 font,
 							 asc_font_get_sample_icon_text (font),
 							 -1, /* border width */
 							 &tmp_error);
 			if (!ret) {
-				asc_result_add_hint (cres, cpt,
+				asc_result_add_hint (cres,
+						     cpt,
 						     "font-render-error",
-						     "name", asc_font_get_fullname (font),
-						     "error", tmp_error->message,
+						     "name",
+						     asc_font_get_fullname (font),
+						     "error",
+						     tmp_error->message,
 						     NULL);
 				continue;
 			}
 			g_debug ("Saving font icon: %s/%s", size_str, icon_name);
 			ret = asc_canvas_save_png (cv, icon_full_path, &tmp_error);
 			if (!ret) {
-				asc_result_add_hint (cres, cpt,
+				asc_result_add_hint (cres,
+						     cpt,
 						     "font-render-error",
-						     "name", asc_font_get_fullname (font),
-						     "error", tmp_error->message,
+						     "name",
+						     asc_font_get_fullname (font),
+						     "error",
+						     tmp_error->message,
 						     NULL);
 				continue;
 			}
@@ -243,18 +255,31 @@ asc_render_font_icon (AscResult *cres,
 				g_autofree gchar *icon_export_dir = NULL;
 				g_autofree gchar *icon_export_fname = NULL;
 
-				g_debug ("Copying icon to icon export dir: %s/%s", size_str, icon_name);
-				icon_export_dir = g_build_filename (icons_export_dir, size_str, NULL);
-				icon_export_fname = g_build_filename (icon_export_dir, icon_name, NULL);
+				g_debug ("Copying icon to icon export dir: %s/%s",
+					 size_str,
+					 icon_name);
+				icon_export_dir = g_build_filename (icons_export_dir,
+								    size_str,
+								    NULL);
+				icon_export_fname = g_build_filename (icon_export_dir,
+								      icon_name,
+								      NULL);
 
 				g_mkdir_with_parents (icon_export_dir, 0755);
 				if (!as_copy_file (icon_full_path, icon_export_fname, &tmp_error)) {
-					g_autofree gchar *tmp_icon_fname = g_strdup_printf ("%s/%s", size_str, icon_name);
-					g_warning ("Unable to write exported icon: %s", icon_export_fname);
-					asc_result_add_hint (cres, cpt,
+					g_autofree gchar *tmp_icon_fname = g_strdup_printf (
+					    "%s/%s",
+					    size_str,
+					    icon_name);
+					g_warning ("Unable to write exported icon: %s",
+						   icon_export_fname);
+					asc_result_add_hint (cres,
+							     cpt,
 							     "icon-write-error",
-							     "fname", tmp_icon_fname,
-							     "msg", tmp_error->message,
+							     "fname",
+							     tmp_icon_fname,
+							     "msg",
+							     tmp_error->message,
 							     NULL);
 					continue;
 				}
@@ -281,12 +306,18 @@ asc_render_font_icon (AscResult *cres,
 				asc_result_add_hint (cres,
 						     cpt,
 						     "internal-error",
-						     "msg", "No global ID could be found for component when processing fonts.",
+						     "msg",
+						     "No global ID could be found for component "
+						     "when processing fonts.",
 						     NULL);
 				return FALSE;
 			}
 
-			remote_icon_url = g_build_filename (gcid, "icons", size_str, icon_name, NULL);
+			remote_icon_url = g_build_filename (gcid,
+							    "icons",
+							    size_str,
+							    icon_name,
+							    NULL);
 			as_icon_set_kind (icon, AS_ICON_KIND_REMOTE);
 			as_icon_set_width (icon, size);
 			as_icon_set_height (icon, size);
@@ -304,8 +335,7 @@ asc_font_cmp (gconstpointer a, gconstpointer b)
 {
 	AscFont *f1 = ASC_FONT (*((AscFont **) a));
 	AscFont *f2 = ASC_FONT (*((AscFont **) b));
-	return g_strcmp0 (asc_font_get_id (f1),
-			  asc_font_get_id (f2));
+	return g_strcmp0 (asc_font_get_id (f1), asc_font_get_id (f2));
 }
 
 /**
@@ -332,11 +362,13 @@ process_font_data_for_component (AscResult *cres,
 
 	gcid = asc_result_gcid_for_component (cres, cpt);
 	if (as_is_empty (gcid)) {
-		asc_result_add_hint (cres,
-				     cpt,
-				     "internal-error",
-				     "msg", "No global ID could be found for component when processing fonts.",
-				     NULL);
+		asc_result_add_hint (
+		    cres,
+		    cpt,
+		    "internal-error",
+		    "msg",
+		    "No global ID could be found for component when processing fonts.",
+		    NULL);
 		return;
 	}
 
@@ -346,8 +378,7 @@ process_font_data_for_component (AscResult *cres,
 		GPtrArray *items = as_provided_get_items (provided);
 		for (guint i = 0; i < items->len; i++) {
 			const gchar *font_full_name = g_ptr_array_index (items, i);
-			g_ptr_array_add (font_hints,
-					 g_utf8_strdown (font_full_name, -1));
+			g_ptr_array_add (font_hints, g_utf8_strdown (font_full_name, -1));
 		}
 	}
 
@@ -358,7 +389,10 @@ process_font_data_for_component (AscResult *cres,
 		cpt_icons_path = g_build_filename (media_export_root, gcid, "icons", NULL);
 
 	if (media_export_root != NULL)
-		cpt_screenshots_path = g_build_filename (media_export_root, gcid, "screenshots", NULL);
+		cpt_screenshots_path = g_build_filename (media_export_root,
+							 gcid,
+							 "screenshots",
+							 NULL);
 
 	/* if we have no fonts hints, we simply process all the fonts
 	 * that we found in this unit. */
@@ -371,12 +405,10 @@ process_font_data_for_component (AscResult *cres,
 		selected_fonts = g_ptr_array_new_full (g_hash_table_size (all_fonts),
 						       g_object_unref);
 
-		tmp_array = g_ptr_array_new_full (g_hash_table_size (all_fonts),
-						  g_object_unref);
+		tmp_array = g_ptr_array_new_full (g_hash_table_size (all_fonts), g_object_unref);
 		g_hash_table_iter_init (&ht_iter, all_fonts);
 		while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value))
-			g_ptr_array_add (tmp_array,
-					 g_object_ref (ASC_FONT (ht_value)));
+			g_ptr_array_add (tmp_array, g_object_ref (ASC_FONT (ht_value)));
 
 		/* prepend fonts that contain "regular" so we prefer the regular
 		 * font face for rendering samples over the other styles
@@ -434,7 +466,8 @@ process_font_data_for_component (AscResult *cres,
 		asc_result_add_hint (cres,
 				     cpt,
 				     "font-metainfo-but-no-font",
-				     "font_names", font_names_str->str,
+				     "font_names",
+				     font_names_str->str,
 				     NULL);
 		return;
 	}
@@ -475,9 +508,7 @@ process_font_data_for_component (AscResult *cres,
 		for (GList *l = language_list; l != NULL; l = l->next) {
 			/* we have no idea how well the font supports the language's script,
 			 * but since it advertises support in its metadata, we just assume 100% here */
-			as_component_add_language (cpt,
-						   (const gchar*) l->data,
-						   100);
+			as_component_add_language (cpt, (const gchar *) l->data, 100);
 		}
 
 		/* render an icon for our font */
@@ -498,13 +529,16 @@ process_font_data_for_component (AscResult *cres,
 
 		if (as_is_empty (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE)) &&
 		    !as_is_empty (asc_font_get_homepage (font)))
-			as_component_add_url (cpt, AS_URL_KIND_HOMEPAGE, asc_font_get_homepage (font));
+			as_component_add_url (cpt,
+					      AS_URL_KIND_HOMEPAGE,
+					      asc_font_get_homepage (font));
 	}
 
 	/* render all sample screenshots for all font styles we have */
 	if (as_flags_contains (flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS)) {
 		if (cpt_screenshots_path == NULL)
-			g_warning ("Screenshot storage is enabled, but no screenshot media path could be constructed for %s.",
+			g_warning ("Screenshot storage is enabled, but no screenshot media path "
+				   "could be constructed for %s.",
 				   as_component_get_id (cpt));
 		else
 			asc_render_font_screenshots (cres,
@@ -546,8 +580,7 @@ asc_process_fonts (AscResult *cres,
 	if (font_cpts->len == 0)
 		return;
 
-	all_fonts = g_hash_table_new_full (g_str_hash, g_str_equal,
-					   g_free, g_object_unref);
+	all_fonts = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
 
 	/* create a map of all fonts that this unit contains */
 	contents = asc_unit_get_contents (unit);
@@ -568,23 +601,30 @@ asc_process_fonts (AscResult *cres,
 		basename = g_path_get_basename (fname);
 		font_bytes = asc_unit_read_data (unit, fname, &tmp_error);
 		if (font_bytes == NULL) {
-			asc_result_add_hint (cres, NULL,
-						"file-read-error",
-						"fname", fname,
-						"msg", tmp_error->message,
-						NULL);
+			asc_result_add_hint (cres,
+					     NULL,
+					     "file-read-error",
+					     "fname",
+					     fname,
+					     "msg",
+					     tmp_error->message,
+					     NULL);
 			continue;
 		}
 		data = g_bytes_get_data (font_bytes, &data_len);
 
 		font = asc_font_new_from_data (data, data_len, basename, &tmp_error);
 		if (font == NULL) {
-			asc_result_add_hint (cres, NULL,
-						"font-load-error",
-						"fname", fname,
-						"unit_name", asc_unit_get_bundle_id (unit),
-						"error", tmp_error->message,
-						NULL);
+			asc_result_add_hint (cres,
+					     NULL,
+					     "font-load-error",
+					     "fname",
+					     fname,
+					     "unit_name",
+					     asc_unit_get_bundle_id (unit),
+					     "error",
+					     tmp_error->message,
+					     NULL);
 			continue;
 		}
 

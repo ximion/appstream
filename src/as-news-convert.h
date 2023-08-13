@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -48,31 +48,30 @@ typedef enum {
 	AS_NEWS_FORMAT_KIND_LAST
 } AsNewsFormatKind;
 
-const gchar		*as_news_format_kind_to_string (AsNewsFormatKind kind);
-AsNewsFormatKind	as_news_format_kind_from_string (const gchar *kind_str);
+const gchar	*as_news_format_kind_to_string (AsNewsFormatKind kind);
+AsNewsFormatKind as_news_format_kind_from_string (const gchar *kind_str);
 
-GPtrArray		*as_news_to_releases_from_data (const gchar *data,
-							AsNewsFormatKind kind,
-							gint entry_limit,
-							gint translatable_limit,
-							GError **error);
-GPtrArray		*as_news_to_releases_from_filename (const gchar *fname,
-							    AsNewsFormatKind kind,
-							    gint entry_limit,
-							    gint translatable_limit,
-							    GError **error);
+GPtrArray	*as_news_to_releases_from_data (const gchar	*data,
+						AsNewsFormatKind kind,
+						gint		 entry_limit,
+						gint		 translatable_limit,
+						GError	       **error);
+GPtrArray	*as_news_to_releases_from_filename (const gchar	    *fname,
+						    AsNewsFormatKind kind,
+						    gint	     entry_limit,
+						    gint	     translatable_limit,
+						    GError	   **error);
 
-gchar			*as_releases_to_metainfo_xml_chunk (GPtrArray *releases,
-							    GError **error);
+gchar		*as_releases_to_metainfo_xml_chunk (GPtrArray *releases, GError **error);
 
-gboolean		as_releases_to_news_data (GPtrArray *releases,
-						  AsNewsFormatKind kind,
-						  gchar **news_data,
-						  GError **error);
-gboolean		as_releases_to_news_file (GPtrArray *releases,
-						  const gchar *fname,
-						  AsNewsFormatKind kind,
-						  GError **error);
+gboolean	 as_releases_to_news_data (GPtrArray	   *releases,
+					   AsNewsFormatKind kind,
+					   gchar	  **news_data,
+					   GError	  **error);
+gboolean	 as_releases_to_news_file (GPtrArray	   *releases,
+					   const gchar	   *fname,
+					   AsNewsFormatKind kind,
+					   GError	  **error);
 
 G_END_DECLS
 

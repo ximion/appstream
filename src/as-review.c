@@ -36,20 +36,19 @@
 #include "as-review-private.h"
 #include "as-utils-private.h"
 
-typedef struct
-{
-	AsReviewFlags		 flags;
-	GRefString		*id;
-	GRefString		*summary;
-	GRefString		*description;
-	GRefString		*locale;
-	gint			 priority;
-	gint			 rating;
-	GRefString		*version;
-	GRefString		*reviewer_id;
-	GRefString		*reviewer_name;
-	GDateTime		*date;
-	GHashTable		*metadata; /* GRefString : GRefString */
+typedef struct {
+	AsReviewFlags flags;
+	GRefString *id;
+	GRefString *summary;
+	GRefString *description;
+	GRefString *locale;
+	gint priority;
+	gint rating;
+	GRefString *version;
+	GRefString *reviewer_id;
+	GRefString *reviewer_name;
+	GDateTime *date;
+	GHashTable *metadata; /* GRefString : GRefString */
 } AsReviewPrivate;
 
 typedef enum {
@@ -66,7 +65,9 @@ typedef enum {
 	PROP_FLAGS,
 } AsReviewProperty;
 
-static GParamSpec *pspecs[PROP_FLAGS + 1] = { NULL, };
+static GParamSpec *pspecs[PROP_FLAGS + 1] = {
+	NULL,
+};
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsReview, as_review, G_TYPE_OBJECT)
 
@@ -97,14 +98,14 @@ static void
 as_review_init (AsReview *review)
 {
 	AsReviewPrivate *priv = GET_PRIVATE (review);
-	priv->metadata = g_hash_table_new_full (g_str_hash, g_str_equal,
+	priv->metadata = g_hash_table_new_full (g_str_hash,
+						g_str_equal,
 						(GDestroyNotify) g_ref_string_release,
 						(GDestroyNotify) g_ref_string_release);
 }
 
 static void
-as_review_get_property (GObject *object, guint prop_id,
-			GValue *value, GParamSpec *pspec)
+as_review_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
 {
 	AsReview *review = AS_REVIEW (object);
 	AsReviewPrivate *priv = GET_PRIVATE (review);
@@ -150,8 +151,7 @@ as_review_get_property (GObject *object, guint prop_id,
 }
 
 static void
-as_review_set_property (GObject *object, guint prop_id,
-			const GValue *value, GParamSpec *pspec)
+as_review_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
 	AsReview *review = AS_REVIEW (object);
 
@@ -208,40 +208,52 @@ as_review_class_init (AsReviewClass *klass)
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspecs[PROP_ID] =
-		g_param_spec_string ("id", NULL, NULL,
-				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+	pspecs[PROP_ID] = g_param_spec_string ("id",
+					       NULL,
+					       NULL,
+					       NULL,
+					       G_PARAM_READWRITE | G_PARAM_CONSTRUCT |
+						   G_PARAM_STATIC_STRINGS |
+						   G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:summary:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspecs[PROP_SUMMARY] =
-		g_param_spec_string ("summary", NULL, NULL,
-				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+	pspecs[PROP_SUMMARY] = g_param_spec_string ("summary",
+						    NULL,
+						    NULL,
+						    NULL,
+						    G_PARAM_READWRITE | G_PARAM_CONSTRUCT |
+							G_PARAM_STATIC_STRINGS |
+							G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:description:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspecs[PROP_DESCRIPTION] =
-		g_param_spec_string ("description", NULL, NULL,
-				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+	pspecs[PROP_DESCRIPTION] = g_param_spec_string ("description",
+							NULL,
+							NULL,
+							NULL,
+							G_PARAM_READWRITE | G_PARAM_CONSTRUCT |
+							    G_PARAM_STATIC_STRINGS |
+							    G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:locale:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspecs[PROP_LOCALE] =
-		g_param_spec_string ("locale", NULL, NULL,
-				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+	pspecs[PROP_LOCALE] = g_param_spec_string ("locale",
+						   NULL,
+						   NULL,
+						   NULL,
+						   G_PARAM_READWRITE | G_PARAM_CONSTRUCT |
+						       G_PARAM_STATIC_STRINGS |
+						       G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:priority:
@@ -251,72 +263,97 @@ as_review_class_init (AsReviewClass *klass)
 	 *
 	 * Since: 0.15.6
 	 */
-	pspecs[PROP_PRIORITY] =
-		g_param_spec_int ("priority", NULL, NULL,
-				  G_MININT, G_MAXINT, 0,
-				  G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+	pspecs[PROP_PRIORITY] = g_param_spec_int ("priority",
+						  NULL,
+						  NULL,
+						  G_MININT,
+						  G_MAXINT,
+						  0,
+						  G_PARAM_READWRITE | G_PARAM_CONSTRUCT |
+						      G_PARAM_STATIC_STRINGS |
+						      G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:rating:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspecs[PROP_RATING] =
-		g_param_spec_int ("rating", NULL, NULL,
-				  -1, 100, 0,
-				  G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+	pspecs[PROP_RATING] = g_param_spec_int ("rating",
+						NULL,
+						NULL,
+						-1,
+						100,
+						0,
+						G_PARAM_READWRITE | G_PARAM_CONSTRUCT |
+						    G_PARAM_STATIC_STRINGS |
+						    G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:flags:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspecs[PROP_FLAGS] =
-		g_param_spec_uint64 ("flags", NULL, NULL,
-				     AS_REVIEW_FLAG_NONE,
-				     AS_REVIEW_FLAG_LAST,
-				     AS_REVIEW_FLAG_NONE,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+	pspecs[PROP_FLAGS] = g_param_spec_uint64 ("flags",
+						  NULL,
+						  NULL,
+						  AS_REVIEW_FLAG_NONE,
+						  AS_REVIEW_FLAG_LAST,
+						  AS_REVIEW_FLAG_NONE,
+						  G_PARAM_READWRITE | G_PARAM_CONSTRUCT |
+						      G_PARAM_STATIC_STRINGS |
+						      G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:version:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspecs[PROP_VERSION] =
-		g_param_spec_string ("version", NULL, NULL,
-				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+	pspecs[PROP_VERSION] = g_param_spec_string ("version",
+						    NULL,
+						    NULL,
+						    NULL,
+						    G_PARAM_READWRITE | G_PARAM_CONSTRUCT |
+							G_PARAM_STATIC_STRINGS |
+							G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:reviewer-id:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspecs[PROP_REVIEWER_ID] =
-		g_param_spec_string ("reviewer-id", NULL, NULL,
-				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+	pspecs[PROP_REVIEWER_ID] = g_param_spec_string ("reviewer-id",
+							NULL,
+							NULL,
+							NULL,
+							G_PARAM_READWRITE | G_PARAM_CONSTRUCT |
+							    G_PARAM_STATIC_STRINGS |
+							    G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:reviewer-name:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspecs[PROP_REVIEWER_NAME] =
-		g_param_spec_string ("reviewer-name", NULL, NULL,
-				     NULL,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+	pspecs[PROP_REVIEWER_NAME] = g_param_spec_string ("reviewer-name",
+							  NULL,
+							  NULL,
+							  NULL,
+							  G_PARAM_READWRITE | G_PARAM_CONSTRUCT |
+							      G_PARAM_STATIC_STRINGS |
+							      G_PARAM_EXPLICIT_NOTIFY);
 
 	/**
 	 * AsReview:date:
 	 *
 	 * Since: 0.14.0
 	 **/
-	pspecs[PROP_DATE] =
-		g_param_spec_object ("date", NULL, NULL,
-				     AS_TYPE_REVIEW,
-				     G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+	pspecs[PROP_DATE] = g_param_spec_object ("date",
+						 NULL,
+						 NULL,
+						 AS_TYPE_REVIEW,
+						 G_PARAM_READWRITE | G_PARAM_CONSTRUCT |
+						     G_PARAM_STATIC_STRINGS |
+						     G_PARAM_EXPLICIT_NOTIFY);
 
 	g_object_class_install_properties (object_class, G_N_ELEMENTS (pspecs), pspecs);
 }
@@ -879,39 +916,45 @@ as_review_load_from_xml (AsReview *review, AsContext *ctx, xmlNode *node, GError
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 ((gchar*) iter->name, "priority") == 0) {
+		if (g_strcmp0 ((gchar *) iter->name, "priority") == 0) {
 			gint64 prio;
 			str = as_xml_get_node_value (iter);
 			prio = g_ascii_strtoll (str, NULL, 10);
 			as_review_set_priority (review, (gint) prio);
 			g_free (str);
 
-		} else if (g_strcmp0 ((gchar*) iter->name, "summary") == 0) {
-			as_ref_string_assign_transfer (&priv->summary, as_xml_get_node_value_refstr (iter));
+		} else if (g_strcmp0 ((gchar *) iter->name, "summary") == 0) {
+			as_ref_string_assign_transfer (&priv->summary,
+						       as_xml_get_node_value_refstr (iter));
 			g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_SUMMARY]);
 
-		} else if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
+		} else if (g_strcmp0 ((gchar *) iter->name, "description") == 0) {
 			g_autofree gchar *desc = as_xml_dump_node_children (iter);
-			as_ref_string_assign_transfer (&priv->description, g_ref_string_new_intern (desc));
+			as_ref_string_assign_transfer (&priv->description,
+						       g_ref_string_new_intern (desc));
 			g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_DESCRIPTION]);
 
-		} else if (g_strcmp0 ((gchar*) iter->name, "version") == 0) {
-			as_ref_string_assign_transfer (&priv->version, as_xml_get_node_value_refstr (iter));
+		} else if (g_strcmp0 ((gchar *) iter->name, "version") == 0) {
+			as_ref_string_assign_transfer (&priv->version,
+						       as_xml_get_node_value_refstr (iter));
 			g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_VERSION]);
 
-		} else if (g_strcmp0 ((gchar*) iter->name, "reviewer_id") == 0) {
-			as_ref_string_assign_transfer (&priv->reviewer_id, as_xml_get_node_value_refstr (iter));
+		} else if (g_strcmp0 ((gchar *) iter->name, "reviewer_id") == 0) {
+			as_ref_string_assign_transfer (&priv->reviewer_id,
+						       as_xml_get_node_value_refstr (iter));
 			g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_REVIEWER_ID]);
 
-		} else if (g_strcmp0 ((gchar*) iter->name, "reviewer_name") == 0) {
-			as_ref_string_assign_transfer (&priv->reviewer_name, as_xml_get_node_value_refstr (iter));
+		} else if (g_strcmp0 ((gchar *) iter->name, "reviewer_name") == 0) {
+			as_ref_string_assign_transfer (&priv->reviewer_name,
+						       as_xml_get_node_value_refstr (iter));
 			g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_REVIEWER_NAME]);
 
-		} else if (g_strcmp0 ((gchar*) iter->name, "lang") == 0) {
-			as_ref_string_assign_transfer (&priv->locale, as_xml_get_node_value_refstr (iter));
+		} else if (g_strcmp0 ((gchar *) iter->name, "lang") == 0) {
+			as_ref_string_assign_transfer (&priv->locale,
+						       as_xml_get_node_value_refstr (iter));
 			g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_LOCALE]);
 
-		} else if (g_strcmp0 ((gchar*) iter->name, "metadata") == 0) {
+		} else if (g_strcmp0 ((gchar *) iter->name, "metadata") == 0) {
 			as_xml_parse_custom_node (iter, priv->metadata);
 		}
 	}

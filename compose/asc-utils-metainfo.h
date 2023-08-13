@@ -30,36 +30,36 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-AsComponent		*asc_parse_metainfo_data (AscResult *cres,
-						  AsMetadata *mdata,
-						  GBytes *bytes,
-						  const gchar *mi_basename);
-AsComponent		*asc_parse_metainfo_data_simple (AscResult *cres,
-							 GBytes *bytes,
-							 const gchar *mi_basename);
-void			asc_process_metainfo_releases (AscResult *cres,
-						       AscUnit *unit,
-						       AsComponent *cpt,
-						       const gchar *mi_filename,
-						       gboolean allow_net,
-						       AsCurl *acurl,
-						       GBytes **used_reldata);
+AsComponent *asc_parse_metainfo_data (AscResult	  *cres,
+				      AsMetadata  *mdata,
+				      GBytes	  *bytes,
+				      const gchar *mi_basename);
+AsComponent *asc_parse_metainfo_data_simple (AscResult	 *cres,
+					     GBytes	 *bytes,
+					     const gchar *mi_basename);
+void	     asc_process_metainfo_releases (AscResult	*cres,
+					    AscUnit	*unit,
+					    AsComponent *cpt,
+					    const gchar *mi_filename,
+					    gboolean	 allow_net,
+					    AsCurl	*acurl,
+					    GBytes     **used_reldata);
 
-void			asc_validate_metainfo_data_for_component (AscResult *cres,
-								  AsValidator *validator,
-								  AsComponent *cpt,
-								  GBytes *bytes,
-								  const gchar *mi_basename,
-								  GBytes *relmd_bytes);
+void	     asc_validate_metainfo_data_for_component (AscResult   *cres,
+						       AsValidator *validator,
+						       AsComponent *cpt,
+						       GBytes	   *bytes,
+						       const gchar *mi_basename,
+						       GBytes	   *relmd_bytes);
 
 AS_INTERNAL_VISIBLE
-AsComponent		*asc_parse_desktop_entry_data (AscResult *cres,
-							AsComponent *cpt,
-							GBytes *bytes,
-							const gchar *de_basename,
-							gboolean ignore_nodisplay,
-							AsFormatVersion fversion,
-							AscTranslateDesktopTextFn de_l10n_fn,
-							gpointer user_data);
+AsComponent *asc_parse_desktop_entry_data (AscResult		    *cres,
+					   AsComponent		    *cpt,
+					   GBytes		    *bytes,
+					   const gchar		    *de_basename,
+					   gboolean		     ignore_nodisplay,
+					   AsFormatVersion	     fversion,
+					   AscTranslateDesktopTextFn de_l10n_fn,
+					   gpointer		     user_data);
 
 AS_END_PRIVATE_DECLS

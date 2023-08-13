@@ -37,11 +37,11 @@
 #include "as-utils-private.h"
 
 typedef struct {
-	AsAgreementKind		kind;
-	gchar			*version_id;
-	GPtrArray		*sections;
+	AsAgreementKind kind;
+	gchar *version_id;
+	GPtrArray *sections;
 
-	AsContext		*context;
+	AsContext *context;
 } AsAgreementPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsAgreement, as_agreement, G_TYPE_OBJECT)
@@ -87,7 +87,7 @@ as_agreement_class_init (AsAgreementClass *klass)
  *
  * Since: 0.12.1
  **/
-const gchar*
+const gchar *
 as_agreement_kind_to_string (AsAgreementKind value)
 {
 	if (value == AS_AGREEMENT_KIND_GENERIC)
@@ -166,7 +166,7 @@ as_agreement_set_kind (AsAgreement *agreement, AsAgreementKind kind)
  *
  * Since: 0.12.1
  **/
-const gchar*
+const gchar *
 as_agreement_get_version_id (AsAgreement *agreement)
 {
 	AsAgreementPrivate *priv = GET_PRIVATE (agreement);
@@ -199,7 +199,7 @@ as_agreement_set_version_id (AsAgreement *agreement, const gchar *version_id)
  *
  * Since: 0.12.1
  **/
-GPtrArray*
+GPtrArray *
 as_agreement_get_sections (AsAgreement *agreement)
 {
 	AsAgreementPrivate *priv = GET_PRIVATE (agreement);
@@ -250,7 +250,7 @@ as_agreement_add_section (AsAgreement *agreement, AsAgreementSection *agreement_
  *
  * Since: 0.12.1
  */
-AsContext*
+AsContext *
 as_agreement_get_context (AsAgreement *agreement)
 {
 	AsAgreementPrivate *priv = GET_PRIVATE (agreement);
@@ -312,10 +312,13 @@ as_agreement_load_from_xml (AsAgreement *agreement, AsContext *ctx, xmlNode *nod
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 ((gchar*) iter->name, "agreement_section") == 0) {
+		if (g_strcmp0 ((gchar *) iter->name, "agreement_section") == 0) {
 			g_autoptr(AsAgreementSection) asection = as_agreement_section_new ();
 
-			if (!as_agreement_section_load_from_xml (asection, priv->context, iter, error))
+			if (!as_agreement_section_load_from_xml (asection,
+								 priv->context,
+								 iter,
+								 error))
 				return FALSE;
 			as_agreement_add_section (agreement, asection);
 		}
@@ -344,7 +347,8 @@ as_agreement_to_xml_node (AsAgreement *agreement, AsContext *ctx, xmlNode *root)
 	as_xml_add_text_prop (agnode, "version_id", priv->version_id);
 
 	for (i = 0; i < priv->sections->len; i++) {
-		AsAgreementSection *agsec = AS_AGREEMENT_SECTION (g_ptr_array_index (priv->sections, i));
+		AsAgreementSection *agsec = AS_AGREEMENT_SECTION (
+		    g_ptr_array_index (priv->sections, i));
 		as_agreement_section_to_xml_node (agsec, ctx, agnode);
 	}
 }
@@ -418,7 +422,8 @@ as_agreement_emit_yaml (AsAgreement *agreement, AsContext *ctx, yaml_emitter_t *
 	as_yaml_emit_scalar (emitter, "sections");
 	as_yaml_sequence_start (emitter);
 	for (guint i = 0; i < priv->sections->len; i++) {
-		AsAgreementSection *asec = AS_AGREEMENT_SECTION (g_ptr_array_index (priv->sections, i));
+		AsAgreementSection *asec = AS_AGREEMENT_SECTION (
+		    g_ptr_array_index (priv->sections, i));
 		as_agreement_section_emit_yaml (asec, ctx, emitter);
 	}
 	as_yaml_sequence_end (emitter);
@@ -436,7 +441,7 @@ as_agreement_emit_yaml (AsAgreement *agreement, AsContext *ctx, yaml_emitter_t *
  *
  * Since: 0.12.1
  **/
-AsAgreement*
+AsAgreement *
 as_agreement_new (void)
 {
 	AsAgreement *agreement;

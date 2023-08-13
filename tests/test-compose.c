@@ -34,8 +34,7 @@
 
 static gchar *datadir = NULL;
 
-typedef struct
-{
+typedef struct {
 	gchar *path;
 } Fixture;
 
@@ -48,12 +47,12 @@ asc_assert_no_hints_in_result (AscResult *cres)
 	g_autoptr(GPtrArray) hints = asc_result_fetch_hints_all (cres);
 
 	if (hints->len > 0) {
-		g_printerr("--------\nHints:");
+		g_printerr ("--------\nHints:");
 		for (guint i = 0; i < hints->len; i++) {
 			g_autofree gchar *text = NULL;
 			AscHint *hint = ASC_HINT (g_ptr_array_index (hints, i));
 			text = asc_hint_format_explanation (hint);
-			g_printerr("\n%s\n", text);
+			g_printerr ("\n%s\n", text);
 		}
 	}
 	g_assert_cmpint (hints->len, ==, 0);
@@ -121,16 +120,14 @@ test_compose_issue_tag_sanity (void)
 	g_autoptr(GHashTable) tag_map = NULL;
 	g_auto(GStrv) all_hint_tags = NULL;
 
-	tag_map = g_hash_table_new_full (g_str_hash,
-					 g_str_equal,
-					 NULL,
-					 NULL);
+	tag_map = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, NULL);
 
 	all_hint_tags = asc_globals_get_hint_tags ();
 	for (guint i = 0; all_hint_tags[i] != NULL; i++) {
 		gboolean r = g_hash_table_add (tag_map, all_hint_tags[i]);
 		if (!r) {
-			g_critical ("Duplicate compose issue-tag '%s' found in tag list.", all_hint_tags[i]);
+			g_critical ("Duplicate compose issue-tag '%s' found in tag list.",
+				    all_hint_tags[i]);
 			g_assert_not_reached ();
 		}
 	}
@@ -151,17 +148,26 @@ test_read_fontinfo (void)
 	gsize data_len;
 	g_autoptr(GList) lang_list = NULL;
 	guint i;
-	const gchar *expected_langs[] =  { "aa", "ab", "af", "ak", "an", "ast", "av", "ay", "az-az", "ba", "be", "ber-dz", "bg", "bi", "bin",
-					   "bm", "br", "bs", "bua", "ca", "ce", "ch", "chm", "co", "crh", "cs", "csb", "cu", "cv", "cy", "da",
-					   "de", "ee", "el", "en", "eo", "es", "et", "eu", "fat", "ff", "fi", "fil", "fj", "fo", "fr", "fur",
-					   "fy", "ga", "gd", "gl", "gn", "gv", "ha", "haw", "ho", "hr", "hsb", "ht", "hu", "hz", "ia", "id",
-					   "ie", "ig", "ik", "io", "is", "it", "jv", "kaa", "kab", "ki", "kj", "kk", "kl", "kr", "ku-am",
-					   "ku-tr", "kum", "kv", "kw", "kwm", "ky", "la", "lb", "lez", "lg", "li", "ln", "lt","lv", "mg", "mh",
-					   "mi", "mk", "mn-mn", "mo", "ms", "mt", "na", "nb", "nds", "ng", "nl", "nn", "no", "nr", "nso", "nv",
-					   "ny", "oc", "om", "os", "pap-an", "pap-aw", "pl", "pt", "qu", "quz", "rm", "rn", "ro", "ru", "rw",
-					   "sah", "sc", "sco", "se", "sel", "sg", "sh", "shs", "sk", "sl", "sm","sma", "smj", "smn", "sms", "sn",
-					   "so", "sq", "sr", "ss", "st", "su", "sv", "sw", "tg", "tk", "tl", "tn", "to", "tr", "ts", "tt", "tw",
-					   "ty", "tyv", "uk", "uz", "ve", "vi", "vo", "vot", "wa", "wen", "wo", "xh", "yap", "yo", "za", "zu", NULL };
+	const gchar *expected_langs[] = {
+		"aa",  "ab",	 "af",	"ak", "an",	"ast",	  "av",	   "ay",    "az-az", "ba",
+		"be",  "ber-dz", "bg",	"bi", "bin",	"bm",	  "br",	   "bs",    "bua",   "ca",
+		"ce",  "ch",	 "chm", "co", "crh",	"cs",	  "csb",   "cu",    "cv",    "cy",
+		"da",  "de",	 "ee",	"el", "en",	"eo",	  "es",	   "et",    "eu",    "fat",
+		"ff",  "fi",	 "fil", "fj", "fo",	"fr",	  "fur",   "fy",    "ga",    "gd",
+		"gl",  "gn",	 "gv",	"ha", "haw",	"ho",	  "hr",	   "hsb",   "ht",    "hu",
+		"hz",  "ia",	 "id",	"ie", "ig",	"ik",	  "io",	   "is",    "it",    "jv",
+		"kaa", "kab",	 "ki",	"kj", "kk",	"kl",	  "kr",	   "ku-am", "ku-tr", "kum",
+		"kv",  "kw",	 "kwm", "ky", "la",	"lb",	  "lez",   "lg",    "li",    "ln",
+		"lt",  "lv",	 "mg",	"mh", "mi",	"mk",	  "mn-mn", "mo",    "ms",    "mt",
+		"na",  "nb",	 "nds", "ng", "nl",	"nn",	  "no",	   "nr",    "nso",   "nv",
+		"ny",  "oc",	 "om",	"os", "pap-an", "pap-aw", "pl",	   "pt",    "qu",    "quz",
+		"rm",  "rn",	 "ro",	"ru", "rw",	"sah",	  "sc",	   "sco",   "se",    "sel",
+		"sg",  "sh",	 "shs", "sk", "sl",	"sm",	  "sma",   "smj",   "smn",   "sms",
+		"sn",  "so",	 "sq",	"sr", "ss",	"st",	  "su",	   "sv",    "sw",    "tg",
+		"tk",  "tl",	 "tn",	"to", "tr",	"ts",	  "tt",	   "tw",    "ty",    "tyv",
+		"uk",  "uz",	 "ve",	"vi", "vo",	"vot",	  "wa",	   "wen",   "wo",    "xh",
+		"yap", "yo",	 "za",	"zu", NULL
+	};
 
 	font_fname = g_build_filename (datadir, "NotoSans-Regular.ttf", NULL);
 
@@ -183,7 +189,9 @@ test_read_fontinfo (void)
 	g_assert_cmpstr (asc_font_get_style (font), ==, "Regular");
 	g_assert_cmpint (asc_font_get_charset (font), ==, FT_ENCODING_UNICODE);
 	g_assert_cmpstr (asc_font_get_homepage (font), ==, "http://www.monotype.com/studio");
-	g_assert_cmpstr (asc_font_get_description (font), ==, "Data hinted. Designed by Monotype design team.");
+	g_assert_cmpstr (asc_font_get_description (font),
+			 ==,
+			 "Data hinted. Designed by Monotype design team.");
 
 	lang_list = asc_font_get_language_list (font);
 	i = 0;
@@ -194,11 +202,19 @@ test_read_fontinfo (void)
 	}
 
 	/* uses "Noto Sans" */
-	g_assert_cmpstr (asc_font_get_sample_text (font), ==, "My grandfather picks up quartz and valuable onyx jewels.");
-	g_assert_cmpstr (asc_font_find_pangram(font, "en", "Noto Sans"), ==, "My grandfather picks up quartz and valuable onyx jewels.");
+	g_assert_cmpstr (asc_font_get_sample_text (font),
+			 ==,
+			 "My grandfather picks up quartz and valuable onyx jewels.");
+	g_assert_cmpstr (asc_font_find_pangram (font, "en", "Noto Sans"),
+			 ==,
+			 "My grandfather picks up quartz and valuable onyx jewels.");
 
-	g_assert_cmpstr (asc_font_find_pangram(font, "en", "aaaaa"), ==, "Pack my box with five dozen liquor jugs.");
-	g_assert_cmpstr (asc_font_find_pangram(font, "en", "abcdefg"), ==, "Five or six big jet planes zoomed quickly past the tower.");
+	g_assert_cmpstr (asc_font_find_pangram (font, "en", "aaaaa"),
+			 ==,
+			 "Pack my box with five dozen liquor jugs.");
+	g_assert_cmpstr (asc_font_find_pangram (font, "en", "abcdefg"),
+			 ==,
+			 "Five or six big jet planes zoomed quickly past the tower.");
 }
 
 /**
@@ -227,10 +243,7 @@ test_image_transform (void)
 	sample_img_fname = g_build_filename (datadir, "appstream-logo.png", NULL);
 
 	/* load image from file */
-	image = asc_image_new_from_file (sample_img_fname,
-					 0,
-					 ASC_IMAGE_LOAD_FLAG_NONE,
-					 &error);
+	image = asc_image_new_from_file (sample_img_fname, 0, ASC_IMAGE_LOAD_FLAG_NONE, &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (image);
 
@@ -243,10 +256,11 @@ test_image_transform (void)
 	g_assert_cmpint (asc_image_get_height (image), ==, 64);
 
 	ret = asc_image_save_filename (image,
-				      "/tmp/asc-iscale_test.png",
-				      0, 0,
-				      ASC_IMAGE_SAVE_FLAG_NONE,
-				      &error);
+				       "/tmp/asc-iscale_test.png",
+				       0,
+				       0,
+				       ASC_IMAGE_SAVE_FLAG_NONE,
+				       &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 
@@ -257,7 +271,8 @@ test_image_transform (void)
 	g_file_get_contents (sample_img_fname, &data, &data_len, &error);
 	g_assert_no_error (error);
 
-	image = asc_image_new_from_data (data, data_len,
+	image = asc_image_new_from_data (data,
+					 data_len,
 					 0,
 					 FALSE,
 					 ASC_IMAGE_LOAD_FLAG_NONE,
@@ -267,10 +282,11 @@ test_image_transform (void)
 
 	asc_image_scale (image, 124, 124);
 	ret = asc_image_save_filename (image,
-				      "/tmp/asc-iscale-d_test.png",
-				      0, 0,
-				      ASC_IMAGE_SAVE_FLAG_NONE,
-				      &error);
+				       "/tmp/asc-iscale-d_test.png",
+				       0,
+				       0,
+				       ASC_IMAGE_SAVE_FLAG_NONE,
+				       &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 }
@@ -317,11 +333,13 @@ test_canvas (void)
 
 	cv = asc_canvas_new (400, 100);
 
-	asc_canvas_draw_text (cv,
-			      font,
-			      "Hello World!\nSecond Line!\nThird line - äöüß!\nA very, very, very long line.",
-			      -1, -1,
-			      &error);
+	asc_canvas_draw_text (
+	    cv,
+	    font,
+	    "Hello World!\nSecond Line!\nThird line - äöüß!\nA very, very, very long line.",
+	    -1,
+	    -1,
+	    &error);
 	g_assert_no_error (error);
 
 	asc_canvas_save_png (cv, "/tmp/asc-fontrender_test1.png", &error);
@@ -346,7 +364,9 @@ test_compose_hints (void)
 
 	g_assert_cmpstr (asc_hint_get_tag (hint), ==, "internal-unknown-tag");
 	g_assert_cmpint (asc_hint_get_severity (hint), ==, AS_ISSUE_SEVERITY_ERROR);
-	g_assert_cmpstr (asc_hint_get_explanation_template (hint), ==, "The given tag was unknown. Please file an issue against AppStream.");
+	g_assert_cmpstr (asc_hint_get_explanation_template (hint),
+			 ==,
+			 "The given tag was unknown. Please file an issue against AppStream.");
 	g_assert_true (asc_hint_is_valid (hint));
 	g_assert_true (asc_hint_is_error (hint));
 
@@ -355,15 +375,19 @@ test_compose_hints (void)
 	g_assert_true (asc_hint_is_valid (hint));
 	g_assert_true (!asc_hint_is_error (hint));
 
-	asc_hint_set_explanation_template (hint,
-					   "This is an explanation for {{name}} which contains {{amount}} placeholders, "
-					   "including one {odd} one and one left {{invalid}} intentionally.");
+	asc_hint_set_explanation_template (
+	    hint,
+	    "This is an explanation for {{name}} which contains {{amount}} placeholders, "
+	    "including one {odd} one and one left {{invalid}} intentionally.");
 	asc_hint_add_explanation_var (hint, "name", "the compose testsuite");
 	asc_hint_add_explanation_var (hint, "amount", "3");
 
 	tmp = asc_hint_format_explanation (hint);
-	g_assert_cmpstr (tmp, ==, "This is an explanation for the compose testsuite which contains 3 placeholders, "
-				  "including one {odd} one and one left {{invalid}} intentionally.");
+	g_assert_cmpstr (
+	    tmp,
+	    ==,
+	    "This is an explanation for the compose testsuite which contains 3 placeholders, "
+	    "including one {odd} one and one left {{invalid}} intentionally.");
 }
 
 /**
@@ -389,9 +413,12 @@ test_compose_result (void)
 	g_assert_no_error (error);
 	g_assert_true (ret);
 
-	ret = asc_result_add_hint (cres, cpt,
+	ret = asc_result_add_hint (cres,
+				   cpt,
 				   "x-dev-testsuite-info",
-				   "var1", "testvalue-info", NULL);
+				   "var1",
+				   "testvalue-info",
+				   NULL);
 	g_assert_true (ret);
 
 	g_assert_cmpint (asc_result_components_count (cres), ==, 1);
@@ -402,9 +429,12 @@ test_compose_result (void)
 
 	g_assert_true (asc_result_get_component (cres, "org.freedesktop.appstream.dummy") == cpt);
 
-	ret = asc_result_add_hint (cres, cpt,
+	ret = asc_result_add_hint (cres,
+				   cpt,
 				   "x-dev-testsuite-error",
-				   "var1", "testvalue-error", NULL);
+				   "var1",
+				   "testvalue-error",
+				   NULL);
 	g_assert_false (ret);
 
 	/* component no longer exists after an error, so this should fail now */
@@ -443,13 +473,14 @@ test_compose_desktop_entry (void)
 	gchar *tmp;
 	AsLaunchable *launch;
 	GPtrArray *hints;
-	g_autoptr(GBytes) de_bytes = as_gbytes_from_literal ("[Desktop Entry]\n"
-							     "Type=Application\n"
-							     "Name=FooBar\n"
-							     "Name[de_DE]=FööBär\n"
-							     "Comment=A foo-ish bar.\n"
-							     "Keywords=Hobbes;Bentham;Locke;\n"
-							     "Keywords[de_DE]=Heidegger;Kant;Hegel;\n");
+	g_autoptr(GBytes) de_bytes = as_gbytes_from_literal (
+	    "[Desktop Entry]\n"
+	    "Type=Application\n"
+	    "Name=FooBar\n"
+	    "Name[de_DE]=FööBär\n"
+	    "Comment=A foo-ish bar.\n"
+	    "Keywords=Hobbes;Bentham;Locke;\n"
+	    "Keywords[de_DE]=Heidegger;Kant;Hegel;\n");
 
 	cres = asc_result_new ();
 
@@ -460,7 +491,8 @@ test_compose_desktop_entry (void)
 					    "foobar.desktop",
 					    FALSE, /* don't ignore nodisplay */
 					    AS_FORMAT_VERSION_LATEST,
-					    NULL, NULL);
+					    NULL,
+					    NULL);
 	g_assert_nonnull (cpt);
 	g_clear_pointer (&cpt, g_object_unref);
 
@@ -481,7 +513,8 @@ test_compose_desktop_entry (void)
 					    "org.example.foobar.desktop",
 					    FALSE, /* don't ignore nodisplay */
 					    AS_FORMAT_VERSION_LATEST,
-					    NULL, NULL);
+					    NULL,
+					    NULL);
 	g_assert_nonnull (cpt);
 	g_clear_pointer (&cpt, g_object_unref);
 
@@ -508,7 +541,8 @@ test_compose_desktop_entry (void)
 					    "org.example.foobar.desktop",
 					    TRUE, /* ignore nodisplay */
 					    AS_FORMAT_VERSION_LATEST,
-					    NULL, NULL);
+					    NULL,
+					    NULL);
 	g_assert_nonnull (cpt);
 	g_clear_pointer (&cpt, g_object_unref);
 
@@ -520,7 +554,6 @@ test_compose_desktop_entry (void)
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "TestX");
 	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Summary of TestX");
 
-
 	as_component_set_active_locale (cpt, "C.UTF-8");
 	tmp = as_ptr_array_strjoin (as_component_get_keywords (cpt), ", ");
 	g_assert_cmpstr (tmp, ==, "Hobbes, Bentham, Locke");
@@ -531,7 +564,9 @@ test_compose_desktop_entry (void)
 	g_assert_nonnull (launch);
 
 	g_assert_cmpint (as_launchable_get_entries (launch)->len, ==, 1);
-	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 0), ==, "org.example.foobar.desktop");
+	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 0),
+			 ==,
+			 "org.example.foobar.desktop");
 	g_clear_pointer (&cpt, g_object_unref);
 
 	/* from file with damaged UTF-8 */
@@ -548,18 +583,26 @@ test_compose_desktop_entry (void)
 					    "gnome-breakout.desktop",
 					    FALSE, /* don't ignore nodisplay */
 					    AS_FORMAT_VERSION_LATEST,
-					    NULL, NULL);
+					    NULL,
+					    NULL);
 	g_assert_nonnull (cpt);
 
 	as_component_set_active_locale (cpt, "C.UTF-8");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "GNOME Breakout");
-	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Play a clone of the classic arcade game Breakout for GNOME");
+	g_assert_cmpstr (as_component_get_summary (cpt),
+			 ==,
+			 "Play a clone of the classic arcade game Breakout for GNOME");
 	as_component_set_active_locale (cpt, "de");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "GNOME Breakout");
-	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Play a clone of the classic arcade game Breakout for GNOME"); /* not loaded, contains bad UTF-8 */
+	g_assert_cmpstr (
+	    as_component_get_summary (cpt),
+	    ==,
+	    "Play a clone of the classic arcade game Breakout for GNOME"); /* not loaded, contains bad UTF-8 */
 	as_component_set_active_locale (cpt, "tr");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Gnome Breakout");
-	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Play a clone of the classic arcade game Breakout for GNOME");
+	g_assert_cmpstr (as_component_get_summary (cpt),
+			 ==,
+			 "Play a clone of the classic arcade game Breakout for GNOME");
 
 	/* we should have two warnings about the bad UTF-8 */
 	g_assert_cmpint (asc_result_hints_count (cres), ==, 2);
@@ -631,7 +674,7 @@ test_compose_directory_unit (void)
 	data = asc_unit_read_data (ASC_UNIT (dirunit), "/usr/dummy", &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (data);
-	g_assert_cmpstr ((const gchar*) g_bytes_get_data (data, NULL), ==, "Hello Universe!\n");
+	g_assert_cmpstr ((const gchar *) g_bytes_get_data (data, NULL), ==, "Hello Universe!\n");
 
 	/* read nonexistent data */
 	g_bytes_unref (data);
@@ -674,10 +717,7 @@ test_compose_locale_stats (void)
 	g_assert_true (ret);
 
 	/* try loading a Gettext translation */
-	asc_read_translation_status (cres,
-					ASC_UNIT (dirunit),
-					"/usr",
-					25);
+	asc_read_translation_status (cres, ASC_UNIT (dirunit), "/usr", 25);
 	asc_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "en_GB"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "ru"), ==, 33);
@@ -691,10 +731,7 @@ test_compose_locale_stats (void)
 	as_translation_set_id (tr, "kdeapp1/translations/kdeapp");
 	as_component_add_translation (cpt, tr);
 
-	asc_read_translation_status (cres,
-					ASC_UNIT (dirunit),
-					"/usr",
-					25);
+	asc_read_translation_status (cres, ASC_UNIT (dirunit), "/usr", 25);
 	asc_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, -1);
@@ -708,10 +745,7 @@ test_compose_locale_stats (void)
 	as_translation_set_id (tr, "kdeapp2/translations/kdeapp");
 	as_component_add_translation (cpt, tr);
 
-	asc_read_translation_status (cres,
-					ASC_UNIT (dirunit),
-					"/usr",
-					25);
+	asc_read_translation_status (cres, ASC_UNIT (dirunit), "/usr", 25);
 	asc_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, -1);
@@ -722,10 +756,7 @@ test_compose_locale_stats (void)
 	as_translation_set_id (tr, "kdeapp3");
 	as_component_add_translation (cpt, tr);
 
-	asc_read_translation_status (cres,
-					ASC_UNIT (dirunit),
-					"/usr",
-					25);
+	asc_read_translation_status (cres, ASC_UNIT (dirunit), "/usr", 25);
 	asc_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, 100);
@@ -763,10 +794,7 @@ test_compose_source_locale (void)
 	g_assert_true (ret);
 
 	/* try loading a Gettext translation */
-	asc_read_translation_status (cres,
-					ASC_UNIT (dirunit),
-					"/usr",
-					25);
+	asc_read_translation_status (cres, ASC_UNIT (dirunit), "/usr", 25);
 	asc_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "en_GB"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "ru"), ==, 33);
@@ -797,7 +825,8 @@ test_compose_video_info (void)
 	g_assert_true (ret);
 
 	if (asc_globals_get_ffprobe_binary () == NULL) {
-		g_print ("WARNING: Skipping video info test because `ffprobe` binary was not found in PATH!\n");
+		g_print ("WARNING: Skipping video info test because `ffprobe` binary was not found "
+			 "in PATH!\n");
 		return;
 	}
 
@@ -849,7 +878,12 @@ test_compose_font (void)
 	as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_METAINFO);
 	{
 		g_autoptr(GFile) file = NULL;
-		g_autofree gchar *fname = g_build_filename (datadir, "usr", "share", "metainfo", "org.example.fonttest.metainfo.xml", NULL);
+		g_autofree gchar *fname = g_build_filename (datadir,
+							    "usr",
+							    "share",
+							    "metainfo",
+							    "org.example.fonttest.metainfo.xml",
+							    NULL);
 		file = g_file_new_for_path (fname);
 		ret = as_metadata_parse_file (mdata, file, AS_FORMAT_KIND_XML, &error);
 		g_assert_no_error (error);
@@ -870,8 +904,7 @@ test_compose_font (void)
 			   export_tmpdir,
 			   NULL, /* no icon export dir */
 			   icon_policy,
-			   ASC_COMPOSE_FLAG_STORE_SCREENSHOTS |
-			   ASC_COMPOSE_FLAG_PROCESS_FONTS);
+			   ASC_COMPOSE_FLAG_STORE_SCREENSHOTS | ASC_COMPOSE_FLAG_PROCESS_FONTS);
 	asc_assert_no_hints_in_result (cres);
 }
 
@@ -895,7 +928,12 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
-	g_test_add ("/AppStream/Compose/OptipngNotfound", Fixture, NULL, setup, test_compose_optipng_not_found, teardown);
+	g_test_add ("/AppStream/Compose/OptipngNotfound",
+		    Fixture,
+		    NULL,
+		    setup,
+		    test_compose_optipng_not_found,
+		    teardown);
 	g_test_add_func ("/AppStream/Compose/Utils", test_utils);
 	g_test_add_func ("/AppStream/Compose/IssueTagSanity", test_compose_issue_tag_sanity);
 	g_test_add_func ("/AppStream/Compose/FontInfo", test_read_fontinfo);

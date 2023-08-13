@@ -30,9 +30,8 @@
 #include "as-utils-private.h"
 #include "asc-globals-private.h"
 
-typedef struct
-{
-	GPtrArray		*entries;
+typedef struct {
+	GPtrArray *entries;
 } AscIconPolicyPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscIconPolicy, asc_icon_policy, G_TYPE_OBJECT)
@@ -47,25 +46,24 @@ G_DEFINE_TYPE_WITH_PRIVATE (AscIconPolicy, asc_icon_policy, G_TYPE_OBJECT)
  * then initialized with asc_icon_policy_iter_init().
  */
 
-typedef struct
-{
-	AscIconPolicy 	*ipolicy;
-	guint		pos;
-	gpointer	dummy3;
-	gpointer	dummy4;
-	gpointer	dummy5;
-	gpointer	dummy6;
+typedef struct {
+	AscIconPolicy *ipolicy;
+	guint pos;
+	gpointer dummy3;
+	gpointer dummy4;
+	gpointer dummy5;
+	gpointer dummy6;
 } RealIconPolicyIter;
 
 G_STATIC_ASSERT (sizeof (AscIconPolicyIter) == sizeof (RealIconPolicyIter));
 
 typedef struct {
-	guint		size;
-	guint		scale;
-	AscIconState	state;
+	guint size;
+	guint scale;
+	AscIconState state;
 } AscIconPolicyEntry;
 
-static AscIconPolicyEntry*
+static AscIconPolicyEntry *
 asc_icon_policy_entry_new (guint size, guint scale)
 {
 	AscIconPolicyEntry *entry;
@@ -86,7 +84,8 @@ static void
 asc_icon_policy_init (AscIconPolicy *ipolicy)
 {
 	AscIconPolicyPrivate *priv = GET_PRIVATE (ipolicy);
-	priv->entries = g_ptr_array_new_with_free_func ((GDestroyNotify) asc_icon_policy_entry_free);
+	priv->entries = g_ptr_array_new_with_free_func (
+	    (GDestroyNotify) asc_icon_policy_entry_free);
 
 	/* set our default policy */
 	asc_icon_policy_set_policy (ipolicy, 48, 1, ASC_ICON_STATE_CACHED_ONLY);
@@ -203,10 +202,7 @@ asc_icon_policy_iter_init (AscIconPolicyIter *iter, AscIconPolicy *ipolicy)
  * Returns: %FALSE if the last entry has been reached.
  */
 gboolean
-asc_icon_policy_iter_next (AscIconPolicyIter *iter,
-			   guint *size,
-			   guint *scale,
-			   AscIconState *state)
+asc_icon_policy_iter_next (AscIconPolicyIter *iter, guint *size, guint *scale, AscIconState *state)
 {
 	AscIconPolicyPrivate *priv;
 	AscIconPolicyEntry *entry = NULL;
@@ -239,7 +235,7 @@ asc_icon_policy_iter_next (AscIconPolicyIter *iter,
  *
  * Creates a new #AscIconPolicy.
  **/
-AscIconPolicy*
+AscIconPolicy *
 asc_icon_policy_new (void)
 {
 	AscIconPolicy *ipolicy;

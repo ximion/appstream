@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -34,8 +34,7 @@ G_BEGIN_DECLS
 #define AS_TYPE_SYSTEM_INFO (as_system_info_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsSystemInfo, as_system_info, AS, SYSTEM_INFO, GObject)
 
-struct _AsSystemInfoClass
-{
+struct _AsSystemInfoClass {
 	GObjectClass parent_class;
 	/*< private >*/
 	void (*_as_reserved1) (void);
@@ -60,48 +59,44 @@ typedef enum {
 	AS_SYSTEM_INFO_ERROR_LAST
 } AsSystemInfoError;
 
-#define	AS_SYSTEM_INFO_ERROR				as_system_info_error_quark ()
+#define AS_SYSTEM_INFO_ERROR as_system_info_error_quark ()
 
-GQuark		 	as_system_info_error_quark (void);
+GQuark	      as_system_info_error_quark (void);
 
-AsSystemInfo		*as_system_info_new (void);
+AsSystemInfo *as_system_info_new (void);
 
-const gchar		*as_system_info_get_os_id (AsSystemInfo *sysinfo);
-const gchar		*as_system_info_get_os_cid (AsSystemInfo *sysinfo);
-const gchar		*as_system_info_get_os_name (AsSystemInfo *sysinfo);
-const gchar		*as_system_info_get_os_version (AsSystemInfo *sysinfo);
-const gchar		*as_system_info_get_os_homepage (AsSystemInfo *sysinfo);
+const gchar  *as_system_info_get_os_id (AsSystemInfo *sysinfo);
+const gchar  *as_system_info_get_os_cid (AsSystemInfo *sysinfo);
+const gchar  *as_system_info_get_os_name (AsSystemInfo *sysinfo);
+const gchar  *as_system_info_get_os_version (AsSystemInfo *sysinfo);
+const gchar  *as_system_info_get_os_homepage (AsSystemInfo *sysinfo);
 
-const gchar		*as_system_info_get_kernel_name (AsSystemInfo *sysinfo);
-const gchar		*as_system_info_get_kernel_version (AsSystemInfo *sysinfo);
+const gchar  *as_system_info_get_kernel_name (AsSystemInfo *sysinfo);
+const gchar  *as_system_info_get_kernel_version (AsSystemInfo *sysinfo);
 
-gulong			as_system_info_get_memory_total (AsSystemInfo *sysinfo);
+gulong	      as_system_info_get_memory_total (AsSystemInfo *sysinfo);
 
-GPtrArray		*as_system_info_get_modaliases (AsSystemInfo *sysinfo);
-const gchar		*as_system_info_modalias_to_syspath (AsSystemInfo *sysinfo,
-							     const gchar *modalias);
-gboolean		as_system_info_has_device_matching_modalias (AsSystemInfo *sysinfo,
-								     const gchar *modalias_glob);
+GPtrArray    *as_system_info_get_modaliases (AsSystemInfo *sysinfo);
+const gchar  *as_system_info_modalias_to_syspath (AsSystemInfo *sysinfo, const gchar *modalias);
+gboolean      as_system_info_has_device_matching_modalias (AsSystemInfo *sysinfo,
+							   const gchar	*modalias_glob);
 
-gchar			*as_system_info_get_device_name_for_modalias (AsSystemInfo *sysinfo,
-								      const gchar *modalias,
-								      gboolean allow_fallback,
-								      GError **error);
+gchar	     *as_system_info_get_device_name_for_modalias (AsSystemInfo *sysinfo,
+							   const gchar	*modalias,
+							   gboolean	 allow_fallback,
+							   GError      **error);
 
-AsCheckResult		as_system_info_has_input_control (AsSystemInfo *sysinfo,
-							  AsControlKind kind,
-							  GError **error);
-void			as_system_info_set_input_control (AsSystemInfo *sysinfo,
-							  AsControlKind kind,
-							  gboolean found);
+AsCheckResult as_system_info_has_input_control (AsSystemInfo *sysinfo,
+						AsControlKind kind,
+						GError	    **error);
+void   as_system_info_set_input_control (AsSystemInfo *sysinfo, AsControlKind kind, gboolean found);
 
-gulong			as_system_info_get_display_length (AsSystemInfo *sysinfo,
-							   AsDisplaySideKind side);
-void			as_system_info_set_display_length (AsSystemInfo *sysinfo,
-							   AsDisplaySideKind side,
-							   gulong value_dip);
+gulong as_system_info_get_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side);
+void   as_system_info_set_display_length (AsSystemInfo	   *sysinfo,
+					  AsDisplaySideKind side,
+					  gulong	    value_dip);
 
-gchar 			*as_get_current_distro_component_id (void);
+gchar *as_get_current_distro_component_id (void);
 
 G_END_DECLS
 

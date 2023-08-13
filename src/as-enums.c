@@ -36,7 +36,7 @@
  *
  * Since: 0.10
  **/
-const gchar*
+const gchar *
 as_format_kind_to_string (AsFormatKind kind)
 {
 	if (kind == AS_FORMAT_KIND_XML)
@@ -74,7 +74,7 @@ as_format_kind_from_string (const gchar *kind_str)
  *
  * Returns: string version of @url_kind
  **/
-const gchar*
+const gchar *
 as_url_kind_to_string (AsUrlKind url_kind)
 {
 	if (url_kind == AS_URL_KIND_HOMEPAGE)
@@ -140,7 +140,7 @@ as_url_kind_from_string (const gchar *url_kind)
  *
  * Since: 0.6.5
  **/
-const gchar*
+const gchar *
 as_urgency_kind_to_string (AsUrgencyKind urgency_kind)
 {
 	if (urgency_kind == AS_URGENCY_KIND_LOW)

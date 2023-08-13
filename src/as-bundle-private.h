@@ -28,21 +28,11 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-gboolean	as_bundle_load_from_xml (AsBundle *bundle,
-					AsContext *ctx,
-					xmlNode *node,
-					GError **error);
-void		as_bundle_to_xml_node (AsBundle *bundle,
-				       AsContext *ctx,
-				       xmlNode *root);
+gboolean as_bundle_load_from_xml (AsBundle *bundle, AsContext *ctx, xmlNode *node, GError **error);
+void	 as_bundle_to_xml_node (AsBundle *bundle, AsContext *ctx, xmlNode *root);
 
-gboolean	as_bundle_load_from_yaml (AsBundle *bundle,
-					  AsContext *ctx,
-					  GNode *node,
-					  GError **error);
-void		as_bundle_emit_yaml (AsBundle *bundle,
-					AsContext *ctx,
-					yaml_emitter_t *emitter);
+gboolean as_bundle_load_from_yaml (AsBundle *bundle, AsContext *ctx, GNode *node, GError **error);
+void	 as_bundle_emit_yaml (AsBundle *bundle, AsContext *ctx, yaml_emitter_t *emitter);
 
 #pragma GCC visibility pop
 G_END_DECLS

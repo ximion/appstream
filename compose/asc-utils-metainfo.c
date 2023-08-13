@@ -46,8 +46,11 @@
  *
  * Returns: (transfer full): A new #AsComponent or %NULL if we refused to accept this data.
  **/
-AsComponent*
-asc_parse_metainfo_data (AscResult *cres, AsMetadata *mdata, GBytes *bytes, const gchar *mi_basename)
+AsComponent *
+asc_parse_metainfo_data (AscResult *cres,
+			 AsMetadata *mdata,
+			 GBytes *bytes,
+			 const gchar *mi_basename)
 {
 	g_autoptr(GError) error = NULL;
 	AsComponent *cpt;
@@ -55,10 +58,13 @@ asc_parse_metainfo_data (AscResult *cres, AsMetadata *mdata, GBytes *bytes, cons
 	g_return_val_if_fail (mi_basename != NULL, NULL);
 
 	if (!as_metadata_parse_bytes (mdata, bytes, AS_FORMAT_KIND_XML, &error)) {
-		asc_result_add_hint (cres, NULL,
+		asc_result_add_hint (cres,
+				     NULL,
 				     "ancient-metadata",
-				     "fname", mi_basename,
-				     "error", error->message,
+				     "fname",
+				     mi_basename,
+				     "error",
+				     error->message,
 				     NULL);
 		return NULL;
 	}
@@ -69,10 +75,7 @@ asc_parse_metainfo_data (AscResult *cres, AsMetadata *mdata, GBytes *bytes, cons
 
 	/* check if we have a component-id, a component without ID is invalid */
 	if (as_is_empty (as_component_get_id (cpt))) {
-		asc_result_add_hint (cres, NULL,
-				     "metainfo-no-id",
-				     "fname", mi_basename,
-				     NULL);
+		asc_result_add_hint (cres, NULL, "metainfo-no-id", "fname", mi_basename, NULL);
 		return NULL;
 	}
 
@@ -82,9 +85,11 @@ asc_parse_metainfo_data (AscResult *cres, AsMetadata *mdata, GBytes *bytes, cons
 
 	/* check if we can actually legally use this metadata */
 	if (!as_license_is_metadata_license (as_component_get_metadata_license (cpt))) {
-		asc_result_add_hint (cres, cpt,
+		asc_result_add_hint (cres,
+				     cpt,
 				     "metainfo-license-invalid",
-				     "license", as_component_get_metadata_license (cpt),
+				     "license",
+				     as_component_get_metadata_license (cpt),
 				     NULL);
 		return NULL;
 	}
@@ -109,7 +114,7 @@ asc_parse_metainfo_data (AscResult *cres, AsMetadata *mdata, GBytes *bytes, cons
  *
  * Returns: (transfer full): A new #AsComponent or %NULL if we refused to accept this data.
  **/
-AsComponent*
+AsComponent *
 asc_parse_metainfo_data_simple (AscResult *cres, GBytes *bytes, const gchar *mi_basename)
 {
 	g_autoptr(AsMetadata) mdata = as_metadata_new ();
@@ -117,10 +122,7 @@ asc_parse_metainfo_data_simple (AscResult *cres, GBytes *bytes, const gchar *mi_
 	as_metadata_set_locale (mdata, "ALL");
 	as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_METAINFO);
 
-	return asc_parse_metainfo_data (cres,
-					mdata,
-					bytes,
-					mi_basename);
+	return asc_parse_metainfo_data (cres, mdata, bytes, mi_basename);
 }
 
 /**
@@ -160,10 +162,13 @@ asc_process_metainfo_releases (AscResult *cres,
 
 			relmd_bytes = as_curl_download_bytes (acurl, releases_url, &local_error);
 			if (relmd_bytes == NULL) {
-				asc_result_add_hint (cres, NULL,
+				asc_result_add_hint (cres,
+						     NULL,
 						     "metainfo-releases-download-failed",
-						     "url", releases_url,
-						     "msg", local_error->message,
+						     "url",
+						     releases_url,
+						     "msg",
+						     local_error->message,
 						     NULL);
 				goto out;
 			}
@@ -174,16 +179,21 @@ asc_process_metainfo_releases (AscResult *cres,
 			g_autofree gchar *relfile_name = NULL;
 			g_autofree gchar *tmp = NULL;
 
-			relfile_name = g_strconcat (as_component_get_id (cpt), ".releases.xml", NULL);
+			relfile_name = g_strconcat (as_component_get_id (cpt),
+						    ".releases.xml",
+						    NULL);
 			tmp = g_path_get_dirname (mi_filename);
 			relfile_path = g_build_filename (tmp, "releases", relfile_name, NULL);
 
 			relmd_bytes = asc_unit_read_data (unit, relfile_path, &local_error);
 			if (relmd_bytes == NULL) {
-				asc_result_add_hint (cres, NULL,
+				asc_result_add_hint (cres,
+						     NULL,
 						     "file-read-error",
-						     "fname", relfile_path,
-						     "msg", local_error->message,
+						     "fname",
+						     relfile_path,
+						     "msg",
+						     local_error->message,
 						     NULL);
 				goto out;
 			}
@@ -191,11 +201,14 @@ asc_process_metainfo_releases (AscResult *cres,
 		}
 
 		if (!as_component_load_releases_from_bytes (cpt, relmd_bytes, &local_error)) {
-			asc_result_add_hint (cres, NULL,
-						"metainfo-releases-read-failed",
-						"path", relmd_uri,
-						"msg", local_error->message,
-						NULL);
+			asc_result_add_hint (cres,
+					     NULL,
+					     "metainfo-releases-read-failed",
+					     "path",
+					     relmd_uri,
+					     "msg",
+					     local_error->message,
+					     NULL);
 			goto out;
 		}
 	}
@@ -249,13 +262,16 @@ asc_validate_metainfo_data_for_component (AscResult *cres,
 	/* add release data if we have any */
 	if (relmd_bytes != NULL) {
 		g_autoptr(GError) tmp_error = NULL;
-		g_autofree gchar *release_name = g_strconcat (as_component_get_id (cpt), ".releases.xml", NULL);
+		g_autofree gchar *release_name = g_strconcat (as_component_get_id (cpt),
+							      ".releases.xml",
+							      NULL);
 		if (!as_validator_add_release_bytes (validator,
 						     release_name,
 						     relmd_bytes,
 						     &tmp_error))
 			g_warning ("Failed to add release metadata for %s: %s",
-				   as_component_get_id (cpt), tmp_error->message);
+				   as_component_get_id (cpt),
+				   tmp_error->message);
 	}
 
 	/* validate */
@@ -265,8 +281,8 @@ asc_validate_metainfo_data_for_component (AscResult *cres,
 	issues_files = as_validator_get_issues_per_file (validator);
 	g_hash_table_iter_init (&hiter, issues_files);
 	while (g_hash_table_iter_next (&hiter, &hkey, &hvalue)) {
-		const gchar *filename = (const gchar*) hkey;
-		const GPtrArray *issues = (const GPtrArray*) hvalue;
+		const gchar *filename = (const gchar *) hkey;
+		const GPtrArray *issues = (const GPtrArray *) hvalue;
 
 		if (filename == NULL)
 			filename = mi_basename;
@@ -276,19 +292,19 @@ asc_validate_metainfo_data_for_component (AscResult *cres,
 			g_autofree gchar *location = NULL;
 			glong line;
 			const gchar *issue_hint;
-			AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (g_ptr_array_index (issues, i));
+			AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (
+			    g_ptr_array_index (issues, i));
 
 			/* we have a special hint tag for legacy metadata,
 			* with its proper "error" priority */
-			if (g_strcmp0 (as_validator_issue_get_tag (issue), "metainfo-ancient") == 0) {
+			if (g_strcmp0 (as_validator_issue_get_tag (issue), "metainfo-ancient") ==
+			    0) {
 				asc_result_add_hint_simple (cres, cpt, "ancient-metadata");
 				continue;
 			}
 
 			/* create a tag for asgen out of the AppStream validator tag by prefixing it */
-			asv_tag = g_strconcat ("asv-",
-					as_validator_issue_get_tag (issue),
-					NULL);
+			asv_tag = g_strconcat ("asv-", as_validator_issue_get_tag (issue), NULL);
 
 			line = as_validator_issue_get_line (issue);
 			if (line >= 0)
@@ -302,10 +318,13 @@ asc_validate_metainfo_data_for_component (AscResult *cres,
 			issue_hint = as_validator_issue_get_hint (issue);
 			if (issue_hint == NULL)
 				issue_hint = "";
-			asc_result_add_hint (cres, cpt,
+			asc_result_add_hint (cres,
+					     cpt,
 					     asv_tag,
-					     "location", location,
-					     "hint", issue_hint,
+					     "location",
+					     location,
+					     "hint",
+					     issue_hint,
 					     NULL);
 		}
 	}
@@ -327,13 +346,15 @@ asc_validate_metainfo_data_for_component (AscResult *cres,
  * Returns: (nullable) (transfer full): A new #AsComponent or reference to the existing #AsComponent passed as parameter in case
  *                                      we parsed anything. %NULL if we refused to accept this data.
  */
-AsComponent*
+AsComponent *
 asc_parse_desktop_entry_data (AscResult *cres,
 			      AsComponent *cpt,
-			      GBytes *bytes, const gchar *de_basename,
+			      GBytes *bytes,
+			      const gchar *de_basename,
 			      gboolean ignore_nodisplay,
 			      AsFormatVersion fversion,
-			      AscTranslateDesktopTextFn de_l10n_fn, gpointer user_data)
+			      AscTranslateDesktopTextFn de_l10n_fn,
+			      gpointer user_data)
 {
 	g_autoptr(AsComponent) ncpt = NULL;
 	g_autoptr(GPtrArray) issues = NULL;
@@ -365,10 +386,13 @@ asc_parse_desktop_entry_data (AscResult *cres,
 
 	/* sanity check */
 	if (data_len == 0) {
-		asc_result_add_hint_by_cid (cres, de_basename,
+		asc_result_add_hint_by_cid (cres,
+					    de_basename,
 					    "desktop-file-error",
-					    "msg", "Desktop file was empty or nonexistent. "
-						   "Please ensure that it isn't a symbolic link to contents of a different package.",
+					    "msg",
+					    "Desktop file was empty or nonexistent. "
+					    "Please ensure that it isn't a symbolic link to "
+					    "contents of a different package.",
 					    NULL);
 		return NULL;
 	}
@@ -384,9 +408,11 @@ asc_parse_desktop_entry_data (AscResult *cres,
 					   user_data,
 					   &error);
 	if (error != NULL) {
-		asc_result_add_hint_by_cid (cres, de_basename,
+		asc_result_add_hint_by_cid (cres,
+					    de_basename,
 					    "desktop-file-error",
-					    "msg", error->message,
+					    "msg",
+					    error->message,
 					    NULL);
 		return NULL;
 	}
@@ -436,17 +462,18 @@ asc_parse_desktop_entry_data (AscResult *cres,
 			/* these tags get special treatment with links & co */
 			asv_tag = g_strdup (orig_tag);
 		} else {
-			asv_tag = g_strconcat ("asv-",
-						orig_tag,
-						NULL);
+			asv_tag = g_strconcat ("asv-", orig_tag, NULL);
 		}
 		issue_hint = as_validator_issue_get_hint (issue);
 		if (issue_hint == NULL)
 			issue_hint = "";
-		asc_result_add_hint (cres, ncpt,
+		asc_result_add_hint (cres,
+				     ncpt,
 				     asv_tag,
-				     "location", de_basename,
-				     "hint", issue_hint,
+				     "location",
+				     de_basename,
+				     "hint",
+				     issue_hint,
 				     NULL);
 	}
 

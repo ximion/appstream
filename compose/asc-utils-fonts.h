@@ -31,11 +31,11 @@
 AS_BEGIN_PRIVATE_DECLS
 
 AS_INTERNAL_VISIBLE
-void		asc_process_fonts (AscResult *cres,
-				   AscUnit *unit,
-				   const gchar *media_export_root,
-				   const gchar *icons_export_dir,
-				   AscIconPolicy *icon_policy,
-				   AscComposeFlags flags);
+void asc_process_fonts (AscResult      *cres,
+			AscUnit	       *unit,
+			const gchar    *media_export_root,
+			const gchar    *icons_export_dir,
+			AscIconPolicy  *icon_policy,
+			AscComposeFlags flags);
 
 AS_END_PRIVATE_DECLS

@@ -7,17 +7,15 @@
 
 G_BEGIN_DECLS
 
-gboolean	as_test_compare_lines (const gchar *txt1,
-				       const gchar *txt2);
+gboolean as_test_compare_lines (const gchar *txt1, const gchar *txt2);
 
-void 		as_component_sort_values (AsComponent *cpt);
-void 		as_sort_components (GPtrArray *cpts);
-void 		as_sort_strings (GPtrArray *utf8);
+void	 as_component_sort_values (AsComponent *cpt);
+void	 as_sort_components (GPtrArray *cpts);
+void	 as_sort_strings (GPtrArray *utf8);
 
-GBytes		*as_gbytes_from_literal (const gchar *string);
+GBytes	*as_gbytes_from_literal (const gchar *string);
 
-gchar		*as_ptr_array_strjoin (GPtrArray *array,
-				       const gchar *sep);
+gchar	*as_ptr_array_strjoin (GPtrArray *array, const gchar *sep);
 
 G_END_DECLS
 

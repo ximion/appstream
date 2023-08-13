@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_COMPOSE_H) && !defined (ASC_COMPILATION)
+#if !defined(__APPSTREAM_COMPOSE_H) && !defined(ASC_COMPILATION)
 #error "Only <appstream-compose.h> can be included directly."
 #endif
 #pragma once
@@ -31,8 +31,7 @@ G_BEGIN_DECLS
 #define ASC_TYPE_DIRECTORY_UNIT (asc_directory_unit_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AscDirectoryUnit, asc_directory_unit, ASC, DIRECTORY_UNIT, AscUnit)
 
-struct _AscDirectoryUnitClass
-{
+struct _AscDirectoryUnitClass {
 	AscUnitClass parent_class;
 
 	/*< private >*/
@@ -42,10 +41,9 @@ struct _AscDirectoryUnitClass
 	void (*_as_reserved4) (void);
 };
 
-AscDirectoryUnit	*asc_directory_unit_new (const gchar *root_dir);
+AscDirectoryUnit *asc_directory_unit_new (const gchar *root_dir);
 
-const gchar		*asc_directory_unit_get_root (AscDirectoryUnit *dirunit);
-void			asc_directory_unit_set_root (AscDirectoryUnit *dirunit,
-						     const gchar *root_dir);
+const gchar	 *asc_directory_unit_get_root (AscDirectoryUnit *dirunit);
+void		  asc_directory_unit_set_root (AscDirectoryUnit *dirunit, const gchar *root_dir);
 
 G_END_DECLS

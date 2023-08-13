@@ -42,8 +42,7 @@
  * See also: #AsComponent
  */
 
-typedef struct
-{
+typedef struct {
 	AsRelationKind kind;
 	AsRelationItemKind item_kind;
 	AsRelationCompare compare;
@@ -82,7 +81,7 @@ G_DEFINE_QUARK (as-relation-error-quark, as_relation_error)
  *
  * Since: 0.12.0
  **/
-const gchar*
+const gchar *
 as_relation_kind_to_string (AsRelationKind kind)
 {
 	if (kind == AS_RELATION_KIND_REQUIRES)
@@ -126,7 +125,7 @@ as_relation_kind_from_string (const gchar *kind_str)
  *
  * Since: 0.12.0
  **/
-const gchar*
+const gchar *
 as_relation_item_kind_to_string (AsRelationItemKind kind)
 {
 	if (kind == AS_RELATION_ITEM_KIND_ID)
@@ -243,7 +242,7 @@ as_relation_compare_from_string (const gchar *compare_str)
  *
  * Since: 0.12.0
  **/
-const gchar*
+const gchar *
 as_relation_compare_to_string (AsRelationCompare compare)
 {
 	if (compare == AS_RELATION_COMPARE_EQ)
@@ -274,7 +273,7 @@ as_relation_compare_to_string (AsRelationCompare compare)
  *
  * Since: 0.12.0
  **/
-const gchar*
+const gchar *
 as_relation_compare_to_symbols_string (AsRelationCompare compare)
 {
 	if (compare == AS_RELATION_COMPARE_EQ)
@@ -302,7 +301,7 @@ as_relation_compare_to_symbols_string (AsRelationCompare compare)
  *
  * Since: 0.12.11
  **/
-const gchar*
+const gchar *
 as_control_kind_to_string (AsControlKind kind)
 {
 	if (kind == AS_CONTROL_KIND_POINTING)
@@ -370,7 +369,7 @@ as_control_kind_from_string (const gchar *kind_str)
  *
  * Since: 0.12.12
  **/
-const gchar*
+const gchar *
 as_display_side_kind_to_string (AsDisplaySideKind kind)
 {
 	if (kind == AS_DISPLAY_SIDE_KIND_SHORTEST)
@@ -443,15 +442,15 @@ as_display_length_kind_to_px (AsDisplayLengthKind kind)
 AsDisplayLengthKind
 as_display_length_kind_from_px (gint px)
 {
-	if (px >= 1200 )
+	if (px >= 1200)
 		return AS_DISPLAY_LENGTH_KIND_XLARGE;
-	if (px >= 900 )
+	if (px >= 900)
 		return AS_DISPLAY_LENGTH_KIND_LARGE;
-	if (px >= 760 )
+	if (px >= 760)
 		return AS_DISPLAY_LENGTH_KIND_MEDIUM;
-	if (px >= 360 )
+	if (px >= 360)
 		return AS_DISPLAY_LENGTH_KIND_SMALL;
-	if (px < 360 )
+	if (px < 360)
 		return AS_DISPLAY_LENGTH_KIND_XSMALL;
 	return AS_DISPLAY_LENGTH_KIND_UNKNOWN;
 }
@@ -492,7 +491,7 @@ as_display_length_kind_from_string (const gchar *kind_str)
  *
  * Since: 0.12.12
  **/
-const gchar*
+const gchar *
 as_display_length_kind_to_string (AsDisplayLengthKind kind)
 {
 	if (kind == AS_DISPLAY_LENGTH_KIND_XSMALL)
@@ -576,7 +575,8 @@ as_relation_init (AsRelation *relation)
 {
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
 
-	priv->compare = AS_RELATION_COMPARE_GE; /* greater-or-equal is the default comparison method */
+	priv->compare =
+	    AS_RELATION_COMPARE_GE; /* greater-or-equal is the default comparison method */
 }
 
 /**
@@ -696,7 +696,7 @@ as_relation_set_compare (AsRelation *relation, AsRelationCompare compare)
  *
  * Since: 0.12.0
  **/
-const gchar*
+const gchar *
 as_relation_get_version (AsRelation *relation)
 {
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
@@ -728,7 +728,7 @@ as_relation_set_version (AsRelation *relation, const gchar *version)
  *
  * Since: 0.12.12
  **/
-GVariant*
+GVariant *
 as_relation_get_value_var (AsRelation *relation)
 {
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
@@ -762,7 +762,7 @@ as_relation_set_value_var (AsRelation *relation, GVariant *value)
  *
  * Since: 0.12.12
  **/
-const gchar*
+const gchar *
 as_relation_get_value_str (AsRelation *relation)
 {
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
@@ -946,8 +946,7 @@ as_relation_get_value_internet_bandwidth (AsRelation *relation)
  * Since: 0.15.5
  */
 void
-as_relation_set_value_internet_bandwidth (AsRelation *relation,
-                                          guint       bandwidth_mbitps)
+as_relation_set_value_internet_bandwidth (AsRelation *relation, guint bandwidth_mbitps)
 {
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
 
@@ -1145,10 +1144,12 @@ as_relation_load_from_xml (AsRelation *relation, AsContext *ctx, xmlNode *node, 
 	if (content == NULL)
 		return FALSE;
 
-	priv->item_kind = as_relation_item_kind_from_string ((const gchar*) node->name);
+	priv->item_kind = as_relation_item_kind_from_string ((const gchar *) node->name);
 
 	if (priv->item_kind == AS_RELATION_ITEM_KIND_MEMORY) {
-		as_relation_set_value_var (relation, g_variant_new_int32 (g_ascii_strtoll (content, NULL, 10)));
+		as_relation_set_value_var (
+		    relation,
+		    g_variant_new_int32 (g_ascii_strtoll (content, NULL, 10)));
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
 		gint value = g_ascii_strtoll (content, NULL, 10);
 		priv->display_length_kind = AS_DISPLAY_LENGTH_KIND_UNKNOWN;
@@ -1157,9 +1158,13 @@ as_relation_load_from_xml (AsRelation *relation, AsContext *ctx, xmlNode *node, 
 		as_relation_set_value_var (relation, g_variant_new_int32 (value));
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
-		as_relation_set_value_var (relation, g_variant_new_int32 (as_control_kind_from_string (content)));
+		as_relation_set_value_var (
+		    relation,
+		    g_variant_new_int32 (as_control_kind_from_string (content)));
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_INTERNET) {
-		as_relation_set_value_var (relation, g_variant_new_int32 (as_internet_kind_from_string (content)));
+		as_relation_set_value_var (
+		    relation,
+		    g_variant_new_int32 (as_internet_kind_from_string (content)));
 	} else {
 		as_relation_set_value_str (relation, content);
 	}
@@ -1211,32 +1216,39 @@ as_relation_to_xml_node (AsRelation *relation, AsContext *ctx, xmlNode *root)
 		return;
 
 	if (priv->item_kind == AS_RELATION_ITEM_KIND_MEMORY) {
-		g_autofree gchar *value_str = g_strdup_printf("%i", as_relation_get_value_int (relation));
+		g_autofree gchar *value_str = g_strdup_printf (
+		    "%i",
+		    as_relation_get_value_int (relation));
 		n = as_xml_add_text_node (root,
 					  as_relation_item_kind_to_string (priv->item_kind),
 					  value_str);
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
 		if (priv->display_length_kind != AS_DISPLAY_LENGTH_KIND_UNKNOWN) {
-			n = as_xml_add_text_node (root,
-						  as_relation_item_kind_to_string (priv->item_kind),
-						  as_display_length_kind_to_string (priv->display_length_kind));
+			n = as_xml_add_text_node (
+			    root,
+			    as_relation_item_kind_to_string (priv->item_kind),
+			    as_display_length_kind_to_string (priv->display_length_kind));
 		} else {
-			g_autofree gchar *value_str = g_strdup_printf("%i", as_relation_get_value_int (relation));
+			g_autofree gchar *value_str = g_strdup_printf (
+			    "%i",
+			    as_relation_get_value_int (relation));
 			n = as_xml_add_text_node (root,
 						  as_relation_item_kind_to_string (priv->item_kind),
 						  value_str);
 		}
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
-		n = as_xml_add_text_node (root,
-					  as_relation_item_kind_to_string (priv->item_kind),
-					  as_control_kind_to_string (as_relation_get_value_control_kind (relation)));
+		n = as_xml_add_text_node (
+		    root,
+		    as_relation_item_kind_to_string (priv->item_kind),
+		    as_control_kind_to_string (as_relation_get_value_control_kind (relation)));
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_INTERNET) {
-		n = as_xml_add_text_node (root,
-					  as_relation_item_kind_to_string (priv->item_kind),
-					  as_internet_kind_to_string (as_relation_get_value_internet_kind (relation)));
+		n = as_xml_add_text_node (
+		    root,
+		    as_relation_item_kind_to_string (priv->item_kind),
+		    as_internet_kind_to_string (as_relation_get_value_internet_kind (relation)));
 
 	} else {
 		n = as_xml_add_text_node (root,
@@ -1245,28 +1257,29 @@ as_relation_to_xml_node (AsRelation *relation, AsContext *ctx, xmlNode *root)
 	}
 
 	if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
-		if ((priv->display_side_kind != AS_DISPLAY_SIDE_KIND_SHORTEST) && (priv->display_side_kind != AS_DISPLAY_SIDE_KIND_UNKNOWN))
-			as_xml_add_text_prop (n, "side",
-					      as_display_side_kind_to_string (priv->display_side_kind));
+		if ((priv->display_side_kind != AS_DISPLAY_SIDE_KIND_SHORTEST) &&
+		    (priv->display_side_kind != AS_DISPLAY_SIDE_KIND_UNKNOWN))
+			as_xml_add_text_prop (
+			    n,
+			    "side",
+			    as_display_side_kind_to_string (priv->display_side_kind));
 		if (priv->compare != AS_RELATION_COMPARE_GE)
-			as_xml_add_text_prop (n, "compare",
+			as_xml_add_text_prop (n,
+					      "compare",
 					      as_relation_compare_to_string (priv->compare));
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_INTERNET) {
 		if (priv->bandwidth_mbitps > 0) {
-			g_autofree gchar *bandwidth_str = g_strdup_printf ("%u", priv->bandwidth_mbitps);
-			as_xml_add_text_prop (n, "bandwidth_mbitps",
-					      bandwidth_str);
+			g_autofree gchar *bandwidth_str = g_strdup_printf ("%u",
+									   priv->bandwidth_mbitps);
+			as_xml_add_text_prop (n, "bandwidth_mbitps", bandwidth_str);
 		}
 
-	} else if ((priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) || (priv->item_kind == AS_RELATION_ITEM_KIND_MEMORY)) {
+	} else if ((priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) ||
+		   (priv->item_kind == AS_RELATION_ITEM_KIND_MEMORY)) {
 	} else if (priv->version != NULL) {
-		as_xml_add_text_prop (n,
-				      "version",
-				      priv->version);
-		as_xml_add_text_prop (n,
-				      "compare",
-				      as_relation_compare_to_string (priv->compare));
+		as_xml_add_text_prop (n, "version", priv->version);
+		as_xml_add_text_prop (n, "compare", as_relation_compare_to_string (priv->compare));
 	}
 }
 
@@ -1304,9 +1317,12 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 			priv->version = g_strdup (ver_str + 2);
 			g_strstrip (priv->version);
 		} else if (g_strcmp0 (entry, "side") == 0) {
-			priv->display_side_kind = as_display_side_kind_from_string (as_yaml_node_get_value (n));
+			priv->display_side_kind = as_display_side_kind_from_string (
+			    as_yaml_node_get_value (n));
 		} else if (g_strcmp0 (entry, "bandwidth_mbitps") == 0) {
-			priv->bandwidth_mbitps = g_ascii_strtoll (as_yaml_node_get_value (n), NULL, 10);
+			priv->bandwidth_mbitps = g_ascii_strtoll (as_yaml_node_get_value (n),
+								  NULL,
+								  10);
 		} else {
 			AsRelationItemKind kind = as_relation_item_kind_from_string (entry);
 			if (kind == AS_RELATION_ITEM_KIND_UNKNOWN) {
@@ -1325,7 +1341,8 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 				} else {
 					g_autofree gchar *compare_str = NULL;
 					compare_str = g_strndup (len_str, 2);
-					priv->compare = as_relation_compare_from_string (compare_str);
+					priv->compare = as_relation_compare_from_string (
+					    compare_str);
 
 					if (priv->compare == AS_RELATION_COMPARE_UNKNOWN) {
 						value_str = g_strdup (len_str);
@@ -1339,20 +1356,28 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 				value_px = g_ascii_strtoll (value_str, NULL, 10);
 				priv->display_length_kind = AS_DISPLAY_LENGTH_KIND_UNKNOWN;
 				if (value_px == 0)
-					priv->display_length_kind = as_display_length_kind_from_string (value_str);
-				as_relation_set_value_var (relation, g_variant_new_int32 (value_px));
+					priv->display_length_kind =
+					    as_display_length_kind_from_string (value_str);
+				as_relation_set_value_var (relation,
+							   g_variant_new_int32 (value_px));
 
 			} else if (kind == AS_RELATION_ITEM_KIND_MEMORY) {
-				gint value_i = g_ascii_strtoll (as_yaml_node_get_value (n), NULL, 10);
+				gint value_i = g_ascii_strtoll (as_yaml_node_get_value (n),
+								NULL,
+								10);
 				as_relation_set_value_var (relation, g_variant_new_int32 (value_i));
 
 			} else if (kind == AS_RELATION_ITEM_KIND_CONTROL) {
-				as_relation_set_value_var (relation,
-							   g_variant_new_int32 (as_control_kind_from_string (as_yaml_node_get_value (n))));
+				as_relation_set_value_var (
+				    relation,
+				    g_variant_new_int32 (
+					as_control_kind_from_string (as_yaml_node_get_value (n))));
 
 			} else if (kind == AS_RELATION_ITEM_KIND_INTERNET) {
-				as_relation_set_value_var (relation,
-							   g_variant_new_int32 (as_internet_kind_from_string (as_yaml_node_get_value (n))));
+				as_relation_set_value_var (
+				    relation,
+				    g_variant_new_int32 (
+					as_internet_kind_from_string (as_yaml_node_get_value (n))));
 
 			} else {
 				as_relation_set_value_str (relation, as_yaml_node_get_value (n));
@@ -1376,42 +1401,50 @@ as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emi
 {
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
 
-	if ((priv->item_kind <= AS_RELATION_ITEM_KIND_UNKNOWN) || (priv->item_kind >= AS_RELATION_ITEM_KIND_LAST))
+	if ((priv->item_kind <= AS_RELATION_ITEM_KIND_UNKNOWN) ||
+	    (priv->item_kind >= AS_RELATION_ITEM_KIND_LAST))
 		return;
 
 	as_yaml_mapping_start (emitter);
 
 	if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
-		if ((priv->compare != AS_RELATION_COMPARE_UNKNOWN) && (priv->compare != AS_RELATION_COMPARE_GE)) {
+		if ((priv->compare != AS_RELATION_COMPARE_UNKNOWN) &&
+		    (priv->compare != AS_RELATION_COMPARE_GE)) {
 			g_autofree gchar *value = NULL;
 			g_autofree gchar *len_str = NULL;
 
 			if (priv->display_length_kind != AS_DISPLAY_LENGTH_KIND_UNKNOWN)
-				value = g_strdup (as_display_length_kind_to_string (priv->display_length_kind));
+				value = g_strdup (
+				    as_display_length_kind_to_string (priv->display_length_kind));
 			else
-				value = g_strdup_printf("%i", as_relation_get_value_int (relation));
+				value = g_strdup_printf ("%i",
+							 as_relation_get_value_int (relation));
 
-			len_str = g_strdup_printf ("%s %s",
-						   as_relation_compare_to_symbols_string (priv->compare),
-						   value);
+			len_str = g_strdup_printf (
+			    "%s %s",
+			    as_relation_compare_to_symbols_string (priv->compare),
+			    value);
 			as_yaml_emit_entry (emitter,
 					    as_relation_item_kind_to_string (priv->item_kind),
 					    len_str);
 		} else {
 			if (priv->display_length_kind != AS_DISPLAY_LENGTH_KIND_UNKNOWN)
-				as_yaml_emit_entry (emitter,
-						    as_relation_item_kind_to_string (priv->item_kind),
-						    as_display_length_kind_to_string (priv->display_length_kind));
+				as_yaml_emit_entry (
+				    emitter,
+				    as_relation_item_kind_to_string (priv->item_kind),
+				    as_display_length_kind_to_string (priv->display_length_kind));
 			else
-				as_yaml_emit_entry_uint64 (emitter,
-							   as_relation_item_kind_to_string (priv->item_kind),
-							   as_relation_get_value_int (relation));
+				as_yaml_emit_entry_uint64 (
+				    emitter,
+				    as_relation_item_kind_to_string (priv->item_kind),
+				    as_relation_get_value_int (relation));
 		}
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
-		as_yaml_emit_entry (emitter,
-				    as_relation_item_kind_to_string (priv->item_kind),
-				    as_control_kind_to_string (as_relation_get_value_control_kind (relation)));
+		as_yaml_emit_entry (
+		    emitter,
+		    as_relation_item_kind_to_string (priv->item_kind),
+		    as_control_kind_to_string (as_relation_get_value_control_kind (relation)));
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_MEMORY) {
 		as_yaml_emit_entry_uint64 (emitter,
@@ -1419,9 +1452,10 @@ as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emi
 					   as_relation_get_value_int (relation));
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_INTERNET) {
-		as_yaml_emit_entry (emitter,
-				    as_relation_item_kind_to_string (priv->item_kind),
-				    as_internet_kind_to_string (as_relation_get_value_internet_kind (relation)));
+		as_yaml_emit_entry (
+		    emitter,
+		    as_relation_item_kind_to_string (priv->item_kind),
+		    as_internet_kind_to_string (as_relation_get_value_internet_kind (relation)));
 		if (priv->bandwidth_mbitps > 0)
 			as_yaml_emit_entry_uint64 (emitter,
 						   "bandwidth_mbitps",
@@ -1434,14 +1468,19 @@ as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emi
 	}
 
 	if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
-		if ((priv->display_side_kind != AS_DISPLAY_SIDE_KIND_SHORTEST) && (priv->display_side_kind != AS_DISPLAY_SIDE_KIND_UNKNOWN))
-			as_yaml_emit_entry (emitter, "side", as_display_side_kind_to_string (priv->display_side_kind));
+		if ((priv->display_side_kind != AS_DISPLAY_SIDE_KIND_SHORTEST) &&
+		    (priv->display_side_kind != AS_DISPLAY_SIDE_KIND_UNKNOWN))
+			as_yaml_emit_entry (
+			    emitter,
+			    "side",
+			    as_display_side_kind_to_string (priv->display_side_kind));
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
 	} else if (priv->version != NULL) {
-		g_autofree gchar *ver_str = g_strdup_printf ("%s %s",
-							     as_relation_compare_to_symbols_string (priv->compare),
-							     priv->version);
+		g_autofree gchar *ver_str = g_strdup_printf (
+		    "%s %s",
+		    as_relation_compare_to_symbols_string (priv->compare),
+		    priv->version);
 		as_yaml_emit_entry (emitter, "version", ver_str);
 	}
 
@@ -1492,7 +1531,7 @@ _as_set_satify_message (gchar **message, gchar *text)
 /**
  * _as_get_control_missing_message:
  */
-static gchar*
+static gchar *
 _as_get_control_missing_message (AsControlKind c_kind, AsRelationKind r_kind)
 {
 	const gchar *ctl_name = NULL;
@@ -1512,7 +1551,7 @@ _as_get_control_missing_message (AsControlKind c_kind, AsRelationKind r_kind)
 		if (ctl_name != NULL) {
 			/* TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad" */
 			return g_strdup_printf (_("This software requires a %s for input."),
-						  ctl_name);
+						   ctl_name);
 		}
 
 		if (c_kind == AS_CONTROL_KIND_TOUCH)
@@ -1528,7 +1567,7 @@ _as_get_control_missing_message (AsControlKind c_kind, AsRelationKind r_kind)
 		if (ctl_name != NULL) {
 			/* TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad" */
 			return g_strdup_printf (_("This software recommends a %s for input."),
-						  ctl_name);
+						   ctl_name);
 		}
 
 		if (c_kind == AS_CONTROL_KIND_TOUCH)
@@ -1536,9 +1575,11 @@ _as_get_control_missing_message (AsControlKind c_kind, AsRelationKind r_kind)
 		if (c_kind == AS_CONTROL_KIND_VOICE)
 			return g_strdup (_("This software recommends a microphone to be controlled via voice input."));
 		if (c_kind == AS_CONTROL_KIND_VISION)
-			return g_strdup (_("This software recommends a camera for input control."));
+			return g_strdup (
+			    _("This software recommends a camera for input control."));
 		if (c_kind == AS_CONTROL_KIND_CONSOLE)
-			return g_strdup (_("This software recommends a method for console input."));
+			return g_strdup (
+			    _("This software recommends a method for console input."));
 
 	} else if (r_kind == AS_RELATION_KIND_SUPPORTS) {
 
@@ -1555,8 +1596,7 @@ _as_get_control_missing_message (AsControlKind c_kind, AsRelationKind r_kind)
 
 		if (ctl_name != NULL) {
 			/* TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads" */
-			return g_strdup_printf (_("This software supports %s."),
-						  ctl_name);
+			return g_strdup_printf (_("This software supports %s."), ctl_name);
 		}
 
 		if (c_kind == AS_CONTROL_KIND_TOUCH)
@@ -1566,7 +1606,8 @@ _as_get_control_missing_message (AsControlKind c_kind, AsRelationKind r_kind)
 		if (c_kind == AS_CONTROL_KIND_VISION)
 			return g_strdup (_("This software can be controlled via a camera."));
 		if (c_kind == AS_CONTROL_KIND_CONSOLE)
-			return g_strdup (_("This software supports operation via console commands."));
+			return g_strdup (
+			    _("This software supports operation via console commands."));
 	}
 
 	return NULL;
@@ -1575,7 +1616,7 @@ _as_get_control_missing_message (AsControlKind c_kind, AsRelationKind r_kind)
 /**
  * _as_get_control_found_message:
  */
-static gchar*
+static gchar *
 _as_get_control_found_message (AsControlKind c_kind)
 {
 	if (c_kind == AS_CONTROL_KIND_POINTING)
@@ -1626,7 +1667,7 @@ as_relation_is_satisfied (AsRelation *relation,
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
 	g_autoptr(AsSystemInfo) sysinfo = NULL;
 
-	sysinfo = (system_info == NULL)? as_system_info_new () : g_object_ref (system_info);
+	sysinfo = (system_info == NULL) ? as_system_info_new () : g_object_ref (system_info);
 
 	/* Components */
 	if (priv->item_kind == AS_RELATION_ITEM_KIND_ID) {
@@ -1634,40 +1675,48 @@ as_relation_is_satisfied (AsRelation *relation,
 		const gchar *cid;
 		if (pool == NULL) {
 			g_set_error_literal (error,
-						AS_RELATION_ERROR,
-						AS_RELATION_ERROR_FAILED,
-						"Unable to check ID relation status: No valid metadata pool was provided.");
+					     AS_RELATION_ERROR,
+					     AS_RELATION_ERROR_FAILED,
+					     "Unable to check ID relation status: No valid "
+					     "metadata pool was provided.");
 			return AS_CHECK_RESULT_ERROR;
 		}
 
 		cid = as_relation_get_value_str (relation);
 		if (cid == NULL) {
 			g_set_error_literal (error,
-						AS_RELATION_ERROR,
-						AS_RELATION_ERROR_BAD_VALUE,
-						"Unable to check ID relation status: This relation is invalid, it has no valid value.");
+					     AS_RELATION_ERROR,
+					     AS_RELATION_ERROR_BAD_VALUE,
+					     "Unable to check ID relation status: This relation is "
+					     "invalid, it has no valid value.");
 			return AS_CHECK_RESULT_ERROR;
 		}
 		cpts = as_pool_get_components_by_id (pool, cid);
 
 		if (cpts->len > 0) {
-			_as_set_satify_message (message,
-						g_strdup_printf (_("Software '%s' was found"),
-								 as_component_get_name (g_ptr_array_index (cpts, 0))));
+			_as_set_satify_message (
+			    message,
+			    g_strdup_printf (
+				_("Software '%s' was found"),
+				   as_component_get_name (g_ptr_array_index (cpts, 0))));
 			return AS_CHECK_RESULT_TRUE;
 		} else {
 			if (priv->kind == AS_RELATION_KIND_REQUIRES)
-				_as_set_satify_message (message,
-							g_strdup_printf (_("Required software component '%s' is missing."),
-									cid));
+				_as_set_satify_message (
+				    message,
+				    g_strdup_printf (
+					_("Required software component '%s' is missing."), cid));
 			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
-				_as_set_satify_message (message,
-							g_strdup_printf (_("Recommended software component '%s' is missing."),
-									cid));
+				_as_set_satify_message (
+				    message,
+				    g_strdup_printf (
+					_("Recommended software component '%s' is missing."),
+					   cid));
 			else if (priv->kind == AS_RELATION_KIND_SUPPORTS)
-				_as_set_satify_message (message,
-							g_strdup_printf (_("Found supported software component '%s'."),
-									cid));
+				_as_set_satify_message (
+				    message,
+				    g_strdup_printf (_("Found supported software component '%s'."),
+							cid));
 			return AS_CHECK_RESULT_FALSE;
 		}
 	}
@@ -1680,9 +1729,10 @@ as_relation_is_satisfied (AsRelation *relation,
 		modalias = as_relation_get_value_str (relation);
 		if (modalias == NULL) {
 			g_set_error_literal (error,
-						AS_RELATION_ERROR,
-						AS_RELATION_ERROR_BAD_VALUE,
-						"Unable to check modalias relation status: This relation is invalid, it has no valid value.");
+					     AS_RELATION_ERROR,
+					     AS_RELATION_ERROR_BAD_VALUE,
+					     "Unable to check modalias relation status: This "
+					     "relation is invalid, it has no valid value.");
 			return AS_CHECK_RESULT_ERROR;
 		}
 
@@ -1694,23 +1744,28 @@ as_relation_is_satisfied (AsRelation *relation,
 			device_name = g_strdup (modalias);
 
 		if (as_system_info_has_device_matching_modalias (sysinfo, modalias)) {
-			_as_set_satify_message (message,
-						g_strdup_printf (_("Found hardware that is supported by this software: '%s'"),
-								 device_name));
+			_as_set_satify_message (
+			    message,
+			    g_strdup_printf (
+				_("Found hardware that is supported by this software: '%s'"),
+				   device_name));
 			return AS_CHECK_RESULT_TRUE;
 		} else {
 			if (priv->kind == AS_RELATION_KIND_REQUIRES)
-				_as_set_satify_message (message,
-							g_strdup_printf (_("Required hardware for this software was not found on this system: '%s'"),
-									device_name));
+				_as_set_satify_message (
+				    message,
+				    g_strdup_printf (_("Required hardware for this software was not found on this system: '%s'"),
+							device_name));
 			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
-				_as_set_satify_message (message,
-							g_strdup_printf (_("Recommended hardware for this software was not found on this system: '%s'"),
-									device_name));
+				_as_set_satify_message (
+				    message,
+				    g_strdup_printf (_("Recommended hardware for this software was not found on this system: '%s'"),
+							device_name));
 			else
-				_as_set_satify_message (message,
-							g_strdup_printf (_("This software supports hardware not present in this system: '%s'"),
-									device_name));
+				_as_set_satify_message (
+				    message,
+				    g_strdup_printf (_("This software supports hardware not present in this system: '%s'"),
+							device_name));
 			return AS_CHECK_RESULT_FALSE;
 		}
 	}
@@ -1725,34 +1780,41 @@ as_relation_is_satisfied (AsRelation *relation,
 		current_kernel_name = as_system_info_get_kernel_name (sysinfo);
 		if (current_kernel_name == NULL) {
 			g_set_error_literal (error,
-						AS_SYSTEM_INFO_ERROR,
-						AS_SYSTEM_INFO_ERROR_NOT_FOUND,
-						"Unable to determine the current kernel name.");
+					     AS_SYSTEM_INFO_ERROR,
+					     AS_SYSTEM_INFO_ERROR_NOT_FOUND,
+					     "Unable to determine the current kernel name.");
 			return AS_CHECK_RESULT_ERROR;
 		}
 
 		req_kernel_name = as_relation_get_value_str (relation);
 		if (req_kernel_name == NULL) {
 			g_set_error_literal (error,
-						AS_RELATION_ERROR,
-						AS_RELATION_ERROR_BAD_VALUE,
-						"Unable to check kernel relation status: No valid value set for relation.");
+					     AS_RELATION_ERROR,
+					     AS_RELATION_ERROR_BAD_VALUE,
+					     "Unable to check kernel relation status: No valid "
+					     "value set for relation.");
 			return AS_CHECK_RESULT_ERROR;
 		}
 
 		if (g_ascii_strcasecmp (current_kernel_name, req_kernel_name) != 0) {
 			if (priv->kind == AS_RELATION_KIND_REQUIRES)
-				_as_set_satify_message (message,
-							g_strdup_printf (_("This software requires a %s kernel, but this system is running %s."),
-									req_kernel_name, current_kernel_name));
+				_as_set_satify_message (
+				    message,
+				    g_strdup_printf (_("This software requires a %s kernel, but this system is running %s."),
+							req_kernel_name,
+							current_kernel_name));
 			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
-				_as_set_satify_message (message,
-							g_strdup_printf (_("This software recommends a %s kernel, but this system is running %s."),
-									req_kernel_name, current_kernel_name));
+				_as_set_satify_message (
+				    message,
+				    g_strdup_printf (_("This software recommends a %s kernel, but this system is running %s."),
+							req_kernel_name,
+							current_kernel_name));
 			else
-				_as_set_satify_message (message,
-							g_strdup_printf (_("This software only supports a %s kernel, but may run on %s anyway."),
-									req_kernel_name, current_kernel_name));
+				_as_set_satify_message (
+				    message,
+				    g_strdup_printf (_("This software only supports a %s kernel, but may run on %s anyway."),
+							req_kernel_name,
+							current_kernel_name));
 			return AS_CHECK_RESULT_FALSE;
 		}
 
@@ -1767,39 +1829,53 @@ as_relation_is_satisfied (AsRelation *relation,
 					   as_relation_get_compare (relation),
 					   req_kernel_version,
 					   AS_VERCMP_FLAG_NONE)) {
-			const gchar *compare_symbols = as_relation_compare_to_symbols_string (as_relation_get_compare (relation));
+			const gchar *compare_symbols = as_relation_compare_to_symbols_string (
+			    as_relation_get_compare (relation));
 			if (priv->kind == AS_RELATION_KIND_REQUIRES)
-				_as_set_satify_message (message,
-							/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
+				_as_set_satify_message (
+				    message,
+				    /* TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 							   second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
 							   and fifth is the version we are running. */
-							g_strdup_printf (_("This software requires %s %s %s, but this system is running %s %s."),
-									req_kernel_name, compare_symbols, req_kernel_version,
-									current_kernel_name, current_kernel_version));
+				    g_strdup_printf (_("This software requires %s %s %s, but this system is running %s %s."),
+							req_kernel_name,
+							compare_symbols,
+							req_kernel_version,
+							current_kernel_name,
+							current_kernel_version));
 			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
-				_as_set_satify_message (message,
-							/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
+				_as_set_satify_message (
+				    message,
+				    /* TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 							   second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
 							   and fifth is the version we are running. */
-							g_strdup_printf (_("The use of %s %s %s is recommended, but this system is running %s %s."),
-									req_kernel_name, compare_symbols, req_kernel_version,
-									current_kernel_name, current_kernel_version));
+				    g_strdup_printf (_("The use of %s %s %s is recommended, but this system is running %s %s."),
+							req_kernel_name,
+							compare_symbols,
+							req_kernel_version,
+							current_kernel_name,
+							current_kernel_version));
 			else if (priv->kind == AS_RELATION_KIND_SUPPORTS) {
-				_as_set_satify_message (message,
-							/* TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
+				_as_set_satify_message (
+				    message,
+				    /* TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 							   second is comparison operator (e.g. >=), third is the expected version number. */
-							g_strdup_printf (_("This software supports %s %s %s."),
-									req_kernel_name, compare_symbols, req_kernel_version));
+				    g_strdup_printf (_("This software supports %s %s %s."),
+							req_kernel_name,
+							compare_symbols,
+							req_kernel_version));
 				/* this is not an error, supports is only a hint for kernels */
 				return AS_CHECK_RESULT_TRUE;
 			}
 			return AS_CHECK_RESULT_FALSE;
 		}
 
-		_as_set_satify_message (message,
-					/* TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number. */
-					g_strdup_printf (_("Kernel %s %s is supported."),
-							 current_kernel_name, current_kernel_version));
+		_as_set_satify_message (
+		    message,
+		    /* TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number. */
+		    g_strdup_printf (_("Kernel %s %s is supported."),
+					current_kernel_name,
+					current_kernel_version));
 
 		/* if we are here, we are running an acceptable kernel version */
 		return AS_CHECK_RESULT_TRUE;
@@ -1812,43 +1888,57 @@ as_relation_is_satisfied (AsRelation *relation,
 
 		req_memory = as_relation_get_value_int (relation);
 		if (req_memory == 0) {
-			g_set_error_literal (error,
-						AS_RELATION_ERROR,
-						AS_RELATION_ERROR_BAD_VALUE,
-						"Unable to check memory relation: No valid value set in metadata.");
+			g_set_error_literal (
+			    error,
+			    AS_RELATION_ERROR,
+			    AS_RELATION_ERROR_BAD_VALUE,
+			    "Unable to check memory relation: No valid value set in metadata.");
 			return AS_CHECK_RESULT_ERROR;
 		}
 
 		current_memory = as_system_info_get_memory_total (sysinfo);
 
-		if (!as_compare_int_match (current_memory, as_relation_get_compare (relation), req_memory)) {
-			const gchar *compare_symbols = as_relation_compare_to_symbols_string (as_relation_get_compare (relation));
+		if (!as_compare_int_match (current_memory,
+					   as_relation_get_compare (relation),
+					   req_memory)) {
+			const gchar *compare_symbols = as_relation_compare_to_symbols_string (
+			    as_relation_get_compare (relation));
 			if (priv->kind == AS_RELATION_KIND_REQUIRES)
-				_as_set_satify_message (message,
-							/* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
+				_as_set_satify_message (
+				    message,
+				    /* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 							   second is the expected amount of memory and fourth is the amount of memory we have. */
-							g_strdup_printf (_("This software requires %s %.2f GiB of memory, but this system has %.2f GiB."),
-									compare_symbols, req_memory / 1024.0, current_memory / 1024.0));
+				    g_strdup_printf (_("This software requires %s %.2f GiB of memory, but this system has %.2f GiB."),
+							compare_symbols,
+							req_memory / 1024.0,
+							current_memory / 1024.0));
 			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
-				_as_set_satify_message (message,
-							/* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
+				_as_set_satify_message (
+				    message,
+				    /* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 							   second is the expected amount of memory and fourth is the amount of memory we have. */
-							g_strdup_printf (_("This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."),
-									compare_symbols, req_memory / 1024.0, current_memory / 1024.0));
+				    g_strdup_printf (_("This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."),
+							compare_symbols,
+							req_memory / 1024.0,
+							current_memory / 1024.0));
 			else if (priv->kind == AS_RELATION_KIND_SUPPORTS) {
-				_as_set_satify_message (message,
-							/* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
+				_as_set_satify_message (
+				    message,
+				    /* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 							   second is the expected amount of memory. */
-							g_strdup_printf (_("This software supports %s %.2f GiB of memory."),
-									compare_symbols, req_memory / 1024.0));
+				    g_strdup_printf (
+					_("This software supports %s %.2f GiB of memory."),
+					   compare_symbols,
+					   req_memory / 1024.0));
 				/* this is not an error, supports is only a hint for memory */
 				return AS_CHECK_RESULT_TRUE;
 			}
 			return AS_CHECK_RESULT_FALSE;
 		}
 
-		_as_set_satify_message (message,
-					g_strdup_printf (_("This system has sufficient memory for this software.")));
+		_as_set_satify_message (
+		    message,
+		    g_strdup_printf (_("This system has sufficient memory for this software.")));
 
 		/* if we are here, we have sufficient memory */
 		return AS_CHECK_RESULT_TRUE;
@@ -1861,17 +1951,16 @@ as_relation_is_satisfied (AsRelation *relation,
 		GError *tmp_error = NULL;
 
 		control_kind = as_relation_get_value_control_kind (relation);
-		res = as_system_info_has_input_control (sysinfo,
-							control_kind,
-							&tmp_error);
+		res = as_system_info_has_input_control (sysinfo, control_kind, &tmp_error);
 		if (res == AS_CHECK_RESULT_ERROR) {
 			g_propagate_error (error, tmp_error);
 			return AS_CHECK_RESULT_ERROR;
 		}
 
 		if (res == AS_CHECK_RESULT_FALSE || priv->kind == AS_RELATION_KIND_SUPPORTS)
-			_as_set_satify_message (message,
-						_as_get_control_missing_message (control_kind, priv->kind));
+			_as_set_satify_message (
+			    message,
+			    _as_get_control_missing_message (control_kind, priv->kind));
 		if (res == AS_CHECK_RESULT_TRUE)
 			_as_set_satify_message (message,
 						_as_get_control_found_message (control_kind));
@@ -1889,67 +1978,90 @@ as_relation_is_satisfied (AsRelation *relation,
 		side_kind = as_relation_get_display_side_kind (relation);
 		if (req_length == 0) {
 			g_set_error_literal (error,
-						AS_RELATION_ERROR,
-						AS_RELATION_ERROR_BAD_VALUE,
-						"Unable to check display size relation: No valid size value set in metadata.");
+					     AS_RELATION_ERROR,
+					     AS_RELATION_ERROR_BAD_VALUE,
+					     "Unable to check display size relation: No valid size "
+					     "value set in metadata.");
 			return AS_CHECK_RESULT_ERROR;
 		}
 		if (side_kind == AS_DISPLAY_SIDE_KIND_UNKNOWN) {
 			g_set_error_literal (error,
-						AS_RELATION_ERROR,
-						AS_RELATION_ERROR_BAD_VALUE,
-						"Unable to check display size relation: No valid side type value set in metadata.");
+					     AS_RELATION_ERROR,
+					     AS_RELATION_ERROR_BAD_VALUE,
+					     "Unable to check display size relation: No valid side "
+					     "type value set in metadata.");
 			return AS_CHECK_RESULT_ERROR;
 		}
 
 		current_length = as_system_info_get_display_length (sysinfo, side_kind);
 		if (current_length == 0) {
 			g_set_error_literal (error,
-						AS_SYSTEM_INFO_ERROR,
-						AS_SYSTEM_INFO_ERROR_NOT_FOUND,
-						"Unable to determine the display length of this device: This value needs to be provided "
-						"by a GUI frontend for AppStream.");
+					     AS_SYSTEM_INFO_ERROR,
+					     AS_SYSTEM_INFO_ERROR_NOT_FOUND,
+					     "Unable to determine the display length of this "
+					     "device: This value needs to be provided "
+					     "by a GUI frontend for AppStream.");
 			return AS_CHECK_RESULT_ERROR;
 		}
 
-		if (!as_compare_int_match (current_length, as_relation_get_compare (relation), req_length)) {
-			const gchar *compare_symbols = as_relation_compare_to_symbols_string (as_relation_get_compare (relation));
+		if (!as_compare_int_match (current_length,
+					   as_relation_get_compare (relation),
+					   req_length)) {
+			const gchar *compare_symbols = as_relation_compare_to_symbols_string (
+			    as_relation_get_compare (relation));
 			if (priv->kind == AS_RELATION_KIND_REQUIRES) {
 				if (side_kind == AS_DISPLAY_SIDE_KIND_LONGEST)
-					_as_set_satify_message (message,
-								/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+					_as_set_satify_message (
+					    message,
+					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 								   second is the expected size and fourth is the size the current device has. */
-								g_strdup_printf (_("This software requires a display with its longest edge being %s %lu px in size, "
+					    g_strdup_printf (
+						_("This software requires a display with its longest edge being %s %lu px in size, "
 										   "but the display of this device has %lu px."),
-										compare_symbols, req_length, current_length));
+						   compare_symbols,
+						   req_length,
+						   current_length));
 				else
-					_as_set_satify_message (message,
-								/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+					_as_set_satify_message (
+					    message,
+					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 								   second is the expected size and fourth is the size the current device has. */
-								g_strdup_printf (_("This software requires a display with its shortest edge being %s %lu px in size, "
+					    g_strdup_printf (
+						_("This software requires a display with its shortest edge being %s %lu px in size, "
 										   "but the display of this device has %lu px."),
-										compare_symbols, req_length, current_length));
+						   compare_symbols,
+						   req_length,
+						   current_length));
 			} else if (priv->kind == AS_RELATION_KIND_RECOMMENDS) {
 				if (side_kind == AS_DISPLAY_SIDE_KIND_LONGEST)
-					_as_set_satify_message (message,
-								/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+					_as_set_satify_message (
+					    message,
+					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 								   second is the expected size and fourth is the size the current device has. */
-								g_strdup_printf (_("This software recommends a display with its longest edge being %s %lu px in size, "
+					    g_strdup_printf (
+						_("This software recommends a display with its longest edge being %s %lu px in size, "
 										   "but the display of this device has %lu px."),
-										compare_symbols, req_length, current_length));
+						   compare_symbols,
+						   req_length,
+						   current_length));
 				else
-					_as_set_satify_message (message,
-								/* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
+					_as_set_satify_message (
+					    message,
+					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 								   second is the expected size and fourth is the size the current device has. */
-								g_strdup_printf (_("This software recommends a display with its shortest edge being %s %lu px in size, "
+					    g_strdup_printf (
+						_("This software recommends a display with its shortest edge being %s %lu px in size, "
 										   "but the display of this device has %lu px."),
-										compare_symbols, req_length, current_length));
+						   compare_symbols,
+						   req_length,
+						   current_length));
 			}
 			return AS_CHECK_RESULT_FALSE;
 		}
 
-		_as_set_satify_message (message,
-					g_strdup (_("Display size is sufficient for this software.")));
+		_as_set_satify_message (
+		    message,
+		    g_strdup (_("Display size is sufficient for this software.")));
 
 		/* if we are here, we have sufficient memory */
 		return AS_CHECK_RESULT_TRUE;
@@ -1965,7 +2077,7 @@ as_relation_is_satisfied (AsRelation *relation,
 		     AS_RELATION_ERROR,
 		     AS_RELATION_ERROR_NOT_IMPLEMENTED,
 		     _("Relation satisfy check for items of type '%s' is not implemented yet."),
-		     as_relation_item_kind_to_string (priv->item_kind));
+			as_relation_item_kind_to_string (priv->item_kind));
 
 	return AS_CHECK_RESULT_ERROR;
 }
@@ -1979,7 +2091,7 @@ as_relation_is_satisfied (AsRelation *relation,
  *
  * Since: 0.11.0
  **/
-AsRelation*
+AsRelation *
 as_relation_new (void)
 {
 	AsRelation *relation;

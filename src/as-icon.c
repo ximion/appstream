@@ -29,15 +29,14 @@
 
 #include "as-utils-private.h"
 
-typedef struct
-{
-	AsIconKind	kind;
-	gchar		*name;
-	gchar		*url;
-	gchar		*filename;
-	guint		width;
-	guint		height;
-	guint		scale;
+typedef struct {
+	AsIconKind kind;
+	gchar *name;
+	gchar *url;
+	gchar *filename;
+	guint width;
+	guint height;
+	guint scale;
 } AsIconPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsIcon, as_icon, G_TYPE_OBJECT)
@@ -51,7 +50,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsIcon, as_icon, G_TYPE_OBJECT)
  *
  * Returns: string version of @kind
  **/
-const gchar*
+const gchar *
 as_icon_kind_to_string (AsIconKind kind)
 {
 	if (kind == AS_ICON_KIND_CACHED)
@@ -159,7 +158,7 @@ as_icon_set_kind (AsIcon *icon, AsIconKind kind)
  * Returns: the stock name of the icon. In case the icon is not of kind
  * "stock", the basename of the icon filename or URL is returned.
  **/
-const gchar*
+const gchar *
 as_icon_get_name (AsIcon *icon)
 {
 	AsIconPrivate *priv = GET_PRIVATE (icon);
@@ -197,7 +196,7 @@ as_icon_set_name (AsIcon *icon, const gchar *name)
  *
  * Returns: the URL
  **/
-const gchar*
+const gchar *
 as_icon_get_url (AsIcon *icon)
 {
 	AsIconPrivate *priv = GET_PRIVATE (icon);
@@ -230,7 +229,7 @@ as_icon_set_url (AsIcon *icon, const gchar *url)
  * This is only set for icons of kind %AS_ICON_KIND_LOCAL or
  * %AS_ICON_KIND_CACHED.
  **/
-const gchar*
+const gchar *
 as_icon_get_filename (AsIcon *icon)
 {
 	AsIconPrivate *priv = GET_PRIVATE (icon);
@@ -407,7 +406,9 @@ as_icon_load_from_xml (AsIcon *icon, AsContext *ctx, xmlNode *node, GError **err
 		} else {
 			/* handle the media baseurl */
 			g_free (priv->url);
-			priv->url = g_build_filename (as_context_get_media_baseurl (ctx), content, NULL);
+			priv->url = g_build_filename (as_context_get_media_baseurl (ctx),
+						      content,
+						      NULL);
 		}
 		as_xml_icon_set_size_from_node (node, icon);
 	}
@@ -471,7 +472,7 @@ as_icon_to_xml_node (AsIcon *icon, AsContext *ctx, xmlNode *root)
  *
  * Returns: (transfer full): a #AsIcon
  **/
-AsIcon*
+AsIcon *
 as_icon_new (void)
 {
 	AsIcon *icon;

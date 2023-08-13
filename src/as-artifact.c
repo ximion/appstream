@@ -34,17 +34,16 @@
 #include "as-checksum-private.h"
 #include "as-utils-private.h"
 
-typedef struct
-{
-	AsArtifactKind	kind;
+typedef struct {
+	AsArtifactKind kind;
 
-	GPtrArray	*locations;
-	GPtrArray	*checksums;
-	guint64		size[AS_SIZE_KIND_LAST];
-	gchar		*filename;
+	GPtrArray *locations;
+	GPtrArray *checksums;
+	guint64 size[AS_SIZE_KIND_LAST];
+	gchar *filename;
 
-	GRefString	*platform;
-	AsBundleKind	bundle_kind;
+	GRefString *platform;
+	AsBundleKind bundle_kind;
 } AsArtifactPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsArtifact, as_artifact, G_TYPE_OBJECT)
@@ -58,7 +57,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsArtifact, as_artifact, G_TYPE_OBJECT)
  *
  * Returns: string version of @size_kind
  **/
-const gchar*
+const gchar *
 as_size_kind_to_string (AsSizeKind size_kind)
 {
 	if (size_kind == AS_SIZE_KIND_INSTALLED)
@@ -114,7 +113,7 @@ as_artifact_kind_from_string (const gchar *kind)
  * Returns: string version of @kind
  *
  **/
-const gchar*
+const gchar *
 as_artifact_kind_to_string (AsArtifactKind kind)
 {
 	if (kind == AS_ARTIFACT_KIND_SOURCE)
@@ -195,7 +194,7 @@ as_artifact_get_kind (AsArtifact *artifact)
  *
  * Returns: (transfer none) (element-type utf8): list of locations
  **/
-GPtrArray*
+GPtrArray *
 as_artifact_get_locations (AsArtifact *artifact)
 {
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
@@ -222,7 +221,7 @@ as_artifact_add_location (AsArtifact *artifact, const gchar *location)
  *
  * Returns: (transfer none) (element-type AsChecksum): an array of #AsChecksum objects.
  **/
-GPtrArray*
+GPtrArray *
 as_artifact_get_checksums (AsArtifact *artifact)
 {
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
@@ -237,7 +236,7 @@ as_artifact_get_checksums (AsArtifact *artifact)
  *
  * Returns: (transfer none) (nullable): an #AsChecksum, or %NULL for not set or invalid
  **/
-AsChecksum*
+AsChecksum *
 as_artifact_get_checksum (AsArtifact *artifact, AsChecksumKind kind)
 {
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
@@ -308,7 +307,7 @@ as_artifact_set_size (AsArtifact *artifact, guint64 size, AsSizeKind kind)
  *
  * Returns: The platform triplet or identifier string.
  **/
-const gchar*
+const gchar *
 as_artifact_get_platform (AsArtifact *artifact)
 {
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
@@ -367,7 +366,7 @@ as_artifact_set_bundle_kind (AsArtifact *artifact, AsBundleKind kind)
  *
  * Returns: The platform triplet or identifier string.
  **/
-const gchar*
+const gchar *
 as_artifact_get_filename (AsArtifact *artifact)
 {
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
@@ -420,19 +419,19 @@ as_artifact_load_from_xml (AsArtifact *artifact, AsContext *ctx, xmlNode *node, 
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 ((gchar*) iter->name, "location") == 0) {
+		if (g_strcmp0 ((gchar *) iter->name, "location") == 0) {
 			content = as_xml_get_node_value (iter);
 			as_artifact_add_location (artifact, content);
-		} else if (g_strcmp0 ((gchar*) iter->name, "filename") == 0) {
+		} else if (g_strcmp0 ((gchar *) iter->name, "filename") == 0) {
 			g_free (priv->filename);
 			priv->filename = as_xml_get_node_value (iter);
-		} else if (g_strcmp0 ((gchar*) iter->name, "checksum") == 0) {
+		} else if (g_strcmp0 ((gchar *) iter->name, "checksum") == 0) {
 			g_autoptr(AsChecksum) cs = NULL;
 
 			cs = as_checksum_new ();
 			if (as_checksum_load_from_xml (cs, ctx, iter, NULL))
 				as_artifact_add_checksum (artifact, cs);
-		} else if (g_strcmp0 ((gchar*) iter->name, "size") == 0) {
+		} else if (g_strcmp0 ((gchar *) iter->name, "size") == 0) {
 			AsSizeKind s_kind;
 			gchar *prop = as_xml_get_prop_value (iter, "type");
 
@@ -464,21 +463,17 @@ void
 as_artifact_to_xml_node (AsArtifact *artifact, AsContext *ctx, xmlNode *root)
 {
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
-	xmlNode* n_artifact = NULL;
+	xmlNode *n_artifact = NULL;
 
 	if (priv->kind == AS_ARTIFACT_KIND_UNKNOWN)
 		return;
 
 	n_artifact = as_xml_add_node (root, "artifact");
 
-	as_xml_add_text_prop (n_artifact,
-			      "type",
-			      as_artifact_kind_to_string (priv->kind));
+	as_xml_add_text_prop (n_artifact, "type", as_artifact_kind_to_string (priv->kind));
 
 	if (priv->platform != NULL) {
-		as_xml_add_text_prop (n_artifact,
-				      "platform",
-				      priv->platform);
+		as_xml_add_text_prop (n_artifact, "platform", priv->platform);
 	}
 
 	if (priv->bundle_kind != AS_BUNDLE_KIND_UNKNOWN) {
@@ -489,7 +484,7 @@ as_artifact_to_xml_node (AsArtifact *artifact, AsContext *ctx, xmlNode *root)
 
 	/* add location urls */
 	for (guint j = 0; j < priv->locations->len; j++) {
-		const gchar *lurl = (const gchar*) g_ptr_array_index (priv->locations, j);
+		const gchar *lurl = (const gchar *) g_ptr_array_index (priv->locations, j);
 		as_xml_add_text_node (n_artifact, "location", lurl);
 	}
 
@@ -537,8 +532,7 @@ as_artifact_load_from_yaml (AsArtifact *artifact, AsContext *ctx, GNode *node, G
 			priv->kind = as_artifact_kind_from_string (as_yaml_node_get_value (n));
 
 		} else if (g_strcmp0 (key, "platform") == 0) {
-			as_ref_string_assign_safe (&priv->platform,
-						   as_yaml_node_get_value (n));
+			as_ref_string_assign_safe (&priv->platform, as_yaml_node_get_value (n));
 
 		} else if (g_strcmp0 (key, "bundle") == 0) {
 			priv->bundle_kind = as_bundle_kind_from_string (as_yaml_node_get_value (n));
@@ -559,8 +553,11 @@ as_artifact_load_from_yaml (AsArtifact *artifact, AsContext *ctx, GNode *node, G
 
 		} else if (g_strcmp0 (key, "size") == 0) {
 			for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
-				AsSizeKind size_kind = as_size_kind_from_string (as_yaml_node_get_key (sn));
-				guint64 asize = g_ascii_strtoull (as_yaml_node_get_value (sn), NULL, 10);
+				AsSizeKind size_kind = as_size_kind_from_string (
+				    as_yaml_node_get_key (sn));
+				guint64 asize = g_ascii_strtoull (as_yaml_node_get_value (sn),
+								  NULL,
+								  10);
 				if (size_kind == AS_SIZE_KIND_UNKNOWN)
 					continue;
 				if (asize <= 0)
@@ -594,13 +591,9 @@ as_artifact_emit_yaml (AsArtifact *artifact, AsContext *ctx, yaml_emitter_t *emi
 
 	as_yaml_mapping_start (emitter);
 
-	as_yaml_emit_entry (emitter,
-			    "type",
-			    as_artifact_kind_to_string (priv->kind));
+	as_yaml_emit_entry (emitter, "type", as_artifact_kind_to_string (priv->kind));
 
-	as_yaml_emit_entry (emitter,
-			    "platform",
-			    priv->platform);
+	as_yaml_emit_entry (emitter, "platform", priv->platform);
 
 	if (priv->bundle_kind != AS_BUNDLE_KIND_UNKNOWN) {
 		as_yaml_emit_entry (emitter,
@@ -612,9 +605,7 @@ as_artifact_emit_yaml (AsArtifact *artifact, AsContext *ctx, yaml_emitter_t *emi
 	as_yaml_emit_sequence_from_str_array (emitter, "locations", priv->locations);
 
 	/* filename suggestion */
-	as_yaml_emit_entry (emitter,
-			    "filename",
-			    priv->filename);
+	as_yaml_emit_entry (emitter, "filename", priv->filename);
 
 	/* checksums */
 	if (priv->locations->len > 0) {
@@ -660,7 +651,7 @@ as_artifact_class_init (AsArtifactClass *klass)
  * Returns: (transfer full): a #AsArtifact
  *
  **/
-AsArtifact*
+AsArtifact *
 as_artifact_new (void)
 {
 	AsArtifact *artifact;

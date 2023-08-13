@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -32,16 +32,15 @@ G_BEGIN_DECLS
 #define AS_TYPE_VIDEO (as_video_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsVideo, as_video, AS, VIDEO, GObject)
 
-struct _AsVideoClass
-{
-	GObjectClass		parent_class;
+struct _AsVideoClass {
+	GObjectClass parent_class;
 	/*< private >*/
-	void (*_as_reserved1)	(void);
-	void (*_as_reserved2)	(void);
-	void (*_as_reserved3)	(void);
-	void (*_as_reserved4)	(void);
-	void (*_as_reserved5)	(void);
-	void (*_as_reserved6)	(void);
+	void (*_as_reserved1) (void);
+	void (*_as_reserved2) (void);
+	void (*_as_reserved3) (void);
+	void (*_as_reserved4) (void);
+	void (*_as_reserved5) (void);
+	void (*_as_reserved6) (void);
 };
 
 /**
@@ -76,37 +75,31 @@ typedef enum {
 	AS_VIDEO_CONTAINER_KIND_LAST
 } AsVideoContainerKind;
 
-AsVideoCodecKind	as_video_codec_kind_from_string (const gchar *str);
-const gchar		*as_video_codec_kind_to_string (AsVideoCodecKind kind);
+AsVideoCodecKind     as_video_codec_kind_from_string (const gchar *str);
+const gchar	    *as_video_codec_kind_to_string (AsVideoCodecKind kind);
 
-AsVideoContainerKind	as_video_container_kind_from_string (const gchar *str);
-const gchar		*as_video_container_kind_to_string (AsVideoContainerKind kind);
+AsVideoContainerKind as_video_container_kind_from_string (const gchar *str);
+const gchar	    *as_video_container_kind_to_string (AsVideoContainerKind kind);
 
-AsVideo			*as_video_new (void);
+AsVideo		    *as_video_new (void);
 
-AsVideoCodecKind	as_video_get_codec_kind (AsVideo *video);
-void			as_video_set_codec_kind (AsVideo *video,
-						 AsVideoCodecKind kind);
+AsVideoCodecKind     as_video_get_codec_kind (AsVideo *video);
+void		     as_video_set_codec_kind (AsVideo *video, AsVideoCodecKind kind);
 
-AsVideoContainerKind	as_video_get_container_kind (AsVideo *video);
-void			as_video_set_container_kind (AsVideo *video,
-						     AsVideoContainerKind kind);
+AsVideoContainerKind as_video_get_container_kind (AsVideo *video);
+void		     as_video_set_container_kind (AsVideo *video, AsVideoContainerKind kind);
 
-const gchar		*as_video_get_url (AsVideo *video);
-void			 as_video_set_url (AsVideo *video,
-						const gchar *url);
+const gchar	    *as_video_get_url (AsVideo *video);
+void		     as_video_set_url (AsVideo *video, const gchar *url);
 
-guint			 as_video_get_width (AsVideo *video);
-void			 as_video_set_width (AsVideo *video,
-						guint width);
+guint		     as_video_get_width (AsVideo *video);
+void		     as_video_set_width (AsVideo *video, guint width);
 
-guint			 as_video_get_height (AsVideo *video);
-void			 as_video_set_height (AsVideo *video,
-						guint height);
+guint		     as_video_get_height (AsVideo *video);
+void		     as_video_set_height (AsVideo *video, guint height);
 
-const gchar		*as_video_get_locale (AsVideo *video);
-void			 as_video_set_locale (AsVideo *video,
-						const gchar *locale);
+const gchar	    *as_video_get_locale (AsVideo *video);
+void		     as_video_set_locale (AsVideo *video, const gchar *locale);
 
 G_END_DECLS
 

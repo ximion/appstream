@@ -39,10 +39,9 @@
  * See also: #AsComponent
  */
 
-typedef struct
-{
-	AsProvidedKind	kind;
-	GPtrArray	*items;
+typedef struct {
+	AsProvidedKind kind;
+	GPtrArray *items;
 } AsProvidedPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsProvided, as_provided, G_TYPE_OBJECT)
@@ -57,7 +56,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsProvided, as_provided, G_TYPE_OBJECT)
  *
  * Returns: string version of @kind
  **/
-const gchar*
+const gchar *
 as_provided_kind_to_string (AsProvidedKind kind)
 {
 	if (kind == AS_PROVIDED_KIND_LIBRARY)
@@ -136,7 +135,7 @@ as_provided_kind_from_string (const gchar *kind_str)
  *
  * Returns: Pluralized, l10n string version of @kind
  **/
-const gchar*
+const gchar *
 as_provided_kind_to_l10n_string (AsProvidedKind kind)
 {
 	if (kind == AS_PROVIDED_KIND_LIBRARY)
@@ -248,7 +247,7 @@ as_provided_has_item (AsProvided *prov, const gchar *item)
 	guint i;
 
 	for (i = 0; i < priv->items->len; i++) {
-		const gchar *pitem = (const gchar*) g_ptr_array_index (priv->items, i);
+		const gchar *pitem = (const gchar *) g_ptr_array_index (priv->items, i);
 		if (g_strcmp0 (pitem, item) == 0)
 			return TRUE;
 
@@ -270,7 +269,7 @@ as_provided_has_item (AsProvided *prov, const gchar *item)
  *
  * Returns: (transfer none) (element-type utf8): An string list of provided items.
  */
-GPtrArray*
+GPtrArray *
 as_provided_get_items (AsProvided *prov)
 {
 	AsProvidedPrivate *priv = GET_PRIVATE (prov);
@@ -297,7 +296,7 @@ as_provided_add_item (AsProvided *prov, const gchar *item)
  *
  * Returns: (transfer full): a #AsProvided
  **/
-AsProvided*
+AsProvided *
 as_provided_new (void)
 {
 	AsProvided *prov;

@@ -32,7 +32,7 @@ static gchar *datadir = NULL;
  *
  * Helper function for other tests.
  */
-static gchar*
+static gchar *
 as_yaml_test_serialize (AsComponent *cpt)
 {
 	gchar *data;
@@ -55,7 +55,7 @@ as_yaml_test_serialize (AsComponent *cpt)
  *
  * Helper function to read a single component from YAML data.
  */
-static AsComponent*
+static AsComponent *
 as_yaml_test_read_data (const gchar *data, GError **error)
 {
 	AsComponent *cpt;
@@ -65,7 +65,8 @@ as_yaml_test_read_data (const gchar *data, GError **error)
 	data_full = g_strdup_printf ("---\n"
 				     "File: DEP-11\n"
 				     "Version: '1.0'\n"
-				     "---\n%s", data);
+				     "---\n%s",
+				     data);
 
 	metad = as_metadata_new ();
 	as_metadata_set_locale (metad, "ALL");
@@ -84,7 +85,8 @@ as_yaml_test_read_data (const gchar *data, GError **error)
 		as_metadata_parse_data (metad, data_full, -1, AS_FORMAT_KIND_YAML, error);
 
 		if (as_metadata_get_components (metad)->len > 0) {
-			cpt = AS_COMPONENT (g_ptr_array_index (as_metadata_get_components (metad), 0));
+			cpt = AS_COMPONENT (
+			    g_ptr_array_index (as_metadata_get_components (metad), 0));
 			return g_object_ref (cpt);
 		} else {
 			return NULL;
@@ -105,7 +107,8 @@ as_yaml_test_compare_yaml (const gchar *result, const gchar *expected)
 	expected_full = g_strdup_printf ("---\n"
 					 "File: DEP-11\n"
 					 "Version: '1.0'\n"
-					 "---\n%s", expected);
+					 "---\n%s",
+					 expected);
 	return as_test_compare_lines (result, expected_full);
 }
 
@@ -150,11 +153,13 @@ test_yaml_basic (void)
 
 	/* just check one of the components... */
 	g_assert_nonnull (cpt_tomatoes);
-	g_assert_cmpstr (as_component_get_summary (cpt_tomatoes), ==, "How many tomatoes can you smash in ten short minutes?");
+	g_assert_cmpstr (as_component_get_summary (cpt_tomatoes),
+			 ==,
+			 "How many tomatoes can you smash in ten short minutes?");
 	g_assert_cmpstr (as_component_get_pkgnames (cpt_tomatoes)[0], ==, "tomatoes");
 }
 
-static AsScreenshot*
+static AsScreenshot *
 test_h_create_dummy_screenshot (void)
 {
 	AsScreenshot *scr;
@@ -210,97 +215,97 @@ test_yamlwrite_misc (void)
 	g_autofree gchar *resdata = NULL;
 	AsComponent *cpt = NULL;
 
-	gchar *_PKGNAME1[2] = {"fwdummy", NULL};
-	gchar *_PKGNAME2[2] = {"foobar-pkg", NULL};
+	gchar *_PKGNAME1[2] = { "fwdummy", NULL };
+	gchar *_PKGNAME2[2] = { "foobar-pkg", NULL };
 
 	const gchar *expected_yaml =
-				"Type: firmware\n"
-				"ID: org.example.test.firmware\n"
-				"DateEOL: 2022-02-22T00:00:00Z\n"
-				"Package: fwdummy\n"
-				"Extends:\n"
-				"- org.example.alpha\n"
-				"- org.example.beta\n"
-				"Name:\n"
-				"  C: Unittest Firmware\n"
-				"  de-DE: Ünittest Fürmwäre (dummy Eintrag)\n"
-				"Summary:\n"
-				"  C: Just part of an unittest.\n"
-				"Url:\n"
-				"  homepage: https://example.com\n"
-				"---\n"
-				"Type: desktop-application\n"
-				"ID: org.freedesktop.foobar.desktop\n"
-				"Package: foobar-pkg\n"
-				"Name:\n"
-				"  C: TEST!!\n"
-				"Summary:\n"
-				"  C: Just part of an unittest.\n"
-				"Icon:\n"
-				"  cached:\n"
-				"  - name: test_writetest.png\n"
-				"    width: 20\n"
-				"    height: 20\n"
-				"  - name: test_writetest.png\n"
-				"    width: 40\n"
-				"    height: 40\n"
-				"  stock: yml-writetest\n"
-				"Bundles:\n"
-				"- type: flatpak\n"
-				"  id: foobar\n"
-				"Screenshots:\n"
-				"- caption:\n"
-				"    fr: Le FooBar mainwindow\n"
-				"    C: The FooBar mainwindow\n"
-				"  thumbnails:\n"
-				"  - url: https://example.org/images/foobar-small.png\n"
-				"    width: 400\n"
-				"    height: 200\n"
-				"  - url: https://example.org/images/foobar-smaller.png\n"
-				"    width: 210\n"
-				"    height: 120\n"
-				"  source-image:\n"
-				"    url: https://example.org/images/foobar-full.png\n"
-				"    width: 840\n"
-				"    height: 560\n"
-				"Languages:\n"
-				"- locale: de_DE\n"
-				"  percentage: 84\n"
-				"- locale: en_GB\n"
-				"  percentage: 100\n"
-				"Releases:\n"
-				"- version: '1.2'\n"
-				"  type: stable\n"
-				"  unix-timestamp: 1462288512\n"
-				"  urgency: medium\n"
-				"  description:\n"
-				"    C: >-\n"
-				"      <p>The CPU no longer overheats when you hold down spacebar.</p>\n"
-				"  issues:\n"
-				"  - id: bz#12345\n"
-				"    url: https://example.com/bugzilla/12345\n"
-				"  - type: cve\n"
-				"    id: CVE-2019-123456\n"
-				"- version: '1.0'\n"
-				"  type: development\n"
-				"  unix-timestamp: 1460463132\n"
-				"  description:\n"
-				"    C: >-\n"
-				"      <p>Awesome initial release.</p>\n"
-				"\n"
-				"      <p>Second paragraph.</p>\n"
-				"    de-DE: >-\n"
-				"      <p>Großartige erste Veröffentlichung.</p>\n"
-				"\n"
-				"      <p>Zweite zeile.</p>\n"
-				"  url:\n"
-				"    details: https://example.org/releases/1.0.html\n"
-				"---\n"
-				"Type: generic\n"
-				"ID: org.example.ATargetComponent\n"
-				"Merge: replace\n"
-				"Name:\n"
-				"  C: ReplaceThis!\n";
+	    "Type: firmware\n"
+	    "ID: org.example.test.firmware\n"
+	    "DateEOL: 2022-02-22T00:00:00Z\n"
+	    "Package: fwdummy\n"
+	    "Extends:\n"
+	    "- org.example.alpha\n"
+	    "- org.example.beta\n"
+	    "Name:\n"
+	    "  C: Unittest Firmware\n"
+	    "  de-DE: Ünittest Fürmwäre (dummy Eintrag)\n"
+	    "Summary:\n"
+	    "  C: Just part of an unittest.\n"
+	    "Url:\n"
+	    "  homepage: https://example.com\n"
+	    "---\n"
+	    "Type: desktop-application\n"
+	    "ID: org.freedesktop.foobar.desktop\n"
+	    "Package: foobar-pkg\n"
+	    "Name:\n"
+	    "  C: TEST!!\n"
+	    "Summary:\n"
+	    "  C: Just part of an unittest.\n"
+	    "Icon:\n"
+	    "  cached:\n"
+	    "  - name: test_writetest.png\n"
+	    "    width: 20\n"
+	    "    height: 20\n"
+	    "  - name: test_writetest.png\n"
+	    "    width: 40\n"
+	    "    height: 40\n"
+	    "  stock: yml-writetest\n"
+	    "Bundles:\n"
+	    "- type: flatpak\n"
+	    "  id: foobar\n"
+	    "Screenshots:\n"
+	    "- caption:\n"
+	    "    fr: Le FooBar mainwindow\n"
+	    "    C: The FooBar mainwindow\n"
+	    "  thumbnails:\n"
+	    "  - url: https://example.org/images/foobar-small.png\n"
+	    "    width: 400\n"
+	    "    height: 200\n"
+	    "  - url: https://example.org/images/foobar-smaller.png\n"
+	    "    width: 210\n"
+	    "    height: 120\n"
+	    "  source-image:\n"
+	    "    url: https://example.org/images/foobar-full.png\n"
+	    "    width: 840\n"
+	    "    height: 560\n"
+	    "Languages:\n"
+	    "- locale: de_DE\n"
+	    "  percentage: 84\n"
+	    "- locale: en_GB\n"
+	    "  percentage: 100\n"
+	    "Releases:\n"
+	    "- version: '1.2'\n"
+	    "  type: stable\n"
+	    "  unix-timestamp: 1462288512\n"
+	    "  urgency: medium\n"
+	    "  description:\n"
+	    "    C: >-\n"
+	    "      <p>The CPU no longer overheats when you hold down spacebar.</p>\n"
+	    "  issues:\n"
+	    "  - id: bz#12345\n"
+	    "    url: https://example.com/bugzilla/12345\n"
+	    "  - type: cve\n"
+	    "    id: CVE-2019-123456\n"
+	    "- version: '1.0'\n"
+	    "  type: development\n"
+	    "  unix-timestamp: 1460463132\n"
+	    "  description:\n"
+	    "    C: >-\n"
+	    "      <p>Awesome initial release.</p>\n"
+	    "\n"
+	    "      <p>Second paragraph.</p>\n"
+	    "    de-DE: >-\n"
+	    "      <p>Großartige erste Veröffentlichung.</p>\n"
+	    "\n"
+	    "      <p>Zweite zeile.</p>\n"
+	    "  url:\n"
+	    "    details: https://example.org/releases/1.0.html\n"
+	    "---\n"
+	    "Type: generic\n"
+	    "ID: org.example.ATargetComponent\n"
+	    "Merge: replace\n"
+	    "Name:\n"
+	    "  C: ReplaceThis!\n";
 
 	metad = as_metadata_new ();
 
@@ -354,15 +359,25 @@ test_yamlwrite_misc (void)
 	as_release_set_version (rel1, "1.0");
 	as_release_set_kind (rel1, AS_RELEASE_KIND_DEVELOPMENT);
 	as_release_set_timestamp (rel1, 1460463132);
-	as_release_set_description (rel1, "<p>Awesome initial release.</p>\n<p>Second paragraph.</p>", "C");
-	as_release_set_description (rel1, "<p>Großartige erste Veröffentlichung.</p>\n<p>Zweite zeile.</p>", "de-DE");
-	as_release_set_url (rel1, AS_RELEASE_URL_KIND_DETAILS, "https://example.org/releases/1.0.html");
+	as_release_set_description (rel1,
+				    "<p>Awesome initial release.</p>\n<p>Second paragraph.</p>",
+				    "C");
+	as_release_set_description (
+	    rel1,
+	    "<p>Großartige erste Veröffentlichung.</p>\n<p>Zweite zeile.</p>",
+	    "de-DE");
+	as_release_set_url (rel1,
+			    AS_RELEASE_URL_KIND_DETAILS,
+			    "https://example.org/releases/1.0.html");
 	as_component_add_release (cpt, rel1);
 
 	rel2 = as_release_new ();
 	as_release_set_version (rel2, "1.2");
 	as_release_set_timestamp (rel2, 1462288512);
-	as_release_set_description (rel2, "<p>The CPU no longer overheats when you hold down spacebar.</p>", "C");
+	as_release_set_description (
+	    rel2,
+	    "<p>The CPU no longer overheats when you hold down spacebar.</p>",
+	    "C");
 	as_release_set_urgency (rel2, AS_URGENCY_KIND_MEDIUM);
 	as_component_add_release (cpt, rel2);
 
@@ -416,33 +431,30 @@ test_yaml_read_icons (void)
 	GPtrArray *icons;
 	g_autoptr(AsComponent) cpt = NULL;
 
-	const gchar *yamldata_icons_legacy =
-					"ID: org.example.Test\n"
-					"Icon:\n"
-					"  cached: test_test.png\n"
-					"  stock: test\n";
-	const gchar *yamldata_icons_current =
-					"ID: org.example.Test\n"
-					"Icon:\n"
-					"  cached:\n"
-					"    - width: 64\n"
-					"      height: 64\n"
-					"      name: test_test.png\n"
-					"    - width: 64\n"
-					"      height: 64\n"
-					"      name: test_test.png\n"
-					"      scale: 2\n"
-					"    - width: 128\n"
-					"      height: 128\n"
-					"      name: test_test.png\n"
-					"  stock: test\n";
-	const gchar *yamldata_icons_single =
-					"ID: org.example.Test\n"
-					"Icon:\n"
-					"  cached:\n"
-					"    - width: 64\n"
-					"      height: 64\n"
-					"      name: single_test.png\n";
+	const gchar *yamldata_icons_legacy = "ID: org.example.Test\n"
+					     "Icon:\n"
+					     "  cached: test_test.png\n"
+					     "  stock: test\n";
+	const gchar *yamldata_icons_current = "ID: org.example.Test\n"
+					      "Icon:\n"
+					      "  cached:\n"
+					      "    - width: 64\n"
+					      "      height: 64\n"
+					      "      name: test_test.png\n"
+					      "    - width: 64\n"
+					      "      height: 64\n"
+					      "      name: test_test.png\n"
+					      "      scale: 2\n"
+					      "    - width: 128\n"
+					      "      height: 128\n"
+					      "      name: test_test.png\n"
+					      "  stock: test\n";
+	const gchar *yamldata_icons_single = "ID: org.example.Test\n"
+					     "Icon:\n"
+					     "  cached:\n"
+					     "    - width: 64\n"
+					     "      height: 64\n"
+					     "      name: single_test.png\n";
 
 	/* check the legacy icons */
 	cpt = as_yaml_test_read_data (yamldata_icons_legacy, NULL);
@@ -485,7 +497,9 @@ test_yaml_read_icons (void)
 
 	icons = as_component_get_icons (cpt);
 	g_assert_cmpint (icons->len, ==, 1);
-	g_assert_cmpstr (as_icon_get_filename (AS_ICON (g_ptr_array_index (icons, 0))), ==, "single_test.png");
+	g_assert_cmpstr (as_icon_get_filename (AS_ICON (g_ptr_array_index (icons, 0))),
+			 ==,
+			 "single_test.png");
 }
 
 /**
@@ -497,13 +511,12 @@ static void
 test_yaml_read_languages (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
-	const gchar *yamldata_languages =
-					"ID: org.example.Test\n"
-					"Languages:\n"
-					"  - locale: de_DE\n"
-					"    percentage: 48\n"
-					"  - locale: en_GB\n"
-					"    percentage: 100\n";
+	const gchar *yamldata_languages = "ID: org.example.Test\n"
+					  "Languages:\n"
+					  "  - locale: de_DE\n"
+					  "    percentage: 48\n"
+					  "  - locale: en_GB\n"
+					  "    percentage: 100\n";
 
 	cpt = as_yaml_test_read_data (yamldata_languages, NULL);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
@@ -522,25 +535,36 @@ static void
 test_yaml_read_url (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
-	const gchar *yamldata_urls =
-				"ID: org.example.Test\n"
-				"Url:\n"
-				"  homepage: https://example.org\n"
-				"  faq: https://example.org/faq\n"
-				"  donation: https://example.org/donate\n"
-				"  contact: https://example.org/contact\n"
-				"  vcs-browser: https://example.org/source\n"
-				"  contribute: https://example.org/contribute\n";
+	const gchar *yamldata_urls = "ID: org.example.Test\n"
+				     "Url:\n"
+				     "  homepage: https://example.org\n"
+				     "  faq: https://example.org/faq\n"
+				     "  donation: https://example.org/donate\n"
+				     "  contact: https://example.org/contact\n"
+				     "  vcs-browser: https://example.org/source\n"
+				     "  contribute: https://example.org/contribute\n";
 
 	cpt = as_yaml_test_read_data (yamldata_urls, NULL);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
 
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), ==, "https://example.org");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_FAQ), ==, "https://example.org/faq");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_DONATION), ==, "https://example.org/donate");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_CONTACT), ==, "https://example.org/contact");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_VCS_BROWSER), ==, "https://example.org/source");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_CONTRIBUTE), ==, "https://example.org/contribute");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE),
+			 ==,
+			 "https://example.org");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_FAQ),
+			 ==,
+			 "https://example.org/faq");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_DONATION),
+			 ==,
+			 "https://example.org/donate");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_CONTACT),
+			 ==,
+			 "https://example.org/contact");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_VCS_BROWSER),
+			 ==,
+			 "https://example.org/source");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_CONTRIBUTE),
+			 ==,
+			 "https://example.org/contribute");
 }
 
 /**
@@ -562,16 +586,15 @@ test_yaml_corrupt_data (void)
 	g_assert_null (cpt);
 }
 
-static const gchar *yamldata_simple_fields =
-					"Type: generic\n"
-					"ID: org.example.SimpleTest\n"
-					"DateEOL: 2022-02-22T00:00:00Z\n"
-					"Name:\n"
-					"  C: TestComponent\n"
-					"Summary:\n"
-					"  C: Just part of an unittest\n"
-					"NameVariantSuffix:\n"
-					"  C: Generic\n";
+static const gchar *yamldata_simple_fields = "Type: generic\n"
+					     "ID: org.example.SimpleTest\n"
+					     "DateEOL: 2022-02-22T00:00:00Z\n"
+					     "Name:\n"
+					     "  C: TestComponent\n"
+					     "Summary:\n"
+					     "  C: Just part of an unittest\n"
+					     "NameVariantSuffix:\n"
+					     "  C: Generic\n";
 
 /**
  * test_yaml_write_simple:
@@ -637,9 +660,9 @@ test_yaml_write_provides (void)
 					  "ID: org.example.ProvidesTest\n"
 					  "Provides:\n"
 					  "  mediatypes:\n"
-                                          "  - text/plain\n"
-                                          "  - application/xml\n"
-                                          "  - image/png\n"
+					  "  - text/plain\n"
+					  "  - application/xml\n"
+					  "  - image/png\n"
 					  "  binaries:\n"
 					  "  - foobar\n"
 					  "  - foobar-viewer\n"
@@ -704,9 +727,9 @@ test_yaml_read_provides (void)
 	const gchar *yamldata_provides = "ID: org.example.ProvidesTest\n"
 					 "Provides:\n"
 					 "  mediatypes:\n"
-                                         "  - text/plain\n"
-                                         "  - application/xml\n"
-                                         "  - image/png\n"
+					 "  - text/plain\n"
+					 "  - application/xml\n"
+					 "  - image/png\n"
 					 "  binaries:\n"
 					 "  - foobar\n"
 					 "  - foobar-viewer\n"
@@ -730,34 +753,38 @@ test_yaml_read_provides (void)
 	cpt_items = as_provided_get_items (prov);
 	g_assert_cmpint (cpt_items->len, ==, 3);
 
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 0), ==, "text/plain");
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 1), ==, "application/xml");
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 2), ==, "image/png");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_items, 0), ==, "text/plain");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_items, 1), ==, "application/xml");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_items, 2), ==, "image/png");
 
 	prov = AS_PROVIDED (g_ptr_array_index (provides, 1));
 	g_assert_true (as_provided_get_kind (prov) == AS_PROVIDED_KIND_BINARY);
 	cpt_items = as_provided_get_items (prov);
 	g_assert_cmpint (cpt_items->len, ==, 2);
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 0), ==, "foobar");
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 1), ==, "foobar-viewer");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_items, 0), ==, "foobar");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_items, 1), ==, "foobar-viewer");
 
 	prov = AS_PROVIDED (g_ptr_array_index (provides, 2));
 	g_assert_true (as_provided_get_kind (prov) == AS_PROVIDED_KIND_DBUS_SYSTEM);
 	cpt_items = as_provided_get_items (prov);
 	g_assert_cmpint (cpt_items->len, ==, 1);
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 0), ==, "org.example.ProvidesTest.Modify");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_items, 0),
+			 ==,
+			 "org.example.ProvidesTest.Modify");
 
 	prov = AS_PROVIDED (g_ptr_array_index (provides, 3));
 	g_assert_true (as_provided_get_kind (prov) == AS_PROVIDED_KIND_FIRMWARE_RUNTIME);
 	cpt_items = as_provided_get_items (prov);
 	g_assert_cmpint (cpt_items->len, ==, 1);
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 0), ==, "ipw2200-bss.fw");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_items, 0), ==, "ipw2200-bss.fw");
 
 	prov = AS_PROVIDED (g_ptr_array_index (provides, 4));
 	g_assert_true (as_provided_get_kind (prov) == AS_PROVIDED_KIND_FIRMWARE_FLASHED);
 	cpt_items = as_provided_get_items (prov);
 	g_assert_cmpint (cpt_items->len, ==, 1);
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_items, 0), ==, "84f40464-9272-4ef7-9399-cd95f12da696");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_items, 0),
+			 ==,
+			 "84f40464-9272-4ef7-9399-cd95f12da696");
 }
 
 /**
@@ -837,24 +864,23 @@ test_yaml_read_suggests (void)
 	cpt_ids = as_suggested_get_ids (sug);
 	g_assert_cmpint (cpt_ids->len, ==, 3);
 
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 0), ==, "org.example.Awesome");
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 1), ==, "org.example.test1");
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 2), ==, "org.example.test2");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_ids, 0), ==, "org.example.Awesome");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_ids, 1), ==, "org.example.test1");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_ids, 2), ==, "org.example.test2");
 
 	sug = AS_SUGGESTED (g_ptr_array_index (suggestions, 1));
 	g_assert_true (as_suggested_get_kind (sug) == AS_SUGGESTED_KIND_HEURISTIC);
 	cpt_ids = as_suggested_get_ids (sug);
 	g_assert_cmpint (cpt_ids->len, ==, 1);
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 0), ==, "org.example.test3");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_ids, 0), ==, "org.example.test3");
 }
 
-static const gchar *yamldata_custom_field =
-				"Type: generic\n"
-				"ID: org.example.CustomTest\n"
-				"Custom:\n"
-				"  executable: myapp --test\n"
-				"  foo bar: value-with space\n"
-				"  Oh::Snap::Punctuation!: Awesome!\n";
+static const gchar *yamldata_custom_field = "Type: generic\n"
+					    "ID: org.example.CustomTest\n"
+					    "Custom:\n"
+					    "  executable: myapp --test\n"
+					    "  foo bar: value-with space\n"
+					    "  Oh::Snap::Punctuation!: Awesome!\n";
 /**
  * test_yaml_write_custom:
  *
@@ -894,16 +920,17 @@ test_yaml_read_custom (void)
 
 	g_assert_cmpstr (as_component_get_custom_value (cpt, "executable"), ==, "myapp --test");
 	g_assert_cmpstr (as_component_get_custom_value (cpt, "foo bar"), ==, "value-with space");
-	g_assert_cmpstr (as_component_get_custom_value (cpt, "Oh::Snap::Punctuation!"), ==, "Awesome!");
+	g_assert_cmpstr (as_component_get_custom_value (cpt, "Oh::Snap::Punctuation!"),
+			 ==,
+			 "Awesome!");
 }
 
-static const gchar *yamldata_content_rating_field =
-					"Type: generic\n"
-					"ID: org.example.ContentRatingTest\n"
-					"ContentRating:\n"
-					"  oars-1.0:\n"
-					"    drugs-alcohol: moderate\n"
-					"    language-humor: mild\n";
+static const gchar *yamldata_content_rating_field = "Type: generic\n"
+						    "ID: org.example.ContentRatingTest\n"
+						    "ContentRating:\n"
+						    "  oars-1.0:\n"
+						    "    drugs-alcohol: moderate\n"
+						    "    language-humor: mild\n";
 
 /**
  * test_yaml_write_content_rating:
@@ -950,18 +977,23 @@ test_yaml_read_content_rating (void)
 
 	rating = as_component_get_content_rating (cpt, "oars-1.0");
 	g_assert_nonnull (rating);
-	g_assert_cmpint (as_content_rating_get_value (rating, "drugs-alcohol"), ==, AS_CONTENT_RATING_VALUE_MODERATE);
-	g_assert_cmpint (as_content_rating_get_value (rating, "language-humor"), ==, AS_CONTENT_RATING_VALUE_MILD);
-	g_assert_cmpint (as_content_rating_get_value (rating, "violence-bloodshed"), ==, AS_CONTENT_RATING_VALUE_NONE);
+	g_assert_cmpint (as_content_rating_get_value (rating, "drugs-alcohol"),
+			 ==,
+			 AS_CONTENT_RATING_VALUE_MODERATE);
+	g_assert_cmpint (as_content_rating_get_value (rating, "language-humor"),
+			 ==,
+			 AS_CONTENT_RATING_VALUE_MILD);
+	g_assert_cmpint (as_content_rating_get_value (rating, "violence-bloodshed"),
+			 ==,
+			 AS_CONTENT_RATING_VALUE_NONE);
 }
 
-static const gchar *yamldata_launchable_field =
-					"Type: generic\n"
-					"ID: org.example.LaunchTest\n"
-					"Launchable:\n"
-					"  desktop-id:\n"
-					"  - org.example.Test.desktop\n"
-					"  - kde4-kool.desktop\n";
+static const gchar *yamldata_launchable_field = "Type: generic\n"
+						"ID: org.example.LaunchTest\n"
+						"Launchable:\n"
+						"  desktop-id:\n"
+						"  - org.example.Test.desktop\n"
+						"  - kde4-kool.desktop\n";
 
 /**
  * test_yaml_write_launchable:
@@ -1010,33 +1042,36 @@ test_yaml_read_launchable (void)
 	g_assert_nonnull (launch);
 
 	g_assert_cmpint (as_launchable_get_entries (launch)->len, ==, 2);
-	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 0), ==, "org.example.Test.desktop");
-	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 1), ==, "kde4-kool.desktop");
+	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 0),
+			 ==,
+			 "org.example.Test.desktop");
+	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 1),
+			 ==,
+			 "kde4-kool.desktop");
 }
 
-static const gchar *yamldata_relations_field =
-				"Type: generic\n"
-				"ID: org.example.RelationsTest\n"
-				"Replaces:\n"
-				"- id: org.example.old_test\n"
-				"Requires:\n"
-				"- kernel: Linux\n"
-				"  version: '>= 4.15'\n"
-				"- id: org.example.TestDependency\n"
-				"  version: == 1.2\n"
-				"- display_length: 4200\n"
-				"- internet: always\n"
-				"  bandwidth_mbitps: 2\n"
-				"Recommends:\n"
-				"- memory: 2500\n"
-				"- modalias: usb:v1130p0202d*\n"
-				"- display_length: <= xlarge\n"
-				"  side: longest\n"
-				"- internet: first-run\n"
-				"Supports:\n"
-				"- control: gamepad\n"
-				"- control: keyboard\n"
-				"- internet: offline-only\n";
+static const gchar *yamldata_relations_field = "Type: generic\n"
+					       "ID: org.example.RelationsTest\n"
+					       "Replaces:\n"
+					       "- id: org.example.old_test\n"
+					       "Requires:\n"
+					       "- kernel: Linux\n"
+					       "  version: '>= 4.15'\n"
+					       "- id: org.example.TestDependency\n"
+					       "  version: == 1.2\n"
+					       "- display_length: 4200\n"
+					       "- internet: always\n"
+					       "  bandwidth_mbitps: 2\n"
+					       "Recommends:\n"
+					       "- memory: 2500\n"
+					       "- modalias: usb:v1130p0202d*\n"
+					       "- display_length: <= xlarge\n"
+					       "  side: longest\n"
+					       "- internet: first-run\n"
+					       "Supports:\n"
+					       "- control: gamepad\n"
+					       "- control: keyboard\n"
+					       "- internet: offline-only\n";
 
 /**
  * test_yaml_write_relations:
@@ -1173,7 +1208,9 @@ test_yaml_read_relations (void)
 
 	/* component replacement */
 	g_assert_cmpint (as_component_get_replaces (cpt)->len, ==, 1);
-	g_assert_cmpstr (g_ptr_array_index (as_component_get_replaces (cpt), 0), ==, "org.example.old_test");
+	g_assert_cmpstr (g_ptr_array_index (as_component_get_replaces (cpt), 0),
+			 ==,
+			 "org.example.old_test");
 
 	/* memory relation */
 	relation = AS_RELATION (g_ptr_array_index (recommends, 0));
@@ -1190,15 +1227,21 @@ test_yaml_read_relations (void)
 	/* display_length relation (REC) */
 	relation = AS_RELATION (g_ptr_array_index (recommends, 2));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_RECOMMENDS);
-	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
-	g_assert_cmpint (as_relation_get_value_display_length_kind (relation), ==, AS_DISPLAY_LENGTH_KIND_XLARGE);
+	g_assert_cmpint (as_relation_get_item_kind (relation),
+			 ==,
+			 AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
+	g_assert_cmpint (as_relation_get_value_display_length_kind (relation),
+			 ==,
+			 AS_DISPLAY_LENGTH_KIND_XLARGE);
 	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_LE);
 
 	/* internet relation (REC) */
 	relation = AS_RELATION (g_ptr_array_index (recommends, 3));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_RECOMMENDS);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_INTERNET);
-	g_assert_cmpint (as_relation_get_value_internet_kind (relation), ==, AS_INTERNET_KIND_FIRST_RUN);
+	g_assert_cmpint (as_relation_get_value_internet_kind (relation),
+			 ==,
+			 AS_INTERNET_KIND_FIRST_RUN);
 	g_assert_cmpint (as_relation_get_value_internet_bandwidth (relation), ==, 0);
 
 	/* kernel relation */
@@ -1220,7 +1263,9 @@ test_yaml_read_relations (void)
 	/* display_length relation (REQ) */
 	relation = AS_RELATION (g_ptr_array_index (requires, 2));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_REQUIRES);
-	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
+	g_assert_cmpint (as_relation_get_item_kind (relation),
+			 ==,
+			 AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
 	g_assert_cmpint (as_relation_get_value_px (relation), ==, 4200);
 	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_GE);
 
@@ -1228,43 +1273,48 @@ test_yaml_read_relations (void)
 	relation = AS_RELATION (g_ptr_array_index (requires, 3));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_REQUIRES);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_INTERNET);
-	g_assert_cmpint (as_relation_get_value_internet_kind (relation), ==, AS_INTERNET_KIND_ALWAYS);
+	g_assert_cmpint (as_relation_get_value_internet_kind (relation),
+			 ==,
+			 AS_INTERNET_KIND_ALWAYS);
 	g_assert_cmpint (as_relation_get_value_internet_bandwidth (relation), ==, 2);
 
 	/* control relation */
 	relation = AS_RELATION (g_ptr_array_index (supports, 0));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_SUPPORTS);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_CONTROL);
-	g_assert_cmpint (as_relation_get_value_control_kind (relation), ==, AS_CONTROL_KIND_GAMEPAD);
+	g_assert_cmpint (as_relation_get_value_control_kind (relation),
+			 ==,
+			 AS_CONTROL_KIND_GAMEPAD);
 	relation = AS_RELATION (g_ptr_array_index (supports, 1));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_SUPPORTS);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_CONTROL);
-	g_assert_cmpint (as_relation_get_value_control_kind (relation), ==, AS_CONTROL_KIND_KEYBOARD);
+	g_assert_cmpint (as_relation_get_value_control_kind (relation),
+			 ==,
+			 AS_CONTROL_KIND_KEYBOARD);
 
 	/* internet relation (supports) */
 	relation = AS_RELATION (g_ptr_array_index (supports, 2));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_SUPPORTS);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_INTERNET);
-	g_assert_cmpint (as_relation_get_value_internet_kind (relation), ==, AS_INTERNET_KIND_OFFLINE_ONLY);
+	g_assert_cmpint (as_relation_get_value_internet_kind (relation),
+			 ==,
+			 AS_INTERNET_KIND_OFFLINE_ONLY);
 	g_assert_cmpint (as_relation_get_value_internet_bandwidth (relation), ==, 0);
 }
 
-
-static const gchar *yamldata_agreements =
-				"Type: generic\n"
-				"ID: org.example.AgreementsTest\n"
-				"Agreements:\n"
-				"- type: eula\n"
-				"  version-id: 1.2.3a\n"
-				"  sections:\n"
-				"  - type: intro\n"
-				"    name:\n"
-				"      C: Intro\n"
-				"      xde-DE: Einführung\n"
-				"    description:\n"
-				"      C: >-\n"
-				"        <p>Mighty Fine</p>\n";
-
+static const gchar *yamldata_agreements = "Type: generic\n"
+					  "ID: org.example.AgreementsTest\n"
+					  "Agreements:\n"
+					  "- type: eula\n"
+					  "  version-id: 1.2.3a\n"
+					  "  sections:\n"
+					  "  - type: intro\n"
+					  "    name:\n"
+					  "      C: Intro\n"
+					  "      xde-DE: Einführung\n"
+					  "    description:\n"
+					  "      C: >-\n"
+					  "        <p>Mighty Fine</p>\n";
 
 /**
  * test_yaml_write_agreements:
@@ -1335,36 +1385,35 @@ test_yaml_read_agreements (void)
 	g_assert_cmpstr (as_agreement_section_get_name (sect), ==, "Einführung");
 }
 
-static const gchar *yamldata_screenshots =
-				"Type: generic\n"
-				"ID: org.example.ScreenshotsTest\n"
-				"Screenshots:\n"
-				"- default: true\n"
-				"  caption:\n"
-				"    C: The main window displaying a thing\n"
-				"    de-DE: Das Hauptfenster, welches irgendwas zeigt\n"
-				"  thumbnails:\n"
-				"  - url: https://example.org/alpha_small.png\n"
-				"    width: 800\n"
-				"    height: 600\n"
-				"  source-image:\n"
-				"    url: https://example.org/alpha.png\n"
-				"    width: 1916\n"
-				"    height: 1056\n"
-				"- caption:\n"
-				"    C: A screencast of this app\n"
-				"  videos:\n"
-				"  - codec: av1\n"
-				"    container: matroska\n"
-				"    url: https://example.org/screencast.mkv\n"
-				"    width: 1916\n"
-				"    height: 1056\n"
-				"  - codec: av1\n"
-				"    container: matroska\n"
-				"    url: https://example.org/screencast_de.mkv\n"
-				"    width: 1916\n"
-				"    height: 1056\n"
-				"    lang: de-DE\n";
+static const gchar *yamldata_screenshots = "Type: generic\n"
+					   "ID: org.example.ScreenshotsTest\n"
+					   "Screenshots:\n"
+					   "- default: true\n"
+					   "  caption:\n"
+					   "    C: The main window displaying a thing\n"
+					   "    de-DE: Das Hauptfenster, welches irgendwas zeigt\n"
+					   "  thumbnails:\n"
+					   "  - url: https://example.org/alpha_small.png\n"
+					   "    width: 800\n"
+					   "    height: 600\n"
+					   "  source-image:\n"
+					   "    url: https://example.org/alpha.png\n"
+					   "    width: 1916\n"
+					   "    height: 1056\n"
+					   "- caption:\n"
+					   "    C: A screencast of this app\n"
+					   "  videos:\n"
+					   "  - codec: av1\n"
+					   "    container: matroska\n"
+					   "    url: https://example.org/screencast.mkv\n"
+					   "    width: 1916\n"
+					   "    height: 1056\n"
+					   "  - codec: av1\n"
+					   "    container: matroska\n"
+					   "    url: https://example.org/screencast_de.mkv\n"
+					   "    width: 1916\n"
+					   "    height: 1056\n"
+					   "    lang: de-DE\n";
 
 /**
  * test_yaml_write_screenshots:
@@ -1464,9 +1513,13 @@ test_yaml_read_screenshots (void)
 	g_assert_cmpint (as_screenshot_get_kind (scr1), ==, AS_SCREENSHOT_KIND_DEFAULT);
 	g_assert_cmpint (as_screenshot_get_media_kind (scr1), ==, AS_SCREENSHOT_MEDIA_KIND_IMAGE);
 	as_screenshot_set_active_locale (scr1, "C");
-	g_assert_cmpstr (as_screenshot_get_caption (scr1), ==, "The main window displaying a thing");
+	g_assert_cmpstr (as_screenshot_get_caption (scr1),
+			 ==,
+			 "The main window displaying a thing");
 	as_screenshot_set_active_locale (scr1, "de_DE");
-	g_assert_cmpstr (as_screenshot_get_caption (scr1), ==, "Das Hauptfenster, welches irgendwas zeigt");
+	g_assert_cmpstr (as_screenshot_get_caption (scr1),
+			 ==,
+			 "Das Hauptfenster, welches irgendwas zeigt");
 
 	images = as_screenshot_get_images_all (scr1);
 	g_assert_cmpint (images->len, ==, 2);
@@ -1518,54 +1571,56 @@ test_yaml_read_screenshots (void)
 }
 
 static const gchar *yamldata_releases_field =
-				"Type: generic\n"
-				"ID: org.example.ReleasesTest\n"
-				"Releases:\n"
-				"- version: '1.2'\n"
-				"  type: stable\n"
-				"  unix-timestamp: 1462288512\n"
-				"  urgency: medium\n"
-				"  description:\n"
-				"    C: >-\n"
-				"      <p>The CPU no longer overheats when you hold down spacebar.</p>\n"
-				"  issues:\n"
-				"  - id: bz#12345\n"
-				"    url: https://example.com/bugzilla/12345\n"
-				"  - type: cve\n"
-				"    id: CVE-2019-123456\n"
-				"  artifacts:\n"
-				"  - type: source\n"
-				"    bundle: tarball\n"
-				"    locations:\n"
-				"    - https://example.com/source.tar.xz\n"
-				"    checksum:\n"
-				"      blake2b: 8b28f613fa1ccdb1d303704839a0bb196424f425badfa4e4f43808f6812b6bcc0ae43374383bb6e46294d08155a64acbad92084387c73f696f00368ea106ebb4\n"
-				"    size: {}\n"
-				"  - type: binary\n"
-				"    platform: x86_64-linux-gnu\n"
-				"    bundle: flatpak\n"
-				"    locations:\n"
-				"    - https://example.com/binary_amd64.flatpak\n"
-				"    filename: binary-1.2.0_amd64.flatpak\n"
-				"    checksum:\n"
-				"      blake2b: 04839a\n"
-				"    size:\n"
-				"      download: 24084\n"
-				"      installed: 42052\n"
-				"- version: '1.0'\n"
-				"  type: development\n"
-				"  unix-timestamp: 1460463132\n"
-				"  description:\n"
-				"    C: >-\n"
-				"      <p>Awesome initial release.</p>\n"
-				"\n"
-				"      <p>Second paragraph.</p>\n"
-				"    de-DE: >-\n"
-				"      <p>Großartige erste Veröffentlichung.</p>\n"
-				"\n"
-				"      <p>Zweite zeile.</p>\n"
-				"  url:\n"
-				"    details: https://example.org/releases/1.0.html\n";
+    "Type: generic\n"
+    "ID: org.example.ReleasesTest\n"
+    "Releases:\n"
+    "- version: '1.2'\n"
+    "  type: stable\n"
+    "  unix-timestamp: 1462288512\n"
+    "  urgency: medium\n"
+    "  description:\n"
+    "    C: >-\n"
+    "      <p>The CPU no longer overheats when you hold down spacebar.</p>\n"
+    "  issues:\n"
+    "  - id: bz#12345\n"
+    "    url: https://example.com/bugzilla/12345\n"
+    "  - type: cve\n"
+    "    id: CVE-2019-123456\n"
+    "  artifacts:\n"
+    "  - type: source\n"
+    "    bundle: tarball\n"
+    "    locations:\n"
+    "    - https://example.com/source.tar.xz\n"
+    "    checksum:\n"
+    "      blake2b: "
+    "8b28f613fa1ccdb1d303704839a0bb196424f425badfa4e4f43808f6812b6bcc0ae43374383bb6e46294d08155a64a"
+    "cbad92084387c73f696f00368ea106ebb4\n"
+    "    size: {}\n"
+    "  - type: binary\n"
+    "    platform: x86_64-linux-gnu\n"
+    "    bundle: flatpak\n"
+    "    locations:\n"
+    "    - https://example.com/binary_amd64.flatpak\n"
+    "    filename: binary-1.2.0_amd64.flatpak\n"
+    "    checksum:\n"
+    "      blake2b: 04839a\n"
+    "    size:\n"
+    "      download: 24084\n"
+    "      installed: 42052\n"
+    "- version: '1.0'\n"
+    "  type: development\n"
+    "  unix-timestamp: 1460463132\n"
+    "  description:\n"
+    "    C: >-\n"
+    "      <p>Awesome initial release.</p>\n"
+    "\n"
+    "      <p>Second paragraph.</p>\n"
+    "    de-DE: >-\n"
+    "      <p>Großartige erste Veröffentlichung.</p>\n"
+    "\n"
+    "      <p>Zweite zeile.</p>\n"
+    "  url:\n"
+    "    details: https://example.org/releases/1.0.html\n";
 
 /**
  * test_yaml_write_releases:
@@ -1592,15 +1647,25 @@ test_yaml_write_releases (void)
 	as_release_set_version (rel1, "1.0");
 	as_release_set_kind (rel1, AS_RELEASE_KIND_DEVELOPMENT);
 	as_release_set_timestamp (rel1, 1460463132);
-	as_release_set_description (rel1, "<p>Awesome initial release.</p>\n<p>Second paragraph.</p>", "C");
-	as_release_set_description (rel1, "<p>Großartige erste Veröffentlichung.</p>\n<p>Zweite zeile.</p>", "de-DE");
-	as_release_set_url (rel1, AS_RELEASE_URL_KIND_DETAILS, "https://example.org/releases/1.0.html");
+	as_release_set_description (rel1,
+				    "<p>Awesome initial release.</p>\n<p>Second paragraph.</p>",
+				    "C");
+	as_release_set_description (
+	    rel1,
+	    "<p>Großartige erste Veröffentlichung.</p>\n<p>Zweite zeile.</p>",
+	    "de-DE");
+	as_release_set_url (rel1,
+			    AS_RELEASE_URL_KIND_DETAILS,
+			    "https://example.org/releases/1.0.html");
 	as_component_add_release (cpt, rel1);
 
 	rel2 = as_release_new ();
 	as_release_set_version (rel2, "1.2");
 	as_release_set_timestamp (rel2, 1462288512);
-	as_release_set_description (rel2, "<p>The CPU no longer overheats when you hold down spacebar.</p>", "C");
+	as_release_set_description (
+	    rel2,
+	    "<p>The CPU no longer overheats when you hold down spacebar.</p>",
+	    "C");
 	as_release_set_urgency (rel2, AS_URGENCY_KIND_MEDIUM);
 	as_component_add_release (cpt, rel2);
 
@@ -1622,7 +1687,10 @@ test_yaml_write_releases (void)
 	as_artifact_set_kind (af1, AS_ARTIFACT_KIND_SOURCE);
 	as_artifact_add_location (af1, "https://example.com/source.tar.xz");
 	as_artifact_set_bundle_kind (af1, AS_BUNDLE_KIND_TARBALL);
-	cs = as_checksum_new_for_kind_value (AS_CHECKSUM_KIND_BLAKE2B, "8b28f613fa1ccdb1d303704839a0bb196424f425badfa4e4f43808f6812b6bcc0ae43374383bb6e46294d08155a64acbad92084387c73f696f00368ea106ebb4");
+	cs = as_checksum_new_for_kind_value (
+	    AS_CHECKSUM_KIND_BLAKE2B,
+	    "8b28f613fa1ccdb1d303704839a0bb196424f425badfa4e4f43808f6812b6bcc0ae43374383bb6e46294d0"
+	    "8155a64acbad92084387c73f696f00368ea106ebb4");
 	as_artifact_add_checksum (af1, cs);
 	g_object_unref (cs);
 	as_release_add_artifact (rel2, af1);
@@ -1667,7 +1735,7 @@ test_yaml_read_releases (void)
 
 	rel = AS_RELEASE (g_ptr_array_index (as_component_get_releases (cpt), 0));
 	g_assert_cmpint (as_release_get_kind (rel), ==, AS_RELEASE_KIND_STABLE);
-	g_assert_cmpstr (as_release_get_version (rel), ==,  "1.2");
+	g_assert_cmpstr (as_release_get_version (rel), ==, "1.2");
 
 	issues = as_release_get_issues (rel);
 	g_assert_cmpint (issues->len, ==, 2);
@@ -1676,11 +1744,16 @@ test_yaml_read_releases (void)
 
 		if (as_issue_get_kind (issue) == AS_ISSUE_KIND_GENERIC) {
 			g_assert_cmpstr (as_issue_get_id (issue), ==, "bz#12345");
-			g_assert_cmpstr (as_issue_get_url (issue), ==, "https://example.com/bugzilla/12345");
+			g_assert_cmpstr (as_issue_get_url (issue),
+					 ==,
+					 "https://example.com/bugzilla/12345");
 
 		} else if (as_issue_get_kind (issue) == AS_ISSUE_KIND_CVE) {
 			g_assert_cmpstr (as_issue_get_id (issue), ==, "CVE-2019-123456");
-			g_assert_cmpstr (as_issue_get_url (issue), ==, "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-123456");
+			g_assert_cmpstr (
+			    as_issue_get_url (issue),
+			    ==,
+			    "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-123456");
 
 		} else {
 			g_assert_not_reached ();
@@ -1693,17 +1766,24 @@ test_yaml_read_releases (void)
 	/* artifact 1 */
 	af = AS_ARTIFACT (g_ptr_array_index (artifacts, 0));
 	g_assert_cmpint (as_artifact_get_kind (af), ==, AS_ARTIFACT_KIND_SOURCE);
-	g_assert_cmpstr (g_ptr_array_index (as_artifact_get_locations (af), 0), ==, "https://example.com/source.tar.xz");
+	g_assert_cmpstr (g_ptr_array_index (as_artifact_get_locations (af), 0),
+			 ==,
+			 "https://example.com/source.tar.xz");
 	g_assert_cmpint (as_artifact_get_bundle_kind (af), ==, AS_BUNDLE_KIND_TARBALL);
 
 	cs = as_artifact_get_checksum (af, AS_CHECKSUM_KIND_BLAKE2B);
 	g_assert_nonnull (cs);
-	g_assert_cmpstr (as_checksum_get_value (cs), ==, "8b28f613fa1ccdb1d303704839a0bb196424f425badfa4e4f43808f6812b6bcc0ae43374383bb6e46294d08155a64acbad92084387c73f696f00368ea106ebb4");
+	g_assert_cmpstr (as_checksum_get_value (cs),
+			 ==,
+			 "8b28f613fa1ccdb1d303704839a0bb196424f425badfa4e4f43808f6812b6bcc0ae433743"
+			 "83bb6e46294d08155a64acbad92084387c73f696f00368ea106ebb4");
 
 	/* artifact 2 */
 	af = AS_ARTIFACT (g_ptr_array_index (artifacts, 1));
 	g_assert_cmpint (as_artifact_get_kind (af), ==, AS_ARTIFACT_KIND_BINARY);
-	g_assert_cmpstr (g_ptr_array_index (as_artifact_get_locations (af), 0), ==, "https://example.com/binary_amd64.flatpak");
+	g_assert_cmpstr (g_ptr_array_index (as_artifact_get_locations (af), 0),
+			 ==,
+			 "https://example.com/binary_amd64.flatpak");
 	g_assert_cmpstr (as_artifact_get_filename (af), ==, "binary-1.2.0_amd64.flatpak");
 	g_assert_cmpint (as_artifact_get_bundle_kind (af), ==, AS_BUNDLE_KIND_FLATPAK);
 
@@ -1723,14 +1803,13 @@ test_yaml_read_releases (void)
 static void
 test_yaml_rw_tags (void)
 {
-	static const gchar *yamldata_tags =
-			"Type: generic\n"
-			"ID: org.example.TagsTest\n"
-			"Tags:\n"
-			"- namespace: lvfs\n"
-			"  tag: vendor-2021q1\n"
-			"- namespace: plasma\n"
-			"  tag: featured\n";
+	static const gchar *yamldata_tags = "Type: generic\n"
+					    "ID: org.example.TagsTest\n"
+					    "Tags:\n"
+					    "- namespace: lvfs\n"
+					    "  tag: vendor-2021q1\n"
+					    "- namespace: plasma\n"
+					    "  tag: featured\n";
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
 
@@ -1753,17 +1832,16 @@ test_yaml_rw_tags (void)
 static void
 test_yaml_rw_branding (void)
 {
-	static const gchar *yamldata_tags =
-			"Type: generic\n"
-			"ID: org.example.BrandingTest\n"
-			"Branding:\n"
-			"  colors:\n"
-			"  - type: primary\n"
-			"    scheme-preference: light\n"
-			"    value: '#ff00ff'\n"
-			"  - type: primary\n"
-			"    scheme-preference: dark\n"
-			"    value: '#993d3d'\n";
+	static const gchar *yamldata_tags = "Type: generic\n"
+					    "ID: org.example.BrandingTest\n"
+					    "Branding:\n"
+					    "  colors:\n"
+					    "  - type: primary\n"
+					    "    scheme-preference: light\n"
+					    "    value: '#ff00ff'\n"
+					    "  - type: primary\n"
+					    "    scheme-preference: dark\n"
+					    "    value: '#993d3d'\n";
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
 	AsBranding *branding;
@@ -1776,10 +1854,14 @@ test_yaml_rw_branding (void)
 	branding = as_component_get_branding (cpt);
 	g_assert_nonnull (branding);
 
-	g_assert_cmpstr (as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY, AS_COLOR_SCHEME_KIND_LIGHT),
-			 ==, "#ff00ff");
-	g_assert_cmpstr (as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY, AS_COLOR_SCHEME_KIND_DARK),
-			 ==, "#993d3d");
+	g_assert_cmpstr (
+	    as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY, AS_COLOR_SCHEME_KIND_LIGHT),
+	    ==,
+	    "#ff00ff");
+	g_assert_cmpstr (
+	    as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY, AS_COLOR_SCHEME_KIND_DARK),
+	    ==,
+	    "#993d3d");
 
 	/* write */
 	res = as_yaml_test_serialize (cpt);

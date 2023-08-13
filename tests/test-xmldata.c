@@ -33,7 +33,7 @@ static gchar *datadir = NULL;
  *
  * Helper function for other tests.
  */
-static AsComponent*
+static AsComponent *
 as_xml_test_read_data (const gchar *data, AsFormatStyle mode)
 {
 	AsComponent *cpt = NULL;
@@ -63,7 +63,7 @@ as_xml_test_read_data (const gchar *data, AsFormatStyle mode)
  *
  * Helper function for other tests.
  */
-static gchar*
+static gchar *
 as_xml_test_serialize (AsComponent *cpt, AsFormatStyle mode)
 {
 	gchar *data;
@@ -94,7 +94,8 @@ static gboolean
 as_xml_test_compare_xml (const gchar *result, const gchar *expected)
 {
 	g_autofree gchar *expected_full = NULL;
-	expected_full = g_strdup_printf ("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n%s", expected);
+	expected_full = g_strdup_printf ("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n%s",
+					 expected);
 	return as_test_compare_lines (result, expected_full);
 }
 
@@ -105,9 +106,9 @@ as_xml_test_compare_xml (const gchar *result, const gchar *expected)
  */
 static gboolean
 test_log_allow_warnings (const gchar *log_domain,
-			     GLogLevelFlags log_level,
-			     const gchar *message,
-			     gpointer user_data)
+			 GLogLevelFlags log_level,
+			 const gchar *message,
+			 gpointer user_data)
 {
 	return ((log_level & G_LOG_LEVEL_MASK) <= G_LOG_LEVEL_CRITICAL);
 }
@@ -226,39 +227,40 @@ test_appstream_write_locale (void)
 	AsComponent *cpt;
 	g_autoptr(GError) error = NULL;
 
-	const gchar *EXPECTED_XML = "<component type=\"desktop-application\">\n"
-				    "  <id>org.mozilla.firefox</id>\n"
-				    "  <name>Firefox</name>\n"
-				    "  <name xml:lang=\"de-DE\">Feuerfuchs</name>\n"
-				    "  <name xml:lang=\"fr-FR\">Renard de feu</name>\n"
-				    "  <summary>Web browser</summary>\n"
-				    "  <summary xml:lang=\"fr-FR\">Navigateur web</summary>\n"
-				    "  <pkgname>firefox-bin</pkgname>\n"
-				    "  <icon type=\"stock\">web-browser</icon>\n"
-				    "  <icon type=\"cached\" width=\"64\" height=\"64\">firefox_web-browser.png</icon>\n"
-				    "  <url type=\"homepage\">http://www.mozilla.com</url>\n"
-				    "  <categories>\n"
-				    "    <category>network</category>\n"
-				    "    <category>web</category>\n"
-				    "  </categories>\n"
-				    "  <provides>\n"
-				    "    <mediatype>application/vnd.mozilla.xul+xml</mediatype>\n"
-				    "    <mediatype>application/x-xpinstall</mediatype>\n"
-				    "    <mediatype>application/xhtml+xml</mediatype>\n"
-				    "    <mediatype>text/html</mediatype>\n"
-				    "    <mediatype>text/mml</mediatype>\n"
-				    "    <mediatype>text/xml</mediatype>\n"
-				    "    <mediatype>x-scheme-handler/http</mediatype>\n"
-				    "    <mediatype>x-scheme-handler/https</mediatype>\n"
-				    "  </provides>\n"
-				    "  <translation type=\"gettext\" source_locale=\"de\">firefox</translation>\n"
-				    "  <keywords>\n"
-				    "    <keyword>internet</keyword>\n"
-				    "    <keyword>web</keyword>\n"
-				    "    <keyword>browser</keyword>\n"
-				    "    <keyword xml:lang=\"fr-FR\">navigateur</keyword>\n"
-				    "  </keywords>\n"
-				    "</component>\n";
+	const gchar *EXPECTED_XML =
+	    "<component type=\"desktop-application\">\n"
+	    "  <id>org.mozilla.firefox</id>\n"
+	    "  <name>Firefox</name>\n"
+	    "  <name xml:lang=\"de-DE\">Feuerfuchs</name>\n"
+	    "  <name xml:lang=\"fr-FR\">Renard de feu</name>\n"
+	    "  <summary>Web browser</summary>\n"
+	    "  <summary xml:lang=\"fr-FR\">Navigateur web</summary>\n"
+	    "  <pkgname>firefox-bin</pkgname>\n"
+	    "  <icon type=\"stock\">web-browser</icon>\n"
+	    "  <icon type=\"cached\" width=\"64\" height=\"64\">firefox_web-browser.png</icon>\n"
+	    "  <url type=\"homepage\">http://www.mozilla.com</url>\n"
+	    "  <categories>\n"
+	    "    <category>network</category>\n"
+	    "    <category>web</category>\n"
+	    "  </categories>\n"
+	    "  <provides>\n"
+	    "    <mediatype>application/vnd.mozilla.xul+xml</mediatype>\n"
+	    "    <mediatype>application/x-xpinstall</mediatype>\n"
+	    "    <mediatype>application/xhtml+xml</mediatype>\n"
+	    "    <mediatype>text/html</mediatype>\n"
+	    "    <mediatype>text/mml</mediatype>\n"
+	    "    <mediatype>text/xml</mediatype>\n"
+	    "    <mediatype>x-scheme-handler/http</mediatype>\n"
+	    "    <mediatype>x-scheme-handler/https</mediatype>\n"
+	    "  </provides>\n"
+	    "  <translation type=\"gettext\" source_locale=\"de\">firefox</translation>\n"
+	    "  <keywords>\n"
+	    "    <keyword>internet</keyword>\n"
+	    "    <keyword>web</keyword>\n"
+	    "    <keyword>browser</keyword>\n"
+	    "    <keyword xml:lang=\"fr-FR\">navigateur</keyword>\n"
+	    "  </keywords>\n"
+	    "</component>\n";
 
 	metad = as_metadata_new ();
 
@@ -275,9 +277,7 @@ test_appstream_write_locale (void)
 
 	as_component_sort_values (cpt);
 
-	tmp = as_metadata_component_to_metainfo (metad,
-						 AS_FORMAT_KIND_XML,
-						 &error);
+	tmp = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
 	g_assert_true (as_xml_test_compare_xml (tmp, EXPECTED_XML));
@@ -301,109 +301,112 @@ test_appstream_write_description (void)
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(AsComponent) cpt = NULL;
 
-	const gchar *EXPECTED_XML = "<component>\n"
-				    "  <id>org.example.Test</id>\n"
-				    "  <name>Test</name>\n"
-				    "  <summary>Just a unittest.</summary>\n"
-				    "  <description>\n"
-				    "    <p>First paragraph</p>\n"
-				    "    <ol>\n"
-				    "      <li>One</li>\n"
-				    "      <li>Two</li>\n"
-				    "      <li>Three is &gt; 2 &amp; 1</li>\n"
-				    "    </ol>\n"
-				    "    <p>Paragraph2</p>\n"
-				    "    <ul>\n"
-				    "      <li>First</li>\n"
-				    "      <li>Second</li>\n"
-				    "    </ul>\n"
-				    "    <p>Paragraph3 &amp; the last one</p>\n"
-				    "  </description>\n"
-				    "  <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
-				    "  <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
-				    "  <icon type=\"stock\">xml-writetest</icon>\n"
-				    "  <releases>\n"
-				    "    <release type=\"stable\" version=\"1.0\" date=\"2016-04-11T22:00:00Z\"/>\n"
-				    "  </releases>\n"
-				    "</component>\n";
+	const gchar *EXPECTED_XML =
+	    "<component>\n"
+	    "  <id>org.example.Test</id>\n"
+	    "  <name>Test</name>\n"
+	    "  <summary>Just a unittest.</summary>\n"
+	    "  <description>\n"
+	    "    <p>First paragraph</p>\n"
+	    "    <ol>\n"
+	    "      <li>One</li>\n"
+	    "      <li>Two</li>\n"
+	    "      <li>Three is &gt; 2 &amp; 1</li>\n"
+	    "    </ol>\n"
+	    "    <p>Paragraph2</p>\n"
+	    "    <ul>\n"
+	    "      <li>First</li>\n"
+	    "      <li>Second</li>\n"
+	    "    </ul>\n"
+	    "    <p>Paragraph3 &amp; the last one</p>\n"
+	    "  </description>\n"
+	    "  <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
+	    "  <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
+	    "  <icon type=\"stock\">xml-writetest</icon>\n"
+	    "  <releases>\n"
+	    "    <release type=\"stable\" version=\"1.0\" date=\"2016-04-11T22:00:00Z\"/>\n"
+	    "  </releases>\n"
+	    "</component>\n";
 
-	const gchar *EXPECTED_XML_LOCALIZED =   "<component>\n"
-						"  <id>org.example.Test</id>\n"
-						"  <name>Test</name>\n"
-						"  <summary>Just a unittest.</summary>\n"
-						"  <summary xml:lang=\"de\">Nur ein Unittest.</summary>\n"
-						"  <description>\n"
-						"    <p>First paragraph</p>\n"
-						"    <p xml:lang=\"de\">Erster paragraph</p>\n"
-						"    <ol>\n"
-						"      <li>One</li>\n"
-						"      <li xml:lang=\"de\">Eins</li>\n"
-						"      <li>Two</li>\n"
-						"      <li xml:lang=\"de\">Zwei</li>\n"
-						"      <li>Three is &gt; 2 &amp; 1</li>\n"
-						"      <li xml:lang=\"de\">Drei</li>\n"
-						"    </ol>\n"
-						"    <p>Paragraph2</p>\n"
-						"    <p xml:lang=\"de\">Zweiter Paragraph</p>\n"
-						"    <ul>\n"
-						"      <li>First</li>\n"
-						"      <li xml:lang=\"de\">Erstens</li>\n"
-						"      <li>Second</li>\n"
-						"      <li xml:lang=\"de\">Zweitens</li>\n"
-						"    </ul>\n"
-						"    <p>Paragraph3 &amp; the last one</p>\n"
-						"    <p xml:lang=\"de\">Paragraph3</p>\n"
-						"  </description>\n"
-						"  <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
-						"  <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
-						"  <icon type=\"stock\">xml-writetest</icon>\n"
-						"  <releases>\n"
-						"    <release type=\"stable\" version=\"1.0\" date=\"2016-04-11T22:00:00Z\"/>\n"
-						"  </releases>\n"
-						"</component>\n";
+	const gchar *EXPECTED_XML_LOCALIZED =
+	    "<component>\n"
+	    "  <id>org.example.Test</id>\n"
+	    "  <name>Test</name>\n"
+	    "  <summary>Just a unittest.</summary>\n"
+	    "  <summary xml:lang=\"de\">Nur ein Unittest.</summary>\n"
+	    "  <description>\n"
+	    "    <p>First paragraph</p>\n"
+	    "    <p xml:lang=\"de\">Erster paragraph</p>\n"
+	    "    <ol>\n"
+	    "      <li>One</li>\n"
+	    "      <li xml:lang=\"de\">Eins</li>\n"
+	    "      <li>Two</li>\n"
+	    "      <li xml:lang=\"de\">Zwei</li>\n"
+	    "      <li>Three is &gt; 2 &amp; 1</li>\n"
+	    "      <li xml:lang=\"de\">Drei</li>\n"
+	    "    </ol>\n"
+	    "    <p>Paragraph2</p>\n"
+	    "    <p xml:lang=\"de\">Zweiter Paragraph</p>\n"
+	    "    <ul>\n"
+	    "      <li>First</li>\n"
+	    "      <li xml:lang=\"de\">Erstens</li>\n"
+	    "      <li>Second</li>\n"
+	    "      <li xml:lang=\"de\">Zweitens</li>\n"
+	    "    </ul>\n"
+	    "    <p>Paragraph3 &amp; the last one</p>\n"
+	    "    <p xml:lang=\"de\">Paragraph3</p>\n"
+	    "  </description>\n"
+	    "  <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
+	    "  <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
+	    "  <icon type=\"stock\">xml-writetest</icon>\n"
+	    "  <releases>\n"
+	    "    <release type=\"stable\" version=\"1.0\" date=\"2016-04-11T22:00:00Z\"/>\n"
+	    "  </releases>\n"
+	    "</component>\n";
 
-	const gchar *EXPECTED_XML_DISTRO = "<components version=\"1.0\">\n"
-					   "  <component>\n"
-					   "    <id>org.example.Test</id>\n"
-					   "    <name>Test</name>\n"
-					   "    <summary>Just a unittest.</summary>\n"
-					   "    <summary xml:lang=\"de\">Nur ein Unittest.</summary>\n"
-					   "    <description>\n"
-					   "      <p>First paragraph</p>\n"
-					   "      <ol>\n"
-					   "        <li>One</li>\n"
-					   "        <li>Two</li>\n"
-					   "        <li>Three is &gt; 2 &amp; 1</li>\n"
-					   "      </ol>\n"
-					   "      <p>Paragraph2</p>\n"
-					   "      <ul>\n"
-					   "        <li>First</li>\n"
-					   "        <li>Second</li>\n"
-					   "      </ul>\n"
-					   "      <p>Paragraph3 &amp; the last one</p>\n"
-					   "    </description>\n"
-					   "    <description xml:lang=\"de\">\n"
-					   "      <p>Erster paragraph</p>\n"
-					   "      <ol>\n"
-					   "        <li>Eins</li>\n"
-					   "        <li>Zwei</li>\n"
-					   "        <li>Drei</li>\n"
-					   "      </ol>\n"
-					   "      <p>Zweiter Paragraph</p>\n"
-					   "      <ul>\n"
-					   "        <li>Erstens</li>\n"
-					   "        <li>Zweitens</li>\n"
-					   "      </ul>\n"
-					   "      <p>Paragraph3</p>\n"
-					   "    </description>\n"
-					   "    <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
-					   "    <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
-					   "    <icon type=\"stock\">xml-writetest</icon>\n"
-					   "    <releases>\n"
-					   "      <release type=\"stable\" version=\"1.0\" timestamp=\"1460412000\"/>\n"
-					   "    </releases>\n"
-					   "  </component>\n"
-					   "</components>\n";
+	const gchar *EXPECTED_XML_DISTRO =
+	    "<components version=\"1.0\">\n"
+	    "  <component>\n"
+	    "    <id>org.example.Test</id>\n"
+	    "    <name>Test</name>\n"
+	    "    <summary>Just a unittest.</summary>\n"
+	    "    <summary xml:lang=\"de\">Nur ein Unittest.</summary>\n"
+	    "    <description>\n"
+	    "      <p>First paragraph</p>\n"
+	    "      <ol>\n"
+	    "        <li>One</li>\n"
+	    "        <li>Two</li>\n"
+	    "        <li>Three is &gt; 2 &amp; 1</li>\n"
+	    "      </ol>\n"
+	    "      <p>Paragraph2</p>\n"
+	    "      <ul>\n"
+	    "        <li>First</li>\n"
+	    "        <li>Second</li>\n"
+	    "      </ul>\n"
+	    "      <p>Paragraph3 &amp; the last one</p>\n"
+	    "    </description>\n"
+	    "    <description xml:lang=\"de\">\n"
+	    "      <p>Erster paragraph</p>\n"
+	    "      <ol>\n"
+	    "        <li>Eins</li>\n"
+	    "        <li>Zwei</li>\n"
+	    "        <li>Drei</li>\n"
+	    "      </ol>\n"
+	    "      <p>Zweiter Paragraph</p>\n"
+	    "      <ul>\n"
+	    "        <li>Erstens</li>\n"
+	    "        <li>Zweitens</li>\n"
+	    "      </ul>\n"
+	    "      <p>Paragraph3</p>\n"
+	    "    </description>\n"
+	    "    <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
+	    "    <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
+	    "    <icon type=\"stock\">xml-writetest</icon>\n"
+	    "    <releases>\n"
+	    "      <release type=\"stable\" version=\"1.0\" timestamp=\"1460412000\"/>\n"
+	    "    </releases>\n"
+	    "  </component>\n"
+	    "</components>\n";
 
 	metad = as_metadata_new ();
 	as_metadata_set_locale (metad, "ALL");
@@ -413,9 +416,12 @@ test_appstream_write_description (void)
 	as_component_set_id (cpt, "org.example.Test");
 	as_component_set_name (cpt, "Test", "C");
 	as_component_set_summary (cpt, "Just a unittest.", "C");
-	as_component_set_description (cpt,
-				"<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three is &gt; 2 &amp; 1</li></ol>\n<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3 &amp; the last one</p>",
-				NULL);
+	as_component_set_description (
+	    cpt,
+	    "<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three is &gt; 2 &amp; "
+	    "1</li></ol>\n<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3 "
+	    "&amp; the last one</p>",
+	    NULL);
 	rel = as_release_new ();
 	as_release_set_version (rel, "1.0");
 	as_release_set_timestamp (rel, 1460412000);
@@ -449,9 +455,11 @@ test_appstream_write_description (void)
 
 	/* add localization */
 	as_component_set_summary (cpt, "Nur ein Unittest.", "de");
-	as_component_set_description (cpt,
-				"<p>Erster paragraph</p>\n<ol><li>Eins</li><li>Zwei</li><li>Drei</li></ol><p>Zweiter Paragraph</p><ul><li>Erstens</li><li>Zweitens</li></ul><p>Paragraph3</p>",
-				"de");
+	as_component_set_description (
+	    cpt,
+	    "<p>Erster paragraph</p>\n<ol><li>Eins</li><li>Zwei</li><li>Drei</li></ol><p>Zweiter "
+	    "Paragraph</p><ul><li>Erstens</li><li>Zweitens</li></ul><p>Paragraph3</p>",
+	    "de");
 
 	/* test localization */
 	tmp = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, NULL);
@@ -488,36 +496,43 @@ test_appstream_write_description (void)
 static void
 test_appstream_description_l10n_cleanup (void)
 {
-	const gchar *DESC_L10N_XML = "<component>\n"
-				    "  <id>org.example.Test</id>\n"
-				    "  <name>Test</name>\n"
-				    "  <summary>Just a unittest.</summary>\n"
-				    "  <description>\n"
-				    "    <p>First paragraph</p>\n"
-				    "    <p xml:lang=\"de\">Erster Absatz</p>\n"
-				    "    <p>Second paragraph</p>\n"
-				    "    <p xml:lang=\"de\">Zweiter Absatz</p>\n"
-				    "    <p>Features:</p>\n"
-				    "    <p xml:lang=\"ca\">Característiques:</p>\n"
-				    "    <p xml:lang=\"cs\">Vlastnosti:</p>\n"
-				    "    <p xml:lang=\"de\">Funktionen:</p>\n"
-				    "    <p xml:lang=\"nn\">Funksjonar:</p>\n"
-				    "    <ul>\n"
-				    "      <li>Browse the maps clicking in a map division to see its name, capital and flag</li>\n"
-				    "      <li xml:lang=\"ca\">Busqueu en els mapes fent clic a sobre d'una zona del mapa per a veure el seu nom, capital i bandera</li>\n"
-				    "      <li xml:lang=\"de\">Landkarte erkunden, indem Sie in der Karte auf ein Land klicken und dessen Name, Hauptstadt und Flagge angezeigt wird</li>\n"
-				    "      <li>The game tells you a map division name and you have to click on it</li>\n"
-				    "      <li xml:lang=\"ca\">El joc mostra el nom d'una zona en el mapa i heu de fer clic sobre el lloc on està</li>\n"
-				    "    </ul>\n"
-				    "  </description>\n"
-				    "</component>\n";
-	const gchar *ENGLISH_DESC_TEXT = "<p>First paragraph</p>\n"
-					 "<p>Second paragraph</p>\n"
-					 "<p>Features:</p>\n"
-					 "<ul>\n"
-					 "  <li>Browse the maps clicking in a map division to see its name, capital and flag</li>\n"
-					 "  <li>The game tells you a map division name and you have to click on it</li>\n"
-					 "</ul>\n";
+	const gchar *DESC_L10N_XML =
+	    "<component>\n"
+	    "  <id>org.example.Test</id>\n"
+	    "  <name>Test</name>\n"
+	    "  <summary>Just a unittest.</summary>\n"
+	    "  <description>\n"
+	    "    <p>First paragraph</p>\n"
+	    "    <p xml:lang=\"de\">Erster Absatz</p>\n"
+	    "    <p>Second paragraph</p>\n"
+	    "    <p xml:lang=\"de\">Zweiter Absatz</p>\n"
+	    "    <p>Features:</p>\n"
+	    "    <p xml:lang=\"ca\">Característiques:</p>\n"
+	    "    <p xml:lang=\"cs\">Vlastnosti:</p>\n"
+	    "    <p xml:lang=\"de\">Funktionen:</p>\n"
+	    "    <p xml:lang=\"nn\">Funksjonar:</p>\n"
+	    "    <ul>\n"
+	    "      <li>Browse the maps clicking in a map division to see its name, capital and "
+	    "flag</li>\n"
+	    "      <li xml:lang=\"ca\">Busqueu en els mapes fent clic a sobre d'una zona del mapa "
+	    "per a veure el seu nom, capital i bandera</li>\n"
+	    "      <li xml:lang=\"de\">Landkarte erkunden, indem Sie in der Karte auf ein Land "
+	    "klicken und dessen Name, Hauptstadt und Flagge angezeigt wird</li>\n"
+	    "      <li>The game tells you a map division name and you have to click on it</li>\n"
+	    "      <li xml:lang=\"ca\">El joc mostra el nom d'una zona en el mapa i heu de fer "
+	    "clic sobre el lloc on està</li>\n"
+	    "    </ul>\n"
+	    "  </description>\n"
+	    "</component>\n";
+	const gchar *ENGLISH_DESC_TEXT =
+	    "<p>First paragraph</p>\n"
+	    "<p>Second paragraph</p>\n"
+	    "<p>Features:</p>\n"
+	    "<ul>\n"
+	    "  <li>Browse the maps clicking in a map division to see its name, capital and "
+	    "flag</li>\n"
+	    "  <li>The game tells you a map division name and you have to click on it</li>\n"
+	    "</ul>\n";
 	g_autoptr(AsComponent) cpt = NULL;
 
 	cpt = as_xml_test_read_data (DESC_L10N_XML, AS_FORMAT_STYLE_METAINFO);
@@ -529,18 +544,25 @@ test_appstream_description_l10n_cleanup (void)
 	as_component_set_active_locale (cpt, "C");
 	g_assert_cmpstr (as_component_get_description (cpt), ==, ENGLISH_DESC_TEXT);
 	as_component_set_active_locale (cpt, "de");
-	g_assert_cmpstr (as_component_get_description (cpt), ==, "<p>Erster Absatz</p>\n"
-								 "<p>Zweiter Absatz</p>\n"
-								 "<p>Funktionen:</p>\n"
-								 "<ul>\n"
-								 "  <li>Landkarte erkunden, indem Sie in der Karte auf ein Land klicken und dessen Name, Hauptstadt und Flagge angezeigt wird</li>\n"
-								 "</ul>\n");
+	g_assert_cmpstr (as_component_get_description (cpt),
+			 ==,
+			 "<p>Erster Absatz</p>\n"
+			 "<p>Zweiter Absatz</p>\n"
+			 "<p>Funktionen:</p>\n"
+			 "<ul>\n"
+			 "  <li>Landkarte erkunden, indem Sie in der Karte auf ein Land klicken "
+			 "und dessen Name, Hauptstadt und Flagge angezeigt wird</li>\n"
+			 "</ul>\n");
 	as_component_set_active_locale (cpt, "ca");
-	g_assert_cmpstr (as_component_get_description (cpt), ==, "<p>Característiques:</p>\n"
-								 "<ul>\n"
-								 "  <li>Busqueu en els mapes fent clic a sobre d'una zona del mapa per a veure el seu nom, capital i bandera</li>\n"
-								 "  <li>El joc mostra el nom d'una zona en el mapa i heu de fer clic sobre el lloc on està</li>\n"
-								 "</ul>\n");
+	g_assert_cmpstr (as_component_get_description (cpt),
+			 ==,
+			 "<p>Característiques:</p>\n"
+			 "<ul>\n"
+			 "  <li>Busqueu en els mapes fent clic a sobre d'una zona del mapa per a "
+			 "veure el seu nom, capital i bandera</li>\n"
+			 "  <li>El joc mostra el nom d'una zona en el mapa i heu de fer clic sobre "
+			 "el lloc on està</li>\n"
+			 "</ul>\n");
 
 	/* not enough translation for these, we should have fallen back to English */
 	as_component_set_active_locale (cpt, "cs");
@@ -558,20 +580,23 @@ static void
 test_appstream_read_description (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
-	const gchar *xmldata_desc_mi1 = "<component>\n"
-					"  <id>org.example.DescTestMI-1</id>\n"
-					"  <description>\n"
-					"    <p>Agenda is a simple, slick, <em>speedy</em> and no-nonsense task manager. Use it to keep track of the tasks that matter most.</p>\n"
-					"    <p>This paragraph makes use of <code>code markup</code>.</p>\n"
-					"    <ul>\n"
-					"      <li>Blazingly <em>fast</em> and light</li>\n"
-					"      <li>Remembers your list until you clear completed tasks</li>\n"
-					"      <li>Some <code>code</code> item</li>\n"
-					"      <li>...</li>\n"
-					"    </ul>\n"
-					"    <p>I dare you to find an easier, faster, more beautiful task manager for elementary OS.</p>\n"
-					"  </description>\n"
-					"</component>\n";
+	const gchar *xmldata_desc_mi1 =
+	    "<component>\n"
+	    "  <id>org.example.DescTestMI-1</id>\n"
+	    "  <description>\n"
+	    "    <p>Agenda is a simple, slick, <em>speedy</em> and no-nonsense task manager. Use "
+	    "it to keep track of the tasks that matter most.</p>\n"
+	    "    <p>This paragraph makes use of <code>code markup</code>.</p>\n"
+	    "    <ul>\n"
+	    "      <li>Blazingly <em>fast</em> and light</li>\n"
+	    "      <li>Remembers your list until you clear completed tasks</li>\n"
+	    "      <li>Some <code>code</code> item</li>\n"
+	    "      <li>...</li>\n"
+	    "    </ul>\n"
+	    "    <p>I dare you to find an easier, faster, more beautiful task manager for "
+	    "elementary OS.</p>\n"
+	    "  </description>\n"
+	    "</component>\n";
 
 	const gchar *xmldata_desc_mi2 = "<component>\n"
 					"  <id>org.example.DescTestMI-2</id>\n"
@@ -588,35 +613,40 @@ test_appstream_read_description (void)
 	cpt = as_xml_test_read_data (xmldata_desc_mi1, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DescTestMI-1");
 
-	g_assert_true (as_test_compare_lines (as_component_get_description (cpt),
-					 "<p>Agenda is a simple, slick, <em>speedy</em> and no-nonsense task manager. Use it to keep track of the tasks that matter most.</p>\n"
-					 "<p>This paragraph makes use of <code>code markup</code>.</p>\n"
-					 "<ul>\n"
-					 "  <li>Blazingly <em>fast</em> and light</li>\n"
-					 "  <li>Remembers your list until you clear completed tasks</li>\n"
-					 "  <li>Some <code>code</code> item</li>\n"
-					 "  <li>...</li>\n"
-					 "</ul>\n"
-					 "<p>I dare you to find an easier, faster, more beautiful task manager for elementary OS.</p>\n"));
+	g_assert_true (as_test_compare_lines (
+	    as_component_get_description (cpt),
+	    "<p>Agenda is a simple, slick, <em>speedy</em> and no-nonsense task manager. Use it to "
+	    "keep track of the tasks that matter most.</p>\n"
+	    "<p>This paragraph makes use of <code>code markup</code>.</p>\n"
+	    "<ul>\n"
+	    "  <li>Blazingly <em>fast</em> and light</li>\n"
+	    "  <li>Remembers your list until you clear completed tasks</li>\n"
+	    "  <li>Some <code>code</code> item</li>\n"
+	    "  <li>...</li>\n"
+	    "</ul>\n"
+	    "<p>I dare you to find an easier, faster, more beautiful task manager for elementary "
+	    "OS.</p>\n"));
 
 	g_object_unref (cpt);
 	cpt = as_xml_test_read_data (xmldata_desc_mi2, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DescTestMI-2");
 
-	g_assert_cmpstr (as_component_get_description (cpt), ==, "<ul>\n"
-								 "  <li>I start with bullet points</li>\n"
-								 "  <li>Yes, this is allowed now</li>\n"
-								 "  <li>...</li>\n"
-								 "</ul>\n"
-								 "<p>Paragraph</p>\n");
+	g_assert_cmpstr (as_component_get_description (cpt),
+			 ==,
+			 "<ul>\n"
+			 "  <li>I start with bullet points</li>\n"
+			 "  <li>Yes, this is allowed now</li>\n"
+			 "  <li>...</li>\n"
+			 "</ul>\n"
+			 "<p>Paragraph</p>\n");
 }
 
-static const gchar *xmldata_simple =    "<component date_eol=\"2022-02-22T00:00:00Z\">\n"
-					"  <id>org.example.SimpleTest</id>\n"
-					"  <name>TestComponent</name>\n"
-					"  <name_variant_suffix>Generic</name_variant_suffix>\n"
-					"  <summary>Just part of an unittest</summary>\n"
-					"</component>\n";
+static const gchar *xmldata_simple = "<component date_eol=\"2022-02-22T00:00:00Z\">\n"
+				     "  <id>org.example.SimpleTest</id>\n"
+				     "  <name>TestComponent</name>\n"
+				     "  <name_variant_suffix>Generic</name_variant_suffix>\n"
+				     "  <summary>Just part of an unittest</summary>\n"
+				     "</component>\n";
 
 /**
  * test_xml_read_simple:
@@ -671,25 +701,38 @@ static void
 test_xml_read_url (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
-	const gchar *xmldata_languages = "<component>\n"
-					 "  <id>org.example.UrlTest</id>\n"
-					 "  <url type=\"homepage\">https://example.org</url>\n"
-					 "  <url type=\"faq\">https://example.org/faq</url>\n"
-					 "  <url type=\"donation\">https://example.org/donate</url>\n"
-					 "  <url type=\"contact\">https://example.org/contact</url>\n"
-					 "  <url type=\"vcs-browser\">https://example.org/source</url>\n"
-					 "  <url type=\"contribute\">https://example.org/contribute</url>\n"
-					 "</component>\n";
+	const gchar
+	    *xmldata_languages = "<component>\n"
+				 "  <id>org.example.UrlTest</id>\n"
+				 "  <url type=\"homepage\">https://example.org</url>\n"
+				 "  <url type=\"faq\">https://example.org/faq</url>\n"
+				 "  <url type=\"donation\">https://example.org/donate</url>\n"
+				 "  <url type=\"contact\">https://example.org/contact</url>\n"
+				 "  <url type=\"vcs-browser\">https://example.org/source</url>\n"
+				 "  <url type=\"contribute\">https://example.org/contribute</url>\n"
+				 "</component>\n";
 
 	cpt = as_xml_test_read_data (xmldata_languages, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.UrlTest");
 
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), ==, "https://example.org");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_FAQ), ==, "https://example.org/faq");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_DONATION), ==, "https://example.org/donate");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_CONTACT), ==, "https://example.org/contact");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_VCS_BROWSER), ==, "https://example.org/source");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_CONTRIBUTE), ==, "https://example.org/contribute");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE),
+			 ==,
+			 "https://example.org");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_FAQ),
+			 ==,
+			 "https://example.org/faq");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_DONATION),
+			 ==,
+			 "https://example.org/donate");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_CONTACT),
+			 ==,
+			 "https://example.org/contact");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_VCS_BROWSER),
+			 ==,
+			 "https://example.org/source");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_CONTRIBUTE),
+			 ==,
+			 "https://example.org/contribute");
 }
 
 /**
@@ -759,19 +802,20 @@ test_xml_write_provides (void)
 	g_autoptr(AsProvided) prov_firmware_runtime = NULL;
 	g_autoptr(AsProvided) prov_firmware_flashed = NULL;
 	g_autofree gchar *res = NULL;
-	const gchar *expected_prov_xml = "<component>\n"
-					 "  <id>org.example.ProvidesTest</id>\n"
-					 "  <provides>\n"
-					 "    <mediatype>text/plain</mediatype>\n"
-					 "    <mediatype>application/xml</mediatype>\n"
-					 "    <mediatype>image/png</mediatype>\n"
-					 "    <binary>foobar</binary>\n"
-					 "    <binary>foobar-viewer</binary>\n"
-					 "    <dbus type=\"system\">org.example.ProvidesTest.Modify</dbus>\n"
-					 "    <firmware type=\"runtime\">ipw2200-bss.fw</firmware>\n"
-					 "    <firmware type=\"flashed\">84f40464-9272-4ef7-9399-cd95f12da696</firmware>\n"
-					 "  </provides>\n"
-					 "</component>\n";
+	const gchar *expected_prov_xml =
+	    "<component>\n"
+	    "  <id>org.example.ProvidesTest</id>\n"
+	    "  <provides>\n"
+	    "    <mediatype>text/plain</mediatype>\n"
+	    "    <mediatype>application/xml</mediatype>\n"
+	    "    <mediatype>image/png</mediatype>\n"
+	    "    <binary>foobar</binary>\n"
+	    "    <binary>foobar-viewer</binary>\n"
+	    "    <dbus type=\"system\">org.example.ProvidesTest.Modify</dbus>\n"
+	    "    <firmware type=\"runtime\">ipw2200-bss.fw</firmware>\n"
+	    "    <firmware type=\"flashed\">84f40464-9272-4ef7-9399-cd95f12da696</firmware>\n"
+	    "  </provides>\n"
+	    "</component>\n";
 
 	cpt = as_component_new ();
 	as_component_set_id (cpt, "org.example.ProvidesTest");
@@ -827,17 +871,17 @@ test_xml_write_suggests (void)
 					   "  </suggests>\n"
 					   "</component>\n";
 	const gchar *expected_sug_xml_coll = "<components version=\"1.0\">\n"
-					"  <component>\n"
-					"    <id>org.example.SuggestsTest</id>\n"
-					"    <suggests type=\"upstream\">\n"
-					"      <id>org.example.Awesome</id>\n"
-					"    </suggests>\n"
-					"    <suggests type=\"heuristic\">\n"
-					"      <id>org.example.MachineLearning</id>\n"
-					"      <id>org.example.Stuff</id>\n"
-					"    </suggests>\n"
-					"  </component>\n"
-					"</components>\n";
+					     "  <component>\n"
+					     "    <id>org.example.SuggestsTest</id>\n"
+					     "    <suggests type=\"upstream\">\n"
+					     "      <id>org.example.Awesome</id>\n"
+					     "    </suggests>\n"
+					     "    <suggests type=\"heuristic\">\n"
+					     "      <id>org.example.MachineLearning</id>\n"
+					     "      <id>org.example.Stuff</id>\n"
+					     "    </suggests>\n"
+					     "  </component>\n"
+					     "</components>\n";
 
 	cpt = as_component_new ();
 	as_component_set_id (cpt, "org.example.SuggestsTest");
@@ -864,12 +908,12 @@ test_xml_write_suggests (void)
 }
 
 static const gchar *xmldata_custom = "<component>\n"
-					 "  <id>org.example.CustomTest</id>\n"
-					 "  <custom>\n"
-					 "    <value key=\"command\">myapp --go</value>\n"
-					 "    <value key=\"foo\">bar</value>\n"
-					 "  </custom>\n"
-					 "</component>\n";
+				     "  <id>org.example.CustomTest</id>\n"
+				     "  <custom>\n"
+				     "    <value key=\"command\">myapp --go</value>\n"
+				     "    <value key=\"foo\">bar</value>\n"
+				     "  </custom>\n"
+				     "</component>\n";
 /**
  * test_xml_read_custom:
  *
@@ -910,13 +954,14 @@ test_xml_write_custom (void)
 	g_assert_true (as_xml_test_compare_xml (res, xmldata_custom));
 }
 
-static const gchar *xmldata_content_rating = "<component>\n"
-						"  <id>org.example.ContentRatingTest</id>\n"
-						"  <content_rating type=\"oars-1.0\">\n"
-						"    <content_attribute id=\"drugs-alcohol\">moderate</content_attribute>\n"
-						"    <content_attribute id=\"language-humor\">mild</content_attribute>\n"
-						"  </content_rating>\n"
-						"</component>\n";
+static const gchar *xmldata_content_rating =
+    "<component>\n"
+    "  <id>org.example.ContentRatingTest</id>\n"
+    "  <content_rating type=\"oars-1.0\">\n"
+    "    <content_attribute id=\"drugs-alcohol\">moderate</content_attribute>\n"
+    "    <content_attribute id=\"language-humor\">mild</content_attribute>\n"
+    "  </content_rating>\n"
+    "</component>\n";
 /**
  * test_xml_read_content_rating:
  *
@@ -934,9 +979,15 @@ test_xml_read_content_rating (void)
 	rating = as_component_get_content_rating (cpt, "oars-1.0");
 	g_assert_nonnull (rating);
 
-	g_assert_cmpint (as_content_rating_get_value (rating, "drugs-alcohol"), ==, AS_CONTENT_RATING_VALUE_MODERATE);
-	g_assert_cmpint (as_content_rating_get_value (rating, "language-humor"), ==, AS_CONTENT_RATING_VALUE_MILD);
-	g_assert_cmpint (as_content_rating_get_value (rating, "violence-bloodshed"), ==, AS_CONTENT_RATING_VALUE_NONE);
+	g_assert_cmpint (as_content_rating_get_value (rating, "drugs-alcohol"),
+			 ==,
+			 AS_CONTENT_RATING_VALUE_MODERATE);
+	g_assert_cmpint (as_content_rating_get_value (rating, "language-humor"),
+			 ==,
+			 AS_CONTENT_RATING_VALUE_MILD);
+	g_assert_cmpint (as_content_rating_get_value (rating, "violence-bloodshed"),
+			 ==,
+			 AS_CONTENT_RATING_VALUE_NONE);
 	g_assert_cmpint (as_content_rating_get_minimum_age (rating), ==, 13);
 }
 
@@ -986,23 +1037,28 @@ test_content_rating_empty (void)
 
 	/* verify */
 	g_assert_cmpstr (as_content_rating_get_kind (content_rating), ==, "oars-1.0");
-	g_assert_cmpint (as_content_rating_get_value (content_rating, "drugs-alcohol"), ==,
+	g_assert_cmpint (as_content_rating_get_value (content_rating, "drugs-alcohol"),
+			 ==,
 			 AS_CONTENT_RATING_VALUE_NONE);
-	g_assert_cmpint (as_content_rating_get_value (content_rating, "violence-cartoon"), ==,
+	g_assert_cmpint (as_content_rating_get_value (content_rating, "violence-cartoon"),
+			 ==,
 			 AS_CONTENT_RATING_VALUE_NONE);
-	g_assert_cmpint (as_content_rating_get_value (content_rating, "violence-bloodshed"), ==,
+	g_assert_cmpint (as_content_rating_get_value (content_rating, "violence-bloodshed"),
+			 ==,
 			 AS_CONTENT_RATING_VALUE_NONE);
 
 	/* This one was only added in OARS-1.1, so it shouldn’t have a value of `none`. */
-	g_assert_cmpint (as_content_rating_get_value (content_rating, "sex-adultery"), ==,
+	g_assert_cmpint (as_content_rating_get_value (content_rating, "sex-adultery"),
+			 ==,
 			 AS_CONTENT_RATING_VALUE_UNKNOWN);
 }
 
-static const gchar *xmldata_launchable = "<component>\n"
-					 "  <id>org.example.LaunchTest</id>\n"
-					 "  <launchable type=\"desktop-id\">org.example.Test.desktop</launchable>\n"
-					 "  <launchable type=\"desktop-id\">kde4-kool.desktop</launchable>\n"
-					 "</component>\n";
+static const gchar *
+    xmldata_launchable = "<component>\n"
+			 "  <id>org.example.LaunchTest</id>\n"
+			 "  <launchable type=\"desktop-id\">org.example.Test.desktop</launchable>\n"
+			 "  <launchable type=\"desktop-id\">kde4-kool.desktop</launchable>\n"
+			 "</component>\n";
 /**
  * test_xml_read_launchable:
  *
@@ -1021,8 +1077,12 @@ test_xml_read_launchable (void)
 	g_assert_nonnull (launch);
 
 	g_assert_cmpint (as_launchable_get_entries (launch)->len, ==, 2);
-	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 0), ==, "org.example.Test.desktop");
-	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 1), ==, "kde4-kool.desktop");
+	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 0),
+			 ==,
+			 "org.example.Test.desktop");
+	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 1),
+			 ==,
+			 "kde4-kool.desktop");
 }
 
 /**
@@ -1062,105 +1122,107 @@ test_appstream_write_metainfo_to_catalog (void)
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GError) error = NULL;
 
-	const gchar *METAINFO_XML =	"<component>\n"
-					"  <id>org.example.Test</id>\n"
-					"  <name>Test</name>\n"
-					"  <name xml:lang=\"eo\">Testo</name>\n"
-					"  <name xml:lang=\"x-test\">I am a cruft entry</name>\n"
-					"  <name xml:lang=\"de\">Test</name>\n"
-					"  <summary>Just a unittest.</summary>\n"
-					"  <summary xml:lang=\"de\">Nur ein Unittest.</summary>\n"
-					"  <description>\n"
-					"    <p>First paragraph</p>\n"
-					"    <ol>\n"
-					"      <li>One</li>\n"
-					"      <li>Two</li>\n"
-					"      <li>Three is &gt; 2 &amp; 1</li>\n"
-					"    </ol>\n"
-					"    <p>Paragraph2</p>\n"
-					"    <ul>\n"
-					"      <li>First</li>\n"
-					"      <li>Second</li>\n"
-					"    </ul>\n"
-					"    <p>Paragraph3 &amp; the last one</p>\n"
-					"    <p xml:lang=\"de\">Erster Absatz</p>\n"
-					"    <ol>\n"
-					"      <li>One</li>\n"
-					"      <li xml:lang=\"de\">Eins</li>\n"
-					"      <li xml:lang=\"de\">Zwei</li>\n"
-					"      <li xml:lang=\"de\">Drei</li>\n"
-					"    </ol>\n"
-					"    <ul>\n"
-					"      <li xml:lang=\"de\">Erster</li>\n"
-					"      <li xml:lang=\"de\">Zweiter</li>\n"
-					"    </ul>\n"
-					"    <p xml:lang=\"de\">Absatz2</p>\n"
-					"  </description>\n"
-					"  <keywords>\n"
-					"    <keyword>supercalifragilisticexpialidocious</keyword>\n"
-					"    <keyword xml:lang=\"de\">Superkalifragilistischexpiallegetisch</keyword>\n"
-					"  </keywords>\n"
-					"  <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
-					"  <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
-					"  <icon type=\"stock\">xml-writetest</icon>\n"
-					"  <releases>\n"
-					"    <release version=\"1.0\" date=\"2016-04-11T22:00:00+00:00\"/>\n"
-					"  </releases>\n"
-					"</component>\n";
+	const gchar *METAINFO_XML =
+	    "<component>\n"
+	    "  <id>org.example.Test</id>\n"
+	    "  <name>Test</name>\n"
+	    "  <name xml:lang=\"eo\">Testo</name>\n"
+	    "  <name xml:lang=\"x-test\">I am a cruft entry</name>\n"
+	    "  <name xml:lang=\"de\">Test</name>\n"
+	    "  <summary>Just a unittest.</summary>\n"
+	    "  <summary xml:lang=\"de\">Nur ein Unittest.</summary>\n"
+	    "  <description>\n"
+	    "    <p>First paragraph</p>\n"
+	    "    <ol>\n"
+	    "      <li>One</li>\n"
+	    "      <li>Two</li>\n"
+	    "      <li>Three is &gt; 2 &amp; 1</li>\n"
+	    "    </ol>\n"
+	    "    <p>Paragraph2</p>\n"
+	    "    <ul>\n"
+	    "      <li>First</li>\n"
+	    "      <li>Second</li>\n"
+	    "    </ul>\n"
+	    "    <p>Paragraph3 &amp; the last one</p>\n"
+	    "    <p xml:lang=\"de\">Erster Absatz</p>\n"
+	    "    <ol>\n"
+	    "      <li>One</li>\n"
+	    "      <li xml:lang=\"de\">Eins</li>\n"
+	    "      <li xml:lang=\"de\">Zwei</li>\n"
+	    "      <li xml:lang=\"de\">Drei</li>\n"
+	    "    </ol>\n"
+	    "    <ul>\n"
+	    "      <li xml:lang=\"de\">Erster</li>\n"
+	    "      <li xml:lang=\"de\">Zweiter</li>\n"
+	    "    </ul>\n"
+	    "    <p xml:lang=\"de\">Absatz2</p>\n"
+	    "  </description>\n"
+	    "  <keywords>\n"
+	    "    <keyword>supercalifragilisticexpialidocious</keyword>\n"
+	    "    <keyword xml:lang=\"de\">Superkalifragilistischexpiallegetisch</keyword>\n"
+	    "  </keywords>\n"
+	    "  <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
+	    "  <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
+	    "  <icon type=\"stock\">xml-writetest</icon>\n"
+	    "  <releases>\n"
+	    "    <release version=\"1.0\" date=\"2016-04-11T22:00:00+00:00\"/>\n"
+	    "  </releases>\n"
+	    "</component>\n";
 
-	const gchar *EXPECTED_XML_COLL =   "<components version=\"1.0\">\n"
-					   "  <component>\n"
-					   "    <id>org.example.Test</id>\n"
-					   "    <name>Test</name>\n"
-					   "    <name xml:lang=\"de\">Test</name>\n"
-					   "    <name xml:lang=\"eo\">Testo</name>\n"
-					   "    <summary>Just a unittest.</summary>\n"
-					   "    <summary xml:lang=\"de\">Nur ein Unittest.</summary>\n"
-					   "    <description>\n"
-					   "      <p>First paragraph</p>\n"
-					   "      <ol>\n"
-					   "        <li>One</li>\n"
-					   "        <li>Two</li>\n"
-					   "        <li>Three is &gt; 2 &amp; 1</li>\n"
-					   "      </ol>\n"
-					   "      <p>Paragraph2</p>\n"
-					   "      <ul>\n"
-					   "        <li>First</li>\n"
-					   "        <li>Second</li>\n"
-					   "      </ul>\n"
-					   "      <p>Paragraph3 &amp; the last one</p>\n"
-					   "      <ol>\n"
-					   "        <li>One</li>\n"
-					   "      </ol>\n"
-					   "      <ul/>\n"
-					   "    </description>\n"
-					   "    <description xml:lang=\"de\">\n"
-					   "      <p>Erster Absatz</p>\n"
-					   "      <ol>\n"
-					   "        <li>Eins</li>\n"
-					   "        <li>Zwei</li>\n"
-					   "        <li>Drei</li>\n"
-					   "      </ol>\n"
-					   "      <ul>\n"
-					   "        <li>Erster</li>\n"
-					   "        <li>Zweiter</li>\n"
-					   "      </ul>\n"
-					   "      <p>Absatz2</p>\n"
-					   "    </description>\n"
-					   "    <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
-					   "    <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
-					   "    <icon type=\"stock\">xml-writetest</icon>\n"
-					   "    <keywords>\n"
-					   "      <keyword>supercalifragilisticexpialidocious</keyword>\n"
-					   "    </keywords>\n"
-					   "    <keywords xml:lang=\"de\">\n"
-					   "      <keyword>Superkalifragilistischexpiallegetisch</keyword>\n"
-					   "    </keywords>\n"
-					   "    <releases>\n"
-					   "      <release type=\"stable\" version=\"1.0\" timestamp=\"1460412000\"/>\n"
-					   "    </releases>\n"
-					   "  </component>\n"
-					   "</components>\n";
+	const gchar *EXPECTED_XML_COLL =
+	    "<components version=\"1.0\">\n"
+	    "  <component>\n"
+	    "    <id>org.example.Test</id>\n"
+	    "    <name>Test</name>\n"
+	    "    <name xml:lang=\"de\">Test</name>\n"
+	    "    <name xml:lang=\"eo\">Testo</name>\n"
+	    "    <summary>Just a unittest.</summary>\n"
+	    "    <summary xml:lang=\"de\">Nur ein Unittest.</summary>\n"
+	    "    <description>\n"
+	    "      <p>First paragraph</p>\n"
+	    "      <ol>\n"
+	    "        <li>One</li>\n"
+	    "        <li>Two</li>\n"
+	    "        <li>Three is &gt; 2 &amp; 1</li>\n"
+	    "      </ol>\n"
+	    "      <p>Paragraph2</p>\n"
+	    "      <ul>\n"
+	    "        <li>First</li>\n"
+	    "        <li>Second</li>\n"
+	    "      </ul>\n"
+	    "      <p>Paragraph3 &amp; the last one</p>\n"
+	    "      <ol>\n"
+	    "        <li>One</li>\n"
+	    "      </ol>\n"
+	    "      <ul/>\n"
+	    "    </description>\n"
+	    "    <description xml:lang=\"de\">\n"
+	    "      <p>Erster Absatz</p>\n"
+	    "      <ol>\n"
+	    "        <li>Eins</li>\n"
+	    "        <li>Zwei</li>\n"
+	    "        <li>Drei</li>\n"
+	    "      </ol>\n"
+	    "      <ul>\n"
+	    "        <li>Erster</li>\n"
+	    "        <li>Zweiter</li>\n"
+	    "      </ul>\n"
+	    "      <p>Absatz2</p>\n"
+	    "    </description>\n"
+	    "    <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
+	    "    <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
+	    "    <icon type=\"stock\">xml-writetest</icon>\n"
+	    "    <keywords>\n"
+	    "      <keyword>supercalifragilisticexpialidocious</keyword>\n"
+	    "    </keywords>\n"
+	    "    <keywords xml:lang=\"de\">\n"
+	    "      <keyword>Superkalifragilistischexpiallegetisch</keyword>\n"
+	    "    </keywords>\n"
+	    "    <releases>\n"
+	    "      <release type=\"stable\" version=\"1.0\" timestamp=\"1460412000\"/>\n"
+	    "    </releases>\n"
+	    "  </component>\n"
+	    "</components>\n";
 
 	metad = as_metadata_new ();
 	as_metadata_set_locale (metad, "ALL");
@@ -1175,27 +1237,33 @@ test_appstream_write_metainfo_to_catalog (void)
 	g_free (tmp);
 }
 
-
-static const gchar *xmldata_screenshots = "<component>\n"
-					  "  <id>org.example.ScreenshotTest</id>\n"
-					  "  <screenshots>\n"
-					  "    <screenshot type=\"default\">\n"
-					  "      <caption>The main window displaying a thing</caption>\n"
-					  "      <caption xml:lang=\"de-DE\">Das Hauptfenster, welches irgendwas zeigt</caption>\n"
-					  "      <image type=\"source\" width=\"1916\" height=\"1056\">https://example.org/alpha.png</image>\n"
-					  "      <image type=\"thumbnail\" width=\"800\" height=\"600\">https://example.org/alpha_small.png</image>\n"
-					  "    </screenshot>\n"
-					  "    <screenshot>\n"
-					  "      <image type=\"source\" width=\"1916\" height=\"1056\">https://example.org/beta.png</image>\n"
-					  "      <image type=\"thumbnail\" width=\"800\" height=\"600\">https://example.org/beta_small.png</image>\n"
-					  "      <image type=\"source\" xml:lang=\"de-DE\">https://example.org/localized_de.png</image>\n"
-					  "    </screenshot>\n"
-					  "    <screenshot>\n"
-					  "      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\">https://example.org/screencast.mkv</video>\n"
-					  "      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\" xml:lang=\"de-DE\">https://example.org/screencast_de.mkv</video>\n"
-					  "    </screenshot>\n"
-					  "  </screenshots>\n"
-					  "</component>\n";
+static const gchar *xmldata_screenshots =
+    "<component>\n"
+    "  <id>org.example.ScreenshotTest</id>\n"
+    "  <screenshots>\n"
+    "    <screenshot type=\"default\">\n"
+    "      <caption>The main window displaying a thing</caption>\n"
+    "      <caption xml:lang=\"de-DE\">Das Hauptfenster, welches irgendwas zeigt</caption>\n"
+    "      <image type=\"source\" width=\"1916\" "
+    "height=\"1056\">https://example.org/alpha.png</image>\n"
+    "      <image type=\"thumbnail\" width=\"800\" "
+    "height=\"600\">https://example.org/alpha_small.png</image>\n"
+    "    </screenshot>\n"
+    "    <screenshot>\n"
+    "      <image type=\"source\" width=\"1916\" "
+    "height=\"1056\">https://example.org/beta.png</image>\n"
+    "      <image type=\"thumbnail\" width=\"800\" "
+    "height=\"600\">https://example.org/beta_small.png</image>\n"
+    "      <image type=\"source\" xml:lang=\"de-DE\">https://example.org/localized_de.png</image>\n"
+    "    </screenshot>\n"
+    "    <screenshot>\n"
+    "      <video codec=\"av1\" container=\"matroska\" width=\"1916\" "
+    "height=\"1056\">https://example.org/screencast.mkv</video>\n"
+    "      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\" "
+    "xml:lang=\"de-DE\">https://example.org/screencast_de.mkv</video>\n"
+    "    </screenshot>\n"
+    "  </screenshots>\n"
+    "</component>\n";
 
 /**
  * test_xml_read_screenshots:
@@ -1215,12 +1283,13 @@ test_xml_read_screenshots (void)
 	AsImage *img;
 	AsVideo *vid;
 
-	const gchar *xmldata_screenshot_legacy = "<component>\n"
-						 "  <id>org.example.ScreenshotAncient</id>\n"
-						 "  <screenshots>\n"
-						 "    <screenshot type=\"default\">https://example.org/alpha.png</screenshot>\n"
-						 "  </screenshots>\n"
-						 "</component>\n";
+	const gchar *xmldata_screenshot_legacy =
+	    "<component>\n"
+	    "  <id>org.example.ScreenshotAncient</id>\n"
+	    "  <screenshots>\n"
+	    "    <screenshot type=\"default\">https://example.org/alpha.png</screenshot>\n"
+	    "  </screenshots>\n"
+	    "</component>\n";
 
 	cpt = as_xml_test_read_data (xmldata_screenshots, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ScreenshotTest");
@@ -1236,9 +1305,13 @@ test_xml_read_screenshots (void)
 	g_assert_cmpint (as_screenshot_get_kind (scr1), ==, AS_SCREENSHOT_KIND_DEFAULT);
 	g_assert_cmpint (as_screenshot_get_media_kind (scr1), ==, AS_SCREENSHOT_MEDIA_KIND_IMAGE);
 	as_screenshot_set_active_locale (scr1, "C");
-	g_assert_cmpstr (as_screenshot_get_caption (scr1), ==, "The main window displaying a thing");
+	g_assert_cmpstr (as_screenshot_get_caption (scr1),
+			 ==,
+			 "The main window displaying a thing");
 	as_screenshot_set_active_locale (scr1, "de_DE");
-	g_assert_cmpstr (as_screenshot_get_caption (scr1), ==, "Das Hauptfenster, welches irgendwas zeigt");
+	g_assert_cmpstr (as_screenshot_get_caption (scr1),
+			 ==,
+			 "Das Hauptfenster, welches irgendwas zeigt");
 
 	images = as_screenshot_get_images_all (scr1);
 	g_assert_cmpint (images->len, ==, 2);
@@ -1430,30 +1503,30 @@ test_xml_write_screenshots (void)
 	g_assert_true (as_xml_test_compare_xml (res, xmldata_screenshots));
 }
 
-
-static const gchar *xmldata_relations = "<component>\n"
-					"  <id>org.example.RelationsTest</id>\n"
-					"  <replaces>\n"
-					"    <id>org.example.old_test</id>\n"
-					"  </replaces>\n"
-					"  <requires>\n"
-					"    <kernel version=\"4.15\" compare=\"ge\">Linux</kernel>\n"
-					"    <id version=\"1.2\" compare=\"eq\">org.example.TestDependency</id>\n"
-					"    <display_length>small</display_length>\n"
-					"    <internet bandwidth_mbitps=\"2\">always</internet>\n"
-					"  </requires>\n"
-					"  <recommends>\n"
-					"    <memory>2500</memory>\n"
-					"    <modalias>usb:v1130p0202d*</modalias>\n"
-					"    <display_length side=\"longest\" compare=\"le\">4200</display_length>\n"
-					"    <internet>first-run</internet>\n"
-					"  </recommends>\n"
-					"  <supports>\n"
-					"    <control>gamepad</control>\n"
-					"    <control>keyboard</control>\n"
-					"    <internet>offline-only</internet>\n"
-					"  </supports>\n"
-					"</component>\n";
+static const gchar *xmldata_relations =
+    "<component>\n"
+    "  <id>org.example.RelationsTest</id>\n"
+    "  <replaces>\n"
+    "    <id>org.example.old_test</id>\n"
+    "  </replaces>\n"
+    "  <requires>\n"
+    "    <kernel version=\"4.15\" compare=\"ge\">Linux</kernel>\n"
+    "    <id version=\"1.2\" compare=\"eq\">org.example.TestDependency</id>\n"
+    "    <display_length>small</display_length>\n"
+    "    <internet bandwidth_mbitps=\"2\">always</internet>\n"
+    "  </requires>\n"
+    "  <recommends>\n"
+    "    <memory>2500</memory>\n"
+    "    <modalias>usb:v1130p0202d*</modalias>\n"
+    "    <display_length side=\"longest\" compare=\"le\">4200</display_length>\n"
+    "    <internet>first-run</internet>\n"
+    "  </recommends>\n"
+    "  <supports>\n"
+    "    <control>gamepad</control>\n"
+    "    <control>keyboard</control>\n"
+    "    <internet>offline-only</internet>\n"
+    "  </supports>\n"
+    "</component>\n";
 /**
  * test_xml_read_relations:
  *
@@ -1481,7 +1554,9 @@ test_xml_read_relations (void)
 
 	/* component replacement */
 	g_assert_cmpint (as_component_get_replaces (cpt)->len, ==, 1);
-	g_assert_cmpstr (g_ptr_array_index (as_component_get_replaces (cpt), 0), ==, "org.example.old_test");
+	g_assert_cmpstr (g_ptr_array_index (as_component_get_replaces (cpt), 0),
+			 ==,
+			 "org.example.old_test");
 
 	/* memory relation */
 	relation = AS_RELATION (g_ptr_array_index (recommends, 0));
@@ -1498,7 +1573,9 @@ test_xml_read_relations (void)
 	/* display_length relation (REC) */
 	relation = AS_RELATION (g_ptr_array_index (recommends, 2));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_RECOMMENDS);
-	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
+	g_assert_cmpint (as_relation_get_item_kind (relation),
+			 ==,
+			 AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
 	g_assert_cmpint (as_relation_get_value_px (relation), ==, 4200);
 	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_LE);
 
@@ -1506,7 +1583,9 @@ test_xml_read_relations (void)
 	relation = AS_RELATION (g_ptr_array_index (recommends, 3));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_RECOMMENDS);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_INTERNET);
-	g_assert_cmpint (as_relation_get_value_internet_kind (relation), ==, AS_INTERNET_KIND_FIRST_RUN);
+	g_assert_cmpint (as_relation_get_value_internet_kind (relation),
+			 ==,
+			 AS_INTERNET_KIND_FIRST_RUN);
 	g_assert_cmpint (as_relation_get_value_internet_bandwidth (relation), ==, 0);
 
 	/* kernel relation */
@@ -1528,32 +1607,44 @@ test_xml_read_relations (void)
 	/* display_length relation (REQ) */
 	relation = AS_RELATION (g_ptr_array_index (requires, 2));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_REQUIRES);
-	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
-	g_assert_cmpint (as_relation_get_value_display_length_kind (relation), ==, AS_DISPLAY_LENGTH_KIND_SMALL);
+	g_assert_cmpint (as_relation_get_item_kind (relation),
+			 ==,
+			 AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
+	g_assert_cmpint (as_relation_get_value_display_length_kind (relation),
+			 ==,
+			 AS_DISPLAY_LENGTH_KIND_SMALL);
 	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_GE);
 
 	/* internet relation (REQ) */
 	relation = AS_RELATION (g_ptr_array_index (requires, 3));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_REQUIRES);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_INTERNET);
-	g_assert_cmpint (as_relation_get_value_internet_kind (relation), ==, AS_INTERNET_KIND_ALWAYS);
+	g_assert_cmpint (as_relation_get_value_internet_kind (relation),
+			 ==,
+			 AS_INTERNET_KIND_ALWAYS);
 	g_assert_cmpint (as_relation_get_value_internet_bandwidth (relation), ==, 2);
 
 	/* control relation */
 	relation = AS_RELATION (g_ptr_array_index (supports, 0));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_SUPPORTS);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_CONTROL);
-	g_assert_cmpint (as_relation_get_value_control_kind (relation), ==, AS_CONTROL_KIND_GAMEPAD);
+	g_assert_cmpint (as_relation_get_value_control_kind (relation),
+			 ==,
+			 AS_CONTROL_KIND_GAMEPAD);
 	relation = AS_RELATION (g_ptr_array_index (supports, 1));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_SUPPORTS);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_CONTROL);
-	g_assert_cmpint (as_relation_get_value_control_kind (relation), ==, AS_CONTROL_KIND_KEYBOARD);
+	g_assert_cmpint (as_relation_get_value_control_kind (relation),
+			 ==,
+			 AS_CONTROL_KIND_KEYBOARD);
 
 	/* internet relation (supports) */
 	relation = AS_RELATION (g_ptr_array_index (supports, 2));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_SUPPORTS);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_INTERNET);
-	g_assert_cmpint (as_relation_get_value_internet_kind (relation), ==, AS_INTERNET_KIND_OFFLINE_ONLY);
+	g_assert_cmpint (as_relation_get_value_internet_kind (relation),
+			 ==,
+			 AS_INTERNET_KIND_OFFLINE_ONLY);
 	g_assert_cmpint (as_relation_get_value_internet_bandwidth (relation), ==, 0);
 }
 
@@ -1663,19 +1754,18 @@ test_xml_write_relations (void)
 	g_assert_true (as_xml_test_compare_xml (res, xmldata_relations));
 }
 
-
-static const gchar *xmldata_agreements = 	"<component>\n"
-						"  <id>org.example.AgreementsTest</id>\n"
-						"  <agreement type=\"eula\" version_id=\"1.2.3a\">\n"
-						"    <agreement_section type=\"intro\">\n"
-						"      <name>Intro</name>\n"
-						"      <name xml:lang=\"de-DE\">Einführung</name>\n"
-						"      <description>\n"
-						"        <p>Mighty Fine</p>\n"
-						"      </description>\n"
-						"    </agreement_section>\n"
-						"  </agreement>\n"
-						"</component>\n";
+static const gchar *xmldata_agreements = "<component>\n"
+					 "  <id>org.example.AgreementsTest</id>\n"
+					 "  <agreement type=\"eula\" version_id=\"1.2.3a\">\n"
+					 "    <agreement_section type=\"intro\">\n"
+					 "      <name>Intro</name>\n"
+					 "      <name xml:lang=\"de-DE\">Einführung</name>\n"
+					 "      <description>\n"
+					 "        <p>Mighty Fine</p>\n"
+					 "      </description>\n"
+					 "    </agreement_section>\n"
+					 "  </agreement>\n"
+					 "</component>\n";
 /**
  * test_xml_read_agreements:
  *
@@ -1690,7 +1780,6 @@ test_xml_read_agreements (void)
 
 	cpt = as_xml_test_read_data (xmldata_agreements, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.AgreementsTest");
-
 
 	agreement = as_component_get_agreement_by_kind (cpt, AS_AGREEMENT_KIND_EULA);
 	g_assert_nonnull (agreement);
@@ -1744,35 +1833,38 @@ test_xml_write_agreements (void)
 	g_assert_true (as_xml_test_compare_xml (res, xmldata_agreements));
 }
 
-static const gchar *xmldata_releases =  "<component>\n"
-					"  <id>org.example.ReleaseTest</id>\n"
-					"  <releases>\n"
-					"    <release type=\"stable\" version=\"1.2\">\n"
-					"      <description>\n"
-					"        <p>A release description.</p>\n"
-					"        <p xml:lang=\"de\">Eine Beschreibung der Veröffentlichung.</p>\n"
-					"      </description>\n"
-					"      <url>https://example.org/releases/1.2.html</url>\n"
-					"      <issues>\n"
-					"        <issue url=\"https://example.com/bugzilla/12345\">bz#12345</issue>\n"
-					"        <issue type=\"cve\">CVE-2019-123456</issue>\n"
-					"      </issues>\n"
-					"      <artifacts>\n"
-					"        <artifact type=\"binary\" platform=\"x86_64-linux-gnu\" bundle=\"tarball\">\n"
-					"          <location>https://example.com/mytarball.bin.tar.xz</location>\n"
-					"          <filename>mytarball-1.2.0.bin.tar.xz</filename>\n"
-					"          <checksum type=\"sha256\">f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8</checksum>\n"
-					"          <size type=\"download\">112358</size>\n"
-					"          <size type=\"installed\">42424242</size>\n"
-					"        </artifact>\n"
-					"        <artifact type=\"source\">\n"
-					"          <location>https://example.com/mytarball.tar.xz</location>\n"
-					"          <checksum type=\"sha256\">95c0a7733b2ec76cf52ba2fa8db31cf3ad6ede7140d675e218c86720e97d9ac1</checksum>\n"
-					"        </artifact>\n"
-					"      </artifacts>\n"
-					"    </release>\n"
-					"  </releases>\n"
-					"</component>\n";
+static const gchar *xmldata_releases =
+    "<component>\n"
+    "  <id>org.example.ReleaseTest</id>\n"
+    "  <releases>\n"
+    "    <release type=\"stable\" version=\"1.2\">\n"
+    "      <description>\n"
+    "        <p>A release description.</p>\n"
+    "        <p xml:lang=\"de\">Eine Beschreibung der Veröffentlichung.</p>\n"
+    "      </description>\n"
+    "      <url>https://example.org/releases/1.2.html</url>\n"
+    "      <issues>\n"
+    "        <issue url=\"https://example.com/bugzilla/12345\">bz#12345</issue>\n"
+    "        <issue type=\"cve\">CVE-2019-123456</issue>\n"
+    "      </issues>\n"
+    "      <artifacts>\n"
+    "        <artifact type=\"binary\" platform=\"x86_64-linux-gnu\" bundle=\"tarball\">\n"
+    "          <location>https://example.com/mytarball.bin.tar.xz</location>\n"
+    "          <filename>mytarball-1.2.0.bin.tar.xz</filename>\n"
+    "          <checksum "
+    "type=\"sha256\">f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8</checksum>\n"
+    "          <size type=\"download\">112358</size>\n"
+    "          <size type=\"installed\">42424242</size>\n"
+    "        </artifact>\n"
+    "        <artifact type=\"source\">\n"
+    "          <location>https://example.com/mytarball.tar.xz</location>\n"
+    "          <checksum "
+    "type=\"sha256\">95c0a7733b2ec76cf52ba2fa8db31cf3ad6ede7140d675e218c86720e97d9ac1</checksum>\n"
+    "        </artifact>\n"
+    "      </artifacts>\n"
+    "    </release>\n"
+    "  </releases>\n"
+    "</component>\n";
 /**
  * test_xml_read_releases:
  *
@@ -1794,15 +1886,19 @@ test_xml_read_releases (void)
 
 	rel = AS_RELEASE (g_ptr_array_index (as_component_get_releases (cpt), 0));
 	g_assert_cmpint (as_release_get_kind (rel), ==, AS_RELEASE_KIND_STABLE);
-	g_assert_cmpstr (as_release_get_version (rel), ==,  "1.2");
+	g_assert_cmpstr (as_release_get_version (rel), ==, "1.2");
 
 	as_release_set_active_locale (rel, "de");
-	g_assert_cmpstr (as_release_get_description (rel), ==, "<p>Eine Beschreibung der Veröffentlichung.</p>\n");
+	g_assert_cmpstr (as_release_get_description (rel),
+			 ==,
+			 "<p>Eine Beschreibung der Veröffentlichung.</p>\n");
 
 	as_release_set_active_locale (rel, "C");
 	g_assert_cmpstr (as_release_get_description (rel), ==, "<p>A release description.</p>\n");
 
-	g_assert_cmpstr (as_release_get_url (rel, AS_RELEASE_URL_KIND_DETAILS), ==, "https://example.org/releases/1.2.html");
+	g_assert_cmpstr (as_release_get_url (rel, AS_RELEASE_URL_KIND_DETAILS),
+			 ==,
+			 "https://example.org/releases/1.2.html");
 
 	artifacts = as_release_get_artifacts (rel);
 	g_assert_cmpint (artifacts->len, ==, 2);
@@ -1811,25 +1907,47 @@ test_xml_read_releases (void)
 		AsChecksum *cs;
 
 		if (as_artifact_get_kind (artifact) == AS_ARTIFACT_KIND_BINARY) {
-			g_assert_cmpstr (as_artifact_get_platform (artifact), ==, "x86_64-linux-gnu");
-			g_assert_cmpint (as_artifact_get_bundle_kind (artifact), ==, AS_BUNDLE_KIND_TARBALL);
+			g_assert_cmpstr (as_artifact_get_platform (artifact),
+					 ==,
+					 "x86_64-linux-gnu");
+			g_assert_cmpint (as_artifact_get_bundle_kind (artifact),
+					 ==,
+					 AS_BUNDLE_KIND_TARBALL);
 
 			g_assert_cmpint (as_artifact_get_locations (artifact)->len, ==, 1);
-			g_assert_cmpstr (g_ptr_array_index (as_artifact_get_locations (artifact), 0), ==, "https://example.com/mytarball.bin.tar.xz");
+			g_assert_cmpstr (
+			    g_ptr_array_index (as_artifact_get_locations (artifact), 0),
+			    ==,
+			    "https://example.com/mytarball.bin.tar.xz");
 
-			g_assert_cmpstr (as_artifact_get_filename (artifact), ==, "mytarball-1.2.0.bin.tar.xz");
+			g_assert_cmpstr (as_artifact_get_filename (artifact),
+					 ==,
+					 "mytarball-1.2.0.bin.tar.xz");
 
 			cs = as_artifact_get_checksum (artifact, AS_CHECKSUM_KIND_SHA256);
-			g_assert_cmpstr (as_checksum_get_value (cs), ==, "f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8");
+			g_assert_cmpstr (
+			    as_checksum_get_value (cs),
+			    ==,
+			    "f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8");
 
-			g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_DOWNLOAD), ==, 112358);
-			g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_INSTALLED), ==, 42424242);
+			g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_DOWNLOAD),
+					  ==,
+					  112358);
+			g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_INSTALLED),
+					  ==,
+					  42424242);
 		} else if (as_artifact_get_kind (artifact) == AS_ARTIFACT_KIND_SOURCE) {
 			g_assert_cmpint (as_artifact_get_locations (artifact)->len, ==, 1);
-			g_assert_cmpstr (g_ptr_array_index (as_artifact_get_locations (artifact), 0), ==, "https://example.com/mytarball.tar.xz");
+			g_assert_cmpstr (
+			    g_ptr_array_index (as_artifact_get_locations (artifact), 0),
+			    ==,
+			    "https://example.com/mytarball.tar.xz");
 
 			cs = as_artifact_get_checksum (artifact, AS_CHECKSUM_KIND_SHA256);
-			g_assert_cmpstr (as_checksum_get_value (cs), ==, "95c0a7733b2ec76cf52ba2fa8db31cf3ad6ede7140d675e218c86720e97d9ac1");
+			g_assert_cmpstr (
+			    as_checksum_get_value (cs),
+			    ==,
+			    "95c0a7733b2ec76cf52ba2fa8db31cf3ad6ede7140d675e218c86720e97d9ac1");
 		} else {
 			g_assert_not_reached ();
 		}
@@ -1842,11 +1960,16 @@ test_xml_read_releases (void)
 
 		if (as_issue_get_kind (issue) == AS_ISSUE_KIND_GENERIC) {
 			g_assert_cmpstr (as_issue_get_id (issue), ==, "bz#12345");
-			g_assert_cmpstr (as_issue_get_url (issue), ==, "https://example.com/bugzilla/12345");
+			g_assert_cmpstr (as_issue_get_url (issue),
+					 ==,
+					 "https://example.com/bugzilla/12345");
 
 		} else if (as_issue_get_kind (issue) == AS_ISSUE_KIND_CVE) {
 			g_assert_cmpstr (as_issue_get_id (issue), ==, "CVE-2019-123456");
-			g_assert_cmpstr (as_issue_get_url (issue), ==, "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-123456");
+			g_assert_cmpstr (
+			    as_issue_get_url (issue),
+			    ==,
+			    "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-123456");
 
 		} else {
 			g_assert_not_reached ();
@@ -1876,7 +1999,9 @@ test_xml_write_releases (void)
 	as_release_set_version (rel, "1.2");
 	as_release_set_description (rel, "<p>A release description.</p>", "C");
 	as_release_set_description (rel, "<p>Eine Beschreibung der Veröffentlichung.</p>", "de");
-	as_release_set_url (rel, AS_RELEASE_URL_KIND_DETAILS, "https://example.org/releases/1.2.html");
+	as_release_set_url (rel,
+			    AS_RELEASE_URL_KIND_DETAILS,
+			    "https://example.org/releases/1.2.html");
 
 	/* artifacts */
 	artifact = as_artifact_new ();
@@ -1887,7 +2012,8 @@ test_xml_write_releases (void)
 	as_artifact_set_filename (artifact, "mytarball-1.2.0.bin.tar.xz");
 	cs = as_checksum_new ();
 	as_checksum_set_kind (cs, AS_CHECKSUM_KIND_SHA256);
-	as_checksum_set_value (cs, "f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8");
+	as_checksum_set_value (cs,
+			       "f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8");
 	as_artifact_add_checksum (artifact, cs);
 	g_object_unref (cs);
 	as_artifact_set_size (artifact, 112358, AS_SIZE_KIND_DOWNLOAD);
@@ -1900,7 +2026,8 @@ test_xml_write_releases (void)
 	as_artifact_add_location (artifact, "https://example.com/mytarball.tar.xz");
 	cs = as_checksum_new ();
 	as_checksum_set_kind (cs, AS_CHECKSUM_KIND_SHA256);
-	as_checksum_set_value (cs, "95c0a7733b2ec76cf52ba2fa8db31cf3ad6ede7140d675e218c86720e97d9ac1");
+	as_checksum_set_value (cs,
+			       "95c0a7733b2ec76cf52ba2fa8db31cf3ad6ede7140d675e218c86720e97d9ac1");
 	as_artifact_add_checksum (artifact, cs);
 	g_object_unref (cs);
 	as_release_add_artifact (rel, artifact);
@@ -1931,26 +2058,26 @@ test_xml_write_releases (void)
 static void
 test_xml_rw_reviews (void)
 {
-	static const gchar *xmldata_reviews =
-			"<component>\n"
-			"  <id>org.example.ReviewTest</id>\n"
-			"  <reviews>\n"
-			"    <review id=\"17\" date=\"2016-09-15\" rating=\"80\">\n"
-			"      <priority>5</priority>\n"
-			"      <summary>Hello world</summary>\n"
-			"      <description>\n"
-			"        <p>Mighty Fine</p>\n"
-			"      </description>\n"
-			"      <version>1.2.3</version>\n"
-			"      <reviewer_id>deadbeef</reviewer_id>\n"
-			"      <reviewer_name>Richard Hughes</reviewer_name>\n"
-			"      <lang>en_GB</lang>\n"
-			"      <metadata>\n"
-			"        <value key=\"foo\">bar</value>\n"
-			"      </metadata>\n"
-			"    </review>\n"
-			"  </reviews>\n"
-			"</component>\n";
+	static const gchar
+	    *xmldata_reviews = "<component>\n"
+			       "  <id>org.example.ReviewTest</id>\n"
+			       "  <reviews>\n"
+			       "    <review id=\"17\" date=\"2016-09-15\" rating=\"80\">\n"
+			       "      <priority>5</priority>\n"
+			       "      <summary>Hello world</summary>\n"
+			       "      <description>\n"
+			       "        <p>Mighty Fine</p>\n"
+			       "      </description>\n"
+			       "      <version>1.2.3</version>\n"
+			       "      <reviewer_id>deadbeef</reviewer_id>\n"
+			       "      <reviewer_name>Richard Hughes</reviewer_name>\n"
+			       "      <lang>en_GB</lang>\n"
+			       "      <metadata>\n"
+			       "        <value key=\"foo\">bar</value>\n"
+			       "      </metadata>\n"
+			       "    </review>\n"
+			       "  </reviews>\n"
+			       "</component>\n";
 	g_autoptr(AsComponent) cpt = NULL;
 	GPtrArray *reviews;
 	AsReview *review;
@@ -1987,14 +2114,13 @@ test_xml_rw_reviews (void)
 static void
 test_xml_rw_tags (void)
 {
-	static const gchar *xmldata_tags =
-			"<component>\n"
-			"  <id>org.example.TagsTest</id>\n"
-			"  <tags>\n"
-			"    <tag namespace=\"lvfs\">vendor-2021q1</tag>\n"
-			"    <tag namespace=\"plasma\">featured</tag>\n"
-			"  </tags>\n"
-			"</component>\n";
+	static const gchar *xmldata_tags = "<component>\n"
+					   "  <id>org.example.TagsTest</id>\n"
+					   "  <tags>\n"
+					   "    <tag namespace=\"lvfs\">vendor-2021q1</tag>\n"
+					   "    <tag namespace=\"plasma\">featured</tag>\n"
+					   "  </tags>\n"
+					   "</component>\n";
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
 
@@ -2018,13 +2144,13 @@ static void
 test_xml_rw_branding (void)
 {
 	static const gchar *xmldata_tags =
-			"<component>\n"
-			"  <id>org.example.BrandingTest</id>\n"
-			"  <branding>\n"
-			"    <color type=\"primary\" scheme_preference=\"light\">#ff00ff</color>\n"
-			"    <color type=\"primary\" scheme_preference=\"dark\">#993d3d</color>\n"
-			"  </branding>\n"
-			"</component>\n";
+	    "<component>\n"
+	    "  <id>org.example.BrandingTest</id>\n"
+	    "  <branding>\n"
+	    "    <color type=\"primary\" scheme_preference=\"light\">#ff00ff</color>\n"
+	    "    <color type=\"primary\" scheme_preference=\"dark\">#993d3d</color>\n"
+	    "  </branding>\n"
+	    "</component>\n";
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
 	AsBranding *branding;
@@ -2037,10 +2163,14 @@ test_xml_rw_branding (void)
 	branding = as_component_get_branding (cpt);
 	g_assert_nonnull (branding);
 
-	g_assert_cmpstr (as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY, AS_COLOR_SCHEME_KIND_LIGHT),
-			 ==, "#ff00ff");
-	g_assert_cmpstr (as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY, AS_COLOR_SCHEME_KIND_DARK),
-			 ==, "#993d3d");
+	g_assert_cmpstr (
+	    as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY, AS_COLOR_SCHEME_KIND_LIGHT),
+	    ==,
+	    "#ff00ff");
+	g_assert_cmpstr (
+	    as_branding_get_color (branding, AS_COLOR_KIND_PRIMARY, AS_COLOR_SCHEME_KIND_DARK),
+	    ==,
+	    "#993d3d");
 
 	/* write */
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
@@ -2053,11 +2183,12 @@ test_xml_rw_branding (void)
 static void
 test_xml_rw_external_releases (void)
 {
-	static const gchar *xmldata_tags =
-			"<component>\n"
-			"  <id>org.example.ExternalReleaseTest</id>\n"
-			"  <releases type=\"external\" url=\"https://example.com/releases/test.releases.xml\"/>\n"
-			"</component>\n";
+	static const gchar
+	    *xmldata_tags = "<component>\n"
+			    "  <id>org.example.ExternalReleaseTest</id>\n"
+			    "  <releases type=\"external\" "
+			    "url=\"https://example.com/releases/test.releases.xml\"/>\n"
+			    "</component>\n";
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GFile) file = NULL;
@@ -2080,7 +2211,9 @@ test_xml_rw_external_releases (void)
 	g_assert_nonnull (releases);
 	g_assert_cmpint (releases->len, ==, 0);
 
-	g_assert_cmpstr (as_component_get_releases_url (cpt), ==, "https://example.com/releases/test.releases.xml");
+	g_assert_cmpstr (as_component_get_releases_url (cpt),
+			 ==,
+			 "https://example.com/releases/test.releases.xml");
 	g_assert_cmpint (as_component_get_releases_kind (cpt), ==, AS_RELEASES_KIND_EXTERNAL);
 
 	/* write */
@@ -2102,7 +2235,10 @@ test_xml_rw_external_releases (void)
 	releases = as_component_get_releases (cpt);
 	g_assert_nonnull (releases);
 	g_assert_cmpint (releases->len, ==, 4);
-	g_assert_cmpstr (as_component_get_releases_url (cpt), ==, "https://raw.githubusercontent.com/ximion/appstream/master/tests/samples/releases/org.example.pomidaq.releases.xml");
+	g_assert_cmpstr (as_component_get_releases_url (cpt),
+			 ==,
+			 "https://raw.githubusercontent.com/ximion/appstream/master/tests/samples/"
+			 "releases/org.example.pomidaq.releases.xml");
 	g_assert_cmpint (as_component_get_releases_kind (cpt), ==, AS_RELEASES_KIND_EXTERNAL);
 }
 

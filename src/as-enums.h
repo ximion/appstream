@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -30,10 +30,19 @@
 G_BEGIN_DECLS
 
 /* convenience functions as it's easy to forget the bitwise operators */
-#define as_flags_add(bitfield,enum)		do { ((bitfield) |= (enum)); } while (0)
-#define as_flags_remove(bitfield,enum)		do { ((bitfield) &= ~(enum)); } while (0)
-#define as_flags_invert(bitfield,enum)		do { ((bitfield) ^= enum); } while (0)
-#define as_flags_contains(bitfield,enum)	(((bitfield) & enum) > 0)
+#define as_flags_add(bitfield, enum)    \
+	do {                            \
+		((bitfield) |= (enum)); \
+	} while (0)
+#define as_flags_remove(bitfield, enum)  \
+	do {                             \
+		((bitfield) &= ~(enum)); \
+	} while (0)
+#define as_flags_invert(bitfield, enum) \
+	do {                            \
+		((bitfield) ^= enum);   \
+	} while (0)
+#define as_flags_contains(bitfield, enum) (((bitfield) & enum) > 0)
 
 /**
  * AsFormatStyle:
@@ -122,14 +131,14 @@ typedef enum {
 	AS_URGENCY_KIND_LAST
 } AsUrgencyKind;
 
-const gchar		*as_url_kind_to_string (AsUrlKind url_kind);
-AsUrlKind		 as_url_kind_from_string (const gchar *url_kind);
+const gchar  *as_url_kind_to_string (AsUrlKind url_kind);
+AsUrlKind     as_url_kind_from_string (const gchar *url_kind);
 
-const gchar		*as_format_kind_to_string (AsFormatKind kind);
-AsFormatKind		 as_format_kind_from_string (const gchar *kind_str);
+const gchar  *as_format_kind_to_string (AsFormatKind kind);
+AsFormatKind  as_format_kind_from_string (const gchar *kind_str);
 
-const gchar		*as_urgency_kind_to_string (AsUrgencyKind urgency_kind);
-AsUrgencyKind		 as_urgency_kind_from_string (const gchar *urgency_kind);
+const gchar  *as_urgency_kind_to_string (AsUrgencyKind urgency_kind);
+AsUrgencyKind as_urgency_kind_from_string (const gchar *urgency_kind);
 
 G_END_DECLS
 

@@ -27,23 +27,21 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-time_t			as_pool_get_os_metadata_cache_age (AsPool *pool);
+time_t as_pool_get_os_metadata_cache_age (AsPool *pool);
 
 AS_INTERNAL_VISIBLE
-gboolean		as_pool_refresh_system_cache (AsPool *pool,
-							gboolean force,
-							gboolean *caches_updated,
-							GError **error);
+gboolean as_pool_refresh_system_cache (AsPool	*pool,
+				       gboolean	 force,
+				       gboolean *caches_updated,
+				       GError  **error);
 
 AS_INTERNAL_VISIBLE
-void			as_pool_override_cache_locations (AsPool *pool,
-							  const gchar *dir_sys,
-							  const gchar *dir_user);
+void as_pool_override_cache_locations (AsPool *pool, const gchar *dir_sys, const gchar *dir_user);
 
 AS_INTERNAL_VISIBLE
-gboolean		as_pool_print_std_data_locations_info_private (AsPool *pool,
-									gboolean print_os_data,
-									gboolean print_extra_data);
+gboolean as_pool_print_std_data_locations_info_private (AsPool	*pool,
+							gboolean print_os_data,
+							gboolean print_extra_data);
 
 AS_END_PRIVATE_DECLS
 

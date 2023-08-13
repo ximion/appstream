@@ -36,13 +36,12 @@
 
 #include "as-utils-private.h"
 
-typedef struct
-{
-	AsImageKind	kind;
-	gchar		*url;
-	guint		width;
-	guint		height;
-	GRefString	*locale;
+typedef struct {
+	AsImageKind kind;
+	gchar *url;
+	guint width;
+	guint height;
+	GRefString *locale;
 } AsImagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsImage, as_image, G_TYPE_OBJECT)
@@ -149,7 +148,7 @@ as_image_get_kind (AsImage *image)
  * Returns: URL
  *
  **/
-const gchar*
+const gchar *
 as_image_get_url (AsImage *image)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);
@@ -243,7 +242,7 @@ as_image_set_height (AsImage *image, guint height)
  *
  * Since: 0.9.5
  **/
-const gchar*
+const gchar *
 as_image_get_locale (AsImage *image)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);
@@ -323,10 +322,11 @@ as_image_load_from_xml (AsImage *image, AsContext *ctx, xmlNode *node, GError **
 		if ((priv->width == 0) || (priv->height == 0)) {
 			if (priv->kind != AS_IMAGE_KIND_SOURCE) {
 				/* thumbnails w/o size information must never happen */
-				g_set_error_literal (error,
-						     AS_METADATA_ERROR,
-						     AS_METADATA_ERROR_VALUE_MISSING,
-						     "Ignored screenshot thumbnail image without size information.");
+				g_set_error_literal (
+				    error,
+				    AS_METADATA_ERROR,
+				    AS_METADATA_ERROR_VALUE_MISSING,
+				    "Ignored screenshot thumbnail image without size information.");
 				return FALSE;
 			}
 		}
@@ -357,7 +357,7 @@ void
 as_image_to_xml_node (AsImage *image, AsContext *ctx, xmlNode *root)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);
-	xmlNode* n_image = NULL;
+	xmlNode *n_image = NULL;
 
 	n_image = as_xml_add_text_node (root, "image", priv->url);
 
@@ -369,11 +369,11 @@ as_image_to_xml_node (AsImage *image, AsContext *ctx, xmlNode *root)
 	if ((priv->width > 0) && (priv->height > 0)) {
 		gchar *size;
 
-		size = g_strdup_printf("%i", priv->width);
+		size = g_strdup_printf ("%i", priv->width);
 		as_xml_add_text_prop (n_image, "width", size);
 		g_free (size);
 
-		size = g_strdup_printf("%i", priv->height);
+		size = g_strdup_printf ("%i", priv->height);
 		as_xml_add_text_prop (n_image, "height", size);
 		g_free (size);
 	}
@@ -394,7 +394,11 @@ as_image_to_xml_node (AsImage *image, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_image_load_from_yaml (AsImage *image, AsContext *ctx, GNode *node, AsImageKind kind, GError **error)
+as_image_load_from_yaml (AsImage *image,
+			 AsContext *ctx,
+			 GNode *node,
+			 AsImageKind kind,
+			 GError **error)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);
 
@@ -415,7 +419,9 @@ as_image_load_from_yaml (AsImage *image, AsContext *ctx, GNode *node, AsImageKin
 			if (as_context_has_media_baseurl (ctx)) {
 				/* handle the media baseurl */
 				g_free (priv->url);
-				priv->url = g_build_filename (as_context_get_media_baseurl (ctx), value, NULL);
+				priv->url = g_build_filename (as_context_get_media_baseurl (ctx),
+							      value,
+							      NULL);
 			} else {
 				/* no baseurl, we can just set the value as URL */
 				as_image_set_url (image, value);
@@ -457,13 +463,9 @@ as_image_emit_yaml (AsImage *image, AsContext *ctx, yaml_emitter_t *emitter)
 
 	as_yaml_emit_entry (emitter, "url", url);
 	if ((priv->width > 0) && (priv->height > 0)) {
-		as_yaml_emit_entry_uint64 (emitter,
-					 "width",
-					 priv->width);
+		as_yaml_emit_entry_uint64 (emitter, "width", priv->width);
 
-		as_yaml_emit_entry_uint64 (emitter,
-					 "height",
-					 priv->height);
+		as_yaml_emit_entry_uint64 (emitter, "height", priv->height);
 	}
 	if ((priv->locale != NULL) && (g_strcmp0 (priv->locale, "C") != 0))
 		as_yaml_emit_entry (emitter, "lang", priv->locale);
@@ -489,7 +491,7 @@ as_image_class_init (AsImageClass *klass)
  * Returns: (transfer full): a #AsImage
  *
  **/
-AsImage*
+AsImage *
 as_image_new (void)
 {
 	AsImage *image;

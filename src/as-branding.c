@@ -33,9 +33,8 @@
 #include "config.h"
 #include "as-branding-private.h"
 
-typedef struct
-{
-	GPtrArray	*colors; /* of AsBrandingColor */
+typedef struct {
+	GPtrArray *colors; /* of AsBrandingColor */
 } AsBrandingPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsBranding, as_branding, G_TYPE_OBJECT)
@@ -50,27 +49,25 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsBranding, as_branding, G_TYPE_OBJECT)
  * then initialized with as_branding_color_iter_init().
  */
 
-typedef struct
-{
-	AsBranding 	*branding;
-	guint		pos;
-	gpointer	dummy3;
-	gpointer	dummy4;
-	gpointer	dummy5;
-	gpointer	dummy6;
+typedef struct {
+	AsBranding *branding;
+	guint pos;
+	gpointer dummy3;
+	gpointer dummy4;
+	gpointer dummy5;
+	gpointer dummy6;
 } RealBrandingColorIter;
 
 G_STATIC_ASSERT (sizeof (AsBrandingColorIter) == sizeof (RealBrandingColorIter));
 
 typedef struct {
-	AsColorKind		kind;
-	AsColorSchemeKind	scheme_preference;
-	gchar			*value;
+	AsColorKind kind;
+	AsColorSchemeKind scheme_preference;
+	gchar *value;
 } AsBrandingColor;
 
-static AsBrandingColor*
-as_branding_color_new (AsColorKind kind,
-		       AsColorSchemeKind scheme_preference)
+static AsBrandingColor *
+as_branding_color_new (AsColorKind kind, AsColorSchemeKind scheme_preference)
 {
 	AsBrandingColor *bcolor;
 	bcolor = g_slice_new0 (AsBrandingColor);
@@ -97,7 +94,7 @@ as_branding_color_free (AsBrandingColor *bcolor)
  *
  * Since: 0.15.2
  **/
-const gchar*
+const gchar *
 as_color_kind_to_string (AsColorKind kind)
 {
 	if (kind == AS_COLOR_KIND_PRIMARY)
@@ -133,7 +130,7 @@ as_color_kind_from_string (const gchar *str)
  *
  * Since: 0.15.2
  **/
-const gchar*
+const gchar *
 as_color_scheme_kind_to_string (AsColorSchemeKind kind)
 {
 	if (kind == AS_COLOR_SCHEME_KIND_LIGHT)
@@ -251,7 +248,6 @@ as_branding_remove_color (AsBranding *branding,
 	}
 }
 
-
 /**
  * as_branding_color_iter_init:
  * @iter: an uninitialized #AsBrandingColorIter
@@ -342,10 +338,8 @@ as_branding_color_iter_next (AsBrandingColorIter *iter,
  *
  * Since: 0.15.2
  **/
-const gchar*
-as_branding_get_color (AsBranding *branding,
-			AsColorKind kind,
-			AsColorSchemeKind scheme_kind)
+const gchar *
+as_branding_get_color (AsBranding *branding, AsColorKind kind, AsColorSchemeKind scheme_kind)
 {
 	AsBrandingPrivate *priv = GET_PRIVATE (branding);
 	AsBrandingColor *generic_color = NULL;
@@ -383,7 +377,7 @@ as_branding_load_from_xml (AsBranding *branding, AsContext *ctx, xmlNode *node, 
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 ((gchar*) iter->name, "color") == 0) {
+		if (g_strcmp0 ((gchar *) iter->name, "color") == 0) {
 			AsBrandingColor *color = NULL;
 			AsColorKind ckind;
 			AsColorSchemeKind scheme_pref;
@@ -428,15 +422,13 @@ as_branding_to_xml_node (AsBranding *branding, AsContext *ctx, xmlNode *root)
 		if (color->kind == AS_COLOR_KIND_UNKNOWN || color->value == NULL)
 			continue;
 
-		n = as_xml_add_text_node (branding_n,
-					  "color",
-					  color->value);
-		as_xml_add_text_prop (n, "type",
-				      as_color_kind_to_string (color->kind));
+		n = as_xml_add_text_node (branding_n, "color", color->value);
+		as_xml_add_text_prop (n, "type", as_color_kind_to_string (color->kind));
 		if (color->scheme_preference != AS_COLOR_SCHEME_KIND_UNKNOWN)
-			as_xml_add_text_prop (n, "scheme_preference",
-					      as_color_scheme_kind_to_string (color->scheme_preference));
-
+			as_xml_add_text_prop (
+			    n,
+			    "scheme_preference",
+			    as_color_scheme_kind_to_string (color->scheme_preference));
 	}
 }
 
@@ -475,7 +467,9 @@ as_branding_load_from_yaml (AsBranding *branding, AsContext *ctx, GNode *node, G
 
 		if (g_strcmp0 (key, "colors") == 0) {
 			for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
-				AsBrandingColor *color = as_branding_color_new (AS_COLOR_KIND_UNKNOWN, AS_COLOR_SCHEME_KIND_UNKNOWN);
+				AsBrandingColor *color = as_branding_color_new (
+				    AS_COLOR_KIND_UNKNOWN,
+				    AS_COLOR_SCHEME_KIND_UNKNOWN);
 				as_branding_load_color_from_yaml (branding, sn, color);
 				if (color->kind == AS_COLOR_KIND_UNKNOWN) {
 					as_branding_color_free (color);
@@ -519,17 +513,14 @@ as_branding_emit_yaml (AsBranding *branding, AsContext *ctx, yaml_emitter_t *emi
 		AsBrandingColor *color = g_ptr_array_index (priv->colors, i);
 		as_yaml_mapping_start (emitter);
 
-		as_yaml_emit_entry (emitter,
-				   "type",
-				    as_color_kind_to_string (color->kind));
+		as_yaml_emit_entry (emitter, "type", as_color_kind_to_string (color->kind));
 		if (color->scheme_preference != AS_COLOR_SCHEME_KIND_UNKNOWN)
-			as_yaml_emit_entry (emitter,
-					    "scheme-preference",
-					    as_color_scheme_kind_to_string (color->scheme_preference));
+			as_yaml_emit_entry (
+			    emitter,
+			    "scheme-preference",
+			    as_color_scheme_kind_to_string (color->scheme_preference));
 
-		as_yaml_emit_entry (emitter,
-				   "value",
-				    color->value);
+		as_yaml_emit_entry (emitter, "value", color->value);
 
 		as_yaml_mapping_end (emitter);
 	}
@@ -549,7 +540,7 @@ as_branding_emit_yaml (AsBranding *branding, AsContext *ctx, yaml_emitter_t *emi
  *
  * Since: 0.10
  **/
-AsBranding*
+AsBranding *
 as_branding_new (void)
 {
 	AsBranding *branding;

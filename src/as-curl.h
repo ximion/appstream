@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (AS_COMPILATION)
+#if !defined(AS_COMPILATION)
 #error "Can not use internal AppStream API from external project."
 #endif
 
@@ -49,26 +49,21 @@ typedef enum {
 	AS_CURL_ERROR_LAST
 } AsCurlError;
 
-#define	AS_CURL_ERROR	as_curl_error_quark ()
-GQuark			as_curl_error_quark (void);
+#define AS_CURL_ERROR as_curl_error_quark ()
+GQuark	 as_curl_error_quark (void);
 
-AsCurl			*as_curl_new (GError **error);
+AsCurl	*as_curl_new (GError **error);
 
-void			as_curl_set_cainfo (AsCurl *acurl,
-						const gchar *cainfo);
+void	 as_curl_set_cainfo (AsCurl *acurl, const gchar *cainfo);
 
-GBytes			*as_curl_download_bytes (AsCurl *acurl,
-						 const gchar *url,
-						 GError **error);
-gboolean		as_curl_download_to_filename (AsCurl *acurl,
-							const gchar *url,
-							const gchar *fname,
-							GError **error);
+GBytes	*as_curl_download_bytes (AsCurl *acurl, const gchar *url, GError **error);
+gboolean as_curl_download_to_filename (AsCurl	   *acurl,
+				       const gchar *url,
+				       const gchar *fname,
+				       GError	  **error);
 
-gboolean		as_curl_check_url_exists (AsCurl *acurl,
-						  const gchar *url,
-						  GError **error);
+gboolean as_curl_check_url_exists (AsCurl *acurl, const gchar *url, GError **error);
 
-gboolean		as_curl_is_url (const gchar *url);
+gboolean as_curl_is_url (const gchar *url);
 
 G_END_DECLS

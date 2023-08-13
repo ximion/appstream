@@ -35,18 +35,18 @@
 #include "asc-globals.h"
 
 typedef struct {
-	gchar		*locale;
-	guint		 nstrings;
-	guint		 percentage;
+	gchar *locale;
+	guint nstrings;
+	guint percentage;
 } AscLocaleEntry;
 
 typedef struct {
-	guint		 max_nstrings;
-	GList		*data;
-	GPtrArray	*translations;	/* no ref */
+	guint max_nstrings;
+	GList *data;
+	GPtrArray *translations; /* no ref */
 } AscLocaleContext;
 
-static AscLocaleEntry*
+static AscLocaleEntry *
 asc_locale_entry_new (void)
 {
 	AscLocaleEntry *entry;
@@ -61,7 +61,7 @@ asc_locale_entry_free (AscLocaleEntry *entry)
 	g_slice_free (AscLocaleEntry, entry);
 }
 
-static AscLocaleContext*
+static AscLocaleContext *
 asc_locale_ctx_new (void)
 {
 	AscLocaleContext *ctx;
@@ -88,33 +88,32 @@ asc_locale_ctx_add_entry (AscLocaleContext *ctx, AscLocaleEntry *entry)
 static gint
 asc_locale_entry_sort_cb (gconstpointer a, gconstpointer b)
 {
-	return g_strcmp0 (((AscLocaleEntry *) a)->locale,
-			  ((AscLocaleEntry *) b)->locale);
+	return g_strcmp0 (((AscLocaleEntry *) a)->locale, ((AscLocaleEntry *) b)->locale);
 }
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(AscLocaleContext, asc_locale_ctx_free)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AscLocaleContext, asc_locale_ctx_free)
 
 typedef struct {
-	guint32		 magic;
-	guint32		 revision;
-	guint32		 nstrings;
-	guint32		 orig_tab_offset;
-	guint32		 trans_tab_offset;
-	guint32		 hash_tab_size;
-	guint32		 hash_tab_offset;
-	guint32		 n_sysdep_segments;
-	guint32		 sysdep_segments_offset;
-	guint32		 n_sysdep_strings;
-	guint32		 orig_sysdep_tab_offset;
-	guint32		 trans_sysdep_tab_offset;
+	guint32 magic;
+	guint32 revision;
+	guint32 nstrings;
+	guint32 orig_tab_offset;
+	guint32 trans_tab_offset;
+	guint32 hash_tab_size;
+	guint32 hash_tab_offset;
+	guint32 n_sysdep_segments;
+	guint32 sysdep_segments_offset;
+	guint32 n_sysdep_strings;
+	guint32 orig_sysdep_tab_offset;
+	guint32 trans_sysdep_tab_offset;
 } AscLocaleGettextHeader;
 
 static gboolean
 asc_l10n_parse_file_gettext (AscLocaleContext *ctx,
-				AscUnit *unit,
-				const gchar *locale,
-				const gchar *filename,
-				GError **error)
+			     AscUnit *unit,
+			     const gchar *locale,
+			     const gchar *filename,
+			     GError **error)
 {
 	AscLocaleEntry *entry;
 	AscLocaleGettextHeader h;
@@ -153,9 +152,9 @@ asc_l10n_parse_file_gettext (AscLocaleContext *ctx,
 
 static gboolean
 asc_l10n_search_translations_gettext (AscLocaleContext *ctx,
-					AscUnit *unit,
-					const gchar *prefix,
-					GError **error)
+				      AscUnit *unit,
+				      const gchar *prefix,
+				      GError **error)
 {
 	GPtrArray *contents = NULL;
 	const gsize prefix_len = strlen (prefix) + 1;
@@ -166,7 +165,7 @@ asc_l10n_search_translations_gettext (AscLocaleContext *ctx,
 		g_autofree gchar *fn = NULL;
 		g_autofree gchar *match_path = NULL;
 		if (as_translation_get_kind (t) != AS_TRANSLATION_KIND_GETTEXT &&
-			as_translation_get_kind (t) != AS_TRANSLATION_KIND_UNKNOWN)
+		    as_translation_get_kind (t) != AS_TRANSLATION_KIND_UNKNOWN)
 			continue;
 
 		/* construct expected translation file name pattern */
@@ -182,11 +181,7 @@ asc_l10n_search_translations_gettext (AscLocaleContext *ctx,
 
 			/* fetch locale name from path */
 			segments = g_strsplit (fname + prefix_len, G_DIR_SEPARATOR_S, 4);
-			if (!asc_l10n_parse_file_gettext (ctx,
-							  unit,
-							  segments[2],
-							  fname,
-							  error))
+			if (!asc_l10n_parse_file_gettext (ctx, unit, segments[2], fname, error))
 				return FALSE;
 		}
 	}
@@ -195,22 +190,22 @@ asc_l10n_search_translations_gettext (AscLocaleContext *ctx,
 }
 
 typedef enum {
-	ASC_LOCALE_QM_TAG_END		= 0x1,
+	ASC_LOCALE_QM_TAG_END = 0x1,
 	/* SourceText16 */
-	ASC_LOCALE_QM_TAG_TRANSLATION	= 0x3,
+	ASC_LOCALE_QM_TAG_TRANSLATION = 0x3,
 	/* Context16 */
-	ASC_LOCALE_QM_TAG_OBSOLETE1	= 0x5,
-	ASC_LOCALE_QM_TAG_SOURCE_TEXT	= 0x6,
-	ASC_LOCALE_QM_TAG_CONTEXT	= 0x7,
-	ASC_LOCALE_QM_TAG_COMMENT	= 0x8
+	ASC_LOCALE_QM_TAG_OBSOLETE1 = 0x5,
+	ASC_LOCALE_QM_TAG_SOURCE_TEXT = 0x6,
+	ASC_LOCALE_QM_TAG_CONTEXT = 0x7,
+	ASC_LOCALE_QM_TAG_COMMENT = 0x8
 } AscLocaleQmTag;
 
 typedef enum {
-	ASC_LOCALE_QM_SECTION_CONTEXTS	= 0x2f,
-	ASC_LOCALE_QM_SECTION_HASHES	= 0x42,
-	ASC_LOCALE_QM_SECTION_MESSAGES	= 0x69,
-	ASC_LOCALE_QM_SECTION_NUMERUS	= 0x88,
-	ASC_LOCALE_QM_SECTION_DEPS	= 0x96
+	ASC_LOCALE_QM_SECTION_CONTEXTS = 0x2f,
+	ASC_LOCALE_QM_SECTION_HASHES = 0x42,
+	ASC_LOCALE_QM_SECTION_MESSAGES = 0x69,
+	ASC_LOCALE_QM_SECTION_NUMERUS = 0x88,
+	ASC_LOCALE_QM_SECTION_DEPS = 0x96
 } AscLocaleQmSection;
 
 static guint8
@@ -232,10 +227,7 @@ _read_uint32 (const guint8 *data, guint32 *offset)
 }
 
 static void
-asc_l10n_parse_data_qt (AscLocaleContext *ctx,
-			const gchar *locale,
-			const guint8 *data,
-			guint32 len)
+asc_l10n_parse_data_qt (AscLocaleContext *ctx, const gchar *locale, const guint8 *data, guint32 len)
 {
 	AscLocaleEntry *entry;
 	guint32 m = 0;
@@ -244,7 +236,7 @@ asc_l10n_parse_data_qt (AscLocaleContext *ctx,
 	/* read data */
 	while (m < len) {
 		guint32 tag_len;
-		AscLocaleQmTag tag = _read_uint8(data, &m);
+		AscLocaleQmTag tag = _read_uint8 (data, &m);
 		switch (tag) {
 		case ASC_LOCALE_QM_TAG_END:
 			break;
@@ -285,10 +277,8 @@ asc_l10n_parse_file_qt (AscLocaleContext *ctx,
 	guint32 m = 0;
 	g_autoptr(GBytes) bytes = NULL;
 	const guint8 *data = NULL;
-	const guint8 qm_magic[] = {
-		0x3c, 0xb8, 0x64, 0x18, 0xca, 0xef, 0x9c, 0x95,
-		0xcd, 0x21, 0x1c, 0xbf, 0x60, 0xa1, 0xbd, 0xdd
-	};
+	const guint8 qm_magic[] = { 0x3c, 0xb8, 0x64, 0x18, 0xca, 0xef, 0x9c, 0x95,
+				    0xcd, 0x21, 0x1c, 0xbf, 0x60, 0xa1, 0xbd, 0xdd };
 
 	/* read data */
 	bytes = asc_unit_read_data (unit, filename, error);
@@ -297,19 +287,18 @@ asc_l10n_parse_file_qt (AscLocaleContext *ctx,
 	data = g_bytes_get_data (bytes, &len);
 
 	/* check header */
-	if (len < sizeof(qm_magic) ||
-	    memcmp (data, qm_magic, sizeof(qm_magic)) != 0) {
+	if (len < sizeof (qm_magic) || memcmp (data, qm_magic, sizeof (qm_magic)) != 0) {
 		g_set_error_literal (error,
 				     ASC_COMPOSE_ERROR,
 				     ASC_COMPOSE_ERROR_FAILED,
 				     "QM translation file is invalid");
 		return FALSE;
 	}
-	m += (guint32) sizeof(qm_magic);
+	m += (guint32) sizeof (qm_magic);
 
 	/* parse each section */
 	while (m < len) {
-		AscLocaleQmSection section = _read_uint8(data, &m);
+		AscLocaleQmSection section = _read_uint8 (data, &m);
 		guint32 section_len = _read_uint32 (data, &m);
 		if (section_len > len - m) {
 			g_set_error_literal (error,
@@ -319,10 +308,7 @@ asc_l10n_parse_file_qt (AscLocaleContext *ctx,
 			return FALSE;
 		}
 		if (section == ASC_LOCALE_QM_SECTION_MESSAGES) {
-			asc_l10n_parse_data_qt (ctx,
-						      locale,
-						      data + m,
-						      section_len);
+			asc_l10n_parse_data_qt (ctx, locale, data + m, section_len);
 		}
 		m += section_len;
 	}
@@ -357,7 +343,12 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
 			g_autofree gchar *match_path = NULL;
 
 			fn = g_strdup_printf ("%s.qm", location_hint);
-			match_path = g_build_filename (prefix, "share", "locale*", "LC_MESSAGES", fn, NULL);
+			match_path = g_build_filename (prefix,
+						       "share",
+						       "locale*",
+						       "LC_MESSAGES",
+						       fn,
+						       NULL);
 			for (guint j = 0; j < contents->len; j++) {
 				g_auto(GStrv) segments = NULL;
 				const gchar *fname = g_ptr_array_index (contents, j);
@@ -375,10 +366,7 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
 			 * and     ${prefix}/share/${hint}/${locale}.qm */
 
 			g_autofree gchar *qm_root = NULL;
-			qm_root = g_build_filename (prefix,
-							"share",
-							location_hint,
-							NULL);
+			qm_root = g_build_filename (prefix, "share", location_hint, NULL);
 			for (guint j = 0; j < contents->len; j++) {
 				g_autofree gchar *locale = NULL;
 				gchar *tmp;
@@ -391,11 +379,14 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
 				g_strdelimit (locale, ".", '\0');
 				/* tmp == NULL means we have the ${hint}/${locale}.qm form */
 				tmp = g_strstr_len (locale, -1, "/");
-				if (!asc_l10n_parse_file_qt (ctx, unit, tmp == NULL ? locale : tmp + 1, fname, error))
+				if (!asc_l10n_parse_file_qt (ctx,
+							     unit,
+							     tmp == NULL ? locale : tmp + 1,
+							     fname,
+							     error))
 					return FALSE;
 			}
 		}
-
 	}
 
 	return TRUE;
@@ -494,13 +485,10 @@ asc_read_translation_status (AscResult *cres,
 		for (guint j = 0; j < ctx->translations->len; j++) {
 			AsTranslation *t = g_ptr_array_index (ctx->translations, j);
 
-			as_component_add_language (cpt,
-						   as_translation_get_source_locale (t),
-						   100);
+			as_component_add_language (cpt, as_translation_get_source_locale (t), 100);
 		}
 
 		/* remove translation elements, they should no longer be in the resulting component */
 		g_ptr_array_set_size (ctx->translations, 0);
 	}
 }
-

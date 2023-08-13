@@ -28,10 +28,10 @@ G_BEGIN_DECLS
 
 int ascli_install_component (const gchar *identifier,
 			     AsBundleKind bundle_kind,
-			     gboolean choose_first);
+			     gboolean	  choose_first);
 int ascli_remove_component (const gchar *identifier,
 			    AsBundleKind bundle_kind,
-			    gboolean choose_first);
+			    gboolean	 choose_first);
 
 G_END_DECLS
 

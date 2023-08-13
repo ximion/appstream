@@ -50,7 +50,7 @@
  *
  * Since: 0.12.9
  **/
-const gchar*
+const gchar *
 as_news_format_kind_to_string (AsNewsFormatKind kind)
 {
 	if (kind == AS_NEWS_FORMAT_KIND_YAML)
@@ -91,7 +91,7 @@ as_news_format_kind_from_string (const gchar *kind_str)
  *
  * Internal helper method to convert release objects to XML.
  */
-gchar*
+gchar *
 as_releases_to_metainfo_xml_chunk (GPtrArray *releases, GError **error)
 {
 	g_autoptr(AsContext) ctx = NULL;
@@ -105,14 +105,12 @@ as_releases_to_metainfo_xml_chunk (GPtrArray *releases, GError **error)
 	as_context_set_locale (ctx, "C");
 	as_context_set_style (ctx, AS_FORMAT_STYLE_METAINFO);
 
-	root = xmlNewNode (NULL, (xmlChar*) "component");
+	root = xmlNewNode (NULL, (xmlChar *) "component");
 	n_releases = as_xml_add_node (root, "releases");
 
 	for (guint i = 0; i < releases->len; ++i) {
 		AsRelease *release = AS_RELEASE (g_ptr_array_index (releases, i));
-		as_release_to_xml_node (release,
-					ctx,
-					n_releases);
+		as_release_to_xml_node (release, ctx, n_releases);
 	}
 
 	xml_raw = as_xml_node_free_to_str (root, error);
@@ -124,8 +122,8 @@ as_releases_to_metainfo_xml_chunk (GPtrArray *releases, GError **error)
 	lines = g_strv_length (strv);
 	if (lines < 4)
 		return NULL; /* something went wrong here */
-	g_free(strv[lines - 1]);
-	g_free(strv[lines - 2]);
+	g_free (strv[lines - 1]);
+	g_free (strv[lines - 2]);
 	strv[lines - 2] = NULL;
 
 	return g_strjoinv ("\n", strv + 2);
@@ -134,10 +132,8 @@ as_releases_to_metainfo_xml_chunk (GPtrArray *releases, GError **error)
 /**
  * as_news_yaml_to_release:
  */
-static GPtrArray*
-as_news_yaml_to_releases (const gchar *yaml_data,
-			  gint limit,
-			  GError **error)
+static GPtrArray *
+as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
 {
 	yaml_parser_t parser;
 	yaml_event_t event;
@@ -147,9 +143,9 @@ as_news_yaml_to_releases (const gchar *yaml_data,
 
 	if (yaml_data == NULL) {
 		g_set_error (error,
-				AS_METADATA_ERROR,
-				AS_METADATA_ERROR_FAILED,
-				"YAML news file was empty.");
+			     AS_METADATA_ERROR,
+			     AS_METADATA_ERROR_FAILED,
+			     "YAML news file was empty.");
 		return NULL;
 	}
 
@@ -157,14 +153,15 @@ as_news_yaml_to_releases (const gchar *yaml_data,
 
 	/* initialize YAML parser */
 	yaml_parser_initialize (&parser);
-	yaml_parser_set_input_string (&parser, (unsigned char*) yaml_data, strlen (yaml_data));
+	yaml_parser_set_input_string (&parser, (unsigned char *) yaml_data, strlen (yaml_data));
 
 	while (parse) {
 		if (!yaml_parser_parse (&parser, &event)) {
 			g_set_error (error,
-					AS_METADATA_ERROR,
-					AS_METADATA_ERROR_PARSE,
-					"Could not parse YAML: %s", parser.problem);
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_PARSE,
+				     "Could not parse YAML: %s",
+				     parser.problem);
 			ret = FALSE;
 			break;
 		}
@@ -207,63 +204,101 @@ as_news_yaml_to_releases (const gchar *yaml_data,
 					AsReleaseKind rkind = as_release_kind_from_string (value);
 					if (rkind != AS_RELEASE_KIND_UNKNOWN)
 						as_release_set_kind (rel, rkind);
-				} else if ((g_strcmp0 (key, "Description") == 0) || (g_strcmp0 (key, "Notes") == 0)) {
+				} else if ((g_strcmp0 (key, "Description") == 0) ||
+					   (g_strcmp0 (key, "Notes") == 0)) {
 					g_autoptr(GString) str = g_string_new ("");
 
 					if ((n->children != NULL) && (n->children->next != NULL)) {
 						GNode *dn;
 						g_string_append (str, "<ul>");
 						for (dn = n->children; dn != NULL; dn = dn->next) {
-							g_autofree gchar *escaped = g_markup_escape_text (as_yaml_node_get_key (dn), -1);
-							g_string_append_printf (str, "<li>%s</li>", escaped);
+							g_autofree gchar
+							    *escaped = g_markup_escape_text (
+								as_yaml_node_get_key (dn),
+								-1);
+							g_string_append_printf (str,
+										"<li>%s</li>",
+										escaped);
 						}
 						g_string_append (str, "</ul>");
 
 					} else {
 						/* we only have one list entry, or no list at all and a freeform text instead. Convert to paragraphs */
-						g_auto(GStrv) paras = g_strsplit (value, "\n\n", -1);
+						g_auto(GStrv)
+							    paras = g_strsplit (value, "\n\n", -1);
 						for (guint i = 0; paras[i] != NULL; i++) {
 							g_auto(GStrv) lines = NULL;
 							gboolean in_listing = FALSE;
 							gboolean in_paragraph = FALSE;
-							g_autofree gchar *escaped = g_markup_escape_text (paras[i], -1);
+							g_autofree gchar *escaped =
+							    g_markup_escape_text (paras[i], -1);
 
 							lines = g_strsplit (escaped, "\n", -1);
 							for (guint j = 0; lines[j] != NULL; j++) {
-								if (g_str_has_prefix (lines[j], " -") || g_str_has_prefix (lines[j], " *")) {
+								if (g_str_has_prefix (lines[j],
+										      " -") ||
+								    g_str_has_prefix (lines[j],
+										      " *")) {
 									/* we have a list */
 									if (in_paragraph) {
-										g_string_truncate (str, str->len - 1);
-										g_string_append (str, "</p>\n");
-										in_paragraph = FALSE;
+										g_string_truncate (
+										    str,
+										    str->len - 1);
+										g_string_append (
+										    str,
+										    "</p>\n");
+										in_paragraph =
+										    FALSE;
 									}
 									if (in_listing) {
-										g_string_append (str, "</li>\n<li>");
+										g_string_append (
+										    str,
+										    "</li>\n<li>");
 									} else {
-										g_string_append (str, "<ul>\n<li>");
+										g_string_append (
+										    str,
+										    "<ul>\n<li>");
 									}
-									g_string_append (str, lines[j] + 3);
+									g_string_append (str,
+											 lines[j] +
+											     3);
 									in_listing = TRUE;
 									continue;
 								} else if (in_listing) {
-									if (g_str_has_prefix (lines[j], "   ")) {
-										g_string_append_printf (str, " %s", lines[j] + 3);
+									if (g_str_has_prefix (
+										lines[j],
+										"   ")) {
+										g_string_append_printf (
+										    str,
+										    " %s",
+										    lines[j] + 3);
 									} else {
-										g_string_append (str, "</li>\n</ul>\n");
+										g_string_append (
+										    str,
+										    "</li>\n</"
+										    "ul>\n");
 										in_listing = FALSE;
-										g_string_append_printf (str, "<p>%s\n", lines[j]);
+										g_string_append_printf (
+										    str,
+										    "<p>%s\n",
+										    lines[j]);
 										in_paragraph = TRUE;
 									}
 								} else {
-									g_string_append_printf (str, "<p>%s\n", lines[j]);
+									g_string_append_printf (
+									    str,
+									    "<p>%s\n",
+									    lines[j]);
 									in_paragraph = TRUE;
 								}
 							}
 							if (in_listing)
-								g_string_append (str, "</li>\n</ul>\n");
+								g_string_append (str,
+										 "</li>\n</ul>\n");
 							if (in_paragraph) {
-									g_string_truncate (str, str->len - 1);
-									g_string_append (str, "</p>\n");
+								g_string_truncate (str,
+										   str->len - 1);
+								g_string_append (str, "</p>\n");
 							}
 						}
 					}
@@ -283,11 +318,11 @@ as_news_yaml_to_releases (const gchar *yaml_data,
 			}
 
 			g_node_traverse (root,
-					G_IN_ORDER,
-					G_TRAVERSE_ALL,
-					-1,
-					as_yaml_free_node,
-					NULL);
+					 G_IN_ORDER,
+					 G_TRAVERSE_ALL,
+					 -1,
+					 as_yaml_free_node,
+					 NULL);
 		}
 
 		/* stop if end of stream is reached */
@@ -315,8 +350,8 @@ static int
 as_news_yaml_write_handler_cb (void *ptr, unsigned char *buffer, size_t size)
 {
 	GString *str;
-	str = (GString*) ptr;
-	g_string_append_len (str, (const gchar*) buffer, size);
+	str = (GString *) ptr;
+	g_string_append_len (str, (const gchar *) buffer, size);
 
 	return 1;
 }
@@ -381,7 +416,9 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 								    AS_MARKUP_KIND_MARKDOWN,
 								    NULL);
 				if (md != NULL)
-					as_yaml_emit_long_entry_literal (&emitter, "Description", md);
+					as_yaml_emit_long_entry_literal (&emitter,
+									 "Description",
+									 md);
 			} else {
 				xmlDoc *doc = NULL;
 				xmlNode *root;
@@ -391,7 +428,7 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 				/* make XML parser happy by providing a root element */
 				xmldata = g_strdup_printf ("<root>%s</root>", desc_markup);
 
-				doc = xmlParseDoc ((xmlChar*) xmldata);
+				doc = xmlParseDoc ((xmlChar *) xmldata);
 				if (doc == NULL)
 					goto xml_end;
 
@@ -410,14 +447,21 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 					if (iter->type != XML_ELEMENT_NODE)
 						continue;
 
-					if ((g_strcmp0 ((gchar*) iter->name, "ul") == 0) || (g_strcmp0 ((gchar*) iter->name, "ol") == 0)) {
+					if ((g_strcmp0 ((gchar *) iter->name, "ul") == 0) ||
+					    (g_strcmp0 ((gchar *) iter->name, "ol") == 0)) {
 						/* iterate over itemize contents */
-						for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+						for (iter2 = iter->children; iter2 != NULL;
+						     iter2 = iter2->next) {
 							if (iter2->type != XML_ELEMENT_NODE)
 								continue;
-							if (g_strcmp0 ((gchar*) iter2->name, "li") == 0) {
-								g_autofree gchar *content = as_xml_get_node_value_raw (iter2);
-								as_yaml_emit_scalar (&emitter, as_strstripnl (content));
+							if (g_strcmp0 ((gchar *) iter2->name,
+								       "li") == 0) {
+								g_autofree gchar *content =
+								    as_xml_get_node_value_raw (
+									iter2);
+								as_yaml_emit_scalar (
+								    &emitter,
+								    as_strstripnl (content));
 							}
 						}
 					}
@@ -530,8 +574,7 @@ as_news_text_add_markup (GString *desc, const gchar *tag, const gchar *line)
 		if (tmp != NULL)
 			*tmp = '\0';
 
-		g_string_append_printf (desc, "<%s>%s</%s>\n",
-					tag, escaped, tag);
+		g_string_append_printf (desc, "<%s>%s</%s>\n", tag, escaped, tag);
 	}
 }
 
@@ -564,14 +607,16 @@ as_news_text_to_release_hdr (AsRelease *release, GString *desc, const gchar *txt
 		g_set_error (error,
 			     AS_METADATA_ERROR,
 			     AS_METADATA_ERROR_FAILED,
-			     "Unable to find version in: %s", txt);
+			     "Unable to find version in: %s",
+			     txt);
 		return FALSE;
 	}
 	if (release_txt == NULL) {
 		g_set_error (error,
 			     AS_METADATA_ERROR,
 			     AS_METADATA_ERROR_FAILED,
-			     "Unable to find release in: %s", txt);
+			     "Unable to find release in: %s",
+			     txt);
 		return FALSE;
 	}
 
@@ -599,25 +644,30 @@ as_news_text_to_release_hdr (AsRelease *release, GString *desc, const gchar *txt
 		g_set_error (error,
 			     AS_METADATA_ERROR,
 			     AS_METADATA_ERROR_FAILED,
-			     "Unable to parse release: %s", release_txt);
+			     "Unable to parse release: %s",
+			     release_txt);
 		return FALSE;
 	}
 	dt = g_date_time_new_local (atoi (release_split[0]),
 				    atoi (release_split[1]),
 				    atoi (release_split[2]),
-				    0, 0, 0);
+				    0,
+				    0,
+				    0);
 	if (dt == NULL) {
 		g_set_error (error,
 			     AS_METADATA_ERROR,
 			     AS_METADATA_ERROR_FAILED,
-			     "Unable to create release: %s", release_txt);
+			     "Unable to create release: %s",
+			     release_txt);
 		return FALSE;
 	}
 
 	/* set release properties */
-	date_str = g_strdup_printf ("%s-%s-%s", release_split[0],
-						release_split[1],
-						release_split[2]);
+	date_str = g_strdup_printf ("%s-%s-%s",
+				    release_split[0],
+				    release_split[1],
+				    release_split[2]);
 	as_release_set_date (release, date_str);
 
 	return TRUE;
@@ -631,7 +681,7 @@ as_news_text_to_list_markup (GString *desc, gchar **lines, GError **error)
 	as_news_text_add_markup (desc, "ul", NULL);
 	for (i = 0; lines[i] != NULL; i++) {
 		guint prefix = 0;
-		g_strstrip(lines[i]);
+		g_strstrip (lines[i]);
 		if ((g_str_has_prefix (lines[i], "- ")) || (g_str_has_prefix (lines[i], "* ")))
 			prefix = 2;
 		as_news_text_add_markup (desc, "li", lines[i] + prefix);
@@ -652,7 +702,8 @@ as_news_text_to_para_markup (GString *desc, const gchar *txt, GError **error)
 		for (guint i = 1; lines[i] != NULL; i++) {
 			guint prefix = 0;
 			g_strstrip (lines[i]);
-			if ((g_str_has_prefix (lines[i], "- ")) || (g_str_has_prefix (lines[i], "* ")))
+			if ((g_str_has_prefix (lines[i], "- ")) ||
+			    (g_str_has_prefix (lines[i], "* ")))
 				prefix = 2;
 
 			as_news_text_add_markup (desc, "p", lines[i] + prefix);
@@ -662,10 +713,12 @@ as_news_text_to_para_markup (GString *desc, const gchar *txt, GError **error)
 		/* freeform text to paragraphs */
 		const gchar *txt_content = g_strstr_len (txt, -1, "\n");
 		if (txt_content == NULL) {
-			g_set_error (error,
-				     AS_METADATA_ERROR,
-				     AS_METADATA_ERROR_FAILED,
-				     "Unable to write sensible paragraph markup (missing header) for: %s.", txt);
+			g_set_error (
+			    error,
+			    AS_METADATA_ERROR,
+			    AS_METADATA_ERROR_FAILED,
+			    "Unable to write sensible paragraph markup (missing header) for: %s.",
+			    txt);
 			return FALSE;
 		}
 		lines = g_strsplit (txt_content, "\n\n", -1);
@@ -679,9 +732,11 @@ as_news_text_to_para_markup (GString *desc, const gchar *txt, GError **error)
 
 	if (!para_generated) {
 		g_set_error (error,
-				AS_METADATA_ERROR,
-				AS_METADATA_ERROR_FAILED,
-				"Unable to write sensible paragraph markup (source data may be malformed) for: %s.", txt);
+			     AS_METADATA_ERROR,
+			     AS_METADATA_ERROR_FAILED,
+			     "Unable to write sensible paragraph markup (source data may be "
+			     "malformed) for: %s.",
+			     txt);
 		return FALSE;
 	}
 
@@ -691,7 +746,7 @@ as_news_text_to_para_markup (GString *desc, const gchar *txt, GError **error)
 /**
  * as_news_text_to_releases:
  */
-static GPtrArray*
+static GPtrArray *
 as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 {
 	guint i;
@@ -704,9 +759,9 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 
 	if (data == NULL) {
 		g_set_error (error,
-				AS_METADATA_ERROR,
-				AS_METADATA_ERROR_FAILED,
-				"YAML news file was empty.");
+			     AS_METADATA_ERROR,
+			     AS_METADATA_ERROR_FAILED,
+			     "YAML news file was empty.");
 		return NULL;
 	}
 
@@ -727,8 +782,7 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 			continue;
 
 		switch (as_news_text_guess_section (split[i])) {
-		case AS_NEWS_SECTION_KIND_HEADER:
-		{
+		case AS_NEWS_SECTION_KIND_HEADER: {
 			/* flush old release content and create new release */
 			if (desc->len > 0) {
 				as_release_set_description (rel, desc->str, "C");
@@ -753,10 +807,12 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 		case AS_NEWS_SECTION_KIND_BUGFIX:
 			lines = g_strsplit (split[i], "\n", -1);
 			if (g_strv_length (lines) == 2) {
-				as_news_text_add_markup (desc, "p",
+				as_news_text_add_markup (desc,
+							 "p",
 							 "This release fixes the following bug:");
 			} else {
-				as_news_text_add_markup (desc, "p",
+				as_news_text_add_markup (desc,
+							 "p",
 							 "This release fixes the following bugs:");
 			}
 			if (!as_news_text_to_list_markup (desc, lines + 1, error))
@@ -769,11 +825,15 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 		case AS_NEWS_SECTION_KIND_FEATURES:
 			lines = g_strsplit (split[i], "\n", -1);
 			if (g_strv_length (lines) == 2) {
-				as_news_text_add_markup (desc, "p",
-							 "This release adds the following feature:");
+				as_news_text_add_markup (
+				    desc,
+				    "p",
+				    "This release adds the following feature:");
 			} else {
-				as_news_text_add_markup (desc, "p",
-							 "This release adds the following features:");
+				as_news_text_add_markup (
+				    desc,
+				    "p",
+				    "This release adds the following features:");
 			}
 			if (!as_news_text_to_list_markup (desc, lines + 1, error))
 				return FALSE;
@@ -781,29 +841,30 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 		case AS_NEWS_SECTION_KIND_MISC:
 			lines = g_strsplit (split[i], "\n", -1);
 			if (g_strv_length (lines) == 2) {
-				as_news_text_add_markup (desc, "p",
-							 "This release includes the following change:");
+				as_news_text_add_markup (
+				    desc,
+				    "p",
+				    "This release includes the following change:");
 			} else {
-				as_news_text_add_markup (desc, "p",
-							 "This release includes the following changes:");
+				as_news_text_add_markup (
+				    desc,
+				    "p",
+				    "This release includes the following changes:");
 			}
 			if (!as_news_text_to_list_markup (desc, lines + 1, error))
 				return FALSE;
 			break;
 		case AS_NEWS_SECTION_KIND_DOCUMENTATION:
 			lines = g_strsplit (split[i], "\n", -1);
-			as_news_text_add_markup (desc, "p",
-						 "This release updates documentation:");
+			as_news_text_add_markup (desc, "p", "This release updates documentation:");
 			if (!as_news_text_to_list_markup (desc, lines + 1, error))
 				return FALSE;
 			break;
 		case AS_NEWS_SECTION_KIND_TRANSLATION:
-			as_news_text_add_markup (desc, "p",
-						 "This release updates translations.");
+			as_news_text_add_markup (desc, "p", "This release updates translations.");
 			break;
 		case AS_NEWS_SECTION_KIND_CONTRIBUTORS:
-			as_news_text_add_markup (desc, "p",
-						 "With contributions from:");
+			as_news_text_add_markup (desc, "p", "With contributions from:");
 
 			if (g_strstr_len (split[i], -1, "* ") != NULL ||
 			    g_strstr_len (split[i], -1, "- ") != NULL) {
@@ -816,8 +877,7 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 			}
 			break;
 		case AS_NEWS_SECTION_KIND_TRANSLATORS:
-			as_news_text_add_markup (desc, "p",
-						 "Updated localization by:");
+			as_news_text_add_markup (desc, "p", "Updated localization by:");
 
 			if (g_strstr_len (split[i], -1, "* ") != NULL ||
 			    g_strstr_len (split[i], -1, "- ") != NULL) {
@@ -833,7 +893,8 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 			g_set_error (error,
 				     AS_METADATA_ERROR,
 				     AS_METADATA_ERROR_FAILED,
-				     "Failed to detect section '%s'", split[i]);
+				     "Failed to detect section '%s'",
+				     split[i]);
 			return FALSE;
 		}
 
@@ -881,7 +942,8 @@ as_news_releases_to_text (GPtrArray *releases, gchar **md_data, AsNewsFormatKind
 
 		/* write release */
 		if (as_release_get_timestamp (rel) > 0) {
-			dt = g_date_time_new_from_unix_utc ((gint64) as_release_get_timestamp (rel));
+			dt = g_date_time_new_from_unix_utc (
+			    (gint64) as_release_get_timestamp (rel));
 			date = g_date_time_format (dt, "%F");
 			g_string_append_printf (str, "Released: %s\n\n", date);
 		}
@@ -890,9 +952,7 @@ as_news_releases_to_text (GPtrArray *releases, gchar **md_data, AsNewsFormatKind
 		tmp = as_release_get_description (rel);
 		if (tmp != NULL) {
 			g_autofree gchar *md = NULL;
-			md = as_description_markup_convert (tmp,
-							    AS_MARKUP_KIND_MARKDOWN,
-							    NULL);
+			md = as_description_markup_convert (tmp, AS_MARKUP_KIND_MARKDOWN, NULL);
 			if (md == NULL)
 				return FALSE;
 			g_string_append_printf (str, "%s\n", md);
@@ -912,7 +972,7 @@ as_news_releases_to_text (GPtrArray *releases, gchar **md_data, AsNewsFormatKind
  *
  * Convert NEWS data to a list of AsRelease elements.
  */
-GPtrArray*
+GPtrArray *
 as_news_to_releases_from_data (const gchar *data,
 			       AsNewsFormatKind kind,
 			       gint entry_limit,
@@ -931,9 +991,9 @@ as_news_to_releases_from_data (const gchar *data,
 		 * Otherwise, parsing must have failed. */
 		if (error == NULL)
 			g_set_error (error,
-					AS_METADATA_ERROR,
-					AS_METADATA_ERROR_FAILED,
-					"Unable to detect input data format.");
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_FAILED,
+				     "Unable to detect input data format.");
 		return NULL;
 	}
 
@@ -958,7 +1018,7 @@ as_news_to_releases_from_data (const gchar *data,
  *
  * Convert NEWS file to a list of AsRelease elements.
  */
-GPtrArray*
+GPtrArray *
 as_news_to_releases_from_filename (const gchar *fname,
 				   AsNewsFormatKind kind,
 				   gint entry_limit,
@@ -973,7 +1033,8 @@ as_news_to_releases_from_filename (const gchar *fname,
 			kind = AS_NEWS_FORMAT_KIND_YAML;
 		else if (g_str_has_suffix (fname, ".md"))
 			kind = AS_NEWS_FORMAT_KIND_MARKDOWN;
-		else if (g_str_has_suffix (fname, "NEWS") || g_str_has_suffix (fname, "news") || g_str_has_suffix (fname, ".txt"))
+		else if (g_str_has_suffix (fname, "NEWS") || g_str_has_suffix (fname, "news") ||
+			 g_str_has_suffix (fname, ".txt"))
 			kind = AS_NEWS_FORMAT_KIND_TEXT;
 		else
 			kind = AS_NEWS_FORMAT_KIND_YAML;
@@ -983,11 +1044,7 @@ as_news_to_releases_from_filename (const gchar *fname,
 	if (!g_file_get_contents (fname, &data, NULL, error))
 		return NULL;
 
-	return as_news_to_releases_from_data (data,
-					      kind,
-					      entry_limit,
-					      translatable_limit,
-					      error);
+	return as_news_to_releases_from_data (data, kind, entry_limit, translatable_limit, error);
 }
 
 /**
@@ -996,7 +1053,10 @@ as_news_to_releases_from_filename (const gchar *fname,
  * Convert a list of releases to a text representation.
  */
 gboolean
-as_releases_to_news_data (GPtrArray *releases, AsNewsFormatKind kind, gchar **news_data, GError **error)
+as_releases_to_news_data (GPtrArray *releases,
+			  AsNewsFormatKind kind,
+			  gchar **news_data,
+			  GError **error)
 {
 	if (kind == AS_NEWS_FORMAT_KIND_YAML)
 		return as_news_releases_to_yaml (releases, news_data);
@@ -1005,9 +1065,9 @@ as_releases_to_news_data (GPtrArray *releases, AsNewsFormatKind kind, gchar **ne
 		return as_news_releases_to_text (releases, news_data, kind);
 
 	g_set_error (error,
-			AS_METADATA_ERROR,
-			AS_METADATA_ERROR_FAILED,
-			"Unable to detect input data format.");
+		     AS_METADATA_ERROR,
+		     AS_METADATA_ERROR_FAILED,
+		     "Unable to detect input data format.");
 	return FALSE;
 }
 
@@ -1017,7 +1077,10 @@ as_releases_to_news_data (GPtrArray *releases, AsNewsFormatKind kind, gchar **ne
  * Convert a list of releases to a text representation and save it to a file.
  */
 gboolean
-as_releases_to_news_file (GPtrArray *releases, const gchar *fname, AsNewsFormatKind kind, GError **error)
+as_releases_to_news_file (GPtrArray *releases,
+			  const gchar *fname,
+			  AsNewsFormatKind kind,
+			  GError **error)
 {
 	g_autofree gchar *data = NULL;
 
@@ -1027,7 +1090,8 @@ as_releases_to_news_file (GPtrArray *releases, const gchar *fname, AsNewsFormatK
 			kind = AS_NEWS_FORMAT_KIND_YAML;
 		else if (g_str_has_suffix (fname, ".md"))
 			kind = AS_NEWS_FORMAT_KIND_MARKDOWN;
-		else if (g_str_has_suffix (fname, "NEWS") || g_str_has_suffix (fname, "news") || g_str_has_suffix (fname, ".txt"))
+		else if (g_str_has_suffix (fname, "NEWS") || g_str_has_suffix (fname, "news") ||
+			 g_str_has_suffix (fname, ".txt"))
 			kind = AS_NEWS_FORMAT_KIND_TEXT;
 		else
 			kind = AS_NEWS_FORMAT_KIND_YAML;

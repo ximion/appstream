@@ -36,12 +36,12 @@
 #include "as-context-private.h"
 
 typedef struct {
-	gchar		*kind;
-	GHashTable	*name;
-	GHashTable	*description;
+	gchar *kind;
+	GHashTable *name;
+	GHashTable *description;
 
-	AsContext	*context;
-	GRefString	*active_locale_override;
+	AsContext *context;
+	GRefString *active_locale_override;
 } AsAgreementSectionPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsAgreementSection, as_agreement_section, G_TYPE_OBJECT)
@@ -70,10 +70,12 @@ as_agreement_section_init (AsAgreementSection *agreement_section)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
 
-	priv->name = g_hash_table_new_full (g_str_hash, g_str_equal,
+	priv->name = g_hash_table_new_full (g_str_hash,
+					    g_str_equal,
 					    (GDestroyNotify) as_ref_string_release,
 					    g_free);
-	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal,
+	priv->description = g_hash_table_new_full (g_str_hash,
+						   g_str_equal,
 						   (GDestroyNotify) as_ref_string_release,
 						   g_free);
 }
@@ -95,7 +97,7 @@ as_agreement_section_class_init (AsAgreementSectionClass *klass)
  *
  * Since: 0.12.1
  **/
-const gchar*
+const gchar *
 as_agreement_section_get_kind (AsAgreementSection *agreement_section)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
@@ -130,7 +132,7 @@ as_agreement_section_set_kind (AsAgreementSection *agreement_section, const gcha
  *
  * Since: 0.12.1
  **/
-const gchar*
+const gchar *
 as_agreement_section_get_name (AsAgreementSection *agreement_section)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
@@ -152,13 +154,11 @@ as_agreement_section_get_name (AsAgreementSection *agreement_section)
  **/
 void
 as_agreement_section_set_name (AsAgreementSection *agreement_section,
-			       const gchar *name, const gchar *locale)
+			       const gchar *name,
+			       const gchar *locale)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
-	as_context_localized_ht_set (priv->context,
-				     priv->name,
-				     name,
-				     locale);
+	as_context_localized_ht_set (priv->context, priv->name, name, locale);
 }
 
 /**
@@ -171,7 +171,7 @@ as_agreement_section_set_name (AsAgreementSection *agreement_section,
  *
  * Since: 0.12.1
  **/
-const gchar*
+const gchar *
 as_agreement_section_get_description (AsAgreementSection *agreement_section)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
@@ -193,13 +193,11 @@ as_agreement_section_get_description (AsAgreementSection *agreement_section)
  **/
 void
 as_agreement_section_set_description (AsAgreementSection *agreement_section,
-				      const gchar *desc, const gchar *locale)
+				      const gchar *desc,
+				      const gchar *locale)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
-	as_context_localized_ht_set (priv->context,
-				     priv->description,
-				     desc,
-				     locale);
+	as_context_localized_ht_set (priv->context, priv->description, desc, locale);
 }
 
 /**
@@ -211,7 +209,7 @@ as_agreement_section_set_description (AsAgreementSection *agreement_section,
  *
  * Since: 0.12.1
  */
-AsContext*
+AsContext *
 as_agreement_section_get_context (AsAgreementSection *agreement_section)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
@@ -244,7 +242,7 @@ as_agreement_section_set_context (AsAgreementSection *agreement_section, AsConte
  * Get the current active locale, which
  * is used to get localized messages.
  */
-const gchar*
+const gchar *
 as_agreement_section_get_active_locale (AsAgreementSection *agreement_section)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
@@ -294,7 +292,10 @@ as_agreement_section_set_active_locale (AsAgreementSection *agreement_section, c
  * Loads data from an XML node.
  **/
 gboolean
-as_agreement_section_load_from_xml (AsAgreementSection *agreement_section, AsContext *ctx, xmlNode *node, GError **error)
+as_agreement_section_load_from_xml (AsAgreementSection *agreement_section,
+				    AsContext *ctx,
+				    xmlNode *node,
+				    GError **error)
 {
 	xmlNode *iter;
 	gchar *prop;
@@ -315,7 +316,7 @@ as_agreement_section_load_from_xml (AsAgreementSection *agreement_section, AsCon
 
 		lang = as_xml_get_node_locale_match (ctx, iter);
 
-		if (g_strcmp0 ((gchar*) iter->name, "name") == 0) {
+		if (g_strcmp0 ((gchar *) iter->name, "name") == 0) {
 			g_autofree gchar *content = NULL;
 
 			content = as_xml_get_node_value (iter);
@@ -327,12 +328,14 @@ as_agreement_section_load_from_xml (AsAgreementSection *agreement_section, AsCon
 			continue;
 		}
 
-		if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
+		if (g_strcmp0 ((gchar *) iter->name, "description") == 0) {
 			g_autofree gchar *content = NULL;
 
 			content = as_xml_dump_node_children (iter);
 			if (lang != NULL)
-				as_agreement_section_set_description (agreement_section, content, lang);
+				as_agreement_section_set_description (agreement_section,
+								      content,
+								      lang);
 
 			continue;
 		}
@@ -350,7 +353,9 @@ as_agreement_section_load_from_xml (AsAgreementSection *agreement_section, AsCon
  * Serializes the data to an XML node.
  **/
 void
-as_agreement_section_to_xml_node (AsAgreementSection *agreement_section, AsContext *ctx, xmlNode *root)
+as_agreement_section_to_xml_node (AsAgreementSection *agreement_section,
+				  AsContext *ctx,
+				  xmlNode *root)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
 	xmlNode *asnode;
@@ -372,7 +377,10 @@ as_agreement_section_to_xml_node (AsAgreementSection *agreement_section, AsConte
  * Loads data from a YAML field.
  **/
 gboolean
-as_agreement_section_load_from_yaml (AsAgreementSection *agreement_section, AsContext *ctx, GNode *node, GError **error)
+as_agreement_section_load_from_yaml (AsAgreementSection *agreement_section,
+				     AsContext *ctx,
+				     GNode *node,
+				     GError **error)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
 	GNode *n;
@@ -384,7 +392,8 @@ as_agreement_section_load_from_yaml (AsAgreementSection *agreement_section, AsCo
 		const gchar *key = as_yaml_node_get_key (n);
 
 		if (g_strcmp0 (key, "type") == 0) {
-			as_agreement_section_set_kind (agreement_section, as_yaml_node_get_value (n));
+			as_agreement_section_set_kind (agreement_section,
+						       as_yaml_node_get_value (n));
 		} else if (g_strcmp0 (key, "name") == 0) {
 			as_yaml_set_localized_table (ctx, n, priv->name);
 		} else if (g_strcmp0 (key, "description") == 0) {
@@ -406,7 +415,9 @@ as_agreement_section_load_from_yaml (AsAgreementSection *agreement_section, AsCo
  * Emit YAML data for this object.
  **/
 void
-as_agreement_section_emit_yaml (AsAgreementSection *agreement_section, AsContext *ctx, yaml_emitter_t *emitter)
+as_agreement_section_emit_yaml (AsAgreementSection *agreement_section,
+				AsContext *ctx,
+				yaml_emitter_t *emitter)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
 
@@ -417,14 +428,10 @@ as_agreement_section_emit_yaml (AsAgreementSection *agreement_section, AsContext
 	as_yaml_emit_entry (emitter, "type", priv->kind);
 
 	/* name */
-	as_yaml_emit_localized_entry (emitter,
-				      "name",
-				      priv->name);
+	as_yaml_emit_localized_entry (emitter, "name", priv->name);
 
 	/* description */
-	as_yaml_emit_long_localized_entry (emitter,
-					   "description",
-					   priv->description);
+	as_yaml_emit_long_localized_entry (emitter, "description", priv->description);
 
 	/* end mapping for the agreement */
 	as_yaml_mapping_end (emitter);

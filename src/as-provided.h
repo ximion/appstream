@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -32,16 +32,15 @@ G_BEGIN_DECLS
 #define AS_TYPE_PROVIDED (as_provided_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsProvided, as_provided, AS, PROVIDED, GObject)
 
-struct _AsProvidedClass
-{
-	GObjectClass		parent_class;
+struct _AsProvidedClass {
+	GObjectClass parent_class;
 	/*< private >*/
-	void (*_as_reserved1)	(void);
-	void (*_as_reserved2)	(void);
-	void (*_as_reserved3)	(void);
-	void (*_as_reserved4)	(void);
-	void (*_as_reserved5)	(void);
-	void (*_as_reserved6)	(void);
+	void (*_as_reserved1) (void);
+	void (*_as_reserved2) (void);
+	void (*_as_reserved3) (void);
+	void (*_as_reserved4) (void);
+	void (*_as_reserved5) (void);
+	void (*_as_reserved6) (void);
 };
 
 /**
@@ -62,7 +61,7 @@ struct _AsProvidedClass
  *
  * Type of the public interface components can provide.
  **/
-typedef enum  {
+typedef enum {
 	AS_PROVIDED_KIND_UNKNOWN,
 	AS_PROVIDED_KIND_LIBRARY,
 	AS_PROVIDED_KIND_BINARY,
@@ -82,21 +81,18 @@ typedef enum  {
 
 #define AS_PROVIDED_KIND_MIMETYPE AS_PROVIDED_KIND_MEDIATYPE
 
-const gchar		*as_provided_kind_to_string (AsProvidedKind kind);
-AsProvidedKind		as_provided_kind_from_string (const gchar *kind_str);
-const gchar		*as_provided_kind_to_l10n_string (AsProvidedKind kind);
+const gchar   *as_provided_kind_to_string (AsProvidedKind kind);
+AsProvidedKind as_provided_kind_from_string (const gchar *kind_str);
+const gchar   *as_provided_kind_to_l10n_string (AsProvidedKind kind);
 
-AsProvided		*as_provided_new (void);
+AsProvided    *as_provided_new (void);
 
-AsProvidedKind		as_provided_get_kind (AsProvided *prov);
-void			as_provided_set_kind (AsProvided *prov,
-						AsProvidedKind kind);
+AsProvidedKind as_provided_get_kind (AsProvided *prov);
+void	       as_provided_set_kind (AsProvided *prov, AsProvidedKind kind);
 
-GPtrArray		*as_provided_get_items (AsProvided *prov);
-void			as_provided_add_item (AsProvided *prov,
-						const gchar *item);
-gboolean		as_provided_has_item (AsProvided *prov,
-						const gchar *item);
+GPtrArray     *as_provided_get_items (AsProvided *prov);
+void	       as_provided_add_item (AsProvided *prov, const gchar *item);
+gboolean       as_provided_has_item (AsProvided *prov, const gchar *item);
 
 G_END_DECLS
 

@@ -315,7 +315,7 @@ AscHintTagStatic asc_hint_tag_list[] =  {
  *
  * Create a new #AscHintTag struct with the given values.
  */
-AscHintTag*
+AscHintTag *
 asc_hint_tag_new (const gchar *tag, AsIssueSeverity severity, const gchar *explanation)
 {
 	AscHintTag *htag = g_new0 (AscHintTag, 1);

@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_COMPOSE_H) && !defined (ASC_COMPILATION)
+#if !defined(__APPSTREAM_COMPOSE_H) && !defined(ASC_COMPILATION)
 #error "Only <appstream-compose.h> can be included directly."
 #endif
 #pragma once
@@ -31,8 +31,7 @@ G_BEGIN_DECLS
 #define ASC_TYPE_RESULT (asc_result_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AscResult, asc_result, ASC, RESULT, GObject)
 
-struct _AscResultClass
-{
+struct _AscResultClass {
 	GObjectClass parent_class;
 	/*< private >*/
 	void (*_as_reserved1) (void);
@@ -41,85 +40,65 @@ struct _AscResultClass
 	void (*_as_reserved4) (void);
 };
 
-AscResult		*asc_result_new (void);
+AscResult    *asc_result_new (void);
 
-gboolean		asc_result_unit_ignored (AscResult *result);
-guint			asc_result_components_count (AscResult *result);
-guint			asc_result_hints_count (AscResult *result);
-gboolean		asc_result_is_ignored (AscResult *result,
-					       AsComponent *cpt);
+gboolean      asc_result_unit_ignored (AscResult *result);
+guint	      asc_result_components_count (AscResult *result);
+guint	      asc_result_hints_count (AscResult *result);
+gboolean      asc_result_is_ignored (AscResult *result, AsComponent *cpt);
 
-AsBundleKind		asc_result_get_bundle_kind (AscResult *result);
-void			asc_result_set_bundle_kind (AscResult *result,
-						    AsBundleKind kind);
+AsBundleKind  asc_result_get_bundle_kind (AscResult *result);
+void	      asc_result_set_bundle_kind (AscResult *result, AsBundleKind kind);
 
-const gchar		*asc_result_get_bundle_id (AscResult *result);
-void			asc_result_set_bundle_id (AscResult *result,
-						  const gchar *id);
+const gchar  *asc_result_get_bundle_id (AscResult *result);
+void	      asc_result_set_bundle_id (AscResult *result, const gchar *id);
 
-AsComponent		*asc_result_get_component (AscResult *result,
-						   const gchar *cid);
-GPtrArray		*asc_result_fetch_components (AscResult *result);
-GPtrArray		*asc_result_get_hints (AscResult *result,
-						const gchar *cid);
-GPtrArray		*asc_result_fetch_hints_all (AscResult *result);
-const gchar		**asc_result_get_component_ids_with_hints (AscResult *result);
+AsComponent  *asc_result_get_component (AscResult *result, const gchar *cid);
+GPtrArray    *asc_result_fetch_components (AscResult *result);
+GPtrArray    *asc_result_get_hints (AscResult *result, const gchar *cid);
+GPtrArray    *asc_result_fetch_hints_all (AscResult *result);
+const gchar **asc_result_get_component_ids_with_hints (AscResult *result);
 
+gboolean      asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, GBytes *bytes);
+gboolean      asc_result_update_component_gcid_with_string (AscResult	*result,
+							    AsComponent *cpt,
+							    const gchar *data);
+const gchar  *asc_result_gcid_for_cid (AscResult *result, const gchar *cid);
+const gchar  *asc_result_gcid_for_component (AscResult *result, AsComponent *cpt);
+const gchar **asc_result_get_component_gcids (AscResult *result);
 
-gboolean		asc_result_update_component_gcid (AscResult *result,
-							  AsComponent *cpt,
-							  GBytes *bytes);
-gboolean		asc_result_update_component_gcid_with_string (AscResult *result,
-									AsComponent *cpt,
-									const gchar *data);
-const gchar		*asc_result_gcid_for_cid (AscResult *result,
-							const gchar *cid);
-const gchar		*asc_result_gcid_for_component (AscResult *result,
-							AsComponent *cpt);
-const gchar		**asc_result_get_component_gcids (AscResult *result);
-
-gboolean		asc_result_add_component (AscResult *result,
-						  AsComponent *cpt,
-						  GBytes *bytes,
-						  GError **error);
-gboolean		asc_result_add_component_with_string (AscResult *result,
-								AsComponent *cpt,
-								const gchar *data,
-								GError **error);
-gboolean		asc_result_remove_component (AscResult *result,
-						     AsComponent *cpt);
-gboolean		asc_result_remove_component_full (AscResult *result,
-							  AsComponent *cpt,
-							  gboolean remove_gcid);
-gboolean		asc_result_remove_component_by_id (AscResult *result,
-							   const gchar *cid);
-void			asc_result_remove_hints_for_cid (AscResult *result,
-							 const gchar *cid);
-gboolean		asc_result_has_hint (AscResult *result,
-						AsComponent *cpt,
-						const gchar *tag);
-
-gboolean		asc_result_add_hint_by_cid (AscResult *result,
-						    const gchar *component_id,
-						    const gchar *tag,
-						    const gchar *key1,
-						    ...) G_GNUC_NULL_TERMINATED;
-gboolean		asc_result_add_hint_by_cid_v (AscResult *result,
-						      const gchar *component_id,
-						      const gchar *tag,
-						      gchar **kv);
-
-gboolean		asc_result_add_hint (AscResult *result,
-					     AsComponent *cpt,
-					     const gchar *tag,
-					     const gchar *key1,
-					     ...) G_GNUC_NULL_TERMINATED;
-gboolean		asc_result_add_hint_simple (AscResult *result,
+gboolean      asc_result_add_component (AscResult   *result,
+					AsComponent *cpt,
+					GBytes	    *bytes,
+					GError	   **error);
+gboolean      asc_result_add_component_with_string (AscResult	*result,
 						    AsComponent *cpt,
-						    const gchar *tag);
-gboolean		asc_result_add_hint_v (AscResult *result,
-					       AsComponent *cpt,
-					       const gchar *tag,
-					       gchar **kv);
+						    const gchar *data,
+						    GError     **error);
+gboolean      asc_result_remove_component (AscResult *result, AsComponent *cpt);
+gboolean      asc_result_remove_component_full (AscResult   *result,
+						AsComponent *cpt,
+						gboolean     remove_gcid);
+gboolean      asc_result_remove_component_by_id (AscResult *result, const gchar *cid);
+void	      asc_result_remove_hints_for_cid (AscResult *result, const gchar *cid);
+gboolean      asc_result_has_hint (AscResult *result, AsComponent *cpt, const gchar *tag);
+
+gboolean      asc_result_add_hint_by_cid (AscResult   *result,
+					  const gchar *component_id,
+					  const gchar *tag,
+					  const gchar *key1,
+					  ...) G_GNUC_NULL_TERMINATED;
+gboolean      asc_result_add_hint_by_cid_v (AscResult	*result,
+					    const gchar *component_id,
+					    const gchar *tag,
+					    gchar      **kv);
+
+gboolean      asc_result_add_hint (AscResult   *result,
+				   AsComponent *cpt,
+				   const gchar *tag,
+				   const gchar *key1,
+				   ...) G_GNUC_NULL_TERMINATED;
+gboolean      asc_result_add_hint_simple (AscResult *result, AsComponent *cpt, const gchar *tag);
+gboolean asc_result_add_hint_v (AscResult *result, AsComponent *cpt, const gchar *tag, gchar **kv);
 
 G_END_DECLS

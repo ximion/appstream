@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -49,16 +49,15 @@ G_BEGIN_DECLS
 #define AS_TYPE_COMPONENT (as_component_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsComponent, as_component, AS, COMPONENT, GObject)
 
-struct _AsComponentClass
-{
-	GObjectClass		parent_class;
+struct _AsComponentClass {
+	GObjectClass parent_class;
 	/*< private >*/
-	void (*_as_reserved1)	(void);
-	void (*_as_reserved2)	(void);
-	void (*_as_reserved3)	(void);
-	void (*_as_reserved4)	(void);
-	void (*_as_reserved5)	(void);
-	void (*_as_reserved6)	(void);
+	void (*_as_reserved1) (void);
+	void (*_as_reserved2) (void);
+	void (*_as_reserved3) (void);
+	void (*_as_reserved4) (void);
+	void (*_as_reserved5) (void);
+	void (*_as_reserved6) (void);
 };
 
 /**
@@ -83,7 +82,7 @@ struct _AsComponentClass
  *
  * The type of an #AsComponent.
  **/
-typedef enum  {
+typedef enum {
 	AS_COMPONENT_KIND_UNKNOWN,
 	AS_COMPONENT_KIND_GENERIC,
 	AS_COMPONENT_KIND_DESKTOP_APP,
@@ -107,8 +106,8 @@ typedef enum  {
 
 #define AS_COMPONENT_KIND_INPUTMETHOD AS_COMPONENT_KIND_INPUT_METHOD
 
-const gchar		*as_component_kind_to_string (AsComponentKind kind);
-AsComponentKind		as_component_kind_from_string (const gchar *kind_str);
+const gchar    *as_component_kind_to_string (AsComponentKind kind);
+AsComponentKind as_component_kind_from_string (const gchar *kind_str);
 
 /**
  * AsMergeKind:
@@ -120,7 +119,7 @@ AsComponentKind		as_component_kind_from_string (const gchar *kind_str);
  * Defines how #AsComponent data should be merged if the component is
  * set for merge.
  **/
-typedef enum  {
+typedef enum {
 	AS_MERGE_KIND_NONE,
 	AS_MERGE_KIND_REPLACE,
 	AS_MERGE_KIND_APPEND,
@@ -129,8 +128,8 @@ typedef enum  {
 	AS_MERGE_KIND_LAST
 } AsMergeKind;
 
-const gchar		*as_merge_kind_to_string (AsMergeKind kind);
-AsMergeKind		as_merge_kind_from_string (const gchar *kind_str);
+const gchar *as_merge_kind_to_string (AsMergeKind kind);
+AsMergeKind  as_merge_kind_from_string (const gchar *kind_str);
 
 /**
  * AsComponentScope:
@@ -148,8 +147,8 @@ typedef enum {
 	AS_COMPONENT_SCOPE_LAST
 } AsComponentScope;
 
-const gchar		*as_component_scope_to_string (AsComponentScope scope);
-AsComponentScope	as_component_scope_from_string (const gchar *scope_str);
+const gchar	*as_component_scope_to_string (AsComponentScope scope);
+AsComponentScope as_component_scope_from_string (const gchar *scope_str);
 
 /**
  * AsValueFlags:
@@ -161,8 +160,8 @@ AsComponentScope	as_component_scope_from_string (const gchar *scope_str);
  * they are set or retrieved.
  */
 typedef enum {
-	AS_VALUE_FLAG_NONE = 0,
-	AS_VALUE_FLAG_DUPLICATE_CHECK = 1 << 0,
+	AS_VALUE_FLAG_NONE		      = 0,
+	AS_VALUE_FLAG_DUPLICATE_CHECK	      = 1 << 0,
 	AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK = 1 << 1
 } AsValueFlags;
 
@@ -182,17 +181,17 @@ typedef enum {
  * reasons.
  **/
 typedef enum /*< skip >*/ __attribute__((__packed__)) {
-	AS_SEARCH_TOKEN_MATCH_NONE		= 0,
-	AS_SEARCH_TOKEN_MATCH_MEDIATYPE		= 1 << 0,
-	AS_SEARCH_TOKEN_MATCH_PKGNAME		= 1 << 1,
-	AS_SEARCH_TOKEN_MATCH_ORIGIN		= 1 << 2,
-	AS_SEARCH_TOKEN_MATCH_DESCRIPTION	= 1 << 3,
-	AS_SEARCH_TOKEN_MATCH_SUMMARY		= 1 << 4,
-	AS_SEARCH_TOKEN_MATCH_KEYWORD		= 1 << 5,
-	AS_SEARCH_TOKEN_MATCH_NAME		= 1 << 6,
-	AS_SEARCH_TOKEN_MATCH_ID		= 1 << 7,
+	AS_SEARCH_TOKEN_MATCH_NONE	  = 0,
+	AS_SEARCH_TOKEN_MATCH_MEDIATYPE	  = 1 << 0,
+	AS_SEARCH_TOKEN_MATCH_PKGNAME	  = 1 << 1,
+	AS_SEARCH_TOKEN_MATCH_ORIGIN	  = 1 << 2,
+	AS_SEARCH_TOKEN_MATCH_DESCRIPTION = 1 << 3,
+	AS_SEARCH_TOKEN_MATCH_SUMMARY	  = 1 << 4,
+	AS_SEARCH_TOKEN_MATCH_KEYWORD	  = 1 << 5,
+	AS_SEARCH_TOKEN_MATCH_NAME	  = 1 << 6,
+	AS_SEARCH_TOKEN_MATCH_ID	  = 1 << 7,
 	/*< private >*/
-	AS_SEARCH_TOKEN_MATCH_LAST		= 0xffff
+	AS_SEARCH_TOKEN_MATCH_LAST	  = 0xffff
 } AsSearchTokenMatch;
 
 /**
@@ -214,291 +213,209 @@ typedef enum {
 } AsReleasesKind;
 
 const gchar	*as_releases_kind_to_string (AsReleasesKind kind);
-AsReleasesKind	as_releases_kind_from_string (const gchar *kind_str);
+AsReleasesKind	 as_releases_kind_from_string (const gchar *kind_str);
 
-AsComponent		*as_component_new (void);
+AsComponent	*as_component_new (void);
 
-AsValueFlags		as_component_get_value_flags (AsComponent *cpt);
-void			as_component_set_value_flags (AsComponent *cpt,
-						      AsValueFlags flags);
+AsValueFlags	 as_component_get_value_flags (AsComponent *cpt);
+void		 as_component_set_value_flags (AsComponent *cpt, AsValueFlags flags);
 
-const gchar		*as_component_get_active_locale (AsComponent *cpt);
-void			as_component_set_active_locale (AsComponent *cpt,
-							const gchar *locale);
+const gchar	*as_component_get_active_locale (AsComponent *cpt);
+void		 as_component_set_active_locale (AsComponent *cpt, const gchar *locale);
 
-const gchar		*as_component_get_id (AsComponent *cpt);
-void			as_component_set_id (AsComponent *cpt,
-						const gchar *value);
+const gchar	*as_component_get_id (AsComponent *cpt);
+void		 as_component_set_id (AsComponent *cpt, const gchar *value);
 
-const gchar		*as_component_get_data_id (AsComponent *cpt);
-void			as_component_set_data_id (AsComponent *cpt,
-							const gchar *value);
+const gchar	*as_component_get_data_id (AsComponent *cpt);
+void		 as_component_set_data_id (AsComponent *cpt, const gchar *value);
 
-AsComponentKind		as_component_get_kind (AsComponent *cpt);
-void			as_component_set_kind (AsComponent *cpt,
-						AsComponentKind value);
+AsComponentKind	 as_component_get_kind (AsComponent *cpt);
+void		 as_component_set_kind (AsComponent *cpt, AsComponentKind value);
 
-const gchar		*as_component_get_date_eol (AsComponent *cpt);
-void			as_component_set_date_eol (AsComponent *cpt,
-						   const gchar *date);
-guint64			as_component_get_timestamp_eol (AsComponent *cpt);
+const gchar	*as_component_get_date_eol (AsComponent *cpt);
+void		 as_component_set_date_eol (AsComponent *cpt, const gchar *date);
+guint64		 as_component_get_timestamp_eol (AsComponent *cpt);
 
-const gchar		*as_component_get_origin (AsComponent *cpt);
-void			as_component_set_origin (AsComponent *cpt,
-							const gchar *origin);
+const gchar	*as_component_get_origin (AsComponent *cpt);
+void		 as_component_set_origin (AsComponent *cpt, const gchar *origin);
 
-const gchar		*as_component_get_branch (AsComponent *cpt);
-void			as_component_set_branch (AsComponent *cpt,
-						 const gchar *branch);
+const gchar	*as_component_get_branch (AsComponent *cpt);
+void		 as_component_set_branch (AsComponent *cpt, const gchar *branch);
 
-AsComponentScope	as_component_get_scope (AsComponent *cpt);
-void			as_component_set_scope (AsComponent *cpt,
-						AsComponentScope scope);
+AsComponentScope as_component_get_scope (AsComponent *cpt);
+void		 as_component_set_scope (AsComponent *cpt, AsComponentScope scope);
 
-gchar			*as_component_get_pkgname (AsComponent *cpt);
-gchar			**as_component_get_pkgnames (AsComponent *cpt);
-void			as_component_set_pkgnames (AsComponent *cpt,
-							gchar **packages);
-void			as_component_set_pkgname (AsComponent *cpt,
-						  const gchar *pkgname);
+gchar		*as_component_get_pkgname (AsComponent *cpt);
+gchar	       **as_component_get_pkgnames (AsComponent *cpt);
+void		 as_component_set_pkgnames (AsComponent *cpt, gchar **packages);
+void		 as_component_set_pkgname (AsComponent *cpt, const gchar *pkgname);
 
-const gchar		*as_component_get_source_pkgname (AsComponent *cpt);
-void			as_component_set_source_pkgname (AsComponent *cpt,
-							 const gchar *spkgname);
+const gchar	*as_component_get_source_pkgname (AsComponent *cpt);
+void		 as_component_set_source_pkgname (AsComponent *cpt, const gchar *spkgname);
 
-const gchar		*as_component_get_name (AsComponent *cpt);
-void			as_component_set_name (AsComponent *cpt,
-						const gchar *value,
-						const gchar *locale);
+const gchar	*as_component_get_name (AsComponent *cpt);
+void		 as_component_set_name (AsComponent *cpt, const gchar *value, const gchar *locale);
 
-const gchar		*as_component_get_summary (AsComponent *cpt);
-void			as_component_set_summary (AsComponent *cpt,
-							const gchar *value,
-							const gchar *locale);
+const gchar	*as_component_get_summary (AsComponent *cpt);
+void	     as_component_set_summary (AsComponent *cpt, const gchar *value, const gchar *locale);
 
-const gchar		*as_component_get_description (AsComponent *cpt);
-void			as_component_set_description (AsComponent *cpt,
-							const gchar *value,
-							const gchar *locale);
+const gchar *as_component_get_description (AsComponent *cpt);
+void	   as_component_set_description (AsComponent *cpt, const gchar *value, const gchar *locale);
 
-GPtrArray		*as_component_get_launchables (AsComponent *cpt);
-AsLaunchable		*as_component_get_launchable (AsComponent *cpt,
-							AsLaunchableKind kind);
-void			as_component_add_launchable (AsComponent *cpt,
-							 AsLaunchable *launchable);
+GPtrArray *as_component_get_launchables (AsComponent *cpt);
+AsLaunchable *as_component_get_launchable (AsComponent *cpt, AsLaunchableKind kind);
+void	      as_component_add_launchable (AsComponent *cpt, AsLaunchable *launchable);
 
-const gchar		*as_component_get_metadata_license (AsComponent *cpt);
-void			as_component_set_metadata_license (AsComponent *cpt,
-							   const gchar *value);
+const gchar  *as_component_get_metadata_license (AsComponent *cpt);
+void	      as_component_set_metadata_license (AsComponent *cpt, const gchar *value);
 
-const gchar		*as_component_get_project_license (AsComponent *cpt);
-void			as_component_set_project_license (AsComponent *cpt,
-							  const gchar *value);
+const gchar  *as_component_get_project_license (AsComponent *cpt);
+void	      as_component_set_project_license (AsComponent *cpt, const gchar *value);
 
-const gchar		*as_component_get_project_group (AsComponent *cpt);
-void			as_component_set_project_group (AsComponent *cpt,
-								const gchar *value);
+const gchar  *as_component_get_project_group (AsComponent *cpt);
+void	      as_component_set_project_group (AsComponent *cpt, const gchar *value);
 
-const gchar		*as_component_get_developer_name (AsComponent *cpt);
-void			as_component_set_developer_name (AsComponent *cpt,
-								const gchar *value,
-								const gchar *locale);
+const gchar  *as_component_get_developer_name (AsComponent *cpt);
+void as_component_set_developer_name (AsComponent *cpt, const gchar *value, const gchar *locale);
 
-GPtrArray		*as_component_get_compulsory_for_desktops (AsComponent *cpt);
-void			as_component_set_compulsory_for_desktop (AsComponent *cpt,
-								  const gchar *desktop);
-gboolean		as_component_is_compulsory_for_desktop (AsComponent *cpt,
-								const gchar *desktop);
+GPtrArray  *as_component_get_compulsory_for_desktops (AsComponent *cpt);
+void	    as_component_set_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop);
+gboolean    as_component_is_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop);
 
-GPtrArray		*as_component_get_categories (AsComponent *cpt);
-void			as_component_add_category (AsComponent *cpt,
-							const gchar *category);
-gboolean		as_component_has_category (AsComponent *cpt,
-							const gchar *category);
+GPtrArray  *as_component_get_categories (AsComponent *cpt);
+void	    as_component_add_category (AsComponent *cpt, const gchar *category);
+gboolean    as_component_has_category (AsComponent *cpt, const gchar *category);
 
-GPtrArray		*as_component_get_screenshots (AsComponent *cpt);
-void			as_component_add_screenshot (AsComponent *cpt,
-							AsScreenshot *sshot);
+GPtrArray  *as_component_get_screenshots (AsComponent *cpt);
+void	    as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot);
 
-GPtrArray		*as_component_get_keywords (AsComponent *cpt);
-void			as_component_set_keywords (AsComponent *cpt,
-						   GPtrArray *new_keywords,
-						   const gchar *locale,
-						   gboolean deep_copy);
-void			as_component_add_keyword (AsComponent *cpt,
-						   const gchar *keyword,
+GPtrArray  *as_component_get_keywords (AsComponent *cpt);
+void	    as_component_set_keywords (AsComponent *cpt,
+				       GPtrArray   *new_keywords,
+				       const gchar *locale,
+				       gboolean	    deep_copy);
+void	    as_component_add_keyword (AsComponent *cpt, const gchar *keyword, const gchar *locale);
+void	    as_component_clear_keywords (AsComponent *cpt, const gchar *locale);
+
+GPtrArray  *as_component_get_icons (AsComponent *cpt);
+AsIcon	   *as_component_get_icon_by_size (AsComponent *cpt, guint width, guint height);
+AsIcon	   *as_component_get_icon_stock (AsComponent *cpt);
+void	    as_component_add_icon (AsComponent *cpt, AsIcon *icon);
+
+GPtrArray  *as_component_get_provided (AsComponent *cpt);
+void	    as_component_add_provided (AsComponent *cpt, AsProvided *prov);
+AsProvided *as_component_get_provided_for_kind (AsComponent *cpt, AsProvidedKind kind);
+void as_component_add_provided_item (AsComponent *cpt, AsProvidedKind kind, const gchar *item);
+
+const gchar *as_component_get_url (AsComponent *cpt, AsUrlKind url_kind);
+void	     as_component_add_url (AsComponent *cpt, AsUrlKind url_kind, const gchar *url);
+
+gboolean   as_component_load_releases_from_bytes (AsComponent *cpt, GBytes *bytes, GError **error);
+gboolean   as_component_load_releases (AsComponent *cpt,
+				       gboolean	    reload,
+				       gboolean	    allow_net,
+				       GError	  **error);
+GPtrArray *as_component_get_releases (AsComponent *cpt);
+void	   as_component_add_release (AsComponent *cpt, AsRelease *release);
+
+AsReleasesKind as_component_get_releases_kind (AsComponent *cpt);
+void	       as_component_set_releases_kind (AsComponent *cpt, AsReleasesKind kind);
+
+const gchar   *as_component_get_releases_url (AsComponent *cpt);
+void	       as_component_set_releases_url (AsComponent *cpt, const gchar *url);
+
+GPtrArray     *as_component_get_extends (AsComponent *cpt);
+void	       as_component_add_extends (AsComponent *cpt, const gchar *cpt_id);
+
+GPtrArray     *as_component_get_addons (AsComponent *cpt);
+void	       as_component_add_addon (AsComponent *cpt, AsComponent *addon);
+
+GList	      *as_component_get_languages (AsComponent *cpt);
+gint	       as_component_get_language (AsComponent *cpt, const gchar *locale);
+void	       as_component_add_language (AsComponent *cpt, const gchar *locale, gint percentage);
+void	       as_component_clear_languages (AsComponent *cpt);
+
+GPtrArray     *as_component_get_translations (AsComponent *cpt);
+void	       as_component_add_translation (AsComponent *cpt, AsTranslation *tr);
+
+gboolean       as_component_has_bundle (AsComponent *cpt);
+GPtrArray     *as_component_get_bundles (AsComponent *cpt);
+AsBundle      *as_component_get_bundle (AsComponent *cpt, AsBundleKind bundle_kind);
+void	       as_component_add_bundle (AsComponent *cpt, AsBundle *bundle);
+
+GPtrArray     *as_component_get_suggested (AsComponent *cpt);
+void	       as_component_add_suggested (AsComponent *cpt, AsSuggested *suggested);
+
+GPtrArray     *as_component_get_search_tokens (AsComponent *cpt);
+guint	       as_component_search_matches (AsComponent *cpt, const gchar *term);
+guint	       as_component_search_matches_all (AsComponent *cpt, gchar **terms);
+
+AsMergeKind    as_component_get_merge_kind (AsComponent *cpt);
+void	       as_component_set_merge_kind (AsComponent *cpt, AsMergeKind kind);
+
+gboolean       as_component_is_member_of_category (AsComponent *cpt, AsCategory *category);
+
+gboolean       as_component_is_ignored (AsComponent *cpt);
+
+gboolean       as_component_is_valid (AsComponent *cpt);
+gchar	      *as_component_to_string (AsComponent *cpt);
+
+gint	       as_component_get_priority (AsComponent *cpt);
+void	       as_component_set_priority (AsComponent *cpt, gint priority);
+
+GHashTable    *as_component_get_custom (AsComponent *cpt);
+const gchar   *as_component_get_custom_value (AsComponent *cpt, const gchar *key);
+gboolean as_component_insert_custom_value (AsComponent *cpt, const gchar *key, const gchar *value);
+
+GPtrArray	*as_component_get_content_ratings (AsComponent *cpt);
+AsContentRating *as_component_get_content_rating (AsComponent *cpt, const gchar *kind);
+void	     as_component_add_content_rating (AsComponent *cpt, AsContentRating *content_rating);
+
+GPtrArray   *as_component_get_requires (AsComponent *cpt);
+GPtrArray   *as_component_get_recommends (AsComponent *cpt);
+GPtrArray   *as_component_get_supports (AsComponent *cpt);
+void	     as_component_add_relation (AsComponent *cpt, AsRelation *relation);
+
+GPtrArray   *as_component_get_replaces (AsComponent *cpt);
+void	     as_component_add_replaces (AsComponent *cpt, const gchar *cid);
+
+GPtrArray   *as_component_get_agreements (AsComponent *cpt);
+void	     as_component_add_agreement (AsComponent *cpt, AsAgreement *agreement);
+AsAgreement *as_component_get_agreement_by_kind (AsComponent *cpt, AsAgreementKind kind);
+
+AsBranding  *as_component_get_branding (AsComponent *cpt);
+void	     as_component_set_branding (AsComponent *cpt, AsBranding *branding);
+
+void	     as_component_clear_tags (AsComponent *cpt);
+gboolean     as_component_add_tag (AsComponent *cpt, const gchar *ns, const gchar *tag);
+gboolean     as_component_remove_tag (AsComponent *cpt, const gchar *ns, const gchar *tag);
+gboolean     as_component_has_tag (AsComponent *cpt, const gchar *ns, const gchar *tag);
+
+const gchar *as_component_get_name_variant_suffix (AsComponent *cpt);
+void	     as_component_set_name_variant_suffix (AsComponent *cpt,
+						   const gchar *value,
 						   const gchar *locale);
-void			as_component_clear_keywords (AsComponent *cpt,
-						   const gchar *locale);
 
-GPtrArray		*as_component_get_icons (AsComponent *cpt);
-AsIcon			*as_component_get_icon_by_size (AsComponent *cpt,
-							guint width,
-							guint height);
-AsIcon			*as_component_get_icon_stock (AsComponent *cpt);
-void			as_component_add_icon (AsComponent *cpt,
-						AsIcon *icon);
+guint	     as_component_get_sort_score (AsComponent *cpt);
+void	     as_component_set_sort_score (AsComponent *cpt, guint score);
 
-GPtrArray		*as_component_get_provided (AsComponent *cpt);
-void			as_component_add_provided (AsComponent *cpt,
-							AsProvided *prov);
-AsProvided		*as_component_get_provided_for_kind (AsComponent *cpt,
-							AsProvidedKind kind);
-void			as_component_add_provided_item (AsComponent *cpt,
-							AsProvidedKind kind,
-							const gchar *item);
+GPtrArray   *as_component_get_reviews (AsComponent *cpt);
+void	     as_component_add_review (AsComponent *cpt, AsReview *review);
 
-const gchar		*as_component_get_url (AsComponent *cpt,
-						AsUrlKind url_kind);
-void			as_component_add_url (AsComponent *cpt,
-						AsUrlKind url_kind,
-						const gchar *url);
+AsContext   *as_component_get_context (AsComponent *cpt);
 
-gboolean		as_component_load_releases_from_bytes (AsComponent *cpt,
-								GBytes *bytes,
-								GError **error);
-gboolean		as_component_load_releases (AsComponent *cpt,
-						    gboolean reload,
-						    gboolean allow_net,
-						    GError **error);
-GPtrArray		*as_component_get_releases (AsComponent *cpt);
-void			as_component_add_release (AsComponent *cpt,
-						  AsRelease* release);
+GHashTable  *as_component_get_name_table (AsComponent *cpt);
+GHashTable  *as_component_get_summary_table (AsComponent *cpt);
+GHashTable  *as_component_get_keywords_table (AsComponent *cpt);
 
-AsReleasesKind		as_component_get_releases_kind (AsComponent *cpt);
-void			as_component_set_releases_kind (AsComponent *cpt,
-							AsReleasesKind kind);
+gboolean     as_component_is_free (AsComponent *cpt);
 
-const gchar		*as_component_get_releases_url (AsComponent *cpt);
-void			as_component_set_releases_url (AsComponent *cpt,
-						       const gchar *url);
-
-GPtrArray		*as_component_get_extends (AsComponent *cpt);
-void			as_component_add_extends (AsComponent *cpt,
-							const gchar *cpt_id);
-
-GPtrArray		*as_component_get_addons (AsComponent *cpt);
-void			as_component_add_addon (AsComponent *cpt,
-						AsComponent *addon);
-
-GList			*as_component_get_languages (AsComponent *cpt);
-gint			as_component_get_language (AsComponent *cpt,
-							const gchar *locale);
-void			as_component_add_language (AsComponent *cpt,
-							const gchar *locale,
-							gint percentage);
-void			as_component_clear_languages (AsComponent *cpt);
-
-GPtrArray		*as_component_get_translations (AsComponent *cpt);
-void			as_component_add_translation (AsComponent *cpt,
-							AsTranslation *tr);
-
-gboolean		as_component_has_bundle (AsComponent *cpt);
-GPtrArray		*as_component_get_bundles (AsComponent *cpt);
-AsBundle		*as_component_get_bundle (AsComponent *cpt,
-						  AsBundleKind bundle_kind);
-void			as_component_add_bundle (AsComponent *cpt,
-						 AsBundle *bundle);
-
-GPtrArray		*as_component_get_suggested (AsComponent *cpt);
-void			as_component_add_suggested (AsComponent *cpt,
-						    AsSuggested *suggested);
-
-GPtrArray		*as_component_get_search_tokens (AsComponent *cpt);
-guint			as_component_search_matches (AsComponent *cpt,
-						      const gchar *term);
-guint			as_component_search_matches_all (AsComponent *cpt,
-							 gchar **terms);
-
-AsMergeKind		as_component_get_merge_kind (AsComponent *cpt);
-void			as_component_set_merge_kind (AsComponent *cpt,
-							AsMergeKind kind);
-
-gboolean		as_component_is_member_of_category (AsComponent *cpt,
-							    AsCategory *category);
-
-gboolean		as_component_is_ignored (AsComponent *cpt);
-
-gboolean		as_component_is_valid (AsComponent *cpt);
-gchar			*as_component_to_string (AsComponent *cpt);
-
-gint			as_component_get_priority (AsComponent *cpt);
-void			as_component_set_priority (AsComponent *cpt,
-							gint priority);
-
-GHashTable		*as_component_get_custom (AsComponent *cpt);
-const gchar		*as_component_get_custom_value (AsComponent *cpt,
-							const gchar *key);
-gboolean		as_component_insert_custom_value (AsComponent *cpt,
-							  const gchar *key,
-							  const gchar *value);
-
-GPtrArray		*as_component_get_content_ratings (AsComponent *cpt);
-AsContentRating		*as_component_get_content_rating (AsComponent *cpt,
-							  const gchar *kind);
-void			as_component_add_content_rating (AsComponent *cpt,
-							 AsContentRating *content_rating);
-
-GPtrArray		*as_component_get_requires (AsComponent *cpt);
-GPtrArray		*as_component_get_recommends (AsComponent *cpt);
-GPtrArray		*as_component_get_supports (AsComponent *cpt);
-void			as_component_add_relation (AsComponent *cpt,
-						   AsRelation *relation);
-
-GPtrArray		*as_component_get_replaces (AsComponent *cpt);
-void			as_component_add_replaces (AsComponent *cpt,
-						    const gchar *cid);
-
-GPtrArray		*as_component_get_agreements (AsComponent *cpt);
-void			as_component_add_agreement (AsComponent *cpt,
-						    AsAgreement *agreement);
-AsAgreement		*as_component_get_agreement_by_kind (AsComponent *cpt,
-							     AsAgreementKind kind);
-
-AsBranding		*as_component_get_branding (AsComponent *cpt);
-void			as_component_set_branding (AsComponent *cpt,
-						    AsBranding *branding);
-
-void			as_component_clear_tags (AsComponent *cpt);
-gboolean		as_component_add_tag (AsComponent *cpt,
-					      const gchar *ns,
-					      const gchar *tag);
-gboolean		as_component_remove_tag (AsComponent *cpt,
-						 const gchar *ns,
-						 const gchar *tag);
-gboolean		as_component_has_tag (AsComponent *cpt,
-					      const gchar *ns,
-					      const gchar *tag);
-
-const gchar		*as_component_get_name_variant_suffix (AsComponent *cpt);
-void			as_component_set_name_variant_suffix (AsComponent *cpt,
-								const gchar *value,
-								const gchar *locale);
-
-guint			as_component_get_sort_score (AsComponent *cpt);
-void			as_component_set_sort_score (AsComponent *cpt,
-							guint score);
-
-GPtrArray		*as_component_get_reviews (AsComponent *cpt);
-void		 	as_component_add_review	(AsComponent *cpt,
-						 AsReview *review);
-
-AsContext		*as_component_get_context (AsComponent *cpt);
-
-GHashTable		*as_component_get_name_table (AsComponent *cpt);
-GHashTable		*as_component_get_summary_table (AsComponent *cpt);
-GHashTable		*as_component_get_keywords_table (AsComponent *cpt);
-
-gboolean		as_component_is_free (AsComponent *cpt);
-
-gboolean		as_component_load_from_bytes (AsComponent *cpt,
-						      AsContext *context,
-						      AsFormatKind format,
-						      GBytes *bytes,
-						      GError **error);
-gchar			*as_component_to_xml_data (AsComponent *cpt,
-						   AsContext *context,
-						   GError **error);
+gboolean     as_component_load_from_bytes (AsComponent *cpt,
+					   AsContext   *context,
+					   AsFormatKind format,
+					   GBytes      *bytes,
+					   GError     **error);
+gchar	    *as_component_to_xml_data (AsComponent *cpt, AsContext *context, GError **error);
 
 G_END_DECLS
 

@@ -29,8 +29,7 @@
 
 #include "as-utils-private.h"
 
-typedef struct
-{
+typedef struct {
 	gchar *root_dir;
 	GHashTable *files_map;
 } AscDirectoryUnitPrivate;
@@ -38,25 +37,18 @@ typedef struct
 G_DEFINE_TYPE_WITH_PRIVATE (AscDirectoryUnit, asc_directory_unit, ASC_TYPE_UNIT)
 #define GET_PRIVATE(o) (asc_directory_unit_get_instance_private (o))
 
-static gboolean		asc_directory_unit_open (AscUnit *unit,
-						 GError **error);
-static void		asc_directory_unit_close (AscUnit *unit);
+static gboolean asc_directory_unit_open (AscUnit *unit, GError **error);
+static void asc_directory_unit_close (AscUnit *unit);
 
-static gboolean		asc_directory_unit_file_exists (AscUnit *unit,
-							const gchar *filename);
-static GBytes		*asc_directory_unit_read_data (AscUnit *unit,
-							const gchar *filename,
-							GError **error);
+static gboolean asc_directory_unit_file_exists (AscUnit *unit, const gchar *filename);
+static GBytes *asc_directory_unit_read_data (AscUnit *unit, const gchar *filename, GError **error);
 
 static void
 asc_directory_unit_init (AscDirectoryUnit *dirunit)
 {
 	AscDirectoryUnitPrivate *priv = GET_PRIVATE (dirunit);
 
-	priv->files_map = g_hash_table_new_full (g_str_hash,
-						 g_str_equal,
-						 g_free,
-						 g_free);
+	priv->files_map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 }
 
 static void
@@ -138,7 +130,7 @@ asc_directory_unit_open (AscUnit *unit, GError **error)
 	guint root_dir_len = (guint) strlen (priv->root_dir);
 
 	if (g_str_has_suffix (priv->root_dir, G_DIR_SEPARATOR_S))
-		root_dir_len = root_dir_len > 0? root_dir_len - 1 : root_dir_len;
+		root_dir_len = root_dir_len > 0 ? root_dir_len - 1 : root_dir_len;
 
 	contents = g_ptr_array_new_with_free_func (g_free);
 	relevant_paths = asc_unit_get_relevant_paths (unit);
@@ -148,9 +140,10 @@ asc_directory_unit_open (AscUnit *unit, GError **error)
 		/* create an index of all the data
 		 * TODO: All of this is super wasteful, and may need a completely different approach */
 		if (!asc_directory_unit_find_files_recursive (contents,
-								priv->root_dir, root_dir_len,
-								priv->root_dir,
-								error))
+							      priv->root_dir,
+							      root_dir_len,
+							      priv->root_dir,
+							      error))
 			return FALSE;
 	} else {
 		/* only index data from paths that we care about */
@@ -160,9 +153,10 @@ asc_directory_unit_open (AscUnit *unit, GError **error)
 			check_path = g_build_filename (priv->root_dir, rel_path, NULL);
 
 			if (!asc_directory_unit_find_files_recursive (contents,
-									priv->root_dir, root_dir_len,
-									check_path,
-									error))
+								      priv->root_dir,
+								      root_dir_len,
+								      check_path,
+								      error))
 				return FALSE;
 		}
 	}
@@ -188,7 +182,7 @@ asc_directory_unit_file_exists (AscUnit *unit, const gchar *filename)
 	return g_file_test (fname_full, G_FILE_TEST_EXISTS);
 }
 
-static GBytes*
+static GBytes *
 asc_directory_unit_read_data (AscUnit *unit, const gchar *filename, GError **error)
 {
 	AscDirectoryUnitPrivate *priv = GET_PRIVATE (ASC_DIRECTORY_UNIT (unit));
@@ -207,7 +201,7 @@ asc_directory_unit_read_data (AscUnit *unit, const gchar *filename, GError **err
  *
  * Get the root directory path for this unit.
  **/
-const gchar*
+const gchar *
 asc_directory_unit_get_root (AscDirectoryUnit *dirunit)
 {
 	AscDirectoryUnitPrivate *priv = GET_PRIVATE (dirunit);
@@ -235,7 +229,7 @@ asc_directory_unit_set_root (AscDirectoryUnit *dirunit, const gchar *root_dir)
  *
  * Creates a new #AscDirectoryUnit.
  **/
-AscDirectoryUnit*
+AscDirectoryUnit *
 asc_directory_unit_new (const gchar *root_dir)
 {
 	AscDirectoryUnit *dirunit;

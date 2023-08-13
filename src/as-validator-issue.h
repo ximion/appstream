@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -32,16 +32,15 @@ G_BEGIN_DECLS
 #define AS_TYPE_VALIDATOR_ISSUE (as_validator_issue_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsValidatorIssue, as_validator_issue, AS, VALIDATOR_ISSUE, GObject)
 
-struct _AsValidatorIssueClass
-{
-	GObjectClass		parent_class;
+struct _AsValidatorIssueClass {
+	GObjectClass parent_class;
 	/*< private >*/
-	void (*_as_reserved1)	(void);
-	void (*_as_reserved2)	(void);
-	void (*_as_reserved3)	(void);
-	void (*_as_reserved4)	(void);
-	void (*_as_reserved5)	(void);
-	void (*_as_reserved6)	(void);
+	void (*_as_reserved1) (void);
+	void (*_as_reserved2) (void);
+	void (*_as_reserved3) (void);
+	void (*_as_reserved4) (void);
+	void (*_as_reserved5) (void);
+	void (*_as_reserved6) (void);
 };
 
 /**
@@ -63,40 +62,33 @@ typedef enum {
 	AS_ISSUE_SEVERITY_LAST
 } AsIssueSeverity;
 
-AsIssueSeverity	 as_issue_severity_from_string (const gchar *str);
-const gchar	*as_issue_severity_to_string (AsIssueSeverity severity);
+AsIssueSeverity	  as_issue_severity_from_string (const gchar *str);
+const gchar	 *as_issue_severity_to_string (AsIssueSeverity severity);
 
-AsValidatorIssue	*as_validator_issue_new (void);
+AsValidatorIssue *as_validator_issue_new (void);
 
-const gchar		*as_validator_issue_get_tag (AsValidatorIssue *issue);
-void			as_validator_issue_set_tag (AsValidatorIssue *issue,
-							const gchar *tag);
+const gchar	 *as_validator_issue_get_tag (AsValidatorIssue *issue);
+void		  as_validator_issue_set_tag (AsValidatorIssue *issue, const gchar *tag);
 
-AsIssueSeverity		as_validator_issue_get_severity (AsValidatorIssue *issue);
-void 			as_validator_issue_set_severity (AsValidatorIssue *issue,
-								AsIssueSeverity severity);
+AsIssueSeverity	  as_validator_issue_get_severity (AsValidatorIssue *issue);
+void	     as_validator_issue_set_severity (AsValidatorIssue *issue, AsIssueSeverity severity);
 
-const gchar		*as_validator_issue_get_hint (AsValidatorIssue *issue);
-void			as_validator_issue_set_hint (AsValidatorIssue *issue,
-							const gchar *hint);
+const gchar *as_validator_issue_get_hint (AsValidatorIssue *issue);
+void	     as_validator_issue_set_hint (AsValidatorIssue *issue, const gchar *hint);
 
-const gchar		*as_validator_issue_get_explanation (AsValidatorIssue *issue);
-void			as_validator_issue_set_explanation (AsValidatorIssue *issue,
-								const gchar *explanation);
+const gchar *as_validator_issue_get_explanation (AsValidatorIssue *issue);
+void	     as_validator_issue_set_explanation (AsValidatorIssue *issue, const gchar *explanation);
 
-const gchar		*as_validator_issue_get_cid (AsValidatorIssue *issue);
-void			as_validator_issue_set_cid (AsValidatorIssue *issue,
-						    const gchar *cid);
+const gchar *as_validator_issue_get_cid (AsValidatorIssue *issue);
+void	     as_validator_issue_set_cid (AsValidatorIssue *issue, const gchar *cid);
 
-const gchar		*as_validator_issue_get_filename (AsValidatorIssue *issue);
-void			as_validator_issue_set_filename (AsValidatorIssue *issue,
-							 const gchar *fname);
+const gchar *as_validator_issue_get_filename (AsValidatorIssue *issue);
+void	     as_validator_issue_set_filename (AsValidatorIssue *issue, const gchar *fname);
 
-glong			as_validator_issue_get_line (AsValidatorIssue *issue);
-void			as_validator_issue_set_line (AsValidatorIssue *issue,
-						     glong line);
+glong	     as_validator_issue_get_line (AsValidatorIssue *issue);
+void	     as_validator_issue_set_line (AsValidatorIssue *issue, glong line);
 
-gchar			*as_validator_issue_get_location (AsValidatorIssue *issue);
+gchar	    *as_validator_issue_get_location (AsValidatorIssue *issue);
 
 G_END_DECLS
 

@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_COMPOSE_H) && !defined (ASC_COMPILATION)
+#if !defined(__APPSTREAM_COMPOSE_H) && !defined(ASC_COMPILATION)
 #error "Only <appstream-compose.h> can be included directly."
 #endif
 #pragma once
@@ -43,11 +43,11 @@ G_DECLARE_FINAL_TYPE (AscImage, asc_image, ASC, IMAGE, GObject)
  * The flags used for saving images.
  **/
 typedef enum {
-	ASC_IMAGE_SAVE_FLAG_NONE	= 0,
-	ASC_IMAGE_SAVE_FLAG_OPTIMIZE	= 1 << 0,
-	ASC_IMAGE_SAVE_FLAG_PAD_16_9	= 1 << 1,
-	ASC_IMAGE_SAVE_FLAG_SHARPEN	= 1 << 2,
-	ASC_IMAGE_SAVE_FLAG_BLUR	= 1 << 3,
+	ASC_IMAGE_SAVE_FLAG_NONE     = 0,
+	ASC_IMAGE_SAVE_FLAG_OPTIMIZE = 1 << 0,
+	ASC_IMAGE_SAVE_FLAG_PAD_16_9 = 1 << 1,
+	ASC_IMAGE_SAVE_FLAG_SHARPEN  = 1 << 2,
+	ASC_IMAGE_SAVE_FLAG_BLUR     = 1 << 3,
 	/*< private >*/
 	ASC_IMAGE_SAVE_FLAG_LAST
 } AscImageSaveFlags;
@@ -62,10 +62,10 @@ typedef enum {
  * The flags used for loading images.
  **/
 typedef enum {
-	ASC_IMAGE_LOAD_FLAG_NONE		= 0,
-	ASC_IMAGE_LOAD_FLAG_SHARPEN		= 1 << 0,
-	ASC_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED	= 1 << 1,
-	ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE	= 1 << 2,
+	ASC_IMAGE_LOAD_FLAG_NONE	      = 0,
+	ASC_IMAGE_LOAD_FLAG_SHARPEN	      = 1 << 0,
+	ASC_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED = 1 << 1,
+	ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE     = 1 << 2,
 	/*< private >*/
 	ASC_IMAGE_LOAD_FLAG_LAST
 } AscImageLoadFlags;
@@ -112,70 +112,59 @@ typedef enum {
 	ASC_IMAGE_ERROR_LAST
 } AscImageError;
 
-#define	ASC_IMAGE_ERROR	asc_image_error_quark ()
-GQuark			asc_image_error_quark (void);
+#define ASC_IMAGE_ERROR asc_image_error_quark ()
+GQuark	       asc_image_error_quark (void);
 
-const gchar*	asc_image_format_to_string (AscImageFormat format);
-AscImageFormat	asc_image_format_from_string (const gchar *str);
-AscImageFormat	asc_image_format_from_filename (const gchar *fname);
+const gchar   *asc_image_format_to_string (AscImageFormat format);
+AscImageFormat asc_image_format_from_string (const gchar *str);
+AscImageFormat asc_image_format_from_filename (const gchar *fname);
 
-gboolean	 asc_optimize_png (const gchar *fname,
-				   GError **error);
-GHashTable	*asc_image_supported_format_names (void);
+gboolean       asc_optimize_png (const gchar *fname, GError **error);
+GHashTable    *asc_image_supported_format_names (void);
 
-AscImage	*asc_image_new (void);
-AscImage	*asc_image_new_from_file (const gchar* fname,
-					  guint dest_size,
-					  AscImageLoadFlags flags,
-					  GError **error);
-AscImage	*asc_image_new_from_data (const void *data,
-					  gssize len,
-					  guint dest_size,
-					  gboolean compressed,
-					  AscImageLoadFlags flags,
-					  GError **error);
+AscImage      *asc_image_new (void);
+AscImage      *asc_image_new_from_file (const gchar	 *fname,
+					guint		  dest_size,
+					AscImageLoadFlags flags,
+					GError		**error);
+AscImage      *asc_image_new_from_data (const void	 *data,
+					gssize		  len,
+					guint		  dest_size,
+					gboolean	  compressed,
+					AscImageLoadFlags flags,
+					GError		**error);
 
-gboolean	 asc_image_load_filename (AscImage *image,
-					  const gchar *filename,
-					  guint dest_size,
-					  guint src_size_min,
-					  AscImageLoadFlags flags,
-					  GError **error);
+gboolean       asc_image_load_filename (AscImage	 *image,
+					const gchar	 *filename,
+					guint		  dest_size,
+					guint		  src_size_min,
+					AscImageLoadFlags flags,
+					GError		**error);
 
-GdkPixbuf	*asc_image_save_pixbuf (AscImage *image,
-				        guint width,
-					guint height,
-					AscImageSaveFlags flags);
-gboolean	 asc_image_save_filename (AscImage *image,
-					  const gchar *filename,
-					  guint width,
-					  guint height,
-					  AscImageSaveFlags flags,
-					  GError **error);
+GdkPixbuf     *asc_image_save_pixbuf (AscImage	       *image,
+				      guint		width,
+				      guint		height,
+				      AscImageSaveFlags flags);
+gboolean       asc_image_save_filename (AscImage	 *image,
+					const gchar	 *filename,
+					guint		  width,
+					guint		  height,
+					AscImageSaveFlags flags,
+					GError		**error);
 
-GdkPixbuf 	*asc_image_get_pixbuf (AscImage *image);
-void		asc_image_set_pixbuf (AscImage *image,
-				      GdkPixbuf *pixbuf);
+GdkPixbuf     *asc_image_get_pixbuf (AscImage *image);
+void	       asc_image_set_pixbuf (AscImage *image, GdkPixbuf *pixbuf);
 
-guint		asc_image_get_width (AscImage *image);
-guint		asc_image_get_height (AscImage *image);
+guint	       asc_image_get_width (AscImage *image);
+guint	       asc_image_get_height (AscImage *image);
 
-void		asc_image_scale (AscImage *image,
-				 guint new_width,
-				 guint new_height);
+void	       asc_image_scale (AscImage *image, guint new_width, guint new_height);
 
-void		asc_image_scale_to_width (AscImage *image,
-					  guint new_width);
-void		asc_image_scale_to_height (AscImage *image,
-					   guint new_height);
-void		asc_image_scale_to_fit (AscImage *image,
-					guint size);
+void	       asc_image_scale_to_width (AscImage *image, guint new_width);
+void	       asc_image_scale_to_height (AscImage *image, guint new_height);
+void	       asc_image_scale_to_fit (AscImage *image, guint size);
 
-void		asc_pixbuf_blur (GdkPixbuf *src,
-				 gint radius,
-				 gint iterations);
-void		asc_pixbuf_sharpen (GdkPixbuf *src,
-				    gint radius,
-				    gdouble amount);
+void	       asc_pixbuf_blur (GdkPixbuf *src, gint radius, gint iterations);
+void	       asc_pixbuf_sharpen (GdkPixbuf *src, gint radius, gdouble amount);
 
 G_END_DECLS

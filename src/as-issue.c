@@ -31,11 +31,10 @@
 #include "config.h"
 #include "as-issue-private.h"
 
-typedef struct
-{
-	AsIssueKind		 kind;
-	gchar			*id;
-	gchar			*url;
+typedef struct {
+	AsIssueKind kind;
+	gchar *id;
+	gchar *url;
 } AsIssuePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsIssue, as_issue, G_TYPE_OBJECT)
@@ -50,7 +49,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsIssue, as_issue, G_TYPE_OBJECT)
  *
  * Returns: string version of @kind
  **/
-const gchar*
+const gchar *
 as_issue_kind_to_string (AsIssueKind kind)
 {
 	if (kind == AS_ISSUE_KIND_GENERIC)
@@ -143,7 +142,7 @@ as_issue_set_kind (AsIssue *issue, AsIssueKind kind)
  *
  * Returns: the ID.
  **/
-const gchar*
+const gchar *
 as_issue_get_id (AsIssue *issue)
 {
 	AsIssuePrivate *priv = GET_PRIVATE (issue);
@@ -174,14 +173,15 @@ as_issue_set_id (AsIssue *issue, const gchar *id)
  *
  * Returns: the URL.
  **/
-const gchar*
+const gchar *
 as_issue_get_url (AsIssue *issue)
 {
 	AsIssuePrivate *priv = GET_PRIVATE (issue);
 
 	/* we can synthesize an URL if the issue type is a CVE entry */
 	if ((priv->url == NULL) && (priv->kind == AS_ISSUE_KIND_CVE) && (priv->id != NULL))
-		priv->url = g_strdup_printf ("https://cve.mitre.org/cgi-bin/cvename.cgi?name=%s", priv->id);
+		priv->url = g_strdup_printf ("https://cve.mitre.org/cgi-bin/cvename.cgi?name=%s",
+					     priv->id);
 
 	return priv->url;
 }
@@ -339,7 +339,7 @@ as_issue_emit_yaml (AsIssue *issue, AsContext *ctx, yaml_emitter_t *emitter)
  *
  * Returns: (transfer full): an #AsIssue
  **/
-AsIssue*
+AsIssue *
 as_issue_new (void)
 {
 	AsIssue *issue;

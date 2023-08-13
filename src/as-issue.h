@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -32,8 +32,7 @@ G_BEGIN_DECLS
 #define AS_TYPE_ISSUE (as_issue_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsIssue, as_issue, AS, ISSUE, GObject)
 
-struct _AsIssueClass
-{
+struct _AsIssueClass {
 	GObjectClass parent_class;
 	/*< private >*/
 	void (*_as_reserved1) (void);
@@ -52,7 +51,7 @@ struct _AsIssueClass
  *
  * Checksums supported by #AsRelease
  **/
-typedef enum  {
+typedef enum {
 	AS_ISSUE_KIND_UNKNOWN,
 	AS_ISSUE_KIND_GENERIC,
 	AS_ISSUE_KIND_CVE,
@@ -60,22 +59,19 @@ typedef enum  {
 	AS_ISSUE_KIND_LAST
 } AsIssueKind;
 
-const gchar		*as_issue_kind_to_string (AsIssueKind kind);
-AsIssueKind		as_issue_kind_from_string (const gchar *kind_str);
+const gchar *as_issue_kind_to_string (AsIssueKind kind);
+AsIssueKind  as_issue_kind_from_string (const gchar *kind_str);
 
-AsIssue			*as_issue_new (void);
+AsIssue	    *as_issue_new (void);
 
-AsIssueKind		as_issue_get_kind (AsIssue *issue);
-void			as_issue_set_kind (AsIssue *issue,
-					   AsIssueKind kind);
+AsIssueKind  as_issue_get_kind (AsIssue *issue);
+void	     as_issue_set_kind (AsIssue *issue, AsIssueKind kind);
 
-const gchar		*as_issue_get_id (AsIssue *issue);
-void			as_issue_set_id (AsIssue *issue,
-					 const gchar *id);
+const gchar *as_issue_get_id (AsIssue *issue);
+void	     as_issue_set_id (AsIssue *issue, const gchar *id);
 
-const gchar		*as_issue_get_url (AsIssue *issue);
-void			as_issue_set_url (AsIssue *issue,
-					  const gchar *url);
+const gchar *as_issue_get_url (AsIssue *issue);
+void	     as_issue_set_url (AsIssue *issue, const gchar *url);
 
 G_END_DECLS
 

@@ -28,25 +28,22 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-const gchar		*as_context_get_architecture (AsContext *ctx);
-void			as_context_set_architecture (AsContext *ctx,
-						     const gchar *value);
+const gchar	      *as_context_get_architecture (AsContext *ctx);
+void		       as_context_set_architecture (AsContext *ctx, const gchar *value);
 
-gboolean		as_context_get_internal_mode (AsContext *ctx);
-void			as_context_set_internal_mode (AsContext *ctx,
-						      gboolean enabled);
+gboolean	       as_context_get_internal_mode (AsContext *ctx);
+void		       as_context_set_internal_mode (AsContext *ctx, gboolean enabled);
 
-const gchar		*as_context_localized_ht_get (AsContext *ctx,
-						      GHashTable *lht,
-						      const gchar *locale_override,
-						      AsValueFlags value_flags);
-void			as_context_localized_ht_set (AsContext *ctx,
-						     GHashTable *lht,
-						     const gchar *value,
-						     const gchar *locale);
+const gchar	      *as_context_localized_ht_get (AsContext	*ctx,
+						    GHashTable	*lht,
+						    const gchar *locale_override,
+						    AsValueFlags value_flags);
+void		       as_context_localized_ht_set (AsContext	*ctx,
+						    GHashTable	*lht,
+						    const gchar *value,
+						    const gchar *locale);
 
-AsCurl			*as_context_get_curl (AsContext *ctx,
-					      GError **error);
+AsCurl		      *as_context_get_curl (AsContext *ctx, GError **error);
 
 #pragma GCC visibility pop
 G_END_DECLS

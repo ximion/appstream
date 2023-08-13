@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -32,8 +32,7 @@ G_BEGIN_DECLS
 #define AS_TYPE_CHECKSUM (as_checksum_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsChecksum, as_checksum, AS, CHECKSUM, GObject)
 
-struct _AsChecksumClass
-{
+struct _AsChecksumClass {
 	GObjectClass parent_class;
 	/*< private >*/
 	void (*_as_reserved1) (void);
@@ -54,7 +53,7 @@ struct _AsChecksumClass
  *
  * Checksums supported by #AsRelease
  **/
-typedef enum  {
+typedef enum {
 	AS_CHECKSUM_KIND_NONE,
 	AS_CHECKSUM_KIND_SHA1,
 	AS_CHECKSUM_KIND_SHA256,
@@ -64,20 +63,17 @@ typedef enum  {
 	AS_CHECKSUM_KIND_LAST
 } AsChecksumKind;
 
-const gchar		*as_checksum_kind_to_string (AsChecksumKind kind);
-AsChecksumKind		as_checksum_kind_from_string (const gchar *kind_str);
+const gchar   *as_checksum_kind_to_string (AsChecksumKind kind);
+AsChecksumKind as_checksum_kind_from_string (const gchar *kind_str);
 
-AsChecksum		*as_checksum_new (void);
-AsChecksum		*as_checksum_new_for_kind_value (AsChecksumKind kind,
-							 const gchar *value);
+AsChecksum    *as_checksum_new (void);
+AsChecksum    *as_checksum_new_for_kind_value (AsChecksumKind kind, const gchar *value);
 
-AsChecksumKind		as_checksum_get_kind (AsChecksum *cs);
-void			as_checksum_set_kind (AsChecksum *cs,
-						AsChecksumKind kind);
+AsChecksumKind as_checksum_get_kind (AsChecksum *cs);
+void	       as_checksum_set_kind (AsChecksum *cs, AsChecksumKind kind);
 
-const gchar		*as_checksum_get_value (AsChecksum *cs);
-void			as_checksum_set_value (AsChecksum *cs,
-						const gchar *value);
+const gchar   *as_checksum_get_value (AsChecksum *cs);
+void	       as_checksum_set_value (AsChecksum *cs, const gchar *value);
 
 G_END_DECLS
 

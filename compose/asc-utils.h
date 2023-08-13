@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_COMPOSE_H) && !defined (ASC_COMPILATION)
+#if !defined(__APPSTREAM_COMPOSE_H) && !defined(ASC_COMPILATION)
 #error "Only <appstream-compose.h> can be included directly."
 #endif
 #pragma once
@@ -28,9 +28,8 @@
 
 G_BEGIN_DECLS
 
-gchar		*asc_build_component_global_id (const gchar *component_id,
-						const gchar *checksum);
+gchar *asc_build_component_global_id (const gchar *component_id, const gchar *checksum);
 
-gchar 		*asc_filename_from_url (const gchar *url);
+gchar *asc_filename_from_url (const gchar *url);
 
 G_END_DECLS

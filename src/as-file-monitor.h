@@ -21,7 +21,7 @@
 
 #pragma once
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -33,23 +33,19 @@ G_BEGIN_DECLS
 #define AS_TYPE_FILE_MONITOR (as_file_monitor_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsFileMonitor, as_file_monitor, AS, FILE_MONITOR, GObject)
 
-struct _AsFileMonitorClass
-{
-	GObjectClass		parent_class;
-	void			(*added)	(AsFileMonitor	*monitor,
-						 const gchar	*filename);
-	void			(*removed)	(AsFileMonitor	*monitor,
-						 const gchar	*filename);
-	void			(*changed)	(AsFileMonitor	*monitor,
-						 const gchar	*filename);
+struct _AsFileMonitorClass {
+	GObjectClass parent_class;
+	void (*added) (AsFileMonitor *monitor, const gchar *filename);
+	void (*removed) (AsFileMonitor *monitor, const gchar *filename);
+	void (*changed) (AsFileMonitor *monitor, const gchar *filename);
 	/*< private >*/
-	void (*_as_reserved1)	(void);
-	void (*_as_reserved2)	(void);
-	void (*_as_reserved3)	(void);
-	void (*_as_reserved4)	(void);
-	void (*_as_reserved5)	(void);
-	void (*_as_reserved6)	(void);
-	void (*_as_reserved7)	(void);
+	void (*_as_reserved1) (void);
+	void (*_as_reserved2) (void);
+	void (*_as_reserved3) (void);
+	void (*_as_reserved4) (void);
+	void (*_as_reserved5) (void);
+	void (*_as_reserved6) (void);
+	void (*_as_reserved7) (void);
 };
 
 /**
@@ -64,18 +60,18 @@ typedef enum {
 	AS_FILE_MONITOR_ERROR_LAST
 } AsFileMonitorError;
 
-#define	AS_FILE_MONITOR_ERROR			as_file_monitor_error_quark ()
+#define AS_FILE_MONITOR_ERROR as_file_monitor_error_quark ()
 
-AsFileMonitor	*as_file_monitor_new			(void);
-GQuark		 as_file_monitor_error_quark		(void);
+AsFileMonitor *as_file_monitor_new (void);
+GQuark	       as_file_monitor_error_quark (void);
 
-gboolean	 as_file_monitor_add_directory	(AsFileMonitor	*monitor,
-						 const gchar	*filename,
-						 GCancellable	*cancellable,
-						 GError		**error);
-gboolean	 as_file_monitor_add_file	(AsFileMonitor	*monitor,
-						 const gchar	*filename,
-						 GCancellable	*cancellable,
-						 GError		**error);
+gboolean       as_file_monitor_add_directory (AsFileMonitor *monitor,
+					      const gchar   *filename,
+					      GCancellable  *cancellable,
+					      GError	   **error);
+gboolean       as_file_monitor_add_file (AsFileMonitor *monitor,
+					 const gchar   *filename,
+					 GCancellable  *cancellable,
+					 GError	      **error);
 
 G_END_DECLS

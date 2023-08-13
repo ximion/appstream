@@ -47,10 +47,9 @@
  *
  * Since: 0.14.0
  **/
-const gchar*
+const gchar *
 as_version_string (void)
 {
-	return G_STRINGIFY(AS_MAJOR_VERSION) "."
-		G_STRINGIFY(AS_MINOR_VERSION) "."
-		G_STRINGIFY(AS_MICRO_VERSION);
+	return G_STRINGIFY (AS_MAJOR_VERSION) "." G_STRINGIFY (AS_MINOR_VERSION) "." G_STRINGIFY (
+	    AS_MICRO_VERSION);
 }

@@ -19,7 +19,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -33,16 +33,15 @@ G_BEGIN_DECLS
 #define AS_TYPE_SUGGESTED (as_suggested_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsSuggested, as_suggested, AS, SUGGESTED, GObject)
 
-struct _AsSuggestedClass
-{
-	GObjectClass		parent_class;
+struct _AsSuggestedClass {
+	GObjectClass parent_class;
 	/*< private >*/
-	void (*_as_reserved1)	(void);
-	void (*_as_reserved2)	(void);
-	void (*_as_reserved3)	(void);
-	void (*_as_reserved4)	(void);
-	void (*_as_reserved5)	(void);
-	void (*_as_reserved6)	(void);
+	void (*_as_reserved1) (void);
+	void (*_as_reserved2) (void);
+	void (*_as_reserved3) (void);
+	void (*_as_reserved4) (void);
+	void (*_as_reserved5) (void);
+	void (*_as_reserved6) (void);
 };
 
 /**
@@ -53,7 +52,7 @@ struct _AsSuggestedClass
  *
  * The suggested type.
  **/
-typedef enum  {
+typedef enum {
 	AS_SUGGESTED_KIND_UNKNOWN,
 	AS_SUGGESTED_KIND_UPSTREAM,
 	AS_SUGGESTED_KIND_HEURISTIC,
@@ -61,20 +60,18 @@ typedef enum  {
 	AS_SUGGESTED_KIND_LAST
 } AsSuggestedKind;
 
-AsSuggestedKind			as_suggested_kind_from_string (const gchar *kind_str);
-const gchar			*as_suggested_kind_to_string (AsSuggestedKind kind);
+AsSuggestedKind as_suggested_kind_from_string (const gchar *kind_str);
+const gchar    *as_suggested_kind_to_string (AsSuggestedKind kind);
 
-AsSuggested			*as_suggested_new (void);
+AsSuggested    *as_suggested_new (void);
 
-AsSuggestedKind			as_suggested_get_kind (AsSuggested *suggested);
-void				as_suggested_set_kind (AsSuggested *suggested,
-							AsSuggestedKind kind);
+AsSuggestedKind as_suggested_get_kind (AsSuggested *suggested);
+void		as_suggested_set_kind (AsSuggested *suggested, AsSuggestedKind kind);
 
-GPtrArray			*as_suggested_get_ids (AsSuggested *suggested);
-void				as_suggested_add_id (AsSuggested *suggested,
-							const gchar *cid);
+GPtrArray      *as_suggested_get_ids (AsSuggested *suggested);
+void		as_suggested_add_id (AsSuggested *suggested, const gchar *cid);
 
-gboolean			as_suggested_is_valid (AsSuggested *suggested);
+gboolean	as_suggested_is_valid (AsSuggested *suggested);
 
 G_END_DECLS
 

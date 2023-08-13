@@ -39,22 +39,21 @@
 
 #include "as-utils-private.h"
 
-typedef struct
-{
-	AsFormatVersion		format_version;
-	AsFormatStyle		style;
-	GRefString		*locale;
-	GRefString		*origin;
-	GRefString		*media_baseurl;
-	GRefString		*arch;
-	GRefString		*fname;
-	gint 			priority;
+typedef struct {
+	AsFormatVersion format_version;
+	AsFormatStyle style;
+	GRefString *locale;
+	GRefString *origin;
+	GRefString *media_baseurl;
+	GRefString *arch;
+	GRefString *fname;
+	gint priority;
 
-	gboolean		internal_mode;
-	gboolean		all_locale;
+	gboolean internal_mode;
+	gboolean all_locale;
 
-	AsCurl			*curl;
-	GMutex			mutex;
+	AsCurl *curl;
+	GMutex mutex;
 } AsContextPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsContext, as_context, G_TYPE_OBJECT)
@@ -71,7 +70,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsContext, as_context, G_TYPE_OBJECT)
  *
  * Since: 0.10
  **/
-const gchar*
+const gchar *
 as_format_version_to_string (AsFormatVersion version)
 {
 	if (version == AS_FORMAT_VERSION_V1_0)
@@ -223,7 +222,7 @@ as_context_set_priority (AsContext *ctx, gint priority)
  *
  * Returns: The data origin.
  **/
-const gchar*
+const gchar *
 as_context_get_origin (AsContext *ctx)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
@@ -250,7 +249,7 @@ as_context_set_origin (AsContext *ctx, const gchar *value)
  *
  * Returns: The active locale.
  **/
-const gchar*
+const gchar *
 as_context_get_locale (AsContext *ctx)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
@@ -312,7 +311,7 @@ as_context_has_media_baseurl (AsContext *ctx)
  *
  * Returns: The media base URL.
  **/
-const gchar*
+const gchar *
 as_context_get_media_baseurl (AsContext *ctx)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
@@ -339,7 +338,7 @@ as_context_set_media_baseurl (AsContext *ctx, const gchar *value)
  *
  * Returns: The current architecture for the document.
  **/
-const gchar*
+const gchar *
 as_context_get_architecture (AsContext *ctx)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
@@ -366,7 +365,7 @@ as_context_set_architecture (AsContext *ctx, const gchar *value)
  *
  * Returns: The name of the file the data originates from.
  **/
-const gchar*
+const gchar *
 as_context_get_filename (AsContext *ctx)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
@@ -429,8 +428,11 @@ as_context_set_internal_mode (AsContext *ctx, gboolean enabled)
  *
  * Returns: The localized string in the best matching localization.
  */
-const gchar*
-as_context_localized_ht_get (AsContext *ctx, GHashTable *lht, const gchar *locale_override, AsValueFlags value_flags)
+const gchar *
+as_context_localized_ht_get (AsContext *ctx,
+			     GHashTable *lht,
+			     const gchar *locale_override,
+			     AsValueFlags value_flags)
 {
 	const gchar *locale;
 	const gchar *msg;
@@ -448,7 +450,8 @@ as_context_localized_ht_get (AsContext *ctx, GHashTable *lht, const gchar *local
 		locale = "C";
 
 	msg = g_hash_table_lookup (lht, locale);
-	if ((msg == NULL) && (!as_flags_contains (value_flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK))) {
+	if ((msg == NULL) &&
+	    (!as_flags_contains (value_flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK))) {
 		g_autofree gchar *lang = as_utils_locale_to_language (locale);
 		/* fall back to language string */
 		msg = g_hash_table_lookup (lht, lang);
@@ -473,7 +476,10 @@ as_context_localized_ht_get (AsContext *ctx, GHashTable *lht, const gchar *local
  * This is used by all entities which have a context and have localized strings.
  */
 void
-as_context_localized_ht_set (AsContext *ctx, GHashTable *lht, const gchar *value, const gchar *locale)
+as_context_localized_ht_set (AsContext *ctx,
+			     GHashTable *lht,
+			     const gchar *value,
+			     const gchar *locale)
 {
 	const gchar *selected_locale;
 	g_autofree gchar *locale_noenc = NULL;
@@ -491,9 +497,7 @@ as_context_localized_ht_set (AsContext *ctx, GHashTable *lht, const gchar *value
 		selected_locale = "C";
 
 	locale_noenc = as_locale_strip_encoding (selected_locale);
-	g_hash_table_insert (lht,
-			     g_ref_string_new_intern (locale_noenc),
-			     g_strdup (value));
+	g_hash_table_insert (lht, g_ref_string_new_intern (locale_noenc), g_strdup (value));
 }
 
 /**
@@ -505,7 +509,7 @@ as_context_localized_ht_set (AsContext *ctx, GHashTable *lht, const gchar *value
  *
  * Returns: (transfer full): an #AsCurl reference.
  */
-AsCurl*
+AsCurl *
 as_context_get_curl (AsContext *ctx, GError **error)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
@@ -525,7 +529,7 @@ as_context_get_curl (AsContext *ctx, GError **error)
  *
  * Returns: (transfer full): an #AsContext
  **/
-AsContext*
+AsContext *
 as_context_new (void)
 {
 	AsContext *ctx;

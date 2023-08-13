@@ -31,23 +31,21 @@
 #include <gio/gio.h>
 #include <curl/curl.h>
 
-struct _AsCurl
-{
+struct _AsCurl {
 	GObject parent_instance;
 };
 
-typedef struct
-{
-	CURL		*curl;
-	const gchar	*user_agent;
+typedef struct {
+	CURL *curl;
+	const gchar *user_agent;
 
-	curl_off_t	bytes_downloaded;
+	curl_off_t bytes_downloaded;
 } AsCurlPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsCurl, as_curl, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_curl_get_instance_private (o))
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(CURLU, curl_url_cleanup)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (CURLU, curl_url_cleanup)
 
 G_DEFINE_QUARK (AsCurlError, as_curl_error)
 
@@ -128,47 +126,47 @@ as_curl_perform_download (AsCurl *acurl, gboolean abort_is_error, GError **error
 
 		g_debug ("cURL status-code was %ld", status_code);
 		if (status_code == 429) {
-			g_set_error (error,
-				     AS_CURL_ERROR,
-				     AS_CURL_ERROR_REMOTE,
-				     /* TRANSLATORS: We got a 429 error while trying to download data */
-				     _("Failed to download due to server limit"));
+			g_set_error (
+			    error,
+			    AS_CURL_ERROR,
+			    AS_CURL_ERROR_REMOTE,
+			    /* TRANSLATORS: We got a 429 error while trying to download data */
+			    _("Failed to download due to server limit"));
 			return FALSE;
 		}
 		if (errbuf[0] != '\0') {
 			g_set_error (error,
 				     AS_CURL_ERROR,
 				     AS_CURL_ERROR_DOWNLOAD,
-				     _("Failed to download file: %s"),
-				     errbuf);
+				     _("Failed to download file: %s"), errbuf);
 			return FALSE;
 		}
 		g_set_error (error,
 			     AS_CURL_ERROR,
 			     AS_CURL_ERROR_DOWNLOAD,
-			     _("Failed to download file: %s"),
-			     curl_easy_strerror (res));
+			     _("Failed to download file: %s"), curl_easy_strerror (res));
 		return FALSE;
 	}
 
 verify_and_return:
 	if (status_code == 404) {
-		g_set_error (error,
-			     AS_CURL_ERROR,
-			     AS_CURL_ERROR_REMOTE,
-			     /* TRANSLATORS: We tried to download an URL, but received a 404 error code */
-			     _("URL was not found on the server."));
+		g_set_error (
+		    error,
+		    AS_CURL_ERROR,
+		    AS_CURL_ERROR_REMOTE,
+		    /* TRANSLATORS: We tried to download an URL, but received a 404 error code */
+		    _("URL was not found on the server."));
 		return FALSE;
 	} else if (status_code == 302) {
 		/* redirects are fine, we ignore them until we reach a different code */
 		return TRUE;
 	} else if (status_code != 200) {
-		g_set_error (error,
-			     AS_CURL_ERROR,
-			     AS_CURL_ERROR_REMOTE,
-			     /* TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error */
-			     _("Unexpected status code: %ld"),
-			     status_code);
+		g_set_error (
+		    error,
+		    AS_CURL_ERROR,
+		    AS_CURL_ERROR_REMOTE,
+		    /* TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error */
+		    _("Unexpected status code: %ld"), status_code);
 		return FALSE;
 	}
 
@@ -197,7 +195,7 @@ as_curl_set_cainfo (AsCurl *acurl, const gchar *cainfo)
  *
  * Download an URL as GBytes, returns %NULL on error.
  **/
-GBytes*
+GBytes *
 as_curl_download_bytes (AsCurl *acurl, const gchar *url, GError **error)
 {
 	AsCurlPrivate *priv = GET_PRIVATE (acurl);
@@ -222,10 +220,7 @@ as_curl_download_write_data_stream_cb (char *ptr, size_t size, size_t nmemb, voi
 	gsize bytes_written;
 	gsize realsize = size * nmemb;
 
-	g_output_stream_write_all (ostream,
-				   ptr, realsize,
-				   &bytes_written,
-				   NULL, NULL);
+	g_output_stream_write_all (ostream, ptr, realsize, &bytes_written, NULL, NULL);
 	return bytes_written;
 }
 
@@ -239,10 +234,7 @@ as_curl_download_write_data_stream_cb (char *ptr, size_t size, size_t nmemb, voi
  * Download an URL and store it as filename.
  **/
 gboolean
-as_curl_download_to_filename (AsCurl *acurl,
-			      const gchar *url,
-			      const gchar *fname,
-			      GError **error)
+as_curl_download_to_filename (AsCurl *acurl, const gchar *url, const gchar *fname, GError **error)
 {
 	AsCurlPrivate *priv = GET_PRIVATE (acurl);
 	g_autoptr(GFile) file = NULL;
@@ -253,11 +245,11 @@ as_curl_download_to_filename (AsCurl *acurl,
 	file = g_file_new_for_path (fname);
 	if (g_file_query_exists (file, NULL))
 		fos = g_file_replace (file,
-					NULL,
-					FALSE,
-					G_FILE_CREATE_REPLACE_DESTINATION,
-					NULL,
-					&tmp_error);
+				      NULL,
+				      FALSE,
+				      G_FILE_CREATE_REPLACE_DESTINATION,
+				      NULL,
+				      &tmp_error);
 	else
 		fos = g_file_create (file, G_FILE_CREATE_REPLACE_DESTINATION, NULL, &tmp_error);
 
@@ -282,12 +274,12 @@ as_curl_download_to_filename (AsCurl *acurl,
 
 static int
 as_curl_progress_check_url_cb (void *clientp,
-				curl_off_t dltotal,
-				curl_off_t dlnow,
-				curl_off_t ultotal,
-				curl_off_t ulnow)
+			       curl_off_t dltotal,
+			       curl_off_t dlnow,
+			       curl_off_t ultotal,
+			       curl_off_t ulnow)
 {
-	AsCurlPrivate *priv = GET_PRIVATE ((AsCurl*) clientp);
+	AsCurlPrivate *priv = GET_PRIVATE ((AsCurl *) clientp);
 	priv->bytes_downloaded = dlnow;
 
 	/* stop after 2kb have been successfully downloaded - it turns out a lot
@@ -325,11 +317,12 @@ as_curl_check_url_exists (AsCurl *acurl, const gchar *url, GError **error)
 
 	/* check if it's a zero sized file */
 	if (buf->len == 0 && priv->bytes_downloaded == 0) {
-		g_set_error (error,
-			     AS_CURL_ERROR,
-			     AS_CURL_ERROR_SIZE,
-			     /* TRANSLATORS: We tried to download from an URL, but the retrieved data was empty */
-			     _("Retrieved file size was zero."));
+		g_set_error (
+		    error,
+		    AS_CURL_ERROR,
+		    AS_CURL_ERROR_SIZE,
+		    /* TRANSLATORS: We tried to download from an URL, but the retrieved data was empty */
+		    _("Retrieved file size was zero."));
 		return FALSE;
 	}
 
@@ -341,7 +334,7 @@ as_curl_check_url_exists (AsCurl *acurl, const gchar *url, GError **error)
  *
  * Creates a new #AsCurl.
  **/
-AsCurl*
+AsCurl *
 as_curl_new (GError **error)
 {
 	AsCurlPrivate *priv;

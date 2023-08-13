@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -135,9 +135,9 @@ typedef enum {
 	AS_TAG_LAST
 } AsTag;
 
-AsTag			as_xml_tag_from_string (const gchar *tag);
+AsTag		       as_xml_tag_from_string (const gchar *tag);
 
-AsTag			as_yaml_tag_from_string (const gchar *tag);
+AsTag		       as_yaml_tag_from_string (const gchar *tag);
 
 #pragma GCC visibility pop
 G_END_DECLS

@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_COMPOSE_H) && !defined (ASC_COMPILATION)
+#if !defined(__APPSTREAM_COMPOSE_H) && !defined(ASC_COMPILATION)
 #error "Only <appstream-compose.h> can be included directly."
 #endif
 #pragma once
@@ -51,21 +51,16 @@ typedef enum {
 	ASC_CANVAS_ERROR_LAST
 } AscCanvasError;
 
-#define	ASC_CANVAS_ERROR	asc_canvas_error_quark ()
-GQuark				asc_canvas_error_quark (void);
+#define ASC_CANVAS_ERROR asc_canvas_error_quark ()
+GQuark	   asc_canvas_error_quark (void);
 
-AscCanvas	*asc_canvas_new (gint width,
-				 gint height);
+AscCanvas *asc_canvas_new (gint width, gint height);
 
-guint		asc_canvas_get_width (AscCanvas *canvas);
-guint		asc_canvas_get_height (AscCanvas *canvas);
+guint	   asc_canvas_get_width (AscCanvas *canvas);
+guint	   asc_canvas_get_height (AscCanvas *canvas);
 
-gboolean	asc_canvas_render_svg (AscCanvas* canvas,
-					GInputStream *stream,
-					GError** error);
+gboolean   asc_canvas_render_svg (AscCanvas *canvas, GInputStream *stream, GError **error);
 
-gboolean	asc_canvas_save_png (AscCanvas *canvas,
-					const gchar *fname,
-					GError **error);
+gboolean   asc_canvas_save_png (AscCanvas *canvas, const gchar *fname, GError **error);
 
 G_END_DECLS

@@ -50,16 +50,16 @@
 #endif
 
 typedef struct {
-	const gchar	*id;
-	const gchar	*name;
-	const gchar	*fdo_cats[16];
+	const gchar *id;
+	const gchar *name;
+	const gchar *fdo_cats[16];
 } AsCategoryMap;
 
 typedef struct {
-	const gchar		*id;
-	const AsCategoryMap	*mapping;
-	const gchar		*name;
-	const gchar		*icon;
+	const gchar *id;
+	const AsCategoryMap *mapping;
+	const gchar *name;
+	const gchar *icon;
 } AsCategoryData;
 
 /* clang-format off */
@@ -337,8 +337,7 @@ static const AsCategoryData msdata[] = {
 
 /* clang-format on */
 
-typedef struct
-{
+typedef struct {
 	gchar *id;
 	gchar *name;
 	gchar *summary;
@@ -352,7 +351,7 @@ typedef struct
 G_DEFINE_TYPE_WITH_PRIVATE (AsCategory, as_category, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_category_get_instance_private (o))
 
-enum  {
+enum {
 	AS_CATEGORY_DUMMY,
 	AS_CATEGORY_ID,
 	AS_CATEGORY_NAME,
@@ -400,7 +399,7 @@ as_category_finalize (GObject *object)
  *
  * Get the ID of this category.
  */
-const gchar*
+const gchar *
 as_category_get_id (AsCategory *category)
 {
 	AsCategoryPrivate *priv = GET_PRIVATE (category);
@@ -428,7 +427,7 @@ as_category_set_id (AsCategory *category, const gchar *id)
  *
  * Get the name of this category.
  */
-const gchar*
+const gchar *
 as_category_get_name (AsCategory *category)
 {
 	AsCategoryPrivate *priv = GET_PRIVATE (category);
@@ -456,7 +455,7 @@ as_category_set_name (AsCategory *category, const gchar *value)
  *
  * Returns: (element-type AsCategory) (transfer none): A list of subcategories.
  */
-GPtrArray*
+GPtrArray *
 as_category_get_children (AsCategory *category)
 {
 	AsCategoryPrivate *priv = GET_PRIVATE (category);
@@ -512,7 +511,7 @@ as_category_has_children (AsCategory *category)
  *
  * Get the summary (short description) of this category.
  */
-const gchar*
+const gchar *
 as_category_get_summary (AsCategory *category)
 {
 	AsCategoryPrivate *priv = GET_PRIVATE (category);
@@ -541,7 +540,7 @@ as_category_set_summary (AsCategory *category, const gchar *value)
  *
  * Get the stock icon name for this category.
  */
-const gchar*
+const gchar *
 as_category_get_icon (AsCategory *category)
 {
 	AsCategoryPrivate *priv = GET_PRIVATE (category);
@@ -569,7 +568,7 @@ as_category_set_icon (AsCategory *category, const gchar *value)
  *
  * Returns: (transfer none) (element-type utf8): A list of desktop-file categories.
  */
-GPtrArray*
+GPtrArray *
 as_category_get_desktop_groups (AsCategory *category)
 {
 	AsCategoryPrivate *priv = GET_PRIVATE (category);
@@ -587,8 +586,7 @@ void
 as_category_add_desktop_group (AsCategory *category, const gchar *group_name)
 {
 	AsCategoryPrivate *priv = GET_PRIVATE (category);
-	g_ptr_array_add (priv->desktop_groups,
-			 g_strdup (group_name));
+	g_ptr_array_add (priv->desktop_groups, g_strdup (group_name));
 }
 
 /**
@@ -599,7 +597,7 @@ as_category_add_desktop_group (AsCategory *category, const gchar *group_name)
  *
  * Returns: (transfer none) (element-type AsComponent): List of #AsCategory
  */
-GPtrArray*
+GPtrArray *
 as_category_get_components (AsCategory *category)
 {
 	AsCategoryPrivate *priv = GET_PRIVATE (category);
@@ -617,8 +615,7 @@ void
 as_category_add_component (AsCategory *category, AsComponent *cpt)
 {
 	AsCategoryPrivate *priv = GET_PRIVATE (category);
-	g_ptr_array_add (priv->components,
-			 g_object_ref (cpt));
+	g_ptr_array_add (priv->components, g_object_ref (cpt));
 }
 
 /**
@@ -652,27 +649,27 @@ as_category_has_component (AsCategory *category, AsComponent *cpt)
 static void
 as_category_get_property (GObject *object, guint property_id, GValue *value, GParamSpec *pspec)
 {
-	AsCategory  *category;
+	AsCategory *category;
 	category = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_CATEGORY, AsCategory);
 	switch (property_id) {
-		case AS_CATEGORY_ID:
-			g_value_set_string (value, as_category_get_id (category));
-			break;
-		case AS_CATEGORY_NAME:
-			g_value_set_string (value, as_category_get_name (category));
-			break;
-		case AS_CATEGORY_SUMMARY:
-			g_value_set_string (value, as_category_get_summary (category));
-			break;
-		case AS_CATEGORY_ICON:
-			g_value_set_string (value, as_category_get_icon (category));
-			break;
-		case AS_CATEGORY_CHILDREN:
-			g_value_set_pointer (value, as_category_get_children (category));
-			break;
-		default:
-			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-			break;
+	case AS_CATEGORY_ID:
+		g_value_set_string (value, as_category_get_id (category));
+		break;
+	case AS_CATEGORY_NAME:
+		g_value_set_string (value, as_category_get_name (category));
+		break;
+	case AS_CATEGORY_SUMMARY:
+		g_value_set_string (value, as_category_get_summary (category));
+		break;
+	case AS_CATEGORY_ICON:
+		g_value_set_string (value, as_category_get_icon (category));
+		break;
+	case AS_CATEGORY_CHILDREN:
+		g_value_set_pointer (value, as_category_get_children (category));
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+		break;
 	}
 }
 
@@ -680,26 +677,29 @@ as_category_get_property (GObject *object, guint property_id, GValue *value, GPa
  * as_category_set_property:
  */
 static void
-as_category_set_property (GObject *object, guint property_id, const GValue *value, GParamSpec *pspec)
+as_category_set_property (GObject *object,
+			  guint property_id,
+			  const GValue *value,
+			  GParamSpec *pspec)
 {
-	AsCategory  *category;
+	AsCategory *category;
 	category = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_CATEGORY, AsCategory);
 	switch (property_id) {
-		case AS_CATEGORY_ID:
-			as_category_set_id (category, g_value_get_string (value));
-			break;
-		case AS_CATEGORY_NAME:
-			as_category_set_name (category, g_value_get_string (value));
-			break;
-		case AS_CATEGORY_SUMMARY:
-			as_category_set_summary (category, g_value_get_string (value));
-			break;
-		case AS_CATEGORY_ICON:
-			as_category_set_icon (category, g_value_get_string (value));
-			break;
-		default:
-			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-			break;
+	case AS_CATEGORY_ID:
+		as_category_set_id (category, g_value_get_string (value));
+		break;
+	case AS_CATEGORY_NAME:
+		as_category_set_name (category, g_value_get_string (value));
+		break;
+	case AS_CATEGORY_SUMMARY:
+		as_category_set_summary (category, g_value_get_string (value));
+		break;
+	case AS_CATEGORY_ICON:
+		as_category_set_icon (category, g_value_get_string (value));
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+		break;
 	}
 }
 
@@ -714,21 +714,50 @@ as_category_class_init (AsCategoryClass *klass)
 	object_class->set_property = as_category_set_property;
 	object_class->finalize = as_category_finalize;
 
-	g_object_class_install_property (object_class,
-					AS_CATEGORY_ID,
-					g_param_spec_string ("id", "id", "id", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
-	g_object_class_install_property (object_class,
-					AS_CATEGORY_NAME,
-					g_param_spec_string ("name", "name", "name", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
-	g_object_class_install_property (object_class,
-					AS_CATEGORY_SUMMARY,
-					g_param_spec_string ("summary", "summary", "summary", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
-	g_object_class_install_property (object_class,
-					AS_CATEGORY_ICON,
-					g_param_spec_string ("icon", "icon", "icon", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
-	g_object_class_install_property (object_class,
-					AS_CATEGORY_CHILDREN,
-					g_param_spec_pointer ("children", "children", "children", G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
+	g_object_class_install_property (
+	    object_class,
+	    AS_CATEGORY_ID,
+	    g_param_spec_string ("id",
+				 "id",
+				 "id",
+				 NULL,
+				 G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB |
+				     G_PARAM_READABLE | G_PARAM_WRITABLE));
+	g_object_class_install_property (
+	    object_class,
+	    AS_CATEGORY_NAME,
+	    g_param_spec_string ("name",
+				 "name",
+				 "name",
+				 NULL,
+				 G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB |
+				     G_PARAM_READABLE | G_PARAM_WRITABLE));
+	g_object_class_install_property (
+	    object_class,
+	    AS_CATEGORY_SUMMARY,
+	    g_param_spec_string ("summary",
+				 "summary",
+				 "summary",
+				 NULL,
+				 G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB |
+				     G_PARAM_READABLE));
+	g_object_class_install_property (
+	    object_class,
+	    AS_CATEGORY_ICON,
+	    g_param_spec_string ("icon",
+				 "icon",
+				 "icon",
+				 NULL,
+				 G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB |
+				     G_PARAM_READABLE | G_PARAM_WRITABLE));
+	g_object_class_install_property (
+	    object_class,
+	    AS_CATEGORY_CHILDREN,
+	    g_param_spec_pointer ("children",
+				  "children",
+				  "children",
+				  G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB |
+				      G_PARAM_READABLE));
 }
 
 /**
@@ -738,7 +767,7 @@ as_category_class_init (AsCategoryClass *klass)
  *
  * Returns: (transfer full): a new #AsCategory
  **/
-AsCategory*
+AsCategory *
 as_category_new (void)
 {
 	AsCategory *category;
@@ -756,7 +785,7 @@ as_category_new (void)
  *
  * Returns: (transfer container) (element-type AsCategory): a list of #AsCategory
  */
-GPtrArray*
+GPtrArray *
 as_get_default_categories (gboolean with_special)
 {
 	guint i;
@@ -781,13 +810,9 @@ as_get_default_categories (gboolean with_special)
 		as_category_set_icon (category, msdata[i].icon);
 
 		g_ptr_array_add (main_cats, category);
-		g_snprintf (msgctxt, sizeof(msgctxt),
-			    "Subcategory of %s", msdata[i].name);
+		g_snprintf (msgctxt, sizeof (msgctxt), "Subcategory of %s", msdata[i].name);
 
-		root_fdocats = g_hash_table_new_full (g_str_hash,
-						      g_str_equal,
-						      g_free,
-						      NULL);
+		root_fdocats = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 		/* add subcategories */
 		for (j = 0; msdata[i].mapping[j].id != NULL; j++) {
@@ -796,8 +821,8 @@ as_get_default_categories (gboolean with_special)
 			g_autoptr(AsCategory) sub = NULL;
 
 			if (!with_special) {
-			    if (g_strcmp0 (msdata[i].id, "featured") == 0)
-				continue;
+				if (g_strcmp0 (msdata[i].id, "featured") == 0)
+					continue;
 			}
 
 			sub = as_category_new ();
@@ -809,16 +834,15 @@ as_get_default_categories (gboolean with_special)
 
 				g_hash_table_add (root_fdocats, g_strdup (split[0]));
 			}
-			as_category_set_name (sub, g_dpgettext2 (GETTEXT_PACKAGE,
-								 msgctxt,
-								 map->name));
+			as_category_set_name (sub,
+					      g_dpgettext2 (GETTEXT_PACKAGE, msgctxt, map->name));
 			as_category_add_child (category, sub);
 		}
 
 		/* ensure the root category has the right XDG group names set, which match the subcategories */
 		g_hash_table_iter_init (&iter, root_fdocats);
 		while (g_hash_table_iter_next (&iter, &key, NULL)) {
-			const gchar *desktop_group = (const gchar*) key;
+			const gchar *desktop_group = (const gchar *) key;
 			as_category_add_desktop_group (category, desktop_group);
 		}
 	}
@@ -839,7 +863,7 @@ as_get_default_categories (gboolean with_special)
  *
  * Returns: (transfer full) (element-type AsCategory): a list of #AsCategory
  */
-GPtrArray*
+GPtrArray *
 as_get_default_categories_gi (gboolean with_special)
 {
 	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_get_default_categories (with_special));

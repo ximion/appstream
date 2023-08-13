@@ -30,12 +30,11 @@
 #include "as-utils-private.h"
 #include "asc-globals-private.h"
 
-typedef struct
-{
-	GPtrArray		*vars;
-	gchar			*tag;
-	AsIssueSeverity		severity;
-	GRefString		*explanation_tmpl;
+typedef struct {
+	GPtrArray *vars;
+	gchar *tag;
+	AsIssueSeverity severity;
+	GRefString *explanation_tmpl;
 } AscHintPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscHint, asc_hint, G_TYPE_OBJECT)
@@ -77,7 +76,7 @@ asc_hint_class_init (AscHintClass *klass)
  *
  * Gets the unique tag for the type of this hint.
  **/
-const gchar*
+const gchar *
 asc_hint_get_tag (AscHint *hint)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
@@ -130,7 +129,7 @@ asc_hint_set_severity (AscHint *hint, AsIssueSeverity severity)
  *
  * Gets the explanation template for this hint.
  **/
-const gchar*
+const gchar *
 asc_hint_get_explanation_template (AscHint *hint)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
@@ -216,7 +215,7 @@ asc_hint_add_explanation_var (AscHint *hint, const gchar *var_name, const gchar 
  *
  * Returns: (transfer none) (element-type utf8): A flattened #GPtrArray with the key/value pairs.
  **/
-GPtrArray*
+GPtrArray *
 asc_hint_get_explanation_vars_list (AscHint *hint)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
@@ -233,7 +232,7 @@ asc_hint_get_explanation_vars_list (AscHint *hint)
  *
  * Returns: (transfer full): Explanation text for this hint, with variables replaced.
  **/
-gchar*
+gchar *
 asc_hint_format_explanation (AscHint *hint)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
@@ -248,7 +247,9 @@ asc_hint_format_explanation (AscHint *hint)
 		gboolean replaced = FALSE;
 
 		for (guint j = 0; j < priv->vars->len; j += 2) {
-			g_autofree gchar *tmp = g_strconcat (g_ptr_array_index (priv->vars, j), "}}", NULL);
+			g_autofree gchar *tmp = g_strconcat (g_ptr_array_index (priv->vars, j),
+							     "}}",
+							     NULL);
 			g_autofree gchar *tmp2 = NULL;
 			if (!g_str_has_prefix (parts[i], tmp))
 				continue;
@@ -256,7 +257,9 @@ asc_hint_format_explanation (AscHint *hint)
 			/* replace string */
 			tmp2 = parts[i];
 			parts[i] = parts[i] + strlen (tmp);
-			parts[i] = g_strconcat (g_ptr_array_index (priv->vars, j + 1), parts[i], NULL);
+			parts[i] = g_strconcat (g_ptr_array_index (priv->vars, j + 1),
+						parts[i],
+						NULL);
 			replaced = TRUE;
 			break;
 		}
@@ -278,7 +281,7 @@ asc_hint_format_explanation (AscHint *hint)
  *
  * Creates a new #AscHint.
  **/
-AscHint*
+AscHint *
 asc_hint_new (void)
 {
 	AscHint *hint;
@@ -294,7 +297,7 @@ asc_hint_new (void)
  * Creates a new #AscHint with the given tag. If the selected tag was not registered+
  * with the global tag registry, %NULL is returned and an error is set.
  **/
-AscHint*
+AscHint *
 asc_hint_new_for_tag (const gchar *tag, GError **error)
 {
 	AscHintTag *htag;
@@ -302,10 +305,12 @@ asc_hint_new_for_tag (const gchar *tag, GError **error)
 
 	htag = asc_globals_get_hint_tag_details (tag);
 	if (htag == NULL || htag->severity == AS_ISSUE_SEVERITY_UNKNOWN) {
-		g_set_error (error,
-			     ASC_COMPOSE_ERROR,
-			     ASC_COMPOSE_ERROR_FAILED,
-			     "The selected hint tag '%s' could not be found. Unable to create hint object.", tag);
+		g_set_error (
+		    error,
+		    ASC_COMPOSE_ERROR,
+		    ASC_COMPOSE_ERROR_FAILED,
+		    "The selected hint tag '%s' could not be found. Unable to create hint object.",
+		    tag);
 		return NULL;
 	}
 

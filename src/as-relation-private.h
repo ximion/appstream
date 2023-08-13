@@ -31,28 +31,23 @@ G_BEGIN_DECLS
 /* NOTE: Some XML/YAML parsing is done in AsComponent, the routines here load single entries from
  * a requires/recommends block */
 
-GVariant	*as_relation_get_value_var (AsRelation *relation);
-void		as_relation_set_value_var (AsRelation *relation,
-					   GVariant *value);
+GVariant	      *as_relation_get_value_var (AsRelation *relation);
+void		       as_relation_set_value_var (AsRelation *relation, GVariant *value);
 
-gboolean	as_relation_load_from_xml (AsRelation *relation,
-					   AsContext *ctx,
-					   xmlNode *node,
-					   GError **error);
-void		as_relation_to_xml_node (AsRelation *relation,
-					AsContext *ctx,
-					xmlNode *root);
+gboolean	       as_relation_load_from_xml (AsRelation *relation,
+						  AsContext  *ctx,
+						  xmlNode    *node,
+						  GError    **error);
+void	 as_relation_to_xml_node (AsRelation *relation, AsContext *ctx, xmlNode *root);
 
-gboolean	as_relation_load_from_yaml (AsRelation *relation,
-						AsContext *ctx,
-						GNode *node,
-						GError **error);
-void		as_relation_emit_yaml (AsRelation *relation,
-					 AsContext *ctx,
-					 yaml_emitter_t *emitter);
+gboolean as_relation_load_from_yaml (AsRelation *relation,
+				     AsContext	*ctx,
+				     GNode	*node,
+				     GError    **error);
+void	 as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emitter);
 
-gint			as_display_length_kind_to_px (AsDisplayLengthKind kind);
-AsDisplayLengthKind	as_display_length_kind_from_px (gint px);
+gint	 as_display_length_kind_to_px (AsDisplayLengthKind kind);
+AsDisplayLengthKind    as_display_length_kind_from_px (gint px);
 
 #pragma GCC visibility pop
 G_END_DECLS

@@ -70,55 +70,56 @@ as_yaml_parse_layer (yaml_parser_t *parser, GNode *data, GError **error)
 	while (parse) {
 		if (!yaml_parser_parse (parser, &event)) {
 			g_set_error (error,
-					AS_METADATA_ERROR,
-					AS_METADATA_ERROR_PARSE,
-					"Metadata is invalid. Unable to parse YAML: %s", parser->problem);
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_PARSE,
+				     "Metadata is invalid. Unable to parse YAML: %s",
+				     parser->problem);
 			break;
 		}
 
 		/* Parse value either as a new leaf in the mapping
 		 * or as a leaf value (one of them, in case it's a sequence) */
 		switch (event.type) {
-			case YAML_SCALAR_EVENT:
-				string_scalar = g_strdup ((gchar*) event.data.scalar.value);
-				g_strstrip (string_scalar);
-				if (storage)
-					g_node_append_data (last_leaf, string_scalar);
-				else
-					last_leaf = g_node_append (data, g_node_new (string_scalar));
-				storage ^= YAML_VAL;
-				break;
-			case YAML_SEQUENCE_START_EVENT:
-				storage = YAML_SEQ;
-				in_sequence = TRUE;
-				break;
-			case YAML_SEQUENCE_END_EVENT:
-				storage = YAML_VAR;
-				in_sequence = FALSE;
-				break;
-			case YAML_MAPPING_START_EVENT:
-				/* depth += 1 */
-				last_scalar = last_leaf;
-				if (in_sequence)
-					last_leaf = g_node_append (last_leaf, g_node_new (NULL));
+		case YAML_SCALAR_EVENT:
+			string_scalar = g_strdup ((gchar *) event.data.scalar.value);
+			g_strstrip (string_scalar);
+			if (storage)
+				g_node_append_data (last_leaf, string_scalar);
+			else
+				last_leaf = g_node_append (data, g_node_new (string_scalar));
+			storage ^= YAML_VAL;
+			break;
+		case YAML_SEQUENCE_START_EVENT:
+			storage = YAML_SEQ;
+			in_sequence = TRUE;
+			break;
+		case YAML_SEQUENCE_END_EVENT:
+			storage = YAML_VAR;
+			in_sequence = FALSE;
+			break;
+		case YAML_MAPPING_START_EVENT:
+			/* depth += 1 */
+			last_scalar = last_leaf;
+			if (in_sequence)
+				last_leaf = g_node_append (last_leaf, g_node_new (NULL));
 
-				as_yaml_parse_layer (parser, last_leaf, &tmp_error);
-				if (tmp_error != NULL) {
-					g_propagate_error (error, tmp_error);
-					parse = FALSE;
-				}
-
-				last_leaf = last_scalar;
-				storage ^= YAML_VAL; /* Flip VAR/VAL, without touching SEQ */
-				break;
-			case YAML_MAPPING_END_EVENT:
-			case YAML_STREAM_END_EVENT:
-			case YAML_DOCUMENT_END_EVENT:
-				/* depth -= 1 */
+			as_yaml_parse_layer (parser, last_leaf, &tmp_error);
+			if (tmp_error != NULL) {
+				g_propagate_error (error, tmp_error);
 				parse = FALSE;
-				break;
-			default:
-				break;
+			}
+
+			last_leaf = last_scalar;
+			storage ^= YAML_VAL; /* Flip VAR/VAL, without touching SEQ */
+			break;
+		case YAML_MAPPING_END_EVENT:
+		case YAML_STREAM_END_EVENT:
+		case YAML_DOCUMENT_END_EVENT:
+			/* depth -= 1 */
+			parse = FALSE;
+			break;
+		default:
+			break;
 		}
 
 		yaml_event_delete (&event);
@@ -142,10 +143,10 @@ as_yaml_free_node (GNode *node, gpointer data)
  *
  * Helper method to get the key of a node.
  */
-const gchar*
+const gchar *
 as_yaml_node_get_key (GNode *n)
 {
-	return (const gchar*) n->data;
+	return (const gchar *) n->data;
 }
 
 /**
@@ -153,11 +154,11 @@ as_yaml_node_get_key (GNode *n)
  *
  * Helper method to get the value of a node.
  */
-const gchar*
+const gchar *
 as_yaml_node_get_value (GNode *n)
 {
 	if (n->children)
-		return (const gchar*) n->children->data;
+		return (const gchar *) n->children->data;
 	else
 		return NULL;
 }
@@ -167,7 +168,7 @@ as_yaml_node_get_value (GNode *n)
  *
  * Helper method to get the key of a node.
  */
-GRefString*
+GRefString *
 as_yaml_node_get_key_refstr (GNode *n)
 {
 	return g_ref_string_new_intern (as_yaml_node_get_key (n));
@@ -178,7 +179,7 @@ as_yaml_node_get_key_refstr (GNode *n)
  *
  * Helper method to get the value of a node.
  */
-GRefString*
+GRefString *
 as_yaml_node_get_value_refstr (GNode *n)
 {
 	return g_ref_string_new_intern (as_yaml_node_get_value (n));
@@ -258,13 +259,13 @@ as_yaml_emit_scalar (yaml_emitter_t *emitter, const gchar *value)
 		style = YAML_SINGLE_QUOTED_SCALAR_STYLE;
 
 	yaml_scalar_event_initialize (&event,
-					NULL,
-					NULL,
-					(yaml_char_t*) value,
-					-1,
-					TRUE,
-					TRUE,
-					style);
+				      NULL,
+				      NULL,
+				      (yaml_char_t *) value,
+				      -1,
+				      TRUE,
+				      TRUE,
+				      style);
 	ret = yaml_emitter_emit (emitter, &event);
 	g_assert (ret);
 }
@@ -280,13 +281,13 @@ as_yaml_emit_scalar_raw (yaml_emitter_t *emitter, const gchar *value)
 	g_assert (value != NULL);
 
 	yaml_scalar_event_initialize (&event,
-					NULL,
-					NULL,
-					(yaml_char_t*) value,
-					-1,
-					TRUE,
-					TRUE,
-					YAML_ANY_SCALAR_STYLE);
+				      NULL,
+				      NULL,
+				      (yaml_char_t *) value,
+				      -1,
+				      TRUE,
+				      TRUE,
+				      YAML_ANY_SCALAR_STYLE);
 	ret = yaml_emitter_emit (emitter, &event);
 	g_assert (ret);
 }
@@ -303,13 +304,13 @@ as_yaml_emit_scalar_uint64 (yaml_emitter_t *emitter, guint64 value)
 
 	value_str = g_strdup_printf ("%" G_GUINT64_FORMAT, value);
 	yaml_scalar_event_initialize (&event,
-					NULL,
-					NULL,
-					(yaml_char_t*) value_str,
-					-1,
-					TRUE,
-					TRUE,
-					YAML_ANY_SCALAR_STYLE);
+				      NULL,
+				      NULL,
+				      (yaml_char_t *) value_str,
+				      -1,
+				      TRUE,
+				      TRUE,
+				      YAML_ANY_SCALAR_STYLE);
 	ret = yaml_emitter_emit (emitter, &event);
 	g_assert (ret);
 }
@@ -333,13 +334,13 @@ as_yaml_emit_scalar_key (yaml_emitter_t *emitter, const gchar *key)
 		keystyle = YAML_SINGLE_QUOTED_SCALAR_STYLE;
 
 	yaml_scalar_event_initialize (&event,
-					NULL,
-					NULL,
-					(yaml_char_t*) key,
-					-1,
-					TRUE,
-					TRUE,
-					keystyle);
+				      NULL,
+				      NULL,
+				      (yaml_char_t *) key,
+				      -1,
+				      TRUE,
+				      TRUE,
+				      keystyle);
 	ret = yaml_emitter_emit (emitter, &event);
 	g_assert (ret);
 }
@@ -381,16 +382,15 @@ as_yaml_emit_entry_timestamp (yaml_emitter_t *emitter, const gchar *key, guint64
 
 	time_str = g_strdup_printf ("%" G_GUINT64_FORMAT, unixtime);
 	yaml_scalar_event_initialize (&event,
-					NULL,
-					NULL,
-					(yaml_char_t*) time_str,
-					-1,
-					TRUE,
-					TRUE,
-					YAML_ANY_SCALAR_STYLE);
+				      NULL,
+				      NULL,
+				      (yaml_char_t *) time_str,
+				      -1,
+				      TRUE,
+				      TRUE,
+				      YAML_ANY_SCALAR_STYLE);
 	ret = yaml_emitter_emit (emitter, &event);
 	g_assert (ret);
-
 }
 
 /**
@@ -407,13 +407,13 @@ as_yaml_emit_long_entry (yaml_emitter_t *emitter, const gchar *key, const gchar 
 
 	as_yaml_emit_scalar_key (emitter, key);
 	yaml_scalar_event_initialize (&event,
-					NULL,
-					NULL,
-					(yaml_char_t*) value,
-					-1,
-					TRUE,
-					TRUE,
-					YAML_FOLDED_SCALAR_STYLE);
+				      NULL,
+				      NULL,
+				      (yaml_char_t *) value,
+				      -1,
+				      TRUE,
+				      TRUE,
+				      YAML_FOLDED_SCALAR_STYLE);
 	ret = yaml_emitter_emit (emitter, &event);
 	g_assert (ret);
 }
@@ -432,13 +432,13 @@ as_yaml_emit_long_entry_literal (yaml_emitter_t *emitter, const gchar *key, cons
 
 	as_yaml_emit_scalar_key (emitter, key);
 	yaml_scalar_event_initialize (&event,
-					NULL,
-					NULL,
-					(yaml_char_t*) value,
-					-1,
-					TRUE,
-					TRUE,
-					YAML_LITERAL_SCALAR_STYLE);
+				      NULL,
+				      NULL,
+				      (yaml_char_t *) value,
+				      -1,
+				      TRUE,
+				      TRUE,
+				      YAML_LITERAL_SCALAR_STYLE);
 	ret = yaml_emitter_emit (emitter, &event);
 	g_assert (ret);
 }
@@ -473,7 +473,7 @@ as_yaml_emit_sequence (yaml_emitter_t *emitter, const gchar *key, GPtrArray *lis
  * Returns: The locale of a node, if the node should be considered for inclusion.
  * %NULL if the node should be ignored due to a not-matching locale.
  */
-const gchar*
+const gchar *
 as_yaml_get_node_locale (AsContext *ctx, GNode *node)
 {
 	const gchar *key = as_yaml_node_get_key (node);
@@ -511,8 +511,8 @@ as_yaml_set_localized_table (AsContext *ctx, GNode *node, GHashTable *l10n_table
 		if (locale != NULL) {
 			g_autofree gchar *locale_noenc = as_locale_strip_encoding (locale);
 			g_hash_table_insert (l10n_table,
-						g_ref_string_new_intern (locale_noenc),
-						g_strdup (as_yaml_node_get_value (n)));
+					     g_ref_string_new_intern (locale_noenc),
+					     g_strdup (as_yaml_node_get_value (n)));
 		}
 	}
 }
@@ -521,7 +521,10 @@ as_yaml_set_localized_table (AsContext *ctx, GNode *node, GHashTable *l10n_table
  * as_yaml_emit_localized_entry_with_func:
  */
 static void
-as_yaml_emit_localized_entry_with_func (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab, GHFunc tfunc)
+as_yaml_emit_localized_entry_with_func (yaml_emitter_t *emitter,
+					const gchar *key,
+					GHashTable *ltab,
+					GHFunc tfunc)
 {
 	if (ltab == NULL)
 		return;
@@ -533,9 +536,7 @@ as_yaml_emit_localized_entry_with_func (yaml_emitter_t *emitter, const gchar *ke
 	/* start mapping for localized entry */
 	as_yaml_mapping_start (emitter);
 	/* emit entries */
-	g_hash_table_foreach (ltab,
-				tfunc,
-				emitter);
+	g_hash_table_foreach (ltab, tfunc, emitter);
 	/* finalize */
 	as_yaml_mapping_end (emitter);
 }
@@ -626,7 +627,7 @@ as_yaml_emit_sequence_from_str_array (yaml_emitter_t *emitter, const gchar *key,
 	as_yaml_sequence_start (emitter);
 
 	for (i = 0; i < array->len; i++) {
-		const gchar *val = (const gchar*) g_ptr_array_index (array, i);
+		const gchar *val = (const gchar *) g_ptr_array_index (array, i);
 		as_yaml_emit_scalar (emitter, val);
 	}
 
@@ -673,9 +674,7 @@ as_yaml_emit_localized_strv (yaml_emitter_t *emitter, const gchar *key, GHashTab
 	/* start mapping for localized entry */
 	as_yaml_mapping_start (emitter);
 	/* emit entries */
-	g_hash_table_foreach (ltab,
-				(GHFunc) as_yaml_localized_list_helper,
-				emitter);
+	g_hash_table_foreach (ltab, (GHFunc) as_yaml_localized_list_helper, emitter);
 	/* finalize */
 	as_yaml_mapping_end (emitter);
 }

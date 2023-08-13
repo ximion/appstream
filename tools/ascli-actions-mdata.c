@@ -35,7 +35,7 @@
 int
 ascli_refresh_cache (const gchar *cachepath,
 		     const gchar *datapath,
-		     const gchar* const* sources_str,
+		     const gchar *const *sources_str,
 		     gboolean forced)
 {
 	g_autoptr(AsPool) pool = NULL;
@@ -45,7 +45,8 @@ ascli_refresh_cache (const gchar *cachepath,
 
 	if (!as_utils_is_root ())
 		/* TRANSLATORS: In ascli: Status information during a "refresh" action. */
-		g_print ("• %s\n", _("Only refreshing metadata cache specific to the current user."));
+		g_print ("• %s\n",
+			 _("Only refreshing metadata cache specific to the current user."));
 
 	pool = as_pool_new ();
 	if (sources_str != NULL) {
@@ -53,15 +54,19 @@ ascli_refresh_cache (const gchar *cachepath,
 
 		for (guint i = 0; sources_str[i] != NULL; i++) {
 			if (g_strcmp0 (sources_str[i], "os") == 0) {
-				as_pool_add_flags (pool, AS_POOL_FLAG_LOAD_OS_CATALOG |
-							 AS_POOL_FLAG_LOAD_OS_METAINFO |
-							 AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
-				g_print ("• %s\n", _("Updating software metadata cache for the operating system."));
+				as_pool_add_flags (pool,
+						   AS_POOL_FLAG_LOAD_OS_CATALOG |
+						       AS_POOL_FLAG_LOAD_OS_METAINFO |
+						       AS_POOL_FLAG_LOAD_OS_DESKTOP_FILES);
+				g_print ("• %s\n",
+					 _("Updating software metadata cache for the operating system."));
 			} else if (g_strcmp0 (sources_str[i], "flatpak") == 0) {
 				as_pool_add_flags (pool, AS_POOL_FLAG_LOAD_FLATPAK);
-				g_print ("• %s\n", _("Updating software metadata cache for Flatpak."));
+				g_print ("• %s\n",
+					 _("Updating software metadata cache for Flatpak."));
 			} else {
-				ascli_print_stderr (_("A metadata source group with the name '%s' does not exist!"), sources_str[i]);
+				ascli_print_stderr (_("A metadata source group with the name '%s' does not exist!"),
+				    sources_str[i]);
 				return 1;
 			}
 		}
@@ -72,9 +77,7 @@ ascli_refresh_cache (const gchar *cachepath,
 		as_pool_set_load_std_data_locations (pool, FALSE);
 
 		/* the user wants data from a different path to be used */
-		as_pool_add_extra_data_location (pool,
-						 datapath,
-						 AS_FORMAT_STYLE_CATALOG);
+		as_pool_add_extra_data_location (pool, datapath, AS_FORMAT_STYLE_CATALOG);
 	}
 
 	if (cachepath == NULL) {
@@ -88,7 +91,10 @@ ascli_refresh_cache (const gchar *cachepath,
 	if (!ret) {
 		if (g_error_matches (error, AS_POOL_ERROR, AS_POOL_ERROR_TARGET_NOT_WRITABLE))
 			/* TRANSLATORS: In ascli: The requested action needs higher permissions. */
-			g_printerr ("✘ %s\n  %s\n", error->message, _("You might need superuser permissions to perform this action."));
+			g_printerr (
+			    "✘ %s\n  %s\n",
+			    error->message,
+			    _("You might need superuser permissions to perform this action."));
 		else
 			g_printerr ("✘ %s\n", error->message);
 		return 2;
@@ -111,7 +117,10 @@ ascli_refresh_cache (const gchar *cachepath,
  * Get component by id
  */
 int
-ascli_get_component (const gchar *cachepath, const gchar *identifier, gboolean detailed, gboolean no_cache)
+ascli_get_component (const gchar *cachepath,
+		     const gchar *identifier,
+		     gboolean detailed,
+		     gboolean no_cache)
 {
 	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GError) error = NULL;
@@ -144,7 +153,10 @@ ascli_get_component (const gchar *cachepath, const gchar *identifier, gboolean d
  * ascli_search_component:
  */
 int
-ascli_search_component (const gchar *cachepath, const gchar *search_term, gboolean detailed, gboolean no_cache)
+ascli_search_component (const gchar *cachepath,
+			const gchar *search_term,
+			gboolean detailed,
+			gboolean no_cache)
 {
 	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GPtrArray) result = NULL;
@@ -186,7 +198,10 @@ ascli_search_component (const gchar *cachepath, const gchar *search_term, gboole
  * Get component providing an item
  */
 int
-ascli_what_provides (const gchar *cachepath, const gchar *kind_str, const gchar *item, gboolean detailed)
+ascli_what_provides (const gchar *cachepath,
+		     const gchar *kind_str,
+		     const gchar *item,
+		     gboolean detailed)
 {
 	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GPtrArray) result = NULL;
@@ -200,7 +215,8 @@ ascli_what_provides (const gchar *cachepath, const gchar *kind_str, const gchar 
 
 	kind = as_provided_kind_from_string (kind_str);
 	if (kind == AS_PROVIDED_KIND_UNKNOWN) {
-		g_printerr ("%s\n", _("Invalid type for provided item selected. Valid values are:"));
+		g_printerr ("%s\n",
+			    _("Invalid type for provided item selected. Valid values are:"));
 		for (guint i = 1; i < AS_PROVIDED_KIND_LAST; i++)
 			g_printerr (" • %s\n", as_provided_kind_to_string (i));
 		return 3;
@@ -215,7 +231,8 @@ ascli_what_provides (const gchar *cachepath, const gchar *kind_str, const gchar 
 	result = as_pool_get_components_by_provided_item (dpool, kind, item);
 	if (result->len == 0) {
 		/* TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results */
-		ascli_print_stdout (_("Could not find component providing '%s::%s'."), kind_str, item);
+		ascli_print_stdout (
+		    _("Could not find component providing '%s::%s'."), kind_str, item);
 		return 0;
 	}
 
@@ -278,7 +295,10 @@ ascli_list_categories (const gchar *cachepath,
  * Dump the raw upstream XML for a component.
  */
 int
-ascli_dump_component (const gchar *cachepath, const gchar *identifier, AsFormatKind mformat, gboolean no_cache)
+ascli_dump_component (const gchar *cachepath,
+		      const gchar *identifier,
+		      AsFormatKind mformat,
+		      gboolean no_cache)
 {
 	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GPtrArray) result = NULL;
@@ -318,7 +338,9 @@ ascli_dump_component (const gchar *cachepath, const gchar *identifier, AsFormatK
 		as_metadata_add_component (metad, cpt);
 		if (mformat == AS_FORMAT_KIND_YAML) {
 			/* we allow YAML serialization just this once */
-			metadata = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_YAML, NULL);
+			metadata = as_metadata_components_to_catalog (metad,
+								      AS_FORMAT_KIND_YAML,
+								      NULL);
 		} else {
 			metadata = as_metadata_component_to_metainfo (metad, mformat, NULL);
 		}
@@ -389,22 +411,18 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 	metad = as_metadata_new ();
 	as_metadata_set_locale (metad, "ALL");
 
-	if ((g_str_has_suffix (in_fname, ".yml.gz")) ||
-	    (g_str_has_suffix (in_fname, ".yaml.gz")) ||
-	    (g_str_has_suffix (in_fname, ".yml")) ||
-	    (g_str_has_suffix (in_fname, ".yaml"))) {
+	if ((g_str_has_suffix (in_fname, ".yml.gz")) || (g_str_has_suffix (in_fname, ".yaml.gz")) ||
+	    (g_str_has_suffix (in_fname, ".yml")) || (g_str_has_suffix (in_fname, ".yaml"))) {
 		/* if we have YAML, we also automatically assume a catalog style */
 		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
-	} else if (g_str_has_suffix (in_fname, ".metainfo.xml") || g_str_has_suffix (in_fname, ".appdata.xml")) {
+	} else if (g_str_has_suffix (in_fname, ".metainfo.xml") ||
+		   g_str_has_suffix (in_fname, ".appdata.xml")) {
 		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_METAINFO);
 	} else {
 		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
 	}
 
-	as_metadata_parse_file (metad,
-				infile,
-				AS_FORMAT_KIND_UNKNOWN,
-				&error);
+	as_metadata_parse_file (metad, infile, AS_FORMAT_KIND_UNKNOWN, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return 1;
@@ -416,13 +434,16 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 	if (mformat == AS_FORMAT_KIND_UNKNOWN) {
 		if (g_str_has_suffix (in_fname, ".xml") || g_str_has_suffix (in_fname, ".xml.gz"))
 			mformat = AS_FORMAT_KIND_YAML;
-		else if (g_str_has_suffix (in_fname, ".yml") || g_str_has_suffix (in_fname, ".yml.gz") ||
-			 g_str_has_suffix (in_fname, ".yaml") || g_str_has_suffix (in_fname, ".yaml.gz"))
+		else if (g_str_has_suffix (in_fname, ".yml") ||
+			 g_str_has_suffix (in_fname, ".yml.gz") ||
+			 g_str_has_suffix (in_fname, ".yaml") ||
+			 g_str_has_suffix (in_fname, ".yaml.gz"))
 			mformat = AS_FORMAT_KIND_XML;
 
 		if (mformat == AS_FORMAT_KIND_UNKNOWN) {
 			/* TRANSLATORS: User is trying to convert a file in ascli */
-			ascli_print_stderr (_("Unable to convert file: Could not determine output format, please set it explicitly using '--format='."));
+			ascli_print_stderr (
+			    _("Unable to convert file: Could not determine output format, please set it explicitly using '--format='."));
 			return 3;
 		}
 	}
@@ -456,7 +477,9 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
  * Create a metainfo file template to be filed out by the user.
  */
 int
-ascli_create_metainfo_template (const gchar *out_fname, const gchar *cpt_kind_str, const gchar *desktop_file)
+ascli_create_metainfo_template (const gchar *out_fname,
+				const gchar *cpt_kind_str,
+				const gchar *desktop_file)
 {
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(AsComponent) cpt = NULL;
@@ -468,10 +491,12 @@ ascli_create_metainfo_template (const gchar *out_fname, const gchar *cpt_kind_st
 	if (cpt_kind == AS_COMPONENT_KIND_UNKNOWN) {
 		if (cpt_kind_str == NULL) {
 			/* TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string */
-			ascli_print_stderr (_("You need to give an AppStream software component type to generate a template. Possible values are:"));
+			ascli_print_stderr (
+			    _("You need to give an AppStream software component type to generate a template. Possible values are:"));
 		} else {
 			/* TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string */
-			ascli_print_stderr (_("The software component type '%s' is not valid in AppStream. Possible values are:"), cpt_kind_str);
+			ascli_print_stderr (_("The software component type '%s' is not valid in AppStream. Possible values are:"),
+					       cpt_kind_str);
 		}
 		for (guint i = 1; i < AS_COMPONENT_KIND_LAST; i++)
 			ascli_print_stderr (" • %s", as_component_kind_to_string (i));
@@ -490,13 +515,15 @@ ascli_create_metainfo_template (const gchar *out_fname, const gchar *cpt_kind_st
 
 		defile = g_file_new_for_path (desktop_file);
 		if (!g_file_query_exists (defile, NULL)) {
-			ascli_print_stderr (_("The .desktop file '%s' does not exist."), desktop_file);
+			ascli_print_stderr (_("The .desktop file '%s' does not exist."),
+					       desktop_file);
 			return 4;
 		}
 
 		as_metadata_parse_file (metad, defile, AS_FORMAT_KIND_DESKTOP_ENTRY, &error);
 		if (error != NULL) {
-			ascli_print_stderr (_("Unable to read the .desktop file: %s"), error->message);
+			ascli_print_stderr (_("Unable to read the .desktop file: %s"),
+					       error->message);
 			return 1;
 		}
 
@@ -518,18 +545,30 @@ ascli_create_metainfo_template (const gchar *out_fname, const gchar *cpt_kind_st
 		as_component_set_name (cpt, "The human-readable name of this software", "C");
 
 	if (as_component_get_summary (cpt) == NULL)
-		as_component_set_summary (cpt, "A short summary describing what this software is about", "C");
+		as_component_set_summary (cpt,
+					  "A short summary describing what this software is about",
+					  "C");
 
 	if (as_component_get_description (cpt) == NULL)
-		as_component_set_description (cpt, "<p>Multiple paragraphs of long description, describing this software component.</p>"
-							"<p>You can also use ordered and unordered lists:</p>"
-							"<ul><li>Feature 1</li><li>Feature 2</li></ul>"
-							"<p>Keep in mind to XML-escape characters, and that this is not HTML markup.</p>", "C");
+		as_component_set_description (cpt,
+					      "<p>Multiple paragraphs of long description, "
+					      "describing this software component.</p>"
+					      "<p>You can also use ordered and unordered lists:</p>"
+					      "<ul><li>Feature 1</li><li>Feature 2</li></ul>"
+					      "<p>Keep in mind to XML-escape characters, and that "
+					      "this is not HTML markup.</p>",
+					      "C");
 
-	as_component_set_metadata_license (cpt, "A permissive license for this metadata, e.g. \"FSFAP\"");
-	as_component_set_project_license (cpt, "The license of this software as SPDX string, e.g. \"GPL-3+\"");
+	as_component_set_metadata_license (
+	    cpt,
+	    "A permissive license for this metadata, e.g. \"FSFAP\"");
+	as_component_set_project_license (
+	    cpt,
+	    "The license of this software as SPDX string, e.g. \"GPL-3+\"");
 
-	as_component_set_developer_name (cpt, "The software vendor name, e.g. \"ACME Corporation\"", "C");
+	as_component_set_developer_name (cpt,
+					 "The software vendor name, e.g. \"ACME Corporation\"",
+					 "C");
 
 	/* console-app specific */
 	if (cpt_kind == AS_COMPONENT_KIND_CONSOLE_APP) {
@@ -541,14 +580,18 @@ ascli_create_metainfo_template (const gchar *out_fname, const gchar *cpt_kind_st
 
 	/* addon specific */
 	if (cpt_kind == AS_COMPONENT_KIND_ADDON)
-		as_component_add_extends (cpt, "The component-id of the software that is extended by this addon, e.g. \"org.example.FooBar\"");
+		as_component_add_extends (cpt,
+					  "The component-id of the software that is extended by "
+					  "this addon, e.g. \"org.example.FooBar\"");
 
 	/* font specific */
 	if (cpt_kind == AS_COMPONENT_KIND_FONT) {
 		g_autoptr(AsProvided) prov = as_provided_new ();
 
 		as_provided_set_kind (prov, AS_PROVIDED_KIND_FONT);
-		as_provided_add_item (prov, "A full font name, consisting of the fonts family and style, e.g. \"Lato Heavy Italic\"");
+		as_provided_add_item (prov,
+				      "A full font name, consisting of the fonts family and style, "
+				      "e.g. \"Lato Heavy Italic\"");
 		as_provided_add_item (prov, "Liberation Serif Bold Italic");
 		as_component_add_provided (cpt, prov);
 	}
@@ -565,9 +608,12 @@ ascli_create_metainfo_template (const gchar *out_fname, const gchar *cpt_kind_st
 	if ((out_fname == NULL) || (g_strcmp0 (out_fname, "-") == 0)) {
 		g_autofree gchar *metainfo_xml = NULL;
 
-		metainfo_xml = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, &error);
+		metainfo_xml = as_metadata_component_to_metainfo (metad,
+								  AS_FORMAT_KIND_XML,
+								  &error);
 		if (error != NULL) {
-			ascli_print_stderr (_("Unable to build the template metainfo file: %s"), error->message);
+			ascli_print_stderr (_("Unable to build the template metainfo file: %s"),
+					       error->message);
 			return 1;
 		}
 
@@ -575,7 +621,8 @@ ascli_create_metainfo_template (const gchar *out_fname, const gchar *cpt_kind_st
 	} else {
 		as_metadata_save_metainfo (metad, out_fname, AS_FORMAT_KIND_XML, &error);
 		if (error != NULL) {
-			ascli_print_stderr (_("Unable to save the template metainfo file: %s"), error->message);
+			ascli_print_stderr (_("Unable to save the template metainfo file: %s"),
+					       error->message);
 			return 1;
 		}
 	}
@@ -589,7 +636,10 @@ ascli_create_metainfo_template (const gchar *out_fname, const gchar *cpt_kind_st
  * Helper for %ascli_check_is_satisfied
  */
 static gboolean
-ascli_print_satisfy_check_results (GPtrArray *relations, AsSystemInfo *sysinfo, AsPool *pool, AsRelationKind kind)
+ascli_print_satisfy_check_results (GPtrArray *relations,
+				   AsSystemInfo *sysinfo,
+				   AsPool *pool,
+				   AsRelationKind kind)
 {
 	gboolean res = TRUE;
 	const gchar *fail_char = ASCLI_CHAR_FAIL;
@@ -603,20 +653,23 @@ ascli_print_satisfy_check_results (GPtrArray *relations, AsSystemInfo *sysinfo, 
 		g_autoptr(GError) tmp_error = NULL;
 		AsCheckResult r;
 
-		r = as_relation_is_satisfied (relation,
-						sysinfo,
-						pool,
-						&message,
-						&tmp_error);
+		r = as_relation_is_satisfied (relation, sysinfo, pool, &message, &tmp_error);
 		if (r == AS_CHECK_RESULT_ERROR) {
-			if (as_relation_get_item_kind (relation) == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH &&
-				as_system_info_get_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_LONGEST) == 0) {
-				g_print (" • %s\n", _("Unable to check display size: Can not read information without GUI toolkit access."));
-			} else if (g_error_matches (tmp_error, AS_RELATION_ERROR, AS_RELATION_ERROR_NOT_IMPLEMENTED)) {
+			if (as_relation_get_item_kind (relation) ==
+				AS_RELATION_ITEM_KIND_DISPLAY_LENGTH &&
+			    as_system_info_get_display_length (sysinfo,
+							       AS_DISPLAY_SIDE_KIND_LONGEST) == 0) {
+				g_print (" • %s\n",
+					 _("Unable to check display size: Can not read information without GUI toolkit access."));
+			} else if (g_error_matches (tmp_error,
+						    AS_RELATION_ERROR,
+						    AS_RELATION_ERROR_NOT_IMPLEMENTED)) {
 				g_print (" • %s\n", tmp_error->message);
 				res = FALSE;
 			} else {
-				g_print (" %s %s: %s\n", fail_char, _("ERROR"), tmp_error->message);
+				g_print (" %s %s: %s\n",
+					 fail_char,
+					 _("ERROR"), tmp_error->message);
 				res = FALSE;
 			}
 		} else if (r == AS_CHECK_RESULT_TRUE) {
@@ -658,7 +711,8 @@ ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gbo
 	}
 
 	/* get the current component, either from file or from the pool */
-	if (g_strstr_len (fname_or_cid, -1, "/") != NULL || g_file_test (fname_or_cid, G_FILE_TEST_EXISTS)) {
+	if (g_strstr_len (fname_or_cid, -1, "/") != NULL ||
+	    g_file_test (fname_or_cid, G_FILE_TEST_EXISTS)) {
 		g_autoptr(GFile) mi_file = NULL;
 		g_autoptr(AsMetadata) mdata = NULL;
 
@@ -672,10 +726,7 @@ ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gbo
 		mdata = as_metadata_new ();
 		as_metadata_set_locale (mdata, "ALL");
 
-		as_metadata_parse_file (mdata,
-					mi_file,
-					AS_FORMAT_KIND_XML,
-					&error);
+		as_metadata_parse_file (mdata, mi_file, AS_FORMAT_KIND_XML, &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
 			return 1;
@@ -687,7 +738,8 @@ ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gbo
 
 		cpts = as_pool_get_components_by_id (pool, fname_or_cid);
 		if (cpts->len == 0) {
-			ascli_print_stderr (_("Unable to find component with ID '%s'!"), fname_or_cid);
+			ascli_print_stderr (_("Unable to find component with ID '%s'!"),
+					       fname_or_cid);
 			return ASCLI_EXIT_CODE_NO_RESULT;
 		}
 
@@ -711,7 +763,9 @@ ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gbo
 		res = ascli_print_satisfy_check_results (requires,
 							 sysinfo,
 							 pool,
-							 AS_RELATION_KIND_REQUIRES)? res : FALSE;
+							 AS_RELATION_KIND_REQUIRES)
+			  ? res
+			  : FALSE;
 	}
 
 	ascli_print_highlight (_("Recommendations:"));
@@ -721,7 +775,9 @@ ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gbo
 		res = ascli_print_satisfy_check_results (recommends,
 							 sysinfo,
 							 pool,
-							 AS_RELATION_KIND_RECOMMENDS)? res : FALSE;
+							 AS_RELATION_KIND_RECOMMENDS)
+			  ? res
+			  : FALSE;
 	}
 
 	ascli_print_highlight (_("Supported:"));
@@ -734,8 +790,5 @@ ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gbo
 						   AS_RELATION_KIND_SUPPORTS);
 	}
 
-
-
-
-	return res? ASCLI_EXIT_CODE_SUCCESS : ASCLI_EXIT_CODE_FAILED;
+	return res ? ASCLI_EXIT_CODE_SUCCESS : ASCLI_EXIT_CODE_FAILED;
 }

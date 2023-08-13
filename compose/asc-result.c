@@ -32,15 +32,14 @@
 #include "asc-utils.h"
 #include "asc-hint.h"
 
-typedef struct
-{
-	AsBundleKind	bundle_kind;
-	gchar		*bundle_id;
+typedef struct {
+	AsBundleKind bundle_kind;
+	gchar *bundle_id;
 
-	GHashTable	*cpts; /* GRefString->AsComponent */
-	GHashTable	*mdata_hashes; /* AsComponent->utf8 */
-	GHashTable	*hints; /* GRefString->GPtrArray */
-	GHashTable	*gcids; /* GRefString->utf8 (component-id -> global component-id) */
+	GHashTable *cpts;	  /* GRefString->AsComponent */
+	GHashTable *mdata_hashes; /* AsComponent->utf8 */
+	GHashTable *hints;	  /* GRefString->GPtrArray */
+	GHashTable *gcids;	  /* GRefString->utf8 (component-id -> global component-id) */
 } AscResultPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscResult, asc_result, G_TYPE_OBJECT)
@@ -57,10 +56,7 @@ asc_result_init (AscResult *result)
 					    g_str_equal,
 					    (GDestroyNotify) as_ref_string_release,
 					    g_object_unref);
-	priv->mdata_hashes = g_hash_table_new_full (g_direct_hash,
-						    g_direct_equal,
-						    NULL,
-						    g_free);
+	priv->mdata_hashes = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 	priv->hints = g_hash_table_new_full (g_str_hash,
 					     g_str_equal,
 					     (GDestroyNotify) as_ref_string_release,
@@ -136,7 +132,7 @@ asc_result_hints_count (AscResult *result)
 
 	g_hash_table_iter_init (&iter, priv->hints);
 	while (g_hash_table_iter_next (&iter, NULL, &value))
-		count += ((GPtrArray*) value)->len;
+		count += ((GPtrArray *) value)->len;
 	return count;
 }
 
@@ -154,8 +150,7 @@ gboolean
 asc_result_is_ignored (AscResult *result, AsComponent *cpt)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
-	return !g_hash_table_contains (priv->cpts,
-				       as_component_get_id (cpt));
+	return !g_hash_table_contains (priv->cpts, as_component_get_id (cpt));
 }
 
 /**
@@ -191,7 +186,7 @@ asc_result_set_bundle_kind (AscResult *result, AsBundleKind kind)
  * Gets the ID name of the bundle (a package / Flatpak / any entity containing metadata)
  * that these these results are generated for.
  **/
-const gchar*
+const gchar *
 asc_result_get_bundle_id (AscResult *result)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
@@ -222,7 +217,7 @@ asc_result_set_bundle_id (AscResult *result, const gchar *id)
  *
  * returns: (transfer none): An #AsComponent
  **/
-AsComponent*
+AsComponent *
 asc_result_get_component (AscResult *result, const gchar *cid)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
@@ -237,7 +232,7 @@ asc_result_get_component (AscResult *result, const gchar *cid)
  *
  * Returns: (transfer container) (element-type AsComponent) : An array of #AsComponent
  **/
-GPtrArray*
+GPtrArray *
 asc_result_fetch_components (AscResult *result)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
@@ -245,8 +240,7 @@ asc_result_fetch_components (AscResult *result)
 	GHashTableIter iter;
 	gpointer value;
 
-	res = g_ptr_array_new_full (g_hash_table_size (priv->cpts),
-				    g_object_unref);
+	res = g_ptr_array_new_full (g_hash_table_size (priv->cpts), g_object_unref);
 
 	g_hash_table_iter_init (&iter, priv->cpts);
 	while (g_hash_table_iter_next (&iter, NULL, &value))
@@ -263,7 +257,7 @@ asc_result_fetch_components (AscResult *result)
  *
  * Returns: (transfer none) (element-type AscHint): An array of #AscHint or %NULL
  **/
-GPtrArray*
+GPtrArray *
 asc_result_get_hints (AscResult *result, const gchar *cid)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
@@ -278,7 +272,7 @@ asc_result_get_hints (AscResult *result, const gchar *cid)
  *
  * Returns: (transfer container) (element-type AscHint) : An array of #AscHint
  **/
-GPtrArray*
+GPtrArray *
 asc_result_fetch_hints_all (AscResult *result)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
@@ -286,8 +280,7 @@ asc_result_fetch_hints_all (AscResult *result)
 	GHashTableIter iter;
 	gpointer value;
 
-	res = g_ptr_array_new_full (g_hash_table_size (priv->hints),
-				    g_object_unref);
+	res = g_ptr_array_new_full (g_hash_table_size (priv->hints), g_object_unref);
 
 	g_hash_table_iter_init (&iter, priv->hints);
 	while (g_hash_table_iter_next (&iter, NULL, &value)) {
@@ -307,11 +300,11 @@ asc_result_fetch_hints_all (AscResult *result)
  *
  * Returns: (transfer container): An array of component-IDs. Free container with %g_free
  **/
-const gchar**
+const gchar **
 asc_result_get_component_ids_with_hints (AscResult *result)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
-	return (const gchar**) g_hash_table_get_keys_as_array (priv->hints, NULL);
+	return (const gchar **) g_hash_table_get_keys_as_array (priv->hints, NULL);
 }
 
 /**
@@ -369,9 +362,7 @@ asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, GBytes *b
 
 	g_hash_table_insert (priv->mdata_hashes, cpt, hash);
 	gcid = asc_build_component_global_id (cid, hash);
-	g_hash_table_insert (priv->gcids,
-			     g_ref_string_new_intern (cid),
-			     g_steal_pointer (&gcid));
+	g_hash_table_insert (priv->gcids, g_ref_string_new_intern (cid), g_steal_pointer (&gcid));
 
 	return TRUE;
 }
@@ -388,9 +379,11 @@ asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, GBytes *b
  * Returns: %TRUE if the component existed and was updated.
  **/
 gboolean
-asc_result_update_component_gcid_with_string (AscResult *result, AsComponent *cpt, const gchar *data)
+asc_result_update_component_gcid_with_string (AscResult *result,
+					      AsComponent *cpt,
+					      const gchar *data)
 {
-	g_autoptr(GBytes) bytes = g_bytes_new_static (data? data : "", strlen (data? data : ""));
+	g_autoptr(GBytes) bytes = g_bytes_new_static (data ? data : "", strlen (data ? data : ""));
 	return asc_result_update_component_gcid (result, cpt, bytes);
 }
 
@@ -403,11 +396,11 @@ asc_result_update_component_gcid_with_string (AscResult *result, AsComponent *cp
  * as long as component with the given ID is registered with this #AscResult.
  * Otherwise, %NULL is returned.
  */
-const gchar*
+const gchar *
 asc_result_gcid_for_cid (AscResult *result, const gchar *cid)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
-	return (const gchar*) g_hash_table_lookup (priv->gcids, cid);
+	return (const gchar *) g_hash_table_lookup (priv->gcids, cid);
 }
 
 /**
@@ -419,7 +412,7 @@ asc_result_gcid_for_cid (AscResult *result, const gchar *cid)
  * as long as component with the given ID is registered with this #AscResult.
  * Otherwise, %NULL is returned.
  */
-const gchar*
+const gchar *
 asc_result_gcid_for_component (AscResult *result, AsComponent *cpt)
 {
 	return asc_result_gcid_for_cid (result, as_component_get_id (cpt));
@@ -433,7 +426,7 @@ asc_result_gcid_for_component (AscResult *result, AsComponent *cpt)
  *
  * Returns: (transfer container): An array of global component IDs. Free with %g_free
  */
-const gchar**
+const gchar **
 asc_result_get_component_gcids (AscResult *result)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
@@ -475,27 +468,24 @@ asc_result_add_component (AscResult *result, AsComponent *cpt, GBytes *bytes, GE
 		return FALSE;
 	}
 
-
 	/* web applications, operating systems, repositories
 	 * and component-removal merges don't (need to) have a package/bundle name set */
 	ckind = as_component_get_kind (cpt);
-	if ((ckind != AS_COMPONENT_KIND_WEB_APP) &&
-	    (ckind != AS_COMPONENT_KIND_OPERATING_SYSTEM) &&
+	if ((ckind != AS_COMPONENT_KIND_WEB_APP) && (ckind != AS_COMPONENT_KIND_OPERATING_SYSTEM) &&
 	    (as_component_get_merge_kind (cpt) != AS_MERGE_KIND_REMOVE_COMPONENT)) {
 		if (priv->bundle_kind == AS_BUNDLE_KIND_PACKAGE) {
-			gchar *pkgnames[2] = {priv->bundle_id, NULL};
+			gchar *pkgnames[2] = { priv->bundle_id, NULL };
 			as_component_set_pkgnames (cpt, pkgnames);
-		} else if ((priv->bundle_kind != AS_BUNDLE_KIND_UNKNOWN) && (priv->bundle_kind >= AS_BUNDLE_KIND_LAST)) {
+		} else if ((priv->bundle_kind != AS_BUNDLE_KIND_UNKNOWN) &&
+			   (priv->bundle_kind >= AS_BUNDLE_KIND_LAST)) {
 			g_autoptr(AsBundle) bundle = as_bundle_new ();
 			as_bundle_set_kind (bundle, priv->bundle_kind);
 			as_bundle_set_id (bundle, priv->bundle_id);
 			as_component_add_bundle (cpt, bundle);
 		}
-        }
+	}
 
-        g_hash_table_insert (priv->cpts,
-			     g_ref_string_new_intern (cid),
-			     g_object_ref (cpt));
+	g_hash_table_insert (priv->cpts, g_ref_string_new_intern (cid), g_object_ref (cpt));
 	asc_result_update_component_gcid (result, cpt, bytes);
 	return TRUE;
 }
@@ -512,9 +502,12 @@ asc_result_add_component (AscResult *result, AsComponent *cpt, GBytes *bytes, GE
  * Returns: %TRUE on success.
  **/
 gboolean
-asc_result_add_component_with_string (AscResult *result, AsComponent *cpt, const gchar *data, GError **error)
+asc_result_add_component_with_string (AscResult *result,
+				      AsComponent *cpt,
+				      const gchar *data,
+				      GError **error)
 {
-	g_autoptr(GBytes) bytes = g_bytes_new_static (data? data : "", strlen (data? data : ""));
+	g_autoptr(GBytes) bytes = g_bytes_new_static (data ? data : "", strlen (data ? data : ""));
 	return asc_result_add_component (result, cpt, bytes, error);
 }
 
@@ -534,8 +527,7 @@ asc_result_remove_component_full (AscResult *result, AsComponent *cpt, gboolean 
 	AscResultPrivate *priv = GET_PRIVATE (result);
 	gboolean ret;
 
-	ret = g_hash_table_remove (priv->cpts,
-				   as_component_get_id (cpt));
+	ret = g_hash_table_remove (priv->cpts, as_component_get_id (cpt));
 	if (remove_gcid)
 		g_hash_table_remove (priv->gcids, as_component_get_id (cpt));
 	g_hash_table_remove (priv->mdata_hashes, cpt);
@@ -623,7 +615,13 @@ asc_result_remove_component_by_id (AscResult *result, const gchar *cid)
 }
 
 static gboolean
-asc_result_add_hint_va (AscResult *result, AsComponent *cpt, const gchar *component_id, const gchar *tag, const gchar *key1, va_list *args, gchar **args_v)
+asc_result_add_hint_va (AscResult *result,
+			AsComponent *cpt,
+			const gchar *component_id,
+			const gchar *tag,
+			const gchar *key1,
+			va_list *args,
+			gchar **args_v)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
 	const gchar *cur_key;
@@ -649,7 +647,7 @@ asc_result_add_hint_va (AscResult *result, AsComponent *cpt, const gchar *compon
 	cur_key = key1;
 	while (cur_key != NULL) {
 		if (args_v == NULL)
-			cur_val = va_arg (*args, gchar*);
+			cur_val = va_arg (*args, gchar *);
 		else
 			cur_val = args_v[i++];
 		if (cur_val == NULL)
@@ -657,7 +655,7 @@ asc_result_add_hint_va (AscResult *result, AsComponent *cpt, const gchar *compon
 		asc_hint_add_explanation_var (hint, cur_key, cur_val);
 
 		if (args_v == NULL)
-			cur_key = va_arg (*args, gchar*);
+			cur_key = va_arg (*args, gchar *);
 		else
 			cur_key = args_v[i++];
 	}
@@ -665,9 +663,7 @@ asc_result_add_hint_va (AscResult *result, AsComponent *cpt, const gchar *compon
 	hints = g_hash_table_lookup (priv->hints, component_id);
 	if (hints == NULL) {
 		hints = g_ptr_array_new_with_free_func (g_object_unref);
-		g_hash_table_insert (priv->hints,
-				     g_ref_string_new_intern (component_id),
-				     hints);
+		g_hash_table_insert (priv->hints, g_ref_string_new_intern (component_id), hints);
 	}
 
 	/* we stop dealing with this component as soon as we encounter a fatal error. */
@@ -696,19 +692,17 @@ asc_result_add_hint_va (AscResult *result, AsComponent *cpt, const gchar *compon
  * Returns: %TRUE if the added hint did not cause the component to be invalidated.
  **/
 gboolean
-asc_result_add_hint_by_cid (AscResult *result, const gchar *component_id, const gchar *tag, const gchar *key1, ...)
+asc_result_add_hint_by_cid (AscResult *result,
+			    const gchar *component_id,
+			    const gchar *tag,
+			    const gchar *key1,
+			    ...)
 {
 	va_list args;
 	gboolean ret;
 
 	va_start (args, key1);
-	ret = asc_result_add_hint_va (result,
-				      NULL,
-				      component_id,
-				      tag,
-				      key1,
-				      &args,
-				      NULL);
+	ret = asc_result_add_hint_va (result, NULL, component_id, tag, key1, &args, NULL);
 	va_end (args);
 	return ret;
 }
@@ -725,20 +719,17 @@ asc_result_add_hint_by_cid (AscResult *result, const gchar *component_id, const 
  * Returns: %TRUE if the added hint did not cause the component to be invalidated.
  **/
 gboolean
-asc_result_add_hint_by_cid_v (AscResult *result, const gchar *component_id, const gchar *tag, gchar **kv)
+asc_result_add_hint_by_cid_v (AscResult *result,
+			      const gchar *component_id,
+			      const gchar *tag,
+			      gchar **kv)
 {
 	gboolean ret;
 	const gchar *first_key = NULL;
 
 	if (kv != NULL)
 		first_key = kv[0];
-	ret = asc_result_add_hint_va (result,
-				      NULL,
-				      component_id,
-				      tag,
-				      first_key,
-				      NULL,
-				      kv);
+	ret = asc_result_add_hint_va (result, NULL, component_id, tag, first_key, NULL, kv);
 	return ret;
 }
 
@@ -762,23 +753,11 @@ asc_result_add_hint (AscResult *result, AsComponent *cpt, const gchar *tag, cons
 
 	if (cpt != NULL) {
 		va_start (args, key1);
-		ret = asc_result_add_hint_va (result,
-					cpt,
-					NULL,
-					tag,
-					key1,
-					&args,
-					NULL);
+		ret = asc_result_add_hint_va (result, cpt, NULL, tag, key1, &args, NULL);
 		va_end (args);
 	} else {
 		va_start (args, key1);
-		ret = asc_result_add_hint_va (result,
-					NULL,
-					"general",
-					tag,
-					key1,
-					&args,
-					NULL);
+		ret = asc_result_add_hint_va (result, NULL, "general", tag, key1, &args, NULL);
 		va_end (args);
 	}
 
@@ -800,21 +779,9 @@ gboolean
 asc_result_add_hint_simple (AscResult *result, AsComponent *cpt, const gchar *tag)
 {
 	if (cpt != NULL) {
-		return asc_result_add_hint_va (result,
-						cpt,
-						NULL,
-						tag,
-						NULL,
-						NULL,
-						NULL);
+		return asc_result_add_hint_va (result, cpt, NULL, tag, NULL, NULL, NULL);
 	} else {
-		return asc_result_add_hint_va (result,
-						NULL,
-						"general",
-						tag,
-						NULL,
-						NULL,
-						NULL);
+		return asc_result_add_hint_va (result, NULL, "general", tag, NULL, NULL, NULL);
 	}
 }
 
@@ -839,21 +806,9 @@ asc_result_add_hint_v (AscResult *result, AsComponent *cpt, const gchar *tag, gc
 		first_key = kv[0];
 
 	if (cpt != NULL) {
-		ret = asc_result_add_hint_va (result,
-					cpt,
-					NULL,
-					tag,
-					first_key,
-					NULL,
-					kv);
+		ret = asc_result_add_hint_va (result, cpt, NULL, tag, first_key, NULL, kv);
 	} else {
-		ret = asc_result_add_hint_va (result,
-						NULL,
-						"general",
-						tag,
-						first_key,
-						NULL,
-						kv);
+		ret = asc_result_add_hint_va (result, NULL, "general", tag, first_key, NULL, kv);
 	}
 
 	return ret;
@@ -864,7 +819,7 @@ asc_result_add_hint_v (AscResult *result, AsComponent *cpt, const gchar *tag, gc
  *
  * Creates a new #AscResult.
  **/
-AscResult*
+AscResult *
 asc_result_new (void)
 {
 	AscResult *result;

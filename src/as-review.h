@@ -22,7 +22,7 @@
 
 #pragma once
 
-#if !defined (__APPSTREAM_H_INSIDE__) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H_INSIDE__) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -33,18 +33,17 @@ G_BEGIN_DECLS
 #define AS_TYPE_REVIEW (as_review_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsReview, as_review, AS, REVIEW, GObject)
 
-struct _AsReviewClass
-{
-	GObjectClass		parent_class;
+struct _AsReviewClass {
+	GObjectClass parent_class;
 	/*< private >*/
-	void (*_as_reserved1)	(void);
-	void (*_as_reserved2)	(void);
-	void (*_as_reserved3)	(void);
-	void (*_as_reserved4)	(void);
-	void (*_as_reserved5)	(void);
-	void (*_as_reserved6)	(void);
-	void (*_as_reserved7)	(void);
-	void (*_as_reserved8)	(void);
+	void (*_as_reserved1) (void);
+	void (*_as_reserved2) (void);
+	void (*_as_reserved3) (void);
+	void (*_as_reserved4) (void);
+	void (*_as_reserved5) (void);
+	void (*_as_reserved6) (void);
+	void (*_as_reserved7) (void);
+	void (*_as_reserved8) (void);
 };
 
 /**
@@ -58,68 +57,52 @@ struct _AsReviewClass
  * Since: 0.14.0
  **/
 typedef enum {
-	AS_REVIEW_FLAG_NONE	= 0,
-	AS_REVIEW_FLAG_SELF	= 1 << 0,
-	AS_REVIEW_FLAG_VOTED	= 1 << 1,
+	AS_REVIEW_FLAG_NONE  = 0,
+	AS_REVIEW_FLAG_SELF  = 1 << 0,
+	AS_REVIEW_FLAG_VOTED = 1 << 1,
 	/*< private >*/
 	AS_REVIEW_FLAG_LAST
 } AsReviewFlags;
 
-AsReview	*as_review_new			(void);
+AsReview     *as_review_new (void);
 
-gint		 as_review_get_priority (AsReview *review);
-void		 as_review_set_priority (AsReview *review,
-					 gint priority);
+gint	      as_review_get_priority (AsReview *review);
+void	      as_review_set_priority (AsReview *review, gint priority);
 
-const gchar	*as_review_get_id (AsReview *review);
-void		 as_review_set_id (AsReview *review,
-				   const gchar *id);
+const gchar  *as_review_get_id (AsReview *review);
+void	      as_review_set_id (AsReview *review, const gchar *id);
 
-const gchar	*as_review_get_summary (AsReview *review);
-void		 as_review_set_summary (AsReview *review,
-					const gchar *summary);
+const gchar  *as_review_get_summary (AsReview *review);
+void	      as_review_set_summary (AsReview *review, const gchar *summary);
 
-const gchar	*as_review_get_description (AsReview *review);
-void		 as_review_set_description (AsReview *review,
-					    const gchar *description);
+const gchar  *as_review_get_description (AsReview *review);
+void	      as_review_set_description (AsReview *review, const gchar *description);
 
-const gchar	*as_review_get_locale (AsReview	*review);
-void		 as_review_set_locale (AsReview	*review,
-					const gchar *locale);
+const gchar  *as_review_get_locale (AsReview *review);
+void	      as_review_set_locale (AsReview *review, const gchar *locale);
 
-gint		 as_review_get_rating (AsReview *review);
-void		 as_review_set_rating (AsReview *review,
-					gint rating);
+gint	      as_review_get_rating (AsReview *review);
+void	      as_review_set_rating (AsReview *review, gint rating);
 
-const gchar	*as_review_get_version (AsReview *review);
-void		 as_review_set_version (AsReview *review,
-					const gchar *version);
+const gchar  *as_review_get_version (AsReview *review);
+void	      as_review_set_version (AsReview *review, const gchar *version);
 
-const gchar	*as_review_get_reviewer_id (AsReview *review);
-void		 as_review_set_reviewer_id (AsReview *review,
-					    const gchar *reviewer_id);
+const gchar  *as_review_get_reviewer_id (AsReview *review);
+void	      as_review_set_reviewer_id (AsReview *review, const gchar *reviewer_id);
 
-const gchar	*as_review_get_reviewer_name (AsReview *review);
-void		 as_review_set_reviewer_name (AsReview *review,
-					      const gchar *reviewer_name);
+const gchar  *as_review_get_reviewer_name (AsReview *review);
+void	      as_review_set_reviewer_name (AsReview *review, const gchar *reviewer_name);
 
-GDateTime	*as_review_get_date (AsReview *review);
-void		 as_review_set_date (AsReview *review,
-				     GDateTime *date);
+GDateTime    *as_review_get_date (AsReview *review);
+void	      as_review_set_date (AsReview *review, GDateTime *date);
 
-AsReviewFlags	 as_review_get_flags (AsReview *review);
-void		 as_review_set_flags (AsReview *review,
-				      AsReviewFlags flags);
-void		 as_review_add_flags (AsReview *review,
-				      AsReviewFlags flags);
+AsReviewFlags as_review_get_flags (AsReview *review);
+void	      as_review_set_flags (AsReview *review, AsReviewFlags flags);
+void	      as_review_add_flags (AsReview *review, AsReviewFlags flags);
 
-const gchar	*as_review_get_metadata_item (AsReview *review,
-					      const gchar *key);
-void		 as_review_add_metadata (AsReview *review,
-					 const gchar *key,
-					 const gchar *value);
+const gchar  *as_review_get_metadata_item (AsReview *review, const gchar *key);
+void	      as_review_add_metadata (AsReview *review, const gchar *key, const gchar *value);
 
-gboolean	 as_review_equal (AsReview *review1,
-				  AsReview *review2);
+gboolean      as_review_equal (AsReview *review1, AsReview *review2);
 
 G_END_DECLS

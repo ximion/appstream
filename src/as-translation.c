@@ -38,11 +38,10 @@
  * See also: #AsComponent
  */
 
-typedef struct
-{
-	AsTranslationKind	kind;
-	GRefString		*id;
-	GRefString		*source_locale;
+typedef struct {
+	AsTranslationKind kind;
+	GRefString *id;
+	GRefString *source_locale;
 } AsTranslationPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsTranslation, as_translation, G_TYPE_OBJECT)
@@ -56,7 +55,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsTranslation, as_translation, G_TYPE_OBJECT)
  *
  * Returns: string version of @kind
  **/
-const gchar*
+const gchar *
 as_translation_kind_to_string (AsTranslationKind kind)
 {
 	if (kind == AS_TRANSLATION_KIND_GETTEXT)
@@ -154,7 +153,7 @@ as_translation_set_kind (AsTranslation *tr, AsTranslationKind kind)
  *
  * The ID (e.g. Gettext translation domain) of this translation.
  */
-const gchar*
+const gchar *
 as_translation_get_id (AsTranslation *tr)
 {
 	AsTranslationPrivate *priv = GET_PRIVATE (tr);
@@ -185,7 +184,7 @@ as_translation_set_id (AsTranslation *tr, const gchar *id)
  * Returns: (not nullable): The locale of the source strings for this component.
  * Since: 0.14.6
  */
-const gchar*
+const gchar *
 as_translation_get_source_locale (AsTranslation *tr)
 {
 	AsTranslationPrivate *priv = GET_PRIVATE (tr);
@@ -271,7 +270,7 @@ as_translation_to_xml_node (AsTranslation *tr, AsContext *ctx, xmlNode *root)
  *
  * Returns: (transfer full): a #AsTranslation
  **/
-AsTranslation*
+AsTranslation *
 as_translation_new (void)
 {
 	AsTranslation *tr;

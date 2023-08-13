@@ -28,17 +28,17 @@
 AS_BEGIN_PRIVATE_DECLS
 
 AS_INTERNAL_VISIBLE
-gboolean	asc_canvas_draw_text_line (AscCanvas *canvas,
-					   AscFont *font,
-					   const gchar *text,
-					   gint border_width,
-					   GError **error);
+gboolean asc_canvas_draw_text_line (AscCanvas	*canvas,
+				    AscFont	*font,
+				    const gchar *text,
+				    gint	 border_width,
+				    GError     **error);
 AS_INTERNAL_VISIBLE
-gboolean	asc_canvas_draw_text (AscCanvas *canvas,
-					AscFont *font,
-					const gchar *text,
-					gint border_width,
-					gint line_pad,
-					GError **error);
+gboolean asc_canvas_draw_text (AscCanvas   *canvas,
+			       AscFont	   *font,
+			       const gchar *text,
+			       gint	    border_width,
+			       gint	    line_pad,
+			       GError	  **error);
 
 AS_END_PRIVATE_DECLS

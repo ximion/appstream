@@ -97,8 +97,7 @@ as_component_sort_values (AsComponent *cpt)
 	for (i = 0; i < provideds->len; i++) {
 		AsProvided *prov = AS_PROVIDED (g_ptr_array_index (provideds, i));
 
-		g_ptr_array_sort (as_provided_get_items (prov),
-				  as_sort_strings_cb);
+		g_ptr_array_sort (as_provided_get_items (prov), as_sort_strings_cb);
 	}
 }
 
@@ -113,8 +112,7 @@ as_sort_components_cb (gconstpointer a, gconstpointer b)
 	AsComponent *cpt1 = *((AsComponent **) a);
 	AsComponent *cpt2 = *((AsComponent **) b);
 
-	return g_strcmp0 (as_component_get_id (cpt1),
-			  as_component_get_id (cpt2));
+	return g_strcmp0 (as_component_get_id (cpt1), as_component_get_id (cpt2));
 }
 
 /**
@@ -129,7 +127,7 @@ as_sort_components (GPtrArray *cpts)
 /**
  * as_gbytes_from_literal:
  */
-GBytes*
+GBytes *
 as_gbytes_from_literal (const gchar *string)
 {
 	return g_bytes_new_static (string, strlen (string));
@@ -138,7 +136,7 @@ as_gbytes_from_literal (const gchar *string)
 /**
  * as_ptr_array_strjoin:
  */
-gchar*
+gchar *
 as_ptr_array_strjoin (GPtrArray *array, const gchar *sep)
 {
 	gsize sep_len;
@@ -146,8 +144,9 @@ as_ptr_array_strjoin (GPtrArray *array, const gchar *sep)
 
 	sep_len = strlen (sep);
 	for (guint i = 0; i < array->len; ++i) {
-		g_string_append_printf (str, "%s%s",
-					(const gchar*) g_ptr_array_index (array, i),
+		g_string_append_printf (str,
+					"%s%s",
+					(const gchar *) g_ptr_array_index (array, i),
 					sep);
 	}
 	if (str->len > sep_len)

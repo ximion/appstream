@@ -31,13 +31,11 @@ AS_BEGIN_PRIVATE_DECLS
 extern GMutex fontconfig_mutex;
 
 AS_INTERNAL_VISIBLE
-FT_Encoding	asc_font_get_charset (AscFont *font);
+FT_Encoding asc_font_get_charset (AscFont *font);
 AS_INTERNAL_VISIBLE
-FT_Face		asc_font_get_ftface (AscFont *font);
+FT_Face asc_font_get_ftface (AscFont *font);
 
 AS_INTERNAL_VISIBLE
-const gchar	*asc_font_find_pangram (AscFont *font,
-					const gchar *lang,
-					const gchar *rand_id);
+const gchar *asc_font_find_pangram (AscFont *font, const gchar *lang, const gchar *rand_id);
 
 AS_END_PRIVATE_DECLS

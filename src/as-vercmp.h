@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 #pragma once
@@ -36,22 +36,18 @@ G_BEGIN_DECLS
  * The flags used when matching unique IDs.
  **/
 typedef enum {
-	AS_VERCMP_FLAG_NONE		= 0,
-	AS_VERCMP_FLAG_IGNORE_EPOCH	= 1 << 0,
+	AS_VERCMP_FLAG_NONE	    = 0,
+	AS_VERCMP_FLAG_IGNORE_EPOCH = 1 << 0,
 	/*< private >*/
 	AS_VERCMP_FLAG_LAST
 } AsVercmpFlags;
 
+gint	 as_vercmp (const gchar *a, const gchar *b, AsVercmpFlags flags);
+gint	 as_vercmp_simple (const gchar *a, const gchar *b);
 
-gint			as_vercmp (const gchar* a,
-				   const gchar *b,
-				   AsVercmpFlags flags);
-gint			as_vercmp_simple (const gchar* a,
-					  const gchar *b);
-
-gboolean		as_vercmp_test_match (const gchar *ver1,
-						AsRelationCompare compare,
-						const gchar *ver2,
-						AsVercmpFlags flags);
+gboolean as_vercmp_test_match (const gchar	*ver1,
+			       AsRelationCompare compare,
+			       const gchar	*ver2,
+			       AsVercmpFlags	 flags);
 
 G_END_DECLS

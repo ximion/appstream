@@ -47,62 +47,46 @@ typedef enum {
 	AS_ORIGIN_KIND_LAST
 } AsOriginKind;
 
-typedef guint16		AsTokenType; /* big enough for both bitshifts */
+typedef guint16 AsTokenType; /* big enough for both bitshifts */
 
-void			as_component_complete (AsComponent *cpt,
-						gchar *scr_base_url,
-						GPtrArray *icon_paths);
+void as_component_complete (AsComponent *cpt, gchar *scr_base_url, GPtrArray *icon_paths);
 
-gint			as_component_releases_compare (gconstpointer a,
-						       gconstpointer b);
+gint as_component_releases_compare (gconstpointer a, gconstpointer b);
 
 AS_INTERNAL_VISIBLE
-GHashTable		*as_component_get_languages_table (AsComponent *cpt);
+GHashTable  *as_component_get_languages_table (AsComponent *cpt);
 
-void			as_component_set_bundles_array (AsComponent *cpt,
-							GPtrArray *bundles);
+void	     as_component_set_bundles_array (AsComponent *cpt, GPtrArray *bundles);
 
-gboolean		as_component_has_package (AsComponent *cpt);
-gboolean		as_component_has_install_candidate (AsComponent *cpt);
+gboolean     as_component_has_package (AsComponent *cpt);
+gboolean     as_component_has_install_candidate (AsComponent *cpt);
 
-const gchar		*as_component_get_architecture (AsComponent *cpt);
-void			 as_component_set_architecture (AsComponent *cpt,
-							const gchar *arch);
+const gchar *as_component_get_architecture (AsComponent *cpt);
+void	     as_component_set_architecture (AsComponent *cpt, const gchar *arch);
 
-GPtrArray		*as_component_generate_tokens_for (AsComponent *cpt,
-							   AsSearchTokenMatch token_kind);
+GPtrArray   *as_component_generate_tokens_for (AsComponent *cpt, AsSearchTokenMatch token_kind);
 
-void			as_component_set_ignored (AsComponent *cpt,
-						  gboolean ignore);
+void	     as_component_set_ignored (AsComponent *cpt, gboolean ignore);
 
-AsOriginKind		as_component_get_origin_kind (AsComponent *cpt);
-void			as_component_set_origin_kind (AsComponent *cpt,
-							AsOriginKind okind);
+AsOriginKind as_component_get_origin_kind (AsComponent *cpt);
+void	     as_component_set_origin_kind (AsComponent *cpt, AsOriginKind okind);
 
-gboolean		as_component_merge (AsComponent *cpt,
-					    AsComponent *source);
-void			as_component_merge_with_mode (AsComponent *cpt,
-							AsComponent *source,
-							AsMergeKind merge_kind);
+gboolean     as_component_merge (AsComponent *cpt, AsComponent *source);
+void as_component_merge_with_mode (AsComponent *cpt, AsComponent *source, AsMergeKind merge_kind);
 
-void			as_component_set_context (AsComponent *cpt,
-						  AsContext *context);
+void as_component_set_context (AsComponent *cpt, AsContext *context);
 
-gboolean		as_component_load_from_xml (AsComponent *cpt,
-							AsContext *ctx,
-							xmlNode *node,
-							GError **error);
-xmlNode			*as_component_to_xml_node (AsComponent *cpt,
-							AsContext *ctx,
-							xmlNode *root);
+gboolean as_component_load_from_xml (AsComponent *cpt,
+				     AsContext	 *ctx,
+				     xmlNode	 *node,
+				     GError	**error);
+xmlNode *as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root);
 
-gboolean		as_component_load_from_yaml (AsComponent *cpt,
-						     AsContext *ctx,
-						     GNode *root,
-						     GError **error);
-void			as_component_emit_yaml (AsComponent *cpt,
-						AsContext *ctx,
-						yaml_emitter_t *emitter);
+gboolean as_component_load_from_yaml (AsComponent *cpt,
+				      AsContext	  *ctx,
+				      GNode	  *root,
+				      GError	 **error);
+void	 as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitter);
 
 AS_END_PRIVATE_DECLS
 

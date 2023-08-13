@@ -39,7 +39,7 @@
 /**
  * as_xml_get_node_value:
  */
-gchar*
+gchar *
 as_xml_get_node_value (const xmlNode *node)
 {
 	gchar *content = as_xml_get_node_value_raw (node);
@@ -56,7 +56,7 @@ as_xml_get_node_value (const xmlNode *node)
  *
  * Returns: The #GRefString or %NULL if the value did not exist.
  */
-GRefString*
+GRefString *
 as_xml_get_node_value_refstr (const xmlNode *node)
 {
 	g_autofree gchar *content = as_xml_get_node_value_raw (node);
@@ -74,7 +74,7 @@ as_xml_get_node_value_refstr (const xmlNode *node)
  *
  * Returns: The #GRefString or %NULL if the property did not exist.
  */
-GRefString*
+GRefString *
 as_xml_get_prop_value_refstr (const xmlNode *node, const gchar *prop_name)
 {
 	g_autofree gchar *tmp = as_xml_get_prop_value (node, prop_name);
@@ -115,12 +115,12 @@ as_xml_get_prop_value_as_int (const xmlNode *node, const gchar *prop_name)
  * Returns: The locale of a node, if the node should be considered for inclusion.
  * %NULL if the node should be ignored due to a not-matching locale.
  */
-gchar*
+gchar *
 as_xml_get_node_locale_match (AsContext *ctx, xmlNode *node)
 {
 	gchar *lang;
 
-	lang = (gchar*) xmlGetProp (node, (xmlChar*) "lang");
+	lang = (gchar *) xmlGetProp (node, (xmlChar *) "lang");
 
 	if (lang == NULL) {
 		lang = g_strdup ("C");
@@ -164,7 +164,7 @@ as_xml_dump_node (xmlNode *node, gchar **content, gssize *len)
 		if (len)
 			*len = l;
 
-		*content = g_strndup ((const gchar*) xmlOutputBufferGetContent (obuf), l);
+		*content = g_strndup ((const gchar *) xmlOutputBufferGetContent (obuf), l);
 
 		xmlOutputBufferClose (obuf);
 		return TRUE;
@@ -177,7 +177,7 @@ as_xml_dump_node (xmlNode *node, gchar **content, gssize *len)
 /**
  * as_xml_dump_node_content_raw:
  */
-gchar*
+gchar *
 as_xml_dump_node_content_raw (xmlNode *node)
 {
 	g_autofree gchar *content = NULL;
@@ -206,7 +206,7 @@ as_xml_dump_node_content_raw (xmlNode *node)
 /**
  * as_xml_dump_node_children:
  */
-gchar*
+gchar *
 as_xml_dump_node_children (xmlNode *node)
 {
 	GString *str = NULL;
@@ -235,7 +235,7 @@ as_xml_dump_node_children (xmlNode *node)
 /**
  * as_xml_dump_desc_para_node_content_raw:
  */
-static gchar*
+static gchar *
 as_xml_dump_desc_para_node_content_raw (xmlNode *node)
 {
 	gboolean is_valid_markup = TRUE;
@@ -246,7 +246,7 @@ as_xml_dump_desc_para_node_content_raw (xmlNode *node)
 
 	/* perform a sanity check before dumping the node contents */
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
-		const gchar *node_name = (const gchar*) iter->name;
+		const gchar *node_name = (const gchar *) iter->name;
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
@@ -285,7 +285,7 @@ as_xml_add_children_values_to_array (xmlNode *node, const gchar *element_name, G
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 ((const gchar*) iter->name, element_name) == 0) {
+		if (g_strcmp0 ((const gchar *) iter->name, element_name) == 0) {
 			gchar *content = as_xml_get_node_value (iter);
 			/* transfer ownership of content to array */
 			if (content != NULL)
@@ -297,22 +297,20 @@ as_xml_add_children_values_to_array (xmlNode *node, const gchar *element_name, G
 /**
  * as_xml_get_children_as_string_list:
  */
-GPtrArray*
+GPtrArray *
 as_xml_get_children_as_string_list (xmlNode *node, const gchar *element_name)
 {
 	GPtrArray *list;
 
 	list = g_ptr_array_new_with_free_func (g_free);
-	as_xml_add_children_values_to_array (node,
-					     element_name,
-					     list);
+	as_xml_add_children_values_to_array (node, element_name, list);
 	return list;
 }
 
 /**
  * as_xml_get_children_as_strv:
  */
-gchar**
+gchar **
 as_xml_get_children_as_strv (xmlNode *node, const gchar *element_name)
 {
 	g_autoptr(GPtrArray) list = NULL;
@@ -323,20 +321,19 @@ as_xml_get_children_as_strv (xmlNode *node, const gchar *element_name)
 	return res;
 }
 
-typedef struct
-{
-	xmlDoc		*doc;
-	xmlNode 	*node;
-	AsTag		tag_id;
-	gchar		*locale;
-	gboolean	localized;
-	xmlNode		*d_node;
+typedef struct {
+	xmlDoc *doc;
+	xmlNode *node;
+	AsTag tag_id;
+	gchar *locale;
+	gboolean localized;
+	xmlNode *d_node;
 } AsXMLMarkupParseHelper;
 
 /**
  * as_xml_markup_parse_helper_new: (skip)
  **/
-static AsXMLMarkupParseHelper*
+static AsXMLMarkupParseHelper *
 as_xml_markup_parse_helper_new (const gchar *markup, const gchar *locale)
 {
 	g_autofree gchar *xmldata = NULL;
@@ -344,10 +341,11 @@ as_xml_markup_parse_helper_new (const gchar *markup, const gchar *locale)
 
 	helper->locale = g_strdup (locale);
 	xmldata = g_strconcat ("<root>", markup, "</root>", NULL);
-	helper->doc = xmlReadMemory (xmldata, strlen (xmldata),
-					NULL,
-					"utf-8",
-					XML_PARSE_NOBLANKS | XML_PARSE_NONET);
+	helper->doc = xmlReadMemory (xmldata,
+				     strlen (xmldata),
+				     NULL,
+				     "utf-8",
+				     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
 	if (helper->doc == NULL)
 		return NULL;
 
@@ -356,7 +354,7 @@ as_xml_markup_parse_helper_new (const gchar *markup, const gchar *locale)
 	if (helper->node != NULL)
 		helper->node = helper->node->children;
 	if (helper->node != NULL)
-		helper->tag_id = as_xml_tag_from_string ((const gchar*) helper->node->name);
+		helper->tag_id = as_xml_tag_from_string ((const gchar *) helper->node->name);
 
 	helper->localized = (locale != NULL) && (g_strcmp0 (locale, "C") != 0);
 
@@ -374,7 +372,7 @@ as_xml_markup_parse_helper_free (AsXMLMarkupParseHelper *helper)
 	g_free (helper->locale);
 	g_slice_free (AsXMLMarkupParseHelper, helper);
 }
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(AsXMLMarkupParseHelper, as_xml_markup_parse_helper_free)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsXMLMarkupParseHelper, as_xml_markup_parse_helper_free)
 
 /**
  * as_xml_markup_parse_helper_next: (skip)
@@ -409,7 +407,7 @@ as_xml_markup_parse_helper_next (AsXMLMarkupParseHelper *helper)
 		return FALSE;
 	}
 
-	helper->tag_id = as_xml_tag_from_string ((const gchar*) helper->node->name);
+	helper->tag_id = as_xml_tag_from_string ((const gchar *) helper->node->name);
 
 	return TRUE;
 }
@@ -417,16 +415,16 @@ as_xml_markup_parse_helper_next (AsXMLMarkupParseHelper *helper)
 /**
  * as_xml_markup_parse_helper_export_node: (skip)
  **/
-static xmlNode*
-as_xml_markup_parse_helper_export_node (AsXMLMarkupParseHelper *helper, xmlNode *parent, gboolean localized)
+static xmlNode *
+as_xml_markup_parse_helper_export_node (AsXMLMarkupParseHelper *helper,
+					xmlNode *parent,
+					gboolean localized)
 {
 	if ((helper->tag_id == AS_TAG_P) || (helper->tag_id == AS_TAG_LI)) {
 		/* add node and subnodes */
 		xmlNode *cn = xmlAddChild (parent, xmlCopyNode (helper->node, TRUE));
 		if (helper->localized && localized) {
-			xmlNewProp (cn,
-				    (xmlChar*) "xml:lang",
-				    (xmlChar*) helper->locale);
+			xmlNewProp (cn, (xmlChar *) "xml:lang", (xmlChar *) helper->locale);
 		}
 
 		return cn;
@@ -439,8 +437,7 @@ as_xml_markup_parse_helper_export_node (AsXMLMarkupParseHelper *helper, xmlNode 
 	return NULL;
 }
 
-typedef struct
-{
+typedef struct {
 	guint elem_count;
 	GString *data;
 } AsXMLMetaInfoDescParseHelper;
@@ -448,7 +445,7 @@ typedef struct
 /**
  * as_xml_metainfo_desc_parse_helper_new: (skip)
  **/
-static AsXMLMetaInfoDescParseHelper*
+static AsXMLMetaInfoDescParseHelper *
 as_xml_metainfo_desc_parse_helper_new (void)
 {
 	AsXMLMetaInfoDescParseHelper *helper = g_slice_new0 (AsXMLMetaInfoDescParseHelper);
@@ -460,7 +457,7 @@ as_xml_metainfo_desc_parse_helper_new (void)
 /**
  * as_xml_metainfo_desc_parse_helper_free: (skip)
  **/
-static gchar*
+static gchar *
 as_xml_metainfo_desc_parse_helper_free (AsXMLMetaInfoDescParseHelper *helper)
 {
 	gchar *data = g_string_free (helper->data, FALSE);
@@ -481,10 +478,13 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 	AsXMLMetaInfoDescParseHelper *phelper;
 	guint untranslated_elem_count = 0;
 
-	tmp_desc = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify) g_ref_string_release, NULL);
+	tmp_desc = g_hash_table_new_full (g_str_hash,
+					  g_str_equal,
+					  (GDestroyNotify) g_ref_string_release,
+					  NULL);
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		AsTag tag_id;
-		const gchar *node_name = (const gchar*) iter->name;
+		const gchar *node_name = (const gchar *) iter->name;
 
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
@@ -522,14 +522,15 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 			/* append listing node tag to every locale string */
 			g_hash_table_iter_init (&htiter, tmp_desc);
 			while (g_hash_table_iter_next (&htiter, NULL, &hvalue)) {
-				GString *hstr = ((AsXMLMetaInfoDescParseHelper*) hvalue)->data;
+				GString *hstr = ((AsXMLMetaInfoDescParseHelper *) hvalue)->data;
 				g_string_append_printf (hstr, "<%s>\n", node_name);
 			}
 
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				g_autofree gchar *lang = NULL;
 				g_autofree gchar *content = NULL;
-				AsTag iter2_tag_id = as_xml_tag_from_string ((const gchar*) iter2->name);
+				AsTag iter2_tag_id = as_xml_tag_from_string (
+				    (const gchar *) iter2->name);
 
 				if (iter2->type != XML_ELEMENT_NODE)
 					continue;
@@ -552,10 +553,11 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 
 				content = as_xml_dump_desc_para_node_content_raw (iter2);
 				if (content != NULL) {
-					g_string_append_printf (phelper->data, "  <%s>%s</%s>\n",
-								(gchar*) iter2->name,
+					g_string_append_printf (phelper->data,
+								"  <%s>%s</%s>\n",
+								(gchar *) iter2->name,
 								content,
-								(gchar*) iter2->name);
+								(gchar *) iter2->name);
 					phelper->elem_count += 1;
 				}
 			}
@@ -563,7 +565,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 			/* close listing tags */
 			g_hash_table_iter_init (&htiter, tmp_desc);
 			while (g_hash_table_iter_next (&htiter, NULL, &hvalue)) {
-				GString *hstr = ((AsXMLMetaInfoDescParseHelper*) hvalue)->data;
+				GString *hstr = ((AsXMLMetaInfoDescParseHelper *) hvalue)->data;
 				g_string_append_printf (hstr, "</%s>\n", node_name);
 			}
 		}
@@ -578,7 +580,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 	while (g_hash_table_iter_next (&res_iter, &res_key, &res_value)) {
 		g_autofree gchar *text = NULL;
 		guint elem_count;
-		phelper = (AsXMLMetaInfoDescParseHelper*) res_value;
+		phelper = (AsXMLMetaInfoDescParseHelper *) res_value;
 
 		elem_count = phelper->elem_count;
 		text = as_xml_metainfo_desc_parse_helper_free (phelper);
@@ -604,7 +606,9 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
  * Add the description markup for AppStream catalog XML to the tree.
  */
 static gboolean
-as_xml_add_description_catalog_mode_helper (xmlNode *parent, const gchar *description_markup, const gchar *lang)
+as_xml_add_description_catalog_mode_helper (xmlNode *parent,
+					    const gchar *description_markup,
+					    const gchar *lang)
 {
 	xmlNode *dnode;
 	xmlNode *cnode;
@@ -621,11 +625,9 @@ as_xml_add_description_catalog_mode_helper (xmlNode *parent, const gchar *descri
 	if (helper == NULL)
 		return FALSE;
 
-	dnode = xmlNewChild (parent, NULL, (xmlChar*) "description", NULL);
+	dnode = xmlNewChild (parent, NULL, (xmlChar *) "description", NULL);
 	if (helper->localized) {
-		xmlNewProp (dnode,
-				(xmlChar*) "xml:lang",
-				(xmlChar*) lang);
+		xmlNewProp (dnode, (xmlChar *) "xml:lang", (xmlChar *) lang);
 	}
 	cnode = dnode;
 
@@ -653,7 +655,10 @@ as_xml_add_description_catalog_mode_helper (xmlNode *parent, const gchar *descri
  * MetaInfo description blocks as untranslatable.
  */
 void
-as_xml_add_description_node (AsContext *ctx, xmlNode *root, GHashTable *desc_table, gboolean mi_translatable)
+as_xml_add_description_node (AsContext *ctx,
+			     xmlNode *root,
+			     GHashTable *desc_table,
+			     gboolean mi_translatable)
 {
 	g_autoptr(GList) keys = NULL;
 	keys = g_hash_table_get_keys (desc_table);
@@ -666,10 +671,11 @@ as_xml_add_description_node (AsContext *ctx, xmlNode *root, GHashTable *desc_tab
 		AsXMLMarkupParseHelper *c_helper;
 		xmlNode *dnode = NULL;
 		xmlNode *cnode = NULL;
-		g_autoptr(GPtrArray) markup_nodes = g_ptr_array_new_with_free_func ((GDestroyNotify) as_xml_markup_parse_helper_free);
+		g_autoptr(GPtrArray) markup_nodes = g_ptr_array_new_with_free_func (
+		    (GDestroyNotify) as_xml_markup_parse_helper_free);
 
 		for (GList *link = keys; link != NULL; link = link->next) {
-			const gchar *locale = (const gchar*) link->data;
+			const gchar *locale = (const gchar *) link->data;
 			const gchar *desc_markup = g_hash_table_lookup (desc_table, locale);
 			AsXMLMarkupParseHelper *helper;
 
@@ -695,14 +701,16 @@ as_xml_add_description_node (AsContext *ctx, xmlNode *root, GHashTable *desc_tab
 		 * in which case we just take the first localization */
 		c_helper = (AsXMLMarkupParseHelper *) g_ptr_array_index (markup_nodes, 0);
 
-		dnode = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
+		dnode = xmlNewChild (root, NULL, (xmlChar *) "description", NULL);
 		if (!mi_translatable)
 			as_xml_add_text_prop (dnode, "translate", "no");
 
 		cnode = dnode;
 		do {
 			if ((c_helper->tag_id == AS_TAG_UL) || (c_helper->tag_id == AS_TAG_OL)) {
-				cnode = as_xml_markup_parse_helper_export_node (c_helper, dnode, TRUE);
+				cnode = as_xml_markup_parse_helper_export_node (c_helper,
+										dnode,
+										TRUE);
 			} else {
 				if (c_helper->tag_id != AS_TAG_LI)
 					cnode = dnode;
@@ -711,13 +719,16 @@ as_xml_add_description_node (AsContext *ctx, xmlNode *root, GHashTable *desc_tab
 			}
 
 			for (guint i = 1; i < markup_nodes->len; ++i) {
-				AsXMLMarkupParseHelper *helper = g_ptr_array_index (markup_nodes, i);
+				AsXMLMarkupParseHelper *helper = g_ptr_array_index (markup_nodes,
+										    i);
 				if (helper->node == NULL)
 					continue;
 				if (c_helper->tag_id != helper->tag_id)
 					continue;
 				if ((helper->tag_id != AS_TAG_UL) && (helper->tag_id != AS_TAG_OL))
-					as_xml_markup_parse_helper_export_node (helper, cnode, TRUE);
+					as_xml_markup_parse_helper_export_node (helper,
+										cnode,
+										TRUE);
 				as_xml_markup_parse_helper_next (helper);
 			}
 		} while (as_xml_markup_parse_helper_next (c_helper));
@@ -730,20 +741,25 @@ as_xml_add_description_node (AsContext *ctx, xmlNode *root, GHashTable *desc_tab
 			if (helper->node == NULL)
 				continue;
 			do {
-				if ((helper->tag_id == AS_TAG_UL) || (helper->tag_id == AS_TAG_OL)) {
-					cnode = as_xml_markup_parse_helper_export_node (helper, dnode, TRUE);
+				if ((helper->tag_id == AS_TAG_UL) ||
+				    (helper->tag_id == AS_TAG_OL)) {
+					cnode = as_xml_markup_parse_helper_export_node (helper,
+											dnode,
+											TRUE);
 				} else {
 					if (helper->tag_id != AS_TAG_LI)
 						cnode = dnode;
 
-					as_xml_markup_parse_helper_export_node (helper, cnode, TRUE);
+					as_xml_markup_parse_helper_export_node (helper,
+										cnode,
+										TRUE);
 				}
 			} while (as_xml_markup_parse_helper_next (helper));
 		}
 	} else {
 		/* we have a catalog XML file, so write in that format (which is much faster and easier to do) */
 		for (GList *link = keys; link != NULL; link = link->next) {
-			const gchar *locale = (const gchar*) link->data;
+			const gchar *locale = (const gchar *) link->data;
 			const gchar *desc_markup = g_hash_table_lookup (desc_table, locale);
 
 			if (as_is_cruft_locale (locale))
@@ -762,7 +778,7 @@ as_xml_add_description_node (AsContext *ctx, xmlNode *root, GHashTable *desc_tab
  *
  * Returns: The new xmlNode, or %NULL if no node was appended.
  */
-xmlNode*
+xmlNode *
 as_xml_add_description_node_raw (xmlNode *root, const gchar *description)
 {
 	xmlNode *dnode;
@@ -776,7 +792,7 @@ as_xml_add_description_node_raw (xmlNode *root, const gchar *description)
 	if (helper == NULL)
 		return NULL;
 
-	dnode = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
+	dnode = xmlNewChild (root, NULL, (xmlChar *) "description", NULL);
 	if (helper->node == NULL)
 		return NULL;
 	cnode = dnode;
@@ -809,8 +825,8 @@ as_xml_add_localized_text_node (xmlNode *root, const gchar *node_name, GHashTabl
 	keys = g_list_sort (keys, (GCompareFunc) g_ascii_strcasecmp);
 	for (GList *link = keys; link != NULL; link = link->next) {
 		xmlNode *cnode;
-		const gchar *locale = (const gchar*) link->data;
-		const gchar *str = (const gchar*) g_hash_table_lookup (value_table, locale);
+		const gchar *locale = (const gchar *) link->data;
+		const gchar *str = (const gchar *) g_hash_table_lookup (value_table, locale);
 
 		if (as_is_empty (str))
 			continue;
@@ -819,11 +835,9 @@ as_xml_add_localized_text_node (xmlNode *root, const gchar *node_name, GHashTabl
 		if (as_is_cruft_locale (locale))
 			continue;
 
-		cnode = xmlNewTextChild (root, NULL, (xmlChar*) node_name, (xmlChar*) str);
+		cnode = xmlNewTextChild (root, NULL, (xmlChar *) node_name, (xmlChar *) str);
 		if (g_strcmp0 (locale, "C") != 0) {
-			xmlNewProp (cnode,
-					(xmlChar*) "xml:lang",
-					(xmlChar*) locale);
+			xmlNewProp (cnode, (xmlChar *) "xml:lang", (xmlChar *) locale);
 		}
 	}
 }
@@ -833,7 +847,7 @@ as_xml_add_localized_text_node (xmlNode *root, const gchar *node_name, GHashTabl
  *
  * Add node with a list of children containing the strv contents.
  */
-xmlNode*
+xmlNode *
 as_xml_add_node_list_strv (xmlNode *root, const gchar *name, const gchar *child_name, gchar **strv)
 {
 	xmlNode *node;
@@ -847,15 +861,9 @@ as_xml_add_node_list_strv (xmlNode *root, const gchar *name, const gchar *child_
 	if (name == NULL)
 		node = root;
 	else
-		node = xmlNewChild (root,
-				    NULL,
-				    (xmlChar*) name,
-				    NULL);
+		node = xmlNewChild (root, NULL, (xmlChar *) name, NULL);
 	for (guint i = 0; strv[i] != NULL; i++) {
-		xmlNewTextChild (node,
-				 NULL,
-				 (xmlChar*) child_name,
-				 (xmlChar*) strv[i]);
+		xmlNewTextChild (node, NULL, (xmlChar *) child_name, (xmlChar *) strv[i]);
 	}
 
 	return node;
@@ -866,7 +874,7 @@ as_xml_add_node_list_strv (xmlNode *root, const gchar *name, const gchar *child_
  *
  * Add node with a list of children containing the string array contents.
  */
-xmlNode*
+xmlNode *
 as_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *child_name, GPtrArray *array)
 {
 	xmlNode *node;
@@ -880,17 +888,11 @@ as_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *child_name,
 	if (name == NULL)
 		node = root;
 	else
-		node = xmlNewChild (root,
-				    NULL,
-				    (xmlChar*) name,
-				    NULL);
+		node = xmlNewChild (root, NULL, (xmlChar *) name, NULL);
 
 	for (guint i = 0; i < array->len; i++) {
-		const xmlChar *value = (const xmlChar*) g_ptr_array_index (array, i);
-		xmlNewTextChild (node,
-				 NULL,
-				 (xmlChar*) child_name,
-				 value);
+		const xmlChar *value = (const xmlChar *) g_ptr_array_index (array, i);
+		xmlNewTextChild (node, NULL, (xmlChar *) child_name, value);
 	}
 
 	return node;
@@ -910,10 +912,10 @@ as_xml_parse_custom_node (xmlNode *node, GHashTable *custom)
 
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
-		if (g_strcmp0 ((gchar*) iter->name, "value") != 0)
+		if (g_strcmp0 ((gchar *) iter->name, "value") != 0)
 			continue;
 
-		key_str = (gchar*) xmlGetProp (iter, (xmlChar*) "key");
+		key_str = (gchar *) xmlGetProp (iter, (xmlChar *) "key");
 		if (key_str == NULL)
 			continue;
 
@@ -938,19 +940,17 @@ as_xml_add_custom_node (xmlNode *root, const gchar *node_name, GHashTable *custo
 	if (g_hash_table_size (custom) == 0)
 		return;
 
-	node = xmlNewChild (root, NULL, (xmlChar*) node_name, NULL);
+	node = xmlNewChild (root, NULL, (xmlChar *) node_name, NULL);
 	keys = g_hash_table_get_keys (custom);
 	keys = g_list_sort (keys, (GCompareFunc) g_ascii_strcasecmp);
 	for (GList *link = keys; link != NULL; link = link->next) {
-		const GRefString *key = (const GRefString*) link->data;
+		const GRefString *key = (const GRefString *) link->data;
 
 		xmlNode *snode = xmlNewTextChild (node,
 						  NULL,
-						  (xmlChar*) "value",
-						  (xmlChar*) g_hash_table_lookup (custom, key));
-		xmlNewProp (snode,
-			    (xmlChar*) "key",
-			    (xmlChar*) key);
+						  (xmlChar *) "value",
+						  (xmlChar *) g_hash_table_lookup (custom, key));
+		xmlNewProp (snode, (xmlChar *) "key", (xmlChar *) key);
 	}
 }
 
@@ -962,13 +962,13 @@ as_xml_add_custom_node (xmlNode *root, const gchar *node_name, GHashTable *custo
  *
  * Add node if value is not empty.
  */
-xmlNode*
+xmlNode *
 as_xml_add_text_node (xmlNode *root, const gchar *name, const gchar *value)
 {
 	if (as_is_empty (value))
 		return NULL;
 
-	return xmlNewTextChild (root, NULL, (xmlChar*) name, (xmlChar*) value);
+	return xmlNewTextChild (root, NULL, (xmlChar *) name, (xmlChar *) value);
 }
 
 /**
@@ -979,13 +979,13 @@ as_xml_add_text_node (xmlNode *root, const gchar *name, const gchar *value)
  *
  * Add property to node if value is not empty.
  */
-xmlAttr*
+xmlAttr *
 as_xml_add_text_prop (xmlNode *node, const gchar *name, const gchar *value)
 {
 	if (as_is_empty (value))
 		return NULL;
 
-	return xmlNewProp (node, (xmlChar*) name, (xmlChar*) value);
+	return xmlNewProp (node, (xmlChar *) name, (xmlChar *) value);
 }
 
 /**
@@ -1005,7 +1005,7 @@ libxml_generic_error (gchar **error_str_ptr, const char *format, ...)
 	error_str = (*error_str_ptr);
 
 	g_mutex_lock (&mutex);
-	str = g_string_new (error_str? error_str : "");
+	str = g_string_new (error_str ? error_str : "");
 
 	va_start (arg_ptr, format);
 	g_string_append_vprintf (str, format, arg_ptr);
@@ -1038,7 +1038,7 @@ as_xml_set_out_of_context_error (gchar **error_msg_ptr)
 /**
  * as_xml_parse_document:
  */
-xmlDoc*
+xmlDoc *
 as_xml_parse_document (const gchar *data, gssize len, GError **error)
 {
 	xmlDoc *doc;
@@ -1054,21 +1054,23 @@ as_xml_parse_document (const gchar *data, gssize len, GError **error)
 		len = strlen (data);
 
 	as_xml_set_out_of_context_error (&error_msg_str);
-	doc = xmlReadMemory (data, len,
+	doc = xmlReadMemory (data,
+			     len,
 			     NULL,
 			     "utf-8",
 			     XML_PARSE_NOBLANKS | XML_PARSE_NONET | XML_PARSE_BIG_LINES);
 	if (doc == NULL) {
 		if (error_msg_str == NULL) {
 			g_set_error (error,
-					AS_METADATA_ERROR,
-					AS_METADATA_ERROR_PARSE,
-					"Could not parse XML data (no details received)");
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_PARSE,
+				     "Could not parse XML data (no details received)");
 		} else {
 			g_set_error (error,
-					AS_METADATA_ERROR,
-					AS_METADATA_ERROR_PARSE,
-					"Could not parse XML data: %s", error_msg_str);
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_PARSE,
+				     "Could not parse XML data: %s",
+				     error_msg_str);
 		}
 		as_xml_set_out_of_context_error (NULL);
 		return NULL;
@@ -1098,7 +1100,7 @@ as_xml_parse_document (const gchar *data, gssize len, GError **error)
  *
  * Returns: XML metadata.
  */
-gchar*
+gchar *
 as_xml_node_free_to_str (xmlNode *root, GError **error)
 {
 	xmlDoc *doc;
@@ -1106,12 +1108,12 @@ as_xml_node_free_to_str (xmlNode *root, GError **error)
 	g_autofree gchar *error_msg_str = NULL;
 
 	as_xml_set_out_of_context_error (&error_msg_str);
-	doc = xmlNewDoc ((xmlChar*) NULL);
+	doc = xmlNewDoc ((xmlChar *) NULL);
 	if (root == NULL)
 		goto out;
 
 	xmlDocSetRootElement (doc, root);
-	xmlDocDumpFormatMemoryEnc (doc, (xmlChar**) (&xmlstr), NULL, "utf-8", TRUE);
+	xmlDocDumpFormatMemoryEnc (doc, (xmlChar **) (&xmlstr), NULL, "utf-8", TRUE);
 
 	if (error_msg_str != NULL) {
 		if (error == NULL) {
@@ -1120,9 +1122,10 @@ as_xml_node_free_to_str (xmlNode *root, GError **error)
 			goto out;
 		} else {
 			g_set_error (error,
-					AS_METADATA_ERROR,
-					AS_METADATA_ERROR_FAILED,
-					"Could not serialize XML document: %s", error_msg_str);
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_FAILED,
+				     "Could not serialize XML document: %s",
+				     error_msg_str);
 			g_free (g_steal_pointer (&xmlstr));
 			goto out;
 		}

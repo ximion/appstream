@@ -34,15 +34,14 @@
 
 #include "as-utils-private.h"
 
-typedef struct
-{
-	AsVideoCodecKind	codec;
-	AsVideoContainerKind 	container;
+typedef struct {
+	AsVideoCodecKind codec;
+	AsVideoContainerKind container;
 
-	gchar		*url;
-	guint		width;
-	guint		height;
-	gchar		*locale;
+	gchar *url;
+	guint width;
+	guint height;
+	gchar *locale;
 } AsVideoPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsVideo, as_video, G_TYPE_OBJECT)
@@ -99,7 +98,7 @@ as_video_codec_kind_from_string (const gchar *str)
  * Returns: string version of @codec
  *
  **/
-const gchar*
+const gchar *
 as_video_codec_kind_to_string (AsVideoCodecKind kind)
 {
 	if (kind == AS_VIDEO_CODEC_KIND_AV1)
@@ -139,7 +138,7 @@ as_video_container_kind_from_string (const gchar *str)
  * Returns: string version of @kind
  *
  **/
-const gchar*
+const gchar *
 as_video_container_kind_to_string (AsVideoContainerKind kind)
 {
 	if (kind == AS_VIDEO_CONTAINER_KIND_MKV)
@@ -220,7 +219,7 @@ as_video_get_container_kind (AsVideo *video)
  * Returns: a web URL
  *
  **/
-const gchar*
+const gchar *
 as_video_get_url (AsVideo *video)
 {
 	AsVideoPrivate *priv = GET_PRIVATE (video);
@@ -312,7 +311,7 @@ as_video_set_height (AsVideo *video, guint height)
  *
  * Returns: Locale string
  **/
-const gchar*
+const gchar *
 as_video_get_locale (AsVideo *video)
 {
 	AsVideoPrivate *priv = GET_PRIVATE (video);
@@ -409,23 +408,27 @@ void
 as_video_to_xml_node (AsVideo *video, AsContext *ctx, xmlNode *root)
 {
 	AsVideoPrivate *priv = GET_PRIVATE (video);
-	xmlNode* n_video = NULL;
+	xmlNode *n_video = NULL;
 
 	n_video = as_xml_add_text_node (root, "video", priv->url);
 
 	if (priv->codec != AS_VIDEO_CODEC_KIND_UNKNOWN)
-		as_xml_add_text_prop (n_video, "codec", as_video_codec_kind_to_string (priv->codec));
+		as_xml_add_text_prop (n_video,
+				      "codec",
+				      as_video_codec_kind_to_string (priv->codec));
 	if (priv->container != AS_VIDEO_CONTAINER_KIND_UNKNOWN)
-		as_xml_add_text_prop (n_video, "container", as_video_container_kind_to_string (priv->container));
+		as_xml_add_text_prop (n_video,
+				      "container",
+				      as_video_container_kind_to_string (priv->container));
 
 	if ((priv->width > 0) && (priv->height > 0)) {
 		gchar *size;
 
-		size = g_strdup_printf("%i", priv->width);
+		size = g_strdup_printf ("%i", priv->width);
 		as_xml_add_text_prop (n_video, "width", size);
 		g_free (size);
 
-		size = g_strdup_printf("%i", priv->height);
+		size = g_strdup_printf ("%i", priv->height);
 		as_xml_add_text_prop (n_video, "height", size);
 		g_free (size);
 	}
@@ -475,7 +478,9 @@ as_video_load_from_yaml (AsVideo *video, AsContext *ctx, GNode *node, GError **e
 			if (as_context_has_media_baseurl (ctx)) {
 				/* handle the media baseurl */
 				g_free (priv->url);
-				priv->url = g_build_filename (as_context_get_media_baseurl (ctx), value, NULL);
+				priv->url = g_build_filename (as_context_get_media_baseurl (ctx),
+							      value,
+							      NULL);
 			} else {
 				/* no baseurl, we can just set the value as URL */
 				as_video_set_url (video, value);
@@ -516,17 +521,15 @@ as_video_emit_yaml (AsVideo *video, AsContext *ctx, yaml_emitter_t *emitter)
 	g_strstrip (url);
 
 	as_yaml_emit_entry (emitter, "codec", as_video_codec_kind_to_string (priv->codec));
-	as_yaml_emit_entry (emitter, "container", as_video_container_kind_to_string (priv->container));
+	as_yaml_emit_entry (emitter,
+			    "container",
+			    as_video_container_kind_to_string (priv->container));
 
 	as_yaml_emit_entry (emitter, "url", url);
 	if ((priv->width > 0) && (priv->height > 0)) {
-		as_yaml_emit_entry_uint64 (emitter,
-					   "width",
-					   priv->width);
+		as_yaml_emit_entry_uint64 (emitter, "width", priv->width);
 
-		as_yaml_emit_entry_uint64 (emitter,
-					   "height",
-					   priv->height);
+		as_yaml_emit_entry_uint64 (emitter, "height", priv->height);
 	}
 	if ((priv->locale != NULL) && (g_strcmp0 (priv->locale, "C") != 0))
 		as_yaml_emit_entry (emitter, "lang", priv->locale);
@@ -552,7 +555,7 @@ as_video_class_init (AsVideoClass *klass)
  * Returns: (transfer full): a #AsVideo
  *
  **/
-AsVideo*
+AsVideo *
 as_video_new (void)
 {
 	AsVideo *video;

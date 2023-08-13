@@ -32,14 +32,13 @@
 
 #include "as-file-monitor.h"
 
-typedef struct
-{
-	GPtrArray		*monitors;		/* of GFileMonitor */
-	GPtrArray		*files;		/* of gchar* */
-	GPtrArray		*queue_add;	/* of gchar* */
-	GPtrArray		*queue_changed;	/* of gchar* */
-	GPtrArray		*queue_temp;	/* of gchar* */
-	guint			 pending_id;
+typedef struct {
+	GPtrArray *monitors;	  /* of GFileMonitor */
+	GPtrArray *files;	  /* of gchar* */
+	GPtrArray *queue_add;	  /* of gchar* */
+	GPtrArray *queue_changed; /* of gchar* */
+	GPtrArray *queue_temp;	  /* of gchar* */
+	guint pending_id;
 } AsFileMonitorPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsFileMonitor, as_file_monitor, G_TYPE_OBJECT)
@@ -51,7 +50,7 @@ enum {
 	SIGNAL_LAST
 };
 
-static guint signals [SIGNAL_LAST] = { 0 };
+static guint signals[SIGNAL_LAST] = { 0 };
 
 #define GET_PRIVATE(o) (as_file_monitor_get_instance_private (o))
 
@@ -112,12 +111,16 @@ as_file_monitor_class_init (AsFileMonitorClass *klass)
 	 *
 	 * Since: 0.15.0
 	 **/
-	signals [SIGNAL_ADDED] =
-		g_signal_new ("added",
-			      G_TYPE_FROM_CLASS (object_class), G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (AsFileMonitorClass, added),
-			      NULL, NULL, g_cclosure_marshal_VOID__STRING,
-			      G_TYPE_NONE, 1, G_TYPE_STRING);
+	signals[SIGNAL_ADDED] = g_signal_new ("added",
+					      G_TYPE_FROM_CLASS (object_class),
+					      G_SIGNAL_RUN_LAST,
+					      G_STRUCT_OFFSET (AsFileMonitorClass, added),
+					      NULL,
+					      NULL,
+					      g_cclosure_marshal_VOID__STRING,
+					      G_TYPE_NONE,
+					      1,
+					      G_TYPE_STRING);
 
 	/**
 	 * AsFileMonitor::removed:
@@ -128,12 +131,16 @@ as_file_monitor_class_init (AsFileMonitorClass *klass)
 	 *
 	 * Since: 0.15.0
 	 **/
-	signals [SIGNAL_REMOVED] =
-		g_signal_new ("removed",
-			      G_TYPE_FROM_CLASS (object_class), G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (AsFileMonitorClass, removed),
-			      NULL, NULL, g_cclosure_marshal_VOID__STRING,
-			      G_TYPE_NONE, 1, G_TYPE_STRING);
+	signals[SIGNAL_REMOVED] = g_signal_new ("removed",
+						G_TYPE_FROM_CLASS (object_class),
+						G_SIGNAL_RUN_LAST,
+						G_STRUCT_OFFSET (AsFileMonitorClass, removed),
+						NULL,
+						NULL,
+						g_cclosure_marshal_VOID__STRING,
+						G_TYPE_NONE,
+						1,
+						G_TYPE_STRING);
 
 	/**
 	 * AsFileMonitor::changed:
@@ -144,12 +151,16 @@ as_file_monitor_class_init (AsFileMonitorClass *klass)
 	 *
 	 * Since: 0.15.0
 	 **/
-	signals [SIGNAL_CHANGED] =
-		g_signal_new ("changed",
-			      G_TYPE_FROM_CLASS (object_class), G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (AsFileMonitorClass, changed),
-			      NULL, NULL, g_cclosure_marshal_VOID__STRING,
-			      G_TYPE_NONE, 1, G_TYPE_STRING);
+	signals[SIGNAL_CHANGED] = g_signal_new ("changed",
+						G_TYPE_FROM_CLASS (object_class),
+						G_SIGNAL_RUN_LAST,
+						G_STRUCT_OFFSET (AsFileMonitorClass, changed),
+						NULL,
+						NULL,
+						g_cclosure_marshal_VOID__STRING,
+						G_TYPE_NONE,
+						1,
+						G_TYPE_STRING);
 
 	object_class->finalize = as_file_monitor_finalize;
 }
@@ -312,7 +323,8 @@ as_file_monitor_process_pending_trigger (AsFileMonitor *monitor, guint timeout_m
  **/
 static void
 as_file_monitor_file_changed_cb (GFileMonitor *mon,
-				 GFile *file, GFile *other_file,
+				 GFile *file,
+				 GFile *other_file,
 				 GFileMonitorEvent event_type,
 				 AsFileMonitor *monitor)
 {
@@ -328,8 +340,7 @@ as_file_monitor_file_changed_cb (GFileMonitor *mon,
 	is_temp = !g_file_test (filename, G_FILE_TEST_EXISTS);
 	if (other_file != NULL)
 		filename_other = g_file_get_path (other_file);
-	g_debug ("modified: %s %s [%i]", filename,
-		_g_file_monitor_to_string (event_type), is_temp);
+	g_debug ("modified: %s %s [%i]", filename, _g_file_monitor_to_string (event_type), is_temp);
 
 	/* ignore hidden files */
 	basename = g_path_get_basename (filename);
@@ -337,8 +348,7 @@ as_file_monitor_file_changed_cb (GFileMonitor *mon,
 		g_debug ("ignoring hidden file");
 		return;
 	}
-	if (g_str_has_suffix (basename, ".swx") ||
-	    g_str_has_suffix (basename, ".swp")) {
+	if (g_str_has_suffix (basename, ".swx") || g_str_has_suffix (basename, ".swp")) {
 		g_debug ("ignoring temp file");
 		return;
 	}
@@ -412,9 +422,9 @@ as_file_monitor_file_changed_cb (GFileMonitor *mon,
  **/
 gboolean
 as_file_monitor_add_directory (AsFileMonitor *monitor,
-			  const gchar *filename,
-			  GCancellable *cancellable,
-			  GError **error)
+			       const gchar *filename,
+			       GCancellable *cancellable,
+			       GError **error)
 {
 	AsFileMonitorPrivate *priv = GET_PRIVATE (monitor);
 	const gchar *tmp;
@@ -439,12 +449,10 @@ as_file_monitor_add_directory (AsFileMonitor *monitor,
 
 	/* create new file monitor */
 	file = g_file_new_for_path (filename);
-	mon = g_file_monitor_directory (file, G_FILE_MONITOR_WATCH_MOVES,
-					cancellable, error);
+	mon = g_file_monitor_directory (file, G_FILE_MONITOR_WATCH_MOVES, cancellable, error);
 	if (mon == NULL)
 		return FALSE;
-	g_signal_connect (mon, "changed",
-			  G_CALLBACK (as_file_monitor_file_changed_cb), monitor);
+	g_signal_connect (mon, "changed", G_CALLBACK (as_file_monitor_file_changed_cb), monitor);
 	g_ptr_array_add (priv->monitors, g_object_ref (mon));
 
 	return TRUE;
@@ -465,9 +473,9 @@ as_file_monitor_add_directory (AsFileMonitor *monitor,
  **/
 gboolean
 as_file_monitor_add_file (AsFileMonitor *monitor,
-		     const gchar *filename,
-		     GCancellable *cancellable,
-		     GError **error)
+			  const gchar *filename,
+			  GCancellable *cancellable,
+			  GError **error)
 {
 	AsFileMonitorPrivate *priv = GET_PRIVATE (monitor);
 	g_autoptr(GFile) file = NULL;
@@ -481,12 +489,10 @@ as_file_monitor_add_file (AsFileMonitor *monitor,
 
 	/* create new file monitor */
 	file = g_file_new_for_path (filename);
-	mon = g_file_monitor_file (file, G_FILE_MONITOR_NONE,
-				   cancellable, error);
+	mon = g_file_monitor_file (file, G_FILE_MONITOR_NONE, cancellable, error);
 	if (mon == NULL)
 		return FALSE;
-	g_signal_connect (mon, "changed",
-			  G_CALLBACK (as_file_monitor_file_changed_cb), monitor);
+	g_signal_connect (mon, "changed", G_CALLBACK (as_file_monitor_file_changed_cb), monitor);
 	g_ptr_array_add (priv->monitors, g_object_ref (mon));
 
 	/* only add if actually exists */

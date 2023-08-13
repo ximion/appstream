@@ -44,23 +44,21 @@
 #include "as-component-private.h"
 #include "as-launchable.h"
 
+typedef struct {
+	gchar *cache_root_dir;
+	gchar *system_cache_dir;
+	GRefString *locale;
+	gboolean default_paths_changed;
 
-typedef struct
-{
-	gchar			*cache_root_dir;
-	gchar			*system_cache_dir;
-	GRefString		*locale;
-	gboolean		default_paths_changed;
+	AsContext *context;
+	GPtrArray *sections;
+	GHashTable *masked;
 
-	AsContext		*context;
-	GPtrArray		*sections;
-	GHashTable		*masked;
+	AsCacheDataRefineFn cpt_refine_func;
+	gboolean prefer_os_metainfo;
+	gboolean auto_resolve_addons;
 
-	AsCacheDataRefineFn	cpt_refine_func;
-	gboolean		prefer_os_metainfo;
-	gboolean		auto_resolve_addons;
-
-	GRWLock			rw_lock;
+	GRWLock rw_lock;
 } AsCachePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsCache, as_cache, G_TYPE_OBJECT)
@@ -70,18 +68,18 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsCache, as_cache, G_TYPE_OBJECT)
 static const gchar *AS_APPSTREAM_SYS_CACHE_DIR = "/var/cache/swcatalog/cache";
 
 typedef struct {
-	gboolean		is_os_data;
-	gboolean		is_mask;
-	gchar			*key;
-	AsComponentScope	scope;
-	AsFormatStyle		format_style;
-	XbSilo			*silo;
-	gchar			*fname;
+	gboolean is_os_data;
+	gboolean is_mask;
+	gchar *key;
+	AsComponentScope scope;
+	AsFormatStyle format_style;
+	XbSilo *silo;
+	gchar *fname;
 
-	gpointer		refine_func_udata;
+	gpointer refine_func_udata;
 } AsCacheSection;
 
-static AsCacheSection*
+static AsCacheSection *
 as_cache_section_new (const gchar *key)
 {
 	AsCacheSection *csec;
@@ -129,7 +127,7 @@ as_cache_section_cmp (gconstpointer a, gconstpointer b)
 	return g_ascii_strcasecmp (s1->key, s2->key);
 }
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(AsCacheSection, as_cache_section_free)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsCacheSection, as_cache_section_free)
 
 /**
  * as_cache_error_quark:
@@ -156,11 +154,7 @@ as_cache_init (AsCache *cache)
 	g_rw_lock_init (&priv->rw_lock);
 
 	priv->sections = g_ptr_array_new_with_free_func ((GDestroyNotify) as_cache_section_free);
-	priv->masked = g_hash_table_new_full (g_str_hash,
-						g_str_equal,
-						g_free,
-						NULL);
-
+	priv->masked = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 	priv->context = as_context_new ();
 	as_context_set_style (priv->context, AS_FORMAT_STYLE_CATALOG);
@@ -179,7 +173,8 @@ as_cache_init (AsCache *cache)
 		g_autoptr(GError) tmp_error = NULL;
 		priv->cache_root_dir = as_get_user_cache_dir (&tmp_error);
 		if (priv->cache_root_dir == NULL) {
-			g_critical ("Failed to obtain user cache directory: %s", tmp_error->message);
+			g_critical ("Failed to obtain user cache directory: %s",
+				    tmp_error->message);
 			priv->cache_root_dir = g_strdup ("/tmp");
 		}
 	}
@@ -227,7 +222,7 @@ as_cache_class_init (AsCacheClass *klass)
  * Returns: (transfer full): a #AsCache
  *
  **/
-AsCache*
+AsCache *
 as_cache_new (void)
 {
 	AsCache *cache;
@@ -245,7 +240,7 @@ as_cache_new (void)
  *
  * Since: 0.14.0
  */
-const gchar*
+const gchar *
 as_cache_get_locale (AsCache *cache)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
@@ -347,8 +342,7 @@ as_delete_cache_file_if_old (AsCache *cache, const gchar *fname, time_t min_atim
 	struct stat sbuf;
 
 	/* safeguard so we will only delete cache files */
-	if (!g_str_has_suffix (fname, ".xb") &&
-	    !g_str_has_suffix (fname, ".cache"))
+	if (!g_str_has_suffix (fname, ".xb") && !g_str_has_suffix (fname, ".cache"))
 		return;
 
 	if (stat (fname, &sbuf) < 0)
@@ -372,15 +366,14 @@ as_cache_remove_old_data_from_dir (AsCache *cache, const gchar *cache_dir)
 	g_autoptr(GError) error = NULL;
 	time_t min_last_atime;
 
-	cdir =  g_file_new_for_path (cache_dir);
+	cdir = g_file_new_for_path (cache_dir);
 	direnum = g_file_enumerate_children (cdir,
 					     G_FILE_ATTRIBUTE_STANDARD_NAME,
 					     G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
 					     NULL,
 					     &error);
 	if (error != NULL) {
-		g_debug ("Unable to clean cache directory '%s': %s",
-			 cache_dir, error->message);
+		g_debug ("Unable to clean cache directory '%s': %s", cache_dir, error->message);
 		return;
 	}
 
@@ -395,20 +388,19 @@ as_cache_remove_old_data_from_dir (AsCache *cache, const gchar *cache_dir)
 			break;
 
 		/* generate full filename */
-		fname_full = g_build_filename (cache_dir,
-					       g_file_info_get_name (finfo),
-					       NULL);
+		fname_full = g_build_filename (cache_dir, g_file_info_get_name (finfo), NULL);
 
 		/* jump one directory deeper */
 		if (g_file_info_get_file_type (finfo) == G_FILE_TYPE_DIRECTORY) {
 			g_autoptr(GFileEnumerator) sd_direnum = NULL;
 			g_autoptr(GFile) sd_cdir = NULL;
 
-			sd_cdir =  g_file_new_for_path (fname_full);
+			sd_cdir = g_file_new_for_path (fname_full);
 			sd_direnum = g_file_enumerate_children (sd_cdir,
 								G_FILE_ATTRIBUTE_STANDARD_NAME,
 								G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
-								NULL, NULL);
+								NULL,
+								NULL);
 			if (sd_direnum == NULL) {
 				g_debug ("Unable to scan directory '%s'.", fname_full);
 				continue;
@@ -417,7 +409,11 @@ as_cache_remove_old_data_from_dir (AsCache *cache, const gchar *cache_dir)
 			while (TRUE) {
 				GFileInfo *sd_finfo = NULL;
 				g_autofree gchar *sd_fname_full = NULL;
-				if (!g_file_enumerator_iterate (sd_direnum, &sd_finfo, NULL, NULL, NULL))
+				if (!g_file_enumerator_iterate (sd_direnum,
+								&sd_finfo,
+								NULL,
+								NULL,
+								NULL))
 					break;
 				if (sd_finfo == NULL)
 					break;
@@ -478,10 +474,7 @@ as_cache_clear (AsCache *cache)
 	g_ptr_array_set_size (priv->sections, 0);
 
 	g_hash_table_unref (priv->masked);
-	priv->masked = g_hash_table_new_full (g_str_hash,
-						 g_str_equal,
-						 g_free,
-						 NULL);
+	priv->masked = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 }
 
 /**
@@ -523,19 +516,15 @@ as_transmogrify_xmlnode_to_xbuildernode (xmlNode *lxn, XbBuilderNode *xbn)
 			xb_builder_node_set_text (xbn, node_content, -1);
 		} else {
 			/* other inline nodes follow after the text */
-			xb_builder_node_set_text (xbn,
-						  (gchar*) lxn->children->content,
-						  -1);
+			xb_builder_node_set_text (xbn, (gchar *) lxn->children->content, -1);
 		}
 	}
 
 	/* tail, in case text follows */
 	if (xmlNodeIsText (lxn->next)) {
-		const gchar *content = (gchar*) lxn->next->content;
+		const gchar *content = (gchar *) lxn->next->content;
 		if (content != NULL)
-			xb_builder_node_set_tail (xbn,
-						  content,
-						  -1);
+			xb_builder_node_set_tail (xbn, content, -1);
 	}
 
 	/* attributes */
@@ -546,9 +535,7 @@ as_transmogrify_xmlnode_to_xbuildernode (xmlNode *lxn, XbBuilderNode *xbn)
 		if (iter->children == NULL)
 			continue;
 		attr_value = as_xml_get_node_value_raw (iter->children);
-		xb_builder_node_set_attr (xbn,
-					  (gchar*) iter->name,
-					  attr_value);
+		xb_builder_node_set_attr (xbn, (gchar *) iter->name, attr_value);
 	}
 
 	/* children */
@@ -558,7 +545,7 @@ as_transmogrify_xmlnode_to_xbuildernode (xmlNode *lxn, XbBuilderNode *xbn)
 		/* discard text and spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
-		child = xb_builder_node_new ((gchar*) iter->name);
+		child = xb_builder_node_new ((gchar *) iter->name);
 		xb_builder_node_add_flag (child, XB_BUILDER_NODE_FLAG_LITERAL_TEXT);
 		as_transmogrify_xmlnode_to_xbuildernode (iter, child);
 		xb_builder_node_add_child (xbn, child);
@@ -584,9 +571,8 @@ as_cache_builder_add_simple_tokens (XbBuilderNode *root,
 	token_array = as_component_generate_tokens_for (cpt, token_kind);
 	/* libxmlb only allows a maximum of 32 tokens per tag, so we clamp this here to
 	 * avoid cache corruption with older xmlb versions. See XB_OPCODE_TOKEN_MAX */
-	for (guint i = 0; i < MIN(token_array->len, 32); i++)
-		xb_builder_node_add_token (token_node,
-					   g_ptr_array_index (token_array, i));
+	for (guint i = 0; i < MIN (token_array->len, 32); i++)
+		xb_builder_node_add_token (token_node, g_ptr_array_index (token_array, i));
 }
 
 /**
@@ -627,7 +613,7 @@ as_cache_builder_add_manifold_tokens (XbBuilderNode *root, AsComponent *cpt)
  *
  * Returns: Valid catalog XML metadata for internal cache use.
  */
-static XbSilo*
+static XbSilo *
 as_cache_components_to_internal_xb (AsCache *cache,
 				    GPtrArray *cpts,
 				    gboolean refine,
@@ -664,9 +650,18 @@ as_cache_components_to_internal_xb (AsCache *cache,
 		xmlFreeNode (cnode);
 
 		/* add tokens */
-		as_cache_builder_add_simple_tokens (xbnode, cpt, "summary", AS_SEARCH_TOKEN_MATCH_SUMMARY);
-		as_cache_builder_add_simple_tokens (xbnode, cpt, "_asi_origin", AS_SEARCH_TOKEN_MATCH_ORIGIN);
-		as_cache_builder_add_simple_tokens (xbnode, cpt, "pkgname", AS_SEARCH_TOKEN_MATCH_PKGNAME);
+		as_cache_builder_add_simple_tokens (xbnode,
+						    cpt,
+						    "summary",
+						    AS_SEARCH_TOKEN_MATCH_SUMMARY);
+		as_cache_builder_add_simple_tokens (xbnode,
+						    cpt,
+						    "_asi_origin",
+						    AS_SEARCH_TOKEN_MATCH_ORIGIN);
+		as_cache_builder_add_simple_tokens (xbnode,
+						    cpt,
+						    "pkgname",
+						    AS_SEARCH_TOKEN_MATCH_PKGNAME);
 		as_cache_builder_add_manifold_tokens (xbnode, cpt);
 
 		/* add component to tree */
@@ -678,10 +673,7 @@ as_cache_components_to_internal_xb (AsCache *cache,
 	xb_builder_append_guid (builder, PACKAGE_VERSION);
 	xb_builder_import_node (builder, bnode_root);
 
-	silo = xb_builder_compile (builder,
-				   XB_BUILDER_COMPILE_FLAG_NONE,
-				   NULL,
-				   &tmp_error);
+	silo = xb_builder_compile (builder, XB_BUILDER_COMPILE_FLAG_NONE, NULL, &tmp_error);
 	if (silo == NULL) {
 		g_propagate_prefixed_error (error,
 					    tmp_error,
@@ -702,9 +694,7 @@ as_cache_register_addons_for_component (AsCache *cache, AsComponent *cpt, GError
 {
 	g_autoptr(GPtrArray) addons = NULL;
 
-	addons = as_cache_get_components_by_extends (cache,
-						     as_component_get_id (cpt),
-						     error);
+	addons = as_cache_get_components_by_extends (cache, as_component_get_id (cpt), error);
 	if (addons == NULL)
 		return FALSE;
 
@@ -728,14 +718,12 @@ as_transmogrify_xbnode_to_xmlnode (XbNode *xbn, xmlNode *lxn)
 	XbNode *child = NULL;
 	g_return_val_if_fail (XB_IS_NODE (xbn), FALSE);
 
-	xmlNodeSetName (lxn,
-			(xmlChar*) xb_node_get_element (xbn));
-	xmlNodeAddContent (lxn,
-			   (xmlChar*) xb_node_get_text (xbn));
+	xmlNodeSetName (lxn, (xmlChar *) xb_node_get_element (xbn));
+	xmlNodeAddContent (lxn, (xmlChar *) xb_node_get_text (xbn));
 
 	tail = xb_node_get_tail (xbn);
 	if (tail != NULL) {
-		xmlNode *tn = xmlNewText ((xmlChar*) tail);
+		xmlNode *tn = xmlNewText ((xmlChar *) tail);
 		xmlAddNextSibling (lxn, tn);
 	}
 
@@ -747,7 +735,7 @@ as_transmogrify_xbnode_to_xmlnode (XbNode *xbn, xmlNode *lxn)
 	/* children */
 	xb_node_child_iter_init (&child_iter, xbn);
 	while (xb_node_child_iter_loop (&child_iter, &child)) {
-		xmlNode *lc = xmlNewChild (lxn, NULL, (xmlChar*) "", NULL);
+		xmlNode *lc = xmlNewChild (lxn, NULL, (xmlChar *) "", NULL);
 		if (!as_transmogrify_xbnode_to_xmlnode (child, lc)) {
 			g_clear_pointer (&child, g_object_unref);
 			return FALSE;
@@ -762,14 +750,14 @@ as_transmogrify_xbnode_to_xmlnode (XbNode *xbn, xmlNode *lxn)
  *
  * Get component from an xmlb node.
  */
-static AsComponent*
+static AsComponent *
 as_cache_component_from_node (AsCache *cache, AsCacheSection *csec, XbNode *node, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	g_autoptr(AsComponent) cpt = NULL;
 	xmlNode *root;
 
-	root = xmlNewNode (NULL, (xmlChar*) "");
+	root = xmlNewNode (NULL, (xmlChar *) "");
 	as_transmogrify_xbnode_to_xmlnode (node, root);
 
 	cpt = as_component_new ();
@@ -780,8 +768,7 @@ as_cache_component_from_node (AsCache *cache, AsCacheSection *csec, XbNode *node
 	xmlFreeNode (root);
 
 	/* find addons (if there are any) - ensure addons don't have addons themselves */
-	if (priv->auto_resolve_addons &&
-	    (as_component_get_kind (cpt) != AS_COMPONENT_KIND_ADDON) &&
+	if (priv->auto_resolve_addons && (as_component_get_kind (cpt) != AS_COMPONENT_KIND_ADDON) &&
 	    !as_cache_register_addons_for_component (cache, cpt, error)) {
 		return NULL;
 	}
@@ -817,14 +804,18 @@ as_cache_remove_section_file (AsCache *cache, AsCacheSection *csec)
 
 	if (g_rename (csec->fname, fname_old) == -1) {
 		/* some other process may have done this already */
-		g_debug ("Unable to rename stale cache file '%s': %s", csec->fname, g_strerror (errno));
+		g_debug ("Unable to rename stale cache file '%s': %s",
+			 csec->fname,
+			 g_strerror (errno));
 		g_unlink (csec->fname);
 		return;
 	}
 
 	/* we should be able to remove the file at this point */
 	if (g_unlink (fname_old) == -1)
-		g_warning ("Unable to unlink old cache file '%s': %s", fname_old, g_strerror (errno));
+		g_warning ("Unable to unlink old cache file '%s': %s",
+			   fname_old,
+			   g_strerror (errno));
 }
 
 /**
@@ -834,35 +825,27 @@ as_cache_remove_section_file (AsCache *cache, AsCacheSection *csec)
  * arbitrary string that the user may have control over.
  * This will also prepend any locale information.
  */
-static gchar*
+static gchar *
 as_cache_build_section_key (AsCache *cache, const gchar *str)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 
 	if (g_strstr_len (str, -1, "/") == NULL) {
 		/* the string is fine as-is, we just need to add the locale prefix to it */
-		return g_strconcat (priv->locale,
-				    "-",
-				    str,
-				    NULL);
+		return g_strconcat (priv->locale, "-", str, NULL);
 	} else {
 		/* we need to create a unique key from the filename-ish string */
 		g_autoptr(GChecksum) cs = g_checksum_new (G_CHECKSUM_MD5);
-		g_checksum_update (cs,
-				   (const guchar *) str,
-				   -1);
+		g_checksum_update (cs, (const guchar *) str, -1);
 
-		return g_strconcat (priv->locale,
-				"-",
-				g_checksum_get_string (cs),
-				NULL);
+		return g_strconcat (priv->locale, "-", g_checksum_get_string (cs), NULL);
 	}
 }
 
 /**
  * as_cache_get_section_fname_for:
  */
-static gchar*
+static gchar *
 as_cache_get_section_fname_for (AsCache *cache,
 				AsCacheScope cache_scope,
 				AsComponentScope scope,
@@ -871,9 +854,7 @@ as_cache_get_section_fname_for (AsCache *cache,
 	g_autofree gchar *cache_full_dir = NULL;
 	g_autofree gchar *cache_basename = NULL;
 
-	cache_full_dir = as_cache_get_root_dir_with_scope (cache,
-							   cache_scope,
-							   scope);
+	cache_full_dir = as_cache_get_root_dir_with_scope (cache, cache_scope, scope);
 	cache_basename = g_strconcat (section_key, ".xb", NULL);
 
 	return g_build_filename (cache_full_dir, cache_basename, NULL);
@@ -884,13 +865,13 @@ as_cache_get_section_fname_for (AsCache *cache,
  */
 static gboolean
 as_cache_set_contents_internal (AsCache *cache,
-			        AsComponentScope scope,
-			        AsFormatStyle source_format_style,
+				AsComponentScope scope,
+				AsFormatStyle source_format_style,
 				gboolean is_os_data,
-			        GPtrArray *cpts,
-			        const gchar *cache_key,
+				GPtrArray *cpts,
+				const gchar *cache_key,
 				gpointer refine_user_data,
-			        GError **error)
+				GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	g_autofree gchar *internal_section_key = NULL;
@@ -903,20 +884,24 @@ as_cache_set_contents_internal (AsCache *cache,
 	gboolean ret = TRUE;
 
 	section_key = as_cache_build_section_key (cache, cache_key);
-	internal_section_key = g_strconcat (as_component_scope_to_string (scope), ":", section_key, NULL);
+	internal_section_key = g_strconcat (as_component_scope_to_string (scope),
+					    ":",
+					    section_key,
+					    NULL);
 
 	locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 	g_debug ("Storing cache data for section: %s", internal_section_key);
 
 	/* ensure we can write to the cache location */
-	cache_full_dir = as_cache_get_root_dir_with_scope (cache,
-							   AS_CACHE_SCOPE_WRITABLE, /* only the "user" scope is ever writable */
-							   scope);
+	cache_full_dir = as_cache_get_root_dir_with_scope (
+	    cache,
+	    AS_CACHE_SCOPE_WRITABLE, /* only the "user" scope is ever writable */
+	    scope);
 	if (!as_utils_is_writable (cache_full_dir)) {
 		g_set_error (error,
-				AS_CACHE_ERROR,
-				AS_CACHE_ERROR_PERMISSIONS,
-				_("Cache location '%s' is not writable."), cache_full_dir);
+			     AS_CACHE_ERROR,
+			     AS_CACHE_ERROR_PERMISSIONS,
+			     _("Cache location '%s' is not writable."), cache_full_dir);
 		return FALSE;
 	}
 
@@ -935,7 +920,10 @@ as_cache_set_contents_internal (AsCache *cache,
 	csec->is_os_data = is_os_data && scope == AS_COMPONENT_SCOPE_SYSTEM;
 	csec->scope = scope;
 	csec->format_style = source_format_style;
-	csec->fname = as_cache_get_section_fname_for (cache, AS_CACHE_SCOPE_WRITABLE, scope, section_key);
+	csec->fname = as_cache_get_section_fname_for (cache,
+						      AS_CACHE_SCOPE_WRITABLE,
+						      scope,
+						      section_key);
 	csec->refine_func_udata = refine_user_data;
 
 	csec->silo = as_cache_components_to_internal_xb (cache,
@@ -950,15 +938,12 @@ as_cache_set_contents_internal (AsCache *cache,
 	g_debug ("Writing cache file: %s", csec->fname);
 	file = g_file_new_for_path (csec->fname);
 	if (!xb_silo_save_to_file (csec->silo, file, NULL, &tmp_error)) {
-		g_propagate_prefixed_error (error,
-					    tmp_error,
-					    "Unable to write cache file:");
+		g_propagate_prefixed_error (error, tmp_error, "Unable to write cache file:");
 		ret = FALSE;
 	}
 
 	/* register the new section */
-	g_ptr_array_add (priv->sections,
-			 g_steal_pointer (&csec));
+	g_ptr_array_add (priv->sections, g_steal_pointer (&csec));
 
 	/* fix up section ordering */
 	g_ptr_array_sort (priv->sections, as_cache_section_cmp);
@@ -986,13 +971,13 @@ as_cache_set_contents_for_section (AsCache *cache,
 				   GError **error)
 {
 	return as_cache_set_contents_internal (cache,
-						scope,
-						source_format_style,
-						is_os_data,
-						cpts,
-						cache_key,
-						refinefn_user_data,
-						error);
+					       scope,
+					       source_format_style,
+					       is_os_data,
+					       cpts,
+					       cache_key,
+					       refinefn_user_data,
+					       error);
 }
 
 /**
@@ -1010,23 +995,24 @@ as_cache_set_contents_for_path (AsCache *cache,
 				gpointer refinefn_user_data,
 				GError **error)
 {
-	if (g_strcmp0 (filename, "os-catalog") == 0 || g_strcmp0 (filename, "flatpak") == 0 || g_strcmp0 (filename, "metainfo") == 0) {
+	if (g_strcmp0 (filename, "os-catalog") == 0 || g_strcmp0 (filename, "flatpak") == 0 ||
+	    g_strcmp0 (filename, "metainfo") == 0) {
 		g_set_error (error,
 			     AS_CACHE_ERROR,
 			     AS_CACHE_ERROR_BAD_VALUE,
-			     "Can not add extra repository data with reserved cache key name '%s'.", filename);
+			     "Can not add extra repository data with reserved cache key name '%s'.",
+			     filename);
 		return FALSE;
-
 	}
 
 	return as_cache_set_contents_internal (cache,
-						as_utils_guess_scope_from_path (filename),
-						AS_FORMAT_STYLE_CATALOG,
-						FALSE, /* no OS data */
-						cpts,
-						filename,
-						refinefn_user_data,
-						error);
+					       as_utils_guess_scope_from_path (filename),
+					       AS_FORMAT_STYLE_CATALOG,
+					       FALSE, /* no OS data */
+					       cpts,
+					       filename,
+					       refinefn_user_data,
+					       error);
 }
 
 /**
@@ -1039,7 +1025,10 @@ as_cache_set_contents_for_path (AsCache *cache,
  * Returns: ctime of the cache section.
  */
 static time_t
-as_cache_get_ctime_with_section_key (AsCache *cache, AsComponentScope scope, const gchar *section_key, AsCacheScope *cache_scope)
+as_cache_get_ctime_with_section_key (AsCache *cache,
+				     AsComponentScope scope,
+				     const gchar *section_key,
+				     AsCacheScope *cache_scope)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	struct stat cache_sbuf;
@@ -1053,9 +1042,9 @@ as_cache_get_ctime_with_section_key (AsCache *cache, AsComponentScope scope, con
 							section_key);
 	if (g_strcmp0 (priv->cache_root_dir, priv->system_cache_dir) != 0) {
 		xb_fname_sys = as_cache_get_section_fname_for (cache,
-							AS_CACHE_SCOPE_SYSTEM,
-							scope,
-							section_key);
+							       AS_CACHE_SCOPE_SYSTEM,
+							       scope,
+							       section_key);
 	}
 
 	if (cache_scope != NULL)
@@ -1089,13 +1078,17 @@ as_cache_get_ctime_with_section_key (AsCache *cache, AsComponentScope scope, con
  * Returns: ctime of the cache section.
  */
 time_t
-as_cache_get_ctime (AsCache *cache, AsComponentScope scope, const gchar *cache_key, AsCacheScope *cache_scope)
+as_cache_get_ctime (AsCache *cache,
+		    AsComponentScope scope,
+		    const gchar *cache_key,
+		    AsCacheScope *cache_scope)
 {
 	g_autofree gchar *section_key = NULL;
 
 	if (scope == AS_COMPONENT_SCOPE_UNKNOWN) {
 		scope = AS_COMPONENT_SCOPE_SYSTEM;
-		if (g_str_has_prefix (cache_key, "/home") || g_str_has_prefix (cache_key, g_get_home_dir ()))
+		if (g_str_has_prefix (cache_key, "/home") ||
+		    g_str_has_prefix (cache_key, g_get_home_dir ()))
 			scope = AS_COMPONENT_SCOPE_USER;
 	}
 
@@ -1109,7 +1102,10 @@ as_cache_get_ctime (AsCache *cache, AsComponentScope scope, const gchar *cache_k
  * Returns: %TRUE if ctime of @origin_path is newer than the ctime on the cache section.
  */
 static gboolean
-as_cache_check_section_outdated (AsCache *cache, AsComponentScope scope, const gchar *cache_key, const gchar *origin_path)
+as_cache_check_section_outdated (AsCache *cache,
+				 AsComponentScope scope,
+				 const gchar *cache_key,
+				 const gchar *origin_path)
 {
 	struct stat sb;
 	time_t cache_ctime;
@@ -1149,18 +1145,15 @@ as_cache_load_section_internal (AsCache *cache,
 	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 
 	section_key = as_cache_build_section_key (cache, cache_key);
-	internal_section_key = g_strconcat (as_component_scope_to_string (scope), ":", section_key, NULL);
+	internal_section_key = g_strconcat (as_component_scope_to_string (scope),
+					    ":",
+					    section_key,
+					    NULL);
 
 	/* check which available cache is the most recent one */
-	as_cache_get_ctime_with_section_key (cache,
-					     scope,
-					     section_key,
-					     &cache_scope);
+	as_cache_get_ctime_with_section_key (cache, scope, section_key, &cache_scope);
 
-	xb_fname = as_cache_get_section_fname_for (cache,
-						   cache_scope,
-						   scope,
-						   section_key);
+	xb_fname = as_cache_get_section_fname_for (cache, cache_scope, scope, section_key);
 
 	if (!g_file_test (xb_fname, G_FILE_TEST_EXISTS)) {
 		/* nothing to do if no cache file exists that we can load */
@@ -1178,17 +1171,14 @@ as_cache_load_section_internal (AsCache *cache,
 
 	csec->silo = xb_silo_new ();
 	file = g_file_new_for_path (csec->fname);
-	if (!xb_silo_load_from_file (csec->silo,
-				     file,
-				     XB_SILO_LOAD_FLAG_NONE,
-				     NULL,
-				     &tmp_error)) {
-		g_debug ("Failed to load AppStream cache section '%s' - marking cache as outdated. Issue: %s",
-			 internal_section_key, tmp_error->message);
+	if (!xb_silo_load_from_file (csec->silo, file, XB_SILO_LOAD_FLAG_NONE, NULL, &tmp_error)) {
+		g_debug ("Failed to load AppStream cache section '%s' - marking cache as outdated. "
+			 "Issue: %s",
+			 internal_section_key,
+			 tmp_error->message);
 		if (is_outdated != NULL)
 			*is_outdated = TRUE;
 		return;
-
 	}
 
 	/* register the new section, replacing any old data */
@@ -1199,8 +1189,7 @@ as_cache_load_section_internal (AsCache *cache,
 			break;
 		}
 	}
-	g_ptr_array_add (priv->sections,
-			 g_steal_pointer (&csec));
+	g_ptr_array_add (priv->sections, g_steal_pointer (&csec));
 	g_debug ("Using cache file: %s", xb_fname);
 
 	/* fix up section ordering */
@@ -1216,11 +1205,11 @@ as_cache_load_section_internal (AsCache *cache,
 void
 as_cache_load_section_for_key (AsCache *cache,
 			       AsComponentScope scope,
-				AsFormatStyle source_format_style,
-				gboolean is_os_data,
-				const gchar *cache_key,
-				gboolean *is_outdated,
-			        gpointer refinefn_user_data)
+			       AsFormatStyle source_format_style,
+			       gboolean is_os_data,
+			       const gchar *cache_key,
+			       gboolean *is_outdated,
+			       gpointer refinefn_user_data)
 {
 	as_cache_load_section_internal (cache,
 					scope,
@@ -1272,9 +1261,7 @@ as_cache_mask_by_data_id (AsCache *cache, const gchar *cdid)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
-	g_hash_table_insert (priv->masked,
-			     g_strdup (cdid),
-			     GINT_TO_POINTER (TRUE));
+	g_hash_table_insert (priv->masked, g_strdup (cdid), GINT_TO_POINTER (TRUE));
 }
 
 /**
@@ -1312,32 +1299,27 @@ as_cache_add_masking_components (AsCache *cache, GPtrArray *cpts, GError **error
 		g_autoptr(GPtrArray) array = NULL;
 
 		/* retrieve the old data */
-		array = xb_silo_query (old_mcsec->silo,
-					"components/component", 0,
-					NULL);
+		array = xb_silo_query (old_mcsec->silo, "components/component", 0, NULL);
 		if (array != NULL) {
 			for (guint j = 0; j < array->len; j++) {
 				g_autoptr (AsComponent) cpt = NULL;
 				gpointer iptr;
 				XbNode *node = g_ptr_array_index (array, j);
 
-				cpt = as_cache_component_from_node (cache,
-								    old_mcsec,
-								    node,
-								    NULL);
+				cpt = as_cache_component_from_node (cache, old_mcsec, node, NULL);
 				if (cpt == NULL)
 					continue;
 
 				/* just delete masked components */
-				iptr = g_hash_table_lookup (priv->masked, as_component_get_data_id (cpt));
+				iptr = g_hash_table_lookup (priv->masked,
+							    as_component_get_data_id (cpt));
 				if (iptr != NULL && GPOINTER_TO_INT (iptr) == TRUE)
 					continue;
 
-				g_ptr_array_add (cpts_final,
-						 g_steal_pointer (&cpt));
+				g_ptr_array_add (cpts_final, g_steal_pointer (&cpt));
 				g_hash_table_insert (priv->masked,
-							g_strdup (as_component_get_data_id (cpt)),
-							GINT_TO_POINTER (FALSE));
+						     g_strdup (as_component_get_data_id (cpt)),
+						     GINT_TO_POINTER (FALSE));
 			}
 		}
 
@@ -1346,7 +1328,9 @@ as_cache_add_masking_components (AsCache *cache, GPtrArray *cpts, GError **error
 	}
 
 	/* generate filename for the volatile section in memory */
-	volatile_fname = g_build_filename (g_get_user_runtime_dir (), "appstream-extra-XXXXXX.mdb", NULL);
+	volatile_fname = g_build_filename (g_get_user_runtime_dir (),
+					   "appstream-extra-XXXXXX.mdb",
+					   NULL);
 	fd = g_mkstemp (volatile_fname);
 	if (fd > 0)
 		close (fd);
@@ -1361,11 +1345,10 @@ as_cache_add_masking_components (AsCache *cache, GPtrArray *cpts, GError **error
 	/* create final component set */
 	for (guint i = 0; i < cpts->len; i++) {
 		AsComponent *cpt = g_ptr_array_index (cpts, i);
-		g_ptr_array_add (cpts_final,
-				 g_object_ref (cpt));
+		g_ptr_array_add (cpts_final, g_object_ref (cpt));
 		g_hash_table_insert (priv->masked,
-					g_strdup (as_component_get_data_id (cpt)),
-					GINT_TO_POINTER (FALSE));
+				     g_strdup (as_component_get_data_id (cpt)),
+				     GINT_TO_POINTER (FALSE));
 	}
 
 	mcsec->silo = as_cache_components_to_internal_xb (cache,
@@ -1374,24 +1357,25 @@ as_cache_add_masking_components (AsCache *cache, GPtrArray *cpts, GError **error
 							  NULL,
 							  &tmp_error);
 	if (mcsec->silo == NULL) {
-		g_propagate_prefixed_error (error,
-					    g_steal_pointer (&tmp_error),
-					    "Unable to add masking components to cache: Silo build failed. ");
+		g_propagate_prefixed_error (
+		    error,
+		    g_steal_pointer (&tmp_error),
+		    "Unable to add masking components to cache: Silo build failed. ");
 		return FALSE;
 	}
 
 	/* write data */
 	file = g_file_new_for_path (mcsec->fname);
 	if (!xb_silo_save_to_file (mcsec->silo, file, NULL, &tmp_error)) {
-		g_propagate_prefixed_error (error,
-					    g_steal_pointer (&tmp_error),
-					    "Unable to add masking components to cache: Failed to store silo. ");
+		g_propagate_prefixed_error (
+		    error,
+		    g_steal_pointer (&tmp_error),
+		    "Unable to add masking components to cache: Failed to store silo. ");
 		return FALSE;
 	}
 
 	/* register the new section */
-	g_ptr_array_add (priv->sections,
-			 g_steal_pointer (&mcsec));
+	g_ptr_array_add (priv->sections, g_steal_pointer (&mcsec));
 
 	/* fix up section ordering */
 	g_ptr_array_sort (priv->sections, as_cache_section_cmp);
@@ -1417,19 +1401,13 @@ typedef struct {
 	GHashTable *known_os_cids;
 } AsQueryContext;
 
-static AsQueryContext*
+static AsQueryContext *
 as_query_context_new (void)
 {
 	AsQueryContext *ctx;
 	ctx = g_new0 (AsQueryContext, 1);
-	ctx->results_map = g_hash_table_new_full (g_str_hash,
-						  g_str_equal,
-						  g_free,
-						  g_object_unref);
-	ctx->known_os_cids = g_hash_table_new_full (g_str_hash,
-						    g_str_equal,
-						    g_free,
-						    NULL);
+	ctx->results_map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
+	ctx->known_os_cids = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	return ctx;
 }
 
@@ -1441,7 +1419,7 @@ as_query_context_free (AsQueryContext *ctx)
 	g_free (ctx);
 }
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(AsQueryContext, as_query_context_free)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsQueryContext, as_query_context_free)
 
 static gboolean
 as_query_context_add_component_from_node (AsQueryContext *ctx,
@@ -1457,15 +1435,11 @@ as_query_context_add_component_from_node (AsQueryContext *ctx,
 
 	if (csec->is_os_data && csec->format_style == AS_FORMAT_STYLE_METAINFO) {
 		const gchar *cid = xb_node_query_text (cpt_node, "id", NULL);
-		if (g_hash_table_contains (ctx->known_os_cids, cid) &&
-			!priv->prefer_os_metainfo)
+		if (g_hash_table_contains (ctx->known_os_cids, cid) && !priv->prefer_os_metainfo)
 			return TRUE;
 	}
 
-	cpt = as_cache_component_from_node (cache,
-						csec,
-						cpt_node,
-						error);
+	cpt = as_cache_component_from_node (cache, csec, cpt_node, error);
 	if (cpt == NULL)
 		return FALSE;
 	if (csec->format_style == AS_FORMAT_STYLE_METAINFO)
@@ -1481,13 +1455,10 @@ as_query_context_add_component_from_node (AsQueryContext *ctx,
 
 	/* register */
 	if (csec->is_os_data)
-		g_hash_table_add (ctx->known_os_cids,
-					g_strdup (as_component_get_id (cpt)));
+		g_hash_table_add (ctx->known_os_cids, g_strdup (as_component_get_id (cpt)));
 
 	data_id = as_component_get_data_id (cpt);
-	g_hash_table_insert (ctx->results_map,
-				g_strdup (data_id),
-				g_steal_pointer (&cpt));
+	g_hash_table_insert (ctx->results_map, g_strdup (data_id), g_steal_pointer (&cpt));
 
 	return TRUE;
 }
@@ -1507,7 +1478,7 @@ as_query_context_add_component_from_nodes (AsQueryContext *ctx,
 	return TRUE;
 }
 
-static GPtrArray*
+static GPtrArray *
 as_query_context_retrieve_components (AsQueryContext *ctx)
 {
 	GHashTableIter ht_iter;
@@ -1524,7 +1495,7 @@ as_query_context_retrieve_components (AsQueryContext *ctx)
 /**
  * as_cache_query_components_internal:
  */
-static GPtrArray*
+static GPtrArray *
 as_cache_query_components (AsCache *cache,
 			   const gchar *xpath,
 			   XbQueryContext *context,
@@ -1541,35 +1512,31 @@ as_cache_query_components (AsCache *cache,
 		g_autoptr(GPtrArray) array = NULL;
 		g_autoptr(GError) tmp_error = NULL;
 		g_autoptr(XbQuery) query = NULL;
-		AsCacheSection *csec = (AsCacheSection*) g_ptr_array_index (priv->sections, i);
+		AsCacheSection *csec = (AsCacheSection *) g_ptr_array_index (priv->sections, i);
 
 		g_debug ("Querying `%s` in %s", xpath, csec->key);
 		query = xb_query_new (csec->silo, xpath, &tmp_error);
 		if (query == NULL) {
 			g_propagate_prefixed_error (error,
-							g_steal_pointer (&tmp_error),
-							"Unable to construct query: ");
+						    g_steal_pointer (&tmp_error),
+						    "Unable to construct query: ");
 			return NULL;
 		}
 
-		array = xb_silo_query_with_context (csec->silo,
-						    query,
-						    context,
-						    &tmp_error);
+		array = xb_silo_query_with_context (csec->silo, query, context, &tmp_error);
 		if (array == NULL) {
 			if (g_error_matches (tmp_error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
 				continue;
 			if (g_error_matches (tmp_error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT))
 				continue;
 			g_propagate_prefixed_error (error,
-							g_steal_pointer (&tmp_error),
-							"Unable to run query: ");
+						    g_steal_pointer (&tmp_error),
+						    "Unable to run query: ");
 			return NULL;
 		}
 
 		if (!as_query_context_add_component_from_nodes (qctx, cache, csec, array, error))
 			return NULL;
-
 	}
 
 	return as_query_context_retrieve_components (qctx);
@@ -1584,7 +1551,7 @@ as_cache_query_components (AsCache *cache,
  * Returns: %TRUE if the cache is empty, %FALSE otherwise.
  */
 gboolean
-as_cache_is_empty (AsCache* cache)
+as_cache_is_empty (AsCache *cache)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
@@ -1592,7 +1559,7 @@ as_cache_is_empty (AsCache* cache)
 	for (guint i = 0; i < priv->sections->len; i++) {
 		g_autoptr(XbNode) node = NULL;
 		g_autoptr(XbNode) child = NULL;
-		AsCacheSection *csec = (AsCacheSection*) g_ptr_array_index (priv->sections, i);
+		AsCacheSection *csec = (AsCacheSection *) g_ptr_array_index (priv->sections, i);
 
 		node = xb_silo_get_root (csec->silo);
 		child = xb_node_get_child (node);
@@ -1612,7 +1579,7 @@ as_cache_is_empty (AsCache* cache)
  * Returns: The number of components present in the cache.
  */
 guint
-as_cache_get_component_count (AsCache* cache)
+as_cache_get_component_count (AsCache *cache)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	guint cpt_node_count = 0;
@@ -1621,14 +1588,14 @@ as_cache_get_component_count (AsCache* cache)
 	for (guint i = 0; i < priv->sections->len; i++) {
 		g_autoptr(XbNode) n = NULL;
 		g_autoptr(XbNode) node = NULL;
-		AsCacheSection *csec = (AsCacheSection*) g_ptr_array_index (priv->sections, i);
+		AsCacheSection *csec = (AsCacheSection *) g_ptr_array_index (priv->sections, i);
 
 		node = xb_silo_get_root (csec->silo);
 		n = xb_node_get_child (node);
 		while (n != NULL) {
 			cpt_node_count++;
 			g_object_unref (n);
-			n = xb_node_get_next(n);
+			n = xb_node_get_next (n);
 		}
 	}
 
@@ -1644,15 +1611,10 @@ as_cache_get_component_count (AsCache* cache)
  *
  * Returns: (transfer full): An array of #AsComponent
  */
-GPtrArray*
+GPtrArray *
 as_cache_get_components_all (AsCache *cache, GError **error)
 {
-	return as_cache_query_components (cache,
-					  "components/component",
-					  NULL,
-					  0,
-					  FALSE,
-					  error);
+	return as_cache_query_components (cache, "components/component", NULL, 0, FALSE, error);
 }
 
 /**
@@ -1665,7 +1627,7 @@ as_cache_get_components_all (AsCache *cache, GError **error)
  *
  * Returns: (transfer full): An array of #AsComponent
  */
-GPtrArray*
+GPtrArray *
 as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
 {
 	GPtrArray *results = NULL;
@@ -1688,12 +1650,13 @@ as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
 	if (results->len == 0) {
 		/* we found no exact matches, try components providing this ID */
 		g_ptr_array_unref (results);
-		results = as_cache_query_components (cache,
-						     "components/component/provides/id[lower-case(text())=?]/../..",
-						     &context,
-						     0,
-						     FALSE,
-						     error);
+		results = as_cache_query_components (
+		    cache,
+		    "components/component/provides/id[lower-case(text())=?]/../..",
+		    &context,
+		    0,
+		    FALSE,
+		    error);
 	}
 
 	return results;
@@ -1709,7 +1672,7 @@ as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
  *
  * Returns: (transfer full): An array of #AsComponent
  */
-GPtrArray*
+GPtrArray *
 as_cache_get_components_by_extends (AsCache *cache, const gchar *extends_id, GError **error)
 {
 	g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
@@ -1732,7 +1695,7 @@ as_cache_get_components_by_extends (AsCache *cache, const gchar *extends_id, GEr
  *
  * Returns: (transfer full): An array of #AsComponent
  */
-GPtrArray*
+GPtrArray *
 as_cache_get_components_by_kind (AsCache *cache, AsComponentKind kind, GError **error)
 {
 	g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
@@ -1759,8 +1722,11 @@ as_cache_get_components_by_kind (AsCache *cache, AsComponentKind kind, GError **
  *
  * Returns: (transfer full): An array of #AsComponent
  */
-GPtrArray*
-as_cache_get_components_by_provided_item (AsCache *cache, AsProvidedKind kind, const gchar *item, GError **error)
+GPtrArray *
+as_cache_get_components_by_provided_item (AsCache *cache,
+					  AsProvidedKind kind,
+					  const gchar *item,
+					  GError **error)
 {
 	const gchar *kind_node_name = NULL;
 	const gchar *xpath_query_tmpl = NULL;
@@ -1789,15 +1755,8 @@ as_cache_get_components_by_provided_item (AsCache *cache, AsProvidedKind kind, c
 
 	if (xpath_query == NULL)
 		xpath_query = g_strdup_printf (xpath_query_tmpl, kind_node_name);
-	xb_value_bindings_bind_str (vbindings, 0,
-				    item,
-				    NULL);
-	return as_cache_query_components (cache,
-					  xpath_query,
-					  &context,
-					  0,
-					  FALSE,
-					  error);
+	xb_value_bindings_bind_str (vbindings, 0, item, NULL);
+	return as_cache_query_components (cache, xpath_query, &context, 0, FALSE, error);
 }
 
 /**
@@ -1810,7 +1769,7 @@ as_cache_get_components_by_provided_item (AsCache *cache, AsProvidedKind kind, c
  *
  * Returns: (transfer full): An array of #AsComponent
  */
-GPtrArray*
+GPtrArray *
 as_cache_get_components_by_categories (AsCache *cache, gchar **categories, GError **error)
 {
 	g_autoptr(GString) xpath = NULL;
@@ -1824,25 +1783,19 @@ as_cache_get_components_by_categories (AsCache *cache, gchar **categories, GErro
 	for (guint i = 0; categories[i] != NULL; i++) {
 		if (i >= 4) {
 			g_set_error_literal (error,
-						AS_CACHE_ERROR,
-						AS_CACHE_ERROR_PERMISSIONS,
-						"Due to limitations in libxmlb, we currently can not search for software "
-						"in more than 4 categories.");
+					     AS_CACHE_ERROR,
+					     AS_CACHE_ERROR_PERMISSIONS,
+					     "Due to limitations in libxmlb, we currently can not "
+					     "search for software "
+					     "in more than 4 categories.");
 			return NULL;
 		}
 		g_string_append (xpath, "/category[text()=?]/..");
-		xb_value_bindings_bind_str (vbindings, i,
-					    categories[i],
-					    NULL);
+		xb_value_bindings_bind_str (vbindings, i, categories[i], NULL);
 	}
 	g_string_append (xpath, "/..");
 
-	return as_cache_query_components (cache,
-					  xpath->str,
-					  &context,
-					  0,
-					  FALSE,
-					  error);
+	return as_cache_query_components (cache, xpath->str, &context, 0, FALSE, error);
 }
 
 /**
@@ -1856,20 +1809,18 @@ as_cache_get_components_by_categories (AsCache *cache, gchar **categories, GErro
  *
  * Returns: (transfer full): An array of #AsComponent
  */
-GPtrArray*
-as_cache_get_components_by_launchable (AsCache *cache, AsLaunchableKind kind, const gchar *id, GError **error)
+GPtrArray *
+as_cache_get_components_by_launchable (AsCache *cache,
+				       AsLaunchableKind kind,
+				       const gchar *id,
+				       GError **error)
 {
 	g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
 	g_autofree gchar *xpath = NULL;
-	xb_value_bindings_bind_str (xb_query_context_get_bindings (&context),
-				    0, id, NULL);
-	xpath = g_strdup_printf ("components/component/launchable[@type='%s'][text()=?]/..", as_launchable_kind_to_string (kind));
-	return as_cache_query_components (cache,
-					  xpath,
-					  &context,
-					  0,
-					  FALSE,
-					  error);
+	xb_value_bindings_bind_str (xb_query_context_get_bindings (&context), 0, id, NULL);
+	xpath = g_strdup_printf ("components/component/launchable[@type='%s'][text()=?]/..",
+				 as_launchable_kind_to_string (kind));
+	return as_cache_query_components (cache, xpath, &context, 0, FALSE, error);
 }
 
 /**
@@ -1884,34 +1835,35 @@ as_cache_get_components_by_launchable (AsCache *cache, AsLaunchableKind kind, co
  * Returns: (transfer full): An array of #AsComponent
  */
 
-GPtrArray*
-as_cache_get_components_by_bundle_id (AsCache *cache, AsBundleKind kind, const gchar *id, gboolean match_prefix, GError **error)
+GPtrArray *
+as_cache_get_components_by_bundle_id (AsCache *cache,
+				      AsBundleKind kind,
+				      const gchar *id,
+				      gboolean match_prefix,
+				      GError **error)
 {
 	g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
 	g_autofree gchar *xpath = NULL;
 
 	if (kind == AS_BUNDLE_KIND_PACKAGE) {
-		xpath = g_strdup (match_prefix ? "components/component/pkgname[starts-with(text(),?)]/.."
-					       : "components/component/pkgname[text()=?]/..");
+		xpath = g_strdup (match_prefix
+				      ? "components/component/pkgname[starts-with(text(),?)]/.."
+				      : "components/component/pkgname[text()=?]/..");
 	} else {
-		const gchar *match = match_prefix ? "components/component/bundle[@type='%s'][starts-with(text(),?)]/.."
-						  : "components/component/bundle[@type='%s'][text()=?]/..";
+		const gchar *match =
+		    match_prefix
+			? "components/component/bundle[@type='%s'][starts-with(text(),?)]/.."
+			: "components/component/bundle[@type='%s'][text()=?]/..";
 		xpath = g_strdup_printf (match, as_bundle_kind_to_string (kind));
 	}
 
-	xb_value_bindings_bind_str (xb_query_context_get_bindings (&context),
-				    0, id, NULL);
-	return as_cache_query_components (cache,
-					  xpath,
-					  &context,
-					  0,
-					  FALSE,
-					  error);
+	xb_value_bindings_bind_str (xb_query_context_get_bindings (&context), 0, id, NULL);
+	return as_cache_query_components (cache, xpath, &context, 0, FALSE, error);
 }
 
 typedef struct {
-	AsSearchTokenMatch	match_value;
-	XbQuery			*query;
+	AsSearchTokenMatch match_value;
+	XbQuery *query;
 } AsFTSearchHelper;
 
 static void
@@ -1932,7 +1884,10 @@ as_cache_search_component_node_term (GPtrArray *array, XbNode *cpt_node, const g
 		g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
 		AsFTSearchHelper *helper = g_ptr_array_index (array, i);
 
-		xb_value_bindings_bind_str (xb_query_context_get_bindings (&context), 0, term, NULL);
+		xb_value_bindings_bind_str (xb_query_context_get_bindings (&context),
+					    0,
+					    term,
+					    NULL);
 		n = xb_node_query_with_context (cpt_node, helper->query, &context, NULL);
 		if (n != NULL)
 			match_value |= helper->match_value;
@@ -1942,7 +1897,7 @@ as_cache_search_component_node_term (GPtrArray *array, XbNode *cpt_node, const g
 }
 
 static AsTokenType
-as_cache_search_component_node_terms (GPtrArray *array, XbNode *cpt_node, const gchar * const *terms)
+as_cache_search_component_node_terms (GPtrArray *array, XbNode *cpt_node, const gchar *const *terms)
 {
 	AsTokenType matches_sum = 0;
 
@@ -1967,8 +1922,8 @@ as_cache_search_component_node_terms (GPtrArray *array, XbNode *cpt_node, const 
  *
  * Returns: (transfer container): An array of #AsComponent
  */
-GPtrArray*
-as_cache_search (AsCache *cache, const gchar * const *terms, gboolean sort, GError **error)
+GPtrArray *
+as_cache_search (AsCache *cache, const gchar *const *terms, gboolean sort, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	g_autoptr(GPtrArray) results = NULL;
@@ -2002,7 +1957,7 @@ as_cache_search (AsCache *cache, const gchar * const *terms, gboolean sort, GErr
 		g_autoptr(GPtrArray) array = NULL;
 		g_autoptr(GPtrArray) cpt_nodes = NULL;
 		g_autoptr(GError) tmp_error = NULL;
-		AsCacheSection *csec = (AsCacheSection*) g_ptr_array_index (priv->sections, i);
+		AsCacheSection *csec = (AsCacheSection *) g_ptr_array_index (priv->sections, i);
 
 		g_debug ("Full text search in %s", csec->key);
 
@@ -2010,14 +1965,17 @@ as_cache_search (AsCache *cache, const gchar * const *terms, gboolean sort, GErr
 		array = g_ptr_array_new_with_free_func ((GDestroyNotify) as_ftsearch_helper_free);
 		for (guint j = 0; queries[j].xpath != NULL; j++) {
 			g_autoptr(GError) error_query = NULL;
-			g_autoptr(XbQuery) query = xb_query_new (csec->silo, queries[j].xpath, &error_query);
+			g_autoptr(XbQuery) query = xb_query_new (csec->silo,
+								  queries[j].xpath,
+								  &error_query);
 			if (query != NULL) {
 				AsFTSearchHelper *helper = g_new0 (AsFTSearchHelper, 1);
 				helper->match_value = queries[j].match_value;
 				helper->query = g_steal_pointer (&query);
 				g_ptr_array_add (array, helper);
 			} else {
-				g_debug ("Unable to create query (ignoring it): %s", error_query->message);
+				g_debug ("Unable to create query (ignoring it): %s",
+					 error_query->message);
 			}
 		}
 
@@ -2029,14 +1987,16 @@ as_cache_search (AsCache *cache, const gchar * const *terms, gboolean sort, GErr
 			if (g_error_matches (tmp_error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT))
 				continue;
 			g_propagate_prefixed_error (error,
-							g_steal_pointer (&tmp_error),
-							"Unable to run query: ");
+						    g_steal_pointer (&tmp_error),
+						    "Unable to run query: ");
 			return NULL;
 		}
 
 		for (guint k = 0; k < cpt_nodes->len; k++) {
 			XbNode *cpt_node = g_ptr_array_index (cpt_nodes, k);
-			AsTokenType match_value = as_cache_search_component_node_terms (array, cpt_node, terms);
+			AsTokenType match_value = as_cache_search_component_node_terms (array,
+											cpt_node,
+											terms);
 			if (match_value != 0) {
 				if (!as_query_context_add_component_from_node (qctx,
 									       cache,

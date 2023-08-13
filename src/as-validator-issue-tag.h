@@ -30,9 +30,9 @@ G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
 typedef struct {
-	const gchar	*tag;
-	AsIssueSeverity	severity;
-	const gchar	*explanation;
+	const gchar    *tag;
+	AsIssueSeverity severity;
+	const gchar    *explanation;
 } AsValidatorIssueTag;
 
 /* clang-format off */

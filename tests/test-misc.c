@@ -36,97 +36,96 @@ static gchar *datadir = NULL;
 static void
 test_readwrite_yaml_news (void)
 {
-	static const gchar *yaml_news_data =
-		"---\n"
-		"Version: 1.2\n"
-		"Date: 2019-04-18\n"
-		"Type: development\n"
-		"Description:\n"
-		"- Improved A & X\n"
-		"- Fixed B\n"
-		"---\n"
-		"Version: 1.1\n"
-		"Date: 2019-04-12\n"
-		"Description: |-\n"
-		"  A freeform description text.\n"
-		"\n"
-		"  Second paragraph. XML <> YAML\n"
-		"   * List item 1\n"
-		"   * List item 2\n"
-		"     Line two of list item.\n"
-		"\n"
-		"  Third paragraph.\n"
-		"---\n"
-		"Version: 1.0\n"
-		"Date: 2019-02-24\n"
-		"Description:\n"
-		"- Introduced feature A\n"
-		"- Introduced feature B\n"
-		"- Fixed X, Y and Z\n";
+	static const gchar *yaml_news_data = "---\n"
+					     "Version: 1.2\n"
+					     "Date: 2019-04-18\n"
+					     "Type: development\n"
+					     "Description:\n"
+					     "- Improved A & X\n"
+					     "- Fixed B\n"
+					     "---\n"
+					     "Version: 1.1\n"
+					     "Date: 2019-04-12\n"
+					     "Description: |-\n"
+					     "  A freeform description text.\n"
+					     "\n"
+					     "  Second paragraph. XML <> YAML\n"
+					     "   * List item 1\n"
+					     "   * List item 2\n"
+					     "     Line two of list item.\n"
+					     "\n"
+					     "  Third paragraph.\n"
+					     "---\n"
+					     "Version: 1.0\n"
+					     "Date: 2019-02-24\n"
+					     "Description:\n"
+					     "- Introduced feature A\n"
+					     "- Introduced feature B\n"
+					     "- Fixed X, Y and Z\n";
 
 	static const gchar *expected_xml_releases_data =
-		"  <releases>\n"
-		"    <release type=\"development\" version=\"1.2\" date=\"2019-04-18T00:00:00Z\">\n"
-		"      <description>\n"
-		"        <ul>\n"
-		"          <li>Improved A &amp; X</li>\n"
-		"          <li>Fixed B</li>\n"
-		"        </ul>\n"
-		"      </description>\n"
-		"    </release>\n"
-		"    <release type=\"stable\" version=\"1.1\" date=\"2019-04-12T00:00:00Z\">\n"
-		"      <description>\n"
-		"        <p>A freeform description text.</p>\n"
-		"        <p>Second paragraph. XML &lt;&gt; YAML</p>\n"
-		"        <ul>\n"
-		"          <li>List item 1</li>\n"
-		"          <li>List item 2 Line two of list item.</li>\n"
-		"        </ul>\n"
-		"        <p>Third paragraph.</p>\n"
-		"      </description>\n"
-		"    </release>\n"
-		"    <release type=\"stable\" version=\"1.0\" date=\"2019-02-24T00:00:00Z\">\n"
-		"      <description>\n"
-		"        <ul>\n"
-		"          <li>Introduced feature A</li>\n"
-		"          <li>Introduced feature B</li>\n"
-		"          <li>Fixed X, Y and Z</li>\n"
-		"        </ul>\n"
-		"      </description>\n"
-		"    </release>\n"
-		"  </releases>";
+	    "  <releases>\n"
+	    "    <release type=\"development\" version=\"1.2\" date=\"2019-04-18T00:00:00Z\">\n"
+	    "      <description>\n"
+	    "        <ul>\n"
+	    "          <li>Improved A &amp; X</li>\n"
+	    "          <li>Fixed B</li>\n"
+	    "        </ul>\n"
+	    "      </description>\n"
+	    "    </release>\n"
+	    "    <release type=\"stable\" version=\"1.1\" date=\"2019-04-12T00:00:00Z\">\n"
+	    "      <description>\n"
+	    "        <p>A freeform description text.</p>\n"
+	    "        <p>Second paragraph. XML &lt;&gt; YAML</p>\n"
+	    "        <ul>\n"
+	    "          <li>List item 1</li>\n"
+	    "          <li>List item 2 Line two of list item.</li>\n"
+	    "        </ul>\n"
+	    "        <p>Third paragraph.</p>\n"
+	    "      </description>\n"
+	    "    </release>\n"
+	    "    <release type=\"stable\" version=\"1.0\" date=\"2019-02-24T00:00:00Z\">\n"
+	    "      <description>\n"
+	    "        <ul>\n"
+	    "          <li>Introduced feature A</li>\n"
+	    "          <li>Introduced feature B</li>\n"
+	    "          <li>Fixed X, Y and Z</li>\n"
+	    "        </ul>\n"
+	    "      </description>\n"
+	    "    </release>\n"
+	    "  </releases>";
 
 	static const gchar *expected_xml_releases_data_notranslate =
-		"  <releases>\n"
-		"    <release type=\"development\" version=\"1.2\" date=\"2019-04-18T00:00:00Z\">\n"
-		"      <description>\n"
-		"        <ul>\n"
-		"          <li>Improved A &amp; X</li>\n"
-		"          <li>Fixed B</li>\n"
-		"        </ul>\n"
-		"      </description>\n"
-		"    </release>\n"
-		"    <release type=\"stable\" version=\"1.1\" date=\"2019-04-12T00:00:00Z\">\n"
-		"      <description translate=\"no\">\n"
-		"        <p>A freeform description text.</p>\n"
-		"        <p>Second paragraph. XML &lt;&gt; YAML</p>\n"
-		"        <ul>\n"
-		"          <li>List item 1</li>\n"
-		"          <li>List item 2 Line two of list item.</li>\n"
-		"        </ul>\n"
-		"        <p>Third paragraph.</p>\n"
-		"      </description>\n"
-		"    </release>\n"
-		"    <release type=\"stable\" version=\"1.0\" date=\"2019-02-24T00:00:00Z\">\n"
-		"      <description translate=\"no\">\n"
-		"        <ul>\n"
-		"          <li>Introduced feature A</li>\n"
-		"          <li>Introduced feature B</li>\n"
-		"          <li>Fixed X, Y and Z</li>\n"
-		"        </ul>\n"
-		"      </description>\n"
-		"    </release>\n"
-		"  </releases>";
+	    "  <releases>\n"
+	    "    <release type=\"development\" version=\"1.2\" date=\"2019-04-18T00:00:00Z\">\n"
+	    "      <description>\n"
+	    "        <ul>\n"
+	    "          <li>Improved A &amp; X</li>\n"
+	    "          <li>Fixed B</li>\n"
+	    "        </ul>\n"
+	    "      </description>\n"
+	    "    </release>\n"
+	    "    <release type=\"stable\" version=\"1.1\" date=\"2019-04-12T00:00:00Z\">\n"
+	    "      <description translate=\"no\">\n"
+	    "        <p>A freeform description text.</p>\n"
+	    "        <p>Second paragraph. XML &lt;&gt; YAML</p>\n"
+	    "        <ul>\n"
+	    "          <li>List item 1</li>\n"
+	    "          <li>List item 2 Line two of list item.</li>\n"
+	    "        </ul>\n"
+	    "        <p>Third paragraph.</p>\n"
+	    "      </description>\n"
+	    "    </release>\n"
+	    "    <release type=\"stable\" version=\"1.0\" date=\"2019-02-24T00:00:00Z\">\n"
+	    "      <description translate=\"no\">\n"
+	    "        <ul>\n"
+	    "          <li>Introduced feature A</li>\n"
+	    "          <li>Introduced feature B</li>\n"
+	    "          <li>Fixed X, Y and Z</li>\n"
+	    "        </ul>\n"
+	    "      </description>\n"
+	    "    </release>\n"
+	    "  </releases>";
 
 	g_autoptr(GPtrArray) releases = NULL;
 	g_autoptr(GError) error = NULL;
@@ -140,7 +139,8 @@ test_readwrite_yaml_news (void)
 	/* read */
 	releases = as_news_to_releases_from_data (yaml_news_data,
 						  AS_NEWS_FORMAT_KIND_YAML,
-						  -1, -1,
+						  -1,
+						  -1,
 						  &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (releases);
@@ -153,10 +153,7 @@ test_readwrite_yaml_news (void)
 	g_free (tmp);
 
 	/* write */
-	ret = as_releases_to_news_data (releases,
-					AS_NEWS_FORMAT_KIND_YAML,
-					&tmp,
-					&error);
+	ret = as_releases_to_news_data (releases, AS_NEWS_FORMAT_KIND_YAML, &tmp, &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 	g_assert_true (as_test_compare_lines (tmp, yaml_news_data_brclean));
@@ -166,7 +163,8 @@ test_readwrite_yaml_news (void)
 	g_ptr_array_unref (releases);
 	releases = as_news_to_releases_from_data (yaml_news_data,
 						  AS_NEWS_FORMAT_KIND_YAML,
-						  -1, 1,
+						  -1,
+						  1,
 						  &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (releases);
@@ -187,57 +185,56 @@ test_readwrite_yaml_news (void)
 static void
 test_readwrite_text_news (void)
 {
-	static const gchar *text_news_data =
-			"Version 0.12.8\n"
-			"~~~~~~~~~~~~~~\n"
-			"Released: 2019-08-16\n"
-			"\n"
-			"Notes:\n"
-			" * This release changes the output of appstreamcli\n"
-			"\n"
-			"Features:\n"
-			" * Alpha\n"
-			" * Beta\n"
-			"\n"
-			"Bugfixes:\n"
-			" * Restore compatibility with GLib < 2.58\n"
-			"  * Gamma\n"
-			" * Delta\n";
+	static const gchar *text_news_data = "Version 0.12.8\n"
+					     "~~~~~~~~~~~~~~\n"
+					     "Released: 2019-08-16\n"
+					     "\n"
+					     "Notes:\n"
+					     " * This release changes the output of appstreamcli\n"
+					     "\n"
+					     "Features:\n"
+					     " * Alpha\n"
+					     " * Beta\n"
+					     "\n"
+					     "Bugfixes:\n"
+					     " * Restore compatibility with GLib < 2.58\n"
+					     "  * Gamma\n"
+					     " * Delta\n";
 	static const gchar *expected_xml_releases_data =
-			"  <releases>\n"
-			"    <release type=\"stable\" version=\"0.12.8\" date=\"2019-08-16T00:00:00Z\">\n"
-			"      <description>\n"
-			"        <p>This release changes the output of appstreamcli</p>\n"
-			"        <p>This release adds the following features:</p>\n"
-			"        <ul>\n"
-			"          <li>Alpha</li>\n"
-			"          <li>Beta</li>\n"
-			"        </ul>\n"
-			"        <p>This release fixes the following bugs:</p>\n"
-			"        <ul>\n"
-			"          <li>Restore compatibility with GLib &lt; 2.58</li>\n"
-			"          <li>Gamma</li>\n"
-			"          <li>Delta</li>\n"
-			"        </ul>\n"
-			"      </description>\n"
-			"    </release>\n"
-			"  </releases>";
+	    "  <releases>\n"
+	    "    <release type=\"stable\" version=\"0.12.8\" date=\"2019-08-16T00:00:00Z\">\n"
+	    "      <description>\n"
+	    "        <p>This release changes the output of appstreamcli</p>\n"
+	    "        <p>This release adds the following features:</p>\n"
+	    "        <ul>\n"
+	    "          <li>Alpha</li>\n"
+	    "          <li>Beta</li>\n"
+	    "        </ul>\n"
+	    "        <p>This release fixes the following bugs:</p>\n"
+	    "        <ul>\n"
+	    "          <li>Restore compatibility with GLib &lt; 2.58</li>\n"
+	    "          <li>Gamma</li>\n"
+	    "          <li>Delta</li>\n"
+	    "        </ul>\n"
+	    "      </description>\n"
+	    "    </release>\n"
+	    "  </releases>";
 
-	static const gchar *expected_generated_news_txt =
-			"Version 0.12.8\n"
-			"~~~~~~~~~~~~~~\n"
-			"Released: 2019-08-16\n"
-			"\n"
-			"This release changes the output of appstreamcli\n"
-			"\n"
-			"This release adds the following features:\n"
-			" * Alpha\n"
-			" * Beta\n"
-			"\n"
-			"This release fixes the following bugs:\n"
-			" * Restore compatibility with GLib < 2.58\n"
-			" * Gamma\n"
-			" * Delta\n";
+	static const gchar
+	    *expected_generated_news_txt = "Version 0.12.8\n"
+					   "~~~~~~~~~~~~~~\n"
+					   "Released: 2019-08-16\n"
+					   "\n"
+					   "This release changes the output of appstreamcli\n"
+					   "\n"
+					   "This release adds the following features:\n"
+					   " * Alpha\n"
+					   " * Beta\n"
+					   "\n"
+					   "This release fixes the following bugs:\n"
+					   " * Restore compatibility with GLib < 2.58\n"
+					   " * Gamma\n"
+					   " * Delta\n";
 
 	g_autoptr(GPtrArray) releases = NULL;
 	g_autoptr(GError) error = NULL;
@@ -246,7 +243,8 @@ test_readwrite_text_news (void)
 	/* read */
 	releases = as_news_to_releases_from_data (text_news_data,
 						  AS_NEWS_FORMAT_KIND_TEXT,
-						  -1, -1,
+						  -1,
+						  -1,
 						  &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (releases);

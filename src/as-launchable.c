@@ -35,10 +35,9 @@
  * See also: #AsComponent
  */
 
-typedef struct
-{
-	AsLaunchableKind	kind;
-	GPtrArray		*entries;
+typedef struct {
+	AsLaunchableKind kind;
+	GPtrArray *entries;
 } AsLaunchablePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsLaunchable, as_launchable, G_TYPE_OBJECT)
@@ -55,7 +54,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsLaunchable, as_launchable, G_TYPE_OBJECT)
  *
  * Since: 0.11.0
  **/
-const gchar*
+const gchar *
 as_launchable_kind_to_string (AsLaunchableKind kind)
 {
 	if (kind == AS_LAUNCHABLE_KIND_DESKTOP_ID)
@@ -174,7 +173,7 @@ as_launchable_set_kind (AsLaunchable *launch, AsLaunchableKind kind)
  *
  * Since: 0.11.0
  */
-GPtrArray*
+GPtrArray *
 as_launchable_get_entries (AsLaunchable *launch)
 {
 	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
@@ -260,9 +259,7 @@ as_launchable_emit_yaml (AsLaunchable *launch, AsContext *ctx, yaml_emitter_t *e
 {
 	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
 
-	as_yaml_emit_sequence (emitter,
-			       as_launchable_kind_to_string (priv->kind),
-			       priv->entries);
+	as_yaml_emit_sequence (emitter, as_launchable_kind_to_string (priv->kind), priv->entries);
 }
 
 /**
@@ -274,7 +271,7 @@ as_launchable_emit_yaml (AsLaunchable *launch, AsContext *ctx, yaml_emitter_t *e
  *
  * Since: 0.11.0
  **/
-AsLaunchable*
+AsLaunchable *
 as_launchable_new (void)
 {
 	AsLaunchable *launch;

@@ -27,16 +27,13 @@
 AS_BEGIN_PRIVATE_DECLS
 
 AS_INTERNAL_VISIBLE
-void		as_system_info_load_os_release (AsSystemInfo *sysinfo,
-									const gchar *os_release_fname);
+void as_system_info_load_os_release (AsSystemInfo *sysinfo, const gchar *os_release_fname);
 
 AS_INTERNAL_VISIBLE
-void		as_system_info_set_kernel (AsSystemInfo *sysinfo,
-								   const gchar *name,
-								   const gchar *version);
+void as_system_info_set_kernel (AsSystemInfo *sysinfo, const gchar *name, const gchar *version);
 
 AS_INTERNAL_VISIBLE
-void		as_system_info_set_memory_total (AsSystemInfo *sysinfo, gulong size_mib);
+void as_system_info_set_memory_total (AsSystemInfo *sysinfo, gulong size_mib);
 
 AS_END_PRIVATE_DECLS
 

@@ -36,30 +36,28 @@ AS_BEGIN_PRIVATE_DECLS
  * we downloaded from an upstream site.
  */
 typedef struct {
-	gchar *codec_name;
-	gchar *audio_codec_name;
-	gint width;
-	gint height;
-	gchar *format_name;
+	gchar		    *codec_name;
+	gchar		    *audio_codec_name;
+	gint		     width;
+	gint		     height;
+	gchar		    *format_name;
 	AsVideoContainerKind container_kind;
-	AsVideoCodecKind codec_kind;
-	gboolean is_acceptable;
+	AsVideoCodecKind     codec_kind;
+	gboolean	     is_acceptable;
 } AscVideoInfo;
 
 AS_INTERNAL_VISIBLE
-AscVideoInfo	*asc_extract_video_info (AscResult *cres,
-					 AsComponent *cpt,
-				         const gchar *vid_fname);
+AscVideoInfo *asc_extract_video_info (AscResult *cres, AsComponent *cpt, const gchar *vid_fname);
 AS_INTERNAL_VISIBLE
-void		asc_video_info_free (AscVideoInfo *vinfo);
+void asc_video_info_free (AscVideoInfo *vinfo);
 
-void		asc_process_screenshots (AscResult *cres,
-					 AsComponent *cpt,
-					 AsCurl *acurl,
-					 const gchar *media_export_root,
-					 const gchar *media_url_prefix,
-					 const gssize max_size_bytes,
-					 gboolean process_videos,
-					 gboolean store_screenshots);
+void asc_process_screenshots (AscResult	  *cres,
+			      AsComponent *cpt,
+			      AsCurl	  *acurl,
+			      const gchar *media_export_root,
+			      const gchar *media_url_prefix,
+			      const gssize max_size_bytes,
+			      gboolean	   process_videos,
+			      gboolean	   store_screenshots);
 
 AS_END_PRIVATE_DECLS

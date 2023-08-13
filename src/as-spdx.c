@@ -36,9 +36,9 @@
  */
 
 typedef struct {
-	gboolean	 last_token_literal;
-	GPtrArray	*array;
-	GString		*collect;
+	gboolean last_token_literal;
+	GPtrArray *array;
+	GString *collect;
 } AsSpdxHelper;
 
 static gpointer
@@ -59,17 +59,18 @@ as_spdx_license_tokenize_drop (AsSpdxHelper *helper)
 	guint i;
 	g_autofree gchar *last_literal = NULL;
 	struct {
-		const gchar	*old;
-		const gchar	*new;
-	} licenses[] =  {
-		{ "CC0",	"CC0-1.0" },
-		{ "CC-BY",	"CC-BY-3.0" },
-		{ "CC-BY-SA",	"CC-BY-SA-3.0" },
-		{ "GFDL",	"GFDL-1.3" },
-		{ "GPL-2",	"GPL-2.0" },
-		{ "GPL-3",	"GPL-3.0" },
-		{ "proprietary", "LicenseRef-proprietary" },
-		{ NULL, NULL } };
+		const gchar *old;
+		const gchar *new;
+	} licenses[] = {
+		{"CC0",		 "CC0-1.0"		   },
+		{ "CC-BY",	   "CC-BY-3.0"	       },
+		{ "CC-BY-SA",    "CC-BY-SA-3.0"	     },
+		{ "GFDL",	  "GFDL-1.3"		     },
+		{ "GPL-2",	   "GPL-2.0"		     },
+		{ "GPL-3",	   "GPL-3.0"		     },
+		{ "proprietary", "LicenseRef-proprietary"},
+		{ NULL,		NULL		     }
+	};
 
 	/* nothing from last time */
 	if (helper->collect->len == 0)
@@ -99,8 +100,7 @@ as_spdx_license_tokenize_drop (AsSpdxHelper *helper)
 	for (i = 0; licenses[i].old != NULL; i++) {
 		if (g_strcmp0 (tmp, licenses[i].old) != 0)
 			continue;
-		g_ptr_array_add (helper->array,
-				 g_strdup_printf ("@%s", licenses[i].new));
+		g_ptr_array_add (helper->array, g_strdup_printf ("@%s", licenses[i].new));
 		helper->last_token_literal = FALSE;
 		g_string_truncate (helper->collect, 0);
 		return;
@@ -134,8 +134,7 @@ as_spdx_license_tokenize_drop (AsSpdxHelper *helper)
 	if (helper->last_token_literal) {
 		last_literal = g_strdup (_g_ptr_array_last (helper->array));
 		g_ptr_array_remove_index (helper->array, helper->array->len - 1);
-		g_ptr_array_add (helper->array,
-				 g_strdup_printf ("%s %s", last_literal, tmp));
+		g_ptr_array_add (helper->array, g_strdup_printf ("%s %s", last_literal, tmp));
 	} else {
 		g_ptr_array_add (helper->array, g_strdup (tmp));
 		helper->last_token_literal = TRUE;
@@ -286,7 +285,7 @@ as_is_spdx_license_expression (const gchar *license)
  * So we will just convert licenses back to the previous notation where
  * necessary.
  */
-static GString*
+static GString *
 as_utils_spdx_license_3to2 (const gchar *license3)
 {
 	GString *license2 = g_string_new (license3);
@@ -302,7 +301,7 @@ as_utils_spdx_license_3to2 (const gchar *license3)
  * which broke a lot of tools that we cannot really fix now.
  * So we will convert between notations where necessary.
  */
-static GString*
+static GString *
 as_utils_spdx_license_2to3 (const gchar *license2)
 {
 	GString *license3 = g_string_new (license2);
@@ -326,7 +325,7 @@ as_utils_spdx_license_2to3 (const gchar *license2)
  *
  * Since: 0.9.8
  **/
-gchar**
+gchar **
 as_spdx_license_tokenize (const gchar *license)
 {
 	AsSpdxHelper helper;
@@ -381,7 +380,7 @@ as_spdx_license_tokenize (const gchar *license)
  *
  * Since: 0.9.8
  **/
-gchar*
+gchar *
 as_spdx_license_detokenize (gchar **license_tokens)
 {
 	GString *tmp;
@@ -429,7 +428,7 @@ as_spdx_license_detokenize (gchar **license_tokens)
  *
  * Since: 0.9.8
  **/
-gchar*
+gchar *
 as_license_to_spdx_id (const gchar *license)
 {
 	GString *str;
@@ -437,64 +436,65 @@ as_license_to_spdx_id (const gchar *license)
 	guint j;
 	guint license_len;
 	struct {
-		const gchar	*old;
-		const gchar	*new;
-	} convert[] =  {
-		{ " with exceptions",		NULL },
-		{ " with advertising",		NULL },
-		{ " and ",			" AND " },
-		{ " or ",			" OR " },
-		{ "AGPLv3+",			"AGPL-3.0" },
-		{ "AGPLv3",			"AGPL-3.0" },
-		{ "Artistic 2.0",		"Artistic-2.0" },
-		{ "Artistic clarified",		"Artistic-2.0" },
-		{ "Artistic",			"Artistic-1.0" },
-		{ "ASL 1.1",			"Apache-1.1" },
-		{ "ASL 2.0",			"Apache-2.0" },
-		{ "Boost",			"BSL-1.0" },
-		{ "BSD",			"BSD-3-Clause" },
-		{ "CC0",			"CC0-1.0" },
-		{ "CC-BY-SA",			"CC-BY-SA-3.0" },
-		{ "CC-BY",			"CC-BY-3.0" },
-		{ "CDDL",			"CDDL-1.0" },
-		{ "CeCILL-C",			"CECILL-C" },
-		{ "CeCILL",			"CECILL-2.0" },
-		{ "CPAL",			"CPAL-1.0" },
-		{ "CPL",			"CPL-1.0" },
-		{ "EPL",			"EPL-1.0" },
-		{ "Free Art",			"ClArtistic" },
-		{ "GFDL",			"GFDL-1.3" },
-		{ "GPL+",			"GPL-1.0+" },
-		{ "GPLv2+",			"GPL-2.0+" },
-		{ "GPLv2",			"GPL-2.0" },
-		{ "GPLv3+",			"GPL-3.0+" },
-		{ "GPLv3",			"GPL-3.0" },
-		{ "IBM",			"IPL-1.0" },
-		{ "LGPL+",			"LGPL-2.1+" },
-		{ "LGPLv2.1",			"LGPL-2.1" },
-		{ "LGPLv2+",			"LGPL-2.1+" },
-		{ "LGPLv2",			"LGPL-2.1" },
-		{ "LGPLv3+",			"LGPL-3.0+" },
-		{ "LGPLv3",			"LGPL-3.0" },
-		{ "LPPL",			"LPPL-1.3c" },
-		{ "MPLv1.0",			"MPL-1.0" },
-		{ "MPLv1.1",			"MPL-1.1" },
-		{ "MPLv2.0",			"MPL-2.0" },
-		{ "Netscape",			"NPL-1.1" },
-		{ "OFL",			"OFL-1.1" },
-		{ "Python",			"Python-2.0" },
-		{ "QPL",			"QPL-1.0" },
-		{ "SPL",			"SPL-1.0" },
-		{ "UPL",			"UPL-1.0" },
-		{ "zlib",			"Zlib" },
-		{ "ZPLv2.0",			"ZPL-2.0" },
-		{ "Unlicense",			"CC0-1.0" },
-		{ "Public Domain",		"LicenseRef-public-domain" },
-		{ "SUSE-Public-Domain",		"LicenseRef-public-domain" },
-		{ "Copyright only",		"LicenseRef-public-domain" },
-		{ "Proprietary",		"LicenseRef-proprietary" },
-		{ "Commercial",			"LicenseRef-proprietary" },
-		{ NULL, NULL } };
+		const gchar *old;
+		const gchar *new;
+	} convert[] = {
+		{" with exceptions",    NULL			   },
+		{ " with advertising",  NULL			    },
+		{ " and ",		   " AND "		   },
+		{ " or ",		  " OR "			 },
+		{ "AGPLv3+",	     "AGPL-3.0"		},
+		{ "AGPLv3",		    "AGPL-3.0"		       },
+		{ "Artistic 2.0",	  "Artistic-2.0"		 },
+		{ "Artistic clarified", "Artistic-2.0"	       },
+		{ "Artistic",	      "Artistic-1.0"	     },
+		{ "ASL 1.1",	     "Apache-1.1"		  },
+		{ "ASL 2.0",	     "Apache-2.0"		  },
+		{ "Boost",		   "BSL-1.0"		     },
+		{ "BSD",		 "BSD-3-Clause"		},
+		{ "CC0",		 "CC0-1.0"		   },
+		{ "CC-BY-SA",	      "CC-BY-SA-3.0"	     },
+		{ "CC-BY",		   "CC-BY-3.0"	       },
+		{ "CDDL",		  "CDDL-1.0"		     },
+		{ "CeCILL-C",	      "CECILL-C"		 },
+		{ "CeCILL",		    "CECILL-2.0"		 },
+		{ "CPAL",		  "CPAL-1.0"		     },
+		{ "CPL",		 "CPL-1.0"		   },
+		{ "EPL",		 "EPL-1.0"		   },
+		{ "Free Art",	      "ClArtistic"		   },
+		{ "GFDL",		  "GFDL-1.3"		     },
+		{ "GPL+",		  "GPL-1.0+"		     },
+		{ "GPLv2+",		    "GPL-2.0+"		       },
+		{ "GPLv2",		   "GPL-2.0"		     },
+		{ "GPLv3+",		    "GPL-3.0+"		       },
+		{ "GPLv3",		   "GPL-3.0"		     },
+		{ "IBM",		 "IPL-1.0"		   },
+		{ "LGPL+",		   "LGPL-2.1+"	       },
+		{ "LGPLv2.1",	      "LGPL-2.1"		 },
+		{ "LGPLv2+",	     "LGPL-2.1+"		 },
+		{ "LGPLv2",		    "LGPL-2.1"		       },
+		{ "LGPLv3+",	     "LGPL-3.0+"		 },
+		{ "LGPLv3",		    "LGPL-3.0"		       },
+		{ "LPPL",		  "LPPL-1.3c"		      },
+		{ "MPLv1.0",	     "MPL-1.0"		       },
+		{ "MPLv1.1",	     "MPL-1.1"		       },
+		{ "MPLv2.0",	     "MPL-2.0"		       },
+		{ "Netscape",	      "NPL-1.1"			},
+		{ "OFL",		 "OFL-1.1"		   },
+		{ "Python",		    "Python-2.0"		 },
+		{ "QPL",		 "QPL-1.0"		   },
+		{ "SPL",		 "SPL-1.0"		   },
+		{ "UPL",		 "UPL-1.0"		   },
+		{ "zlib",		  "Zlib"			 },
+		{ "ZPLv2.0",	     "ZPL-2.0"		       },
+		{ "Unlicense",	       "CC0-1.0"		 },
+		{ "Public Domain",	   "LicenseRef-public-domain"},
+		{ "SUSE-Public-Domain", "LicenseRef-public-domain"},
+		{ "Copyright only",	    "LicenseRef-public-domain"},
+		{ "Proprietary",	 "LicenseRef-proprietary"  },
+		{ "Commercial",		"LicenseRef-proprietary"	 },
+		{ NULL,			NULL			     }
+	};
 
 	/* nothing set */
 	if (license == NULL)
@@ -511,9 +511,7 @@ as_license_to_spdx_id (const gchar *license)
 		gboolean found = FALSE;
 		for (j = 0; convert[j].old != NULL; j++) {
 			guint old_len = strlen (convert[j].old);
-			if (g_ascii_strncasecmp (license + i,
-						 convert[j].old,
-						 old_len) != 0)
+			if (g_ascii_strncasecmp (license + i, convert[j].old, old_len) != 0)
 				continue;
 			if (convert[j].new != NULL)
 				g_string_append (str, convert[j].new);
@@ -615,8 +613,7 @@ as_license_is_metadata_license (const gchar *license)
 
 	/* this is too complicated to process */
 	for (guint i = 0; tokens[i] != NULL; i++) {
-		if (g_strcmp0 (tokens[i], "(") == 0 ||
-		    g_strcmp0 (tokens[i], ")") == 0) {
+		if (g_strcmp0 (tokens[i], "(") == 0 || g_strcmp0 (tokens[i], ")") == 0) {
 			return FALSE;
 		}
 	}
@@ -663,7 +660,7 @@ as_license_is_metadata_license (const gchar *license)
  *
  * Since: 0.12.7
  */
-gchar*
+gchar *
 as_get_license_url (const gchar *license)
 {
 	g_autoptr(GString) license_id = NULL;
@@ -691,7 +688,8 @@ as_get_license_url (const gchar *license)
 			return NULL;
 		return g_strdup (l);
 	}
-	if (!as_is_spdx_license_id (license_id->str) && !as_is_spdx_license_exception_id (license_id->str))
+	if (!as_is_spdx_license_id (license_id->str) &&
+	    !as_is_spdx_license_exception_id (license_id->str))
 		return NULL;
 
 	license_lower = g_utf8_strdown (license_id->str, -1);
@@ -712,8 +710,10 @@ as_get_license_url (const gchar *license)
 	if (g_str_has_prefix (license_lower, "agpl-3.0"))
 		return g_strdup ("https://choosealicense.com/licenses/agpl-3.0/");
 	if (g_strcmp0 (license_lower, "mpl-2.0") == 0 || g_strcmp0 (license_lower, "mit") == 0 ||
-	    g_strcmp0 (license_lower, "0bsd") == 0 || g_strcmp0 (license_lower, "bsd-2-clause") == 0 ||
-	    g_strcmp0 (license_lower, "bsd-3-clause") == 0 || g_strcmp0 (license_lower, "apache-2.0") == 0 ||
+	    g_strcmp0 (license_lower, "0bsd") == 0 ||
+	    g_strcmp0 (license_lower, "bsd-2-clause") == 0 ||
+	    g_strcmp0 (license_lower, "bsd-3-clause") == 0 ||
+	    g_strcmp0 (license_lower, "apache-2.0") == 0 ||
 	    g_strcmp0 (license_lower, "bsl-1.0") == 0)
 		return g_strdup_printf ("https://choosealicense.com/licenses/%s/", license_lower);
 
@@ -756,9 +756,9 @@ as_license_is_free_license (const gchar *license)
 
 	/* load the readonly data section of (free) license IDs */
 	rdata = g_resource_lookup_data (as_get_resource (),
-				       "/org/freedesktop/appstream/spdx-free-license-ids.txt",
-				       G_RESOURCE_LOOKUP_FLAGS_NONE,
-				       NULL);
+					"/org/freedesktop/appstream/spdx-free-license-ids.txt",
+					G_RESOURCE_LOOKUP_FLAGS_NONE,
+					NULL);
 	g_return_val_if_fail (rdata != NULL, FALSE);
 
 	/* assume we have a free software license, unless proven otherwise */
@@ -769,12 +769,9 @@ as_license_is_free_license (const gchar *license)
 	for (guint i = 0; tokens[i] != NULL; i++) {
 		g_autofree gchar *lkey = NULL;
 
-		if (g_strcmp0 (tokens[i], "&") == 0 ||
-		    g_strcmp0 (tokens[i], "+") == 0 ||
-		    g_strcmp0 (tokens[i], "|") == 0 ||
-		    g_strcmp0 (tokens[i], "^") == 0 ||
-		    g_strcmp0 (tokens[i], "(") == 0 ||
-		    g_strcmp0 (tokens[i], ")") == 0)
+		if (g_strcmp0 (tokens[i], "&") == 0 || g_strcmp0 (tokens[i], "+") == 0 ||
+		    g_strcmp0 (tokens[i], "|") == 0 || g_strcmp0 (tokens[i], "^") == 0 ||
+		    g_strcmp0 (tokens[i], "(") == 0 || g_strcmp0 (tokens[i], ")") == 0)
 			continue;
 
 		if (g_str_has_prefix (tokens[i], "@LicenseRef")) {
@@ -783,8 +780,8 @@ as_license_is_free_license (const gchar *license)
 				is_free = FALSE;
 				break;
 			}
-		} else if (g_str_has_prefix (tokens[i], "@NOASSERTION")
-			|| g_str_has_prefix (tokens[i], "@NONE")) {
+		} else if (g_str_has_prefix (tokens[i], "@NOASSERTION") ||
+			   g_str_has_prefix (tokens[i], "@NONE")) {
 			/* no license info is fishy as well */
 			is_free = FALSE;
 			break;

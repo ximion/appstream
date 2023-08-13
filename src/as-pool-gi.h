@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -30,23 +30,21 @@
 
 G_BEGIN_DECLS
 
-GPtrArray		*as_pool_get_components_gi (AsPool *pool);
-GPtrArray		*as_pool_get_components_by_id_gi (AsPool *pool,
-							   const gchar *cid);
-GPtrArray		*as_pool_get_components_by_provided_item_gi (AsPool *pool,
-									AsProvidedKind kind,
-									const gchar *item);
-GPtrArray		*as_pool_get_components_by_kind_gi (AsPool *pool, AsComponentKind kind);
-GPtrArray		*as_pool_get_components_by_categories_gi (AsPool *pool, gchar **categories);
-GPtrArray		*as_pool_get_components_by_launchable_gi (AsPool *pool,
-								   AsLaunchableKind kind,
-								   const gchar *id);
-GPtrArray		*as_pool_get_components_by_extends_gi (AsPool *pool,
-								const gchar *extended_id);
-GPtrArray		*as_pool_get_components_by_bundle_id_gi (AsPool *pool,
-								  AsBundleKind kind,
-								  const gchar *bundle_id,
-								  gboolean match_prefix);
-GPtrArray		*as_pool_search_gi (AsPool *pool, const gchar *search);
+GPtrArray *as_pool_get_components_gi (AsPool *pool);
+GPtrArray *as_pool_get_components_by_id_gi (AsPool *pool, const gchar *cid);
+GPtrArray *as_pool_get_components_by_provided_item_gi (AsPool	     *pool,
+						       AsProvidedKind kind,
+						       const gchar   *item);
+GPtrArray *as_pool_get_components_by_kind_gi (AsPool *pool, AsComponentKind kind);
+GPtrArray *as_pool_get_components_by_categories_gi (AsPool *pool, gchar **categories);
+GPtrArray *as_pool_get_components_by_launchable_gi (AsPool	    *pool,
+						    AsLaunchableKind kind,
+						    const gchar	    *id);
+GPtrArray *as_pool_get_components_by_extends_gi (AsPool *pool, const gchar *extended_id);
+GPtrArray *as_pool_get_components_by_bundle_id_gi (AsPool      *pool,
+						   AsBundleKind kind,
+						   const gchar *bundle_id,
+						   gboolean	match_prefix);
+GPtrArray *as_pool_search_gi (AsPool *pool, const gchar *search);
 
 G_END_DECLS

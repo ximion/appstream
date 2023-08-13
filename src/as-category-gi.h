@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -28,6 +28,6 @@
 
 G_BEGIN_DECLS
 
-GPtrArray		*as_get_default_categories_gi (gboolean with_special);
+GPtrArray *as_get_default_categories_gi (gboolean with_special);
 
 G_END_DECLS

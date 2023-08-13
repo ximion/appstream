@@ -45,7 +45,7 @@ print_cptarray (GPtrArray *cpt_array)
 	g_printf ("----\n");
 	for (guint i = 0; i < cpt_array->len; i++) {
 		g_autofree gchar *tmp = NULL;
-		AsComponent *cpt = (AsComponent*) g_ptr_array_index (cpt_array, i);
+		AsComponent *cpt = (AsComponent *) g_ptr_array_index (cpt_array, i);
 
 		tmp = as_component_to_string (cpt);
 		g_printf ("  - %s\n", tmp);
@@ -59,7 +59,7 @@ print_cptarray (GPtrArray *cpt_array)
  * Internal helper to get a single #AsComponent by its
  * component identifier.
  */
-static AsComponent*
+static AsComponent *
 _as_get_single_component_by_cid (AsPool *pool, const gchar *cid)
 {
 	g_autoptr(GPtrArray) result = NULL;
@@ -107,7 +107,7 @@ as_test_loop_quit (void)
  *
  * Internal helper to get a pool with the sample data locations set.
  */
-static AsPool*
+static AsPool *
 test_get_sampledata_pool (gboolean use_caches)
 {
 	AsPool *pool;
@@ -217,7 +217,8 @@ test_cache (void)
 		g_autoptr(GFile) file = NULL;
 		const gchar *fname = g_ptr_array_index (xml_files, i);
 
-		if (g_str_has_suffix (fname, "merges.xml") || g_str_has_suffix (fname, "suggestions.xml"))
+		if (g_str_has_suffix (fname, "merges.xml") ||
+		    g_str_has_suffix (fname, "suggestions.xml"))
 			continue;
 
 		file = g_file_new_for_path (fname);
@@ -228,7 +229,8 @@ test_cache (void)
 
 	cpts_pre = g_ptr_array_new_with_free_func (g_object_unref);
 	for (guint i = 0; i < as_metadata_get_components (mdata)->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (as_metadata_get_components (mdata), i));
+		AsComponent *cpt = AS_COMPONENT (
+		    g_ptr_array_index (as_metadata_get_components (mdata), i));
 
 		if (g_strcmp0 (as_component_get_id (cpt), "org.example.DeleteMe") == 0)
 			continue;
@@ -260,14 +262,9 @@ test_cache (void)
 	as_cache_set_locations (cache, cache_testpath, cache_testpath);
 
 	/* add data */
-	ret = as_cache_set_contents_for_path (cache,
-					      cpts_pre,
-					      mdata_dir,
-					      NULL,
-					      &error);
+	ret = as_cache_set_contents_for_path (cache, cpts_pre, mdata_dir, NULL, &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
-
 
 	/* new cache for loading */
 	g_clear_pointer (&cache, g_object_unref);
@@ -385,19 +382,28 @@ test_pool_read (void)
 	g_assert_cmpint (result->len, ==, 3);
 	g_clear_pointer (&result, g_ptr_array_unref);
 
-	result = as_pool_get_components_by_provided_item (dpool, AS_PROVIDED_KIND_BINARY, "inkscape");
+	result = as_pool_get_components_by_provided_item (dpool,
+							  AS_PROVIDED_KIND_BINARY,
+							  "inkscape");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
 	cpt_s = AS_COMPONENT (g_ptr_array_index (result, 0));
 
 	g_assert_cmpstr (as_component_get_name (cpt_s), ==, "Inkscape");
-	g_assert_cmpstr (as_component_get_url (cpt_s, AS_URL_KIND_HOMEPAGE), ==, "https://inkscape.org/");
-	g_assert_cmpstr (as_component_get_url (cpt_s, AS_URL_KIND_FAQ), ==, "https://inkscape.org/learn/faq/");
+	g_assert_cmpstr (as_component_get_url (cpt_s, AS_URL_KIND_HOMEPAGE),
+			 ==,
+			 "https://inkscape.org/");
+	g_assert_cmpstr (as_component_get_url (cpt_s, AS_URL_KIND_FAQ),
+			 ==,
+			 "https://inkscape.org/learn/faq/");
 
 	g_clear_pointer (&result, g_ptr_array_unref);
 
 	/* by bundle ID */
-	result = as_pool_get_components_by_bundle_id (dpool, AS_BUNDLE_KIND_LIMBA, "neverball-", TRUE);
+	result = as_pool_get_components_by_bundle_id (dpool,
+						      AS_BUNDLE_KIND_LIMBA,
+						      "neverball-",
+						      TRUE);
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
 	g_clear_pointer (&result, g_ptr_array_unref);
@@ -407,7 +413,9 @@ test_pool_read (void)
 	g_assert_nonnull (cpt_a);
 
 	g_assert_cmpstr (as_component_get_name (cpt_a), ==, "Neverball");
-	g_assert_cmpstr (as_component_get_url (cpt_a, AS_URL_KIND_HOMEPAGE), ==, "http://neverball.org/");
+	g_assert_cmpstr (as_component_get_url (cpt_a, AS_URL_KIND_HOMEPAGE),
+			 ==,
+			 "http://neverball.org/");
 	bundle = as_component_get_bundle (cpt_a, AS_BUNDLE_KIND_LIMBA);
 	g_assert_nonnull (bundle);
 	g_assert_cmpstr (as_bundle_get_id (bundle), ==, "neverball-1.6.0");
@@ -416,7 +424,7 @@ test_pool_read (void)
 	g_assert_cmpint (rels->len, ==, 2);
 
 	rel = AS_RELEASE (g_ptr_array_index (rels, 0));
-	g_assert_cmpstr  (as_release_get_version (rel), ==, "1.6.1");
+	g_assert_cmpstr (as_release_get_version (rel), ==, "1.6.1");
 	g_assert_cmpuint (as_release_get_timestamp (rel), ==, 123465888);
 	g_assert_true (as_release_get_urgency (rel) == AS_URGENCY_KIND_LOW);
 
@@ -425,13 +433,17 @@ test_pool_read (void)
 	for (guint i = 0; i < artifacts->len; i++) {
 		AsArtifact *artifact = AS_ARTIFACT (g_ptr_array_index (artifacts, i));
 		if (as_artifact_get_kind (artifact) == AS_ARTIFACT_KIND_BINARY) {
-			g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_DOWNLOAD), ==, 112358);
-			g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_INSTALLED), ==, 42424242);
+			g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_DOWNLOAD),
+					  ==,
+					  112358);
+			g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_INSTALLED),
+					  ==,
+					  42424242);
 		}
 	}
 
 	rel = AS_RELEASE (g_ptr_array_index (rels, 1));
-	g_assert_cmpstr  (as_release_get_version (rel), ==, "1.6.0");
+	g_assert_cmpstr (as_release_get_version (rel), ==, "1.6.0");
 	g_assert_cmpuint (as_release_get_timestamp (rel), ==, 123456789);
 
 	/* check categorization */
@@ -471,17 +483,24 @@ test_pool_read (void)
 		}
 
 		if (g_strcmp0 (cat_id, "graphics") == 0) {
-			AsComponent *tmp_cpt = g_ptr_array_index (as_category_get_components (cat), 0);
-			g_assert_cmpstr (as_component_get_id (tmp_cpt), ==, "org.inkscape.Inkscape");
+			AsComponent *tmp_cpt = g_ptr_array_index (as_category_get_components (cat),
+								  0);
+			g_assert_cmpstr (as_component_get_id (tmp_cpt),
+					 ==,
+					 "org.inkscape.Inkscape");
 		}
 	}
 
 	/* test fetching components by launchable */
-	result = as_pool_get_components_by_launchable (dpool, AS_LAUNCHABLE_KIND_DESKTOP_ID, "linuxdcpp.desktop");
+	result = as_pool_get_components_by_launchable (dpool,
+						       AS_LAUNCHABLE_KIND_DESKTOP_ID,
+						       "linuxdcpp.desktop");
 	g_assert_cmpint (result->len, ==, 1);
 	g_clear_pointer (&result, g_ptr_array_unref);
 
-	result = as_pool_get_components_by_launchable (dpool, AS_LAUNCHABLE_KIND_DESKTOP_ID, "inkscape.desktop");
+	result = as_pool_get_components_by_launchable (dpool,
+						       AS_LAUNCHABLE_KIND_DESKTOP_ID,
+						       "inkscape.desktop");
 	g_assert_cmpint (result->len, ==, 1);
 	cpt_s = AS_COMPONENT (g_ptr_array_index (result, 0));
 	g_assert_cmpstr (as_component_get_id (cpt_s), ==, "org.inkscape.Inkscape");
@@ -525,9 +544,9 @@ test_pool_read_async_ready_cb (AsPool *pool, GAsyncResult *result, gpointer user
  */
 static gboolean
 test_log_allow_warnings (const gchar *log_domain,
-			     GLogLevelFlags log_level,
-			     const gchar *message,
-			     gpointer user_data)
+			 GLogLevelFlags log_level,
+			 const gchar *message,
+			 gpointer user_data)
 {
 	return ((log_level & G_LOG_LEVEL_MASK) <= G_LOG_LEVEL_CRITICAL);
 }
@@ -621,8 +640,8 @@ test_merge_components (void)
 
 	cpt_ids = as_suggested_get_ids (suggested);
 	g_assert_cmpint (cpt_ids->len, ==, 2);
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 0), ==, "org.example.test1");
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 1), ==, "org.example.test2");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_ids, 0), ==, "org.example.test1");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_ids, 1), ==, "org.example.test2");
 	g_clear_pointer (&cpt, g_object_unref);
 
 	cpt = _as_get_single_component_by_cid (dpool, "literki.desktop");
@@ -634,8 +653,8 @@ test_merge_components (void)
 
 	cpt_ids = as_suggested_get_ids (suggested);
 	g_assert_cmpint (cpt_ids->len, ==, 2);
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 0), ==, "org.example.test3");
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 1), ==, "org.example.test4");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_ids, 0), ==, "org.example.test3");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (cpt_ids, 1), ==, "org.example.test4");
 	g_clear_pointer (&cpt, g_object_unref);
 
 	/* test if names get overridden */
@@ -760,12 +779,9 @@ test_filemonitor_dir (void)
 	g_assert_true (!g_file_test (tmpfile_new, G_FILE_TEST_EXISTS));
 
 	mon = as_file_monitor_new ();
-	g_signal_connect (mon, "added",
-			  G_CALLBACK (monitor_test_cb), &cnt_added);
-	g_signal_connect (mon, "removed",
-			  G_CALLBACK (monitor_test_cb), &cnt_removed);
-	g_signal_connect (mon, "changed",
-			  G_CALLBACK (monitor_test_cb), &cnt_changed);
+	g_signal_connect (mon, "added", G_CALLBACK (monitor_test_cb), &cnt_added);
+	g_signal_connect (mon, "removed", G_CALLBACK (monitor_test_cb), &cnt_removed);
+	g_signal_connect (mon, "changed", G_CALLBACK (monitor_test_cb), &cnt_changed);
 
 	/* add watch */
 	ret = as_file_monitor_add_directory (mon, tmpdir, NULL, &error);
@@ -863,12 +879,9 @@ test_filemonitor_file (void)
 	g_assert_true (!g_file_test (tmpfile_new, G_FILE_TEST_EXISTS));
 
 	mon = as_file_monitor_new ();
-	g_signal_connect (mon, "added",
-			  G_CALLBACK (monitor_test_cb), &cnt_added);
-	g_signal_connect (mon, "removed",
-			  G_CALLBACK (monitor_test_cb), &cnt_removed);
-	g_signal_connect (mon, "changed",
-			  G_CALLBACK (monitor_test_cb), &cnt_changed);
+	g_signal_connect (mon, "added", G_CALLBACK (monitor_test_cb), &cnt_added);
+	g_signal_connect (mon, "removed", G_CALLBACK (monitor_test_cb), &cnt_removed);
+	g_signal_connect (mon, "changed", G_CALLBACK (monitor_test_cb), &cnt_changed);
 
 	/* add a single file */
 	ret = as_file_monitor_add_file (mon, tmpfile, NULL, &error);
@@ -964,8 +977,7 @@ test_pool_autoreload (void)
 	as_pool_set_locale (pool, "C");
 	as_pool_add_flags (pool, AS_POOL_FLAG_MONITOR);
 
-	g_signal_connect (pool, "changed",
-			  G_CALLBACK (pool_changed_cb), &data_changed);
+	g_signal_connect (pool, "changed", G_CALLBACK (pool_changed_cb), &data_changed);
 
 	/* create test directory */
 	ret = as_utils_delete_dir_recursive (tmpdir);
@@ -995,7 +1007,6 @@ test_pool_autoreload (void)
 	result = as_pool_get_components_by_id (pool, "org.inkscape.Inkscape");
 	g_assert_cmpint (result->len, ==, 1);
 	g_clear_pointer (&result, g_ptr_array_unref);
-
 
 	/* add more data */
 	data_changed = FALSE;

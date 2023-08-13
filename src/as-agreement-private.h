@@ -32,26 +32,20 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-AsContext		*as_agreement_get_context (AsAgreement *agreement);
-void			as_agreement_set_context (AsAgreement *agreement,
-						 AsContext *context);
+AsContext	      *as_agreement_get_context (AsAgreement *agreement);
+void		       as_agreement_set_context (AsAgreement *agreement, AsContext *context);
 
+void	 as_agreement_to_xml_node (AsAgreement *agreement, AsContext *ctx, xmlNode *root);
+gboolean as_agreement_load_from_xml (AsAgreement *agreement,
+				     AsContext	 *ctx,
+				     xmlNode	 *node,
+				     GError	**error);
 
-void			as_agreement_to_xml_node (AsAgreement *agreement,
-						  AsContext *ctx,
-						  xmlNode *root);
-gboolean		as_agreement_load_from_xml (AsAgreement *agreement,
-						    AsContext *ctx,
-						    xmlNode *node,
-						    GError **error);
-
-gboolean		as_agreement_load_from_yaml (AsAgreement *agreement,
-						     AsContext *ctx,
-						     GNode *node,
-						     GError **error);
-void			as_agreement_emit_yaml (AsAgreement *agreement,
-						AsContext *ctx,
-						yaml_emitter_t *emitter);
+gboolean as_agreement_load_from_yaml (AsAgreement *agreement,
+				      AsContext	  *ctx,
+				      GNode	  *node,
+				      GError	 **error);
+void	 as_agreement_emit_yaml (AsAgreement *agreement, AsContext *ctx, yaml_emitter_t *emitter);
 
 #pragma GCC visibility pop
 G_END_DECLS

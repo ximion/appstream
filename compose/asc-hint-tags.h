@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_COMPOSE_H) && !defined (ASC_COMPILATION)
+#if !defined(__APPSTREAM_COMPOSE_H) && !defined(ASC_COMPILATION)
 #error "Only <appstream-compose.h> can be included directly."
 #endif
 #pragma once
@@ -30,23 +30,21 @@ G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
 typedef struct {
-	GRefString	*tag;
-	AsIssueSeverity	severity;
-	GRefString	*explanation;
+	GRefString     *tag;
+	AsIssueSeverity severity;
+	GRefString     *explanation;
 } AscHintTag;
 
-AscHintTag	*asc_hint_tag_new (const gchar *tag,
-				   AsIssueSeverity severity,
-				   const gchar *explanation);
-void		asc_hint_tag_free (AscHintTag *htag);
+AscHintTag *asc_hint_tag_new (const gchar *tag, AsIssueSeverity severity, const gchar *explanation);
+void	    asc_hint_tag_free (AscHintTag *htag);
 
 typedef struct {
-	const gchar	*tag;
-	AsIssueSeverity	severity;
-	const gchar	*explanation;
+	const gchar    *tag;
+	AsIssueSeverity severity;
+	const gchar    *explanation;
 } AscHintTagStatic;
 
 extern AscHintTagStatic asc_hint_tag_list[];
 
-#pragma GCC visibility pop
+#pragma GCC visibility	pop
 G_END_DECLS

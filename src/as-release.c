@@ -44,25 +44,24 @@
 #include "as-checksum-private.h"
 #include "as-issue-private.h"
 
-typedef struct
-{
-	AsReleaseKind	kind;
-	gchar		*version;
-	GHashTable	*description;
-	guint64		timestamp;
-	gchar		*date;
-	gchar		*date_eol;
+typedef struct {
+	AsReleaseKind kind;
+	gchar *version;
+	GHashTable *description;
+	guint64 timestamp;
+	gchar *date;
+	gchar *date_eol;
 
-	AsContext	*context;
-	GRefString	*active_locale_override;
-	gboolean	desc_translatable;
+	AsContext *context;
+	GRefString *active_locale_override;
+	gboolean desc_translatable;
 
-	GPtrArray	*issues;
-	GPtrArray	*artifacts;
+	GPtrArray *issues;
+	GPtrArray *artifacts;
 
-	gchar		*url_details;
+	gchar *url_details;
 
-	AsUrgencyKind	urgency;
+	AsUrgencyKind urgency;
 } AsReleasePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsRelease, as_release, G_TYPE_OBJECT)
@@ -78,7 +77,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsRelease, as_release, G_TYPE_OBJECT)
  *
  * Since: 0.12.0
  **/
-const gchar*
+const gchar *
 as_release_kind_to_string (AsReleaseKind kind)
 {
 	if (kind == AS_RELEASE_KIND_STABLE)
@@ -118,7 +117,7 @@ as_release_kind_from_string (const gchar *kind_str)
  *
  * Since: 0.12.5
  **/
-const gchar*
+const gchar *
 as_release_url_kind_to_string (AsReleaseUrlKind kind)
 {
 	if (kind == AS_RELEASE_URL_KIND_DETAILS)
@@ -157,7 +156,8 @@ as_release_init (AsRelease *release)
 	/* we assume a stable release by default */
 	priv->kind = AS_RELEASE_KIND_STABLE;
 
-	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal,
+	priv->description = g_hash_table_new_full (g_str_hash,
+						   g_str_equal,
 						   (GDestroyNotify) as_ref_string_release,
 						   g_free);
 	priv->issues = g_ptr_array_new_with_free_func (g_object_unref);
@@ -242,7 +242,7 @@ as_release_set_kind (AsRelease *release, AsReleaseKind kind)
  *
  * Returns: (nullable): string, or %NULL for not set or invalid
  **/
-const gchar*
+const gchar *
 as_release_get_version (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
@@ -279,8 +279,7 @@ as_release_vercmp (AsRelease *rel1, AsRelease *rel2)
 {
 	g_return_val_if_fail (AS_IS_RELEASE (rel1), 0);
 	g_return_val_if_fail (AS_IS_RELEASE (rel2), 0);
-	return as_vercmp_simple (as_release_get_version (rel1),
-				 as_release_get_version (rel2));
+	return as_vercmp_simple (as_release_get_version (rel1), as_release_get_version (rel2));
 }
 
 /**
@@ -329,7 +328,7 @@ as_release_set_timestamp (AsRelease *release, guint64 timestamp)
  *
  * Since: 0.12.5
  **/
-const gchar*
+const gchar *
 as_release_get_date (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
@@ -376,7 +375,7 @@ as_release_set_date (AsRelease *release, const gchar *date)
  *
  * Since: 0.12.5
  **/
-const gchar*
+const gchar *
 as_release_get_date_eol (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
@@ -503,7 +502,7 @@ as_release_set_urgency (AsRelease *release, AsUrgencyKind urgency)
  *
  * Returns: (nullable): markup, or %NULL for not set or invalid
  **/
-const gchar*
+const gchar *
 as_release_get_description (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
@@ -528,10 +527,7 @@ as_release_set_description (AsRelease *release, const gchar *description, const 
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	g_return_if_fail (AS_IS_RELEASE (release));
 	g_return_if_fail (description != NULL);
-	as_context_localized_ht_set (priv->context,
-				     priv->description,
-				     description,
-				     locale);
+	as_context_localized_ht_set (priv->context, priv->description, description, locale);
 }
 
 /**
@@ -543,7 +539,7 @@ as_release_set_description (AsRelease *release, const gchar *description, const 
  *
  * Returns: the current active locale
  */
-const gchar*
+const gchar *
 as_release_get_active_locale (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
@@ -601,7 +597,7 @@ as_release_set_active_locale (AsRelease *release, const gchar *locale)
  *
  * Since: 0.12.6
  **/
-GPtrArray*
+GPtrArray *
 as_release_get_artifacts (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
@@ -638,7 +634,7 @@ as_release_add_artifact (AsRelease *release, AsArtifact *artifact)
  *
  * Since: 0.12.9
  **/
-GPtrArray*
+GPtrArray *
 as_release_get_issues (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
@@ -677,7 +673,7 @@ as_release_add_issue (AsRelease *release, AsIssue *issue)
  *
  * Since: 0.12.5
  **/
-const gchar*
+const gchar *
 as_release_get_url (AsRelease *release, AsReleaseUrlKind url_kind)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
@@ -719,7 +715,7 @@ as_release_set_url (AsRelease *release, AsReleaseUrlKind url_kind, const gchar *
  *
  * Since: 0.11.2
  */
-AsContext*
+AsContext *
 as_release_get_context (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
@@ -849,7 +845,7 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 ((gchar*) iter->name, "artifacts") == 0) {
+		if (g_strcmp0 ((gchar *) iter->name, "artifacts") == 0) {
 			for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				g_autoptr(AsArtifact) artifact = NULL;
 
@@ -860,7 +856,7 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 				if (as_artifact_load_from_xml (artifact, ctx, iter2, NULL))
 					as_release_add_artifact (release, artifact);
 			}
-		} else if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
+		} else if (g_strcmp0 ((gchar *) iter->name, "description") == 0) {
 			g_hash_table_remove_all (priv->description);
 			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG) {
 				g_autofree gchar *lang = NULL;
@@ -871,7 +867,9 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 				if (lang != NULL)
 					as_release_set_description (release, content, lang);
 			} else {
-				as_xml_parse_metainfo_description_node (ctx, iter, priv->description);
+				as_xml_parse_metainfo_description_node (ctx,
+									iter,
+									priv->description);
 
 				priv->desc_translatable = TRUE;
 				prop = as_xml_get_prop_value (iter, "translatable");
@@ -880,11 +878,11 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 					g_free (prop);
 				}
 			}
-		} else if (g_strcmp0 ((gchar*) iter->name, "url") == 0) {
+		} else if (g_strcmp0 ((gchar *) iter->name, "url") == 0) {
 			/* NOTE: Currently, every url in releases is a "details" URL */
 			content = as_xml_get_node_value (iter);
 			as_release_set_url (release, AS_RELEASE_URL_KIND_DETAILS, content);
-		} else if (g_strcmp0 ((gchar*) iter->name, "issues") == 0) {
+		} else if (g_strcmp0 ((gchar *) iter->name, "issues") == 0) {
 			for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				g_autoptr(AsIssue) issue = NULL;
 
@@ -917,12 +915,8 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 
 	/* set release version */
 	subnode = as_xml_add_node (root, "release");
-	as_xml_add_text_prop (subnode,
-			      "type",
-			      as_release_kind_to_string (priv->kind));
-	as_xml_add_text_prop (subnode,
-			      "version",
-			      priv->version);
+	as_xml_add_text_prop (subnode, "type", as_release_kind_to_string (priv->kind));
+	as_xml_add_text_prop (subnode, "version", priv->version);
 
 	/* set release timestamp / date */
 	if (priv->timestamp > 0) {
@@ -930,15 +924,12 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 
 		if (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG) {
 			time_str = g_strdup_printf ("%" G_GUINT64_FORMAT, priv->timestamp);
-			as_xml_add_text_prop (subnode,
-						"timestamp",
-						time_str);
+			as_xml_add_text_prop (subnode, "timestamp", time_str);
 		} else {
-			g_autoptr(GDateTime) time = g_date_time_new_from_unix_utc (priv->timestamp);
+			g_autoptr(GDateTime)
+				       time = g_date_time_new_from_unix_utc (priv->timestamp);
 			time_str = g_date_time_format_iso8601 (time);
-			as_xml_add_text_prop (subnode,
-						"date",
-						time_str);
+			as_xml_add_text_prop (subnode, "date", time_str);
 		}
 	}
 
@@ -954,10 +945,7 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 	}
 
 	/* add description */
-	as_xml_add_description_node (ctx,
-				     subnode,
-				     priv->description,
-				     priv->desc_translatable);
+	as_xml_add_description_node (ctx, subnode, priv->description, priv->desc_translatable);
 
 	/* add details URL */
 	if (priv->url_details != NULL)
@@ -1086,11 +1074,10 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 		g_autofree gchar *time_str = NULL;
 
 		if (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG) {
-			as_yaml_emit_entry_timestamp (emitter,
-						      "unix-timestamp",
-						      priv->timestamp);
+			as_yaml_emit_entry_timestamp (emitter, "unix-timestamp", priv->timestamp);
 		} else {
-			g_autoptr(GDateTime) time = g_date_time_new_from_unix_utc (priv->timestamp);
+			g_autoptr(GDateTime)
+				       time = g_date_time_new_from_unix_utc (priv->timestamp);
 			time_str = g_date_time_format_iso8601 (time);
 			as_yaml_emit_entry (emitter, "date", time_str);
 		}
@@ -1101,15 +1088,11 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 
 	/* urgency */
 	if (priv->urgency != AS_URGENCY_KIND_UNKNOWN) {
-		as_yaml_emit_entry (emitter,
-				    "urgency",
-				    as_urgency_kind_to_string (priv->urgency));
+		as_yaml_emit_entry (emitter, "urgency", as_urgency_kind_to_string (priv->urgency));
 	}
 
 	/* description */
-	as_yaml_emit_long_localized_entry (emitter,
-					   "description",
-					   priv->description);
+	as_yaml_emit_long_localized_entry (emitter, "description", priv->description);
 
 	/* urls */
 	if (priv->url_details != NULL) {
@@ -1118,7 +1101,7 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 
 		as_yaml_emit_entry (emitter,
 				    as_release_url_kind_to_string (AS_RELEASE_URL_KIND_DETAILS),
-				    (const gchar*) priv->url_details);
+				    (const gchar *) priv->url_details);
 
 		as_yaml_mapping_end (emitter);
 	}
@@ -1160,7 +1143,7 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
  *
  * Returns: (transfer full): a #AsRelease
  **/
-AsRelease*
+AsRelease *
 as_release_new (void)
 {
 	AsRelease *release;

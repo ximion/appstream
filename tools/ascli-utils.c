@@ -35,7 +35,7 @@ static gboolean _colored_output = FALSE;
 /**
  * ascli_format_long_output:
  */
-gchar*
+gchar *
 ascli_format_long_output (const gchar *str, guint line_length, guint indent_level)
 {
 	GString *res = NULL;
@@ -71,7 +71,7 @@ ascli_format_long_output (const gchar *str, guint line_length, guint indent_leve
  * ascli_print_key_value:
  */
 void
-ascli_print_key_value (const gchar* key, const gchar* val, gboolean line_wrap)
+ascli_print_key_value (const gchar *key, const gchar *val, gboolean line_wrap)
 {
 	gchar *str;
 	gchar *fmtval;
@@ -168,11 +168,13 @@ ascli_print_stdout (const gchar *format, ...)
 /**
  * ascli_get_char_success:
  */
-const gchar*
+const gchar *
 ascli_get_char_success (void)
 {
 	if (_colored_output)
-		return "\x1B[32m" "✔" "\033[0m";
+		return "\x1B[32m"
+		       "✔"
+		       "\033[0m";
 	else
 		return "✔";
 }
@@ -180,15 +182,16 @@ ascli_get_char_success (void)
 /**
  * ascli_get_char_failure:
  */
-const gchar*
+const gchar *
 ascli_get_char_failure (void)
 {
 	if (_colored_output)
-		return "\x1B[31m" "✘" "\033[0m";
+		return "\x1B[31m"
+		       "✘"
+		       "\033[0m";
 	else
 		return "✘";
 }
-
 
 /**
  * ascli_set_output_colored:
@@ -211,7 +214,7 @@ ascli_get_output_colored (void)
 /**
  * as_get_bundle_str:
  */
-static gchar*
+static gchar *
 as_get_bundle_str (AsComponent *cpt)
 {
 	GString *gstr;
@@ -227,10 +230,10 @@ as_get_bundle_str (AsComponent *cpt)
 		bundle = as_component_get_bundle (cpt, kind);
 		if (bundle == NULL)
 			continue;
-		g_string_append_printf (gstr, "%s:%s, ",
+		g_string_append_printf (gstr,
+					"%s:%s, ",
 					as_bundle_kind_to_string (kind),
 					as_bundle_get_id (bundle));
-
 	}
 	if (gstr->len > 0)
 		g_string_truncate (gstr, gstr->len - 2);
@@ -243,7 +246,7 @@ as_get_bundle_str (AsComponent *cpt)
  *
  * Pretty-print a GPtrArray.
  */
-static gchar*
+static gchar *
 ascli_ptrarray_to_pretty (GPtrArray *array, guint indent)
 {
 	GString *rstr = NULL;
@@ -254,7 +257,7 @@ ascli_ptrarray_to_pretty (GPtrArray *array, guint indent)
 
 	rstr = g_string_new ("\n");
 	for (i = 0; i < array->len; i++) {
-		const gchar *astr = (const gchar*) g_ptr_array_index (array, i);
+		const gchar *astr = (const gchar *) g_ptr_array_index (array, i);
 		g_string_append_printf (rstr, "%*s- %s\n", indent, "", astr);
 	}
 	if (rstr->len > 0)
@@ -303,7 +306,8 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 	ascli_print_key_value (_("Summary"), as_component_get_summary (cpt), TRUE);
 	ascli_print_key_value (_("Package"), pkgs_str, FALSE);
 	ascli_print_key_value (_("Bundle"), bundles_str, FALSE);
-	ascli_print_key_value (_("Homepage"), as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), FALSE);
+	ascli_print_key_value (
+	    _("Homepage"), as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), FALSE);
 	ascli_print_key_value (_("Icon"), icon == NULL ? NULL : as_icon_get_name (icon), FALSE);
 	g_free (short_idline);
 	g_free (pkgs_str);
@@ -324,7 +328,8 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		gchar *str;
 
 		/* developer name */
-		ascli_print_key_value (_("Developer"), as_component_get_developer_name (cpt), TRUE);
+		ascli_print_key_value (
+		    _("Developer"), as_component_get_developer_name (cpt), TRUE);
 
 		/* extends data (e.g. for addons) */
 		extends = as_component_get_extends (cpt);
@@ -356,14 +361,17 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 			for (j = 0; j < imgs->len; j++) {
 				img = AS_IMAGE (g_ptr_array_index (imgs, j));
 				if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
-					ascli_print_key_value (_("Default Screenshot URL"), as_image_get_url (img), TRUE);
+					ascli_print_key_value (_("Default Screenshot URL"),
+								  as_image_get_url (img),
+								  TRUE);
 					break;
 				}
 			}
 		}
 
 		/* project group */
-		ascli_print_key_value (_("Project Group"), as_component_get_project_group (cpt), TRUE);
+		ascli_print_key_value (
+		    _("Project Group"), as_component_get_project_group (cpt), TRUE);
 
 		/* license */
 		ascli_print_key_value (_("License"), as_component_get_project_license (cpt), TRUE);
@@ -390,13 +398,18 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 			g_autoptr(GPtrArray) addons_str = g_ptr_array_new_with_free_func (g_free);
 			for (i = 0; i < addons->len; i++) {
 				AsComponent *addon = AS_COMPONENT (g_ptr_array_index (addons, i));
-				if (as_component_get_kind (addon) == AS_COMPONENT_KIND_LOCALIZATION) {
-					g_ptr_array_add (addons_str, g_strdup_printf ("l10n: %s",
-											as_component_get_id (addon)));
+				if (as_component_get_kind (addon) ==
+				    AS_COMPONENT_KIND_LOCALIZATION) {
+					g_ptr_array_add (
+					    addons_str,
+					    g_strdup_printf ("l10n: %s",
+							     as_component_get_id (addon)));
 				} else {
-					g_ptr_array_add (addons_str, g_strdup_printf ("%s (%s)",
-											as_component_get_id (addon),
-											as_component_get_name (cpt)));
+					g_ptr_array_add (
+					    addons_str,
+					    g_strdup_printf ("%s (%s)",
+							     as_component_get_id (addon),
+							     as_component_get_name (cpt)));
 				}
 			}
 			str = ascli_ptrarray_to_pretty (addons_str, 2);
@@ -420,7 +433,9 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 				g_autofree gchar *keyname = NULL;
 
 				str = ascli_ptrarray_to_pretty (items, 4);
-				keyname = g_strdup_printf ("  %s", as_provided_kind_to_l10n_string (as_provided_get_kind (prov)));
+				keyname = g_strdup_printf (
+				    "  %s",
+				    as_provided_kind_to_l10n_string (as_provided_get_kind (prov)));
 				ascli_print_key_value (keyname, str, FALSE);
 				g_free (str);
 			}
@@ -439,10 +454,10 @@ ascli_print_components (GPtrArray *cpts, gboolean show_detailed)
 	guint i;
 
 	for (i = 0; i < cpts->len; i++) {
-		AsComponent *cpt = AS_COMPONENT(g_ptr_array_index (cpts, i));
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 		ascli_print_component (cpt, show_detailed);
 
-		if (i < cpts->len-1)
+		if (i < cpts->len - 1)
 			ascli_print_separator ();
 	}
 }
@@ -450,7 +465,7 @@ ascli_print_components (GPtrArray *cpts, gboolean show_detailed)
 /**
  * ascli_data_pool_new_and_open:
  */
-AsPool*
+AsPool *
 ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache, GError **error)
 {
 	AsPool *dpool;

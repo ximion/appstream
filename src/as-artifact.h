@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -34,16 +34,15 @@ G_BEGIN_DECLS
 #define AS_TYPE_ARTIFACT (as_artifact_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsArtifact, as_artifact, AS, ARTIFACT, GObject)
 
-struct _AsArtifactClass
-{
-	GObjectClass		parent_class;
+struct _AsArtifactClass {
+	GObjectClass parent_class;
 	/*< private >*/
-	void (*_as_reserved1)	(void);
-	void (*_as_reserved2)	(void);
-	void (*_as_reserved3)	(void);
-	void (*_as_reserved4)	(void);
-	void (*_as_reserved5)	(void);
-	void (*_as_reserved6)	(void);
+	void (*_as_reserved1) (void);
+	void (*_as_reserved2) (void);
+	void (*_as_reserved3) (void);
+	void (*_as_reserved4) (void);
+	void (*_as_reserved5) (void);
+	void (*_as_reserved6) (void);
 };
 
 /**
@@ -64,8 +63,8 @@ typedef enum {
 	AS_SIZE_KIND_LAST
 } AsSizeKind;
 
-const gchar	*as_size_kind_to_string (AsSizeKind size_kind);
-AsSizeKind	as_size_kind_from_string (const gchar *size_kind);
+const gchar *as_size_kind_to_string (AsSizeKind size_kind);
+AsSizeKind   as_size_kind_from_string (const gchar *size_kind);
 
 /**
  * AsArtifactKind:
@@ -83,43 +82,32 @@ typedef enum {
 	AS_ARTIFACT_KIND_LAST
 } AsArtifactKind;
 
-AsArtifactKind	 as_artifact_kind_from_string (const gchar *kind);
-const gchar	*as_artifact_kind_to_string (AsArtifactKind kind);
+AsArtifactKind as_artifact_kind_from_string (const gchar *kind);
+const gchar   *as_artifact_kind_to_string (AsArtifactKind kind);
 
-AsArtifact	*as_artifact_new (void);
+AsArtifact    *as_artifact_new (void);
 
-AsArtifactKind	 as_artifact_get_kind (AsArtifact *artifact);
-void		 as_artifact_set_kind (AsArtifact *artifact,
-					AsArtifactKind kind);
+AsArtifactKind as_artifact_get_kind (AsArtifact *artifact);
+void	       as_artifact_set_kind (AsArtifact *artifact, AsArtifactKind kind);
 
-GPtrArray	*as_artifact_get_locations (AsArtifact *artifact);
-void		as_artifact_add_location (AsArtifact *artifact,
-						const gchar *location);
+GPtrArray     *as_artifact_get_locations (AsArtifact *artifact);
+void	       as_artifact_add_location (AsArtifact *artifact, const gchar *location);
 
-GPtrArray	*as_artifact_get_checksums (AsArtifact *artifact);
-AsChecksum	*as_artifact_get_checksum (AsArtifact *artifact,
-						AsChecksumKind kind);
-void		as_artifact_add_checksum (AsArtifact *artifact,
-					 AsChecksum *cs);
+GPtrArray     *as_artifact_get_checksums (AsArtifact *artifact);
+AsChecksum    *as_artifact_get_checksum (AsArtifact *artifact, AsChecksumKind kind);
+void	       as_artifact_add_checksum (AsArtifact *artifact, AsChecksum *cs);
 
-guint64		as_artifact_get_size (AsArtifact *artifact,
-					AsSizeKind kind);
-void		as_artifact_set_size (AsArtifact *artifact,
-					guint64 size,
-					AsSizeKind kind);
+guint64	       as_artifact_get_size (AsArtifact *artifact, AsSizeKind kind);
+void	       as_artifact_set_size (AsArtifact *artifact, guint64 size, AsSizeKind kind);
 
-const gchar	*as_artifact_get_platform (AsArtifact *artifact);
-void		as_artifact_set_platform (AsArtifact *artifact,
-                                      const gchar *platform);
+const gchar   *as_artifact_get_platform (AsArtifact *artifact);
+void	       as_artifact_set_platform (AsArtifact *artifact, const gchar *platform);
 
-AsBundleKind	 as_artifact_get_bundle_kind (AsArtifact *artifact);
-void		 as_artifact_set_bundle_kind (AsArtifact *artifact,
-                                          AsBundleKind kind);
+AsBundleKind   as_artifact_get_bundle_kind (AsArtifact *artifact);
+void	       as_artifact_set_bundle_kind (AsArtifact *artifact, AsBundleKind kind);
 
-const gchar	*as_artifact_get_filename (AsArtifact *artifact);
-void		as_artifact_set_filename (AsArtifact *artifact,
-					  const gchar *filename);
-
+const gchar   *as_artifact_get_filename (AsArtifact *artifact);
+void	       as_artifact_set_filename (AsArtifact *artifact, const gchar *filename);
 
 G_END_DECLS
 

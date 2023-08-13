@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -33,8 +33,7 @@ G_BEGIN_DECLS
 #define AS_TYPE_CONTEXT (as_context_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsContext, as_context, AS, CONTEXT, GObject)
 
-struct _AsContextClass
-{
+struct _AsContextClass {
 	GObjectClass parent_class;
 	/*< private >*/
 	void (*_as_reserved1) (void);
@@ -61,41 +60,34 @@ typedef enum {
 
 #define AS_FORMAT_VERSION_LATEST AS_FORMAT_VERSION_V1_0
 
-const gchar		*as_format_version_to_string (AsFormatVersion version);
-AsFormatVersion		 as_format_version_from_string (const gchar *version_str);
+const gchar    *as_format_version_to_string (AsFormatVersion version);
+AsFormatVersion as_format_version_from_string (const gchar *version_str);
 
-AsContext		*as_context_new (void);
+AsContext      *as_context_new (void);
 
-AsFormatVersion		as_context_get_format_version (AsContext *ctx);
-void			as_context_set_format_version (AsContext *ctx,
-						       AsFormatVersion ver);
+AsFormatVersion as_context_get_format_version (AsContext *ctx);
+void		as_context_set_format_version (AsContext *ctx, AsFormatVersion ver);
 
-AsFormatStyle		as_context_get_style (AsContext *ctx);
-void			as_context_set_style (AsContext *ctx,
-						AsFormatStyle style);
+AsFormatStyle	as_context_get_style (AsContext *ctx);
+void		as_context_set_style (AsContext *ctx, AsFormatStyle style);
 
-gint			as_context_get_priority (AsContext *ctx);
-void			as_context_set_priority (AsContext *ctx,
-						 gint priority);
+gint		as_context_get_priority (AsContext *ctx);
+void		as_context_set_priority (AsContext *ctx, gint priority);
 
-const gchar		*as_context_get_origin (AsContext *ctx);
-void			as_context_set_origin (AsContext *ctx,
-					       const gchar *value);
+const gchar    *as_context_get_origin (AsContext *ctx);
+void		as_context_set_origin (AsContext *ctx, const gchar *value);
 
-const gchar		*as_context_get_locale (AsContext *ctx);
-void			as_context_set_locale (AsContext *ctx,
-					       const gchar *value);
+const gchar    *as_context_get_locale (AsContext *ctx);
+void		as_context_set_locale (AsContext *ctx, const gchar *value);
 
-gboolean		as_context_has_media_baseurl (AsContext *ctx);
-const gchar		*as_context_get_media_baseurl (AsContext *ctx);
-void			as_context_set_media_baseurl (AsContext *ctx,
-						      const gchar *value);
+gboolean	as_context_has_media_baseurl (AsContext *ctx);
+const gchar    *as_context_get_media_baseurl (AsContext *ctx);
+void		as_context_set_media_baseurl (AsContext *ctx, const gchar *value);
 
-gboolean		as_context_get_locale_all_enabled (AsContext *ctx);
+gboolean	as_context_get_locale_all_enabled (AsContext *ctx);
 
-const gchar		*as_context_get_filename (AsContext *ctx);
-void			as_context_set_filename (AsContext *ctx,
-					       const gchar *fname);
+const gchar    *as_context_get_filename (AsContext *ctx);
+void		as_context_set_filename (AsContext *ctx, const gchar *fname);
 
 G_END_DECLS
 

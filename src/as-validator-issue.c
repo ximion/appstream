@@ -30,17 +30,16 @@
 
 #include "as-validator-issue.h"
 
-typedef struct
-{
-	gchar		*tag;
-	AsIssueSeverity	severity;
+typedef struct {
+	gchar *tag;
+	AsIssueSeverity severity;
 
-	gchar		*hint;
-	gchar		*explanation;
+	gchar *hint;
+	gchar *explanation;
 
-	gchar		*fname;
-	gchar		*cid;
-	glong		line;
+	gchar *fname;
+	gchar *cid;
+	glong line;
 } AsValidatorIssuePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidatorIssue, as_validator_issue, G_TYPE_OBJECT)
@@ -78,7 +77,7 @@ as_issue_severity_from_string (const gchar *str)
  * Returns: string version of @severity
  *
  **/
-const gchar*
+const gchar *
 as_issue_severity_to_string (AsIssueSeverity severity)
 {
 	if (severity == AS_ISSUE_SEVERITY_ERROR)
@@ -142,7 +141,7 @@ as_validator_issue_class_init (AsValidatorIssueClass *klass)
  *
  * Since: 0.12.8
  **/
-const gchar*
+const gchar *
 as_validator_issue_get_tag (AsValidatorIssue *issue)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
@@ -205,7 +204,7 @@ as_validator_issue_set_severity (AsValidatorIssue *issue, AsIssueSeverity severi
  *
  * Since: 0.12.8
  **/
-const gchar*
+const gchar *
 as_validator_issue_get_hint (AsValidatorIssue *issue)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
@@ -240,7 +239,7 @@ as_validator_issue_set_hint (AsValidatorIssue *issue, const gchar *hint)
  *
  * Since: 0.12.8
  **/
-const gchar*
+const gchar *
 as_validator_issue_get_explanation (AsValidatorIssue *issue)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
@@ -272,7 +271,7 @@ as_validator_issue_set_explanation (AsValidatorIssue *issue, const gchar *explan
  *
  * Returns: a component-id.
  **/
-const gchar*
+const gchar *
 as_validator_issue_get_cid (AsValidatorIssue *issue)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
@@ -331,7 +330,7 @@ as_validator_issue_set_line (AsValidatorIssue *issue, glong line)
  *
  * Returns: the filename
  **/
-const gchar*
+const gchar *
 as_validator_issue_get_filename (AsValidatorIssue *issue)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
@@ -362,7 +361,7 @@ as_validator_issue_set_filename (AsValidatorIssue *issue, const gchar *fname)
  *
  * Returns: (transfer full): the location hint as string.
  **/
-gchar*
+gchar *
 as_validator_issue_get_location (AsValidatorIssue *issue)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);

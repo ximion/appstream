@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)
 #error "Only <appstream.h> can be included directly."
 #endif
 
@@ -29,15 +29,13 @@
 
 G_BEGIN_DECLS
 
-#define AS_TYPE_STEMMER	(as_stemmer_get_type ())
+#define AS_TYPE_STEMMER (as_stemmer_get_type ())
 G_DECLARE_FINAL_TYPE (AsStemmer, as_stemmer, AS, STEMMER, GObject)
 
-AsStemmer		*as_stemmer_get (void);
+AsStemmer *as_stemmer_get (void);
 
-void			as_stemmer_reload (AsStemmer *stemmer,
-						const gchar *lang);
-gchar			*as_stemmer_stem (AsStemmer *stemmer,
-						const gchar *term);
+void	   as_stemmer_reload (AsStemmer *stemmer, const gchar *lang);
+gchar	  *as_stemmer_stem (AsStemmer *stemmer, const gchar *term);
 
 G_END_DECLS
 

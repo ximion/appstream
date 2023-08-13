@@ -101,7 +101,7 @@ test_safe_assign (void)
 	/* assign new literal */
 	tmp = member1;
 	as_assign_string_safe (member1, "Literal");
-	g_assert_cmpstr (member1, ==, (const gchar*) "Literal");
+	g_assert_cmpstr (member1, ==, (const gchar *) "Literal");
 
 	/* assign new value */
 	tmp = member1;
@@ -204,7 +204,9 @@ test_simplemarkup (void)
 	g_autofree gchar *str = NULL;
 	g_autoptr(GError) error = NULL;
 
-	str = as_markup_convert_simple ("<p>Test!</p><p>Blah.</p><ul><li>A</li><li>B</li></ul><p>End.</p>", &error);
+	str = as_markup_convert_simple (
+	    "<p>Test!</p><p>Blah.</p><ul><li>A</li><li>B</li></ul><p>End.</p>",
+	    &error);
 	g_assert_no_error (error);
 	g_assert_true (g_strcmp0 (str, "Test!\n\nBlah.\n • A\n • B\n\nEnd.") == 0);
 	g_free (str);
@@ -216,24 +218,27 @@ test_simplemarkup (void)
 					"<li>List item, <em>emphasized</em></li>"
 					"<li>Item with <code>a bit of code</code></li>"
 					"</ul>"
-					"<p>Last paragraph.</p>", &error);
+					"<p>Last paragraph.</p>",
+					&error);
 	g_assert_no_error (error);
-	g_assert_true (g_strcmp0 (str, "Paragraph using all allowed markup, like an emphasis or some code.\n\n"
-				  "Second paragraph.\n"
-				  " • List item, emphasized\n"
-				  " • Item with a bit of code\n\n"
-				  "Last paragraph.") == 0);
+	g_assert_true (
+	    g_strcmp0 (str,
+		       "Paragraph using all allowed markup, like an emphasis or some code.\n\n"
+		       "Second paragraph.\n"
+		       " • List item, emphasized\n"
+		       " • Item with a bit of code\n\n"
+		       "Last paragraph.") == 0);
 }
 
 /**
  * _get_dummy_strv:
  */
-static gchar**
+static gchar **
 _get_dummy_strv (const gchar *value)
 {
 	gchar **strv;
 
-	strv = g_new0 (gchar*, 1 + 2);
+	strv = g_new0 (gchar *, 1 + 2);
 	strv[0] = g_strdup (value);
 	strv[1] = NULL;
 
@@ -270,22 +275,26 @@ test_component (void)
 	str2 = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_XML, NULL);
 	g_debug ("%s", str2);
 
-	g_assert_cmpstr (str, ==, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-				  "<component type=\"desktop-application\">\n"
-				  "  <id>org.example.test.desktop</id>\n"
-				  "  <name>Test</name>\n"
-				  "  <summary>It does things</summary>\n"
-				  "  <pkgname>fedex</pkgname>\n"
-				  "</component>\n");
-	g_assert_cmpstr (str2, ==, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-				   "<components version=\"1.0\">\n"
-				   "  <component type=\"desktop-application\">\n"
-				   "    <id>org.example.test.desktop</id>\n"
-				   "    <name>Test</name>\n"
-				   "    <summary>It does things</summary>\n"
-				   "    <pkgname>fedex</pkgname>\n"
-				   "  </component>\n"
-				   "</components>\n");
+	g_assert_cmpstr (str,
+			 ==,
+			 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+			 "<component type=\"desktop-application\">\n"
+			 "  <id>org.example.test.desktop</id>\n"
+			 "  <name>Test</name>\n"
+			 "  <summary>It does things</summary>\n"
+			 "  <pkgname>fedex</pkgname>\n"
+			 "</component>\n");
+	g_assert_cmpstr (str2,
+			 ==,
+			 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+			 "<components version=\"1.0\">\n"
+			 "  <component type=\"desktop-application\">\n"
+			 "    <id>org.example.test.desktop</id>\n"
+			 "    <name>Test</name>\n"
+			 "    <summary>It does things</summary>\n"
+			 "    <pkgname>fedex</pkgname>\n"
+			 "  </component>\n"
+			 "</components>\n");
 }
 
 /**
@@ -472,7 +481,8 @@ test_spdx (void)
 	g_assert_true (as_is_spdx_license_expression ("CC-BY-SA-3.0+"));
 	g_assert_true (as_is_spdx_license_expression ("CC-BY-SA-3.0+ AND Zlib"));
 	g_assert_true (as_is_spdx_license_expression ("GPL-3.0-or-later WITH GCC-exception-3.1"));
-	g_assert_true (as_is_spdx_license_expression ("GPL-3.0-or-later WITH Font-exception-2.0 AND OFL-1.1"));
+	g_assert_true (
+	    as_is_spdx_license_expression ("GPL-3.0-or-later WITH Font-exception-2.0 AND OFL-1.1"));
 	g_assert_true (as_is_spdx_license_expression ("NOASSERTION"));
 	g_assert_true (!as_is_spdx_license_expression ("CC0 dave"));
 	g_assert_true (!as_is_spdx_license_expression (""));
@@ -515,11 +525,15 @@ test_spdx (void)
 	/* licenses are free-as-in-freedom */
 	g_assert_true (as_license_is_free_license ("CC0"));
 	g_assert_true (as_license_is_free_license ("GPL-2.0 AND FSFAP"));
-	g_assert_true (as_license_is_free_license ("OFL-1.1 OR (GPL-3.0-or-later WITH Font-exception-2.0)"));
-	g_assert_true (as_is_spdx_license_expression("OFL-1.1 OR (GPL-3.0-or-later WITH Font-exception-2.0)"));
+	g_assert_true (
+	    as_license_is_free_license ("OFL-1.1 OR (GPL-3.0-or-later WITH Font-exception-2.0)"));
+	g_assert_true (as_is_spdx_license_expression (
+	    "OFL-1.1 OR (GPL-3.0-or-later WITH Font-exception-2.0)"));
 	g_assert_true (!as_license_is_free_license ("NOASSERTION"));
-	g_assert_true (!as_license_is_free_license ("LicenseRef-proprietary=https://example.com/mylicense.txt"));
-	g_assert_true (!as_license_is_free_license ("MIT AND LicenseRef-proprietary=https://example.com/lic.txt"));
+	g_assert_true (!as_license_is_free_license (
+	    "LicenseRef-proprietary=https://example.com/mylicense.txt"));
+	g_assert_true (!as_license_is_free_license (
+	    "MIT AND LicenseRef-proprietary=https://example.com/lic.txt"));
 	g_assert_true (!as_license_is_free_license ("ADSL"));
 	g_assert_true (!as_license_is_free_license ("JSON AND GPL-3.0-or-later"));
 }
@@ -532,14 +546,13 @@ test_spdx (void)
 static void
 test_read_desktop_entry_simple (void)
 {
-	static const gchar *desktop_entry_data =
-		"[Desktop Entry]\n"
-		"Type=Application\n"
-		"Name=FooBar\n"
-		"Name[de_DE]=FööBär\n"
-		"Comment=A foo-ish bar.\n"
-		"Keywords=Hobbes;Bentham;Locke;\n"
-		"Keywords[de_DE]=Heidegger;Kant;Hegel;\n";
+	static const gchar *desktop_entry_data = "[Desktop Entry]\n"
+						 "Type=Application\n"
+						 "Name=FooBar\n"
+						 "Name[de_DE]=FööBär\n"
+						 "Comment=A foo-ish bar.\n"
+						 "Keywords=Hobbes;Bentham;Locke;\n"
+						 "Keywords[de_DE]=Heidegger;Kant;Hegel;\n";
 
 	gboolean ret;
 	g_autoptr(AsMetadata) metad = NULL;
@@ -551,7 +564,11 @@ test_read_desktop_entry_simple (void)
 
 	metad = as_metadata_new ();
 
-	ret = as_metadata_parse_desktop_data (metad, "foobar.desktop", desktop_entry_data, -1, &error);
+	ret = as_metadata_parse_desktop_data (metad,
+					      "foobar.desktop",
+					      desktop_entry_data,
+					      -1,
+					      &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 
@@ -575,11 +592,15 @@ test_read_desktop_entry_simple (void)
 	g_assert_cmpint (as_launchable_get_kind (launch), ==, AS_LAUNCHABLE_KIND_DESKTOP_ID);
 	entries = as_launchable_get_entries (launch);
 	g_assert_cmpint (entries->len, ==, 1);
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (entries, 0), ==, "foobar.desktop");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (entries, 0), ==, "foobar.desktop");
 
 	/* test component-id trimming */
 	as_metadata_clear_components (metad);
-	ret = as_metadata_parse_desktop_data (metad, "org.example.foobar.desktop", desktop_entry_data, -1, &error);
+	ret = as_metadata_parse_desktop_data (metad,
+					      "org.example.foobar.desktop",
+					      desktop_entry_data,
+					      -1,
+					      &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 	cpt = as_metadata_get_component (metad);
@@ -593,7 +614,9 @@ test_read_desktop_entry_simple (void)
 	g_assert_cmpint (as_launchable_get_kind (launch), ==, AS_LAUNCHABLE_KIND_DESKTOP_ID);
 	entries = as_launchable_get_entries (launch);
 	g_assert_cmpint (entries->len, ==, 1);
-	g_assert_cmpstr ((const gchar*) g_ptr_array_index (entries, 0), ==, "org.example.foobar.desktop");
+	g_assert_cmpstr ((const gchar *) g_ptr_array_index (entries, 0),
+			 ==,
+			 "org.example.foobar.desktop");
 }
 
 /**
@@ -761,12 +784,18 @@ test_version_compare (void)
 	g_assert_cmpint (as_vercmp_simple ("9.5", "10"), <, 0);
 
 	/* test match */
-	g_assert_true (as_vercmp_test_match ("1", AS_RELATION_COMPARE_LT, "2", AS_VERCMP_FLAG_NONE));
-	g_assert_true (as_vercmp_test_match ("2", AS_RELATION_COMPARE_GT, "1", AS_VERCMP_FLAG_NONE));
-	g_assert_true (as_vercmp_test_match ("3", AS_RELATION_COMPARE_EQ, "3", AS_VERCMP_FLAG_NONE));
-	g_assert_true (as_vercmp_test_match ("4", AS_RELATION_COMPARE_NE, "3", AS_VERCMP_FLAG_NONE));
-	g_assert_true (as_vercmp_test_match ("4", AS_RELATION_COMPARE_GE, "3", AS_VERCMP_FLAG_NONE));
-	g_assert_false (as_vercmp_test_match ("5", AS_RELATION_COMPARE_GE, "6", AS_VERCMP_FLAG_NONE));
+	g_assert_true (
+	    as_vercmp_test_match ("1", AS_RELATION_COMPARE_LT, "2", AS_VERCMP_FLAG_NONE));
+	g_assert_true (
+	    as_vercmp_test_match ("2", AS_RELATION_COMPARE_GT, "1", AS_VERCMP_FLAG_NONE));
+	g_assert_true (
+	    as_vercmp_test_match ("3", AS_RELATION_COMPARE_EQ, "3", AS_VERCMP_FLAG_NONE));
+	g_assert_true (
+	    as_vercmp_test_match ("4", AS_RELATION_COMPARE_NE, "3", AS_VERCMP_FLAG_NONE));
+	g_assert_true (
+	    as_vercmp_test_match ("4", AS_RELATION_COMPARE_GE, "3", AS_VERCMP_FLAG_NONE));
+	g_assert_false (
+	    as_vercmp_test_match ("5", AS_RELATION_COMPARE_GE, "6", AS_VERCMP_FLAG_NONE));
 }
 
 /**
@@ -800,7 +829,10 @@ test_system_info (void)
 
 	/* We can't properly test this as most build environments lack the udev hardware database.
 	 * We still run the code for potential leak detection etc. */
-	dev_name = as_system_info_get_device_name_for_modalias (sysinfo, "usb:v1130p0202d*", FALSE, &error);
+	dev_name = as_system_info_get_device_name_for_modalias (sysinfo,
+								"usb:v1130p0202d*",
+								FALSE,
+								&error);
 	if (error != NULL)
 		g_error_free (g_steal_pointer (&error));
 }
@@ -897,11 +929,21 @@ test_content_rating_mappings (void)
 		}
 
 		g_assert_cmpuint (max_age, >, 0);
-		g_assert_cmpuint (as_content_rating_attribute_to_csm_age (ids[i], AS_CONTENT_RATING_VALUE_UNKNOWN), ==, 0);
-		g_assert_cmpuint (as_content_rating_attribute_to_csm_age (ids[i], AS_CONTENT_RATING_VALUE_LAST), ==, 0);
+		g_assert_cmpuint (
+		    as_content_rating_attribute_to_csm_age (ids[i],
+							    AS_CONTENT_RATING_VALUE_UNKNOWN),
+		    ==,
+		    0);
+		g_assert_cmpuint (
+		    as_content_rating_attribute_to_csm_age (ids[i], AS_CONTENT_RATING_VALUE_LAST),
+		    ==,
+		    0);
 	}
 
-	g_assert_cmpuint (as_content_rating_attribute_to_csm_age ("not-valid-id", AS_CONTENT_RATING_VALUE_INTENSE), ==, 0);
+	g_assert_cmpuint (as_content_rating_attribute_to_csm_age ("not-valid-id",
+								  AS_CONTENT_RATING_VALUE_INTENSE),
+			  ==,
+			  0);
 }
 
 /* Test that gs_utils_content_rating_system_from_locale() returns the correct
@@ -915,43 +957,45 @@ as_test_content_rating_from_locale (void)
 		const gchar *locale;
 		AsContentRatingSystem expected_system;
 	} vectors[] = {
-		/* Simple tests to get coverage of each rating system: */
-		{ "es_AR", AS_CONTENT_RATING_SYSTEM_INCAA },
-		{ "en_AU", AS_CONTENT_RATING_SYSTEM_ACB },
-		{ "pt_BR", AS_CONTENT_RATING_SYSTEM_DJCTQ },
-		{ "zh_TW", AS_CONTENT_RATING_SYSTEM_GSRR },
-		{ "en_GB", AS_CONTENT_RATING_SYSTEM_PEGI },
-		{ "hy_AM", AS_CONTENT_RATING_SYSTEM_PEGI },
-		{ "bg_BG", AS_CONTENT_RATING_SYSTEM_PEGI },
-		{ "fi_FI", AS_CONTENT_RATING_SYSTEM_KAVI },
-		{ "de_DE", AS_CONTENT_RATING_SYSTEM_USK },
-		{ "az_IR", AS_CONTENT_RATING_SYSTEM_ESRA },
-		{ "jp_JP", AS_CONTENT_RATING_SYSTEM_CERO },
-		{ "en_NZ", AS_CONTENT_RATING_SYSTEM_OFLCNZ },
-		{ "ru_RU", AS_CONTENT_RATING_SYSTEM_RUSSIA },
-		{ "en_SQ", AS_CONTENT_RATING_SYSTEM_MDA },
-		{ "ko_KR", AS_CONTENT_RATING_SYSTEM_GRAC },
-		{ "en_US", AS_CONTENT_RATING_SYSTEM_ESRB },
-		{ "en_US", AS_CONTENT_RATING_SYSTEM_ESRB },
-		{ "en_CA", AS_CONTENT_RATING_SYSTEM_ESRB },
-		{ "es_MX", AS_CONTENT_RATING_SYSTEM_ESRB },
-		/* Fallback (arbitrarily chosen Venezuela since it seems to use IARC): */
-		{ "es_VE", AS_CONTENT_RATING_SYSTEM_IARC },
-		/* Locale with a codeset: */
-		{ "nl_NL.iso88591", AS_CONTENT_RATING_SYSTEM_PEGI },
-		/* Locale with a codeset and modifier: */
-		{ "nl_NL.iso885915@euro", AS_CONTENT_RATING_SYSTEM_PEGI },
-		/* Locale with a less esoteric codeset: */
-		{ "en_GB.UTF-8", AS_CONTENT_RATING_SYSTEM_PEGI },
-		/* Locale with a modifier but no codeset: */
-		{ "fi_FI@euro", AS_CONTENT_RATING_SYSTEM_KAVI },
-		/* Invalid locale: */
-		{ "_invalid", AS_CONTENT_RATING_SYSTEM_IARC },
+	/* Simple tests to get coverage of each rating system: */
+		{"es_AR",		   AS_CONTENT_RATING_SYSTEM_INCAA },
+		{ "en_AU",		   AS_CONTENT_RATING_SYSTEM_ACB	},
+		{ "pt_BR",		   AS_CONTENT_RATING_SYSTEM_DJCTQ },
+		{ "zh_TW",		   AS_CONTENT_RATING_SYSTEM_GSRR	 },
+		{ "en_GB",		   AS_CONTENT_RATING_SYSTEM_PEGI	 },
+		{ "hy_AM",		   AS_CONTENT_RATING_SYSTEM_PEGI	 },
+		{ "bg_BG",		   AS_CONTENT_RATING_SYSTEM_PEGI	 },
+		{ "fi_FI",		   AS_CONTENT_RATING_SYSTEM_KAVI	 },
+		{ "de_DE",		   AS_CONTENT_RATING_SYSTEM_USK	},
+		{ "az_IR",		   AS_CONTENT_RATING_SYSTEM_ESRA	 },
+		{ "jp_JP",		   AS_CONTENT_RATING_SYSTEM_CERO	 },
+		{ "en_NZ",		   AS_CONTENT_RATING_SYSTEM_OFLCNZ},
+		{ "ru_RU",		   AS_CONTENT_RATING_SYSTEM_RUSSIA},
+		{ "en_SQ",		   AS_CONTENT_RATING_SYSTEM_MDA	},
+		{ "ko_KR",		   AS_CONTENT_RATING_SYSTEM_GRAC	 },
+		{ "en_US",		   AS_CONTENT_RATING_SYSTEM_ESRB	 },
+		{ "en_US",		   AS_CONTENT_RATING_SYSTEM_ESRB	 },
+		{ "en_CA",		   AS_CONTENT_RATING_SYSTEM_ESRB	 },
+		{ "es_MX",		   AS_CONTENT_RATING_SYSTEM_ESRB	 },
+ /* Fallback (arbitrarily chosen Venezuela since it seems to use IARC): */
+		{ "es_VE",		   AS_CONTENT_RATING_SYSTEM_IARC	 },
+ /* Locale with a codeset: */
+		{ "nl_NL.iso88591",	    AS_CONTENT_RATING_SYSTEM_PEGI  },
+ /* Locale with a codeset and modifier: */
+		{ "nl_NL.iso885915@euro", AS_CONTENT_RATING_SYSTEM_PEGI	},
+ /* Locale with a less esoteric codeset: */
+		{ "en_GB.UTF-8",		 AS_CONTENT_RATING_SYSTEM_PEGI  },
+ /* Locale with a modifier but no codeset: */
+		{ "fi_FI@euro",		AS_CONTENT_RATING_SYSTEM_KAVI  },
+ /* Invalid locale: */
+		{ "_invalid",	      AS_CONTENT_RATING_SYSTEM_IARC  },
 	};
 
 	for (gsize i = 0; i < G_N_ELEMENTS (vectors); i++) {
 		g_test_message ("Test %" G_GSIZE_FORMAT ": %s", i, vectors[i].locale);
-		g_assert_cmpint (as_content_rating_system_from_locale (vectors[i].locale), ==, vectors[i].expected_system);
+		g_assert_cmpint (as_content_rating_system_from_locale (vectors[i].locale),
+				 ==,
+				 vectors[i].expected_system);
 	}
 }
 
@@ -972,12 +1016,14 @@ test_utils_data_id_hash (void)
 	cpt1 = as_component_new ();
 	as_component_set_id (cpt1, "org.gnome.Software.desktop");
 	as_component_set_branch (cpt1, "master");
-	g_assert_cmpstr (as_component_get_data_id (cpt1), ==,
+	g_assert_cmpstr (as_component_get_data_id (cpt1),
+			 ==,
 			 "*/*/*/org.gnome.Software.desktop/master");
 	cpt2 = as_component_new ();
 	as_component_set_id (cpt2, "org.gnome.Software.desktop");
 	as_component_set_branch (cpt2, "stable");
-	g_assert_cmpstr (as_component_get_data_id (cpt2), ==,
+	g_assert_cmpstr (as_component_get_data_id (cpt2),
+			 ==,
 			 "*/*/*/org.gnome.Software.desktop/stable");
 
 	/* add to hash table using the data ID as a key */
@@ -1011,7 +1057,8 @@ test_utils_data_id_hash (void)
 	g_assert_true (found == NULL);
 
 	/* check hash function */
-	g_assert_cmpint (as_utils_data_id_hash ("*/*/*/gimp.desktop/master"), ==,
+	g_assert_cmpint (as_utils_data_id_hash ("*/*/*/gimp.desktop/master"),
+			 ==,
 			 as_utils_data_id_hash ("system/*/*/gimp.desktop/stable"));
 }
 
@@ -1104,7 +1151,8 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/rDNSConvert", test_rdns_convert);
 	g_test_add_func ("/AppStream/URIToBasename", test_filebasename_from_uri);
 	g_test_add_func ("/AppStream/ContentRating/Mapings", test_content_rating_mappings);
-	g_test_add_func ("/AppStream/ContentRating/from-locale", as_test_content_rating_from_locale);
+	g_test_add_func ("/AppStream/ContentRating/from-locale",
+			 as_test_content_rating_from_locale);
 
 	g_test_add_func ("/AppStream/DataID/hash", test_utils_data_id_hash);
 	g_test_add_func ("/AppStream/DataID/hash-str", test_utils_data_id_hash_str);

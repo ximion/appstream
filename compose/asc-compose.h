@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_COMPOSE_H) && !defined (ASC_COMPILATION)
+#if !defined(__APPSTREAM_COMPOSE_H) && !defined(ASC_COMPILATION)
 #error "Only <appstream-compose.h> can be included directly."
 #endif
 #pragma once
@@ -35,8 +35,7 @@ G_BEGIN_DECLS
 #define ASC_TYPE_COMPOSE (asc_compose_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AscCompose, asc_compose, ASC, COMPOSE, GObject)
 
-struct _AscComposeClass
-{
+struct _AscComposeClass {
 	GObjectClass parent_class;
 	/*< private >*/
 	void (*_as_reserved1) (void);
@@ -65,20 +64,20 @@ struct _AscComposeClass
  * Flags that affect the compose process.
  **/
 typedef enum {
-	ASC_COMPOSE_FLAG_NONE				= 0,
-	ASC_COMPOSE_FLAG_USE_THREADS		 	= 1 << 0,
-	ASC_COMPOSE_FLAG_ALLOW_NET			= 1 << 1,
-	ASC_COMPOSE_FLAG_VALIDATE			= 1 << 2,
-	ASC_COMPOSE_FLAG_STORE_SCREENSHOTS		= 1 << 3,
-	ASC_COMPOSE_FLAG_ALLOW_SCREENCASTS		= 1 << 4,
-	ASC_COMPOSE_FLAG_PROCESS_FONTS			= 1 << 5,
-	ASC_COMPOSE_FLAG_PROCESS_TRANSLATIONS		= 1 << 6,
-	ASC_COMPOSE_FLAG_IGNORE_ICONS			= 1 << 7,
-	ASC_COMPOSE_FLAG_PROCESS_UNPAIRED_DESKTOP 	= 1 << 8,
-	ASC_COMPOSE_FLAG_PROPAGATE_CUSTOM	 	= 1 << 9,
-	ASC_COMPOSE_FLAG_PROPAGATE_ARTIFACTS	 	= 1 << 10,
-	ASC_COMPOSE_FLAG_NO_FINAL_CHECK		 	= 1 << 11,
-	ASC_COMPOSE_FLAG_NO_PARTIAL_URLS	 	= 1 << 12,
+	ASC_COMPOSE_FLAG_NONE			  = 0,
+	ASC_COMPOSE_FLAG_USE_THREADS		  = 1 << 0,
+	ASC_COMPOSE_FLAG_ALLOW_NET		  = 1 << 1,
+	ASC_COMPOSE_FLAG_VALIDATE		  = 1 << 2,
+	ASC_COMPOSE_FLAG_STORE_SCREENSHOTS	  = 1 << 3,
+	ASC_COMPOSE_FLAG_ALLOW_SCREENCASTS	  = 1 << 4,
+	ASC_COMPOSE_FLAG_PROCESS_FONTS		  = 1 << 5,
+	ASC_COMPOSE_FLAG_PROCESS_TRANSLATIONS	  = 1 << 6,
+	ASC_COMPOSE_FLAG_IGNORE_ICONS		  = 1 << 7,
+	ASC_COMPOSE_FLAG_PROCESS_UNPAIRED_DESKTOP = 1 << 8,
+	ASC_COMPOSE_FLAG_PROPAGATE_CUSTOM	  = 1 << 9,
+	ASC_COMPOSE_FLAG_PROPAGATE_ARTIFACTS	  = 1 << 10,
+	ASC_COMPOSE_FLAG_NO_FINAL_CHECK		  = 1 << 11,
+	ASC_COMPOSE_FLAG_NO_PARTIAL_URLS	  = 1 << 12,
 } AscComposeFlags;
 
 /**
@@ -99,9 +98,7 @@ typedef enum {
  * Please note that this function may be called from any thread, and thread safety needs
  * to be taked care off by the callee.
  */
-typedef void (*AscCheckMetadataEarlyFn)(AscResult *cres,
-					const AscUnit *unit,
-					gpointer user_data);
+typedef void (*AscCheckMetadataEarlyFn) (AscResult *cres, const AscUnit *unit, gpointer user_data);
 
 /**
  * AscTranslateDesktopTextFn:
@@ -117,97 +114,75 @@ typedef void (*AscCheckMetadataEarlyFn)(AscResult *cres,
  *
  * Returns: (not nullable) (transfer full): A new #GPtrArray containing the translation mapping.
  */
-typedef GPtrArray* (*AscTranslateDesktopTextFn)(const GKeyFile *de,
-						const gchar *text,
-						gpointer user_data);
+typedef GPtrArray *(*AscTranslateDesktopTextFn) (const GKeyFile *de,
+						 const gchar	*text,
+						 gpointer	 user_data);
 
-AscCompose		*asc_compose_new (void);
+AscCompose     *asc_compose_new (void);
 
-void			asc_compose_reset (AscCompose *compose);
-void			asc_compose_add_unit (AscCompose *compose,
-					      AscUnit *unit);
+void		asc_compose_reset (AscCompose *compose);
+void		asc_compose_add_unit (AscCompose *compose, AscUnit *unit);
 
-void			asc_compose_add_allowed_cid (AscCompose *compose,
-							const gchar *component_id);
+void		asc_compose_add_allowed_cid (AscCompose *compose, const gchar *component_id);
 
-const gchar		*asc_compose_get_prefix (AscCompose *compose);
-void			asc_compose_set_prefix (AscCompose *compose,
-						const gchar *prefix);
+const gchar    *asc_compose_get_prefix (AscCompose *compose);
+void		asc_compose_set_prefix (AscCompose *compose, const gchar *prefix);
 
-const gchar		*asc_compose_get_origin (AscCompose *compose);
-void			asc_compose_set_origin (AscCompose *compose,
-						const gchar *origin);
+const gchar    *asc_compose_get_origin (AscCompose *compose);
+void		asc_compose_set_origin (AscCompose *compose, const gchar *origin);
 
-AsFormatKind		asc_compose_get_format (AscCompose *compose);
-void			asc_compose_set_format (AscCompose *compose,
-						AsFormatKind kind);
+AsFormatKind	asc_compose_get_format (AscCompose *compose);
+void		asc_compose_set_format (AscCompose *compose, AsFormatKind kind);
 
-const gchar		*asc_compose_get_media_baseurl (AscCompose *compose);
-void			asc_compose_set_media_baseurl (AscCompose *compose,
-						       const gchar *url);
+const gchar    *asc_compose_get_media_baseurl (AscCompose *compose);
+void		asc_compose_set_media_baseurl (AscCompose *compose, const gchar *url);
 
-AscComposeFlags		asc_compose_get_flags (AscCompose *compose);
-void			asc_compose_set_flags (AscCompose *compose,
-					       AscComposeFlags flags);
-void			asc_compose_add_flags (AscCompose *compose,
-					       AscComposeFlags flags);
-void			asc_compose_remove_flags (AscCompose *compose,
-						  AscComposeFlags flags);
+AscComposeFlags asc_compose_get_flags (AscCompose *compose);
+void		asc_compose_set_flags (AscCompose *compose, AscComposeFlags flags);
+void		asc_compose_add_flags (AscCompose *compose, AscComposeFlags flags);
+void		asc_compose_remove_flags (AscCompose *compose, AscComposeFlags flags);
 
-AscIconPolicy		*asc_compose_get_icon_policy (AscCompose *compose);
-void			asc_compose_set_icon_policy (AscCompose *compose,
-							AscIconPolicy *policy);
+AscIconPolicy  *asc_compose_get_icon_policy (AscCompose *compose);
+void		asc_compose_set_icon_policy (AscCompose *compose, AscIconPolicy *policy);
 
-const gchar		*asc_compose_get_cainfo (AscCompose *compose);
-void			asc_compose_set_cainfo (AscCompose *compose,
-						const gchar *cainfo);
+const gchar    *asc_compose_get_cainfo (AscCompose *compose);
+void		asc_compose_set_cainfo (AscCompose *compose, const gchar *cainfo);
 
-const gchar		*asc_compose_get_data_result_dir (AscCompose *compose);
-void			asc_compose_set_data_result_dir (AscCompose *compose,
-							 const gchar *dir);
+const gchar    *asc_compose_get_data_result_dir (AscCompose *compose);
+void		asc_compose_set_data_result_dir (AscCompose *compose, const gchar *dir);
 
-const gchar		*asc_compose_get_icons_result_dir (AscCompose *compose);
-void			asc_compose_set_icons_result_dir (AscCompose *compose,
-							  const gchar *dir);
+const gchar    *asc_compose_get_icons_result_dir (AscCompose *compose);
+void		asc_compose_set_icons_result_dir (AscCompose *compose, const gchar *dir);
 
-const gchar		*asc_compose_get_media_result_dir (AscCompose *compose);
-void			asc_compose_set_media_result_dir (AscCompose *compose,
-							  const gchar *dir);
+const gchar    *asc_compose_get_media_result_dir (AscCompose *compose);
+void		asc_compose_set_media_result_dir (AscCompose *compose, const gchar *dir);
 
-const gchar		*asc_compose_get_hints_result_dir (AscCompose *compose);
-void			asc_compose_set_hints_result_dir (AscCompose *compose,
-							  const gchar *dir);
+const gchar    *asc_compose_get_hints_result_dir (AscCompose *compose);
+void		asc_compose_set_hints_result_dir (AscCompose *compose, const gchar *dir);
 
-void			asc_compose_remove_custom_allowed (AscCompose *compose,
-							   const gchar *key_id);
-void			asc_compose_add_custom_allowed (AscCompose *compose,
-							  const gchar *key_id);
+void		asc_compose_remove_custom_allowed (AscCompose *compose, const gchar *key_id);
+void		asc_compose_add_custom_allowed (AscCompose *compose, const gchar *key_id);
 
-gssize			asc_compose_get_max_screenshot_size (AscCompose *compose);
-void			asc_compose_set_max_screenshot_size (AscCompose *compose,
-							     gssize size_bytes);
+gssize		asc_compose_get_max_screenshot_size (AscCompose *compose);
+void		asc_compose_set_max_screenshot_size (AscCompose *compose, gssize size_bytes);
 
-void			asc_compose_set_check_metadata_early_func (AscCompose *compose,
-								   AscCheckMetadataEarlyFn func,
-								   gpointer user_data);
-void			asc_compose_set_desktop_entry_l10n_func (AscCompose *compose,
-								 AscTranslateDesktopTextFn func,
-								 gpointer user_data);
+void		asc_compose_set_check_metadata_early_func (AscCompose		  *compose,
+							   AscCheckMetadataEarlyFn func,
+							   gpointer		   user_data);
+void		asc_compose_set_desktop_entry_l10n_func (AscCompose		  *compose,
+							 AscTranslateDesktopTextFn func,
+							 gpointer		   user_data);
 
-AscUnit			*asc_compose_get_locale_unit (AscCompose *compose);
-void			asc_compose_set_locale_unit (AscCompose *compose,
-						     AscUnit *locale_unit);
+AscUnit	       *asc_compose_get_locale_unit (AscCompose *compose);
+void		asc_compose_set_locale_unit (AscCompose *compose, AscUnit *locale_unit);
 
-GPtrArray		*asc_compose_get_results (AscCompose *compose);
-GPtrArray		*asc_compose_fetch_components (AscCompose *compose);
-gboolean		asc_compose_has_errors (AscCompose *compose);
+GPtrArray      *asc_compose_get_results (AscCompose *compose);
+GPtrArray      *asc_compose_fetch_components (AscCompose *compose);
+gboolean	asc_compose_has_errors (AscCompose *compose);
 
-GPtrArray		*asc_compose_run (AscCompose *compose,
-					  GCancellable *cancellable,
-					  GError **error);
+GPtrArray      *asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error);
 
-void			asc_compose_finalize_results (AscCompose *compose);
-void			asc_compose_finalize_result (AscCompose *compose,
-						     AscResult *result);
+void		asc_compose_finalize_results (AscCompose *compose);
+void		asc_compose_finalize_result (AscCompose *compose, AscResult *result);
 
 G_END_DECLS
