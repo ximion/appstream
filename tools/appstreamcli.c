@@ -568,6 +568,26 @@ as_client_run_is_satisfied (const gchar *command, char **argv, int argc)
 }
 
 /**
+ * as_client_run_get_latest_version:
+ *
+ * Get the latest version specified in an AppData file.
+ */
+static int
+as_client_run_get_latest_version (const gchar *command, char **argv, int argc)
+{
+	const gchar *fname = NULL;
+
+	if (argc > 2)
+		fname = argv[2];
+	if (argc > 3) {
+		as_client_print_help_hint (command, argv[3]);
+		return 1;
+	}
+
+	return ascli_get_latest_version_file (fname);
+}
+
+/**
  * as_client_run_put:
  *
  * Place a metadata file in the right directory.
@@ -1366,9 +1386,14 @@ as_client_run (char **argv, int argc)
 			as_client_run_check_license);
 	ascli_add_cmd (commands,
 			2, "is-satisfied", NULL, "FILE|COMPONENT-ID",
-			/* TRANSLATORS: `appstreamcli `check-license` command description. */
+			/* TRANSLATORS: `appstreamcli `is-satisfied` command description. */
 			_("Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."),
 			as_client_run_is_satisfied);
+	ascli_add_cmd (commands,
+		       2, "get-latest-version", NULL, "FILE",
+		       /* TRANSLATORS: `appstreamcli get-latest-version command description. */
+		       _("Get the latest version from the AppData file"),
+		       as_client_run_get_latest_version);
 
 	ascli_add_cmd (commands,
 			3, "install", NULL, "COMPONENT-ID",
