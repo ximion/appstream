@@ -1975,6 +1975,7 @@ as_cache_search (AsCache *cache, const gchar * const *terms, gboolean sort, GErr
 	g_autoptr(AsQueryContext) qctx = NULL;
 	g_autoptr(GRWLockReaderLocker) locker = NULL;
 
+	/* clang-format off */
 	const struct {
 		AsSearchTokenMatch	match_value;
 		const gchar		*xpath;
@@ -1988,6 +1989,7 @@ as_cache_search (AsCache *cache, const gchar * const *terms, gboolean sort, GErr
 		{ AS_SEARCH_TOKEN_MATCH_ORIGIN,		"_asi_origin[text()~=?]" },
 		{ AS_SEARCH_TOKEN_MATCH_NONE,		NULL }
 	};
+	/* clang-format on */
 
 	if (terms == NULL || terms[0] == NULL)
 		return g_ptr_array_new_with_free_func (g_object_unref);

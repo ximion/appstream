@@ -1,0 +1,88 @@
+---
+BasedOnStyle: GNU
+Language: Cpp
+Standard: Cpp11
+
+# use tabs with a width of 8
+IndentWidth: 8
+TabWidth: 8
+UseTab: Always
+
+# dirty hack: C doesn't have "requires", and we use it as variable
+# a lot in the code and want it properly aligned
+RequiresClausePosition: SingleLine
+
+# maximum column width
+ColumnLimit: 100
+
+# brace breaking style like Linux
+BreakBeforeBraces: Linux
+
+# always break after an open bracket, if the parameters don’t fit on a single line
+AlignAfterOpenBracket: Align
+
+# align consecutive macros
+AlignConsecutiveMacros: true
+
+# horizontally align operands of binary and ternary expressions
+AlignOperands: true
+
+# align trailing comments
+AlignTrailingComments: true
+
+# left-align array of structures
+AlignArrayOfStructures: Left
+
+# don't allow putting all parameters of a function/declaration onto the next line
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# only merge empty blocks.
+AllowShortBlocksOnASingleLine: Empty
+
+# always break after the return type of top-level definitions
+AlwaysBreakAfterReturnType: TopLevelDefinitions
+
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: false
+
+# never pack parameters/arguments
+BinPackParameters: false
+BinPackArguments: false
+
+# regroup include blocks
+IncludeBlocks: Regroup
+
+# never sort includes
+SortIncludes: false
+
+# space after casts
+SpaceAfterCStyleCast: true
+
+# we abuse this to make clang-format not touch g_auto* macros,
+# as these should not have a space inserted before their open bracket
+WhitespaceSensitiveMacros: ['g_autoptr', 'g_auto', '_', '__attribute__']
+
+# some attribute macros
+AttributeMacros: ['G_GNUC_NULL_TERMINATED']
+
+# statement macros
+StatementMacros: ['AS_BEGIN_PRIVATE_DECLS', 'AS_INTERNAL_VISIBLE']
+
+# avoid breaking around an assignment operator
+PenaltyBreakAssignment: 250
+
+# left-align newline escapes, e.g. in macros
+AlignEscapedNewlines: Left
+
+# don't indent case labels
+IndentCaseLabels: false
+
+# don't reflow comments, this can cause issues with documentation / GIR annotations
+ReflowComments: false
+
+# all enums should be on their own line
+AllowShortEnumsOnASingleLine: false
+
+# break after operators
+BreakBeforeBinaryOperators: None

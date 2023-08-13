@@ -29,6 +29,7 @@
 
 #include "as-utils-private.h"
 
+/* clang-format off */
 AscHintTagStatic asc_hint_tag_list[] =  {
 	{ "internal-unknown-tag",
 	  AS_ISSUE_SEVERITY_ERROR,
@@ -307,6 +308,7 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
 };
+/* clang-format on */
 
 /**
  * asc_hint_tag_new:

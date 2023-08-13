@@ -35,6 +35,7 @@ typedef struct {
 	const gchar	*explanation;
 } AsValidatorIssueTag;
 
+/* clang-format off */
 AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "type-property-required",
 	  AS_ISSUE_SEVERITY_ERROR,
@@ -1081,6 +1082,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
 };
+/* clang-format on */
 
 #pragma GCC visibility pop
 G_END_DECLS

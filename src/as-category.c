@@ -62,6 +62,8 @@ typedef struct {
 	const gchar		*icon;
 } AsCategoryData;
 
+/* clang-format off */
+
 /* AudioVideo */
 static const AsCategoryMap map_audiovideo[] = {
 	{ "featured",		NC_("Category of AudioVideo", "Featured"),
@@ -332,6 +334,8 @@ static const AsCategoryData msdata[] = {
 				"applications-utilities" },
 	{ NULL }
 };
+
+/* clang-format on */
 
 typedef struct
 {

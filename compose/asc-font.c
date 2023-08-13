@@ -604,6 +604,7 @@ asc_font_find_pangram (AscFont *font, const gchar *lang, const gchar *rand_id)
 static const gchar*
 asc_font_get_icon_text_for_lang (const gchar *lang)
 {
+	/* clang-format off */
 	struct {
 		const gchar	*lang;
 		const gchar	*value;
@@ -639,6 +640,7 @@ asc_font_get_icon_text_for_lang (const gchar *lang)
 		{ "und-zsye",   "😀" },
 		{ "zh-tw",	"漢" },
 		{ NULL, NULL } };
+	/* clang-format on */
 
 	for (guint i = 0; text_icon[i].lang != NULL; i++) {
 		if (g_strcmp0 (text_icon[i].value, lang) == 0)

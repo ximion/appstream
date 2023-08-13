@@ -718,6 +718,7 @@ as_content_rating_system_from_locale (const gchar *locale)
 	if (g_strcmp0 (territory, "TW") == 0)
 		return AS_CONTENT_RATING_SYSTEM_GSRR;
 
+	/* clang-format off */
 	/* Europe (but not Finland or Germany), India, Israel,
 	 * Pakistan, Quebec, South Africa */
 	if ((g_strcmp0 (territory, "GB") == 0) ||
@@ -810,11 +811,13 @@ as_content_rating_system_from_locale (const gchar *locale)
 	    g_strcmp0 (territory, "CA") == 0 ||
 	    g_strcmp0 (territory, "MX") == 0)
 		return AS_CONTENT_RATING_SYSTEM_ESRB;
+	/* clang-format on */
 
 	/* everything else is IARC */
 	return AS_CONTENT_RATING_SYSTEM_IARC;
 }
 
+/* clang-format off */
 /* Table of the human-readable descriptions for each #AsContentRatingValue for
  * each content rating category. @desc_none must be non-%NULL, but the other
  * values may be %NULL if no description is appropriate. In that case, the next
@@ -1137,6 +1140,7 @@ static const struct {
 		N_("Graphic depictions of modern-day slavery"),
 	},
 };
+/* clang-format on */
 
 /**
  * as_content_rating_attribute_get_description:
