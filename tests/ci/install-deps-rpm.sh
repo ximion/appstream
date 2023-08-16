@@ -22,6 +22,11 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     libasan \
     libstemmer-devel \
     libubsan \
+    diffutils \
+    gcovr \
+    xz-devel \
+    libzstd-devel \
+    libuuid-devel \
     'pkgconfig(gio-2.0)' \
     'pkgconfig(gobject-introspection-1.0)' \
     'pkgconfig(xmlb)' \
