@@ -150,7 +150,7 @@ gio_dep = dependency('gio-2.0', version: '>= 2.62')
 curl_dep = dependency('libcurl', version: '>= 7.62')
 xml2_dep = dependency('libxml-2.0')
 yaml_dep = dependency('yaml-0.1')
-xmlb_dep = dependency('xmlb', version: '>= 0.3.6',
+xmlb_dep = dependency('xmlb', version: '>= 0.3.13',
                       fallback: ['libxmlb', 'libxmlb_dep'], default_options: ['gtkdoc=false'])
 libsystemd_dep = dependency('libsystemd', required: get_option('systemd'))
 

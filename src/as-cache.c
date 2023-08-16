@@ -1863,10 +1863,6 @@ as_cache_get_components_by_bundle_id (AsCache *cache,
 typedef struct {
 	AsSearchTokenMatch match_value;
 	XbQuery *query;
-#if !LIBXMLB_CHECK_VERSION(0, 3, 13)
-	/* we need this if libxmlb is too old */
-	XbSilo *silo;
-#endif
 } AsFTSearchHelper;
 
 static void
@@ -1884,11 +1880,6 @@ as_cache_search_component_node_term (GPtrArray *array, XbNode *cpt_node, const g
 	/* run all queries on the component node */
 	for (guint i = 0; i < array->len; i++) {
 		g_autoptr(GPtrArray) n = NULL;
-		g_autoptr (XbQuery) query = NULL;
-#if !LIBXMLB_CHECK_VERSION(0, 3, 13)
-		g_autofree gchar *tmp1 = NULL;
-		g_autofree gchar *tmp2 = NULL;
-#endif
 		g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
 		AsFTSearchHelper *helper = g_ptr_array_index (array, i);
 
@@ -1896,18 +1887,7 @@ as_cache_search_component_node_term (GPtrArray *array, XbNode *cpt_node, const g
 					    0,
 					    term,
 					    NULL);
-
-#if LIBXMLB_CHECK_VERSION(0, 3, 13)
-		/* libxmlb is new enough to have https://github.com/hughsie/libxmlb/issues/143 fixed,
-		* so we can just use the existing query as-is. */
-		query = g_object_ref (helper->query);
-#else
-		tmp1 = g_strconcat ("'", term, "'", NULL);
-		tmp2 = as_str_replace (xb_query_get_xpath (helper->query), "?", tmp1, 1);
-		query = xb_query_new (helper->silo, tmp2, NULL);
-#endif
-
-		n = xb_node_query_with_context (cpt_node, query, &context, NULL);
+		n = xb_node_query_with_context (cpt_node, helper->query, &context, NULL);
 		if (n != NULL)
 			match_value |= helper->match_value;
 	}
@@ -1991,9 +1971,6 @@ as_cache_search (AsCache *cache, const gchar *const *terms, gboolean sort, GErro
 				AsFTSearchHelper *helper = g_new0 (AsFTSearchHelper, 1);
 				helper->match_value = queries[j].match_value;
 				helper->query = g_steal_pointer (&query);
-#if !LIBXMLB_CHECK_VERSION(0, 3, 13)
-				helper->silo = csec->silo;
-#endif
 				g_ptr_array_add (array, helper);
 			} else {
 				g_debug ("Unable to create query (ignoring it): %s",
