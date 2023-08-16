@@ -2347,7 +2347,7 @@ as_pool_build_search_tokens (AsPool *pool, const gchar *search)
 
 	terms = g_new0 (gchar *, g_strv_length (strv) + 1);
 	idx = 0;
-	stemmer = g_object_ref (as_stemmer_get ());
+	stemmer = g_object_ref (as_stemmer_get (priv->locale_posix));
 	for (guint i = 0; strv[i] != NULL; i++) {
 		gchar *token;
 		if (!as_user_search_term_valid (strv[i]))

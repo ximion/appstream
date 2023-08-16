@@ -3034,7 +3034,7 @@ as_component_add_token (AsComponent *cpt,
 			GPtrArray *tokens_out)
 {
 	/* get global stemmer instance (it's threadsafe and should survive this invocation) */
-	AsStemmer *stemmer = as_stemmer_get ();
+	AsStemmer *stemmer = as_stemmer_get (as_component_get_active_locale (cpt));
 
 	/* add extra tokens for names like x-plane or half-life */
 	if (allow_split && g_strstr_len (value, -1, "-") != NULL) {

@@ -32,9 +32,9 @@ G_BEGIN_DECLS
 #define AS_TYPE_STEMMER (as_stemmer_get_type ())
 G_DECLARE_FINAL_TYPE (AsStemmer, as_stemmer, AS, STEMMER, GObject)
 
-AsStemmer *as_stemmer_get (void);
+AsStemmer *as_stemmer_get (const gchar *locale);
 
-void	   as_stemmer_reload (AsStemmer *stemmer, const gchar *lang);
+void	   as_stemmer_reload (AsStemmer *stemmer, const gchar *locale);
 gchar	  *as_stemmer_stem (AsStemmer *stemmer, const gchar *term);
 
 G_END_DECLS
