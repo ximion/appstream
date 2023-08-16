@@ -40,6 +40,7 @@ struct _AsStemmer
 	GObject parent_instance;
 
 	struct sb_stemmer *sb;
+	gchar *current_lang;
 	GMutex mutex;
 };
 
@@ -71,37 +72,49 @@ as_stemmer_init (AsStemmer *stemmer)
 {
 #ifdef HAVE_STEMMING
 	g_autofree gchar *locale = NULL;
-	g_autofree gchar *lang = NULL;
 
 	g_mutex_init (&stemmer->mutex);
 
 	/* we don't use the locale in XML, so it can be POSIX */
 	locale = as_get_current_locale_posix ();
-	lang = as_utils_locale_to_language (locale);
+	stemmer->current_lang = as_utils_locale_to_language (locale);
 
-	as_stemmer_reload (stemmer, lang);
+	as_stemmer_reload (stemmer, stemmer->current_lang);
 #endif
 }
 
 /**
  * as_stemmer_reload:
  * @stemmer: A #AsStemmer
- * @lang: The stemming language.
+ * @locale: The stemming language as POSIX locale.
  *
  * Allows realoading the #AsStemmer with a different language.
  */
 void
-as_stemmer_reload (AsStemmer *stemmer, const gchar *lang)
+as_stemmer_reload (AsStemmer *stemmer, const gchar *locale)
 {
 #ifdef HAVE_STEMMING
-	GMutexLocker *locker = g_mutex_locker_new (&stemmer->mutex);
+	g_autofree gchar *lang = NULL;
+	GMutexLocker *locker = NULL;
 
+	/* check if we need to reload */
+	lang = as_utils_locale_to_language (locale);
+	locker = g_mutex_locker_new (&stemmer->mutex);
+	if (as_str_equal0 (lang, stemmer->current_lang)) {
+		g_mutex_locker_free (locker);
+		return;
+	}
+
+	g_free (stemmer->current_lang);
+	stemmer->current_lang = g_steal_pointer (&lang);
+
+	/* reload stemmer */
 	sb_stemmer_delete (stemmer->sb);
-	stemmer->sb = sb_stemmer_new (lang, NULL);
+	stemmer->sb = sb_stemmer_new (stemmer->current_lang, NULL);
 	if (stemmer->sb == NULL)
-		g_debug ("Language %s can not be stemmed.", lang);
+		g_debug ("Language %s can not be stemmed.", stemmer->current_lang);
 	else
-		g_debug ("Stemming language is: %s", lang);
+		g_debug ("Stemming language is now: %s", stemmer->current_lang);
 
 	g_mutex_locker_free (locker);
 #endif
@@ -158,18 +171,33 @@ as_stemmer_class_init (AsStemmerClass *klass)
 
 /**
  * as_stemmer_get:
+ * @locale: The stemming language as POSIX locale.
  *
  * Gets the global #AsStemmer instance.
  *
  * Returns: (transfer none): an #AsStemmer
  **/
-AsStemmer*
-as_stemmer_get (void)
+AsStemmer *
+as_stemmer_get (const gchar *locale)
 {
+	AsStemmer *stemmer;
 	if (as_stemmer_object == NULL) {
 		as_stemmer_object = g_object_new (AS_TYPE_STEMMER, NULL);
 		g_object_add_weak_pointer (as_stemmer_object, &as_stemmer_object);
 	}
+	stemmer = AS_STEMMER (as_stemmer_object);
 
-	return AS_STEMMER (as_stemmer_object);
+	/* load current locale if locale was NULL */
+	if (locale == NULL) {
+		g_autofree gchar *sys_locale = as_get_current_locale_posix ();
+		as_stemmer_reload (stemmer, sys_locale);
+		return stemmer;
+	}
+
+	/* load English for standard C locale */
+	if (g_str_has_prefix (locale, "C"))
+		as_stemmer_reload (stemmer, "en");
+	else
+		as_stemmer_reload (stemmer, locale);
+	return stemmer;
 }

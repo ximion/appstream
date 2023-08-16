@@ -654,8 +654,7 @@ static void
 test_search_stemming (void)
 {
 	gchar *tmp;
-	AsStemmer *stemmer = as_stemmer_get ();
-	as_stemmer_reload (stemmer, "en");
+	AsStemmer *stemmer = as_stemmer_get ("en");
 
 	tmp = as_stemmer_stem (stemmer, "calculator");
 	g_assert_cmpstr (tmp, ==, "calcul");
