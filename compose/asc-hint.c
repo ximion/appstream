@@ -250,10 +250,12 @@ asc_hint_format_explanation (AscHint *hint)
 			g_autofree gchar *tmp = g_strconcat (g_ptr_array_index (priv->vars, j),
 							     "}}",
 							     NULL);
+			g_autofree gchar *tmp2 = NULL;
 			if (!g_str_has_prefix (parts[i], tmp))
 				continue;
 
 			/* replace string */
+			tmp2 = parts[i];
 			parts[i] = parts[i] + strlen (tmp);
 			parts[i] = g_strconcat (g_ptr_array_index (priv->vars, j + 1),
 						parts[i],
