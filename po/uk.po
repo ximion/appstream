@@ -22,17 +22,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-08-24 20:10+0200\n"
-"PO-Revision-Date: 2023-02-04 02:35+0000\n"
+"PO-Revision-Date: 2023-08-25 10:53+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
-"translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2577,7 +2575,7 @@ msgstr "Встановлена часова позначка випуску є �
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:877
 msgid "The release description must be put inside a `description` tag"
-msgstr ""
+msgstr "Опис випуску слід розташувати у межах теґу `description`"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:883
@@ -2720,53 +2718,50 @@ msgstr ""
 #: src/as-validator-issue-tag.h:976
 msgid ""
 "The  `type` attribute of this `content_rating` element is missing or empty."
-msgstr ""
+msgstr "Атрибут `type` цього елемента `content_rating` пропущено або він є порожнім."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:982
 msgid ""
 "The  `type` attribute of the `content_rating` element has a invalid value."
-msgstr ""
+msgstr "Атрибут `type` елемента `content_rating` має некоректне значення."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:988
-#, fuzzy
 msgid "The `content_rating` tag can only contain `content_attribute` children."
-msgstr "Дочірніми щодо теґу «custom» можуть бути лише теґи «value»."
+msgstr "Дочірніми щодо теґу «content_rating» можуть бути лише теґи «content_attribute»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:994
 msgid ""
 "The  `id` attribute of the `content_attribute` element is missing or empty."
-msgstr ""
+msgstr "Атрибут `id` елемента `content_attribute` пропущено або він є порожнім."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1000
 msgid ""
 "The  `id` attribute of the `content_attribute` element has a invalid value."
-msgstr ""
+msgstr "Атрибут `id` елемента `content_attribute` має некоректне значення."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1006
 msgid "The `content_attribute` tag needs a value."
-msgstr ""
+msgstr "Для теґу `content_attribute` слід вказати значення."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1012
 msgid "The `content_attribute` tag value is unknown."
-msgstr ""
+msgstr "Невідоме значення теґу `content_attribute`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1018
-#, fuzzy
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr "Встановлене значення теґу не є коректним для відношення `internet`."
+msgstr "Встановлене значення теґу `content_attribute` не є коректним для вказаного ідентифікатора."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1024
-#, fuzzy
 msgid "A `content_attribute` tag with this ID has already been defined."
-msgstr "Адресу цього типу вже визначено."
+msgstr "Теґ `content_attribute` з цим ідентифікатором уже визначено."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1030
@@ -2952,7 +2947,7 @@ msgstr ""
 msgid ""
 "Makes all URLs in output data complete URLs and avoids the use of a shared "
 "URL prefix for all metadata."
-msgstr ""
+msgstr "Робить усі адреси у виведених даних повними адресами і уникає використання спільного префікса адрес для усіх метаданих."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:269
@@ -3328,12 +3323,12 @@ msgstr "Некоректна кількість параметрів"
 #: tools/appstreamcli.c:1120
 #, c-format
 msgid "Compose failed to execute: %s"
-msgstr ""
+msgstr "Не вдалося виконати компонування: %s"
 
 #: tools/appstreamcli.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "Compose failed: %s"
-msgstr "Не пройдено перевірку: %s"
+msgstr "Не вдалося виконати компонування: %s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:1187
