@@ -436,6 +436,9 @@ ascli_validate_files (gchar **argv,
 			  &pedantic_count)
 			  ? ret
 			  : FALSE;
+
+		/* remove issues from a potential previous use of this validator */
+		as_validator_clear_issues (validator);
 	}
 
 	if (ret) {
