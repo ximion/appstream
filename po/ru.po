@@ -42,18 +42,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-08-24 20:10+0200\n"
-"PO-Revision-Date: 2023-04-02 12:37+0000\n"
+"PO-Revision-Date: 2023-08-28 02:57+0000\n"
 "Last-Translator: Сергей <asvmail.as@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
-"translations/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 4.17-dev\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2540,7 +2537,7 @@ msgstr "Отметка времени выпуска недействитель�
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:877
 msgid "The release description must be put inside a `description` tag"
-msgstr ""
+msgstr "Описание выпуска должно быть помещено внутри тега «description»"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:883
@@ -2678,53 +2675,50 @@ msgstr ""
 #: src/as-validator-issue-tag.h:976
 msgid ""
 "The  `type` attribute of this `content_rating` element is missing or empty."
-msgstr ""
+msgstr "Атрибут  «type» элемента «content_rating» отсутствует или пуст."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:982
 msgid ""
 "The  `type` attribute of the `content_rating` element has a invalid value."
-msgstr ""
+msgstr "Атрибут  «type» элемента «content_rating» имеет недопустимое значение."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:988
-#, fuzzy
 msgid "The `content_rating` tag can only contain `content_attribute` children."
-msgstr "Тег `custom` может содержать только дочерние элементы `value`."
+msgstr "Тег «content_rating» может содержать только дочерние элементы «content_attribute»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:994
 msgid ""
 "The  `id` attribute of the `content_attribute` element is missing or empty."
-msgstr ""
+msgstr "Атрибут  «id» элемента «content_attribute» отсутствует или пуст."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1000
 msgid ""
 "The  `id` attribute of the `content_attribute` element has a invalid value."
-msgstr ""
+msgstr "Атрибут  «id» элемента «content_attribute» имеет недопустимое значение."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1006
 msgid "The `content_attribute` tag needs a value."
-msgstr ""
+msgstr "Тегу «content_attribute» требуется значение."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1012
 msgid "The `content_attribute` tag value is unknown."
-msgstr ""
+msgstr "Значение тега «content_attribute» неизвестно."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1018
-#, fuzzy
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr "Заданное значение тега недопустимо для отношения `internet`."
+msgstr "Значение тега «content_attribute» недопустимо для данного идентификатора."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1024
-#, fuzzy
 msgid "A `content_attribute` tag with this ID has already been defined."
-msgstr "URL этого типа уже определён."
+msgstr "Тег «content_attribute» с этим ID уже определён."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1030
@@ -2790,7 +2784,7 @@ msgstr ""
 
 #: src/as-validator.c:407
 msgid "URL format is invalid."
-msgstr "Недопустимый URL формат."
+msgstr "Недопустимый формат URL."
 
 #: src/as-validator.c:468 src/as-validator.c:513
 #, c-format
