@@ -68,6 +68,8 @@ as_bundle_kind_to_string (AsBundleKind kind)
 		return "tarball";
 	if (kind == AS_BUNDLE_KIND_CABINET)
 		return "cabinet";
+	if (kind == AS_BUNDLE_KIND_LINGLONG)
+		return "linglong";
 	return "unknown";
 }
 
@@ -96,6 +98,8 @@ as_bundle_kind_from_string (const gchar *bundle_str)
 		return AS_BUNDLE_KIND_TARBALL;
 	if (g_strcmp0 (bundle_str, "cabinet") == 0)
 		return AS_BUNDLE_KIND_CABINET;
+	if (g_strcmp0 (bundle_str, "linglong") == 0)
+		return AS_BUNDLE_KIND_LINGLONG;
 	return AS_BUNDLE_KIND_UNKNOWN;
 }
 

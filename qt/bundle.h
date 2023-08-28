@@ -56,7 +56,8 @@ public:
         KindAppImage,
         KindSnap,
         KindTarball,
-        KindCabinet
+        KindCabinet,
+        KindLinglong
     };
     Q_ENUM(Kind)
 
