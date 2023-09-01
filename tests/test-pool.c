@@ -1052,7 +1052,7 @@ main (int argc, char **argv)
 {
 	int ret;
 
-	if (argc == 0) {
+	if (argc == 1) {
 		g_error ("No test directory specified!");
 		return 1;
 	}

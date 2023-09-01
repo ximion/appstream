@@ -1,0 +1,17 @@
+task:
+  freebsd_instance:
+    matrix:
+      - image_family: freebsd-13-2-snap
+  env:
+    # /usr/ports/Mk/Uses/localbase.mk localbase:ldflags
+    LOCALBASE: /usr/local
+    CFLAGS: -isystem $LOCALBASE/include
+    CPPFLAGS: $CFLAGS
+    CXXFLAGS: $CFLAGS
+    LDFLAGS: -L$LOCALBASE/lib
+  deps_script:
+    - sed -i.bak 's/quarterly/latest/' /etc/pkg/FreeBSD.conf
+    - env ASSUME_ALWAYS_YES=yes pkg update -f
+    - env ASSUME_ALWAYS_YES=yes pkg install -y snowballstemmer gperf itstool gtk-doc qt6-tools
+  build_script:
+    - tests/ci/run-build.sh
