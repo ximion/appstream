@@ -21,6 +21,7 @@
 # Tristan Heaven <tristan@tristanheaven.net>, 2021.
 # Deleted User <noreply+16022@weblate.org>, 2021.
 # John Vandenberg <jayvdb@gmail.com>, 2021.
+# Kieran W <alarmcuddly@outlook.com>, 2023.
 #
 # Translators:
 msgid ""
@@ -28,16 +29,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-08-24 20:10+0200\n"
-"PO-Revision-Date: 2023-07-08 09:48+0000\n"
-"Last-Translator: Andi Chandler <andi@gowling.com>\n"
-"Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
-"appstream/translations/en_GB/>\n"
+"PO-Revision-Date: 2023-09-07 05:51+0000\n"
+"Last-Translator: Kieran W <alarmcuddly@outlook.com>\n"
+"Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/appstream/translations/en_GB/>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2498,7 +2498,7 @@ msgstr "The release timestamp is invalid."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:877
 msgid "The release description must be put inside a `description` tag"
-msgstr ""
+msgstr "The release description must be put inside a `description` tag"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:883
@@ -2636,53 +2636,50 @@ msgstr ""
 #: src/as-validator-issue-tag.h:976
 msgid ""
 "The  `type` attribute of this `content_rating` element is missing or empty."
-msgstr ""
+msgstr "The  `type` attribute of this `content_rating` element is missing or empty."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:982
 msgid ""
 "The  `type` attribute of the `content_rating` element has a invalid value."
-msgstr ""
+msgstr "The  `type` attribute of the `content_rating` element has a invalid value."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:988
-#, fuzzy
 msgid "The `content_rating` tag can only contain `content_attribute` children."
-msgstr "The `custom` tag can only contain `value` children."
+msgstr "The `content_rating` tag can only contain `content_attribute` children."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:994
 msgid ""
 "The  `id` attribute of the `content_attribute` element is missing or empty."
-msgstr ""
+msgstr "The  `id` attribute of the `content_attribute` element is missing or empty."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1000
 msgid ""
 "The  `id` attribute of the `content_attribute` element has a invalid value."
-msgstr ""
+msgstr "The  `id` attribute of the `content_attribute` element has a invalid value."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1006
 msgid "The `content_attribute` tag needs a value."
-msgstr ""
+msgstr "The `content_attribute` tag needs a value."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1012
 msgid "The `content_attribute` tag value is unknown."
-msgstr ""
+msgstr "The `content_attribute` tag value is unknown."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1018
-#, fuzzy
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr "The set tag value is not valid for an `Internet` relation."
+msgstr "The `content_attribute` tag value is invalid for the given id."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1024
-#, fuzzy
 msgid "A `content_attribute` tag with this ID has already been defined."
-msgstr "An URL of this type has already been defined."
+msgstr "A `content_attribute` tag with this ID has already been defined."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1030
@@ -2860,7 +2857,7 @@ msgstr "Set the URL where the exported media content will be hosted"
 msgid ""
 "Makes all URLs in output data complete URLs and avoids the use of a shared "
 "URL prefix for all metadata."
-msgstr ""
+msgstr "Makes all URLs in output data complete URLs and avoids the use of a shared URL prefix for all metadata."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:269
@@ -3082,38 +3079,38 @@ msgstr ""
 #: tools/appstreamcli.c:547
 msgid ""
 "No license, license expression or license exception string was provided."
-msgstr ""
+msgstr "No license, license expression or license exception string was provided."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:597
 msgid "Set the data origin for the installed metadata catalog file."
-msgstr ""
+msgstr "Set the data origin for the installed metadata catalog file."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:603
 msgid "Install the file for the current user, instead of globally."
-msgstr ""
+msgstr "Install the file for the current user, instead of globally."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:631
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
-msgstr ""
+msgstr "Limit the command to use only components from the given bundling system (`flatpak` or `package`)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:638
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
-msgstr ""
+msgstr "Do not ask for which software component should be used and always choose the first entry."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:672 tools/appstreamcli.c:707
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
-msgstr ""
+msgstr "No valid bundle kind was specified. Only `package` and `flatpak` are currently recognised."
 
 #: tools/appstreamcli.c:801
 msgid ""
@@ -3162,67 +3159,62 @@ msgstr "Use the specified line for the 'Exec=' key of the desktop-entry file."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:987
-#, fuzzy
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr "Assume the input file is in the selected format ('yaml' or 'text')."
+msgstr "Assume the input file is in the selected format ('yaml', 'text' or 'markdown')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:994
-#, fuzzy
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr ""
-"Limit the number of release entries that end up in the metainfo file (0 for "
-"unlimited)."
+msgstr "Limit the number of release entries that end up in the metainfo file (<= 0 for unlimited)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1001
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
-msgstr ""
+msgstr "Set the number of releases that should have descriptions marked for translation (latest releases are translated first, -1 for unlimited)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1046
-#, fuzzy
 msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr "Generate the output in the selected format ('yaml' or 'text')."
+msgstr "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1090
 #, c-format
 msgid "Compose binary '%s' was not found! Can not continue."
-msgstr ""
+msgstr "Compose binary '%s' was not found! Can not continue."
 
 #: tools/appstreamcli.c:1094
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
-msgstr ""
+msgstr "You may be able to install the AppStream Compose addon via: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1103
 msgid "Invalid number of parameters"
-msgstr ""
+msgstr "Invalid number of parameters"
 
 #: tools/appstreamcli.c:1120
 #, c-format
 msgid "Compose failed to execute: %s"
-msgstr ""
+msgstr "Compose failed to execute: %s"
 
 #: tools/appstreamcli.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "Compose failed: %s"
-msgstr "Validation failed: %s"
+msgstr "Compose failed: %s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:1187
 #, c-format
 msgid "(Alias: '%s')"
-msgstr ""
+msgstr "(Alias: '%s')"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstreamcli.c:1217
@@ -3238,10 +3230,10 @@ msgstr ""
 "help\" to the subcommand."
 
 #: tools/appstreamcli.c:1295
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr "Run '%s --help' to see a full list of available command line options."
+msgstr "Command '%s' is unknown. Run '%s --help' for a list of available commands."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1326
@@ -3251,7 +3243,7 @@ msgstr "Show extra debugging information."
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstreamcli.c:1337
 msgid "Enable profiling"
-msgstr ""
+msgstr "Enable profiling"
 
 #. TRANSLATORS: `appstreamcli search` command description.
 #: tools/appstreamcli.c:1352
@@ -3268,12 +3260,12 @@ msgstr "Get information about a component by its ID."
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr ""
+msgstr "Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1374
 msgid "List components that are part of the specified categories."
-msgstr ""
+msgstr "List components that are part of the specified categories."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1383
@@ -3298,14 +3290,14 @@ msgstr "Validate an installed file-tree of an application for valid metadata."
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1414
 msgid "Check license string for validity and print details about it."
-msgstr ""
+msgstr "Check license string for validity and print details about it."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1422
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
-msgstr ""
+msgstr "Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1431
@@ -3325,7 +3317,7 @@ msgstr "Display status information about available AppStream metadata."
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1454
 msgid "Show information about the current device and used operating system."
-msgstr ""
+msgstr "Show information about the current device and used operating system."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1462
@@ -3334,9 +3326,8 @@ msgstr "Install a metadata file into the right location."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1470
-#, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr "Convert collection XML to YAML or vice versa."
+msgstr "Convert metadata catalog XML to YAML or vice versa."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1477
@@ -3354,9 +3345,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1494
-#, fuzzy
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr "Create a XDG desktop-entry file from a metainfo file."
+msgstr "Create a desktop-entry file from a metainfo file."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstreamcli.c:1502
@@ -3370,9 +3360,8 @@ msgstr "Write NEWS text or YAML file with information from a metainfo file."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1518
-#, fuzzy
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr "No AppStream metadata was found in this directory or directory tree."
+msgstr "Compose AppStream metadata catalog from directory trees."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1526
@@ -3381,20 +3370,20 @@ msgstr "You need to specify a command."
 
 #: tools/ascli-actions-mdata.c:49
 msgid "Only refreshing metadata cache specific to the current user."
-msgstr ""
+msgstr "Only refreshing metadata cache specific to the current user."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
+msgstr "Updating software metadata cache for the operating system."
 
 #: tools/ascli-actions-mdata.c:66
 msgid "Updating software metadata cache for Flatpak."
-msgstr ""
+msgstr "Updating software metadata cache for Flatpak."
 
 #: tools/ascli-actions-mdata.c:68
-#, fuzzy, c-format
+#, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "Metadata file '%s' does not exist."
+msgstr "A metadata source group with the name '%s' does not exist!"
 
 #: tools/ascli-actions-mdata.c:97
 msgid "You might need superuser permissions to perform this action."
@@ -3402,15 +3391,13 @@ msgstr "You might need superuser permissions to perform this action."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:105
-#, fuzzy
 msgid "Metadata cache was updated successfully."
-msgstr "AppStream cache update completed successfully."
+msgstr "Metadata cache was updated successfully."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:108
-#, fuzzy
 msgid "Metadata cache update is not necessary."
-msgstr "AppStream cache update is not necessary."
+msgstr "Metadata cache update is not necessary."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -3455,30 +3442,29 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Could not find component providing '%s::%s'."
 
 #: tools/ascli-actions-mdata.c:261
-#, fuzzy
 msgid "You need to specify categories to list."
-msgstr "You need to specify a term to search for."
+msgstr "You need to specify categories to list."
 
 #. TRANSLATORS: We failed to find any component in these categories, likely due to an error
 #: tools/ascli-actions-mdata.c:275
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find components in %s!"
-msgstr "Unable to find component matching %s!"
+msgstr "Unable to find components in %s!"
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:282
 #, c-format
 msgid "No component found in categories %s."
-msgstr ""
+msgstr "No component found in categories %s."
 
 #: tools/ascli-actions-mdata.c:366
 msgid "You need to specify a metadata file."
 msgstr "You need to specify a metadata file."
 
 #: tools/ascli-actions-mdata.c:380
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr "Unable to save desktop entry file: %s"
+msgstr "Unable to install metadata file: %s"
 
 #: tools/ascli-actions-mdata.c:400
 msgid "You need to specify an input and output file."
@@ -3539,16 +3525,15 @@ msgstr "Unable to save the template metainfo file: %s"
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr ""
+msgstr "Unable to check display size: Can not read information without GUI toolkit access."
 
 #: tools/ascli-actions-mdata.c:672
 msgid "ERROR"
-msgstr ""
+msgstr "ERROR"
 
 #: tools/ascli-actions-mdata.c:702
-#, fuzzy
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr "You need to specify a metainfo file as input."
+msgstr "You need to specify a MetaInfo filename or component ID."
 
 #: tools/ascli-actions-mdata.c:721 tools/ascli-actions-misc.c:133
 #: tools/ascli-actions-misc.c:402 tools/ascli-actions-misc.c:474
@@ -3560,32 +3545,31 @@ msgstr "Metainfo file '%s' does not exist."
 #: tools/ascli-actions-mdata.c:756
 #, c-format
 msgid "Relation check for: %s"
-msgstr ""
+msgstr "Relation check for: %s"
 
 #: tools/ascli-actions-mdata.c:759
 msgid "Requirements:"
-msgstr ""
+msgstr "Requirements:"
 
 #: tools/ascli-actions-mdata.c:761
 msgid "No required items are set for this software."
-msgstr ""
+msgstr "No required items are set for this software."
 
 #: tools/ascli-actions-mdata.c:771
 msgid "Recommendations:"
-msgstr ""
+msgstr "Recommendations:"
 
 #: tools/ascli-actions-mdata.c:773
 msgid "No recommended items are set for this software."
-msgstr ""
+msgstr "No recommended items are set for this software."
 
 #: tools/ascli-actions-mdata.c:783
-#, fuzzy
 msgid "Supported:"
-msgstr "Sports"
+msgstr "Supported:"
 
 #: tools/ascli-actions-mdata.c:785
 msgid "No supported items are set for this software."
-msgstr ""
+msgstr "No supported items are set for this software."
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:47
@@ -3600,22 +3584,22 @@ msgstr "Version: %s"
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:55
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "OS metadata sources:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:59
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "No OS metadata found. This is unusual."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:62
 msgid "Other metadata sources:"
-msgstr ""
+msgstr "Other metadata sources:"
 
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:69
 msgid "No metadata."
-msgstr ""
+msgstr "No metadata."
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:72
@@ -3699,17 +3683,16 @@ msgstr "You need to specify a NEWS format to write the output in."
 
 #: tools/ascli-actions-misc.c:549
 msgid "Operating System Details"
-msgstr ""
+msgstr "Operating System Details"
 
 #: tools/ascli-actions-misc.c:553
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr "Unable to find component with ID '%s'!"
+msgstr "Unable to find operating system component '%s'!"
 
 #: tools/ascli-actions-misc.c:560
-#, fuzzy
 msgid "ID"
-msgstr "IDEs"
+msgstr "ID"
 
 #: tools/ascli-actions-misc.c:561 tools/ascli-actions-misc.c:586
 #: tools/ascli-utils.c:305
@@ -3734,7 +3717,7 @@ msgstr "Description"
 
 #: tools/ascli-actions-misc.c:585
 msgid "Kernel"
-msgstr ""
+msgstr "Kernel"
 
 #: tools/ascli-actions-misc.c:587
 msgid "Version"
@@ -3742,34 +3725,33 @@ msgstr "Version"
 
 #: tools/ascli-actions-misc.c:590
 msgid "Hardware"
-msgstr ""
+msgstr "Hardware"
 
 #: tools/ascli-actions-misc.c:593
 msgid "Physical Memory"
-msgstr ""
+msgstr "Physical Memory"
 
 #: tools/ascli-actions-misc.c:597
-#, fuzzy
 msgid "Devices with Modaliases"
-msgstr "Modaliases"
+msgstr "Devices with Modaliases"
 
 #: tools/ascli-actions-misc.c:626
 msgid "User Input Controls"
-msgstr ""
+msgstr "User Input Controls"
 
 #: tools/ascli-actions-misc.c:629
 msgid "unknown"
-msgstr ""
+msgstr "unknown"
 
 #: tools/ascli-actions-misc.c:636 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
 msgid "yes"
-msgstr ""
+msgstr "yes"
 
 #: tools/ascli-actions-misc.c:638 tools/ascli-actions-validate.c:701
 #: tools/ascli-actions-validate.c:707
 msgid "no"
-msgstr ""
+msgstr "no"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -3786,35 +3768,35 @@ msgstr "Unable to spawn package manager: %s"
 
 #: tools/ascli-actions-pkgmgr.c:85
 msgid "Flatpak was not found! Please install it to continue."
-msgstr ""
+msgstr "Flatpak was not found! Please install it to continue."
 
 #: tools/ascli-actions-pkgmgr.c:96
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "Unable to spawn package manager: %s"
+msgstr "Unable to spawn Flatpak process: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "Unable to find component with ID '%s'!"
+msgstr "Unable to find component with ID '%s' and the selected filter criteria!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "Multiple candidates were found for removal:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "Multiple candidates were found for installation:"
 
 #: tools/ascli-actions-pkgmgr.c:189
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Please enter the number of the component to remove:"
 
 #: tools/ascli-actions-pkgmgr.c:194
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Please enter the number of the component to install:"
 
 #: tools/ascli-actions-pkgmgr.c:204
 #, c-format
@@ -3828,12 +3810,12 @@ msgstr "Component '%s' has no installation candidate."
 msgid ""
 "The format of validator issue override '%s' is invalid (should be "
 "'tag=severity')"
-msgstr ""
+msgstr "The format of validator issue override '%s' is invalid (should be 'tag=severity')"
 
 #: tools/ascli-actions-validate.c:268
 #, c-format
 msgid "Can not override issue tag: %s"
-msgstr ""
+msgstr "Can not override issue tag: %s"
 
 #: tools/ascli-actions-validate.c:299 tools/ascli-actions-validate.c:512
 #, c-format
@@ -3869,9 +3851,9 @@ msgid "You need to specify at least one file to validate!"
 msgstr "You need to specify at least one file to validate!"
 
 #: tools/ascli-actions-validate.c:406
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to add release metadata file: %s"
-msgstr "Unable to save desktop entry file: %s"
+msgstr "Unable to add release metadata file: %s"
 
 #: tools/ascli-actions-validate.c:416
 msgid ""
@@ -3879,6 +3861,8 @@ msgid ""
 "Release metadata files can currently not be validated without their "
 "accompanying MetaInfo file."
 msgstr ""
+"You need to specify at least one MetaInfo file to validate.\n"
+"Release metadata files can currently not be validated without their accompanying MetaInfo file."
 
 #: tools/ascli-actions-validate.c:444 tools/ascli-actions-validate.c:577
 msgid "Validation was successful."
@@ -3909,51 +3893,48 @@ msgstr "You need to specify a root directory to start validation!"
 
 #. TRANSLATORS: A plain license ID (used as value in a key-value pair, like "Type: license")
 #: tools/ascli-actions-validate.c:675
-#, fuzzy
 msgid "license"
-msgstr "Licence"
+msgstr "license"
 
 #. TRANSLATORS: A license exception (used as value in a key-value pair, like "Type: exception")
 #: tools/ascli-actions-validate.c:678
 msgid "license exception"
-msgstr ""
+msgstr "license exception"
 
 #. TRANSLATORS: A complex license expression (used as value in a key-value pair, like "Type: exception")
 #: tools/ascli-actions-validate.c:681
 msgid "license expression"
-msgstr ""
+msgstr "license expression"
 
 #. TRANSLATORS: An invalid license (used as value in a key-value pair, like "Type: invalid")
 #: tools/ascli-actions-validate.c:685
 msgid "invalid"
-msgstr ""
+msgstr "invalid"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:690
-#, fuzzy
 msgid "License Type"
-msgstr "Licence"
+msgstr "License Type"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:694
 msgid "Canonical ID"
-msgstr ""
+msgstr "Canonical ID"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
 #: tools/ascli-actions-validate.c:698
-#, fuzzy
 msgid "Suitable for AppStream metadata"
-msgstr "An utility to work with AppStream metadata"
+msgstr "Suitable for AppStream metadata"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
 #: tools/ascli-actions-validate.c:704
 msgid "Free and Open Source"
-msgstr ""
+msgstr "Free and Open Source"
 
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:712
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: tools/ascli-utils.c:302
 msgid "Identifier"
@@ -3961,7 +3942,7 @@ msgstr "Identifier"
 
 #: tools/ascli-utils.c:304
 msgid "Internal ID"
-msgstr ""
+msgstr "Internal ID"
 
 #: tools/ascli-utils.c:307
 msgid "Package"
@@ -4008,7 +3989,7 @@ msgstr "Provided Items"
 #: tools/ascli-utils.c:525
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "Please enter a number from 1 to %i: "
 
 #~ msgid "Unable to remove old cache."
 #~ msgstr "Unable to remove old cache."
