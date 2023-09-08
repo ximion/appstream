@@ -204,6 +204,8 @@ appstream_dep = declare_dependency(
     include_directories: [appstream_lib_inc]
 )
 
+meson.override_dependency('appstream', appstream_dep)
+
 pkgc.generate(
     appstream_lib,
     version: as_version,

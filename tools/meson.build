@@ -17,6 +17,8 @@ ascli_exe = executable('appstreamcli',
     install: true
 )
 
+meson.override_find_program('appstreamcli', ascli_exe)
+
 if get_option('compose')
     ascompose_src = [
         'appstream-compose.c',
@@ -33,4 +35,6 @@ if get_option('compose')
         install_dir: get_option('libexecdir'),
         install: true
     )
+
+    meson.override_find_program('appstreamcli-compose', ascompose_exe)
 endif
