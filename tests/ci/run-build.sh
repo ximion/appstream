@@ -52,7 +52,7 @@ $CC --version
 #
 
 mkdir $build_dir && cd $build_dir
-meson --buildtype=$build_type \
+meson setup --buildtype=$build_type \
       $sanitize_flags \
       -Dmaintainer=$maintainer_mode \
       -Dstatic-analysis=$static_analysis \
