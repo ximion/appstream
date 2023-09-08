@@ -53,6 +53,7 @@ $CC --version
 
 mkdir $build_dir && cd $build_dir
 meson setup --buildtype=$build_type \
+      --fatal-meson-warnings \
       $sanitize_flags \
       -Dmaintainer=$maintainer_mode \
       -Dstatic-analysis=$static_analysis \
