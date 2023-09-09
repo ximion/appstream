@@ -22,6 +22,7 @@
 #include <glib.h>
 #include "appstream.h"
 #include "as-component-private.h"
+#include "as-component-box-private.h"
 #include "as-system-info-private.h"
 #include "as-utils-private.h"
 
@@ -295,6 +296,63 @@ test_component (void)
 			 "    <pkgname>fedex</pkgname>\n"
 			 "  </component>\n"
 			 "</components>\n");
+}
+
+/**
+ * test_component_box:
+ *
+ * Test container for components.
+ */
+static void
+test_component_box (void)
+{
+	g_autoptr(GError) error = NULL;
+	gboolean ret;
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsComponentBox) cbox = NULL;
+
+	cbox = as_component_box_new (AS_COMPONENT_BOX_FLAG_NONE);
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
+	as_component_set_id (cpt, "org.example.AComponent");
+
+	/* try to add new component */
+	ret = as_component_box_add (cbox, cpt, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	g_assert_cmpint (as_component_box_len (cbox), ==, 1);
+
+	/* try adding the same component again */
+	ret = as_component_box_add (cbox, cpt, &error);
+	g_assert_error (error, G_IO_ERROR, G_IO_ERROR_EXISTS);
+	g_assert_false (ret);
+	g_clear_error (&error);
+	g_assert_cmpint (as_component_box_len (cbox), ==, 1);
+
+	/* test box that can hold duplicates */
+	g_clear_pointer (&cbox, g_object_unref);
+	cbox = as_component_box_new (AS_COMPONENT_BOX_FLAG_ALLOW_DUPLICATES);
+
+	ret = as_component_box_add (cbox, cpt, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	g_assert_cmpint (as_component_box_len (cbox), ==, 1);
+
+	ret = as_component_box_add (cbox, cpt, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	g_assert_cmpint (as_component_box_len (cbox), ==, 2);
+
+	ret = as_component_box_add (cbox, cpt, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	g_assert_cmpint (as_component_box_len (cbox), ==, 3);
+
+	/* verify */
+	for (guint i = 0; i < as_component_box_len (cbox); i++) {
+		AsComponent *c = as_component_box_index (cbox, i);
+		g_assert_cmpstr (as_component_get_id (c), ==, "org.example.AComponent");
+	}
 }
 
 /**
@@ -1141,6 +1199,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Categories", test_categories);
 	g_test_add_func ("/AppStream/SimpleMarkupConvert", test_simplemarkup);
 	g_test_add_func ("/AppStream/Component", test_component);
+	g_test_add_func ("/AppStream/ComponentBox", test_component_box);
 	g_test_add_func ("/AppStream/SPDX", test_spdx);
 	g_test_add_func ("/AppStream/TranslationFallback", test_translation_fallback);
 	g_test_add_func ("/AppStream/LocaleCompat", test_locale_compat);
