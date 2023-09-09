@@ -49,8 +49,15 @@
 
 #if defined(__linux__)
 #include <sys/sysinfo.h>
-#elif defined(__FreeBSD__)
+#elif defined(__FreeBSD__) || defined(__APPLE__)
 #include <sys/types.h>
+# ifdef __APPLE__
+/* for some reason these need to be defined otherwise compilation fails
+ * when including sys/sysctl.h */
+typedef unsigned int u_int;
+typedef unsigned short u_short;
+typedef unsigned char u_char;
+# endif
 #include <sys/sysctl.h>
 #endif
 #ifdef HAVE_SYSTEMD
@@ -412,7 +419,7 @@ as_get_physical_memory_total (void)
 	if (si.mem_unit > 0)
 		return (si.totalram * si.mem_unit) / MB_IN_BYTES;
 	return 0;
-#elif defined(__FreeBSD__)
+#elif defined(__FreeBSD__) || defined(__APPLE__)
 	unsigned long physmem;
 	sysctl ((int[]){ CTL_HW, HW_PHYSMEM }, 2, &physmem, &(size_t){ sizeof (physmem) }, NULL, 0);
 	return physmem / MB_IN_BYTES;
