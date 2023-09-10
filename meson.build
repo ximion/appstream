@@ -79,7 +79,7 @@ if get_option('static-analysis') and host_machine.system() != 'windows'
     error('You need to compile with GCC to run the static analyzer!')
   endif
 
-  # enable statuc analyzer
+  # enable static analyzer
   add_project_arguments(['-fanalyzer'], language : 'c')
 
   # make false-positive non-fatal with GCC 12 for now
