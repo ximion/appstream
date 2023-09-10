@@ -242,7 +242,7 @@ as_component_box_add (AsComponentBox *cbox, AsComponent *cpt, GError **error)
 			return FALSE;
 		}
 
-		g_hash_table_insert (priv->cpt_map, g_strdup (data_id), cpt);
+		g_hash_table_insert (priv->cpt_map, (gchar *) data_id, cpt);
 	}
 
 	g_ptr_array_add (cbox->cpts, g_object_ref (cpt));
