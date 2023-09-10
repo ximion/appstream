@@ -230,7 +230,6 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 {
 	g_autoptr(GPtrArray) yml_files = NULL;
 	g_autoptr(GError) tmp_error = NULL;
-	g_autoptr(GFile) file_catalog = NULL;
 	gboolean data_changed = FALSE;
 	gboolean icons_available = FALSE;
 	gboolean yaml_target_dir_exists = FALSE;
@@ -375,9 +374,12 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 
 		/* create compatibility symlink for old location */
 		if (!g_file_test (appstream_catalog_legacy_root, G_FILE_TEST_EXISTS)) {
-			file_catalog = g_file_new_for_path (appstream_catalog_root);
-			if (!g_file_make_symbolic_link (file_catalog,
-							appstream_catalog_legacy_root,
+			g_autoptr(GFile) symfile_legacy_catalog = NULL;
+
+			symfile_legacy_catalog = g_file_new_for_path (
+			    appstream_catalog_legacy_root);
+			if (!g_file_make_symbolic_link (symfile_legacy_catalog,
+							appstream_catalog_root,
 							NULL,
 							NULL))
 				g_debug ("Unable to create compatibility symlink '%s': %s",
@@ -391,8 +393,6 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 		g_autofree gchar *dest_fname = NULL;
 		g_autofree gchar *origin = NULL;
 		g_autofree gchar *file_baseprefix = NULL;
-		g_autoptr(GFile) file_fname = NULL;
-		guint j;
 		const gchar *fname = (const gchar *) g_ptr_array_index (yml_files, i);
 
 		fbasename = g_path_get_basename (fname);
@@ -403,12 +403,14 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 			g_debug ("File %s is a broken symlink, skipping.", fname);
 			continue;
 		} else if (!g_file_test (dest_fname, G_FILE_TEST_EXISTS)) {
+			g_autoptr(GFile) sym_file = NULL;
+
 			/* file not found, let's symlink */
-			file_fname = g_file_new_for_path (fname);
-			if (!g_file_make_symbolic_link (file_fname, dest_fname, NULL, NULL)) {
+			sym_file = g_file_new_for_path (dest_fname);
+			if (!g_file_make_symbolic_link (sym_file, fname, NULL, NULL)) {
 				g_debug ("Unable to set symlink (%s -> %s): %s",
-					 fname,
 					 dest_fname,
+					 fname,
 					 g_strerror (errno));
 				continue;
 			}
@@ -434,7 +436,7 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 						 strlen (g_strrstr (fbasename, "_") + 1));
 
 		/* extract icons to their destination (if they exist at all */
-		for (j = 0; default_icon_sizes[j] != NULL; j++) {
+		for (guint j = 0; default_icon_sizes[j] != NULL; j++) {
 			as_extract_icon_cache_tarball (appstream_icons_target,
 						       origin,
 						       file_baseprefix,
