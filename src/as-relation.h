@@ -184,28 +184,6 @@ typedef enum {
 } AsDisplaySideKind;
 
 /**
- * AsDisplayLengthKind:
- * @AS_DISPLAY_LENGTH_KIND_UNKNOWN:	Unknown
- * @AS_DISPLAY_LENGTH_KIND_XSMALL:	Very small display
- * @AS_DISPLAY_LENGTH_KIND_SMALL:	Small display
- * @AS_DISPLAY_LENGTH_KIND_MEDIUM:	Medium display
- * @AS_DISPLAY_LENGTH_KIND_LARGE:	Large display
- * @AS_DISPLAY_LENGTH_KIND_XLARGE:	Very large display
- *
- * A rough estimate of how large a given display length is.
- **/
-typedef enum {
-	AS_DISPLAY_LENGTH_KIND_UNKNOWN,
-	AS_DISPLAY_LENGTH_KIND_XSMALL,
-	AS_DISPLAY_LENGTH_KIND_SMALL,
-	AS_DISPLAY_LENGTH_KIND_MEDIUM,
-	AS_DISPLAY_LENGTH_KIND_LARGE,
-	AS_DISPLAY_LENGTH_KIND_XLARGE,
-	/*< private >*/
-	AS_DISPLAY_LENGTH_KIND_LAST
-} AsDisplayLengthKind;
-
-/**
  * AsInternetKind:
  * @AS_INTERNET_KIND_UNKNOWN:		Unknown
  * @AS_INTERNET_KIND_ALWAYS:		Always requires/recommends internet
@@ -244,64 +222,59 @@ typedef enum {
 
 #define AS_RELATION_ERROR as_relation_error_quark ()
 
-GQuark		    as_relation_error_quark (void);
+GQuark		   as_relation_error_quark (void);
 
-const gchar	   *as_relation_kind_to_string (AsRelationKind kind);
-AsRelationKind	    as_relation_kind_from_string (const gchar *kind_str);
+const gchar	  *as_relation_kind_to_string (AsRelationKind kind);
+AsRelationKind	   as_relation_kind_from_string (const gchar *kind_str);
 
-const gchar	   *as_relation_item_kind_to_string (AsRelationItemKind kind);
-AsRelationItemKind  as_relation_item_kind_from_string (const gchar *kind_str);
+const gchar	  *as_relation_item_kind_to_string (AsRelationItemKind kind);
+AsRelationItemKind as_relation_item_kind_from_string (const gchar *kind_str);
 
-AsRelationCompare   as_relation_compare_from_string (const gchar *compare_str);
-const gchar	   *as_relation_compare_to_string (AsRelationCompare compare);
-const gchar	   *as_relation_compare_to_symbols_string (AsRelationCompare compare);
+AsRelationCompare  as_relation_compare_from_string (const gchar *compare_str);
+const gchar	  *as_relation_compare_to_string (AsRelationCompare compare);
+const gchar	  *as_relation_compare_to_symbols_string (AsRelationCompare compare);
 
-const gchar	   *as_control_kind_to_string (AsControlKind kind);
-AsControlKind	    as_control_kind_from_string (const gchar *kind_str);
+const gchar	  *as_control_kind_to_string (AsControlKind kind);
+AsControlKind	   as_control_kind_from_string (const gchar *kind_str);
 
-const gchar	   *as_display_side_kind_to_string (AsDisplaySideKind kind);
-AsDisplaySideKind   as_display_side_kind_from_string (const gchar *kind_str);
+const gchar	  *as_display_side_kind_to_string (AsDisplaySideKind kind);
+AsDisplaySideKind  as_display_side_kind_from_string (const gchar *kind_str);
 
-const gchar	   *as_display_length_kind_to_string (AsDisplayLengthKind kind);
-AsDisplayLengthKind as_display_length_kind_from_string (const gchar *kind_str);
+const gchar	  *as_internet_kind_to_string (AsInternetKind kind);
+AsInternetKind	   as_internet_kind_from_string (const gchar *kind_str);
 
-const gchar	   *as_internet_kind_to_string (AsInternetKind kind);
-AsInternetKind	    as_internet_kind_from_string (const gchar *kind_str);
+AsRelation	  *as_relation_new (void);
 
-AsRelation	   *as_relation_new (void);
+AsRelationKind	   as_relation_get_kind (AsRelation *relation);
+void		   as_relation_set_kind (AsRelation *relation, AsRelationKind kind);
 
-AsRelationKind	    as_relation_get_kind (AsRelation *relation);
-void		    as_relation_set_kind (AsRelation *relation, AsRelationKind kind);
+AsRelationItemKind as_relation_get_item_kind (AsRelation *relation);
+void		   as_relation_set_item_kind (AsRelation *relation, AsRelationItemKind kind);
 
-AsRelationItemKind  as_relation_get_item_kind (AsRelation *relation);
-void		    as_relation_set_item_kind (AsRelation *relation, AsRelationItemKind kind);
+AsRelationCompare  as_relation_get_compare (AsRelation *relation);
+void		   as_relation_set_compare (AsRelation *relation, AsRelationCompare compare);
 
-AsRelationCompare   as_relation_get_compare (AsRelation *relation);
-void		    as_relation_set_compare (AsRelation *relation, AsRelationCompare compare);
+const gchar	  *as_relation_get_version (AsRelation *relation);
+void		   as_relation_set_version (AsRelation *relation, const gchar *version);
 
-const gchar	   *as_relation_get_version (AsRelation *relation);
-void		    as_relation_set_version (AsRelation *relation, const gchar *version);
+const gchar	  *as_relation_get_value_str (AsRelation *relation);
+void		   as_relation_set_value_str (AsRelation *relation, const gchar *value);
 
-const gchar	   *as_relation_get_value_str (AsRelation *relation);
-void		    as_relation_set_value_str (AsRelation *relation, const gchar *value);
+gint		   as_relation_get_value_int (AsRelation *relation);
+void		   as_relation_set_value_int (AsRelation *relation, gint value);
 
-gint		    as_relation_get_value_int (AsRelation *relation);
-void		    as_relation_set_value_int (AsRelation *relation, gint value);
+AsControlKind	   as_relation_get_value_control_kind (AsRelation *relation);
+void		   as_relation_set_value_control_kind (AsRelation *relation, AsControlKind kind);
 
-AsControlKind	    as_relation_get_value_control_kind (AsRelation *relation);
-void		    as_relation_set_value_control_kind (AsRelation *relation, AsControlKind kind);
+AsDisplaySideKind  as_relation_get_display_side_kind (AsRelation *relation);
+void		   as_relation_set_display_side_kind (AsRelation *relation, AsDisplaySideKind kind);
 
-AsDisplaySideKind   as_relation_get_display_side_kind (AsRelation *relation);
-void as_relation_set_display_side_kind (AsRelation *relation, AsDisplaySideKind kind);
+gint		   as_relation_get_value_px (AsRelation *relation);
+void		   as_relation_set_value_px (AsRelation *relation, gint logical_px);
 
-gint as_relation_get_value_px (AsRelation *relation);
-void as_relation_set_value_px (AsRelation *relation, gint logical_px);
-AsDisplayLengthKind as_relation_get_value_display_length_kind (AsRelation *relation);
-void as_relation_set_value_display_length_kind (AsRelation *relation, AsDisplayLengthKind kind);
-
-AsInternetKind as_relation_get_value_internet_kind (AsRelation *relation);
-void	       as_relation_set_value_internet_kind (AsRelation *relation, AsInternetKind kind);
-guint	       as_relation_get_value_internet_bandwidth (AsRelation *relation);
+AsInternetKind	   as_relation_get_value_internet_kind (AsRelation *relation);
+void		   as_relation_set_value_internet_kind (AsRelation *relation, AsInternetKind kind);
+guint		   as_relation_get_value_internet_bandwidth (AsRelation *relation);
 void	 as_relation_set_value_internet_bandwidth (AsRelation *relation, guint bandwidth_mbitps);
 
 gboolean as_relation_version_compare (AsRelation *relation, const gchar *version, GError **error);

@@ -89,16 +89,6 @@ public:
     };
     Q_ENUM(DisplaySideKind)
 
-    enum DisplayLengthKind {
-        DisplayLengthKindUnknown,
-        DisplayLengthKindXSmall,
-        DisplayLengthKindSmall,
-        DisplayLengthKindMedium,
-        DisplayLengthKindLarge,
-        DisplayLengthKindXLarge
-    };
-    Q_ENUM(DisplayLengthKind)
-
     static QString kindToString(Kind kind);
     static Kind stringToKind(const QString &string);
 
@@ -114,9 +104,6 @@ public:
 
     static QString displaySideKindToString(DisplaySideKind kind);
     static DisplaySideKind stringToDisplaySideKind(const QString &string);
-
-    static QString displayLengthKindToString(DisplayLengthKind kind);
-    static DisplayLengthKind stringToDisplayLengthKind(const QString &string);
 
     Relation();
     Relation(_AsRelation *relation);
@@ -157,9 +144,6 @@ public:
 
     int valuePx() const;
     void setValuePx(int logicalPx);
-
-    DisplayLengthKind valueDisplayLengthKind() const;
-    void setValueDisplayLengthKind(DisplayLengthKind kind);
 
     bool versionCompare(const QString &version);
 

@@ -1512,7 +1512,7 @@ static const gchar *xmldata_relations =
     "  <requires>\n"
     "    <kernel version=\"4.15\" compare=\"ge\">Linux</kernel>\n"
     "    <id version=\"1.2\" compare=\"eq\">org.example.TestDependency</id>\n"
-    "    <display_length>small</display_length>\n"
+    "    <display_length>768</display_length>\n"
     "    <internet bandwidth_mbitps=\"2\">always</internet>\n"
     "  </requires>\n"
     "  <recommends>\n"
@@ -1610,9 +1610,7 @@ test_xml_read_relations (void)
 	g_assert_cmpint (as_relation_get_item_kind (relation),
 			 ==,
 			 AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
-	g_assert_cmpint (as_relation_get_value_display_length_kind (relation),
-			 ==,
-			 AS_DISPLAY_LENGTH_KIND_SMALL);
+	g_assert_cmpint (as_relation_get_value_px (relation), ==, 768);
 	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_GE);
 
 	/* internet relation (REQ) */
@@ -1718,7 +1716,7 @@ test_xml_write_relations (void)
 	as_relation_set_compare (dl_relation1, AS_RELATION_COMPARE_LE);
 
 	as_relation_set_item_kind (dl_relation2, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
-	as_relation_set_value_display_length_kind (dl_relation2, AS_DISPLAY_LENGTH_KIND_SMALL);
+	as_relation_set_value_px (dl_relation2, 768);
 	as_relation_set_compare (dl_relation2, AS_RELATION_COMPARE_GE);
 
 	as_relation_set_item_kind (internet_relation1, AS_RELATION_ITEM_KIND_INTERNET);

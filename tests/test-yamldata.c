@@ -1065,7 +1065,7 @@ static const gchar *yamldata_relations_field = "Type: generic\n"
 					       "Recommends:\n"
 					       "- memory: 2500\n"
 					       "- modalias: usb:v1130p0202d*\n"
-					       "- display_length: <= xlarge\n"
+					       "- display_length: <= 3840\n"
 					       "  side: longest\n"
 					       "- internet: first-run\n"
 					       "Supports:\n"
@@ -1139,7 +1139,7 @@ test_yaml_write_relations (void)
 	as_relation_set_compare (id_relation, AS_RELATION_COMPARE_EQ);
 
 	as_relation_set_item_kind (dl_relation1, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
-	as_relation_set_value_display_length_kind (dl_relation1, AS_DISPLAY_LENGTH_KIND_XLARGE);
+	as_relation_set_value_px (dl_relation1, 3840);
 	as_relation_set_display_side_kind (dl_relation1, AS_DISPLAY_SIDE_KIND_LONGEST);
 	as_relation_set_compare (dl_relation1, AS_RELATION_COMPARE_LE);
 
@@ -1230,9 +1230,7 @@ test_yaml_read_relations (void)
 	g_assert_cmpint (as_relation_get_item_kind (relation),
 			 ==,
 			 AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
-	g_assert_cmpint (as_relation_get_value_display_length_kind (relation),
-			 ==,
-			 AS_DISPLAY_LENGTH_KIND_XLARGE);
+	g_assert_cmpint (as_relation_get_value_px (relation), ==, 3840);
 	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_LE);
 
 	/* internet relation (REC) */

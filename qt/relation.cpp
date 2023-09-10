@@ -117,17 +117,6 @@ Relation::DisplaySideKind Relation::stringToDisplaySideKind(const QString &strin
     return static_cast<DisplaySideKind>(as_display_side_kind_from_string(qPrintable(string)));
 }
 
-QString Relation::displayLengthKindToString(Relation::DisplayLengthKind kind)
-{
-    return QString::fromUtf8(
-        as_display_length_kind_to_string(static_cast<AsDisplayLengthKind>(kind)));
-}
-
-Relation::DisplayLengthKind Relation::stringToDisplayLengthKind(const QString &string)
-{
-    return static_cast<DisplayLengthKind>(as_display_length_kind_from_string(qPrintable(string)));
-}
-
 Relation::Relation()
     : d(new RelationData)
 {
@@ -256,17 +245,6 @@ int Relation::valuePx() const
 void Relation::setValuePx(int logicalPx)
 {
     as_relation_set_value_px(d->relation(), logicalPx);
-}
-
-Relation::DisplayLengthKind Relation::valueDisplayLengthKind() const
-{
-    return static_cast<DisplayLengthKind>(as_relation_get_value_display_length_kind(d->relation()));
-}
-
-void Relation::setValueDisplayLengthKind(Relation::DisplayLengthKind kind)
-{
-    as_relation_set_value_display_length_kind(d->relation(),
-                                              static_cast<AsDisplayLengthKind>(kind));
 }
 
 bool Relation::versionCompare(const QString &version)

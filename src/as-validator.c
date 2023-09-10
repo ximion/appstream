@@ -1816,16 +1816,12 @@ as_validator_check_relations (AsValidator *validator,
 		/* check display length for sanity */
 		if (item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
 			g_autofree gchar *side_str = NULL;
-			if (as_display_length_kind_from_string (content) ==
-			    AS_DISPLAY_LENGTH_KIND_UNKNOWN) {
-				/* no text name, but we still may have an integer */
-				if (!as_str_verify_integer (content, 1, G_MAXINT64))
-					as_validator_add_issue (
-					    validator,
-					    iter,
-					    "relation-display-length-value-invalid",
-					    content);
-			}
+
+			if (!as_str_verify_integer (content, 1, G_MAXINT64))
+				as_validator_add_issue (validator,
+							iter,
+							"relation-display-length-value-invalid",
+							content);
 
 			side_str = as_xml_get_prop_value (iter, "side");
 			if (as_display_side_kind_from_string (side_str) ==

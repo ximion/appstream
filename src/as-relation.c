@@ -52,7 +52,6 @@ typedef struct {
 
 	/* specific to "display_length" relations */
 	AsDisplaySideKind display_side_kind;
-	AsDisplayLengthKind display_length_kind;
 
 	/* specific to "internet" relations */
 	guint bandwidth_mbitps;
@@ -402,112 +401,6 @@ as_display_side_kind_from_string (const gchar *kind_str)
 }
 
 /**
- * as_display_length_kind_to_px:
- * @kind: the #AsDisplaySideKind.
- *
- * Converts the rough display length value to an absolute
- * logical pixel measurement, roughly matching the shortest
- * display size of the respective screen size.
- *
- * Returns: amount of logical pixels for shortest display edge, or -1 on invalid input.
- *
- * Since: 0.12.12
- **/
-gint
-as_display_length_kind_to_px (AsDisplayLengthKind kind)
-{
-	if (kind == AS_DISPLAY_LENGTH_KIND_XSMALL)
-		return 360;
-	if (kind == AS_DISPLAY_LENGTH_KIND_SMALL)
-		return 420;
-	if (kind == AS_DISPLAY_LENGTH_KIND_MEDIUM)
-		return 760;
-	if (kind == AS_DISPLAY_LENGTH_KIND_LARGE)
-		return 900;
-	if (kind == AS_DISPLAY_LENGTH_KIND_XLARGE)
-		return 1200;
-	return -1;
-}
-
-/**
- * as_display_length_kind_from_px:
- * @kind: the #AsDisplaySideKind.
- *
- * Classify a logical pixel amount into a display size.
- *
- * Returns: display size enum.
- *
- * Since: 0.12.12
- **/
-AsDisplayLengthKind
-as_display_length_kind_from_px (gint px)
-{
-	if (px >= 1200)
-		return AS_DISPLAY_LENGTH_KIND_XLARGE;
-	if (px >= 900)
-		return AS_DISPLAY_LENGTH_KIND_LARGE;
-	if (px >= 760)
-		return AS_DISPLAY_LENGTH_KIND_MEDIUM;
-	if (px >= 360)
-		return AS_DISPLAY_LENGTH_KIND_SMALL;
-	if (px < 360)
-		return AS_DISPLAY_LENGTH_KIND_XSMALL;
-	return AS_DISPLAY_LENGTH_KIND_UNKNOWN;
-}
-
-/**
- * as_display_length_kind_from_string:
- * @kind_str: the string.
- *
- * Converts the text representation to an enumerated value.
- *
- * Returns: a #AsDisplayLengthKind or %AS_DISPLAY_LENGTH_KIND_UNKNOWN for unknown
- *
- * Since: 0.12.12
- **/
-AsDisplayLengthKind
-as_display_length_kind_from_string (const gchar *kind_str)
-{
-	if (g_strcmp0 (kind_str, "xsmall") == 0)
-		return AS_DISPLAY_LENGTH_KIND_XSMALL;
-	if (g_strcmp0 (kind_str, "small") == 0)
-		return AS_DISPLAY_LENGTH_KIND_SMALL;
-	if (g_strcmp0 (kind_str, "medium") == 0)
-		return AS_DISPLAY_LENGTH_KIND_MEDIUM;
-	if (g_strcmp0 (kind_str, "large") == 0)
-		return AS_DISPLAY_LENGTH_KIND_LARGE;
-	if (g_strcmp0 (kind_str, "xlarge") == 0)
-		return AS_DISPLAY_LENGTH_KIND_XLARGE;
-	return AS_DISPLAY_LENGTH_KIND_UNKNOWN;
-}
-
-/**
- * as_display_length_kind_to_string:
- * @kind: the #AsDisplayLengthKind.
- *
- * Converts the enumerated value to a text representation.
- *
- * Returns: string version of @kind
- *
- * Since: 0.12.12
- **/
-const gchar *
-as_display_length_kind_to_string (AsDisplayLengthKind kind)
-{
-	if (kind == AS_DISPLAY_LENGTH_KIND_XSMALL)
-		return "xsmall";
-	if (kind == AS_DISPLAY_LENGTH_KIND_SMALL)
-		return "small";
-	if (kind == AS_DISPLAY_LENGTH_KIND_MEDIUM)
-		return "medium";
-	if (kind == AS_DISPLAY_LENGTH_KIND_LARGE)
-		return "large";
-	if (kind == AS_DISPLAY_LENGTH_KIND_XLARGE)
-		return "xlarge";
-	return "unknown";
-}
-
-/**
  * as_internet_kind_from_string:
  * @kind_str: the string.
  *
@@ -828,7 +721,6 @@ as_relation_set_value_int (AsRelation *relation, gint value)
 	if ((priv->item_kind != AS_RELATION_ITEM_KIND_MEMORY) &&
 	    (priv->item_kind != AS_RELATION_ITEM_KIND_DISPLAY_LENGTH))
 		return;
-	priv->display_length_kind = AS_DISPLAY_LENGTH_KIND_UNKNOWN;
 	as_relation_set_value_var (relation, g_variant_new_int32 (value));
 }
 
@@ -971,15 +863,12 @@ gint
 as_relation_get_value_px (AsRelation *relation)
 {
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
-	gint value;
+
 	if (priv->item_kind != AS_RELATION_ITEM_KIND_DISPLAY_LENGTH)
 		return -1;
 	if (priv->value == NULL)
-		return as_display_length_kind_to_px (priv->display_length_kind);
-	value = g_variant_get_int32 (priv->value);
-	if (value == 0)
-		return as_display_length_kind_to_px (priv->display_length_kind);
-	return value;
+		return -1;
+	return g_variant_get_int32 (priv->value);
 }
 
 /**
@@ -998,48 +887,7 @@ as_relation_set_value_px (AsRelation *relation, gint logical_px)
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
 	if (priv->item_kind != AS_RELATION_ITEM_KIND_DISPLAY_LENGTH)
 		return;
-	priv->display_length_kind = AS_DISPLAY_LENGTH_KIND_UNKNOWN;
 	as_relation_set_value_var (relation, g_variant_new_int32 (logical_px));
-}
-
-/**
- * as_relation_get_value_display_length_kind:
- * @relation: an #AsRelation instance.
- *
- * In case this #AsRelation is of kind %AS_RELATION_ITEM_KIND_DISPLAY_LENGTH,
- * return the #AsDisplayLengthKind.
- *
- * Returns: The #AsDisplayLengthKind classification of the current pixel value, or %AS_DISPLAY_LENGTH_KIND_UNKNOWN on error.
- *
- * Since: 0.12.12
- **/
-AsDisplayLengthKind
-as_relation_get_value_display_length_kind (AsRelation *relation)
-{
-	AsRelationPrivate *priv = GET_PRIVATE (relation);
-	if (priv->display_length_kind != AS_DISPLAY_LENGTH_KIND_UNKNOWN)
-		return priv->display_length_kind;
-	return as_display_length_kind_from_px (as_relation_get_value_px (relation));
-}
-
-/**
- * as_relation_set_value_display_length_kind:
- * @relation: an #AsRelation instance.
- * @kind: the #AsDisplayLengthKind
- *
- * Sets the item value as display length placeholder value. This requires the relation
- * to be of item kind %AS_RELATION_ITEM_KIND_DISPLAY_LENGTH.
- *
- * Since: 0.12.12
- **/
-void
-as_relation_set_value_display_length_kind (AsRelation *relation, AsDisplayLengthKind kind)
-{
-	AsRelationPrivate *priv = GET_PRIVATE (relation);
-	if (priv->item_kind != AS_RELATION_ITEM_KIND_DISPLAY_LENGTH)
-		return;
-	priv->display_length_kind = kind;
-	as_relation_set_value_var (relation, g_variant_new_int32 (0));
 }
 
 /**
@@ -1152,9 +1000,6 @@ as_relation_load_from_xml (AsRelation *relation, AsContext *ctx, xmlNode *node, 
 		    g_variant_new_int32 (g_ascii_strtoll (content, NULL, 10)));
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
 		gint value = g_ascii_strtoll (content, NULL, 10);
-		priv->display_length_kind = AS_DISPLAY_LENGTH_KIND_UNKNOWN;
-		if (value == 0)
-			priv->display_length_kind = as_display_length_kind_from_string (content);
 		as_relation_set_value_var (relation, g_variant_new_int32 (value));
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
@@ -1224,19 +1069,12 @@ as_relation_to_xml_node (AsRelation *relation, AsContext *ctx, xmlNode *root)
 					  value_str);
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
-		if (priv->display_length_kind != AS_DISPLAY_LENGTH_KIND_UNKNOWN) {
-			n = as_xml_add_text_node (
-			    root,
-			    as_relation_item_kind_to_string (priv->item_kind),
-			    as_display_length_kind_to_string (priv->display_length_kind));
-		} else {
-			g_autofree gchar *value_str = g_strdup_printf (
-			    "%i",
-			    as_relation_get_value_int (relation));
-			n = as_xml_add_text_node (root,
-						  as_relation_item_kind_to_string (priv->item_kind),
-						  value_str);
-		}
+		g_autofree gchar *value_str = g_strdup_printf (
+		    "%i",
+		    as_relation_get_value_int (relation));
+		n = as_xml_add_text_node (root,
+					  as_relation_item_kind_to_string (priv->item_kind),
+					  value_str);
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
 		n = as_xml_add_text_node (
@@ -1354,10 +1192,6 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 				}
 
 				value_px = g_ascii_strtoll (value_str, NULL, 10);
-				priv->display_length_kind = AS_DISPLAY_LENGTH_KIND_UNKNOWN;
-				if (value_px == 0)
-					priv->display_length_kind =
-					    as_display_length_kind_from_string (value_str);
 				as_relation_set_value_var (relation,
 							   g_variant_new_int32 (value_px));
 
@@ -1413,13 +1247,7 @@ as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emi
 			g_autofree gchar *value = NULL;
 			g_autofree gchar *len_str = NULL;
 
-			if (priv->display_length_kind != AS_DISPLAY_LENGTH_KIND_UNKNOWN)
-				value = g_strdup (
-				    as_display_length_kind_to_string (priv->display_length_kind));
-			else
-				value = g_strdup_printf ("%i",
-							 as_relation_get_value_int (relation));
-
+			value = g_strdup_printf ("%i", as_relation_get_value_int (relation));
 			len_str = g_strdup_printf (
 			    "%s %s",
 			    as_relation_compare_to_symbols_string (priv->compare),
@@ -1428,16 +1256,10 @@ as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emi
 					    as_relation_item_kind_to_string (priv->item_kind),
 					    len_str);
 		} else {
-			if (priv->display_length_kind != AS_DISPLAY_LENGTH_KIND_UNKNOWN)
-				as_yaml_emit_entry (
-				    emitter,
-				    as_relation_item_kind_to_string (priv->item_kind),
-				    as_display_length_kind_to_string (priv->display_length_kind));
-			else
-				as_yaml_emit_entry_uint64 (
-				    emitter,
-				    as_relation_item_kind_to_string (priv->item_kind),
-				    as_relation_get_value_int (relation));
+			as_yaml_emit_entry_uint64 (
+			    emitter,
+			    as_relation_item_kind_to_string (priv->item_kind),
+			    as_relation_get_value_int (relation));
 		}
 
 	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
