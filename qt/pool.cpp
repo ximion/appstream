@@ -51,16 +51,15 @@ public:
     }
 };
 
-static QList<Component> cptArrayToQList(GPtrArray *cpts)
+static QList<Component> cptBoxToQList(AsComponentBox *cbox)
 {
     QList<Component> res;
-    res.reserve(cpts->len);
-    for (uint i = 0; i < cpts->len; i++) {
-        auto ccpt = AS_COMPONENT(g_ptr_array_index(cpts, i));
-        Component cpt(ccpt);
+    res.reserve(as_component_box_len(cbox));
+    for (uint i = 0; i < as_component_box_len(cbox); i++) {
+        Component cpt(as_component_box_index(cbox, i));
         res.append(cpt);
     }
-    g_ptr_array_unref(cpts);
+    g_object_unref(cbox);
     return res;
 }
 
@@ -145,25 +144,24 @@ bool Pool::addComponents(const QList<AppStream::Component> &cpts)
 
 QList<Component> Pool::components() const
 {
-    return cptArrayToQList(as_pool_get_components(d->pool));
+    return cptBoxToQList(as_pool_get_components(d->pool));
 }
 
 QList<Component> Pool::componentsById(const QString &cid) const
 {
-    return cptArrayToQList(as_pool_get_components_by_id(d->pool, qPrintable(cid)));
+    return cptBoxToQList(as_pool_get_components_by_id(d->pool, qPrintable(cid)));
 }
 
 QList<Component> Pool::componentsByProvided(Provided::Kind kind, const QString &item) const
 {
-    return cptArrayToQList(
-        as_pool_get_components_by_provided_item(d->pool,
-                                                static_cast<AsProvidedKind>(kind),
-                                                qPrintable(item)));
+    return cptBoxToQList(as_pool_get_components_by_provided_item(d->pool,
+                                                                 static_cast<AsProvidedKind>(kind),
+                                                                 qPrintable(item)));
 }
 
 QList<AppStream::Component> Pool::componentsByKind(Component::Kind kind) const
 {
-    return cptArrayToQList(
+    return cptBoxToQList(
         as_pool_get_components_by_kind(d->pool, static_cast<AsComponentKind>(kind)));
 }
 
@@ -182,33 +180,33 @@ QList<AppStream::Component> Pool::componentsByCategories(const QStringList &cate
     for (int i = 0; i < utf8Categories.size(); ++i)
         cats_strv[i] = (gchar *) utf8Categories[i].constData();
 
-    return cptArrayToQList(as_pool_get_components_by_categories(d->pool, cats_strv));
+    return cptBoxToQList(as_pool_get_components_by_categories(d->pool, cats_strv));
 }
 
 QList<Component> Pool::componentsByLaunchable(Launchable::Kind kind, const QString &value) const
 {
-    return cptArrayToQList(as_pool_get_components_by_launchable(d->pool,
-                                                                static_cast<AsLaunchableKind>(kind),
-                                                                qPrintable(value)));
+    return cptBoxToQList(as_pool_get_components_by_launchable(d->pool,
+                                                              static_cast<AsLaunchableKind>(kind),
+                                                              qPrintable(value)));
 }
 
 QList<Component> Pool::componentsByExtends(const QString &extendedId) const
 {
-    return cptArrayToQList(as_pool_get_components_by_extends(d->pool, qPrintable(extendedId)));
+    return cptBoxToQList(as_pool_get_components_by_extends(d->pool, qPrintable(extendedId)));
 }
 
 QList<Component>
 Pool::componentsByBundleId(Bundle::Kind kind, const QString &extendedId, bool matchPrefix) const
 {
-    return cptArrayToQList(as_pool_get_components_by_bundle_id(d->pool,
-                                                               static_cast<AsBundleKind>(kind),
-                                                               qPrintable(extendedId),
-                                                               matchPrefix));
+    return cptBoxToQList(as_pool_get_components_by_bundle_id(d->pool,
+                                                             static_cast<AsBundleKind>(kind),
+                                                             qPrintable(extendedId),
+                                                             matchPrefix));
 }
 
 QList<AppStream::Component> Pool::search(const QString &term) const
 {
-    return cptArrayToQList(as_pool_search(d->pool, qPrintable(term)));
+    return cptBoxToQList(as_pool_search(d->pool, qPrintable(term)));
 }
 
 void Pool::setLocale(const QString &locale)

@@ -40,7 +40,6 @@
 
 #include "config.h"
 #include "as-pool.h"
-#include "as-pool-gi.h"
 #include "as-pool-private.h"
 
 #include <glib.h>
@@ -55,6 +54,7 @@
 #include "as-utils.h"
 #include "as-utils-private.h"
 #include "as-component-private.h"
+#include "as-component-box-private.h"
 #include "as-macros-private.h"
 #include "as-distro-extras.h"
 #include "as-stemmer.h"
@@ -1846,20 +1846,20 @@ as_pool_location_group_monitor_changed_cb (AsFileMonitor *monitor,
 }
 
 /**
- * as_pool_get_components: (skip)
+ * as_pool_get_components:
  * @pool: An instance of #AsPool.
  *
  * Get a list of found components.
  *
- * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent instances.
+ * Returns: (transfer full): an #AsComponentBox.
  */
-GPtrArray *
+AsComponentBox *
 as_pool_get_components (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(AsProfileTask) ptask = NULL;
 	g_autoptr(GError) tmp_error = NULL;
-	GPtrArray *result = NULL;
+	AsComponentBox *result = NULL;
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	ptask = as_profile_start_literal (priv->profile, "AsPool:get_components");
@@ -1868,31 +1868,14 @@ as_pool_get_components (AsPool *pool)
 	if (result == NULL) {
 		g_warning ("Unable to retrieve all components from session cache: %s",
 			   tmp_error->message);
-		return g_ptr_array_new_with_free_func (g_object_unref);
+		return as_component_box_new_simple ();
 	}
 
 	return result;
 }
 
 /**
- * as_pool_get_components_gi: (rename-to as_pool_get_components)
- * @pool: An instance of #AsPool.
- *
- * Get a list of found components.
- *
- * This function fully transfers ownership of the returned container,
- * to be used in GIR bindings.
- *
- * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent instances.
- */
-GPtrArray *
-as_pool_get_components_gi (AsPool *pool)
-{
-	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components (pool));
-}
-
-/**
- * as_pool_get_components_by_id: (skip)
+ * as_pool_get_components_by_id:
  * @pool: An instance of #AsPool.
  * @cid: The AppStream-ID to look for.
  *
@@ -1900,13 +1883,13 @@ as_pool_get_components_gi (AsPool *pool)
  * This function may contain multiple results if we have
  * data describing this component from multiple scopes/origin types.
  *
- * Returns: (transfer container) (element-type AsComponent): An #AsComponent
+ * Returns: (transfer full): an #AsComponentBox.
  */
-GPtrArray *
+AsComponentBox *
 as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	GPtrArray *result;
+	AsComponentBox *result;
 	g_autoptr(GError) tmp_error = NULL;
 	g_autoptr(AsProfileTask) ptask = NULL;
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
@@ -1915,139 +1898,81 @@ as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
 	result = as_cache_get_components_by_id (priv->cache, cid, &tmp_error);
 	if (result == NULL) {
 		g_warning ("Error while trying to get components by ID: %s", tmp_error->message);
-		return g_ptr_array_new_with_free_func (g_object_unref);
+		return as_component_box_new_simple ();
 	}
 	return result;
 }
 
 /**
- * as_pool_get_components_by_id_gi: (rename-to as_pool_get_components_by_id)
- * @pool: An instance of #AsPool.
- * @cid: The AppStream-ID to look for.
- *
- * Get a specific component by its ID.
- * This function may contain multiple results if we have
- * data describing this component from multiple scopes/origin types.
- *
- * This function fully transfers ownership of the returned container,
- * to be used in GIR bindings.
- *
- * Returns: (transfer full) (element-type AsComponent): An #AsComponent
- */
-GPtrArray *
-as_pool_get_components_by_id_gi (AsPool *pool, const gchar *cid)
-{
-	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_id (pool, cid));
-}
-
-/**
- * as_pool_get_components_by_provided_item: (skip)
+ * as_pool_get_components_by_provided_item:
  * @pool: An instance of #AsPool.
  * @kind: An #AsProvidesKind
  * @item: The value of the provided item.
  *
  * Find components in the AppStream data pool which provide a certain item.
  *
- * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
+ * Returns: (transfer full): an #AsComponentBox of found components.
  */
-GPtrArray *
+AsComponentBox *
 as_pool_get_components_by_provided_item (AsPool *pool, AsProvidedKind kind, const gchar *item)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GError) tmp_error = NULL;
-	GPtrArray *result = NULL;
+	AsComponentBox *result = NULL;
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	result = as_cache_get_components_by_provided_item (priv->cache, kind, item, &tmp_error);
 	if (result == NULL) {
 		g_warning ("Unable find components by provided item in session cache: %s",
 			   tmp_error->message);
-		return g_ptr_array_new_with_free_func (g_object_unref);
+		return as_component_box_new_simple ();
 	}
 
 	return result;
 }
 
 /**
- * as_pool_get_components_by_provided_item_gi: (rename-to as_pool_get_components_by_provided_item)
- * @pool: An instance of #AsPool.
- * @kind: An #AsProvidesKind
- * @item: The value of the provided item.
- *
- * Find components in the AppStream data pool which provide a certain item.
- *
- * This function fully transfers ownership of the returned container,
- * to be used in GIR bindings.
- *
- * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
- */
-GPtrArray *
-as_pool_get_components_by_provided_item_gi (AsPool *pool, AsProvidedKind kind, const gchar *item)
-{
-	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (
-	    as_pool_get_components_by_provided_item (pool, kind, item));
-}
-
-/**
- * as_pool_get_components_by_kind: (skip)
+ * as_pool_get_components_by_kind:
  * @pool: An instance of #AsDatabase.
  * @kind: An #AsComponentKind.
  *
  * Return a list of all components in the pool which are of a certain kind.
  *
- * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
+ * Returns: (transfer full): an #AsComponentBox of found components.
  */
-GPtrArray *
+AsComponentBox *
 as_pool_get_components_by_kind (AsPool *pool, AsComponentKind kind)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GError) tmp_error = NULL;
-	GPtrArray *result = NULL;
+	AsComponentBox *result = NULL;
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	result = as_cache_get_components_by_kind (priv->cache, kind, &tmp_error);
 	if (result == NULL) {
 		g_warning ("Unable find components by kind in session cache: %s",
 			   tmp_error->message);
-		return g_ptr_array_new_with_free_func (g_object_unref);
+		return as_component_box_new_simple ();
 	}
 
 	return result;
 }
 
 /**
- * as_pool_get_components_by_kind_gi: (rename-to as_pool_get_components_by_kind)
- * @pool: An instance of #AsDatabase.
- * @kind: An #AsComponentKind.
- *
- * Return a list of all components in the pool which are of a certain kind.
- *
- * This function fully transfers ownership of the returned container,
- * to be used in GIR bindings.
- *
- * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
- */
-GPtrArray *
-as_pool_get_components_by_kind_gi (AsPool *pool, AsComponentKind kind)
-{
-	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_kind (pool, kind));
-}
-
-/**
- * as_pool_get_components_by_categories: (skip)
+ * as_pool_get_components_by_categories:
  * @pool: An instance of #AsDatabase.
  * @categories: (array zero-terminated=1): An array of XDG categories to include.
  *
  * Return a list of components which are in all of the categories.
  *
- * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
+ * Returns: (transfer full): an #AsComponentBox of found components.
  */
-GPtrArray *
+AsComponentBox *
 as_pool_get_components_by_categories (AsPool *pool, gchar **categories)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GError) tmp_error = NULL;
-	GPtrArray *result = NULL;
+	AsComponentBox *result = NULL;
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	/* sanity check */
@@ -2063,33 +1988,14 @@ as_pool_get_components_by_categories (AsPool *pool, gchar **categories)
 	if (result == NULL) {
 		g_warning ("Unable find components by categories in session cache: %s",
 			   tmp_error->message);
-		return g_ptr_array_new_with_free_func (g_object_unref);
+		return as_component_box_new_simple ();
 	}
 
 	return result;
 }
 
 /**
- * as_pool_get_components_by_categories_gi: (rename-to as_pool_get_components_by_categories)
- * @pool: An instance of #AsDatabase.
- * @categories: (array zero-terminated=1): An array of XDG categories to include.
- *
- * Return a list of components which are in one of the categories.
- *
- * This function fully transfers ownership of the returned container,
- * to be used in GIR bindings.
- *
- * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
- */
-GPtrArray *
-as_pool_get_components_by_categories_gi (AsPool *pool, gchar **categories)
-{
-	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (
-	    as_pool_get_components_by_categories (pool, categories));
-}
-
-/**
- * as_pool_get_components_by_launchable: (skip)
+ * as_pool_get_components_by_launchable:
  * @pool: An instance of #AsPool.
  * @kind: An #AsLaunchableKind
  * @id: The ID of the launchable.
@@ -2097,52 +2003,30 @@ as_pool_get_components_by_categories_gi (AsPool *pool, gchar **categories)
  * Find components in the AppStream data pool which provide a specific launchable.
  * See #AsLaunchable for details on launchables, or refer to the AppStream specification.
  *
- * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
+ * Returns: (transfer full): an #AsComponentBox of found components.
  *
  * Since: 0.11.4
  */
-GPtrArray *
+AsComponentBox *
 as_pool_get_components_by_launchable (AsPool *pool, AsLaunchableKind kind, const gchar *id)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GError) tmp_error = NULL;
-	GPtrArray *result = NULL;
+	AsComponentBox *result = NULL;
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	result = as_cache_get_components_by_launchable (priv->cache, kind, id, &tmp_error);
 	if (result == NULL) {
 		g_warning ("Unable find components by launchable in session cache: %s",
 			   tmp_error->message);
-		return g_ptr_array_new_with_free_func (g_object_unref);
+		return as_component_box_new_simple ();
 	}
 
 	return result;
 }
 
 /**
- * as_pool_get_components_by_launchable_gi: (rename-to as_pool_get_components_by_launchable)
- * @pool: An instance of #AsPool.
- * @kind: An #AsLaunchableKind
- * @id: The ID of the launchable.
- *
- * Find components in the AppStream data pool which provide a specific launchable.
- * See #AsLaunchable for details on launchables, or refer to the AppStream specification.
- *
- * This function fully transfers ownership of the returned container,
- * to be used in GIR bindings.
- *
- * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
- *
- * Since: 0.11.4
- */
-GPtrArray *
-as_pool_get_components_by_launchable_gi (AsPool *pool, AsLaunchableKind kind, const gchar *id)
-{
-	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_launchable (pool, kind, id));
-}
-
-/**
- * as_pool_get_components_by_extends: (skip)
+ * as_pool_get_components_by_extends:
  * @pool: An instance of #AsPool.
  * @extended_id: The ID of the component to search extensions for.
  *
@@ -2152,53 +2036,29 @@ as_pool_get_components_by_launchable_gi (AsPool *pool, AsLaunchableKind kind, co
  * this explicit function is not needed, but overall query time will be increased (so only use
  * this flag if you will be resolving addon information later anyway).
  *
- * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects.
+ * Returns: (transfer full): an #AsComponentBox.
  *
  * Since: 0.15.0
  */
-GPtrArray *
+AsComponentBox *
 as_pool_get_components_by_extends (AsPool *pool, const gchar *extended_id)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GError) tmp_error = NULL;
-	GPtrArray *result = NULL;
+	AsComponentBox *result = NULL;
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	result = as_cache_get_components_by_extends (priv->cache, extended_id, &tmp_error);
 	if (result == NULL) {
 		g_warning ("Unable find addon components in session cache: %s", tmp_error->message);
-		return g_ptr_array_new_with_free_func (g_object_unref);
+		return as_component_box_new_simple ();
 	}
 
 	return result;
 }
 
 /**
- * as_pool_get_components_by_extends_gi: (rename-to as_pool_get_components_by_extends)
- * @pool: An instance of #AsPool.
- * @extended_id: The ID of the component to search extensions for.
- *
- * Find components extending the component with the given ID. They can then be registered to the
- * #AsComponent they extend via %as_component_add_addon.
- * If the %AS_POOL_FLAG_RESOLVE_ADDONS pool flag is set, addons are automatically resolved and
- * this explicit function is not needed, but overall query time will be increased (so only use
- * this flag if you will be resolving addon information later anyway).
- *
- * This function fully transfers ownership of the returned container,
- * to be used in GIR bindings.
- *
- * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects.
- *
- * Since: 0.15.0
- */
-GPtrArray *
-as_pool_get_components_by_extends_gi (AsPool *pool, const gchar *extended_id)
-{
-	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_get_components_by_extends (pool, extended_id));
-}
-
-/**
- * as_pool_get_components_by_bundle_id: (skip)
+ * as_pool_get_components_by_bundle_id:
  * @pool: An instance of #AsPool.
  * @kind: The kind of the bundle we are looking for
  * @bundle_id: The bundle ID to match, as specified in #AsBundle
@@ -2209,9 +2069,11 @@ as_pool_get_components_by_extends_gi (AsPool *pool, const gchar *extended_id)
  * it will list all the components that bundle dolphin. If the bundle_id is
  * "org.kde.dolphin/x86_64" it will give those with also the architecture.
  *
+ * Returns: (transfer full): an #AsComponentBox.
+ *
  * Since: 0.16.0
  */
-GPtrArray *
+AsComponentBox *
 as_pool_get_components_by_bundle_id (AsPool *pool,
 				     AsBundleKind kind,
 				     const gchar *bundle_id,
@@ -2219,7 +2081,7 @@ as_pool_get_components_by_bundle_id (AsPool *pool,
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GError) tmp_error = NULL;
-	GPtrArray *result = NULL;
+	AsComponentBox *result = NULL;
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	result = as_cache_get_components_by_bundle_id (priv->cache,
@@ -2230,39 +2092,10 @@ as_pool_get_components_by_bundle_id (AsPool *pool,
 	if (result == NULL) {
 		g_warning ("Unable find components by bundle ID in session cache: %s",
 			   tmp_error->message);
-		return g_ptr_array_new_with_free_func (g_object_unref);
+		return as_component_box_new_simple ();
 	}
 
 	return result;
-}
-
-/**
- * as_pool_get_components_by_bundle_id_gi: (rename-to as_pool_get_components_by_bundle_id)
- * @pool: An instance of #AsPool.
- * @kind: The kind of the bundle we are looking for
- * @bundle_id: The bundle ID to match, as specified in #AsBundle
- * @match_prefix: %TRUE to match the ID by prefix, %FALSE to perform an absolute match.
- *
- * Find components that are provided by a bundle with a specific ID by its prefix.
- * For example, given a AS_BUNDLE_KIND_FLATPAK and a bundle_id "org.kde.dolphin/",
- * it will list all the components that bundle dolphin. If the bundle_id is
- * "org.kde.dolphin/x86_64" it will give those with also the architecture.
- *
- * This function fully transfers ownership of the returned container,
- * to be used in GIR bindings.
- *
- * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects.
- *
- * Since: 0.16.0
- */
-GPtrArray *
-as_pool_get_components_by_bundle_id_gi (AsPool *pool,
-					AsBundleKind kind,
-					const gchar *bundle_id,
-					gboolean match_prefix)
-{
-	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (
-	    as_pool_get_components_by_bundle_id (pool, kind, bundle_id, match_prefix));
 }
 
 /**
@@ -2367,24 +2200,24 @@ as_pool_build_search_tokens (AsPool *pool, const gchar *search)
 }
 
 /**
- * as_pool_search: (skip)
+ * as_pool_search:
  * @pool: An instance of #AsPool
  * @search: A search string
  *
  * Search for a list of components matching the search term.
  * The list will be ordered by match score.
  *
- * Returns: (transfer container) (element-type AsComponent): an array of the found #AsComponent objects.
+ * Returns: (transfer full): an #AsComponentBox of the found components.
  *
  * Since: 0.9.7
  */
-GPtrArray *
+AsComponentBox *
 as_pool_search (AsPool *pool, const gchar *search)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(AsProfileTask) ptask = NULL;
 	g_autoptr(GError) tmp_error = NULL;
-	GPtrArray *result = NULL;
+	AsComponentBox *result = NULL;
 	g_auto(GStrv) tokens = NULL;
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
@@ -2403,7 +2236,7 @@ as_pool_search (AsPool *pool, const gchar *search)
 			return as_pool_get_components (pool);
 		} else {
 			g_debug ("No valid search tokens. Can not find any results.");
-			return g_ptr_array_new_with_free_func (g_object_unref);
+			return as_component_box_new_simple ();
 		}
 	} else {
 		g_autofree gchar *tmp_str = NULL;
@@ -2417,31 +2250,10 @@ as_pool_search (AsPool *pool, const gchar *search)
 				  &tmp_error);
 	if (result == NULL) {
 		g_warning ("Search failed: %s", tmp_error->message);
-		return g_ptr_array_new_with_free_func (g_object_unref);
+		return as_component_box_new_simple ();
 	}
 
 	return result;
-}
-
-/**
- * as_pool_search_gi: (rename-to as_pool_search)
- * @pool: An instance of #AsPool
- * @search: A search string
- *
- * Search for a list of components matching the search term.
- * The list will be ordered by match score.
- *
- * This function fully transfers ownership of the returned container,
- * to be used in GIR bindings.
- *
- * Returns: (transfer container) (element-type AsComponent): an array of the found #AsComponent objects.
- *
- * Since: 0.9.7
- */
-GPtrArray *
-as_pool_search_gi (AsPool *pool, const gchar *search)
-{
-	AS_PTR_ARRAY_RETURN_CLEAR_FREE_FUNC (as_pool_search (pool, search));
 }
 
 /**

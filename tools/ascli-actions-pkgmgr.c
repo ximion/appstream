@@ -106,8 +106,8 @@ ascli_get_component_instrm_candidate (const gchar *identifier,
 {
 	g_autoptr(GError) error = NULL;
 	g_autoptr(AsPool) pool = NULL;
-	g_autoptr(GPtrArray) result = NULL;
-	g_autoptr(GPtrArray) result_filtered = NULL;
+	g_autoptr(AsComponentBox) result = NULL;
+	g_autoptr(AsComponentBox) result_filtered = NULL;
 	AsComponent *r_cpt;
 
 	if (identifier == NULL) {
@@ -123,41 +123,41 @@ ascli_get_component_instrm_candidate (const gchar *identifier,
 	}
 
 	result = as_pool_get_components_by_id (pool, identifier);
-	if (result->len == 0) {
+	if (as_component_box_is_empty (result)) {
 		ascli_print_stderr (_("Unable to find component with ID '%s'!"), identifier);
 		return ASCLI_EXIT_CODE_NO_RESULT;
 	}
 
 	if (bundle_kind == AS_BUNDLE_KIND_UNKNOWN) {
-		result_filtered = g_ptr_array_ref (result);
+		result_filtered = g_object_ref (result);
 	} else {
-		result_filtered = g_ptr_array_new_with_free_func (g_object_unref);
-		for (guint i = 0; i < result->len; i++) {
-			AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (result, i));
+		result_filtered = as_component_box_new (AS_COMPONENT_BOX_FLAG_ALLOW_DUPLICATES);
+		for (guint i = 0; i < as_component_box_len (result); i++) {
+			AsComponent *cpt = as_component_box_index (result, i);
 
 			if (bundle_kind == AS_BUNDLE_KIND_PACKAGE &&
 			    as_component_get_pkgname (cpt) != NULL) {
-				g_ptr_array_add (result_filtered, g_object_ref (cpt));
+				as_component_box_add (result_filtered, cpt, NULL);
 				continue;
 			}
 
 			if (bundle_kind == AS_BUNDLE_KIND_FLATPAK &&
 			    as_component_get_bundle (cpt, AS_BUNDLE_KIND_FLATPAK) != NULL) {
-				g_ptr_array_add (result_filtered, g_object_ref (cpt));
+				as_component_box_add (result_filtered, cpt, NULL);
 				continue;
 			}
 		}
 	}
 
-	if (result_filtered->len == 0) {
+	if (as_component_box_is_empty (result_filtered)) {
 		ascli_print_stderr (
 		    _("Unable to find component with ID '%s' and the selected filter criteria!"),
 		       identifier);
 		return ASCLI_EXIT_CODE_NO_RESULT;
 	}
 
-	if (choose_first || result_filtered->len == 1) {
-		r_cpt = AS_COMPONENT (g_ptr_array_index (result_filtered, 0));
+	if (choose_first || as_component_box_len (result_filtered) == 1) {
+		r_cpt = as_component_box_index (result_filtered, 0);
 	} else {
 		gint selection;
 		if (is_removal)
@@ -167,9 +167,9 @@ ascli_get_component_instrm_candidate (const gchar *identifier,
 			/* TRANSLATORS: We found multiple components to install, a list of them is printed below this text. */
 			g_print ("%s\n", _("Multiple candidates were found for installation:"));
 
-		for (guint i = 0; i < result_filtered->len; i++) {
+		for (guint i = 0; i < as_component_box_len (result_filtered); i++) {
 			AsBundle *bundle = NULL;
-			AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (result_filtered, i));
+			AsComponent *cpt = as_component_box_index (result_filtered, i);
 
 			bundle = as_component_get_bundle (cpt, AS_BUNDLE_KIND_FLATPAK);
 			if (bundle == NULL)
@@ -187,13 +187,13 @@ ascli_get_component_instrm_candidate (const gchar *identifier,
 			/* TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one. */
 			selection = ascli_prompt_numer (
 			    _("Please enter the number of the component to remove:"),
-			       result_filtered->len);
+			       as_component_box_len (result_filtered));
 		else
 			/* TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one. */
 			selection = ascli_prompt_numer (
 			    _("Please enter the number of the component to install:"),
-			       result_filtered->len);
-		r_cpt = AS_COMPONENT (g_ptr_array_index (result_filtered, selection - 1));
+			       as_component_box_len (result_filtered));
+		r_cpt = as_component_box_index (result_filtered, selection - 1);
 	}
 
 	g_assert (result_cpt != NULL);

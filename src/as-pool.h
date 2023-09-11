@@ -27,7 +27,9 @@
 
 #include <glib-object.h>
 #include <gio/gio.h>
+
 #include "as-component.h"
+#include "as-component-box.h"
 
 G_BEGIN_DECLS
 
@@ -111,53 +113,53 @@ typedef enum {
 } AsPoolError;
 
 #define AS_POOL_ERROR as_pool_error_quark ()
-GQuark	     as_pool_error_quark (void);
+GQuark		as_pool_error_quark (void);
 
-AsPool	    *as_pool_new (void);
+AsPool	       *as_pool_new (void);
 
-const gchar *as_pool_get_locale (AsPool *pool);
-void	     as_pool_set_locale (AsPool *pool, const gchar *locale);
+const gchar    *as_pool_get_locale (AsPool *pool);
+void		as_pool_set_locale (AsPool *pool, const gchar *locale);
 
-gboolean     as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error);
-void	     as_pool_load_async (AsPool		    *pool,
-				 GCancellable	    *cancellable,
-				 GAsyncReadyCallback callback,
-				 gpointer	     user_data);
-gboolean     as_pool_load_finish (AsPool *pool, GAsyncResult *result, GError **error);
+gboolean	as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error);
+void		as_pool_load_async (AsPool	       *pool,
+				    GCancellable       *cancellable,
+				    GAsyncReadyCallback callback,
+				    gpointer		user_data);
+gboolean	as_pool_load_finish (AsPool *pool, GAsyncResult *result, GError **error);
 
-gboolean     as_pool_is_empty (AsPool *pool);
-void	     as_pool_clear (AsPool *pool);
-gboolean     as_pool_add_components (AsPool *pool, GPtrArray *cpts, GError **error);
+gboolean	as_pool_is_empty (AsPool *pool);
+void		as_pool_clear (AsPool *pool);
+gboolean	as_pool_add_components (AsPool *pool, GPtrArray *cpts, GError **error);
 
-GPtrArray   *as_pool_get_components (AsPool *pool);
-GPtrArray   *as_pool_get_components_by_id (AsPool *pool, const gchar *cid);
-GPtrArray   *as_pool_get_components_by_provided_item (AsPool	    *pool,
-						      AsProvidedKind kind,
-						      const gchar   *item);
-GPtrArray   *as_pool_get_components_by_kind (AsPool *pool, AsComponentKind kind);
-GPtrArray   *as_pool_get_components_by_categories (AsPool *pool, gchar **categories);
-GPtrArray   *as_pool_get_components_by_launchable (AsPool	   *pool,
-						   AsLaunchableKind kind,
-						   const gchar	   *id);
-GPtrArray   *as_pool_get_components_by_extends (AsPool *pool, const gchar *extended_id);
-GPtrArray   *as_pool_get_components_by_bundle_id (AsPool      *pool,
-						  AsBundleKind kind,
-						  const gchar *bundle_id,
-						  gboolean     match_prefix);
-GPtrArray   *as_pool_search (AsPool *pool, const gchar *search);
-gchar	   **as_pool_build_search_tokens (AsPool *pool, const gchar *search);
+AsComponentBox *as_pool_get_components (AsPool *pool);
+AsComponentBox *as_pool_get_components_by_id (AsPool *pool, const gchar *cid);
+AsComponentBox *as_pool_get_components_by_provided_item (AsPool	       *pool,
+							 AsProvidedKind kind,
+							 const gchar   *item);
+AsComponentBox *as_pool_get_components_by_kind (AsPool *pool, AsComponentKind kind);
+AsComponentBox *as_pool_get_components_by_categories (AsPool *pool, gchar **categories);
+AsComponentBox *as_pool_get_components_by_launchable (AsPool	      *pool,
+						      AsLaunchableKind kind,
+						      const gchar     *id);
+AsComponentBox *as_pool_get_components_by_extends (AsPool *pool, const gchar *extended_id);
+AsComponentBox *as_pool_get_components_by_bundle_id (AsPool	 *pool,
+						     AsBundleKind kind,
+						     const gchar *bundle_id,
+						     gboolean	  match_prefix);
+AsComponentBox *as_pool_search (AsPool *pool, const gchar *search);
+gchar	      **as_pool_build_search_tokens (AsPool *pool, const gchar *search);
 
-void	     as_pool_reset_extra_data_locations (AsPool *pool);
-void	     as_pool_add_extra_data_location (AsPool	   *pool,
-					      const gchar  *directory,
-					      AsFormatStyle format_style);
+void		as_pool_reset_extra_data_locations (AsPool *pool);
+void		as_pool_add_extra_data_location (AsPool	      *pool,
+						 const gchar  *directory,
+						 AsFormatStyle format_style);
 
-AsPoolFlags  as_pool_get_flags (AsPool *pool);
-void	     as_pool_set_flags (AsPool *pool, AsPoolFlags flags);
-void	     as_pool_add_flags (AsPool *pool, AsPoolFlags flags);
-void	     as_pool_remove_flags (AsPool *pool, AsPoolFlags flags);
+AsPoolFlags	as_pool_get_flags (AsPool *pool);
+void		as_pool_set_flags (AsPool *pool, AsPoolFlags flags);
+void		as_pool_add_flags (AsPool *pool, AsPoolFlags flags);
+void		as_pool_remove_flags (AsPool *pool, AsPoolFlags flags);
 
-void	     as_pool_set_load_std_data_locations (AsPool *pool, gboolean enabled);
+void		as_pool_set_load_std_data_locations (AsPool *pool, gboolean enabled);
 
 G_END_DECLS
 

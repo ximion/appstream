@@ -40,12 +40,12 @@ static GMainLoop *_test_loop = NULL;
 static guint _test_loop_timeout_id = 0;
 
 static void
-print_cptarray (GPtrArray *cpt_array)
+print_cptbox (AsComponentBox *cbox)
 {
 	g_printf ("----\n");
-	for (guint i = 0; i < cpt_array->len; i++) {
+	for (guint i = 0; i < as_component_box_len (cbox); i++) {
 		g_autofree gchar *tmp = NULL;
-		AsComponent *cpt = (AsComponent *) g_ptr_array_index (cpt_array, i);
+		AsComponent *cpt = as_component_box_index (cbox, i);
 
 		tmp = as_component_to_string (cpt);
 		g_printf ("  - %s\n", tmp);
@@ -62,12 +62,12 @@ print_cptarray (GPtrArray *cpt_array)
 static AsComponent *
 _as_get_single_component_by_cid (AsPool *pool, const gchar *cid)
 {
-	g_autoptr(GPtrArray) result = NULL;
+	g_autoptr(AsComponentBox) result = NULL;
 
 	result = as_pool_get_components_by_id (pool, cid);
-	if (result->len == 0)
+	if (as_component_box_is_empty (result))
 		return NULL;
-	return g_object_ref (AS_COMPONENT (g_ptr_array_index (result, 0)));
+	return g_object_ref (as_component_box_index (result, 0));
 }
 
 static gboolean
@@ -196,7 +196,7 @@ test_cache (void)
 	g_autoptr(AsMetadata) mdata = NULL;
 	g_autoptr(AsCache) cache = NULL;
 	g_autoptr(GPtrArray) cpts_pre = NULL;
-	g_autoptr(GPtrArray) cpts_post = NULL;
+	g_autoptr(AsComponentBox) cpts_post = NULL;
 	gboolean ret;
 	g_autofree gchar *mdata_dir = NULL;
 	g_autofree gchar *xmldata_precache = NULL;
@@ -277,14 +277,14 @@ test_cache (void)
 
 	cpts_post = as_cache_get_components_all (cache, &error);
 	g_assert_no_error (error);
-	g_assert_cmpint (cpts_post->len, ==, 20);
-	as_assert_component_lists_equal (cpts_post, cpts_pre);
+	g_assert_cmpint (as_component_box_len (cpts_post), ==, 20);
+	as_assert_component_lists_equal (as_component_box_array (cpts_post), cpts_pre);
 
 	/* generate XML of the components retrieved from cache */
 	as_metadata_clear_components (mdata);
-	as_sort_components (cpts_post);
-	for (guint i = 0; i < cpts_post->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts_post, i));
+	as_component_box_sort (cpts_post);
+	for (guint i = 0; i < as_component_box_len (cpts_post); i++) {
+		AsComponent *cpt = as_component_box_index (cpts_post, i);
 		as_metadata_add_component (mdata, cpt);
 	}
 
@@ -306,8 +306,8 @@ static void
 test_pool_read (void)
 {
 	g_autoptr(AsPool) dpool = NULL;
-	g_autoptr(GPtrArray) all_cpts = NULL;
-	g_autoptr(GPtrArray) result = NULL;
+	g_autoptr(AsComponentBox) all_cpts = NULL;
+	g_autoptr(AsComponentBox) result = NULL;
 	g_autoptr(GPtrArray) categories = NULL;
 	g_autoptr(AsComponent) cpt_a = NULL;
 	AsComponent *cpt_s = NULL;
@@ -326,68 +326,68 @@ test_pool_read (void)
 
 	/* enusre DeleteMe component was removed via its remove-component merge request */
 	result = as_pool_get_components_by_id (dpool, "org.example.DeleteMe");
-	g_assert_cmpint (result->len, ==, 0);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_assert_cmpint (as_component_box_len (result), ==, 0);
+	g_clear_pointer (&result, g_object_unref);
 
 	/* check total pool component count */
 	all_cpts = as_pool_get_components (dpool);
 	g_assert_nonnull (all_cpts);
-	g_assert_cmpint (all_cpts->len, ==, 20);
+	g_assert_cmpint (as_component_box_len (all_cpts), ==, 20);
 
 	/* generic tests */
 	result = as_pool_search (dpool, "kig");
-	print_cptarray (result);
-	g_assert_cmpint (result->len, ==, 1);
-	cpt_s = AS_COMPONENT (g_ptr_array_index (result, 0));
+	print_cptbox (result);
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	cpt_s = as_component_box_index (result, 0);
 	g_assert_cmpstr (as_component_get_pkgnames (cpt_s)[0], ==, "kig");
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_clear_pointer (&result, g_object_unref);
 
 	result = as_pool_search (dpool, "web");
-	print_cptarray (result);
-	g_assert_cmpint (result->len, ==, 1);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	print_cptbox (result);
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	g_clear_pointer (&result, g_object_unref);
 
 	result = as_pool_search (dpool, "logic");
-	print_cptarray (result);
-	g_assert_cmpint (result->len, ==, 2);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	print_cptbox (result);
+	g_assert_cmpint (as_component_box_len (result), ==, 2);
+	g_clear_pointer (&result, g_object_unref);
 
 	/* search for mixed-case strings */
 	result = as_pool_search (dpool, "bIoChemistrY");
-	print_cptarray (result);
-	g_assert_cmpint (result->len, ==, 1);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	print_cptbox (result);
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	g_clear_pointer (&result, g_object_unref);
 
 	/* test searching for multiple words */
 	result = as_pool_search (dpool, "scalable graphics");
-	print_cptarray (result);
-	g_assert_cmpint (result->len, ==, 1);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	print_cptbox (result);
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	g_clear_pointer (&result, g_object_unref);
 
 	/* test searching for multiple words, multiple results */
 	result = as_pool_search (dpool, "strategy game");
-	print_cptarray (result);
-	g_assert_cmpint (result->len, ==, 2);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	print_cptbox (result);
+	g_assert_cmpint (as_component_box_len (result), ==, 2);
+	g_clear_pointer (&result, g_object_unref);
 
 	/* we return all components if the search string is too short */
 	result = as_pool_search (dpool, "s");
-	g_assert_cmpint (result->len, ==, 20);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_assert_cmpint (as_component_box_len (result), ==, 20);
+	g_clear_pointer (&result, g_object_unref);
 
 	strv = g_strsplit ("Science", ";", 0);
 	result = as_pool_get_components_by_categories (dpool, strv);
 	g_strfreev (strv);
-	print_cptarray (result);
-	g_assert_cmpint (result->len, ==, 3);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	print_cptbox (result);
+	g_assert_cmpint (as_component_box_len (result), ==, 3);
+	g_clear_pointer (&result, g_object_unref);
 
 	result = as_pool_get_components_by_provided_item (dpool,
 							  AS_PROVIDED_KIND_BINARY,
 							  "inkscape");
-	print_cptarray (result);
-	g_assert_cmpint (result->len, ==, 1);
-	cpt_s = AS_COMPONENT (g_ptr_array_index (result, 0));
+	print_cptbox (result);
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	cpt_s = as_component_box_index (result, 0);
 
 	g_assert_cmpstr (as_component_get_name (cpt_s), ==, "Inkscape");
 	g_assert_cmpstr (as_component_get_url (cpt_s, AS_URL_KIND_HOMEPAGE),
@@ -397,16 +397,16 @@ test_pool_read (void)
 			 ==,
 			 "https://inkscape.org/learn/faq/");
 
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_clear_pointer (&result, g_object_unref);
 
 	/* by bundle ID */
 	result = as_pool_get_components_by_bundle_id (dpool,
 						      AS_BUNDLE_KIND_LIMBA,
 						      "neverball-",
 						      TRUE);
-	print_cptarray (result);
-	g_assert_cmpint (result->len, ==, 1);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	print_cptbox (result);
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	g_clear_pointer (&result, g_object_unref);
 
 	/* test a component in a different file, with no package but a bundle instead */
 	cpt_a = _as_get_single_component_by_cid (dpool, "org.neverball.Neverball");
@@ -448,7 +448,9 @@ test_pool_read (void)
 
 	/* check categorization */
 	categories = as_get_default_categories (TRUE);
-	as_utils_sort_components_into_categories (all_cpts, categories, FALSE);
+	as_utils_sort_components_into_categories (as_component_box_array (all_cpts),
+						  categories,
+						  FALSE);
 	for (guint i = 0; i < categories->len; i++) {
 		const gchar *cat_id;
 		gint cpt_count;
@@ -495,16 +497,16 @@ test_pool_read (void)
 	result = as_pool_get_components_by_launchable (dpool,
 						       AS_LAUNCHABLE_KIND_DESKTOP_ID,
 						       "linuxdcpp.desktop");
-	g_assert_cmpint (result->len, ==, 1);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	g_clear_pointer (&result, g_object_unref);
 
 	result = as_pool_get_components_by_launchable (dpool,
 						       AS_LAUNCHABLE_KIND_DESKTOP_ID,
 						       "inkscape.desktop");
-	g_assert_cmpint (result->len, ==, 1);
-	cpt_s = AS_COMPONENT (g_ptr_array_index (result, 0));
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	cpt_s = as_component_box_index (result, 0);
 	g_assert_cmpstr (as_component_get_id (cpt_s), ==, "org.inkscape.Inkscape");
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_clear_pointer (&result, g_object_unref);
 
 	g_assert_false (as_pool_is_empty (dpool));
 }
@@ -518,7 +520,7 @@ static void
 test_pool_read_async_ready_cb (AsPool *pool, GAsyncResult *result, gpointer user_data)
 {
 	g_autoptr(GError) error = NULL;
-	g_autoptr(GPtrArray) all_cpts = NULL;
+	g_autoptr(AsComponentBox) all_cpts = NULL;
 
 	g_debug ("AsPool-Async-Load: Received ready callback.");
 	as_pool_load_finish (pool, result, &error);
@@ -529,7 +531,7 @@ test_pool_read_async_ready_cb (AsPool *pool, GAsyncResult *result, gpointer user
 	/* check total retrieved component count */
 	all_cpts = as_pool_get_components (pool);
 	g_assert_nonnull (all_cpts);
-	g_assert_cmpint (all_cpts->len, ==, 20);
+	g_assert_cmpint (as_component_box_len (all_cpts), ==, 20);
 
 	/* we received the callback, so quit the loop */
 	as_test_loop_quit ();
@@ -560,7 +562,7 @@ static void
 test_pool_read_async (void)
 {
 	g_autoptr(AsPool) pool = NULL;
-	g_autoptr(GPtrArray) result = NULL;
+	g_autoptr(AsComponentBox) result = NULL;
 
 	/* load sample data */
 	pool = test_get_sampledata_pool (FALSE);
@@ -580,19 +582,21 @@ test_pool_read_async (void)
 	g_test_log_set_fatal_handler (test_log_allow_warnings, NULL);
 
 	result = as_pool_search (pool, "web");
-	if (result->len != 0 && result->len != 1) {
-		g_warning ("Invalid number of components retrieved: %i", result->len);
+	if (as_component_box_len (result) != 0 && as_component_box_len (result) != 1) {
+		g_warning ("Invalid number of components retrieved: %i",
+			   as_component_box_len (result));
 		g_assert_not_reached ();
 	}
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_clear_pointer (&result, g_object_unref);
 
 	result = as_pool_get_components (pool);
 	g_assert_nonnull (result);
-	if (result->len != 0 && result->len != 20) {
-		g_warning ("Invalid number of components retrieved: %i", result->len);
+	if (as_component_box_len (result) != 0 && as_component_box_len (result) != 20) {
+		g_warning ("Invalid number of components retrieved: %i",
+			   as_component_box_len (result));
 		g_assert_not_reached ();
 	}
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_clear_pointer (&result, g_object_unref);
 
 	/* wait for the callback to be run (unless it already has!) */
 	if (_test_loop != NULL)
@@ -605,8 +609,8 @@ test_pool_read_async (void)
 	g_debug ("AsPool-Async-Load: Checking component count (after loaded)");
 	result = as_pool_get_components (pool);
 	g_assert_nonnull (result);
-	g_assert_cmpint (result->len, ==, 20);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_assert_cmpint (as_component_box_len (result), ==, 20);
+	g_clear_pointer (&result, g_object_unref);
 }
 
 /**
@@ -694,7 +698,7 @@ static void
 test_pool_empty (void)
 {
 	g_autoptr(AsPool) pool = NULL;
-	g_autoptr(GPtrArray) result = NULL;
+	g_autoptr(AsComponentBox) result = NULL;
 	g_autoptr(GPtrArray) cpts = NULL;
 	g_autoptr(GError) error = NULL;
 	AsComponent *cpt = NULL;
@@ -708,12 +712,12 @@ test_pool_empty (void)
 
 	/* test reading from the pool when it wasn't loaded yet */
 	result = as_pool_get_components_by_id (pool, "org.example.NotThere");
-	g_assert_cmpint (result->len, ==, 0);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_assert_cmpint (as_component_box_len (result), ==, 0);
+	g_clear_pointer (&result, g_object_unref);
 
 	result = as_pool_search (pool, "web");
-	g_assert_cmpint (result->len, ==, 0);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_assert_cmpint (as_component_box_len (result), ==, 0);
+	g_clear_pointer (&result, g_object_unref);
 
 	/* create dummy app to add */
 	cpt = as_component_new ();
@@ -731,10 +735,10 @@ test_pool_empty (void)
 
 	/* try to retrieve the dummy component */
 	result = as_pool_search (pool, "foo");
-	g_assert_cmpint (result->len, ==, 1);
-	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	cpt = as_component_box_index (result, 0);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.freedesktop.FooBar");
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_clear_pointer (&result, g_object_unref);
 }
 
 static void
@@ -959,7 +963,7 @@ test_pool_autoreload (void)
 {
 	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(GError) error = NULL;
-	g_autoptr(GPtrArray) result = NULL;
+	g_autoptr(AsComponentBox) result = NULL;
 	g_autofree gchar *src_datafile1 = NULL;
 	g_autofree gchar *src_datafile2 = NULL;
 	g_autofree gchar *dst_datafile1 = NULL;
@@ -988,8 +992,8 @@ test_pool_autoreload (void)
 
 	/* ensure cache is empty */
 	result = as_pool_get_components_by_id (pool, "org.inkscape.Inkscape");
-	g_assert_cmpint (result->len, ==, 0);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_assert_cmpint (as_component_box_len (result), ==, 0);
+	g_clear_pointer (&result, g_object_unref);
 
 	/* add data and wait for auto-reload */
 	data_changed = FALSE;
@@ -1004,8 +1008,8 @@ test_pool_autoreload (void)
 
 	/* check again */
 	result = as_pool_get_components_by_id (pool, "org.inkscape.Inkscape");
-	g_assert_cmpint (result->len, ==, 1);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	g_clear_pointer (&result, g_object_unref);
 
 	/* add more data */
 	data_changed = FALSE;
@@ -1020,11 +1024,11 @@ test_pool_autoreload (void)
 
 	/* check for more data */
 	result = as_pool_get_components_by_id (pool, "org.inkscape.Inkscape");
-	g_assert_cmpint (result->len, ==, 1);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	g_clear_pointer (&result, g_object_unref);
 	result = as_pool_get_components_by_id (pool, "org.fwupd.lvfs");
-	g_assert_cmpint (result->len, ==, 1);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	g_clear_pointer (&result, g_object_unref);
 
 	/* check if deleting stuff yields the expected result */
 	data_changed = FALSE;
@@ -1034,11 +1038,11 @@ test_pool_autoreload (void)
 		as_test_loop_run_with_timeout (14000);
 
 	result = as_pool_get_components_by_id (pool, "org.inkscape.Inkscape");
-	g_assert_cmpint (result->len, ==, 0);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_assert_cmpint (as_component_box_len (result), ==, 0);
+	g_clear_pointer (&result, g_object_unref);
 	result = as_pool_get_components_by_id (pool, "org.fwupd.lvfs");
-	g_assert_cmpint (result->len, ==, 1);
-	g_clear_pointer (&result, g_ptr_array_unref);
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	g_clear_pointer (&result, g_object_unref);
 }
 
 /**

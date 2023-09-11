@@ -73,18 +73,18 @@ ascli_show_status (void)
 
 	as_pool_load (pool, NULL, &error);
 	if (error == NULL) {
-		g_autoptr(GPtrArray) cpts = NULL;
+		g_autoptr(AsComponentBox) cbox = NULL;
 		g_autofree gchar *tmp = NULL;
 		const gchar *marker;
 
-		cpts = as_pool_get_components (pool);
-		if (cpts->len > 0)
-			marker = ASCLI_CHAR_SUCCESS;
-		else
+		cbox = as_pool_get_components (pool);
+		if (as_component_box_is_empty (cbox))
 			marker = ASCLI_CHAR_FAIL;
+		else
+			marker = ASCLI_CHAR_SUCCESS;
 
 		tmp = g_strdup_printf (_("We have information on %i software components."),
-					  cpts->len);
+					  as_component_box_len (cbox));
 		ascli_print_stdout ("%s %s", marker, tmp);
 	} else {
 		g_autofree gchar *tmp = NULL;
@@ -533,7 +533,7 @@ int
 ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed)
 {
 	g_autoptr(AsPool) pool = NULL;
-	g_autoptr(GPtrArray) result = NULL;
+	g_autoptr(AsComponentBox) result = NULL;
 	g_autoptr(AsSystemInfo) sysinfo = NULL;
 	g_autoptr(GError) error = NULL;
 	gulong total_memory;
@@ -548,14 +548,14 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 
 	ascli_print_highlight ("%s:", _("Operating System Details"));
 	result = as_pool_get_components_by_id (pool, as_system_info_get_os_cid (sysinfo));
-	if (result->len == 0) {
+	if (as_component_box_is_empty (result)) {
 		g_printerr ("• ");
 		ascli_print_stderr (_("Unable to find operating system component '%s'!"),
 				       as_system_info_get_os_cid (sysinfo));
 	}
 
-	for (guint i = 0; i < result->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (result, i));
+	for (guint i = 0; i < as_component_box_len (result); i++) {
+		AsComponent *cpt = as_component_box_index (result, i);
 
 		ascli_print_stdout ("%s: %s", _("ID"), as_component_get_id (cpt));
 		ascli_print_stdout ("%s: %s", _("Name"), as_component_get_name (cpt));
@@ -577,7 +577,7 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 			ascli_print_stdout ("%s:\n%s", _("Description"), tmp2);
 		}
 
-		if (i < result->len - 1)
+		if (i < as_component_box_len (result) - 1)
 			ascli_print_separator ();
 	}
 

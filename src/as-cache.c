@@ -42,6 +42,7 @@
 #include "as-utils-private.h"
 #include "as-context-private.h"
 #include "as-component-private.h"
+#include "as-component-box-private.h"
 #include "as-launchable.h"
 
 typedef struct {
@@ -691,14 +692,14 @@ as_cache_components_to_internal_xb (AsCache *cache,
 static gboolean
 as_cache_register_addons_for_component (AsCache *cache, AsComponent *cpt, GError **error)
 {
-	g_autoptr(GPtrArray) addons = NULL;
+	g_autoptr(AsComponentBox) addons = NULL;
 
 	addons = as_cache_get_components_by_extends (cache, as_component_get_id (cpt), error);
 	if (addons == NULL)
 		return FALSE;
 
-	for (guint i = 0; i < addons->len; i++)
-		as_component_add_addon (cpt, g_ptr_array_index (addons, i));
+	for (guint i = 0; i < as_component_box_len (addons); i++)
+		as_component_add_addon (cpt, as_component_box_index (addons, i));
 
 	return TRUE;
 }
@@ -1477,16 +1478,16 @@ as_query_context_add_component_from_nodes (AsQueryContext *ctx,
 	return TRUE;
 }
 
-static GPtrArray *
+static AsComponentBox *
 as_query_context_retrieve_components (AsQueryContext *ctx)
 {
 	GHashTableIter ht_iter;
 	gpointer ht_value;
-	GPtrArray *results = g_ptr_array_new_with_free_func (g_object_unref);
+	AsComponentBox *results = as_component_box_new (AS_COMPONENT_BOX_FLAG_ALLOW_DUPLICATES);
 
 	g_hash_table_iter_init (&ht_iter, ctx->results_map);
 	while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value))
-		g_ptr_array_add (results, g_object_ref (ht_value));
+		as_component_box_add (results, ht_value, NULL);
 
 	return results;
 }
@@ -1494,7 +1495,7 @@ as_query_context_retrieve_components (AsQueryContext *ctx)
 /**
  * as_cache_query_components_internal:
  */
-static GPtrArray *
+static AsComponentBox *
 as_cache_query_components (AsCache *cache,
 			   const gchar *xpath,
 			   XbQueryContext *context,
@@ -1608,9 +1609,9 @@ as_cache_get_component_count (AsCache *cache)
  *
  * Retrieve all components this cache contains.
  *
- * Returns: (transfer full): An array of #AsComponent
+ * Returns: (transfer full): An #AsComponentBox
  */
-GPtrArray *
+AsComponentBox *
 as_cache_get_components_all (AsCache *cache, GError **error)
 {
 	return as_cache_query_components (cache, "components/component", NULL, 0, FALSE, error);
@@ -1624,12 +1625,12 @@ as_cache_get_components_all (AsCache *cache, GError **error)
  *
  * Retrieve components with the selected ID.
  *
- * Returns: (transfer full): An array of #AsComponent
+ * Returns: (transfer full): An #AsComponentBox
  */
-GPtrArray *
+AsComponentBox *
 as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
 {
-	GPtrArray *results = NULL;
+	AsComponentBox *results = NULL;
 	g_autofree gchar *id_lower = NULL;
 	g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
 
@@ -1646,9 +1647,9 @@ as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
 	if (results == NULL)
 		return results;
 
-	if (results->len == 0) {
+	if (as_component_box_is_empty (results)) {
 		/* we found no exact matches, try components providing this ID */
-		g_ptr_array_unref (results);
+		g_object_unref (results);
 		results = as_cache_query_components (
 		    cache,
 		    "components/component/provides/id[lower-case(text())=?]/../..",
@@ -1669,9 +1670,9 @@ as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
  *
  * Retrieve components extending a component with the selected ID.
  *
- * Returns: (transfer full): An array of #AsComponent
+ * Returns: (transfer full): An #AsComponentBox
  */
-GPtrArray *
+AsComponentBox *
 as_cache_get_components_by_extends (AsCache *cache, const gchar *extends_id, GError **error)
 {
 	g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
@@ -1692,9 +1693,9 @@ as_cache_get_components_by_extends (AsCache *cache, const gchar *extends_id, GEr
  *
  * Retrieve components of a specific kind.
  *
- * Returns: (transfer full): An array of #AsComponent
+ * Returns: (transfer full): An #AsComponentBox
  */
-GPtrArray *
+AsComponentBox *
 as_cache_get_components_by_kind (AsCache *cache, AsComponentKind kind, GError **error)
 {
 	g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
@@ -1719,9 +1720,9 @@ as_cache_get_components_by_kind (AsCache *cache, AsComponentKind kind, GError **
  *
  * Retrieve a list of components that provide a certain item.
  *
- * Returns: (transfer full): An array of #AsComponent
+ * Returns: (transfer full): An #AsComponentBox
  */
-GPtrArray *
+AsComponentBox *
 as_cache_get_components_by_provided_item (AsCache *cache,
 					  AsProvidedKind kind,
 					  const gchar *item,
@@ -1766,9 +1767,9 @@ as_cache_get_components_by_provided_item (AsCache *cache,
  *
  * Get a list of components in the selected categories.
  *
- * Returns: (transfer full): An array of #AsComponent
+ * Returns: (transfer full): An #AsComponentBox
  */
-GPtrArray *
+AsComponentBox *
 as_cache_get_components_by_categories (AsCache *cache, gchar **categories, GError **error)
 {
 	g_autoptr(GString) xpath = NULL;
@@ -1776,7 +1777,7 @@ as_cache_get_components_by_categories (AsCache *cache, gchar **categories, GErro
 	XbValueBindings *vbindings = xb_query_context_get_bindings (&context);
 
 	if (categories == NULL || categories[0] == NULL)
-		return g_ptr_array_new_with_free_func (g_object_unref);
+		return as_component_box_new_simple ();
 
 	xpath = g_string_new ("components/component/categories");
 	for (guint i = 0; categories[i] != NULL; i++) {
@@ -1806,9 +1807,9 @@ as_cache_get_components_by_categories (AsCache *cache, gchar **categories, GErro
  *
  * Get components which provide a certain launchable.
  *
- * Returns: (transfer full): An array of #AsComponent
+ * Returns: (transfer full): An #AsComponentBox
  */
-GPtrArray *
+AsComponentBox *
 as_cache_get_components_by_launchable (AsCache *cache,
 				       AsLaunchableKind kind,
 				       const gchar *id,
@@ -1831,10 +1832,10 @@ as_cache_get_components_by_launchable (AsCache *cache,
  *
  * Get components which are provided by a bundle with the given kind and ID.
  *
- * Returns: (transfer full): An array of #AsComponent
+ * Returns: (transfer full): An #AsComponentBox
  */
 
-GPtrArray *
+AsComponentBox *
 as_cache_get_components_by_bundle_id (AsCache *cache,
 				      AsBundleKind kind,
 				      const gchar *id,
@@ -1921,11 +1922,11 @@ as_cache_search_component_node_terms (GPtrArray *array, XbNode *cpt_node, const 
  *
  * Returns: (transfer container): An array of #AsComponent
  */
-GPtrArray *
+AsComponentBox *
 as_cache_search (AsCache *cache, const gchar *const *terms, gboolean sort, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
-	g_autoptr(GPtrArray) results = NULL;
+	g_autoptr(AsComponentBox) results = NULL;
 	g_autoptr(AsQueryContext) qctx = NULL;
 	g_autoptr(GRWLockReaderLocker) locker = NULL;
 
@@ -1946,7 +1947,7 @@ as_cache_search (AsCache *cache, const gchar *const *terms, gboolean sort, GErro
 	/* clang-format on */
 
 	if (terms == NULL || terms[0] == NULL)
-		return g_ptr_array_new_with_free_func (g_object_unref);
+		return as_component_box_new_simple ();
 
 	/* lock for reading */
 	locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
@@ -2012,7 +2013,7 @@ as_cache_search (AsCache *cache, const gchar *const *terms, gboolean sort, GErro
 
 	/* sort the results by their priority */
 	if (sort)
-		as_sort_components_by_score (results);
+		as_component_box_sort_by_score (results);
 
 	return g_steal_pointer (&results);
 }

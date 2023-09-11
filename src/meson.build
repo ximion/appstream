@@ -88,7 +88,6 @@ aslib_pub_headers = [
 ]
 
 aslib_gir_headers = [
-    'as-pool-gi.h',
     'as-category-gi.h',
 ]
 

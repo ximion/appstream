@@ -37,6 +37,7 @@
 #include <gio/gio.h>
 
 #include "as-enums.h"
+#include "as-utils-private.h"
 
 typedef struct {
 	AsComponentBoxFlags flags;
@@ -164,6 +165,20 @@ as_component_box_new (AsComponentBoxFlags flags)
 }
 
 /**
+ * as_component_box_new_simple:
+ *
+ * Creates a new #AsComponentBox with the simplest parameters,
+ * so it is basically an array storage without overhead..
+ *
+ * Returns: (transfer full): a #AsComponentBox
+ **/
+AsComponentBox *
+as_component_box_new_simple (void)
+{
+	return as_component_box_new (AS_COMPONENT_BOX_FLAG_ALLOW_DUPLICATES);
+}
+
+/**
  * as_component_box_index:
  * @cbox: a #AsComponentBox
  * @index_: the index of the #AsComponent to return
@@ -188,7 +203,7 @@ as_component_box_new (AsComponentBoxFlags flags)
  */
 
 /**
- * as_component_box_as_array:
+ * as_component_box_array:
  * @cbox: An instance of #AsComponentBox.
  *
  * Get the contents of this component box as #GPtrArray.
@@ -196,7 +211,7 @@ as_component_box_new (AsComponentBoxFlags flags)
  * Returns: (transfer none) (element-type AsComponent): an array of #AsComponent instances.
  */
 GPtrArray *
-as_component_box_as_array (AsComponentBox *cbox)
+as_component_box_array (AsComponentBox *cbox)
 {
 	return cbox->cpts;
 }
@@ -214,6 +229,52 @@ as_component_box_get_flags (AsComponentBox *cbox)
 {
 	AsComponentBoxPrivate *priv = GET_PRIVATE (cbox);
 	return priv->flags;
+}
+
+/**
+ * as_component_box_get_size:
+ * @cbox: An instance of #AsComponentBox.
+ *
+ * Get the amount of components in this box.
+ *
+ * Returns: Amount of components.
+ */
+guint
+as_component_box_get_size (AsComponentBox *cbox)
+{
+	return cbox->cpts->len;
+}
+
+/**
+ * as_component_box_is_empty:
+ * @cbox: An instance of #AsComponentBox.
+ *
+ * Check if there are any components present.
+ *
+ * Returns: %TRUE if this component box is empty.
+ */
+gboolean
+as_component_box_is_empty (AsComponentBox *cbox)
+{
+	return cbox->cpts->len == 0;
+}
+
+/**
+ * as_component_box_index_safe:
+ * @cbox: An instance of #AsComponentBox.
+ * @index: The component index.
+ *
+ * Retrieve a component at the expective index from the internal
+ * component array.
+ *
+ * Returns: (transfer none): An #AsComponent or %NULL
+ */
+AsComponent *
+as_component_box_index_safe (AsComponentBox *cbox, guint index)
+{
+	if (index >= cbox->cpts->len)
+		return NULL;
+	return as_component_box_index (cbox, index);
 }
 
 /**
@@ -247,4 +308,42 @@ as_component_box_add (AsComponentBox *cbox, AsComponent *cpt, GError **error)
 
 	g_ptr_array_add (cbox->cpts, g_object_ref (cpt));
 	return TRUE;
+}
+
+/**
+ * as_sort_components_cb:
+ *
+ * Helper method to sort lists of #AsComponent
+ */
+static gint
+as_sort_components_cb (gconstpointer a, gconstpointer b)
+{
+	AsComponent *cpt1 = *((AsComponent **) a);
+	AsComponent *cpt2 = *((AsComponent **) b);
+
+	return g_strcmp0 (as_component_get_id (cpt1), as_component_get_id (cpt2));
+}
+
+/**
+ * as_component_box_sort:
+ * @cbox: An instance of #AsComponentBox.
+ *
+ * Sort components to bring them into a deterministic order.
+ */
+void
+as_component_box_sort (AsComponentBox *cbox)
+{
+	g_ptr_array_sort (cbox->cpts, as_sort_components_cb);
+}
+
+/**
+ * as_component_box_sort_by_score:
+ * @cbox: An instance of #AsComponentBox.
+ *
+ * Sort components by their (search) match score.
+ */
+void
+as_component_box_sort_by_score (AsComponentBox *cbox)
+{
+	as_sort_components_by_score (cbox->cpts);
 }

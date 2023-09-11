@@ -26,7 +26,7 @@
 #define __AS_CACHE_H
 
 #include <glib-object.h>
-#include "as-component.h"
+#include "as-component-box.h"
 
 G_BEGIN_DECLS
 
@@ -89,99 +89,101 @@ typedef enum {
 } AsCacheError;
 
 #define AS_CACHE_ERROR as_cache_error_quark ()
-GQuark	     as_cache_error_quark (void);
+GQuark		as_cache_error_quark (void);
 
-AsCache	    *as_cache_new (void);
+AsCache	       *as_cache_new (void);
 
-const gchar *as_cache_get_locale (AsCache *cache);
-void	     as_cache_set_locale (AsCache *cache, const gchar *locale);
+const gchar    *as_cache_get_locale (AsCache *cache);
+void		as_cache_set_locale (AsCache *cache, const gchar *locale);
 
-void	     as_cache_set_locations (AsCache	 *cache,
-				     const gchar *system_cache_dir,
-				     const gchar *user_cache_dir);
+void		as_cache_set_locations (AsCache	    *cache,
+					const gchar *system_cache_dir,
+					const gchar *user_cache_dir);
 
-gboolean     as_cache_get_prefer_os_metainfo (AsCache *cache);
-void	     as_cache_set_prefer_os_metainfo (AsCache *cache, gboolean prefer_os_metainfo);
+gboolean	as_cache_get_prefer_os_metainfo (AsCache *cache);
+void		as_cache_set_prefer_os_metainfo (AsCache *cache, gboolean prefer_os_metainfo);
 
-void	     as_cache_set_resolve_addons (AsCache *cache, gboolean resolve_addons);
+void		as_cache_set_resolve_addons (AsCache *cache, gboolean resolve_addons);
 
-void	     as_cache_prune_data (AsCache *cache);
+void		as_cache_prune_data (AsCache *cache);
 
-void	     as_cache_clear (AsCache *cache);
+void		as_cache_clear (AsCache *cache);
 
-gboolean     as_cache_set_contents_for_section (AsCache		*cache,
-						AsComponentScope scope,
-						AsFormatStyle	 source_format_style,
-						gboolean	 is_os_data,
-						GPtrArray	*cpts,
-						const gchar	*cache_key,
-						gpointer	 refinefn_user_data,
-						GError	       **error);
-gboolean     as_cache_set_contents_for_path (AsCache	 *cache,
-					     GPtrArray	 *cpts,
-					     const gchar *filename,
-					     gpointer	  refinefn_user_data,
-					     GError	**error);
+gboolean	as_cache_set_contents_for_section (AsCache	   *cache,
+						   AsComponentScope scope,
+						   AsFormatStyle    source_format_style,
+						   gboolean	    is_os_data,
+						   GPtrArray	   *cpts,
+						   const gchar	   *cache_key,
+						   gpointer	    refinefn_user_data,
+						   GError	  **error);
+gboolean	as_cache_set_contents_for_path (AsCache	    *cache,
+						GPtrArray   *cpts,
+						const gchar *filename,
+						gpointer     refinefn_user_data,
+						GError	   **error);
 
-time_t	     as_cache_get_ctime (AsCache	 *cache,
-				 AsComponentScope scope,
-				 const gchar	 *cache_key,
-				 AsCacheScope	 *cache_scope);
+time_t		as_cache_get_ctime (AsCache	    *cache,
+				    AsComponentScope scope,
+				    const gchar	    *cache_key,
+				    AsCacheScope    *cache_scope);
 
-void	     as_cache_load_section_for_key (AsCache	    *cache,
-					    AsComponentScope scope,
-					    AsFormatStyle    source_format_style,
-					    gboolean	     is_os_data,
-					    const gchar	    *cache_key,
-					    gboolean	    *is_outdated,
-					    gpointer	     refinefn_user_data);
-void	     as_cache_load_section_for_path (AsCache	 *cache,
-					     const gchar *filename,
-					     gboolean	 *is_outdated,
-					     gpointer	  refinefn_user_data);
+void		as_cache_load_section_for_key (AsCache	       *cache,
+					       AsComponentScope scope,
+					       AsFormatStyle	source_format_style,
+					       gboolean		is_os_data,
+					       const gchar     *cache_key,
+					       gboolean	       *is_outdated,
+					       gpointer		refinefn_user_data);
+void		as_cache_load_section_for_path (AsCache	    *cache,
+						const gchar *filename,
+						gboolean    *is_outdated,
+						gpointer     refinefn_user_data);
 
-void	     as_cache_mask_by_data_id (AsCache *cache, const gchar *cdid);
-gboolean     as_cache_add_masking_components (AsCache *cache, GPtrArray *cpts, GError **error);
+void		as_cache_mask_by_data_id (AsCache *cache, const gchar *cdid);
+gboolean	as_cache_add_masking_components (AsCache *cache, GPtrArray *cpts, GError **error);
 
-void	     as_cache_set_refine_func (AsCache *cache, AsCacheDataRefineFn func);
+void		as_cache_set_refine_func (AsCache *cache, AsCacheDataRefineFn func);
 
-gboolean     as_cache_is_empty (AsCache *cache);
-guint	     as_cache_get_component_count (AsCache *cache);
+gboolean	as_cache_is_empty (AsCache *cache);
+guint		as_cache_get_component_count (AsCache *cache);
 
-GPtrArray   *as_cache_get_components_all (AsCache *cache, GError **error);
+AsComponentBox *as_cache_get_components_all (AsCache *cache, GError **error);
 
-GPtrArray   *as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error);
+AsComponentBox *as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error);
 
-GPtrArray   *as_cache_get_components_by_extends (AsCache     *cache,
-						 const gchar *extends_id,
-						 GError	    **error);
+AsComponentBox *as_cache_get_components_by_extends (AsCache	*cache,
+						    const gchar *extends_id,
+						    GError     **error);
 
-GPtrArray   *as_cache_get_components_by_kind (AsCache *cache, AsComponentKind kind, GError **error);
+AsComponentBox *as_cache_get_components_by_kind (AsCache	*cache,
+						 AsComponentKind kind,
+						 GError	       **error);
 
-GPtrArray   *as_cache_get_components_by_provided_item (AsCache	     *cache,
-						       AsProvidedKind kind,
-						       const gchar   *item,
-						       GError	    **error);
+AsComponentBox *as_cache_get_components_by_provided_item (AsCache	*cache,
+							  AsProvidedKind kind,
+							  const gchar	*item,
+							  GError       **error);
 
-GPtrArray   *as_cache_get_components_by_categories (AsCache *cache,
-						    gchar  **categories,
-						    GError **error);
+AsComponentBox *as_cache_get_components_by_categories (AsCache *cache,
+						       gchar  **categories,
+						       GError **error);
 
-GPtrArray   *as_cache_get_components_by_launchable (AsCache	    *cache,
-						    AsLaunchableKind kind,
-						    const gchar	    *id,
-						    GError	   **error);
+AsComponentBox *as_cache_get_components_by_launchable (AsCache	       *cache,
+						       AsLaunchableKind kind,
+						       const gchar     *id,
+						       GError	      **error);
 
-GPtrArray   *as_cache_get_components_by_bundle_id (AsCache     *cache,
-						   AsBundleKind kind,
-						   const gchar *id,
-						   gboolean	match_prefix,
-						   GError     **error);
+AsComponentBox *as_cache_get_components_by_bundle_id (AsCache	  *cache,
+						      AsBundleKind kind,
+						      const gchar *id,
+						      gboolean	   match_prefix,
+						      GError	 **error);
 
-GPtrArray   *as_cache_search (AsCache		 *cache,
-			      const gchar *const *terms,
-			      gboolean		  sort,
-			      GError		**error);
+AsComponentBox *as_cache_search (AsCache	    *cache,
+				 const gchar *const *terms,
+				 gboolean	     sort,
+				 GError		   **error);
 
 G_END_DECLS
 

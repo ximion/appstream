@@ -59,7 +59,6 @@
 
 /* Helpers for languages using GIR */
 #include <as-category-gi.h>
-#include <as-pool-gi.h>
 
 #undef __APPSTREAM_H_INSIDE__
 

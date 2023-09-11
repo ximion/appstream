@@ -25,4 +25,6 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
+AsComponentBox *as_component_box_new_simple (void);
+
 AS_END_PRIVATE_DECLS

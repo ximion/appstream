@@ -49,7 +49,7 @@ const gchar *ascli_get_char_success (void);
 const gchar *ascli_get_char_failure (void);
 
 void	     ascli_print_component (AsComponent *cpt, gboolean show_detailed);
-void	     ascli_print_components (GPtrArray *cpts, gboolean show_detailed);
+void	     ascli_print_components (AsComponentBox *cbox, gboolean show_detailed);
 
 AsPool	*ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache, GError **error);
 

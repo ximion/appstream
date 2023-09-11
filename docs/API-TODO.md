@@ -6,13 +6,9 @@ libappstream API break for the AppStream 1.0 release.
 
 ## TODO
 
- * Remove all deprecated API
-
  * Drop all bytes+length uses in public API and use GBytes instead if a function takes byte arrays
 
- * Don't expose raw GPtrArray / GHashTable with automatic free functions in public API
-   that is consumed by language bindings. See https://gitlab.gnome.org/GNOME/gobject-introspection/-/issues/305#note_1010673
-   for details.
+ * Make AsComponentBox available for the Qt bindings
 
  * Drop use of `/etc/appstream.conf`, expose any of its remaining options (if there are any) as C API
    for client tools to use.
@@ -29,3 +25,11 @@ libappstream API break for the AppStream 1.0 release.
    (at the moment this is all somewhat combined together, and usable but not obvious)
 
  * Review AsContext enums
+
+## DONE (kept for reference)
+
+ * Remove all deprecated API
+
+ * Don't expose raw GPtrArray / GHashTable with automatic free functions in public API
+   that is consumed by language bindings. See https://gitlab.gnome.org/GNOME/gobject-introspection/-/issues/305#note_1010673
+   for details.

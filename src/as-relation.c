@@ -1493,7 +1493,7 @@ as_relation_is_satisfied (AsRelation *relation,
 
 	/* Components */
 	if (priv->item_kind == AS_RELATION_ITEM_KIND_ID) {
-		g_autoptr(GPtrArray) cpts = NULL;
+		g_autoptr(AsComponentBox) cbox = NULL;
 		const gchar *cid;
 		if (pool == NULL) {
 			g_set_error_literal (error,
@@ -1513,14 +1513,14 @@ as_relation_is_satisfied (AsRelation *relation,
 					     "invalid, it has no valid value.");
 			return AS_CHECK_RESULT_ERROR;
 		}
-		cpts = as_pool_get_components_by_id (pool, cid);
+		cbox = as_pool_get_components_by_id (pool, cid);
 
-		if (cpts->len > 0) {
+		if (!as_component_box_is_empty (cbox)) {
 			_as_set_satify_message (
 			    message,
 			    g_strdup_printf (
 				_("Software '%s' was found"),
-				   as_component_get_name (g_ptr_array_index (cpts, 0))));
+				   as_component_get_name (as_component_box_index (cbox, 0))));
 			return AS_CHECK_RESULT_TRUE;
 		} else {
 			if (priv->kind == AS_RELATION_KIND_REQUIRES)
