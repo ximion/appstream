@@ -67,7 +67,6 @@ typedef struct {
 	AsComponentScope scope;
 	AsOriginKind origin_kind;
 	AsContext *context; /* the document context associated with this component */
-	GRefString *active_locale_override;
 	gchar *date_eol;
 
 	gchar *id;
@@ -458,7 +457,6 @@ as_component_finalize (GObject *object)
 	as_ref_string_release (priv->metadata_license);
 	as_ref_string_release (priv->project_license);
 	as_ref_string_release (priv->project_group);
-	as_ref_string_release (priv->active_locale_override);
 	as_ref_string_release (priv->arch);
 	as_ref_string_release (priv->origin);
 	as_ref_string_release (priv->branch);
@@ -1460,6 +1458,31 @@ as_component_set_architecture (AsComponent *cpt, const gchar *arch)
 }
 
 /**
+ * as_component_set_context_locale:
+ * @cpt: a #AsComponent instance.
+ * @locale: the new locale.
+ *
+ * Set the active locale on the context assoaiacted with this component,
+ * creating a new context for the component if none exists yet.
+ *
+ * Please not that this will flip the locale of all other components and
+ * entities that use the same context as well!
+ * This function is just a convenience method, and does not replace
+ * proper #AsContext management.
+ */
+void
+as_component_set_context_locale (AsComponent *cpt, const gchar *locale)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	if (priv->context == NULL) {
+		priv->context = as_context_new ();
+		as_context_set_origin (priv->context, priv->origin);
+	}
+	as_context_set_locale (priv->context, locale);
+}
+
+/**
  * as_component_get_active_locale:
  * @cpt: a #AsComponent instance.
  *
@@ -1468,46 +1491,23 @@ as_component_set_architecture (AsComponent *cpt, const gchar *arch)
  *
  * Returns: the current active locale.
  */
-const gchar *
+static const gchar *
 as_component_get_active_locale (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	const GRefString *locale;
 
-	/* return context locale, if the locale isn't explicitly overridden for this component */
-	if ((priv->context != NULL) && (priv->active_locale_override == NULL)) {
-		locale = as_context_get_locale (priv->context);
-	} else {
-		locale = priv->active_locale_override;
+	/* create empty context if none exists yet */
+	if (priv->context == NULL) {
+		priv->context = as_context_new ();
+		as_context_set_origin (priv->context, priv->origin);
 	}
 
+	locale = as_context_get_locale (priv->context);
 	if (locale == NULL)
 		return "C";
 	else
 		return locale;
-}
-
-/**
- * as_component_set_active_locale:
- * @cpt: a #AsComponent instance.
- * @locale: (nullable): a POSIX or BCP47 locale, or %NULL. e.g. "en_GB"
- *
- * Set the current active locale for this component, which
- * is used to get localized messages.
- * If the #AsComponent was fetched from a localized database, usually only
- * one locale is available.
- */
-void
-as_component_set_active_locale (AsComponent *cpt, const gchar *locale)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	if (as_locale_is_bcp47 (locale)) {
-		as_ref_string_assign_safe (&priv->active_locale_override, locale);
-	} else {
-		g_autofree gchar *bcp47 = as_utils_posix_locale_to_bcp47 (locale);
-		as_ref_string_assign_safe (&priv->active_locale_override, bcp47);
-	}
 }
 
 /**
@@ -1524,7 +1524,7 @@ as_component_get_name (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return as_context_localized_ht_get (priv->context,
 					    priv->name,
-					    priv->active_locale_override,
+					    NULL, /* locale override */
 					    priv->value_flags);
 }
 
@@ -1559,7 +1559,7 @@ as_component_get_summary (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return as_context_localized_ht_get (priv->context,
 					    priv->summary,
-					    priv->active_locale_override,
+					    NULL, /* locale override */
 					    priv->value_flags);
 }
 
@@ -1594,7 +1594,7 @@ as_component_get_description (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return as_context_localized_ht_get (priv->context,
 					    priv->description,
-					    priv->active_locale_override,
+					    NULL, /* locale override */
 					    priv->value_flags);
 }
 
@@ -1988,7 +1988,7 @@ as_component_get_developer_name (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return as_context_localized_ht_get (priv->context,
 					    priv->developer_name,
-					    priv->active_locale_override,
+					    NULL, /* locale override */
 					    priv->value_flags);
 }
 
@@ -2129,7 +2129,7 @@ as_component_get_name_variant_suffix (AsComponent *cpt)
 		return NULL;
 	return as_context_localized_ht_get (priv->context,
 					    priv->name_variant_suffix,
-					    priv->active_locale_override,
+					    NULL, /* locale override */
 					    priv->value_flags);
 }
 
@@ -2944,8 +2944,8 @@ as_component_complete (AsComponent *cpt, gchar *scr_service_url, GPtrArray *icon
 
 		sshot = as_screenshot_new ();
 
-		/* propagate locale */
-		as_screenshot_set_active_locale (sshot, as_component_get_active_locale (cpt));
+		/* propagate context */
+		as_screenshot_set_context (sshot, priv->context);
 
 		as_screenshot_add_image (sshot, img);
 		as_screenshot_set_kind (sshot, AS_SCREENSHOT_KIND_DEFAULT);
@@ -3971,10 +3971,15 @@ as_component_set_context (AsComponent *cpt, AsContext *context)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	if (priv->context != NULL)
 		g_object_unref (priv->context);
+
+	if (context == NULL) {
+		priv->context = NULL;
+		return;
+	}
+
 	priv->context = g_object_ref (context);
 
 	/* reset individual properties, so the new context overrides them */
-	as_ref_string_assign_safe (&priv->active_locale_override, NULL);
 	as_ref_string_assign_safe (&priv->origin, NULL);
 
 	g_free (g_steal_pointer (&priv->arch));

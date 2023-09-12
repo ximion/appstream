@@ -27,6 +27,7 @@
 
 #include <glib-object.h>
 #include "as-enums.h"
+#include "as-context.h"
 #include "as-artifact.h"
 #include "as-issue.h"
 
@@ -88,11 +89,11 @@ AsReleaseUrlKind as_release_url_kind_from_string (const gchar *kind_str);
 
 AsRelease	*as_release_new (void);
 
+AsContext	*as_release_get_context (AsRelease *release);
+void		 as_release_set_context (AsRelease *release, AsContext *context);
+
 AsReleaseKind	 as_release_get_kind (AsRelease *release);
 void		 as_release_set_kind (AsRelease *release, AsReleaseKind kind);
-
-const gchar	*as_release_get_active_locale (AsRelease *release);
-void		 as_release_set_active_locale (AsRelease *release, const gchar *locale);
 
 const gchar	*as_release_get_version (AsRelease *release);
 void		 as_release_set_version (AsRelease *release, const gchar *version);

@@ -74,8 +74,6 @@ public:
 
     QString description() const;
 
-    QString activeLocale() const;
-
     UrgencyKind urgency() const;
 
 private:

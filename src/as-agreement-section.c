@@ -41,7 +41,6 @@ typedef struct {
 	GHashTable *description;
 
 	AsContext *context;
-	GRefString *active_locale_override;
 } AsAgreementSectionPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsAgreementSection, as_agreement_section, G_TYPE_OBJECT)
@@ -58,7 +57,6 @@ as_agreement_section_finalize (GObject *object)
 	g_hash_table_unref (priv->name);
 	g_hash_table_unref (priv->description);
 
-	as_ref_string_release (priv->active_locale_override);
 	if (priv->context != NULL)
 		g_object_unref (priv->context);
 
@@ -138,7 +136,7 @@ as_agreement_section_get_name (AsAgreementSection *agreement_section)
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
 	return as_context_localized_ht_get (priv->context,
 					    priv->name,
-					    priv->active_locale_override,
+					    NULL, /* locale override */
 					    AS_VALUE_FLAG_NONE);
 }
 
@@ -177,7 +175,7 @@ as_agreement_section_get_description (AsAgreementSection *agreement_section)
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
 	return as_context_localized_ht_get (priv->context,
 					    priv->description,
-					    priv->active_locale_override,
+					    NULL, /* locale override */
 					    AS_VALUE_FLAG_NONE);
 }
 
@@ -204,8 +202,10 @@ as_agreement_section_set_description (AsAgreementSection *agreement_section,
  * as_agreement_section_get_context:
  * @agreement_section: An instance of #AsAgreementSection.
  *
- * Returns: the #AsContext associated with this release.
+ * Returns the #AsContext associated with this section.
  * This function may return %NULL if no context is set.
+ *
+ * Returns: (transfer none) (nullable): the #AsContext used by this agreement section.
  *
  * Since: 0.12.1
  */
@@ -232,54 +232,7 @@ as_agreement_section_set_context (AsAgreementSection *agreement_section, AsConte
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
 	if (priv->context != NULL)
 		g_object_unref (priv->context);
-	priv->context = g_object_ref (context);
-	as_ref_string_assign_safe (&priv->active_locale_override, NULL);
-}
-
-/**
- * as_agreement_section_get_active_locale:
- *
- * Get the current active locale, which
- * is used to get localized messages.
- */
-const gchar *
-as_agreement_section_get_active_locale (AsAgreementSection *agreement_section)
-{
-	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
-	const gchar *locale;
-
-	/* return context locale, if the locale isn't explicitly overridden for this component */
-	if ((priv->context != NULL) && (priv->active_locale_override == NULL)) {
-		locale = as_context_get_locale (priv->context);
-	} else {
-		locale = priv->active_locale_override;
-	}
-
-	if (locale == NULL)
-		return "C";
-	else
-		return locale;
-}
-
-/**
- * as_agreement_section_set_active_locale:
- * @agreement_section: an #AsAgreement
- * @locale: (nullable): a POSIX or BCP47 locale, or %NULL. e.g. "de_DE"
- *
- * Set the current active locale, which
- * is used to get localized messages.
- */
-void
-as_agreement_section_set_active_locale (AsAgreementSection *agreement_section, const gchar *locale)
-{
-	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
-
-	if (as_locale_is_bcp47 (locale)) {
-		as_ref_string_assign_safe (&priv->active_locale_override, locale);
-	} else {
-		g_autofree gchar *bcp47 = as_utils_posix_locale_to_bcp47 (locale);
-		as_ref_string_assign_safe (&priv->active_locale_override, bcp47);
-	}
+	priv->context = context == NULL ? NULL : g_object_ref (context);
 }
 
 /**

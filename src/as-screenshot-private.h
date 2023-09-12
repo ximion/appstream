@@ -21,20 +21,20 @@
 #ifndef __AS_SCREENSHOT_PRIVATE_H
 #define __AS_SCREENSHOT_PRIVATE_H
 
+#include "as-macros-private.h"
 #include "as-screenshot.h"
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
-AsContext	      *as_screenshot_get_context (AsScreenshot *screenshot);
-void		       as_screenshot_set_context (AsScreenshot *screenshot, AsContext *context);
+AS_INTERNAL_VISIBLE
+void	 as_screenshot_set_context_locale (AsScreenshot *screenshot, const gchar *locale);
 
-gboolean	       as_screenshot_load_from_xml (AsScreenshot *screenshot,
-						    AsContext	 *ctx,
-						    xmlNode	 *node,
-						    GError	**error);
+gboolean as_screenshot_load_from_xml (AsScreenshot *screenshot,
+				      AsContext	   *ctx,
+				      xmlNode	   *node,
+				      GError	  **error);
 void	 as_screenshot_to_xml_node (AsScreenshot *screenshot, AsContext *ctx, xmlNode *root);
 
 gboolean as_screenshot_load_from_yaml (AsScreenshot *screenshot,
@@ -43,7 +43,6 @@ gboolean as_screenshot_load_from_yaml (AsScreenshot *screenshot,
 				       GError	   **error);
 void as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, yaml_emitter_t *emitter);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_SCREENSHOT_PRIVATE_H */

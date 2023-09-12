@@ -22,6 +22,7 @@
 #include <glib/gprintf.h>
 
 #include "appstream.h"
+#include "as-screenshot-private.h"
 #include "as-metadata.h"
 #include "as-test-utils.h"
 
@@ -1374,12 +1375,14 @@ test_yaml_read_agreements (void)
 	sect = as_agreement_get_section_default (agreement);
 	g_assert_nonnull (sect);
 
-	as_agreement_section_set_active_locale (sect, "C");
+	as_component_set_context_locale (cpt, "C");
+	as_agreement_section_set_context (sect, as_component_get_context (cpt));
 	g_assert_cmpstr (as_agreement_section_get_kind (sect), ==, "intro");
 	g_assert_cmpstr (as_agreement_section_get_name (sect), ==, "Intro");
 	g_assert_cmpstr (as_agreement_section_get_description (sect), ==, "<p>Mighty Fine</p>");
 
-	as_agreement_section_set_active_locale (sect, "xde_DE");
+	as_component_set_context_locale (cpt, "xde_DE");
+	as_agreement_section_set_context (sect, as_component_get_context (cpt));
 	g_assert_cmpstr (as_agreement_section_get_name (sect), ==, "Einführung");
 }
 
@@ -1510,11 +1513,11 @@ test_yaml_read_screenshots (void)
 	/* screenshot 1 */
 	g_assert_cmpint (as_screenshot_get_kind (scr1), ==, AS_SCREENSHOT_KIND_DEFAULT);
 	g_assert_cmpint (as_screenshot_get_media_kind (scr1), ==, AS_SCREENSHOT_MEDIA_KIND_IMAGE);
-	as_screenshot_set_active_locale (scr1, "C");
+	as_screenshot_set_context_locale (scr1, "C");
 	g_assert_cmpstr (as_screenshot_get_caption (scr1),
 			 ==,
 			 "The main window displaying a thing");
-	as_screenshot_set_active_locale (scr1, "de_DE");
+	as_screenshot_set_context_locale (scr1, "de_DE");
 	g_assert_cmpstr (as_screenshot_get_caption (scr1),
 			 ==,
 			 "Das Hauptfenster, welches irgendwas zeigt");
@@ -1535,21 +1538,21 @@ test_yaml_read_screenshots (void)
 	g_assert_cmpint (as_image_get_height (img), ==, 600);
 
 	/* screenshot 2 */
-	as_screenshot_set_active_locale (scr2, "C");
+	as_screenshot_set_context_locale (scr2, "C");
 	g_assert_cmpint (as_screenshot_get_kind (scr2), ==, AS_SCREENSHOT_KIND_EXTRA);
 	g_assert_cmpint (as_screenshot_get_media_kind (scr2), ==, AS_SCREENSHOT_MEDIA_KIND_VIDEO);
 	g_assert_cmpstr (as_screenshot_get_caption (scr2), ==, "A screencast of this app");
-	as_screenshot_set_active_locale (scr2, "C");
+	as_screenshot_set_context_locale (scr2, "C");
 	g_assert_cmpint (as_screenshot_get_images (scr2)->len, ==, 0);
 	videos = as_screenshot_get_videos (scr2);
 	g_assert_cmpint (videos->len, ==, 1);
-	as_screenshot_set_active_locale (scr2, "de_DE");
+	as_screenshot_set_context_locale (scr2, "de_DE");
 	videos = as_screenshot_get_videos (scr2);
 	g_assert_cmpint (videos->len, ==, 1);
 	vid = AS_VIDEO (g_ptr_array_index (videos, 0));
 	g_assert_cmpstr (as_video_get_url (vid), ==, "https://example.org/screencast_de.mkv");
 
-	as_screenshot_set_active_locale (scr2, "ALL");
+	as_screenshot_set_context_locale (scr2, "ALL");
 	videos = as_screenshot_get_videos (scr2);
 	g_assert_cmpint (videos->len, ==, 2);
 

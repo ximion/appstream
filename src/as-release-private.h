@@ -21,17 +21,14 @@
 #ifndef __AS_RELEASE_PRIVATE_H
 #define __AS_RELEASE_PRIVATE_H
 
+#include "as-macros-private.h"
 #include "as-release.h"
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
-AsContext	      *as_release_get_context (AsRelease *release);
-void		       as_release_set_context (AsRelease *release, AsContext *context);
-
-gboolean	       as_release_description_translatable (AsRelease *release);
+gboolean as_release_description_translatable (AsRelease *release);
 void	 as_release_set_description_translatable (AsRelease *release, gboolean translatable);
 
 gboolean as_release_load_from_xml (AsRelease *release,
@@ -46,7 +43,6 @@ gboolean as_release_load_from_yaml (AsRelease *release,
 				    GError   **error);
 void	 as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitter);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_RELEASE_PRIVATE_H */

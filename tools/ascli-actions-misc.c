@@ -173,7 +173,7 @@ ascli_make_desktop_entry_file (const gchar *mi_fname, const gchar *de_fname, con
 			       G_KEY_FILE_DESKTOP_KEY_TYPE,
 			       G_KEY_FILE_DESKTOP_TYPE_APPLICATION);
 
-	as_component_set_active_locale (cpt, "C");
+	as_component_set_context_locale (cpt, "C");
 
 	/* Name */
 	g_key_file_set_string (de_file,
@@ -485,7 +485,7 @@ ascli_metainfo_to_news (const gchar *mi_fname, const gchar *news_fname, const gc
 		return 1;
 	}
 	cpt = as_metadata_get_component (metad);
-	as_component_set_active_locale (cpt, "C");
+	as_component_set_context_locale (cpt, "C");
 
 	format_kind = as_news_format_kind_from_string (format_str);
 	if (g_strcmp0 (news_fname, "-") == 0) {

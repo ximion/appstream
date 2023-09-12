@@ -554,7 +554,7 @@ test_compose_desktop_entry (void)
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "TestX");
 	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Summary of TestX");
 
-	as_component_set_active_locale (cpt, "C.UTF-8");
+	as_component_set_context_locale (cpt, "C.UTF-8");
 	tmp = as_ptr_array_strjoin (as_component_get_keywords (cpt), ", ");
 	g_assert_cmpstr (tmp, ==, "Hobbes, Bentham, Locke");
 	g_free (tmp);
@@ -587,18 +587,18 @@ test_compose_desktop_entry (void)
 					    NULL);
 	g_assert_nonnull (cpt);
 
-	as_component_set_active_locale (cpt, "C.UTF-8");
+	as_component_set_context_locale (cpt, "C.UTF-8");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "GNOME Breakout");
 	g_assert_cmpstr (as_component_get_summary (cpt),
 			 ==,
 			 "Play a clone of the classic arcade game Breakout for GNOME");
-	as_component_set_active_locale (cpt, "de");
+	as_component_set_context_locale (cpt, "de");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "GNOME Breakout");
 	g_assert_cmpstr (
 	    as_component_get_summary (cpt),
 	    ==,
 	    "Play a clone of the classic arcade game Breakout for GNOME"); /* not loaded, contains bad UTF-8 */
-	as_component_set_active_locale (cpt, "tr");
+	as_component_set_context_locale (cpt, "tr");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Gnome Breakout");
 	g_assert_cmpstr (as_component_get_summary (cpt),
 			 ==,

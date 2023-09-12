@@ -53,7 +53,6 @@ typedef struct {
 	gchar *date_eol;
 
 	AsContext *context;
-	GRefString *active_locale_override;
 	gboolean desc_translatable;
 
 	GPtrArray *issues;
@@ -179,7 +178,6 @@ as_release_finalize (GObject *object)
 	g_free (priv->date);
 	g_free (priv->date_eol);
 	g_free (priv->url_details);
-	as_ref_string_release (priv->active_locale_override);
 	g_hash_table_unref (priv->description);
 	g_ptr_array_unref (priv->issues);
 	g_ptr_array_unref (priv->artifacts);
@@ -509,7 +507,7 @@ as_release_get_description (AsRelease *release)
 	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
 	return as_context_localized_ht_get (priv->context,
 					    priv->description,
-					    priv->active_locale_override,
+					    NULL, /* locale override */
 					    AS_VALUE_FLAG_NONE);
 }
 
@@ -528,63 +526,6 @@ as_release_set_description (AsRelease *release, const gchar *description, const 
 	g_return_if_fail (AS_IS_RELEASE (release));
 	g_return_if_fail (description != NULL);
 	as_context_localized_ht_set (priv->context, priv->description, description, locale);
-}
-
-/**
- * as_release_get_active_locale:
- * @release: a #AsRelease instance.
- *
- * Get the current active locale, which
- * is used to get localized messages.
- *
- * Returns: the current active locale
- */
-const gchar *
-as_release_get_active_locale (AsRelease *release)
-{
-	AsReleasePrivate *priv = GET_PRIVATE (release);
-	const gchar *locale;
-
-	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
-
-	/* return context locale, if the locale isn't explicitly overridden for this component */
-	if ((priv->context != NULL) && (priv->active_locale_override == NULL)) {
-		locale = as_context_get_locale (priv->context);
-	} else {
-		locale = priv->active_locale_override;
-	}
-
-	if (locale == NULL)
-		return "C";
-	else
-		return locale;
-}
-
-/**
- * as_release_set_active_locale:
- * @release: a #AsRelease instance.
- * @locale: (nullable): a POSIX or BCP47 locale, or %NULL. e.g. "de_DE"
- *
- * Set the current active locale, which
- * is used to get localized messages.
- * If the #AsComponent linking this #AsRelease was fetched
- * from a localized database, usually only
- * one locale is available.
- */
-void
-as_release_set_active_locale (AsRelease *release, const gchar *locale)
-{
-	AsReleasePrivate *priv = GET_PRIVATE (release);
-
-	g_return_if_fail (AS_IS_RELEASE (release));
-	g_return_if_fail (locale != NULL);
-
-	if (as_locale_is_bcp47 (locale)) {
-		as_ref_string_assign_safe (&priv->active_locale_override, locale);
-	} else {
-		g_autofree gchar *bcp47 = as_utils_posix_locale_to_bcp47 (locale);
-		as_ref_string_assign_safe (&priv->active_locale_override, bcp47);
-	}
 }
 
 /**
@@ -710,7 +651,7 @@ as_release_set_url (AsRelease *release, AsReleaseUrlKind url_kind, const gchar *
  * as_release_get_context:
  * @release: An instance of #AsRelease.
  *
- * Returns: (nullable): the #AsContext associated with this release.
+ * Returns: (transfer none) (nullable): the #AsContext associated with this release.
  * This function may return %NULL if no context is set.
  *
  * Since: 0.11.2
@@ -741,9 +682,6 @@ as_release_set_context (AsRelease *release, AsContext *context)
 	g_return_if_fail (AS_IS_RELEASE (release));
 
 	g_set_object (&priv->context, context);
-
-	/* reset individual properties, so the new context overrides them */
-	as_ref_string_assign_safe (&priv->active_locale_override, NULL);
 }
 
 /**

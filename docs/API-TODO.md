@@ -13,9 +13,6 @@ libappstream API break for the AppStream 1.0 release.
  * Drop use of `/etc/appstream.conf`, expose any of its remaining options (if there are any) as C API
    for client tools to use.
 
- * Possibly drop the as_component_get_active_locale / component-specific locale overrides, and only expose on AsContext
-   instead that is always present to reduce the API complexity.
-
  * Sort out the various markup-to-text conversion functions, make some of them public API and maybe rewrite some
    (there are likely some performance improvements to be found there)
 
@@ -33,3 +30,6 @@ libappstream API break for the AppStream 1.0 release.
  * Don't expose raw GPtrArray / GHashTable with automatic free functions in public API
    that is consumed by language bindings. See https://gitlab.gnome.org/GNOME/gobject-introspection/-/issues/305#note_1010673
    for details.
+
+ * Possibly drop the as_component_get_active_locale / component-specific locale overrides, and only expose on AsContext
+   instead that is always present to reduce the API complexity.

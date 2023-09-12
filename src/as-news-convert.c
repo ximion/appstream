@@ -386,11 +386,22 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 	for (guint i = 0; i < releases->len; i++) {
 		AsRelease *rel = AS_RELEASE (g_ptr_array_index (releases, i));
 		AsReleaseKind rkind = as_release_get_kind (rel);
-		const gchar *rel_active_locale = as_release_get_active_locale (rel);
+		g_autoptr(AsContext) rel_context = NULL;
+		const gchar *rel_active_locale = NULL;
 		const gchar *desc_markup;
 
+		rel_context = as_release_get_context (rel);
+		if (rel_context == NULL) {
+			rel_context = as_context_new ();
+			as_release_set_context (rel, rel_context);
+		} else {
+			rel_context = g_object_ref (rel_context);
+		}
+
+		rel_active_locale = as_context_get_locale (rel_context);
+
 		/* we only write the untranslated strings */
-		as_release_set_active_locale (rel, "C");
+		as_context_set_locale (rel_context, "C");
 		desc_markup = as_release_get_description (rel);
 
 		/* new document for this release */
@@ -475,7 +486,7 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 			}
 		}
 
-		as_release_set_active_locale (rel, rel_active_locale);
+		as_context_set_locale (rel_context, rel_active_locale);
 
 		/* main dict end */
 		as_yaml_mapping_end (&emitter);

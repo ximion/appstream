@@ -247,7 +247,7 @@ as_context_set_origin (AsContext *ctx, const gchar *value)
  * as_context_get_locale:
  * @ctx: a #AsContext instance.
  *
- * Returns: The active locale.
+ * Returns: The active locale in BCP47 format.
  **/
 const gchar *
 as_context_get_locale (AsContext *ctx)
@@ -259,22 +259,24 @@ as_context_get_locale (AsContext *ctx)
 /**
  * as_context_set_locale:
  * @ctx: a #AsContext instance.
- * @value: the new value.
+ * @locale: (nullable): a POSIX or BCP47 locale, or %NULL. e.g. "en_GB"
  *
  * Sets the active locale.
+ * If the magic value "ALL" is used, the current system locale will be used
+ * for data reading, but when writing data all locale will be written.
  **/
 void
-as_context_set_locale (AsContext *ctx, const gchar *value)
+as_context_set_locale (AsContext *ctx, const gchar *locale)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 
 	g_atomic_int_set (&priv->all_locale, FALSE);
-	if (g_strcmp0 (value, "ALL") == 0) {
+	if (g_strcmp0 (locale, "ALL") == 0) {
 		g_autofree gchar *tmp = as_get_current_locale_bcp47 ();
 		g_atomic_int_set (&priv->all_locale, TRUE);
 		as_ref_string_assign_safe (&priv->locale, tmp);
 	} else {
-		g_autofree gchar *bcp47 = as_utils_posix_locale_to_bcp47 (value);
+		g_autofree gchar *bcp47 = as_utils_posix_locale_to_bcp47 (locale);
 		as_ref_string_assign_safe (&priv->locale, bcp47);
 	}
 }
@@ -438,7 +440,7 @@ as_context_localized_ht_get (AsContext *ctx,
 	const gchar *msg;
 
 	/* retrieve context locale, if the locale isn't explicitly overridden */
-	if ((ctx != NULL) && (locale_override == NULL)) {
+	if (ctx != NULL && locale_override == NULL) {
 		AsContextPrivate *priv = GET_PRIVATE (ctx);
 		locale = priv->locale;
 	} else {

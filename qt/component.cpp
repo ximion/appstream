@@ -123,16 +123,6 @@ void AppStream::Component::setValueFlags(uint flags)
     as_component_set_value_flags(m_cpt, (AsValueFlags) flags);
 }
 
-QString AppStream::Component::activeLocale() const
-{
-    return valueWrap(as_component_get_active_locale(m_cpt));
-}
-
-void AppStream::Component::setActiveLocale(const QString &locale)
-{
-    as_component_set_active_locale(m_cpt, qPrintable(locale));
-}
-
 Component::Kind Component::kind() const
 {
     return static_cast<Component::Kind>(as_component_get_kind(m_cpt));

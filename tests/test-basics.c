@@ -373,7 +373,7 @@ test_translation_fallback (void)
 	flags = as_component_get_value_flags (cpt);
 
 	/* there is no de translation */
-	as_component_set_active_locale (cpt, "de");
+	as_component_set_context_locale (cpt, "de");
 	g_assert_nonnull (as_component_get_description (cpt));
 
 	/* if the flag is set, we don't fall back to C */
@@ -632,14 +632,14 @@ test_read_desktop_entry_simple (void)
 
 	cpt = as_metadata_get_component (metad);
 	g_assert_nonnull (cpt);
-	as_component_set_active_locale (cpt, "C.UTF-8");
+	as_component_set_context_locale (cpt, "C.UTF-8");
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "foobar.desktop");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "FooBar");
 	tmp = as_ptr_array_strjoin (as_component_get_keywords (cpt), ", ");
 	g_assert_cmpstr (tmp, ==, "Hobbes, Bentham, Locke");
 	g_free (tmp);
 
-	as_component_set_active_locale (cpt, "de_DE");
+	as_component_set_context_locale (cpt, "de_DE");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "FööBär");
 	tmp = as_ptr_array_strjoin (as_component_get_keywords (cpt), ", ");
 	g_assert_cmpstr (tmp, ==, "Heidegger, Kant, Hegel");
@@ -664,7 +664,7 @@ test_read_desktop_entry_simple (void)
 	cpt = as_metadata_get_component (metad);
 	g_assert_nonnull (cpt);
 
-	as_component_set_active_locale (cpt, "C.UTF-8");
+	as_component_set_context_locale (cpt, "C.UTF-8");
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.foobar");
 
 	launch = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
@@ -710,10 +710,10 @@ test_desktop_entry_convert (void)
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.gnome.Nautilus");
 	g_assert_cmpint (as_component_get_kind (cpt), ==, AS_COMPONENT_KIND_DESKTOP_APP);
 
-	as_component_set_active_locale (cpt, "C");
+	as_component_set_context_locale (cpt, "C");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Files");
 
-	as_component_set_active_locale (cpt, "lt");
+	as_component_set_context_locale (cpt, "lt");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Failai");
 
 	/* clear */
@@ -730,7 +730,7 @@ test_desktop_entry_convert (void)
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.kde.ksysguard");
 	g_assert_cmpint (as_component_get_kind (cpt), ==, AS_COMPONENT_KIND_DESKTOP_APP);
 
-	as_component_set_active_locale (cpt, "C");
+	as_component_set_context_locale (cpt, "C");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "KSysGuard");
 
 	/* validate everything */

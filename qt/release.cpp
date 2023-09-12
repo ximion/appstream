@@ -109,11 +109,6 @@ QString Release::description() const
     return QString::fromUtf8(as_release_get_description(d->m_release));
 }
 
-QString Release::activeLocale() const
-{
-    return QString::fromUtf8(as_release_get_active_locale(d->m_release));
-}
-
 Release::UrgencyKind Release::urgency() const
 {
     return Release::UrgencyKind(as_release_get_urgency(d->m_release));

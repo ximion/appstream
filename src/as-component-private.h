@@ -74,8 +74,6 @@ void	     as_component_set_origin_kind (AsComponent *cpt, AsOriginKind okind);
 gboolean     as_component_merge (AsComponent *cpt, AsComponent *source);
 void as_component_merge_with_mode (AsComponent *cpt, AsComponent *source, AsMergeKind merge_kind);
 
-void as_component_set_context (AsComponent *cpt, AsContext *context);
-
 gboolean as_component_load_from_xml (AsComponent *cpt,
 				     AsContext	 *ctx,
 				     xmlNode	 *node,

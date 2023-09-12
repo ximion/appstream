@@ -22,8 +22,9 @@
 #include <glib/gprintf.h>
 
 #include "appstream.h"
-#include "as-xml.h"
 #include "as-component-private.h"
+#include "as-screenshot-private.h"
+#include "as-xml.h"
 #include "as-test-utils.h"
 
 static gchar *datadir = NULL;
@@ -181,10 +182,10 @@ test_appstream_parser_locale (void)
 
 	g_assert_true (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP);
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Feuerfuchs");
-	as_component_set_active_locale (cpt, "C");
+	as_component_set_context_locale (cpt, "C");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Firefox");
 	/* no french, so fallback */
-	as_component_set_active_locale (cpt, "fr_FR");
+	as_component_set_context_locale (cpt, "fr_FR");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Firefox");
 
 	/* check all locale */
@@ -194,12 +195,12 @@ test_appstream_parser_locale (void)
 	cpt = as_metadata_get_component (metad);
 	g_assert_no_error (error);
 
-	as_component_set_active_locale (cpt, "C");
+	as_component_set_context_locale (cpt, "C");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Firefox");
-	as_component_set_active_locale (cpt, "de_DE");
+	as_component_set_context_locale (cpt, "de_DE");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Feuerfuchs");
 	/* no french, so fallback */
-	as_component_set_active_locale (cpt, "fr_FR");
+	as_component_set_context_locale (cpt, "fr_FR");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Renard de feu");
 
 	/* check if reading <translation/> tag succeeded */
@@ -541,9 +542,9 @@ test_appstream_description_l10n_cleanup (void)
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Test");
 	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Just a unittest.");
 
-	as_component_set_active_locale (cpt, "C");
+	as_component_set_context_locale (cpt, "C");
 	g_assert_cmpstr (as_component_get_description (cpt), ==, ENGLISH_DESC_TEXT);
-	as_component_set_active_locale (cpt, "de");
+	as_component_set_context_locale (cpt, "de");
 	g_assert_cmpstr (as_component_get_description (cpt),
 			 ==,
 			 "<p>Erster Absatz</p>\n"
@@ -553,7 +554,7 @@ test_appstream_description_l10n_cleanup (void)
 			 "  <li>Landkarte erkunden, indem Sie in der Karte auf ein Land klicken "
 			 "und dessen Name, Hauptstadt und Flagge angezeigt wird</li>\n"
 			 "</ul>\n");
-	as_component_set_active_locale (cpt, "ca");
+	as_component_set_context_locale (cpt, "ca");
 	g_assert_cmpstr (as_component_get_description (cpt),
 			 ==,
 			 "<p>Característiques:</p>\n"
@@ -565,9 +566,9 @@ test_appstream_description_l10n_cleanup (void)
 			 "</ul>\n");
 
 	/* not enough translation for these, we should have fallen back to English */
-	as_component_set_active_locale (cpt, "cs");
+	as_component_set_context_locale (cpt, "cs");
 	g_assert_cmpstr (as_component_get_description (cpt), ==, ENGLISH_DESC_TEXT);
-	as_component_set_active_locale (cpt, "nn");
+	as_component_set_context_locale (cpt, "nn");
 	g_assert_cmpstr (as_component_get_description (cpt), ==, ENGLISH_DESC_TEXT);
 }
 
@@ -1304,11 +1305,11 @@ test_xml_read_screenshots (void)
 	/* screenshot 1 */
 	g_assert_cmpint (as_screenshot_get_kind (scr1), ==, AS_SCREENSHOT_KIND_DEFAULT);
 	g_assert_cmpint (as_screenshot_get_media_kind (scr1), ==, AS_SCREENSHOT_MEDIA_KIND_IMAGE);
-	as_screenshot_set_active_locale (scr1, "C");
+	as_screenshot_set_context_locale (scr1, "C");
 	g_assert_cmpstr (as_screenshot_get_caption (scr1),
 			 ==,
 			 "The main window displaying a thing");
-	as_screenshot_set_active_locale (scr1, "de_DE");
+	as_screenshot_set_context_locale (scr1, "de_DE");
 	g_assert_cmpstr (as_screenshot_get_caption (scr1),
 			 ==,
 			 "Das Hauptfenster, welches irgendwas zeigt");
@@ -1339,10 +1340,10 @@ test_xml_read_screenshots (void)
 	/* screenshot 2 */
 	g_assert_cmpint (as_screenshot_get_kind (scr2), ==, AS_SCREENSHOT_KIND_EXTRA);
 	g_assert_cmpint (as_screenshot_get_media_kind (scr2), ==, AS_SCREENSHOT_MEDIA_KIND_IMAGE);
-	as_screenshot_set_active_locale (scr2, "C");
+	as_screenshot_set_context_locale (scr2, "C");
 	images = as_screenshot_get_images (scr2);
 	g_assert_cmpint (images->len, ==, 2);
-	as_screenshot_set_active_locale (scr2, "de_DE");
+	as_screenshot_set_context_locale (scr2, "de_DE");
 	images = as_screenshot_get_images (scr2);
 	g_assert_cmpint (images->len, ==, 1);
 	img = AS_IMAGE (g_ptr_array_index (images, 0));
@@ -1366,17 +1367,17 @@ test_xml_read_screenshots (void)
 	/* screenshot 3 */
 	g_assert_cmpint (as_screenshot_get_kind (scr3), ==, AS_SCREENSHOT_KIND_EXTRA);
 	g_assert_cmpint (as_screenshot_get_media_kind (scr3), ==, AS_SCREENSHOT_MEDIA_KIND_VIDEO);
-	as_screenshot_set_active_locale (scr3, "C");
+	as_screenshot_set_context_locale (scr3, "C");
 	g_assert_cmpint (as_screenshot_get_images (scr3)->len, ==, 0);
 	videos = as_screenshot_get_videos (scr3);
 	g_assert_cmpint (videos->len, ==, 1);
-	as_screenshot_set_active_locale (scr3, "de_DE");
+	as_screenshot_set_context_locale (scr3, "de_DE");
 	videos = as_screenshot_get_videos (scr3);
 	g_assert_cmpint (videos->len, ==, 1);
 	vid = AS_VIDEO (g_ptr_array_index (videos, 0));
 	g_assert_cmpstr (as_video_get_url (vid), ==, "https://example.org/screencast_de.mkv");
 
-	as_screenshot_set_active_locale (scr3, "ALL");
+	as_screenshot_set_context_locale (scr3, "ALL");
 	videos = as_screenshot_get_videos (scr3);
 	g_assert_cmpint (videos->len, ==, 2);
 
@@ -1787,12 +1788,14 @@ test_xml_read_agreements (void)
 	sect = as_agreement_get_section_default (agreement);
 	g_assert_nonnull (sect);
 
-	as_agreement_section_set_active_locale (sect, "C");
+	as_component_set_context_locale (cpt, "C");
+	as_agreement_section_set_context (sect, as_component_get_context (cpt));
 	g_assert_cmpstr (as_agreement_section_get_kind (sect), ==, "intro");
 	g_assert_cmpstr (as_agreement_section_get_name (sect), ==, "Intro");
 	g_assert_cmpstr (as_agreement_section_get_description (sect), ==, "<p>Mighty Fine</p>");
 
-	as_agreement_section_set_active_locale (sect, "de_DE");
+	as_component_set_context_locale (cpt, "de_DE");
+	as_agreement_section_set_context (sect, as_component_get_context (cpt));
 	g_assert_cmpstr (as_agreement_section_get_name (sect), ==, "Einführung");
 }
 
@@ -1886,12 +1889,13 @@ test_xml_read_releases (void)
 	g_assert_cmpint (as_release_get_kind (rel), ==, AS_RELEASE_KIND_STABLE);
 	g_assert_cmpstr (as_release_get_version (rel), ==, "1.2");
 
-	as_release_set_active_locale (rel, "de");
+	as_component_set_context_locale (cpt, "de");
+	as_release_set_context (rel, as_component_get_context (cpt));
 	g_assert_cmpstr (as_release_get_description (rel),
 			 ==,
 			 "<p>Eine Beschreibung der Veröffentlichung.</p>\n");
 
-	as_release_set_active_locale (rel, "C");
+	as_component_set_context_locale (cpt, "C");
 	g_assert_cmpstr (as_release_get_description (rel), ==, "<p>A release description.</p>\n");
 
 	g_assert_cmpstr (as_release_get_url (rel, AS_RELEASE_URL_KIND_DETAILS),

@@ -220,8 +220,9 @@ AsComponent	*as_component_new (void);
 AsValueFlags	 as_component_get_value_flags (AsComponent *cpt);
 void		 as_component_set_value_flags (AsComponent *cpt, AsValueFlags flags);
 
-const gchar	*as_component_get_active_locale (AsComponent *cpt);
-void		 as_component_set_active_locale (AsComponent *cpt, const gchar *locale);
+AsContext	*as_component_get_context (AsComponent *cpt);
+void		 as_component_set_context (AsComponent *cpt, AsContext *context);
+void		 as_component_set_context_locale (AsComponent *cpt, const gchar *locale);
 
 const gchar	*as_component_get_id (AsComponent *cpt);
 void		 as_component_set_id (AsComponent *cpt, const gchar *value);
@@ -401,8 +402,6 @@ void	     as_component_set_sort_score (AsComponent *cpt, guint score);
 
 GPtrArray   *as_component_get_reviews (AsComponent *cpt);
 void	     as_component_add_review (AsComponent *cpt, AsReview *review);
-
-AsContext   *as_component_get_context (AsComponent *cpt);
 
 GHashTable  *as_component_get_name_table (AsComponent *cpt);
 GHashTable  *as_component_get_summary_table (AsComponent *cpt);

@@ -78,7 +78,7 @@ const gchar    *as_context_get_origin (AsContext *ctx);
 void		as_context_set_origin (AsContext *ctx, const gchar *value);
 
 const gchar    *as_context_get_locale (AsContext *ctx);
-void		as_context_set_locale (AsContext *ctx, const gchar *value);
+void		as_context_set_locale (AsContext *ctx, const gchar *locale);
 
 gboolean	as_context_has_media_baseurl (AsContext *ctx);
 const gchar    *as_context_get_media_baseurl (AsContext *ctx);

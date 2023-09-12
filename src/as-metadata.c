@@ -662,8 +662,8 @@ as_metadata_parse_desktop_data (AsMetadata *metad,
 		return ret;
 	}
 
-	/* ensure the right active locale is set */
-	as_component_set_active_locale (cpt, priv->locale);
+	/* ensure the right locale is set on the component's context */
+	as_component_set_context_locale (cpt, priv->locale);
 
 	/* add component to our list */
 	g_ptr_array_add (priv->cpts, g_steal_pointer (&cpt));

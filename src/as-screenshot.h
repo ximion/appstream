@@ -28,6 +28,7 @@
 
 #include <glib-object.h>
 
+#include "as-context.h"
 #include "as-image.h"
 #include "as-video.h"
 
@@ -88,6 +89,9 @@ AsScreenshot	     *as_screenshot_new (void);
 AsScreenshotKind      as_screenshot_get_kind (AsScreenshot *screenshot);
 void		      as_screenshot_set_kind (AsScreenshot *screenshot, AsScreenshotKind kind);
 
+AsContext	     *as_screenshot_get_context (AsScreenshot *screenshot);
+void		      as_screenshot_set_context (AsScreenshot *screenshot, AsContext *context);
+
 AsScreenshotMediaKind as_screenshot_get_media_kind (AsScreenshot *screenshot);
 
 const gchar	     *as_screenshot_get_caption (AsScreenshot *screenshot);
@@ -104,9 +108,6 @@ void		      as_screenshot_clear_images (AsScreenshot *screenshot);
 GPtrArray	     *as_screenshot_get_videos_all (AsScreenshot *screenshot);
 GPtrArray	     *as_screenshot_get_videos (AsScreenshot *screenshot);
 void		      as_screenshot_add_video (AsScreenshot *screenshot, AsVideo *video);
-
-const gchar	     *as_screenshot_get_active_locale (AsScreenshot *screenshot);
-void as_screenshot_set_active_locale (AsScreenshot *screenshot, const gchar *locale);
 
 G_END_DECLS
 

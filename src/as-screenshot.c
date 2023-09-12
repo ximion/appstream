@@ -49,7 +49,6 @@ typedef struct {
 	GPtrArray *videos_lang;
 
 	AsContext *context;
-	GRefString *active_locale_override;
 } AsScreenshotPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsScreenshot, as_screenshot, G_TYPE_OBJECT)
@@ -84,7 +83,6 @@ as_screenshot_finalize (GObject *object)
 	AsScreenshot *screenshot = AS_SCREENSHOT (object);
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 
-	as_ref_string_release (priv->active_locale_override);
 	g_ptr_array_unref (priv->images);
 	g_ptr_array_unref (priv->images_lang);
 	g_ptr_array_unref (priv->videos);
@@ -186,6 +184,31 @@ as_screenshot_get_media_kind (AsScreenshot *screenshot)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 	return priv->media_kind;
+}
+
+/**
+ * as_screenshot_get_active_locale:
+ *
+ * Get the current active locale, which
+ * is used to get localized messages.
+ */
+static const gchar *
+as_screenshot_get_active_locale (AsScreenshot *screenshot)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	const gchar *locale;
+
+	/* ensure we have a context */
+	if (priv->context == NULL) {
+		g_autoptr(AsContext) context = as_context_new ();
+		as_screenshot_set_context (screenshot, context);
+	}
+
+	locale = as_context_get_locale (priv->context);
+	if (locale == NULL)
+		return "C";
+	else
+		return locale;
 }
 
 /**
@@ -349,7 +372,7 @@ as_screenshot_get_caption (AsScreenshot *screenshot)
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 	return as_context_localized_ht_get (priv->context,
 					    priv->caption,
-					    priv->active_locale_override,
+					    NULL, /* locale override */
 					    AS_VALUE_FLAG_NONE);
 }
 
@@ -392,14 +415,18 @@ static void
 as_screenshot_rebuild_suitable_media_list (AsScreenshot *screenshot)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	gboolean all_locale = FALSE;
+	const gchar *active_locale = as_screenshot_get_active_locale (screenshot);
+
+	all_locale = as_context_get_locale_all_enabled (priv->context);
 
 	/* rebuild our list of images suitable for the current locale */
 	g_ptr_array_unref (priv->images_lang);
 	priv->images_lang = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
 	for (guint i = 0; i < priv->images->len; i++) {
 		AsImage *img = AS_IMAGE (g_ptr_array_index (priv->images, i));
-		if (!as_utils_locale_is_compatible (as_image_get_locale (img),
-						    as_screenshot_get_active_locale (screenshot)))
+		if (!all_locale &&
+		    !as_utils_locale_is_compatible (as_image_get_locale (img), active_locale))
 			continue;
 		g_ptr_array_add (priv->images_lang, g_object_ref (img));
 	}
@@ -409,61 +436,34 @@ as_screenshot_rebuild_suitable_media_list (AsScreenshot *screenshot)
 	priv->videos_lang = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
 	for (guint i = 0; i < priv->videos->len; i++) {
 		AsVideo *vid = AS_VIDEO (g_ptr_array_index (priv->videos, i));
-		if (!as_utils_locale_is_compatible (as_video_get_locale (vid),
-						    as_screenshot_get_active_locale (screenshot)))
+		if (!all_locale &&
+		    !as_utils_locale_is_compatible (as_video_get_locale (vid), active_locale))
 			continue;
 		g_ptr_array_add (priv->videos_lang, g_object_ref (vid));
 	}
 }
 
 /**
- * as_screenshot_get_active_locale:
+ * as_screenshot_set_context_locale:
+ * @cpt: a #AsComponent instance.
+ * @locale: the new locale.
  *
- * Get the current active locale, which
- * is used to get localized messages.
- */
-const gchar *
-as_screenshot_get_active_locale (AsScreenshot *screenshot)
-{
-	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
-	const gchar *locale;
-
-	/* return context locale, if the locale isn't explicitly overridden for this component */
-	if (priv->context != NULL && priv->active_locale_override == NULL)
-		locale = as_context_get_locale (priv->context);
-	else
-		locale = priv->active_locale_override;
-
-	if (locale == NULL)
-		return "C";
-	else
-		return locale;
-}
-
-/**
- * as_screenshot_set_active_locale:
- * @screenshot: a #AsScreenshot instance.
- * @locale: (nullable): a POSIX or BCP47 locale, or %NULL. e.g. "de_DE"
+ * Set the active locale on the context assoaiacted with this screenshot,
+ * creating a new context for the screenshot if none exists yet.
  *
- * Set the current active locale, which
- * is used to get localized messages.
- * If the #AsComponent linking this #AsScreenshot was fetched
- * from a localized database, usually only
- * one locale is available.
+ * Please not that this will flip the locale of all other components and
+ * entities that use the same context as well!
  */
 void
-as_screenshot_set_active_locale (AsScreenshot *screenshot, const gchar *locale)
+as_screenshot_set_context_locale (AsScreenshot *screenshot, const gchar *locale)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 
-	if (as_locale_is_bcp47 (locale)) {
-		as_ref_string_assign_safe (&priv->active_locale_override, locale);
-	} else {
-		g_autofree gchar *bcp47 = as_utils_posix_locale_to_bcp47 (locale);
-		as_ref_string_assign_safe (&priv->active_locale_override, bcp47);
+	if (priv->context == NULL) {
+		g_autoptr(AsContext) context = as_context_new ();
+		as_screenshot_set_context (screenshot, context);
 	}
-
-	/* rebuild our list of images suitable for the current locale */
+	as_context_set_locale (priv->context, locale);
 	as_screenshot_rebuild_suitable_media_list (screenshot);
 }
 
@@ -489,8 +489,10 @@ as_screenshot_get_images_all (AsScreenshot *screenshot)
  * as_screenshot_get_context:
  * @screenshot: an #AsScreenshot instance.
  *
- * Returns: the #AsContext associated with this screenshot.
+ * Returns the #AsContext associated with this screenshot.
  * This function may return %NULL if no context is set.
+ *
+ * Returns: (transfer none) (nullable): the #AsContext used by this screenshot.
  *
  * Since: 0.11.2
  */
@@ -517,10 +519,11 @@ as_screenshot_set_context (AsScreenshot *screenshot, AsContext *context)
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 	if (priv->context != NULL)
 		g_object_unref (priv->context);
-	priv->context = g_object_ref (context);
 
-	/* reset individual properties, so the new context overrides them */
-	as_ref_string_assign_safe (&priv->active_locale_override, NULL);
+	if (context == NULL)
+		priv->context = NULL;
+	else
+		priv->context = g_object_ref (context);
 
 	as_screenshot_rebuild_suitable_media_list (screenshot);
 }

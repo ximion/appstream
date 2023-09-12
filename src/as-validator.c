@@ -2713,7 +2713,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	/* validate the resulting AsComponent for sanity */
 	cpt = as_component_new ();
 	as_component_load_from_xml (cpt, ctx, root, NULL);
-	as_component_set_active_locale (cpt, "C");
+	as_component_set_context_locale (cpt, "C");
 	as_validator_set_current_cpt (validator, cpt);
 	is_merge_cpt = as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE;
 

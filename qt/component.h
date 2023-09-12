@@ -124,9 +124,6 @@ public:
     uint valueFlags() const;
     void setValueFlags(uint flags);
 
-    QString activeLocale() const;
-    void setActiveLocale(const QString &locale);
-
     Kind kind() const;
     void setKind(Component::Kind kind);
 

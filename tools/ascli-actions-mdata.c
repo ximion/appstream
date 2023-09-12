@@ -515,7 +515,7 @@ ascli_create_metainfo_template (const gchar *out_fname,
 
 		cpt = g_object_ref (as_metadata_get_component (metad));
 	}
-	as_component_set_active_locale (cpt, "C");
+	as_component_set_context_locale (cpt, "C");
 
 	as_component_set_kind (cpt, cpt_kind);
 	if (cpt_kind == AS_COMPONENT_KIND_FONT) {
