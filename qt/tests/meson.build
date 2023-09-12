@@ -1,7 +1,7 @@
 # Meson definition for AppStream Qt Tests
 
 qt_test_dep = dependency(
-    'qt6',
+    f'qt@qt_major_version@',
     modules: ['Core', 'Test'],
     include_type: 'system'
 )

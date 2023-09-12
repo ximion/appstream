@@ -1,15 +1,29 @@
 # Meson definition for AppStream Qt
 
+if get_option('qt') and get_option('qt5')
+    error('Both the "qt" and "qt5" option enabled. Please select only one Qt major version to build!')
+endif
+
 asqt_api_level = '3'
+
+if get_option('qt5')
+    qt_major_version = '5'
+    qt_min_version = '5.15'
+    asqt_library_name = 'AppStreamQt5'
+else
+    qt_major_version = '6'
+    qt_min_version = '6.2.4'
+    asqt_library_name = 'AppStreamQt'
+endif
 
 add_languages('cpp', native: true)
 add_languages('cpp', native: false)
 
-qt = import('qt6')
+qt = import(f'qt@qt_major_version@')
 qt_dep = dependency(
-    'qt6',
+    f'qt@qt_major_version@',
     modules: ['Core'],
-    version: '>= 6.2.4',
+    version: f'>= @qt_min_version@',
     include_type: 'system'
 )
 
@@ -71,7 +85,7 @@ if get_option('maintainer')
     asqt_cpp_args += ['-Wno-inline']
 endif
 
-appstreamqt_lib = library ('AppStreamQt',
+appstreamqt_lib = library(f'@asqt_library_name@',
     [asqt_src,
      asqt_pub_headers,
      asqt_priv_headers,
@@ -88,11 +102,11 @@ appstreamqt_lib = library ('AppStreamQt',
 configure_file(
     input: 'version.h.in',
     output: 'version.h',
-    install_dir: join_paths(get_option('includedir'), 'AppStreamQt'),
+    install_dir: join_paths(get_option('includedir'), f'@asqt_library_name@'),
     configuration: conf
 )
 
-install_headers(asqt_pub_headers, subdir: 'AppStreamQt')
+install_headers(asqt_pub_headers, subdir: f'@asqt_library_name@')
 
 subdir('tests/')
 
@@ -105,17 +119,17 @@ cmake_data.set('LIBDIR_FULL', join_paths(get_option('prefix'), get_option('libdi
 cmake_data.set('PREFIX', get_option('prefix'))
 cmake_data.set('VERSION', as_version)
 
-configure_file (input: 'cmake/AppStreamQtConfig.cmake.in',
-                output: 'AppStreamQtConfig.cmake',
+configure_file (input: f'cmake/@asqt_library_name@Config.cmake.in',
+                output: f'@asqt_library_name@Config.cmake',
                 configuration: cmake_data
 )
-configure_file (input: 'cmake/AppStreamQtConfigVersion.cmake.in',
-                output: 'AppStreamQtConfigVersion.cmake',
+configure_file (input: f'cmake/@asqt_library_name@ConfigVersion.cmake.in',
+                output: f'@asqt_library_name@ConfigVersion.cmake',
                 configuration: cmake_data
 )
 
 install_data (
-    join_paths(meson.current_build_dir(), 'AppStreamQtConfig.cmake'),
-    join_paths(meson.current_build_dir(), 'AppStreamQtConfigVersion.cmake'),
-    install_dir: join_paths(get_option('libdir'), 'cmake', 'AppStreamQt')
+    join_paths(meson.current_build_dir(), f'@asqt_library_name@Config.cmake'),
+    join_paths(meson.current_build_dir(), f'@asqt_library_name@ConfigVersion.cmake'),
+    install_dir: join_paths(get_option('libdir'), 'cmake', asqt_library_name)
 )

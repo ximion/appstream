@@ -16,7 +16,12 @@ option('vapi',
 option('qt',
        type : 'boolean',
        value : false,
-       description : 'Build libappstream-qt'
+       description : 'Build libappstream-qt for Qt6'
+)
+option('qt5',
+       type : 'boolean',
+       value : false,
+       description: 'Build libappstream-qt5 for Qt5'
 )
 option('compose',
        type : 'boolean',
