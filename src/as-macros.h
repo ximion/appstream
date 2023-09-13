@@ -18,27 +18,28 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __AS_MACROS_PRIVATE_H
-#define __AS_MACROS_PRIVATE_H
+#ifndef __AS_MACROS_H
+#define __AS_MACROS_H
 
 #include <glib-object.h>
 
-#include "as-macros.h"
-
 G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
 
-#define AS_BEGIN_PRIVATE_DECLS \
-	G_BEGIN_DECLS          \
-	_Pragma ("GCC visibility push(hidden)")
+/* convenience functions as it's easy to forget the bitwise operators */
+#define as_flags_add(bitfield, enum)    \
+	do {                            \
+		((bitfield) |= (enum)); \
+	} while (0)
+#define as_flags_remove(bitfield, enum)  \
+	do {                             \
+		((bitfield) &= ~(enum)); \
+	} while (0)
+#define as_flags_invert(bitfield, enum) \
+	do {                            \
+		((bitfield) ^= enum);   \
+	} while (0)
+#define as_flags_contains(bitfield, enum) (((bitfield) & enum) > 0)
 
-#define AS_END_PRIVATE_DECLS _Pragma ("GCC visibility pop") G_END_DECLS
-
-#define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
-
-#define AS_CONFIG_NAME "/etc/appstream.conf"
-
-#pragma GCC visibility pop
 G_END_DECLS
 
-#endif /* __AS_MACROS_PRIVATE_H */
+#endif /* __AS_MACROS_H */

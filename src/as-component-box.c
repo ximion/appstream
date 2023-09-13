@@ -36,7 +36,7 @@
 
 #include <gio/gio.h>
 
-#include "as-enums.h"
+#include "as-macros.h"
 #include "as-utils-private.h"
 
 typedef struct {

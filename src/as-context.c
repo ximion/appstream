@@ -68,7 +68,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsContext, as_context, G_TYPE_OBJECT)
  *
  * Returns: string version of @version
  *
- * Since: 0.10
+ * Since: 0.10.0
  **/
 const gchar *
 as_format_version_to_string (AsFormatVersion version)
@@ -87,7 +87,7 @@ as_format_version_to_string (AsFormatVersion version)
  * Returns: a #AsFormatVersion. For unknown, the highest version
  * number is assumed.
  *
- * Since: 0.10
+ * Since: 0.10.0
  **/
 AsFormatVersion
 as_format_version_from_string (const gchar *version_str)
@@ -95,6 +95,46 @@ as_format_version_from_string (const gchar *version_str)
 	if (g_strcmp0 (version_str, "1.0") == 0)
 		return AS_FORMAT_VERSION_V1_0;
 	return AS_FORMAT_VERSION_UNKNOWN;
+}
+
+/**
+ * as_format_kind_to_string:
+ * @kind: the #AsFormatKind.
+ *
+ * Converts the enumerated value to an text representation.
+ *
+ * Returns: string version of @kind
+ *
+ * Since: 0.10.0
+ **/
+const gchar *
+as_format_kind_to_string (AsFormatKind kind)
+{
+	if (kind == AS_FORMAT_KIND_XML)
+		return "xml";
+	if (kind == AS_FORMAT_KIND_YAML)
+		return "yaml";
+	return "unknown";
+}
+
+/**
+ * as_format_kind_from_string:
+ * @kind_str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsFormatKind or %AS_FORMAT_KIND_UNKNOWN for unknown
+ *
+ * Since: 0.10.0
+ **/
+AsFormatKind
+as_format_kind_from_string (const gchar *kind_str)
+{
+	if (g_strcmp0 (kind_str, "xml") == 0)
+		return AS_FORMAT_KIND_XML;
+	if (g_strcmp0 (kind_str, "yaml") == 0)
+		return AS_FORMAT_KIND_YAML;
+	return AS_FORMAT_KIND_UNKNOWN;
 }
 
 static void

@@ -24,7 +24,7 @@
 #include <config.h>
 #include <glib.h>
 
-#include "as-enums.h"
+#include "as-macros.h"
 
 /**
  * SECTION:as-vercmp

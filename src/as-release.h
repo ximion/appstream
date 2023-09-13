@@ -26,7 +26,6 @@
 #define __AS_RELEASE_H
 
 #include <glib-object.h>
-#include "as-enums.h"
 #include "as-context.h"
 #include "as-artifact.h"
 #include "as-issue.h"
@@ -67,6 +66,29 @@ typedef enum {
 
 const gchar  *as_release_kind_to_string (AsReleaseKind kind);
 AsReleaseKind as_release_kind_from_string (const gchar *kind_str);
+
+/**
+ * AsUrgencyKind:
+ * @AS_URGENCY_KIND_UNKNOWN:	Urgency is unknown or not set
+ * @AS_URGENCY_KIND_LOW:	Low urgency
+ * @AS_URGENCY_KIND_MEDIUM:	Medium urgency
+ * @AS_URGENCY_KIND_HIGH:	High urgency
+ * @AS_URGENCY_KIND_CRITICAL:	Critical urgency
+ *
+ * The urgency of an #AsRelease
+ **/
+typedef enum {
+	AS_URGENCY_KIND_UNKNOWN,
+	AS_URGENCY_KIND_LOW,
+	AS_URGENCY_KIND_MEDIUM,
+	AS_URGENCY_KIND_HIGH,
+	AS_URGENCY_KIND_CRITICAL,
+	/*< private >*/
+	AS_URGENCY_KIND_LAST
+} AsUrgencyKind;
+
+const gchar  *as_urgency_kind_to_string (AsUrgencyKind urgency_kind);
+AsUrgencyKind as_urgency_kind_from_string (const gchar *urgency_kind);
 
 /**
  * AsReleaseUrlKind:

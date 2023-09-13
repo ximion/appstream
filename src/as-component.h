@@ -27,7 +27,6 @@
 
 #include <glib-object.h>
 #include "as-context.h"
-#include "as-enums.h"
 #include "as-enum-types.h"
 #include "as-provided.h"
 #include "as-icon.h"
@@ -149,6 +148,39 @@ typedef enum {
 
 const gchar	*as_component_scope_to_string (AsComponentScope scope);
 AsComponentScope as_component_scope_from_string (const gchar *scope_str);
+
+/**
+ * AsUrlKind:
+ * @AS_URL_KIND_UNKNOWN:	Type invalid or not known
+ * @AS_URL_KIND_HOMEPAGE:	Project homepage
+ * @AS_URL_KIND_BUGTRACKER:	Bugtracker
+ * @AS_URL_KIND_FAQ:		FAQ page
+ * @AS_URL_KIND_HELP:		Help manual
+ * @AS_URL_KIND_DONATION:	Page with information about how to donate to the project
+ * @AS_URL_KIND_TRANSLATE:	Page with instructions on how to translate the project / submit translations.
+ * @AS_URL_KIND_CONTACT:	Contact the developers
+ * @AS_URL_KIND_VCS_BROWSER:	Browse the source code
+ * @AS_URL_KIND_CONTRIBUTE:	Help developing
+ *
+ * The URL type.
+ **/
+typedef enum {
+	AS_URL_KIND_UNKNOWN,
+	AS_URL_KIND_HOMEPAGE,
+	AS_URL_KIND_BUGTRACKER,
+	AS_URL_KIND_FAQ,
+	AS_URL_KIND_HELP,
+	AS_URL_KIND_DONATION,
+	AS_URL_KIND_TRANSLATE,
+	AS_URL_KIND_CONTACT,
+	AS_URL_KIND_VCS_BROWSER,
+	AS_URL_KIND_CONTRIBUTE,
+	/*< private >*/
+	AS_URL_KIND_LAST
+} AsUrlKind;
+
+const gchar *as_url_kind_to_string (AsUrlKind url_kind);
+AsUrlKind    as_url_kind_from_string (const gchar *url_kind);
 
 /**
  * AsValueFlags:

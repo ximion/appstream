@@ -24,9 +24,9 @@
 #define __APPSTREAM_H_INSIDE__
 
 #include <as-version.h>
+#include <as-macros.h>
 #include <as-context.h>
 #include <as-component.h>
-#include <as-enums.h>
 #include <as-enum-types.h>
 #include <as-provided.h>
 #include <as-metadata.h>

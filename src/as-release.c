@@ -107,6 +107,54 @@ as_release_kind_from_string (const gchar *kind_str)
 }
 
 /**
+ * as_urgency_kind_to_string:
+ * @urgency_kind: the %AsUrgencyKind.
+ *
+ * Converts the enumerated value to an text representation.
+ *
+ * Returns: string version of @urgency_kind
+ *
+ * Since: 0.6.5
+ **/
+const gchar *
+as_urgency_kind_to_string (AsUrgencyKind urgency_kind)
+{
+	if (urgency_kind == AS_URGENCY_KIND_LOW)
+		return "low";
+	if (urgency_kind == AS_URGENCY_KIND_MEDIUM)
+		return "medium";
+	if (urgency_kind == AS_URGENCY_KIND_HIGH)
+		return "high";
+	if (urgency_kind == AS_URGENCY_KIND_CRITICAL)
+		return "critical";
+	return "unknown";
+}
+
+/**
+ * as_urgency_kind_from_string:
+ * @urgency_kind: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a %AsUrgencyKind or %AS_URGENCY_KIND_UNKNOWN for unknown
+ *
+ * Since: 0.6.5
+ **/
+AsUrgencyKind
+as_urgency_kind_from_string (const gchar *urgency_kind)
+{
+	if (g_strcmp0 (urgency_kind, "low") == 0)
+		return AS_URGENCY_KIND_LOW;
+	if (g_strcmp0 (urgency_kind, "medium") == 0)
+		return AS_URGENCY_KIND_MEDIUM;
+	if (g_strcmp0 (urgency_kind, "high") == 0)
+		return AS_URGENCY_KIND_HIGH;
+	if (g_strcmp0 (urgency_kind, "critical") == 0)
+		return AS_URGENCY_KIND_CRITICAL;
+	return AS_URGENCY_KIND_UNKNOWN;
+}
+
+/**
  * as_release_url_kind_to_string:
  * @kind: the #AsReleaseUrlKind.
  *

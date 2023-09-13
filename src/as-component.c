@@ -332,6 +332,70 @@ as_component_scope_from_string (const gchar *scope_str)
 }
 
 /**
+ * as_url_kind_to_string:
+ * @url_kind: the %AsUrlKind.
+ *
+ * Converts the enumerated value to an text representation.
+ *
+ * Returns: string version of @url_kind
+ **/
+const gchar *
+as_url_kind_to_string (AsUrlKind url_kind)
+{
+	if (url_kind == AS_URL_KIND_HOMEPAGE)
+		return "homepage";
+	if (url_kind == AS_URL_KIND_BUGTRACKER)
+		return "bugtracker";
+	if (url_kind == AS_URL_KIND_FAQ)
+		return "faq";
+	if (url_kind == AS_URL_KIND_HELP)
+		return "help";
+	if (url_kind == AS_URL_KIND_DONATION)
+		return "donation";
+	if (url_kind == AS_URL_KIND_TRANSLATE)
+		return "translate";
+	if (url_kind == AS_URL_KIND_CONTACT)
+		return "contact";
+	if (url_kind == AS_URL_KIND_VCS_BROWSER)
+		return "vcs-browser";
+	if (url_kind == AS_URL_KIND_CONTRIBUTE)
+		return "contribute";
+	return "unknown";
+}
+
+/**
+ * as_url_kind_from_string:
+ * @url_kind: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsUrlKind or %AS_URL_KIND_UNKNOWN for unknown
+ **/
+AsUrlKind
+as_url_kind_from_string (const gchar *url_kind)
+{
+	if (g_strcmp0 (url_kind, "homepage") == 0)
+		return AS_URL_KIND_HOMEPAGE;
+	if (g_strcmp0 (url_kind, "bugtracker") == 0)
+		return AS_URL_KIND_BUGTRACKER;
+	if (g_strcmp0 (url_kind, "faq") == 0)
+		return AS_URL_KIND_FAQ;
+	if (g_strcmp0 (url_kind, "help") == 0)
+		return AS_URL_KIND_HELP;
+	if (g_strcmp0 (url_kind, "donation") == 0)
+		return AS_URL_KIND_DONATION;
+	if (g_strcmp0 (url_kind, "translate") == 0)
+		return AS_URL_KIND_TRANSLATE;
+	if (g_strcmp0 (url_kind, "contact") == 0)
+		return AS_URL_KIND_CONTACT;
+	if (g_strcmp0 (url_kind, "vcs-browser") == 0)
+		return AS_URL_KIND_VCS_BROWSER;
+	if (g_strcmp0 (url_kind, "contribute") == 0)
+		return AS_URL_KIND_CONTRIBUTE;
+	return AS_URL_KIND_UNKNOWN;
+}
+
+/**
  * as_releases_kind_to_string:
  * @kind: the #AsReleaseKind.
  *
