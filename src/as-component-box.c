@@ -20,10 +20,10 @@
 
 /**
  * SECTION:as-component-box
- * @short_description: A collection of #AsComponent object that is managed together.
+ * @short_description: A collection of components that are managed together.
  * @include: appstream.h
  *
- * This class is a container for components which usually share the same #AsContext
+ * This class is a container for #AsComponent objects which usually share the same #AsContext
  * and are manipulated together.
  * It also provides binding-safe accessor functions to manipulate an array of
  * components.

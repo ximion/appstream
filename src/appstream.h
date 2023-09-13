@@ -44,10 +44,13 @@
 #include <as-translation.h>
 #include <as-suggested.h>
 #include <as-content-rating.h>
+#include <as-agreement.h>
+#include <as-agreement-section.h>
 #include <as-launchable.h>
 #include <as-relation.h>
 #include <as-issue.h>
 #include <as-review.h>
+#include <as-component-box.h>
 
 #include <as-validator.h>
 #include <as-validator-issue.h>

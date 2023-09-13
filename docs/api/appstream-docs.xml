@@ -17,7 +17,6 @@
     <title>AppStream API Reference</title>
 
     <xi:include href="xml/as-component.xml"/>
-    <xi:include href="xml/as-enums.xml"/>
     <xi:include href="xml/as-icon.xml"/>
     <xi:include href="xml/as-provided.xml"/>
     <xi:include href="xml/as-bundle.xml"/>
@@ -42,6 +41,7 @@
 
     <xi:include href="xml/as-review.xml"/>
 
+    <xi:include href="xml/as-component-box.xml"/>
     <xi:include href="xml/as-context.xml"/>
     <xi:include href="xml/as-metadata.xml"/>
     <xi:include href="xml/as-pool.xml"/>
@@ -50,9 +50,11 @@
     <xi:include href="xml/as-validator.xml"/>
     <xi:include href="xml/as-validator-issue.xml"/>
 
-    <xi:include href="xml/as-spdx.xml"/>
     <xi:include href="xml/as-system-info.xml"/>
+    <xi:include href="xml/as-spdx.xml"/>
     <xi:include href="xml/as-utils.xml"/>
+    <xi:include href="xml/as-vercmp.xml"/>
+    <xi:include href="xml/as-macros.xml"/>
   </chapter>
 
   <!--

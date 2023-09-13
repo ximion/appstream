@@ -25,6 +25,12 @@
 
 G_BEGIN_DECLS
 
+/**
+ * SECTION:as-macros
+ * @short_description: Generic helper macros.
+ * @include: appstream.h
+ */
+
 /* convenience functions as it's easy to forget the bitwise operators */
 #define as_flags_add(bitfield, enum)    \
 	do {                            \

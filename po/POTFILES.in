@@ -5,18 +5,24 @@ data/org.freedesktop.appstream.cli.metainfo.xml
 # library sources
 src/as-agreement.c
 src/as-agreement-section.c
+src/as-artifact.c
+src/as-branding.c
 src/as-bundle.c
 src/as-cache.c
 src/as-category.c
 src/as-checksum.c
+src/as-component-box.c
 src/as-component.c
 src/as-content-rating.c
+src/as-context.c
 src/as-curl.c
 src/as-desktop-entry.c
 src/as-distro-extras.c
-src/as-enums.c
+src/as-file-monitor.c
+src/as-icon.c
 src/as-image.c
 src/as-issue.c
+src/as-launchable.c
 src/as-metadata.c
 src/as-news-convert.c
 src/as-pool.c
@@ -26,6 +32,8 @@ src/as-relation.c
 src/as-release.c
 src/as-review.c
 src/as-screenshot.c
+src/as-spdx.c
+src/as-stemmer.c
 src/as-suggested.c
 src/as-system-info.c
 src/as-tag.c
@@ -40,10 +48,10 @@ src/as-video.c
 src/as-xml.c
 src/as-yaml.c
 # tool sources
-tools/appstream-compose.c
 tools/appstreamcli.c
-tools/ascli-utils.c
+tools/appstream-compose.c
 tools/ascli-actions-mdata.c
+tools/ascli-actions-misc.c
 tools/ascli-actions-pkgmgr.c
 tools/ascli-actions-validate.c
-tools/ascli-actions-misc.c
+tools/ascli-utils.c
