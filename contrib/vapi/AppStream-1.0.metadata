@@ -5,13 +5,3 @@ AppStream name="AppStream"
 // vapigen doesn't seem to know rename-to in GIR annotations,
 // so we need to do the renaming manually...
 get_default_categories_gi name="get_default_categories"
-Pool
-  .get_components_gi name="get_components"
-  .get_components_by_id_gi name="get_components_by_id"
-  .get_components_by_provided_item_gi name="get_components_by_provided_item"
-  .get_components_by_kind_gi name="get_components_by_kind"
-  .get_components_by_categories_gi name="get_components_by_categories"
-  .get_components_by_launchable_gi name="get_components_by_launchable"
-  .get_components_by_extends_gi name="get_components_by_extends"
-  .get_components_by_bundle_id_gi name="get_components_by_bundle_id"
-  .search_gi name="search"
