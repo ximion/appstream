@@ -1,0 +1,3 @@
+[Test]
+Type=session
+Exec=sh -c "/usr/bin/appstreamcli validate --no-net /usr/share/metainfo/*.xml"

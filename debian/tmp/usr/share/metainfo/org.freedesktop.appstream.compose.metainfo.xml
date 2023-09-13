@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2020-2022 Matthias Klumpp -->
+<component type="addon">
+  <id>org.freedesktop.appstream.compose</id>
+  <extends>org.freedesktop.appstream.cli</extends>
+
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>LGPL-2.1+</project_license>
+
+  <name>AppStream Compose</name>
+  <summary>Utility to compose AppStream catalog metadata from directory trees</summary>
+
+  <description>
+    <p>
+      AppStream Compose expands the <em>appstreamcli</em> utility by a subcommand which
+      allows it to construct AppStream catalog metadata from directory trees.
+    </p>
+    <p>
+      The tool will also perform many related metadata generation actions, like resizing icons and
+      screenshots and merging in data from referenced desktop-entry files as well as translation status
+      information.
+      It provides a fast way to test how the final processed metadata for an application that is shipped to users
+      may look like.
+    </p>
+    <p>
+      In addition to that, it allows to easily generate AppStream data for projects which do not need a more complex data
+      generator like <code>appstream-generator</code>.
+    </p>
+  </description>
+
+  <url type="homepage">https://www.freedesktop.org/wiki/Distributions/AppStream/</url>
+  <url type="help">https://www.freedesktop.org/software/appstream/docs/chap-AppStream-ManualPages.html</url>
+  <url type="bugtracker">https://github.com/ximion/appstream/issues</url>
+  <url type="vcs-browser">https://github.com/ximion/appstream/</url>
+
+  <project_group>Freedesktop</project_group>
+
+  <translation type="gettext">appstream</translation>
+
+  <content_rating type="oars-1.1" />
+</component>
