@@ -198,6 +198,6 @@ subdir('data/')
 subdir('contrib/')
 subdir('docs/')
 subdir('tests/')
-if get_option('qt') or get_option('qt5')
+if get_option('qt') or get_option('qt6')
     subdir('qt/')
 endif

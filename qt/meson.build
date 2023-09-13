@@ -6,14 +6,14 @@ endif
 
 asqt_api_level = '3'
 
-if get_option('qt5')
+if get_option('qt')
     qt_major_version = '5'
     qt_min_version = '5.15'
-    asqt_library_name = 'AppStreamQt5'
+    asqt_library_name = 'AppStreamQt'
 else
     qt_major_version = '6'
     qt_min_version = '6.2.4'
-    asqt_library_name = 'AppStreamQt'
+    asqt_library_name = 'AppStreamQt6'
 endif
 
 add_languages('cpp', native: true)
