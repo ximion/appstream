@@ -1,7 +1,7 @@
 # Meson definition for AppStream Qt
 
-if get_option('qt') and get_option('qt5')
-    error('Both the "qt" and "qt5" option enabled. Please select only one Qt major version to build!')
+if get_option('qt') and get_option('qt6')
+    error('Both the "qt" and "qt6" option enabled. Please select only one Qt major version to build!')
 endif
 
 asqt_api_level = '3'
