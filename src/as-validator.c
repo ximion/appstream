@@ -307,7 +307,7 @@ as_validator_clear_current_cpt (AsValidator *validator)
  *
  * Clears the list of issues
  **/
-void
+static void
 as_validator_clear_issues (AsValidator *validator)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
@@ -317,10 +317,19 @@ as_validator_clear_issues (AsValidator *validator)
 
 /**
  * as_validator_check_success:
+ * @validator: An instance of #AsValidator.
  *
- * Check if, according to the current recorded issues, the last validated data was valid.
+ * Check the current registered values again and return %TRUE
+ * if no issues were found that would make the previously validated
+ * files fail validation.
+ *
+ * Usually you do not need to call this function explicitly, as
+ * the as_validator_validate_* functions will already return whether
+ * data was valid as return value.
+ *
+ * Returns: %TRUE if previously validated files were valid.
  */
-static gboolean
+gboolean
 as_validator_check_success (AsValidator *validator)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
@@ -648,7 +657,7 @@ as_validator_add_override (AsValidator *validator,
 		g_set_error (
 		    error,
 		    AS_VALIDATOR_ERROR,
-		    AS_VALIDATOR_ERROR_OVERRIDE_INVALID,
+		    AS_VALIDATOR_ERROR_INVALID_OVERRIDE,
 		    /* TRANSLATORS: The user tried to set an invalid severity for a validator issue tag */
 		    _("The new issue severity for tag '%s' is invalid."), tag);
 		return FALSE;
@@ -659,7 +668,7 @@ as_validator_add_override (AsValidator *validator,
 		g_set_error (
 		    error,
 		    AS_VALIDATOR_ERROR,
-		    AS_VALIDATOR_ERROR_OVERRIDE_INVALID,
+		    AS_VALIDATOR_ERROR_INVALID_OVERRIDE,
 		    /* TRANSLATORS: The user tried to override a validator issue tag that we don't know */
 		    _("The issue tag '%s' is not recognized."), tag);
 		return FALSE;
@@ -685,7 +694,7 @@ as_validator_add_override (AsValidator *validator,
 				g_set_error (
 				    error,
 				    AS_VALIDATOR_ERROR,
-				    AS_VALIDATOR_ERROR_OVERRIDE_INVALID,
+				    AS_VALIDATOR_ERROR_INVALID_OVERRIDE,
 				    /* TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 						   whitelisted for that. */
 				    _("It is not allowed to downgrade the severity of tag '%s' to one that allows validation to pass."),
@@ -3354,8 +3363,6 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
  * @metadata_file: An AppStream XML file.
  *
  * Validate an AppStream XML file.
- * Remember to run %as_validator_clear_issues if you do not want previous
- * validation runs to affect the outcome of this validation.
  *
  * Returns: %TRUE if file validated successfully.
  **/
@@ -3377,6 +3384,9 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 	const gchar *content_type = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 	gboolean ret;
+
+	/* clear any issues from previous runs */
+	as_validator_clear_issues (validator);
 
 	info = g_file_query_info (metadata_file,
 				  G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
@@ -3483,6 +3493,9 @@ as_validator_validate_bytes (AsValidator *validator, GBytes *metadata)
 	/* setup networking, in case we want to check URLs */
 	as_validator_setup_networking (validator);
 
+	/* clear any issues from previous runs */
+	as_validator_clear_issues (validator);
+
 	/* load the XML data */
 	ctx = as_context_new ();
 	as_context_set_locale (ctx, "C");
@@ -3538,8 +3551,6 @@ as_validator_validate_bytes (AsValidator *validator, GBytes *metadata)
  * @metadata: XML metadata.
  *
  * Validate AppStream XML data.
- * Remember to run %as_validator_clear_issues if you do not want previous
- * validation runs to affect the outcome of this validation.
  *
  * Returns: %TRUE if data validated successfully.
  **/
@@ -3964,16 +3975,16 @@ as_validator_yaml_write_handler_cb (void *ptr, unsigned char *buffer, size_t siz
 /**
  * as_validator_get_issues_as_yaml:
  * @validator: An instance of #AsValidator.
- * @yaml_report: (out): The generated YAML report
+ * @error: a #GError or %NULL
  *
  * Get an issue report as a YAML document.
  *
- * Returns: %TRUE if validation was successful. A YAML report is generated in any case.
+ * Returns: The YAML data as string, or %NULL if the report could not be created.
  *
  * Since: 0.12.8
  */
-gboolean
-as_validator_get_report_yaml (AsValidator *validator, gchar **yaml_report)
+gchar *
+as_validator_get_report_yaml (AsValidator *validator, GError **error)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	GHashTableIter ht_iter;
@@ -3981,12 +3992,7 @@ as_validator_get_report_yaml (AsValidator *validator, gchar **yaml_report)
 	yaml_emitter_t emitter;
 	yaml_event_t event;
 	gboolean res = FALSE;
-	gboolean report_validation_passed = TRUE;
 	GString *yaml_result = g_string_new ("");
-
-	if (yaml_report == NULL)
-		return FALSE;
-	*yaml_report = NULL;
 
 	yaml_emitter_initialize (&emitter);
 	yaml_emitter_set_indent (&emitter, 2);
@@ -3997,10 +4003,13 @@ as_validator_get_report_yaml (AsValidator *validator, gchar **yaml_report)
 	/* emit start event */
 	yaml_stream_start_event_initialize (&event, YAML_UTF8_ENCODING);
 	if (!yaml_emitter_emit (&emitter, &event)) {
-		g_critical ("Failed to initialize YAML emitter.");
+		g_set_error_literal (error,
+				     AS_VALIDATOR_ERROR,
+				     AS_VALIDATOR_ERROR_FAILED,
+				     "Failed to initialize YAML emitter.");
 		g_string_free (yaml_result, TRUE);
 		yaml_emitter_delete (&emitter);
-		return FALSE;
+		return NULL;
 	}
 
 	g_hash_table_iter_init (&ht_iter, priv->issues_per_file);
@@ -4058,8 +4067,6 @@ as_validator_get_report_yaml (AsValidator *validator, gchar **yaml_report)
 		as_yaml_sequence_end (&emitter);
 
 		as_yaml_emit_entry (&emitter, "Passed", validation_passed ? "yes" : "no");
-		if (!validation_passed)
-			report_validation_passed = FALSE;
 
 		/* main dict end */
 		as_yaml_mapping_end (&emitter);
@@ -4076,8 +4083,8 @@ as_validator_get_report_yaml (AsValidator *validator, gchar **yaml_report)
 
 	yaml_emitter_flush (&emitter);
 	yaml_emitter_delete (&emitter);
-	*yaml_report = g_string_free (yaml_result, FALSE);
-	return report_validation_passed;
+
+	return g_string_free (yaml_result, FALSE);
 }
 
 /**

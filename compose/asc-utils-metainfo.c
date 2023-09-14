@@ -255,8 +255,7 @@ asc_validate_metainfo_data_for_component (AscResult *cres,
 	/* don't check web URLs for validity, we catch those issues differently */
 	as_validator_set_check_urls (validator, FALSE);
 
-	/* remove issues from a potential previous use of this validator */
-	as_validator_clear_issues (validator);
+	/* remove release data from a potential previous use of this validator */
 	as_validator_clear_release_data (validator);
 
 	/* add release data if we have any */

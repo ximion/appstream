@@ -13,10 +13,9 @@ libappstream API break for the AppStream 1.0 release.
  * Sort out the various markup-to-text conversion functions, make some of them public API and maybe rewrite some
    (there are likely some performance improvements to be found there)
 
- * Simplify AsValidator API to make an obvious decision for API users whether validation failed, passed or wasn't possible due to other errors.
-   (at the moment this is all somewhat combined together, and usable but not obvious)
-
  * Review AsContext enums
+
+ * Review all public API
 
 ## DONE (kept for reference)
 
@@ -33,3 +32,6 @@ libappstream API break for the AppStream 1.0 release.
    for client tools to use.
 
  * Cleanup AsPool API, only keep sensible functions (maybe make the pool read-only?)
+
+ * Simplify AsValidator API to make an obvious decision for API users whether validation failed, passed or wasn't possible due to other errors.
+   (at the moment this is all somewhat combined together, and usable but not obvious)
