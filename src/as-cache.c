@@ -1483,7 +1483,7 @@ as_query_context_retrieve_components (AsQueryContext *ctx)
 {
 	GHashTableIter ht_iter;
 	gpointer ht_value;
-	AsComponentBox *results = as_component_box_new (AS_COMPONENT_BOX_FLAG_ALLOW_DUPLICATES);
+	AsComponentBox *results = as_component_box_new_simple ();
 
 	g_hash_table_iter_init (&ht_iter, ctx->results_map);
 	while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value))

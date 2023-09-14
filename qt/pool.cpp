@@ -129,13 +129,13 @@ QString Pool::lastError() const
 bool Pool::addComponents(const QList<AppStream::Component> &cpts)
 {
     g_autoptr(GError) error = nullptr;
-    g_autoptr(GPtrArray) array = nullptr;
+    g_autoptr(AsComponentBox) cbox = nullptr;
 
-    array = g_ptr_array_sized_new(cpts.length());
+    cbox = as_component_box_new_simple();
     for (const auto &cpt : cpts)
-        g_ptr_array_add(array, cpt.asComponent());
+        as_component_box_add(cbox, cpt.asComponent(), NULL);
 
-    bool ret = as_pool_add_components(d->pool, array, &error);
+    bool ret = as_pool_add_components(d->pool, cbox, &error);
     if (!ret)
         d->lastError = QString::fromUtf8(error->message);
 

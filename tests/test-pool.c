@@ -699,7 +699,7 @@ test_pool_empty (void)
 {
 	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(AsComponentBox) result = NULL;
-	g_autoptr(GPtrArray) cpts = NULL;
+	g_autoptr(AsComponentBox) cbox = NULL;
 	g_autoptr(GError) error = NULL;
 	AsComponent *cpt = NULL;
 	gboolean ret;
@@ -726,9 +726,9 @@ test_pool_empty (void)
 	as_component_set_name (cpt, "A fooish bar", "C");
 	as_component_set_summary (cpt, "Foo the bar.", "C");
 
-	cpts = g_ptr_array_new ();
-	g_ptr_array_add (cpts, cpt);
-	ret = as_pool_add_components (pool, cpts, &error);
+	cbox = as_component_box_new_simple ();
+	g_assert_true (as_component_box_add (cbox, cpt, NULL));
+	ret = as_pool_add_components (pool, cbox, &error);
 	g_object_unref (cpt);
 	g_assert_no_error (error);
 	g_assert_true (ret);

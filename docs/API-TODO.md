@@ -13,8 +13,6 @@ libappstream API break for the AppStream 1.0 release.
  * Sort out the various markup-to-text conversion functions, make some of them public API and maybe rewrite some
    (there are likely some performance improvements to be found there)
 
- * Cleanup AsPool API, only keep sensible functions (maybe make the pool read-only?)
-
  * Simplify AsValidator API to make an obvious decision for API users whether validation failed, passed or wasn't possible due to other errors.
    (at the moment this is all somewhat combined together, and usable but not obvious)
 
@@ -33,3 +31,5 @@ libappstream API break for the AppStream 1.0 release.
 
  * Drop use of `/etc/appstream.conf`, expose any of its remaining options (if there are any) as C API
    for client tools to use.
+
+ * Cleanup AsPool API, only keep sensible functions (maybe make the pool read-only?)

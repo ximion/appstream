@@ -967,7 +967,7 @@ as_pool_add_component_internal (AsPool *pool,
 /**
  * as_pool_add_components:
  * @pool: An instance of #AsPool
- * @cpts: (element-type AsComponent): Array of components to add to the pool.
+ * @cbox: Components to add to the pool.
  * @error: A #GError or %NULL
  *
  * Register a set of components with the pool temporarily.
@@ -978,10 +978,10 @@ as_pool_add_component_internal (AsPool *pool,
  * Since: 0.15.0
  */
 gboolean
-as_pool_add_components (AsPool *pool, GPtrArray *cpts, GError **error)
+as_pool_add_components (AsPool *pool, AsComponentBox *cbox, GError **error)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	return as_cache_add_masking_components (priv->cache, cpts, error);
+	return as_cache_add_masking_components (priv->cache, as_component_box_array (cbox), error);
 }
 
 /**

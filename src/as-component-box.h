@@ -58,17 +58,18 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsComponentBox, g_object_unref)
 
 /**
  * AsComponentBoxFlags:
- * @AS_COMPONENT_BOX_FLAG_NONE:			No flags.
- * @AS_COMPONENT_BOX_FLAG_ALLOW_DUPLICATES:	Whether duplicate components are allowed.
+ * @AS_COMPONENT_BOX_FLAG_NONE:		No flags.
+ * @AS_COMPONENT_BOX_FLAG_NO_CHECKS:	Only perform the most basic verification.
  *
  * Flags controlling the component box behavior.
  **/
 typedef enum {
-	AS_COMPONENT_BOX_FLAG_NONE	       = 0,
-	AS_COMPONENT_BOX_FLAG_ALLOW_DUPLICATES = 1 << 0,
+	AS_COMPONENT_BOX_FLAG_NONE	= 0,
+	AS_COMPONENT_BOX_FLAG_NO_CHECKS = 1 << 0,
 } AsComponentBoxFlags;
 
 AsComponentBox *as_component_box_new (AsComponentBoxFlags flags);
+AsComponentBox *as_component_box_new_simple (void);
 
 #define as_component_box_index(cbox, index_) \
 	AS_COMPONENT (g_ptr_array_index ((cbox)->cpts, (index_)))

@@ -129,7 +129,7 @@ gboolean	as_pool_load_finish (AsPool *pool, GAsyncResult *result, GError **error
 
 gboolean	as_pool_is_empty (AsPool *pool);
 void		as_pool_clear (AsPool *pool);
-gboolean	as_pool_add_components (AsPool *pool, GPtrArray *cpts, GError **error);
+gboolean	as_pool_add_components (AsPool *pool, AsComponentBox *cbox, GError **error);
 
 AsComponentBox *as_pool_get_components (AsPool *pool);
 AsComponentBox *as_pool_get_components_by_id (AsPool *pool, const gchar *cid);
