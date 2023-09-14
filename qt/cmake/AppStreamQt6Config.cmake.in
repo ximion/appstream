@@ -28,8 +28,8 @@ macro(check_required_components _NAME)
   endforeach()
 endmacro()
 
-add_library(AppStreamQt SHARED IMPORTED)
-set_target_properties(AppStreamQt PROPERTIES
+add_library(AppStreamQt6 SHARED IMPORTED)
+set_target_properties(AppStreamQt6 PROPERTIES
   INTERFACE_INCLUDE_DIRECTORIES "${PACKAGE_PREFIX_DIR}/include/"
   INTERFACE_LINK_LIBRARIES "Qt6::Core"
   IMPORTED_LOCATION "@LIBDIR_FULL@/libAppStreamQt6.so.${AppStreamQt_VERSION}"
