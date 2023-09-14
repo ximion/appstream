@@ -65,7 +65,6 @@
 #include "as-metadata.h"
 
 typedef struct {
-	gchar *screenshot_service_url;
 	gchar *locale_bcp47;
 	gchar *locale_posix;
 	gchar *current_arch;
@@ -379,17 +378,9 @@ as_pool_init (AsPool *pool)
 	/* set callback to refine components after deserialization */
 	as_cache_set_refine_func (priv->cache, as_pool_cache_refine_component_cb);
 
-	// FIXME
-	//priv->screenshot_service_url = as_distro_details_get_str (distro, "ScreenshotUrl");
-
 	/* set default pool flags */
 	priv->flags = AS_POOL_FLAG_LOAD_OS_CATALOG | AS_POOL_FLAG_LOAD_OS_METAINFO |
 		      AS_POOL_FLAG_LOAD_FLATPAK;
-
-	/* check whether we might want to prefer local metainfo files over remote data */
-	// FIXME
-	//if (as_distro_details_get_bool (distro, "PreferLocalMetainfoData", FALSE))
-	//	as_pool_add_flags (pool, AS_POOL_FLAG_PREFER_OS_METAINFO);
 }
 
 /**
@@ -404,8 +395,6 @@ as_pool_finalize (GObject *object)
 
 	if (priv->pending_id)
 		g_source_remove (priv->pending_id);
-
-	g_free (priv->screenshot_service_url);
 
 	g_hash_table_unref (priv->std_data_locations);
 	g_hash_table_unref (priv->extra_data_locations);
@@ -978,7 +967,7 @@ as_pool_add_component_internal (AsPool *pool,
 /**
  * as_pool_add_components:
  * @pool: An instance of #AsPool
- * @cpts: (element-type AsComponent): Array of components to add to the pool.
+ * @cbox: Components to add to the pool.
  * @error: A #GError or %NULL
  *
  * Register a set of components with the pool temporarily.
@@ -989,10 +978,10 @@ as_pool_add_component_internal (AsPool *pool,
  * Since: 0.15.0
  */
 gboolean
-as_pool_add_components (AsPool *pool, GPtrArray *cpts, GError **error)
+as_pool_add_components (AsPool *pool, AsComponentBox *cbox, GError **error)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	return as_cache_add_masking_components (priv->cache, cpts, error);
+	return as_cache_add_masking_components (priv->cache, as_component_box_array (cbox), error);
 }
 
 /**
@@ -1202,8 +1191,6 @@ static void
 as_pool_cache_refine_component_cb (AsComponent *cpt, gboolean is_serialization, gpointer user_data)
 {
 	AsLocationGroup *lgroup = user_data;
-	AsPool *pool = lgroup->owner;
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	/* NOTE: Write-lock on AsPool structures is held by the caller (as the direct caller is
 	 * on the same thread and itself triggered by a write-locked AsPool). */
@@ -1213,11 +1200,11 @@ as_pool_cache_refine_component_cb (AsComponent *cpt, gboolean is_serialization, 
 		 * and needs to be done partially again on deserialization anyway */
 		/* FIXME: We *do* resolve icon paths here, as not doing so currently causes issues for some apps.
 		 * There's a test case for this, so we can address the issue later. */
-		as_component_complete (cpt, priv->screenshot_service_url, lgroup->icon_dirs);
+		as_component_complete (cpt, lgroup->icon_dirs);
 	} else {
 		/* add additional data to the component, e.g. external screenshots. Also refines
 		 * the component's icon paths */
-		as_component_complete (cpt, priv->screenshot_service_url, lgroup->icon_dirs);
+		as_component_complete (cpt, lgroup->icon_dirs);
 	}
 }
 

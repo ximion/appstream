@@ -72,7 +72,7 @@ as_component_box_constructed (GObject *object)
 	AsComponentBox *cbox = AS_COMPONENT_BOX (object);
 	AsComponentBoxPrivate *priv = GET_PRIVATE (cbox);
 
-	if (!as_flags_contains (priv->flags, AS_COMPONENT_BOX_FLAG_ALLOW_DUPLICATES))
+	if (!as_flags_contains (priv->flags, AS_COMPONENT_BOX_FLAG_NO_CHECKS))
 		priv->cpt_map = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, NULL);
 
 	G_OBJECT_CLASS (as_component_box_parent_class)->constructed (object);
@@ -152,7 +152,7 @@ as_component_box_class_init (AsComponentBoxClass *klass)
  *
  * Creates a new #AsComponentBox.
  *
- * Returns: (transfer full): a #AsComponentBox
+ * Returns: (transfer full): an #AsComponentBox
  *
  * Since: 1.0
  **/
@@ -168,14 +168,18 @@ as_component_box_new (AsComponentBoxFlags flags)
  * as_component_box_new_simple:
  *
  * Creates a new #AsComponentBox with the simplest parameters,
- * so it is basically an array storage without overhead..
+ * so it is basically an array storage without overhead.
  *
- * Returns: (transfer full): a #AsComponentBox
+ * Only the most basic checks on inserted components will be performed,
+ * and it is assumed that the inserted components have been checked
+ * already prior to insertion.
+ *
+ * Returns: (transfer full): an #AsComponentBox
  **/
 AsComponentBox *
 as_component_box_new_simple (void)
 {
-	return as_component_box_new (AS_COMPONENT_BOX_FLAG_ALLOW_DUPLICATES);
+	return as_component_box_new (AS_COMPONENT_BOX_FLAG_NO_CHECKS);
 }
 
 /**
@@ -291,7 +295,7 @@ as_component_box_add (AsComponentBox *cbox, AsComponent *cpt, GError **error)
 {
 	AsComponentBoxPrivate *priv = GET_PRIVATE (cbox);
 
-	if (!as_flags_contains (priv->flags, AS_COMPONENT_BOX_FLAG_ALLOW_DUPLICATES)) {
+	if (!as_flags_contains (priv->flags, AS_COMPONENT_BOX_FLAG_NO_CHECKS)) {
 		const gchar *data_id = as_component_get_data_id (cpt);
 
 		if (g_hash_table_lookup (priv->cpt_map, data_id) != NULL) {

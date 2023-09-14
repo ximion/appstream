@@ -45,6 +45,8 @@ void		       as_context_localized_ht_set (AsContext	*ctx,
 
 AsCurl		      *as_context_get_curl (AsContext *ctx, GError **error);
 
+gboolean	       as_context_os_origin_is_free (AsContext *ctx, const gchar *origin);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

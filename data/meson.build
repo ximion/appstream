@@ -41,8 +41,9 @@ test('as-validate_metainfo.cli',
            metainfo_i18n]
 )
 
+# install appstream.conf default template
 install_data('appstream.conf',
-             install_dir: get_option('sysconfdir'))
+             install_dir: as_data_installdir)
 
 if get_option('compose')
     ascompose_metainfo = 'org.freedesktop.appstream.compose.metainfo.xml'

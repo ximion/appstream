@@ -52,6 +52,7 @@ typedef struct {
 	gboolean internal_mode;
 	gboolean all_locale;
 
+	gchar **free_origin_globs;
 	AsCurl *curl;
 	GMutex mutex;
 } AsContextPrivate;
@@ -150,6 +151,8 @@ as_context_finalize (GObject *object)
 	as_ref_string_release (priv->fname);
 	g_mutex_clear (&priv->mutex);
 
+	if (priv->free_origin_globs != NULL)
+		g_strfreev (priv->free_origin_globs);
 	if (priv->curl != NULL)
 		g_object_unref (priv->curl);
 
@@ -562,6 +565,81 @@ as_context_get_curl (AsContext *ctx, GError **error)
 			return NULL;
 	}
 	return g_object_ref (priv->curl);
+}
+
+static void
+as_context_ensure_os_config_loaded (AsContext *ctx)
+{
+	AsContextPrivate *priv = GET_PRIVATE (ctx);
+	gboolean ret;
+	const gchar *as_config_fname = NULL;
+	g_autofree gchar *distro_id = NULL;
+	g_autoptr(GKeyFile) kf = NULL;
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+
+	/* return if we already loaded all data */
+	if (priv->free_origin_globs != NULL)
+		return;
+
+	/* load data from /etc, but fall back to the default in /usr/share if the override does not exist */
+	as_config_fname = SYSCONFDIR "/appstream.conf";
+	if (!g_file_test (as_config_fname, G_FILE_TEST_EXISTS))
+		as_config_fname = AS_DATADIR "/appstream.conf";
+	g_debug ("Loading OS configuration from: %s", as_config_fname);
+
+	kf = g_key_file_new ();
+	ret = g_key_file_load_from_file (kf, as_config_fname, G_KEY_FILE_NONE, NULL);
+	if (!ret) {
+		g_debug ("Unable to read configuration file %s", as_config_fname);
+		priv->free_origin_globs = g_new0 (gchar *, 1);
+		return;
+	}
+#if GLIB_CHECK_VERSION(2, 64, 0)
+	distro_id = g_get_os_info (G_OS_INFO_KEY_ID);
+	if (distro_id == NULL) {
+		g_warning ("Unable to determine the ID for this operating system.");
+		priv->free_origin_globs = g_new0 (gchar *, 1);
+		return;
+	}
+#else
+	distro_id = g_strdup ("general");
+#endif
+	priv->free_origin_globs = g_key_file_get_string_list (kf,
+							      distro_id,
+							      "FreeRepos",
+							      NULL,
+							      NULL);
+	if (priv->free_origin_globs == NULL) {
+		priv->free_origin_globs = g_new0 (gchar *, 1);
+		return;
+	}
+}
+
+/**
+ * as_context_os_origin_is_free:
+ * @ctx: a #AsContext instance
+ * @error: a #GError
+ *
+ * Check the local whitelist for whether a component from an
+ * OS origin is free software or not, based purely on its origin.
+ *
+ * Returns: %TRUE if the respective origin contains only free software, %FALSE if not or unknown.
+ */
+gboolean
+as_context_os_origin_is_free (AsContext *ctx, const gchar *origin)
+{
+	AsContextPrivate *priv = GET_PRIVATE (ctx);
+
+	/* load global configuration */
+	as_context_ensure_os_config_loaded (ctx);
+
+	/* return a free component if any of the origin wildcards matches */
+	for (guint i = 0; priv->free_origin_globs[i] != NULL; i++) {
+		if (g_pattern_match_simple (priv->free_origin_globs[i], origin))
+			return TRUE;
+	}
+
+	return FALSE;
 }
 
 /**

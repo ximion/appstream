@@ -57,7 +57,7 @@ struct _AsPoolClass {
  * @AS_POOL_FLAG_LOAD_FLATPAK:		Load AppStream catalog metadata from Flatpak.
  * @AS_POOL_FLAG_IGNORE_CACHE_AGE:	Load fresh data even if an up-o-date cache is available.
  * @AS_POOL_FLAG_RESOLVE_ADDONS:	Always resolve addons for returned components.
- * @AS_POOL_FLAG_PREFER_OS_METAINFO:	Prefer local metainfo data over the system-provided catalog data. Useful for debugging.
+ * @AS_POOL_FLAG_PREFER_OS_METAINFO:	Prefer local metainfo data over the system-provided catalog data. Useful for previewing local data.
  * @AS_POOL_FLAG_MONITOR:		Monitor registered directories for changes, and auto-reload metadata if necessary.
  *
  * Flags controlling the metadata pool behavior.
@@ -129,7 +129,7 @@ gboolean	as_pool_load_finish (AsPool *pool, GAsyncResult *result, GError **error
 
 gboolean	as_pool_is_empty (AsPool *pool);
 void		as_pool_clear (AsPool *pool);
-gboolean	as_pool_add_components (AsPool *pool, GPtrArray *cpts, GError **error);
+gboolean	as_pool_add_components (AsPool *pool, AsComponentBox *cbox, GError **error);
 
 AsComponentBox *as_pool_get_components (AsPool *pool);
 AsComponentBox *as_pool_get_components_by_id (AsPool *pool, const gchar *cid);

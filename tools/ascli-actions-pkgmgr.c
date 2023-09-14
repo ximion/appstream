@@ -131,7 +131,7 @@ ascli_get_component_instrm_candidate (const gchar *identifier,
 	if (bundle_kind == AS_BUNDLE_KIND_UNKNOWN) {
 		result_filtered = g_object_ref (result);
 	} else {
-		result_filtered = as_component_box_new (AS_COMPONENT_BOX_FLAG_ALLOW_DUPLICATES);
+		result_filtered = as_component_box_new (AS_COMPONENT_BOX_FLAG_NO_CHECKS);
 		for (guint i = 0; i < as_component_box_len (result); i++) {
 			AsComponent *cpt = as_component_box_index (result, i);
 

@@ -331,7 +331,7 @@ test_component_box (void)
 
 	/* test box that can hold duplicates */
 	g_clear_pointer (&cbox, g_object_unref);
-	cbox = as_component_box_new (AS_COMPONENT_BOX_FLAG_ALLOW_DUPLICATES);
+	cbox = as_component_box_new (AS_COMPONENT_BOX_FLAG_NO_CHECKS);
 
 	ret = as_component_box_add (cbox, cpt, &error);
 	g_assert_no_error (error);
