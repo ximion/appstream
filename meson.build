@@ -16,6 +16,7 @@ varr = as_version.split('.')
 as_major_version = varr[0]
 as_minor_version = varr[1]
 as_micro_version = varr[2]
+as_data_installdir = get_option('prefix') / get_option('datadir') / 'appstream'
 
 #
 # Configure files
@@ -27,23 +28,19 @@ conf.set('AS_MICRO_VERSION_CONF', as_micro_version)
 conf.set_quoted('PACKAGE_VERSION', as_version)
 conf.set_quoted('GETTEXT_PACKAGE', 'appstream')
 conf.set_quoted('LOCALEDIR',
-                join_paths(get_option('prefix'),
-                           get_option('localedir')))
+                get_option('prefix') / get_option('localedir'))
 conf.set_quoted('LOCALSTATEDIR',
-                join_paths(get_option('prefix'),
-                           get_option('localstatedir')))
+                get_option('prefix') / get_option('localstatedir'))
 conf.set_quoted('LIBEXECDIR',
-                join_paths(get_option('prefix'),
-                           get_option('libexecdir')))
+                get_option('prefix') / get_option('libexecdir'))
 conf.set_quoted('LIBDIR',
-                join_paths(get_option('prefix'),
-                           get_option('libdir')))
+                get_option('prefix') / get_option('libdir'))
+conf.set_quoted('AS_DATADIR',
+                as_data_installdir)
 conf.set_quoted('BINDIR',
-                join_paths(get_option('prefix'),
-                           get_option('bindir')))
+                get_option('prefix') / get_option('bindir'))
 conf.set_quoted('SYSCONFDIR',
-                join_paths(get_option('prefix'),
-                           get_option('sysconfdir')))
+                get_option('prefix') / get_option('sysconfdir'))
 conf.set('_DEFAULT_SOURCE', true)
 conf.set('HAVE_APT_SUPPORT', get_option('apt-support'))
 conf.set('HAVE_STEMMING', get_option('stemming'))

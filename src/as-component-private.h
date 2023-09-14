@@ -49,9 +49,9 @@ typedef enum {
 
 typedef guint16 AsTokenType; /* big enough for both bitshifts */
 
-void as_component_complete (AsComponent *cpt, gchar *scr_base_url, GPtrArray *icon_paths);
+void		as_component_complete (AsComponent *cpt, GPtrArray *icon_paths);
 
-gint as_component_releases_compare (gconstpointer a, gconstpointer b);
+gint		as_component_releases_compare (gconstpointer a, gconstpointer b);
 
 AS_INTERNAL_VISIBLE
 GHashTable  *as_component_get_languages_table (AsComponent *cpt);

@@ -57,7 +57,7 @@ struct _AsPoolClass {
  * @AS_POOL_FLAG_LOAD_FLATPAK:		Load AppStream catalog metadata from Flatpak.
  * @AS_POOL_FLAG_IGNORE_CACHE_AGE:	Load fresh data even if an up-o-date cache is available.
  * @AS_POOL_FLAG_RESOLVE_ADDONS:	Always resolve addons for returned components.
- * @AS_POOL_FLAG_PREFER_OS_METAINFO:	Prefer local metainfo data over the system-provided catalog data. Useful for debugging.
+ * @AS_POOL_FLAG_PREFER_OS_METAINFO:	Prefer local metainfo data over the system-provided catalog data. Useful for previewing local data.
  * @AS_POOL_FLAG_MONITOR:		Monitor registered directories for changes, and auto-reload metadata if necessary.
  *
  * Flags controlling the metadata pool behavior.

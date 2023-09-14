@@ -2956,7 +2956,6 @@ as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
 /**
  * as_component_complete:
  * @cpt: a #AsComponent instance.
- * @scr_service_url: Base url for screenshot-service, obtain via #AsDistroDetails
  * @icon_paths: String array of possible (cached) icon locations
  *
  * Private function to complete a AsComponent with
@@ -2965,7 +2964,7 @@ as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
  * INTERNAL
  */
 void
-as_component_complete (AsComponent *cpt, gchar *scr_service_url, GPtrArray *icon_paths)
+as_component_complete (AsComponent *cpt, GPtrArray *icon_paths)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
@@ -2981,56 +2980,6 @@ as_component_complete (AsComponent *cpt, gchar *scr_service_url, GPtrArray *icon
 			as_launchable_add_entry (launchable, priv->id);
 			as_component_add_launchable (cpt, launchable);
 		}
-	}
-
-	/* if there is no screenshot service URL, there is nothing left to do for us */
-	if (scr_service_url == NULL)
-		return;
-
-	/* we want screenshot data from 3rd-party screenshot servers, if the component doesn't have screenshots defined already */
-	if ((priv->screenshots->len == 0) && (as_component_has_package (cpt))) {
-		gchar *url;
-		AsImage *img;
-		g_autoptr(AsScreenshot) sshot = NULL;
-
-		url = g_build_filename (scr_service_url, "screenshot", priv->pkgnames[0], NULL);
-
-		/* screenshots.debian.net-like services dont specify a size, so we choose the default sizes
-		 * (800x600 for source-type images, 160x120 for thumbnails)
-		 */
-
-		/* add main image */
-		img = as_image_new ();
-		as_image_set_url (img, url);
-		as_image_set_width (img, 800);
-		as_image_set_height (img, 600);
-		as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
-
-		sshot = as_screenshot_new ();
-
-		/* propagate context */
-		as_screenshot_set_context (sshot, priv->context);
-
-		as_screenshot_add_image (sshot, img);
-		as_screenshot_set_kind (sshot, AS_SCREENSHOT_KIND_DEFAULT);
-
-		g_object_unref (img);
-		g_free (url);
-
-		/* add thumbnail */
-		url = g_build_filename (scr_service_url, "thumbnail", priv->pkgnames[0], NULL);
-		img = as_image_new ();
-		as_image_set_url (img, url);
-		as_image_set_width (img, 160);
-		as_image_set_height (img, 120);
-		as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
-		as_screenshot_add_image (sshot, img);
-
-		/* add screenshot to component */
-		as_component_add_screenshot (cpt, sshot);
-
-		g_object_unref (img);
-		g_free (url);
 	}
 }
 
@@ -3961,39 +3910,15 @@ as_component_is_free (AsComponent *cpt)
 
 	/* The license check yielded a non-free license, which is also returned
 	 * if no license was set. We also need to check the repository origin
-	 * for packaged components
-	 * TODO: We probably want a lot of this logic in a singleton, so we don't parse
-	 * text files too often. */
+	 * for packaged components. */
 	if (as_is_empty (priv->origin))
 		return FALSE;
 	if (as_utils_get_component_bundle_kind (cpt) == AS_BUNDLE_KIND_PACKAGE) {
-		gboolean ret;
-		g_autofree gchar *distro_id = NULL;
-		g_auto(GStrv) origin_globs = NULL;
-		g_autoptr(GKeyFile) kf = g_key_file_new ();
-		ret = g_key_file_load_from_file (kf, AS_CONFIG_NAME, G_KEY_FILE_NONE, NULL);
-		if (!ret) {
-			g_debug ("Unable to read configuration file %s", AS_CONFIG_NAME);
-			return FALSE;
+		if (priv->context == NULL) {
+			priv->context = as_context_new ();
+			as_context_set_origin (priv->context, priv->origin);
 		}
-#if GLIB_CHECK_VERSION(2, 64, 0)
-		distro_id = g_get_os_info (G_OS_INFO_KEY_ID);
-		if (distro_id == NULL) {
-			g_warning ("Unable to determine the ID for this operating system.");
-			return FALSE;
-		}
-#else
-		distro_id = g_strdup ("general");
-#endif
-		origin_globs = g_key_file_get_string_list (kf, distro_id, "FreeRepos", NULL, NULL);
-		if (origin_globs == NULL)
-			return FALSE;
-
-		/* return a free component if any of the origin wildcards matches */
-		for (guint i = 0; origin_globs[i] != NULL; i++) {
-			if (g_pattern_match_simple (origin_globs[i], priv->origin))
-				return TRUE;
-		}
+		return as_context_os_origin_is_free (priv->context, priv->origin);
 	}
 
 	return is_free;

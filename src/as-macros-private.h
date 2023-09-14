@@ -36,8 +36,6 @@ G_BEGIN_DECLS
 
 #define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
 
-#define AS_CONFIG_NAME "/etc/appstream.conf"
-
 #pragma GCC visibility pop
 G_END_DECLS
 
