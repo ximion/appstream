@@ -13,12 +13,12 @@ option('vapi',
        value : false,
        description : 'Create and install a Vala API file. Requires "gir" to be enabled as well'
 )
-option('qt',
+option('qt6',
        type : 'boolean',
        value : false,
        description : 'Build libappstream-qt for Qt6'
 )
-option('qt5',
+option('qt',
        type : 'boolean',
        value : false,
        description: 'Build libappstream-qt5 for Qt5'
