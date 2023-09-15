@@ -2676,3 +2676,36 @@ as_utils_guess_scope_from_path (const gchar *path)
 		return AS_COMPONENT_SCOPE_USER;
 	return AS_COMPONENT_SCOPE_SYSTEM;
 }
+
+/**
+ * as_utils_component_tag_search_weight:
+ * @tag_name: A tag name in a component element, e.g. "name" or "summary" or "keyword"
+ *
+ * Retrieve the raw search token weight for the given tag name that AppStream uses
+ * internally for searching.
+ * This can be used to implement separate, but compatible search logic.
+ *
+ * Returns: The tag weight used in (fulltext) searches. 0 for lowest weight/unused.
+ */
+guint16
+as_utils_component_tag_search_weight (const gchar *tag_name)
+{
+	if (as_str_equal0 (tag_name, "id"))
+		return AS_SEARCH_TOKEN_MATCH_ID;
+	if (as_str_equal0 (tag_name, "name"))
+		return AS_SEARCH_TOKEN_MATCH_NAME;
+	if (as_str_equal0 (tag_name, "keyword"))
+		return AS_SEARCH_TOKEN_MATCH_KEYWORD;
+	if (as_str_equal0 (tag_name, "summary"))
+		return AS_SEARCH_TOKEN_MATCH_SUMMARY;
+	if (as_str_equal0 (tag_name, "description"))
+		return AS_SEARCH_TOKEN_MATCH_DESCRIPTION;
+	if (as_str_equal0 (tag_name, "origin"))
+		return AS_SEARCH_TOKEN_MATCH_ORIGIN;
+	if (as_str_equal0 (tag_name, "pkgname"))
+		return AS_SEARCH_TOKEN_MATCH_PKGNAME;
+	if (as_str_equal0 (tag_name, "mediatype"))
+		return AS_SEARCH_TOKEN_MATCH_MEDIATYPE;
+
+	return AS_SEARCH_TOKEN_MATCH_NONE;
+}

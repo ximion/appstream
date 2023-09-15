@@ -126,6 +126,8 @@ gboolean as_utils_install_metadata_file (AsMetadataLocation location,
 
 AsComponentScope as_utils_guess_scope_from_path (const gchar *path);
 
+guint16		 as_utils_component_tag_search_weight (const gchar *tag_name);
+
 G_END_DECLS
 
 #endif /* __AS_UTILS_H */

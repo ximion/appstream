@@ -103,8 +103,6 @@ typedef enum {
 	AS_COMPONENT_KIND_LAST
 } AsComponentKind;
 
-#define AS_COMPONENT_KIND_INPUTMETHOD AS_COMPONENT_KIND_INPUT_METHOD
-
 const gchar    *as_component_kind_to_string (AsComponentKind kind);
 AsComponentKind as_component_kind_from_string (const gchar *kind_str);
 
@@ -196,35 +194,6 @@ typedef enum {
 	AS_VALUE_FLAG_DUPLICATE_CHECK	      = 1 << 0,
 	AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK = 1 << 1
 } AsValueFlags;
-
-/**
- * AsSearchTokenMatch:
- * @AS_SEARCH_TOKEN_MATCH_NONE:			No token matching
- * @AS_SEARCH_TOKEN_MATCH_MEDIATYPE:		Use the component mediatypes
- * @AS_SEARCH_TOKEN_MATCH_PKGNAME:		Use the component package name
- * @AS_SEARCH_TOKEN_MATCH_ORIGIN:		Use the app origin
- * @AS_SEARCH_TOKEN_MATCH_DESCRIPTION:		Use the component description
- * @AS_SEARCH_TOKEN_MATCH_COMMENT:		Use the component comment
- * @AS_SEARCH_TOKEN_MATCH_NAME:			Use the component name
- * @AS_SEARCH_TOKEN_MATCH_KEYWORD:		Use the component keyword
- * @AS_SEARCH_TOKEN_MATCH_ID:			Use the component ID
- *
- * The token match kind, which we want to be exactly 16 bits for storage
- * reasons.
- **/
-typedef enum /*< skip >*/ __attribute__((__packed__)) {
-	AS_SEARCH_TOKEN_MATCH_NONE	  = 0,
-	AS_SEARCH_TOKEN_MATCH_MEDIATYPE	  = 1 << 0,
-	AS_SEARCH_TOKEN_MATCH_PKGNAME	  = 1 << 1,
-	AS_SEARCH_TOKEN_MATCH_ORIGIN	  = 1 << 2,
-	AS_SEARCH_TOKEN_MATCH_DESCRIPTION = 1 << 3,
-	AS_SEARCH_TOKEN_MATCH_SUMMARY	  = 1 << 4,
-	AS_SEARCH_TOKEN_MATCH_KEYWORD	  = 1 << 5,
-	AS_SEARCH_TOKEN_MATCH_NAME	  = 1 << 6,
-	AS_SEARCH_TOKEN_MATCH_ID	  = 1 << 7,
-	/*< private >*/
-	AS_SEARCH_TOKEN_MATCH_LAST	  = 0xffff
-} AsSearchTokenMatch;
 
 /**
  * AsReleasesKind:
