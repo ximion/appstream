@@ -357,15 +357,12 @@ test_validator_overrides (void)
 	g_assert_true (has_noreltime_issue);
 	g_list_free (g_steal_pointer (&issues));
 
-	/* apply override and check again */
-	as_validator_clear_issues (validator);
-
-	/* try something invalid */
+	/* apply override and check again - first try something invalid */
 	ret = as_validator_add_override (validator,
 					 "cid-punctuation-prefix",
 					 AS_ISSUE_SEVERITY_INFO,
 					 &error);
-	g_assert_error (error, AS_VALIDATOR_ERROR, AS_VALIDATOR_ERROR_OVERRIDE_INVALID);
+	g_assert_error (error, AS_VALIDATOR_ERROR, AS_VALIDATOR_ERROR_INVALID_OVERRIDE);
 	g_assert_false (ret);
 	g_clear_error (&error);
 

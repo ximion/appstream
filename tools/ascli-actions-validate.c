@@ -518,7 +518,7 @@ ascli_validate_files_format (gchar **argv,
 				validation_passed = FALSE;
 		}
 
-		validation_passed = as_validator_get_report_yaml (validator, &yaml_result);
+		yaml_result = as_validator_get_report_yaml (validator, NULL);
 		g_print ("%s", yaml_result);
 		return validation_passed ? 0 : 3;
 	}
@@ -637,9 +637,9 @@ ascli_validate_tree_format (const gchar *root_dir,
 		validator = as_validator_new ();
 		as_validator_set_check_urls (validator, use_net);
 		as_validator_set_strict (validator, validate_strict);
-		as_validator_validate_tree (validator, root_dir);
+		validation_passed = as_validator_validate_tree (validator, root_dir);
 
-		validation_passed = as_validator_get_report_yaml (validator, &yaml_result);
+		yaml_result = as_validator_get_report_yaml (validator, NULL);
 		g_print ("%s", yaml_result);
 		return validation_passed ? 0 : 3;
 	}
