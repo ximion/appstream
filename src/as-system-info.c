@@ -51,13 +51,13 @@
 #include <sys/sysinfo.h>
 #elif defined(__FreeBSD__) || defined(__APPLE__)
 #include <sys/types.h>
-# ifdef __APPLE__
+#ifdef __APPLE__
 /* for some reason these need to be defined otherwise compilation fails
  * when including sys/sysctl.h */
 typedef unsigned int u_int;
 typedef unsigned short u_short;
 typedef unsigned char u_char;
-# endif
+#endif
 #include <sys/sysctl.h>
 #endif
 #ifdef HAVE_SYSTEMD
