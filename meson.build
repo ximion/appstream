@@ -53,6 +53,11 @@ root_inc_dir = include_directories ('.')
 #
 # Custom C flags
 #
+
+if cc.get_id() == 'msvc'
+  error('MSVC is not supported as it does not support modern C11 features and __attribute__((cleanup))')
+endif
+
 sanitizer_libs = []
 if get_option('maintainer')
     maintainer_c_args = ['-Werror',
