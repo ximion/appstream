@@ -31,7 +31,7 @@
 #include "as-provided.h"
 #include "as-icon.h"
 #include "as-screenshot.h"
-#include "as-release.h"
+#include "as-releases.h"
 #include "as-translation.h"
 #include "as-suggested.h"
 #include "as-category.h"
@@ -195,27 +195,6 @@ typedef enum {
 	AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK = 1 << 1
 } AsValueFlags;
 
-/**
- * AsReleasesKind:
- * @AS_RELEASES_KIND_UNKNOWN:		Unknown releases type
- * @AS_RELEASES_KIND_EMBEDDED:		Release info is embedded in metainfo file
- * @AS_RELEASES_KIND_EXTERNAL:		Release info is split to a separate file
- *
- * The kind of a releases block.
- *
- * Since: 0.16.0
- **/
-typedef enum {
-	AS_RELEASES_KIND_UNKNOWN,
-	AS_RELEASES_KIND_EMBEDDED,
-	AS_RELEASES_KIND_EXTERNAL,
-	/*< private >*/
-	AS_RELEASES_KIND_LAST
-} AsReleasesKind;
-
-const gchar	*as_releases_kind_to_string (AsReleasesKind kind);
-AsReleasesKind	 as_releases_kind_from_string (const gchar *kind_str);
-
 AsComponent	*as_component_new (void);
 
 AsValueFlags	 as_component_get_value_flags (AsComponent *cpt);
@@ -312,61 +291,52 @@ void as_component_add_provided_item (AsComponent *cpt, AsProvidedKind kind, cons
 const gchar *as_component_get_url (AsComponent *cpt, AsUrlKind url_kind);
 void	     as_component_add_url (AsComponent *cpt, AsUrlKind url_kind, const gchar *url);
 
-gboolean   as_component_load_releases_from_bytes (AsComponent *cpt, GBytes *bytes, GError **error);
-gboolean   as_component_load_releases (AsComponent *cpt,
-				       gboolean	    reload,
-				       gboolean	    allow_net,
-				       GError	  **error);
-GPtrArray *as_component_get_releases (AsComponent *cpt);
-void	   as_component_add_release (AsComponent *cpt, AsRelease *release);
+AsReleases  *as_component_load_releases (AsComponent *cpt, gboolean allow_net, GError **error);
+AsReleases  *as_component_get_releases (AsComponent *cpt);
+void	     as_component_set_releases (AsComponent *cpt, AsReleases *releases);
+void	     as_component_add_release (AsComponent *cpt, AsRelease *release);
 
-AsReleasesKind as_component_get_releases_kind (AsComponent *cpt);
-void	       as_component_set_releases_kind (AsComponent *cpt, AsReleasesKind kind);
+GPtrArray   *as_component_get_extends (AsComponent *cpt);
+void	     as_component_add_extends (AsComponent *cpt, const gchar *cpt_id);
 
-const gchar   *as_component_get_releases_url (AsComponent *cpt);
-void	       as_component_set_releases_url (AsComponent *cpt, const gchar *url);
+GPtrArray   *as_component_get_addons (AsComponent *cpt);
+void	     as_component_add_addon (AsComponent *cpt, AsComponent *addon);
 
-GPtrArray     *as_component_get_extends (AsComponent *cpt);
-void	       as_component_add_extends (AsComponent *cpt, const gchar *cpt_id);
+GList	    *as_component_get_languages (AsComponent *cpt);
+gint	     as_component_get_language (AsComponent *cpt, const gchar *locale);
+void	     as_component_add_language (AsComponent *cpt, const gchar *locale, gint percentage);
+void	     as_component_clear_languages (AsComponent *cpt);
 
-GPtrArray     *as_component_get_addons (AsComponent *cpt);
-void	       as_component_add_addon (AsComponent *cpt, AsComponent *addon);
+GPtrArray   *as_component_get_translations (AsComponent *cpt);
+void	     as_component_add_translation (AsComponent *cpt, AsTranslation *tr);
 
-GList	      *as_component_get_languages (AsComponent *cpt);
-gint	       as_component_get_language (AsComponent *cpt, const gchar *locale);
-void	       as_component_add_language (AsComponent *cpt, const gchar *locale, gint percentage);
-void	       as_component_clear_languages (AsComponent *cpt);
+gboolean     as_component_has_bundle (AsComponent *cpt);
+GPtrArray   *as_component_get_bundles (AsComponent *cpt);
+AsBundle    *as_component_get_bundle (AsComponent *cpt, AsBundleKind bundle_kind);
+void	     as_component_add_bundle (AsComponent *cpt, AsBundle *bundle);
 
-GPtrArray     *as_component_get_translations (AsComponent *cpt);
-void	       as_component_add_translation (AsComponent *cpt, AsTranslation *tr);
+GPtrArray   *as_component_get_suggested (AsComponent *cpt);
+void	     as_component_add_suggested (AsComponent *cpt, AsSuggested *suggested);
 
-gboolean       as_component_has_bundle (AsComponent *cpt);
-GPtrArray     *as_component_get_bundles (AsComponent *cpt);
-AsBundle      *as_component_get_bundle (AsComponent *cpt, AsBundleKind bundle_kind);
-void	       as_component_add_bundle (AsComponent *cpt, AsBundle *bundle);
+GPtrArray   *as_component_get_search_tokens (AsComponent *cpt);
+guint	     as_component_search_matches (AsComponent *cpt, const gchar *term);
+guint	     as_component_search_matches_all (AsComponent *cpt, gchar **terms);
 
-GPtrArray     *as_component_get_suggested (AsComponent *cpt);
-void	       as_component_add_suggested (AsComponent *cpt, AsSuggested *suggested);
+AsMergeKind  as_component_get_merge_kind (AsComponent *cpt);
+void	     as_component_set_merge_kind (AsComponent *cpt, AsMergeKind kind);
 
-GPtrArray     *as_component_get_search_tokens (AsComponent *cpt);
-guint	       as_component_search_matches (AsComponent *cpt, const gchar *term);
-guint	       as_component_search_matches_all (AsComponent *cpt, gchar **terms);
+gboolean     as_component_is_member_of_category (AsComponent *cpt, AsCategory *category);
 
-AsMergeKind    as_component_get_merge_kind (AsComponent *cpt);
-void	       as_component_set_merge_kind (AsComponent *cpt, AsMergeKind kind);
+gboolean     as_component_is_ignored (AsComponent *cpt);
 
-gboolean       as_component_is_member_of_category (AsComponent *cpt, AsCategory *category);
+gboolean     as_component_is_valid (AsComponent *cpt);
+gchar	    *as_component_to_string (AsComponent *cpt);
 
-gboolean       as_component_is_ignored (AsComponent *cpt);
+gint	     as_component_get_priority (AsComponent *cpt);
+void	     as_component_set_priority (AsComponent *cpt, gint priority);
 
-gboolean       as_component_is_valid (AsComponent *cpt);
-gchar	      *as_component_to_string (AsComponent *cpt);
-
-gint	       as_component_get_priority (AsComponent *cpt);
-void	       as_component_set_priority (AsComponent *cpt, gint priority);
-
-GHashTable    *as_component_get_custom (AsComponent *cpt);
-const gchar   *as_component_get_custom_value (AsComponent *cpt, const gchar *key);
+GHashTable  *as_component_get_custom (AsComponent *cpt);
+const gchar *as_component_get_custom_value (AsComponent *cpt, const gchar *key);
 gboolean as_component_insert_custom_value (AsComponent *cpt, const gchar *key, const gchar *value);
 
 GPtrArray	*as_component_get_content_ratings (AsComponent *cpt);

@@ -520,9 +520,9 @@ QList<Release> Component::releases() const
     QList<Release> res;
 
     auto rels = as_component_get_releases(m_cpt);
-    res.reserve(rels->len);
-    for (uint i = 0; i < rels->len; i++) {
-        auto rel = AS_RELEASE(g_ptr_array_index(rels, i));
+    res.reserve(as_releases_len(rels));
+    for (uint i = 0; i < as_releases_len(rels); i++) {
+        auto rel = as_releases_index(rels, i);
         res.append(Release(rel));
     }
     return res;

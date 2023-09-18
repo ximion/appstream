@@ -33,7 +33,7 @@
 #include "as-icon-private.h"
 #include "as-screenshot-private.h"
 #include "as-bundle-private.h"
-#include "as-release-private.h"
+#include "as-releases-private.h"
 #include "as-translation-private.h"
 #include "as-suggested-private.h"
 #include "as-content-rating-private.h"
@@ -75,8 +75,6 @@ typedef struct {
 	gchar *source_pkgname;
 	GRefString *origin;
 	GRefString *branch;
-	gchar *releases_url;
-	AsReleasesKind releases_kind;
 
 	GHashTable *name;	    /* localized entry */
 	GHashTable *summary;	    /* localized entry */
@@ -88,13 +86,13 @@ typedef struct {
 	GRefString *project_license;
 	GRefString *project_group;
 
+	AsReleases *releases;
 	GPtrArray *launchables;		    /* of #AsLaunchable */
 	GPtrArray *categories;		    /* of utf8 */
 	GPtrArray *compulsory_for_desktops; /* of utf8 */
 	GPtrArray *extends;		    /* of utf8 */
 	GPtrArray *addons;		    /* of AsComponent */
 	GPtrArray *screenshots;		    /* of AsScreenshot elements */
-	GPtrArray *releases;		    /* of AsRelease elements */
 	GPtrArray *provided;		    /* of AsProvided */
 	GPtrArray *bundles;		    /* of AsBundle */
 	GPtrArray *suggestions;		    /* of AsSuggested elements */
@@ -396,48 +394,6 @@ as_url_kind_from_string (const gchar *url_kind)
 }
 
 /**
- * as_releases_kind_to_string:
- * @kind: the #AsReleaseKind.
- *
- * Converts the enumerated value to an text representation.
- *
- * Returns: string version of @kind
- *
- * Since: 0.16.0
- **/
-const gchar *
-as_releases_kind_to_string (AsReleasesKind kind)
-{
-	if (kind == AS_RELEASES_KIND_EMBEDDED)
-		return "embedded";
-	if (kind == AS_RELEASES_KIND_EXTERNAL)
-		return "external";
-	return "unknown";
-}
-
-/**
- * as_releases_kind_from_string:
- * @kind_str: the string.
- *
- * Converts the text representation to an enumerated value.
- *
- * Returns: an #AsReleaseKind or %AS_RELEASE_KIND_UNKNOWN for unknown
- *
- * Since: 0.16.0
- **/
-AsReleasesKind
-as_releases_kind_from_string (const gchar *kind_str)
-{
-	if (as_is_empty (kind_str))
-		return AS_RELEASES_KIND_EMBEDDED;
-	if (as_str_equal0 (kind_str, "embedded"))
-		return AS_RELEASES_KIND_EMBEDDED;
-	if (as_str_equal0 (kind_str, "external"))
-		return AS_RELEASES_KIND_EXTERNAL;
-	return AS_RELEASES_KIND_UNKNOWN;
-}
-
-/**
  * as_component_init:
  **/
 static void
@@ -468,11 +424,11 @@ as_component_init (AsComponent *cpt)
 						(GDestroyNotify) g_ptr_array_unref);
 
 	/* lists */
+	priv->releases = as_releases_new ();
 	priv->launchables = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->categories = g_ptr_array_new_with_free_func (g_free);
 	priv->compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
 	priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
-	priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->provided = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->bundles = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->extends = g_ptr_array_new_with_free_func (g_free);
@@ -501,7 +457,6 @@ as_component_init (AsComponent *cpt)
 						   g_free);
 
 	priv->priority = 0;
-	priv->releases_kind = AS_RELEASES_KIND_EMBEDDED;
 }
 
 /**
@@ -524,7 +479,6 @@ as_component_finalize (GObject *object)
 	as_ref_string_release (priv->arch);
 	as_ref_string_release (priv->origin);
 	as_ref_string_release (priv->branch);
-	g_free (priv->releases_url);
 
 	g_hash_table_unref (priv->name);
 	g_hash_table_unref (priv->summary);
@@ -532,12 +486,12 @@ as_component_finalize (GObject *object)
 	g_hash_table_unref (priv->developer_name);
 	g_hash_table_unref (priv->keywords);
 
+	g_object_unref (priv->releases);
 	g_ptr_array_unref (priv->launchables);
 	g_ptr_array_unref (priv->categories);
 	g_ptr_array_unref (priv->compulsory_for_desktops);
 
 	g_ptr_array_unref (priv->screenshots);
-	g_ptr_array_unref (priv->releases);
 	g_ptr_array_unref (priv->provided);
 	g_ptr_array_unref (priv->bundles);
 	g_ptr_array_unref (priv->extends);
@@ -674,162 +628,54 @@ as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot)
 }
 
 /**
- * as_component_load_releases_from_bytes:
+ * as_component_get_releases:
  * @cpt: a #AsComponent instance.
- * @bytes: the release XML data as #GBytes
- * @error: a #GError.
  *
- * Load release information from XML bytes.
+ * Get release information for this component,
+ * without downloading or loading any data from external sources.
  *
- * Returns: %TRUE on success.
- *
- * Since: 0.16.0
+ * Returns: (transfer none): Release information as #AsReleases
  **/
-gboolean
-as_component_load_releases_from_bytes (AsComponent *cpt, GBytes *bytes, GError **error)
+AsReleases *
+as_component_get_releases (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	const gchar *rel_data = NULL;
-	gsize rel_data_len;
-	xmlDoc *xdoc;
-	xmlNode *xroot;
-	GError *tmp_error = NULL;
-
-	rel_data = g_bytes_get_data (bytes, &rel_data_len);
-	xdoc = as_xml_parse_document (rel_data, rel_data_len, &tmp_error);
-	if (xdoc == NULL) {
-		g_propagate_prefixed_error (error,
-					    tmp_error,
-					    "Unable to parse external release data: ");
-		return FALSE;
-	}
-
-	/* load releases */
-	xroot = xmlDocGetRootElement (xdoc);
-	for (xmlNode *iter = xroot->children; iter != NULL; iter = iter->next) {
-		if (iter->type != XML_ELEMENT_NODE)
-			continue;
-		if (as_str_equal0 (iter->name, "release")) {
-			g_autoptr(AsRelease) release = as_release_new ();
-			if (as_release_load_from_xml (release, priv->context, iter, NULL))
-				g_ptr_array_add (priv->releases, g_steal_pointer (&release));
-		}
-	}
-	xmlFreeDoc (xdoc);
-
-	return TRUE;
+	return priv->releases;
 }
 
 /**
  * as_component_load_releases:
  * @cpt: a #AsComponent instance.
- * @reload: set to %TRUE to discard existing data and reload.
- * @allow_net: allow fetching release data from the internet.
- * @error: a #GError.
  *
- * Load data from an external source, possibly a local file
- * or a network resource.
+ * Get release information for this component, download it
+ * if necessary.
  *
- * Returns: %TRUE on success.
- *
- * Since: 0.16.0
+ * Returns: (nullable) (transfer none): Release information as #AsReleases, or %NULL if loading failed.
  **/
-gboolean
-as_component_load_releases (AsComponent *cpt, gboolean reload, gboolean allow_net, GError **error)
+AsReleases *
+as_component_load_releases (AsComponent *cpt, gboolean allow_net, GError **error)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_autoptr(GBytes) reldata_bytes = NULL;
-	GError *tmp_error = NULL;
 
-	if (priv->releases_kind != AS_RELEASES_KIND_EXTERNAL)
-		return TRUE;
-	if (priv->releases->len != 0 && !reload)
-		return TRUE;
-
-	/* we need context data for this to work properly */
-	if (priv->context == NULL) {
-		g_set_error_literal (error,
-				     AS_UTILS_ERROR,
-				     AS_UTILS_ERROR_FAILED,
-				     "Unable to read external release information from a component "
-				     "without metadata context.");
-		return FALSE;
-	}
-
-	if (reload)
-		g_ptr_array_set_size (priv->releases, 0);
-
-	if (allow_net && priv->releases_url != NULL) {
-		/* grab release data from a remote source */
-		g_autoptr(AsCurl) curl = NULL;
-
-		curl = as_context_get_curl (priv->context, error);
-		if (curl == NULL)
-			return FALSE;
-
-		reldata_bytes = as_curl_download_bytes (curl, priv->releases_url, &tmp_error);
-		if (reldata_bytes == NULL) {
-			g_propagate_prefixed_error (
-			    error,
-			    tmp_error,
-			    "Unable to obtain remote external release data: ");
-			return FALSE;
-		}
-	} else {
-		/* read release data from a local source */
-		g_autofree gchar *relfile_path = NULL;
-		g_autofree gchar *relfile_name = NULL;
-		g_autofree gchar *tmp = NULL;
-		gchar *rel_data = NULL;
-		gsize rel_data_len;
-		const gchar *mi_fname = NULL;
-
-		mi_fname = as_context_get_filename (priv->context);
-		if (mi_fname == NULL) {
-			g_set_error_literal (error,
-					     AS_UTILS_ERROR,
-					     AS_UTILS_ERROR_FAILED,
-					     "Unable to read external release information: "
-					     "Component has no known metainfo filename.");
-			return FALSE;
-		}
-		relfile_name = g_strconcat (priv->id, ".releases.xml", NULL);
-		tmp = g_path_get_dirname (mi_fname);
-		relfile_path = g_build_filename (tmp, "releases", relfile_name, NULL);
-
-		if (!g_file_get_contents (relfile_path, &rel_data, &rel_data_len, &tmp_error)) {
-			g_propagate_prefixed_error (error,
-						    tmp_error,
-						    "Unable to read local external release data: ");
-			return FALSE;
-		}
-
-		reldata_bytes = g_bytes_new_take (rel_data, rel_data_len);
-	}
-
-	return as_component_load_releases_from_bytes (cpt, reldata_bytes, error);
+	if (!as_releases_load (priv->releases, cpt, FALSE, allow_net, error))
+		return NULL;
+	return priv->releases;
 }
 
 /**
- * as_component_get_releases:
+ * as_component_set_releases:
  * @cpt: a #AsComponent instance.
+ * @releases: the #AsReleases to use.
  *
- * Get an array of the #AsRelease items this component
- * provides.
+ * Set a new set of releases for this component.
  *
- * Returns: (element-type AsRelease) (transfer none): A list of releases
- **/
-GPtrArray *
-as_component_get_releases (AsComponent *cpt)
+ */
+void
+as_component_set_releases (AsComponent *cpt, AsReleases *releases)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_autoptr(GError) error = NULL;
-
-	if (!as_component_load_releases (cpt, FALSE, FALSE, &error))
-		g_debug ("Error loading data for %s: %s",
-			 as_component_get_data_id (cpt),
-			 error->message);
-	return priv->releases;
+	g_object_unref (priv->releases);
+	priv->releases = g_object_ref (releases);
 }
 
 /**
@@ -843,75 +689,7 @@ void
 as_component_add_release (AsComponent *cpt, AsRelease *release)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_ptr_array_add (priv->releases, g_object_ref (release));
-}
-
-/**
- * as_component_get_releases_kind:
- * @cpt: a #AsComponent instance.
- *
- * Returns the #AsReleasesKind of the release metadata
- * associated with this component.
- *
- * Returns: The kind.
- *
- * Since: 0.16.0
- */
-AsReleasesKind
-as_component_get_releases_kind (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->releases_kind;
-}
-
-/**
- * as_component_set_releases_kind:
- * @cpt: a #AsComponent instance.
- * @kind: the #AsComponentKind.
- *
- * Sets the #AsReleasesKind of the release metadata
- * associated with this component.
- *
- * Since: 0.16.0
- */
-void
-as_component_set_releases_kind (AsComponent *cpt, AsReleasesKind kind)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	priv->releases_kind = kind;
-}
-
-/**
- * as_component_get_releases_url:
- * @cpt: a #AsComponent instance.
- *
- * Get a remote URL to obtain release information for the component.
- *
- * Returns: The URL of external release data.
- *
- * Since: 0.16.0
- **/
-const gchar *
-as_component_get_releases_url (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->releases_url;
-}
-
-/**
- * as_component_set_releases_url:
- * @cpt: a #AsComponent instance.
- * @url: the web URL where release data is found.
- *
- * Set a remote URL pointing to an AppStream release info file.
- *
- * Since: 0.16.0
- **/
-void
-as_component_set_releases_url (AsComponent *cpt, const gchar *url)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	as_assign_string_safe (priv->releases_url, url);
+	as_releases_add (priv->releases, release);
 }
 
 /**
@@ -4369,40 +4147,6 @@ as_component_load_keywords_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *
 }
 
 /**
- * as_component_releases_compare:
- *
- * Callback for releases #GPtrArray sorting.
- *
- * NOTE: We sort in descending order here, so the most recent
- * release ends up at the top of the list.
- */
-gint
-as_component_releases_compare (gconstpointer a, gconstpointer b)
-{
-	AsRelease **rel1 = (AsRelease **) a;
-	AsRelease **rel2 = (AsRelease **) b;
-	gint ret;
-
-	/* compare version strings */
-	ret = as_release_vercmp (*rel1, *rel2);
-	if (ret == 0)
-		return 0;
-	return (ret >= 1) ? -1 : 1;
-}
-
-/**
- * as_component_sort_releases:
- *
- * Sort releases by their release date, starting with the most recent release.
- */
-static void
-as_component_sort_releases (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_ptr_array_sort (priv->releases, as_component_releases_compare);
-}
-
-/**
  * as_component_load_from_xml:
  * @cpt: An #AsComponent.
  * @ctx: the AppStream document context.
@@ -4590,48 +4334,12 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			if (content != NULL)
 				as_component_set_compulsory_for_desktop (cpt, content);
 		} else if (tag_id == AS_TAG_RELEASES) {
-			g_autofree gchar *releases_kind_str = as_xml_get_prop_value (iter, "type");
-			priv->releases_kind = as_releases_kind_from_string (releases_kind_str);
-			if (priv->releases_kind == AS_RELEASES_KIND_EXTERNAL) {
-				g_autofree gchar *release_url_prop = as_xml_get_prop_value (iter,
-											    "url");
-				if (release_url_prop != NULL) {
-					g_free (priv->releases_url);
-					/* handle the media baseurl */
-					if (as_context_has_media_baseurl (ctx))
-						priv->releases_url = g_strconcat (
-						    as_context_get_media_baseurl (ctx),
-						    "/",
-						    release_url_prop,
-						    NULL);
-					else
-						priv->releases_url = g_steal_pointer (
-						    &release_url_prop);
-				}
-			}
+			as_releases_load_from_xml (priv->releases, ctx, iter, NULL);
 
-			/* only read release data if it is not external */
-			if (priv->releases_kind != AS_RELEASES_KIND_EXTERNAL) {
-				for (xmlNode *iter2 = iter->children; iter2 != NULL;
-				     iter2 = iter2->next) {
-					if (iter2->type != XML_ELEMENT_NODE)
-						continue;
-					if (g_strcmp0 ((const gchar *) iter2->name, "release") ==
-					    0) {
-						g_autoptr(AsRelease) release = as_release_new ();
-						if (as_release_load_from_xml (release,
-									      ctx,
-									      iter2,
-									      NULL))
-							g_ptr_array_add (
-							    priv->releases,
-							    g_steal_pointer (&release));
-					}
-				}
-			}
 		} else if (tag_id == AS_TAG_EXTENDS) {
 			g_autofree gchar *content = as_xml_get_node_value (iter);
 			as_component_add_extends (cpt, content);
+
 		} else if (tag_id == AS_TAG_LANGUAGES) {
 			as_component_xml_parse_languages_node (cpt, iter);
 		} else if (tag_id == AS_TAG_LAUNCHABLE) {
@@ -5117,22 +4825,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 		as_branding_to_xml_node (priv->branding, ctx, cnode);
 
 	/* releases */
-	if (priv->releases_kind == AS_RELEASES_KIND_EXTERNAL &&
-	    as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) {
-		xmlNode *rnode = as_xml_add_node (cnode, "releases");
-		as_xml_add_text_prop (rnode, "type", "external");
-		if (priv->releases_url != NULL)
-			as_xml_add_text_prop (rnode, "url", priv->releases_url);
-	} else if (priv->releases->len > 0) {
-		xmlNode *rnode = as_xml_add_node (cnode, "releases");
-
-		/* ensure releases are sorted, then emit XML nodes */
-		as_component_sort_releases (cpt);
-		for (guint i = 0; i < priv->releases->len; i++) {
-			AsRelease *rel = AS_RELEASE (g_ptr_array_index (priv->releases, i));
-			as_release_to_xml_node (rel, ctx, rnode);
-		}
-	}
+	as_releases_to_xml_node (priv->releases, ctx, cnode);
 
 	/* content_rating nodes */
 	for (guint i = 0; i < priv->content_ratings->len; i++) {
@@ -5634,12 +5327,8 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 		} else if (field_id == AS_TAG_LANGUAGES) {
 			as_component_yaml_parse_languages (cpt, node);
 		} else if (field_id == AS_TAG_RELEASES) {
-			for (GNode *n = node->children; n != NULL; n = n->next) {
-				g_autoptr(AsRelease) release = as_release_new ();
-				if (as_release_load_from_yaml (release, ctx, n, NULL))
-					g_ptr_array_add (priv->releases,
-							 g_steal_pointer (&release));
-			}
+			as_releases_load_from_yaml (priv->releases, ctx, node, NULL);
+
 		} else if (field_id == AS_TAG_SUGGESTS) {
 			for (GNode *n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsSuggested) suggested = as_suggested_new ();
@@ -6324,20 +6013,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_branding_emit_yaml (priv->branding, ctx, emitter);
 
 	/* Releases */
-	if (priv->releases->len > 0) {
-		/* ensure releases are sorted */
-		as_component_sort_releases (cpt);
-
-		as_yaml_emit_scalar (emitter, "Releases");
-		as_yaml_sequence_start (emitter);
-
-		for (guint i = 0; i < priv->releases->len; i++) {
-			AsRelease *release = AS_RELEASE (g_ptr_array_index (priv->releases, i));
-			as_release_emit_yaml (release, ctx, emitter);
-		}
-
-		as_yaml_sequence_end (emitter);
-	}
+	as_releases_emit_yaml (priv->releases, ctx, emitter);
 
 	/* ContentRating */
 	if (priv->content_ratings->len > 0) {

@@ -268,7 +268,7 @@ as_component_box_is_empty (AsComponentBox *cbox)
  * @cbox: An instance of #AsComponentBox.
  * @index: The component index.
  *
- * Retrieve a component at the expective index from the internal
+ * Retrieve a component at the respective index from the internal
  * component array.
  *
  * Returns: (transfer none): An #AsComponent or %NULL

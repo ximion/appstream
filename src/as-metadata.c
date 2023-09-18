@@ -42,7 +42,7 @@
 #include "as-utils-private.h"
 #include "as-component.h"
 #include "as-component-private.h"
-#include "as-release-private.h"
+#include "as-releases-private.h"
 #include "as-context-private.h"
 #include "as-desktop-entry.h"
 
@@ -456,10 +456,10 @@ as_metadata_parse_raw (AsMetadata *metad,
 
 		if (priv->mode == AS_FORMAT_STYLE_CATALOG) {
 			/* prepare context */
-			g_autoptr(AsContext)
-				       context = as_metadata_new_context (metad,
-									  AS_FORMAT_STYLE_CATALOG,
-									  filename);
+			g_autoptr(AsContext) context = NULL;
+			context = as_metadata_new_context (metad,
+							   AS_FORMAT_STYLE_CATALOG,
+							   filename);
 
 			if (g_strcmp0 ((gchar *) root->name, "components") == 0) {
 				as_metadata_xml_parse_components_node (metad, context, root, error);
@@ -896,7 +896,7 @@ as_metadata_releases_to_data (AsMetadata *metad, GPtrArray *releases, GError **e
 	root = as_xml_node_new ("releases");
 	context = as_metadata_new_context (metad, AS_FORMAT_STYLE_METAINFO, NULL);
 
-	g_ptr_array_sort (releases, as_component_releases_compare);
+	g_ptr_array_sort (releases, as_release_compare);
 	for (guint i = 0; i < releases->len; i++) {
 		AsRelease *rel = AS_RELEASE (g_ptr_array_index (releases, i));
 		as_release_to_xml_node (rel, context, root);

@@ -312,7 +312,7 @@ test_pool_read (void)
 	g_autoptr(AsComponent) cpt_a = NULL;
 	AsComponent *cpt_s = NULL;
 	gchar **strv;
-	GPtrArray *rels;
+	AsReleases *rels;
 	AsRelease *rel;
 	GPtrArray *artifacts;
 	AsBundle *bundle;
@@ -421,9 +421,9 @@ test_pool_read (void)
 	g_assert_cmpstr (as_bundle_get_id (bundle), ==, "neverball-1.6.0");
 
 	rels = as_component_get_releases (cpt_a);
-	g_assert_cmpint (rels->len, ==, 2);
+	g_assert_cmpint (as_releases_len (rels), ==, 2);
 
-	rel = AS_RELEASE (g_ptr_array_index (rels, 0));
+	rel = as_releases_index (rels, 0);
 	g_assert_cmpstr (as_release_get_version (rel), ==, "1.6.1");
 	g_assert_cmpuint (as_release_get_timestamp (rel), ==, 123465888);
 	g_assert_true (as_release_get_urgency (rel) == AS_URGENCY_KIND_LOW);
@@ -442,7 +442,7 @@ test_pool_read (void)
 		}
 	}
 
-	rel = AS_RELEASE (g_ptr_array_index (rels, 1));
+	rel = as_releases_index (rels, 1);
 	g_assert_cmpstr (as_release_get_version (rel), ==, "1.6.0");
 	g_assert_cmpuint (as_release_get_timestamp (rel), ==, 123456789);
 

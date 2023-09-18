@@ -352,7 +352,7 @@ ascli_news_to_metainfo (const gchar *news_fname,
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GFile) infile = NULL;
 	AsComponent *cpt = NULL;
-	GPtrArray *cpt_releases = NULL;
+	AsReleases *cpt_releases = NULL;
 
 	if (news_fname == NULL) {
 		ascli_print_stderr (_("You need to specify a NEWS file as input."));
@@ -415,12 +415,12 @@ ascli_news_to_metainfo (const gchar *news_fname,
 	cpt = as_metadata_get_component (metad);
 	cpt_releases = as_component_get_releases (cpt);
 
-	/* remove all existing releases, we only include data from the specofied file */
-	g_ptr_array_remove_range (cpt_releases, 0, cpt_releases->len);
+	/* remove all existing releases, we only include data from the specified file */
+	as_releases_clear (cpt_releases);
 
 	for (guint i = 0; i < releases->len; ++i) {
 		AsRelease *release = AS_RELEASE (g_ptr_array_index (releases, i));
-		g_ptr_array_add (cpt_releases, g_object_ref (release));
+		as_releases_add (cpt_releases, release);
 	}
 
 	if (g_strcmp0 (out_fname, "-") == 0) {
@@ -497,7 +497,7 @@ ascli_metainfo_to_news (const gchar *mi_fname, const gchar *news_fname, const gc
 			return 3;
 		}
 
-		as_releases_to_news_data (as_component_get_releases (cpt),
+		as_releases_to_news_data (as_releases_get_entries (as_component_get_releases (cpt)),
 					  format_kind,
 					  &news_data,
 					  &error);
@@ -509,7 +509,7 @@ ascli_metainfo_to_news (const gchar *mi_fname, const gchar *news_fname, const gc
 		g_print ("%s\n", news_data);
 		return 0;
 	} else {
-		as_releases_to_news_file (as_component_get_releases (cpt),
+		as_releases_to_news_file (as_releases_get_entries (as_component_get_releases (cpt)),
 					  news_fname,
 					  format_kind,
 					  &error);

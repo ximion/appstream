@@ -39,6 +39,7 @@
 #include <as-branding.h>
 #include <as-bundle.h>
 #include <as-release.h>
+#include <as-releases.h>
 #include <as-artifact.h>
 #include <as-checksum.h>
 #include <as-translation.h>

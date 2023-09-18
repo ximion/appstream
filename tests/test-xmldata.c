@@ -1882,10 +1882,12 @@ test_xml_read_releases (void)
 	cpt = as_xml_test_read_data (xmldata_releases, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReleaseTest");
 
-	g_assert_cmpint (as_component_get_releases (cpt)->len, ==, 1);
-	g_assert_cmpint (as_component_get_releases_kind (cpt), ==, AS_RELEASES_KIND_EMBEDDED);
+	g_assert_cmpint (as_releases_len (as_component_get_releases (cpt)), ==, 1);
+	g_assert_cmpint (as_releases_get_kind (as_component_get_releases (cpt)),
+			 ==,
+			 AS_RELEASES_KIND_EMBEDDED);
 
-	rel = AS_RELEASE (g_ptr_array_index (as_component_get_releases (cpt), 0));
+	rel = as_releases_index (as_component_get_releases (cpt), 0);
 	g_assert_cmpint (as_release_get_kind (rel), ==, AS_RELEASE_KIND_STABLE);
 	g_assert_cmpstr (as_release_get_version (rel), ==, "1.2");
 
@@ -2196,7 +2198,7 @@ test_xml_rw_external_releases (void)
 	g_autoptr(GFile) file = NULL;
 	g_autofree gchar *path = NULL;
 	g_autofree gchar *res = NULL;
-	GPtrArray *releases;
+	AsReleases *releases;
 	g_autoptr(GError) error = NULL;
 
 	/* read */
@@ -2207,16 +2209,20 @@ test_xml_rw_external_releases (void)
 
 	/* we ignore warnings, as this will throw one since we can not find the external release info file */
 	g_test_log_set_fatal_handler (test_log_allow_warnings, NULL);
-	releases = as_component_get_releases (cpt);
+	releases = as_component_load_releases (cpt, FALSE, &error);
 	g_test_log_set_fatal_handler (NULL, NULL);
 
+	g_assert_error (error, AS_UTILS_ERROR, AS_UTILS_ERROR_FAILED);
+	g_clear_error (&error);
+	g_assert_null (releases);
+	releases = as_component_get_releases (cpt);
 	g_assert_nonnull (releases);
-	g_assert_cmpint (releases->len, ==, 0);
+	g_assert_cmpint (as_releases_len (releases), ==, 0);
 
-	g_assert_cmpstr (as_component_get_releases_url (cpt),
+	g_assert_cmpstr (as_releases_get_url (releases),
 			 ==,
 			 "https://example.com/releases/test.releases.xml");
-	g_assert_cmpint (as_component_get_releases_kind (cpt), ==, AS_RELEASES_KIND_EXTERNAL);
+	g_assert_cmpint (as_releases_get_kind (releases), ==, AS_RELEASES_KIND_EXTERNAL);
 
 	/* write */
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
@@ -2234,14 +2240,15 @@ test_xml_rw_external_releases (void)
 	cpt = g_object_ref (as_metadata_get_component (metad));
 
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.pomidaq");
-	releases = as_component_get_releases (cpt);
+	releases = as_component_load_releases (cpt, FALSE, &error);
+	g_assert_no_error (error);
 	g_assert_nonnull (releases);
-	g_assert_cmpint (releases->len, ==, 4);
-	g_assert_cmpstr (as_component_get_releases_url (cpt),
+	g_assert_cmpint (as_releases_len (releases), ==, 4);
+	g_assert_cmpstr (as_releases_get_url (releases),
 			 ==,
 			 "https://raw.githubusercontent.com/ximion/appstream/master/tests/samples/"
 			 "releases/org.example.pomidaq.releases.xml");
-	g_assert_cmpint (as_component_get_releases_kind (cpt), ==, AS_RELEASES_KIND_EXTERNAL);
+	g_assert_cmpint (as_releases_get_kind (releases), ==, AS_RELEASES_KIND_EXTERNAL);
 }
 
 /**
