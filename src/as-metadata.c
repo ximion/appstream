@@ -62,7 +62,8 @@ typedef struct {
 	gboolean write_header;
 	AsParseFlags parse_flags;
 
-	GPtrArray *cpts;
+	GPtrArray *cpts;     /* of AsComponent */
+	GPtrArray *releases; /* of AsReleases */
 } AsMetadataPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsMetadata, as_metadata, G_TYPE_OBJECT)
@@ -96,6 +97,8 @@ as_metadata_file_guess_style (const gchar *filename)
 		return AS_FORMAT_STYLE_METAINFO;
 	if (g_str_has_suffix (filename, ".metainfo.xml.in"))
 		return AS_FORMAT_STYLE_METAINFO;
+	if (g_str_has_suffix (filename, ".metainfo.xml.in.in"))
+		return AS_FORMAT_STYLE_METAINFO;
 	if (g_str_has_suffix (filename, ".xml"))
 		return AS_FORMAT_STYLE_CATALOG;
 	return AS_FORMAT_STYLE_UNKNOWN;
@@ -123,6 +126,7 @@ as_metadata_init (AsMetadata *metad)
 	priv->parse_flags = AS_PARSE_FLAG_NONE;
 
 	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
 }
 
 /**
@@ -169,13 +173,15 @@ as_metadata_new_context (AsMetadata *metad, AsFormatStyle style, const gchar *fn
 
 /**
  * as_metadata_clear_components:
+ * @metad: an instance of #AsMetadata.
+ *
+ * Remove all previously parsed or manually added components.
  **/
 void
 as_metadata_clear_components (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-	g_ptr_array_unref (priv->cpts);
-	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
+	g_ptr_array_set_size (priv->cpts, 0);
 }
 
 /**
@@ -793,15 +799,17 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
  * @error: A #GError or %NULL.
  *
  * Parses any AppStream release metadata into #AsRelease objects.
+ * You can retrieve the last parsed #AsReleases using %as_metadata_get_releases_entry.
  *
- * Returns: (element-type AsRelease) (transfer container) (nullable): A list of releases or %NULL on error.
+ * Returns: %TRUE on success.
  *
  * Since: 0.16.0
  **/
-GPtrArray *
+gboolean
 as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **error)
 {
-	g_autoptr(GPtrArray) releases = NULL;
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	g_autoptr(AsReleases) releases = NULL;
 	g_autoptr(AsContext) context = NULL;
 	xmlDoc *xdoc;
 	xmlNode *xroot;
@@ -810,10 +818,10 @@ as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **err
 
 	xdoc = as_xml_parse_document (data, data_len, error);
 	if (xdoc == NULL)
-		return NULL;
+		return FALSE;
 
 	context = as_metadata_new_context (metad, AS_FORMAT_STYLE_METAINFO, NULL);
-	releases = g_ptr_array_new_with_free_func (g_object_unref);
+	releases = as_releases_new ();
 
 	/* load releases */
 	xroot = xmlDocGetRootElement (xdoc);
@@ -823,12 +831,13 @@ as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **err
 		if (as_str_equal0 (iter->name, "release")) {
 			g_autoptr(AsRelease) release = as_release_new ();
 			if (as_release_load_from_xml (release, context, iter, NULL))
-				g_ptr_array_add (releases, g_steal_pointer (&release));
+				as_releases_add (releases, release);
 		}
 	}
 	xmlFreeDoc (xdoc);
 
-	return g_steal_pointer (&releases);
+	g_ptr_array_add (priv->releases, g_steal_pointer (&releases));
+	return TRUE;
 }
 
 /**
@@ -839,12 +848,13 @@ as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **err
  *
  * Parses any AppStream release metadata into #AsRelease objects
  * using the provided file.
+ * You can retrieve the last parsed #AsReleases using %as_metadata_get_releases_entry.
  *
- * Returns: (element-type AsRelease) (transfer container) (nullable): A list of releases or %NULL on error.
+ * Returns: %TRUE on success.
  *
  * Since: 0.16.0
  **/
-GPtrArray *
+gboolean
 as_metadata_parse_releases_file (AsMetadata *metad, GFile *file, GError **error)
 {
 	g_autoptr(GFileInputStream) input_stream = NULL;
@@ -854,7 +864,7 @@ as_metadata_parse_releases_file (AsMetadata *metad, GFile *file, GError **error)
 
 	input_stream = g_file_read (file, NULL, error);
 	if (input_stream == NULL)
-		return NULL;
+		return FALSE;
 
 	byte_array = g_byte_array_new ();
 	do {
@@ -865,7 +875,7 @@ as_metadata_parse_releases_file (AsMetadata *metad, GFile *file, GError **error)
 					      &bytes_read,
 					      NULL,
 					      error))
-			return NULL;
+			return FALSE;
 
 		if (bytes_read > 0)
 			g_byte_array_append (byte_array, buffer, bytes_read);
@@ -878,17 +888,17 @@ as_metadata_parse_releases_file (AsMetadata *metad, GFile *file, GError **error)
 /**
  * as_metadata_releases_to_data:
  * @metad: A valid #AsMetadata instance
- * @releases: (element-type AsRelease): the list of #Asrelease to convert.
+ * @releases: the #AsReleases to convert.
  * @error: A #GError or %NULL.
  *
- * Convert a list of #Asrelease entities into a release metadata XML representation.
+ * Convert a releases of an #AsReleases entity into a release metadata XML representation.
  *
  * Returns: The XML representation or %NULL on error.
  *
  * Since: 0.16.0
  **/
 gchar *
-as_metadata_releases_to_data (AsMetadata *metad, GPtrArray *releases, GError **error)
+as_metadata_releases_to_data (AsMetadata *metad, AsReleases *releases, GError **error)
 {
 	xmlNode *root;
 	g_autoptr(AsContext) context = NULL;
@@ -896,13 +906,57 @@ as_metadata_releases_to_data (AsMetadata *metad, GPtrArray *releases, GError **e
 	root = as_xml_node_new ("releases");
 	context = as_metadata_new_context (metad, AS_FORMAT_STYLE_METAINFO, NULL);
 
-	g_ptr_array_sort (releases, as_release_compare);
-	for (guint i = 0; i < releases->len; i++) {
-		AsRelease *rel = AS_RELEASE (g_ptr_array_index (releases, i));
+	as_releases_sort (releases);
+	for (guint i = 0; i < as_releases_len (releases); i++) {
+		AsRelease *rel = as_releases_index (releases, i);
 		as_release_to_xml_node (rel, context, root);
 	}
 
 	return as_xml_node_free_to_str (root, error);
+}
+
+/**
+ * as_metadata_get_releases_entry:
+ * @metad: a #AsMetadata instance.
+ *
+ * Gets the recently parsed #AsReleases entry.
+ *
+ * Returns: (transfer none) (nullable): An #AsReleases or %NULL
+ **/
+AsReleases *
+as_metadata_get_releases_entry (AsMetadata *metad)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+
+	if (priv->releases->len == 0)
+		return NULL;
+	return AS_RELEASES (g_ptr_array_index (priv->releases, priv->releases->len - 1));
+}
+
+/**
+ * as_metadata_get_releases_entries:
+ * @metad: a #AsMetadata instance.
+ *
+ * Returns: (transfer none) (element-type AsReleases): A #GPtrArray of all parsed release metadata.
+ **/
+GPtrArray *
+as_metadata_get_releases_entries (AsMetadata *metad)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	return priv->releases;
+}
+
+/**
+ * as_metadata_clear_releases:
+ * @metad: a #AsMetadata instance.
+ *
+ * Remove all previously parsed releases entries.
+ */
+void
+as_metadata_clear_releases (AsMetadata *metad)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	g_ptr_array_set_size (priv->releases, 0);
 }
 
 /**
@@ -1379,7 +1433,7 @@ as_metadata_add_component (AsMetadata *metad, AsComponent *cpt)
  * @metad: a #AsMetadata instance.
  *
  * Gets the #AsComponent which has been parsed from the XML.
- * If the AppStream XML contained multiple components, return the first
+ * If the AppStream XML contained multiple components, return the last
  * component that has been parsed.
  *
  * Returns: (transfer none) (nullable): An #AsComponent or %NULL
@@ -1391,7 +1445,7 @@ as_metadata_get_component (AsMetadata *metad)
 
 	if (priv->cpts->len == 0)
 		return NULL;
-	return AS_COMPONENT (g_ptr_array_index (priv->cpts, 0));
+	return AS_COMPONENT (g_ptr_array_index (priv->cpts, priv->cpts->len - 1));
 }
 
 /**

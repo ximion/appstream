@@ -11,8 +11,6 @@ libappstream API break for the AppStream 1.0 release.
 
  * Make AsComponentBox/AsReleases available for the Qt bindings
 
- * Make AsMetadata use AsReleases
-
  * Sort out the various markup-to-text conversion functions, make some of them public API and maybe rewrite some
    (there are likely some performance improvements to be found there)
 
@@ -54,3 +52,5 @@ libappstream API break for the AppStream 1.0 release.
  * Drop AS_IMAGE_LARGE_HEIGHT & Co, they are now misleading and less useful than when we had stricter image dimensions
 
  * Create new AsReleaseData/AsReleases to hold external release information
+
+ * Make AsMetadata use AsReleases
