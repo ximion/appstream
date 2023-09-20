@@ -139,10 +139,12 @@ as_metadata_finalize (GObject *object)
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	g_free (priv->locale);
-	g_ptr_array_unref (priv->cpts);
 	g_free (priv->origin);
 	g_free (priv->media_baseurl);
 	g_free (priv->arch);
+
+	g_ptr_array_unref (priv->cpts);
+	g_ptr_array_unref (priv->releases);
 
 	G_OBJECT_CLASS (as_metadata_parent_class)->finalize (object);
 }
