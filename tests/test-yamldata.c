@@ -1732,9 +1732,9 @@ test_yaml_read_releases (void)
 	cpt = as_yaml_test_read_data (yamldata_releases_field, NULL);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReleasesTest");
 
-	g_assert_cmpint (as_releases_len (as_component_get_releases (cpt)), ==, 2);
+	g_assert_cmpint (as_releases_len (as_component_get_releases_plain (cpt)), ==, 2);
 
-	rel = as_releases_index (as_component_get_releases (cpt), 0);
+	rel = as_releases_index (as_component_get_releases_plain (cpt), 0);
 	g_assert_cmpint (as_release_get_kind (rel), ==, AS_RELEASE_KIND_STABLE);
 	g_assert_cmpstr (as_release_get_version (rel), ==, "1.2");
 

@@ -628,7 +628,7 @@ as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot)
 }
 
 /**
- * as_component_get_releases:
+ * as_component_get_releases_plain:
  * @cpt: a #AsComponent instance.
  *
  * Get release information for this component,
@@ -637,7 +637,7 @@ as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot)
  * Returns: (transfer none): Release information as #AsReleases
  **/
 AsReleases *
-as_component_get_releases (AsComponent *cpt)
+as_component_get_releases_plain (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return priv->releases;

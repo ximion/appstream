@@ -2505,7 +2505,7 @@ as_validator_check_releases (AsValidator *validator, xmlNode *node, AsFormatStyl
 					      rel_pair->bytes,
 					      rel_pair->fname,
 					      mode);
-	as_releases_load_from_bytes (as_component_get_releases (priv->current_cpt),
+	as_releases_load_from_bytes (as_component_get_releases_plain (priv->current_cpt),
 				     rel_pair->bytes,
 				     NULL);
 }
@@ -3315,8 +3315,8 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	}
 
 	/* validate releases */
-	if (!as_releases_is_empty (as_component_get_releases (cpt))) {
-		AsReleases *releases = as_component_get_releases (cpt);
+	if (!as_releases_is_empty (as_component_get_releases_plain (cpt))) {
+		AsReleases *releases = as_component_get_releases_plain (cpt);
 		AsRelease *release_prev = as_releases_index (releases, 0);
 
 		for (guint i = 1; i < as_releases_len (releases); i++) {

@@ -222,7 +222,7 @@ public:
     QList<AppStream::Screenshot> screenshots() const;
     void addScreenshot(const AppStream::Screenshot &screenshot);
 
-    QList<AppStream::Release> releases() const;
+    QList<AppStream::Release> releasesPlain() const;
     void addRelease(const AppStream::Release &release);
 
     bool hasBundle() const;

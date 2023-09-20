@@ -515,11 +515,11 @@ void AppStream::Component::addScreenshot(const AppStream::Screenshot &screenshot
     as_component_add_screenshot(m_cpt, screenshot.asScreenshot());
 }
 
-QList<Release> Component::releases() const
+QList<Release> Component::releasesPlain() const
 {
     QList<Release> res;
 
-    auto rels = as_component_get_releases(m_cpt);
+    auto rels = as_component_get_releases_plain(m_cpt);
     res.reserve(as_releases_len(rels));
     for (uint i = 0; i < as_releases_len(rels); i++) {
         auto rel = as_releases_index(rels, i);

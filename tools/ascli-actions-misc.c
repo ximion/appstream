@@ -413,7 +413,7 @@ ascli_news_to_metainfo (const gchar *news_fname,
 	}
 
 	cpt = as_metadata_get_component (metad);
-	cpt_releases = as_component_get_releases (cpt);
+	cpt_releases = as_component_get_releases_plain (cpt);
 
 	/* remove all existing releases, we only include data from the specified file */
 	as_releases_clear (cpt_releases);
@@ -497,10 +497,11 @@ ascli_metainfo_to_news (const gchar *mi_fname, const gchar *news_fname, const gc
 			return 3;
 		}
 
-		as_releases_to_news_data (as_releases_get_entries (as_component_get_releases (cpt)),
-					  format_kind,
-					  &news_data,
-					  &error);
+		as_releases_to_news_data (
+		    as_releases_get_entries (as_component_get_releases_plain (cpt)),
+		    format_kind,
+		    &news_data,
+		    &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
 			return 1;
@@ -509,10 +510,11 @@ ascli_metainfo_to_news (const gchar *mi_fname, const gchar *news_fname, const gc
 		g_print ("%s\n", news_data);
 		return 0;
 	} else {
-		as_releases_to_news_file (as_releases_get_entries (as_component_get_releases (cpt)),
-					  news_fname,
-					  format_kind,
-					  &error);
+		as_releases_to_news_file (
+		    as_releases_get_entries (as_component_get_releases_plain (cpt)),
+		    news_fname,
+		    format_kind,
+		    &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
 			return 1;

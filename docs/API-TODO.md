@@ -7,8 +7,6 @@ libappstream API break for the AppStream 1.0 release.
 
 ## TODO
 
- * Drop all bytes+length uses in public API and use GBytes instead if a function takes byte arrays
-
  * Make AsComponentBox/AsReleases available for the Qt bindings
 
  * Sort out the various markup-to-text conversion functions, make some of them public API and maybe rewrite some
@@ -54,3 +52,5 @@ libappstream API break for the AppStream 1.0 release.
  * Create new AsReleaseData/AsReleases to hold external release information
 
  * Make AsMetadata use AsReleases
+
+ * Drop all bytes+length uses in public API and use GBytes instead if a function takes byte arrays

@@ -150,7 +150,7 @@ asc_process_metainfo_releases (AscResult *cres,
 {
 	g_autoptr(GError) local_error = NULL;
 	g_autoptr(GBytes) relmd_bytes = NULL;
-	AsReleases *releases = as_component_get_releases (cpt);
+	AsReleases *releases = as_component_get_releases_plain (cpt);
 
 	/* download external release metadata or fetch local release data */
 	if (as_releases_get_kind (releases) == AS_RELEASES_KIND_EXTERNAL) {

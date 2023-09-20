@@ -420,7 +420,7 @@ test_pool_read (void)
 	g_assert_nonnull (bundle);
 	g_assert_cmpstr (as_bundle_get_id (bundle), ==, "neverball-1.6.0");
 
-	rels = as_component_get_releases (cpt_a);
+	rels = as_component_get_releases_plain (cpt_a);
 	g_assert_cmpint (as_releases_len (rels), ==, 2);
 
 	rel = as_releases_index (rels, 0);

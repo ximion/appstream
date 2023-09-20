@@ -292,7 +292,7 @@ const gchar *as_component_get_url (AsComponent *cpt, AsUrlKind url_kind);
 void	     as_component_add_url (AsComponent *cpt, AsUrlKind url_kind, const gchar *url);
 
 AsReleases  *as_component_load_releases (AsComponent *cpt, gboolean allow_net, GError **error);
-AsReleases  *as_component_get_releases (AsComponent *cpt);
+AsReleases  *as_component_get_releases_plain (AsComponent *cpt);
 void	     as_component_set_releases (AsComponent *cpt, AsReleases *releases);
 void	     as_component_add_release (AsComponent *cpt, AsRelease *release);
 

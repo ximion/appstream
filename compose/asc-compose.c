@@ -1276,7 +1276,7 @@ asc_compose_finalize_components (AscCompose *compose, AscResult *cres)
 
 		/* strip out release artifacts unless we were told to propagate them */
 		if (!as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_PROPAGATE_ARTIFACTS)) {
-			AsReleases *releases = as_component_get_releases (cpt);
+			AsReleases *releases = as_component_get_releases_plain (cpt);
 			for (guint j = 0; j < as_releases_len (releases); j++) {
 				AsRelease *rel = as_releases_index (releases, j);
 				g_ptr_array_set_size (as_release_get_artifacts (rel), 0);
