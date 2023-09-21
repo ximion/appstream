@@ -48,7 +48,11 @@ class APPSTREAMQT_EXPORT Image
     Q_GADGET
 
 public:
-    enum Kind { KindUnknown, KindSource, KindThumbnail };
+    enum Kind {
+        KindUnknown,
+        KindSource,
+        KindThumbnail
+    };
     Q_ENUM(Kind)
 
     Image();

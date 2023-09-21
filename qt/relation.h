@@ -29,7 +29,12 @@ struct _AsRelation;
 namespace AppStream
 {
 
-enum class CheckResult { Error, Unknown, False, True };
+enum class CheckResult {
+    Error,
+    Unknown,
+    False,
+    True
+};
 
 class Pool;
 class SystemInfo;
@@ -43,7 +48,11 @@ class APPSTREAMQT_EXPORT Relation
     Q_GADGET
 
 public:
-    enum Kind { KindUnknown, KindRequires, KindRecommends };
+    enum Kind {
+        KindUnknown,
+        KindRequires,
+        KindRecommends
+    };
     Q_ENUM(Kind)
 
     enum ItemKind {

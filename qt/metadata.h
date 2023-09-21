@@ -45,7 +45,12 @@ public:
     };
     Q_ENUM(FormatStyle)
 
-    enum FormatKind { FormatKindUnknown, FormatKindXml, FormatKindYaml, FormatKindDesktopEntry };
+    enum FormatKind {
+        FormatKindUnknown,
+        FormatKindXml,
+        FormatKindYaml,
+        FormatKindDesktopEntry
+    };
     Q_ENUM(FormatKind)
 
     enum FormatVersion {

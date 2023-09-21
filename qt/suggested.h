@@ -42,7 +42,11 @@ class APPSTREAMQT_EXPORT Suggested
     Q_GADGET
 
 public:
-    enum Kind { KindUnknown, KindUpstream, KindHeuristic };
+    enum Kind {
+        KindUnknown,
+        KindUpstream,
+        KindHeuristic
+    };
     Q_ENUM(Kind)
 
     Suggested();

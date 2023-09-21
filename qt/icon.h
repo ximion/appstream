@@ -41,7 +41,13 @@ class APPSTREAMQT_EXPORT Icon
     Q_GADGET
 
 public:
-    enum Kind { KindUnknown, KindCached, KindStock, KindLocal, KindRemote };
+    enum Kind {
+        KindUnknown,
+        KindCached,
+        KindStock,
+        KindLocal,
+        KindRemote
+    };
     Q_ENUM(Kind)
 
     Icon();

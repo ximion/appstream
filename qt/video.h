@@ -43,10 +43,18 @@ class APPSTREAMQT_EXPORT Video
     Q_GADGET
 
 public:
-    enum CodecKind { CodecKindUnknown, CodecKindVP9, CodecKindAV1 };
+    enum CodecKind {
+        CodecKindUnknown,
+        CodecKindVP9,
+        CodecKindAV1
+    };
     Q_ENUM(CodecKind)
 
-    enum ContainerKind { ContainerKindUnknown, ContainerKindMKV, ContainerKindWebM };
+    enum ContainerKind {
+        ContainerKindUnknown,
+        ContainerKindMKV,
+        ContainerKindWebM
+    };
     Q_ENUM(ContainerKind)
 
     Video();

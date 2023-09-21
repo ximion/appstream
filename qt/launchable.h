@@ -38,7 +38,12 @@ class APPSTREAMQT_EXPORT Launchable
     Q_GADGET
 
 public:
-    enum Kind { KindUnknown, KindDesktopId, KindService, KindCockpitManifest };
+    enum Kind {
+        KindUnknown,
+        KindDesktopId,
+        KindService,
+        KindCockpitManifest
+    };
     Q_ENUM(Kind)
 
     Launchable();

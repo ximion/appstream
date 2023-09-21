@@ -46,7 +46,11 @@ class APPSTREAMQT_EXPORT Screenshot
     Q_GADGET
 
 public:
-    enum MediaKind { MediaKindUnknown, MediaKindImage, MediaKindVideo };
+    enum MediaKind {
+        MediaKindUnknown,
+        MediaKindImage,
+        MediaKindVideo
+    };
     Q_ENUM(MediaKind)
 
     Screenshot();

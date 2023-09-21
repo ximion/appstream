@@ -32,6 +32,7 @@
 #include "contentrating.h"
 #include "launchable.h"
 #include "translation.h"
+#include "releases.h"
 
 struct _AsComponent;
 namespace AppStream
@@ -39,7 +40,6 @@ namespace AppStream
 
 class Icon;
 class Screenshot;
-class Release;
 class Relation;
 class Suggested;
 
@@ -75,7 +75,11 @@ public:
     };
     Q_ENUM(Kind)
 
-    enum MergeKind { MergeKindNone, MergeKindReplace, MergeKindAppend };
+    enum MergeKind {
+        MergeKindNone,
+        MergeKindReplace,
+        MergeKindAppend
+    };
     Q_ENUM(MergeKind)
 
     enum UrlKind {
@@ -92,7 +96,11 @@ public:
     };
     Q_ENUM(UrlKind)
 
-    enum Scope { ScopeUnknown, ScopeSystem, ScopeUser };
+    enum Scope {
+        ScopeUnknown,
+        ScopeSystem,
+        ScopeUser
+    };
     Q_ENUM(Scope)
 
     enum ValueFlags {
@@ -114,10 +122,10 @@ public:
     Component(_AsComponent *cpt);
     Component();
     Component(const Component &other);
-    Component(Component &&other);
     ~Component();
 
     Component &operator=(const Component &c);
+    bool operator==(const Component &r) const;
 
     _AsComponent *asComponent() const;
 
@@ -222,7 +230,9 @@ public:
     QList<AppStream::Screenshot> screenshots() const;
     void addScreenshot(const AppStream::Screenshot &screenshot);
 
-    QList<AppStream::Release> releasesPlain() const;
+    Releases releasesPlain() const;
+    std::optional<Releases> loadReleases(bool allowNet);
+    void setReleases(const Releases &releases);
     void addRelease(const AppStream::Release &release);
 
     bool hasBundle() const;
@@ -265,8 +275,10 @@ public:
 
     QString toString() const;
 
+    QString lastError() const;
+
 private:
-    _AsComponent *m_cpt;
+    QSharedDataPointer<ComponentData> d;
 };
 }
 

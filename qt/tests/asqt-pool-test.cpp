@@ -71,16 +71,16 @@ void PoolReadTest::testRead01()
         qWarning() << pool->lastError();
     QVERIFY(ret);
 
-    auto cpts = pool->components();
-    QCOMPARE(cpts.size(), 20);
+    auto cbox = pool->components();
+    QCOMPARE(cbox.size(), 20);
 
-    cpts = pool->componentsById("org.neverball.Neverball");
-    QCOMPARE(cpts.size(), 1);
+    cbox = pool->componentsById("org.neverball.Neverball");
+    QCOMPARE(cbox.size(), 1);
 
-    auto cpt = cpts[0];
-    QVERIFY(!cpt.id().isEmpty());
+    auto cpt = cbox.indexSafe(0);
+    QVERIFY(!cpt->id().isEmpty());
 
-    QCOMPARE(cpt.name(), QLatin1String("Neverball"));
+    QCOMPARE(cpt->name(), QLatin1String("Neverball"));
 }
 
 void PoolReadTest::testLoadAsync()
@@ -102,10 +102,10 @@ void PoolReadTest::testLoadAsync()
     const QList<QVariant> arguments = loadedSpy.takeFirst();
     QCOMPARE(arguments.first().toBool(), true);
 
-    auto cpts = pool->components();
-    QCOMPARE(cpts.size(), 20);
+    auto cbox = pool->components();
+    QCOMPARE(cbox.size(), 20);
 
-    cpts = pool->componentsById("org.neverball.Neverball");
+    auto cpts = pool->componentsById("org.neverball.Neverball").toList();
     QCOMPARE(cpts.size(), 1);
 
     auto cpt = cpts[0];

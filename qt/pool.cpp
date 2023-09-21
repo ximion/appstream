@@ -51,14 +51,9 @@ public:
     }
 };
 
-static QList<Component> cptBoxToQList(AsComponentBox *cbox)
+static inline ComponentBox absorbResultToCBox(AsComponentBox *cbox)
 {
-    QList<Component> res;
-    res.reserve(as_component_box_len(cbox));
-    for (uint i = 0; i < as_component_box_len(cbox); i++) {
-        Component cpt(as_component_box_index(cbox, i));
-        res.append(cpt);
-    }
+    ComponentBox res(cbox);
     g_object_unref(cbox);
     return res;
 }
@@ -126,48 +121,43 @@ QString Pool::lastError() const
     return d->lastError;
 }
 
-bool Pool::addComponents(const QList<AppStream::Component> &cpts)
+bool Pool::addComponents(const ComponentBox &cbox)
 {
     g_autoptr(GError) error = nullptr;
-    g_autoptr(AsComponentBox) cbox = nullptr;
 
-    cbox = as_component_box_new_simple();
-    for (const auto &cpt : cpts)
-        as_component_box_add(cbox, cpt.asComponent(), NULL);
-
-    bool ret = as_pool_add_components(d->pool, cbox, &error);
+    bool ret = as_pool_add_components(d->pool, cbox.asComponentBox(), &error);
     if (!ret)
         d->lastError = QString::fromUtf8(error->message);
 
     return ret;
 }
 
-QList<Component> Pool::components() const
+ComponentBox Pool::components() const
 {
-    return cptBoxToQList(as_pool_get_components(d->pool));
+    return absorbResultToCBox(as_pool_get_components(d->pool));
 }
 
-QList<Component> Pool::componentsById(const QString &cid) const
+ComponentBox Pool::componentsById(const QString &cid) const
 {
-    return cptBoxToQList(as_pool_get_components_by_id(d->pool, qPrintable(cid)));
+    return absorbResultToCBox(as_pool_get_components_by_id(d->pool, qPrintable(cid)));
 }
 
-QList<Component> Pool::componentsByProvided(Provided::Kind kind, const QString &item) const
+ComponentBox Pool::componentsByProvided(Provided::Kind kind, const QString &item) const
 {
-    return cptBoxToQList(as_pool_get_components_by_provided_item(d->pool,
-                                                                 static_cast<AsProvidedKind>(kind),
-                                                                 qPrintable(item)));
+    return absorbResultToCBox(
+        as_pool_get_components_by_provided_item(d->pool,
+                                                static_cast<AsProvidedKind>(kind),
+                                                qPrintable(item)));
 }
 
-QList<AppStream::Component> Pool::componentsByKind(Component::Kind kind) const
+ComponentBox Pool::componentsByKind(Component::Kind kind) const
 {
-    return cptBoxToQList(
+    return absorbResultToCBox(
         as_pool_get_components_by_kind(d->pool, static_cast<AsComponentKind>(kind)));
 }
 
-QList<AppStream::Component> Pool::componentsByCategories(const QStringList &categories) const
+ComponentBox Pool::componentsByCategories(const QStringList &categories) const
 {
-    QList<AppStream::Component> res;
     g_autofree gchar **cats_strv = NULL;
 
     QVector<QByteArray> utf8Categories;
@@ -180,33 +170,34 @@ QList<AppStream::Component> Pool::componentsByCategories(const QStringList &cate
     for (int i = 0; i < utf8Categories.size(); ++i)
         cats_strv[i] = (gchar *) utf8Categories[i].constData();
 
-    return cptBoxToQList(as_pool_get_components_by_categories(d->pool, cats_strv));
+    return absorbResultToCBox(as_pool_get_components_by_categories(d->pool, cats_strv));
 }
 
-QList<Component> Pool::componentsByLaunchable(Launchable::Kind kind, const QString &value) const
+ComponentBox Pool::componentsByLaunchable(Launchable::Kind kind, const QString &value) const
 {
-    return cptBoxToQList(as_pool_get_components_by_launchable(d->pool,
-                                                              static_cast<AsLaunchableKind>(kind),
-                                                              qPrintable(value)));
+    return absorbResultToCBox(
+        as_pool_get_components_by_launchable(d->pool,
+                                             static_cast<AsLaunchableKind>(kind),
+                                             qPrintable(value)));
 }
 
-QList<Component> Pool::componentsByExtends(const QString &extendedId) const
+ComponentBox Pool::componentsByExtends(const QString &extendedId) const
 {
-    return cptBoxToQList(as_pool_get_components_by_extends(d->pool, qPrintable(extendedId)));
+    return absorbResultToCBox(as_pool_get_components_by_extends(d->pool, qPrintable(extendedId)));
 }
 
-QList<Component>
+ComponentBox
 Pool::componentsByBundleId(Bundle::Kind kind, const QString &extendedId, bool matchPrefix) const
 {
-    return cptBoxToQList(as_pool_get_components_by_bundle_id(d->pool,
-                                                             static_cast<AsBundleKind>(kind),
-                                                             qPrintable(extendedId),
-                                                             matchPrefix));
+    return absorbResultToCBox(as_pool_get_components_by_bundle_id(d->pool,
+                                                                  static_cast<AsBundleKind>(kind),
+                                                                  qPrintable(extendedId),
+                                                                  matchPrefix));
 }
 
-QList<AppStream::Component> Pool::search(const QString &term) const
+ComponentBox Pool::search(const QString &term) const
 {
-    return cptBoxToQList(as_pool_search(d->pool, qPrintable(term)));
+    return absorbResultToCBox(as_pool_search(d->pool, qPrintable(term)));
 }
 
 void Pool::setLocale(const QString &locale)
@@ -214,24 +205,24 @@ void Pool::setLocale(const QString &locale)
     as_pool_set_locale(d->pool, qPrintable(locale));
 }
 
-uint Pool::flags() const
+Pool::Flags Pool::flags() const
 {
-    return as_pool_get_flags(d->pool);
+    return static_cast<Pool::Flags>(as_pool_get_flags(d->pool));
 }
 
-void Pool::setFlags(uint flags)
+void Pool::setFlags(Pool::Flags flags)
 {
-    as_pool_set_flags(d->pool, (AsPoolFlags) flags);
+    as_pool_set_flags(d->pool, (AsPoolFlags) flags.toInt());
 }
 
-void Pool::addFlags(uint flags)
+void Pool::addFlags(Pool::Flags flags)
 {
-    as_pool_add_flags(d->pool, (AsPoolFlags) flags);
+    as_pool_add_flags(d->pool, (AsPoolFlags) flags.toInt());
 }
 
-void Pool::removeFlags(uint flags)
+void Pool::removeFlags(Pool::Flags flags)
 {
-    as_pool_remove_flags(d->pool, (AsPoolFlags) flags);
+    as_pool_remove_flags(d->pool, (AsPoolFlags) flags.toInt());
 }
 
 void Pool::resetExtraDataLocations()

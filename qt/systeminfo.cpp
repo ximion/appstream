@@ -63,22 +63,7 @@ SystemInfo::SystemInfo(_AsSystemInfo *sysInfo)
 {
 }
 
-SystemInfo::SystemInfo(const SystemInfo &sysInfo) = default;
-
 SystemInfo::~SystemInfo() = default;
-
-SystemInfo &SystemInfo::operator=(const SystemInfo &sysInfo) = default;
-
-bool SystemInfo::operator==(const SystemInfo &other) const
-{
-    if (this->d == other.d) {
-        return true;
-    }
-    if (this->d && other.d) {
-        return *(this->d) == *other.d;
-    }
-    return false;
-}
 
 _AsSystemInfo *AppStream::SystemInfo::asSystemInfo() const
 {

@@ -30,18 +30,14 @@ namespace AppStream
 {
 
 class SystemInfoData;
-class APPSTREAMQT_EXPORT SystemInfo
+class APPSTREAMQT_EXPORT SystemInfo : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
 
 public:
     SystemInfo();
     SystemInfo(_AsSystemInfo *sysInfo);
-    SystemInfo(const SystemInfo &sysInfo);
     ~SystemInfo();
-
-    SystemInfo &operator=(const SystemInfo &sysInfo);
-    bool operator==(const SystemInfo &r) const;
 
     /**
      * \returns the internally stored AsSystemInfo

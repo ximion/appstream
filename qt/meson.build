@@ -30,6 +30,7 @@ qt_dep = dependency(
 asqt_src = [
     'bundle.cpp',
     'category.cpp',
+    'component-box.cpp',
     'component.cpp',
     'contentrating.cpp',
     'icon.cpp',
@@ -40,19 +41,21 @@ asqt_src = [
     'provided.cpp',
     'relation.cpp',
     'release.cpp',
+    'releases.cpp',
     'screenshot.cpp',
     'spdx.cpp',
     'suggested.cpp',
     'systeminfo.cpp',
     'translation.cpp',
     'utils.cpp',
-    'video.cpp'
+    'video.cpp',
 ]
 
 asqt_pub_headers = [
     'appstreamqt_export.h',
     'bundle.h',
     'category.h',
+    'component-box.h',
     'component.h',
     'contentrating.h',
     'icon.h',
@@ -63,16 +66,18 @@ asqt_pub_headers = [
     'provided.h',
     'relation.h',
     'release.h',
+    'releases.h',
     'screenshot.h',
     'spdx.h',
     'suggested.h',
     'systeminfo.h',
     'translation.h',
     'utils.h',
-    'video.h'
+    'video.h',
 ]
 
 asqt_priv_headers = [
+    'chelpers.h',
 ]
 
 asqt_moc = qt.preprocess (
