@@ -67,5 +67,8 @@ AllowAllArgumentsOnNextLine: false
 # Have a space after casts
 SpaceAfterCStyleCast: true
 
+# All enums should be on their own line
+AllowShortEnumsOnASingleLine: false
+
 # don't reflow comments, this can cause issues with docstrings
 ReflowComments: false
