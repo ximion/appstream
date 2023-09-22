@@ -216,6 +216,36 @@ def update_categories_list(spec_url, cat_fname):
         f.write('\n')
 
 
+def update_gui_env_ids():
+    print('Updating GUI environment IDs...')
+
+    desktop_envs = set()
+    with open('desktop-environments.txt', 'r') as f:
+        for line in f.readlines():
+            if line.startswith('#'):
+                continue
+            desktop_envs.add(line.strip().lower())
+
+    # fixup
+    desktop_envs.remove('kde')
+    desktop_envs.add('plasma')
+
+    # extend the existing list
+    gui_env_ids = set()
+    with open('desktop-style-ids.txt', 'r') as f:
+        for line in f.readlines():
+            if line.startswith('#'):
+                continue
+            gui_env_ids.add(line.strip().lower())
+
+    gui_env_ids.update(desktop_envs)
+
+    with open('desktop-style-ids.txt', 'w') as f:
+        f.write('# List of recognized GUI environment IDs\n')
+        f.write('\n'.join(sorted(gui_env_ids)))
+        f.write('\n')
+
+
 def main():
     data_dir = os.path.dirname(os.path.abspath(__file__))
     print('Data directory is: {}'.format(data_dir))
@@ -230,6 +260,7 @@ def main():
     )
     update_categories_list(MENU_SPEC_URL, 'xdg-category-names.txt')
     update_platforms_data()
+    update_gui_env_ids()
 
     print('All done.')
 

@@ -41,6 +41,7 @@
 typedef struct {
 	AsScreenshotKind kind;
 	AsScreenshotMediaKind media_kind;
+	GRefString *environment;
 	GHashTable *caption;
 
 	GPtrArray *images;
@@ -88,6 +89,7 @@ as_screenshot_finalize (GObject *object)
 	g_ptr_array_unref (priv->videos);
 	g_ptr_array_unref (priv->videos_lang);
 	g_hash_table_unref (priv->caption);
+	as_ref_string_release (priv->environment);
 	if (priv->context != NULL)
 		g_object_unref (priv->context);
 
@@ -184,6 +186,36 @@ as_screenshot_get_media_kind (AsScreenshot *screenshot)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 	return priv->media_kind;
+}
+
+/**
+ * as_screenshot_get_environment:
+ * @screenshot: a #AsScreenshot instance.
+ *
+ * Get the GUI environment ID of this screenshot, if any
+ * is associated with it. E.g. "plasma-mobile" or "gnome:dark".
+ *
+ * Returns: (nullable): The GUI environment ID the screenshot was recorded in, or %NULL if none set.
+ **/
+const gchar *
+as_screenshot_get_environment (AsScreenshot *screenshot)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	return priv->environment;
+}
+
+/**
+ * as_screenshot_set_environment:
+ * @screenshot: a #AsScreenshot instance.
+ * @env_id: (nullable): the GUI environment ID, e.g. "plasma-mobile" or "gnome:dark"
+ *
+ * Sets the GUI environment ID of this screenshot.
+ **/
+void
+as_screenshot_set_environment (AsScreenshot *screenshot, const gchar *env_id)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	as_ref_string_assign_safe (&priv->environment, env_id);
 }
 
 /**
@@ -548,12 +580,18 @@ as_screenshot_load_from_xml (AsScreenshot *screenshot,
 	g_autofree gchar *prop = NULL;
 	gboolean children_found = FALSE;
 
+	/* screenshot type */
 	prop = as_xml_get_prop_value (node, "type");
 	if (g_strcmp0 (prop, "default") == 0)
 		priv->kind = AS_SCREENSHOT_KIND_DEFAULT;
 	else
 		priv->kind = AS_SCREENSHOT_KIND_EXTRA;
 
+	/* environment */
+	as_ref_string_assign_transfer (&priv->environment,
+				       as_xml_get_prop_value_refstr (node, "environment"));
+
+	/* screenshot media */
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		/* discard spaces */
@@ -620,6 +658,8 @@ as_screenshot_to_xml_node (AsScreenshot *screenshot, AsContext *ctx, xmlNode *ro
 	subnode = as_xml_add_node (root, "screenshot");
 	if (priv->kind == AS_SCREENSHOT_KIND_DEFAULT)
 		as_xml_add_text_prop (subnode, "type", "default");
+	if (priv->environment != NULL)
+		as_xml_add_text_prop (subnode, "environment", priv->environment);
 
 	as_xml_add_localized_text_node (subnode, "caption", priv->caption);
 
@@ -661,6 +701,8 @@ as_screenshot_load_from_yaml (AsScreenshot *screenshot, AsContext *ctx, GNode *n
 				priv->kind = AS_SCREENSHOT_KIND_DEFAULT;
 			else
 				priv->kind = AS_SCREENSHOT_KIND_EXTRA;
+		} else if (g_strcmp0 (key, "environment") == 0) {
+			as_ref_string_assign_safe (&priv->environment, value);
 		} else if (g_strcmp0 (key, "caption") == 0) {
 			/* the caption is a localized element */
 			as_yaml_set_localized_table (ctx, n, priv->caption);
@@ -715,6 +757,8 @@ as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, yaml_emitter_
 
 	if (priv->kind == AS_SCREENSHOT_KIND_DEFAULT)
 		as_yaml_emit_entry (emitter, "default", "true");
+	if (priv->environment != NULL)
+		as_yaml_emit_entry (emitter, "environment", priv->environment);
 
 	as_yaml_emit_localized_entry (emitter, "caption", priv->caption);
 
