@@ -144,7 +144,7 @@ test_appstream_parser_legacy (void)
 	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Application manager for GNOME");
 	g_assert_true (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP);
 
-	screenshots = as_component_get_screenshots (cpt);
+	screenshots = as_component_get_screenshots_all (cpt);
 	g_assert_cmpint (screenshots->len, ==, 5);
 
 	g_object_unref (metad);
@@ -1238,6 +1238,7 @@ test_appstream_write_metainfo_to_catalog (void)
 	g_free (tmp);
 }
 
+/* clang-format off */
 static const gchar *xmldata_screenshots =
     "<component>\n"
     "  <id>org.example.ScreenshotTest</id>\n"
@@ -1260,11 +1261,19 @@ static const gchar *xmldata_screenshots =
     "    <screenshot>\n"
     "      <video codec=\"av1\" container=\"matroska\" width=\"1916\" "
     "height=\"1056\">https://example.org/screencast.mkv</video>\n"
-    "      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\" "
-    "xml:lang=\"de-DE\">https://example.org/screencast_de.mkv</video>\n"
+    "      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\" xml:lang=\"de-DE\">https://example.org/screencast_de.mkv</video>\n"
+    "    </screenshot>\n"
+    "    <screenshot environment=\"plasma:mobile\">\n"
+    "      <caption>The app, on mobile!</caption>\n"
+    "      <image type=\"source\" width=\"640\" height=\"1136\">https://example.org/alpha_mobile.png</image>\n"
+    "    </screenshot>\n"
+    "    <screenshot environment=\"plasma\">\n"
+    "      <caption>The app, on KDE Plasma desktop!</caption>\n"
+    "      <image type=\"source\" width=\"1916\" height=\"1056\">https://example.org/alpha_desktop.png</image>\n"
     "    </screenshot>\n"
     "  </screenshots>\n"
     "</component>\n";
+/* clang-format on */
 
 /**
  * test_xml_read_screenshots:
@@ -1275,10 +1284,12 @@ static void
 test_xml_read_screenshots (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(GPtrArray) scr_filtered = NULL;
 	GPtrArray *screenshots;
 	AsScreenshot *scr1;
 	AsScreenshot *scr2;
 	AsScreenshot *scr3;
+	AsScreenshot *scr4;
 	GPtrArray *images;
 	GPtrArray *videos;
 	AsImage *img;
@@ -1295,12 +1306,13 @@ test_xml_read_screenshots (void)
 	cpt = as_xml_test_read_data (xmldata_screenshots, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ScreenshotTest");
 
-	screenshots = as_component_get_screenshots (cpt);
-	g_assert_cmpint (screenshots->len, ==, 3);
+	screenshots = as_component_get_screenshots_all (cpt);
+	g_assert_cmpint (screenshots->len, ==, 5);
 
 	scr1 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 0));
 	scr2 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 1));
 	scr3 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 2));
+	scr4 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 3));
 
 	/* screenshot 1 */
 	g_assert_cmpint (as_screenshot_get_kind (scr1), ==, AS_SCREENSHOT_KIND_DEFAULT);
@@ -1395,12 +1407,52 @@ test_xml_read_screenshots (void)
 	g_assert_cmpint (as_video_get_width (vid), ==, 1916);
 	g_assert_cmpint (as_video_get_height (vid), ==, 1056);
 
+	/* screenshot 4 */
+	g_assert_cmpint (as_screenshot_get_kind (scr4), ==, AS_SCREENSHOT_KIND_EXTRA);
+	g_assert_cmpint (as_screenshot_get_media_kind (scr4), ==, AS_SCREENSHOT_MEDIA_KIND_IMAGE);
+	g_assert_cmpstr (as_screenshot_get_caption (scr4), ==, "The app, on mobile!");
+	g_assert_cmpstr (as_screenshot_get_environment (scr4), ==, "plasma:mobile");
+
+	images = as_screenshot_get_images_all (scr4);
+	g_assert_cmpint (images->len, ==, 1);
+
+	img = AS_IMAGE (g_ptr_array_index (images, 0));
+	g_assert_cmpint (as_image_get_kind (img), ==, AS_IMAGE_KIND_SOURCE);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha_mobile.png");
+	g_assert_cmpint (as_image_get_width (img), ==, 640);
+	g_assert_cmpint (as_image_get_height (img), ==, 1136);
+
+	/* test some filtered loading */
+	as_component_set_context_locale (cpt, "C");
+	scr_filtered = as_component_filter_screenshots (cpt, "plasma", "mobile", TRUE);
+	g_assert_cmpint (scr_filtered->len, ==, 1);
+	g_assert_cmpstr (as_screenshot_get_caption (g_ptr_array_index (scr_filtered, 0)),
+			 ==,
+			 "The app, on mobile!");
+	g_clear_pointer (&scr_filtered, g_ptr_array_unref);
+
+	scr_filtered = as_component_filter_screenshots (cpt, "plasma", NULL, TRUE);
+	g_assert_cmpint (scr_filtered->len, ==, 1);
+	g_assert_cmpstr (as_screenshot_get_caption (g_ptr_array_index (scr_filtered, 0)),
+			 ==,
+			 "The app, on KDE Plasma desktop!");
+	g_clear_pointer (&scr_filtered, g_ptr_array_unref);
+
+	scr_filtered = as_component_filter_screenshots (cpt, "gnome", NULL, TRUE);
+	g_assert_cmpint (scr_filtered->len, ==, 3);
+	g_assert_cmpstr (as_screenshot_get_caption (g_ptr_array_index (scr_filtered, 0)),
+			 ==,
+			 "The main window displaying a thing");
+	g_assert_cmpstr (as_screenshot_get_caption (g_ptr_array_index (scr_filtered, 1)), ==, NULL);
+	g_assert_cmpstr (as_screenshot_get_caption (g_ptr_array_index (scr_filtered, 2)), ==, NULL);
+	g_clear_pointer (&scr_filtered, g_ptr_array_unref);
+
 	/* test a legacy screenshot entry that we briefly supported in an older AppStream release */
 	g_object_unref (cpt);
 	cpt = as_xml_test_read_data (xmldata_screenshot_legacy, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ScreenshotAncient");
 
-	screenshots = as_component_get_screenshots (cpt);
+	screenshots = as_component_get_screenshots_all (cpt);
 	g_assert_cmpint (screenshots->len, ==, 1);
 
 	scr1 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 0));
@@ -1426,6 +1478,8 @@ test_xml_write_screenshots (void)
 	g_autoptr(AsScreenshot) scr1 = NULL;
 	g_autoptr(AsScreenshot) scr2 = NULL;
 	g_autoptr(AsScreenshot) scr3 = NULL;
+	g_autoptr(AsScreenshot) scr4 = NULL;
+	g_autoptr(AsScreenshot) scr5 = NULL;
 	AsImage *img;
 	AsVideo *vid;
 
@@ -1496,9 +1550,33 @@ test_xml_write_screenshots (void)
 	as_screenshot_add_video (scr3, vid);
 	g_object_unref (vid);
 
+	scr4 = as_screenshot_new ();
+	as_screenshot_set_caption (scr4, "The app, on mobile!", "C");
+	as_screenshot_set_environment (scr4, "plasma:mobile");
+	img = as_image_new ();
+	as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
+	as_image_set_width (img, 640);
+	as_image_set_height (img, 1136);
+	as_image_set_url (img, "https://example.org/alpha_mobile.png");
+	as_screenshot_add_image (scr4, img);
+	g_object_unref (img);
+
+	scr5 = as_screenshot_new ();
+	as_screenshot_set_caption (scr5, "The app, on KDE Plasma desktop!", "C");
+	as_screenshot_set_environment (scr5, "plasma");
+	img = as_image_new ();
+	as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
+	as_image_set_width (img, 1916);
+	as_image_set_height (img, 1056);
+	as_image_set_url (img, "https://example.org/alpha_desktop.png");
+	as_screenshot_add_image (scr5, img);
+	g_object_unref (img);
+
 	as_component_add_screenshot (cpt, scr1);
 	as_component_add_screenshot (cpt, scr2);
 	as_component_add_screenshot (cpt, scr3);
+	as_component_add_screenshot (cpt, scr4);
+	as_component_add_screenshot (cpt, scr5);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
 	g_assert_true (as_xml_test_compare_xml (res, xmldata_screenshots));

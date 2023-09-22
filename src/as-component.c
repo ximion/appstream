@@ -621,11 +621,10 @@ as_component_to_string (AsComponent *cpt)
 void
 as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot)
 {
-	GPtrArray *sslist;
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_return_if_fail (sshot != NULL);
 
-	sslist = as_component_get_screenshots (cpt);
-	g_ptr_array_add (sslist, g_object_ref (sshot));
+	g_ptr_array_add (priv->screenshots, g_object_ref (sshot));
 }
 
 /**
@@ -2001,18 +2000,101 @@ as_component_set_name_variant_suffix (AsComponent *cpt, const gchar *value, cons
 }
 
 /**
- * as_component_get_screenshots:
+ * as_component_get_screenshots_all:
  * @cpt: a #AsComponent instance.
  *
- * Get a list of associated screenshots.
+ * Get a list of all associated screenshots, for all environments.
  *
  * Returns: (element-type AsScreenshot) (transfer none): an array of #AsScreenshot instances
  */
 GPtrArray *
-as_component_get_screenshots (AsComponent *cpt)
+as_component_get_screenshots_all (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return priv->screenshots;
+}
+
+/**
+ * as_component_filter_screenshots:
+ * @cpt: a #AsComponent instance.
+ * @environment: a GUI environment string, e.g. "plasma" or "gnome"
+ * @style: and environment style string, e.g. "light" or "dark"
+ * @allow_default_fallback: if %TRUE, fall back to the component author's default screenshots if no match could be found.
+ *
+ * Filter the associated screenshots for this component by the environment and style, transparently falling back
+ * to the next-best match and ultimately to the screenshots set as default by the metadata authors.
+ *
+ * Returns: (element-type AsScreenshot) (transfer container): an array of #AsScreenshot instances, free with %g_ptr_array_unref
+ */
+GPtrArray *
+as_component_filter_screenshots (AsComponent *cpt,
+				 const gchar *environment,
+				 const gchar *style,
+				 gboolean allow_default_fallback)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	AsScreenshot *default_scr = NULL;
+	const gchar *default_scr_env = NULL;
+	g_autoptr(GPtrArray) result = NULL;
+	g_autoptr(GPtrArray) fallback_result = NULL;
+	g_autofree gchar *env_id = NULL;
+
+	if (priv->screenshots->len == 0)
+		return g_ptr_array_new ();
+
+	result = g_ptr_array_new ();
+	fallback_result = g_ptr_array_new ();
+
+	env_id = (style == NULL) ? g_strdup (environment)
+				 : g_strconcat (environment, ":", style, NULL);
+	for (guint i = 0; i < priv->screenshots->len; i++) {
+		AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
+		const gchar *scr_env_id = as_screenshot_get_environment (scr);
+
+		if (as_screenshot_get_kind (scr) == AS_SCREENSHOT_KIND_DEFAULT)
+			default_scr = scr;
+
+		/* collect exact matches for the requested env/style as result */
+		if (as_str_equal0 (scr_env_id, env_id))
+			g_ptr_array_add (result, scr);
+
+		/* already collect the environment fallback as well */
+		if (as_str_equal0 (scr_env_id, environment))
+			g_ptr_array_add (fallback_result, scr);
+	}
+
+	/* return exact results if we have any! */
+	if (result->len > 0)
+		return g_steal_pointer (&result);
+
+	/* return primary fallbacks if we have any! */
+	if (fallback_result->len > 0)
+		return g_steal_pointer (&fallback_result);
+
+	/* just return if no default fallback is wanted */
+	if (!allow_default_fallback)
+		return g_steal_pointer (&result);
+
+	/* we can only continue if a default screenshot is defined - if we do not
+	 * have one, the metadata was buggy. */
+	if (default_scr == NULL) {
+		g_debug ("Component %s is missing a default screenshot.",
+			 as_component_get_data_id (cpt));
+		return g_steal_pointer (&result);
+	}
+
+	/* if we are here, we need to find the secondary fallback,
+	 * by using the environment of the default screenshot */
+	default_scr_env = as_screenshot_get_environment (default_scr);
+	for (guint i = 0; i < priv->screenshots->len; i++) {
+		AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
+		const gchar *scr_env_id = as_screenshot_get_environment (scr);
+
+		if (as_str_equal0 (scr_env_id, default_scr_env))
+			g_ptr_array_add (result, scr);
+	}
+
+	return g_steal_pointer (&result);
 }
 
 /**
@@ -6431,7 +6513,7 @@ as_component_get_property (GObject *object, guint property_id, GValue *value, GP
 		g_value_set_string (value, as_component_get_developer_name (cpt));
 		break;
 	case AS_COMPONENT_SCREENSHOTS:
-		g_value_set_boxed (value, as_component_get_screenshots (cpt));
+		g_value_set_boxed (value, as_component_get_screenshots_all (cpt));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);

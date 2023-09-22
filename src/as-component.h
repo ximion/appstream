@@ -271,7 +271,11 @@ GPtrArray  *as_component_get_categories (AsComponent *cpt);
 void	    as_component_add_category (AsComponent *cpt, const gchar *category);
 gboolean    as_component_has_category (AsComponent *cpt, const gchar *category);
 
-GPtrArray  *as_component_get_screenshots (AsComponent *cpt);
+GPtrArray  *as_component_get_screenshots_all (AsComponent *cpt);
+GPtrArray  *as_component_filter_screenshots (AsComponent *cpt,
+					     const gchar *environment,
+					     const gchar *style,
+					     gboolean	  allow_default_fallback);
 void	    as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot);
 
 GPtrArray  *as_component_get_keywords (AsComponent *cpt);

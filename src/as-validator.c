@@ -3299,11 +3299,11 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	}
 
 	/* validate screenshots */
-	if (as_component_get_screenshots (cpt)->len > 0) {
+	if (as_component_get_screenshots_all (cpt)->len > 0) {
 		guint j;
 		GPtrArray *scr_array;
 
-		scr_array = as_component_get_screenshots (cpt);
+		scr_array = as_component_get_screenshots_all (cpt);
 		for (j = 0; j < scr_array->len; j++) {
 			AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (scr_array, j));
 			const gchar *scr_caption = as_screenshot_get_caption (scr);

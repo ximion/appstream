@@ -89,6 +89,9 @@ AsScreenshot	     *as_screenshot_new (void);
 AsScreenshotKind      as_screenshot_get_kind (AsScreenshot *screenshot);
 void		      as_screenshot_set_kind (AsScreenshot *screenshot, AsScreenshotKind kind);
 
+const gchar	     *as_screenshot_get_environment (AsScreenshot *screenshot);
+void		      as_screenshot_set_environment (AsScreenshot *screenshot, const gchar *env_id);
+
 AsContext	     *as_screenshot_get_context (AsScreenshot *screenshot);
 void		      as_screenshot_set_context (AsScreenshot *screenshot, AsContext *context);
 

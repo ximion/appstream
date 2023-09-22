@@ -1204,11 +1204,29 @@
 		<para>
 			The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> children, where at least one of them must have the property
 			<code>type="default"</code> to indicate the primary screenshot of the software. Every <code>&lt;screenshot/&gt;</code> tag must have at least
-			one <code>&lt;image/&gt;</code> or <code>&lt;video/&gt;</code> child, but never an <literal>image</literal> <emphasis>and</emphasis> <literal>video</literal>
-			at the same time.
+			one <code>&lt;image/&gt;</code> <emphasis>or</emphasis> <code>&lt;video/&gt;</code> child, but never an <literal>image</literal> <emphasis>and</emphasis>
+			<literal>video</literal> at the same time.
 		</para>
 		<para>
-			Screenshots containing a video must not be the default screenshot.
+			Screenshots containing videos must not be the default screenshot.
+		</para>
+		<para>
+			Optionally, a <literal>screenshot</literal> may also have an <code>environment</code> property.
+			This string property denotes the GUI environment the screenshot was recorded in, in the form of <code>&lt;env&gt;:&lt;style&gt;</code>,
+			where <literal>env</literal> is a desktop-environment name in lowercase
+			and <literal>style</literal> is a specific style that the desktop environment recognizes, e.g. <code>light</code> and <code>dark</code> for light
+			and dark themes. See <ulink url="https://github.com/ximion/appstream/blob/main/data/desktop-style-ids.txt">desktop-style-ids.txt</ulink> for a list
+			of currently recognized environment and style combinations.
+		</para>
+		<para>
+			Software centers displaying the component will prefer screenshots of the current environment and style first, will then fall back to
+			screenshots of the current environment (without style), and if none of those are available either they will use the environment of the
+			screenshot marked as <code>type="default"</code> (which may be intentionally empty).
+			That way, there will always be a screenshot displayed.
+		</para>
+		<para>
+			In general, screenshots should be displayed in the order the are defined in in their <literal>screenshots</literal> block
+			for the respective component.
 		</para>
 		<para>
 			The value of the <code>&lt;image/&gt;</code> tag is a direct HTTP/HTTPS URL to a screenshot uploaded to a public location on the web.
@@ -1313,6 +1331,16 @@
   </screenshot>
   <screenshot>
     <video codec="av1" width="1600" height="900">https://example.com/foobar/screencast.mkv</video>
+  </screenshot>
+
+  <screenshot environment="plasma-mobile">
+    <caption>The FooBar main window, but on Plasma Mobile</caption>
+    <image type="source" width="1600" height="900">https://example.com/foobar/screenshot-1_plasma-mobile.png</image>
+  </screenshot>
+
+  <screenshot environment="gnome:dark">
+    <caption>The FooBar main window, on GNOME in dark mode</caption>
+    <image type="source" width="1600" height="900">https://example.com/foobar/screenshot-1_gnome_dark.png</image>
   </screenshot>
  </screenshots>]]></programlisting>
 
