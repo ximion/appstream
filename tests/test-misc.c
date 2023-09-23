@@ -29,6 +29,28 @@
 static gchar *datadir = NULL;
 
 /**
+ * asx_load_sample_metainfo:
+ *
+ * Helper to fetch a component from a file in the samples directory.
+ */
+static AsComponent *
+asx_load_sample_metainfo (const gchar *subpath)
+{
+	g_autofree gchar *path = NULL;
+	g_autoptr(GFile) file = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autoptr(AsMetadata) mdata = as_metadata_new ();
+
+	path = g_build_filename (datadir, subpath, NULL);
+	file = g_file_new_for_path (path);
+
+	as_metadata_parse_file (mdata, file, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+
+	return g_object_ref (as_metadata_get_component (mdata));
+}
+
+/**
  * test_readwrite_yaml_news:
  *
  * Read & write YAML NEWS file.
@@ -378,6 +400,61 @@ test_relation_satisfy_check (void)
 	g_clear_pointer (&rcr, g_object_unref);
 }
 
+static gint
+asx_cpt_get_syscompat_score (AsComponent *cpt, AsSystemInfo *sysinfo)
+{
+	g_autoptr(GPtrArray) rc_results = NULL;
+	gint score;
+
+	score = as_component_get_system_compatibility_score (cpt, sysinfo, &rc_results);
+	return score;
+}
+
+/**
+ * test_syscompat_scores:
+ */
+static void
+test_syscompat_scores (void)
+{
+	g_autoptr(AsComponent) cpt_desktop_im = NULL;
+	g_autoptr(AsComponent) cpt_desktop_ex = NULL;
+	g_autoptr(AsComponent) cpt_multi = NULL;
+	g_autoptr(AsComponent) cpt_phone = NULL;
+	g_autoptr(AsSystemInfo) sysinfo = NULL;
+
+	cpt_desktop_im = asx_load_sample_metainfo (
+	    "syscompat/org.example.desktopapp_implicit.metainfo.xml");
+	g_assert_cmpstr (as_component_get_name (cpt_desktop_im), ==, "DesktopApp (implicit)");
+
+	cpt_desktop_ex = asx_load_sample_metainfo (
+	    "syscompat/org.example.desktopapp_explicit.metainfo.xml");
+	g_assert_cmpstr (as_component_get_name (cpt_desktop_ex), ==, "DesktopApp (explicit)");
+
+	cpt_multi = asx_load_sample_metainfo ("syscompat/org.example.multiapp.metainfo.xml");
+	g_assert_cmpstr (as_component_get_name (cpt_multi), ==, "MultiApp");
+
+	cpt_phone = asx_load_sample_metainfo ("syscompat/org.example.phoneapp.metainfo.xml");
+	g_assert_cmpstr (as_component_get_name (cpt_phone), ==, "PhoneApp");
+
+	/* test compatibility with desktop systems */
+	sysinfo = as_system_info_new_template_for_chassis (AS_CHASSIS_KIND_DESKTOP, NULL);
+	g_assert_nonnull (sysinfo);
+
+	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_desktop_im, sysinfo), ==, 100);
+	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_desktop_ex, sysinfo), ==, 100);
+	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_multi, sysinfo), ==, 100);
+	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_phone, sysinfo), ==, 0);
+
+	/* test compatibility with handset systems */
+	sysinfo = as_system_info_new_template_for_chassis (AS_CHASSIS_KIND_HANDSET, NULL);
+	g_assert_nonnull (sysinfo);
+
+	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_desktop_im, sysinfo), ==, 0);
+	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_desktop_ex, sysinfo), ==, 0);
+	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_multi, sysinfo), ==, 100);
+	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_phone, sysinfo), ==, 100);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -402,6 +479,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Misc/TextNews", test_readwrite_text_news);
 	g_test_add_func ("/AppStream/Misc/StripLocaleEncoding", test_locale_strip_encoding);
 	g_test_add_func ("/AppStream/Misc/RelationSatisfyCheck", test_relation_satisfy_check);
+	g_test_add_func ("/AppStream/Misc/SysCompatScores", test_syscompat_scores);
 
 	ret = g_test_run ();
 	g_free (datadir);

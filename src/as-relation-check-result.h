@@ -79,4 +79,6 @@ const gchar *as_relation_check_result_get_message (AsRelationCheckResult *relcr)
 void as_relation_check_result_set_message (AsRelationCheckResult *relcr, const gchar *format, ...)
     G_GNUC_PRINTF (2, 3);
 
+gint as_relation_check_results_get_compatibility_score (GPtrArray *rc_results);
+
 G_END_DECLS

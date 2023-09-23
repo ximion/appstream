@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop-application">
+  <id>org.example.multiapp</id>
+  <name>MultiApp</name>
+  <summary>App that supports phones &amp; desktops</summary>
+  <metadata_license>FSFAP</metadata_license>
+
+  <requires>
+    <display_length>360</display_length>
+  </requires>
+
+  <supports>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </supports>
+</component>

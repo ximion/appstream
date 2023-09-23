@@ -64,6 +64,31 @@ typedef enum {
 } AsCheckResult;
 
 /**
+ * AsChassisKind:
+ * @AS_CHASSIS_KIND_UNKNOWN:	Unknown chassis.
+ * @AS_CHASSIS_KIND_DESKTOP:	A desktop/workstation
+ * @AS_CHASSIS_KIND_LAPTOP:	A mobile computer with a bigger screen / laptop
+ * @AS_CHASSIS_KIND_SERVER:	A server, often without GUI
+ * @AS_CHASSIS_KIND_TABLET:	A tablet with touch as primary input method
+ * @AS_CHASSIS_KIND_HANDSET:	A smaller touch-input device, like a smartphone
+ *
+ * The type of chassis a computing device is built into.
+ **/
+typedef enum {
+	AS_CHASSIS_KIND_UNKNOWN,
+	AS_CHASSIS_KIND_DESKTOP,
+	AS_CHASSIS_KIND_LAPTOP,
+	AS_CHASSIS_KIND_SERVER,
+	AS_CHASSIS_KIND_TABLET,
+	AS_CHASSIS_KIND_HANDSET,
+	/*< private >*/
+	AS_CHASSIS_KIND_LAST
+} AsChassisKind;
+
+const gchar  *as_chassis_kind_to_string (AsChassisKind kind);
+AsChassisKind as_chassis_kind_from_string (const gchar *kind_str);
+
+/**
  * AsSystemInfoError:
  * @AS_SYSTEM_INFO_ERROR_FAILED:		Generic failure
  * @AS_SYSTEM_INFO_ERROR_NOT_FOUND:		Information was not found.
@@ -82,6 +107,7 @@ typedef enum {
 GQuark	      as_system_info_error_quark (void);
 
 AsSystemInfo *as_system_info_new (void);
+AsSystemInfo *as_system_info_new_template_for_chassis (AsChassisKind chassis, GError **error);
 
 const gchar  *as_system_info_get_os_id (AsSystemInfo *sysinfo);
 const gchar  *as_system_info_get_os_cid (AsSystemInfo *sysinfo);

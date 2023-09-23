@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop-application">
+  <id>org.example.desktopapp_explicit</id>
+  <name>DesktopApp (explicit)</name>
+  <summary>App that explicitly supports desktops/workstations</summary>
+  <metadata_license>FSFAP</metadata_license>
+
+  <requires>
+    <display_length>768</display_length>
+
+    <control>keyboard</control>
+    <control>pointing</control>
+  </requires>
+</component>

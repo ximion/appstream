@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop-application">
+  <id>org.example.phoneapp</id>
+  <name>PhoneApp</name>
+  <summary>App that supports phones only</summary>
+  <metadata_license>FSFAP</metadata_license>
+
+  <requires>
+    <display_length>360</display_length>
+  </requires>
+
+  <recommends>
+    <display_length compare="lt">1280</display_length>
+    <control>touch</control>
+  </recommends>
+</component>

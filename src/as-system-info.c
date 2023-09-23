@@ -101,6 +101,60 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsSystemInfo, as_system_info, G_TYPE_OBJECT)
  **/
 G_DEFINE_QUARK (as-system-info-error-quark, as_system_info_error)
 
+/**
+ * as_chassis_kind_to_string:
+ * @kind: the #AsChassisKind.
+ *
+ * Converts the enumerated value to a text representation.
+ *
+ * Returns: string version of @kind
+ *
+ * Since: 1.0.0
+ **/
+const gchar *
+as_chassis_kind_to_string (AsChassisKind kind)
+{
+	if (kind == AS_CHASSIS_KIND_DESKTOP)
+		return "desktop";
+	if (kind == AS_CHASSIS_KIND_LAPTOP)
+		return "laptop";
+	if (kind == AS_CHASSIS_KIND_SERVER)
+		return "server";
+	if (kind == AS_CHASSIS_KIND_TABLET)
+		return "tablet";
+	if (kind == AS_CHASSIS_KIND_HANDSET)
+		return "handset";
+
+	return "unknown";
+}
+
+/**
+ * as_chassis_kind_from_string:
+ * @kind_str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsChassisKind or %AS_CHASSIS_KIND_UNKNOWN for unknown
+ *
+ * Since: 1.0.0
+ **/
+AsChassisKind
+as_chassis_kind_from_string (const gchar *kind_str)
+{
+	if (as_str_equal0 (kind_str, "desktop"))
+		return AS_CHASSIS_KIND_DESKTOP;
+	if (as_str_equal0 (kind_str, "laptop"))
+		return AS_CHASSIS_KIND_LAPTOP;
+	if (as_str_equal0 (kind_str, "server"))
+		return AS_CHASSIS_KIND_SERVER;
+	if (as_str_equal0 (kind_str, "tablet"))
+		return AS_CHASSIS_KIND_TABLET;
+	if (as_str_equal0 (kind_str, "handset"))
+		return AS_CHASSIS_KIND_HANDSET;
+
+	return AS_CHASSIS_KIND_UNKNOWN;
+}
+
 static void
 as_system_info_init (AsSystemInfo *sysinfo)
 {
@@ -1015,6 +1069,87 @@ as_system_info_new (void)
 	AsSystemInfo *sysinfo;
 	sysinfo = g_object_new (AS_TYPE_SYSTEM_INFO, NULL);
 	return AS_SYSTEM_INFO (sysinfo);
+}
+
+/**
+ * as_system_info_new_template_for_chassis:
+ * @chassis: the #AsChassisKind to generate a template for
+ * @error: a #GError
+ *
+ * Creates a new #AsSystemInfo that can be used as a mock system
+ * for the given chassis type, reading (mostly) no information
+ * from the current system.
+ *
+ * This function will try to generate a device most representative of
+ * the given chassis class. This can be useful when testing compatibility
+ * for other devices on a different device that is not of the same chassis
+ * type as the one to be tested.
+ *
+ * Returns: (transfer full): an #AsSystemInfo template
+ *
+ * Since: 1.0.0
+ **/
+AsSystemInfo *
+as_system_info_new_template_for_chassis (AsChassisKind chassis, GError **error)
+{
+	AsSystemInfoPrivate *priv = NULL;
+	AsSystemInfo *sysinfo = as_system_info_new ();
+	priv = GET_PRIVATE (sysinfo);
+
+	/* the template sysinfo is not supposed to scan the curent system's devices */
+	priv->inputs_scanned = TRUE;
+
+	/* we assume all input controls have been tested */
+	priv->tested_input_controls = G_MAXUINT;
+	priv->input_controls = 0;
+
+	/* just assume 8GiB memory by default */
+	as_system_info_set_memory_total (sysinfo, 8192);
+
+	/* set default for the individual chassis types */
+	if (chassis == AS_CHASSIS_KIND_DESKTOP || chassis == AS_CHASSIS_KIND_LAPTOP) {
+		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_SHORTEST, 800);
+		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_LONGEST, 1280);
+		as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_POINTING, TRUE);
+		as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_KEYBOARD, TRUE);
+		as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_CONSOLE, TRUE);
+
+		return sysinfo;
+	}
+
+	if (chassis == AS_CHASSIS_KIND_SERVER) {
+		as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_KEYBOARD, TRUE);
+		as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_CONSOLE, TRUE);
+
+		return sysinfo;
+	}
+
+	if (chassis == AS_CHASSIS_KIND_TABLET) {
+		as_system_info_set_memory_total (sysinfo, 4096);
+		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_SHORTEST, 600);
+		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_LONGEST, 1024);
+		as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_TOUCH, TRUE);
+
+		return sysinfo;
+	}
+
+	if (chassis == AS_CHASSIS_KIND_HANDSET) {
+		as_system_info_set_memory_total (sysinfo, 4096);
+		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_SHORTEST, 320);
+		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_LONGEST, 480);
+		as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_TOUCH, TRUE);
+
+		return sysinfo;
+	}
+
+	g_set_error (error,
+		     AS_SYSTEM_INFO_ERROR,
+		     AS_SYSTEM_INFO_ERROR_FAILED,
+		     "Unable to generate system info template for chassis type: %s",
+		     as_chassis_kind_to_string (chassis));
+
+	g_object_unref (sysinfo);
+	return NULL;
 }
 
 /**

@@ -351,7 +351,13 @@ GPtrArray   *as_component_get_requires (AsComponent *cpt);
 GPtrArray   *as_component_get_recommends (AsComponent *cpt);
 GPtrArray   *as_component_get_supports (AsComponent *cpt);
 void	     as_component_add_relation (AsComponent *cpt, AsRelation *relation);
-GPtrArray   *as_component_check_relations (AsComponent *cpt, AsSystemInfo *sysinfo, AsPool *pool);
+GPtrArray   *as_component_check_relations (AsComponent	 *cpt,
+					   AsSystemInfo	 *sysinfo,
+					   AsPool	 *pool,
+					   AsRelationKind rel_kind);
+gint	     as_component_get_system_compatibility_score (AsComponent  *cpt,
+							  AsSystemInfo *sysinfo,
+							  GPtrArray   **results);
 
 GPtrArray   *as_component_get_replaces (AsComponent *cpt);
 void	     as_component_add_replaces (AsComponent *cpt, const gchar *cid);

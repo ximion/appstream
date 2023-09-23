@@ -3535,6 +3535,49 @@ as_component_add_relation (AsComponent *cpt, AsRelation *relation)
 }
 
 /**
+ * as_component_make_implicit_relations_explicit:
+ *
+ * This is for compatibility with older metadata where we did not yet have
+ * the concept of device-requirements. Therefore, we make implicit assumptions
+ * that they are for desktop-style apps only.
+ *
+ * This function makes such assumptions explicit from being implicit before.
+ */
+static void
+as_component_make_implicit_relations_explicit (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_autoptr(AsRelation) rel = NULL;
+
+	/* if we have any requirements set, we assume device requirements will have been set explicitly */
+	if (priv->requires->len != 0 || priv->recommends->len != 0 || priv->supports->len != 0)
+		return;
+
+	rel = as_relation_new ();
+	as_relation_set_kind (rel, AS_RELATION_KIND_REQUIRES);
+	as_relation_set_item_kind (rel, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
+	as_relation_set_display_side_kind (rel, AS_DISPLAY_SIDE_KIND_SHORTEST);
+	as_relation_set_value_px (rel, 768);
+	as_relation_set_compare (rel, AS_RELATION_COMPARE_GE);
+	as_component_add_relation (cpt, rel);
+	g_clear_pointer (&rel, g_object_unref);
+
+	rel = as_relation_new ();
+	as_relation_set_kind (rel, AS_RELATION_KIND_REQUIRES);
+	as_relation_set_item_kind (rel, AS_RELATION_ITEM_KIND_CONTROL);
+	as_relation_set_value_control_kind (rel, AS_CONTROL_KIND_KEYBOARD);
+	as_component_add_relation (cpt, rel);
+	g_clear_pointer (&rel, g_object_unref);
+
+	rel = as_relation_new ();
+	as_relation_set_kind (rel, AS_RELATION_KIND_REQUIRES);
+	as_relation_set_item_kind (rel, AS_RELATION_ITEM_KIND_CONTROL);
+	as_relation_set_value_control_kind (rel, AS_CONTROL_KIND_POINTING);
+	as_component_add_relation (cpt, rel);
+	g_clear_pointer (&rel, g_object_unref);
+}
+
+/**
  * as_component_check_relations_internal:
  */
 static void
@@ -3567,25 +3610,77 @@ as_component_check_relations_internal (AsComponent *cpt,
  * @cpt: a #AsComponent instance.
  * @sysinfo: (nullable): an #AsSystemInfo to use for system information.
  * @pool: (nullable): an #AsPool to find component dependencies in.
+ * @rel_kind: the kind of relations to check
  *
  * Verifies the respective relations and presents whether the system specified
  * in #AsSystemInfo @sysinfo and data from @pool supply the requested facilities.
  *
- * Since: 1.0.0
+ * Returns: (transfer container) (element-type AsRelationCheckResult): An array of #AsRelationCheckResult
  *
- * Returns: (transfer container) (element-type AsRelationCheckResult): A list of #AsRelationCheckResult
- **/
+ * Since: 1.0.0
+ */
 GPtrArray *
-as_component_check_relations (AsComponent *cpt, AsSystemInfo *sysinfo, AsPool *pool)
+as_component_check_relations (AsComponent *cpt,
+			      AsSystemInfo *sysinfo,
+			      AsPool *pool,
+			      AsRelationKind rel_kind)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	GPtrArray *result = g_ptr_array_new_with_free_func (g_object_unref);
 
-	as_component_check_relations_internal (cpt, sysinfo, pool, priv->requires, result);
-	as_component_check_relations_internal (cpt, sysinfo, pool, priv->recommends, result);
-	as_component_check_relations_internal (cpt, sysinfo, pool, priv->supports, result);
+	/* compatibility for older metadata */
+	as_component_make_implicit_relations_explicit (cpt);
+
+	if (rel_kind == AS_RELATION_KIND_REQUIRES)
+		as_component_check_relations_internal (cpt, sysinfo, pool, priv->requires, result);
+	else if (rel_kind == AS_RELATION_KIND_RECOMMENDS)
+		as_component_check_relations_internal (cpt,
+						       sysinfo,
+						       pool,
+						       priv->recommends,
+						       result);
+	else if (rel_kind == AS_RELATION_KIND_SUPPORTS)
+		as_component_check_relations_internal (cpt, sysinfo, pool, priv->supports, result);
 
 	return result;
+}
+
+/**
+ * as_component_get_system_compatibility_score:
+ * @cpt: a #AsComponent instance.
+ * @sysinfo: an #AsSystemInfo to use for system information.
+ * @results: (out callee-allocates) (optional) (element-type AsRelationCheckResult) (transfer container): Receive the resulting check results
+ *
+ * Return a score between 0 and 100 determining how compatible the component
+ * is with the system configuration provided as parameter.
+ *
+ * 0 means the componsnt will not work at all, while 100 is best compatibility.
+ *
+ * Returns: a compatibility score between 0 and 100
+ */
+gint
+as_component_get_system_compatibility_score (AsComponent *cpt,
+					     AsSystemInfo *sysinfo,
+					     GPtrArray **results)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	gint score = 0;
+	g_autoptr(GPtrArray) rc_results = g_ptr_array_new_with_free_func (g_object_unref);
+
+	g_return_val_if_fail (sysinfo != NULL, 0);
+
+	/* compatibility for older metadata */
+	as_component_make_implicit_relations_explicit (cpt);
+
+	as_component_check_relations_internal (cpt, sysinfo, NULL, priv->requires, rc_results);
+	as_component_check_relations_internal (cpt, sysinfo, NULL, priv->recommends, rc_results);
+	as_component_check_relations_internal (cpt, sysinfo, NULL, priv->supports, rc_results);
+
+	score = as_relation_check_results_get_compatibility_score (rc_results);
+
+	if (results != NULL)
+		*results = g_steal_pointer (&rc_results);
+	return score;
 }
 
 /**
