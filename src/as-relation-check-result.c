@@ -34,6 +34,7 @@
 
 typedef struct {
 	AsRelationStatus status;
+	AsRelation *relation;
 	gchar *message;
 } AsRelationCheckResultPrivate;
 
@@ -55,6 +56,8 @@ as_relation_check_result_finalize (GObject *object)
 	AsRelationCheckResultPrivate *priv = GET_PRIVATE (relcr);
 
 	g_free (priv->message);
+	if (priv->relation != NULL)
+		g_object_unref (priv->relation);
 
 	G_OBJECT_CLASS (as_relation_check_result_parent_class)->finalize (object);
 }
@@ -112,6 +115,37 @@ as_relation_check_result_set_status (AsRelationCheckResult *relcr, AsRelationSta
 {
 	AsRelationCheckResultPrivate *priv = GET_PRIVATE (relcr);
 	priv->status = status;
+}
+
+/**
+ * as_relation_check_result_get_relation:
+ * @relcr: an #AsRelationCheckResult instance.
+ *
+ * Get the relation that this check result was generated for.
+ *
+ * Returns: (nullable) (transfer none): an #AsRelation or %NULL
+ */
+AsRelation *
+as_relation_check_result_get_relation (AsRelationCheckResult *relcr)
+{
+	AsRelationCheckResultPrivate *priv = GET_PRIVATE (relcr);
+	return priv->relation;
+}
+
+/**
+ * as_relation_check_result_set_relation:
+ * @relcr: an #AsRelationCheckResult instance.
+ * @relation: the #AsRelation
+ *
+ * Set an #AsRelation to associate with this check result.
+ */
+void
+as_relation_check_result_set_relation (AsRelationCheckResult *relcr, AsRelation *relation)
+{
+	AsRelationCheckResultPrivate *priv = GET_PRIVATE (relcr);
+	if (priv->relation != NULL)
+		g_object_unref (priv->relation);
+	priv->relation = g_object_ref (relation);
 }
 
 /**

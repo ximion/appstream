@@ -1476,7 +1476,9 @@ as_relation_is_satisfied (AsRelation *relation,
 	g_autoptr(AsRelationCheckResult) rcres = NULL;
 
 	sysinfo = (system_info == NULL) ? as_system_info_new () : g_object_ref (system_info);
+
 	rcres = as_relation_check_result_new ();
+	as_relation_check_result_set_relation (rcres, relation);
 
 	/* Components */
 	if (priv->item_kind == AS_RELATION_ITEM_KIND_ID) {
@@ -1653,8 +1655,8 @@ as_relation_is_satisfied (AsRelation *relation,
 				as_relation_check_result_set_message (
 				    rcres,
 				    /* TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
-							   second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
-							   and fifth is the version we are running. */
+				       second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
+				       and fifth is the version we are running. */
 				    _("This software requires %s %s %s, but this system is running %s %s."),
 				       req_kernel_name,
 				       compare_symbols,
@@ -1665,8 +1667,8 @@ as_relation_is_satisfied (AsRelation *relation,
 				as_relation_check_result_set_message (
 				    rcres,
 				    /* TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
-							   second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
-							   and fifth is the version we are running. */
+				       second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
+				       and fifth is the version we are running. */
 				    _("The use of %s %s %s is recommended, but this system is running %s %s."),
 				       req_kernel_name,
 				       compare_symbols,
@@ -1677,7 +1679,7 @@ as_relation_is_satisfied (AsRelation *relation,
 				as_relation_check_result_set_message (
 				    rcres,
 				    /* TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
-							   second is comparison operator (e.g. >=), third is the expected version number. */
+				       second is comparison operator (e.g. >=), third is the expected version number. */
 				    _("This software supports %s %s %s."),
 				       req_kernel_name,
 				       compare_symbols,
@@ -1729,7 +1731,7 @@ as_relation_is_satisfied (AsRelation *relation,
 				as_relation_check_result_set_message (
 				    rcres,
 				    /* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
-							   second is the expected amount of memory and fourth is the amount of memory we have. */
+				       second is the expected amount of memory and fourth is the amount of memory we have. */
 				    _("This software requires %s %.2f GiB of memory, but this system has %.2f GiB."),
 				       compare_symbols,
 				       req_memory / 1024.0,
@@ -1738,7 +1740,7 @@ as_relation_is_satisfied (AsRelation *relation,
 				as_relation_check_result_set_message (
 				    rcres,
 				    /* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
-							   second is the expected amount of memory and fourth is the amount of memory we have. */
+				       second is the expected amount of memory and fourth is the amount of memory we have. */
 				    _("This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."),
 				       compare_symbols,
 				       req_memory / 1024.0,
@@ -1747,7 +1749,7 @@ as_relation_is_satisfied (AsRelation *relation,
 				as_relation_check_result_set_message (
 				    rcres,
 				    /* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
-				     * second is the expected amount of memory. */
+				       second is the expected amount of memory. */
 				    _("This software supports %s %.2f GiB of memory."),
 				       compare_symbols,
 				       req_memory / 1024.0);
@@ -1787,13 +1789,13 @@ as_relation_is_satisfied (AsRelation *relation,
 		if (res == AS_CHECK_RESULT_FALSE || priv->kind == AS_RELATION_KIND_SUPPORTS) {
 			g_autofree gchar *tmp_str = _as_get_control_missing_message (control_kind,
 										     priv->kind);
-			as_relation_check_result_set_message (rcres, tmp_str);
+			as_relation_check_result_set_message (rcres, "%s", tmp_str);
 			as_relation_check_result_set_status (rcres,
 							     AS_RELATION_STATUS_NOT_SATISFIED);
 		}
 		if (res == AS_CHECK_RESULT_TRUE) {
 			g_autofree gchar *tmp_str = _as_get_control_found_message (control_kind);
-			as_relation_check_result_set_message (rcres, tmp_str);
+			as_relation_check_result_set_message (rcres, "%s", tmp_str);
 			as_relation_check_result_set_status (rcres, AS_RELATION_STATUS_SATISFIED);
 		}
 
@@ -1846,9 +1848,8 @@ as_relation_is_satisfied (AsRelation *relation,
 					as_relation_check_result_set_message (
 					    rcres,
 					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-								   second is the expected size and fourth is the size the current device has. */
-					    _("This software requires a display with its longest edge being %s %lu px in size, "
-										   "but the display of this device has %lu px."),
+					       second is the expected size and fourth is the size the current device has. */
+					    _("This software requires a display with its longest edge being %s %lu px in size, but the display of this device has %lu px."),
 					       compare_symbols,
 					       req_length,
 					       current_length);
@@ -1856,9 +1857,8 @@ as_relation_is_satisfied (AsRelation *relation,
 					as_relation_check_result_set_message (
 					    rcres,
 					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-								   second is the expected size and fourth is the size the current device has. */
-					    _("This software requires a display with its shortest edge being %s %lu px in size, "
-										   "but the display of this device has %lu px."),
+					       second is the expected size and fourth is the size the current device has. */
+					    _("This software requires a display with its shortest edge being %s %lu px in size, but the display of this device has %lu px."),
 					       compare_symbols,
 					       req_length,
 					       current_length);
@@ -1867,9 +1867,8 @@ as_relation_is_satisfied (AsRelation *relation,
 					as_relation_check_result_set_message (
 					    rcres,
 					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-								   second is the expected size and fourth is the size the current device has. */
-					    _("This software recommends a display with its longest edge being %s %lu px in size, "
-										   "but the display of this device has %lu px."),
+					       second is the expected size and fourth is the size the current device has. */
+					    _("This software recommends a display with its longest edge being %s %lu px in size, but the display of this device has %lu px."),
 					       compare_symbols,
 					       req_length,
 					       current_length);
@@ -1877,9 +1876,8 @@ as_relation_is_satisfied (AsRelation *relation,
 					as_relation_check_result_set_message (
 					    rcres,
 					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-								   second is the expected size and fourth is the size the current device has. */
-					    _("This software recommends a display with its shortest edge being %s %lu px in size, "
-										   "but the display of this device has %lu px."),
+					       second is the expected size and fourth is the size the current device has. */
+					    _("This software recommends a display with its shortest edge being %s %lu px in size, but the display of this device has %lu px."),
 					       compare_symbols,
 					       req_length,
 					       current_length);

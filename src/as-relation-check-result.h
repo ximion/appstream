@@ -28,6 +28,9 @@
 
 G_BEGIN_DECLS
 
+/* forward declarations */
+typedef struct _AsRelation AsRelation;
+
 #define AS_TYPE_RELATION_CHECK_RESULT (as_relation_check_result_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsRelationCheckResult,
 			  as_relation_check_result,
@@ -68,6 +71,9 @@ AsRelationCheckResult *as_relation_check_result_new (void);
 
 AsRelationStatus       as_relation_check_result_get_status (AsRelationCheckResult *relcr);
 void as_relation_check_result_set_status (AsRelationCheckResult *relcr, AsRelationStatus status);
+
+AsRelation *as_relation_check_result_get_relation (AsRelationCheckResult *relcr);
+void as_relation_check_result_set_relation (AsRelationCheckResult *relcr, AsRelation *relation);
 
 const gchar *as_relation_check_result_get_message (AsRelationCheckResult *relcr);
 void as_relation_check_result_set_message (AsRelationCheckResult *relcr, const gchar *format, ...)

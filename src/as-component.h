@@ -45,6 +45,10 @@
 
 G_BEGIN_DECLS
 
+/* forward declarations */
+typedef struct _AsPool	     AsPool;
+typedef struct _AsSystemInfo AsSystemInfo;
+
 #define AS_TYPE_COMPONENT (as_component_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsComponent, as_component, AS, COMPONENT, GObject)
 
@@ -347,6 +351,7 @@ GPtrArray   *as_component_get_requires (AsComponent *cpt);
 GPtrArray   *as_component_get_recommends (AsComponent *cpt);
 GPtrArray   *as_component_get_supports (AsComponent *cpt);
 void	     as_component_add_relation (AsComponent *cpt, AsRelation *relation);
+GPtrArray   *as_component_check_relations (AsComponent *cpt, AsSystemInfo *sysinfo, AsPool *pool);
 
 GPtrArray   *as_component_get_replaces (AsComponent *cpt);
 void	     as_component_add_replaces (AsComponent *cpt, const gchar *cid);

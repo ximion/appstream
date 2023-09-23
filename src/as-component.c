@@ -3535,6 +3535,60 @@ as_component_add_relation (AsComponent *cpt, AsRelation *relation)
 }
 
 /**
+ * as_component_check_relations_internal:
+ */
+static void
+as_component_check_relations_internal (AsComponent *cpt,
+				       AsSystemInfo *sysinfo,
+				       AsPool *pool,
+				       GPtrArray *relations,
+				       GPtrArray *result)
+{
+	for (guint i = 0; i < relations->len; i++) {
+		AsRelation *relation = AS_RELATION (g_ptr_array_index (relations, i));
+		g_autoptr(AsRelationCheckResult) rcr = NULL;
+		g_autoptr(GError) tmp_error = NULL;
+
+		rcr = as_relation_is_satisfied (relation, sysinfo, pool, &tmp_error);
+		if (rcr == NULL) {
+			rcr = as_relation_check_result_new ();
+			as_relation_check_result_set_status (rcr, AS_RELATION_STATUS_ERROR);
+			as_relation_check_result_set_relation (rcr, relation);
+
+			as_relation_check_result_set_message (rcr, "%s", tmp_error->message);
+		}
+
+		g_ptr_array_add (result, g_steal_pointer (&rcr));
+	}
+}
+
+/**
+ * as_component_check_relations:
+ * @cpt: a #AsComponent instance.
+ * @sysinfo: (nullable): an #AsSystemInfo to use for system information.
+ * @pool: (nullable): an #AsPool to find component dependencies in.
+ *
+ * Verifies the respective relations and presents whether the system specified
+ * in #AsSystemInfo @sysinfo and data from @pool supply the requested facilities.
+ *
+ * Since: 1.0.0
+ *
+ * Returns: (transfer container) (element-type AsRelationCheckResult): A list of #AsRelationCheckResult
+ **/
+GPtrArray *
+as_component_check_relations (AsComponent *cpt, AsSystemInfo *sysinfo, AsPool *pool)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	GPtrArray *result = g_ptr_array_new_with_free_func (g_object_unref);
+
+	as_component_check_relations_internal (cpt, sysinfo, pool, priv->requires, result);
+	as_component_check_relations_internal (cpt, sysinfo, pool, priv->recommends, result);
+	as_component_check_relations_internal (cpt, sysinfo, pool, priv->supports, result);
+
+	return result;
+}
+
+/**
  * as_component_get_replaces:
  * @cpt: a #AsComponent instance.
  *
