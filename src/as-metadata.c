@@ -457,7 +457,10 @@ as_metadata_parse_raw (AsMetadata *metad,
 		xmlDoc *doc;
 		xmlNode *root;
 
-		doc = as_xml_parse_document (data, data_len, error);
+		doc = as_xml_parse_document (data,
+					     data_len,
+					     FALSE, /* pedantic */
+					     error);
 		if (doc == NULL)
 			return FALSE;
 		root = xmlDocGetRootElement (doc);
@@ -818,7 +821,10 @@ as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **err
 	gsize data_len;
 	const gchar *data = g_bytes_get_data (bytes, &data_len);
 
-	xdoc = as_xml_parse_document (data, data_len, error);
+	xdoc = as_xml_parse_document (data,
+				      data_len,
+				      FALSE, /* pedantic */
+				      error);
 	if (xdoc == NULL)
 		return FALSE;
 

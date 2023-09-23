@@ -429,7 +429,10 @@ as_releases_load_from_bytes (AsReleases *rels, GBytes *bytes, GError **error)
 	GError *tmp_error = NULL;
 
 	rel_data = g_bytes_get_data (bytes, &rel_data_len);
-	xdoc = as_xml_parse_document (rel_data, rel_data_len, &tmp_error);
+	xdoc = as_xml_parse_document (rel_data,
+				      rel_data_len,
+				      FALSE, /* pedantic */
+				      &tmp_error);
 	if (xdoc == NULL) {
 		g_propagate_prefixed_error (error,
 					    tmp_error,

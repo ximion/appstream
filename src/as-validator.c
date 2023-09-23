@@ -2421,7 +2421,10 @@ as_validator_check_external_releases (AsValidator *validator,
 	as_validator_set_current_fname (validator, rel_basename);
 
 	rel_data = g_bytes_get_data (bytes, &rel_data_len);
-	xdoc = as_xml_parse_document (rel_data, rel_data_len, &error);
+	xdoc = as_xml_parse_document (rel_data,
+				      rel_data_len,
+				      TRUE, /* pedantic */
+				      &error);
 	if (xdoc == NULL) {
 		as_validator_add_issue (validator, rels_node, "xml-markup-invalid", error->message);
 		goto out;
@@ -3453,7 +3456,10 @@ as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata, gs
 	xmlDoc *doc;
 	g_autoptr(GError) error = NULL;
 
-	doc = as_xml_parse_document (xmldata, len, &error);
+	doc = as_xml_parse_document (xmldata,
+				     len,
+				     TRUE, /* pedantic */
+				     &error);
 	if (doc == NULL) {
 		if (error != NULL) {
 			as_validator_add_issue (validator,

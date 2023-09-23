@@ -82,12 +82,12 @@ void	 as_xml_add_custom_node (xmlNode *root, const gchar *node_name, GHashTable 
 
 #define as_xml_node_new(name)	    xmlNewNode (NULL, (xmlChar *) name)
 #define as_xml_add_node(root, name) xmlNewChild (root, NULL, (xmlChar *) name, NULL)
-xmlNode		      *as_xml_add_text_node (xmlNode *root, const gchar *name, const gchar *value);
-xmlAttr		      *as_xml_add_text_prop (xmlNode *node, const gchar *name, const gchar *value);
+xmlNode *as_xml_add_text_node (xmlNode *root, const gchar *name, const gchar *value);
+xmlAttr *as_xml_add_text_prop (xmlNode *node, const gchar *name, const gchar *value);
 
-xmlDoc		      *as_xml_parse_document (const gchar *data, gssize len, GError **error);
+xmlDoc	*as_xml_parse_document (const gchar *data, gssize len, gboolean pedantic, GError **error);
 
-gchar		      *as_xml_node_free_to_str (xmlNode *root, GError **error);
+gchar	*as_xml_node_free_to_str (xmlNode *root, GError **error);
 
 #pragma GCC visibility pop
 G_END_DECLS

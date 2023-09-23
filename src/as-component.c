@@ -6118,7 +6118,10 @@ as_component_load_from_bytes (AsComponent *cpt,
 		gboolean ret;
 		g_return_val_if_fail (context != NULL, FALSE);
 
-		doc = as_xml_parse_document (data, data_len, error);
+		doc = as_xml_parse_document (data,
+					     data_len,
+					     FALSE, /* pedantic */
+					     error);
 		if (doc == NULL)
 			return FALSE;
 		root = xmlDocGetRootElement (doc);

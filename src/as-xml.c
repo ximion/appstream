@@ -1039,10 +1039,11 @@ as_xml_set_out_of_context_error (gchar **error_msg_ptr)
  * as_xml_parse_document:
  */
 xmlDoc *
-as_xml_parse_document (const gchar *data, gssize len, GError **error)
+as_xml_parse_document (const gchar *data, gssize len, gboolean pedantic, GError **error)
 {
 	xmlDoc *doc;
 	xmlNode *root;
+	gint parser_options;
 	g_autofree gchar *error_msg_str = NULL;
 
 	if (data == NULL) {
@@ -1053,12 +1054,12 @@ as_xml_parse_document (const gchar *data, gssize len, GError **error)
 	if (len < 0)
 		len = strlen (data);
 
+	parser_options = XML_PARSE_NOBLANKS | XML_PARSE_NONET | XML_PARSE_BIG_LINES;
+	if (pedantic)
+		parser_options |= XML_PARSE_PEDANTIC;
+
 	as_xml_set_out_of_context_error (&error_msg_str);
-	doc = xmlReadMemory (data,
-			     len,
-			     NULL,
-			     "utf-8",
-			     XML_PARSE_NOBLANKS | XML_PARSE_NONET | XML_PARSE_BIG_LINES);
+	doc = xmlReadMemory (data, len, NULL, "utf-8", parser_options);
 	if (doc == NULL) {
 		if (error_msg_str == NULL) {
 			g_set_error (error,
