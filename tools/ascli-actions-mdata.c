@@ -635,12 +635,11 @@ ascli_print_satisfy_check_results (GPtrArray *relations,
 
 	for (guint i = 0; i < relations->len; i++) {
 		AsRelation *relation = AS_RELATION (g_ptr_array_index (relations, i));
-		g_autofree gchar *message = NULL;
+		g_autoptr(AsRelationCheckResult) rcr = NULL;
 		g_autoptr(GError) tmp_error = NULL;
-		AsCheckResult r;
 
-		r = as_relation_is_satisfied (relation, sysinfo, pool, &message, &tmp_error);
-		if (r == AS_CHECK_RESULT_ERROR) {
+		rcr = as_relation_is_satisfied (relation, sysinfo, pool, &tmp_error);
+		if (rcr == NULL) {
 			if (as_relation_get_item_kind (relation) ==
 				AS_RELATION_ITEM_KIND_DISPLAY_LENGTH &&
 			    as_system_info_get_display_length (sysinfo,
@@ -658,11 +657,16 @@ ascli_print_satisfy_check_results (GPtrArray *relations,
 					 _("ERROR"), tmp_error->message);
 				res = FALSE;
 			}
-		} else if (r == AS_CHECK_RESULT_TRUE) {
-			g_print (" %s %s\n", ASCLI_CHAR_SUCCESS, message);
 		} else {
-			g_print (" %s %s\n", fail_char, message);
-			res = FALSE;
+			const gchar *message = as_relation_check_result_get_message (rcr);
+
+			if (as_relation_check_result_get_status (rcr) ==
+			    AS_RELATION_STATUS_SATISFIED) {
+				g_print (" %s %s\n", ASCLI_CHAR_SUCCESS, message);
+			} else {
+				g_print (" %s %s\n", fail_char, message);
+				res = FALSE;
+			}
 		}
 	}
 

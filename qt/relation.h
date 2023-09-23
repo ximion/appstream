@@ -22,19 +22,14 @@
 #include <QSharedDataPointer>
 #include <QString>
 #include <QObject>
+
 #include "appstreamqt_export.h"
+#include "relation-check-result.h"
 
 struct _AsRelation;
 
 namespace AppStream
 {
-
-enum class CheckResult {
-    Error,
-    Unknown,
-    False,
-    True
-};
 
 class Pool;
 class SystemInfo;
@@ -156,7 +151,7 @@ public:
 
     bool versionCompare(const QString &version);
 
-    CheckResult isSatisfied(SystemInfo *sysInfo, Pool *pool, QString *message);
+    std::optional<RelationCheckResult> isSatisfied(SystemInfo *sysInfo, Pool *pool);
 
     QString lastError() const;
 

@@ -27,6 +27,8 @@
 
 #include <glib-object.h>
 
+#include "as-relation-check-result.h"
+
 G_BEGIN_DECLS
 
 /* forward declarations */
@@ -46,24 +48,6 @@ struct _AsRelationClass {
 	void (*_as_reserved5) (void);
 	void (*_as_reserved6) (void);
 };
-
-/**
- * AsCheckResult:
- * @AS_CHECK_RESULT_ERROR:		The check failed.
- * @AS_CHECK_RESULT_UNKNOWN:		The outcome could not be determined.
- * @AS_CHECK_RESULT_FALSE:		False/No
- * @AS_CHECK_RESULT_TRUE:		True/Yes
- *
- * Result of a check operation.
- **/
-typedef enum {
-	AS_CHECK_RESULT_ERROR,
-	AS_CHECK_RESULT_UNKNOWN,
-	AS_CHECK_RESULT_FALSE,
-	AS_CHECK_RESULT_TRUE,
-	/*< private >*/
-	AS_CHECK_RESULT_LAST
-} AsCheckResult;
 
 /**
  * AsRelationKind:
@@ -279,11 +263,10 @@ void	 as_relation_set_value_internet_bandwidth (AsRelation *relation, guint band
 
 gboolean as_relation_version_compare (AsRelation *relation, const gchar *version, GError **error);
 
-AsCheckResult as_relation_is_satisfied (AsRelation   *relation,
-					AsSystemInfo *system_info,
-					AsPool	     *pool,
-					gchar	    **message,
-					GError	    **error);
+AsRelationCheckResult *as_relation_is_satisfied (AsRelation   *relation,
+						 AsSystemInfo *system_info,
+						 AsPool	      *pool,
+						 GError	     **error);
 
 G_END_DECLS
 

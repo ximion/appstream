@@ -290,8 +290,8 @@ test_relation_satisfy_check (void)
 {
 	g_autoptr(AsSystemInfo) sysinfo = NULL;
 	g_autoptr(AsRelation) relation = NULL;
+	g_autoptr(AsRelationCheckResult) rcr = NULL;
 	g_autofree gchar *osrelease_fname = NULL;
-	AsCheckResult r;
 	g_autoptr(GError) error = NULL;
 
 	sysinfo = as_system_info_new ();
@@ -309,14 +309,20 @@ test_relation_satisfy_check (void)
 	as_relation_set_item_kind (relation, AS_RELATION_ITEM_KIND_MEMORY);
 	as_relation_set_value_int (relation, 2500);
 
-	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
+	rcr = as_relation_is_satisfied (relation, sysinfo, NULL, &error);
 	g_assert_no_error (error);
-	g_assert_cmpint (r, ==, AS_CHECK_RESULT_TRUE);
+	g_assert_cmpint (as_relation_check_result_get_status (rcr),
+			 ==,
+			 AS_RELATION_STATUS_SATISFIED);
+	g_clear_pointer (&rcr, g_object_unref);
 
 	as_relation_set_value_int (relation, 8000);
-	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
+	rcr = as_relation_is_satisfied (relation, sysinfo, NULL, &error);
 	g_assert_no_error (error);
-	g_assert_cmpint (r, ==, AS_CHECK_RESULT_FALSE);
+	g_assert_cmpint (as_relation_check_result_get_status (rcr),
+			 ==,
+			 AS_RELATION_STATUS_NOT_SATISFIED);
+	g_clear_pointer (&rcr, g_object_unref);
 
 	/* test kernel */
 	as_relation_set_kind (relation, AS_RELATION_KIND_REQUIRES);
@@ -325,20 +331,29 @@ test_relation_satisfy_check (void)
 	as_relation_set_version (relation, "6.2");
 	as_relation_set_compare (relation, AS_RELATION_COMPARE_GE);
 
-	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
+	rcr = as_relation_is_satisfied (relation, sysinfo, NULL, &error);
 	g_assert_no_error (error);
-	g_assert_cmpint (r, ==, AS_CHECK_RESULT_TRUE);
+	g_assert_cmpint (as_relation_check_result_get_status (rcr),
+			 ==,
+			 AS_RELATION_STATUS_SATISFIED);
+	g_clear_pointer (&rcr, g_object_unref);
 
 	as_relation_set_value_str (relation, "FreeBSD");
-	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
+	rcr = as_relation_is_satisfied (relation, sysinfo, NULL, &error);
 	g_assert_no_error (error);
-	g_assert_cmpint (r, ==, AS_CHECK_RESULT_FALSE);
+	g_assert_cmpint (as_relation_check_result_get_status (rcr),
+			 ==,
+			 AS_RELATION_STATUS_NOT_SATISFIED);
+	g_clear_pointer (&rcr, g_object_unref);
 
 	as_relation_set_value_str (relation, "Linux");
 	as_relation_set_compare (relation, AS_RELATION_COMPARE_LT);
-	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
+	rcr = as_relation_is_satisfied (relation, sysinfo, NULL, &error);
 	g_assert_no_error (error);
-	g_assert_cmpint (r, ==, AS_CHECK_RESULT_FALSE);
+	g_assert_cmpint (as_relation_check_result_get_status (rcr),
+			 ==,
+			 AS_RELATION_STATUS_NOT_SATISFIED);
+	g_clear_pointer (&rcr, g_object_unref);
 
 	/* test display length */
 	as_relation_set_kind (relation, AS_RELATION_KIND_RECOMMENDS);
@@ -347,14 +362,20 @@ test_relation_satisfy_check (void)
 	as_relation_set_compare (relation, AS_RELATION_COMPARE_LE);
 	as_relation_set_value_int (relation, 640);
 
-	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
+	rcr = as_relation_is_satisfied (relation, sysinfo, NULL, &error);
 	g_assert_no_error (error);
-	g_assert_cmpint (r, ==, AS_CHECK_RESULT_FALSE);
+	g_assert_cmpint (as_relation_check_result_get_status (rcr),
+			 ==,
+			 AS_RELATION_STATUS_NOT_SATISFIED);
+	g_clear_pointer (&rcr, g_object_unref);
 
 	as_relation_set_compare (relation, AS_RELATION_COMPARE_GE);
-	r = as_relation_is_satisfied (relation, sysinfo, NULL, NULL, &error);
+	rcr = as_relation_is_satisfied (relation, sysinfo, NULL, &error);
 	g_assert_no_error (error);
-	g_assert_cmpint (r, ==, AS_CHECK_RESULT_TRUE);
+	g_assert_cmpint (as_relation_check_result_get_status (rcr),
+			 ==,
+			 AS_RELATION_STATUS_SATISFIED);
+	g_clear_pointer (&rcr, g_object_unref);
 }
 
 int

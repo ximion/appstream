@@ -29,6 +29,13 @@ struct _AsSystemInfo;
 namespace AppStream
 {
 
+enum class CheckResult {
+    Error,
+    Unknown,
+    False,
+    True
+};
+
 class SystemInfoData;
 class APPSTREAMQT_EXPORT SystemInfo : public QObject
 {

@@ -49,6 +49,7 @@
 #include <as-agreement-section.h>
 #include <as-launchable.h>
 #include <as-relation.h>
+#include <as-relation-check-result.h>
 #include <as-issue.h>
 #include <as-review.h>
 #include <as-component-box.h>

@@ -46,6 +46,24 @@ struct _AsSystemInfoClass {
 };
 
 /**
+ * AsCheckResult:
+ * @AS_CHECK_RESULT_ERROR:		The check failed.
+ * @AS_CHECK_RESULT_UNKNOWN:		The outcome could not be determined.
+ * @AS_CHECK_RESULT_FALSE:		False/No
+ * @AS_CHECK_RESULT_TRUE:		True/Yes
+ *
+ * Result of a check operation.
+ **/
+typedef enum {
+	AS_CHECK_RESULT_ERROR,
+	AS_CHECK_RESULT_UNKNOWN,
+	AS_CHECK_RESULT_FALSE,
+	AS_CHECK_RESULT_TRUE,
+	/*< private >*/
+	AS_CHECK_RESULT_LAST
+} AsCheckResult;
+
+/**
  * AsSystemInfoError:
  * @AS_SYSTEM_INFO_ERROR_FAILED:		Generic failure
  * @AS_SYSTEM_INFO_ERROR_NOT_FOUND:		Information was not found.

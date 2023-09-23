@@ -1338,19 +1338,6 @@ as_compare_int_match (glong first, AsRelationCompare compare, glong second)
 }
 
 /**
- * _as_set_satify_message:
- */
-static void
-_as_set_satify_message (gchar **message, gchar *text)
-{
-	if (message == NULL) {
-		g_free (text);
-		return;
-	}
-	*message = text;
-}
-
-/**
  * _as_get_control_missing_message:
  */
 static gchar *
@@ -1469,7 +1456,6 @@ _as_get_control_found_message (AsControlKind c_kind)
  * @relation: a #AsRelation instance.
  * @system_info: (nullable): an #AsSystemInfo to use for system information.
  * @pool: (nullable): an #AsPool to find component dependencies in.
- * @message: (out) (optional): receive a localized status message.
  * @error: a #GError.
  *
  * Test if this relation is satisfied on the current system or with the
@@ -1477,19 +1463,20 @@ _as_get_control_found_message (AsControlKind c_kind)
  * created. If no #AsPool is provided, any component relationships can not
  * be validated and an error will be thrown.
  *
- * Returns: %AS_CHECK_RESULT_TRUE if the system satisfies the relation, %AS_CHECK_RESULT_ERROR on error
+ * Returns: (nullable) (transfer full): an #AsRelationCheckResult with details about the result, or %NULL on error.
  */
-AsCheckResult
+AsRelationCheckResult *
 as_relation_is_satisfied (AsRelation *relation,
 			  AsSystemInfo *system_info,
 			  AsPool *pool,
-			  gchar **message,
 			  GError **error)
 {
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
 	g_autoptr(AsSystemInfo) sysinfo = NULL;
+	g_autoptr(AsRelationCheckResult) rcres = NULL;
 
 	sysinfo = (system_info == NULL) ? as_system_info_new () : g_object_ref (system_info);
+	rcres = as_relation_check_result_new ();
 
 	/* Components */
 	if (priv->item_kind == AS_RELATION_ITEM_KIND_ID) {
@@ -1501,7 +1488,7 @@ as_relation_is_satisfied (AsRelation *relation,
 					     AS_RELATION_ERROR_FAILED,
 					     "Unable to check ID relation status: No valid "
 					     "metadata pool was provided.");
-			return AS_CHECK_RESULT_ERROR;
+			return NULL;
 		}
 
 		cid = as_relation_get_value_str (relation);
@@ -1511,35 +1498,35 @@ as_relation_is_satisfied (AsRelation *relation,
 					     AS_RELATION_ERROR_BAD_VALUE,
 					     "Unable to check ID relation status: This relation is "
 					     "invalid, it has no valid value.");
-			return AS_CHECK_RESULT_ERROR;
+			return NULL;
 		}
 		cbox = as_pool_get_components_by_id (pool, cid);
 
 		if (!as_component_box_is_empty (cbox)) {
-			_as_set_satify_message (
-			    message,
-			    g_strdup_printf (
-				_("Software '%s' was found"),
-				   as_component_get_name (as_component_box_index (cbox, 0))));
-			return AS_CHECK_RESULT_TRUE;
+			as_relation_check_result_set_message (
+			    rcres,
+			    _("Software '%s' was found"),
+			       as_component_get_name (as_component_box_index (cbox, 0)));
+
+			as_relation_check_result_set_status (rcres, AS_RELATION_STATUS_SATISFIED);
+			return g_steal_pointer (&rcres);
 		} else {
 			if (priv->kind == AS_RELATION_KIND_REQUIRES)
-				_as_set_satify_message (
-				    message,
-				    g_strdup_printf (
-					_("Required software component '%s' is missing."), cid));
+				as_relation_check_result_set_message (
+				    rcres,
+				    _("Required software component '%s' is missing."), cid);
 			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
-				_as_set_satify_message (
-				    message,
-				    g_strdup_printf (
-					_("Recommended software component '%s' is missing."),
-					   cid));
+				as_relation_check_result_set_message (
+				    rcres,
+				    _("Recommended software component '%s' is missing."), cid);
 			else if (priv->kind == AS_RELATION_KIND_SUPPORTS)
-				_as_set_satify_message (
-				    message,
-				    g_strdup_printf (_("Found supported software component '%s'."),
-							cid));
-			return AS_CHECK_RESULT_FALSE;
+				as_relation_check_result_set_message (
+				    rcres,
+				    _("Found supported software component '%s'."), cid);
+
+			as_relation_check_result_set_status (rcres,
+							     AS_RELATION_STATUS_NOT_SATISFIED);
+			return g_steal_pointer (&rcres);
 		}
 	}
 
@@ -1555,7 +1542,7 @@ as_relation_is_satisfied (AsRelation *relation,
 					     AS_RELATION_ERROR_BAD_VALUE,
 					     "Unable to check modalias relation status: This "
 					     "relation is invalid, it has no valid value.");
-			return AS_CHECK_RESULT_ERROR;
+			return NULL;
 		}
 
 		device_name = as_system_info_get_device_name_for_modalias (sysinfo,
@@ -1566,29 +1553,33 @@ as_relation_is_satisfied (AsRelation *relation,
 			device_name = g_strdup (modalias);
 
 		if (as_system_info_has_device_matching_modalias (sysinfo, modalias)) {
-			_as_set_satify_message (
-			    message,
-			    g_strdup_printf (
-				_("Found hardware that is supported by this software: '%s'"),
-				   device_name));
-			return AS_CHECK_RESULT_TRUE;
+			as_relation_check_result_set_message (
+			    rcres,
+			    _("Found hardware that is supported by this software: '%s'"),
+			       device_name);
+
+			as_relation_check_result_set_status (rcres, AS_RELATION_STATUS_SATISFIED);
+			return g_steal_pointer (&rcres);
 		} else {
 			if (priv->kind == AS_RELATION_KIND_REQUIRES)
-				_as_set_satify_message (
-				    message,
-				    g_strdup_printf (_("Required hardware for this software was not found on this system: '%s'"),
-							device_name));
+				as_relation_check_result_set_message (
+				    rcres,
+				    _("Required hardware for this software was not found on this system: '%s'"),
+				       device_name);
 			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
-				_as_set_satify_message (
-				    message,
-				    g_strdup_printf (_("Recommended hardware for this software was not found on this system: '%s'"),
-							device_name));
+				as_relation_check_result_set_message (
+				    rcres,
+				    _("Recommended hardware for this software was not found on this system: '%s'"),
+				       device_name);
 			else
-				_as_set_satify_message (
-				    message,
-				    g_strdup_printf (_("This software supports hardware not present in this system: '%s'"),
-							device_name));
-			return AS_CHECK_RESULT_FALSE;
+				as_relation_check_result_set_message (
+				    rcres,
+				    _("This software supports hardware not present in this system: '%s'"),
+				       device_name);
+
+			as_relation_check_result_set_status (rcres,
+							     AS_RELATION_STATUS_NOT_SATISFIED);
+			return g_steal_pointer (&rcres);
 		}
 	}
 
@@ -1605,7 +1596,7 @@ as_relation_is_satisfied (AsRelation *relation,
 					     AS_SYSTEM_INFO_ERROR,
 					     AS_SYSTEM_INFO_ERROR_NOT_FOUND,
 					     "Unable to determine the current kernel name.");
-			return AS_CHECK_RESULT_ERROR;
+			return NULL;
 		}
 
 		req_kernel_name = as_relation_get_value_str (relation);
@@ -1615,37 +1606,42 @@ as_relation_is_satisfied (AsRelation *relation,
 					     AS_RELATION_ERROR_BAD_VALUE,
 					     "Unable to check kernel relation status: No valid "
 					     "value set for relation.");
-			return AS_CHECK_RESULT_ERROR;
+			return NULL;
 		}
 
 		if (g_ascii_strcasecmp (current_kernel_name, req_kernel_name) != 0) {
 			if (priv->kind == AS_RELATION_KIND_REQUIRES)
-				_as_set_satify_message (
-				    message,
-				    g_strdup_printf (_("This software requires a %s kernel, but this system is running %s."),
-							req_kernel_name,
-							current_kernel_name));
+				as_relation_check_result_set_message (
+				    rcres,
+				    _("This software requires a %s kernel, but this system is running %s."),
+				       req_kernel_name,
+				       current_kernel_name);
 			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
-				_as_set_satify_message (
-				    message,
-				    g_strdup_printf (_("This software recommends a %s kernel, but this system is running %s."),
-							req_kernel_name,
-							current_kernel_name));
+				as_relation_check_result_set_message (
+				    rcres,
+				    _("This software recommends a %s kernel, but this system is running %s."),
+				       req_kernel_name,
+				       current_kernel_name);
 			else
-				_as_set_satify_message (
-				    message,
-				    g_strdup_printf (_("This software only supports a %s kernel, but may run on %s anyway."),
-							req_kernel_name,
-							current_kernel_name));
-			return AS_CHECK_RESULT_FALSE;
+				as_relation_check_result_set_message (
+				    rcres,
+				    _("This software only supports a %s kernel, but may run on %s anyway."),
+				       req_kernel_name,
+				       current_kernel_name);
+
+			as_relation_check_result_set_status (rcres,
+							     AS_RELATION_STATUS_NOT_SATISFIED);
+			return g_steal_pointer (&rcres);
 		}
 
 		current_kernel_version = as_system_info_get_kernel_version (sysinfo);
 		req_kernel_version = as_relation_get_version (relation);
 
 		/* if no version was specified, we just needed to test for a kernel name */
-		if (req_kernel_version == NULL)
-			return AS_CHECK_RESULT_TRUE;
+		if (req_kernel_version == NULL) {
+			as_relation_check_result_set_status (rcres, AS_RELATION_STATUS_SATISFIED);
+			return g_steal_pointer (&rcres);
+		}
 
 		if (!as_vercmp_test_match (current_kernel_version,
 					   as_relation_get_compare (relation),
@@ -1654,53 +1650,57 @@ as_relation_is_satisfied (AsRelation *relation,
 			const gchar *compare_symbols = as_relation_compare_to_symbols_string (
 			    as_relation_get_compare (relation));
 			if (priv->kind == AS_RELATION_KIND_REQUIRES)
-				_as_set_satify_message (
-				    message,
+				as_relation_check_result_set_message (
+				    rcres,
 				    /* TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 							   second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
 							   and fifth is the version we are running. */
-				    g_strdup_printf (_("This software requires %s %s %s, but this system is running %s %s."),
-							req_kernel_name,
-							compare_symbols,
-							req_kernel_version,
-							current_kernel_name,
-							current_kernel_version));
+				    _("This software requires %s %s %s, but this system is running %s %s."),
+				       req_kernel_name,
+				       compare_symbols,
+				       req_kernel_version,
+				       current_kernel_name,
+				       current_kernel_version);
 			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
-				_as_set_satify_message (
-				    message,
+				as_relation_check_result_set_message (
+				    rcres,
 				    /* TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 							   second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
 							   and fifth is the version we are running. */
-				    g_strdup_printf (_("The use of %s %s %s is recommended, but this system is running %s %s."),
-							req_kernel_name,
-							compare_symbols,
-							req_kernel_version,
-							current_kernel_name,
-							current_kernel_version));
+				    _("The use of %s %s %s is recommended, but this system is running %s %s."),
+				       req_kernel_name,
+				       compare_symbols,
+				       req_kernel_version,
+				       current_kernel_name,
+				       current_kernel_version);
 			else if (priv->kind == AS_RELATION_KIND_SUPPORTS) {
-				_as_set_satify_message (
-				    message,
+				as_relation_check_result_set_message (
+				    rcres,
 				    /* TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 							   second is comparison operator (e.g. >=), third is the expected version number. */
-				    g_strdup_printf (_("This software supports %s %s %s."),
-							req_kernel_name,
-							compare_symbols,
-							req_kernel_version));
+				    _("This software supports %s %s %s."),
+				       req_kernel_name,
+				       compare_symbols,
+				       req_kernel_version);
 				/* this is not an error, supports is only a hint for kernels */
-				return AS_CHECK_RESULT_TRUE;
+				as_relation_check_result_set_status (rcres,
+								     AS_RELATION_STATUS_SATISFIED);
+				return g_steal_pointer (&rcres);
 			}
-			return AS_CHECK_RESULT_FALSE;
+
+			as_relation_check_result_set_status (rcres,
+							     AS_RELATION_STATUS_NOT_SATISFIED);
+			return g_steal_pointer (&rcres);
 		}
 
-		_as_set_satify_message (
-		    message,
+		as_relation_check_result_set_message (
+		    rcres,
 		    /* TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number. */
-		    g_strdup_printf (_("Kernel %s %s is supported."),
-					current_kernel_name,
-					current_kernel_version));
+		    _("Kernel %s %s is supported."), current_kernel_name, current_kernel_version);
 
 		/* if we are here, we are running an acceptable kernel version */
-		return AS_CHECK_RESULT_TRUE;
+		as_relation_check_result_set_status (rcres, AS_RELATION_STATUS_SATISFIED);
+		return g_steal_pointer (&rcres);
 	}
 
 	/* Physical Memory */
@@ -1715,7 +1715,7 @@ as_relation_is_satisfied (AsRelation *relation,
 			    AS_RELATION_ERROR,
 			    AS_RELATION_ERROR_BAD_VALUE,
 			    "Unable to check memory relation: No valid value set in metadata.");
-			return AS_CHECK_RESULT_ERROR;
+			return NULL;
 		}
 
 		current_memory = as_system_info_get_memory_total (sysinfo);
@@ -1726,44 +1726,49 @@ as_relation_is_satisfied (AsRelation *relation,
 			const gchar *compare_symbols = as_relation_compare_to_symbols_string (
 			    as_relation_get_compare (relation));
 			if (priv->kind == AS_RELATION_KIND_REQUIRES)
-				_as_set_satify_message (
-				    message,
+				as_relation_check_result_set_message (
+				    rcres,
 				    /* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 							   second is the expected amount of memory and fourth is the amount of memory we have. */
-				    g_strdup_printf (_("This software requires %s %.2f GiB of memory, but this system has %.2f GiB."),
-							compare_symbols,
-							req_memory / 1024.0,
-							current_memory / 1024.0));
+				    _("This software requires %s %.2f GiB of memory, but this system has %.2f GiB."),
+				       compare_symbols,
+				       req_memory / 1024.0,
+				       current_memory / 1024.0);
 			else if (priv->kind == AS_RELATION_KIND_RECOMMENDS)
-				_as_set_satify_message (
-				    message,
+				as_relation_check_result_set_message (
+				    rcres,
 				    /* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 							   second is the expected amount of memory and fourth is the amount of memory we have. */
-				    g_strdup_printf (_("This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."),
-							compare_symbols,
-							req_memory / 1024.0,
-							current_memory / 1024.0));
+				    _("This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."),
+				       compare_symbols,
+				       req_memory / 1024.0,
+				       current_memory / 1024.0);
 			else if (priv->kind == AS_RELATION_KIND_SUPPORTS) {
-				_as_set_satify_message (
-				    message,
+				as_relation_check_result_set_message (
+				    rcres,
 				    /* TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
-							   second is the expected amount of memory. */
-				    g_strdup_printf (
-					_("This software supports %s %.2f GiB of memory."),
-					   compare_symbols,
-					   req_memory / 1024.0));
+				     * second is the expected amount of memory. */
+				    _("This software supports %s %.2f GiB of memory."),
+				       compare_symbols,
+				       req_memory / 1024.0);
 				/* this is not an error, supports is only a hint for memory */
-				return AS_CHECK_RESULT_TRUE;
+				as_relation_check_result_set_status (rcres,
+								     AS_RELATION_STATUS_SATISFIED);
+				return g_steal_pointer (&rcres);
 			}
-			return AS_CHECK_RESULT_FALSE;
+
+			as_relation_check_result_set_status (rcres,
+							     AS_RELATION_STATUS_NOT_SATISFIED);
+			return g_steal_pointer (&rcres);
 		}
 
-		_as_set_satify_message (
-		    message,
-		    g_strdup_printf (_("This system has sufficient memory for this software.")));
+		as_relation_check_result_set_message (
+		    rcres,
+		    _("This system has sufficient memory for this software."));
 
 		/* if we are here, we have sufficient memory */
-		return AS_CHECK_RESULT_TRUE;
+		as_relation_check_result_set_status (rcres, AS_RELATION_STATUS_SATISFIED);
+		return g_steal_pointer (&rcres);
 	}
 
 	/* User Input Controls */
@@ -1776,18 +1781,23 @@ as_relation_is_satisfied (AsRelation *relation,
 		res = as_system_info_has_input_control (sysinfo, control_kind, &tmp_error);
 		if (res == AS_CHECK_RESULT_ERROR) {
 			g_propagate_error (error, tmp_error);
-			return AS_CHECK_RESULT_ERROR;
+			return NULL;
 		}
 
-		if (res == AS_CHECK_RESULT_FALSE || priv->kind == AS_RELATION_KIND_SUPPORTS)
-			_as_set_satify_message (
-			    message,
-			    _as_get_control_missing_message (control_kind, priv->kind));
-		if (res == AS_CHECK_RESULT_TRUE)
-			_as_set_satify_message (message,
-						_as_get_control_found_message (control_kind));
+		if (res == AS_CHECK_RESULT_FALSE || priv->kind == AS_RELATION_KIND_SUPPORTS) {
+			g_autofree gchar *tmp_str = _as_get_control_missing_message (control_kind,
+										     priv->kind);
+			as_relation_check_result_set_message (rcres, tmp_str);
+			as_relation_check_result_set_status (rcres,
+							     AS_RELATION_STATUS_NOT_SATISFIED);
+		}
+		if (res == AS_CHECK_RESULT_TRUE) {
+			g_autofree gchar *tmp_str = _as_get_control_found_message (control_kind);
+			as_relation_check_result_set_message (rcres, tmp_str);
+			as_relation_check_result_set_status (rcres, AS_RELATION_STATUS_SATISFIED);
+		}
 
-		return res;
+		return g_steal_pointer (&rcres);
 	}
 
 	/* Display Length */
@@ -1804,7 +1814,7 @@ as_relation_is_satisfied (AsRelation *relation,
 					     AS_RELATION_ERROR_BAD_VALUE,
 					     "Unable to check display size relation: No valid size "
 					     "value set in metadata.");
-			return AS_CHECK_RESULT_ERROR;
+			return NULL;
 		}
 		if (side_kind == AS_DISPLAY_SIDE_KIND_UNKNOWN) {
 			g_set_error_literal (error,
@@ -1812,7 +1822,7 @@ as_relation_is_satisfied (AsRelation *relation,
 					     AS_RELATION_ERROR_BAD_VALUE,
 					     "Unable to check display size relation: No valid side "
 					     "type value set in metadata.");
-			return AS_CHECK_RESULT_ERROR;
+			return NULL;
 		}
 
 		current_length = as_system_info_get_display_length (sysinfo, side_kind);
@@ -1823,7 +1833,7 @@ as_relation_is_satisfied (AsRelation *relation,
 					     "Unable to determine the display length of this "
 					     "device: This value needs to be provided "
 					     "by a GUI frontend for AppStream.");
-			return AS_CHECK_RESULT_ERROR;
+			return NULL;
 		}
 
 		if (!as_compare_int_match (current_length,
@@ -1833,60 +1843,59 @@ as_relation_is_satisfied (AsRelation *relation,
 			    as_relation_get_compare (relation));
 			if (priv->kind == AS_RELATION_KIND_REQUIRES) {
 				if (side_kind == AS_DISPLAY_SIDE_KIND_LONGEST)
-					_as_set_satify_message (
-					    message,
+					as_relation_check_result_set_message (
+					    rcres,
 					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 								   second is the expected size and fourth is the size the current device has. */
-					    g_strdup_printf (
-						_("This software requires a display with its longest edge being %s %lu px in size, "
+					    _("This software requires a display with its longest edge being %s %lu px in size, "
 										   "but the display of this device has %lu px."),
-						   compare_symbols,
-						   req_length,
-						   current_length));
+					       compare_symbols,
+					       req_length,
+					       current_length);
 				else
-					_as_set_satify_message (
-					    message,
+					as_relation_check_result_set_message (
+					    rcres,
 					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 								   second is the expected size and fourth is the size the current device has. */
-					    g_strdup_printf (
-						_("This software requires a display with its shortest edge being %s %lu px in size, "
+					    _("This software requires a display with its shortest edge being %s %lu px in size, "
 										   "but the display of this device has %lu px."),
-						   compare_symbols,
-						   req_length,
-						   current_length));
+					       compare_symbols,
+					       req_length,
+					       current_length);
 			} else if (priv->kind == AS_RELATION_KIND_RECOMMENDS) {
 				if (side_kind == AS_DISPLAY_SIDE_KIND_LONGEST)
-					_as_set_satify_message (
-					    message,
+					as_relation_check_result_set_message (
+					    rcres,
 					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 								   second is the expected size and fourth is the size the current device has. */
-					    g_strdup_printf (
-						_("This software recommends a display with its longest edge being %s %lu px in size, "
+					    _("This software recommends a display with its longest edge being %s %lu px in size, "
 										   "but the display of this device has %lu px."),
-						   compare_symbols,
-						   req_length,
-						   current_length));
+					       compare_symbols,
+					       req_length,
+					       current_length);
 				else
-					_as_set_satify_message (
-					    message,
+					as_relation_check_result_set_message (
+					    rcres,
 					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 								   second is the expected size and fourth is the size the current device has. */
-					    g_strdup_printf (
-						_("This software recommends a display with its shortest edge being %s %lu px in size, "
+					    _("This software recommends a display with its shortest edge being %s %lu px in size, "
 										   "but the display of this device has %lu px."),
-						   compare_symbols,
-						   req_length,
-						   current_length));
+					       compare_symbols,
+					       req_length,
+					       current_length);
 			}
-			return AS_CHECK_RESULT_FALSE;
+			as_relation_check_result_set_status (rcres,
+							     AS_RELATION_STATUS_NOT_SATISFIED);
+			return g_steal_pointer (&rcres);
 		}
 
-		_as_set_satify_message (
-		    message,
-		    g_strdup (_("Display size is sufficient for this software.")));
+		as_relation_check_result_set_message (
+		    rcres,
+		    _("Display size is sufficient for this software."));
 
 		/* if we are here, we have sufficient memory */
-		return AS_CHECK_RESULT_TRUE;
+		as_relation_check_result_set_status (rcres, AS_RELATION_STATUS_SATISFIED);
+		return g_steal_pointer (&rcres);
 	}
 
 	/* TODO: Still needs implementation:
@@ -1901,7 +1910,7 @@ as_relation_is_satisfied (AsRelation *relation,
 		     _("Relation satisfy check for items of type '%s' is not implemented yet."),
 			as_relation_item_kind_to_string (priv->item_kind));
 
-	return AS_CHECK_RESULT_ERROR;
+	return NULL;
 }
 
 /**
