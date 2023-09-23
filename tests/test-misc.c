@@ -446,6 +446,7 @@ test_syscompat_scores (void)
 	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_phone, sysinfo), ==, 0);
 
 	/* test compatibility with handset systems */
+	g_clear_pointer (&sysinfo, g_object_unref);
 	sysinfo = as_system_info_new_template_for_chassis (AS_CHASSIS_KIND_HANDSET, NULL);
 	g_assert_nonnull (sysinfo);
 
