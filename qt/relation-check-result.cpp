@@ -115,3 +115,13 @@ QDebug operator<<(QDebug s, const AppStream::RelationCheckResult &rcr)
     s.nospace() << "AppStream::RelationCheckResult(" << rcr.status() << rcr.message() << ")";
     return s.space();
 }
+
+int AppStream::compatibilityScoreFromRelationCheckResults(
+    const QList<RelationCheckResult> &rcResults)
+{
+    g_autoptr(GPtrArray) rcrs = g_ptr_array_new();
+    for (const auto &rcr : rcResults)
+        g_ptr_array_add(rcrs, rcr.asRelationCheckResult());
+
+    return as_relation_check_results_get_compatibility_score(rcrs);
+}

@@ -46,7 +46,8 @@ public:
     enum Kind {
         KindUnknown,
         KindRequires,
-        KindRecommends
+        KindRecommends,
+        KindSupports
     };
     Q_ENUM(Kind)
 

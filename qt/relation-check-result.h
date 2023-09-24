@@ -64,6 +64,8 @@ public:
 private:
     QSharedDataPointer<RelationCheckResultData> d;
 };
+
+int compatibilityScoreFromRelationCheckResults(const QList<RelationCheckResult> &rcResults);
 }
 
 APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::RelationCheckResult &relcr);

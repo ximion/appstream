@@ -35,6 +35,8 @@
 #include "contentrating.h"
 #include "launchable.h"
 #include "translation.h"
+#include "systeminfo.h"
+#include "pool.h"
 
 using namespace AppStream;
 
@@ -418,6 +420,50 @@ QList<Relation> Component::supports() const
 void Component::addRelation(const Relation &relation)
 {
     as_component_add_relation(d->cpt, relation.asRelation());
+}
+
+QList<RelationCheckResult>
+Component::checkRelations(SystemInfo *sysinfo, Pool *pool, Relation::Kind relKind)
+{
+    g_autoptr(GPtrArray) cresult = NULL;
+    cresult = as_component_check_relations(d->cpt,
+                                           sysinfo == nullptr ? nullptr : sysinfo->asSystemInfo(),
+                                           pool == nullptr ? nullptr : pool->asPool(),
+                                           static_cast<AsRelationKind>(relKind));
+
+    QList<RelationCheckResult> res;
+    res.reserve(cresult->len);
+    for (guint i = 0; i < cresult->len; i++)
+        res.append(RelationCheckResult(AS_RELATION_CHECK_RESULT(g_ptr_array_index(cresult, i))));
+
+    return res;
+}
+
+int Component::calculateSystemCompatibilityScore(SystemInfo *sysinfo,
+                                                 bool isTemplate,
+                                                 QList<RelationCheckResult> &results)
+{
+    g_autoptr(GPtrArray) cres = NULL;
+    int score;
+
+    score = as_component_get_system_compatibility_score(d->cpt,
+                                                        sysinfo->asSystemInfo(),
+                                                        isTemplate,
+                                                        &cres);
+
+    results.reserve(cres->len);
+    for (guint i = 0; i < cres->len; i++)
+        results.append(RelationCheckResult(AS_RELATION_CHECK_RESULT(g_ptr_array_index(cres, i))));
+
+    return score;
+}
+
+int Component::calculateSystemCompatibilityScore(SystemInfo *sysinfo, bool isTemplate)
+{
+    return as_component_get_system_compatibility_score(d->cpt,
+                                                       sysinfo->asSystemInfo(),
+                                                       isTemplate,
+                                                       nullptr);
 }
 
 QStringList AppStream::Component::languages() const

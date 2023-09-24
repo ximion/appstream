@@ -33,6 +33,7 @@
 #include "launchable.h"
 #include "translation.h"
 #include "releases.h"
+#include "relation.h"
 
 struct _AsComponent;
 namespace AppStream
@@ -40,8 +41,8 @@ namespace AppStream
 
 class Icon;
 class Screenshot;
-class Relation;
 class Suggested;
+class RelationCheckResult;
 
 class ComponentData;
 
@@ -200,6 +201,12 @@ public:
     QList<AppStream::Relation> recommends() const;
     QList<AppStream::Relation> supports() const;
     void addRelation(const AppStream::Relation &relation);
+    QList<RelationCheckResult>
+    checkRelations(SystemInfo *sysinfo, Pool *pool, Relation::Kind relKind);
+    int calculateSystemCompatibilityScore(SystemInfo *sysinfo,
+                                          bool isTemplate,
+                                          QList<RelationCheckResult> &results);
+    int calculateSystemCompatibilityScore(SystemInfo *sysinfo, bool isTemplate);
 
     QStringList languages() const;
     int language(const QString &locale) const;
