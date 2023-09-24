@@ -4,21 +4,40 @@
 # Build API documentation for libappstream-compose
 #
 
-as_composeapi_doc_target_dir = join_paths(as_doc_target_dir, 'html', 'compose-api')
-glib.gtkdoc (
-    'appstream-compose',
-    src_dir: join_paths(source_root, 'compose'),
-    main_xml: 'appstream-compose-docs.xml',
-    ignore_headers: ascompose_priv_headers,
-    install: true,
-    install_dir: join_paths(get_option('prefix'), as_composeapi_doc_target_dir) # requires an absolute path
+ascdoc_toml = configure_file(
+    input: 'appstream-compose.toml.in',
+    output: 'appstream-compose.toml',
+    configuration: gid_toml_conf
 )
 
-# we need to install the empty dir, as the gtkdoc generation happens last
-# and a symlink target must exist first.
-install_emptydir(join_paths(get_option('prefix'), as_composeapi_doc_target_dir))
+custom_target('doc-api-appstream-compose',
+    input: [
+      ascdoc_toml,
+      asc_gir,
+    ],
+    output: 'compose-api',
+    command: [
+      gidocgen_exe,
+      'generate',
+      '--quiet',
+      '--add-include-path=@0@'.format(meson.project_build_root() / 'compose'),
+      '--config=@INPUT0@',
+      '--output-dir=@OUTPUT@',
+      '--no-namespace-dir',
+      '--content-dir=@0@'.format(meson.current_source_dir()),
+      '@INPUT1@',
+    ],
+    depends: [
+      asc_gir,
+    ],
+    build_by_default: true,
+    install: true,
+    install_dir: get_option('prefix') / as_doc_html_target_dir,
+)
+
+# make Devhelp work
 install_symlink(
     'appstream-compose',
-    pointing_to: '..' / '..' / '..' / as_composeapi_doc_target_dir,
+    pointing_to: '..' / '..' / '..' / as_doc_html_target_dir / 'compose-api',
     install_dir: gtk_doc_root
 )

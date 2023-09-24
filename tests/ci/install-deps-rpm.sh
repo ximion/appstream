@@ -17,7 +17,7 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     meson \
     gettext \
     gperf \
-    gtk-doc \
+    gi-docgen \
     itstool \
     libasan \
     libstemmer-devel \

@@ -1,30 +1,54 @@
 # Meson definition for AppStream API Documentation
 
-as_api_doc_target_dir = join_paths(as_doc_target_dir, 'html', 'api')
+as_doc_html_target_dir = join_paths(as_doc_target_dir, 'html')
 
-glib.gtkdoc (
-    'appstream',
-    src_dir: join_paths(source_root, 'src'),
-    main_xml: 'appstream-docs.xml',
-    ignore_headers: aslib_priv_headers,
+gidocgen_dep = dependency('gi-docgen',
+  version: '>= 2021.1',
+  native: true,
+  required: true,
+)
+gidocgen_exe = find_program('gi-docgen')
+
+gid_toml_conf = configuration_data()
+gid_toml_conf.set('version', as_version)
+
+asdoc_toml = configure_file(
+    input: 'appstream.toml.in',
+    output: 'appstream.toml',
+    configuration: gid_toml_conf
+)
+
+custom_target('doc-api-appstream',
+    input: [
+      asdoc_toml,
+      as_gir,
+    ],
+    output: 'api',
+    command: [
+      gidocgen_exe,
+      'generate',
+      '--quiet',
+      '--add-include-path=@0@'.format(meson.project_build_root() / 'src'),
+      '--config=@INPUT0@',
+      '--output-dir=@OUTPUT@',
+      '--no-namespace-dir',
+      '--content-dir=@0@'.format(meson.current_source_dir()),
+      '@INPUT1@',
+    ],
+    depends: [
+      as_gir,
+    ],
+    build_by_default: true,
     install: true,
-    install_dir: join_paths(get_option('prefix'), as_api_doc_target_dir), # requires an absolute path
-    content_files: ['../xml/man/appstreamcli.1.xml',
-                    '../xml/man/appstreamcli-compose.1.xml'
-    ]
+    install_dir: get_option('prefix') / as_doc_html_target_dir,
 )
 
 # create symlink, so tools using gtk-doc can find the API documentation, without us
 # duplicating the data in two places.
-# We hardcore the gtk-doc path here, because gtkdoc_html_dir('appstream') creates a
-# wrong path due to a Meson bug at the moment
 gtk_doc_root = join_paths(get_option('prefix'), get_option('datadir'), 'gtk-doc', 'html')
-# we need to install the empty dir, as the gtkdoc generation happens last
-# and a symlink target must exist first.
-install_emptydir(join_paths(get_option('prefix'), as_api_doc_target_dir))
 install_symlink(
     'appstream',
-    pointing_to: '..' / '..' / '..' / as_api_doc_target_dir,
+    pointing_to: '..' / '..' / '..' / as_doc_html_target_dir / 'api',
     install_dir: gtk_doc_root
 )
 
