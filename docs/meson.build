@@ -46,7 +46,9 @@ if get_option('compose')
 endif
 
 if get_option('docs') or get_option('apidocs')
+  if get_option('gir')
     subdir('api/')
+  endif
 endif
 
 #
