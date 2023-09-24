@@ -29,6 +29,7 @@
 
 #include "as-pool.h"
 #include "as-system-info.h"
+#include "as-relation-check-result.h"
 
 /**
  * SECTION:as-relation
@@ -1825,6 +1826,15 @@ as_relation_is_satisfied (AsRelation *relation,
 					     "Unable to check display size relation: No valid side "
 					     "type value set in metadata.");
 			return NULL;
+		}
+
+		if (!as_system_info_get_gui_available (sysinfo)) {
+			as_relation_check_result_set_message (
+			    rcres,
+			    _("This software needs a display for graphical content."));
+			as_relation_check_result_set_status (rcres,
+							     AS_RELATION_STATUS_NOT_SATISFIED);
+			return g_steal_pointer (&rcres);
 		}
 
 		current_length = as_system_info_get_display_length (sysinfo, side_kind);

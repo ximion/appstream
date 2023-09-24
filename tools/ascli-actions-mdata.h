@@ -68,6 +68,11 @@ gint ascli_check_is_satisfied (const gchar *fname_or_cid,
 			       const gchar *cachepath,
 			       gboolean	    no_cache);
 
+gint ascli_check_syscompat (const gchar *fname_or_cid,
+			    const gchar *cachepath,
+			    gboolean	 no_cache,
+			    gboolean	 show_details);
+
 G_END_DECLS
 
 #endif /* __ASCLI_ACTIONS_MDATA_H */

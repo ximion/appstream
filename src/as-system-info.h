@@ -133,14 +133,17 @@ gchar	     *as_system_info_get_device_name_for_modalias (AsSystemInfo *sysinfo,
 AsCheckResult as_system_info_has_input_control (AsSystemInfo *sysinfo,
 						AsControlKind kind,
 						GError	    **error);
-void   as_system_info_set_input_control (AsSystemInfo *sysinfo, AsControlKind kind, gboolean found);
+void as_system_info_set_input_control (AsSystemInfo *sysinfo, AsControlKind kind, gboolean found);
 
-gulong as_system_info_get_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side);
-void   as_system_info_set_display_length (AsSystemInfo	   *sysinfo,
-					  AsDisplaySideKind side,
-					  gulong	    value_dip);
+gboolean as_system_info_get_gui_available (AsSystemInfo *sysinfo);
+void	 as_system_info_set_gui_available (AsSystemInfo *sysinfo, gboolean available);
 
-gchar *as_get_current_distro_component_id (void);
+gulong	 as_system_info_get_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side);
+void	 as_system_info_set_display_length (AsSystemInfo     *sysinfo,
+					    AsDisplaySideKind side,
+					    gulong	      value_dip);
+
+gchar	*as_get_current_distro_component_id (void);
 
 G_END_DECLS
 

@@ -357,6 +357,7 @@ GPtrArray   *as_component_check_relations (AsComponent	 *cpt,
 					   AsRelationKind rel_kind);
 gint	     as_component_get_system_compatibility_score (AsComponent  *cpt,
 							  AsSystemInfo *sysinfo,
+							  gboolean	is_template,
 							  GPtrArray   **results);
 
 GPtrArray   *as_component_get_replaces (AsComponent *cpt);

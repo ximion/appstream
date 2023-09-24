@@ -28,8 +28,7 @@
 
 G_BEGIN_DECLS
 
-/* forward declarations */
-typedef struct _AsRelation AsRelation;
+#include "as-relation.h"
 
 #define AS_TYPE_RELATION_CHECK_RESULT (as_relation_check_result_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsRelationCheckResult,
@@ -52,7 +51,7 @@ struct _AsRelationCheckResultClass {
 /**
  * AsRelationStatus:
  * @AS_RELATION_STATUS_UNKNOWN:		Unknown status.
- * @AS_RELATION_STATUS_ERROR:		An error occured and the status could not be checked,
+ * @AS_RELATION_STATUS_ERROR:		An error occured and the status could not be checked.
  * @AS_RELATION_STATUS_NOT_SATISFIED:	The relation is not satisfied.
  * @AS_RELATION_STATUS_SATISFIED:	The relation is satisfied.
  *
@@ -78,6 +77,9 @@ void as_relation_check_result_set_relation (AsRelationCheckResult *relcr, AsRela
 const gchar *as_relation_check_result_get_message (AsRelationCheckResult *relcr);
 void as_relation_check_result_set_message (AsRelationCheckResult *relcr, const gchar *format, ...)
     G_GNUC_PRINTF (2, 3);
+
+AsRelationError as_relation_check_result_get_error_code (AsRelationCheckResult *relcr);
+void as_relation_check_result_set_error_code (AsRelationCheckResult *relcr, AsRelationError ecode);
 
 gint as_relation_check_results_get_compatibility_score (GPtrArray *rc_results);
 

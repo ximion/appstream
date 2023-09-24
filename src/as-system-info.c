@@ -81,6 +81,7 @@ typedef struct {
 	guint input_controls;
 	guint tested_input_controls;
 
+	gboolean has_gui;
 	gulong display_length_shortest;
 	gulong display_length_longest;
 
@@ -162,6 +163,9 @@ as_system_info_init (AsSystemInfo *sysinfo)
 
 	priv->modaliases = g_ptr_array_new ();
 	priv->modalias_to_sysfs = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+
+	/* we assume a GUI is present by default */
+	priv->has_gui = TRUE;
 }
 
 static void
@@ -1010,6 +1014,35 @@ as_system_info_set_input_control (AsSystemInfo *sysinfo, AsControlKind kind, gbo
 }
 
 /**
+ * as_system_info_get_gui_available:
+ * @sysinfo: a #AsSystemInfo instance.
+ *
+ * Check whether graphical applications can be displayed via X11 or Wayland.
+ *
+ * Returns: %TRUE if graphical applications can be displayed.
+ */
+gboolean
+as_system_info_get_gui_available (AsSystemInfo *sysinfo)
+{
+	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	return priv->has_gui;
+}
+
+/**
+ * as_system_info_set_gui_available:
+ * @sysinfo: a #AsSystemInfo instance.
+ * @available: %TRUE if GUI is available.
+ *
+ * Set whether this system has a GUI / desktop environment available.
+ */
+void
+as_system_info_set_gui_available (AsSystemInfo *sysinfo, gboolean available)
+{
+	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	priv->has_gui = available;
+}
+
+/**
  * as_system_info_get_display_length:
  * @sysinfo: a #AsSystemInfo instance.
  * @side: the #AsDisplaySideKind to select.
@@ -1106,6 +1139,9 @@ as_system_info_new_template_for_chassis (AsChassisKind chassis, GError **error)
 	/* just assume 8GiB memory by default */
 	as_system_info_set_memory_total (sysinfo, 8192);
 
+	/* assume X11/Wayland is available by default */
+	as_system_info_set_gui_available (sysinfo, TRUE);
+
 	/* set default for the individual chassis types */
 	if (chassis == AS_CHASSIS_KIND_DESKTOP || chassis == AS_CHASSIS_KIND_LAPTOP) {
 		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_SHORTEST, 800);
@@ -1120,6 +1156,7 @@ as_system_info_new_template_for_chassis (AsChassisKind chassis, GError **error)
 	if (chassis == AS_CHASSIS_KIND_SERVER) {
 		as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_KEYBOARD, TRUE);
 		as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_CONSOLE, TRUE);
+		as_system_info_set_gui_available (sysinfo, FALSE);
 
 		return sysinfo;
 	}

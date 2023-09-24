@@ -406,7 +406,7 @@ asx_cpt_get_syscompat_score (AsComponent *cpt, AsSystemInfo *sysinfo)
 	g_autoptr(GPtrArray) rc_results = NULL;
 	gint score;
 
-	score = as_component_get_system_compatibility_score (cpt, sysinfo, &rc_results);
+	score = as_component_get_system_compatibility_score (cpt, sysinfo, TRUE, &rc_results);
 	return score;
 }
 

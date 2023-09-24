@@ -27,13 +27,12 @@
 
 #include <glib-object.h>
 
-#include "as-relation-check-result.h"
-
 G_BEGIN_DECLS
 
 /* forward declarations */
-typedef struct _AsPool	     AsPool;
-typedef struct _AsSystemInfo AsSystemInfo;
+typedef struct _AsPool		      AsPool;
+typedef struct _AsSystemInfo	      AsSystemInfo;
+typedef struct _AsRelationCheckResult AsRelationCheckResult;
 
 #define AS_TYPE_RELATION (as_relation_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsRelation, as_relation, AS, RELATION, GObject)

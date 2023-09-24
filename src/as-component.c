@@ -44,6 +44,7 @@
 #include "as-review-private.h"
 #include "as-branding-private.h"
 #include "as-desktop-entry.h"
+#include "as-relation-check-result.h"
 
 /**
  * SECTION:as-component
@@ -3585,6 +3586,7 @@ as_component_check_relations_internal (AsComponent *cpt,
 				       AsSystemInfo *sysinfo,
 				       AsPool *pool,
 				       GPtrArray *relations,
+				       gboolean is_template,
 				       GPtrArray *result)
 {
 	for (guint i = 0; i < relations->len; i++) {
@@ -3592,12 +3594,26 @@ as_component_check_relations_internal (AsComponent *cpt,
 		g_autoptr(AsRelationCheckResult) rcr = NULL;
 		g_autoptr(GError) tmp_error = NULL;
 
+		if (is_template) {
+			/* we ignore anything that isn't in a template system info */
+
+			AsRelationItemKind item_kind = as_relation_get_item_kind (relation);
+			if (item_kind == AS_RELATION_ITEM_KIND_ID ||
+			    item_kind == AS_RELATION_ITEM_KIND_MODALIAS ||
+			    item_kind == AS_RELATION_ITEM_KIND_KERNEL ||
+			    item_kind == AS_RELATION_ITEM_KIND_FIRMWARE ||
+			    item_kind == AS_RELATION_ITEM_KIND_HARDWARE ||
+			    item_kind == AS_RELATION_ITEM_KIND_INTERNET)
+				continue;
+		}
+
 		rcr = as_relation_is_satisfied (relation, sysinfo, pool, &tmp_error);
 		if (rcr == NULL) {
 			rcr = as_relation_check_result_new ();
 			as_relation_check_result_set_status (rcr, AS_RELATION_STATUS_ERROR);
 			as_relation_check_result_set_relation (rcr, relation);
 
+			as_relation_check_result_set_error_code (rcr, tmp_error->code);
 			as_relation_check_result_set_message (rcr, "%s", tmp_error->message);
 		}
 
@@ -3632,15 +3648,26 @@ as_component_check_relations (AsComponent *cpt,
 	as_component_make_implicit_relations_explicit (cpt);
 
 	if (rel_kind == AS_RELATION_KIND_REQUIRES)
-		as_component_check_relations_internal (cpt, sysinfo, pool, priv->requires, result);
+		as_component_check_relations_internal (cpt,
+						       sysinfo,
+						       pool,
+						       priv->requires,
+						       FALSE,
+						       result);
 	else if (rel_kind == AS_RELATION_KIND_RECOMMENDS)
 		as_component_check_relations_internal (cpt,
 						       sysinfo,
 						       pool,
 						       priv->recommends,
+						       FALSE,
 						       result);
 	else if (rel_kind == AS_RELATION_KIND_SUPPORTS)
-		as_component_check_relations_internal (cpt, sysinfo, pool, priv->supports, result);
+		as_component_check_relations_internal (cpt,
+						       sysinfo,
+						       pool,
+						       priv->supports,
+						       FALSE,
+						       result);
 
 	return result;
 }
@@ -3649,6 +3676,7 @@ as_component_check_relations (AsComponent *cpt,
  * as_component_get_system_compatibility_score:
  * @cpt: a #AsComponent instance.
  * @sysinfo: an #AsSystemInfo to use for system information.
+ * @is_template: if %TRUE, treat system info as neutral template, ignoring any peripheral devices or kernel relations.
  * @results: (out callee-allocates) (optional) (element-type AsRelationCheckResult) (transfer container): Receive the resulting check results
  *
  * Return a score between 0 and 100 determining how compatible the component
@@ -3661,6 +3689,7 @@ as_component_check_relations (AsComponent *cpt,
 gint
 as_component_get_system_compatibility_score (AsComponent *cpt,
 					     AsSystemInfo *sysinfo,
+					     gboolean is_template,
 					     GPtrArray **results)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
@@ -3672,9 +3701,24 @@ as_component_get_system_compatibility_score (AsComponent *cpt,
 	/* compatibility for older metadata */
 	as_component_make_implicit_relations_explicit (cpt);
 
-	as_component_check_relations_internal (cpt, sysinfo, NULL, priv->requires, rc_results);
-	as_component_check_relations_internal (cpt, sysinfo, NULL, priv->recommends, rc_results);
-	as_component_check_relations_internal (cpt, sysinfo, NULL, priv->supports, rc_results);
+	as_component_check_relations_internal (cpt,
+					       sysinfo,
+					       NULL,
+					       priv->requires,
+					       is_template,
+					       rc_results);
+	as_component_check_relations_internal (cpt,
+					       sysinfo,
+					       NULL,
+					       priv->recommends,
+					       is_template,
+					       rc_results);
+	as_component_check_relations_internal (cpt,
+					       sysinfo,
+					       NULL,
+					       priv->supports,
+					       is_template,
+					       rc_results);
 
 	score = as_relation_check_results_get_compatibility_score (rc_results);
 

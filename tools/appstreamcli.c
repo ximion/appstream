@@ -576,6 +576,42 @@ as_client_run_is_satisfied (const gchar *command, char **argv, int argc)
 }
 
 /**
+ * as_client_run_check_syscompat:
+ *
+ * Check component against a variety of system types.
+ */
+static int
+as_client_run_check_syscompat (const gchar *command, char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+	const gchar *fname_or_cid = NULL;
+	gboolean optn_sc_details = FALSE;
+
+	const GOptionEntry check_syscompat_options[] = {
+		{ "details",
+		  0, 0,
+		  G_OPTION_ARG_NONE, &optn_sc_details,
+		  /* TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand) */
+		  N_ ("Print more detailed output on why incompatibilities exist."),
+		  NULL },
+		{ NULL }
+	};
+
+	opt_context = as_client_new_subcommand_option_context (command, check_syscompat_options);
+	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
+
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 2)
+		fname_or_cid = argv[2];
+
+	return ascli_check_syscompat (fname_or_cid, optn_cachepath, optn_no_cache, optn_sc_details);
+}
+
+/**
  * as_client_run_put:
  *
  * Place a metadata file in the right directory.
@@ -1421,6 +1457,14 @@ as_client_run (char **argv, int argc)
 		       /* TRANSLATORS: `appstreamcli `check-license` command description. */
 		       _("Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."),
 			  as_client_run_is_satisfied);
+	ascli_add_cmd (commands,
+		       2,
+		       "check-syscompat",
+		       NULL,
+		       "FILE|COMPONENT-ID",
+		       /* TRANSLATORS: `appstreamcli `check-syscompat` command description. */
+		       _("Check compatibility of a component (via its ID or MetaInfo file) with common system and chassis types."),
+			  as_client_run_check_syscompat);
 
 	ascli_add_cmd (commands,
 		       3,

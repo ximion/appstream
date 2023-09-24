@@ -37,7 +37,9 @@
 typedef struct {
 	AsRelationStatus status;
 	AsRelation *relation;
+
 	gchar *message;
+	AsRelationError error_code;
 } AsRelationCheckResultPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsRelationCheckResult, as_relation_check_result, G_TYPE_OBJECT)
@@ -184,6 +186,35 @@ as_relation_check_result_set_message (AsRelationCheckResult *relcr, const gchar 
 	va_start (args, format);
 	priv->message = g_strdup_vprintf (format, args);
 	va_end (args);
+}
+
+/**
+ * as_relation_check_result_get_error_code:
+ * @relcr: an #AsRelationCheckResult instance.
+ *
+ * Retrieve the error code, in case this result represents an error.
+ *
+ * Returns: an #AsRelationError
+ */
+AsRelationError
+as_relation_check_result_get_error_code (AsRelationCheckResult *relcr)
+{
+	AsRelationCheckResultPrivate *priv = GET_PRIVATE (relcr);
+	return priv->error_code;
+}
+
+/**
+ * as_relation_check_result_set_error_code:
+ * @relcr: an #AsRelationCheckResult instance.
+ * @ecode: the #AsRelationError
+ *
+ * Set the error code in case this result represents an error.
+ */
+void
+as_relation_check_result_set_error_code (AsRelationCheckResult *relcr, AsRelationError ecode)
+{
+	AsRelationCheckResultPrivate *priv = GET_PRIVATE (relcr);
+	priv->error_code = ecode;
 }
 
 /**

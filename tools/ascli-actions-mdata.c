@@ -622,39 +622,40 @@ ascli_create_metainfo_template (const gchar *out_fname,
  * Helper for %ascli_check_is_satisfied
  */
 static gboolean
-ascli_print_satisfy_check_results (GPtrArray *relations,
-				   AsSystemInfo *sysinfo,
-				   AsPool *pool,
-				   AsRelationKind kind)
+ascli_print_satisfy_check_results (GPtrArray *rc_results, AsSystemInfo *sysinfo)
 {
 	gboolean res = TRUE;
-	const gchar *fail_char = ASCLI_CHAR_FAIL;
+	const gchar *fail_char;
 
-	if (kind == AS_RELATION_KIND_SUPPORTS)
-		fail_char = "•";
+	for (guint i = 0; i < rc_results->len; i++) {
+		AsRelationCheckResult *rcr = AS_RELATION_CHECK_RESULT (
+		    g_ptr_array_index (rc_results, i));
+		AsRelation *relation;
+		AsRelationStatus status;
 
-	for (guint i = 0; i < relations->len; i++) {
-		AsRelation *relation = AS_RELATION (g_ptr_array_index (relations, i));
-		g_autoptr(AsRelationCheckResult) rcr = NULL;
-		g_autoptr(GError) tmp_error = NULL;
+		status = as_relation_check_result_get_status (rcr);
+		relation = as_relation_check_result_get_relation (rcr);
 
-		rcr = as_relation_is_satisfied (relation, sysinfo, pool, &tmp_error);
-		if (rcr == NULL) {
+		if (as_relation_get_kind (relation) == AS_RELATION_KIND_SUPPORTS)
+			fail_char = "•";
+		else
+			fail_char = ASCLI_CHAR_FAIL;
+
+		if (status == AS_RELATION_STATUS_ERROR) {
 			if (as_relation_get_item_kind (relation) ==
 				AS_RELATION_ITEM_KIND_DISPLAY_LENGTH &&
 			    as_system_info_get_display_length (sysinfo,
 							       AS_DISPLAY_SIDE_KIND_LONGEST) == 0) {
 				g_print (" • %s\n",
 					 _("Unable to check display size: Can not read information without GUI toolkit access."));
-			} else if (g_error_matches (tmp_error,
-						    AS_RELATION_ERROR,
-						    AS_RELATION_ERROR_NOT_IMPLEMENTED)) {
-				g_print (" • %s\n", tmp_error->message);
+			} else if (as_relation_check_result_get_error_code (rcr) ==
+				   AS_RELATION_ERROR_NOT_IMPLEMENTED) {
+				g_print (" • %s\n", as_relation_check_result_get_message (rcr));
 				res = FALSE;
 			} else {
 				g_print (" %s %s: %s\n",
 					 fail_char,
-					 _("ERROR"), tmp_error->message);
+					 _("ERROR"), as_relation_check_result_get_message (rcr));
 				res = FALSE;
 			}
 		} else {
@@ -685,7 +686,9 @@ ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gbo
 	g_autoptr(GError) error = NULL;
 	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(AsSystemInfo) sysinfo = NULL;
-	GPtrArray *requires, *recommends, *supports;
+	g_autoptr(GPtrArray) requires_rcr = NULL;
+	g_autoptr(GPtrArray) recommends_rcr = NULL;
+	g_autoptr(GPtrArray) supports_rcr = NULL;
 	gboolean res = TRUE;
 
 	if (fname_or_cid == NULL) {
@@ -736,49 +739,196 @@ ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gbo
 		cpt = g_object_ref (as_component_box_index (cbox, 0));
 	}
 
-	requires = as_component_get_requires (cpt);
-	recommends = as_component_get_recommends (cpt);
-	supports = as_component_get_supports (cpt);
-
-	sysinfo = as_system_info_new ();
-
 	/* TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system. */
 	ascli_print_stdout (_("Relation check for: %s"), as_component_get_data_id (cpt));
 	g_print ("\n");
 
+	sysinfo = as_system_info_new ();
+	requires_rcr = as_component_check_relations (cpt, sysinfo, pool, AS_RELATION_KIND_REQUIRES);
+	recommends_rcr = as_component_check_relations (cpt,
+						       sysinfo,
+						       pool,
+						       AS_RELATION_KIND_RECOMMENDS);
+	supports_rcr = as_component_check_relations (cpt, sysinfo, pool, AS_RELATION_KIND_SUPPORTS);
+
 	ascli_print_highlight (_("Requirements:"));
-	if (requires->len == 0) {
+	if (requires_rcr->len == 0) {
 		g_print (" • %s\n", _("No required items are set for this software."));
 	} else {
-		res = ascli_print_satisfy_check_results (requires,
-							 sysinfo,
-							 pool,
-							 AS_RELATION_KIND_REQUIRES)
-			  ? res
-			  : FALSE;
+		res = ascli_print_satisfy_check_results (requires_rcr, sysinfo) ? res : FALSE;
 	}
 
 	ascli_print_highlight (_("Recommendations:"));
-	if (recommends->len == 0) {
+	if (recommends_rcr->len == 0) {
 		g_print (" • %s\n", _("No recommended items are set for this software."));
 	} else {
-		res = ascli_print_satisfy_check_results (recommends,
-							 sysinfo,
-							 pool,
-							 AS_RELATION_KIND_RECOMMENDS)
-			  ? res
-			  : FALSE;
+		res = ascli_print_satisfy_check_results (recommends_rcr, sysinfo) ? res : FALSE;
 	}
 
 	ascli_print_highlight (_("Supported:"));
-	if (supports->len == 0) {
+	if (supports_rcr->len == 0) {
 		g_print (" • %s\n", _("No supported items are set for this software."));
 	} else {
-		ascli_print_satisfy_check_results (supports,
-						   sysinfo,
-						   pool,
-						   AS_RELATION_KIND_SUPPORTS);
+		ascli_print_satisfy_check_results (supports_rcr, sysinfo);
 	}
 
 	return res ? ASCLI_EXIT_CODE_SUCCESS : ASCLI_EXIT_CODE_FAILED;
+}
+
+/**
+ * as_chassis_kind_to_header:
+ * @kind: the #AsChassisKind.
+ *
+ * Converts the enumerated value to a human-readble
+ * and translated text representation.
+ *
+ * Returns: string version of @kind
+ *
+ * Since: 1.0.0
+ **/
+static const gchar *
+as_chassis_kind_to_header (AsChassisKind kind)
+{
+	if (kind == AS_CHASSIS_KIND_DESKTOP)
+		/* TRANSLATORS: This represents a computer chassis type. */
+		return _("Desktop");
+	if (kind == AS_CHASSIS_KIND_LAPTOP)
+		/* TRANSLATORS: This represents a computer chassis type. */
+		return _("Laptop");
+	if (kind == AS_CHASSIS_KIND_SERVER)
+		/* TRANSLATORS: This represents a computer chassis type. */
+		return _("Server");
+	if (kind == AS_CHASSIS_KIND_TABLET)
+		/* TRANSLATORS: This represents a computer chassis type. */
+		return _("Tablet");
+	if (kind == AS_CHASSIS_KIND_HANDSET)
+		/* TRANSLATORS: This represents a computer chassis type. */
+		return _("Handset");
+
+	return _("Unknown");
+}
+
+/**
+ * ascli_check_syscompat:
+ *
+ * Verify if the selected component is satisfied on a bunch of mock configurations.
+ */
+gint
+ascli_check_syscompat (const gchar *fname_or_cid,
+		       const gchar *cachepath,
+		       gboolean no_cache,
+		       gboolean show_details)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(GError) error = NULL;
+
+	if (fname_or_cid == NULL) {
+		ascli_print_stderr (_("You need to specify a MetaInfo filename or component ID."));
+		return 2;
+	}
+
+	/* get the current component, either from file or from the pool */
+	if (g_strstr_len (fname_or_cid, -1, "/") != NULL ||
+	    g_file_test (fname_or_cid, G_FILE_TEST_EXISTS)) {
+		g_autoptr(GFile) mi_file = NULL;
+		g_autoptr(AsMetadata) mdata = NULL;
+
+		mi_file = g_file_new_for_path (fname_or_cid);
+		if (!g_file_query_exists (mi_file, NULL)) {
+			ascli_print_stderr (_("Metainfo file '%s' does not exist."), fname_or_cid);
+			return 4;
+		}
+
+		/* read the metainfo file */
+		mdata = as_metadata_new ();
+		as_metadata_set_locale (mdata, "ALL");
+
+		as_metadata_parse_file (mdata, mi_file, AS_FORMAT_KIND_XML, &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			return 1;
+		}
+
+		cpt = g_object_ref (as_metadata_get_component (mdata));
+	} else {
+		g_autoptr(AsPool) pool = NULL;
+		g_autoptr(AsComponentBox) cbox = NULL;
+
+		/* open the metadata pool with default options */
+		pool = ascli_data_pool_new_and_open (cachepath, no_cache, &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			return ASCLI_EXIT_CODE_FAILED;
+		}
+
+		cbox = as_pool_get_components_by_id (pool, fname_or_cid);
+		if (as_component_box_is_empty (cbox)) {
+			ascli_print_stderr (_("Unable to find component with ID '%s'!"),
+					       fname_or_cid);
+			return ASCLI_EXIT_CODE_NO_RESULT;
+		}
+
+		cpt = g_object_ref (as_component_box_index (cbox, 0));
+	}
+
+	/* TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.) */
+	ascli_print_stdout (_("Chassis compatibility check for: %s"),
+			       as_component_get_data_id (cpt));
+
+	for (guint chassis = AS_CHASSIS_KIND_DESKTOP; chassis < AS_CHASSIS_KIND_LAST; chassis++) {
+		g_autoptr(AsSystemInfo) sysinfo = NULL;
+		g_autoptr(GPtrArray) rc_results = NULL;
+		gint score;
+
+		sysinfo = as_system_info_new_template_for_chassis (chassis, NULL);
+		if (sysinfo == NULL)
+			continue;
+		g_print ("\n");
+		ascli_print_highlight ("%s:", as_chassis_kind_to_header (chassis));
+
+		score = as_component_get_system_compatibility_score (cpt,
+								     sysinfo,
+								     TRUE,
+								     &rc_results);
+		if (score < 50) {
+			g_print (" %s %s\n", ASCLI_CHAR_FAIL, _("Incompatible"));
+
+			if (!show_details)
+				continue;
+
+			for (guint i = 0; i < rc_results->len; i++) {
+				AsRelationCheckResult *rcr = AS_RELATION_CHECK_RESULT (
+				    g_ptr_array_index (rc_results, i));
+				AsRelation *relation;
+				AsRelationStatus status;
+				AsRelationKind rel_kind;
+				g_autofree gchar *prefix = NULL;
+
+				status = as_relation_check_result_get_status (rcr);
+				relation = as_relation_check_result_get_relation (rcr);
+				rel_kind = as_relation_get_kind (relation);
+
+				if (status == AS_RELATION_STATUS_ERROR) {
+					g_print (" %s %s: %s\n",
+						 "•",
+						 _("ERROR"),
+						    as_relation_check_result_get_message (rcr));
+					continue;
+				}
+
+				/* ignore any successes */
+				if (status == AS_RELATION_STATUS_SATISFIED)
+					continue;
+
+				g_print (" %s %s: %s\n",
+					 "•",
+					 as_relation_kind_to_string (rel_kind),
+					 as_relation_check_result_get_message (rcr));
+			}
+		} else {
+			g_print (" %s %s (%d%%)\n", ASCLI_CHAR_SUCCESS, _("Compatible"), score);
+		}
+	}
+
+	return ASCLI_EXIT_CODE_SUCCESS;
 }
