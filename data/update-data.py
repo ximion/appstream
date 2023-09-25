@@ -80,22 +80,22 @@ def _read_spdx_licenses(data_dir, last_tag_ver, only_free=False):
     if not license_ver_ref:
         exceptions_ver_ref = last_tag_ver
 
-    lid_list = []
+    lic_list = []
     for license in licenses_data['licenses']:
         if only_free:
             if not license.get('isFsfLibre') and not license.get('isOsiApproved'):
                 continue
-        lid_list.append(license['licenseId'])
+        lic_list.append({'id': license['licenseId'], 'name': license['name']})
 
-    eid_list = []
+    exc_list = []
     for exception in exceptions_data['exceptions']:
-        eid_list.append(exception['licenseExceptionId'])
+        exc_list.append({'id': exception['licenseExceptionId'], 'name': exception['name']})
 
     return {
-        'licenses': lid_list,
-        'exceptions': eid_list,
+        'licenses': sorted(lic_list, key=lambda x: x['id']),
+        'exceptions': sorted(exc_list, key=lambda x: x['id']),
         'license_list_ver': license_ver_ref,
-        'eceptions_list_ver': exceptions_ver_ref,
+        'exception_list_ver': exceptions_ver_ref,
     }
 
 
@@ -111,7 +111,11 @@ def _read_dfsg_free_license_list():
 
 
 def update_spdx_id_list(
-    git_url, licenselist_fname, licenselist_free_fname, exceptionlist_fname, with_deprecated=True
+    git_url,
+    header_template_fname,
+    licenselist_header_fname,
+    licenselist_free_fname,
+    with_deprecated=True,
 ):
     print('Updating list of SPDX license IDs...')
     tdir = TemporaryDirectory(prefix='spdx_master-')
@@ -125,25 +129,34 @@ def update_spdx_id_list(
         last_tag_ver = last_tag_ver[1:]
 
     license_data = _read_spdx_licenses(tdir.name, last_tag_ver)
-    lid_list = license_data['licenses']
-    eid_list = license_data['exceptions']
+    license_list = license_data['licenses']
+    exception_list = license_data['exceptions']
     license_list_ver = license_data['license_list_ver']
 
-    lid_list.sort()
-    with open(licenselist_fname, 'w') as f:
-        f.write('# The list of all licenses recognized by SPDX, v{}\n'.format(license_list_ver))
-        f.write('\n'.join(lid_list))
-        f.write('\n')
+    with open(header_template_fname, 'r') as f:
+        header_tmpl = f.read()
 
-    eid_list.sort()
-    with open(exceptionlist_fname, 'w') as f:
-        f.write(
-            '# The list of license exceptions recognized by SPDX, v{}\n'.format(
-                license_data['eceptions_list_ver']
-            )
-        )
-        f.write('\n'.join(eid_list))
-        f.write('\n')
+    with open(licenselist_header_fname, 'w') as f:
+        lic_array_def = ''
+        exc_array_def = ''
+        for license in license_list:
+            lic_id = license['id'].replace('"', '\\"')
+            lic_name = license['name'].replace('"', '\\"')
+            lic_array_def += f'\t{{"{lic_id}", N_("{lic_name}")}},\n'
+        for exception in exception_list:
+            exc_id = exception['id'].replace('"', '\\"')
+            exc_name = exception['name'].replace('"', '\\"')
+            exc_array_def += f'\t{{"{exc_id}", N_("{exc_name}")}},\n'
+
+        lic_array_def += f'\t{{NULL, NULL}}'
+        exc_array_def += f'\t{{NULL, NULL}}'
+
+        header = header_tmpl.replace('@LICENSE_INFO_DEFS@', lic_array_def.strip())
+        header = header.replace('@EXCEPTION_INFO_DEFS@', exc_array_def.strip())
+        header = header.replace('@LICENSE_LIST_VERSION@', license_list_ver)
+        header = header.replace('@EXCEPTION_LIST_VERSION@', license_data['exception_list_ver'])
+
+        f.write(header)
 
     license_free_data = _read_spdx_licenses(tdir.name, last_tag_ver, only_free=True)
     with open(licenselist_free_fname, 'w') as f:
@@ -152,8 +165,8 @@ def update_spdx_id_list(
                 license_list_ver
             )
         )
-        lid_set = set(lid_list)
-        free_lid_set = set(license_free_data['licenses'])
+        lid_set = set([d['id'] for d in license_list])
+        free_lid_set = set([d['id'] for d in license_free_data['licenses']])
         for dfsg_lid in _read_dfsg_free_license_list():
             if dfsg_lid not in lid_set:
                 raise Exception(
@@ -211,9 +224,9 @@ def main():
     update_tld_list(IANA_TLD_LIST_URL, 'iana-filtered-tld-list.txt')
     update_spdx_id_list(
         SPDX_REPO_URL,
-        'spdx-license-ids.txt',
+        os.path.join(data_dir, 'spdx-license-header.tmpl'),
+        '../src/as-spdx-data.h',
         'spdx-free-license-ids.txt',
-        'spdx-license-exception-ids.txt',
     )
     update_categories_list(MENU_SPEC_URL, 'xdg-category-names.txt')
     update_platforms_data()

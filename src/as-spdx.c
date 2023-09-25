@@ -27,6 +27,7 @@
 
 #include "as-resources.h"
 #include "as-utils-private.h"
+#include "as-spdx-data.h"
 
 /**
  * SECTION:as-spdx
@@ -166,16 +167,12 @@ as_is_spdx_license_id (const gchar *license_id)
 	if (g_str_has_prefix (license_id, "LicenseRef-"))
 		return TRUE;
 
-	/* load the readonly data section and look for the license ID */
-	data = g_resource_lookup_data (as_get_resource (),
-				       "/org/freedesktop/appstream/spdx-license-ids.txt",
-				       G_RESOURCE_LOOKUP_FLAGS_NONE,
-				       NULL);
-	if (data == NULL)
-		return FALSE;
-	key = g_strdup_printf ("\n%s\n", license_id);
+	for (guint i = 0; as_spdx_license_info_list[i].id != NULL; i++) {
+		if (as_str_equal0 (as_spdx_license_info_list[i].id, license_id))
+			return TRUE;
+	}
 
-	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
+	return FALSE;
 }
 
 /**
@@ -198,16 +195,12 @@ as_is_spdx_license_exception_id (const gchar *exception_id)
 	if (exception_id == NULL || exception_id[0] == '\0')
 		return FALSE;
 
-	/* load the readonly data section and look for the license exception ID */
-	data = g_resource_lookup_data (as_get_resource (),
-				       "/org/freedesktop/appstream/spdx-license-exception-ids.txt",
-				       G_RESOURCE_LOOKUP_FLAGS_NONE,
-				       NULL);
-	if (data == NULL)
-		return FALSE;
-	key = g_strdup_printf ("\n%s\n", exception_id);
+	for (guint i = 0; as_spdx_exception_info_list[i].id != NULL; i++) {
+		if (as_str_equal0 (as_spdx_exception_info_list[i].id, exception_id))
+			return TRUE;
+	}
 
-	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
+	return FALSE;
 }
 
 /**
@@ -650,13 +643,50 @@ as_license_is_metadata_license (const gchar *license)
 }
 
 /**
+ * as_get_license_name:
+ * @license: The SPDX license ID.
+ *
+ * Get a translated license name for the given SPDX ID.
+ *
+ * Returns: (transfer full) (nullable): The license name, or %NULL if none found.
+ *
+ * Since: 1.0.0
+ */
+gchar *
+as_get_license_name (const gchar *license)
+{
+	g_autoptr(GString) license_id = NULL;
+
+	if (license == NULL)
+		return NULL;
+
+	license_id = as_utils_spdx_license_2to3 (license);
+	if (g_str_has_prefix (license_id->str, "@"))
+		g_string_erase (license_id, 0, 1);
+
+	if (g_str_has_prefix (license_id->str, "LicenseRef")) {
+		/* we can't easily determine a name for custom licenses just yet */
+		return NULL;
+	}
+	if (!as_is_spdx_license_id (license_id->str))
+		return NULL;
+
+	for (guint i = 0; as_spdx_license_info_list[i].id != NULL; i++) {
+		if (as_str_equal0 (as_spdx_license_info_list[i].id, license_id->str))
+			return g_strdup (as_spdx_license_info_list[i].name);
+	}
+
+	return NULL;
+}
+
+/**
  * as_get_license_url:
  * @license: The SPDX license ID.
  *
  * Get a web URL to the license text and more license information for an SPDX
  * license identifier.
  *
- * Returns: (transfer full): The license URL.
+ * Returns: (transfer full) (nullable): The license URL, or %NULL if none available.
  *
  * Since: 0.12.7
  */

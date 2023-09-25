@@ -594,6 +594,15 @@ test_spdx (void)
 	    "MIT AND LicenseRef-proprietary=https://example.com/lic.txt"));
 	g_assert_true (!as_license_is_free_license ("ADSL"));
 	g_assert_true (!as_license_is_free_license ("JSON AND GPL-3.0-or-later"));
+
+	/* license names */
+	tmp = as_get_license_name ("GPL-2.0+");
+	g_assert_cmpstr (tmp, ==, "GNU General Public License v2.0 or later");
+	g_free (tmp);
+
+	tmp = as_get_license_name ("CERN-OHL-W-2.0");
+	g_assert_cmpstr (tmp, ==, "CERN Open Hardware Licence Version 2 - Weakly Reciprocal");
+	g_free (tmp);
 }
 
 /**

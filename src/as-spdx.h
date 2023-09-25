@@ -42,6 +42,7 @@ gboolean as_license_is_metadata_license_id (const gchar *license_id);
 gboolean as_license_is_metadata_license (const gchar *license);
 gboolean as_license_is_free_license (const gchar *license);
 
+gchar	*as_get_license_name (const gchar *license);
 gchar	*as_get_license_url (const gchar *license);
 
 G_END_DECLS

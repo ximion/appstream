@@ -123,6 +123,7 @@ aslib_priv_headers = [
     'as-review-private.h',
     'as-screenshot-private.h',
     'as-stemmer.h',
+    'as-spdx-data.h',
     'as-tag.h',
     'as-utils-private.h',
     'as-validator-issue-tag.h',
