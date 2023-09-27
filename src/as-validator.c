@@ -1448,6 +1448,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 		gboolean caption_found = FALSE;
 		gboolean is_default_screenshot = FALSE;
 		g_autofree gchar *scr_kind_str = NULL;
+		g_autofree gchar *scr_env_style = NULL;
 		gboolean have_source_image = FALSE;
 		g_autoptr(GHashTable) known_source_locale = NULL;
 
@@ -1460,6 +1461,14 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 		if (as_screenshot_kind_from_string (scr_kind_str) == AS_SCREENSHOT_KIND_DEFAULT) {
 			have_default_screenshot = TRUE;
 			is_default_screenshot = TRUE;
+		}
+
+		scr_env_style = as_xml_get_prop_value (iter, "environment");
+		if (scr_env_style != NULL && !as_utils_is_gui_environment_style (scr_env_style)) {
+			as_validator_add_issue (validator,
+						iter,
+						"screenshot-invalid-env-style",
+						scr_env_style);
 		}
 
 		if (g_strcmp0 ((const gchar *) iter->name, "screenshot") != 0) {
