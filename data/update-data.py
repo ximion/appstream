@@ -110,9 +110,53 @@ def _read_dfsg_free_license_list():
     return licenses
 
 
+def _write_c_array_header(tmpl_fname, out_fname, l10n_keys=None, l10n_hints=None, **kwargs):
+    """Create a C header with lists based on a template."""
+
+    if not l10n_keys:
+        l10n_keys = set()
+    l10n_keys = set(l10n_keys)
+    if not l10n_hints:
+        l10n_hints = {}
+
+    with open(tmpl_fname, 'r') as f:
+        header = f.read()
+
+    for key, data in kwargs.items():
+        if isinstance(data, list):
+            if not data:
+                continue
+
+            array_def = ''
+            for entry in data:
+                entry_c = ''
+                if key in l10n_hints:
+                    v = list(entry.values())[0]
+                    entry_c += '\t/* TRANSLATORS: {} */\n'.format(l10n_hints[key].format(v))
+                entry_c += '\t{'
+                for k, v in entry.items():
+                    v = v.replace('"', '\\"')
+
+                    if k in l10n_keys:
+                        v_c = f'N_("{v}")'
+                    else:
+                        v_c = f'"{v}"'
+                    entry_c += f' {v_c},'
+                array_def += entry_c[:-1] + ' },\n'
+
+            zero_term = 'NULL, ' * len(data[0])
+            array_def += '\t{ ' + zero_term[:-2] + ' },\n'
+
+            header = header.replace(f'@{key}@', array_def.strip())
+        else:
+            header = header.replace(f'@{key}@', str(data))
+
+    with open(out_fname, 'w') as f:
+        f.write(header)
+
+
 def update_spdx_id_list(
     git_url,
-    header_template_fname,
     licenselist_header_fname,
     licenselist_free_fname,
     with_deprecated=True,
@@ -133,30 +177,15 @@ def update_spdx_id_list(
     exception_list = license_data['exceptions']
     license_list_ver = license_data['license_list_ver']
 
-    with open(header_template_fname, 'r') as f:
-        header_tmpl = f.read()
-
-    with open(licenselist_header_fname, 'w') as f:
-        lic_array_def = ''
-        exc_array_def = ''
-        for license in license_list:
-            lic_id = license['id'].replace('"', '\\"')
-            lic_name = license['name'].replace('"', '\\"')
-            lic_array_def += f'\t{{"{lic_id}", N_("{lic_name}")}},\n'
-        for exception in exception_list:
-            exc_id = exception['id'].replace('"', '\\"')
-            exc_name = exception['name'].replace('"', '\\"')
-            exc_array_def += f'\t{{"{exc_id}", N_("{exc_name}")}},\n'
-
-        lic_array_def += f'\t{{NULL, NULL}}'
-        exc_array_def += f'\t{{NULL, NULL}}'
-
-        header = header_tmpl.replace('@LICENSE_INFO_DEFS@', lic_array_def.strip())
-        header = header.replace('@EXCEPTION_INFO_DEFS@', exc_array_def.strip())
-        header = header.replace('@LICENSE_LIST_VERSION@', license_list_ver)
-        header = header.replace('@EXCEPTION_LIST_VERSION@', license_data['exception_list_ver'])
-
-        f.write(header)
+    _write_c_array_header(
+        'spdx-license-header.tmpl',
+        licenselist_header_fname,
+        ['name'],
+        LICENSE_INFO_DEFS=license_list,
+        EXCEPTION_INFO_DEFS=exception_list,
+        LICENSE_LIST_VERSION=license_list_ver,
+        EXCEPTION_LIST_VERSION=license_data['exception_list_ver'],
+    )
 
     license_free_data = _read_spdx_licenses(tdir.name, last_tag_ver, only_free=True)
     with open(licenselist_free_fname, 'w') as f:
@@ -216,34 +245,65 @@ def update_categories_list(spec_url, cat_fname):
         f.write('\n')
 
 
-def update_gui_env_ids():
+def update_gui_env_ids(data_header_fname):
     print('Updating GUI environment IDs...')
 
-    desktop_envs = set()
+    desktops_list = []
+    desktops_set = set()
     with open('desktop-environments.txt', 'r') as f:
         for line in f.readlines():
             if line.startswith('#'):
                 continue
-            desktop_envs.add(line.strip().lower())
+            de_id, de_name = line.strip().split(' ', 1)
+            de_id = de_id.strip()
+            if not de_id:
+                continue
+            desktops_set.add(de_id.lower())
+            desktops_list.append({'id': de_id, 'name': de_name.strip()})
 
     # fixup
-    desktop_envs.remove('kde')
-    desktop_envs.add('plasma')
+    desktops_set.remove('kde')
+    desktops_set.add('plasma')
 
-    # extend the existing list
+    # extend the existing styles list
     gui_env_ids = set()
+    gui_env_list = []
+    gui_envs_raw = []
     with open('desktop-style-ids.txt', 'r') as f:
         for line in f.readlines():
             if line.startswith('#'):
                 continue
-            gui_env_ids.add(line.strip().lower())
+            line = line.strip()
+            gui_envs_raw.append(line)
+            es_id, es_name = line.split(' ', 1)
+            es_id = es_id.strip().lower()
+            if not de_id:
+                continue
+            gui_env_ids.add(es_id)
+            gui_env_list.append({'id': es_id, 'name': es_name.strip()})
 
-    gui_env_ids.update(desktop_envs)
+    for de_id in desktops_set:
+        if de_id not in gui_env_ids:
+            gui_envs_raw.append(f'{de_id}    {de_id.capitalize()}')
 
     with open('desktop-style-ids.txt', 'w') as f:
-        f.write('# List of recognized GUI environment IDs\n')
-        f.write('\n'.join(sorted(gui_env_ids)))
+        f.write('# List of recognized GUI environments\n')
+        f.write('# ID            Human-readable name\n#\n')
+        f.write('\n'.join(sorted(gui_envs_raw)))
         f.write('\n')
+
+    # write C header with all data
+    _write_c_array_header(
+        'desktop-env-header.tmpl',
+        data_header_fname,
+        ['name'],
+        l10n_hints={
+            'DE_DEFS': 'Name of the "{}" desktop environment.',
+            'GUI_ENV_STYLE_DEFS': 'Name of the "{}" visual environment style.',
+        },
+        DE_DEFS=desktops_list,
+        GUI_ENV_STYLE_DEFS=gui_env_list,
+    )
 
 
 def main():
@@ -254,13 +314,12 @@ def main():
     update_tld_list(IANA_TLD_LIST_URL, 'iana-filtered-tld-list.txt')
     update_spdx_id_list(
         SPDX_REPO_URL,
-        os.path.join(data_dir, 'spdx-license-header.tmpl'),
         '../src/as-spdx-data.h',
         'spdx-free-license-ids.txt',
     )
     update_categories_list(MENU_SPEC_URL, 'xdg-category-names.txt')
     update_platforms_data()
-    update_gui_env_ids()
+    update_gui_env_ids('../src/as-desktop-env-data.h')
 
     print('All done.')
 

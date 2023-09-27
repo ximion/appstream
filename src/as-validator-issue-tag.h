@@ -21,8 +21,8 @@
 #ifndef __AS_VALIDATOR_ISSUE_TAG_H
 #define __AS_VALIDATOR_ISSUE_TAG_H
 
-#include <glib.h>
-#include <glib/gi18n.h>
+#include "config.h"
+#include <glib/gi18n-lib.h>
 
 #include "as-validator-issue.h"
 
