@@ -49,6 +49,7 @@ typedef struct {
 	GPtrArray *videos;
 	GPtrArray *videos_lang;
 
+	gint position;
 	AsContext *context;
 } AsScreenshotPrivate;
 
@@ -63,6 +64,7 @@ as_screenshot_init (AsScreenshot *screenshot)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 
+	priv->position = -1;
 	priv->kind = AS_SCREENSHOT_KIND_EXTRA;
 	priv->media_kind = AS_SCREENSHOT_MEDIA_KIND_IMAGE;
 	priv->caption = g_hash_table_new_full (g_str_hash,
@@ -558,6 +560,35 @@ as_screenshot_set_context (AsScreenshot *screenshot, AsContext *context)
 		priv->context = g_object_ref (context);
 
 	as_screenshot_rebuild_suitable_media_list (screenshot);
+}
+
+/**
+ * as_screenshot_get_position:
+ * @screenshot: a #AsScreenshot instance.
+ *
+ * Gets the ordering priority of this screenshot.
+ *
+ * Returns: the position of this screenshot in the screenshot list, or -1 if unknown.
+ **/
+gint
+as_screenshot_get_position (AsScreenshot *screenshot)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	return priv->position;
+}
+
+/**
+ * as_screenshot_set_position:
+ * @screenshot: a #AsScreenshot instance.
+ *
+ * Sets the ordering priority / screenshot list position of
+ * this screenshot.
+ **/
+void
+as_screenshot_set_position (AsScreenshot *screenshot, gint pos)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	priv->position = pos;
 }
 
 /**

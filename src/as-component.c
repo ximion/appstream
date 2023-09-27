@@ -2014,87 +2014,108 @@ as_component_get_screenshots_all (AsComponent *cpt)
 	return priv->screenshots;
 }
 
+typedef struct {
+	const gchar *env_id;
+	const gchar *style;
+	const gchar *environment;
+	gboolean prioritize_style;
+} AsScreenshotSortHelper;
+
+static gint
+as_screenshot_order_score_helper (AsScreenshot *scr, AsScreenshotSortHelper *helper)
+{
+	const gchar *scr_env = as_screenshot_get_environment (scr);
+
+	if (as_str_equal0 (scr_env, helper->env_id))
+		return -2 * as_screenshot_get_position (scr);
+
+	if (helper->prioritize_style) {
+		if (scr_env != NULL && g_str_has_suffix (scr_env, helper->style))
+			return -1 * as_screenshot_get_position (scr);
+	}
+
+	if (scr_env != NULL && g_str_has_prefix (scr_env, helper->environment))
+		return -1 * as_screenshot_get_position (scr);
+
+	return as_screenshot_get_position (scr);
+}
+
+static gint
+as_screenshots_sort_cb (gconstpointer a, gconstpointer b, gpointer user_data)
+{
+	AsScreenshotSortHelper *helper = user_data;
+	AsScreenshot *scr1 = *((AsScreenshot **) a);
+	AsScreenshot *scr2 = *((AsScreenshot **) b);
+
+	return as_screenshot_order_score_helper (scr1, helper) -
+	       as_screenshot_order_score_helper (scr2, helper);
+}
+
+static gint
+as_screenshots_sort_defaults_cb (gconstpointer a, gconstpointer b)
+{
+	AsScreenshot *scr1 = *((AsScreenshot **) a);
+	AsScreenshot *scr2 = *((AsScreenshot **) b);
+	return as_screenshot_get_position (scr1) - as_screenshot_get_position (scr2);
+}
+
 /**
- * as_component_filter_screenshots:
+ * as_component_sort_screenshots:
  * @cpt: a #AsComponent instance.
- * @environment: a GUI environment string, e.g. "plasma" or "gnome"
- * @style: and environment style string, e.g. "light" or "dark"
- * @allow_default_fallback: if %TRUE, fall back to the component author's default screenshots if no match could be found.
+ * @environment: (nullable): a GUI environment string, e.g. "plasma" or "gnome"
+ * @style: (nullable): and environment style string, e.g. "light" or "dark"
+ * @prioritize_style: if %TRUE, order screenshots of the given style earlier than ones of the given environment.
  *
- * Filter the associated screenshots for this component by the environment and style, transparently falling back
- * to the next-best match and ultimately to the screenshots set as default by the metadata authors.
+ * Reorder the screenshots to prioritize a certain environment or style, instead of using the default
+ * screenshot order.
  *
- * Returns: (element-type AsScreenshot) (transfer container): an array of #AsScreenshot instances, free with %g_ptr_array_unref
+ * If both "environment" and "style" are %NULL, the previous default order is restored.
  */
-GPtrArray *
-as_component_filter_screenshots (AsComponent *cpt,
-				 const gchar *environment,
-				 const gchar *style,
-				 gboolean allow_default_fallback)
+void
+as_component_sort_screenshots (AsComponent *cpt,
+			       const gchar *environment,
+			       const gchar *style,
+			       gboolean prioritize_style)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	AsScreenshot *default_scr = NULL;
-	const gchar *default_scr_env = NULL;
-	g_autoptr(GPtrArray) result = NULL;
-	g_autoptr(GPtrArray) fallback_result = NULL;
 	g_autofree gchar *env_id = NULL;
+	AsScreenshotSortHelper helper;
 
-	if (priv->screenshots->len == 0)
-		return g_ptr_array_new ();
+	if (priv->screenshots == 0)
+		return;
 
-	result = g_ptr_array_new ();
-	fallback_result = g_ptr_array_new ();
+	/* restore defaults if both specifiers are NULL */
+	if (environment == NULL && style == NULL) {
+		/* restore the default order, but only if we changed the order before */
+		if (as_screenshot_get_position (
+			AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, 0))) < 0)
+			return;
+		g_ptr_array_sort (priv->screenshots, as_screenshots_sort_defaults_cb);
+		return;
+	}
 
+	if (environment == NULL)
+		environment = "";
+
+	/* ensure screenshot ordering positions are set */
+	for (guint i = 0; i < priv->screenshots->len; i++) {
+		AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
+		if (as_screenshot_get_position (scr) < 0)
+			as_screenshot_set_position (scr, i);
+	}
+
+	/* construct the environment ID to sort by */
 	env_id = (style == NULL) ? g_strdup (environment)
 				 : g_strconcat (environment, ":", style, NULL);
-	for (guint i = 0; i < priv->screenshots->len; i++) {
-		AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
-		const gchar *scr_env_id = as_screenshot_get_environment (scr);
 
-		if (as_screenshot_get_kind (scr) == AS_SCREENSHOT_KIND_DEFAULT)
-			default_scr = scr;
+	/* set helper */
+	helper.environment = environment;
+	helper.style = style;
+	helper.env_id = env_id;
+	helper.prioritize_style = prioritize_style;
 
-		/* collect exact matches for the requested env/style as result */
-		if (as_str_equal0 (scr_env_id, env_id))
-			g_ptr_array_add (result, scr);
-
-		/* already collect the environment fallback as well */
-		if (as_str_equal0 (scr_env_id, environment))
-			g_ptr_array_add (fallback_result, scr);
-	}
-
-	/* return exact results if we have any! */
-	if (result->len > 0)
-		return g_steal_pointer (&result);
-
-	/* return primary fallbacks if we have any! */
-	if (fallback_result->len > 0)
-		return g_steal_pointer (&fallback_result);
-
-	/* just return if no default fallback is wanted */
-	if (!allow_default_fallback)
-		return g_steal_pointer (&result);
-
-	/* we can only continue if a default screenshot is defined - if we do not
-	 * have one, the metadata was buggy. */
-	if (default_scr == NULL) {
-		g_debug ("Component %s is missing a default screenshot.",
-			 as_component_get_data_id (cpt));
-		return g_steal_pointer (&result);
-	}
-
-	/* if we are here, we need to find the secondary fallback,
-	 * by using the environment of the default screenshot */
-	default_scr_env = as_screenshot_get_environment (default_scr);
-	for (guint i = 0; i < priv->screenshots->len; i++) {
-		AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
-		const gchar *scr_env_id = as_screenshot_get_environment (scr);
-
-		if (as_str_equal0 (scr_env_id, default_scr_env))
-			g_ptr_array_add (result, scr);
-	}
-
-	return g_steal_pointer (&result);
+	/* sort screenshots */
+	g_ptr_array_sort_with_data (priv->screenshots, as_screenshots_sort_cb, &helper);
 }
 
 /**
@@ -5079,6 +5100,9 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	if (priv->screenshots->len > 0) {
 		xmlNode *rnode = as_xml_add_node (cnode, "screenshots");
 
+		/* restore default screenshot order */
+		as_component_sort_screenshots (cpt, NULL, NULL, FALSE);
+
 		for (guint i = 0; i < priv->screenshots->len; i++) {
 			AsScreenshot *scr = AS_SCREENSHOT (
 			    g_ptr_array_index (priv->screenshots, i));
@@ -6254,6 +6278,9 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 
 	/* Screenshots */
 	if (priv->screenshots->len > 0) {
+		/* restore default screenshot order */
+		as_component_sort_screenshots (cpt, NULL, NULL, FALSE);
+
 		as_yaml_emit_scalar (emitter, "Screenshots");
 		as_yaml_sequence_start (emitter);
 
