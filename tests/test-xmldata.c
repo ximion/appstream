@@ -1252,6 +1252,7 @@ static const gchar *xmldata_screenshots =
     "height=\"600\">https://example.org/alpha_small.png</image>\n"
     "    </screenshot>\n"
     "    <screenshot>\n"
+    "      <caption>Second screenshot</caption>\n"
     "      <image type=\"source\" width=\"1916\" "
     "height=\"1056\">https://example.org/beta.png</image>\n"
     "      <image type=\"thumbnail\" width=\"800\" "
@@ -1259,6 +1260,7 @@ static const gchar *xmldata_screenshots =
     "      <image type=\"source\" xml:lang=\"de-DE\">https://example.org/localized_de.png</image>\n"
     "    </screenshot>\n"
     "    <screenshot>\n"
+    "      <caption>Screencast</caption>\n"
     "      <video codec=\"av1\" container=\"matroska\" width=\"1916\" "
     "height=\"1056\">https://example.org/screencast.mkv</video>\n"
     "      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\" xml:lang=\"de-DE\">https://example.org/screencast_de.mkv</video>\n"
@@ -1274,6 +1276,17 @@ static const gchar *xmldata_screenshots =
     "  </screenshots>\n"
     "</component>\n";
 /* clang-format on */
+
+static void
+_assert_screenshot_captions_order (GPtrArray *screenshots, const gchar **captions)
+{
+	for (guint i = 0; captions[i] != NULL; i++) {
+		g_assert_cmpint (i, <, screenshots->len);
+		g_assert_cmpstr (as_screenshot_get_caption (g_ptr_array_index (screenshots, i)),
+				 ==,
+				 captions[i]);
+	}
+}
 
 /**
  * test_xml_read_screenshots:
@@ -1422,30 +1435,43 @@ test_xml_read_screenshots (void)
 	g_assert_cmpint (as_image_get_width (img), ==, 640);
 	g_assert_cmpint (as_image_get_height (img), ==, 1136);
 
-	/* test some filtered loading */
+	/* test some screenshot sorting */
+	screenshots = as_component_get_screenshots_all (cpt);
 	as_component_set_context_locale (cpt, "C");
-	scr_filtered = as_component_filter_screenshots (cpt, "plasma", "mobile", TRUE);
-	g_assert_cmpint (scr_filtered->len, ==, 1);
-	g_assert_cmpstr (as_screenshot_get_caption (g_ptr_array_index (scr_filtered, 0)),
-			 ==,
-			 "The app, on mobile!");
-	g_clear_pointer (&scr_filtered, g_ptr_array_unref);
+	_assert_screenshot_captions_order (screenshots,
+					   (const gchar *[]){ "The main window displaying a thing",
+							      "Second screenshot",
+							      "Screencast",
+							      "The app, on mobile!",
+							      "The app, on KDE Plasma desktop!",
+							      NULL });
 
-	scr_filtered = as_component_filter_screenshots (cpt, "plasma", NULL, TRUE);
-	g_assert_cmpint (scr_filtered->len, ==, 1);
-	g_assert_cmpstr (as_screenshot_get_caption (g_ptr_array_index (scr_filtered, 0)),
-			 ==,
-			 "The app, on KDE Plasma desktop!");
-	g_clear_pointer (&scr_filtered, g_ptr_array_unref);
+	as_component_sort_screenshots (cpt, "plasma", "mobile", FALSE);
+	_assert_screenshot_captions_order (screenshots,
+					   (const gchar *[]){ "The app, on mobile!",
+							      "The app, on KDE Plasma desktop!",
+							      "The main window displaying a thing",
+							      "Second screenshot",
+							      "Screencast",
+							      NULL });
 
-	scr_filtered = as_component_filter_screenshots (cpt, "gnome", NULL, TRUE);
-	g_assert_cmpint (scr_filtered->len, ==, 3);
-	g_assert_cmpstr (as_screenshot_get_caption (g_ptr_array_index (scr_filtered, 0)),
-			 ==,
-			 "The main window displaying a thing");
-	g_assert_cmpstr (as_screenshot_get_caption (g_ptr_array_index (scr_filtered, 1)), ==, NULL);
-	g_assert_cmpstr (as_screenshot_get_caption (g_ptr_array_index (scr_filtered, 2)), ==, NULL);
-	g_clear_pointer (&scr_filtered, g_ptr_array_unref);
+	as_component_sort_screenshots (cpt, "plasma", NULL, FALSE);
+	_assert_screenshot_captions_order (screenshots,
+					   (const gchar *[]){ "The app, on KDE Plasma desktop!",
+							      "The app, on mobile!",
+							      "The main window displaying a thing",
+							      "Second screenshot",
+							      "Screencast",
+							      NULL });
+
+	as_component_sort_screenshots (cpt, "gnome", NULL, FALSE);
+	_assert_screenshot_captions_order (screenshots,
+					   (const gchar *[]){ "The main window displaying a thing",
+							      "Second screenshot",
+							      "Screencast",
+							      "The app, on mobile!",
+							      "The app, on KDE Plasma desktop!",
+							      NULL });
 
 	/* test a legacy screenshot entry that we briefly supported in an older AppStream release */
 	g_object_unref (cpt);
@@ -1507,6 +1533,7 @@ test_xml_write_screenshots (void)
 	g_object_unref (img);
 
 	scr2 = as_screenshot_new ();
+	as_screenshot_set_caption (scr2, "Second screenshot", "C");
 	img = as_image_new ();
 	as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
 	as_image_set_width (img, 1916);
@@ -1531,6 +1558,7 @@ test_xml_write_screenshots (void)
 	g_object_unref (img);
 
 	scr3 = as_screenshot_new ();
+	as_screenshot_set_caption (scr3, "Screencast", "C");
 	vid = as_video_new ();
 	as_video_set_codec_kind (vid, AS_VIDEO_CODEC_KIND_AV1);
 	as_video_set_container_kind (vid, AS_VIDEO_CONTAINER_KIND_MKV);
