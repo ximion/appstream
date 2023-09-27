@@ -205,6 +205,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The update-contact does not appear to be a valid email address (escaping of `@` is only allowed as `_at_` or `_AT_`).")
 	},
 
+	{ "screenshot-invalid-env-style",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
+	  N_("The `environment` property is set to an unrecognized graphical environment/style combination.")
+	},
+
 	{ "screenshot-invalid-width",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
