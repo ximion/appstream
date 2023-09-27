@@ -14,17 +14,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-08-24 20:10+0200\n"
-"PO-Revision-Date: 2023-07-13 23:48+0000\n"
+"PO-Revision-Date: 2023-09-27 02:00+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
-"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/"
-"translations/hr/>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/translations/hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2496,12 +2494,12 @@ msgstr "Izdanje nema svojstvo `date` (preferirano) ili `timestamp`."
 
 #: src/as-validator-issue-tag.h:871
 msgid "The release timestamp is invalid."
-msgstr "Vremenska oznaka izdavanja je neispravna."
+msgstr "Vremenska oznaka izdanja je neispravna."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:877
 msgid "The release description must be put inside a `description` tag"
-msgstr ""
+msgstr "Opis izdanja se mora staviti unutar oznake `description`"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:883
@@ -2644,53 +2642,50 @@ msgstr ""
 #: src/as-validator-issue-tag.h:976
 msgid ""
 "The  `type` attribute of this `content_rating` element is missing or empty."
-msgstr ""
+msgstr "Atribut `type` ovog `content_rating`elementa nedostaje ili je prazan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:982
 msgid ""
 "The  `type` attribute of the `content_rating` element has a invalid value."
-msgstr ""
+msgstr "Atribut `type` od `content_rating`elementa nedostaje ili je prazan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:988
-#, fuzzy
 msgid "The `content_rating` tag can only contain `content_attribute` children."
-msgstr "Oznaka `custom` može sadržati samo podređena svojstva `value`."
+msgstr "Oznaka `content_rating` može sadržati samo podređene `content_attribute` atribute."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:994
 msgid ""
 "The  `id` attribute of the `content_attribute` element is missing or empty."
-msgstr ""
+msgstr "Atribut `id` od `content_attribute`elementa nedostaje ili je prazan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1000
 msgid ""
 "The  `id` attribute of the `content_attribute` element has a invalid value."
-msgstr ""
+msgstr "Atribut `id` od `content_attribute`elementa sadrži neispravnu vrijednost."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1006
 msgid "The `content_attribute` tag needs a value."
-msgstr ""
+msgstr "Oznaka `content_attribute` mora sadržati vrijednost."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1012
 msgid "The `content_attribute` tag value is unknown."
-msgstr ""
+msgstr "Vrijednost oznake `content_attribute` je nepoznata."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1018
-#, fuzzy
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr "Postavljena vrijednost oznake nije ispravna za `internet` odnos."
+msgstr "Vrijednost oznake `content_attribute` je nepoznata za zadani ID."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1024
-#, fuzzy
 msgid "A `content_attribute` tag with this ID has already been defined."
-msgstr "URL ove vrste je već definiran."
+msgstr "Oznaka `content_attribute` s ovim ID-om je već definirana."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1030
@@ -2871,7 +2866,7 @@ msgstr "Postavi URL adresu u kojoj će se hostirati izvezeni sadržaj medija"
 msgid ""
 "Makes all URLs in output data complete URLs and avoids the use of a shared "
 "URL prefix for all metadata."
-msgstr ""
+msgstr "Pretvara sve URL-ove u izlaznim podacima u potpune URL-ove i izbjegava korištenje zajedničkog URL prefiksa za sve metapodatke."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:269
@@ -3238,12 +3233,12 @@ msgstr "Neispravan broj parametara"
 #: tools/appstreamcli.c:1120
 #, c-format
 msgid "Compose failed to execute: %s"
-msgstr ""
+msgstr "Sastavljena binarna datoteka se nije uspjela izvršiti: %s"
 
 #: tools/appstreamcli.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "Compose failed: %s"
-msgstr "Provjera je neuspjela: %s"
+msgstr "Sastavljena binarna datoteka nije uspjela: %s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:1187
