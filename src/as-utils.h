@@ -84,35 +84,39 @@ typedef enum {
 	AS_METADATA_LOCATION_LAST
 } AsMetadataLocation;
 
-GQuark	 as_utils_error_quark (void);
+GQuark	     as_utils_error_quark (void);
 
-gchar  **as_markup_strsplit_words (const gchar *text, guint line_len);
-gchar	*as_markup_convert_simple (const gchar *markup, GError **error);
+gchar	   **as_markup_strsplit_words (const gchar *text, guint line_len);
+gchar	    *as_markup_convert_simple (const gchar *markup, GError **error);
 
-gboolean as_utils_locale_is_compatible (const gchar *locale1, const gchar *locale2);
-gchar	*as_utils_posix_locale_to_bcp47 (const gchar *locale);
+gboolean     as_utils_locale_is_compatible (const gchar *locale1, const gchar *locale2);
+gchar	    *as_utils_posix_locale_to_bcp47 (const gchar *locale);
 
-gboolean as_utils_is_category_name (const gchar *category_name);
-gboolean as_utils_is_tld (const gchar *tld);
-gboolean as_utils_is_desktop_environment (const gchar *desktop);
+gboolean     as_utils_is_category_name (const gchar *category_name);
+gboolean     as_utils_is_tld (const gchar *tld);
 
-void	 as_utils_sort_components_into_categories (GPtrArray *cpts,
-						   GPtrArray *categories,
-						   gboolean   check_duplicates);
+gboolean     as_utils_is_desktop_environment (const gchar *de_id);
+const gchar *as_utils_get_desktop_environment_name (const gchar *de_id);
+gboolean     as_utils_is_gui_environment_style (const gchar *env_style);
+const gchar *as_utils_get_gui_environment_style_name (const gchar *env_style);
 
-gchar	*as_utils_build_data_id (AsComponentScope scope,
-				 AsBundleKind	  bundle_kind,
-				 const gchar	 *origin,
-				 const gchar	 *cid,
-				 const gchar	 *branch);
-gboolean as_utils_data_id_valid (const gchar *data_id);
-gchar	*as_utils_data_id_get_cid (const gchar *data_id);
+void	     as_utils_sort_components_into_categories (GPtrArray *cpts,
+						       GPtrArray *categories,
+						       gboolean	  check_duplicates);
 
-gboolean as_utils_data_id_match (const gchar	   *data_id1,
-				 const gchar	   *data_id2,
-				 AsDataIdMatchFlags match_flags);
-gboolean as_utils_data_id_equal (const gchar *data_id1, const gchar *data_id2);
-guint	 as_utils_data_id_hash (const gchar *data_id);
+gchar	    *as_utils_build_data_id (AsComponentScope scope,
+				     AsBundleKind     bundle_kind,
+				     const gchar     *origin,
+				     const gchar     *cid,
+				     const gchar     *branch);
+gboolean     as_utils_data_id_valid (const gchar *data_id);
+gchar	    *as_utils_data_id_get_cid (const gchar *data_id);
+
+gboolean     as_utils_data_id_match (const gchar       *data_id1,
+				     const gchar       *data_id2,
+				     AsDataIdMatchFlags match_flags);
+gboolean     as_utils_data_id_equal (const gchar *data_id1, const gchar *data_id2);
+guint	     as_utils_data_id_hash (const gchar *data_id);
 
 guint	 as_gstring_replace (GString *string, const gchar *find, const gchar *replace, guint limit);
 

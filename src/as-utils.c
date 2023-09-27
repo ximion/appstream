@@ -28,7 +28,6 @@
 #include <stdlib.h>
 #include <gio/gio.h>
 #include <glib/gstdio.h>
-#include <glib/gi18n-lib.h>
 #include <sys/types.h>
 #include <libxml/tree.h>
 #include <libxml/parser.h>
@@ -47,6 +46,7 @@
 #include "as-category.h"
 #include "as-metadata.h"
 #include "as-component-private.h"
+#include "as-desktop-env-data.h"
 
 /**
  * SECTION:as-utils
@@ -1357,32 +1357,105 @@ as_utils_is_tld (const gchar *tld)
 
 /**
  * as_utils_is_desktop_environment:
- * @desktop: a desktop environment id.
+ * @de_id: a desktop environment id.
  *
- * Searches the known list of desktop environments AppStream
- * knows about.
+ * Checks if the submitted desktop environment ID is
+ * known and valid.
  *
  * Returns: %TRUE if the desktop-id is valid
  *
  * Since: 0.10.0
  **/
 gboolean
-as_utils_is_desktop_environment (const gchar *desktop)
+as_utils_is_desktop_environment (const gchar *de_id)
 {
-	g_autoptr(GBytes) data = NULL;
-	g_autofree gchar *key = NULL;
-	GResource *resource = as_get_resource ();
-	g_assert (resource != NULL);
-
-	/* load the readonly data section and look for the desktop environment name */
-	data = g_resource_lookup_data (resource,
-				       "/org/freedesktop/appstream/desktop-environments.txt",
-				       G_RESOURCE_LOOKUP_FLAGS_NONE,
-				       NULL);
-	if (data == NULL)
+	/* handle invalid */
+	if (de_id == NULL || de_id[0] == '\0')
 		return FALSE;
-	key = g_strdup_printf ("\n%s\n", desktop);
-	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
+
+	for (guint i = 0; as_desktop_env_data[i].id != NULL; i++) {
+		if (as_str_equal0 (as_desktop_env_data[i].id, de_id))
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+/**
+ * as_utils_get_desktop_environment_name:
+ * @de_id: a desktop environment id.
+ *
+ * Get a human-readable, translated name of the desktop environment
+ * represented by the given ID.
+ *
+ * Returns: A localized name of the DE, or %NULL if none available.
+ *
+ * Since: 1.0.0
+ **/
+const gchar *
+as_utils_get_desktop_environment_name (const gchar *de_id)
+{
+	/* handle invalid */
+	if (de_id == NULL || de_id[0] == '\0')
+		return NULL;
+
+	for (guint i = 0; as_desktop_env_data[i].id != NULL; i++) {
+		if (as_str_equal0 (as_desktop_env_data[i].id, de_id))
+			return as_desktop_env_data[i].name;
+	}
+
+	return NULL;
+}
+
+/**
+ * as_utils_is_gui_environment_style:
+ * @env_style: a GUI environment style ID, e.g. "pantheon:dark"
+ *
+ * Checks if the given identifier is a valid, known GUI environment style.
+ *
+ * Returns: %TRUE if the environment-style ID is is valid
+ *
+ * Since: 1.0.0
+ **/
+gboolean
+as_utils_is_gui_environment_style (const gchar *env_style)
+{
+	/* handle invalid */
+	if (env_style == NULL || env_style[0] == '\0')
+		return FALSE;
+
+	for (guint i = 0; as_gui_env_style_data[i].id != NULL; i++) {
+		if (as_str_equal0 (as_gui_env_style_data[i].id, env_style))
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+/**
+ * as_utils_get_gui_environment_style_name:
+ * @env_style: a GUI environment style ID, e.g. "pantheon:dark"
+ *
+ * Get a human-readable, translated name of the combination
+ * of GUI environment and style. E.g. "plasma:dark" becomes "Plasma (Dark)".
+ *
+ * Returns: A localized name of the environment style, or %NULL if none available.
+ *
+ * Since: 1.0.0
+ **/
+const gchar *
+as_utils_get_gui_environment_style_name (const gchar *env_style)
+{
+	/* handle invalid */
+	if (env_style == NULL || env_style[0] == '\0')
+		return NULL;
+
+	for (guint i = 0; as_gui_env_style_data[i].id != NULL; i++) {
+		if (as_str_equal0 (as_gui_env_style_data[i].id, env_style))
+			return as_gui_env_style_data[i].name;
+	}
+
+	return NULL;
 }
 
 /**

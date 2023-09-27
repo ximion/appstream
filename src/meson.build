@@ -106,6 +106,7 @@ aslib_priv_headers = [
     'as-context-private.h',
     'as-curl.h',
     'as-desktop-entry.h',
+    'as-desktop-env-data.h',
     'as-distro-extras.h',
     'as-file-monitor.h',
     'as-icon-private.h',
