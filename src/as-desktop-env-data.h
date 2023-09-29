@@ -68,7 +68,7 @@ AsDesktopEnvData as_desktop_env_data[] = {
 	/* TRANSLATORS: Name of the "Unity" desktop environment. */
 	{ "Unity", N_("Unity") },
 	/* TRANSLATORS: Name of the "XFCE" desktop environment. */
-	{ "XFCE", N_("XFCE") },
+	{ "XFCE", N_("Xfce") },
 	{ NULL, NULL },
 };
 
