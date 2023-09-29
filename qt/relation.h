@@ -22,7 +22,7 @@
 #include <QSharedDataPointer>
 #include <QString>
 #include <QObject>
-
+#include <optional>
 #include "appstreamqt_export.h"
 #include "relation-check-result.h"
 
