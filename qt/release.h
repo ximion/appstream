@@ -25,6 +25,7 @@
 #include <QString>
 #include <QObject>
 #include <QCryptographicHash>
+#include <optional>
 #include "appstreamqt_export.h"
 
 struct _AsRelease;
