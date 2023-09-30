@@ -1850,6 +1850,43 @@ as_component_set_developer_name (AsComponent *cpt, const gchar *value, const gch
 }
 
 /**
+ * as_component_is_floss:
+ * @cpt: a #AsComponent instance.
+ *
+ * Returns %TRUE if this component is free and open source software.
+ * To determine this status, this function will check if it comes
+ * from a vetted free-software-only source or whether its licenses
+ * are only free software licenses.
+ *
+ * Returns: %TRUE if this component is free software.
+ *
+ * Since: 0.15.5
+ */
+gboolean
+as_component_is_floss (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	gboolean is_free = as_license_is_free_license (priv->project_license);
+	if (is_free)
+		return TRUE;
+
+	/* The license check yielded a non-free license, which is also returned
+	 * if no license was set. We also need to check the repository origin
+	 * for packaged components. */
+	if (as_is_empty (priv->origin))
+		return FALSE;
+	if (as_utils_get_component_bundle_kind (cpt) == AS_BUNDLE_KIND_PACKAGE) {
+		if (priv->context == NULL) {
+			priv->context = as_context_new ();
+			as_context_set_origin (priv->context, priv->origin);
+		}
+		return as_context_os_origin_is_free (priv->context, priv->origin);
+	}
+
+	return is_free;
+}
+
+/**
  * as_component_clear_tags:
  * @cpt: a #AsComponent instance.
  *
@@ -3959,43 +3996,6 @@ as_component_set_branding (AsComponent *cpt, AsBranding *branding)
 	if (priv->branding != NULL)
 		g_object_unref (priv->branding);
 	priv->branding = g_object_ref (branding);
-}
-
-/**
- * as_component_is_floss:
- * @cpt: a #AsComponent instance.
- *
- * Returns %TRUE if this component is free and open source software.
- * To determine this status, this function will check if it comes
- * from a vetted free-software-only source or whether its licenses
- * are only free software licenses.
- *
- * Returns: %TRUE if this component is free software.
- *
- * Since: 0.15.5
- */
-gboolean
-as_component_is_floss (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	gboolean is_free = as_license_is_free_license (priv->project_license);
-	if (is_free)
-		return TRUE;
-
-	/* The license check yielded a non-free license, which is also returned
-	 * if no license was set. We also need to check the repository origin
-	 * for packaged components. */
-	if (as_is_empty (priv->origin))
-		return FALSE;
-	if (as_utils_get_component_bundle_kind (cpt) == AS_BUNDLE_KIND_PACKAGE) {
-		if (priv->context == NULL) {
-			priv->context = as_context_new ();
-			as_context_set_origin (priv->context, priv->origin);
-		}
-		return as_context_os_origin_is_free (priv->context, priv->origin);
-	}
-
-	return is_free;
 }
 
 /**

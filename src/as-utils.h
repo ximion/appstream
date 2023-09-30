@@ -68,6 +68,7 @@ typedef enum {
 
 /**
  * AsMetadataLocation:
+ * @AS_METADATA_LOCATION_UNKNOWN:	An unknown/invalid location.
  * @AS_METADATA_LOCATION_SHARED:	Installed by the vendor, shared
  * @AS_METADATA_LOCATION_STATE:		Installed as metadata into /var/lib, shared
  * @AS_METADATA_LOCATION_CACHE:		Installed as metadata into /var/cache, shared
@@ -76,6 +77,7 @@ typedef enum {
  * The flags used when installing and removing metadata files.
  **/
 typedef enum {
+	AS_METADATA_LOCATION_UNKNOWN,
 	AS_METADATA_LOCATION_SHARED,
 	AS_METADATA_LOCATION_STATE,
 	AS_METADATA_LOCATION_CACHE,

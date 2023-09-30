@@ -46,9 +46,9 @@ struct _AsCacheClass {
 
 /**
  * AsCacheScope:
- * @AS_CACHE_SCOPE_UNKNOWN: Unknown scope, or scope is not relevant.
- * @AS_CACHE_SCOPE_SYSTEM: System-wide cache, always considered unwritable.
- * @AS_CACHE_SCOPE_WRITABLE: User-specific cache, always writable.
+ * @AS_CACHE_SCOPE_UNKNOWN:	Unknown scope, or scope is not relevant.
+ * @AS_CACHE_SCOPE_SYSTEM:	System-wide cache, always considered unwritable.
+ * @AS_CACHE_SCOPE_WRITABLE:	User-specific cache, always writable.
  *
  * Scope of the cache.
  **/

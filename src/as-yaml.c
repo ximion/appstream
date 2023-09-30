@@ -478,7 +478,7 @@ as_yaml_get_node_locale (AsContext *ctx, GNode *node)
 {
 	const gchar *key = as_yaml_node_get_key (node);
 
-	if (as_context_get_locale_all_enabled (ctx)) {
+	if (as_context_get_locale_use_all (ctx)) {
 		/* we should read all languages */
 		return key;
 	}

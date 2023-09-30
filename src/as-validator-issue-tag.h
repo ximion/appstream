@@ -25,9 +25,9 @@
 #include <glib/gi18n-lib.h>
 
 #include "as-validator-issue.h"
+#include "as-macros-private.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 typedef struct {
 	const gchar    *tag;
@@ -1090,7 +1090,6 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 };
 /* clang-format on */
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_VALIDATOR_ISSUE_TAG_H */

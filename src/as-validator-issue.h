@@ -45,19 +45,20 @@ struct _AsValidatorIssueClass {
 
 /**
  * AsIssueSeverity:
- * @AS_ISSUE_SEVERITY_ERROR:	There is a serious, fatal error in your metadata
- * @AS_ISSUE_SEVERITY_WARNING:	Something metadata issue which should be fixed as soon as possible.
- * @AS_ISSUE_SEVERITY_INFO:	Non-essential information on how to improve metadata, no immediate action needed.
+ * @AS_ISSUE_SEVERITY_UNKNOWN:	The severity is unknown.
  * @AS_ISSUE_SEVERITY_PEDANTIC:	Pedantic information about ways to improve the data, but could also be ignored.
+ * @AS_ISSUE_SEVERITY_INFO:	Non-essential information on how to improve metadata, no immediate action needed.
+ * @AS_ISSUE_SEVERITY_WARNING:	Something metadata issue which should be fixed as soon as possible.
+ * @AS_ISSUE_SEVERITY_ERROR:	There is a serious, fatal error in your metadata
  *
  * The severity of an issue found by #AsValidator
  **/
 typedef enum {
 	AS_ISSUE_SEVERITY_UNKNOWN,
-	AS_ISSUE_SEVERITY_ERROR,
-	AS_ISSUE_SEVERITY_WARNING,
-	AS_ISSUE_SEVERITY_INFO,
 	AS_ISSUE_SEVERITY_PEDANTIC,
+	AS_ISSUE_SEVERITY_INFO,
+	AS_ISSUE_SEVERITY_WARNING,
+	AS_ISSUE_SEVERITY_ERROR,
 	/*< private >*/
 	AS_ISSUE_SEVERITY_LAST
 } AsIssueSeverity;

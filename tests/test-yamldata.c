@@ -1726,7 +1726,7 @@ test_yaml_write_releases (void)
 	as_artifact_set_kind (af1, AS_ARTIFACT_KIND_SOURCE);
 	as_artifact_add_location (af1, "https://example.com/source.tar.xz");
 	as_artifact_set_bundle_kind (af1, AS_BUNDLE_KIND_TARBALL);
-	cs = as_checksum_new_for_kind_value (
+	cs = as_checksum_new_with_value (
 	    AS_CHECKSUM_KIND_BLAKE3,
 	    "8b28f613fa1ccdb1d303704839a0bb196424f425badfa4e4f43808f6812b6bcc0ae43374383bb6e46294d0"
 	    "8155a64acbad92084387c73f696f00368ea106ebb4");
@@ -1739,7 +1739,7 @@ test_yaml_write_releases (void)
 	as_artifact_add_location (af2, "https://example.com/binary_amd64.flatpak");
 	as_artifact_set_filename (af2, "binary-1.2.0_amd64.flatpak");
 	as_artifact_set_bundle_kind (af2, AS_BUNDLE_KIND_FLATPAK);
-	cs = as_checksum_new_for_kind_value (AS_CHECKSUM_KIND_BLAKE3, "04839a");
+	cs = as_checksum_new_with_value (AS_CHECKSUM_KIND_BLAKE3, "04839a");
 	as_artifact_add_checksum (af2, cs);
 	g_object_unref (cs);
 	as_artifact_set_size (af2, 42052, AS_SIZE_KIND_INSTALLED);
