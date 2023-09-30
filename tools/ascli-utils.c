@@ -278,7 +278,6 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 	gchar *pkgs_str = NULL;
 	gchar *bundles_str = NULL;
 	AsIcon *icon = NULL;
-	guint j;
 
 	short_idline = g_strdup_printf ("%s [%s]",
 					as_component_get_id (cpt),
@@ -290,7 +289,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 	icon = as_component_get_icon_by_size (cpt, 64, 64);
 	if (icon == NULL) {
 		GPtrArray *icons = as_component_get_icons (cpt);
-		for (j = 0; j < icons->len; j++) {
+		for (guint j = 0; j < icons->len; j++) {
 			AsIcon *tmp_icon = AS_ICON (g_ptr_array_index (icons, j));
 			if (as_icon_get_kind (tmp_icon) == AS_ICON_KIND_STOCK) {
 				icon = tmp_icon;
@@ -322,7 +321,6 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		GPtrArray *categories;
 		GPtrArray *compulsory_desktops;
 		GPtrArray *provided;
-		guint i;
 		AsScreenshot *sshot;
 		AsImage *img;
 		gchar *str;
@@ -340,16 +338,18 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		}
 
 		/* long description */
-		str = as_markup_convert_simple (as_component_get_description (cpt), NULL);
+		str = as_markup_convert (as_component_get_description (cpt),
+					 AS_MARKUP_KIND_TEXT,
+					 NULL);
 		ascli_print_key_value (_("Description"), str, TRUE);
 		g_free (str);
 
 		/* some simple screenshot information */
-		sshot_array = as_component_get_screenshots (cpt);
+		sshot_array = as_component_get_screenshots_all (cpt);
 
 		/* find default screenshot, if possible */
 		sshot = NULL;
-		for (j = 0; j < sshot_array->len; j++) {
+		for (guint j = 0; j < sshot_array->len; j++) {
 			sshot = AS_SCREENSHOT (g_ptr_array_index (sshot_array, j));
 			if (as_screenshot_get_kind (sshot) == AS_SCREENSHOT_KIND_DEFAULT)
 				break;
@@ -358,7 +358,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		if (sshot != NULL) {
 			/* get the first source image and display it's url */
 			imgs = as_screenshot_get_images (sshot);
-			for (j = 0; j < imgs->len; j++) {
+			for (guint j = 0; j < imgs->len; j++) {
 				img = AS_IMAGE (g_ptr_array_index (imgs, j));
 				if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
 					ascli_print_key_value (_("Default Screenshot URL"),
@@ -396,7 +396,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		addons = as_component_get_addons (cpt);
 		if (addons->len > 0) {
 			g_autoptr(GPtrArray) addons_str = g_ptr_array_new_with_free_func (g_free);
-			for (i = 0; i < addons->len; i++) {
+			for (guint i = 0; i < addons->len; i++) {
 				AsComponent *addon = AS_COMPONENT (g_ptr_array_index (addons, i));
 				if (as_component_get_kind (addon) ==
 				    AS_COMPONENT_KIND_LOCALIZATION) {
@@ -424,7 +424,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 			/* TRANSLATORS: Other software or interfaces that this software component provides */
 			ascli_print_key_value (_("Provided Items"), "↓", FALSE);
 		}
-		for (i = 0; i < provided->len; i++) {
+		for (guint i = 0; i < provided->len; i++) {
 			GPtrArray *items = NULL;
 			AsProvided *prov = AS_PROVIDED (g_ptr_array_index (provided, i));
 

@@ -271,7 +271,11 @@ GPtrArray  *as_component_get_categories (AsComponent *cpt);
 void	    as_component_add_category (AsComponent *cpt, const gchar *category);
 gboolean    as_component_has_category (AsComponent *cpt, const gchar *category);
 
-GPtrArray  *as_component_get_screenshots (AsComponent *cpt);
+GPtrArray  *as_component_get_screenshots_all (AsComponent *cpt);
+void	    as_component_sort_screenshots (AsComponent *cpt,
+					   const gchar *environment,
+					   const gchar *style,
+					   gboolean	prioritize_style);
 void	    as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot);
 
 GPtrArray  *as_component_get_keywords (AsComponent *cpt);
@@ -390,7 +394,7 @@ GHashTable  *as_component_get_name_table (AsComponent *cpt);
 GHashTable  *as_component_get_summary_table (AsComponent *cpt);
 GHashTable  *as_component_get_keywords_table (AsComponent *cpt);
 
-gboolean     as_component_is_free (AsComponent *cpt);
+gboolean     as_component_is_floss (AsComponent *cpt);
 
 gboolean     as_component_load_from_bytes (AsComponent *cpt,
 					   AsContext   *context,

@@ -777,7 +777,7 @@ asc_process_screenshots (AscResult *cres,
 	if (media_export_root == NULL)
 		store_screenshots = FALSE;
 
-	screenshots = as_component_get_screenshots (cpt);
+	screenshots = as_component_get_screenshots_all (cpt);
 	if (screenshots->len == 0)
 		return;
 

@@ -423,9 +423,7 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 			if (g_strstr_len (desc_markup, -1, "<p>") != NULL) {
 				/* we have paragraphs - just convert the markup to a simple text */
 				g_autofree gchar *md = NULL;
-				md = as_description_markup_convert (desc_markup,
-								    AS_MARKUP_KIND_MARKDOWN,
-								    NULL);
+				md = as_markup_convert (desc_markup, AS_MARKUP_KIND_MARKDOWN, NULL);
 				if (md != NULL)
 					as_yaml_emit_long_entry_literal (&emitter,
 									 "Description",
@@ -963,7 +961,7 @@ as_news_releases_to_text (GPtrArray *releases, gchar **md_data, AsNewsFormatKind
 		tmp = as_release_get_description (rel);
 		if (tmp != NULL) {
 			g_autofree gchar *md = NULL;
-			md = as_description_markup_convert (tmp, AS_MARKUP_KIND_MARKDOWN, NULL);
+			md = as_markup_convert (tmp, AS_MARKUP_KIND_MARKDOWN, NULL);
 			if (md == NULL)
 				return FALSE;
 			g_string_append_printf (str, "%s\n", md);

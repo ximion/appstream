@@ -1414,7 +1414,15 @@ static const gchar *yamldata_screenshots = "Type: generic\n"
 					   "    url: https://example.org/screencast_de.mkv\n"
 					   "    width: 1916\n"
 					   "    height: 1056\n"
-					   "    lang: de-DE\n";
+					   "    lang: de-DE\n"
+					   "- environment: plasma:mobile\n"
+					   "  caption:\n"
+					   "    C: The app, on mobile!\n"
+					   "  thumbnails: []\n"
+					   "  source-image:\n"
+					   "    url: https://example.org/alpha_mobile.png\n"
+					   "    width: 640\n"
+					   "    height: 1136\n";
 
 /**
  * test_yaml_write_screenshots:
@@ -1428,6 +1436,7 @@ test_yaml_write_screenshots (void)
 	g_autofree gchar *res = NULL;
 	g_autoptr(AsScreenshot) scr1 = NULL;
 	g_autoptr(AsScreenshot) scr2 = NULL;
+	g_autoptr(AsScreenshot) scr3 = NULL;
 	AsImage *img;
 	AsVideo *vid;
 
@@ -1476,8 +1485,20 @@ test_yaml_write_screenshots (void)
 	as_screenshot_add_video (scr2, vid);
 	g_object_unref (vid);
 
+	scr3 = as_screenshot_new ();
+	as_screenshot_set_caption (scr3, "The app, on mobile!", "C");
+	as_screenshot_set_environment (scr3, "plasma:mobile");
+	img = as_image_new ();
+	as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
+	as_image_set_width (img, 640);
+	as_image_set_height (img, 1136);
+	as_image_set_url (img, "https://example.org/alpha_mobile.png");
+	as_screenshot_add_image (scr3, img);
+	g_object_unref (img);
+
 	as_component_add_screenshot (cpt, scr1);
 	as_component_add_screenshot (cpt, scr2);
+	as_component_add_screenshot (cpt, scr3);
 
 	/* test catalog serialization */
 	res = as_yaml_test_serialize (cpt);
@@ -1496,6 +1517,7 @@ test_yaml_read_screenshots (void)
 	GPtrArray *screenshots;
 	AsScreenshot *scr1;
 	AsScreenshot *scr2;
+	AsScreenshot *scr3;
 	GPtrArray *images;
 	GPtrArray *videos;
 	AsImage *img;
@@ -1504,11 +1526,12 @@ test_yaml_read_screenshots (void)
 	cpt = as_yaml_test_read_data (yamldata_screenshots, NULL);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ScreenshotsTest");
 
-	screenshots = as_component_get_screenshots (cpt);
-	g_assert_cmpint (screenshots->len, ==, 2);
+	screenshots = as_component_get_screenshots_all (cpt);
+	g_assert_cmpint (screenshots->len, ==, 3);
 
 	scr1 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 0));
 	scr2 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 1));
+	scr3 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 2));
 
 	/* screenshot 1 */
 	g_assert_cmpint (as_screenshot_get_kind (scr1), ==, AS_SCREENSHOT_KIND_DEFAULT);
@@ -1569,6 +1592,21 @@ test_yaml_read_screenshots (void)
 	g_assert_cmpstr (as_video_get_url (vid), ==, "https://example.org/screencast_de.mkv");
 	g_assert_cmpint (as_video_get_width (vid), ==, 1916);
 	g_assert_cmpint (as_video_get_height (vid), ==, 1056);
+
+	/* screenshot 3 */
+	g_assert_cmpint (as_screenshot_get_kind (scr3), ==, AS_SCREENSHOT_KIND_EXTRA);
+	g_assert_cmpint (as_screenshot_get_media_kind (scr3), ==, AS_SCREENSHOT_MEDIA_KIND_IMAGE);
+	g_assert_cmpstr (as_screenshot_get_caption (scr3), ==, "The app, on mobile!");
+	g_assert_cmpstr (as_screenshot_get_environment (scr3), ==, "plasma:mobile");
+
+	images = as_screenshot_get_images_all (scr3);
+	g_assert_cmpint (images->len, ==, 1);
+
+	img = AS_IMAGE (g_ptr_array_index (images, 0));
+	g_assert_cmpint (as_image_get_kind (img), ==, AS_IMAGE_KIND_SOURCE);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha_mobile.png");
+	g_assert_cmpint (as_image_get_width (img), ==, 640);
+	g_assert_cmpint (as_image_get_height (img), ==, 1136);
 }
 
 static const gchar *yamldata_releases_field =

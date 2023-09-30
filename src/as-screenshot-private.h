@@ -43,6 +43,9 @@ gboolean as_screenshot_load_from_yaml (AsScreenshot *screenshot,
 				       GError	   **error);
 void as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, yaml_emitter_t *emitter);
 
+gint as_screenshot_get_position (AsScreenshot *screenshot);
+void as_screenshot_set_position (AsScreenshot *screenshot, gint pos);
+
 AS_END_PRIVATE_DECLS
 
 #endif /* __AS_SCREENSHOT_PRIVATE_H */

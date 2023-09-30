@@ -234,7 +234,7 @@ public:
     AppStream::Provided provided(Provided::Kind kind) const;
     void addProvided(const AppStream::Provided &provided);
 
-    QList<AppStream::Screenshot> screenshots() const;
+    QList<AppStream::Screenshot> screenshotsAll() const;
     void addScreenshot(const AppStream::Screenshot &screenshot);
 
     Releases releasesPlain() const;
@@ -276,7 +276,7 @@ public:
     void removeTag(const QString &ns, const QString &tagName);
     void clearTags();
 
-    bool isFree() const;
+    bool isFloss() const;
     bool isIgnored() const;
     bool isValid() const;
 

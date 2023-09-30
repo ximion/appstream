@@ -21,8 +21,8 @@
 #ifndef __AS_VALIDATOR_ISSUE_TAG_H
 #define __AS_VALIDATOR_ISSUE_TAG_H
 
-#include <glib.h>
-#include <glib/gi18n.h>
+#include "config.h"
+#include <glib/gi18n-lib.h>
 
 #include "as-validator-issue.h"
 
@@ -203,6 +203,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "update-contact-no-mail",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("The update-contact does not appear to be a valid email address (escaping of `@` is only allowed as `_at_` or `_AT_`).")
+	},
+
+	{ "screenshot-invalid-env-style",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
+	  N_("The `environment` property is set to an unrecognized graphical environment/style combination.")
 	},
 
 	{ "screenshot-invalid-width",

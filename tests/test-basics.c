@@ -205,22 +205,23 @@ test_simplemarkup (void)
 	g_autofree gchar *str = NULL;
 	g_autoptr(GError) error = NULL;
 
-	str = as_markup_convert_simple (
-	    "<p>Test!</p><p>Blah.</p><ul><li>A</li><li>B</li></ul><p>End.</p>",
-	    &error);
+	str = as_markup_convert ("<p>Test!</p><p>Blah.</p><ul><li>A</li><li>B</li></ul><p>End.</p>",
+				 AS_MARKUP_KIND_TEXT,
+				 &error);
 	g_assert_no_error (error);
 	g_assert_true (g_strcmp0 (str, "Test!\n\nBlah.\n • A\n • B\n\nEnd.") == 0);
 	g_free (str);
 
-	str = as_markup_convert_simple ("<p>Paragraph using all allowed markup, "
-					"like an <em>emphasis</em> or <code>some code</code>.</p>"
-					"<p>Second paragraph.</p>"
-					"<ul>"
-					"<li>List item, <em>emphasized</em></li>"
-					"<li>Item with <code>a bit of code</code></li>"
-					"</ul>"
-					"<p>Last paragraph.</p>",
-					&error);
+	str = as_markup_convert ("<p>Paragraph using all allowed markup, "
+				 "like an <em>emphasis</em> or <code>some code</code>.</p>"
+				 "<p>Second paragraph.</p>"
+				 "<ul>"
+				 "<li>List item, <em>emphasized</em></li>"
+				 "<li>Item with <code>a bit of code</code></li>"
+				 "</ul>"
+				 "<p>Last paragraph.</p>",
+				 AS_MARKUP_KIND_TEXT,
+				 &error);
 	g_assert_no_error (error);
 	g_assert_true (
 	    g_strcmp0 (str,
@@ -603,6 +604,24 @@ test_spdx (void)
 	tmp = as_get_license_name ("CERN-OHL-W-2.0");
 	g_assert_cmpstr (tmp, ==, "CERN Open Hardware Licence Version 2 - Weakly Reciprocal");
 	g_free (tmp);
+}
+
+/**
+ * test_desktop_env:
+ *
+ * Test desktop environment and style validation.
+ */
+static void
+test_desktop_env (void)
+{
+	g_assert_false (as_utils_is_desktop_environment (NULL));
+	g_assert_false (as_utils_is_desktop_environment ("Linux"));
+	g_assert_true (as_utils_is_desktop_environment ("GNOME"));
+
+	g_assert_false (as_utils_is_gui_environment_style (NULL));
+	g_assert_false (as_utils_is_gui_environment_style ("Linux"));
+	g_assert_true (as_utils_is_gui_environment_style ("plasma"));
+	g_assert_true (as_utils_is_gui_environment_style ("gnome:dark"));
 }
 
 /**
@@ -1020,43 +1039,45 @@ test_content_rating_mappings (void)
 static void
 as_test_content_rating_from_locale (void)
 {
+	/* clang-format off */
 	const struct {
 		const gchar *locale;
 		AsContentRatingSystem expected_system;
 	} vectors[] = {
-	/* Simple tests to get coverage of each rating system: */
-		{"es_AR",		   AS_CONTENT_RATING_SYSTEM_INCAA },
-		{ "en_AU",		   AS_CONTENT_RATING_SYSTEM_ACB	},
-		{ "pt_BR",		   AS_CONTENT_RATING_SYSTEM_DJCTQ },
-		{ "zh_TW",		   AS_CONTENT_RATING_SYSTEM_GSRR	 },
-		{ "en_GB",		   AS_CONTENT_RATING_SYSTEM_PEGI	 },
-		{ "hy_AM",		   AS_CONTENT_RATING_SYSTEM_PEGI	 },
-		{ "bg_BG",		   AS_CONTENT_RATING_SYSTEM_PEGI	 },
-		{ "fi_FI",		   AS_CONTENT_RATING_SYSTEM_KAVI	 },
-		{ "de_DE",		   AS_CONTENT_RATING_SYSTEM_USK	},
-		{ "az_IR",		   AS_CONTENT_RATING_SYSTEM_ESRA	 },
-		{ "jp_JP",		   AS_CONTENT_RATING_SYSTEM_CERO	 },
-		{ "en_NZ",		   AS_CONTENT_RATING_SYSTEM_OFLCNZ},
-		{ "ru_RU",		   AS_CONTENT_RATING_SYSTEM_RUSSIA},
-		{ "en_SQ",		   AS_CONTENT_RATING_SYSTEM_MDA	},
-		{ "ko_KR",		   AS_CONTENT_RATING_SYSTEM_GRAC	 },
-		{ "en_US",		   AS_CONTENT_RATING_SYSTEM_ESRB	 },
-		{ "en_US",		   AS_CONTENT_RATING_SYSTEM_ESRB	 },
-		{ "en_CA",		   AS_CONTENT_RATING_SYSTEM_ESRB	 },
-		{ "es_MX",		   AS_CONTENT_RATING_SYSTEM_ESRB	 },
- /* Fallback (arbitrarily chosen Venezuela since it seems to use IARC): */
-		{ "es_VE",		   AS_CONTENT_RATING_SYSTEM_IARC	 },
- /* Locale with a codeset: */
-		{ "nl_NL.iso88591",	    AS_CONTENT_RATING_SYSTEM_PEGI  },
- /* Locale with a codeset and modifier: */
+		/* Simple tests to get coverage of each rating system: */
+		{ "es_AR",		  AS_CONTENT_RATING_SYSTEM_INCAA },
+		{ "en_AU",		  AS_CONTENT_RATING_SYSTEM_ACB	},
+		{ "pt_BR",		  AS_CONTENT_RATING_SYSTEM_DJCTQ },
+		{ "zh_TW",		  AS_CONTENT_RATING_SYSTEM_GSRR },
+		{ "en_GB",		  AS_CONTENT_RATING_SYSTEM_PEGI },
+		{ "hy_AM",		  AS_CONTENT_RATING_SYSTEM_PEGI },
+		{ "bg_BG",		  AS_CONTENT_RATING_SYSTEM_PEGI },
+		{ "fi_FI",		  AS_CONTENT_RATING_SYSTEM_KAVI },
+		{ "de_DE",		  AS_CONTENT_RATING_SYSTEM_USK	},
+		{ "az_IR",		  AS_CONTENT_RATING_SYSTEM_ESRA },
+		{ "jp_JP",		  AS_CONTENT_RATING_SYSTEM_CERO },
+		{ "en_NZ",		  AS_CONTENT_RATING_SYSTEM_OFLCNZ },
+		{ "ru_RU",		  AS_CONTENT_RATING_SYSTEM_RUSSIA },
+		{ "en_SQ",		  AS_CONTENT_RATING_SYSTEM_MDA	},
+		{ "ko_KR",		  AS_CONTENT_RATING_SYSTEM_GRAC },
+		{ "en_US",		  AS_CONTENT_RATING_SYSTEM_ESRB },
+		{ "en_US",		  AS_CONTENT_RATING_SYSTEM_ESRB },
+		{ "en_CA",		  AS_CONTENT_RATING_SYSTEM_ESRB },
+		{ "es_MX",		  AS_CONTENT_RATING_SYSTEM_ESRB },
+		/* Fallback (arbitrarily chosen Venezuela since it seems to use IARC): */
+		{ "es_VE",		  AS_CONTENT_RATING_SYSTEM_IARC },
+		/* Locale with a codeset: */
+		{ "nl_NL.iso88591",	  AS_CONTENT_RATING_SYSTEM_PEGI },
+		/* Locale with a codeset and modifier: */
 		{ "nl_NL.iso885915@euro", AS_CONTENT_RATING_SYSTEM_PEGI	},
- /* Locale with a less esoteric codeset: */
-		{ "en_GB.UTF-8",		 AS_CONTENT_RATING_SYSTEM_PEGI  },
- /* Locale with a modifier but no codeset: */
-		{ "fi_FI@euro",		AS_CONTENT_RATING_SYSTEM_KAVI  },
- /* Invalid locale: */
-		{ "_invalid",	      AS_CONTENT_RATING_SYSTEM_IARC  },
+		/* Locale with a less esoteric codeset: */
+		{ "en_GB.UTF-8",	  AS_CONTENT_RATING_SYSTEM_PEGI },
+		/* Locale with a modifier but no codeset: */
+		{ "fi_FI@euro",		  AS_CONTENT_RATING_SYSTEM_KAVI },
+		/* Invalid locale: */
+		{ "_invalid",		  AS_CONTENT_RATING_SYSTEM_IARC },
 	};
+	/* clang-format on */
 
 	for (gsize i = 0; i < G_N_ELEMENTS (vectors); i++) {
 		g_test_message ("Test %" G_GSIZE_FORMAT ": %s", i, vectors[i].locale);
@@ -1210,6 +1231,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Component", test_component);
 	g_test_add_func ("/AppStream/ComponentBox", test_component_box);
 	g_test_add_func ("/AppStream/SPDX", test_spdx);
+	g_test_add_func ("/AppStream/DesktopEnv", test_desktop_env);
 	g_test_add_func ("/AppStream/TranslationFallback", test_translation_fallback);
 	g_test_add_func ("/AppStream/LocaleCompat", test_locale_compat);
 	g_test_add_func ("/AppStream/ReadDesktopEntry", test_read_desktop_entry_simple);

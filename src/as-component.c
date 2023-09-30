@@ -621,11 +621,10 @@ as_component_to_string (AsComponent *cpt)
 void
 as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot)
 {
-	GPtrArray *sslist;
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_return_if_fail (sshot != NULL);
 
-	sslist = as_component_get_screenshots (cpt);
-	g_ptr_array_add (sslist, g_object_ref (sshot));
+	g_ptr_array_add (priv->screenshots, g_object_ref (sshot));
 }
 
 /**
@@ -2001,18 +2000,122 @@ as_component_set_name_variant_suffix (AsComponent *cpt, const gchar *value, cons
 }
 
 /**
- * as_component_get_screenshots:
+ * as_component_get_screenshots_all:
  * @cpt: a #AsComponent instance.
  *
- * Get a list of associated screenshots.
+ * Get a list of all associated screenshots, for all environments.
  *
  * Returns: (element-type AsScreenshot) (transfer none): an array of #AsScreenshot instances
  */
 GPtrArray *
-as_component_get_screenshots (AsComponent *cpt)
+as_component_get_screenshots_all (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return priv->screenshots;
+}
+
+typedef struct {
+	const gchar *env_id;
+	const gchar *style;
+	const gchar *environment;
+	gboolean prioritize_style;
+} AsScreenshotSortHelper;
+
+static gint
+as_screenshot_order_score_helper (AsScreenshot *scr, AsScreenshotSortHelper *helper)
+{
+	const gchar *scr_env = as_screenshot_get_environment (scr);
+
+	if (as_str_equal0 (scr_env, helper->env_id))
+		return -2 * as_screenshot_get_position (scr);
+
+	if (helper->prioritize_style) {
+		if (scr_env != NULL && g_str_has_suffix (scr_env, helper->style))
+			return -1 * as_screenshot_get_position (scr);
+	}
+
+	if (scr_env != NULL && g_str_has_prefix (scr_env, helper->environment))
+		return -1 * as_screenshot_get_position (scr);
+
+	return as_screenshot_get_position (scr);
+}
+
+static gint
+as_screenshots_sort_cb (gconstpointer a, gconstpointer b, gpointer user_data)
+{
+	AsScreenshotSortHelper *helper = user_data;
+	AsScreenshot *scr1 = *((AsScreenshot **) a);
+	AsScreenshot *scr2 = *((AsScreenshot **) b);
+
+	return as_screenshot_order_score_helper (scr1, helper) -
+	       as_screenshot_order_score_helper (scr2, helper);
+}
+
+static gint
+as_screenshots_sort_defaults_cb (gconstpointer a, gconstpointer b)
+{
+	AsScreenshot *scr1 = *((AsScreenshot **) a);
+	AsScreenshot *scr2 = *((AsScreenshot **) b);
+	return as_screenshot_get_position (scr1) - as_screenshot_get_position (scr2);
+}
+
+/**
+ * as_component_sort_screenshots:
+ * @cpt: a #AsComponent instance.
+ * @environment: (nullable): a GUI environment string, e.g. "plasma" or "gnome"
+ * @style: (nullable): and environment style string, e.g. "light" or "dark"
+ * @prioritize_style: if %TRUE, order screenshots of the given style earlier than ones of the given environment.
+ *
+ * Reorder the screenshots to prioritize a certain environment or style, instead of using the default
+ * screenshot order.
+ *
+ * If both "environment" and "style" are %NULL, the previous default order is restored.
+ */
+void
+as_component_sort_screenshots (AsComponent *cpt,
+			       const gchar *environment,
+			       const gchar *style,
+			       gboolean prioritize_style)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_autofree gchar *env_id = NULL;
+	AsScreenshotSortHelper helper;
+
+	if (priv->screenshots == 0)
+		return;
+
+	/* restore defaults if both specifiers are NULL */
+	if (environment == NULL && style == NULL) {
+		/* restore the default order, but only if we changed the order before */
+		if (as_screenshot_get_position (
+			AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, 0))) < 0)
+			return;
+		g_ptr_array_sort (priv->screenshots, as_screenshots_sort_defaults_cb);
+		return;
+	}
+
+	if (environment == NULL)
+		environment = "";
+
+	/* ensure screenshot ordering positions are set */
+	for (guint i = 0; i < priv->screenshots->len; i++) {
+		AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
+		if (as_screenshot_get_position (scr) < 0)
+			as_screenshot_set_position (scr, i);
+	}
+
+	/* construct the environment ID to sort by */
+	env_id = (style == NULL) ? g_strdup (environment)
+				 : g_strconcat (environment, ":", style, NULL);
+
+	/* set helper */
+	helper.environment = environment;
+	helper.style = style;
+	helper.env_id = env_id;
+	helper.prioritize_style = prioritize_style;
+
+	/* sort screenshots */
+	g_ptr_array_sort_with_data (priv->screenshots, as_screenshots_sort_cb, &helper);
 }
 
 /**
@@ -3859,7 +3962,7 @@ as_component_set_branding (AsComponent *cpt, AsBranding *branding)
 }
 
 /**
- * as_component_is_free:
+ * as_component_is_floss:
  * @cpt: a #AsComponent instance.
  *
  * Returns %TRUE if this component is free and open source software.
@@ -3872,7 +3975,7 @@ as_component_set_branding (AsComponent *cpt, AsBranding *branding)
  * Since: 0.15.5
  */
 gboolean
-as_component_is_free (AsComponent *cpt)
+as_component_is_floss (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	gboolean is_free = as_license_is_free_license (priv->project_license);
@@ -4996,6 +5099,9 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	/* screenshots */
 	if (priv->screenshots->len > 0) {
 		xmlNode *rnode = as_xml_add_node (cnode, "screenshots");
+
+		/* restore default screenshot order */
+		as_component_sort_screenshots (cpt, NULL, NULL, FALSE);
 
 		for (guint i = 0; i < priv->screenshots->len; i++) {
 			AsScreenshot *scr = AS_SCREENSHOT (
@@ -6172,6 +6278,9 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 
 	/* Screenshots */
 	if (priv->screenshots->len > 0) {
+		/* restore default screenshot order */
+		as_component_sort_screenshots (cpt, NULL, NULL, FALSE);
+
 		as_yaml_emit_scalar (emitter, "Screenshots");
 		as_yaml_sequence_start (emitter);
 
@@ -6431,7 +6540,7 @@ as_component_get_property (GObject *object, guint property_id, GValue *value, GP
 		g_value_set_string (value, as_component_get_developer_name (cpt));
 		break;
 	case AS_COMPONENT_SCREENSHOTS:
-		g_value_set_boxed (value, as_component_get_screenshots (cpt));
+		g_value_set_boxed (value, as_component_get_screenshots_all (cpt));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);

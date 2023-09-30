@@ -564,11 +564,11 @@ void AppStream::Component::addProvided(const AppStream::Provided &provided)
     as_component_add_provided(d->cpt, provided.asProvided());
 }
 
-QList<Screenshot> Component::screenshots() const
+QList<Screenshot> Component::screenshotsAll() const
 {
     QList<Screenshot> res;
 
-    auto screenshots = as_component_get_screenshots(d->cpt);
+    auto screenshots = as_component_get_screenshots_all(d->cpt);
     res.reserve(screenshots->len);
     for (uint i = 0; i < screenshots->len; i++) {
         auto scr = AS_SCREENSHOT(g_ptr_array_index(screenshots, i));
@@ -780,9 +780,9 @@ void Component::clearTags()
     as_component_clear_tags(d->cpt);
 }
 
-bool Component::isFree() const
+bool Component::isFloss() const
 {
-    return as_component_is_free(d->cpt);
+    return as_component_is_floss(d->cpt);
 }
 
 bool AppStream::Component::isIgnored() const
