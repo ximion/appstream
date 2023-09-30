@@ -31,6 +31,8 @@
 #include "config.h"
 #include "as-checksum-private.h"
 
+#include "as-utils-private.h"
+
 typedef struct {
 	AsChecksumKind kind;
 	gchar *value;
@@ -57,10 +59,12 @@ as_checksum_kind_to_string (AsChecksumKind kind)
 		return "sha1";
 	if (kind == AS_CHECKSUM_KIND_SHA256)
 		return "sha256";
+	if (kind == AS_CHECKSUM_KIND_SHA512)
+		return "sha512";
 	if (kind == AS_CHECKSUM_KIND_BLAKE2B)
 		return "blake2b";
-	if (kind == AS_CHECKSUM_KIND_BLAKE2S)
-		return "blake2s";
+	if (kind == AS_CHECKSUM_KIND_BLAKE3)
+		return "blake3";
 	return "unknown";
 }
 
@@ -75,16 +79,18 @@ as_checksum_kind_to_string (AsChecksumKind kind)
 AsChecksumKind
 as_checksum_kind_from_string (const gchar *kind_str)
 {
-	if (g_strcmp0 (kind_str, "none") == 0)
+	if (as_str_equal0 (kind_str, "none"))
 		return AS_CHECKSUM_KIND_NONE;
-	if (g_strcmp0 (kind_str, "sha1") == 0)
+	if (as_str_equal0 (kind_str, "sha1"))
 		return AS_CHECKSUM_KIND_SHA1;
-	if (g_strcmp0 (kind_str, "sha256") == 0)
+	if (as_str_equal0 (kind_str, "sha256"))
 		return AS_CHECKSUM_KIND_SHA256;
-	if (g_strcmp0 (kind_str, "blake2b") == 0)
+	if (as_str_equal0 (kind_str, "sha512"))
+		return AS_CHECKSUM_KIND_SHA512;
+	if (as_str_equal0 (kind_str, "blake2b"))
 		return AS_CHECKSUM_KIND_BLAKE2B;
-	if (g_strcmp0 (kind_str, "blake2s") == 0)
-		return AS_CHECKSUM_KIND_BLAKE2S;
+	if (as_str_equal0 (kind_str, "blake3"))
+		return AS_CHECKSUM_KIND_BLAKE3;
 	return AS_CHECKSUM_KIND_NONE;
 }
 
