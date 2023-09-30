@@ -19,7 +19,7 @@
 
 #include "appstream.h"
 #include "component-box.h"
-
+#include <optional>
 #include <QSharedData>
 #include <QDebug>
 
