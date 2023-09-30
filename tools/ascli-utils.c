@@ -338,7 +338,9 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		}
 
 		/* long description */
-		str = as_markup_convert_simple (as_component_get_description (cpt), NULL);
+		str = as_markup_convert (as_component_get_description (cpt),
+					 AS_MARKUP_KIND_TEXT,
+					 NULL);
 		ascli_print_key_value (_("Description"), str, TRUE);
 		g_free (str);
 

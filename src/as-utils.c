@@ -183,16 +183,17 @@ as_sanitize_text_spaces (const gchar *text)
 }
 
 /**
- * as_description_markup_convert:
+ * as_markup_convert:
  * @markup: the XML markup to transform.
+ * @to_kind: The markup style to convert into.
  * @error: A #GError or %NULL.
  *
- * Converts XML description markup into other forms of markup.
+ * Converts XML description markup into other forms of text.
  *
- * Returns: (transfer full): a newly allocated %NULL terminated string.
+ * Returns: (transfer full): a newly allocated string, or %NULL on error.
  **/
 gchar *
-as_description_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
+as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 {
 	xmlDoc *doc = NULL;
 	xmlNode *root;
@@ -337,21 +338,6 @@ out:
 			formatted = g_string_free (str, FALSE);
 	}
 	return formatted;
-}
-
-/**
- * as_description_markup_convert_simple:
- * @markup: the XML markup to transform.
- * @error: A #GError or %NULL.
- *
- * Converts an XML description markup into a simple printable form.
- *
- * Returns: (transfer full): a newly allocated %NULL terminated string.
- **/
-gchar *
-as_markup_convert_simple (const gchar *markup, GError **error)
-{
-	return as_description_markup_convert (markup, AS_MARKUP_KIND_TEXT, error);
 }
 
 /**
@@ -2751,7 +2737,7 @@ as_utils_guess_scope_from_path (const gchar *path)
 }
 
 /**
- * as_utils_component_tag_search_weight:
+ * as_utils_get_tag_search_weight:
  * @tag_name: A tag name in a component element, e.g. "name" or "summary" or "keyword"
  *
  * Retrieve the raw search token weight for the given tag name that AppStream uses
@@ -2761,7 +2747,7 @@ as_utils_guess_scope_from_path (const gchar *path)
  * Returns: The tag weight used in (fulltext) searches. 0 for lowest weight/unused.
  */
 guint16
-as_utils_component_tag_search_weight (const gchar *tag_name)
+as_utils_get_tag_search_weight (const gchar *tag_name)
 {
 	if (as_str_equal0 (tag_name, "id"))
 		return AS_SEARCH_TOKEN_MATCH_ID;

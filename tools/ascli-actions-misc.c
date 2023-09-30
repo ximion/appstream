@@ -572,8 +572,9 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 				    _("Developer"), as_component_get_developer_name (cpt));
 		if (detailed) {
 			g_autofree gchar *tmp2 = NULL;
-			g_autofree gchar *tmp1 = as_markup_convert_simple (
+			g_autofree gchar *tmp1 = as_markup_convert (
 			    as_component_get_description (cpt),
+			    AS_MARKUP_KIND_TEXT,
 			    NULL);
 			tmp2 = ascli_format_long_output (tmp1, 100, 2);
 			ascli_print_stdout ("%s:\n%s", _("Description"), tmp2);

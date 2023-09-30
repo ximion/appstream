@@ -276,7 +276,7 @@ public:
     void removeTag(const QString &ns, const QString &tagName);
     void clearTags();
 
-    bool isFree() const;
+    bool isFloss() const;
     bool isIgnored() const;
     bool isValid() const;
 

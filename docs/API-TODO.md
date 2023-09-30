@@ -7,9 +7,6 @@ libappstream API break for the AppStream 1.0 release.
 
 ## TODO
 
- * Sort out the various markup-to-text conversion functions, make some of them public API and maybe rewrite some
-   (there are likely some performance improvements to be found there)
-
  * Review all public API
 
 
@@ -54,3 +51,6 @@ libappstream API break for the AppStream 1.0 release.
  * Drop all bytes+length uses in public API and use GBytes instead if a function takes byte arrays
 
  * Make AsComponentBox/AsReleases available for the Qt bindings
+
+ * Sort out the various markup-to-text conversion functions, make some of them public API and maybe rewrite some
+   (there are likely some performance improvements to be found there)

@@ -780,9 +780,9 @@ void Component::clearTags()
     as_component_clear_tags(d->cpt);
 }
 
-bool Component::isFree() const
+bool Component::isFloss() const
 {
-    return as_component_is_free(d->cpt);
+    return as_component_is_floss(d->cpt);
 }
 
 bool AppStream::Component::isIgnored() const

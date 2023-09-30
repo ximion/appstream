@@ -205,22 +205,23 @@ test_simplemarkup (void)
 	g_autofree gchar *str = NULL;
 	g_autoptr(GError) error = NULL;
 
-	str = as_markup_convert_simple (
-	    "<p>Test!</p><p>Blah.</p><ul><li>A</li><li>B</li></ul><p>End.</p>",
-	    &error);
+	str = as_markup_convert ("<p>Test!</p><p>Blah.</p><ul><li>A</li><li>B</li></ul><p>End.</p>",
+				 AS_MARKUP_KIND_TEXT,
+				 &error);
 	g_assert_no_error (error);
 	g_assert_true (g_strcmp0 (str, "Test!\n\nBlah.\n • A\n • B\n\nEnd.") == 0);
 	g_free (str);
 
-	str = as_markup_convert_simple ("<p>Paragraph using all allowed markup, "
-					"like an <em>emphasis</em> or <code>some code</code>.</p>"
-					"<p>Second paragraph.</p>"
-					"<ul>"
-					"<li>List item, <em>emphasized</em></li>"
-					"<li>Item with <code>a bit of code</code></li>"
-					"</ul>"
-					"<p>Last paragraph.</p>",
-					&error);
+	str = as_markup_convert ("<p>Paragraph using all allowed markup, "
+				 "like an <em>emphasis</em> or <code>some code</code>.</p>"
+				 "<p>Second paragraph.</p>"
+				 "<ul>"
+				 "<li>List item, <em>emphasized</em></li>"
+				 "<li>Item with <code>a bit of code</code></li>"
+				 "</ul>"
+				 "<p>Last paragraph.</p>",
+				 AS_MARKUP_KIND_TEXT,
+				 &error);
 	g_assert_no_error (error);
 	g_assert_true (
 	    g_strcmp0 (str,

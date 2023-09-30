@@ -394,7 +394,7 @@ GHashTable  *as_component_get_name_table (AsComponent *cpt);
 GHashTable  *as_component_get_summary_table (AsComponent *cpt);
 GHashTable  *as_component_get_keywords_table (AsComponent *cpt);
 
-gboolean     as_component_is_free (AsComponent *cpt);
+gboolean     as_component_is_floss (AsComponent *cpt);
 
 gboolean     as_component_load_from_bytes (AsComponent *cpt,
 					   AsContext   *context,

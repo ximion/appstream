@@ -3962,7 +3962,7 @@ as_component_set_branding (AsComponent *cpt, AsBranding *branding)
 }
 
 /**
- * as_component_is_free:
+ * as_component_is_floss:
  * @cpt: a #AsComponent instance.
  *
  * Returns %TRUE if this component is free and open source software.
@@ -3975,7 +3975,7 @@ as_component_set_branding (AsComponent *cpt, AsBranding *branding)
  * Since: 0.15.5
  */
 gboolean
-as_component_is_free (AsComponent *cpt)
+as_component_is_floss (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	gboolean is_free = as_license_is_free_license (priv->project_license);

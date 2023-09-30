@@ -84,10 +84,28 @@ typedef enum {
 	AS_METADATA_LOCATION_LAST
 } AsMetadataLocation;
 
+/**
+ * AsMarkupKind:
+ * @AS_MARKUP_KIND_UNKNOWN:	Unknown markup.
+ * @AS_MARKUP_KIND_XML:		XML markup.
+ * @AS_MARKUP_KIND_TEXT:	Simple text with unicode symbols.
+ * @AS_MARKUP_KIND_MARKDOWN:	Markdown
+ *
+ * Text markup types.
+ **/
+typedef enum {
+	AS_MARKUP_KIND_UNKNOWN,
+	AS_MARKUP_KIND_XML,
+	AS_MARKUP_KIND_TEXT,
+	AS_MARKUP_KIND_MARKDOWN,
+	/*< private >*/
+	AS_MARKUP_KIND_LAST
+} AsMarkupKind;
+
 GQuark	     as_utils_error_quark (void);
 
 gchar	   **as_markup_strsplit_words (const gchar *text, guint line_len);
-gchar	    *as_markup_convert_simple (const gchar *markup, GError **error);
+gchar	    *as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error);
 
 gboolean     as_utils_locale_is_compatible (const gchar *locale1, const gchar *locale2);
 gchar	    *as_utils_posix_locale_to_bcp47 (const gchar *locale);
@@ -130,7 +148,7 @@ gboolean as_utils_install_metadata_file (AsMetadataLocation location,
 
 AsComponentScope as_utils_guess_scope_from_path (const gchar *path);
 
-guint16		 as_utils_component_tag_search_weight (const gchar *tag_name);
+guint16		 as_utils_get_tag_search_weight (const gchar *tag_name);
 
 G_END_DECLS
 
