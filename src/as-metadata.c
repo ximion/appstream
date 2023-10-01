@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2022 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -804,7 +804,7 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
  * @error: A #GError or %NULL.
  *
  * Parses any AppStream release metadata into #AsRelease objects.
- * You can retrieve the last parsed #AsReleases using %as_metadata_get_releases_entry.
+ * You can retrieve the last parsed #AsReleases using %as_metadata_get_releases_block.
  *
  * Returns: %TRUE on success.
  *
@@ -856,7 +856,7 @@ as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **err
  *
  * Parses any AppStream release metadata into #AsRelease objects
  * using the provided file.
- * You can retrieve the last parsed #AsReleases using %as_metadata_get_releases_entry.
+ * You can retrieve the last parsed #AsReleases using %as_metadata_get_releases_block.
  *
  * Returns: %TRUE on success.
  *
@@ -924,7 +924,7 @@ as_metadata_releases_to_data (AsMetadata *metad, AsReleases *releases, GError **
 }
 
 /**
- * as_metadata_get_releases_entry:
+ * as_metadata_get_releases_block:
  * @metad: a #AsMetadata instance.
  *
  * Gets the recently parsed #AsReleases entry.
@@ -932,7 +932,7 @@ as_metadata_releases_to_data (AsMetadata *metad, AsReleases *releases, GError **
  * Returns: (transfer none) (nullable): An #AsReleases or %NULL
  **/
 AsReleases *
-as_metadata_get_releases_entry (AsMetadata *metad)
+as_metadata_get_releases_block (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
@@ -942,13 +942,13 @@ as_metadata_get_releases_entry (AsMetadata *metad)
 }
 
 /**
- * as_metadata_get_releases_entries:
+ * as_metadata_get_releases_blocks:
  * @metad: a #AsMetadata instance.
  *
  * Returns: (transfer none) (element-type AsReleases): A #GPtrArray of all parsed release metadata.
  **/
 GPtrArray *
-as_metadata_get_releases_entries (AsMetadata *metad)
+as_metadata_get_releases_blocks (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	return priv->releases;

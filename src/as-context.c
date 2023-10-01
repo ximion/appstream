@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2022 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -325,13 +325,13 @@ as_context_set_locale (AsContext *ctx, const gchar *locale)
 }
 
 /**
- * as_context_get_locale_all_enabled:
+ * as_context_get_locale_use_all:
  * @ctx: a #AsContext instance.
  *
  * Returns: %TRUE if all locale should be parsed.
  **/
 gboolean
-as_context_get_locale_all_enabled (AsContext *ctx)
+as_context_get_locale_use_all (AsContext *ctx)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 	return g_atomic_int_get (&priv->all_locale);

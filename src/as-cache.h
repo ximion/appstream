@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2018-2022 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2018-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -46,9 +46,9 @@ struct _AsCacheClass {
 
 /**
  * AsCacheScope:
- * @AS_CACHE_SCOPE_UNKNOWN: Unknown scope, or scope is not relevant.
- * @AS_CACHE_SCOPE_SYSTEM: System-wide cache, always considered unwritable.
- * @AS_CACHE_SCOPE_WRITABLE: User-specific cache, always writable.
+ * @AS_CACHE_SCOPE_UNKNOWN:	Unknown scope, or scope is not relevant.
+ * @AS_CACHE_SCOPE_SYSTEM:	System-wide cache, always considered unwritable.
+ * @AS_CACHE_SCOPE_WRITABLE:	User-specific cache, always writable.
  *
  * Scope of the cache.
  **/

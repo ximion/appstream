@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2022 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -70,18 +70,18 @@ struct _AsComponentClass {
  * @AS_COMPONENT_KIND_DESKTOP_APP:	An application with a .desktop-file
  * @AS_COMPONENT_KIND_CONSOLE_APP:	A console application
  * @AS_COMPONENT_KIND_WEB_APP:		A web application
+ * @AS_COMPONENT_KIND_SERVICE:		A system service launched by the init system
  * @AS_COMPONENT_KIND_ADDON:		An extension of existing software, which does not run standalone
+ * @AS_COMPONENT_KIND_OPERATING_SYSTEM: A computer operating system
+ * @AS_COMPONENT_KIND_RUNTIME:		An application runtime platform
  * @AS_COMPONENT_KIND_FONT:		A font
  * @AS_COMPONENT_KIND_CODEC:		A multimedia codec
  * @AS_COMPONENT_KIND_INPUT_METHOD:	An input-method provider
  * @AS_COMPONENT_KIND_FIRMWARE:		Firmware
  * @AS_COMPONENT_KIND_DRIVER:		A driver
  * @AS_COMPONENT_KIND_LOCALIZATION:	Software localization (usually l10n resources)
- * @AS_COMPONENT_KIND_SERVICE:		A system service launched by the init system
  * @AS_COMPONENT_KIND_REPOSITORY:	A remote software or data source
- * @AS_COMPONENT_KIND_OPERATING_SYSTEM: A computer operating system
  * @AS_COMPONENT_KIND_ICON_THEME:	An icon theme following the XDG specification
- * @AS_COMPONENT_KIND_RUNTIME:		An application runtime platform
  *
  * The type of an #AsComponent.
  **/
@@ -91,18 +91,18 @@ typedef enum {
 	AS_COMPONENT_KIND_DESKTOP_APP,
 	AS_COMPONENT_KIND_CONSOLE_APP,
 	AS_COMPONENT_KIND_WEB_APP,
+	AS_COMPONENT_KIND_SERVICE,
 	AS_COMPONENT_KIND_ADDON,
+	AS_COMPONENT_KIND_OPERATING_SYSTEM,
+	AS_COMPONENT_KIND_RUNTIME,
 	AS_COMPONENT_KIND_FONT,
 	AS_COMPONENT_KIND_CODEC,
 	AS_COMPONENT_KIND_INPUT_METHOD,
 	AS_COMPONENT_KIND_FIRMWARE,
 	AS_COMPONENT_KIND_DRIVER,
 	AS_COMPONENT_KIND_LOCALIZATION,
-	AS_COMPONENT_KIND_SERVICE,
 	AS_COMPONENT_KIND_REPOSITORY,
-	AS_COMPONENT_KIND_OPERATING_SYSTEM,
 	AS_COMPONENT_KIND_ICON_THEME,
-	AS_COMPONENT_KIND_RUNTIME,
 	/*< private >*/
 	AS_COMPONENT_KIND_LAST
 } AsComponentKind;
@@ -231,9 +231,9 @@ AsComponentScope as_component_get_scope (AsComponent *cpt);
 void		 as_component_set_scope (AsComponent *cpt, AsComponentScope scope);
 
 gchar		*as_component_get_pkgname (AsComponent *cpt);
+void		 as_component_set_pkgname (AsComponent *cpt, const gchar *pkgname);
 gchar	       **as_component_get_pkgnames (AsComponent *cpt);
 void		 as_component_set_pkgnames (AsComponent *cpt, gchar **packages);
-void		 as_component_set_pkgname (AsComponent *cpt, const gchar *pkgname);
 
 const gchar	*as_component_get_source_pkgname (AsComponent *cpt);
 void		 as_component_set_source_pkgname (AsComponent *cpt, const gchar *spkgname);
@@ -256,6 +256,7 @@ void	      as_component_set_metadata_license (AsComponent *cpt, const gchar *val
 
 const gchar  *as_component_get_project_license (AsComponent *cpt);
 void	      as_component_set_project_license (AsComponent *cpt, const gchar *value);
+gboolean      as_component_is_floss (AsComponent *cpt);
 
 const gchar  *as_component_get_project_group (AsComponent *cpt);
 void	      as_component_set_project_group (AsComponent *cpt, const gchar *value);
@@ -272,11 +273,11 @@ void	    as_component_add_category (AsComponent *cpt, const gchar *category);
 gboolean    as_component_has_category (AsComponent *cpt, const gchar *category);
 
 GPtrArray  *as_component_get_screenshots_all (AsComponent *cpt);
+void	    as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot);
 void	    as_component_sort_screenshots (AsComponent *cpt,
 					   const gchar *environment,
 					   const gchar *style,
 					   gboolean	prioritize_style);
-void	    as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot);
 
 GPtrArray  *as_component_get_keywords (AsComponent *cpt);
 void	    as_component_set_keywords (AsComponent *cpt,
@@ -393,8 +394,6 @@ void	     as_component_add_review (AsComponent *cpt, AsReview *review);
 GHashTable  *as_component_get_name_table (AsComponent *cpt);
 GHashTable  *as_component_get_summary_table (AsComponent *cpt);
 GHashTable  *as_component_get_keywords_table (AsComponent *cpt);
-
-gboolean     as_component_is_floss (AsComponent *cpt);
 
 gboolean     as_component_load_from_bytes (AsComponent *cpt,
 					   AsContext   *context,

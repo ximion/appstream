@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2022 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2023 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C) 2014-2016 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -2383,6 +2383,13 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 		destdir = "";
 	if (location == AS_METADATA_LOCATION_USER)
 		destdir = "";
+	if (location == AS_METADATA_LOCATION_UNKNOWN) {
+		g_set_error_literal (error,
+				     AS_UTILS_ERROR,
+				     AS_UTILS_ERROR_FAILED,
+				     "Installation location was unknown.");
+		return FALSE;
+	}
 
 	switch (as_metadata_file_guess_style (filename)) {
 	case AS_FORMAT_STYLE_CATALOG:

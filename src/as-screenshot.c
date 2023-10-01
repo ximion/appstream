@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2022 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2023 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C) 2014 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -452,7 +452,7 @@ as_screenshot_rebuild_suitable_media_list (AsScreenshot *screenshot)
 	gboolean all_locale = FALSE;
 	const gchar *active_locale = as_screenshot_get_active_locale (screenshot);
 
-	all_locale = as_context_get_locale_all_enabled (priv->context);
+	all_locale = as_context_get_locale_use_all (priv->context);
 
 	/* rebuild our list of images suitable for the current locale */
 	g_ptr_array_unref (priv->images_lang);

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2022 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -127,7 +127,7 @@ as_xml_get_node_locale_match (AsContext *ctx, xmlNode *node)
 		goto out;
 	}
 
-	if (as_context_get_locale_all_enabled (ctx)) {
+	if (as_context_get_locale_use_all (ctx)) {
 		/* we should read all languages */
 		goto out;
 	}

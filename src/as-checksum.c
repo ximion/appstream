@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2022 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -269,7 +269,7 @@ as_checksum_emit_yaml (AsChecksum *cs, AsContext *ctx, yaml_emitter_t *emitter)
 }
 
 /**
- * as_checksum_new_for_kind_value:
+ * as_checksum_new_with_value:
  *
  * Creates a new #AsChecksum with the given hash
  * function and hash value.
@@ -279,7 +279,7 @@ as_checksum_emit_yaml (AsChecksum *cs, AsContext *ctx, yaml_emitter_t *emitter)
  * Since: 0.12.11
  **/
 AsChecksum *
-as_checksum_new_for_kind_value (AsChecksumKind kind, const gchar *value)
+as_checksum_new_with_value (AsChecksumKind kind, const gchar *value)
 {
 	AsChecksum *cs = as_checksum_new ();
 	as_checksum_set_kind (cs, kind);

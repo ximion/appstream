@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2022 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -68,6 +68,7 @@ typedef enum {
 
 /**
  * AsMetadataLocation:
+ * @AS_METADATA_LOCATION_UNKNOWN:	An unknown/invalid location.
  * @AS_METADATA_LOCATION_SHARED:	Installed by the vendor, shared
  * @AS_METADATA_LOCATION_STATE:		Installed as metadata into /var/lib, shared
  * @AS_METADATA_LOCATION_CACHE:		Installed as metadata into /var/cache, shared
@@ -76,6 +77,7 @@ typedef enum {
  * The flags used when installing and removing metadata files.
  **/
 typedef enum {
+	AS_METADATA_LOCATION_UNKNOWN,
 	AS_METADATA_LOCATION_SHARED,
 	AS_METADATA_LOCATION_STATE,
 	AS_METADATA_LOCATION_CACHE,

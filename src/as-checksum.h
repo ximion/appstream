@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2022 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -69,7 +69,7 @@ const gchar   *as_checksum_kind_to_string (AsChecksumKind kind);
 AsChecksumKind as_checksum_kind_from_string (const gchar *kind_str);
 
 AsChecksum    *as_checksum_new (void);
-AsChecksum    *as_checksum_new_for_kind_value (AsChecksumKind kind, const gchar *value);
+AsChecksum    *as_checksum_new_with_value (AsChecksumKind kind, const gchar *value);
 
 AsChecksumKind as_checksum_get_kind (AsChecksum *cs);
 void	       as_checksum_set_kind (AsChecksum *cs, AsChecksumKind kind);

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2018-2022 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2018-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -25,9 +25,9 @@
 #include <glib/gi18n-lib.h>
 
 #include "as-validator-issue.h"
+#include "as-macros-private.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 typedef struct {
 	const gchar    *tag;
@@ -1090,7 +1090,6 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 };
 /* clang-format on */
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_VALIDATOR_ISSUE_TAG_H */
