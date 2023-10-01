@@ -24,6 +24,7 @@
 
 #include <QStringList>
 #include <QUrl>
+#include <QVariant>
 #include <QLoggingCategory>
 #include "chelpers.h"
 
@@ -212,17 +213,17 @@ Pool::Flags Pool::flags() const
 
 void Pool::setFlags(Pool::Flags flags)
 {
-    as_pool_set_flags(d->pool, (AsPoolFlags) flags.toInt());
+    as_pool_set_flags(d->pool, (AsPoolFlags) (flags==int()));
 }
 
 void Pool::addFlags(Pool::Flags flags)
 {
-    as_pool_add_flags(d->pool, (AsPoolFlags) flags.toInt());
+    as_pool_add_flags(d->pool, (AsPoolFlags) (flags==int()));
 }
 
 void Pool::removeFlags(Pool::Flags flags)
 {
-    as_pool_remove_flags(d->pool, (AsPoolFlags) flags.toInt());
+    as_pool_remove_flags(d->pool, (AsPoolFlags) (flags==int()));
 }
 
 void Pool::resetExtraDataLocations()

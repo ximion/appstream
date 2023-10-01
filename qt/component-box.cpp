@@ -19,7 +19,7 @@
 
 #include "appstream.h"
 #include "component-box.h"
-#include <optional>
+
 #include <QSharedData>
 #include <QDebug>
 
@@ -30,7 +30,7 @@ class AppStream::ComponentBoxData : public QSharedData
 public:
     ComponentBoxData(ComponentBox::Flags flags)
     {
-        m_cbox = as_component_box_new(static_cast<AsComponentBoxFlags>(flags.toInt()));
+        m_cbox = as_component_box_new(static_cast<AsComponentBoxFlags>(flags==int()));
     }
 
     ComponentBoxData(AsComponentBox *cbox)
