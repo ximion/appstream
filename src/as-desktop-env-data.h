@@ -89,6 +89,8 @@ AsGUIEnvStyleData as_gui_env_style_data[] = {
 	{ "lxde", N_("LXDE") },
 	/* TRANSLATORS: Name of the "lxqt" visual environment style. */
 	{ "lxqt", N_("LXQt") },
+	/* TRANSLATORS: Name of the "macos" visual environment style. */
+	{ "macos", N_("macOS") },
 	/* TRANSLATORS: Name of the "mate" visual environment style. */
 	{ "mate", N_("Mate") },
 	/* TRANSLATORS: Name of the "pantheon" visual environment style. */
@@ -101,6 +103,8 @@ AsGUIEnvStyleData as_gui_env_style_data[] = {
 	{ "rox", N_("Rox") },
 	/* TRANSLATORS: Name of the "unity" visual environment style. */
 	{ "unity", N_("Unity") },
+	/* TRANSLATORS: Name of the "windows" visual environment style. */
+	{ "windows", N_("Microsoft Windows") },
 	/* TRANSLATORS: Name of the "xfce" visual environment style. */
 	{ "xfce", N_("Xfce") },
 	{ NULL, NULL },
