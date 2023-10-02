@@ -472,7 +472,13 @@ as_get_physical_memory_total (void)
 	return 0;
 #elif defined(__FreeBSD__)
 	unsigned long physmem;
-	sysctl ((int[]){ CTL_HW, HW_PHYSMEM }, 2, &physmem, &(size_t){ sizeof (physmem) }, NULL, 0);
+	size_t len = sizeof (physmem);
+	int mib[2] = { CTL_HW, HW_PHYSMEM };
+
+	if (sysctl (mib, 2, &physmem, &len, NULL, 0) == -1) {
+		g_warning ("Unable to determine physical memory size: %s", g_strerror (errno));
+		return 0;
+	}
 	return physmem / MB_IN_BYTES;
 #elif defined(G_OS_WIN32)
 	MEMORYSTATUSEX statex;
