@@ -35,16 +35,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-09-30 00:32+0200\n"
-"PO-Revision-Date: 2023-08-11 03:51+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"appstream/translations/pt_BR/>\n"
+"PO-Revision-Date: 2023-10-02 11:00+0000\n"
+"Last-Translator: Fernando Lopes <118869201+plasmus777@users.noreply.github.com>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -998,32 +997,31 @@ msgstr "O tamanho de arquivo obtidos foi zero."
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
 #: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:77
 msgid "Cinnamon"
-msgstr ""
+msgstr "Cinnamon"
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
 #: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:79
 msgid "Deepin"
-msgstr ""
+msgstr "Deepin"
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
 #: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:81
 msgid "EDE"
-msgstr ""
+msgstr "EDE"
 
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #. TRANSLATORS: Name of the "endless" visual environment style.
 #: src/as-desktop-env-data.h:49 src/as-desktop-env-data.h:83
-#, fuzzy
 msgid "Endless"
-msgstr "Pacote"
+msgstr "Endless"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
 #: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #. TRANSLATORS: Name of the "KDE" desktop environment.
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
@@ -1031,68 +1029,68 @@ msgstr ""
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
 #: src/as-desktop-env-data.h:97
 msgid "KDE Plasma"
-msgstr ""
+msgstr "KDE Plasma"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
 #: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:89
 msgid "LXDE"
-msgstr ""
+msgstr "LXDE"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
 #: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:91
 msgid "LXQt"
-msgstr ""
+msgstr "LXQt"
 
 #. TRANSLATORS: Name of the "MATE" desktop environment.
 #: src/as-desktop-env-data.h:59
 msgid "MATE"
-msgstr ""
+msgstr "MATE"
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
 #: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:95
 msgid "Pantheon"
-msgstr ""
+msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
 #: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:99
 msgid "Razor"
-msgstr ""
+msgstr "Razor"
 
 #. TRANSLATORS: Name of the "ROX" desktop environment.
 #: src/as-desktop-env-data.h:67
 msgid "ROX"
-msgstr ""
+msgstr "ROX"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
 #: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:103
 msgid "Unity"
-msgstr ""
+msgstr "Unity"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
 #: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:105
 msgid "Xfce"
-msgstr ""
+msgstr "Xfce"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
 msgid "GNOME (Dark)"
-msgstr ""
+msgstr "GNOME (Escuro)"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:93
 msgid "Mate"
-msgstr ""
+msgstr "Mate"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:101
 msgid "Rox"
-msgstr ""
+msgstr "Rox"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -1440,10 +1438,8 @@ msgid "This system has sufficient memory for this software."
 msgstr "Este sistema tem memória suficiente para este software."
 
 #: src/as-relation.c:1834
-#, fuzzy
 msgid "This software needs a display for graphical content."
-msgstr ""
-"Este software recomenda o uso de um dispositivo do tipo %s como entrada."
+msgstr "Este software precisa de um monitor para conteúdo gráfico."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1502,1012 +1498,990 @@ msgstr ""
 
 #: src/as-spdx-data.h:27
 msgid "BSD Zero Clause License"
-msgstr ""
+msgstr "Licença BSD Cláusula Zero"
 
 #: src/as-spdx-data.h:28
 msgid "Attribution Assurance License"
-msgstr ""
+msgstr "Licença de Garantia de Atribuição"
 
 #: src/as-spdx-data.h:29
 msgid "Amazon Digital Services License"
-msgstr ""
+msgstr "Licença de Serviços Digitais da Amazon"
 
 #: src/as-spdx-data.h:30
 msgid "Academic Free License v1.1"
-msgstr ""
+msgstr "Licença Livre Acadêmica v1.1"
 
 #: src/as-spdx-data.h:31
 msgid "Academic Free License v1.2"
-msgstr ""
+msgstr "Licença Livre Acadêmica v1.2"
 
 #: src/as-spdx-data.h:32
 msgid "Academic Free License v2.0"
-msgstr ""
+msgstr "Licença Livre Acadêmica v2.0"
 
 #: src/as-spdx-data.h:33
 msgid "Academic Free License v2.1"
-msgstr ""
+msgstr "Licença Livre Acadêmica v2.1"
 
 #: src/as-spdx-data.h:34
 msgid "Academic Free License v3.0"
-msgstr ""
+msgstr "Licença Livre Acadêmica v3.0"
 
 #: src/as-spdx-data.h:35
 msgid "Affero General Public License v1.0"
-msgstr ""
+msgstr "Licença Pública Geral Affero v1.0"
 
 #: src/as-spdx-data.h:36
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "Licença Pública Geral Affero v1.0 apenas"
 
 #: src/as-spdx-data.h:37
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Licença Pública Geral Affero v1.0 ou posterior"
 
 #: src/as-spdx-data.h:38
 msgid "GNU Affero General Public License v3.0"
-msgstr ""
+msgstr "Licença Pública Geral GNU Affero v3.0"
 
 #: src/as-spdx-data.h:39
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "Licença Pública Geral GNU Affero v3.0 apenas"
 
 #: src/as-spdx-data.h:40
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "Licença Pública Geral GNU Affero v3.0 ou posterior"
 
 #: src/as-spdx-data.h:41
 msgid "AMD's plpa_map.c License"
-msgstr ""
+msgstr "Licença plpa_map.c da AMD"
 
 #: src/as-spdx-data.h:42
 msgid "Apple MIT License"
-msgstr ""
+msgstr "Licença MIT da Apple"
 
 #: src/as-spdx-data.h:43
 msgid "Academy of Motion Picture Arts and Sciences BSD"
-msgstr ""
+msgstr "Academia de Artes e Ciências Cinematográficas BSD"
 
 #: src/as-spdx-data.h:44
 msgid "ANTLR Software Rights Notice"
-msgstr ""
+msgstr "Aviso de Direitos de Software ANTLR"
 
 #: src/as-spdx-data.h:45
 msgid "ANTLR Software Rights Notice with license fallback"
-msgstr ""
+msgstr "Aviso de Direitos de Software ANTLR com fallback de licença"
 
 #: src/as-spdx-data.h:46
 msgid "Adobe Postscript AFM License"
-msgstr ""
+msgstr "Licença Adobe Postscript AFM"
 
 #: src/as-spdx-data.h:47
 msgid "Adaptive Public License 1.0"
-msgstr ""
+msgstr "Licença Pública Adaptável 1.0"
 
 #: src/as-spdx-data.h:48
 msgid "Apple Public Source License 1.0"
-msgstr ""
+msgstr "Licença de Fonte Pública da Apple 1.0"
 
 #: src/as-spdx-data.h:49
 msgid "Apple Public Source License 1.1"
-msgstr ""
+msgstr "Licença de Fonte Pública da Apple 1.1"
 
 #: src/as-spdx-data.h:50
 msgid "Apple Public Source License 1.2"
-msgstr ""
+msgstr "Licença de Fonte Pública da Apple 1.2"
 
 #: src/as-spdx-data.h:51
 msgid "Apple Public Source License 2.0"
-msgstr ""
+msgstr "Licença de Fonte Pública da Apple 2.0"
 
 #: src/as-spdx-data.h:52
 msgid "ASWF Digital Assets License version 1.0"
-msgstr ""
+msgstr "Licença de Ativos Digitais ASWF versão 1.0"
 
 #: src/as-spdx-data.h:53
 msgid "ASWF Digital Assets License 1.1"
-msgstr ""
+msgstr "Licença de Ativos Digitais ASWF versão 1.1"
 
 #: src/as-spdx-data.h:54
-#, fuzzy
 msgid "Abstyles License"
-msgstr "Licença"
+msgstr "Licença Abstyles"
 
 #: src/as-spdx-data.h:55
 msgid "AdaCore Doc License"
-msgstr ""
+msgstr "Licença AdaCore Doc"
 
 #: src/as-spdx-data.h:56
 msgid "Adobe Systems Incorporated Source Code License Agreement"
-msgstr ""
+msgstr "Contrato de Licença do Código-fonte Incorporado da Adobe Systems"
 
 #: src/as-spdx-data.h:57
 msgid "Adobe Glyph List License"
-msgstr ""
+msgstr "Licença da Lista de Glifos da Adobe"
 
 #: src/as-spdx-data.h:58
 msgid "Adobe Utopia Font License"
-msgstr ""
+msgstr "Licença da Fonte Utopia Adobe"
 
 #: src/as-spdx-data.h:59
-#, fuzzy
 msgid "Afmparse License"
-msgstr "Licença"
+msgstr "Licença Afmparse"
 
 #: src/as-spdx-data.h:60
 msgid "Aladdin Free Public License"
-msgstr ""
+msgstr "Licença Pública Livre Aladdin"
 
 #: src/as-spdx-data.h:61
 msgid "Apache License 1.0"
-msgstr ""
+msgstr "Licença Apache 1.0"
 
 #: src/as-spdx-data.h:62
 msgid "Apache License 1.1"
-msgstr ""
+msgstr "Licença Apache 1.1"
 
 #: src/as-spdx-data.h:63
 msgid "Apache License 2.0"
-msgstr ""
+msgstr "Licença Apache 2.0"
 
 #: src/as-spdx-data.h:64
-#, fuzzy
 msgid "App::s2p License"
-msgstr "Licença"
+msgstr "Licença App::s2p"
 
 #: src/as-spdx-data.h:65
 msgid "Arphic Public License"
-msgstr ""
+msgstr "Licença Pública Arphic"
 
 #: src/as-spdx-data.h:66
 msgid "Artistic License 1.0"
-msgstr ""
+msgstr "Licença Artística 1.0"
 
 #: src/as-spdx-data.h:67
 msgid "Artistic License 1.0 (Perl)"
-msgstr ""
+msgstr "Licença Artística 1.0 (Perl)"
 
 #: src/as-spdx-data.h:68
 msgid "Artistic License 1.0 w/clause 8"
-msgstr ""
+msgstr "Licença Artística 1.0 sem cláusula 8"
 
 #: src/as-spdx-data.h:69
 msgid "Artistic License 2.0"
-msgstr ""
+msgstr "Licença Artística 2.0"
 
 #: src/as-spdx-data.h:70
 msgid "BSD 1-Clause License"
-msgstr ""
+msgstr "Licença BSD 1-Cláusula"
 
 #: src/as-spdx-data.h:71
 msgid "BSD 2-Clause \"Simplified\" License"
-msgstr ""
+msgstr "Licença BSD 2-Cláusula \"Simplificada\""
 
 #: src/as-spdx-data.h:72
 msgid "BSD 2-Clause FreeBSD License"
-msgstr ""
+msgstr "Licença BSD 2-Cláusula FreeBSD"
 
 #: src/as-spdx-data.h:73
 msgid "BSD 2-Clause NetBSD License"
-msgstr ""
+msgstr "Licença BSD 2-Cláusula NetBSD"
 
 #: src/as-spdx-data.h:74
 msgid "BSD-2-Clause Plus Patent License"
-msgstr ""
+msgstr "Licença BSD 2-Cláusula Mais Patente"
 
 #: src/as-spdx-data.h:75
 msgid "BSD 2-Clause with views sentence"
-msgstr ""
+msgstr "BSD 2-Cláusula com sentença de vista"
 
 #: src/as-spdx-data.h:76
 msgid "BSD 3-Clause \"New\" or \"Revised\" License"
-msgstr ""
+msgstr "Licença BSD 3-Cláusula \"Nova\" ou \"Revista\""
 
 #: src/as-spdx-data.h:77
 msgid "BSD with attribution"
-msgstr ""
+msgstr "BSD com atribuição"
 
 #: src/as-spdx-data.h:78
 msgid "BSD 3-Clause Clear License"
-msgstr ""
+msgstr "Licença BSD 3-Cláusula Limpa"
 
 #: src/as-spdx-data.h:79
 msgid "Lawrence Berkeley National Labs BSD variant license"
-msgstr ""
+msgstr "Licença Lawrence Berkeley National Labs BSD variante"
 
 #: src/as-spdx-data.h:80
 msgid "BSD 3-Clause Modification"
-msgstr ""
+msgstr "BSD 3-Cláusula Modificação"
 
 #: src/as-spdx-data.h:81
 msgid "BSD 3-Clause No Military License"
-msgstr ""
+msgstr "Licença BSD 3-Cláusula Não Militar"
 
 #: src/as-spdx-data.h:82
 msgid "BSD 3-Clause No Nuclear License"
-msgstr ""
+msgstr "Licença BSD 3-Cláusula Não Nuclear"
 
 #: src/as-spdx-data.h:83
 msgid "BSD 3-Clause No Nuclear License 2014"
-msgstr ""
+msgstr "Licença BSD 3-Cláusula Não Nuclear 2014"
 
 #: src/as-spdx-data.h:84
 msgid "BSD 3-Clause No Nuclear Warranty"
-msgstr ""
+msgstr "BSD 3-Cláusula Sem Garantia Nuclear"
 
 #: src/as-spdx-data.h:85
 msgid "BSD 3-Clause Open MPI variant"
-msgstr ""
+msgstr "BSD 3-Cláusula variante MPI Livre"
 
 #: src/as-spdx-data.h:86
 msgid "BSD 3-Clause Sun Microsystems"
-msgstr ""
+msgstr "BSD 3-Cláusula Sun Microsystems"
 
 #: src/as-spdx-data.h:87
 msgid "BSD 4-Clause \"Original\" or \"Old\" License"
-msgstr ""
+msgstr "Licença BSD 4-Cláusula \"Original\" ou \"Antiga\""
 
 #: src/as-spdx-data.h:88
 msgid "BSD 4 Clause Shortened"
-msgstr ""
+msgstr "BSD 4-Cláusula Encurtada"
 
 #: src/as-spdx-data.h:89
 msgid "BSD-4-Clause (University of California-Specific)"
-msgstr ""
+msgstr "BSD 3-Cláusula (Específica para a Universidade da Califórnia)"
 
 #: src/as-spdx-data.h:90
 msgid "BSD 4.3 RENO License"
-msgstr ""
+msgstr "Licença BSD 4.3 RENO"
 
 #: src/as-spdx-data.h:91
 msgid "BSD 4.3 TAHOE License"
-msgstr ""
+msgstr "Licença BSD 4.3 TAHOE"
 
 #: src/as-spdx-data.h:92
 msgid "BSD Advertising Acknowledgement License"
-msgstr ""
+msgstr "Licença de Reconhecimento de Publicidade BSD"
 
 #: src/as-spdx-data.h:93
 msgid "BSD with Attribution and HPND disclaimer"
-msgstr ""
+msgstr "BSD com Atribuição e isenção de responsabilidade HPND"
 
 #: src/as-spdx-data.h:94
 msgid "BSD-Inferno-Nettverk"
-msgstr ""
+msgstr "BSD-Inferno-Nettverk"
 
 #: src/as-spdx-data.h:95
 msgid "BSD Protection License"
-msgstr ""
+msgstr "Licença de Proteção BSD"
 
 #: src/as-spdx-data.h:96
 msgid "BSD Source Code Attribution"
-msgstr ""
+msgstr "Atribuição de Código Fonte BSD"
 
 #: src/as-spdx-data.h:97
 msgid "Systemics BSD variant license"
-msgstr ""
+msgstr "Licença BSD variante Systemics"
 
 #: src/as-spdx-data.h:98
 msgid "Boost Software License 1.0"
-msgstr ""
+msgstr "Licença de Software Boost 1.0"
 
 #: src/as-spdx-data.h:99
 msgid "Business Source License 1.1"
-msgstr ""
+msgstr "Licença de Origem Empresarial 1.1"
 
 #: src/as-spdx-data.h:100
-#, fuzzy
 msgid "Baekmuk License"
-msgstr "Licença"
+msgstr "Licença Baekmuk"
 
 #: src/as-spdx-data.h:101
-#, fuzzy
 msgid "Bahyph License"
-msgstr "Licença"
+msgstr "Licença Bahyph"
 
 #: src/as-spdx-data.h:102
-#, fuzzy
 msgid "Barr License"
-msgstr "Licença"
+msgstr "Licença Barr"
 
 #: src/as-spdx-data.h:103
-#, fuzzy
 msgid "Beerware License"
-msgstr "Licença"
+msgstr "Licença Beerware"
 
 #: src/as-spdx-data.h:104
 msgid "BitTorrent Open Source License v1.0"
-msgstr ""
+msgstr "Licença de Código Aberto BitTorrent v1.0"
 
 #: src/as-spdx-data.h:105
 msgid "BitTorrent Open Source License v1.1"
-msgstr ""
+msgstr "Licença de Código Aberto BitTorrent v1.1"
 
 #: src/as-spdx-data.h:106
 msgid "Bitstream Charter Font License"
-msgstr ""
+msgstr "Licença de Fonte Bitstream Charter"
 
 #: src/as-spdx-data.h:107
 msgid "Bitstream Vera Font License"
-msgstr ""
+msgstr "Licença de Fonte Bitstream Vera"
 
 #: src/as-spdx-data.h:108
 msgid "Blue Oak Model License 1.0.0"
-msgstr ""
+msgstr "Licença Blue Oak Model 1.0.0"
 
 #: src/as-spdx-data.h:109
 msgid "Boehm-Demers-Weiser GC License"
-msgstr ""
+msgstr "Licença GC Boehm-Demers-Weiser"
 
 #: src/as-spdx-data.h:110
-#, fuzzy
 msgid "Borceux license"
-msgstr "licença"
+msgstr "Licença Borceux"
 
 #: src/as-spdx-data.h:111
 msgid "Brian Gladman 3-Clause License"
-msgstr ""
+msgstr "Licença Brian Gladman 3-Cláusula"
 
 #: src/as-spdx-data.h:112
 msgid "Computational Use of Data Agreement v1.0"
-msgstr ""
+msgstr "Contrato de Uso Computacional de Dados v1.0"
 
 #: src/as-spdx-data.h:113
 msgid "Cryptographic Autonomy License 1.0"
-msgstr ""
+msgstr "Licença de Autonomia Criptográfica 1.0"
 
 #: src/as-spdx-data.h:114
 msgid "Cryptographic Autonomy License 1.0 (Combined Work Exception)"
-msgstr ""
+msgstr "Licença de Autonomia Criptográfica 1.0 (Exceção de Trabalho Combinado)"
 
 #: src/as-spdx-data.h:115
 msgid "Computer Associates Trusted Open Source License 1.1"
-msgstr ""
+msgstr "Licença de Código Aberto confiável da Computer Associates 1.1"
 
 #: src/as-spdx-data.h:116
 msgid "Creative Commons Attribution 1.0 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons 1.0 Genérica"
 
 #: src/as-spdx-data.h:117
 msgid "Creative Commons Attribution 2.0 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons 2.0 Genérica"
 
 #: src/as-spdx-data.h:118
 msgid "Creative Commons Attribution 2.5 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons 2.5 Genérica"
 
 #: src/as-spdx-data.h:119
 msgid "Creative Commons Attribution 2.5 Australia"
-msgstr ""
+msgstr "Atribuição Creative Commons 2.5 Austrália"
 
 #: src/as-spdx-data.h:120
 msgid "Creative Commons Attribution 3.0 Unported"
-msgstr ""
+msgstr "Atribuição Creative Commons 3.0 Não Portada"
 
 #: src/as-spdx-data.h:121
 msgid "Creative Commons Attribution 3.0 Austria"
-msgstr ""
+msgstr "Atribuição Creative Commons 3.0 Áustria"
 
 #: src/as-spdx-data.h:122
 msgid "Creative Commons Attribution 3.0 Germany"
-msgstr ""
+msgstr "Atribuição Creative Commons 3.0 Alemanha"
 
 #: src/as-spdx-data.h:123
 msgid "Creative Commons Attribution 3.0 IGO"
-msgstr ""
+msgstr "Atribuição Creative Commons 3.0 IGO"
 
 #: src/as-spdx-data.h:124
 msgid "Creative Commons Attribution 3.0 Netherlands"
-msgstr ""
+msgstr "Atribuição Creative Commons 3.0 Países Baixos"
 
 #: src/as-spdx-data.h:125
 msgid "Creative Commons Attribution 3.0 United States"
-msgstr ""
+msgstr "Atribuição Creative Commons 3.0 Estados Unidos"
 
 #: src/as-spdx-data.h:126
 msgid "Creative Commons Attribution 4.0 International"
-msgstr ""
+msgstr "Atribuição Creative Commons 4.0 Internacional"
 
 #: src/as-spdx-data.h:127
 msgid "Creative Commons Attribution Non Commercial 1.0 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Não Comercial 1.0 Genérica"
 
 #: src/as-spdx-data.h:128
 msgid "Creative Commons Attribution Non Commercial 2.0 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Não Comercial 2.0 Genérica"
 
 #: src/as-spdx-data.h:129
 msgid "Creative Commons Attribution Non Commercial 2.5 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Não Comercial 2.5 Genérica"
 
 #: src/as-spdx-data.h:130
 msgid "Creative Commons Attribution Non Commercial 3.0 Unported"
-msgstr ""
+msgstr "Atribuição Creative Commons Não Comercial 3.0 Não Portada"
 
 #: src/as-spdx-data.h:131
 msgid "Creative Commons Attribution Non Commercial 3.0 Germany"
-msgstr ""
+msgstr "Atribuição Creative Commons Não Comercial 3.0 Alemanha"
 
 #: src/as-spdx-data.h:132
 msgid "Creative Commons Attribution Non Commercial 4.0 International"
-msgstr ""
+msgstr "Atribuição Creative Commons Não Comercial 4.0 Internacional"
 
 #: src/as-spdx-data.h:133
 msgid "Creative Commons Attribution Non Commercial No Derivatives 1.0 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Não Comercial Sem Derivativas 1.0 Genérica"
 
 #: src/as-spdx-data.h:134
 msgid "Creative Commons Attribution Non Commercial No Derivatives 2.0 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Não Comercial Sem Derivativas 2.0 Genérica"
 
 #: src/as-spdx-data.h:135
 msgid "Creative Commons Attribution Non Commercial No Derivatives 2.5 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Não Comercial Sem Derivativas 2.5 Genérica"
 
 #: src/as-spdx-data.h:136
 msgid "Creative Commons Attribution Non Commercial No Derivatives 3.0 Unported"
-msgstr ""
+msgstr "Atribuição Creative Commons Não Comercial Sem Derivativas 3.0 Não Portada"
 
 #: src/as-spdx-data.h:137
 msgid "Creative Commons Attribution Non Commercial No Derivatives 3.0 Germany"
-msgstr ""
+msgstr "Atribuição Creative Commons Não Comercial Sem Derivativas 3.0 Alemanha"
 
 #: src/as-spdx-data.h:138
 msgid "Creative Commons Attribution Non Commercial No Derivatives 3.0 IGO"
-msgstr ""
+msgstr "Atribuição Creative Commons Não Comercial Sem Derivativas 3.0 IGO"
 
 #: src/as-spdx-data.h:139
 msgid ""
 "Creative Commons Attribution Non Commercial No Derivatives 4.0 International"
-msgstr ""
+msgstr "Atribuição Creative Commons Não Comercial Sem Derivativas 4.0 Internacional"
 
 #: src/as-spdx-data.h:140
 msgid "Creative Commons Attribution Non Commercial Share Alike 1.0 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Não Comercial Igual 1.0 Genérica"
 
 #: src/as-spdx-data.h:141
 msgid "Creative Commons Attribution Non Commercial Share Alike 2.0 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Não Comercial Igual 2.0 Genérica"
 
 #: src/as-spdx-data.h:142
 msgid "Creative Commons Attribution Non Commercial Share Alike 2.0 Germany"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Não Comercial Igual 2.0 Alemanha"
 
 #: src/as-spdx-data.h:143
 msgid "Creative Commons Attribution-NonCommercial-ShareAlike 2.0 France"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Não Comercial Igual 2.0 França"
 
 #: src/as-spdx-data.h:144
 msgid ""
 "Creative Commons Attribution Non Commercial Share Alike 2.0 England and Wales"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Não Comercial Igual 2.0 Inglaterra e País de Gales"
 
 #: src/as-spdx-data.h:145
 msgid "Creative Commons Attribution Non Commercial Share Alike 2.5 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Não Comercial Igual 2.5 Genérica"
 
 #: src/as-spdx-data.h:146
 msgid "Creative Commons Attribution Non Commercial Share Alike 3.0 Unported"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Não Comercial Igual 3.0 Não Portada"
 
 #: src/as-spdx-data.h:147
 msgid "Creative Commons Attribution Non Commercial Share Alike 3.0 Germany"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Não Comercial Igual 3.0 Alemanha"
 
 #: src/as-spdx-data.h:148
 msgid "Creative Commons Attribution Non Commercial Share Alike 3.0 IGO"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Não Comercial Igual 3.0 IGO"
 
 #: src/as-spdx-data.h:149
 msgid ""
 "Creative Commons Attribution Non Commercial Share Alike 4.0 International"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Não Comercial Igual 4.0 Internacional"
 
 #: src/as-spdx-data.h:150
 msgid "Creative Commons Attribution No Derivatives 1.0 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Sem Derivadas 1.0 Genérica"
 
 #: src/as-spdx-data.h:151
 msgid "Creative Commons Attribution No Derivatives 2.0 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Sem Derivadas 2.0 Genérica"
 
 #: src/as-spdx-data.h:152
 msgid "Creative Commons Attribution No Derivatives 2.5 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Sem Derivadas 2.5 Genérica"
 
 #: src/as-spdx-data.h:153
 msgid "Creative Commons Attribution No Derivatives 3.0 Unported"
-msgstr ""
+msgstr "Atribuição Creative Commons Sem Derivadas 3.0 Não Portada"
 
 #: src/as-spdx-data.h:154
 msgid "Creative Commons Attribution No Derivatives 3.0 Germany"
-msgstr ""
+msgstr "Atribuição Creative Commons Sem Derivadas 3.0 Alemanha"
 
 #: src/as-spdx-data.h:155
 msgid "Creative Commons Attribution No Derivatives 4.0 International"
-msgstr ""
+msgstr "Atribuição Creative Commons Sem Derivadas 4.0 Internacional"
 
 #: src/as-spdx-data.h:156
 msgid "Creative Commons Attribution Share Alike 1.0 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Igual 1.0 Genérica"
 
 #: src/as-spdx-data.h:157
 msgid "Creative Commons Attribution Share Alike 2.0 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Igual 2.0 Genérica"
 
 #: src/as-spdx-data.h:158
 msgid "Creative Commons Attribution Share Alike 2.0 England and Wales"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Igual 2.0 Inglaterra e País de Gales"
 
 #: src/as-spdx-data.h:159
 msgid "Creative Commons Attribution Share Alike 2.1 Japan"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Igual 2.1 Japão"
 
 #: src/as-spdx-data.h:160
 msgid "Creative Commons Attribution Share Alike 2.5 Generic"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Igual 2.5 Genérica"
 
 #: src/as-spdx-data.h:161
 msgid "Creative Commons Attribution Share Alike 3.0 Unported"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Igual 3.0 Não Portada"
 
 #: src/as-spdx-data.h:162
 msgid "Creative Commons Attribution Share Alike 3.0 Austria"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Igual 3.0 Áustria"
 
 #: src/as-spdx-data.h:163
 msgid "Creative Commons Attribution Share Alike 3.0 Germany"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Igual 3.0 Alemanha"
 
 #: src/as-spdx-data.h:164
 msgid "Creative Commons Attribution-ShareAlike 3.0 IGO"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Igual 3.0 IGO"
 
 #: src/as-spdx-data.h:165
 msgid "Creative Commons Attribution Share Alike 4.0 International"
-msgstr ""
+msgstr "Atribuição Creative Commons Compartilhamento Igual 4.0 Internacional"
 
 #: src/as-spdx-data.h:166
 msgid "Creative Commons Public Domain Dedication and Certification"
-msgstr ""
+msgstr "Dedicação e Certificação de Domínio Público Creative Commons"
 
 #: src/as-spdx-data.h:167
 msgid "Creative Commons Zero v1.0 Universal"
-msgstr ""
+msgstr "Creative Commons Zero v1.0 Universal"
 
 #: src/as-spdx-data.h:168
 msgid "Common Development and Distribution License 1.0"
-msgstr ""
+msgstr "Licença de Desenvolvimento e Distribuição Comum 1.0"
 
 #: src/as-spdx-data.h:169
 msgid "Common Development and Distribution License 1.1"
-msgstr ""
+msgstr "Licença de Desenvolvimento e Distribuição Comum 1.1"
 
 #: src/as-spdx-data.h:170
 msgid "Common Documentation License 1.0"
-msgstr ""
+msgstr "Licença de Documentação Comum 1.0"
 
 #: src/as-spdx-data.h:171
 msgid "Community Data License Agreement Permissive 1.0"
-msgstr ""
+msgstr "Contrato de Licença de Dados da Comunidade Permissivo 1.0"
 
 #: src/as-spdx-data.h:172
 msgid "Community Data License Agreement Permissive 2.0"
-msgstr ""
+msgstr "Contrato de Licença de Dados da Comunidade Permissivo 2.0"
 
 #: src/as-spdx-data.h:173
 msgid "Community Data License Agreement Sharing 1.0"
-msgstr ""
+msgstr "Contrato de Licença de Compartilhamento de Dados Comunitários 1.0"
 
 #: src/as-spdx-data.h:174
 msgid "CeCILL Free Software License Agreement v1.0"
-msgstr ""
+msgstr "Contrato de Licença de Software Livre CeCILL v1.0"
 
 #: src/as-spdx-data.h:175
 msgid "CeCILL Free Software License Agreement v1.1"
-msgstr ""
+msgstr "Contrato de Licença de Software Livre CeCILL v1.1"
 
 #: src/as-spdx-data.h:176
 msgid "CeCILL Free Software License Agreement v2.0"
-msgstr ""
+msgstr "Contrato de Licença de Software Livre CeCILL v2.0"
 
 #: src/as-spdx-data.h:177
 msgid "CeCILL Free Software License Agreement v2.1"
-msgstr ""
+msgstr "Contrato de Licença de Software Livre CeCILL v2.1"
 
 #: src/as-spdx-data.h:178
 msgid "CeCILL-B Free Software License Agreement"
-msgstr ""
+msgstr "Contrato de Licença de Software Livre CeCILL-B"
 
 #: src/as-spdx-data.h:179
 msgid "CeCILL-C Free Software License Agreement"
-msgstr ""
+msgstr "Contrato de Licença de Software Livre CeCILL-C"
 
 #: src/as-spdx-data.h:180
 msgid "CERN Open Hardware Licence v1.1"
-msgstr ""
+msgstr "Licença de Hardware Aberto CERN v1.1"
 
 #: src/as-spdx-data.h:181
 msgid "CERN Open Hardware Licence v1.2"
-msgstr ""
+msgstr "Licença de Hardware Aberto CERN v1.2"
 
 #: src/as-spdx-data.h:182
 msgid "CERN Open Hardware Licence Version 2 - Permissive"
-msgstr ""
+msgstr "Licença de Hardware Aberto CERN Versão 2 - Permissivo"
 
 #: src/as-spdx-data.h:183
 msgid "CERN Open Hardware Licence Version 2 - Strongly Reciprocal"
-msgstr ""
+msgstr "Licença de Hardware Aberto CERN Versão 2 - Fortemente Recíproca"
 
 #: src/as-spdx-data.h:184
 msgid "CERN Open Hardware Licence Version 2 - Weakly Reciprocal"
-msgstr ""
+msgstr "Licença de Hardware Aberto CERN Versão 2 - Fracamente Recíproca"
 
 #: src/as-spdx-data.h:185
-#, fuzzy
 msgid "CFITSIO License"
-msgstr "Licença"
+msgstr "Licença CFITSIO"
 
 #: src/as-spdx-data.h:186
-#, fuzzy
 msgid "CMU Mach License"
-msgstr "Licença"
+msgstr "Licença CMU Mach"
 
 #: src/as-spdx-data.h:187
 msgid "CNRI Jython License"
-msgstr ""
+msgstr "Licença CNRI Jython"
 
 #: src/as-spdx-data.h:188
 msgid "CNRI Python License"
-msgstr ""
+msgstr "Licença CNRI Python"
 
 #: src/as-spdx-data.h:189
 msgid "CNRI Python Open Source GPL Compatible License Agreement"
-msgstr ""
+msgstr "Contrato de Licença Compatível com GPL de Código Aberto CNRI Python"
 
 #: src/as-spdx-data.h:190
 msgid "Copyfree Open Innovation License"
-msgstr ""
+msgstr "Licença de Inovação Aberta Copyfree"
 
 #: src/as-spdx-data.h:191
 msgid "Common Public Attribution License 1.0"
-msgstr ""
+msgstr "Licença de Atribuição Pública Comum 1.0"
 
 #: src/as-spdx-data.h:192
 msgid "Common Public License 1.0"
-msgstr ""
+msgstr "Licença Pública Comum 1.0"
 
 #: src/as-spdx-data.h:193
 msgid "Code Project Open License 1.02"
-msgstr ""
+msgstr "Licença Aberta Code Project 1.02"
 
 #: src/as-spdx-data.h:194
 msgid "CUA Office Public License v1.0"
-msgstr ""
+msgstr "Licença Pública CUA Office v1.0"
 
 #: src/as-spdx-data.h:195
-#, fuzzy
 msgid "Caldera License"
-msgstr "Licença"
+msgstr "Licença Caldera"
 
 #: src/as-spdx-data.h:196
 msgid "Clarified Artistic License"
-msgstr ""
+msgstr "Licença Artística Clarificada"
 
 #: src/as-spdx-data.h:197
-#, fuzzy
 msgid "Clips License"
-msgstr "Licença"
+msgstr "Licença Clips"
 
 #: src/as-spdx-data.h:198
 msgid "Community Specification License 1.0"
-msgstr ""
+msgstr "Licença de Especificação da Comunidade 1.0"
 
 #: src/as-spdx-data.h:199
 msgid "Condor Public License v1.1"
-msgstr ""
+msgstr "Licença Pública Condor v1.1"
 
 #: src/as-spdx-data.h:200
 msgid "Cornell Lossless JPEG License"
-msgstr ""
+msgstr "Licença JPEG Cornell Lossless"
 
 #: src/as-spdx-data.h:201
-#, fuzzy
 msgid "Cronyx License"
-msgstr "Licença"
+msgstr "Licença Cronyx"
 
 #: src/as-spdx-data.h:202
 msgid "Crossword License"
-msgstr ""
+msgstr "Licença Crossword"
 
 #: src/as-spdx-data.h:203
 msgid "CrystalStacker License"
-msgstr ""
+msgstr "Licença CrystalStacker"
 
 #: src/as-spdx-data.h:204
-#, fuzzy
 msgid "Cube License"
-msgstr "Licença"
+msgstr "Licença Cube"
 
 #: src/as-spdx-data.h:205
 msgid "Deutsche Freie Software Lizenz"
-msgstr ""
+msgstr "Licença de Software Livre Alemã"
 
 #: src/as-spdx-data.h:206
 msgid "Data licence Germany – attribution – version 2.0"
-msgstr ""
+msgstr "Licença de Dados Alemanha – atribuição – versão 2.0"
 
 #: src/as-spdx-data.h:207
 msgid "Data licence Germany – zero – version 2.0"
-msgstr ""
+msgstr "Licença de Dados Alemanha – zero – versão 2.0"
 
 #: src/as-spdx-data.h:208
-#, fuzzy
 msgid "DOC License"
-msgstr "Licença"
+msgstr "Licença DOC"
 
 #: src/as-spdx-data.h:209
 msgid "Detection Rule License 1.0"
-msgstr ""
+msgstr "Licença de Regra de Detecção 1.0"
 
 #: src/as-spdx-data.h:210
-#, fuzzy
 msgid "DSDP License"
-msgstr "Licença"
+msgstr "Licença DSDP"
 
 #: src/as-spdx-data.h:211
-#, fuzzy
 msgid "Dotseqn License"
-msgstr "Licença"
+msgstr "Licença Dotseqn"
 
 #: src/as-spdx-data.h:212
 msgid "Educational Community License v1.0"
-msgstr ""
+msgstr "Licença da Comunidade Educacional v1.0"
 
 #: src/as-spdx-data.h:213
 msgid "Educational Community License v2.0"
-msgstr ""
+msgstr "Licença da Comunidade Educacional v2.0"
 
 #: src/as-spdx-data.h:214
 msgid "Eiffel Forum License v1.0"
-msgstr ""
+msgstr "Licença Eiffel Forum v1.0"
 
 #: src/as-spdx-data.h:215
 msgid "Eiffel Forum License v2.0"
-msgstr ""
+msgstr "Licença Eiffel Forum v2.0"
 
 #: src/as-spdx-data.h:216
 msgid "EPICS Open License"
-msgstr ""
+msgstr "Licença Aberta EPICS"
 
 #: src/as-spdx-data.h:217
 msgid "Eclipse Public License 1.0"
-msgstr ""
+msgstr "Licença Pública Eclipse 1.0"
 
 #: src/as-spdx-data.h:218
 msgid "Eclipse Public License 2.0"
-msgstr ""
+msgstr "Licença Pública Eclipse 2.0"
 
 #: src/as-spdx-data.h:219
 msgid "EU DataGrid Software License"
-msgstr ""
+msgstr "Licença de Software DataGrid da UE"
 
 #: src/as-spdx-data.h:220
 msgid "European Union Public License 1.0"
-msgstr ""
+msgstr "Licença Pública da União Europeia 1.0"
 
 #: src/as-spdx-data.h:221
 msgid "European Union Public License 1.1"
-msgstr ""
+msgstr "Licença Pública da União Europeia 1.1"
 
 #: src/as-spdx-data.h:222
 msgid "European Union Public License 1.2"
-msgstr ""
+msgstr "Licença Pública da União Europeia 1.2"
 
 #: src/as-spdx-data.h:223
 msgid "Elastic License 2.0"
-msgstr ""
+msgstr "Licença Elastic 2.0"
 
 #: src/as-spdx-data.h:224
 msgid "Entessa Public License v1.0"
-msgstr ""
+msgstr "Licença Pública Entessa v1.0"
 
 #: src/as-spdx-data.h:225
 msgid "Erlang Public License v1.1"
-msgstr ""
+msgstr "Licença Pública Erlang v1.1"
 
 #: src/as-spdx-data.h:226
-#, fuzzy
 msgid "Eurosym License"
-msgstr "Licença"
+msgstr "Licença Eurosym"
 
 #: src/as-spdx-data.h:227
 msgid "Fuzzy Bitmap License"
-msgstr ""
+msgstr "Licença de Bitmap Difuso"
 
 #: src/as-spdx-data.h:228
 msgid "Fraunhofer FDK AAC Codec Library"
-msgstr ""
+msgstr "Biblioteca de Codecs FDK AAC Fraunhofer"
 
 #: src/as-spdx-data.h:229
 msgid "FSF All Permissive License"
-msgstr ""
+msgstr "Licença Permissiva FSF All"
 
 #: src/as-spdx-data.h:230
 msgid "FSF Unlimited License"
-msgstr ""
+msgstr "Licença Ilimitada FSF"
 
 #: src/as-spdx-data.h:231
 msgid "FSF Unlimited License (with License Retention)"
-msgstr ""
+msgstr "Licença Ilimitada FSF (Com Retenção de Licença)"
 
 #: src/as-spdx-data.h:232
 msgid "FSF Unlimited License (With License Retention and Warranty Disclaimer)"
-msgstr ""
+msgstr "Licença Ilimitada FSF (Com Retenção de Licença e Isenção de Garantia)"
 
 #: src/as-spdx-data.h:233
 msgid "Freetype Project License"
-msgstr ""
+msgstr "Licença de Projeto Freetype"
 
 #: src/as-spdx-data.h:234
-#, fuzzy
 msgid "Fair License"
-msgstr "Licença"
+msgstr "Licença Justa"
 
 #: src/as-spdx-data.h:235
 msgid "Ferguson Twofish License"
-msgstr ""
+msgstr "Licença Ferguson Twofish"
 
 #: src/as-spdx-data.h:236
 msgid "Frameworx Open License 1.0"
-msgstr ""
+msgstr "Licença Aberta Frameworx 1.0"
 
 #: src/as-spdx-data.h:237
 msgid "FreeBSD Documentation License"
-msgstr ""
+msgstr "Licença de Documentação do FreeBSD"
 
 #: src/as-spdx-data.h:238
 msgid "FreeImage Public License v1.0"
-msgstr ""
+msgstr "Licença Pública FreeImage v1.0"
 
 #: src/as-spdx-data.h:239
-#, fuzzy
 msgid "Furuseth License"
-msgstr "Licença"
+msgstr "Licença Furuseth"
 
 #: src/as-spdx-data.h:240
-#, fuzzy
 msgid "GD License"
-msgstr "Licença"
+msgstr "Licença GD"
 
 #: src/as-spdx-data.h:241
 msgid "GNU Free Documentation License v1.1"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.1"
 
 #: src/as-spdx-data.h:242
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.1 apenas - invariantes"
 
 #: src/as-spdx-data.h:243
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.1 ou posterior - invariantes"
 
 #: src/as-spdx-data.h:244
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.1 apenas - sem invariantes"
 
 #: src/as-spdx-data.h:245
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.1 ou posterior - sem invariantes"
 
 #: src/as-spdx-data.h:246
 msgid "GNU Free Documentation License v1.1 only"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.1 apenas"
 
 #: src/as-spdx-data.h:247
 msgid "GNU Free Documentation License v1.1 or later"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.1 ou posterior"
 
 #: src/as-spdx-data.h:248
 msgid "GNU Free Documentation License v1.2"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.2"
 
 #: src/as-spdx-data.h:249
 msgid "GNU Free Documentation License v1.2 only - invariants"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.2 apenas - invariantes"
 
 #: src/as-spdx-data.h:250
 msgid "GNU Free Documentation License v1.2 or later - invariants"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.2 ou posterior - invariantes"
 
 #: src/as-spdx-data.h:251
 msgid "GNU Free Documentation License v1.2 only - no invariants"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.2 apenas - sem invariantes"
 
 #: src/as-spdx-data.h:252
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.2 ou posterior - sem invariantes"
 
 #: src/as-spdx-data.h:253
 msgid "GNU Free Documentation License v1.2 only"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.2 apenas"
 
 #: src/as-spdx-data.h:254
 msgid "GNU Free Documentation License v1.2 or later"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.2 ou posterior"
 
 #: src/as-spdx-data.h:255
 msgid "GNU Free Documentation License v1.3"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.3"
 
 #: src/as-spdx-data.h:256
 msgid "GNU Free Documentation License v1.3 only - invariants"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.3 apenas - invariantes"
 
 #: src/as-spdx-data.h:257
 msgid "GNU Free Documentation License v1.3 or later - invariants"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.3 ou posterior - invariantes"
 
 #: src/as-spdx-data.h:258
 msgid "GNU Free Documentation License v1.3 only - no invariants"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.3 apenas - sem invariantes"
 
 #: src/as-spdx-data.h:259
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.3 ou posterior - sem invariantes"
 
 #: src/as-spdx-data.h:260
 msgid "GNU Free Documentation License v1.3 only"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.3 apenas"
 
 #: src/as-spdx-data.h:261
 msgid "GNU Free Documentation License v1.3 or later"
-msgstr ""
+msgstr "Licença de Documentação Livre GNU v1.3 ou posterior"
 
 #: src/as-spdx-data.h:262
-#, fuzzy
 msgid "GL2PS License"
-msgstr "Licença"
+msgstr "Licença GL2PS"
 
 #: src/as-spdx-data.h:263
 msgid "Good Luck With That Public License"
-msgstr ""
+msgstr "Licença Pública Boa Sorte Com Isso"
 
 #: src/as-spdx-data.h:264
 msgid "GNU Compiler Exception"
-msgstr ""
+msgstr "Exceção do Compilador GNU"
 
 #: src/as-spdx-data.h:265 src/as-spdx-data.h:267
 msgid "GNU General Public License v1.0 only"
-msgstr ""
+msgstr "Licença Pública Geral GNU v1.0 apenas"
 
 #: src/as-spdx-data.h:266 src/as-spdx-data.h:268
 msgid "GNU General Public License v1.0 or later"
-msgstr ""
+msgstr "Licença Pública Geral GNU v1.0 ou posterior"
 
 #: src/as-spdx-data.h:269 src/as-spdx-data.h:271
 msgid "GNU General Public License v2.0 only"
-msgstr ""
+msgstr "Licença Pública Geral GNU v2.0 apenas"
 
 #: src/as-spdx-data.h:270 src/as-spdx-data.h:272
 msgid "GNU General Public License v2.0 or later"
-msgstr ""
+msgstr "Licença Pública Geral GNU v2.0 ou posterior"
 
 #: src/as-spdx-data.h:273
 msgid "GNU General Public License v2.0 w/GCC Runtime Library exception"
-msgstr ""
+msgstr "Licença Pública Geral GNU v2.0 com exceção da Biblioteca de Execução GCC"
 
 #: src/as-spdx-data.h:274
 msgid "GNU General Public License v2.0 w/Autoconf exception"
-msgstr ""
+msgstr "Licença Pública Geral GNU v2.0 com exceção de Autoconf"
 
 #: src/as-spdx-data.h:275
 msgid "GNU General Public License v2.0 w/Bison exception"
-msgstr ""
+msgstr "Licença Pública Geral GNU v2.0 com exceção de Bison"
 
 #: src/as-spdx-data.h:276
 msgid "GNU General Public License v2.0 w/Classpath exception"
-msgstr ""
+msgstr "Licença Pública Geral GNU v2.0 com exceção de Classpath"
 
 #: src/as-spdx-data.h:277
 msgid "GNU General Public License v2.0 w/Font exception"
