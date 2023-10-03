@@ -2851,7 +2851,6 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							node_name);
 			}
 
-			lang = as_xml_get_prop_value (iter, "lang");
 			if (lang == NULL &&
 			    !as_validator_first_word_capitalized (validator, summary, FALSE))
 				as_validator_add_issue (validator,
