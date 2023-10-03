@@ -547,9 +547,24 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("An URL of this type has already been defined."),
 	},
 
+	{ "developer-name-tag-deprecated",
+	  AS_ISSUE_SEVERITY_INFO,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The toplevel `developer_name` element is deprecated. Please use the `name` element in a "
+	     "`developer` block instead."),
+	},
+
 	{ "developer-name-has-url",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  N_("The <developer_name/> can not contain a hyperlink."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The `name` child of a `developer` block must not contain a hyperlink."),
+	},
+
+	{ "developer-id-missing",
+	  AS_ISSUE_SEVERITY_INFO,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The `developer` element is missing an `id` property, containing a unique string ID for the developer. "
+		  "Consider adding a unique ID."),
 	},
 
 	{ "unknown-desktop-id",

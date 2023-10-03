@@ -33,6 +33,7 @@
 #include "as-icon.h"
 #include "as-screenshot.h"
 #include "as-release.h"
+#include "as-developer.h"
 #include "as-translation.h"
 #include "as-suggested.h"
 #include "as-category.h"
@@ -302,10 +303,8 @@ const gchar		*as_component_get_project_group (AsComponent *cpt);
 void			as_component_set_project_group (AsComponent *cpt,
 								const gchar *value);
 
-const gchar		*as_component_get_developer_name (AsComponent *cpt);
-void			as_component_set_developer_name (AsComponent *cpt,
-								const gchar *value,
-								const gchar *locale);
+AsDeveloper  		*as_component_get_developer (AsComponent *cpt);
+void	      		as_component_set_developer (AsComponent *cpt, AsDeveloper *developer);
 
 GPtrArray		*as_component_get_compulsory_for_desktops (AsComponent *cpt);
 void			as_component_set_compulsory_for_desktop (AsComponent *cpt,
@@ -507,6 +506,12 @@ gboolean		as_component_load_from_xml_data (AsComponent *cpt,
 							 AsContext *context,
 							 const gchar *data,
 							 GError **error);
+G_DEPRECATED
+const gchar		*as_component_get_developer_name (AsComponent *cpt);
+G_DEPRECATED
+void			as_component_set_developer_name (AsComponent *cpt,
+								const gchar *value,
+								const gchar *locale);
 
 G_END_DECLS
 

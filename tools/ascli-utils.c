@@ -324,7 +324,9 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		gchar *str;
 
 		/* developer name */
-		ascli_print_key_value (_("Developer"), as_component_get_developer_name (cpt), TRUE);
+		ascli_print_key_value (_("Developer"),
+					  as_developer_get_name (as_component_get_developer (cpt)),
+					  TRUE);
 
 		/* extends data (e.g. for addons) */
 		extends = as_component_get_extends (cpt);

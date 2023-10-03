@@ -280,12 +280,14 @@ void Component::setProjectGroup(const QString& group)
 
 QString Component::developerName() const
 {
-    return valueWrap(as_component_get_developer_name(m_cpt));
+    AsDeveloper *devel = as_component_get_developer (m_cpt);
+    return valueWrap(as_developer_get_name (devel));
 }
 
 void Component::setDeveloperName(const QString& developerName, const QString& lang)
 {
-    as_component_set_developer_name(m_cpt, qPrintable(developerName), lang.isEmpty()? NULL : qPrintable(lang));
+    AsDeveloper *devel = as_component_get_developer (m_cpt);
+	as_developer_set_name (devel, qPrintable(developerName), lang.isEmpty()? NULL : qPrintable(lang));
 }
 
 QStringList Component::compulsoryForDesktops() const

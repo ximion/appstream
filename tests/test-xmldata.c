@@ -2101,6 +2101,38 @@ test_xml_rw_branding (void)
 }
 
 /**
+ * test_xml_rw_developer:
+ */
+static void
+test_xml_rw_developer (void)
+{
+	static const gchar *xmldata_tags = "<component>\n"
+					   "  <id>org.example.DeveloperTest</id>\n"
+					   "  <developer id=\"freedesktop.org\">\n"
+					   "    <name>FreeDesktop.org Project</name>\n"
+					   "  </developer>\n"
+					   "</component>\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	AsDeveloper *devp;
+
+	/* read */
+	cpt = as_xml_test_read_data (xmldata_tags, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DeveloperTest");
+
+	/* validate */
+	devp = as_component_get_developer (cpt);
+	g_assert_nonnull (devp);
+
+	g_assert_cmpstr (as_developer_get_id (devp), ==, "freedesktop.org");
+	g_assert_cmpstr (as_developer_get_name (devp), ==, "FreeDesktop.org Project");
+
+	/* write */
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_tags));
+}
+
+/**
  * test_xml_rw_external_releases:
  */
 static void
@@ -2230,6 +2262,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/ReadWrite/Reviews", test_xml_rw_reviews);
 	g_test_add_func ("/XML/ReadWrite/Tags", test_xml_rw_tags);
 	g_test_add_func ("/XML/ReadWrite/Branding", test_xml_rw_branding);
+	g_test_add_func ("/XML/ReadWrite/Developer", test_xml_rw_developer);
 	g_test_add_func ("/XML/ReadWrite/ExternalReleases", test_xml_rw_external_releases);
 
 	ret = g_test_run ();

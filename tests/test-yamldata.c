@@ -1787,6 +1787,38 @@ test_yaml_rw_branding (void)
 }
 
 /**
+ * test_yaml_rw_developer:
+ */
+static void
+test_yaml_rw_developer (void)
+{
+	static const gchar *yamldata_tags = "Type: generic\n"
+					    "ID: org.example.DeveloperTest\n"
+					    "Developer:\n"
+					    "  id: freedesktop.org\n"
+					    "  name:\n"
+					    "    C: FreeDesktop.org Project\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	AsDeveloper *devp;
+
+	/* read */
+	cpt = as_yaml_test_read_data (yamldata_tags, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DeveloperTest");
+
+	/* validate */
+	devp = as_component_get_developer (cpt);
+	g_assert_nonnull (devp);
+
+	g_assert_cmpstr (as_developer_get_id (devp), ==, "freedesktop.org");
+	g_assert_cmpstr (as_developer_get_name (devp), ==, "FreeDesktop.org Project");
+
+	/* write */
+	res = as_yaml_test_serialize (cpt);
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_tags));
+}
+
+/**
  * main:
  */
 int
@@ -1850,6 +1882,7 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/YAML/ReadWrite/Tags", test_yaml_rw_tags);
 	g_test_add_func ("/YAML/ReadWrite/Branding", test_yaml_rw_branding);
+	g_test_add_func ("/YAML/ReadWrite/Developer", test_yaml_rw_developer);
 
 	ret = g_test_run ();
 	g_free (datadir);
