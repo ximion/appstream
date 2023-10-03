@@ -41,7 +41,10 @@
   <url type="homepage">http://www.nvidia.com/Download/index.aspx</url>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LicenseRef-proprietary:NVIDIA</project_license>
-  <developer_name>NVIDIA Corporation</developer_name>
+
+  <developer id="nvidia.com">
+    <name>NVIDIA Corporation</name>
+  </developer>
 
   <provides>
     <modalias>pci:v000010DEd*sv*sd*bc03sc00i00*</modalias>

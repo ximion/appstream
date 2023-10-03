@@ -38,7 +38,9 @@
   </description>
   <url type="homepage">https://www.debian.org/</url>
   <metadata_license>FSFAP</metadata_license>
-  <developer_name>The Debian Project</developer_name>
+  <developer id="debian">
+    <name>The Debian Project</name>
+  </developer>
   ...
 
   <releases>

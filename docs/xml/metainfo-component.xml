@@ -1169,19 +1169,38 @@
 		</listitem>
 		</varlistentry>
 
+		<varlistentry id="tag-developer">
+		<term>&lt;developer/&gt;</term>
+		<listitem>
+		<para>
+			The <code>&lt;developer/&gt;</code> element is designed to represent the developers or project responsible for development of the project described in the metadata.
+		</para>
+		<para>
+			The element should have a <literal>id</literal> property, containing a unique ID to identify the respective developer. It is recommended to use a web URL,
+			like <code>gnome.org</code> as ID to achieve a higher chance of uniqueness.
+		</para>
+		<para>
+			Every <literal>developer</literal> element must have a <literal>name</literal> tag as child, which contains a translatable name for the
+			respective developer. Values might be for example "The GNOME Foundation" or "The KDE Community".
+			Hyperlinks or emails must not be used in the name; if you want to link to the developer's homepage, use the <xref linkend="tag-url"/>-tag instead.
+			The <literal>name</literal> tag is translatable.
+		</para>
+		</listitem>
+		</varlistentry>
+
 		<varlistentry id="tag-developer_name">
 		<term>&lt;developer_name/&gt;</term>
 		<listitem>
 		<para>
-			The <code>&lt;developer_name/&gt;</code> tag is designed to represent the developers or project responsible for development of the project described in the metadata.
+			The <code>&lt;developer_name/&gt;</code> tag is designed to represent the developers or project responsible for development
+			of the project described in the metadata.
 		</para>
-		<para>
-			Values might be for example "The GNOME Foundation" or "The KDE Community".
-			You must not include hyperlinks or emails in this field; if you want to link to the developer's homepage, use the <xref linkend="tag-url"/>-tag instead.
-		</para>
-		<para>
-			This tag is translatable.
-		</para>
+		<important>
+			<title>Deprecation</title>
+			<para>
+				This tag is deprecated and should not be used for new metadata. Please use <xref linkend="tag-developer"/> instead.
+			</para>
+		</important>
 		</listitem>
 		</varlistentry>
 
@@ -1652,7 +1671,9 @@
   <releases>
     <release version="1.2" date="2015-02-16" />
   </releases>
-  <developer_name>FooBar Team</developer_name>
+  <developer id="example.org">
+    <name>FooBar Team</name>
+  </developer>
 </component>]]></programlisting>
 
 	<para>
