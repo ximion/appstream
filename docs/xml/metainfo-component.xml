@@ -380,15 +380,6 @@
 				<para>
 					This could for example be an HTTPS URL to an online form or a page describing how to contact the developer.
 				</para>
-				<note>
-					<title>Deprecation</title>
-					<para>
-						In the past, <code>mailto:</code> URL schemas to link to email addresses were also supported for this URL type.
-						It is recommended to not use them in new metadata, as they provide poor usability on most systems when users click
-						on such a link and no local email client is configured.
-					</para>
-				</note>
-
 				</listitem>
 			</varlistentry>
 

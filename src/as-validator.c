@@ -397,10 +397,6 @@ as_validator_check_web_url (AsValidator *validator,
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	g_autoptr(GError) tmp_error = NULL;
 
-	/* we don't check mailto URLs */
-	if (g_str_has_prefix (url, "mailto:"))
-		return TRUE;
-
 	if (g_str_has_prefix (url, "ftp:")) {
 		/* we can't check FTP URLs here, and those shouldn't generally be used in AppStream */
 		as_validator_add_issue (validator, node, "url-uses-ftp", url);
@@ -806,9 +802,6 @@ static gboolean
 as_validate_is_secure_url (const gchar *str)
 {
 	if (g_str_has_prefix (str, "https://"))
-		return TRUE;
-	/* mailto URLs are fine as well */
-	if (g_str_has_prefix (str, "mailto:"))
 		return TRUE;
 	return FALSE;
 }
