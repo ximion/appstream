@@ -2827,9 +2827,10 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		} else if (g_strcmp0 (node_name, "summary") == 0) {
 			g_autofree gchar *lang = NULL;
 			const gchar *summary = node_content;
+			lang = as_xml_get_prop_value (iter, "lang");
 
 			as_validator_check_appear_once (validator, iter, found_tags, TRUE);
-			if (g_str_has_suffix (summary, "."))
+			if (g_str_has_suffix (summary, ".") && lang == NULL)
 				as_validator_add_issue (validator,
 							iter,
 							"summary-has-dot-suffix",

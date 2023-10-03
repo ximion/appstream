@@ -43,6 +43,7 @@ GRefString	      *as_xml_get_node_value_refstr (const xmlNode *node);
 GRefString *as_xml_get_prop_value_refstr (const xmlNode *node, const gchar *prop_name);
 gint	    as_xml_get_prop_value_as_int (const xmlNode *node, const gchar *prop_name);
 
+gchar	   *as_xml_get_node_locale (AsContext *ctx, xmlNode *node);
 gchar	   *as_xml_get_node_locale_match (AsContext *ctx, xmlNode *node);
 
 void	    as_xml_add_children_values_to_array (xmlNode     *node,

@@ -109,6 +109,22 @@ as_xml_get_prop_value_as_int (const xmlNode *node, const gchar *prop_name)
 }
 
 /**
+ * as_xml_get_node_locale:
+ * @node: a XML node
+ *
+ * Returns: The locale of a node, "C" if untranslated. Free result with %g_free
+ */
+gchar *
+as_xml_get_node_locale (AsContext *ctx, xmlNode *node)
+{
+	gchar *lang = (gchar *) xmlGetProp (node, (xmlChar *) "lang");
+	if (lang == NULL)
+		lang = g_strdup ("C");
+
+	return lang;
+}
+
+/**
  * as_xml_get_node_locale_match:
  * @node: A XML node
  *
