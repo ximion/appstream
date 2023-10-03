@@ -42,6 +42,7 @@ namespace AppStream
 class Icon;
 class Screenshot;
 class Suggested;
+class Developer;
 class RelationCheckResult;
 
 class ComponentData;
@@ -175,8 +176,8 @@ public:
     QString projectGroup() const;
     void setProjectGroup(const QString &group);
 
-    QString developerName() const;
-    void setDeveloperName(const QString &developerName, const QString &lang = {});
+    Developer developer() const;
+    void setDeveloper(const Developer &developer);
 
     QStringList compulsoryForDesktops() const;
     void setCompulsoryForDesktop(const QString &desktop);

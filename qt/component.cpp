@@ -29,6 +29,7 @@
 #include "icon.h"
 #include "screenshot.h"
 #include "release.h"
+#include "developer.h"
 #include "relation.h"
 #include "bundle.h"
 #include "suggested.h"
@@ -293,16 +294,14 @@ void Component::setProjectGroup(const QString &group)
     as_component_set_project_group(d->cpt, qPrintable(group));
 }
 
-QString Component::developerName() const
+Developer Component::developer() const
 {
-    return valueWrap(as_component_get_developer_name(d->cpt));
+    return Developer(as_component_get_developer(d->cpt));
 }
 
-void Component::setDeveloperName(const QString &developerName, const QString &lang)
+void Component::setDeveloper(const Developer &developer)
 {
-    as_component_set_developer_name(d->cpt,
-                                    qPrintable(developerName),
-                                    lang.isEmpty() ? NULL : qPrintable(lang));
+    as_component_set_developer(d->cpt, developer.asDeveloper());
 }
 
 QStringList Component::compulsoryForDesktops() const

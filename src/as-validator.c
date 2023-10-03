@@ -1425,6 +1425,33 @@ as_validator_check_tags (AsValidator *validator, xmlNode *node)
 }
 
 /**
+ * as_validator_check_developer:
+ **/
+static void
+as_validator_check_developer (AsValidator *validator, xmlNode *node)
+{
+	g_autofree gchar *devp_id = NULL;
+
+	devp_id = as_xml_get_prop_value (node, "id");
+	if (devp_id == NULL)
+		as_validator_add_issue (validator, node, "developer-id-missing", NULL);
+
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (as_str_equal0 (iter->name, "name")) {
+			g_autofree gchar *content = as_xml_get_node_value (iter);
+			if (as_validate_has_hyperlink (content))
+				as_validator_add_issue (validator,
+							iter,
+							"developer-name-has-url",
+							NULL);
+		}
+	}
+}
+
+/**
  * as_validator_check_screenshots:
  *
  * Validate a "screenshots" tag.
@@ -2964,14 +2991,15 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_validate_project_license (validator, iter);
 		} else if (g_strcmp0 (node_name, "project_group") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
-		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
+		} else if (g_strcmp0 (node_name, "developer") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, TRUE);
+			as_validator_check_developer (validator, iter);
 
-			if (as_validate_has_hyperlink (node_content))
-				as_validator_add_issue (validator,
-							iter,
-							"developer-name-has-url",
-							NULL);
+		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
+			as_validator_add_issue (validator,
+						iter,
+						"developer-name-tag-deprecated",
+						NULL);
 
 		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
 			if (!as_utils_is_desktop_environment (node_content)) {

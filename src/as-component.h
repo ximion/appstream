@@ -32,6 +32,7 @@
 #include "as-icon.h"
 #include "as-screenshot.h"
 #include "as-releases.h"
+#include "as-developer.h"
 #include "as-translation.h"
 #include "as-suggested.h"
 #include "as-category.h"
@@ -261,29 +262,29 @@ gboolean      as_component_is_floss (AsComponent *cpt);
 const gchar  *as_component_get_project_group (AsComponent *cpt);
 void	      as_component_set_project_group (AsComponent *cpt, const gchar *value);
 
-const gchar  *as_component_get_developer_name (AsComponent *cpt);
-void as_component_set_developer_name (AsComponent *cpt, const gchar *value, const gchar *locale);
+AsDeveloper  *as_component_get_developer (AsComponent *cpt);
+void	      as_component_set_developer (AsComponent *cpt, AsDeveloper *developer);
 
-GPtrArray  *as_component_get_compulsory_for_desktops (AsComponent *cpt);
-void	    as_component_set_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop);
-gboolean    as_component_is_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop);
+GPtrArray    *as_component_get_compulsory_for_desktops (AsComponent *cpt);
+void	      as_component_set_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop);
+gboolean      as_component_is_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop);
 
-GPtrArray  *as_component_get_categories (AsComponent *cpt);
-void	    as_component_add_category (AsComponent *cpt, const gchar *category);
-gboolean    as_component_has_category (AsComponent *cpt, const gchar *category);
+GPtrArray    *as_component_get_categories (AsComponent *cpt);
+void	      as_component_add_category (AsComponent *cpt, const gchar *category);
+gboolean      as_component_has_category (AsComponent *cpt, const gchar *category);
 
-GPtrArray  *as_component_get_screenshots_all (AsComponent *cpt);
-void	    as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot);
-void	    as_component_sort_screenshots (AsComponent *cpt,
-					   const gchar *environment,
-					   const gchar *style,
-					   gboolean	prioritize_style);
+GPtrArray    *as_component_get_screenshots_all (AsComponent *cpt);
+void	      as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot);
+void	      as_component_sort_screenshots (AsComponent *cpt,
+					     const gchar *environment,
+					     const gchar *style,
+					     gboolean	  prioritize_style);
 
-GPtrArray  *as_component_get_keywords (AsComponent *cpt);
-void	    as_component_set_keywords (AsComponent *cpt,
-				       GPtrArray   *new_keywords,
-				       const gchar *locale,
-				       gboolean	    deep_copy);
+GPtrArray    *as_component_get_keywords (AsComponent *cpt);
+void	      as_component_set_keywords (AsComponent *cpt,
+					 GPtrArray   *new_keywords,
+					 const gchar *locale,
+					 gboolean     deep_copy);
 void	    as_component_add_keyword (AsComponent *cpt, const gchar *keyword, const gchar *locale);
 void	    as_component_clear_keywords (AsComponent *cpt, const gchar *locale);
 

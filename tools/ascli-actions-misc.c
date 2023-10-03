@@ -569,7 +569,8 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 				    _("Homepage"),
 				       as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE));
 		ascli_print_stdout ("%s: %s",
-				    _("Developer"), as_component_get_developer_name (cpt));
+				    _("Developer"),
+				       as_developer_get_name (as_component_get_developer (cpt)));
 		if (detailed) {
 			g_autofree gchar *tmp2 = NULL;
 			g_autofree gchar *tmp1 = as_markup_convert (

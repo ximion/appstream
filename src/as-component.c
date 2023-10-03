@@ -43,6 +43,7 @@
 #include "as-agreement-private.h"
 #include "as-review-private.h"
 #include "as-branding-private.h"
+#include "as-developer-private.h"
 #include "as-desktop-entry.h"
 #include "as-relation-check-result.h"
 
@@ -77,11 +78,10 @@ typedef struct {
 	GRefString *origin;
 	GRefString *branch;
 
-	GHashTable *name;	    /* localized entry */
-	GHashTable *summary;	    /* localized entry */
-	GHashTable *description;    /* localized entry */
-	GHashTable *keywords;	    /* localized entry, value:strv */
-	GHashTable *developer_name; /* localized entry */
+	GHashTable *name;	 /* localized entry */
+	GHashTable *summary;	 /* localized entry */
+	GHashTable *description; /* localized entry */
+	GHashTable *keywords;	 /* localized entry, value:strv */
 
 	GRefString *metadata_license;
 	GRefString *project_license;
@@ -111,6 +111,7 @@ typedef struct {
 	GPtrArray *icons;   /* of AsIcon elements */
 	GPtrArray *reviews; /* of AsReview */
 
+	AsDeveloper *developer;
 	AsBranding *branding;
 
 	GRefString *arch;	/* the architecture this data was generated from */
@@ -147,7 +148,6 @@ enum {
 	AS_COMPONENT_CATEGORIES,
 	AS_COMPONENT_PROJECT_LICENSE,
 	AS_COMPONENT_PROJECT_GROUP,
-	AS_COMPONENT_DEVELOPER_NAME,
 	AS_COMPONENT_SCREENSHOTS
 };
 
@@ -415,10 +415,6 @@ as_component_init (AsComponent *cpt)
 						   g_str_equal,
 						   (GDestroyNotify) as_ref_string_release,
 						   g_free);
-	priv->developer_name = g_hash_table_new_full (g_str_hash,
-						      g_str_equal,
-						      (GDestroyNotify) as_ref_string_release,
-						      g_free);
 	priv->keywords = g_hash_table_new_full (g_str_hash,
 						g_str_equal,
 						(GDestroyNotify) as_ref_string_release,
@@ -484,7 +480,6 @@ as_component_finalize (GObject *object)
 	g_hash_table_unref (priv->name);
 	g_hash_table_unref (priv->summary);
 	g_hash_table_unref (priv->description);
-	g_hash_table_unref (priv->developer_name);
 	g_hash_table_unref (priv->keywords);
 
 	g_object_unref (priv->releases);
@@ -514,6 +509,8 @@ as_component_finalize (GObject *object)
 	if (priv->replaces != NULL)
 		g_ptr_array_unref (priv->replaces);
 
+	if (priv->developer != NULL)
+		g_object_unref (priv->developer);
 	if (priv->branding != NULL)
 		g_object_unref (priv->branding);
 
@@ -1817,36 +1814,41 @@ as_component_set_project_group (AsComponent *cpt, const gchar *value)
 }
 
 /**
- * as_component_get_developer_name:
+ * as_component_get_developer:
  * @cpt: a #AsComponent instance.
  *
- * Get the component's developer or development team name.
+ * Get information about the component's developer or development team.
+ * The returned object may be empty if no developer information was
+ * available.
  *
- * Returns: the developer name.
+ * Returns: (transfer none): the developer as #AsDeveloper.
  */
-const gchar *
-as_component_get_developer_name (AsComponent *cpt)
+AsDeveloper *
+as_component_get_developer (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return as_context_localized_ht_get (priv->context,
-					    priv->developer_name,
-					    NULL, /* locale override */
-					    priv->value_flags);
+	if (priv->developer == NULL)
+		priv->developer = as_developer_new_with_context (priv->context);
+	return priv->developer;
 }
 
 /**
- * as_component_set_developer_name:
+ * as_component_set_developer:
  * @cpt: a #AsComponent instance.
- * @value: the developer or developer team name
- * @locale: (nullable): the BCP47 locale, or %NULL. e.g. "en-GB"
+ * @developer: the new #AsDeveloper
  *
- * Set the the component's developer or development team name.
+ * Set the the component's developer.
  */
 void
-as_component_set_developer_name (AsComponent *cpt, const gchar *value, const gchar *locale)
+as_component_set_developer (AsComponent *cpt, AsDeveloper *developer)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	as_context_localized_ht_set (priv->context, priv->developer_name, value, locale);
+	if (priv->developer == developer)
+		return;
+	if (priv->developer != NULL)
+		g_object_unref (priv->developer);
+	priv->developer = g_object_ref (developer);
+	as_developer_set_context (priv->developer, priv->context);
 }
 
 /**
@@ -4619,12 +4621,23 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 		} else if (tag_id == AS_TAG_PROJECT_GROUP) {
 			g_autofree gchar *content = as_xml_get_node_value (iter);
 			as_component_set_project_group (cpt, content);
+		} else if (tag_id == AS_TAG_DEVELOPER) {
+			g_autoptr(AsDeveloper) developer = as_developer_new ();
+			if (as_developer_load_from_xml (developer, ctx, iter, NULL)) {
+				if (priv->developer != NULL)
+					g_object_unref (priv->developer);
+				priv->developer = g_steal_pointer (&developer);
+			}
 		} else if (tag_id == AS_TAG_DEVELOPER_NAME) {
+			/* DEPRECATED */
 			g_autofree gchar *lang = NULL;
 			g_autofree gchar *content = as_xml_get_node_value (iter);
 			lang = as_xml_get_node_locale_match (ctx, iter);
-			if (lang != NULL)
-				as_component_set_developer_name (cpt, content, lang);
+			if (lang != NULL) {
+				if (priv->developer == NULL)
+					priv->developer = as_developer_new_with_context (ctx);
+				as_developer_set_name (priv->developer, content, lang);
+			}
 		} else if (tag_id == AS_TAG_COMPULSORY_FOR_DESKTOP) {
 			g_autofree gchar *content = as_xml_get_node_value (iter);
 			if (content != NULL)
@@ -4990,14 +5003,15 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	/* project license */
 	as_xml_add_text_node (cnode, "project_license", priv->project_license);
 
-	/* developer name */
-	as_xml_add_localized_text_node (cnode, "developer_name", priv->developer_name);
+	/* long description */
+	as_xml_add_description_node (ctx, cnode, priv->description, TRUE);
 
 	/* project group */
 	as_xml_add_text_node (cnode, "project_group", priv->project_group);
 
-	/* long description */
-	as_xml_add_description_node (ctx, cnode, priv->description, TRUE);
+	/* developer */
+	if (priv->developer != NULL)
+		as_developer_to_xml_node (priv->developer, ctx, cnode);
 
 	/* extends nodes */
 	as_xml_add_node_list (cnode, NULL, "extends", priv->extends);
@@ -5585,8 +5599,21 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 		} else if (field_id == AS_TAG_DESCRIPTION) {
 			as_yaml_set_localized_table (ctx, node, priv->description);
 			g_object_notify ((GObject *) cpt, "description");
+		} else if (field_id == AS_TAG_DEVELOPER) {
+			g_autoptr(AsDeveloper) developer = as_developer_new ();
+			if (as_developer_load_from_yaml (developer, ctx, node, NULL)) {
+				if (priv->developer != NULL)
+					g_object_unref (priv->developer);
+				priv->developer = g_steal_pointer (&developer);
+			}
+
 		} else if (field_id == AS_TAG_DEVELOPER_NAME) {
-			as_yaml_set_localized_table (ctx, node, priv->developer_name);
+			/* DEPRECATED */
+			if (priv->developer == NULL)
+				priv->developer = as_developer_new_with_context (ctx);
+			as_yaml_set_localized_table (ctx,
+						     node,
+						     as_developer_get_name_table (priv->developer));
 		} else if (field_id == AS_TAG_PROJECT_LICENSE) {
 			as_component_set_project_license (cpt, value);
 		} else if (field_id == AS_TAG_PROJECT_GROUP) {
@@ -6116,6 +6143,9 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 	/* Extends */
 	as_yaml_emit_sequence (emitter, "Extends", priv->extends);
 
+	/* ProjectLicense */
+	as_yaml_emit_entry (emitter, "ProjectLicense", priv->project_license);
+
 	/* Name */
 	as_yaml_emit_localized_entry (emitter, "Name", priv->name);
 
@@ -6131,14 +6161,12 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 					      "NameVariantSuffix",
 					      priv->name_variant_suffix);
 
-	/* DeveloperName */
-	as_yaml_emit_localized_entry (emitter, "DeveloperName", priv->developer_name);
-
 	/* ProjectGroup */
 	as_yaml_emit_entry (emitter, "ProjectGroup", priv->project_group);
 
-	/* ProjectLicense */
-	as_yaml_emit_entry (emitter, "ProjectLicense", priv->project_license);
+	/* Developer */
+	if (priv->developer != NULL)
+		as_developer_emit_yaml (priv->developer, ctx, emitter);
 
 	/* CompulsoryForDesktops */
 	as_yaml_emit_sequence_from_str_array (emitter,
@@ -6536,9 +6564,6 @@ as_component_get_property (GObject *object, guint property_id, GValue *value, GP
 	case AS_COMPONENT_PROJECT_GROUP:
 		g_value_set_string (value, as_component_get_project_group (cpt));
 		break;
-	case AS_COMPONENT_DEVELOPER_NAME:
-		g_value_set_string (value, as_component_get_developer_name (cpt));
-		break;
 	case AS_COMPONENT_SCREENSHOTS:
 		g_value_set_boxed (value, as_component_get_screenshots_all (cpt));
 		break;
@@ -6587,9 +6612,6 @@ as_component_set_property (GObject *object,
 		break;
 	case AS_COMPONENT_PROJECT_GROUP:
 		as_component_set_project_group (cpt, g_value_get_string (value));
-		break;
-	case AS_COMPONENT_DEVELOPER_NAME:
-		as_component_set_developer_name (cpt, g_value_get_string (value), NULL);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -6775,20 +6797,7 @@ as_component_class_init (AsComponentClass *klass)
 				 NULL,
 				 G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB |
 				     G_PARAM_READABLE | G_PARAM_WRITABLE));
-	/**
-	 * AsComponent:developer-name:
-	 *
-	 * the developer name
-	 */
-	g_object_class_install_property (
-	    object_class,
-	    AS_COMPONENT_DEVELOPER_NAME,
-	    g_param_spec_string ("developer-name",
-				 "developer-name",
-				 "developer-name",
-				 NULL,
-				 G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB |
-				     G_PARAM_READABLE | G_PARAM_WRITABLE));
+
 	/**
 	 * AsComponent:screenshots: (type GPtrArray(AsScreenshot)):
 	 *
