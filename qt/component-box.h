@@ -40,6 +40,41 @@ class APPSTREAMQT_EXPORT ComponentBox
     Q_GADGET
 
 public:
+    class iterator {
+    public:
+        iterator(const iterator& it)
+            : index(it.index)
+            , data(it.data)
+        {}
+        bool operator==(iterator other) const { return index == other.index && data == other.data; }
+        bool operator!=(iterator other) const { return index != other.index || data != other.data; }
+        iterator& operator++() { index++; return *this; }
+
+        Component operator*() const;
+        std::optional<Component> operator->() const {
+            return data->indexSafe(index);
+        }
+        iterator &operator=(const iterator &other)
+        {
+            if (&other != this) {
+                index = other.index;
+                data = other.data;
+            }
+            return *this;
+        }
+
+    private:
+        friend class ComponentBox;
+
+        iterator(uint index, const ComponentBox *cb)
+            : index(index)
+            , data(cb)
+        {}
+
+        uint index;
+        const ComponentBox *data;
+    };
+
     /**
      * ComponentBox::Flags:
      * FlagNone:               No flags.
@@ -69,6 +104,9 @@ public:
      * \returns the contents of this component box as list.
      */
     QList<Component> toList() const;
+
+    iterator begin() const { return iterator(0, this); }
+    iterator end() const { return iterator(size(), this); }
 
     uint size() const;
     bool isEmpty() const;
