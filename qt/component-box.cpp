@@ -137,6 +137,18 @@ void ComponentBox::sortByScore()
     as_component_box_sort_by_score(d->m_cbox);
 }
 
+void ComponentBox::operator+=(const ComponentBox& other)
+{
+    for (uint i = 0; i < as_component_box_len(other.d->m_cbox); i++) {
+        g_autoptr(GError) error = nullptr;
+        AsComponent *c = as_component_box_index(other.d->m_cbox, i);
+        as_component_box_add(d->m_cbox, c, &error);
+        if (error) {
+            qWarning() << "error adding component" << error->message;
+        }
+    }
+}
+
 ComponentBox::iterator ComponentBox::erase(iterator it)
 {
     as_component_box_remove_at(it.data->d->m_cbox, it.index);
