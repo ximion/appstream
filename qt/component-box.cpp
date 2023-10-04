@@ -61,6 +61,13 @@ public:
     AsComponentBox *m_cbox;
 };
 
+Component ComponentBox::iterator::operator*() const
+{
+    AsComponent *cpt = as_component_box_index(data->d->m_cbox, index);
+    Q_ASSERT(cpt != nullptr);
+    return Component(cpt);
+}
+
 ComponentBox::ComponentBox(const ComponentBox &other)
     : d(other.d)
 {
