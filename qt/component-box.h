@@ -109,6 +109,8 @@ public:
     iterator end() const { return iterator(size(), this); }
     iterator erase(iterator it);
 
+    void operator+=(const ComponentBox &other);
+
     uint size() const;
     bool isEmpty() const;
 
