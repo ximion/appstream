@@ -38,7 +38,7 @@ static AsComponent *
 as_xml_test_read_data (const gchar *data, AsFormatStyle mode)
 {
 	AsComponent *cpt = NULL;
-	GPtrArray *cpts;
+	AsComponentBox *cbox;
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GError) error = NULL;
 	g_autofree gchar *data_full = NULL;
@@ -50,11 +50,11 @@ as_xml_test_read_data (const gchar *data, AsFormatStyle mode)
 	as_metadata_parse_data (metad, data_full, -1, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
-	cpts = as_metadata_get_components (metad);
-	g_assert_cmpint (cpts->len, >, 0);
+	cbox = as_metadata_get_components (metad);
+	g_assert_cmpint (as_component_box_len (cbox), >, 0);
 	if (mode == AS_FORMAT_STYLE_METAINFO)
-		g_assert_cmpint (cpts->len, ==, 1);
-	cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
+		g_assert_cmpint (as_component_box_len (cbox), ==, 1);
+	cpt = as_component_box_index (cbox, 0);
 
 	return g_object_ref (cpt);
 }

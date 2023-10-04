@@ -78,16 +78,15 @@ as_yaml_test_read_data (const gchar *data, GError **error)
 		as_metadata_parse_data (metad, data_full, -1, AS_FORMAT_KIND_YAML, &local_error);
 		g_assert_no_error (local_error);
 
-		g_assert_cmpint (as_metadata_get_components (metad)->len, >, 0);
-		cpt = AS_COMPONENT (g_ptr_array_index (as_metadata_get_components (metad), 0));
+		g_assert_cmpint (as_component_box_len (as_metadata_get_components (metad)), >, 0);
+		cpt = as_component_box_index (as_metadata_get_components (metad), 0);
 
 		return g_object_ref (cpt);
 	} else {
 		as_metadata_parse_data (metad, data_full, -1, AS_FORMAT_KIND_YAML, error);
 
-		if (as_metadata_get_components (metad)->len > 0) {
-			cpt = AS_COMPONENT (
-			    g_ptr_array_index (as_metadata_get_components (metad), 0));
+		if (as_component_box_len (as_metadata_get_components (metad)) > 0) {
+			cpt = as_component_box_index (as_metadata_get_components (metad), 0);
 			return g_object_ref (cpt);
 		} else {
 			return NULL;
@@ -124,8 +123,7 @@ test_yaml_basic (void)
 	g_autoptr(AsMetadata) mdata = NULL;
 	gchar *path;
 	GFile *file;
-	GPtrArray *cpts;
-	guint i;
+	AsComponentBox *cbox;
 	AsComponent *cpt_tomatoes = NULL;
 	g_autoptr(GError) error = NULL;
 
@@ -141,11 +139,11 @@ test_yaml_basic (void)
 	g_object_unref (file);
 	g_assert_no_error (error);
 
-	cpts = as_metadata_get_components (mdata);
-	g_assert_cmpint (cpts->len, ==, 8);
+	cbox = as_metadata_get_components (mdata);
+	g_assert_cmpint (as_component_box_len (cbox), ==, 8);
 
-	for (i = 0; i < cpts->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+	for (guint i = 0; i < as_component_box_len (cbox); i++) {
+		AsComponent *cpt = as_component_box_index (cbox, i);
 		g_assert_true (as_component_is_valid (cpt));
 
 		if (g_strcmp0 (as_component_get_name (cpt), "I Have No Tomatoes") == 0)

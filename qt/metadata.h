@@ -26,7 +26,7 @@
 #include <QObject>
 #include "appstreamqt_export.h"
 
-#include "component.h"
+#include "component-box.h"
 
 struct _AsMetadata;
 namespace AppStream
@@ -105,7 +105,7 @@ public:
     MetadataError parseDesktopData(const QString &cid, const QString &data);
 
     AppStream::Component component() const;
-    QList<AppStream::Component> components() const;
+    ComponentBox components() const;
     void clearComponents();
     void addComponent(const AppStream::Component &component);
 

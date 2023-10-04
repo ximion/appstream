@@ -315,6 +315,22 @@ as_component_box_add (AsComponentBox *cbox, AsComponent *cpt, GError **error)
 }
 
 /**
+ * as_component_box_clear:
+ * @cbox: An instance of #AsComponentBox.
+ *
+ * Remove all contents of this component box.
+ */
+void
+as_component_box_clear (AsComponentBox *cbox)
+{
+	AsComponentBoxPrivate *priv = GET_PRIVATE (cbox);
+
+	g_ptr_array_set_size (cbox->cpts, 0);
+	if (priv->cpt_map != NULL)
+		g_hash_table_remove_all (priv->cpt_map);
+}
+
+/**
  * as_sort_components_cb:
  *
  * Helper method to sort lists of #AsComponent

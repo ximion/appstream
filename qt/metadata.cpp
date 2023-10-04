@@ -183,17 +183,9 @@ AppStream::Component AppStream::Metadata::component() const
     return AppStream::Component(component);
 }
 
-QList<AppStream::Component> AppStream::Metadata::components() const
+ComponentBox AppStream::Metadata::components() const
 {
-    QList<Component> res;
-
-    auto components = as_metadata_get_components(d->m_metadata);
-    res.reserve(components->len);
-    for (uint i = 0; i < components->len; i++) {
-        auto component = AS_COMPONENT(g_ptr_array_index(components, i));
-        res.append(Component(component));
-    }
-    return res;
+    return ComponentBox(as_metadata_get_components(d->m_metadata));
 }
 
 void AppStream::Metadata::clearComponents()
@@ -332,7 +324,7 @@ QString Metadata::lastError() const
 QDebug operator<<(QDebug s, const AppStream::Metadata &metadata)
 {
     QStringList list;
-    const auto components = metadata.components();
+    const auto components = metadata.components().toList();
     for (const AppStream::Component &component : components) {
         list << component.id();
     }

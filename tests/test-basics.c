@@ -720,7 +720,7 @@ test_desktop_entry_convert (void)
 	g_autoptr(GFile) file = NULL;
 	g_autoptr(GError) error = NULL;
 	AsComponent *cpt;
-	GPtrArray *cpts;
+	AsComponentBox *cbox;
 	guint i;
 	gchar *tmp;
 
@@ -770,9 +770,9 @@ test_desktop_entry_convert (void)
 	g_assert_no_error (error);
 
 	/* adjust the priority */
-	cpts = as_metadata_get_components (metad);
-	for (i = 0; i < cpts->len; i++) {
-		cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+	cbox = as_metadata_get_components (metad);
+	for (i = 0; i < as_component_box_len (cbox); i++) {
+		cpt = as_component_box_index (cbox, i);
 		as_component_set_priority (cpt, -1);
 	}
 

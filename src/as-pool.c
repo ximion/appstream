@@ -1029,7 +1029,7 @@ as_pool_load_catalog_data (AsPool *pool,
 			   GError **error)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	GPtrArray *cpts;
+	AsComponentBox *cbox;
 	g_autoptr(GPtrArray) merge_cpts = NULL;
 	gboolean ret;
 	g_autoptr(AsMetadata) metad = NULL;
@@ -1146,10 +1146,10 @@ as_pool_load_catalog_data (AsPool *pool,
 		g_prefix_error (error, "%s ", _("Metadata files have errors:"));
 
 	/* add found components to the metadata pool */
-	cpts = as_metadata_get_components (metad);
+	cbox = as_metadata_get_components (metad);
 	merge_cpts = g_ptr_array_new ();
-	for (guint i = 0; i < cpts->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+	for (guint i = 0; i < as_component_box_len (cbox); i++) {
+		AsComponent *cpt = as_component_box_index (cbox, i);
 
 		as_component_set_scope (cpt, lgroup->scope);
 
