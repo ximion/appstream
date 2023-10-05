@@ -988,6 +988,23 @@ as_xml_add_text_node (xmlNode *root, const gchar *name, const gchar *value)
 }
 
 /**
+ * as_xml_add_uint_node:
+ * @root: The node to add a child to.
+ * @name: The new node name.
+ * @value: The new node value.
+ *
+ * Add node with the given integer value.
+ */
+xmlNode *
+as_xml_add_uint_node (xmlNode *root, const gchar *name, guint64 value)
+{
+	g_autofree gchar *value_str = NULL;
+
+	value_str = g_strdup_printf ("%" G_GUINT64_FORMAT, value);
+	return xmlNewTextChild (root, NULL, (xmlChar *) name, (xmlChar *) value_str);
+}
+
+/**
  * as_xml_add_text_prop:
  * @node: The node to attach a property to.
  * @name: The new property name.
@@ -1002,6 +1019,23 @@ as_xml_add_text_prop (xmlNode *node, const gchar *name, const gchar *value)
 		return NULL;
 
 	return xmlNewProp (node, (xmlChar *) name, (xmlChar *) value);
+}
+
+/**
+ * as_xml_add_uint_prop:
+ * @node: The node to attach a property to.
+ * @name: The new property name.
+ * @value: The new property value.
+ *
+ * Add integer property to node.
+ */
+xmlAttr *
+as_xml_add_uint_prop (xmlNode *node, const gchar *name, guint64 value)
+{
+	g_autofree gchar *value_str = NULL;
+
+	value_str = g_strdup_printf ("%" G_GUINT64_FORMAT, value);
+	return xmlNewProp (node, (xmlChar *) name, (xmlChar *) value_str);
 }
 
 /**

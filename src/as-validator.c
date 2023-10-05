@@ -1463,6 +1463,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		xmlNode *iter2;
+		gboolean scale1image_found = FALSE;
 		gboolean image_found = FALSE;
 		gboolean video_found = FALSE;
 		gboolean caption_found = FALSE;
@@ -1505,6 +1506,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 		for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 			g_autofree gchar *screenshot_width = NULL;
 			g_autofree gchar *screenshot_height = NULL;
+			g_autofree gchar *screenshot_scale = NULL;
 			const gchar *node_name = (const gchar *) iter2->name;
 
 			if (iter2->type != XML_ELEMENT_NODE)
@@ -1525,6 +1527,19 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 							iter2,
 							"screenshot-invalid-height",
 							screenshot_height);
+
+			screenshot_scale = as_xml_get_prop_value (iter2, "scale");
+			if (screenshot_scale != NULL &&
+			    !as_str_verify_integer (screenshot_scale, 1, G_MAXINT64))
+				as_validator_add_issue (validator,
+							iter2,
+							"screenshot-invalid-scale",
+							screenshot_scale);
+
+			/* check if we have an @1 scaled image */
+			if (screenshot_scale == NULL ||
+			    g_ascii_strtoll (screenshot_scale, NULL, 10) == 1)
+				scale1image_found = TRUE;
 
 			if (g_strcmp0 (node_name, "image") == 0) {
 				AsImageKind image_kind;
@@ -1711,6 +1726,12 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 			as_validator_add_issue (validator,
 						iter,
 						"screenshot-image-source-missing",
+						NULL);
+
+		if (image_found && !scale1image_found)
+			as_validator_add_issue (validator,
+						iter,
+						"screenshot-no-unscaled-image",
 						NULL);
 
 		if (!caption_found)

@@ -112,11 +112,20 @@ void Screenshot::setCaption(const QString &caption, const QString &lang)
                               lang.isEmpty() ? NULL : qPrintable(lang));
 }
 
-QList<Image> Screenshot::images() const
+QString Screenshot::environment() const
+{
+    return valueWrap(as_screenshot_get_environment(d->m_scr));
+}
+
+void Screenshot::setEnvironment(const QString &guiEnvId)
+{
+    as_screenshot_set_environment(d->m_scr, qPrintable(guiEnvId));
+}
+
+static QList<Image> imagesPtrArrayToList(GPtrArray *images)
 {
     QList<Image> res;
 
-    auto images = as_screenshot_get_images(d->m_scr);
     res.reserve(images->len);
     for (uint i = 0; i < images->len; i++) {
         auto img = AS_IMAGE(g_ptr_array_index(images, i));
@@ -125,17 +134,46 @@ QList<Image> Screenshot::images() const
     return res;
 }
 
-QList<Video> Screenshot::videos() const
+QList<Image> Screenshot::images() const
+{
+    return imagesPtrArrayToList(as_screenshot_get_images(d->m_scr));
+}
+
+QList<Image> Screenshot::imagesAll() const
+{
+    return imagesPtrArrayToList(as_screenshot_get_images_all(d->m_scr));
+}
+
+std::optional<Image> Screenshot::image(uint width, uint height, uint scale) const
+{
+    std::optional<Image> res;
+    auto img = as_screenshot_get_image(d->m_scr, width, height, scale);
+    if (img == nullptr)
+        return res;
+    res = Image(img);
+    return res;
+}
+
+static QList<Video> videosPtrArrayToList(GPtrArray *videos)
 {
     QList<Video> res;
 
-    auto videos = as_screenshot_get_videos(d->m_scr);
     res.reserve(videos->len);
     for (uint i = 0; i < videos->len; i++) {
         auto vid = AS_VIDEO(g_ptr_array_index(videos, i));
         res.append(Video(vid));
     }
     return res;
+}
+
+QList<Video> Screenshot::videos() const
+{
+    return videosPtrArrayToList(as_screenshot_get_videos(d->m_scr));
+}
+
+QList<Video> Screenshot::videosAll() const
+{
+    return videosPtrArrayToList(as_screenshot_get_videos_all(d->m_scr));
 }
 
 QDebug operator<<(QDebug s, const AppStream::Screenshot &screenshot)

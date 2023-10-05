@@ -1266,6 +1266,14 @@
 					</para>
 				</listitem>
 				<listitem>
+					<para><code>scale</code></para>
+					<para>
+						A scaling factor for the image, if it is intended for a HiDPI display.
+						If a scaling factor > 1 is set, the <literal>width</literal>/<literal>height</literal> values
+						are not adjusted to scale. They always represent the exact image dimensions in pixels.
+					</para>
+				</listitem>
+				<listitem>
 					<para><code>xml:lang</code></para>
 					<para>
 						The language this screenshot image is translated in. This property should only be present if there are multiple images with

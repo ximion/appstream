@@ -223,6 +223,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The `height` property must be a positive integer.")
 	},
 
+	{ "screenshot-invalid-scale",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
+	  N_("The `scale` property must be a positive integer.")
+	},
+
 	{ "screenshot-image-invalid-type",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
@@ -266,6 +272,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "screenshot-media-url-not-secure",
 	  AS_ISSUE_SEVERITY_INFO,
 	  N_("Consider using a secure (HTTPS) URL to reference this screenshot image or video.")
+	},
+
+	{ "screenshot-no-unscaled-image",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("A screenshot must have at least one image that has a scaling factor of 1.")
 	},
 
 	{ "screenshot-no-media",

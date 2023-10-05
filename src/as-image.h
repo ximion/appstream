@@ -76,6 +76,9 @@ void	     as_image_set_width (AsImage *image, guint width);
 guint	     as_image_get_height (AsImage *image);
 void	     as_image_set_height (AsImage *image, guint height);
 
+guint	     as_image_get_scale (AsImage *image);
+void	     as_image_set_scale (AsImage *image, guint scale);
+
 const gchar *as_image_get_locale (AsImage *image);
 void	     as_image_set_locale (AsImage *image, const gchar *locale);
 
