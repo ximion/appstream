@@ -295,8 +295,8 @@ as_screenshot_get_image (AsScreenshot *screenshot, guint width, guint height, gu
 		guint64 scaled_width;
 		guint64 scaled_height;
 
-		scaled_width = width * current_scale;
-		scaled_height = height * current_scale;
+		scaled_width = (guint64) width * current_scale;
+		scaled_height = (guint64) height * current_scale;
 
 		for (guint i = 0; i < images->len; i++) {
 			gint64 tmp;
