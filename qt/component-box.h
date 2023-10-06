@@ -107,6 +107,7 @@ public:
 
     iterator begin() const { return iterator(0, this); }
     iterator end() const { return iterator(size(), this); }
+    iterator erase(iterator it);
 
     uint size() const;
     bool isEmpty() const;

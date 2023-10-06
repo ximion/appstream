@@ -136,3 +136,9 @@ void ComponentBox::sortByScore()
 {
     as_component_box_sort_by_score(d->m_cbox);
 }
+
+ComponentBox::iterator ComponentBox::erase(iterator it)
+{
+    as_component_box_remove_at(it.data->d->m_cbox, it.index);
+    return it;
+}
