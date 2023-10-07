@@ -25,8 +25,6 @@
 #pragma once
 
 #include <glib-object.h>
-#include "as-checksum.h"
-#include "as-bundle.h"
 
 G_BEGIN_DECLS
 

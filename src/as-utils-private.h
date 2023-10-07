@@ -123,6 +123,8 @@ gboolean as_utils_is_platform_triplet_arch (const gchar *arch);
 gboolean as_utils_is_platform_triplet_oskernel (const gchar *os);
 gboolean as_utils_is_platform_triplet_osenv (const gchar *env);
 
+gboolean as_utils_is_reference_registry (const gchar *regname);
+
 gchar	*as_get_user_cache_dir (GError **error);
 
 gboolean as_unichar_accepted (gunichar c);

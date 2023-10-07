@@ -1083,6 +1083,33 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("This color is not a valid HTML color code."),
 	},
 
+	{ "reference-doi-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The given DOI (Digital Object Identifier) for this reference item is not valid."),
+	},
+
+	{ "reference-citation-url-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The value for this citation reference item must be an URL to a CFF (Citation File Format) file."),
+	},
+
+	{ "reference-registry-name-missing",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This registry reference item is missing the `name` property to denote the name of the registry it is about."),
+	},
+
+	{ "reference-registry-name-unknown",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The registry for this reference item is unknown. This may be due to a typing error, or "
+	     "the registry needs to be registered with AppStream."),
+	},
+
+	{ "reference-value-missing",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The reference item is missing a value."),
+	},
+
 	{ "custom-invalid-tag",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */

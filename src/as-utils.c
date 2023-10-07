@@ -1593,6 +1593,41 @@ as_utils_is_platform_triplet (const gchar *triplet)
 }
 
 /**
+ * as_utils_is_reference_registry:
+ * @regname: a potential registry ID.
+ *
+ * Check if the given string is a valid ID for an
+ * external identifier or scientific registry.
+ *
+ * Returns: %TRUE if registry is valid
+ *
+ * Since: 1.0.0
+ **/
+gboolean
+as_utils_is_reference_registry (const gchar *regname)
+{
+	g_autoptr(GBytes) data = NULL;
+	g_autofree gchar *key = NULL;
+	GResource *resource = NULL;
+
+	if (as_is_empty (regname))
+		return FALSE;
+
+	resource = as_get_resource ();
+	g_assert (resource != NULL);
+
+	/* load the readonly data section */
+	data = g_resource_lookup_data (resource,
+				       "/org/freedesktop/appstream/reference-registries.txt",
+				       G_RESOURCE_LOOKUP_FLAGS_NONE,
+				       NULL);
+	if (data == NULL)
+		return FALSE;
+	key = g_strdup_printf ("\n%s\n", regname);
+	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
+}
+
+/**
  * as_utils_sort_components_into_categories:
  * @cpts: (element-type AsComponent): List of components.
  * @categories: (element-type AsCategory): List of categories to sort components into.

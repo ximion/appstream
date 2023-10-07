@@ -44,6 +44,7 @@
 #include "as-review-private.h"
 #include "as-branding-private.h"
 #include "as-developer-private.h"
+#include "as-reference-private.h"
 #include "as-desktop-entry.h"
 #include "as-relation-check-result.h"
 
@@ -127,6 +128,7 @@ typedef struct {
 	gboolean ignored; /* whether we should ignore this component */
 
 	GPtrArray *tags;
+	GPtrArray *references;
 	GHashTable *name_variant_suffix; /* variant suffix for component name */
 	GHashTable *custom; /* of RefString:RefString, free-form user-defined custom data */
 } AsComponentPrivate;
@@ -441,6 +443,7 @@ as_component_init (AsComponent *cpt)
 
 	/* others */
 	priv->tags = g_ptr_array_new_with_free_func (g_free);
+	priv->references = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->urls = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	priv->custom = g_hash_table_new_full (g_str_hash,
@@ -499,6 +502,7 @@ as_component_finalize (GObject *object)
 	g_ptr_array_unref (priv->content_ratings);
 	g_ptr_array_unref (priv->icons);
 	g_ptr_array_unref (priv->tags);
+	g_ptr_array_unref (priv->references);
 
 	g_ptr_array_unref (priv->requires);
 	g_ptr_array_unref (priv->recommends);
@@ -1989,6 +1993,39 @@ as_component_has_tag (AsComponent *cpt, const gchar *ns, const gchar *tag)
 			return TRUE;
 	}
 	return FALSE;
+}
+
+/**
+ * as_component_get_references:
+ * @cpt: an #AsComponent instance.
+ *
+ * Get a list of external references and citation information for this component.
+ *
+ * Returns: (transfer none) (element-type AsReference): An array of #AsReference.
+ *
+ * Since: 1.0.0
+ **/
+GPtrArray *
+as_component_get_references (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->references;
+}
+
+/**
+ * as_component_add_reference:
+ * @cpt: a #AsComponent instance.
+ * @reference: an #AsReference instance.
+ *
+ * Adds an external reference to the software component.
+ *
+ * Since: 1.0.0
+ **/
+void
+as_component_add_reference (AsComponent *cpt, AsReference *reference)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_ptr_array_add (priv->references, g_object_ref (reference));
 }
 
 /**
@@ -4723,6 +4760,19 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 				value = as_xml_get_node_value (sn);
 				as_component_add_tag (cpt, ns, value);
 			}
+
+		} else if (tag_id == AS_TAG_REFERENCES) {
+			xmlNode *iter2;
+
+			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				g_autoptr(AsReference) reference = NULL;
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
+				reference = as_reference_new ();
+				if (as_reference_load_from_xml (reference, ctx, iter2, NULL))
+					as_component_add_reference (cpt, reference);
+			}
+
 		} else if (as_context_get_internal_mode (ctx)) {
 			g_autofree gchar *content = as_xml_get_node_value (iter);
 			/* internal information */
@@ -5157,6 +5207,16 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 			g_assert (parts[1] != NULL);
 			tag_node = as_xml_add_text_node (tags_node, "tag", parts[1]);
 			as_xml_add_text_prop (tag_node, "namespace", parts[0]);
+		}
+	}
+
+	/* references */
+	if (priv->references->len > 0) {
+		xmlNode *refs_node = as_xml_add_node (cnode, "references");
+
+		for (guint i = 0; i < priv->references->len; i++) {
+			AsReference *ref = AS_REFERENCE (g_ptr_array_index (priv->references, i));
+			as_reference_to_xml_node (ref, ctx, refs_node);
 		}
 	}
 
@@ -5730,6 +5790,14 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 				}
 				as_component_add_tag (cpt, ns, tag_value);
 			}
+
+		} else if (field_id == AS_TAG_REFERENCES) {
+			for (GNode *n = node->children; n != NULL; n = n->next) {
+				g_autoptr(AsReference) reference = as_reference_new ();
+				if (as_reference_load_from_yaml (reference, ctx, n, NULL))
+					as_component_add_reference (cpt, reference);
+			}
+
 		} else if (field_id == AS_TAG_CUSTOM) {
 			as_component_yaml_parse_custom (cpt, node);
 		} else if (field_id == AS_TAG_REVIEWS) {
@@ -6373,6 +6441,19 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 			as_yaml_emit_entry (emitter, "namespace", parts[0]);
 			as_yaml_emit_entry (emitter, "tag", parts[1]);
 			as_yaml_mapping_end (emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* References */
+	if (priv->references->len > 0) {
+		as_yaml_emit_scalar (emitter, "References");
+		as_yaml_sequence_start (emitter);
+
+		for (guint i = 0; i < priv->references->len; i++) {
+			AsReference *ref = AS_REFERENCE (g_ptr_array_index (priv->references, i));
+			as_reference_emit_yaml (ref, ctx, emitter);
 		}
 
 		as_yaml_sequence_end (emitter);

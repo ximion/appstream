@@ -41,8 +41,9 @@
 #include "as-launchable.h"
 #include "as-relation.h"
 #include "as-agreement.h"
-#include "as-review.h"
 #include "as-branding.h"
+#include "as-review.h"
+#include "as-reference.h"
 
 G_BEGIN_DECLS
 
@@ -380,6 +381,9 @@ void	     as_component_clear_tags (AsComponent *cpt);
 gboolean     as_component_add_tag (AsComponent *cpt, const gchar *ns, const gchar *tag);
 gboolean     as_component_remove_tag (AsComponent *cpt, const gchar *ns, const gchar *tag);
 gboolean     as_component_has_tag (AsComponent *cpt, const gchar *ns, const gchar *tag);
+
+GPtrArray   *as_component_get_references (AsComponent *cpt);
+void	     as_component_add_reference (AsComponent *cpt, AsReference *reference);
 
 const gchar *as_component_get_name_variant_suffix (AsComponent *cpt);
 void	     as_component_set_name_variant_suffix (AsComponent *cpt,

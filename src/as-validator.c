@@ -1425,6 +1425,51 @@ as_validator_check_tags (AsValidator *validator, xmlNode *node)
 }
 
 /**
+ * as_validator_check_references:
+ **/
+static void
+as_validator_check_references (AsValidator *validator, xmlNode *node)
+{
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		g_autofree gchar *value = NULL;
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		value = as_xml_get_node_value (iter);
+		if (as_is_empty (value))
+			as_validator_add_issue (validator, iter, "reference-value-missing", NULL);
+
+		if (as_str_equal0 (iter->name, "doi")) {
+			if (as_validate_has_hyperlink (value) ||
+			    g_strstr_len (value, -1, "/") == NULL)
+				as_validator_add_issue (validator,
+							iter,
+							"reference-doi-invalid",
+							value);
+
+		} else if (as_str_equal0 (iter->name, "citation_cff")) {
+			if (!as_validate_has_hyperlink (value) || g_str_has_suffix (value, ".cff"))
+				as_validator_add_issue (validator,
+							iter,
+							"reference-citation-url-invalid",
+							value);
+		} else if (as_str_equal0 (iter->name, "registry")) {
+			g_autofree gchar *registry_name = as_xml_get_prop_value (iter, "name");
+			if (registry_name == NULL)
+				as_validator_add_issue (validator,
+							iter,
+							"reference-registry-name-missing",
+							NULL);
+			else if (!as_utils_is_reference_registry (registry_name))
+				as_validator_add_issue (validator,
+							iter,
+							"reference-registry-name-unknown",
+							registry_name);
+		}
+	}
+}
+
+/**
  * as_validator_check_developer:
  **/
 static void
@@ -3130,6 +3175,9 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		} else if (g_strcmp0 (node_name, "tags") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_tags (validator, iter);
+		} else if (g_strcmp0 (node_name, "references") == 0) {
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
+			as_validator_check_references (validator, iter);
 		} else if (g_strcmp0 (node_name, "name_variant_suffix") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 		} else if (g_strcmp0 (node_name, "custom") == 0) {

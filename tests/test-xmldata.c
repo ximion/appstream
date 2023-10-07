@@ -2390,6 +2390,53 @@ test_xml_rw_external_releases (void)
 }
 
 /**
+ * test_xml_rw_references:
+ */
+static void
+test_xml_rw_references (void)
+{
+	static const gchar
+	    *xmldata_tags = "<component>\n"
+			    "  <id>org.example.ReferencesTest</id>\n"
+			    "  <references>\n"
+			    "    <doi>10.1000/182</doi>\n"
+			    "    <citation_cff>https://example.org/CITATION.cff</citation_cff>\n"
+			    "    <registry name=\"SciCrunch\">SCR_000000</registry>\n"
+			    "  </references>\n"
+			    "</component>\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	GPtrArray *refs;
+	AsReference *ref;
+
+	/* read */
+	cpt = as_xml_test_read_data (xmldata_tags, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReferencesTest");
+
+	/* validate */
+	refs = as_component_get_references (cpt);
+	g_assert_nonnull (refs);
+	g_assert_cmpint (refs->len, ==, 3);
+
+	ref = g_ptr_array_index (refs, 0);
+	g_assert_cmpint (as_reference_get_kind (ref), ==, AS_REFERENCE_KIND_DOI);
+	g_assert_cmpstr (as_reference_get_value (ref), ==, "10.1000/182");
+
+	ref = g_ptr_array_index (refs, 1);
+	g_assert_cmpint (as_reference_get_kind (ref), ==, AS_REFERENCE_KIND_CITATION_CFF);
+	g_assert_cmpstr (as_reference_get_value (ref), ==, "https://example.org/CITATION.cff");
+
+	ref = g_ptr_array_index (refs, 2);
+	g_assert_cmpint (as_reference_get_kind (ref), ==, AS_REFERENCE_KIND_REGISTRY);
+	g_assert_cmpstr (as_reference_get_value (ref), ==, "SCR_000000");
+	g_assert_cmpstr (as_reference_get_registry_name (ref), ==, "SciCrunch");
+
+	/* write */
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_tags));
+}
+
+/**
  * main:
  */
 int
@@ -2461,6 +2508,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/ReadWrite/Branding", test_xml_rw_branding);
 	g_test_add_func ("/XML/ReadWrite/Developer", test_xml_rw_developer);
 	g_test_add_func ("/XML/ReadWrite/ExternalReleases", test_xml_rw_external_releases);
+	g_test_add_func ("/XML/ReadWrite/References", test_xml_rw_references);
 
 	ret = g_test_run ();
 	g_free (datadir);
