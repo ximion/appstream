@@ -27,10 +27,9 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-10-07 07:34+0200\n"
-"PO-Revision-Date: 2023-10-05 12:11+0000\n"
+"PO-Revision-Date: 2023-10-07 09:11+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1068,7 +1067,7 @@ msgstr "GNOME (mörk)"
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:93
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:95
@@ -1082,9 +1081,8 @@ msgstr "Rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:107
-#, fuzzy
 msgid "Microsoft Windows"
-msgstr "Microsoft Public License"
+msgstr "Microsoft Windows"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -4348,9 +4346,8 @@ msgstr "Egenskapen `height` måste vara ett positivt heltal."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:229
-#, fuzzy
 msgid "The `scale` property must be a positive integer."
-msgstr "Egenskapen `height` måste vara ett positivt heltal."
+msgstr "Egenskapen `scale` måste vara ett positivt heltal."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
@@ -4398,10 +4395,9 @@ msgstr ""
 "skärmbild eller video."
 
 #: src/as-validator-issue-tag.h:279
-#, fuzzy
 msgid ""
 "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr "En skärmbild måste ha minst en bild av typen `source`."
+msgstr "En skärmbild måste ha minst en bild som har skalningsfaktor 1."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:285
@@ -5493,9 +5489,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:1110
-#, fuzzy
 msgid "The reference item is missing a value."
-msgstr "Utgåvans tidsstämpel är ogiltig."
+msgstr "Referensobjektet saknar ett värde."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1116
