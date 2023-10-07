@@ -354,6 +354,11 @@ test_component_box (void)
 		AsComponent *c = as_component_box_index (cbox, i);
 		g_assert_cmpstr (as_component_get_id (c), ==, "org.example.AComponent");
 	}
+
+	/* remove at index */
+	g_assert_cmpint (as_component_box_len (cbox), ==, 3);
+	as_component_box_remove_at (cbox, 1);
+	g_assert_cmpint (as_component_box_len (cbox), ==, 2);
 }
 
 /**
