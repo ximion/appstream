@@ -1300,6 +1300,10 @@ as_utils_is_category_name (const gchar *category_name)
 	if (g_str_has_prefix (category_name, "X-"))
 		return TRUE;
 
+	/* safeguard against accidentally matching comments */
+	if (g_str_has_prefix (category_name, "#"))
+		return FALSE;
+
 	/* load the readonly data section and look for the category name */
 	data = g_resource_lookup_data (resource,
 				       "/org/freedesktop/appstream/xdg-category-names.txt",
@@ -1329,6 +1333,10 @@ as_utils_is_tld (const gchar *tld)
 	g_autofree gchar *key = NULL;
 	GResource *resource = as_get_resource ();
 	g_assert (resource != NULL);
+
+	/* safeguard against accidentally matching comments */
+	if (as_is_empty (tld) || g_str_has_prefix (tld, "#"))
+		return FALSE;
 
 	/* load the readonly data section and look for the TLD */
 	data = g_resource_lookup_data (resource,
@@ -1462,12 +1470,16 @@ as_utils_is_platform_triplet_arch (const gchar *arch)
 	g_autofree gchar *key = NULL;
 	GResource *resource = NULL;
 
-	if (arch == NULL)
+	if (as_is_empty (arch))
 		return FALSE;
 
 	/* "any" is always a valid value */
 	if (g_strcmp0 (arch, "any") == 0)
 		return TRUE;
+
+	/* safeguard against accidentally matching comments */
+	if (g_str_has_prefix (arch, "#"))
+		return FALSE;
 
 	resource = as_get_resource ();
 	g_assert (resource != NULL);
@@ -1501,12 +1513,16 @@ as_utils_is_platform_triplet_oskernel (const gchar *os)
 	g_autofree gchar *key = NULL;
 	GResource *resource;
 
-	if (os == NULL)
+	if (as_is_empty (os))
 		return FALSE;
 
 	/* "any" is always a valid value */
 	if (g_strcmp0 (os, "any") == 0)
 		return TRUE;
+
+	/* safeguard against accidentally matching comments */
+	if (g_str_has_prefix (os, "#"))
+		return FALSE;
 
 	resource = as_get_resource ();
 	g_assert (resource != NULL);
@@ -1540,12 +1556,16 @@ as_utils_is_platform_triplet_osenv (const gchar *env)
 	g_autofree gchar *key = NULL;
 	GResource *resource;
 
-	if (env == NULL)
+	if (as_is_empty (env))
 		return FALSE;
 
 	/* "any" is always a valid value */
 	if (g_strcmp0 (env, "any") == 0)
 		return TRUE;
+
+	/* safeguard against accidentally matching comments */
+	if (g_str_has_prefix (env, "#"))
+		return FALSE;
 
 	resource = as_get_resource ();
 	g_assert (resource != NULL);
@@ -1611,6 +1631,10 @@ as_utils_is_reference_registry (const gchar *regname)
 	GResource *resource = NULL;
 
 	if (as_is_empty (regname))
+		return FALSE;
+
+	/* safeguard against accidentally matching comments */
+	if (g_str_has_prefix (regname, "#"))
 		return FALSE;
 
 	resource = as_get_resource ();
