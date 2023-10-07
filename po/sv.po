@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-10-07 07:34+0200\n"
-"PO-Revision-Date: 2023-10-07 09:11+0000\n"
+"PO-Revision-Date: 2023-10-07 12:04+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
@@ -1685,7 +1685,7 @@ msgstr ""
 
 #: src/as-spdx-data.h:77
 msgid "BSD with attribution"
-msgstr ""
+msgstr "BSD med attribuering"
 
 #: src/as-spdx-data.h:78
 msgid "BSD 3-Clause Clear License"
@@ -1749,7 +1749,7 @@ msgstr ""
 
 #: src/as-spdx-data.h:93
 msgid "BSD with Attribution and HPND disclaimer"
-msgstr ""
+msgstr "BSD med attribuering och HPND-ansvarsfriskrivning"
 
 #: src/as-spdx-data.h:94
 msgid "BSD-Inferno-Nettverk"
@@ -1761,7 +1761,7 @@ msgstr ""
 
 #: src/as-spdx-data.h:96
 msgid "BSD Source Code Attribution"
-msgstr ""
+msgstr "BSD-källkodsattribuering"
 
 #: src/as-spdx-data.h:97
 msgid "Systemics BSD variant license"
@@ -2646,7 +2646,7 @@ msgstr "JPL-bildanvändningspolicy"
 
 #: src/as-spdx-data.h:319
 msgid "Japan Network Information Center License"
-msgstr ""
+msgstr "Japan Network Information Center-licensen"
 
 #: src/as-spdx-data.h:320
 msgid "JSON License"
@@ -2754,7 +2754,7 @@ msgstr "Latex2e-licensen"
 
 #: src/as-spdx-data.h:352
 msgid "Latex2e with translated notice permission"
-msgstr ""
+msgstr "Latex2e med tillåtelse för översatt notis"
 
 #: src/as-spdx-data.h:353
 msgid "Leptonica License"
@@ -2958,11 +2958,11 @@ msgstr "NICTA Public Software License, Version 1.0"
 
 #: src/as-spdx-data.h:403
 msgid "NIST Public Domain Notice"
-msgstr ""
+msgstr "NIST:s public domain-notis"
 
 #: src/as-spdx-data.h:404
 msgid "NIST Public Domain Notice with license fallback"
-msgstr ""
+msgstr "NIST:s public domain-notis med reservlicens"
 
 #: src/as-spdx-data.h:405
 msgid "NIST Software License"
@@ -3326,7 +3326,7 @@ msgstr "SANE-undantag"
 
 #: src/as-spdx-data.h:495
 msgid "Sax Public Domain Notice"
-msgstr ""
+msgstr "Public domain-notis för Sax"
 
 #: src/as-spdx-data.h:496
 msgid "SCEA Shared Source License"
@@ -3562,15 +3562,15 @@ msgstr "Vim-licensen"
 
 #: src/as-spdx-data.h:555
 msgid "W3C Software Notice and License (2002-12-31)"
-msgstr ""
+msgstr "W3C Software Notice and License (2002-12-31)"
 
 #: src/as-spdx-data.h:556
 msgid "W3C Software Notice and License (1998-07-20)"
-msgstr ""
+msgstr "W3C Software Notice and License (1998-07-20)"
 
 #: src/as-spdx-data.h:557
 msgid "W3C Software Notice and Document License (2015-05-13)"
-msgstr ""
+msgstr "W3C Software Notice and Document License (2015-05-13)"
 
 #: src/as-spdx-data.h:558
 msgid "Do What The F*ck You Want To Public License"
@@ -3742,7 +3742,7 @@ msgstr "PNG Reference Library version 2"
 
 #: src/as-spdx-data.h:600
 msgid "libselinux public domain notice"
-msgstr ""
+msgstr "libselinux public domain-notis"
 
 #: src/as-spdx-data.h:601
 msgid "libtiff License"
@@ -4801,20 +4801,19 @@ msgstr "En URL av denna typ har redan definierats."
 msgid ""
 "The toplevel `developer_name` element is deprecated. Please use the `name` "
 "element in a `developer` block instead."
-msgstr ""
+msgstr "Elementet `developer_name` på toppnivå är föråldrat. Använd elementet `name` i ett `developer`-block i stället."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:578
-#, fuzzy
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr "<developer_name/> kan inte innehålla någon hyperlänk."
+msgstr "Underordnad `name` i ett `developer`-block får inte innehålla någon hyperlänk."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:584
 msgid ""
 "The `developer` element is missing an `id` property, containing a unique "
 "string ID for the developer. Consider adding a unique ID."
-msgstr ""
+msgstr "`developer`-elementet saknar en `id`-egenskap som innehåller en unikt sträng-ID för utvecklaren. Överväg att lägga till ett unikt ID."
 
 #: src/as-validator-issue-tag.h:590
 msgid ""
@@ -5467,26 +5466,26 @@ msgstr "Denna färg är inte en giltig HTML-färgkod."
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
-msgstr ""
+msgstr "Angiven DOI (digital objektidentifierare) för detta referensobjekt är inte giltig."
 
 #: src/as-validator-issue-tag.h:1093
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
-msgstr ""
+msgstr "Värdet för detta citeringsreferensobjekt måste vara en URL till en CFF-fil (Citation File Format)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1099
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
-msgstr ""
+msgstr "Detta registerreferensobjekt saknar egenskapen `name` för att beskriva namnet på registret som det gäller."
 
 #: src/as-validator-issue-tag.h:1104
 msgid ""
 "The registry for this reference item is unknown. This may be due to a typing "
 "error, or the registry needs to be registered with AppStream."
-msgstr ""
+msgstr "Registret för detta referensobjekt är okänt. Detta kan vara på grund av ett skrivfel eller så behöver registret registreras med AppStream."
 
 #: src/as-validator-issue-tag.h:1110
 msgid "The reference item is missing a value."
