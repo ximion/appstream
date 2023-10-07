@@ -21,16 +21,14 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-10-07 07:34+0200\n"
-"PO-Revision-Date: 2023-10-01 12:19+0000\n"
+"PO-Revision-Date: 2023-10-07 12:04+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
-"translations/pl/>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 5.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -1068,7 +1066,7 @@ msgstr "GNOME (ciemny)"
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:93
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:95
@@ -1083,7 +1081,7 @@ msgstr "Rox"
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:107
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -4462,9 +4460,8 @@ msgstr "Właściwość „height” musi być dodatnią liczbą całkowitą."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:229
-#, fuzzy
 msgid "The `scale` property must be a positive integer."
-msgstr "Właściwość „height” musi być dodatnią liczbą całkowitą."
+msgstr "Właściwość „scale” musi być dodatnią liczbą całkowitą."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
@@ -4516,10 +4513,9 @@ msgstr ""
 "obrazu lub filmu zrzutu ekranu."
 
 #: src/as-validator-issue-tag.h:279
-#, fuzzy
 msgid ""
 "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr "Zrzut ekranu musi mieć co najmniej jeden obraz typu „source”."
+msgstr "Zrzut ekranu musi mieć co najmniej jeden obraz o współczynniku skalowania 1."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:285
@@ -4930,20 +4926,19 @@ msgstr "Adres URL tego typu został już określony."
 msgid ""
 "The toplevel `developer_name` element is deprecated. Please use the `name` "
 "element in a `developer` block instead."
-msgstr ""
+msgstr "Element „developer_name” najwyższego poziomu jest przestarzały. Proszę zamiast tego użyć elementu „name” w części „developer”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:578
-#, fuzzy
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr "Znacznik <developer_name/> nie może zawierać odnośnika."
+msgstr "Element potomny „name” części „developer” nie może zawierać odnośnika."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:584
 msgid ""
 "The `developer` element is missing an `id` property, containing a unique "
 "string ID for the developer. Consider adding a unique ID."
-msgstr ""
+msgstr "W elemencie „developer” brakuje właściwości „id”, zawierającej unikalny ciąg identyfikatora programisty. Proszę rozważyć dodanie unikalnego identyfikatora."
 
 #: src/as-validator-issue-tag.h:590
 msgid ""
@@ -5594,31 +5589,30 @@ msgstr "Ten kolor nie jest prawidłowym kodem koloru HTML."
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
-msgstr ""
+msgstr "Podany DOI (cyfrowy identyfikator dokumentu elektronicznego) dla tego elementu wskazania jest nieprawidłowy."
 
 #: src/as-validator-issue-tag.h:1093
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
-msgstr ""
+msgstr "Wartość tego elementu wskazania cytatu musi być adresem URL do pliku CFF („Citation File Format”)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1099
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
-msgstr ""
+msgstr "W tym elemencie wskazania rejestru brakuje właściwości „name” oznaczającej nazwę rejestru, o którym jest."
 
 #: src/as-validator-issue-tag.h:1104
 msgid ""
 "The registry for this reference item is unknown. This may be due to a typing "
 "error, or the registry needs to be registered with AppStream."
-msgstr ""
+msgstr "Rejestr dla tego elementu wskazania jest nieznany. Może to być spowodowane literówką, albo rejestr musi zostać zarejestrowany w bazie AppStream."
 
 #: src/as-validator-issue-tag.h:1110
-#, fuzzy
 msgid "The reference item is missing a value."
-msgstr "Czas wydania jest nieprawidłowy."
+msgstr "W elemencie wskazania brakuje wartości."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1116
