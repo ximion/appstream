@@ -1621,6 +1621,36 @@
 		</listitem>
 		</varlistentry>
 
+		<varlistentry id="tag-references">
+		<term>&lt;references/&gt;</term>
+		<listitem>
+		<para>
+			The <code>&lt;references/&gt;</code> element is an optional tag to indicate references to this component in other registries.
+			This is primarily used for scientific registries, citation information and DOI
+			(<ulink url="https://en.wikipedia.org/wiki/Digital_object_identifier">Digital Object Identifier</ulink>) associations.
+		</para>
+		<para>
+			This information is primarily consumed by specialized tools, but may also be shown by software centers or read by the
+			applications themselves to compose references.
+		</para>
+		<para>
+			The <literal>references</literal> element may have <literal>doi</literal> children containing DOI identifier strings as value,
+			<literal>citation_cff</literal> children containing a link to a citation file in CFF (<ulink url="https://citation-file-format.github.io/">Citation File Format</ulink>)
+			format or <literal>registry</literal> children.
+			A <literal>registry</literal> child must have a <literal>name</literal> property containing the name of a registry referencing this component,
+			while the value of it must be the identification string in the respective registry.
+		</para>
+		<para>
+			Example:
+		</para>
+		<programlisting language="XML"><![CDATA[<references>
+  <doi>10.1000/182</doi>
+  <registry name="SciCrunch">SCR_000000</registry>
+  <citation_cff>https://example.org/CITATION.cff</citation_cff>
+</references>]]></programlisting>
+		</listitem>
+		</varlistentry>
+
 		<varlistentry id="tag-custom">
 		<term>&lt;custom/&gt;</term>
 		<listitem>
