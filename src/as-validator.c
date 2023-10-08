@@ -1406,21 +1406,18 @@ as_validator_check_tags (AsValidator *validator, xmlNode *node)
 
 		ns = as_xml_get_prop_value (iter, "namespace");
 		if (ns == NULL) {
-			as_validator_add_issue (validator,
-						iter,
-						"component-tag-missing-namespace",
-						NULL);
+			as_validator_add_issue (validator, iter, "usertag-missing-namespace", NULL);
 			continue;
 		}
 
 		if (!as_id_string_valid (ns, FALSE)) {
-			as_validator_add_issue (validator, iter, "component-tag-invalid", ns);
+			as_validator_add_issue (validator, iter, "usertag-invalid", ns);
 			continue;
 		}
 
 		value = as_xml_get_node_value (iter);
 		if (!as_id_string_valid (value, FALSE))
-			as_validator_add_issue (validator, iter, "component-tag-invalid", value);
+			as_validator_add_issue (validator, iter, "usertag-invalid", value);
 	}
 }
 
@@ -2372,6 +2369,11 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 				/* validate issue */
 				as_validator_check_release_issue (validator, iter2);
 			}
+			continue;
+		}
+
+		if (g_strcmp0 (node_name, "tags") == 0) {
+			as_validator_check_tags (validator, iter);
 			continue;
 		}
 

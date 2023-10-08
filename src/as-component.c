@@ -1923,7 +1923,7 @@ gboolean
 as_component_add_tag (AsComponent *cpt, const gchar *ns, const gchar *tag)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_autofree gchar *tag_full = g_strconcat (ns, "::", tag, NULL);
+	g_autofree gchar *tag_full = as_make_usertag_key (ns, tag);
 
 	/* sanity check */
 	if (g_strstr_len (tag, -1, "::") != NULL)
@@ -1955,7 +1955,7 @@ gboolean
 as_component_remove_tag (AsComponent *cpt, const gchar *ns, const gchar *tag)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_autofree gchar *tag_full = g_strconcat (ns, "::", tag, NULL);
+	g_autofree gchar *tag_full = as_make_usertag_key (ns, tag);
 
 	for (guint i = 0; i < priv->tags->len; i++) {
 		const gchar *tag_iter = g_ptr_array_index (priv->tags, i);
@@ -1985,7 +1985,7 @@ gboolean
 as_component_has_tag (AsComponent *cpt, const gchar *ns, const gchar *tag)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_autofree gchar *tag_full = g_strconcat (ns, "::", tag, NULL);
+	g_autofree gchar *tag_full = as_make_usertag_key (ns, tag);
 
 	for (guint i = 0; i < priv->tags->len; i++) {
 		const gchar *tag_iter = g_ptr_array_index (priv->tags, i);
@@ -4755,8 +4755,6 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 				if (sn->type != XML_ELEMENT_NODE)
 					continue;
 				ns = as_xml_get_prop_value (sn, "namespace");
-				if (sn == NULL)
-					continue;
 				value = as_xml_get_node_value (sn);
 				as_component_add_tag (cpt, ns, value);
 			}
@@ -5204,9 +5202,9 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 			xmlNode *tag_node = NULL;
 			g_auto(GStrv)
 				    parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
-			g_assert (parts[1] != NULL);
 			tag_node = as_xml_add_text_node (tags_node, "tag", parts[1]);
-			as_xml_add_text_prop (tag_node, "namespace", parts[0]);
+			if (!as_is_empty (parts[0]))
+				as_xml_add_text_prop (tag_node, "namespace", parts[0]);
 		}
 	}
 
@@ -6435,10 +6433,10 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		for (guint i = 0; i < priv->tags->len; i++) {
 			g_auto(GStrv)
 				    parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
-			g_assert (parts[1] != NULL);
 
 			as_yaml_mapping_start (emitter);
-			as_yaml_emit_entry (emitter, "namespace", parts[0]);
+			if (!as_is_empty (parts[0]))
+				as_yaml_emit_entry (emitter, "namespace", parts[0]);
 			as_yaml_emit_entry (emitter, "tag", parts[1]);
 			as_yaml_mapping_end (emitter);
 		}

@@ -149,6 +149,11 @@ void	      as_release_add_artifact (AsRelease *release, AsArtifact *artifact);
 const gchar  *as_release_get_url (AsRelease *release, AsReleaseUrlKind url_kind);
 void	      as_release_set_url (AsRelease *release, AsReleaseUrlKind url_kind, const gchar *url);
 
+void	      as_release_clear_tags (AsRelease *release);
+gboolean      as_release_add_tag (AsRelease *release, const gchar *ns, const gchar *tag);
+gboolean      as_release_remove_tag (AsRelease *release, const gchar *ns, const gchar *tag);
+gboolean      as_release_has_tag (AsRelease *release, const gchar *ns, const gchar *tag);
+
 G_END_DECLS
 
 #endif /* __AS_RELEASE_H */

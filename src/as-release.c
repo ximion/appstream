@@ -57,6 +57,7 @@ typedef struct {
 
 	GPtrArray *issues;
 	GPtrArray *artifacts;
+	GPtrArray *tags;
 
 	gchar *url_details;
 
@@ -213,6 +214,7 @@ as_release_init (AsRelease *release)
 						   g_free);
 	priv->issues = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->artifacts = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->tags = g_ptr_array_new_with_free_func (g_free);
 	priv->urgency = AS_URGENCY_KIND_UNKNOWN;
 	priv->desc_translatable = TRUE;
 }
@@ -233,6 +235,7 @@ as_release_finalize (GObject *object)
 	g_hash_table_unref (priv->description);
 	g_ptr_array_unref (priv->issues);
 	g_ptr_array_unref (priv->artifacts);
+	g_ptr_array_unref (priv->tags);
 	if (priv->context != NULL)
 		g_object_unref (priv->context);
 
@@ -737,6 +740,108 @@ as_release_set_context (AsRelease *release, AsContext *context)
 }
 
 /**
+ * as_release_clear_tags:
+ * @release: an #AsRelease instance.
+ *
+ * Remove all tags associated with this release.
+ *
+ * Since: 1.0.0
+ */
+void
+as_release_clear_tags (AsRelease *release)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_ptr_array_set_size (priv->tags, 0);
+}
+
+/**
+ * as_release_add_tag:
+ * @release: an #AsRelease instance.
+ * @ns: The namespace the tag belongs to
+ * @tag: The tag name
+ *
+ * Add a tag to this release.
+ *
+ * Returns: %TRUE if the tag was added.
+ *
+ * Since: 1.0.0
+ */
+gboolean
+as_release_add_tag (AsRelease *release, const gchar *ns, const gchar *tag)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_autofree gchar *tag_full = as_make_usertag_key (ns, tag);
+
+	/* sanity check */
+	if (g_strstr_len (tag, -1, "::") != NULL)
+		return FALSE;
+
+	for (guint i = 0; i < priv->tags->len; i++) {
+		const gchar *tag_iter = g_ptr_array_index (priv->tags, i);
+		if (g_strcmp0 (tag_iter, tag_full) == 0)
+			return TRUE;
+	}
+
+	g_ptr_array_add (priv->tags, g_steal_pointer (&tag_full));
+	return TRUE;
+}
+
+/**
+ * as_release_remove_tag:
+ * @release: an #AsRelease instance.
+ * @ns: The namespace the tag belongs to
+ * @tag: The tag name
+ *
+ * Remove a tag from this release
+ *
+ * Returns: %TRUE if the tag was removed.
+ *
+ * Since: 1.0.0
+ */
+gboolean
+as_release_remove_tag (AsRelease *release, const gchar *ns, const gchar *tag)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_autofree gchar *tag_full = as_make_usertag_key (ns, tag);
+
+	for (guint i = 0; i < priv->tags->len; i++) {
+		const gchar *tag_iter = g_ptr_array_index (priv->tags, i);
+		if (g_strcmp0 (tag_iter, tag_full) == 0) {
+			g_ptr_array_remove_index_fast (priv->tags, i);
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+/**
+ * as_release_has_tag:
+ * @release: an #AsRelease instance.
+ * @ns: The namespace the tag belongs to
+ * @tag: The tag name
+ *
+ * Test if the release is tagged with the selected tag.
+ *
+ * Returns: %TRUE if tag exists.
+ *
+ * Since: 1.0.0
+ */
+gboolean
+as_release_has_tag (AsRelease *release, const gchar *ns, const gchar *tag)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_autofree gchar *tag_full = as_make_usertag_key (ns, tag);
+
+	for (guint i = 0; i < priv->tags->len; i++) {
+		const gchar *tag_iter = g_ptr_array_index (priv->tags, i);
+		if (g_strcmp0 (tag_iter, tag_full) == 0)
+			return TRUE;
+	}
+	return FALSE;
+}
+
+/**
  * as_release_description_translatable:
  * @release: a #AsRelease instance.
  *
@@ -835,7 +940,7 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 ((gchar *) iter->name, "artifacts") == 0) {
+		if (as_str_equal0 (iter->name, "artifacts")) {
 			for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				g_autoptr(AsArtifact) artifact = NULL;
 
@@ -846,7 +951,7 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 				if (as_artifact_load_from_xml (artifact, ctx, iter2, NULL))
 					as_release_add_artifact (release, artifact);
 			}
-		} else if (g_strcmp0 ((gchar *) iter->name, "description") == 0) {
+		} else if (as_str_equal0 (iter->name, "description")) {
 			g_hash_table_remove_all (priv->description);
 			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG) {
 				g_autofree gchar *lang = NULL;
@@ -868,11 +973,11 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 					g_free (prop);
 				}
 			}
-		} else if (g_strcmp0 ((gchar *) iter->name, "url") == 0) {
+		} else if (as_str_equal0 (iter->name, "url")) {
 			/* NOTE: Currently, every url in releases is a "details" URL */
 			content = as_xml_get_node_value (iter);
 			as_release_set_url (release, AS_RELEASE_URL_KIND_DETAILS, content);
-		} else if (g_strcmp0 ((gchar *) iter->name, "issues") == 0) {
+		} else if (as_str_equal0 (iter->name, "issues")) {
 			for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				g_autoptr(AsIssue) issue = NULL;
 
@@ -882,6 +987,17 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 				issue = as_issue_new ();
 				if (as_issue_load_from_xml (issue, ctx, iter2, NULL))
 					as_release_add_issue (release, issue);
+			}
+
+		} else if (as_str_equal0 (iter->name, "tags")) {
+			for (xmlNode *sn = iter->children; sn != NULL; sn = sn->next) {
+				g_autofree gchar *ns = NULL;
+				g_autofree gchar *value = NULL;
+				if (sn->type != XML_ELEMENT_NODE)
+					continue;
+				ns = as_xml_get_prop_value (sn, "namespace");
+				value = as_xml_get_node_value (sn);
+				as_release_add_tag (release, ns, value);
 			}
 		}
 	}
@@ -958,6 +1074,19 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 			as_artifact_to_xml_node (artifact, ctx, n_artifacts);
 		}
 	}
+
+	/* tags */
+	if (priv->tags->len > 0) {
+		xmlNode *tags_node = as_xml_add_node (subnode, "tags");
+		for (guint i = 0; i < priv->tags->len; i++) {
+			xmlNode *tag_node = NULL;
+			g_auto(GStrv)
+				    parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
+			tag_node = as_xml_add_text_node (tags_node, "tag", parts[1]);
+			if (!as_is_empty (parts[0]))
+				as_xml_add_text_prop (tag_node, "namespace", parts[0]);
+		}
+	}
 }
 
 /**
@@ -981,9 +1110,9 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 		const gchar *key = as_yaml_node_get_key (n);
 		const gchar *value = as_yaml_node_get_value (n);
 
-		if (g_strcmp0 (key, "unix-timestamp") == 0) {
+		if (as_str_equal0 (key, "unix-timestamp")) {
 			priv->timestamp = atol (value);
-		} else if (g_strcmp0 (key, "date") == 0) {
+		} else if (as_str_equal0 (key, "date")) {
 			g_autoptr(GDateTime) time = as_iso8601_to_datetime (value);
 			if (time != NULL) {
 				priv->timestamp = g_date_time_to_unix (time);
@@ -992,17 +1121,17 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 				g_debug ("Invalid ISO-8601 release date in %s",
 					 as_context_get_filename (ctx));
 			}
-		} else if (g_strcmp0 (key, "date-eol") == 0) {
+		} else if (as_str_equal0 (key, "date-eol")) {
 			as_release_set_date_eol (release, value);
-		} else if (g_strcmp0 (key, "type") == 0) {
+		} else if (as_str_equal0 (key, "type")) {
 			priv->kind = as_release_kind_from_string (value);
-		} else if (g_strcmp0 (key, "version") == 0) {
+		} else if (as_str_equal0 (key, "version")) {
 			as_release_set_version (release, value);
-		} else if (g_strcmp0 (key, "urgency") == 0) {
+		} else if (as_str_equal0 (key, "urgency")) {
 			priv->urgency = as_urgency_kind_from_string (value);
-		} else if (g_strcmp0 (key, "description") == 0) {
+		} else if (as_str_equal0 (key, "description")) {
 			as_yaml_set_localized_table (ctx, n, priv->description);
-		} else if (g_strcmp0 (key, "url") == 0) {
+		} else if (as_str_equal0 (key, "url")) {
 			GNode *urls_n;
 			AsReleaseUrlKind url_kind;
 
@@ -1015,18 +1144,35 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 					as_release_set_url (release, url_kind, c_value);
 			}
 
-		} else if (g_strcmp0 (key, "issues") == 0) {
+		} else if (as_str_equal0 (key, "issues")) {
 			for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
 				g_autoptr(AsIssue) issue = as_issue_new ();
 				if (as_issue_load_from_yaml (issue, ctx, sn, NULL))
 					as_release_add_issue (release, issue);
 			}
 
-		} else if (g_strcmp0 (key, "artifacts") == 0) {
+		} else if (as_str_equal0 (key, "artifacts")) {
 			for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
 				g_autoptr(AsArtifact) artifact = as_artifact_new ();
 				if (as_artifact_load_from_yaml (artifact, ctx, sn, NULL))
 					as_release_add_artifact (release, artifact);
+			}
+
+		} else if (as_str_equal0 (key, "tags")) {
+			for (GNode *tags_n = n->children; tags_n != NULL; tags_n = tags_n->next) {
+				const gchar *ns = NULL;
+				const gchar *tag_value = NULL;
+
+				for (GNode *tag_n = tags_n->children; tag_n != NULL;
+				     tag_n = tag_n->next) {
+					const gchar *c_key = as_yaml_node_get_key (tag_n);
+					const gchar *c_value = as_yaml_node_get_value (tag_n);
+					if (g_strcmp0 (c_key, "namespace") == 0)
+						ns = c_value;
+					else if (g_strcmp0 (c_key, "tag") == 0)
+						tag_value = c_value;
+				}
+				as_release_add_tag (release, ns, tag_value);
 			}
 
 		} else {
@@ -1117,6 +1263,25 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 		for (guint i = 0; i < priv->artifacts->len; i++) {
 			AsArtifact *artifact = AS_ARTIFACT (g_ptr_array_index (priv->artifacts, i));
 			as_artifact_emit_yaml (artifact, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* tags */
+	if (priv->tags->len > 0) {
+		as_yaml_emit_scalar (emitter, "tags");
+		as_yaml_sequence_start (emitter);
+
+		for (guint i = 0; i < priv->tags->len; i++) {
+			g_auto(GStrv)
+				    parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
+
+			as_yaml_mapping_start (emitter);
+			if (!as_is_empty (parts[0]))
+				as_yaml_emit_entry (emitter, "namespace", parts[0]);
+			as_yaml_emit_entry (emitter, "tag", parts[1]);
+			as_yaml_mapping_end (emitter);
 		}
 
 		as_yaml_sequence_end (emitter);

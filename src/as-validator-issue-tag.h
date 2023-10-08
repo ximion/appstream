@@ -1056,13 +1056,13 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("A `content_attribute` tag with this ID has already been defined."),
 	},
 
-	{ "component-tag-missing-namespace",
-	  AS_ISSUE_SEVERITY_ERROR,
+	{ "usertag-missing-namespace",
+	  AS_ISSUE_SEVERITY_INFO,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("This `tag` is missing a `namespace` attribute."),
 	},
 
-	{ "component-tag-invalid",
+	{ "usertag-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."),

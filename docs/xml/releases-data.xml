@@ -282,6 +282,16 @@
 				</variablelist>
 			</listitem>
 			</varlistentry>
+
+			<varlistentry id="tag-release-tags">
+			<term>&lt;tags/&gt;</term>
+			<listitem>
+				<para>
+					The <literal>tags</literal> element can be used to tag releases with user-defined tags.
+					It follows the same semantics as the one for components, as described in <xref linkend="tag-tags"/>.
+				</para>
+			</listitem>
+			</varlistentry>
 		</variablelist>
 
 	</section>

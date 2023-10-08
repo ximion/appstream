@@ -2803,6 +2803,21 @@ as_utils_guess_scope_from_path (const gchar *path)
 }
 
 /**
+ * as_make_usertag_key:
+ * @ns: the namespace
+ * @tag: the tag
+ *
+ * Helper for release and component user tags.
+ */
+gchar *
+as_make_usertag_key (const gchar *ns, const gchar *tag)
+{
+	if (ns == NULL)
+		ns = "";
+	return g_strconcat (ns, "::", tag, NULL);
+}
+
+/**
  * as_utils_get_tag_search_weight:
  * @tag_name: A tag name in a component element, e.g. "name" or "summary" or "keyword"
  *
