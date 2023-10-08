@@ -1937,8 +1937,10 @@ as_cache_search (AsCache *cache, const gchar *const *terms, gboolean sort, GErro
 	} queries[] = {
 		{ AS_SEARCH_TOKEN_MATCH_MEDIATYPE,	"provides/mediatype[text()~=?]" },
 		{ AS_SEARCH_TOKEN_MATCH_PKGNAME,	"pkgname[text()~=?]" },
+		{ AS_SEARCH_TOKEN_MATCH_PKGNAME / 2,	"pkgname[contains(text(),?)]" },
 		{ AS_SEARCH_TOKEN_MATCH_SUMMARY,	"summary[text()~=?]" },
 		{ AS_SEARCH_TOKEN_MATCH_NAME,		"name[text()~=?]" },
+		{ AS_SEARCH_TOKEN_MATCH_NAME / 2,	"name[contains(text(),?)]" },
 		{ AS_SEARCH_TOKEN_MATCH_DESCRIPTION,	"_asi_tokens/t[text()~=?]" },
 		{ AS_SEARCH_TOKEN_MATCH_ID,		"id[text()~=?]" },
 		{ AS_SEARCH_TOKEN_MATCH_ORIGIN,		"_asi_origin[text()~=?]" },
