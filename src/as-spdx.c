@@ -156,7 +156,6 @@ as_spdx_license_tokenize_drop (AsSpdxHelper *helper)
 gboolean
 as_is_spdx_license_id (const gchar *license_id)
 {
-	g_autoptr(GBytes) data = NULL;
 	g_autofree gchar *key = NULL;
 
 	/* handle invalid */
@@ -188,7 +187,6 @@ as_is_spdx_license_id (const gchar *license_id)
 gboolean
 as_is_spdx_license_exception_id (const gchar *exception_id)
 {
-	g_autoptr(GBytes) data = NULL;
 	g_autofree gchar *key = NULL;
 
 	/* handle invalid */
@@ -428,66 +426,68 @@ as_license_to_spdx_id (const gchar *license)
 	guint i;
 	guint j;
 	guint license_len;
+	/* clang-format off */
 	struct {
-		const gchar *old;
-		const gchar *new;
-	} convert[] = {
-		{" with exceptions",    NULL			   },
-		{ " with advertising",  NULL			    },
-		{ " and ",		   " AND "		   },
-		{ " or ",		  " OR "			 },
-		{ "AGPLv3+",	     "AGPL-3.0"		},
-		{ "AGPLv3",		    "AGPL-3.0"		       },
-		{ "Artistic 2.0",	  "Artistic-2.0"		 },
-		{ "Artistic clarified", "Artistic-2.0"	       },
-		{ "Artistic",	      "Artistic-1.0"	     },
-		{ "ASL 1.1",	     "Apache-1.1"		  },
-		{ "ASL 2.0",	     "Apache-2.0"		  },
-		{ "Boost",		   "BSL-1.0"		     },
-		{ "BSD",		 "BSD-3-Clause"		},
-		{ "CC0",		 "CC0-1.0"		   },
-		{ "CC-BY-SA",	      "CC-BY-SA-3.0"	     },
-		{ "CC-BY",		   "CC-BY-3.0"	       },
-		{ "CDDL",		  "CDDL-1.0"		     },
-		{ "CeCILL-C",	      "CECILL-C"		 },
-		{ "CeCILL",		    "CECILL-2.0"		 },
-		{ "CPAL",		  "CPAL-1.0"		     },
-		{ "CPL",		 "CPL-1.0"		   },
-		{ "EPL",		 "EPL-1.0"		   },
-		{ "Free Art",	      "ClArtistic"		   },
-		{ "GFDL",		  "GFDL-1.3"		     },
-		{ "GPL+",		  "GPL-1.0+"		     },
-		{ "GPLv2+",		    "GPL-2.0+"		       },
-		{ "GPLv2",		   "GPL-2.0"		     },
-		{ "GPLv3+",		    "GPL-3.0+"		       },
-		{ "GPLv3",		   "GPL-3.0"		     },
-		{ "IBM",		 "IPL-1.0"		   },
-		{ "LGPL+",		   "LGPL-2.1+"	       },
-		{ "LGPLv2.1",	      "LGPL-2.1"		 },
-		{ "LGPLv2+",	     "LGPL-2.1+"		 },
-		{ "LGPLv2",		    "LGPL-2.1"		       },
-		{ "LGPLv3+",	     "LGPL-3.0+"		 },
-		{ "LGPLv3",		    "LGPL-3.0"		       },
-		{ "LPPL",		  "LPPL-1.3c"		      },
-		{ "MPLv1.0",	     "MPL-1.0"		       },
-		{ "MPLv1.1",	     "MPL-1.1"		       },
-		{ "MPLv2.0",	     "MPL-2.0"		       },
-		{ "Netscape",	      "NPL-1.1"			},
-		{ "OFL",		 "OFL-1.1"		   },
-		{ "Python",		    "Python-2.0"		 },
-		{ "QPL",		 "QPL-1.0"		   },
-		{ "SPL",		 "SPL-1.0"		   },
-		{ "UPL",		 "UPL-1.0"		   },
-		{ "zlib",		  "Zlib"			 },
-		{ "ZPLv2.0",	     "ZPL-2.0"		       },
-		{ "Unlicense",	       "CC0-1.0"		 },
-		{ "Public Domain",	   "LicenseRef-public-domain"},
-		{ "SUSE-Public-Domain", "LicenseRef-public-domain"},
-		{ "Copyright only",	    "LicenseRef-public-domain"},
-		{ "Proprietary",	 "LicenseRef-proprietary"  },
-		{ "Commercial",		"LicenseRef-proprietary"	 },
-		{ NULL,			NULL			     }
+		const gchar	*old;
+		const gchar	*new;
+	} convert[] =  {
+		{ " with exceptions",		NULL },
+		{ " with advertising",		NULL },
+		{ " and ",			" AND " },
+		{ " or ",			" OR " },
+		{ "AGPLv3+",			"AGPL-3.0" },
+		{ "AGPLv3",			"AGPL-3.0" },
+		{ "Artistic 2.0",		"Artistic-2.0" },
+		{ "Artistic clarified",		"Artistic-2.0" },
+		{ "Artistic",			"Artistic-1.0" },
+		{ "ASL 1.1",			"Apache-1.1" },
+		{ "ASL 2.0",			"Apache-2.0" },
+		{ "Boost",			"BSL-1.0" },
+		{ "BSD",			"BSD-3-Clause" },
+		{ "CC0",			"CC0-1.0" },
+		{ "CC-BY-SA",			"CC-BY-SA-3.0" },
+		{ "CC-BY",			"CC-BY-3.0" },
+		{ "CDDL",			"CDDL-1.0" },
+		{ "CeCILL-C",			"CECILL-C" },
+		{ "CeCILL",			"CECILL-2.0" },
+		{ "CPAL",			"CPAL-1.0" },
+		{ "CPL",			"CPL-1.0" },
+		{ "EPL",			"EPL-1.0" },
+		{ "Free Art",			"ClArtistic" },
+		{ "GFDL",			"GFDL-1.3" },
+		{ "GPL+",			"GPL-1.0+" },
+		{ "GPLv2+",			"GPL-2.0+" },
+		{ "GPLv2",			"GPL-2.0" },
+		{ "GPLv3+",			"GPL-3.0+" },
+		{ "GPLv3",			"GPL-3.0" },
+		{ "IBM",			"IPL-1.0" },
+		{ "LGPL+",			"LGPL-2.1+" },
+		{ "LGPLv2.1",			"LGPL-2.1" },
+		{ "LGPLv2+",			"LGPL-2.1+" },
+		{ "LGPLv2",			"LGPL-2.1" },
+		{ "LGPLv3+",			"LGPL-3.0+" },
+		{ "LGPLv3",			"LGPL-3.0" },
+		{ "LPPL",			"LPPL-1.3c" },
+		{ "MPLv1.0",			"MPL-1.0" },
+		{ "MPLv1.1",			"MPL-1.1" },
+		{ "MPLv2.0",			"MPL-2.0" },
+		{ "Netscape",			"NPL-1.1" },
+		{ "OFL",			"OFL-1.1" },
+		{ "Python",			"Python-2.0" },
+		{ "QPL",			"QPL-1.0" },
+		{ "SPL",			"SPL-1.0" },
+		{ "UPL",			"UPL-1.0" },
+		{ "zlib",			"Zlib" },
+		{ "ZPLv2.0",			"ZPL-2.0" },
+		{ "Unlicense",			"CC0-1.0" },
+		{ "Public Domain",		"LicenseRef-public-domain" },
+		{ "SUSE-Public-Domain",		"LicenseRef-public-domain" },
+		{ "Copyright only",		"LicenseRef-public-domain" },
+		{ "Proprietary",		"LicenseRef-proprietary" },
+		{ "Commercial",			"LicenseRef-proprietary" },
+		{ NULL, NULL }
 	};
+	/* clang-format on */
 
 	/* nothing set */
 	if (license == NULL)
@@ -775,7 +775,6 @@ gboolean
 as_license_is_free_license (const gchar *license)
 {
 	g_auto(GStrv) tokens = NULL;
-	g_autoptr(GBytes) rdata = NULL;
 	gboolean is_free;
 
 	/* no license at all is "non-free" */
@@ -784,20 +783,13 @@ as_license_is_free_license (const gchar *license)
 	if (g_strcmp0 (license, "NONE") == 0)
 		return FALSE;
 
-	/* load the readonly data section of (free) license IDs */
-	rdata = g_resource_lookup_data (as_get_resource (),
-					"/org/freedesktop/appstream/spdx-free-license-ids.txt",
-					G_RESOURCE_LOOKUP_FLAGS_NONE,
-					NULL);
-	g_return_val_if_fail (rdata != NULL, FALSE);
-
 	/* assume we have a free software license, unless proven otherwise */
 	is_free = TRUE;
 	tokens = as_spdx_license_tokenize (license);
 	if (tokens == NULL)
 		return FALSE;
 	for (guint i = 0; tokens[i] != NULL; i++) {
-		g_autofree gchar *lkey = NULL;
+		const gchar *license_id;
 
 		if (g_strcmp0 (tokens[i], "&") == 0 || g_strcmp0 (tokens[i], "+") == 0 ||
 		    g_strcmp0 (tokens[i], "|") == 0 || g_strcmp0 (tokens[i], "^") == 0 ||
@@ -823,18 +815,27 @@ as_license_is_free_license (const gchar *license)
 			break;
 		}
 
-		if (as_is_spdx_license_exception_id (tokens[i] + 1)) {
+		license_id = tokens[i] + 1;
+		if (as_is_spdx_license_exception_id (license_id)) {
 			/* for now, we assume any SPDX license exception is still fine and doesn't change the
 			 * "free-ness" status of a software component */
 			continue;
 		}
 
-		lkey = g_strdup_printf ("\n%s\n", tokens[i] + 1);
-		if (g_strstr_len (g_bytes_get_data (rdata, NULL), -1, lkey) == NULL) {
-			/* the license was not in our "free" list, so we consider it non-free */
-			is_free = FALSE;
-			break;
+		/* assume non-free by default from now on */
+		is_free = FALSE;
+
+		/* check our list of free licenses */
+		for (guint k = 0; as_spdx_license_info_list[k].id != NULL; k++) {
+			if (as_str_equal0 (as_spdx_license_info_list[k].id, license_id)) {
+				/* save the free-ness status */
+				is_free = as_spdx_license_info_list[k].is_floss;
+				break;
+			}
 		}
+
+		if (!is_free)
+			break;
 	}
 
 	return is_free;

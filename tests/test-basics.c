@@ -403,12 +403,12 @@ static void
 test_locale_compat (void)
 {
 	g_assert_true (as_utils_locale_is_compatible ("de_DE", "de_DE"));
-	g_assert_true (!as_utils_locale_is_compatible ("de_DE", "en"));
+	g_assert_false (as_utils_locale_is_compatible ("de_DE", "en"));
 	g_assert_true (as_utils_locale_is_compatible ("de_DE", "de"));
 	g_assert_true (as_utils_locale_is_compatible ("ca_ES@valencia", "ca"));
 	g_assert_true (as_utils_locale_is_compatible ("ca@valencia", "ca"));
-	g_assert_true (!as_utils_locale_is_compatible ("ca@valencia", "de"));
-	g_assert_true (!as_utils_locale_is_compatible ("de_CH", "de_DE"));
+	g_assert_false (as_utils_locale_is_compatible ("ca@valencia", "de"));
+	g_assert_false (as_utils_locale_is_compatible ("de_CH", "de_DE"));
 	g_assert_true (as_utils_locale_is_compatible ("de", "de_CH"));
 	g_assert_true (as_utils_locale_is_compatible ("C", "C"));
 }
@@ -551,9 +551,9 @@ test_spdx (void)
 	g_assert_true (
 	    as_is_spdx_license_expression ("GPL-3.0-or-later WITH Font-exception-2.0 AND OFL-1.1"));
 	g_assert_true (as_is_spdx_license_expression ("NOASSERTION"));
-	g_assert_true (!as_is_spdx_license_expression ("CC0 dave"));
-	g_assert_true (!as_is_spdx_license_expression (""));
-	g_assert_true (!as_is_spdx_license_expression (NULL));
+	g_assert_false (as_is_spdx_license_expression ("CC0 dave"));
+	g_assert_false (as_is_spdx_license_expression (""));
+	g_assert_false (as_is_spdx_license_expression (NULL));
 
 	/* importing non-SPDX formats */
 	tmp = as_license_to_spdx_id ("CC0 and (Public Domain and GPLv3+ with exceptions)");
@@ -565,7 +565,7 @@ test_spdx (void)
 	g_assert_true (as_license_is_metadata_license ("CC0-1.0"));
 	g_assert_true (as_license_is_metadata_license ("0BSD"));
 	g_assert_true (as_license_is_metadata_license ("MIT AND FSFAP"));
-	g_assert_true (!as_license_is_metadata_license ("GPL-2.0 AND FSFAP"));
+	g_assert_false (as_license_is_metadata_license ("GPL-2.0 AND FSFAP"));
 	g_assert_true (as_license_is_metadata_license ("GPL-2.0+ OR GFDL-1.3-only"));
 
 	/* check license URL generation */
@@ -596,13 +596,13 @@ test_spdx (void)
 	    as_license_is_free_license ("OFL-1.1 OR (GPL-3.0-or-later WITH Font-exception-2.0)"));
 	g_assert_true (as_is_spdx_license_expression (
 	    "OFL-1.1 OR (GPL-3.0-or-later WITH Font-exception-2.0)"));
-	g_assert_true (!as_license_is_free_license ("NOASSERTION"));
-	g_assert_true (!as_license_is_free_license (
+	g_assert_false (as_license_is_free_license ("NOASSERTION"));
+	g_assert_false (as_license_is_free_license (
 	    "LicenseRef-proprietary=https://example.com/mylicense.txt"));
-	g_assert_true (!as_license_is_free_license (
+	g_assert_false (as_license_is_free_license (
 	    "MIT AND LicenseRef-proprietary=https://example.com/lic.txt"));
-	g_assert_true (!as_license_is_free_license ("ADSL"));
-	g_assert_true (!as_license_is_free_license ("JSON AND GPL-3.0-or-later"));
+	g_assert_false (as_license_is_free_license ("ADSL"));
+	g_assert_false (as_license_is_free_license ("JSON AND GPL-3.0-or-later"));
 
 	/* license names */
 	tmp = as_get_license_name ("GPL-2.0+");
