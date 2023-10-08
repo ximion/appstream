@@ -128,9 +128,27 @@ def _write_c_array_header(tmpl_fname, out_fname, l10n_keys=None, l10n_hints=None
             array_def = ''
             for entry in data:
                 entry_c = ''
+                l10n_ignore = set()
                 if key in l10n_hints:
-                    v = list(entry.values())[0]
-                    entry_c += '\t/* TRANSLATORS: {} */\n'.format(l10n_hints[key].format(v))
+                    tr_hint = l10n_hints[key]
+                    only_matches = tr_hint.get('only_matches', [])
+
+                    # ignore match terms for translation
+                    if only_matches:
+                        l10n_ignore = l10n_keys.copy()
+                        for ms in only_matches:
+                            for k, v in entry.items():
+                                if k not in l10n_ignore:
+                                    continue
+                                if not isinstance(v, str):
+                                    continue
+                                if ms in v:
+                                    l10n_ignore.remove(k)
+
+                    if not l10n_keys.issubset(l10n_ignore):
+                        v = list(entry.values())[0]
+                        entry_c += '\t/* TRANSLATORS: {} */\n'.format(tr_hint['msg'].format(v))
+
                 entry_c += '\t{'
                 for k, v in entry.items():
                     if isinstance(v, str):
@@ -140,7 +158,7 @@ def _write_c_array_header(tmpl_fname, out_fname, l10n_keys=None, l10n_hints=None
                     else:
                         raise ValueError('Invalid type for array value: %s' % type(v))
 
-                    if k in l10n_keys:
+                    if k in l10n_keys and k not in l10n_ignore:
                         v_c = f'N_({v})'
                     else:
                         v_c = f'{v}'
@@ -204,6 +222,16 @@ def update_spdx_id_list(
         'spdx-license-header.tmpl',
         licenselist_header_fname,
         ['name'],
+        l10n_hints={
+            'LICENSE_INFO_DEFS': {
+                'msg': 'Please do not translate the license name itself.',
+                'only_matches': [' only', ' or later'],
+            },
+            'EXCEPTION_INFO_DEFS': {
+                'msg': 'Please do not translate the license exception name itself.',
+                'only_matches': [' only', ' or later'],
+            },
+        },
         LICENSE_INFO_DEFS=license_list,
         EXCEPTION_INFO_DEFS=exception_list,
         LICENSE_LIST_VERSION=license_list_ver,
@@ -303,8 +331,8 @@ def update_gui_env_ids(data_header_fname):
         data_header_fname,
         ['name'],
         l10n_hints={
-            'DE_DEFS': 'Name of the "{}" desktop environment.',
-            'GUI_ENV_STYLE_DEFS': 'Name of the "{}" visual environment style.',
+            'DE_DEFS': {'msg': 'Name of the "{}" desktop environment.'},
+            'GUI_ENV_STYLE_DEFS': {'msg': 'Name of the "{}" visual environment style.'},
         },
         DE_DEFS=desktops_list,
         GUI_ENV_STYLE_DEFS=gui_env_list,
