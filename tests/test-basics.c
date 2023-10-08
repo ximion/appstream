@@ -370,26 +370,29 @@ static void
 test_translation_fallback (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsContext) ctx = NULL;
 	AsValueFlags flags;
 
 	cpt = as_component_new ();
+	ctx = as_context_new ();
+	as_component_set_context (cpt, ctx);
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
 	as_component_set_id (cpt, "org.example.ATargetComponent");
 	as_component_set_description (cpt, "<p>It's broken!</p>", "C");
-	flags = as_component_get_value_flags (cpt);
+	flags = as_context_get_value_flags (ctx);
 
 	/* there is no de translation */
-	as_component_set_context_locale (cpt, "de");
+	as_context_set_locale (ctx, "de");
 	g_assert_nonnull (as_component_get_description (cpt));
 
 	/* if the flag is set, we don't fall back to C */
 	as_flags_add (flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK);
-	as_component_set_value_flags (cpt, flags);
+	as_context_set_value_flags (ctx, flags);
 	g_assert_null (as_component_get_description (cpt));
 
 	/* ...but after removing it, again we do */
 	as_flags_remove (flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK);
-	as_component_set_value_flags (cpt, flags);
+	as_context_set_value_flags (ctx, flags);
 	g_assert_nonnull (as_component_get_description (cpt));
 }
 

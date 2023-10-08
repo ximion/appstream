@@ -183,28 +183,10 @@ typedef enum {
 	AS_URL_KIND_LAST
 } AsUrlKind;
 
-const gchar *as_url_kind_to_string (AsUrlKind url_kind);
-AsUrlKind    as_url_kind_from_string (const gchar *url_kind);
-
-/**
- * AsValueFlags:
- * @AS_VALUE_FLAG_NONE:				No flags.
- * @AS_VALUE_FLAG_DUPLICATE_CHECK:		Check for duplicates when adding items to list values.
- * @AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK:	Don't fall back to C when retrieving translated values.
- *
- * Set how values assigned to an #AsComponent should be treated when
- * they are set or retrieved.
- */
-typedef enum {
-	AS_VALUE_FLAG_NONE		      = 0,
-	AS_VALUE_FLAG_DUPLICATE_CHECK	      = 1 << 0,
-	AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK = 1 << 1
-} AsValueFlags;
+const gchar	*as_url_kind_to_string (AsUrlKind url_kind);
+AsUrlKind	 as_url_kind_from_string (const gchar *url_kind);
 
 AsComponent	*as_component_new (void);
-
-AsValueFlags	 as_component_get_value_flags (AsComponent *cpt);
-void		 as_component_set_value_flags (AsComponent *cpt, AsValueFlags flags);
 
 AsContext	*as_component_get_context (AsComponent *cpt);
 void		 as_component_set_context (AsComponent *cpt, AsContext *context);

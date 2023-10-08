@@ -1209,6 +1209,7 @@ static void
 asc_compose_finalize_components (AscCompose *compose, AscResult *cres)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	AsValueFlags value_flags;
 	g_autoptr(GPtrArray) final_cpts = NULL;
 	g_autoptr(AsContext) default_context = NULL;
 
@@ -1217,10 +1218,12 @@ asc_compose_finalize_components (AscCompose *compose, AscResult *cres)
 	as_context_set_locale (default_context, "C");
 	as_context_set_origin (default_context, priv->origin);
 	as_context_set_style (default_context, AS_FORMAT_STYLE_CATALOG);
+	value_flags = as_context_get_value_flags (default_context) |
+		      AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK;
+	as_context_set_value_flags (default_context, value_flags);
 
 	final_cpts = asc_result_fetch_components (cres);
 	for (guint i = 0; i < final_cpts->len; i++) {
-		AsValueFlags value_flags;
 		AsContext *cpt_ctx = NULL;
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (final_cpts, i));
 		AsComponentKind ckind = as_component_get_kind (cpt);
@@ -1240,15 +1243,13 @@ asc_compose_finalize_components (AscCompose *compose, AscResult *cres)
 			}
 		}
 
-		value_flags = as_component_get_value_flags (cpt);
-		as_component_set_value_flags (cpt,
-					      value_flags | AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK);
-
 		cpt_ctx = as_component_get_context (cpt);
-		if (cpt_ctx == NULL)
+		if (cpt_ctx == NULL) {
 			as_component_set_context (cpt, default_context);
-		else
+		} else {
 			as_context_set_locale (cpt_ctx, "C");
+			as_context_set_value_flags (cpt_ctx, value_flags);
+		}
 
 		if (ckind == AS_COMPONENT_KIND_UNKNOWN) {
 			if (!asc_result_add_hint_simple (cres, cpt, "metainfo-unknown-type"))

@@ -137,16 +137,6 @@ _AsComponent *AppStream::Component::asComponent() const
     return d->cpt;
 }
 
-uint AppStream::Component::valueFlags() const
-{
-    return (uint) as_component_get_value_flags(d->cpt);
-}
-
-void AppStream::Component::setValueFlags(uint flags)
-{
-    as_component_set_value_flags(d->cpt, (AsValueFlags) flags);
-}
-
 Component::Kind Component::kind() const
 {
     return static_cast<Component::Kind>(as_component_get_kind(d->cpt));

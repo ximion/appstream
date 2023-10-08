@@ -22,7 +22,6 @@
 #define __AS_CONTEXT_PRIVATE_H
 
 #include "as-context.h"
-#include "as-component.h"
 #include "as-curl.h"
 
 G_BEGIN_DECLS
@@ -36,8 +35,7 @@ void		       as_context_set_internal_mode (AsContext *ctx, gboolean enabled);
 
 const gchar	      *as_context_localized_ht_get (AsContext	*ctx,
 						    GHashTable	*lht,
-						    const gchar *locale_override,
-						    AsValueFlags value_flags);
+						    const gchar *locale_override);
 void		       as_context_localized_ht_set (AsContext	*ctx,
 						    GHashTable	*lht,
 						    const gchar *value,

@@ -421,8 +421,7 @@ as_screenshot_get_caption (AsScreenshot *screenshot)
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 	return as_context_localized_ht_get (priv->context,
 					    priv->caption,
-					    NULL, /* locale override */
-					    AS_VALUE_FLAG_NONE);
+					    NULL /* locale override */);
 }
 
 /**

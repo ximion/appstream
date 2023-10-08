@@ -99,8 +99,23 @@ typedef enum {
 	AS_FORMAT_KIND_LAST
 } AsFormatKind;
 
-const gchar    *as_format_kind_to_string (AsFormatKind kind);
-AsFormatKind	as_format_kind_from_string (const gchar *kind_str);
+const gchar *as_format_kind_to_string (AsFormatKind kind);
+AsFormatKind as_format_kind_from_string (const gchar *kind_str);
+
+/**
+ * AsValueFlags:
+ * @AS_VALUE_FLAG_NONE:				No flags.
+ * @AS_VALUE_FLAG_DUPLICATE_CHECK:		Check for duplicates when adding items to list values.
+ * @AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK:	Don't fall back to C when retrieving translated values.
+ *
+ * Set how values assigned to an #AsComponent should be treated when
+ * they are set or retrieved.
+ */
+typedef enum {
+	AS_VALUE_FLAG_NONE		      = 0,
+	AS_VALUE_FLAG_DUPLICATE_CHECK	      = 1 << 0,
+	AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK = 1 << 1
+} AsValueFlags;
 
 AsContext      *as_context_new (void);
 
@@ -127,6 +142,9 @@ gboolean	as_context_get_locale_use_all (AsContext *ctx);
 
 const gchar    *as_context_get_filename (AsContext *ctx);
 void		as_context_set_filename (AsContext *ctx, const gchar *fname);
+
+AsValueFlags	as_context_get_value_flags (AsContext *ctx);
+void		as_context_set_value_flags (AsContext *ctx, AsValueFlags flags);
 
 G_END_DECLS
 

@@ -123,8 +123,6 @@ typedef struct {
 	gsize token_cache_valid;
 	GHashTable *token_cache; /* of RefString:AsTokenType* */
 
-	AsValueFlags value_flags;
-
 	gboolean ignored; /* whether we should ignore this component */
 
 	GPtrArray *tags;
@@ -749,6 +747,21 @@ as_component_get_extends (AsComponent *cpt)
 }
 
 /**
+ * as_component_check_value_flags:
+ *
+ * Test for the presence of a value flag.
+ */
+static gboolean
+as_component_check_value_flags (AsComponent *cpt, AsValueFlags test_flags)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	if (priv->context == NULL)
+		return FALSE;
+	return as_flags_contains (as_context_get_value_flags (priv->context), test_flags);
+}
+
+/**
  * as_component_add_extends:
  * @cpt: a #AsComponent instance.
  * @cpt_id: The id of a component which is extended by this component
@@ -762,7 +775,7 @@ as_component_add_extends (AsComponent *cpt, const gchar *cpt_id)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	if (as_flags_contains (priv->value_flags, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
+	if (as_component_check_value_flags (cpt, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
 		/* check for duplicates */
 		if (as_ptr_array_find_string (priv->extends, cpt_id) != NULL)
 			return;
@@ -1365,10 +1378,7 @@ const gchar *
 as_component_get_name (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return as_context_localized_ht_get (priv->context,
-					    priv->name,
-					    NULL, /* locale override */
-					    priv->value_flags);
+	return as_context_localized_ht_get (priv->context, priv->name, NULL /* locale override */);
 }
 
 /**
@@ -1402,8 +1412,7 @@ as_component_get_summary (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return as_context_localized_ht_get (priv->context,
 					    priv->summary,
-					    NULL, /* locale override */
-					    priv->value_flags);
+					    NULL /* locale override */);
 }
 
 /**
@@ -1437,8 +1446,7 @@ as_component_get_description (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return as_context_localized_ht_get (priv->context,
 					    priv->description,
-					    NULL, /* locale override */
-					    priv->value_flags);
+					    NULL /* locale override */);
 }
 
 /**
@@ -1705,7 +1713,7 @@ as_component_add_category (AsComponent *cpt, const gchar *category)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	if (as_flags_contains (priv->value_flags, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
+	if (as_component_check_value_flags (cpt, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
 		/* check for duplicates */
 		if (as_ptr_array_find_string (priv->categories, category) != NULL)
 			return;
@@ -2047,8 +2055,7 @@ as_component_get_name_variant_suffix (AsComponent *cpt)
 		return NULL;
 	return as_context_localized_ht_get (priv->context,
 					    priv->name_variant_suffix,
-					    NULL, /* locale override */
-					    priv->value_flags);
+					    NULL /* locale override */);
 }
 
 /**
@@ -2220,7 +2227,7 @@ as_component_set_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_return_if_fail (desktop != NULL);
 
-	if (as_flags_contains (priv->value_flags, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
+	if (as_component_check_value_flags (cpt, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
 		/* check for duplicates */
 		if (as_ptr_array_find_string (priv->compulsory_for_desktops, desktop) != NULL)
 			return;
@@ -2298,7 +2305,7 @@ as_component_add_provided (AsComponent *cpt, AsProvided *prov)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_return_if_fail (prov != NULL);
 
-	if (as_flags_contains (priv->value_flags, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
+	if (as_component_check_value_flags (cpt, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
 		guint i;
 		for (i = 0; i < priv->provided->len; i++) {
 			AsProvided *eprov = AS_PROVIDED (g_ptr_array_index (priv->provided, i));
@@ -3331,33 +3338,6 @@ as_component_get_search_tokens (AsComponent *cpt)
 		g_ptr_array_add (array, g_strdup (l->data));
 
 	return array;
-}
-
-/**
- * as_component_set_value_flags:
- * @cpt: a #AsComponent instance.
- * @flags: #AsValueFlags to set on @cpt.
- *
- */
-void
-as_component_set_value_flags (AsComponent *cpt, AsValueFlags flags)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	priv->value_flags = flags;
-}
-
-/**
- * as_component_get_value_flags:
- * @cpt: a #AsComponent instance.
- *
- * Returns: The #AsValueFlags that are set on @cpt.
- *
- */
-AsValueFlags
-as_component_get_value_flags (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->value_flags;
 }
 
 /**

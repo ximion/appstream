@@ -105,13 +105,6 @@ public:
     };
     Q_ENUM(Scope)
 
-    enum ValueFlags {
-        FlagNone = 0,
-        FlagDuplicateCheck = 1 << 0,
-        FlagNoTranslationFallback = 1 << 1
-    };
-    Q_ENUM(ValueFlags)
-
     static Kind stringToKind(const QString &kindString);
     static QString kindToString(Kind kind);
 
@@ -130,9 +123,6 @@ public:
     bool operator==(const Component &r) const;
 
     _AsComponent *asComponent() const;
-
-    uint valueFlags() const;
-    void setValueFlags(uint flags);
 
     Kind kind() const;
     void setKind(Component::Kind kind);

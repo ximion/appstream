@@ -562,8 +562,7 @@ as_release_get_description (AsRelease *release)
 	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
 	return as_context_localized_ht_get (priv->context,
 					    priv->description,
-					    NULL, /* locale override */
-					    AS_VALUE_FLAG_NONE);
+					    NULL /* locale override */);
 }
 
 /**

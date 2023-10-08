@@ -194,10 +194,7 @@ const gchar *
 as_developer_get_name (AsDeveloper *devp)
 {
 	AsDeveloperPrivate *priv = GET_PRIVATE (devp);
-	return as_context_localized_ht_get (priv->context,
-					    priv->name,
-					    NULL, /* locale override */
-					    0);
+	return as_context_localized_ht_get (priv->context, priv->name, NULL /* locale override */);
 }
 
 /**

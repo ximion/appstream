@@ -134,10 +134,7 @@ const gchar *
 as_agreement_section_get_name (AsAgreementSection *agreement_section)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
-	return as_context_localized_ht_get (priv->context,
-					    priv->name,
-					    NULL, /* locale override */
-					    AS_VALUE_FLAG_NONE);
+	return as_context_localized_ht_get (priv->context, priv->name, NULL /* locale override */);
 }
 
 /**
@@ -175,8 +172,7 @@ as_agreement_section_get_description (AsAgreementSection *agreement_section)
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
 	return as_context_localized_ht_get (priv->context,
 					    priv->description,
-					    NULL, /* locale override */
-					    AS_VALUE_FLAG_NONE);
+					    NULL /* locale override */);
 }
 
 /**
