@@ -27,6 +27,7 @@
 
 #include <QString>
 #include <QList>
+#include <optional>
 
 struct _AsScreenshot;
 namespace AppStream
