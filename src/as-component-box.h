@@ -83,6 +83,8 @@ AsComponent	   *as_component_box_index_safe (AsComponentBox *cbox, guint index);
 gboolean	    as_component_box_is_empty (AsComponentBox *cbox);
 
 gboolean	    as_component_box_add (AsComponentBox *cbox, AsComponent *cpt, GError **error);
+void		    as_component_box_clear (AsComponentBox *cbox);
+void		    as_component_box_remove_at (AsComponentBox *cbox, guint index);
 
 void		    as_component_box_sort (AsComponentBox *cbox);
 void		    as_component_box_sort_by_score (AsComponentBox *cbox);

@@ -268,6 +268,7 @@ as_screenshot_get_images (AsScreenshot *screenshot)
  * @screenshot: a #AsScreenshot instance.
  * @width: target width
  * @height: target height
+ * @scale: the target scaling factor.
  *
  * Gets the AsImage closest to the target size. The #AsImage may not actually
  * be the requested size, and the application may have to pad / rescale the
@@ -275,32 +276,46 @@ as_screenshot_get_images (AsScreenshot *screenshot)
  * Only images for the current active locale (or fallback, if images are not localized)
  * are considered.
  *
- * Returns: (transfer none): an #AsImage, or %NULL
+ * Returns: (transfer none) (nullable): an #AsImage, or %NULL
  *
  * Since: 0.14.0
  **/
 AsImage *
-as_screenshot_get_image (AsScreenshot *screenshot, guint width, guint height)
+as_screenshot_get_image (AsScreenshot *screenshot, guint width, guint height, guint scale)
 {
-	AsImage *im;
 	AsImage *im_best = NULL;
 	gint64 best_size = G_MAXINT64;
-	guint i;
-	gint64 tmp;
 	GPtrArray *images;
 
 	g_return_val_if_fail (AS_IS_SCREENSHOT (screenshot), NULL);
-	images = as_screenshot_get_images (screenshot);
+	g_return_val_if_fail (scale >= 1, NULL);
 
-	for (i = 0; i < images->len; i++) {
-		im = g_ptr_array_index (images, i);
-		tmp = ABS ((gint64) (width * height) -
-			   (gint64) (as_image_get_width (im) * as_image_get_height (im)));
-		if (tmp < best_size) {
-			best_size = tmp;
-			im_best = im;
+	images = as_screenshot_get_images (screenshot);
+	for (guint current_scale = scale; current_scale > 0; current_scale--) {
+		guint64 scaled_width;
+		guint64 scaled_height;
+
+		scaled_width = (guint64) width * current_scale;
+		scaled_height = (guint64) height * current_scale;
+
+		for (guint i = 0; i < images->len; i++) {
+			gint64 tmp;
+			AsImage *im = g_ptr_array_index (images, i);
+			guint im_scale = as_image_get_scale (im);
+
+			/* skip image if we aren't looking into its scaling factor yet */
+			if (im_scale != current_scale)
+				continue;
+
+			tmp = ABS ((gint64) (scaled_width * scaled_height) -
+				   (gint64) (as_image_get_width (im) * as_image_get_height (im)));
+			if (tmp < best_size) {
+				best_size = tmp;
+				im_best = im;
+			}
 		}
 	}
+
 	return im_best;
 }
 
@@ -406,8 +421,7 @@ as_screenshot_get_caption (AsScreenshot *screenshot)
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 	return as_context_localized_ht_get (priv->context,
 					    priv->caption,
-					    NULL, /* locale override */
-					    AS_VALUE_FLAG_NONE);
+					    NULL /* locale override */);
 }
 
 /**

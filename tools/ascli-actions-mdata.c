@@ -552,9 +552,9 @@ ascli_create_metainfo_template (const gchar *out_fname,
 	    cpt,
 	    "The license of this software as SPDX string, e.g. \"GPL-3+\"");
 
-	as_component_set_developer_name (cpt,
-					 "The software vendor name, e.g. \"ACME Corporation\"",
-					 "C");
+	as_developer_set_name (as_component_get_developer (cpt),
+			       "The software vendor name, e.g. \"ACME Corporation\"",
+			       "C");
 
 	/* console-app specific */
 	if (cpt_kind == AS_COMPONENT_KIND_CONSOLE_APP) {

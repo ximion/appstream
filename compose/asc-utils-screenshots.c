@@ -437,6 +437,7 @@ asc_process_screenshot_images_lang (AscResult *cres,
 	gsize img_data_len;
 	guint source_scr_width;
 	guint source_scr_height;
+	guint source_scr_scale;
 	gboolean thumbnails_generated = FALSE;
 	g_autoptr(GError) error = NULL;
 
@@ -560,8 +561,10 @@ asc_process_screenshot_images_lang (AscResult *cres,
 
 		source_scr_width = asc_image_get_width (src_image);
 		source_scr_height = asc_image_get_height (src_image);
+		source_scr_scale = as_image_get_scale (orig_img);
 		as_image_set_width (simg, source_scr_width);
 		as_image_set_height (simg, source_scr_height);
+		as_image_set_scale (simg, source_scr_scale);
 
 		/* if we should not create a screenshots store, delete the just-downloaded file and set
 		 * the original upstream URL as source.
@@ -597,6 +600,10 @@ asc_process_screenshot_images_lang (AscResult *cres,
 		if (target_height > source_scr_height)
 			continue;
 
+		/* NOTE: we ignore higher scaling factors for thumbnailing for now */
+		if (source_scr_scale > 1)
+			continue;
+
 		thumb = asc_image_new_from_data (img_data,
 						 img_data_len,
 						 0,	/* destination size */
@@ -626,15 +633,17 @@ asc_process_screenshot_images_lang (AscResult *cres,
 
 		/* create thumbnail storage path and URL component*/
 		if (g_strcmp0 (locale, "C") == 0)
-			thumb_img_name = g_strdup_printf ("image-%i_%ix%i.png",
-							  scr_no,
-							  asc_image_get_width (thumb),
-							  asc_image_get_height (thumb));
-		else
-			thumb_img_name = g_strdup_printf ("image-%i_%ix%i_%s.png",
+			thumb_img_name = g_strdup_printf ("image-%i_%ix%i@%i.png",
 							  scr_no,
 							  asc_image_get_width (thumb),
 							  asc_image_get_height (thumb),
+							  1);
+		else
+			thumb_img_name = g_strdup_printf ("image-%i_%ix%i@%i_%s.png",
+							  scr_no,
+							  asc_image_get_width (thumb),
+							  asc_image_get_height (thumb),
+							  1,
 							  locale);
 		thumb_img_path = g_build_filename (scr_export_dir, thumb_img_name, NULL);
 		thumb_img_url = g_build_filename (scr_base_url, thumb_img_name, NULL);

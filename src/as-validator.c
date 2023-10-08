@@ -397,10 +397,6 @@ as_validator_check_web_url (AsValidator *validator,
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	g_autoptr(GError) tmp_error = NULL;
 
-	/* we don't check mailto URLs */
-	if (g_str_has_prefix (url, "mailto:"))
-		return TRUE;
-
 	if (g_str_has_prefix (url, "ftp:")) {
 		/* we can't check FTP URLs here, and those shouldn't generally be used in AppStream */
 		as_validator_add_issue (validator, node, "url-uses-ftp", url);
@@ -806,9 +802,6 @@ static gboolean
 as_validate_is_secure_url (const gchar *str)
 {
 	if (g_str_has_prefix (str, "https://"))
-		return TRUE;
-	/* mailto URLs are fine as well */
-	if (g_str_has_prefix (str, "mailto:"))
 		return TRUE;
 	return FALSE;
 }
@@ -1413,21 +1406,90 @@ as_validator_check_tags (AsValidator *validator, xmlNode *node)
 
 		ns = as_xml_get_prop_value (iter, "namespace");
 		if (ns == NULL) {
-			as_validator_add_issue (validator,
-						iter,
-						"component-tag-missing-namespace",
-						NULL);
+			as_validator_add_issue (validator, iter, "usertag-missing-namespace", NULL);
 			continue;
 		}
 
 		if (!as_id_string_valid (ns, FALSE)) {
-			as_validator_add_issue (validator, iter, "component-tag-invalid", ns);
+			as_validator_add_issue (validator, iter, "usertag-invalid", ns);
 			continue;
 		}
 
 		value = as_xml_get_node_value (iter);
 		if (!as_id_string_valid (value, FALSE))
-			as_validator_add_issue (validator, iter, "component-tag-invalid", value);
+			as_validator_add_issue (validator, iter, "usertag-invalid", value);
+	}
+}
+
+/**
+ * as_validator_check_references:
+ **/
+static void
+as_validator_check_references (AsValidator *validator, xmlNode *node)
+{
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		g_autofree gchar *value = NULL;
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		value = as_xml_get_node_value (iter);
+		if (as_is_empty (value))
+			as_validator_add_issue (validator, iter, "reference-value-missing", NULL);
+
+		if (as_str_equal0 (iter->name, "doi")) {
+			if (as_validate_has_hyperlink (value) ||
+			    g_strstr_len (value, -1, "/") == NULL)
+				as_validator_add_issue (validator,
+							iter,
+							"reference-doi-invalid",
+							value);
+
+		} else if (as_str_equal0 (iter->name, "citation_cff")) {
+			if (!as_validate_has_hyperlink (value) || g_str_has_suffix (value, ".cff"))
+				as_validator_add_issue (validator,
+							iter,
+							"reference-citation-url-invalid",
+							value);
+		} else if (as_str_equal0 (iter->name, "registry")) {
+			g_autofree gchar *registry_name = as_xml_get_prop_value (iter, "name");
+			if (registry_name == NULL)
+				as_validator_add_issue (validator,
+							iter,
+							"reference-registry-name-missing",
+							NULL);
+			else if (!as_utils_is_reference_registry (registry_name))
+				as_validator_add_issue (validator,
+							iter,
+							"reference-registry-name-unknown",
+							registry_name);
+		}
+	}
+}
+
+/**
+ * as_validator_check_developer:
+ **/
+static void
+as_validator_check_developer (AsValidator *validator, xmlNode *node)
+{
+	g_autofree gchar *devp_id = NULL;
+
+	devp_id = as_xml_get_prop_value (node, "id");
+	if (devp_id == NULL)
+		as_validator_add_issue (validator, node, "developer-id-missing", NULL);
+
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (as_str_equal0 (iter->name, "name")) {
+			g_autofree gchar *content = as_xml_get_node_value (iter);
+			if (as_validate_has_hyperlink (content))
+				as_validator_add_issue (validator,
+							iter,
+							"developer-name-has-url",
+							NULL);
+		}
 	}
 }
 
@@ -1443,6 +1505,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		xmlNode *iter2;
+		gboolean scale1image_found = FALSE;
 		gboolean image_found = FALSE;
 		gboolean video_found = FALSE;
 		gboolean caption_found = FALSE;
@@ -1485,6 +1548,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 		for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 			g_autofree gchar *screenshot_width = NULL;
 			g_autofree gchar *screenshot_height = NULL;
+			g_autofree gchar *screenshot_scale = NULL;
 			const gchar *node_name = (const gchar *) iter2->name;
 
 			if (iter2->type != XML_ELEMENT_NODE)
@@ -1505,6 +1569,19 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 							iter2,
 							"screenshot-invalid-height",
 							screenshot_height);
+
+			screenshot_scale = as_xml_get_prop_value (iter2, "scale");
+			if (screenshot_scale != NULL &&
+			    !as_str_verify_integer (screenshot_scale, 1, G_MAXINT64))
+				as_validator_add_issue (validator,
+							iter2,
+							"screenshot-invalid-scale",
+							screenshot_scale);
+
+			/* check if we have an @1 scaled image */
+			if (screenshot_scale == NULL ||
+			    g_ascii_strtoll (screenshot_scale, NULL, 10) == 1)
+				scale1image_found = TRUE;
 
 			if (g_strcmp0 (node_name, "image") == 0) {
 				AsImageKind image_kind;
@@ -1691,6 +1768,12 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 			as_validator_add_issue (validator,
 						iter,
 						"screenshot-image-source-missing",
+						NULL);
+
+		if (image_found && !scale1image_found)
+			as_validator_add_issue (validator,
+						iter,
+						"screenshot-no-unscaled-image",
 						NULL);
 
 		if (!caption_found)
@@ -2289,6 +2372,11 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 			continue;
 		}
 
+		if (g_strcmp0 (node_name, "tags") == 0) {
+			as_validator_check_tags (validator, iter);
+			continue;
+		}
+
 		/* checks if the description is put outside a description tag */
 		if (as_str_equal0 (node_name, "p") || as_str_equal0 (node_name, "ol") ||
 		    as_str_equal0 (node_name, "ul") || as_str_equal0 (node_name, "li")) {
@@ -2827,9 +2915,10 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		} else if (g_strcmp0 (node_name, "summary") == 0) {
 			g_autofree gchar *lang = NULL;
 			const gchar *summary = node_content;
+			lang = as_xml_get_prop_value (iter, "lang");
 
 			as_validator_check_appear_once (validator, iter, found_tags, TRUE);
-			if (g_str_has_suffix (summary, "."))
+			if (g_str_has_suffix (summary, ".") && lang == NULL)
 				as_validator_add_issue (validator,
 							iter,
 							"summary-has-dot-suffix",
@@ -2850,7 +2939,6 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							node_name);
 			}
 
-			lang = as_xml_get_prop_value (iter, "lang");
 			if (lang == NULL &&
 			    !as_validator_first_word_capitalized (validator, summary, FALSE))
 				as_validator_add_issue (validator,
@@ -2971,14 +3059,15 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_validate_project_license (validator, iter);
 		} else if (g_strcmp0 (node_name, "project_group") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
-		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
+		} else if (g_strcmp0 (node_name, "developer") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, TRUE);
+			as_validator_check_developer (validator, iter);
 
-			if (as_validate_has_hyperlink (node_content))
-				as_validator_add_issue (validator,
-							iter,
-							"developer-name-has-url",
-							NULL);
+		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
+			as_validator_add_issue (validator,
+						iter,
+						"developer-name-tag-deprecated",
+						NULL);
 
 		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
 			if (!as_utils_is_desktop_environment (node_content)) {
@@ -3088,6 +3177,9 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		} else if (g_strcmp0 (node_name, "tags") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_tags (validator, iter);
+		} else if (g_strcmp0 (node_name, "references") == 0) {
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
+			as_validator_check_references (validator, iter);
 		} else if (g_strcmp0 (node_name, "name_variant_suffix") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 		} else if (g_strcmp0 (node_name, "custom") == 0) {

@@ -43,6 +43,8 @@
 #include "as-agreement-private.h"
 #include "as-review-private.h"
 #include "as-branding-private.h"
+#include "as-developer-private.h"
+#include "as-reference-private.h"
 #include "as-desktop-entry.h"
 #include "as-relation-check-result.h"
 
@@ -77,11 +79,10 @@ typedef struct {
 	GRefString *origin;
 	GRefString *branch;
 
-	GHashTable *name;	    /* localized entry */
-	GHashTable *summary;	    /* localized entry */
-	GHashTable *description;    /* localized entry */
-	GHashTable *keywords;	    /* localized entry, value:strv */
-	GHashTable *developer_name; /* localized entry */
+	GHashTable *name;	 /* localized entry */
+	GHashTable *summary;	 /* localized entry */
+	GHashTable *description; /* localized entry */
+	GHashTable *keywords;	 /* localized entry, value:strv */
 
 	GRefString *metadata_license;
 	GRefString *project_license;
@@ -111,6 +112,7 @@ typedef struct {
 	GPtrArray *icons;   /* of AsIcon elements */
 	GPtrArray *reviews; /* of AsReview */
 
+	AsDeveloper *developer;
 	AsBranding *branding;
 
 	GRefString *arch;	/* the architecture this data was generated from */
@@ -121,11 +123,10 @@ typedef struct {
 	gsize token_cache_valid;
 	GHashTable *token_cache; /* of RefString:AsTokenType* */
 
-	AsValueFlags value_flags;
-
 	gboolean ignored; /* whether we should ignore this component */
 
 	GPtrArray *tags;
+	GPtrArray *references;
 	GHashTable *name_variant_suffix; /* variant suffix for component name */
 	GHashTable *custom; /* of RefString:RefString, free-form user-defined custom data */
 } AsComponentPrivate;
@@ -147,7 +148,6 @@ enum {
 	AS_COMPONENT_CATEGORIES,
 	AS_COMPONENT_PROJECT_LICENSE,
 	AS_COMPONENT_PROJECT_GROUP,
-	AS_COMPONENT_DEVELOPER_NAME,
 	AS_COMPONENT_SCREENSHOTS
 };
 
@@ -415,10 +415,6 @@ as_component_init (AsComponent *cpt)
 						   g_str_equal,
 						   (GDestroyNotify) as_ref_string_release,
 						   g_free);
-	priv->developer_name = g_hash_table_new_full (g_str_hash,
-						      g_str_equal,
-						      (GDestroyNotify) as_ref_string_release,
-						      g_free);
 	priv->keywords = g_hash_table_new_full (g_str_hash,
 						g_str_equal,
 						(GDestroyNotify) as_ref_string_release,
@@ -445,6 +441,7 @@ as_component_init (AsComponent *cpt)
 
 	/* others */
 	priv->tags = g_ptr_array_new_with_free_func (g_free);
+	priv->references = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->urls = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	priv->custom = g_hash_table_new_full (g_str_hash,
@@ -484,7 +481,6 @@ as_component_finalize (GObject *object)
 	g_hash_table_unref (priv->name);
 	g_hash_table_unref (priv->summary);
 	g_hash_table_unref (priv->description);
-	g_hash_table_unref (priv->developer_name);
 	g_hash_table_unref (priv->keywords);
 
 	g_object_unref (priv->releases);
@@ -504,6 +500,7 @@ as_component_finalize (GObject *object)
 	g_ptr_array_unref (priv->content_ratings);
 	g_ptr_array_unref (priv->icons);
 	g_ptr_array_unref (priv->tags);
+	g_ptr_array_unref (priv->references);
 
 	g_ptr_array_unref (priv->requires);
 	g_ptr_array_unref (priv->recommends);
@@ -514,6 +511,8 @@ as_component_finalize (GObject *object)
 	if (priv->replaces != NULL)
 		g_ptr_array_unref (priv->replaces);
 
+	if (priv->developer != NULL)
+		g_object_unref (priv->developer);
 	if (priv->branding != NULL)
 		g_object_unref (priv->branding);
 
@@ -748,6 +747,21 @@ as_component_get_extends (AsComponent *cpt)
 }
 
 /**
+ * as_component_check_value_flags:
+ *
+ * Test for the presence of a value flag.
+ */
+static gboolean
+as_component_check_value_flags (AsComponent *cpt, AsValueFlags test_flags)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	if (priv->context == NULL)
+		return FALSE;
+	return as_flags_contains (as_context_get_value_flags (priv->context), test_flags);
+}
+
+/**
  * as_component_add_extends:
  * @cpt: a #AsComponent instance.
  * @cpt_id: The id of a component which is extended by this component
@@ -761,7 +775,7 @@ as_component_add_extends (AsComponent *cpt, const gchar *cpt_id)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	if (as_flags_contains (priv->value_flags, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
+	if (as_component_check_value_flags (cpt, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
 		/* check for duplicates */
 		if (as_ptr_array_find_string (priv->extends, cpt_id) != NULL)
 			return;
@@ -1364,10 +1378,7 @@ const gchar *
 as_component_get_name (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return as_context_localized_ht_get (priv->context,
-					    priv->name,
-					    NULL, /* locale override */
-					    priv->value_flags);
+	return as_context_localized_ht_get (priv->context, priv->name, NULL /* locale override */);
 }
 
 /**
@@ -1401,8 +1412,7 @@ as_component_get_summary (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return as_context_localized_ht_get (priv->context,
 					    priv->summary,
-					    NULL, /* locale override */
-					    priv->value_flags);
+					    NULL /* locale override */);
 }
 
 /**
@@ -1436,8 +1446,7 @@ as_component_get_description (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return as_context_localized_ht_get (priv->context,
 					    priv->description,
-					    NULL, /* locale override */
-					    priv->value_flags);
+					    NULL /* locale override */);
 }
 
 /**
@@ -1704,7 +1713,7 @@ as_component_add_category (AsComponent *cpt, const gchar *category)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	if (as_flags_contains (priv->value_flags, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
+	if (as_component_check_value_flags (cpt, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
 		/* check for duplicates */
 		if (as_ptr_array_find_string (priv->categories, category) != NULL)
 			return;
@@ -1817,36 +1826,41 @@ as_component_set_project_group (AsComponent *cpt, const gchar *value)
 }
 
 /**
- * as_component_get_developer_name:
+ * as_component_get_developer:
  * @cpt: a #AsComponent instance.
  *
- * Get the component's developer or development team name.
+ * Get information about the component's developer or development team.
+ * The returned object may be empty if no developer information was
+ * available.
  *
- * Returns: the developer name.
+ * Returns: (transfer none): the developer as #AsDeveloper.
  */
-const gchar *
-as_component_get_developer_name (AsComponent *cpt)
+AsDeveloper *
+as_component_get_developer (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return as_context_localized_ht_get (priv->context,
-					    priv->developer_name,
-					    NULL, /* locale override */
-					    priv->value_flags);
+	if (priv->developer == NULL)
+		priv->developer = as_developer_new_with_context (priv->context);
+	return priv->developer;
 }
 
 /**
- * as_component_set_developer_name:
+ * as_component_set_developer:
  * @cpt: a #AsComponent instance.
- * @value: the developer or developer team name
- * @locale: (nullable): the BCP47 locale, or %NULL. e.g. "en-GB"
+ * @developer: the new #AsDeveloper
  *
- * Set the the component's developer or development team name.
+ * Set the the component's developer.
  */
 void
-as_component_set_developer_name (AsComponent *cpt, const gchar *value, const gchar *locale)
+as_component_set_developer (AsComponent *cpt, AsDeveloper *developer)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	as_context_localized_ht_set (priv->context, priv->developer_name, value, locale);
+	if (priv->developer == developer)
+		return;
+	if (priv->developer != NULL)
+		g_object_unref (priv->developer);
+	priv->developer = g_object_ref (developer);
+	as_developer_set_context (priv->developer, priv->context);
 }
 
 /**
@@ -1917,7 +1931,7 @@ gboolean
 as_component_add_tag (AsComponent *cpt, const gchar *ns, const gchar *tag)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_autofree gchar *tag_full = g_strconcat (ns, "::", tag, NULL);
+	g_autofree gchar *tag_full = as_make_usertag_key (ns, tag);
 
 	/* sanity check */
 	if (g_strstr_len (tag, -1, "::") != NULL)
@@ -1949,7 +1963,7 @@ gboolean
 as_component_remove_tag (AsComponent *cpt, const gchar *ns, const gchar *tag)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_autofree gchar *tag_full = g_strconcat (ns, "::", tag, NULL);
+	g_autofree gchar *tag_full = as_make_usertag_key (ns, tag);
 
 	for (guint i = 0; i < priv->tags->len; i++) {
 		const gchar *tag_iter = g_ptr_array_index (priv->tags, i);
@@ -1979,7 +1993,7 @@ gboolean
 as_component_has_tag (AsComponent *cpt, const gchar *ns, const gchar *tag)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_autofree gchar *tag_full = g_strconcat (ns, "::", tag, NULL);
+	g_autofree gchar *tag_full = as_make_usertag_key (ns, tag);
 
 	for (guint i = 0; i < priv->tags->len; i++) {
 		const gchar *tag_iter = g_ptr_array_index (priv->tags, i);
@@ -1987,6 +2001,39 @@ as_component_has_tag (AsComponent *cpt, const gchar *ns, const gchar *tag)
 			return TRUE;
 	}
 	return FALSE;
+}
+
+/**
+ * as_component_get_references:
+ * @cpt: an #AsComponent instance.
+ *
+ * Get a list of external references and citation information for this component.
+ *
+ * Returns: (transfer none) (element-type AsReference): An array of #AsReference.
+ *
+ * Since: 1.0.0
+ **/
+GPtrArray *
+as_component_get_references (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->references;
+}
+
+/**
+ * as_component_add_reference:
+ * @cpt: a #AsComponent instance.
+ * @reference: an #AsReference instance.
+ *
+ * Adds an external reference to the software component.
+ *
+ * Since: 1.0.0
+ **/
+void
+as_component_add_reference (AsComponent *cpt, AsReference *reference)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_ptr_array_add (priv->references, g_object_ref (reference));
 }
 
 /**
@@ -2008,8 +2055,7 @@ as_component_get_name_variant_suffix (AsComponent *cpt)
 		return NULL;
 	return as_context_localized_ht_get (priv->context,
 					    priv->name_variant_suffix,
-					    NULL, /* locale override */
-					    priv->value_flags);
+					    NULL /* locale override */);
 }
 
 /**
@@ -2181,7 +2227,7 @@ as_component_set_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_return_if_fail (desktop != NULL);
 
-	if (as_flags_contains (priv->value_flags, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
+	if (as_component_check_value_flags (cpt, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
 		/* check for duplicates */
 		if (as_ptr_array_find_string (priv->compulsory_for_desktops, desktop) != NULL)
 			return;
@@ -2259,7 +2305,7 @@ as_component_add_provided (AsComponent *cpt, AsProvided *prov)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_return_if_fail (prov != NULL);
 
-	if (as_flags_contains (priv->value_flags, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
+	if (as_component_check_value_flags (cpt, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
 		guint i;
 		for (i = 0; i < priv->provided->len; i++) {
 			AsProvided *eprov = AS_PROVIDED (g_ptr_array_index (priv->provided, i));
@@ -3292,33 +3338,6 @@ as_component_get_search_tokens (AsComponent *cpt)
 		g_ptr_array_add (array, g_strdup (l->data));
 
 	return array;
-}
-
-/**
- * as_component_set_value_flags:
- * @cpt: a #AsComponent instance.
- * @flags: #AsValueFlags to set on @cpt.
- *
- */
-void
-as_component_set_value_flags (AsComponent *cpt, AsValueFlags flags)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	priv->value_flags = flags;
-}
-
-/**
- * as_component_get_value_flags:
- * @cpt: a #AsComponent instance.
- *
- * Returns: The #AsValueFlags that are set on @cpt.
- *
- */
-AsValueFlags
-as_component_get_value_flags (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->value_flags;
 }
 
 /**
@@ -4619,12 +4638,23 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 		} else if (tag_id == AS_TAG_PROJECT_GROUP) {
 			g_autofree gchar *content = as_xml_get_node_value (iter);
 			as_component_set_project_group (cpt, content);
+		} else if (tag_id == AS_TAG_DEVELOPER) {
+			g_autoptr(AsDeveloper) developer = as_developer_new ();
+			if (as_developer_load_from_xml (developer, ctx, iter, NULL)) {
+				if (priv->developer != NULL)
+					g_object_unref (priv->developer);
+				priv->developer = g_steal_pointer (&developer);
+			}
 		} else if (tag_id == AS_TAG_DEVELOPER_NAME) {
+			/* DEPRECATED */
 			g_autofree gchar *lang = NULL;
 			g_autofree gchar *content = as_xml_get_node_value (iter);
 			lang = as_xml_get_node_locale_match (ctx, iter);
-			if (lang != NULL)
-				as_component_set_developer_name (cpt, content, lang);
+			if (lang != NULL) {
+				if (priv->developer == NULL)
+					priv->developer = as_developer_new_with_context (ctx);
+				as_developer_set_name (priv->developer, content, lang);
+			}
 		} else if (tag_id == AS_TAG_COMPULSORY_FOR_DESKTOP) {
 			g_autofree gchar *content = as_xml_get_node_value (iter);
 			if (content != NULL)
@@ -4705,11 +4735,22 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 				if (sn->type != XML_ELEMENT_NODE)
 					continue;
 				ns = as_xml_get_prop_value (sn, "namespace");
-				if (sn == NULL)
-					continue;
 				value = as_xml_get_node_value (sn);
 				as_component_add_tag (cpt, ns, value);
 			}
+
+		} else if (tag_id == AS_TAG_REFERENCES) {
+			xmlNode *iter2;
+
+			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				g_autoptr(AsReference) reference = NULL;
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
+				reference = as_reference_new ();
+				if (as_reference_load_from_xml (reference, ctx, iter2, NULL))
+					as_component_add_reference (cpt, reference);
+			}
+
 		} else if (as_context_get_internal_mode (ctx)) {
 			g_autofree gchar *content = as_xml_get_node_value (iter);
 			/* internal information */
@@ -4990,14 +5031,15 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	/* project license */
 	as_xml_add_text_node (cnode, "project_license", priv->project_license);
 
-	/* developer name */
-	as_xml_add_localized_text_node (cnode, "developer_name", priv->developer_name);
+	/* long description */
+	as_xml_add_description_node (ctx, cnode, priv->description, TRUE);
 
 	/* project group */
 	as_xml_add_text_node (cnode, "project_group", priv->project_group);
 
-	/* long description */
-	as_xml_add_description_node (ctx, cnode, priv->description, TRUE);
+	/* developer */
+	if (priv->developer != NULL)
+		as_developer_to_xml_node (priv->developer, ctx, cnode);
 
 	/* extends nodes */
 	as_xml_add_node_list (cnode, NULL, "extends", priv->extends);
@@ -5140,9 +5182,19 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 			xmlNode *tag_node = NULL;
 			g_auto(GStrv)
 				    parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
-			g_assert (parts[1] != NULL);
 			tag_node = as_xml_add_text_node (tags_node, "tag", parts[1]);
-			as_xml_add_text_prop (tag_node, "namespace", parts[0]);
+			if (!as_is_empty (parts[0]))
+				as_xml_add_text_prop (tag_node, "namespace", parts[0]);
+		}
+	}
+
+	/* references */
+	if (priv->references->len > 0) {
+		xmlNode *refs_node = as_xml_add_node (cnode, "references");
+
+		for (guint i = 0; i < priv->references->len; i++) {
+			AsReference *ref = AS_REFERENCE (g_ptr_array_index (priv->references, i));
+			as_reference_to_xml_node (ref, ctx, refs_node);
 		}
 	}
 
@@ -5585,8 +5637,21 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 		} else if (field_id == AS_TAG_DESCRIPTION) {
 			as_yaml_set_localized_table (ctx, node, priv->description);
 			g_object_notify ((GObject *) cpt, "description");
+		} else if (field_id == AS_TAG_DEVELOPER) {
+			g_autoptr(AsDeveloper) developer = as_developer_new ();
+			if (as_developer_load_from_yaml (developer, ctx, node, NULL)) {
+				if (priv->developer != NULL)
+					g_object_unref (priv->developer);
+				priv->developer = g_steal_pointer (&developer);
+			}
+
 		} else if (field_id == AS_TAG_DEVELOPER_NAME) {
-			as_yaml_set_localized_table (ctx, node, priv->developer_name);
+			/* DEPRECATED */
+			if (priv->developer == NULL)
+				priv->developer = as_developer_new_with_context (ctx);
+			as_yaml_set_localized_table (ctx,
+						     node,
+						     as_developer_get_name_table (priv->developer));
 		} else if (field_id == AS_TAG_PROJECT_LICENSE) {
 			as_component_set_project_license (cpt, value);
 		} else if (field_id == AS_TAG_PROJECT_GROUP) {
@@ -5703,6 +5768,14 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 				}
 				as_component_add_tag (cpt, ns, tag_value);
 			}
+
+		} else if (field_id == AS_TAG_REFERENCES) {
+			for (GNode *n = node->children; n != NULL; n = n->next) {
+				g_autoptr(AsReference) reference = as_reference_new ();
+				if (as_reference_load_from_yaml (reference, ctx, n, NULL))
+					as_component_add_reference (cpt, reference);
+			}
+
 		} else if (field_id == AS_TAG_CUSTOM) {
 			as_component_yaml_parse_custom (cpt, node);
 		} else if (field_id == AS_TAG_REVIEWS) {
@@ -6116,6 +6189,9 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 	/* Extends */
 	as_yaml_emit_sequence (emitter, "Extends", priv->extends);
 
+	/* ProjectLicense */
+	as_yaml_emit_entry (emitter, "ProjectLicense", priv->project_license);
+
 	/* Name */
 	as_yaml_emit_localized_entry (emitter, "Name", priv->name);
 
@@ -6131,14 +6207,12 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 					      "NameVariantSuffix",
 					      priv->name_variant_suffix);
 
-	/* DeveloperName */
-	as_yaml_emit_localized_entry (emitter, "DeveloperName", priv->developer_name);
-
 	/* ProjectGroup */
 	as_yaml_emit_entry (emitter, "ProjectGroup", priv->project_group);
 
-	/* ProjectLicense */
-	as_yaml_emit_entry (emitter, "ProjectLicense", priv->project_license);
+	/* Developer */
+	if (priv->developer != NULL)
+		as_developer_emit_yaml (priv->developer, ctx, emitter);
 
 	/* CompulsoryForDesktops */
 	as_yaml_emit_sequence_from_str_array (emitter,
@@ -6339,12 +6413,25 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		for (guint i = 0; i < priv->tags->len; i++) {
 			g_auto(GStrv)
 				    parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
-			g_assert (parts[1] != NULL);
 
 			as_yaml_mapping_start (emitter);
-			as_yaml_emit_entry (emitter, "namespace", parts[0]);
+			if (!as_is_empty (parts[0]))
+				as_yaml_emit_entry (emitter, "namespace", parts[0]);
 			as_yaml_emit_entry (emitter, "tag", parts[1]);
 			as_yaml_mapping_end (emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* References */
+	if (priv->references->len > 0) {
+		as_yaml_emit_scalar (emitter, "References");
+		as_yaml_sequence_start (emitter);
+
+		for (guint i = 0; i < priv->references->len; i++) {
+			AsReference *ref = AS_REFERENCE (g_ptr_array_index (priv->references, i));
+			as_reference_emit_yaml (ref, ctx, emitter);
 		}
 
 		as_yaml_sequence_end (emitter);
@@ -6536,9 +6623,6 @@ as_component_get_property (GObject *object, guint property_id, GValue *value, GP
 	case AS_COMPONENT_PROJECT_GROUP:
 		g_value_set_string (value, as_component_get_project_group (cpt));
 		break;
-	case AS_COMPONENT_DEVELOPER_NAME:
-		g_value_set_string (value, as_component_get_developer_name (cpt));
-		break;
 	case AS_COMPONENT_SCREENSHOTS:
 		g_value_set_boxed (value, as_component_get_screenshots_all (cpt));
 		break;
@@ -6587,9 +6671,6 @@ as_component_set_property (GObject *object,
 		break;
 	case AS_COMPONENT_PROJECT_GROUP:
 		as_component_set_project_group (cpt, g_value_get_string (value));
-		break;
-	case AS_COMPONENT_DEVELOPER_NAME:
-		as_component_set_developer_name (cpt, g_value_get_string (value), NULL);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -6775,20 +6856,7 @@ as_component_class_init (AsComponentClass *klass)
 				 NULL,
 				 G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB |
 				     G_PARAM_READABLE | G_PARAM_WRITABLE));
-	/**
-	 * AsComponent:developer-name:
-	 *
-	 * the developer name
-	 */
-	g_object_class_install_property (
-	    object_class,
-	    AS_COMPONENT_DEVELOPER_NAME,
-	    g_param_spec_string ("developer-name",
-				 "developer-name",
-				 "developer-name",
-				 NULL,
-				 G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB |
-				     G_PARAM_READABLE | G_PARAM_WRITABLE));
+
 	/**
 	 * AsComponent:screenshots: (type GPtrArray(AsScreenshot)):
 	 *

@@ -545,17 +545,13 @@
 			</varlistentry>
 
 			<varlistentry>
-			<term>&lt;developer_name/&gt;</term>
+			<term>&lt;developer/&gt;</term>
 			<listitem>
 				<para>
-					The <code>&lt;developer_name/&gt;</code> tag is designed to represent the developers or project responsible for development of the project described in the metadata.
+					The <code>&lt;developer/&gt;</code> tag is designed to represent the developers or project responsible for development of the project described in the metadata.
 				</para>
 				<para>
-					Values might be for example "The GNOME Foundation" or "The KDE Community".
-					You must not include hyperlinks or emails in this field, if you want to link to the developer's homepage, use the <xref linkend="tag-url"/>-tag instead.
-				</para>
-				<para>
-					This tag is translatable.
+					See <xref linkend="tag-developer"/> for its detailed generic description.
 				</para>
 			</listitem>
 			</varlistentry>

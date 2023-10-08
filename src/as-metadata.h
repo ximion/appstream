@@ -29,8 +29,8 @@
 #include <glib-object.h>
 #include <gio/gio.h>
 
-#include "as-component.h"
 #include "as-context.h"
+#include "as-component-box.h"
 
 G_BEGIN_DECLS
 
@@ -120,19 +120,19 @@ gboolean as_metadata_save_catalog (AsMetadata  *metad,
 				   AsFormatKind format,
 				   GError     **error);
 
-AsComponent *as_metadata_get_component (AsMetadata *metad);
-GPtrArray   *as_metadata_get_components (AsMetadata *metad);
+AsComponent    *as_metadata_get_component (AsMetadata *metad);
+AsComponentBox *as_metadata_get_components (AsMetadata *metad);
 
-void	     as_metadata_clear_components (AsMetadata *metad);
-void	     as_metadata_add_component (AsMetadata *metad, AsComponent *cpt);
+void		as_metadata_clear_components (AsMetadata *metad);
+void		as_metadata_add_component (AsMetadata *metad, AsComponent *cpt);
 
-gboolean     as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **error);
-gboolean     as_metadata_parse_releases_file (AsMetadata *metad, GFile *file, GError **error);
-gchar	    *as_metadata_releases_to_data (AsMetadata *metad, AsReleases *releases, GError **error);
+gboolean	as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **error);
+gboolean	as_metadata_parse_releases_file (AsMetadata *metad, GFile *file, GError **error);
+gchar	   *as_metadata_releases_to_data (AsMetadata *metad, AsReleases *releases, GError **error);
 
-AsReleases  *as_metadata_get_releases_block (AsMetadata *metad);
-GPtrArray   *as_metadata_get_releases_blocks (AsMetadata *metad);
-void	     as_metadata_clear_releases (AsMetadata *metad);
+AsReleases *as_metadata_get_releases_block (AsMetadata *metad);
+GPtrArray  *as_metadata_get_releases_blocks (AsMetadata *metad);
+void	    as_metadata_clear_releases (AsMetadata *metad);
 
 AsFormatVersion as_metadata_get_format_version (AsMetadata *metad);
 void		as_metadata_set_format_version (AsMetadata *metad, AsFormatVersion version);

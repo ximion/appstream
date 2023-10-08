@@ -123,6 +123,8 @@ gboolean as_utils_is_platform_triplet_arch (const gchar *arch);
 gboolean as_utils_is_platform_triplet_oskernel (const gchar *os);
 gboolean as_utils_is_platform_triplet_osenv (const gchar *env);
 
+gboolean as_utils_is_reference_registry (const gchar *regname);
+
 gchar	*as_get_user_cache_dir (GError **error);
 
 gboolean as_unichar_accepted (gunichar c);
@@ -139,7 +141,9 @@ gchar *as_utils_find_stock_icon_filename_full (const gchar *root_dir,
 					       guint	    icon_scale,
 					       GError	  **error);
 AS_INTERNAL_VISIBLE
-void as_utils_ensure_resources (void);
+void   as_utils_ensure_resources (void);
+
+gchar *as_make_usertag_key (const gchar *ns, const gchar *tag);
 
 AS_END_PRIVATE_DECLS
 

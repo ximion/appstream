@@ -58,7 +58,8 @@ G_BEGIN_DECLS
  * @AS_TAG_METADATA_LICENSE:		`metadata_license` / `MetadataLicense`
  * @AS_TAG_PROJECT_LICENSE:		`project_license` / `ProjectLicense`
  * @AS_TAG_PROJECT_GROUP:		`project_group` / `ProjectGroup`
- * @AS_TAG_DEVELOPER_NAME:		`developer_name` / `DeveloperName`
+ * @AS_TAG_DEVELOPER:			`developer` / `Developer`
+ * @AS_TAG_DEVELOPER_NAME:		[deprecated] `developer_name` / `DeveloperName`
  * @AS_TAG_COMPULSORY_FOR_DESKTOP:	`compulsory_for_desktop` / `CompulsoryForDesktops`
  * @AS_TAG_RELEASES:			`releases` / `Releases`
  * @AS_TAG_LANGUAGES:			`languages` / `Languages`
@@ -73,6 +74,7 @@ G_BEGIN_DECLS
  * @AS_TAG_NAME_VARIANT_SUFFIX:		`name_variant_suffix` / `NameVariantSuffix`
  * @AS_TAG_TAGS:			`tags` / `Tags`
  * @AS_TAG_BRANDING:			`branding` / `Branding`
+ * @AS_TAG_REFERENCES:			`references` / `References`
  * @AS_TAG_P:				Description markup `p`
  * @AS_TAG_LI:				Description markup `li`
  * @AS_TAG_OL:				Description markup `ol`
@@ -107,6 +109,7 @@ typedef enum {
 	AS_TAG_METADATA_LICENSE,
 	AS_TAG_PROJECT_LICENSE,
 	AS_TAG_PROJECT_GROUP,
+	AS_TAG_DEVELOPER,
 	AS_TAG_DEVELOPER_NAME,
 	AS_TAG_COMPULSORY_FOR_DESKTOP,
 	AS_TAG_RELEASES,
@@ -122,6 +125,7 @@ typedef enum {
 	AS_TAG_NAME_VARIANT_SUFFIX,
 	AS_TAG_TAGS,
 	AS_TAG_BRANDING,
+	AS_TAG_REFERENCES,
 	AS_TAG_P,
 	AS_TAG_LI,
 	AS_TAG_UL,

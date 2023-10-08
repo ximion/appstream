@@ -32,6 +32,7 @@
 #include "as-icon.h"
 #include "as-screenshot.h"
 #include "as-releases.h"
+#include "as-developer.h"
 #include "as-translation.h"
 #include "as-suggested.h"
 #include "as-category.h"
@@ -40,8 +41,9 @@
 #include "as-launchable.h"
 #include "as-relation.h"
 #include "as-agreement.h"
-#include "as-review.h"
 #include "as-branding.h"
+#include "as-review.h"
+#include "as-reference.h"
 
 G_BEGIN_DECLS
 
@@ -181,28 +183,10 @@ typedef enum {
 	AS_URL_KIND_LAST
 } AsUrlKind;
 
-const gchar *as_url_kind_to_string (AsUrlKind url_kind);
-AsUrlKind    as_url_kind_from_string (const gchar *url_kind);
-
-/**
- * AsValueFlags:
- * @AS_VALUE_FLAG_NONE:				No flags.
- * @AS_VALUE_FLAG_DUPLICATE_CHECK:		Check for duplicates when adding items to list values.
- * @AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK:	Don't fall back to C when retrieving translated values.
- *
- * Set how values assigned to an #AsComponent should be treated when
- * they are set or retrieved.
- */
-typedef enum {
-	AS_VALUE_FLAG_NONE		      = 0,
-	AS_VALUE_FLAG_DUPLICATE_CHECK	      = 1 << 0,
-	AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK = 1 << 1
-} AsValueFlags;
+const gchar	*as_url_kind_to_string (AsUrlKind url_kind);
+AsUrlKind	 as_url_kind_from_string (const gchar *url_kind);
 
 AsComponent	*as_component_new (void);
-
-AsValueFlags	 as_component_get_value_flags (AsComponent *cpt);
-void		 as_component_set_value_flags (AsComponent *cpt, AsValueFlags flags);
 
 AsContext	*as_component_get_context (AsComponent *cpt);
 void		 as_component_set_context (AsComponent *cpt, AsContext *context);
@@ -261,29 +245,29 @@ gboolean      as_component_is_floss (AsComponent *cpt);
 const gchar  *as_component_get_project_group (AsComponent *cpt);
 void	      as_component_set_project_group (AsComponent *cpt, const gchar *value);
 
-const gchar  *as_component_get_developer_name (AsComponent *cpt);
-void as_component_set_developer_name (AsComponent *cpt, const gchar *value, const gchar *locale);
+AsDeveloper  *as_component_get_developer (AsComponent *cpt);
+void	      as_component_set_developer (AsComponent *cpt, AsDeveloper *developer);
 
-GPtrArray  *as_component_get_compulsory_for_desktops (AsComponent *cpt);
-void	    as_component_set_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop);
-gboolean    as_component_is_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop);
+GPtrArray    *as_component_get_compulsory_for_desktops (AsComponent *cpt);
+void	      as_component_set_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop);
+gboolean      as_component_is_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop);
 
-GPtrArray  *as_component_get_categories (AsComponent *cpt);
-void	    as_component_add_category (AsComponent *cpt, const gchar *category);
-gboolean    as_component_has_category (AsComponent *cpt, const gchar *category);
+GPtrArray    *as_component_get_categories (AsComponent *cpt);
+void	      as_component_add_category (AsComponent *cpt, const gchar *category);
+gboolean      as_component_has_category (AsComponent *cpt, const gchar *category);
 
-GPtrArray  *as_component_get_screenshots_all (AsComponent *cpt);
-void	    as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot);
-void	    as_component_sort_screenshots (AsComponent *cpt,
-					   const gchar *environment,
-					   const gchar *style,
-					   gboolean	prioritize_style);
+GPtrArray    *as_component_get_screenshots_all (AsComponent *cpt);
+void	      as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot);
+void	      as_component_sort_screenshots (AsComponent *cpt,
+					     const gchar *environment,
+					     const gchar *style,
+					     gboolean	  prioritize_style);
 
-GPtrArray  *as_component_get_keywords (AsComponent *cpt);
-void	    as_component_set_keywords (AsComponent *cpt,
-				       GPtrArray   *new_keywords,
-				       const gchar *locale,
-				       gboolean	    deep_copy);
+GPtrArray    *as_component_get_keywords (AsComponent *cpt);
+void	      as_component_set_keywords (AsComponent *cpt,
+					 GPtrArray   *new_keywords,
+					 const gchar *locale,
+					 gboolean     deep_copy);
 void	    as_component_add_keyword (AsComponent *cpt, const gchar *keyword, const gchar *locale);
 void	    as_component_clear_keywords (AsComponent *cpt, const gchar *locale);
 
@@ -379,6 +363,9 @@ void	     as_component_clear_tags (AsComponent *cpt);
 gboolean     as_component_add_tag (AsComponent *cpt, const gchar *ns, const gchar *tag);
 gboolean     as_component_remove_tag (AsComponent *cpt, const gchar *ns, const gchar *tag);
 gboolean     as_component_has_tag (AsComponent *cpt, const gchar *ns, const gchar *tag);
+
+GPtrArray   *as_component_get_references (AsComponent *cpt);
+void	     as_component_add_reference (AsComponent *cpt, AsReference *reference);
 
 const gchar *as_component_get_name_variant_suffix (AsComponent *cpt);
 void	     as_component_set_name_variant_suffix (AsComponent *cpt,

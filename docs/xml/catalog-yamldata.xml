@@ -685,11 +685,11 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-developername">
+			<varlistentry id="field-dep11-developer">
 			<term>DeveloperName</term>
 			<listitem>
-				<para>See <xref linkend="tag-ct-developer_name"/>.</para>
-				<literallayout>Field info: <property>value-type</property>:<emphasis>localized</emphasis></literallayout>
+				<para>See <xref linkend="tag-ct-developer"/>.</para>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis></literallayout>
 			</listitem>
 			</varlistentry>
 
@@ -1022,6 +1022,23 @@ Requires:
   tag: vendor-2021q1
 - namespace: plasma
   tag: featured]]></programlisting>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-references">
+				<term>References</term>
+				<listitem>
+					<para>See <xref linkend="tag-references"/>.</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+					<para>Example:</para>
+					<programlisting language="YAML"><![CDATA[References:
+- type: doi
+  value: 10.1000/182
+- type: citation_cff
+  value: https://example.org/CITATION.cff
+- type: registry
+  value: SCR_000000
+  registry: SciCrunch]]></programlisting>
 				</listitem>
 			</varlistentry>
 

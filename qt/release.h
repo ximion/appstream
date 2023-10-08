@@ -64,7 +64,8 @@ public:
     enum Kind {
         KindUnknown,
         KindStable,
-        KindDevelopment
+        KindDevelopment,
+        KindSnapshot
     };
     Q_ENUM(Kind)
 

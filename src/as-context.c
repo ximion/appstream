@@ -42,6 +42,7 @@
 typedef struct {
 	AsFormatVersion format_version;
 	AsFormatStyle style;
+	AsValueFlags value_flags;
 	GRefString *locale;
 	GRefString *origin;
 	GRefString *media_baseurl;
@@ -432,6 +433,33 @@ as_context_set_filename (AsContext *ctx, const gchar *fname)
 }
 
 /**
+ * as_context_set_value_flags:
+ * @ctx: a #AsContext instance.
+ * @flags: #AsValueFlags to set on @cpt.
+ *
+ */
+void
+as_context_set_value_flags (AsContext *ctx, AsValueFlags flags)
+{
+	AsContextPrivate *priv = GET_PRIVATE (ctx);
+	priv->value_flags = flags;
+}
+
+/**
+ * as_context_get_value_flags:
+ * @ctx: a #AsContext instance.
+ *
+ * Returns: The #AsValueFlags that are set on @cpt.
+ *
+ */
+AsValueFlags
+as_context_get_value_flags (AsContext *ctx)
+{
+	AsContextPrivate *priv = GET_PRIVATE (ctx);
+	return priv->value_flags;
+}
+
+/**
  * as_context_get_internal_mode:
  * @ctx: a #AsContext instance.
  *
@@ -474,17 +502,20 @@ as_context_set_internal_mode (AsContext *ctx, gboolean enabled)
  * Returns: The localized string in the best matching localization.
  */
 const gchar *
-as_context_localized_ht_get (AsContext *ctx,
-			     GHashTable *lht,
-			     const gchar *locale_override,
-			     AsValueFlags value_flags)
+as_context_localized_ht_get (AsContext *ctx, GHashTable *lht, const gchar *locale_override)
 {
 	const gchar *locale;
 	const gchar *msg;
+	AsContextPrivate *priv = NULL;
+	AsValueFlags value_flags = AS_VALUE_FLAG_NONE;
+
+	if (ctx != NULL) {
+		priv = GET_PRIVATE (ctx);
+		value_flags = priv->value_flags;
+	}
 
 	/* retrieve context locale, if the locale isn't explicitly overridden */
-	if (ctx != NULL && locale_override == NULL) {
-		AsContextPrivate *priv = GET_PRIVATE (ctx);
+	if (priv != NULL && locale_override == NULL) {
 		locale = priv->locale;
 	} else {
 		locale = locale_override;

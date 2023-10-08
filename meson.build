@@ -2,7 +2,7 @@ project('AppStream', 'c',
   meson_version: '>=0.62',
   default_options: ['c_std=c11', 'cpp_std=gnu++17'],
 
-  license: 'LGPL-2.1+',
+  license: 'LGPL-2.1-or-later',
   version: '1.0.0',
 )
 

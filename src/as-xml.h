@@ -43,6 +43,7 @@ GRefString	      *as_xml_get_node_value_refstr (const xmlNode *node);
 GRefString *as_xml_get_prop_value_refstr (const xmlNode *node, const gchar *prop_name);
 gint	    as_xml_get_prop_value_as_int (const xmlNode *node, const gchar *prop_name);
 
+gchar	   *as_xml_get_node_locale (AsContext *ctx, xmlNode *node);
 gchar	   *as_xml_get_node_locale_match (AsContext *ctx, xmlNode *node);
 
 void	    as_xml_add_children_values_to_array (xmlNode     *node,
@@ -83,7 +84,9 @@ void	 as_xml_add_custom_node (xmlNode *root, const gchar *node_name, GHashTable 
 #define as_xml_node_new(name)	    xmlNewNode (NULL, (xmlChar *) name)
 #define as_xml_add_node(root, name) xmlNewChild (root, NULL, (xmlChar *) name, NULL)
 xmlNode *as_xml_add_text_node (xmlNode *root, const gchar *name, const gchar *value);
+xmlNode *as_xml_add_uint_node (xmlNode *root, const gchar *name, guint64 value);
 xmlAttr *as_xml_add_text_prop (xmlNode *node, const gchar *name, const gchar *value);
+xmlAttr *as_xml_add_uint_prop (xmlNode *node, const gchar *name, guint64 value);
 
 xmlDoc	*as_xml_parse_document (const gchar *data, gssize len, gboolean pedantic, GError **error);
 

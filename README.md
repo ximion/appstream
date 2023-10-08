@@ -18,7 +18,7 @@ This repository contains:
  * the AppStream specification
  * the `appstreamcli` utility to access and edit metadata, manipulate caches, show diagnostic information, etc. (see `man appstreamcli`)
  * a GLib/GObject based library for reading and writing AppStream metadata in XML and YAML, accessing the system data pool, and auxiliary functionality
- * a Qt5 based library for accessing AppStream
+ * a Qt6 based library for accessing AppStream
 
 ## Useful Links
  * [AppStream Documentation](https://www.freedesktop.org/software/appstream/docs/) - The AppStream specification and help

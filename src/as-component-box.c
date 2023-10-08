@@ -315,6 +315,63 @@ as_component_box_add (AsComponentBox *cbox, AsComponent *cpt, GError **error)
 }
 
 /**
+ * as_component_box_clear:
+ * @cbox: An instance of #AsComponentBox.
+ *
+ * Remove all contents of this component box.
+ */
+void
+as_component_box_clear (AsComponentBox *cbox)
+{
+	AsComponentBoxPrivate *priv = GET_PRIVATE (cbox);
+
+	g_ptr_array_set_size (cbox->cpts, 0);
+	if (priv->cpt_map != NULL)
+		g_hash_table_remove_all (priv->cpt_map);
+}
+
+/**
+ * as_component_box_remove_at:
+ * @cbox: An instance of #AsComponentBox.
+ * @index: the index of the component to remove.
+ *
+ * Remove a component at the specified index.
+ * Please ensure that the index is not larger than
+ * %as_component_box_get_size() - 1
+ */
+void
+as_component_box_remove_at (AsComponentBox *cbox, guint index)
+{
+	AsComponentBoxPrivate *priv = GET_PRIVATE (cbox);
+	AsComponent *cpt;
+
+	g_return_if_fail (index < cbox->cpts->len);
+
+	cpt = AS_COMPONENT (g_ptr_array_index (cbox->cpts, index));
+	if (!as_flags_contains (priv->flags, AS_COMPONENT_BOX_FLAG_NO_CHECKS)) {
+		AsComponent *ht_cpt = NULL;
+		const gchar *data_id = as_component_get_data_id (cpt);
+
+		if (!g_hash_table_remove (priv->cpt_map, data_id)) {
+			/* we did not find the component reference, let's try a deep search */
+			GHashTableIter ht_iter;
+			gpointer ht_key, ht_value;
+
+			g_hash_table_iter_init (&ht_iter, priv->cpt_map);
+			while (g_hash_table_iter_next (&ht_iter, &ht_key, &ht_value)) {
+				ht_cpt = AS_COMPONENT (ht_value);
+				if (ht_cpt == cpt) {
+					g_hash_table_remove (priv->cpt_map, ht_key);
+					break;
+				}
+			}
+		}
+	}
+
+	g_ptr_array_remove_index (cbox->cpts, index);
+}
+
+/**
  * as_sort_components_cb:
  *
  * Helper method to sort lists of #AsComponent

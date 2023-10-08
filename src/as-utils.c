@@ -1300,6 +1300,10 @@ as_utils_is_category_name (const gchar *category_name)
 	if (g_str_has_prefix (category_name, "X-"))
 		return TRUE;
 
+	/* safeguard against accidentally matching comments */
+	if (g_str_has_prefix (category_name, "#"))
+		return FALSE;
+
 	/* load the readonly data section and look for the category name */
 	data = g_resource_lookup_data (resource,
 				       "/org/freedesktop/appstream/xdg-category-names.txt",
@@ -1329,6 +1333,10 @@ as_utils_is_tld (const gchar *tld)
 	g_autofree gchar *key = NULL;
 	GResource *resource = as_get_resource ();
 	g_assert (resource != NULL);
+
+	/* safeguard against accidentally matching comments */
+	if (as_is_empty (tld) || g_str_has_prefix (tld, "#"))
+		return FALSE;
 
 	/* load the readonly data section and look for the TLD */
 	data = g_resource_lookup_data (resource,
@@ -1462,12 +1470,16 @@ as_utils_is_platform_triplet_arch (const gchar *arch)
 	g_autofree gchar *key = NULL;
 	GResource *resource = NULL;
 
-	if (arch == NULL)
+	if (as_is_empty (arch))
 		return FALSE;
 
 	/* "any" is always a valid value */
 	if (g_strcmp0 (arch, "any") == 0)
 		return TRUE;
+
+	/* safeguard against accidentally matching comments */
+	if (g_str_has_prefix (arch, "#"))
+		return FALSE;
 
 	resource = as_get_resource ();
 	g_assert (resource != NULL);
@@ -1501,12 +1513,16 @@ as_utils_is_platform_triplet_oskernel (const gchar *os)
 	g_autofree gchar *key = NULL;
 	GResource *resource;
 
-	if (os == NULL)
+	if (as_is_empty (os))
 		return FALSE;
 
 	/* "any" is always a valid value */
 	if (g_strcmp0 (os, "any") == 0)
 		return TRUE;
+
+	/* safeguard against accidentally matching comments */
+	if (g_str_has_prefix (os, "#"))
+		return FALSE;
 
 	resource = as_get_resource ();
 	g_assert (resource != NULL);
@@ -1540,12 +1556,16 @@ as_utils_is_platform_triplet_osenv (const gchar *env)
 	g_autofree gchar *key = NULL;
 	GResource *resource;
 
-	if (env == NULL)
+	if (as_is_empty (env))
 		return FALSE;
 
 	/* "any" is always a valid value */
 	if (g_strcmp0 (env, "any") == 0)
 		return TRUE;
+
+	/* safeguard against accidentally matching comments */
+	if (g_str_has_prefix (env, "#"))
+		return FALSE;
 
 	resource = as_get_resource ();
 	g_assert (resource != NULL);
@@ -1590,6 +1610,45 @@ as_utils_is_platform_triplet (const gchar *triplet)
 	if (!as_utils_is_platform_triplet_osenv (parts[2]))
 		return FALSE;
 	return TRUE;
+}
+
+/**
+ * as_utils_is_reference_registry:
+ * @regname: a potential registry ID.
+ *
+ * Check if the given string is a valid ID for an
+ * external identifier or scientific registry.
+ *
+ * Returns: %TRUE if registry is valid
+ *
+ * Since: 1.0.0
+ **/
+gboolean
+as_utils_is_reference_registry (const gchar *regname)
+{
+	g_autoptr(GBytes) data = NULL;
+	g_autofree gchar *key = NULL;
+	GResource *resource = NULL;
+
+	if (as_is_empty (regname))
+		return FALSE;
+
+	/* safeguard against accidentally matching comments */
+	if (g_str_has_prefix (regname, "#"))
+		return FALSE;
+
+	resource = as_get_resource ();
+	g_assert (resource != NULL);
+
+	/* load the readonly data section */
+	data = g_resource_lookup_data (resource,
+				       "/org/freedesktop/appstream/reference-registries.txt",
+				       G_RESOURCE_LOOKUP_FLAGS_NONE,
+				       NULL);
+	if (data == NULL)
+		return FALSE;
+	key = g_strdup_printf ("\n%s\n", regname);
+	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
 }
 
 /**
@@ -2741,6 +2800,21 @@ as_utils_guess_scope_from_path (const gchar *path)
 	if (g_str_has_prefix (path, "/home") || g_str_has_prefix (path, g_get_home_dir ()))
 		return AS_COMPONENT_SCOPE_USER;
 	return AS_COMPONENT_SCOPE_SYSTEM;
+}
+
+/**
+ * as_make_usertag_key:
+ * @ns: the namespace
+ * @tag: the tag
+ *
+ * Helper for release and component user tags.
+ */
+gchar *
+as_make_usertag_key (const gchar *ns, const gchar *tag)
+{
+	if (ns == NULL)
+		ns = "";
+	return g_strconcat (ns, "::", tag, NULL);
 }
 
 /**

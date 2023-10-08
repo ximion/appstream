@@ -337,6 +337,7 @@ void
 as_icon_set_scale (AsIcon *icon, guint scale)
 {
 	AsIconPrivate *priv = GET_PRIVATE (icon);
+	g_return_if_fail (scale >= 1);
 	priv->scale = scale;
 }
 
@@ -346,6 +347,7 @@ as_icon_set_scale (AsIcon *icon, guint scale)
 static void
 as_xml_icon_set_size_from_node (xmlNode *node, AsIcon *icon)
 {
+	AsIconPrivate *priv = GET_PRIVATE (icon);
 	gchar *val;
 
 	val = as_xml_get_prop_value (node, "width");
@@ -360,8 +362,10 @@ as_xml_icon_set_size_from_node (xmlNode *node, AsIcon *icon)
 	}
 	val = as_xml_get_prop_value (node, "scale");
 	if (val != NULL) {
-		as_icon_set_scale (icon, g_ascii_strtoll (val, NULL, 10));
+		priv->scale = g_ascii_strtoll (val, NULL, 10);
 		g_free (val);
+		if (priv->scale < 1)
+			priv->scale = 1;
 	}
 }
 
@@ -445,23 +449,14 @@ as_icon_to_xml_node (AsIcon *icon, AsContext *ctx, xmlNode *root)
 	as_xml_add_text_prop (n, "type", as_icon_kind_to_string (priv->kind));
 
 	if (priv->kind != AS_ICON_KIND_STOCK) {
-		if (priv->width > 0) {
-			g_autofree gchar *size = NULL;
-			size = g_strdup_printf ("%i", as_icon_get_width (icon));
-			as_xml_add_text_prop (n, "width", size);
-		}
+		if (priv->width > 0)
+			as_xml_add_uint_prop (n, "width", as_icon_get_width (icon));
 
-		if (priv->height > 0) {
-			g_autofree gchar *size = NULL;
-			size = g_strdup_printf ("%i", as_icon_get_height (icon));
-			as_xml_add_text_prop (n, "height", size);
-		}
+		if (priv->height > 0)
+			as_xml_add_uint_prop (n, "height", as_icon_get_height (icon));
 
-		if (priv->scale > 1) {
-			g_autofree gchar *scale = NULL;
-			scale = g_strdup_printf ("%i", as_icon_get_scale (icon));
-			as_xml_add_text_prop (n, "scale", scale);
-		}
+		if (priv->scale > 1)
+			as_xml_add_uint_prop (n, "scale", as_icon_get_scale (icon));
 	}
 }
 

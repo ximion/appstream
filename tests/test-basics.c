@@ -354,6 +354,11 @@ test_component_box (void)
 		AsComponent *c = as_component_box_index (cbox, i);
 		g_assert_cmpstr (as_component_get_id (c), ==, "org.example.AComponent");
 	}
+
+	/* remove at index */
+	g_assert_cmpint (as_component_box_len (cbox), ==, 3);
+	as_component_box_remove_at (cbox, 1);
+	g_assert_cmpint (as_component_box_len (cbox), ==, 2);
 }
 
 /**
@@ -365,26 +370,29 @@ static void
 test_translation_fallback (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsContext) ctx = NULL;
 	AsValueFlags flags;
 
 	cpt = as_component_new ();
+	ctx = as_context_new ();
+	as_component_set_context (cpt, ctx);
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
 	as_component_set_id (cpt, "org.example.ATargetComponent");
 	as_component_set_description (cpt, "<p>It's broken!</p>", "C");
-	flags = as_component_get_value_flags (cpt);
+	flags = as_context_get_value_flags (ctx);
 
 	/* there is no de translation */
-	as_component_set_context_locale (cpt, "de");
+	as_context_set_locale (ctx, "de");
 	g_assert_nonnull (as_component_get_description (cpt));
 
 	/* if the flag is set, we don't fall back to C */
 	as_flags_add (flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK);
-	as_component_set_value_flags (cpt, flags);
+	as_context_set_value_flags (ctx, flags);
 	g_assert_null (as_component_get_description (cpt));
 
 	/* ...but after removing it, again we do */
 	as_flags_remove (flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK);
-	as_component_set_value_flags (cpt, flags);
+	as_context_set_value_flags (ctx, flags);
 	g_assert_nonnull (as_component_get_description (cpt));
 }
 
@@ -395,12 +403,12 @@ static void
 test_locale_compat (void)
 {
 	g_assert_true (as_utils_locale_is_compatible ("de_DE", "de_DE"));
-	g_assert_true (!as_utils_locale_is_compatible ("de_DE", "en"));
+	g_assert_false (as_utils_locale_is_compatible ("de_DE", "en"));
 	g_assert_true (as_utils_locale_is_compatible ("de_DE", "de"));
 	g_assert_true (as_utils_locale_is_compatible ("ca_ES@valencia", "ca"));
 	g_assert_true (as_utils_locale_is_compatible ("ca@valencia", "ca"));
-	g_assert_true (!as_utils_locale_is_compatible ("ca@valencia", "de"));
-	g_assert_true (!as_utils_locale_is_compatible ("de_CH", "de_DE"));
+	g_assert_false (as_utils_locale_is_compatible ("ca@valencia", "de"));
+	g_assert_false (as_utils_locale_is_compatible ("de_CH", "de_DE"));
 	g_assert_true (as_utils_locale_is_compatible ("de", "de_CH"));
 	g_assert_true (as_utils_locale_is_compatible ("C", "C"));
 }
@@ -543,9 +551,9 @@ test_spdx (void)
 	g_assert_true (
 	    as_is_spdx_license_expression ("GPL-3.0-or-later WITH Font-exception-2.0 AND OFL-1.1"));
 	g_assert_true (as_is_spdx_license_expression ("NOASSERTION"));
-	g_assert_true (!as_is_spdx_license_expression ("CC0 dave"));
-	g_assert_true (!as_is_spdx_license_expression (""));
-	g_assert_true (!as_is_spdx_license_expression (NULL));
+	g_assert_false (as_is_spdx_license_expression ("CC0 dave"));
+	g_assert_false (as_is_spdx_license_expression (""));
+	g_assert_false (as_is_spdx_license_expression (NULL));
 
 	/* importing non-SPDX formats */
 	tmp = as_license_to_spdx_id ("CC0 and (Public Domain and GPLv3+ with exceptions)");
@@ -557,7 +565,7 @@ test_spdx (void)
 	g_assert_true (as_license_is_metadata_license ("CC0-1.0"));
 	g_assert_true (as_license_is_metadata_license ("0BSD"));
 	g_assert_true (as_license_is_metadata_license ("MIT AND FSFAP"));
-	g_assert_true (!as_license_is_metadata_license ("GPL-2.0 AND FSFAP"));
+	g_assert_false (as_license_is_metadata_license ("GPL-2.0 AND FSFAP"));
 	g_assert_true (as_license_is_metadata_license ("GPL-2.0+ OR GFDL-1.3-only"));
 
 	/* check license URL generation */
@@ -588,13 +596,13 @@ test_spdx (void)
 	    as_license_is_free_license ("OFL-1.1 OR (GPL-3.0-or-later WITH Font-exception-2.0)"));
 	g_assert_true (as_is_spdx_license_expression (
 	    "OFL-1.1 OR (GPL-3.0-or-later WITH Font-exception-2.0)"));
-	g_assert_true (!as_license_is_free_license ("NOASSERTION"));
-	g_assert_true (!as_license_is_free_license (
+	g_assert_false (as_license_is_free_license ("NOASSERTION"));
+	g_assert_false (as_license_is_free_license (
 	    "LicenseRef-proprietary=https://example.com/mylicense.txt"));
-	g_assert_true (!as_license_is_free_license (
+	g_assert_false (as_license_is_free_license (
 	    "MIT AND LicenseRef-proprietary=https://example.com/lic.txt"));
-	g_assert_true (!as_license_is_free_license ("ADSL"));
-	g_assert_true (!as_license_is_free_license ("JSON AND GPL-3.0-or-later"));
+	g_assert_false (as_license_is_free_license ("ADSL"));
+	g_assert_false (as_license_is_free_license ("JSON AND GPL-3.0-or-later"));
 
 	/* license names */
 	tmp = as_get_license_name ("GPL-2.0+");
@@ -720,7 +728,7 @@ test_desktop_entry_convert (void)
 	g_autoptr(GFile) file = NULL;
 	g_autoptr(GError) error = NULL;
 	AsComponent *cpt;
-	GPtrArray *cpts;
+	AsComponentBox *cbox;
 	guint i;
 	gchar *tmp;
 
@@ -770,9 +778,9 @@ test_desktop_entry_convert (void)
 	g_assert_no_error (error);
 
 	/* adjust the priority */
-	cpts = as_metadata_get_components (metad);
-	for (i = 0; i < cpts->len; i++) {
-		cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+	cbox = as_metadata_get_components (metad);
+	for (i = 0; i < as_component_box_len (cbox); i++) {
+		cpt = as_component_box_index (cbox, i);
 		as_component_set_priority (cpt, -1);
 	}
 

@@ -42,6 +42,7 @@ namespace AppStream
 class Icon;
 class Screenshot;
 class Suggested;
+class Developer;
 class RelationCheckResult;
 
 class ComponentData;
@@ -104,13 +105,6 @@ public:
     };
     Q_ENUM(Scope)
 
-    enum ValueFlags {
-        FlagNone = 0,
-        FlagDuplicateCheck = 1 << 0,
-        FlagNoTranslationFallback = 1 << 1
-    };
-    Q_ENUM(ValueFlags)
-
     static Kind stringToKind(const QString &kindString);
     static QString kindToString(Kind kind);
 
@@ -129,9 +123,6 @@ public:
     bool operator==(const Component &r) const;
 
     _AsComponent *asComponent() const;
-
-    uint valueFlags() const;
-    void setValueFlags(uint flags);
 
     Kind kind() const;
     void setKind(Component::Kind kind);
@@ -175,8 +166,8 @@ public:
     QString projectGroup() const;
     void setProjectGroup(const QString &group);
 
-    QString developerName() const;
-    void setDeveloperName(const QString &developerName, const QString &lang = {});
+    Developer developer() const;
+    void setDeveloper(const Developer &developer);
 
     QStringList compulsoryForDesktops() const;
     void setCompulsoryForDesktop(const QString &desktop);

@@ -104,13 +104,13 @@ void		      as_screenshot_set_caption (AsScreenshot *screenshot,
 
 GPtrArray	     *as_screenshot_get_images_all (AsScreenshot *screenshot);
 GPtrArray	     *as_screenshot_get_images (AsScreenshot *screenshot);
-AsImage		     *as_screenshot_get_image (AsScreenshot *screenshot, guint width, guint height);
-void		      as_screenshot_add_image (AsScreenshot *screenshot, AsImage *image);
-void		      as_screenshot_clear_images (AsScreenshot *screenshot);
+AsImage *as_screenshot_get_image (AsScreenshot *screenshot, guint width, guint height, guint scale);
+void	 as_screenshot_add_image (AsScreenshot *screenshot, AsImage *image);
+void	 as_screenshot_clear_images (AsScreenshot *screenshot);
 
-GPtrArray	     *as_screenshot_get_videos_all (AsScreenshot *screenshot);
-GPtrArray	     *as_screenshot_get_videos (AsScreenshot *screenshot);
-void		      as_screenshot_add_video (AsScreenshot *screenshot, AsVideo *video);
+GPtrArray *as_screenshot_get_videos_all (AsScreenshot *screenshot);
+GPtrArray *as_screenshot_get_videos (AsScreenshot *screenshot);
+void	   as_screenshot_add_video (AsScreenshot *screenshot, AsVideo *video);
 
 G_END_DECLS
 

@@ -38,7 +38,7 @@ static AsComponent *
 as_xml_test_read_data (const gchar *data, AsFormatStyle mode)
 {
 	AsComponent *cpt = NULL;
-	GPtrArray *cpts;
+	AsComponentBox *cbox;
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GError) error = NULL;
 	g_autofree gchar *data_full = NULL;
@@ -50,11 +50,11 @@ as_xml_test_read_data (const gchar *data, AsFormatStyle mode)
 	as_metadata_parse_data (metad, data_full, -1, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
-	cpts = as_metadata_get_components (metad);
-	g_assert_cmpint (cpts->len, >, 0);
+	cbox = as_metadata_get_components (metad);
+	g_assert_cmpint (as_component_box_len (cbox), >, 0);
 	if (mode == AS_FORMAT_STYLE_METAINFO)
-		g_assert_cmpint (cpts->len, ==, 1);
-	cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
+		g_assert_cmpint (as_component_box_len (cbox), ==, 1);
+	cpt = as_component_box_index (cbox, 0);
 
 	return g_object_ref (cpt);
 }
@@ -1355,10 +1355,10 @@ test_xml_read_screenshots (void)
 	g_assert_cmpint (as_image_get_height (img), ==, 600);
 
 	/* get closest images */
-	img = as_screenshot_get_image (scr1, 120, 120);
+	img = as_screenshot_get_image (scr1, 120, 120, 1);
 	g_assert_nonnull (img);
 	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha_small.png");
-	img = as_screenshot_get_image (scr1, 1400, 1000);
+	img = as_screenshot_get_image (scr1, 1400, 1000, 1);
 	g_assert_nonnull (img);
 	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha.png");
 
@@ -2288,6 +2288,38 @@ test_xml_rw_branding (void)
 }
 
 /**
+ * test_xml_rw_developer:
+ */
+static void
+test_xml_rw_developer (void)
+{
+	static const gchar *xmldata_tags = "<component>\n"
+					   "  <id>org.example.DeveloperTest</id>\n"
+					   "  <developer id=\"freedesktop.org\">\n"
+					   "    <name>FreeDesktop.org Project</name>\n"
+					   "  </developer>\n"
+					   "</component>\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	AsDeveloper *devp;
+
+	/* read */
+	cpt = as_xml_test_read_data (xmldata_tags, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DeveloperTest");
+
+	/* validate */
+	devp = as_component_get_developer (cpt);
+	g_assert_nonnull (devp);
+
+	g_assert_cmpstr (as_developer_get_id (devp), ==, "freedesktop.org");
+	g_assert_cmpstr (as_developer_get_name (devp), ==, "FreeDesktop.org Project");
+
+	/* write */
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_tags));
+}
+
+/**
  * test_xml_rw_external_releases:
  */
 static void
@@ -2355,6 +2387,53 @@ test_xml_rw_external_releases (void)
 			 "https://raw.githubusercontent.com/ximion/appstream/master/tests/samples/"
 			 "releases/org.example.pomidaq.releases.xml");
 	g_assert_cmpint (as_releases_get_kind (releases), ==, AS_RELEASES_KIND_EXTERNAL);
+}
+
+/**
+ * test_xml_rw_references:
+ */
+static void
+test_xml_rw_references (void)
+{
+	static const gchar
+	    *xmldata_tags = "<component>\n"
+			    "  <id>org.example.ReferencesTest</id>\n"
+			    "  <references>\n"
+			    "    <doi>10.1000/182</doi>\n"
+			    "    <citation_cff>https://example.org/CITATION.cff</citation_cff>\n"
+			    "    <registry name=\"SciCrunch\">SCR_000000</registry>\n"
+			    "  </references>\n"
+			    "</component>\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	GPtrArray *refs;
+	AsReference *ref;
+
+	/* read */
+	cpt = as_xml_test_read_data (xmldata_tags, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReferencesTest");
+
+	/* validate */
+	refs = as_component_get_references (cpt);
+	g_assert_nonnull (refs);
+	g_assert_cmpint (refs->len, ==, 3);
+
+	ref = g_ptr_array_index (refs, 0);
+	g_assert_cmpint (as_reference_get_kind (ref), ==, AS_REFERENCE_KIND_DOI);
+	g_assert_cmpstr (as_reference_get_value (ref), ==, "10.1000/182");
+
+	ref = g_ptr_array_index (refs, 1);
+	g_assert_cmpint (as_reference_get_kind (ref), ==, AS_REFERENCE_KIND_CITATION_CFF);
+	g_assert_cmpstr (as_reference_get_value (ref), ==, "https://example.org/CITATION.cff");
+
+	ref = g_ptr_array_index (refs, 2);
+	g_assert_cmpint (as_reference_get_kind (ref), ==, AS_REFERENCE_KIND_REGISTRY);
+	g_assert_cmpstr (as_reference_get_value (ref), ==, "SCR_000000");
+	g_assert_cmpstr (as_reference_get_registry_name (ref), ==, "SciCrunch");
+
+	/* write */
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_tags));
 }
 
 /**
@@ -2427,7 +2506,9 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/ReadWrite/Reviews", test_xml_rw_reviews);
 	g_test_add_func ("/XML/ReadWrite/Tags", test_xml_rw_tags);
 	g_test_add_func ("/XML/ReadWrite/Branding", test_xml_rw_branding);
+	g_test_add_func ("/XML/ReadWrite/Developer", test_xml_rw_developer);
 	g_test_add_func ("/XML/ReadWrite/ExternalReleases", test_xml_rw_external_releases);
+	g_test_add_func ("/XML/ReadWrite/References", test_xml_rw_references);
 
 	ret = g_test_run ();
 	g_free (datadir);

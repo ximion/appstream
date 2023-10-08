@@ -62,7 +62,7 @@ typedef struct {
 	gboolean write_header;
 	AsParseFlags parse_flags;
 
-	GPtrArray *cpts;     /* of AsComponent */
+	AsComponentBox *cbox;
 	GPtrArray *releases; /* of AsReleases */
 } AsMetadataPrivate;
 
@@ -125,7 +125,7 @@ as_metadata_init (AsMetadata *metad)
 	priv->update_existing = FALSE;
 	priv->parse_flags = AS_PARSE_FLAG_NONE;
 
-	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->cbox = as_component_box_new_simple ();
 	priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
 }
 
@@ -143,7 +143,7 @@ as_metadata_finalize (GObject *object)
 	g_free (priv->media_baseurl);
 	g_free (priv->arch);
 
-	g_ptr_array_unref (priv->cpts);
+	g_object_unref (priv->cbox);
 	g_ptr_array_unref (priv->releases);
 
 	G_OBJECT_CLASS (as_metadata_parent_class)->finalize (object);
@@ -183,7 +183,7 @@ void
 as_metadata_clear_components (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-	g_ptr_array_set_size (priv->cpts, 0);
+	as_component_box_clear (priv->cbox);
 }
 
 /**
@@ -240,7 +240,7 @@ as_metadata_xml_parse_components_node (AsMetadata *metad,
 		cpt = as_component_new ();
 		if (as_component_load_from_xml (cpt, context, iter, &tmp_error)) {
 			as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_CATALOG);
-			g_ptr_array_add (priv->cpts, g_object_ref (cpt));
+			as_component_box_add (priv->cbox, cpt, NULL);
 		} else {
 			if (tmp_error != NULL) {
 				g_propagate_error (error, tmp_error);
@@ -479,7 +479,7 @@ as_metadata_parse_raw (AsMetadata *metad,
 				/* we explicitly allow parsing single component entries in distro-XML mode, since this is a scenario
 				* which might very well happen, e.g. in AppStream metadata generators */
 				if (as_component_load_from_xml (cpt, context, root, error))
-					g_ptr_array_add (priv->cpts, g_steal_pointer (&cpt));
+					as_component_box_add (priv->cbox, cpt, NULL);
 			} else {
 				g_set_error_literal (
 				    error,
@@ -513,7 +513,7 @@ as_metadata_parse_raw (AsMetadata *metad,
 			} else {
 				cpt = as_component_new ();
 				if (as_component_load_from_xml (cpt, context, root, error))
-					g_ptr_array_add (priv->cpts, g_object_ref (cpt));
+					as_component_box_add (priv->cbox, cpt, NULL);
 			}
 
 			if (cpt != NULL)
@@ -545,7 +545,7 @@ as_metadata_parse_raw (AsMetadata *metad,
 				AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (new_cpts, i));
 				as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_CATALOG);
 
-				g_ptr_array_add (priv->cpts, g_object_ref (cpt));
+				as_component_box_add (priv->cbox, cpt, NULL);
 			}
 		} else {
 			g_set_error_literal (error,
@@ -677,7 +677,7 @@ as_metadata_parse_desktop_data (AsMetadata *metad,
 	as_component_set_context_locale (cpt, priv->locale);
 
 	/* add component to our list */
-	g_ptr_array_add (priv->cpts, g_steal_pointer (&cpt));
+	as_component_box_add (priv->cbox, cpt, NULL);
 
 	return TRUE;
 }
@@ -1391,24 +1391,26 @@ as_metadata_components_to_catalog (AsMetadata *metad, AsFormatKind format, GErro
 	g_return_val_if_fail (format > AS_FORMAT_KIND_UNKNOWN && format < AS_FORMAT_KIND_LAST,
 			      NULL);
 
-	if (priv->cpts->len == 0)
+	if (as_component_box_is_empty (priv->cbox))
 		return g_strdup ("");
 
 	context = as_metadata_new_context (metad, AS_FORMAT_STYLE_CATALOG, NULL);
 
 	if (format == AS_FORMAT_KIND_XML) {
 		if (priv->write_header)
-			return as_metadata_xml_serialize_to_catalog_with_rootnode (metad,
-										   context,
-										   priv->cpts);
+			return as_metadata_xml_serialize_to_catalog_with_rootnode (
+			    metad,
+			    context,
+			    as_component_box_array (priv->cbox));
 		else
-			return as_metadata_xml_serialize_to_catalog_without_rootnode (metad,
-										      context,
-										      priv->cpts);
+			return as_metadata_xml_serialize_to_catalog_without_rootnode (
+			    metad,
+			    context,
+			    as_component_box_array (priv->cbox));
 	} else if (format == AS_FORMAT_KIND_YAML) {
 		return as_metadata_yaml_serialize_to_catalog (metad,
 							      context,
-							      priv->cpts,
+							      as_component_box_array (priv->cbox),
 							      priv->write_header,
 							      TRUE, /* add timestamp */
 							      error);
@@ -1433,7 +1435,7 @@ void
 as_metadata_add_component (AsMetadata *metad, AsComponent *cpt)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-	g_ptr_array_add (priv->cpts, g_object_ref (cpt));
+	as_component_box_add (priv->cbox, cpt, NULL);
 }
 
 /**
@@ -1451,22 +1453,22 @@ as_metadata_get_component (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
-	if (priv->cpts->len == 0)
+	if (as_component_box_len (priv->cbox) == 0)
 		return NULL;
-	return AS_COMPONENT (g_ptr_array_index (priv->cpts, priv->cpts->len - 1));
+	return as_component_box_index (priv->cbox, as_component_box_len (priv->cbox) - 1);
 }
 
 /**
  * as_metadata_get_components:
  * @metad: a #AsMetadata instance.
  *
- * Returns: (transfer none) (element-type AsComponent): A #GPtrArray of all parsed components
+ * Returns: (transfer none): an #AsComponentBox of all parsed components
  **/
-GPtrArray *
+AsComponentBox *
 as_metadata_get_components (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-	return priv->cpts;
+	return priv->cbox;
 }
 
 /**

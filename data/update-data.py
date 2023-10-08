@@ -63,7 +63,7 @@ def update_tld_list(url, fname):
         f.write('\n')
 
 
-def _read_spdx_licenses(data_dir, last_tag_ver, only_free=False):
+def _read_spdx_licenses(data_dir, last_tag_ver):
     # load license and exception data
     licenses_json_fname = os.path.join(data_dir, 'json', 'licenses.json')
     exceptions_json_fname = os.path.join(data_dir, 'json', 'exceptions.json')
@@ -82,10 +82,8 @@ def _read_spdx_licenses(data_dir, last_tag_ver, only_free=False):
 
     lic_list = []
     for license in licenses_data['licenses']:
-        if only_free:
-            if not license.get('isFsfLibre') and not license.get('isOsiApproved'):
-                continue
-        lic_list.append({'id': license['licenseId'], 'name': license['name']})
+        is_free = True if license.get('isFsfLibre') or license.get('isOsiApproved') else False
+        lic_list.append({'id': license['licenseId'], 'name': license['name'], 'is_free': is_free})
 
     exc_list = []
     for exception in exceptions_data['exceptions']:
@@ -99,7 +97,7 @@ def _read_spdx_licenses(data_dir, last_tag_ver, only_free=False):
     }
 
 
-def _read_dfsg_free_license_list():
+def _read_dfsg_free_license_set():
     '''Obtain a (manually curated) list of DFSG-free licenses'''
     licenses = set()
     with open('dfsg-free-licenses.txt', 'r') as f:
@@ -130,21 +128,49 @@ def _write_c_array_header(tmpl_fname, out_fname, l10n_keys=None, l10n_hints=None
             array_def = ''
             for entry in data:
                 entry_c = ''
+                l10n_ignore = set()
                 if key in l10n_hints:
-                    v = list(entry.values())[0]
-                    entry_c += '\t/* TRANSLATORS: {} */\n'.format(l10n_hints[key].format(v))
+                    tr_hint = l10n_hints[key]
+                    only_matches = tr_hint.get('only_matches', [])
+
+                    # ignore match terms for translation
+                    if only_matches:
+                        l10n_ignore = l10n_keys.copy()
+                        for ms in only_matches:
+                            for k, v in entry.items():
+                                if k not in l10n_ignore:
+                                    continue
+                                if not isinstance(v, str):
+                                    continue
+                                if ms in v:
+                                    l10n_ignore.remove(k)
+
+                    if not l10n_keys.issubset(l10n_ignore):
+                        v = list(entry.values())[0]
+                        entry_c += '\t/* TRANSLATORS: {} */\n'.format(tr_hint['msg'].format(v))
+
                 entry_c += '\t{'
                 for k, v in entry.items():
-                    v = v.replace('"', '\\"')
-
-                    if k in l10n_keys:
-                        v_c = f'N_("{v}")'
+                    if isinstance(v, str):
+                        v = '"' + v.replace('"', '\\"') + '"'
+                    elif isinstance(v, bool):
+                        v = "TRUE" if v else "FALSE"
                     else:
-                        v_c = f'"{v}"'
+                        raise ValueError('Invalid type for array value: %s' % type(v))
+
+                    if k in l10n_keys and k not in l10n_ignore:
+                        v_c = f'N_({v})'
+                    else:
+                        v_c = f'{v}'
                     entry_c += f' {v_c},'
                 array_def += entry_c[:-1] + ' },\n'
 
-            zero_term = 'NULL, ' * len(data[0])
+            zero_term = ''
+            for _, v in data[0].items():
+                if isinstance(v, bool):
+                    zero_term += 'FALSE, '
+                else:
+                    zero_term += 'NULL, '
             array_def += '\t{ ' + zero_term[:-2] + ' },\n'
 
             header = header.replace(f'@{key}@', array_def.strip())
@@ -172,38 +198,45 @@ def update_spdx_id_list(
     if last_tag_ver.startswith('v'):
         last_tag_ver = last_tag_ver[1:]
 
+    # read all SPDX license data
     license_data = _read_spdx_licenses(tdir.name, last_tag_ver)
     license_list = license_data['licenses']
     exception_list = license_data['exceptions']
     license_list_ver = license_data['license_list_ver']
 
+    # augment free-ness info with DFSG extension list
+    dfsg_extension = _read_dfsg_free_license_set()
+    for license in license_list:
+        lic_id = license['id']
+        if lic_id in dfsg_extension:
+            license['is_free'] = True
+            dfsg_extension.remove(lic_id)
+
+    # extension list should be empty by now
+    if dfsg_extension:
+        raise Exception(
+            'Unknown license-ID "{}" found in DFSG-free license list!'.format(dfsg_extension[0])
+        )
+
     _write_c_array_header(
         'spdx-license-header.tmpl',
         licenselist_header_fname,
         ['name'],
+        l10n_hints={
+            'LICENSE_INFO_DEFS': {
+                'msg': 'Please do not translate the license name itself.',
+                'only_matches': [' only', ' or later'],
+            },
+            'EXCEPTION_INFO_DEFS': {
+                'msg': 'Please do not translate the license exception name itself.',
+                'only_matches': [' only', ' or later'],
+            },
+        },
         LICENSE_INFO_DEFS=license_list,
         EXCEPTION_INFO_DEFS=exception_list,
         LICENSE_LIST_VERSION=license_list_ver,
         EXCEPTION_LIST_VERSION=license_data['exception_list_ver'],
     )
-
-    license_free_data = _read_spdx_licenses(tdir.name, last_tag_ver, only_free=True)
-    with open(licenselist_free_fname, 'w') as f:
-        f.write(
-            '# The list of free (OSI, FSF approved or DFSG-free) licenses recognized by SPDX, v{}\n'.format(
-                license_list_ver
-            )
-        )
-        lid_set = set([d['id'] for d in license_list])
-        free_lid_set = set([d['id'] for d in license_free_data['licenses']])
-        for dfsg_lid in _read_dfsg_free_license_list():
-            if dfsg_lid not in lid_set:
-                raise Exception(
-                    'Unknown license-ID "{}" found in DFSG-free license list!'.format(dfsg_lid)
-                )
-            free_lid_set.add(dfsg_lid)
-        f.write('\n'.join(sorted(free_lid_set)))
-        f.write('\n')
 
 
 def update_platforms_data():
@@ -298,8 +331,8 @@ def update_gui_env_ids(data_header_fname):
         data_header_fname,
         ['name'],
         l10n_hints={
-            'DE_DEFS': 'Name of the "{}" desktop environment.',
-            'GUI_ENV_STYLE_DEFS': 'Name of the "{}" visual environment style.',
+            'DE_DEFS': {'msg': 'Name of the "{}" desktop environment.'},
+            'GUI_ENV_STYLE_DEFS': {'msg': 'Name of the "{}" visual environment style.'},
         },
         DE_DEFS=desktops_list,
         GUI_ENV_STYLE_DEFS=gui_env_list,

@@ -223,6 +223,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The `height` property must be a positive integer.")
 	},
 
+	{ "screenshot-invalid-scale",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
+	  N_("The `scale` property must be a positive integer.")
+	},
+
 	{ "screenshot-image-invalid-type",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
@@ -266,6 +272,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "screenshot-media-url-not-secure",
 	  AS_ISSUE_SEVERITY_INFO,
 	  N_("Consider using a secure (HTTPS) URL to reference this screenshot image or video.")
+	},
+
+	{ "screenshot-no-unscaled-image",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("A screenshot must have at least one image that has a scaling factor of 1.")
 	},
 
 	{ "screenshot-no-media",
@@ -554,9 +565,24 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("An URL of this type has already been defined."),
 	},
 
+	{ "developer-name-tag-deprecated",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The toplevel `developer_name` element is deprecated. Please use the `name` element in a "
+	     "`developer` block instead."),
+	},
+
 	{ "developer-name-has-url",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  N_("The <developer_name/> can not contain a hyperlink."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The `name` child of a `developer` block must not contain a hyperlink."),
+	},
+
+	{ "developer-id-missing",
+	  AS_ISSUE_SEVERITY_INFO,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The `developer` element is missing an `id` property, containing a unique string ID for the developer. "
+		  "Consider adding a unique ID."),
 	},
 
 	{ "unknown-desktop-id",
@@ -1030,13 +1056,13 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("A `content_attribute` tag with this ID has already been defined."),
 	},
 
-	{ "component-tag-missing-namespace",
-	  AS_ISSUE_SEVERITY_ERROR,
+	{ "usertag-missing-namespace",
+	  AS_ISSUE_SEVERITY_INFO,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("This `tag` is missing a `namespace` attribute."),
 	},
 
-	{ "component-tag-invalid",
+	{ "usertag-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."),
@@ -1055,6 +1081,33 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "branding-color-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("This color is not a valid HTML color code."),
+	},
+
+	{ "reference-doi-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The given DOI (Digital Object Identifier) for this reference item is not valid."),
+	},
+
+	{ "reference-citation-url-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The value for this citation reference item must be an URL to a CFF (Citation File Format) file."),
+	},
+
+	{ "reference-registry-name-missing",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This registry reference item is missing the `name` property to denote the name of the registry it is about."),
+	},
+
+	{ "reference-registry-name-unknown",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The registry for this reference item is unknown. This may be due to a typing error, or "
+	     "the registry needs to be registered with AppStream."),
+	},
+
+	{ "reference-value-missing",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The reference item is missing a value."),
 	},
 
 	{ "custom-invalid-tag",

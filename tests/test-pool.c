@@ -228,9 +228,8 @@ test_cache (void)
 	}
 
 	cpts_pre = g_ptr_array_new_with_free_func (g_object_unref);
-	for (guint i = 0; i < as_metadata_get_components (mdata)->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (
-		    g_ptr_array_index (as_metadata_get_components (mdata), i));
+	for (guint i = 0; i < as_component_box_len (as_metadata_get_components (mdata)); i++) {
+		AsComponent *cpt = as_component_box_index (as_metadata_get_components (mdata), i);
 
 		if (g_strcmp0 (as_component_get_id (cpt), "org.example.DeleteMe") == 0)
 			continue;

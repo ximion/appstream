@@ -28,6 +28,7 @@ aslib_src = [
     'as-component-box.c',
     'as-content-rating.c',
     'as-context.c',
+    'as-developer.c',
     'as-icon.c',
     'as-image.c',
     'as-issue.c',
@@ -35,6 +36,7 @@ aslib_src = [
     'as-metadata.c',
     'as-pool.c',
     'as-provided.c',
+    'as-reference.c',
     'as-relation.c',
     'as-relation-check-result.c',
     'as-release.c',
@@ -65,6 +67,7 @@ aslib_pub_headers = [
     'as-component-box.h',
     'as-content-rating.h',
     'as-context.h',
+    'as-developer.h',
     'as-icon.h',
     'as-image.h',
     'as-issue.h',
@@ -73,6 +76,7 @@ aslib_pub_headers = [
     'as-metadata.h',
     'as-pool.h',
     'as-provided.h',
+    'as-reference.h',
     'as-relation.h',
     'as-relation-check-result.h',
     'as-release.h',
@@ -108,6 +112,7 @@ aslib_priv_headers = [
     'as-desktop-entry.h',
     'as-desktop-env-data.h',
     'as-distro-extras.h',
+    'as-developer-private.h',
     'as-file-monitor.h',
     'as-icon-private.h',
     'as-image-private.h',
@@ -117,6 +122,7 @@ aslib_priv_headers = [
     'as-news-convert.h',
     'as-pool-private.h',
     'as-profile.h',
+    'as-reference-private.h',
     'as-relation-private.h',
     'as-relation-check-result-private.h',
     'as-release-private.h',
@@ -213,6 +219,8 @@ appstream_dep = declare_dependency(
                    gobject_dep],
     include_directories: [appstream_lib_inc]
 )
+
+meson.override_dependency('appstream', appstream_dep)
 
 pkgc.generate(
     appstream_lib,

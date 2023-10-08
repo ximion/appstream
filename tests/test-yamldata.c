@@ -78,16 +78,15 @@ as_yaml_test_read_data (const gchar *data, GError **error)
 		as_metadata_parse_data (metad, data_full, -1, AS_FORMAT_KIND_YAML, &local_error);
 		g_assert_no_error (local_error);
 
-		g_assert_cmpint (as_metadata_get_components (metad)->len, >, 0);
-		cpt = AS_COMPONENT (g_ptr_array_index (as_metadata_get_components (metad), 0));
+		g_assert_cmpint (as_component_box_len (as_metadata_get_components (metad)), >, 0);
+		cpt = as_component_box_index (as_metadata_get_components (metad), 0);
 
 		return g_object_ref (cpt);
 	} else {
 		as_metadata_parse_data (metad, data_full, -1, AS_FORMAT_KIND_YAML, error);
 
-		if (as_metadata_get_components (metad)->len > 0) {
-			cpt = AS_COMPONENT (
-			    g_ptr_array_index (as_metadata_get_components (metad), 0));
+		if (as_component_box_len (as_metadata_get_components (metad)) > 0) {
+			cpt = as_component_box_index (as_metadata_get_components (metad), 0);
 			return g_object_ref (cpt);
 		} else {
 			return NULL;
@@ -124,8 +123,7 @@ test_yaml_basic (void)
 	g_autoptr(AsMetadata) mdata = NULL;
 	gchar *path;
 	GFile *file;
-	GPtrArray *cpts;
-	guint i;
+	AsComponentBox *cbox;
 	AsComponent *cpt_tomatoes = NULL;
 	g_autoptr(GError) error = NULL;
 
@@ -141,11 +139,11 @@ test_yaml_basic (void)
 	g_object_unref (file);
 	g_assert_no_error (error);
 
-	cpts = as_metadata_get_components (mdata);
-	g_assert_cmpint (cpts->len, ==, 8);
+	cbox = as_metadata_get_components (mdata);
+	g_assert_cmpint (as_component_box_len (cbox), ==, 8);
 
-	for (i = 0; i < cpts->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+	for (guint i = 0; i < as_component_box_len (cbox); i++) {
+		AsComponent *cpt = as_component_box_index (cbox, i);
 		g_assert_true (as_component_is_valid (cpt));
 
 		if (g_strcmp0 (as_component_get_name (cpt), "I Have No Tomatoes") == 0)
@@ -1908,6 +1906,86 @@ test_yaml_rw_branding (void)
 }
 
 /**
+ * test_yaml_rw_developer:
+ */
+static void
+test_yaml_rw_developer (void)
+{
+	static const gchar *yamldata_tags = "Type: generic\n"
+					    "ID: org.example.DeveloperTest\n"
+					    "Developer:\n"
+					    "  id: freedesktop.org\n"
+					    "  name:\n"
+					    "    C: FreeDesktop.org Project\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	AsDeveloper *devp;
+
+	/* read */
+	cpt = as_yaml_test_read_data (yamldata_tags, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DeveloperTest");
+
+	/* validate */
+	devp = as_component_get_developer (cpt);
+	g_assert_nonnull (devp);
+
+	g_assert_cmpstr (as_developer_get_id (devp), ==, "freedesktop.org");
+	g_assert_cmpstr (as_developer_get_name (devp), ==, "FreeDesktop.org Project");
+
+	/* write */
+	res = as_yaml_test_serialize (cpt);
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_tags));
+}
+
+/**
+ * test_yaml_rw_developer:
+ */
+static void
+test_yaml_rw_references (void)
+{
+	static const gchar *yamldata_tags = "Type: generic\n"
+					    "ID: org.example.ReferencesTest\n"
+					    "References:\n"
+					    "- type: doi\n"
+					    "  value: 10.1000/182\n"
+					    "- type: citation_cff\n"
+					    "  value: https://example.org/CITATION.cff\n"
+					    "- type: registry\n"
+					    "  value: SCR_000000\n"
+					    "  registry: SciCrunch\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	GPtrArray *refs;
+	AsReference *ref;
+
+	/* read */
+	cpt = as_yaml_test_read_data (yamldata_tags, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReferencesTest");
+
+	/* validate */
+	refs = as_component_get_references (cpt);
+	g_assert_nonnull (refs);
+	g_assert_cmpint (refs->len, ==, 3);
+
+	ref = g_ptr_array_index (refs, 0);
+	g_assert_cmpint (as_reference_get_kind (ref), ==, AS_REFERENCE_KIND_DOI);
+	g_assert_cmpstr (as_reference_get_value (ref), ==, "10.1000/182");
+
+	ref = g_ptr_array_index (refs, 1);
+	g_assert_cmpint (as_reference_get_kind (ref), ==, AS_REFERENCE_KIND_CITATION_CFF);
+	g_assert_cmpstr (as_reference_get_value (ref), ==, "https://example.org/CITATION.cff");
+
+	ref = g_ptr_array_index (refs, 2);
+	g_assert_cmpint (as_reference_get_kind (ref), ==, AS_REFERENCE_KIND_REGISTRY);
+	g_assert_cmpstr (as_reference_get_value (ref), ==, "SCR_000000");
+	g_assert_cmpstr (as_reference_get_registry_name (ref), ==, "SciCrunch");
+
+	/* write */
+	res = as_yaml_test_serialize (cpt);
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_tags));
+}
+
+/**
  * main:
  */
 int
@@ -1971,6 +2049,8 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/YAML/ReadWrite/Tags", test_yaml_rw_tags);
 	g_test_add_func ("/YAML/ReadWrite/Branding", test_yaml_rw_branding);
+	g_test_add_func ("/YAML/ReadWrite/Developer", test_yaml_rw_developer);
+	g_test_add_func ("/YAML/ReadWrite/References", test_yaml_rw_references);
 
 	ret = g_test_run ();
 	g_free (datadir);

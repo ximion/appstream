@@ -76,20 +76,41 @@ public:
     MediaKind mediaKind() const;
 
     /**
-     * \return the images for this screenshot
+     * \return the language-specific images for this screenshot
      */
     QList<AppStream::Image> images() const;
 
     /**
-     * \return the videos for this screenshot
+     * \return all images for this screenshot
+     */
+    QList<AppStream::Image> imagesAll() const;
+
+    /**
+     * \return retrieve an image that roughly matches the selected size constraints
+     */
+    std::optional<AppStream::Image> image(uint width, uint height, uint scale) const;
+
+    /**
+     * \return the language-specific videos for this screenshot
      */
     QList<AppStream::Video> videos() const;
+
+    /**
+     * \return all videos for this screenshot
+     */
+    QList<AppStream::Video> videosAll() const;
 
     /**
      * \return caption for this image or a null QString if no caption
      */
     QString caption() const;
     void setCaption(const QString &caption, const QString &lang = {});
+
+    /**
+     * \return GUI environment ID this screenshot was recorded in.
+     */
+    QString environment() const;
+    void setEnvironment(const QString &guiEnvId);
 
 private:
     QSharedDataPointer<ScreenshotData> d;

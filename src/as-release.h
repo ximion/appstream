@@ -51,6 +51,7 @@ struct _AsReleaseClass {
  * @AS_RELEASE_KIND_UNKNOWN:		Unknown release type
  * @AS_RELEASE_KIND_STABLE:		A stable release for end-users
  * @AS_RELEASE_KIND_DEVELOPMENT:	A development release or pre-release for testing
+ * @AS_RELEASE_KIND_SNAPSHOT:		A snapshot of a software being worked on
  *
  * The release kind.
  *
@@ -60,6 +61,7 @@ typedef enum {
 	AS_RELEASE_KIND_UNKNOWN,
 	AS_RELEASE_KIND_STABLE,
 	AS_RELEASE_KIND_DEVELOPMENT,
+	AS_RELEASE_KIND_SNAPSHOT,
 	/*< private >*/
 	AS_RELEASE_KIND_LAST
 } AsReleaseKind;
@@ -146,6 +148,11 @@ void	      as_release_add_artifact (AsRelease *release, AsArtifact *artifact);
 
 const gchar  *as_release_get_url (AsRelease *release, AsReleaseUrlKind url_kind);
 void	      as_release_set_url (AsRelease *release, AsReleaseUrlKind url_kind, const gchar *url);
+
+void	      as_release_clear_tags (AsRelease *release);
+gboolean      as_release_add_tag (AsRelease *release, const gchar *ns, const gchar *tag);
+gboolean      as_release_remove_tag (AsRelease *release, const gchar *ns, const gchar *tag);
+gboolean      as_release_has_tag (AsRelease *release, const gchar *ns, const gchar *tag);
 
 G_END_DECLS
 
