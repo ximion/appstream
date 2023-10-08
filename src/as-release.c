@@ -83,6 +83,8 @@ as_release_kind_to_string (AsReleaseKind kind)
 		return "stable";
 	if (kind == AS_RELEASE_KIND_DEVELOPMENT)
 		return "development";
+	if (kind == AS_RELEASE_KIND_SNAPSHOT)
+		return "snapshot";
 	return "unknown";
 }
 
@@ -103,6 +105,8 @@ as_release_kind_from_string (const gchar *kind_str)
 		return AS_RELEASE_KIND_STABLE;
 	if (g_strcmp0 (kind_str, "development") == 0)
 		return AS_RELEASE_KIND_DEVELOPMENT;
+	if (g_strcmp0 (kind_str, "snapshot") == 0)
+		return AS_RELEASE_KIND_SNAPSHOT;
 	return AS_RELEASE_KIND_UNKNOWN;
 }
 
