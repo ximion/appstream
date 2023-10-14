@@ -26,31 +26,31 @@
 #include "release.h"
 
 class QString;
-struct _AsReleases;
+struct _AsReleaseList;
 namespace AppStream
 {
 
-class ReleasesData;
+class ReleaseListData;
 
 /**
- * Container for component releases and their metadata.
+ * Container for component ReleaseList and their metadata.
  */
-class APPSTREAMQT_EXPORT Releases
+class APPSTREAMQT_EXPORT ReleaseList
 {
     Q_GADGET
 
 public:
-    Releases();
-    Releases(_AsReleases *cbox);
-    Releases(const Releases &other);
-    ~Releases();
+    ReleaseList();
+    ReleaseList(_AsReleaseList *cbox);
+    ReleaseList(const ReleaseList &other);
+    ~ReleaseList();
 
-    Releases &operator=(const Releases &other);
+    ReleaseList &operator=(const ReleaseList &other);
 
     /**
-     * \returns the internally stored AsReleases
+     * \returns the internally stored AsReleaseList
      */
-    _AsReleases *asReleases() const;
+    _AsReleaseList *asReleaseList() const;
 
     enum Kind {
         KindUnknown,
@@ -80,6 +80,6 @@ public:
     void setUrl(const QString &url);
 
 private:
-    QSharedDataPointer<ReleasesData> d;
+    QSharedDataPointer<ReleaseListData> d;
 };
 }

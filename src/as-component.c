@@ -33,7 +33,7 @@
 #include "as-icon-private.h"
 #include "as-screenshot-private.h"
 #include "as-bundle-private.h"
-#include "as-releases-private.h"
+#include "as-release-list-private.h"
 #include "as-translation-private.h"
 #include "as-suggested-private.h"
 #include "as-content-rating-private.h"
@@ -88,7 +88,7 @@ typedef struct {
 	GRefString *project_license;
 	GRefString *project_group;
 
-	AsReleases *releases;
+	AsReleaseList *releases;
 	GPtrArray *launchables;		    /* of #AsLaunchable */
 	GPtrArray *categories;		    /* of utf8 */
 	GPtrArray *compulsory_for_desktops; /* of utf8 */
@@ -421,7 +421,7 @@ as_component_init (AsComponent *cpt)
 						(GDestroyNotify) g_ptr_array_unref);
 
 	/* lists */
-	priv->releases = as_releases_new ();
+	priv->releases = as_release_list_new ();
 	priv->launchables = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->categories = g_ptr_array_new_with_free_func (g_free);
 	priv->compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
@@ -633,9 +633,9 @@ as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot)
  * Get release information for this component,
  * without downloading or loading any data from external sources.
  *
- * Returns: (transfer none): Release information as #AsReleases
+ * Returns: (transfer none): Release information as #AsReleaseList
  **/
-AsReleases *
+AsReleaseList *
 as_component_get_releases_plain (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
@@ -649,14 +649,14 @@ as_component_get_releases_plain (AsComponent *cpt)
  * Get release information for this component, download it
  * if necessary.
  *
- * Returns: (nullable) (transfer none): Release information as #AsReleases, or %NULL if loading failed.
+ * Returns: (nullable) (transfer none): Release information as #AsReleaseList, or %NULL if loading failed.
  **/
-AsReleases *
+AsReleaseList *
 as_component_load_releases (AsComponent *cpt, gboolean allow_net, GError **error)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	if (!as_releases_load (priv->releases, cpt, FALSE, allow_net, error))
+	if (!as_release_list_load (priv->releases, cpt, FALSE, allow_net, error))
 		return NULL;
 	return priv->releases;
 }
@@ -664,13 +664,13 @@ as_component_load_releases (AsComponent *cpt, gboolean allow_net, GError **error
 /**
  * as_component_set_releases:
  * @cpt: a #AsComponent instance.
- * @releases: the #AsReleases to use.
+ * @releases: the #AsReleaseList to use.
  *
  * Set a new set of releases for this component.
  *
  */
 void
-as_component_set_releases (AsComponent *cpt, AsReleases *releases)
+as_component_set_releases (AsComponent *cpt, AsReleaseList *releases)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_object_unref (priv->releases);
@@ -688,7 +688,7 @@ void
 as_component_add_release (AsComponent *cpt, AsRelease *release)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	as_releases_add (priv->releases, release);
+	as_release_list_add (priv->releases, release);
 }
 
 /**
@@ -4660,7 +4660,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			if (content != NULL)
 				as_component_set_compulsory_for_desktop (cpt, content);
 		} else if (tag_id == AS_TAG_RELEASES) {
-			as_releases_load_from_xml (priv->releases, ctx, iter, NULL);
+			as_release_list_load_from_xml (priv->releases, ctx, iter, NULL);
 
 		} else if (tag_id == AS_TAG_EXTENDS) {
 			g_autofree gchar *content = as_xml_get_node_value (iter);
@@ -5166,7 +5166,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 		as_branding_to_xml_node (priv->branding, ctx, cnode);
 
 	/* releases */
-	as_releases_to_xml_node (priv->releases, ctx, cnode);
+	as_release_list_to_xml_node (priv->releases, ctx, cnode);
 
 	/* content_rating nodes */
 	for (guint i = 0; i < priv->content_ratings->len; i++) {
@@ -5691,7 +5691,7 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 		} else if (field_id == AS_TAG_LANGUAGES) {
 			as_component_yaml_parse_languages (cpt, node);
 		} else if (field_id == AS_TAG_RELEASES) {
-			as_releases_load_from_yaml (priv->releases, ctx, node, NULL);
+			as_release_list_load_from_yaml (priv->releases, ctx, node, NULL);
 
 		} else if (field_id == AS_TAG_SUGGESTS) {
 			for (GNode *n = node->children; n != NULL; n = n->next) {
@@ -6389,7 +6389,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_branding_emit_yaml (priv->branding, ctx, emitter);
 
 	/* Releases */
-	as_releases_emit_yaml (priv->releases, ctx, emitter);
+	as_release_list_emit_yaml (priv->releases, ctx, emitter);
 
 	/* ContentRating */
 	if (priv->content_ratings->len > 0) {

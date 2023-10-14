@@ -32,7 +32,7 @@
 #include "contentrating.h"
 #include "launchable.h"
 #include "translation.h"
-#include "releases.h"
+#include "release-list.h"
 #include "relation.h"
 
 struct _AsComponent;
@@ -228,9 +228,9 @@ public:
     QList<AppStream::Screenshot> screenshotsAll() const;
     void addScreenshot(const AppStream::Screenshot &screenshot);
 
-    Releases releasesPlain() const;
-    std::optional<Releases> loadReleases(bool allowNet);
-    void setReleases(const Releases &releases);
+    ReleaseList releasesPlain() const;
+    std::optional<ReleaseList> loadReleases(bool allowNet);
+    void setReleases(const ReleaseList &releases);
     void addRelease(const AppStream::Release &release);
 
     bool hasBundle() const;

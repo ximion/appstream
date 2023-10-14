@@ -128,11 +128,11 @@ void		as_metadata_add_component (AsMetadata *metad, AsComponent *cpt);
 
 gboolean	as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **error);
 gboolean	as_metadata_parse_releases_file (AsMetadata *metad, GFile *file, GError **error);
-gchar	   *as_metadata_releases_to_data (AsMetadata *metad, AsReleases *releases, GError **error);
+gchar *as_metadata_releases_to_data (AsMetadata *metad, AsReleaseList *releases, GError **error);
 
-AsReleases *as_metadata_get_releases_block (AsMetadata *metad);
-GPtrArray  *as_metadata_get_releases_blocks (AsMetadata *metad);
-void	    as_metadata_clear_releases (AsMetadata *metad);
+AsReleaseList  *as_metadata_get_release_list (AsMetadata *metad);
+GPtrArray      *as_metadata_get_release_lists (AsMetadata *metad);
+void		as_metadata_clear_releases (AsMetadata *metad);
 
 AsFormatVersion as_metadata_get_format_version (AsMetadata *metad);
 void		as_metadata_set_format_version (AsMetadata *metad, AsFormatVersion version);

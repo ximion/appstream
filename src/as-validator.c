@@ -2544,20 +2544,20 @@ static void
 as_validator_check_releases (AsValidator *validator, xmlNode *node, AsFormatStyle mode)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
-	AsReleasesKind releases_kind;
+	AsReleaseListKind releases_kind;
 	AsReleaseDataPair *rel_pair;
 	g_autofree gchar *release_url_prop = NULL;
 	g_autofree gchar *releases_kind_str = as_xml_get_prop_value (node, "type");
-	releases_kind = as_releases_kind_from_string (releases_kind_str);
+	releases_kind = as_release_list_kind_from_string (releases_kind_str);
 
-	if (releases_kind == AS_RELEASES_KIND_UNKNOWN) {
+	if (releases_kind == AS_RELEASE_LIST_KIND_UNKNOWN) {
 		as_validator_add_issue (validator,
 					node,
 					"releases-type-invalid",
 					releases_kind_str);
 	}
 
-	if (releases_kind != AS_RELEASES_KIND_EXTERNAL) {
+	if (releases_kind != AS_RELEASE_LIST_KIND_EXTERNAL) {
 		as_validator_check_releases_node (validator, node, mode);
 		return;
 	}
@@ -2605,9 +2605,9 @@ as_validator_check_releases (AsValidator *validator, xmlNode *node, AsFormatStyl
 					      rel_pair->bytes,
 					      rel_pair->fname,
 					      mode);
-	as_releases_load_from_bytes (as_component_get_releases_plain (priv->current_cpt),
-				     rel_pair->bytes,
-				     NULL);
+	as_release_list_load_from_bytes (as_component_get_releases_plain (priv->current_cpt),
+					 rel_pair->bytes,
+					 NULL);
 }
 
 /**
@@ -3419,12 +3419,12 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	}
 
 	/* validate releases */
-	if (!as_releases_is_empty (as_component_get_releases_plain (cpt))) {
-		AsReleases *releases = as_component_get_releases_plain (cpt);
-		AsRelease *release_prev = as_releases_index (releases, 0);
+	if (!as_release_list_is_empty (as_component_get_releases_plain (cpt))) {
+		AsReleaseList *releases = as_component_get_releases_plain (cpt);
+		AsRelease *release_prev = as_release_list_index (releases, 0);
 
-		for (guint i = 1; i < as_releases_len (releases); i++) {
-			AsRelease *release = as_releases_index (releases, i);
+		for (guint i = 1; i < as_release_list_len (releases); i++) {
+			AsRelease *release = as_release_list_index (releases, i);
 			const gchar *version = as_release_get_version (release);
 			const gchar *version_prev = as_release_get_version (release_prev);
 			if (version == NULL || version_prev == NULL)

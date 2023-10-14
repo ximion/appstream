@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2022-2023-2023 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2022-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -19,7 +19,7 @@
  */
 
 /**
- * SECTION:as-releases
+ * SECTION:as-release-list
  * @short_description: Container for component releases and their metadata.
  * @include: appstream.h
  *
@@ -32,7 +32,7 @@
  */
 
 #include "config.h"
-#include "as-releases-private.h"
+#include "as-release-list-private.h"
 
 #include <gio/gio.h>
 
@@ -42,17 +42,17 @@
 #include "as-release-private.h"
 
 typedef struct {
-	AsReleasesKind kind;
+	AsReleaseListKind kind;
 	gchar *url;
 
 	AsContext *context;
-} AsReleasesPrivate;
+} AsReleaseListPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (AsReleases, as_releases, G_TYPE_OBJECT)
-#define GET_PRIVATE(o) (as_releases_get_instance_private (o))
+G_DEFINE_TYPE_WITH_PRIVATE (AsReleaseList, as_release_list, G_TYPE_OBJECT)
+#define GET_PRIVATE(o) (as_release_list_get_instance_private (o))
 
 /**
- * as_releases_kind_to_string:
+ * as_release_list_kind_to_string:
  * @kind: the #AsReleaseKind.
  *
  * Converts the enumerated value to an text representation.
@@ -62,17 +62,17 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsReleases, as_releases, G_TYPE_OBJECT)
  * Since: 0.16.0
  **/
 const gchar *
-as_releases_kind_to_string (AsReleasesKind kind)
+as_release_list_kind_to_string (AsReleaseListKind kind)
 {
-	if (kind == AS_RELEASES_KIND_EMBEDDED)
+	if (kind == AS_RELEASE_LIST_KIND_EMBEDDED)
 		return "embedded";
-	if (kind == AS_RELEASES_KIND_EXTERNAL)
+	if (kind == AS_RELEASE_LIST_KIND_EXTERNAL)
 		return "external";
 	return "unknown";
 }
 
 /**
- * as_releases_kind_from_string:
+ * as_release_list_kind_from_string:
  * @kind_str: the string.
  *
  * Converts the text representation to an enumerated value.
@@ -81,32 +81,32 @@ as_releases_kind_to_string (AsReleasesKind kind)
  *
  * Since: 0.16.0
  **/
-AsReleasesKind
-as_releases_kind_from_string (const gchar *kind_str)
+AsReleaseListKind
+as_release_list_kind_from_string (const gchar *kind_str)
 {
 	if (as_is_empty (kind_str))
-		return AS_RELEASES_KIND_EMBEDDED;
+		return AS_RELEASE_LIST_KIND_EMBEDDED;
 	if (as_str_equal0 (kind_str, "embedded"))
-		return AS_RELEASES_KIND_EMBEDDED;
+		return AS_RELEASE_LIST_KIND_EMBEDDED;
 	if (as_str_equal0 (kind_str, "external"))
-		return AS_RELEASES_KIND_EXTERNAL;
-	return AS_RELEASES_KIND_UNKNOWN;
+		return AS_RELEASE_LIST_KIND_EXTERNAL;
+	return AS_RELEASE_LIST_KIND_UNKNOWN;
 }
 
 static void
-as_releases_init (AsReleases *rels)
+as_release_list_init (AsReleaseList *rels)
 {
-	AsReleasesPrivate *priv = GET_PRIVATE (rels);
+	AsReleaseListPrivate *priv = GET_PRIVATE (rels);
 
 	rels->entries = g_ptr_array_new_with_free_func (g_object_unref);
-	priv->kind = AS_RELEASES_KIND_EMBEDDED;
+	priv->kind = AS_RELEASE_LIST_KIND_EMBEDDED;
 }
 
 static void
-as_releases_finalize (GObject *object)
+as_release_list_finalize (GObject *object)
 {
-	AsReleases *rels = AS_RELEASES (object);
-	AsReleasesPrivate *priv = GET_PRIVATE (rels);
+	AsReleaseList *rels = AS_RELEASE_LIST (object);
+	AsReleaseListPrivate *priv = GET_PRIVATE (rels);
 
 	g_ptr_array_unref (rels->entries);
 	g_free (priv->url);
@@ -114,102 +114,102 @@ as_releases_finalize (GObject *object)
 	if (priv->context != NULL)
 		g_object_unref (priv->context);
 
-	G_OBJECT_CLASS (as_releases_parent_class)->finalize (object);
+	G_OBJECT_CLASS (as_release_list_parent_class)->finalize (object);
 }
 
 static void
-as_releases_class_init (AsReleasesClass *klass)
+as_release_list_class_init (AsReleaseListClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	object_class->finalize = as_releases_finalize;
+	object_class->finalize = as_release_list_finalize;
 }
 
 /**
- * as_releases_new:
+ * as_release_list_new:
  *
- * Creates a new #AsReleases.
+ * Creates a new #AsReleaseList.
  *
- * Returns: (transfer full): an #AsReleases
+ * Returns: (transfer full): an #AsReleaseList
  *
  * Since: 1.0
  **/
-AsReleases *
-as_releases_new (void)
+AsReleaseList *
+as_release_list_new (void)
 {
-	AsReleases *rels;
-	rels = g_object_new (AS_TYPE_RELEASES, NULL);
-	return AS_RELEASES (rels);
+	AsReleaseList *rels;
+	rels = g_object_new (AS_TYPE_RELEASE_LIST, NULL);
+	return AS_RELEASE_LIST (rels);
 }
 
 /**
- * as_releases_index:
- * @rels: a #AsReleases
+ * as_release_list_index:
+ * @rels: a #AsReleaseList
  * @index_: the index of the #AsRelease to return
  *
  * Returns the #AsRelease at the given index of the array.
  *
  * This does not perform bounds checking on the given @index_,
  * so you are responsible for checking it against the array length.
- * Use %as_releases_len to determine the amount of releases
- * present in the #AsReleases container.
+ * Use %as_release_list_len to determine the amount of releases
+ * present in the #AsReleaseList container.
  *
  * Returns: (transfer none): the #AsRelease at the given index
  */
 
 /**
- * as_releases_len:
- * @rels: a #AsReleases
+ * as_release_list_len:
+ * @rels: a #AsReleaseList
  *
  * Get the amount of release entries present.
  *
- * Returns: Amount of entries in #AsReleases.
+ * Returns: Amount of entries in #AsReleaseList.
  */
 
 /**
- * as_releases_get_entries:
- * @rels: An instance of #AsReleases.
+ * as_release_list_get_entries:
+ * @rels: An instance of #AsReleaseList.
  *
  * Get the release entries as #GPtrArray.
  *
  * Returns: (transfer none) (element-type AsRelease): an array of #AsRelease instances.
  */
 GPtrArray *
-as_releases_get_entries (AsReleases *rels)
+as_release_list_get_entries (AsReleaseList *rels)
 {
 	return rels->entries;
 }
 
 /**
- * as_releases_get_size:
- * @rels: An instance of #AsReleases.
+ * as_release_list_get_size:
+ * @rels: An instance of #AsReleaseList.
  *
  * Get the amount of components in this box.
  *
  * Returns: Amount of components.
  */
 guint
-as_releases_get_size (AsReleases *rels)
+as_release_list_get_size (AsReleaseList *rels)
 {
 	return rels->entries->len;
 }
 
 /**
- * as_releases_is_empty:
- * @rels: An instance of #AsReleases.
+ * as_release_list_is_empty:
+ * @rels: An instance of #AsReleaseList.
  *
  * Check if there are any components present.
  *
  * Returns: %TRUE if this component box is empty.
  */
 gboolean
-as_releases_is_empty (AsReleases *rels)
+as_release_list_is_empty (AsReleaseList *rels)
 {
 	return rels->entries->len == 0;
 }
 
 /**
- * as_releases_index_safe:
- * @rels: An instance of #AsReleases.
+ * as_release_list_index_safe:
+ * @rels: An instance of #AsReleaseList.
  * @index: The release entry index.
  *
  * Retrieve a release entry at the respective index from the
@@ -218,28 +218,28 @@ as_releases_is_empty (AsReleases *rels)
  * Returns: (transfer none): An #AsRelease or %NULL
  */
 AsRelease *
-as_releases_index_safe (AsReleases *rels, guint index)
+as_release_list_index_safe (AsReleaseList *rels, guint index)
 {
 	if (index >= rels->entries->len)
 		return NULL;
-	return as_releases_index (rels, index);
+	return as_release_list_index (rels, index);
 }
 
 /**
- * as_releases_add:
- * @rels: An instance of #AsReleases.
+ * as_release_list_add:
+ * @rels: An instance of #AsReleaseList.
  *
- * Append a release entry to this #AsReleases container.
+ * Append a release entry to this #AsReleaseList container.
  */
 void
-as_releases_add (AsReleases *rels, AsRelease *release)
+as_release_list_add (AsReleaseList *rels, AsRelease *release)
 {
 	g_ptr_array_add (rels->entries, g_object_ref (release));
 }
 
 /**
- * as_releases_get_context:
- * @rels: a #AsReleases instance.
+ * as_release_list_get_context:
+ * @rels: a #AsReleaseList instance.
  *
  * Get the #AsContext associated with these releases.
  * This function may return %NULL if no context is set
@@ -247,23 +247,23 @@ as_releases_add (AsReleases *rels, AsRelease *release)
  * Returns: (transfer none) (nullable): the associated #AsContext or %NULL
  */
 AsContext *
-as_releases_get_context (AsReleases *rels)
+as_release_list_get_context (AsReleaseList *rels)
 {
-	AsReleasesPrivate *priv = GET_PRIVATE (rels);
+	AsReleaseListPrivate *priv = GET_PRIVATE (rels);
 	return priv->context;
 }
 
 /**
- * as_releases_set_context:
- * @rels: a #AsReleases instance.
+ * as_release_list_set_context:
+ * @rels: a #AsReleaseList instance.
  * @context: the #AsContext.
  *
  * Sets the document context these releases are associated with.
  */
 void
-as_releases_set_context (AsReleases *rels, AsContext *context)
+as_release_list_set_context (AsReleaseList *rels, AsContext *context)
 {
-	AsReleasesPrivate *priv = GET_PRIVATE (rels);
+	AsReleaseListPrivate *priv = GET_PRIVATE (rels);
 	if (priv->context != NULL)
 		g_object_unref (priv->context);
 
@@ -274,49 +274,49 @@ as_releases_set_context (AsReleases *rels, AsContext *context)
 
 	priv->context = g_object_ref (context);
 	for (guint i = 0; i < rels->entries->len; i++) {
-		AsRelease *release = as_releases_index (rels, i);
+		AsRelease *release = as_release_list_index (rels, i);
 		as_release_set_context (release, priv->context);
 	}
 }
 
 /**
- * as_releases_get_kind:
- * @rels: a #AsReleases instance.
+ * as_release_list_get_kind:
+ * @rels: a #AsReleaseList instance.
  *
- * Returns the #AsReleasesKind of the release metadata
+ * Returns the #AsReleaseListKind of the release metadata
  * associated with this component.
  *
  * Returns: The kind.
  *
  * Since: 0.16.0
  */
-AsReleasesKind
-as_releases_get_kind (AsReleases *rels)
+AsReleaseListKind
+as_release_list_get_kind (AsReleaseList *rels)
 {
-	AsReleasesPrivate *priv = GET_PRIVATE (rels);
+	AsReleaseListPrivate *priv = GET_PRIVATE (rels);
 	return priv->kind;
 }
 
 /**
- * as_releases_set_kind:
- * @rels: a #AsReleases instance.
+ * as_release_list_set_kind:
+ * @rels: a #AsReleaseList instance.
  * @kind: the #AsComponentKind.
  *
- * Sets the #AsReleasesKind of the release metadata
+ * Sets the #AsReleaseListKind of the release metadata
  * associated with this component.
  *
  * Since: 0.16.0
  */
 void
-as_releases_set_kind (AsReleases *rels, AsReleasesKind kind)
+as_release_list_set_kind (AsReleaseList *rels, AsReleaseListKind kind)
 {
-	AsReleasesPrivate *priv = GET_PRIVATE (rels);
+	AsReleaseListPrivate *priv = GET_PRIVATE (rels);
 	priv->kind = kind;
 }
 
 /**
- * as_releases_get_url:
- * @rels: a #AsReleases instance.
+ * as_release_list_get_url:
+ * @rels: a #AsReleaseList instance.
  *
  * Get the remote URL to obtain release information from.
  *
@@ -325,15 +325,15 @@ as_releases_set_kind (AsReleases *rels, AsReleasesKind kind)
  * Since: 0.16.0
  **/
 const gchar *
-as_releases_get_url (AsReleases *rels)
+as_release_list_get_url (AsReleaseList *rels)
 {
-	AsReleasesPrivate *priv = GET_PRIVATE (rels);
+	AsReleaseListPrivate *priv = GET_PRIVATE (rels);
 	return priv->url;
 }
 
 /**
- * as_releases_set_url:
- * @rels: a #AsReleases instance.
+ * as_release_list_set_url:
+ * @rels: a #AsReleaseList instance.
  * @url: the web URL where release data is found.
  *
  * Set a remote URL pointing to an AppStream release info file.
@@ -341,9 +341,9 @@ as_releases_get_url (AsReleases *rels)
  * Since: 0.16.0
  **/
 void
-as_releases_set_url (AsReleases *rels, const gchar *url)
+as_release_list_set_url (AsReleaseList *rels, const gchar *url)
 {
-	AsReleasesPrivate *priv = GET_PRIVATE (rels);
+	AsReleaseListPrivate *priv = GET_PRIVATE (rels);
 	as_assign_string_safe (priv->url, url);
 }
 
@@ -370,45 +370,45 @@ as_release_compare (gconstpointer a, gconstpointer b)
 }
 
 /**
- * as_releases_sort:
- * @rels: a #AsReleases instance.
+ * as_release_list_sort:
+ * @rels: a #AsReleaseList instance.
  *
  * Sort releases by their release version,
  * starting with the most recent release.
  */
 void
-as_releases_sort (AsReleases *rels)
+as_release_list_sort (AsReleaseList *rels)
 {
 	g_ptr_array_sort (rels->entries, as_release_compare);
 }
 
 /**
- * as_releases_clear:
- * @rels: a #AsReleases instance.
+ * as_release_list_clear:
+ * @rels: a #AsReleaseList instance.
  *
  * Remove all release entries from this releases object.
  */
 void
-as_releases_clear (AsReleases *rels)
+as_release_list_clear (AsReleaseList *rels)
 {
 	g_ptr_array_set_size (rels->entries, 0);
 }
 
 /**
- * as_releases_set_size:
- * @rels: a #AsReleases instance.
+ * as_release_list_set_size:
+ * @rels: a #AsReleaseList instance.
  *
  * Set the amount of release entries stored.
  */
 void
-as_releases_set_size (AsReleases *rels, guint size)
+as_release_list_set_size (AsReleaseList *rels, guint size)
 {
 	g_ptr_array_set_size (rels->entries, size);
 }
 
 /**
- * as_releases_load_from_bytes:
- * @rels: a #AsReleases instance.
+ * as_release_list_load_from_bytes:
+ * @rels: a #AsReleaseList instance.
  * @bytes: the release XML data as #GBytes
  * @error: a #GError.
  *
@@ -419,9 +419,9 @@ as_releases_set_size (AsReleases *rels, guint size)
  * Since: 0.16.0
  **/
 gboolean
-as_releases_load_from_bytes (AsReleases *rels, GBytes *bytes, GError **error)
+as_release_list_load_from_bytes (AsReleaseList *rels, GBytes *bytes, GError **error)
 {
-	AsReleasesPrivate *priv = GET_PRIVATE (rels);
+	AsReleaseListPrivate *priv = GET_PRIVATE (rels);
 	const gchar *rel_data = NULL;
 	gsize rel_data_len;
 	xmlDoc *xdoc;
@@ -457,8 +457,8 @@ as_releases_load_from_bytes (AsReleases *rels, GBytes *bytes, GError **error)
 }
 
 /**
- * as_releases_load:
- * @rels: a #AsReleases instance.
+ * as_release_list_load:
+ * @rels: a #AsReleaseList instance.
  * @cpt: the component to load the data for.
  * @reload: set to %TRUE to discard existing data and reload.
  * @allow_net: allow fetching release data from the internet.
@@ -472,17 +472,17 @@ as_releases_load_from_bytes (AsReleases *rels, GBytes *bytes, GError **error)
  * Since: 0.16.0
  **/
 gboolean
-as_releases_load (AsReleases *rels,
-		  AsComponent *cpt,
-		  gboolean reload,
-		  gboolean allow_net,
-		  GError **error)
+as_release_list_load (AsReleaseList *rels,
+		      AsComponent *cpt,
+		      gboolean reload,
+		      gboolean allow_net,
+		      GError **error)
 {
-	AsReleasesPrivate *priv = GET_PRIVATE (rels);
+	AsReleaseListPrivate *priv = GET_PRIVATE (rels);
 	g_autoptr(GBytes) reldata_bytes = NULL;
 	GError *tmp_error = NULL;
 
-	if (priv->kind != AS_RELEASES_KIND_EXTERNAL)
+	if (priv->kind != AS_RELEASE_LIST_KIND_EXTERNAL)
 		return TRUE;
 	if (rels->entries->len != 0 && !reload)
 		return TRUE;
@@ -548,12 +548,12 @@ as_releases_load (AsReleases *rels,
 		reldata_bytes = g_bytes_new_take (rel_data, rel_data_len);
 	}
 
-	return as_releases_load_from_bytes (rels, reldata_bytes, error);
+	return as_release_list_load_from_bytes (rels, reldata_bytes, error);
 }
 
 /**
- * as_releases_load_from_xml:
- * @rels: an #AsReleases instance.
+ * as_release_list_load_from_xml:
+ * @rels: an #AsReleaseList instance.
  * @ctx: the AppStream document context.
  * @node: the XML node.
  * @error: a #GError.
@@ -561,21 +561,21 @@ as_releases_load (AsReleases *rels,
  * Loads artifact data from an XML node.
  **/
 gboolean
-as_releases_load_from_xml (AsReleases *rels, AsContext *ctx, xmlNode *node, GError **error)
+as_release_list_load_from_xml (AsReleaseList *rels, AsContext *ctx, xmlNode *node, GError **error)
 {
-	AsReleasesPrivate *priv = GET_PRIVATE (rels);
+	AsReleaseListPrivate *priv = GET_PRIVATE (rels);
 	g_autofree gchar *releases_kind_str = NULL;
 
 	/* clear any existing entries */
-	as_releases_clear (rels);
+	as_release_list_clear (rels);
 
 	/* set new context */
-	as_releases_set_context (rels, ctx);
+	as_release_list_set_context (rels, ctx);
 
 	/* load new releases */
 	releases_kind_str = as_xml_get_prop_value (node, "type");
-	priv->kind = as_releases_kind_from_string (releases_kind_str);
-	if (priv->kind == AS_RELEASES_KIND_EXTERNAL) {
+	priv->kind = as_release_list_kind_from_string (releases_kind_str);
+	if (priv->kind == AS_RELEASE_LIST_KIND_EXTERNAL) {
 		g_autofree gchar *release_url_prop = as_xml_get_prop_value (node, "url");
 		if (release_url_prop != NULL) {
 			g_free (priv->url);
@@ -591,7 +591,7 @@ as_releases_load_from_xml (AsReleases *rels, AsContext *ctx, xmlNode *node, GErr
 	}
 
 	/* only read release data if it is not external */
-	if (priv->kind != AS_RELEASES_KIND_EXTERNAL) {
+	if (priv->kind != AS_RELEASE_LIST_KIND_EXTERNAL) {
 		for (xmlNode *iter2 = node->children; iter2 != NULL; iter2 = iter2->next) {
 			if (iter2->type != XML_ELEMENT_NODE)
 				continue;
@@ -607,19 +607,19 @@ as_releases_load_from_xml (AsReleases *rels, AsContext *ctx, xmlNode *node, GErr
 }
 
 /**
- * as_releases_to_xml_node:
- * @rels: an #AsReleases instance.
+ * as_release_list_to_xml_node:
+ * @rels: an #AsReleaseList instance.
  * @ctx: the AppStream document context.
  * @root: XML node to attach the new nodes to.
  *
  * Serializes the data to an XML node.
  **/
 void
-as_releases_to_xml_node (AsReleases *rels, AsContext *ctx, xmlNode *root)
+as_release_list_to_xml_node (AsReleaseList *rels, AsContext *ctx, xmlNode *root)
 {
-	AsReleasesPrivate *priv = GET_PRIVATE (rels);
+	AsReleaseListPrivate *priv = GET_PRIVATE (rels);
 
-	if (priv->kind == AS_RELEASES_KIND_EXTERNAL &&
+	if (priv->kind == AS_RELEASE_LIST_KIND_EXTERNAL &&
 	    as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) {
 		xmlNode *rnode = as_xml_add_node (root, "releases");
 		as_xml_add_text_prop (rnode, "type", "external");
@@ -629,7 +629,7 @@ as_releases_to_xml_node (AsReleases *rels, AsContext *ctx, xmlNode *root)
 		xmlNode *rnode = as_xml_add_node (root, "releases");
 
 		/* ensure releases are sorted, then emit XML nodes */
-		as_releases_sort (rels);
+		as_release_list_sort (rels);
 		for (guint i = 0; i < rels->entries->len; i++) {
 			AsRelease *rel = AS_RELEASE (g_ptr_array_index (rels->entries, i));
 			as_release_to_xml_node (rel, ctx, rnode);
@@ -638,8 +638,8 @@ as_releases_to_xml_node (AsReleases *rels, AsContext *ctx, xmlNode *root)
 }
 
 /**
- * as_releases_load_from_yaml:
- * @rels: an #AsReleases instance.
+ * as_release_list_load_from_yaml:
+ * @rels: an #AsReleaseList instance.
  * @ctx: the AppStream document context.
  * @node: the YAML node.
  * @error: a #GError.
@@ -647,10 +647,10 @@ as_releases_to_xml_node (AsReleases *rels, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_releases_load_from_yaml (AsReleases *rels, AsContext *ctx, GNode *node, GError **error)
+as_release_list_load_from_yaml (AsReleaseList *rels, AsContext *ctx, GNode *node, GError **error)
 {
 	/* set new context */
-	as_releases_set_context (rels, ctx);
+	as_release_list_set_context (rels, ctx);
 
 	for (GNode *n = node->children; n != NULL; n = n->next) {
 		g_autoptr(AsRelease) release = as_release_new ();
@@ -662,21 +662,21 @@ as_releases_load_from_yaml (AsReleases *rels, AsContext *ctx, GNode *node, GErro
 }
 
 /**
- * as_releases_emit_yaml:
- * @rels: an #AsReleases instance.
+ * as_release_list_emit_yaml:
+ * @rels: an #AsReleaseList instance.
  * @ctx: the AppStream document context.
  * @emitter: The YAML emitter to emit data on.
  *
  * Emit YAML data for this object.
  **/
 void
-as_releases_emit_yaml (AsReleases *rels, AsContext *ctx, yaml_emitter_t *emitter)
+as_release_list_emit_yaml (AsReleaseList *rels, AsContext *ctx, yaml_emitter_t *emitter)
 {
 	if (rels->entries->len == 0)
 		return;
 
 	/* ensure releases are sorted */
-	as_releases_sort (rels);
+	as_release_list_sort (rels);
 
 	as_yaml_emit_scalar (emitter, "Releases");
 	as_yaml_sequence_start (emitter);

@@ -42,7 +42,7 @@
 #include "as-utils-private.h"
 #include "as-component.h"
 #include "as-component-private.h"
-#include "as-releases-private.h"
+#include "as-release-list-private.h"
 #include "as-context-private.h"
 #include "as-desktop-entry.h"
 
@@ -63,7 +63,7 @@ typedef struct {
 	AsParseFlags parse_flags;
 
 	AsComponentBox *cbox;
-	GPtrArray *releases; /* of AsReleases */
+	GPtrArray *releases; /* of AsReleaseList */
 } AsMetadataPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsMetadata, as_metadata, G_TYPE_OBJECT)
@@ -804,7 +804,7 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
  * @error: A #GError or %NULL.
  *
  * Parses any AppStream release metadata into #AsRelease objects.
- * You can retrieve the last parsed #AsReleases using %as_metadata_get_releases_block.
+ * You can retrieve the last parsed #AsReleaseList using %as_metadata_get_release_list.
  *
  * Returns: %TRUE on success.
  *
@@ -814,7 +814,7 @@ gboolean
 as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-	g_autoptr(AsReleases) releases = NULL;
+	g_autoptr(AsReleaseList) releases = NULL;
 	g_autoptr(AsContext) context = NULL;
 	xmlDoc *xdoc;
 	xmlNode *xroot;
@@ -829,7 +829,7 @@ as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **err
 		return FALSE;
 
 	context = as_metadata_new_context (metad, AS_FORMAT_STYLE_METAINFO, NULL);
-	releases = as_releases_new ();
+	releases = as_release_list_new ();
 
 	/* load releases */
 	xroot = xmlDocGetRootElement (xdoc);
@@ -839,7 +839,7 @@ as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **err
 		if (as_str_equal0 (iter->name, "release")) {
 			g_autoptr(AsRelease) release = as_release_new ();
 			if (as_release_load_from_xml (release, context, iter, NULL))
-				as_releases_add (releases, release);
+				as_release_list_add (releases, release);
 		}
 	}
 	xmlFreeDoc (xdoc);
@@ -856,7 +856,7 @@ as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **err
  *
  * Parses any AppStream release metadata into #AsRelease objects
  * using the provided file.
- * You can retrieve the last parsed #AsReleases using %as_metadata_get_releases_block.
+ * You can retrieve the last parsed #AsReleaseList using %as_metadata_get_release_list.
  *
  * Returns: %TRUE on success.
  *
@@ -896,17 +896,17 @@ as_metadata_parse_releases_file (AsMetadata *metad, GFile *file, GError **error)
 /**
  * as_metadata_releases_to_data:
  * @metad: A valid #AsMetadata instance
- * @releases: the #AsReleases to convert.
+ * @releases: the #AsReleaseList to convert.
  * @error: A #GError or %NULL.
  *
- * Convert a releases of an #AsReleases entity into a release metadata XML representation.
+ * Convert a releases of an #AsReleaseList entity into a release metadata XML representation.
  *
  * Returns: The XML representation or %NULL on error.
  *
  * Since: 0.16.0
  **/
 gchar *
-as_metadata_releases_to_data (AsMetadata *metad, AsReleases *releases, GError **error)
+as_metadata_releases_to_data (AsMetadata *metad, AsReleaseList *releases, GError **error)
 {
 	xmlNode *root;
 	g_autoptr(AsContext) context = NULL;
@@ -914,9 +914,9 @@ as_metadata_releases_to_data (AsMetadata *metad, AsReleases *releases, GError **
 	root = as_xml_node_new ("releases");
 	context = as_metadata_new_context (metad, AS_FORMAT_STYLE_METAINFO, NULL);
 
-	as_releases_sort (releases);
-	for (guint i = 0; i < as_releases_len (releases); i++) {
-		AsRelease *rel = as_releases_index (releases, i);
+	as_release_list_sort (releases);
+	for (guint i = 0; i < as_release_list_len (releases); i++) {
+		AsRelease *rel = as_release_list_index (releases, i);
 		as_release_to_xml_node (rel, context, root);
 	}
 
@@ -924,31 +924,31 @@ as_metadata_releases_to_data (AsMetadata *metad, AsReleases *releases, GError **
 }
 
 /**
- * as_metadata_get_releases_block:
+ * as_metadata_get_release_list:
  * @metad: a #AsMetadata instance.
  *
- * Gets the recently parsed #AsReleases entry.
+ * Gets the recently parsed #AsReleaseList entry.
  *
- * Returns: (transfer none) (nullable): An #AsReleases or %NULL
+ * Returns: (transfer none) (nullable): An #AsReleaseList or %NULL
  **/
-AsReleases *
-as_metadata_get_releases_block (AsMetadata *metad)
+AsReleaseList *
+as_metadata_get_release_list (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	if (priv->releases->len == 0)
 		return NULL;
-	return AS_RELEASES (g_ptr_array_index (priv->releases, priv->releases->len - 1));
+	return AS_RELEASE_LIST (g_ptr_array_index (priv->releases, priv->releases->len - 1));
 }
 
 /**
- * as_metadata_get_releases_blocks:
+ * as_metadata_get_release_lists:
  * @metad: a #AsMetadata instance.
  *
- * Returns: (transfer none) (element-type AsReleases): A #GPtrArray of all parsed release metadata.
+ * Returns: (transfer none) (element-type AsReleaseList): A #GPtrArray of all parsed release metadata.
  **/
 GPtrArray *
-as_metadata_get_releases_blocks (AsMetadata *metad)
+as_metadata_get_release_lists (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	return priv->releases;

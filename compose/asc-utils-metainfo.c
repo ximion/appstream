@@ -150,16 +150,16 @@ asc_process_metainfo_releases (AscResult *cres,
 {
 	g_autoptr(GError) local_error = NULL;
 	g_autoptr(GBytes) relmd_bytes = NULL;
-	AsReleases *releases = as_component_get_releases_plain (cpt);
+	AsReleaseList *releases = as_component_get_releases_plain (cpt);
 
 	/* download external release metadata or fetch local release data */
-	if (as_releases_get_kind (releases) == AS_RELEASES_KIND_EXTERNAL) {
+	if (as_release_list_get_kind (releases) == AS_RELEASE_LIST_KIND_EXTERNAL) {
 		g_autofree gchar *relmd_uri = NULL;
 
-		as_releases_clear (releases);
-		if (allow_net && as_releases_get_url (releases) != NULL) {
+		as_release_list_clear (releases);
+		if (allow_net && as_release_list_get_url (releases) != NULL) {
 			/* get the release data from a network location */
-			const gchar *releases_url = as_releases_get_url (releases);
+			const gchar *releases_url = as_release_list_get_url (releases);
 
 			relmd_bytes = as_curl_download_bytes (acurl, releases_url, &local_error);
 			if (relmd_bytes == NULL) {
@@ -201,7 +201,7 @@ asc_process_metainfo_releases (AscResult *cres,
 			relmd_uri = g_steal_pointer (&relfile_path);
 		}
 
-		if (!as_releases_load_from_bytes (releases, relmd_bytes, &local_error)) {
+		if (!as_release_list_load_from_bytes (releases, relmd_bytes, &local_error)) {
 			asc_result_add_hint (cres,
 					     NULL,
 					     "metainfo-releases-read-failed",
@@ -218,8 +218,8 @@ asc_process_metainfo_releases (AscResult *cres,
 	 * since releases are sorted with the newest one at the top, we will only
 	 * remove the older ones. */
 	if (as_component_get_kind (cpt) != AS_COMPONENT_KIND_OPERATING_SYSTEM) {
-		if (as_releases_len (releases) > MAX_RELEASE_INFO_COUNT)
-			as_releases_set_size (releases, MAX_RELEASE_INFO_COUNT);
+		if (as_release_list_len (releases) > MAX_RELEASE_INFO_COUNT)
+			as_release_list_set_size (releases, MAX_RELEASE_INFO_COUNT);
 	}
 
 out:

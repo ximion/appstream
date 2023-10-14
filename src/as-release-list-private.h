@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2022-2023-2023 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2022-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include "as-releases.h"
+#include "as-release-list.h"
 #include "as-release-private.h"
 #include "as-macros-private.h"
 #include "as-tag.h"
@@ -29,21 +29,24 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-gboolean as_releases_load_from_xml (AsReleases *rels,
-				    AsContext  *ctx,
-				    xmlNode    *node,
-				    GError    **error);
-void	 as_releases_to_xml_node (AsReleases *rels, AsContext *ctx, xmlNode *root);
+gboolean as_release_list_load_from_xml (AsReleaseList *rels,
+					AsContext     *ctx,
+					xmlNode	      *node,
+					GError	     **error);
+void	 as_release_list_to_xml_node (AsReleaseList *rels, AsContext *ctx, xmlNode *root);
 
-gboolean as_releases_load_from_yaml (AsReleases *rels, AsContext *ctx, GNode *root, GError **error);
-void	 as_releases_emit_yaml (AsReleases *rels, AsContext *ctx, yaml_emitter_t *emitter);
+gboolean as_release_list_load_from_yaml (AsReleaseList *rels,
+					 AsContext     *ctx,
+					 GNode	       *root,
+					 GError	      **error);
+void	 as_release_list_emit_yaml (AsReleaseList *rels, AsContext *ctx, yaml_emitter_t *emitter);
 
 gint	 as_release_compare (gconstpointer a, gconstpointer b);
 
-gboolean as_releases_load (AsReleases  *rels,
-			   AsComponent *cpt,
-			   gboolean	reload,
-			   gboolean	allow_net,
-			   GError     **error);
+gboolean as_release_list_load (AsReleaseList *rels,
+			       AsComponent   *cpt,
+			       gboolean	      reload,
+			       gboolean	      allow_net,
+			       GError	    **error);
 
 AS_END_PRIVATE_DECLS

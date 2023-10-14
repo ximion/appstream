@@ -571,28 +571,28 @@ void AppStream::Component::addScreenshot(const AppStream::Screenshot &screenshot
     as_component_add_screenshot(d->cpt, screenshot.asScreenshot());
 }
 
-Releases Component::releasesPlain() const
+ReleaseList Component::releasesPlain() const
 {
-    return Releases(as_component_get_releases_plain(d->cpt));
+    return ReleaseList(as_component_get_releases_plain(d->cpt));
 }
 
-std::optional<Releases> Component::loadReleases(bool allowNet)
+std::optional<ReleaseList> Component::loadReleases(bool allowNet)
 {
     g_autoptr(GError) error = nullptr;
-    std::optional<Releases> result;
+    std::optional<ReleaseList> result;
 
     auto rels = as_component_load_releases(d->cpt, allowNet, &error);
     if (rels == nullptr) {
         d->lastError = QString::fromUtf8(error->message);
         return result;
     }
-    result = Releases(rels);
+    result = ReleaseList(rels);
     return result;
 }
 
-void Component::setReleases(const Releases &releases)
+void Component::setReleases(const ReleaseList &releases)
 {
-    as_component_set_releases(d->cpt, releases.asReleases());
+    as_component_set_releases(d->cpt, releases.asReleaseList());
 }
 
 void AppStream::Component::addRelease(const AppStream::Release &release)
