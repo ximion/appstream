@@ -19,6 +19,7 @@
 # Lory ~ <dury.lorenzo@gmail.com>, 2021.
 # Alessandro Mandelli <mandelli.alessandro@ngi.it>, 2021.
 # phlostically <phlostically@mailinator.com>, 2021.
+# Bernardino <bennycorrente@outlook.it>, 2023.
 #
 # Translators:
 msgid ""
@@ -26,16 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-10-08 08:18+0200\n"
-"PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: Ivan Fossati <vania1366@gmail.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
-"translations/it/>\n"
+"PO-Revision-Date: 2023-10-16 04:17+0000\n"
+"Last-Translator: Bernardino <bennycorrente@outlook.it>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -982,32 +982,31 @@ msgstr "La dimensione del file recuperato è zero."
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
 #: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:77
 msgid "Cinnamon"
-msgstr ""
+msgstr "Cannella"
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
 #: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:79
 msgid "Deepin"
-msgstr ""
+msgstr "Approfondimento"
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
 #: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:81
 msgid "EDE"
-msgstr ""
+msgstr "LINGUA"
 
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #. TRANSLATORS: Name of the "endless" visual environment style.
 #: src/as-desktop-env-data.h:49 src/as-desktop-env-data.h:83
-#, fuzzy
 msgid "Endless"
-msgstr "Bundle"
+msgstr "Infinito"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
 #: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
 msgid "GNOME"
-msgstr ""
+msgstr "GNOMO"
 
 #. TRANSLATORS: Name of the "KDE" desktop environment.
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
@@ -1021,7 +1020,7 @@ msgstr ""
 #. TRANSLATORS: Name of the "lxde" visual environment style.
 #: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:89
 msgid "LXDE"
-msgstr ""
+msgstr "Ambiente desktop leggero X11"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
@@ -1044,7 +1043,7 @@ msgstr ""
 #. TRANSLATORS: Name of the "razor" visual environment style.
 #: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:101
 msgid "Razor"
-msgstr ""
+msgstr "Rasoio"
 
 #. TRANSLATORS: Name of the "ROX" desktop environment.
 #: src/as-desktop-env-data.h:67
@@ -1076,7 +1075,7 @@ msgstr ""
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:95
 msgid "Mate"
-msgstr ""
+msgstr "Compagno"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:103
@@ -1086,7 +1085,7 @@ msgstr ""
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:107
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -1105,21 +1104,21 @@ msgstr "I file dei metadati presentano degli errori:"
 
 #: src/as-pool.c:2395
 msgid "Group"
-msgstr ""
+msgstr "Gruppo"
 
 #: src/as-pool.c:2450
 msgid "Iconsets"
-msgstr "Insieme di icone"
+msgstr "Impostazioni icone"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2498
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Dati dal software installato localmente"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2501
 msgid "Software catalog data"
-msgstr ""
+msgstr "Dati del catalogo software"
 
 #: src/as-provided.c:142
 msgid "Libraries"
@@ -1171,20 +1170,19 @@ msgstr "Componente"
 
 #: src/as-relation.c:1350
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "dispositivo di puntamento (ad esempio un mouse)"
 
 #: src/as-relation.c:1352
-#, fuzzy
 msgid "keyboard"
-msgstr "Tavolo"
+msgstr "tastiera"
 
 #: src/as-relation.c:1354
 msgid "gamepad"
-msgstr ""
+msgstr "pulsantiera"
 
 #: src/as-relation.c:1356
 msgid "tv remote"
-msgstr ""
+msgstr "telecomando della TV"
 
 #: src/as-relation.c:1358
 msgid "graphics tablet"
@@ -1210,9 +1208,8 @@ msgid "This software requires a camera for input control."
 msgstr ""
 
 #: src/as-relation.c:1374
-#, fuzzy
 msgid "This software requires a method for console input."
-msgstr "Questo tag richiede una proprietà di tipo."
+msgstr "Questo software richiede un metodo per l'input della console."
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1379
