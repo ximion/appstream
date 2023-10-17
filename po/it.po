@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-10-08 08:18+0200\n"
-"PO-Revision-Date: 2023-10-16 04:17+0000\n"
+"PO-Revision-Date: 2023-10-17 04:16+0000\n"
 "Last-Translator: Bernardino <bennycorrente@outlook.it>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -254,7 +254,7 @@ msgstr "Finanza"
 #: src/as-category.c:206
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr "Editor di testi"
+msgstr "Elaboratore di testi"
 
 #: src/as-category.c:215
 msgctxt "Category of Addons"
@@ -1014,7 +1014,7 @@ msgstr "GNOMO"
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
 #: src/as-desktop-env-data.h:99
 msgid "KDE Plasma"
-msgstr ""
+msgstr "kde plasma"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
@@ -1080,7 +1080,7 @@ msgstr "Compagno"
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:103
 msgid "Rox"
-msgstr ""
+msgstr "rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:107
@@ -1186,18 +1186,17 @@ msgstr "telecomando della TV"
 
 #: src/as-relation.c:1358
 msgid "graphics tablet"
-msgstr ""
+msgstr "tavoletta grafica"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1363
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires a %s for input."
-msgstr "Questo tag richiede una proprietà di tipo."
+msgstr "Questo software richiede un %s per l'input."
 
 #: src/as-relation.c:1368
-#, fuzzy
 msgid "This software requires a touch input device."
-msgstr "Questo tag richiede una proprietà di tipo."
+msgstr "Questo software richiede un dispositivo di input tattile."
 
 #: src/as-relation.c:1370
 msgid "This software requires a microphone to be controlled via voice input."
@@ -1261,7 +1260,7 @@ msgstr ""
 
 #: src/as-relation.c:1413
 msgid "This software supports touch input."
-msgstr ""
+msgstr "Questo software supporta l'input tattile."
 
 #: src/as-relation.c:1415
 msgid "This software can be controlled via voice input."
@@ -1424,9 +1423,8 @@ msgid "This system has sufficient memory for this software."
 msgstr ""
 
 #: src/as-relation.c:1834
-#, fuzzy
 msgid "This software needs a display for graphical content."
-msgstr "Questo tag richiede una proprietà di tipo."
+msgstr "Questo software necessita di un display per il contenuto grafico."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
