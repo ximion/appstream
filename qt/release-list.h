@@ -21,6 +21,7 @@
 
 #include <QSharedDataPointer>
 #include <QObject>
+#include <optional>
 #include "appstreamqt_export.h"
 
 #include "release.h"

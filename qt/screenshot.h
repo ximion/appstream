@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QSharedDataPointer>
+#include <optional>
 #include "appstreamqt_export.h"
 
 #include <QString>

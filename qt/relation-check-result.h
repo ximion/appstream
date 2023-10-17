@@ -22,6 +22,7 @@
 #include <QSharedDataPointer>
 #include <QString>
 #include <QObject>
+#include <optional>
 #include "appstreamqt_export.h"
 
 struct _AsRelationCheckResult;
