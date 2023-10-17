@@ -49,7 +49,7 @@
 
 #if defined(__linux__)
 #include <sys/sysinfo.h>
-#elif defined(__FreeBSD__) || defined(__NetBSD__)
+#elif defined(__FreeBSD__) || defined(__NetBSD__) || defined(__APPLE__)
 #include <sys/types.h>
 #include <sys/sysctl.h>
 #endif
@@ -474,6 +474,18 @@ as_get_physical_memory_total (void)
 	unsigned long physmem;
 	size_t len = sizeof (physmem);
 	int mib[2] = { CTL_HW, HW_PHYSMEM };
+
+	if (sysctl (mib, 2, &physmem, &len, NULL, 0) == -1) {
+		g_warning ("Unable to determine physical memory size: %s", g_strerror (errno));
+		return 0;
+	}
+	return physmem / MB_IN_BYTES;
+#elif defined(__APPLE__)
+	unsigned long physmem;
+	size_t len = sizeof (physmem);
+	/* macOS needs HW_MEMSIZE, as HW_PHYSMEM contrary to its name will not give
+	 * the physical memory size but available memory size */
+	int mib[2] = { CTL_HW, HW_MEMSIZE };
 
 	if (sysctl (mib, 2, &physmem, &len, NULL, 0) == -1) {
 		g_warning ("Unable to determine physical memory size: %s", g_strerror (errno));
