@@ -188,17 +188,21 @@ if get_option ('gir')
     dependency('gobject-introspection-1.0', version: '>=1.56')
 endif
 
+stemmer_header_found = false
 stemmer_inc_dirs = include_directories()
 if get_option('stemming')
-    stemmer_lib = cc.find_library('stemmer', required: true)
-    stemmer_inc_dirs = include_directories(['/usr/include'])
-    if not cc.has_header('libstemmer.h')
-        if cc.has_header('libstemmer/libstemmer.h')
-            stemmer_inc_dirs = include_directories('/usr/include/libstemmer')
-        else
-            error('Unable to find Snowball header "libstemmer.h". Please ensure libstemmer/Snowball is installed properly in order to continue.')
-        endif
+    stemmer_h = 'libstemmer.h'
+	usr_include_dir = '/usr/include'
+	fs = import('fs')
+	if fs.is_dir(usr_include_dir)
+          stemmer_inc_dirs = include_directories([usr_include_dir])
+	      if fs.is_file(join_paths(usr_include_dir, 'libstemmer', stemmer_h))
+	          stemmer_inc_dirs = include_directories(
+                [join_paths(usr_include_dir, 'libstemmer')]
+              )
+	      endif
     endif
+    stemmer_lib = cc.find_library('stemmer', has_headers: [stemmer_h])
 endif
 
 # use gperf for faster string -> enum matching
