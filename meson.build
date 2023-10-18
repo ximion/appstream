@@ -18,6 +18,9 @@ as_minor_version = varr[1]
 as_micro_version = varr[2]
 as_data_installdir = get_option('prefix') / get_option('datadir') / 'appstream'
 
+# Are we building for Windows?
+is_windows = host_machine.system() == 'windows'
+
 #
 # Configure files
 #
@@ -78,7 +81,7 @@ if get_option('maintainer')
     add_project_arguments(maintainer_c_args, language: 'cpp')
 endif
 
-if get_option('static-analysis') and host_machine.system() != 'windows'
+if get_option('static-analysis') and not is_windows
   if cc.get_id() != 'gcc'
     error('You need to compile with GCC to run the static analyzer!')
   endif
