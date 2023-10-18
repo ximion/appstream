@@ -137,7 +137,7 @@ void ComponentBox::sortByScore()
     as_component_box_sort_by_score(d->m_cbox);
 }
 
-void ComponentBox::operator+=(const ComponentBox& other)
+void ComponentBox::operator+=(const ComponentBox &other)
 {
     for (uint i = 0; i < as_component_box_len(other.d->m_cbox); i++) {
         g_autoptr(GError) error = nullptr;

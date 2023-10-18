@@ -40,18 +40,31 @@ class APPSTREAMQT_EXPORT ComponentBox
     Q_GADGET
 
 public:
-    class iterator {
+    class iterator
+    {
     public:
-        iterator(const iterator& it)
+        iterator(const iterator &it)
             : index(it.index)
             , data(it.data)
-        {}
-        bool operator==(iterator other) const { return index == other.index && data == other.data; }
-        bool operator!=(iterator other) const { return index != other.index || data != other.data; }
-        iterator& operator++() { index++; return *this; }
+        {
+        }
+        bool operator==(iterator other) const
+        {
+            return index == other.index && data == other.data;
+        }
+        bool operator!=(iterator other) const
+        {
+            return index != other.index || data != other.data;
+        }
+        iterator &operator++()
+        {
+            index++;
+            return *this;
+        }
 
         Component operator*() const;
-        std::optional<Component> operator->() const {
+        std::optional<Component> operator->() const
+        {
             return data->indexSafe(index);
         }
         iterator &operator=(const iterator &other)
@@ -69,7 +82,8 @@ public:
         iterator(uint index, const ComponentBox *cb)
             : index(index)
             , data(cb)
-        {}
+        {
+        }
 
         uint index;
         const ComponentBox *data;
@@ -105,8 +119,14 @@ public:
      */
     QList<Component> toList() const;
 
-    iterator begin() const { return iterator(0, this); }
-    iterator end() const { return iterator(size(), this); }
+    iterator begin() const
+    {
+        return iterator(0, this);
+    }
+    iterator end() const
+    {
+        return iterator(size(), this);
+    }
     iterator erase(iterator it);
 
     void operator+=(const ComponentBox &other);
