@@ -24,6 +24,8 @@ is_windows = host_machine.system() == 'windows'
 #
 # Configure files
 #
+use_systemd = get_option('systemd') and not is_windows
+
 conf = configuration_data()
 conf.set('AS_MAJOR_VERSION_CONF', as_major_version)
 conf.set('AS_MINOR_VERSION_CONF', as_minor_version)
@@ -47,7 +49,7 @@ conf.set_quoted('SYSCONFDIR',
 conf.set('_DEFAULT_SOURCE', true)
 conf.set('HAVE_APT_SUPPORT', get_option('apt-support'))
 conf.set('HAVE_STEMMING', get_option('stemming'))
-conf.set('HAVE_SYSTEMD', get_option('systemd'))
+conf.set('HAVE_SYSTEMD', use_systemd)
 conf.set('HAVE_SVG_SUPPORT', get_option('svg-support'))
 
 configure_file(output: 'config.h', configuration: conf)
