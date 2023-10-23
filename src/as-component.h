@@ -74,11 +74,11 @@ struct _AsComponentClass {
  * @AS_COMPONENT_KIND_WEB_APP:		A web application
  * @AS_COMPONENT_KIND_SERVICE:		A system service launched by the init system
  * @AS_COMPONENT_KIND_ADDON:		An extension of existing software, which does not run standalone
- * @AS_COMPONENT_KIND_OPERATING_SYSTEM: A computer operating system
  * @AS_COMPONENT_KIND_RUNTIME:		An application runtime platform
  * @AS_COMPONENT_KIND_FONT:		A font
  * @AS_COMPONENT_KIND_CODEC:		A multimedia codec
  * @AS_COMPONENT_KIND_INPUT_METHOD:	An input-method provider
+ * @AS_COMPONENT_KIND_OPERATING_SYSTEM: A computer operating system
  * @AS_COMPONENT_KIND_FIRMWARE:		Firmware
  * @AS_COMPONENT_KIND_DRIVER:		A driver
  * @AS_COMPONENT_KIND_LOCALIZATION:	Software localization (usually l10n resources)
@@ -95,11 +95,11 @@ typedef enum {
 	AS_COMPONENT_KIND_WEB_APP,
 	AS_COMPONENT_KIND_SERVICE,
 	AS_COMPONENT_KIND_ADDON,
-	AS_COMPONENT_KIND_OPERATING_SYSTEM,
 	AS_COMPONENT_KIND_RUNTIME,
 	AS_COMPONENT_KIND_FONT,
 	AS_COMPONENT_KIND_CODEC,
 	AS_COMPONENT_KIND_INPUT_METHOD,
+	AS_COMPONENT_KIND_OPERATING_SYSTEM,
 	AS_COMPONENT_KIND_FIRMWARE,
 	AS_COMPONENT_KIND_DRIVER,
 	AS_COMPONENT_KIND_LOCALIZATION,

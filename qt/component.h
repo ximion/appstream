@@ -62,18 +62,18 @@ public:
         KindDesktopApp,
         KindConsoleApp,
         KindWebApp,
+        KindService,
         KindAddon,
+        KindRuntime,
         KindFont,
         KindCodec,
-        KindInputmethod,
+        KindInputMethod,
+        KindOperatingSystem,
         KindFirmware,
         KindDriver,
         KindLocalization,
-        KindService,
         KindRepository,
-        KindOperatingSystem,
-        KindIconTheme,
-        KindRuntime
+        KindIconTheme
     };
     Q_ENUM(Kind)
 
