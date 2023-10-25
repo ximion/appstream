@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2017 Jan Grulich <jgrulich@redhat.com>
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -105,7 +105,7 @@ bool Translation::operator==(const Translation &other) const
     return false;
 }
 
-_AsTranslation *AppStream::Translation::asTranslation() const
+_AsTranslation *AppStream::Translation::cPtr() const
 {
     return d->translation();
 }

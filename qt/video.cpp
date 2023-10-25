@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2019-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -82,7 +82,7 @@ Video &Video::operator=(const Video &other)
     return *this;
 }
 
-_AsVideo *AppStream::Video::asVideo() const
+_AsVideo *AppStream::Video::cPtr() const
 {
     return d->video();
 }

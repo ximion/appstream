@@ -65,7 +65,7 @@ SystemInfo::SystemInfo(_AsSystemInfo *sysInfo)
 
 SystemInfo::~SystemInfo() = default;
 
-_AsSystemInfo *AppStream::SystemInfo::asSystemInfo() const
+_AsSystemInfo *AppStream::SystemInfo::cPtr() const
 {
     return d->sysInfo;
 }
@@ -164,6 +164,11 @@ ulong SystemInfo::displayLength(Relation::DisplaySideKind kind)
 void SystemInfo::setDisplayLength(Relation::DisplaySideKind kind, ulong valueDip)
 {
     as_system_info_set_display_length(d->sysInfo, static_cast<AsDisplaySideKind>(kind), valueDip);
+}
+
+QString SystemInfo::currentDistroComponentId()
+{
+    return QString::fromUtf8(as_get_current_distro_component_id());
 }
 
 QString SystemInfo::lastError() const

@@ -144,7 +144,7 @@ bool Relation::operator==(const Relation &other) const
     return false;
 }
 
-_AsRelation *AppStream::Relation::asRelation() const
+_AsRelation *AppStream::Relation::cPtr() const
 {
     return d->relation();
 }
@@ -262,8 +262,8 @@ std::optional<RelationCheckResult> Relation::isSatisfied(SystemInfo *sysInfo, Po
     g_autoptr(AsRelationCheckResult) rcr = nullptr;
 
     rcr = as_relation_is_satisfied(d->relation(),
-                                   sysInfo != nullptr ? sysInfo->asSystemInfo() : nullptr,
-                                   pool != nullptr ? pool->asPool() : nullptr,
+                                   sysInfo != nullptr ? sysInfo->cPtr() : nullptr,
+                                   pool != nullptr ? pool->cPtr() : nullptr,
                                    &error);
 
     std::optional<RelationCheckResult> result;

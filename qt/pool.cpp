@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2023 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C) 2023 Kai Uwe Broulik <kde@broulik.de>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -89,7 +89,7 @@ Pool::~Pool()
     // empty. needed for the scoped pointer for the private pointer
 }
 
-_AsPool *AppStream::Pool::asPool() const
+_AsPool *AppStream::Pool::cPtr() const
 {
     return d->pool;
 }
@@ -125,7 +125,7 @@ bool Pool::addComponents(const ComponentBox &cbox)
 {
     g_autoptr(GError) error = nullptr;
 
-    bool ret = as_pool_add_components(d->pool, cbox.asComponentBox(), &error);
+    bool ret = as_pool_add_components(d->pool, cbox.cPtr(), &error);
     if (!ret)
         d->lastError = QString::fromUtf8(error->message);
 

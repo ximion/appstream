@@ -51,7 +51,7 @@ public:
     /**
      * \returns the internally stored AsReleaseList
      */
-    _AsReleaseList *asReleaseList() const;
+    _AsReleaseList *cPtr() const;
 
     enum Kind {
         KindUnknown,

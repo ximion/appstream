@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2023 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C) 2017 Jan Grulich <jgrulich@redhat.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -118,7 +118,7 @@ bool Metadata::operator==(const Metadata &other) const
     return false;
 }
 
-_AsMetadata *AppStream::Metadata::asMetadata() const
+_AsMetadata *AppStream::Metadata::cPtr() const
 {
     return d->metadata();
 }
@@ -195,7 +195,7 @@ void AppStream::Metadata::clearComponents()
 
 void AppStream::Metadata::addComponent(const AppStream::Component &component)
 {
-    as_metadata_add_component(d->m_metadata, component.asComponent());
+    as_metadata_add_component(d->m_metadata, component.cPtr());
 }
 
 QString AppStream::Metadata::componentToMetainfo(AppStream::Metadata::FormatKind format) const

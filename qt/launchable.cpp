@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2017 Jan Grulich <jgrulich@redhat.com>
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -101,7 +101,7 @@ bool Launchable::operator==(const Launchable &other) const
     return false;
 }
 
-_AsLaunchable *AppStream::Launchable::asLaunchable() const
+_AsLaunchable *AppStream::Launchable::cPtr() const
 {
     return d->launchable();
 }

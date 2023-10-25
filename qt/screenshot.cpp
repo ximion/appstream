@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014 Sune Vuorela <sune@vuorela.dk>
- * Copyright (C) 2016-2019 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -85,7 +85,7 @@ Screenshot &Screenshot::operator=(const Screenshot &other)
     return *this;
 }
 
-_AsScreenshot *AppStream::Screenshot::asScreenshot() const
+_AsScreenshot *AppStream::Screenshot::cPtr() const
 {
     return d->screenshot();
 }

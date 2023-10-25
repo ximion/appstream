@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2017 Jan Grulich <jgrulich@redhat.com>
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -99,7 +99,7 @@ bool ContentRating::operator==(const ContentRating &other) const
     return false;
 }
 
-_AsContentRating *AppStream::ContentRating::asContentRating() const
+_AsContentRating *AppStream::ContentRating::cPtr() const
 {
     return d->contentRating();
 }

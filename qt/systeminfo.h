@@ -49,7 +49,7 @@ public:
     /**
      * \returns the internally stored AsSystemInfo
      */
-    _AsSystemInfo *asSystemInfo() const;
+    _AsSystemInfo *cPtr() const;
 
     QString osId() const;
     QString osCid() const;
@@ -73,6 +73,8 @@ public:
 
     ulong displayLength(Relation::DisplaySideKind kind);
     void setDisplayLength(Relation::DisplaySideKind kind, ulong valueDip);
+
+    static QString currentDistroComponentId();
 
     /**
      * \return The last error message received.

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2016 Aleix Pol Gonzalez <aleixpol@kde.org>
- * Copyright (C) 2018-2019 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2018-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -77,7 +77,7 @@ bool Release::operator==(const Release &other) const
     return false;
 }
 
-_AsRelease *AppStream::Release::asRelease() const
+_AsRelease *AppStream::Release::cPtr() const
 {
     return d->release();
 }

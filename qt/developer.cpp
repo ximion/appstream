@@ -79,7 +79,7 @@ bool Developer::operator==(const Developer &other) const
     return false;
 }
 
-_AsDeveloper *AppStream::Developer::asDeveloper() const
+_AsDeveloper *AppStream::Developer::cPtr() const
 {
     return d->devp;
 }

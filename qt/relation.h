@@ -121,7 +121,7 @@ public:
     /**
      * \returns the internally stored AsRelation
      */
-    _AsRelation *asRelation() const;
+    _AsRelation *cPtr() const;
 
     Kind kind() const;
     void setKind(Kind kind);

@@ -85,7 +85,7 @@ bool RelationCheckResult::operator==(const RelationCheckResult &other) const
     return false;
 }
 
-_AsRelationCheckResult *AppStream::RelationCheckResult::asRelationCheckResult() const
+_AsRelationCheckResult *AppStream::RelationCheckResult::cPtr() const
 {
     return d->m_rcr;
 }
@@ -121,7 +121,7 @@ int AppStream::compatibilityScoreFromRelationCheckResults(
 {
     g_autoptr(GPtrArray) rcrs = g_ptr_array_new();
     for (const auto &rcr : rcResults)
-        g_ptr_array_add(rcrs, rcr.asRelationCheckResult());
+        g_ptr_array_add(rcrs, rcr.cPtr());
 
     return as_relation_check_results_get_compatibility_score(rcrs);
 }

@@ -83,7 +83,7 @@ Suggested &Suggested::operator=(const Suggested &other)
     return *this;
 }
 
-_AsSuggested *AppStream::Suggested::suggested() const
+_AsSuggested *AppStream::Suggested::cPtr() const
 {
     return d->suggested();
 }

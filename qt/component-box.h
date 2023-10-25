@@ -112,7 +112,7 @@ public:
     /**
      * \returns the internally stored AsComponentBox
      */
-    _AsComponentBox *asComponentBox() const;
+    _AsComponentBox *cPtr() const;
 
     /**
      * \returns the contents of this component box as list.

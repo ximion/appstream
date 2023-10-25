@@ -47,7 +47,7 @@ public:
     /**
      * \returns the internally stored AsDeveloper
      */
-    _AsDeveloper *asDeveloper() const;
+    _AsDeveloper *cPtr() const;
 
     QString id() const;
     void setId(const QString &id);

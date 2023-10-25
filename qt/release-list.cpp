@@ -80,7 +80,7 @@ ReleaseList &ReleaseList::operator=(const ReleaseList &other)
     return *this;
 }
 
-_AsReleaseList *AppStream::ReleaseList::asReleaseList() const
+_AsReleaseList *AppStream::ReleaseList::cPtr() const
 {
     return d->ReleaseList();
 }
@@ -123,7 +123,7 @@ std::optional<Release> ReleaseList::indexSafe(uint index) const
 
 void ReleaseList::add(Release &release)
 {
-    as_release_list_add(d->m_rels, release.asRelease());
+    as_release_list_add(d->m_rels, release.cPtr());
 }
 
 void ReleaseList::sort()

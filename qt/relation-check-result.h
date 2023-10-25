@@ -46,7 +46,7 @@ public:
     /**
      * \returns the internally stored AsRelationCheckResult
      */
-    _AsRelationCheckResult *asRelationCheckResult() const;
+    _AsRelationCheckResult *cPtr() const;
 
     enum Status {
         StatusUnknown,

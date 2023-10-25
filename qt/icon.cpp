@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -83,7 +83,7 @@ Icon &Icon::operator=(const Icon &other)
     return *this;
 }
 
-AsIcon *AppStream::Icon::asIcon() const
+AsIcon *AppStream::Icon::cPtr() const
 {
     return d->icon();
 }

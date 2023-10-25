@@ -122,7 +122,7 @@ public:
     Component &operator=(const Component &c);
     bool operator==(const Component &r) const;
 
-    _AsComponent *asComponent() const;
+    _AsComponent *cPtr() const;
 
     Kind kind() const;
     void setKind(Component::Kind kind);

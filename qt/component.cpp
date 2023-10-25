@@ -132,7 +132,7 @@ bool Component::operator==(const Component &other) const
     return false;
 }
 
-_AsComponent *AppStream::Component::asComponent() const
+_AsComponent *AppStream::Component::cPtr() const
 {
     return d->cpt;
 }
@@ -251,7 +251,7 @@ AppStream::Launchable AppStream::Component::launchable(AppStream::Launchable::Ki
 
 void AppStream::Component::addLaunchable(const AppStream::Launchable &launchable)
 {
-    as_component_add_launchable(d->cpt, launchable.asLaunchable());
+    as_component_add_launchable(d->cpt, launchable.cPtr());
 }
 
 QString AppStream::Component::metadataLicense() const
@@ -291,7 +291,7 @@ Developer Component::developer() const
 
 void Component::setDeveloper(const Developer &developer)
 {
-    as_component_set_developer(d->cpt, developer.asDeveloper());
+    as_component_set_developer(d->cpt, developer.cPtr());
 }
 
 QStringList Component::compulsoryForDesktops() const
@@ -326,7 +326,7 @@ bool Component::hasCategory(const QString &category) const
 
 bool AppStream::Component::isMemberOfCategory(const AppStream::Category &category) const
 {
-    return as_component_is_member_of_category(d->cpt, category.asCategory());
+    return as_component_is_member_of_category(d->cpt, category.cPtr());
 }
 
 QStringList Component::extends() const
@@ -354,7 +354,7 @@ QList<AppStream::Component> Component::addons() const
 
 void AppStream::Component::addAddon(const AppStream::Component &addon)
 {
-    as_component_add_addon(d->cpt, addon.asComponent());
+    as_component_add_addon(d->cpt, addon.cPtr());
 }
 
 QStringList Component::replaces() const
@@ -408,7 +408,7 @@ QList<Relation> Component::supports() const
 
 void Component::addRelation(const Relation &relation)
 {
-    as_component_add_relation(d->cpt, relation.asRelation());
+    as_component_add_relation(d->cpt, relation.cPtr());
 }
 
 QList<RelationCheckResult>
@@ -416,8 +416,8 @@ Component::checkRelations(SystemInfo *sysinfo, Pool *pool, Relation::Kind relKin
 {
     g_autoptr(GPtrArray) cresult = NULL;
     cresult = as_component_check_relations(d->cpt,
-                                           sysinfo == nullptr ? nullptr : sysinfo->asSystemInfo(),
-                                           pool == nullptr ? nullptr : pool->asPool(),
+                                           sysinfo == nullptr ? nullptr : sysinfo->cPtr(),
+                                           pool == nullptr ? nullptr : pool->cPtr(),
                                            static_cast<AsRelationKind>(relKind));
 
     QList<RelationCheckResult> res;
@@ -436,7 +436,7 @@ int Component::calculateSystemCompatibilityScore(SystemInfo *sysinfo,
     int score;
 
     score = as_component_get_system_compatibility_score(d->cpt,
-                                                        sysinfo->asSystemInfo(),
+                                                        sysinfo->cPtr(),
                                                         isTemplate,
                                                         &cres);
 
@@ -450,7 +450,7 @@ int Component::calculateSystemCompatibilityScore(SystemInfo *sysinfo,
 int Component::calculateSystemCompatibilityScore(SystemInfo *sysinfo, bool isTemplate)
 {
     return as_component_get_system_compatibility_score(d->cpt,
-                                                       sysinfo->asSystemInfo(),
+                                                       sysinfo->cPtr(),
                                                        isTemplate,
                                                        nullptr);
 }
@@ -485,7 +485,7 @@ QList<AppStream::Translation> AppStream::Component::translations() const
 
 void AppStream::Component::addTranslation(const AppStream::Translation &translation)
 {
-    as_component_add_translation(d->cpt, translation.asTranslation());
+    as_component_add_translation(d->cpt, translation.cPtr());
 }
 
 QUrl Component::url(Component::UrlKind kind) const
@@ -524,7 +524,7 @@ Icon Component::icon(const QSize &size) const
 
 void AppStream::Component::addIcon(const AppStream::Icon &icon)
 {
-    as_component_add_icon(d->cpt, icon.asIcon());
+    as_component_add_icon(d->cpt, icon.cPtr());
 }
 
 QList<Provided> Component::provided() const
@@ -550,7 +550,7 @@ AppStream::Provided Component::provided(Provided::Kind kind) const
 
 void AppStream::Component::addProvided(const AppStream::Provided &provided)
 {
-    as_component_add_provided(d->cpt, provided.asProvided());
+    as_component_add_provided(d->cpt, provided.cPtr());
 }
 
 QList<Screenshot> Component::screenshotsAll() const
@@ -568,7 +568,7 @@ QList<Screenshot> Component::screenshotsAll() const
 
 void AppStream::Component::addScreenshot(const AppStream::Screenshot &screenshot)
 {
-    as_component_add_screenshot(d->cpt, screenshot.asScreenshot());
+    as_component_add_screenshot(d->cpt, screenshot.cPtr());
 }
 
 ReleaseList Component::releasesPlain() const
@@ -592,12 +592,12 @@ std::optional<ReleaseList> Component::loadReleases(bool allowNet)
 
 void Component::setReleases(const ReleaseList &releases)
 {
-    as_component_set_releases(d->cpt, releases.asReleaseList());
+    as_component_set_releases(d->cpt, releases.cPtr());
 }
 
 void AppStream::Component::addRelease(const AppStream::Release &release)
 {
-    as_component_add_release(d->cpt, release.asRelease());
+    as_component_add_release(d->cpt, release.cPtr());
 }
 
 bool AppStream::Component::hasBundle() const
@@ -628,7 +628,7 @@ Bundle Component::bundle(Bundle::Kind kind) const
 
 void AppStream::Component::addBundle(const AppStream::Bundle &bundle) const
 {
-    as_component_add_bundle(d->cpt, bundle.asBundle());
+    as_component_add_bundle(d->cpt, bundle.cPtr());
 }
 
 QList<AppStream::Suggested> AppStream::Component::suggested() const
@@ -646,7 +646,7 @@ QList<AppStream::Suggested> AppStream::Component::suggested() const
 
 void AppStream::Component::addSuggested(const AppStream::Suggested &suggested)
 {
-    as_component_add_suggested(d->cpt, suggested.suggested());
+    as_component_add_suggested(d->cpt, suggested.cPtr());
 }
 
 QStringList AppStream::Component::searchTokens() const
@@ -734,7 +734,7 @@ AppStream::ContentRating AppStream::Component::contentRating(const QString &kind
 
 void AppStream::Component::addContentRating(const AppStream::ContentRating &contentRating)
 {
-    as_component_add_content_rating(d->cpt, contentRating.asContentRating());
+    as_component_add_content_rating(d->cpt, contentRating.cPtr());
 }
 
 QString Component::nameVariantSuffix() const

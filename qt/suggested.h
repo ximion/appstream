@@ -59,7 +59,7 @@ public:
     /**
      * \returns the internally stored AsSuggested
      */
-    _AsSuggested *suggested() const;
+    _AsSuggested *cPtr() const;
 
     /**
      * \return the kind of suggestion

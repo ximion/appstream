@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -47,7 +47,7 @@ public:
     /**
      * \returns the internally stored AsCategory
      */
-    _AsCategory *asCategory() const;
+    _AsCategory *cPtr() const;
 
     QString id() const;
     QString name() const;

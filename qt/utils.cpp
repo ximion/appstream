@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2019-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -21,11 +21,6 @@
 
 #include "appstream.h"
 #include "chelpers.h"
-
-QString AppStream::Utils::currentDistroComponentId()
-{
-    return QString::fromUtf8(as_get_current_distro_component_id());
-}
 
 QString AppStream::Utils::currentAppStreamVersion()
 {

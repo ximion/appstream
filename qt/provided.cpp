@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014  Sune Vuorela <sune@vuorela.dk>
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2023 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -106,7 +106,7 @@ bool Provided::operator==(const Provided &other) const
     return false;
 }
 
-_AsProvided *AppStream::Provided::asProvided() const
+_AsProvided *AppStream::Provided::cPtr() const
 {
     return d->provided();
 }

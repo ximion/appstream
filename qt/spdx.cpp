@@ -69,6 +69,12 @@ QString AppStream::SPDX::asSpdxId(const QString &license)
     return QString::fromUtf8(res);
 }
 
+QString AppStream::SPDX::licenseName(const QString &license)
+{
+    g_autofree gchar *res = as_get_license_name(qPrintable(license));
+    return QString::fromUtf8(res);
+}
+
 QString AppStream::SPDX::licenseUrl(const QString &license)
 {
     g_autofree gchar *res = as_get_license_url(qPrintable(license));

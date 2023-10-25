@@ -91,7 +91,7 @@ ComponentBox &ComponentBox::operator=(const ComponentBox &other)
     return *this;
 }
 
-_AsComponentBox *AppStream::ComponentBox::asComponentBox() const
+_AsComponentBox *AppStream::ComponentBox::cPtr() const
 {
     return d->componentBox();
 }
