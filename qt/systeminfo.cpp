@@ -168,7 +168,8 @@ void SystemInfo::setDisplayLength(Relation::DisplaySideKind kind, ulong valueDip
 
 QString SystemInfo::currentDistroComponentId()
 {
-    return QString::fromUtf8(as_get_current_distro_component_id());
+    g_autofree gchar *res = as_get_current_distro_component_id();
+    return QString::fromUtf8(res);
 }
 
 QString SystemInfo::lastError() const

@@ -435,10 +435,7 @@ int Component::calculateSystemCompatibilityScore(SystemInfo *sysinfo,
     g_autoptr(GPtrArray) cres = NULL;
     int score;
 
-    score = as_component_get_system_compatibility_score(d->cpt,
-                                                        sysinfo->cPtr(),
-                                                        isTemplate,
-                                                        &cres);
+    score = as_component_get_system_compatibility_score(d->cpt, sysinfo->cPtr(), isTemplate, &cres);
 
     results.reserve(cres->len);
     for (guint i = 0; i < cres->len; i++)
