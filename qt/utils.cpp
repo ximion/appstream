@@ -22,6 +22,11 @@
 #include "appstream.h"
 #include "chelpers.h"
 
+QString AppStream::Utils::currentDistroComponentId()
+{
+    return QString::fromUtf8(as_get_current_distro_component_id());
+}
+
 QString AppStream::Utils::currentAppStreamVersion()
 {
     return QString::fromUtf8(as_version_string());

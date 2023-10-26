@@ -29,6 +29,8 @@ namespace AppStream
 namespace Utils
 {
 
+APPSTREAMQT_EXPORT QString currentDistroComponentId();
+
 APPSTREAMQT_EXPORT QString currentAppStreamVersion();
 
 APPSTREAMQT_EXPORT int vercmpSimple(const QString &a, const QString &b);
