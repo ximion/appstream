@@ -45,4 +45,5 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     qt6-linguist \
     sed \
     vala \
-    xmlto
+    xmlto \
+    python3-docutils

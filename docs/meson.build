@@ -8,41 +8,44 @@
 as_doc_target_dir = join_paths(get_option('datadir'), 'doc', 'appstream')
 
 # make manual pages
-xsltproc = find_program('xsltproc')
-custom_target('man-appstreamcli',
-    input: 'xml/man/appstreamcli.1.xml',
-    output: 'appstreamcli.1',
-    install: true,
-    install_dir: join_paths(get_option('mandir'), 'man1'),
-    command: [
-        xsltproc,
-        '--nonet',
-        '--stringparam', 'man.output.quietly', '1',
-        '--stringparam', 'funcsynopsis.style', 'ansi',
-        '--stringparam', 'man.th.extra1.suppress', '1',
-        '-o', '@OUTPUT@',
-        'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl',
-        '@INPUT@'
-    ]
-)
+rst2man = find_program('rst2man', required: false)
+if get_option('man') and not rst2man.found()
+  error('No rst2man found, but man pages were explicitly enabled')
+endif
 
-if get_option('compose')
-    custom_target('man-appstream-compose',
-        input: 'xml/man/appstreamcli-compose.1.xml',
-        output: 'appstreamcli-compose.1',
-        install: true,
-        install_dir: join_paths(get_option('mandir'), 'man1'),
-        command: [
-            xsltproc,
-            '--nonet',
-            '--stringparam', 'man.output.quietly', '1',
-            '--stringparam', 'funcsynopsis.style', 'ansi',
-            '--stringparam', 'man.th.extra1.suppress', '1',
-            '-o', '@OUTPUT@',
-            'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl',
-            '@INPUT@'
-        ]
+if get_option('man') and rst2man.found()
+  if get_option('compose')
+    rst_files = [
+      [ 'appstreamcli', ],
+      [ 'appstreamcli-compose', ],
+    ]
+  else
+    rst_files = [
+      [ 'appstreamcli', ],
+    ]
+  endif
+
+  rst2man_flags = [
+    '--syntax-highlight=none',
+  ]
+
+  foreach rst: rst_files
+    man_name = rst[0]
+    man_section = rst.get(1, '1')
+
+    custom_target('man-@0@'.format(man_name),
+      input: 'man/@0@.rst'.format(man_name),
+      output: '@0@.@1@'.format(man_name, man_section),
+      command: [
+        rst2man,
+        rst2man_flags,
+        '@INPUT@',
+      ],
+      capture: true,
+      install: true,
+      install_dir: get_option('mandir') / 'man@0@'.format(man_section),
     )
+  endforeach
 endif
 
 if get_option('docs') or get_option('apidocs')

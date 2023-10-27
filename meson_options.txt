@@ -59,6 +59,11 @@ option('install-docs',
        value : true,
        description : 'Install documentation for API and specification'
 )
+option('man',
+       type: 'boolean',
+       value: true,
+       description: 'Whether to generate man pages (requires rst2man)',
+)
 
 #
 # For development

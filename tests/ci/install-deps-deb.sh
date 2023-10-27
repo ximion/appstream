@@ -41,7 +41,8 @@ eatmydata apt-get install -yq --no-install-recommends \
     gobject-introspection \
     libstemmer-dev \
     gperf \
-    valac
+    valac \
+    python3-docutils
 
 # install build dependencies for libappstream-compose
 . /etc/os-release
