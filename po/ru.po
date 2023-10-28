@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-10-08 08:18+0200\n"
-"PO-Revision-Date: 2023-10-27 09:26+0000\n"
+"PO-Revision-Date: 2023-10-28 04:07+0000\n"
 "Last-Translator: Сергей <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
@@ -1527,27 +1527,27 @@ msgstr "GNU Affero General Public License v3.0 или выше"
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:250
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License только v1.1 - с неизменяемыми разделами"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:252
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 или выше - с неизменяемыми разделами"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:254
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License только v1.1 - без неизменяемых разделов"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:256
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 или выше - без неизменяемых разделов"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:258
 msgid "GNU Free Documentation License v1.1 only"
-msgstr ""
+msgstr "GNU Free Documentation License только v1.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:260
@@ -1557,27 +1557,27 @@ msgstr "GNU Free Documentation License v1.1 или выше"
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:263
 msgid "GNU Free Documentation License v1.2 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License только v1.2 - с неизменяемыми разделами"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:265
 msgid "GNU Free Documentation License v1.2 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 или выше - с неизменяемыми разделами"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:267
 msgid "GNU Free Documentation License v1.2 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License только v1.2 - без неизменяемых разделов"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:269
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 или выше - без неизменяемых разделов"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:271
 msgid "GNU Free Documentation License v1.2 only"
-msgstr ""
+msgstr "GNU Free Documentation License только v1.2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:273
@@ -1587,22 +1587,22 @@ msgstr "GNU Free Documentation License v1.2 или выше"
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:276
 msgid "GNU Free Documentation License v1.3 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License только v1.3 - с неизменяемыми разделами"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:278
 msgid "GNU Free Documentation License v1.3 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 или выше - с неизменяемыми разделами"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:280
 msgid "GNU Free Documentation License v1.3 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License только v1.3 - без неизменяемых разделов"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:282
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 или выше - без неизменяемых разделов"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:284
@@ -2416,7 +2416,7 @@ msgstr "URL этого типа уже определён."
 msgid ""
 "The toplevel `developer_name` element is deprecated. Please use the `name` "
 "element in a `developer` block instead."
-msgstr ""
+msgstr "Элемент верхнего уровня«developer_name» устарел. Вместо этого используйте элемент «name» в блоке «developer»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:578
@@ -2428,7 +2428,7 @@ msgstr "Дочерний элемент `name` блока `developer` не до�
 msgid ""
 "The `developer` element is missing an `id` property, containing a unique "
 "string ID for the developer. Consider adding a unique ID."
-msgstr ""
+msgstr "В элементе «developer» отсутствует свойство «id», содержащее уникальный строковый ID разработчика. Рассмотрите возможность добавления ID."
 
 #: src/as-validator-issue-tag.h:590
 msgid ""
@@ -2471,13 +2471,7 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"Найден недействительный тег. Нестандартные теги должны иметь префикс `x-`. "
-"AppStream также предоставляет тег <custom/> для добавления произвольных "
-"пользовательских данных в метафайлы. Этот тег читается библиотеками "
-"AppStream и может быть полезен вместо определения новых пользовательских "
-"тегов топ-уровня или `x-`префиксации, если вы просто хотите добавить "
-"пользовательские данные в метафайл."
+msgstr "Найден недействительный тег. Нестандартные теги должны иметь префикс `x-`. AppStream также предоставляет тег <custom/> для добавления произвольных пользовательских данных в метафайлы. Этот тег читается библиотеками AppStream и может быть полезен вместо определения новых пользовательских тегов верхнего уровня или `x-`префиксации, если вы просто хотите добавить пользовательские данные в метафайл."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:627
@@ -2979,10 +2973,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
-"Топлеуровневый тег `mimetypes` устарел. Вместо этого используйте теги "
-"`mediatype` в блоке `provides`, чтобы указать, что ваше программное "
-"обеспечение предоставляет обработчик медиа для заданных типов."
+msgstr "Тег верхнего уровня «mimetypes» устарел. Вместо этого используйте теги «mediatype» в блоке «provides», чтобы указать, что ваше программное обеспечение предоставляет обработчик медиа для заданных типов."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1001
@@ -3501,9 +3492,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
 #: tools/appstreamcli.c:596
-#, fuzzy
 msgid "Print more detailed output on why incompatibilities exist."
-msgstr "Напечатать подробный вывод о найденных компонентах."
+msgstr "Напечатать подробный вывод о том, почему существуют несовместимости."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:633
@@ -3756,13 +3746,10 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
 #: tools/appstreamcli.c:1466
-#, fuzzy
 msgid ""
 "Check compatibility of a component (via its ID or MetaInfo file) with common "
 "system and chassis types."
-msgstr ""
-"Проверьте, выполняются ли требования к компоненту (по его ID или файлу "
-"MetaInfo) в этой системе."
+msgstr "Проверьте совместимость компонента (по его ID или файлу MetaInfo) с распространенными типами систем и шасси."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1475
