@@ -222,11 +222,29 @@ as_deps = [
 
 as_libs = [as_core_lib]
 
+if is_windows and cc.get_argument_syntax() == 'msvc'
+  gen_def = find_program('gen-def.py')
+  as_def = custom_target(
+    'Generate Windows .def file',
+	input: as_core_lib,
+	output: 'appstream.def',
+    command: [
+        gen_def,
+        '-n', 'as',
+        '--def', '@OUTPUT@',
+        '@INPUT@',
+    ]
+  )
+else
+  as_def = []
+endif
+
 appstream_lib = library ('appstream',
     link_whole: as_libs,
     soversion: as_api_level,
     version: as_version,
     dependencies: as_deps,
+    vs_module_defs: as_def,
     install: true
 )
 
