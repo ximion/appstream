@@ -74,7 +74,7 @@ find ./release-tar-tmp -name '*~' -type f -delete
 find ./release-tar-tmp -name '*.bak' -type f -delete
 find ./release-tar-tmp -name '*.o' -type f -delete
 rm -r $R_ROOT/.github
-rm -f $R_ROOT/.cirrus-ci.yml
+rm -f $R_ROOT/.cirrus.yml
 rm $R_ROOT/release.sh
 
 # create release tarball
