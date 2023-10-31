@@ -4,6 +4,8 @@ task:
     matrix:
       - image_family: freebsd-13-2-snap
   env:
+    CC: /usr/bin/cc
+    CXX: /usr/bin/c++
     # /usr/ports/Mk/Uses/localbase.mk localbase:ldflags
     LOCALBASE: /usr/local
     CFLAGS: -isystem $LOCALBASE/include
@@ -13,6 +15,8 @@ task:
   deps_script:
     - sed -i.bak 's/quarterly/latest/' /etc/pkg/FreeBSD.conf
     - env ASSUME_ALWAYS_YES=yes pkg update -f
-    - env ASSUME_ALWAYS_YES=yes pkg install -y snowballstemmer gperf itstool gtk-doc qt6-tools
+    - env ASSUME_ALWAYS_YES=yes pkg install -y gettext-tools glib gobject-introspection gperf gtk-doc
+                                               itstool libxmlb libyaml meson pkgconf py39-gi-docgen
+                                               qt6-tools snowballstemmer vala
   build_script:
     - tests/ci/run-build.sh
