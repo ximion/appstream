@@ -15,7 +15,8 @@ task:
   deps_script:
     - sed -i.bak 's/quarterly/latest/' /etc/pkg/FreeBSD.conf
     - env ASSUME_ALWAYS_YES=yes pkg update -f
-    - env ASSUME_ALWAYS_YES=yes pkg install -y glib gperf gtk-doc itstool libxmlb libyaml meson
-                                               pkgconf qt6-tools snowballstemmer
+    - env ASSUME_ALWAYS_YES=yes pkg install -y gettext-tools glib gobject-introspection gperf gtk-doc
+                                               itstool libxmlb libyaml meson pkgconf py39-gi-docgen
+                                               qt6-tools snowballstemmer vala
   build_script:
     - tests/ci/run-build.sh
