@@ -129,7 +129,11 @@ add_project_arguments(
 )
 
 # Vendor extensions in system headers
-add_project_arguments('-D_POSIX_C_SOURCE=200809L', language: 'c')
+if host_machine.system() != 'netbsd'
+    # on NetBSD, defining POSIX_C_SOURCE *removes* non-POSIX symbols from namespace,
+    # while on all other systems it adds them. Hence we only define this when not on NetBSD.
+    add_project_arguments('-D_POSIX_C_SOURCE=201710L', language: 'c')
+endif
 
 if cc.get_id() == 'clang'
     # Clang doesn't understand autofree helpers on GMutexLocker and thinks
