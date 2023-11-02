@@ -96,7 +96,7 @@
 		<important>
 		<title>Escaping characters in the component ID</title>
 		<para>
-			To ensures the greatest possible compatibility of an AppStream ID, it is recommended to replace any hyphens in the ID with underscores, and prefix every leading digit of
+			To ensures the greatest possible compatibility of an AppStream ID, it is recommended to replace any hyphens in the DNS domain name part of the ID with underscores, and prefix every leading digit of
 			a section with an underscore as well. Since the underscore is not a valid character in domain names, the uniqueness of the ID is kept.
 			For example, the ID <code>org.7-zip.7zip</code> could become <code>org._7_zip._7zip</code>.
 		</para>
