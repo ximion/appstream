@@ -140,10 +140,10 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The component ID starts with punctuation. This is not allowed.")
 	},
 
-	{ "cid-contains-hyphen",
-	  AS_ISSUE_SEVERITY_INFO,
-	  N_("The component ID contains a hyphen/minus. Using a hyphen is strongly discouraged, to improve interoperability with other tools such as D-Bus. "
-	     "A good option is to replace any hyphens with underscores (`_`).")
+	{ "cid-rdns-contains-hyphen",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The component ID contains a hyphen/minus in its domain part. Using a hyphen is strongly discouraged to improve interoperability with other tools such as D-Bus. "
+	     "A good option is to replace any hyphens with underscores (`_`). Hypens are only allowed in the last segment of a component ID.")
 	},
 
 	{ "cid-has-number-prefix",

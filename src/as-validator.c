@@ -1128,6 +1128,7 @@ static void
 as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsComponent *cpt)
 {
 	g_auto(GStrv) cid_parts = NULL;
+	guint cid_parts_n;
 	gboolean hyphen_found = FALSE;
 	g_autofree gchar *cid = as_xml_get_node_value_raw (idnode);
 	g_return_if_fail (cid != NULL);
@@ -1142,7 +1143,8 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 		return;
 
 	cid_parts = g_strsplit (cid, ".", -1);
-	if (g_strv_length (cid_parts) < 3) {
+	cid_parts_n = g_strv_length (cid_parts);
+	if (cid_parts_n < 3) {
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
 			/* since the ID and .desktop-file-id are tied together, we can't make this an error for desktop apps */
 			as_validator_add_issue (validator,
@@ -1183,12 +1185,6 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 						c);
 		}
 
-		if (!hyphen_found && cid[i] == '-') {
-			hyphen_found = TRUE;
-			/* a hyphen in the ID is bad news, because we can't use the ID on DBus and it also clashes with other naming schemes */
-			as_validator_add_issue (validator, idnode, "cid-contains-hyphen", cid);
-		}
-
 		if (g_ascii_isalpha (cid[i]) && g_ascii_isupper (cid[i]))
 			as_validator_add_issue (validator,
 						idnode,
@@ -1198,6 +1194,8 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 
 	/* check if any segment starts with a number */
 	for (guint i = 0; cid_parts[i] != NULL; i++) {
+		gboolean is_last_segment = cid_parts[i + 1] == NULL;
+
 		if (g_ascii_isdigit (cid_parts[i][0])) {
 			as_validator_add_issue (validator,
 						idnode,
@@ -1206,7 +1204,22 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 						cid,
 						cid_parts[i],
 						cid_parts[i]);
-			break;
+		}
+
+		/* check for hyphens in anything but the last segment of an ID, and only if we have
+		 * a rDNS-style ID */
+		if (is_last_segment || hyphen_found || cid_parts_n < 3)
+			continue;
+		for (guint j = 0; cid_parts[i][j] != '\0'; j++) {
+			if (cid_parts[i][j] == '-') {
+				hyphen_found = TRUE;
+				/* a hyphen in the ID is bad news, because we can't use the ID on DBus and it also clashes with other naming schemes */
+				as_validator_add_issue (validator,
+							idnode,
+							"cid-rdns-contains-hyphen",
+							cid);
+				break;
+			}
 		}
 	}
 

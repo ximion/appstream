@@ -166,20 +166,24 @@ test_validator_manyerrors_desktopapp (void)
 		    -1,
 		    AS_ISSUE_SEVERITY_ERROR, },
 		{
-		    "cid-contains-hyphen", "7-bad-ID",
-		    7, AS_ISSUE_SEVERITY_INFO,
+		    "cid-domain-not-lowercase", "invalid.7-bad-ID.app",
+		    7, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
-		    "cid-contains-uppercase-letter", "7-bad-ID",
+		    "cid-rdns-contains-hyphen", "invalid.7-bad-ID.app",
+		    7, AS_ISSUE_SEVERITY_WARNING,
+		 },
+		{
+		    "cid-contains-uppercase-letter", "invalid.7-bad-ID.app",
 		    7, AS_ISSUE_SEVERITY_PEDANTIC,
 		 },
 		{
-		    "cid-has-number-prefix", "7-bad-ID: 7-bad-ID → _7-bad-ID",
+		    "cid-has-number-prefix", "invalid.7-bad-ID.app: 7-bad-ID → _7-bad-ID",
 		    7, AS_ISSUE_SEVERITY_INFO,
 		 },
 		{
-		    "cid-desktopapp-is-not-rdns", "7-bad-ID",
-		    7, AS_ISSUE_SEVERITY_WARNING,
+		    "cid-maybe-not-rdns", "invalid.7-bad-ID.app",
+		    7, AS_ISSUE_SEVERITY_INFO,
 		 },
 		{
 		    "metadata-license-invalid", "GPL-2.0+",
