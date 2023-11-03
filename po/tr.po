@@ -29,16 +29,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-10-08 08:18+0200\n"
-"PO-Revision-Date: 2023-10-03 11:11+0000\n"
+"PO-Revision-Date: 2023-11-03 12:33+0000\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -148,7 +147,7 @@ msgstr "Öne Çıkan"
 #: src/as-category.c:127
 msgctxt "Category of Games"
 msgid "Action"
-msgstr "Eylem"
+msgstr "Aksiyon"
 
 #: src/as-category.c:130
 msgctxt "Category of Games"
@@ -178,12 +177,12 @@ msgstr "Kart"
 #: src/as-category.c:145
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr "Emülatörler"
+msgstr "Öykünücüler"
 
 #: src/as-category.c:148
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr "Çocuklar"
+msgstr "Çocuk"
 
 #: src/as-category.c:151
 msgctxt "Category of Games"
@@ -248,7 +247,7 @@ msgstr "Takvim"
 #: src/as-category.c:199
 msgctxt "Category of Office"
 msgid "Database"
-msgstr "Veri tabanı"
+msgstr "Veri Tabanı"
 
 #: src/as-category.c:202
 msgctxt "Category of Office"
@@ -268,7 +267,7 @@ msgstr "Yazı Tipleri"
 #: src/as-category.c:218
 msgctxt "Category of Addons"
 msgid "Codecs"
-msgstr "Kodekler"
+msgstr "Kod Çözücüler"
 
 #: src/as-category.c:221
 msgctxt "Category of Addons"
@@ -819,12 +818,12 @@ msgstr "Diğer kullanıcılarla fiziksel konum paylaşımı"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1069
 msgid "No references to homosexuality"
-msgstr "Eş cinselliğe atıf yok"
+msgstr "Eşcinselliğe atıf yok"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1071
 msgid "Indirect references to homosexuality"
-msgstr "Eş cinselliğe doğrudan olmayan atıflar"
+msgstr "Eşcinselliğe doğrudan olmayan atıflar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1073
@@ -996,7 +995,7 @@ msgstr "Deepin"
 #. TRANSLATORS: Name of the "ede" visual environment style.
 #: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:81
 msgid "EDE"
-msgstr ""
+msgstr "EDE"
 
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #. TRANSLATORS: Name of the "endless" visual environment style.
@@ -1072,7 +1071,7 @@ msgstr "GNOME (Koyu)"
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:93
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:95
@@ -1087,7 +1086,7 @@ msgstr "Rox"
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:107
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -1438,9 +1437,8 @@ msgid "This system has sufficient memory for this software."
 msgstr "Bu sistem bu yazılım için yeterli belleğe sahip."
 
 #: src/as-relation.c:1834
-#, fuzzy
 msgid "This software needs a display for graphical content."
-msgstr "Bu yazılım, giriş için bir %s tavsiye etmektedir."
+msgstr "Bu yazılım grafik içerikleri için ekrana ihtiyaç duyar."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1499,172 +1497,172 @@ msgstr ""
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "Affero Genel Kamu Lisansı v1.0 sadece"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:40
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Affero Genel Kamu Lisansı v1.0 ya da sonrası"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:43
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "GNU Affero Genel Kamu Linasnı v3.0 sadece"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:45
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Affero Genel Kamu Lisansı v3.0 ya da sonrası"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:250
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.1 sadece - değişmez"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:252
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.1 ya da sonrası - değişmezler"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:254
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.1 sadece - değişmezler yok"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:256
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.1 ya da sonrası - değişmezler yok"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:258
 msgid "GNU Free Documentation License v1.1 only"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.1 sadece"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:260
 msgid "GNU Free Documentation License v1.1 or later"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.1 ya da sonrası"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:263
 msgid "GNU Free Documentation License v1.2 only - invariants"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.2 sadece - değişmezler"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:265
 msgid "GNU Free Documentation License v1.2 or later - invariants"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.2 ya da sonrası - değişmezler"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:267
 msgid "GNU Free Documentation License v1.2 only - no invariants"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.2 sadece - değişmezler yok"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:269
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.2 ya da sonrası - değişmezler yok"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:271
 msgid "GNU Free Documentation License v1.2 only"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.2 sadece"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:273
 msgid "GNU Free Documentation License v1.2 or later"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.2 ya da sonrası"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:276
 msgid "GNU Free Documentation License v1.3 only - invariants"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.3 sadece - değişmezler"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:278
 msgid "GNU Free Documentation License v1.3 or later - invariants"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.3 ya da sonrası - değişmezler"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:280
 msgid "GNU Free Documentation License v1.3 only - no invariants"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.3 sadece - değişmezler yok"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:282
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.3 ya da sonrası - değişmezler yok"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:284
 msgid "GNU Free Documentation License v1.3 only"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.3 sadece"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:286
 msgid "GNU Free Documentation License v1.3 or later"
-msgstr ""
+msgstr "GNU Özgür Belgelendirme Lisansı v1.3 ya da sonrası"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:290 src/as-spdx-data.h:294
 msgid "GNU General Public License v1.0 only"
-msgstr ""
+msgstr "GNU Genel Kamu Lisansı v1.0 sadece"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:292 src/as-spdx-data.h:296
 msgid "GNU General Public License v1.0 or later"
-msgstr ""
+msgstr "GNU Genel Kamu Lisansı v1.0 ya da sonrası"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:298 src/as-spdx-data.h:302
 msgid "GNU General Public License v2.0 only"
-msgstr ""
+msgstr "GNU Genel Kamu Lisansı v2.0 sadece"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:300 src/as-spdx-data.h:304
 msgid "GNU General Public License v2.0 or later"
-msgstr ""
+msgstr "GNU Genel Kamu Lisansı v2.0 ya da sonrası"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:311 src/as-spdx-data.h:315
 msgid "GNU General Public License v3.0 only"
-msgstr ""
+msgstr "GNU Genel Kamu Lisansı v3.0 sadece"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:313 src/as-spdx-data.h:317
 msgid "GNU General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Genel Kamu Lisansı v3.0 ya da sonrası"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:367 src/as-spdx-data.h:371
 msgid "GNU Library General Public License v2 only"
-msgstr ""
+msgstr "GNU Kütüphane Genel Kamu Lisansı v2 sadece"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:369 src/as-spdx-data.h:373
 msgid "GNU Library General Public License v2 or later"
-msgstr ""
+msgstr "GNU Kütüphane Genel Kamu Lisansı v2 ya da sonrası"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:375 src/as-spdx-data.h:379
 msgid "GNU Lesser General Public License v2.1 only"
-msgstr ""
+msgstr "GNU Kısıtlı Genel Kamu Lisansı v2.1 sadece"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:377 src/as-spdx-data.h:381
 msgid "GNU Lesser General Public License v2.1 or later"
-msgstr ""
+msgstr "GNU Kısıtlı Genel Kamu Lisansı v2.1 ya da sonrası"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:383 src/as-spdx-data.h:387
 msgid "GNU Lesser General Public License v3.0 only"
-msgstr ""
+msgstr "GNU Kısıtlı Genel Kamu Lisansı v3.0 sadece"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:385 src/as-spdx-data.h:389
 msgid "GNU Lesser General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Kısıtlı Genel Kamu Lisansı v3.0 ya da sonrası"
 
 #: src/as-validator-issue-tag.h:42
 msgid "This tag requires a type property."
@@ -1938,7 +1936,7 @@ msgstr ""
 msgid ""
 "The `environment` property is set to an unrecognized graphical environment/"
 "style combination."
-msgstr ""
+msgstr "`environment` özelliği, tanınmayan bir grafik ortam/biçem birleşimine ayarlanmış."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:217
@@ -1952,9 +1950,8 @@ msgstr "`height` özelliği pozitif bir tam sayı olmalıdır."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:229
-#, fuzzy
 msgid "The `scale` property must be a positive integer."
-msgstr "`height` özelliği pozitif bir tam sayı olmalıdır."
+msgstr "`scale` özelliği pozitif bir tam sayı olmalıdır."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
@@ -2004,10 +2001,9 @@ msgstr ""
 "(HTTPS) bir URL kullanmayı düşünün."
 
 #: src/as-validator-issue-tag.h:279
-#, fuzzy
 msgid ""
 "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr "Bir ekran görüntüsü `source` türünde en az bir resme sahip olmalıdır."
+msgstr "Ekran görüntüsünün ölçeklendirme katsayısı 1 olan en az bir görseli olmalıdır."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:285
@@ -2410,20 +2406,19 @@ msgstr "Bu türde bir URL zaten tanımlandı."
 msgid ""
 "The toplevel `developer_name` element is deprecated. Please use the `name` "
 "element in a `developer` block instead."
-msgstr ""
+msgstr "Üst düzey `developer_name` öğesi kullanımdan kaldırıldı. Lütfen bunun yerine `developer` bloğunda `name` öğesinini kullanın."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:578
-#, fuzzy
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr "<developer_name/> bir hiperlink içeremez."
+msgstr "`developer` bloğunun `name` alt ögesi bağlantı içermemelidir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:584
 msgid ""
 "The `developer` element is missing an `id` property, containing a unique "
 "string ID for the developer. Consider adding a unique ID."
-msgstr ""
+msgstr "`developer` öğesinde, geliştirici için benzersiz bir dize kimliği içeren `id` özelliği eksik. Benzersiz bir kimlik eklemeyi düşünün."
 
 #: src/as-validator-issue-tag.h:590
 msgid ""
@@ -3072,31 +3067,30 @@ msgstr "Bu renk, geçerli bir HTML renk kodu değil."
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
-msgstr ""
+msgstr "Bu referans öğesi için verilen DOI (Dijital Nesne Tanımlayıcı) geçerli değil."
 
 #: src/as-validator-issue-tag.h:1093
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
-msgstr ""
+msgstr "Bu alıntı referans öğesinin değeri, CFF (Alıntı Dosyası Biçimi) dosyasının URL’si olmalıdır."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1099
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
-msgstr ""
+msgstr "Bu kayıt defteri referans öğesinde, ilgili olduğu kayıt defterinin adını belirten `name` özelliği eksik."
 
 #: src/as-validator-issue-tag.h:1104
 msgid ""
 "The registry for this reference item is unknown. This may be due to a typing "
 "error, or the registry needs to be registered with AppStream."
-msgstr ""
+msgstr "Bu referans öğesinin kaydı bilinmiyor. Bunun nedeni bir yazım hatası olabilir ya da kayıt defterinin AppStream’e kaydedilmesi gerekiyor olabilir."
 
 #: src/as-validator-issue-tag.h:1110
-#, fuzzy
 msgid "The reference item is missing a value."
-msgstr "Yayın zaman damgası geçersiz."
+msgstr "Referans öğesinde bir değer eksik."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1116
@@ -3486,9 +3480,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
 #: tools/appstreamcli.c:596
-#, fuzzy
 msgid "Print more detailed output on why incompatibilities exist."
-msgstr "Bulunan bileşenler hakkında ayrıntılı çıktı yazdır."
+msgstr "Uyumsuzlukların neden olduğuna dair daha ayrıntılı çıktı yazdır."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:633
@@ -3733,13 +3726,10 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
 #: tools/appstreamcli.c:1466
-#, fuzzy
 msgid ""
 "Check compatibility of a component (via its ID or MetaInfo file) with common "
 "system and chassis types."
-msgstr ""
-"Bir bileşenin gereksinimlerinin (kimliği veya MetaInfo dosyası aracılığıyla) "
-"bu sistemde karşılanıp karşılanmadığını denetle."
+msgstr "Bir bileşenin (Kimlik ya da MetaInfo dosyası aracılığıyla) ortak sistem ve kasa türleriyle uyumluluğunu denetle."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1475
@@ -4010,46 +4000,45 @@ msgstr "Bu yazılım için desteklenen ögeler ayarlanmadı."
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:794
 msgid "Desktop"
-msgstr ""
+msgstr "Masaüstü"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:797
 msgid "Laptop"
-msgstr ""
+msgstr "Dizüstü"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:800
 msgid "Server"
-msgstr ""
+msgstr "Sunucu"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:803
 msgid "Tablet"
-msgstr ""
+msgstr "Tablet"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:806
 msgid "Handset"
-msgstr ""
+msgstr "Handset"
 
 #: tools/ascli-actions-mdata.c:808
-#, fuzzy
 msgid "Unknown"
-msgstr "bilinmiyor"
+msgstr "Bilinmiyor"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
 #: tools/ascli-actions-mdata.c:875
 #, c-format
 msgid "Chassis compatibility check for: %s"
-msgstr ""
+msgstr "Kasa uyumluluk denetimi: %s"
 
 #: tools/ascli-actions-mdata.c:894
 msgid "Incompatible"
-msgstr ""
+msgstr "Uyumsuz"
 
 #: tools/ascli-actions-mdata.c:929
 msgid "Compatible"
-msgstr ""
+msgstr "Uyumlu"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:47
