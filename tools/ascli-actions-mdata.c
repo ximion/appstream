@@ -89,7 +89,7 @@ ascli_refresh_cache (const gchar *cachepath,
 	}
 
 	if (!ret) {
-		if (g_error_matches (error, AS_POOL_ERROR, AS_POOL_ERROR_TARGET_NOT_WRITABLE))
+		if (g_error_matches (error, AS_POOL_ERROR, AS_POOL_ERROR_CACHE_WRITE_FAILED))
 			/* TRANSLATORS: In ascli: The requested action needs higher permissions. */
 			g_printerr (
 			    "✘ %s\n  %s\n",

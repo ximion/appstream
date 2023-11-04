@@ -95,19 +95,19 @@ typedef enum {
 /**
  * AsPoolError:
  * @AS_POOL_ERROR_FAILED:		Generic failure
- * @AS_POOL_ERROR_TARGET_NOT_WRITABLE:	We do not have write-access to the cache target location.
  * @AS_POOL_ERROR_INCOMPLETE:		The pool was loaded, but we had to ignore some metadata.
  * @AS_POOL_ERROR_COLLISION:		An AppStream-ID collision occured (a component with that ID already existed in the pool)
- * @AS_POOL_ERROR_OLD_CACHE:		Some issue with an old on-disk cache occured.
+ * @AS_POOL_ERROR_CACHE_WRITE_FAILED:	Unable to write to *any* cache file (not even tmpfs writes worked)
+ * @AS_POOL_ERROR_CACHE_DAMAGED:	The disk cache was broken and we could not automatically recover.
  *
  * A metadata pool error.
  **/
 typedef enum {
 	AS_POOL_ERROR_FAILED,
-	AS_POOL_ERROR_TARGET_NOT_WRITABLE,
 	AS_POOL_ERROR_INCOMPLETE,
 	AS_POOL_ERROR_COLLISION,
-	AS_POOL_ERROR_OLD_CACHE,
+	AS_POOL_ERROR_CACHE_WRITE_FAILED,
+	AS_POOL_ERROR_CACHE_DAMAGED,
 	/*< private >*/
 	AS_POOL_ERROR_LAST
 } AsPoolError;
