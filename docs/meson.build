@@ -8,7 +8,18 @@
 as_doc_target_dir = join_paths(get_option('datadir'), 'doc', 'appstream')
 
 # make manual pages
+manpages_xsl = 'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl'
 xsltproc = find_program('xsltproc')
+if xsltproc.found()
+    if run_command([
+        xsltproc, '--nonet', manpages_xsl,
+    ], check : false).returncode() == 0
+        message('Docbook XSL stylesheets found for man pages')
+    else
+        error('Docbook XSL stylesheets not found for man pages')
+    endif
+endif
+
 custom_target('man-appstreamcli',
     input: 'xml/man/appstreamcli.1.xml',
     output: 'appstreamcli.1',
@@ -21,7 +32,7 @@ custom_target('man-appstreamcli',
         '--stringparam', 'funcsynopsis.style', 'ansi',
         '--stringparam', 'man.th.extra1.suppress', '1',
         '-o', '@OUTPUT@',
-        'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl',
+        manpages_xsl,
         '@INPUT@'
     ]
 )
@@ -39,7 +50,7 @@ if get_option('compose')
             '--stringparam', 'funcsynopsis.style', 'ansi',
             '--stringparam', 'man.th.extra1.suppress', '1',
             '-o', '@OUTPUT@',
-            'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl',
+            manpages_xsl,
             '@INPUT@'
         ]
     )
