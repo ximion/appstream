@@ -10,14 +10,9 @@ as_doc_target_dir = join_paths(get_option('datadir'), 'doc', 'appstream')
 # make manual pages
 manpages_xsl = 'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl'
 xsltproc = find_program('xsltproc')
-if xsltproc.found()
-    if run_command([
-        xsltproc, '--nonet', manpages_xsl,
-    ], check : false).returncode() == 0
-        message('Docbook XSL stylesheets found for man pages')
-    else
-        error('Docbook XSL stylesheets not found for man pages')
-    endif
+if run_command([xsltproc, '--nonet', manpages_xsl],
+                check: false).returncode() != 0
+    error('Unable to find Docbook XSL stylesheets for man pages')
 endif
 
 custom_target('man-appstreamcli',
