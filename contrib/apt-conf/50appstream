@@ -6,7 +6,7 @@ Acquire::IndexTargets {
     deb::DEP-11  {
         MetaKey "$(COMPONENT)/dep11/Components-$(NATIVE_ARCHITECTURE).yml";
         ShortDescription "Components-$(NATIVE_ARCHITECTURE)";
-        Description "$(RELEASE)/$(COMPONENT) $(NATIVE_ARCHITECTURE) DEP-11 Metadata";
+        Description "$(RELEASE)/$(COMPONENT) $(NATIVE_ARCHITECTURE) Components";
 
         KeepCompressed "true";
         KeepCompressedAs "gz";
@@ -17,7 +17,7 @@ Acquire::IndexTargets {
     deb::DEP-11-icons-small  {
         MetaKey "$(COMPONENT)/dep11/icons-48x48.tar";
         ShortDescription "icons-48x48";
-        Description "$(RELEASE)/$(COMPONENT) DEP-11 48x48 Icons";
+        Description "$(RELEASE)/$(COMPONENT) Icons (48x48)";
 
         KeepCompressed "true";
         KeepCompressedAs "gz";
@@ -29,7 +29,7 @@ Acquire::IndexTargets {
     deb::DEP-11-icons  {
         MetaKey "$(COMPONENT)/dep11/icons-64x64.tar";
         ShortDescription "icons-64x64";
-        Description "$(RELEASE)/$(COMPONENT) DEP-11 64x64 Icons";
+        Description "$(RELEASE)/$(COMPONENT) Icons (64x64)";
 
         KeepCompressed "true";
         KeepCompressedAs "gz";
@@ -41,7 +41,7 @@ Acquire::IndexTargets {
     deb::DEP-11-icons-hidpi  {
         MetaKey "$(COMPONENT)/dep11/icons-64x64@2.tar";
         ShortDescription "icons-64x64@2";
-        Description "$(RELEASE)/$(COMPONENT) DEP-11 64x64@2 Icons";
+        Description "$(RELEASE)/$(COMPONENT) Icons (64x64@2)";
 
         KeepCompressed "true";
         KeepCompressedAs "gz";
@@ -52,7 +52,7 @@ Acquire::IndexTargets {
     deb::DEP-11-icons-large  {
         MetaKey "$(COMPONENT)/dep11/icons-128x128.tar";
         ShortDescription "icons-128x128";
-        Description "$(RELEASE)/$(COMPONENT) DEP-11 128x128 Icons";
+        Description "$(RELEASE)/$(COMPONENT) Icons (128x128)";
 
         KeepCompressed "true";
         KeepCompressedAs "gz";
@@ -63,7 +63,7 @@ Acquire::IndexTargets {
     deb::DEP-11-icons-large-hidpi {
         MetaKey "$(COMPONENT)/dep11/icons-128x128@2.tar";
         ShortDescription "icons-128x128@2";
-        Description "$(RELEASE)/$(COMPONENT) DEP-11 128x128@2 Icons";
+        Description "$(RELEASE)/$(COMPONENT) Icons (128x128@2)";
 
         KeepCompressed "true";
         KeepCompressedAs "gz";
