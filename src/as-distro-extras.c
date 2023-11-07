@@ -165,6 +165,48 @@ as_get_yml_data_origin (const gchar *fname)
 }
 
 /**
+ * as_apt_list_get_icon_tarball_path:
+ */
+static gchar *
+as_apt_list_get_icon_tarball_path (const gchar *lists_dir,
+				   const gchar *basename,
+				   const gchar *size_str)
+{
+	g_autofree gchar *escaped_size = NULL;
+	g_autofree gchar *icons_tarball = NULL;
+
+	escaped_size = g_uri_escape_string (size_str, NULL, FALSE);
+	icons_tarball = g_strdup_printf ("%s/%sicons-%s.tar.zst",
+					 lists_dir,
+					 basename,
+					 escaped_size);
+	if (g_file_test (icons_tarball, G_FILE_TEST_EXISTS))
+		return g_steal_pointer (&icons_tarball);
+
+	g_free (icons_tarball);
+	icons_tarball = g_strdup_printf ("%s/%sicons-%s.tar.gz", lists_dir, basename, escaped_size);
+	if (g_file_test (icons_tarball, G_FILE_TEST_EXISTS))
+		return g_steal_pointer (&icons_tarball);
+
+	/* we couldn't find the file */
+	return NULL;
+}
+
+/**
+ * as_apt_list_icon_tarball_exists:
+ */
+static gboolean
+as_apt_list_icon_tarball_exists (const gchar *lists_dir,
+				 const gchar *basename,
+				 const gchar *size_str)
+{
+	g_autofree gchar *path = NULL;
+	path = as_apt_list_get_icon_tarball_path (lists_dir, basename, size_str);
+
+	return path != NULL;
+}
+
+/**
  * as_extract_icon_cache_tarball:
  */
 static void
@@ -173,17 +215,12 @@ as_extract_icon_cache_tarball (const gchar *asicons_target,
 			       const gchar *apt_basename,
 			       const gchar *icons_size)
 {
-	g_autofree gchar *escaped_size = NULL;
 	g_autofree gchar *icons_tarball = NULL;
 	g_autofree gchar *target_dir = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 
-	escaped_size = g_uri_escape_string (icons_size, NULL, FALSE);
-	icons_tarball = g_strdup_printf ("%s/%sicons-%s.tar.gz",
-					 apt_lists_dir,
-					 apt_basename,
-					 escaped_size);
-	if (!g_file_test (icons_tarball, G_FILE_TEST_EXISTS)) {
+	icons_tarball = as_apt_list_get_icon_tarball_path (apt_lists_dir, apt_basename, icons_size);
+	if (icons_tarball == NULL) {
 		/* no icons found, stop here */
 		return;
 	}
@@ -313,23 +350,16 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 
 		if (!icons_available) {
 			g_autofree gchar *apt_basename = NULL;
-			guint j;
 
 			/* get base prefix for this file in the APT download cache */
 			apt_basename = g_strndup (fbasename,
 						  strlen (fbasename) -
 						      strlen (g_strrstr (fbasename, "_") + 1));
 
-			for (j = 0; default_icon_sizes[j] != NULL; j++) {
-				g_autofree gchar *icons_tarball = NULL;
-
-				/* NOTE: We would normally need to escape the "@" of HiDPI icons here, but since having only HiDPI icons is
-				 * a case that never happens and the 64x64px icons are required to be present anyway, we ignore that fact. */
-				icons_tarball = g_strdup_printf ("%s/%sicons-%s.tar.gz",
-								 apt_lists_dir,
-								 apt_basename,
-								 default_icon_sizes[j]);
-				if (g_file_test (icons_tarball, G_FILE_TEST_EXISTS)) {
+			for (guint j = 0; default_icon_sizes[j] != NULL; j++) {
+				if (as_apt_list_icon_tarball_exists (apt_lists_dir,
+								     apt_basename,
+								     default_icon_sizes[j])) {
 					icons_available = TRUE;
 					break;
 				}

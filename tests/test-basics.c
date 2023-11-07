@@ -1209,6 +1209,34 @@ test_utils_platform_triplet (void)
 	g_assert_false (as_utils_is_platform_triplet ("x86-lunix-gna"));
 }
 
+/**
+ * test_utils_untar:
+ */
+static void
+test_utils_untar (void)
+{
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *tar_fname = NULL;
+	g_autofree gchar *test_fname = NULL;
+	gboolean ret;
+	const gchar *tar_target;
+	gchar tmpdir_tmpl[] = "/tmp/tartarus.XXXXXX";
+
+	tar_fname = g_build_filename (datadir, "dummy.tar.zst", NULL);
+	tar_target = g_mkdtemp (tmpdir_tmpl);
+	g_assert_nonnull (tar_target);
+
+	ret = as_utils_extract_tarball (tar_fname, tar_target, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	test_fname = g_build_filename (tar_target, "org.example.pomidaq.metainfo.xml", NULL);
+	g_assert_true (g_file_test (test_fname, G_FILE_TEST_EXISTS));
+
+	/* cleanup */
+	as_utils_delete_dir_recursive (tar_target);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -1256,6 +1284,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/DataID/hash-str", test_utils_data_id_hash_str);
 
 	g_test_add_func ("/AppStream/PlatformTriplets", test_utils_platform_triplet);
+	g_test_add_func ("/AppStream/TarExtract", test_utils_untar);
 
 	ret = g_test_run ();
 	g_free (datadir);

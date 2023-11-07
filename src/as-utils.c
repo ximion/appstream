@@ -2246,7 +2246,7 @@ as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError
 	g_autofree gchar *wdir = NULL;
 	gboolean ret;
 	gint exit_status;
-	const gchar *argv[] = { "/bin/tar", "-xzf", filename, "-C", target_dir, NULL };
+	const gchar *argv[] = { "/bin/tar", "-xf", filename, "-C", target_dir, NULL };
 
 	g_return_val_if_fail (filename != NULL, FALSE);
 

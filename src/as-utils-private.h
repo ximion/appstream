@@ -117,6 +117,7 @@ void	 as_ref_string_assign_safe (GRefString **rstr_ptr, const gchar *str);
 
 void	 as_ref_string_assign_transfer (GRefString **rstr_ptr, GRefString *new_rstr);
 
+AS_INTERNAL_VISIBLE
 gboolean as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError **error);
 
 gboolean as_utils_is_platform_triplet_arch (const gchar *arch);

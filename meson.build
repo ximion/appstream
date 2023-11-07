@@ -159,6 +159,7 @@ yaml_dep = dependency('yaml-0.1')
 xmlb_dep = dependency('xmlb', version: '>= 0.3.14',
                       fallback: ['libxmlb', 'libxmlb_dep'],
                       default_options: ['gtkdoc=false', 'introspection=false'])
+zstd_dep = dependency('libzstd')
 libsystemd_dep = dependency('libsystemd', required: get_option('systemd'))
 
 if get_option ('gir')
