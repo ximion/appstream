@@ -2244,6 +2244,7 @@ as_ref_string_assign_transfer (GRefString **rstr_ptr, GRefString *new_rstr)
 gboolean
 as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError **error)
 {
+	g_autoptr(GFile) tarz_file = NULL;
 	g_autoptr(GInputStream) tarz_stream = NULL;
 	g_autoptr(GInputStream) tar_stream = NULL;
 	g_autoptr(GConverter) conv = NULL;
@@ -2254,8 +2255,9 @@ as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError
 	GError *tmp_error = NULL;
 
 	/* read the (possibly compressed) tarball */
-	tarz_stream = G_INPUT_STREAM (g_file_read (g_file_new_for_path (filename), NULL, error));
-	if (!tarz_stream)
+	tarz_file = g_file_new_for_path (filename);
+	tarz_stream = G_INPUT_STREAM (g_file_read (tarz_file, NULL, error));
+	if (tarz_stream == NULL)
 		return FALSE;
 
 	if (g_str_has_suffix (filename, "tar.zst")) {
