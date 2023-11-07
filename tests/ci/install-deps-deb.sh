@@ -31,7 +31,6 @@ eatmydata apt-get install -yq --no-install-recommends \
     libxmlb-dev \
     liblzma-dev \
     libzstd-dev \
-    zstd \
     libcurl4-gnutls-dev \
     libsystemd-dev \
     gi-docgen \

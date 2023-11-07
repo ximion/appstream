@@ -25,7 +25,6 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     diffutils \
     gcovr \
     xz-devel \
-    zstd \
     libuuid-devel \
     'pkgconfig(gio-2.0)' \
     'pkgconfig(gobject-introspection-1.0)' \

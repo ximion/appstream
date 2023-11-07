@@ -47,6 +47,7 @@
 #include "as-metadata.h"
 #include "as-component-private.h"
 #include "as-desktop-env-data.h"
+#include "as-zstd-decompressor.h"
 
 /**
  * SECTION:as-utils
@@ -2243,48 +2244,115 @@ as_ref_string_assign_transfer (GRefString **rstr_ptr, GRefString *new_rstr)
 gboolean
 as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError **error)
 {
-	g_autofree gchar *wdir = NULL;
-	gboolean ret;
-	gint exit_status;
-	const gchar *argv[] = { "/bin/tar", "-xf", filename, "-C", target_dir, NULL };
+	g_autoptr(GInputStream) tarz_stream = NULL;
+	g_autoptr(GInputStream) tar_stream = NULL;
+	g_autoptr(GConverter) conv = NULL;
+	g_autoptr(GSubprocess) tar_process = NULL;
+	GOutputStream *tar_stdin = NULL;
+	gssize bytes_read;
+	gchar buffer[4096];
+	GError *tmp_error = NULL;
 
-	g_return_val_if_fail (filename != NULL, FALSE);
+	/* read the (possibly compressed) tarball */
+	tarz_stream = G_INPUT_STREAM (g_file_read (g_file_new_for_path (filename), NULL, error));
+	if (!tarz_stream)
+		return FALSE;
 
-	if (!as_utils_is_writable (target_dir)) {
-		g_set_error_literal (error,
+	if (g_str_has_suffix (filename, "tar.zst")) {
+		/* decompress the Zstd stream */
+		conv = G_CONVERTER (as_zstd_decompressor_new ());
+		tar_stream = g_converter_input_stream_new (tarz_stream, conv);
+
+	} else if (g_str_has_suffix (filename, "tar.gz")) {
+		/* decompress the GZip stream */
+		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
+		tar_stream = g_converter_input_stream_new (tarz_stream, conv);
+	} else {
+		tar_stream = g_object_ref (tarz_stream);
+	}
+
+	/* set up the tar subprocess that will extract the tar data */
+	tar_process = g_subprocess_new (G_SUBPROCESS_FLAGS_STDIN_PIPE |
+					    G_SUBPROCESS_FLAGS_STDERR_PIPE,
+					&tmp_error,
+					"tar",
+					"-x",
+					"-C",
+					target_dir,
+					NULL);
+	if (tar_process == NULL) {
+		g_propagate_prefixed_error (error, tmp_error, "Unable to launch tar process: ");
+		return FALSE;
+	}
+
+	tar_stdin = g_subprocess_get_stdin_pipe (tar_process);
+
+	/* read decompressed data from the tarball and write it to the tar subprocess */
+	while ((bytes_read = g_input_stream_read (tar_stream,
+						  buffer,
+						  sizeof (buffer),
+						  NULL,
+						  &tmp_error)) > 0) {
+		if (!g_output_stream_write_all (tar_stdin, buffer, bytes_read, NULL, NULL, error)) {
+			g_prefix_error (error, "Error writing to tar subprocess: ");
+			return FALSE;
+		}
+	}
+
+	/* close the input stream to tar */
+	if (!g_output_stream_close (tar_stdin, NULL, error)) {
+		g_prefix_error (error, "Error closing tar subprocess stdin: ");
+		return FALSE;
+	}
+
+	if (tmp_error != NULL) {
+		g_propagate_prefixed_error (error, tmp_error, "Error reading tarball: ");
+		return FALSE;
+	}
+
+	/* wait for the subprocess to finish and check for errors */
+	if (!g_subprocess_wait_check (tar_process, NULL, &tmp_error)) {
+		g_autoptr(GBytes) stderr_bytes = NULL;
+		g_autoptr(GString) error_msg = NULL;
+		const gchar *stderr_data;
+		gsize stderr_size;
+		GInputStream *tar_stderr = NULL;
+
+		tar_stderr = g_subprocess_get_stderr_pipe (tar_process);
+		stderr_bytes = g_input_stream_read_bytes (tar_stderr, 4096, NULL, NULL);
+		stderr_data = g_bytes_get_data (stderr_bytes, &stderr_size);
+
+		error_msg = g_string_new ("Tarball extraction failed");
+		if (stderr_size > 0) {
+			g_string_append_printf (error_msg,
+						" with the following error: %s",
+						stderr_data);
+		} else {
+			g_string_append (error_msg, ".");
+		}
+
+		if (tmp_error != NULL) {
+			g_set_error (error,
 				     AS_UTILS_ERROR,
 				     AS_UTILS_ERROR_FAILED,
-				     "Can not extract tarball: target directory is not writable.");
+				     "%s Code: %i. %s",
+				     error_msg->str,
+				     g_subprocess_get_exit_status (tar_process),
+				     tmp_error->message);
+			g_error_free (tmp_error);
+		} else {
+			g_set_error (error,
+				     AS_UTILS_ERROR,
+				     AS_UTILS_ERROR_FAILED,
+				     "%s Code: %i",
+				     error_msg->str,
+				     g_subprocess_get_exit_status (tar_process));
+		}
+
 		return FALSE;
 	}
 
-	wdir = g_path_get_dirname (filename);
-	if (g_strcmp0 (wdir, ".") == 0)
-		g_clear_pointer (&wdir, g_free);
-
-	ret = g_spawn_sync (wdir,
-			    (gchar **) argv,
-			    NULL, /* envp */
-			    G_SPAWN_CLOEXEC_PIPES,
-			    NULL, /* child_setup */
-			    NULL, /* child_setup udata */
-			    NULL, /* stdout */
-			    NULL, /* stderr */
-			    &exit_status,
-			    error);
-	if (!ret) {
-		g_prefix_error (error, "Unable to run tar: ");
-		return FALSE;
-	}
-	if (exit_status == 0)
-		return TRUE;
-
-	g_set_error (error,
-		     AS_UTILS_ERROR,
-		     AS_UTILS_ERROR_FAILED,
-		     "Tarball extraction failed with 'tar' exit-code %i.",
-		     exit_status);
-	return FALSE;
+	return TRUE;
 }
 
 /**
