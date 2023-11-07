@@ -113,9 +113,9 @@ gchar *as_strstripnl (gchar *string);
 AS_INTERNAL_VISIBLE
 void as_ref_string_release (GRefString *rstr);
 AS_INTERNAL_VISIBLE
-void	 as_ref_string_assign_safe (GRefString **rstr_ptr, const gchar *str);
+void as_ref_string_assign_safe (GRefString **rstr_ptr, const gchar *str);
 
-void	 as_ref_string_assign_transfer (GRefString **rstr_ptr, GRefString *new_rstr);
+void as_ref_string_assign_transfer (GRefString **rstr_ptr, GRefString *new_rstr);
 
 AS_INTERNAL_VISIBLE
 gboolean as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError **error);
