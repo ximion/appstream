@@ -277,7 +277,7 @@ test_cache (void)
 	cpts_post = as_cache_get_components_all (cache, &error);
 	g_assert_no_error (error);
 	g_assert_cmpint (as_component_box_len (cpts_post), ==, 20);
-	as_assert_component_lists_equal (as_component_box_array (cpts_post), cpts_pre);
+	as_assert_component_lists_equal (as_component_box_as_array (cpts_post), cpts_pre);
 
 	/* generate XML of the components retrieved from cache */
 	as_metadata_clear_components (mdata);
@@ -447,7 +447,7 @@ test_pool_read (void)
 
 	/* check categorization */
 	categories = as_get_default_categories (TRUE);
-	as_utils_sort_components_into_categories (as_component_box_array (all_cpts),
+	as_utils_sort_components_into_categories (as_component_box_as_array (all_cpts),
 						  categories,
 						  FALSE);
 	for (guint i = 0; i < categories->len; i++) {

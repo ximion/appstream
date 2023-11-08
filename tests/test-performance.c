@@ -142,7 +142,7 @@ test_pool_cache_perf (void)
 		as_cache_set_locale (tmp_cache, "C");
 
 		as_cache_set_contents_for_path (tmp_cache,
-						as_component_box_array (prep_cpts),
+						as_component_box_as_array (prep_cpts),
 						"dummy",
 						NULL,
 						&error);
@@ -156,7 +156,7 @@ test_pool_cache_perf (void)
 	cache = as_cache_new ();
 	as_cache_set_locale (cache, "C");
 	as_cache_set_contents_for_path (cache,
-					as_component_box_array (prep_cpts),
+					as_component_box_as_array (prep_cpts),
 					"dummy",
 					NULL,
 					&error);

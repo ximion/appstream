@@ -207,7 +207,7 @@ as_component_box_new_simple (void)
  */
 
 /**
- * as_component_box_array:
+ * as_component_box_as_array:
  * @cbox: An instance of #AsComponentBox.
  *
  * Get the contents of this component box as #GPtrArray.
@@ -215,7 +215,7 @@ as_component_box_new_simple (void)
  * Returns: (transfer none) (element-type AsComponent): an array of #AsComponent instances.
  */
 GPtrArray *
-as_component_box_array (AsComponentBox *cbox)
+as_component_box_as_array (AsComponentBox *cbox)
 {
 	return cbox->cpts;
 }

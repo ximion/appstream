@@ -1407,19 +1407,20 @@ as_metadata_components_to_catalog (AsMetadata *metad, AsFormatKind format, GErro
 			return as_metadata_xml_serialize_to_catalog_with_rootnode (
 			    metad,
 			    context,
-			    as_component_box_array (priv->cbox));
+			    as_component_box_as_array (priv->cbox));
 		else
 			return as_metadata_xml_serialize_to_catalog_without_rootnode (
 			    metad,
 			    context,
-			    as_component_box_array (priv->cbox));
+			    as_component_box_as_array (priv->cbox));
 	} else if (format == AS_FORMAT_KIND_YAML) {
-		return as_metadata_yaml_serialize_to_catalog (metad,
-							      context,
-							      as_component_box_array (priv->cbox),
-							      priv->write_header,
-							      TRUE, /* add timestamp */
-							      error);
+		return as_metadata_yaml_serialize_to_catalog (
+		    metad,
+		    context,
+		    as_component_box_as_array (priv->cbox),
+		    priv->write_header,
+		    TRUE, /* add timestamp */
+		    error);
 	} else {
 		g_set_error (error,
 			     AS_METADATA_ERROR,

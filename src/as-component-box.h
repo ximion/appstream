@@ -75,7 +75,7 @@ AsComponentBox *as_component_box_new_simple (void);
 	AS_COMPONENT (g_ptr_array_index ((cbox)->cpts, (index_)))
 #define as_component_box_len(cbox) (cbox)->cpts->len
 
-GPtrArray	   *as_component_box_array (AsComponentBox *cbox);
+GPtrArray	   *as_component_box_as_array (AsComponentBox *cbox);
 AsComponentBoxFlags as_component_box_get_flags (AsComponentBox *cbox);
 
 guint		    as_component_box_get_size (AsComponentBox *cbox);

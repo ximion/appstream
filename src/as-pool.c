@@ -981,7 +981,9 @@ gboolean
 as_pool_add_components (AsPool *pool, AsComponentBox *cbox, GError **error)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	return as_cache_add_masking_components (priv->cache, as_component_box_array (cbox), error);
+	return as_cache_add_masking_components (priv->cache,
+						as_component_box_as_array (cbox),
+						error);
 }
 
 /**
