@@ -772,7 +772,8 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "metainfo-ancient",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher), which uses a <component> root tag instead of <application> among other things."),
+	  N_("The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher). "
+	  "Modern files use the `component` root tag and include many other changes, so check changes carefully when modernizing the data."),
 	},
 
 	{ "root-tag-unknown",
