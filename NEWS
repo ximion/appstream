@@ -1,3 +1,22 @@
+Version 0.16.4
+~~~~~~~~~~~~~~
+Released: 2023-11-10
+
+Features:
+ * Allow hyphens in the last segment of a component-ID
+ * Implement the developer element for unique developer IDs
+ * Add meson overrides
+
+Bugfixes:
+ * meson: Prevent building attempts with MSVC
+ * meson: Avoid potentially bad sed backup filename when fixing .pc file
+
+Miscellaneous:
+ * Make sed invocation more portable
+
+Contributors:
+ Gleb Popov, Matthias Klumpp, Tristan Partin
+
 Version 0.16.3
 ~~~~~~~~~~~~~~
 Released: 2023-08-22
