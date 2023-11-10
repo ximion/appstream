@@ -2,15 +2,15 @@ AppStream Release Notes
 
 1. Set variables
 
-OLD_VERSION="0.16.3"
-NEW_VERSION="0.16.4"
+OLD_VERSION="0.16.4"
+NEW_VERSION="0.16.5"
 
 2. Write NEWS entries for AppStream in the same format as usual.
 
 git shortlog v$OLD_VERSION.. | grep -i -v trivial | grep -v Merge > NEWS.new
 
 --------------------------------------------------------------------------------
-Version 0.16.4
+Version 0.16.5
 ~~~~~~~~~~~~~~
 Released: 2023-xx-xx
 
@@ -53,7 +53,7 @@ git push
 10. Send an email to appstream@lists.freedesktop.org
 
 =================================================
-AppStream 0.16.4 released!
+AppStream 0.16.5 released!
 
 Tarballs available here: https://www.freedesktop.org/software/appstream/releases/
 
