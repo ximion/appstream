@@ -13,7 +13,7 @@
 # Gao Tiesuan <yepifoas@666email.com>, 2020.
 # taiyuan <1006333969@qq.com>, 2020, 2021.
 # Zhang Shengyu <boy_emot@hotmail.com>, 2020.
-# #-#-#-#-#  zh_CN.po (appstream-glib)  #-#-#-#-#
+# #-#-#-#-#  zh_CN.po (appstream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -48,9 +48,9 @@
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: appstream-glib\n"
+"Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-11-10 22:00+0100\n"
+"POT-Creation-Date: 2023-11-11 18:22+0100\n"
 "PO-Revision-Date: 2023-08-17 13:45+0000\n"
 "Last-Translator: Gary Wang <wzc782970009@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -1134,51 +1134,47 @@ msgstr "来自本地已安装软件的数据"
 msgid "Software catalog data"
 msgstr "软件分类数据"
 
-#: src/as-provided.c:142
+#: src/as-provided.c:138
 msgid "Libraries"
 msgstr "库"
 
-#: src/as-provided.c:144
+#: src/as-provided.c:140
 msgid "Binaries"
 msgstr "二进制文件"
 
-#: src/as-provided.c:146
+#: src/as-provided.c:142
 msgid "Media types"
 msgstr "媒体类型"
 
-#: src/as-provided.c:148
+#: src/as-provided.c:144
 msgid "Fonts"
 msgstr "字体"
 
-#: src/as-provided.c:150
+#: src/as-provided.c:146
 msgid "Modaliases"
 msgstr "模块别名"
 
-#: src/as-provided.c:152
-msgid "Python (Version 2)"
-msgstr "Python 2"
-
-#: src/as-provided.c:154
+#: src/as-provided.c:148
 msgid "Python 3"
 msgstr "Python 3"
 
-#: src/as-provided.c:156
+#: src/as-provided.c:150
 msgid "D-Bus System Services"
 msgstr "D-Bus 系统服务"
 
-#: src/as-provided.c:158
+#: src/as-provided.c:152
 msgid "D-Bus Session Services"
 msgstr "D-Bus 会话服务"
 
-#: src/as-provided.c:160
+#: src/as-provided.c:154
 msgid "Runtime Firmware"
 msgstr "运行时固件"
 
-#: src/as-provided.c:162
+#: src/as-provided.c:156
 msgid "Flashed Firmware"
 msgstr "已刷入的固件"
 
-#: src/as-provided.c:164
+#: src/as-provided.c:158
 msgid "Component"
 msgstr "组件"
 
@@ -2990,8 +2986,8 @@ msgstr "将标签“%s”的严重性降级至允许通过验证是不允许的�
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:855 src/as-validator.c:1416 src/as-validator.c:1557
-#: src/as-validator.c:1768 src/as-validator.c:2356 src/as-validator.c:2378
-#: src/as-validator.c:2500 src/as-validator.c:2769
+#: src/as-validator.c:1768 src/as-validator.c:2355 src/as-validator.c:2377
+#: src/as-validator.c:2499 src/as-validator.c:2769
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "发现的：%s - 允许的：%s"
@@ -4239,6 +4235,9 @@ msgstr "提供的项目"
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr "请输入从 1 到 %i 的数字： "
+
+#~ msgid "Python (Version 2)"
+#~ msgstr "Python 2"
 
 #, fuzzy
 #~ msgid "Abstyles License"

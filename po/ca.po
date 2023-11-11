@@ -7,7 +7,7 @@
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2016
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015-2016
 # Xomin <theiacobumrex@gmail.com>, 2020, 2021.
-# #-#-#-#-#  ca.po (appstream-glib)  #-#-#-#-#
+# #-#-#-#-#  ca.po (appstream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -24,9 +24,9 @@
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: appstream-glib\n"
+"Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-11-10 22:00+0100\n"
+"POT-Creation-Date: 2023-11-11 18:22+0100\n"
 "PO-Revision-Date: 2022-09-16 05:17+0000\n"
 "Last-Translator: Maite Guix <maite.guix@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
@@ -1124,51 +1124,47 @@ msgstr "Dades del programari instal·lat localment"
 msgid "Software catalog data"
 msgstr "Dades del catàleg de programari"
 
-#: src/as-provided.c:142
+#: src/as-provided.c:138
 msgid "Libraries"
 msgstr "Biblioteques"
 
-#: src/as-provided.c:144
+#: src/as-provided.c:140
 msgid "Binaries"
 msgstr "Binaris"
 
-#: src/as-provided.c:146
+#: src/as-provided.c:142
 msgid "Media types"
 msgstr "Tipus de multimèdia"
 
-#: src/as-provided.c:148
+#: src/as-provided.c:144
 msgid "Fonts"
 msgstr "Tipus de lletra"
 
-#: src/as-provided.c:150
+#: src/as-provided.c:146
 msgid "Modaliases"
 msgstr "Modàlies"
 
-#: src/as-provided.c:152
-msgid "Python (Version 2)"
-msgstr "Python (versió 2)"
-
-#: src/as-provided.c:154
+#: src/as-provided.c:148
 msgid "Python 3"
 msgstr "Python 3"
 
-#: src/as-provided.c:156
+#: src/as-provided.c:150
 msgid "D-Bus System Services"
 msgstr "Serveis del sistema D-Bus"
 
-#: src/as-provided.c:158
+#: src/as-provided.c:152
 msgid "D-Bus Session Services"
 msgstr "Serveis de sessió de D-Bus"
 
-#: src/as-provided.c:160
+#: src/as-provided.c:154
 msgid "Runtime Firmware"
 msgstr "Microprogramari en temps d'execució"
 
-#: src/as-provided.c:162
+#: src/as-provided.c:156
 msgid "Flashed Firmware"
 msgstr "Microprogramari flaix"
 
-#: src/as-provided.c:164
+#: src/as-provided.c:158
 msgid "Component"
 msgstr "Component"
 
@@ -3198,8 +3194,8 @@ msgstr ""
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:855 src/as-validator.c:1416 src/as-validator.c:1557
-#: src/as-validator.c:1768 src/as-validator.c:2356 src/as-validator.c:2378
-#: src/as-validator.c:2500 src/as-validator.c:2769
+#: src/as-validator.c:1768 src/as-validator.c:2355 src/as-validator.c:2377
+#: src/as-validator.c:2499 src/as-validator.c:2769
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Trobat: %s - Permès: %s"
@@ -4547,6 +4543,9 @@ msgstr "Elements proporcionats"
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr "Si us plau, introduïu un número de l'1 al %i: "
+
+#~ msgid "Python (Version 2)"
+#~ msgstr "Python (versió 2)"
 
 #, fuzzy
 #~ msgid "Abstyles License"

@@ -8,7 +8,7 @@
 # Matúš Baňas <banas.mato@gmail.com>, 2019, 2021.
 # Peter Marenčík <megawega@protonmail.com>, 2020, 2021.
 # Katarína Kasalová <katka.kasalova@gmail.com>, 2020, 2021.
-# #-#-#-#-#  sk.po (appstream-glib)  #-#-#-#-#
+# #-#-#-#-#  sk.po (appstream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -21,9 +21,9 @@
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: appstream-glib\n"
+"Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-11-10 22:00+0100\n"
+"POT-Creation-Date: 2023-11-11 18:22+0100\n"
 "PO-Revision-Date: 2023-08-10 07:46+0000\n"
 "Last-Translator: Jan Hovancik <conta.srdr@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/"
@@ -747,7 +747,7 @@ msgstr "Žiadne možnosti textovej komunikácie s ostatnými používateľmi"
 msgid "User-to-user interactions without chat functionality"
 msgstr ""
 "#-#-#-#-#  sk.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  sk.po (appstream-glib)  #-#-#-#-#\n"
+"#-#-#-#-#  sk.po (appstream)  #-#-#-#-#\n"
 "Herné interakcie medzi hráčmi bez možnosti rozhovoru"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
@@ -799,7 +799,7 @@ msgstr "Kontroluje sa najnovšia verzia aplikácie"
 msgid "Sharing diagnostic data that does not let others identify the user"
 msgstr ""
 "#-#-#-#-#  sk.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  sk.po (appstream-glib)  #-#-#-#-#\n"
+"#-#-#-#-#  sk.po (appstream)  #-#-#-#-#\n"
 "Zdieľanie informácií, ktoré umožňujú ostatným identifikovať používateľa"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
@@ -884,7 +884,7 @@ msgstr "Grafické vyobrazenia aktu cudzoložstva"
 msgid "No sexualized characters"
 msgstr ""
 "#-#-#-#-#  sk.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  sk.po (appstream-glib)  #-#-#-#-#\n"
+"#-#-#-#-#  sk.po (appstream)  #-#-#-#-#\n"
 "Žiadne sexuálne násilie"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
@@ -898,7 +898,7 @@ msgstr ""
 msgid "Overtly sexualized human characters"
 msgstr ""
 "#-#-#-#-#  sk.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  sk.po (appstream-glib)  #-#-#-#-#\n"
+"#-#-#-#-#  sk.po (appstream)  #-#-#-#-#\n"
 "Žiadne sexuálne násilie"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
@@ -917,7 +917,7 @@ msgstr "Vyobrazenia alebo odkazy na historické znesvätenie"
 msgid "Depictions of modern-day human desecration"
 msgstr ""
 "#-#-#-#-#  sk.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  sk.po (appstream-glib)  #-#-#-#-#\n"
+"#-#-#-#-#  sk.po (appstream)  #-#-#-#-#\n"
 "Vyobrazenia alebo odkazy na historické znesvätenie"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
@@ -926,7 +926,7 @@ msgstr ""
 msgid "Graphic depictions of modern-day desecration"
 msgstr ""
 "#-#-#-#-#  sk.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  sk.po (appstream-glib)  #-#-#-#-#\n"
+"#-#-#-#-#  sk.po (appstream)  #-#-#-#-#\n"
 "Grafické vyobrazenia znesvätenia ľudských tiel"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
@@ -965,7 +965,7 @@ msgstr "Vyobrazenia alebo odkazy na historické otroctvo"
 msgid "Depictions of modern-day slavery"
 msgstr ""
 "#-#-#-#-#  sk.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  sk.po (appstream-glib)  #-#-#-#-#\n"
+"#-#-#-#-#  sk.po (appstream)  #-#-#-#-#\n"
 "Vyobrazenia alebo odkazy na historické otroctvo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
@@ -974,7 +974,7 @@ msgstr ""
 msgid "Graphic depictions of modern-day slavery"
 msgstr ""
 "#-#-#-#-#  sk.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  sk.po (appstream-glib)  #-#-#-#-#\n"
+"#-#-#-#-#  sk.po (appstream)  #-#-#-#-#\n"
 "Grafické vyobrazenia aktu cudzoložstva"
 
 #. TRANSLATORS: We got a 429 error while trying to download data
@@ -1147,51 +1147,47 @@ msgstr ""
 msgid "Software catalog data"
 msgstr ""
 
-#: src/as-provided.c:142
+#: src/as-provided.c:138
 msgid "Libraries"
 msgstr "Knižnice"
 
-#: src/as-provided.c:144
+#: src/as-provided.c:140
 msgid "Binaries"
 msgstr "Spustiteľné súbory"
 
-#: src/as-provided.c:146
+#: src/as-provided.c:142
 msgid "Media types"
 msgstr "Typy médií"
 
-#: src/as-provided.c:148
+#: src/as-provided.c:144
 msgid "Fonts"
 msgstr "Písma"
 
-#: src/as-provided.c:150
+#: src/as-provided.c:146
 msgid "Modaliases"
 msgstr "Alternatívne názvy modulov"
 
-#: src/as-provided.c:152
-msgid "Python (Version 2)"
-msgstr "Python (verzia 2)"
-
-#: src/as-provided.c:154
+#: src/as-provided.c:148
 msgid "Python 3"
 msgstr "Python 3"
 
-#: src/as-provided.c:156
+#: src/as-provided.c:150
 msgid "D-Bus System Services"
 msgstr "Služby relácie systému DBus"
 
-#: src/as-provided.c:158
+#: src/as-provided.c:152
 msgid "D-Bus Session Services"
 msgstr "Služby relácie DBus"
 
-#: src/as-provided.c:160
+#: src/as-provided.c:154
 msgid "Runtime Firmware"
 msgstr "Dočasne nahrávaný firmware"
 
-#: src/as-provided.c:162
+#: src/as-provided.c:156
 msgid "Flashed Firmware"
 msgstr "Nainštalovaný firmvér"
 
-#: src/as-provided.c:164
+#: src/as-provided.c:158
 msgid "Component"
 msgstr "Súčasť"
 
@@ -2901,8 +2897,8 @@ msgstr ""
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:855 src/as-validator.c:1416 src/as-validator.c:1557
-#: src/as-validator.c:1768 src/as-validator.c:2356 src/as-validator.c:2378
-#: src/as-validator.c:2500 src/as-validator.c:2769
+#: src/as-validator.c:1768 src/as-validator.c:2355 src/as-validator.c:2377
+#: src/as-validator.c:2499 src/as-validator.c:2769
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
@@ -4179,6 +4175,9 @@ msgstr "Poskytované položky"
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr ""
+
+#~ msgid "Python (Version 2)"
+#~ msgstr "Python (verzia 2)"
 
 #, fuzzy
 #~ msgid "Abstyles License"

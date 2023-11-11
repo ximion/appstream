@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-11-10 22:00+0100\n"
+"POT-Creation-Date: 2023-11-11 18:22+0100\n"
 "PO-Revision-Date: 2021-12-22 15:45+0000\n"
 "Last-Translator: Peter Nikolaus Georgiana <tudigeorge99@gmail.com>\n"
 "Language-Team: Romany <https://hosted.weblate.org/projects/appstream/"
@@ -1080,51 +1080,47 @@ msgstr ""
 msgid "Software catalog data"
 msgstr ""
 
-#: src/as-provided.c:142
+#: src/as-provided.c:138
 msgid "Libraries"
 msgstr ""
 
-#: src/as-provided.c:144
+#: src/as-provided.c:140
 msgid "Binaries"
 msgstr ""
 
-#: src/as-provided.c:146
+#: src/as-provided.c:142
 msgid "Media types"
 msgstr ""
 
-#: src/as-provided.c:148
+#: src/as-provided.c:144
 msgid "Fonts"
 msgstr ""
 
-#: src/as-provided.c:150
+#: src/as-provided.c:146
 msgid "Modaliases"
 msgstr ""
 
-#: src/as-provided.c:152
-msgid "Python (Version 2)"
-msgstr ""
-
-#: src/as-provided.c:154
+#: src/as-provided.c:148
 msgid "Python 3"
 msgstr ""
 
-#: src/as-provided.c:156
+#: src/as-provided.c:150
 msgid "D-Bus System Services"
 msgstr ""
 
-#: src/as-provided.c:158
+#: src/as-provided.c:152
 msgid "D-Bus Session Services"
 msgstr ""
 
-#: src/as-provided.c:160
+#: src/as-provided.c:154
 msgid "Runtime Firmware"
 msgstr ""
 
-#: src/as-provided.c:162
+#: src/as-provided.c:156
 msgid "Flashed Firmware"
 msgstr ""
 
-#: src/as-provided.c:164
+#: src/as-provided.c:158
 msgid "Component"
 msgstr ""
 
@@ -2802,8 +2798,8 @@ msgstr ""
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:855 src/as-validator.c:1416 src/as-validator.c:1557
-#: src/as-validator.c:1768 src/as-validator.c:2356 src/as-validator.c:2378
-#: src/as-validator.c:2500 src/as-validator.c:2769
+#: src/as-validator.c:1768 src/as-validator.c:2355 src/as-validator.c:2377
+#: src/as-validator.c:2499 src/as-validator.c:2769
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""

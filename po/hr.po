@@ -4,16 +4,16 @@
 # This file is distributed under the same license as the appstream package.
 # gogogogi <trebelnik2@gmail.com>, 2020.
 # Milo Ivir <mail@milotype.de>, 2020, 2021, 2022, 2023.
-# #-#-#-#-#  hr.po (appstream-glib)  #-#-#-#-#
-# Croatian translation for appstream-glib.
-# Copyright (C) 2020 appstream-glib's COPYRIGHT HOLDER
-# This file is distributed under the same license as the appstream-glib package.
+# #-#-#-#-#  hr.po (appstream)  #-#-#-#-#
+# Croatian translation for appstream.
+# Copyright (C) 2020 appstream's COPYRIGHT HOLDER
+# This file is distributed under the same license as the appstream package.
 # Milo Ivir <mail@milotype.de>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
-"Project-Id-Version: appstream-glib\n"
+"Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-11-10 22:00+0100\n"
+"POT-Creation-Date: 2023-11-11 18:22+0100\n"
 "PO-Revision-Date: 2023-09-27 02:00+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/appstream/"
@@ -1105,51 +1105,47 @@ msgstr "Podaci od lokalno instaliranog softvera"
 msgid "Software catalog data"
 msgstr "Podaci kataloga softvera"
 
-#: src/as-provided.c:142
+#: src/as-provided.c:138
 msgid "Libraries"
 msgstr "Biblioteke"
 
-#: src/as-provided.c:144
+#: src/as-provided.c:140
 msgid "Binaries"
 msgstr "Binarne datoteke"
 
-#: src/as-provided.c:146
+#: src/as-provided.c:142
 msgid "Media types"
 msgstr "Vrste medija"
 
-#: src/as-provided.c:148
+#: src/as-provided.c:144
 msgid "Fonts"
 msgstr "Fontovi"
 
-#: src/as-provided.c:150
+#: src/as-provided.c:146
 msgid "Modaliases"
 msgstr "Modaliasi"
 
-#: src/as-provided.c:152
-msgid "Python (Version 2)"
-msgstr "Python (verzija 2)"
-
-#: src/as-provided.c:154
+#: src/as-provided.c:148
 msgid "Python 3"
 msgstr "Python 3"
 
-#: src/as-provided.c:156
+#: src/as-provided.c:150
 msgid "D-Bus System Services"
 msgstr "Usluge D-Bus sustava"
 
-#: src/as-provided.c:158
+#: src/as-provided.c:152
 msgid "D-Bus Session Services"
 msgstr "Usluge D-Bus sesija"
 
-#: src/as-provided.c:160
+#: src/as-provided.c:154
 msgid "Runtime Firmware"
 msgstr "Firmver vremena izvođenja"
 
-#: src/as-provided.c:162
+#: src/as-provided.c:156
 msgid "Flashed Firmware"
 msgstr "Prepisani firmware"
 
-#: src/as-provided.c:164
+#: src/as-provided.c:158
 msgid "Component"
 msgstr "Komponenta"
 
@@ -3153,8 +3149,8 @@ msgstr ""
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:855 src/as-validator.c:1416 src/as-validator.c:1557
-#: src/as-validator.c:1768 src/as-validator.c:2356 src/as-validator.c:2378
-#: src/as-validator.c:2500 src/as-validator.c:2769
+#: src/as-validator.c:1768 src/as-validator.c:2355 src/as-validator.c:2377
+#: src/as-validator.c:2499 src/as-validator.c:2769
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Pronađeno: %s – Dozvoljeno: %s"
@@ -4469,6 +4465,9 @@ msgstr "Pružane stavke"
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr "Upiši broj od 1 do %i: "
+
+#~ msgid "Python (Version 2)"
+#~ msgstr "Python (verzija 2)"
 
 #, fuzzy
 #~ msgid "Abstyles License"

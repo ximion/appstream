@@ -7,7 +7,7 @@
 # Josef Andersson <l10nl18nsweja@gmail.com>, 2015, 2017.
 # Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2021, 2022, 2023.
 # Mattias Münster <mattiasmun@gmail.com>, 2019.
-# #-#-#-#-#  sv.po (appstream-glib)  #-#-#-#-#
+# #-#-#-#-#  sv.po (appstream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -24,9 +24,9 @@
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: appstream-glib\n"
+"Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-11-10 22:00+0100\n"
+"POT-Creation-Date: 2023-11-11 18:22+0100\n"
 "PO-Revision-Date: 2023-10-08 15:19+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
@@ -1116,51 +1116,47 @@ msgstr "Data från lokalt installerad programvara"
 msgid "Software catalog data"
 msgstr "Programvarukatalogdata"
 
-#: src/as-provided.c:142
+#: src/as-provided.c:138
 msgid "Libraries"
 msgstr "Bibliotek"
 
-#: src/as-provided.c:144
+#: src/as-provided.c:140
 msgid "Binaries"
 msgstr "Binärer"
 
-#: src/as-provided.c:146
+#: src/as-provided.c:142
 msgid "Media types"
 msgstr "Mediatyper"
 
-#: src/as-provided.c:148
+#: src/as-provided.c:144
 msgid "Fonts"
 msgstr "Typsnitt"
 
-#: src/as-provided.c:150
+#: src/as-provided.c:146
 msgid "Modaliases"
 msgstr "Mod-alias"
 
-#: src/as-provided.c:152
-msgid "Python (Version 2)"
-msgstr "Python (Version 2)"
-
-#: src/as-provided.c:154
+#: src/as-provided.c:148
 msgid "Python 3"
 msgstr "Python 3"
 
-#: src/as-provided.c:156
+#: src/as-provided.c:150
 msgid "D-Bus System Services"
 msgstr "D-Bus-systemtjänster"
 
-#: src/as-provided.c:158
+#: src/as-provided.c:152
 msgid "D-Bus Session Services"
 msgstr "D-Bus-sessionstjänster"
 
-#: src/as-provided.c:160
+#: src/as-provided.c:154
 msgid "Runtime Firmware"
 msgstr "Fast programvara för körtid"
 
-#: src/as-provided.c:162
+#: src/as-provided.c:156
 msgid "Flashed Firmware"
 msgstr "Programmerad fast programvara"
 
-#: src/as-provided.c:164
+#: src/as-provided.c:158
 msgid "Component"
 msgstr "Komponent"
 
@@ -3171,8 +3167,8 @@ msgstr ""
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:855 src/as-validator.c:1416 src/as-validator.c:1557
-#: src/as-validator.c:1768 src/as-validator.c:2356 src/as-validator.c:2378
-#: src/as-validator.c:2500 src/as-validator.c:2769
+#: src/as-validator.c:1768 src/as-validator.c:2355 src/as-validator.c:2377
+#: src/as-validator.c:2499 src/as-validator.c:2769
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Hittad: %s - Tillåten: %s"
@@ -4473,6 +4469,9 @@ msgstr "Tillhandahållna objekt"
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr "Ange ett nummer från 1 till %i: "
+
+#~ msgid "Python (Version 2)"
+#~ msgstr "Python (Version 2)"
 
 #~ msgid "Attribution Assurance License"
 #~ msgstr "Attribution Assurance License"

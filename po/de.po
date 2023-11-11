@@ -21,7 +21,7 @@
 # Allan Nordhøy <epost@anotheragency.no>, 2020, 2021.
 # Mani Dragneel <manidragneel.info@yahoo.com>, 2020, 2021.
 # Antonios Hazim <antonios.hazim@zoho.eu>, 2020, 2021.
-# #-#-#-#-#  de.po (appstream-glib)  #-#-#-#-#
+# #-#-#-#-#  de.po (appstream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -43,9 +43,9 @@
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: appstream-glib\n"
+"Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-11-10 22:00+0100\n"
+"POT-Creation-Date: 2023-11-11 18:22+0100\n"
 "PO-Revision-Date: 2023-11-03 12:33+0000\n"
 "Last-Translator: Sebin Nyshkim <sebin.nyshkim@icloud.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/"
@@ -1144,51 +1144,47 @@ msgstr "Daten von lokal installierter Software"
 msgid "Software catalog data"
 msgstr "Softwarekatalogdaten"
 
-#: src/as-provided.c:142
+#: src/as-provided.c:138
 msgid "Libraries"
 msgstr "Bibliotheken"
 
-#: src/as-provided.c:144
+#: src/as-provided.c:140
 msgid "Binaries"
 msgstr "Binärdateien"
 
-#: src/as-provided.c:146
+#: src/as-provided.c:142
 msgid "Media types"
 msgstr "Medientypen"
 
-#: src/as-provided.c:148
+#: src/as-provided.c:144
 msgid "Fonts"
 msgstr "Schriftarten"
 
-#: src/as-provided.c:150
+#: src/as-provided.c:146
 msgid "Modaliases"
 msgstr "Mod-Aliasnamen"
 
-#: src/as-provided.c:152
-msgid "Python (Version 2)"
-msgstr "Python (Version 2)"
-
-#: src/as-provided.c:154
+#: src/as-provided.c:148
 msgid "Python 3"
 msgstr "Python 3"
 
-#: src/as-provided.c:156
+#: src/as-provided.c:150
 msgid "D-Bus System Services"
 msgstr "DBus-Systemdienste"
 
-#: src/as-provided.c:158
+#: src/as-provided.c:152
 msgid "D-Bus Session Services"
 msgstr "DBus-Sitzungsdienste"
 
-#: src/as-provided.c:160
+#: src/as-provided.c:154
 msgid "Runtime Firmware"
 msgstr "Laufzeit-Firmware"
 
-#: src/as-provided.c:162
+#: src/as-provided.c:156
 msgid "Flashed Firmware"
 msgstr "Aufgespielte Firmware"
 
-#: src/as-provided.c:164
+#: src/as-provided.c:158
 msgid "Component"
 msgstr "Komponente"
 
@@ -3283,8 +3279,8 @@ msgstr ""
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:855 src/as-validator.c:1416 src/as-validator.c:1557
-#: src/as-validator.c:1768 src/as-validator.c:2356 src/as-validator.c:2378
-#: src/as-validator.c:2500 src/as-validator.c:2769
+#: src/as-validator.c:1768 src/as-validator.c:2355 src/as-validator.c:2377
+#: src/as-validator.c:2499 src/as-validator.c:2769
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Gefunden: %s - Zugelassen: %s"
@@ -4630,6 +4626,9 @@ msgstr "Bereitgestellte Elemente"
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr "Bitte geben Sie eine Zahl von 1 bis %i ein: "
+
+#~ msgid "Python (Version 2)"
+#~ msgstr "Python (Version 2)"
 
 #, fuzzy
 #~ msgid "Abstyles License"
