@@ -78,8 +78,8 @@ static void pool_ready_async_cb(AsPool *cpool, GAsyncResult *result, gpointer us
 }
 
 Pool::Pool(QObject *parent)
-    : QObject(parent)
-    , d(new PoolPrivate(this))
+    : QObject(parent),
+      d(new PoolPrivate(this))
 {
     g_signal_connect(d->pool, "changed", G_CALLBACK(pool_changed_cb), this);
 }

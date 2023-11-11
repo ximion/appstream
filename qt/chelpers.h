@@ -20,6 +20,8 @@
 #ifndef APPSTREAMQT_CHELPERS_H
 #define APPSTREAMQT_CHELPERS_H
 
+#pragma GCC visibility push(hidden)
+
 #include <glib.h>
 #include <QStringList>
 
@@ -89,5 +91,7 @@ inline char **stringListToCharArray(const QStringList &list)
 }
 
 }
+
+#pragma GCC visibility pop
 
 #endif // APPSTREAMQT_CHELPERS_H

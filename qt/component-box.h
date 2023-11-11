@@ -44,8 +44,8 @@ public:
     {
     public:
         iterator(const iterator &it)
-            : index(it.index)
-            , data(it.data)
+            : index(it.index),
+              data(it.data)
         {
         }
         bool operator==(iterator other) const
@@ -80,8 +80,8 @@ public:
         friend class ComponentBox;
 
         iterator(uint index, const ComponentBox *cb)
-            : index(index)
-            , data(cb)
+            : index(index),
+              data(cb)
         {
         }
 

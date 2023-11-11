@@ -57,7 +57,6 @@ public:
         KindMimetype,
         KindFont,
         KindModalias,
-        KindPython2Module,
         KindPython3Module,
         KindDBusSystemService,
         KindDBusUserService,
