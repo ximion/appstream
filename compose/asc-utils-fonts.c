@@ -556,12 +556,14 @@ process_font_data_for_component (AscResult *cres,
 void
 asc_process_fonts (AscResult *cres,
 		   AscUnit *unit,
+		   const gchar *prefix,
 		   const gchar *media_export_root,
 		   const gchar *icons_export_dir,
 		   AscIconPolicy *icon_policy,
 		   AscComposeFlags flags)
 {
 	GPtrArray *contents = NULL;
+	g_autofree gchar *fonts_dir = NULL;
 	g_autoptr(GPtrArray) all_cpts = NULL;
 	g_autoptr(GPtrArray) font_cpts = NULL;
 	g_autoptr(GHashTable) all_fonts = NULL;
@@ -580,6 +582,7 @@ asc_process_fonts (AscResult *cres,
 	if (font_cpts->len == 0)
 		return;
 
+	fonts_dir = g_build_filename (prefix, "share", "fonts", NULL);
 	all_fonts = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
 
 	/* create a map of all fonts that this unit contains */
@@ -593,7 +596,7 @@ asc_process_fonts (AscResult *cres,
 		g_autofree gchar *basename = NULL;
 		g_autofree gchar *font_fullname_lower = NULL;
 		const gchar *fname = g_ptr_array_index (contents, i);
-		if (!g_str_has_prefix (fname, "/usr/share/fonts/"))
+		if (!g_str_has_prefix (fname, fonts_dir))
 			continue;
 		if (!g_str_has_suffix (fname, ".ttf") && !g_str_has_suffix (fname, ".otf"))
 			continue;

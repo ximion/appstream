@@ -1715,6 +1715,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	if (has_fonts && as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_PROCESS_FONTS)) {
 		asc_process_fonts (ctask->result,
 				   ctask->unit,
+				   priv->prefix,
 				   priv->media_result_dir,
 				   priv->icons_result_dir,
 				   priv->icon_policy,

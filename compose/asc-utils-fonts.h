@@ -33,6 +33,7 @@ AS_BEGIN_PRIVATE_DECLS
 AS_INTERNAL_VISIBLE
 void asc_process_fonts (AscResult      *cres,
 			AscUnit	       *unit,
+			const gchar    *prefix,
 			const gchar    *media_export_root,
 			const gchar    *icons_export_dir,
 			AscIconPolicy  *icon_policy,

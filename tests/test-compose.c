@@ -901,6 +901,7 @@ test_compose_font (void)
 	icon_policy = asc_icon_policy_new ();
 	asc_process_fonts (cres,
 			   ASC_UNIT (dirunit),
+			   "/usr",
 			   export_tmpdir,
 			   NULL, /* no icon export dir */
 			   icon_policy,
