@@ -69,8 +69,6 @@ as_provided_kind_to_string (AsProvidedKind kind)
 		return "font";
 	if (kind == AS_PROVIDED_KIND_MODALIAS)
 		return "modalias";
-	if (kind == AS_PROVIDED_KIND_PYTHON_2)
-		return "python2";
 	if (kind == AS_PROVIDED_KIND_PYTHON)
 		return "python";
 	if (kind == AS_PROVIDED_KIND_DBUS_SYSTEM)
@@ -107,8 +105,6 @@ as_provided_kind_from_string (const gchar *kind_str)
 		return AS_PROVIDED_KIND_FONT;
 	if (g_strcmp0 (kind_str, "modalias") == 0)
 		return AS_PROVIDED_KIND_MODALIAS;
-	if (g_strcmp0 (kind_str, "python2") == 0)
-		return AS_PROVIDED_KIND_PYTHON_2;
 	if (g_strcmp0 (kind_str, "python") == 0)
 		return AS_PROVIDED_KIND_PYTHON;
 	if (g_strcmp0 (kind_str, "dbus:system") == 0)
@@ -148,8 +144,6 @@ as_provided_kind_to_l10n_string (AsProvidedKind kind)
 		return _("Fonts");
 	if (kind == AS_PROVIDED_KIND_MODALIAS)
 		return _("Modaliases");
-	if (kind == AS_PROVIDED_KIND_PYTHON_2)
-		return _("Python (Version 2)");
 	if (kind == AS_PROVIDED_KIND_PYTHON)
 		return _("Python 3");
 	if (kind == AS_PROVIDED_KIND_DBUS_SYSTEM)

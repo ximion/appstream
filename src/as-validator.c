@@ -2062,7 +2062,6 @@ as_validator_check_provides (AsValidator *validator, xmlNode *node, AsComponent 
 		} else if (g_strcmp0 (node_name, "font") == 0) {
 		} else if (g_strcmp0 (node_name, "modalias") == 0) {
 		} else if (g_strcmp0 (node_name, "firmware") == 0) {
-		} else if (g_strcmp0 (node_name, "python2") == 0) {
 		} else if (g_strcmp0 (node_name, "python3") == 0) {
 		} else if (g_strcmp0 (node_name, "dbus") == 0) {
 		} else if (g_strcmp0 (node_name, "mediatype") == 0) {

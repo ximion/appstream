@@ -4327,8 +4327,6 @@ as_component_load_provides_from_xml (AsComponent *cpt, xmlNode *node)
 				as_component_add_provided_item (cpt,
 								AS_PROVIDED_KIND_FIRMWARE_FLASHED,
 								content);
-		} else if (g_strcmp0 (node_name, "python2") == 0) {
-			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_PYTHON_2, content);
 		} else if (g_strcmp0 (node_name, "python3") == 0) {
 			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_PYTHON, content);
 		} else if (g_strcmp0 (node_name, "dbus") == 0) {
@@ -4609,7 +4607,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			for (i = 0; i < mime_list->len; i++) {
 				as_component_add_provided_item (
 				    cpt,
-				    AS_PROVIDED_KIND_MIMETYPE,
+				    AS_PROVIDED_KIND_MEDIATYPE,
 				    (const gchar *) g_ptr_array_index (mime_list, i));
 			}
 		} else if (tag_id == AS_TAG_PROVIDES) {
@@ -4873,9 +4871,6 @@ as_component_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 			break;
 		case AS_PROVIDED_KIND_MODALIAS:
 			as_xml_add_node_list (node, NULL, "modalias", items);
-			break;
-		case AS_PROVIDED_KIND_PYTHON_2:
-			as_xml_add_node_list (node, NULL, "python2", items);
 			break;
 		case AS_PROVIDED_KIND_PYTHON:
 			as_xml_add_node_list (node, NULL, "python3", items);
@@ -5452,12 +5447,6 @@ as_component_yaml_parse_provides (AsComponent *cpt, GNode *node)
 					    AS_PROVIDED_KIND_FIRMWARE_FLASHED,
 					    fwdata);
 			}
-		} else if (g_strcmp0 (key, "python2") == 0) {
-			for (sn = n->children; sn != NULL; sn = sn->next) {
-				as_component_add_provided_item (cpt,
-								AS_PROVIDED_KIND_PYTHON_2,
-								(gchar *) sn->data);
-			}
 		} else if (g_strcmp0 (key, "python3") == 0) {
 			for (sn = n->children; sn != NULL; sn = sn->next) {
 				as_component_add_provided_item (cpt,
@@ -5938,9 +5927,6 @@ as_component_yaml_emit_provides (AsComponent *cpt, yaml_emitter_t *emitter)
 			break;
 		case AS_PROVIDED_KIND_MEDIATYPE:
 			as_yaml_emit_sequence (emitter, "mediatypes", items);
-			break;
-		case AS_PROVIDED_KIND_PYTHON_2:
-			as_yaml_emit_sequence (emitter, "python2", items);
 			break;
 		case AS_PROVIDED_KIND_PYTHON:
 			as_yaml_emit_sequence (emitter, "python3", items);

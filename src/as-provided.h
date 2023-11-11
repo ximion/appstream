@@ -51,8 +51,7 @@ struct _AsProvidedClass {
  * @AS_PROVIDED_KIND_MEDIATYPE:		Provides a handler for a mimetype
  * @AS_PROVIDED_KIND_FONT:		A font
  * @AS_PROVIDED_KIND_MODALIAS:		A modalias
- * @AS_PROVIDED_KIND_PYTHON_2:		A Python2 module
- * @AS_PROVIDED_KIND_PYTHON:		A Python3 module
+ * @AS_PROVIDED_KIND_PYTHON:		A Python 3 module
  * @AS_PROVIDED_KIND_DBUS_SYSTEM:	A DBus service name on the system bus.
  * @AS_PROVIDED_KIND_DBUS_USER:		A DBus service name on the user/session bus.
  * @AS_PROVIDED_KIND_FIRMWARE_RUNTIME:	Firmware flashed at runtime.
@@ -68,7 +67,6 @@ typedef enum {
 	AS_PROVIDED_KIND_MEDIATYPE,
 	AS_PROVIDED_KIND_FONT,
 	AS_PROVIDED_KIND_MODALIAS,
-	AS_PROVIDED_KIND_PYTHON_2,
 	AS_PROVIDED_KIND_PYTHON,
 	AS_PROVIDED_KIND_DBUS_SYSTEM,
 	AS_PROVIDED_KIND_DBUS_USER,
