@@ -545,28 +545,28 @@ as_validator_add_release_file (AsValidator *validator, GFile *release_file, GErr
 }
 
 /**
- * as_validator_get_check_urls:
+ * as_validator_get_allow_net:
  * @validator: a #AsValidator instance.
  *
- * Returns: %TRUE in case we check if remote URLs exist.
+ * Returns: %TRUE in case we allow network access.
  */
 gboolean
-as_validator_get_check_urls (AsValidator *validator)
+as_validator_get_allow_net (AsValidator *validator)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	return priv->check_urls;
 }
 
 /**
- * as_validator_set_check_urls:
+ * as_validator_set_allow_net:
  * @validator: a #AsValidator instance.
  * @value: %TRUE if remote URLs should be checked for availability.
  *
- * Set this value to make the #AsValidator check whether remote URLs
- * actually exist.
+ * If set to %TRUE, the validator will be allowed to connect
+ * to the internet to e.g. check URLs for validity.
  */
 void
-as_validator_set_check_urls (AsValidator *validator, gboolean value)
+as_validator_set_allow_net (AsValidator *validator, gboolean value)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	priv->check_urls = value;
@@ -2619,6 +2619,7 @@ as_validator_check_releases (AsValidator *validator, xmlNode *node, AsFormatStyl
 					      rel_pair->fname,
 					      mode);
 	as_release_list_load_from_bytes (as_component_get_releases_plain (priv->current_cpt),
+					 NULL,
 					 rel_pair->bytes,
 					 NULL);
 }

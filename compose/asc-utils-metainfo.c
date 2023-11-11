@@ -201,7 +201,7 @@ asc_process_metainfo_releases (AscResult *cres,
 			relmd_uri = g_steal_pointer (&relfile_path);
 		}
 
-		if (!as_release_list_load_from_bytes (releases, relmd_bytes, &local_error)) {
+		if (!as_release_list_load_from_bytes (releases, NULL, relmd_bytes, &local_error)) {
 			asc_result_add_hint (cres,
 					     NULL,
 					     "metainfo-releases-read-failed",
@@ -253,7 +253,7 @@ asc_validate_metainfo_data_for_component (AscResult *cres,
 	gpointer hkey, hvalue;
 
 	/* don't check web URLs for validity, we catch those issues differently */
-	as_validator_set_check_urls (validator, FALSE);
+	as_validator_set_allow_net (validator, FALSE);
 
 	/* remove release data from a potential previous use of this validator */
 	as_validator_clear_release_data (validator);

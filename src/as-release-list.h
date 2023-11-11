@@ -103,6 +103,9 @@ void		  as_release_list_set_kind (AsReleaseList *rels, AsReleaseListKind kind);
 const gchar	 *as_release_list_get_url (AsReleaseList *rels);
 void		  as_release_list_set_url (AsReleaseList *rels, const gchar *url);
 
-gboolean as_release_list_load_from_bytes (AsReleaseList *rels, GBytes *bytes, GError **error);
+gboolean	  as_release_list_load_from_bytes (AsReleaseList *rels,
+						   AsContext	 *context,
+						   GBytes	 *bytes,
+						   GError	**error);
 
 G_END_DECLS

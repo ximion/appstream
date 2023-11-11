@@ -46,8 +46,8 @@ struct _AsIconClass {
 /**
  * AsIconKind:
  * @AS_ICON_KIND_UNKNOWN:	Unknown icon kind
- * @AS_ICON_KIND_CACHED:	Icon in the internal caches
  * @AS_ICON_KIND_STOCK:		Stock icon name
+ * @AS_ICON_KIND_CACHED:	Icon in the internal caches
  * @AS_ICON_KIND_LOCAL:		Local icon name
  * @AS_ICON_KIND_REMOTE:	Remote icon URL
  *
@@ -55,8 +55,8 @@ struct _AsIconClass {
  **/
 typedef enum {
 	AS_ICON_KIND_UNKNOWN,
-	AS_ICON_KIND_CACHED,
 	AS_ICON_KIND_STOCK,
+	AS_ICON_KIND_CACHED,
 	AS_ICON_KIND_LOCAL,
 	AS_ICON_KIND_REMOTE,
 	/*< private >*/

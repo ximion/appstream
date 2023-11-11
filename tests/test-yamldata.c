@@ -679,7 +679,7 @@ test_yaml_write_provides (void)
 	as_component_set_id (cpt, "org.example.ProvidesTest");
 
 	prov_mime = as_provided_new ();
-	as_provided_set_kind (prov_mime, AS_PROVIDED_KIND_MIMETYPE);
+	as_provided_set_kind (prov_mime, AS_PROVIDED_KIND_MEDIATYPE);
 	as_provided_add_item (prov_mime, "text/plain");
 	as_provided_add_item (prov_mime, "application/xml");
 	as_provided_add_item (prov_mime, "image/png");
@@ -748,7 +748,7 @@ test_yaml_read_provides (void)
 	g_assert_cmpint (provides->len, ==, 5);
 
 	prov = AS_PROVIDED (g_ptr_array_index (provides, 0));
-	g_assert_true (as_provided_get_kind (prov) == AS_PROVIDED_KIND_MIMETYPE);
+	g_assert_true (as_provided_get_kind (prov) == AS_PROVIDED_KIND_MEDIATYPE);
 	cpt_items = as_provided_get_items (prov);
 	g_assert_cmpint (cpt_items->len, ==, 3);
 

@@ -85,8 +85,8 @@ GHashTable     *as_validator_get_issues_per_file (AsValidator *validator);
 gchar	       *as_validator_get_report_yaml (AsValidator *validator, GError **error);
 gboolean	as_validator_check_success (AsValidator *validator);
 
-gboolean	as_validator_get_check_urls (AsValidator *validator);
-void		as_validator_set_check_urls (AsValidator *validator, gboolean value);
+gboolean	as_validator_get_allow_net (AsValidator *validator);
+void		as_validator_set_allow_net (AsValidator *validator, gboolean value);
 
 gboolean	as_validator_get_strict (AsValidator *validator);
 void		as_validator_set_strict (AsValidator *validator, gboolean is_strict);

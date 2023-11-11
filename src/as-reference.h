@@ -46,7 +46,7 @@ struct _AsReferenceClass {
  * AsReferenceKind:
  * @AS_REFERENCE_KIND_UNKNOWN:		Unknown reference kind.
  * @AS_REFERENCE_KIND_DOI:		Digital Object Identifier
- * @AS_REFERENCE_KIND_CITATION_CFF:	URL to a Citation File Format file
+ * @AS_REFERENCE_KIND_CITATION_CFF:	Web URL to a Citation File Format file
  * @AS_REFERENCE_KIND_REGISTRY:		A generic registry.
  *
  * A reference type.

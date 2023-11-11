@@ -43,8 +43,8 @@ class APPSTREAMQT_EXPORT Icon
 public:
     enum Kind {
         KindUnknown,
-        KindCached,
         KindStock,
+        KindCached,
         KindLocal,
         KindRemote
     };

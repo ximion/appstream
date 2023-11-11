@@ -2254,7 +2254,7 @@ as_component_is_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop)
 /**
  * as_component_get_provided_for_kind:
  * @cpt: a #AsComponent instance.
- * @kind: kind of the provided item, e.g. %AS_PROVIDED_KIND_MIMETYPE
+ * @kind: kind of the provided item, e.g. %AS_PROVIDED_KIND_MEDIATYPE
  *
  * Get an #AsProvided object for the given interface type,
  * containing information about the public interfaces (mimetypes, firmware, DBus services, ...)
@@ -3148,7 +3148,7 @@ as_component_create_token_cache_target (AsComponent *cpt,
 						 tokens_out);
 	}
 
-	prov = as_component_get_provided_for_kind (donor, AS_PROVIDED_KIND_MIMETYPE);
+	prov = as_component_get_provided_for_kind (donor, AS_PROVIDED_KIND_MEDIATYPE);
 	if (prov != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_MEDIATYPE)) {
 		GPtrArray *items = as_provided_get_items (prov);
 		for (guint i = 0; i < items->len; i++)

@@ -77,8 +77,6 @@ typedef enum {
 	AS_PROVIDED_KIND_LAST
 } AsProvidedKind;
 
-#define AS_PROVIDED_KIND_MIMETYPE AS_PROVIDED_KIND_MEDIATYPE
-
 const gchar   *as_provided_kind_to_string (AsProvidedKind kind);
 AsProvidedKind as_provided_kind_from_string (const gchar *kind_str);
 const gchar   *as_provided_kind_to_l10n_string (AsProvidedKind kind);

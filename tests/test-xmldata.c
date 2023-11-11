@@ -822,7 +822,7 @@ test_xml_write_provides (void)
 	as_component_set_id (cpt, "org.example.ProvidesTest");
 
 	prov_mime = as_provided_new ();
-	as_provided_set_kind (prov_mime, AS_PROVIDED_KIND_MIMETYPE);
+	as_provided_set_kind (prov_mime, AS_PROVIDED_KIND_MEDIATYPE);
 	as_provided_add_item (prov_mime, "text/plain");
 	as_provided_add_item (prov_mime, "application/xml");
 	as_provided_add_item (prov_mime, "image/png");

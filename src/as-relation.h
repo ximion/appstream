@@ -123,7 +123,7 @@ typedef enum {
 /**
  * AsControlKind:
  * @AS_CONTROL_KIND_UNKNOWN:	Unknown kind
- * @AS_CONTROL_KIND_POINTING:	Mouse/cursors/other pointing device
+ * @AS_CONTROL_KIND_POINTING:	Mouse/cursors/other precision pointing device
  * @AS_CONTROL_KIND_KEYBOARD:	Keyboard input
  * @AS_CONTROL_KIND_CONSOLE:	Console / command-line interface
  * @AS_CONTROL_KIND_TOUCH:	Touch input

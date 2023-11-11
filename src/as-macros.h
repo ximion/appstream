@@ -32,19 +32,19 @@ G_BEGIN_DECLS
  */
 
 /* convenience functions as it's easy to forget the bitwise operators */
-#define as_flags_add(bitfield, enum)    \
+#define as_flags_add(bitfield, flag)    \
 	do {                            \
-		((bitfield) |= (enum)); \
+		((bitfield) |= (flag)); \
 	} while (0)
-#define as_flags_remove(bitfield, enum)  \
+#define as_flags_remove(bitfield, flag)  \
 	do {                             \
-		((bitfield) &= ~(enum)); \
+		((bitfield) &= ~(flag)); \
 	} while (0)
-#define as_flags_invert(bitfield, enum) \
+#define as_flags_invert(bitfield, flag) \
 	do {                            \
-		((bitfield) ^= enum);   \
+		((bitfield) ^= flag);   \
 	} while (0)
-#define as_flags_contains(bitfield, enum) (((bitfield) & enum) > 0)
+#define as_flags_contains(bitfield, flag) (((bitfield) &flag) > 0)
 
 G_END_DECLS
 

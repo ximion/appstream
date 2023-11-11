@@ -22,14 +22,14 @@
 #define __AS_DISTRO_EXTRAS_H
 
 #include <glib-object.h>
+
+#include "as-macros-private.h"
 #include "as-pool.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
-void		       as_pool_scan_apt (AsPool *pool, gboolean force, GError **error);
+void as_pool_scan_apt (AsPool *pool, gboolean force, GError **error);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_DISTRO_EXTRAS_H */

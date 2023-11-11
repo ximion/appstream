@@ -409,6 +409,7 @@ as_release_list_set_size (AsReleaseList *rels, guint size)
 /**
  * as_release_list_load_from_bytes:
  * @rels: a #AsReleaseList instance.
+ * @context: (nullable): the attached #AsContext or %NULL to use the current context
  * @bytes: the release XML data as #GBytes
  * @error: a #GError.
  *
@@ -419,7 +420,10 @@ as_release_list_set_size (AsReleaseList *rels, guint size)
  * Since: 0.16.0
  **/
 gboolean
-as_release_list_load_from_bytes (AsReleaseList *rels, GBytes *bytes, GError **error)
+as_release_list_load_from_bytes (AsReleaseList *rels,
+				 AsContext *context,
+				 GBytes *bytes,
+				 GError **error)
 {
 	AsReleaseListPrivate *priv = GET_PRIVATE (rels);
 	const gchar *rel_data = NULL;
@@ -427,6 +431,9 @@ as_release_list_load_from_bytes (AsReleaseList *rels, GBytes *bytes, GError **er
 	xmlDoc *xdoc;
 	xmlNode *xroot;
 	GError *tmp_error = NULL;
+
+	if (context != NULL)
+		as_release_list_set_context (rels, context);
 
 	rel_data = g_bytes_get_data (bytes, &rel_data_len);
 	xdoc = as_xml_parse_document (rel_data,
@@ -548,7 +555,7 @@ as_release_list_load (AsReleaseList *rels,
 		reldata_bytes = g_bytes_new_take (rel_data, rel_data_len);
 	}
 
-	return as_release_list_load_from_bytes (rels, reldata_bytes, error);
+	return as_release_list_load_from_bytes (rels, NULL, reldata_bytes, error);
 }
 
 /**

@@ -66,9 +66,9 @@ typedef enum {
 
 /**
  * AsScreenshotMediaKind:
- * @AS_SCREENSHOT_MEDIA_KIND_UNKNOWN:		Media kind is unknown
- * @AS_SCREENSHOT_MEDIA_KIND_IMAGE:		The screenshot contains images
- * @AS_SCREENSHOT_MEDIA_KIND_VIDEO:		The screenshot contains videos
+ * @AS_SCREENSHOT_MEDIA_KIND_UNKNOWN:	Media kind is unknown
+ * @AS_SCREENSHOT_MEDIA_KIND_IMAGE:	The screenshot contains images
+ * @AS_SCREENSHOT_MEDIA_KIND_VIDEO:	The screenshot contains videos
  *
  * The media kind contained in this screenshot.
  **/

@@ -302,7 +302,7 @@ ascli_validate_file (AsValidator *validator,
 		return FALSE;
 	}
 
-	as_validator_set_check_urls (validator, use_net);
+	as_validator_set_allow_net (validator, use_net);
 	as_validator_set_strict (validator, validate_strict);
 
 	/* apply user overrides */
@@ -501,7 +501,7 @@ ascli_validate_files_format (gchar **argv,
 		}
 
 		validator = as_validator_new ();
-		as_validator_set_check_urls (validator, use_net);
+		as_validator_set_allow_net (validator, use_net);
 		as_validator_set_strict (validator, validate_strict);
 
 		for (gint i = 0; i < argc; i++) {
@@ -553,7 +553,7 @@ ascli_validate_tree (const gchar *root_dir,
 	}
 
 	validator = as_validator_new ();
-	as_validator_set_check_urls (validator, use_net);
+	as_validator_set_allow_net (validator, use_net);
 	as_validator_set_strict (validator, validate_strict);
 
 	if (!ascli_validate_apply_overrides_from_string (validator, overrides_str))
@@ -635,7 +635,7 @@ ascli_validate_tree_format (const gchar *root_dir,
 		}
 
 		validator = as_validator_new ();
-		as_validator_set_check_urls (validator, use_net);
+		as_validator_set_allow_net (validator, use_net);
 		as_validator_set_strict (validator, validate_strict);
 		validation_passed = as_validator_validate_tree (validator, root_dir);
 

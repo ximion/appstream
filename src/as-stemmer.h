@@ -26,17 +26,21 @@
 #define __AS_STEMMER_H
 
 #include <glib-object.h>
+#include "as-macros-private.h"
 
-G_BEGIN_DECLS
+AS_BEGIN_PRIVATE_DECLS
 
 #define AS_TYPE_STEMMER (as_stemmer_get_type ())
 G_DECLARE_FINAL_TYPE (AsStemmer, as_stemmer, AS, STEMMER, GObject)
 
+AS_INTERNAL_VISIBLE
 AsStemmer *as_stemmer_get (const gchar *locale);
 
 void	   as_stemmer_reload (AsStemmer *stemmer, const gchar *locale);
-gchar	  *as_stemmer_stem (AsStemmer *stemmer, const gchar *term);
 
-G_END_DECLS
+AS_INTERNAL_VISIBLE
+gchar *as_stemmer_stem (AsStemmer *stemmer, const gchar *term);
+
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_STEMMER_H */
