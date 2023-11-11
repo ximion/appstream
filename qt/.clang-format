@@ -7,6 +7,8 @@ ColumnLimit: 100
 
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: false
+BreakConstructorInitializers: BeforeColon
+PackConstructorInitializers: Never
 
 # never sort includes, only regroup (in rare cases)
 IncludeBlocks: Regroup
