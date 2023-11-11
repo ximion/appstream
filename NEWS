@@ -1,3 +1,120 @@
+Version 1.0.0
+~~~~~~~~~~~~~~
+Released: 2023-11-11
+
+Notes:
+ * This version breaks API and bumps the SONAME of libappstream!
+   Applications using AppStream will have to be ported to the new API.
+   The 1.0 release is coinstallable with the stable 0.16.x series.
+
+Features:
+ * Autoformat C and C++ sources
+ * Remove all deprecated symbols
+ * Drop support for many deprecated AppStream XML features
+ * Use GPtrArray to expose keywords list
+ * Add length argument to raw metadata parsing functions
+ * Add component array container class
+ * Remove named values for display_length relations
+ * Make AsPool only accept/return component boxes
+ * Port all API away from per-entity locale overrides
+ * Reduce appstream.conf to its essentials, make it work on stateless systems
+ * Hide search engine details from public API
+ * Wrap release entries in AsReleaseList container class
+ * Make AsMetadata handle AsReleaseList objects
+ * Refactor is_satisfied result into new RelationCheckResult class
+ * Add a method to check all relations of a component and get the result
+ * Add algorithm to score compatibility with a system, add chassis templates
+ * ascli: Add new check-syscompat command to check chassis compatibility
+ * Implement environment property for component screenshots
+ * Autogenerate translatable DE and gui-environment-style C arrays
+ * Expose more advanced markup conversion function, update function names
+ * Allow BLAKE3 and SHA512 checksums for release artifacts
+ * Stop supporting mailto: URLs in <url/> tags
+ * validator: Improve API and simplify it
+ * validator: Parse XML in pedantic mode when validating
+ * validator: Check screenshot environment property
+ * validator: Only apply summary-has-dot-suffix check to untranslated strings
+ * compose: Allow creating metadata with complete URLs and no base URL
+ * spdx: Add API to retrieve a translated license name from an SPDX ID
+ * qt: Switch to building with Qt6
+ * qt: Make it possible to iterate ComponentBox
+ * qt: Implement AppStream::ComponentBox::erase
+ * qt: Allow concatenating two ComponentBoxes
+ * qt: Allow loading Pool asynchronously
+ * qt: Use ComponentBox/Releases in Qt bindings as well
+ * qt: Add support for the new API to check relation satisfaction
+ * qt: Maintenance and namespace fixes, use cPtr() to get C pointers everywhere
+ * bundle: Add linglong as a new type of bundle
+ * Add GUI environment IDs for macOS and Microsoft Windows
+ * validator: Check if Release Description is inside description tag
+ * validator: Add validation for content_rating
+ * Add support for building on Win32
+ * win32: change some file/path-related code for portability
+ * Implement the developer element for unique developer IDs
+ * Implement scaling factor for screenshots
+ * component-box: Allow removal of components by-index
+ * Implement support for external references and citations
+ * Implement usertags for release data as well
+ * Move ValueFlags to the context, instead of tieing them to components
+ * pool: search: Add additional weight for exact substring matches on names
+ * sysinfo: Add memory size detection support for macOS
+ * Add support for Zstd for on-disk data compression
+ * utils: Make tar unpacker independent of zstd binary presence
+ * Drop Python2 provided tag support
+ * data: Add ‘Endless’ to the list of desktops
+ * Add NetBSD support
+
+Specification:
+ * Drop (most) deprecated information
+ * docs: Clarify environment-based screenshot ordering
+ * Add new  'snapshot' release kind
+ * docs: Build all API documentation with gi-docgen
+ * spec: Document the new "developer" element
+ * spec: Document the "reference" tag for registry references
+ * docs: Add example of YAML for references elements
+ * Allow hyphens in the last segment of a component-ID
+ * docs: Drop outdated information from l10n quickstart guide
+
+Bugfixes:
+ * meson: check for docbook xsl stylesheets
+ * Fix tweaking of appstream.pc when building as subproject
+ * Fix crash in asc_l10n_search_translations_qt()
+ * qt: Make Qt6 dependency a system dependency.
+ * meson: do not rely on an exe wrapper
+ * meson: do not -I/usr/include when !stemmer
+ * meson: Prevent building attempts with MSVC
+ * meson: Use an SPDX license indentifier in project(license:)
+ * Add meson overrides
+ * compose: Set lower-cased CID for synthesized components again
+ * compose: Set lower-cased CID in desktop-entry parse function
+ * compose: Honor prefix in font search
+ * compose: Select the correct default icon glyphs for fonts
+ * Don't crash when non-YAML documents are read as YAML
+ * Do not override default-priority when parsing multiple metadata files
+ * Ensure stemmer always has the right locale and token-search works
+ * Require a more recent libxmlb to avoid crashes
+ * Rename component get_releases to indicate that releases may not be loaded from the web
+ * Prevent string-id validation functions from matching source comments
+ * Don't define _POSIX_C_SOURCE when building for NetBSD
+
+Miscellaneous:
+ * Explain metainfo-ancient error in more detail
+ * Make sed invocation more portable
+ * Add FreeBSD CI
+ * Allow variable shadowing in C++ code
+ * Drop the catchall as-enums unit
+ * vapi: Drop unneeded metadata
+ * Make AsMetadata return a component box for multiple components
+ * apt: Make item descriptions more human-friendly
+ * Streamline README
+
+Contributors:
+ Aleix Pol, Alessandro Astone, Alexander Wilms, Dan Yeaw, Daniel Drake,
+ Gary Wang, Gleb Popov, Ingo Klöcker, JakobDev, Jeremy Whiting, Kai Uwe Broulik,
+ Marc-André Lureau, Matthias Klumpp, Philip Withnall, Tao Zuhong,
+ Thomas Klausner, Tristan Partin, and thanks to all translators mentioned
+ in the respective l10n files!
+
 Version 0.16.4
 ~~~~~~~~~~~~~~
 Released: 2023-11-10
