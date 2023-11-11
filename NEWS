@@ -1,3 +1,41 @@
+Version 0.16.4
+~~~~~~~~~~~~~~
+Released: 2023-11-10
+
+Features:
+ * Allow hyphens in the last segment of a component-ID
+ * Implement the developer element for unique developer IDs
+ * Add meson overrides
+
+Bugfixes:
+ * meson: Prevent building attempts with MSVC
+ * meson: Avoid potentially bad sed backup filename when fixing .pc file
+
+Miscellaneous:
+ * Make sed invocation more portable
+
+Contributors:
+ Gleb Popov, Matthias Klumpp, Tristan Partin
+
+Version 0.16.3
+~~~~~~~~~~~~~~
+Released: 2023-08-22
+
+Features:
+ * compose: Allow creating metadata with complete URLs and no base URL
+
+Bugfixes:
+ * Fix tweaking of appstream.pc when building as subproject
+ * Do not override default-priority when parsing multiple metadata files
+ * Ensure stemmer always has the right locale and token-search works
+ * Require a more recent libxmlb to avoid crashes
+
+Miscellaneous:
+ * Work around invalid null-dereference warning in GCC 13
+
+Contributors:
+ Daniel Drake, Matthias Klumpp
+
 Version 0.16.2
 ~~~~~~~~~~~~~~
 Released: 2023-04-26
