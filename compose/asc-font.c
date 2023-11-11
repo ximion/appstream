@@ -636,7 +636,7 @@ asc_font_get_icon_text_for_lang (const gchar *lang)
 	/* clang-format on */
 
 	for (guint i = 0; text_icon[i].lang != NULL; i++) {
-		if (g_strcmp0 (text_icon[i].value, lang) == 0)
+		if (g_strcmp0 (text_icon[i].lang, lang) == 0)
 			return text_icon[i].value;
 	}
 
