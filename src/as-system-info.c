@@ -47,6 +47,12 @@
 #include <dirent.h>
 #include <glib.h>
 
+#if defined(__APPLE__)
+typedef unsigned int u_int;
+typedef unsigned char u_char;
+typedef unsigned short u_short;
+#endif
+
 #if defined(__linux__)
 #include <sys/sysinfo.h>
 #elif defined(__FreeBSD__) || defined(__NetBSD__) || defined(__APPLE__)
