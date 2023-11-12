@@ -29,10 +29,9 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-11-11 18:22+0100\n"
-"PO-Revision-Date: 2023-11-03 12:33+0000\n"
+"PO-Revision-Date: 2023-11-12 12:01+0000\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1821,17 +1820,12 @@ msgid "The component ID starts with punctuation. This is not allowed."
 msgstr "Bileşen kimliği noktalama işaretiyle başlıyor. Buna izin verilmez."
 
 #: src/as-validator-issue-tag.h:145
-#, fuzzy
 msgid ""
 "The component ID contains a hyphen/minus in its domain part. Using a hyphen "
 "is strongly discouraged to improve interoperability with other tools such as "
 "D-Bus. A good option is to replace any hyphens with underscores (`_`). "
 "Hyphens are only allowed in the last segment of a component ID."
-msgstr ""
-"Bileşen kimliği bir tire/eksi içermektedir. D-Bus gibi diğer araçlarla "
-"birlikte çalışabilirliği artırmak için tire kullanmaktan kaçınılması "
-"şiddetle tavsiye edilir. İyi bir seçenek, herhangi bir tireyi alt çizgi "
-"(`_`) ile değiştirmektir."
+msgstr "Bileşen kimliğinin etki alanı kısmında bir tire/kısa çizgi bulunuyor. D-Bus gibi diğer araçlarla birlikte çalışabilirliği artırmak için tire kullanmaktan kaçınılması şiddetle tavsiye edilir. Kısa çizgileri alt çizgiyle (`_`) değiştirmek iyi bir seçenektir. Kısa çizgilere yalnızca bileşen kimliğinin son bölümünde izin verilir."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
@@ -2689,15 +2683,12 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:775
-#, fuzzy
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher). "
 "Modern files use the `component` root tag and include many other "
 "differences, so check for changes carefully when modernizing the data."
-msgstr ""
-"Metainfo dosyası, AppStream tanımlamasının doğrulanamayan eski bir sürümünü "
-"kullanmaktadır. Lütfen 0.6 (veya daha üstü) sürümüne geçiş yapın."
+msgstr "Metainfo dosyası, AppStream spesifikasyonunun doğrulanamayan eski bir sürümünü kullanıyor. Lütfen 0.6 sürümüne (ya da daha yüksek bir sürüme) taşıyın. Modern dosyalar `component`kök etiketini kullanır ve daha birçok farklılık içerir; bu nedenle, verileri modernleştirirken değişiklikleri dikkatle denetleyin."
 
 #: src/as-validator-issue-tag.h:781
 msgid ""
