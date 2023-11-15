@@ -76,9 +76,9 @@ as_stemmer_init (AsStemmer *stemmer)
 
 	/* we don't use the locale in XML, so it can be POSIX */
 	locale = as_get_current_locale_posix ();
-	stemmer->current_lang = as_utils_locale_to_language (locale);
 
-	as_stemmer_reload (stemmer, stemmer->current_lang);
+	stemmer->current_lang = NULL;
+	as_stemmer_reload (stemmer, locale);
 #endif
 }
 
@@ -99,7 +99,8 @@ as_stemmer_reload (AsStemmer *stemmer, const gchar *locale)
 	/* check if we need to reload */
 	lang = as_utils_locale_to_language (locale);
 	locker = g_mutex_locker_new (&stemmer->mutex);
-	if (as_str_equal0 (lang, stemmer->current_lang)) {
+	if (stemmer->current_lang != NULL
+	    && as_str_equal0 (lang, stemmer->current_lang)) {
 		g_mutex_locker_free (locker);
 		return;
 	}
