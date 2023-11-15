@@ -47,6 +47,8 @@ G_DEFINE_TYPE (AsStemmer, as_stemmer, G_TYPE_OBJECT)
 
 static gpointer as_stemmer_object = NULL;
 
+static void as_stemmer_reload_internal (AsStemmer *stemmer, const gchar *locale, gboolean force);
+
 /**
  * as_stemmer_finalize:
  **/
@@ -76,21 +78,14 @@ as_stemmer_init (AsStemmer *stemmer)
 
 	/* we don't use the locale in XML, so it can be POSIX */
 	locale = as_get_current_locale_posix ();
-	stemmer->current_lang = as_utils_locale_to_language (locale);
 
-	as_stemmer_reload (stemmer, stemmer->current_lang);
+	/* force a reload for initialization */
+	as_stemmer_reload_internal (stemmer, locale, TRUE);
 #endif
 }
 
-/**
- * as_stemmer_reload:
- * @stemmer: A #AsStemmer
- * @locale: The stemming language as POSIX locale.
- *
- * Allows realoading the #AsStemmer with a different language.
- */
-void
-as_stemmer_reload (AsStemmer *stemmer, const gchar *locale)
+static void
+as_stemmer_reload_internal (AsStemmer *stemmer, const gchar *locale, gboolean force)
 {
 #ifdef HAVE_STEMMING
 	g_autofree gchar *lang = NULL;
@@ -99,7 +94,7 @@ as_stemmer_reload (AsStemmer *stemmer, const gchar *locale)
 	/* check if we need to reload */
 	lang = as_utils_locale_to_language (locale);
 	locker = g_mutex_locker_new (&stemmer->mutex);
-	if (as_str_equal0 (lang, stemmer->current_lang)) {
+	if (!force && as_str_equal0 (lang, stemmer->current_lang)) {
 		g_mutex_locker_free (locker);
 		return;
 	}
@@ -117,6 +112,20 @@ as_stemmer_reload (AsStemmer *stemmer, const gchar *locale)
 
 	g_mutex_locker_free (locker);
 #endif
+}
+
+/**
+ * as_stemmer_reload:
+ * @stemmer: A #AsStemmer
+ * @locale: The stemming language as POSIX locale.
+ *
+ * Allows realoading the #AsStemmer with a different language.
+ * Does nothing if the stemmer is already using the selected language.
+ */
+void
+as_stemmer_reload (AsStemmer *stemmer, const gchar *locale)
+{
+	as_stemmer_reload_internal (stemmer, locale, FALSE);
 }
 
 /**
