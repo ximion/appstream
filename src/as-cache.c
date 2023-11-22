@@ -1736,7 +1736,7 @@ as_cache_get_components_by_provided_item (AsCache *cache,
 	XbValueBindings *vbindings = xb_query_context_get_bindings (&context);
 
 	xpath_query_tmpl = "components/component/provides/%s[text()=?]/../..";
-	xpath_query_type_tmpl = "components/component/provides/%s[text()=?][@type='%s']/../..";
+	xpath_query_type_tmpl = "components/component/provides/%s[@type='%s'][text()=?]/../..";
 
 	if (kind == AS_PROVIDED_KIND_LIBRARY)
 		kind_node_name = "library";
