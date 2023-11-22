@@ -223,7 +223,7 @@ ascli_what_provides (const gchar *cachepath,
 	}
 
 	result = as_pool_get_components_by_provided_item (pool, kind, item);
-	if (as_component_box_len (result)) {
+	if (as_component_box_len (result) == 0) {
 		/* TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results */
 		ascli_print_stdout (
 		    _("Could not find component providing '%s::%s'."), kind_str, item);
