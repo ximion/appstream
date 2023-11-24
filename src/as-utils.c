@@ -47,8 +47,9 @@
 #include "as-metadata.h"
 #include "as-component-private.h"
 #include "as-desktop-env-data.h"
+#ifndef NO_ZSTD
 #include "as-zstd-decompressor.h"
-
+#endif
 /**
  * SECTION:as-utils
  * @short_description: Helper functions that are used inside libappstream
@@ -2260,12 +2261,15 @@ as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError
 	if (tarz_stream == NULL)
 		return FALSE;
 
+	#ifndef NO_ZSTD
 	if (g_str_has_suffix (filename, "tar.zst")) {
 		/* decompress the Zstd stream */
 		conv = G_CONVERTER (as_zstd_decompressor_new ());
 		tar_stream = g_converter_input_stream_new (tarz_stream, conv);
-
 	} else if (g_str_has_suffix (filename, "tar.gz")) {
+	#else
+	if (g_str_has_suffix (filename, "tar.gz")) {
+	#endif
 		/* decompress the GZip stream */
 		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
 		tar_stream = g_converter_input_stream_new (tarz_stream, conv);

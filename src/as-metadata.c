@@ -45,7 +45,9 @@
 #include "as-release-list-private.h"
 #include "as-context-private.h"
 #include "as-desktop-entry.h"
+#ifndef NO_ZSTD
 #include "as-zstd-decompressor.h"
+#endif
 
 #include "as-xml.h"
 #include "as-yaml.h"
@@ -750,7 +752,7 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 		g_propagate_error (error, tmp_error);
 		return FALSE;
 	}
-
+	#ifndef NO_ZSTD
 	if (as_str_equal0 (content_type, "application/zstd")) {
 		/* decompress the Zstd stream */
 		conv = G_CONVERTER (as_zstd_decompressor_new ());
@@ -758,6 +760,10 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 
 	} else if (as_str_equal0 (content_type, "application/gzip") ||
 		   as_str_equal0 (content_type, "application/x-gzip")) {
+	#else
+	if (as_str_equal0 (content_type, "application/gzip") ||
+		   as_str_equal0 (content_type, "application/x-gzip")) {
+	#endif
 		/* decompress the GZip stream */
 		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
 		stream_data = g_converter_input_stream_new (file_stream, conv);

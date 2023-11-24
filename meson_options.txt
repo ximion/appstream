@@ -23,6 +23,11 @@ option('qt5',
        value : false,
        description: 'Build libappstream-qt5 for Qt5'
 )
+option('zstd',
+       type : 'boolean',
+       value : true,
+       description: 'Zstd support'
+)
 option('compose',
        type : 'boolean',
        value : false,

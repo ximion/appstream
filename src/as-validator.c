@@ -50,7 +50,9 @@
 #include "as-yaml.h"
 #include "as-desktop-entry.h"
 #include "as-content-rating-private.h"
+#ifndef NO_ZSTD
 #include "as-zstd-decompressor.h"
+#endif
 
 typedef struct {
 	GHashTable *issue_tags; /* of utf8:AsValidatorIssueTag */
@@ -3531,7 +3533,7 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 	}
 	if (file_stream == NULL)
 		return FALSE;
-
+	#ifndef NO_ZSTD
 	if (as_str_equal0 (content_type, "application/zstd")) {
 		/* decompress the Zstd stream */
 		conv = G_CONVERTER (as_zstd_decompressor_new ());
@@ -3539,6 +3541,10 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 
 	} else if (as_str_equal0 (content_type, "application/gzip") ||
 		   as_str_equal0 (content_type, "application/x-gzip")) {
+	#else 
+	if (as_str_equal0 (content_type, "application/gzip") ||
+		   as_str_equal0 (content_type, "application/x-gzip")) {
+	#endif
 		/* decompress the GZip stream */
 		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
 		stream_data = g_converter_input_stream_new (file_stream, conv);

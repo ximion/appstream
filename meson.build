@@ -159,8 +159,13 @@ yaml_dep = dependency('yaml-0.1')
 xmlb_dep = dependency('xmlb', version: '>= 0.3.14',
                       fallback: ['libxmlb', 'libxmlb_dep'],
                       default_options: ['gtkdoc=false', 'introspection=false'])
-zstd_dep = dependency('libzstd')
 libsystemd_dep = dependency('libsystemd', required: get_option('systemd'))
+
+if get_option('zstd')
+    zstd_dep = dependency('libzstd', required: get_option('zstd'))
+else
+    add_project_arguments('-DNO_ZSTD', language: 'c')
+endif
 
 if get_option ('gir')
     # ensure we have a version of GIR that isn't broken with Meson

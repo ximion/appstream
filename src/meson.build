@@ -16,7 +16,6 @@ aslib_src = [
     'as-tag.c',
     'as-xml.c',
     'as-yaml.c',
-    'as-zstd-decompressor.c',
     # (mostly) public
     'as-agreement.c',
     'as-agreement-section.c',
@@ -137,7 +136,6 @@ aslib_priv_headers = [
     'as-validator-issue-tag.h',
     'as-xml.h',
     'as-yaml.h',
-    'as-zstd-decompressor.h',
 ]
 
 as_version_h = configure_file(
@@ -190,11 +188,18 @@ aslib_deps = [glib_dep,
               xmlb_dep,
               xml2_dep,
               yaml_dep,
-              libsystemd_dep,
-              zstd_dep]
+              libsystemd_dep]
 if get_option ('stemming')
     aslib_deps += [stemmer_lib]
 endif
+
+if get_option ('zstd')
+    aslib_deps += [zstd_dep]
+    aslib_src += ['as-zstd-decompressor.c']
+    aslib_priv_headers += ['as-zstd-decompressor.h']
+endif
+
+
 
 appstream_lib = library ('appstream',
     [aslib_src,
