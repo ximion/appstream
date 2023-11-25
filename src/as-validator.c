@@ -645,6 +645,8 @@ as_validator_add_override (AsValidator *validator,
 		"tag-empty",
 		/* allow GNOME to validate metadata using its new versioning scheme (until a better solution is found) */
 		"releases-not-in-order",
+		/* allowed for a while, as part of the deprecation phase */
+		"developer-name-tag-deprecated",
 		NULL
 	};
 

@@ -566,7 +566,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	},
 
 	{ "developer-name-tag-deprecated",
-	  AS_ISSUE_SEVERITY_WARNING,
+	  AS_ISSUE_SEVERITY_INFO,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("The toplevel `developer_name` element is deprecated. Please use the `name` element in a "
 	     "`developer` block instead."),
