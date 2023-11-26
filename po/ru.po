@@ -42,18 +42,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-11-11 18:22+0100\n"
-"PO-Revision-Date: 2023-10-28 04:07+0000\n"
+"PO-Revision-Date: 2023-11-26 02:01+0000\n"
 "Last-Translator: Сергей <asvmail.as@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
-"translations/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.2-dev\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.2.1-rc\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1840,17 +1837,12 @@ msgstr ""
 "недопустимо."
 
 #: src/as-validator-issue-tag.h:145
-#, fuzzy
 msgid ""
 "The component ID contains a hyphen/minus in its domain part. Using a hyphen "
 "is strongly discouraged to improve interoperability with other tools such as "
 "D-Bus. A good option is to replace any hyphens with underscores (`_`). "
 "Hyphens are only allowed in the last segment of a component ID."
-msgstr ""
-"Идентификатор компонента содержит дефис/минус. Использование дефиса "
-"настоятельно рекомендуется для улучшения совместимости с другими "
-"инструментами, такими как D-Bus. Хорошим вариантом является замена любых "
-"дефисов на подчёркивания (`_`)."
+msgstr "Идентификатор компонента содержит в доменной части дефис/минус. Использование дефиса настоятельно не рекомендуется для улучшения совместимости с другими инструментами, такими как D-Bus. Хорошим вариантом является замена любых дефисов на подчёркивания («_»). Дефисы разрешены только в последнем сегменте идентификатора компонента."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
@@ -2703,16 +2695,12 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:775
-#, fuzzy
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher). "
 "Modern files use the `component` root tag and include many other "
 "differences, so check for changes carefully when modernizing the data."
-msgstr ""
-"Файл с метаинформацией использует устаревшую версию спецификации AppStream, "
-"которая не может быть валидирована. Пожалуйста перейдите на версию 0.6 (или "
-"выше)."
+msgstr "Файл с метаинформацией использует устаревшую версию спецификации AppStream, которая не может быть валидирована. Пожалуйста перейдите на версию 0.6 (или выше). Современные файлы используют корневой тег «comment» и включают множество других отличий, поэтому внимательно проверяйте наличие изменений при обновлении данных."
 
 #: src/as-validator-issue-tag.h:781
 msgid ""
@@ -3098,20 +3086,20 @@ msgstr "Этот цвет не является допустимым цвето�
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
-msgstr ""
+msgstr "Указанный DOI (идентификатор цифрового объекта) для этого ссылочного элемента недействителен."
 
 #: src/as-validator-issue-tag.h:1094
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
-msgstr ""
+msgstr "Значением этого ссылочного элемента должен быть URL файла CFF (формат файла цитирования)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1100
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
-msgstr ""
+msgstr "В этом ссылочном элементе регистра отсутствует свойство «name» для обозначения названия регистра, о котором идёт речь."
 
 #: src/as-validator-issue-tag.h:1105
 msgid ""
@@ -3120,9 +3108,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:1111
-#, fuzzy
 msgid "The reference item is missing a value."
-msgstr "Отметка времени выпуска недействительна."
+msgstr "В ссылочном элементе отсутствует значение."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1117
@@ -4077,7 +4064,7 @@ msgstr "Планшет"
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:806
 msgid "Handset"
-msgstr ""
+msgstr "Трубка"
 
 #: tools/ascli-actions-mdata.c:808
 msgid "Unknown"
