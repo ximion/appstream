@@ -877,10 +877,10 @@ static const struct {
 		"violence-sexual",
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No sexual violence"),
+		NULL,
+		NULL,
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Rape or other violent sexual behavior"),
-		NULL,
-		NULL,
 	},
 	{
 		"drugs-alcohol",
@@ -920,7 +920,8 @@ static const struct {
 		N_("Brief artistic nudity"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Prolonged nudity"),
-		NULL,
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("Explicit nudity involving visible sexual organs"),
 	},
 	{
 		"sex-themes",
@@ -1013,19 +1014,20 @@ static const struct {
 		"social-audio",
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No way to talk with other users"),
+		NULL,
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("Moderated audio or video chat functionality between users"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Uncontrolled audio or video chat functionality between users"),
-		NULL,
-		NULL,
 	},
 	{
 		"social-contacts",
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No sharing of social network usernames or email addresses"),
+		NULL,
+		NULL,
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Sharing social network usernames or email addresses"),
-		NULL,
-		NULL,
 	},
 	{
 		"social-info",
@@ -1042,10 +1044,10 @@ static const struct {
 		"social-location",
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No sharing of physical location with other users"),
+		NULL,
+		NULL,
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Sharing physical location with other users"),
-		NULL,
-		NULL,
 	},
 
 	/* v1.1 */
