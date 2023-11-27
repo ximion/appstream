@@ -2697,7 +2697,6 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 		}
 
 		content_rating = as_content_rating_value_from_string (value_data);
-
 		if (content_rating == AS_CONTENT_RATING_VALUE_UNKNOWN) {
 			as_validator_add_issue (validator,
 						iter,
@@ -2707,10 +2706,11 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 		}
 
 		if (!as_content_rating_id_is_valid (id, content_rating)) {
+			g_autofree gchar *hint_msg = g_strdup_printf ("%s @ %s", id, value_data);
 			as_validator_add_issue (validator,
 						iter,
 						"content-attribute-value-invalid",
-						value_data);
+						hint_msg);
 			continue;
 		}
 
