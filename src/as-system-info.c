@@ -44,7 +44,6 @@
 #else
 #include <sys/utsname.h>
 #endif
-#include <dirent.h>
 #include <glib.h>
 
 #if defined(__APPLE__)
@@ -54,6 +53,7 @@ typedef unsigned short u_short;
 #endif
 
 #if defined(__linux__)
+#include <dirent.h>
 #include <sys/sysinfo.h>
 #elif defined(__FreeBSD__) || defined(__NetBSD__) || defined(__APPLE__)
 #include <sys/types.h>
