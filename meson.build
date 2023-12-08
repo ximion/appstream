@@ -46,6 +46,7 @@ conf.set('HAVE_APT_SUPPORT', get_option('apt-support'))
 conf.set('HAVE_STEMMING', get_option('stemming'))
 conf.set('HAVE_SYSTEMD', get_option('systemd'))
 conf.set('HAVE_SVG_SUPPORT', get_option('svg-support'))
+conf.set('HAVE_ZSTD', get_option('zstd-support'))
 
 configure_file(output: 'config.h', configuration: conf)
 root_inc_dir = include_directories ('.')
@@ -159,8 +160,16 @@ yaml_dep = dependency('yaml-0.1')
 xmlb_dep = dependency('xmlb', version: '>= 0.3.14',
                       fallback: ['libxmlb', 'libxmlb_dep'],
                       default_options: ['gtkdoc=false', 'introspection=false'])
-zstd_dep = dependency('libzstd')
-libsystemd_dep = dependency('libsystemd', required: get_option('systemd'))
+if get_option('zstd-support')
+    zstd_dep = dependency('libzstd', required: get_option('zstd-support'))
+else
+    zstd_dep = dependency('', required: false)
+endif
+if get_option('systemd')
+    libsystemd_dep = dependency('libsystemd', required: get_option('systemd'))
+else
+    libsystemd_dep = dependency('', required: false)
+endif
 
 if get_option ('gir')
     # ensure we have a version of GIR that isn't broken with Meson

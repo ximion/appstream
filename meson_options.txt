@@ -43,6 +43,11 @@ option('svg-support',
        value : true,
        description : 'SVG graphics support for compose (only disable this for bootstrapping purposes)'
 )
+option('zstd-support',
+       type : 'boolean',
+       value : true,
+       description : 'Support Zstd for (de)compressing local / remote metadata'
+)
 
 option('docs',
        type : 'boolean',

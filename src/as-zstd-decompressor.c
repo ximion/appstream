@@ -23,13 +23,17 @@
 #include "config.h"
 
 #include <gio/gio.h>
+#ifdef HAVE_ZSTD
 #include <zstd.h>
+#endif
 
 static void as_zstd_decompressor_iface_init (GConverterIface *iface);
 
 struct _AsZstdDecompressor {
 	GObject parent_instance;
+#ifdef HAVE_ZSTD
 	ZSTD_DStream *zstdstream;
+#endif
 };
 
 G_DEFINE_TYPE_WITH_CODE (AsZstdDecompressor,
@@ -40,8 +44,12 @@ G_DEFINE_TYPE_WITH_CODE (AsZstdDecompressor,
 static void
 as_zstd_decompressor_finalize (GObject *object)
 {
+#ifdef HAVE_ZSTD
 	AsZstdDecompressor *self = AS_ZSTD_DECOMPRESSOR (object);
+
 	ZSTD_freeDStream (self->zstdstream);
+#endif
+
 	G_OBJECT_CLASS (as_zstd_decompressor_parent_class)->finalize (object);
 }
 
@@ -53,8 +61,10 @@ as_zstd_decompressor_init (AsZstdDecompressor *self)
 static void
 as_zstd_decompressor_constructed (GObject *object)
 {
+#ifdef HAVE_ZSTD
 	AsZstdDecompressor *self = AS_ZSTD_DECOMPRESSOR (object);
 	self->zstdstream = ZSTD_createDStream ();
+#endif
 }
 
 static void
@@ -74,8 +84,10 @@ as_zstd_decompressor_new (void)
 static void
 as_zstd_decompressor_reset (GConverter *converter)
 {
+#ifdef HAVE_ZSTD
 	AsZstdDecompressor *self = AS_ZSTD_DECOMPRESSOR (converter);
 	ZSTD_initDStream (self->zstdstream);
+#endif
 }
 
 static GConverterResult
@@ -89,6 +101,7 @@ as_zstd_decompressor_convert (GConverter *converter,
 			      gsize *bytes_written,
 			      GError **error)
 {
+#ifdef HAVE_ZSTD
 	AsZstdDecompressor *self = AS_ZSTD_DECOMPRESSOR (converter);
 	ZSTD_outBuffer output = {
 		.dst = outbuf,
@@ -109,13 +122,20 @@ as_zstd_decompressor_convert (GConverter *converter,
 		g_set_error (error,
 			     G_IO_ERROR,
 			     G_IO_ERROR_INVALID_DATA,
-			     "cannot decompress data: %s",
+			     "can not decompress data: %s",
 			     ZSTD_getErrorName (res));
 		return G_CONVERTER_ERROR;
 	}
 	*bytes_read = input.pos;
 	*bytes_written = output.pos;
 	return G_CONVERTER_CONVERTED;
+#else
+	g_set_error_literal (error,
+			     G_IO_ERROR,
+			     G_IO_ERROR_INVALID_DATA,
+			     "AppStream was not built with Zstd support. Can not decompress data.");
+	return G_CONVERTER_ERROR;
+#endif
 }
 
 static void
