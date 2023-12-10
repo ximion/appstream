@@ -136,6 +136,11 @@ if host_machine.system() != 'netbsd'
     add_project_arguments('-D_POSIX_C_SOURCE=201710L', language: 'c')
 endif
 
+if host_machine.system() == 'darwin'
+    # See https://github.com/ximion/appstream/issues/551
+    add_project_arguments('-D_DARWIN_C_SOURCE', language: 'c')
+endif
+
 if cc.get_id() == 'clang'
     # Clang doesn't understand autofree helpers on GMutexLocker and thinks
     # these variables are irrelevant, so this warning when used with Clang
