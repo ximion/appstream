@@ -49,6 +49,8 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (CURLU, curl_url_cleanup)
 
 G_DEFINE_QUARK (AsCurlError, as_curl_error)
 
+static const long AS_HTTP_TIMEOUT_SECS = 60;
+
 /**
  * as_curl_is_url:
  *
@@ -364,6 +366,14 @@ as_curl_new (GError **error)
 	/* no progress feedback by default (set dummy function so we can keep CURLOPT_NOPROGRESS at false */
 	curl_easy_setopt (priv->curl, CURLOPT_XFERINFOFUNCTION, as_curl_progress_dummy_cb);
 	curl_easy_setopt (priv->curl, CURLOPT_NOPROGRESS, 0L);
+
+	/* Abort the connection if connecting to the server takes too long. This
+	 * timeout has no effect after a connection is established. */
+	curl_easy_setopt (priv->curl, CURLOPT_CONNECTTIMEOUT, AS_HTTP_TIMEOUT_SECS);
+
+	/* Abort the download if it’s slower than 5KB/sec for 60 seconds. */
+	curl_easy_setopt (priv->curl, CURLOPT_LOW_SPEED_TIME, AS_HTTP_TIMEOUT_SECS);
+	curl_easy_setopt (priv->curl, CURLOPT_LOW_SPEED_LIMIT, 5000L);
 
 	/* read common proxy environment variables */
 	http_proxy = g_getenv ("https_proxy");
