@@ -38,6 +38,7 @@ struct _AsCurl {
 typedef struct {
 	CURL *curl;
 	const gchar *user_agent;
+	guint n_retries;
 
 	curl_off_t bytes_downloaded;
 } AsCurlPrivate;
@@ -81,6 +82,9 @@ as_curl_init (AsCurl *acurl)
 	AsCurlPrivate *priv = GET_PRIVATE (acurl);
 
 	priv->user_agent = "appstream/" PACKAGE_VERSION;
+
+	/* retry downloads 3 times by default */
+	priv->n_retries = 3;
 }
 
 static void
@@ -110,7 +114,11 @@ as_curl_download_write_bytearray_cb (char *ptr, size_t size, size_t nmemb, void 
 }
 
 static gboolean
-as_curl_perform_download (AsCurl *acurl, gboolean abort_is_error, GError **error)
+as_curl_perform_download_once (AsCurl *acurl,
+			       gboolean abort_is_error,
+			       CURLcode *curl_status,
+			       glong *response_code,
+			       GError **error)
 {
 	AsCurlPrivate *priv = GET_PRIVATE (acurl);
 	CURLcode res;
@@ -121,6 +129,9 @@ as_curl_perform_download (AsCurl *acurl, gboolean abort_is_error, GError **error
 
 	res = curl_easy_perform (priv->curl);
 	curl_easy_getinfo (priv->curl, CURLINFO_RESPONSE_CODE, &status_code);
+
+	if (curl_status != NULL)
+		*curl_status = res;
 	if (res != CURLE_OK) {
 		/* check if this issue was an intentional abort */
 		if (!abort_is_error && res == CURLE_ABORTED_BY_CALLBACK)
@@ -151,6 +162,9 @@ as_curl_perform_download (AsCurl *acurl, gboolean abort_is_error, GError **error
 	}
 
 verify_and_return:
+	if (response_code != NULL)
+		*response_code = status_code;
+
 	if (status_code == 404) {
 		g_set_error (
 		    error,
@@ -159,9 +173,6 @@ verify_and_return:
 		    /* TRANSLATORS: We tried to download an URL, but received a 404 error code */
 		    _("URL was not found on the server."));
 		return FALSE;
-	} else if (status_code == 302) {
-		/* redirects are fine, we ignore them until we reach a different code */
-		return TRUE;
 	} else if (status_code != 200) {
 		g_set_error (
 		    error,
@@ -173,6 +184,54 @@ verify_and_return:
 	}
 
 	return TRUE;
+}
+
+static gboolean
+as_curl_perform_download (AsCurl *acurl, gboolean abort_is_error, const gchar *url, GError **error)
+{
+	AsCurlPrivate *priv = GET_PRIVATE (acurl);
+	guint n_retries_remaining = priv->n_retries;
+	gboolean success;
+
+	curl_easy_setopt (priv->curl, CURLOPT_URL, url);
+	do {
+		g_autoptr(GError) tmp_error = NULL;
+		glong response_code;
+		CURLcode curl_status;
+
+		success = as_curl_perform_download_once (acurl,
+							 abort_is_error,
+							 &curl_status,
+							 &response_code,
+							 &tmp_error);
+		if (n_retries_remaining == 0) {
+			if (tmp_error != NULL)
+				g_propagate_error (error, g_steal_pointer (&tmp_error));
+			return success;
+		}
+		n_retries_remaining--;
+
+		/* if any of these matched, we attempt a retry */
+		if (curl_status == CURLE_OPERATION_TIMEDOUT ||
+		    curl_status == CURLE_COULDNT_RESOLVE_HOST ||
+		    curl_status == CURLE_COULDNT_RESOLVE_PROXY ||
+		    curl_status == CURLE_COULDNT_CONNECT
+
+		    || response_code >= 405) {
+			g_debug ("Retrying failed download of %s (attempt: %d/%d)",
+				 url,
+				 priv->n_retries - n_retries_remaining,
+				 priv->n_retries);
+			continue;
+		}
+
+		/* if we are here, we failed with an error that a retry can not fix */
+		if (tmp_error != NULL)
+			g_propagate_error (error, g_steal_pointer (&tmp_error));
+		break;
+	} while (TRUE);
+
+	return success;
 }
 
 /**
@@ -190,6 +249,35 @@ as_curl_set_cainfo (AsCurl *acurl, const gchar *cainfo)
 }
 
 /**
+ * as_curl_get_retry_count:
+ * @acurl: an #AsCurl instance.
+ *
+ * Get the number of download retries before giving up.
+ **/
+guint
+as_curl_get_retry_count (AsCurl *acurl)
+{
+	AsCurlPrivate *priv = GET_PRIVATE (acurl);
+	return priv->n_retries;
+}
+
+/**
+ * as_curl_set_retry_count:
+ * @acurl: an #AsCurl instance.
+ * @count: number of download retries
+ *
+ * Set the number of download retries before giving up.
+ **/
+void
+as_curl_set_retry_count (AsCurl *acurl, guint count)
+{
+	AsCurlPrivate *priv = GET_PRIVATE (acurl);
+	if (count > 24)
+		count = 24;
+	priv->n_retries = count;
+}
+
+/**
  * as_curl_download_bytes:
  * @acurl: an #AsCurl instance.
  * @url: URL to download
@@ -203,13 +291,12 @@ as_curl_download_bytes (AsCurl *acurl, const gchar *url, GError **error)
 	AsCurlPrivate *priv = GET_PRIVATE (acurl);
 	g_autoptr(GByteArray) buf = g_byte_array_new ();
 
-	curl_easy_setopt (priv->curl, CURLOPT_URL, url);
 	curl_easy_setopt (priv->curl, CURLOPT_WRITEFUNCTION, as_curl_download_write_bytearray_cb);
 	curl_easy_setopt (priv->curl, CURLOPT_WRITEDATA, buf);
 	curl_easy_setopt (priv->curl, CURLOPT_XFERINFOFUNCTION, as_curl_progress_dummy_cb);
 	curl_easy_setopt (priv->curl, CURLOPT_XFERINFODATA, acurl);
 
-	if (!as_curl_perform_download (acurl, TRUE, error))
+	if (!as_curl_perform_download (acurl, TRUE, url, error))
 		return NULL;
 
 	return g_byte_array_free_to_bytes (g_steal_pointer (&buf));
@@ -262,13 +349,12 @@ as_curl_download_to_filename (AsCurl *acurl, const gchar *url, const gchar *fnam
 
 	dos = g_data_output_stream_new (G_OUTPUT_STREAM (fos));
 
-	curl_easy_setopt (priv->curl, CURLOPT_URL, url);
 	curl_easy_setopt (priv->curl, CURLOPT_WRITEFUNCTION, as_curl_download_write_data_stream_cb);
 	curl_easy_setopt (priv->curl, CURLOPT_WRITEDATA, dos);
 	curl_easy_setopt (priv->curl, CURLOPT_XFERINFOFUNCTION, as_curl_progress_dummy_cb);
 	curl_easy_setopt (priv->curl, CURLOPT_XFERINFODATA, acurl);
 
-	if (!as_curl_perform_download (acurl, TRUE, error))
+	if (!as_curl_perform_download (acurl, TRUE, url, error))
 		return FALSE;
 
 	return TRUE;
@@ -307,14 +393,13 @@ as_curl_check_url_exists (AsCurl *acurl, const gchar *url, GError **error)
 	AsCurlPrivate *priv = GET_PRIVATE (acurl);
 	g_autoptr(GByteArray) buf = g_byte_array_new ();
 
-	curl_easy_setopt (priv->curl, CURLOPT_URL, url);
 	curl_easy_setopt (priv->curl, CURLOPT_WRITEFUNCTION, as_curl_download_write_bytearray_cb);
 	curl_easy_setopt (priv->curl, CURLOPT_WRITEDATA, buf);
 	curl_easy_setopt (priv->curl, CURLOPT_XFERINFOFUNCTION, as_curl_progress_check_url_cb);
 	curl_easy_setopt (priv->curl, CURLOPT_XFERINFODATA, acurl);
 
 	priv->bytes_downloaded = 0;
-	if (!as_curl_perform_download (acurl, FALSE, error))
+	if (!as_curl_perform_download (acurl, FALSE, url, error))
 		return FALSE;
 
 	/* check if it's a zero sized file */
