@@ -1,3 +1,26 @@
+Version 1.0.1
+~~~~~~~~~~~~~~
+Released: 2023-12-16
+
+Bugfixes:
+ * Fix lib name for Qt5 link target
+ * meson: Pass -D_DARWIN_C_SOURCE on darwin
+ * Fix macOS build
+ * stemmer: Resolve potential issue where stemmer may never be initialized
+ * cli: Don't fail what-provides if components were found
+ * Fix query element order for what-provides queries
+ * validator: Demote developer-name-tag-deprecated to info severity for now
+ * content-rating: Fix missing or wrong value descriptions for rating IDs
+ * curl: Add transfer speed timeouts for HTTP downloads
+ * curl: Retry operations on potentially transient errors
+
+Miscellaneous:
+ * validator: Improve hint for content-attribute-value-invalid
+ * Allow building without zstd temporarily
+
+Contributors:
+ Antonio Rojas, Bobby Rong, Matthias Klumpp, Rui Chen
+
 Version 1.0.0
 ~~~~~~~~~~~~~~
 Released: 2023-11-11
