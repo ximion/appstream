@@ -41,15 +41,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-11-11 18:22+0100\n"
+"POT-Creation-Date: 2023-12-16 18:07+0100\n"
 "PO-Revision-Date: 2023-11-26 02:01+0000\n"
 "Last-Translator: Сергей <asvmail.as@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
+"translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.2.1-rc\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -554,7 +557,7 @@ msgid "No sexual violence"
 msgstr "Отсутствует сексуальное насилие"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:881
+#: src/as-content-rating.c:883
 msgid "Rape or other violent sexual behavior"
 msgstr "Изнасилование или другое сексуальное насилие"
 
@@ -619,377 +622,388 @@ msgid "Prolonged nudity"
 msgstr "Продолжительные сцены обнажения"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:928
+#: src/as-content-rating.c:924
+msgid "Explicit nudity involving visible sexual organs"
+msgstr ""
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:929
 msgid "No references to or depictions of sexual nature"
 msgstr "Отсутствуют отсылки или описания сексуального характера"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:930
+#: src/as-content-rating.c:931
 msgid "Provocative references or depictions"
 msgstr "Содержание или упоминание провокационного характера"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:932
+#: src/as-content-rating.c:933
 msgid "Sexual references or depictions"
 msgstr "Содержание или упоминание сексуального характера"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:934
+#: src/as-content-rating.c:935
 msgid "Graphic sexual behavior"
 msgstr "Изображения сексуального поведения"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:939
+#: src/as-content-rating.c:940
 msgid "No profanity of any kind"
 msgstr "Отсутствует ненормативная лексика в любом виде"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:941
+#: src/as-content-rating.c:942
 msgid "Mild or infrequent use of profanity"
 msgstr "Незначительное или нечастое сквернословие"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:943
+#: src/as-content-rating.c:944
 msgid "Moderate use of profanity"
 msgstr "Умеренное сквернословие"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:945
+#: src/as-content-rating.c:946
 msgid "Strong or frequent use of profanity"
 msgstr "Очень грубое и частое сквернословие"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:950
+#: src/as-content-rating.c:951
 msgid "No inappropriate humor"
 msgstr "Отсутствует неприемлемый юмор"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:952
+#: src/as-content-rating.c:953
 msgid "Slapstick humor"
 msgstr "Грубый юмор"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:954
+#: src/as-content-rating.c:955
 msgid "Vulgar or bathroom humor"
 msgstr "Вульгарный или непристойный юмор"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:956
+#: src/as-content-rating.c:957
 msgid "Mature or sexual humor"
 msgstr "Юмор для взрослых или сексуального характера"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:961
+#: src/as-content-rating.c:962
 msgid "No discriminatory language of any kind"
 msgstr "Отсутствуют фразы с дискриминацией любого типа"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:963
+#: src/as-content-rating.c:964
 msgid "Negativity towards a specific group of people"
 msgstr "Негативное отношение к определённой группе людей"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:965
+#: src/as-content-rating.c:966
 msgid "Discrimination designed to cause emotional harm"
 msgstr "Дискриминация с целью причинить моральный вред"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:967
+#: src/as-content-rating.c:968
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
 msgstr ""
 "Явная дискриминация по признаку пола, сексуальной ориентации, расы или "
 "религии"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:972
+#: src/as-content-rating.c:973
 msgid "No advertising of any kind"
 msgstr "Отсутствует реклама в любом виде"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:974
+#: src/as-content-rating.c:975
 msgid "Product placement"
 msgstr "Неявная реклама"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:976
+#: src/as-content-rating.c:977
 msgid "Explicit references to specific brands or trademarked products"
 msgstr "Явные упоминания конкретных брендов или торговых марок"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:978
+#: src/as-content-rating.c:979
 msgid "Users are encouraged to purchase specific real-world items"
 msgstr ""
 "Пользователям предлагается приобрести определенные предметы реального мира"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:983
+#: src/as-content-rating.c:984
 msgid "No gambling of any kind"
 msgstr "Отсутствуют азартные игры в любом виде"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:985
+#: src/as-content-rating.c:986
 msgid "Gambling on random events using tokens or credits"
 msgstr ""
 "Азартные игры с использованием жетонов, основанные на случайных событиях"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:987
+#: src/as-content-rating.c:988
 msgid "Gambling using “play” money"
 msgstr "Азартные игры с использованием «игровой» валюты"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:989
+#: src/as-content-rating.c:990
 msgid "Gambling using real money"
 msgstr "Азартные игры с использованием реальных денег"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:994
+#: src/as-content-rating.c:995
 msgid "No ability to spend money"
 msgstr "Отсутствует возможность тратить деньги"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:996
+#: src/as-content-rating.c:997
 msgid "Users are encouraged to donate real money"
 msgstr "Пользователям предлагается платить реальные деньги"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:999
+#: src/as-content-rating.c:1000
 msgid "Ability to spend real money in-app"
 msgstr "Присутствует возможность тратить реальные деньги в приложении"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1004
+#: src/as-content-rating.c:1005
 msgid "No way to chat with other users"
 msgstr "Отсутствует возможность общаться с другими игроками"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1006
+#: src/as-content-rating.c:1007
 msgid "User-to-user interactions without chat functionality"
 msgstr "Взаимодействие между игроками без использования чата"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1008
+#: src/as-content-rating.c:1009
 msgid "Moderated chat functionality between users"
 msgstr "Модерируемые функции чата между пользователями"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1010
+#: src/as-content-rating.c:1011
 msgid "Uncontrolled chat functionality between users"
 msgstr "Неконтролируемые функции чата между пользователями"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1015
+#: src/as-content-rating.c:1016
 msgid "No way to talk with other users"
 msgstr "Отсутствует возможность общаться с другими игроками"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1017
+#: src/as-content-rating.c:1019
+#, fuzzy
+msgid "Moderated audio or video chat functionality between users"
+msgstr "Неконтролируемые функции аудио или видеочата между пользователями"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1021
 msgid "Uncontrolled audio or video chat functionality between users"
 msgstr "Неконтролируемые функции аудио или видеочата между пользователями"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1024
+#: src/as-content-rating.c:1026
 msgid "No sharing of social network usernames or email addresses"
 msgstr "Не распространяет имена пользователей или адреса электронной почты"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1026
+#: src/as-content-rating.c:1030
 msgid "Sharing social network usernames or email addresses"
 msgstr "Распространяет имена пользователей или адреса электронной почты"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1033
+#: src/as-content-rating.c:1035
 msgid "No sharing of user information with third parties"
 msgstr "Не передает информацию о пользователе третьим лицам"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1035
+#: src/as-content-rating.c:1037
 msgid "Checking for the latest application version"
 msgstr "Проверка последней версии приложения"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1037
+#: src/as-content-rating.c:1039
 msgid "Sharing diagnostic data that does not let others identify the user"
 msgstr ""
 "Совместное использование диагностических данных, которые не позволяют другим "
 "идентифицировать пользователя"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1039
+#: src/as-content-rating.c:1041
 msgid "Sharing information that lets others identify the user"
 msgstr "Обмен информацией, позволяющей другим идентифицировать пользователя"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1044
+#: src/as-content-rating.c:1046
 msgid "No sharing of physical location with other users"
 msgstr "Нет общего физического местоположения с другими пользователями"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1046
+#: src/as-content-rating.c:1050
 msgid "Sharing physical location with other users"
 msgstr ""
 "Совместное использование физического местоположения с другими пользователями"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1069
+#: src/as-content-rating.c:1071
 msgid "No references to homosexuality"
 msgstr "Нет ссылок на гомосексуализм"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1071
+#: src/as-content-rating.c:1073
 msgid "Indirect references to homosexuality"
 msgstr "Косвенные ссылки на гомосексуализм"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1073
+#: src/as-content-rating.c:1075
 msgid "Kissing between people of the same gender"
 msgstr "Поцелуи между людьми одного пола"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1075
+#: src/as-content-rating.c:1077
 msgid "Graphic sexual behavior between people of the same gender"
 msgstr "Графическое сексуальное поведение между людьми одного пола"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1080
+#: src/as-content-rating.c:1082
 msgid "No references to prostitution"
 msgstr "Нет ссылок на проституцию"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1082
+#: src/as-content-rating.c:1084
 msgid "Indirect references to prostitution"
 msgstr "Косвенные ссылки на проституцию"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1084
+#: src/as-content-rating.c:1086
 msgid "Direct references to prostitution"
 msgstr "Прямые ссылки на проституцию"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1086
+#: src/as-content-rating.c:1088
 msgid "Graphic depictions of the act of prostitution"
 msgstr "Графические изображения акта проституции"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1091
+#: src/as-content-rating.c:1093
 msgid "No references to adultery"
 msgstr "Нет ссылок на прелюбодеяние"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1093
+#: src/as-content-rating.c:1095
 msgid "Indirect references to adultery"
 msgstr "Косвенные ссылки на прелюбодеяние"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1095
+#: src/as-content-rating.c:1097
 msgid "Direct references to adultery"
 msgstr "Прямые ссылки на прелюбодеяние"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1097
+#: src/as-content-rating.c:1099
 msgid "Graphic depictions of the act of adultery"
 msgstr "Графические изображения акта прелюбодеяния"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1102
+#: src/as-content-rating.c:1104
 msgid "No sexualized characters"
 msgstr "Нет сексуализированных персонажей"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1105
+#: src/as-content-rating.c:1107
 msgid "Scantily clad human characters"
 msgstr "Необычно одетые человеческие персонажи"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1107
+#: src/as-content-rating.c:1109
 msgid "Overtly sexualized human characters"
 msgstr "Чрезмерно сексуализированные человеческие персонажи"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1112
+#: src/as-content-rating.c:1114
 msgid "No references to desecration"
 msgstr "Нет упоминания осквернения"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1114
+#: src/as-content-rating.c:1116
 msgid "Depictions of or references to historical desecration"
 msgstr "Изображения или ссылки на историческое осквернение"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1116
+#: src/as-content-rating.c:1118
 msgid "Depictions of modern-day human desecration"
 msgstr "Изображения современного человеческого осквернения"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1118
+#: src/as-content-rating.c:1120
 msgid "Graphic depictions of modern-day desecration"
 msgstr "Графические изображения современного осквернения"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1123
+#: src/as-content-rating.c:1125
 msgid "No visible dead human remains"
 msgstr "Нет видимых мертвых человеческих останков"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1125
+#: src/as-content-rating.c:1127
 msgid "Visible dead human remains"
 msgstr "Видимые мертвые человеческие останки"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1127
+#: src/as-content-rating.c:1129
 msgid "Dead human remains that are exposed to the elements"
 msgstr "Мёртвые человеческие останки, которые имеют неприкрытые части"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1129
+#: src/as-content-rating.c:1131
 msgid "Graphic depictions of desecration of human bodies"
 msgstr "Графические изображения осквернения человеческих тел"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1134
+#: src/as-content-rating.c:1136
 msgid "No references to slavery"
 msgstr "Отсутствуют упоминания рабства"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1136
+#: src/as-content-rating.c:1138
 msgid "Depictions of or references to historical slavery"
 msgstr "Изображения или упоминания исторического рабства"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1138
+#: src/as-content-rating.c:1140
 msgid "Depictions of modern-day slavery"
 msgstr "Изображения современного рабства"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1140
+#: src/as-content-rating.c:1142
 msgid "Graphic depictions of modern-day slavery"
 msgstr "Графические изображения современного рабства"
 
 #. TRANSLATORS: We got a 429 error while trying to download data
-#: src/as-curl.c:134
+#: src/as-curl.c:147
 #, c-format
 msgid "Failed to download due to server limit"
 msgstr "Не удалось загрузить из-за ограничения сервера"
 
-#: src/as-curl.c:141 src/as-curl.c:147
+#: src/as-curl.c:154 src/as-curl.c:160
 #, c-format
 msgid "Failed to download file: %s"
 msgstr "Не удалось загрузить файл: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
-#: src/as-curl.c:158
+#: src/as-curl.c:174
 #, c-format
 msgid "URL was not found on the server."
 msgstr "URL-адрес не был найден на сервере."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
-#: src/as-curl.c:169
+#: src/as-curl.c:182
 #, c-format
 msgid "Unexpected status code: %ld"
 msgstr "Неожиданный код состояния: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-curl.c:325
+#: src/as-curl.c:412
 #, c-format
 msgid "Retrieved file size was zero."
 msgstr "Размер полученного файла был равен нулю."
@@ -1522,158 +1536,158 @@ msgid "GNU Affero General Public License v3.0 or later"
 msgstr "GNU Affero General Public License v3.0 или выше"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:250
+#: src/as-spdx-data.h:255
 msgid "GNU Free Documentation License v1.1 only - invariants"
 msgstr "GNU Free Documentation License только v1.1 - с неизменяемыми разделами"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:252
+#: src/as-spdx-data.h:257
 msgid "GNU Free Documentation License v1.1 or later - invariants"
 msgstr ""
 "GNU Free Documentation License v1.1 или выше - с неизменяемыми разделами"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:254
+#: src/as-spdx-data.h:259
 msgid "GNU Free Documentation License v1.1 only - no invariants"
 msgstr "GNU Free Documentation License только v1.1 - без неизменяемых разделов"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:256
+#: src/as-spdx-data.h:261
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
 msgstr ""
 "GNU Free Documentation License v1.1 или выше - без неизменяемых разделов"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:258
+#: src/as-spdx-data.h:263
 msgid "GNU Free Documentation License v1.1 only"
 msgstr "GNU Free Documentation License только v1.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:260
+#: src/as-spdx-data.h:265
 msgid "GNU Free Documentation License v1.1 or later"
 msgstr "GNU Free Documentation License v1.1 или выше"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:263
+#: src/as-spdx-data.h:268
 msgid "GNU Free Documentation License v1.2 only - invariants"
 msgstr "GNU Free Documentation License только v1.2 - с неизменяемыми разделами"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:265
+#: src/as-spdx-data.h:270
 msgid "GNU Free Documentation License v1.2 or later - invariants"
 msgstr ""
 "GNU Free Documentation License v1.2 или выше - с неизменяемыми разделами"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:267
+#: src/as-spdx-data.h:272
 msgid "GNU Free Documentation License v1.2 only - no invariants"
 msgstr "GNU Free Documentation License только v1.2 - без неизменяемых разделов"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:269
+#: src/as-spdx-data.h:274
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
 msgstr ""
 "GNU Free Documentation License v1.2 или выше - без неизменяемых разделов"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:271
+#: src/as-spdx-data.h:276
 msgid "GNU Free Documentation License v1.2 only"
 msgstr "GNU Free Documentation License только v1.2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:273
+#: src/as-spdx-data.h:278
 msgid "GNU Free Documentation License v1.2 or later"
 msgstr "GNU Free Documentation License v1.2 или выше"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:276
+#: src/as-spdx-data.h:281
 msgid "GNU Free Documentation License v1.3 only - invariants"
 msgstr "GNU Free Documentation License только v1.3 - с неизменяемыми разделами"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:278
+#: src/as-spdx-data.h:283
 msgid "GNU Free Documentation License v1.3 or later - invariants"
 msgstr ""
 "GNU Free Documentation License v1.3 или выше - с неизменяемыми разделами"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:280
+#: src/as-spdx-data.h:285
 msgid "GNU Free Documentation License v1.3 only - no invariants"
 msgstr "GNU Free Documentation License только v1.3 - без неизменяемых разделов"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:282
+#: src/as-spdx-data.h:287
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
 msgstr ""
 "GNU Free Documentation License v1.3 или выше - без неизменяемых разделов"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:284
+#: src/as-spdx-data.h:289
 msgid "GNU Free Documentation License v1.3 only"
 msgstr "GNU Free Documentation License только v1.3"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:286
+#: src/as-spdx-data.h:291
 msgid "GNU Free Documentation License v1.3 or later"
 msgstr "GNU Free Documentation License v1.3 или выше"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:290 src/as-spdx-data.h:294
+#: src/as-spdx-data.h:295 src/as-spdx-data.h:299
 msgid "GNU General Public License v1.0 only"
 msgstr "GNU General Public License только v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:292 src/as-spdx-data.h:296
+#: src/as-spdx-data.h:297 src/as-spdx-data.h:301
 msgid "GNU General Public License v1.0 or later"
 msgstr "GNU General Public License v1.0 или выше"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:298 src/as-spdx-data.h:302
+#: src/as-spdx-data.h:303 src/as-spdx-data.h:307
 msgid "GNU General Public License v2.0 only"
 msgstr "GNU General Public License только v2.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:300 src/as-spdx-data.h:304
+#: src/as-spdx-data.h:305 src/as-spdx-data.h:309
 msgid "GNU General Public License v2.0 or later"
 msgstr "GNU General Public License v2.0 или выше"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:311 src/as-spdx-data.h:315
+#: src/as-spdx-data.h:316 src/as-spdx-data.h:320
 msgid "GNU General Public License v3.0 only"
 msgstr "GNU General Public License только v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:313 src/as-spdx-data.h:317
+#: src/as-spdx-data.h:318 src/as-spdx-data.h:322
 msgid "GNU General Public License v3.0 or later"
 msgstr "GNU General Public License v3.0 или выше"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:367 src/as-spdx-data.h:371
+#: src/as-spdx-data.h:373 src/as-spdx-data.h:377
 msgid "GNU Library General Public License v2 only"
 msgstr "GNU Library General Public License только v2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:369 src/as-spdx-data.h:373
+#: src/as-spdx-data.h:375 src/as-spdx-data.h:379
 msgid "GNU Library General Public License v2 or later"
 msgstr "GNU Library General Public License v2 или выше"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:375 src/as-spdx-data.h:379
+#: src/as-spdx-data.h:381 src/as-spdx-data.h:385
 msgid "GNU Lesser General Public License v2.1 only"
 msgstr "GNU Lesser General Public License только v2.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:377 src/as-spdx-data.h:381
+#: src/as-spdx-data.h:383 src/as-spdx-data.h:387
 msgid "GNU Lesser General Public License v2.1 or later"
 msgstr "GNU Lesser General Public License v2.1 или выше"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:383 src/as-spdx-data.h:387
+#: src/as-spdx-data.h:389 src/as-spdx-data.h:393
 msgid "GNU Lesser General Public License v3.0 only"
 msgstr "GNU Lesser General Public License только v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:385 src/as-spdx-data.h:389
+#: src/as-spdx-data.h:391 src/as-spdx-data.h:395
 msgid "GNU Lesser General Public License v3.0 or later"
 msgstr "GNU Lesser General Public License v3.0 или выше"
 
@@ -1842,7 +1856,12 @@ msgid ""
 "is strongly discouraged to improve interoperability with other tools such as "
 "D-Bus. A good option is to replace any hyphens with underscores (`_`). "
 "Hyphens are only allowed in the last segment of a component ID."
-msgstr "Идентификатор компонента содержит в доменной части дефис/минус. Использование дефиса настоятельно не рекомендуется для улучшения совместимости с другими инструментами, такими как D-Bus. Хорошим вариантом является замена любых дефисов на подчёркивания («_»). Дефисы разрешены только в последнем сегменте идентификатора компонента."
+msgstr ""
+"Идентификатор компонента содержит в доменной части дефис/минус. "
+"Использование дефиса настоятельно не рекомендуется для улучшения "
+"совместимости с другими инструментами, такими как D-Bus. Хорошим вариантом "
+"является замена любых дефисов на подчёркивания («_»). Дефисы разрешены "
+"только в последнем сегменте идентификатора компонента."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
@@ -2700,7 +2719,12 @@ msgid ""
 "which can not be validated. Please migrate it to version 0.6 (or higher). "
 "Modern files use the `component` root tag and include many other "
 "differences, so check for changes carefully when modernizing the data."
-msgstr "Файл с метаинформацией использует устаревшую версию спецификации AppStream, которая не может быть валидирована. Пожалуйста перейдите на версию 0.6 (или выше). Современные файлы используют корневой тег «comment» и включают множество других отличий, поэтому внимательно проверяйте наличие изменений при обновлении данных."
+msgstr ""
+"Файл с метаинформацией использует устаревшую версию спецификации AppStream, "
+"которая не может быть валидирована. Пожалуйста перейдите на версию 0.6 (или "
+"выше). Современные файлы используют корневой тег «comment» и включают "
+"множество других отличий, поэтому внимательно проверяйте наличие изменений "
+"при обновлении данных."
 
 #: src/as-validator-issue-tag.h:781
 msgid ""
@@ -3086,20 +3110,26 @@ msgstr "Этот цвет не является допустимым цвето�
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
-msgstr "Указанный DOI (идентификатор цифрового объекта) для этого ссылочного элемента недействителен."
+msgstr ""
+"Указанный DOI (идентификатор цифрового объекта) для этого ссылочного "
+"элемента недействителен."
 
 #: src/as-validator-issue-tag.h:1094
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
-msgstr "Значением этого ссылочного элемента должен быть URL файла CFF (формат файла цитирования)."
+msgstr ""
+"Значением этого ссылочного элемента должен быть URL файла CFF (формат файла "
+"цитирования)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1100
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
-msgstr "В этом ссылочном элементе регистра отсутствует свойство «name» для обозначения названия регистра, о котором идёт речь."
+msgstr ""
+"В этом ссылочном элементе регистра отсутствует свойство «name» для "
+"обозначения названия регистра, о котором идёт речь."
 
 #: src/as-validator-issue-tag.h:1105
 msgid ""
@@ -3157,20 +3187,20 @@ msgid "The release metadata file '%s' is named incorrectly."
 msgstr "Название файла метаданных выпуска «%s» некорректно."
 
 #. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
-#: src/as-validator.c:659
+#: src/as-validator.c:661
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
 msgstr "Критичность новой проблемы для тега «%s» является некорректной."
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
-#: src/as-validator.c:670
+#: src/as-validator.c:672
 #, c-format
 msgid "The issue tag '%s' is not recognized."
 msgstr "Тег проблемы «%s» не распознан."
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 #. whitelisted for that.
-#: src/as-validator.c:697
+#: src/as-validator.c:699
 #, c-format
 msgid ""
 "It is not allowed to downgrade the severity of tag '%s' to one that allows "
@@ -3181,9 +3211,9 @@ msgstr ""
 
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
-#: src/as-validator.c:855 src/as-validator.c:1416 src/as-validator.c:1557
-#: src/as-validator.c:1768 src/as-validator.c:2355 src/as-validator.c:2377
-#: src/as-validator.c:2499 src/as-validator.c:2769
+#: src/as-validator.c:857 src/as-validator.c:1418 src/as-validator.c:1559
+#: src/as-validator.c:1770 src/as-validator.c:2357 src/as-validator.c:2379
+#: src/as-validator.c:2501 src/as-validator.c:2771
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Найдено: %s - разрешено: %s"
