@@ -1,12 +1,10 @@
 # Meson definition for AppStream Qt
 
-if get_option('qt') and get_option('qt5')
-    error('Both the "qt" and "qt5" option enabled. Please select only one Qt major version to build!')
-endif
-
 asqt_api_level = '3'
 
-if get_option('qt5')
+foreach qt_major : get_option('qt-versions')
+
+if qt_major == '5'
     qt_major_version = '5'
     qt_min_version = '5.15'
     asqt_library_name = 'AppStreamQt5'
@@ -108,6 +106,12 @@ appstreamqt_lib = library(f'@asqt_library_name@',
     install: true
 )
 
+if qt_major == '5'
+    appstreamqt5_lib = appstreamqt_lib
+else
+    appstreamqt6_lib = appstreamqt_lib
+endif
+
 configure_file(
     input: 'version.h.in',
     output: 'version.h',
@@ -116,8 +120,6 @@ configure_file(
 )
 
 install_headers(asqt_pub_headers, subdir: f'@asqt_library_name@')
-
-subdir('tests/')
 
 #
 # CMake support
@@ -142,3 +144,8 @@ install_data (
     join_paths(meson.current_build_dir(), f'@asqt_library_name@ConfigVersion.cmake'),
     install_dir: join_paths(get_option('libdir'), 'cmake', asqt_library_name)
 )
+
+# end of Qt version loop
+endforeach
+
+subdir('tests/')
