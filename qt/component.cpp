@@ -550,6 +550,16 @@ void AppStream::Component::addProvided(const AppStream::Provided &provided)
     as_component_add_provided(d->cpt, provided.cPtr());
 }
 
+void Component::sortScreenshots(const QString &environment,
+                                const QString &style,
+                                bool prioritizeStyle)
+{
+    as_component_sort_screenshots(d->cpt,
+                                  qPrintable(environment),
+                                  qPrintable(style),
+                                  prioritizeStyle);
+}
+
 QList<Screenshot> Component::screenshotsAll() const
 {
     QList<Screenshot> res;

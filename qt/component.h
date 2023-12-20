@@ -225,6 +225,7 @@ public:
     AppStream::Provided provided(Provided::Kind kind) const;
     void addProvided(const AppStream::Provided &provided);
 
+    void sortScreenshots(const QString &environment, const QString &style, bool prioritizeStyle);
     QList<AppStream::Screenshot> screenshotsAll() const;
     void addScreenshot(const AppStream::Screenshot &screenshot);
 
