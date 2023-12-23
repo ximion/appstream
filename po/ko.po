@@ -20,6 +20,7 @@
 # Jung-Kyu Park <bagjunggyu@gmail.com>, 2021.
 # Jun Hyung Shin <shmishmi79@gmail.com>, 2021.
 # Shinjo Park <peremen@gmail.com>, 2022.
+# 박기준 <kei0108@ajou.ac.kr>, 2023.
 #
 # Translators:
 msgid ""
@@ -27,16 +28,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-12-16 18:07+0100\n"
-"PO-Revision-Date: 2022-10-01 02:23+0000\n"
-"Last-Translator: 이정희 <daemul72@gmail.com>\n"
-"Language-Team: Korean <https://hosted.weblate.org/projects/appstream/"
-"translations/ko/>\n"
+"PO-Revision-Date: 2023-12-23 13:25+0000\n"
+"Last-Translator: 박기준 <kei0108@ajou.ac.kr>\n"
+"Language-Team: Korean <https://hosted.weblate.org/projects/appstream/translations/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -604,7 +604,7 @@ msgstr "지속적인 전라 표현"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:924
 msgid "Explicit nudity involving visible sexual organs"
-msgstr ""
+msgstr "눈에 보이는 성기를 포함한 뚜렷한 나체"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:929
@@ -956,7 +956,7 @@ msgstr "현대식 노예제도 화면 묘사"
 #: src/as-curl.c:147
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr ""
+msgstr "서버 제한으로 인해 다운로드하지 못하였습니다"
 
 #: src/as-curl.c:154 src/as-curl.c:160
 #, c-format
@@ -967,37 +967,37 @@ msgstr "파일을 다운로드하지 못했습니다. %s"
 #: src/as-curl.c:174
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "서버에서 URL을 찾을 수 없습니다."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:182
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "예기치 않은 상태 코드: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:412
 #, c-format
 msgid "Retrieved file size was zero."
-msgstr ""
+msgstr "검색된 파일 크기가 0입니다."
 
 #. TRANSLATORS: Name of the "Cinnamon" desktop environment.
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
 #: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:77
 msgid "Cinnamon"
-msgstr ""
+msgstr "시나몬(리눅스 및 유닉스 계열 운영 체제를 위한 자유로운 오픈 소스 데스크톱 환경)"
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
 #: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:79
 msgid "Deepin"
-msgstr ""
+msgstr "딥인 (직관적인 UI를 갖춘 데스크탑 환경)"
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
 #: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:81
 msgid "EDE"
-msgstr ""
+msgstr "Equinox Desktop Environment의 약자로 단순하고 빠르다는 뜻의 조그마한 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #. TRANSLATORS: Name of the "endless" visual environment style.
@@ -1010,7 +1010,7 @@ msgstr "번들"
 #. TRANSLATORS: Name of the "gnome" visual environment style.
 #: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
 msgid "GNOME"
-msgstr ""
+msgstr "GNU Network Object Model Environment의 약자로 Linux의 GTK 라이브러리를 사용한 오픈 소스 GUI 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "KDE" desktop environment.
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
@@ -1018,78 +1018,78 @@ msgstr ""
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
 #: src/as-desktop-env-data.h:99
 msgid "KDE Plasma"
-msgstr ""
+msgstr "그냥 KDE라고도 불리며 K Desktop Environment의 약자로 독일을 중심으로 한 인터내셔널 오픈소스 소프트웨어 커뮤니티"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
 #: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:89
 msgid "LXDE"
-msgstr ""
+msgstr "Lightweight X11 Desktop Environment의 약자로유닉스와 POSIX 호환 플랫폼(리눅스나 BSD)에서 사용할 수 있는 자유 오픈소스 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
 #: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:91
 msgid "LXQt"
-msgstr ""
+msgstr "완전한 데스크톱 환경을 제공하는 것을 목표로 하는, 개발 중인 소프트웨어 패키지의 번들"
 
 #. TRANSLATORS: Name of the "MATE" desktop environment.
 #: src/as-desktop-env-data.h:59
 msgid "MATE"
-msgstr ""
+msgstr "Linux, BSD 및 illusmos 운영 체제에서 실행되는 무료 오픈 소스 소프트웨어로 구성된 데스크탑 환경"
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
 #: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:97
 msgid "Pantheon"
-msgstr ""
+msgstr "판테온은 사용자 친화적인 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
 #: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:101
 msgid "Razor"
-msgstr ""
+msgstr "단종된 무료 및 오픈 소스 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "ROX" desktop environment.
 #: src/as-desktop-env-data.h:67
 msgid "ROX"
-msgstr ""
+msgstr "X 윈도 시스템을 위한 그래픽 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
 #: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:105
 msgid "Unity"
-msgstr ""
+msgstr "가장 유명한 리눅스 배포판인 우분투의 기본 데스크탑 환경"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
 #: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:109
 msgid "Xfce"
-msgstr ""
+msgstr "UNIX 계열 운영체제를 위해서 개발된 가벼운 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
 msgid "GNOME (Dark)"
-msgstr ""
+msgstr "GNU Network Object Model Environment의 약자로 Linux의 GTK 라이브러리를 사용한 오픈 소스 GUI 데스크톱 환경의 다크모드"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:93
 msgid "macOS"
-msgstr ""
+msgstr "Apple의 Mac에 쓰였던 운영 체제"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:95
 msgid "Mate"
-msgstr ""
+msgstr "Linux, BSD 및 illusmos 운영 체제에서 실행되는 무료 오픈 소스 소프트웨어로 구성된 데스크탑 환경"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:103
 msgid "Rox"
-msgstr ""
+msgstr "X 윈도 시스템을 위한 그래픽 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:107
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft에서 개발한 컴퓨터 GUI 운영체제, 윈도우"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -1108,7 +1108,7 @@ msgstr "메타데이터 파일에 오류가 있습니다:"
 
 #: src/as-pool.c:2397
 msgid "Group"
-msgstr ""
+msgstr "그룹"
 
 #: src/as-pool.c:2452
 msgid "Iconsets"
@@ -1117,12 +1117,12 @@ msgstr "아이콘셋"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2500
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "위치상 설치된 소프트웨어의 데이터"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2503
 msgid "Software catalog data"
-msgstr ""
+msgstr "소프트웨어 카탈로그 데이터"
 
 #: src/as-provided.c:138
 msgid "Libraries"
@@ -1170,7 +1170,7 @@ msgstr "구성 요소"
 
 #: src/as-relation.c:1350
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "지시 장치(예: 마우스)"
 
 #: src/as-relation.c:1352
 #, fuzzy
@@ -1179,152 +1179,152 @@ msgstr "보드"
 
 #: src/as-relation.c:1354
 msgid "gamepad"
-msgstr ""
+msgstr "게임패드"
 
 #: src/as-relation.c:1356
 msgid "tv remote"
-msgstr ""
+msgstr "TV 리모컨"
 
 #: src/as-relation.c:1358
 msgid "graphics tablet"
-msgstr ""
+msgstr "그래픽 태블릿"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1363
 #, c-format
 msgid "This software requires a %s for input."
-msgstr ""
+msgstr "이 소프트웨어는 입력을 위해 %s이(가) 필요합니다."
 
 #: src/as-relation.c:1368
 msgid "This software requires a touch input device."
-msgstr ""
+msgstr "이 소프트웨어에는 터치 입력 장치가 필요합니다."
 
 #: src/as-relation.c:1370
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "이 소프트웨어는 음성 입력을 통해 마이크를 제어해야 합니다."
 
 #: src/as-relation.c:1372
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "이 소프트웨어에는 입력 제어를 위한 카메라가 필요합니다."
 
 #: src/as-relation.c:1374
 msgid "This software requires a method for console input."
-msgstr ""
+msgstr "이 소프트웨어는 콘솔 입력을 위한 방법이 필요합니다."
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1379
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "이 소프트웨어는 입력을 위해 %s을(를) 권장합니다."
 
 #: src/as-relation.c:1384
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "이 소프트웨어는 터치 입력 장치를 권장합니다."
 
 #: src/as-relation.c:1386
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "이 소프트웨어는 음성 입력을 통해 제어할 마이크를 권장합니다."
 
 #: src/as-relation.c:1389
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "이 소프트웨어는 입력 제어를 위한 카메라를 권장합니다."
 
 #: src/as-relation.c:1392
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "이 소프트웨어는 콘솔 입력을 위한 방법을 권장합니다."
 
 #: src/as-relation.c:1397
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "포인팅 장치(예: 마우스)"
 
 #: src/as-relation.c:1399
 msgid "keyboards"
-msgstr ""
+msgstr "키보드들"
 
 #: src/as-relation.c:1401
 msgid "gamepads"
-msgstr ""
+msgstr "게임패드들"
 
 #: src/as-relation.c:1403
 msgid "tv remotes"
-msgstr ""
+msgstr "TV 리모컨들"
 
 #: src/as-relation.c:1405
 msgid "graphics tablets"
-msgstr ""
+msgstr "그래픽 태블릿들"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1409
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "이 소프트웨어는 %s을(를) 지원합니다."
 
 #: src/as-relation.c:1413
 msgid "This software supports touch input."
-msgstr ""
+msgstr "이 소프트웨어는 터치 입력을 지원합니다."
 
 #: src/as-relation.c:1415
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "이 소프트웨어는 음성 입력을 통해 제어할 수 있습니다."
 
 #: src/as-relation.c:1417
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "이 소프트웨어는 카메라를 통해 제어할 수 있습니다."
 
 #: src/as-relation.c:1420
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "이 소프트웨어는 콘솔 명령을 통해 작동을 지원합니다."
 
 #: src/as-relation.c:1433
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "포인팅 장치(예: 마우스 또는 터치패드)를 발견."
 
 #: src/as-relation.c:1435
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "실제 키보드를 찾았습니다."
 
 #: src/as-relation.c:1437
 msgid "Gamepad found."
-msgstr ""
+msgstr "게임패드를 찾았습니다."
 
 #: src/as-relation.c:1439
 msgid "TV remote found."
-msgstr ""
+msgstr "TV 리모컨을 찾았습니다."
 
 #: src/as-relation.c:1441
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "그래픽 태블릿을 찾았습니다."
 
 #: src/as-relation.c:1444
 msgid "Touch input device found."
-msgstr ""
+msgstr "터치 입력 장치를 찾았습니다."
 
 #: src/as-relation.c:1446
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "음성 입력 제어를 위한 마이크를 찾았습니다."
 
 #: src/as-relation.c:1448
 msgid "Camera for input control found."
-msgstr ""
+msgstr "입력 제어용 카메라를 찾았습니다."
 
 #: src/as-relation.c:1450
 msgid "Console interface available."
-msgstr ""
+msgstr "콘솔 인터페이스를 사용할 수 있습니다."
 
 #: src/as-relation.c:1511
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "소프트웨어 '%s'을(를) 찾았습니다"
 
 #: src/as-relation.c:1520
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "필요한 소프트웨어 구성 요소 '%s'가 없습니다."
 
 #: src/as-relation.c:1524
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "권장 소프트웨어 구성 요소 '%s'가 없습니다."
 
 #: src/as-relation.c:1528
 #, fuzzy, c-format
@@ -1334,38 +1334,38 @@ msgstr "구성 요소 %i개를 찾았습니다."
 #: src/as-relation.c:1561
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "이 소프트웨어에서 지원하는 하드웨어를 찾았습니다. '%s'"
 
 #: src/as-relation.c:1570
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "이 소프트웨어에 필요한 하드웨어를 이 시스템에서 찾을 수 없습니다. '%s'"
 
 #: src/as-relation.c:1575
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "이 소프트웨어에 대한 권장 하드웨어를 이 시스템에서 찾을 수 없습니다. '%s'"
 
 #: src/as-relation.c:1580
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "이 소프트웨어는 이 시스템에 없는 하드웨어를 지원합니다. '%s'"
 
 #: src/as-relation.c:1619
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "이 소프트웨어에는 %s 커널이 필요하지만 이 시스템은 %s을(를) 실행하고 있습니다."
 
 #: src/as-relation.c:1625
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "이 소프트웨어는 %s 커널을 권장하지만 이 시스템은 %s을(를) 실행하고 있습니다."
 
 #: src/as-relation.c:1631
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr ""
+msgstr "이 소프트웨어는 %s 커널만 지원하지만 어쨌든 %s에서 실행될 수 있습니다."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1373,7 +1373,7 @@ msgstr ""
 #: src/as-relation.c:1661
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
+msgstr "이 소프트웨어에는 %s %s %s이(가) 필요하지만 이 시스템은 %s %s을(를) 실행하고 있습니다."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1381,20 +1381,20 @@ msgstr ""
 #: src/as-relation.c:1673
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
+msgstr "%s %s %s의 사용을 권장하지만 이 시스템은 %s %s을(를) 실행하고 있습니다."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1684
 #, c-format
 msgid "This software supports %s %s %s."
-msgstr ""
+msgstr "이 소프트웨어는 %s %s %s을(를) 지원합니다."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1702
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "커널 %s %s이(가) 지원됩니다."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1402,7 +1402,7 @@ msgstr ""
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "이 소프트웨어에는 %s%.2f GiB의 메모리가 필요하지만 이 시스템에는 %.2f GiB가 있습니다."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1410,22 +1410,22 @@ msgstr ""
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "이 소프트웨어는 메모리의 %s%.2f GiB를 권장하지만 이 시스템은 %.2f GiB를 권장합니다."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1754
 #, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr ""
+msgstr "이 소프트웨어는 메모리 %s%.2f GiB를 지원합니다."
 
 #: src/as-relation.c:1770
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "이 시스템에는 이 소프트웨어를 위한 충분한 메모리가 있습니다."
 
 #: src/as-relation.c:1834
 msgid "This software needs a display for graphical content."
-msgstr ""
+msgstr "이 소프트웨어에는 그래픽 콘텐츠를 위한 디스플레이가 필요합니다."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1434,7 +1434,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "이 소프트웨어에는 가장 긴 가장자리가 %s %lupx 크기인 디스플레이가 필요하지만 이 장치의 디스플레이에는 %lupx가 있습니다."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1443,7 +1443,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "이 소프트웨어에는 가장 짧은 에지가 %s %lupx 크기인 디스플레이가 필요하지만 이 장치의 디스플레이에는 %lupx가 있습니다."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1452,7 +1452,7 @@ msgstr ""
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "이 소프트웨어는 가장 긴 가장자리의 크기가 %s %lupx인 디스플레이를 권장하지만 이 장치의 디스플레이에는 %lupx가 있습니다."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1461,194 +1461,194 @@ msgstr ""
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "이 소프트웨어는 가장 짧은 에지가 %s %lupx 크기인 디스플레이를 권장하지만 이 장치의 디스플레이에는 %lupx가 있습니다."
 
 #: src/as-relation.c:1902
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "디스플레이 크기는 이 소프트웨어에 충분합니다."
 
 #: src/as-relation.c:1918
 #, c-format
 msgid "Relation satisfy check for items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "'%s' 유형의 항목에 대한 관계 만족 검사가 아직 구현되지 않았습니다."
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "오직 Affero 일반 공용 허가서 v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:40
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Affero 일반 공용 허가서 v1.0 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:43
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "오직 GNU Affero 일반 공용 허가서 v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:45
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU 아페로 일반 공중 사용 허가서 v3.0 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:255
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "오직 GNU 무료 문서 라이센스 v1.1 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:257
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "GNU 무료 문서 라이센스 v1.1 혹은 이후 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:259
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
+msgstr "오직 GNU 무료 문서 라이센스 v1.1 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:261
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
+msgstr "GNU 무료 문서 라이센스 v1.1 혹은 이후 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:263
 msgid "GNU Free Documentation License v1.1 only"
-msgstr ""
+msgstr "오직 GNU 무료 문서 라이센스 v1.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:265
 msgid "GNU Free Documentation License v1.1 or later"
-msgstr ""
+msgstr "GNU 자유 문서 라이센스 v1.1 또는 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:268
 msgid "GNU Free Documentation License v1.2 only - invariants"
-msgstr ""
+msgstr "오직 GNU 무료 문서 라이센스 v1.2 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:270
 msgid "GNU Free Documentation License v1.2 or later - invariants"
-msgstr ""
+msgstr "GNU 무료 문서 라이센스 v1.2 또는 이후 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:272
 msgid "GNU Free Documentation License v1.2 only - no invariants"
-msgstr ""
+msgstr "오직 GNU 무료 문서 라이센스 v1.2 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:274
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
-msgstr ""
+msgstr "GNU 무료 문서 라이센스 v1.2 혹은 이후 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:276
 msgid "GNU Free Documentation License v1.2 only"
-msgstr ""
+msgstr "오직 GNU 무료 문서 라이센스 v1.2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:278
 msgid "GNU Free Documentation License v1.2 or later"
-msgstr ""
+msgstr "GNU 무료 문서 라이센스 v1.2 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:281
 msgid "GNU Free Documentation License v1.3 only - invariants"
-msgstr ""
+msgstr "오직 GNU 무료 문서 라이센스 v1.3 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:283
 msgid "GNU Free Documentation License v1.3 or later - invariants"
-msgstr ""
+msgstr "GNU 무료 문서 라이센스 v1.3 혹은 이후 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:285
 msgid "GNU Free Documentation License v1.3 only - no invariants"
-msgstr ""
+msgstr "오직 GNU 무료 문서 라이센스 v1.3 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:287
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
-msgstr ""
+msgstr "GNU 무료 문서 라이센스 v1.3 혹은 그 이후 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:289
 msgid "GNU Free Documentation License v1.3 only"
-msgstr ""
+msgstr "오직 GNU 무료 문서 라이센스 v1.3"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:291
 msgid "GNU Free Documentation License v1.3 or later"
-msgstr ""
+msgstr "GNU 무료 문서 라이센스 v1.3 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:295 src/as-spdx-data.h:299
 msgid "GNU General Public License v1.0 only"
-msgstr ""
+msgstr "오직 GNU 일반 공용 허가서 v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:297 src/as-spdx-data.h:301
 msgid "GNU General Public License v1.0 or later"
-msgstr ""
+msgstr "GNU 일반 공용 허가서 v1.0 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:303 src/as-spdx-data.h:307
 msgid "GNU General Public License v2.0 only"
-msgstr ""
+msgstr "오직 GNU 일반 공용 허가서 v2.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:305 src/as-spdx-data.h:309
 msgid "GNU General Public License v2.0 or later"
-msgstr ""
+msgstr "GNU 일반 공용 허가서 v2.0 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:316 src/as-spdx-data.h:320
 msgid "GNU General Public License v3.0 only"
-msgstr ""
+msgstr "오직 GNU 일반 공용 허가서 v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:318 src/as-spdx-data.h:322
 msgid "GNU General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU 일반 공용 허가서 v3.0 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:373 src/as-spdx-data.h:377
 msgid "GNU Library General Public License v2 only"
-msgstr ""
+msgstr "오직 GNU 일반 공용 허가서 v2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:375 src/as-spdx-data.h:379
 msgid "GNU Library General Public License v2 or later"
-msgstr ""
+msgstr "GNU 일반 공용 허가서 v2 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:381 src/as-spdx-data.h:385
 msgid "GNU Lesser General Public License v2.1 only"
-msgstr ""
+msgstr "오직 GNU 일반 공용 허가서 v2.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:383 src/as-spdx-data.h:387
 msgid "GNU Lesser General Public License v2.1 or later"
-msgstr ""
+msgstr "GNU 일반 공용 허가서 v2.1 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:389 src/as-spdx-data.h:393
 msgid "GNU Lesser General Public License v3.0 only"
-msgstr ""
+msgstr "오직 GNU 일반 공용 허가서 v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:391 src/as-spdx-data.h:395
 msgid "GNU Lesser General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU 일반 공용 허가서 v3.0 혹은 이후"
 
 #: src/as-validator-issue-tag.h:42
 msgid "This tag requires a type property."
-msgstr ""
+msgstr "이 태그에는type 속성이 필요합니다."
 
 #: src/as-validator-issue-tag.h:47
 msgid "Tags of this name are not permitted in this section."
-msgstr ""
+msgstr "이 이름의 태그는 이 섹션에서 허용되지 않습니다."
 
 #: src/as-validator-issue-tag.h:52
 msgid ""
@@ -1682,11 +1682,11 @@ msgstr ""
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr ""
+msgstr "이 설명 단락에 유효하지 않은 markup이 포함되어 있습니다. 현재 <em/> 및 <code/>만 허용됩니다."
 
 #: src/as-validator-issue-tag.h:75
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr ""
+msgstr "열거형에는 하위 항목으로 목록 항목(<li/>)만 있어야 합니다."
 
 #: src/as-validator-issue-tag.h:80
 msgid ""
@@ -1694,35 +1694,35 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
+msgstr "이 구성 요소의 첫 번째 'description/p' 단락은 너무 짧을 수 있습니다(< 80자). 소프트웨어 센터에서 설명이 어떻게 보이는지 개선하고 첫 번째 단락에서 이 구성 요소에 대한 더 자세한 정보를 즉시 제공하기 위해 더 긴 단락으로 시작하는 것을 고려해 보시기 바랍니다."
 
 #: src/as-validator-issue-tag.h:87
 msgid ""
 "The description line does not start with a capitalized word, project name or "
 "number."
-msgstr ""
+msgstr "설명줄은 대문자로 된 단어, 프로젝트 이름 또는 번호로 시작하지 않습니다."
 
 #: src/as-validator-issue-tag.h:92
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
+msgstr "설명에 일반 텍스트로 된 웹 URL이 포함되어 있습니다. 이는 허용되지 않습니다. 링크를 공유하려면 <url/> 태그를 사용하십시오."
 
 #: src/as-validator-issue-tag.h:97
 msgid "This tag is not translatable."
-msgstr ""
+msgstr "이 태그는 번역할 수 없습니다."
 
 #: src/as-validator-issue-tag.h:102
 msgid ""
 "This tag must only appear once in this context. Having multiple tags of this "
 "kind is not valid."
-msgstr ""
+msgstr "이 태그는 이 내용에서 한 번만 나타나야 합니다. 이런 종류의 태그가 여러 개 있는 것은 올바르지 않습니다."
 
 #: src/as-validator-issue-tag.h:107
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
-msgstr ""
+msgstr "언급된 태그가 비어 있으므로 내용이 있어야 하므로 의도하지 않을 가능성이 높습니다."
 
 #: src/as-validator-issue-tag.h:112
 #, fuzzy
@@ -1736,7 +1736,7 @@ msgstr ""
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
-msgstr ""
+msgstr "구성요소 ID는 해당 이름의 역방향 도메인 이름 체계를 따라야 합니다. 자세한 내용은 앱스트림 사양을 참조하십시오."
 
 #: src/as-validator-issue-tag.h:122
 msgid ""
@@ -1754,17 +1754,17 @@ msgstr ""
 msgid ""
 "The component ID might not follow the reverse domain-name schema (the TLD "
 "used by it is not known to the validator)."
-msgstr ""
+msgstr "구성 요소 ID가 역방향 도메인 이름 스키마를 따르지 않을 수 있습니다(해당 스키마에서 사용하는 TLD는 검사자에게 알려지지 않음)."
 
 #: src/as-validator-issue-tag.h:135
 msgid ""
 "The component ID contains an invalid character. Only ASCII characters, dots "
 "and numbers are permitted."
-msgstr ""
+msgstr "구성요소 ID에 잘못된 문자가 있습니다. ASCII 문자, 점 및 숫자만 허용됩니다."
 
 #: src/as-validator-issue-tag.h:140
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
+msgstr "구성요소 ID는 구두점으로 시작합니다. 허용되지 않습니다."
 
 #: src/as-validator-issue-tag.h:145
 msgid ""
@@ -1772,7 +1772,7 @@ msgid ""
 "is strongly discouraged to improve interoperability with other tools such as "
 "D-Bus. A good option is to replace any hyphens with underscores (`_`). "
 "Hyphens are only allowed in the last segment of a component ID."
-msgstr ""
+msgstr "구성 요소 ID는 도메인 부분에 하이픈/마이너스를 포함합니다. D-Bus와 같은 다른 도구와의 상호 운용성을 향상시키려면 하이픈을 사용하는 것이 좋습니다. 하이픈은 구성 요소 ID의 마지막 세그먼트에만 허용됩니다."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
@@ -1780,46 +1780,46 @@ msgid ""
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr ""
+msgstr "구성 요소 ID는 숫자로 시작하는 세그먼트를 포함합니다. 역DNS ID의 세그먼트를 숫자로 시작하는 것은 D-Bus와 같은 다른 도구와의 상호 운용성을 유지하기 위해 강력하게 권장되지 않습니다. 이러한 세그먼트에 밑줄을 긋는 것이 이상적입니다."
 
 #: src/as-validator-issue-tag.h:157
 msgid "The component ID should only contain lowercase characters."
-msgstr ""
+msgstr "구성 요소 ID에는 소문자만 포함해야 합니다."
 
 #: src/as-validator-issue-tag.h:162
 msgid ""
 "The domain part of the rDNS component ID (first two parts) must only contain "
 "lowercase characters."
-msgstr ""
+msgstr "rDNS 구성 요소 ID(처음 두 부분)의 도메인 부분에는 소문자만 포함되어야 합니다."
 
 #: src/as-validator-issue-tag.h:167
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr ""
+msgstr "이 구성 요소는 프리데스크탑 프로젝트의 일부이지만, 이 구성 요소의 ID는 fd.o의 역DNS 이름(\"또는 g.freedesktop\")으로 시작하지 않습니다."
 
 #: src/as-validator-issue-tag.h:172
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDEs reverse-DNS name (\"org.kde\")."
-msgstr ""
+msgstr "구성 요소는 KDE 프로젝트의 일부이지만 해당 ID는 KDE 역DNS 이름(\"org.kde\")으로 시작하지 않습니다."
 
 #: src/as-validator-issue-tag.h:177
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOMEs reverse-DNS name (\"org.gnome\")."
-msgstr ""
+msgstr "구성 요소는 GNOME 프로젝트의 일부이지만 해당 ID는 GNOMEs 역DNS 이름(\"org.gnome\")으로 시작하지 않습니다."
 
 #: src/as-validator-issue-tag.h:182
 msgid "The SPDX license expression is invalid and could not be parsed."
-msgstr ""
+msgstr "SPDX 라이센스 수식이 잘못되었습니다. 구문을 분석할 수 없습니다."
 
 #: src/as-validator-issue-tag.h:187
 msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
+msgstr "SPDX 데이터베이스에서 라이센스 ID를 찾을 수 없습니다. 라이센스 ID가 SPDX에 적합한 방식으로 작성되었으며 유효한 자유 소프트웨어 라이센스인지 확인하십시오."
 
 #: src/as-validator-issue-tag.h:193
 msgid ""
@@ -1828,7 +1828,7 @@ msgid ""
 "FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
 "collections without the risk of license violations due to mutually "
 "incompatible licenses."
-msgstr ""
+msgstr "메타데이터 자체가 복잡한 라이선스 컬렉션 하에서 라이선스되는 것 같습니다. FSFAP, MIT 또는 CC0-1.0과 같은 단순 허가 라이선스로 데이터를 라이선스하여 유통업체가 서로 호환되지 않는 라이선스로 인한 라이선스 위반의 위험 없이 혼합 데이터 컬렉션에 포함할 수 있도록 해주시기 바랍니다."
 
 #: src/as-validator-issue-tag.h:199
 msgid ""
@@ -1836,90 +1836,90 @@ msgid ""
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
 "0BSD to allow distributors to include it in mixed data collections without "
 "the risk of license violations due to mutually incompatible licenses."
-msgstr ""
+msgstr "메타데이터 자체가 허가 라이선스 하에 라이선스가 없는 것 같습니다. FSFAP, CC0-1.0 또는 0BSD와 같은 허가 라이선스 하에 데이터를 라이선스하여 유통업체가 서로 호환되지 않는 라이선스로 인한 라이선스 위반의 위험 없이 혼합 데이터 컬렉션에 포함할 수 있도록 해주시기 바랍니다."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr ""
+msgstr "업데이트 연락처가 올바른 이메일 주소가 아닌 것 같습니다('@' 탈출은 '_at_' 또는 '_AT_'로만 허용됩니다)."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:211
 msgid ""
 "The `environment` property is set to an unrecognized graphical environment/"
 "style combination."
-msgstr ""
+msgstr "'환경' 속성이 인식할 수 없는 그래픽 환경/스타일 조합으로 설정되었습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:217
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "'너비' 속성은 양의 정수여야 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:223
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "'높이' 속성은 양의 정수여야 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:229
 msgid "The `scale` property must be a positive integer."
-msgstr ""
+msgstr "'규모' 속성은 양의 정수여야 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
+msgstr "이미지 유형은 'source' 또는 'thumbnail' 중 하나여야 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:241
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "이미지 유형이 'thumbnail'인 경우 'width' 속성이 있어야 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:247
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "이미지 유형이 'thumbnail'인 경우 'height' 속성이 있어야 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:253
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "스크린샷과 언어당 하나의 'source' 이미지만 있을 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:259
 msgid "A screenshot must have at least one image of type `source`."
-msgstr ""
+msgstr "스크린샷에는 'source' 유형의 이미지가 하나 이상 있어야 합니다."
 
 #: src/as-validator-issue-tag.h:264
 msgid ""
 "Unable to reach the screenshot image on its remote location - does the image "
 "exist?"
-msgstr ""
+msgstr "원격 위치에 있는 스크린샷 이미지에 도달할 수 없습니다. 이미지가 존재합니까?"
 
 #: src/as-validator-issue-tag.h:269
 msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
-msgstr ""
+msgstr "원격 위치에 있는 스크린샷 비디오에 도달할 수 없습니다. 비디오 파일이 존재합니까?"
 
 #: src/as-validator-issue-tag.h:274
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
+msgstr "이 스크린샷 이미지 또는 비디오를 참조하려면 보안(HTTPS) URL을 사용하는 것이 좋습니다."
 
 #: src/as-validator-issue-tag.h:279
 msgid ""
 "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr ""
+msgstr "스크린샷에는 스케일링 팩터가 1인 이미지가 하나 이상 있어야 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:285
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
+msgstr "스크린샷이 유용하려면 하나 이상의 이미지 또는 비디오를 포함해야 합니다. 여기에 <image/>를 추가하십시오."
 
 #: src/as-validator-issue-tag.h:290
 msgid ""
@@ -1932,21 +1932,21 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:296
 msgid "The screenshot does not have a caption text. Consider adding one."
-msgstr ""
+msgstr "스크린샷에 캡션 텍스트가 없습니다. 추가를 고려해 보세요."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:302
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
-msgstr ""
+msgstr "스크린샷 비디오에는 'codec' 속성에서 사용된 비디오 코덱이 명시되어 있지 않습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:308
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
-msgstr ""
+msgstr "스크린샷 비디오에는 'container' 속성에서 사용된 컨테이너 형식이 명시되어 있지 않습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:314
@@ -1954,7 +1954,7 @@ msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
+msgstr "선택한 비디오 코덱이 AppStream에서 지원되지 않아 소프트웨어 센터에서 비디오를 재생하지 못할 수 있습니다. 현재 AV1 및 VP9 코덱만 지원되며 'codec' 속성의 값으로 'av1'과 'vp9'을 사용합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:321
@@ -1963,31 +1963,31 @@ msgid ""
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr ""
+msgstr "선택한 비디오 컨테이너 형식이 AppStream에서 지원되지 않아 소프트웨어 센터에서 비디오를 재생하지 못할 수 있습니다. 현재 지원되는 것은 WebM 및 Matroska 비디오 컨테이너로, webm 및 mkv를 컨테이너 속성의 값으로 사용합니다."
 
 #: src/as-validator-issue-tag.h:327
 msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
+msgstr "동영상의 경우 현재 WebM 및 Matroska(.mkv) 컨테이너 형식만 지원됩니다. 참조된 동영상의 파일 확장자는 이 형식들 중 어느 것에도 속하지 않습니다."
 
 #: src/as-validator-issue-tag.h:333
 msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
 "screenshot."
-msgstr ""
+msgstr "소프트웨어 구성 요소의 기본 스크린샷은 비디오가 아니어야 합니다. 정적 이미지를 기본 스크린샷으로 사용하고 비디오를 보조 스크린샷으로 설정합니다."
 
 #: src/as-validator-issue-tag.h:338
 msgid "No screenshot is marked as default."
-msgstr ""
+msgstr "스크린샷이 기본값으로 표시되어 있지 않습니다."
 
 #: src/as-validator-issue-tag.h:343
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr ""
+msgstr "요구/권장 그룹에서 알 수 없는 태그를 찾았습니다. 이 유형의 구성 요소 관계를 알 수 없기 때문에 오류일 가능성이 높습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:349
@@ -2002,7 +2002,7 @@ msgstr ""
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr ""
+msgstr "버전이 없거나 필요하지 않은 형식의 필수/권장 항목에서 'version' 속성을 찾았습니다."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:361
@@ -2010,26 +2010,26 @@ msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr ""
+msgstr "이 필수/권장 항목에서 'version' 속성을 찾았지만 '비교' 속성은 찾을 수 없습니다. 비교 작업을 명시적으로 정의하는 것이 좋습니다."
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:367
 msgid ""
 "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
 "ge` is permitted."
-msgstr ""
+msgstr "관계 항목에 대한 비교 작업이 잘못되었습니다. 'eq/ne/lt/gt/le/ge' 중 하나만 허용됩니다."
 
 #: src/as-validator-issue-tag.h:372
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
+msgstr "관계 항목에 비교 작업 세트가 있지만 어떤 비교도 지원하지 않습니다."
 
 #: src/as-validator-issue-tag.h:377
 msgid ""
 "This relation item has already been defined once for this or a different "
 "relation type. Please do not redefine relations."
-msgstr ""
+msgstr "이 관계 항목은 이미 이 또는 다른 관계 유형에 대해 한 번 정의되었습니다. 관계를 다시 정의하지 마십시오."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:383
@@ -2038,7 +2038,7 @@ msgid ""
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr ""
+msgstr "'requireds' 태그에서 메모리 크기 관계를 발견했습니다. 즉, 사용자는 충분한 RAM이 없으면 구성 요소를 설치할 수도 없습니다. 이는 일반적으로 의도된 것이 아니므로 'recommends' 태그에서 'memory'를 대신 사용하려고 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:390
@@ -2047,14 +2047,14 @@ msgid ""
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr ""
+msgstr "'requireds' 태그에서 사용자 입력 제어 관계를 찾았습니다. 이는 사용자가 시스템에서 사용할 수 있는 정의된 입력 제어 기능이 없으면 구성 요소를 설치할 수도 없다는 것을 의미합니다. 이는 일반적으로 의도된 것이 아니므로 'recommends' 태그에서 'control'을 사용하려고 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:397
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
-msgstr ""
+msgstr "이 'control' 항목은 알 수 없는 입력 방법을 정의한 항목이므로 잘못되었습니다. 허용되는 값 목록은 규격을 확인하십시오."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:403
@@ -2063,7 +2063,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
+msgstr "이 'display_length' 항목에 잘못된 표시 길이가 포함되어 있습니다. 해당 값은 단축 문자열이거나 논리 픽셀을 나타내는 양의 정수 값이어야 합니다. 이 태그에 대한 자세한 내용은 AppStream 사양을 참조하십시오."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:410
@@ -2072,26 +2072,26 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
+msgstr "이 'display_length' 항목의 'side' 속성에 잘못된 값이 포함되어 있습니다. 항목 값이 디스플레이의 가장 짧은 변 또는 가장 긴 변 중 하나를 나타내려면 'short' 또는 'long'이어야 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
+msgstr "이 '하드웨어' 항목에 잘못된 값이 있습니다. 괄호가 없는 CHID(컴퓨터 하드웨어 ID) UUID여야 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:423
 msgid ""
 "A `memory` item must only contain a non-zero integer value, depicting a "
 "system memory size in mebibyte (MiB)"
-msgstr ""
+msgstr "'메모리' 항목은 시스템 메모리 크기(MiB)를 나타내는 0이 아닌 정수 값만 포함해야 합니다"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:429
 msgid "The set tag value is not valid for an `internet` relation."
-msgstr ""
+msgstr "설정된 태그 값이 '인터넷' 관계에 대해 유효하지 않습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:435
