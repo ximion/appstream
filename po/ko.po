@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-12-16 18:07+0100\n"
-"PO-Revision-Date: 2023-12-23 13:25+0000\n"
+"PO-Revision-Date: 2023-12-23 14:15+0000\n"
 "Last-Translator: 박기준 <kei0108@ajou.ac.kr>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/appstream/translations/ko/>\n"
 "Language: ko\n"
@@ -2098,13 +2098,13 @@ msgstr "설정된 태그 값이 '인터넷' 관계에 대해 유효하지 않습
 msgid ""
 "The `bandwidth_mbitps` property is not allowed when using `offline-only` as "
 "value."
-msgstr ""
+msgstr "'offline-only'를 값으로 사용하는 경우 'bandwidth_mbitps' 속성은 허용되지 않습니다."
 
 #: src/as-validator-issue-tag.h:440
 msgid ""
 "The value of this property must be a positive integer value, describing the "
 "minimum required bandwidth in mbit/s."
-msgstr ""
+msgstr "이 속성의 값은 mbit/s 단위로 필요한 최소 대역폭을 설명하는 양의 정수 값이어야 합니다."
 
 #: src/as-validator-issue-tag.h:445
 msgid ""
@@ -2131,15 +2131,15 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:460
 msgid "The component is missing an ID (<id/> tag)."
-msgstr ""
+msgstr "구성 요소에 ID(<id/> 태그)가 없습니다."
 
 #: src/as-validator-issue-tag.h:465
 msgid "The component is missing a name (<name/> tag)."
-msgstr ""
+msgstr "구성 요소에 이름(<name/> tag)이 없습니다."
 
 #: src/as-validator-issue-tag.h:470
 msgid "The component is missing a summary (<summary/> tag)."
-msgstr ""
+msgstr "구성 요소에 요약(<summary/> tag)이 없습니다."
 
 #: src/as-validator-issue-tag.h:475
 msgid ""
@@ -2161,45 +2161,45 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:485
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr ""
+msgstr "구성 요소 이름은 점(`nibe)으로 끝나서는 안 됩니다."
 
 #: src/as-validator-issue-tag.h:490
 msgid "The component summary should not end with a dot (`.`)."
-msgstr ""
+msgstr "구성 요소 요약은 점(`niber)으로 끝나서는 안 됩니다."
 
 #: src/as-validator-issue-tag.h:495
 msgid "The component summary must not contain tabs or linebreaks."
-msgstr ""
+msgstr "구성 요소 요약에는 탭이나 줄 바꿈이 포함되어서는 안 됩니다."
 
 #: src/as-validator-issue-tag.h:500
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr ""
+msgstr "요약에 URL이 포함되지 않아야 합니다. 링크는 '<url/>' 태그를 사용하십시오."
 
 #: src/as-validator-issue-tag.h:505
 msgid ""
 "The summary text does not start with a capitalized word, project name or "
 "number."
-msgstr ""
+msgstr "요약 텍스트는 대문자로 된 단어, 프로젝트 이름 또는 번호로 시작하지 않습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:511
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
+msgstr "'stock' 또는 'cacheed' 유형의 아이콘은 URL, 전체 또는 해당 아이콘의 상대 경로를 포함할 수 없습니다. 파일 기반 이름 또는 스톡 이름만 사용할 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:518
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
-msgstr ""
+msgstr "'remote' 유형의 아이콘은 참조된 아이콘에 대한 URL을 포함해야 합니다."
 
 #: src/as-validator-issue-tag.h:523
 msgid "Unable to reach remote icon at the given web location - does it exist?"
-msgstr ""
+msgstr "'remote' 유형의 아이콘은 참조된 아이콘에 대한 URL을 포함해야 합니다. -존재하나요?"
 
 #: src/as-validator-issue-tag.h:528
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
+msgstr "원격 아이콘 링크에 보안(HTTPS) URL을 사용하는 것을 고려해 보십시오."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:534
@@ -2215,77 +2215,77 @@ msgstr ""
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr ""
+msgstr "이 'url' 태그의 'type' 속성이 잘못되었습니다. 이 유형의 URL을 AppStream 규격에서 알 수 없습니다."
 
 #: src/as-validator-issue-tag.h:545
 msgid ""
 "Unable to reach remote location that this URL references - does it exist?"
-msgstr ""
+msgstr "이 URL이 참조하는 원격 위치에 도달할 수 없습니다. 존재합니까?"
 
 #: src/as-validator-issue-tag.h:550
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr ""
+msgstr "이 웹 링크에 보안(HTTPS) URL을 사용하는 것을 고려해 보십시오."
 
 #: src/as-validator-issue-tag.h:555
 msgid "A web URL was expected for this value."
-msgstr ""
+msgstr "이 값에 대한 웹 URL이 필요합니다."
 
 #: src/as-validator-issue-tag.h:560
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr ""
+msgstr "이 웹 링크는 FTP 프로토콜을 사용합니다. 대신 HTTP(S)로 전환하는 것을 고려해 보세요."
 
 #: src/as-validator-issue-tag.h:565
 msgid "An URL of this type has already been defined."
-msgstr ""
+msgstr "이 유형의 URL이 이미 정의되었습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:571
 msgid ""
 "The toplevel `developer_name` element is deprecated. Please use the `name` "
 "element in a `developer` block instead."
-msgstr ""
+msgstr "최상위 'developer_name' 요소는 사용되지 않습니다. 대신 'developer' 블록의 'name' 요소를 사용하십시오."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:578
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr ""
+msgstr "'developer' 블록의 'name' 자식은 하이퍼링크를 포함할 수 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:584
 msgid ""
 "The `developer` element is missing an `id` property, containing a unique "
 "string ID for the developer. Consider adding a unique ID."
-msgstr ""
+msgstr "'developer' 요소에 개발자의 고유 문자열 ID를 포함하는 'id' 속성이 없습니다. 고유 ID를 추가하는 것을 고려해 보십시오."
 
 #: src/as-validator-issue-tag.h:590
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
-msgstr ""
+msgstr "설정 값은 Freedesktop.org 에 등록된 데스크톱 환경의 식별자가 아닙니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:596
 msgid "This `launchable` tag has an unknown type and can not be used."
-msgstr ""
+msgstr "설정 값은 Freedesktop.org 에 등록된 데스크톱 환경의 식별자가 아닙니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:602
 msgid "This `bundle` tag has an unknown type and can not be used."
-msgstr ""
+msgstr "이 '묶음' 태그는 알 수 없는 유형이므로 사용할 수 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr ""
+msgstr "'update_contact' 태그는 카탈로그 AppStream XML에 포함되어서는 안 됩니다."
 
 #: src/as-validator-issue-tag.h:613
 msgid ""
 "This tag is a GNOME-specific extension to AppStream and not part of the "
 "official specification. Do not expect it to work in all implementations and "
 "in all software centers."
-msgstr ""
+msgstr "이 태그는 공식 사양의 일부가 아닌 앱스트림에 대한 GNOME 고유의 확장입니다. 모든 구현 및 모든 소프트웨어 센터에서 작동할 것으로 예상하지 마십시오."
 
 #: src/as-validator-issue-tag.h:619
 msgid ""
@@ -2294,38 +2294,38 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
+msgstr "잘못된 태그를 찾았습니다. 표준이 아닌 태그는 'x-'로 접두사를 붙여야 합니다. AppStream은 metainfo 파일에 임의의 사용자 지정 데이터를 추가하기 위해 <custom/> 태그도 제공합니다. 이 태그는 AppStream 라이브러리에서 읽으며 사용자 지정 데이터를 metainfo 파일에 추가하려는 경우 새 사용자 지정 최상위 수준 또는 'x-'-접두사 태그를 정의하는 대신 유용할 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:627
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
-msgstr ""
+msgstr "필수 태그 'metadata_license'가 없습니다. 메타데이터 자체에 대한 라이센스를 항상 정의해야 합니다."
 
 #: src/as-validator-issue-tag.h:632
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
-msgstr ""
+msgstr "구성 요소에 긴 설명이 없습니다. 이 유형의 구성 요소에 긴 설명이 있어야 합니다."
 
 #: src/as-validator-issue-tag.h:637
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
-msgstr ""
+msgstr "사용자에게 더 잘 제시하기 위해 이 글꼴에 긴 설명을 추가하는 것이 유용할 것입니다."
 
 #: src/as-validator-issue-tag.h:642
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
-msgstr ""
+msgstr "사용자에게 더 잘 제시하기 위해서는 이 구성요소에 긴 설명을 추가하는 것이 좋습니다."
 
 #: src/as-validator-issue-tag.h:647
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
-msgstr ""
+msgstr "이 일반 구성요소에는 긴 설명이 없습니다. 하나를 추가하는 것이 유용할 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:653
@@ -2335,7 +2335,7 @@ msgid ""
 "association with its desktop-entry file. It also means no icon data or "
 "category information from the desktop-entry file will be available, which "
 "will result in this application being ignored entirely."
-msgstr ""
+msgstr "이 'desktop-application' 구성 요소에는 실행 가능한 'desktop-id' 태그가 없습니다. 이는 응용 프로그램을 실행할 수 없으며 데스크톱 엔트리 파일과 연관이 없음을 의미합니다. 또한 데스크톱 엔트리 파일의 아이콘 데이터나 카테고리 정보를 사용할 수 없으므로 응용 프로그램이 완전히 무시됩니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:662
@@ -2346,103 +2346,103 @@ msgid ""
 "application can not be launched directly from installers or software "
 "centers. If this is intended, this information can be ignored, otherwise it "
 "is strongly recommended to add a launchable tag as well."
-msgstr ""
+msgstr "이 desktop-application 구성 요소에는 실행 가능한 desktop-id 태그가 없지만 응용 프로그램을 표시하는 데 필요한 모든 정보가 포함되어 있습니다. 실행 가능한 항목이 누락되었다는 것은 설치 프로그램이나 소프트웨어 센터에서 이 응용 프로그램을 직접 실행할 수 없음을 의미합니다. 이 정보가 의도된 경우 무시할 수 있으며, 그렇지 않은 경우 실행 가능한 태그를 추가하는 것이 좋습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:672
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
-msgstr ""
+msgstr "'console-application' 구성 요소를 입력하지만 $PATH의 이진 파일에 대한 정보가 'provides/binary' 태그를 통해 제공되지 않았습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:678
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr ""
+msgstr "이 'web-application' 구성 요소에는 'url' 유형의 'launchable' 태그가 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:684
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
-msgstr ""
+msgstr "이 'web-application' 구성 요소에는 유효한 아이콘을 지정하기 위한 'icon' 태그가 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:690
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
-msgstr ""
+msgstr "이 'web-application' 구성 요소에 범주가 없습니다. 'categories' 블록이 누락되었을 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:696
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
-msgstr ""
+msgstr "'font' 구성 요소를 입력하지만 'provides/font' 태그를 통해 글꼴 정보가 제공되지 않았습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:702
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
-msgstr ""
+msgstr "'driver' 구성 요소를 입력하지만 'provides/modalias' 태그를 통해 modalias 정보가 제공되지 않았습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:708
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
+msgstr "확장' 태그가 지정되어 있지만 구성 요소가 'addon', 'localization' 또는 'respository' 유형이 아닙니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:714
 msgid "The component is an addon, but no `extends` tag was specified."
-msgstr ""
+msgstr "구성 요소는 추가 기능이지만 'extenses' 태그가 지정되지 않았습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:720
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
-msgstr ""
+msgstr "이 'localization' 구성 요소에는 로컬라이제이션을 추가하는 구성 요소를 지정하기 위한 'extenses' 태그가 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:726
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
-msgstr ""
+msgstr "이 'localization' 구성 요소는 이 로컬라이제이션이 사용되는 언어를 정의하지 않습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:732
 msgid ""
 "This `service` component is missing a `launchable` tag of type `service`."
-msgstr ""
+msgstr "이 'service' 구성 요소에 'service' 유형의 'launchable' 태그가 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:738
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
-msgstr ""
+msgstr "'upstream' 이외의 어떤 종류의 제안도 메타인포 파일에서는 허용되지 않습니다."
 
 #: src/as-validator-issue-tag.h:743
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
-msgstr ""
+msgstr "범주 이름이 잘못되었습니다. 올바른 범주 이름 목록은 XDG 메뉴 사양을 참조하십시오."
 
 #: src/as-validator-issue-tag.h:748
 msgid ""
 "This component is in no valid categories, even though it should be. Please "
 "check its metainfo file and desktop-entry file."
-msgstr ""
+msgstr "이 구성요소는 올바른 범주가 아닙니다. metainfo 파일과 desktop-entry 파일을 확인하십시오."
 
 #: src/as-validator-issue-tag.h:753
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr ""
+msgstr "스크린샷 캡션이 너무 깁니다(<= 100자 이상이어야 함)"
 
 #: src/as-validator-issue-tag.h:758
 msgid "Unable to read file."
@@ -2450,13 +2450,13 @@ msgstr "파일을 읽을 수 없습니다."
 
 #: src/as-validator-issue-tag.h:763
 msgid "The XML of this file is malformed."
-msgstr ""
+msgstr "이 파일의 XML 형식이 잘못되었습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:769
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr ""
+msgstr "카탈로그 metadata에 잘못된 태그가 있습니다. 'component' 태그만 허용됩니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:775
@@ -2465,13 +2465,13 @@ msgid ""
 "which can not be validated. Please migrate it to version 0.6 (or higher). "
 "Modern files use the `component` root tag and include many other "
 "differences, so check for changes carefully when modernizing the data."
-msgstr ""
+msgstr "metainfo 파일은 검증할 수 없는 오래된 버전의 AppStream 규격을 사용하고 있습니다. 버전 0.6(또는 그 이상)으로 마이그레이션하십시오. 현대 파일은 'component' 루트 태그를 사용하고 다른 점이 많으므로 데이터를 현대화할 때 변경 사항을 주의 깊게 확인하십시오."
 
 #: src/as-validator-issue-tag.h:781
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
-msgstr ""
+msgstr "이 XML 문서에 알 수 없는 루트 태그가 있습니다. 혹시 이 파일이 메타인포 문서가 아닌가요?"
 
 #: src/as-validator-issue-tag.h:786
 msgid "The metainfo filename does not match the component ID."
@@ -2483,28 +2483,28 @@ msgstr "이 구성 요소와 연결된 데스크톱 항목 파일을 불러올 �
 
 #: src/as-validator-issue-tag.h:796
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
+msgstr "이 구성 요소 metadata는 존재하지 않는 .desktop 파일을 나타냅니다."
 
 #: src/as-validator-issue-tag.h:801
 msgid ""
 "A category defined in the desktop-entry file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
+msgstr "desktop-entry 파일에 정의된 카테고리가 잘못되었습니다. 유효한 카테고리 목록은 XDG 메뉴 사양을 참조하십시오."
 
 #: src/as-validator-issue-tag.h:806
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "데스크톱 입력 파일에서 일부 데이터를 읽는 동안 오류가 발생했습니다."
 
 #: src/as-validator-issue-tag.h:811
 msgid ""
 "The value of this desktop-entry field contains invalid or non-printable "
 "UTF-8 characters, which can not be displayed properly."
-msgstr ""
+msgstr "이 바탕 화면 입력 필드의 값에 유효하지 않거나 인쇄할 수 없는 UTF-8 문자가 포함되어 있어 제대로 표시할 수 없습니다."
 
 #: src/as-validator-issue-tag.h:816
 msgid ""
 "This desktop-entry field value is quoted, which is likely unintentional."
-msgstr ""
+msgstr "이 데스크톱-엔트리 필드 값은 따옴표로 표시되며, 이 값은 의도하지 않을 수 있습니다."
 
 #: src/as-validator-issue-tag.h:821
 msgid ""
@@ -2512,7 +2512,7 @@ msgid ""
 "vendor-installed .desktop files, and nullifies all effects this .desktop "
 "file has (including MIME associations), which most certainly is not "
 "intentional."
-msgstr ""
+msgstr "이 데스크톱 항목 파일에는 '숨겨진' 속성이 설정되어 있습니다. 공급업체가 설치한 .desktop 파일의 경우 잘못된 것이며, 이 .desktop 파일이 (MIME 연결을 포함하여) 모든 효과를 무효화하므로 의도적인 것은 아닙니다."
 
 #: src/as-validator-issue-tag.h:827
 msgid ""
@@ -2520,26 +2520,26 @@ msgid ""
 "value. This might not be intended, as this will hide the application from "
 "all desktops. If you do want to hide the application from all desktops, "
 "using 'NoDisplay=true' is more explicit."
-msgstr ""
+msgstr "이 데스크톱 항목 파일에는 빈 값으로 설정된 'OnlyShowIn' 속성이 있습니다. 이렇게 하면 응용 프로그램이 모든 데스크톱에서 숨겨지기 때문에 의도하지 않은 것일 수 있습니다. 응용 프로그램을 모든 데스크톱에서 숨기려면 'NoDisplay=true'를 사용하는 것이 더 명확합니다."
 
 #: src/as-validator-issue-tag.h:833
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr ""
+msgstr "이 디렉토리 또는 디렉토리 트리에서 AppStream 메타데이터를 찾을 수 없습니다."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:838
 msgid "No XDG applications directory found."
-msgstr ""
+msgstr "XDG 응용프로그램 디렉토리를 찾을 수 없습니다."
 
 #: src/as-validator-issue-tag.h:843
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr ""
+msgstr "metainfo 파일이 레거시 경로에 저장되어 있습니다. '/usr/share/metainfo/'에 넣어주세요."
 
 #: src/as-validator-issue-tag.h:848
 msgid "The metainfo file specifies multiple components. This is not allowed."
-msgstr ""
+msgstr "metainfo 파일이 여러 구성 요소를 지정합니다. 허용되지 않습니다."
 
 #: src/as-validator-issue-tag.h:853
 msgid ""
@@ -2547,124 +2547,123 @@ msgid ""
 "required as some tools will assume that the latest version is always at the "
 "top. Sorting releases also increases overall readability of the metainfo "
 "file."
-msgstr ""
+msgstr "릴리스는 최신 버전에서 가장 오래된 버전 순서로 정렬되지 않습니다. 일부 도구는 최신 버전이 항상 맨 위에 있다고 가정하기 때문에 이 작업이 필요합니다. 릴리스를 정렬하면 메타인포 파일의 전체 가독성도 향상됩니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:861
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
-msgstr ""
+msgstr "릴리스 블록의 유형이 잘못되었습니다. 'embedded'(기본값) 또는 'external' 중 하나가 필요합니다."
 
 #: src/as-validator-issue-tag.h:866
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
-msgstr ""
+msgstr "외부 릴리스 metadata 파일의 URL이 안전하지 않습니다. 허용되지 않습니다. HTTPS URL만 사용하십시오."
 
 #: src/as-validator-issue-tag.h:871
-#, fuzzy
 msgid "Failed to download release metadata."
-msgstr "파일을 다운로드하지 못했습니다. %s"
+msgstr "릴리스 metadata를 다운로드하지 못했습니다."
 
 #: src/as-validator-issue-tag.h:876
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
-msgstr ""
+msgstr "로컬 릴리스 metadata 파일을 찾을 수 없습니다. 이 metadata의 유효성을 메인 메타정보 파일과 함께 확인하는 것이 좋습니다."
 
 #: src/as-validator-issue-tag.h:882
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "릴리스 긴급도로 설정된 값이 알려진 긴급도 값이 아닙니다."
 
 #: src/as-validator-issue-tag.h:887
 msgid "The value set as release type is invalid."
-msgstr ""
+msgstr "릴리스 유형으로 설정된 값이 잘못되었습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:893
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "릴리스에 'version' 속성이 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:899
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
-msgstr ""
+msgstr "릴리스에 'date'(우선의) 또는 'timestamp' 속성이 없습니다."
 
 #: src/as-validator-issue-tag.h:904
 msgid "The release timestamp is invalid."
-msgstr ""
+msgstr "릴리스 timestamp가 잘못되었습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:910
 msgid "The release description must be put inside a `description` tag"
-msgstr ""
+msgstr "릴리스 설명은 'description' 태그 안에 입력해야 합니다"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:916
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr ""
+msgstr "artifact type으로 설정된 값이 잘못되었습니다. 'source' 또는 'binary' 중 하나여야 합니다."
 
 #: src/as-validator-issue-tag.h:921
 msgid "The value set as artifact bundle type is invalid."
-msgstr ""
+msgstr "artifact bundle type 으로 설정된 값이 잘못되었습니다."
 
 #: src/as-validator-issue-tag.h:926
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
+msgstr "이 릴리스의 플랫폼 트리플렛이 잘못되었습니다. 'architecture-oskernel-osenv' 형식이어야 합니다. 자세한 정보와 유효한 필드는 AppStream 문서 또는 정규화된 GNU 트리플렛에 대한 정보를 참조하십시오."
 
 #: src/as-validator-issue-tag.h:933
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
+msgstr "선택한 체크섬 알고리즘이 지원되지 않거나 알 수 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:939
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
+msgstr "크기 유형을 알 수 없습니다. 'download' 또는 'install'이어야 합니다."
 
 #: src/as-validator-issue-tag.h:944
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr ""
+msgstr "The artifact filename은 (상대적이거나 절대적인) 경로가 아닌 파일 기본 이름이어야 합니다."
 
 #: src/as-validator-issue-tag.h:949
 msgid "The value set as release issue type is invalid."
-msgstr ""
+msgstr "릴리스 이슈 유형으로 설정된 값이 잘못되었습니다."
 
 #: src/as-validator-issue-tag.h:954
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
+msgstr "이 문제는 CVE 번호로 보안 취약성에 태그가 지정되지만 그 값은 유효한 CVE 식별자처럼 보이지 않습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:960
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
-msgstr ""
+msgstr "이 구성 요소에 릴리스에 대한 정보가 없습니다. 릴리스 및 변경 사항을 설명하기 위해 `releases` 태그를 추가하는 것을 고려하십시오."
 
 #: src/as-validator-issue-tag.h:965
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr ""
+msgstr "AppStream 사양에서는 날짜를 표시하기 위해 날짜 단위 이상의 완전한 ISO 8601 날짜 문자열이 필요합니다. 날짜 문자열이 올바른지 확인하십시오."
 
 #: src/as-validator-issue-tag.h:971
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
 "metadata."
-msgstr ""
+msgstr "이 구성 요소는 자신을 확장, 제공, 요구 또는 권장합니다. 이 구성 요소는 확실히 의도된 것이 아니며 이 metadata를 처리하는 사용자 또는 기계를 혼란스럽게 할 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:978
@@ -2673,19 +2672,19 @@ msgid ""
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's `project_license`. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr ""
+msgstr "'runtime' 구성 요소의 라이센스는 보통 단순한 SPDX 표현식에 반영하기에는 너무 복잡합니다. 이 구성 요소의 'project_license' 값으로 'LicenseRef'와 웹 URL을 사용하는 것을 고려해 보십시오. 예 : 'LicenseRef free=https://example.com/licenses.html '"
 
 #: src/as-validator-issue-tag.h:984
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
-msgstr ""
+msgstr "'runtime' 구성 요소는 여러 다른 소프트웨어 구성 요소로 구성되므로 해당 구성 요소 ID는 이 런타임의 '<provides/>' 섹션에 나열될 수 있습니다."
 
 #: src/as-validator-issue-tag.h:989
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
-msgstr ""
+msgstr "구성 요소가 제공하는 항목의 유형은 AppStream에 알려져 있지 않습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:995
@@ -2693,7 +2692,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
+msgstr "최상위 'mimetypes' 태그는 사용되지 않습니다. 대신에 'provides' 블록에서 'mediatype' 태그를 사용하여 소프트웨어가 해당 유형의 미디어 핸들러를 제공한다는 것을 표시하십시오."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1002
@@ -2701,127 +2700,127 @@ msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
 "questions at https://hughsie.github.io/oars/"
-msgstr ""
+msgstr "해당 구성요소는 연령 등급 정보를 제공하는 `content_rating`태그가 없습니다. https://hughsie.github.io/oars/ 에서 몇 가지 질문에 답변하면 온라인으로 태그 데이터를 생성할 수 있습니다"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1009
 msgid ""
 "The  `type` attribute of this `content_rating` element is missing or empty."
-msgstr ""
+msgstr "이 'content_rating' 요소의 'type' 특성이 없거나 비어 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1015
 msgid ""
 "The  `type` attribute of the `content_rating` element has a invalid value."
-msgstr ""
+msgstr "'content_rating' 요소의 'type' 속성에 잘못된 값이 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1021
 msgid "The `content_rating` tag can only contain `content_attribute` children."
-msgstr ""
+msgstr "'content_rating' 태그에는 'content_attribute' 하위만 포함될 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1027
 msgid ""
 "The  `id` attribute of the `content_attribute` element is missing or empty."
-msgstr ""
+msgstr "'content_attribute' 요소의 'id' 특성이 없거나 비어 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1033
 msgid ""
 "The  `id` attribute of the `content_attribute` element has a invalid value."
-msgstr ""
+msgstr "'content_attribute' 요소의 'id' 특성에 잘못된 값이 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1039
 msgid "The `content_attribute` tag needs a value."
-msgstr ""
+msgstr "'content_attribute' 태그에는 값이 필요합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1045
 msgid "The `content_attribute` tag value is unknown."
-msgstr ""
+msgstr "'content_attribute' 태그 값을 알 수 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1051
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr ""
+msgstr "지정한 ID에 대해 'content_attribute' 태그 값이 잘못되었습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1057
 msgid "A `content_attribute` tag with this ID has already been defined."
-msgstr ""
+msgstr "이 ID의 'content_attribute' 태그가 이미 정의되어 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1063
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "이 '태그'에는 'namespace' 속성이 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1069
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
+msgstr "이 태그 또는 네임스페이스에 잘못된 문자가 있습니다. 소문자 ASCII 문자, 숫자, 점, 하이픈 및 밑줄만 허용됩니다."
 
 #: src/as-validator-issue-tag.h:1074
 msgid "The type of this color is not valid."
-msgstr ""
+msgstr "이 색상의 유형이 잘못되었습니다."
 
 #: src/as-validator-issue-tag.h:1079
 msgid "The value of this color scheme preference is not valid."
-msgstr ""
+msgstr "이 색 구성표 기본 설정 값이 잘못되었습니다."
 
 #: src/as-validator-issue-tag.h:1084
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "이 색상은 올바른 HTML 색상 코드가 아닙니다."
 
 #: src/as-validator-issue-tag.h:1089
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
-msgstr ""
+msgstr "이 참조 항목에 대해 지정된 DOI(Digital Object Identifier)가 잘못되었습니다."
 
 #: src/as-validator-issue-tag.h:1094
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
-msgstr ""
+msgstr "이 인용 참조 항목의 값은 CFF(Citation File Format) 파일의 URL이어야 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1100
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
-msgstr ""
+msgstr "이 레지스트리 참조 항목에는 해당 레지스트리의 이름을 나타내는 'name' 속성이 없습니다."
 
 #: src/as-validator-issue-tag.h:1105
 msgid ""
 "The registry for this reference item is unknown. This may be due to a typing "
 "error, or the registry needs to be registered with AppStream."
-msgstr ""
+msgstr "이 참조 항목의 레지스트리를 알 수 없습니다. 이는 입력 오류로 인해 발생했거나 AppStream에 레지스트리를 등록해야 합니다."
 
 #: src/as-validator-issue-tag.h:1111
 msgid "The reference item is missing a value."
-msgstr ""
+msgstr "참조 항목에 값이 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1117
 msgid "The `custom` tag can only contain `value` children."
-msgstr ""
+msgstr "'custom' 태그는 'value' 자식만 포함할 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1123
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr ""
+msgstr "이 'custom' 태그 값에 'key' 속성이 없습니다."
 
 #: src/as-validator-issue-tag.h:1128
 msgid "A key can only be used once."
-msgstr ""
+msgstr "키는 한 번만 사용할 수 있습니다."
 
 #: src/as-validator-issue-tag.h:1133
 msgid "This custom value is empty."
-msgstr ""
+msgstr "이 사용자 지정 값은 비어 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1139
@@ -2837,28 +2836,28 @@ msgstr ""
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
-msgstr ""
+msgstr "방출된 이슈 태그는 앱스트림의 태그 레지스트리에서 알 수 없습니다. 이것은 검증자 자체의 버그입니다. 이 문제를 당사의 버그 트래커에 보고하십시오."
 
 #: src/as-validator.c:413
 msgid "URL format is invalid."
-msgstr ""
+msgstr "URL 형식이 잘못되었습니다."
 
 #: src/as-validator.c:474 src/as-validator.c:519
 #, c-format
 msgid "The release metadata file '%s' is named incorrectly."
-msgstr ""
+msgstr "릴리스 metadata 파일 '%s'의 이름이 잘못되었습니다."
 
 #. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
 #: src/as-validator.c:661
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
-msgstr ""
+msgstr "'%s' 태그의 새 문제 심각도가 잘못되었습니다."
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
 #: src/as-validator.c:672
 #, c-format
 msgid "The issue tag '%s' is not recognized."
-msgstr ""
+msgstr "'%s' 이슈 태그가 인식되지 않습니다."
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 #. whitelisted for that.
