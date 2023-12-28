@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-12-16 18:07+0100\n"
-"PO-Revision-Date: 2023-12-17 22:50+0000\n"
+"PO-Revision-Date: 2023-12-28 20:07+0000\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
@@ -37,7 +37,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -227,7 +227,7 @@ msgstr "Tarama"
 #: src/as-category.c:181
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr "Vektörel Grafik"
+msgstr "Vektörel Grafikler"
 
 #: src/as-category.c:184
 msgctxt "Category of Graphics"
@@ -387,7 +387,7 @@ msgstr "Oyunlar"
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:318
 msgid "Graphics & Photography"
-msgstr "Grafik ve Fotoğrafçılık"
+msgstr "Grafikler ve Fotoğrafçılık"
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:321
@@ -3434,7 +3434,7 @@ msgstr "Bulunan sorunlar hakkında ayrıntılı açıklama yazdır."
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstreamcli.c:142
 msgid "Do not use network access."
-msgstr "Ağ erişimini kullanmayın."
+msgstr "Ağ erişimini kullanma."
 
 #. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
 #: tools/appstreamcli.c:149
