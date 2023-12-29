@@ -400,7 +400,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "relation-display-length-value-invalid",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("This `display_length` item contains an invalid display length. Its value must either be a shorthand string, or positive integer value denoting logical pixels. "
+	  N_("This `display_length` item contains an invalid display length. Its value must be a positive integer value denoting logical pixels. "
 	     "Please refer to the AppStream specification for more information on this tag.")
 	},
 
