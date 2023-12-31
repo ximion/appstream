@@ -46,16 +46,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-12-16 18:07+0100\n"
-"PO-Revision-Date: 2023-11-03 12:33+0000\n"
-"Last-Translator: Sebin Nyshkim <sebin.nyshkim@icloud.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"PO-Revision-Date: 2023-12-31 04:07+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -632,7 +631,7 @@ msgstr "Ausgiebige Nacktszenen"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:924
 msgid "Explicit nudity involving visible sexual organs"
-msgstr ""
+msgstr "Explizite Nacktheit mit sichtbaren Geschlechtsorganen"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:929
@@ -797,9 +796,8 @@ msgstr "Keine Möglichkeit, mit anderen Nutzern zu sprechen"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1019
-#, fuzzy
 msgid "Moderated audio or video chat functionality between users"
-msgstr "Unkontrollierte Audio- oder Video-Chat-Funktionen zwischen Nutzern"
+msgstr "Moderierte Audio- oder Video-Chat-Funktionen zwischen Nutzern"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1021
@@ -1863,17 +1861,12 @@ msgstr ""
 "nicht erlaubt."
 
 #: src/as-validator-issue-tag.h:145
-#, fuzzy
 msgid ""
 "The component ID contains a hyphen/minus in its domain part. Using a hyphen "
 "is strongly discouraged to improve interoperability with other tools such as "
 "D-Bus. A good option is to replace any hyphens with underscores (`_`). "
 "Hyphens are only allowed in the last segment of a component ID."
-msgstr ""
-"Die Komponenten-Kennung enthält einen Bindestrich/Minus. Es wird stark davon "
-"abgeraten, einen Bindestrich zu benutzen um die Zusammenarbeit mit anderen "
-"Werkzeugen, wie D-Bus, zu verbessern. Eine gute Alternative ist das Ersetzen "
-"von Bindestrichen mit Unterstrichen (`_`)."
+msgstr "Die Komponentenkennung enthält einen Bindestrich/Minus in ihrem Domänenteil. Von der Verwendung eines Bindestrichs wird dringend abgeraten, um die Interoperabilität mit anderen Werkzeugen wie D-Bus zu verbessern. Eine gute Option ist es, alle Bindestriche durch Unterstriche (`_`) zu ersetzen. Bindestriche sind nur im letzten Segment einer Komponentenkennung zulässig."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
@@ -2770,16 +2763,12 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:775
-#, fuzzy
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher). "
 "Modern files use the `component` root tag and include many other "
 "differences, so check for changes carefully when modernizing the data."
-msgstr ""
-"Die Metainfo-Datei verwendet eine alte Version der AppStream-Spezifikation, "
-"die nicht validiert werden kann. Bitte migrieren Sie sie auf Version 0.6 "
-"(oder höher)."
+msgstr "Die metainfo-Datei verwendet eine alte Version der AppStream-Spezifikation, die nicht validiert werden kann. Bitte migrieren Sie sie auf Version 0.6 (oder höher). Moderne Dateien verwenden das Root-Tag „Component“ und weisen viele andere Unterschiede auf. Prüfen Sie daher sorgfältig auf Änderungen, wenn Sie die Daten modernisieren."
 
 #: src/as-validator-issue-tag.h:781
 msgid ""
