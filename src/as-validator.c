@@ -3398,11 +3398,11 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 
 	/* validate categories */
 	if (as_component_get_categories (cpt)->len > 0) {
-		guint j;
 		GPtrArray *cat_array;
+		gboolean have_valid_category = FALSE;
 
 		cat_array = as_component_get_categories (cpt);
-		for (j = 0; j < cat_array->len; j++) {
+		for (guint j = 0; j < cat_array->len; j++) {
 			const gchar *category_name = (const gchar *) g_ptr_array_index (cat_array,
 											j);
 
@@ -3411,7 +3411,19 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							NULL,
 							"category-invalid",
 							category_name);
+				continue;
 			}
+
+			/* check if the category would be ignored during catalog composition */
+			if (as_utils_category_name_is_bad (category_name))
+				continue;
+
+			have_valid_category = TRUE;
+		}
+
+		if (!have_valid_category) {
+			/* the user clearly intended there to be categories, yet we ended up with no valid ones */
+			as_validator_add_issue (validator, NULL, "all-categories-ignored", NULL);
 		}
 	}
 

@@ -743,6 +743,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The category name is not valid. Refer to the XDG Menu Specification for a list of valid category names."),
 	},
 
+	{ "all-categories-ignored",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("All categories for this component have been ignored, either because they were invalid or because they are of low quality "
+	     "(e.g. custom 'X-' prefixed or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add more categories."),
+	},
+
 	{ "app-categories-missing",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("This component is in no valid categories, even though it should be. Please check its metainfo file and desktop-entry file."),

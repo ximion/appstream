@@ -1358,9 +1358,9 @@ as_utils_category_name_is_bad (const gchar *category_name)
 		return TRUE;
 
 	/* we want to ignore custom categories */
-	if (g_str_has_prefix (cat, "X-"))
+	if (g_str_has_prefix (category_name, "X-"))
 		return TRUE;
-	if (g_str_has_prefix (cat, "x-"))
+	if (g_str_has_prefix (category_name, "x-"))
 		return TRUE;
 
 	return FALSE;
