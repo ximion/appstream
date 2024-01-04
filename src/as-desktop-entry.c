@@ -141,27 +141,12 @@ as_add_filtered_categories (gchar **cats, AsComponent *cpt, GPtrArray *issues)
 	for (i = 0; cats[i] != NULL; i++) {
 		const gchar *cat = cats[i];
 
-		if (g_strcmp0 (cat, "GTK") == 0)
-			continue;
-		if (g_strcmp0 (cat, "Qt") == 0)
-			continue;
-		if (g_strcmp0 (cat, "GNOME") == 0)
-			continue;
-		if (g_strcmp0 (cat, "KDE") == 0)
-			continue;
-		if (g_strcmp0 (cat, "GUI") == 0)
-			continue;
-		if (g_strcmp0 (cat, "Application") == 0)
-			continue;
-
-		/* custom categories are ignored */
-		if (g_str_has_prefix (cat, "X-"))
-			continue;
-		if (g_str_has_prefix (cat, "x-"))
-			continue;
-
 		/* check for invalid */
 		if (g_strcmp0 (cat, "") == 0)
+			continue;
+
+		/* ignore low-quality and custom categories */
+		if (as_utils_category_name_is_bad (cat))
 			continue;
 
 		/* add the category if it is valid */

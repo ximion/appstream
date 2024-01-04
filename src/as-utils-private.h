@@ -120,6 +120,8 @@ void as_ref_string_assign_transfer (GRefString **rstr_ptr, GRefString *new_rstr)
 AS_INTERNAL_VISIBLE
 gboolean as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError **error);
 
+gboolean as_utils_is_ignored_category_name (const gchar *category_name);
+
 gboolean as_utils_is_platform_triplet_arch (const gchar *arch);
 gboolean as_utils_is_platform_triplet_oskernel (const gchar *os);
 gboolean as_utils_is_platform_triplet_osenv (const gchar *env);

@@ -1278,7 +1278,7 @@ as_utils_ensure_resources (void)
 }
 
 /**
- * as_utils_is_category_id:
+ * as_utils_is_category_name:
  * @category_name: a XDG category name, e.g. "ProjectManagement"
  *
  * Searches the known list of registered XDG category names.
@@ -1314,6 +1314,56 @@ as_utils_is_category_name (const gchar *category_name)
 		return FALSE;
 	key = g_strdup_printf ("\n%s\n", category_name);
 	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
+}
+
+/**
+ * as_utils_category_name_is_bad:
+ * @category_name: a XDG category name, e.g. "ProjectManagement"
+ *
+ * We want to ignore certain low-quality categories like "GTK", "Qt"
+ * or "GUI" that convey no meaning to the user at all,
+ * as well as any custom-defined categories.
+ *
+ * This functiuon checks for those, adn should be used in
+ * conjunction with %as_utils_is_category_name.
+ *
+ * It is not invalid to use the categories in desktop-entry files,
+ * but they should not end up in AppStream catalog metadata, and
+ * should ideally not be used in MetaInfo files as well.
+ *
+ * Returns: %TRUE if the category should be ignored.
+ **/
+gboolean
+as_utils_category_name_is_bad (const gchar *category_name)
+{
+	if (as_str_equal0 (category_name, "GTK"))
+		return TRUE;
+	if (as_str_equal0 (category_name, "Qt"))
+		return TRUE;
+	if (as_str_equal0 (category_name, "KDE"))
+		return TRUE;
+	if (as_str_equal0 (category_name, "GNOME"))
+		return TRUE;
+	if (as_str_equal0 (category_name, "Motif"))
+		return TRUE;
+	if (as_str_equal0 (category_name, "Java"))
+		return TRUE;
+	if (as_str_equal0 (category_name, "GUI"))
+		return TRUE;
+	if (as_str_equal0 (category_name, "Application"))
+		return TRUE;
+	if (as_str_equal0 (category_name, "XFCE"))
+		return TRUE;
+	if (as_str_equal0 (category_name, "DDE"))
+		return TRUE;
+
+	/* we want to ignore custom categories */
+	if (g_str_has_prefix (cat, "X-"))
+		return TRUE;
+	if (g_str_has_prefix (cat, "x-"))
+		return TRUE;
+
+	return FALSE;
 }
 
 /**
@@ -1665,9 +1715,7 @@ as_utils_sort_components_into_categories (GPtrArray *cpts,
 					  GPtrArray *categories,
 					  gboolean check_duplicates)
 {
-	guint i;
-
-	for (i = 0; i < cpts->len; i++) {
+	for (guint i = 0; i < cpts->len; i++) {
 		guint j;
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 
