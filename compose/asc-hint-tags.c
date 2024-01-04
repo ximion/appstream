@@ -279,7 +279,7 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 
 	{ "no-valid-category",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  "This software component is no member of any valid category."
+	  "This software component is no member of any valid category (note that custom categories and toolkit categories like 'Qt' or 'GTK' are ignored)."
 	},
 
 	{ "description-missing",
