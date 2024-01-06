@@ -35,14 +35,14 @@
 # Deleted User <noreply+31751@weblate.org>, 2021.
 # Сергей <sw@atrus.ru>, 2022.
 # faveoled <faveoled@yandex.com>, 2022.
-# Сергей <asvmail.as@gmail.com>, 2022, 2023.
+# Сергей <asvmail.as@gmail.com>, 2022, 2023, 2024.
 # lenemter <lenemter@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-12-16 18:07+0100\n"
-"PO-Revision-Date: 2023-12-17 22:50+0000\n"
+"PO-Revision-Date: 2024-01-06 19:06+0000\n"
 "Last-Translator: Сергей <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
@@ -50,7 +50,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2025,9 +2025,7 @@ msgstr ""
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
-"Рассмотрите возможность использования безопасного (HTTPS) URL-адреса для "
-"ссылки на этот снимок экрана или видео."
+msgstr "Рассмотрите возможность использования безопасного (HTTPS) URL-адреса для ссылки на этот скриншот, являющийся изображением или видеоматериалом."
 
 #: src/as-validator-issue-tag.h:279
 msgid ""
@@ -2050,10 +2048,7 @@ msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"Скриншот должен содержать либо изображения либо видео, но не может содержать "
-"и то и другое одновременно. Пожалуйста используйте этот скриншот только для "
-"неподвижных изображений или видео."
+msgstr "Скриншот должен содержать либо изображение, либо видео, но не то и другое одновременно. Пожалуйста, используйте этот скриншот только для статических изображений или видео."
 
 #: src/as-validator-issue-tag.h:296
 msgid "The screenshot does not have a caption text. Consider adding one."
@@ -2314,7 +2309,7 @@ msgstr "Компоненту не хватает имени (тег <name/>)."
 
 #: src/as-validator-issue-tag.h:470
 msgid "The component is missing a summary (<summary/> tag)."
-msgstr "Отсутствует краткое описание компонента (тег <summary/>)."
+msgstr "В компоненте отсутствует сводка (тег <summary/>)."
 
 #: src/as-validator-issue-tag.h:475
 msgid ""
@@ -2340,22 +2335,21 @@ msgstr "Имя компонента не должно заканчиваться
 
 #: src/as-validator-issue-tag.h:490
 msgid "The component summary should not end with a dot (`.`)."
-msgstr "Описание компонента не должно заканчиваться точкой."
+msgstr "Сводка компонента не должна заканчиваться точкой («.»)."
 
 #: src/as-validator-issue-tag.h:495
 msgid "The component summary must not contain tabs or linebreaks."
-msgstr "Описание компонента не должно содержать табуляции и разрывы строк."
+msgstr "Сводка компонента не должна содержать табуляции и разрывы строк."
 
 #: src/as-validator-issue-tag.h:500
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr "Резюме не должно содержать URL. Используйте теги `<url/>` для ссылок."
+msgstr "Сводка не должна содержать URL. Используйте для ссылок теги «<url/>»."
 
 #: src/as-validator-issue-tag.h:505
 msgid ""
 "The summary text does not start with a capitalized word, project name or "
 "number."
-msgstr ""
-"Текст резюме не начинается с заглавной буквы, названия проекта или номера."
+msgstr "Текст сводки не начинается с заглавной буквы, названия проекта или цифры."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:511
@@ -3677,12 +3671,12 @@ msgstr "Неверное количество параметров"
 #: tools/appstreamcli.c:1156
 #, c-format
 msgid "Compose failed to execute: %s"
-msgstr ""
+msgstr "Не удалось выполнить компоновку: %s"
 
 #: tools/appstreamcli.c:1166
-#, fuzzy, c-format
+#, c-format
 msgid "Compose failed: %s"
-msgstr "Проверка прошла неудачно: %s"
+msgstr "Не удалось скомпоновать: %s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:1223
@@ -3884,7 +3878,7 @@ msgstr "Обновление кэша метаданных программно�
 #: tools/ascli-actions-mdata.c:68
 #, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "Файл метаданных '%s' не существует!"
+msgstr "Файл метаданных «%s» не существует!"
 
 #: tools/ascli-actions-mdata.c:97
 msgid "You might need superuser permissions to perform this action."
@@ -3923,7 +3917,7 @@ msgstr "Вам необходимо указать термин для поис�
 #: tools/ascli-actions-mdata.c:179
 #, c-format
 msgid "No component matching '%s' found."
-msgstr "Компонент, соответствующий '%s', не найден."
+msgstr "Не найден компонент, соответствующий «%s»."
 
 #: tools/ascli-actions-mdata.c:206
 msgid "No value for the item to search for was defined."
@@ -4220,9 +4214,7 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:468
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr ""
-"Вам необходимо указать файл NEWS в качестве выходного, или '-' для печати в "
-"stdout."
+msgstr "Вам необходимо указать файл NEWS в качестве выходного или «-» для печати в stdout."
 
 #: tools/ascli-actions-misc.c:496
 msgid "You need to specify a NEWS format to write the output in."
