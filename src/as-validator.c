@@ -2930,7 +2930,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							"name-has-dot-suffix",
 							node_content);
 
-			if (lang == NULL && strlen (node_content) > 40) {
+			if (lang == NULL && node_content != NULL && strlen (node_content) > 40) {
 				as_validator_add_issue (validator,
 							iter,
 							"component-name-too-long",
@@ -2971,7 +2971,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							"summary-first-word-not-capitalized",
 							NULL);
 
-			if (lang == NULL && strlen (summary) > 90) {
+			if (lang == NULL && summary != NULL && strlen (summary) > 90) {
 				as_validator_add_issue (validator,
 							iter,
 							"summary-too-long",
