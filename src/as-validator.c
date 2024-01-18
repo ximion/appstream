@@ -2921,12 +2921,21 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		} else if (g_strcmp0 (node_name, "source_pkgname") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 		} else if (g_strcmp0 (node_name, "name") == 0) {
+			g_autofree gchar *lang = as_xml_get_prop_value (iter, "lang");
+
 			as_validator_check_appear_once (validator, iter, found_tags, TRUE);
 			if (g_str_has_suffix (node_content, "."))
 				as_validator_add_issue (validator,
 							iter,
 							"name-has-dot-suffix",
 							node_content);
+
+			if (lang == NULL && strlen (node_content) > 40) {
+				as_validator_add_issue (validator,
+							iter,
+							"component-name-too-long",
+							node_content);
+			}
 
 		} else if (g_strcmp0 (node_name, "summary") == 0) {
 			g_autofree gchar *lang = NULL;
@@ -2961,6 +2970,13 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							iter,
 							"summary-first-word-not-capitalized",
 							NULL);
+
+			if (lang == NULL && strlen (summary) > 90) {
+				as_validator_add_issue (validator,
+							iter,
+							"summary-too-long",
+							summary);
+			}
 
 		} else if (g_strcmp0 (node_name, "description") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, TRUE);

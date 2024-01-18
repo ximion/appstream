@@ -465,6 +465,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The component is missing a name (<name/> tag).")
 	},
 
+	{ "component-name-too-long",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The name of this component is excessively long and can likely not be displayed properly in most layouts.")
+	},
+
 	{ "component-summary-missing",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("The component is missing a summary (<summary/> tag).")
@@ -503,6 +508,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "summary-first-word-not-capitalized",
 	  AS_ISSUE_SEVERITY_INFO,
 	  N_("The summary text does not start with a capitalized word, project name or number.")
+	},
+
+	{ "summary-too-long",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The summary text is very long, and will likely not be displayed properly everywhere.")
 	},
 
 	{ "icon-stock-cached-has-url",
@@ -755,7 +765,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	},
 
 	{ "screenshot-caption-too-long",
-	  AS_ISSUE_SEVERITY_PEDANTIC,
+	  AS_ISSUE_SEVERITY_INFO,
 	  N_("The screenshot caption is too long (should be <= 100 characters)"),
 	},
 
