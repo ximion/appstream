@@ -33,9 +33,15 @@ from pathlib import Path
 EXTRA_CSS = [['/usr/share/javascript/highlight.js/styles/routeros.css', 'highlight.css']]
 
 
-def daps_build(src_dir, project_name, daps_exe):
+def daps_build(src_dir, project_name, daps_exe, valsec_gen):
     print('Creating HTML with DAPS...')
     sys.stdout.flush()
+
+    if valsec_gen:
+        ret = subprocess.call([valsec_gen, src_dir], cwd=src_dir)
+        if ret != 0:
+            print('Failed to generated some documentation sections.')
+            sys.exit(6)
 
     build_dir = os.path.join(src_dir, '_docbuild')
     cmd = [daps_exe, 'html', '--clean']
@@ -77,14 +83,28 @@ def copy_result(build_dir, project_name, dest_dir):
     )
 
 
-def cleanup_build_dir(build_dir):
+def cleanup_workspace(src_dir, build_dir):
     print('Cleaning up.')
+    assert src_dir != build_dir
+
+    try:
+        os.remove(os.path.join(src_dir, 'xml', 'validator-compose-hints.xml'))
+        os.remove(os.path.join(src_dir, 'xml', 'validator-issues.xml'))
+    except OSError:
+        pass
+
     if os.path.exists(build_dir):
         shutil.rmtree(build_dir)
 
 
-def daps_validate(src_dir, daps_exe):
+def daps_validate(src_dir, daps_exe, valsec_gen):
     print('Validating documentation with DAPS...')
+
+    if valsec_gen:
+        ret = subprocess.call([valsec_gen, src_dir], cwd=src_dir)
+        if ret != 0:
+            print('Failed to generated some documentation sections.')
+            sys.exit(6)
 
     build_dir = os.path.join(src_dir, '_docbuild')
     if os.path.exists(build_dir):
@@ -94,7 +114,7 @@ def daps_validate(src_dir, daps_exe):
     ret = subprocess.call([daps_exe, 'validate'], cwd=src_dir)
     if ret != 0:
         print('Validation failed!')
-    cleanup_build_dir(build_dir)
+    cleanup_workspace(src_dir, build_dir)
     return ret == 0
 
 
@@ -103,6 +123,7 @@ def main(args):
     parser.add_argument('--build', action='store_true')
     parser.add_argument('--validate', action='store_true')
 
+    parser.add_argument('--valsec-gen', action='store')
     parser.add_argument('--src', action='store')
     parser.add_argument('--builddir', action='store')
     parser.add_argument('--daps', action='store', default='daps')
@@ -122,13 +143,13 @@ def main(args):
 
     if options.build:
         # build the HTML files
-        build_dir = daps_build(options.src, options.project, options.daps)
+        build_dir = daps_build(options.src, options.project, options.daps, options.valsec_gen)
 
         # copy to output HTML folder, overriding all previous contents
         copy_result(build_dir, options.project, os.path.join(options.src, 'html'))
 
         # remove temporary directory
-        cleanup_build_dir(build_dir)
+        cleanup_workspace(options.src, build_dir)
 
         # make a dummy file so Meson can rebuild documentation on demand
         if options.builddir:
@@ -138,7 +159,7 @@ def main(args):
 
     elif options.validate:
         # validate the XML
-        ret = daps_validate(options.src, options.daps)
+        ret = daps_validate(options.src, options.daps, options.valsec_gen)
         if not ret:
             sys.exit(6)
 

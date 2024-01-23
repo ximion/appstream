@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-ValidatorIssues">
+	<title>Validator Issues</title>
+
+	<section id="validator-issues-intro">
+		<title>Introduction</title>
+		<para>
+			The AppStream utility <command>appstreamcli validate</command> can validate all kinds of AppSteeam XML metadata.
+			It will emit a variety of hints with different priority:
+		</para>
+		<para>
+			<emphasis>Error</emphasis> hints render the data unusable
+			or severely limit its usefulness and make it fail validation. <emphasis>Warnings</emphasis> warn about likely unintended
+			behavior, typing errors or issues which might cause data to not be displayed or improperly read. They fail validation,
+			but may be ignored in some circumstances. <emphasis>Info</emphasis> hints are optional recommendations to make the
+			data better, while <emphasis>pedantic</emphasis> hints are nice-to-have. The latter are not displayed by default
+			unless the tool is in pedantic mode.
+		</para>
+		<para>
+			This document contains a list of all issues checked for by <code>appstreamcli validate</code>.
+		</para>
+	</section>
+
+	<section id="validator-issues-list">
+		<title>Validator Issue Tags</title>
+
+		<para>
+			This is a list of all possible validation issues that <code>appstreamcli</code> can detect.
+		</para>
+
+		<variablelist>
+			{{issue_list}}
+		</variablelist>
+
+	</section>
+</section>

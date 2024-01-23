@@ -187,89 +187,116 @@ main (int argc, char **argv)
 	AscComposeFlags compose_flags;
 	GPtrArray *results;
 
+	/* clang-format off */
 	const GOptionEntry options[] = {
 		{ "verbose",
 		  'v', 0,
 		  G_OPTION_ARG_NONE, &verbose,
 		  /* TRANSLATORS: ascompose flag description for: --verbose */
-		  _("Show extra debugging information"), NULL },
-		  { "no-color",
-		    '\0', 0,
-		    G_OPTION_ARG_NONE, &no_color,
-		    /* TRANSLATORS: ascompose flag description for: --no-color */
-		    _("Don\'t show colored output."), NULL },
-		    { "version",
-		      '\0', 0,
-		      G_OPTION_ARG_NONE, &show_version,
-		      /* TRANSLATORS: ascompose flag description for: --version */
-		      _("Show the program version."), NULL },
-		      { "no-net",
-			'\0', 0,
-			G_OPTION_ARG_NONE, &no_net,
-			/* TRANSLATORS: ascompose flag description for: --no-net */
-			_("Do not use the network at all, not even for URL validity checks."), NULL },
-			{ "print-report",
+		  _("Show extra debugging information"),
+		  NULL },
+
+		{ "no-color",
+		  '\0', 0,
+		  G_OPTION_ARG_NONE, &no_color,
+		  /* TRANSLATORS: ascompose flag description for: --no-color */
+		  _("Don\'t show colored output."),
+		  NULL },
+
+		{ "version",
+		  '\0', 0,
+		  G_OPTION_ARG_NONE, &show_version,
+		  /* TRANSLATORS: ascompose flag description for: --version */
+		  _("Show the program version."),
+		  NULL },
+
+		{ "no-net",
+		  '\0', 0,
+		  G_OPTION_ARG_NONE, &no_net,
+		  /* TRANSLATORS: ascompose flag description for: --no-net */
+		  _("Do not use the network at all, not even for URL validity checks."),
+		  NULL },
+
+		{ "print-report",
 		  '\0', 0,
 		  G_OPTION_ARG_STRING, &report_mode_str,
 		  /* TRANSLATORS: ascompose flag description for: --print-report */
-			  _("Set mode of the issue report that is printed to the console"), "MODE" },
-			  { "prefix",
-		    '\0', 0,
-		    G_OPTION_ARG_FILENAME, &prefix,
-		    /* TRANSLATORS: ascompose flag description for: --prefix */
-			    _("Override the default prefix (`/usr` by default)"), "DIR" },
-			    { "result-root",
-		      '\0', 0,
-		      G_OPTION_ARG_FILENAME, &res_root_dir,
-		      /* TRANSLATORS: ascompose flag description for: --result-root */
-			      _("Set the result output directory"), "DIR" },
-			      { "data-dir",
-			'\0', 0,
-			G_OPTION_ARG_FILENAME, &mdata_dir,
-			/* TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term */
-				_("Override the catalog metadata output directory"), "DIR" },
-				{ "icons-dir",
+		  _("Set mode of the issue report that is printed to the console"),
+		  "MODE" },
+
+		{ "prefix",
+		  '\0', 0,
+		  G_OPTION_ARG_FILENAME, &prefix,
+		  /* TRANSLATORS: ascompose flag description for: --prefix */
+		  _("Override the default prefix (`/usr` by default)"),
+		  "DIR" },
+
+		{ "result-root",
+		  '\0', 0,
+		  G_OPTION_ARG_FILENAME, &res_root_dir,
+		  /* TRANSLATORS: ascompose flag description for: --result-root */
+		  _("Set the result output directory"),
+		  "DIR" },
+
+		{ "data-dir",
+		  '\0', 0,
+		  G_OPTION_ARG_FILENAME, &mdata_dir,
+		  /* TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term */
+		  _("Override the catalog metadata output directory"),
+		  "DIR" },
+
+		{ "icons-dir",
 		  '\0', 0,
 		  G_OPTION_ARG_FILENAME, &icons_dir,
 		  /* TRANSLATORS: ascompose flag description for: --icons-dir */
-				  _("Override the icon output directory"), "DIR" },
-				  { "media-dir",
-		    '\0', 0,
-		    G_OPTION_ARG_FILENAME, &media_dir,
-		    /* TRANSLATORS: ascompose flag description for: --media-dir */
-				    _("Set the media output directory (for media data to be served by a webserver)"),
-		       "DIR" },
-				    { "hints-dir",
-		      '\0', 0,
-		      G_OPTION_ARG_FILENAME, &hints_dir,
-		      /* TRANSLATORS: ascompose flag description for: --hints-dir */
-				      _("Set a directory where HTML and text issue reports will be stored"),
-		 "DIR" },
-				      { "origin",
-			'\0', 0,
-			G_OPTION_ARG_STRING, &origin,
-			/* TRANSLATORS: ascompose flag description for: --origin */
-					_("Set the origin name"), "NAME" },
-					{ "media-baseurl",
+		  _("Override the icon output directory"),
+		  "DIR" },
+
+		{ "media-dir",
+		  '\0', 0,
+		  G_OPTION_ARG_FILENAME, &media_dir,
+		  /* TRANSLATORS: ascompose flag description for: --media-dir */
+		  _("Set the media output directory (for media data to be served by a webserver)"),
+		  "DIR" },
+
+		{ "hints-dir",
+		  '\0', 0,
+		  G_OPTION_ARG_FILENAME, &hints_dir,
+		  /* TRANSLATORS: ascompose flag description for: --hints-dir */
+		  _("Set a directory where HTML and text issue reports will be stored"),
+		  "DIR" },
+
+		{ "origin",
+		  '\0', 0,
+		  G_OPTION_ARG_STRING, &origin,
+		  /* TRANSLATORS: ascompose flag description for: --origin */
+		  _("Set the origin name"),
+		  "NAME" },
+
+		{ "media-baseurl",
 		  '\0', 0,
 		  G_OPTION_ARG_STRING, &media_baseurl,
 		  /* TRANSLATORS: ascompose flag description for: --media-baseurl */
-					  _("Set the URL where the exported media content will be hosted"),
-		     "NAME" },
-					  { "no-partial-urls",
-		    '\0', 0,
-		    G_OPTION_ARG_NONE, &no_partial_urls,
-		    /* TRANSLATORS: ascompose flag description for: --no-partial-urls */
-					    _("Makes all URLs in output data complete URLs and avoids the use of a shared URL prefix for all metadata."),
-		       NULL },
-					    { "components",
-		      '\0', 0,
-		      G_OPTION_ARG_STRING, &components_str,
-		      /* TRANSLATORS: ascompose flag description for: --components */
-					      _("A comma-separated list of component-IDs to accept"),
-		 "COMPONENT-IDs" },
-					      { NULL }
-	       };
+		  _("Set the URL where the exported media content will be hosted"),
+		  "NAME" },
+
+		{ "no-partial-urls",
+		  '\0', 0,
+		  G_OPTION_ARG_NONE, &no_partial_urls,
+		  /* TRANSLATORS: ascompose flag description for: --no-partial-urls */
+		  _("Makes all URLs in output data complete URLs and avoids the use of a shared URL prefix for all metadata."),
+		  NULL },
+
+		{ "components",
+		  '\0', 0,
+		  G_OPTION_ARG_STRING, &components_str,
+		  /* TRANSLATORS: ascompose flag description for: --components */
+		  _("A comma-separated list of component-IDs to accept"),
+		  "COMPONENT-IDs" },
+
+		{ NULL }
+	};
+	/* clang-format on */
 
 	setlocale (LC_ALL, "");
 	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
@@ -389,7 +416,7 @@ main (int argc, char **argv)
 	asc_compose_set_media_baseurl (compose, media_baseurl);
 
 	/* we need at least one unit to process */
-	if (argc == 1) {
+	if (argc <= 1) {
 		g_autofree gchar *tmp = NULL;
 		tmp = g_option_context_get_help (option_context, TRUE, NULL);
 		g_print ("%s", tmp);
