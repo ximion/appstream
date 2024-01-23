@@ -74,7 +74,7 @@ gen_doc_valsec_exe = executable('gen-validator-tag-sections',
                    gio_dep],
     include_directories: [root_inc_dir,
                           include_directories ('../compose')],
-    c_args: ['-DASC_COMPILATION', '-Wno-error=inline'],
+    c_args: ['-DASC_COMPILATION', '-Wno-inline'],
     install: false,
 )
 
