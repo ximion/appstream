@@ -3096,10 +3096,12 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_developer (validator, iter);
 
 		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
-			as_validator_add_issue (validator,
-						iter,
-						"developer-name-tag-deprecated",
-						NULL);
+			g_autofree gchar *lang = as_xml_get_prop_value (iter, "lang");
+			if (lang == NULL)
+				as_validator_add_issue (validator,
+							iter,
+							"developer-name-tag-deprecated",
+							NULL);
 
 		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
 			if (!as_utils_is_desktop_environment (node_content)) {
