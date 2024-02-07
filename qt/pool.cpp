@@ -60,7 +60,7 @@ static inline ComponentBox absorbResultToCBox(AsComponentBox *cbox)
 
 static void pool_changed_cb(AsPool *cpool, AppStream::Pool *qpool)
 {
-    qpool->changed();
+    Q_EMIT qpool->changed();
 }
 
 static void pool_ready_async_cb(AsPool *cpool, GAsyncResult *result, gpointer user_data)
