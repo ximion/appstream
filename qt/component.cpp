@@ -708,6 +708,11 @@ QHash<QString, QString> AppStream::Component::custom() const
     return result;
 }
 
+QString AppStream::Component::customValue(const QString &key) const
+{
+    return valueWrap(as_component_get_custom_value(d->cpt, qPrintable(key)));
+}
+
 QString AppStream::Component::customValue(const QString &key)
 {
     return valueWrap(as_component_get_custom_value(d->cpt, qPrintable(key)));

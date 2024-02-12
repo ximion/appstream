@@ -253,7 +253,8 @@ public:
     void setMergeKind(MergeKind kind);
 
     QHash<QString, QString> custom() const;
-    QString customValue(const QString &key);
+    QString customValue(const QString &key) const;
+    [[deprecated]] QString customValue(const QString &key); //TODO Remove when we break ABI
     bool insertCustomValue(const QString &key, const QString &value);
 
     QList<AppStream::ContentRating> contentRatings() const;
