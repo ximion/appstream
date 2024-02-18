@@ -19,8 +19,10 @@
 	<section id="spec-vercmp-algorithm">
 		<title>Algorithm</title>
 		<para>
-			AppStream's version comparison algorithm is identical to the one used by the Fedora and Debian Linux distributions
-			(after RPM's algorithm was extended to handle the tilde character like Debian).
+			AppStream's version comparison algorithm is a compromise between the ones used by the Fedora and Debian Linux distributions
+			(after RPM's algorithm was extended to handle the tilde character like Debian). It should compare most versions like DPKG/RPM,
+			except for letters after a dot, so e.g. <code>1.0 &lt;&lt; 1.a</code> (like in Debian, but unlike in RPM).
+			Unfortunately due to differences between the RPM and DPKG worlds, this issue can not be resolved without breakage.
 			The algorithm is described for Debian <ulink url="https://manpages.debian.org/unstable/dpkg-dev/deb-version.5.en.html#Sorting_algorithm">here</ulink>,
 			the description is also reproduced below:
 		</para>
