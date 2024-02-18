@@ -249,8 +249,10 @@
 						<para>
 							At least one <literal>checksum</literal> child must be present to contain the checksum of the released artifact.
 							The <code>&lt;checksum/&gt;</code> tag has a <code>type</code> attribute, containing the name of the hash function that was used to create it.
-							Currently aupported values (and hash sums) are: <literal>sha1</literal>, <literal>sha256</literal>, <literal>blake2b</literal> and <literal>blake2s</literal>.
-							For most purposes (on 64-bit machines), using <ulink url="https://blake2.net">BLAKE2b</ulink> via the <command>b2sum</command> utility from GNU Coreutils is a good choice.
+							Currently aupported values (and hash sums) are: <literal>sha1</literal>, <literal>sha256</literal>, <literal>sha512</literal>,
+							<literal>blake2b</literal> and <literal>blake3</literal>.
+							For most purposes (on 64-bit machines), using <ulink url="https://blake2.net">BLAKE2b</ulink> via <command>cksum -ablake2b [FILE]</command>
+							from GNU Coreutils is a good choice.
 						</para>
 						</listitem>
 					</varlistentry>
@@ -261,8 +263,9 @@
 						<para>
 							One or multiple <literal>size</literal> tags may also be present, which define the installed and download size
 							of this component release artifact.
-							The size type is defined via a <literal>type</literal> property on the <literal>size</literal> tag, and may assume the value <code>download</code> or <code>installed</code>.
-                            The size itself is set as the value and must be given in bytes.
+							The size type is defined via a <literal>type</literal> property on the <literal>size</literal> tag, and may assume the value
+							<code>download</code> or <code>installed</code>.
+							The size itself is set as the value and must be given in bytes.
 						</para>
 						</listitem>
 					</varlistentry>
