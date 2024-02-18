@@ -110,6 +110,7 @@ as_curl_download_write_bytearray_cb (char *ptr, size_t size, size_t nmemb, void 
 	GByteArray *buf = (GByteArray *) udata;
 	gsize realsize = size * nmemb;
 	g_byte_array_append (buf, (const guint8 *) ptr, realsize);
+
 	return realsize;
 }
 
@@ -368,11 +369,18 @@ as_curl_progress_check_url_cb (void *clientp,
 			       curl_off_t ulnow)
 {
 	AsCurlPrivate *priv = GET_PRIVATE ((AsCurl *) clientp);
+	glong status_code;
+
+	/* always continue if we are still being redirected */
+	curl_easy_getinfo (priv->curl, CURLINFO_RESPONSE_CODE, &status_code);
+	if (status_code == 302)
+		return 0;
+
 	priv->bytes_downloaded = dlnow;
 
-	/* stop after 2kb have been successfully downloaded - it turns out a lot
+	/* stop after 1kb has been successfully downloaded - it turns out a lot
 	 * of downloads fail later, so just checking for the first byte is not enough */
-	if (dlnow >= 2048)
+	if (dlnow >= 1024)
 		return 1;
 	return 0;
 }
