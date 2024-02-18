@@ -1156,7 +1156,7 @@ asc_compose_process_icons (AscCompose *compose,
 
 		as_icon_set_width (stock_icon, 0);
 		as_icon_set_height (stock_icon, 0);
-		as_icon_set_scale (stock_icon, 0);
+		as_icon_set_scale (stock_icon, 1);
 		as_icon_set_name (stock_icon, tmp);
 		as_component_add_icon (cpt, stock_icon);
 	}
