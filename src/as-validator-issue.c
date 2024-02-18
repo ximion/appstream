@@ -30,6 +30,9 @@
 
 #include "as-validator-issue.h"
 
+#include "as-macros-private.h"
+#include "as-utils-private.h"
+
 typedef struct {
 	gchar *tag;
 	AsIssueSeverity severity;
@@ -161,8 +164,7 @@ void
 as_validator_issue_set_tag (AsValidatorIssue *issue, const gchar *tag)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	g_free (priv->tag);
-	priv->tag = g_strdup (tag);
+	as_assign_string_safe (priv->tag, tag);
 }
 
 /**
@@ -224,8 +226,7 @@ void
 as_validator_issue_set_hint (AsValidatorIssue *issue, const gchar *hint)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	g_free (priv->hint);
-	priv->hint = g_strdup (hint);
+	as_assign_string_safe (priv->hint, hint);
 }
 
 /**
@@ -259,8 +260,7 @@ void
 as_validator_issue_set_explanation (AsValidatorIssue *issue, const gchar *explanation)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	g_free (priv->explanation);
-	priv->explanation = g_strdup (explanation);
+	as_assign_string_safe (priv->explanation, explanation);
 }
 
 /**
@@ -289,8 +289,7 @@ void
 as_validator_issue_set_cid (AsValidatorIssue *issue, const gchar *cid)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	g_free (priv->cid);
-	priv->cid = g_strdup (cid);
+	as_assign_string_safe (priv->cid, cid);
 }
 
 /**
@@ -348,8 +347,7 @@ void
 as_validator_issue_set_filename (AsValidatorIssue *issue, const gchar *fname)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	g_free (priv->fname);
-	priv->fname = g_strdup (fname);
+	as_assign_string_safe (priv->fname, fname);
 }
 
 /**
@@ -369,12 +367,12 @@ as_validator_issue_get_location (AsValidatorIssue *issue)
 
 	location = g_string_new ("");
 
-	if (priv->fname == NULL)
+	if (as_is_empty (priv->fname))
 		g_string_append (location, "~");
 	else
 		g_string_append (location, priv->fname);
 
-	if (priv->cid == NULL)
+	if (as_is_empty (priv->cid))
 		g_string_append (location, ":~");
 	else
 		g_string_append_printf (location, ":%s", priv->cid);

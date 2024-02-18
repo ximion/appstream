@@ -283,7 +283,7 @@ asc_validate_metainfo_data_for_component (AscResult *cres,
 		const gchar *filename = (const gchar *) hkey;
 		const GPtrArray *issues = (const GPtrArray *) hvalue;
 
-		if (filename == NULL)
+		if (as_is_empty (filename))
 			filename = mi_basename;
 
 		for (guint i = 0; i < issues->len; i++) {
@@ -295,7 +295,7 @@ asc_validate_metainfo_data_for_component (AscResult *cres,
 			    g_ptr_array_index (issues, i));
 
 			/* we have a special hint tag for legacy metadata,
-			* with its proper "error" priority */
+			 * with its proper "error" priority */
 			if (g_strcmp0 (as_validator_issue_get_tag (issue), "metainfo-ancient") ==
 			    0) {
 				asc_result_add_hint_simple (cres, cpt, "ancient-metadata");
