@@ -148,7 +148,7 @@
 					The <literal>description</literal> tag supports child tags as described in <xref linkend="tag-description"/>.
 				</para>
 				<para>
-					It is recommended to not link to issue trackers or bug reports, as these typically make no sense to users.
+					Descriptions must not contain embedded web links to issue trackers or bug reports, as these typically make no sense to users.
 					If particular issues need to be highlighted (for example, CVEs fixed in this release), they should be listed in the <literal>issues</literal> tag.
 				</para>
 			</listitem>
