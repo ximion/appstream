@@ -2745,8 +2745,8 @@ as_random_alnum_string (gssize len)
  * as_utils_find_stock_icon_filename_full:
  * @root_dir: the directory to search in, including prefix.
  * @icon_name: the stock icon search name, e.g. "microphone.svg" or "kate"
- * @icon_size: the icon color, e.g. 64 or 128. If size is 0, the first found icon is returned.
- * @icon_scale the icon scaling factor, 1 for non HiDPI displays
+ * @icon_size: the icon size, e.g. 64 or 128. If size is 0, the first found icon is returned.
+ * @icon_scale: the icon scaling factor, 1 for non HiDPI displays
  * @error: a #GError or %NULL
  *
  * Finds an icon filename in the filesystem that matches the given specifications.
