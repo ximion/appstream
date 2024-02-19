@@ -19,7 +19,7 @@
 # Lory ~ <dury.lorenzo@gmail.com>, 2021.
 # Alessandro Mandelli <mandelli.alessandro@ngi.it>, 2021.
 # phlostically <phlostically@mailinator.com>, 2021.
-# Bernardino <bennycorrente@outlook.it>, 2023.
+# Bernardino <bennycorrente@outlook.it>, 2023, 2024.
 #
 # Translators:
 msgid ""
@@ -27,16 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-12-16 18:07+0100\n"
-"PO-Revision-Date: 2023-10-17 04:16+0000\n"
+"PO-Revision-Date: 2024-02-19 22:02+0000\n"
 "Last-Translator: Bernardino <bennycorrente@outlook.it>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
-"translations/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -607,7 +606,7 @@ msgstr "Nudità prolungata"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:924
 msgid "Explicit nudity involving visible sexual organs"
-msgstr ""
+msgstr "Nudità esplicita che coinvolge organi sessuali visibili"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:929
@@ -773,9 +772,8 @@ msgstr "Nessuna possibilità di parlare con altri utenti"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1019
-#, fuzzy
 msgid "Moderated audio or video chat functionality between users"
-msgstr "Funzionalità di chat audio e video non controllata fra utenti"
+msgstr "Funzionalità di chat audio o video moderata tra gli utenti"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1021
@@ -1038,12 +1036,12 @@ msgstr "Ambiente desktop leggero X11"
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
 #: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:91
 msgid "LXQt"
-msgstr ""
+msgstr "LXQT"
 
 #. TRANSLATORS: Name of the "MATE" desktop environment.
 #: src/as-desktop-env-data.h:59
 msgid "MATE"
-msgstr ""
+msgstr "COMPAGNO"
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
@@ -1060,29 +1058,29 @@ msgstr "Rasoio"
 #. TRANSLATORS: Name of the "ROX" desktop environment.
 #: src/as-desktop-env-data.h:67
 msgid "ROX"
-msgstr ""
+msgstr "ROx"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
 #: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:105
 msgid "Unity"
-msgstr ""
+msgstr "Unità"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
 #: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:109
 msgid "Xfce"
-msgstr ""
+msgstr "xfce"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
 msgid "GNOME (Dark)"
-msgstr ""
+msgstr "GNOMO (scuro)"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:93
 msgid "macOS"
-msgstr ""
+msgstr "Mac OS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:95
@@ -1208,11 +1206,11 @@ msgstr "Questo software richiede un dispositivo di input tattile."
 
 #: src/as-relation.c:1370
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Questo software richiede il controllo di un microfono tramite input vocale."
 
 #: src/as-relation.c:1372
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "Questo software richiede una telecamera per il controllo dell'input."
 
 #: src/as-relation.c:1374
 msgid "This software requires a method for console input."
@@ -1222,49 +1220,49 @@ msgstr "Questo software richiede un metodo per l'input della console."
 #: src/as-relation.c:1379
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "Questo software consiglia %s per l'input."
 
 #: src/as-relation.c:1384
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "Questo software consiglia un dispositivo di input tattile."
 
 #: src/as-relation.c:1386
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Questo software consiglia di controllare un microfono tramite input vocale."
 
 #: src/as-relation.c:1389
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "Questo software consiglia una telecamera per il controllo dell'input."
 
 #: src/as-relation.c:1392
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "Questo software consiglia un metodo per l'input della console."
 
 #: src/as-relation.c:1397
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "dispositivi di puntamento (ad esempio mouse)"
 
 #: src/as-relation.c:1399
 msgid "keyboards"
-msgstr ""
+msgstr "tastiere"
 
 #: src/as-relation.c:1401
 msgid "gamepads"
-msgstr ""
+msgstr "gamepad"
 
 #: src/as-relation.c:1403
 msgid "tv remotes"
-msgstr ""
+msgstr "telecomandi della televisione"
 
 #: src/as-relation.c:1405
 msgid "graphics tablets"
-msgstr ""
+msgstr "tavolette grafiche"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1409
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "Questo software supporta %s."
 
 #: src/as-relation.c:1413
 msgid "This software supports touch input."
@@ -1272,107 +1270,107 @@ msgstr "Questo software supporta l'input tattile."
 
 #: src/as-relation.c:1415
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "Questo software può essere controllato tramite input vocale."
 
 #: src/as-relation.c:1417
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "Questo software può essere controllato tramite una fotocamera."
 
 #: src/as-relation.c:1420
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "Questo software supporta il funzionamento tramite comandi della console."
 
 #: src/as-relation.c:1433
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "Dispositivo di puntamento trovato (ad esempio un mouse o un touchpad)."
 
 #: src/as-relation.c:1435
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "Trovata tastiera fisica."
 
 #: src/as-relation.c:1437
 msgid "Gamepad found."
-msgstr ""
+msgstr "Gamepad trovato."
 
 #: src/as-relation.c:1439
 msgid "TV remote found."
-msgstr ""
+msgstr "Trovato il telecomando della TV."
 
 #: src/as-relation.c:1441
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "Tavoletta grafica trovata."
 
 #: src/as-relation.c:1444
 msgid "Touch input device found."
-msgstr ""
+msgstr "Dispositivo di input tocco trovato."
 
 #: src/as-relation.c:1446
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "Trovato microfono per il controllo dell'input vocale."
 
 #: src/as-relation.c:1448
 msgid "Camera for input control found."
-msgstr ""
+msgstr "Trovata telecamera per il controllo dell'ingresso."
 
 #: src/as-relation.c:1450
 msgid "Console interface available."
-msgstr ""
+msgstr "Interfaccia console disponibile."
 
 #: src/as-relation.c:1511
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "È stato trovato il software '%s'"
 
 #: src/as-relation.c:1520
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Manca il componente software richiesto '%s'."
 
 #: src/as-relation.c:1524
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Manca il componente software consigliato '%s'."
 
 #: src/as-relation.c:1528
-#, fuzzy, c-format
+#, c-format
 msgid "Found supported software component '%s'."
-msgstr "Trovati %i componenti."
+msgstr "Trovati %s componenti."
 
 #: src/as-relation.c:1561
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "Hardware trovato supportato da questo software: '%s'"
 
 #: src/as-relation.c:1570
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "L'hardware richiesto per questo software non è stato trovato su questo sistema: '%s'"
 
 #: src/as-relation.c:1575
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "L'hardware consigliato per questo software non è stato trovato su questo sistema: '%s'"
 
 #: src/as-relation.c:1580
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "Questo software supporta hardware non presente in questo sistema: '%s'"
 
 #: src/as-relation.c:1619
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Questo software richiede un kernel %s, ma questo sistema esegue %s."
 
 #: src/as-relation.c:1625
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Questo software consiglia un kernel %s, ma questo sistema esegue %s."
 
 #: src/as-relation.c:1631
-#, fuzzy, c-format
+#, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr "Questo tag richiede una proprietà di tipo."
+msgstr "Questo software supporta solo un kernel %s, ma può comunque essere eseguito su %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1380,7 +1378,7 @@ msgstr "Questo tag richiede una proprietà di tipo."
 #: src/as-relation.c:1661
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
+msgstr "Questo software richiede %s %s %s, ma questo sistema esegue %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1388,20 +1386,20 @@ msgstr ""
 #: src/as-relation.c:1673
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
+msgstr "Si consiglia l'uso di %s %s %s, ma questo sistema esegue %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1684
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %s %s."
-msgstr "Questo tag richiede una proprietà di tipo."
+msgstr "Questo software supporta %s %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1702
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "Il kernel %s %s è supportato."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1409,7 +1407,7 @@ msgstr ""
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Questo software richiede %s %.2f GiB di memoria, ma questo sistema ha %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1417,18 +1415,18 @@ msgstr ""
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Questo software consiglia %s %.2f GiB di memoria, ma questo sistema ha %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1754
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr "Questo tag richiede una proprietà di tipo."
+msgstr "Questo software supporta %s %.2f GiB di memoria."
 
 #: src/as-relation.c:1770
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "Questo sistema dispone di memoria sufficiente per questo software."
 
 #: src/as-relation.c:1834
 msgid "This software needs a display for graphical content."
@@ -1441,7 +1439,7 @@ msgstr "Questo software necessita di un display per il contenuto grafico."
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Questo software richiede un display il cui bordo più lungo abbia una dimensione di %s %lu px, ma il display di questo dispositivo ha %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
