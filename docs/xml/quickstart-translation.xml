@@ -24,6 +24,23 @@
 		</note>
 	</section>
 
+	<section id="qsr-l10n-selection">
+		<title>Selecting strings for translation</title>
+
+		<para>
+			By default, all strings in a MetaInfo file that are in translatable elements will be marked for translation.
+			If you are using <literal>xgettext</literal>, <literal>itstool</literal> or any other tool that uses ITS rules
+			for translation, and have AppStream or AppStream's ITS rules installed, you can exclude any element from
+			being translated by adding a <code>translate="no"</code> attribute to it.
+		</para>
+		<para>
+			One special case is the <code>description</code> block in MetaInfo files and release metadata. In MetaInfo files,
+			each individual paragraph of a description (or enumerated entry) is translated individually, however you can only
+			exclude the complete block from being translated by adding <code>translate="no"</code> to the <code>description</code>
+			element. It is generally discouraged to not translate component descriptions, so please use this with care!
+		</para>
+	</section>
+
 	<section id="qsr-l10n-itstool">
 		<title>Translating using Itstool</title>
 
