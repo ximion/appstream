@@ -1169,7 +1169,8 @@
 		</para>
 		<para>
 			The element should have a <literal>id</literal> property, containing a unique ID to identify the respective developer. It is recommended to use a reverse-DNS
-			name, like <code>org.gnome</code> or <code>io.github.ximion</code>, as ID to achieve a higher chance of uniqueness.
+			name, like <code>org.gnome</code> or <code>io.github.ximion</code>, or a Fediverse handle (like <code>@user@example.org</code>) as ID to achieve a higher chance
+			of uniqueness.
 		</para>
 		<para>
 			Every <literal>developer</literal> element must have a <literal>name</literal> tag as child, which contains a translatable name for the
