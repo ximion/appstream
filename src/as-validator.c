@@ -1488,11 +1488,33 @@ as_validator_check_references (AsValidator *validator, xmlNode *node)
 static void
 as_validator_check_developer (AsValidator *validator, xmlNode *node)
 {
-	g_autofree gchar *devp_id = NULL;
+	g_autofree gchar *devid = NULL;
 
-	devp_id = as_xml_get_prop_value (node, "id");
-	if (devp_id == NULL)
+	devid = as_xml_get_prop_value (node, "id");
+	if (devid == NULL) {
 		as_validator_add_issue (validator, node, "developer-id-missing", NULL);
+	} else {
+		if (g_strstr_len (devid, -1, "@") == NULL && g_strstr_len (devid, -1, ".") == NULL)
+			as_validator_add_issue (validator, node, "developer-id-invalid", NULL);
+
+		for (guint i = 0; devid[i] != '\0'; ++i) {
+			if (g_ascii_isalpha (devid[i]) && !g_ascii_islower (devid[i])) {
+				as_validator_add_issue (validator,
+							node,
+							"developer-id-invalid",
+							devid);
+				break;
+			}
+
+			if (!g_ascii_isalnum (devid[i]) && !g_ascii_ispunct (devid[i])) {
+				as_validator_add_issue (validator,
+							node,
+							"developer-id-invalid",
+							devid);
+				break;
+			}
+		}
+	}
 
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		if (iter->type != XML_ELEMENT_NODE)

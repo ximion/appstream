@@ -603,6 +603,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 		  "Consider adding a unique ID."),
 	},
 
+	{ "developer-id-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The developer-ID is invalid. It should be an rDNS string identifying the developer, or a Fediverse handle. "
+	     "It must also only contain lowercase ASCII letters, numbers and punctuation."),
+	},
+
 	{ "unknown-desktop-id",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("The set value is not an identifier for a desktop environment as registered with Freedesktop.org."),
