@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-12-16 18:07+0100\n"
-"PO-Revision-Date: 2024-02-21 03:01+0000\n"
+"PO-Revision-Date: 2024-02-21 20:15+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/translations/nl/>\n"
 "Language: nl\n"
@@ -37,14 +37,7 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
-"AppStream is een specificatie voor metagegevens waarmee softwarecomponenten "
-"informatie over zichzelf kunnen verstrekken aan geautomatiseerde systemen en "
-"eindgebruikers voordat de software daadwerkelijk is geïnstalleerd. Het "
-"AppStream-project biedt faciliteiten om deze metagegevens gemakkelijk te "
-"ontsluiten en te transformeren, alsmede enkele aanvullende diensten voor het "
-"bouwen van functierijke softwarecentra en soortgelijke toepassingen die "
-"gebruik maken van software-metagegevens."
+msgstr "AppStream is een specificatie voor metagegevens waarmee softwarecomponenten informatie over zichzelf kunnen verstrekken aan geautomatiseerde systemen en eindgebruikers voordat de software daadwerkelijk is geïnstalleerd. Het AppStream-project biedt faciliteiten om deze metagegevens gemakkelijk te ontsluiten en te transformeren, alsmede enkele aanvullende diensten voor het bouwen van functierijke softwarecentra en soortgelijke apps die gebruik maken van software-metagegevens."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -790,7 +783,7 @@ msgstr "Geen uitwisseling van gebruikersinformatie met derden"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1037
 msgid "Checking for the latest application version"
-msgstr "Controleren op de nieuwste toepassingsversie"
+msgstr "Controleren op de nieuwste app-versie"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1039
@@ -1660,7 +1653,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:42
 msgid "This tag requires a type property."
-msgstr "Deze tag vereist een type-eigenschap."
+msgstr "Dit label vereist een type-eigenschap."
 
 #: src/as-validator-issue-tag.h:47
 msgid "Tags of this name are not permitted in this section."
@@ -1670,10 +1663,7 @@ msgstr "Tags met deze naam zijn niet toegestaan in deze sectie."
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"Een <description/>-tag moet niet in metainfo-bestanden (upstream-metadata) "
-"gelokaliseerd worden. Lokaliseer in plaats daarvan de paragrafen "
-"afzonderlijk."
+msgstr "Een <description/>-label moet niet in metainfo-bestanden (upstream-metadata) gelokaliseerd worden. Lokaliseer in plaats daarvan de paragrafen afzonderlijk."
 
 #: src/as-validator-issue-tag.h:58
 msgid ""
@@ -1681,12 +1671,7 @@ msgid ""
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr ""
-"Dit element (paragraaf, lijst, enz.) van een <description/>-tag mag niet "
-"afzonderlijk worden gelokaliseerd in catalogusmetagegevens. Lokaliseer in "
-"plaats daarvan de hele tag <description/>. De catalogusgenerator voor "
-"AppStream-metagegevens (bijv. ‘appstream-generator’) zal al het juiste doen "
-"bij het compileren van de gegevens."
+msgstr "Dit element (paragraaf, lijst, enz.) van een <description/>-label mag niet afzonderlijk worden gelokaliseerd in catalogusmetagegevens. Lokaliseer in plaats daarvan de hele tag <description/>. De catalogusgenerator voor AppStream-metagegevens (bijv. ‘appstream-generator’) zal al het juiste doen bij het compileren van de gegevens."
 
 #: src/as-validator-issue-tag.h:64
 msgid ""
@@ -1694,11 +1679,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
-"AppStream-omschrijvingen steunen een beperkte set van tags om tekst te "
-"opmaken: paragrafen (<p/>) en lijsten (<ul/>, <ol/>). Deze omschrijving-"
-"opmaak bevat een ongeldige XML-tag die zou verkeerd gerendeerd door "
-"toepassingen die de metainfo-specificatie ondersteunen."
+msgstr "AppStream-omschrijvingen ondersteunen een beperkte set van labels om tekst op te maken: paragrafen (<p/>) en lijsten (<ul/>, <ol/>). Deze omschrijvingsopmaak bevat een ongeldige XML-label die verkeerd gerendeerd zou worden door apps die de metainfo-specificatie ondersteunen."
 
 #: src/as-validator-issue-tag.h:70
 msgid ""
@@ -1737,35 +1718,28 @@ msgstr ""
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
-"De beschrijving bevat een web URL in platte tekst. Dit is niet toegestaan, "
-"gebruik in plaats daarvan de tag <url/> om links te delen."
+msgstr "De beschrijving bevat een web URL in platte tekst. Dit is niet toegestaan, gebruik in plaats daarvan de label <url/> om links te delen."
 
 #: src/as-validator-issue-tag.h:97
 msgid "This tag is not translatable."
-msgstr "Deze tag is niet vertaalbaar"
+msgstr "Dit label is niet vertaalbaar."
 
 #: src/as-validator-issue-tag.h:102
 msgid ""
 "This tag must only appear once in this context. Having multiple tags of this "
 "kind is not valid."
-msgstr ""
-"Deze tag mag in deze context slechts eenmaal voorkomen. Meerdere tags van "
-"dit type zijn niet geldig."
+msgstr "Dit label mag in deze context slechts eenmaal voorkomen. Meerdere labels van dit type zijn niet geldig."
 
 #: src/as-validator-issue-tag.h:107
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
-msgstr ""
-"De genoemde tag is leeg, wat hoogstwaarschijnlijk niet de bedoeling is, want "
-"het zou inhoud moeten hebben."
+msgstr "Het genoemde label is leeg, wat hoogstwaarschijnlijk niet de bedoeling is, want het zou inhoud moeten hebben."
 
 #: src/as-validator-issue-tag.h:112
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
-msgstr ""
-"De genoemde tag heeft tekstinhoud, ook al mag deze geen tekst bevatten."
+msgstr "Het genoemde label heeft tekstinhoud, ook al mag deze geen tekst bevatten."
 
 #: src/as-validator-issue-tag.h:117
 msgid ""
@@ -1786,15 +1760,8 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
-"De component-ID is geen omgekeerde domeinnaam. Update de ID om toekomstige "
-"problemen te voorkomen en compatibel te zijn met alle AppStream-"
-"implementaties.\n"
-"U kunt ook overwegen om de naam van het bijbehorende ‘.desktop’-bestand aan "
-"te passen aan de laatste versie van de desktop-entry-specificatie en er ook "
-"een rDNS-naam voor te gebruiken. Vergeet in ieder geval niet de nieuwe "
-"desktop-entry te vermelden in een <launchable/>-tag voor dit component om de "
-"toepassing startbaar te houden vanuit softwarecentra en de ‘.desktop’-"
-"bestandsgegevens geassocieerd te houden met de metainfo-gegevens."
+"Het component-ID is geen omgekeerde domeinnaam. Update de ID om toekomstige problemen te voorkomen en compatibel te zijn met alle AppStream-implementaties.\n"
+"U kunt ook overwegen om de naam van het bijbehorende ‘.desktop’-bestand aan te passen aan de laatste versie van de desktop-entry-specificatie en er ook een rDNS-naam voor te gebruiken. Vergeet in ieder geval niet de nieuwe desktop-entry te vermelden in een <launchable/>-tag voor dit component om de app startbaar te houden vanuit softwarecentra en de ‘.desktop’-bestandsgegevens geassocieerd te houden met de metainfo-gegevens."
 
 #: src/as-validator-issue-tag.h:130
 msgid ""
@@ -2296,9 +2263,8 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:578
-#, fuzzy
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr "<developer_name/> mag geen hyperlink bevatten"
+msgstr "Het item `name` in het blok `developer` mag geen hyperlink bevatten."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:584
@@ -2580,7 +2546,7 @@ msgstr ""
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:838
 msgid "No XDG applications directory found."
-msgstr "Geen XDG-toepassingsmap gevonden"
+msgstr "Geen XDG-app-map gevonden"
 
 #: src/as-validator-issue-tag.h:843
 msgid ""
@@ -2943,7 +2909,7 @@ msgstr "Niet-gekleurde uitvoer weergeven"
 #. TRANSLATORS: ascompose flag description for: --version
 #: tools/appstream-compose.c:205 tools/appstreamcli.c:1356
 msgid "Show the program version."
-msgstr "Toepassingsversie tonen"
+msgstr "App-versie tonen"
 
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:210
