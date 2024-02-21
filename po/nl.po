@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2023-12-16 18:07+0100\n"
-"PO-Revision-Date: 2024-02-14 07:02+0000\n"
+"PO-Revision-Date: 2024-02-21 03:01+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/translations/nl/>\n"
 "Language: nl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -594,7 +594,7 @@ msgstr "Langdurige naaktheid"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:924
 msgid "Explicit nudity involving visible sexual organs"
-msgstr ""
+msgstr "Expliciete naaktheid waarbij zichtbare geslachtsorganen betrokken zijn"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:929
@@ -762,9 +762,8 @@ msgstr "Geen manier om met andere gebruikers te praten"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1019
-#, fuzzy
 msgid "Moderated audio or video chat functionality between users"
-msgstr "Ongecontroleerde audio- of videochatfunctionaliteit tussen gebruikers"
+msgstr "Gemodereerde audio- of videochatfunctionaliteit tussen gebruikers"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1021
@@ -1431,9 +1430,8 @@ msgid "This system has sufficient memory for this software."
 msgstr "Dit systeem heeft voldoende geheugen voor deze software."
 
 #: src/as-relation.c:1834
-#, fuzzy
 msgid "This software needs a display for graphical content."
-msgstr "Deze software beveelt een %s aan voor invoer."
+msgstr "Deze software heeft een scherm nodig voor grafische inhoud."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and fourth is the size the current device has.
@@ -1493,52 +1491,52 @@ msgstr ""
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "Affero General Public License v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:40
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Affero General Public License v1.0 of hoger"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:43
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "GNU Affero General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:45
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Affero General Public License v3.0 of hoger"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:255
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 - invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:257
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 of hoger - invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:259
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 - geen invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:261
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 of hoger - geen invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:263
 msgid "GNU Free Documentation License v1.1 only"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:265
 msgid "GNU Free Documentation License v1.1 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 of hoger"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:268
