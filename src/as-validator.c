@@ -1773,18 +1773,27 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 			}
 		}
 
-		if (!image_found && !video_found)
+		if (!image_found && !video_found) {
 			as_validator_add_issue (validator, iter, "screenshot-no-media", NULL);
-		else if (image_found && video_found)
+		} else if (image_found && video_found) {
 			as_validator_add_issue (validator,
 						iter,
 						"screenshot-mixed-images-videos",
 						NULL);
-		else if (image_found && !have_source_image)
-			as_validator_add_issue (validator,
-						iter,
-						"screenshot-image-source-missing",
-						NULL);
+		} else if (image_found && !have_source_image) {
+			if (g_hash_table_contains (known_source_locale, "en")) {
+				as_validator_add_issue (validator,
+							iter,
+							"screenshot-image-no-source-but-en-locale",
+							NULL);
+
+			} else {
+				as_validator_add_issue (validator,
+							iter,
+							"screenshot-image-no-source",
+							NULL);
+			}
+		}
 
 		if (image_found && !scale1image_found)
 			as_validator_add_issue (validator,

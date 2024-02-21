@@ -253,10 +253,18 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("There can only be one `source` image per screenshot and language.")
 	},
 
-	{ "screenshot-image-source-missing",
+	{ "screenshot-image-no-source",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
-	  N_("A screenshot must have at least one image of type `source`.")
+	  N_("A screenshot must have at least one untranslated image of type `source`.")
+	},
+
+	{ "screenshot-image-no-source-but-en-locale",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag/property names (in backticks). */
+	  N_("A screenshot must have at least one untranslated image of type `source`, which could not be found. "
+	     "Instead, a tag with an `en` locale (`xml:lang=en`) was found, which is likely intended to be the "
+	     "translatable image. Please remove the XML localization attribute in this case.")
 	},
 
 	{ "screenshot-image-not-found",
