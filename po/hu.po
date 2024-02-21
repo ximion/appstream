@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2023-12-16 18:07+0100\n"
+"POT-Creation-Date: 2024-02-21 21:15+0100\n"
 "PO-Revision-Date: 2022-09-26 08:20+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
@@ -969,30 +969,30 @@ msgid "Graphic depictions of modern-day slavery"
 msgstr "Modern kori rabszolgaság grafikus ábrázolása"
 
 #. TRANSLATORS: We got a 429 error while trying to download data
-#: src/as-curl.c:147
+#: src/as-curl.c:148
 #, c-format
 msgid "Failed to download due to server limit"
 msgstr "Kiszolgálókorlát miatt a letöltés sikertelen"
 
-#: src/as-curl.c:154 src/as-curl.c:160
+#: src/as-curl.c:155 src/as-curl.c:161
 #, c-format
 msgid "Failed to download file: %s"
 msgstr "A fájl letöltése sikertelen: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
-#: src/as-curl.c:174
+#: src/as-curl.c:175
 #, c-format
 msgid "URL was not found on the server."
 msgstr "Az URL nem található a kiszolgálón."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
-#: src/as-curl.c:182
+#: src/as-curl.c:183
 #, c-format
 msgid "Unexpected status code: %ld"
 msgstr "Váratlan állapotkód: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-curl.c:412
+#: src/as-curl.c:420
 #, c-format
 msgid "Retrieved file size was zero."
 msgstr "A visszakapott fájlméret nulla volt."
@@ -1977,23 +1977,36 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:259
-msgid "A screenshot must have at least one image of type `source`."
+#, fuzzy
+msgid ""
+"A screenshot must have at least one untranslated image of type `source`."
+msgstr ""
+"Egy képernyőképnek tartalmaznia kell legalább egy képet vagy videót, hogy "
+"használható legyen. Adjon hozzá egy <image/> címkét."
+
+#. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
+#: src/as-validator-issue-tag.h:265
+msgid ""
+"A screenshot must have at least one untranslated image of type `source`, "
+"which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) "
+"was found, which is likely intended to be the translatable image. Please "
+"remove the XML localization attribute in this case."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:264
+#: src/as-validator-issue-tag.h:272
 msgid ""
 "Unable to reach the screenshot image on its remote location - does the image "
 "exist?"
 msgstr "Nem lehet elérni a képernyőképet a távoli helyén – létezik a kép?"
 
-#: src/as-validator-issue-tag.h:269
+#: src/as-validator-issue-tag.h:277
 msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
 msgstr ""
 "Nem lehet elérni a képernyőkép-videót a távoli helyén – létezik a videofájl?"
 
-#: src/as-validator-issue-tag.h:274
+#: src/as-validator-issue-tag.h:282
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
@@ -2001,7 +2014,7 @@ msgstr ""
 "Fontolja meg egy biztonságos (HTTPS) URL használatát a képernyőkép vagy "
 "képernyőfelvétel hivatkozásához."
 
-#: src/as-validator-issue-tag.h:279
+#: src/as-validator-issue-tag.h:287
 #, fuzzy
 msgid ""
 "A screenshot must have at least one image that has a scaling factor of 1."
@@ -2010,7 +2023,7 @@ msgstr ""
 "használható legyen. Adjon hozzá egy <image/> címkét."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:285
+#: src/as-validator-issue-tag.h:293
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
@@ -2018,7 +2031,7 @@ msgstr ""
 "Egy képernyőképnek tartalmaznia kell legalább egy képet vagy videót, hogy "
 "használható legyen. Adjon hozzá egy <image/> címkét."
 
-#: src/as-validator-issue-tag.h:290
+#: src/as-validator-issue-tag.h:298
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
@@ -2028,14 +2041,14 @@ msgstr ""
 "mindkettőt egyszerre. Használja ezt a képernyőképet kizárólagosan vagy "
 "statikus képekhez, vagy videókhoz."
 
-#: src/as-validator-issue-tag.h:296
+#: src/as-validator-issue-tag.h:304
 msgid "The screenshot does not have a caption text. Consider adding one."
 msgstr ""
 "A képernyőképnek nincs feliratszövege. Fontolja meg a feliratszöveg "
 "hozzáadását."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:302
+#: src/as-validator-issue-tag.h:310
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
@@ -2044,7 +2057,7 @@ msgstr ""
 "„codec” tulajdonságban."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:308
+#: src/as-validator-issue-tag.h:316
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
@@ -2053,7 +2066,7 @@ msgstr ""
 "egy „container” tulajdonságban."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:314
+#: src/as-validator-issue-tag.h:322
 msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
@@ -2065,7 +2078,7 @@ msgstr ""
 "értékeket a „codec” tulajdonságnál."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:321
+#: src/as-validator-issue-tag.h:329
 msgid ""
 "The selected video container format is not supported by AppStream and "
 "software centers may not be able to play the video. Only the WebM and "
@@ -2077,7 +2090,7 @@ msgstr ""
 "csak a WebM és Matroska videokonténerek támogatottak, használja a „webm” és "
 "„mkv” értékeket a „container” tulajdonságnál."
 
-#: src/as-validator-issue-tag.h:327
+#: src/as-validator-issue-tag.h:335
 msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
@@ -2087,7 +2100,7 @@ msgstr ""
 "támogatottak. A hivatkozott videó fájlkiterjesztése nem tartozik ezek közül "
 "egyik formátumhoz sem."
 
-#: src/as-validator-issue-tag.h:333
+#: src/as-validator-issue-tag.h:341
 msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
@@ -2097,11 +2110,11 @@ msgstr ""
 "Használjon statikus képet alapértelmezett képernyőképként, és állítsa be a "
 "videót másodlagos képernyőképként."
 
-#: src/as-validator-issue-tag.h:338
+#: src/as-validator-issue-tag.h:346
 msgid "No screenshot is marked as default."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:343
+#: src/as-validator-issue-tag.h:351
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
@@ -2110,7 +2123,7 @@ msgstr ""
 "valószínűleg hiba, mert ennek a típusnak az összetevő-kapcsolata ismeretlen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:349
+#: src/as-validator-issue-tag.h:357
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
@@ -2119,7 +2132,7 @@ msgstr ""
 "jelöléséhez."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
-#: src/as-validator-issue-tag.h:355
+#: src/as-validator-issue-tag.h:363
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
@@ -2128,7 +2141,7 @@ msgstr ""
 "amelynek nem lehetne vagy nem igényelhet verziót."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
-#: src/as-validator-issue-tag.h:361
+#: src/as-validator-issue-tag.h:369
 msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
@@ -2139,7 +2152,7 @@ msgstr ""
 "összehasonlítási műveletet."
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
-#: src/as-validator-issue-tag.h:367
+#: src/as-validator-issue-tag.h:375
 msgid ""
 "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
 "ge` is permitted."
@@ -2147,7 +2160,7 @@ msgstr ""
 "Érvénytelen összehasonlító művelet a kapcsolati elemen. Csak az „eq/ne/lt/gt/"
 "le/ge” engedélyezett."
 
-#: src/as-validator-issue-tag.h:372
+#: src/as-validator-issue-tag.h:380
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
@@ -2155,7 +2168,7 @@ msgstr ""
 "A kapcsolati elemen összehasonlítás művelet van beállítva, de nem támogat "
 "semmilyen összehasonlítást."
 
-#: src/as-validator-issue-tag.h:377
+#: src/as-validator-issue-tag.h:385
 msgid ""
 "This relation item has already been defined once for this or a different "
 "relation type. Please do not redefine relations."
@@ -2164,7 +2177,7 @@ msgstr ""
 "kapcsolattípushoz. Ne határozzon meg újra kapcsolatokat."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:383
+#: src/as-validator-issue-tag.h:391
 msgid ""
 "Found a memory size relation in a `requires` tag. This means users will not "
 "be able to even install the component without having enough RAM. This is "
@@ -2177,7 +2190,7 @@ msgstr ""
 "tulajdonságot kellene használnia a „recommends” címkében."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:390
+#: src/as-validator-issue-tag.h:398
 msgid ""
 "Found a user input control relation in a `requires` tag. This means users "
 "will not be able to even install the component without having the defined "
@@ -2191,7 +2204,7 @@ msgstr ""
 "tulajdonságot kellene használnia a „recommends” címkében."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:397
+#: src/as-validator-issue-tag.h:405
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
@@ -2200,12 +2213,12 @@ msgstr ""
 "Nézze meg a specifikációt az engedélyezett értékek listájához."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:403
+#: src/as-validator-issue-tag.h:411
+#, fuzzy
 msgid ""
 "This `display_length` item contains an invalid display length. Its value "
-"must either be a shorthand string, or positive integer value denoting "
-"logical pixels. Please refer to the AppStream specification for more "
-"information on this tag."
+"must be a positive integer value denoting logical pixels. Please refer to "
+"the AppStream specification for more information on this tag."
 msgstr ""
 "Ez a „display_length” elem érvénytelen megjelenítési hosszt tartalmaz. Az "
 "értékének vagy egy rövidítés karakterláncnak kell lennie, vagy egy pozitív "
@@ -2213,7 +2226,7 @@ msgstr ""
 "specifikációt a címke további információiért."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:410
+#: src/as-validator-issue-tag.h:418
 msgid ""
 "This `side` property of this `display_length` item contains an invalid "
 "value. It must either be `shortest` or `longest`, or unset to imply "
@@ -2226,7 +2239,7 @@ msgstr ""
 "vagy hosszabb oldalát fogja jelenteni."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:417
+#: src/as-validator-issue-tag.h:425
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
@@ -2236,7 +2249,7 @@ msgstr ""
 "zárójelek nélkül."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:423
+#: src/as-validator-issue-tag.h:431
 msgid ""
 "A `memory` item must only contain a non-zero integer value, depicting a "
 "system memory size in mebibyte (MiB)"
@@ -2245,18 +2258,18 @@ msgstr ""
 "rendszermemória méretét ábrázolja mebibyte-ban (MiB)"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:429
+#: src/as-validator-issue-tag.h:437
 msgid "The set tag value is not valid for an `internet` relation."
 msgstr "A beállított címke értéke nem érvényes egy „internet” kapcsolatnál."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:435
+#: src/as-validator-issue-tag.h:443
 msgid ""
 "The `bandwidth_mbitps` property is not allowed when using `offline-only` as "
 "value."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:440
+#: src/as-validator-issue-tag.h:448
 msgid ""
 "The value of this property must be a positive integer value, describing the "
 "minimum required bandwidth in mbit/s."
@@ -2264,14 +2277,14 @@ msgstr ""
 "Ezen tulajdonság értékének pozitív egész számnak kell lennie, amely a "
 "legalább szükséges sávszélességet ábrázolja mbit/s sebességben."
 
-#: src/as-validator-issue-tag.h:445
+#: src/as-validator-issue-tag.h:453
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
 msgstr ""
 "A beállított összetevőtípus nem felismert, nem érvényes AppStream "
 "összetevőtípus."
 
-#: src/as-validator-issue-tag.h:450
+#: src/as-validator-issue-tag.h:458
 msgid ""
 "The component has a priority value set. This is not allowed in metainfo "
 "files."
@@ -2279,7 +2292,7 @@ msgstr ""
 "Az összetevő egy beállított prioritásértékkel rendelkezik. Ez nem "
 "engedélyezett a metainformációs fájlokban."
 
-#: src/as-validator-issue-tag.h:455
+#: src/as-validator-issue-tag.h:463
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
@@ -2287,19 +2300,25 @@ msgstr ""
 "Az összetevő egy meghatározott „merge” módszerrel rendelkezik. Ez nem "
 "engedélyezett a metainformációs fájlokban."
 
-#: src/as-validator-issue-tag.h:460
+#: src/as-validator-issue-tag.h:468
 msgid "The component is missing an ID (<id/> tag)."
 msgstr "Az összetevőből hiányzik egy azonosító (az <id/> címke)."
 
-#: src/as-validator-issue-tag.h:465
+#: src/as-validator-issue-tag.h:473
 msgid "The component is missing a name (<name/> tag)."
 msgstr "Az összetevőből hiányzik egy név (a <name/> címke)."
 
-#: src/as-validator-issue-tag.h:470
+#: src/as-validator-issue-tag.h:478
+msgid ""
+"The name of this component is excessively long and can likely not be "
+"displayed properly in most layouts."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:483
 msgid "The component is missing a summary (<summary/> tag)."
 msgstr "Az összetevőből hiányzik egy összegzés (a <summary/> címke)."
 
-#: src/as-validator-issue-tag.h:475
+#: src/as-validator-issue-tag.h:488
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
@@ -2307,7 +2326,7 @@ msgstr ""
 "Az <id/> címke még mindig tartalmaz „type” tulajdonságot, valószínűleg egy, "
 "a legújabb metainformációs formátumra történő régi átalakításból."
 
-#: src/as-validator-issue-tag.h:480
+#: src/as-validator-issue-tag.h:493
 msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
@@ -2318,26 +2337,26 @@ msgstr ""
 "létrehozását, annak érdekében hogy elkerülje az összetevőnkénti több "
 "csomagnév meghatározását."
 
-#: src/as-validator-issue-tag.h:485
+#: src/as-validator-issue-tag.h:498
 msgid "The component name should (likely) not end with a dot (`.`)."
 msgstr "Az összetevő neve (valószínűleg) nem végződhet ponttal („.”)."
 
-#: src/as-validator-issue-tag.h:490
+#: src/as-validator-issue-tag.h:503
 msgid "The component summary should not end with a dot (`.`)."
 msgstr "Az összetevő összegzése nem végződhet ponttal („.”)."
 
-#: src/as-validator-issue-tag.h:495
+#: src/as-validator-issue-tag.h:508
 msgid "The component summary must not contain tabs or linebreaks."
 msgstr ""
 "Az összetevő összegzése nem tartalmazhat tabulátorokat vagy sortöréseket."
 
-#: src/as-validator-issue-tag.h:500
+#: src/as-validator-issue-tag.h:513
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
 msgstr ""
 "Az összegzés nem tartalmazhat semmilyen URL-t. Használja az „<url/>” "
 "címkéket a hivatkozásokhoz."
 
-#: src/as-validator-issue-tag.h:505
+#: src/as-validator-issue-tag.h:518
 msgid ""
 "The summary text does not start with a capitalized word, project name or "
 "number."
@@ -2345,8 +2364,14 @@ msgstr ""
 "Az összegzés szövege nem kezdődik nagybetűs szóval, projektnévvel vagy "
 "számmal."
 
+#: src/as-validator-issue-tag.h:523
+msgid ""
+"The summary text is very long, and will likely not be displayed properly "
+"everywhere."
+msgstr ""
+
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:511
+#: src/as-validator-issue-tag.h:529
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
@@ -2356,24 +2381,24 @@ msgstr ""
 "engedélyezettek."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:518
+#: src/as-validator-issue-tag.h:536
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
 msgstr ""
 "A „remote” típusú ikonoknak tartalmazniuk kell egy URL-t a hivatkozott "
 "ikonra."
 
-#: src/as-validator-issue-tag.h:523
+#: src/as-validator-issue-tag.h:541
 msgid "Unable to reach remote icon at the given web location - does it exist?"
 msgstr "Nem lehet elérni a távoli ikont a megadott webhelyen – létezik?"
 
-#: src/as-validator-issue-tag.h:528
+#: src/as-validator-issue-tag.h:546
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
 msgstr ""
 "Fontolja meg egy biztonságos (HTTPS) URL használatát a távoli ikon "
 "hivatkozásánál."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:534
+#: src/as-validator-issue-tag.h:552
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
@@ -2382,7 +2407,7 @@ msgstr ""
 "tartalmazhatnak, a beállított típus nem engedélyezett."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:540
+#: src/as-validator-issue-tag.h:558
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
@@ -2390,53 +2415,60 @@ msgstr ""
 "Érvénytelen „type” tulajdonság ennél az „url” címkénél. Az ilyen típusú URL-"
 "ek nem ismertek az AppStream specifikációban."
 
-#: src/as-validator-issue-tag.h:545
+#: src/as-validator-issue-tag.h:563
 msgid ""
 "Unable to reach remote location that this URL references - does it exist?"
 msgstr ""
 "Nem lehet elérni a távoli helyet, amelyre ez az URL hivatkozik – létezik?"
 
-#: src/as-validator-issue-tag.h:550
+#: src/as-validator-issue-tag.h:568
 msgid "Consider using a secure (HTTPS) URL for this web link."
 msgstr ""
 "Fontolja meg egy biztonságos (HTTPS) URL használatát a webes hivatkozásánál."
 
-#: src/as-validator-issue-tag.h:555
+#: src/as-validator-issue-tag.h:573
 msgid "A web URL was expected for this value."
 msgstr "Egy web URL várt ehhez az értékhez."
 
-#: src/as-validator-issue-tag.h:560
+#: src/as-validator-issue-tag.h:578
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
 msgstr ""
 "Ez a webes hivatkozás az FTP protokollt használja. Fontolja meg a HTTP(S)-re "
 "váltást."
 
-#: src/as-validator-issue-tag.h:565
+#: src/as-validator-issue-tag.h:583
 msgid "An URL of this type has already been defined."
 msgstr "Egy ilyen típusú URL már meg lett határozva."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:571
+#: src/as-validator-issue-tag.h:589
 msgid ""
 "The toplevel `developer_name` element is deprecated. Please use the `name` "
 "element in a `developer` block instead."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:578
+#: src/as-validator-issue-tag.h:596
 #, fuzzy
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
 msgstr "A <developer_name/> nem tartalmazhat hiperhivatkozást."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:584
+#: src/as-validator-issue-tag.h:602
 msgid ""
 "The `developer` element is missing an `id` property, containing a unique "
 "string ID for the developer. Consider adding a unique ID."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:590
+#: src/as-validator-issue-tag.h:608
+msgid ""
+"The developer-ID is invalid. It should be an rDNS string identifying the "
+"developer, or a Fediverse handle. It must also only contain lowercase ASCII "
+"letters, numbers and punctuation."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:614
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
@@ -2445,26 +2477,26 @@ msgstr ""
 "környezet azonosítója."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:596
+#: src/as-validator-issue-tag.h:620
 msgid "This `launchable` tag has an unknown type and can not be used."
 msgstr ""
 "Ez a „launchable” címke ismeretlen típussal rendelkezik, és nem használható."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:602
+#: src/as-validator-issue-tag.h:626
 msgid "This `bundle` tag has an unknown type and can not be used."
 msgstr ""
 "Ez a „bundle” címke ismeretlen típussal rendelkezik, és nem használható."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:608
+#: src/as-validator-issue-tag.h:632
 #, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
 msgstr ""
 "Az „update_contact” címkét nem szabad felvenni az AppStream XML-gyűjteménybe."
 
-#: src/as-validator-issue-tag.h:613
+#: src/as-validator-issue-tag.h:637
 msgid ""
 "This tag is a GNOME-specific extension to AppStream and not part of the "
 "official specification. Do not expect it to work in all implementations and "
@@ -2474,7 +2506,7 @@ msgstr ""
 "a hivatalos specifikációnak. Ne számítson arra, hogy működni fog minden "
 "megvalósításban és minden szoftverközpontban."
 
-#: src/as-validator-issue-tag.h:619
+#: src/as-validator-issue-tag.h:643
 msgid ""
 "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream "
 "also provides the <custom/> tag to add arbitrary custom data to metainfo "
@@ -2490,7 +2522,7 @@ msgstr ""
 "csak egyéni adatot szeretne egy metainformációs fájlhoz adni."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:627
+#: src/as-validator-issue-tag.h:651
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
@@ -2498,7 +2530,7 @@ msgstr ""
 "Az alapvető „metadata_license” címke hiányzik. Magának a metaadatnak a "
 "licencét mindig meg kell határozni."
 
-#: src/as-validator-issue-tag.h:632
+#: src/as-validator-issue-tag.h:656
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
@@ -2506,7 +2538,7 @@ msgstr ""
 "Az összetevőből hiányzik egy hosszú leírás. Az ilyen típusú összetevőknek "
 "rendelkezniük kell hosszú leírással."
 
-#: src/as-validator-issue-tag.h:637
+#: src/as-validator-issue-tag.h:661
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
@@ -2514,7 +2546,7 @@ msgstr ""
 "Hasznos lenne egy hosszú leírást hozzáadni ehhez a betűkészlethez, hogy "
 "jobban jelenjen meg a felhasználóknak."
 
-#: src/as-validator-issue-tag.h:642
+#: src/as-validator-issue-tag.h:666
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
@@ -2522,7 +2554,7 @@ msgstr ""
 "Javasolt egy hosszú leírást hozzáadni ehhez az összetevőhöz, hogy jobban "
 "jelenjen meg a felhasználóknak."
 
-#: src/as-validator-issue-tag.h:647
+#: src/as-validator-issue-tag.h:671
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
@@ -2531,7 +2563,7 @@ msgstr ""
 "hozzáadni egyet."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:653
+#: src/as-validator-issue-tag.h:677
 msgid ""
 "This `desktop-application` component is missing a `desktop-id` launchable "
 "tag. This means that this application can not be launched and has no "
@@ -2547,7 +2579,7 @@ msgstr ""
 "figyelmen kívül lesz hagyva."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:662
+#: src/as-validator-issue-tag.h:686
 msgid ""
 "This `desktop-application` component has no `desktop-id` launchable tag, "
 "however it contains all the necessary information to display the "
@@ -2564,7 +2596,7 @@ msgstr ""
 "kívül hagyható, egyébként erősen ajánlott az indítható címke hozzáadása is."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:672
+#: src/as-validator-issue-tag.h:696
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
@@ -2574,7 +2606,7 @@ msgstr ""
 "keresztül."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:678
+#: src/as-validator-issue-tag.h:702
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
 msgstr ""
@@ -2582,7 +2614,7 @@ msgstr ""
 "„launchable” címke."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:684
+#: src/as-validator-issue-tag.h:708
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
@@ -2591,7 +2623,7 @@ msgstr ""
 "érvényes ikon megadásához."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:690
+#: src/as-validator-issue-tag.h:714
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
@@ -2600,7 +2632,7 @@ msgstr ""
 "Valószínűleg hiányzik egy „categories” blokk."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:696
+#: src/as-validator-issue-tag.h:720
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
@@ -2609,7 +2641,7 @@ msgstr ""
 "„provides/font” címkén keresztül."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:702
+#: src/as-validator-issue-tag.h:726
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
@@ -2618,7 +2650,7 @@ msgstr ""
 "„provides/modalias” címkén keresztül."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:708
+#: src/as-validator-issue-tag.h:732
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
@@ -2627,12 +2659,12 @@ msgstr ""
 "„localization” vagy „repository” típusú."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:714
+#: src/as-validator-issue-tag.h:738
 msgid "The component is an addon, but no `extends` tag was specified."
 msgstr "Az összetevő egy kiegészítő, de nem lett „extends” címke megadva."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:720
+#: src/as-validator-issue-tag.h:744
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
@@ -2641,7 +2673,7 @@ msgstr ""
 "megadja azokat az összetevőket, amelyekhez honosítást ad hozzá."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:726
+#: src/as-validator-issue-tag.h:750
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
@@ -2650,7 +2682,7 @@ msgstr ""
 "honosításhoz."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:732
+#: src/as-validator-issue-tag.h:756
 msgid ""
 "This `service` component is missing a `launchable` tag of type `service`."
 msgstr ""
@@ -2658,7 +2690,7 @@ msgstr ""
 "címke."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:738
+#: src/as-validator-issue-tag.h:762
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
@@ -2666,7 +2698,7 @@ msgstr ""
 "Az „upstream” típuson kívül bármely más típus javaslatai nem engedélyezettek "
 "a metainformációs fájlokban."
 
-#: src/as-validator-issue-tag.h:743
+#: src/as-validator-issue-tag.h:767
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
@@ -2674,7 +2706,15 @@ msgstr ""
 "A kategórianév nem érvényes. Nézze meg az XDG menüspecifikációt az érvényes "
 "kategórianevek listájához."
 
-#: src/as-validator-issue-tag.h:748
+#: src/as-validator-issue-tag.h:772
+msgid ""
+"All categories for this component have been ignored, either because they "
+"were invalid or because they are of low quality (e.g. custom 'X-' prefixed "
+"or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add "
+"more categories."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:778
 msgid ""
 "This component is in no valid categories, even though it should be. Please "
 "check its metainfo file and desktop-entry file."
@@ -2682,20 +2722,20 @@ msgstr ""
 "Ez az összetevő nincs érvényes kategóriákban, pedig azokban kellene lennie. "
 "Ellenőrizze a metainformációs fájlt és az asztali bejegyzés fájlt."
 
-#: src/as-validator-issue-tag.h:753
+#: src/as-validator-issue-tag.h:783
 msgid "The screenshot caption is too long (should be <= 100 characters)"
 msgstr "A képernyőkép felirata túl hosszú (legfeljebb 100 karakter lehet)"
 
-#: src/as-validator-issue-tag.h:758
+#: src/as-validator-issue-tag.h:788
 msgid "Unable to read file."
 msgstr "Nem lehet olvasni a fájlt."
 
-#: src/as-validator-issue-tag.h:763
+#: src/as-validator-issue-tag.h:793
 msgid "The XML of this file is malformed."
 msgstr "A fájl XML-je helytelenül formázott."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:769
+#: src/as-validator-issue-tag.h:799
 #, fuzzy
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
@@ -2704,7 +2744,7 @@ msgstr ""
 "címkék engedélyezettek."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:775
+#: src/as-validator-issue-tag.h:805
 #, fuzzy
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
@@ -2716,7 +2756,7 @@ msgstr ""
 "amelyet nem lehet érvényesíteni. Költöztesse át a 0.6-os (vagy újabb) "
 "verzióra."
 
-#: src/as-validator-issue-tag.h:781
+#: src/as-validator-issue-tag.h:811
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
@@ -2724,20 +2764,20 @@ msgstr ""
 "Ennek az XML-dokumentumnak ismeretlen gyökércímkéje van. Talán ez a fájl nem "
 "metainformációs dokumentum?"
 
-#: src/as-validator-issue-tag.h:786
+#: src/as-validator-issue-tag.h:816
 msgid "The metainfo filename does not match the component ID."
 msgstr "A metainformációs fájl neve nem egyezik az összetevő-azonosítóval."
 
-#: src/as-validator-issue-tag.h:791
+#: src/as-validator-issue-tag.h:821
 msgid "Unable to load the desktop-entry file associated with this component."
 msgstr ""
 "Nem lehet betölteni az összetevőhöz hozzárendelt asztali bejegyzés fájlt."
 
-#: src/as-validator-issue-tag.h:796
+#: src/as-validator-issue-tag.h:826
 msgid "This component metadata refers to a non-existing .desktop file."
 msgstr "Ez az összetevő-metaadat egy nem létező .desktop fájlra hivatkozik."
 
-#: src/as-validator-issue-tag.h:801
+#: src/as-validator-issue-tag.h:831
 msgid ""
 "A category defined in the desktop-entry file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
@@ -2745,12 +2785,12 @@ msgstr ""
 "Az asztali bejegyzés fájlban meghatározott kategória nem érvényes. Nézze meg "
 "az XDG menüspecifikációt az érvényes kategóriák listájához."
 
-#: src/as-validator-issue-tag.h:806
+#: src/as-validator-issue-tag.h:836
 msgid "Error while reading some data from the desktop-entry file."
 msgstr ""
 "Hiba történt az asztali bejegyzés fájlból történő néhány adat beolvasásakor."
 
-#: src/as-validator-issue-tag.h:811
+#: src/as-validator-issue-tag.h:841
 msgid ""
 "The value of this desktop-entry field contains invalid or non-printable "
 "UTF-8 characters, which can not be displayed properly."
@@ -2759,14 +2799,14 @@ msgstr ""
 "nyomtatható UTF-8 karaktereket tartalmaz, amelyek nem jeleníthetők meg "
 "megfelelően."
 
-#: src/as-validator-issue-tag.h:816
+#: src/as-validator-issue-tag.h:846
 msgid ""
 "This desktop-entry field value is quoted, which is likely unintentional."
 msgstr ""
 "Ennek az asztali bejegyzés mezőnek az értéke idézőjelben van, ami "
 "valószínűleg nem szándékos."
 
-#: src/as-validator-issue-tag.h:821
+#: src/as-validator-issue-tag.h:851
 msgid ""
 "This desktop-entry file has the 'Hidden' property set. This is wrong for "
 "vendor-installed .desktop files, and nullifies all effects this .desktop "
@@ -2778,7 +2818,7 @@ msgstr ""
 "ennek a .desktop fájlnak minden hatását (beleértve a MIME hozzárendeléseket "
 "is), ami minden bizonnyal nem szándékos."
 
-#: src/as-validator-issue-tag.h:827
+#: src/as-validator-issue-tag.h:857
 msgid ""
 "This desktop-entry file has the 'OnlyShowIn' property set with an empty "
 "value. This might not be intended, as this will hide the application from "
@@ -2790,17 +2830,17 @@ msgstr ""
 "alkalmazást az összes asztalról. Ha el akarja rejteni az alkalmazást az "
 "összes asztalról, akkor a „NoDisplay=true” használata egyértelműbb."
 
-#: src/as-validator-issue-tag.h:833
+#: src/as-validator-issue-tag.h:863
 msgid "No AppStream metadata was found in this directory or directory tree."
 msgstr ""
 "Nem található AppStream metaadat ebben a könyvtárban vagy könyvtárfában."
 
 #. pedantic because not everything which has metadata is an application
-#: src/as-validator-issue-tag.h:838
+#: src/as-validator-issue-tag.h:868
 msgid "No XDG applications directory found."
 msgstr "Nem található XDG alkalmazások könyvtár."
 
-#: src/as-validator-issue-tag.h:843
+#: src/as-validator-issue-tag.h:873
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
@@ -2808,12 +2848,12 @@ msgstr ""
 "A metainformációs fájl örökölt útvonalon van tárolva. Tegye azt az „/usr/"
 "share/metainfo” könyvtárba."
 
-#: src/as-validator-issue-tag.h:848
+#: src/as-validator-issue-tag.h:878
 msgid "The metainfo file specifies multiple components. This is not allowed."
 msgstr ""
 "A metainformációs fájl több összetevőt határoz meg. Ez nem engedélyezett."
 
-#: src/as-validator-issue-tag.h:853
+#: src/as-validator-issue-tag.h:883
 msgid ""
 "The releases are not sorted in a latest to oldest version order. This is "
 "required as some tools will assume that the latest version is always at the "
@@ -2826,45 +2866,45 @@ msgstr ""
 "metainformációs fájl általános olvashatóságát is."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:861
+#: src/as-validator-issue-tag.h:891
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:866
+#: src/as-validator-issue-tag.h:896
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:871
+#: src/as-validator-issue-tag.h:901
 #, fuzzy
 msgid "Failed to download release metadata."
 msgstr "A fájl letöltése sikertelen: %s"
 
-#: src/as-validator-issue-tag.h:876
+#: src/as-validator-issue-tag.h:906
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:882
+#: src/as-validator-issue-tag.h:912
 msgid "The value set as release urgency is not a known urgency value."
 msgstr ""
 "A kiadás sürgősségeként beállított érték nem egy ismert sürgősségi érték."
 
-#: src/as-validator-issue-tag.h:887
+#: src/as-validator-issue-tag.h:917
 msgid "The value set as release type is invalid."
 msgstr "A kiadás típusaként beállított érték érvénytelen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:893
+#: src/as-validator-issue-tag.h:923
 msgid "The release is missing the `version` property."
 msgstr "A kiadásból hiányzik a „version” tulajdonság."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:899
+#: src/as-validator-issue-tag.h:929
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
@@ -2872,17 +2912,17 @@ msgstr ""
 "A kiadásból hiányzik vagy a „date” (előnyben részesített), vagy a "
 "„timestamp” tulajdonság."
 
-#: src/as-validator-issue-tag.h:904
+#: src/as-validator-issue-tag.h:934
 msgid "The release timestamp is invalid."
 msgstr "A kiadás időbélyege érvénytelen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:910
+#: src/as-validator-issue-tag.h:940
 msgid "The release description must be put inside a `description` tag"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:916
+#: src/as-validator-issue-tag.h:946
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
@@ -2890,11 +2930,11 @@ msgstr ""
 "A műtermék típusaként beállított érték érvénytelen. Csak „source” vagy "
 "„binary” lehet."
 
-#: src/as-validator-issue-tag.h:921
+#: src/as-validator-issue-tag.h:951
 msgid "The value set as artifact bundle type is invalid."
 msgstr "A műtermék csomagtípusaként beállított érték érvénytelen."
 
-#: src/as-validator-issue-tag.h:926
+#: src/as-validator-issue-tag.h:956
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
@@ -2905,17 +2945,17 @@ msgstr ""
 "érvényes mezőkért olvassa el az AppStream dokumentációját vagy a normalizált "
 "GNU hármasokkal kapcsolatos információkat."
 
-#: src/as-validator-issue-tag.h:933
+#: src/as-validator-issue-tag.h:963
 msgid "The selected checksumming algorithm is unsupported or unknown."
 msgstr ""
 "A kiválasztott ellenőrzőösszeg-algoritmus nem támogatott vagy ismeretlen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:939
+#: src/as-validator-issue-tag.h:969
 msgid "The size type is unknown. Must be `download` or `installed`."
 msgstr "A méret típusa ismeretlen. Csak „download” vagy „installed” lehet."
 
-#: src/as-validator-issue-tag.h:944
+#: src/as-validator-issue-tag.h:974
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
@@ -2923,11 +2963,11 @@ msgstr ""
 "A műtermék fájlnevének egy fájl alapnevének kell lennie, nem pedig egy "
 "(relatív vagy abszolút) útvonalnak."
 
-#: src/as-validator-issue-tag.h:949
+#: src/as-validator-issue-tag.h:979
 msgid "The value set as release issue type is invalid."
 msgstr "A kiadás problématípusaként beállított érték érvénytelen."
 
-#: src/as-validator-issue-tag.h:954
+#: src/as-validator-issue-tag.h:984
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
@@ -2936,7 +2976,7 @@ msgstr ""
 "értéke nem úgy néz ki, mint egy érvényes CVE-azonosító."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:960
+#: src/as-validator-issue-tag.h:990
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
@@ -2945,7 +2985,7 @@ msgstr ""
 "Fontolja meg egy „releases” címke hozzáadását a kiadások és azok "
 "változásainak leírásához."
 
-#: src/as-validator-issue-tag.h:965
+#: src/as-validator-issue-tag.h:995
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
@@ -2955,7 +2995,7 @@ msgstr ""
 "ISO 8601 dátumszöveget igényel a dátumok jelölésére. Győződjön meg arról, "
 "hogy a dátumszöveg érvényes-e."
 
-#: src/as-validator-issue-tag.h:971
+#: src/as-validator-issue-tag.h:1001
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
@@ -2966,7 +3006,7 @@ msgstr ""
 "dolgozó felhasználókat vagy a gépeket."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:978
+#: src/as-validator-issue-tag.h:1008
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
@@ -2979,7 +3019,7 @@ msgstr ""
 "„project_license” értékeként. Például „LicenseRef-free=https://example.com/"
 "licenses.html”"
 
-#: src/as-validator-issue-tag.h:984
+#: src/as-validator-issue-tag.h:1014
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
@@ -2989,14 +3029,14 @@ msgstr ""
 "összetevő-azonosítóik felsorolhatók az ehhez a futtatókörnyezethez tartozó "
 "„<provides/>” szakaszban."
 
-#: src/as-validator-issue-tag.h:989
+#: src/as-validator-issue-tag.h:1019
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr ""
 "Az összetevő által biztosított elem típusa nem ismert az AppStream számára."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:995
+#: src/as-validator-issue-tag.h:1025
 msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
@@ -3007,7 +3047,7 @@ msgstr ""
 "médiakezelőt az adott típusokhoz."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1002
+#: src/as-validator-issue-tag.h:1032
 msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
@@ -3018,63 +3058,63 @@ msgstr ""
 "https://hughsie.github.io/oars/ oldalon néhány kérdés megválaszolásával."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1009
+#: src/as-validator-issue-tag.h:1039
 msgid ""
 "The  `type` attribute of this `content_rating` element is missing or empty."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1015
+#: src/as-validator-issue-tag.h:1045
 msgid ""
 "The  `type` attribute of the `content_rating` element has a invalid value."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1021
+#: src/as-validator-issue-tag.h:1051
 msgid "The `content_rating` tag can only contain `content_attribute` children."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1027
+#: src/as-validator-issue-tag.h:1057
 msgid ""
 "The  `id` attribute of the `content_attribute` element is missing or empty."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1033
+#: src/as-validator-issue-tag.h:1063
 msgid ""
 "The  `id` attribute of the `content_attribute` element has a invalid value."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1039
+#: src/as-validator-issue-tag.h:1069
 msgid "The `content_attribute` tag needs a value."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1045
+#: src/as-validator-issue-tag.h:1075
 msgid "The `content_attribute` tag value is unknown."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1051
+#: src/as-validator-issue-tag.h:1081
 #, fuzzy
 msgid "The `content_attribute` tag value is invalid for the given id."
 msgstr "A beállított címke értéke nem érvényes egy „internet” kapcsolatnál."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1057
+#: src/as-validator-issue-tag.h:1087
 #, fuzzy
 msgid "A `content_attribute` tag with this ID has already been defined."
 msgstr "Egy ilyen típusú URL már meg lett határozva."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1063
+#: src/as-validator-issue-tag.h:1093
 msgid "This `tag` is missing a `namespace` attribute."
 msgstr "Ebből a „tag” címkéből hiányzik egy „namespace” attribútum."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1069
+#: src/as-validator-issue-tag.h:1099
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
@@ -3083,69 +3123,69 @@ msgstr ""
 "kisbetűs ASCII betűk, számok, pontok, kötőjelek és aláhúzások "
 "engedélyezettek."
 
-#: src/as-validator-issue-tag.h:1074
+#: src/as-validator-issue-tag.h:1104
 msgid "The type of this color is not valid."
 msgstr "Ennek a színnek a típusa nem érvényes."
 
-#: src/as-validator-issue-tag.h:1079
+#: src/as-validator-issue-tag.h:1109
 msgid "The value of this color scheme preference is not valid."
 msgstr "Ennek a színséma-beállításnak az értéke nem érvényes."
 
-#: src/as-validator-issue-tag.h:1084
+#: src/as-validator-issue-tag.h:1114
 msgid "This color is not a valid HTML color code."
 msgstr "Ez a szín nem érvényes HTML színkód."
 
-#: src/as-validator-issue-tag.h:1089
+#: src/as-validator-issue-tag.h:1119
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1094
+#: src/as-validator-issue-tag.h:1124
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1100
+#: src/as-validator-issue-tag.h:1130
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1105
+#: src/as-validator-issue-tag.h:1135
 msgid ""
 "The registry for this reference item is unknown. This may be due to a typing "
 "error, or the registry needs to be registered with AppStream."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1111
+#: src/as-validator-issue-tag.h:1141
 #, fuzzy
 msgid "The reference item is missing a value."
 msgstr "A kiadás időbélyege érvénytelen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1117
+#: src/as-validator-issue-tag.h:1147
 msgid "The `custom` tag can only contain `value` children."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1123
+#: src/as-validator-issue-tag.h:1153
 #, fuzzy
 msgid "This `custom` tag value is missing a `key` attribute."
 msgstr "Ebből a „tag” címkéből hiányzik egy „namespace” attribútum."
 
-#: src/as-validator-issue-tag.h:1128
+#: src/as-validator-issue-tag.h:1158
 msgid "A key can only be used once."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1133
+#: src/as-validator-issue-tag.h:1163
 msgid "This custom value is empty."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1139
+#: src/as-validator-issue-tag.h:1169
 #, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
@@ -3196,65 +3236,65 @@ msgstr ""
 
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
-#: src/as-validator.c:857 src/as-validator.c:1418 src/as-validator.c:1559
-#: src/as-validator.c:1770 src/as-validator.c:2357 src/as-validator.c:2379
-#: src/as-validator.c:2501 src/as-validator.c:2771
+#: src/as-validator.c:857 src/as-validator.c:1418 src/as-validator.c:1581
+#: src/as-validator.c:1792 src/as-validator.c:2388 src/as-validator.c:2410
+#: src/as-validator.c:2532 src/as-validator.c:2802
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Megtalálva: %s – Megengedett: %s"
 
 #. TRANSLATORS: ascompose flag description for: --verbose
-#: tools/appstream-compose.c:195
+#: tools/appstream-compose.c:196
 msgid "Show extra debugging information"
 msgstr "További hibakeresési információk megjelenítése"
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #. TRANSLATORS: ascompose flag description for: --no-color
-#: tools/appstream-compose.c:200 tools/appstreamcli.c:1368
+#: tools/appstream-compose.c:203 tools/appstreamcli.c:1368
 msgid "Don't show colored output."
 msgstr "Ne jelenítsen meg színes kimenetet."
 
 #. TRANSLATORS: ascli flag description for: --version
 #. TRANSLATORS: ascompose flag description for: --version
-#: tools/appstream-compose.c:205 tools/appstreamcli.c:1356
+#: tools/appstream-compose.c:210 tools/appstreamcli.c:1356
 msgid "Show the program version."
 msgstr "A programverzió megjelenítése."
 
 #. TRANSLATORS: ascompose flag description for: --no-net
-#: tools/appstream-compose.c:210
+#: tools/appstream-compose.c:217
 msgid "Do not use the network at all, not even for URL validity checks."
 msgstr ""
 "Egyáltalán ne használja a hálózatot, még az URL érvényességének "
 "ellenőrzésére sem."
 
 #. TRANSLATORS: ascompose flag description for: --print-report
-#: tools/appstream-compose.c:215
+#: tools/appstream-compose.c:224
 msgid "Set mode of the issue report that is printed to the console"
 msgstr "A konzolra kiírt problémajelentés módjának beállítása"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
-#: tools/appstream-compose.c:220
+#: tools/appstream-compose.c:231
 msgid "Override the default prefix (`/usr` by default)"
 msgstr "Az alapértelmezett előtag felülbírálása (alapértelmezetten „/usr”)"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
-#: tools/appstream-compose.c:225
+#: tools/appstream-compose.c:238
 msgid "Set the result output directory"
 msgstr "Az eredmény kimeneti könyvtárának beállítása"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
-#: tools/appstream-compose.c:230
+#: tools/appstream-compose.c:245
 #, fuzzy
 msgid "Override the catalog metadata output directory"
 msgstr "A gyűjtemény metaadatai kimeneti könyvtárának felülbírálása"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
-#: tools/appstream-compose.c:235
+#: tools/appstream-compose.c:252
 msgid "Override the icon output directory"
 msgstr "Az ikon kimeneti könyvtárának felülbírálása"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
-#: tools/appstream-compose.c:240
+#: tools/appstream-compose.c:259
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)"
 msgstr ""
@@ -3262,47 +3302,47 @@ msgstr ""
 "kiszolgálandó médiaadatokhoz)"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
-#: tools/appstream-compose.c:246
+#: tools/appstream-compose.c:266
 msgid "Set a directory where HTML and text issue reports will be stored"
 msgstr ""
 "Egy könyvtár beállítása, ahol a HTML és szöveges problémajelentések tárolva "
 "lesznek"
 
 #. TRANSLATORS: ascompose flag description for: --origin
-#: tools/appstream-compose.c:252
+#: tools/appstream-compose.c:273
 msgid "Set the origin name"
 msgstr "Az eredet nevének beállítása"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
-#: tools/appstream-compose.c:257
+#: tools/appstream-compose.c:280
 msgid "Set the URL where the exported media content will be hosted"
 msgstr ""
 "Az URL beállítása, ahonnan az exportált médiatartalom ki lesz szolgálva"
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
-#: tools/appstream-compose.c:263
+#: tools/appstream-compose.c:287
 msgid ""
 "Makes all URLs in output data complete URLs and avoids the use of a shared "
 "URL prefix for all metadata."
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --components
-#: tools/appstream-compose.c:269
+#: tools/appstream-compose.c:294
 msgid "A comma-separated list of component-IDs to accept"
 msgstr "Az elfogadandó összetevő-azonosítók vesszővel elválasztott listája"
 
 #. TRANSLATORS: Error message of appstream-compose
-#: tools/appstream-compose.c:284
+#: tools/appstream-compose.c:311
 msgid "Failed to parse arguments"
 msgstr "Az argumentumok feldolgozása sikertelen"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:295 tools/appstreamcli.c:1596
+#: tools/appstream-compose.c:322 tools/appstreamcli.c:1596
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream verzió: %s"
 
-#: tools/appstream-compose.c:299 tools/appstreamcli.c:1600
+#: tools/appstream-compose.c:326 tools/appstreamcli.c:1600
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -3311,7 +3351,7 @@ msgstr ""
 "AppStream CLI eszközverzió: %s\n"
 "AppStream programkönyvtár-verzió: %s"
 
-#: tools/appstream-compose.c:321
+#: tools/appstream-compose.c:348
 #, c-format
 msgid ""
 "Invalid value for `--print-report` option: %s\n"
@@ -3327,66 +3367,66 @@ msgstr ""
 "„short” – rövidített jelentést állít elő\n"
 "„full” – részletes jelentés lesz kiírva"
 
-#: tools/appstream-compose.c:351
+#: tools/appstream-compose.c:378
 #, c-format
 msgid "Automatically selected '%s' as data output location."
 msgstr "A(z) „%s” automatikusan kiválasztva az adatok kimeneti helyeként."
 
-#: tools/appstream-compose.c:356
+#: tools/appstream-compose.c:383
 msgid "No destination directory set, please provide a data output location!"
 msgstr "Nincs célkönyvtár beállítva. Adjon meg egy adatkimeneti helyet!"
 
-#: tools/appstream-compose.c:369 tools/appstream-compose.c:371
+#: tools/appstream-compose.c:396 tools/appstream-compose.c:398
 msgid "WARNING"
 msgstr "FIGYELMEZTETÉS"
 
 #. TRANSLATORS: Information about as-compose allowlist
-#: tools/appstream-compose.c:412
+#: tools/appstream-compose.c:439
 #, c-format
 msgid "Only accepting components: %s"
 msgstr "Csak ezek az összetevők fogadhatók el: %s"
 
 #. TRANSLATORS: Information about as-compose allowlist
-#: tools/appstream-compose.c:415
+#: tools/appstream-compose.c:442
 #, c-format
 msgid "Only accepting component: %s"
 msgstr "Csak ez az összetevő fogadható el: %s"
 
 #. TRANSLATORS: Information about as-compose units to be processed
-#: tools/appstream-compose.c:420
+#: tools/appstream-compose.c:447
 msgid "Processing directories:"
 msgstr "Könyvtárak feldolgozása:"
 
 #. TRANSLATORS: Information about as-compose units to be processed
-#: tools/appstream-compose.c:423
+#: tools/appstream-compose.c:450
 msgid "Processing directory:"
 msgstr "Könyvtár feldolgozása:"
 
 #. TRANSLATORS: Error message
-#: tools/appstream-compose.c:432
+#: tools/appstream-compose.c:459
 msgid "Can not process invalid directory"
 msgstr "Nem lehet feldolgozni érvénytelen könyvtárat"
 
 #. TRANSLATORS: Information message
-#: tools/appstream-compose.c:444
+#: tools/appstream-compose.c:471
 msgid "Composing metadata..."
 msgstr "Metaadatok összeállítása…"
 
 #. TRANSLATORS: Error message
-#: tools/appstream-compose.c:449
+#: tools/appstream-compose.c:476
 msgid "Failed to compose AppStream metadata"
 msgstr "Az AppStream metaadatok összeállítása sikertelen"
 
 #. TRANSLATORS: appstream-compose failed to include all data
-#: tools/appstream-compose.c:455
+#: tools/appstream-compose.c:482
 msgid "Run failed, some data was ignored."
 msgstr "A futás sikertelen, néhány adat mellőzve lett."
 
-#: tools/appstream-compose.c:458
+#: tools/appstream-compose.c:485
 msgid "Errors were raised during this compose run:"
 msgstr "Hibák merültek fel ezen összeállítás-futás során:"
 
-#: tools/appstream-compose.c:461
+#: tools/appstream-compose.c:488
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
@@ -3394,12 +3434,12 @@ msgstr ""
 "Az egyes problémákkal kapcsolatos részletekért tekintse meg az előállított "
 "problémajelentés adatait."
 
-#: tools/appstream-compose.c:465
+#: tools/appstream-compose.c:492
 msgid "Overview of generated hints:"
 msgstr "Az előállított tippek áttekintése:"
 
 #. TRANSLATORS: Information message
-#: tools/appstream-compose.c:467
+#: tools/appstream-compose.c:494
 msgid "Success!"
 msgstr "Sikeres!"
 
