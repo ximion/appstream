@@ -166,6 +166,10 @@ test_validator_manyerrors_desktopapp (void)
 		    -1,
 		    AS_ISSUE_SEVERITY_ERROR, },
 		{
+		    "developer-info-missing", "",
+		    -1,
+		    AS_ISSUE_SEVERITY_INFO, },
+		{
 		    "cid-domain-not-lowercase", "invalid.7-bad-ID.app",
 		    7, AS_ISSUE_SEVERITY_ERROR,
 		 },
@@ -269,6 +273,10 @@ test_validator_relationissues (void)
 	g_autoptr(AsValidator) validator = as_validator_new ();
 
 	AsVResultCheck expected_results[] = {
+		{
+		    "developer-info-missing", "",
+		    -1,
+		    AS_ISSUE_SEVERITY_INFO, },
 		{
 		    "relation-control-value-invalid", "telekinesis",
 		    26, AS_ISSUE_SEVERITY_WARNING,
