@@ -5,7 +5,7 @@
 # Translators:
 # sebras <sebras@gmail.com>, 2015-2016.
 # Josef Andersson <l10nl18nsweja@gmail.com>, 2015, 2017.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2021, 2022, 2023.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2021, 2022, 2023, 2024.
 # Mattias Münster <mattiasmun@gmail.com>, 2019.
 # #-#-#-#-#  sv.po (appstream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
@@ -15,9 +15,9 @@
 # sebras <sebras@gmail.com>, 2015-2016
 # Göran Uddeborg <goeran@uddeborg.se>, 2016. #zanata
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2017. #zanata, 2021, 2022, 2023.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2017. #zanata, 2021, 2022, 2023, 2024.
 # Göran Uddeborg <goeran@uddeborg.se>, 2018. #zanata
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019. #zanata, 2021, 2022, 2023.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019. #zanata, 2021, 2022, 2023, 2024.
 # Ulf Lundh <ulf@lundh.me>, 2020.
 # Luna Jernberg <droidbittin@gmail.com>, 2022.
 #
@@ -27,16 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-02-21 21:15+0100\n"
-"PO-Revision-Date: 2023-12-20 02:06+0000\n"
+"PO-Revision-Date: 2024-02-22 00:13+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2349,7 +2348,7 @@ msgstr ""
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
 "everywhere."
-msgstr ""
+msgstr "Sammanfattningstexten är väldigt lång, och kommer troligen inte visas korrekt överallt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:529
@@ -2447,7 +2446,7 @@ msgid ""
 "The developer-ID is invalid. It should be an rDNS string identifying the "
 "developer, or a Fediverse handle. It must also only contain lowercase ASCII "
 "letters, numbers and punctuation."
-msgstr ""
+msgstr "Utvecklar-ID:t är ogiltigt. Det ska vara en rDNS-sträng som identifierar utvecklaren, eller ett Fediversum-alias. Det får också endast innehålla gemena ASCII-bokstäver, siffror och skiljetecken."
 
 #: src/as-validator-issue-tag.h:614
 msgid ""
@@ -2684,7 +2683,7 @@ msgid ""
 "were invalid or because they are of low quality (e.g. custom 'X-' prefixed "
 "or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add "
 "more categories."
-msgstr ""
+msgstr "Alla kategorier för denna komponent har ignorerats, antingen för att de var ogiltiga eller för att de hade låg kvalitet (t.ex. anpassade med prefixet ”X-” eller verktygskategorier som ”GTK” eller ”Qt”). Fixa dina kategorinamn eller lägg till fler kateogorier."
 
 #: src/as-validator-issue-tag.h:778
 msgid ""
