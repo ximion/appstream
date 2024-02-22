@@ -20,6 +20,7 @@
 # Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019. #zanata, 2021, 2022, 2023, 2024.
 # Ulf Lundh <ulf@lundh.me>, 2020.
 # Luna Jernberg <droidbittin@gmail.com>, 2022.
+# Kristoffer Grundström <swedishsailfishosuser@tutanota.com>, 2024.
 #
 # Translators:
 msgid ""
@@ -28,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-02-21 21:15+0100\n"
 "PO-Revision-Date: 2024-02-22 00:13+0000\n"
-"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
+"Last-Translator: Kristoffer Grundström <swedishsailfishosuser@tutanota.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -1968,10 +1969,9 @@ msgstr "Det kan endast finnas en `source`-bild per skärmbild och språk."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:259
-#, fuzzy
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`."
-msgstr "En skärmbild måste ha minst en bild av typen `source`."
+msgstr "En skärmdump måste ha åtminstone en icke översatt bild av typen `source`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:265
