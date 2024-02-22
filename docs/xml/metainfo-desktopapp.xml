@@ -141,7 +141,10 @@
 			<term>&lt;launchable/&gt;</term>
 			<listitem>
 				<para>
-					It is recommended that a <code>&lt;launchable/&gt;</code> tag is present in <literal>desktop-application</literal> metainfo files.
+					It is required that a <code>&lt;launchable/&gt;</code> tag is present in <literal>desktop-application</literal> MetaInfo files,
+					unless the MetaInfo data itself contains all required information that a desktop-entry file would have (categories, icon data, ...) and the
+					application can not be launched standalone. This makes the launchable tag a required tag for pretty much all <literal>desktop-application</literal>
+					components, with only very rare exceptions.
 					The tag is described in detail at <xref linkend="tag-launchable"/>.
 				</para>
 				<para>
@@ -229,7 +232,8 @@
 
 		<para>
 			For a component of type <literal>desktop-application</literal>, the following tags are required and must always be present: <xref linkend="tag-id-desktopapp"/>,
-			<xref linkend="tag-dapp-name"/>, <xref linkend="tag-dapp-summary"/>, <xref linkend="tag-description"/>, <xref linkend="tag-metadata_license"/>.
+			<xref linkend="tag-dapp-name"/>, <xref linkend="tag-dapp-summary"/>, <xref linkend="tag-description"/>, <xref linkend="tag-metadata_license"/>,
+			<xref linkend="tag-dapp-launchable"/>.
 		</para>
 
 	</section>

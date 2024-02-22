@@ -410,12 +410,12 @@
 		<term>&lt;launchable/&gt;</term>
 		<listitem>
 		<para>
-		         This optional tag indicates possible methods to launch the software described in this component.
-                         It is allowed to appear multiple times in the metainfo data.
+		         This tag indicates possible methods to launch the software described in this component.
+                         It is allowed to appear multiple times in MetaInfo data.
 		</para>
 
 		<para>
-		  The <code>&lt;launchable/&gt;</code> tag has an essential <literal>type</literal> property indicating the system that is used to launch the component.  The following types are allowed:
+		  The <code>&lt;launchable/&gt;</code> tag has a required <literal>type</literal> property indicating the system that is used to launch the component.  The following types are allowed:
                 </para>
                 <variablelist>
                   <varlistentry>
