@@ -645,8 +645,12 @@ as_validator_add_override (AsValidator *validator,
 		"tag-empty",
 		/* allow GNOME to validate metadata using its new versioning scheme (until a better solution is found) */
 		"releases-not-in-order",
+		/* very rarely (e.g. for apps like Wine) not having a launchable is actually okay */
+		"desktop-app-launchable-missing",
 		/* allowed for a while, as part of the deprecation phase */
 		"developer-name-tag-deprecated",
+		/* temporarily allowed to ease transition a bit */
+		"developer-id-missing",
 		NULL
 	};
 
@@ -1489,6 +1493,7 @@ static void
 as_validator_check_developer (AsValidator *validator, xmlNode *node)
 {
 	g_autofree gchar *devid = NULL;
+	gboolean developer_name_found = FALSE;
 
 	devid = as_xml_get_prop_value (node, "id");
 	if (devid == NULL) {
@@ -1522,12 +1527,22 @@ as_validator_check_developer (AsValidator *validator, xmlNode *node)
 
 		if (as_str_equal0 (iter->name, "name")) {
 			g_autofree gchar *content = as_xml_get_node_value (iter);
+
+			developer_name_found = TRUE;
 			if (as_validate_has_hyperlink (content))
 				as_validator_add_issue (validator,
 							iter,
 							"developer-name-has-url",
 							NULL);
 		}
+	}
+
+	if (!developer_name_found) {
+		as_validator_add_issue (validator,
+					node,
+					"developer-name-missing",
+					NULL);
+
 	}
 }
 
@@ -3534,6 +3549,11 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			/* show an info about missing age rating for application-type components */
 			as_validator_add_issue (validator, NULL, "content-rating-missing", NULL);
 		}
+	}
+
+	/* check if we had a developer tag */
+	if (!g_hash_table_contains (found_tags, "developer")) {
+		as_validator_add_issue (validator, NULL, "developer-info-missing", NULL);
 	}
 
 	as_validator_clear_current_cpt (validator);

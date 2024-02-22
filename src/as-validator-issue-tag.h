@@ -590,23 +590,35 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	     "`developer` block instead."),
 	},
 
-	{ "developer-name-has-url",
-	  AS_ISSUE_SEVERITY_WARNING,
+	{ "developer-info-missing",
+	  AS_ISSUE_SEVERITY_INFO,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("The `name` child of a `developer` block must not contain a hyperlink."),
+	  N_("This component contains no `developer` element with information about its author."),
 	},
 
 	{ "developer-id-missing",
-	  AS_ISSUE_SEVERITY_INFO,
+	  AS_ISSUE_SEVERITY_WARNING,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("The `developer` element is missing an `id` property, containing a unique string ID for the developer. "
-		  "Consider adding a unique ID."),
+	     "Consider adding a unique ID."),
 	},
 
 	{ "developer-id-invalid",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("The developer-ID is invalid. It should be an rDNS string identifying the developer, or a Fediverse handle. "
 	     "It must also only contain lowercase ASCII letters, numbers and punctuation."),
+	},
+
+	{ "developer-name-missing",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The `developer` block does not have a `name` element with a human-readable project author name."),
+	},
+
+	{ "developer-name-has-url",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The `name` child of a `developer` block must not contain a hyperlink."),
 	},
 
 	{ "unknown-desktop-id",
