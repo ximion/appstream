@@ -28,8 +28,8 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-02-21 21:15+0100\n"
-"PO-Revision-Date: 2024-02-22 00:13+0000\n"
-"Last-Translator: Kristoffer Grundström <swedishsailfishosuser@tutanota.com>\n"
+"PO-Revision-Date: 2024-02-22 13:02+0000\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -1971,7 +1971,7 @@ msgstr "Det kan endast finnas en `source`-bild per skärmbild och språk."
 #: src/as-validator-issue-tag.h:259
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`."
-msgstr "En skärmdump måste ha åtminstone en icke översatt bild av typen `source`."
+msgstr "En skärmbild måste ha åtminstone en icke översatt bild av typen `source`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:265
@@ -1980,7 +1980,7 @@ msgid ""
 "which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) "
 "was found, which is likely intended to be the translatable image. Please "
 "remove the XML localization attribute in this case."
-msgstr ""
+msgstr "En skärmbild måste ha åtminstone en icke översatt bild av typen `source`, vilket inte kunde hittas. I stället hittades en tagg med lokalen `en` (`xml:lang=en`), vilket troligen avses vara den översättbara bilden. Ta i så fall bort XML-lokaliseringsattributet."
 
 #: src/as-validator-issue-tag.h:272
 msgid ""
@@ -2195,16 +2195,11 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
-#, fuzzy
 msgid ""
 "This `display_length` item contains an invalid display length. Its value "
 "must be a positive integer value denoting logical pixels. Please refer to "
 "the AppStream specification for more information on this tag."
-msgstr ""
-"Detta `display_length`-objekt innehåller en ogiltig skärmlängd. Dess värde "
-"måste vara antingen en förkortningssträng, eller ett positivt heltalsvärde "
-"som står för logiska bildpunkter. Se AppStream-specifikationen för mer "
-"information om denna tagg."
+msgstr "Detta `display_length`-objekt innehåller en ogiltig skärmlängd. Dess värde måste vara ett positivt heltalsvärde som står för logiska bildpunkter. Se AppStream-specifikationen för mer information om denna tagg."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:418
@@ -2293,7 +2288,7 @@ msgstr "Komponenten saknar ett namn (taggen <name/>)."
 msgid ""
 "The name of this component is excessively long and can likely not be "
 "displayed properly in most layouts."
-msgstr ""
+msgstr "Namnet på denna komponent är överdrivet långt och kan troligen inte visas korrekt i de flesta layouter."
 
 #: src/as-validator-issue-tag.h:483
 msgid "The component is missing a summary (<summary/> tag)."
