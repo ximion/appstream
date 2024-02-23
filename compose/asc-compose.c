@@ -807,24 +807,27 @@ asc_compose_find_icon_filename (AscCompose *compose,
 	guint min_size_idx = 0;
 	guint min_ext_idx = 0;
 	gboolean vector_relaxed = FALSE;
+	gboolean scale_relaxed = FALSE;
+	/* clang-format off */
 	const gchar *supported_ext[] = { ".png", ".svg", ".svgz", "", NULL };
 	const struct {
 		guint size;
 		const gchar *size_str;
 	} sizes[] = {
-		{48,   "48x48"   },
-		    { 32,  "32x32"	  },
+		{ 48,  "48x48"   },
+		{ 32,  "32x32"	 },
 		{ 64,  "64x64"   },
 		{ 96,  "96x96"   },
-		    { 128, "128x128" },
+		{ 128, "128x128" },
 		{ 256, "256x256" },
 		{ 512, "512x512" },
-		    { 0,	 "scalable"},
-		{ 0,   NULL	  }
+		{ 0,   "scalable"},
+		{ 0,   NULL	 }
 	};
 	const gchar *types[] = { "actions",	"apps",	  "applets",	 "categories", "devices",
 				 "emblems",	"emotes", "filesystems", "mimetypes",  "places",
 				 "preferences", "status", "stock",	 NULL };
+	/* clang-format on */
 
 	g_return_val_if_fail (icon_name != NULL, NULL);
 
@@ -862,6 +865,11 @@ asc_compose_find_icon_filename (AscCompose *compose,
 			for (guint m = 0; types[m] != NULL; m++) {
 				for (guint j = min_ext_idx; supported_ext[j] != NULL; j++) {
 					g_autofree gchar *tmp = NULL;
+					/* skip bitmaps if we only want vector graphics anyway */
+					if ((scale_relaxed || vector_relaxed) &&
+					    as_str_equal0 (supported_ext[j], ".png"))
+						continue;
+
 					tmp = g_strdup_printf ("%s/share/icons/"
 							       "hicolor/%s/%s/%s%s",
 							       priv->prefix,
@@ -885,6 +893,11 @@ asc_compose_find_icon_filename (AscCompose *compose,
 			for (guint m = 0; types[m] != NULL; m++) {
 				for (guint j = min_ext_idx; supported_ext[j] != NULL; j++) {
 					g_autofree gchar *tmp = NULL;
+					/* skip bitmaps if we only want vector graphica anyway */
+					if ((scale_relaxed || vector_relaxed) &&
+					    as_str_equal0 (supported_ext[j], ".png"))
+						continue;
+
 					tmp = g_strdup_printf ("%s/share/icons/"
 							       "breeze/%s/%s/%s%s",
 							       priv->prefix,
@@ -899,7 +912,15 @@ asc_compose_find_icon_filename (AscCompose *compose,
 		}
 
 		if (vector_relaxed) {
-			break;
+			if (scale_relaxed || icon_scale == 1) {
+				break;
+			} else {
+				/* check if we can scale up a vector graphic to match the requested size */
+				min_size_idx = 0;
+				min_ext_idx = 1;
+				icon_size = icon_size * icon_scale;
+				icon_scale = 1;
+			}
 		} else {
 			if (g_str_has_suffix (icon_name, ".png"))
 				break;
