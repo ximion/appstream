@@ -20,7 +20,7 @@
 # Deleted User <noreply+16368@weblate.org>, 2021.
 # Muhammet Kara <muhammet.kara@metu.edu.tr>, 2021.
 # Kemal Oktay Aktoğan <oktay454@disroot.org>, 2021.
-# Oğuz Ersen <oguz@ersen.moe>, 2022, 2023.
+# Oğuz Ersen <oguz@ersen.moe>, 2022, 2023, 2024.
 # Sabri Ünal <libreajans@gmail.com>, 2022, 2023.
 #
 # Translators:
@@ -29,16 +29,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-02-21 21:15+0100\n"
-"PO-Revision-Date: 2023-12-28 20:07+0000\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"PO-Revision-Date: 2024-02-23 23:02+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1986,10 +1985,9 @@ msgstr "Her ekran görüntüsü ve dil için yalnızca bir `source` resim olabil
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:259
-#, fuzzy
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`."
-msgstr "Bir ekran görüntüsü `source` türünde en az bir resme sahip olmalıdır."
+msgstr "Bir ekran görüntüsü `source` türünde en az bir çevrilmemiş resme sahip olmalıdır."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:265
@@ -1998,7 +1996,7 @@ msgid ""
 "which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) "
 "was found, which is likely intended to be the translatable image. Please "
 "remove the XML localization attribute in this case."
-msgstr ""
+msgstr "Bir ekran görüntüsünün `source` türünde en az bir çevrilmemiş resmi olmalıdır, ancak bulunamadı. Bunun yerine, büyük olasılıkla çevrilebilir resim olması amaçlanan `en` yerel ayarına (`xml:lang=en`) sahip bir etiket bulundu. Lütfen bu durumda XML yerelleştirme özniteliğini kaldırın."
 
 #: src/as-validator-issue-tag.h:272
 msgid ""
@@ -2218,16 +2216,11 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
-#, fuzzy
 msgid ""
 "This `display_length` item contains an invalid display length. Its value "
 "must be a positive integer value denoting logical pixels. Please refer to "
 "the AppStream specification for more information on this tag."
-msgstr ""
-"Bu `display_length` ögesi geçersiz bir görüntüleme uzunluğu içeriyor. "
-"Değeri, bir kısaltma dizgesi veya mantıksal pikselleri ifade eden pozitif "
-"tam sayı değeri olmalıdır. Bu etiket hakkında daha fazla bilgi için lütfen "
-"AppStream tanımlamasına bakın."
+msgstr "Bu `display_length` ögesi geçersiz bir görüntüleme uzunluğu içeriyor. Değeri, mantıksal pikselleri ifade eden pozitif tam sayı değeri olmalıdır. Bu etiket hakkında daha fazla bilgi için lütfen AppStream tanımlamasına bakın."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:418
@@ -2316,7 +2309,7 @@ msgstr "Bileşenin adı (<name/> etiketi) eksik."
 msgid ""
 "The name of this component is excessively long and can likely not be "
 "displayed properly in most layouts."
-msgstr ""
+msgstr "Bu bileşenin adı çok uzun ve büyük olasılıkla çoğu düzende düzgün görüntülenemeyebilir."
 
 #: src/as-validator-issue-tag.h:483
 msgid "The component is missing a summary (<summary/> tag)."
@@ -2370,7 +2363,7 @@ msgstr ""
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
 "everywhere."
-msgstr ""
+msgstr "Özet metni çok uzun ve büyük olasılıkla her yerde düzgün görüntülenmeyecektir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:529
@@ -2465,7 +2458,7 @@ msgid ""
 "The developer-ID is invalid. It should be an rDNS string identifying the "
 "developer, or a Fediverse handle. It must also only contain lowercase ASCII "
 "letters, numbers and punctuation."
-msgstr ""
+msgstr "Geliştirici kimliği geçersiz. Geliştiriciyi tanımlayan bir rDNS dizgesi veya bir Fediverse tanıtıcısı olmalıdır. Ayrıca yalnızca küçük ASCII harfleri, sayılar ve noktalama işaretleri içermelidir."
 
 #: src/as-validator-issue-tag.h:614
 msgid ""
@@ -2705,7 +2698,7 @@ msgid ""
 "were invalid or because they are of low quality (e.g. custom 'X-' prefixed "
 "or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add "
 "more categories."
-msgstr ""
+msgstr "Bu bileşen için tüm kategoriler geçersiz oldukları için veya düşük kaliteli oldukları için (örneğin, özel 'X-' ön ekli veya 'GTK' veya 'Qt' gibi araç seti olanlar) göz ardı edildi. Lütfen kategori adlarınızı düzeltin veya daha fazla kategori ekleyin."
 
 #: src/as-validator-issue-tag.h:778
 msgid ""
