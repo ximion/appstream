@@ -651,6 +651,8 @@ as_validator_add_override (AsValidator *validator,
 		"developer-name-tag-deprecated",
 		/* temporarily allowed to ease transition a bit */
 		"developer-id-missing",
+		/* allow in case a component really doesn't have an active homepage */
+		"url-homepage-missing",
 		NULL
 	};
 
@@ -1538,11 +1540,7 @@ as_validator_check_developer (AsValidator *validator, xmlNode *node)
 	}
 
 	if (!developer_name_found) {
-		as_validator_add_issue (validator,
-					node,
-					"developer-name-missing",
-					NULL);
-
+		as_validator_add_issue (validator, node, "developer-name-missing", NULL);
 	}
 }
 
@@ -3312,6 +3310,15 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 						"generic-description-missing",
 						NULL);
 		}
+	}
+
+	/* check if we have a homepage */
+	if (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE) == NULL) {
+		AsComponentKind ckind;
+
+		/* we require a homepage for anything but generic components and language packs */
+		if (ckind != AS_COMPONENT_KIND_GENERIC && ckind != AS_COMPONENT_KIND_LOCALIZATION)
+			as_validator_add_issue (validator, NULL, "url-homepage-missing", NULL);
 	}
 
 	/* validate GUI app specific stuff */

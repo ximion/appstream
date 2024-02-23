@@ -278,6 +278,10 @@ test_validator_relationissues (void)
 		    -1,
 		    AS_ISSUE_SEVERITY_INFO, },
 		{
+		    "url-homepage-missing", "",
+		    -1,
+		    AS_ISSUE_SEVERITY_WARNING, },
+		{
 		    "relation-control-value-invalid", "telekinesis",
 		    26, AS_ISSUE_SEVERITY_WARNING,
 		 },

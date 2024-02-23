@@ -583,6 +583,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("An URL of this type has already been defined."),
 	},
 
+	{ "url-homepage-missing",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This component is missing an `url` element of type `homepage` to link to the project's homepage."),
+	},
+
 	{ "developer-name-tag-deprecated",
 	  AS_ISSUE_SEVERITY_INFO,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
