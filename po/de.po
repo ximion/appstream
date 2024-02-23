@@ -3,7 +3,7 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2020, 2021, 2022, 2023.
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2020, 2021, 2022, 2023, 2024.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016, 2021.
 # Matthias Klumpp <matthias@tenstral.net>, 2014, 2021, 2022.
 # Andreas Kleinert <Andy.Kleinert@gmail.com>, 2019, 2021.
@@ -25,7 +25,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2021, 2022, 2023.
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2021, 2022, 2023, 2024.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016. #zanata, 2021.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Tobias Weise <tobias.weise@web.de>, 2019. #zanata
@@ -46,16 +46,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-02-21 21:15+0100\n"
-"PO-Revision-Date: 2023-12-31 04:07+0000\n"
+"PO-Revision-Date: 2024-02-23 07:02+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2023,11 +2022,9 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:259
-#, fuzzy
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`."
-msgstr ""
-"Ein Bildschirmfoto muss mindestens ein Bild vom Typ `source` enthalten."
+msgstr "Ein Bildschirmfoto muss mindestens ein unübersetztes Bild vom Typ `source` enthalten."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:265
@@ -2364,7 +2361,7 @@ msgstr "Der Komponente fehlt ein Name (<name/> Tag)."
 msgid ""
 "The name of this component is excessively long and can likely not be "
 "displayed properly in most layouts."
-msgstr ""
+msgstr "Der Name dieser Komponente ist übermäßig lang und kann in den meisten Layouts nicht richtig angezeigt werden."
 
 #: src/as-validator-issue-tag.h:483
 msgid "The component is missing a summary (<summary/> tag)."
@@ -2422,7 +2419,7 @@ msgstr ""
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
 "everywhere."
-msgstr ""
+msgstr "Der Zusammenfassungstext ist sehr lang und wird wahrscheinlich nicht überall richtig angezeigt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:529
@@ -2774,7 +2771,7 @@ msgid ""
 "were invalid or because they are of low quality (e.g. custom 'X-' prefixed "
 "or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add "
 "more categories."
-msgstr ""
+msgstr "Alle Kategorien für diese Komponente wurden ignoriert, entweder weil sie ungültig waren oder weil sie von geringer Qualität sind (z. B. benutzerdefinierte 'X-' vorangestellt oder Toolkit-Kategorien wie 'GTK' oder 'Qt'). Bitte korrigieren Sie Ihre Kategorienamen, oder fügen Sie weitere Kategorien hinzu."
 
 #: src/as-validator-issue-tag.h:778
 msgid ""
