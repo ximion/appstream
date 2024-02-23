@@ -147,7 +147,26 @@ test_read_fontinfo (void)
 	g_autofree gchar *data = NULL;
 	gsize data_len;
 	g_autoptr(GList) lang_list = NULL;
-	guint i;
+	const gchar *expected_langs_old_fontconfig[] = {
+		"aa",  "ab",	 "af",	"ak", "an",	"ast",	  "av",	   "ay",    "az-az", "ba",
+		"be",  "ber-dz", "bg",	"bi", "bin",	"bm",	  "br",	   "bs",    "bua",   "ca",
+		"ce",  "ch",	 "chm", "co", "crh",	"cs",	  "csb",   "cu",    "cv",    "cy",
+		"da",  "de",	 "ee",	"el", "en",	"eo",	  "es",	   "et",    "eu",    "fat",
+		"ff",  "fi",	 "fil", "fj", "fo",	"fr",	  "fur",   "fy",    "ga",    "gd",
+		"gl",  "gn",	 "gv",	"ha", "haw",	"ho",	  "hr",	   "hsb",   "ht",    "hu",
+		"hz",  "ia",	 "id",	"ie", "ig",	"ik",	  "io",	   "is",    "it",    "jv",
+		"kaa", "kab",	 "ki",	"kj", "kk",	"kl",	  "kr",	   "ku-am", "ku-tr", "kum",
+		"kv",  "kw",	 "kwm", "ky", "la",	"lb",	  "lez",   "lg",    "li",    "ln",
+		"lt",  "lv",	 "mg",	"mh", "mi",	"mk",	  "mn-mn", "mo",    "ms",    "mt",
+		"na",  "nb",	 "nds", "ng", "nl",	"nn",	  "no",	   "nr",    "nso",   "nv",
+		"ny",  "oc",	 "om",	"os", "pap-an", "pap-aw", "pl",	   "pt",    "qu",    "quz",
+		"rm",  "rn",	 "ro",	"ru", "rw",	"sah",	  "sc",	   "sco",   "se",    "sel",
+		"sg",  "sh",	 "shs", "sk", "sl",	"sm",	  "sma",   "smj",   "smn",   "sms",
+		"sn",  "so",	 "sq",	"sr", "ss",	"st",	  "su",	   "sv",    "sw",    "tg",
+		"tk",  "tl",	 "tn",	"to", "tr",	"ts",	  "tt",	   "tw",    "ty",    "tyv",
+		"uk",  "uz",	 "ve",	"vi", "vo",	"vot",	  "wa",	   "wen",   "wo",    "xh",
+		"yap", "yo",	 "za",	"zu", NULL
+	};
 	const gchar *expected_langs[] = {
 		"aa",	  "ab",	    "af",  "agr", "an",	 "ast", "av",  "ay",  "ayc",   "az-az",
 		"ba",	  "be",	    "bem", "bg",  "bi",	 "bin", "br",  "bs",  "bua",   "ca",
@@ -202,11 +221,26 @@ test_read_fontinfo (void)
 			 "than its neo-grotesque inspired default character set.");
 
 	lang_list = asc_font_get_language_list (font);
-	i = 0;
-	for (GList *l = lang_list; l != NULL; l = l->next) {
-		g_assert_nonnull (expected_langs[i]);
-		g_assert_cmpstr (expected_langs[i], ==, l->data);
-		i++;
+
+	{
+		guint i = 0;
+		gboolean fc_lang_success = TRUE;
+		for (GList *l = lang_list; l != NULL; l = l->next) {
+			g_assert_nonnull (expected_langs_old_fontconfig[i]);
+			if (!as_str_equal0 (expected_langs_old_fontconfig[i], l->data)) {
+				fc_lang_success = FALSE;
+				break;
+			}
+			i++;
+		}
+		if (!fc_lang_success) {
+			i = 0;
+			for (GList *l = lang_list; l != NULL; l = l->next) {
+				g_assert_nonnull (expected_langs[i]);
+				g_assert_cmpstr (expected_langs[i], ==, l->data);
+				i++;
+			}
+		}
 	}
 
 	/* uses "Noto Sans" */
