@@ -4,11 +4,11 @@
   <metadata_license>FSFAP</metadata_license>
   <project_license>SIL-1.1</project_license>
 
-  <name>FontTest (Noto)</name>
+  <name>FontTest (Raleway)</name>
   <summary>A type­face fam­ily</summary>
   <description>
     <p>
-      This font component is a unittest for AppStream. It borrows the Noto
+      This font component is a unittest for AppStream. It borrows the Raleway
       font to test metadata extraction.
     </p>
   </description>
@@ -16,10 +16,10 @@
   <url type="homepage">https://freedesktop.org/</url>
 
   <provides>
-    <font>Noto Sans</font>
+    <font>Raleway Regular</font>
   </provides>
 
   <custom>
-    <value key="FontIconText">Nt</value>
+    <value key="FontIconText">Rw</value>
   </custom>
 </component>

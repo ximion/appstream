@@ -149,32 +149,32 @@ test_read_fontinfo (void)
 	g_autoptr(GList) lang_list = NULL;
 	guint i;
 	const gchar *expected_langs[] = {
-		"aa",  "ab",	 "af",	"ak", "an",	"ast",	  "av",	   "ay",    "az-az", "ba",
-		"be",  "ber-dz", "bg",	"bi", "bin",	"bm",	  "br",	   "bs",    "bua",   "ca",
-		"ce",  "ch",	 "chm", "co", "crh",	"cs",	  "csb",   "cu",    "cv",    "cy",
-		"da",  "de",	 "ee",	"el", "en",	"eo",	  "es",	   "et",    "eu",    "fat",
-		"ff",  "fi",	 "fil", "fj", "fo",	"fr",	  "fur",   "fy",    "ga",    "gd",
-		"gl",  "gn",	 "gv",	"ha", "haw",	"ho",	  "hr",	   "hsb",   "ht",    "hu",
-		"hz",  "ia",	 "id",	"ie", "ig",	"ik",	  "io",	   "is",    "it",    "jv",
-		"kaa", "kab",	 "ki",	"kj", "kk",	"kl",	  "kr",	   "ku-am", "ku-tr", "kum",
-		"kv",  "kw",	 "kwm", "ky", "la",	"lb",	  "lez",   "lg",    "li",    "ln",
-		"lt",  "lv",	 "mg",	"mh", "mi",	"mk",	  "mn-mn", "mo",    "ms",    "mt",
-		"na",  "nb",	 "nds", "ng", "nl",	"nn",	  "no",	   "nr",    "nso",   "nv",
-		"ny",  "oc",	 "om",	"os", "pap-an", "pap-aw", "pl",	   "pt",    "qu",    "quz",
-		"rm",  "rn",	 "ro",	"ru", "rw",	"sah",	  "sc",	   "sco",   "se",    "sel",
-		"sg",  "sh",	 "shs", "sk", "sl",	"sm",	  "sma",   "smj",   "smn",   "sms",
-		"sn",  "so",	 "sq",	"sr", "ss",	"st",	  "su",	   "sv",    "sw",    "tg",
-		"tk",  "tl",	 "tn",	"to", "tr",	"ts",	  "tt",	   "tw",    "ty",    "tyv",
-		"uk",  "uz",	 "ve",	"vi", "vo",	"vot",	  "wa",	   "wen",   "wo",    "xh",
-		"yap", "yo",	 "za",	"zu", NULL
+		"aa",	  "ab",	    "af",  "agr", "an",	 "ast", "av",  "ay",  "ayc",   "az-az",
+		"ba",	  "be",	    "bem", "bg",  "bi",	 "bin", "br",  "bs",  "bua",   "ca",
+		"ce",	  "ch",	    "chm", "co",  "crh", "cs",	"csb", "cv",  "cy",    "da",
+		"de",	  "dsb",    "en",  "eo",  "es",	 "et",	"eu",  "fi",  "fil",   "fj",
+		"fo",	  "fr",	    "fur", "fy",  "gd",	 "gl",	"gn",  "gv",  "haw",   "ho",
+		"hr",	  "hsb",    "ht",  "hu",  "ia",	 "id",	"ie",  "ig",  "ik",    "io",
+		"is",	  "it",	    "jv",  "kaa", "ki",	 "kj",	"kk",  "kl",  "ku-am", "ku-tr",
+		"kum",	  "kv",	    "kw",  "kwm", "ky",	 "la",	"lb",  "lez", "lg",    "li",
+		"lij",	  "lt",	    "lv",  "mfe", "mg",	 "mh",	"mhr", "miq", "mjw",   "mk",
+		"mn-mn",  "mo",	    "ms",  "mt",  "na",	 "nb",	"nds", "ng",  "nhn",   "niu",
+		"nl",	  "nn",	    "no",  "nr",  "nso", "nv",	"ny",  "oc",  "om",    "os",
+		"pap-an", "pap-aw", "pl",  "pt",  "qu",	 "quz", "rm",  "rn",  "ro",    "ru",
+		"rw",	  "sah",    "sc",  "se",  "sel", "sg",	"sgs", "sh",  "sk",    "sl",
+		"sm",	  "sma",    "smj", "smn", "sn",	 "so",	"sq",  "sr",  "ss",    "st",
+		"su",	  "sv",	    "sw",  "szl", "tg",	 "tk",	"tl",  "tn",  "to",    "tpi",
+		"tr",	  "ts",	    "tt",  "ty",  "tyv", "uk",	"unm", "uz",  "vi",    "vo",
+		"vot",	  "wa",	    "wae", "wen", "wo",	 "xh",	"yap", "yuw", "za",    "zu",
+		NULL
 	};
 
-	font_fname = g_build_filename (datadir, "NotoSans-Regular.ttf", NULL);
+	font_fname = g_build_filename (datadir, "Raleway-Regular.ttf", NULL);
 
 	/* test reading from file */
 	font = asc_font_new_from_file (font_fname, &error);
 	g_assert_no_error (error);
-	g_assert_cmpstr (asc_font_get_family (font), ==, "Noto Sans");
+	g_assert_cmpstr (asc_font_get_family (font), ==, "Raleway");
 	g_assert_cmpstr (asc_font_get_style (font), ==, "Regular");
 	g_object_unref (font);
 	font = NULL;
@@ -183,20 +183,28 @@ test_read_fontinfo (void)
 	g_file_get_contents (font_fname, &data, &data_len, &error);
 	g_assert_no_error (error);
 
-	font = asc_font_new_from_data (data, data_len, "NotoSans-Regular.ttf", &error);
+	font = asc_font_new_from_data (data, data_len, "Raleway-Regular.ttf", &error);
 	g_assert_no_error (error);
-	g_assert_cmpstr (asc_font_get_family (font), ==, "Noto Sans");
+	g_assert_cmpstr (asc_font_get_family (font), ==, "Raleway");
 	g_assert_cmpstr (asc_font_get_style (font), ==, "Regular");
 	g_assert_cmpint (asc_font_get_charset (font), ==, FT_ENCODING_UNICODE);
-	g_assert_cmpstr (asc_font_get_homepage (font), ==, "http://www.monotype.com/studio");
+	g_assert_cmpstr (asc_font_get_homepage (font), ==, "http://pixelspread.com");
 	g_assert_cmpstr (asc_font_get_description (font),
 			 ==,
-			 "Data hinted. Designed by Monotype design team.");
+			 "Raleway is an elegant sans-serif typeface family. "
+			 "Initially designed by Matt McInerney as a single thin weight, "
+			 "it was expanded into a 9 weight family by Pablo Impallari and "
+			 "Rodrigo Fuenzalida in 2012 and iKerned by Igino Marini. "
+			 "It is a display face and the download features both old style "
+			 "and lining numerals, standard and discretionary ligatures, a "
+			 "pretty complete set of diacritics, as well as a stylistic "
+			 "alternate inspired by more geometric sans-serif typefaces "
+			 "than its neo-grotesque inspired default character set.");
 
 	lang_list = asc_font_get_language_list (font);
 	i = 0;
 	for (GList *l = lang_list; l != NULL; l = l->next) {
-		g_assert_true (expected_langs[i] != NULL);
+		g_assert_nonnull (expected_langs[i]);
 		g_assert_cmpstr (expected_langs[i], ==, l->data);
 		i++;
 	}
@@ -204,10 +212,10 @@ test_read_fontinfo (void)
 	/* uses "Noto Sans" */
 	g_assert_cmpstr (asc_font_get_sample_text (font),
 			 ==,
-			 "My grandfather picks up quartz and valuable onyx jewels.");
-	g_assert_cmpstr (asc_font_find_pangram (font, "en", "Noto Sans"),
+			 "A mad boxer shot a quick, gloved jab to the jaw of his dizzy opponent.");
+	g_assert_cmpstr (asc_font_find_pangram (font, "en", "Raleway"),
 			 ==,
-			 "My grandfather picks up quartz and valuable onyx jewels.");
+			 "A mad boxer shot a quick, gloved jab to the jaw of his dizzy opponent.");
 
 	g_assert_cmpstr (asc_font_find_pangram (font, "en", "aaaaa"),
 			 ==,
@@ -327,7 +335,7 @@ test_canvas (void)
 	cv = NULL;
 
 	/* test font rendering */
-	font_fname = g_build_filename (datadir, "NotoSans-Regular.ttf", NULL);
+	font_fname = g_build_filename (datadir, "Raleway-Regular.ttf", NULL);
 	font = asc_font_new_from_file (font_fname, &error);
 	g_assert_no_error (error);
 
@@ -666,7 +674,7 @@ test_compose_directory_unit (void)
 	g_assert_cmpint (contents->len, ==, 15);
 	as_sort_strings (contents);
 
-	g_assert_cmpstr (g_ptr_array_index (contents, 0), ==, "/Noto.LICENSE");
+	g_assert_cmpstr (g_ptr_array_index (contents, 0), ==, "/Raleway-Regular.ttf");
 	g_assert_cmpstr (g_ptr_array_index (contents, 5), ==, "/table.svgz");
 
 	/* read existent data */
