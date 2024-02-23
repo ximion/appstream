@@ -58,14 +58,24 @@ asc_parse_metainfo_data (AscResult *cres,
 	g_return_val_if_fail (mi_basename != NULL, NULL);
 
 	if (!as_metadata_parse_bytes (mdata, bytes, AS_FORMAT_KIND_XML, &error)) {
-		asc_result_add_hint (cres,
-				     NULL,
-				     "ancient-metadata",
-				     "fname",
-				     mi_basename,
-				     "error",
-				     error->message,
-				     NULL);
+		g_autofree gchar *cid_guess = g_strdup (mi_basename);
+
+		/* try to guess the component-ID */
+		if (g_str_has_suffix (cid_guess, ".metainfo.xml"))
+			cid_guess[strlen (cid_guess) - 13] = '\0';
+		else if (g_str_has_suffix (cid_guess, ".appdata.xml"))
+			cid_guess[strlen (cid_guess) - 12] = '\0';
+		else if (g_str_has_suffix (cid_guess, ".xml"))
+			cid_guess[strlen (cid_guess) - 4] = '\0';
+
+		asc_result_add_hint_by_cid (cres,
+					    cid_guess,
+					    "metainfo-parsing-error",
+					    "fname",
+					    mi_basename,
+					    "error",
+					    error->message,
+					    NULL);
 		return NULL;
 	}
 

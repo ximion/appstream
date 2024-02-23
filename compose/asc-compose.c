@@ -1727,8 +1727,19 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	if (filter_cpts) {
 		const gchar **cids = asc_result_get_component_ids_with_hints (ctask->result);
 		for (guint i = 0; cids[i] != NULL; i++) {
-			if (!g_hash_table_contains (priv->allowed_cids, cids[i]))
+			if (!g_hash_table_contains (priv->allowed_cids, cids[i])) {
+				/* we want to catch out-of-scope XML errors as well, which have a CID
+				 * guessed from the filename, and don't include any .desktop suffix. */
+				if (!g_str_has_suffix (cids[i], ".desktop")) {
+					g_autofree gchar *cid_desktop = g_strconcat (cids[i],
+										     ".desktop",
+										     NULL);
+					if (g_hash_table_contains (priv->allowed_cids, cid_desktop))
+						continue;
+				}
+
 				asc_result_remove_hints_for_cid (ctask->result, cids[i]);
+			}
 		}
 	}
 
