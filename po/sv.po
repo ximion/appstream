@@ -29,10 +29,9 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-02-24 21:36+0100\n"
-"PO-Revision-Date: 2024-02-24 13:09+0000\n"
+"PO-Revision-Date: 2024-02-24 21:05+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3290,49 +3289,39 @@ msgstr "Använd inte nätverket alls, inte ens för URL-giltighetskontroller."
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:225
-#, fuzzy
 msgid "Set mode of the issue report that is printed to the console."
-msgstr "Ställ in läget för problemrapporten som skrivs till konsolen"
+msgstr "Ställ in läget för problemrapporten som skrivs till konsolen."
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:232
-#, fuzzy
 msgid "Override the default prefix (`/usr` by default)."
-msgstr "Åsidosätt standardprefixet (`/usr` som standard)"
+msgstr "Åsidosätt standardprefixet (`/usr` som standard)."
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:239
-#, fuzzy
 msgid "Set the result output directory."
-msgstr "Ställ in utdatakatalogen för resultat"
+msgstr "Ställ in utdatakatalogen för resultat."
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:246
-#, fuzzy
 msgid "Override the catalog metadata output directory."
-msgstr "Åsidosätt utdatakatalogen för katalogmetadata"
+msgstr "Åsidosätt utdatakatalogen för katalogmetadata."
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:253
-#, fuzzy
 msgid "Override the icon output directory."
-msgstr "Åsidosätt ikonutdatakatalogen"
+msgstr "Åsidosätt ikonutdatakatalogen."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:260
-#, fuzzy
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)."
-msgstr ""
-"Ställ in utdatakatalogen för media (för mediadata att erbjuda från en "
-"webbserver)"
+msgstr "Ställ in utdatakatalogen för media (för mediadata att erbjuda från en webbserver)."
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:267
-#, fuzzy
 msgid "Set a directory where HTML and text issue reports will be stored."
-msgstr ""
-"Ställ in en katalog där problemrapporter i HTML och text kommer att lagras"
+msgstr "Ställ in en katalog där problemrapporter i HTML och text kommer att lagras."
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:274
@@ -3341,9 +3330,8 @@ msgstr "Ställ in namnet på ursprunget"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:281
-#, fuzzy
 msgid "Set the URL where the exported media content will be hosted."
-msgstr "Ställ in URL:en där exporterat mediainnehåll kommer att finnas"
+msgstr "Ställ in URL:en där exporterat mediainnehåll kommer att finnas."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:288
@@ -3359,13 +3347,12 @@ msgstr ""
 msgid ""
 "An icon-policy string to set how icon sizes should be handled (refer to the "
 "man page for details)."
-msgstr ""
+msgstr "En ikonpolicysträng för att ställa in hur ikonstorlekar ska hanterar (se manualsidan för detaljer)."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:302
-#, fuzzy
 msgid "A comma-separated list of component-IDs to accept."
-msgstr "En kommaseparerad lista över komponent-ID:n att acceptera"
+msgstr "En kommaseparerad lista över komponent-ID:n att acceptera."
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:319
@@ -3417,9 +3404,8 @@ msgid "WARNING"
 msgstr "VARNING"
 
 #: tools/appstream-compose.c:438
-#, fuzzy
 msgid "Unable to set icon policy"
-msgstr "Kunde inte läsa fil."
+msgstr "Kunde inte ställa in ikonpolicy"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:456
