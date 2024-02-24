@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2024-02-21 21:15+0100\n"
+"POT-Creation-Date: 2024-02-24 01:43+0100\n"
 "PO-Revision-Date: 2022-09-16 05:17+0000\n"
 "Last-Translator: Maite Guix <maite.guix@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
@@ -2447,31 +2447,52 @@ msgstr "Ja s'ha definit una URL d'aquest tipus."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:589
 msgid ""
+"This component is missing an `url` element of type `homepage` to link to the "
+"project's homepage."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
+#: src/as-validator-issue-tag.h:595
+msgid ""
 "The toplevel `developer_name` element is deprecated. Please use the `name` "
 "element in a `developer` block instead."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:596
-#, fuzzy
-msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr "El <developer_name/> no pot contenir un hipervincle."
+#: src/as-validator-issue-tag.h:602
+msgid ""
+"This component contains no `developer` element with information about its "
+"author."
+msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:602
+#: src/as-validator-issue-tag.h:608
 msgid ""
 "The `developer` element is missing an `id` property, containing a unique "
 "string ID for the developer. Consider adding a unique ID."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:608
+#: src/as-validator-issue-tag.h:614
 msgid ""
 "The developer-ID is invalid. It should be an rDNS string identifying the "
 "developer, or a Fediverse handle. It must also only contain lowercase ASCII "
 "letters, numbers and punctuation."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:614
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
+#: src/as-validator-issue-tag.h:621
+msgid ""
+"The `developer` block does not have a `name` element with a human-readable "
+"project author name."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
+#: src/as-validator-issue-tag.h:627
+#, fuzzy
+msgid "The `name` child of a `developer` block must not contain a hyperlink."
+msgstr "El <developer_name/> no pot contenir un hipervincle."
+
+#: src/as-validator-issue-tag.h:632
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
@@ -2480,26 +2501,26 @@ msgstr ""
 "està registrat amb Freedesktop.org."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:620
+#: src/as-validator-issue-tag.h:638
 msgid "This `launchable` tag has an unknown type and can not be used."
 msgstr ""
 "Aquesta etiqueta «launchable» té un tipus desconegut i no es pot utilitzar."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:626
+#: src/as-validator-issue-tag.h:644
 msgid "This `bundle` tag has an unknown type and can not be used."
 msgstr ""
 "Aquesta etiqueta «bundle» té un tipus desconegut i no es pot utilitzar."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:632
+#: src/as-validator-issue-tag.h:650
 #, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
 msgstr ""
 "L'etiqueta «update_contact» no s'ha d'incloure a la col·lecció APPStream XML."
 
-#: src/as-validator-issue-tag.h:637
+#: src/as-validator-issue-tag.h:655
 msgid ""
 "This tag is a GNOME-specific extension to AppStream and not part of the "
 "official specification. Do not expect it to work in all implementations and "
@@ -2509,7 +2530,7 @@ msgstr ""
 "part de l'especificació oficial. No espereu que funcioni en totes les "
 "implementacions i en tots els centres de programari."
 
-#: src/as-validator-issue-tag.h:643
+#: src/as-validator-issue-tag.h:661
 msgid ""
 "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream "
 "also provides the <custom/> tag to add arbitrary custom data to metainfo "
@@ -2525,7 +2546,7 @@ msgstr ""
 "afegir dades personalitzades a un fitxer metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:651
+#: src/as-validator-issue-tag.h:669
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
@@ -2533,7 +2554,7 @@ msgstr ""
 "Falta l'etiqueta essencial «metadata_license». Sempre s'ha de definir una "
 "llicència per a les metadades."
 
-#: src/as-validator-issue-tag.h:656
+#: src/as-validator-issue-tag.h:674
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
@@ -2541,7 +2562,7 @@ msgstr ""
 "Al component li falta una descripció llarga. Els components d'aquest tipus "
 "han de tenir una descripció llarga."
 
-#: src/as-validator-issue-tag.h:661
+#: src/as-validator-issue-tag.h:679
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
@@ -2549,7 +2570,7 @@ msgstr ""
 "Seria útil afegir una descripció llarga a aquesta font per a presentar-lo "
 "millor als usuaris."
 
-#: src/as-validator-issue-tag.h:666
+#: src/as-validator-issue-tag.h:684
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
@@ -2557,7 +2578,7 @@ msgstr ""
 "Es recomana afegir una descripció llarga a aquest component per a presentar-"
 "lo millor als usuaris."
 
-#: src/as-validator-issue-tag.h:671
+#: src/as-validator-issue-tag.h:689
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
@@ -2566,7 +2587,7 @@ msgstr ""
 "afegir-ne una."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:677
+#: src/as-validator-issue-tag.h:695
 msgid ""
 "This `desktop-application` component is missing a `desktop-id` launchable "
 "tag. This means that this application can not be launched and has no "
@@ -2581,7 +2602,7 @@ msgstr ""
 "l'escriptori, cosa que farà que aquesta aplicació sigui ignorada del tot."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:686
+#: src/as-validator-issue-tag.h:704
 msgid ""
 "This `desktop-application` component has no `desktop-id` launchable tag, "
 "however it contains all the necessary information to display the "
@@ -2598,7 +2619,7 @@ msgstr ""
 "és molt recomanable afegir també una etiqueta executable."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:696
+#: src/as-validator-issue-tag.h:714
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
@@ -2607,7 +2628,7 @@ msgstr ""
 "informació sobre binaris a $PATH a través d'una etiqueta «provides/binary»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:702
+#: src/as-validator-issue-tag.h:720
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
 msgstr ""
@@ -2615,7 +2636,7 @@ msgstr ""
 "del tipus «url»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:708
+#: src/as-validator-issue-tag.h:726
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
@@ -2624,7 +2645,7 @@ msgstr ""
 "especificar una icona vàlida."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:714
+#: src/as-validator-issue-tag.h:732
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
@@ -2633,7 +2654,7 @@ msgstr ""
 "probable que falti un bloc de «categories»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:720
+#: src/as-validator-issue-tag.h:738
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
@@ -2642,7 +2663,7 @@ msgstr ""
 "font a través d'una etiqueta «provides/font»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:726
+#: src/as-validator-issue-tag.h:744
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
@@ -2651,7 +2672,7 @@ msgstr ""
 "modalias a través d'una etiqueta «provides/modalias»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:732
+#: src/as-validator-issue-tag.h:750
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
@@ -2660,14 +2681,14 @@ msgstr ""
 "«addon», «localization» ni «repository»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:738
+#: src/as-validator-issue-tag.h:756
 msgid "The component is an addon, but no `extends` tag was specified."
 msgstr ""
 "El component és un complement, però no s'ha especificat cap etiqueta "
 "«extends»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:744
+#: src/as-validator-issue-tag.h:762
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
@@ -2676,7 +2697,7 @@ msgstr ""
 "especificar els components als que s’afegeix la localització."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:750
+#: src/as-validator-issue-tag.h:768
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
@@ -2685,7 +2706,7 @@ msgstr ""
 "localització."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:756
+#: src/as-validator-issue-tag.h:774
 msgid ""
 "This `service` component is missing a `launchable` tag of type `service`."
 msgstr ""
@@ -2693,7 +2714,7 @@ msgstr ""
 "«service»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:762
+#: src/as-validator-issue-tag.h:780
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
@@ -2701,7 +2722,7 @@ msgstr ""
 "No es permeten suggeriments de cap tipus que no siguin «upstream» en fitxers "
 "metainfo."
 
-#: src/as-validator-issue-tag.h:767
+#: src/as-validator-issue-tag.h:785
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
@@ -2709,7 +2730,7 @@ msgstr ""
 "El nom de la categoria no és vàlid. Consulteu l'especificació del menú XDG "
 "per a una llista de noms de categoria vàlids."
 
-#: src/as-validator-issue-tag.h:772
+#: src/as-validator-issue-tag.h:790
 msgid ""
 "All categories for this component have been ignored, either because they "
 "were invalid or because they are of low quality (e.g. custom 'X-' prefixed "
@@ -2717,7 +2738,7 @@ msgid ""
 "more categories."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:778
+#: src/as-validator-issue-tag.h:796
 msgid ""
 "This component is in no valid categories, even though it should be. Please "
 "check its metainfo file and desktop-entry file."
@@ -2725,20 +2746,20 @@ msgstr ""
 "Aquest component no està en cap categoria vàlida i hauria d'estar. Comproveu "
 "el vostre fitxer metainfo i el vostre fitxer desktop-entry."
 
-#: src/as-validator-issue-tag.h:783
+#: src/as-validator-issue-tag.h:801
 msgid "The screenshot caption is too long (should be <= 100 characters)"
 msgstr "La captura de pantalla és massa gran (ha de ser <= 100 caràcters)"
 
-#: src/as-validator-issue-tag.h:788
+#: src/as-validator-issue-tag.h:806
 msgid "Unable to read file."
 msgstr "No es pot llegir el fitxer."
 
-#: src/as-validator-issue-tag.h:793
+#: src/as-validator-issue-tag.h:811
 msgid "The XML of this file is malformed."
 msgstr "L'XML d'aquest fitxer té un format incorrecte."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:799
+#: src/as-validator-issue-tag.h:817
 #, fuzzy
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
@@ -2747,7 +2768,7 @@ msgstr ""
 "es permeten les etiquetes «component»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:805
+#: src/as-validator-issue-tag.h:823
 #, fuzzy
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
@@ -2759,7 +2780,7 @@ msgstr ""
 "d'AppStream, que no es pot validar. Si us plau, migra'l a la versió 0.6 (o "
 "superior)."
 
-#: src/as-validator-issue-tag.h:811
+#: src/as-validator-issue-tag.h:829
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
@@ -2767,23 +2788,23 @@ msgstr ""
 "Aquest document XML té una etiqueta arrel desconeguda. Potser aquest fitxer "
 "no és un document metainfo?"
 
-#: src/as-validator-issue-tag.h:816
+#: src/as-validator-issue-tag.h:834
 msgid "The metainfo filename does not match the component ID."
 msgstr "El nom del fitxer de metainfo no coincideix amb l'ID del component."
 
-#: src/as-validator-issue-tag.h:821
+#: src/as-validator-issue-tag.h:839
 msgid "Unable to load the desktop-entry file associated with this component."
 msgstr ""
 "No s'ha pogut carregar el fitxer d'entrada de l'escriptori associat a aquest "
 "component."
 
-#: src/as-validator-issue-tag.h:826
+#: src/as-validator-issue-tag.h:844
 msgid "This component metadata refers to a non-existing .desktop file."
 msgstr ""
 "Aquestes metadades de components es refereixen a un fitxer .desktop no "
 "existent."
 
-#: src/as-validator-issue-tag.h:831
+#: src/as-validator-issue-tag.h:849
 msgid ""
 "A category defined in the desktop-entry file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
@@ -2792,11 +2813,11 @@ msgstr ""
 "Consulteu l'especificació del menú XDG per a veure una llista de categories "
 "vàlides."
 
-#: src/as-validator-issue-tag.h:836
+#: src/as-validator-issue-tag.h:854
 msgid "Error while reading some data from the desktop-entry file."
 msgstr "Error en llegir algunes dades del fitxer d'entrada de l'escriptori."
 
-#: src/as-validator-issue-tag.h:841
+#: src/as-validator-issue-tag.h:859
 msgid ""
 "The value of this desktop-entry field contains invalid or non-printable "
 "UTF-8 characters, which can not be displayed properly."
@@ -2804,14 +2825,14 @@ msgstr ""
 "El valor d'aquest camp d'entrada de l'escriptori conté caràcters UTF-8 no "
 "vàlids o no imprimibles, que no es poden mostrar correctament."
 
-#: src/as-validator-issue-tag.h:846
+#: src/as-validator-issue-tag.h:864
 msgid ""
 "This desktop-entry field value is quoted, which is likely unintentional."
 msgstr ""
 "El valor d'aquest camp d'entrada de l'escriptori està entrecometes, cosa que "
 "probablement no és intencionada."
 
-#: src/as-validator-issue-tag.h:851
+#: src/as-validator-issue-tag.h:869
 msgid ""
 "This desktop-entry file has the 'Hidden' property set. This is wrong for "
 "vendor-installed .desktop files, and nullifies all effects this .desktop "
@@ -2823,7 +2844,7 @@ msgstr ""
 "tots els efectes que té aquest fitxer .desktop (incloent-hi les associacions "
 "MIME), cosa que segurament no és intencional."
 
-#: src/as-validator-issue-tag.h:857
+#: src/as-validator-issue-tag.h:875
 msgid ""
 "This desktop-entry file has the 'OnlyShowIn' property set with an empty "
 "value. This might not be intended, as this will hide the application from "
@@ -2835,18 +2856,18 @@ msgstr ""
 "l'aplicació de tots els escriptoris. Si voleu ocultar l'aplicació de tots "
 "els escriptoris, utilitzeu 'NoDisplay=true' que és més explícit."
 
-#: src/as-validator-issue-tag.h:863
+#: src/as-validator-issue-tag.h:881
 msgid "No AppStream metadata was found in this directory or directory tree."
 msgstr ""
 "No s'ha trobat cap metadada appStream en aquest directori o arbre de "
 "directoris."
 
 #. pedantic because not everything which has metadata is an application
-#: src/as-validator-issue-tag.h:868
+#: src/as-validator-issue-tag.h:886
 msgid "No XDG applications directory found."
 msgstr "No s'ha trobat cap directori d'aplicacions XDG."
 
-#: src/as-validator-issue-tag.h:873
+#: src/as-validator-issue-tag.h:891
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
@@ -2854,12 +2875,12 @@ msgstr ""
 "El fitxer metainfo s'emmagatzema en un camí heretat. Poseu-lo a «/usr/share/"
 "metainfo/»."
 
-#: src/as-validator-issue-tag.h:878
+#: src/as-validator-issue-tag.h:896
 msgid "The metainfo file specifies multiple components. This is not allowed."
 msgstr ""
 "El fitxer metainfo especifica diversos components. Això no està permès."
 
-#: src/as-validator-issue-tag.h:883
+#: src/as-validator-issue-tag.h:901
 msgid ""
 "The releases are not sorted in a latest to oldest version order. This is "
 "required as some tools will assume that the latest version is always at the "
@@ -2872,46 +2893,46 @@ msgstr ""
 "general del fitxer metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:891
+#: src/as-validator-issue-tag.h:909
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:896
+#: src/as-validator-issue-tag.h:914
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:901
+#: src/as-validator-issue-tag.h:919
 #, fuzzy
 msgid "Failed to download release metadata."
 msgstr "No s'ha pogut baixar el fitxer: %s"
 
-#: src/as-validator-issue-tag.h:906
+#: src/as-validator-issue-tag.h:924
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:912
+#: src/as-validator-issue-tag.h:930
 msgid "The value set as release urgency is not a known urgency value."
 msgstr ""
 "El valor establert com a urgència de versió no és un valor d'urgència "
 "conegut."
 
-#: src/as-validator-issue-tag.h:917
+#: src/as-validator-issue-tag.h:935
 msgid "The value set as release type is invalid."
 msgstr "El valor definit com a tipus de versió no és vàlid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:923
+#: src/as-validator-issue-tag.h:941
 msgid "The release is missing the `version` property."
 msgstr "Aquesta versió no té la propietat `version`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:929
+#: src/as-validator-issue-tag.h:947
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
@@ -2919,17 +2940,17 @@ msgstr ""
 "Aquesta versió no té la propietat `date` (preferida) o la propietat "
 "`timestamp`."
 
-#: src/as-validator-issue-tag.h:934
+#: src/as-validator-issue-tag.h:952
 msgid "The release timestamp is invalid."
 msgstr "La data de publicació no és vàlida."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:940
+#: src/as-validator-issue-tag.h:958
 msgid "The release description must be put inside a `description` tag"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:946
+#: src/as-validator-issue-tag.h:964
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
@@ -2937,11 +2958,11 @@ msgstr ""
 "El conjunt de valors com a tipus d'artefacte no és vàlid. Ha de ser «source» "
 "o «binary»."
 
-#: src/as-validator-issue-tag.h:951
+#: src/as-validator-issue-tag.h:969
 msgid "The value set as artifact bundle type is invalid."
 msgstr "El conjunt de valors com a tipus de paquet d'artefactes no és vàlid."
 
-#: src/as-validator-issue-tag.h:956
+#: src/as-validator-issue-tag.h:974
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
@@ -2952,18 +2973,18 @@ msgstr ""
 "d'AppStream o informació sobre els triplets GNU normalitzats per a obtenir "
 "més informació i camps vàlids."
 
-#: src/as-validator-issue-tag.h:963
+#: src/as-validator-issue-tag.h:981
 msgid "The selected checksumming algorithm is unsupported or unknown."
 msgstr ""
 "L'algorisme de suma de verificació seleccionat no és compatible o és "
 "desconegut."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:969
+#: src/as-validator-issue-tag.h:987
 msgid "The size type is unknown. Must be `download` or `installed`."
 msgstr "El tipus de mida és desconegut. Ha de ser «download» o «installed»."
 
-#: src/as-validator-issue-tag.h:974
+#: src/as-validator-issue-tag.h:992
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
@@ -2971,11 +2992,11 @@ msgstr ""
 "El nom del fitxer d'artefacte ha de ser un nom base de fitxer, no un camí "
 "(relatiu o absolut)."
 
-#: src/as-validator-issue-tag.h:979
+#: src/as-validator-issue-tag.h:997
 msgid "The value set as release issue type is invalid."
 msgstr "El valor definit com a tipus de problema de versió no és vàlid."
 
-#: src/as-validator-issue-tag.h:984
+#: src/as-validator-issue-tag.h:1002
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
@@ -2984,7 +3005,7 @@ msgstr ""
 "però el seu valor no sembla un identificador CVE vàlid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:990
+#: src/as-validator-issue-tag.h:1008
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
@@ -2992,7 +3013,7 @@ msgstr ""
 "Falta informació sobre les versions. Considereu afegir una etiqueta "
 "«releases» per a descriure les versions i els seus canvis."
 
-#: src/as-validator-issue-tag.h:995
+#: src/as-validator-issue-tag.h:1013
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
@@ -3002,7 +3023,7 @@ msgstr ""
 "amb granularitat d’almenys dies per a denotar dates. Assegureu-vos que la "
 "cadena de data és vàlida."
 
-#: src/as-validator-issue-tag.h:1001
+#: src/as-validator-issue-tag.h:1019
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
@@ -3013,7 +3034,7 @@ msgstr ""
 "que s'ocupen d'aquestes metadades."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1008
+#: src/as-validator-issue-tag.h:1026
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
@@ -3026,7 +3047,7 @@ msgstr ""
 "d'aquest component. Per exemple, «LicenseRef-free=https://example.com/"
 "licenses.html»"
 
-#: src/as-validator-issue-tag.h:1014
+#: src/as-validator-issue-tag.h:1032
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
@@ -3036,13 +3057,13 @@ msgstr ""
 "programari, els seus ID de components es poden llistar en una secció "
 "«<provides/>» per a aquest temps d'execució."
 
-#: src/as-validator-issue-tag.h:1019
+#: src/as-validator-issue-tag.h:1037
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr "AppStream no coneix el tipus d’element que proporciona el component."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1025
+#: src/as-validator-issue-tag.h:1043
 msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
@@ -3053,7 +3074,7 @@ msgstr ""
 "proporciona un controlador multimèdia per als tipus indicats."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1032
+#: src/as-validator-issue-tag.h:1050
 msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
@@ -3065,64 +3086,64 @@ msgstr ""
 "io/oars/"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1039
+#: src/as-validator-issue-tag.h:1057
 msgid ""
 "The  `type` attribute of this `content_rating` element is missing or empty."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1045
+#: src/as-validator-issue-tag.h:1063
 msgid ""
 "The  `type` attribute of the `content_rating` element has a invalid value."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1051
+#: src/as-validator-issue-tag.h:1069
 msgid "The `content_rating` tag can only contain `content_attribute` children."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1057
+#: src/as-validator-issue-tag.h:1075
 msgid ""
 "The  `id` attribute of the `content_attribute` element is missing or empty."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1063
+#: src/as-validator-issue-tag.h:1081
 msgid ""
 "The  `id` attribute of the `content_attribute` element has a invalid value."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1069
+#: src/as-validator-issue-tag.h:1087
 msgid "The `content_attribute` tag needs a value."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1075
+#: src/as-validator-issue-tag.h:1093
 msgid "The `content_attribute` tag value is unknown."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1081
+#: src/as-validator-issue-tag.h:1099
 #, fuzzy
 msgid "The `content_attribute` tag value is invalid for the given id."
 msgstr ""
 "El valor de l'etiqueta establert no és vàlid per a una relació `internet`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1087
+#: src/as-validator-issue-tag.h:1105
 #, fuzzy
 msgid "A `content_attribute` tag with this ID has already been defined."
 msgstr "Ja s'ha definit una URL d'aquest tipus."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1093
+#: src/as-validator-issue-tag.h:1111
 msgid "This `tag` is missing a `namespace` attribute."
 msgstr "A aquesta «tag» li falta un atribut «namespace»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1099
+#: src/as-validator-issue-tag.h:1117
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
@@ -3130,69 +3151,69 @@ msgstr ""
 "Aquesta etiqueta o el seu espai de noms conté caràcters no vàlids. Només es "
 "permeten lletres ASCII en minúscula, números, punts, guions i guions baixos."
 
-#: src/as-validator-issue-tag.h:1104
+#: src/as-validator-issue-tag.h:1122
 msgid "The type of this color is not valid."
 msgstr "El tipus d'aquest color no és vàlid."
 
-#: src/as-validator-issue-tag.h:1109
+#: src/as-validator-issue-tag.h:1127
 msgid "The value of this color scheme preference is not valid."
 msgstr "El valor d'aquesta preferència de color no és vàlid."
 
-#: src/as-validator-issue-tag.h:1114
+#: src/as-validator-issue-tag.h:1132
 msgid "This color is not a valid HTML color code."
 msgstr "Aquest color no és un codi de color HTML vàlid."
 
-#: src/as-validator-issue-tag.h:1119
+#: src/as-validator-issue-tag.h:1137
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1124
+#: src/as-validator-issue-tag.h:1142
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1130
+#: src/as-validator-issue-tag.h:1148
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1135
+#: src/as-validator-issue-tag.h:1153
 msgid ""
 "The registry for this reference item is unknown. This may be due to a typing "
 "error, or the registry needs to be registered with AppStream."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1141
+#: src/as-validator-issue-tag.h:1159
 #, fuzzy
 msgid "The reference item is missing a value."
 msgstr "La data de publicació no és vàlida."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1147
+#: src/as-validator-issue-tag.h:1165
 msgid "The `custom` tag can only contain `value` children."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1153
+#: src/as-validator-issue-tag.h:1171
 #, fuzzy
 msgid "This `custom` tag value is missing a `key` attribute."
 msgstr "A aquesta «tag» li falta un atribut «namespace»."
 
-#: src/as-validator-issue-tag.h:1158
+#: src/as-validator-issue-tag.h:1176
 msgid "A key can only be used once."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1163
+#: src/as-validator-issue-tag.h:1181
 msgid "This custom value is empty."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1169
+#: src/as-validator-issue-tag.h:1187
 #, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
@@ -3220,20 +3241,20 @@ msgid "The release metadata file '%s' is named incorrectly."
 msgstr ""
 
 #. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
-#: src/as-validator.c:661
+#: src/as-validator.c:667
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
 msgstr "La nova gravetat del problema per a l'etiqueta «%s» no és vàlida."
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
-#: src/as-validator.c:672
+#: src/as-validator.c:678
 #, c-format
 msgid "The issue tag '%s' is not recognized."
 msgstr "L'etiqueta del problema «%s» no es reconeix."
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 #. whitelisted for that.
-#: src/as-validator.c:699
+#: src/as-validator.c:705
 #, c-format
 msgid ""
 "It is not allowed to downgrade the severity of tag '%s' to one that allows "
@@ -3244,9 +3265,9 @@ msgstr ""
 
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
-#: src/as-validator.c:857 src/as-validator.c:1418 src/as-validator.c:1581
-#: src/as-validator.c:1792 src/as-validator.c:2388 src/as-validator.c:2410
-#: src/as-validator.c:2532 src/as-validator.c:2802
+#: src/as-validator.c:863 src/as-validator.c:1424 src/as-validator.c:1594
+#: src/as-validator.c:1805 src/as-validator.c:2401 src/as-validator.c:2423
+#: src/as-validator.c:2545 src/as-validator.c:2815
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Trobat: %s - Permès: %s"
