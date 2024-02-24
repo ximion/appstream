@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2024-02-24 02:51+0100\n"
+"POT-Creation-Date: 2024-02-24 21:36+0100\n"
 "PO-Revision-Date: 2024-02-07 23:01+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/"
@@ -1510,7 +1510,7 @@ msgstr ""
 msgid "Display size is sufficient for this software."
 msgstr "La taille de l’écran est suffisant pour ce logiciel."
 
-#: src/as-relation.c:1918
+#: src/as-relation.c:1919
 #, fuzzy, c-format
 msgid ""
 "Satisfiability check for relation items of type '%s' is not implemented yet."
@@ -3325,103 +3325,120 @@ msgstr ""
 msgid "Found: %s - Allowed: %s"
 msgstr "Trouvé : %s – Permis : %s"
 
+#. TRANSLATORS: ascli flag description for: --verbose
 #. TRANSLATORS: ascompose flag description for: --verbose
-#: tools/appstream-compose.c:196
-msgid "Show extra debugging information"
-msgstr "Affiche des informations de débogage supplémentaires"
+#: tools/appstream-compose.c:197 tools/appstreamcli.c:1364
+msgid "Show extra debugging information."
+msgstr "Affiche des informations de débogage supplémentaires."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #. TRANSLATORS: ascompose flag description for: --no-color
-#: tools/appstream-compose.c:203 tools/appstreamcli.c:1369
+#: tools/appstream-compose.c:204 tools/appstreamcli.c:1370
 msgid "Don't show colored output."
 msgstr "Ne pas afficher de sortie colorée."
 
 #. TRANSLATORS: ascli flag description for: --version
 #. TRANSLATORS: ascompose flag description for: --version
-#: tools/appstream-compose.c:210 tools/appstreamcli.c:1357
+#: tools/appstream-compose.c:211 tools/appstreamcli.c:1358
 msgid "Show the program version."
 msgstr "Affiche la version du programme."
 
 #. TRANSLATORS: ascompose flag description for: --no-net
-#: tools/appstream-compose.c:217
+#: tools/appstream-compose.c:218
 msgid "Do not use the network at all, not even for URL validity checks."
 msgstr "Ne pas utiliser le réseau, même pour vérifier validité des URL."
 
 #. TRANSLATORS: ascompose flag description for: --print-report
-#: tools/appstream-compose.c:224
-msgid "Set mode of the issue report that is printed to the console"
+#: tools/appstream-compose.c:225
+#, fuzzy
+msgid "Set mode of the issue report that is printed to the console."
 msgstr "Définit le mode du rapport de bogue affiché dans le terminal"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
-#: tools/appstream-compose.c:231
-msgid "Override the default prefix (`/usr` by default)"
+#: tools/appstream-compose.c:232
+#, fuzzy
+msgid "Override the default prefix (`/usr` by default)."
 msgstr "Remplace le préfixe par défaut (`/usr` par défaut)"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
-#: tools/appstream-compose.c:238
-msgid "Set the result output directory"
+#: tools/appstream-compose.c:239
+#, fuzzy
+msgid "Set the result output directory."
 msgstr "Définit le répertoire de sortie du résultat"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
-#: tools/appstream-compose.c:245
-msgid "Override the catalog metadata output directory"
+#: tools/appstream-compose.c:246
+#, fuzzy
+msgid "Override the catalog metadata output directory."
 msgstr "Remplace le répertoire de sortie du catalogue de métadonnées"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
-#: tools/appstream-compose.c:252
-msgid "Override the icon output directory"
+#: tools/appstream-compose.c:253
+#, fuzzy
+msgid "Override the icon output directory."
 msgstr "Remplace le répertoire de sortie de l’icône"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
-#: tools/appstream-compose.c:259
+#: tools/appstream-compose.c:260
+#, fuzzy
 msgid ""
-"Set the media output directory (for media data to be served by a webserver)"
+"Set the media output directory (for media data to be served by a webserver)."
 msgstr ""
 "Défini le répertoire de sortie des médias (pour les données de média à "
 "servir par un serveur Web)"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
-#: tools/appstream-compose.c:266
-msgid "Set a directory where HTML and text issue reports will be stored"
+#: tools/appstream-compose.c:267
+#, fuzzy
+msgid "Set a directory where HTML and text issue reports will be stored."
 msgstr ""
 "Définit un répertoire dans lequel les rapports de bogue texte et HTML vont "
 "être stockés"
 
 #. TRANSLATORS: ascompose flag description for: --origin
-#: tools/appstream-compose.c:273
+#: tools/appstream-compose.c:274
 msgid "Set the origin name"
 msgstr "Définit le nom d’origine"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
-#: tools/appstream-compose.c:280
-msgid "Set the URL where the exported media content will be hosted"
+#: tools/appstream-compose.c:281
+#, fuzzy
+msgid "Set the URL where the exported media content will be hosted."
 msgstr "Définir l’URL où le contenu du média exporté sera hébergé"
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
-#: tools/appstream-compose.c:287
+#: tools/appstream-compose.c:288
 msgid ""
 "Makes all URLs in output data complete URLs and avoids the use of a shared "
 "URL prefix for all metadata."
 msgstr ""
 
+#. TRANSLATORS: ascompose flag description for: --icon-policy
+#: tools/appstream-compose.c:295
+msgid ""
+"An icon-policy string to set how icon sizes should be handled (refer to the "
+"man page for details)."
+msgstr ""
+
 #. TRANSLATORS: ascompose flag description for: --components
-#: tools/appstream-compose.c:294
-msgid "A comma-separated list of component-IDs to accept"
+#: tools/appstream-compose.c:302
+#, fuzzy
+msgid "A comma-separated list of component-IDs to accept."
 msgstr ""
 "Une liste d’identifiants de composant séparés par des virgules à accepter"
 
 #. TRANSLATORS: Error message of appstream-compose
-#: tools/appstream-compose.c:311
+#: tools/appstream-compose.c:319
 msgid "Failed to parse arguments"
 msgstr "Échec de l’analyse des arguments"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:322 tools/appstreamcli.c:1597
+#: tools/appstream-compose.c:330 tools/appstreamcli.c:1598
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Version d’AppStream : %s"
 
-#: tools/appstream-compose.c:326 tools/appstreamcli.c:1601
+#: tools/appstream-compose.c:334 tools/appstreamcli.c:1602
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -3430,7 +3447,7 @@ msgstr ""
 "Version de l’outil en ligne de commande AppStream : %s\n"
 "Version de la bibliothèque AppStream : %s"
 
-#: tools/appstream-compose.c:348
+#: tools/appstream-compose.c:356
 #, c-format
 msgid ""
 "Invalid value for `--print-report` option: %s\n"
@@ -3446,69 +3463,74 @@ msgstr ""
 "`short` — génère un rapport abrégé\n"
 "`full` — un rapport détaillé sera affiché"
 
-#: tools/appstream-compose.c:378
+#: tools/appstream-compose.c:386
 #, c-format
 msgid "Automatically selected '%s' as data output location."
 msgstr ""
 "'%s' sélectionné automatiquement comme localisation de sortie des données."
 
-#: tools/appstream-compose.c:383
+#: tools/appstream-compose.c:391
 msgid "No destination directory set, please provide a data output location!"
 msgstr ""
 "Aucun répertoire de destination défini, veuillez fournir une localisation de "
 "sortie des données !"
 
-#: tools/appstream-compose.c:396 tools/appstream-compose.c:398
+#: tools/appstream-compose.c:404 tools/appstream-compose.c:406
 msgid "WARNING"
 msgstr "AVERTISSEMENT"
 
+#: tools/appstream-compose.c:438
+#, fuzzy
+msgid "Unable to set icon policy"
+msgstr "Impossible de lire le fichier."
+
 #. TRANSLATORS: Information about as-compose allowlist
-#: tools/appstream-compose.c:439
+#: tools/appstream-compose.c:456
 #, c-format
 msgid "Only accepting components: %s"
 msgstr "Seuls composants acceptés : %s"
 
 #. TRANSLATORS: Information about as-compose allowlist
-#: tools/appstream-compose.c:442
+#: tools/appstream-compose.c:459
 #, c-format
 msgid "Only accepting component: %s"
 msgstr "Seul composant accepté : %s"
 
 #. TRANSLATORS: Information about as-compose units to be processed
-#: tools/appstream-compose.c:447
+#: tools/appstream-compose.c:464
 msgid "Processing directories:"
 msgstr "Traitement des répertoires :"
 
 #. TRANSLATORS: Information about as-compose units to be processed
-#: tools/appstream-compose.c:450
+#: tools/appstream-compose.c:467
 msgid "Processing directory:"
 msgstr "Traitement du répertoire :"
 
 #. TRANSLATORS: Error message
-#: tools/appstream-compose.c:459
+#: tools/appstream-compose.c:476
 msgid "Can not process invalid directory"
 msgstr "Impossible de traiter un répertoire invalide"
 
 #. TRANSLATORS: Information message
-#: tools/appstream-compose.c:471
+#: tools/appstream-compose.c:488
 msgid "Composing metadata..."
 msgstr "Composition des métadonnées…"
 
 #. TRANSLATORS: Error message
-#: tools/appstream-compose.c:476
+#: tools/appstream-compose.c:493
 msgid "Failed to compose AppStream metadata"
 msgstr "Échec de la composition des métadonnées AppStream"
 
 #. TRANSLATORS: appstream-compose failed to include all data
-#: tools/appstream-compose.c:482
+#: tools/appstream-compose.c:499
 msgid "Run failed, some data was ignored."
 msgstr "L’exécution a échoué, certaines données ont été ignorées."
 
-#: tools/appstream-compose.c:485
+#: tools/appstream-compose.c:502
 msgid "Errors were raised during this compose run:"
 msgstr "Des erreurs ont été levées durant l’exécution de cette composition :"
 
-#: tools/appstream-compose.c:488
+#: tools/appstream-compose.c:505
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
@@ -3516,12 +3538,12 @@ msgstr ""
 "Consulter les données du rapport de bogue généré pour des détails sur les "
 "problèmes individuels."
 
-#: tools/appstream-compose.c:492
+#: tools/appstream-compose.c:509
 msgid "Overview of generated hints:"
 msgstr "Vue d’ensemble des indices générés :"
 
 #. TRANSLATORS: Information message
-#: tools/appstream-compose.c:494
+#: tools/appstream-compose.c:511
 msgid "Success!"
 msgstr "Succès !"
 
@@ -3589,7 +3611,7 @@ msgid "Override the severities of selected issue tags."
 msgstr "Remplace les sévérités des balises de problème sélectionnés."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
-#: tools/appstreamcli.c:179 tools/appstreamcli.c:1252
+#: tools/appstreamcli.c:179 tools/appstreamcli.c:1253
 msgid "AppStream command-line interface"
 msgstr "Interface en ligne de commande AppStream"
 
@@ -3604,7 +3626,7 @@ msgstr "commande « %s »"
 msgid "Option '%s' is unknown."
 msgstr "L’option « %s » est inconnue."
 
-#: tools/appstreamcli.c:223 tools/appstreamcli.c:1573
+#: tools/appstreamcli.c:223 tools/appstreamcli.c:1574
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -3771,47 +3793,46 @@ msgstr ""
 "Génère la sortie dans le format sélectionné (« yaml », « text » ou "
 "« markdown »)."
 
-#. TRANSLATORS: appstreamcli-compose was not found
-#: tools/appstreamcli.c:1126
+#: tools/appstreamcli.c:1127
 #, fuzzy, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
 msgstr ""
 "Le binaire de composition '%s' n’a pas été trouvé ! Impossible de continuer."
 
-#: tools/appstreamcli.c:1130
+#: tools/appstreamcli.c:1131
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr ""
 "Vous pouvez peut-être installer l’extension AppStream Compose via : « %s »"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
-#: tools/appstreamcli.c:1139
+#: tools/appstreamcli.c:1140
 msgid "Invalid number of parameters"
 msgstr "Nombre de paramètres invalide"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
-#: tools/appstreamcli.c:1157
+#: tools/appstreamcli.c:1158
 #, fuzzy, c-format
 msgid "Compose operation failed to execute: %s"
 msgstr "Validation échouée : %s"
 
-#: tools/appstreamcli.c:1167
+#: tools/appstreamcli.c:1168
 #, fuzzy, c-format
 msgid "Compose failed: %s"
 msgstr "Validation échouée : %s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:1224
+#: tools/appstreamcli.c:1225
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(Alias : « %s »)"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1254
+#: tools/appstreamcli.c:1255
 msgid "Subcommands:"
 msgstr "Sous-commandes :"
 
-#: tools/appstreamcli.c:1308
+#: tools/appstreamcli.c:1309
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -3819,7 +3840,7 @@ msgstr ""
 "Vous pouvez trouver des informations concernant les options spécifiques à "
 "une sous-commande en passant « --help » à la sous-commande."
 
-#: tools/appstreamcli.c:1332
+#: tools/appstreamcli.c:1333
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -3827,28 +3848,23 @@ msgstr ""
 "Commande « %s » inconnue. Lancer « %s --help » pour afficher la liste "
 "complète des options disponibles en ligne de commande."
 
-#. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstreamcli.c:1363
-msgid "Show extra debugging information."
-msgstr "Affiche des informations de débogage supplémentaires."
-
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstreamcli.c:1374
+#: tools/appstreamcli.c:1375
 msgid "Enable profiling"
 msgstr "Activer le profilage"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1389
+#: tools/appstreamcli.c:1390
 msgid "Search the component database."
 msgstr "Cherche dans la base de données des composants."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1396
+#: tools/appstreamcli.c:1397
 msgid "Get information about a component by its ID."
 msgstr "Obtenir des informations sur un composant par son identifiant."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1403
+#: tools/appstreamcli.c:1404
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
@@ -3857,41 +3873,41 @@ msgstr ""
 "d’item (p. ex. lib, bin, python3…) et une valeur d’item en paramètre."
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
-#: tools/appstreamcli.c:1411
+#: tools/appstreamcli.c:1412
 msgid "List components that are part of the specified categories."
 msgstr "Liste les composants qui font partie des catégories spécifiées."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1420
+#: tools/appstreamcli.c:1421
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Sauvegarde les métadonnées XML brutes pour un composant correspondant à "
 "l’identifiant."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1428
+#: tools/appstreamcli.c:1429
 msgid "Rebuild the component metadata cache."
 msgstr "Reconstruire le cache des métadonnées du composant."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1436
+#: tools/appstreamcli.c:1437
 msgid "Validate AppStream XML files for issues."
 msgstr "Valider les fichiers XML AppStream."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1443
+#: tools/appstreamcli.c:1444
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Valider les métadonnées d’une arborescence de fichiers installée d’une "
 "application."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1451
+#: tools/appstreamcli.c:1452
 msgid "Check license string for validity and print details about it."
 msgstr "Vérifie la validité de la licence et affiche ses détails."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1459
+#: tools/appstreamcli.c:1460
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
@@ -3900,7 +3916,7 @@ msgstr ""
 "métainfo) sont satisfaits sur ce système."
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
-#: tools/appstreamcli.c:1467
+#: tools/appstreamcli.c:1468
 #, fuzzy
 msgid ""
 "Check compatibility of a component (via its ID or MetaInfo file) with common "
@@ -3910,45 +3926,45 @@ msgstr ""
 "métainfo) sont satisfaits sur ce système."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1476
+#: tools/appstreamcli.c:1477
 msgid "Install software matching the component-ID."
 msgstr "Installe le logiciel correspondant à l’identifiant du composant."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1483
+#: tools/appstreamcli.c:1484
 msgid "Remove software matching the component-ID."
 msgstr "Désinstalle le logiciel correspondant à l’identifiant du composant."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1491
+#: tools/appstreamcli.c:1492
 msgid "Display status information about available AppStream metadata."
 msgstr ""
 "Affiche des informations d’état sur les métadonnées AppStream disponibles."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
-#: tools/appstreamcli.c:1499
+#: tools/appstreamcli.c:1500
 msgid "Show information about the current device and used operating system."
 msgstr ""
 "Affiche les informations sur l’appareil courant et le système d’exploitation "
 "utilisé."
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1507
+#: tools/appstreamcli.c:1508
 msgid "Install a metadata file into the right location."
 msgstr "Installe un fichier de métadonnées au bon emplacement."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1515
+#: tools/appstreamcli.c:1516
 msgid "Convert metadata catalog XML to YAML or vice versa."
 msgstr "Converti un catalogue XML en YAML ou vice versa."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1522
+#: tools/appstreamcli.c:1523
 msgid "Compare two version numbers."
 msgstr "Compare deux numéros de version."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1531
+#: tools/appstreamcli.c:1532
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -3956,32 +3972,32 @@ msgstr ""
 "Créer un modèle pour un fichier métainfo (à remplir par le projet en amont)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1539
+#: tools/appstreamcli.c:1540
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Créer un fichier bureau XDG à partir d’un fichier métainfo."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1547
+#: tools/appstreamcli.c:1548
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr ""
 "Converti un fichier YAML ou un fichier texte NEWS en une version métainfo."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1555
+#: tools/appstreamcli.c:1556
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 "Écrit le texte NEWS ou le fichier YAML avec les informations d’un fichier "
 "métainfo."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1563
+#: tools/appstreamcli.c:1564
 msgid "Compose AppStream metadata catalog from directory trees."
 msgstr ""
 "Compose le catalogue de métadonnées AppStream depuis l’arborescence des "
 "répertoires."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1571
+#: tools/appstreamcli.c:1572
 msgid "You need to specify a command."
 msgstr "Vous devez spécifier une commande."
 
@@ -4670,6 +4686,9 @@ msgstr "Éléments fournis"
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr "Veuillez entrer un nombre entre 1 et %i : "
+
+#~ msgid "Show extra debugging information"
+#~ msgstr "Affiche des informations de débogage supplémentaires"
 
 #~ msgid "Python (Version 2)"
 #~ msgstr "Python (version 2)"

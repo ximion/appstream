@@ -50,7 +50,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2024-02-24 02:51+0100\n"
+"POT-Creation-Date: 2024-02-24 21:36+0100\n"
 "PO-Revision-Date: 2023-08-17 13:45+0000\n"
 "Last-Translator: Gary Wang <wzc782970009@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -1488,7 +1488,7 @@ msgstr "此软件要求显示器的最长边为 %s %lu px，但此设备的显�
 msgid "Display size is sufficient for this software."
 msgstr "显示尺寸足以满足此软件的需求。"
 
-#: src/as-relation.c:1918
+#: src/as-relation.c:1919
 #, c-format
 msgid ""
 "Satisfiability check for relation items of type '%s' is not implemented yet."
@@ -3065,99 +3065,115 @@ msgstr "将标签“%s”的严重性降级至允许通过验证是不允许的�
 msgid "Found: %s - Allowed: %s"
 msgstr "发现的：%s - 允许的：%s"
 
+#. TRANSLATORS: ascli flag description for: --verbose
 #. TRANSLATORS: ascompose flag description for: --verbose
-#: tools/appstream-compose.c:196
-msgid "Show extra debugging information"
-msgstr "显示额外的调试信息"
+#: tools/appstream-compose.c:197 tools/appstreamcli.c:1364
+msgid "Show extra debugging information."
+msgstr "显示额外的调试信息。"
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #. TRANSLATORS: ascompose flag description for: --no-color
-#: tools/appstream-compose.c:203 tools/appstreamcli.c:1369
+#: tools/appstream-compose.c:204 tools/appstreamcli.c:1370
 msgid "Don't show colored output."
 msgstr "不要显示彩色输出。"
 
 #. TRANSLATORS: ascli flag description for: --version
 #. TRANSLATORS: ascompose flag description for: --version
-#: tools/appstream-compose.c:210 tools/appstreamcli.c:1357
+#: tools/appstream-compose.c:211 tools/appstreamcli.c:1358
 msgid "Show the program version."
 msgstr "显示程序版本."
 
 #. TRANSLATORS: ascompose flag description for: --no-net
-#: tools/appstream-compose.c:217
+#: tools/appstream-compose.c:218
 msgid "Do not use the network at all, not even for URL validity checks."
 msgstr "根本不使用网络，甚至不要用于 URL 有效性检查。"
 
 #. TRANSLATORS: ascompose flag description for: --print-report
-#: tools/appstream-compose.c:224
-msgid "Set mode of the issue report that is printed to the console"
+#: tools/appstream-compose.c:225
+#, fuzzy
+msgid "Set mode of the issue report that is printed to the console."
 msgstr "为打印在终端中的问题报告设置模式"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
-#: tools/appstream-compose.c:231
-msgid "Override the default prefix (`/usr` by default)"
+#: tools/appstream-compose.c:232
+#, fuzzy
+msgid "Override the default prefix (`/usr` by default)."
 msgstr "覆盖默认前缀（默认为“/usr”）"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
-#: tools/appstream-compose.c:238
-msgid "Set the result output directory"
+#: tools/appstream-compose.c:239
+#, fuzzy
+msgid "Set the result output directory."
 msgstr "设置结果输出目录"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
-#: tools/appstream-compose.c:245
+#: tools/appstream-compose.c:246
 #, fuzzy
-msgid "Override the catalog metadata output directory"
+msgid "Override the catalog metadata output directory."
 msgstr "覆盖集合元数据输出目录"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
-#: tools/appstream-compose.c:252
-msgid "Override the icon output directory"
+#: tools/appstream-compose.c:253
+#, fuzzy
+msgid "Override the icon output directory."
 msgstr "覆盖图标输出目录"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
-#: tools/appstream-compose.c:259
+#: tools/appstream-compose.c:260
+#, fuzzy
 msgid ""
-"Set the media output directory (for media data to be served by a webserver)"
+"Set the media output directory (for media data to be served by a webserver)."
 msgstr "设置媒体输出目录 (用于将由 web 服务器提供的媒体数据)"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
-#: tools/appstream-compose.c:266
-msgid "Set a directory where HTML and text issue reports will be stored"
+#: tools/appstream-compose.c:267
+#, fuzzy
+msgid "Set a directory where HTML and text issue reports will be stored."
 msgstr "设置 HTML 和 纯文本问题报告存放的目录"
 
 #. TRANSLATORS: ascompose flag description for: --origin
-#: tools/appstream-compose.c:273
+#: tools/appstream-compose.c:274
 msgid "Set the origin name"
 msgstr "设置来源的名称"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
-#: tools/appstream-compose.c:280
-msgid "Set the URL where the exported media content will be hosted"
+#: tools/appstream-compose.c:281
+#, fuzzy
+msgid "Set the URL where the exported media content will be hosted."
 msgstr "设置托管导出的媒体内容的 URL"
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
-#: tools/appstream-compose.c:287
+#: tools/appstream-compose.c:288
 msgid ""
 "Makes all URLs in output data complete URLs and avoids the use of a shared "
 "URL prefix for all metadata."
 msgstr ""
 
+#. TRANSLATORS: ascompose flag description for: --icon-policy
+#: tools/appstream-compose.c:295
+msgid ""
+"An icon-policy string to set how icon sizes should be handled (refer to the "
+"man page for details)."
+msgstr ""
+
 #. TRANSLATORS: ascompose flag description for: --components
-#: tools/appstream-compose.c:294
-msgid "A comma-separated list of component-IDs to accept"
+#: tools/appstream-compose.c:302
+#, fuzzy
+msgid "A comma-separated list of component-IDs to accept."
 msgstr "接受用逗号分隔的组件 ID 列表"
 
 #. TRANSLATORS: Error message of appstream-compose
-#: tools/appstream-compose.c:311
+#: tools/appstream-compose.c:319
 msgid "Failed to parse arguments"
 msgstr "解析参数失败"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:322 tools/appstreamcli.c:1597
+#: tools/appstream-compose.c:330 tools/appstreamcli.c:1598
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream 版本：%s"
 
-#: tools/appstream-compose.c:326 tools/appstreamcli.c:1601
+#: tools/appstream-compose.c:334 tools/appstreamcli.c:1602
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -3166,7 +3182,7 @@ msgstr ""
 "AppStream CLI 工具版本：%s\n"
 "AppStream 库版本：%s"
 
-#: tools/appstream-compose.c:348
+#: tools/appstream-compose.c:356
 #, c-format
 msgid ""
 "Invalid value for `--print-report` option: %s\n"
@@ -3181,77 +3197,82 @@ msgstr ""
 "“short”- 生成缩略报告\n"
 "“full”- 打印详细报告"
 
-#: tools/appstream-compose.c:378
+#: tools/appstream-compose.c:386
 #, c-format
 msgid "Automatically selected '%s' as data output location."
 msgstr "已自动选择“%s”作为数据输出位置。"
 
-#: tools/appstream-compose.c:383
+#: tools/appstream-compose.c:391
 msgid "No destination directory set, please provide a data output location!"
 msgstr "未设置目标目录，请提供数据输出位置！"
 
-#: tools/appstream-compose.c:396 tools/appstream-compose.c:398
+#: tools/appstream-compose.c:404 tools/appstream-compose.c:406
 msgid "WARNING"
 msgstr "警告"
 
+#: tools/appstream-compose.c:438
+#, fuzzy
+msgid "Unable to set icon policy"
+msgstr "无法读取文件。"
+
 #. TRANSLATORS: Information about as-compose allowlist
-#: tools/appstream-compose.c:439
+#: tools/appstream-compose.c:456
 #, c-format
 msgid "Only accepting components: %s"
 msgstr "仅接受组件：%s"
 
 #. TRANSLATORS: Information about as-compose allowlist
-#: tools/appstream-compose.c:442
+#: tools/appstream-compose.c:459
 #, c-format
 msgid "Only accepting component: %s"
 msgstr "仅接受组件：%s"
 
 #. TRANSLATORS: Information about as-compose units to be processed
-#: tools/appstream-compose.c:447
+#: tools/appstream-compose.c:464
 msgid "Processing directories:"
 msgstr "处理目录："
 
 #. TRANSLATORS: Information about as-compose units to be processed
-#: tools/appstream-compose.c:450
+#: tools/appstream-compose.c:467
 msgid "Processing directory:"
 msgstr "处理目录："
 
 #. TRANSLATORS: Error message
-#: tools/appstream-compose.c:459
+#: tools/appstream-compose.c:476
 msgid "Can not process invalid directory"
 msgstr "无法处理无效目录"
 
 #. TRANSLATORS: Information message
-#: tools/appstream-compose.c:471
+#: tools/appstream-compose.c:488
 msgid "Composing metadata..."
 msgstr "正在整合元数据…"
 
 #. TRANSLATORS: Error message
-#: tools/appstream-compose.c:476
+#: tools/appstream-compose.c:493
 msgid "Failed to compose AppStream metadata"
 msgstr "未能编写 AppStream 元数据"
 
 #. TRANSLATORS: appstream-compose failed to include all data
-#: tools/appstream-compose.c:482
+#: tools/appstream-compose.c:499
 msgid "Run failed, some data was ignored."
 msgstr "运行失败，一些数据已被忽略。"
 
-#: tools/appstream-compose.c:485
+#: tools/appstream-compose.c:502
 msgid "Errors were raised during this compose run:"
 msgstr "在该整合运行期间发生错误："
 
-#: tools/appstream-compose.c:488
+#: tools/appstream-compose.c:505
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
 msgstr "请参阅生成的问题报告数据获取有关单独问题的详情。"
 
-#: tools/appstream-compose.c:492
+#: tools/appstream-compose.c:509
 msgid "Overview of generated hints:"
 msgstr "已生成提示的概览："
 
 #. TRANSLATORS: Information message
-#: tools/appstream-compose.c:494
+#: tools/appstream-compose.c:511
 msgid "Success!"
 msgstr "成功！"
 
@@ -3312,7 +3333,7 @@ msgid "Override the severities of selected issue tags."
 msgstr "覆盖选中问题标签的严重性。"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
-#: tools/appstreamcli.c:179 tools/appstreamcli.c:1252
+#: tools/appstreamcli.c:179 tools/appstreamcli.c:1253
 msgid "AppStream command-line interface"
 msgstr "AppStream 命令行界面"
 
@@ -3327,7 +3348,7 @@ msgstr "“%s”命令"
 msgid "Option '%s' is unknown."
 msgstr "选项“%s”未知。"
 
-#: tools/appstreamcli.c:223 tools/appstreamcli.c:1573
+#: tools/appstreamcli.c:223 tools/appstreamcli.c:1574
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "运行“%s --help”以查看可用命令行选项完整的列表。"
@@ -3468,78 +3489,72 @@ msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "以选择的格式生成输出结果（“yaml”或“text”）。"
 
-#. TRANSLATORS: appstreamcli-compose was not found
-#: tools/appstreamcli.c:1126
+#: tools/appstreamcli.c:1127
 #, fuzzy, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
 msgstr "未找到组合二进制文件“%s”！无法继续。"
 
-#: tools/appstreamcli.c:1130
+#: tools/appstreamcli.c:1131
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr "您可以通过“%s”安装 AppStream 合成附件"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
-#: tools/appstreamcli.c:1139
+#: tools/appstreamcli.c:1140
 msgid "Invalid number of parameters"
 msgstr "无效的参数数量"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
-#: tools/appstreamcli.c:1157
+#: tools/appstreamcli.c:1158
 #, fuzzy, c-format
 msgid "Compose operation failed to execute: %s"
 msgstr "验证失败：%s"
 
-#: tools/appstreamcli.c:1167
+#: tools/appstreamcli.c:1168
 #, fuzzy, c-format
 msgid "Compose failed: %s"
 msgstr "验证失败：%s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:1224
+#: tools/appstreamcli.c:1225
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "（别名：“%s”）"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1254
+#: tools/appstreamcli.c:1255
 msgid "Subcommands:"
 msgstr "子命令："
 
-#: tools/appstreamcli.c:1308
+#: tools/appstreamcli.c:1309
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr "您可以借由传递“--help”给子命令来查找子命令专属的选项信息。"
 
-#: tools/appstreamcli.c:1332
+#: tools/appstreamcli.c:1333
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
 msgstr "未知命令“%s”。运行“%s --help”查看可用命令列表。"
 
-#. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstreamcli.c:1363
-msgid "Show extra debugging information."
-msgstr "显示额外的调试信息。"
-
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstreamcli.c:1374
+#: tools/appstreamcli.c:1375
 msgid "Enable profiling"
 msgstr "启用配置文件"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1389
+#: tools/appstreamcli.c:1390
 msgid "Search the component database."
 msgstr "搜索组件数据库。"
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1396
+#: tools/appstreamcli.c:1397
 msgid "Get information about a component by its ID."
 msgstr "根据 ID 获取相应组件的信息。"
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1403
+#: tools/appstreamcli.c:1404
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
@@ -3548,116 +3563,116 @@ msgstr ""
 "数。"
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
-#: tools/appstreamcli.c:1411
+#: tools/appstreamcli.c:1412
 msgid "List components that are part of the specified categories."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1420
+#: tools/appstreamcli.c:1421
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "为 ID 匹配的组件转储原始 XML 元数据。"
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1428
+#: tools/appstreamcli.c:1429
 msgid "Rebuild the component metadata cache."
 msgstr "重建组件元数据缓存。"
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1436
+#: tools/appstreamcli.c:1437
 msgid "Validate AppStream XML files for issues."
 msgstr "验证 AppStream XML 文件以寻找问题。"
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1443
+#: tools/appstreamcli.c:1444
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "检验已安装应用程序的文件树以查找有效元数据。"
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1451
+#: tools/appstreamcli.c:1452
 msgid "Check license string for validity and print details about it."
 msgstr "检查许可证字符串的有效性并显示其详情。"
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1459
+#: tools/appstreamcli.c:1460
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
-#: tools/appstreamcli.c:1467
+#: tools/appstreamcli.c:1468
 msgid ""
 "Check compatibility of a component (via its ID or MetaInfo file) with common "
 "system and chassis types."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1476
+#: tools/appstreamcli.c:1477
 msgid "Install software matching the component-ID."
 msgstr "安装匹配 component-ID 的软件。"
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1483
+#: tools/appstreamcli.c:1484
 msgid "Remove software matching the component-ID."
 msgstr "卸载匹配 component-id 的软件。"
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1491
+#: tools/appstreamcli.c:1492
 msgid "Display status information about available AppStream metadata."
 msgstr "显示关于可用的 AppStream 元数据的状态信息。"
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
-#: tools/appstreamcli.c:1499
+#: tools/appstreamcli.c:1500
 #, fuzzy
 msgid "Show information about the current device and used operating system."
 msgstr "显示来自元数据索引有关当前操作系统的信息。"
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1507
+#: tools/appstreamcli.c:1508
 msgid "Install a metadata file into the right location."
 msgstr "将元数据文件安装到正确的位置。"
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1515
+#: tools/appstreamcli.c:1516
 #, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
 msgstr "将收藏集 XML 转换成 YAML，或是相反。"
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1522
+#: tools/appstreamcli.c:1523
 msgid "Compare two version numbers."
 msgstr "比较两个版本号。"
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1531
+#: tools/appstreamcli.c:1532
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr "为元信息文件创建一个模板（由上游项目填写）。"
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1539
+#: tools/appstreamcli.c:1540
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "从元信息文件中创建 desktop-entry 文件。"
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1547
+#: tools/appstreamcli.c:1548
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "将 YAML 或纯文本的 NEWS 文件转换为元信息发布。"
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1555
+#: tools/appstreamcli.c:1556
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr "使用来自元信息文件的信息编写 NEWS 纯文本或 YAML 文件。"
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1563
+#: tools/appstreamcli.c:1564
 #, fuzzy
 msgid "Compose AppStream metadata catalog from directory trees."
 msgstr "从目录树整合 AppStream 集合元数据。"
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1571
+#: tools/appstreamcli.c:1572
 msgid "You need to specify a command."
 msgstr "您需要指定一个命令。"
 
@@ -4309,6 +4324,9 @@ msgstr "提供的项目"
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr "请输入从 1 到 %i 的数字： "
+
+#~ msgid "Show extra debugging information"
+#~ msgstr "显示额外的调试信息"
 
 #~ msgid "Python (Version 2)"
 #~ msgstr "Python 2"
