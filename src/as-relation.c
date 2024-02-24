@@ -1858,7 +1858,7 @@ as_relation_is_satisfied (AsRelation *relation,
 					as_relation_check_result_set_message (
 					    rcres,
 					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-					       second is the expected size and fourth is the size the current device has. */
+					       second is the expected size and third is the size the current device has. */
 					    _("This software requires a display with its longest edge being %s %lu px in size, but the display of this device has %lu px."),
 					       compare_symbols,
 					       req_length,
@@ -1867,7 +1867,7 @@ as_relation_is_satisfied (AsRelation *relation,
 					as_relation_check_result_set_message (
 					    rcres,
 					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-					       second is the expected size and fourth is the size the current device has. */
+					       second is the expected size and third is the size the current device has. */
 					    _("This software requires a display with its shortest edge being %s %lu px in size, but the display of this device has %lu px."),
 					       compare_symbols,
 					       req_length,
@@ -1877,7 +1877,7 @@ as_relation_is_satisfied (AsRelation *relation,
 					as_relation_check_result_set_message (
 					    rcres,
 					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-					       second is the expected size and fourth is the size the current device has. */
+					       second is the expected size and third is the size the current device has. */
 					    _("This software recommends a display with its longest edge being %s %lu px in size, but the display of this device has %lu px."),
 					       compare_symbols,
 					       req_length,
@@ -1886,7 +1886,7 @@ as_relation_is_satisfied (AsRelation *relation,
 					as_relation_check_result_set_message (
 					    rcres,
 					    /* TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-					       second is the expected size and fourth is the size the current device has. */
+					       second is the expected size and third is the size the current device has. */
 					    _("This software recommends a display with its shortest edge being %s %lu px in size, but the display of this device has %lu px."),
 					       compare_symbols,
 					       req_length,
@@ -1915,7 +1915,7 @@ as_relation_is_satisfied (AsRelation *relation,
 	g_set_error (error,
 		     AS_RELATION_ERROR,
 		     AS_RELATION_ERROR_NOT_IMPLEMENTED,
-		     _("Relation satisfy check for items of type '%s' is not implemented yet."),
+		     _("Satisfiability check for relation items of type '%s' is not implemented yet."),
 			as_relation_item_kind_to_string (priv->item_kind));
 
 	return NULL;

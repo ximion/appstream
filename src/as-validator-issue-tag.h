@@ -169,12 +169,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "cid-missing-affiliation-kde",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  N_("The component is part of the KDE project, but its ID does not start with KDEs reverse-DNS name (\"org.kde\").")
+	  N_("The component is part of the KDE project, but its ID does not start with KDE's reverse-DNS name (\"org.kde\").")
 	},
 
 	{ "cid-missing-affiliation-gnome",
 	  AS_ISSUE_SEVERITY_INFO,
-	  N_("The component is part of the GNOME project, but its ID does not start with GNOMEs reverse-DNS name (\"org.gnome\").")
+	  N_("The component is part of the GNOME project, but its ID does not start with GNOME's reverse-DNS name (\"org.gnome\").")
 	},
 
 	{ "spdx-expression-invalid",
@@ -1054,13 +1054,13 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "content-rating-type-missing",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("The  `type` attribute of this `content_rating` element is missing or empty."),
+	  N_("The `type` attribute of this `content_rating` element is missing or empty."),
 	},
 
 	{ "content-rating-type-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("The  `type` attribute of the `content_rating` element has a invalid value."),
+	  N_("The `type` attribute of the `content_rating` element has an invalid value."),
 	},
 
 	{ "content-rating-invalid-tag",
@@ -1072,13 +1072,13 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "content-attribute-id-missing",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("The  `id` attribute of the `content_attribute` element is missing or empty."),
+	  N_("The `id` attribute of the `content_attribute` element is missing or empty."),
 	},
 
 	{ "content-attribute-id-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("The  `id` attribute of the `content_attribute` element has a invalid value."),
+	  N_("The `id` attribute of the `content_attribute` element has an invalid value."),
 	},
 
 	{ "content-attribute-value-empty",

@@ -1123,7 +1123,7 @@ as_client_run_compose (const gchar *command, char **argv, int argc)
 #endif
 	if (!g_file_test (ascompose_exe, G_FILE_TEST_EXISTS)) {
 		/* TRANSLATORS: appstreamcli-compose was not found */
-		ascli_print_stderr (_("Compose binary '%s' was not found! Can not continue."),
+		ascli_print_stderr (_("AppStream Compose binary '%s' was not found! Can not continue."),
 				       ascompose_exe);
 		/* TRANSLATORS: appstreamcli-compose was not found - info text */
 		ascli_print_stderr (
@@ -1153,7 +1153,8 @@ as_client_run_compose (const gchar *command, char **argv, int argc)
 			   NULL,
 			   &wait_status,
 			   &error)) {
-		ascli_print_stderr (_("Compose failed to execute: %s"), error->message);
+		/* TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs. */
+		ascli_print_stderr (_("Compose operation failed to execute: %s"), error->message);
 		return 6;
 	}
 
