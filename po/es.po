@@ -37,10 +37,9 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-02-24 02:51+0100\n"
-"PO-Revision-Date: 2024-02-23 23:02+0000\n"
+"PO-Revision-Date: 2024-02-24 13:06+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
-"translations/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1514,12 +1513,10 @@ msgid "Display size is sufficient for this software."
 msgstr "El tamaño de la pantalla es suficiente para este software."
 
 #: src/as-relation.c:1918
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr ""
-"La verificación de satisfacción para elementos del tipo '%s' aún no está "
-"implementada."
+msgstr "Verificación de satisfacción para elementos de relación de tipo '%s ' aún no está implementado."
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
@@ -1899,22 +1896,16 @@ msgstr ""
 "con el nombre DNS inverso de fd.o (\"org.freedesktop\")."
 
 #: src/as-validator-issue-tag.h:172
-#, fuzzy
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDE's reverse-DNS name (\"org.kde\")."
-msgstr ""
-"El componente es parte del proyecto KDE, pero su ID no comienza con el "
-"nombre de KDE (\"org.kde\")."
+msgstr "El componente forma parte del proyecto KDE, pero su ID no empieza por el nombre DNS inverso de KDE (\"org.kde\")."
 
 #: src/as-validator-issue-tag.h:177
-#, fuzzy
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr ""
-"El componente es parte del proyecto GNOME, pero su ID no comienza con el "
-"nombre de GNOMEs reverse-DNS (\"org.gnome\")."
+msgstr "El componente forma parte del proyecto GNOME, pero su ID no empieza por el nombre DNS inverso de GNOME (\"org.gnome\")."
 
 #: src/as-validator-issue-tag.h:182
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -2497,7 +2488,7 @@ msgstr "Ya se definió un URL de este tipo."
 msgid ""
 "This component is missing an `url` element of type `homepage` to link to the "
 "project's homepage."
-msgstr ""
+msgstr "A este componente le falta un elemento `url` de tipo `homepage` para enlazar con la página de inicio del proyecto."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:595
@@ -2513,7 +2504,7 @@ msgstr ""
 msgid ""
 "This component contains no `developer` element with information about its "
 "author."
-msgstr ""
+msgstr "Este componente no contiene ningún elemento `developer` con información sobre su autor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
@@ -2540,7 +2531,7 @@ msgstr ""
 msgid ""
 "The `developer` block does not have a `name` element with a human-readable "
 "project author name."
-msgstr ""
+msgstr "El bloque `developer` no tiene un elemento `name` con un nombre de autor del proyecto legible por humanos."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:627
@@ -3157,19 +3148,15 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1057
-#, fuzzy
 msgid ""
 "The `type` attribute of this `content_rating` element is missing or empty."
-msgstr ""
-"El atributo `type` de este elemento `content_rating` falta o está vacío."
+msgstr "El atributo `type` de este elemento `content_rating` falta o está vacío."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1063
-#, fuzzy
 msgid ""
 "The `type` attribute of the `content_rating` element has an invalid value."
-msgstr ""
-"El atributo `type` del elemento `content_rating` tiene un valor no válido."
+msgstr "El atributo `type` del elemento `content_rating` tiene un valor no válido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1069
@@ -3179,18 +3166,15 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1075
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element is missing or empty."
 msgstr "El atributo `id` del elemento `content_attribute` falta o está vacío."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1081
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element has an invalid value."
-msgstr ""
-"El atributo `id` del elemento `content_attribute` tiene un valor no válido."
+msgstr "El atributo `id` del elemento `content_attribute` tiene un valor no válido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1087
@@ -3813,9 +3797,9 @@ msgstr ""
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1126
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
-msgstr "No se encontró el binario de composición «%s». No se puede continuar."
+msgstr "Binario del ensamblado de AppStream \"%s ” ¡no encontrado! No puedo continuar."
 
 #: tools/appstreamcli.c:1130
 #, c-format
@@ -3829,9 +3813,9 @@ msgstr "Número de parámetros no válido"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1157
-#, fuzzy, c-format
+#, c-format
 msgid "Compose operation failed to execute: %s"
-msgstr "No se pudo ejecutar Compose: %s"
+msgstr "La operación de redacción no se pudo ejecutar: %s"
 
 #: tools/appstreamcli.c:1167
 #, c-format
