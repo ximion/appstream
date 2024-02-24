@@ -13,8 +13,8 @@
                                /component/summary |
                                /component/description |
                                /component/developer_name |
-                               /component/name_variant_suffix |
                                /component/developer/name |
+                               /component/name_variant_suffix |
                                /component/keywords/keyword |
                                /component/screenshots/screenshot/caption |
                                /component/releases/release/description |
@@ -29,11 +29,16 @@
                      translate="no"/>
   <its:translateRule selector="/component/developer_name[@translate = 'no']"
                      translate="no"/>
+  <its:translateRule selector="/component/developer/name[@translate = 'no']"
+                     translate="no"/>
   <its:translateRule selector="/component/name_variant_suffix[@translate = 'no']"
                      translate="no"/>
   <its:translateRule selector="/component/keywords/keyword[@translate = 'no']"
                      translate="no"/>
   <its:translateRule selector="/component/releases/release/description[@translate = 'no']"
+                     translate="no"/>
+  <its:translateRule selector="/component/agreement/agreement_section/name[@translate = 'no'] |
+                               /component/agreement/agreement_section/description[@translate = 'no']"
                      translate="no"/>
 
   <!-- Release metadata -->
