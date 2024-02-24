@@ -181,6 +181,7 @@ main (int argc, char **argv)
 	g_autofree gchar *media_baseurl = NULL;
 	g_autofree gchar *prefix = NULL;
 	g_autofree gchar *components_str = NULL;
+	g_autofree gchar *icon_policy_str = NULL;
 	gboolean no_partial_urls = FALSE;
 	g_autoptr(GError) error = NULL;
 	g_autoptr(AscCompose) compose = NULL;
@@ -193,7 +194,7 @@ main (int argc, char **argv)
 		  'v', 0,
 		  G_OPTION_ARG_NONE, &verbose,
 		  /* TRANSLATORS: ascompose flag description for: --verbose */
-		  _("Show extra debugging information"),
+		  _("Show extra debugging information."),
 		  NULL },
 
 		{ "no-color",
@@ -221,49 +222,49 @@ main (int argc, char **argv)
 		  '\0', 0,
 		  G_OPTION_ARG_STRING, &report_mode_str,
 		  /* TRANSLATORS: ascompose flag description for: --print-report */
-		  _("Set mode of the issue report that is printed to the console"),
+		  _("Set mode of the issue report that is printed to the console."),
 		  "MODE" },
 
 		{ "prefix",
 		  '\0', 0,
 		  G_OPTION_ARG_FILENAME, &prefix,
 		  /* TRANSLATORS: ascompose flag description for: --prefix */
-		  _("Override the default prefix (`/usr` by default)"),
+		  _("Override the default prefix (`/usr` by default)."),
 		  "DIR" },
 
 		{ "result-root",
 		  '\0', 0,
 		  G_OPTION_ARG_FILENAME, &res_root_dir,
 		  /* TRANSLATORS: ascompose flag description for: --result-root */
-		  _("Set the result output directory"),
+		  _("Set the result output directory."),
 		  "DIR" },
 
 		{ "data-dir",
 		  '\0', 0,
 		  G_OPTION_ARG_FILENAME, &mdata_dir,
 		  /* TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term */
-		  _("Override the catalog metadata output directory"),
+		  _("Override the catalog metadata output directory."),
 		  "DIR" },
 
 		{ "icons-dir",
 		  '\0', 0,
 		  G_OPTION_ARG_FILENAME, &icons_dir,
 		  /* TRANSLATORS: ascompose flag description for: --icons-dir */
-		  _("Override the icon output directory"),
+		  _("Override the icon output directory."),
 		  "DIR" },
 
 		{ "media-dir",
 		  '\0', 0,
 		  G_OPTION_ARG_FILENAME, &media_dir,
 		  /* TRANSLATORS: ascompose flag description for: --media-dir */
-		  _("Set the media output directory (for media data to be served by a webserver)"),
+		  _("Set the media output directory (for media data to be served by a webserver)."),
 		  "DIR" },
 
 		{ "hints-dir",
 		  '\0', 0,
 		  G_OPTION_ARG_FILENAME, &hints_dir,
 		  /* TRANSLATORS: ascompose flag description for: --hints-dir */
-		  _("Set a directory where HTML and text issue reports will be stored"),
+		  _("Set a directory where HTML and text issue reports will be stored."),
 		  "DIR" },
 
 		{ "origin",
@@ -277,7 +278,7 @@ main (int argc, char **argv)
 		  '\0', 0,
 		  G_OPTION_ARG_STRING, &media_baseurl,
 		  /* TRANSLATORS: ascompose flag description for: --media-baseurl */
-		  _("Set the URL where the exported media content will be hosted"),
+		  _("Set the URL where the exported media content will be hosted."),
 		  "NAME" },
 
 		{ "no-partial-urls",
@@ -287,11 +288,18 @@ main (int argc, char **argv)
 		  _("Makes all URLs in output data complete URLs and avoids the use of a shared URL prefix for all metadata."),
 		  NULL },
 
+		{ "icon-policy",
+		  '\0', 0,
+		  G_OPTION_ARG_STRING, &icon_policy_str,
+		  /* TRANSLATORS: ascompose flag description for: --icon-policy */
+		  _("An icon-policy string to set how icon sizes should be handled (refer to the man page for details)."),
+		  "POLICY-STRING" },
+
 		{ "components",
 		  '\0', 0,
 		  G_OPTION_ARG_STRING, &components_str,
 		  /* TRANSLATORS: ascompose flag description for: --components */
-		  _("A comma-separated list of component-IDs to accept"),
+		  _("A comma-separated list of component-IDs to accept."),
 		  "COMPONENT-IDs" },
 
 		{ NULL }
@@ -419,8 +427,17 @@ main (int argc, char **argv)
 	if (argc <= 1) {
 		g_autofree gchar *tmp = NULL;
 		tmp = g_option_context_get_help (option_context, TRUE, NULL);
-		g_print ("%s", tmp);
+		g_printerr ("%s", tmp);
 		return EXIT_FAILURE;
+	}
+
+	/* set icon policy */
+	if (icon_policy_str != NULL) {
+		AscIconPolicy *icon_policy = asc_compose_get_icon_policy (compose);
+		if (!asc_icon_policy_from_string (icon_policy, icon_policy_str, &error)) {
+			g_printerr ("%s: %s\n", _("Unable to set icon policy"), error->message);
+			return EXIT_FAILURE;
+		}
 	}
 
 	/* add allowlist for components */
@@ -456,7 +473,7 @@ main (int argc, char **argv)
 
 		if (!g_file_test (dir_path, G_FILE_TEST_IS_DIR)) {
 			/* TRANSLATORS: Error message */
-			g_print ("%s: %s\n", _("Can not process invalid directory"), dir_path);
+			g_printerr ("%s: %s\n", _("Can not process invalid directory"), dir_path);
 			return EXIT_FAILURE;
 		}
 		dirunit = asc_directory_unit_new (dir_path);
@@ -473,7 +490,7 @@ main (int argc, char **argv)
 	results = asc_compose_run (compose, NULL, &error);
 	if (results == NULL) {
 		/* TRANSLATORS: Error message */
-		g_print ("%s: %s\n", _("Failed to compose AppStream metadata"), error->message);
+		g_printerr ("%s: %s\n", _("Failed to compose AppStream metadata"), error->message);
 		return EXIT_FAILURE;
 	}
 
@@ -484,8 +501,8 @@ main (int argc, char **argv)
 		composecli_print_hints_report (results,
 					       _("Errors were raised during this compose run:"),
 						  report_mode);
-		g_print ("%s\n",
-			 _("Refer to the generated issue report data for details on the individual problems."));
+		g_printerr ("%s\n",
+			    _("Refer to the generated issue report data for details on the individual problems."));
 		return EXIT_FAILURE;
 	} else {
 		composecli_print_hints_report (results,

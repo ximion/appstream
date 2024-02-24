@@ -14,7 +14,7 @@
 	<refentryinfo>
 	<title>appstreamcli compose</title>
 	<copyright>
-		<year>2020-2022</year>
+		<year>2020-2024</year>
 		<holder>Matthias Klumpp</holder>
 	</copyright>
 	<productname>AppStream</productname>
@@ -69,7 +69,7 @@
 		<variablelist>
 
 			<varlistentry>
-				<term><replaceable>SOURCE DIRECTORIES</replaceable></term>
+				<term><replaceable>SOURCE-DIRECTORIES</replaceable></term>
 				<listitem>
 					<para>
 						A list of directories to process needs to be provided as positional parameters.
@@ -180,6 +180,38 @@
 						short report if the run failed (default), <replaceable>short</replaceable> generates
 						an abridged report that is always printed and <replaceable>full</replaceable> results
 						in a detailed report to be printed.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>--no-partial-urls</option></term>
+				<listitem>
+					<para>
+						If set, all URLs in the generated data will be absolute and <code>media_baseurl</code> will not be used.
+						This makes changing the media mirror harder without regenerating all data and is generally not recommended,
+						to increase flexibility.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>--icon-policy <replaceable>POLICY-STRING</replaceable></option></term>
+				<listitem>
+					<para>
+						Override the existing icon policy with a custom one. The icon policy sets how icons of
+						different sizes should be dealt with. They can be in the icon cache only, be a remote icon in
+						the media location or be both cached and available in the remote location.
+					</para>
+					<para>
+						The icon-policy string is comprised of comma-separated <code>%{size}x%{size}@%{scale}=%{state}</code> statements.
+						The <code>size</code> and <code>scale</code> are that of the respective icon, with the scale being allowed to be
+						omitted if it is 1. The <code>state</code> can be one of <literal>remote</literal>, <literal>cached</literal> or
+						<literal>cached-remote</literal>.
+					</para>
+					<para>
+						By default, a policy of <code>48x48=cached,48x48@2=cached,64x64=cached,64x64@2=cached,128x128=cached-remote,128x128@2=cached-remote</code>
+						is selected.
 					</para>
 				</listitem>
 			</varlistentry>

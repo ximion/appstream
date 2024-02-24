@@ -1912,11 +1912,12 @@ as_relation_is_satisfied (AsRelation *relation,
 	 *   AS_RELATION_ITEM_KIND_INTERNET
 	 */
 
-	g_set_error (error,
-		     AS_RELATION_ERROR,
-		     AS_RELATION_ERROR_NOT_IMPLEMENTED,
-		     _("Satisfiability check for relation items of type '%s' is not implemented yet."),
-			as_relation_item_kind_to_string (priv->item_kind));
+	g_set_error (
+	    error,
+	    AS_RELATION_ERROR,
+	    AS_RELATION_ERROR_NOT_IMPLEMENTED,
+	    _("Satisfiability check for relation items of type '%s' is not implemented yet."),
+	       as_relation_item_kind_to_string (priv->item_kind));
 
 	return NULL;
 }

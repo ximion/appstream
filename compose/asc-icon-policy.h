@@ -66,6 +66,9 @@ typedef enum {
 	ASC_ICON_STATE_REMOTE_ONLY
 } AscIconState;
 
+const gchar   *asc_icon_state_to_string (AscIconState istate);
+AscIconState   asc_icon_state_from_string (const gchar *state_str);
+
 AscIconPolicy *asc_icon_policy_new (void);
 
 void	       asc_icon_policy_set_policy (AscIconPolicy *ipolicy,
@@ -78,5 +81,10 @@ gboolean       asc_icon_policy_iter_next (AscIconPolicyIter *iter,
 					  guint		    *size,
 					  guint		    *scale,
 					  AscIconState	    *state);
+
+gchar	      *asc_icon_policy_to_string (AscIconPolicy *ipolicy);
+gboolean       asc_icon_policy_from_string (AscIconPolicy *ipolicy,
+					    const gchar	  *serialized_policy,
+					    GError	 **error);
 
 G_END_DECLS

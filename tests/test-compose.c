@@ -949,6 +949,42 @@ test_compose_font (void)
 	asc_assert_no_hints_in_result (cres);
 }
 
+static void
+test_compose_icon_policy_serialize (void)
+{
+	g_autoptr(AscIconPolicy) ipolicy = NULL;
+	g_autofree gchar *tmp = NULL;
+	gboolean ret;
+	g_autoptr(GError) error = NULL;
+
+	ipolicy = asc_icon_policy_new ();
+	tmp = asc_icon_policy_to_string (ipolicy);
+	g_assert_cmpstr (tmp,
+			 ==,
+			 "48x48=cached,48x48@2=cached,64x64=cached,64x64@2=cached,"
+			 "128x128=cached-remote,128x128@2=cached-remote");
+	g_free (g_steal_pointer (&tmp));
+
+	ret = asc_icon_policy_from_string (
+	    ipolicy,
+	    "48x48@2=ignored,64x64=cached,64x64@2=cached-remote,128x128=remote,128x128@2=remote",
+	    &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	g_clear_error (&error);
+
+	tmp = asc_icon_policy_to_string (ipolicy);
+	g_assert_cmpstr (
+	    tmp,
+	    ==,
+	    "48x48@2=ignored,64x64=cached,64x64@2=cached-remote,128x128=remote,128x128@2=remote");
+	g_free (g_steal_pointer (&tmp));
+
+	ret = asc_icon_policy_from_string (ipolicy, "48x48-2:ignored,64x64:cached", &error);
+	g_assert_error (error, AS_UTILS_ERROR, AS_UTILS_ERROR_FAILED);
+	g_assert_false (ret);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -988,6 +1024,8 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Compose/SourceLocale", test_compose_source_locale);
 	g_test_add_func ("/AppStream/Compose/VideoInfo", test_compose_video_info);
 	g_test_add_func ("/AppStream/Compose/Font", test_compose_font);
+	g_test_add_func ("/AppStream/Compose/IconPolicySerialize",
+			 test_compose_icon_policy_serialize);
 
 	ret = g_test_run ();
 	g_free (datadir);
