@@ -33,8 +33,8 @@
 	<section id="spec-dep11-filenaming">
 		<title>File naming and location</title>
 		<para>
-			Take a look at <xref linkend="spec-asxml-filenaming"/> for AppStream XML files. While the XML data belongs into the <filename>xml</filename> subdirectory in
-			<filename>/usr/share/swcatalog</filename> (or <filename>/var/cache/swcatalog</filename>), the YAML data is stored in the <filename>yaml</filename> subdirectory.
+			Take a look at <xref linkend="spec-asxml-filenaming"/> for AppStream XML files for reference. While the XML data belongs into the <filename>xml</filename> subdirectory in
+			<filename>/usr/share/swcatalog</filename> (or <filename>/var/(lib|cache)/swcatalog</filename>), the YAML data is stored in the <filename>yaml</filename> subdirectory.
 			All other rules affecting the XML apply the DEP-11 YAML as well, including the recommendation to compress the files with gzip and the icon search logic.
 		</para>
 	</section>
