@@ -21,6 +21,7 @@
 # Ulf Lundh <ulf@lundh.me>, 2020.
 # Luna Jernberg <droidbittin@gmail.com>, 2022.
 # Kristoffer Grundström <swedishsailfishosuser@tutanota.com>, 2024.
+# bittin1ddc447d824349b2 <bittin@reimu.nl>, 2024.
 #
 # Translators:
 msgid ""
@@ -28,10 +29,9 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-02-24 02:51+0100\n"
-"PO-Revision-Date: 2024-02-22 13:02+0000\n"
-"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"PO-Revision-Date: 2024-02-24 13:06+0000\n"
+"Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1485,12 +1485,10 @@ msgid "Display size is sufficient for this software."
 msgstr "Skärmstorleken är tillräcklig för denna programvara."
 
 #: src/as-relation.c:1918
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr ""
-"Kontroll av relationsuppfyllande för objekt av typen ”%s” är inte ännu "
-"implementerad."
+msgstr "Tillfredsställelsekontroll för relationsobjekt av typen '%s' är inte implementerad ännu."
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
@@ -1862,22 +1860,16 @@ msgstr ""
 "fd.o:s omvända DNS-namn (”org.freedesktop”)."
 
 #: src/as-validator-issue-tag.h:172
-#, fuzzy
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDE's reverse-DNS name (\"org.kde\")."
-msgstr ""
-"Komponenten är en del av KDE-projektet, men dess ID startar inte med KDE:s "
-"omvända DNS-namn (”org.kde”)."
+msgstr "Denna komponent är en del av KDE-projektet, men dess ID börjar inte med KDE:s omvända DNS-namn (\"org.kde\")."
 
 #: src/as-validator-issue-tag.h:177
-#, fuzzy
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr ""
-"Komponenten är en del av GNOME-projektet, men dess ID startar inte med GNOME:"
-"s omvända DNS-namn (”org.gnome”)."
+msgstr "Denna komponent är en del av GNOME-projektet, men dess ID börjar inte med GNOME:s omvända DNS-namn (\"org.gnome\")."
 
 #: src/as-validator-issue-tag.h:182
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -2432,7 +2424,7 @@ msgstr "En URL av denna typ har redan definierats."
 msgid ""
 "This component is missing an `url` element of type `homepage` to link to the "
 "project's homepage."
-msgstr ""
+msgstr "Denna komponenten saknar ett `url`-element av typen `homepage` för att länka till projektets hemsida."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:595
@@ -2448,7 +2440,7 @@ msgstr ""
 msgid ""
 "This component contains no `developer` element with information about its "
 "author."
-msgstr ""
+msgstr "Denna komponent innehåller inget `developer`-element med information om dess utvecklare."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
@@ -2474,7 +2466,7 @@ msgstr ""
 msgid ""
 "The `developer` block does not have a `name` element with a human-readable "
 "project author name."
-msgstr ""
+msgstr "`developer` blocket har inget `name` element med ett människoläsbart projektförfattarnamn."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:627
@@ -3067,19 +3059,15 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1057
-#, fuzzy
 msgid ""
 "The `type` attribute of this `content_rating` element is missing or empty."
-msgstr ""
-"Attributet `type` för detta `content_rating`-element saknas eller är tomt."
+msgstr "`type` attributet för detta `content_rating`-element saknas eller är tomt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1063
-#, fuzzy
 msgid ""
 "The `type` attribute of the `content_rating` element has an invalid value."
-msgstr ""
-"Attributet `type` för detta `content_rating`-element har ett ogiltigt värde."
+msgstr "`type` attributet för detta `content_rating`-element har ett ogiltigt värde."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1069
@@ -3090,19 +3078,15 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1075
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element is missing or empty."
-msgstr ""
-"Attributet `id` för detta `content_attribute`-element saknas eller är tomt."
+msgstr "`id` attributet för detta `content_attribute`-element saknas eller är tomt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1081
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element has an invalid value."
-msgstr ""
-"Attributet `id` för detta `content_attribute`-element har ett ogiltigt värde."
+msgstr "`id` attributet för detta `content_attribute`-element har ett ogiltigt värde."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1087
@@ -3695,9 +3679,9 @@ msgstr "Generera utdata i valt format (”yaml”, ”text” eller ”markdown�
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1126
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
-msgstr "Sammansättningsbinär ”%s” hittades inte! Kan inte fortsätta."
+msgstr "AppStream sammansättningsbinär ”%s” hittades inte! Kan inte fortsätta."
 
 #: tools/appstreamcli.c:1130
 #, c-format
@@ -3711,9 +3695,9 @@ msgstr "Ogiltigt antal parametrar"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1157
-#, fuzzy, c-format
+#, c-format
 msgid "Compose operation failed to execute: %s"
-msgstr "Sammansättning kunde inte köras: %s"
+msgstr "Komponeringsåtgärden misslyckades att köras: %s"
 
 #: tools/appstreamcli.c:1167
 #, c-format
