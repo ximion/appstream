@@ -568,8 +568,6 @@ as_news_text_guess_section (const gchar *lines)
 static void
 as_news_text_add_markup (GString *desc, const gchar *tag, const gchar *line)
 {
-	g_autofree gchar *escaped = NULL;
-
 	/* empty line means do nothing */
 	if (line != NULL && line[0] == '\0')
 		return;
@@ -577,12 +575,7 @@ as_news_text_add_markup (GString *desc, const gchar *tag, const gchar *line)
 	if (line == NULL) {
 		g_string_append_printf (desc, "<%s>\n", tag);
 	} else {
-		gchar *tmp;
-		escaped = g_markup_escape_text (line, -1);
-		tmp = g_strrstr (escaped, " (");
-		if (tmp != NULL)
-			*tmp = '\0';
-
+		g_autofree gchar *escaped = g_markup_escape_text (line, -1);
 		g_string_append_printf (desc, "<%s>%s</%s>\n", tag, escaped, tag);
 	}
 }
