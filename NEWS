@@ -1,3 +1,50 @@
+Version 1.0.2
+~~~~~~~~~~~~~~
+Released: 2024-02-24
+
+Features:
+ * qt: Allow building for multiple Qt major versions at once
+ * Improve low-quality category check and extend its blacklist
+ * validator: Add some limited developer-ID validation
+ * validator: Emit an overridable warning if homepage URL was omitted
+ * compose: Allow rendering vector graphics to HiDPI bitmaps unconditionally
+ * compose: Allow setting a custom icon-policy on the command-line
+
+Specification:
+ * docs: Mention that <summary/> tag can be translated
+ * docs: Generate validation issue tag documentation from code
+ * docs: Add information on how to exclude elements from translation
+ * spec: Recommend using rDNS strings or Fediverse handles as developer-ID
+ * spec: Make launchable requirement for desktop-apps more strict
+
+Bugfixes:
+ * qt: Component::customValue should be const
+ * validator: Remove mention of shorthands from relation-display-length-value-invalid
+ * sysinfo: Swap arguments of g_pattern_match_simple
+ * qt: Add missing screenshot sorting function
+ * qt: pool: Add missing Q_EMIT keyword
+ * validator: Improve error message if no valid categories were found
+ * validator: Make some length limitations more strict
+ * validator: Only emit developer-name-tag-deprecated once
+ * validator: Ensure filename is properly included in location info again
+ * validator: Improve error reporting on images with missing/bad locales
+ * compose: Don't accidentally set icon scale to 0 in some cases
+ * compose: Add heuristics to show out-of-scope errors if filters were set
+ * Don't prematurely abort URL validity check during semi-large redirects
+ * docs: Update supported hashsums to reflect reality
+ * docs: Describe version comparison letters special case
+ * docs: Clarify release descriptions *must not* contain embedded URL
+ * docs: Explicitly mention /var/cache/swcatalog is a valid catalog data location
+ * tests: Fix tests with old & new FontConfig
+ * its: Allow untranslatable developer/name and agreement sections
+
+Miscellaneous:
+ * compose: Clarify that "no valid category" can mean bad ones were ignored
+ * news-convert: Don't strip out the last text in brackets
+
+Contributors:
+ Aleix Pol, Alexander Wilms, Fabio, Kolja, Matthias Klumpp, Patrick, ratijas
+
 Version 1.0.1
 ~~~~~~~~~~~~~~
 Released: 2023-12-16
