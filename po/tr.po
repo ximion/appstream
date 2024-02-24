@@ -29,10 +29,9 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-02-24 02:51+0100\n"
-"PO-Revision-Date: 2024-02-23 23:02+0000\n"
+"PO-Revision-Date: 2024-02-24 13:06+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1496,11 +1495,10 @@ msgid "Display size is sufficient for this software."
 msgstr "Ekran boyutu bu yazılım için yeterli."
 
 #: src/as-relation.c:1918
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr ""
-"'%s' türündeki ögeler için ilişki karşılama denetimi henüz uygulanmadı."
+msgstr "'%s' türündeki ögeler için ilişki karşılama denetimi henüz uygulanmadı."
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
@@ -1877,22 +1875,16 @@ msgstr ""
 "adıyla (\"org.freedesktop\") başlamıyor."
 
 #: src/as-validator-issue-tag.h:172
-#, fuzzy
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDE's reverse-DNS name (\"org.kde\")."
-msgstr ""
-"Bileşen, KDE projesinin bir parçası, ancak kimliği KDE'nin ters DNS adıyla "
-"(\"org.kde\") başlamıyor."
+msgstr "Bileşen, KDE projesinin bir parçası, ancak kimliği KDE'nin ters DNS adıyla (\"org.kde\") başlamıyor."
 
 #: src/as-validator-issue-tag.h:177
-#, fuzzy
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr ""
-"Bileşen GNOME projesinin bir parçası, ancak kimliği GNOME'un ters DNS adıyla "
-"(\"org.gnome\") başlamıyor."
+msgstr "Bileşen GNOME projesinin bir parçası, ancak kimliği GNOME'un ters DNS adıyla (\"org.gnome\") başlamıyor."
 
 #: src/as-validator-issue-tag.h:182
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -2453,7 +2445,7 @@ msgstr "Bu türde bir URL zaten tanımlandı."
 msgid ""
 "This component is missing an `url` element of type `homepage` to link to the "
 "project's homepage."
-msgstr ""
+msgstr "Bu bileşende, projenin ana sayfasına bağlantı vermek için `homepage` türünde bir `url` ögesi eksik."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:595
@@ -2469,7 +2461,7 @@ msgstr ""
 msgid ""
 "This component contains no `developer` element with information about its "
 "author."
-msgstr ""
+msgstr "Bu bileşen, yazarı hakkında bilgi içeren bir `developer` ögesi içermiyor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
@@ -2495,7 +2487,7 @@ msgstr ""
 msgid ""
 "The `developer` block does not have a `name` element with a human-readable "
 "project author name."
-msgstr ""
+msgstr "`developer` bloğunun kolay okunabilir bir proje yazarı adı içeren bir `name` ögesi yok."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:627
@@ -3087,14 +3079,12 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1057
-#, fuzzy
 msgid ""
 "The `type` attribute of this `content_rating` element is missing or empty."
-msgstr "`content_rating` ögesinin `type` özniteliğini kayıp veya boş."
+msgstr "`content_rating` ögesinin `type` özniteliğini eksik veya boş."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1063
-#, fuzzy
 msgid ""
 "The `type` attribute of the `content_rating` element has an invalid value."
 msgstr "`content_rating` ögesinin `type` özniteliğini geçersiz değer içeriyor."
@@ -3107,14 +3097,12 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1075
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element is missing or empty."
-msgstr "`content_attribute` ögesinin `id` özniteliği kayıp veya boş."
+msgstr "`content_attribute` ögesinin `id` özniteliği eksik veya boş."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1081
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element has an invalid value."
 msgstr "`content_attribute` ögesinin `id` özniteliği geçersiz değer içeriyor."
@@ -3713,9 +3701,9 @@ msgstr "Çıktıyı seçilen biçimde ('yaml', 'text' veya 'markdown') oluştur.
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1126
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
-msgstr "Oluşturma ikili dosyası '%s' bulunamadı! Devam edilemiyor."
+msgstr "AppStream Oluşturma ikili dosyası '%s' bulunamadı! Devam edilemiyor."
 
 #: tools/appstreamcli.c:1130
 #, c-format
@@ -3729,9 +3717,9 @@ msgstr "Geçersiz parametre sayısı"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1157
-#, fuzzy, c-format
+#, c-format
 msgid "Compose operation failed to execute: %s"
-msgstr "Oluşturma yürütülemedi: %s"
+msgstr "Oluşturma işlemi çalıştırılamadı: %s"
 
 #: tools/appstreamcli.c:1167
 #, c-format
