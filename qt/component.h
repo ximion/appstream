@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2023 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *

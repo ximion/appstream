@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2016 Richard Hughes <richard@hughsie.com>
- * Copyright (C) 2020-2023 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2020-2024 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
