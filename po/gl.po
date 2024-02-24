@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2024-02-24 01:43+0100\n"
+"POT-Creation-Date: 2024-02-24 02:51+0100\n"
 "PO-Revision-Date: 2023-08-29 19:54+0000\n"
 "Last-Translator: Fran Diéguez <fran.dieguez@mabishu.com>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/appstream/"
@@ -1445,7 +1445,7 @@ msgid "This software needs a display for graphical content."
 msgstr "Este software recomenda un %s para a entrada."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-#. second is the expected size and fourth is the size the current device has.
+#. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1862
 #, c-format
 msgid ""
@@ -1456,7 +1456,7 @@ msgstr ""
 "tamaño, pero a pantalla deste dispositivo ten %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-#. second is the expected size and fourth is the size the current device has.
+#. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1871
 #, c-format
 msgid ""
@@ -1467,7 +1467,7 @@ msgstr ""
 "px, pero a pantalla deste dispositivo ten %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-#. second is the expected size and fourth is the size the current device has.
+#. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1881
 #, c-format
 msgid ""
@@ -1478,7 +1478,7 @@ msgstr ""
 "%lu px, pero a pantalla deste dispositivo ten %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
-#. second is the expected size and fourth is the size the current device has.
+#. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1890
 #, c-format
 msgid ""
@@ -1493,8 +1493,9 @@ msgid "Display size is sufficient for this software."
 msgstr "O tamaño da pantalla é suficiente para este software."
 
 #: src/as-relation.c:1918
-#, c-format
-msgid "Relation satisfy check for items of type '%s' is not implemented yet."
+#, fuzzy, c-format
+msgid ""
+"Satisfiability check for relation items of type '%s' is not implemented yet."
 msgstr ""
 "A verificación de satisfacción da relación para elementos do tipo '%s' aínda "
 "non está implementada."
@@ -1873,17 +1874,19 @@ msgstr ""
 "co nome de DNS inverso de fd.o (\"org.freedesktop\")."
 
 #: src/as-validator-issue-tag.h:172
+#, fuzzy
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
-"KDEs reverse-DNS name (\"org.kde\")."
+"KDE's reverse-DNS name (\"org.kde\")."
 msgstr ""
 "O compoñente forma parte do proxecto KDE, pero o seu ID non comeza co nome "
 "de DNS inverso de KDE (\"org.kde\")."
 
 #: src/as-validator-issue-tag.h:177
+#, fuzzy
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
-"GNOMEs reverse-DNS name (\"org.gnome\")."
+"GNOME's reverse-DNS name (\"org.gnome\")."
 msgstr ""
 "O compoñente forma parte do proxecto GNOME, pero o seu ID non comeza co nome "
 "DNS inverso de GNOME (\"org.gnome\")."
@@ -3093,15 +3096,17 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1057
+#, fuzzy
 msgid ""
-"The  `type` attribute of this `content_rating` element is missing or empty."
+"The `type` attribute of this `content_rating` element is missing or empty."
 msgstr ""
 "Falta o atributo `type` deste elemento `content_rating` ou está baleiro."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1063
+#, fuzzy
 msgid ""
-"The  `type` attribute of the `content_rating` element has a invalid value."
+"The `type` attribute of the `content_rating` element has an invalid value."
 msgstr ""
 "O atributo `type` do elemento `content_rating` ten un valor non válido."
 
@@ -3112,14 +3117,16 @@ msgstr "A etiqueta `content_rating` só pode conter fillos `content_attribute`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1075
+#, fuzzy
 msgid ""
-"The  `id` attribute of the `content_attribute` element is missing or empty."
+"The `id` attribute of the `content_attribute` element is missing or empty."
 msgstr "Falta o atributo `id` do elemento `content_attribute` ou está baleiro."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1081
+#, fuzzy
 msgid ""
-"The  `id` attribute of the `content_attribute` element has a invalid value."
+"The `id` attribute of the `content_attribute` element has an invalid value."
 msgstr ""
 "O atributo `id` do elemento `content_attribute` ten un valor non válido."
 
@@ -3285,13 +3292,13 @@ msgstr "Mostrar información de depuración adicional."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #. TRANSLATORS: ascompose flag description for: --no-color
-#: tools/appstream-compose.c:203 tools/appstreamcli.c:1368
+#: tools/appstream-compose.c:203 tools/appstreamcli.c:1369
 msgid "Don't show colored output."
 msgstr "Non mostrar a saída con cores."
 
 #. TRANSLATORS: ascli flag description for: --version
 #. TRANSLATORS: ascompose flag description for: --version
-#: tools/appstream-compose.c:210 tools/appstreamcli.c:1356
+#: tools/appstream-compose.c:210 tools/appstreamcli.c:1357
 msgid "Show the program version."
 msgstr "Mostrar a versión do programa."
 
@@ -3371,12 +3378,12 @@ msgid "Failed to parse arguments"
 msgstr "Produciuse un erro ao analizar os argumentos"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:322 tools/appstreamcli.c:1596
+#: tools/appstream-compose.c:322 tools/appstreamcli.c:1597
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Versión de AppStream: %s"
 
-#: tools/appstream-compose.c:326 tools/appstreamcli.c:1600
+#: tools/appstream-compose.c:326 tools/appstreamcli.c:1601
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -3545,7 +3552,7 @@ msgid "Override the severities of selected issue tags."
 msgstr "Anular a gravidade das etiquetas de problemas seleccionadas."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
-#: tools/appstreamcli.c:179 tools/appstreamcli.c:1251
+#: tools/appstreamcli.c:179 tools/appstreamcli.c:1252
 msgid "AppStream command-line interface"
 msgstr "Interface por liña de ordes de AppStream"
 
@@ -3560,7 +3567,7 @@ msgstr "Orde «%s»"
 msgid "Option '%s' is unknown."
 msgstr "Orde «%s» descoñecida."
 
-#: tools/appstreamcli.c:223 tools/appstreamcli.c:1572
+#: tools/appstreamcli.c:223 tools/appstreamcli.c:1573
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -3727,8 +3734,8 @@ msgstr "Xera a saída no formato seleccionado ('yaml', 'text' ou 'markdown')."
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1126
-#, c-format
-msgid "Compose binary '%s' was not found! Can not continue."
+#, fuzzy, c-format
+msgid "AppStream Compose binary '%s' was not found! Can not continue."
 msgstr "Non se atopou o binario de composición '%s'!Non se pode continuar."
 
 #: tools/appstreamcli.c:1130
@@ -3741,28 +3748,29 @@ msgstr "Podes instalar o complemento AppStream Compose a través de: `%s`"
 msgid "Invalid number of parameters"
 msgstr "Número de parámetros non válido"
 
-#: tools/appstreamcli.c:1156
-#, c-format
-msgid "Compose failed to execute: %s"
+#. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
+#: tools/appstreamcli.c:1157
+#, fuzzy, c-format
+msgid "Compose operation failed to execute: %s"
 msgstr "Produciuse un erro ao executar: %s"
 
-#: tools/appstreamcli.c:1166
+#: tools/appstreamcli.c:1167
 #, c-format
 msgid "Compose failed: %s"
 msgstr "Fallou a validación: %s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:1223
+#: tools/appstreamcli.c:1224
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(Alcume: '%s')"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1253
+#: tools/appstreamcli.c:1254
 msgid "Subcommands:"
 msgstr "Subordes:"
 
-#: tools/appstreamcli.c:1307
+#: tools/appstreamcli.c:1308
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -3770,7 +3778,7 @@ msgstr ""
 "Podes atopar información sobre opcións específicas do subcomando pasando \"--"
 "help\" ao subcomando."
 
-#: tools/appstreamcli.c:1331
+#: tools/appstreamcli.c:1332
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -3779,27 +3787,27 @@ msgstr ""
 "dispoñíbeis."
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstreamcli.c:1362
+#: tools/appstreamcli.c:1363
 msgid "Show extra debugging information."
 msgstr "Mostrar información de depuración adicional."
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstreamcli.c:1373
+#: tools/appstreamcli.c:1374
 msgid "Enable profiling"
 msgstr "Activa a creación de perfiles"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1388
+#: tools/appstreamcli.c:1389
 msgid "Search the component database."
 msgstr "Buscar na base de datos de compoñentes."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1395
+#: tools/appstreamcli.c:1396
 msgid "Get information about a component by its ID."
 msgstr "Obter información sobre un compoñente polo seu ID."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1402
+#: tools/appstreamcli.c:1403
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
@@ -3809,39 +3817,39 @@ msgstr ""
 "parámetro."
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
-#: tools/appstreamcli.c:1410
+#: tools/appstreamcli.c:1411
 msgid "List components that are part of the specified categories."
 msgstr "Lista os compoñentes que forman parte das categorías especificadas."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1419
+#: tools/appstreamcli.c:1420
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Volcar metadatos XML en bruto para un compoñente que coincida co ID."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1427
+#: tools/appstreamcli.c:1428
 msgid "Rebuild the component metadata cache."
 msgstr "Reconstruír a caché de metadatos dos compoñentes."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1435
+#: tools/appstreamcli.c:1436
 msgid "Validate AppStream XML files for issues."
 msgstr "Valide os ficheiros XML de AppStream para detectar problemas."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1442
+#: tools/appstreamcli.c:1443
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Validar unha árbore de ficheiros instalada dunha aplicación para obter "
 "metadatos válidos."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1450
+#: tools/appstreamcli.c:1451
 msgid "Check license string for validity and print details about it."
 msgstr "Comprobe a validez da cadea de licenza e imprima detalles sobre ela."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1458
+#: tools/appstreamcli.c:1459
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
@@ -3850,7 +3858,7 @@ msgstr ""
 "MetaInfo) se cumpren neste sistema."
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
-#: tools/appstreamcli.c:1466
+#: tools/appstreamcli.c:1467
 #, fuzzy
 msgid ""
 "Check compatibility of a component (via its ID or MetaInfo file) with common "
@@ -3860,45 +3868,45 @@ msgstr ""
 "MetaInfo) se cumpren neste sistema."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1475
+#: tools/appstreamcli.c:1476
 msgid "Install software matching the component-ID."
 msgstr "Instale o software que coincida co ID de compoñente."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1482
+#: tools/appstreamcli.c:1483
 msgid "Remove software matching the component-ID."
 msgstr "Elimina o software que coincida co ID de compoñente."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1490
+#: tools/appstreamcli.c:1491
 msgid "Display status information about available AppStream metadata."
 msgstr ""
 "Mostra información de estado sobre os metadatos de AppStream dispoñibles."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
-#: tools/appstreamcli.c:1498
+#: tools/appstreamcli.c:1499
 msgid "Show information about the current device and used operating system."
 msgstr ""
 "Mostra información sobre o dispositivo actual e o sistema operativo "
 "utilizado."
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1506
+#: tools/appstreamcli.c:1507
 msgid "Install a metadata file into the right location."
 msgstr "Instala un ficheiro de metadatos na localización correcta."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1514
+#: tools/appstreamcli.c:1515
 msgid "Convert metadata catalog XML to YAML or vice versa."
 msgstr "Converte XML do catálogo de metadatos a YAML ou viceversa."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1521
+#: tools/appstreamcli.c:1522
 msgid "Compare two version numbers."
 msgstr "Comparar dous números de versión."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1530
+#: tools/appstreamcli.c:1531
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -3907,31 +3915,31 @@ msgstr ""
 "proxecto upstream)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1538
+#: tools/appstreamcli.c:1539
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr ""
 "Crea un ficheiro de entrada de escritorio a partir dun ficheiro de metainfo."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1546
+#: tools/appstreamcli.c:1547
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "Converte un ficheiro YAML ou NEWS de texto en versións de metainfo."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1554
+#: tools/appstreamcli.c:1555
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr ""
 "Escribe texto NEWS ou ficheiro YAML con información dun ficheiro de metainfo."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1562
+#: tools/appstreamcli.c:1563
 msgid "Compose AppStream metadata catalog from directory trees."
 msgstr ""
 "Redactar un catálogo de metadatos de AppStream a partir de árbores de "
 "directorios."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1570
+#: tools/appstreamcli.c:1571
 msgid "You need to specify a command."
 msgstr "Debe especificar unha orde."
 
