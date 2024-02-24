@@ -148,24 +148,22 @@ test_read_fontinfo (void)
 	gsize data_len;
 	g_autoptr(GList) lang_list = NULL;
 	const gchar *expected_langs_old_fontconfig[] = {
-		"aa",  "ab",	 "af",	"ak", "an",	"ast",	  "av",	   "ay",    "az-az", "ba",
-		"be",  "ber-dz", "bg",	"bi", "bin",	"bm",	  "br",	   "bs",    "bua",   "ca",
-		"ce",  "ch",	 "chm", "co", "crh",	"cs",	  "csb",   "cu",    "cv",    "cy",
-		"da",  "de",	 "ee",	"el", "en",	"eo",	  "es",	   "et",    "eu",    "fat",
-		"ff",  "fi",	 "fil", "fj", "fo",	"fr",	  "fur",   "fy",    "ga",    "gd",
-		"gl",  "gn",	 "gv",	"ha", "haw",	"ho",	  "hr",	   "hsb",   "ht",    "hu",
-		"hz",  "ia",	 "id",	"ie", "ig",	"ik",	  "io",	   "is",    "it",    "jv",
-		"kaa", "kab",	 "ki",	"kj", "kk",	"kl",	  "kr",	   "ku-am", "ku-tr", "kum",
-		"kv",  "kw",	 "kwm", "ky", "la",	"lb",	  "lez",   "lg",    "li",    "ln",
-		"lt",  "lv",	 "mg",	"mh", "mi",	"mk",	  "mn-mn", "mo",    "ms",    "mt",
-		"na",  "nb",	 "nds", "ng", "nl",	"nn",	  "no",	   "nr",    "nso",   "nv",
-		"ny",  "oc",	 "om",	"os", "pap-an", "pap-aw", "pl",	   "pt",    "qu",    "quz",
-		"rm",  "rn",	 "ro",	"ru", "rw",	"sah",	  "sc",	   "sco",   "se",    "sel",
-		"sg",  "sh",	 "shs", "sk", "sl",	"sm",	  "sma",   "smj",   "smn",   "sms",
-		"sn",  "so",	 "sq",	"sr", "ss",	"st",	  "su",	   "sv",    "sw",    "tg",
-		"tk",  "tl",	 "tn",	"to", "tr",	"ts",	  "tt",	   "tw",    "ty",    "tyv",
-		"uk",  "uz",	 "ve",	"vi", "vo",	"vot",	  "wa",	   "wen",   "wo",    "xh",
-		"yap", "yo",	 "za",	"zu", NULL
+		"aa",	  "ab",	   "af",  "an",	 "ast",	  "av",	   "ay",  "az-az", "ba",  "be",
+		"bg",	  "bi",	   "bin", "br",	 "bs",	  "bua",   "ca",  "ce",	   "ch",  "chm",
+		"co",	  "crh",   "cs",  "csb", "cv",	  "cy",	   "da",  "de",	   "en",  "eo",
+		"es",	  "et",	   "eu",  "fi",	 "fil",	  "fj",	   "fo",  "fr",	   "fur", "fy",
+		"gd",	  "gl",	   "gn",  "gv",	 "haw",	  "ho",	   "hr",  "hsb",   "ht",  "hu",
+		"ia",	  "id",	   "ie",  "ig",	 "ik",	  "io",	   "is",  "it",	   "jv",  "kaa",
+		"ki",	  "kj",	   "kk",  "kl",	 "ku-am", "ku-tr", "kum", "kv",	   "kw",  "kwm",
+		"ky",	  "la",	   "lb",  "lez", "lg",	  "li",	   "lt",  "lv",	   "mg",  "mh",
+		"mk",	  "mn-mn", "mo",  "ms",	 "mt",	  "na",	   "nb",  "nds",   "ng",  "nl",
+		"nn",	  "no",	   "nr",  "nso", "nv",	  "ny",	   "oc",  "om",	   "os",  "pap-an",
+		"pap-aw", "pl",	   "pt",  "qu",	 "quz",	  "rm",	   "rn",  "ro",	   "ru",  "rw",
+		"sah",	  "sc",	   "se",  "sel", "sg",	  "sh",	   "sk",  "sl",	   "sm",  "sma",
+		"smj",	  "smn",   "sn",  "so",	 "sq",	  "sr",	   "ss",  "st",	   "su",  "sv",
+		"sw",	  "tg",	   "tk",  "tl",	 "tn",	  "to",	   "tr",  "ts",	   "tt",  "ty",
+		"tyv",	  "uk",	   "uz",  "vi",	 "vo",	  "vot",   "wa",  "wen",   "wo",  "xh",
+		"yap",	  "za",	   "zu",  NULL
 	};
 	const gchar *expected_langs[] = {
 		"aa",	  "ab",	    "af",  "agr", "an",	 "ast", "av",  "ay",  "ayc",   "az-az",
