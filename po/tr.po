@@ -29,10 +29,9 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-02-24 21:36+0100\n"
-"PO-Revision-Date: 2024-02-24 13:06+0000\n"
+"PO-Revision-Date: 2024-02-24 21:05+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3304,48 +3303,39 @@ msgstr "URL geçerlilik denetimleri için bile ağı hiç kullanma."
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:225
-#, fuzzy
 msgid "Set mode of the issue report that is printed to the console."
-msgstr "Konsola yazdırılan sorun raporunun modunu ayarla"
+msgstr "Konsola yazdırılan sorun raporunun modunu ayarla."
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:232
-#, fuzzy
 msgid "Override the default prefix (`/usr` by default)."
-msgstr "Öntanımlı ön eki geçersiz kıl (öntanımlı olarak `/usr`)"
+msgstr "Öntanımlı ön eki geçersiz kıl (öntanımlı olarak `/usr`)."
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:239
-#, fuzzy
 msgid "Set the result output directory."
-msgstr "Sonuç çıktı dizinini ayarla"
+msgstr "Sonuç çıktı dizinini ayarla."
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:246
-#, fuzzy
 msgid "Override the catalog metadata output directory."
-msgstr "Katalog üst verileri çıktı dizinini geçersiz kıl"
+msgstr "Katalog üst verileri çıktı dizinini geçersiz kıl."
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:253
-#, fuzzy
 msgid "Override the icon output directory."
-msgstr "Simge çıktı dizinini geçersiz kıl"
+msgstr "Simge çıktı dizinini geçersiz kıl."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:260
-#, fuzzy
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)."
-msgstr ""
-"(Bir web sunucusu tarafından sunulacak ortam verileri için) Ortam çıktı "
-"dizinini ayarla"
+msgstr "(Bir web sunucusu tarafından sunulacak ortam verileri için) Ortam çıktı dizinini ayarla."
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:267
-#, fuzzy
 msgid "Set a directory where HTML and text issue reports will be stored."
-msgstr "HTML ve metin sorun raporlarının saklanacağı dizini ayarla"
+msgstr "HTML ve metin sorun raporlarının saklanacağı dizini ayarla."
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:274
@@ -3354,9 +3344,8 @@ msgstr "Kaynak adını ayarla"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:281
-#, fuzzy
 msgid "Set the URL where the exported media content will be hosted."
-msgstr "Dışa aktarılan ortam içeriğinin barındırılacağı URL'yi ayarla"
+msgstr "Dışa aktarılan ortam içeriğinin barındırılacağı URL'yi ayarla."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:288
@@ -3372,13 +3361,12 @@ msgstr ""
 msgid ""
 "An icon-policy string to set how icon sizes should be handled (refer to the "
 "man page for details)."
-msgstr ""
+msgstr "Simge boyutlarının nasıl ele alınacağını ayarlamak için bir simge ilkesi dizgesi (ayrıntılar için kılavuz sayfasına bakın)."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:302
-#, fuzzy
 msgid "A comma-separated list of component-IDs to accept."
-msgstr "Kabul edilecek bileşen kimliklerinin virgülle ayrılmış listesi"
+msgstr "Kabul edilecek bileşen kimliklerinin virgülle ayrılmış listesi."
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:319
@@ -3430,9 +3418,8 @@ msgid "WARNING"
 msgstr "UYARI"
 
 #: tools/appstream-compose.c:438
-#, fuzzy
 msgid "Unable to set icon policy"
-msgstr "Dosya okunamıyor."
+msgstr "Simge ilkesi ayarlanamıyor"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:456
