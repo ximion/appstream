@@ -1166,6 +1166,7 @@
 		<listitem>
 		<para>
 			The <code>&lt;developer/&gt;</code> element is designed to represent the developers or project responsible for development of the project described in the metadata.
+			It must appear only once per component.
 		</para>
 		<para>
 			The element should have a <literal>id</literal> property, containing a unique ID to identify the respective developer. It is recommended to use a reverse-DNS
@@ -1173,7 +1174,7 @@
 			of uniqueness.
 		</para>
 		<para>
-			Every <literal>developer</literal> element must have a <literal>name</literal> tag as child, which contains a translatable name for the
+			A <literal>developer</literal> element must have a <literal>name</literal> tag as child, which contains a translatable name for the
 			respective developer. Values might be for example "The GNOME Foundation" or "The KDE Community".
 			Hyperlinks or emails must not be used in the name; if you want to link to the developer's homepage, use the <xref linkend="tag-url"/>-tag instead.
 			The <literal>name</literal> tag is translatable.
