@@ -37,10 +37,9 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-02-24 21:36+0100\n"
-"PO-Revision-Date: 2024-02-24 13:06+0000\n"
+"PO-Revision-Date: 2024-02-25 03:44+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
-"translations/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3385,51 +3384,39 @@ msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:225
-#, fuzzy
 msgid "Set mode of the issue report that is printed to the console."
-msgstr ""
-"Establece el modo del informe de problemas que se imprime en la consola"
+msgstr "Configure el modo del informe de problemas impreso en la consola."
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:232
-#, fuzzy
 msgid "Override the default prefix (`/usr` by default)."
-msgstr "Sobrescribe el prefijo por defecto (`/usr` por defecto)"
+msgstr "Anula el prefijo por defecto (`/usr` por defecto)."
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:239
-#, fuzzy
 msgid "Set the result output directory."
-msgstr "Establece el directorio de salida de resultados"
+msgstr "Establezca el directorio de salida para los resultados."
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:246
-#, fuzzy
 msgid "Override the catalog metadata output directory."
-msgstr "Anular el directorio de salida de metadatos del catálogo"
+msgstr "Anule el directorio de salida para los metadatos del directorio."
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:253
-#, fuzzy
 msgid "Override the icon output directory."
-msgstr "Anula el directorio de salida de los iconos"
+msgstr "Anular el directorio de salida del icono."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:260
-#, fuzzy
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)."
-msgstr ""
-"Establece el directorio de salida de medios (para los datos de medios que "
-"serán provistos por un servidor web)"
+msgstr "Configure el directorio de salida de medios (para que los datos de medios se sirvan desde un servidor web)."
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:267
-#, fuzzy
 msgid "Set a directory where HTML and text issue reports will be stored."
-msgstr ""
-"Establece un directorio en el que se almacenarán los informes de problemas "
-"HTML y de texto"
+msgstr "Establezca un directorio en el que se almacenarán los informes de errores HTML y de texto."
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:274
@@ -3438,9 +3425,8 @@ msgstr "Establece el nombre de origen"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:281
-#, fuzzy
 msgid "Set the URL where the exported media content will be hosted."
-msgstr "Establece la URL donde se alojará el contenido multimedia exportado"
+msgstr "Establezca la URL donde se alojará el contenido multimedia exportado."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:288
@@ -3457,13 +3443,12 @@ msgstr ""
 msgid ""
 "An icon-policy string to set how icon sizes should be handled (refer to the "
 "man page for details)."
-msgstr ""
+msgstr "Una cadena icon-policy para establecer cómo deben manejarse los tamaños de los iconos (consulte la página man para más detalles)."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:302
-#, fuzzy
 msgid "A comma-separated list of component-IDs to accept."
-msgstr "Una lista separada por comas de los ID de los componentes a aceptar"
+msgstr "Una lista separada por comas de los ID de componentes que se aceptarán."
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:319
@@ -3517,9 +3502,8 @@ msgid "WARNING"
 msgstr "ADVERTENCIA"
 
 #: tools/appstream-compose.c:438
-#, fuzzy
 msgid "Unable to set icon policy"
-msgstr "No se puede leer el archivo."
+msgstr "No se puede establecer la política de iconos"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:456
