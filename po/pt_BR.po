@@ -5,7 +5,7 @@
 # Translators:
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2016
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2015-2016
-# Rafael Fontenelle <rafaelff@gnome.org>, 2017, 2019, 2020, 2021, 2022, 2023.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2017, 2019, 2020, 2021, 2022, 2023, 2024.
 # Wellington Terumi Uemura <wellingtonuemura@gmail.com>, 2020, 2021, 2022.
 # André Marcelo Alvarenga <andrealvarenga@gmx.net>, 2020, 2021.
 # #-#-#-#-#  pt_BR.po (appstream)  #-#-#-#-#
@@ -37,7 +37,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-02-24 21:36+0100\n"
 "PO-Revision-Date: 2024-02-25 03:44+0000\n"
-"Last-Translator: Gabriel Guerreiro <gabriel.eu.br@gmail.com>\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -785,10 +785,8 @@ msgstr "Impossível falar com outros usuários"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1019
-#, fuzzy
 msgid "Moderated audio or video chat functionality between users"
-msgstr ""
-"Funcionalidade de chamada de vídeo ou de áudio sem controle entre usuários"
+msgstr "Funcionalidade de chamada de vídeo ou de áudio com controle entre usuários"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1021
@@ -1960,13 +1958,12 @@ msgstr "A propriedade `width` deve ser um número inteiro e positivo."
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:223
 msgid "The `height` property must be a positive integer."
-msgstr "A propriedade `altura` deve ser um número inteiro e positivo."
+msgstr "A propriedade `height` deve ser um número inteiro e positivo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:229
-#, fuzzy
 msgid "The `scale` property must be a positive integer."
-msgstr "A propriedade `altura` deve ser um número inteiro e positivo."
+msgstr "A propriedade `scale` deve ser um número inteiro e positivo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
