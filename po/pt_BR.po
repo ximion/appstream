@@ -36,7 +36,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-02-24 21:36+0100\n"
-"PO-Revision-Date: 2024-02-25 03:44+0000\n"
+"PO-Revision-Date: 2024-02-26 01:02+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -1507,12 +1507,10 @@ msgid "Display size is sufficient for this software."
 msgstr "O tamanho da tela é suficiente para este software."
 
 #: src/as-relation.c:1919
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr ""
-"A verificação de satisfação da relação para itens do tipo '%s' ainda não foi "
-"implementada."
+msgstr "A verificação de satisfação para itens de relação do tipo '%s' ainda não foi implementada."
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
@@ -2025,10 +2023,9 @@ msgstr ""
 "captura de tela ou vídeo."
 
 #: src/as-validator-issue-tag.h:287
-#, fuzzy
 msgid ""
 "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr "Uma captura de tela deve ter pelo menos uma imagem do tipo `source`."
+msgstr "Uma captura de tela deve ter pelo menos uma imagem que tenha fator de escala de 1."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:293
@@ -2220,16 +2217,11 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
-#, fuzzy
 msgid ""
 "This `display_length` item contains an invalid display length. Its value "
 "must be a positive integer value denoting logical pixels. Please refer to "
 "the AppStream specification for more information on this tag."
-msgstr ""
-"Este item `display_length` contém um comprimento de exibição inválido. Seu "
-"valor deve ser uma string curta, ou um valor inteiro positivo denotando "
-"pixels lógicos. Consulte a especificação do AppStream para mais informações "
-"sobre esta tag."
+msgstr "Este item `display_length` contém um comprimento de exibição inválido. Seu valor deve ser um valor inteiro positivo denotando pixels lógicos. Consulte a especificação do AppStream para mais informações sobre esta tag."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:418
@@ -2487,9 +2479,8 @@ msgstr "O bloco `developer`não possui um elemento `name`com o nome do autor do 
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:627
-#, fuzzy
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr "O <developer_name/> não contém um hiperlink."
+msgstr "O filho `name` de um bloco `developer` não deve conter um hiperlink."
 
 #: src/as-validator-issue-tag.h:632
 msgid ""
@@ -2762,15 +2753,12 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:823
-#, fuzzy
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher). "
 "Modern files use the `component` root tag and include many other "
 "differences, so check for changes carefully when modernizing the data."
-msgstr ""
-"O arquivo metainfo usa uma versão antiga da especificação do AppStream, que "
-"não pode ser validada. Por favor, migre para a versão 0.6 (ou superior)."
+msgstr "O arquivo metainfo usa uma versão antiga da especificação do AppStream, que não pode ser validada. Por favor, migre para a versão 0.6 (ou superior). Arquivos modernos usam a tag raiz `component` e incluem muitas outras diferenças, então confira alterações com cuidado ao modernizar os dados."
 
 #: src/as-validator-issue-tag.h:829
 msgid ""
@@ -3090,9 +3078,8 @@ msgstr "O atributo `type` do elemento `content_rating` é inválido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1069
-#, fuzzy
 msgid "The `content_rating` tag can only contain `content_attribute` children."
-msgstr "A tag `personalizado` só pode conter `valor` relacionado."
+msgstr "A tag `content_rating` só pode conter filhos `content_attribute`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1075
@@ -3118,15 +3105,13 @@ msgstr "O valor da tag `content_attribute` é desconhecido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1099
-#, fuzzy
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr "O valor da tag definida não é válido para uma relação `internet`."
+msgstr "O valor de tag `content_attribute` é inválido para o ID dado."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1105
-#, fuzzy
 msgid "A `content_attribute` tag with this ID has already been defined."
-msgstr "Já foi definido um URL deste tipo."
+msgstr "Uma tag `content_attribute` com este ID já foi definida."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1111
@@ -3181,9 +3166,8 @@ msgid ""
 msgstr "O registro para esse item de referência é desconhecido. Pode se tratar de um erro de digitação ou o registro precisa ser cadastrado no AppStream."
 
 #: src/as-validator-issue-tag.h:1159
-#, fuzzy
 msgid "The reference item is missing a value."
-msgstr "O carimbo de data/hora de lançamento é inválido."
+msgstr "O item de referência está faltando um valor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1165
@@ -3289,50 +3273,39 @@ msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:225
-#, fuzzy
 msgid "Set mode of the issue report that is printed to the console."
-msgstr "Define o modo do relatório de problema que é impresso no console"
+msgstr "Define o modo do relatório de problema que é impresso no console."
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:232
-#, fuzzy
 msgid "Override the default prefix (`/usr` by default)."
-msgstr "Substitui o prefixo padrão (`/usr` por padrão)"
+msgstr "Substitui o prefixo padrão (`/usr` por padrão)."
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:239
-#, fuzzy
 msgid "Set the result output directory."
-msgstr "Define o diretório de saída do resultado"
+msgstr "Define o diretório de saída do resultado."
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:246
-#, fuzzy
 msgid "Override the catalog metadata output directory."
-msgstr "Substitui o diretório de saída de metadados da coleção"
+msgstr "Substitui o diretório de saída de metadados da coleção."
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:253
-#, fuzzy
 msgid "Override the icon output directory."
-msgstr "Substitui o diretório de saída do ícone"
+msgstr "Substitui o diretório de saída do ícone."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:260
-#, fuzzy
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)."
-msgstr ""
-"Defina o diretório de saída de mídia (para dados de mídia a serem veiculados "
-"por um servidor web)"
+msgstr "Define o diretório de saída de mídia (para dados de mídia a serem veiculados por um servidor web)."
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:267
-#, fuzzy
 msgid "Set a directory where HTML and text issue reports will be stored."
-msgstr ""
-"Define um diretório onde os relatórios de problemas em HTML e texto serão "
-"armazenados"
+msgstr "Define um diretório onde os relatórios de problemas em HTML e em texto serão armazenados."
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:274
@@ -3341,9 +3314,8 @@ msgstr "Define o nome de origem"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:281
-#, fuzzy
 msgid "Set the URL where the exported media content will be hosted."
-msgstr "Defina a URL onde o conteúdo da mídia que foi exportado será hospedado"
+msgstr "Define a URL onde o conteúdo da mídia que foi exportado será hospedado."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:288
@@ -3361,9 +3333,8 @@ msgstr "Um texto de política de ícone para determinar como os ícones serão t
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:302
-#, fuzzy
 msgid "A comma-separated list of component-IDs to accept."
-msgstr "Uma lista separada por vírgulas de IDs de componentes para aceitar"
+msgstr "Uma lista separada por vírgulas de IDs de componentes para aceitar."
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:319
@@ -3416,9 +3387,8 @@ msgid "WARNING"
 msgstr "AVISO"
 
 #: tools/appstream-compose.c:438
-#, fuzzy
 msgid "Unable to set icon policy"
-msgstr "Não foi possível ler o arquivo."
+msgstr "Não foi possível definir a política de ícone"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:456
@@ -3599,9 +3569,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
 #: tools/appstreamcli.c:596
-#, fuzzy
 msgid "Print more detailed output on why incompatibilities exist."
-msgstr "Mostra saída detalhada sobre componentes encontrados."
+msgstr "Mostra saída detalhada do porquê de existir incompatibilidades."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:633
@@ -3725,10 +3694,9 @@ msgid ""
 msgstr "Gera a saída no formato selecionado (“yaml”, “text” ou “markdown”)."
 
 #: tools/appstreamcli.c:1127
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
-msgstr ""
-"O binário de composição \"%s\" não foi encontrado! Não é possível continuar."
+msgstr "O binário do AppStream Compose \"%s\" não foi encontrado! Não é possível continuar."
 
 #: tools/appstreamcli.c:1131
 #, c-format
@@ -3743,14 +3711,14 @@ msgstr "Quantidade inválida de parâmetros"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1158
-#, fuzzy, c-format
+#, c-format
 msgid "Compose operation failed to execute: %s"
-msgstr "Validação falhou: %s"
+msgstr "A operação do Compose falhou ao executar: %s"
 
 #: tools/appstreamcli.c:1168
-#, fuzzy, c-format
+#, c-format
 msgid "Compose failed: %s"
-msgstr "Validação falhou: %s"
+msgstr "Compose falhou: %s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:1225
@@ -3849,13 +3817,10 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
 #: tools/appstreamcli.c:1468
-#, fuzzy
 msgid ""
 "Check compatibility of a component (via its ID or MetaInfo file) with common "
 "system and chassis types."
-msgstr ""
-"Verifica se os requisitos de um componente (através de seu ID ou arquivo "
-"MetaInfo) são atendidos neste sistema."
+msgstr "Verifica a compatibilidade de um componente (através de seu ID ou arquivo MetaInfo) com os tipos comuns de sistema e chassi."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1477
@@ -4152,9 +4117,8 @@ msgid "Handset"
 msgstr "Celular"
 
 #: tools/ascli-actions-mdata.c:808
-#, fuzzy
 msgid "Unknown"
-msgstr "desconhecido"
+msgstr "Desconhecido"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
 #: tools/ascli-actions-mdata.c:875
