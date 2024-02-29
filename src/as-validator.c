@@ -953,11 +953,11 @@ as_validator_check_description_paragraph (AsValidator *validator, xmlNode *node)
 static void
 as_validator_check_description_enumeration (AsValidator *validator, xmlNode *node)
 {
-	g_autofree gchar *lang = NULL;
-	lang = as_xml_get_prop_value (node, "lang");
-	if (lang != NULL) {
-		as_validator_add_issue (validator, node, "tag-not-translatable", (const gchar *) node->name);
-	}
+	as_validator_check_nolocalized (
+		validator,
+		node,
+		"tag-not-translatable",
+		(const gchar *) node->name);
 
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
