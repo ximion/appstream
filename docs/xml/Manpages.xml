@@ -8,11 +8,11 @@
 	<title>Manual pages</title>
 
 	<para>
-		Manpages are available <ulink url="api/manpages.html">at the API documentation</ulink>.
+		This chapter lists the man pages for the command-line interface tools that
+		AppStream provides.
 	</para>
 
-	<!--
-	<xi:include href="man/appstream-cli.1.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-	-->
+	<xi:include href="man/appstreamcli.1.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+	<xi:include href="man/appstreamcli-compose.1.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
 </chapter>
