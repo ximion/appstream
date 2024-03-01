@@ -260,6 +260,13 @@ as_relation_check_results_get_compatibility_score (GPtrArray *rc_results)
 			else if (status != AS_RELATION_STATUS_SATISFIED)
 				return 0;
 
+			/* if we are here, the requirement is satisfied, and if it is an input control,
+			 * we recognize an input control is available */
+			if (rel_item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
+				have_control_supports = TRUE;
+				found_supported_control = TRUE;
+			}
+
 			continue;
 		}
 
@@ -283,8 +290,8 @@ as_relation_check_results_get_compatibility_score (GPtrArray *rc_results)
 
 		/* Increase score in case a supported item is present */
 		if (rel_kind == AS_RELATION_KIND_SUPPORTS) {
-			/* controls are special - if we have *none* of the supported controls,
-			 * that is a pretty big issue, but as long as one is supported we are good */
+			/* controls are special - if we have *none* of the supported/required/recommended
+			 * controls, that is a pretty big issue, but as long as one is supported we are good */
 			if (rel_item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
 				have_control_supports = TRUE;
 				if (status == AS_RELATION_STATUS_SATISFIED) {

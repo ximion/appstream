@@ -1787,14 +1787,14 @@ as_relation_is_satisfied (AsRelation *relation,
 			return NULL;
 		}
 
-		if (res == AS_CHECK_RESULT_FALSE || priv->kind == AS_RELATION_KIND_SUPPORTS) {
+		if (res == AS_CHECK_RESULT_FALSE) {
 			g_autofree gchar *tmp_str = _as_get_control_missing_message (control_kind,
 										     priv->kind);
 			as_relation_check_result_set_message (rcres, "%s", tmp_str);
 			as_relation_check_result_set_status (rcres,
 							     AS_RELATION_STATUS_NOT_SATISFIED);
-		}
-		if (res == AS_CHECK_RESULT_TRUE) {
+
+		} else if (res == AS_CHECK_RESULT_TRUE) {
 			g_autofree gchar *tmp_str = _as_get_control_found_message (control_kind);
 			as_relation_check_result_set_message (rcres, "%s", tmp_str);
 			as_relation_check_result_set_status (rcres, AS_RELATION_STATUS_SATISFIED);
