@@ -1380,9 +1380,9 @@
 			than once.
 		</para>
 		<para>
-			The source strings in the component are assumed to be in the <code>en_US</code> locale. If that is not the case, specify the source locale using
-			the <code>source_locale</code> attribute on the <code>&lt;translation/&gt;</code> tag. The metadata generator will use the source locale
-			to synthesize a <code>&lt;lang/&gt;</code> tag for the source locale, with 100% translation.
+			The source strings in the component are assumed to be in the <code>en_US</code> locale. If that is not the case, specify the source locale
+			in POSIX format using the <code>source_locale</code> attribute on the <code>&lt;translation/&gt;</code> tag. The metadata generator will
+			use the source locale to synthesize a <code>&lt;lang/&gt;</code> tag for the source locale, with 100% translation.
 		</para>
 		<para>
 			For Gettext translations, localization data will be looked for in <filename>${prefix}/share/locale/${locale}/LC_MESSAGES/${id}.mo</filename>, where
