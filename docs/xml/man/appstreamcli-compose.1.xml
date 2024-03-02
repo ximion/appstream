@@ -217,6 +217,17 @@
 			</varlistentry>
 
 			<varlistentry>
+				<term><option>--allow-custom <replaceable>CUSTOM-KEY-NAMES</replaceable></option></term>
+				<listitem>
+					<para>
+						By default, all <literal>custom</literal> entries set in MetaInfo input data are removed.
+						This flag allows to whitelist custom keys to be propagated to the final catalog output data.
+						The custom-key names should be provided as a comma-separated list.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
 				<term><option>--components <replaceable>COMPONENT-IDs</replaceable></option></term>
 				<listitem>
 					<para>

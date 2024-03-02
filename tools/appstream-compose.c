@@ -182,6 +182,7 @@ main (int argc, char **argv)
 	g_autofree gchar *prefix = NULL;
 	g_autofree gchar *components_str = NULL;
 	g_autofree gchar *icon_policy_str = NULL;
+	g_autofree gchar *custom_keys_str = NULL;
 	gboolean no_partial_urls = FALSE;
 	g_autoptr(GError) error = NULL;
 	g_autoptr(AscCompose) compose = NULL;
@@ -294,6 +295,13 @@ main (int argc, char **argv)
 		  /* TRANSLATORS: ascompose flag description for: --icon-policy */
 		  _("An icon-policy string to set how icon sizes should be handled (refer to the man page for details)."),
 		  "POLICY-STRING" },
+
+		{ "allow-custom",
+		  '\0', 0,
+		  G_OPTION_ARG_STRING, &custom_keys_str,
+		  /* TRANSLATORS: ascompose flag description for: --allow-custom */
+		  _("A comma-separated list of custom keys that should be propagated to the output data."),
+		  "CUSTOM-KEY-NAMES" },
 
 		{ "components",
 		  '\0', 0,
@@ -438,6 +446,15 @@ main (int argc, char **argv)
 			g_printerr ("%s: %s\n", _("Unable to set icon policy"), error->message);
 			return EXIT_FAILURE;
 		}
+	}
+
+	/* allow custom keys in catalog output, if requested */
+	if (custom_keys_str != NULL) {
+		g_auto(GStrv) custom_keys = NULL;
+
+		custom_keys = g_strsplit (custom_keys_str, ",", -1);
+		for (guint i = 0; custom_keys[i] != NULL; i++)
+			asc_compose_add_custom_allowed (compose, custom_keys[i]);
 	}
 
 	/* add allowlist for components */
