@@ -165,11 +165,13 @@ as_validator_finalize (GObject *object)
 	G_OBJECT_CLASS (as_validator_parent_class)->finalize (object);
 }
 
+#if !defined(__GNUC__) || (__GNUC__ >= 12)
 static void as_validator_add_issue (AsValidator *validator,
 				    xmlNode *node,
 				    const gchar *tag,
 				    const gchar *format,
 				    ...) G_GNUC_PRINTF (4, 5);
+#endif
 
 /**
  * as_validator_add_issue:
@@ -871,11 +873,13 @@ as_validator_check_children_quick (AsValidator *validator,
 	}
 }
 
+#if !defined(__GNUC__) || (__GNUC__ >= 12)
 static void as_validator_check_nolocalized (AsValidator *validator,
 					    xmlNode *node,
 					    const gchar *tag,
 					    const gchar *format,
 					    ...) G_GNUC_PRINTF (4, 5);
+#endif
 
 /**
  * as_validator_check_nolocalized:
