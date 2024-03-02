@@ -165,6 +165,12 @@ as_validator_finalize (GObject *object)
 	G_OBJECT_CLASS (as_validator_parent_class)->finalize (object);
 }
 
+static void as_validator_add_issue (AsValidator *validator,
+				    xmlNode *node,
+				    const gchar *tag,
+				    const gchar *format,
+				    ...) G_GNUC_PRINTF (4, 5);
+
 /**
  * as_validator_add_issue:
  **/
@@ -865,6 +871,12 @@ as_validator_check_children_quick (AsValidator *validator,
 	}
 }
 
+static void as_validator_check_nolocalized (AsValidator *validator,
+					    xmlNode *node,
+					    const gchar *tag,
+					    const gchar *format,
+					    ...) G_GNUC_PRINTF (4, 5);
+
 /**
  * as_validator_check_nolocalized:
  **/
@@ -872,14 +884,22 @@ static void
 as_validator_check_nolocalized (AsValidator *validator,
 				xmlNode *node,
 				const gchar *tag,
-				const gchar *format)
+				const gchar *format,
+				...)
 {
+	va_list args;
+	g_autofree gchar *message = NULL;
 	g_autofree gchar *lang = NULL;
 
 	lang = as_xml_get_prop_value (node, "lang");
-	if (lang != NULL) {
-		as_validator_add_issue (validator, node, tag, format);
-	}
+	if (lang == NULL)
+		return;
+
+	va_start (args, format);
+	message = g_strdup_vprintf (format, args);
+	va_end (args);
+
+	as_validator_add_issue (validator, node, tag, message);
 }
 
 /**
@@ -953,11 +973,10 @@ as_validator_check_description_paragraph (AsValidator *validator, xmlNode *node)
 static void
 as_validator_check_description_enumeration (AsValidator *validator, xmlNode *node)
 {
-	as_validator_check_nolocalized (
-		validator,
-		node,
-		"tag-not-translatable",
-		(const gchar *) node->name);
+	as_validator_check_nolocalized (validator,
+					node,
+					"tag-not-translatable",
+					(const gchar *) node->name);
 
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
@@ -2145,7 +2164,7 @@ as_validator_validate_iso8601_complete_date (AsValidator *validator,
 {
 	g_autoptr(GDateTime) time = as_iso8601_to_datetime (date);
 	if (time == NULL)
-		as_validator_add_issue (validator, node, "invalid-iso8601-date", "%s", date, NULL);
+		as_validator_add_issue (validator, node, "invalid-iso8601-date", date);
 }
 
 /**
