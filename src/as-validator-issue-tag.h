@@ -75,6 +75,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("Enumerations must only have list items (<li/>) as children.")
 	},
 
+	{ "description-enum-group-translated",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The enumeration must not be translated as a whole. "
+	     "In MetaInfo files, translate indivdual items (<li/> elements) instead.")
+	},
+
 	{ "description-first-para-too-short",
 	  AS_ISSUE_SEVERITY_INFO,
 	  N_("The first `description/p` paragraph of this component might be too short (< 80 characters). "

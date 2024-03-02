@@ -971,11 +971,14 @@ as_validator_check_description_paragraph (AsValidator *validator, xmlNode *node)
  * as_validator_check_description_enumeration:
  **/
 static void
-as_validator_check_description_enumeration (AsValidator *validator, xmlNode *node)
+as_validator_check_description_enumeration (AsValidator *validator,
+					    AsFormatStyle mode,
+					    xmlNode *node)
 {
 	as_validator_check_nolocalized (validator,
 					node,
-					"tag-not-translatable",
+					"description-enum-group-translated",
+					"description/%s",
 					(const gchar *) node->name);
 
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
@@ -985,11 +988,21 @@ as_validator_check_description_enumeration (AsValidator *validator, xmlNode *nod
 			continue;
 		node_name = (const gchar *) iter->name;
 
-		if (g_strcmp0 (node_name, "li") == 0) {
+		if (as_str_equal0 (node_name, "li")) {
 			g_autofree gchar *tag_path = NULL;
+
 			tag_path = g_strdup_printf ("%s/%s", (const gchar *) node->name, node_name);
 			as_validator_check_content_empty (validator, iter, tag_path);
 			as_validator_check_description_paragraph (validator, iter);
+
+			if (mode == AS_FORMAT_STYLE_CATALOG) {
+				as_validator_check_nolocalized (
+				    validator,
+				    iter,
+				    "catalog-localized-description-section",
+				    "description/%s/li",
+				    (const gchar *) node->name);
+			}
 		} else {
 			as_validator_add_issue (validator,
 						iter,
@@ -1075,23 +1088,11 @@ as_validator_check_description_tag (AsValidator *validator,
 			/* validate common stuff */
 			as_validator_check_description_paragraph (validator, iter);
 		} else if (g_strcmp0 (node_name, "ul") == 0) {
-			if (mode == AS_FORMAT_STYLE_CATALOG) {
-				as_validator_check_nolocalized (
-				    validator,
-				    iter,
-				    "catalog-localized-description-section",
-				    "description/ul");
-			}
-			as_validator_check_description_enumeration (validator, iter);
+			as_validator_check_description_enumeration (validator, mode, iter);
+
 		} else if (g_strcmp0 (node_name, "ol") == 0) {
-			if (mode == AS_FORMAT_STYLE_CATALOG) {
-				as_validator_check_nolocalized (
-				    validator,
-				    iter,
-				    "catalog-localized-description-section",
-				    "description/ol");
-			}
-			as_validator_check_description_enumeration (validator, iter);
+			as_validator_check_description_enumeration (validator, mode, iter);
+
 		} else {
 			as_validator_add_issue (validator,
 						iter,
