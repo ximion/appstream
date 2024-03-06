@@ -25,6 +25,13 @@ dependencies = [
   description = "A modern, easy-to-use VFS API"
   docs_url = "https://docs.gtk.org/gio/"
 
+related = ["AppStreamCompose-1.0"]
+
+  [related."AppStreamCompose-1.0"]
+  name = "AppStreamCompose"
+  description = "Library to compose AppStream catalog metadata"
+  docs_url = "https://www.freedesktop.org/software/appstream/docs/compose-api/"
+
 [theme]
 name = "basic"
 show_index_summary = true
