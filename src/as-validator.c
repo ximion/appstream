@@ -165,13 +165,11 @@ as_validator_finalize (GObject *object)
 	G_OBJECT_CLASS (as_validator_parent_class)->finalize (object);
 }
 
-#if !defined(__GNUC__) || (__GNUC__ >= 12)
 static void as_validator_add_issue (AsValidator *validator,
 				    xmlNode *node,
 				    const gchar *tag,
 				    const gchar *format,
 				    ...) G_GNUC_PRINTF (4, 5);
-#endif
 
 /**
  * as_validator_add_issue:
@@ -408,7 +406,7 @@ as_validator_check_web_url (AsValidator *validator,
 
 	if (g_str_has_prefix (url, "ftp:")) {
 		/* we can't check FTP URLs here, and those shouldn't generally be used in AppStream */
-		as_validator_add_issue (validator, node, "url-uses-ftp", url);
+		as_validator_add_issue (validator, node, "url-uses-ftp", "%s", url);
 		return FALSE;
 	}
 
@@ -761,7 +759,7 @@ as_validator_check_content_empty (AsValidator *validator, xmlNode *node, const g
 	if (!as_is_empty (node_content))
 		return;
 
-	as_validator_add_issue (validator, node, "tag-empty", tag_path);
+	as_validator_add_issue (validator, node, "tag-empty", "%s", tag_path);
 }
 
 /**
@@ -837,6 +835,7 @@ as_validator_ensure_node_no_text (AsValidator *validator, xmlNode *node)
 		as_validator_add_issue (validator,
 					node,
 					"tag-invalid-text-content",
+					"%s",
 					(const gchar *) node->name);
 }
 
@@ -873,13 +872,11 @@ as_validator_check_children_quick (AsValidator *validator,
 	}
 }
 
-#if !defined(__GNUC__) || (__GNUC__ >= 12)
 static void as_validator_check_nolocalized (AsValidator *validator,
 					    xmlNode *node,
 					    const gchar *tag,
 					    const gchar *format,
 					    ...) G_GNUC_PRINTF (4, 5);
-#endif
 
 /**
  * as_validator_check_nolocalized:
@@ -903,7 +900,7 @@ as_validator_check_nolocalized (AsValidator *validator,
 	message = g_strdup_vprintf (format, args);
 	va_end (args);
 
-	as_validator_add_issue (validator, node, tag, message);
+	as_validator_add_issue (validator, node, tag, "%s", message);
 }
 
 /**
@@ -967,6 +964,7 @@ as_validator_check_description_paragraph (AsValidator *validator, xmlNode *node)
 		as_validator_add_issue (validator,
 					iter,
 					"description-para-markup-invalid",
+					"%s",
 					node_name);
 	}
 }
@@ -1011,6 +1009,7 @@ as_validator_check_description_enumeration (AsValidator *validator,
 			as_validator_add_issue (validator,
 						iter,
 						"description-enum-item-invalid",
+						"%s",
 						node_name);
 		}
 	}
@@ -1032,7 +1031,8 @@ as_validator_check_description_tag (AsValidator *validator,
 		as_validator_check_nolocalized (validator,
 						node,
 						"metainfo-localized-description-tag",
-						(const gchar *) node->name);
+						"%s",
+						node->name);
 	} else {
 		g_autofree gchar *lang = as_xml_get_prop_value (node, "lang");
 		is_localized = lang != NULL;
@@ -1067,6 +1067,7 @@ as_validator_check_description_tag (AsValidator *validator,
 					as_validator_add_issue (validator,
 								iter,
 								"description-first-para-too-short",
+								"%s",
 								node_content);
 				}
 			}
@@ -1101,6 +1102,7 @@ as_validator_check_description_tag (AsValidator *validator,
 			as_validator_add_issue (validator,
 						iter,
 						"description-markup-invalid",
+						"%s",
 						node_name);
 		}
 
@@ -1108,6 +1110,7 @@ as_validator_check_description_tag (AsValidator *validator,
 			as_validator_add_issue (validator,
 						iter,
 						"description-has-plaintext-url",
+						"%s",
 						node_name);
 		}
 	}
@@ -1136,12 +1139,16 @@ as_validator_check_appear_once (AsValidator *validator,
 			tag_id = g_strdup_printf ("%s (lang=%s)", node_name, lang);
 		} else {
 			tag_id = g_strdup (node_name);
-			as_validator_add_issue (validator, node, "tag-not-translatable", node_name);
+			as_validator_add_issue (validator,
+						node,
+						"tag-not-translatable",
+						"%s",
+						node_name);
 		}
 	}
 
 	if (g_hash_table_contains (known_tags, tag_id)) {
-		as_validator_add_issue (validator, node, "tag-duplicated", tag_id);
+		as_validator_add_issue (validator, node, "tag-duplicated", "%s", tag_id);
 	}
 
 	/* add to list of known tags (takes ownership/frees tag_id) */
@@ -1173,7 +1180,7 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	g_return_if_fail (cid != NULL);
 
 	if (cid[0] != '\0' && g_ascii_ispunct (cid[0]))
-		as_validator_add_issue (validator, idnode, "cid-punctuation-prefix", cid);
+		as_validator_add_issue (validator, idnode, "cid-punctuation-prefix", "%s", cid);
 
 	/* There is no point in validating component IDs for merge components, as those must follow
 	 * their counterparts, so they may need to replicate any error present there. We therefore
@@ -1189,24 +1196,33 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 			as_validator_add_issue (validator,
 						idnode,
 						"cid-desktopapp-is-not-rdns",
+						"%s",
 						cid);
 
 		} else {
 			/* anything which isn't a .desktop app must follow the schema though */
-			as_validator_add_issue (validator, idnode, "cid-is-not-rdns", cid);
+			as_validator_add_issue (validator, idnode, "cid-is-not-rdns", "%s", cid);
 		}
 	} else {
 		/* some people just add random dots to their ID - check if we have an actual known TLD as first part, to be more certain that this is a reverse domain name
 		 * (this issue happens quite often with old .desktop files) */
 		if (!as_utils_is_tld (cid_parts[0])) {
-			as_validator_add_issue (validator, idnode, "cid-maybe-not-rdns", cid);
+			as_validator_add_issue (validator, idnode, "cid-maybe-not-rdns", "%s", cid);
 		}
 
 		/* ensure first parts of the rDNS ID are always lowercase */
 		if (!as_validate_string_lowercase (cid_parts[0]))
-			as_validator_add_issue (validator, idnode, "cid-domain-not-lowercase", cid);
+			as_validator_add_issue (validator,
+						idnode,
+						"cid-domain-not-lowercase",
+						"%s",
+						cid);
 		if (!as_validate_string_lowercase (cid_parts[1]))
-			as_validator_add_issue (validator, idnode, "cid-domain-not-lowercase", cid);
+			as_validator_add_issue (validator,
+						idnode,
+						"cid-domain-not-lowercase",
+						"%s",
+						cid);
 	}
 
 	/* validate characters in AppStream ID */
@@ -1228,6 +1244,7 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 			as_validator_add_issue (validator,
 						idnode,
 						"cid-contains-uppercase-letter",
+						"%s",
 						cid);
 	}
 
@@ -1256,6 +1273,7 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 				as_validator_add_issue (validator,
 							idnode,
 							"cid-rdns-contains-hyphen",
+							"%s",
 							cid);
 				break;
 			}
@@ -1269,18 +1287,21 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 			as_validator_add_issue (validator,
 						idnode,
 						"cid-missing-affiliation-freedesktop",
+						"%s",
 						cid);
 	} else if (g_strcmp0 (as_component_get_project_group (cpt), "KDE") == 0) {
 		if (!g_str_has_prefix (cid, "org.kde."))
 			as_validator_add_issue (validator,
 						idnode,
 						"cid-missing-affiliation-kde",
+						"%s",
 						cid);
 	} else if (g_strcmp0 (as_component_get_project_group (cpt), "GNOME") == 0) {
 		if (!g_str_has_prefix (cid, "org.gnome."))
 			as_validator_add_issue (validator,
 						idnode,
 						"cid-missing-affiliation-gnome",
+						"%s",
 						cid);
 	}
 }
@@ -1300,6 +1321,7 @@ as_validator_validate_project_license (AsValidator *validator, xmlNode *license_
 		as_validator_add_issue (validator,
 					license_node,
 					"spdx-expression-invalid",
+					"%s",
 					license_id);
 		return;
 	}
@@ -1316,6 +1338,7 @@ as_validator_validate_project_license (AsValidator *validator, xmlNode *license_
 				as_validator_add_issue (validator,
 							license_node,
 							"spdx-license-unknown",
+							"%s",
 							licenses[i]);
 				return;
 			}
@@ -1340,6 +1363,7 @@ as_validator_validate_metadata_license (AsValidator *validator, xmlNode *license
 		as_validator_add_issue (validator,
 					license_node,
 					"spdx-expression-invalid",
+					"%s",
 					license_expression);
 		return;
 	}
@@ -1350,6 +1374,7 @@ as_validator_validate_metadata_license (AsValidator *validator, xmlNode *license
 			as_validator_add_issue (validator,
 						license_node,
 						"metadata-license-too-complex",
+						"%s",
 						license_expression);
 			return;
 		}
@@ -1386,6 +1411,7 @@ as_validator_validate_metadata_license (AsValidator *validator, xmlNode *license
 	as_validator_add_issue (validator,
 				license_node,
 				"metadata-license-invalid",
+				"%s",
 				license_expression);
 }
 
@@ -1400,7 +1426,11 @@ as_validator_validate_update_contact (AsValidator *validator, xmlNode *uc_node)
 	if ((g_strstr_len (text, -1, "@") == NULL) && (g_strstr_len (text, -1, "_at_") == NULL) &&
 	    (g_strstr_len (text, -1, "_AT_") == NULL)) {
 		if (g_strstr_len (text, -1, ".") == NULL) {
-			as_validator_add_issue (validator, uc_node, "update-contact-no-mail", text);
+			as_validator_add_issue (validator,
+						uc_node,
+						"update-contact-no-mail",
+						"%s",
+						text);
 		}
 	}
 }
@@ -1463,13 +1493,13 @@ as_validator_check_tags (AsValidator *validator, xmlNode *node)
 		}
 
 		if (!as_id_string_valid (ns, FALSE)) {
-			as_validator_add_issue (validator, iter, "usertag-invalid", ns);
+			as_validator_add_issue (validator, iter, "usertag-invalid", "%s", ns);
 			continue;
 		}
 
 		value = as_xml_get_node_value (iter);
 		if (!as_id_string_valid (value, FALSE))
-			as_validator_add_issue (validator, iter, "usertag-invalid", value);
+			as_validator_add_issue (validator, iter, "usertag-invalid", "%s", value);
 	}
 }
 
@@ -1494,6 +1524,7 @@ as_validator_check_references (AsValidator *validator, xmlNode *node)
 				as_validator_add_issue (validator,
 							iter,
 							"reference-doi-invalid",
+							"%s",
 							value);
 
 		} else if (as_str_equal0 (iter->name, "citation_cff")) {
@@ -1501,6 +1532,7 @@ as_validator_check_references (AsValidator *validator, xmlNode *node)
 				as_validator_add_issue (validator,
 							iter,
 							"reference-citation-url-invalid",
+							"%s",
 							value);
 		} else if (as_str_equal0 (iter->name, "registry")) {
 			g_autofree gchar *registry_name = as_xml_get_prop_value (iter, "name");
@@ -1513,6 +1545,7 @@ as_validator_check_references (AsValidator *validator, xmlNode *node)
 				as_validator_add_issue (validator,
 							iter,
 							"reference-registry-name-unknown",
+							"%s",
 							registry_name);
 		}
 	}
@@ -1539,6 +1572,7 @@ as_validator_check_developer (AsValidator *validator, xmlNode *node)
 				as_validator_add_issue (validator,
 							node,
 							"developer-id-invalid",
+							"%s",
 							devid);
 				break;
 			}
@@ -1547,6 +1581,7 @@ as_validator_check_developer (AsValidator *validator, xmlNode *node)
 				as_validator_add_issue (validator,
 							node,
 							"developer-id-invalid",
+							"%s",
 							devid);
 				break;
 			}
@@ -1612,6 +1647,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 			as_validator_add_issue (validator,
 						iter,
 						"screenshot-invalid-env-style",
+						"%s",
 						scr_env_style);
 		}
 
@@ -1641,6 +1677,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				as_validator_add_issue (validator,
 							iter2,
 							"screenshot-invalid-width",
+							"%s",
 							screenshot_width);
 
 			screenshot_height = as_xml_get_prop_value (iter2, "height");
@@ -1649,6 +1686,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				as_validator_add_issue (validator,
 							iter2,
 							"screenshot-invalid-height",
+							"%s",
 							screenshot_height);
 
 			screenshot_scale = as_xml_get_prop_value (iter2, "scale");
@@ -1657,6 +1695,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				as_validator_add_issue (validator,
 							iter2,
 							"screenshot-invalid-scale",
+							"%s",
 							screenshot_scale);
 
 			/* check if we have an @1 scaled image */
@@ -1677,6 +1716,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 					as_validator_add_issue (validator,
 								iter2,
 								"screenshot-image-invalid-type",
+								"%s",
 								image_kind_str);
 
 				if (image_kind == AS_IMAGE_KIND_THUMBNAIL) {
@@ -1715,6 +1755,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 							    validator,
 							    iter2,
 							    "screenshot-image-source-duplicated",
+							    "%s",
 							    image_lang);
 
 						g_hash_table_add (known_source_locale,
@@ -1726,6 +1767,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 					as_validator_add_issue (validator,
 								iter2,
 								"web-url-expected",
+								"%s",
 								image_url);
 					continue;
 				}
@@ -1733,6 +1775,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 					as_validator_add_issue (validator,
 								iter2,
 								"screenshot-media-url-not-secure",
+								"%s",
 								image_url);
 				}
 
@@ -1766,6 +1809,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 					as_validator_add_issue (validator,
 								iter2,
 								"web-url-expected",
+								"%s",
 								video_url);
 					continue;
 				}
@@ -1773,6 +1817,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 					as_validator_add_issue (validator,
 								iter2,
 								"screenshot-media-url-not-secure",
+								"%s",
 								video_url);
 				}
 
@@ -1790,6 +1835,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 						    validator,
 						    iter2,
 						    "screenshot-video-codec-invalid",
+						    "%s",
 						    codec_str);
 				}
 
@@ -1808,6 +1854,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 						    validator,
 						    iter2,
 						    "screenshot-video-container-invalid",
+						    "%s",
 						    container_str);
 				}
 
@@ -1820,6 +1867,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 						    validator,
 						    iter2,
 						    "screenshot-video-file-wrong-container",
+						    "%s",
 						    video_url_basename);
 					}
 				}
@@ -1906,7 +1954,11 @@ as_validator_check_relations (AsValidator *validator,
 
 		item_kind = as_relation_item_kind_from_string (node_name);
 		if (item_kind == AS_RELATION_ITEM_KIND_UNKNOWN) {
-			as_validator_add_issue (validator, iter, "relation-invalid-tag", node_name);
+			as_validator_add_issue (validator,
+						iter,
+						"relation-invalid-tag",
+						"%s",
+						node_name);
 			continue;
 		}
 
@@ -1957,6 +2009,7 @@ as_validator_check_relations (AsValidator *validator,
 				    validator,
 				    iter,
 				    "relation-item-has-version",
+				    "%s",
 				    as_relation_item_kind_to_string (item_kind));
 				continue;
 			}
@@ -1974,11 +2027,13 @@ as_validator_check_relations (AsValidator *validator,
 			as_validator_add_issue (validator,
 						iter,
 						"relation-item-invalid-vercmp",
+						"%s",
 						compare_str);
 		} else if (!can_have_compare && compare_str != NULL) {
 			as_validator_add_issue (validator,
 						iter,
 						"relation-item-has-vercmp",
+						"%s",
 						compare_str);
 		}
 
@@ -2001,6 +2056,7 @@ as_validator_check_relations (AsValidator *validator,
 				as_validator_add_issue (validator,
 							iter,
 							"relation-control-value-invalid",
+							"%s",
 							content);
 		}
 
@@ -2012,6 +2068,7 @@ as_validator_check_relations (AsValidator *validator,
 				as_validator_add_issue (validator,
 							iter,
 							"relation-display-length-value-invalid",
+							"%s",
 							content);
 
 			side_str = as_xml_get_prop_value (iter, "side");
@@ -2021,6 +2078,7 @@ as_validator_check_relations (AsValidator *validator,
 				    validator,
 				    iter,
 				    "relation-display-length-side-property-invalid",
+				    "%s",
 				    side_str);
 		}
 
@@ -2035,11 +2093,13 @@ as_validator_check_relations (AsValidator *validator,
 				as_validator_add_issue (validator,
 							iter,
 							"relation-hardware-value-invalid",
+							"%s",
 							content);
 			else if (dash_count != 4)
 				as_validator_add_issue (validator,
 							iter,
 							"relation-hardware-value-invalid",
+							"%s",
 							content);
 		}
 
@@ -2049,6 +2109,7 @@ as_validator_check_relations (AsValidator *validator,
 				as_validator_add_issue (validator,
 							iter,
 							"relation-memory-value-invalid",
+							"%s",
 							content);
 
 		/* check internet for sanity */
@@ -2063,6 +2124,7 @@ as_validator_check_relations (AsValidator *validator,
 				as_validator_add_issue (validator,
 							iter,
 							"relation-internet-value-invalid",
+							"%s",
 							content);
 
 			/* check if bandwidth_mbitps does not exists when value is offline-only */
@@ -2079,6 +2141,7 @@ as_validator_check_relations (AsValidator *validator,
 				as_validator_add_issue (validator,
 							iter,
 							"relation-internet-bandwidth-value-invalid",
+							"%s",
 							bandwidth_str);
 
 			/* the internet item must only appear once per relation kind */
@@ -2169,7 +2232,7 @@ as_validator_validate_iso8601_complete_date (AsValidator *validator,
 {
 	g_autoptr(GDateTime) time = as_iso8601_to_datetime (date);
 	if (time == NULL)
-		as_validator_add_issue (validator, node, "invalid-iso8601-date", date);
+		as_validator_add_issue (validator, node, "invalid-iso8601-date", "%s", date);
 }
 
 /**
@@ -2225,7 +2288,11 @@ as_validator_check_artifact (AsValidator *validator, xmlNode *node)
 	prop = as_xml_get_prop_value (node, "type");
 	if (prop != NULL) {
 		if (as_artifact_kind_from_string (prop) == AS_ARTIFACT_KIND_UNKNOWN)
-			as_validator_add_issue (validator, node, "artifact-type-invalid", prop);
+			as_validator_add_issue (validator,
+						node,
+						"artifact-type-invalid",
+						"%s",
+						prop);
 		g_free (prop);
 	}
 
@@ -2243,6 +2310,7 @@ as_validator_check_artifact (AsValidator *validator, xmlNode *node)
 			as_validator_add_issue (validator,
 						node,
 						"artifact-bundle-type-invalid",
+						"%s",
 						prop);
 		g_free (prop);
 	}
@@ -2256,11 +2324,19 @@ as_validator_check_artifact (AsValidator *validator, xmlNode *node)
 		if (g_strcmp0 (node_name, "location") == 0) {
 			g_autofree gchar *url = as_xml_get_node_value (iter);
 			if (!as_validate_is_url (url)) {
-				as_validator_add_issue (validator, iter, "web-url-expected", url);
+				as_validator_add_issue (validator,
+							iter,
+							"web-url-expected",
+							"%s",
+							url);
 				continue;
 			}
 			if (!as_validate_is_secure_url (url))
-				as_validator_add_issue (validator, iter, "url-not-secure", url);
+				as_validator_add_issue (validator,
+							iter,
+							"url-not-secure",
+							"%s",
+							url);
 			continue;
 		} else if (g_strcmp0 (node_name, "checksum") == 0) {
 			g_autofree gchar *tmp = as_xml_get_prop_value (iter, "type");
@@ -2268,6 +2344,7 @@ as_validator_check_artifact (AsValidator *validator, xmlNode *node)
 				as_validator_add_issue (validator,
 							iter,
 							"artifact-checksum-type-invalid",
+							"%s",
 							tmp);
 			continue;
 		} else if (g_strcmp0 (node_name, "size") == 0) {
@@ -2276,6 +2353,7 @@ as_validator_check_artifact (AsValidator *validator, xmlNode *node)
 				as_validator_add_issue (validator,
 							iter,
 							"artifact-size-type-invalid",
+							"%s",
 							tmp);
 			continue;
 		} else if (g_strcmp0 (node_name, "filename") == 0) {
@@ -2284,11 +2362,12 @@ as_validator_check_artifact (AsValidator *validator, xmlNode *node)
 				as_validator_add_issue (validator,
 							iter,
 							"artifact-filename-not-basename",
+							"%s",
 							fname);
 			continue;
 		} else {
 			/* unknown tag */
-			as_validator_add_issue (validator, iter, "unknown-tag", node_name);
+			as_validator_add_issue (validator, iter, "unknown-tag", "%s", node_name);
 		}
 	}
 }
@@ -2310,6 +2389,7 @@ as_validator_check_release_issue (AsValidator *validator, xmlNode *node)
 			as_validator_add_issue (validator,
 						node,
 						"release-issue-type-invalid",
+						"%s",
 						prop);
 		g_free (prop);
 	}
@@ -2318,9 +2398,9 @@ as_validator_check_release_issue (AsValidator *validator, xmlNode *node)
 	prop = as_xml_get_prop_value (node, "url");
 	if (prop != NULL) {
 		if (!as_validate_is_url (prop))
-			as_validator_add_issue (validator, node, "web-url-expected", prop);
+			as_validator_add_issue (validator, node, "web-url-expected", "%s", prop);
 		else if (!as_validate_is_secure_url (prop))
-			as_validator_add_issue (validator, node, "url-not-secure", prop);
+			as_validator_add_issue (validator, node, "url-not-secure", "%s", prop);
 		g_free (prop);
 	}
 
@@ -2331,6 +2411,7 @@ as_validator_check_release_issue (AsValidator *validator, xmlNode *node)
 			as_validator_add_issue (validator,
 						node,
 						"release-issue-is-cve-but-no-cve-id",
+						"%s",
 						value);
 	}
 }
@@ -2355,7 +2436,11 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 	if (prop != NULL) {
 		rel_kind = as_release_kind_from_string (prop);
 		if (rel_kind == AS_RELEASE_KIND_UNKNOWN)
-			as_validator_add_issue (validator, node, "release-type-invalid", prop);
+			as_validator_add_issue (validator,
+						node,
+						"release-type-invalid",
+						"%s",
+						prop);
 		g_free (prop);
 	}
 
@@ -2375,6 +2460,7 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 				as_validator_add_issue (validator,
 							node,
 							"release-timestamp-invalid",
+							"%s",
 							timestamp);
 		}
 	}
@@ -2389,7 +2475,11 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 	prop = as_xml_get_prop_value (node, "urgency");
 	if (prop != NULL) {
 		if (as_urgency_kind_from_string (prop) == AS_URGENCY_KIND_UNKNOWN)
-			as_validator_add_issue (validator, node, "release-urgency-invalid", prop);
+			as_validator_add_issue (validator,
+						node,
+						"release-urgency-invalid",
+						"%s",
+						prop);
 		g_free (prop);
 	}
 
@@ -2409,11 +2499,19 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 		if (g_strcmp0 (node_name, "url") == 0) {
 			g_autofree gchar *url = as_xml_get_node_value (iter);
 			if (!as_validate_is_url (url)) {
-				as_validator_add_issue (validator, iter, "web-url-expected", url);
+				as_validator_add_issue (validator,
+							iter,
+							"web-url-expected",
+							"%s",
+							url);
 				continue;
 			}
 			if (!as_validate_is_secure_url (url))
-				as_validator_add_issue (validator, iter, "url-not-secure", url);
+				as_validator_add_issue (validator,
+							iter,
+							"url-not-secure",
+							"%s",
+							url);
 			continue;
 		}
 
@@ -2472,12 +2570,13 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 			as_validator_add_issue (validator,
 						node,
 						"release-description-outside-tag",
+						"%s",
 						node_name);
 			continue;
 		}
 
 		/* if we are here, we have an unknown tag */
-		as_validator_add_issue (validator, iter, "unknown-tag", node_name);
+		as_validator_add_issue (validator, iter, "unknown-tag", "%s", node_name);
 	}
 }
 
@@ -2543,6 +2642,7 @@ as_validator_find_release_data_for_current (AsValidator *validator)
 			as_validator_add_issue (validator,
 						NULL,
 						"file-read-failed",
+						"%s",
 						error->message);
 
 			/* restore currently analyzed file name */
@@ -2612,7 +2712,11 @@ as_validator_check_external_releases (AsValidator *validator,
 				      TRUE, /* pedantic */
 				      &error);
 	if (xdoc == NULL) {
-		as_validator_add_issue (validator, rels_node, "xml-markup-invalid", error->message);
+		as_validator_add_issue (validator,
+					rels_node,
+					"xml-markup-invalid",
+					"%s",
+					error->message);
 		goto out;
 	}
 
@@ -2643,6 +2747,7 @@ as_validator_check_releases (AsValidator *validator, xmlNode *node, AsFormatStyl
 		as_validator_add_issue (validator,
 					node,
 					"releases-type-invalid",
+					"%s",
 					releases_kind_str);
 	}
 
@@ -2659,6 +2764,7 @@ as_validator_check_releases (AsValidator *validator, xmlNode *node, AsFormatStyl
 			as_validator_add_issue (validator,
 						node,
 						"releases-url-insecure",
+						"%s",
 						release_url_prop);
 
 		/* only download & validate the file if network access is allowed */
@@ -2672,6 +2778,7 @@ as_validator_check_releases (AsValidator *validator, xmlNode *node, AsFormatStyl
 				as_validator_add_issue (validator,
 							node,
 							"releases-download-failed",
+							"%s",
 							tmp_error->message);
 			} else {
 				as_validator_check_external_releases (validator,
@@ -2722,7 +2829,11 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 	oars_version = as_oars_version_from_string (oars_type);
 
 	if (oars_version == AS_OARS_VERSION_UNKNOWN) {
-		as_validator_add_issue (validator, node, "content-rating-type-invalid", oars_type);
+		as_validator_add_issue (validator,
+					node,
+					"content-rating-type-invalid",
+					"%s",
+					oars_type);
 		return;
 	}
 
@@ -2738,6 +2849,7 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 			as_validator_add_issue (validator,
 						iter,
 						"content-rating-invalid-tag",
+						"%s",
 						(gchar *) iter->name);
 			continue;
 		}
@@ -2756,6 +2868,7 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 			as_validator_add_issue (validator,
 						iter,
 						"content-attribute-id-invalid",
+						"%s",
 						id);
 			continue;
 		}
@@ -2775,6 +2888,7 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 			as_validator_add_issue (validator,
 						iter,
 						"content-attribute-value-unknown",
+						"%s",
 						value_data);
 			continue;
 		}
@@ -2784,6 +2898,7 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 			as_validator_add_issue (validator,
 						iter,
 						"content-attribute-value-invalid",
+						"%s",
 						hint_msg);
 			continue;
 		}
@@ -2792,6 +2907,7 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 			as_validator_add_issue (validator,
 						iter,
 						"content-attribute-id-duplicated",
+						"%s",
 						id);
 		else
 			g_hash_table_add (known_ids, g_steal_pointer (&id));
@@ -2817,6 +2933,7 @@ as_validator_check_branding (AsValidator *validator, xmlNode *node)
 				as_validator_add_issue (validator,
 							iter,
 							"branding-color-type-invalid",
+							"%s",
 							tmp);
 			g_free (tmp);
 
@@ -2826,6 +2943,7 @@ as_validator_check_branding (AsValidator *validator, xmlNode *node)
 				as_validator_add_issue (validator,
 							iter,
 							"branding-color-scheme-type-invalid",
+							"%s",
 							tmp);
 			g_free (tmp);
 
@@ -2835,6 +2953,7 @@ as_validator_check_branding (AsValidator *validator, xmlNode *node)
 				as_validator_add_issue (validator,
 							iter,
 							"branding-color-invalid",
+							"%s",
 							tmp);
 		} else {
 			as_validator_add_issue (
@@ -2867,6 +2986,7 @@ as_validator_check_custom (AsValidator *validator, xmlNode *node)
 			as_validator_add_issue (validator,
 						iter,
 						"custom-invalid-tag",
+						"%s",
 						(gchar *) iter->name);
 			continue;
 		}
@@ -2878,7 +2998,11 @@ as_validator_check_custom (AsValidator *validator, xmlNode *node)
 		}
 
 		if (g_hash_table_contains (known_keys, key_name))
-			as_validator_add_issue (validator, iter, "custom-key-duplicated", key_name);
+			as_validator_add_issue (validator,
+						iter,
+						"custom-key-duplicated",
+						"%s",
+						key_name);
 		else
 			g_hash_table_add (known_keys, g_steal_pointer (&key_name));
 
@@ -2922,7 +3046,11 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	cpttype = as_xml_get_prop_value (root, "type");
 	if (cpttype != NULL) {
 		if (as_component_kind_from_string (cpttype) == AS_COMPONENT_KIND_UNKNOWN) {
-			as_validator_add_issue (validator, root, "component-type-invalid", cpttype);
+			as_validator_add_issue (validator,
+						root,
+						"component-type-invalid",
+						"%s",
+						cpttype);
 		}
 	}
 
@@ -2976,6 +3104,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator,
 							iter,
 							"id-tag-has-type",
+							"%s",
 							node_content);
 			}
 
@@ -3002,12 +3131,14 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator,
 							iter,
 							"name-has-dot-suffix",
+							"%s",
 							node_content);
 
 			if (lang == NULL && node_content != NULL && strlen (node_content) > 40) {
 				as_validator_add_issue (validator,
 							iter,
 							"component-name-too-long",
+							"%s",
 							node_content);
 			}
 
@@ -3021,6 +3152,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator,
 							iter,
 							"summary-has-dot-suffix",
+							"%s",
 							summary);
 
 			if ((summary != NULL) && ((strstr (summary, "\n") != NULL) ||
@@ -3035,6 +3167,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator,
 							iter,
 							"summary-has-url",
+							"%s",
 							node_name);
 			}
 
@@ -3049,6 +3182,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator,
 							iter,
 							"summary-too-long",
+							"%s",
 							summary);
 			}
 
@@ -3074,6 +3208,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 						as_validator_add_issue (validator,
 									iter,
 									"icon-remote-not-secure",
+									"%s",
 									node_content);
 
 					as_validator_check_web_url (validator,
@@ -3084,6 +3219,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 					as_validator_add_issue (validator,
 								iter,
 								"icon-remote-no-url",
+								"%s",
 								node_content);
 				}
 			}
@@ -3094,6 +3230,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 					as_validator_add_issue (validator,
 								iter,
 								"metainfo-invalid-icon-type",
+								"%s",
 								prop);
 			}
 
@@ -3105,7 +3242,11 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 
 			url_kind = as_url_kind_from_string (prop);
 			if (url_kind == AS_URL_KIND_UNKNOWN) {
-				as_validator_add_issue (validator, iter, "url-invalid-type", prop);
+				as_validator_add_issue (validator,
+							iter,
+							"url-invalid-type",
+							"%s",
+							prop);
 			} else {
 				/* check for URL kind duplicates */
 				guint64 url_kind_flag = 1 << url_kind;
@@ -3113,6 +3254,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 					as_validator_add_issue (validator,
 								iter,
 								"url-redefined",
+								"%s",
 								as_url_kind_to_string (url_kind));
 				else
 					as_flags_add (known_url_kinds, url_kind_flag);
@@ -3122,6 +3264,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator,
 							iter,
 							"web-url-expected",
+							"%s",
 							node_content);
 				continue;
 			}
@@ -3130,6 +3273,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator,
 							iter,
 							"url-not-secure",
+							"%s",
 							node_content);
 
 			as_validator_check_web_url (validator,
@@ -3148,7 +3292,8 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_check_nolocalized (validator,
 								iter,
 								"metainfo-localized-keywords-tag",
-								(const gchar *) iter->name);
+								"%s",
+								iter->name);
 			}
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
@@ -3182,6 +3327,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator,
 							iter,
 							"unknown-desktop-id",
+							"%s",
 							node_content);
 			}
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
@@ -3201,6 +3347,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator,
 							iter,
 							"unknown-desktop-id",
+							"%s",
 							prop);
 
 		} else if (g_strcmp0 (node_name, "launchable") == 0) {
@@ -3211,6 +3358,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator,
 							iter,
 							"launchable-unknown-type",
+							"%s",
 							prop);
 
 		} else if (g_strcmp0 (node_name, "extends") == 0) {
@@ -3231,6 +3379,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator,
 							iter,
 							"bundle-unknown-type",
+							"%s",
 							prop);
 
 		} else if (g_strcmp0 (node_name, "update_contact") == 0) {
@@ -3301,10 +3450,11 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_add_issue (validator,
 						iter,
 						"nonstandard-gnome-extension",
+						"%s",
 						node_name);
 			tag_valid = FALSE;
 		} else if (!g_str_has_prefix (node_name, "x-")) {
-			as_validator_add_issue (validator, iter, "unknown-tag", node_name);
+			as_validator_add_issue (validator, iter, "unknown-tag", "%s", node_name);
 			tag_valid = FALSE;
 		}
 
@@ -3491,6 +3641,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 					as_validator_add_issue (validator,
 								NULL,
 								"metainfo-suggestion-type-invalid",
+								"%s",
 								as_suggested_kind_to_string (
 								    as_suggested_get_kind (prov)));
 			}
@@ -3511,6 +3662,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator,
 							NULL,
 							"category-invalid",
+							"%s",
 							category_name);
 				continue;
 			}
@@ -3542,6 +3694,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator,
 							NULL,
 							"screenshot-caption-too-long",
+							"%s",
 							scr_caption);
 			}
 		}
@@ -3646,7 +3799,11 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 
 	file_stream = G_INPUT_STREAM (g_file_read (metadata_file, NULL, &tmp_error));
 	if (tmp_error != NULL) {
-		as_validator_add_issue (validator, NULL, "file-read-failed", tmp_error->message);
+		as_validator_add_issue (validator,
+					NULL,
+					"file-read-failed",
+					"%s",
+					tmp_error->message);
 		return FALSE;
 	}
 	if (file_stream == NULL)
@@ -3674,7 +3831,11 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 		g_string_append_len (asxmldata, buffer, len);
 	}
 	if (tmp_error != NULL) {
-		as_validator_add_issue (validator, NULL, "file-read-failed", tmp_error->message);
+		as_validator_add_issue (validator,
+					NULL,
+					"file-read-failed",
+					"%s",
+					tmp_error->message);
 		return FALSE;
 	}
 	/* check if there was an error */
@@ -3706,6 +3867,7 @@ as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata, gs
 			as_validator_add_issue (validator,
 						NULL,
 						"xml-markup-invalid",
+						"%s",
 						error->message);
 		}
 
@@ -3778,6 +3940,7 @@ as_validator_validate_bytes (AsValidator *validator, GBytes *metadata)
 				as_validator_add_issue (validator,
 							iter,
 							"component-catalog-tag-invalid",
+							"%s",
 							node_name);
 				ret = FALSE;
 			}
@@ -3786,7 +3949,7 @@ as_validator_validate_bytes (AsValidator *validator, GBytes *metadata)
 		as_validator_add_issue (validator, root, "metainfo-ancient", NULL);
 		ret = FALSE;
 	} else {
-		as_validator_add_issue (validator, root, "root-tag-unknown", (gchar *) root->name);
+		as_validator_add_issue (validator, root, "root-tag-unknown", "%s", root->name);
 		ret = FALSE;
 	}
 
@@ -3914,6 +4077,7 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname,
 					as_validator_add_issue (data->validator,
 								NULL,
 								"desktop-file-load-failed",
+								"%s",
 								tmp_error->message);
 				} else {
 					/* we successfully loaded the desktop-entry data into the component, now perform some checks */
@@ -4075,6 +4239,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 			as_validator_add_issue (validator,
 						NULL,
 						"file-read-failed",
+						"%s",
 						tmp_error->message);
 			continue;
 		}
@@ -4093,6 +4258,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 			as_validator_add_issue (validator,
 						NULL,
 						"file-read-failed",
+						"%s",
 						tmp_error->message);
 			continue;
 		}
