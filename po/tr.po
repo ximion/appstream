@@ -29,10 +29,9 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-03-06 14:20+0100\n"
-"PO-Revision-Date: 2024-02-24 21:05+0000\n"
+"PO-Revision-Date: 2024-03-07 02:01+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1732,7 +1731,7 @@ msgstr ""
 msgid ""
 "The enumeration must not be translated as a whole. In MetaInfo files, "
 "translate indivdual items (<li/> elements) instead."
-msgstr ""
+msgstr "Numaralandırma bir bütün olarak çevrilmemelidir. MetaInfo dosyalarında, bunun yerine tek tek ögeleri (<li/> ögeleri) çevirin."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -2392,10 +2391,7 @@ msgstr ""
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
-"`stock` veya `cache` türündeki simgeler, bir URL, simgeye tam veya göreceli "
-"bir yol içermemelidir. Yalnızca dosya adlarına veya stok adlarına izin "
-"verilir."
+msgstr "`stock` veya `cached` türündeki simgeler, bir URL, simgeye tam veya göreceli bir yol içermemelidir. Yalnızca dosya adlarına veya stok adlarına izin verilir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:542
@@ -2883,9 +2879,7 @@ msgstr "XDG uygulama dizini bulunamadı."
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr ""
-"Metainfo dosyası, eski bir yolda saklanmaktadır. Lütfen `/usr/share/"
-"metainfo` dizinine yerleştirin."
+msgstr "Metainfo dosyası, eski bir yolda saklanmaktadır. Lütfen `/usr/share/metainfo/` dizinine yerleştirin."
 
 #: src/as-validator-issue-tag.h:902
 msgid "The metainfo file specifies multiple components. This is not allowed."
@@ -3376,11 +3370,10 @@ msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:303
-#, fuzzy
 msgid ""
 "A comma-separated list of custom keys that should be propagated to the "
 "output data."
-msgstr "Kabul edilecek bileşen kimliklerinin virgülle ayrılmış listesi."
+msgstr "Çıktı verilerine yayılması gereken özel anahtarların virgülle ayrılmış listesi."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
