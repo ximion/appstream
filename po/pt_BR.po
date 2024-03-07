@@ -36,10 +36,9 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-03-06 14:20+0100\n"
-"PO-Revision-Date: 2024-02-26 01:02+0000\n"
+"PO-Revision-Date: 2024-03-07 02:01+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"appstream/translations/pt_BR/>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1743,7 +1742,7 @@ msgstr "Enumerações só devem ter itens de lista (<li/>) como filhos."
 msgid ""
 "The enumeration must not be translated as a whole. In MetaInfo files, "
 "translate indivdual items (<li/> elements) instead."
-msgstr ""
+msgstr "A enumeração não deve ser traduzida como um todo. Em arquivos MetaInfo, traduza os itens individuais (<li/> elementos)."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -2164,9 +2163,7 @@ msgstr ""
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Um item 'requires' ou 'recommends' requer um valor para denotar uma relação "
-"válida."
+msgstr "Um item `requires` ou `recommends` requer um valor para denotar uma relação válida."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:369
@@ -2412,10 +2409,7 @@ msgstr ""
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
-"Os ícones do tipo `estoque` ou `cached` não devem conter uma URL, um caminho "
-"completo ou relativo para o ícone. Somente nomes base de arquivo ou nomes "
-"padrão são permitidos."
+msgstr "Os ícones do tipo `stock` ou `cached` não devem conter uma URL, um caminho completo ou relativo para o ícone. Somente nomes base de arquivo ou nomes padrão são permitidos."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:542
@@ -2576,13 +2570,7 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"Foi encontrada uma tag inválida. As tags não padronizadas devem ser "
-"prefixadas com “x-”. O AppStream também fornece a tag <custom/> para "
-"adicionar os dados personalizados arbitrários em arquivos metainfo. Essa tag "
-"é lida por bibliotecas do AppStream e pode ser útil em vez de definir novas "
-"tags personalizadas de topo de nível ou prefixadas com “ x-” caso queira "
-"apenas adicionar dados personalizados a um arquivo metainfo."
+msgstr "Foi encontrada uma tag inválida. As tags não padronizadas devem ser prefixadas com `x-`. O AppStream também fornece a tag <custom/> para adicionar os dados personalizados arbitrários em arquivos metainfo. Essa tag é lida por bibliotecas do AppStream e pode ser útil em vez de definir novas tags personalizadas de topo de nível ou prefixadas com `x-` caso queira apenas adicionar dados personalizados a um arquivo metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:675
@@ -2716,9 +2704,7 @@ msgstr ""
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"Uma tag 'extends' está definida, porém o componente não é do tipo 'addon', "
-"'localization' ou 'repository'."
+msgstr "Uma tag `extends` está definida, porém o componente não é do tipo `addon`, `localization` ou `repository`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:762
@@ -2910,9 +2896,7 @@ msgstr "Nenhum diretório de aplicativos XDG encontrado."
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr ""
-"O arquivo metainfo está armazenado em um caminho herdado. Por favor, coloque-"
-"o em `/usr/share/metainfo`."
+msgstr "O arquivo metainfo está armazenado em um caminho herdado. Por favor, coloque-o em `/usr/share/metainfo/`."
 
 #: src/as-validator-issue-tag.h:902
 msgid "The metainfo file specifies multiple components. This is not allowed."
@@ -3160,7 +3144,7 @@ msgstr "O atributo `id` do elemento `content_attribute` é inválido."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1093
 msgid "The `content_attribute` tag needs a value."
-msgstr "A tag `content_attibute`precisa de um valor."
+msgstr "A tag `content_attribute` precisa de um valor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1099
@@ -3180,7 +3164,7 @@ msgstr "Uma tag `content_attribute` com este ID já foi definida."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1117
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr "A `etiqueta` não possui o atributo `namespace`."
+msgstr "A `tag` não possui o atributo `namespace`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1123
@@ -3244,12 +3228,12 @@ msgstr "O item de referência está faltando um valor."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1171
 msgid "The `custom` tag can only contain `value` children."
-msgstr "A tag `personalizado` só pode conter `valor` relacionado."
+msgstr "A tag `custom` só pode conter `value` relacionado."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1177
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr "Este valor da tag `personalizado` não possui um atributo `key`."
+msgstr "Este valor da tag `custom` não possui um atributo `key`."
 
 #: src/as-validator-issue-tag.h:1182
 msgid "A key can only be used once."
@@ -3414,11 +3398,10 @@ msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:303
-#, fuzzy
 msgid ""
 "A comma-separated list of custom keys that should be propagated to the "
 "output data."
-msgstr "Uma lista separada por vírgulas de IDs de componentes para aceitar."
+msgstr "Uma lista separada por vírgula de chaves personalizadas que devem ser propagadas para os dados de saída."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
