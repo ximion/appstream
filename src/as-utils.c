@@ -2481,6 +2481,7 @@ as_utils_install_metadata_file_internal (const gchar *filename,
 	if (origin != NULL && !is_yaml) {
 		g_autoptr(AsMetadata) mdata = as_metadata_new ();
 		as_metadata_set_locale (mdata, "ALL");
+		as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_CATALOG);
 		if (!as_metadata_parse_file (mdata, file_dest, AS_FORMAT_KIND_XML, error))
 			return FALSE;
 		as_metadata_set_origin (mdata, origin);
