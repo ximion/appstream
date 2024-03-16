@@ -127,6 +127,7 @@ install_headers(asqt_pub_headers, subdir: f'@asqt_library_name@')
 
 cmake_data = configuration_data()
 cmake_data.set('LIBDIR_FULL', join_paths(get_option('prefix'), get_option('libdir')))
+cmake_data.set('LIBDIR', get_option('libdir'))
 cmake_data.set('PREFIX', get_option('prefix'))
 cmake_data.set('VERSION', as_version)
 
