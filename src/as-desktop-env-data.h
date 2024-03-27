@@ -97,6 +97,8 @@ AsGUIEnvStyleData as_gui_env_style_data[] = {
 	{ "pantheon", N_("Pantheon") },
 	/* TRANSLATORS: Name of the "plasma" visual environment style. */
 	{ "plasma", N_("KDE Plasma") },
+	/* TRANSLATORS: Name of the "plasma-mobile" visual environment style. */
+	{ "plasma-mobile", N_("KDE Plasma Mobile") },
 	/* TRANSLATORS: Name of the "razor" visual environment style. */
 	{ "razor", N_("Razor") },
 	/* TRANSLATORS: Name of the "rox" visual environment style. */
