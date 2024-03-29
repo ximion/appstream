@@ -52,7 +52,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-03-06 14:20+0100\n"
-"PO-Revision-Date: 2024-03-29 04:01+0000\n"
+"PO-Revision-Date: 2024-03-29 17:02+0000\n"
 "Last-Translator: 复予 <clonewith@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -3133,17 +3133,15 @@ msgstr "一个 icon-policy 字符串，设置图标大小的处理方式（参�
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:303
-#, fuzzy
 msgid ""
 "A comma-separated list of custom keys that should be propagated to the "
 "output data."
-msgstr "接受用逗号分隔的组件 ID 列表"
+msgstr "应被传播到输出数据的自定义键列表，逗号分隔。"
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
-#, fuzzy
 msgid "A comma-separated list of component-IDs to accept."
-msgstr "接受用逗号分隔的组件 ID 列表"
+msgstr "接受的组件 ID 列表，逗号分隔。"
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:327
@@ -3174,11 +3172,11 @@ msgid ""
 "`short` - generates an abridged report\n"
 "`full` - a detailed report will be printed"
 msgstr ""
-"用于“--print-report”选项的设定值无效：%s\n"
+"用于 `--print-report` 选项的设定值无效：%s\n"
 "可能的设定值为：\n"
-"“on-error”- 仅运行失败时打印简短报告（默认）\n"
-"“short”- 生成缩略报告\n"
-"“full”- 打印详细报告"
+"`on-error` - 仅运行失败时打印简短报告（默认）\n"
+"`short` - 生成缩略报告\n"
+"`full` - 打印详细报告"
 
 #: tools/appstream-compose.c:394
 #, c-format
@@ -3194,9 +3192,8 @@ msgid "WARNING"
 msgstr "警告"
 
 #: tools/appstream-compose.c:446
-#, fuzzy
 msgid "Unable to set icon policy"
-msgstr "无法读取文件。"
+msgstr "无法设置图标策略"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:473
@@ -3365,13 +3362,11 @@ msgstr "没有提供许可证、许可证表述或许可证例外字符串。"
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
 #: tools/appstreamcli.c:596
-#, fuzzy
 msgid "Print more detailed output on why incompatibilities exist."
-msgstr "打印关于寻找到的组件的详细输出。"
+msgstr "更详细打印不兼容性存在原因相关的输出。"
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:633
-#, fuzzy
 msgid "Set the data origin for the installed metadata catalog file."
 msgstr "为安装的元数据集合文件设置数据来源。"
 
@@ -3444,11 +3439,10 @@ msgstr "为 desktop-entry 文件的“Exec=”设定键使用指定行。"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1023
-#, fuzzy
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr "假设输入文件是所选的格式（'yaml' 或者 'text'）。"
+msgstr "假设输入文件是所选的格式（'yaml'、'text' 或 'markdown'）。"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1030
@@ -3467,15 +3461,14 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1082
-#, fuzzy
 msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr "以选择的格式生成输出结果（“yaml”或“text”）。"
+msgstr "以选择的格式生成输出结果（“yaml”、“text”或“markdown”）。"
 
 #: tools/appstreamcli.c:1127
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
-msgstr "未找到组合二进制文件“%s”！无法继续。"
+msgstr "未找到 AppStream Compose 二进制文件“%s”！无法继续。"
 
 #: tools/appstreamcli.c:1131
 #, c-format
@@ -3489,14 +3482,14 @@ msgstr "无效的参数数量"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1158
-#, fuzzy, c-format
+#, c-format
 msgid "Compose operation failed to execute: %s"
-msgstr "验证失败：%s"
+msgstr "整合操作执行失败：%s"
 
 #: tools/appstreamcli.c:1168
-#, fuzzy, c-format
+#, c-format
 msgid "Compose failed: %s"
-msgstr "验证失败：%s"
+msgstr "整合失败：%s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:1225
@@ -3606,9 +3599,8 @@ msgstr "显示关于可用的 AppStream 元数据的状态信息。"
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1500
-#, fuzzy
 msgid "Show information about the current device and used operating system."
-msgstr "显示来自元数据索引有关当前操作系统的信息。"
+msgstr "显示关于当前设备与操作系统的信息。"
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1508
@@ -3617,9 +3609,8 @@ msgstr "将元数据文件安装到正确的位置。"
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1516
-#, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr "将收藏集 XML 转换成 YAML，或是相反。"
+msgstr "将元数据集 XML 转换成 YAML，或是相反。"
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1523
@@ -3650,9 +3641,8 @@ msgstr "使用来自元信息文件的信息编写 NEWS 纯文本或 YAML 文件
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1564
-#, fuzzy
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr "从目录树整合 AppStream 集合元数据。"
+msgstr "从目录树整合 AppStream 元数据集。"
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1572
@@ -3728,9 +3718,8 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "未找到提供“%s;%s”的组件。"
 
 #: tools/ascli-actions-mdata.c:255
-#, fuzzy
 msgid "You need to specify categories to list."
-msgstr "您需要指定用来搜索的关键字。"
+msgstr "您需要指定列出的类别。"
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:269
@@ -3807,9 +3796,8 @@ msgid "ERROR"
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
-#, fuzzy
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr "您需要指定一个元信息文件作为输入。"
+msgstr "您需要指定一个元信息文件名或组件 ID。"
 
 #: tools/ascli-actions-mdata.c:714 tools/ascli-actions-mdata.c:838
 #: tools/ascli-actions-misc.c:133 tools/ascli-actions-misc.c:402
