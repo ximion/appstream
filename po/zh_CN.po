@@ -44,6 +44,7 @@
 # Jason Li <jasonmli@outlook.com>, 2023.
 # tjw123hh <tjw123hh@outlook.com>, 2023.
 # Red Star Over Earth <rs0vere@outlook.com>, 2023.
+# 复予 <clonewith@qq.com>, 2024.
 #
 # Translators:
 msgid ""
@@ -51,16 +52,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-03-06 14:20+0100\n"
-"PO-Revision-Date: 2023-08-17 13:45+0000\n"
-"Last-Translator: Gary Wang <wzc782970009@gmail.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_Hans/>\n"
+"PO-Revision-Date: 2024-03-29 04:01+0000\n"
+"Last-Translator: 复予 <clonewith@qq.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -625,7 +625,7 @@ msgstr "长时间裸体"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:924
 msgid "Explicit nudity involving visible sexual organs"
-msgstr ""
+msgstr "涉及可见性器官的明显裸露"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:929
@@ -750,7 +750,7 @@ msgstr "使用真实货币赌博"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:995
 msgid "No ability to spend money"
-msgstr "无花钱的功能"
+msgstr "无付费功能"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:997
@@ -789,9 +789,8 @@ msgstr "无法与其他用户交谈"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1019
-#, fuzzy
 msgid "Moderated audio or video chat functionality between users"
-msgstr "用户间不受控制的音频或视频聊天功能"
+msgstr "用户间适度的音频或视频聊天功能"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1021
@@ -1006,32 +1005,31 @@ msgstr "检索到的文件大小为0。"
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
 #: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:77
 msgid "Cinnamon"
-msgstr ""
+msgstr "Cinnamon"
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
 #: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:79
 msgid "Deepin"
-msgstr ""
+msgstr "Deepin（深度）"
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
 #: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:81
 msgid "EDE"
-msgstr ""
+msgstr "EDE"
 
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #. TRANSLATORS: Name of the "endless" visual environment style.
 #: src/as-desktop-env-data.h:49 src/as-desktop-env-data.h:83
-#, fuzzy
 msgid "Endless"
-msgstr "套件"
+msgstr "Endless"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
 #: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #. TRANSLATORS: Name of the "KDE" desktop environment.
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
@@ -1039,78 +1037,78 @@ msgstr ""
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
 #: src/as-desktop-env-data.h:99
 msgid "KDE Plasma"
-msgstr ""
+msgstr "KDE Plasma"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
 #: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:89
 msgid "LXDE"
-msgstr ""
+msgstr "LXDE"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
 #: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:91
 msgid "LXQt"
-msgstr ""
+msgstr "LXQt"
 
 #. TRANSLATORS: Name of the "MATE" desktop environment.
 #: src/as-desktop-env-data.h:59
 msgid "MATE"
-msgstr ""
+msgstr "MATE"
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
 #: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:97
 msgid "Pantheon"
-msgstr ""
+msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
 #: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:101
 msgid "Razor"
-msgstr ""
+msgstr "Razor"
 
 #. TRANSLATORS: Name of the "ROX" desktop environment.
 #: src/as-desktop-env-data.h:67
 msgid "ROX"
-msgstr ""
+msgstr "ROX"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
 #: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:105
 msgid "Unity"
-msgstr ""
+msgstr "Unity"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
 #: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:109
 msgid "Xfce"
-msgstr ""
+msgstr "Xfce"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
 msgid "GNOME (Dark)"
-msgstr ""
+msgstr "GNOME（深色）"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:93
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:95
 msgid "Mate"
-msgstr ""
+msgstr "Mate"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:103
 msgid "Rox"
-msgstr ""
+msgstr "Rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:107
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -1437,16 +1435,15 @@ msgstr "此软件建议使用%s %.2f GiB内存，但此系统有%.2f GiB内存�
 #: src/as-relation.c:1754
 #, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr "此软件支持 %s %.2f GiB 的内存"
+msgstr "此软件支持 %s %.2f GiB 的内存。"
 
 #: src/as-relation.c:1770
 msgid "This system has sufficient memory for this software."
 msgstr "此系统有足够的内存用于此软件。"
 
 #: src/as-relation.c:1834
-#, fuzzy
 msgid "This software needs a display for graphical content."
-msgstr "此软件建议使用 %s 进行输入。"
+msgstr "此软件需要显示器用于显示图形内容。"
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1492,37 +1489,39 @@ msgstr "显示尺寸足以满足此软件的需求。"
 #, c-format
 msgid ""
 "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "对类型“%s”相关项目的满足性检查还未实现。"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "仅 Affero General Public License v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:40
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Affero General Public License v1.0 或更高版本"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:43
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "仅 GNU Affero General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:45
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Affero General Public License v3.0 或更新版本"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:255
+#, fuzzy
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "仅 GNU Free Documentation License v1.1 - 不变"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:257
+#, fuzzy
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 或更新版本 - 不变"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:259
@@ -1806,15 +1805,12 @@ msgid "The component ID starts with punctuation. This is not allowed."
 msgstr "组件 ID 以标点符号开头。这是不允许的。"
 
 #: src/as-validator-issue-tag.h:151
-#, fuzzy
 msgid ""
 "The component ID contains a hyphen/minus in its domain part. Using a hyphen "
 "is strongly discouraged to improve interoperability with other tools such as "
 "D-Bus. A good option is to replace any hyphens with underscores (`_`). "
 "Hyphens are only allowed in the last segment of a component ID."
-msgstr ""
-"组件ID中包含连字符/减号。 强烈不建议使用连字符来改善与其他工具（如D-Bus）的互"
-"操作性。 一个好的选择是将任何连字符替换为下划线（' _ '）。"
+msgstr "组件ID中包含连字符/减号。 强烈不建议使用连字符，来改善与其他工具（如D-Bus）的互操作性。 将连字符替换为下划线（`_`）是个好选择。只允许在组件ID的最后一部分使用连字符。"
 
 #: src/as-validator-issue-tag.h:157
 msgid ""
@@ -1845,20 +1841,16 @@ msgstr ""
 "freedesktop”)开始的。"
 
 #: src/as-validator-issue-tag.h:178
-#, fuzzy
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDE's reverse-DNS name (\"org.kde\")."
-msgstr ""
-"该组件是KDE项目的一部分，但它的ID不是以KDE的反向dns名称(\"org.kde\")开始的。"
+msgstr "该组件是KDE项目的一部分，但它的ID不是以KDE的反向DNS名称(\"org.kde\")开始的。"
 
 #: src/as-validator-issue-tag.h:183
-#, fuzzy
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr ""
-"该组件是KDE项目的一部分，但它的ID不是以KDE的反向dns名称(\"org.kde\")开始的。"
+msgstr "该组件是GNOME项目的一部分，但它的ID不是以GNOME的反向DNS名称(\"org.gnome\")开始的。"
 
 #: src/as-validator-issue-tag.h:188
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1923,9 +1915,8 @@ msgstr "`height` 属性必须为正整数。"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
-#, fuzzy
 msgid "The `scale` property must be a positive integer."
-msgstr "`height` 属性必须为正整数。"
+msgstr "`scale`属性必须为正整数。"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:241
@@ -1949,10 +1940,9 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:265
-#, fuzzy
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`."
-msgstr "一个有用的截图应该包含至少一个图片或视频。请添加<image/>给截图。"
+msgstr "一张截图必须包含至少一个`source`类型的未翻译图像。"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:271
@@ -1982,10 +1972,9 @@ msgid ""
 msgstr "请考虑使用安全的 (HTTPS) 链接 URL 来引用此屏幕截图或录像。"
 
 #: src/as-validator-issue-tag.h:293
-#, fuzzy
 msgid ""
 "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr "一个有用的截图应该包含至少一个图片或视频。请添加<image/>给截图。"
+msgstr "一张截图必须包含至少一个缩放系数为1的图像。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:299
@@ -2147,14 +2136,11 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
-#, fuzzy
 msgid ""
 "This `display_length` item contains an invalid display length. Its value "
 "must be a positive integer value denoting logical pixels. Please refer to "
 "the AppStream specification for more information on this tag."
-msgstr ""
-"该 `display_length` 项目包含无效的显示长度。它的设定值必须为简写字符串或表示"
-"逻辑像素的正整数。请参阅 AppStream 规范获取有关该标签的更多信息。"
+msgstr "该 `display_length` 项目包含无效的显示长度。它的设定值必须为表示逻辑像素的正整数。请参阅 AppStream 规范获取有关该标签的更多信息。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:424
@@ -2384,9 +2370,8 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:633
-#, fuzzy
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr "<developer_name/> 不能包含超链接。"
+msgstr "`developer`块的`name`子对象不可包含超链接。"
 
 #: src/as-validator-issue-tag.h:638
 msgid ""
@@ -2406,10 +2391,9 @@ msgstr "这个“bundle”标签的类型未知，不能使用。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:656
-#, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr "“update_contact” 标签不应该包含在集合 AppStream XML 中。"
+msgstr "`update_contact` 标签不应该包含在集合 AppStream XML 中。"
 
 #: src/as-validator-issue-tag.h:661
 msgid ""
@@ -2611,22 +2595,18 @@ msgstr "这个文件的XML格式不正确。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:823
-#, fuzzy
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr "在集合元数据中发现无效标记。 只允许 “component” 标签。"
+msgstr "在集合元数据中发现无效标记。 只允许 `component` 标签。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:829
-#, fuzzy
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher). "
 "Modern files use the `component` root tag and include many other "
 "differences, so check for changes carefully when modernizing the data."
-msgstr ""
-"该元信息文件使用了无法被验证的过时版本的 AppStream 规范。请迁移至 0.6 版本"
-"（或更高）。"
+msgstr "该元信息文件使用了无法被验证的过时版本的 AppStream 规范。请迁移至 0.6 版本（或更高）。新版本文件使用 `component` 根标签，并且有很多其他不同，因此在迁移数据时请仔细检查更改。"
 
 #: src/as-validator-issue-tag.h:835
 msgid ""
@@ -2732,9 +2712,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:925
-#, fuzzy
 msgid "Failed to download release metadata."
-msgstr "下载文件失败：%s"
+msgstr "下载版本元数据失败。"
 
 #: src/as-validator-issue-tag.h:930
 msgid ""
@@ -2932,9 +2911,8 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1105
-#, fuzzy
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr "设置的标签值对于`internet`关系无效。"
+msgstr "`content_attribute` 标签值对于给出的 ID 无效。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1111
@@ -2993,9 +2971,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:1165
-#, fuzzy
 msgid "The reference item is missing a value."
-msgstr "发行时间戳无效。"
+msgstr "参考项目缺失数值。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1171
@@ -3096,46 +3073,39 @@ msgstr "根本不使用网络，甚至不要用于 URL 有效性检查。"
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:226
-#, fuzzy
 msgid "Set mode of the issue report that is printed to the console."
-msgstr "为打印在终端中的问题报告设置模式"
+msgstr "为打印在终端中的问题报告设置模式。"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:233
-#, fuzzy
 msgid "Override the default prefix (`/usr` by default)."
-msgstr "覆盖默认前缀（默认为“/usr”）"
+msgstr "覆盖默认前缀（默认为 `/usr`）。"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:240
-#, fuzzy
 msgid "Set the result output directory."
-msgstr "设置结果输出目录"
+msgstr "设置结果输出目录。"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:247
-#, fuzzy
 msgid "Override the catalog metadata output directory."
-msgstr "覆盖集合元数据输出目录"
+msgstr "覆盖集合元数据输出目录。"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:254
-#, fuzzy
 msgid "Override the icon output directory."
-msgstr "覆盖图标输出目录"
+msgstr "覆盖图标输出目录。"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:261
-#, fuzzy
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)."
-msgstr "设置媒体输出目录 (用于将由 web 服务器提供的媒体数据)"
+msgstr "设置媒体输出目录 (用于将由 web 服务器提供的媒体数据)。"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:268
-#, fuzzy
 msgid "Set a directory where HTML and text issue reports will be stored."
-msgstr "设置 HTML 和 纯文本问题报告存放的目录"
+msgstr "设置 HTML 和纯文本问题报告存放的目录。"
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:275
@@ -3144,23 +3114,22 @@ msgstr "设置来源的名称"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:282
-#, fuzzy
 msgid "Set the URL where the exported media content will be hosted."
-msgstr "设置托管导出的媒体内容的 URL"
+msgstr "设置托管导出的媒体内容的 URL。"
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:289
 msgid ""
 "Makes all URLs in output data complete URLs and avoids the use of a shared "
 "URL prefix for all metadata."
-msgstr ""
+msgstr "使输出数据中的所有 URL 完整，并避免所有元数据共用一个 URL 前缀。"
 
 #. TRANSLATORS: ascompose flag description for: --icon-policy
 #: tools/appstream-compose.c:296
 msgid ""
 "An icon-policy string to set how icon sizes should be handled (refer to the "
 "man page for details)."
-msgstr ""
+msgstr "一个 icon-policy 字符串，设置图标大小的处理方式（参考手册页获取详情）。"
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:303
@@ -3853,7 +3822,7 @@ msgstr "不存在 “%s” 元数据文件。"
 #: tools/ascli-actions-mdata.c:743
 #, c-format
 msgid "Relation check for: %s"
-msgstr ""
+msgstr "关系检查：%s"
 
 #: tools/ascli-actions-mdata.c:754
 msgid "Requirements:"
@@ -3861,67 +3830,66 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:756
 msgid "No required items are set for this software."
-msgstr ""
+msgstr "此软件未设置必需项目。"
 
 #: tools/ascli-actions-mdata.c:761
 msgid "Recommendations:"
-msgstr ""
+msgstr "推荐："
 
 #: tools/ascli-actions-mdata.c:763
 msgid "No recommended items are set for this software."
-msgstr ""
+msgstr "此软件未设置推荐项目。"
 
 #: tools/ascli-actions-mdata.c:768
-#, fuzzy
 msgid "Supported:"
-msgstr "运动"
+msgstr "支持："
 
 #: tools/ascli-actions-mdata.c:770
 msgid "No supported items are set for this software."
-msgstr ""
+msgstr "此软件未设置支持项目。"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:794
 msgid "Desktop"
-msgstr ""
+msgstr "台式电脑"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:797
 msgid "Laptop"
-msgstr ""
+msgstr "笔记本电脑"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:800
 msgid "Server"
-msgstr ""
+msgstr "服务器"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:803
 msgid "Tablet"
-msgstr ""
+msgstr "平板电脑"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:806
 msgid "Handset"
-msgstr ""
+msgstr "手机"
 
 #: tools/ascli-actions-mdata.c:808
 msgid "Unknown"
-msgstr ""
+msgstr "未知"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
 #: tools/ascli-actions-mdata.c:875
 #, c-format
 msgid "Chassis compatibility check for: %s"
-msgstr ""
+msgstr "平台兼容性测试：%s"
 
 #: tools/ascli-actions-mdata.c:894
 msgid "Incompatible"
-msgstr ""
+msgstr "不兼容"
 
 #: tools/ascli-actions-mdata.c:929
 msgid "Compatible"
-msgstr ""
+msgstr "兼容"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:47
@@ -4032,7 +4000,7 @@ msgstr "您需要指定一种 NEWS 格式来写入输出。"
 
 #: tools/ascli-actions-misc.c:551
 msgid "Operating System Details"
-msgstr ""
+msgstr "操作系统详情"
 
 #: tools/ascli-actions-misc.c:555
 #, c-format
@@ -4040,9 +4008,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr "找不到操作系统组件 '%s'！"
 
 #: tools/ascli-actions-misc.c:562
-#, fuzzy
 msgid "ID"
-msgstr "IDE"
+msgstr "ID"
 
 #: tools/ascli-actions-misc.c:563 tools/ascli-actions-misc.c:590
 #: tools/ascli-utils.c:304
@@ -4068,7 +4035,7 @@ msgstr "描述"
 
 #: tools/ascli-actions-misc.c:589
 msgid "Kernel"
-msgstr ""
+msgstr "内核"
 
 #: tools/ascli-actions-misc.c:591
 msgid "Version"
@@ -4076,24 +4043,23 @@ msgstr "版本"
 
 #: tools/ascli-actions-misc.c:594
 msgid "Hardware"
-msgstr ""
+msgstr "硬件"
 
 #: tools/ascli-actions-misc.c:597
 msgid "Physical Memory"
-msgstr ""
+msgstr "物理内存"
 
 #: tools/ascli-actions-misc.c:601
-#, fuzzy
 msgid "Devices with Modaliases"
-msgstr "模块别名"
+msgstr "有模块别名的设备"
 
 #: tools/ascli-actions-misc.c:630
 msgid "User Input Controls"
-msgstr ""
+msgstr "用户输入控制"
 
 #: tools/ascli-actions-misc.c:633
 msgid "unknown"
-msgstr ""
+msgstr "未知"
 
 #: tools/ascli-actions-misc.c:640 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
@@ -4196,16 +4162,16 @@ msgstr "信息：%lu"
 #: tools/ascli-actions-validate.c:369
 #, c-format
 msgid "pedantic: %lu"
-msgstr "迂腐的：%lu"
+msgstr "细节：%lu"
 
 #: tools/ascli-actions-validate.c:395 tools/ascli-actions-validate.c:499
 msgid "You need to specify at least one file to validate!"
-msgstr "您需要指定至少一个要进行验证的文件！"
+msgstr "您需要至少指定一个要进行验证的文件！"
 
 #: tools/ascli-actions-validate.c:406
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to add release metadata file: %s"
-msgstr "无安装元数据文件：%s"
+msgstr "无法添加版本元数据文件：%s"
 
 #: tools/ascli-actions-validate.c:416
 msgid ""
