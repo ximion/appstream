@@ -2947,6 +2947,16 @@ as_validator_check_branding (AsValidator *validator, xmlNode *node)
 							tmp);
 			g_free (tmp);
 
+			/* catch a common typo */
+			tmp = as_xml_get_prop_value (iter, "schema_preference");
+			if (tmp != NULL)
+				as_validator_add_issue (validator,
+							iter,
+							"branding-color-scheme-wrong-property",
+							"%s",
+							"schema_preference");
+			g_free (tmp);
+
 			tmp = as_xml_get_node_value (iter);
 			len = strlen (tmp);
 			if (!g_str_has_prefix (tmp, "#") || (len != 7 && len != 9))

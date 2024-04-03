@@ -1133,6 +1133,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The value of this color scheme preference is not valid."),
 	},
 
+	{ "branding-color-scheme-wrong-property",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The name of the color scheme property is wrong. It should be `scheme_preference`."),
+	},
+
 	{ "branding-color-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("This color is not a valid HTML color code."),
