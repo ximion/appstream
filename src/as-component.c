@@ -5033,8 +5033,18 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	as_xml_add_text_node (cnode, "project_group", priv->project_group);
 
 	/* developer */
-	if (priv->developer != NULL)
+	if (priv->developer != NULL) {
 		as_developer_to_xml_node (priv->developer, ctx, cnode);
+
+		if (as_context_get_format_version (ctx) <= AS_FORMAT_VERSION_V1_0) {
+			/* Add the deprecated tag for now, for improved backwards compatibility */
+			as_xml_add_text_node (
+			    cnode,
+			    "developer_name",
+			    g_hash_table_lookup (as_developer_get_name_table (priv->developer),
+						 "C"));
+		}
+	}
 
 	/* extends nodes */
 	as_xml_add_node_list (cnode, NULL, "extends", priv->extends);
