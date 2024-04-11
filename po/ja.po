@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-03-06 14:20+0100\n"
-"PO-Revision-Date: 2024-04-09 14:29+0000\n"
+"PO-Revision-Date: 2024-04-11 01:06+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/translations/ja/>\n"
 "Language: ja\n"
@@ -393,39 +393,39 @@ msgstr "ユーティリティー"
 #: src/as-content-rating.c:284
 #, c-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: src/as-content-rating.c:430
 msgid "General"
-msgstr ""
+msgstr "全年齢対象"
 
 #: src/as-content-rating.c:439
 msgid "ALL"
-msgstr "すべて"
+msgstr "全年齢対象"
 
 #: src/as-content-rating.c:443 src/as-content-rating.c:552
 msgid "Adults Only"
-msgstr "R18+"
+msgstr "18 歳以上"
 
 #: src/as-content-rating.c:445 src/as-content-rating.c:550
 msgid "Mature"
-msgstr "成人向け"
+msgstr "17 歳以上"
 
 #: src/as-content-rating.c:447 src/as-content-rating.c:549
 msgid "Teen"
-msgstr ""
+msgstr "13 歳以上"
 
 #: src/as-content-rating.c:449 src/as-content-rating.c:548
 msgid "Everyone 10+"
-msgstr ""
+msgstr "10 歳以上"
 
 #: src/as-content-rating.c:451 src/as-content-rating.c:546
 msgid "Everyone"
-msgstr ""
+msgstr "6 歳以上"
 
 #: src/as-content-rating.c:453 src/as-content-rating.c:545
 msgid "Early Childhood"
-msgstr ""
+msgstr "6 歳未満"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:835
@@ -931,7 +931,7 @@ msgstr ""
 #: src/as-curl.c:148
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr ""
+msgstr "サーバーの制限を越えたため、ダウンロードできませんでした"
 
 #: src/as-curl.c:155 src/as-curl.c:161
 #, c-format
@@ -942,13 +942,13 @@ msgstr "ファイルをダウンロードできませんでした: %s"
 #: src/as-curl.c:175
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "URL がサーバー上に見つかりませんでした。"
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:183
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "予期しないステータスコード: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:420
@@ -960,32 +960,31 @@ msgstr "取得したファイルサイズはゼロでした。"
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
 #: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:77
 msgid "Cinnamon"
-msgstr ""
+msgstr "Cinnamon"
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
 #: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:79
 msgid "Deepin"
-msgstr ""
+msgstr "Deepin"
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
 #: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:81
 msgid "EDE"
-msgstr ""
+msgstr "EDE"
 
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #. TRANSLATORS: Name of the "endless" visual environment style.
 #: src/as-desktop-env-data.h:49 src/as-desktop-env-data.h:83
-#, fuzzy
 msgid "Endless"
-msgstr "バンドル"
+msgstr "Endless"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
 #: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #. TRANSLATORS: Name of the "KDE" desktop environment.
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
@@ -993,78 +992,78 @@ msgstr ""
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
 #: src/as-desktop-env-data.h:99
 msgid "KDE Plasma"
-msgstr ""
+msgstr "KDE Plasma"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
 #: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:89
 msgid "LXDE"
-msgstr ""
+msgstr "LXDE"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
 #: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:91
 msgid "LXQt"
-msgstr ""
+msgstr "LXQt"
 
 #. TRANSLATORS: Name of the "MATE" desktop environment.
 #: src/as-desktop-env-data.h:59
 msgid "MATE"
-msgstr ""
+msgstr "MATE"
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
 #: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:97
 msgid "Pantheon"
-msgstr ""
+msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
 #: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:101
 msgid "Razor"
-msgstr ""
+msgstr "Razor"
 
 #. TRANSLATORS: Name of the "ROX" desktop environment.
 #: src/as-desktop-env-data.h:67
 msgid "ROX"
-msgstr ""
+msgstr "ROX"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
 #: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:105
 msgid "Unity"
-msgstr ""
+msgstr "Unity"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
 #: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:109
 msgid "Xfce"
-msgstr ""
+msgstr "Xfce"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
 msgid "GNOME (Dark)"
-msgstr ""
+msgstr "GNOME (Dark)"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:93
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:95
 msgid "Mate"
-msgstr ""
+msgstr "Mate"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:103
 msgid "Rox"
-msgstr ""
+msgstr "Rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:107
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -1083,7 +1082,7 @@ msgstr "メタデータファイルにエラーがあります:"
 
 #: src/as-pool.c:2397
 msgid "Group"
-msgstr ""
+msgstr "グループ"
 
 #: src/as-pool.c:2452
 msgid "Iconsets"
@@ -1092,12 +1091,12 @@ msgstr "アイコンセット"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2500
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "ローカルにインストールされたソフトウェアから取得したデータ"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2503
 msgid "Software catalog data"
-msgstr ""
+msgstr "ソフトウェアカタログのデータ"
 
 #: src/as-provided.c:138
 msgid "Libraries"
@@ -1117,7 +1116,7 @@ msgstr "フォント"
 
 #: src/as-provided.c:146
 msgid "Modaliases"
-msgstr "モダリア"
+msgstr "Modalias"
 
 #: src/as-provided.c:148
 msgid "Python 3"
@@ -1145,161 +1144,160 @@ msgstr "コンポーネント"
 
 #: src/as-relation.c:1350
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "ポインティングデバイス(例: マウス)"
 
 #: src/as-relation.c:1352
-#, fuzzy
 msgid "keyboard"
-msgstr "ボード"
+msgstr "キーボード"
 
 #: src/as-relation.c:1354
 msgid "gamepad"
-msgstr ""
+msgstr "ゲームパッド"
 
 #: src/as-relation.c:1356
 msgid "tv remote"
-msgstr ""
+msgstr "テレビのリモコン"
 
 #: src/as-relation.c:1358
 msgid "graphics tablet"
-msgstr ""
+msgstr "ペンタブ"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1363
 #, c-format
 msgid "This software requires a %s for input."
-msgstr ""
+msgstr "このソフトウェアは入力装置として %s が必要です。"
 
 #: src/as-relation.c:1368
 msgid "This software requires a touch input device."
-msgstr ""
+msgstr "このソフトウェアはタッチ入力デバイスが必要です。"
 
 #: src/as-relation.c:1370
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "このソフトウェアは音声入力で操作するためのマイクが必要です。"
 
 #: src/as-relation.c:1372
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "このソフトウェアは入力コントロールとしてカメラが必要です。"
 
 #: src/as-relation.c:1374
 msgid "This software requires a method for console input."
-msgstr ""
+msgstr "このソフトウェアはコンソールで入力する方法が必要です。"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1379
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "このソフトウェアは入力装置として %s を推奨しています。"
 
 #: src/as-relation.c:1384
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "このソフトウェアはタッチ入力デバイスが推奨しています。"
 
 #: src/as-relation.c:1386
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "このソフトウェアは音声入力で操作するためのマイクを推奨しています。"
 
 #: src/as-relation.c:1389
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "このソフトウェアは入力コントロールとしてカメラを推奨しています。"
 
 #: src/as-relation.c:1392
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "このソフトウェアはコンソールで入力する方法を推奨しています。"
 
 #: src/as-relation.c:1397
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "ポインティングデバイス (例: マウス)"
 
 #: src/as-relation.c:1399
 msgid "keyboards"
-msgstr ""
+msgstr "キーボード"
 
 #: src/as-relation.c:1401
 msgid "gamepads"
-msgstr ""
+msgstr "ゲームパッド"
 
 #: src/as-relation.c:1403
 msgid "tv remotes"
-msgstr ""
+msgstr "テレビのリモコン"
 
 #: src/as-relation.c:1405
 msgid "graphics tablets"
-msgstr ""
+msgstr "ペンタブ"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1409
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "このソフトウェアは %s に対応しています。"
 
 #: src/as-relation.c:1413
 msgid "This software supports touch input."
-msgstr ""
+msgstr "このソフトウェアはタッチ入力に対応しています。"
 
 #: src/as-relation.c:1415
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "このソフトウェアは音声入力で操作可能です。"
 
 #: src/as-relation.c:1417
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "このソフトウェアはカメラで操作可能です。"
 
 #: src/as-relation.c:1420
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "このソフトウェアはコンソールコマンドでの操作に対応しています。"
 
 #: src/as-relation.c:1433
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "ポインティングデバイス (例: マウスやタッチパッド) を検出しました。"
 
 #: src/as-relation.c:1435
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "物理キーボードを検出しました。"
 
 #: src/as-relation.c:1437
 msgid "Gamepad found."
-msgstr ""
+msgstr "ゲームパッドを検出しました。"
 
 #: src/as-relation.c:1439
 msgid "TV remote found."
-msgstr ""
+msgstr "TV のリモコンを検出しました。"
 
 #: src/as-relation.c:1441
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "ペンタブを検出しました。"
 
 #: src/as-relation.c:1444
 msgid "Touch input device found."
-msgstr ""
+msgstr "タッチ入力デバイスを検出しました。"
 
 #: src/as-relation.c:1446
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "音声入力コントロール用のマイクを検出しました。"
 
 #: src/as-relation.c:1448
 msgid "Camera for input control found."
-msgstr ""
+msgstr "入力コントロール用のカメラを検出しました。"
 
 #: src/as-relation.c:1450
 msgid "Console interface available."
-msgstr ""
+msgstr "コンソールインターフェースを利用できます。"
 
 #: src/as-relation.c:1511
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "ソフトウェア '%s' が見つかりました"
 
 #: src/as-relation.c:1520
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "必要なソフトウェアコンポーネント '%s' がありません。"
 
 #: src/as-relation.c:1524
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "推奨されるソフトウェアコンポーネント '%s' がありません。"
 
 #: src/as-relation.c:1528
 #, c-format
@@ -1363,13 +1361,13 @@ msgstr ""
 #: src/as-relation.c:1684
 #, c-format
 msgid "This software supports %s %s %s."
-msgstr ""
+msgstr "このソフトウェアは %s %s %s に対応しています。"
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1702
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "カーネル %s %s に対応しています。"
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1451,172 +1449,172 @@ msgstr ""
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "Affero General Public License v1.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:40
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Affero General Public License v1.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:43
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "GNU Affero General Public License v3.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:45
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Affero General Public License v3.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:255
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 only - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:257
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 or later - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:259
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 only - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:261
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 or later - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:263
 msgid "GNU Free Documentation License v1.1 only"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:265
 msgid "GNU Free Documentation License v1.1 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:268
 msgid "GNU Free Documentation License v1.2 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 only - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:270
 msgid "GNU Free Documentation License v1.2 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 or later - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:272
 msgid "GNU Free Documentation License v1.2 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 only - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:274
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 or later - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:276
 msgid "GNU Free Documentation License v1.2 only"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:278
 msgid "GNU Free Documentation License v1.2 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:281
 msgid "GNU Free Documentation License v1.3 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 only - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:283
 msgid "GNU Free Documentation License v1.3 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 or later - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:285
 msgid "GNU Free Documentation License v1.3 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 only - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:287
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 or later - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:289
 msgid "GNU Free Documentation License v1.3 only"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:291
 msgid "GNU Free Documentation License v1.3 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:295 src/as-spdx-data.h:299
 msgid "GNU General Public License v1.0 only"
-msgstr ""
+msgstr "GNU General Public License v1.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:297 src/as-spdx-data.h:301
 msgid "GNU General Public License v1.0 or later"
-msgstr ""
+msgstr "GNU General Public License v1.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:303 src/as-spdx-data.h:307
 msgid "GNU General Public License v2.0 only"
-msgstr ""
+msgstr "GNU General Public License v2.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:305 src/as-spdx-data.h:309
 msgid "GNU General Public License v2.0 or later"
-msgstr ""
+msgstr "GNU General Public License v2.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:316 src/as-spdx-data.h:320
 msgid "GNU General Public License v3.0 only"
-msgstr ""
+msgstr "GNU General Public License v3.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:318 src/as-spdx-data.h:322
 msgid "GNU General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU General Public License v3.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:373 src/as-spdx-data.h:377
 msgid "GNU Library General Public License v2 only"
-msgstr ""
+msgstr "GNU Library General Public License v2 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:375 src/as-spdx-data.h:379
 msgid "GNU Library General Public License v2 or later"
-msgstr ""
+msgstr "GNU Library General Public License v2 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:381 src/as-spdx-data.h:385
 msgid "GNU Lesser General Public License v2.1 only"
-msgstr ""
+msgstr "GNU Lesser General Public License v2.1 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:383 src/as-spdx-data.h:387
 msgid "GNU Lesser General Public License v2.1 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License v2.1 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:389 src/as-spdx-data.h:393
 msgid "GNU Lesser General Public License v3.0 only"
-msgstr ""
+msgstr "GNU Lesser General Public License v3.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:391 src/as-spdx-data.h:395
 msgid "GNU Lesser General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License v3.0 or later"
 
 #: src/as-validator-issue-tag.h:42
 msgid "This tag requires a type property."
@@ -1902,12 +1900,9 @@ msgstr ""
 "ることを検討してください。"
 
 #: src/as-validator-issue-tag.h:293
-#, fuzzy
 msgid ""
 "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr ""
-"スクリーンショットには、少なくとも1つの画像またはビデオが含まれている必要があ"
-"ります。 <image />を追加してください。"
+msgstr "スクリーンショットには、スケーリングファクターが 1 である画像が少なくとも1つは必要です。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:299
@@ -2004,7 +1999,7 @@ msgstr "`requires` または `recommends` 項目には、有効な関係を示�
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr "バージョンを持たない、または必要としないタイプの必須/推奨アイテムに `version` プロパティが見つかりました。"
+msgstr "バージョンを持たない、または必要としないタイプの必須/推奨項目に `version` プロパティが見つかりました。"
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:375
@@ -2012,14 +2007,14 @@ msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr "この必須/推奨アイテムに `version` プロパティが見つかりましたが、`compare` プロパティは見つかりませんでした。比較操作を明示的に定義することを推奨します。"
+msgstr "この必須/推奨項目に `version` プロパティが見つかりましたが、`compare` プロパティは見つかりませんでした。比較操作を明示的に定義することを推奨します。"
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:381
 msgid ""
 "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
 "ge` is permitted."
-msgstr "無効な関係アイテムの比較操作です。`eq/ne/lt/gt/le/ge` のうちの1つのみ指定可能です。"
+msgstr "無効な関係項目の比較操作です。`eq/ne/lt/gt/le/ge` のうちの1つのみ指定可能です。"
 
 #: src/as-validator-issue-tag.h:386
 msgid ""
@@ -2500,12 +2495,9 @@ msgstr "このファイルのXMLの形式が正しくありません。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:823
-#, fuzzy
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr ""
-"コレクションのメタデータに無効なタグが見つかりました。 `component`タグのみが"
-"許可されます。"
+msgstr "カタログのメタデータに無効なタグが見つかりました。`component` タグのみが許可されます。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:829
@@ -2527,9 +2519,8 @@ msgid "The metainfo filename does not match the component ID."
 msgstr "メタ情報ファイル名がコンポーネント ID に一致しません。"
 
 #: src/as-validator-issue-tag.h:845
-#, fuzzy
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr "コンポーネントに関連付けられた .desktop ファイルを読み込めません。"
+msgstr "このコンポーネントに関連付けられた .desktop エントリファイルを読み込めません。"
 
 #: src/as-validator-issue-tag.h:850
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -2818,9 +2809,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:1128
-#, fuzzy
 msgid "The type of this color is not valid."
-msgstr "このファイルのXMLの形式が正しくありません。"
+msgstr "色の種別が正しくありません。"
 
 #: src/as-validator-issue-tag.h:1133
 msgid "The value of this color scheme preference is not valid."
@@ -3315,22 +3305,17 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1023
-#, fuzzy
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr ""
-"入力ファイルが選択した形式（「yaml」または「text」）であると仮定します。"
+msgstr "入力ファイルが選択した形式 ('yaml', 'text' または 'markdown') であると仮定します。"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1030
-#, fuzzy
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr ""
-"メタインフォファイルに含まれるリリースエントリの数を制限します（無制限の場合"
-"は0）。"
+msgstr "メタ情報ファイルに含まれるリリースエントリの数を制限します (0 以下は無制限)。"
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1037
@@ -3341,10 +3326,9 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1082
-#, fuzzy
 msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr "選択した形式（「yaml」または「text」）で出力を生成します。"
+msgstr "選択した形式 ('yaml', 'text' または 'markdown') で出力を生成します。"
 
 #: tools/appstreamcli.c:1127
 #, c-format
@@ -3387,7 +3371,7 @@ msgstr "サブコマンド:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
+msgstr "サブコマンド固有のオプションに関する情報は、サブコマンドに \"--help\" を渡すことで確認できます。"
 
 #: tools/appstreamcli.c:1333
 #, c-format
@@ -3400,7 +3384,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstreamcli.c:1375
 msgid "Enable profiling"
-msgstr ""
+msgstr "プロファイリングを有効にします"
 
 #. TRANSLATORS: `appstreamcli search` command description.
 #: tools/appstreamcli.c:1390
@@ -3417,17 +3401,17 @@ msgstr "コンポーネントに関する情報を ID に基づいて取得し�
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr ""
+msgstr "指定した項目を提供するコンポーネントを取得します。パラメーターとして、項目の種類 (例: lib, bin, python3, …) と、項目の値が必要です。"
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1412
 msgid "List components that are part of the specified categories."
-msgstr ""
+msgstr "指定したカテゴリーに属するコンポーネントの一覧を表示します。"
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1421
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr "IDに一致するコンポーネントの生のXMLメタデータをダンプします。"
+msgstr "ID に一致するコンポーネントの生の XML メタデータをダンプします。"
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
 #: tools/appstreamcli.c:1429
@@ -3447,7 +3431,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1452
 msgid "Check license string for validity and print details about it."
-msgstr ""
+msgstr "ライセンス文字列の正当性を確認し、ライセンスの詳細情報を表示します。"
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1460
@@ -3518,13 +3502,12 @@ msgstr "YAML またはテキストの NEWS ファイルを、メタ情報リリ�
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
 #: tools/appstreamcli.c:1556
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr ""
+msgstr "メタ情報ファイルの情報を NEWS テキストまたは YAML ファイルを書き出します。"
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1564
-#, fuzzy
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr "ディレクトリツリーからAppStreamコレクションメタデータを作成します。"
+msgstr "ディレクトリツリーから AppStream メタデータカタログを作成します。"
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1572
@@ -3555,15 +3538,13 @@ msgstr ""
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:105
-#, fuzzy
 msgid "Metadata cache was updated successfully."
-msgstr "AppStream キャッシュのアップデートは正しく完了しました。"
+msgstr "メタデータキャッシュの更新に成功しました。"
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:108
-#, fuzzy
 msgid "Metadata cache update is not necessary."
-msgstr "AppStream キャッシュのアップデートは必要ではありません。"
+msgstr "メタデータキャッシュの更新は必要ではありません。"
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -3591,7 +3572,7 @@ msgstr "'%s' に一致するコンポーネントは見つかりませんでし�
 
 #: tools/ascli-actions-mdata.c:206
 msgid "No value for the item to search for was defined."
-msgstr "検索するアイテムの値が定義されていません。"
+msgstr "検索する項目の値が定義されていません。"
 
 #: tools/ascli-actions-mdata.c:213
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -3603,9 +3584,8 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "'%s::%s' を提供するコンポーネントは見つかりません。"
 
 #: tools/ascli-actions-mdata.c:255
-#, fuzzy
 msgid "You need to specify categories to list."
-msgstr "検索する単語の指定が必要です。"
+msgstr "一覧表示するカテゴリーの指定が必要です。"
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:269
@@ -3778,17 +3758,17 @@ msgstr "バージョン: %s"
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:55
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "OS メタデータソース:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:59
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "OS メタデータが見つかりませんでした。これは通常起こりえません。"
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:62
 msgid "Other metadata sources:"
-msgstr ""
+msgstr "その他のメタデータソース:"
 
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:69
@@ -3803,7 +3783,7 @@ msgstr "要約:"
 #: tools/ascli-actions-misc.c:86
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "%i 項目のソフトウェアコンポーネントの情報があります。"
 
 #: tools/ascli-actions-misc.c:91
 #, c-format
@@ -3878,7 +3858,7 @@ msgstr "出力を書き込むにはNEWS形式の指定が必要です。"
 
 #: tools/ascli-actions-misc.c:551
 msgid "Operating System Details"
-msgstr ""
+msgstr "オペレーティングシステムの詳細"
 
 #: tools/ascli-actions-misc.c:555
 #, c-format
@@ -3933,29 +3913,27 @@ msgstr "Modalias を持つデバイス"
 
 #: tools/ascli-actions-misc.c:630
 msgid "User Input Controls"
-msgstr ""
+msgstr "ユーザーインプットコントロール"
 
 #: tools/ascli-actions-misc.c:633
 msgid "unknown"
-msgstr ""
+msgstr "不明"
 
 #: tools/ascli-actions-misc.c:640 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
 msgid "yes"
-msgstr ""
+msgstr "はい"
 
 #: tools/ascli-actions-misc.c:642 tools/ascli-actions-validate.c:701
 #: tools/ascli-actions-validate.c:707
 msgid "no"
-msgstr ""
+msgstr "いいえ"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. "
 "\"pkcon\" (part of PackageKit) is available."
-msgstr ""
-"適切なパッケージマネージャーCLIが見つかりません。ご確認してください。 "
-"「pkcon」（PackageKitの一部）が利用可能です。"
+msgstr "適切なパッケージマネージャー CLI が見つかりません。\"pkcon\" (PackageKit の一部) などが利用可能かどうか確認してください。"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -3972,9 +3950,9 @@ msgid "Unable to spawn Flatpak process: %s"
 msgstr "Flatpak プロセスを起動できません: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr "ID が '%s' のコンポーネントは見つかりません！"
+msgstr "選択されたフィルター条件で ID が '%s' のコンポーネントは見つかりません！"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
@@ -4077,7 +4055,7 @@ msgstr "検証失敗: %s"
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
 "'yaml' or 'text' instead."
-msgstr ""
+msgstr "バリデーターは '%s' 形式でレポートを作成できませんでした。'yaml' または 'text' を選択してください。"
 
 #: tools/ascli-actions-validate.c:551 tools/ascli-actions-validate.c:633
 msgid "You need to specify a root directory to start validation!"
@@ -4085,46 +4063,43 @@ msgstr "検証を始めるには、ルートディレクトリの指定が必要
 
 #. TRANSLATORS: A plain license ID (used as value in a key-value pair, like "Type: license")
 #: tools/ascli-actions-validate.c:675
-#, fuzzy
 msgid "license"
 msgstr "ライセンス"
 
 #. TRANSLATORS: A license exception (used as value in a key-value pair, like "Type: exception")
 #: tools/ascli-actions-validate.c:678
 msgid "license exception"
-msgstr ""
+msgstr "ライセンスの例外"
 
 #. TRANSLATORS: A complex license expression (used as value in a key-value pair, like "Type: exception")
 #: tools/ascli-actions-validate.c:681
 msgid "license expression"
-msgstr ""
+msgstr "ライセンス表現"
 
 #. TRANSLATORS: An invalid license (used as value in a key-value pair, like "Type: invalid")
 #: tools/ascli-actions-validate.c:685
 msgid "invalid"
-msgstr ""
+msgstr "無効"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:690
-#, fuzzy
 msgid "License Type"
-msgstr "ライセンス"
+msgstr "ライセンス種別"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:694
 msgid "Canonical ID"
-msgstr ""
+msgstr "正規 ID"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
 #: tools/ascli-actions-validate.c:698
-#, fuzzy
 msgid "Suitable for AppStream metadata"
-msgstr "AppStream メタデータを作成できませんでした"
+msgstr "AppStream メタデータに適合"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
 #: tools/ascli-actions-validate.c:704
 msgid "Free and Open Source"
-msgstr ""
+msgstr "FOSS"
 
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:712
@@ -4179,7 +4154,7 @@ msgstr "必須的に"
 #. TRANSLATORS: Other software or interfaces that this software component provides
 #: tools/ascli-utils.c:426
 msgid "Provided Items"
-msgstr "指定されたアイテム"
+msgstr "提供される項目"
 
 #: tools/ascli-utils.c:524
 #, c-format
