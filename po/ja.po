@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-03-06 14:20+0100\n"
-"PO-Revision-Date: 2024-04-11 01:06+0000\n"
+"PO-Revision-Date: 2024-04-13 10:01+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/translations/ja/>\n"
 "Language: ja\n"
@@ -30,7 +30,7 @@ msgstr "AppStream CLI"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr "AppStream メタデータを使用して動作するユーティリティー"
+msgstr "AppStream メタデータを操作するユーティリティー"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
@@ -1307,38 +1307,38 @@ msgstr "対応するソフトウェアコンポーネント '%s' が見つかり
 #: src/as-relation.c:1561
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "このソフトウェアに対応するハードウェアが見つかりました: '%s'"
 
 #: src/as-relation.c:1570
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "このソフトウェアに必要なハードウェアが、このシステムに見つかりませんでした: '%s'"
 
 #: src/as-relation.c:1575
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "このソフトウェアに推奨されるハードウェアが、このシステムに見つかりませんでした: '%s'"
 
 #: src/as-relation.c:1580
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "このソフトウェアは、このシステムには存在しないハードウェアに対応しています: '%s'"
 
 #: src/as-relation.c:1619
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "このソフトウェアには %s カーネルが必要ですが、このシステムは %s を実行しています。"
 
 #: src/as-relation.c:1625
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "このソフトウェアには %s カーネルが推奨されますが、このシステムは %s を実行しています。"
 
 #: src/as-relation.c:1631
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr ""
+msgstr "このソフトウェアは %s カーネルにのみ対応していますが、%s 上でも動作する可能性はあります。"
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1346,7 +1346,7 @@ msgstr ""
 #: src/as-relation.c:1661
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
+msgstr "このソフトウェアには %s %s %s が必要ですが、このシステムは %s %s を実行しています。"
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1354,7 +1354,7 @@ msgstr ""
 #: src/as-relation.c:1673
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
+msgstr "%s %s %s の使用が推奨されますが、このシステムは %s %s を実行しています。"
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
@@ -1375,7 +1375,7 @@ msgstr "カーネル %s %s に対応しています。"
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "このソフトウェアには %s %.2f GiB のメモリが必要ですが、このシステムは %.2f GiB しか搭載していません。"
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1383,22 +1383,22 @@ msgstr ""
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "このソフトウェアには %s %.2f GiB のメモリが推奨されますが、このシステムは %.2f GiB しか搭載していません。"
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1754
 #, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr ""
+msgstr "このソフトウェアは %s %.2f GiB のメモリに対応しています。"
 
 #: src/as-relation.c:1770
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "このシステムは、このソフトウェアの実行に十分なメモリを搭載しています。"
 
 #: src/as-relation.c:1834
 msgid "This software needs a display for graphical content."
-msgstr ""
+msgstr "このソフトウェアには、視覚的なコンテンツを表示するためのディスプレイが必要です。"
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1407,7 +1407,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "このソフトウェアには長辺が %s %lu px のディスプレイが必要ですが、このデバイスのディスプレイの長辺は %lu px です。"
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1416,7 +1416,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "このソフトウェアには短辺が %s %lu px のディスプレイが必要ですが、このデバイスのディスプレイの短辺は %lu px です。"
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1425,7 +1425,7 @@ msgstr ""
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "このソフトウェアには長辺が %s %lu px のディスプレイが推奨されますが、このデバイスのディスプレイの長辺は %lu px です。"
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1434,11 +1434,11 @@ msgstr ""
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "このソフトウェアには短辺が %s %lu px のディスプレイが推奨されますが、このデバイスのディスプレイの短辺は %lu px です。"
 
 #: src/as-relation.c:1902
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "このソフトウェアの表示に十分なディスプレイサイズです。"
 
 #: src/as-relation.c:1919
 #, c-format
@@ -1618,11 +1618,11 @@ msgstr "GNU Lesser General Public License v3.0 or later"
 
 #: src/as-validator-issue-tag.h:42
 msgid "This tag requires a type property."
-msgstr ""
+msgstr "このタグには type プロパティが必要です。"
 
 #: src/as-validator-issue-tag.h:47
 msgid "Tags of this name are not permitted in this section."
-msgstr "このセクションでは、この名前のタグは許可されていません。"
+msgstr "このセクションでは、この名前のタグは許容されていません。"
 
 #: src/as-validator-issue-tag.h:52
 msgid ""
@@ -1644,21 +1644,17 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
-"AppStreamの説明は、テキスト（Paragraphs（<p />）およびList（<ul />、<ol />）"
-"をフォーマットするための限られたタグのみをサポートします。この説明のマーク"
-"アップには、メタ情報仕様をサポートするアプリケーションで正しくレンダリングさ"
-"れない無効なXMLタグが含まれています。"
+msgstr "AppStream の説明を整形する場合、次のタグのみを使用できます: 段落 (<p/>) とリスト (<ul/>, <ol/>)。この説明のマークアップには、無効な XML タグが含まれています。"
 
 #: src/as-validator-issue-tag.h:70
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr ""
+msgstr "この説明の段落には、無効なマークアップが含まれています。現状、<em/> と <code/> のみが許容されています。"
 
 #: src/as-validator-issue-tag.h:75
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr "列挙子には子要素としてリスト項目(<li/>)があります。"
+msgstr "列挙子の子要素には、リスト項目 (<li/>) のみを使用できます。"
 
 #: src/as-validator-issue-tag.h:80
 msgid ""
@@ -1688,16 +1684,13 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:103
 msgid "This tag is not translatable."
-msgstr ""
+msgstr "このタグは翻訳可能ではありません。"
 
 #: src/as-validator-issue-tag.h:108
-#, fuzzy
 msgid ""
 "This tag must only appear once in this context. Having multiple tags of this "
 "kind is not valid."
-msgstr ""
-"AppStream仕様に従って、言及されたタグはこのコンテキストで1回だけで表示されま"
-"す。この種のタグを複数持つことは無効です。"
+msgstr "このタグは、このコンテキストでは一度のみ使用できます。この種類のタグを複数回使用することは無効です。"
 
 #: src/as-validator-issue-tag.h:113
 msgid ""
@@ -1790,7 +1783,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:188
 msgid "The SPDX license expression is invalid and could not be parsed."
-msgstr "SPDXライセンス式が無効であり、解析できませんでした。"
+msgstr "SPDX ライセンス式が無効なため、解析できませんでした。"
 
 #: src/as-validator-issue-tag.h:193
 msgid ""
@@ -1832,37 +1825,37 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:223
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "`width` プロパティは正の整数にする必要があります。"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:229
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "`height` プロパティは正の整数にする必要があります。"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
 msgid "The `scale` property must be a positive integer."
-msgstr ""
+msgstr "`scale` プロパティは正の整数にする必要があります。"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:241
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
+msgstr "画像のタイプは `source` または `thumbnail` にする必要があります。"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:247
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "画像のタイプが `thumbnail` の場合、`width` プロパティは必須です。"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:253
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "画像のタイプが `thumbnail` の場合、`height` プロパティは必須です。"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:259
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "各スクリーンショットと言語につき、`source` 画像は1つのみ使用できます。"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:265
@@ -1895,9 +1888,7 @@ msgstr ""
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
-"安全な（HTTPS）URLを使用して、このスクリーンショット画像またはビデオを参照す"
-"ることを検討してください。"
+msgstr "安全な (HTTPS) URLを使用して、このスクリーンショット画像または動画を参照することをご検討ください。"
 
 #: src/as-validator-issue-tag.h:293
 msgid ""
@@ -1909,9 +1900,7 @@ msgstr "スクリーンショットには、スケーリングファクターが
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"スクリーンショットには、少なくとも1つの画像またはビデオが含まれている必要があ"
-"ります。 <image />を追加してください。"
+msgstr "スクリーンショットには、少なくとも1つの画像または動画が含まれている必要があります。<image/> を追加してください。"
 
 #: src/as-validator-issue-tag.h:304
 msgid ""
@@ -1925,21 +1914,21 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:310
 msgid "The screenshot does not have a caption text. Consider adding one."
-msgstr ""
+msgstr "スクリーンショットにキャプションがありません。追加をご検討ください。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:316
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
-msgstr ""
+msgstr "スクリーンショットの動画は、使用されているビデオコーデックを `codec` プロパティに指定していません。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:322
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
-msgstr ""
+msgstr "スクリーンショットの動画は、使用されているコンテナフォーマットを `container` プロパティに指定していません。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:328
@@ -1947,7 +1936,7 @@ msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
+msgstr "AppStream は選択されたビデオコーデックに対応していないため、ソフトウェアセンターが動画を再生できない可能性があります。現状、AV1 と VP9 のコーデックにのみ対応しています (`codec` プロパティの値に `av1` と `vp9` を指定します)。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:335
@@ -1956,24 +1945,21 @@ msgid ""
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr ""
+msgstr "AppStream は選択されたコンテナフォーマットに対応していないため、ソフトウェアセンターが動画を再生できない可能性があります。現状、WebM と Matroska の動画コンテナにのみ対応しています (`container` プロパティの値に `webm` と `mkv` を指定します)。"
 
 #: src/as-validator-issue-tag.h:341
 msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
-"ビデオの場合、現在サポートされているのはWebMおよびMatroska（.mkv）コンテナ形"
-"式のみです。参照されるビデオのファイル拡張子は、これらの形式のいずれにも属し"
-"ていません。"
+msgstr "動画の場合、現在サポートされているのは WebM および Matroska (.mkv) コンテナフォーマットのみです。参照される動画のファイル拡張子は、これらのフォーマットのいずれでもありません。"
 
 #: src/as-validator-issue-tag.h:347
 msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
 "screenshot."
-msgstr ""
+msgstr "動画はソフトウェアコンポーネントのデフォルトのスクリーンショットにはできません。デフォルトのスクリーンショットには静的な画像を使用して、二次的なスクリーンショットとして動画を設定してください。"
 
 #: src/as-validator-issue-tag.h:352
 msgid "No screenshot is marked as default."
@@ -1983,9 +1969,7 @@ msgstr "デフォルトとして指定されたスクリーンショットがあ
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr ""
-"requires / recommendsグループに不明なタグが見つかりました。このタイプのコン"
-"ポーネント関係は不明であるため、これはおそらくエラーです。"
+msgstr "requires/recommends グループに不明なタグが見つかりました。このタイプのコンポーネント関係は不明なため、これは誤りだと思われます。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:363
@@ -2141,16 +2125,14 @@ msgstr ""
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
-msgstr ""
-"<id />タグには、おそらく古いコンバージョンから最近のメタ情報形式への `type`プ"
-"ロパティがまだ含まれています。"
+msgstr "<id/> タグに `type`プロパティがまだ含まれています。おそらく、古いメタ情報の書式を最新の書式に変換したことが原因です。"
 
 #: src/as-validator-issue-tag.h:499
 msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
 "defining multiple package names per component."
-msgstr "`pkgname`タグは複数回現れます。コンポーネントごとに複数のパッケージ名を定義しないようにするために、メタ情報ファイルと.desktopファイルを含むメタパッケージの作成を評価する必要があります。"
+msgstr "`pkgname` タグが複数回使用されています。コンポーネント1つにつき複数のパッケージ名を定義しないようにするために、メタ情報ファイルと .desktop ファイルを含むメタパッケージの作成を検討することをおすすめします。"
 
 #: src/as-validator-issue-tag.h:504
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -2185,7 +2167,7 @@ msgstr ""
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr "タイプが `stock` または `cached` のアイコンには、URLやアイコンへのフルパスまたは相対パスを含めることはできません。 ファイルのベース名またはストック名のみが許可されます。"
+msgstr "タイプが `stock` または `cached` のアイコンには、URLやアイコンへのフルパスまたは相対パスを含めることはできません。 ファイルのベース名またはストック名のみが許容されます。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:542
@@ -2198,14 +2180,14 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:552
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr "リモートアイコンへのリンクに安全な (HTTPS) URL を使用することを検討してください。"
+msgstr "リモートアイコンへのリンクに安全な (HTTPS) URL を使用することをご検討ください。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:558
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr "メタ情報ファイルには、タイプが `stock` または `remote` のアイコンのみを含められます。セットタイプは許可されません。"
+msgstr "メタ情報ファイルには、タイプが `stock` または `remote` のアイコンのみを含められます。セットタイプは許容されません。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:564
@@ -2221,7 +2203,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:574
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr "このWebリンクには安全な（HTTPS）URLを使用することを検討してください。"
+msgstr "この Web リンクに安全な (HTTPS) URLを使用することをご検討ください。"
 
 #: src/as-validator-issue-tag.h:579
 msgid "A web URL was expected for this value."
@@ -2230,7 +2212,7 @@ msgstr ""
 #: src/as-validator-issue-tag.h:584
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr "この Web リンクは FTP プロトコルを使用しています。HTTP(S) への切り替えを検討してください。"
+msgstr "この Web リンクは FTP プロトコルを使用しています。HTTP(S) への切り替えをご検討ください。"
 
 #: src/as-validator-issue-tag.h:589
 msgid "An URL of this type has already been defined."
@@ -2248,7 +2230,7 @@ msgstr ""
 msgid ""
 "The toplevel `developer_name` element is deprecated. Please use the `name` "
 "element in a `developer` block instead."
-msgstr "トップレベルの `developer_name` 要素は非推奨です。`developer` ブロックでの `name` 要素の使用を検討してください。"
+msgstr "トップレベルの `developer_name` 要素は非推奨です。`developer` ブロックでの `name` 要素の使用をご検討ください。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
@@ -2319,12 +2301,7 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"無効なタグが見つかりました。非標準タグには、接頭辞「x-」を付ける必要がありま"
-"す。 AppStreamは、任意のカスタムデータをメタ情報ファイルに追加する<custom />"
-"タグも提供します。このタグはAppStreamライブラリによって読み取られ、カスタム"
-"データをメタ情報ファイルに追加するだけの場合は、新しいカスタムトップレベルま"
-"たは `x-`プレフィックス付きタグを定義する代わりに役立つ場合があります。"
+msgstr "無効なタグが見つかりました。非標準タグには、プレフィックス `x-` を付ける必要があります。AppStream は、任意のカスタムデータをメタ情報ファイルに追加する <custom/> タグも用意しています。このタグは AppStream ライブラリによって読み取られます。カスタムデータをメタ情報ファイルに追加したいだけの場合、新しいカスタムトップレベルやプレフィックス `x-` を付けたタグを定義するよりも便利な場合があります。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:675
@@ -2459,7 +2436,7 @@ msgstr ""
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
-msgstr "`upstream` 以外のタイプの提案は、メタ情報ファイルでは許可されていません。"
+msgstr "`upstream` 以外のタイプの提案は、メタ情報ファイルでは許容されていません。"
 
 #: src/as-validator-issue-tag.h:791
 msgid ""
@@ -2491,13 +2468,13 @@ msgstr "ファイルを読み込めません。"
 
 #: src/as-validator-issue-tag.h:817
 msgid "The XML of this file is malformed."
-msgstr "このファイルのXMLの形式が正しくありません。"
+msgstr "このファイルの XML の形式が正しくありません。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:823
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr "カタログのメタデータに無効なタグが見つかりました。`component` タグのみが許可されます。"
+msgstr "カタログのメタデータに無効なタグが見つかりました。`component` タグのみが許容されます。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:829
@@ -2520,11 +2497,11 @@ msgstr "メタ情報ファイル名がコンポーネント ID に一致しま�
 
 #: src/as-validator-issue-tag.h:845
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr "このコンポーネントに関連付けられた .desktop エントリファイルを読み込めません。"
+msgstr "このコンポーネントに関連付けられたデスクトップエントリファイルを読み込めません。"
 
 #: src/as-validator-issue-tag.h:850
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
+msgstr "このコンポーネントのメタデータは、存在しない .desktop ファイルを参照しています。"
 
 #: src/as-validator-issue-tag.h:855
 msgid ""
@@ -2534,7 +2511,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:860
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "デスクトップエントリファイルから一部のデータを読み出す際にエラーが発生しました。"
 
 #: src/as-validator-issue-tag.h:865
 msgid ""
@@ -2565,14 +2542,12 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:887
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr ""
-"このディレクトリまたはディレクトリツリーにAppStreamメタデータが見つかりません"
-"でした。"
+msgstr "このディレクトリまたはディレクトリツリーに AppStream メタデータが見つかりませんでした。"
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:892
 msgid "No XDG applications directory found."
-msgstr "XDGアプリケーションディレクトリが見つかりません。"
+msgstr "XDG アプリケーションディレクトリが見つかりません。"
 
 #: src/as-validator-issue-tag.h:897
 msgid ""
@@ -2717,7 +2692,7 @@ msgid ""
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's `project_license`. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr "`runtime` コンポーネントのライセンスは複雑な場合が多いため、単純な SPDX 表記で表せられません。このコンポーネントの `project_license` の値として、`LicenseRef` と Web URL の使用を検討してください。例: `LicenseRef-free=https://example.com/licenses.html`"
+msgstr "`runtime` コンポーネントのライセンスは複雑な場合が多いため、単純な SPDX 表記で表せられません。このコンポーネントの `project_license` の値として、`LicenseRef` と Web URL の使用をご検討ください。例: `LicenseRef-free=https://example.com/licenses.html`"
 
 #: src/as-validator-issue-tag.h:1038
 msgid ""
@@ -2917,7 +2892,7 @@ msgstr ""
 #: src/as-validator.c:2675 src/as-validator.c:2964
 #, c-format
 msgid "Found: %s - Allowed: %s"
-msgstr "検出：%s-許可：%s"
+msgstr "検出: %s - 許容: %s"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #. TRANSLATORS: ascompose flag description for: --verbose
@@ -2929,7 +2904,7 @@ msgstr "追加のデバッグ情報を表示します。"
 #. TRANSLATORS: ascompose flag description for: --no-color
 #: tools/appstream-compose.c:205 tools/appstreamcli.c:1370
 msgid "Don't show colored output."
-msgstr "カラーで出力を表示しません。"
+msgstr "色付きで出力しません。"
 
 #. TRANSLATORS: ascli flag description for: --version
 #. TRANSLATORS: ascompose flag description for: --version
@@ -2940,7 +2915,7 @@ msgstr "プログラムのバージョンを表示します。"
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:219
 msgid "Do not use the network at all, not even for URL validity checks."
-msgstr ""
+msgstr "ネットワークを一切使用しません (URL の正当性確認も対象)。"
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:226
@@ -2950,22 +2925,22 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:233
 msgid "Override the default prefix (`/usr` by default)."
-msgstr ""
+msgstr "デフォルトのプレフィックスを上書きします (デフォルトは `/usr`)。"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:240
 msgid "Set the result output directory."
-msgstr ""
+msgstr "結果の出力先ディレクトリを指定します。"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:247
 msgid "Override the catalog metadata output directory."
-msgstr ""
+msgstr "カタログメタデータの出力先ディレクトリを上書きします。"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:254
 msgid "Override the icon output directory."
-msgstr ""
+msgstr "アイコンの出力先ディレクトリを上書きします。"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:261
@@ -3043,19 +3018,24 @@ msgid ""
 "`short` - generates an abridged report\n"
 "`full` - a detailed report will be printed"
 msgstr ""
+"`--print-report` オプションに指定された値が無効です: %s\n"
+"指定可能な値:\n"
+"`on-error` - 実行に失敗した場合に、短いレポートを表示する (デフォルト)\n"
+"`short` - 簡略化されたレポートを生成する\n"
+"`full` - 詳細なレポートを表示する"
 
 #: tools/appstream-compose.c:394
 #, c-format
 msgid "Automatically selected '%s' as data output location."
-msgstr ""
+msgstr "データ出力先として自動的に '%s' を選択しました。"
 
 #: tools/appstream-compose.c:399
 msgid "No destination directory set, please provide a data output location!"
-msgstr ""
+msgstr "出力先ディレクトリが未指定です。データ出力先を指定してください！"
 
 #: tools/appstream-compose.c:412 tools/appstream-compose.c:414
 msgid "WARNING"
-msgstr ""
+msgstr "警告"
 
 #: tools/appstream-compose.c:446
 msgid "Unable to set icon policy"
@@ -3120,22 +3100,22 @@ msgstr ""
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:528
 msgid "Success!"
-msgstr ""
+msgstr "成功しました！"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstreamcli.c:63
 msgid "Manually selected location of AppStream cache."
-msgstr "手動で選択したAppStreamキャッシュの場所。"
+msgstr "手動で選択した AppStream キャッシュの場所。"
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstreamcli.c:69
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr "スキャンするAppStreamメタデータの場所を手動で選択します。"
+msgstr "手動で選択したスキャンする AppStream メタデータの場所。"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:75
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
+msgstr "キャッシュ生成からの経過期間を無視して、要求を処理する前にキャッシュを再生成します。"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:91
@@ -3229,9 +3209,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
 #: tools/appstreamcli.c:596
-#, fuzzy
 msgid "Print more detailed output on why incompatibilities exist."
-msgstr "見つかったコンポーネントの詳細な出力を表示します。"
+msgstr "非互換性が存在する理由に関して、より詳細な出力を表示します。"
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:633
@@ -3296,7 +3275,7 @@ msgstr ""
 #: tools/appstreamcli.c:945
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr "TYPEは次のような有効なコンポーネントタイプである必要があります：%s"
+msgstr "TYPE は次のような有効なコンポーネントタイプである必要があります: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstreamcli.c:983
@@ -3343,7 +3322,7 @@ msgstr ""
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1140
 msgid "Invalid number of parameters"
-msgstr ""
+msgstr "引数の数が無効です"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1158
@@ -3659,7 +3638,7 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
 msgid "ERROR"
-msgstr ""
+msgstr "エラー"
 
 #: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
 msgid "You need to specify a MetaInfo filename or component ID."
@@ -3705,22 +3684,22 @@ msgstr ""
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:794
 msgid "Desktop"
-msgstr ""
+msgstr "デスクトップ"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:797
 msgid "Laptop"
-msgstr ""
+msgstr "ノートパソコン"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:800
 msgid "Server"
-msgstr ""
+msgstr "サーバー"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:803
 msgid "Tablet"
-msgstr ""
+msgstr "タブレット"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:806
@@ -3729,7 +3708,7 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:808
 msgid "Unknown"
-msgstr ""
+msgstr "不明"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
 #: tools/ascli-actions-mdata.c:875
@@ -3739,11 +3718,11 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:894
 msgid "Incompatible"
-msgstr ""
+msgstr "非対応"
 
 #: tools/ascli-actions-mdata.c:929
 msgid "Compatible"
-msgstr ""
+msgstr "対応"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:47
@@ -3797,14 +3776,12 @@ msgstr "入力としてメタ情報ファイルの指定が必要です。"
 #: tools/ascli-actions-misc.c:123
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr ""
-"出力として作成したり引数に取るには、デスクトップファイルの指定が必要です。"
+msgstr "出力として作成したり引数に取るには、デスクトップエントリファイルの指定が必要です。"
 
 #: tools/ascli-actions-misc.c:152
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
-"既存のデスクトップエントリーファイル「%s」を「%s」のデータで拡張しています。"
+msgstr "既存のデスクトップエントリファイル '%s' を '%s' のデータで拡張しています。"
 
 #: tools/ascli-actions-misc.c:161
 #, c-format
@@ -3814,9 +3791,7 @@ msgstr "既存のデスクトップエントリファイルのテンプレート
 #: tools/ascli-actions-misc.c:166
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
-"新しいデスクトップエントリファイル「%s」を「%s」のデータを使用して作成してい"
-"ます"
+msgstr "新しいデスクトップエントリファイル '%s' を '%s' のデータを使用して作成しています"
 
 #: tools/ascli-actions-misc.c:226
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
@@ -3835,7 +3810,7 @@ msgstr "デスクトップエントリファイルを保存できません: %s"
 
 #: tools/ascli-actions-misc.c:358
 msgid "You need to specify a NEWS file as input."
-msgstr "入力元としてNEWSファイルの指定が必要です。"
+msgstr "入力元として NEWS ファイルの指定が必要です。"
 
 #: tools/ascli-actions-misc.c:362
 msgid ""
@@ -3854,7 +3829,7 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:496
 msgid "You need to specify a NEWS format to write the output in."
-msgstr "出力を書き込むにはNEWS形式の指定が必要です。"
+msgstr "出力を書き込むには NEWS 形式の指定が必要です。"
 
 #: tools/ascli-actions-misc.c:551
 msgid "Operating System Details"
