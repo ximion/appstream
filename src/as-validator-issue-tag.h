@@ -609,7 +609,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	},
 
 	{ "developer-id-missing",
-	  AS_ISSUE_SEVERITY_WARNING,
+	  AS_ISSUE_SEVERITY_INFO,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("The `developer` element is missing an `id` property, containing a unique string ID for the developer. "
 	     "Consider adding a unique ID."),
