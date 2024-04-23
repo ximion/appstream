@@ -2920,32 +2920,39 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 static void
 as_validator_check_branding (AsValidator *validator, xmlNode *node)
 {
+	g_autoptr(GHashTable) known_colors = NULL;
+	known_colors = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 ((gchar *) iter->name, "color") == 0) {
+		if (as_str_equal0 (iter->name, "color")) {
+			AsColorKind color_kind;
+			AsColorSchemeKind color_scheme;
+			g_autofree gchar *color_value = NULL;
 			gchar *tmp;
 			guint len;
 
 			tmp = as_xml_get_prop_value (iter, "type");
-			if (as_color_kind_from_string (tmp) == AS_COLOR_KIND_UNKNOWN)
+			color_kind = as_color_kind_from_string (tmp);
+			if (color_kind == AS_COLOR_KIND_UNKNOWN)
 				as_validator_add_issue (validator,
 							iter,
 							"branding-color-type-invalid",
 							"%s",
-							tmp);
-			g_free (tmp);
+							tmp ? tmp : "?");
+			g_free (g_steal_pointer (&tmp));
 
 			tmp = as_xml_get_prop_value (iter, "scheme_preference");
-			if (tmp != NULL &&
-			    as_color_scheme_kind_from_string (tmp) == AS_COLOR_SCHEME_KIND_UNKNOWN)
+			color_scheme = as_color_scheme_kind_from_string (tmp);
+			if (tmp != NULL && color_scheme == AS_COLOR_SCHEME_KIND_UNKNOWN)
 				as_validator_add_issue (validator,
 							iter,
 							"branding-color-scheme-type-invalid",
 							"%s",
 							tmp);
-			g_free (tmp);
+			g_free (g_steal_pointer (&tmp));
 
 			/* catch a common typo */
 			tmp = as_xml_get_prop_value (iter, "schema_preference");
@@ -2955,16 +2962,33 @@ as_validator_check_branding (AsValidator *validator, xmlNode *node)
 							"branding-color-scheme-wrong-property",
 							"%s",
 							"schema_preference");
-			g_free (tmp);
+			g_free (g_steal_pointer (&tmp));
 
-			tmp = as_xml_get_node_value (iter);
-			len = strlen (tmp);
-			if (!g_str_has_prefix (tmp, "#") || (len != 7 && len != 9))
+			color_value = as_xml_get_node_value (iter);
+			len = strlen (color_value);
+			if (!g_str_has_prefix (color_value, "#") || (len != 7 && len != 9))
 				as_validator_add_issue (validator,
 							iter,
 							"branding-color-invalid",
 							"%s",
+							color_value);
+
+			/* check for duplicates */
+			tmp = g_strconcat (as_color_kind_to_string (color_kind),
+					   "/",
+					   as_color_scheme_kind_to_string (color_scheme),
+					   NULL);
+			if (g_hash_table_contains (known_colors, tmp)) {
+				as_validator_add_issue (validator,
+							iter,
+							"branding-color-duplicated",
+							"%s",
 							tmp);
+				g_free (g_steal_pointer (&tmp));
+			} else {
+				g_hash_table_add (known_colors, g_steal_pointer (&tmp));
+			}
+
 		} else {
 			as_validator_add_issue (
 			    validator,
@@ -2982,8 +3006,8 @@ as_validator_check_branding (AsValidator *validator, xmlNode *node)
 static void
 as_validator_check_custom (AsValidator *validator, xmlNode *node)
 {
-	g_autoptr(GHashTable)
-		       known_keys = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+	g_autoptr(GHashTable) known_keys = NULL;
+	known_keys = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		g_autofree gchar *value_data = NULL;

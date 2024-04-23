@@ -1144,6 +1144,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("This color is not a valid HTML color code."),
 	},
 
+	{ "branding-color-duplicated",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("A color for this type/scheme combination was already set. Colors must be unique per type/scheme."),
+	},
+
 	{ "reference-doi-invalid",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("The given DOI (Digital Object Identifier) for this reference item is not valid."),
