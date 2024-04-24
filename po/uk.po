@@ -22,15 +22,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2024-03-06 14:20+0100\n"
+"POT-Creation-Date: 2024-04-24 12:58+0200\n"
 "PO-Revision-Date: 2024-03-07 02:01+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
+"translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Weblate 5.5-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -1047,7 +1049,7 @@ msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
-#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:101
+#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:103
 msgid "Razor"
 msgstr "Razor"
 
@@ -1058,13 +1060,13 @@ msgstr "ROX"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
-#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:105
+#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:107
 msgid "Unity"
 msgstr "Unity"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
-#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:109
+#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:111
 msgid "Xfce"
 msgstr "Xfce"
 
@@ -1083,13 +1085,18 @@ msgstr "macOS"
 msgid "Mate"
 msgstr "Друг"
 
+#. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
+#: src/as-desktop-env-data.h:101
+msgid "Plasma Mobile"
+msgstr ""
+
 #. TRANSLATORS: Name of the "rox" visual environment style.
-#: src/as-desktop-env-data.h:103
+#: src/as-desktop-env-data.h:105
 msgid "Rox"
 msgstr "Rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
-#: src/as-desktop-env-data.h:107
+#: src/as-desktop-env-data.h:109
 msgid "Microsoft Windows"
 msgstr "Microsoft Windows"
 
@@ -1712,7 +1719,11 @@ msgid ""
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr "Цей елемент (абзац, список тощо) теґу <description/> не варто перекладати окремо у збірці метаданих. Замість цього, має бути здійснено переклад цілого теґу <description/>. Засіб створення збірок AppStream (наприклад `appstream-generator`) має автоматично виконати потрібні дії під час компілювання даних."
+msgstr ""
+"Цей елемент (абзац, список тощо) теґу <description/> не варто перекладати "
+"окремо у збірці метаданих. Замість цього, має бути здійснено переклад цілого "
+"теґу <description/>. Засіб створення збірок AppStream (наприклад `appstream-"
+"generator`) має автоматично виконати потрібні дії під час компілювання даних."
 
 #: src/as-validator-issue-tag.h:64
 msgid ""
@@ -1743,7 +1754,9 @@ msgstr ""
 msgid ""
 "The enumeration must not be translated as a whole. In MetaInfo files, "
 "translate indivdual items (<li/> elements) instead."
-msgstr "Не слід перекладати переліки як один об'єкт. У файлах MetaInfo слід перекладати окремі запис (елементи <li/>)."
+msgstr ""
+"Не слід перекладати переліки як один об'єкт. У файлах MetaInfo слід "
+"перекладати окремі запис (елементи <li/>)."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -1751,7 +1764,11 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr "Перший абзац `description/p` цього компонента, ймовірно є надто коротким (< 80 символів). Вам варто розпочати опис із довгого абзацу щоб поліпшити вигляд опису у програмах-центрах керування програмним забезпеченням і надати докладні відомості щодо цього компонента одразу у першому ж абзаці опису."
+msgstr ""
+"Перший абзац `description/p` цього компонента, ймовірно є надто коротким (< "
+"80 символів). Вам варто розпочати опис із довгого абзацу щоб поліпшити "
+"вигляд опису у програмах-центрах керування програмним забезпеченням і надати "
+"докладні відомості щодо цього компонента одразу у першому ж абзаці опису."
 
 #: src/as-validator-issue-tag.h:93
 msgid ""
@@ -1897,13 +1914,17 @@ msgstr ""
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDE's reverse-DNS name (\"org.kde\")."
-msgstr "Компонент є частиною проєкту KDE, але його ідентифікатор не починається із назви зворотного DNS KDE («org.kde»)."
+msgstr ""
+"Компонент є частиною проєкту KDE, але його ідентифікатор не починається із "
+"назви зворотного DNS KDE («org.kde»)."
 
 #: src/as-validator-issue-tag.h:183
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr "Компонент є частиною проєкту GNOME, але його ідентифікатор не починається із назви зворотного DNS GNOME («org.gnome»)."
+msgstr ""
+"Компонент є частиною проєкту GNOME, але його ідентифікатор не починається із "
+"назви зворотного DNS GNOME («org.gnome»)."
 
 #: src/as-validator-issue-tag.h:188
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1952,14 +1973,18 @@ msgstr ""
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr "Запис update-contact, здається, не є коректною адресою електронної пошти (символ `@` можна замінити на `_at_` або `_AT_`)."
+msgstr ""
+"Запис update-contact, здається, не є коректною адресою електронної пошти "
+"(символ `@` можна замінити на `_at_` або `_AT_`)."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:217
 msgid ""
 "The `environment` property is set to an unrecognized graphical environment/"
 "style combination."
-msgstr "Для властивості `environment` встановлено невідому комбінацію графічного середовища і стилю."
+msgstr ""
+"Для властивості `environment` встановлено невідому комбінацію графічного "
+"середовища і стилю."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:223
@@ -2003,7 +2028,9 @@ msgstr ""
 #: src/as-validator-issue-tag.h:265
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`."
-msgstr "У знімка вікна має бути принаймні одне неперекладене зображення типу «source»."
+msgstr ""
+"У знімка вікна має бути принаймні одне неперекладене зображення типу "
+"«source»."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:271
@@ -2012,7 +2039,11 @@ msgid ""
 "which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) "
 "was found, which is likely intended to be the translatable image. Please "
 "remove the XML localization attribute in this case."
-msgstr "У знімка вікна має бути принаймні одне неперекладене зображення типу `source`, яке не вдалося знайти. Знайдено теґ із кодом локалі `en` (`xml:lang=en`), який, ймовірно, мав бути придатним до перекладу зображенням. Будь ласка, якщо це так, вилучіть атрибут локалізації з коду XML."
+msgstr ""
+"У знімка вікна має бути принаймні одне неперекладене зображення типу "
+"`source`, яке не вдалося знайти. Знайдено теґ із кодом локалі `en` (`xml:"
+"lang=en`), який, ймовірно, мав бути придатним до перекладу зображенням. Будь "
+"ласка, якщо це так, вилучіть атрибут локалізації з коду XML."
 
 #: src/as-validator-issue-tag.h:278
 msgid ""
@@ -2239,7 +2270,11 @@ msgid ""
 "This `display_length` item contains an invalid display length. Its value "
 "must be a positive integer value denoting logical pixels. Please refer to "
 "the AppStream specification for more information on this tag."
-msgstr "Запис `display_length` містить некоректну довжину для показу. Значення запису має бути додатним цілим значенням, яке позначає кількість логічних пікселів. Будь ласка, зверніться до специфікації AppStream, щоб дізнатися більше про цей теґ."
+msgstr ""
+"Запис `display_length` містить некоректну довжину для показу. Значення "
+"запису має бути додатним цілим значенням, яке позначає кількість логічних "
+"пікселів. Будь ласка, зверніться до специфікації AppStream, щоб дізнатися "
+"більше про цей теґ."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:424
@@ -2330,7 +2365,9 @@ msgstr "Пропущено назву компонента (теґ <name/>)."
 msgid ""
 "The name of this component is excessively long and can likely not be "
 "displayed properly in most layouts."
-msgstr "Назва цього компонента є надто довгою — її, ймовірно, не вдасться показати належним чином у більшості компонувань."
+msgstr ""
+"Назва цього компонента є надто довгою — її, ймовірно, не вдасться показати "
+"належним чином у більшості компонувань."
 
 #: src/as-validator-issue-tag.h:489
 msgid "The component is missing a summary (<summary/> tag)."
@@ -2385,7 +2422,9 @@ msgstr ""
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
 "everywhere."
-msgstr "Текст резюме надто довгий — його, ймовірно, не вдасться показати належним чином будь-де."
+msgstr ""
+"Текст резюме надто довгий — його, ймовірно, не вдасться показати належним "
+"чином будь-де."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:535
@@ -2463,7 +2502,9 @@ msgstr "Адресу цього типу вже визначено."
 msgid ""
 "This component is missing an `url` element of type `homepage` to link to the "
 "project's homepage."
-msgstr "У цьому компоненті пропущено елемент `url` типу `homepage` для посилання на домашню сторінку проєкту."
+msgstr ""
+"У цьому компоненті пропущено елемент `url` типу `homepage` для посилання на "
+"домашню сторінку проєкту."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:601
@@ -2479,7 +2520,9 @@ msgstr ""
 msgid ""
 "This component contains no `developer` element with information about its "
 "author."
-msgstr "У цьому компоненті не вказано елемента `developer` з відомостями щодо його автора."
+msgstr ""
+"У цьому компоненті не вказано елемента `developer` з відомостями щодо його "
+"автора."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:614
@@ -2496,14 +2539,19 @@ msgid ""
 "The developer-ID is invalid. It should be an rDNS string identifying the "
 "developer, or a Fediverse handle. It must also only contain lowercase ASCII "
 "letters, numbers and punctuation."
-msgstr "Ідентифікатор розробника є некоректним. Це має бути рядок rDNS, що ідентифікує розробника, або дескриптор Fediverse. Його запис має складатися лише з літер нижнього регістру ASCII, цифр та символів пунктуації."
+msgstr ""
+"Ідентифікатор розробника є некоректним. Це має бути рядок rDNS, що "
+"ідентифікує розробника, або дескриптор Fediverse. Його запис має складатися "
+"лише з літер нижнього регістру ASCII, цифр та символів пунктуації."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:627
 msgid ""
 "The `developer` block does not have a `name` element with a human-readable "
 "project author name."
-msgstr "У блоці `developer` немає елемента `name` зі зручним для читання іменем автора проєкту."
+msgstr ""
+"У блоці `developer` немає елемента `name` зі зручним для читання іменем "
+"автора проєкту."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:633
@@ -2753,7 +2801,11 @@ msgid ""
 "were invalid or because they are of low quality (e.g. custom 'X-' prefixed "
 "or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add "
 "more categories."
-msgstr "Усі категорії для цього компонента було проігноровано через те, що або вони є некоректними, або є низькоякісними (наприклад, є записами із префіксом «X-» або призначеними для якогось набору бібліотек, «GTK» або «Qt»). Будь ласка, виправте ваші назви категорій або додайте категорії до списку."
+msgstr ""
+"Усі категорії для цього компонента було проігноровано через те, що або вони "
+"є некоректними, або є низькоякісними (наприклад, є записами із префіксом "
+"«X-» або призначеними для якогось набору бібліотек, «GTK» або «Qt»). Будь "
+"ласка, виправте ваші назви категорій або додайте категорії до списку."
 
 #: src/as-validator-issue-tag.h:802
 msgid ""
@@ -2911,8 +2963,8 @@ msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
 msgstr ""
-"Тип блокування за випуском є некоректним. Мало бути вказано "
-"«embedded» (типовий варіант) або «external»."
+"Тип блокування за випуском є некоректним. Мало бути вказано «embedded» "
+"(типовий варіант) або «external»."
 
 #: src/as-validator-issue-tag.h:920
 msgid ""
@@ -3109,7 +3161,8 @@ msgstr ""
 #: src/as-validator-issue-tag.h:1063
 msgid ""
 "The `type` attribute of this `content_rating` element is missing or empty."
-msgstr "Атрибут `type` цього елемента `content_rating` пропущено або він є порожнім."
+msgstr ""
+"Атрибут `type` цього елемента `content_rating` пропущено або він є порожнім."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1069
@@ -3128,7 +3181,8 @@ msgstr ""
 #: src/as-validator-issue-tag.h:1081
 msgid ""
 "The `id` attribute of the `content_attribute` element is missing or empty."
-msgstr "Атрибут `id` елемента `content_attribute` пропущено або він є порожнім."
+msgstr ""
+"Атрибут `id` елемента `content_attribute` пропущено або він є порожнім."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1087
@@ -3181,11 +3235,24 @@ msgstr "Тип цього кольору є некоректним."
 msgid "The value of this color scheme preference is not valid."
 msgstr "Значення цієї пріоритетності схеми кольорів є некоректним."
 
-#: src/as-validator-issue-tag.h:1138
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
+#: src/as-validator-issue-tag.h:1139
+msgid ""
+"The name of the color scheme property is wrong. It should be "
+"`scheme_preference`."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:1144
 msgid "This color is not a valid HTML color code."
 msgstr "Запис цього кольору не є коректним кодом кольору HTML."
 
-#: src/as-validator-issue-tag.h:1143
+#: src/as-validator-issue-tag.h:1149
+msgid ""
+"A color for this type/scheme combination was already set. Colors must be "
+"unique per type/scheme."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:1154
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
@@ -3193,7 +3260,7 @@ msgstr ""
 "Вказаний DOI (Digital Object Identifier) для цього запису посилання є "
 "некоректним."
 
-#: src/as-validator-issue-tag.h:1148
+#: src/as-validator-issue-tag.h:1159
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
@@ -3202,7 +3269,7 @@ msgstr ""
 "(Citation File Format)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1154
+#: src/as-validator-issue-tag.h:1165
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
@@ -3210,7 +3277,7 @@ msgstr ""
 "У цьому записі посилання регістру немає властивості «name» для позначення "
 "назви регістру щодо нього."
 
-#: src/as-validator-issue-tag.h:1159
+#: src/as-validator-issue-tag.h:1170
 msgid ""
 "The registry for this reference item is unknown. This may be due to a typing "
 "error, or the registry needs to be registered with AppStream."
@@ -3218,30 +3285,30 @@ msgstr ""
 "Регістр для цього запису посилання є невідомим. Причиною може бути "
 "друкарська помилка або регістр слід зареєструвати у AppStream."
 
-#: src/as-validator-issue-tag.h:1165
+#: src/as-validator-issue-tag.h:1176
 msgid "The reference item is missing a value."
 msgstr "У запису посилання немає значення."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1171
+#: src/as-validator-issue-tag.h:1182
 msgid "The `custom` tag can only contain `value` children."
 msgstr "Дочірніми щодо теґу «custom» можуть бути лише теґи «value»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1177
+#: src/as-validator-issue-tag.h:1188
 msgid "This `custom` tag value is missing a `key` attribute."
 msgstr "У значенні теґу «custom» пропущено атрибут «key»."
 
-#: src/as-validator-issue-tag.h:1182
+#: src/as-validator-issue-tag.h:1193
 msgid "A key can only be used once."
 msgstr "Ключ можна використовувати лише один раз."
 
-#: src/as-validator-issue-tag.h:1187
+#: src/as-validator-issue-tag.h:1198
 msgid "This custom value is empty."
 msgstr "Це нетипове значення є порожнім."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1193
+#: src/as-validator-issue-tag.h:1204
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
@@ -3294,7 +3361,7 @@ msgstr ""
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:870 src/as-validator.c:1484 src/as-validator.c:1660
 #: src/as-validator.c:1883 src/as-validator.c:2529 src/as-validator.c:2551
-#: src/as-validator.c:2675 src/as-validator.c:2964
+#: src/as-validator.c:2675 src/as-validator.c:2998
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Виявлено: %s — Дозволено: %s"
@@ -3326,7 +3393,8 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:226
 msgid "Set mode of the issue report that is printed to the console."
-msgstr "Встановити режим звітування щодо проблем, який буде використано у консолі."
+msgstr ""
+"Встановити режим звітування щодо проблем, який буде використано у консолі."
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:233
@@ -3352,12 +3420,16 @@ msgstr "Перевизначити каталог виведення пікто�
 #: tools/appstream-compose.c:261
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)."
-msgstr "Встановити каталог виведення мультимедійних даних (для мультимедійних даних, обслуговувати які має сервер)."
+msgstr ""
+"Встановити каталог виведення мультимедійних даних (для мультимедійних даних, "
+"обслуговувати які має сервер)."
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:268
 msgid "Set a directory where HTML and text issue reports will be stored."
-msgstr "Встановити каталог, у якому зберігатимуться звіти щодо вад у форматі HTML і текстовому форматі."
+msgstr ""
+"Встановити каталог, у якому зберігатимуться звіти щодо вад у форматі HTML і "
+"текстовому форматі."
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:275
@@ -3367,7 +3439,8 @@ msgstr "Встановити назву походження"
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:282
 msgid "Set the URL where the exported media content will be hosted."
-msgstr "Встановити адресу, за якою зберігатимуться експортовані мультимедійні дані."
+msgstr ""
+"Встановити адресу, за якою зберігатимуться експортовані мультимедійні дані."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:289
@@ -3383,19 +3456,24 @@ msgstr ""
 msgid ""
 "An icon-policy string to set how icon sizes should be handled (refer to the "
 "man page for details)."
-msgstr "Рядок правил обробки піктограм для встановлення способу обробки розмірів піктограм (зверніться до сторінки підручника (man), щоб дізнатися більше)."
+msgstr ""
+"Рядок правил обробки піктограм для встановлення способу обробки розмірів "
+"піктограм (зверніться до сторінки підручника (man), щоб дізнатися більше)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:303
 msgid ""
 "A comma-separated list of custom keys that should be propagated to the "
 "output data."
-msgstr "Список ідентифікаторів компонентів, відокремлених комами, які слід поширювати до виведених даних."
+msgstr ""
+"Список ідентифікаторів компонентів, відокремлених комами, які слід "
+"поширювати до виведених даних."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
 msgid "A comma-separated list of component-IDs to accept."
-msgstr "Список ідентифікаторів компонентів, відокремлених комами, які слід приймати."
+msgstr ""
+"Список ідентифікаторів компонентів, відокремлених комами, які слід приймати."
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:327
@@ -3754,7 +3832,9 @@ msgstr "Вивести дані у вибраному форматі («yaml», 
 #: tools/appstreamcli.c:1127
 #, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
-msgstr "Виконуваний файл компонувальника «%s» не знайдено. Продовження обробки неможливе."
+msgstr ""
+"Виконуваний файл компонувальника «%s» не знайдено. Продовження обробки "
+"неможливе."
 
 #: tools/appstreamcli.c:1131
 #, c-format
@@ -4389,8 +4469,8 @@ msgstr "ні"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
-"No suitable package manager CLI found. Please make sure that e.g. "
-"\"pkcon\" (part of PackageKit) is available."
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon\" "
+"(part of PackageKit) is available."
 msgstr ""
 "Не знайдено відповідного засобу керування пакунками з командного рядка. Будь "
 "ласка, встановіть, наприклад, «pkcon» (частину PackageKit)."

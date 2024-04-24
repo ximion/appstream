@@ -28,10 +28,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2024-03-06 14:20+0100\n"
+"POT-Creation-Date: 2024-04-24 12:58+0200\n"
 "PO-Revision-Date: 2024-03-07 02:01+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
+"translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1052,7 +1053,7 @@ msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
-#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:101
+#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:103
 msgid "Razor"
 msgstr "Razor"
 
@@ -1063,13 +1064,13 @@ msgstr "ROX"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
-#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:105
+#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:107
 msgid "Unity"
 msgstr "Unity"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
-#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:109
+#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:111
 msgid "Xfce"
 msgstr "Xfce"
 
@@ -1088,13 +1089,18 @@ msgstr "macOS"
 msgid "Mate"
 msgstr "Mate"
 
+#. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
+#: src/as-desktop-env-data.h:101
+msgid "Plasma Mobile"
+msgstr ""
+
 #. TRANSLATORS: Name of the "rox" visual environment style.
-#: src/as-desktop-env-data.h:103
+#: src/as-desktop-env-data.h:105
 msgid "Rox"
 msgstr "Rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
-#: src/as-desktop-env-data.h:107
+#: src/as-desktop-env-data.h:109
 msgid "Microsoft Windows"
 msgstr "Microsoft Windows"
 
@@ -1731,7 +1737,9 @@ msgstr ""
 msgid ""
 "The enumeration must not be translated as a whole. In MetaInfo files, "
 "translate indivdual items (<li/> elements) instead."
-msgstr "Numaralandırma bir bütün olarak çevrilmemelidir. MetaInfo dosyalarında, bunun yerine tek tek ögeleri (<li/> ögeleri) çevirin."
+msgstr ""
+"Numaralandırma bir bütün olarak çevrilmemelidir. MetaInfo dosyalarında, "
+"bunun yerine tek tek ögeleri (<li/> ögeleri) çevirin."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -2391,7 +2399,10 @@ msgstr ""
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr "`stock` veya `cached` türündeki simgeler, bir URL, simgeye tam veya göreceli bir yol içermemelidir. Yalnızca dosya adlarına veya stok adlarına izin verilir."
+msgstr ""
+"`stock` veya `cached` türündeki simgeler, bir URL, simgeye tam veya göreceli "
+"bir yol içermemelidir. Yalnızca dosya adlarına veya stok adlarına izin "
+"verilir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:542
@@ -2879,7 +2890,9 @@ msgstr "XDG uygulama dizini bulunamadı."
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr "Metainfo dosyası, eski bir yolda saklanmaktadır. Lütfen `/usr/share/metainfo/` dizinine yerleştirin."
+msgstr ""
+"Metainfo dosyası, eski bir yolda saklanmaktadır. Lütfen `/usr/share/metainfo/"
+"` dizinine yerleştirin."
 
 #: src/as-validator-issue-tag.h:902
 msgid "The metainfo file specifies multiple components. This is not allowed."
@@ -3161,18 +3174,31 @@ msgstr "Bu rengin türü geçerli değil."
 msgid "The value of this color scheme preference is not valid."
 msgstr "Bu renk düzeni tercihinin değeri geçerli değil."
 
-#: src/as-validator-issue-tag.h:1138
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
+#: src/as-validator-issue-tag.h:1139
+msgid ""
+"The name of the color scheme property is wrong. It should be "
+"`scheme_preference`."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:1144
 msgid "This color is not a valid HTML color code."
 msgstr "Bu renk, geçerli bir HTML renk kodu değil."
 
-#: src/as-validator-issue-tag.h:1143
+#: src/as-validator-issue-tag.h:1149
+msgid ""
+"A color for this type/scheme combination was already set. Colors must be "
+"unique per type/scheme."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:1154
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
 msgstr ""
 "Bu referans öğesi için verilen DOI (Dijital Nesne Tanımlayıcı) geçerli değil."
 
-#: src/as-validator-issue-tag.h:1148
+#: src/as-validator-issue-tag.h:1159
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
@@ -3181,7 +3207,7 @@ msgstr ""
 "URL’si olmalıdır."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1154
+#: src/as-validator-issue-tag.h:1165
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
@@ -3189,7 +3215,7 @@ msgstr ""
 "Bu kayıt defteri referans öğesinde, ilgili olduğu kayıt defterinin adını "
 "belirten `name` özelliği eksik."
 
-#: src/as-validator-issue-tag.h:1159
+#: src/as-validator-issue-tag.h:1170
 msgid ""
 "The registry for this reference item is unknown. This may be due to a typing "
 "error, or the registry needs to be registered with AppStream."
@@ -3197,30 +3223,30 @@ msgstr ""
 "Bu referans öğesinin kaydı bilinmiyor. Bunun nedeni bir yazım hatası "
 "olabilir ya da kayıt defterinin AppStream’e kaydedilmesi gerekiyor olabilir."
 
-#: src/as-validator-issue-tag.h:1165
+#: src/as-validator-issue-tag.h:1176
 msgid "The reference item is missing a value."
 msgstr "Referans öğesinde bir değer eksik."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1171
+#: src/as-validator-issue-tag.h:1182
 msgid "The `custom` tag can only contain `value` children."
 msgstr "`custom` etiketi yalnızca `value` alt ögelerini içerebilir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1177
+#: src/as-validator-issue-tag.h:1188
 msgid "This `custom` tag value is missing a `key` attribute."
 msgstr "Bu `custom` etiket değerinde `key` özniteliği eksik."
 
-#: src/as-validator-issue-tag.h:1182
+#: src/as-validator-issue-tag.h:1193
 msgid "A key can only be used once."
 msgstr "Bir anahtar yalnızca bir kez kullanılabilir."
 
-#: src/as-validator-issue-tag.h:1187
+#: src/as-validator-issue-tag.h:1198
 msgid "This custom value is empty."
 msgstr "Bu özel değer boş."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1193
+#: src/as-validator-issue-tag.h:1204
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
@@ -3274,7 +3300,7 @@ msgstr ""
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:870 src/as-validator.c:1484 src/as-validator.c:1660
 #: src/as-validator.c:1883 src/as-validator.c:2529 src/as-validator.c:2551
-#: src/as-validator.c:2675 src/as-validator.c:2964
+#: src/as-validator.c:2675 src/as-validator.c:2998
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Bulunan: %s - İzin verilen: %s"
@@ -3373,7 +3399,9 @@ msgstr ""
 msgid ""
 "A comma-separated list of custom keys that should be propagated to the "
 "output data."
-msgstr "Çıktı verilerine yayılması gereken özel anahtarların virgülle ayrılmış listesi."
+msgstr ""
+"Çıktı verilerine yayılması gereken özel anahtarların virgülle ayrılmış "
+"listesi."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
@@ -4357,8 +4385,8 @@ msgstr "hayır"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
-"No suitable package manager CLI found. Please make sure that e.g. "
-"\"pkcon\" (part of PackageKit) is available."
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon\" "
+"(part of PackageKit) is available."
 msgstr ""
 "Uygun paket yöneticisi komut satırı arayüzü bulunamadı. Lütfen örneğin "
 "\"pkcon\"un (PackageKit'in parçası) kullanılabilir olduğuna emin olun."

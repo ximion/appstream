@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2024-03-06 14:20+0100\n"
+"POT-Creation-Date: 2024-04-24 12:58+0200\n"
 "PO-Revision-Date: 2023-12-23 14:15+0000\n"
 "Last-Translator: 박기준 <kei0108@ajou.ac.kr>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/appstream/"
@@ -1060,7 +1060,7 @@ msgstr "판테온은 사용자 친화적인 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
-#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:101
+#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:103
 msgid "Razor"
 msgstr "단종된 무료 및 오픈 소스 데스크톱 환경"
 
@@ -1071,13 +1071,13 @@ msgstr "X 윈도 시스템을 위한 그래픽 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
-#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:105
+#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:107
 msgid "Unity"
 msgstr "가장 유명한 리눅스 배포판인 우분투의 기본 데스크탑 환경"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
-#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:109
+#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:111
 msgid "Xfce"
 msgstr "UNIX 계열 운영체제를 위해서 개발된 가벼운 데스크톱 환경"
 
@@ -1100,13 +1100,18 @@ msgstr ""
 "Linux, BSD 및 illusmos 운영 체제에서 실행되는 무료 오픈 소스 소프트웨어로 구"
 "성된 데스크탑 환경"
 
+#. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
+#: src/as-desktop-env-data.h:101
+msgid "Plasma Mobile"
+msgstr ""
+
 #. TRANSLATORS: Name of the "rox" visual environment style.
-#: src/as-desktop-env-data.h:103
+#: src/as-desktop-env-data.h:105
 msgid "Rox"
 msgstr "X 윈도 시스템을 위한 그래픽 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
-#: src/as-desktop-env-data.h:107
+#: src/as-desktop-env-data.h:109
 msgid "Microsoft Windows"
 msgstr "Microsoft에서 개발한 컴퓨터 GUI 운영체제, 윈도우"
 
@@ -3106,18 +3111,31 @@ msgstr "이 색상의 유형이 잘못되었습니다."
 msgid "The value of this color scheme preference is not valid."
 msgstr "이 색 구성표 기본 설정 값이 잘못되었습니다."
 
-#: src/as-validator-issue-tag.h:1138
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
+#: src/as-validator-issue-tag.h:1139
+msgid ""
+"The name of the color scheme property is wrong. It should be "
+"`scheme_preference`."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:1144
 msgid "This color is not a valid HTML color code."
 msgstr "이 색상은 올바른 HTML 색상 코드가 아닙니다."
 
-#: src/as-validator-issue-tag.h:1143
+#: src/as-validator-issue-tag.h:1149
+msgid ""
+"A color for this type/scheme combination was already set. Colors must be "
+"unique per type/scheme."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:1154
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
 msgstr ""
 "이 참조 항목에 대해 지정된 DOI(Digital Object Identifier)가 잘못되었습니다."
 
-#: src/as-validator-issue-tag.h:1148
+#: src/as-validator-issue-tag.h:1159
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
@@ -3125,7 +3143,7 @@ msgstr ""
 "이 인용 참조 항목의 값은 CFF(Citation File Format) 파일의 URL이어야 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1154
+#: src/as-validator-issue-tag.h:1165
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
@@ -3133,7 +3151,7 @@ msgstr ""
 "이 레지스트리 참조 항목에는 해당 레지스트리의 이름을 나타내는 'name' 속성이 "
 "없습니다."
 
-#: src/as-validator-issue-tag.h:1159
+#: src/as-validator-issue-tag.h:1170
 msgid ""
 "The registry for this reference item is unknown. This may be due to a typing "
 "error, or the registry needs to be registered with AppStream."
@@ -3141,30 +3159,30 @@ msgstr ""
 "이 참조 항목의 레지스트리를 알 수 없습니다. 이는 입력 오류로 인해 발생했거나 "
 "AppStream에 레지스트리를 등록해야 합니다."
 
-#: src/as-validator-issue-tag.h:1165
+#: src/as-validator-issue-tag.h:1176
 msgid "The reference item is missing a value."
 msgstr "참조 항목에 값이 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1171
+#: src/as-validator-issue-tag.h:1182
 msgid "The `custom` tag can only contain `value` children."
 msgstr "'custom' 태그는 'value' 자식만 포함할 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1177
+#: src/as-validator-issue-tag.h:1188
 msgid "This `custom` tag value is missing a `key` attribute."
 msgstr "이 'custom' 태그 값에 'key' 속성이 없습니다."
 
-#: src/as-validator-issue-tag.h:1182
+#: src/as-validator-issue-tag.h:1193
 msgid "A key can only be used once."
 msgstr "키는 한 번만 사용할 수 있습니다."
 
-#: src/as-validator-issue-tag.h:1187
+#: src/as-validator-issue-tag.h:1198
 msgid "This custom value is empty."
 msgstr "이 사용자 지정 값은 비어 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1193
+#: src/as-validator-issue-tag.h:1204
 #, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
@@ -3215,7 +3233,7 @@ msgstr ""
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:870 src/as-validator.c:1484 src/as-validator.c:1660
 #: src/as-validator.c:1883 src/as-validator.c:2529 src/as-validator.c:2551
-#: src/as-validator.c:2675 src/as-validator.c:2964
+#: src/as-validator.c:2675 src/as-validator.c:2998
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
@@ -4254,8 +4272,8 @@ msgstr ""
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
-"No suitable package manager CLI found. Please make sure that e.g. "
-"\"pkcon\" (part of PackageKit) is available."
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon\" "
+"(part of PackageKit) is available."
 msgstr ""
 "적당한 패키지 매니저 CLI가 없습니다. \"pkcon\"(PackageKit 일부)과 같은 프로그"
 "램이 있는지 확인하십시오."

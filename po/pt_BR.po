@@ -35,10 +35,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2024-03-06 14:20+0100\n"
+"POT-Creation-Date: 2024-04-24 12:58+0200\n"
 "PO-Revision-Date: 2024-03-07 02:01+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
+"appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1068,7 +1069,7 @@ msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
-#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:101
+#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:103
 msgid "Razor"
 msgstr "Razor"
 
@@ -1079,13 +1080,13 @@ msgstr "ROX"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
-#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:105
+#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:107
 msgid "Unity"
 msgstr "Unity"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
-#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:109
+#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:111
 msgid "Xfce"
 msgstr "Xfce"
 
@@ -1104,13 +1105,18 @@ msgstr "macOS"
 msgid "Mate"
 msgstr "Mate"
 
+#. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
+#: src/as-desktop-env-data.h:101
+msgid "Plasma Mobile"
+msgstr ""
+
 #. TRANSLATORS: Name of the "rox" visual environment style.
-#: src/as-desktop-env-data.h:103
+#: src/as-desktop-env-data.h:105
 msgid "Rox"
 msgstr "Rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
-#: src/as-desktop-env-data.h:107
+#: src/as-desktop-env-data.h:109
 msgid "Microsoft Windows"
 msgstr "Microsoft Windows"
 
@@ -1742,7 +1748,9 @@ msgstr "Enumerações só devem ter itens de lista (<li/>) como filhos."
 msgid ""
 "The enumeration must not be translated as a whole. In MetaInfo files, "
 "translate indivdual items (<li/> elements) instead."
-msgstr "A enumeração não deve ser traduzida como um todo. Em arquivos MetaInfo, traduza os itens individuais (<li/> elementos)."
+msgstr ""
+"A enumeração não deve ser traduzida como um todo. Em arquivos MetaInfo, "
+"traduza os itens individuais (<li/> elementos)."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -2163,7 +2171,9 @@ msgstr ""
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr "Um item `requires` ou `recommends` requer um valor para denotar uma relação válida."
+msgstr ""
+"Um item `requires` ou `recommends` requer um valor para denotar uma relação "
+"válida."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:369
@@ -2409,7 +2419,10 @@ msgstr ""
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr "Os ícones do tipo `stock` ou `cached` não devem conter uma URL, um caminho completo ou relativo para o ícone. Somente nomes base de arquivo ou nomes padrão são permitidos."
+msgstr ""
+"Os ícones do tipo `stock` ou `cached` não devem conter uma URL, um caminho "
+"completo ou relativo para o ícone. Somente nomes base de arquivo ou nomes "
+"padrão são permitidos."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:542
@@ -2570,7 +2583,13 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr "Foi encontrada uma tag inválida. As tags não padronizadas devem ser prefixadas com `x-`. O AppStream também fornece a tag <custom/> para adicionar os dados personalizados arbitrários em arquivos metainfo. Essa tag é lida por bibliotecas do AppStream e pode ser útil em vez de definir novas tags personalizadas de topo de nível ou prefixadas com `x-` caso queira apenas adicionar dados personalizados a um arquivo metainfo."
+msgstr ""
+"Foi encontrada uma tag inválida. As tags não padronizadas devem ser "
+"prefixadas com `x-`. O AppStream também fornece a tag <custom/> para "
+"adicionar os dados personalizados arbitrários em arquivos metainfo. Essa tag "
+"é lida por bibliotecas do AppStream e pode ser útil em vez de definir novas "
+"tags personalizadas de topo de nível ou prefixadas com `x-` caso queira "
+"apenas adicionar dados personalizados a um arquivo metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:675
@@ -2704,7 +2723,9 @@ msgstr ""
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr "Uma tag `extends` está definida, porém o componente não é do tipo `addon`, `localization` ou `repository`."
+msgstr ""
+"Uma tag `extends` está definida, porém o componente não é do tipo `addon`, "
+"`localization` ou `repository`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:762
@@ -2896,7 +2917,9 @@ msgstr "Nenhum diretório de aplicativos XDG encontrado."
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr "O arquivo metainfo está armazenado em um caminho herdado. Por favor, coloque-o em `/usr/share/metainfo/`."
+msgstr ""
+"O arquivo metainfo está armazenado em um caminho herdado. Por favor, coloque-"
+"o em `/usr/share/metainfo/`."
 
 #: src/as-validator-issue-tag.h:902
 msgid "The metainfo file specifies multiple components. This is not allowed."
@@ -3184,11 +3207,24 @@ msgstr "O tipo desta cor não é válido."
 msgid "The value of this color scheme preference is not valid."
 msgstr "O valor desta preferência do esquema de cores não é válido."
 
-#: src/as-validator-issue-tag.h:1138
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
+#: src/as-validator-issue-tag.h:1139
+msgid ""
+"The name of the color scheme property is wrong. It should be "
+"`scheme_preference`."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:1144
 msgid "This color is not a valid HTML color code."
 msgstr "Esta cor não é um código de cor HTML válido."
 
-#: src/as-validator-issue-tag.h:1143
+#: src/as-validator-issue-tag.h:1149
+msgid ""
+"A color for this type/scheme combination was already set. Colors must be "
+"unique per type/scheme."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:1154
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
@@ -3196,7 +3232,7 @@ msgstr ""
 "O DOI (Identificador de Objeto Digital) para esse item de referência é "
 "inválido."
 
-#: src/as-validator-issue-tag.h:1148
+#: src/as-validator-issue-tag.h:1159
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
@@ -3205,7 +3241,7 @@ msgstr ""
 "(Formato de Arquivo de Citação)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1154
+#: src/as-validator-issue-tag.h:1165
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
@@ -3213,7 +3249,7 @@ msgstr ""
 "O item de referência de registro não possui a propriedade `name` para "
 "definir o nome do registro que se trata."
 
-#: src/as-validator-issue-tag.h:1159
+#: src/as-validator-issue-tag.h:1170
 msgid ""
 "The registry for this reference item is unknown. This may be due to a typing "
 "error, or the registry needs to be registered with AppStream."
@@ -3221,30 +3257,30 @@ msgstr ""
 "O registro para esse item de referência é desconhecido. Pode se tratar de um "
 "erro de digitação ou o registro precisa ser cadastrado no AppStream."
 
-#: src/as-validator-issue-tag.h:1165
+#: src/as-validator-issue-tag.h:1176
 msgid "The reference item is missing a value."
 msgstr "O item de referência está faltando um valor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1171
+#: src/as-validator-issue-tag.h:1182
 msgid "The `custom` tag can only contain `value` children."
 msgstr "A tag `custom` só pode conter `value` relacionado."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1177
+#: src/as-validator-issue-tag.h:1188
 msgid "This `custom` tag value is missing a `key` attribute."
 msgstr "Este valor da tag `custom` não possui um atributo `key`."
 
-#: src/as-validator-issue-tag.h:1182
+#: src/as-validator-issue-tag.h:1193
 msgid "A key can only be used once."
 msgstr "Uma chave só pode ser usada uma vez."
 
-#: src/as-validator-issue-tag.h:1187
+#: src/as-validator-issue-tag.h:1198
 msgid "This custom value is empty."
 msgstr "Este valor personalizado está vazio."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1193
+#: src/as-validator-issue-tag.h:1204
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
@@ -3297,7 +3333,7 @@ msgstr ""
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:870 src/as-validator.c:1484 src/as-validator.c:1660
 #: src/as-validator.c:1883 src/as-validator.c:2529 src/as-validator.c:2551
-#: src/as-validator.c:2675 src/as-validator.c:2964
+#: src/as-validator.c:2675 src/as-validator.c:2998
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Encontrada: %s - Permitida: %s"
@@ -3401,7 +3437,9 @@ msgstr ""
 msgid ""
 "A comma-separated list of custom keys that should be propagated to the "
 "output data."
-msgstr "Uma lista separada por vírgula de chaves personalizadas que devem ser propagadas para os dados de saída."
+msgstr ""
+"Uma lista separada por vírgula de chaves personalizadas que devem ser "
+"propagadas para os dados de saída."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
@@ -4404,8 +4442,8 @@ msgstr "não"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
-"No suitable package manager CLI found. Please make sure that e.g. "
-"\"pkcon\" (part of PackageKit) is available."
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon\" "
+"(part of PackageKit) is available."
 msgstr ""
 "Nenhum gerenciado de pacotes CLI adequado encontrado. Por favor, certifique-"
 "se de que, ex.: “pkcon” (parte de PackageKit), está disponível."
