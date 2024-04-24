@@ -90,6 +90,11 @@ if get_option('static-analysis') and host_machine.system() != 'windows'
   if cc.version().version_compare('>11<13')
     add_project_arguments(['-Wno-error=analyzer-use-of-uninitialized-value'], language : 'c')
   endif
+
+  # g_error has a deliberate infinite loop, so we have to suppress the new warning for now
+  if cc.version().version_compare('>13<15')
+    add_project_arguments(['-Wno-error=analyzer-infinite-loop'], language : 'c')
+  endif
 endif
 
 # a few compiler warning flags we always want enabled
