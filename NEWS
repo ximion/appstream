@@ -1,3 +1,37 @@
+Version 1.0.3
+~~~~~~~~~~~~~~
+Released: 2024-04-24
+
+Features:
+ * validator: Check that description lists don't get translated
+ * validator: Improve translation checks for descriptions
+ * cli: compose: Allow to propagate selected custom entries to catalog output
+ * validator: Check for common typo of "scheme_preference" branding property
+ * xml: Generate a developer_name compat tag for older 3rd-party parsers
+ * validator: Flag duplicate branding colors as invalid
+ * Add Plasma Mobile as recognized desktop-style
+
+Specification:
+ * docs: Clarify a developer element is not allowed to exist multiple times
+ * docs: Explicitly clarify a developer/name element must not be repeated
+ * docs: Clarify metainfo translation rules a bit
+
+Bugfixes:
+ * qt: Fix relocation of Config.cmake files
+ * cli: check-syscompat: Recognize available required controls as available
+ * validator: Guard issue emission functions with G_GNUC_PRINTF
+ * validator: Always use secure string formatting for issue emit function
+ * utils: Explicitly set format style when installing catalog metadata
+ * Suppress static-analyzer drawing wrong conclusions on GCC 14
+
+Miscellaneous:
+ * docs: List AppStreamCompose as related to AppStream
+ * docs: Add manpages back
+ * validator: Mark developer-id-missing as info-priority again
+
+Contributors:
+ JakobDev, John Zimmermann, Matthias Klumpp, Max Buchholz, tytan652
+
 Version 1.0.2
 ~~~~~~~~~~~~~~
 Released: 2024-02-24
