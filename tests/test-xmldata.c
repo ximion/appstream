@@ -2299,7 +2299,6 @@ test_xml_rw_developer (void)
 			    "  <developer id=\"freedesktop.org\">\n"
 			    "    <name>FreeDesktop.org Project</name>\n"
 			    "  </developer>\n"
-			    "  <developer_name>FreeDesktop.org Project</developer_name>\n"
 			    "</component>\n";
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
