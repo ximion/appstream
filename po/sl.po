@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2024-05-03 10:54+0000\n"
+"PO-Revision-Date: 2024-05-04 00:07+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
 "Language: sl\n"
@@ -30,14 +30,16 @@ msgstr ""
 "X-Generator: Weblate 5.5.3\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
+#, fuzzy
 msgid "AppStream CLI"
-msgstr ""
+msgstr "AppStream CLI"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr ""
+msgstr "Pripomoček za delo z metapodatki AppStream"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
+#, fuzzy
 msgid ""
 "AppStream is a metadata specification which permits software components to "
 "provide information about themselves to automated systems and end-users "
@@ -45,9 +47,10 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
+msgstr "AppStream je specifikacija metapodatkov, ki komponentam programske opreme omogoča, da avtomatiziranim sistemom in končnim uporabnikom zagotovijo informacije o sebi, preden je programska oprema dejansko nameščena. Projekt AppStream ponuja zmogljivosti za enostaven dostop in preoblikovanje teh metapodatkov ter nekaj dodatnih storitev za izgradnjo programskih centrov z bogatimi funkcijami in podobnih aplikacij, ki uporabljajo metapodatke programske opreme."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
+#, fuzzy
 msgid ""
 "The <em>appstreamcli</em> command-line tool allows to read, write, and "
 "transform AppStream XML or YAML metadata as well as to validate it for "
@@ -55,12 +58,12 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
+msgstr "Orodje ukazne vrstice <em>appstreamcli</em> omogoča branje, pisanje in preoblikovanje metapodatkov AppStream XML ali YAML ter preverjanje skladnosti s specifikacijo. Omogoča tudi preprost dostop do skupine metapodatkov sistema, na primer za poizvedovanje po programski opremi, ki zagotavlja določeno rutino za obravnavo Mediatype, ali za namestitev programske opreme z identifikatorjem komponent."
 
 #: src/as-cache.c:904
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "Mesto predpomnilnika »%s« ni zapisljivo."
 
 #: src/as-category.c:69
 msgctxt "Category of AudioVideo"
@@ -95,32 +98,32 @@ msgstr ""
 #: src/as-category.c:102
 msgctxt "Category of Education"
 msgid "Featured"
-msgstr ""
+msgstr "Izpostavljeno"
 
 #: src/as-category.c:105
 msgctxt "Category of Education"
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomija"
 
 #: src/as-category.c:108
 msgctxt "Category of Education"
 msgid "Chemistry"
-msgstr ""
+msgstr "Kemija"
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Languages"
-msgstr ""
+msgstr "Jeziki"
 
 #: src/as-category.c:115
 msgctxt "Category of Education"
 msgid "Math"
-msgstr ""
+msgstr "Matematika"
 
 #: src/as-category.c:124
 msgctxt "Category of Games"
 msgid "Featured"
-msgstr ""
+msgstr "Izpostavljeno"
 
 #: src/as-category.c:127
 msgctxt "Category of Games"
@@ -135,7 +138,7 @@ msgstr "Pustolovščina"
 #: src/as-category.c:133
 msgctxt "Category of Games"
 msgid "Arcade"
-msgstr ""
+msgstr "Arkadne igre"
 
 #: src/as-category.c:136
 msgctxt "Category of Games"
@@ -145,47 +148,47 @@ msgstr ""
 #: src/as-category.c:139
 msgctxt "Category of Games"
 msgid "Board"
-msgstr ""
+msgstr "Namizne igre"
 
 #: src/as-category.c:142
 msgctxt "Category of Games"
 msgid "Card"
-msgstr ""
+msgstr "Igre s kartami"
 
 #: src/as-category.c:145
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr ""
+msgstr "Posnemovalniki"
 
 #: src/as-category.c:148
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr ""
+msgstr "Za otroke"
 
 #: src/as-category.c:151
 msgctxt "Category of Games"
 msgid "Logic"
-msgstr ""
+msgstr "Logika"
 
 #: src/as-category.c:154
 msgctxt "Category of Games"
 msgid "Role Playing"
-msgstr ""
+msgstr "Igra vlog"
 
 #: src/as-category.c:157
 msgctxt "Category of Games"
 msgid "Sports"
-msgstr ""
+msgstr "Šport"
 
 #: src/as-category.c:161
 msgctxt "Category of Games"
 msgid "Strategy"
-msgstr ""
+msgstr "Strateške igre"
 
 #: src/as-category.c:169
 msgctxt "Category of Graphics"
 msgid "Featured"
-msgstr ""
+msgstr "Izpostavljeno"
 
 #: src/as-category.c:172
 msgctxt "Category of Graphics"
@@ -195,184 +198,182 @@ msgstr "3D Grafika"
 #: src/as-category.c:175
 msgctxt "Category of Graphics"
 msgid "Photography"
-msgstr ""
+msgstr "Fotografija"
 
 #: src/as-category.c:178
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr ""
+msgstr "Optično branje"
 
 #: src/as-category.c:181
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr "Kategorije"
+msgstr "Vektorska grafika"
 
 #: src/as-category.c:184
 msgctxt "Category of Graphics"
 msgid "Viewers"
-msgstr ""
+msgstr "Pregledovalniki"
 
 #: src/as-category.c:192
 msgctxt "Category of Office"
 msgid "Featured"
-msgstr ""
+msgstr "Izpostavljeno"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Calendar"
-msgstr ""
+msgstr "Koledar"
 
 #: src/as-category.c:199
 msgctxt "Category of Office"
 msgid "Database"
-msgstr ""
+msgstr "Zbirka podatkov"
 
 #: src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Finance"
-msgstr ""
+msgstr "Finance"
 
 #: src/as-category.c:206
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr ""
+msgstr "Urejevalnik besedil"
 
 #: src/as-category.c:215
 msgctxt "Category of Addons"
 msgid "Fonts"
-msgstr ""
+msgstr "Pisave"
 
 #: src/as-category.c:218
 msgctxt "Category of Addons"
 msgid "Codecs"
-msgstr ""
+msgstr "Kodeki"
 
 #: src/as-category.c:221
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr ""
+msgstr "Vhodni viri"
 
 #: src/as-category.c:224
 msgctxt "Category of Addons"
 msgid "Language Packs"
-msgstr ""
+msgstr "Jezikovni paketi"
 
 #: src/as-category.c:227
 msgctxt "Category of Addons"
 msgid "Localization"
-msgstr ""
+msgstr "Jezikovno prilagajanje"
 
 #: src/as-category.c:235
 msgctxt "Category of Science"
 msgid "Featured"
-msgstr ""
+msgstr "Izpostavljeno"
 
 #: src/as-category.c:238
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
-msgstr ""
+msgstr "Umetna inteligenca"
 
 #: src/as-category.c:241
 msgctxt "Category of Science"
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomija"
 
 #: src/as-category.c:244
 msgctxt "Category of Science"
 msgid "Chemistry"
-msgstr ""
+msgstr "Kemija"
 
 #: src/as-category.c:247
 msgctxt "Category of Science"
 msgid "Math"
-msgstr ""
+msgstr "Matematika"
 
 #: src/as-category.c:252
 msgctxt "Category of Science"
 msgid "Robotics"
-msgstr ""
+msgstr "Robotika"
 
 #: src/as-category.c:260
 msgctxt "Category of Communication"
 msgid "Featured"
-msgstr ""
+msgstr "Izpostavljeno"
 
 #: src/as-category.c:263
 msgctxt "Category of Communication"
 msgid "Chat"
-msgstr ""
+msgstr "Klepet"
 
 #: src/as-category.c:270
 msgctxt "Category of Communication"
 msgid "News"
-msgstr ""
+msgstr "Novice"
 
 #: src/as-category.c:274
 msgctxt "Category of Communication"
 msgid "Web Browsers"
-msgstr ""
+msgstr "Spletni brskalniki"
 
 #: src/as-category.c:282
 msgctxt "Category of Utility"
 msgid "Featured"
-msgstr ""
+msgstr "Izpostavljeno"
 
 #: src/as-category.c:285
 msgctxt "Category of Utility"
 msgid "Text Editors"
-msgstr ""
+msgstr "Urejevalniki besedila"
 
 #: src/as-category.c:288
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "Posnemovalniki terminala"
 
 #: src/as-category.c:291
 msgctxt "Category of Utility"
 msgid "File System"
-msgstr ""
+msgstr "Datotečni sistem"
 
 #: src/as-category.c:294
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr ""
+msgstr "Nadzor sistema"
 
 #: src/as-category.c:297
 msgctxt "Category of Utility"
 msgid "Security"
-msgstr ""
+msgstr "Varnost"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: src/as-category.c:306
 msgid "Audio & Video"
-msgstr ""
+msgstr "Zvok in video"
 
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:309
-#, fuzzy
 msgid "Developer Tools"
-msgstr "Razvijalec"
+msgstr "Razvojna orodja"
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:312
 msgid "Education"
-msgstr ""
+msgstr "Izobraževanje"
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:315
 msgid "Games"
-msgstr ""
+msgstr "Igre"
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:318
 msgid "Graphics & Photography"
-msgstr ""
+msgstr "Grafika in fotografija"
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:321
 msgid "Office"
-msgstr ""
+msgstr "Pisarna"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
@@ -383,17 +384,17 @@ msgstr "Dodatki"
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:327
 msgid "Science"
-msgstr ""
+msgstr "Znanost"
 
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:330
 msgid "Communication & News"
-msgstr ""
+msgstr "Komunikacija in novice"
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:333
 msgid "Utilities"
-msgstr ""
+msgstr "Pripomočki"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. of the rating e.g. "Adults Only (solo adultos)"
@@ -415,12 +416,8 @@ msgid "Adults Only"
 msgstr "Le za odrasle"
 
 #: src/as-content-rating.c:445 src/as-content-rating.c:550
-#, fuzzy
 msgid "Mature"
-msgstr ""
-"#-#-#-#-#  sl.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  sl.po (appstream)  #-#-#-#-#\n"
-"Novosti v ospredju"
+msgstr "Za odrasle"
 
 #: src/as-content-rating.c:447 src/as-content-rating.c:549
 msgid "Teen"
@@ -593,7 +590,7 @@ msgstr "Daljši prikazi golote"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:924
 msgid "Explicit nudity involving visible sexual organs"
-msgstr ""
+msgstr "Eksplicitna golota, ki vključuje vidne spolne organe"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:929
@@ -758,9 +755,8 @@ msgstr "Ni možnosti klepeta ali pogovora z drugimi uporabniki"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1019
-#, fuzzy
 msgid "Moderated audio or video chat functionality between users"
-msgstr "Nenadzorovana možnost zvočnega ali video klepeta med uporabniki"
+msgstr "Funkcionalnost moderiranega zvočnega ali video klepeta med uporabniki"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1021
@@ -949,24 +945,24 @@ msgstr "Nazorno prikazovanje sodobnega suženjstva"
 #: src/as-curl.c:148
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr ""
+msgstr "Prenos ni uspel zaradi omejitve strežnika"
 
 #: src/as-curl.c:155 src/as-curl.c:161
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to download file: %s"
-msgstr "Komponente, ki se ujema z %s, ni mogoče najti."
+msgstr "Datoteke ni bilo mogoče prenesti: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
 #: src/as-curl.c:175
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "URL ni bil najden na strežniku."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:183
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Nepričakovana koda stanja: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:420
@@ -978,32 +974,32 @@ msgstr ""
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
 #: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:77
 msgid "Cinnamon"
-msgstr ""
+msgstr "Cinnamon"
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
 #: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:79
 msgid "Deepin"
-msgstr ""
+msgstr "Deepin"
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
 #: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:81
 msgid "EDE"
-msgstr ""
+msgstr "EDE"
 
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #. TRANSLATORS: Name of the "endless" visual environment style.
 #: src/as-desktop-env-data.h:49 src/as-desktop-env-data.h:83
 #, fuzzy
 msgid "Endless"
-msgstr "Sveženj"
+msgstr "Endless"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
 #: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #. TRANSLATORS: Name of the "KDE" desktop environment.
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
@@ -1011,83 +1007,83 @@ msgstr ""
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
 #: src/as-desktop-env-data.h:99
 msgid "KDE Plasma"
-msgstr ""
+msgstr "KDE Plasma"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
 #: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:89
 msgid "LXDE"
-msgstr ""
+msgstr "LXDE"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
 #: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:91
 msgid "LXQt"
-msgstr ""
+msgstr "LXQt"
 
 #. TRANSLATORS: Name of the "MATE" desktop environment.
 #: src/as-desktop-env-data.h:59
 msgid "MATE"
-msgstr ""
+msgstr "MATE"
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
 #: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:97
 msgid "Pantheon"
-msgstr ""
+msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
 #: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:103
 msgid "Razor"
-msgstr ""
+msgstr "Razor"
 
 #. TRANSLATORS: Name of the "ROX" desktop environment.
 #: src/as-desktop-env-data.h:67
 msgid "ROX"
-msgstr ""
+msgstr "ROX"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
 #: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:107
 msgid "Unity"
-msgstr ""
+msgstr "Unity"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
 #: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:111
 msgid "Xfce"
-msgstr ""
+msgstr "Xfce"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
 msgid "GNOME (Dark)"
-msgstr ""
+msgstr "GNOME (temno)"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:93
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:95
 msgid "Mate"
-msgstr ""
+msgstr "Mate"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:101
 msgid "Plasma Mobile"
-msgstr ""
+msgstr "Plasma Mobile"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:105
 msgid "Rox"
-msgstr ""
+msgstr "Rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:109
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -1100,20 +1096,20 @@ msgstr "app;aplikacija;paket;program;programček;programje;orodje"
 
 #: src/as-pool.c:1148
 msgid "Metadata files have errors:"
-msgstr ""
+msgstr "V datotekah z metapodatki so napake:"
 
 #: src/as-pool.c:2397
 msgid "Group"
-msgstr ""
+msgstr "Skupina"
 
 #: src/as-pool.c:2452
 msgid "Iconsets"
-msgstr ""
+msgstr "Nabori ikon"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2500
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Podatki iz krajevno nameščene programske opreme"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2503
@@ -1122,11 +1118,11 @@ msgstr ""
 
 #: src/as-provided.c:138
 msgid "Libraries"
-msgstr ""
+msgstr "Knjižnice"
 
 #: src/as-provided.c:140
 msgid "Binaries"
-msgstr ""
+msgstr "Dvojiške datoteke"
 
 #: src/as-provided.c:142
 msgid "Media types"
@@ -1134,7 +1130,7 @@ msgstr ""
 
 #: src/as-provided.c:144
 msgid "Fonts"
-msgstr ""
+msgstr "Pisave"
 
 #: src/as-provided.c:146
 msgid "Modaliases"
@@ -1142,7 +1138,7 @@ msgstr ""
 
 #: src/as-provided.c:148
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 #: src/as-provided.c:150
 msgid "D-Bus System Services"
@@ -1162,15 +1158,15 @@ msgstr ""
 
 #: src/as-provided.c:158
 msgid "Component"
-msgstr ""
+msgstr "Komponenta"
 
 #: src/as-relation.c:1350
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "kazalna naprava (npr. miška)"
 
 #: src/as-relation.c:1352
 msgid "keyboard"
-msgstr ""
+msgstr "tipkovnica"
 
 #: src/as-relation.c:1354
 msgid "gamepad"
@@ -1178,17 +1174,17 @@ msgstr ""
 
 #: src/as-relation.c:1356
 msgid "tv remote"
-msgstr ""
+msgstr "TV daljinski upravljalnik"
 
 #: src/as-relation.c:1358
 msgid "graphics tablet"
-msgstr ""
+msgstr "grafična tablica"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1363
-#, c-format
+#, c-format, fuzzy
 msgid "This software requires a %s for input."
-msgstr ""
+msgstr "Ta programska oprema zahteva %s za vnos."
 
 #: src/as-relation.c:1368
 msgid "This software requires a touch input device."
@@ -1230,11 +1226,11 @@ msgstr ""
 
 #: src/as-relation.c:1397
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "kazalne naprave (npr. miši)"
 
 #: src/as-relation.c:1399
 msgid "keyboards"
-msgstr ""
+msgstr "tipkovnice"
 
 #: src/as-relation.c:1401
 msgid "gamepads"
@@ -1252,31 +1248,31 @@ msgstr ""
 #: src/as-relation.c:1409
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "Ta programska oprema podpira %s."
 
 #: src/as-relation.c:1413
 msgid "This software supports touch input."
-msgstr ""
+msgstr "Ta programska oprema podpira vnos na dotik."
 
 #: src/as-relation.c:1415
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "To programsko opremo je mogoče upravljati z glasovnim vnosom."
 
 #: src/as-relation.c:1417
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "To programsko opremo lahko upravljate s kamero."
 
 #: src/as-relation.c:1420
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "Ta programska oprema podpira delovanje prek ukaznih ukazov konzole."
 
 #: src/as-relation.c:1433
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "Najdena kazalna naprava (npr. miška ali sledilna ploščica)."
 
 #: src/as-relation.c:1435
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "Najdena fizična tipkovnica."
 
 #: src/as-relation.c:1437
 msgid "Gamepad found."
@@ -1309,12 +1305,12 @@ msgstr ""
 #: src/as-relation.c:1511
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "Najdena je bila programska oprema »%s«"
 
 #: src/as-relation.c:1520
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Manjka zahtevana komponenta programske opreme »%s«."
 
 #: src/as-relation.c:1524
 #, c-format
@@ -1383,13 +1379,13 @@ msgstr ""
 #: src/as-relation.c:1684
 #, c-format
 msgid "This software supports %s %s %s."
-msgstr ""
+msgstr "Ta programska oprema podpira %s %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1702
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "Podprto je jedro %s %s."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1460,7 +1456,7 @@ msgstr ""
 
 #: src/as-relation.c:1902
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "Velikost zaslona zadostuje za to programsko opremo."
 
 #: src/as-relation.c:1919
 #, c-format
@@ -1471,22 +1467,22 @@ msgstr ""
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "Splošno javno dovoljenje Affero, samo različice 1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:40
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Splošno javno dovoljenje Affero, različice 1.0 ali novejše"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:43
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "Splošno javno dovoljenje GNU Affero, samo različice 3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:45
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "Splošno javno dovoljenje GNU Affero, različice 3.0 ali novejše"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:266
@@ -1581,70 +1577,70 @@ msgstr ""
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:306 src/as-spdx-data.h:310
 msgid "GNU General Public License v1.0 only"
-msgstr ""
+msgstr "Splošno javno dovoljenje GNU GPL le različice 1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:308 src/as-spdx-data.h:312
 msgid "GNU General Public License v1.0 or later"
-msgstr ""
+msgstr "Splošno javno dovoljenje GNU GPL različice 1.0 ali novejše"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:314 src/as-spdx-data.h:318
 msgid "GNU General Public License v2.0 only"
-msgstr ""
+msgstr "Splošno javno dovoljenje GNU GPL le različice 2.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:316 src/as-spdx-data.h:320
 msgid "GNU General Public License v2.0 or later"
-msgstr ""
+msgstr "Splošno javno dovoljenje GNU GPL različice 2.0 ali novejše"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:327 src/as-spdx-data.h:331
 msgid "GNU General Public License v3.0 only"
-msgstr ""
+msgstr "Splošno javno dovoljenje GNU GPL le različice 3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:329 src/as-spdx-data.h:333
 msgid "GNU General Public License v3.0 or later"
-msgstr ""
+msgstr "Splošno javno dovoljenje GNU GPL različice 3.0 ali novejše"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:390 src/as-spdx-data.h:394
 msgid "GNU Library General Public License v2 only"
-msgstr ""
+msgstr "GNU Lesser General Public License samo v2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:392 src/as-spdx-data.h:396
 msgid "GNU Library General Public License v2 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License v2 ali novejša"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:398 src/as-spdx-data.h:402
 msgid "GNU Lesser General Public License v2.1 only"
-msgstr ""
+msgstr "GNU Lesser General Public License samo v2.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:400 src/as-spdx-data.h:404
 msgid "GNU Lesser General Public License v2.1 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License v2.1 ali novejša"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:406 src/as-spdx-data.h:410
 msgid "GNU Lesser General Public License v3.0 only"
-msgstr ""
+msgstr "GNU Lesser General Public License samo v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:408 src/as-spdx-data.h:412
 msgid "GNU Lesser General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License v3.0 ali novejša"
 
 #: src/as-validator-issue-tag.h:42
 msgid "This tag requires a type property."
-msgstr ""
+msgstr "Ta oznaka zahteva lastnost vrste."
 
 #: src/as-validator-issue-tag.h:47
 msgid "Tags of this name are not permitted in this section."
-msgstr ""
+msgstr "Oznake s tem imenom v tem razdelku niso dovoljene."
 
 #: src/as-validator-issue-tag.h:52
 msgid ""
@@ -1706,7 +1702,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:103
 msgid "This tag is not translatable."
-msgstr ""
+msgstr "Te oznake ni mogoče prevesti."
 
 #: src/as-validator-issue-tag.h:108
 msgid ""
@@ -1915,25 +1911,25 @@ msgstr ""
 #: src/as-validator-issue-tag.h:293
 msgid ""
 "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr ""
+msgstr "Posnetek zaslona mora imeti vsaj eno sliko s faktorjem povečave 1."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:299
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
+msgstr "Posnetek zaslona mora vsebovati vsaj eno sliko ali videoposnetek, da je uporaben. Prosimo, dodajte mu <image/>."
 
 #: src/as-validator-issue-tag.h:304
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
+msgstr "Posnetek zaslona mora vsebovati slike ali videoposnetke, vendar ne obeh hkrati. Ta posnetek zaslona uporabite izključno za statične slike ali za videoposnetke."
 
 #: src/as-validator-issue-tag.h:310
 msgid "The screenshot does not have a caption text. Consider adding one."
-msgstr ""
+msgstr "Posnetek zaslona nima besedila napisov. Razmislite o dodajanju le-tega."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:316
@@ -2480,11 +2476,11 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:812
 msgid "Unable to read file."
-msgstr ""
+msgstr "Ni mogoče brati datoteke."
 
 #: src/as-validator-issue-tag.h:817
 msgid "The XML of this file is malformed."
-msgstr ""
+msgstr "XML te datoteke je nepravilen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:823
@@ -2597,9 +2593,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:925
-#, fuzzy
 msgid "Failed to download release metadata."
-msgstr "Komponente, ki se ujema z %s, ni mogoče najti."
+msgstr "Prenos metapodatkov o izdaji ni uspel."
 
 #: src/as-validator-issue-tag.h:930
 msgid ""
@@ -2925,23 +2920,20 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --verbose
 #. TRANSLATORS: ascompose flag description for: --verbose
 #: tools/appstream-compose.c:198 tools/appstreamcli.c:1364
-#, fuzzy
 msgid "Show extra debugging information."
-msgstr "Pokaži dodatne podatke razhroščevanja"
+msgstr "Pokaži dodatne podatke razhroščevanja."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #. TRANSLATORS: ascompose flag description for: --no-color
 #: tools/appstream-compose.c:205 tools/appstreamcli.c:1370
-#, fuzzy
 msgid "Don't show colored output."
-msgstr "Ne pokaži izpisa v barvah"
+msgstr "Ne pokaži izpisa v barvah."
 
 #. TRANSLATORS: ascli flag description for: --version
 #. TRANSLATORS: ascompose flag description for: --version
 #: tools/appstream-compose.c:212 tools/appstreamcli.c:1358
-#, fuzzy
 msgid "Show the program version."
-msgstr "Pokaži različico programa"
+msgstr "Pokaži različico programa."
 
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:219
@@ -3029,7 +3021,7 @@ msgstr ""
 #: tools/appstream-compose.c:338 tools/appstreamcli.c:1598
 #, c-format
 msgid "AppStream version: %s"
-msgstr ""
+msgstr "Različica AppStream: %s"
 
 #: tools/appstream-compose.c:342 tools/appstreamcli.c:1602
 #, c-format
@@ -3059,7 +3051,7 @@ msgstr ""
 
 #: tools/appstream-compose.c:412 tools/appstream-compose.c:414
 msgid "WARNING"
-msgstr ""
+msgstr "OPOZORILO"
 
 #: tools/appstream-compose.c:446
 msgid "Unable to set icon policy"
@@ -3080,17 +3072,17 @@ msgstr ""
 #. TRANSLATORS: Information about as-compose units to be processed
 #: tools/appstream-compose.c:481
 msgid "Processing directories:"
-msgstr ""
+msgstr "Obdelovanje map:"
 
 #. TRANSLATORS: Information about as-compose units to be processed
 #: tools/appstream-compose.c:484
 msgid "Processing directory:"
-msgstr ""
+msgstr "Obdelovanje mape:"
 
 #. TRANSLATORS: Error message
 #: tools/appstream-compose.c:493
 msgid "Can not process invalid directory"
-msgstr ""
+msgstr "Neveljavne mape ni mogoče obdelati"
 
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:505
@@ -3099,10 +3091,8 @@ msgstr ""
 
 #. TRANSLATORS: Error message
 #: tools/appstream-compose.c:510
-#, fuzzy
 msgid "Failed to compose AppStream metadata"
-msgstr ""
-"Ročno določite mesto metapodatkov AppStream za regeneracijo predpomnilnika"
+msgstr "Sestavljanje metapodatkov AppStream ni uspelo"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:516
@@ -3126,20 +3116,18 @@ msgstr ""
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:528
 msgid "Success!"
-msgstr ""
+msgstr "Uspelo je!"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstreamcli.c:63
-#, fuzzy
 msgid "Manually selected location of AppStream cache."
-msgstr "Ročno določite mesto predpomnilnika AppStream"
+msgstr "Ročno določite mesto predpomnilnika AppStream."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstreamcli.c:69
 #, fuzzy
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr ""
-"Ročno določite mesto metapodatkov AppStream za regeneracijo predpomnilnika"
+msgstr "Ročno določite mesto metapodatkov AppStream za regeneracijo predpomnilnika."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:75
@@ -3153,9 +3141,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstreamcli.c:107
-#, fuzzy
 msgid "Print detailed output about found components."
-msgstr "Natisni podroben izpis o najdenih komponentah"
+msgstr "Natisni podroben izpis o najdenih komponentah."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstreamcli.c:128
@@ -3164,9 +3151,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
 #: tools/appstreamcli.c:135
-#, fuzzy
 msgid "Print detailed explanation for found issues."
-msgstr "Natisni podroben izpis o najdenih komponentah"
+msgstr "Natisni podrobno razlago najdenih težav."
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstreamcli.c:142
@@ -3201,9 +3187,9 @@ msgstr "%s ukaz"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
 #: tools/appstreamcli.c:218
-#, fuzzy, c-format
+#, c-format
 msgid "Option '%s' is unknown."
-msgstr "Ukaz »%s« ni znan."
+msgstr "Možnost »%s« ni znana."
 
 #: tools/appstreamcli.c:223 tools/appstreamcli.c:1574
 #, c-format
@@ -3221,9 +3207,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:282
-#, fuzzy
 msgid "Enforce a cache refresh."
-msgstr "Vsili osvežitev predpomnilnika"
+msgstr "Vsili osvežitev predpomnilnika."
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
 #: tools/appstreamcli.c:288
@@ -3594,9 +3579,8 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Komponente z id »%s« ni mogoče najti!"
 
 #: tools/ascli-actions-mdata.c:255
-#, fuzzy
 msgid "You need to specify categories to list."
-msgstr "Določiti morate pojem, ki ga iščete."
+msgstr "Določiti morate kategorije za seznam."
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:269
@@ -3609,14 +3593,13 @@ msgid "You need to specify a metadata file."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:366
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr "Komponente, ki se ujema z %s, ni mogoče najti."
+msgstr "Datoteke z metapodatki ni mogoče namestiti: %s"
 
 #: tools/ascli-actions-mdata.c:386
-#, fuzzy
 msgid "You need to specify an input and output file."
-msgstr "Navesti morate ukaz."
+msgstr "Določiti morate vhodno in izhodno datoteko."
 
 #: tools/ascli-actions-mdata.c:393
 #, c-format
@@ -3646,7 +3629,7 @@ msgstr ""
 #: tools/ascli-actions-mdata.c:504
 #, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr ""
+msgstr "Datoteka .desktop »%s« ne obstaja."
 
 #: tools/ascli-actions-mdata.c:511
 #, c-format
@@ -3671,7 +3654,7 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
 msgid "ERROR"
-msgstr ""
+msgstr "NAPAKA"
 
 #: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
 #, fuzzy
@@ -3693,47 +3676,47 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:754
 msgid "Requirements:"
-msgstr ""
+msgstr "Zahteve:"
 
 #: tools/ascli-actions-mdata.c:756
 msgid "No required items are set for this software."
-msgstr ""
+msgstr "Za to programsko opremo niso nastavljeni nobeni zahtevani elementi."
 
 #: tools/ascli-actions-mdata.c:761
 msgid "Recommendations:"
-msgstr ""
+msgstr "Priporočila:"
 
 #: tools/ascli-actions-mdata.c:763
 msgid "No recommended items are set for this software."
-msgstr ""
+msgstr "Za to programsko opremo niso nastavljeni nobeni priporočeni elementi."
 
 #: tools/ascli-actions-mdata.c:768
 msgid "Supported:"
-msgstr ""
+msgstr "Podprto:"
 
 #: tools/ascli-actions-mdata.c:770
 msgid "No supported items are set for this software."
-msgstr ""
+msgstr "Za to programsko opremo niso nastavljeni nobeni podprti elementi."
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:794
 msgid "Desktop"
-msgstr ""
+msgstr "Namizje"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:797
 msgid "Laptop"
-msgstr ""
+msgstr "Prenosnik"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:800
 msgid "Server"
-msgstr ""
+msgstr "Strežnik"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:803
 msgid "Tablet"
-msgstr ""
+msgstr "Tablični računalnik"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:806
@@ -3742,7 +3725,7 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:808
 msgid "Unknown"
-msgstr ""
+msgstr "Neznano"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
 #: tools/ascli-actions-mdata.c:875
@@ -3752,26 +3735,26 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:894
 msgid "Incompatible"
-msgstr ""
+msgstr "Nezdružljivo"
 
 #: tools/ascli-actions-mdata.c:929
 msgid "Compatible"
-msgstr ""
+msgstr "Združljivo"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:47
 msgid "AppStream Status:"
-msgstr ""
+msgstr "Stanje AppStream:"
 
 #: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:566
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Različica: %s"
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:55
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "Viri metapodatkov OS:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:59
@@ -3786,12 +3769,12 @@ msgstr ""
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:69
 msgid "No metadata."
-msgstr ""
+msgstr "Ni metapodatkov."
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:72
 msgid "Summary:"
-msgstr ""
+msgstr "Povzetek:"
 
 #: tools/ascli-actions-misc.c:86
 #, c-format
@@ -3871,7 +3854,7 @@ msgstr "Navesti morate ukaz."
 
 #: tools/ascli-actions-misc.c:551
 msgid "Operating System Details"
-msgstr ""
+msgstr "Podrobnosti o operacijskem sistemu"
 
 #: tools/ascli-actions-misc.c:555
 #, fuzzy, c-format
@@ -3880,7 +3863,7 @@ msgstr "Komponente z id »%s« ni mogoče najti!"
 
 #: tools/ascli-actions-misc.c:562
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: tools/ascli-actions-misc.c:563 tools/ascli-actions-misc.c:590
 #: tools/ascli-utils.c:304
@@ -3906,19 +3889,19 @@ msgstr "Opis"
 
 #: tools/ascli-actions-misc.c:589
 msgid "Kernel"
-msgstr ""
+msgstr "Jedro"
 
 #: tools/ascli-actions-misc.c:591
 msgid "Version"
-msgstr ""
+msgstr "Različica"
 
 #: tools/ascli-actions-misc.c:594
 msgid "Hardware"
-msgstr ""
+msgstr "Strojna oprema"
 
 #: tools/ascli-actions-misc.c:597
 msgid "Physical Memory"
-msgstr ""
+msgstr "Fizični pomnilnik"
 
 #: tools/ascli-actions-misc.c:601
 msgid "Devices with Modaliases"
@@ -3926,21 +3909,21 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:630
 msgid "User Input Controls"
-msgstr ""
+msgstr "Kontrolniki za vnos uporabnika"
 
 #: tools/ascli-actions-misc.c:633
 msgid "unknown"
-msgstr ""
+msgstr "neznano"
 
 #: tools/ascli-actions-misc.c:640 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
 msgid "yes"
-msgstr ""
+msgstr "da"
 
 #: tools/ascli-actions-misc.c:642 tools/ascli-actions-validate.c:701
 #: tools/ascli-actions-validate.c:707
 msgid "no"
-msgstr ""
+msgstr "ne"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -4007,25 +3990,25 @@ msgstr ""
 #: tools/ascli-actions-validate.c:299 tools/ascli-actions-validate.c:512
 #, c-format
 msgid "File '%s' does not exist."
-msgstr ""
+msgstr "Datoteka »%s« ne obstaja."
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "error"-type hints
 #: tools/ascli-actions-validate.c:348
 #, c-format
 msgid "errors: %lu"
-msgstr ""
+msgstr "Napake: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "warning"-type hints
 #: tools/ascli-actions-validate.c:355
 #, c-format
 msgid "warnings: %lu"
-msgstr ""
+msgstr "Opozorila: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "info"-type hints
 #: tools/ascli-actions-validate.c:362
 #, c-format
 msgid "infos: %lu"
-msgstr ""
+msgstr "Informacije: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "pedantic"-type hints
 #: tools/ascli-actions-validate.c:369
@@ -4060,9 +4043,9 @@ msgid "Validation was successful: %s"
 msgstr ""
 
 #: tools/ascli-actions-validate.c:458 tools/ascli-actions-validate.c:591
-#, fuzzy, c-format
+#, c-format
 msgid "Validation failed: %s"
-msgstr "Preverjanje je spodletelo."
+msgstr "Preverjanje je spodletelo: %s"
 
 #: tools/ascli-actions-validate.c:526 tools/ascli-actions-validate.c:647
 #, c-format
@@ -4094,35 +4077,32 @@ msgstr ""
 #. TRANSLATORS: An invalid license (used as value in a key-value pair, like "Type: invalid")
 #: tools/ascli-actions-validate.c:685
 msgid "invalid"
-msgstr ""
+msgstr "neveljavno"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:690
-#, fuzzy
 msgid "License Type"
-msgstr "Dovoljenje"
+msgstr "Vrsta dovoljenja"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:694
 msgid "Canonical ID"
-msgstr ""
+msgstr "ID Canonical"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
 #: tools/ascli-actions-validate.c:698
-#, fuzzy
 msgid "Suitable for AppStream metadata"
-msgstr ""
-"Ročno določite mesto metapodatkov AppStream za regeneracijo predpomnilnika"
+msgstr "Primerno za metapodatke AppStream"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
 #: tools/ascli-actions-validate.c:704
 msgid "Free and Open Source"
-msgstr ""
+msgstr "Prosta in odprta koda"
 
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:712
 msgid "URL"
-msgstr ""
+msgstr "Naslov URL"
 
 #: tools/ascli-utils.c:301
 msgid "Identifier"
@@ -4130,7 +4110,7 @@ msgstr "Identifikator"
 
 #: tools/ascli-utils.c:303
 msgid "Internal ID"
-msgstr ""
+msgstr "Notranji ID"
 
 #: tools/ascli-utils.c:306
 msgid "Package"
@@ -4149,9 +4129,8 @@ msgid "Extends"
 msgstr ""
 
 #: tools/ascli-utils.c:365
-#, fuzzy
 msgid "Default Screenshot URL"
-msgstr "Vzorec naslova URL zaslonske slike"
+msgstr "Privzeti URL posnetka zaslona"
 
 #: tools/ascli-utils.c:375
 msgid "Project Group"
@@ -4178,7 +4157,7 @@ msgstr "Ponujeni elementi"
 #: tools/ascli-utils.c:524
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "Vnesite številko od 1 do %i: "
 
 #, fuzzy
 #~ msgid "Show extra debugging information"
