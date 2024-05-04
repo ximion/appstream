@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-# phlostically <phlostically@mailinator.com>, 2021, 2022.
+# phlostically <phlostically@mailinator.com>, 2021, 2022, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2022-11-30 01:49+0000\n"
+"PO-Revision-Date: 2024-05-04 00:07+0000\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
-"Language-Team: Esperanto <https://hosted.weblate.org/projects/appstream/"
-"translations/eo/>\n"
+"Language-Team: Esperanto <https://hosted.weblate.org/projects/appstream/translations/eo/>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -586,7 +585,7 @@ msgstr "Longedaŭra nudeco"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:924
 msgid "Explicit nudity involving visible sexual organs"
-msgstr ""
+msgstr "Eksplicita nudeco kun videblaj generaj organoj"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:929
@@ -969,32 +968,31 @@ msgstr "Elŝutita dosiero estis malplena."
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
 #: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:77
 msgid "Cinnamon"
-msgstr ""
+msgstr "Cinnamon"
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
 #: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:79
 msgid "Deepin"
-msgstr ""
+msgstr "Deepin"
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
 #: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:81
 msgid "EDE"
-msgstr ""
+msgstr "EDE"
 
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #. TRANSLATORS: Name of the "endless" visual environment style.
 #: src/as-desktop-env-data.h:49 src/as-desktop-env-data.h:83
-#, fuzzy
 msgid "Endless"
-msgstr "Fasko"
+msgstr "Endless"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
 #: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #. TRANSLATORS: Name of the "KDE" desktop environment.
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
@@ -1002,83 +1000,83 @@ msgstr ""
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
 #: src/as-desktop-env-data.h:99
 msgid "KDE Plasma"
-msgstr ""
+msgstr "KDE Plasma"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
 #: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:89
 msgid "LXDE"
-msgstr ""
+msgstr "LXDE"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
 #: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:91
 msgid "LXQt"
-msgstr ""
+msgstr "LXQt"
 
 #. TRANSLATORS: Name of the "MATE" desktop environment.
 #: src/as-desktop-env-data.h:59
 msgid "MATE"
-msgstr ""
+msgstr "MATE"
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
 #: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:97
 msgid "Pantheon"
-msgstr ""
+msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
 #: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:103
 msgid "Razor"
-msgstr ""
+msgstr "Razor"
 
 #. TRANSLATORS: Name of the "ROX" desktop environment.
 #: src/as-desktop-env-data.h:67
 msgid "ROX"
-msgstr ""
+msgstr "ROX"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
 #: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:107
 msgid "Unity"
-msgstr ""
+msgstr "Unity"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
 #: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:111
 msgid "Xfce"
-msgstr ""
+msgstr "Xfce"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
 msgid "GNOME (Dark)"
-msgstr ""
+msgstr "GNOME (malhela)"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:93
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:95
 msgid "Mate"
-msgstr ""
+msgstr "Mate"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:101
 msgid "Plasma Mobile"
-msgstr ""
+msgstr "Plasma Mobile"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:105
 msgid "Rox"
-msgstr ""
+msgstr "Rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:109
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -1157,30 +1155,29 @@ msgstr "Komponanto"
 
 #: src/as-relation.c:1350
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "montrilo (ekz. muso)"
 
 #: src/as-relation.c:1352
-#, fuzzy
 msgid "keyboard"
-msgstr "Tabulludoj"
+msgstr "klavaro"
 
 #: src/as-relation.c:1354
 msgid "gamepad"
-msgstr ""
+msgstr "ludregilo"
 
 #: src/as-relation.c:1356
 msgid "tv remote"
-msgstr ""
+msgstr "televida teleregilo"
 
 #: src/as-relation.c:1358
 msgid "graphics tablet"
-msgstr ""
+msgstr "desegna tabuleto"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1363
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires a %s for input."
-msgstr "Ĉi tiu elemento postulas atributon \"type\"."
+msgstr "Por enigo, %s estas postulata de ĉi tiu programo."
 
 #: src/as-relation.c:1368
 #, fuzzy
@@ -1224,29 +1221,29 @@ msgstr ""
 
 #: src/as-relation.c:1397
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "montriloj (ekz. musoj)"
 
 #: src/as-relation.c:1399
 msgid "keyboards"
-msgstr ""
+msgstr "klavaroj"
 
 #: src/as-relation.c:1401
 msgid "gamepads"
-msgstr ""
+msgstr "ludregiloj"
 
 #: src/as-relation.c:1403
 msgid "tv remotes"
-msgstr ""
+msgstr "televidaj teleregiloj"
 
 #: src/as-relation.c:1405
 msgid "graphics tablets"
-msgstr ""
+msgstr "desegnaj tabuletoj"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1409
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "La %s estas subtenataj de ĉi tiu programo."
 
 #: src/as-relation.c:1413
 msgid "This software supports touch input."
@@ -1270,19 +1267,19 @@ msgstr ""
 
 #: src/as-relation.c:1435
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "Fizika klavaro troviĝis."
 
 #: src/as-relation.c:1437
 msgid "Gamepad found."
-msgstr ""
+msgstr "Ludregilo troviĝis."
 
 #: src/as-relation.c:1439
 msgid "TV remote found."
-msgstr ""
+msgstr "Televida teleregilo troviĝis."
 
 #: src/as-relation.c:1441
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "Desegna tabuleto troviĝis."
 
 #: src/as-relation.c:1444
 msgid "Touch input device found."
@@ -1303,27 +1300,27 @@ msgstr ""
 #: src/as-relation.c:1511
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "Programo «%s» troviĝis"
 
 #: src/as-relation.c:1520
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Postulata programa komponanto «%s» mankas."
 
 #: src/as-relation.c:1524
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Rekomendata programa komponanto «%s» mankas."
 
 #: src/as-relation.c:1528
-#, fuzzy, c-format
+#, c-format
 msgid "Found supported software component '%s'."
-msgstr "Troviĝis %i komponantoj."
+msgstr "Troviĝis subtenata programa komponanto «%s»."
 
 #: src/as-relation.c:1561
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "Troviĝis aparato subtenata de ĉi tiu programo: «%s»"
 
 #: src/as-relation.c:1570
 #, c-format
@@ -1383,7 +1380,7 @@ msgstr "Ĉi tiu elemento postulas atributon \"type\"."
 #: src/as-relation.c:1702
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "La kerno %s %s estas subtenata."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1404,13 +1401,13 @@ msgstr ""
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1754
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr "Ĉi tiu elemento postulas atributon \"type\"."
+msgstr "Ĉi tiu programo subtenas %s %.2f GiB da memoro."
 
 #: src/as-relation.c:1770
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "Ĉi tiu sistemo havas sufiĉon da memoro por ĉi tiu programo."
 
 #: src/as-relation.c:1834
 #, fuzzy
@@ -1466,172 +1463,172 @@ msgstr ""
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "Nur versio 1.0 de Affero General Public License"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:40
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Versio 1.0 de Affero General Public License aŭ pli nova"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:43
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "Nur versio 3.0 de GNU Affero General Public License"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:45
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "Versio 3.0 de GNU Affero General Public License aŭ pli nova"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:266
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "Nur versio 1.1 de GNU Free Documentation License kun nevariantaj sekcioj"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:268
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "Versio 1.1 de GNU Free Documentation License aŭ pli nova kun nevariantaj sekcioj"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:270
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
+msgstr "Nur versio 1.1 de GNU Free Documentation License sen nevariantaj sekcioj"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:272
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
+msgstr "Versio 1.1. de GNU Free Documentation License aŭ pli nova sen nevariantaj sekcioj"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:274
 msgid "GNU Free Documentation License v1.1 only"
-msgstr ""
+msgstr "Nur versio 1.1 de GNU Free Documentation License"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:276
 msgid "GNU Free Documentation License v1.1 or later"
-msgstr ""
+msgstr "Versio 1.1 de GNU Free Documentation License aŭ pli nova"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:279
 msgid "GNU Free Documentation License v1.2 only - invariants"
-msgstr ""
+msgstr "Nur versio 1.2 de GNU Free Documentation License kun nevariantaj sekcioj"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:281
 msgid "GNU Free Documentation License v1.2 or later - invariants"
-msgstr ""
+msgstr "Versio 1.2 de GNU Free Documentation License aŭ pli nova kun nevariantaj sekcioj"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:283
 msgid "GNU Free Documentation License v1.2 only - no invariants"
-msgstr ""
+msgstr "Nur versio 1.2 de GNU Free Documentation License sen nevariantaj sekcioj"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:285
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
-msgstr ""
+msgstr "Versio 1.2 de GNU Free Documentation License aŭ pli nova sen nevariantaj sekcioj"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:287
 msgid "GNU Free Documentation License v1.2 only"
-msgstr ""
+msgstr "Nur versio 1.2 de GNU Free Documentation License"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:289
 msgid "GNU Free Documentation License v1.2 or later"
-msgstr ""
+msgstr "Versio 1.2 de GNU Free Documentation License aŭ pli nova"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:292
 msgid "GNU Free Documentation License v1.3 only - invariants"
-msgstr ""
+msgstr "Nur versio 1.3 de GNU Free Documentation License kun nevariantaj sekcioj"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:294
 msgid "GNU Free Documentation License v1.3 or later - invariants"
-msgstr ""
+msgstr "Versio 1.3 de GNU Free Documentation License aŭ pli nova kun nevariantaj sekcioj"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:296
 msgid "GNU Free Documentation License v1.3 only - no invariants"
-msgstr ""
+msgstr "Nur versio 1.3 de GNU Free Documentation License sen nevariantaj sekcioj"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:298
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
-msgstr ""
+msgstr "Versio 1.3 de GNU Free Documentation License aŭ pli nova sen nevariantaj sekcioj"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:300
 msgid "GNU Free Documentation License v1.3 only"
-msgstr ""
+msgstr "Nur versio 1.3 de GNU Free Documentation License"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:302
 msgid "GNU Free Documentation License v1.3 or later"
-msgstr ""
+msgstr "Versio 1.3 de GNU Free Documentation License aŭ pli nova"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:306 src/as-spdx-data.h:310
 msgid "GNU General Public License v1.0 only"
-msgstr ""
+msgstr "Nur versio 1.0 de GNU General Public License"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:308 src/as-spdx-data.h:312
 msgid "GNU General Public License v1.0 or later"
-msgstr ""
+msgstr "Versio 1.0 de GNU General Public License aŭ pli nova"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:314 src/as-spdx-data.h:318
 msgid "GNU General Public License v2.0 only"
-msgstr ""
+msgstr "Nur versio 2.0 de GNU General Public License"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:316 src/as-spdx-data.h:320
 msgid "GNU General Public License v2.0 or later"
-msgstr ""
+msgstr "Versio 2.0 de GNU General Public License aŭ pli nova"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:327 src/as-spdx-data.h:331
 msgid "GNU General Public License v3.0 only"
-msgstr ""
+msgstr "Nur versio 3.0 de GNU General Public License"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:329 src/as-spdx-data.h:333
 msgid "GNU General Public License v3.0 or later"
-msgstr ""
+msgstr "Versio 3.0 de GNU General Public License aŭ pli nova"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:390 src/as-spdx-data.h:394
 msgid "GNU Library General Public License v2 only"
-msgstr ""
+msgstr "Nur versio 2 de GNU Library General Public License"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:392 src/as-spdx-data.h:396
 msgid "GNU Library General Public License v2 or later"
-msgstr ""
+msgstr "Versio 2 de GNU Library General Public License aŭ pli nova"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:398 src/as-spdx-data.h:402
 msgid "GNU Lesser General Public License v2.1 only"
-msgstr ""
+msgstr "Nur versio 2.1 de GNU Lesser General Public License"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:400 src/as-spdx-data.h:404
 msgid "GNU Lesser General Public License v2.1 or later"
-msgstr ""
+msgstr "Versio 2.1 de GNU Lesser General Public License aŭ pli nova"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:406 src/as-spdx-data.h:410
 msgid "GNU Lesser General Public License v3.0 only"
-msgstr ""
+msgstr "Nur versio 3.0 de GNU Lesser General Public License"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:408 src/as-spdx-data.h:412
 msgid "GNU Lesser General Public License v3.0 or later"
-msgstr ""
+msgstr "Versio 3.0 de GNU Lesser General Public License aŭ pli nova"
 
 #: src/as-validator-issue-tag.h:42
 msgid "This tag requires a type property."
@@ -2127,13 +2124,10 @@ msgstr ""
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:381
-#, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
 "ge` is permitted."
-msgstr ""
-"Nevalida kompara operacio pri ero de rilato. Nur validas `eq`, `ne`, `lt`, "
-"`gt`, `le`, kaj `ge`."
+msgstr "Nevalida kompara operacio pri ero de rilato. Nur validas `eq`, `ne`, `lt`, `gt`, `le` kaj `ge`."
 
 #: src/as-validator-issue-tag.h:386
 msgid ""
@@ -3977,7 +3971,7 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
 msgid "ERROR"
-msgstr ""
+msgstr "ERARO"
 
 #: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
 #, fuzzy
@@ -3999,7 +3993,7 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:754
 msgid "Requirements:"
-msgstr ""
+msgstr "Postuloj:"
 
 #: tools/ascli-actions-mdata.c:756
 msgid "No required items are set for this software."
@@ -4007,16 +4001,15 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:761
 msgid "Recommendations:"
-msgstr ""
+msgstr "Rekomendoj:"
 
 #: tools/ascli-actions-mdata.c:763
 msgid "No recommended items are set for this software."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:768
-#, fuzzy
 msgid "Supported:"
-msgstr "Sportludoj"
+msgstr "Subtenata:"
 
 #: tools/ascli-actions-mdata.c:770
 msgid "No supported items are set for this software."
@@ -4025,22 +4018,22 @@ msgstr ""
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:794
 msgid "Desktop"
-msgstr ""
+msgstr "Labortabla komputilo"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:797
 msgid "Laptop"
-msgstr ""
+msgstr "Tekkomputilo"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:800
 msgid "Server"
-msgstr ""
+msgstr "Servilo"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:803
 msgid "Tablet"
-msgstr ""
+msgstr "Tabulkomputilo"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:806
@@ -4049,7 +4042,7 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:808
 msgid "Unknown"
-msgstr ""
+msgstr "Nekonata"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
 #: tools/ascli-actions-mdata.c:875
@@ -4059,11 +4052,11 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:894
 msgid "Incompatible"
-msgstr ""
+msgstr "Nekongrua"
 
 #: tools/ascli-actions-mdata.c:929
 msgid "Compatible"
-msgstr ""
+msgstr "Kongrua"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:47
@@ -4181,7 +4174,7 @@ msgstr "Vi devas specifi formon de skribota NEWS-dosiero."
 
 #: tools/ascli-actions-misc.c:551
 msgid "Operating System Details"
-msgstr ""
+msgstr "Detaloj pri mastruma sistemo"
 
 #: tools/ascli-actions-misc.c:555
 #, c-format
@@ -4189,9 +4182,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr "Ne troviĝis komponanto '%s' de mastruma sistemo!"
 
 #: tools/ascli-actions-misc.c:562
-#, fuzzy
 msgid "ID"
-msgstr "Integritaj Programistaj Medioj"
+msgstr "Identigilo"
 
 #: tools/ascli-actions-misc.c:563 tools/ascli-actions-misc.c:590
 #: tools/ascli-utils.c:304
@@ -4217,7 +4209,7 @@ msgstr "Priskribo"
 
 #: tools/ascli-actions-misc.c:589
 msgid "Kernel"
-msgstr ""
+msgstr "Kerno"
 
 #: tools/ascli-actions-misc.c:591
 msgid "Version"
@@ -4225,11 +4217,11 @@ msgstr "Versio"
 
 #: tools/ascli-actions-misc.c:594
 msgid "Hardware"
-msgstr ""
+msgstr "Aparato"
 
 #: tools/ascli-actions-misc.c:597
 msgid "Physical Memory"
-msgstr ""
+msgstr "Fizika memoro"
 
 #: tools/ascli-actions-misc.c:601
 #, fuzzy
@@ -4242,7 +4234,7 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:633
 msgid "unknown"
-msgstr ""
+msgstr "nekonata"
 
 #: tools/ascli-actions-misc.c:640 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
@@ -4269,7 +4261,7 @@ msgstr "Ne eblas lanĉi pakadministrilon: %s"
 
 #: tools/ascli-actions-pkgmgr.c:85
 msgid "Flatpak was not found! Please install it to continue."
-msgstr ""
+msgstr "Flatpak ne troviĝis! Bonvolu instali ĝin por daŭrigi."
 
 #: tools/ascli-actions-pkgmgr.c:96
 #, c-format
