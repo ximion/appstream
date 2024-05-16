@@ -37,9 +37,8 @@
 		<important>
 			<title>Legacy Path</title>
 			<para>
-				AppStream tools scan the paths <filename>/usr/share/app-info/(xml|xmls)</filename> / <filename>/var/lib/app-info/(xml|xmls)</filename> path for legacy
-				compatibility as well. If possible, the old locations and old layouts should not be used anymore.
-				Support for the legacy path will likely be dropped completely with a future AppStream 1.0 release.
+				Prior to version 1.0, AppStream tools scanned the paths <filename>/usr/share/app-info/(xml|xmls)</filename> and <filename>/var/lib/app-info/(xml|xmls)</filename> path for legacy
+				compatibility as well.  Legacy path support was dropped in version 1.0. The old locations should not be used anymore. The modern locations are supported by both the AppStream 1.x as well as AppStream 0.16.x series.
 			</para>
 		</important>
 	</section>
