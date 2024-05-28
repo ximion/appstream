@@ -29,6 +29,7 @@
 # Fernando Lopes <fefehex12@gmail.com>, 2023.
 # Fernando Lopes <118869201+plasmus777@users.noreply.github.com>, 2023.
 # Gabriel Guerreiro <gabriel.eu.br@gmail.com>, 2024.
+# Rai Lima Ferreira <rai.lima17@gmail.com>, 2024.
 #
 # Translators:
 msgid ""
@@ -36,16 +37,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2024-03-07 02:01+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"appstream/translations/pt_BR/>\n"
+"PO-Revision-Date: 2024-05-28 16:24+0000\n"
+"Last-Translator: Rai Lima Ferreira <rai.lima17@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1108,7 +1108,7 @@ msgstr "Mate"
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:101
 msgid "Plasma Mobile"
-msgstr ""
+msgstr "Plasma Mobile"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:105
@@ -1745,13 +1745,10 @@ msgid "Enumerations must only have list items (<li/>) as children."
 msgstr "Enumerações só devem ter itens de lista (<li/>) como filhos."
 
 #: src/as-validator-issue-tag.h:80
-#, fuzzy
 msgid ""
 "The enumeration must not be translated as a whole. In MetaInfo files, "
 "translate individual items (<li/> elements) instead."
-msgstr ""
-"A enumeração não deve ser traduzida como um todo. Em arquivos MetaInfo, "
-"traduza os itens individuais (<li/> elementos)."
+msgstr "A enumeração não deve ser traduzida como um todo. Em arquivos MetaInfo, por sua vez, traduza itens individuais (elementos <li/> )."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -3213,7 +3210,7 @@ msgstr "O valor desta preferência do esquema de cores não é válido."
 msgid ""
 "The name of the color scheme property is wrong. It should be "
 "`scheme_preference`."
-msgstr ""
+msgstr "O nome da propriedade do esquema de cor está errado. Deveria ser `scheme_preference`."
 
 #: src/as-validator-issue-tag.h:1144
 msgid "This color is not a valid HTML color code."
@@ -3223,7 +3220,7 @@ msgstr "Esta cor não é um código de cor HTML válido."
 msgid ""
 "A color for this type/scheme combination was already set. Colors must be "
 "unique per type/scheme."
-msgstr ""
+msgstr "Uma cor para esta combinação de tipo/esquema já foi definida. Cores devem ser únicas por tipo/esquema."
 
 #: src/as-validator-issue-tag.h:1154
 msgid ""
