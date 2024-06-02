@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2024-05-05 08:07+0000\n"
+"PO-Revision-Date: 2024-06-02 10:31+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/translations/nl/>\n"
 "Language: nl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1915,7 +1915,7 @@ msgstr "De eigenschap ‘height’ moet een positief geheel getal zijn."
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
 msgid "The `scale` property must be a positive integer."
-msgstr ""
+msgstr "De eigenschap `scale` moet een positief geheel getal zijn."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:241
@@ -2240,7 +2240,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:514
 msgid "The component summary must not contain tabs or linebreaks."
-msgstr ""
+msgstr "Het component samenvatting mag geen tabs of regel­einden bevatten."
 
 #: src/as-validator-issue-tag.h:519
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
@@ -2834,7 +2834,7 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1075
 msgid "The `content_rating` tag can only contain `content_attribute` children."
-msgstr ""
+msgstr "De tag `content_rating` kan enkel `content_attribute`-items bevatten."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1081
@@ -3323,9 +3323,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
 #: tools/appstreamcli.c:596
-#, fuzzy
 msgid "Print more detailed output on why incompatibilities exist."
-msgstr "Gedetailleerde uitvoer weergeven over gevonden onderdelen."
+msgstr "Gedetailleerdere uitvoer tonen over de oorzaak van incompatibiliteiten."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:633
