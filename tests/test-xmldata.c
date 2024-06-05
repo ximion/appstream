@@ -2293,13 +2293,12 @@ test_xml_rw_branding (void)
 static void
 test_xml_rw_developer (void)
 {
-	static const gchar
-	    *xmldata_tags = "<component>\n"
-			    "  <id>org.example.DeveloperTest</id>\n"
-			    "  <developer id=\"freedesktop.org\">\n"
-			    "    <name>FreeDesktop.org Project</name>\n"
-			    "  </developer>\n"
-			    "</component>\n";
+	static const gchar *xmldata_tags = "<component>\n"
+					   "  <id>org.example.DeveloperTest</id>\n"
+					   "  <developer id=\"freedesktop.org\">\n"
+					   "    <name>FreeDesktop.org Project</name>\n"
+					   "  </developer>\n"
+					   "</component>\n";
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
 	AsDeveloper *devp;

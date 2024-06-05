@@ -81,11 +81,12 @@ asc_directory_unit_class_init (AscDirectoryUnitClass *klass)
 }
 
 static gboolean
-asc_directory_unit_find_files_recursive (GPtrArray *files,
-					 const gchar *path_orig,
-					 guint path_orig_len,
-					 const gchar *path,
-					 GError **error)
+asc_directory_unit_find_files_recursive_internal (GPtrArray *files,
+						  const gchar *path_orig,
+						  guint path_orig_len,
+						  const gchar *path,
+						  GHashTable *visited_dirs,
+						  GError **error)
 {
 	const gchar *tmp;
 	g_autoptr(GDir) dir = NULL;
@@ -104,14 +105,38 @@ asc_directory_unit_find_files_recursive (GPtrArray *files,
 		g_autofree gchar *path_new = NULL;
 		path_new = g_build_filename (path, tmp, NULL);
 
-		/* search recursively, don't follow symlinks */
-		if (g_file_test (path_new, G_FILE_TEST_IS_DIR) &&
-		    !g_file_test (path_new, G_FILE_TEST_IS_SYMLINK)) {
-			if (!asc_directory_unit_find_files_recursive (files,
-								      path_orig,
-								      path_orig_len,
-								      path_new,
-								      error))
+		/* search recursively */
+		if (g_file_test (path_new, G_FILE_TEST_IS_DIR)) {
+			if (g_file_test (path_new, G_FILE_TEST_IS_SYMLINK)) {
+				g_autofree gchar *real_path = realpath (path_new, NULL);
+
+				if (!real_path) {
+					/* error if realpath fails (like memory allocation error or invalid path) */
+					g_set_error (error,
+						     G_FILE_ERROR,
+						     g_file_error_from_errno (errno),
+						     "Failed to resolve real path");
+					return FALSE;
+				}
+
+				/* don't visit paths twice to avoid loops */
+				if (g_hash_table_contains (visited_dirs, real_path))
+					return TRUE;
+
+				g_hash_table_add (visited_dirs, g_steal_pointer (&real_path));
+			} else {
+				if (g_hash_table_contains (visited_dirs, path_new))
+					return TRUE;
+
+				g_hash_table_add (visited_dirs, g_strdup (path_new));
+			}
+
+			if (!asc_directory_unit_find_files_recursive_internal (files,
+									       path_orig,
+									       path_orig_len,
+									       path_new,
+									       visited_dirs,
+									       error))
 				return FALSE;
 		} else {
 			g_ptr_array_add (files, g_strdup (path_new + path_orig_len));
@@ -119,6 +144,24 @@ asc_directory_unit_find_files_recursive (GPtrArray *files,
 	}
 
 	return TRUE;
+}
+
+static gboolean
+asc_directory_unit_find_files_recursive (GPtrArray *files,
+					 const gchar *path_orig,
+					 guint path_orig_len,
+					 const gchar *path,
+					 GError **error)
+{
+	g_autoptr(GHashTable) visited_dirs = NULL;
+	visited_dirs = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+
+	return asc_directory_unit_find_files_recursive_internal (files,
+								 path_orig,
+								 path_orig_len,
+								 path,
+								 visited_dirs,
+								 error);
 }
 
 static gboolean
