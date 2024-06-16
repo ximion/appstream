@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2024-06-02 10:31+0000\n"
+"PO-Revision-Date: 2024-06-16 19:09+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/translations/nl/>\n"
 "Language: nl\n"
@@ -58,7 +58,7 @@ msgstr ""
 #: src/as-cache.c:904
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr "Cache-locatie ‘%s’ is niet beschrijfbaar."
+msgstr "Cache-locatie ‘%s’ is niet schrijfbaar."
 
 #: src/as-category.c:69
 msgctxt "Category of AudioVideo"
@@ -1480,12 +1480,10 @@ msgid "Display size is sufficient for this software."
 msgstr "De schermgrootte is voldoende voor deze software."
 
 #: src/as-relation.c:1919
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr ""
-"Relatievoldoeningscontrole voor items van type ‘%s’ is nog niet "
-"geïmplementeerd."
+msgstr "Voldoeningscontrole voor relatie-items van type ‘%s’ is nog niet geïmplementeerd."
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
@@ -1680,12 +1678,7 @@ msgid ""
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr ""
-"Dit element (paragraaf, lijst, enz.) van een <description/>-label mag niet "
-"afzonderlijk worden gelokaliseerd in catalogusmetagegevens. Lokaliseer in "
-"plaats daarvan de hele tag <description/>. De catalogusgenerator voor "
-"AppStream-metagegevens (bijv. ‘appstream-generator’) zal al het juiste doen "
-"bij het compileren van de gegevens."
+msgstr "Dit element (paragraaf, lijst, enz.) van een <description/>-label mag niet afzonderlijk worden gelokaliseerd in catalogusmetagegevens. Lokaliseer in plaats daarvan de hele tag <description/>. De catalogusgenerator voor AppStream-metagegevens (bijv. `appstream-generator`) zal al het juiste doen bij het compileren van de gegevens."
 
 #: src/as-validator-issue-tag.h:64
 msgid ""
@@ -1717,7 +1710,7 @@ msgstr ""
 msgid ""
 "The enumeration must not be translated as a whole. In MetaInfo files, "
 "translate individual items (<li/> elements) instead."
-msgstr ""
+msgstr "De opsomming mag niet als geheel worden vertaald. In MetaInfo-bestanden vertaalt u in plaats daarvan individuele items (<li/> elementen)."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -1725,11 +1718,7 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
-"De eerste ‘description/p’-paragraaf van dit component is wellicht te kort (< "
-"80 tekens). Overweeg om met een langere paragraaf te beginnen, zodat de "
-"beschrijving er beter uitziet in softwarecentra en om direct in de eerste "
-"paragraaf meer gedetailleerde informatie over deze component te geven."
+msgstr "De eerste `description/p`-paragraaf van dit component is wellicht te kort (< 80 tekens). Overweeg om met een langere paragraaf te beginnen, zodat de beschrijving er beter uitziet in softwarecentra en om direct in de eerste paragraaf meer gedetailleerde informatie over deze component te geven."
 
 #: src/as-validator-issue-tag.h:93
 msgid ""
@@ -1805,17 +1794,17 @@ msgstr ""
 msgid ""
 "The component ID might not follow the reverse domain-name schema (the TLD "
 "used by it is not known to the validator)."
-msgstr ""
+msgstr "De component-ID volgt mogelijk niet het omgekeerde domeinnaamschema (de TLD die erdoor wordt gebruikt is niet bekend bij de validator)."
 
 #: src/as-validator-issue-tag.h:141
 msgid ""
 "The component ID contains an invalid character. Only ASCII characters, dots "
 "and numbers are permitted."
-msgstr ""
+msgstr "De component-ID bevat een ongeldig teken. Alleen ASCII-tekens, punten en cijfers zijn toegestaan."
 
 #: src/as-validator-issue-tag.h:146
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
+msgstr "De component-ID begint met interpunctie. Dit is niet toegestaan."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
@@ -1823,7 +1812,7 @@ msgid ""
 "is strongly discouraged to improve interoperability with other tools such as "
 "D-Bus. A good option is to replace any hyphens with underscores (`_`). "
 "Hyphens are only allowed in the last segment of a component ID."
-msgstr ""
+msgstr "De component-ID bevat een koppel-/minteken in het domeingedeelte. Het gebruik van een koppelteken wordt sterk afgeraden om de interoperabiliteit met andere tools zoals D-Bus te verbeteren. Een goede optie is om eventuele koppeltekens te vervangen door onderstrepingstekens (`_`). Koppeltekens zijn alleen toegestaan in het laatste segment van een component-ID."
 
 #: src/as-validator-issue-tag.h:157
 msgid ""
@@ -1905,12 +1894,12 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:223
 msgid "The `width` property must be a positive integer."
-msgstr "De eigenschap ‘width’ moet een positief geheel getal zijn."
+msgstr "De eigenschap `width` moet een positief geheel getal zijn."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:229
 msgid "The `height` property must be a positive integer."
-msgstr "De eigenschap ‘height’ moet een positief geheel getal zijn."
+msgstr "De eigenschap `height` moet een positief geheel getal zijn."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
@@ -1939,12 +1928,9 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:265
-#, fuzzy
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`."
-msgstr ""
-"Een screenshot moet ten minste één afbeelding of video bevatten om nuttig te "
-"zijn. Gelieve voeg er een <image/> aan toe."
+msgstr "Een schermafdruk moet minimaal één onvertaalde afbeelding van het type `source` bevatten."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:271
@@ -1976,12 +1962,9 @@ msgstr ""
 "afbeelding of -video te verwijzen."
 
 #: src/as-validator-issue-tag.h:293
-#, fuzzy
 msgid ""
 "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr ""
-"Een screenshot moet ten minste één afbeelding of video bevatten om nuttig te "
-"zijn. Gelieve voeg er een <image/> aan toe."
+msgstr "Een schermafdruk moet minimaal één afbeelding bevatten met een schaalfactor van 1."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:299
@@ -2042,10 +2025,7 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
-"Voor video’s, alleen de WebM en Matroska (`.mkv`) containerformaten zijn nu "
-"ondersteund. De bestandsextensie van de gerefereerde video behoort tot geen "
-"van beide formaten."
+msgstr "Voor video’s zijn nu enkel de WebM en Matroska (.mkv) containerformaten ondersteund. De bestandsextensie van de gerefereerde video behoort tot geen van beide formaten."
 
 #: src/as-validator-issue-tag.h:347
 msgid ""
@@ -2598,7 +2578,7 @@ msgstr "Kan het desktop-entry-bestand dat bij dit onderdeel hoort niet laden."
 
 #: src/as-validator-issue-tag.h:850
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
+msgstr "De metagegevens van dit component verwijzen naar een niet-bestaand .desktop-bestand."
 
 #: src/as-validator-issue-tag.h:855
 msgid ""
@@ -2608,7 +2588,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:860
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "Fout bij het lezen van bepaalde gegevens uit het desktopbestand."
 
 #: src/as-validator-issue-tag.h:865
 msgid ""
@@ -2698,7 +2678,7 @@ msgstr "De waarde die is ingesteld als uitgave­type is ongeldig."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:947
 msgid "The release is missing the `version` property."
-msgstr "Uitgave mist de ‘version’-eigenschap"
+msgstr "Uitgave mist de `version`-eigenschap"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:953
@@ -2725,7 +2705,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:975
 msgid "The value set as artifact bundle type is invalid."
-msgstr ""
+msgstr "De waarde die is ingesteld als artefactbundeltype is ongeldig."
 
 #: src/as-validator-issue-tag.h:980
 msgid ""
@@ -2753,7 +2733,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:1003
 msgid "The value set as release issue type is invalid."
-msgstr ""
+msgstr "De waarde die is ingesteld als uitgavetype is ongeldig."
 
 #: src/as-validator-issue-tag.h:1008
 msgid ""
@@ -2844,10 +2824,9 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1087
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element has an invalid value."
-msgstr "De tag `content_attribute` vereist een waarde."
+msgstr "Het attribuut `id` van het element `content_attribute` heeft een ongeldige waarde."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1093
@@ -2872,7 +2851,7 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1117
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr "Deze ‘tag’ mist een ‘namespace’-attribuut."
+msgstr "Deze `tag` mist een `namespace`-attribuut."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1123
@@ -2898,7 +2877,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:1144
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Deze kleur is geen geldige HTML-kleurcode."
 
 #: src/as-validator-issue-tag.h:1149
 msgid ""
@@ -2958,10 +2937,7 @@ msgstr "Deze aangepaste waarde is leeg"
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"Een ‘keywords’-tag mag niet worden gelokaliseerd in metainfo-bestanden "
-"(upstream-metadata). Lokaliseer in plaats daarvan de afzonderlijke "
-"trefwoorden."
+msgstr "Een `keywords`-tag mag niet worden gelokaliseerd in metainfo-bestanden (upstream-metagegevens). Lokaliseer in plaats daarvan de afzonderlijke trefwoorden."
 
 #: src/as-validator.c:199
 msgid ""
@@ -3039,7 +3015,7 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:233
 msgid "Override the default prefix (`/usr` by default)."
-msgstr "Standaard-prefix overschrijven (standaard: ‘/usr’)."
+msgstr "Standaard-prefix overschrijven (standaard: `/usr`)."
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:240
@@ -3093,11 +3069,10 @@ msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:303
-#, fuzzy
 msgid ""
 "A comma-separated list of custom keys that should be propagated to the "
 "output data."
-msgstr "Door komma's gescheiden lijst van te aanvaarden component-ID's."
+msgstr "Een door komma's gescheiden lijst met aangepaste sleutels die moeten worden doorgegeven aan de uitvoergegevens."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
@@ -3629,7 +3604,7 @@ msgstr "U moet een opdracht opgeven."
 
 #: tools/ascli-actions-mdata.c:49
 msgid "Only refreshing metadata cache specific to the current user."
-msgstr ""
+msgstr "Alleen de metagegevenscache van de huidige gebruiker wordt ververst."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for the operating system."
@@ -3936,7 +3911,7 @@ msgstr "Kan bestaande sjabloon voor desktop-entry niet laden: %s"
 #: tools/ascli-actions-misc.c:166
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
+msgstr "Nieuw bureaubladbestand ‘%s’ wordt aangemaakt met behulp van gegevens uit ‘%s’"
 
 #: tools/ascli-actions-misc.c:226
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
@@ -4067,7 +4042,7 @@ msgstr "De pakketbeheerder kon niet worden gestart: %s"
 
 #: tools/ascli-actions-pkgmgr.c:85
 msgid "Flatpak was not found! Please install it to continue."
-msgstr ""
+msgstr "Flatpak is niet gevonden! Installeer het om door te gaan."
 
 #: tools/ascli-actions-pkgmgr.c:96
 #, c-format
@@ -4092,11 +4067,11 @@ msgstr "Meerdere kandidaten gevonden voor installatie:"
 
 #: tools/ascli-actions-pkgmgr.c:189
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Voer het nummer in van het onderdeel dat u wilt verwijderen:"
 
 #: tools/ascli-actions-pkgmgr.c:194
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Voer het nummer in van het onderdeel dat u wilt installeren:"
 
 #: tools/ascli-actions-pkgmgr.c:204
 #, c-format
