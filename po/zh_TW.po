@@ -18,6 +18,7 @@
 # Peter Pan <pan93412@gmail.com>, 2018. #zanata
 # 李前昀 <alexlee@all9fun.com>, 2021.
 # Mingye Wang <arthur200126@gmail.com>, 2021.
+# hugoalh <hugoalh@users.noreply.hosted.weblate.org>, 2024.
 #
 # Translators:
 # Hotellook, 2014
@@ -26,16 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2023-10-20 04:04+0000\n"
-"Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
-"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_Hant/>\n"
+"PO-Revision-Date: 2024-06-23 17:10+0000\n"
+"Last-Translator: hugoalh <hugoalh@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/appstream/translations/zh_Hant/>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1326,9 +1326,9 @@ msgid "Recommended software component '%s' is missing."
 msgstr ""
 
 #: src/as-relation.c:1528
-#, fuzzy, c-format
+#, c-format
 msgid "Found supported software component '%s'."
-msgstr "找到 %i 個組件。"
+msgstr "找到支援的軟體組件「%s」。"
 
 #: src/as-relation.c:1561
 #, c-format
@@ -2604,9 +2604,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:925
-#, fuzzy
 msgid "Failed to download release metadata."
-msgstr "無法儲存桌面條目檔：%s"
+msgstr "下載發行中介資料失敗。"
 
 #: src/as-validator-issue-tag.h:930
 msgid ""
@@ -3071,9 +3070,8 @@ msgid "WARNING"
 msgstr ""
 
 #: tools/appstream-compose.c:446
-#, fuzzy
 msgid "Unable to set icon policy"
-msgstr "無法讀取檔案。"
+msgstr "無法設定圖示政策"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:473
@@ -3389,10 +3387,10 @@ msgid ""
 msgstr "您可以藉由傳遞「--help」給子指令來查詢子指令專屬的選項資訊。"
 
 #: tools/appstreamcli.c:1333
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr "執行「%s --help」查看可用指令列選項的完整清單。"
+msgstr "命令「%s」未知。執行「%s --help」以取得可用命令的清單。"
 
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstreamcli.c:1375
@@ -3712,9 +3710,8 @@ msgid "No recommended items are set for this software."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:768
-#, fuzzy
 msgid "Supported:"
-msgstr "運動"
+msgstr "已支援："
 
 #: tools/ascli-actions-mdata.c:770
 msgid "No supported items are set for this software."
