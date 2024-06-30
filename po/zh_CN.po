@@ -45,6 +45,7 @@
 # tjw123hh <tjw123hh@outlook.com>, 2023.
 # Red Star Over Earth <rs0vere@outlook.com>, 2023.
 # 复予 <clonewith@qq.com>, 2024.
+# LS-Shandong <LS-Shandong@users.noreply.hosted.weblate.org>, 2024.
 #
 # Translators:
 msgid ""
@@ -52,16 +53,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2024-03-30 11:20+0000\n"
-"Last-Translator: 复予 <clonewith@qq.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_Hans/>\n"
+"PO-Revision-Date: 2024-06-30 17:09+0000\n"
+"Last-Translator: LS-Shandong <LS-Shandong@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1104,7 +1104,7 @@ msgstr "Mate"
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:101
 msgid "Plasma Mobile"
-msgstr ""
+msgstr "Plasma Mobile"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:105
@@ -1716,7 +1716,6 @@ msgid "Enumerations must only have list items (<li/>) as children."
 msgstr "枚举值的子元素必须而且只能是 (<li/>) 。"
 
 #: src/as-validator-issue-tag.h:80
-#, fuzzy
 msgid ""
 "The enumeration must not be translated as a whole. In MetaInfo files, "
 "translate individual items (<li/> elements) instead."
@@ -2975,7 +2974,7 @@ msgstr "此配色方案首选项的值无效。"
 msgid ""
 "The name of the color scheme property is wrong. It should be "
 "`scheme_preference`."
-msgstr ""
+msgstr "配色方案属性的名称有误。应为 `scheme_preference`。"
 
 #: src/as-validator-issue-tag.h:1144
 msgid "This color is not a valid HTML color code."
@@ -2985,7 +2984,7 @@ msgstr "该颜色不是有效的 HTML 颜色代码。"
 msgid ""
 "A color for this type/scheme combination was already set. Colors must be "
 "unique per type/scheme."
-msgstr ""
+msgstr "此类型/方案组合的颜色已经设置。每个类型/主题的颜色必须是唯一的。"
 
 #: src/as-validator-issue-tag.h:1154
 msgid ""
