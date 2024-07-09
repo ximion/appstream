@@ -3529,6 +3529,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	/* check if we have a homepage */
 	if (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE) == NULL) {
 		AsComponentKind ckind;
+		ckind = as_component_get_kind (cpt);
 
 		/* we require a homepage for anything but generic components and language packs */
 		if (ckind != AS_COMPONENT_KIND_GENERIC && ckind != AS_COMPONENT_KIND_LOCALIZATION)
