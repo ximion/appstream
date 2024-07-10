@@ -3,7 +3,7 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
-# Andi Chandler <andi@gowling.com>, 2015-2016, 2023.
+# Andi Chandler <andi@gowling.com>, 2015-2016, 2023, 2024.
 # Swann Martinet <swann.ranskassa@laposte.net>, 2019.
 # Ciarán Ainsworth <ciaranainsworth@posteo.net>, 2020.
 # Manuela Silva <mmsrs@sky.com>, 2020.
@@ -11,7 +11,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Andi Chandler <andi@gowling.com>, 2016, 2023.
+# Andi Chandler <andi@gowling.com>, 2016, 2023, 2024.
 # Richard Hughes <richard@hughsie.com>, 2014-2016
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Tyler Carron <synyster.rias@gmail.com>, 2020.
@@ -30,16 +30,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2024-04-13 10:01+0000\n"
-"Last-Translator: Ryan Jackson <ryanj2921@gmail.com>\n"
-"Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
-"appstream/translations/en_GB/>\n"
+"PO-Revision-Date: 2024-07-10 05:09+0000\n"
+"Last-Translator: Andi Chandler <andi@gowling.com>\n"
+"Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/appstream/translations/en_GB/>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -609,7 +608,7 @@ msgstr "Prolonged nudity"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:924
 msgid "Explicit nudity involving visible sexual organs"
-msgstr ""
+msgstr "Explicit nudity involving visible sexual organs"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:929
@@ -773,9 +772,8 @@ msgstr "No way to talk with other users"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1019
-#, fuzzy
 msgid "Moderated audio or video chat functionality between users"
-msgstr "Uncontrolled audio or video chat functionality between users"
+msgstr "Moderated audio or video chat functionality between users"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1021
@@ -1088,17 +1086,17 @@ msgstr "Mate"
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:101
 msgid "Plasma Mobile"
-msgstr ""
+msgstr "Plasma Mobile"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:105
 msgid "Rox"
-msgstr ""
+msgstr "Rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:109
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -1434,9 +1432,8 @@ msgid "This system has sufficient memory for this software."
 msgstr "This system has sufficient memory for this software."
 
 #: src/as-relation.c:1834
-#, fuzzy
 msgid "This software needs a display for graphical content."
-msgstr "This software recommends a %s for input."
+msgstr "This software needs a display for graphical content."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1487,180 +1484,180 @@ msgid "Display size is sufficient for this software."
 msgstr "Display size is sufficient for this software."
 
 #: src/as-relation.c:1919
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr "Relation satisfy check for items of type '%s' is not implemented yet."
+msgstr "Satisfiability check for relation items of type '%s' is not implemented yet."
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "Affero General Public Licence v1.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:40
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Affero General Public Licence v1.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:43
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "GNU Affero General Public Licence v3.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:45
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Affero General Public Licence v3.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:266
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.1 only - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:268
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.1 or later - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:270
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.1 only - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:272
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.1 or later - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:274
 msgid "GNU Free Documentation License v1.1 only"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.1 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:276
 msgid "GNU Free Documentation License v1.1 or later"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.1 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:279
 msgid "GNU Free Documentation License v1.2 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.2 only - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:281
 msgid "GNU Free Documentation License v1.2 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.2 or later - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:283
 msgid "GNU Free Documentation License v1.2 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.2 only - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:285
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.2 or later - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:287
 msgid "GNU Free Documentation License v1.2 only"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.2 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:289
 msgid "GNU Free Documentation License v1.2 or later"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.2 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:292
 msgid "GNU Free Documentation License v1.3 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.3 only - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:294
 msgid "GNU Free Documentation License v1.3 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.3 or later - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:296
 msgid "GNU Free Documentation License v1.3 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.3 only - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:298
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.3 or later - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:300
 msgid "GNU Free Documentation License v1.3 only"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.3 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:302
 msgid "GNU Free Documentation License v1.3 or later"
-msgstr ""
+msgstr "GNU Free Documentation Licence v1.3 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:306 src/as-spdx-data.h:310
 msgid "GNU General Public License v1.0 only"
-msgstr ""
+msgstr "GNU General Public Licence v1.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:308 src/as-spdx-data.h:312
 msgid "GNU General Public License v1.0 or later"
-msgstr ""
+msgstr "GNU General Public Licence v1.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:314 src/as-spdx-data.h:318
 msgid "GNU General Public License v2.0 only"
-msgstr ""
+msgstr "GNU General Public Licence v2.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:316 src/as-spdx-data.h:320
 msgid "GNU General Public License v2.0 or later"
-msgstr ""
+msgstr "GNU General Public Licence v2.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:327 src/as-spdx-data.h:331
 msgid "GNU General Public License v3.0 only"
-msgstr ""
+msgstr "GNU General Public Licence v3.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:329 src/as-spdx-data.h:333
 msgid "GNU General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU General Public Licence v3.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:390 src/as-spdx-data.h:394
 msgid "GNU Library General Public License v2 only"
-msgstr ""
+msgstr "GNU Library General Public Licence v2 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:392 src/as-spdx-data.h:396
 msgid "GNU Library General Public License v2 or later"
-msgstr ""
+msgstr "GNU Library General Public Licence v2 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:398 src/as-spdx-data.h:402
 msgid "GNU Lesser General Public License v2.1 only"
-msgstr ""
+msgstr "GNU Lesser General Public Licence v2.1 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:400 src/as-spdx-data.h:404
 msgid "GNU Lesser General Public License v2.1 or later"
-msgstr ""
+msgstr "GNU Lesser General Public Licence v2.1 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:406 src/as-spdx-data.h:410
 msgid "GNU Lesser General Public License v3.0 only"
-msgstr ""
+msgstr "GNU Lesser General Public Licence v3.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:408 src/as-spdx-data.h:412
 msgid "GNU Lesser General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Lesser General Public Licence v3.0 or later"
 
 #: src/as-validator-issue-tag.h:42
 msgid "This tag requires a type property."
@@ -1719,7 +1716,7 @@ msgstr "Enumerations must only have list items (<li/>) as children."
 msgid ""
 "The enumeration must not be translated as a whole. In MetaInfo files, "
 "translate individual items (<li/> elements) instead."
-msgstr ""
+msgstr "The enumeration must not be translated as a whole. In MetaInfo files, translate individual items (<li/> elements) instead."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -1824,16 +1821,12 @@ msgid "The component ID starts with punctuation. This is not allowed."
 msgstr "The component ID starts with punctuation. This is not allowed."
 
 #: src/as-validator-issue-tag.h:151
-#, fuzzy
 msgid ""
 "The component ID contains a hyphen/minus in its domain part. Using a hyphen "
 "is strongly discouraged to improve interoperability with other tools such as "
 "D-Bus. A good option is to replace any hyphens with underscores (`_`). "
 "Hyphens are only allowed in the last segment of a component ID."
-msgstr ""
-"The component ID contains a hyphen/minus. Using a hyphen is strongly "
-"discouraged, to improve interoperability with other tools such as D-Bus. A "
-"good option is to replace any hyphens with underscores (`_`)."
+msgstr "The component ID contains a hyphen/minus in its domain part. Using a hyphen is strongly discouraged to improve interoperability with other tools such as D-Bus. A good option is to replace any hyphens with underscores (`_`). Hyphens are only allowed in the last segment of a component ID."
 
 #: src/as-validator-issue-tag.h:157
 msgid ""
@@ -1868,22 +1861,16 @@ msgstr ""
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
 
 #: src/as-validator-issue-tag.h:178
-#, fuzzy
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDE's reverse-DNS name (\"org.kde\")."
-msgstr ""
-"The component is part of the KDE project, but its ID does not start with "
-"KDEs reverse-DNS name (\"org.kde\")."
+msgstr "The component is part of the KDE project, but its ID does not start with KDE's reverse-DNS name (\"org.kde\")."
 
 #: src/as-validator-issue-tag.h:183
-#, fuzzy
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr ""
-"The component is part of the GNOME project, but its ID does not start with "
-"GNOMEs reverse-DNS name (\"org.gnome\")."
+msgstr "The component is part of the GNOME project, but its ID does not start with GNOME's reverse-DNS name (\"org.gnome\")."
 
 #: src/as-validator-issue-tag.h:188
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1938,7 +1925,7 @@ msgstr ""
 msgid ""
 "The `environment` property is set to an unrecognized graphical environment/"
 "style combination."
-msgstr ""
+msgstr "The `environment` property is set to an unrecognised graphical environment/style combination."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:223
@@ -1952,9 +1939,8 @@ msgstr "The `height` property must be a positive integer."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
-#, fuzzy
 msgid "The `scale` property must be a positive integer."
-msgstr "The `height` property must be a positive integer."
+msgstr "The `scale` property must be a positive integer."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:241
@@ -1979,10 +1965,9 @@ msgstr "There can only be one `source` image per screenshot and language."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:265
-#, fuzzy
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`."
-msgstr "A screenshot must have at least one image of type `source`."
+msgstr "A screenshot must have at least one untranslated image of type `source`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:271
@@ -1991,7 +1976,7 @@ msgid ""
 "which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) "
 "was found, which is likely intended to be the translatable image. Please "
 "remove the XML localization attribute in this case."
-msgstr ""
+msgstr "A screenshot must have at least one untranslated image of type `source`, which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) was found, which is likely intended to be the translatable image. Please remove the XML localisation attribute in this case."
 
 #: src/as-validator-issue-tag.h:278
 msgid ""
@@ -2018,10 +2003,9 @@ msgstr ""
 "video."
 
 #: src/as-validator-issue-tag.h:293
-#, fuzzy
 msgid ""
 "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr "A screenshot must have at least one image of type `source`."
+msgstr "A screenshot must have at least one image that has a scaling factor of 1."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:299
@@ -2211,16 +2195,11 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
-#, fuzzy
 msgid ""
 "This `display_length` item contains an invalid display length. Its value "
 "must be a positive integer value denoting logical pixels. Please refer to "
 "the AppStream specification for more information on this tag."
-msgstr ""
-"This `display_length` item contains an invalid display length. Its value "
-"must either be a shorthand string, or positive integer value denoting "
-"logical pixels. Please refer to the AppStream specification for more "
-"information on this tag."
+msgstr "This `display_length` item contains an invalid display length. Its value must be a positive integer value denoting logical pixels. Please refer to the AppStream specification for more information on this tag."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:424
@@ -2309,7 +2288,7 @@ msgstr "The component is missing a name (<name/> tag)."
 msgid ""
 "The name of this component is excessively long and can likely not be "
 "displayed properly in most layouts."
-msgstr ""
+msgstr "The name of this component is excessively long and can likely not be displayed properly in most layouts."
 
 #: src/as-validator-issue-tag.h:489
 msgid "The component is missing a summary (<summary/> tag)."
@@ -2361,7 +2340,7 @@ msgstr ""
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
 "everywhere."
-msgstr ""
+msgstr "The summary text is very long, and will likely not be displayed properly everywhere."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:535
@@ -2432,48 +2411,47 @@ msgstr "An URL of this type has already been defined."
 msgid ""
 "This component is missing an `url` element of type `homepage` to link to the "
 "project's homepage."
-msgstr ""
+msgstr "This component is missing an `url` element of type `homepage` to link to the project's homepage."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:601
 msgid ""
 "The toplevel `developer_name` element is deprecated. Please use the `name` "
 "element in a `developer` block instead."
-msgstr ""
+msgstr "The toplevel `developer_name` element is deprecated. Please use the `name` element in a `developer` block instead."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
 msgid ""
 "This component contains no `developer` element with information about its "
 "author."
-msgstr ""
+msgstr "This component contains no `developer` element with information about its author."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:614
 msgid ""
 "The `developer` element is missing an `id` property, containing a unique "
 "string ID for the developer. Consider adding a unique ID."
-msgstr ""
+msgstr "The `developer` element is missing an `id` property, containing a unique string ID for the developer. Consider adding a unique ID."
 
 #: src/as-validator-issue-tag.h:620
 msgid ""
 "The developer-ID is invalid. It should be an rDNS string identifying the "
 "developer, or a Fediverse handle. It must also only contain lowercase ASCII "
 "letters, numbers and punctuation."
-msgstr ""
+msgstr "The developer-ID is invalid. It should be an rDNS string identifying the developer, or a Fediverse handle. It must also only contain lowercase ASCII letters, numbers and punctuation."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:627
 msgid ""
 "The `developer` block does not have a `name` element with a human-readable "
 "project author name."
-msgstr ""
+msgstr "The `developer` block does not have a `name` element with a human-readable project author name."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:633
-#, fuzzy
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr "The <developer_name/> cannot contain a hyperlink."
+msgstr "The `name` child of a `developer` block must not contain a hyperlink."
 
 #: src/as-validator-issue-tag.h:638
 msgid ""
@@ -2711,7 +2689,7 @@ msgid ""
 "were invalid or because they are of low quality (e.g. custom 'X-' prefixed "
 "or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add "
 "more categories."
-msgstr ""
+msgstr "All categories for this component have been ignored, either because they were invalid or because they are of low quality (e.g. custom 'X-' prefixed or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add more categories."
 
 #: src/as-validator-issue-tag.h:802
 msgid ""
@@ -2742,15 +2720,12 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:829
-#, fuzzy
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher). "
 "Modern files use the `component` root tag and include many other "
 "differences, so check for changes carefully when modernizing the data."
-msgstr ""
-"The metainfo file uses an ancient version of the AppStream specification, "
-"which can not be validated. Please migrate it to version 0.6 (or higher)."
+msgstr "The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher). Modern files use the `component` root tag and include many other differences, so check for changes carefully when modernising the data."
 
 #: src/as-validator-issue-tag.h:835
 msgid ""
@@ -3049,19 +3024,15 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1063
-#, fuzzy
 msgid ""
 "The `type` attribute of this `content_rating` element is missing or empty."
-msgstr ""
-"The  `type` attribute of this `content_rating` element is missing or empty."
+msgstr "The `type` attribute of this `content_rating` element is missing or empty."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1069
-#, fuzzy
 msgid ""
 "The `type` attribute of the `content_rating` element has an invalid value."
-msgstr ""
-"The  `type` attribute of the `content_rating` element has a invalid value."
+msgstr "The `type` attribute of the `content_rating` element has an invalid value."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1075
@@ -3071,19 +3042,15 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1081
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element is missing or empty."
-msgstr ""
-"The  `id` attribute of the `content_attribute` element is missing or empty."
+msgstr "The `id` attribute of the `content_attribute` element is missing or empty."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1087
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element has an invalid value."
-msgstr ""
-"The  `id` attribute of the `content_attribute` element has a invalid value."
+msgstr "The `id` attribute of the `content_attribute` element has an invalid value."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1093
@@ -3132,7 +3099,7 @@ msgstr "The value of this colour scheme preference is not valid."
 msgid ""
 "The name of the color scheme property is wrong. It should be "
 "`scheme_preference`."
-msgstr ""
+msgstr "The name of the colour scheme property is wrong. It should be `scheme_preference`."
 
 #: src/as-validator-issue-tag.h:1144
 msgid "This color is not a valid HTML color code."
@@ -3142,37 +3109,36 @@ msgstr "This colour is not a valid HTML colour code."
 msgid ""
 "A color for this type/scheme combination was already set. Colors must be "
 "unique per type/scheme."
-msgstr ""
+msgstr "A colour for this type/scheme combination was already set. Colours must be unique per type/scheme."
 
 #: src/as-validator-issue-tag.h:1154
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
-msgstr ""
+msgstr "The given DOI (Digital Object Identifier) for this reference item is not valid."
 
 #: src/as-validator-issue-tag.h:1159
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
-msgstr ""
+msgstr "The value for this citation reference item must be an URL to a CFF (Citation File Format) file."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1165
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
-msgstr ""
+msgstr "This registry reference item is missing the `name` property to denote the name of the registry it is about."
 
 #: src/as-validator-issue-tag.h:1170
 msgid ""
 "The registry for this reference item is unknown. This may be due to a typing "
 "error, or the registry needs to be registered with AppStream."
-msgstr ""
+msgstr "The registry for this reference item is unknown. This may be due to a typing error, or the registry needs to be registered with AppStream."
 
 #: src/as-validator-issue-tag.h:1176
-#, fuzzy
 msgid "The reference item is missing a value."
-msgstr "The release timestamp is invalid."
+msgstr "The reference item is missing a value."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1182
@@ -3275,47 +3241,39 @@ msgstr "Do not use the network at all, not even for URL validity checks."
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:226
-#, fuzzy
 msgid "Set mode of the issue report that is printed to the console."
-msgstr "Set mode of the issue report that is printed to the console"
+msgstr "Set mode of the issue report that is printed to the console."
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:233
-#, fuzzy
 msgid "Override the default prefix (`/usr` by default)."
-msgstr "Override the default prefix (`/usr` by default)"
+msgstr "Override the default prefix (`/usr` by default)."
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:240
-#, fuzzy
 msgid "Set the result output directory."
-msgstr "Set the result output directory"
+msgstr "Set the result output directory."
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:247
-#, fuzzy
 msgid "Override the catalog metadata output directory."
-msgstr "Override the catalogue metadata output directory"
+msgstr "Override the catalogue metadata output directory."
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:254
-#, fuzzy
 msgid "Override the icon output directory."
-msgstr "Override the icon output directory"
+msgstr "Override the icon output directory."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:261
-#, fuzzy
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)."
-msgstr ""
-"Set the media output directory (for media data to be served by a webserver)"
+msgstr "Set the media output directory (for media data to be served by a webserver)."
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:268
-#, fuzzy
 msgid "Set a directory where HTML and text issue reports will be stored."
-msgstr "Set a directory where HTML and text issue reports will be stored"
+msgstr "Set a directory where HTML and text issue reports will be stored."
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:275
@@ -3324,9 +3282,8 @@ msgstr "Set the origin name"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:282
-#, fuzzy
 msgid "Set the URL where the exported media content will be hosted."
-msgstr "Set the URL where the exported media content will be hosted"
+msgstr "Set the URL where the exported media content will be hosted."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:289
@@ -3342,21 +3299,19 @@ msgstr ""
 msgid ""
 "An icon-policy string to set how icon sizes should be handled (refer to the "
 "man page for details)."
-msgstr ""
+msgstr "An icon-policy string to set how icon sizes should be handled (refer to the man page for details)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:303
-#, fuzzy
 msgid ""
 "A comma-separated list of custom keys that should be propagated to the "
 "output data."
-msgstr "A comma-separated list of component-IDs to accept"
+msgstr "A comma-separated list of custom keys that should be propagated to the output data."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
-#, fuzzy
 msgid "A comma-separated list of component-IDs to accept."
-msgstr "A comma-separated list of component-IDs to accept"
+msgstr "A comma-separated list of component-IDs to accept."
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:327
@@ -3407,9 +3362,8 @@ msgid "WARNING"
 msgstr "WARNING"
 
 #: tools/appstream-compose.c:446
-#, fuzzy
 msgid "Unable to set icon policy"
-msgstr "Unable to read file."
+msgstr "Unable to set icon policy"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:473
@@ -3583,9 +3537,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
 #: tools/appstreamcli.c:596
-#, fuzzy
 msgid "Print more detailed output on why incompatibilities exist."
-msgstr "Print detailed output about found components."
+msgstr "Print more detailed output on why incompatibilities exist."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:633
@@ -3704,9 +3657,9 @@ msgstr ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 
 #: tools/appstreamcli.c:1127
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
-msgstr "Compose binary '%s' was not found! Can not continue."
+msgstr "AppStream Compose binary '%s' was not found! Can not continue."
 
 #: tools/appstreamcli.c:1131
 #, c-format
@@ -3720,9 +3673,9 @@ msgstr "Invalid number of parameters"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1158
-#, fuzzy, c-format
+#, c-format
 msgid "Compose operation failed to execute: %s"
-msgstr "Compose failed to execute: %s"
+msgstr "Compose operation failed to execute: %s"
 
 #: tools/appstreamcli.c:1168
 #, c-format
@@ -3820,13 +3773,10 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
 #: tools/appstreamcli.c:1468
-#, fuzzy
 msgid ""
 "Check compatibility of a component (via its ID or MetaInfo file) with common "
 "system and chassis types."
-msgstr ""
-"Check if requirements of a component (via its ID or MetaInfo file) are "
-"satisfied on this system."
+msgstr "Check compatibility of a component (via its ID or MetaInfo file) with common system and chassis types."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1477
@@ -4095,46 +4045,45 @@ msgstr "No supported items are set for this software."
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:794
 msgid "Desktop"
-msgstr ""
+msgstr "Desktop"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:797
 msgid "Laptop"
-msgstr ""
+msgstr "Laptop"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:800
 msgid "Server"
-msgstr ""
+msgstr "Server"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:803
 msgid "Tablet"
-msgstr ""
+msgstr "Tablet"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:806
 msgid "Handset"
-msgstr ""
+msgstr "Handset"
 
 #: tools/ascli-actions-mdata.c:808
-#, fuzzy
 msgid "Unknown"
-msgstr "unknown"
+msgstr "Unknown"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
 #: tools/ascli-actions-mdata.c:875
 #, c-format
 msgid "Chassis compatibility check for: %s"
-msgstr ""
+msgstr "Chassis compatibility check for: %s"
 
 #: tools/ascli-actions-mdata.c:894
 msgid "Incompatible"
-msgstr ""
+msgstr "Incompatible"
 
 #: tools/ascli-actions-mdata.c:929
 msgid "Compatible"
-msgstr ""
+msgstr "Compatible"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:47
