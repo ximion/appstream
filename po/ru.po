@@ -42,18 +42,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2024-04-24 16:06+0000\n"
+"PO-Revision-Date: 2024-07-27 12:09+0000\n"
 "Last-Translator: Сергей <asvmail.as@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
-"translations/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.1-dev\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1755,7 +1752,7 @@ msgstr ""
 msgid ""
 "The enumeration must not be translated as a whole. In MetaInfo files, "
 "translate individual items (<li/> elements) instead."
-msgstr ""
+msgstr "Перечисление не следует переводить целиком. Вместо этого должны быть переведены отдельные элементы (<li/>) в файлах MetaInfo."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -1867,12 +1864,7 @@ msgid ""
 "is strongly discouraged to improve interoperability with other tools such as "
 "D-Bus. A good option is to replace any hyphens with underscores (`_`). "
 "Hyphens are only allowed in the last segment of a component ID."
-msgstr ""
-"Идентификатор компонента содержит в доменной части дефис/минус. "
-"Использование дефиса настоятельно не рекомендуется для улучшения "
-"совместимости с другими инструментами, такими как D-Bus. Хорошим вариантом "
-"является замена любых дефисов на подчёркивания («_»). Дефисы разрешены "
-"только в последнем сегменте идентификатора компонента."
+msgstr "Идентификатор компонента содержит в доменной части дефис/минус. Использование дефиса настоятельно не рекомендуется для улучшения совместимости с другими инструментами, такими как D-Bus. Хорошим вариантом является замена любых дефисов на подчёркивания (`_`). Дефисы разрешены только в последнем сегменте идентификатора компонента."
 
 #: src/as-validator-issue-tag.h:157
 msgid ""
@@ -1907,22 +1899,16 @@ msgstr ""
 "имени fd.o reverse-DNS (\"org.freedesktop\")."
 
 #: src/as-validator-issue-tag.h:178
-#, fuzzy
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDE's reverse-DNS name (\"org.kde\")."
-msgstr ""
-"Компонент является частью KDE проекта, но его ID не начинается с имени KDE "
-"reverse-DNS (\"org.kde\")."
+msgstr "Компонент является частью проекта KDE, но его ID не начинается с обратного доменного имени (reverse-DNS) KDE («org.kde»)."
 
 #: src/as-validator-issue-tag.h:183
-#, fuzzy
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr ""
-"Компонент является частью проекта GNOME, но его ID не начинается с имени "
-"GNOME reverse-DNS (\"org.gnome\")."
+msgstr "Компонент является частью проекта GNOME, но его ID не начинается с обратного доменного имени (reverse-DNS) GNOME («org.gnome»)."
 
 #: src/as-validator-issue-tag.h:188
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -2020,10 +2006,9 @@ msgstr "Может быть только одно свойство `source` на
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:265
-#, fuzzy
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`."
-msgstr "Скриншот должен содержать хотя бы одно изображение типа `source`."
+msgstr "Скриншот должен содержать хотя бы одно нетранслируемое изображение типа `source`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:271
@@ -2246,17 +2231,11 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
-#, fuzzy
 msgid ""
 "This `display_length` item contains an invalid display length. Its value "
 "must be a positive integer value denoting logical pixels. Please refer to "
 "the AppStream specification for more information on this tag."
-msgstr ""
-"Этот элемент `display_length` содержит недопустимую длину отображения. Его "
-"значение должно быть либо сокращённой строкой, либо положительным "
-"целочисленным значением, обозначающим логические пиксели. Пожалуйста, "
-"обратитесь к спецификации AppStream для получения дополнительной информации "
-"об этом теге."
+msgstr "Элемент `display_length` содержит недопустимую длину отображения. Его значение должно быть положительным целым числом, обозначающим логические пиксели. Пожалуйста, обратитесь к спецификации AppStream для получения дополнительной информации об этом теге."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:424
@@ -2344,7 +2323,7 @@ msgstr "Компоненту не хватает имени (тег <name/>)."
 msgid ""
 "The name of this component is excessively long and can likely not be "
 "displayed properly in most layouts."
-msgstr ""
+msgstr "Имя этого компонента слишком длинное и, вероятно, не сможет быть отображено должным образом в большинстве компоновок."
 
 #: src/as-validator-issue-tag.h:489
 msgid "The component is missing a summary (<summary/> tag)."
@@ -2370,11 +2349,11 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:504
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr "Имя компонента не должно заканчиваться точкой."
+msgstr "Имя компонента (вероятно) не должно заканчиваться точкой (`.`)."
 
 #: src/as-validator-issue-tag.h:509
 msgid "The component summary should not end with a dot (`.`)."
-msgstr "Сводка компонента не должна заканчиваться точкой («.»)."
+msgstr "Сводка компонента не должна заканчиваться точкой (`.`)."
 
 #: src/as-validator-issue-tag.h:514
 msgid "The component summary must not contain tabs or linebreaks."
@@ -2382,7 +2361,7 @@ msgstr "Сводка компонента не должна содержать �
 
 #: src/as-validator-issue-tag.h:519
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr "Сводка не должна содержать URL. Используйте для ссылок теги «<url/>»."
+msgstr "Сводка не должна содержать URL. Для ссылок используйте теги `<url/>`."
 
 #: src/as-validator-issue-tag.h:524
 msgid ""
@@ -2477,32 +2456,28 @@ msgstr "URL этого типа уже определён."
 msgid ""
 "This component is missing an `url` element of type `homepage` to link to the "
 "project's homepage."
-msgstr ""
+msgstr "В этом компоненте отсутствует элемент `url` типа `homepage` для ссылки на домашнюю страницу проекта."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:601
 msgid ""
 "The toplevel `developer_name` element is deprecated. Please use the `name` "
 "element in a `developer` block instead."
-msgstr ""
-"Элемент верхнего уровня«developer_name» устарел. Вместо этого используйте "
-"элемент «name» в блоке «developer»."
+msgstr "Элемент верхнего уровня `developer_name` устарел. Вместо этого используйте элемент `name` в блоке `developer`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
 msgid ""
 "This component contains no `developer` element with information about its "
 "author."
-msgstr ""
+msgstr "В этом компоненте отсутствует элемент `developer` с информацией о его авторе."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:614
 msgid ""
 "The `developer` element is missing an `id` property, containing a unique "
 "string ID for the developer. Consider adding a unique ID."
-msgstr ""
-"В элементе «developer» отсутствует свойство «id», содержащее уникальный "
-"строковый ID разработчика. Рассмотрите возможность добавления ID."
+msgstr "В элементе `developer` отсутствует свойство `id`, содержащее уникальный строковый ID разработчика. Рассмотрите возможность добавления ID."
 
 #: src/as-validator-issue-tag.h:620
 msgid ""
@@ -2516,7 +2491,7 @@ msgstr ""
 msgid ""
 "The `developer` block does not have a `name` element with a human-readable "
 "project author name."
-msgstr ""
+msgstr "В блоке `developer` нет элемента `name` с удобным для чтения именем автора проекта."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:633
@@ -2793,12 +2768,7 @@ msgid ""
 "which can not be validated. Please migrate it to version 0.6 (or higher). "
 "Modern files use the `component` root tag and include many other "
 "differences, so check for changes carefully when modernizing the data."
-msgstr ""
-"Файл с метаинформацией использует устаревшую версию спецификации AppStream, "
-"которая не может быть валидирована. Пожалуйста перейдите на версию 0.6 (или "
-"выше). Современные файлы используют корневой тег «comment» и включают "
-"множество других отличий, поэтому внимательно проверяйте наличие изменений "
-"при обновлении данных."
+msgstr "Файл с метаинформацией использует устаревшую версию спецификации AppStream, которая не может быть валидирована. Пожалуйста перейдите на версию 0.6 (или выше). Современные файлы используют корневой тег `component` и включают множество других отличий, поэтому внимательно проверяйте наличие изменений при обновлении данных."
 
 #: src/as-validator-issue-tag.h:835
 msgid ""
@@ -2912,9 +2882,7 @@ msgstr ""
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
-msgstr ""
-"Тип блокировки для выпусков некорректен. Должно быть указано «embedded» (по "
-"умолчанию) или «external»."
+msgstr "Тип блокировки для выпусков некорректен. Должно быть указано `embedded` (по умолчанию) или `external`."
 
 #: src/as-validator-issue-tag.h:920
 msgid ""
@@ -2967,7 +2935,7 @@ msgstr "Отметка времени выпуска недействитель�
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:964
 msgid "The release description must be put inside a `description` tag"
-msgstr "Описание выпуска должно быть помещено внутри тега «description»"
+msgstr "Описание выпуска должно быть помещено внутри тега `description`"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:970
@@ -2987,11 +2955,7 @@ msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
-"Триплет платформы для этого выпуска недействителен. Он должен быть в форме "
-"\"architecture-oskernel-osenv\" - обратитесь к документации AppStream или "
-"информации о нормализованных триплетах GNU для получения дополнительной "
-"информации и допустимых полей."
+msgstr "Триплет платформы для этого выпуска недействителен. Он должен быть в форме `architecture-oskernel-osenv` - обратитесь к документации AppStream или информации о нормализованных триплетах GNU для получения дополнительной информации и допустимых полей."
 
 #: src/as-validator-issue-tag.h:987
 msgid "The selected checksumming algorithm is unsupported or unknown."
@@ -3000,7 +2964,7 @@ msgstr "Выбранный алгоритм контрольной суммы н
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:993
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr "Тип размера неизвестен. Должно быть \"загрузить` или `установить\"."
+msgstr "Тип размера неизвестен. Должно быть `download` или `installed`."
 
 #: src/as-validator-issue-tag.h:998
 msgid ""
@@ -3085,10 +3049,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
-"Тег верхнего уровня «mimetypes» устарел. Вместо этого используйте теги "
-"«mediatype» в блоке «provides», чтобы указать, что ваше программное "
-"обеспечение предоставляет обработчик медиа для заданных типов."
+msgstr "Тег верхнего уровня `mimetypes` устарел. Вместо этого используйте теги `mediatype` в блоке `provides`, чтобы указать, что ваше программное обеспечение предоставляет обработчик медиа для заданных типов."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1056
@@ -3103,60 +3064,52 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1063
-#, fuzzy
 msgid ""
 "The `type` attribute of this `content_rating` element is missing or empty."
-msgstr "Атрибут  «type» элемента «content_rating» отсутствует или пуст."
+msgstr "Атрибут `type` элемента `content_rating` отсутствует или пуст."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1069
-#, fuzzy
 msgid ""
 "The `type` attribute of the `content_rating` element has an invalid value."
-msgstr "Атрибут  «type» элемента «content_rating» имеет недопустимое значение."
+msgstr "Атрибут `type` элемента `content_rating` имеет недопустимое значение."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1075
 msgid "The `content_rating` tag can only contain `content_attribute` children."
-msgstr ""
-"Тег «content_rating» может содержать только дочерние элементы "
-"«content_attribute»."
+msgstr "Тег `content_rating` может содержать только дочерние элементы `content_attribute`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1081
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element is missing or empty."
-msgstr "Атрибут  «id» элемента «content_attribute» отсутствует или пуст."
+msgstr "Атрибут `id` элемента `content_attribute` отсутствует или пуст."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1087
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element has an invalid value."
-msgstr ""
-"Атрибут  «id» элемента «content_attribute» имеет недопустимое значение."
+msgstr "Атрибут `id` элемента `content_attribute` имеет недопустимое значение."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1093
 msgid "The `content_attribute` tag needs a value."
-msgstr "Тегу «content_attribute» требуется значение."
+msgstr "Тегу `content_attribute` требуется значение."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1099
 msgid "The `content_attribute` tag value is unknown."
-msgstr "Значение тега «content_attribute» неизвестно."
+msgstr "Значение тега `content_attribute` неизвестно."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1105
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr ""
-"Значение тега «content_attribute» недопустимо для данного идентификатора."
+msgstr "Значение тега `content_attribute` недопустимо для данного идентификатора."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1111
 msgid "A `content_attribute` tag with this ID has already been defined."
-msgstr "Тег «content_attribute» с этим ID уже определён."
+msgstr "Тег `content_attribute` с этим ID уже определён."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1117
@@ -3185,7 +3138,7 @@ msgstr "Значение этого предпочтения цветовой с
 msgid ""
 "The name of the color scheme property is wrong. It should be "
 "`scheme_preference`."
-msgstr ""
+msgstr "Неверное имя свойства цветовой схемы. Должно быть `scheme_preference`."
 
 #: src/as-validator-issue-tag.h:1144
 msgid "This color is not a valid HTML color code."
@@ -3195,7 +3148,7 @@ msgstr "Этот цвет не является допустимым цвето�
 msgid ""
 "A color for this type/scheme combination was already set. Colors must be "
 "unique per type/scheme."
-msgstr ""
+msgstr "Цвет для этой комбинации типа/схемы уже установлен. Цвета должны быть уникальными для каждого типа/схемы."
 
 #: src/as-validator-issue-tag.h:1154
 msgid ""
@@ -3218,9 +3171,7 @@ msgstr ""
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
-msgstr ""
-"В этом ссылочном элементе регистра отсутствует свойство «name» для "
-"обозначения названия регистра, о котором идёт речь."
+msgstr "В этом ссылочном элементе регистра отсутствует свойство `name` для обозначения названия регистра, о котором идёт речь."
 
 #: src/as-validator-issue-tag.h:1170
 msgid ""
@@ -3336,50 +3287,39 @@ msgstr "Не использовать сеть вообще, даже для п�
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:226
-#, fuzzy
 msgid "Set mode of the issue report that is printed to the console."
-msgstr "Установить режим отчета о проблеме, который выводится на консоль"
+msgstr "Установить режим вывода на консоль отчёта о проблеме."
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:233
-#, fuzzy
 msgid "Override the default prefix (`/usr` by default)."
-msgstr "Заменить префикс по умолчанию (`/usr` по умолчанию)"
+msgstr "Изменить префикс по умолчанию (по умолчанию: `/usr`)."
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:240
-#, fuzzy
 msgid "Set the result output directory."
-msgstr "Установить каталог вывода результатов"
+msgstr "Установить каталог вывода результатов."
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:247
-#, fuzzy
 msgid "Override the catalog metadata output directory."
-msgstr "Переопределить каталог вывода метаданных сборки"
+msgstr "Переопределить каталог вывода метаданных."
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:254
-#, fuzzy
 msgid "Override the icon output directory."
-msgstr "Переопределить каталог вывода значка"
+msgstr "Переопределить каталог вывода значков."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:261
-#, fuzzy
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)."
-msgstr ""
-"Установить каталог вывода мультимедиа (для мультимедийных данных, которые "
-"будут обслуживаться веб-сервером)"
+msgstr "Установить каталог вывода мультимедиа (для мультимедийных данных, которые будут обслуживаться веб-сервером)."
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:268
-#, fuzzy
 msgid "Set a directory where HTML and text issue reports will be stored."
-msgstr ""
-"Установить каталог, в котором будут храниться отчеты о проблемах в формате "
-"HTML и текст"
+msgstr "Установить каталог, в котором будут храниться отчёты о проблемах в формате HTML и текстовом формате."
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:275
@@ -3388,11 +3328,8 @@ msgstr "Задать имя источника"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:282
-#, fuzzy
 msgid "Set the URL where the exported media content will be hosted."
-msgstr ""
-"Задать URL-адрес, по которому будет размещен экспортированный мультимедийный "
-"контент"
+msgstr "Задать URL, по которому будет размещён экспортированный мультимедийный контент."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:289
@@ -3408,25 +3345,19 @@ msgstr ""
 msgid ""
 "An icon-policy string to set how icon sizes should be handled (refer to the "
 "man page for details)."
-msgstr ""
+msgstr "Строка правил для значков, задающая порядок обработки их размеров (подробности см. на странице руководства)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:303
-#, fuzzy
 msgid ""
 "A comma-separated list of custom keys that should be propagated to the "
 "output data."
-msgstr ""
-"Список идентификаторов компонентов, разделенных запятыми, которые необходимо "
-"принять"
+msgstr "Разделённый запятыми список пользовательских ключей, которые следует распространить на выходные данные."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
-#, fuzzy
 msgid "A comma-separated list of component-IDs to accept."
-msgstr ""
-"Список идентификаторов компонентов, разделенных запятыми, которые необходимо "
-"принять"
+msgstr "Список разделённых запятыми идентификаторов компонентов, которые необходимо принять."
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:327
@@ -3478,9 +3409,8 @@ msgid "WARNING"
 msgstr "ВНИМАНИЕ"
 
 #: tools/appstream-compose.c:446
-#, fuzzy
 msgid "Unable to set icon policy"
-msgstr "Невозможно прочитать файл."
+msgstr "Невозможно установить политику значков"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:473
@@ -3650,9 +3580,7 @@ msgstr "Принудительно обновить кэш."
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
-"Ограничить обновление кэша данными из определенного источника, например: "
-"\"os\" или \"flatpak\". Может быть указано несколько раз."
+msgstr "Ограничить обновление кэша данными из определенного источника, например: `os` или `flatpak`. Может быть указано несколько раз."
 
 #: tools/appstreamcli.c:547
 msgid ""
@@ -3682,9 +3610,7 @@ msgstr "Установите файл для текущего пользоват
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
-msgstr ""
-"Ограничить команду, чтобы использовать только компоненты из данной системы "
-"комплектации («flatpak» или «package»)."
+msgstr "Ограничить команду, чтобы использовать только компоненты из данной системы комплектации (`flatpak` или `package`)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:674
@@ -3700,9 +3626,7 @@ msgstr ""
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
-msgstr ""
-"Не указан допустимый тип пакета. В настоящее время распознаются только "
-"«package» и «flatpak»."
+msgstr "Не указан допустимый тип пакета. В настоящее время распознаются только `package` и `flatpak`."
 
 #: tools/appstreamcli.c:837
 msgid ""
@@ -3788,9 +3712,9 @@ msgstr ""
 "Сгенерируйте вывод в выбранном формате ('yaml', 'text' или 'markdown')."
 
 #: tools/appstreamcli.c:1127
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
-msgstr "Составить двоичный файл '%s' не удалось! Не могу продолжать."
+msgstr "Исполняемый файл AppStream Compose «%s» не найден! Продолжать нет возможности."
 
 #: tools/appstreamcli.c:1131
 #, c-format
@@ -3804,9 +3728,9 @@ msgstr "Неверное количество параметров"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1158
-#, fuzzy, c-format
+#, c-format
 msgid "Compose operation failed to execute: %s"
-msgstr "Не удалось выполнить компоновку: %s"
+msgstr "Не удалось выполнить операцию по компоновке: %s"
 
 #: tools/appstreamcli.c:1168
 #, c-format
@@ -3985,7 +3909,7 @@ msgstr "Напишите текст NEWS или файл YAML с информа�
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1564
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr "Составить каталог метаданных AppStream из дерева каталогов."
+msgstr "Скомпоновать каталог метаданных AppStream из дерева каталогов."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1572
