@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2024-07-27 12:09+0000\n"
+"PO-Revision-Date: 2024-07-28 16:09+0000\n"
 "Last-Translator: Сергей <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
@@ -1512,10 +1512,10 @@ msgid "Display size is sufficient for this software."
 msgstr "Размер дисплея достаточен для этого приложения."
 
 #: src/as-relation.c:1919
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr "Проверка соотношения для элементов типа «%s» еще не реализована."
+msgstr "Проверка соотношения для элементов типа «%s» ещё не реализована."
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
@@ -2008,7 +2008,7 @@ msgstr "Может быть только одно свойство `source` на
 #: src/as-validator-issue-tag.h:265
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`."
-msgstr "Скриншот должен содержать хотя бы одно нетранслируемое изображение типа `source`."
+msgstr "Скриншот должен содержать хотя бы одно непереведенное изображение типа `source`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:271
@@ -2017,7 +2017,7 @@ msgid ""
 "which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) "
 "was found, which is likely intended to be the translatable image. Please "
 "remove the XML localization attribute in this case."
-msgstr ""
+msgstr "Скриншот должен содержать хотя бы одно непереведенное изображение типа `source`, которое не удалось найти. Вместо этого был найден тег с кодом локали `en` (`xml:lang=en`), который, вероятно, предназначен для перевода изображения. В этом случае удалите атрибут локализации из кода XML."
 
 #: src/as-validator-issue-tag.h:278
 msgid ""
@@ -2484,7 +2484,7 @@ msgid ""
 "The developer-ID is invalid. It should be an rDNS string identifying the "
 "developer, or a Fediverse handle. It must also only contain lowercase ASCII "
 "letters, numbers and punctuation."
-msgstr ""
+msgstr "Идентификатор разработчика некорректен. Это должна быть строка rDNS, идентифицирующая разработчика или дескриптор Fediverse. Запись должна состоять только из букв нижнего регистра ASCII, цифр и знаков препинания."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:627
