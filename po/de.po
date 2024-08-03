@@ -46,7 +46,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2024-05-05 22:07+0000\n"
+"PO-Revision-Date: 2024-08-03 19:09+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
@@ -54,7 +54,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2518,7 +2518,7 @@ msgstr "Eine URL dieses Typs wurde bereits definiert."
 msgid ""
 "This component is missing an `url` element of type `homepage` to link to the "
 "project's homepage."
-msgstr ""
+msgstr "Dieser Komponente fehlt ein Element `url` vom Typ `homepage`, um auf die Homepage des Projekts zu verlinken."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:601
@@ -2534,7 +2534,7 @@ msgstr ""
 msgid ""
 "This component contains no `developer` element with information about its "
 "author."
-msgstr ""
+msgstr "Diese Komponente enthält kein Element `developer` mit Informationen über ihren Autor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:614
@@ -2558,7 +2558,7 @@ msgstr ""
 msgid ""
 "The `developer` block does not have a `name` element with a human-readable "
 "project author name."
-msgstr ""
+msgstr "Der Block `developer` hat kein Element `name` mit einem für Menschen lesbaren Namen des Projektautors."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:633
@@ -3177,18 +3177,15 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1063
-#, fuzzy
 msgid ""
 "The `type` attribute of this `content_rating` element is missing or empty."
 msgstr "Das Attribut `type` des Elements `content_rating` fehlt oder ist leer."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1069
-#, fuzzy
 msgid ""
 "The `type` attribute of the `content_rating` element has an invalid value."
-msgstr ""
-"Das Attribut `type` des Elements `content_rating` hat einen ungültigen Wert."
+msgstr "Das Attribut `type` des Elements `content_rating` hat einen ungültigen Wert."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1075
@@ -3199,19 +3196,15 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1081
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element is missing or empty."
-msgstr ""
-"Das Attribut `id` des Elements `content_attribute` fehlt oder ist leer."
+msgstr "Das Attribut `id` des Elements `content_attribute` fehlt oder ist leer."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1087
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element has an invalid value."
-msgstr ""
-"Das Attribut `id` des Elements `content_attribute` hat einen ungültigen Wert."
+msgstr "Das Attribut `id` des Elements `content_attribute` hat einen ungültigen Wert."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1093
@@ -3263,7 +3256,7 @@ msgstr "Der Wert dieser Farbschema-Einstellung ist nicht gültig."
 msgid ""
 "The name of the color scheme property is wrong. It should be "
 "`scheme_preference`."
-msgstr ""
+msgstr "Der Name der Farbschema-Eigenschaft ist falsch. Er sollte `scheme_preference` lauten."
 
 #: src/as-validator-issue-tag.h:1144
 msgid "This color is not a valid HTML color code."
@@ -3273,7 +3266,7 @@ msgstr "Diese Farbe ist kein gültiger HTML-Farbcode."
 msgid ""
 "A color for this type/scheme combination was already set. Colors must be "
 "unique per type/scheme."
-msgstr ""
+msgstr "Für diese Typ/Schema-Kombination wurde bereits eine Farbe festgelegt. Farben müssen pro Typ/Schema eindeutig sein."
 
 #: src/as-validator-issue-tag.h:1154
 msgid ""
@@ -3418,51 +3411,39 @@ msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:226
-#, fuzzy
 msgid "Set mode of the issue report that is printed to the console."
-msgstr ""
-"Modus des Fehlerberichts festlegen, der auf der Konsole ausgegeben wird"
+msgstr "Modus des Fehlerberichts festlegen, der auf der Konsole ausgegeben wird."
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:233
-#, fuzzy
 msgid "Override the default prefix (`/usr` by default)."
-msgstr "Standardpräfix überschreiben (standardmäßig `/usr`)"
+msgstr "Standardpräfix überschreiben (standardmäßig `/usr`)."
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:240
-#, fuzzy
 msgid "Set the result output directory."
-msgstr "Ausgabeverzeichnis der Ergebnisse festlegen"
+msgstr "Ausgabeverzeichnis des Ergebnisses festlegen."
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:247
-#, fuzzy
 msgid "Override the catalog metadata output directory."
-msgstr "Ausgabeverzeichnis für die Katalog-Metadaten überschreiben"
+msgstr "Ausgabeverzeichnis für Katalog-Metadaten überschreiben."
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:254
-#, fuzzy
 msgid "Override the icon output directory."
-msgstr "Ausgabeverzeichnis für Symbole überschreiben"
+msgstr "Ausgabeverzeichnis für Symbole überschreiben."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:261
-#, fuzzy
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)."
-msgstr ""
-"Ausgabeverzeichnis für Medien festlegen (für Medien, die von einem Webserver "
-"ausgeliefert werden sollen)"
+msgstr "Ausgabeverzeichnis für Medien festlegen (für Medien, die von einem Webserver ausgeliefert werden sollen)."
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:268
-#, fuzzy
 msgid "Set a directory where HTML and text issue reports will be stored."
-msgstr ""
-"Verzeichnis festlegen, in dem Fehlerberichte im HTML- und Textformat "
-"gespeichert werden sollen"
+msgstr "Verzeichnis festlegen, in dem Fehlerberichte im HTML- und Textformat gespeichert werden sollen."
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:275
@@ -3471,11 +3452,8 @@ msgstr "Ursprungsnamen festlegen"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:282
-#, fuzzy
 msgid "Set the URL where the exported media content will be hosted."
-msgstr ""
-"URL festlegen, unter der die exportierten Medieninhalte bereitgestellt "
-"werden sollen"
+msgstr "URL festlegen, unter der die exportierten Medieninhalte bereitgestellt werden sollen."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:289
@@ -3491,25 +3469,19 @@ msgstr ""
 msgid ""
 "An icon-policy string to set how icon sizes should be handled (refer to the "
 "man page for details)."
-msgstr ""
+msgstr "Eine Symbolrichtlinien-Zeichenkette, um festzulegen, wie Symbolgrößen gehandhabt werden sollen (Einzelheiten finden Sie in der Manpage)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:303
-#, fuzzy
 msgid ""
 "A comma-separated list of custom keys that should be propagated to the "
 "output data."
-msgstr ""
-"Eine durch Kommata getrennte Liste der zu akzeptierenden Kennungen von "
-"Komponenten"
+msgstr "Eine durch Kommata getrennte Liste von benutzerdefinierten Schlüsseln, die in die Ausgabedaten übertragen werden sollen."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
-#, fuzzy
 msgid "A comma-separated list of component-IDs to accept."
-msgstr ""
-"Eine durch Kommata getrennte Liste der zu akzeptierenden Kennungen von "
-"Komponenten"
+msgstr "Eine durch Kommata getrennte Liste der zu akzeptierenden Kennungen von Komponenten."
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:327
@@ -3563,9 +3535,8 @@ msgid "WARNING"
 msgstr "WARNUNG"
 
 #: tools/appstream-compose.c:446
-#, fuzzy
 msgid "Unable to set icon policy"
-msgstr "Datei kann nicht gelesen werden."
+msgstr "Symbolrichtlinie kann nicht festgelegt werden"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:473
@@ -3872,11 +3843,9 @@ msgid ""
 msgstr "Ausgabe im gewählten Format erzeugen (»yaml«, »text« oder »markdown«)."
 
 #: tools/appstreamcli.c:1127
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
-msgstr ""
-"Compose Binary »%s« wurde nicht gefunden! Vorgang kann nicht fortgesetzt "
-"werden."
+msgstr "AppStream-Compose-Binärdatei »%s« wurde nicht gefunden! Vorgang kann nicht fortgesetzt werden."
 
 #: tools/appstreamcli.c:1131
 #, c-format
