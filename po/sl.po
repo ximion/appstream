@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2024-05-04 00:07+0000\n"
+"PO-Revision-Date: 2024-08-05 18:09+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
 "Language: sl\n"
@@ -27,10 +27,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
-#, fuzzy
 msgid "AppStream CLI"
 msgstr "AppStream CLI"
 
@@ -39,7 +38,6 @@ msgid "An utility to work with AppStream metadata"
 msgstr "Pripomoček za delo z metapodatki AppStream"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
-#, fuzzy
 msgid ""
 "AppStream is a metadata specification which permits software components to "
 "provide information about themselves to automated systems and end-users "
@@ -50,7 +48,6 @@ msgid ""
 msgstr "AppStream je specifikacija metapodatkov, ki komponentam programske opreme omogoča, da avtomatiziranim sistemom in končnim uporabnikom zagotovijo informacije o sebi, preden je programska oprema dejansko nameščena. Projekt AppStream ponuja zmogljivosti za enostaven dostop in preoblikovanje teh metapodatkov ter nekaj dodatnih storitev za izgradnjo programskih centrov z bogatimi funkcijami in podobnih aplikacij, ki uporabljajo metapodatke programske opreme."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
-#, fuzzy
 msgid ""
 "The <em>appstreamcli</em> command-line tool allows to read, write, and "
 "transform AppStream XML or YAML metadata as well as to validate it for "
@@ -58,7 +55,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr "Orodje ukazne vrstice <em>appstreamcli</em> omogoča branje, pisanje in preoblikovanje metapodatkov AppStream XML ali YAML ter preverjanje skladnosti s specifikacijo. Omogoča tudi preprost dostop do skupine metapodatkov sistema, na primer za poizvedovanje po programski opremi, ki zagotavlja določeno rutino za obravnavo Mediatype, ali za namestitev programske opreme z identifikatorjem komponent."
+msgstr "Orodje ukazne vrstice <em>appstreamcli</em> omogoča branje, pisanje in preoblikovanje metapodatkov AppStream XML ali YAML ter preverjanje skladnosti s specifikacijo. Omogoča tudi preprost dostop do skupine metapodatkov sistema, npr. za poizvedovanje po programski opremi, ki zagotavlja določeno rutino za obravnavo Mediatype, ali za namestitev programske opreme z identifikatorjem komponent."
 
 #: src/as-cache.c:904
 #, c-format
@@ -968,7 +965,7 @@ msgstr "Nepričakovana koda stanja: %ld"
 #: src/as-curl.c:420
 #, c-format
 msgid "Retrieved file size was zero."
-msgstr ""
+msgstr "Pridobljena velikost datoteke je ničelna."
 
 #. TRANSLATORS: Name of the "Cinnamon" desktop environment.
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
@@ -991,9 +988,8 @@ msgstr "EDE"
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #. TRANSLATORS: Name of the "endless" visual environment style.
 #: src/as-desktop-env-data.h:49 src/as-desktop-env-data.h:83
-#, fuzzy
 msgid "Endless"
-msgstr "Endless"
+msgstr "Neskončno"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
@@ -1114,7 +1110,7 @@ msgstr "Podatki iz krajevno nameščene programske opreme"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2503
 msgid "Software catalog data"
-msgstr ""
+msgstr "Podatki kataloga programja"
 
 #: src/as-provided.c:138
 msgid "Libraries"
@@ -1142,11 +1138,11 @@ msgstr "Python 3"
 
 #: src/as-provided.c:150
 msgid "D-Bus System Services"
-msgstr ""
+msgstr "Storitve sistemskega vodila D-Bus"
 
 #: src/as-provided.c:152
 msgid "D-Bus Session Services"
-msgstr ""
+msgstr "Storitve seje D-Bus"
 
 #: src/as-provided.c:154
 msgid "Runtime Firmware"
