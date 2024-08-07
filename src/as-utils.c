@@ -1282,7 +1282,7 @@ as_utils_ensure_resources (void)
  * @category_name: a XDG category name, e.g. "ProjectManagement"
  *
  * Searches the known list of registered XDG category names.
- * See https://specifications.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry
+ * See https://specifications.freedesktop.org/menu-spec/latest/category-registry.html
  * for a reference.
  *
  * Returns: %TRUE if the category name is valid

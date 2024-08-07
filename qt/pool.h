@@ -35,7 +35,7 @@ namespace AppStream
 /**
  * Access the AppStream metadata pool.
  *
- * See http://www.freedesktop.org/wiki/Distributions/AppStream/ for details
+ * See https://www.freedesktop.org/wiki/Distributions/AppStream/ for details
  */
 class PoolPrivate;
 class APPSTREAMQT_EXPORT Pool : public QObject
