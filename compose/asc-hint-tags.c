@@ -59,7 +59,7 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	{ "ancient-metadata",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  "The AppStream metadata should be updated to follow a more recent version of the specification.<br/>"
-	  "Please consult <a href=\"https://www.freedesktop.org/software/appstream/docs/chap-Quickstart.html\">the XML quickstart guide</a> for "
+	  "Please consult <a href=\"https://www.freedesktop.org/software/appstream/docs/chap-Quickstart.html\">MetaInfo quickstart guide</a> for "
 	  "more information."
 	},
 
