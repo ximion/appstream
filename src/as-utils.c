@@ -32,10 +32,12 @@
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <time.h>
-#include <utime.h>
 #ifdef G_OS_WIN32
 #include <windows.h>
+#include <io.h>
+#include <sys/utime.h>
 #else
+#include <utime.h>
 #include <sys/utsname.h>
 #endif
 #include <sys/stat.h>
@@ -967,7 +969,11 @@ as_touch_location (const gchar *fname)
 void
 as_reset_umask (void)
 {
+#ifdef G_OS_WIN32
+	umask (S_IREAD | S_IWRITE);
+#else
 	umask (0022);
+#endif
 }
 
 /**

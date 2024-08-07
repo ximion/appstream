@@ -34,9 +34,15 @@
 
 #include <errno.h>
 #include <fcntl.h>
-#include <unistd.h>
 #include <glib/gstdio.h>
 #include <glib/gi18n-lib.h>
+
+#ifdef G_OS_WIN32
+#include <io.h>
+#else
+#include <unistd.h>
+#endif
+
 #include <xmlb.h>
 
 #include "as-utils-private.h"
