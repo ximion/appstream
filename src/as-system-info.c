@@ -1091,7 +1091,7 @@ as_system_info_get_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side
  * Set the current display length for the given side kind.
  * The size needs to be in device-independent pixels, see the
  * AppStream documentation for more information:
- * https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-relations-display_length
+ * https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-relations-display_length
  */
 void
 as_system_info_set_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side, gulong value_dip)

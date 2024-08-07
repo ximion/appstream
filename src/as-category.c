@@ -35,7 +35,7 @@
  * @include: appstream.h
  *
  * This object represents a XDG category, as defined at:
- * https://specifications.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry
+ * https://specifications.freedesktop.org/menu-spec/latest/category-registry.html
  *
  * The #AsCategory object does not support all aspects of a menu. Its main purpose
  * is to be used in software-centers to group visual components (gui/web applications).

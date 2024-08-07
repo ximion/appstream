@@ -59,7 +59,7 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	{ "ancient-metadata",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  "The AppStream metadata should be updated to follow a more recent version of the specification.<br/>"
-	  "Please consult <a href=\"http://freedesktop.org/software/appstream/docs/chap-Quickstart.html\">the XML quickstart guide</a> for "
+	  "Please consult <a href=\"https://www.freedesktop.org/software/appstream/docs/chap-Quickstart.html\">the XML quickstart guide</a> for "
 	  "more information."
 	},
 
@@ -83,7 +83,7 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  AS_ISSUE_SEVERITY_ERROR,
 	  "Component does not contain a short summary. Ensure that the components MetaInfo file has a <code>summary</code> tag, or that its .desktop file "
 	  "has a <code>Comment=</code> field set.<br/>"
-	  "More information can be found in the <a href=\"http://standards.freedesktop.org/desktop-entry-spec/latest/ar01s05.html\">Desktop Entry specification</a> "
+	  "More information can be found in the <a href=\"https://specifications.freedesktop.org/desktop-entry-spec/latest/localized-keys.html\">Desktop Entry specification</a> "
 	  "and the <a href=\"https://www.freedesktop.org/software/appstream/docs/sect-Metadata-Application.html#tag-dapp-summary\">MetaInfo specification</a>."
 	},
 
@@ -128,14 +128,14 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  AS_ISSUE_SEVERITY_WARNING,
 	  "The desktop-entry file `{{location}}` has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and "
 	  "nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional. "
-	  "See <a href=\"https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html\">the specification</a> for details."
+	  "See <a href=\"https://specifications.freedesktop.org/desktop-entry-spec/latest/recognized-keys.html\">the specification</a> for details."
 	},
 
 	{ "desktop-entry-empty-onlyshowin",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  "The desktop-entry file `{{location}}` has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide "
 	  "the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit. "
-	  "See <a href=\"https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html\">the specification</a> for details."
+	  "See <a href=\"https://specifications.freedesktop.org/desktop-entry-spec/latest/recognized-keys.html\">the specification</a> for details."
 	},
 
 	{ "missing-launchable-desktop-file",
@@ -289,14 +289,14 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 
 	{ "no-metainfo",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  "This software component is missing a <a href=\"https://freedesktop.org/software/appstream/docs/chap-Metadata.html#sect-Metadata-GenericComponent\">MetaInfo file</a> "
+	  "This software component is missing a <a href=\"https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#sect-Metadata-GenericComponent\">MetaInfo file</a> "
 	  "as metadata source.<br/>"
 	  "To synthesize suitable metadata anyway, we took some data from its desktop-entry file.<br/>"
 	  "This has many disadvantages, like low-quality and incomplete metadata. Therefore clients may ignore this component entirely due to poor metadata.<br/>"
 	  "Additionally, a lot of software from desktop-entry files should either not be installable and searchable via the software catalog "
 	  "(like desktop-specific settings applications) or be tagged accordingly via MetaInfo files.<br/>"
 	  "Please consider to either hide this .desktop file from AppStream by adding a <code>X-AppStream-Ignore=true</code> field to it, or to write a MetaInfo file for this component.<br/>"
-	  "You can consult the <a href=\"http://freedesktop.org/software/appstream/docs/chap-Quickstart.html\">MetaInfo quickstart guides</a> for more information "
+	  "You can consult the <a href=\"https://www.freedesktop.org/software/appstream/docs/chap-Quickstart.html\">MetaInfo quickstart guides</a> for more information "
 	  "on how to write a MetaInfo file, or file a bug with the upstream author of this software component."
 	},
 
