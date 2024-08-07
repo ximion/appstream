@@ -2384,7 +2384,7 @@ test_xml_rw_external_releases (void)
 	g_assert_cmpint (as_release_list_len (releases), ==, 4);
 	g_assert_cmpstr (as_release_list_get_url (releases),
 			 ==,
-			 "https://raw.githubusercontent.com/ximion/appstream/master/tests/samples/"
+			 "https://raw.githubusercontent.com/ximion/appstream/main/tests/samples/"
 			 "releases/org.example.pomidaq.releases.xml");
 	g_assert_cmpint (as_release_list_get_kind (releases), ==, AS_RELEASE_LIST_KIND_EXTERNAL);
 }
