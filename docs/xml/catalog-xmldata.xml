@@ -307,7 +307,7 @@
 					</para>
 					<para>
 						If specified, the <literal>scale</literal> property is defined as in the
-						<ulink url="https://specifications.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html#definitions">Freedesktop Icon Theme Specification</ulink>.
+						<ulink url="https://specifications.freedesktop.org/icon-theme-spec/latest/#definitions">Freedesktop Icon Theme Specification</ulink>.
 						It’s an integer value ≥1 indicating how many pixels in the image represent a logical pixel on the display, in each dimension.
 						This allows icons for hi-DPI screens to be displayed at the same logical size as on lower resolution screens, but without upscaling artifacts.
 					</para>
@@ -339,7 +339,7 @@
 						This tag can contain one or more <code><![CDATA[<category>]]></code> tags, describing the categories this component
 						is located in. This tag is usually applied to components of type <literal>desktop-application</literal>, although it might be used by others later.
 						This data is usually taken from Desktop files, a list of categories can be found in the
-						<ulink url="https://standards.freedesktop.org/menu-spec/latest/apa.html">Freedesktop menu spec</ulink>.
+						<ulink url="https://specifications.freedesktop.org/menu-spec/latest/category-registry.html">Freedesktop menu spec</ulink>.
 						Example:
 					</para>
 					<programlisting language="XML"><![CDATA[<categories>

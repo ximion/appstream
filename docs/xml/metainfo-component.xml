@@ -273,7 +273,7 @@
 						is associated with.
 						This tag is usually applied to components of type <literal>desktop-application</literal>, but can be used with any component.
 						A list of valid category names can be found in the
-						<ulink url="https://specifications.freedesktop.org/menu-spec/latest/apa.html">Freedesktop menu specification</ulink>.
+						<ulink url="https://specifications.freedesktop.org/menu-spec/latest/category-registry.html">Freedesktop menu specification</ulink>.
 						Example:
 					</para>
 					<programlisting language="XML"><![CDATA[<categories>
@@ -424,7 +424,7 @@
                     <listitem>
                       <para>
                         The application can be launched via a desktop file. The value of the tag is a
-			<ulink url="https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#desktop-file-id">desktop-file id</ulink>.
+			<ulink url="https://specifications.freedesktop.org/desktop-entry-spec/latest/file-naming.html#desktop-file-id">desktop-file id</ulink>.
                       </para>
                       <para>
                         In case a software component has multiple launchable entries,
@@ -1114,7 +1114,7 @@
 				The distributor decides which components should be made compulsory, however it is generally a good idea to follow upstream's recommendations on that matter.
 			</para>
 			<para>
-				A list of all allowed values for this tag is defined in the <ulink url="https://specifications.freedesktop.org/menu-spec/latest/apb.html">XDG Menu Specification</ulink>.
+				A list of all allowed values for this tag is defined in the <ulink url="https://specifications.freedesktop.org/menu-spec/latest/onlyshowin-registry.html">XDG Menu Specification</ulink>.
 				Software center applications will only recognize these values.
 			</para>
 		</listitem>
