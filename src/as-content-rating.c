@@ -375,7 +375,7 @@ as_content_rating_system_format_age (AsContentRatingSystem system, guint age)
 			return g_strdup ("6");
 		return g_strdup ("0");
 	}
-	/* Reference: http://www.esra.org.ir/ */
+	/* Reference: https://esra.ircg.ir/ */
 	if (system == AS_CONTENT_RATING_SYSTEM_ESRA) {
 		if (age >= 18)
 			return g_strdup ("+18");
