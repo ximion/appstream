@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2024-08-09 23:09+0000\n"
+"PO-Revision-Date: 2024-08-11 02:09+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
 "Language: sl\n"
@@ -1333,46 +1333,46 @@ msgid "Required hardware for this software was not found on this system: '%s'"
 msgstr "V tem sistemu ni bilo mogoče najti zahtevane strojne opreme za to programsko opremo: »%s«"
 
 #: src/as-relation.c:1575
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr "Priporočena strojna oprema za to programsko opremo ni bila najdena v tem sistemu: '%s'"
+msgstr "Priporočena strojna oprema za to programsko opremo ni bila najdena v tem sistemu: »%s«"
 
 #: src/as-relation.c:1580
-#, c-format, fuzzy
+#, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr "Ta programska oprema podpira strojno opremo, ki ni prisotna v tem sistemu: \"%s\""
+msgstr "Ta programska oprema podpira strojno opremo, ki ni prisotna v tem sistemu: »%s«"
 
 #: src/as-relation.c:1619
-#, c-format, fuzzy
+#, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr "Ta programska oprema zahteva %s jedro, vendar ta sistem deluje %s."
+msgstr "Ta programska oprema zahteva jedro %s, vendar ta sistem uporablja %s."
 
 #: src/as-relation.c:1625
-#, c-format, fuzzy
+#, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr "Ta programska oprema priporoča %s jedro, vendar ta sistem deluje %s."
+msgstr "Ta programska oprema priporoča jedro %s, vendar ta sistem uporablja %s."
 
 #: src/as-relation.c:1631
-#, c-format, fuzzy
+#, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr "Ta programska oprema podpira samo jedro %s, vendar lahko vseeno deluje na %s."
+msgstr "Ta programska oprema podpira samo jedro %s, vendar lahko vseeno deluje z %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
 #. and fifth is the version we are running.
 #: src/as-relation.c:1661
-#, c-format, fuzzy
+#, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr "Ta programska oprema zahteva %s %s %s, vendar ta sistem deluje %s %s."
+msgstr "Ta programska oprema zahteva %s %s %s, vendar ta sistem uporablja %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
 #. and fifth is the version we are running.
 #: src/as-relation.c:1673
-#, c-format, fuzzy
+#, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr "Uporaba %s %s %s je priporočljiva, vendar ta sistem deluje %s %s."
+msgstr "Uporaba %s %s %s je priporočljiva, vendar ta sistem uporablja %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
@@ -1390,7 +1390,7 @@ msgstr "Podprto je jedro %s %s."
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
 #: src/as-relation.c:1736
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
 msgstr "Ta programska oprema zahteva %s %.2f GiB pomnilnika, vendar ima ta sistem %.2f GiB."
@@ -1398,7 +1398,7 @@ msgstr "Ta programska oprema zahteva %s %.2f GiB pomnilnika, vendar ima ta siste
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
 #: src/as-relation.c:1745
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
 msgstr "Ta programska oprema priporoča %s %.2f GiB pomnilnika, vendar ima ta sistem %.2f GiB."
@@ -1406,65 +1406,63 @@ msgstr "Ta programska oprema priporoča %s %.2f GiB pomnilnika, vendar ima ta si
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1754
-#, c-format, fuzzy
+#, c-format
 msgid "This software supports %s %.2f GiB of memory."
 msgstr "Ta programska oprema podpira %s %.2f GiB pomnilnika."
 
 #: src/as-relation.c:1770
-#, fuzzy
 msgid "This system has sufficient memory for this software."
 msgstr "Ta sistem ima dovolj pomnilnika za to programsko opremo."
 
 #: src/as-relation.c:1834
-#, fuzzy
 msgid "This software needs a display for graphical content."
 msgstr "Ta programska oprema potrebuje zaslon za grafično vsebino."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1862
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Ta programska oprema zahteva zaslon z najdaljšim robom, ki je velik %s %lu px, vendar ima zaslon te naprave %lu px."
+msgstr "Ta programska oprema zahteva zaslon z daljšo stranico %s %lu sl. točk, vendar ima zaslon te naprave %lu sl. točk."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1871
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Ta programska oprema zahteva zaslon z najkrajšim robom, ki je %s %lu velikosti px, vendar ima zaslon te naprave %lu px."
+msgstr "Ta programska oprema zahteva zaslon s krajšo stranico %s %lu sl. točk, vendar ima zaslon te naprave %lu sl. točk."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1881
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Ta programska oprema priporoča zaslon z najdaljšim robom, ki je %s %lu velikosti px, vendar ima zaslon te naprave %lu px."
+msgstr "Ta programska oprema priporoča zaslon z daljšo stranico %s %lu sl. točk, vendar ima zaslon te naprave %lu sl. točk."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1890
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Ta programska oprema priporoča zaslon z najkrajšim robom, ki je %s %lu velikosti px, vendar ima zaslon te naprave %lu px."
+msgstr "Ta programska oprema priporoča zaslon s krajšo stranico %s %lu sl. točk, vendar ima zaslon te naprave %lu sl. točk."
 
 #: src/as-relation.c:1902
 msgid "Display size is sufficient for this software."
 msgstr "Velikost zaslona zadostuje za to programsko opremo."
 
 #: src/as-relation.c:1919
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr "Preverjanje zadovoljivosti za elemente relacije tipa '%s' še ni izvedeno."
+msgstr "Preverjanje zadovoljivosti za elemente relacije vrste »%s« še ni izvedeno."
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
@@ -1663,57 +1661,50 @@ msgid "Tags of this name are not permitted in this section."
 msgstr "Oznake s tem imenom v tem razdelku niso dovoljene."
 
 #: src/as-validator-issue-tag.h:52
-#, fuzzy
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr "Oznaka <description/> ne sme biti lokalizirana v metainfo datotekah (zgornjih metapodatkih). Namesto tega lokalizirajte posamezne odstavke."
+msgstr "Oznaka <description/> ne sme biti prevedena v datotekah metainfo (zgornjih metapodatkih). Namesto tega prevedite posamezne odstavke."
 
 #: src/as-validator-issue-tag.h:58
-#, fuzzy
 msgid ""
 "This element (paragraph, list, etc.) of a <description/> tag must not be "
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr "Ta element (odstavek, seznam itd.) oznake <description/> ne sme biti lokaliziran posamično v metapodatkih kataloga. Namesto tega lokalizirajte celotno <description/> oznako. Generator kataloga metapodatkov AppStream (npr. 'appstream-generator') bo že naredil pravo stvar pri zbiranju podatkov."
+msgstr "Ta element (odstavek, seznam itn.) oznake <description/> ne sme biti preveden posamično v metapodatkih kataloga. Namesto tega prevedite celotno oznako <description/>. Generator kataloga metapodatkov AppStream (npr. »appstream-generator«) bo že naredil pravo stvar pri prevajanju podatkov."
 
 #: src/as-validator-issue-tag.h:64
-#, fuzzy
 msgid ""
 "AppStream descriptions support only a limited set of tags to format text: "
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr "Opisi AppStream podpirajo le omejen nabor oznak za oblikovanje besedila: Odstavki (<p/>) in seznami (<ul/>, <ol/>). Ta oznaka opisa vsebuje neveljavno oznako XML, ki ne bi bila pravilno upodobljena v aplikacijah, ki podpirajo specifikacijo metainformacij."
+msgstr "Opisi AppStream podpirajo le omejen nabor oznak za oblikovanje besedila: odstavke (<p/>) in sezname (<ul/>, <ol/>). Ta oznaka opisa vsebuje neveljavno oznako XML, ki ne bi bila pravilno upodobljena v programih, ki podpirajo specifikacijo metapodatkov."
 
 #: src/as-validator-issue-tag.h:70
-#, fuzzy
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr "Ta opisni odstavek vsebuje neveljavne oznake. Trenutno samo <em/> in <code/> so dovoljeni."
+msgstr "Ta opisni odstavek vsebuje neveljavne oznake. Trenutno sta dovoljeni samo <em/> in <code/>."
 
 #: src/as-validator-issue-tag.h:75
-#, fuzzy
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr "Enumeracije morajo vsebovati samo elemente seznama (<li/>) kot otroci."
+msgstr "Enumeracije morajo vsebovati samo elemente seznama (<li/>) kot podrejene elemente."
 
 #: src/as-validator-issue-tag.h:80
-#, fuzzy
 msgid ""
 "The enumeration must not be translated as a whole. In MetaInfo files, "
 "translate individual items (<li/> elements) instead."
-msgstr "Štetje se ne sme prevesti kot celota. V datotekah MetaInfo prevedite posamezne elemente (<li/> elementi)."
+msgstr "Oštevilčenja samega se ne sme prevajati. V datotekah MetaInfo prevedite zgolj posamezne elemente (elementi <li/>)."
 
 #: src/as-validator-issue-tag.h:86
-#, fuzzy
 msgid ""
 "The first `description/p` paragraph of this component might be too short (< "
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr "Prvi odstavek \"opis/p\" te komponente je lahko prekratek (< 80 znakov). Razmislite o tem, da začnete z daljšim odstavkom, da izboljšate videz opisa v centrih za programsko opremo in takoj v prvem odstavku zagotovite podrobnejše informacije o tej komponenti."
+msgstr "Prvi odstavek »opis/p« te komponente je lahko prekratek (< 80 znakov). Razmislite o tem, da začnete z daljšim odstavkom, da izboljšate videz opisa v središčih za programsko opremo in takoj v prvem odstavku zagotovite podrobnejše informacije o tej komponenti."
 
 #: src/as-validator-issue-tag.h:93
 msgid ""
@@ -1738,20 +1729,17 @@ msgid ""
 msgstr "Ta oznaka se lahko v tem kontekstu prikazati samo enkrat. Imeti več oznak te vrste ni veljavno."
 
 #: src/as-validator-issue-tag.h:113
-#, fuzzy
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
-msgstr "Omenjena oznaka je prazna, kar najverjetneje ni namenjeno, saj bi morala imeti vsebino."
+msgstr "Omenjena oznaka je prazna, kar najverjetneje ni mišljeno, saj bi morala imeti vsebino."
 
 #: src/as-validator-issue-tag.h:118
-#, fuzzy
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
 msgstr "Omenjena oznaka ima besedilno vsebino, čeprav ne sme vsebovati besedila."
 
 #: src/as-validator-issue-tag.h:123
-#, fuzzy
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
@@ -1843,9 +1831,8 @@ msgid ""
 msgstr "Komponenta je del projekta GNOME, vendar se njen ID ne začne z GNOME-jevim obratnim imenom DNS (\"org.gnome\")."
 
 #: src/as-validator-issue-tag.h:188
-#, fuzzy
 msgid "The SPDX license expression is invalid and could not be parsed."
-msgstr "Izraz licence SPDX je neveljaven in ga ni mogoče razčleniti."
+msgstr "Izraz dovoljenja SPDX je neveljaven in ga ni mogoče razčleniti."
 
 #: src/as-validator-issue-tag.h:193
 #, fuzzy
@@ -1891,79 +1878,67 @@ msgstr "Lastnost »okolje« je nastavljena na neprepoznano grafično kombinacijo
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:223
-#, fuzzy
 msgid "The `width` property must be a positive integer."
 msgstr "Lastnost »width« mora biti pozitivno celo število."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:229
-#, fuzzy
 msgid "The `height` property must be a positive integer."
-msgstr "Lastnost »višina« mora biti pozitivno celo število."
+msgstr "Lastnost »height« mora biti pozitivno celo število."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
-#, fuzzy
 msgid "The `scale` property must be a positive integer."
-msgstr "Lastnost 'skala' mora biti pozitivno celo število."
+msgstr "Lastnost »scale« mora biti pozitivno celo število."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:241
-#, fuzzy
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr "Vrsta slike mora biti »vir« ali »sličica«."
+msgstr "Vrsta slike mora biti »source« (vir) ali »thumbnail« (sličica)."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:247
-#, fuzzy
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr "Lastnost »width« mora biti prisotna, če je vrsta slike »sličica«."
+msgstr "Lastnost »width« mora biti prisotna, če je vrsta slike »thumbnail«."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:253
-#, fuzzy
 msgid "The `height` property must be present if the image type is `thumbnail`."
 msgstr "Lastnost »height« mora biti prisotna, če je vrsta slike »thumbnail«."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:259
-#, fuzzy
 msgid "There can only be one `source` image per screenshot and language."
-msgstr "Na posnetku zaslona in jeziku je lahko samo ena »izvorna« slika."
+msgstr "Na posnetek zaslona in jezik je lahko samo ena izvorna slika (»source«)."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:265
-#, fuzzy
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`."
-msgstr "Posnetek zaslona mora vsebovati vsaj eno neprevedeno sliko tipa »vir«."
+msgstr "Posnetek zaslona mora vsebovati vsaj eno neprevedeno sliko vrste »source«."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:271
-#, fuzzy
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`, "
 "which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) "
 "was found, which is likely intended to be the translatable image. Please "
 "remove the XML localization attribute in this case."
-msgstr "Posnetek zaslona mora vsebovati vsaj eno neprevedeno sliko tipa 'vir', ki je ni bilo mogoče najti. Namesto tega je bila najdena oznaka z 'en' locale ('xml:lang=en'), ki je verjetno mišljena kot prevajljiva slika. V tem primeru odstranite atribut lokalizacije XML."
+msgstr "Posnetek zaslona mora vsebovati vsaj eno neprevedeno sliko vrste »source«, ki je ni bilo mogoče najti. Namesto tega je bila najdena oznaka področne nastavitve »en« (»xml:lang=en«), ki je verjetno mišljena kot prevedljiva slika. V tem primeru odstranite atribut lokalizacije XML."
 
 #: src/as-validator-issue-tag.h:278
-#, fuzzy
 msgid ""
 "Unable to reach the screenshot image on its remote location - does the image "
 "exist?"
-msgstr "Ne morete doseči slike posnetka zaslona na oddaljeni lokaciji - ali slika obstaja?"
+msgstr "Ne možno doseči slike posnetka zaslona na oddaljenem mestu - ali slika obstaja?"
 
 #: src/as-validator-issue-tag.h:283
-#, fuzzy
 msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
-msgstr "Ne morete priti do videoposnetka na oddaljeni lokaciji - ali video datoteka obstaja?"
+msgstr "Ni možno doseči videoposnetka na oddaljenem mestu - ali videodatoteka obstaja?"
 
 #: src/as-validator-issue-tag.h:288
-#, fuzzy
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
@@ -1994,49 +1969,43 @@ msgstr "Posnetek zaslona nima besedila napisov. Razmislite o dodajanju le-tega."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:316
-#, fuzzy
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
-msgstr "Videoposnetek zaslona ne določa, kateri videokodek je bil uporabljen v lastnosti »kodek«."
+msgstr "Videoposnetek zaslona ne določa, kateri videokodek je bil uporabljen v lastnosti »codec«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:322
-#, fuzzy
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
-msgstr "Videoposnetek zaslona ne določa, katera oblika vsebnika je bila uporabljena v lastnosti »vsebnik«."
+msgstr "Videoposnetek zaslona ne določa, katera oblika vsebnika je bila uporabljena v lastnosti »container«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:328
-#, fuzzy
 msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr "AppStream ne podpira izbranega video kodeka in programski centri morda ne bodo mogli predvajati videoposnetka. Trenutno so podprti samo kodeki AV1 in VP9, pri čemer uporabljata »av1« in »vp9« kot vrednosti za lastnost »kodek«."
+msgstr "AppStream ne podpira izbranega videokodeka in programska središča morda ne bodo mogla predvajati videoposnetka. Trenutno sta podprta samo kodeka AV1 in VP9, pri čemer uporabljata »av1« in »vp9« kot vrednosti za lastnost »codec«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:335
-#, fuzzy
 msgid ""
 "The selected video container format is not supported by AppStream and "
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr "AppStream ne podpira izbrane oblike vsebnika videoposnetkov in programski centri morda ne bodo mogli predvajati videoposnetka. Trenutno so podprti samo vsebniki videoposnetkov WebM in Matroska, pri čemer se za lastnost »vsebnik« uporabljata »webm« in »mkv«."
+msgstr "AppStream ne podpira izbrane oblike vsebnika videoposnetkov in programska središča morda ne bodo mogla predvajati videoposnetka. Trenutno sta podprta samo vsebnika videoposnetkov WebM in Matroska, pri čemer se za lastnost »containner« uporabljata »webm« in »mkv«."
 
 #: src/as-validator-issue-tag.h:341
-#, fuzzy
 msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr "Za videoposnetke so trenutno podprte samo oblike zapisa vsebnikov WebM in Matroska (.mkv). Datotečna pripona videoposnetka, na katerega se sklicuje, ne spada v nobeno od teh oblik zapisa."
+msgstr "Za videoposnetke sta trenutno podprti samo obliki zapisa vsebnikov WebM in Matroska (.mkv). Datotečna pripona videoposnetka, na katerega se sklicuje, ne sodi k nobeni od teh oblik zapisa."
 
 #: src/as-validator-issue-tag.h:347
-#, fuzzy
 msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
@@ -2044,12 +2013,10 @@ msgid ""
 msgstr "Privzeti posnetek zaslona komponente programske opreme ne sme biti videoposnetek. Uporabite statično sliko kot privzeti posnetek zaslona in nastavite videoposnetek kot sekundarni posnetek zaslona."
 
 #: src/as-validator-issue-tag.h:352
-#, fuzzy
 msgid "No screenshot is marked as default."
 msgstr "Noben posnetek zaslona ni označen kot privzeti."
 
 #: src/as-validator-issue-tag.h:357
-#, fuzzy
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
@@ -3313,7 +3280,6 @@ msgstr "Neveljavne mape ni mogoče obdelati"
 
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:505
-#, fuzzy
 msgid "Composing metadata..."
 msgstr "Sestavljanje metapodatkov ..."
 
@@ -3324,24 +3290,20 @@ msgstr "Sestavljanje metapodatkov AppStream ni uspelo"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:516
-#, fuzzy
 msgid "Run failed, some data was ignored."
 msgstr "Zagon ni uspel, nekateri podatki so bili prezrti."
 
 #: tools/appstream-compose.c:519
-#, fuzzy
 msgid "Errors were raised during this compose run:"
 msgstr "Med tem sestavljanjem so se pojavile napake:"
 
 #: tools/appstream-compose.c:522
-#, fuzzy
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
 msgstr "Za podrobnosti o posameznih težavah si oglejte ustvarjene podatke poročila o težavi."
 
 #: tools/appstream-compose.c:526
-#, fuzzy
 msgid "Overview of generated hints:"
 msgstr "Pregled ustvarjenih namigov:"
 
@@ -3362,13 +3324,11 @@ msgstr "Ročno določite mesto metapodatkov AppStream za pregled."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:75
-#, fuzzy
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr "Prezrite starost predpomnilnika in ustvarite nov predpomnilnik, preden izvedete poizvedbo."
+msgstr "Prezri starost predpomnilnika in ustvari nov predpomnilnik, preden se izvede poizvedba."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:91
-#, fuzzy
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Privzeta oblika zapisa metapodatkov (veljavni vrednosti sta »xml« in »yaml«)."
 
@@ -3379,9 +3339,8 @@ msgstr "Natisni podroben izpis o najdenih komponentah."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstreamcli.c:128
-#, fuzzy
 msgid "Also show pedantic hints."
-msgstr "Pokažite tudi pedantne namige."
+msgstr "Pokaži tudi podrobne namige."
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
 #: tools/appstreamcli.c:135
@@ -3390,9 +3349,8 @@ msgstr "Natisni podrobno razlago najdenih težav."
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstreamcli.c:142
-#, fuzzy
 msgid "Do not use network access."
-msgstr "Ne uporabljajte dostopa do omrežja."
+msgstr "Ne uporabljaj dostopa do omrežja."
 
 #. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
 #: tools/appstreamcli.c:149
@@ -3469,19 +3427,16 @@ msgstr "Natisnite podrobnejši izhod o tem, zakaj obstajajo nezdružljivosti."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:633
-#, fuzzy
 msgid "Set the data origin for the installed metadata catalog file."
 msgstr "Nastavite izvor podatkov za nameščeno datoteko kataloga metapodatkov."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:639
-#, fuzzy
 msgid "Install the file for the current user, instead of globally."
-msgstr "Namestite datoteko za trenutnega uporabnika namesto globalno."
+msgstr "Namesti datoteko za trenutnega uporabnika namesto globalno."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:667
-#, fuzzy
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
@@ -3489,67 +3444,59 @@ msgstr "Omejite ukaz tako, da uporablja samo komponente iz danega sistema združ
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:674
-#, fuzzy
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
-msgstr "Ne sprašujte, katero komponento programske opreme je treba uporabiti in vedno izberite prvi vnos."
+msgstr "Ne sprašuj, katero komponento programske opreme je treba uporabiti, in vedno izberi prvi vnos."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:708 tools/appstreamcli.c:743
-#, fuzzy
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
-msgstr "Veljavna vrsta svežnja ni bila določena. Trenutno sta prepoznana samo 'paket' in 'flatpak'."
+msgstr "Veljavna vrsta svežnja ni bila določena. Trenutno sta prepoznana samo »package« in »flatpak«."
 
 #: tools/appstreamcli.c:837
-#, fuzzy
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr "Za primerjavo parametrov morate navesti vsaj dve številki različice."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:866
-#, c-format, fuzzy
+#, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr "Neznano primerjalno razmerje '%s'. Veljavne vrednosti so:"
+msgstr "Neznano primerjalno razmerje »%s«. Veljavne vrednosti so:"
 
 #: tools/appstreamcli.c:907
-#, fuzzy
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr "Preveč parametrov: potrebujete dve številki različice ali številke različic in operater za primerjavo."
+msgstr "Preveč parametrov: potrebujete dve številki različice ali številke različic in operatorja za primerjavo."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:933
-#, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr "Uporabite dano datoteko .desktop, da izpolnite osnovne vrednosti metainfo datoteke."
+msgstr "Uporabite dano datoteko .desktop, da izpolnite osnovne vrednosti datoteke metainfo."
 
 #: tools/appstreamcli.c:941
-#, fuzzy
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr "Ta ukaz prevzame izbirne pozicijske argumente TYPE in FILE, pri čemer je FILE datoteka, v katero se zapisuje (ali \"-\" za standardni izhod)."
+msgstr "Ta ukaz prevzame izbirne pozicijske argumente TYPE in FILE, pri čemer je FILE datoteka, v katero se zapisuje (ali »-« za standardni izhod)."
 
 #: tools/appstreamcli.c:945
-#, c-format, fuzzy
+#, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr "TYPE mora biti veljaven tip sestavnega dela, kot so: %s"
+msgstr "TYPE mora biti veljavna vrsta sestavnega dela, kot je: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstreamcli.c:983
-#, fuzzy
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
-msgstr "Uporabite določeno vrstico za ključ 'Exec=' datoteke za vnos na namizju."
+msgstr "Uporabite določeno vrstico za ključ »Exec=« datoteke za vnos na namizju."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1023
-#, fuzzy
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
@@ -3557,11 +3504,10 @@ msgstr "Predpostavimo, da je vhodna datoteka v izbrani obliki zapisa (»yaml«, 
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1030
-#, fuzzy
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr "Omejite število vnosov v izdaji, ki končajo v datoteki metainfo (<= 0 za neomejeno)."
+msgstr "Omejite število vnosov o izdaji, ki končajo v datoteki metainfo (<= 0 za neomejeno)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1037
@@ -3584,13 +3530,12 @@ msgid "AppStream Compose binary '%s' was not found! Can not continue."
 msgstr "Dvojiška datoteka AppStream Compose »%s« ni bila najdena! Ne morem nadaljevati."
 
 #: tools/appstreamcli.c:1131
-#, c-format, fuzzy
+#, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr "Dodatek AppStream Compose boste morda lahko namestili prek: »%s«"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1140
-#, fuzzy
 msgid "Invalid number of parameters"
 msgstr "Neveljavno število parametrov"
 
@@ -3607,9 +3552,9 @@ msgstr "Sestavljanje ni uspelo: %s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:1225
-#, c-format, fuzzy
+#, c-format
 msgid "(Alias: '%s')"
-msgstr "Vzdevek za %s"
+msgstr "(vzdevek: »%s«)"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstreamcli.c:1255
@@ -3617,7 +3562,6 @@ msgid "Subcommands:"
 msgstr "Podukazi:"
 
 #: tools/appstreamcli.c:1309
-#, fuzzy
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -3631,19 +3575,16 @@ msgstr "Ukaz »%s« ni znan. Zaženite »%s --help«, da se izpiše seznam možn
 
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstreamcli.c:1375
-#, fuzzy
 msgid "Enable profiling"
-msgstr "Omogočanje profiliranja"
+msgstr "Omogočanje profiliranje"
 
 #. TRANSLATORS: `appstreamcli search` command description.
 #: tools/appstreamcli.c:1390
-#, fuzzy
 msgid "Search the component database."
 msgstr "Iskanje po zbirki podatkov komponent."
 
 #. TRANSLATORS: `appstreamcli get` command description.
 #: tools/appstreamcli.c:1397
-#, fuzzy
 msgid "Get information about a component by its ID."
 msgstr "Pridobite informacije o komponenti po njenem ID-ju."
 
@@ -3733,21 +3674,18 @@ msgstr "Pokaži informacije o trenutni napravi in uporabljenem operacijskem sist
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1508
-#, fuzzy
 msgid "Install a metadata file into the right location."
 msgstr "Namestite datoteko z metapodatki na pravo mesto."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1516
-#, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr "Pretvorite XML kataloga metapodatkov v YAML ali obratno."
+msgstr "Pretvorite kataloga metapodatkov XML v YAML ali obratno."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1523
-#, fuzzy
 msgid "Compare two version numbers."
-msgstr "Primerjajte dve številki različice."
+msgstr "Primerjajte številki dveh različic."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
 #: tools/appstreamcli.c:1532
@@ -3847,12 +3785,10 @@ msgid "No component matching '%s' found."
 msgstr "Komponente, ki se ujema z »%s«, ni mogoče najti."
 
 #: tools/ascli-actions-mdata.c:206
-#, fuzzy
 msgid "No value for the item to search for was defined."
 msgstr "Vrednost elementa, ki ga je treba iskati, ni bila določena."
 
 #: tools/ascli-actions-mdata.c:213
-#, fuzzy
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Neveljavna vrsta za izbrani element. Veljavne vrednosti so:"
 
@@ -3867,12 +3803,11 @@ msgstr "Določiti morate kategorije za seznam."
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:269
-#, c-format, fuzzy
+#, c-format
 msgid "No component found in categories %s."
 msgstr "V kategorijah %s ni bilo mogoče najti nobene komponente."
 
 #: tools/ascli-actions-mdata.c:352
-#, fuzzy
 msgid "You need to specify a metadata file."
 msgstr "Določiti morate datoteko z metapodatki."
 
@@ -3886,7 +3821,7 @@ msgid "You need to specify an input and output file."
 msgstr "Določiti morate vhodno in izhodno datoteko."
 
 #: tools/ascli-actions-mdata.c:393
-#, c-format, fuzzy
+#, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "Datoteka z metapodatki »%s« ne obstaja."
 
@@ -3918,19 +3853,19 @@ msgid "The .desktop file '%s' does not exist."
 msgstr "Datoteka .desktop »%s« ne obstaja."
 
 #: tools/ascli-actions-mdata.c:511
-#, c-format, fuzzy
+#, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Datoteke .desktop ni mogoče prebrati: %s"
 
 #: tools/ascli-actions-mdata.c:601
-#, c-format, fuzzy
+#, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr "Datoteke z metainformacijami predloge ni mogoče ustvariti: %s"
+msgstr "Predloge datoteke z metapodatki ni mogoče izdelati: %s"
 
 #: tools/ascli-actions-mdata.c:610
-#, c-format, fuzzy
+#, c-format
 msgid "Unable to save the template metainfo file: %s"
-msgstr "Datoteke z metainformacijami predloge ni mogoče shraniti: %s"
+msgstr "Predloge datoteke z metapodatki ni mogoče shraniti: %s"
 
 #: tools/ascli-actions-mdata.c:650
 #, fuzzy
@@ -3956,7 +3891,7 @@ msgstr "Metainfo datoteka '%s' ne obstaja."
 
 #. TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system.
 #: tools/ascli-actions-mdata.c:743
-#, c-format, fuzzy
+#, c-format
 msgid "Relation check for: %s"
 msgstr "Preverjanje relacije za: %s"
 
@@ -4006,9 +3941,8 @@ msgstr "Tablični računalnik"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:806
-#, fuzzy
 msgid "Handset"
-msgstr "Slušalko"
+msgstr "Slušalka"
 
 #: tools/ascli-actions-mdata.c:808
 msgid "Unknown"
@@ -4016,7 +3950,7 @@ msgstr "Neznano"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
 #: tools/ascli-actions-mdata.c:875
-#, c-format, fuzzy
+#, c-format
 msgid "Chassis compatibility check for: %s"
 msgstr "Preverjanje združljivosti ohišja za: %s"
 
@@ -4045,13 +3979,11 @@ msgstr "Viri metapodatkov OS:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:59
-#, fuzzy
 msgid "No OS metadata found. This is unusual."
-msgstr "Metapodatkov operacijskega sistema ni mogoče najti. To je nenavadno."
+msgstr "Metapodatkov op. sistema ni mogoče najti. To je nenavadno."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:62
-#, fuzzy
 msgid "Other metadata sources:"
 msgstr "Drugi viri metapodatkov:"
 
@@ -4066,44 +3998,43 @@ msgid "Summary:"
 msgstr "Povzetek:"
 
 #: tools/ascli-actions-misc.c:86
-#, c-format, fuzzy
+#, c-format
 msgid "We have information on %i software components."
 msgstr "Imamo informacije o %i komponentah programske opreme."
 
 #: tools/ascli-actions-misc.c:91
-#, c-format, fuzzy
+#, c-format
 msgid "Error while loading the metadata pool: %s"
-msgstr "Napaka pri nalaganju zbirke metapodatkov: %s"
+msgstr "Napaka pri nalaganju zaloge metapodatkov: %s"
 
 #: tools/ascli-actions-misc.c:118 tools/ascli-actions-misc.c:463
 msgid "You need to specify a metainfo file as input."
 msgstr "Kot vhod morate določiti datoteko metapodatkov."
 
 #: tools/ascli-actions-misc.c:123
-#, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "Določiti morate datoteko za vnos namizja, ki jo želite ustvariti ali povečati kot izhod."
+msgstr "Določiti morate datoteko za vnos namizja, ki jo želite ustvariti ali dopolniti kot izhod."
 
 #: tools/ascli-actions-misc.c:152
-#, c-format, fuzzy
+#, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr "Razširitev obstoječe datoteke za vnos namizja »%s« s podatki iz »%s«."
+msgstr "Dopolnitev obstoječe datoteke za vnos namizja »%s« s podatki iz »%s«."
 
 #: tools/ascli-actions-misc.c:161
-#, c-format, fuzzy
+#, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr "Ni mogoče naložiti obstoječe predloge namizne datoteke: %s"
+msgstr "Ni mogoče naložiti obstoječe predloge datoteke za vnos namizja: %s"
 
 #: tools/ascli-actions-misc.c:166
-#, c-format, fuzzy
+#, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr "Ustvarjanje nove datoteke za vnos namizja '%s' z uporabo podatkov iz '%s'"
+msgstr "Ustvarjanje nove datoteke za vnos namizja »%s« z uporabo podatkov iz »%s«"
 
 #: tools/ascli-actions-misc.c:226
 #, fuzzy
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr "V datoteki metainfo ni bilo navedeno ime ikone zaloge. Ne morem nadaljevati."
+msgstr "V datoteki metainfo ni bilo navedeno ime ikone iz zaloge. Ni možno nadaljevati."
 
 #: tools/ascli-actions-misc.c:250
 #, fuzzy
