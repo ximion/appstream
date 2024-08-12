@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2024-08-11 02:09+0000\n"
+"PO-Revision-Date: 2024-08-12 05:09+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
 "Language: sl\n"
@@ -1870,11 +1870,10 @@ msgstr "Zdi se, da stik za posodabljanje ni veljaven e-poštni naslov (pobeg '@'
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:217
-#, fuzzy
 msgid ""
 "The `environment` property is set to an unrecognized graphical environment/"
 "style combination."
-msgstr "Lastnost »okolje« je nastavljena na neprepoznano grafično kombinacijo okolja/sloga."
+msgstr "Lastnost »environment« je nastavljena na neprepoznano grafično kombinacijo okolja/sloga."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:223
@@ -2024,39 +2023,34 @@ msgstr "Našli ste neznano oznako v skupini zahteva/priporočila. To je verjetno
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:363
-#, fuzzy
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr "Postavka »zahteva« ali »priporoča« zahteva vrednost, ki označuje veljavno razmerje."
+msgstr "Postavka »requires« ali »recommends« zahteva vrednost, ki označuje veljavno razmerje."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:369
-#, fuzzy
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr "Najdena lastnost »različica« na zahtevanem/priporočenem elementu vrste, ki ne bi smel imeti ali zahtevati različice."
+msgstr "Najdena lastnost »version« na zahtevanem/priporočenem elementu vrste, ki ne bi smel imeti ali zahtevati različice."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:375
-#, fuzzy
 msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr "Najdena lastnost »različica« za ta zahtevani/priporočeni element, ne pa tudi lastnosti »primerjava«. Priporočljivo je, da izrecno določite postopek primerjave."
+msgstr "Najdena lastnost »version« za ta zahtevani/priporočeni element, ne pa tudi lastnosti »compare«. Priporočljivo je, da izrecno določite postopek primerjave."
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:381
-#, fuzzy
 msgid ""
 "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
 "ge` is permitted."
-msgstr "Neveljavna primerjava elementa relacije. Dovoljena je samo ena od \"eq/ne/lt/gt/le/ge\"."
+msgstr "Neveljavna primerjava elementa relacije. Dovoljena je smo ena izmed vrednosti »eq/ne/lt/gt/le/ge«."
 
 #: src/as-validator-issue-tag.h:386
-#, fuzzy
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
@@ -2134,54 +2128,46 @@ msgstr "Element »pomnilnik« mora vsebovati samo celo število, ki ni nič, ki 
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:443
-#, fuzzy
 msgid "The set tag value is not valid for an `internet` relation."
-msgstr "Nastavljena vrednost oznake ni veljavna za 'internetno' relacijo."
+msgstr "Nastavljena vrednost oznake ni veljavna za relacijo »internet«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:449
-#, fuzzy
 msgid ""
 "The `bandwidth_mbitps` property is not allowed when using `offline-only` as "
 "value."
-msgstr "Lastnost »bandwidth_mbitps« ni dovoljena, če kot vrednost uporabljate »samo brez povezave«."
+msgstr "Lastnost »bandwidth_mbitps« ni dovoljena, če kot vrednost uporabljate »offline-only«."
 
 #: src/as-validator-issue-tag.h:454
-#, fuzzy
 msgid ""
 "The value of this property must be a positive integer value, describing the "
 "minimum required bandwidth in mbit/s."
 msgstr "Vrednost te lastnosti mora biti pozitivno celo število, ki opisuje najmanjšo zahtevano pasovno širino v mbit/s."
 
 #: src/as-validator-issue-tag.h:459
-#, fuzzy
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
 msgstr "Nastavljena vrsta komponente ni prepoznana, veljavna vrsta komponente AppStream."
 
 #: src/as-validator-issue-tag.h:464
-#, fuzzy
 msgid ""
 "The component has a priority value set. This is not allowed in metainfo "
 "files."
-msgstr "Komponenta ima nastavljeno prednostno vrednost. To ni dovoljeno v metainfo datotekah."
+msgstr "Komponenta ima nastavljeno prednostno vrednost. To ni dovoljeno v datotekah metainfo."
 
 #: src/as-validator-issue-tag.h:469
-#, fuzzy
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
-msgstr "Komponenta ima definirano metodo »združevanja«. To ni dovoljeno v metainfo datotekah."
+msgstr "Komponenta ima definirano metodo »merge«. To ni dovoljeno v datotekah metainfo."
 
 #: src/as-validator-issue-tag.h:474
-#, fuzzy
 msgid "The component is missing an ID (<id/> tag)."
-msgstr "Komponenti manjka ID (<id/> oznaka)."
+msgstr "Komponenti manjka ID (oznaka <id/>)."
 
 #: src/as-validator-issue-tag.h:479
-#, fuzzy
 msgid "The component is missing a name (<name/> tag)."
-msgstr "Komponenti manjka ime (<name/> oznaka)."
+msgstr "Komponenti manjka ime (oznaka <name/>)."
 
 #: src/as-validator-issue-tag.h:484
 #, fuzzy
@@ -2191,9 +2177,8 @@ msgid ""
 msgstr "Ime te komponente je predolgo in ga verjetno ni mogoče pravilno prikazati v večini postavitev."
 
 #: src/as-validator-issue-tag.h:489
-#, fuzzy
 msgid "The component is missing a summary (<summary/> tag)."
-msgstr "Komponenti manjka povzetek (<summary/> oznaka)."
+msgstr "Komponenti manjka povzetek (oznaka <summary/>)."
 
 #: src/as-validator-issue-tag.h:494
 #, fuzzy
@@ -2203,32 +2188,27 @@ msgid ""
 msgstr "Oznaka <id/> še vedno vsebuje lastnost »vrsta«, verjetno iz stare pretvorbe v nedavno obliko zapisa metainformacij."
 
 #: src/as-validator-issue-tag.h:499
-#, fuzzy
 msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
 "defining multiple package names per component."
-msgstr "Oznaka 'pkgname' se prikaže večkrat. Ovrednotite ustvarjanje metapaketa, ki vsebuje metainfo in .desktop datoteke, da se izognete določanju več imen paketov na komponento."
+msgstr "Oznaka »pkgname« se prikaže večkrat. Ovrednotite ustvarjanje metapaketa, ki vsebuje datoteki metainfo in .desktop, da se izognete določanju več imen paketov na komponento."
 
 #: src/as-validator-issue-tag.h:504
-#, fuzzy
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr "Ime komponente se (verjetno) ne sme končati s piko ('.')."
+msgstr "Ime komponente se (verjetno) ne sme končati s piko (».«)."
 
 #: src/as-validator-issue-tag.h:509
-#, fuzzy
 msgid "The component summary should not end with a dot (`.`)."
-msgstr "Povzetek komponent se ne sme končati s piko ('.')."
+msgstr "Povzetek komponente se ne sme končati s piko (».«)."
 
 #: src/as-validator-issue-tag.h:514
-#, fuzzy
 msgid "The component summary must not contain tabs or linebreaks."
 msgstr "Povzetek komponente ne sme vsebovati tabulatorjev ali prelomov vrstic."
 
 #: src/as-validator-issue-tag.h:519
-#, fuzzy
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr "Povzetek ne sme vsebovati URL-ja. Uporabite oznake »<url/>« za povezave."
+msgstr "Povzetek ne sme vsebovati URL-jev. Uporabite oznake »<url/>« za povezave."
 
 #: src/as-validator-issue-tag.h:524
 #, fuzzy
@@ -2259,26 +2239,22 @@ msgid "Icons of type `remote` must contain an URL to the referenced icon."
 msgstr "Ikone tipa »oddaljeno« morajo vsebovati URL do ikone, na katero se sklicuje."
 
 #: src/as-validator-issue-tag.h:547
-#, fuzzy
 msgid "Unable to reach remote icon at the given web location - does it exist?"
-msgstr "Ni mogoče doseči oddaljene ikone na dani spletni lokaciji - ali obstaja?"
+msgstr "Ni mogoče doseči oddaljene ikone na danem spletnem mestu - ali obstaja?"
 
 #: src/as-validator-issue-tag.h:552
-#, fuzzy
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
 msgstr "Razmislite o uporabi varnega URL-ja (HTTPS) za povezavo do oddaljene ikone."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:558
-#, fuzzy
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr "Metainfo datoteke lahko vsebujejo samo ikone tipa 'zaloga' ali 'oddaljeno', vrsta nastavka ni dovoljena."
+msgstr "Datoteke metainfo lahko vsebujejo samo ikone vrste »stock« ali »remote«, nastavljena vrsta ni dovoljena."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:564
-#, fuzzy
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
@@ -2291,12 +2267,10 @@ msgid ""
 msgstr "Ne morete doseči oddaljene lokacije, na katero se sklicuje ta URL - ali obstaja?"
 
 #: src/as-validator-issue-tag.h:574
-#, fuzzy
 msgid "Consider using a secure (HTTPS) URL for this web link."
 msgstr "Razmislite o uporabi varnega URL-ja (HTTPS) za to spletno povezavo."
 
 #: src/as-validator-issue-tag.h:579
-#, fuzzy
 msgid "A web URL was expected for this value."
 msgstr "Za to vrednost je bil pričakovan spletni URL."
 
@@ -2329,19 +2303,17 @@ msgstr "Element »developer_name« najvišje ravni je zastarel. Namesto tega upo
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
-#, fuzzy
 msgid ""
 "This component contains no `developer` element with information about its "
 "author."
-msgstr "Ta komponenta ne vsebuje elementa \"razvijalec\" z informacijami o njegovem avtorju."
+msgstr "Ta komponenta ne vsebuje elementa »developer« z informacijami o njegovem avtorju."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:614
-#, fuzzy
 msgid ""
 "The `developer` element is missing an `id` property, containing a unique "
 "string ID for the developer. Consider adding a unique ID."
-msgstr "V elementu »razvijalec« manjka lastnost »id«, ki vsebuje edinstven ID niza za razvijalca. Razmislite o dodajanju edinstvenega ID-ja."
+msgstr "V elementu »developer« manjka lastnost »id«, ki vsebuje edinstven ID niza za razvijalca. Razmislite o dodajanju edinstvenega ID-ja."
 
 #: src/as-validator-issue-tag.h:620
 #, fuzzy
@@ -2374,19 +2346,16 @@ msgstr "Nastavljena vrednost ni identifikator za namizno okolje, ki je registrir
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:644
-#, fuzzy
 msgid "This `launchable` tag has an unknown type and can not be used."
-msgstr "Ta oznaka, ki jo je mogoče zagnati, ima neznano vrsto in je ni mogoče uporabiti."
+msgstr "Ta oznaka »launchable« ima neznano vrsto in je ni mogoče uporabiti."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:650
-#, fuzzy
 msgid "This `bundle` tag has an unknown type and can not be used."
-msgstr "Ta oznaka \"paket\" ima neznano vrsto in je ni mogoče uporabiti."
+msgstr "Ta oznaka »bundle« ima neznano vrsto in je ni mogoče uporabiti."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:656
-#, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
 msgstr "Oznaka »update_contact« ne sme biti vključena v XML kataloga AppStream."
@@ -2737,39 +2706,33 @@ msgid ""
 msgstr "Datoteke z metapodatki lokalne izdaje ni bilo mogoče najti. Zelo priporočljivo je, da te metapodatke potrdite skupaj z glavno datoteko MetaInfo."
 
 #: src/as-validator-issue-tag.h:936
-#, fuzzy
 msgid "The value set as release urgency is not a known urgency value."
 msgstr "Vrednost, nastavljena kot nujnost izdaje, ni znana vrednost nujnosti."
 
 #: src/as-validator-issue-tag.h:941
-#, fuzzy
 msgid "The value set as release type is invalid."
 msgstr "Vrednost, nastavljena kot vrsta izdaje, ni veljavna."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:947
-#, fuzzy
 msgid "The release is missing the `version` property."
-msgstr "V izdaji manjka lastnost »različica«."
+msgstr "V izdaji manjka lastnost »version«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:953
-#, fuzzy
 msgid ""
 "The release is missing either the `date` (preferred) or the `timestamp` "
 "property."
-msgstr "V izdaji manjka lastnost »datum« (prednostno) ali »časovni žig«."
+msgstr "V izdaji manjka lastnost »date« (datum, prednostno) ali »timestamp« (časovni žig)."
 
 #: src/as-validator-issue-tag.h:958
-#, fuzzy
 msgid "The release timestamp is invalid."
 msgstr "Časovni žig izdaje je neveljaven."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:964
-#, fuzzy
 msgid "The release description must be put inside a `description` tag"
-msgstr "Opis izdaje mora biti vstavljen v oznako 'description'"
+msgstr "Opis izdaje mora biti vstavljen v oznako »description«"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:970
@@ -2793,18 +2756,15 @@ msgid ""
 msgstr "Triplet platforme za to izdajo ni veljaven. Biti mora v obliki 'architecture-oskernel-osenv' - za več informacij in veljavnih polj si oglejte dokumentacijo AppStream ali informacije o normaliziranih GNU tripletih."
 
 #: src/as-validator-issue-tag.h:987
-#, fuzzy
 msgid "The selected checksumming algorithm is unsupported or unknown."
 msgstr "Izbrani algoritem za kontrolno vsoto ni podprt ali ni znan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:993
-#, fuzzy
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr "Vrsta velikosti ni znana. Mora biti »download« ali »nameščen«."
+msgstr "Vrsta velikosti ni znana. Mora biti »download« ali »installed«."
 
 #: src/as-validator-issue-tag.h:998
-#, fuzzy
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
@@ -2865,7 +2825,6 @@ msgid ""
 msgstr "Ker je komponenta 'runtime' sestavljena iz več drugih komponent programske opreme, so lahko njihovi ID-ji komponent navedeni v razdelku '<provides/>' za ta izvajalnik."
 
 #: src/as-validator-issue-tag.h:1043
-#, fuzzy
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr "Vrsta elementa, ki ga ponuja komponenta, ni znana AppStreamu."
@@ -2890,59 +2849,50 @@ msgstr "Ta komponenta nima oznake »content_rating«, ki bi zagotavljala podatke
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1063
-#, fuzzy
 msgid ""
 "The `type` attribute of this `content_rating` element is missing or empty."
-msgstr "Atribut 'type' tega elementa 'content_rating' manjka ali je prazen."
+msgstr "Atribut »type« tega elementa »content_rating« manjka ali je prazen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1069
-#, fuzzy
 msgid ""
 "The `type` attribute of the `content_rating` element has an invalid value."
 msgstr "Atribut »type« elementa »content_rating« ima neveljavno vrednost."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1075
-#, fuzzy
 msgid "The `content_rating` tag can only contain `content_attribute` children."
-msgstr "Oznaka »content_rating« lahko vsebuje samo »content_attribute«."
+msgstr "Oznaka »content_rating« lahko vsebuje samo podrejene oznake »content_attribute«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1081
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element is missing or empty."
 msgstr "Atribut »id« elementa »content_attribute« manjka ali je prazen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1087
-#, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element has an invalid value."
 msgstr "Atribut »id« elementa »content_attribute« ima neveljavno vrednost."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1093
-#, fuzzy
 msgid "The `content_attribute` tag needs a value."
 msgstr "Oznaka »content_attribute« potrebuje vrednost."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1099
-#, fuzzy
 msgid "The `content_attribute` tag value is unknown."
 msgstr "Vrednost oznake »content_attribute« ni znana."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1105
-#, fuzzy
 msgid "The `content_attribute` tag value is invalid for the given id."
 msgstr "Vrednost oznake »content_attribute« je neveljavna za dani ID."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1111
-#, fuzzy
 msgid "A `content_attribute` tag with this ID has already been defined."
 msgstr "Oznaka »content_attribute« s tem ID-jem je že določena."
 
