@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2024-08-12 05:09+0000\n"
+"PO-Revision-Date: 2024-08-13 04:09+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
 "Language: sl\n"
@@ -2211,14 +2211,12 @@ msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
 msgstr "Povzetek ne sme vsebovati URL-jev. Uporabite oznake »<url/>« za povezave."
 
 #: src/as-validator-issue-tag.h:524
-#, fuzzy
 msgid ""
 "The summary text does not start with a capitalized word, project name or "
 "number."
 msgstr "Besedilo povzetka se ne začne z veliko začetnico, imenom projekta ali številko."
 
 #: src/as-validator-issue-tag.h:529
-#, fuzzy
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
 "everywhere."
@@ -2226,17 +2224,15 @@ msgstr "Povzetek besedila je zelo dolg in verjetno ne bo povsod pravilno prikaza
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:535
-#, fuzzy
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr "Ikone tipa »zaloga« ali »predpomnjeni« ne smejo vsebovati URL-ja, celotne ali relativne poti do ikone. Dovoljena so samo osnovna imena datotek ali imena delnic."
+msgstr "Ikone vrste »stock« (iz zaloge) ali »cached« (predpomnjene) ne smejo vsebovati URL-ja, celotne ali relativne poti do ikone. Dovoljena so samo osnovna imena datotek ali standardna imena."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:542
-#, fuzzy
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
-msgstr "Ikone tipa »oddaljeno« morajo vsebovati URL do ikone, na katero se sklicuje."
+msgstr "Ikone vrste »remote« morajo vsebovati URL do ikone, na katero se sklicuje."
 
 #: src/as-validator-issue-tag.h:547
 msgid "Unable to reach remote icon at the given web location - does it exist?"
@@ -2261,7 +2257,6 @@ msgid ""
 msgstr "Neveljavna lastnost »type« za to oznako »url«. URL-ji te vrste niso znani v specifikaciji AppStream."
 
 #: src/as-validator-issue-tag.h:569
-#, fuzzy
 msgid ""
 "Unable to reach remote location that this URL references - does it exist?"
 msgstr "Ne morete doseči oddaljene lokacije, na katero se sklicuje ta URL - ali obstaja?"
@@ -2275,13 +2270,11 @@ msgid "A web URL was expected for this value."
 msgstr "Za to vrednost je bil pričakovan spletni URL."
 
 #: src/as-validator-issue-tag.h:584
-#, fuzzy
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
 msgstr "Ta spletna povezava uporablja protokol FTP. Namesto tega razmislite o prehodu na HTTP(S)."
 
 #: src/as-validator-issue-tag.h:589
-#, fuzzy
 msgid "An URL of this type has already been defined."
 msgstr "URL te vrste je že določen."
 
@@ -2333,9 +2326,8 @@ msgstr "Blok »razvijalec« nima elementa »ime« z človeško berljivim imenom 
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:633
-#, fuzzy
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr "Podrejeni element »ime« bloka »razvijalec« ne sme vsebovati hiperpovezave."
+msgstr "Podrejeni element »name« bloka »developer« ne sme vsebovati hiperpovezave."
 
 #: src/as-validator-issue-tag.h:638
 #, fuzzy
@@ -2387,28 +2379,24 @@ msgid ""
 msgstr "Manjka bistvena oznaka \"metadata_license\". Licenco za same metapodatke je treba vedno opredeliti."
 
 #: src/as-validator-issue-tag.h:680
-#, fuzzy
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
 msgstr "Komponenti manjka dolg opis. Komponente te vrste morajo imeti dolg opis."
 
 #: src/as-validator-issue-tag.h:685
-#, fuzzy
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
 msgstr "Koristno bi bilo dodati dolg opis tej pisavi, da bi jo bolje predstavili uporabnikom."
 
 #: src/as-validator-issue-tag.h:690
-#, fuzzy
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
 msgstr "Priporočljivo je, da tej komponenti dodate dolg opis, da jo bolje predstavite uporabnikom."
 
 #: src/as-validator-issue-tag.h:695
-#, fuzzy
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
@@ -2486,17 +2474,15 @@ msgstr "Vnesite komponento \"voznik\", vendar informacije o modalijah niso bile 
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:756
-#, fuzzy
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr "Določena je oznaka 'extends', vendar komponenta ni tipa 'adddon', 'localization' ali 'repository'."
+msgstr "Določena je oznaka »extends«, vendar komponenta ni vrste »adddon«, »localization« ali »repository«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:762
-#, fuzzy
 msgid "The component is an addon, but no `extends` tag was specified."
-msgstr "Komponenta je dodatek, vendar oznaka 'extends' ni bila določena."
+msgstr "Komponenta je dodatek, vendar oznaka »extends« ni bila določena."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:768
@@ -2508,26 +2494,23 @@ msgstr "Tej komponenti 'lokalizacije' manjka oznaka 'extends', da bi določila k
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:774
-#, fuzzy
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
-msgstr "Ta komponenta 'lokalizacije' ne opredeljuje jezikov, za katere je ta lokalizacija namenjena."
+msgstr "Ta komponenta »localisation« ne opredeljuje jezikov, katerim je ta lokalizacija namenjena."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:780
-#, fuzzy
 msgid ""
 "This `service` component is missing a `launchable` tag of type `service`."
-msgstr "Tej komponenti 'service' manjka oznaka 'launchable' tipa 'service'."
+msgstr "Tej komponenti »service« manjka oznaka »launchable« vrste »service«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:786
-#, fuzzy
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
-msgstr "Predlogi katere koli vrste, razen 'navzgor', niso dovoljeni v metainfo datotekah."
+msgstr "Predlogi katere koli vrste, razen »upstream«, niso dovoljeni v datotekah metainfo."
 
 #: src/as-validator-issue-tag.h:791
 #, fuzzy
@@ -2553,7 +2536,6 @@ msgid ""
 msgstr "Ta komponenta ni v veljavnih kategorijah, čeprav bi morala biti. Prosimo, preverite njegovo metainfo datoteko in datoteko za vnos na namizju."
 
 #: src/as-validator-issue-tag.h:807
-#, fuzzy
 msgid "The screenshot caption is too long (should be <= 100 characters)"
 msgstr "Napis posnetka zaslona je predolg (mora biti <= 100 znakov)"
 
@@ -2567,30 +2549,26 @@ msgstr "XML te datoteke je nepravilen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:823
-#, fuzzy
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr "Neveljavna oznaka je bila najdena v metapodatkih kataloga. Dovoljene so samo oznake 'komponente'."
+msgstr "Neveljavna oznaka je bila najdena v metapodatkih kataloga. Dovoljene so samo oznake »component«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:829
-#, fuzzy
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher). "
 "Modern files use the `component` root tag and include many other "
 "differences, so check for changes carefully when modernizing the data."
-msgstr "Metainfo datoteka uporablja starodavno različico specifikacije AppStream, ki je ni mogoče preveriti. Prosimo, preselite ga na različico 0.6 (ali novejšo različico). Sodobne datoteke uporabljajo korensko oznako »komponenta« in vključujejo številne druge razlike, zato pri posodabljanju podatkov skrbno preverite spremembe."
+msgstr "Datoteka Metainfo uporablja starodavno različico specifikacije AppStream, ki je ni mogoče preveriti. Prosimo, migrirajte jo na različico 0.6 (ali novejšo). Sodobne datoteke uporabljajo korensko oznako »component« in vključujejo številne druge razlike, zato pri posodabljanju podatkov skrbno preverite spremembe."
 
 #: src/as-validator-issue-tag.h:835
-#, fuzzy
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
-msgstr "Ta dokument XML ima neznano korensko oznako. Morda ta datoteka ni metainfo dokument?"
+msgstr "Ta dokument XML ima neznano korensko oznako. Morda ta datoteka ni dokument metainfo?"
 
 #: src/as-validator-issue-tag.h:840
-#, fuzzy
 msgid "The metainfo filename does not match the component ID."
 msgstr "Ime datoteke metainfo se ne ujema z ID-jem komponente."
 
@@ -2600,31 +2578,26 @@ msgid "Unable to load the desktop-entry file associated with this component."
 msgstr "Ni mogoče naložiti namizne datoteke, povezane s to komponento."
 
 #: src/as-validator-issue-tag.h:850
-#, fuzzy
 msgid "This component metadata refers to a non-existing .desktop file."
 msgstr "Ti metapodatki komponente se nanašajo na neobstoječo datoteko .desktop."
 
 #: src/as-validator-issue-tag.h:855
-#, fuzzy
 msgid ""
 "A category defined in the desktop-entry file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
 msgstr "Kategorija, ki je določena v datoteki za vnos na namizju, ni veljavna. Za seznam veljavnih kategorij glejte specifikacijo menija XDG."
 
 #: src/as-validator-issue-tag.h:860
-#, fuzzy
 msgid "Error while reading some data from the desktop-entry file."
 msgstr "Napaka pri branju nekaterih podatkov iz datoteke za vnos na namizju."
 
 #: src/as-validator-issue-tag.h:865
-#, fuzzy
 msgid ""
 "The value of this desktop-entry field contains invalid or non-printable "
 "UTF-8 characters, which can not be displayed properly."
-msgstr "Vrednost tega namiznega polja vsebuje neveljavne znake UTF-8 ali znake, ki jih ni mogoče natisniti, ki jih ni mogoče pravilno prikazati."
+msgstr "Vrednost tega polja namiznega vnosa vsebuje neveljavne znake UTF-8 ali znake, ki jih ni mogoče natisniti in ki jih ni mogoče pravilno prikazati."
 
 #: src/as-validator-issue-tag.h:870
-#, fuzzy
 msgid ""
 "This desktop-entry field value is quoted, which is likely unintentional."
 msgstr "Ta vrednost polja za vnos na namizju je navedena v narekovajih, kar je verjetno nenamerno."
@@ -2648,22 +2621,19 @@ msgid ""
 msgstr "Ta datoteka za vnos namizja ima lastnost »OnlyShowIn« s prazno vrednostjo. To morda ni namenjeno, saj bo to skrilo aplikacijo pred vsemi namizji. Če želite skriti aplikacijo pred vsemi namizji, je uporaba 'NoDisplay=true' bolj eksplicitna."
 
 #: src/as-validator-issue-tag.h:887
-#, fuzzy
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr "V tem imeniku ali drevesu imenika ni bilo mogoče najti metapodatkov AppStream."
+msgstr "V tej mapi ali drevesu mape ni bilo mogoče najti metapodatkov AppStream."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:892
-#, fuzzy
 msgid "No XDG applications directory found."
-msgstr "Ni bilo mogoče najti imenika aplikacij XDG."
+msgstr "Ni bilo mogoče najti imenika programov XDG."
 
 #: src/as-validator-issue-tag.h:897
-#, fuzzy
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr "Metainfo datoteka je shranjena v podedovani poti. Prosimo, postavite ga v '/usr/share/metainfo/'."
+msgstr "Datoteka metainfo je shranjena v podedovani poti. Prosimo, postavite jo v »/usr/share/metainfo/«."
 
 #: src/as-validator-issue-tag.h:902
 #, fuzzy
@@ -2688,7 +2658,6 @@ msgid ""
 msgstr "Vrsta bloka sprostitev je neveljavna. Mora biti »vdelana« (privzeta) ali »zunanja«."
 
 #: src/as-validator-issue-tag.h:920
-#, fuzzy
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
@@ -2699,11 +2668,10 @@ msgid "Failed to download release metadata."
 msgstr "Prenos metapodatkov o izdaji ni uspel."
 
 #: src/as-validator-issue-tag.h:930
-#, fuzzy
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
-msgstr "Datoteke z metapodatki lokalne izdaje ni bilo mogoče najti. Zelo priporočljivo je, da te metapodatke potrdite skupaj z glavno datoteko MetaInfo."
+msgstr "Datoteke z metapodatki krajevne izdaje ni bilo mogoče najti. Zelo priporočljivo je, da te metapodatke potrdite skupaj z glavno datoteko MetaInfo."
 
 #: src/as-validator-issue-tag.h:936
 msgid "The value set as release urgency is not a known urgency value."
@@ -2736,11 +2704,10 @@ msgstr "Opis izdaje mora biti vstavljen v oznako »description«"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:970
-#, fuzzy
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr "Vrednost, nastavljena kot vrsta artefakta, ni veljavna. Mora biti 'vir' ali 'binarni'."
+msgstr "Vrednost, nastavljena kot vrsta artefakta, ni veljavna. Mora biti »source« ali »binary«."
 
 #: src/as-validator-issue-tag.h:975
 #, fuzzy
@@ -2927,7 +2894,6 @@ msgid ""
 msgstr "Ime lastnosti barvne sheme je napačno. Moralo bi biti \"scheme_preference\"."
 
 #: src/as-validator-issue-tag.h:1144
-#, fuzzy
 msgid "This color is not a valid HTML color code."
 msgstr "Ta barva ni veljavna barvna koda HTML."
 
@@ -2968,29 +2934,24 @@ msgid ""
 msgstr "Register za to referenčno postavko ni znan. To je lahko posledica tipkarske napake ali pa mora biti register registriran pri AppStream."
 
 #: src/as-validator-issue-tag.h:1176
-#, fuzzy
 msgid "The reference item is missing a value."
 msgstr "V referenčnem elementu manjka vrednost."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1182
-#, fuzzy
 msgid "The `custom` tag can only contain `value` children."
-msgstr "Oznaka »po meri« lahko vsebuje samo podrejene oznake »vrednost«."
+msgstr "Oznaka »custom« lahko vsebuje samo podrejene oznake »value«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1188
-#, fuzzy
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr "Tej vrednosti oznake po meri manjka atribut »ključ«."
+msgstr "Tej vrednosti oznake »custom« manjka atribut »key«."
 
 #: src/as-validator-issue-tag.h:1193
-#, fuzzy
 msgid "A key can only be used once."
 msgstr "Ključ lahko uporabite samo enkrat."
 
 #: src/as-validator-issue-tag.h:1198
-#, fuzzy
 msgid "This custom value is empty."
 msgstr "Ta vrednost po meri je prazna."
 
@@ -3209,9 +3170,9 @@ msgstr "Sprejemanje samo komponent: %s"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:476
-#, c-format, fuzzy
+#, c-format
 msgid "Only accepting component: %s"
-msgstr "Edina komponenta, ki jo sprejemajo: %s"
+msgstr "Edina sprejemljiva komponenta: %s"
 
 #. TRANSLATORS: Information about as-compose units to be processed
 #: tools/appstream-compose.c:481
@@ -3311,13 +3272,11 @@ msgstr "Neuspešna potrditev, če se sproži kakršna koli težava, ki ni pedant
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:155
-#, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr "Oblika ustvarjenega poročila (veljavni vrednosti sta »besedilo« in »yaml«)."
+msgstr "Oblika ustvarjenega poročila (veljavni vrednosti sta »text« in »yaml«)."
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:161
-#, fuzzy
 msgid "Override the severities of selected issue tags."
 msgstr "Preglasite resnost izbranih oznak težav."
 
@@ -3680,12 +3639,10 @@ msgid "Only refreshing metadata cache specific to the current user."
 msgstr "Samo osveževanje predpomnilnika metapodatkov, ki je specifičen za trenutnega uporabnika."
 
 #: tools/ascli-actions-mdata.c:62
-#, fuzzy
 msgid "Updating software metadata cache for the operating system."
 msgstr "Posodabljanje predpomnilnika metapodatkov programske opreme za operacijski sistem."
 
 #: tools/ascli-actions-mdata.c:66
-#, fuzzy
 msgid "Updating software metadata cache for Flatpak."
 msgstr "Posodabljanje predpomnilnika metapodatkov programske opreme za Flatpak."
 
@@ -3791,7 +3748,7 @@ msgstr "Za ustvarjanje predloge morate navesti vrsto komponente programske oprem
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
 #: tools/ascli-actions-mdata.c:484
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
@@ -3818,11 +3775,10 @@ msgid "Unable to save the template metainfo file: %s"
 msgstr "Predloge datoteke z metapodatki ni mogoče shraniti: %s"
 
 #: tools/ascli-actions-mdata.c:650
-#, fuzzy
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr "Ni mogoče preveriti velikosti zaslona: Informacij ni mogoče prebrati brez dostopa do kompleta orodij GUI."
+msgstr "Ni mogoče preveriti velikosti zaslona: informacij ni mogoče prebrati brez dostopa do kompleta orodjarne up. vmesnika."
 
 #: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
 msgid "ERROR"
@@ -3835,9 +3791,9 @@ msgstr "Določiti morate ime datoteke MetaInfo ali ID komponente."
 #: tools/ascli-actions-mdata.c:714 tools/ascli-actions-mdata.c:838
 #: tools/ascli-actions-misc.c:133 tools/ascli-actions-misc.c:402
 #: tools/ascli-actions-misc.c:474
-#, c-format, fuzzy
+#, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr "Metainfo datoteka '%s' ne obstaja."
+msgstr "Datoteka metainfo »%s« ne obstaja."
 
 #. TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system.
 #: tools/ascli-actions-mdata.c:743
@@ -3982,19 +3938,17 @@ msgid "Creating new desktop-entry file '%s' using data from '%s'"
 msgstr "Ustvarjanje nove datoteke za vnos namizja »%s« z uporabo podatkov iz »%s«"
 
 #: tools/ascli-actions-misc.c:226
-#, fuzzy
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
 msgstr "V datoteki metainfo ni bilo navedeno ime ikone iz zaloge. Ni možno nadaljevati."
 
 #: tools/ascli-actions-misc.c:250
-#, fuzzy
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
-msgstr "V datoteki metainfo ni navedena binarna datoteka in noben ukaz exec, določen prek '--exec'. Ne morem ustvariti ključa 'Exec='."
+msgstr "V datoteki metainfo ni navedena binarna datoteka in noben ukaz exec, določen prek »--exec«. Ni možno ustvariti ključa »Exec=«."
 
 #: tools/ascli-actions-misc.c:330
-#, c-format, fuzzy
+#, c-format
 msgid "Unable to save desktop entry file: %s"
 msgstr "Ni mogoče shraniti datoteke za vnos namizja: %s"
 
