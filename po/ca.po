@@ -20,6 +20,7 @@
 # Robert Antoni Buj Gelonch <robert.buj@gmail.com>, 2021.
 # Jordi Mas <jmas@softcatala.org>, 2022.
 # Maite Guix <maite.guix@gmail.com>, 2022.
+# "Ícar N. S." <icar.nin@pm.me>, 2024.
 #
 # Translators:
 msgid ""
@@ -27,16 +28,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2022-09-16 05:17+0000\n"
-"Last-Translator: Maite Guix <maite.guix@gmail.com>\n"
-"Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
-"translations/ca/>\n"
+"PO-Revision-Date: 2024-08-13 19:09+0000\n"
+"Last-Translator: \"Ícar N. S.\" <icar.nin@pm.me>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/translations/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -609,7 +609,7 @@ msgstr "Nuesa prolongada"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:924
 msgid "Explicit nudity involving visible sexual organs"
-msgstr ""
+msgstr "Nuesa explícita amb òrgans sexuals visibles"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:929
@@ -775,9 +775,8 @@ msgstr "Sense possibilitat de parlar amb els altres usuaris"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1019
-#, fuzzy
 msgid "Moderated audio or video chat functionality between users"
-msgstr "Funcionalitat de xat d'àudio o vídeo no supervisada entre usuaris"
+msgstr "Funcionalitat de xat d'àudio o vídeo moderada entre usuaris"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1021
@@ -998,32 +997,31 @@ msgstr "La mida del fitxer recuperat era zero."
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
 #: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:77
 msgid "Cinnamon"
-msgstr ""
+msgstr "Cinnamon"
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
 #: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:79
 msgid "Deepin"
-msgstr ""
+msgstr "Deepin"
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
 #: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:81
 msgid "EDE"
-msgstr ""
+msgstr "EDE"
 
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #. TRANSLATORS: Name of the "endless" visual environment style.
 #: src/as-desktop-env-data.h:49 src/as-desktop-env-data.h:83
-#, fuzzy
 msgid "Endless"
-msgstr "Paquet"
+msgstr "Endless"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
 #: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #. TRANSLATORS: Name of the "KDE" desktop environment.
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
@@ -1031,83 +1029,83 @@ msgstr ""
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
 #: src/as-desktop-env-data.h:99
 msgid "KDE Plasma"
-msgstr ""
+msgstr "KDE Plasma"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
 #: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:89
 msgid "LXDE"
-msgstr ""
+msgstr "LXDE"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
 #: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:91
 msgid "LXQt"
-msgstr ""
+msgstr "LXQt"
 
 #. TRANSLATORS: Name of the "MATE" desktop environment.
 #: src/as-desktop-env-data.h:59
 msgid "MATE"
-msgstr ""
+msgstr "MATE"
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
 #: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:97
 msgid "Pantheon"
-msgstr ""
+msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
 #: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:103
 msgid "Razor"
-msgstr ""
+msgstr "Razor"
 
 #. TRANSLATORS: Name of the "ROX" desktop environment.
 #: src/as-desktop-env-data.h:67
 msgid "ROX"
-msgstr ""
+msgstr "ROX"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
 #: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:107
 msgid "Unity"
-msgstr ""
+msgstr "Unity"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
 #: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:111
 msgid "Xfce"
-msgstr ""
+msgstr "Xfce"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
 msgid "GNOME (Dark)"
-msgstr ""
+msgstr "GNOME (Fosc)"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:93
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:95
 msgid "Mate"
-msgstr ""
+msgstr "Mate"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:101
 msgid "Plasma Mobile"
-msgstr ""
+msgstr "Plasma Mòbil"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:105
 msgid "Rox"
-msgstr ""
+msgstr "Rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:109
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -1186,204 +1184,201 @@ msgstr "Component"
 
 #: src/as-relation.c:1350
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "dispositiu de punter (p. ex. un ratolí)"
 
 #: src/as-relation.c:1352
-#, fuzzy
 msgid "keyboard"
-msgstr "Tauler"
+msgstr "teclat"
 
 #: src/as-relation.c:1354
 msgid "gamepad"
-msgstr ""
+msgstr "comandament de videojocs"
 
 #: src/as-relation.c:1356
 msgid "tv remote"
-msgstr ""
+msgstr "comandament a distància de TV"
 
 #: src/as-relation.c:1358
 msgid "graphics tablet"
-msgstr ""
+msgstr "tauleta gràfica"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1363
-#, fuzzy, c-format
+#, c-format
 msgid "This software requires a %s for input."
-msgstr "Aquesta etiqueta requereix una propietat de tipus."
+msgstr "Aquesta programari requereix un/a %s com a mètode d'entrada."
 
 #: src/as-relation.c:1368
-#, fuzzy
 msgid "This software requires a touch input device."
-msgstr "Aquesta etiqueta requereix una propietat de tipus."
+msgstr "Aquesta programari requereix un dispositiu d'entrada tàctil."
 
 #: src/as-relation.c:1370
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Aquest programari requereix un micròfon per ser controlat mitjançant l'entrada de veu."
 
 #: src/as-relation.c:1372
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "Aquest programari requereix una càmera per al control de l'entrada."
 
 #: src/as-relation.c:1374
-#, fuzzy
 msgid "This software requires a method for console input."
-msgstr "Aquesta etiqueta requereix una propietat de tipus."
+msgstr "Aquesta programari requereix una un mètode d'entrada per la consola."
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1379
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "Aquest programari recomana un/a %s per a l'entrada."
 
 #: src/as-relation.c:1384
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "Aquest programari recomana un dispositiu d'entrada tàctil."
 
 #: src/as-relation.c:1386
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Aquest programari recomana un micròfon per ser controlar per l'entrada de veu."
 
 #: src/as-relation.c:1389
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "Aquest programari recomana una càmera per al control d'entrada."
 
 #: src/as-relation.c:1392
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "Aquest programari recomana un mètode per a l'entrada per consola."
 
 #: src/as-relation.c:1397
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "dispositius de punter (p. ex. ratolins)"
 
 #: src/as-relation.c:1399
 msgid "keyboards"
-msgstr ""
+msgstr "teclats"
 
 #: src/as-relation.c:1401
 msgid "gamepads"
-msgstr ""
+msgstr "comandaments de videojocs"
 
 #: src/as-relation.c:1403
 msgid "tv remotes"
-msgstr ""
+msgstr "comandaments a distància de TV"
 
 #: src/as-relation.c:1405
 msgid "graphics tablets"
-msgstr ""
+msgstr "tauletes gràfiques"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1409
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "Aquest programari suporta %s."
 
 #: src/as-relation.c:1413
 msgid "This software supports touch input."
-msgstr ""
+msgstr "Aquest programari suporta l'entrada tàctil."
 
 #: src/as-relation.c:1415
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "Aquest programari es pot controlar mitjançant l'entrada de veu."
 
 #: src/as-relation.c:1417
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "Aquest programari es pot controlar a través d'una càmera."
 
 #: src/as-relation.c:1420
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "Aquest programari admet l'operació mitjançant ordres de consola."
 
 #: src/as-relation.c:1433
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "S'ha trobat un dispositiu de punter (p. ex. un ratolí o un ratolí tàctil)."
 
 #: src/as-relation.c:1435
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "S'ha trobat un teclat físic."
 
 #: src/as-relation.c:1437
 msgid "Gamepad found."
-msgstr ""
+msgstr "S'ha trobat un comandament de videojocs."
 
 #: src/as-relation.c:1439
 msgid "TV remote found."
-msgstr ""
+msgstr "S'ha trobat un comandament a distància de TV."
 
 #: src/as-relation.c:1441
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "S'ha trobat una tauleta gràfica."
 
 #: src/as-relation.c:1444
 msgid "Touch input device found."
-msgstr ""
+msgstr "S'ha trobat un dispositiu d'entrada tàctil."
 
 #: src/as-relation.c:1446
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "S'ha trobat un micròfon per al control d'entrada per veu."
 
 #: src/as-relation.c:1448
 msgid "Camera for input control found."
-msgstr ""
+msgstr "S'ha trobat una càmera per al control de l'entrada."
 
 #: src/as-relation.c:1450
 msgid "Console interface available."
-msgstr ""
+msgstr "Interfície per consola disponible."
 
 #: src/as-relation.c:1511
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "S'ha trobat el programari «%s»"
 
 #: src/as-relation.c:1520
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Falta el component de programari necessari «%s»."
 
 #: src/as-relation.c:1524
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Falta el component de programari recomanat «%s»."
 
 #: src/as-relation.c:1528
-#, fuzzy, c-format
+#, c-format
 msgid "Found supported software component '%s'."
-msgstr "S'han trobat %i components."
+msgstr "S'ha trobat el component de programari compatible «%s»."
 
 #: src/as-relation.c:1561
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "S'ha trobat maquinari compatible amb aquest programari: «%s»"
 
 #: src/as-relation.c:1570
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "No s'ha trobat el maquinari necessari per a aquest programari al sistema: «%s»"
 
 #: src/as-relation.c:1575
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "No s'ha trobat el maquinari recomanat per a aquest programari al sistema: «%s»"
 
 #: src/as-relation.c:1580
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "Aquest programari admet maquinari no present al sistema: «%s»"
 
 #: src/as-relation.c:1619
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Aquest programari requereix un nucli %s, però aquest sistema està executant %s."
 
 #: src/as-relation.c:1625
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Aquest programari recomana un nucli %s, però aquest sistema està executant %s."
 
 #: src/as-relation.c:1631
-#, fuzzy, c-format
+#, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr "Aquesta etiqueta requereix una propietat de tipus."
+msgstr "Aquest programari és compatible només amb un nucli %s, però podria funcionar amb el %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1391,7 +1386,7 @@ msgstr "Aquesta etiqueta requereix una propietat de tipus."
 #: src/as-relation.c:1661
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
+msgstr "Aquest programari requereix %s %s %s, però aquest sistema està executant %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1399,20 +1394,20 @@ msgstr ""
 #: src/as-relation.c:1673
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
+msgstr "Es recomana l'ús de %s %s %s, però aquest sistema està executant %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1684
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %s %s."
-msgstr "Aquesta etiqueta requereix una propietat de tipus."
+msgstr "Aquest programari és compatible amb %s %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1702
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "El nucli %s %s és compatible."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1420,7 +1415,7 @@ msgstr ""
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Aquest programari requereix %s %.2f GiB de memòria, però aquest sistema en té %.2f ."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1428,23 +1423,22 @@ msgstr ""
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Aquest programari recomana %s %.2f GiB de memòria, però aquest sistema en té %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1754
-#, fuzzy, c-format
+#, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr "Aquesta etiqueta requereix una propietat de tipus."
+msgstr "Aquest programari és compatible amb %s %.2f GiB de memòria."
 
 #: src/as-relation.c:1770
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "El sistema té prou memòria per a aquest programari."
 
 #: src/as-relation.c:1834
-#, fuzzy
 msgid "This software needs a display for graphical content."
-msgstr "Aquesta etiqueta requereix una propietat de tipus."
+msgstr "Aquest programari necessita una pantalla pel contingut gràfic."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1453,7 +1447,7 @@ msgstr "Aquesta etiqueta requereix una propietat de tipus."
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Aquest programari requereix una pantalla amb la seva vora més llarga de %s %lu px de mida, però la pantalla d'aquest dispositiu té %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1462,7 +1456,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Aquest programari requereix una pantalla amb la seva vora més curta de %s %lu px de mida, però la pantalla d'aquest dispositiu té %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1471,7 +1465,7 @@ msgstr ""
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Aquest programari recomana una pantalla amb la seva vora més llarga amb %s %lu px de mida, però la pantalla d'aquest dispositiu té %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1480,187 +1474,187 @@ msgstr ""
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Aquest programari recomana una pantalla amb la seva vora més curta de %s %lu px de mida, però la pantalla d'aquest dispositiu té %lu px."
 
 #: src/as-relation.c:1902
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "La mida de la pantalla és suficient per a aquest programari."
 
 #: src/as-relation.c:1919
 #, c-format
 msgid ""
 "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "Encara no s'ha implementat la comprovació de satisfacció per als elements de relació de tipus «%s»."
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:38
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "Llicència Pública General Affero només v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:40
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Llicència Pública General Affero v1.0 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:43
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "Llicència Pública General GNU Affero només v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:45
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "Llicència Pública General GNU Affero v3.0 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:266
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "Llicència de documentació lliure de GNU v1.1 només - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:268
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "Llicència de documentació lliure de GNU v1.1 o posterior - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:270
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
+msgstr "Llicència de documentació lliure de GNU v1.1 només - sense invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:272
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
+msgstr "Llicència de documentació lliure de GNU v1.1 o posterior - sense invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:274
 msgid "GNU Free Documentation License v1.1 only"
-msgstr ""
+msgstr "Llicència de documentació lliure GNU v1.1 només"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:276
 msgid "GNU Free Documentation License v1.1 or later"
-msgstr ""
+msgstr "Llicència de documentació lliure GNU v1.1 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:279
 msgid "GNU Free Documentation License v1.2 only - invariants"
-msgstr ""
+msgstr "Llicència de documentació lliure GNU v1.2 només - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:281
 msgid "GNU Free Documentation License v1.2 or later - invariants"
-msgstr ""
+msgstr "Llicència de documentació lliure de GNU v1.2 o posterior - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:283
 msgid "GNU Free Documentation License v1.2 only - no invariants"
-msgstr ""
+msgstr "Llicència de documentació lliure de GNU v1.2 només - sense invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:285
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
-msgstr ""
+msgstr "Llicència de documentació lliure de GNU v1.2 o posterior - sense invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:287
 msgid "GNU Free Documentation License v1.2 only"
-msgstr ""
+msgstr "Llicència de documentació lliure GNU v1.2 només"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:289
 msgid "GNU Free Documentation License v1.2 or later"
-msgstr ""
+msgstr "Llicència de documentació lliure GNU v1.2 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:292
 msgid "GNU Free Documentation License v1.3 only - invariants"
-msgstr ""
+msgstr "Llicència de documentació lliure de GNU v1.3 només - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:294
 msgid "GNU Free Documentation License v1.3 or later - invariants"
-msgstr ""
+msgstr "Llicència de documentació lliure de GNU v1.3 o posterior - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:296
 msgid "GNU Free Documentation License v1.3 only - no invariants"
-msgstr ""
+msgstr "Llicència de documentació lliure de GNU v1.3 només - sense invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:298
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
-msgstr ""
+msgstr "Llicència de documentació lliure de GNU v1.3 o posterior - sense invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:300
 msgid "GNU Free Documentation License v1.3 only"
-msgstr ""
+msgstr "Llicència de documentació lliure GNU v1.3 només"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:302
 msgid "GNU Free Documentation License v1.3 or later"
-msgstr ""
+msgstr "Llicència de documentació lliure de GNU v1.3 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:306 src/as-spdx-data.h:310
 msgid "GNU General Public License v1.0 only"
-msgstr ""
+msgstr "Llicència Pública General GNU només v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:308 src/as-spdx-data.h:312
 msgid "GNU General Public License v1.0 or later"
-msgstr ""
+msgstr "Llicència Pública General GNU v1.0 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:314 src/as-spdx-data.h:318
 msgid "GNU General Public License v2.0 only"
-msgstr ""
+msgstr "Llicència Pública General GNU només v2.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:316 src/as-spdx-data.h:320
 msgid "GNU General Public License v2.0 or later"
-msgstr ""
+msgstr "Llicència Pública General GNU v2.0 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:327 src/as-spdx-data.h:331
 msgid "GNU General Public License v3.0 only"
-msgstr ""
+msgstr "Llicència Pública General GNU v3.0 només"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:329 src/as-spdx-data.h:333
 msgid "GNU General Public License v3.0 or later"
-msgstr ""
+msgstr "Llicència Pública General GNU v3.0 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:390 src/as-spdx-data.h:394
 msgid "GNU Library General Public License v2 only"
-msgstr ""
+msgstr "Llicència Pública General de la Biblioteca GNU només v2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:392 src/as-spdx-data.h:396
 msgid "GNU Library General Public License v2 or later"
-msgstr ""
+msgstr "Llicència Pública General de la Biblioteca GNU v2 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:398 src/as-spdx-data.h:402
 msgid "GNU Lesser General Public License v2.1 only"
-msgstr ""
+msgstr "Llicència Pública General Menor GNU només v2.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:400 src/as-spdx-data.h:404
 msgid "GNU Lesser General Public License v2.1 or later"
-msgstr ""
+msgstr "Llicència Pública General Menor GNU v2.1 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:406 src/as-spdx-data.h:410
 msgid "GNU Lesser General Public License v3.0 only"
-msgstr ""
+msgstr "Llicència Pública General Menor GNU v3.0 només"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:408 src/as-spdx-data.h:412
 msgid "GNU Lesser General Public License v3.0 or later"
-msgstr ""
+msgstr "Llicència Pública General Menor GNU v3.0 o posterior"
 
 #: src/as-validator-issue-tag.h:42
 msgid "This tag requires a type property."
@@ -1680,18 +1674,12 @@ msgstr ""
 "paràgrafs individuals."
 
 #: src/as-validator-issue-tag.h:58
-#, fuzzy
 msgid ""
 "This element (paragraph, list, etc.) of a <description/> tag must not be "
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr ""
-"Aquest element (paràgraf, llista, etc.) d'una etiqueta <description/> no "
-"s'ha de localitzar individualment a les metadades de la col·lecció. "
-"Localitza l'etiqueta <description/> sencera. El generador de metadades de la "
-"col·lecció d'AppStream (per exemple, «appstream-generator») ja farà el "
-"correcte a l'hora de compilar les dades."
+msgstr "Aquest element (paràgraf, llista, etc.) d'una etiqueta <description/> no s'ha de traduir individualment a les metadades de la col·lecció. Traduïu l'etiqueta <description/> sencera. El generador de metadades de la col·lecció d'AppStream (per exemple, «appstream-generator») ja farà el correcte a l'hora de compilar les dades."
 
 #: src/as-validator-issue-tag.h:64
 msgid ""
@@ -1723,7 +1711,7 @@ msgstr ""
 msgid ""
 "The enumeration must not be translated as a whole. In MetaInfo files, "
 "translate individual items (<li/> elements) instead."
-msgstr ""
+msgstr "L'enumeració no ha de traduir-se en conjunt. En els fitxers MetaInfo, traduïu elements individuals (elements <li/>)."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -1775,12 +1763,9 @@ msgstr ""
 "hauria de tenir contingut."
 
 #: src/as-validator-issue-tag.h:118
-#, fuzzy
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
-msgstr ""
-"El component té un conjunt de valors prioritari. Això no està permès als "
-"fitxers metainfo."
+msgstr "L'etiqueta mencionada conté text, tot i que no hauria."
 
 #: src/as-validator-issue-tag.h:123
 msgid ""
@@ -1834,16 +1819,12 @@ msgstr ""
 "L'ID del component comença amb un signe de puntuació. Això no es permet."
 
 #: src/as-validator-issue-tag.h:151
-#, fuzzy
 msgid ""
 "The component ID contains a hyphen/minus in its domain part. Using a hyphen "
 "is strongly discouraged to improve interoperability with other tools such as "
 "D-Bus. A good option is to replace any hyphens with underscores (`_`). "
 "Hyphens are only allowed in the last segment of a component ID."
-msgstr ""
-"L’identificador del component conté un guió/signe menys. L'ús d'un guió és "
-"molt descoratjador, per a millorar la interoperabilitat amb altres eines com "
-"el D-Bus. Una bona opció és reemplaçar qualsevol guió per subratllat («_»)."
+msgstr "L’identificador del component conté un guió/signe menys a la part del seu domini. L'ús d'un guió està fortament desaconsellat per a millorar la interoperabilitat amb altres eines com el D-Bus. Una bona opció és reemplaçar qualsevol guió per guions baixos («_»). Els guions només estan permesos a l'últim segment de l'identificador del component."
 
 #: src/as-validator-issue-tag.h:157
 msgid ""
@@ -1879,22 +1860,16 @@ msgstr ""
 "amb el nom de DNS invers fd.o («org.freedesktop»)."
 
 #: src/as-validator-issue-tag.h:178
-#, fuzzy
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDE's reverse-DNS name (\"org.kde\")."
-msgstr ""
-"El component forma part del projecte KDE, però el seu identificador no "
-"comença amb el nom DNS invers KDEs («org.kde»)."
+msgstr "El component forma part del projecte KDE, però el seu identificador no comença amb el nom DNS invers del KDE («org.kde»)."
 
 #: src/as-validator-issue-tag.h:183
-#, fuzzy
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr ""
-"El component forma part del projecte GNOME, però el seu identificador no "
-"comença amb el nom DNS invers GNOMEs («org.gnome»)."
+msgstr "El component forma part del projecte GNOME, però el seu identificador no comença amb el nom DNS invers del GNOME («org.gnome»)."
 
 #: src/as-validator-issue-tag.h:188
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1950,54 +1925,48 @@ msgstr ""
 msgid ""
 "The `environment` property is set to an unrecognized graphical environment/"
 "style combination."
-msgstr ""
+msgstr "La propietat `environment` està establerta a una combinació de l'entorn gràfic/estil no reconeguda."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:223
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "La propietat `width` ha de ser un enter positiu."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:229
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "La propietat `height` ha de ser un enter positiu."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
 msgid "The `scale` property must be a positive integer."
-msgstr ""
+msgstr "La propietat `scale` ha de ser un enter positiu."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:241
-#, fuzzy
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
-"El conjunt de valors com a tipus d'artefacte no és vàlid. Ha de ser «source» "
-"o «binary»."
+msgstr "El tipus d'imatge ha de ser `source` o `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:247
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "La propietat `width` ha d'estar present si el tipus d'imatge és `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:253
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "La propietat `height` ha d'estar present si el tipus d'imatge és `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:259
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "Només pot haver-hi una imatge `source` per captura de pantalla i idioma."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:265
-#, fuzzy
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`."
-msgstr ""
-"Una captura de pantalla ha de contenir almenys una imatge o un vídeo per a "
-"ser útil. Si us plau, afegiu-hi una <image/>."
+msgstr "Una captura de pantalla ha de tenir almenys una imatge no traduïda del tipus `source`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:271
@@ -2006,7 +1975,7 @@ msgid ""
 "which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) "
 "was found, which is likely intended to be the translatable image. Please "
 "remove the XML localization attribute in this case."
-msgstr ""
+msgstr "Una captura de pantalla ha de tenir almenys una imatge sense traduir del tipus `source`, que no s'ha pogut trobar. En canvi, s'ha trobat una etiqueta amb una configuració regional `en` (`xml:lang=en`), que probablement pretén ser la imatge traduïble. Si us plau, suprimiu l'atribut de localització XML en aquest cas."
 
 #: src/as-validator-issue-tag.h:278
 msgid ""
@@ -2033,12 +2002,9 @@ msgstr ""
 "captura d'imatge o de vídeo."
 
 #: src/as-validator-issue-tag.h:293
-#, fuzzy
 msgid ""
 "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr ""
-"Una captura de pantalla ha de contenir almenys una imatge o un vídeo per a "
-"ser útil. Si us plau, afegiu-hi una <image/>."
+msgstr "Una captura de pantalla ha de contenir almenys una imatge que té una factor d'escalada de 1."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:299
@@ -2129,7 +2095,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:352
 msgid "No screenshot is marked as default."
-msgstr ""
+msgstr "No s'ha marcat cap captura de pantalla com a predeterminada."
 
 #: src/as-validator-issue-tag.h:357
 msgid ""
@@ -2232,16 +2198,11 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
-#, fuzzy
 msgid ""
 "This `display_length` item contains an invalid display length. Its value "
 "must be a positive integer value denoting logical pixels. Please refer to "
 "the AppStream specification for more information on this tag."
-msgstr ""
-"Aquest element «display_length» conté una longitud de visualització no "
-"vàlida. El seu valor ha de ser una cadena abreujada, o un valor enter "
-"positiu que denoti píxels lògics. Consulteu l'especificació d'AppStream per "
-"a obtenir més informació sobre aquesta etiqueta."
+msgstr "Aquest element `display_length` conté una longitud de visualització no vàlida. El seu valor ha de ser un enter positiu que denoti els píxels lògics. Si us plau, consulteu l'especificació d'AppStream per a obtenir més informació sobre aquesta etiqueta."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:424
@@ -2285,7 +2246,7 @@ msgstr ""
 msgid ""
 "The `bandwidth_mbitps` property is not allowed when using `offline-only` as "
 "value."
-msgstr ""
+msgstr "La propietat `bandwidth_mbitps` no està permesa quan s'utilitza `offline-only` com a valor."
 
 #: src/as-validator-issue-tag.h:454
 msgid ""
@@ -2330,7 +2291,7 @@ msgstr "Al component li falta un nom (etiqueta <name/>)."
 msgid ""
 "The name of this component is excessively long and can likely not be "
 "displayed properly in most layouts."
-msgstr ""
+msgstr "El nom d'aquest component és massa llarg i probablement no es pot mostrar correctament a la majoria de les disposicions de pantalla."
 
 #: src/as-validator-issue-tag.h:489
 msgid "The component is missing a summary (<summary/> tag)."
@@ -2385,7 +2346,7 @@ msgstr ""
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
 "everywhere."
-msgstr ""
+msgstr "El resum és molt llarg, i probablement no es mostrarà correctament a tot arreu."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:535
@@ -2463,48 +2424,47 @@ msgstr "Ja s'ha definit una URL d'aquest tipus."
 msgid ""
 "This component is missing an `url` element of type `homepage` to link to the "
 "project's homepage."
-msgstr ""
+msgstr "A aquest component falta un element `url` de tipus `homepage` per enllaçar amb la pàgina d'inici del projecte."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:601
 msgid ""
 "The toplevel `developer_name` element is deprecated. Please use the `name` "
 "element in a `developer` block instead."
-msgstr ""
+msgstr "L'element del nivell superior `developer_name` està obsolet. Si us plau, utilitzeu l'element `name` en un bloc `developer`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
 msgid ""
 "This component contains no `developer` element with information about its "
 "author."
-msgstr ""
+msgstr "Aquest component no conté cap element `developer` amb informació sobre el seu autor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:614
 msgid ""
 "The `developer` element is missing an `id` property, containing a unique "
 "string ID for the developer. Consider adding a unique ID."
-msgstr ""
+msgstr "A l'element `developer` falta una propietat `id`, que contingui una cadena de text única per al desenvolupador. Considereu afegir un identificador únic."
 
 #: src/as-validator-issue-tag.h:620
 msgid ""
 "The developer-ID is invalid. It should be an rDNS string identifying the "
 "developer, or a Fediverse handle. It must also only contain lowercase ASCII "
 "letters, numbers and punctuation."
-msgstr ""
+msgstr "L'identificador del desenvolupador no és vàlid. Ha de ser una cadena de text rDNS que identifiqui el desenvolupador, o un identificador del Fediverse. També ha de contenir només lletres ASCII minúscules, números i puntuació."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:627
 msgid ""
 "The `developer` block does not have a `name` element with a human-readable "
 "project author name."
-msgstr ""
+msgstr "El bloc `developer` no té un element `name` amb el nom de l'autor del projecte i amb una forma intel·ligible."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:633
-#, fuzzy
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr "El <developer_name/> no pot contenir un hipervincle."
+msgstr "L'element `name` fill del bloc `developer` no pot contenir un enllaç."
 
 #: src/as-validator-issue-tag.h:638
 msgid ""
@@ -2528,11 +2488,9 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:656
-#, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr ""
-"L'etiqueta «update_contact» no s'ha d'incloure a la col·lecció APPStream XML."
+msgstr "L'etiqueta `update_contact` no s'hauria d'incloure a la col·lecció AppStream XML."
 
 #: src/as-validator-issue-tag.h:661
 msgid ""
@@ -2750,7 +2708,7 @@ msgid ""
 "were invalid or because they are of low quality (e.g. custom 'X-' prefixed "
 "or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add "
 "more categories."
-msgstr ""
+msgstr "S'han ignorat totes les categories d'aquest component, ja sigui perquè no eren vàlides o perquè són de baixa qualitat (p. ex. amb prefix «X-», o «GTK», o «Qt»). Si us plau, corregiu els noms de les categories o afegiu-ne més."
 
 #: src/as-validator-issue-tag.h:802
 msgid ""
@@ -2774,25 +2732,18 @@ msgstr "L'XML d'aquest fitxer té un format incorrecte."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:823
-#, fuzzy
 msgid ""
 "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr ""
-"S'ha trobat una etiqueta no vàlida a les metadades de la col·lecció. Només "
-"es permeten les etiquetes «component»."
+msgstr "S'ha trobat una etiqueta no vàlida a les metadades de la col·lecció. Només es permeten les etiquetes `component`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:829
-#, fuzzy
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher). "
 "Modern files use the `component` root tag and include many other "
 "differences, so check for changes carefully when modernizing the data."
-msgstr ""
-"El fitxer metainfo utilitza una versió antiga de l'especificació "
-"d'AppStream, que no es pot validar. Si us plau, migra'l a la versió 0.6 (o "
-"superior)."
+msgstr "El fitxer de metadades utilitza una versió antiga de l'especificació d'AppStream, que no es pot validar. Si us plau, migreu-lo a la versió 0.6 (o superior). Els fitxers moderns utilitzen l'etiqueta arrel `component` i inclouen altres diferències, pel que hauríeu de comprovar els canvis minuciosament quan modernitzeu les dades."
 
 #: src/as-validator-issue-tag.h:835
 msgid ""
@@ -2911,24 +2862,23 @@ msgstr ""
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
-msgstr ""
+msgstr "El tipus del bloc de llançaments no és vàlid. Necessita o bé `embedded` (el predeterminat) o `external`."
 
 #: src/as-validator-issue-tag.h:920
 msgid ""
 "The URL to an external release metadata file is insecure. This is not "
 "allowed, please use HTTPS URLs only."
-msgstr ""
+msgstr "L'URL a un fitxer extern de metadades de llançaments és insegur. Això no està permès, si us plau, utilitzeu només URL HTTPS."
 
 #: src/as-validator-issue-tag.h:925
-#, fuzzy
 msgid "Failed to download release metadata."
-msgstr "No s'ha pogut baixar el fitxer: %s"
+msgstr "No s'han pogut baixar les metadades de llançament."
 
 #: src/as-validator-issue-tag.h:930
 msgid ""
 "A local release metadata file was not found. It is strongly recommended to "
 "validate this metadata together with the main MetaInfo file."
-msgstr ""
+msgstr "No s'ha trobat cap fitxer de metadades de llançament localment. És molt recomanable validar aquestes metadades juntament amb el fitxer principal MetaInfo."
 
 #: src/as-validator-issue-tag.h:936
 msgid "The value set as release urgency is not a known urgency value."
@@ -2961,7 +2911,7 @@ msgstr "La data de publicació no és vàlida."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:964
 msgid "The release description must be put inside a `description` tag"
-msgstr ""
+msgstr "La descripció del llançament s'ha de posar dins d'una etiqueta `description`"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:970
@@ -3103,53 +3053,50 @@ msgstr ""
 #: src/as-validator-issue-tag.h:1063
 msgid ""
 "The `type` attribute of this `content_rating` element is missing or empty."
-msgstr ""
+msgstr "Falta o està buit l'atribut `type` d'aquest element `content_rating`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1069
 msgid ""
 "The `type` attribute of the `content_rating` element has an invalid value."
-msgstr ""
+msgstr "L'atribut `type` de l'element `content_rating` té un valor no vàlid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1075
 msgid "The `content_rating` tag can only contain `content_attribute` children."
-msgstr ""
+msgstr "L'etiqueta `content_rating` només pot contenir fills `content_attribute`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1081
 msgid ""
 "The `id` attribute of the `content_attribute` element is missing or empty."
-msgstr ""
+msgstr "Falta o està buit l'atribut `id` de l'element `content_attribute`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1087
 msgid ""
 "The `id` attribute of the `content_attribute` element has an invalid value."
-msgstr ""
+msgstr "El valor de l'atribut `id` de l'element `content_attribute` no és vàlid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1093
 msgid "The `content_attribute` tag needs a value."
-msgstr ""
+msgstr "L'etiqueta `content_attribute` necessita un valor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1099
 msgid "The `content_attribute` tag value is unknown."
-msgstr ""
+msgstr "El valor de l'etiqueta `content_attribute` és desconegut."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1105
-#, fuzzy
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr ""
-"El valor de l'etiqueta establert no és vàlid per a una relació `internet`."
+msgstr "El valor de l'etiqueta `content_attribute` no és vàlid per l'identificador indicat."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1111
-#, fuzzy
 msgid "A `content_attribute` tag with this ID has already been defined."
-msgstr "Ja s'ha definit una URL d'aquest tipus."
+msgstr "Ja s'ha definit una etiqueta `content_attribute` amb aquest identificador."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1117
@@ -3178,7 +3125,7 @@ msgstr "El valor d'aquesta preferència de color no és vàlid."
 msgid ""
 "The name of the color scheme property is wrong. It should be "
 "`scheme_preference`."
-msgstr ""
+msgstr "El nom de la propietat de l'esquema de color és incorrecte. Hauria de ser `scheme_preference`."
 
 #: src/as-validator-issue-tag.h:1144
 msgid "This color is not a valid HTML color code."
@@ -3188,66 +3135,61 @@ msgstr "Aquest color no és un codi de color HTML vàlid."
 msgid ""
 "A color for this type/scheme combination was already set. Colors must be "
 "unique per type/scheme."
-msgstr ""
+msgstr "Ja s'ha establert un color per a aquesta combinació de tipus i esquema. Els colors han de ser únics per tipus i esquema."
 
 #: src/as-validator-issue-tag.h:1154
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
-msgstr ""
+msgstr "El DOI (identificador d'objecte digital, de l'anglès) indicat per a aquest element de referència no és vàlid."
 
 #: src/as-validator-issue-tag.h:1159
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
-msgstr ""
+msgstr "El valor d'aquest element de referència de cita ha de ser un URL a un fitxer CFF (Citation File Format)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1165
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
-msgstr ""
+msgstr "A aquest element de referència del registre falta la propietat `name` per a denotar el nom del registre del qual es tracta."
 
 #: src/as-validator-issue-tag.h:1170
 msgid ""
 "The registry for this reference item is unknown. This may be due to a typing "
 "error, or the registry needs to be registered with AppStream."
-msgstr ""
+msgstr "El registre d'aquest element de referència és desconegut. Això pot ser a causa d'un error d'escriptura, o el registre ha d'estar registrat amb l'AppStream."
 
 #: src/as-validator-issue-tag.h:1176
-#, fuzzy
 msgid "The reference item is missing a value."
-msgstr "La data de publicació no és vàlida."
+msgstr "A l'ítem de referència falta un valor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1182
 msgid "The `custom` tag can only contain `value` children."
-msgstr ""
+msgstr "L'etiqueta `custom` només pot contenir fills `value`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1188
-#, fuzzy
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr "A aquesta «tag» li falta un atribut «namespace»."
+msgstr "Al valor d'aquesta etiqueta `custom` falta un atribut `key`."
 
 #: src/as-validator-issue-tag.h:1193
 msgid "A key can only be used once."
-msgstr ""
+msgstr "Una clau només es pot utilitzar una vegada."
 
 #: src/as-validator-issue-tag.h:1198
 msgid "This custom value is empty."
-msgstr ""
+msgstr "Aquest valor personalitzat està buit."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1204
-#, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr ""
-"Una etiqueta <keywords/> no s'ha d'ubicar en fitxers de metainformació "
-"(metadades originals). En comptes d'això, ubiqueu els paràgrafs individuals."
+msgstr "Una etiqueta `keywords` no s'ha de traduir en fitxers de metainformació (metadades originals). Traduïu les entrades de paraules clau individualment."
 
 #: src/as-validator.c:199
 msgid ""
@@ -3265,7 +3207,7 @@ msgstr "El format de l'URL no és vàlid."
 #: src/as-validator.c:480 src/as-validator.c:525
 #, c-format
 msgid "The release metadata file '%s' is named incorrectly."
-msgstr ""
+msgstr "El fitxer de metadades de llançament '%s' té un nom incorrecte."
 
 #. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
 #: src/as-validator.c:673
@@ -3326,51 +3268,39 @@ msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:226
-#, fuzzy
 msgid "Set mode of the issue report that is printed to the console."
-msgstr ""
-"Defineix el mode de l'informe de problemes que s'imprimeix a la consola"
+msgstr "Defineix el mode de l'informe de problemes que s'imprimeix a la consola."
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:233
-#, fuzzy
 msgid "Override the default prefix (`/usr` by default)."
 msgstr "Substitueix el prefix predeterminat («/usr» per defecte)"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:240
-#, fuzzy
 msgid "Set the result output directory."
-msgstr "Defineix el directori de sortida del resultat"
+msgstr "Defineix el directori de sortida del resultat."
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:247
-#, fuzzy
 msgid "Override the catalog metadata output directory."
-msgstr "Substitueix el directori de sortida de metadades de la col·lecció"
+msgstr "Substitueix el directori de sortida de metadades de la col·lecció."
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:254
-#, fuzzy
 msgid "Override the icon output directory."
-msgstr "Substitueix el directori de sortida d'icones"
+msgstr "Substitueix el directori de sortida d'icones."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:261
-#, fuzzy
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)."
-msgstr ""
-"Defineix el directori de sortida multimèdia (perquè un servidor web serveixi "
-"dades multimèdia)"
+msgstr "Defineix el directori de sortida multimèdia (perquè un servidor web serveixi dades multimèdia)"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:268
-#, fuzzy
 msgid "Set a directory where HTML and text issue reports will be stored."
-msgstr ""
-"Defineix el directori on s'emmagatzemaran informes de problemes HTML i de "
-"text"
+msgstr "Defineix el directori on s'emmagatzemaran informes de problemes en HTML i en text."
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:275
@@ -3379,37 +3309,34 @@ msgstr "Defineix el nom d'origen"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:282
-#, fuzzy
 msgid "Set the URL where the exported media content will be hosted."
-msgstr "Defineix l'URL on s'allotjarà el contingut multimèdia exportat"
+msgstr "Defineix l'URL on s'allotjarà el contingut multimèdia exportat."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:289
 msgid ""
 "Makes all URLs in output data complete URLs and avoids the use of a shared "
 "URL prefix for all metadata."
-msgstr ""
+msgstr "Fa que tots els URL de les dades de sortida siguin completes i evita l'ús d'un prefix compartit per a totes les metadades."
 
 #. TRANSLATORS: ascompose flag description for: --icon-policy
 #: tools/appstream-compose.c:296
 msgid ""
 "An icon-policy string to set how icon sizes should be handled (refer to the "
 "man page for details)."
-msgstr ""
+msgstr "Una cadena de text per la política d'icones per a definir com s'han de gestionar les mides de les icones (per a més detalls, consulteu la pàgina del manual)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:303
-#, fuzzy
 msgid ""
 "A comma-separated list of custom keys that should be propagated to the "
 "output data."
-msgstr "Una llista separada per comes de components d'ID a acceptar"
+msgstr "Una llista de claus personalitzades separada per comes que haurien de ser propagades a les dades de sortida."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
-#, fuzzy
 msgid "A comma-separated list of component-IDs to accept."
-msgstr "Una llista separada per comes de components d'ID a acceptar"
+msgstr "Una llista separada per comes de components d'identificació."
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:327
@@ -3463,9 +3390,8 @@ msgid "WARNING"
 msgstr "AVÍS"
 
 #: tools/appstream-compose.c:446
-#, fuzzy
 msgid "Unable to set icon policy"
-msgstr "No es pot llegir el fitxer."
+msgstr "No s'ha pogut establir la política d'icones"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:473
@@ -3634,9 +3560,7 @@ msgstr "Força una actualització de la memòria cau."
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
-"Limiteu l'actualització de la memòria cau a dades d'una font específica, per "
-"exemple, «os» o «flatpak». Es pot especificar diverses vegades."
+msgstr "Limiteu l'actualització de la memòria cau a dades d'una font específica, per exemple, `os` o `flatpak`. Es pot especificar diverses vegades."
 
 #: tools/appstreamcli.c:547
 msgid ""
@@ -3647,17 +3571,13 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
 #: tools/appstreamcli.c:596
-#, fuzzy
 msgid "Print more detailed output on why incompatibilities exist."
-msgstr "Imprimeix la sortida detallada quant als components trobats."
+msgstr "Imprimeix la sortida detallada sobre el perquè de l'existència de les incompatibilitats."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:633
-#, fuzzy
 msgid "Set the data origin for the installed metadata catalog file."
-msgstr ""
-"Defineix l'origen de les dades per al fitxer de la col·lecció de metadades "
-"instal·lat."
+msgstr "Defineix l'origen de les dades per al fitxer de la col·lecció de metadades instal·lat."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:639
@@ -3742,13 +3662,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1023
-#, fuzzy
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
-msgstr ""
-"Assumiu que el fitxer d'entrada està en el format seleccionat («yalm» o "
-"«text»)."
+msgstr "Assumiu que el fitxer d'entrada està en el format seleccionat («yaml», «text» o «markdown»)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1030
@@ -3771,15 +3688,14 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1082
-#, fuzzy
 msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr "Genera la sortida en el format seleccionat («yaml» o «text»)."
+msgstr "Genera la sortida en el format seleccionat («yaml», «text» o «markdown»)."
 
 #: tools/appstreamcli.c:1127
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
-msgstr "No s'ha trobat el binari «%s». No es pot continuar."
+msgstr "No s'ha trobat el binari d'AppStream Compose «%s»!. No es pot continuar."
 
 #: tools/appstreamcli.c:1131
 #, c-format
@@ -3793,14 +3709,14 @@ msgstr "El número de paràmetres no es vàlid"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1158
-#, fuzzy, c-format
+#, c-format
 msgid "Compose operation failed to execute: %s"
-msgstr "Ha fallat la validació: %s"
+msgstr "L'operació «compose» ha fallat: %s"
 
 #: tools/appstreamcli.c:1168
-#, fuzzy, c-format
+#, c-format
 msgid "Compose failed: %s"
-msgstr "Ha fallat la validació: %s"
+msgstr "Ha fallat «compose»: %s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:1225
@@ -3857,7 +3773,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1412
 msgid "List components that are part of the specified categories."
-msgstr ""
+msgstr "Llista els components que formen part de les categories especificades."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1421
@@ -3893,14 +3809,14 @@ msgstr ""
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
-msgstr ""
+msgstr "Comproveu si els requisits d'un component (a través del seu identificador o fitxer MetaInfo) es compleixen en aquest sistema."
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
 #: tools/appstreamcli.c:1468
 msgid ""
 "Check compatibility of a component (via its ID or MetaInfo file) with common "
 "system and chassis types."
-msgstr ""
+msgstr "Comprova la compatibilitat d'un component (a través del seu identificador o fitxer MetaInfo) amb els tipus de sistema i xassís habituals."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1477
@@ -3920,11 +3836,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1500
-#, fuzzy
 msgid "Show information about the current device and used operating system."
-msgstr ""
-"Mostra informació sobre el sistema operatiu actual des de l'índex de "
-"metadades."
+msgstr "Mostra informació sobre el dispositiu actual i el sistema operatiu en ús."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1508
@@ -3933,9 +3846,8 @@ msgstr "Instal·la un fitxer de metadades al lloc correcte."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1516
-#, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr "Converteix la col·lecció XML a YAML o viceversa."
+msgstr "Converteix la col·lecció de metadades d'XML a YAML o viceversa."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1523
@@ -3972,10 +3884,8 @@ msgstr ""
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1564
-#, fuzzy
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr ""
-"Compon les metadades de la col·lecció d’AppStream dels arbres de directoris."
+msgstr "Composa les metadades de la col·lecció d’AppStream des dels arbres dels directoris."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1572
@@ -4059,15 +3969,14 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "No s'ha pogut trobar el component que proporciona «%s::%s»."
 
 #: tools/ascli-actions-mdata.c:255
-#, fuzzy
 msgid "You need to specify categories to list."
-msgstr "Heu d'especificar un terme per a la cerca."
+msgstr "Heu d'especificar les categories a llistar."
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:269
 #, c-format
 msgid "No component found in categories %s."
-msgstr ""
+msgstr "No s'ha trobat cap component a les categories %s."
 
 #: tools/ascli-actions-mdata.c:352
 msgid "You need to specify a metadata file."
@@ -4137,16 +4046,15 @@ msgstr "No es pot desar el fitxer metainfo de plantilla: %s"
 msgid ""
 "Unable to check display size: Can not read information without GUI toolkit "
 "access."
-msgstr ""
+msgstr "No s'ha pogut comprovar la mida de la pantalla: no es pot llegir la informació sense accés a la interfície gràfica d'usuari."
 
 #: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
 msgid "ERROR"
-msgstr ""
+msgstr "ERROR"
 
 #: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
-#, fuzzy
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr "Heu d'especificar un fitxer de metainfo com a entrada."
+msgstr "Heu d'especificar un fitxer de MetaInfo o l'identificador d'un component com a entrada."
 
 #: tools/ascli-actions-mdata.c:714 tools/ascli-actions-mdata.c:838
 #: tools/ascli-actions-misc.c:133 tools/ascli-actions-misc.c:402
@@ -4159,75 +4067,74 @@ msgstr "No existeix el fitxer de metainfo «%s»."
 #: tools/ascli-actions-mdata.c:743
 #, c-format
 msgid "Relation check for: %s"
-msgstr ""
+msgstr "Comprovació de la relació per a: %s"
 
 #: tools/ascli-actions-mdata.c:754
 msgid "Requirements:"
-msgstr ""
+msgstr "Requisits:"
 
 #: tools/ascli-actions-mdata.c:756
 msgid "No required items are set for this software."
-msgstr ""
+msgstr "No s'ha establert cap ítem necessari per a aquest programari."
 
 #: tools/ascli-actions-mdata.c:761
 msgid "Recommendations:"
-msgstr ""
+msgstr "Recomanacions:"
 
 #: tools/ascli-actions-mdata.c:763
 msgid "No recommended items are set for this software."
-msgstr ""
+msgstr "No s'ha establert cap ítem recomanat per a aquest programari."
 
 #: tools/ascli-actions-mdata.c:768
-#, fuzzy
 msgid "Supported:"
-msgstr "Esports"
+msgstr "Compatible amb:"
 
 #: tools/ascli-actions-mdata.c:770
 msgid "No supported items are set for this software."
-msgstr ""
+msgstr "No s'ha establert cap ítem compatible per a aquest programari."
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:794
 msgid "Desktop"
-msgstr ""
+msgstr "Escriptori"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:797
 msgid "Laptop"
-msgstr ""
+msgstr "Portàtil"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:800
 msgid "Server"
-msgstr ""
+msgstr "Servidor"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:803
 msgid "Tablet"
-msgstr ""
+msgstr "Tauleta"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:806
 msgid "Handset"
-msgstr ""
+msgstr "Auricular"
 
 #: tools/ascli-actions-mdata.c:808
 msgid "Unknown"
-msgstr ""
+msgstr "Desconegut"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
 #: tools/ascli-actions-mdata.c:875
 #, c-format
 msgid "Chassis compatibility check for: %s"
-msgstr ""
+msgstr "Comprovació de compatibilitat del xassís per a: %s"
 
 #: tools/ascli-actions-mdata.c:894
 msgid "Incompatible"
-msgstr ""
+msgstr "No compatible"
 
 #: tools/ascli-actions-mdata.c:929
 msgid "Compatible"
-msgstr ""
+msgstr "Compatible"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:47
@@ -4354,7 +4261,7 @@ msgstr "Heu d'especificar un format NEWS per a escriure a la sortida."
 
 #: tools/ascli-actions-misc.c:551
 msgid "Operating System Details"
-msgstr ""
+msgstr "Detalls del sistema operatiu"
 
 #: tools/ascli-actions-misc.c:555
 #, c-format
@@ -4362,9 +4269,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr "No s'ha pogut trobar el component del sistema operatiu «%s»!"
 
 #: tools/ascli-actions-misc.c:562
-#, fuzzy
 msgid "ID"
-msgstr "Entorns de desenvolupament integrat"
+msgstr "Identificador"
 
 #: tools/ascli-actions-misc.c:563 tools/ascli-actions-misc.c:590
 #: tools/ascli-utils.c:304
@@ -4390,7 +4296,7 @@ msgstr "Descripció"
 
 #: tools/ascli-actions-misc.c:589
 msgid "Kernel"
-msgstr ""
+msgstr "Nucli"
 
 #: tools/ascli-actions-misc.c:591
 msgid "Version"
@@ -4398,24 +4304,23 @@ msgstr "Versió"
 
 #: tools/ascli-actions-misc.c:594
 msgid "Hardware"
-msgstr ""
+msgstr "Maquinari"
 
 #: tools/ascli-actions-misc.c:597
 msgid "Physical Memory"
-msgstr ""
+msgstr "Memòria física"
 
 #: tools/ascli-actions-misc.c:601
-#, fuzzy
 msgid "Devices with Modaliases"
-msgstr "Modàlies"
+msgstr "Dispositius amb modàlies"
 
 #: tools/ascli-actions-misc.c:630
 msgid "User Input Controls"
-msgstr ""
+msgstr "Controls d'entrada de l'usuari"
 
 #: tools/ascli-actions-misc.c:633
 msgid "unknown"
-msgstr ""
+msgstr "desconegut"
 
 #: tools/ascli-actions-misc.c:640 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
@@ -4529,9 +4434,9 @@ msgid "You need to specify at least one file to validate!"
 msgstr "Heu d’especificar almenys un fitxer per a validar!"
 
 #: tools/ascli-actions-validate.c:406
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to add release metadata file: %s"
-msgstr "No es pot instal·lar el fitxer de metadades: %s"
+msgstr "No es pot afegir el fitxer de metadades del llançament: %s"
 
 #: tools/ascli-actions-validate.c:416
 msgid ""
@@ -4539,6 +4444,8 @@ msgid ""
 "Release metadata files can currently not be validated without their "
 "accompanying MetaInfo file."
 msgstr ""
+"Heu d'especificar almenys un fitxer MetaInfo per a validar.\n"
+"Els fitxers de metadades de llançaments no es poden validar sense el fitxer MetaInfo que els acompanya."
 
 #: tools/ascli-actions-validate.c:444 tools/ascli-actions-validate.c:577
 msgid "Validation was successful."
