@@ -2444,24 +2444,26 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 		g_free (prop);
 	}
 
-	/* validate date strings */
-	prop = as_xml_get_prop_value (node, "date");
-	if (prop != NULL) {
-		as_validator_validate_iso8601_complete_date (validator, node, prop);
-		g_free (prop);
-	} else {
-		g_autofree gchar *timestamp = as_xml_get_prop_value (node, "timestamp");
-		if (timestamp == NULL) {
-			/* Neither timestamp, nor date property exists */
-			as_validator_add_issue (validator, node, "release-time-missing", "date");
+	if (rel_kind != AS_RELEASE_KIND_SNAPSHOT) {
+		/* validate date strings */
+		prop = as_xml_get_prop_value (node, "date");
+		if (prop != NULL) {
+			as_validator_validate_iso8601_complete_date (validator, node, prop);
+			g_free (prop);
 		} else {
-			/* check if the timestamp is both a number and higher than 3000. The 3000 is used to check that it is not a year */
-			if (!as_str_verify_integer (timestamp, 3000, G_MAXINT64))
-				as_validator_add_issue (validator,
-							node,
-							"release-timestamp-invalid",
-							"%s",
-							timestamp);
+			g_autofree gchar *timestamp = as_xml_get_prop_value (node, "timestamp");
+			if (timestamp == NULL) {
+				/* Neither timestamp, nor date property exists */
+				as_validator_add_issue (validator, node, "release-time-missing", "date");
+			} else {
+				/* check if the timestamp is both a number and higher than 3000. The 3000 is used to check that it is not a year */
+				if (!as_str_verify_integer (timestamp, 3000, G_MAXINT64))
+					as_validator_add_issue (validator,
+								node,
+								"release-timestamp-invalid",
+								"%s",
+								timestamp);
+			}
 		}
 	}
 
