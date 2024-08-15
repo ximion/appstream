@@ -261,6 +261,46 @@ test_validator_manyerrors_desktopapp (void)
 }
 
 /**
+ * test_validator_snapshot_release:
+ *
+ * Allow snapshot releases to omit a release date.
+ */
+static void
+test_validator_snapshot_release (void)
+{
+	gboolean ret;
+	g_autoptr(GList) issues = NULL;
+	g_autoptr(AsValidator) validator = as_validator_new ();
+
+	const gchar *SAMPLE_XML = "<component>\n"
+				  "  <id>org.example.test</id>\n"
+				  "  <metadata_license>FSFAP</metadata_license>\n"
+				  "  <project_license>LGPL-2.1+</project_license>\n"
+				  "  <name>Test</name>\n"
+				  "  <summary>Another sample unittest</summary>\n"
+				  "  <releases>\n"
+				  "    <release type=\"snapshot\" version=\"1.0-rc1\"/>\n"
+				  "    <release type=\"stable\" date=\"2024-08-15\" version=\"0.9\"/>\n"
+				  "  </releases>\n"
+				  "</component>\n";
+
+	AsVResultCheck expected_results[] = {
+		{
+		    "developer-info-missing", "",
+		    -1,
+		    AS_ISSUE_SEVERITY_INFO, },
+
+		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }
+	};
+
+	ret = as_validator_validate_data (validator, SAMPLE_XML);
+
+	issues = as_validator_get_issues (validator);
+	_astest_check_validate_issues (issues, (AsVResultCheck *) &expected_results);
+	g_assert_true (ret);
+}
+
+/**
  * test_validator_relationissues:
  *
  * Test requires/recommends & Co.
@@ -435,6 +475,7 @@ main (int argc, char **argv)
 			 test_validator_manyerrors_desktopapp);
 	g_test_add_func ("/AppStream/Validate/RelationIssues", test_validator_relationissues);
 	g_test_add_func ("/AppStream/Validate/Overrides", test_validator_overrides);
+	g_test_add_func ("/AppStream/Validate/Snapshot", test_validator_snapshot_release);
 
 	ret = g_test_run ();
 	g_free (datadir);
