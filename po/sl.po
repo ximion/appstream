@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-04-24 20:20+0200\n"
-"PO-Revision-Date: 2024-08-13 19:09+0000\n"
+"PO-Revision-Date: 2024-08-15 10:09+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
 "Language: sl\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.7\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1121,18 +1121,16 @@ msgid "Binaries"
 msgstr "Dvojiške datoteke"
 
 #: src/as-provided.c:142
-#, fuzzy
 msgid "Media types"
-msgstr "Vrste medijev"
+msgstr "Vrste medijskih datotek"
 
 #: src/as-provided.c:144
 msgid "Fonts"
 msgstr "Pisave"
 
 #: src/as-provided.c:146
-#, fuzzy
 msgid "Modaliases"
-msgstr "Modaliase"
+msgstr "Modaliasi"
 
 #: src/as-provided.c:148
 msgid "Python 3"
@@ -1147,12 +1145,10 @@ msgid "D-Bus Session Services"
 msgstr "Storitve seje D-Bus"
 
 #: src/as-provided.c:154
-#, fuzzy
 msgid "Runtime Firmware"
 msgstr "Vdelana programska oprema za izvajanje"
 
 #: src/as-provided.c:156
-#, fuzzy
 msgid "Flashed Firmware"
 msgstr "Vbliskana strojna programska oprema"
 
@@ -1486,111 +1482,93 @@ msgstr "Splošno javno dovoljenje GNU Affero, različice 3.0 ali novejše"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:266
-#, fuzzy
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr "GNU Free Documentation License v1.1 samo - invariante"
+msgstr "Samo dovoljenje GNU Free Documentation License v1.1 - nespremenljivo"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:268
-#, fuzzy
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr "GNU Free Documentation License v1.1 ali novejša - invariante"
+msgstr "GNU Free Documentation License v1.1 ali novejše dovoljenje - nespremenljivo"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:270
-#, fuzzy
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr "Samo GNU Free Documentation License v1.1 - brez invariant"
+msgstr "Samo dovoljenje GNU Free Documentation License v1.1 - s spremembami"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:272
-#, fuzzy
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr "GNU Free Documentation License v1.1 ali novejša - brez invariant"
+msgstr "GNU Free Documentation License v1.1 ali novejše dovoljenje - s spremembami"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:274
-#, fuzzy
 msgid "GNU Free Documentation License v1.1 only"
-msgstr "Samo licenca GNU Free Documentation License v1.1"
+msgstr "Samo dovoljenje GNU Free Documentation License v1.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:276
-#, fuzzy
 msgid "GNU Free Documentation License v1.1 or later"
-msgstr "GNU Free Documentation License v1.1 ali novejša"
+msgstr "GNU Free Documentation License v1.1 ali novejše dovoljenje"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:279
-#, fuzzy
 msgid "GNU Free Documentation License v1.2 only - invariants"
-msgstr "GNU Free Documentation License v1.2 samo - invariante"
+msgstr "Samo dovoljenje GNU Free Documentation License v1.2 - nespremenljivo"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:281
-#, fuzzy
 msgid "GNU Free Documentation License v1.2 or later - invariants"
-msgstr "GNU Free Documentation License v1.2 ali novejša - invariante"
+msgstr "GNU Free Documentation License v1.2 ali novejše dovoljenje - nespremenljivo"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:283
-#, fuzzy
 msgid "GNU Free Documentation License v1.2 only - no invariants"
-msgstr "Samo GNU Free Documentation License v1.2 - brez invariant"
+msgstr "Samo dovoljenje GNU Free Documentation License v1.2 - s spremembami"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:285
-#, fuzzy
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
-msgstr "GNU Free Documentation License v1.2 ali novejša - brez invariant"
+msgstr "GNU Free Documentation License v1.2 ali novejše dovoljenje - s spremembami"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:287
-#, fuzzy
 msgid "GNU Free Documentation License v1.2 only"
-msgstr "Samo licenca GNU Free Documentation License v1.2"
+msgstr "Samo dovoljenje GNU Free Documentation License v1.2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:289
-#, fuzzy
 msgid "GNU Free Documentation License v1.2 or later"
-msgstr "GNU Free Documentation License v1.2 ali novejša"
+msgstr "GNU Free Documentation License v1.2 ali novejše dovoljenje"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:292
-#, fuzzy
 msgid "GNU Free Documentation License v1.3 only - invariants"
-msgstr "GNU Free Documentation License v1.3 samo - invariante"
+msgstr "Samo dovoljenje GNU Free Documentation License v1.3 - nespremenljivo"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:294
-#, fuzzy
 msgid "GNU Free Documentation License v1.3 or later - invariants"
-msgstr "GNU Free Documentation License v1.3 ali novejša - invariante"
+msgstr "GNU Free Documentation License v1.3 ali novejše dovoljenje - nespremenljivo"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:296
-#, fuzzy
 msgid "GNU Free Documentation License v1.3 only - no invariants"
-msgstr "Samo GNU Free Documentation License v1.3 - brez invariant"
+msgstr "Samo dovoljenje GNU Free Documentation License v1.3 - s spremembami"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:298
-#, fuzzy
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
-msgstr "GNU Free Documentation License v1.3 ali novejša - brez invariant"
+msgstr "GNU Free Documentation License v1.3 ali novejše dovoljenje - s spremembami"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:300
-#, fuzzy
 msgid "GNU Free Documentation License v1.3 only"
-msgstr "Samo GNU Free Documentation License v1.3"
+msgstr "Samo dovoljenje GNU Free Documentation License v1.3"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:302
-#, fuzzy
 msgid "GNU Free Documentation License v1.3 or later"
-msgstr "GNU Free Documentation License v1.3 ali novejša"
+msgstr "GNU Free Documentation License v1.3 ali novejše dovoljenje"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:306 src/as-spdx-data.h:310
@@ -1664,7 +1642,7 @@ msgstr "Oznake s tem imenom v tem razdelku niso dovoljene."
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr "Oznaka <description/> ne sme biti prevedena v datotekah metainfo (zgornjih metapodatkih). Namesto tega prevedite posamezne odstavke."
+msgstr "Oznaka <description/> ne sme biti prevedena v datotekah metainfo (vrhnjih metapodatkih). Namesto tega prevedite posamezne odstavke."
 
 #: src/as-validator-issue-tag.h:58
 msgid ""
@@ -1746,7 +1724,6 @@ msgid ""
 msgstr "ID komponente mora slediti obratni shemi domenskih imen za svoje ime. Za podrobnosti glejte specifikacijo AppStream."
 
 #: src/as-validator-issue-tag.h:128
-#, fuzzy
 msgid ""
 "The component ID is not a reverse domain-name. Please update the ID to avoid "
 "future issues and be compatible with all AppStream implementations.\n"
@@ -1757,116 +1734,102 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
-"ID komponente ni obratno ime domene. Posodobite ID, da se izognete prihodnjim težavam in da bo združljiv z vsemi implementacijami AppStream.\n"
-"Razmislite lahko tudi o posodobitvi imena spremljajoče datoteke .desktop, da bo sledila najnovejši različici specifikacije Desktop-Entry in zanjo uporabila tudi ime rDNS. V vsakem primeru ne pozabite omeniti novega namiznega vnosa v oznako za to komponento <launchable/> , da se aplikacija lahko zažene iz programskih centrov in podatkov datoteke .desktop, povezanih z metainfo podatki."
+"ID komponente ni obratno ime domene. Posodobite ID, da se izognete prihodnjim težavam in da bo združljiva z vsemi implementacijami AppStream.\n"
+"Razmislite lahko tudi o posodobitvi imena spremljajoče datoteke .desktop, da bo sledila najnovejši različici specifikacije Desktop-Entry in zanjo uporabila tudi ime rDNS. V vsakem primeru ne pozabite omeniti novega namiznega vnosa v oznaki za to komponento <launchable/> , da se program lahko zažene iz programskih središč in podatkov datoteke .desktop, povezanih s podatki metainfo."
 
 #: src/as-validator-issue-tag.h:136
-#, fuzzy
 msgid ""
 "The component ID might not follow the reverse domain-name schema (the TLD "
 "used by it is not known to the validator)."
-msgstr "ID komponente morda ne sledi shemi obratnega imena domene (TLD, ki ga uporablja, preverjevalcu ni znan)."
+msgstr "ID komponente morda ne sledi shemi obratnega imena domene (TLD, ki ga uporablja, preverjevalniku ni znan)."
 
 #: src/as-validator-issue-tag.h:141
-#, fuzzy
 msgid ""
 "The component ID contains an invalid character. Only ASCII characters, dots "
 "and numbers are permitted."
-msgstr "ID komponente vsebuje neveljaven znak. Dovoljeni so samo znaki, pike in številke ASCII."
+msgstr "ID komponente vsebuje neveljaven znak. Dovoljeni so samo znaki, pike in števke ASCII."
 
 #: src/as-validator-issue-tag.h:146
-#, fuzzy
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr "ID komponente se začne z ločili. To ni dovoljeno."
+msgstr "ID komponente se začenja z ločilom. To ni dovoljeno."
 
 #: src/as-validator-issue-tag.h:151
-#, fuzzy
 msgid ""
 "The component ID contains a hyphen/minus in its domain part. Using a hyphen "
 "is strongly discouraged to improve interoperability with other tools such as "
 "D-Bus. A good option is to replace any hyphens with underscores (`_`). "
 "Hyphens are only allowed in the last segment of a component ID."
-msgstr "ID komponente vsebuje vezaj/minus v delu domene. Uporaba vezaja je močno odsvetovana za izboljšanje interoperabilnosti z drugimi orodji, kot je D-Bus. Dobra možnost je, da vse vezaje zamenjate s podčrtajniki ('_') . Vezaji so dovoljeni samo v zadnjem segmentu ID-ja komponente."
+msgstr "ID komponente vsebuje vezaj/minus v delu domene. Uporaba vezaja je močno odsvetovana za izboljšanje medopravilnosti z drugimi orodji, kot je D-Bus. Možna rešitev je, da vse vezaje zamenjate s podčrtaji (»_«) . Vezaji so dovoljeni samo v zadnjem segmentu komponente ID-ja."
 
 #: src/as-validator-issue-tag.h:157
-#, fuzzy
 msgid ""
 "The component ID contains a segment starting with a number. Starting a "
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr "ID komponente vsebuje segment, ki se začne s številko. Začetek segmenta obratnega DNS ID-ja s številko je močno odsvetovan, da bi ohranili interoperabilnost z drugimi orodji, kot je D-Bus. V idealnem primeru te segmente predpone s podčrtajem."
+msgstr "ID komponente vsebuje segment, ki se začne s števko. Začetek segmenta obratnega DNS ID-ja s števko je močno odsvetovan, da bi ohranili medopravilnost z drugimi orodji, kot je D-Bus. V idealnem primeru imajo ti segmenti za predpono podčrtaj."
 
 #: src/as-validator-issue-tag.h:163
-#, fuzzy
 msgid "The component ID should only contain lowercase characters."
 msgstr "ID komponente mora vsebovati le male črke."
 
 #: src/as-validator-issue-tag.h:168
-#, fuzzy
 msgid ""
 "The domain part of the rDNS component ID (first two parts) must only contain "
 "lowercase characters."
 msgstr "Domenski del ID-ja komponente rDNS (prva dva dela) mora vsebovati le male črke."
 
 #: src/as-validator-issue-tag.h:173
-#, fuzzy
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr "Komponenta je del projekta Freedesktop, vendar se njen ID ne začne z obratnim imenom DNS fd.o (\"org.freedesktop\")."
+msgstr "Komponenta je del projekta Freedesktop, vendar se njen ID ne začne z obratnim imenom DNS fd.o (»org.freedesktop«)."
 
 #: src/as-validator-issue-tag.h:178
-#, fuzzy
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDE's reverse-DNS name (\"org.kde\")."
-msgstr "Komponenta je del KDE-jevega projekta, vendar se njen ID ne začne s KDE-jevim obratnim imenom DNS (\"org.kde\")."
+msgstr "Komponenta je del projekta KDE, vendar se njen ID ne začne s KDE-jevim obratnim imenom DNS (»org.kde«)."
 
 #: src/as-validator-issue-tag.h:183
-#, fuzzy
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr "Komponenta je del projekta GNOME, vendar se njen ID ne začne z GNOME-jevim obratnim imenom DNS (\"org.gnome\")."
+msgstr "Komponenta je del projekta GNOME, vendar se njen ID ne začne z GNOME-ovim obratnim imenom DNS (»org.gnome«)."
 
 #: src/as-validator-issue-tag.h:188
 msgid "The SPDX license expression is invalid and could not be parsed."
 msgstr "Izraz dovoljenja SPDX je neveljaven in ga ni mogoče razčleniti."
 
 #: src/as-validator-issue-tag.h:193
-#, fuzzy
 msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr "ID licence ni bil najden v bazi podatkov SPDX. Preverite, ali je ID licence napisan v skladu s SPDX in je veljavna licenca za brezplačno programsko opremo."
+msgstr "ID dovoljenja ni bil najden v zbirki podatkov SPDX. Preverite, ali je ID dovoljenja napisan v skladu s SPDX in da gre za veljavno dovoljenje za prosto programsko opremo."
 
 #: src/as-validator-issue-tag.h:199
-#, fuzzy
 msgid ""
 "The metadata itself seems to be licensed under a complex collection of "
 "licenses. Please license the data under a simple permissive license, like "
 "FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
 "collections without the risk of license violations due to mutually "
 "incompatible licenses."
-msgstr "Zdi se, da so metapodatki sami licencirani pod zapleteno zbirko licenc. Prosimo, licencirajte podatke pod preprosto permisivno licenco, kot so FSFAP, MIT ali CC0-1.0, da lahko distributerji vključijo v mešane zbirke podatkov brez tveganja kršitev licenc zaradi medsebojno nezdružljivih licenc."
+msgstr "Zdi se, da so metapodatki sami licencirani pod zapleteno zbirko dovoljenj. Prosimo, licencirajte podatke pod preprostim permisivnim dovoljenjem, kot so FSFAP, MIT ali CC0-1.0, da lahko distributerji vključijo v mešane zbirke podatkov brez tveganja kršitev dovoljenj zaradi medsebojno nezdružljivih dovoljenj."
 
 #: src/as-validator-issue-tag.h:205
-#, fuzzy
 msgid ""
 "The metadata itself does not seem to be licensed under a permissive license. "
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
 "0BSD to allow distributors to include it in mixed data collections without "
 "the risk of license violations due to mutually incompatible licenses."
-msgstr "Zdi se, da metapodatki sami po sebi niso licencirani pod permisivno licenco. Prosimo, da podatke licencirate pod permisivno licenco, kot so FSFAP, CC0-1.0 ali 0BSD, da jih distributerji lahko vključijo v mešane zbirke podatkov brez tveganja kršitev licenc zaradi medsebojno nezdružljivih licenc."
+msgstr "Zdi se, da metapodatki sami po sebi niso izdani pod permisivnim dovoljenjem. Prosimo, da podatke izdate pod permisivnim dovoljenjem, kot so FSFAP, CC0-1.0 ali 0BSD, da jih distributerji lahko vključijo v mešane zbirke podatkov brez tveganja kršitev dovoljenj zaradi medsebojno nezdružljivih dovoljenj."
 
 #: src/as-validator-issue-tag.h:211
-#, fuzzy
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr "Zdi se, da stik za posodabljanje ni veljaven e-poštni naslov (pobeg '@' je dovoljen samo kot '_at_' ali '_AT_')."
+msgstr "Zdi se, da stik za posodabljanje (update-contact) nima veljavnega e-poštnega naslova (izogibanje »@» je dovoljeno samo kot »_at_« ali »_AT_«)."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:217
@@ -2057,74 +2020,66 @@ msgid ""
 msgstr "Element relacije ima nastavljen postopek primerjave, vendar ne podpira nobenih primerjav."
 
 #: src/as-validator-issue-tag.h:391
-#, fuzzy
 msgid ""
 "This relation item has already been defined once for this or a different "
 "relation type. Please do not redefine relations."
-msgstr "Ta element relacije je že enkrat določen za to ali drugo vrsto relacije. Prosimo, ne redefinirajte odnosov."
+msgstr "Ta element relacije je že enkrat določen za to ali drugo vrsto relacije. Prosimo, ne definirajte odnosov znova."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:397
-#, fuzzy
 msgid ""
 "Found a memory size relation in a `requires` tag. This means users will not "
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr "Našli smo relacijo velikosti pomnilnika v oznaki »requires«. To pomeni, da uporabniki ne bodo mogli niti namestiti komponente, ne da bi imeli dovolj RAM-a. To običajno ni namenjeno in namesto tega želite uporabiti 'pomnilnik' v oznaki 'priporočila'."
+msgstr "Najdena je relacija velikosti pomnilnika v oznaki »requires«. To pomeni, da uporabniki ne bodo mogli niti namestiti komponente, ne da bi imeli dovolj RAM-a. To običajno ni namenjeno in namesto tega želite uporabiti »memory« (pomnilnik) v oznaki »recommends« (priporoča)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:404
-#, fuzzy
 msgid ""
 "Found a user input control relation in a `requires` tag. This means users "
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr "Našli smo relacijo nadzora vnosa uporabnika v oznaki »requires«. To pomeni, da uporabniki ne bodo mogli niti namestiti komponente, ne da bi imeli v sistemu na voljo določen vhodni nadzor. To običajno ni namenjeno in namesto tega želite uporabiti \"nadzor\" v oznaki \"priporočila\"."
+msgstr "Našli smo relacijo nadzora vnosa uporabnika v oznaki »requires«. To pomeni, da uporabniki ne bodo mogli niti namestiti komponente, ne da bi imeli v sistemu na voljo določen vhodni nadzor. To običajno ni namenjeno in namesto tega želite uporabiti »control« v oznaki »recommends«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
-#, fuzzy
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
-msgstr "Ta element »nadzor« določa neznan način vnosa in je neveljaven. Preverite specifikacijo za seznam dovoljenih vrednosti."
+msgstr "Ta element »control« določa neznan način vnosa in je neveljaven. Preverite specifikacijo za seznam dovoljenih vrednosti."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
-#, fuzzy
 msgid ""
 "This `display_length` item contains an invalid display length. Its value "
 "must be a positive integer value denoting logical pixels. Please refer to "
 "the AppStream specification for more information on this tag."
-msgstr "Ta element »display_length« vsebuje neveljavno dolžino prikaza. Njegova vrednost mora biti pozitivna cela vrednost, ki označuje logične slikovne pike. Za več informacij o tej oznaki glejte specifikacijo AppStream."
+msgstr "Ta element »display_length« vsebuje neveljavno dolžino prikaza. Njegova vrednost mora biti pozitivna cela vrednost, ki označuje logične slikovne točke. Za več informacij o tej oznaki glejte specifikacijo AppStream."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:424
-#, fuzzy
 msgid ""
 "This `side` property of this `display_length` item contains an invalid "
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr "Ta lastnost »stranski« elementa »display_length« vsebuje neveljavno vrednost. Biti mora biti »najkrajša« ali »najdaljša« ali nenastavljena, da pomeni »najkrajša«, da se vrednost elementa nanaša na najkrajšo ali najdaljšo stran zaslona."
+msgstr "Ta lastnost »side« elementa »display_length« vsebuje neveljavno vrednost. Biti mora biti »shortest« (nanjkrajša), »longest« (najdaljša) ali nenastavljena, da pomeni »shortest«, da se vrednost elementa nanaša na najkrajšo ali najdaljšo stranico zaslona."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:431
-#, fuzzy
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr "Ta element »strojna oprema« vsebuje neveljavno vrednost. To mora biti ID računalniške strojne opreme (CHID) UUID brez oklepaja."
+msgstr "Ta element »hardware« (strojna oprema) vsebuje neveljavno vrednost. To mora biti ID računalniške strojne opreme (CHID) UUID brez oklepaja."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:437
-#, fuzzy
 msgid ""
 "A `memory` item must only contain a non-zero integer value, depicting a "
 "system memory size in mebibyte (MiB)"
-msgstr "Element »pomnilnik« mora vsebovati samo celo število, ki ni nič, ki prikazuje velikost sistemskega pomnilnika v mebibajtih (MiB)"
+msgstr "Element »memory« mora vsebovati samo celo število, ki ni nič, ki prikazuje velikost sistemskega pomnilnika v mebibajtih (MiB)"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:443
@@ -2170,7 +2125,6 @@ msgid "The component is missing a name (<name/> tag)."
 msgstr "Komponenti manjka ime (oznaka <name/>)."
 
 #: src/as-validator-issue-tag.h:484
-#, fuzzy
 msgid ""
 "The name of this component is excessively long and can likely not be "
 "displayed properly in most layouts."
@@ -2181,11 +2135,10 @@ msgid "The component is missing a summary (<summary/> tag)."
 msgstr "Komponenti manjka povzetek (oznaka <summary/>)."
 
 #: src/as-validator-issue-tag.h:494
-#, fuzzy
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
-msgstr "Oznaka <id/> še vedno vsebuje lastnost »vrsta«, verjetno iz stare pretvorbe v nedavno obliko zapisa metainformacij."
+msgstr "Oznaka <id/> še vedno vsebuje lastnost »type« (vrsta), verjetno iz stare pretvorbe v nedavno obliko zapisa metapodatkov."
 
 #: src/as-validator-issue-tag.h:499
 msgid ""
@@ -2280,19 +2233,17 @@ msgstr "URL te vrste je že določen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:595
-#, fuzzy
 msgid ""
 "This component is missing an `url` element of type `homepage` to link to the "
 "project's homepage."
-msgstr "Tej komponenti manjka element 'url' tipa 'domača stran', ki bi povezal z domačo stranjo projekta."
+msgstr "Tej komponenti manjka element »url« vrste »homepage«, ki bi kazal na domačo stran projekta."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:601
-#, fuzzy
 msgid ""
 "The toplevel `developer_name` element is deprecated. Please use the `name` "
 "element in a `developer` block instead."
-msgstr "Element »developer_name« najvišje ravni je zastarel. Namesto tega uporabite element 'ime' v bloku 'razvijalec'."
+msgstr "Element »developer_name« najvišje ravni je zastarel. Namesto tega uporabite element »name« v bloku »developer«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
@@ -2309,20 +2260,18 @@ msgid ""
 msgstr "V elementu »developer« manjka lastnost »id«, ki vsebuje edinstven ID niza za razvijalca. Razmislite o dodajanju edinstvenega ID-ja."
 
 #: src/as-validator-issue-tag.h:620
-#, fuzzy
 msgid ""
 "The developer-ID is invalid. It should be an rDNS string identifying the "
 "developer, or a Fediverse handle. It must also only contain lowercase ASCII "
 "letters, numbers and punctuation."
-msgstr "ID razvijalca ni veljaven. To mora biti niz rDNS, ki identificira razvijalca, ali ročaj Fediverse. Prav tako mora vsebovati le male črke ASCII, številke in ločila."
+msgstr "ID razvijalca ni veljaven. To mora biti niz rDNS, ki identificira razvijalca, ali ročica Fediverse. Prav tako mora vsebovati le male črke ASCII, števke in ločila."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:627
-#, fuzzy
 msgid ""
 "The `developer` block does not have a `name` element with a human-readable "
 "project author name."
-msgstr "Blok »razvijalec« nima elementa »ime« z človeško berljivim imenom avtorja projekta."
+msgstr "Blok »developer« nima elementa »name« s človeško berljivim imenom avtorja projekta."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:633
@@ -2330,7 +2279,6 @@ msgid "The `name` child of a `developer` block must not contain a hyperlink."
 msgstr "Podrejeni element »name« bloka »developer« ne sme vsebovati hiperpovezave."
 
 #: src/as-validator-issue-tag.h:638
-#, fuzzy
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
@@ -2353,30 +2301,27 @@ msgid ""
 msgstr "Oznaka »update_contact« ne sme biti vključena v XML kataloga AppStream."
 
 #: src/as-validator-issue-tag.h:661
-#, fuzzy
 msgid ""
 "This tag is a GNOME-specific extension to AppStream and not part of the "
 "official specification. Do not expect it to work in all implementations and "
 "in all software centers."
-msgstr "Ta oznaka je razširitev AppStreama, specifična za GNOME, in ni del uradne specifikacije. Ne pričakujte, da bo deloval v vseh izvedbah in v vseh programskih centrih."
+msgstr "Ta oznaka je razširitev AppStreama, specifična za GNOME, in ni del uradne specifikacije. Ne pričakujte, da bo delovala v vseh izvedbah in v vseh programskih centrih."
 
 #: src/as-validator-issue-tag.h:667
-#, fuzzy
 msgid ""
 "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream "
 "also provides the <custom/> tag to add arbitrary custom data to metainfo "
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr "Najdena je neveljavna oznaka. Nestandardne oznake morajo imeti predpono 'x-'. AppStream ponuja tudi oznako <custom/> za dodajanje poljubnih podatkov po meri v metainfo datoteke. To oznako berejo knjižnice AppStream in je lahko uporabna namesto določanja novih oznak po meri najvišje ravni ali oznak s predpono »x«, če želite samo dodati podatke po meri v datoteko z metainformacijami."
+msgstr "Najdena je neveljavna oznaka. Nestandardne oznake morajo imeti predpono »x-». AppStream ponuja tudi oznako <custom/> za dodajanje poljubnih podatkov po meri v datoteke metainfo. To oznako berejo knjižnice AppStream in je lahko uporabna namesto določanja novih oznak po meri najvišje ravni ali oznak s predpono »x-«, če želite samo dodati podatke po meri v datoteko metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:675
-#, fuzzy
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
-msgstr "Manjka bistvena oznaka \"metadata_license\". Licenco za same metapodatke je treba vedno opredeliti."
+msgstr "Manjka bistvena oznaka »metadata_license«. Dovoljenje za same metapodatke je treba vedno opredeliti."
 
 #: src/as-validator-issue-tag.h:680
 msgid ""
@@ -2404,18 +2349,16 @@ msgstr "Tej generični komponenti manjka dolg opis. Morda bi bilo koristno, da g
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:701
-#, fuzzy
 msgid ""
 "This `desktop-application` component is missing a `desktop-id` launchable "
 "tag. This means that this application can not be launched and has no "
 "association with its desktop-entry file. It also means no icon data or "
 "category information from the desktop-entry file will be available, which "
 "will result in this application being ignored entirely."
-msgstr "Tej komponenti »namizne aplikacije« manjka oznaka »desktop-id«, ki jo je mogoče zagnati. To pomeni, da te aplikacije ni mogoče zagnati in ni povezana z datoteko za vnos v namizje. To tudi pomeni, da ne bodo na voljo nobeni podatki o ikonah ali informacije o kategorijah iz datoteke za vnos na namizju, zaradi česar bo ta aplikacija v celoti prezrta."
+msgstr "Tej komponenti »desktop-application« (namizni program) manjka izvršilna oznaka »desktop-id«. To pomeni, da te programa ni mogoče zagnati in ni povezana z datoteko za vnos v namizje. To tudi pomeni, da ne bodo na voljo nobeni podatki o ikonah ali informacije o kategorijah iz datoteke za vnos na namizju, zaradi česar bo ta program v celoti prezrt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:710
-#, fuzzy
 msgid ""
 "This `desktop-application` component has no `desktop-id` launchable tag, "
 "however it contains all the necessary information to display the "
@@ -2423,7 +2366,7 @@ msgid ""
 "application can not be launched directly from installers or software "
 "centers. If this is intended, this information can be ignored, otherwise it "
 "is strongly recommended to add a launchable tag as well."
-msgstr "Ta komponenta »namizna aplikacija« nima oznake »desktop-id«, ki bi jo bilo mogoče zagnati, vendar vsebuje vse potrebne informacije za prikaz aplikacije. Opustitev vnosa, ki ga je mogoče zagnati, pomeni, da te aplikacije ni mogoče zagnati neposredno iz namestitvenih programov ali programskih centrov. Če je to namenjeno, lahko te informacije prezrete, sicer je zelo priporočljivo, da dodate tudi oznako, ki jo je mogoče zagnati."
+msgstr "Ta komponenta »desktop-application« (namizni program) nima oznake »desktop-id«, ki bi jo bilo mogoče zagnati, vendar vsebuje vse potrebne informacije za prikaz programa. Opustitev vnosa, ki ga je mogoče zagnati, pomeni, da tega programa ni mogoče zagnati neposredno iz namestitvenih programov ali programskih središč. Če je to namerno, lahko te informacije prezrete, sicer je zelo priporočljivo, da dodate tudi oznako, ki jo je mogoče zagnati."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:720
@@ -2454,19 +2397,17 @@ msgstr "V tej komponenti »web-application« manjkajo kategorizacije. Verjetno m
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:744
-#, fuzzy
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
-msgstr "Vnesite komponento 'font', vendar z oznako 'provides/font' ni bilo nobenih informacij o pisavi."
+msgstr "Vnesite komponento »font«, vendar z oznako »provides/font« ni bilo podanih nobenih podatkov o pisavi."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:750
-#, fuzzy
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
-msgstr "Vnesite komponento \"voznik\", vendar informacije o modalijah niso bile zagotovljene prek oznake \"zagotavlja/modalije\"."
+msgstr "Komponenta vrste »driver«, vendar informacije o modaliasih niso bile zagotovljene prek oznake »provides/modalias«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:756
@@ -2482,11 +2423,10 @@ msgstr "Komponenta je dodatek, vendar oznaka »extends« ni bila določena."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:768
-#, fuzzy
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
-msgstr "Tej komponenti 'lokalizacije' manjka oznaka 'extends', da bi določila komponente, ki jim dodaja lokalizacijo."
+msgstr "Tej komponenti »localization« manjka oznaka »extends«, da bi določila komponente, ki jim dodaja lokalizacijo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:774
@@ -2523,11 +2463,10 @@ msgid ""
 msgstr "Vse kategorije za to komponento so bile prezrte, bodisi zato, ker so bile neveljavne ali ker so slabe kakovosti (npr. predpona po meri »X-» ali orodja, kot sta »GTK« in »Qt«). Popravite imena kategorij ali dodajte več kategorij."
 
 #: src/as-validator-issue-tag.h:802
-#, fuzzy
 msgid ""
 "This component is in no valid categories, even though it should be. Please "
 "check its metainfo file and desktop-entry file."
-msgstr "Ta komponenta ni v veljavnih kategorijah, čeprav bi morala biti. Prosimo, preverite njegovo metainfo datoteko in datoteko za vnos na namizju."
+msgstr "Ta komponenta ni v veljavnih kategorijah, čeprav bi morala biti. Prosimo, preverite njeno datoteko metainfo in datoteko za vnos na namizju."
 
 #: src/as-validator-issue-tag.h:807
 msgid "The screenshot caption is too long (should be <= 100 characters)"
@@ -2567,9 +2506,8 @@ msgid "The metainfo filename does not match the component ID."
 msgstr "Ime datoteke metainfo se ne ujema z ID-jem komponente."
 
 #: src/as-validator-issue-tag.h:845
-#, fuzzy
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr "Ni mogoče naložiti namizne datoteke, povezane s to komponento."
+msgstr "Ni mogoče naložiti datoteke za vnos namizja, povezane s to komponento."
 
 #: src/as-validator-issue-tag.h:850
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -2641,11 +2579,10 @@ msgstr "Izdaje niso razvrščene v vrstnem redu od najnovejše do najstarejše r
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:915
-#, fuzzy
 msgid ""
 "The type of the releases block is invalid. It needs to either `embedded` "
 "(the default) or `external`."
-msgstr "Vrsta bloka sprostitev je neveljavna. Mora biti »vdelana« (privzeta) ali »zunanja«."
+msgstr "Blok vrste izdaj je neveljaven. Mora biti »embedded« (vdelano, privzeto) ali »external« (zunanje)."
 
 #: src/as-validator-issue-tag.h:920
 msgid ""
@@ -2704,12 +2641,11 @@ msgid "The value set as artifact bundle type is invalid."
 msgstr "Vrednost, nastavljena kot vrsta svežnja artefaktov, ni veljavna."
 
 #: src/as-validator-issue-tag.h:980
-#, fuzzy
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr "Triplet platforme za to izdajo ni veljaven. Biti mora v obliki 'architecture-oskernel-osenv' - za več informacij in veljavnih polj si oglejte dokumentacijo AppStream ali informacije o normaliziranih GNU tripletih."
+msgstr "Tojček platforme za to izdajo ni veljaven. Biti mora v obliki »architecture-oskernel-osenv« - za več informacij in veljavnih polj si oglejte dokumentacijo AppStream ali informacije o normaliziranih trojčkih GNU."
 
 #: src/as-validator-issue-tag.h:987
 msgid "The selected checksumming algorithm is unsupported or unknown."
@@ -2727,12 +2663,10 @@ msgid ""
 msgstr "Ime datoteke artefakta mora biti osnovno ime datoteke in ne (relativna ali absolutna) pot."
 
 #: src/as-validator-issue-tag.h:1003
-#, fuzzy
 msgid "The value set as release issue type is invalid."
 msgstr "Vrednost, nastavljena kot vrsta izdaje, ni veljavna."
 
 #: src/as-validator-issue-tag.h:1008
-#, fuzzy
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
@@ -2740,14 +2674,12 @@ msgstr "Težava je označena kot varnostna ranljivost s številko CVE, vendar nj
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1014
-#, fuzzy
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
-msgstr "V tej komponenti manjkajo informacije o izdajah. Razmislite o dodajanju oznake »izdaje«, ki opisuje izdaje in njihove spremembe."
+msgstr "V tej komponenti manjkajo informacije o izdajah. Razmislite o dodajanju oznake »releases«, ki opisuje izdaje in njihove spremembe."
 
 #: src/as-validator-issue-tag.h:1019
-#, fuzzy
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
@@ -2755,30 +2687,27 @@ msgid ""
 msgstr "Specifikacija AppStream zahteva popoln niz datumov ISO 8601 z najmanj dnevno razčlenjenostjo za označevanje datumov. Prepričajte se, da je datumski niz veljaven."
 
 #: src/as-validator-issue-tag.h:1025
-#, fuzzy
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
 "metadata."
-msgstr "Ta komponenta se razširi, zagotovi, zahteva ali priporoča, kar zagotovo ni namenjeno in lahko zmede uporabnike ali stroje, ki se ukvarjajo s temi metapodatki."
+msgstr "Ta komponenta razširja, zagotavlja, zahteva ali priporoča samo sebe, kar zagotovo ni mišljeno in lahko zmede uporabnike ali računalnike, ki se ukvarjajo s temi metapodatki."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1032
-#, fuzzy
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's `project_license`. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr "Licence za komponente »runtime« so običajno preveč zapletene, da bi jih odražale v preprostem izrazu SPDX. Razmislite o uporabi »LicenseRef« in spletnega URL-ja kot vrednosti za »project_license« te komponente. Npr. 'LicenseRef-free=https://example.com/licenses.html'"
+msgstr "Dovoljenja za komponente »runtime« so običajno preveč zapletene, da bi jih odražale v preprostem izrazu SPDX. Razmislite o uporabi »LicenseRef« in spletnega URL-ja kot vrednosti za »project_license« te komponente. Primer: »LicenseRef-free=https://example.com/licenses.html«"
 
 #: src/as-validator-issue-tag.h:1038
-#, fuzzy
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
-msgstr "Ker je komponenta 'runtime' sestavljena iz več drugih komponent programske opreme, so lahko njihovi ID-ji komponent navedeni v razdelku '<provides/>' za ta izvajalnik."
+msgstr "Ker je komponenta »runtime« sestavljena iz več drugih komponent programske opreme, so lahko njihovi ID-ji komponent navedeni v razdelku »<provides/>« za to izvajalno datoteko."
 
 #: src/as-validator-issue-tag.h:1043
 msgid ""
@@ -2787,16 +2716,14 @@ msgstr "Vrsta elementa, ki ga ponuja komponenta, ni znana AppStreamu."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1049
-#, fuzzy
 msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr "Oznaka »mimetypes« na najvišji ravni je zastarela. Prosimo, uporabite oznake 'mediatype' v bloku 'zagotovi', da označite, da vaša programska oprema zagotavlja orodje za upravljanje medijev za dane vrste."
+msgstr "Oznaka »mimetypes« na najvišji ravni je zastarela. Prosimo, uporabite oznake »mediatype« v bloku »provides«, da označite, da vaša programska oprema zagotavlja orodje za upravljanje medijev za dane vrste."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1056
-#, fuzzy
 msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
@@ -2854,17 +2781,15 @@ msgstr "Oznaka »content_attribute« s tem ID-jem je že določena."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1117
-#, fuzzy
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr "Tej 'tag' manjka atribut 'imenski prostor'."
+msgstr "Tej oznaki (»tag«) manjka atribut »namespace« (imenski prostor)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1123
-#, fuzzy
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr "Ta oznaka ali njen imenski prostor vsebuje neveljavne znake. Dovoljene so samo črke ASCII, številke, pike, vezaji in podčrtaji z malimi črkami."
+msgstr "Ta oznaka ali njen imenski prostor vsebuje neveljavne znake. Dovoljene so samo črke ASCII, števke, pike, vezaji in podčrtaji z malimi črkami."
 
 #: src/as-validator-issue-tag.h:1128
 msgid "The type of this color is not valid."
@@ -2876,47 +2801,41 @@ msgstr "Vrednost te nastavitve barvne sheme ni veljavna."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1139
-#, fuzzy
 msgid ""
 "The name of the color scheme property is wrong. It should be "
 "`scheme_preference`."
-msgstr "Ime lastnosti barvne sheme je napačno. Moralo bi biti \"scheme_preference\"."
+msgstr "Ime lastnosti barvne sheme je napačno. Moralo bi biti »scheme_preference«."
 
 #: src/as-validator-issue-tag.h:1144
 msgid "This color is not a valid HTML color code."
 msgstr "Ta barva ni veljavna barvna koda HTML."
 
 #: src/as-validator-issue-tag.h:1149
-#, fuzzy
 msgid ""
 "A color for this type/scheme combination was already set. Colors must be "
 "unique per type/scheme."
 msgstr "Barva za to kombinacijo vrste / sheme je bila že nastavljena. Barve morajo biti edinstvene glede na vrsto/shemo."
 
 #: src/as-validator-issue-tag.h:1154
-#, fuzzy
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
 msgstr "Navedeni DOI (Digital Object Identifier) za to referenčno postavko ni veljaven."
 
 #: src/as-validator-issue-tag.h:1159
-#, fuzzy
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
-msgstr "Vrednost tega elementa sklicevanja na citat mora biti URL datoteke CFF (Citation File Format)."
+msgstr "Vrednost tega elementa sklicevanja mora biti URL datoteke CFF (Citation File Format)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1165
-#, fuzzy
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
-msgstr "Ta referenčni element registra manjka lastnost »ime«, ki označuje ime registra, za katerega gre."
+msgstr "Temu referenčnemu elementu registra manjka lastnost »name«, ki označuje ime registra, za katerega gre."
 
 #: src/as-validator-issue-tag.h:1170
-#, fuzzy
 msgid ""
 "The registry for this reference item is unknown. This may be due to a typing "
 "error, or the registry needs to be registered with AppStream."
@@ -2946,11 +2865,10 @@ msgstr "Ta vrednost po meri je prazna."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1204
-#, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual keyword entries instead."
-msgstr "Oznaka »ključne besede« ne sme biti lokalizirana v metainfo datotekah (zgornjih metapodatkih). Namesto tega lokalizirajte posamezne vnose ključnih besed."
+msgstr "Oznaka »keywords« (ključne besede) ne sme biti lokalizirana v datotekah metainfo (vrhnji metapodatki). Namesto tega lokalizirajte posamezne vnose ključnih besed."
 
 #: src/as-validator.c:199
 msgid ""
@@ -3075,11 +2993,10 @@ msgstr "Naredi vse URL-je v izhodnih podatkih popolne URL-je in se izogne uporab
 
 #. TRANSLATORS: ascompose flag description for: --icon-policy
 #: tools/appstream-compose.c:296
-#, fuzzy
 msgid ""
 "An icon-policy string to set how icon sizes should be handled (refer to the "
 "man page for details)."
-msgstr "Niz pravilnika ikon za nastavitev načina ravnanja z velikostmi ikon (za podrobnosti glejte stran z navodili)."
+msgstr "Niz icon-policy (pravila za ikone) za nastavitev načina ravnanja z velikostmi ikon (za podrobnosti glejte stran z navodili)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:303
@@ -3114,7 +3031,7 @@ msgstr ""
 "Različica knjižnice AppStream: %s"
 
 #: tools/appstream-compose.c:364
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "Invalid value for `--print-report` option: %s\n"
 "Possible values are:\n"
@@ -3124,9 +3041,9 @@ msgid ""
 msgstr ""
 "Neveljavna vrednost za možnost »--print-report«: %s\n"
 "Možne vrednosti so:\n"
-"»Napaka« – natisne kratko poročilo le, če zagon ni uspel (privzeto)\n"
-"»kratek« – ustvari skrajšano poročilo\n"
-"\"Popolno\" – natisnjeno bo podrobno poročilo"
+"»on-error« – natisne kratko poročilo le, če zagon ni uspel (privzeto)\n"
+"»short« – ustvari skrajšano poročilo\n"
+"»full« – natisnjeno bo podrobno poročilo"
 
 #: tools/appstream-compose.c:394
 #, c-format
@@ -3248,10 +3165,9 @@ msgstr "Ne uporabljaj dostopa do omrežja."
 
 #. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
 #: tools/appstreamcli.c:149
-#, fuzzy
 msgid ""
 "Fail validation if any issue is emitted that is not of pedantic severity."
-msgstr "Neuspešna potrditev, če se sproži kakršna koli težava, ki ni pedantna."
+msgstr "Neuspešno preverjanje, če se sproži kakršna koli težava, ki ni podrobna."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:155
@@ -3412,9 +3328,9 @@ msgid ""
 msgstr "Ustvarite izhod v izbrani obliki zapisa (»yaml«, »text« ali »markdown«)."
 
 #: tools/appstreamcli.c:1127
-#, c-format, fuzzy
+#, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
-msgstr "Dvojiška datoteka AppStream Compose »%s« ni bila najdena! Ne morem nadaljevati."
+msgstr "Dvojiška datoteka AppStream Compose »%s« ni bila najdena! Ni možno nadaljevati."
 
 #: tools/appstreamcli.c:1131
 #, c-format
@@ -3477,7 +3393,6 @@ msgstr "Pridobite informacije o komponenti po njenem ID-ju."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
 #: tools/appstreamcli.c:1404
-#, fuzzy
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
@@ -3500,9 +3415,8 @@ msgstr "Znova zgradi predpomnilnik metapodatkov komponente."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
 #: tools/appstreamcli.c:1437
-#, fuzzy
 msgid "Validate AppStream XML files for issues."
-msgstr "Preverite težave v datotekah AppStream XML."
+msgstr "Preverite težave v datotekah XML AppStream."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1444
@@ -3565,11 +3479,10 @@ msgstr "Primerjajte številki dveh različic."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
 #: tools/appstreamcli.c:1532
-#, fuzzy
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr "Ustvari predlogo za datoteko metainfo (ki jo izpolni zgornji projekt)."
+msgstr "Ustvari predlogo za datoteko metainfo (ki jo izpolni vrhnji projekt)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1540
@@ -3915,7 +3828,6 @@ msgid "You need to specify a NEWS file as input."
 msgstr "Kot vhod morate določiti datoteko NEWS."
 
 #: tools/ascli-actions-misc.c:362
-#, fuzzy
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
 msgstr "Določiti morate datoteko metainfo, ki jo želite povečati, ali »-« za tiskanje na stdout."
@@ -3984,9 +3896,8 @@ msgid "Physical Memory"
 msgstr "Fizični pomnilnik"
 
 #: tools/ascli-actions-misc.c:601
-#, fuzzy
 msgid "Devices with Modaliases"
-msgstr "Naprave z modaliasami"
+msgstr "Naprave z modaliasi"
 
 #: tools/ascli-actions-misc.c:630
 msgid "User Input Controls"
@@ -4007,25 +3918,24 @@ msgid "no"
 msgstr "ne"
 
 #: tools/ascli-actions-pkgmgr.c:53
-#, fuzzy
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon\" "
 "(part of PackageKit) is available."
-msgstr "Ni bilo mogoče najti ustreznega CLI-ja upravitelja paketov. Prepričajte se, da je na voljo npr. \"pkcon\" (del paketa)."
+msgstr "Ni bilo mogoče najti ustreznega CLI-ja upravitelja paketov. Prepričajte se, da je na voljo npr. »pkcon« (del PackageKit-a)."
 
 #: tools/ascli-actions-pkgmgr.c:67
-#, c-format, fuzzy
+#, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr "Upravitelja paketov ni mogoče pojaviti: %s"
+msgstr "Upravitelja paketov ni mogoče sprožiti: %s"
 
 #: tools/ascli-actions-pkgmgr.c:85
 msgid "Flatpak was not found! Please install it to continue."
 msgstr "Flatpak ni bil najden! Namestite ga za nadaljevanje."
 
 #: tools/ascli-actions-pkgmgr.c:96
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "Komponente, ki se ujema z %s, ni mogoče najti."
+msgstr "Ni mogoče sprožiti procesa Flatpak: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
 #, c-format
@@ -4058,11 +3968,11 @@ msgstr "Komponenta »%s« nima kandidata za namestitev."
 #. TRANSLATORS: User-supplied overrides string for appstreamcli was badly formatted
 #. (tag is an issue tag, severity is the desired severity that it should be set to).
 #: tools/ascli-actions-validate.c:259
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "The format of validator issue override '%s' is invalid (should be "
 "'tag=severity')"
-msgstr "Oblika preglasitve težave s validatorjem '%s' je neveljavna (mora biti 'tag=resnost')"
+msgstr "Oblika preglasitve težave z validatorjem »%s« je neveljavna (mora biti »tag=severity«)"
 
 #: tools/ascli-actions-validate.c:268
 #, c-format
@@ -4108,7 +4018,6 @@ msgid "Unable to add release metadata file: %s"
 msgstr "Ni mogoče dodati datoteke z metapodatki izdaje: %s"
 
 #: tools/ascli-actions-validate.c:416
-#, fuzzy
 msgid ""
 "You need to specify at least one MetaInfo file to validate.\n"
 "Release metadata files can currently not be validated without their "
@@ -4118,14 +4027,13 @@ msgstr ""
 "Datotek z metapodatki izdaje trenutno ni mogoče preveriti brez spremljajoče datoteke MetaInfo."
 
 #: tools/ascli-actions-validate.c:444 tools/ascli-actions-validate.c:577
-#, fuzzy
 msgid "Validation was successful."
-msgstr "Potrditev je bila uspešna."
+msgstr "Potrjevanje je bilo uspešno."
 
 #: tools/ascli-actions-validate.c:447 tools/ascli-actions-validate.c:580
-#, c-format, fuzzy
+#, c-format
 msgid "Validation was successful: %s"
-msgstr "Validacija je bila uspešna: %s"
+msgstr "Potrjevanje pristnosti je bilo uspešno: %s"
 
 #: tools/ascli-actions-validate.c:458 tools/ascli-actions-validate.c:591
 #, c-format
@@ -4133,7 +4041,7 @@ msgid "Validation failed: %s"
 msgstr "Preverjanje je spodletelo: %s"
 
 #: tools/ascli-actions-validate.c:526 tools/ascli-actions-validate.c:647
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
 "'yaml' or 'text' instead."
