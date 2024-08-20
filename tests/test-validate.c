@@ -279,7 +279,8 @@ test_validator_snapshot_release (void)
 				  "  <name>Test</name>\n"
 				  "  <summary>Another sample unittest</summary>\n"
 				  "  <releases>\n"
-				  "    <release type=\"snapshot\" version=\"1.0-rc1\"/>\n"
+				  "    <release type=\"snapshot\" version=\"1.0-rc2\"/>\n"
+				  "    <release type=\"snapshot\" date=\"18:49:09\" version=\"1.0-rc1\"/>\n"
 				  "    <release type=\"stable\" date=\"2024-08-15\" version=\"0.9\"/>\n"
 				  "  </releases>\n"
 				  "</component>\n";
@@ -289,6 +290,10 @@ test_validator_snapshot_release (void)
 		    "developer-info-missing", "",
 		    -1,
 		    AS_ISSUE_SEVERITY_INFO, },
+		{
+		    "invalid-iso8601-date", "18:49:09",
+		    9,
+		    AS_ISSUE_SEVERITY_WARNING, },
 
 		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }
 	};
@@ -297,7 +302,7 @@ test_validator_snapshot_release (void)
 
 	issues = as_validator_get_issues (validator);
 	_astest_check_validate_issues (issues, (AsVResultCheck *) &expected_results);
-	g_assert_true (ret);
+	g_assert_false (ret);
 }
 
 /**
