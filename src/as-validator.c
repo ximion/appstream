@@ -165,14 +165,6 @@ as_validator_finalize (GObject *object)
 	G_OBJECT_CLASS (as_validator_parent_class)->finalize (object);
 }
 
-static void _as_validator_add_issue (AsValidator *validator,
-				     xmlNode *node,
-				     const gchar *tag_final,
-				     const AsIssueSeverity severity,
-				     const gchar *explanation,
-				     const gchar *format,
-				     ...) G_GNUC_PRINTF (6, 7);
-
 /**
  * _as_validator_add_issue:
  **/
@@ -182,21 +174,12 @@ _as_validator_add_issue (AsValidator *validator,
 			 const gchar *tag_final,
 			 const AsIssueSeverity severity,
 			 const gchar *explanation,
-			 const gchar *format,
-			 ...)
+			 const gchar *buffer)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
-	va_list args;
-	g_autofree gchar *buffer = NULL;
 	g_autofree gchar *location = NULL;
 	AsValidatorIssue *issue;
 	gchar *id_str;
-
-	if (format != NULL) {
-		va_start (args, format);
-		buffer = g_strdup_vprintf (format, args);
-		va_end (args);
-	}
 
 	issue = as_validator_issue_new ();
 	as_validator_issue_set_tag (issue, tag_final);
@@ -247,6 +230,7 @@ as_validator_add_issue (AsValidator *validator,
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	va_list args;
+	g_autofree gchar *buffer = NULL;
 	g_autofree gchar *tag_final = NULL;
 	const gchar *explanation;
 	AsIssueSeverity severity;
@@ -265,7 +249,13 @@ as_validator_add_issue (AsValidator *validator,
 		explanation = tag_data->explanation;
 	}
 
-	_as_validator_add_issue(validator, node, tag_final, severity, explanation, format, args);
+	if (format != NULL) {
+		va_start (args, format);
+		buffer = g_strdup_vprintf (format, args);
+		va_end (args);
+	}
+
+	_as_validator_add_issue(validator, node, tag_final, severity, explanation, buffer);
 }
 
 static void as_validator_add_issue_at_severity (AsValidator *validator,
@@ -288,6 +278,7 @@ as_validator_add_issue_at_severity (AsValidator *validator,
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	va_list args;
+	g_autofree gchar *buffer = NULL;
 	g_autofree gchar *tag_final = NULL;
 	const gchar *explanation;
 	const AsValidatorIssueTag *tag_data = g_hash_table_lookup (priv->issue_tags, tag);
@@ -304,7 +295,13 @@ as_validator_add_issue_at_severity (AsValidator *validator,
 		explanation = tag_data->explanation;
 	}
 
-	_as_validator_add_issue(validator, node, tag_final, severity, explanation, format, args);
+	if (format != NULL) {
+		va_start (args, format);
+		buffer = g_strdup_vprintf (format, args);
+		va_end (args);
+	}
+
+	_as_validator_add_issue(validator, node, tag_final, severity, explanation, buffer);
 }
 
 /**
