@@ -291,6 +291,10 @@ test_validator_snapshot_release (void)
 		    -1,
 		    AS_ISSUE_SEVERITY_INFO, },
 		{
+		    "release-time-missing", "date",
+		    8,
+		    AS_ISSUE_SEVERITY_WARNING, },
+		{
 		    "invalid-iso8601-date", "18:49:09",
 		    9,
 		    AS_ISSUE_SEVERITY_WARNING, },
