@@ -52,6 +52,10 @@
 #elif defined(__FreeBSD__) || defined(__NetBSD__) || defined(__APPLE__)
 #include <sys/types.h>
 #include <sys/sysctl.h>
+#elif defined(__GNU__)
+#include <mach/mach.h>
+#include <mach/host_info.h>
+#include <mach/mach_host.h>
 #endif
 #ifdef HAVE_SYSTEMD
 #include <systemd/sd-hwdb.h>
@@ -498,6 +502,15 @@ as_get_physical_memory_total (void)
 	statex.dwLength = sizeof (statex);
 	GlobalMemoryStatusEx (&statex);
 	return statex.ullTotalPhys / (1024 * 1024);
+#elif defined(__GNU__)
+	host_basic_info_data_t hbi;
+	mach_msg_type_number_t cnt = HOST_BASIC_INFO_COUNT;
+	int err = host_info (mach_host_self (), HOST_BASIC_INFO, (host_info_t) &hbi, &cnt);
+	if (err != 0) {
+		g_warning ("Unable to determine physical memory size: %s", g_strerror (err));
+		return 0;
+	}
+	return hbi.memory_size / MB_IN_BYTES;
 #else
 #error "Implementation of as_get_physical_memory_total() missing for this OS."
 #endif
