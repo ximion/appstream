@@ -10,9 +10,8 @@
 	<section id="spec-appdata-introduction">
 		<title>Introduction</title>
 		<para>
-			A desktop application is a software package which includes a graphical user interface as its primary method of interaction and is designed to be used with mouse and keyboard,
-			irrespective of whether it also supports different invocation target sizes for alternative methods of input, like capacitive touch devices. Its package must include a Freedesktop
-			<filename>.desktop</filename> file to be visible in application menus.
+			A desktop application is interactive software that presents a graphical interface to the user.
+			To appear in application listings, the packaged application should include a <filename>.desktop</filename> file.
 		</para>
 		<para>
 			AppStream generators may pull data from the preexisting <filename>.desktop</filename> files to represent an application in the AppStream metadata pool. Upstream projects should
