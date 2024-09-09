@@ -50,7 +50,7 @@
 			<code>&lt;component&gt;</code> tags of different <literal>type</literal>s as children.
 		</para>
 		<para>
-			Data to fill the different component elements is usually taken from their <ulink url="https://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink>
+			Data to fill the different component elements is usually taken from their <ulink url="https://specifications.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink>
 			and package data. However, if an upstream project ships metainfo files (see <xref linkend="chap-Metadata"/>),
 			values defined there should override data from any other source.
 		</para>
@@ -178,7 +178,7 @@
 					</para>
 					<para>
 						In case of a component of type <literal>desktop-application</literal>, the application name as defined in the application's
-						<ulink url="https://standards.freedesktop.org/desktop-entry-spec/latest/">desktop file</ulink> is used.
+						<ulink url="https://specifications.freedesktop.org/desktop-entry-spec/latest/">desktop file</ulink> is used.
 					</para>
 				</listitem>
 			</varlistentry>
