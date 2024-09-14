@@ -68,6 +68,25 @@
 G_DEFINE_QUARK (as-utils-error-quark, as_utils_error)
 
 /**
+ * as_get_resource_safe:
+ *
+ * A threadsafe variant to obtain our GResource.
+ */
+static GResource *
+as_get_resource_safe (void)
+{
+	static GResource *resource = NULL;
+
+	if (g_once_init_enter (&resource)) {
+		GResource *res = as_get_resource ();
+		g_once_init_leave (&resource, res);
+	}
+
+	g_assert (resource != NULL);
+	return resource;
+}
+
+/**
  * as_markup_strsplit_words:
  * @text: the text to split.
  * @line_len: the maximum length of the output line
@@ -1260,24 +1279,6 @@ as_utils_search_token_valid (const gchar *token)
 }
 
 /**
- * as_utils_ensure_resources:
- *
- * Perform a sanity check to ensure GResource can be loaded.
- */
-void
-as_utils_ensure_resources (void)
-{
-	static GMutex mutex;
-	GResource *resource = NULL;
-
-	g_mutex_lock (&mutex);
-	resource = as_get_resource ();
-	if (resource == NULL)
-		g_error ("Failed to load internal resources: as_get_resource() returned NULL!");
-	g_mutex_unlock (&mutex);
-}
-
-/**
  * as_utils_is_category_name:
  * @category_name: a XDG category name, e.g. "ProjectManagement"
  *
@@ -1294,8 +1295,7 @@ as_utils_is_category_name (const gchar *category_name)
 {
 	g_autoptr(GBytes) data = NULL;
 	g_autofree gchar *key = NULL;
-	GResource *resource = as_get_resource ();
-	g_assert (resource != NULL);
+	GResource *resource = as_get_resource_safe ();
 
 	/* custom spec-extensions are generally valid if prefixed correctly */
 	if (g_str_has_prefix (category_name, "X-"))
@@ -1382,8 +1382,7 @@ as_utils_is_tld (const gchar *tld)
 {
 	g_autoptr(GBytes) data = NULL;
 	g_autofree gchar *key = NULL;
-	GResource *resource = as_get_resource ();
-	g_assert (resource != NULL);
+	GResource *resource = as_get_resource_safe ();
 
 	/* safeguard against accidentally matching comments */
 	if (as_is_empty (tld) || g_str_has_prefix (tld, "#"))
@@ -1532,8 +1531,7 @@ as_utils_is_platform_triplet_arch (const gchar *arch)
 	if (g_str_has_prefix (arch, "#"))
 		return FALSE;
 
-	resource = as_get_resource ();
-	g_assert (resource != NULL);
+	resource = as_get_resource_safe ();
 
 	/* load the readonly data section */
 	data = g_resource_lookup_data (resource,
@@ -1575,8 +1573,7 @@ as_utils_is_platform_triplet_oskernel (const gchar *os)
 	if (g_str_has_prefix (os, "#"))
 		return FALSE;
 
-	resource = as_get_resource ();
-	g_assert (resource != NULL);
+	resource = as_get_resource_safe ();
 
 	/* load the readonly data section */
 	data = g_resource_lookup_data (resource,
@@ -1618,8 +1615,7 @@ as_utils_is_platform_triplet_osenv (const gchar *env)
 	if (g_str_has_prefix (env, "#"))
 		return FALSE;
 
-	resource = as_get_resource ();
-	g_assert (resource != NULL);
+	resource = as_get_resource_safe ();
 
 	/* load the readonly data section */
 	data = g_resource_lookup_data (resource,
@@ -1688,8 +1684,7 @@ as_utils_is_reference_registry (const gchar *regname)
 	if (g_str_has_prefix (regname, "#"))
 		return FALSE;
 
-	resource = as_get_resource ();
-	g_assert (resource != NULL);
+	resource = as_get_resource_safe ();
 
 	/* load the readonly data section */
 	data = g_resource_lookup_data (resource,

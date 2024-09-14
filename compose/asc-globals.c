@@ -58,6 +58,24 @@ static AscGlobals *g_globals = NULL;
 static GMutex g_globals_mutex;
 
 /**
+ * asc_get_resource_safe:
+ *
+ * A threadsafe variant to obtain the buit-in #GResource.
+ */
+static GResource *
+asc_get_resource_safe (void)
+{
+	static GResource *resource = NULL;
+
+	if (g_once_init_enter (&resource)) {
+		GResource *res = asc_get_resource ();
+		g_once_init_leave (&resource, res);
+	}
+
+	return resource;
+}
+
+/**
  * asc_compose_error_quark:
  *
  * Return value: An error quark.
@@ -306,7 +324,7 @@ asc_globals_get_pangrams_for (const gchar *lang)
 			return priv->pangrams_en;
 
 		/* load array from resources */
-		data = g_resource_lookup_data (asc_get_resource (),
+		data = g_resource_lookup_data (asc_get_resource_safe (),
 					       "/org/freedesktop/appstream-compose/pangrams/en.txt",
 					       G_RESOURCE_LOOKUP_FLAGS_NONE,
 					       NULL);

@@ -143,8 +143,6 @@ gchar *as_utils_find_stock_icon_filename_full (const gchar *root_dir,
 					       guint	    icon_size,
 					       guint	    icon_scale,
 					       GError	  **error);
-AS_INTERNAL_VISIBLE
-void   as_utils_ensure_resources (void);
 
 gchar *as_make_usertag_key (const gchar *ns, const gchar *tag);
 
