@@ -56,6 +56,8 @@
 #include <mach/mach.h>
 #include <mach/host_info.h>
 #include <mach/mach_host.h>
+#elif defined(__sun)
+#include <unistd.h>
 #endif
 #ifdef HAVE_SYSTEMD
 #include <systemd/sd-hwdb.h>
@@ -511,6 +513,12 @@ as_get_physical_memory_total (void)
 		return 0;
 	}
 	return hbi.memory_size / MB_IN_BYTES;
+#elif defined(__sun)
+	long physpages = sysconf(_SC_PHYS_PAGES);
+	long pagesize = sysconf(_SC_PAGESIZE);
+	if (physpages > 0 && pagesize > 0)
+		return (physpages * pagesize) / MB_IN_BYTES;
+	return 0;
 #else
 #error "Implementation of as_get_physical_memory_total() missing for this OS."
 #endif
