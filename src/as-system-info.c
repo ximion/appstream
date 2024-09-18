@@ -398,7 +398,7 @@ as_system_info_read_kernel_details (AsSystemInfo *sysinfo)
 	if (priv->kernel_name != NULL)
 		return;
 
-	if (uname (&utsbuf) != 0) {
+	if (uname (&utsbuf) < 0) {
 		g_warning ("Unable to read kernel information via uname: %s", g_strerror (errno));
 		return;
 	}
