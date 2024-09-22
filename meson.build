@@ -73,6 +73,9 @@ if get_option('maintainer')
                          '-Winline',
                          '-Wno-error=comment',
                          '-Werror=format-security',
+
+                         # used in rsvg's headers, so we can not make this fatal yet
+                         '-Wno-error=expansion-to-defined',
     ]
     add_project_arguments(maintainer_c_args, language: 'c')
     add_project_arguments(maintainer_c_args, language: 'cpp')
