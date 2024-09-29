@@ -43,6 +43,7 @@ class Icon;
 class Screenshot;
 class Suggested;
 class Developer;
+class Branding;
 class RelationCheckResult;
 
 class ComponentData;
@@ -263,6 +264,9 @@ public:
 
     QString nameVariantSuffix() const;
     void setNameVariantSuffix(const QString &variantSuffix, const QString &lang = {});
+
+    Branding branding() const;
+    void setBranding(const Branding &branding);
 
     bool hasTag(const QString &ns, const QString &tagName);
     bool addTag(const QString &ns, const QString &tagName);
