@@ -27,6 +27,7 @@ qt_dep = dependency(
 
 asqt_src = [
     'bundle.cpp',
+    'branding.cpp',
     'category.cpp',
     'component-box.cpp',
     'component.cpp',
@@ -53,6 +54,7 @@ asqt_src = [
 
 asqt_pub_headers = [
     'appstreamqt_export.h',
+    'branding.h',
     'bundle.h',
     'category.h',
     'component-box.h',
