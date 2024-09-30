@@ -24,6 +24,7 @@
 
 #include <QDateTime>
 #include <QDebug>
+#include <QTimeZone>
 #include <QUrl>
 
 using namespace AppStream;
@@ -95,13 +96,13 @@ QString Release::version() const
 QDateTime Release::timestamp() const
 {
     const guint64 timestamp = as_release_get_timestamp(d->m_release);
-    return timestamp > 0 ? QDateTime::fromSecsSinceEpoch(timestamp) : QDateTime();
+    return timestamp > 0 ? QDateTime::fromSecsSinceEpoch(timestamp, QTimeZone::utc()) : QDateTime();
 }
 
 QDateTime Release::timestampEol() const
 {
     const guint64 timestamp = as_release_get_timestamp_eol(d->m_release);
-    return timestamp > 0 ? QDateTime::fromSecsSinceEpoch(timestamp) : QDateTime();
+    return timestamp > 0 ? QDateTime::fromSecsSinceEpoch(timestamp, QTimeZone::utc()) : QDateTime();
 }
 
 QString Release::description() const
