@@ -25,6 +25,7 @@
 #include <QUrl>
 #include <QMap>
 #include <QMultiHash>
+#include "branding.h"
 #include "chelpers.h"
 #include "icon.h"
 #include "screenshot.h"
@@ -759,6 +760,19 @@ void Component::setNameVariantSuffix(const QString &variantSuffix, const QString
     as_component_set_name_variant_suffix(d->cpt,
                                          qPrintable(variantSuffix),
                                          lang.isEmpty() ? NULL : qPrintable(lang));
+}
+
+Branding Component::branding() const
+{
+    auto branding = as_component_get_branding(d->cpt);
+    if (branding == NULL)
+        return Branding();
+    return Branding(branding);
+}
+
+void Component::setBranding(const Branding &branding)
+{
+    as_component_set_branding(d->cpt, branding.cPtr());
 }
 
 bool Component::hasTag(const QString &ns, const QString &tagName)
