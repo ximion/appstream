@@ -165,51 +165,21 @@ as_validator_finalize (GObject *object)
 	G_OBJECT_CLASS (as_validator_parent_class)->finalize (object);
 }
 
-static void as_validator_add_issue (AsValidator *validator,
-				    xmlNode *node,
-				    const gchar *tag,
-				    const gchar *format,
-				    ...) G_GNUC_PRINTF (4, 5);
-
 /**
- * as_validator_add_issue:
+ * _as_validator_add_issue:
  **/
 static void
-as_validator_add_issue (AsValidator *validator,
-			xmlNode *node,
-			const gchar *tag,
-			const gchar *format,
-			...)
+_as_validator_add_issue (AsValidator *validator,
+			 xmlNode *node,
+			 const gchar *tag_final,
+			 const AsIssueSeverity severity,
+			 const gchar *explanation,
+			 const gchar *buffer)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
-	va_list args;
-	g_autofree gchar *buffer = NULL;
-	g_autofree gchar *tag_final = NULL;
-	const gchar *explanation;
-	AsIssueSeverity severity;
 	g_autofree gchar *location = NULL;
 	AsValidatorIssue *issue;
 	gchar *id_str;
-	const AsValidatorIssueTag *tag_data = g_hash_table_lookup (priv->issue_tags, tag);
-
-	if (tag_data == NULL) {
-		/* we requested data about an invalid tag */
-		g_warning ("Validator invoked invalid issue tag: %s", tag);
-		severity = AS_ISSUE_SEVERITY_ERROR;
-		explanation = _("The emitted issue tag is unknown in the tag registry of AppStream. "
-				"This is a bug in the validator itself, please report this issue in our bugtracker.");
-		tag_final = g_strdup_printf ("__error__%s", tag);
-	} else {
-		tag_final = g_strdup (tag);
-		severity = tag_data->severity;
-		explanation = tag_data->explanation;
-	}
-
-	if (format != NULL) {
-		va_start (args, format);
-		buffer = g_strdup_vprintf (format, args);
-		va_end (args);
-	}
 
 	issue = as_validator_issue_new ();
 	as_validator_issue_set_tag (issue, tag_final);
@@ -240,6 +210,98 @@ as_validator_add_issue (AsValidator *validator,
 		}
 		g_ptr_array_add (ilist, g_object_ref (issue));
 	}
+}
+
+static void as_validator_add_issue (AsValidator *validator,
+				    xmlNode *node,
+				    const gchar *tag,
+				    const gchar *format,
+				    ...) G_GNUC_PRINTF (4, 5);
+
+/**
+ * as_validator_add_issue:
+ **/
+static void
+as_validator_add_issue (AsValidator *validator,
+			xmlNode *node,
+			const gchar *tag,
+			const gchar *format,
+			...)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	va_list args;
+	g_autofree gchar *buffer = NULL;
+	g_autofree gchar *tag_final = NULL;
+	const gchar *explanation;
+	AsIssueSeverity severity;
+	const AsValidatorIssueTag *tag_data = g_hash_table_lookup (priv->issue_tags, tag);
+
+	if (tag_data == NULL) {
+		/* we requested data about an invalid tag */
+		g_warning ("Validator invoked invalid issue tag: %s", tag);
+		severity = AS_ISSUE_SEVERITY_ERROR;
+		explanation = _("The emitted issue tag is unknown in the tag registry of AppStream. "
+				"This is a bug in the validator itself, please report this issue in our bugtracker.");
+		tag_final = g_strdup_printf ("__error__%s", tag);
+	} else {
+		tag_final = g_strdup (tag);
+		severity = tag_data->severity;
+		explanation = tag_data->explanation;
+	}
+
+	if (format != NULL) {
+		va_start (args, format);
+		buffer = g_strdup_vprintf (format, args);
+		va_end (args);
+	}
+
+	_as_validator_add_issue(validator, node, tag_final, severity, explanation, buffer);
+}
+
+static void as_validator_add_issue_at_severity (AsValidator *validator,
+						xmlNode *node,
+						const gchar *tag,
+						const AsIssueSeverity severity,
+						const gchar *format,
+						...) G_GNUC_PRINTF (5, 6);
+
+/**
+ * as_validator_add_issue_with_severity:
+ **/
+static void
+as_validator_add_issue_at_severity (AsValidator *validator,
+				    xmlNode *node,
+				    const gchar *tag,
+				    AsIssueSeverity severity,
+				    const gchar *format,
+				    ...)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	va_list args;
+	g_autofree gchar *buffer = NULL;
+	g_autofree gchar *tag_final = NULL;
+	const gchar *explanation;
+	const AsValidatorIssueTag *tag_data = g_hash_table_lookup (priv->issue_tags, tag);
+
+	if (tag_data == NULL) {
+		/* we requested data about an invalid tag */
+		g_warning ("Validator invoked invalid issue tag: %s", tag);
+		severity = AS_ISSUE_SEVERITY_ERROR;
+		explanation = _("The emitted issue tag is unknown in the tag registry of AppStream. "
+				"This is a bug in the validator itself, please report this issue in our bugtracker.");
+		tag_final = g_strdup_printf ("__error__%s", tag);
+	} else {
+		tag_final = g_strdup (tag);
+		explanation = tag_data->explanation;
+	}
+
+	if (format != NULL) {
+		va_start (args, format);
+		buffer = g_strdup_vprintf (format, args);
+		va_end (args);
+	}
+
+	_as_validator_add_issue(validator, node, tag_final, severity, explanation, buffer);
 }
 
 /**
@@ -2453,7 +2515,15 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 		g_autofree gchar *timestamp = as_xml_get_prop_value (node, "timestamp");
 		if (timestamp == NULL) {
 			/* Neither timestamp, nor date property exists */
-			as_validator_add_issue (validator, node, "release-time-missing", "date");
+			if (rel_kind == AS_RELEASE_KIND_SNAPSHOT) {
+				as_validator_add_issue_at_severity (validator,
+								    node,
+								    "release-time-missing",
+								    AS_ISSUE_SEVERITY_WARNING,
+								    "date");
+			} else {
+				as_validator_add_issue (validator, node, "release-time-missing", "date");
+			}
 		} else {
 			/* check if the timestamp is both a number and higher than 3000. The 3000 is used to check that it is not a year */
 			if (!as_str_verify_integer (timestamp, 3000, G_MAXINT64))
