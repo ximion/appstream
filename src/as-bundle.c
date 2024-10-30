@@ -70,6 +70,8 @@ as_bundle_kind_to_string (AsBundleKind kind)
 		return "cabinet";
 	if (kind == AS_BUNDLE_KIND_LINGLONG)
 		return "linglong";
+	if (kind == AS_BUNDLE_KIND_SYSUPDATE)
+		return "sysupdate";
 	return "unknown";
 }
 
@@ -100,6 +102,8 @@ as_bundle_kind_from_string (const gchar *bundle_str)
 		return AS_BUNDLE_KIND_CABINET;
 	if (g_strcmp0 (bundle_str, "linglong") == 0)
 		return AS_BUNDLE_KIND_LINGLONG;
+	if (g_strcmp0 (bundle_str, "sysupdate") == 0)
+		return AS_BUNDLE_KIND_SYSUPDATE;
 	return AS_BUNDLE_KIND_UNKNOWN;
 }
 
