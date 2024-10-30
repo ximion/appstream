@@ -54,6 +54,7 @@ struct _AsBundleClass {
  * @AS_BUNDLE_KIND_TARBALL:	A (maybe compressed) tarball.
  * @AS_BUNDLE_KIND_CABINET:	Cabinet firmware deployment
  * @AS_BUNDLE_KIND_LINGLONG:	A Linglong bundle
+ * @AS_BUNDLE_KIND_SYSUPDATE:	A systemd-sysupdate bundle
  *
  * The bundle type.
  **/
@@ -67,6 +68,7 @@ typedef enum {
 	AS_BUNDLE_KIND_TARBALL,
 	AS_BUNDLE_KIND_CABINET,
 	AS_BUNDLE_KIND_LINGLONG,
+	AS_BUNDLE_KIND_SYSUPDATE,
 	/*< private >*/
 	AS_BUNDLE_KIND_LAST
 } AsBundleKind;
