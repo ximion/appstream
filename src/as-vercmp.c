@@ -150,9 +150,9 @@ cmp_part (const gchar *a, const gchar *a_end, const gchar *b, const gchar *b_end
  * Compare alpha and numeric segments of two software versions,
  * considering @flags.
  *
- * Returns: >>0 if a is newer than b;
+ * Returns: an integer > 0 if a is newer than b;
  *	    0 if a and b are the same version;
- *	    <<0 if b is newer than a
+ *	    < 0 if b is newer than a
  */
 gint
 as_vercmp (const gchar *a, const gchar *b, AsVercmpFlags flags)
@@ -212,9 +212,9 @@ out:
  *
  * Compare alpha and numeric segments of two software versions.
  *
- * Returns: >>0 if a is newer than b;
+ * Returns: an integer > 0 if a is newer than b;
  *	    0 if a and b are the same version;
- *	    <<0 if b is newer than a
+ *	    < 0 if b is newer than a
  */
 gint
 as_vercmp_simple (const gchar *a, const gchar *b)
