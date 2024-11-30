@@ -916,8 +916,10 @@ test_system_info (void)
 	g_assert_cmpstr (as_system_info_get_os_id (sysinfo), ==, "debian");
 	g_assert_cmpstr (as_system_info_get_os_cid (sysinfo), ==, "org.debian.debian");
 
+#ifndef G_OS_WIN32
 	g_assert_nonnull (as_system_info_get_kernel_name (sysinfo));
 	g_assert_nonnull (as_system_info_get_kernel_version (sysinfo));
+#endif
 
 	g_assert_cmpint (as_system_info_get_memory_total (sysinfo), >=, 128);
 
