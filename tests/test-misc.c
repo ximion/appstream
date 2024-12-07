@@ -346,6 +346,7 @@ test_relation_satisfy_check (void)
 			 AS_RELATION_STATUS_NOT_SATISFIED);
 	g_clear_pointer (&rcr, g_object_unref);
 
+#ifndef G_OS_WIN32
 	/* test kernel */
 	as_relation_set_kind (relation, AS_RELATION_KIND_REQUIRES);
 	as_relation_set_item_kind (relation, AS_RELATION_ITEM_KIND_KERNEL);
@@ -376,6 +377,7 @@ test_relation_satisfy_check (void)
 			 ==,
 			 AS_RELATION_STATUS_NOT_SATISFIED);
 	g_clear_pointer (&rcr, g_object_unref);
+#endif
 
 	/* test display length */
 	as_relation_set_kind (relation, AS_RELATION_KIND_RECOMMENDS);
