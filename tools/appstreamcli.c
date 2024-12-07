@@ -115,6 +115,7 @@ static gboolean optn_explain = FALSE;
 static gboolean optn_no_net = FALSE;
 static gboolean optn_validate_strict = FALSE;
 static gchar *optn_issue_overrides = NULL;
+static gboolean optn_ignore_empty = FALSE;
 
 /**
  * General options for validation.
@@ -159,6 +160,13 @@ const GOptionEntry validate_options[] = {
 	  G_OPTION_ARG_STRING, &optn_issue_overrides,
 	  /* TRANSLATORS: ascli flag description for: --override  when validating XML files */
 	  N_ ("Override the severities of selected issue tags."),
+	  NULL },
+	{ "ignore-empty",
+	  (gchar) 0,
+	  0, G_OPTION_ARG_NONE,
+	  &optn_ignore_empty,
+	  /* TRANSLATORS: ascli flag description for: --ignore-empty (used by the "validate" command) */
+	  N_ ("Don't exit with a error when no files are given"),
 	  NULL },
 
 	{ NULL }
@@ -477,6 +485,7 @@ as_client_run_validate (const gchar *command, char **argv, int argc)
 					     optn_explain,
 					     optn_validate_strict,
 					     !optn_no_net,
+					     optn_ignore_empty,
 					     optn_issue_overrides);
 	} else {
 		return ascli_validate_files_format (&argv[2],
@@ -484,6 +493,7 @@ as_client_run_validate (const gchar *command, char **argv, int argc)
 						    optn_format,
 						    optn_validate_strict,
 						    !optn_no_net,
+						    optn_ignore_empty,
 						    optn_issue_overrides);
 	}
 }
