@@ -526,7 +526,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "summary-too-long",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  N_("The summary text is very long, and will likely not be displayed properly everywhere.")
+	  N_("The summary text is very long, and will likely not be displayed properly everywhere. It should be <= 90 characters.")
 	},
 
 	{ "icon-stock-cached-has-url",
