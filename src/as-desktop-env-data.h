@@ -79,8 +79,6 @@ AsGUIEnvStyleData as_gui_env_style_data[] = {
 	{ "dde", N_("Deepin") },
 	/* TRANSLATORS: Name of the "ede" visual environment style. */
 	{ "ede", N_("EDE") },
-	/* TRANSLATORS: Name of the "endless" visual environment style. */
-	{ "endless", N_("Endless") },
 	/* TRANSLATORS: Name of the "gnome" visual environment style. */
 	{ "gnome", N_("GNOME") },
 	/* TRANSLATORS: Name of the "gnome:dark" visual environment style. */
@@ -95,10 +93,16 @@ AsGUIEnvStyleData as_gui_env_style_data[] = {
 	{ "mate", N_("Mate") },
 	/* TRANSLATORS: Name of the "pantheon" visual environment style. */
 	{ "pantheon", N_("Pantheon") },
+	/* TRANSLATORS: Name of the "pantheon:dark" visual environment style. */
+	{ "pantheon:dark", N_("Pantheon (Dark)") },
 	/* TRANSLATORS: Name of the "plasma" visual environment style. */
 	{ "plasma", N_("KDE Plasma") },
+	/* TRANSLATORS: Name of the "plasma:dark" visual environment style. */
+	{ "plasma:dark", N_("KDE Plasma (Dark)") },
 	/* TRANSLATORS: Name of the "plasma-mobile" visual environment style. */
 	{ "plasma-mobile", N_("Plasma Mobile") },
+	/* TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style. */
+	{ "plasma-mobile:dark", N_("Plasma Mobile (Dark)") },
 	/* TRANSLATORS: Name of the "razor" visual environment style. */
 	{ "razor", N_("Razor") },
 	/* TRANSLATORS: Name of the "rox" visual environment style. */
