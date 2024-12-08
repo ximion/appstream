@@ -41,11 +41,11 @@ struct {
 	gint width;
 	gint height;
 } target_screenshot_sizes[] = {
-	{1248, 702},
-	{ 752, 423},
-	{ 624, 351},
-	{ 224, 126},
-	{ 0,   0  }
+	{ 1248, 702 },
+	{ 752,  423 },
+	{ 624,  351 },
+	{ 224,  126 },
+	{ 0,    0   }
 };
 
 static AscVideoInfo *
@@ -713,9 +713,9 @@ asc_process_screenshot_images (AscResult *cres,
 	GHashTableIter ht_iter;
 	gpointer ht_key, ht_value;
 	g_autoptr(GHashTable) ht_lang_img = g_hash_table_new_full (g_str_hash,
-								    g_str_equal,
-								    g_free,
-								    g_object_unref);
+								   g_str_equal,
+								   g_free,
+								   g_object_unref);
 
 	imgs = as_screenshot_get_images_all (scr);
 	if (imgs->len == 0) {

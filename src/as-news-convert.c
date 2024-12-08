@@ -225,7 +225,7 @@ as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
 					} else {
 						/* we only have one list entry, or no list at all and a freeform text instead. Convert to paragraphs */
 						g_auto(GStrv)
-							    paras = g_strsplit (value, "\n\n", -1);
+							   paras = g_strsplit (value, "\n\n", -1);
 						for (guint i = 0; paras[i] != NULL; i++) {
 							g_auto(GStrv) lines = NULL;
 							gboolean in_listing = FALSE;

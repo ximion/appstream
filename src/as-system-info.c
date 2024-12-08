@@ -514,8 +514,8 @@ as_get_physical_memory_total (void)
 	}
 	return hbi.memory_size / MB_IN_BYTES;
 #elif defined(__sun)
-	long physpages = sysconf(_SC_PHYS_PAGES);
-	long pagesize = sysconf(_SC_PAGESIZE);
+	long physpages = sysconf (_SC_PHYS_PAGES);
+	long pagesize = sysconf (_SC_PAGESIZE);
 	if (physpages > 0 && pagesize > 0)
 		return (physpages * pagesize) / MB_IN_BYTES;
 	return 0;

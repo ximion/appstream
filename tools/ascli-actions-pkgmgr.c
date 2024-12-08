@@ -152,7 +152,7 @@ ascli_get_component_instrm_candidate (const gchar *identifier,
 	if (as_component_box_is_empty (result_filtered)) {
 		ascli_print_stderr (
 		    _("Unable to find component with ID '%s' and the selected filter criteria!"),
-		       identifier);
+		      identifier);
 		return ASCLI_EXIT_CODE_NO_RESULT;
 	}
 
@@ -187,12 +187,12 @@ ascli_get_component_instrm_candidate (const gchar *identifier,
 			/* TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one. */
 			selection = ascli_prompt_numer (
 			    _("Please enter the number of the component to remove:"),
-			       as_component_box_len (result_filtered));
+			      as_component_box_len (result_filtered));
 		else
 			/* TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one. */
 			selection = ascli_prompt_numer (
 			    _("Please enter the number of the component to install:"),
-			       as_component_box_len (result_filtered));
+			      as_component_box_len (result_filtered));
 		r_cpt = as_component_box_index (result_filtered, selection - 1);
 	}
 
@@ -201,8 +201,7 @@ ascli_get_component_instrm_candidate (const gchar *identifier,
 
 	if (as_component_get_bundle (r_cpt, AS_BUNDLE_KIND_FLATPAK) == NULL &&
 	    as_component_get_pkgname (r_cpt) == NULL) {
-		ascli_print_stderr (_("Component '%s' has no installation candidate."),
-				       identifier);
+		ascli_print_stderr (_("Component '%s' has no installation candidate."), identifier);
 		return ASCLI_EXIT_CODE_FAILED;
 	}
 

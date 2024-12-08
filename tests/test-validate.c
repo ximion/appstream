@@ -77,7 +77,7 @@ static void
 _astest_check_validate_issues (GList *issues, AsVResultCheck *checks_all)
 {
 	g_autoptr(GHashTable)
-		       checks = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+		      checks = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 	for (guint i = 0; checks_all[i].tag != NULL; i++)
 		g_hash_table_insert (checks,

@@ -46,5 +46,5 @@ typedef struct {
 
 extern AscHintTagStatic asc_hint_tag_list[];
 
-#pragma GCC visibility	pop
+#pragma GCC visibility pop
 G_END_DECLS

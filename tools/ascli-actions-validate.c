@@ -257,7 +257,7 @@ ascli_validate_apply_overrides_from_string (AsValidator *validator, const gchar 
 			/* TRANSLATORS: User-supplied overrides string for appstreamcli was badly formatted
 			   (tag is an issue tag, severity is the desired severity that it should be set to). */
 			g_printerr (_("The format of validator issue override '%s' is invalid (should be 'tag=severity')"),
-				       overrides[i]);
+				      overrides[i]);
 			g_printerr ("\n");
 			return FALSE;
 		}
@@ -404,7 +404,7 @@ ascli_validate_files (gchar **argv,
 			g_autoptr(GFile) file = g_file_new_for_path (argv[i]);
 			if (!as_validator_add_release_file (validator, file, &local_error)) {
 				ascli_print_stderr (_("Unable to add release metadata file: %s"),
-						       local_error->message);
+						      local_error->message);
 				return ASCLI_EXIT_CODE_FATAL;
 			}
 		} else {
@@ -443,8 +443,8 @@ ascli_validate_files (gchar **argv,
 		    (pedantic_count == 0)) {
 			g_print ("%s %s\n", ASCLI_CHAR_SUCCESS, _("Validation was successful."));
 		} else {
-			g_autofree gchar *tmp = g_strdup_printf (
-			    _("Validation was successful: %s"), "");
+			g_autofree gchar *tmp = g_strdup_printf (_("Validation was successful: %s"),
+								   "");
 			g_print ("%s %s", ASCLI_CHAR_SUCCESS, tmp);
 			ascli_validate_print_stats (error_count,
 						    warning_count,
@@ -524,7 +524,7 @@ ascli_validate_files_format (gchar **argv,
 	}
 
 	g_print (_("The validator can not create reports in the '%s' format. You may select 'yaml' or 'text' instead."),
-		    format);
+		   format);
 	g_print ("\n");
 	return 1;
 }
@@ -576,8 +576,8 @@ ascli_validate_tree (const gchar *root_dir,
 		    (pedantic_count == 0)) {
 			g_print ("%s %s\n", ASCLI_CHAR_SUCCESS, _("Validation was successful."));
 		} else {
-			g_autofree gchar *tmp = g_strdup_printf (
-			    _("Validation was successful: %s"), "");
+			g_autofree gchar *tmp = g_strdup_printf (_("Validation was successful: %s"),
+								   "");
 			g_print ("%s %s", ASCLI_CHAR_SUCCESS, tmp);
 			ascli_validate_print_stats (error_count,
 						    warning_count,
@@ -645,7 +645,7 @@ ascli_validate_tree_format (const gchar *root_dir,
 	}
 
 	g_print (_("The validator can not create reports in the '%s' format. You may select 'yaml' or 'text' instead."),
-		    format);
+		   format);
 	g_print ("\n");
 	return 1;
 }
@@ -696,15 +696,15 @@ ascli_check_license (const gchar *license)
 
 	/* TRANSLATORS: Whether a license is suitable for AppStream metadata */
 	ascli_print_key_value (_("Suitable for AppStream metadata"),
-				  as_license_is_metadata_license (license_id)
-				  ? _("yes")
-				  : _("no"), FALSE);
+				 as_license_is_metadata_license (license_id)
+				 ? _("yes")
+				 : _("no"), FALSE);
 
 	/* TRANSLATORS: Whether a license considered suitable for Free and Open Source software */
 	ascli_print_key_value (_("Free and Open Source"),
-				  as_license_is_free_license (license_id)
-				  ? _("yes")
-				  : _("no"), FALSE);
+				 as_license_is_free_license (license_id)
+				 ? _("yes")
+				 : _("no"), FALSE);
 
 	if (!is_expression) {
 		g_autofree gchar *url = as_get_license_url (license_id);

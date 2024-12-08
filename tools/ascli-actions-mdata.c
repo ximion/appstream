@@ -65,8 +65,9 @@ ascli_refresh_cache (const gchar *cachepath,
 				g_print ("• %s\n",
 					 _("Updating software metadata cache for Flatpak."));
 			} else {
-				ascli_print_stderr (_("A metadata source group with the name '%s' does not exist!"),
-				    sources_str[i]);
+				ascli_print_stderr (
+				    _("A metadata source group with the name '%s' does not exist!"),
+				      sources_str[i]);
 				return 1;
 			}
 		}
@@ -477,12 +478,11 @@ ascli_create_metainfo_template (const gchar *out_fname,
 	if (cpt_kind == AS_COMPONENT_KIND_UNKNOWN) {
 		if (cpt_kind_str == NULL) {
 			/* TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string */
-			ascli_print_stderr (
-			    _("You need to give an AppStream software component type to generate a template. Possible values are:"));
+			ascli_print_stderr (_("You need to give an AppStream software component type to generate a template. Possible values are:"));
 		} else {
 			/* TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string */
 			ascli_print_stderr (_("The software component type '%s' is not valid in AppStream. Possible values are:"),
-					       cpt_kind_str);
+					      cpt_kind_str);
 		}
 		for (guint i = 1; i < AS_COMPONENT_KIND_LAST; i++)
 			ascli_print_stderr (" • %s", as_component_kind_to_string (i));
@@ -502,14 +502,14 @@ ascli_create_metainfo_template (const gchar *out_fname,
 		defile = g_file_new_for_path (desktop_file);
 		if (!g_file_query_exists (defile, NULL)) {
 			ascli_print_stderr (_("The .desktop file '%s' does not exist."),
-					       desktop_file);
+					      desktop_file);
 			return 4;
 		}
 
 		as_metadata_parse_file (metad, defile, AS_FORMAT_KIND_DESKTOP_ENTRY, &error);
 		if (error != NULL) {
 			ascli_print_stderr (_("Unable to read the .desktop file: %s"),
-					       error->message);
+					      error->message);
 			return 1;
 		}
 
@@ -599,7 +599,7 @@ ascli_create_metainfo_template (const gchar *out_fname,
 								  &error);
 		if (error != NULL) {
 			ascli_print_stderr (_("Unable to build the template metainfo file: %s"),
-					       error->message);
+					      error->message);
 			return 1;
 		}
 
@@ -608,7 +608,7 @@ ascli_create_metainfo_template (const gchar *out_fname,
 		as_metadata_save_metainfo (metad, out_fname, AS_FORMAT_KIND_XML, &error);
 		if (error != NULL) {
 			ascli_print_stderr (_("Unable to save the template metainfo file: %s"),
-					       error->message);
+					      error->message);
 			return 1;
 		}
 	}
@@ -732,7 +732,7 @@ ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gbo
 		cbox = as_pool_get_components_by_id (pool, fname_or_cid);
 		if (as_component_box_is_empty (cbox)) {
 			ascli_print_stderr (_("Unable to find component with ID '%s'!"),
-					       fname_or_cid);
+					      fname_or_cid);
 			return ASCLI_EXIT_CODE_NO_RESULT;
 		}
 
@@ -864,7 +864,7 @@ ascli_check_syscompat (const gchar *fname_or_cid,
 		cbox = as_pool_get_components_by_id (pool, fname_or_cid);
 		if (as_component_box_is_empty (cbox)) {
 			ascli_print_stderr (_("Unable to find component with ID '%s'!"),
-					       fname_or_cid);
+					      fname_or_cid);
 			return ASCLI_EXIT_CODE_NO_RESULT;
 		}
 
@@ -873,7 +873,7 @@ ascli_check_syscompat (const gchar *fname_or_cid,
 
 	/* TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.) */
 	ascli_print_stdout (_("Chassis compatibility check for: %s"),
-			       as_component_get_data_id (cpt));
+			      as_component_get_data_id (cpt));
 
 	for (guint chassis = AS_CHASSIS_KIND_DESKTOP; chassis < AS_CHASSIS_KIND_LAST; chassis++) {
 		g_autoptr(AsSystemInfo) sysinfo = NULL;
@@ -912,7 +912,7 @@ ascli_check_syscompat (const gchar *fname_or_cid,
 					g_print (" %s %s: %s\n",
 						 "•",
 						 _("ERROR"),
-						    as_relation_check_result_get_message (rcr));
+						   as_relation_check_result_get_message (rcr));
 					continue;
 				}
 

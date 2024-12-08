@@ -139,9 +139,9 @@ typedef enum {
 	AS_TAG_LAST
 } AsTag;
 
-AsTag		       as_xml_tag_from_string (const gchar *tag);
+AsTag as_xml_tag_from_string (const gchar *tag);
 
-AsTag		       as_yaml_tag_from_string (const gchar *tag);
+AsTag as_yaml_tag_from_string (const gchar *tag);
 
 #pragma GCC visibility pop
 G_END_DECLS

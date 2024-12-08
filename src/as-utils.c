@@ -2639,7 +2639,8 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 			}
 
 			if (icons_size_id == NULL) {
-				g_warning ("Unable to find valid icon size in icon tarball name, assuming 64x64px.");
+				g_warning ("Unable to find valid icon size in icon tarball name, "
+					   "assuming 64x64px.");
 				icons_size_id = "64x64";
 			}
 
@@ -2783,23 +2784,25 @@ as_utils_find_stock_icon_filename_full (const gchar *root_dir,
 					GError **error)
 {
 	guint min_size_idx = 0;
+	/* clang-format off */
 	const gchar *supported_ext[] = { ".png", ".svg", ".svgz", "", NULL };
 	const struct {
 		guint size;
 		const gchar *size_str;
 	} sizes[] = {
-		{48,   "48x48"   },
-		    { 64,  "64x64"	  },
-		{ 96,  "96x96"   },
-		   { 128, "128x128" },
-		{ 256, "256x256" },
-		    { 512, "512x512" },
-		{ 0,   "scalable"},
-		   { 0,	NULL	     }
+		{ 48,  "48x48"    },
+		{ 64,  "64x64"	  },
+		{ 96,  "96x96"    },
+		{ 128, "128x128"  },
+		{ 256, "256x256"  },
+		{ 512, "512x512"  },
+		{ 0,   "scalable" },
+		{ 0,	NULL	  }
 	};
 	const gchar *types[] = { "actions", "animations", "apps",	 "categories", "devices",
 				 "emblems", "emotes",	  "filesystems", "intl",       "mimetypes",
 				 "places",  "status",	  "stock",	 NULL };
+	/* clang-format on */
 	g_autofree gchar *prefix = NULL;
 
 	g_return_val_if_fail (icon_name != NULL, NULL);

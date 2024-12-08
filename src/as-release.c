@@ -1031,8 +1031,7 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 			time_str = g_strdup_printf ("%" G_GUINT64_FORMAT, priv->timestamp);
 			as_xml_add_text_prop (subnode, "timestamp", time_str);
 		} else {
-			g_autoptr(GDateTime)
-				       time = g_date_time_new_from_unix_utc (priv->timestamp);
+			g_autoptr(GDateTime) time = g_date_time_new_from_unix_utc (priv->timestamp);
 			time_str = g_date_time_format_iso8601 (time);
 			as_xml_add_text_prop (subnode, "date", time_str);
 		}
@@ -1080,7 +1079,7 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 		for (guint i = 0; i < priv->tags->len; i++) {
 			xmlNode *tag_node = NULL;
 			g_auto(GStrv)
-				    parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
+				   parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
 			tag_node = as_xml_add_text_node (tags_node, "tag", parts[1]);
 			if (!as_is_empty (parts[0]))
 				as_xml_add_text_prop (tag_node, "namespace", parts[0]);
@@ -1211,8 +1210,7 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 		if (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG) {
 			as_yaml_emit_entry_timestamp (emitter, "unix-timestamp", priv->timestamp);
 		} else {
-			g_autoptr(GDateTime)
-				       time = g_date_time_new_from_unix_utc (priv->timestamp);
+			g_autoptr(GDateTime) time = g_date_time_new_from_unix_utc (priv->timestamp);
 			time_str = g_date_time_format_iso8601 (time);
 			as_yaml_emit_entry (emitter, "date", time_str);
 		}
@@ -1274,7 +1272,7 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 
 		for (guint i = 0; i < priv->tags->len; i++) {
 			g_auto(GStrv)
-				    parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
+				   parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
 
 			as_yaml_mapping_start (emitter);
 			if (!as_is_empty (parts[0]))

@@ -37,9 +37,9 @@ struct {
 	gint width;
 	gint height;
 } font_screenshot_sizes[] = {
-	{1024, 78},
-	{ 640, 48},
-	{ 0,   0 }
+	{ 1024, 78 },
+	{ 640,  48 },
+	{ 0,    0  }
 };
 
 /**

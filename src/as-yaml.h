@@ -66,9 +66,9 @@ void as_yaml_emit_entry_timestamp (yaml_emitter_t *emitter, const gchar *key, gu
 void as_yaml_emit_long_entry (yaml_emitter_t *emitter, const gchar *key, const gchar *value);
 void as_yaml_emit_sequence (yaml_emitter_t *emitter, const gchar *key, GPtrArray *list);
 #pragma GCC visibility pop
-void		       as_yaml_emit_sequence_from_str_array (yaml_emitter_t *emitter,
-							     const gchar    *key,
-							     GPtrArray	    *array);
+void as_yaml_emit_sequence_from_str_array (yaml_emitter_t *emitter,
+					   const gchar	  *key,
+					   GPtrArray	  *array);
 void as_yaml_emit_localized_strv (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab);
 void as_yaml_emit_localized_str_array (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab);
 

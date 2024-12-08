@@ -84,12 +84,12 @@ ascli_show_status (void)
 			marker = ASCLI_CHAR_SUCCESS;
 
 		tmp = g_strdup_printf (_("We have information on %i software components."),
-					  as_component_box_len (cbox));
+					 as_component_box_len (cbox));
 		ascli_print_stdout ("%s %s", marker, tmp);
 	} else {
 		g_autofree gchar *tmp = NULL;
 		tmp = g_strdup_printf (_("Error while loading the metadata pool: %s"),
-					  error->message);
+					 error->message);
 		ascli_print_stderr ("%s %s", ASCLI_CHAR_FAIL, tmp);
 	}
 
@@ -150,8 +150,8 @@ ascli_make_desktop_entry_file (const gchar *mi_fname, const gchar *de_fname, con
 	if (g_file_test (de_fname, G_FILE_TEST_EXISTS)) {
 		ascli_print_stdout (
 		    _("Augmenting existing desktop-entry file '%s' with data from '%s'."),
-		       de_fname_basename,
-		       mi_fname_basename);
+		      de_fname_basename,
+		      mi_fname_basename);
 		if (!g_key_file_load_from_file (de_file,
 						de_fname,
 						G_KEY_FILE_KEEP_COMMENTS |
@@ -159,13 +159,13 @@ ascli_make_desktop_entry_file (const gchar *mi_fname, const gchar *de_fname, con
 						&error)) {
 			ascli_print_stderr (
 			    _("Unable to load existing desktop-entry file template: %s"),
-			       error->message);
+			      error->message);
 			return 1;
 		}
 	} else {
 		ascli_print_stdout (_("Creating new desktop-entry file '%s' using data from '%s'"),
-				       de_fname_basename,
-				       mi_fname_basename);
+				      de_fname_basename,
+				      mi_fname_basename);
 	}
 
 	g_key_file_set_string (de_file,
@@ -553,7 +553,7 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 	if (as_component_box_is_empty (result)) {
 		g_printerr ("• ");
 		ascli_print_stderr (_("Unable to find operating system component '%s'!"),
-				       as_system_info_get_os_cid (sysinfo));
+				      as_system_info_get_os_cid (sysinfo));
 	}
 
 	for (guint i = 0; i < as_component_box_len (result); i++) {
@@ -564,13 +564,13 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 		ascli_print_stdout ("%s: %s", _("Summary"), as_component_get_summary (cpt));
 		if (as_system_info_get_os_version (sysinfo) != NULL)
 			ascli_print_stdout (_("Version: %s"),
-					       as_system_info_get_os_version (sysinfo));
+					      as_system_info_get_os_version (sysinfo));
 		ascli_print_stdout ("%s: %s",
 				    _("Homepage"),
-				       as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE));
+				      as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE));
 		ascli_print_stdout ("%s: %s",
 				    _("Developer"),
-				       as_developer_get_name (as_component_get_developer (cpt)));
+				      as_developer_get_name (as_component_get_developer (cpt)));
 		if (detailed) {
 			g_autofree gchar *tmp2 = NULL;
 			g_autofree gchar *tmp1 = as_markup_convert (

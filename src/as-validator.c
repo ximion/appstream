@@ -478,7 +478,7 @@ as_validator_add_release_bytes (AsValidator *validator,
 			     AS_VALIDATOR_ERROR,
 			     AS_VALIDATOR_ERROR_INVALID_FILENAME,
 			     _("The release metadata file '%s' is named incorrectly."),
-				release_fname);
+			       release_fname);
 		return FALSE;
 	}
 	if (g_strstr_len (release_fname, -1, "/") != NULL) {
@@ -709,7 +709,7 @@ as_validator_add_override (AsValidator *validator,
 				    /* TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 						   whitelisted for that. */
 				    _("It is not allowed to downgrade the severity of tag '%s' to one that allows validation to pass."),
-				       tag);
+				      tag);
 				return FALSE;
 			}
 		}
@@ -1657,9 +1657,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 			    iter,
 			    "invalid-child-tag-name",
 			    /* TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
-			    _("Found: %s - Allowed: %s"),
-			       (const gchar *) iter->name,
-			       "screenshot");
+			    _("Found: %s - Allowed: %s"), (const gchar *) iter->name, "screenshot");
 		}
 
 		for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
@@ -1881,8 +1879,8 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				    "invalid-child-tag-name",
 				    /* TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
 				    _("Found: %s - Allowed: %s"),
-				       (const gchar *) iter2->name,
-				       "caption; image; video");
+				      (const gchar *) iter2->name,
+				      "caption; image; video");
 			}
 		}
 
@@ -2454,9 +2452,15 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 		if (timestamp == NULL) {
 			/* Neither timestamp, nor date property exists */
 			if (rel_kind == AS_RELEASE_KIND_SNAPSHOT)
-				as_validator_add_issue (validator, node, "release-time-missing-for-snapshot", "date");
+				as_validator_add_issue (validator,
+							node,
+							"release-time-missing-for-snapshot",
+							"date");
 			else
-				as_validator_add_issue (validator, node, "release-time-missing", "date");
+				as_validator_add_issue (validator,
+							node,
+							"release-time-missing",
+							"date");
 		} else {
 			/* check if the timestamp is both a number and higher than 3000. The 3000 is used to check that it is not a year */
 			if (!as_str_verify_integer (timestamp, 3000, G_MAXINT64))
@@ -2530,8 +2534,8 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 					    "invalid-child-tag-name",
 					    /* TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
 					    _("Found: %s - Allowed: %s"),
-					       (const gchar *) iter2->name,
-					       "artifact");
+					      (const gchar *) iter2->name,
+					      "artifact");
 					continue;
 				}
 				/* validate artifact */
@@ -2552,8 +2556,8 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 					    "invalid-child-tag-name",
 					    /* TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
 					    _("Found: %s - Allowed: %s"),
-					       (const gchar *) iter2->name,
-					       "issue");
+					      (const gchar *) iter2->name,
+					      "issue");
 					continue;
 				}
 				/* validate issue */
@@ -2820,7 +2824,7 @@ as_validator_check_content_rating (AsValidator *validator, xmlNode *node)
 	AsOarsVersion oars_version;
 
 	g_autoptr(GHashTable)
-		       known_ids = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+		      known_ids = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 	oars_type = as_xml_get_prop_value (node, "type");
 

@@ -340,8 +340,8 @@ main (int argc, char **argv)
 			/* TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ. */
 			ascli_print_stdout (
 			    _("AppStream CLI tool version: %s\nAppStream library version: %s"),
-			       PACKAGE_VERSION,
-			       as_version_string ());
+			      PACKAGE_VERSION,
+			      as_version_string ());
 		}
 		return EXIT_SUCCESS;
 	}
@@ -366,7 +366,7 @@ main (int argc, char **argv)
 				      "`on-error` - only prints a short report if the run failed (default)\n"
 				      "`short` - generates an abridged report\n"
 				      "`full` - a detailed report will be printed"),
-		       report_mode_str);
+		      report_mode_str);
 		return EXIT_FAILURE;
 	}
 
@@ -392,7 +392,7 @@ main (int argc, char **argv)
 			res_root_dir = g_strdup (argv[1]);
 			ascli_print_stdout (
 			    _("Automatically selected '%s' as data output location."),
-			       res_root_dir);
+			      res_root_dir);
 		} else {
 			/* TRANSLATORS: We don't have a destination directory for compose */
 			g_printerr ("%s\n",
@@ -517,7 +517,7 @@ main (int argc, char **argv)
 		/* TRANSLATORS: information message of appstream-compose */
 		composecli_print_hints_report (results,
 					       _("Errors were raised during this compose run:"),
-						  report_mode);
+						 report_mode);
 		g_printerr ("%s\n",
 			    _("Refer to the generated issue report data for details on the individual problems."));
 		return EXIT_FAILURE;

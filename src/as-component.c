@@ -5190,7 +5190,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 		for (guint i = 0; i < priv->tags->len; i++) {
 			xmlNode *tag_node = NULL;
 			g_auto(GStrv)
-				    parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
+				   parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
 			tag_node = as_xml_add_text_node (tags_node, "tag", parts[1]);
 			if (!as_is_empty (parts[0]))
 				as_xml_add_text_prop (tag_node, "namespace", parts[0]);
@@ -6412,7 +6412,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 
 		for (guint i = 0; i < priv->tags->len; i++) {
 			g_auto(GStrv)
-				    parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
+				   parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
 
 			as_yaml_mapping_start (emitter);
 			if (!as_is_empty (parts[0]))

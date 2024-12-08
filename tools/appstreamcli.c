@@ -221,13 +221,13 @@ as_client_print_help_hint (const gchar *subcommand, const gchar *unknown_option)
 	if (subcommand == NULL)
 		ascli_print_stderr (
 		    _("Run '%s --help' to see a full list of available command line options."),
-		       ASCLI_BIN_NAME);
+		      ASCLI_BIN_NAME);
 	else
 		ascli_print_stderr (
 		    _("Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."),
-		       ASCLI_BIN_NAME,
-		       ASCLI_BIN_NAME,
-		       subcommand);
+		      ASCLI_BIN_NAME,
+		      ASCLI_BIN_NAME,
+		      subcommand);
 }
 
 /**
@@ -285,8 +285,7 @@ as_client_run_refresh_cache (const gchar *command, char **argv, int argc)
 		    0, G_OPTION_ARG_STRING_ARRAY,
 		    &optn_sources,
 		    /* TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name` */
-		    _("Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."),
-		       NULL },
+		    _("Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."), NULL },
 		    { NULL }
 	     };
 
@@ -864,7 +863,7 @@ as_client_run_compare_versions (const gchar *command, char **argv, int argc)
 			guint i;
 			/** TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid. */
 			ascli_print_stderr (_("Unknown compare relation '%s'. Valid values are:"),
-					       comp_str);
+					      comp_str);
 			for (i = 1; i < AS_RELATION_COMPARE_LAST; i++)
 				g_printerr (" • %s\n", as_relation_compare_to_string (i));
 			return 2;
@@ -1125,11 +1124,11 @@ as_client_run_compose (const gchar *command, char **argv, int argc)
 		/* TRANSLATORS: appstreamcli-compose was not found */
 		ascli_print_stderr (
 		    _("AppStream Compose binary '%s' was not found! Can not continue."),
-		       ascompose_exe);
+		      ascompose_exe);
 		/* TRANSLATORS: appstreamcli-compose was not found - info text */
 		ascli_print_stderr (
 		    _("You may be able to install the AppStream Compose addon via: `%s`"),
-		       "sudo appstreamcli install org.freedesktop.appstream.compose");
+		      "sudo appstreamcli install org.freedesktop.appstream.compose");
 		return 4;
 	}
 
@@ -1251,8 +1250,8 @@ as_client_get_help_summary (GPtrArray *commands)
 	g_string_append_printf (string,
 				"%s\n\n%s\n",
 				_("AppStream command-line interface"),
-				   /* these are commands we can use with appstreamcli */
-				   _("Subcommands:"));
+				  /* these are commands we can use with appstreamcli */
+				  _("Subcommands:"));
 
 	compose_available = as_client_check_compose_available ();
 	blocks_maxlen = g_array_new (FALSE, FALSE, sizeof (guint));
@@ -1331,8 +1330,8 @@ ascli_run_command (GPtrArray *commands, const gchar *command, char **argv, int a
 	/* TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated. */
 	ascli_print_stderr (
 	    _("Command '%s' is unknown. Run '%s --help' for a list of available commands."),
-	       command,
-	       argv[0]);
+	      command,
+	      argv[0]);
 	return 1;
 }
 
@@ -1402,7 +1401,7 @@ as_client_run (char **argv, int argc)
 		       "TYPE VALUE",
 		       /* TRANSLATORS: `appstreamcli what-provides` command description. */
 		       _("Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."),
-			  as_client_run_what_provides);
+			 as_client_run_what_provides);
 	ascli_add_cmd (commands,
 		       0,
 		       "list-categories",
@@ -1410,7 +1409,7 @@ as_client_run (char **argv, int argc)
 		       "NAMES",
 		       /* TRANSLATORS: `appstreamcli list-categories` command description. */
 		       _("List components that are part of the specified categories."),
-			  as_client_run_list_categories);
+			 as_client_run_list_categories);
 
 	ascli_add_cmd (commands,
 		       1,
@@ -1419,7 +1418,7 @@ as_client_run (char **argv, int argc)
 		       "COMPONENT-ID",
 		       /* TRANSLATORS: `appstreamcli dump` command description. */
 		       _("Dump raw XML metadata for a component matching the ID."),
-			  as_client_run_dump);
+			 as_client_run_dump);
 	ascli_add_cmd (commands,
 		       1,
 		       "refresh-cache",
@@ -1442,7 +1441,7 @@ as_client_run (char **argv, int argc)
 		       "DIRECTORY",
 		       /* TRANSLATORS: `appstreamcli validate-tree` command description. */
 		       _("Validate an installed file-tree of an application for valid metadata."),
-			  as_client_run_validate_tree);
+			 as_client_run_validate_tree);
 	ascli_add_cmd (commands,
 		       2,
 		       "check-license",
@@ -1450,7 +1449,7 @@ as_client_run (char **argv, int argc)
 		       "LICENSE",
 		       /* TRANSLATORS: `appstreamcli `check-license` command description. */
 		       _("Check license string for validity and print details about it."),
-			  as_client_run_check_license);
+			 as_client_run_check_license);
 	ascli_add_cmd (commands,
 		       2,
 		       "is-satisfied",
@@ -1458,7 +1457,7 @@ as_client_run (char **argv, int argc)
 		       "FILE|COMPONENT-ID",
 		       /* TRANSLATORS: `appstreamcli `check-license` command description. */
 		       _("Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."),
-			  as_client_run_is_satisfied);
+			 as_client_run_is_satisfied);
 	ascli_add_cmd (commands,
 		       2,
 		       "check-syscompat",
@@ -1466,7 +1465,7 @@ as_client_run (char **argv, int argc)
 		       "FILE|COMPONENT-ID",
 		       /* TRANSLATORS: `appstreamcli `check-syscompat` command description. */
 		       _("Check compatibility of a component (via its ID or MetaInfo file) with common system and chassis types."),
-			  as_client_run_check_syscompat);
+			 as_client_run_check_syscompat);
 
 	ascli_add_cmd (commands,
 		       3,
@@ -1490,7 +1489,7 @@ as_client_run (char **argv, int argc)
 		       NULL,
 		       /* TRANSLATORS: `appstreamcli status` command description. */
 		       _("Display status information about available AppStream metadata."),
-			  as_client_run_status);
+			 as_client_run_status);
 	ascli_add_cmd (commands,
 		       4,
 		       "sysinfo",
@@ -1498,7 +1497,7 @@ as_client_run (char **argv, int argc)
 		       NULL,
 		       /* TRANSLATORS: `appstreamcli sysinfo` command description. */
 		       _("Show information about the current device and used operating system."),
-			  as_client_run_sysinfo);
+			 as_client_run_sysinfo);
 	ascli_add_cmd (commands,
 		       4,
 		       "put",
@@ -1530,7 +1529,7 @@ as_client_run (char **argv, int argc)
 	    "TYPE FILE",
 	    /* TRANSLATORS: `appstreamcli new-template` command description. */
 	    _("Create a template for a metainfo file (to be filled out by the upstream project)."),
-	       as_client_run_new_template);
+	      as_client_run_new_template);
 	ascli_add_cmd (commands,
 		       5,
 		       "make-desktop-file",
@@ -1538,7 +1537,7 @@ as_client_run (char **argv, int argc)
 		       "MI_FILE DESKTOP_FILE",
 		       /* TRANSLATORS: `appstreamcli make-desktop-file` command description. */
 		       _("Create a desktop-entry file from a metainfo file."),
-			  as_client_run_make_desktop_file);
+			 as_client_run_make_desktop_file);
 	ascli_add_cmd (commands,
 		       5,
 		       "news-to-metainfo",
@@ -1546,7 +1545,7 @@ as_client_run (char **argv, int argc)
 		       "NEWS_FILE MI_FILE [OUT_FILE]",
 		       /* TRANSLATORS: `appstreamcli news-to-metainfo` command description. */
 		       _("Convert a YAML or text NEWS file into metainfo releases."),
-			  as_client_run_news_to_metainfo);
+			 as_client_run_news_to_metainfo);
 	ascli_add_cmd (commands,
 		       5,
 		       "metainfo-to-news",
@@ -1554,7 +1553,7 @@ as_client_run (char **argv, int argc)
 		       "MI_FILE NEWS_FILE",
 		       /* TRANSLATORS: `appstreamcli metainfo-to-news` command description. */
 		       _("Write NEWS text or YAML file with information from a metainfo file."),
-			  as_client_run_metainfo_to_news);
+			 as_client_run_metainfo_to_news);
 	ascli_add_cmd (commands,
 		       5,
 		       "compose",
@@ -1562,7 +1561,7 @@ as_client_run (char **argv, int argc)
 		       NULL,
 		       /* TRANSLATORS: `appstreamcli compose` command description. */
 		       _("Compose AppStream metadata catalog from directory trees."),
-			  as_client_run_compose);
+			 as_client_run_compose);
 
 	/* we handle the unknown options later in the individual subcommands */
 	g_option_context_set_ignore_unknown_options (opt_context, TRUE);
@@ -1572,7 +1571,7 @@ as_client_run (char **argv, int argc)
 		g_printerr ("%s\n", _("You need to specify a command."));
 		ascli_print_stderr (
 		    _("Run '%s --help' to see a full list of available command line options."),
-		       argv[0]);
+		      argv[0]);
 		return 1;
 	}
 	command = argv[1];
@@ -1600,8 +1599,8 @@ as_client_run (char **argv, int argc)
 			/* TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ. */
 			ascli_print_stdout (
 			    _("AppStream CLI tool version: %s\nAppStream library version: %s"),
-			       PACKAGE_VERSION,
-			       as_version_string ());
+			      PACKAGE_VERSION,
+			      as_version_string ());
 		}
 		return 0;
 	}

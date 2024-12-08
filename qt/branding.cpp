@@ -99,20 +99,30 @@ QString Branding::colorSchemeToString(ColorSchemeKind colorScheme)
 
 Branding::ColorSchemeKind Branding::colorSchemefromString(const QString &string)
 {
-    return static_cast<Branding::ColorSchemeKind>(as_color_scheme_kind_from_string(qPrintable(string)));
+    return static_cast<Branding::ColorSchemeKind>(
+        as_color_scheme_kind_from_string(qPrintable(string)));
 }
 
-void Branding::setColor(Branding::ColorKind kind, Branding::ColorSchemeKind scheme, const QString &color)
+void Branding::setColor(Branding::ColorKind kind,
+                        Branding::ColorSchemeKind scheme,
+                        const QString &color)
 {
-    as_branding_set_color(d->brandingp, static_cast<AsColorKind>(kind), static_cast<AsColorSchemeKind>(scheme), qPrintable(color));
+    as_branding_set_color(d->brandingp,
+                          static_cast<AsColorKind>(kind),
+                          static_cast<AsColorSchemeKind>(scheme),
+                          qPrintable(color));
 }
 
 void Branding::removeColor(Branding::ColorKind kind, Branding::ColorSchemeKind scheme)
 {
-    as_branding_remove_color(d->brandingp, static_cast<AsColorKind>(kind), static_cast<AsColorSchemeKind>(scheme));
+    as_branding_remove_color(d->brandingp,
+                             static_cast<AsColorKind>(kind),
+                             static_cast<AsColorSchemeKind>(scheme));
 }
 
 QString Branding::color(Branding::ColorKind kind, Branding::ColorSchemeKind scheme)
 {
-    return valueWrap(as_branding_get_color(d->brandingp, static_cast<AsColorKind>(kind), static_cast<AsColorSchemeKind>(scheme)));
+    return valueWrap(as_branding_get_color(d->brandingp,
+                                           static_cast<AsColorKind>(kind),
+                                           static_cast<AsColorSchemeKind>(scheme)));
 }

@@ -1968,8 +1968,8 @@ as_cache_search (AsCache *cache, const gchar *const *terms, gboolean sort, GErro
 		for (guint j = 0; queries[j].xpath != NULL; j++) {
 			g_autoptr(GError) error_query = NULL;
 			g_autoptr(XbQuery) query = xb_query_new (csec->silo,
-								  queries[j].xpath,
-								  &error_query);
+								 queries[j].xpath,
+								 &error_query);
 			if (query != NULL) {
 				AsFTSearchHelper *helper = g_new0 (AsFTSearchHelper, 1);
 				helper->match_value = queries[j].match_value;

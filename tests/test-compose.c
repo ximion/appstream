@@ -513,14 +513,14 @@ test_compose_desktop_entry (void)
 	gchar *tmp;
 	AsLaunchable *launch;
 	GPtrArray *hints;
-	g_autoptr(GBytes) de_bytes = as_gbytes_from_literal (
-	    "[Desktop Entry]\n"
-	    "Type=Application\n"
-	    "Name=FooBar\n"
-	    "Name[de_DE]=FööBär\n"
-	    "Comment=A foo-ish bar.\n"
-	    "Keywords=Hobbes;Bentham;Locke;\n"
-	    "Keywords[de_DE]=Heidegger;Kant;Hegel;\n");
+	g_autoptr(GBytes)
+		      de_bytes = as_gbytes_from_literal ("[Desktop Entry]\n"
+							 "Type=Application\n"
+							 "Name=FooBar\n"
+							 "Name[de_DE]=FööBär\n"
+							 "Comment=A foo-ish bar.\n"
+							 "Keywords=Hobbes;Bentham;Locke;\n"
+							 "Keywords[de_DE]=Heidegger;Kant;Hegel;\n");
 
 	cres = asc_result_new ();
 

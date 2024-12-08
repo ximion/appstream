@@ -326,9 +326,8 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		gchar *str;
 
 		/* developer name */
-		ascli_print_key_value (_("Developer"),
-					  as_developer_get_name (as_component_get_developer (cpt)),
-					  TRUE);
+		ascli_print_key_value (
+		    _("Developer"), as_developer_get_name (as_component_get_developer (cpt)), TRUE);
 
 		/* extends data (e.g. for addons) */
 		extends = as_component_get_extends (cpt);
@@ -363,8 +362,8 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 				img = AS_IMAGE (g_ptr_array_index (imgs, j));
 				if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
 					ascli_print_key_value (_("Default Screenshot URL"),
-								  as_image_get_url (img),
-								  TRUE);
+								 as_image_get_url (img),
+								 TRUE);
 					break;
 				}
 			}

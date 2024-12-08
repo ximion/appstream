@@ -1439,39 +1439,39 @@ test_xml_read_screenshots (void)
 	screenshots = as_component_get_screenshots_all (cpt);
 	as_component_set_context_locale (cpt, "C");
 	_assert_screenshot_captions_order (screenshots,
-					   (const gchar *[]){ "The main window displaying a thing",
-							      "Second screenshot",
-							      "Screencast",
-							      "The app, on mobile!",
-							      "The app, on KDE Plasma desktop!",
-							      NULL });
+					   (const gchar *[]) { "The main window displaying a thing",
+							       "Second screenshot",
+							       "Screencast",
+							       "The app, on mobile!",
+							       "The app, on KDE Plasma desktop!",
+							       NULL });
 
 	as_component_sort_screenshots (cpt, "plasma", "mobile", FALSE);
 	_assert_screenshot_captions_order (screenshots,
-					   (const gchar *[]){ "The app, on mobile!",
-							      "The app, on KDE Plasma desktop!",
-							      "The main window displaying a thing",
-							      "Second screenshot",
-							      "Screencast",
-							      NULL });
+					   (const gchar *[]) { "The app, on mobile!",
+							       "The app, on KDE Plasma desktop!",
+							       "The main window displaying a thing",
+							       "Second screenshot",
+							       "Screencast",
+							       NULL });
 
 	as_component_sort_screenshots (cpt, "plasma", NULL, FALSE);
 	_assert_screenshot_captions_order (screenshots,
-					   (const gchar *[]){ "The app, on KDE Plasma desktop!",
-							      "The app, on mobile!",
-							      "The main window displaying a thing",
-							      "Second screenshot",
-							      "Screencast",
-							      NULL });
+					   (const gchar *[]) { "The app, on KDE Plasma desktop!",
+							       "The app, on mobile!",
+							       "The main window displaying a thing",
+							       "Second screenshot",
+							       "Screencast",
+							       NULL });
 
 	as_component_sort_screenshots (cpt, "gnome", NULL, FALSE);
 	_assert_screenshot_captions_order (screenshots,
-					   (const gchar *[]){ "The main window displaying a thing",
-							      "Second screenshot",
-							      "Screencast",
-							      "The app, on mobile!",
-							      "The app, on KDE Plasma desktop!",
-							      NULL });
+					   (const gchar *[]) { "The main window displaying a thing",
+							       "Second screenshot",
+							       "Screencast",
+							       "The app, on mobile!",
+							       "The app, on KDE Plasma desktop!",
+							       NULL });
 
 	/* test a legacy screenshot entry that we briefly supported in an older AppStream release */
 	g_object_unref (cpt);
