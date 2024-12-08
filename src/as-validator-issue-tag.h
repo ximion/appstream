@@ -950,7 +950,13 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "release-time-missing",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
-	  N_("The release is missing either the `date` (preferred) or the `timestamp` property."),
+	  N_("The release entry is missing either the `date` (preferred) or the `timestamp` property."),
+	},
+
+	{ "release-time-missing-for-snapshot",
+	  AS_ISSUE_SEVERITY_INFO,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The release entry is missing the `date` property. Ensure to add it before publishing the snapshot release."),
 	},
 
 	{ "release-timestamp-invalid",

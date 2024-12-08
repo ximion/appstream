@@ -2453,7 +2453,10 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 		g_autofree gchar *timestamp = as_xml_get_prop_value (node, "timestamp");
 		if (timestamp == NULL) {
 			/* Neither timestamp, nor date property exists */
-			as_validator_add_issue (validator, node, "release-time-missing", "date");
+			if (rel_kind == AS_RELEASE_KIND_SNAPSHOT)
+				as_validator_add_issue (validator, node, "release-time-missing-for-snapshot", "date");
+			else
+				as_validator_add_issue (validator, node, "release-time-missing", "date");
 		} else {
 			/* check if the timestamp is both a number and higher than 3000. The 3000 is used to check that it is not a year */
 			if (!as_str_verify_integer (timestamp, 3000, G_MAXINT64))
