@@ -27,8 +27,7 @@
 #include "as-metadata.h"
 #include "as-utils-private.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 typedef GPtrArray *(*AsTranslateDesktopTextFn) (const GKeyFile *de,
 						const gchar    *text,
@@ -54,7 +53,6 @@ gboolean	       as_desktop_entry_parse_file (AsComponent		    *cpt,
 						    gpointer		     user_data,
 						    GError		   **error);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_DESKTOP_ENTRY_H */
