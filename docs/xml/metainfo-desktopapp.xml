@@ -10,8 +10,8 @@
 	<section id="spec-appdata-introduction">
 		<title>Introduction</title>
 		<para>
-			A desktop application is an application which has a graphical user interface and is commonly used with mouse and keyboard. It also ships a Freedesktop
-			<filename>.desktop</filename> file to be visible in application menus.
+			A desktop application is interactive software that presents a graphical interface to the user.
+			To appear in application listings, the packaged application must include a <ulink url="https://specifications.freedesktop.org/desktop-entry-spec/latest/">Freedesktop <filename>.desktop</filename></ulink> file.
 		</para>
 		<para>
 			AppStream generators may pull data from the preexisting <filename>.desktop</filename> files to represent an application in the AppStream metadata pool. Upstream projects should
