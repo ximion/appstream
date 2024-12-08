@@ -2434,6 +2434,7 @@ as_utils_install_metadata_file_internal (const gchar *filename,
 	g_autofree gchar *path_parent = NULL;
 	g_autoptr(GFile) file_dest = NULL;
 	g_autoptr(GFile) file_src = NULL;
+	g_autoptr(GError) tmp_error = NULL;
 
 	/* create directory structure */
 	path_parent = g_strdup_printf ("%s%s", destdir, dir);
@@ -2471,6 +2472,17 @@ as_utils_install_metadata_file_internal (const gchar *filename,
 	file_dest = g_file_new_for_path (path_dest);
 	if (!g_file_copy (file_src, file_dest, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, error))
 		return FALSE;
+
+	/* explicitly set permissions on the copied file */
+	if (!g_file_set_attribute_uint32 (file_dest,
+					  G_FILE_ATTRIBUTE_UNIX_MODE,
+					  0644,
+					  G_FILE_QUERY_INFO_NONE,
+					  NULL,
+					  &tmp_error)) {
+		g_debug ("Error setting file permissions: %s", tmp_error->message);
+		g_clear_error (&tmp_error);
+	}
 
 	/* update the origin for XML files */
 	if (origin != NULL && !is_yaml) {
