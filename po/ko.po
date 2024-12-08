@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2024-04-24 20:20+0200\n"
+"POT-Creation-Date: 2024-12-08 23:22+0100\n"
 "PO-Revision-Date: 2023-12-23 14:15+0000\n"
 "Last-Translator: 박기준 <kei0108@ajou.ac.kr>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/appstream/"
@@ -394,7 +394,7 @@ msgstr "오피스"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:324 tools/ascli-utils.c:418
+#: src/as-category.c:324 tools/ascli-utils.c:417
 msgid "Add-ons"
 msgstr "부가기능"
 
@@ -1005,15 +1005,14 @@ msgstr ""
 "톱 환경"
 
 #. TRANSLATORS: Name of the "Endless" desktop environment.
-#. TRANSLATORS: Name of the "endless" visual environment style.
-#: src/as-desktop-env-data.h:49 src/as-desktop-env-data.h:83
+#: src/as-desktop-env-data.h:49
 #, fuzzy
 msgid "Endless"
 msgstr "번들"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
-#: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
+#: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:83
 msgid "GNOME"
 msgstr ""
 "GNU Network Object Model Environment의 약자로 Linux의 GTK 라이브러리를 사용"
@@ -1031,7 +1030,7 @@ msgstr ""
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
-#: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:89
+#: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:87
 msgid "LXDE"
 msgstr ""
 "Lightweight X11 Desktop Environment의 약자로유닉스와 POSIX 호환 플랫폼(리눅스"
@@ -1039,7 +1038,7 @@ msgstr ""
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
-#: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:91
+#: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:89
 msgid "LXQt"
 msgstr ""
 "완전한 데스크톱 환경을 제공하는 것을 목표로 하는, 개발 중인 소프트웨어 패키지"
@@ -1054,13 +1053,13 @@ msgstr ""
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
-#: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:97
+#: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:95
 msgid "Pantheon"
 msgstr "판테온은 사용자 친화적인 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
-#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:103
+#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:107
 msgid "Razor"
 msgstr "단종된 무료 및 오픈 소스 데스크톱 환경"
 
@@ -1071,47 +1070,66 @@ msgstr "X 윈도 시스템을 위한 그래픽 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
-#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:107
+#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:111
 msgid "Unity"
 msgstr "가장 유명한 리눅스 배포판인 우분투의 기본 데스크탑 환경"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
-#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:111
+#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:115
 msgid "Xfce"
 msgstr "UNIX 계열 운영체제를 위해서 개발된 가벼운 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
-#: src/as-desktop-env-data.h:87
+#: src/as-desktop-env-data.h:85
 msgid "GNOME (Dark)"
 msgstr ""
 "GNU Network Object Model Environment의 약자로 Linux의 GTK 라이브러리를 사용"
 "한 오픈 소스 GUI 데스크톱 환경의 다크모드"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
-#: src/as-desktop-env-data.h:93
+#: src/as-desktop-env-data.h:91
 msgid "macOS"
 msgstr "Apple의 Mac에 쓰였던 운영 체제"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
-#: src/as-desktop-env-data.h:95
+#: src/as-desktop-env-data.h:93
 msgid "Mate"
 msgstr ""
 "Linux, BSD 및 illusmos 운영 체제에서 실행되는 무료 오픈 소스 소프트웨어로 구"
 "성된 데스크탑 환경"
 
-#. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
+#. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
+#: src/as-desktop-env-data.h:97
+#, fuzzy
+msgid "Pantheon (Dark)"
+msgstr "판테온은 사용자 친화적인 데스크톱 환경"
+
+#. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
+#, fuzzy
+msgid "KDE Plasma (Dark)"
+msgstr ""
+"그냥 KDE라고도 불리며 K Desktop Environment의 약자로 독일을 중심으로 한 인터"
+"내셔널 오픈소스 소프트웨어 커뮤니티"
+
+#. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
+#: src/as-desktop-env-data.h:103
 msgid "Plasma Mobile"
 msgstr ""
 
-#. TRANSLATORS: Name of the "rox" visual environment style.
+#. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:105
+msgid "Plasma Mobile (Dark)"
+msgstr ""
+
+#. TRANSLATORS: Name of the "rox" visual environment style.
+#: src/as-desktop-env-data.h:109
 msgid "Rox"
 msgstr "X 윈도 시스템을 위한 그래픽 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
-#: src/as-desktop-env-data.h:109
+#: src/as-desktop-env-data.h:113
 msgid "Microsoft Windows"
 msgstr "Microsoft에서 개발한 컴퓨터 GUI 운영체제, 윈도우"
 
@@ -1249,148 +1267,148 @@ msgstr "이 소프트웨어는 터치 입력 장치를 권장합니다."
 msgid "This software recommends a microphone to be controlled via voice input."
 msgstr "이 소프트웨어는 음성 입력을 통해 제어할 마이크를 권장합니다."
 
-#: src/as-relation.c:1389
+#: src/as-relation.c:1388
 msgid "This software recommends a camera for input control."
 msgstr "이 소프트웨어는 입력 제어를 위한 카메라를 권장합니다."
 
-#: src/as-relation.c:1392
+#: src/as-relation.c:1390
 msgid "This software recommends a method for console input."
 msgstr "이 소프트웨어는 콘솔 입력을 위한 방법을 권장합니다."
 
-#: src/as-relation.c:1397
+#: src/as-relation.c:1395
 msgid "pointing devices (e.g. mice)"
 msgstr "포인팅 장치(예: 마우스)"
 
-#: src/as-relation.c:1399
+#: src/as-relation.c:1397
 msgid "keyboards"
 msgstr "키보드들"
 
-#: src/as-relation.c:1401
+#: src/as-relation.c:1399
 msgid "gamepads"
 msgstr "게임패드들"
 
-#: src/as-relation.c:1403
+#: src/as-relation.c:1401
 msgid "tv remotes"
 msgstr "TV 리모컨들"
 
-#: src/as-relation.c:1405
+#: src/as-relation.c:1403
 msgid "graphics tablets"
 msgstr "그래픽 태블릿들"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
-#: src/as-relation.c:1409
+#: src/as-relation.c:1407
 #, c-format
 msgid "This software supports %s."
 msgstr "이 소프트웨어는 %s을(를) 지원합니다."
 
-#: src/as-relation.c:1413
+#: src/as-relation.c:1411
 msgid "This software supports touch input."
 msgstr "이 소프트웨어는 터치 입력을 지원합니다."
 
-#: src/as-relation.c:1415
+#: src/as-relation.c:1413
 msgid "This software can be controlled via voice input."
 msgstr "이 소프트웨어는 음성 입력을 통해 제어할 수 있습니다."
 
-#: src/as-relation.c:1417
+#: src/as-relation.c:1415
 msgid "This software can be controlled via a camera."
 msgstr "이 소프트웨어는 카메라를 통해 제어할 수 있습니다."
 
-#: src/as-relation.c:1420
+#: src/as-relation.c:1418
 msgid "This software supports operation via console commands."
 msgstr "이 소프트웨어는 콘솔 명령을 통해 작동을 지원합니다."
 
-#: src/as-relation.c:1433
+#: src/as-relation.c:1431
 msgid "Pointing device (e.g. a mouse or touchpad) found."
 msgstr "포인팅 장치(예: 마우스 또는 터치패드)를 발견."
 
-#: src/as-relation.c:1435
+#: src/as-relation.c:1433
 msgid "Physical keyboard found."
 msgstr "실제 키보드를 찾았습니다."
 
-#: src/as-relation.c:1437
+#: src/as-relation.c:1435
 msgid "Gamepad found."
 msgstr "게임패드를 찾았습니다."
 
-#: src/as-relation.c:1439
+#: src/as-relation.c:1437
 msgid "TV remote found."
 msgstr "TV 리모컨을 찾았습니다."
 
-#: src/as-relation.c:1441
+#: src/as-relation.c:1439
 msgid "Graphics tablet found."
 msgstr "그래픽 태블릿을 찾았습니다."
 
-#: src/as-relation.c:1444
+#: src/as-relation.c:1442
 msgid "Touch input device found."
 msgstr "터치 입력 장치를 찾았습니다."
 
-#: src/as-relation.c:1446
+#: src/as-relation.c:1444
 msgid "Microphone for voice input control found."
 msgstr "음성 입력 제어를 위한 마이크를 찾았습니다."
 
-#: src/as-relation.c:1448
+#: src/as-relation.c:1446
 msgid "Camera for input control found."
 msgstr "입력 제어용 카메라를 찾았습니다."
 
-#: src/as-relation.c:1450
+#: src/as-relation.c:1448
 msgid "Console interface available."
 msgstr "콘솔 인터페이스를 사용할 수 있습니다."
 
-#: src/as-relation.c:1511
+#: src/as-relation.c:1509
 #, c-format
 msgid "Software '%s' was found"
 msgstr "소프트웨어 '%s'을(를) 찾았습니다"
 
-#: src/as-relation.c:1520
+#: src/as-relation.c:1518
 #, c-format
 msgid "Required software component '%s' is missing."
 msgstr "필요한 소프트웨어 구성 요소 '%s'가 없습니다."
 
-#: src/as-relation.c:1524
+#: src/as-relation.c:1522
 #, c-format
 msgid "Recommended software component '%s' is missing."
 msgstr "권장 소프트웨어 구성 요소 '%s'가 없습니다."
 
-#: src/as-relation.c:1528
+#: src/as-relation.c:1526
 #, fuzzy, c-format
 msgid "Found supported software component '%s'."
 msgstr "구성 요소 %i개를 찾았습니다."
 
-#: src/as-relation.c:1561
+#: src/as-relation.c:1559
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
 msgstr "이 소프트웨어에서 지원하는 하드웨어를 찾았습니다. '%s'"
 
-#: src/as-relation.c:1570
+#: src/as-relation.c:1568
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
 msgstr "이 소프트웨어에 필요한 하드웨어를 이 시스템에서 찾을 수 없습니다. '%s'"
 
-#: src/as-relation.c:1575
+#: src/as-relation.c:1573
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
 msgstr ""
 "이 소프트웨어에 대한 권장 하드웨어를 이 시스템에서 찾을 수 없습니다. '%s'"
 
-#: src/as-relation.c:1580
+#: src/as-relation.c:1578
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
 msgstr "이 소프트웨어는 이 시스템에 없는 하드웨어를 지원합니다. '%s'"
 
-#: src/as-relation.c:1619
+#: src/as-relation.c:1617
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
 msgstr ""
 "이 소프트웨어에는 %s 커널이 필요하지만 이 시스템은 %s을(를) 실행하고 있습니"
 "다."
 
-#: src/as-relation.c:1625
+#: src/as-relation.c:1623
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
 msgstr ""
 "이 소프트웨어는 %s 커널을 권장하지만 이 시스템은 %s을(를) 실행하고 있습니다."
 
-#: src/as-relation.c:1631
+#: src/as-relation.c:1629
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
 msgstr "이 소프트웨어는 %s 커널만 지원하지만 어쨌든 %s에서 실행될 수 있습니다."
@@ -1398,7 +1416,7 @@ msgstr "이 소프트웨어는 %s 커널만 지원하지만 어쨌든 %s에서 �
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
 #. and fifth is the version we are running.
-#: src/as-relation.c:1661
+#: src/as-relation.c:1659
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
 msgstr ""
@@ -1408,7 +1426,7 @@ msgstr ""
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
 #. and fifth is the version we are running.
-#: src/as-relation.c:1673
+#: src/as-relation.c:1671
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
 msgstr ""
@@ -1416,20 +1434,20 @@ msgstr ""
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
-#: src/as-relation.c:1684
+#: src/as-relation.c:1682
 #, c-format
 msgid "This software supports %s %s %s."
 msgstr "이 소프트웨어는 %s %s %s을(를) 지원합니다."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
-#: src/as-relation.c:1702
+#: src/as-relation.c:1700
 #, c-format
 msgid "Kernel %s %s is supported."
 msgstr "커널 %s %s이(가) 지원됩니다."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
-#: src/as-relation.c:1736
+#: src/as-relation.c:1734
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
@@ -1439,7 +1457,7 @@ msgstr ""
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
-#: src/as-relation.c:1745
+#: src/as-relation.c:1743
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
@@ -1449,22 +1467,22 @@ msgstr ""
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
-#: src/as-relation.c:1754
+#: src/as-relation.c:1752
 #, c-format
 msgid "This software supports %s %.2f GiB of memory."
 msgstr "이 소프트웨어는 메모리 %s%.2f GiB를 지원합니다."
 
-#: src/as-relation.c:1770
+#: src/as-relation.c:1768
 msgid "This system has sufficient memory for this software."
 msgstr "이 시스템에는 이 소프트웨어를 위한 충분한 메모리가 있습니다."
 
-#: src/as-relation.c:1834
+#: src/as-relation.c:1832
 msgid "This software needs a display for graphical content."
 msgstr "이 소프트웨어에는 그래픽 콘텐츠를 위한 디스플레이가 필요합니다."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
-#: src/as-relation.c:1862
+#: src/as-relation.c:1860
 #, c-format
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
@@ -1475,7 +1493,7 @@ msgstr ""
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
-#: src/as-relation.c:1871
+#: src/as-relation.c:1869
 #, c-format
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
@@ -1486,7 +1504,7 @@ msgstr ""
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
-#: src/as-relation.c:1881
+#: src/as-relation.c:1879
 #, c-format
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
@@ -1497,7 +1515,7 @@ msgstr ""
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
-#: src/as-relation.c:1890
+#: src/as-relation.c:1888
 #, c-format
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
@@ -1506,183 +1524,183 @@ msgstr ""
 "이 소프트웨어는 가장 짧은 에지가 %s %lupx 크기인 디스플레이를 권장하지만 이 "
 "장치의 디스플레이에는 %lupx가 있습니다."
 
-#: src/as-relation.c:1902
+#: src/as-relation.c:1900
 msgid "Display size is sufficient for this software."
 msgstr "디스플레이 크기는 이 소프트웨어에 충분합니다."
 
-#: src/as-relation.c:1919
+#: src/as-relation.c:1917
 #, fuzzy, c-format
 msgid ""
 "Satisfiability check for relation items of type '%s' is not implemented yet."
 msgstr "'%s' 유형의 항목에 대한 관계 만족 검사가 아직 구현되지 않았습니다."
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:38
+#: src/as-spdx-data.h:39
 msgid "Affero General Public License v1.0 only"
 msgstr "오직 Affero 일반 공용 허가서 v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:40
+#: src/as-spdx-data.h:41
 msgid "Affero General Public License v1.0 or later"
 msgstr "Affero 일반 공용 허가서 v1.0 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:43
+#: src/as-spdx-data.h:44
 msgid "GNU Affero General Public License v3.0 only"
 msgstr "오직 GNU Affero 일반 공용 허가서 v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:45
+#: src/as-spdx-data.h:46
 msgid "GNU Affero General Public License v3.0 or later"
 msgstr "GNU 아페로 일반 공중 사용 허가서 v3.0 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:266
+#: src/as-spdx-data.h:274
 msgid "GNU Free Documentation License v1.1 only - invariants"
 msgstr "오직 GNU 무료 문서 라이센스 v1.1 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:268
+#: src/as-spdx-data.h:276
 msgid "GNU Free Documentation License v1.1 or later - invariants"
 msgstr "GNU 무료 문서 라이센스 v1.1 혹은 이후 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:270
+#: src/as-spdx-data.h:278
 msgid "GNU Free Documentation License v1.1 only - no invariants"
 msgstr "오직 GNU 무료 문서 라이센스 v1.1 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:272
+#: src/as-spdx-data.h:280
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
 msgstr "GNU 무료 문서 라이센스 v1.1 혹은 이후 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:274
+#: src/as-spdx-data.h:282
 msgid "GNU Free Documentation License v1.1 only"
 msgstr "오직 GNU 무료 문서 라이센스 v1.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:276
+#: src/as-spdx-data.h:284
 msgid "GNU Free Documentation License v1.1 or later"
 msgstr "GNU 자유 문서 라이센스 v1.1 또는 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:279
+#: src/as-spdx-data.h:287
 msgid "GNU Free Documentation License v1.2 only - invariants"
 msgstr "오직 GNU 무료 문서 라이센스 v1.2 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:281
+#: src/as-spdx-data.h:289
 msgid "GNU Free Documentation License v1.2 or later - invariants"
 msgstr "GNU 무료 문서 라이센스 v1.2 또는 이후 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:283
+#: src/as-spdx-data.h:291
 msgid "GNU Free Documentation License v1.2 only - no invariants"
 msgstr "오직 GNU 무료 문서 라이센스 v1.2 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:285
+#: src/as-spdx-data.h:293
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
 msgstr "GNU 무료 문서 라이센스 v1.2 혹은 이후 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:287
+#: src/as-spdx-data.h:295
 msgid "GNU Free Documentation License v1.2 only"
 msgstr "오직 GNU 무료 문서 라이센스 v1.2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:289
+#: src/as-spdx-data.h:297
 msgid "GNU Free Documentation License v1.2 or later"
 msgstr "GNU 무료 문서 라이센스 v1.2 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:292
+#: src/as-spdx-data.h:300
 msgid "GNU Free Documentation License v1.3 only - invariants"
 msgstr "오직 GNU 무료 문서 라이센스 v1.3 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:294
+#: src/as-spdx-data.h:302
 msgid "GNU Free Documentation License v1.3 or later - invariants"
 msgstr "GNU 무료 문서 라이센스 v1.3 혹은 이후 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:296
+#: src/as-spdx-data.h:304
 msgid "GNU Free Documentation License v1.3 only - no invariants"
 msgstr "오직 GNU 무료 문서 라이센스 v1.3 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:298
+#: src/as-spdx-data.h:306
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
 msgstr "GNU 무료 문서 라이센스 v1.3 혹은 그 이후 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:300
+#: src/as-spdx-data.h:308
 msgid "GNU Free Documentation License v1.3 only"
 msgstr "오직 GNU 무료 문서 라이센스 v1.3"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:302
+#: src/as-spdx-data.h:310
 msgid "GNU Free Documentation License v1.3 or later"
 msgstr "GNU 무료 문서 라이센스 v1.3 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:306 src/as-spdx-data.h:310
+#: src/as-spdx-data.h:314 src/as-spdx-data.h:318
 msgid "GNU General Public License v1.0 only"
 msgstr "오직 GNU 일반 공용 허가서 v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:308 src/as-spdx-data.h:312
+#: src/as-spdx-data.h:316 src/as-spdx-data.h:320
 msgid "GNU General Public License v1.0 or later"
 msgstr "GNU 일반 공용 허가서 v1.0 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:314 src/as-spdx-data.h:318
+#: src/as-spdx-data.h:322 src/as-spdx-data.h:326
 msgid "GNU General Public License v2.0 only"
 msgstr "오직 GNU 일반 공용 허가서 v2.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:316 src/as-spdx-data.h:320
+#: src/as-spdx-data.h:324 src/as-spdx-data.h:328
 msgid "GNU General Public License v2.0 or later"
 msgstr "GNU 일반 공용 허가서 v2.0 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:327 src/as-spdx-data.h:331
+#: src/as-spdx-data.h:335 src/as-spdx-data.h:339
 msgid "GNU General Public License v3.0 only"
 msgstr "오직 GNU 일반 공용 허가서 v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:329 src/as-spdx-data.h:333
+#: src/as-spdx-data.h:337 src/as-spdx-data.h:341
 msgid "GNU General Public License v3.0 or later"
 msgstr "GNU 일반 공용 허가서 v3.0 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:390 src/as-spdx-data.h:394
+#: src/as-spdx-data.h:407 src/as-spdx-data.h:411
 msgid "GNU Library General Public License v2 only"
 msgstr "오직 GNU 일반 공용 허가서 v2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:392 src/as-spdx-data.h:396
+#: src/as-spdx-data.h:409 src/as-spdx-data.h:413
 msgid "GNU Library General Public License v2 or later"
 msgstr "GNU 일반 공용 허가서 v2 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:398 src/as-spdx-data.h:402
+#: src/as-spdx-data.h:415 src/as-spdx-data.h:419
 msgid "GNU Lesser General Public License v2.1 only"
 msgstr "오직 GNU 일반 공용 허가서 v2.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:400 src/as-spdx-data.h:404
+#: src/as-spdx-data.h:417 src/as-spdx-data.h:421
 msgid "GNU Lesser General Public License v2.1 or later"
 msgstr "GNU 일반 공용 허가서 v2.1 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:406 src/as-spdx-data.h:410
+#: src/as-spdx-data.h:423 src/as-spdx-data.h:427
 msgid "GNU Lesser General Public License v3.0 only"
 msgstr "오직 GNU 일반 공용 허가서 v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:408 src/as-spdx-data.h:412
+#: src/as-spdx-data.h:425 src/as-spdx-data.h:429
 msgid "GNU Lesser General Public License v3.0 or later"
 msgstr "GNU 일반 공용 허가서 v3.0 혹은 이후"
 
@@ -2353,7 +2371,7 @@ msgstr ""
 #: src/as-validator-issue-tag.h:529
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
-"everywhere."
+"everywhere. It should be <= 90 characters."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
@@ -2892,22 +2910,30 @@ msgstr "릴리스에 'version' 속성이 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:953
+#, fuzzy
 msgid ""
-"The release is missing either the `date` (preferred) or the `timestamp` "
-"property."
+"The release entry is missing either the `date` (preferred) or the "
+"`timestamp` property."
 msgstr "릴리스에 'date'(우선의) 또는 'timestamp' 속성이 없습니다."
 
-#: src/as-validator-issue-tag.h:958
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
+#: src/as-validator-issue-tag.h:959
+msgid ""
+"The release entry is missing the `date` property. Ensure to add it before "
+"publishing the snapshot release."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:964
 msgid "The release timestamp is invalid."
 msgstr "릴리스 timestamp가 잘못되었습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:964
+#: src/as-validator-issue-tag.h:970
 msgid "The release description must be put inside a `description` tag"
 msgstr "릴리스 설명은 'description' 태그 안에 입력해야 합니다"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:970
+#: src/as-validator-issue-tag.h:976
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
@@ -2915,11 +2941,11 @@ msgstr ""
 "artifact type으로 설정된 값이 잘못되었습니다. 'source' 또는 'binary' 중 하나"
 "여야 합니다."
 
-#: src/as-validator-issue-tag.h:975
+#: src/as-validator-issue-tag.h:981
 msgid "The value set as artifact bundle type is invalid."
 msgstr "artifact bundle type 으로 설정된 값이 잘못되었습니다."
 
-#: src/as-validator-issue-tag.h:980
+#: src/as-validator-issue-tag.h:986
 msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
@@ -2929,16 +2955,16 @@ msgstr ""
 "형식이어야 합니다. 자세한 정보와 유효한 필드는 AppStream 문서 또는 정규화된 "
 "GNU 트리플렛에 대한 정보를 참조하십시오."
 
-#: src/as-validator-issue-tag.h:987
+#: src/as-validator-issue-tag.h:993
 msgid "The selected checksumming algorithm is unsupported or unknown."
 msgstr "선택한 체크섬 알고리즘이 지원되지 않거나 알 수 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:993
+#: src/as-validator-issue-tag.h:999
 msgid "The size type is unknown. Must be `download` or `installed`."
 msgstr "크기 유형을 알 수 없습니다. 'download' 또는 'install'이어야 합니다."
 
-#: src/as-validator-issue-tag.h:998
+#: src/as-validator-issue-tag.h:1004
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
@@ -2946,11 +2972,11 @@ msgstr ""
 "The artifact filename은 (상대적이거나 절대적인) 경로가 아닌 파일 기본 이름이"
 "어야 합니다."
 
-#: src/as-validator-issue-tag.h:1003
+#: src/as-validator-issue-tag.h:1009
 msgid "The value set as release issue type is invalid."
 msgstr "릴리스 이슈 유형으로 설정된 값이 잘못되었습니다."
 
-#: src/as-validator-issue-tag.h:1008
+#: src/as-validator-issue-tag.h:1014
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
@@ -2959,7 +2985,7 @@ msgstr ""
 "자처럼 보이지 않습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1014
+#: src/as-validator-issue-tag.h:1020
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
@@ -2967,7 +2993,7 @@ msgstr ""
 "이 구성 요소에 릴리스에 대한 정보가 없습니다. 릴리스 및 변경 사항을 설명하기 "
 "위해 `releases` 태그를 추가하는 것을 고려하십시오."
 
-#: src/as-validator-issue-tag.h:1019
+#: src/as-validator-issue-tag.h:1025
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
@@ -2976,7 +3002,7 @@ msgstr ""
 "AppStream 사양에서는 날짜를 표시하기 위해 날짜 단위 이상의 완전한 ISO 8601 날"
 "짜 문자열이 필요합니다. 날짜 문자열이 올바른지 확인하십시오."
 
-#: src/as-validator-issue-tag.h:1025
+#: src/as-validator-issue-tag.h:1031
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
@@ -2987,7 +3013,7 @@ msgstr ""
 "할 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1032
+#: src/as-validator-issue-tag.h:1038
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
@@ -2999,7 +3025,7 @@ msgstr ""
 "사용하는 것을 고려해 보십시오. 예 : 'LicenseRef free=https://example.com/"
 "licenses.html '"
 
-#: src/as-validator-issue-tag.h:1038
+#: src/as-validator-issue-tag.h:1044
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
@@ -3008,13 +3034,13 @@ msgstr ""
 "'runtime' 구성 요소는 여러 다른 소프트웨어 구성 요소로 구성되므로 해당 구성 "
 "요소 ID는 이 런타임의 '<provides/>' 섹션에 나열될 수 있습니다."
 
-#: src/as-validator-issue-tag.h:1043
+#: src/as-validator-issue-tag.h:1049
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr "구성 요소가 제공하는 항목의 유형은 AppStream에 알려져 있지 않습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1049
+#: src/as-validator-issue-tag.h:1055
 msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
@@ -3025,7 +3051,7 @@ msgstr ""
 "는 것을 표시하십시오."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1056
+#: src/as-validator-issue-tag.h:1062
 msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
@@ -3036,66 +3062,66 @@ msgstr ""
 "데이터를 생성할 수 있습니다"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1063
+#: src/as-validator-issue-tag.h:1069
 #, fuzzy
 msgid ""
 "The `type` attribute of this `content_rating` element is missing or empty."
 msgstr "이 'content_rating' 요소의 'type' 특성이 없거나 비어 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1069
+#: src/as-validator-issue-tag.h:1075
 #, fuzzy
 msgid ""
 "The `type` attribute of the `content_rating` element has an invalid value."
 msgstr "'content_rating' 요소의 'type' 속성에 잘못된 값이 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1075
+#: src/as-validator-issue-tag.h:1081
 msgid "The `content_rating` tag can only contain `content_attribute` children."
 msgstr ""
 "'content_rating' 태그에는 'content_attribute' 하위만 포함될 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1081
+#: src/as-validator-issue-tag.h:1087
 #, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element is missing or empty."
 msgstr "'content_attribute' 요소의 'id' 특성이 없거나 비어 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1087
+#: src/as-validator-issue-tag.h:1093
 #, fuzzy
 msgid ""
 "The `id` attribute of the `content_attribute` element has an invalid value."
 msgstr "'content_attribute' 요소의 'id' 특성에 잘못된 값이 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1093
+#: src/as-validator-issue-tag.h:1099
 msgid "The `content_attribute` tag needs a value."
 msgstr "'content_attribute' 태그에는 값이 필요합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1099
+#: src/as-validator-issue-tag.h:1105
 msgid "The `content_attribute` tag value is unknown."
 msgstr "'content_attribute' 태그 값을 알 수 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1105
+#: src/as-validator-issue-tag.h:1111
 msgid "The `content_attribute` tag value is invalid for the given id."
 msgstr "지정한 ID에 대해 'content_attribute' 태그 값이 잘못되었습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1111
+#: src/as-validator-issue-tag.h:1117
 msgid "A `content_attribute` tag with this ID has already been defined."
 msgstr "이 ID의 'content_attribute' 태그가 이미 정의되어 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1117
+#: src/as-validator-issue-tag.h:1123
 msgid "This `tag` is missing a `namespace` attribute."
 msgstr "이 '태그'에는 'namespace' 속성이 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1123
+#: src/as-validator-issue-tag.h:1129
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
@@ -3103,39 +3129,39 @@ msgstr ""
 "이 태그 또는 네임스페이스에 잘못된 문자가 있습니다. 소문자 ASCII 문자, 숫자, "
 "점, 하이픈 및 밑줄만 허용됩니다."
 
-#: src/as-validator-issue-tag.h:1128
+#: src/as-validator-issue-tag.h:1134
 msgid "The type of this color is not valid."
 msgstr "이 색상의 유형이 잘못되었습니다."
 
-#: src/as-validator-issue-tag.h:1133
+#: src/as-validator-issue-tag.h:1139
 msgid "The value of this color scheme preference is not valid."
 msgstr "이 색 구성표 기본 설정 값이 잘못되었습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1139
+#: src/as-validator-issue-tag.h:1145
 msgid ""
 "The name of the color scheme property is wrong. It should be "
 "`scheme_preference`."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1144
+#: src/as-validator-issue-tag.h:1150
 msgid "This color is not a valid HTML color code."
 msgstr "이 색상은 올바른 HTML 색상 코드가 아닙니다."
 
-#: src/as-validator-issue-tag.h:1149
+#: src/as-validator-issue-tag.h:1155
 msgid ""
 "A color for this type/scheme combination was already set. Colors must be "
 "unique per type/scheme."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1154
+#: src/as-validator-issue-tag.h:1160
 msgid ""
 "The given DOI (Digital Object Identifier) for this reference item is not "
 "valid."
 msgstr ""
 "이 참조 항목에 대해 지정된 DOI(Digital Object Identifier)가 잘못되었습니다."
 
-#: src/as-validator-issue-tag.h:1159
+#: src/as-validator-issue-tag.h:1165
 msgid ""
 "The value for this citation reference item must be an URL to a CFF (Citation "
 "File Format) file."
@@ -3143,7 +3169,7 @@ msgstr ""
 "이 인용 참조 항목의 값은 CFF(Citation File Format) 파일의 URL이어야 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1165
+#: src/as-validator-issue-tag.h:1171
 msgid ""
 "This registry reference item is missing the `name` property to denote the "
 "name of the registry it is about."
@@ -3151,7 +3177,7 @@ msgstr ""
 "이 레지스트리 참조 항목에는 해당 레지스트리의 이름을 나타내는 'name' 속성이 "
 "없습니다."
 
-#: src/as-validator-issue-tag.h:1170
+#: src/as-validator-issue-tag.h:1176
 msgid ""
 "The registry for this reference item is unknown. This may be due to a typing "
 "error, or the registry needs to be registered with AppStream."
@@ -3159,30 +3185,30 @@ msgstr ""
 "이 참조 항목의 레지스트리를 알 수 없습니다. 이는 입력 오류로 인해 발생했거나 "
 "AppStream에 레지스트리를 등록해야 합니다."
 
-#: src/as-validator-issue-tag.h:1176
+#: src/as-validator-issue-tag.h:1182
 msgid "The reference item is missing a value."
 msgstr "참조 항목에 값이 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1182
+#: src/as-validator-issue-tag.h:1188
 msgid "The `custom` tag can only contain `value` children."
 msgstr "'custom' 태그는 'value' 자식만 포함할 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1188
+#: src/as-validator-issue-tag.h:1194
 msgid "This `custom` tag value is missing a `key` attribute."
 msgstr "이 'custom' 태그 값에 'key' 속성이 없습니다."
 
-#: src/as-validator-issue-tag.h:1193
+#: src/as-validator-issue-tag.h:1199
 msgid "A key can only be used once."
 msgstr "키는 한 번만 사용할 수 있습니다."
 
-#: src/as-validator-issue-tag.h:1198
+#: src/as-validator-issue-tag.h:1204
 msgid "This custom value is empty."
 msgstr "이 사용자 지정 값은 비어 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1204
+#: src/as-validator-issue-tag.h:1210
 #, fuzzy
 msgid ""
 "A `keywords` tag must not be localized in metainfo files (upstream "
@@ -3232,27 +3258,27 @@ msgstr ""
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:870 src/as-validator.c:1484 src/as-validator.c:1660
-#: src/as-validator.c:1883 src/as-validator.c:2529 src/as-validator.c:2551
-#: src/as-validator.c:2675 src/as-validator.c:2998
+#: src/as-validator.c:1881 src/as-validator.c:2536 src/as-validator.c:2558
+#: src/as-validator.c:2682 src/as-validator.c:3005
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #. TRANSLATORS: ascompose flag description for: --verbose
-#: tools/appstream-compose.c:198 tools/appstreamcli.c:1364
+#: tools/appstream-compose.c:198 tools/appstreamcli.c:1363
 msgid "Show extra debugging information."
 msgstr "추가 디버깅 정보 보이기."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #. TRANSLATORS: ascompose flag description for: --no-color
-#: tools/appstream-compose.c:205 tools/appstreamcli.c:1370
+#: tools/appstream-compose.c:205 tools/appstreamcli.c:1369
 msgid "Don't show colored output."
 msgstr "출력에 색깔을 사용하지 마세요."
 
 #. TRANSLATORS: ascli flag description for: --version
 #. TRANSLATORS: ascompose flag description for: --version
-#: tools/appstream-compose.c:212 tools/appstreamcli.c:1358
+#: tools/appstream-compose.c:212 tools/appstreamcli.c:1357
 msgid "Show the program version."
 msgstr "프로그램 버전 보기."
 
@@ -3339,12 +3365,12 @@ msgid "Failed to parse arguments"
 msgstr ""
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:338 tools/appstreamcli.c:1598
+#: tools/appstream-compose.c:338 tools/appstreamcli.c:1597
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream 버전: %s"
 
-#: tools/appstream-compose.c:342 tools/appstreamcli.c:1602
+#: tools/appstream-compose.c:342 tools/appstreamcli.c:1601
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -3501,7 +3527,7 @@ msgid "Override the severities of selected issue tags."
 msgstr ""
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
-#: tools/appstreamcli.c:179 tools/appstreamcli.c:1253
+#: tools/appstreamcli.c:179 tools/appstreamcli.c:1252
 msgid "AppStream command-line interface"
 msgstr "AppStream 명령문 인터페이스"
 
@@ -3516,7 +3542,7 @@ msgstr "'%s' 명령어"
 msgid "Option '%s' is unknown."
 msgstr "'%s'는(은) 알 수 없는 옵션입니다."
 
-#: tools/appstreamcli.c:223 tools/appstreamcli.c:1574
+#: tools/appstreamcli.c:223 tools/appstreamcli.c:1573
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -3543,60 +3569,60 @@ msgid ""
 "May be specified multiple times."
 msgstr ""
 
-#: tools/appstreamcli.c:547
+#: tools/appstreamcli.c:546
 msgid ""
 "No license, license expression or license exception string was provided."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
-#: tools/appstreamcli.c:596
+#: tools/appstreamcli.c:595
 #, fuzzy
 msgid "Print more detailed output on why incompatibilities exist."
 msgstr "찾은 구성 요소에 대한 자세한 출력 표시."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstreamcli.c:633
+#: tools/appstreamcli.c:632
 msgid "Set the data origin for the installed metadata catalog file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:639
+#: tools/appstreamcli.c:638
 msgid "Install the file for the current user, instead of globally."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:667
+#: tools/appstreamcli.c:666
 msgid ""
 "Limit the command to use only components from the given bundling system "
 "(`flatpak` or `package`)."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:674
+#: tools/appstreamcli.c:673
 msgid ""
 "Do not ask for which software component should be used and always choose the "
 "first entry."
 msgstr ""
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
-#: tools/appstreamcli.c:708 tools/appstreamcli.c:743
+#: tools/appstreamcli.c:707 tools/appstreamcli.c:742
 msgid ""
 "No valid bundle kind was specified. Only `package` and `flatpak` are "
 "currently recognized."
 msgstr ""
 
-#: tools/appstreamcli.c:837
+#: tools/appstreamcli.c:836
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr "변수로써 비교하기 위해 최소 2개의 버전 숫자가 필요합니다."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:866
+#: tools/appstreamcli.c:865
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "알 수 없는 비교 연산자'%s'. 사용할 수 있는 것들은 :"
 
-#: tools/appstreamcli.c:907
+#: tools/appstreamcli.c:906
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
@@ -3605,12 +3631,12 @@ msgstr ""
 "합니다."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:933
+#: tools/appstreamcli.c:932
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "주어진 .desktop 파일을 사용하여 metainfo 파일의 기본 값을 채웁니다."
 
-#: tools/appstreamcli.c:941
+#: tools/appstreamcli.c:940
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -3618,81 +3644,81 @@ msgstr ""
 "이 명령은 선택적인 TYPE 및 FILE 위치 인수를 사용하며, FILE은 기록할 파일 (또"
 "는 표준 출력의 경우 \"-\")입니다."
 
-#: tools/appstreamcli.c:945
+#: tools/appstreamcli.c:944
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPE은 유효한 구성 요소 유형이어야 합니다, 예: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:983
+#: tools/appstreamcli.c:982
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1023
+#: tools/appstreamcli.c:1022
 msgid ""
 "Assume the input file is in the selected format ('yaml', 'text' or "
 "'markdown')."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1030
+#: tools/appstreamcli.c:1029
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1037
+#: tools/appstreamcli.c:1036
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:1082
+#: tools/appstreamcli.c:1081
 msgid ""
 "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr ""
 
-#: tools/appstreamcli.c:1127
+#: tools/appstreamcli.c:1126
 #, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
 msgstr ""
 
-#: tools/appstreamcli.c:1131
+#: tools/appstreamcli.c:1130
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr ""
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
-#: tools/appstreamcli.c:1140
+#: tools/appstreamcli.c:1139
 msgid "Invalid number of parameters"
 msgstr ""
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
-#: tools/appstreamcli.c:1158
+#: tools/appstreamcli.c:1157
 #, fuzzy, c-format
 msgid "Compose operation failed to execute: %s"
 msgstr "유효성 검사 실패: %s"
 
-#: tools/appstreamcli.c:1168
+#: tools/appstreamcli.c:1167
 #, fuzzy, c-format
 msgid "Compose failed: %s"
 msgstr "유효성 검사 실패: %s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:1225
+#: tools/appstreamcli.c:1224
 #, c-format
 msgid "(Alias: '%s')"
 msgstr ""
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1255
+#: tools/appstreamcli.c:1254
 msgid "Subcommands:"
 msgstr "하위 명령어:"
 
-#: tools/appstreamcli.c:1309
+#: tools/appstreamcli.c:1308
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -3700,7 +3726,7 @@ msgstr ""
 "하위 명령어에 \"--help\"를 보내 하위 명령어에 관한 옵션 정보를 찾을 수 있습니"
 "다."
 
-#: tools/appstreamcli.c:1333
+#: tools/appstreamcli.c:1332
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
@@ -3709,137 +3735,137 @@ msgstr ""
 "합니다."
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstreamcli.c:1375
+#: tools/appstreamcli.c:1374
 msgid "Enable profiling"
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1390
+#: tools/appstreamcli.c:1389
 msgid "Search the component database."
 msgstr "구성요소 데이터베이스를 검색합니다."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1397
+#: tools/appstreamcli.c:1396
 msgid "Get information about a component by its ID."
 msgstr "ID와 일치하는 구성요소 정보를 가져옵니다."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1404
+#: tools/appstreamcli.c:1403
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
-#: tools/appstreamcli.c:1412
+#: tools/appstreamcli.c:1411
 msgid "List components that are part of the specified categories."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1421
+#: tools/appstreamcli.c:1420
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "ID와 일치하는 구성요소의 원시 XML 메타데이터 덤프."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1429
+#: tools/appstreamcli.c:1428
 msgid "Rebuild the component metadata cache."
 msgstr "구성요소 메타데이터 캐시를 다시 만듭니다."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1437
+#: tools/appstreamcli.c:1436
 msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML 파일의 문제를 검증합니다."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1444
+#: tools/appstreamcli.c:1443
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "올바른 메타데이터를 가지고 있는지 프로그램의 설치 파일 트리를 검증합니다."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1452
+#: tools/appstreamcli.c:1451
 msgid "Check license string for validity and print details about it."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1460
+#: tools/appstreamcli.c:1459
 msgid ""
 "Check if requirements of a component (via its ID or MetaInfo file) are "
 "satisfied on this system."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
-#: tools/appstreamcli.c:1468
+#: tools/appstreamcli.c:1467
 msgid ""
 "Check compatibility of a component (via its ID or MetaInfo file) with common "
 "system and chassis types."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1477
+#: tools/appstreamcli.c:1476
 msgid "Install software matching the component-ID."
 msgstr "component-ID와 일치하는 소프트웨어를 설치합니다."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1484
+#: tools/appstreamcli.c:1483
 msgid "Remove software matching the component-ID."
 msgstr "component-ID와 일치하는 소프트웨어를 제거하세요."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1492
+#: tools/appstreamcli.c:1491
 msgid "Display status information about available AppStream metadata."
 msgstr "설치한 AppStream 메타데이터의 상태 정보를 나타냅니다."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
-#: tools/appstreamcli.c:1500
+#: tools/appstreamcli.c:1499
 msgid "Show information about the current device and used operating system."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1508
+#: tools/appstreamcli.c:1507
 msgid "Install a metadata file into the right location."
 msgstr "올바른 위치에 메타데이터 파일을 설치하십시오."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1516
+#: tools/appstreamcli.c:1515
 #, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
 msgstr "컬렉션 XML을 YAML로 변환하시거나 그 반대로 하세요."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1523
+#: tools/appstreamcli.c:1522
 msgid "Compare two version numbers."
 msgstr "두 버전 비교하기."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1532
+#: tools/appstreamcli.c:1531
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr "(업스트림 프로젝트에서 채울) 메타정보 파일의 템플릿을 만듭니다."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1540
+#: tools/appstreamcli.c:1539
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "메타정보 파일에서 데스크톱 항목 파일을 만듭니다."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1548
+#: tools/appstreamcli.c:1547
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "YAML 또는 텍스트 [뉴스] 파일을 메타정보 릴리스로 변환합니다."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1556
+#: tools/appstreamcli.c:1555
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr "메타정보 파일의 정보로 [뉴스] 텍스트 또는 YAML 파일을 작성하십시오."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1564
+#: tools/appstreamcli.c:1563
 msgid "Compose AppStream metadata catalog from directory trees."
 msgstr ""
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1572
+#: tools/appstreamcli.c:1571
 msgid "You need to specify a command."
 msgstr "명령을 지정해야 합니다."
 
@@ -3855,95 +3881,95 @@ msgstr ""
 msgid "Updating software metadata cache for Flatpak."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:68
+#: tools/ascli-actions-mdata.c:69
 #, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
 msgstr "이름이 '%s'인 메타데이터 소스 그룹이 존재하지 않습니다!"
 
-#: tools/ascli-actions-mdata.c:97
+#: tools/ascli-actions-mdata.c:98
 msgid "You might need superuser permissions to perform this action."
 msgstr "이 동작을 수행하려면 superuser 권한이 필요합니다."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
-#: tools/ascli-actions-mdata.c:105
+#: tools/ascli-actions-mdata.c:106
 #, fuzzy
 msgid "Metadata cache was updated successfully."
 msgstr "AppStream 캐시 업데이트를 성공적으로 마쳤습니다."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
-#: tools/ascli-actions-mdata.c:108
+#: tools/ascli-actions-mdata.c:109
 #, fuzzy
 msgid "Metadata cache update is not necessary."
 msgstr "AppStream 캐시 업데이트가 필요하지 않습니다."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: tools/ascli-actions-mdata.c:131 tools/ascli-actions-mdata.c:297
+#: tools/ascli-actions-mdata.c:132 tools/ascli-actions-mdata.c:298
 #: tools/ascli-actions-pkgmgr.c:114
 msgid "You need to specify a component-ID."
 msgstr "component-ID를 지정해야 합니다."
 
-#: tools/ascli-actions-mdata.c:143 tools/ascli-actions-mdata.c:309
+#: tools/ascli-actions-mdata.c:144 tools/ascli-actions-mdata.c:310
 #: tools/ascli-actions-mdata.c:734 tools/ascli-actions-mdata.c:866
 #: tools/ascli-actions-pkgmgr.c:127
 #, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "ID가 '%s'인 구성 요소를 찾을 수 없습니다!"
 
-#: tools/ascli-actions-mdata.c:166
+#: tools/ascli-actions-mdata.c:167
 msgid "You need to specify a term to search for."
 msgstr "검색할 항목을 지정해야 합니다."
 
 #. TRANSLATORS: We got no full-text search results
-#: tools/ascli-actions-mdata.c:179
+#: tools/ascli-actions-mdata.c:180
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "'%s'에 일치하는 구성 요소를 찾을 수 없습니다."
 
-#: tools/ascli-actions-mdata.c:206
+#: tools/ascli-actions-mdata.c:207
 msgid "No value for the item to search for was defined."
 msgstr "검색할 항목에 대한 값을 정의하지 않았습니다."
 
-#: tools/ascli-actions-mdata.c:213
+#: tools/ascli-actions-mdata.c:214
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 "선택한 항목을 제공하는 형식이 잘못되었습니다. 올바른 값은 다음과 같습니다:"
 
-#: tools/ascli-actions-mdata.c:229
+#: tools/ascli-actions-mdata.c:230
 #, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "'%s::%s' 을(를) 제공하는 구성요소를 찾을 수 없습니다."
 
-#: tools/ascli-actions-mdata.c:255
+#: tools/ascli-actions-mdata.c:256
 #, fuzzy
 msgid "You need to specify categories to list."
 msgstr "검색할 항목을 지정해야 합니다."
 
 #. TRANSLATORS: We got no category list results
-#: tools/ascli-actions-mdata.c:269
+#: tools/ascli-actions-mdata.c:270
 #, c-format
 msgid "No component found in categories %s."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:352
+#: tools/ascli-actions-mdata.c:353
 msgid "You need to specify a metadata file."
 msgstr "메타데이터 파일을 지정해야합니다."
 
-#: tools/ascli-actions-mdata.c:366
+#: tools/ascli-actions-mdata.c:367
 #, c-format
 msgid "Unable to install metadata file: %s"
 msgstr "메타데이터 파일을 설치할 수 없음: %s"
 
-#: tools/ascli-actions-mdata.c:386
+#: tools/ascli-actions-mdata.c:387
 msgid "You need to specify an input and output file."
 msgstr "입출력 파일을 지정해야 합니다."
 
-#: tools/ascli-actions-mdata.c:393
+#: tools/ascli-actions-mdata.c:394
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "메타데이터 파일 '%s' 없습니다."
 
-#: tools/ascli-actions-mdata.c:432
+#: tools/ascli-actions-mdata.c:433
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -3951,6 +3977,7 @@ msgstr ""
 "파일을 변환할 수 없습니다: 출력 형식을 결정할 수 없습니다, '--format ='을 사"
 "용하여 명확하게 설정하세요."
 
+#. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
 #: tools/ascli-actions-mdata.c:481
 msgid ""
 "You need to give an AppStream software component type to generate a "
@@ -4222,12 +4249,11 @@ msgstr "요약"
 msgid "Homepage"
 msgstr "홈페이지"
 
-#. developer name
-#: tools/ascli-actions-misc.c:572 tools/ascli-utils.c:329
+#: tools/ascli-actions-misc.c:572 tools/ascli-utils.c:330
 msgid "Developer"
 msgstr "개발자"
 
-#: tools/ascli-actions-misc.c:581 tools/ascli-utils.c:345
+#: tools/ascli-actions-misc.c:581 tools/ascli-utils.c:344
 msgid "Description"
 msgstr "설명"
 
@@ -4384,7 +4410,7 @@ msgstr ""
 msgid "Validation was successful."
 msgstr "유효성 검사에 성공했습니다."
 
-#: tools/ascli-actions-validate.c:447 tools/ascli-actions-validate.c:580
+#: tools/ascli-actions-validate.c:446 tools/ascli-actions-validate.c:579
 #, c-format
 msgid "Validation was successful: %s"
 msgstr "유효성 검사에 성공했습니다: %s"
@@ -4473,37 +4499,37 @@ msgstr "번들"
 msgid "Icon"
 msgstr "아이콘"
 
-#: tools/ascli-utils.c:337
+#: tools/ascli-utils.c:336
 msgid "Extends"
 msgstr "확장"
 
-#: tools/ascli-utils.c:365
+#: tools/ascli-utils.c:364
 msgid "Default Screenshot URL"
 msgstr "기본 스크린샷 URL"
 
-#: tools/ascli-utils.c:375
+#: tools/ascli-utils.c:374
 msgid "Project Group"
 msgstr "프로젝트 그룹"
 
 #. license
-#: tools/ascli-utils.c:378
+#: tools/ascli-utils.c:377
 msgid "License"
 msgstr "라이선스"
 
-#: tools/ascli-utils.c:384
+#: tools/ascli-utils.c:383
 msgid "Categories"
 msgstr "카테고리"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:391
 msgid "Compulsory for"
 msgstr "다음의 필수 사항"
 
 #. TRANSLATORS: Other software or interfaces that this software component provides
-#: tools/ascli-utils.c:426
+#: tools/ascli-utils.c:425
 msgid "Provided Items"
 msgstr "제공하는 항목"
 
-#: tools/ascli-utils.c:524
+#: tools/ascli-utils.c:523
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr ""
