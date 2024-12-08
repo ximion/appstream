@@ -2627,12 +2627,8 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 			}
 
 			if (icons_size_id == NULL) {
-				g_set_error_literal (
-				    error,
-				    AS_UTILS_ERROR,
-				    AS_UTILS_ERROR_FAILED,
-				    "Unable to find valid icon size in icon tarball name.");
-				return FALSE;
+				g_warning ("Unable to find valid icon size in icon tarball name, assuming 64x64px.");
+				icons_size_id = "64x64";
 			}
 
 			/* install icons if we know the origin name */
