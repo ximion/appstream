@@ -9,17 +9,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2024-09-09 05:09+0000\n"
+"PO-Revision-Date: 2024-12-12 10:00+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
-"Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/"
-"translations/ro/>\n"
+"Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/translations/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;\n"
+"X-Generator: Weblate 5.9-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1080,15 +1078,13 @@ msgstr "Mate"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:97
-#, fuzzy
 msgid "Pantheon (Dark)"
-msgstr "Pantheon"
+msgstr "Pantheon (]ntunecat)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
-#, fuzzy
 msgid "KDE Plasma (Dark)"
-msgstr "KDE Plasma"
+msgstr "KDE Plasma (]ntunecat)"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:103
@@ -1097,9 +1093,8 @@ msgstr "Plasma Mobile"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:105
-#, fuzzy
 msgid "Plasma Mobile (Dark)"
-msgstr "Plasma Mobile"
+msgstr "Plasma Mobile (]ntunecat)"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:109
@@ -2418,13 +2413,10 @@ msgstr ""
 "de proiect sau un număr."
 
 #: src/as-validator-issue-tag.h:529
-#, fuzzy
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
 "everywhere. It should be <= 90 characters."
-msgstr ""
-"Textul rezumatului este foarte lung și probabil nu va fi afișat corect peste "
-"tot."
+msgstr "Textul rezumatalui este foarte lung și probabil nu va fi afișat corect peste tot. Acesta ar trebui să fie <= 90 de caractere."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:535
@@ -3020,20 +3012,17 @@ msgstr "Lansării de versiune îi lipsește proprietatea „version”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:953
-#, fuzzy
 msgid ""
 "The release entry is missing either the `date` (preferred) or the "
 "`timestamp` property."
-msgstr ""
-"Lansării de versiune îi lipsește proprietatea „date” (preferată) sau "
-"„timestamp”."
+msgstr "Intrării de versiune îi lipsește fie proprietatea „date” (preferată), fie proprietatea „timestamp”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:959
 msgid ""
 "The release entry is missing the `date` property. Ensure to add it before "
 "publishing the snapshot release."
-msgstr ""
+msgstr "Intrării de versiune îi lipsește proprietatea „date”. Asigurați-vă că o adăugați înainte de publicarea versiunii instantanee (snapshot)."
 
 #: src/as-validator-issue-tag.h:964
 msgid "The release timestamp is invalid."
@@ -3548,8 +3537,7 @@ msgid ""
 msgstr ""
 "Valoare nevalidă pentru opțiunea „--print-report\": %s\n"
 "Valorile posibile sunt:\n"
-"„on-error” - afișează un raport scurt numai dacă execuția a eșuat "
-"(implicit)\n"
+"„on-error” - afișează un raport scurt numai dacă execuția a eșuat (implicit)\n"
 "„short”    - generează un raport restrâns\n"
 "„full”     - va fi afișat un raport detaliat"
 
@@ -3655,8 +3643,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:91
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Formatul implicit al metadatelor  (valorile valide sunt „xml” și „yaml”)."
+msgstr "Formatul implicit al metadatelor (valorile valide sunt „xml” și „yaml”)."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstreamcli.c:107
