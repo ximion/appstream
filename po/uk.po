@@ -16,6 +16,7 @@
 # Yuri Chornoivan <yurchor@ukr.net>, 2019. #zanata, 2021, 2022, 2023, 2024.
 # Artem <artem@molotov.work>, 2022.
 # Сергій <sergiy.goncharuk.1@gmail.com>, 2024.
+# Максим Горпиніч <mgorpinic2005@gmail.com>, 2024.
 #
 # Translators:
 msgid ""
@@ -23,17 +24,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2024-11-25 20:00+0000\n"
-"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
-"translations/uk/>\n"
+"PO-Revision-Date: 2024-12-16 09:10+0000\n"
+"Last-Translator: Максим Горпиніч <mgorpinic2005@gmail.com>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.9-dev\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.9-rc\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1086,15 +1085,13 @@ msgstr "Друг"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:97
-#, fuzzy
 msgid "Pantheon (Dark)"
-msgstr "Pantheon"
+msgstr "Пантеон (Темний)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
-#, fuzzy
 msgid "KDE Plasma (Dark)"
-msgstr "Плазма KDE"
+msgstr "KDE Плазма (темна)"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:103
@@ -1103,9 +1100,8 @@ msgstr "Мобільна Плазма"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:105
-#, fuzzy
 msgid "Plasma Mobile (Dark)"
-msgstr "Мобільна Плазма"
+msgstr "Plasma Mobile (темний)"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:109
@@ -2021,7 +2017,7 @@ msgstr "Значення властивості `scale` має бути дода
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:241
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr "Типом зображення має бути «source» або «thumbnail»."
+msgstr "Тип зображення має бути «джерело» або «ескіз»."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:247
@@ -2436,13 +2432,10 @@ msgstr ""
 "числа."
 
 #: src/as-validator-issue-tag.h:529
-#, fuzzy
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
 "everywhere. It should be <= 90 characters."
-msgstr ""
-"Текст резюме надто довгий — його, ймовірно, не вдасться показати належним "
-"чином будь-де."
+msgstr "Короткий текст дуже довгий і, ймовірно, не всюди відображатиметься належним чином. Він має містити <= 90 символів."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:535
@@ -3022,20 +3015,17 @@ msgstr "У запису випуску (release) пропущено власти
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:953
-#, fuzzy
 msgid ""
 "The release entry is missing either the `date` (preferred) or the "
 "`timestamp` property."
-msgstr ""
-"У запису випуску (release) пропущено або властивість `date` (пріоритетна) "
-"або властивість `timestamp`."
+msgstr "У записі випуску відсутня властивість `date` (бажано) або `timestamp`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:959
 msgid ""
 "The release entry is missing the `date` property. Ensure to add it before "
 "publishing the snapshot release."
-msgstr ""
+msgstr "У записі випуску відсутня властивість `date`. Обов’язково додайте його перед публікацією випуску знімка."
 
 #: src/as-validator-issue-tag.h:964
 msgid "The release timestamp is invalid."
