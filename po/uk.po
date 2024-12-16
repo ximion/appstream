@@ -24,8 +24,8 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2024-12-16 09:10+0000\n"
-"Last-Translator: Максим Горпиніч <mgorpinic2005@gmail.com>\n"
+"PO-Revision-Date: 2024-12-16 12:57+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -1086,12 +1086,12 @@ msgstr "Друг"
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:97
 msgid "Pantheon (Dark)"
-msgstr "Пантеон (Темний)"
+msgstr "Pantheon (темна)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
 msgid "KDE Plasma (Dark)"
-msgstr "KDE Плазма (темна)"
+msgstr "Плазма KDE (темна)"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:103
@@ -2017,7 +2017,7 @@ msgstr "Значення властивості `scale` має бути дода
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:241
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr "Тип зображення має бути «джерело» або «ескіз»."
+msgstr "Типом зображення має бути `source` або `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:247
@@ -3025,7 +3025,7 @@ msgstr "У записі випуску відсутня властивість `
 msgid ""
 "The release entry is missing the `date` property. Ensure to add it before "
 "publishing the snapshot release."
-msgstr "У записі випуску відсутня властивість `date`. Обов’язково додайте його перед публікацією випуску знімка."
+msgstr "У записі випуску пропущено властивість `date`. Обов’язково додайте її перед оприлюдненням випуску знімка."
 
 #: src/as-validator-issue-tag.h:964
 msgid "The release timestamp is invalid."
