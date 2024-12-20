@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2024-12-17 01:00+0000\n"
+"PO-Revision-Date: 2024-12-20 21:01+0000\n"
 "Last-Translator: Максим Горпиніч <mgorpinic2005@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.9\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2022,28 +2022,23 @@ msgstr "The image type must be either `source` or `thumbnail`."
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:247
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
-"Якщо типом зображення є «thumbnail», має бути вказано властивість «width»."
+msgstr "Властивість `width` має бути присутньою, якщо типом зображення є `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:253
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
-"Якщо типом зображення є «thumbnail», має бути вказано властивість «height»."
+msgstr "Властивість `height` має бути присутньою, якщо типом зображення є `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:259
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
-"На один знімок і одну мову має бути лише один запис «source» зображення."
+msgstr "Для кожного знімка екрана та мови може бути лише одне `source` зображення."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:265
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`."
-msgstr ""
-"У знімка вікна має бути принаймні одне неперекладене зображення типу "
-"«source»."
+msgstr "Скріншот має містити принаймні одне неперекладене зображення типу `source`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:271
