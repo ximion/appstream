@@ -7,16 +7,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2024-12-04 19:00+0000\n"
+"PO-Revision-Date: 2024-12-26 05:00+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
-"Language-Team: Tamil <https://hosted.weblate.org/projects/appstream/"
-"translations/ta/>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/appstream/translations/ta/>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -956,7 +955,7 @@ msgstr "சேவையகத்தில் முகவரி காணப்�
 #: src/as-curl.c:183
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr "எதிர்பாராத நிலைக் குறியீடு: %எல்.டி."
+msgstr "எதிர்பாராத நிலைக் குறியீடு: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:420
@@ -1064,13 +1063,11 @@ msgstr "துணையை"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:97
-#, fuzzy
 msgid "Pantheon (Dark)"
 msgstr "பாந்தியன்"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
-#, fuzzy
 msgid "KDE Plasma (Dark)"
 msgstr "எங்கே பிளாச்மா"
 
@@ -1081,7 +1078,6 @@ msgstr "பிளாச்மா மொபைல்"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:105
-#, fuzzy
 msgid "Plasma Mobile (Dark)"
 msgstr "பிளாச்மா மொபைல்"
 
@@ -1444,9 +1440,7 @@ msgstr "இந்த மென்பொருளுக்கு வரைகல�
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
-"இந்த மென்பொருளுக்கு ஒரு காட்சி தேவைப்படுகிறது, அதன் மிக நீண்ட விளிம்பில் %s %lu px "
-"அளவு உள்ளது, ஆனால் இந்த சாதனத்தின் காட்சியில் %LU PX உள்ளது."
+msgstr "இந்த மென்பொருளுக்கு ஒரு காட்சி தேவைப்படுகிறது, அதன் மிக நீண்ட விளிம்பில் %s %lu புள்ளி அளவு உள்ளது, ஆனால் இந்தச் சாதனத்தின் காட்சியில் %lu புள்ளி உள்ளது."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1455,9 +1449,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
-"இந்த மென்பொருளுக்கு ஒரு காட்சி தேவைப்படுகிறது, அதன் குறுகிய விளிம்பில் %s %lu px "
-"அளவு உள்ளது, ஆனால் இந்த சாதனத்தின் காட்சியில் %LU PX உள்ளது."
+msgstr "இந்த மென்பொருளுக்கு ஒரு காட்சி தேவைப்படுகிறது, அதன் குறுகிய விளிம்பில் %s %lu புள்ளி அளவு உள்ளது, ஆனால் இந்த சாதனத்தின் காட்சியில் %lu புள்ளி உள்ளது."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1466,9 +1458,7 @@ msgstr ""
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
-"இந்த மென்பொருள் ஒரு காட்சியை அதன் மிக நீண்ட விளிம்பில் %s %lu px அளவு என்று "
-"பரிந்துரைக்கிறது, ஆனால் இந்த சாதனத்தின் காட்சியில் %LU PX உள்ளது."
+msgstr "இந்த மென்பொருள் ஒரு காட்சியை அதன் மிக நீண்ட விளிம்பில் %s %lu புள்ளி அளவு என்று பரிந்துரைக்கிறது, ஆனால் இந்த சாதனத்தின் காட்சியில் %lu புள்ளி உள்ளது."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1477,9 +1467,7 @@ msgstr ""
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
-"இந்த மென்பொருள் ஒரு காட்சியை அதன் குறுகிய விளிம்பில் %s %lu px அளவு என்று "
-"பரிந்துரைக்கிறது, ஆனால் இந்த சாதனத்தின் காட்சியில் %LU PX உள்ளது."
+msgstr "இந்த மென்பொருள் ஒரு காட்சியை அதன் குறுகிய விளிம்பில் %s %lu புள்ளி அளவு என்று பரிந்துரைக்கிறது, ஆனால் இந்த சாதனத்தின் காட்சியில் %lu புள்ளி உள்ளது."
 
 #: src/as-relation.c:1900
 msgid "Display size is sufficient for this software."
@@ -2349,7 +2337,6 @@ msgid ""
 msgstr "சுருக்கமான உரை மூலதன சொல், திட்ட பெயர் அல்லது எண்ணுடன் தொடங்காது."
 
 #: src/as-validator-issue-tag.h:529
-#, fuzzy
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
 "everywhere. It should be <= 90 characters."
@@ -2906,7 +2893,6 @@ msgstr "வெளியீடு `பதிப்பு` சொத்தை க�
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:953
-#, fuzzy
 msgid ""
 "The release entry is missing either the `date` (preferred) or the "
 "`timestamp` property."
@@ -4407,13 +4393,13 @@ msgstr "'%s' கோப்பு இல்லை."
 #: tools/ascli-actions-validate.c:348
 #, c-format
 msgid "errors: %lu"
-msgstr "பிழைகள்: %LU"
+msgstr "பிழைகள்: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "warning"-type hints
 #: tools/ascli-actions-validate.c:355
 #, c-format
 msgid "warnings: %lu"
-msgstr "எச்சரிக்கைகள்: %LU"
+msgstr "எச்சரிக்கைகள்: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "info"-type hints
 #: tools/ascli-actions-validate.c:362
