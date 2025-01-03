@@ -3,7 +3,7 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2020, 2021, 2022, 2023, 2024.
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2020, 2021, 2022, 2023, 2024, 2025.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016, 2021.
 # Matthias Klumpp <matthias@tenstral.net>, 2014, 2021, 2022.
 # Andreas Kleinert <Andy.Kleinert@gmail.com>, 2019, 2021.
@@ -25,7 +25,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2021, 2022, 2023, 2024.
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2021, 2022, 2023, 2024, 2025.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016. #zanata, 2021.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Tobias Weise <tobias.weise@web.de>, 2019. #zanata
@@ -47,16 +47,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2024-10-22 14:16+0000\n"
+"PO-Revision-Date: 2025-01-03 14:00+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.2-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1115,15 +1114,13 @@ msgstr "Mate"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:97
-#, fuzzy
 msgid "Pantheon (Dark)"
-msgstr "Pantheon"
+msgstr "Pantheon (Dunkel)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
-#, fuzzy
 msgid "KDE Plasma (Dark)"
-msgstr "KDE Plasma"
+msgstr "KDE Plasma (Dunkel)"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:103
@@ -2452,13 +2449,10 @@ msgstr ""
 "Projektnamen oder einer Nummer."
 
 #: src/as-validator-issue-tag.h:529
-#, fuzzy
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
 "everywhere. It should be <= 90 characters."
-msgstr ""
-"Der Zusammenfassungstext ist sehr lang und wird wahrscheinlich nicht überall "
-"richtig angezeigt."
+msgstr "Der Zusammenfassungstext ist sehr lang und wird wahrscheinlich nicht überall richtig angezeigt werden. Er sollte <= 90 Zeichen lang sein."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:535
@@ -3047,20 +3041,17 @@ msgstr "Der Veröffentlichung fehlt die Eigenschaft `version`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:953
-#, fuzzy
 msgid ""
 "The release entry is missing either the `date` (preferred) or the "
 "`timestamp` property."
-msgstr ""
-"Der Veröffentlichung fehlt entweder die Eigenschaft `date` (bevorzugt) oder "
-"`timestamp`."
+msgstr "Dem Veröffentlichungseintrag fehlt entweder die Eigenschaft `date` (bevorzugt) oder `timestamp`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:959
 msgid ""
 "The release entry is missing the `date` property. Ensure to add it before "
 "publishing the snapshot release."
-msgstr ""
+msgstr "Dem Veröffentlichungseintrag fehlt die Eigenschaft `date`. Stellen Sie sicher, dass Sie diese Eigenschaft vor der Veröffentlichung der Schnappschussversion hinzufügen."
 
 #: src/as-validator-issue-tag.h:964
 msgid "The release timestamp is invalid."
