@@ -65,6 +65,16 @@ option('install-docs',
        value : true,
        description : 'Install documentation for API and specification'
 )
+option('tests',
+       description: 'Build the test suite',
+       type: 'boolean',
+       value: true
+)
+option('installed_tests',
+       description: 'Install the test suite',
+       type: 'boolean',
+       value: true
+)
 
 #
 # For development
