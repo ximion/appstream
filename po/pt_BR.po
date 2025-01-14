@@ -5,7 +5,7 @@
 # Translators:
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2016
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2015-2016
-# Rafael Fontenelle <rafaelff@gnome.org>, 2017, 2019, 2020, 2021, 2022, 2023, 2024.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 # Wellington Terumi Uemura <wellingtonuemura@gmail.com>, 2020, 2021, 2022.
 # André Marcelo Alvarenga <andrealvarenga@gmx.net>, 2020, 2021.
 # #-#-#-#-#  pt_BR.po (appstream)  #-#-#-#-#
@@ -37,16 +37,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2024-05-28 16:24+0000\n"
-"Last-Translator: Rai Lima Ferreira <rai.lima17@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"appstream/translations/pt_BR/>\n"
+"PO-Revision-Date: 2025-01-14 13:00+0000\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1107,15 +1106,13 @@ msgstr "Mate"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:97
-#, fuzzy
 msgid "Pantheon (Dark)"
-msgstr "Pantheon"
+msgstr "Pantheon (Escuro)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
-#, fuzzy
 msgid "KDE Plasma (Dark)"
-msgstr "KDE Plasma"
+msgstr "KDE Plasma (Escuro)"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:103
@@ -1124,9 +1121,8 @@ msgstr "Plasma Mobile"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:105
-#, fuzzy
 msgid "Plasma Mobile (Dark)"
-msgstr "Plasma Mobile"
+msgstr "Plasma Mobile (Escuro)"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:109
@@ -2425,13 +2421,10 @@ msgstr ""
 "número."
 
 #: src/as-validator-issue-tag.h:529
-#, fuzzy
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
 "everywhere. It should be <= 90 characters."
-msgstr ""
-"O texto do resumo é muito longo e pode não ser exibido corretamente em todos "
-"os lugares."
+msgstr "O texto do resumo é muito longo e pode não ser exibido corretamente em todos os lugares. Deveria ter <= 90 caracteres."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:535
@@ -3003,18 +2996,17 @@ msgstr "Falta a propriedade `version` ao lançamento."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:953
-#, fuzzy
 msgid ""
 "The release entry is missing either the `date` (preferred) or the "
 "`timestamp` property."
-msgstr "Falta a `date` (de preferência) ou a propriedade `timestamp`."
+msgstr "A entrada de lançamento não possui a propriedade `date` (preferencial) ou `timestamp`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:959
 msgid ""
 "The release entry is missing the `date` property. Ensure to add it before "
 "publishing the snapshot release."
-msgstr ""
+msgstr "A entrada de lançamento não tem a propriedade `date`. Certifique-se de adicioná-la antes de publicar o lançamento instantâneo."
 
 #: src/as-validator-issue-tag.h:964
 msgid "The release timestamp is invalid."
