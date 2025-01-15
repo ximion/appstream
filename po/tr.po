@@ -22,6 +22,7 @@
 # Kemal Oktay Aktoğan <oktay454@disroot.org>, 2021.
 # Oğuz Ersen <oguz@ersen.moe>, 2022, 2023, 2024.
 # Sabri Ünal <libreajans@gmail.com>, 2022, 2023.
+# Sabri Ünal <yakushabb@gmail.com>, 2025.
 #
 # Translators:
 msgid ""
@@ -29,16 +30,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2024-04-25 07:07+0000\n"
-"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"PO-Revision-Date: 2025-01-15 03:00+0000\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5.1-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1090,15 +1090,13 @@ msgstr "Mate"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:97
-#, fuzzy
 msgid "Pantheon (Dark)"
-msgstr "Pantheon"
+msgstr "Pantheon (Koyu)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
-#, fuzzy
 msgid "KDE Plasma (Dark)"
-msgstr "KDE Plasma"
+msgstr "KDE Plasma (Koyu)"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:103
@@ -1107,9 +1105,8 @@ msgstr "Plasma Mobil"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:105
-#, fuzzy
 msgid "Plasma Mobile (Dark)"
-msgstr "Plasma Mobil"
+msgstr "Plasma Mobil (Koyu)"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:109
@@ -2404,13 +2401,10 @@ msgstr ""
 "başlamıyor."
 
 #: src/as-validator-issue-tag.h:529
-#, fuzzy
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
 "everywhere. It should be <= 90 characters."
-msgstr ""
-"Özet metni çok uzun ve büyük olasılıkla her yerde düzgün "
-"görüntülenmeyecektir."
+msgstr "Özet metni çok uzun ve büyük olasılıkla her yerde düzgün görüntülenmeyecektir. 90 karakter veya daha az olmalıdır."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:535
@@ -2974,18 +2968,17 @@ msgstr "Yayın için `version` özelliği eksik."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:953
-#, fuzzy
 msgid ""
 "The release entry is missing either the `date` (preferred) or the "
 "`timestamp` property."
-msgstr "Yayın için `date` (tercih edilen) veya `timestamp` özelliği eksik."
+msgstr "Release girdisi için `date` (tercih edilen) veya `timestamp` özelliği eksik."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:959
 msgid ""
 "The release entry is missing the `date` property. Ensure to add it before "
 "publishing the snapshot release."
-msgstr ""
+msgstr "Release girdisi için `date` özniteliği eksik. Anlık görüntü yayınını yayınlamadan eklemeyi unutmayın."
 
 #: src/as-validator-issue-tag.h:964
 msgid "The release timestamp is invalid."
