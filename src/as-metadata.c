@@ -84,11 +84,13 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsMetadata, as_metadata, G_TYPE_OBJECT)
 AsFormatStyle
 as_metadata_file_guess_style (const gchar *filename)
 {
-	if (g_str_has_suffix (filename, ".xml.gz"))
-		return AS_FORMAT_STYLE_CATALOG;
 	if (g_str_has_suffix (filename, ".yml"))
 		return AS_FORMAT_STYLE_CATALOG;
 	if (g_str_has_suffix (filename, ".yml.gz"))
+		return AS_FORMAT_STYLE_CATALOG;
+	if (g_str_has_suffix (filename, ".yaml"))
+		return AS_FORMAT_STYLE_CATALOG;
+	if (g_str_has_suffix (filename, ".yaml.gz"))
 		return AS_FORMAT_STYLE_CATALOG;
 	if (g_str_has_suffix (filename, ".appdata.xml"))
 		return AS_FORMAT_STYLE_METAINFO;
@@ -101,6 +103,8 @@ as_metadata_file_guess_style (const gchar *filename)
 	if (g_str_has_suffix (filename, ".metainfo.xml.in.in"))
 		return AS_FORMAT_STYLE_METAINFO;
 	if (g_str_has_suffix (filename, ".xml"))
+		return AS_FORMAT_STYLE_CATALOG;
+	if (g_str_has_suffix (filename, ".xml.gz"))
 		return AS_FORMAT_STYLE_CATALOG;
 	return AS_FORMAT_STYLE_UNKNOWN;
 }
