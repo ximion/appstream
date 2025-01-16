@@ -2580,8 +2580,10 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 	case AS_FORMAT_STYLE_CATALOG:
 		if (g_str_has_suffix (filename, ".yml") ||
 		    g_str_has_suffix (filename, ".yml.gz") ||
+		    g_str_has_suffix (filename, ".yml.zst") ||
 		    g_str_has_suffix (filename, ".yaml") ||
-		    g_str_has_suffix (filename, ".yaml.gz")) {
+		    g_str_has_suffix (filename, ".yaml.gz") ||
+		    g_str_has_suffix (filename, ".yaml.zst")) {
 			path = g_build_filename (as_metadata_location_get_prefix (location),
 						 "swcatalog",
 						 "yaml",
@@ -2628,7 +2630,8 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 	default:
 		basename = g_path_get_basename (filename);
 
-		if (g_str_has_suffix (basename, ".tar.gz")) {
+		if (g_str_has_suffix (basename, ".tar.gz") ||
+		    g_str_has_suffix (basename, ".tar.zst")) {
 			gchar *tmp;
 			g_autofree gchar *tmp2 = NULL;
 			/* we may have an icon tarball */
@@ -2659,7 +2662,10 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 			}
 
 			/* guess origin */
-			tmp2 = g_strdup_printf ("-icons-%s.tar.gz", icons_size_id);
+			if (g_str_has_suffix (basename, ".tar.gz"))
+				tmp2 = g_strdup_printf ("-icons-%s.tar.gz", icons_size_id);
+			else
+				tmp2 = g_strdup_printf ("-icons-%s.tar.zst", icons_size_id);
 			tmp = g_strstr_len (basename, -1, tmp2);
 			if (tmp != NULL) {
 				*tmp = '\0';
