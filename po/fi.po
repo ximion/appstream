@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2025-01-14 13:00+0000\n"
+"PO-Revision-Date: 2025-01-16 23:00+0000\n"
 "Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/appstream/translations/fi/>\n"
 "Language: fi\n"
@@ -3550,9 +3550,9 @@ msgid "Updating software metadata cache for Flatpak."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:69
-#, fuzzy, c-format
+#, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "Metadata-tiedostoa ”%s” ei ole olemassa."
+msgstr "Metatietolähderyhmää nimellä %s ei ole olemassa!"
 
 #: tools/ascli-actions-mdata.c:98
 msgid "You might need superuser permissions to perform this action."
@@ -3722,9 +3722,8 @@ msgid "No recommended items are set for this software."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:768
-#, fuzzy
 msgid "Supported:"
-msgstr "Urheilu"
+msgstr "Tuetut:"
 
 #: tools/ascli-actions-mdata.c:770
 msgid "No supported items are set for this software."
