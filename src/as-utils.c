@@ -2577,7 +2577,10 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 
 	switch (as_metadata_file_guess_style (filename)) {
 	case AS_FORMAT_STYLE_CATALOG:
-		if (g_strstr_len (filename, -1, ".yml.gz") != NULL) {
+		if (g_str_has_suffix (filename, ".yml") ||
+		    g_str_has_suffix (filename, ".yml.gz") ||
+		    g_str_has_suffix (filename, ".yaml") ||
+		    g_str_has_suffix (filename, ".yaml.gz")) {
 			path = g_build_filename (as_metadata_location_get_prefix (location),
 						 "swcatalog",
 						 "yaml",
