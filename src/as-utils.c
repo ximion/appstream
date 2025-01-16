@@ -2496,7 +2496,6 @@ as_utils_install_metadata_file_internal (const gchar *filename,
 			return FALSE;
 	}
 
-	g_chmod (path_dest, 0755);
 	return TRUE;
 }
 
