@@ -21,7 +21,7 @@
 # Pavel Borecki <pavel.borecki@gmail.com>, 2021, 2024.
 # Michal Čihař <michal@weblate.org>, 2021.
 # Paper <kodycze@gmail.com>, 2022.
-# AsciiWolf <mail@asciiwolf.com>, 2024.
+# AsciiWolf <mail@asciiwolf.com>, 2024, 2025.
 #
 # Translators:
 msgid ""
@@ -29,16 +29,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2024-11-01 23:00+0000\n"
-"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/appstream/"
-"translations/cs/>\n"
+"PO-Revision-Date: 2025-01-16 23:00+0000\n"
+"Last-Translator: AsciiWolf <mail@asciiwolf.com>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/appstream/translations/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.8.2-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -3453,12 +3452,10 @@ msgstr ""
 "help“ (nápověda) k dílčímu příkazu."
 
 #: tools/appstreamcli.c:1332
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Spuštěním „%s --help“ si zobrazíte úplný seznam možných předvoleb "
-"příkazového řádku."
+msgstr "Příkaz „%s“ není známý. Spuštěním „%s --help“ si zobrazíte seznam možných příkazů."
 
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstreamcli.c:1374
