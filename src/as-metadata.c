@@ -88,13 +88,19 @@ as_metadata_file_guess_style (const gchar *filename)
 		return AS_FORMAT_STYLE_CATALOG;
 	if (g_str_has_suffix (filename, ".xml.gz"))
 		return AS_FORMAT_STYLE_CATALOG;
+	if (g_str_has_suffix (filename, ".xml.zst"))
+		return AS_FORMAT_STYLE_CATALOG;
 	if (g_str_has_suffix (filename, ".yml"))
 		return AS_FORMAT_STYLE_CATALOG;
 	if (g_str_has_suffix (filename, ".yml.gz"))
 		return AS_FORMAT_STYLE_CATALOG;
+	if (g_str_has_suffix (filename, ".yml.zst"))
+		return AS_FORMAT_STYLE_CATALOG;
 	if (g_str_has_suffix (filename, ".yaml"))
 		return AS_FORMAT_STYLE_CATALOG;
 	if (g_str_has_suffix (filename, ".yaml.gz"))
+		return AS_FORMAT_STYLE_CATALOG;
+	if (g_str_has_suffix (filename, ".yaml.zst"))
 		return AS_FORMAT_STYLE_CATALOG;
 	if (g_str_has_suffix (filename, ".appdata.xml"))
 		return AS_FORMAT_STYLE_METAINFO;
