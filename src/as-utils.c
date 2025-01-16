@@ -2656,7 +2656,7 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 			}
 
 			/* guess origin */
-			tmp2 = g_strdup_printf ("_icons-%s.tar.gz", icons_size_id);
+			tmp2 = g_strdup_printf ("-icons-%s.tar.gz", icons_size_id);
 			tmp = g_strstr_len (basename, -1, tmp2);
 			if (tmp != NULL) {
 				*tmp = '\0';
