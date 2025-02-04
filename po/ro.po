@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the appstream package.
 # Daniel Șerbănescu <daniel@serbanescu.dk>, 2020, 2021.
 # Alecsa Maria <alecsandra.suciu@alizaur.com>, 2021.
-# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024.
+# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2024-12-12 10:00+0000\n"
+"PO-Revision-Date: 2025-02-04 06:01+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/translations/ro/>\n"
 "Language: ro\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1957,9 +1957,7 @@ msgstr ""
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr ""
-"Contactul de actualizare nu pare să fie o adresă de poștă electronică validă "
-"(eludarea lui „@” este permisă doar ca „at_” sau „AT_”)."
+msgstr "Contactul de actualizare nu pare să fie o adresă de poștă electronică validă (eludarea lui „@” este permisă doar ca „_at_” sau „_AT_”)."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:217
@@ -2600,14 +2598,7 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"A fost găsită o etichetă nevalidă. Etichetele care nu sunt standard trebuie "
-"prefixate cu „x-”. AppStream oferă, de asemenea, eticheta <custom/> pentru a "
-"adăuga date personalizate arbitrare la fișierele de meta-informații. Această "
-"etichetă este citită de bibliotecile AppStream și poate fi utilă în locul "
-"definirii unor noi etichete personalizate de nivel superior sau cu prefixul "
-"„x-`” dacă doriți doar să adăugați date personalizate la un fișier de meta-"
-"informații."
+msgstr "A fost găsită o etichetă nevalidă. Etichetele care nu sunt standard trebuie prefixate cu „x-”. AppStream oferă, de asemenea, eticheta <custom/> pentru a adăuga date personalizate arbitrare la fișierele de meta-informații. Această etichetă este citită de bibliotecile AppStream și poate fi utilă în locul definirii unor noi etichete personalizate de nivel superior sau cu prefixul „x-” dacă doriți doar să adăugați date personalizate la un fișier de meta-informații."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:675
@@ -2742,9 +2733,7 @@ msgstr ""
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"O etichetă „extinde” este specificată, dar componenta nu este de tipul "
-"„addon”, „localization” sau „repository”."
+msgstr "O etichetă „extends” este specificată, dar componenta nu este de tipul „addon”, „localization” sau „repository”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:762
@@ -2766,9 +2755,7 @@ msgstr ""
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
-msgstr ""
-"Această componentă `localizare` nu definește nicio limbă pentru care această "
-"localizare este destinată."
+msgstr "Această componentă „localization” nu definește nicio limbă pentru care această localizare este destinată."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:780
@@ -2942,9 +2929,7 @@ msgstr "Nu s-a găsit directorul de aplicații XDG."
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr ""
-"Fișierul de meta-informații este stocat într-o rută moștenită. Vă rugăm să-l "
-"plasați în „/usr/share/metainfo/”."
+msgstr "Fișierul de meta-informații este stocat într-o rută învechită. Vă rugăm să-l plasați în „/usr/share/metainfo/”."
 
 #: src/as-validator-issue-tag.h:902
 msgid "The metainfo file specifies multiple components. This is not allowed."
@@ -3068,9 +3053,7 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:999
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
-"Tipul de dimensiune este necunoscut. Trebuie să fie „download” sau "
-"„installled\"."
+msgstr "Tipul de dimensiune este necunoscut. Trebuie să fie „download” sau „installed\"."
 
 #: src/as-validator-issue-tag.h:1004
 msgid ""
