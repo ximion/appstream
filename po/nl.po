@@ -5,22 +5,21 @@
 # Wouter Wijsman <wwijsman@live.nl>, 2019, 2021.
 # Benjamin Goodger <ben@goodger.nl>, 2020, 2021.
 # Heimen Stoffels <vistausss@fastmail.com>, 2021.
-# Philip Goto <philip.goto@gmail.com>, 2023, 2024.
+# Philip Goto <philip.goto@gmail.com>, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2024-06-16 19:09+0000\n"
+"PO-Revision-Date: 2025-02-06 09:01+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/"
-"translations/nl/>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/translations/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -66,7 +65,7 @@ msgstr ""
 #: src/as-cache.c:904
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr "Cache-locatie ‘%s’ is niet schrijfbaar."
+msgstr "Cache-locatie ‘%s’ is niet schrĳfbaar."
 
 #: src/as-category.c:69
 msgctxt "Category of AudioVideo"
@@ -466,21 +465,17 @@ msgstr "Geen fantasiegeweld"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:848
 msgid "Characters in unsafe situations easily distinguishable from reality"
-msgstr ""
-"Personages in onveilige situaties gemakkelijk te onderscheiden van de "
-"werkelijkheid"
+msgstr "Personages in onveilige situaties, gemakkelĳk te onderscheiden van de werkelĳkheid"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:850
 msgid "Characters in aggressive conflict easily distinguishable from reality"
-msgstr ""
-"Personages in agressief conflict gemakkelijk te onderscheiden van de "
-"werkelijkheid"
+msgstr "Personages in agressief conflict, gemakkelĳk te onderscheiden van de werkelijkheid"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:852
 msgid "Graphic violence easily distinguishable from reality"
-msgstr "Grafisch geweld gemakkelijk te onderscheiden van de werkelijkheid"
+msgstr "Grafisch geweld gemakkelĳk te onderscheiden van de werkelĳkheid"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:857
@@ -550,7 +545,7 @@ msgstr "Gebruik van alcoholische dranken"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:898
 msgid "No references to illicit drugs"
-msgstr "Geen verwijzingen naar illegale drugs"
+msgstr "Geen verwĳzingen naar illegale drugs"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:900
@@ -565,7 +560,7 @@ msgstr "Gebruik van illegale drugs"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:908
 msgid "No references to tobacco products"
-msgstr "Geen verwijzingen naar tabaksproducten"
+msgstr "Geen verwĳzingen naar tabaks­producten"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:910
@@ -595,12 +590,12 @@ msgstr "Langdurige naaktheid"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:924
 msgid "Explicit nudity involving visible sexual organs"
-msgstr "Expliciete naaktheid waarbij zichtbare geslachtsorganen betrokken zijn"
+msgstr "Expliciete naaktheid waarbĳ zichtbare geslachts­organen betrokken zĳn"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:929
 msgid "No references to or depictions of sexual nature"
-msgstr "Geen verwijzingen naar of afbeeldingen van seksuele aard"
+msgstr "Geen verwĳzingen naar of afbeeldingen van seksuele aard"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:931
@@ -610,7 +605,7 @@ msgstr "Provocerende verwĳzingen of afbeeldingen"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:933
 msgid "Sexual references or depictions"
-msgstr "Seksuele verwijzingen of afbeeldingen"
+msgstr "Seksuele verwĳzingen of afbeeldingen"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:935
@@ -692,9 +687,7 @@ msgstr "Sluikreclame"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:977
 msgid "Explicit references to specific brands or trademarked products"
-msgstr ""
-"Expliciete verwijzingen naar specifieke merken of producten met een "
-"handelsmerk"
+msgstr "Expliciete verwĳzingen naar specifieke merken of producten met een handelsmerk"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:979
@@ -724,7 +717,7 @@ msgstr "Gokken met echt geld"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:995
 msgid "No ability to spend money"
-msgstr "Geen mogelijkheid om geld uit te geven"
+msgstr "Geen mogelĳkheid om geld uit te geven"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:997
@@ -734,12 +727,12 @@ msgstr "Gebruikers worden aangemoedigd om echt geld te doneren"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1000
 msgid "Ability to spend real money in-app"
-msgstr "Mogelijkheid om echt geld uit te geven in de app"
+msgstr "Mogelĳkheid om echt geld uit te geven in de app"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1005
 msgid "No way to chat with other users"
-msgstr "Geen mogelijkheid om met andere gebruikers te chatten"
+msgstr "Geen mogelĳkheid om met andere gebruikers te chatten"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1007
@@ -899,12 +892,12 @@ msgstr "Geen verwĳzingen naar ontheiliging"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1116
 msgid "Depictions of or references to historical desecration"
-msgstr "Afbeeldingen van of verwijzingen naar historische ontheiliging"
+msgstr "Afbeeldingen van of verwĳzingen naar historische ontheiliging"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1118
 msgid "Depictions of modern-day human desecration"
-msgstr "Afbeeldingen van hedendaagse menselijke ontheiliging"
+msgstr "Afbeeldingen van hedendaagse menselĳke ontheiliging"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1120
@@ -914,12 +907,12 @@ msgstr "Grafische afbeeldingen van hedendaagse ontheiliging"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1125
 msgid "No visible dead human remains"
-msgstr "Geen zichtbare dode menselijke resten"
+msgstr "Geen zichtbare dode menselĳke resten"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1127
 msgid "Visible dead human remains"
-msgstr "Zichtbare dode menselijke resten"
+msgstr "Zichtbare dode menselĳke resten"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1129
@@ -929,7 +922,7 @@ msgstr "Dode menselijke resten die zijn blootgesteld aan de elementen"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1131
 msgid "Graphic depictions of desecration of human bodies"
-msgstr "Grafische afbeeldingen van ontheiliging van menselijke lichamen"
+msgstr "Grafische afbeeldingen van ontheiliging van menselĳke lichamen"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1136
@@ -939,7 +932,7 @@ msgstr "Geen verwĳzingen naar slavernĳ"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1138
 msgid "Depictions of or references to historical slavery"
-msgstr "Afbeeldingen van of verwijzingen naar historische slavernij"
+msgstr "Afbeeldingen van of verwĳzingen naar historische slavernĳ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1140
@@ -949,7 +942,7 @@ msgstr "Afbeeldingen van hedendaagse slavernĳ"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1142
 msgid "Graphic depictions of modern-day slavery"
-msgstr "Grafische afbeeldingen van hedendaagse slavernij"
+msgstr "Grafische afbeeldingen van hedendaagse slavernĳ"
 
 #. TRANSLATORS: We got a 429 error while trying to download data
 #: src/as-curl.c:148
@@ -1080,15 +1073,13 @@ msgstr "Mate"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:97
-#, fuzzy
 msgid "Pantheon (Dark)"
-msgstr "Pantheon"
+msgstr "Pantheon (donker)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
-#, fuzzy
 msgid "KDE Plasma (Dark)"
-msgstr "KDE Plasma"
+msgstr "KDE Plasma (donker)"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:103
@@ -1097,9 +1088,8 @@ msgstr "Plasma Mobile"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:105
-#, fuzzy
 msgid "Plasma Mobile (Dark)"
-msgstr "Plasma Mobile"
+msgstr "Plasma Mobile (donker)"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:109
@@ -1188,7 +1178,7 @@ msgstr "Onderdeel"
 
 #: src/as-relation.c:1350
 msgid "pointing device (e.g. a mouse)"
-msgstr "aanwijsapparaat (bijv. muis)"
+msgstr "aanwĳs­apparaat (bĳv. muis)"
 
 #: src/as-relation.c:1352
 msgid "keyboard"
@@ -1253,7 +1243,7 @@ msgstr "Deze software beveelt een manier voor console-invoer aan."
 
 #: src/as-relation.c:1395
 msgid "pointing devices (e.g. mice)"
-msgstr "aanwijsapparaten (bijv. muizen)"
+msgstr "aanwĳs­apparaten (bĳv. muizen)"
 
 #: src/as-relation.c:1397
 msgid "keyboards"
@@ -1295,7 +1285,7 @@ msgstr "Deze software kan bediend worden via console-opdrachten."
 
 #: src/as-relation.c:1431
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr "Aanwijsapparaat (bijv. muis of touchpad) gevonden"
+msgstr "Aanwĳs­apparaat (bijv. muis of touchpad) gevonden"
 
 #: src/as-relation.c:1433
 msgid "Physical keyboard found."
@@ -1734,9 +1724,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:75
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr ""
-"Opsommingen moeten alleen lijstonderdelen (<li/>) als onderliggende "
-"elementen hebben."
+msgstr "Opsommingen moeten alleen lĳst­onderdelen (<li/>) als onder­liggende elementen hebben."
 
 #: src/as-validator-issue-tag.h:80
 msgid ""
@@ -1867,7 +1855,7 @@ msgid ""
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr ""
+msgstr "Het component-id bevat een segment dat begint met een nummer. Het starten van een segment van het reverse-DNS-id met een nummer wordt sterk afgeraden, om de interoperabiliteit met ander gereedschap zoals D-Bus te behouden. Idealiter voegt u voor deze segmenten een underscore toe."
 
 #: src/as-validator-issue-tag.h:163
 msgid "The component ID should only contain lowercase characters."
@@ -1877,36 +1865,36 @@ msgstr "De component-ID mag alleen kleine letters bevatten."
 msgid ""
 "The domain part of the rDNS component ID (first two parts) must only contain "
 "lowercase characters."
-msgstr ""
+msgstr "Het domein­gedeelte van het rDNS-component-id (de eerste twee delen) mag alleen kleine letters bevatten."
 
 #: src/as-validator-issue-tag.h:173
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr ""
+msgstr "Het onderdeel maakt deel uit van het freedesktop-project, maar het id begint niet met de omgekeerde DNS-naam van fd.o (‘org.freedesktop’)."
 
 #: src/as-validator-issue-tag.h:178
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDE's reverse-DNS name (\"org.kde\")."
-msgstr ""
+msgstr "Het onderdeel maakt deel uit van het KDE-project, maar de id begint niet met de omgekeerde DNS-naam van KDE (‘org.kde’)."
 
 #: src/as-validator-issue-tag.h:183
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr ""
+msgstr "Het onderdeel maakt deel uit van het GNOME-project, maar de id begint niet met de omgekeerde DNS-naam van GNOME (‘org.gnome’)."
 
 #: src/as-validator-issue-tag.h:188
 msgid "The SPDX license expression is invalid and could not be parsed."
-msgstr ""
+msgstr "De SPDX-licentie-expressie is ongeldig en kon niet worden geparseerd."
 
 #: src/as-validator-issue-tag.h:193
 msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
+msgstr "De licentie-id is niet gevonden in de SPDX-database. Controleer of de licentie-id op een SPDX-conforme manier is geschreven en een geldige gratis software­licentie is."
 
 #: src/as-validator-issue-tag.h:199
 msgid ""
@@ -1915,7 +1903,7 @@ msgid ""
 "FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
 "collections without the risk of license violations due to mutually "
 "incompatible licenses."
-msgstr ""
+msgstr "De metagegevens zelf lĳken te zĳn gelicenseerd onder een complexe verzameling licenties. Licentieer de gegevens alstublieft onder een eenvoudige permissieve licentie, zoals FSFAP, MIT of CC0-1.0, zodat distributeurs deze kunnen opnemen in gemengde gegevens­verzamelingen zonder het risico op licentie­schendingen vanwege onderling onverenigbare licenties."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
@@ -1923,55 +1911,55 @@ msgid ""
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
 "0BSD to allow distributors to include it in mixed data collections without "
 "the risk of license violations due to mutually incompatible licenses."
-msgstr ""
+msgstr "De meta­gegevens zelf lĳken niet te zĳn gelicentieerd onder een permissieve licentie. Licentieer de gegevens alstublieft onder een permissieve licentie, zoals FSFAP, CC0-1.0 of 0BSD, zodat distributeurs deze kunnen opnemen in gemengde gegevens­verzamelingen zonder het risico op licentie­schendingen vanwege onderling onverenigbare licenties."
 
 #: src/as-validator-issue-tag.h:211
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr ""
+msgstr "Het update-contact lĳkt geen geldig e-mailadres te zijn (escaping van `@` is alleen toegestaan als `_at_` of `_AT_`)."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:217
 msgid ""
 "The `environment` property is set to an unrecognized graphical environment/"
 "style combination."
-msgstr ""
+msgstr "De eigenschap `environment` is ingesteld op een onbekende combinatie van grafische omgeving/stĳl."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:223
 msgid "The `width` property must be a positive integer."
-msgstr "De eigenschap `width` moet een positief geheel getal zijn."
+msgstr "De eigenschap `width` moet een positief geheel getal zĳn."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:229
 msgid "The `height` property must be a positive integer."
-msgstr "De eigenschap `height` moet een positief geheel getal zijn."
+msgstr "De eigenschap `height` moet een positief geheel getal zĳn."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
 msgid "The `scale` property must be a positive integer."
-msgstr "De eigenschap `scale` moet een positief geheel getal zijn."
+msgstr "De eigenschap `scale` moet een positief geheel getal zĳn."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:241
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
+msgstr "Het afbeeldings­type moet `source` of `thumbnail` zĳn."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:247
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "De eigenschap `width` moet aanwezig zĳn als het afbeeldings­type `thumbnail` is."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:253
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "De eigenschap `height` moet aanwezig zĳn als het afbeeldings­type `thumbnail` is."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:259
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "Er kan slechts één `source`-afbeelding per scherm­afbeelding en taal zĳn."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:265
@@ -2006,25 +1994,19 @@ msgstr ""
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
-"Overwegen te gebruiken een beveiligde (HTTPS) URL om naar deze screenshot-"
-"afbeelding of -video te verwijzen."
+msgstr "Overweeg een beveiligde (HTTPS) URL te gebruiken om naar deze scherm­afdruk-afbeelding of -video te verwĳzen."
 
 #: src/as-validator-issue-tag.h:293
 msgid ""
 "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr ""
-"Een schermafdruk moet minimaal één afbeelding bevatten met een schaalfactor "
-"van 1."
+msgstr "Een scherm­afdruk moet minimaal één afbeelding bevatten met een schaal­factor van 1."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:299
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Een screenshot moet ten minste één afbeelding of video bevatten om nuttig te "
-"zijn. Gelieve voeg er een <image/> aan toe."
+msgstr "Een scherm­afdruk moet ten minste één afbeelding of video bevatten om nuttig te zĳn. Gelieve er een <image/> aan toe te voegen."
 
 #: src/as-validator-issue-tag.h:304
 msgid ""
@@ -2270,7 +2252,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:509
 msgid "The component summary should not end with a dot (`.`)."
-msgstr ""
+msgstr "De componenten­samenvatting mag niet eindigen met een punt (`.`)."
 
 #: src/as-validator-issue-tag.h:514
 msgid "The component summary must not contain tabs or linebreaks."
@@ -2335,7 +2317,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:574
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr ""
+msgstr "Overweeg om een beveiligde (HTTPS-) URL te gebruiken voor deze weblink."
 
 #: src/as-validator-issue-tag.h:579
 msgid "A web URL was expected for this value."
@@ -2348,7 +2330,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:589
 msgid "An URL of this type has already been defined."
-msgstr ""
+msgstr "Er is al een URL van dit type gedefinieerd."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:595
@@ -2632,9 +2614,7 @@ msgstr "Kan het desktop-entry-bestand dat bij dit onderdeel hoort niet laden."
 
 #: src/as-validator-issue-tag.h:850
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
-"De metagegevens van dit component verwijzen naar een niet-bestaand .desktop-"
-"bestand."
+msgstr "De meta­gegevens van dit component verwĳzen naar een niet-bestaand .desktop-bestand."
 
 #: src/as-validator-issue-tag.h:855
 msgid ""
@@ -2690,7 +2670,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:902
 msgid "The metainfo file specifies multiple components. This is not allowed."
-msgstr ""
+msgstr "Het metainfo­bestand specificeert meerdere componenten. Dit is niet toegestaan."
 
 #: src/as-validator-issue-tag.h:907
 msgid ""
@@ -2753,7 +2733,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:964
 msgid "The release timestamp is invalid."
-msgstr "Uitgavetijdstempel is ongeldig"
+msgstr "Uitgave­tĳdstempel is ongeldig"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:970
@@ -2787,7 +2767,7 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:999
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
+msgstr "Het grootte­type is onbekend. Deze moet `download` of `installed` zĳn."
 
 #: src/as-validator-issue-tag.h:1004
 msgid ""
@@ -2988,7 +2968,7 @@ msgstr "De tag `custom` kan alleen `value`-items bevatten."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1194
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr ""
+msgstr "Er ontbreekt een `key`-attribuut in deze `custom`-tagwaarde."
 
 #: src/as-validator-issue-tag.h:1199
 msgid "A key can only be used once."
@@ -3027,7 +3007,7 @@ msgstr "Het uitgave­metagegevens­bestand ‘%s’ heeft een incorrecte naam."
 #: src/as-validator.c:673
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
-msgstr ""
+msgstr "De nieuwe probleem­ernst voor tag ‘%s’ is ongeldig."
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
 #: src/as-validator.c:684
@@ -3084,7 +3064,7 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:233
 msgid "Override the default prefix (`/usr` by default)."
-msgstr "Standaard-prefix overschrijven (standaard: `/usr`)."
+msgstr "Standaard-prefix overschrĳven (standaard: `/usr`)."
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:240
@@ -3094,12 +3074,12 @@ msgstr "Uitvoermap van resultaten instellen."
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:247
 msgid "Override the catalog metadata output directory."
-msgstr "Uitvoermap van catalogus­metagegevens overschrijven."
+msgstr "Uitvoermap van catalogus­metagegevens overschrĳven."
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:254
 msgid "Override the icon output directory."
-msgstr "Uitvoermap van pictogrammen overschrijven."
+msgstr "Uitvoermap van pictogrammen overschrĳven."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:261
@@ -3148,7 +3128,7 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
 msgid "A comma-separated list of component-IDs to accept."
-msgstr "Door komma's gescheiden lijst van te aanvaarden component-ID's."
+msgstr "Door komma's gescheiden lĳst van te aanvaarden component-ID's."
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:327
@@ -3237,11 +3217,11 @@ msgstr "Kan AppStream-metagegevens niet samenstellen"
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:516
 msgid "Run failed, some data was ignored."
-msgstr "Uitvoeren mislukt, sommige gegevens zijn genegeerd."
+msgstr "Uitvoeren mislukt, sommige gegevens zĳn genegeerd."
 
 #: tools/appstream-compose.c:519
 msgid "Errors were raised during this compose run:"
-msgstr "Er zijn fouten opgetreden tijdens deze compose-run:"
+msgstr "Er zijn fouten opgetreden tĳdens deze compose-run:"
 
 #: tools/appstream-compose.c:522
 msgid ""
@@ -3276,9 +3256,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:91
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Standaard opgegeven metagegevens-soort (geldige waarden zijn 'xml' en "
-"'yaml')."
+msgstr "Standaard­formaat van meta­gegevens (geldige waarden zĳn ‘xml’ en ‘yaml’)."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstreamcli.c:107
@@ -3315,7 +3293,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:161
 msgid "Override the severities of selected issue tags."
-msgstr "Ernst van geselecteerde issue-tags overschrijven"
+msgstr "Ernst van geselecteerde issue-tags overschrĳven"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #: tools/appstreamcli.c:179 tools/appstreamcli.c:1252
@@ -3381,7 +3359,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:638
 msgid "Install the file for the current user, instead of globally."
-msgstr ""
+msgstr "Installeer het bestand voor de huidige gebruiker, in plaats van globaal."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:666
@@ -3415,7 +3393,7 @@ msgstr ""
 #: tools/appstreamcli.c:865
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr "Onbekende vergelijkrelatie '%s'. Geldige waarden zijn:"
+msgstr "Onbekende vergelĳkings­relatie '%s'. Geldige waarden zĳn:"
 
 #: tools/appstreamcli.c:906
 msgid ""
@@ -3547,7 +3525,7 @@ msgstr "Zoeken in de onderdelen-database."
 #. TRANSLATORS: `appstreamcli get` command description.
 #: tools/appstreamcli.c:1396
 msgid "Get information about a component by its ID."
-msgstr "Informatie verkrijgen over een onderdeel door de ID."
+msgstr "Informatie verkrĳgen over een onderdeel door de id."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
 #: tools/appstreamcli.c:1403
@@ -3559,7 +3537,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1411
 msgid "List components that are part of the specified categories."
-msgstr ""
+msgstr "Som componenten op die deel uitmaken van de opgegeven categorieën."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1420
@@ -3612,7 +3590,7 @@ msgstr "Installeer software die overeen komt met de onderdeel-id."
 #. TRANSLATORS: `appstreamcli remove` command description.
 #: tools/appstreamcli.c:1483
 msgid "Remove software matching the component-ID."
-msgstr "Verwijder software die overeenkomt met de onderdeel-id."
+msgstr "Verwĳder software die overeenkomt met de onderdeel-id."
 
 #. TRANSLATORS: `appstreamcli status` command description.
 #: tools/appstreamcli.c:1491
@@ -3657,7 +3635,7 @@ msgstr "Desktop-entry-bestand aanmaken vanuit een metainfo-bestand"
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstreamcli.c:1547
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr ""
+msgstr "Converteer een YAML- of tekst-NEWS-bestand naar metainfo-uitgaven."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
 #: tools/appstreamcli.c:1555
@@ -3680,11 +3658,11 @@ msgstr "Alleen de metagegevenscache van de huidige gebruiker wordt ververst."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for the operating system."
-msgstr "Cache van softwaremetagegevens voor het besturingssysteem bijwerken"
+msgstr "Cache van software­metagegevens voor het besturings­systeem bĳwerken"
 
 #: tools/ascli-actions-mdata.c:66
 msgid "Updating software metadata cache for Flatpak."
-msgstr "Metagegevenscache voor Flatpak-software bijwerken"
+msgstr "Metagegevens­cache voor Flatpak-software aan het bĳwerken."
 
 #: tools/ascli-actions-mdata.c:69
 #, c-format
@@ -3693,19 +3671,17 @@ msgstr "Metagegevensbrongroep met de naam ‘%s’ bestaat niet!"
 
 #: tools/ascli-actions-mdata.c:98
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
-"U heeft mogelijk administrator-rechten (su) nodig om deze actie uit te "
-"kunnen voeren."
+msgstr "U heeft mogelĳk administrator-rechten (su) nodig om deze actie uit te kunnen voeren."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:106
 msgid "Metadata cache was updated successfully."
-msgstr "Metagegevenscache succesvol bijgewerkt"
+msgstr "Metagegevens­cache succesvol bĳgewerkt"
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:109
 msgid "Metadata cache update is not necessary."
-msgstr "Bijwerken van metagegevens-cache niet nodig"
+msgstr "Bĳwerken van metagegevens­cache niet nodig."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -3737,8 +3713,7 @@ msgstr "Geen waarde voor het te zoeken item opgegeven."
 
 #: tools/ascli-actions-mdata.c:214
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
-"Ongeldig type geselecteerd voor het beschikbare item. Geldige waarden zijn:"
+msgstr "Ongeldig type geselecteerd voor het beschikbare item. Geldige waarden zĳn:"
 
 #: tools/ascli-actions-mdata.c:230
 #, c-format
@@ -3932,7 +3907,7 @@ msgstr "Metagegevensbronnen van besturingssysteem:"
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:59
 msgid "No OS metadata found. This is unusual."
-msgstr "Geen OS-metagegevens gevonden. Dit is ongebruikelijk."
+msgstr "Geen OS-metagegevens gevonden. Dit is ongebruikelĳk."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:62
@@ -3957,8 +3932,7 @@ msgstr "We hebben informatie over %i software-onderdelen."
 #: tools/ascli-actions-misc.c:91
 #, c-format
 msgid "Error while loading the metadata pool: %s"
-msgstr ""
-"Er is een fout opgetreden tijdens het laden van de metagegevens-pool: %s"
+msgstr "Er is een fout opgetreden tĳdens het laden van de metagegevens-pool: %s"
 
 #: tools/ascli-actions-misc.c:118 tools/ascli-actions-misc.c:463
 msgid "You need to specify a metainfo file as input."
@@ -4132,7 +4106,7 @@ msgstr ""
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr "Meerdere kandidaten gevonden voor verwijdering:"
+msgstr "Meerdere kandidaten gevonden voor verwĳdering:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
@@ -4164,7 +4138,7 @@ msgstr ""
 #: tools/ascli-actions-validate.c:268
 #, c-format
 msgid "Can not override issue tag: %s"
-msgstr "Kan probleem-tag niet overschrijven: %s"
+msgstr "Kan probleem-tag niet overschrĳven: %s"
 
 #: tools/ascli-actions-validate.c:299 tools/ascli-actions-validate.c:512
 #, c-format
@@ -4274,7 +4248,7 @@ msgstr "Geschikt voor AppStream-metagegevens"
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
 #: tools/ascli-actions-validate.c:704
 msgid "Free and Open Source"
-msgstr "Vrij en open-bron"
+msgstr "Vrĳ en open-bron"
 
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:712
