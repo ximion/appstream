@@ -36,7 +36,7 @@ typedef struct {
 } AsValidatorIssueTag;
 
 /* clang-format off */
-AsValidatorIssueTag as_validator_issue_tag_list[] =  {
+static AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "type-property-required",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("This tag requires a type property.")
