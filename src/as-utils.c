@@ -2487,13 +2487,37 @@ as_utils_install_metadata_file_internal (const gchar *filename,
 	/* update the origin for XML files */
 	if (origin != NULL && !is_yaml) {
 		g_autoptr(AsMetadata) mdata = as_metadata_new ();
+		g_autofree gchar *new_dest = NULL;
+		gboolean renamed = FALSE;
 		as_metadata_set_locale (mdata, "ALL");
 		as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_CATALOG);
 		if (!as_metadata_parse_file (mdata, file_dest, AS_FORMAT_KIND_XML, error))
 			return FALSE;
 		as_metadata_set_origin (mdata, origin);
+		if (!g_str_has_suffix (path_dest, ".xml")) {
+			g_autofree gchar *basename_new = g_strdup_printf ("%s.xml", origin);
+			/* it's an XML file now, name it properly */
+			g_unlink (path_dest);
+			g_clear_pointer (&path_dest, g_free);
+			path_dest = g_build_filename (path_parent, basename_new, NULL);
+			renamed = TRUE;
+		}
 		if (!as_metadata_save_catalog (mdata, path_dest, AS_FORMAT_KIND_XML, error))
 			return FALSE;
+		if (renamed) {
+			g_clear_object (&file_dest);
+			file_dest = g_file_new_for_path (path_dest);
+			/* explicitly set permissions on the renamed file */
+			if (!g_file_set_attribute_uint32 (file_dest,
+							  G_FILE_ATTRIBUTE_UNIX_MODE,
+							  0644,
+							  G_FILE_QUERY_INFO_NONE,
+							  NULL,
+							  &tmp_error)) {
+				g_debug ("Error setting renamed file permissions: %s", tmp_error->message);
+				g_clear_error (&tmp_error);
+			}
+		}
 	}
 
 	g_chmod (path_dest, 0755);
@@ -2578,7 +2602,12 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 
 	switch (as_metadata_file_guess_style (filename)) {
 	case AS_FORMAT_STYLE_CATALOG:
-		if (g_strstr_len (filename, -1, ".yml.gz") != NULL) {
+		if (g_str_has_suffix (filename, ".yml") ||
+		    g_str_has_suffix (filename, ".yml.gz") ||
+		    g_str_has_suffix (filename, ".yml.zst") ||
+		    g_str_has_suffix (filename, ".yaml") ||
+		    g_str_has_suffix (filename, ".yaml.gz") ||
+		    g_str_has_suffix (filename, ".yaml.zst")) {
 			path = g_build_filename (as_metadata_location_get_prefix (location),
 						 "swcatalog",
 						 "yaml",
@@ -2625,7 +2654,8 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 	default:
 		basename = g_path_get_basename (filename);
 
-		if (g_str_has_suffix (basename, ".tar.gz")) {
+		if (g_str_has_suffix (basename, ".tar.gz") ||
+		    g_str_has_suffix (basename, ".tar.zst")) {
 			gchar *tmp;
 			g_autofree gchar *tmp2 = NULL;
 			/* we may have an icon tarball */
@@ -2656,7 +2686,10 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 			}
 
 			/* guess origin */
-			tmp2 = g_strdup_printf ("_icons-%s.tar.gz", icons_size_id);
+			if (g_str_has_suffix (basename, ".tar.gz"))
+				tmp2 = g_strdup_printf ("-icons-%s.tar.gz", icons_size_id);
+			else
+				tmp2 = g_strdup_printf ("-icons-%s.tar.zst", icons_size_id);
 			tmp = g_strstr_len (basename, -1, tmp2);
 			if (tmp != NULL) {
 				*tmp = '\0';
