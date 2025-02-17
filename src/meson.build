@@ -196,18 +196,55 @@ if get_option ('stemming')
     aslib_deps += [stemmer_lib]
 endif
 
+# We need this target to use dumpbin to generate a .def file
+as_core_lib = static_library('appstream-@0@-'.format(as_api_level) + 'core', [
+    aslib_src,
+    aslib_pub_headers,
+    aslib_gir_headers,
+    aslib_priv_headers,
+    aslib_res,
+    aslib_pub_enums,
+  ],
+  include_directories: [stemmer_inc_dirs, root_inc_dir],
+         dependencies: [aslib_deps],
+              install: false
+)
+
+as_core_dep = declare_dependency(
+            link_with: as_core_lib,
+  include_directories: [stemmer_inc_dirs, root_inc_dir],
+         dependencies: [aslib_deps],
+)
+
+as_deps = [
+  as_core_dep,
+]
+
+as_libs = [as_core_lib]
+
+if is_windows and cc.get_argument_syntax() == 'msvc'
+  gen_def = find_program('gen-def.py')
+  as_def = custom_target(
+    'Generate Windows .def file',
+	input: as_core_lib,
+	output: 'appstream.def',
+    command: [
+        gen_def,
+        '-n', 'as',
+        '--def', '@OUTPUT@',
+        '@INPUT@',
+    ]
+  )
+else
+  as_def = []
+endif
+
 appstream_lib = library ('appstream',
-    [aslib_src,
-     aslib_pub_headers,
-     aslib_gir_headers,
-     aslib_priv_headers,
-     aslib_res,
-     aslib_pub_enums],
+    link_whole: as_libs,
     soversion: as_api_level,
     version: as_version,
-    dependencies: [aslib_deps],
-    include_directories: [stemmer_inc_dirs,
-                          root_inc_dir],
+    dependencies: as_deps,
+    vs_module_defs: as_def,
     install: true
 )
 

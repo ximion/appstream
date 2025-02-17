@@ -48,7 +48,11 @@
 #include <glib/gi18n-lib.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+
+#ifndef G_OS_WIN32
 #include <unistd.h>
+#endif
+
 #include <errno.h>
 
 #include "as-utils.h"
