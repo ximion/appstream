@@ -2,7 +2,7 @@ task:
   name: FreeBSD
   freebsd_instance:
     matrix:
-      - image_family: freebsd-13-2-snap
+      - image_family: freebsd-14-2
   env:
     CC: /usr/bin/cc
     CXX: /usr/bin/c++
