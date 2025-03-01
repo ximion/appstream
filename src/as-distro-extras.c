@@ -34,7 +34,10 @@
 #include <gio/gio.h>
 #include <glib/gi18n-lib.h>
 #include <errno.h>
+
+#ifndef G_OS_WIN32
 #include <unistd.h>
+#endif
 
 #include "as-utils.h"
 #include "as-utils-private.h"
