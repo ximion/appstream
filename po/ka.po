@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2022, 2023, 2024.
+# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2022, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2024-09-21 15:40+0000\n"
+"PO-Revision-Date: 2025-04-03 08:21+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
-"Language-Team: Georgian <https://hosted.weblate.org/projects/appstream/"
-"translations/ka/>\n"
+"Language-Team: Georgian <https://hosted.weblate.org/projects/appstream/translations/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -738,9 +737,8 @@ msgstr "სხვა მომხმარებლებთან საუბ�
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1019
-#, fuzzy
 msgid "Moderated audio or video chat functionality between users"
-msgstr "მომხმარებლებს შორის უკონტროლო აუდიო/ვიდეო ჩატი"
+msgstr "მოდერაციის ქვეშ არსებული აუდიო ან ვიდეოჩატის ფუნქციონალი მომხმარებლებს შორის"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1021
@@ -1056,15 +1054,13 @@ msgstr "Mate"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:97
-#, fuzzy
 msgid "Pantheon (Dark)"
-msgstr "Pantheon"
+msgstr "Pantheon (მუქი)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
-#, fuzzy
 msgid "KDE Plasma (Dark)"
-msgstr "KDE Plasma"
+msgstr "KDE Plasma (მუქი)"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:103
@@ -1073,9 +1069,8 @@ msgstr "Plasma Mobile"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:105
-#, fuzzy
 msgid "Plasma Mobile (Dark)"
-msgstr "Plasma Mobile"
+msgstr "Plasma Mobile (მუქი)"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:109
@@ -1182,7 +1177,7 @@ msgstr ""
 
 #: src/as-relation.c:1358
 msgid "graphics tablet"
-msgstr ""
+msgstr "გრაფიკული ტაბლეტი"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1363
@@ -3032,7 +3027,7 @@ msgstr "არგუმენტების დამუშავების �
 #: tools/appstream-compose.c:338 tools/appstreamcli.c:1597
 #, c-format
 msgid "AppStream version: %s"
-msgstr ""
+msgstr "AppStream-ის ვერსია: %s"
 
 #: tools/appstream-compose.c:342 tools/appstreamcli.c:1601
 #, c-format
@@ -3351,9 +3346,9 @@ msgstr ""
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1157
-#, fuzzy, c-format
+#, c-format
 msgid "Compose operation failed to execute: %s"
-msgstr "აწყობის შეცდომა: %s"
+msgstr "კომპოზიტორის ოპერაციის შესრულება ჩავარდა: %s"
 
 #: tools/appstreamcli.c:1167
 #, c-format
@@ -3854,7 +3849,7 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:551
 msgid "Operating System Details"
-msgstr ""
+msgstr "ოპერაციული სისტემის დეტალები"
 
 #: tools/ascli-actions-misc.c:555
 #, c-format
