@@ -29,10 +29,18 @@ namespace AppStream
 namespace Utils
 {
 
+enum APPSTREAMQT_EXPORT MarkupKind {
+    MarkupUnknown = 0,
+    MarkupXML,
+    MarkupText,
+    MarkupMarkdown,
+};
+
 APPSTREAMQT_EXPORT QString currentAppStreamVersion();
 
 APPSTREAMQT_EXPORT int vercmpSimple(const QString &a, const QString &b);
 
+APPSTREAMQT_EXPORT QString markupConvert(QStringView description, MarkupKind format);
 }
 
 }

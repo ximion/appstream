@@ -22,6 +22,8 @@
 #include "appstream.h"
 #include "chelpers.h"
 
+#include <QDebug>
+
 QString AppStream::Utils::currentAppStreamVersion()
 {
     return QString::fromUtf8(as_version_string());
@@ -30,4 +32,18 @@ QString AppStream::Utils::currentAppStreamVersion()
 int AppStream::Utils::vercmpSimple(const QString &a, const QString &b)
 {
     return as_vercmp(qPrintable(a), qPrintable(b), AS_VERCMP_FLAG_NONE);
+}
+
+QString AppStream::Utils::markupConvert(QStringView description, MarkupKind format)
+{
+    g_autoptr(GError) error = NULL;
+    g_autofree gchar *formatted =
+        as_markup_convert(description.toUtf8(), static_cast<AsMarkupKind>(format), &error);
+
+    if (error) {
+        qWarning() << "error converting description" << error->message;
+        return {};
+    }
+
+    return valueWrap(formatted);
 }
