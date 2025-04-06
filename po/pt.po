@@ -12,7 +12,7 @@
 # Gustavo Maciel <gustamaciel2012@hotmail.com>, 2020, 2021.
 # Manuela Silva <mmsrs@sky.com>, 2020, 2021.
 # Allan Lago <allanlago1@gmail.com>, 2020.
-# ssantos <ssantos@web.de>, 2020, 2021, 2022, 2023, 2024.
+# ssantos <ssantos@web.de>, 2020, 2021, 2022, 2023, 2024, 2025.
 # #-#-#-#-#  pt.po (appstream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -33,16 +33,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2024-10-08 05:55+0000\n"
+"PO-Revision-Date: 2025-04-06 18:02+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/"
-"translations/pt/>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1101,15 +1100,13 @@ msgstr "Mate"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:97
-#, fuzzy
 msgid "Pantheon (Dark)"
-msgstr "Pantheon"
+msgstr "Pantheon (Escuro)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
-#, fuzzy
 msgid "KDE Plasma (Dark)"
-msgstr "KDE Plasma"
+msgstr "KDE Plasma (Escuro)"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:103
@@ -1118,9 +1115,8 @@ msgstr "Plasma Mobile"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:105
-#, fuzzy
 msgid "Plasma Mobile (Dark)"
-msgstr "Plasma Mobile"
+msgstr "Plasma Mobile (Escuro)"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:109
@@ -1991,12 +1987,12 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:223
 msgid "The `width` property must be a positive integer."
-msgstr "A propriedade `largura` deve ser um número inteiro e positivo."
+msgstr "A propriedade `width` deve ser um número inteiro e positivo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:229
 msgid "The `height` property must be a positive integer."
-msgstr "A propriedade `altura` deve ser um número inteiro e positivo."
+msgstr "A propriedade `height` deve ser um número inteiro e positivo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
@@ -2011,16 +2007,12 @@ msgstr "O tipo da imagem deve ser `source` ou `thumbnail`."
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:247
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
-"A propriedade `largura` deve estar presente se o tipo da imagem for "
-"`thumbnail`."
+msgstr "A propriedade `width` deve estar presente se o tipo da imagem for `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:253
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
-"A propriedade `altura` deve estar presente se o tipo da imagem for "
-"`thumbnail`."
+msgstr "A propriedade `height` deve estar presente se o tipo da imagem for `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:259
@@ -2184,9 +2176,7 @@ msgstr ""
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Um item 'requires' ou 'recommends' requer um valor para denotar uma relação "
-"válida."
+msgstr "Um elemento `requires` ou `recommends` requer um valor para denotar uma relação válida."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:369
@@ -2420,13 +2410,10 @@ msgstr ""
 "número."
 
 #: src/as-validator-issue-tag.h:529
-#, fuzzy
 msgid ""
 "The summary text is very long, and will likely not be displayed properly "
 "everywhere. It should be <= 90 characters."
-msgstr ""
-"O texto do resumo é muito longo e pode não ser exibido corretamente em todos "
-"os lugares."
+msgstr "O texto do resumo é muito longo e pode não ser exibido corretamente em todos os lugares. Deveria ter <= 90 caracteres."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:535
@@ -2530,9 +2517,7 @@ msgstr ""
 msgid ""
 "The `developer` element is missing an `id` property, containing a unique "
 "string ID for the developer. Consider adding a unique ID."
-msgstr ""
-"O elemento `developer`não possui a propriedade `id` com um identificador de "
-"cadeia  único para o programador. Considere adicionar um identificador único."
+msgstr "O elemento `developer`não possui a propriedade `id` com um identificador de cadeia único para o programador. Considere adicionar um identificador único."
 
 #: src/as-validator-issue-tag.h:620
 msgid ""
@@ -2601,14 +2586,7 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"Uma marcação inválida foi encontrada. As marcações não padronizadas devem "
-"ser prefixadas com “x-”. O AppStream também fornece a tag <custom/> para "
-"adicionar os dados personalizados arbitrários em ficheiros metainfo. Essa "
-"marcação é lida por bibliotecas do AppStream e pode ser útil em vez de "
-"definir novas marcações personalizadas de topo de nível ou prefixadas com "
-"“ x-” caso queira apenas adicionar dados personalizados a um ficheiro "
-"metainfo."
+msgstr "Uma marcação inválida foi encontrada. As marcações não padronizadas devem ser prefixadas com `x-`. O AppStream também fornece a tag <custom/> para adicionar os dados personalizados arbitrários em ficheiros metainfo. Essa marcação é lida por bibliotecas do AppStream e pode ser útil em vez de definir novas marcações personalizadas de topo de nível ou prefixadas com “ x-” caso queira apenas adicionar dados personalizados a um ficheiro metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:675
@@ -2742,9 +2720,7 @@ msgstr ""
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"Uma tag 'extends' está definida, porém o componente não é do tipo 'addon', "
-"'localization' ou 'repository'."
+msgstr "Uma tag `extends` está definida, mas o componente não é do tipo `addon`, `localization` ou `repository`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:762
@@ -2938,9 +2914,7 @@ msgstr "Nenhum diretório de aplicacões XDG encontrado."
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr ""
-"O ficheiro metainfo está armazenado num caminho herdado. Por favor, ponha-o "
-"em `/usr/share/metainfo`."
+msgstr "O ficheiro metainfo está armazenado num caminho herdado. Por favor, ponha-o em `/usr/share/metainfo/`."
 
 #: src/as-validator-issue-tag.h:902
 msgid "The metainfo file specifies multiple components. This is not allowed."
@@ -3005,18 +2979,17 @@ msgstr "Falta a propriedade `version` ao lançamento."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:953
-#, fuzzy
 msgid ""
 "The release entry is missing either the `date` (preferred) or the "
 "`timestamp` property."
-msgstr "Falta a `date` (de preferência) ou a propriedade `timestamp`."
+msgstr "A entrada de lançamento não possui a propriedade `date` (preferido) ou `timestamp`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:959
 msgid ""
 "The release entry is missing the `date` property. Ensure to add it before "
 "publishing the snapshot release."
-msgstr ""
+msgstr "A entrada de lançamento não tem a propriedade `date`. Certifique-se de adicioná-la antes de publicar o lançamento instantâneo."
 
 #: src/as-validator-issue-tag.h:964
 msgid "The release timestamp is invalid."
@@ -3214,7 +3187,7 @@ msgstr "Uma tag `content_attribute` com este ID já foi definida."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1123
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr "A `etiqueta` não possui o atributo `namespace`."
+msgstr "A `tag` não possui o atributo `namespace`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1129
@@ -3295,12 +3268,12 @@ msgstr "O item de referência falta um valor."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1188
 msgid "The `custom` tag can only contain `value` children."
-msgstr "A tag `personalizado` só pode conter `valor` relacionado."
+msgstr "A tag `custom` só pode conter `value` relacionado."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1194
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr "Este valor da tag `personalizado` não possui um atributo `key`."
+msgstr "Este valor da tag `custom` não possui um atributo `key`."
 
 #: src/as-validator-issue-tag.h:1199
 msgid "A key can only be used once."
