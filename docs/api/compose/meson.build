@@ -15,7 +15,7 @@ custom_target('doc-api-appstream-compose',
       ascdoc_toml,
       asc_gir,
     ],
-    output: 'compose-api',
+    output: 'appstream-compose',
     command: [
       gidocgen_exe,
       'generate',
@@ -39,6 +39,6 @@ custom_target('doc-api-appstream-compose',
 # make Devhelp work
 install_symlink(
     'appstream-compose',
-    pointing_to: '..' / '..' / '..' / as_doc_html_target_dir / 'compose-api',
+    pointing_to: '..' / '..' / '..' / as_doc_html_target_dir / 'appstream-compose',
     install_dir: gtk_doc_root
 )

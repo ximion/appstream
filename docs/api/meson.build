@@ -23,7 +23,7 @@ custom_target('doc-api-appstream',
       asdoc_toml,
       as_gir,
     ],
-    output: 'api',
+    output: 'appstream',
     command: [
       gidocgen_exe,
       'generate',
@@ -48,7 +48,7 @@ custom_target('doc-api-appstream',
 gtk_doc_root = join_paths(get_option('prefix'), get_option('datadir'), 'gtk-doc', 'html')
 install_symlink(
     'appstream',
-    pointing_to: '..' / '..' / '..' / as_doc_html_target_dir / 'api',
+    pointing_to: '..' / '..' / '..' / as_doc_html_target_dir / 'appstream',
     install_dir: gtk_doc_root
 )
 
