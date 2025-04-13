@@ -131,7 +131,7 @@ if get_option('docs')
             '--build',
             '--src', meson.current_source_dir(),
             '--builddir', meson.current_build_dir(),
-            '--valsec-gen', gen_doc_valsec_exe.path(),
+            '--valsec-gen', gen_doc_valsec_exe.full_path(),
             'AppStream'
         ]
 
@@ -166,7 +166,7 @@ if get_option('docs')
           args: [join_paths(meson.current_source_dir(), 'doc-build-helper.py'),
                  '--validate',
                  '--src', meson.current_source_dir(),
-                 '--valsec-gen', gen_doc_valsec_exe.path()],
+                 '--valsec-gen', gen_doc_valsec_exe.full_path()],
           timeout: 60
     )
 elif get_option('install-docs')
