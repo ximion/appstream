@@ -189,6 +189,7 @@ aslib_deps = [glib_dep,
               curl_dep,
               xmlb_dep,
               xml2_dep,
+              fyaml_dep,
               yaml_dep,
               libsystemd_dep,
               zstd_dep]
