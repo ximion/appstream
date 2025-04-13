@@ -27,7 +27,7 @@ eatmydata apt-get install -yq --no-install-recommends \
     itstool \
     libglib2.0-dev \
     libxml2-dev \
-    libyaml-dev \
+    libfyaml-dev \
     libxmlb-dev \
     liblzma-dev \
     libzstd-dev \

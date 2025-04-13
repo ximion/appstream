@@ -30,7 +30,7 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     'pkgconfig(gobject-introspection-1.0)' \
     'pkgconfig(xmlb)' \
     'pkgconfig(libxml-2.0)' \
-    'pkgconfig(yaml-0.1)' \
+    'pkgconfig(libfyaml)' \
     'pkgconfig(libcurl)' \
     'pkgconfig(libsystemd)' \
     'pkgconfig(librsvg-2.0)' \

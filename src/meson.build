@@ -184,14 +184,16 @@ aslib_gperf_yaml = custom_target(
 )
 aslib_src = aslib_src + [aslib_gperf_xml, aslib_gperf_yaml]
 
-aslib_deps = [glib_dep,
-              gobject_dep,
-              curl_dep,
-              xmlb_dep,
-              xml2_dep,
-              yaml_dep,
-              libsystemd_dep,
-              zstd_dep]
+aslib_deps = [
+    glib_dep,
+    gobject_dep,
+    curl_dep,
+    xmlb_dep,
+    xml2_dep,
+    fyaml_dep,
+    libsystemd_dep,
+    zstd_dep,
+]
 if get_option ('stemming')
     aslib_deps += [stemmer_lib]
 endif
