@@ -20,7 +20,7 @@
 #ifndef APPSTREAMQT_UTILS_H
 #define APPSTREAMQT_UTILS_H
 
-#include <expected>
+#include <optional>
 #include <QStringList>
 #include "appstreamqt_export.h"
 
@@ -41,8 +41,8 @@ APPSTREAMQT_EXPORT QString currentAppStreamVersion();
 
 APPSTREAMQT_EXPORT int vercmpSimple(const QString &a, const QString &b);
 
-APPSTREAMQT_EXPORT std::expected<QString, QString> markupConvert(QStringView description,
-                                                                 MarkupKind format);
+APPSTREAMQT_EXPORT std::optional<QString>
+markupConvert(QStringView description, MarkupKind format, QString *errorMessage = nullptr);
 }
 
 }

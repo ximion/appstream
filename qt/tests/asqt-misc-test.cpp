@@ -34,11 +34,19 @@ using namespace AppStream;
 
 void MiscTest::testMarkup()
 {
+    QString errorMsg;
     auto result = Utils::markupConvert(
         QStringLiteral("<p>Test!</p><p>Blah.</p><ul><li>A</li><li>B</li></ul><p>End.</p>"),
-        Utils::MarkupText);
+        Utils::MarkupText,
+        &errorMsg);
     QVERIFY(result);
     QCOMPARE(result.value(), QStringLiteral("Test!\n\nBlah.\n • A\n • B\n\nEnd."));
+    QVERIFY(errorMsg.isEmpty());
+
+    QCOMPARE(
+        Utils::markupConvert(QStringLiteral("<p>Test!</p><ul><li>A</li><li>B</li></ul><p>End.</p>"),
+                             Utils::MarkupText),
+        QStringLiteral("Test!\n • A\n • B\n\nEnd."));
 }
 
 QTEST_MAIN(MiscTest)
