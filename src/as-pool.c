@@ -1609,7 +1609,6 @@ as_pool_load_internal (AsPool *pool,
 	g_autoptr(AsProfileTask) ptask = NULL;
 	GHashTableIter loc_iter;
 	gpointer loc_value;
-	gboolean ret = TRUE;
 	g_autoptr(GRWLockWriterLocker) locker = NULL;
 
 	ptask = as_profile_start_literal (priv->profile, "AsPool:load");
@@ -1637,6 +1636,7 @@ as_pool_load_internal (AsPool *pool,
 	/* process data from all the individual metadata silos in known locations */
 	g_hash_table_iter_init (&loc_iter, priv->std_data_locations);
 	while (g_hash_table_iter_next (&loc_iter, NULL, &loc_value)) {
+		gboolean ret;
 		ret = as_pool_loader_process_group (pool,
 						    loc_value,
 						    force_cache_refresh,
@@ -1650,6 +1650,7 @@ as_pool_load_internal (AsPool *pool,
 	/* process data in user-defined locations */
 	g_hash_table_iter_init (&loc_iter, priv->extra_data_locations);
 	while (g_hash_table_iter_next (&loc_iter, NULL, &loc_value)) {
+		gboolean ret;
 		ret = as_pool_loader_process_group (pool,
 						    loc_value,
 						    force_cache_refresh,
@@ -1659,7 +1660,7 @@ as_pool_load_internal (AsPool *pool,
 			return FALSE;
 	}
 
-	return ret;
+	return TRUE;
 }
 
 /**
@@ -1698,14 +1699,17 @@ as_pool_load_thread (GTask *task,
 		     GCancellable *cancellable)
 {
 	AsPool *pool = AS_POOL (source_object);
-	GError *error = NULL;
-	gboolean success;
+	g_autoptr(GError) error = NULL;
 
-	success = as_pool_load (pool, cancellable, &error);
-	if (error != NULL)
-		g_task_return_error (task, error);
-	else
-		g_task_return_boolean (task, success);
+	if (!as_pool_load (pool, cancellable, &error)) {
+		/* additional safety check, this function should never fail without setting an error */
+		if (G_UNLIKELY (error == NULL))
+			g_critical ("Function 'as_pool_load' in async thread returned false, but "
+				    "no error was set.");
+		g_task_return_error (task, g_steal_pointer (&error));
+	} else {
+		g_task_return_boolean (task, TRUE);
+	}
 }
 
 /**
