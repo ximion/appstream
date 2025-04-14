@@ -34,16 +34,15 @@ int AppStream::Utils::vercmpSimple(const QString &a, const QString &b)
     return as_vercmp(qPrintable(a), qPrintable(b), AS_VERCMP_FLAG_NONE);
 }
 
-QString AppStream::Utils::markupConvert(QStringView description, MarkupKind format)
+std::expected<QString, QString> AppStream::Utils::markupConvert(QStringView description,
+                                                                MarkupKind format)
 {
     g_autoptr(GError) error = NULL;
     g_autofree gchar *formatted =
         as_markup_convert(description.toUtf8(), static_cast<AsMarkupKind>(format), &error);
 
-    if (error) {
-        qWarning() << "error converting description" << error->message;
-        return {};
-    }
+    if (error != nullptr)
+        return std::unexpected(QString::fromUtf8(error->message));
 
     return valueWrap(formatted);
 }

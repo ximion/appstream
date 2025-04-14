@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2025 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -17,34 +17,30 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef APPSTREAMQT_UTILS_H
-#define APPSTREAMQT_UTILS_H
+#include <QtTest>
+#include <QObject>
+#include <QTemporaryFile>
 
-#include <expected>
-#include <QStringList>
-#include "appstreamqt_export.h"
+#include "utils.h"
 
-namespace AppStream
+class MiscTest : public QObject
 {
-
-namespace Utils
-{
-
-enum APPSTREAMQT_EXPORT MarkupKind {
-    MarkupUnknown = 0,
-    MarkupXML,
-    MarkupText,
-    MarkupMarkdown,
+    Q_OBJECT
+private Q_SLOTS:
+    void testMarkup();
 };
 
-APPSTREAMQT_EXPORT QString currentAppStreamVersion();
+using namespace AppStream;
 
-APPSTREAMQT_EXPORT int vercmpSimple(const QString &a, const QString &b);
-
-APPSTREAMQT_EXPORT std::expected<QString, QString> markupConvert(QStringView description,
-                                                                 MarkupKind format);
+void MiscTest::testMarkup()
+{
+    auto result = Utils::markupConvert(
+        QStringLiteral("<p>Test!</p><p>Blah.</p><ul><li>A</li><li>B</li></ul><p>End.</p>"),
+        Utils::MarkupText);
+    QVERIFY(result);
+    QCOMPARE(result.value(), QStringLiteral("Test!\n\nBlah.\n • A\n • B\n\nEnd."));
 }
 
-}
+QTEST_MAIN(MiscTest)
 
-#endif
+#include "asqt-misc-test.moc"
