@@ -2514,7 +2514,8 @@ as_utils_install_metadata_file_internal (const gchar *filename,
 							  G_FILE_QUERY_INFO_NONE,
 							  NULL,
 							  &tmp_error)) {
-				g_debug ("Error setting renamed file permissions: %s", tmp_error->message);
+				g_debug ("Error setting renamed file permissions: %s",
+					 tmp_error->message);
 				g_clear_error (&tmp_error);
 			}
 		}
@@ -2601,8 +2602,7 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 
 	switch (as_metadata_file_guess_style (filename)) {
 	case AS_FORMAT_STYLE_CATALOG:
-		if (g_str_has_suffix (filename, ".yml") ||
-		    g_str_has_suffix (filename, ".yml.gz") ||
+		if (g_str_has_suffix (filename, ".yml") || g_str_has_suffix (filename, ".yml.gz") ||
 		    g_str_has_suffix (filename, ".yml.zst") ||
 		    g_str_has_suffix (filename, ".yaml") ||
 		    g_str_has_suffix (filename, ".yaml.gz") ||
