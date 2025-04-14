@@ -52,6 +52,9 @@ if get_option('compose')
 endif
 
 if get_option('docs') or get_option('apidocs')
+  # we need Python for the helper scripts if any doc generation is enabled at all
+  python_exe = find_program('python3', 'python')
+
   if get_option('gir')
     subdir('api/')
   endif
@@ -123,7 +126,6 @@ as_doc_src = [
 hljs_installed_file = '/usr/share/javascript/highlight.js/highlight.min.js'
 if get_option('docs')
     daps_exe = find_program('daps')
-    python_exe = find_program('python3', 'python')
 
     build_docs_cmd = [
             python_exe,
