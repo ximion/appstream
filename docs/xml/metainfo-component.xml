@@ -1215,6 +1215,7 @@
 			This string property denotes the GUI environment the screenshot was recorded in, in the form of <code>{env}:{style}</code>,
 			where <literal>{env}</literal> is a desktop-environment name in lowercase and <literal>{style}</literal> is a specific style
 			that the desktop environment recognizes, e.g. <code>light</code> and <code>dark</code> for light and dark themes.
+			The <literal>:{style}</literal> part of the environment property may be omitted if the environment's default style is used.
 			See <ulink url="https://github.com/ximion/appstream/blob/main/data/desktop-style-ids.txt">desktop-style-ids.txt</ulink> for a list
 			of currently recognized environment and style combinations.
 		</para>
