@@ -13,6 +13,7 @@
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Marcos Lans <marcoslansgarza@gmail.com>, 2018.
 # Iváns <ivanrsm1997@gmail.com>, 2021.
+# xuars <yago.rana.gayoso@gmail.com>, 2025.
 #
 # Translators:
 msgid ""
@@ -20,16 +21,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2024-12-08 23:22+0100\n"
-"PO-Revision-Date: 2023-08-29 19:54+0000\n"
-"Last-Translator: Fran Diéguez <fran.dieguez@mabishu.com>\n"
-"Language-Team: Galician <https://hosted.weblate.org/projects/appstream/"
-"translations/gl/>\n"
+"PO-Revision-Date: 2025-04-20 12:15+0000\n"
+"Last-Translator: xuars <yago.rana.gayoso@gmail.com>\n"
+"Language-Team: Galician <https://hosted.weblate.org/projects/appstream/translations/gl/>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -768,9 +768,8 @@ msgstr "Sen posibilidade de falar con outros usuarios"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1019
-#, fuzzy
 msgid "Moderated audio or video chat functionality between users"
-msgstr "Funcionalidade de son ou vídeo sen controlar entre usuarios"
+msgstr "Funcionalidade de chat de voz ou de vídeo moderada entre usuarios"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1021
@@ -989,31 +988,30 @@ msgstr "O tamaño do ficheiro recuperado era cero."
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
 #: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:77
 msgid "Cinnamon"
-msgstr ""
+msgstr "Cinnamon"
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
 #: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:79
 msgid "Deepin"
-msgstr ""
+msgstr "Deepin"
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
 #: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:81
 msgid "EDE"
-msgstr ""
+msgstr "EDE"
 
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #: src/as-desktop-env-data.h:49
-#, fuzzy
 msgid "Endless"
-msgstr "Paquete"
+msgstr "Endless"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
 #: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:83
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #. TRANSLATORS: Name of the "KDE" desktop environment.
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
@@ -1021,13 +1019,13 @@ msgstr ""
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
 #: src/as-desktop-env-data.h:99
 msgid "KDE Plasma"
-msgstr ""
+msgstr "KDE Plasma"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
 #: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:87
 msgid "LXDE"
-msgstr ""
+msgstr "LXDE"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
@@ -1077,12 +1075,12 @@ msgstr ""
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:91
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:93
 msgid "Mate"
-msgstr ""
+msgstr "Mate"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:97
@@ -1984,20 +1982,18 @@ msgstr "A propiedade `height` debe ser un número enteiro positivo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:235
-#, fuzzy
 msgid "The `scale` property must be a positive integer."
-msgstr "A propiedade `height` debe ser un número enteiro positivo."
+msgstr "A propiedade `scale` debe ser un número enteiro positivo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:241
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr "O tipo de imaxe debe ser \"fonte\" ou \"miniatura\"."
+msgstr "O tipo de imaxe debe ser `source` ou `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:247
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
-"A propiedade `width` debe estar presente se o tipo de imaxe é `miniatura`."
+msgstr "A propiedade `width` debe estar presente se o tipo de imaxe é `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:253
@@ -4239,9 +4235,8 @@ msgid "Handset"
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:808
-#, fuzzy
 msgid "Unknown"
-msgstr "descoñecido"
+msgstr "Deacoñecido"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
 #: tools/ascli-actions-mdata.c:875
@@ -4251,11 +4246,11 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:894
 msgid "Incompatible"
-msgstr ""
+msgstr "Incompatible"
 
 #: tools/ascli-actions-mdata.c:929
 msgid "Compatible"
-msgstr ""
+msgstr "Compatible"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:47
