@@ -81,6 +81,7 @@ To help with the latter we provide the `autoformat.py` helper script to format c
  * libyaml
  * libcurl (>= 7.62)
  * libxmlb (>= 0.3.6)
+ * xsltproc & docbook-style-xsl
 
 Optional:
  * Vala Compiler (vapigen) (for Vala VAPI file)
