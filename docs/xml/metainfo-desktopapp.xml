@@ -220,6 +220,32 @@
 			</varlistentry>
 
 			<varlistentry>
+			<term>&lt;icon/&gt;</term>
+			<listitem>
+				<para>
+					This tag is described in detail for generic components at <xref linkend="tag-icon"/>.
+				</para>
+				<para>
+					MetaInfo files may provide an icon name for the application explicitly by using the
+					<code>type="stock"</code> property on an <literal>icon</literal> tag to reference an
+					icon from the icon stock.
+				</para>
+				<important>
+					<title>Desktop-entry merge behavior</title>
+					<para>
+						Many tools will interpret the presence of an explicit <literal>icon</literal> tag in the MetaInfo file as a sign that the
+						file is <emphasis>complete</emphasis> and self-sufficient and no data from a desktop-entry file is expected to be merged.
+					</para>
+					<para>
+						If you use an <literal>icon</literal> tag, ensure that your MetaInfo file contains all the tags that would be
+						merged from a desktop-entry file, and consider generating your desktop-entry file from the MetaInfo file using
+						<command>appstreamcli make-desktop-file</command>.
+					</para>
+				</important>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
 			<term>&lt;releases/&gt;</term>
 			<listitem>
 				<para>
