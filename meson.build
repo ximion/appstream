@@ -204,6 +204,10 @@ if get_option('stemming')
     endif
 endif
 
+if get_option('installed_tests') and not get_option('tests')
+  error('-Dinstalled_tests=true is incompatible with -Dtests=false')
+endif
+
 # use gperf for faster string -> enum matching
 gperf = find_program('gperf')
 
@@ -227,7 +231,9 @@ subdir('po/')
 subdir('data/')
 subdir('contrib/')
 subdir('docs/')
-subdir('tests/')
+if get_option('tests')
+    subdir('tests/')
+endif
 if get_option('qt')
     subdir('qt/')
 endif
