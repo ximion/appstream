@@ -449,6 +449,21 @@ asc_process_screenshot_images_lang (AscResult *cres,
 	if (max_size_bytes == 0)
 		store_screenshots = FALSE;
 
+	{
+		AscImageFormat image_format = asc_image_format_from_filename (orig_img_url);
+
+		/* we do not allow vector graphics as screenshots */
+		if (image_format == ASC_IMAGE_FORMAT_SVG || image_format == ASC_IMAGE_FORMAT_SVGZ) {
+			asc_result_add_hint (cres,
+				     cpt,
+				     "screenshot-image-is-svg",
+				     "url",
+				     orig_img_url,
+				     NULL);
+			return FALSE;
+		}
+	}
+
 	/* download our image */
 	img_bytes = as_curl_download_bytes (acurl, orig_img_url, &error);
 	if (img_bytes == NULL) {

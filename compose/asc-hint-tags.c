@@ -193,6 +193,11 @@ AscHintTagStatic asc_hint_tag_list[] =  {
           "This might be a temporary server issue, or the screenshot is no longer available."
 	},
 
+	{ "screenshot-image-is-svg",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "The screenshot image at '{{url}}' is a vector graphic. Vector graphics are not allowed as screenshot images."
+	},
+
 	{ "screenshot-save-error",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  "Unable to store screenshot for '{{url}}': {{error}}"
