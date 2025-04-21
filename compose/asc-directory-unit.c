@@ -121,12 +121,12 @@ asc_directory_unit_find_files_recursive_internal (GPtrArray *files,
 
 				/* don't visit paths twice to avoid loops */
 				if (g_hash_table_contains (visited_dirs, real_path))
-					return TRUE;
+					continue;
 
 				g_hash_table_add (visited_dirs, g_steal_pointer (&real_path));
 			} else {
 				if (g_hash_table_contains (visited_dirs, path_new))
-					return TRUE;
+					continue;
 
 				g_hash_table_add (visited_dirs, g_strdup (path_new));
 			}
@@ -154,8 +154,11 @@ asc_directory_unit_find_files_recursive (GPtrArray *files,
 					 GError **error)
 {
 	g_autoptr(GHashTable) visited_dirs = NULL;
+	g_autofree gchar *absolute_lookup_path = NULL;
 	visited_dirs = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
+	absolute_lookup_path = g_build_filename (path_orig, path, NULL);
+	g_debug ("Indexing location: %s\n", absolute_lookup_path);
 	return asc_directory_unit_find_files_recursive_internal (files,
 								 path_orig,
 								 path_orig_len,
