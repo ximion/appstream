@@ -51,6 +51,8 @@ def run_gidocgen_generate(gidocgen_exe, output_dir, namespace, extra_args):
         # unfortunately for some reason, gi-docgen takes the output directory
         # name as namespace name, resulting in misnamed devhelp files.
         # We work around this here.
+        if os.path.isdir(output_dir):
+            shutil.rmtree(output_dir)
         shutil.move(namespace, output_dir)
 
     return ret == 0
