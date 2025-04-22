@@ -2225,11 +2225,13 @@ as_pool_search (AsPool *pool, const gchar *search)
 		as_strstripnl (tmp);
 		if (strlen (tmp) <= 1) {
 			/* we have a one-letter search query - we cheat here and just return everything */
-			g_debug ("Search query too broad. Matching everything.");
+			g_debug ("Search query '%s' too broad. Matching everything.", tmp);
 			return as_pool_get_components (pool);
 		} else {
-			g_debug ("No valid search tokens. Can not find any results.");
-			return as_component_box_new_simple ();
+			g_debug ("No valid search tokens. Trying explicit match for '%s' as last resort.", tmp);
+			tokens = g_new0 (gchar *, 2);
+			tokens[0] = g_steal_pointer (&tmp);
+			tokens[1] = NULL;
 		}
 	} else {
 		g_autofree gchar *tmp_str = NULL;
