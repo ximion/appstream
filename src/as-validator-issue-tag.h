@@ -690,9 +690,15 @@ static AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("It is recommended to add a long description to this component to present it better to users."),
 	},
 
-	{ "generic-description-missing",
+	{ "description-missing",
 	  AS_ISSUE_SEVERITY_PEDANTIC,
 	  N_("This generic component is missing a long description. It may be useful to add one."),
+	},
+
+	{ "untranslated-description-missing",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The component is missing an untranslated long description, but has a translated one for the English locale. "
+	     "You need to provide a locale-less description in English as translation template."),
 	},
 
 	{ "desktop-app-launchable-missing",

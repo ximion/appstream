@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2025 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -3076,6 +3076,10 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 
 	mode = as_context_get_style (ctx);
 
+	/* We set the locale to generic English (loading it, if it exists) to allow for simple
+	 * checks for cases of xml:lang="en" being used on template elements */
+	as_context_set_locale (ctx, "en");
+
 	/* validate the resulting AsComponent for sanity */
 	cpt = as_component_new ();
 	as_component_load_from_xml (cpt, ctx, root, NULL);
@@ -3528,9 +3532,18 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		} else if (cpt_kind != AS_COMPONENT_KIND_GENERIC) {
 			as_validator_add_issue (validator,
 						NULL,
-						"generic-description-missing",
+						"description-missing",
 						NULL);
 		}
+
+		as_component_set_context_locale (cpt, "en");
+		if (!as_is_empty (as_component_get_description (cpt)))
+			as_validator_add_issue (validator,
+					NULL,
+					"untranslated-description-missing",
+					NULL);
+
+		as_component_set_context_locale (cpt, "C");
 	}
 
 	/* check if we have a homepage */
