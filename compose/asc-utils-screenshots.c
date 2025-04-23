@@ -455,11 +455,11 @@ asc_process_screenshot_images_lang (AscResult *cres,
 		/* we do not allow vector graphics as screenshots */
 		if (image_format == ASC_IMAGE_FORMAT_SVG || image_format == ASC_IMAGE_FORMAT_SVGZ) {
 			asc_result_add_hint (cres,
-				     cpt,
-				     "screenshot-image-is-svg",
-				     "url",
-				     orig_img_url,
-				     NULL);
+					     cpt,
+					     "screenshot-image-is-svg",
+					     "url",
+					     orig_img_url,
+					     NULL);
 			return FALSE;
 		}
 	}
