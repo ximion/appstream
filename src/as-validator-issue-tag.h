@@ -98,6 +98,17 @@ static AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The description contains a web URL in plain text. This is not allowed, please use the <url/> tag instead to share links.")
 	},
 
+	{ "description-no-valid-content",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The description element does not contain any valid content (paragraphs, enumerations, etc.).")
+	},
+
+	{ "description-spurious-text",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The description element contains raw text that is not in any paragraph or other permitted tag. "
+	     "This is not allowed and the additional text may be ignored by parsers or raise errors.")
+	},
+
 	{ "tag-not-translatable",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("This tag is not translatable.")

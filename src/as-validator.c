@@ -1026,6 +1026,7 @@ as_validator_check_description_tag (AsValidator *validator,
 {
 	gboolean first_paragraph = TRUE;
 	gboolean is_localized = FALSE;
+	gboolean has_node_content = FALSE;
 
 	if (mode == AS_FORMAT_STYLE_METAINFO) {
 		as_validator_check_nolocalized (validator,
@@ -1042,9 +1043,13 @@ as_validator_check_description_tag (AsValidator *validator,
 		const gchar *node_name = (gchar *) iter->name;
 		g_autofree gchar *node_content = as_xml_get_node_value_raw (iter);
 
-		/* discard spaces */
+		if (iter->type == XML_TEXT_NODE)
+			as_validator_add_issue (validator, iter, "description-spurious-text", NULL);
+
+		/* discard spaces & any non-node elements */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
+		has_node_content = TRUE;
 
 		if ((g_strcmp0 (node_name, "ul") != 0) && (g_strcmp0 (node_name, "ol") != 0)) {
 			as_validator_check_content_empty (validator, iter, node_name);
@@ -1114,6 +1119,10 @@ as_validator_check_description_tag (AsValidator *validator,
 						node_name);
 		}
 	}
+
+	/* If we have unexpected content that isn't nodes, we warn. Fully empty tags are allowed */
+	if (node->children != NULL && !has_node_content)
+		as_validator_add_issue (validator, node, "description-no-valid-content", NULL);
 }
 
 /**
@@ -3530,18 +3539,15 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 						"driver-firmware-description-missing",
 						NULL);
 		} else if (cpt_kind != AS_COMPONENT_KIND_GENERIC) {
-			as_validator_add_issue (validator,
-						NULL,
-						"description-missing",
-						NULL);
+			as_validator_add_issue (validator, NULL, "description-missing", NULL);
 		}
 
 		as_component_set_context_locale (cpt, "en");
 		if (!as_is_empty (as_component_get_description (cpt)))
 			as_validator_add_issue (validator,
-					NULL,
-					"untranslated-description-missing",
-					NULL);
+						NULL,
+						"untranslated-description-missing",
+						NULL);
 
 		as_component_set_context_locale (cpt, "C");
 	}
