@@ -2550,6 +2550,7 @@ as_utils_install_icon_tarball (AsMetadataLocation location,
 		return FALSE;
 	}
 
+	g_debug ("Extracting '%s' to: %s", filename, dir);
 	if (!as_utils_extract_tarball (filename, dir, error))
 		return FALSE;
 	return TRUE;
@@ -2654,7 +2655,8 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 		basename = g_path_get_basename (filename);
 
 		if (g_str_has_suffix (basename, ".tar.gz") ||
-		    g_str_has_suffix (basename, ".tar.zst")) {
+		    g_str_has_suffix (basename, ".tar.zst") ||
+		    g_str_has_suffix (basename, ".tar")) {
 			gchar *tmp;
 			g_autofree gchar *tmp2 = NULL;
 			/* we may have an icon tarball */
@@ -2668,9 +2670,10 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 			}
 
 			if (icons_size_id == NULL) {
-				g_warning ("Unable to find valid icon size in icon tarball name, "
-					   "assuming 64x64px.");
-				icons_size_id = "64x64";
+				g_debug ("Unable to find valid icon size in icon tarball name, "
+					 "assuming tarball contains icons of all sizes in the "
+					 "right subdirectories.");
+				icons_size_id = "";
 			}
 
 			/* install icons if we know the origin name */
@@ -2684,14 +2687,15 @@ as_utils_install_metadata_file (AsMetadataLocation location,
 				break;
 			}
 
-			/* guess origin */
-			if (g_str_has_suffix (basename, ".tar.gz"))
-				tmp2 = g_strdup_printf ("-icons-%s.tar.gz", icons_size_id);
+			/* guess origin and install with assumed origin */
+			if (as_is_empty (icons_size_id))
+				tmp2 = g_strdup ("-icons.tar");
 			else
-				tmp2 = g_strdup_printf ("-icons-%s.tar.zst", icons_size_id);
+				tmp2 = g_strdup_printf ("-icons-%s.tar", icons_size_id);
 			tmp = g_strstr_len (basename, -1, tmp2);
 			if (tmp != NULL) {
 				*tmp = '\0';
+				g_debug ("Guessed icon tarball origin as: %s", basename);
 				ret = as_utils_install_icon_tarball (location,
 								     filename,
 								     basename,
