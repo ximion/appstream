@@ -262,6 +262,10 @@
 			whole enumeration block. This means that in a translated file, only <literal>&lt;p/&gt;</literal> and <literal>&lt;li/&gt;</literal>
 			elements may carry an <literal>xml:lang</literal> property.
 		</para>
+		<para>
+			All text must be in paragraphs or list item elements - text that contained directly in a <literal>description</literal> element is not
+			permitted.
+		</para>
 		</listitem>
 		</varlistentry>
 
