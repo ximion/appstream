@@ -9,17 +9,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-04-23 17:26+0200\n"
-"PO-Revision-Date: 2025-02-04 06:01+0000\n"
+"PO-Revision-Date: 2025-04-24 06:03+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
-"Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/"
-"translations/ro/>\n"
+"Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/translations/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1781,14 +1779,14 @@ msgstr ""
 msgid ""
 "The description element does not contain any valid content (paragraphs, "
 "enumerations, etc.)."
-msgstr ""
+msgstr "Elementul „description” nu conține niciun conținut valid (paragrafe, enumerări etc.)."
 
 #: src/as-validator-issue-tag.h:108
 msgid ""
 "The description element contains raw text that is not in any paragraph or "
 "other permitted tag. This is not allowed and the additional text may be "
 "ignored by parsers or raise errors."
-msgstr ""
+msgstr "Elementul „description” conține text brut care nu se află în niciun paragraf sau altă etichetă permisă. Acest lucru nu este permis, iar textul suplimentar poate fi ignorat de analizatoare sau poate genera erori."
 
 #: src/as-validator-issue-tag.h:114
 msgid "This tag is not translatable."
@@ -2672,7 +2670,7 @@ msgid ""
 "The component is missing an untranslated long description, but has a "
 "translated one for the English locale. You need to provide a locale-less "
 "description in English as translation template."
-msgstr ""
+msgstr "Componentei îi lipsește o descriere lungă netradusă, dar are una tradusă pentru limba engleză. Trebuie să furnizați o descriere fără localizare în limba engleză ca șablon de traducere."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:718
