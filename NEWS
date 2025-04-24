@@ -1,3 +1,35 @@
+Version 1.0.5
+~~~~~~~~~~~~~
+Released: 2025-04-24
+
+Features:
+ * qt: Expose markup conversion utils
+ * desktop-styles: Add android and iOS
+ * validator: Check for xml:lang="en" being used on description template elements
+ * validator: Flag cases of raw text in "description" elements
+ * metadata: Add more known extensions into as_metadata_file_guess_style()
+
+Specification:
+ * docs: Clarify that the style segment of a screenshot environment is optional
+ * docs: Explain consequences of defining an icon for desktop-app metainfo
+ * docs: Clarify that description content must be in p/li elements
+
+Bugfixes:
+ * validator: mark as_validator_issue_tag_list static
+ * docs: Add workaround for gi-docgen misnaming devhelp files
+ * compose: Do not permit SVG images as screenshots
+ * compose: Don't "forget" to scan remaining paths when re-encountering a dir
+ * pool: Try explicit singular term match if we only have low-quality tokens
+ * utils: Provide compatibility with Fedora icon tarballs when installing them
+ * utils: Remove leftover g_chmod()
+ * zstd-decompressor: Pass output/written data when decompression finished
+ * utils: Expect a dash in icons file name
+ * utils: Recognize .yml* and .yaml* file extension variants, and .zst extension
+ * utils: Rename the appstream file when re-saving it on install
+
+Contributors:
+ Alyssa Ross, Ismael Asensio, Kolja, Matthias Klumpp, Milan Crha
+
 Version 1.0.4
 ~~~~~~~~~~~~~
 Released: 2024-12-08
