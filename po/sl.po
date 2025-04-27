@@ -3,14 +3,14 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
-# Martin Srebotnjak <miles@filmsi.net>, 2015, 2024.
+# Martin Srebotnjak <miles@filmsi.net>, 2015, 2024, 2025.
 # Bojan <Bojanzinko@gmail.com>, 2019, 2021.
 # Klemen Skerbiš <klemen.skerbis1@gmail.com>, 2020, 2021.
 # #-#-#-#-#  sl.po (appstream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Martin Srebotnjak <miles@filmsi.net>, 2015, 2024.
+# Martin Srebotnjak <miles@filmsi.net>, 2015, 2024, 2025.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 #
 # Translators:
@@ -19,17 +19,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-04-23 17:26+0200\n"
-"PO-Revision-Date: 2024-12-13 11:01+0000\n"
+"PO-Revision-Date: 2025-04-27 09:01+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
-"Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/"
-"translations/sl/>\n"
+"Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1782,14 +1780,14 @@ msgstr ""
 msgid ""
 "The description element does not contain any valid content (paragraphs, "
 "enumerations, etc.)."
-msgstr ""
+msgstr "Element opisa ne vsebuje nobene veljavne vsebine (odstavki, naštevanja itn.)."
 
 #: src/as-validator-issue-tag.h:108
 msgid ""
 "The description element contains raw text that is not in any paragraph or "
 "other permitted tag. This is not allowed and the additional text may be "
 "ignored by parsers or raise errors."
-msgstr ""
+msgstr "Element opis vsebuje neobdelano besedilo, ki ni v nobenem odstavku ali drugi dovoljeni oznaki. To ni dovoljeno in razčlenjevalniki lahko dodatno besedilo prezrejo ali povzročijo napake."
 
 #: src/as-validator-issue-tag.h:114
 msgid "This tag is not translatable."
@@ -2639,7 +2637,7 @@ msgid ""
 "The component is missing an untranslated long description, but has a "
 "translated one for the English locale. You need to provide a locale-less "
 "description in English as translation template."
-msgstr ""
+msgstr "Komponenti manjka nepreveden dolg opis, vendar ima prevedeni opis za angleško področno nastavitev. Kot predlogo za prevod morate navesti opis brez angleških področnih nastavitev."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:718
