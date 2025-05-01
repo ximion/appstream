@@ -294,9 +294,13 @@ def update_gui_env_ids(data_header_fname):
             desktops_set.add(de_id.lower())
             desktops_list.append({'id': de_id, 'name': de_name.strip()})
 
-    # fixup
+    # fixup for kde -> plasma
     desktops_set.remove('kde')
     desktops_set.add('plasma')
+
+    # Endless doesn't want to be an environment
+    # (see https://github.com/ximion/appstream/commit/55419bf528db5b3336b4426857021114288efdaa)
+    desktops_set.remove('endless')
 
     # extend the existing styles list
     gui_env_ids = set()

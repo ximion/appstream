@@ -73,6 +73,8 @@ AsDesktopEnvData as_desktop_env_data[] = {
 };
 
 AsGUIEnvStyleData as_gui_env_style_data[] = {
+	/* TRANSLATORS: Name of the "android" visual environment style. */
+	{ "android", N_("Android") },
 	/* TRANSLATORS: Name of the "cinnamon" visual environment style. */
 	{ "cinnamon", N_("Cinnamon") },
 	/* TRANSLATORS: Name of the "dde" visual environment style. */
@@ -83,6 +85,8 @@ AsGUIEnvStyleData as_gui_env_style_data[] = {
 	{ "gnome", N_("GNOME") },
 	/* TRANSLATORS: Name of the "gnome:dark" visual environment style. */
 	{ "gnome:dark", N_("GNOME (Dark)") },
+	/* TRANSLATORS: Name of the "ios" visual environment style. */
+	{ "ios", N_("iOS") },
 	/* TRANSLATORS: Name of the "lxde" visual environment style. */
 	{ "lxde", N_("LXDE") },
 	/* TRANSLATORS: Name of the "lxqt" visual environment style. */
@@ -97,12 +101,12 @@ AsGUIEnvStyleData as_gui_env_style_data[] = {
 	{ "pantheon:dark", N_("Pantheon (Dark)") },
 	/* TRANSLATORS: Name of the "plasma" visual environment style. */
 	{ "plasma", N_("KDE Plasma") },
-	/* TRANSLATORS: Name of the "plasma:dark" visual environment style. */
-	{ "plasma:dark", N_("KDE Plasma (Dark)") },
 	/* TRANSLATORS: Name of the "plasma-mobile" visual environment style. */
 	{ "plasma-mobile", N_("Plasma Mobile") },
 	/* TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style. */
 	{ "plasma-mobile:dark", N_("Plasma Mobile (Dark)") },
+	/* TRANSLATORS: Name of the "plasma:dark" visual environment style. */
+	{ "plasma:dark", N_("KDE Plasma (Dark)") },
 	/* TRANSLATORS: Name of the "razor" visual environment style. */
 	{ "razor", N_("Razor") },
 	/* TRANSLATORS: Name of the "rox" visual environment style. */
