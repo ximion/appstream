@@ -22,7 +22,11 @@
 
 #include <config.h>
 #include <glib/gi18n-lib.h>
+
+#ifndef G_OS_WIN32
 #include <unistd.h>
+#endif
+
 #include <errno.h>
 
 #include "ascli-utils.h"
@@ -40,6 +44,12 @@ exec_pm_action (const gchar *action, gchar **pkgnames)
 	int ret;
 	const gchar *exe = NULL;
 	g_auto(GStrv) cmd = NULL;
+
+#ifdef G_OS_WIN32
+	g_printerr ("%s\n",
+				    _("No supported package managers are available on Windows."));
+			return ASCLI_EXIT_CODE_FAILED;
+#else
 
 #ifdef HAVE_APT_SUPPORT
 	if (g_file_test ("/usr/bin/apt", G_FILE_TEST_EXISTS))
@@ -66,6 +76,7 @@ exec_pm_action (const gchar *action, gchar **pkgnames)
 	if (ret != 0)
 		ascli_print_stderr (_("Unable to spawn package manager: %s"), g_strerror (errno));
 	return ret;
+#endif
 }
 
 /**
@@ -79,6 +90,12 @@ exec_flatpak_action (const gchar *action, const gchar *bundle_id)
 	int ret;
 	const gchar *exe = NULL;
 	g_auto(GStrv) cmd = NULL;
+
+#ifdef G_OS_WIN32
+	g_printerr ("%s\n",
+				    _("Flatpak is unavailable on Windows."));
+			return ASCLI_EXIT_CODE_FAILED;
+#else
 
 	exe = "/usr/bin/flatpak";
 	if (!g_file_test (exe, G_FILE_TEST_EXISTS)) {
@@ -95,6 +112,7 @@ exec_flatpak_action (const gchar *action, const gchar *bundle_id)
 	if (ret != 0)
 		ascli_print_stderr (_("Unable to spawn Flatpak process: %s"), g_strerror (errno));
 	return ret;
+#endif
 }
 
 static int
