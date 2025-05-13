@@ -158,6 +158,9 @@ asc_render_font_screenshots (AscResult *cres,
 
 			as_screenshot_add_image (scr, img);
 		}
+
+		if (as_screenshot_is_valid (scr))
+			as_component_add_screenshot (cpt, scr);
 	}
 
 	return TRUE;
