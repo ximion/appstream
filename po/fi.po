@@ -25,7 +25,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-04-23 17:26+0200\n"
-"PO-Revision-Date: 2025-05-29 05:01+0000\n"
+"PO-Revision-Date: 2025-05-29 22:37+0000\n"
 "Last-Translator: Kieli Puoli <kielipuoli@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/appstream/translations/fi/>\n"
 "Language: fi\n"
@@ -1805,42 +1805,42 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:174
 msgid "The component ID should only contain lowercase characters."
-msgstr ""
+msgstr "Komponentin tunnuksessa saa olla vain pieniä kirjaimia."
 
 #: src/as-validator-issue-tag.h:179
 msgid ""
 "The domain part of the rDNS component ID (first two parts) must only contain "
 "lowercase characters."
-msgstr ""
+msgstr "rDNS-komponentin tunnuksen toimialueosiossa (ensimmäiset kaksi osaa) saa olla vain pieniä kirjaimia."
 
 #: src/as-validator-issue-tag.h:184
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr ""
+msgstr "Komponentti kuuluu Freedesktop-projektiin, mutta sen tunnus ei ala fd.o:n käänteisellä toimialuenimellä (\"org.freedesktop\")."
 
 #: src/as-validator-issue-tag.h:189
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDE's reverse-DNS name (\"org.kde\")."
-msgstr ""
+msgstr "Komponentti kuuluu KDE-projektiin, mutta sen tunnus ei ala KDE:n käänteisellä toimialuenimellä (\"org.kde\")."
 
 #: src/as-validator-issue-tag.h:194
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr ""
+msgstr "Komponentti kuuluu GNOME-projektiin, mutta sen tunnus ei ala GNOMEn käänteisellä toimialuenimellä (\"org.gnome\")."
 
 #: src/as-validator-issue-tag.h:199
 msgid "The SPDX license expression is invalid and could not be parsed."
-msgstr ""
+msgstr "SPDX-lisenssin lauseke on virheellinen eikä sitä voitu jäsentää."
 
 #: src/as-validator-issue-tag.h:204
 msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
+msgstr "Lisenssin tunnusta ei löytynyt SPDX-tietokannasta. Varmista, että lisenssin tunnus on kirjoitettu SPDX:n kanssa yhteensopivalla tavalla ja että se on kelvollinen maksuttomien ohjelmistojen lisenssi."
 
 #: src/as-validator-issue-tag.h:210
 msgid ""
@@ -1890,22 +1890,22 @@ msgstr "`scale`-ominaisuuden on oltava positiivinen kokonaisluku."
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:252
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
+msgstr "Kuvan tyypin on oltava joko `source` tai `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:258
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "`width`-ominaisuus on pakollinen, jos kuvan tyyppinä on `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:264
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "`height`-ominaisuus on pakollinen, jos kuvan tyyppinä on `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:270
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "Näyttökuvaa ja kieltä kohden saa olla vain yksi `source`-kuva."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:276
@@ -1926,13 +1926,13 @@ msgstr ""
 msgid ""
 "Unable to reach the screenshot image on its remote location - does the image "
 "exist?"
-msgstr ""
+msgstr "Näyttökuvaa ei löydy etähakemistosta. Onko kuva varmasti olemassa?"
 
 #: src/as-validator-issue-tag.h:294
 msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
-msgstr ""
+msgstr "Näyttötallennetta ei löydy etähakemistosta. Onko videotiedosto varmasti olemassa?"
 
 #: src/as-validator-issue-tag.h:299
 msgid ""
@@ -2010,7 +2010,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:363
 msgid "No screenshot is marked as default."
-msgstr ""
+msgstr "Mitään näyttökuvaa ei ole merkitty oletukseksi."
 
 #: src/as-validator-issue-tag.h:368
 msgid ""
@@ -2152,21 +2152,21 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:485
 msgid "The component is missing an ID (<id/> tag)."
-msgstr ""
+msgstr "Komponentilta puuttuu tunnus (<id/>-tunniste)."
 
 #: src/as-validator-issue-tag.h:490
 msgid "The component is missing a name (<name/> tag)."
-msgstr ""
+msgstr "Komponentilta puuttuu nimi (<name/>-tunniste)."
 
 #: src/as-validator-issue-tag.h:495
 msgid ""
 "The name of this component is excessively long and can likely not be "
 "displayed properly in most layouts."
-msgstr ""
+msgstr "Komponentin nimi on liian pitkä eikä todennäköisesti näy kunnolla useimmissa näkymissä."
 
 #: src/as-validator-issue-tag.h:500
 msgid "The component is missing a summary (<summary/> tag)."
-msgstr ""
+msgstr "Komponentilta puuttuu yhteenveto (<summary/>-tunniste)."
 
 #: src/as-validator-issue-tag.h:505
 msgid ""
@@ -2183,19 +2183,19 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:515
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr ""
+msgstr "Komponentin nimen ei (todennäköisesti) tulisi päättyä pisteeseen (`.`)."
 
 #: src/as-validator-issue-tag.h:520
 msgid "The component summary should not end with a dot (`.`)."
-msgstr ""
+msgstr "Komponentin yhteenvedon ei tulisi päättyä pisteeseen (`.`)."
 
 #: src/as-validator-issue-tag.h:525
 msgid "The component summary must not contain tabs or linebreaks."
-msgstr ""
+msgstr "Komponentin yhteenvedossa ei saa olla sarkaimia eikä rivinvaihtoja."
 
 #: src/as-validator-issue-tag.h:530
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr ""
+msgstr "Yhteenvedossa ei saa olla URL-osoitteita. Käytä linkeille `<url/>`-tunnisteita."
 
 #: src/as-validator-issue-tag.h:535
 msgid ""
@@ -2254,16 +2254,16 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:590
 msgid "A web URL was expected for this value."
-msgstr ""
+msgstr "Tälle arvolle odotettiin tulokseksi verkko-osoitetta."
 
 #: src/as-validator-issue-tag.h:595
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr ""
+msgstr "Tässä verkkolinkissä käytetään FTP-protokollaa. Kannattaa harkita HTTP(S)-protokollaan vaihtamista."
 
 #: src/as-validator-issue-tag.h:600
 msgid "An URL of this type has already been defined."
-msgstr ""
+msgstr "Tämäntyyppinen URL on jo määritelty."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:606
@@ -2321,12 +2321,12 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:655
 msgid "This `launchable` tag has an unknown type and can not be used."
-msgstr ""
+msgstr "Tämän `launchable`-tunnisteen tyyppi on tuntematon eikä sitä voi käyttää."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:661
 msgid "This `bundle` tag has an unknown type and can not be used."
-msgstr ""
+msgstr "Tämän `bundle`-tunnisteen tyyppi on tuntematon eikä sitä voi käyttää."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:667
@@ -2361,25 +2361,25 @@ msgstr ""
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
-msgstr ""
+msgstr "Komponentilta puuttuu pitkä kuvaus. Tämäntyyppisillä komponenteilla on oltava pitkä kuvaus."
 
 #: src/as-validator-issue-tag.h:696
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
-msgstr ""
+msgstr "Tälle fontille kannattaisi antaa pitkä kuvaus, jotta käyttäjät saisivat siitä paremman kuvan."
 
 #: src/as-validator-issue-tag.h:701
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
-msgstr ""
+msgstr "Tälle komponentille on suositeltavaa antaa pitkä kuvaus, jotta käyttäjät saisivat siitä paremman kuvan."
 
 #: src/as-validator-issue-tag.h:706
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
-msgstr ""
+msgstr "Tällä peruskomponentilla ei ole pitkää kuvausta. Sellainen kannattaa ehkä lisätä."
 
 #: src/as-validator-issue-tag.h:711
 msgid ""
@@ -2420,21 +2420,21 @@ msgstr ""
 #: src/as-validator-issue-tag.h:743
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr ""
+msgstr "Tältä `web-application`-komponentilta puuttuu `launchable`-tunniste, jonka tyyppi on `url`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:749
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
-msgstr ""
+msgstr "Tältä `web-application`-komponentilta puuttuu kelvollisten kuvakkeiden määrittelyyn käytettävä `icon`-tunniste."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:755
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
-msgstr ""
+msgstr "Tältä `web-application`-komponentilta puuttuu luokituksia. `categories`-lohko todennäköisesti puuttuu."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:761
@@ -2460,7 +2460,7 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:779
 msgid "The component is an addon, but no `extends` tag was specified."
-msgstr ""
+msgstr "Komponentti on lisäosa, mutta sille ei ole annettu `extends`-tunnistetta."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:785
@@ -2514,13 +2514,12 @@ msgid "The screenshot caption is too long (should be <= 100 characters)"
 msgstr ""
 
 #: src/as-validator-issue-tag.h:829
-#, fuzzy
 msgid "Unable to read file."
-msgstr ".desktop-tiedostoa ei voida lukea: %s"
+msgstr "Tiedostoa ei voida lukea."
 
 #: src/as-validator-issue-tag.h:834
 msgid "The XML of this file is malformed."
-msgstr ""
+msgstr "Tämän tiedoston XML-rakenne on virheellinen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:840
@@ -2544,9 +2543,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:857
-#, fuzzy
 msgid "The metainfo filename does not match the component ID."
-msgstr "Asenna komponentti-ID:tä vastaava ohjelmisto."
+msgstr "Metatietotiedoston nimi ei vastaa komponentin tunnusta."
 
 #: src/as-validator-issue-tag.h:862
 #, fuzzy
@@ -2555,7 +2553,7 @@ msgstr ".desktop-tiedostoa ei voida lukea: %s"
 
 #: src/as-validator-issue-tag.h:867
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
+msgstr "Tämän komponentin metatiedot viittaavat .desktop-tiedostoon, jota ei ole olemassa."
 
 #: src/as-validator-issue-tag.h:872
 msgid ""
@@ -2596,12 +2594,12 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:904
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr ""
+msgstr "Tästä hakemistosta tai hakemistorakenteesta ei löydy AppStream-metatietoja."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:909
 msgid "No XDG applications directory found."
-msgstr ""
+msgstr "XDG-sovellushakemistoa ei löytynyt."
 
 #: src/as-validator-issue-tag.h:914
 msgid ""
@@ -2635,9 +2633,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:942
-#, fuzzy
 msgid "Failed to download release metadata."
-msgstr ".desktop-tiedostoa ei voida lukea: %s"
+msgstr "Version metatietojen lataus epäonnistui."
 
 #: src/as-validator-issue-tag.h:947
 msgid ""
@@ -2656,7 +2653,7 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:964
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "Versiosta puuttuu `version`-ominaisuus."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:970
@@ -2674,12 +2671,12 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:981
 msgid "The release timestamp is invalid."
-msgstr ""
+msgstr "Version aikaleima on virheellinen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:987
 msgid "The release description must be put inside a `description` tag"
-msgstr ""
+msgstr "Version kuvauksen on oltava `description`-tunnisteen sisällä"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:993
@@ -2701,12 +2698,12 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:1010
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
+msgstr "Valittua tarkistussumma-algoritmia ei tueta tai se on tuntematon."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1016
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
+msgstr "Kokotyyppi on tuntematon. Sen on oltava `download` tai `installed`."
 
 #: src/as-validator-issue-tag.h:1021
 msgid ""
@@ -2764,7 +2761,7 @@ msgstr ""
 #: src/as-validator-issue-tag.h:1066
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
-msgstr ""
+msgstr "AppStream ei tunne komponentin toimittaman kohteen tyyppiä."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1072
@@ -2814,12 +2811,12 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1116
 msgid "The `content_attribute` tag needs a value."
-msgstr ""
+msgstr "`content_attribute`-tunnisteella on oltava arvo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1122
 msgid "The `content_attribute` tag value is unknown."
-msgstr ""
+msgstr "`content_attribute`-tunnisteen arvo on tuntematon."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1128
@@ -2834,7 +2831,7 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1140
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "Tältä `tag`-tunnisteelta puuttuu `namespace`-ominaisuus."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1146
@@ -2845,11 +2842,11 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:1151
 msgid "The type of this color is not valid."
-msgstr ""
+msgstr "Tämän värin tyyppi ei kelpaa."
 
 #: src/as-validator-issue-tag.h:1156
 msgid "The value of this color scheme preference is not valid."
-msgstr ""
+msgstr "Tämän värimalliasetuksen arvo ei kelpaa."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1162
@@ -2860,7 +2857,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:1167
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Tämän värin koodi ei ole kelvollinen HTML-värikoodi."
 
 #: src/as-validator-issue-tag.h:1172
 msgid ""
@@ -2895,7 +2892,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:1199
 msgid "The reference item is missing a value."
-msgstr ""
+msgstr "Viitekohteelta puuttuu arvo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1205
@@ -2909,11 +2906,11 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:1216
 msgid "A key can only be used once."
-msgstr ""
+msgstr "Avainta voi käyttää vain kerran."
 
 #: src/as-validator-issue-tag.h:1221
 msgid "This custom value is empty."
-msgstr ""
+msgstr "Tämä mukautettu arvo on tyhjä."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1227
@@ -2930,7 +2927,7 @@ msgstr ""
 
 #: src/as-validator.c:419
 msgid "URL format is invalid."
-msgstr ""
+msgstr "URL-osoitteen muoto on virheellinen."
 
 #: src/as-validator.c:480 src/as-validator.c:525
 #, c-format
@@ -2965,13 +2962,13 @@ msgstr ""
 #: src/as-validator.c:2691 src/as-validator.c:3014
 #, c-format
 msgid "Found: %s - Allowed: %s"
-msgstr ""
+msgstr "Löydetty: %s - Sallittu: %s"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #. TRANSLATORS: ascompose flag description for: --verbose
 #: tools/appstream-compose.c:198 tools/appstreamcli.c:1363
 msgid "Show extra debugging information."
-msgstr ""
+msgstr "Näytä ylimääräisiä virheenkorjaustietoja."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #. TRANSLATORS: ascompose flag description for: --no-color
@@ -2988,7 +2985,7 @@ msgstr "Näytä ohjelmaversio."
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:219
 msgid "Do not use the network at all, not even for URL validity checks."
-msgstr ""
+msgstr "Älä käytä verkkoyhteyttä lainkaan - edes URL-osoitteiden kelvollisuuden tarkistuksiin."
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:226
@@ -3003,7 +3000,7 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:240
 msgid "Set the result output directory."
-msgstr ""
+msgstr "Aseta tuloksen kohdehakemisto."
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:247
@@ -3013,7 +3010,7 @@ msgstr ""
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:254
 msgid "Override the icon output directory."
-msgstr ""
+msgstr "Ohita kuvakkeen kohdehakemisto."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:261
@@ -3065,7 +3062,7 @@ msgstr ""
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:327
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Argumenttien jäsennys epäonnistui"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-compose.c:338 tools/appstreamcli.c:1597
@@ -3103,12 +3100,11 @@ msgstr ""
 
 #: tools/appstream-compose.c:412 tools/appstream-compose.c:414
 msgid "WARNING"
-msgstr ""
+msgstr "VAROITUS"
 
 #: tools/appstream-compose.c:446
-#, fuzzy
 msgid "Unable to set icon policy"
-msgstr ".desktop-tiedostoa ei voida lukea: %s"
+msgstr "Kuvakekäytäntöä ei voida asettaa"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:473
@@ -3135,12 +3131,12 @@ msgstr ""
 #. TRANSLATORS: Error message
 #: tools/appstream-compose.c:493
 msgid "Can not process invalid directory"
-msgstr ""
+msgstr "Virheellistä hakemistoa ei voi käsitellä"
 
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:505
 msgid "Composing metadata..."
-msgstr ""
+msgstr "Luodaan metatietoja..."
 
 #. TRANSLATORS: Error message
 #: tools/appstream-compose.c:510
