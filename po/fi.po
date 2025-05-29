@@ -17,6 +17,7 @@
 # Lari Oesch <lari@oesch.me>, 2021.
 # Ammuu5 <ammuu5@tutanota.com>, 2021.
 # Ricky Tigg <ricky.tigg@gmail.com>, 2024, 2025.
+# Kieli Puoli <kielipuoli@gmail.com>, 2025.
 #
 # Translators:
 msgid ""
@@ -24,16 +25,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-04-23 17:26+0200\n"
-"PO-Revision-Date: 2025-01-16 23:00+0000\n"
-"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
-"Language-Team: Finnish <https://hosted.weblate.org/projects/appstream/"
-"translations/fi/>\n"
+"PO-Revision-Date: 2025-05-29 05:01+0000\n"
+"Last-Translator: Kieli Puoli <kielipuoli@gmail.com>\n"
+"Language-Team: Finnish <https://hosted.weblate.org/projects/appstream/translations/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -41,7 +41,7 @@ msgstr "AppStream-komentorivityökalu"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr ""
+msgstr "Apuohjelma AppStream-metadatan käyttöön"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
@@ -86,12 +86,12 @@ msgstr "Musiikkitoistimet"
 #: src/as-category.c:87
 msgctxt "Category of Development"
 msgid "Featured"
-msgstr ""
+msgstr "Esittelyssä"
 
 #: src/as-category.c:90
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "Virheenkorjaustyökalut"
 
 #: src/as-category.c:93
 msgctxt "Category of Development"
@@ -101,7 +101,7 @@ msgstr "Kehitysympäristöt"
 #: src/as-category.c:102
 msgctxt "Category of Education"
 msgid "Featured"
-msgstr ""
+msgstr "Esittelyssä"
 
 #: src/as-category.c:105
 msgctxt "Category of Education"
@@ -126,7 +126,7 @@ msgstr "Matematiikka"
 #: src/as-category.c:124
 msgctxt "Category of Games"
 msgid "Featured"
-msgstr ""
+msgstr "Esittelyssä"
 
 #: src/as-category.c:127
 msgctxt "Category of Games"
@@ -191,7 +191,7 @@ msgstr "Strategia"
 #: src/as-category.c:169
 msgctxt "Category of Graphics"
 msgid "Featured"
-msgstr ""
+msgstr "Esittelyssä"
 
 #: src/as-category.c:172
 msgctxt "Category of Graphics"
@@ -221,7 +221,7 @@ msgstr "Kuvankatselimet"
 #: src/as-category.c:192
 msgctxt "Category of Office"
 msgid "Featured"
-msgstr ""
+msgstr "Esittelyssä"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
@@ -271,7 +271,7 @@ msgstr "Kotoistus"
 #: src/as-category.c:235
 msgctxt "Category of Science"
 msgid "Featured"
-msgstr ""
+msgstr "Esittelyssä"
 
 #: src/as-category.c:238
 msgctxt "Category of Science"
@@ -301,7 +301,7 @@ msgstr "Robotiikka"
 #: src/as-category.c:260
 msgctxt "Category of Communication"
 msgid "Featured"
-msgstr ""
+msgstr "Esittelyssä"
 
 #: src/as-category.c:263
 msgctxt "Category of Communication"
@@ -321,7 +321,7 @@ msgstr "Selaimet"
 #: src/as-category.c:282
 msgctxt "Category of Utility"
 msgid "Featured"
-msgstr ""
+msgstr "Esittelyssä"
 
 #: src/as-category.c:285
 msgctxt "Category of Utility"
@@ -949,7 +949,7 @@ msgstr "Graafisia kuvauksia nykypäivän orjuudesta"
 #: src/as-curl.c:148
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr ""
+msgstr "Lataus epäonnistui palvelinrajoitusten vuoksi"
 
 #: src/as-curl.c:155 src/as-curl.c:161
 #, fuzzy, c-format
@@ -960,19 +960,19 @@ msgstr ".desktop-tiedostoa ei voida lukea: %s"
 #: src/as-curl.c:175
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "URL-osoitetta ei löytynyt palvelimelta."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:183
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Odottamaton tilakoodi: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:420
 #, c-format
 msgid "Retrieved file size was zero."
-msgstr ""
+msgstr "Noudetun tiedoston koko oli nolla."
 
 #. TRANSLATORS: Name of the "Cinnamon" desktop environment.
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
@@ -1001,7 +1001,7 @@ msgstr ""
 #. TRANSLATORS: Name of the "gnome" visual environment style.
 #: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:83
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #. TRANSLATORS: Name of the "KDE" desktop environment.
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
@@ -1009,19 +1009,19 @@ msgstr ""
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
 #: src/as-desktop-env-data.h:99
 msgid "KDE Plasma"
-msgstr ""
+msgstr "KDE Plasma"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
 #: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:87
 msgid "LXDE"
-msgstr ""
+msgstr "LXDE"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
 #: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:89
 msgid "LXQt"
-msgstr ""
+msgstr "LXQt"
 
 #. TRANSLATORS: Name of the "MATE" desktop environment.
 #: src/as-desktop-env-data.h:59
@@ -1032,7 +1032,7 @@ msgstr ""
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
 #: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:95
 msgid "Pantheon"
-msgstr ""
+msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
@@ -1055,7 +1055,7 @@ msgstr ""
 #. TRANSLATORS: Name of the "xfce" visual environment style.
 #: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:115
 msgid "Xfce"
-msgstr ""
+msgstr "Xfce"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:85
@@ -1065,7 +1065,7 @@ msgstr ""
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:91
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:93
@@ -1100,7 +1100,7 @@ msgstr ""
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:113
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -1126,7 +1126,7 @@ msgstr ""
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2508
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Paikallisesti asennetusta ohjelmistosta tulevat tiedot"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2511
@@ -1160,15 +1160,15 @@ msgstr "Python 3"
 
 #: src/as-provided.c:150
 msgid "D-Bus System Services"
-msgstr ""
+msgstr "D-Bus-järjestelmäpalvelut"
 
 #: src/as-provided.c:152
 msgid "D-Bus Session Services"
-msgstr ""
+msgstr "D-Bus-istuntopalvelut"
 
 #: src/as-provided.c:154
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Suorituksenaikainen laiteohjelmisto"
 
 #: src/as-provided.c:156
 msgid "Flashed Firmware"
@@ -1180,7 +1180,7 @@ msgstr "Komponentti"
 
 #: src/as-relation.c:1350
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "osoitinlaite (esim. hiiri)"
 
 #: src/as-relation.c:1352
 #, fuzzy
@@ -1189,33 +1189,33 @@ msgstr "Lauta"
 
 #: src/as-relation.c:1354
 msgid "gamepad"
-msgstr ""
+msgstr "peliohjain"
 
 #: src/as-relation.c:1356
 msgid "tv remote"
-msgstr ""
+msgstr "tv:n kaukosäädin"
 
 #: src/as-relation.c:1358
 msgid "graphics tablet"
-msgstr ""
+msgstr "piirtoalusta"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1363
 #, c-format
 msgid "This software requires a %s for input."
-msgstr ""
+msgstr "Tämän ohjelmiston syöttölaitteena on oltava %s."
 
 #: src/as-relation.c:1368
 msgid "This software requires a touch input device."
-msgstr ""
+msgstr "Tämä ohjelmisto edellyttää kosketussyöttölaitetta."
 
 #: src/as-relation.c:1370
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Tämän ohjelmiston puheohjaus edellyttää mikrofonia."
 
 #: src/as-relation.c:1372
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "Tämän ohjelmiston ohjaus edellyttää kameraa."
 
 #: src/as-relation.c:1374
 msgid "This software requires a method for console input."
@@ -1225,11 +1225,11 @@ msgstr ""
 #: src/as-relation.c:1379
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "Tämän ohjelmiston syöttölaitteena on suositeltavaa olla %s."
 
 #: src/as-relation.c:1384
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "Tämän ohjelmiston kanssa on suositeltavaa käyttää kosketussyöttölaitetta."
 
 #: src/as-relation.c:1386
 msgid "This software recommends a microphone to be controlled via voice input."
@@ -1245,96 +1245,96 @@ msgstr ""
 
 #: src/as-relation.c:1395
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "osoitinlaitteet (esim. hiiret)"
 
 #: src/as-relation.c:1397
 msgid "keyboards"
-msgstr ""
+msgstr "näppäimistöt"
 
 #: src/as-relation.c:1399
 msgid "gamepads"
-msgstr ""
+msgstr "peliohjaimet"
 
 #: src/as-relation.c:1401
 msgid "tv remotes"
-msgstr ""
+msgstr "tv:n kaukosäätimet"
 
 #: src/as-relation.c:1403
 msgid "graphics tablets"
-msgstr ""
+msgstr "piirtoalustat"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1407
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "Tämä ohjelmisto tukee seuraavia syöttölaitteita: %s."
 
 #: src/as-relation.c:1411
 msgid "This software supports touch input."
-msgstr ""
+msgstr "Tämä ohjelmisto tukee kosketuskäyttöä."
 
 #: src/as-relation.c:1413
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "Tätä ohjelmisto voi ohjata puheella."
 
 #: src/as-relation.c:1415
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "Tätä ohjelmistoa voi ohjata kameralla."
 
 #: src/as-relation.c:1418
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "Tämä ohjelmisto tukee käyttöä konsolikomennoilla."
 
 #: src/as-relation.c:1431
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "Osoitinlaite (esim. hiiri tai kosketuslevy) löytyi."
 
 #: src/as-relation.c:1433
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "Fyysinen näppäimistö löytyi."
 
 #: src/as-relation.c:1435
 msgid "Gamepad found."
-msgstr ""
+msgstr "Peliohjain löytyi."
 
 #: src/as-relation.c:1437
 msgid "TV remote found."
-msgstr ""
+msgstr "Tv:n kaukosäädin löytyi."
 
 #: src/as-relation.c:1439
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "Piirtoalusta löytyi."
 
 #: src/as-relation.c:1442
 msgid "Touch input device found."
-msgstr ""
+msgstr "Kosketussyöttölaite löytyi."
 
 #: src/as-relation.c:1444
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "Puheohjaukseen käytettävä mikrofoni löytyi."
 
 #: src/as-relation.c:1446
 msgid "Camera for input control found."
-msgstr ""
+msgstr "Ohjaukseen käytettävä kamera löytyi."
 
 #: src/as-relation.c:1448
 msgid "Console interface available."
-msgstr ""
+msgstr "Konsoliliittymä on käytettävissä."
 
 #: src/as-relation.c:1509
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "Ohjelmisto %s löytyi"
 
 #: src/as-relation.c:1518
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Pakollinen ohjelmistokomponentti %s puuttuu."
 
 #: src/as-relation.c:1522
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Suositeltu ohjelmistokomponentti %s puuttuu."
 
 #: src/as-relation.c:1526
 #, c-format
@@ -1344,38 +1344,38 @@ msgstr "Löytyi tuettu ohjelmistokomponentti '%s'."
 #: src/as-relation.c:1559
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "Löytyi seuraavan ohjelmiston tukema laitteisto: %s"
 
 #: src/as-relation.c:1568
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Järjestelmästä ei löytynyt tämän ohjelmiston edellyttämää pakollista laitteistoa: %s"
 
 #: src/as-relation.c:1573
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Järjestelmästä ei löytynyt tälle ohjelmistolle suositeltua laitteistoa: %s"
 
 #: src/as-relation.c:1578
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "Tämä ohjelmisto tukee laitteistoa, jota ei löydy tästä järjestelmästä: %s"
 
 #: src/as-relation.c:1617
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Tämä ohjelmisto edellyttää %s-ydintä, mutta järjestelmän käyttämä ydin on %s."
 
 #: src/as-relation.c:1623
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Tälle ohjelmistolle suositellaan %s-ydintä, mutta järjestelmän käyttämä ydin on %s."
 
 #: src/as-relation.c:1629
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr ""
+msgstr "Tämä ohjelmisto tukee vain %s-ydintä, mutta saattaa silti toimia ytimellä %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1383,7 +1383,7 @@ msgstr ""
 #: src/as-relation.c:1659
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
+msgstr "%s %s %s on pakollinen tälle ohjelmistolle, mutta järjestelmän käytössä on %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1391,20 +1391,20 @@ msgstr ""
 #: src/as-relation.c:1671
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
+msgstr "%s %s %s on suositeltava, mutta järjestelmän käytössä on %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1682
 #, c-format
 msgid "This software supports %s %s %s."
-msgstr ""
+msgstr "Tämän ohjelmiston tukema ydin on %s %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1700
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "Ydintä %s %s tuetaan."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1412,7 +1412,7 @@ msgstr ""
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Tämä ohjelmisto edellyttää %s %.2f GiB:n muistia, mutta järjestelmän muisti on %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1420,22 +1420,22 @@ msgstr ""
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Tälle ohjelmistolle suositellaan %s %.2f GiB:n muistia, mutta järjestelmän muisti on %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1752
 #, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr ""
+msgstr "Tämä ohjelmisto tukee %s %.2f GiB:n muistia."
 
 #: src/as-relation.c:1768
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "Järjestelmässä on riittävästi muistia tälle ohjelmistolle."
 
 #: src/as-relation.c:1832
 msgid "This software needs a display for graphical content."
-msgstr ""
+msgstr "Tämä ohjelmisto tarvitsee graafista sisältöä."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1444,7 +1444,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Tämä ohjelmisto edellyttää näyttöä, jonka leveimmän reunan koko on %s %lu pikseliä, mutta laitteen näyttö on %lu pikseliä."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1475,7 +1475,7 @@ msgstr ""
 
 #: src/as-relation.c:1900
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "Näytön koko riittää tälle ohjelmistolle."
 
 #: src/as-relation.c:1917
 #, c-format
@@ -1711,7 +1711,7 @@ msgstr ""
 msgid ""
 "The description line does not start with a capitalized word, project name or "
 "number."
-msgstr ""
+msgstr "Kuvausrivi ei ala isolla kirjaimella alkavalla sanalla, projektin nimellä tai numerolla."
 
 #: src/as-validator-issue-tag.h:98
 msgid ""
@@ -1785,7 +1785,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:157
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
+msgstr "Komponentin tunnus alkaa välimerkillä. Tätä ei sallita."
 
 #: src/as-validator-issue-tag.h:162
 msgid ""
@@ -1875,17 +1875,17 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:234
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "`width`-ominaisuuden on oltava positiivinen kokonaisluku."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:240
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "`height`-ominaisuuden on oltava positiivinen kokonaisluku."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:246
 msgid "The `scale` property must be a positive integer."
-msgstr ""
+msgstr "`scale`-ominaisuuden on oltava positiivinen kokonaisluku."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:252
