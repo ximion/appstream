@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2025 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -220,14 +220,38 @@ asc_render_font_icon (AscResult *cres,
 		if (!g_file_test (icon_full_path, G_FILE_TEST_EXISTS)) {
 			g_autoptr(AscCanvas) cv = NULL;
 			g_autoptr(GError) tmp_error = NULL;
+			AscCanvasShape bg_shape;
 			gboolean ret;
 
 			/* we didn't create an icon yet - let's render it! */
 			cv = asc_canvas_new (size * scale_factor, size * scale_factor);
+
+			bg_shape = g_str_hash (asc_font_get_id (font)) % ASC_CANVAS_SHAPE_LAST;
+			ret = asc_canvas_draw_shape (cv,
+						     bg_shape,
+						     (size * scale_factor) *
+							 0.032, /* border width */
+						     0.85,	/* red */
+						     0.85,	/* green */
+						     0.85,	/* blue */
+						     &tmp_error);
+			if (!ret) {
+				asc_result_add_hint (cres,
+						     cpt,
+						     "font-render-error",
+						     "name",
+						     asc_font_get_fullname (font),
+						     "error",
+						     tmp_error->message,
+						     NULL);
+				continue;
+			}
+
 			ret = asc_canvas_draw_text_line (cv,
 							 font,
 							 asc_font_get_sample_icon_text (font),
-							 -1, /* border width */
+							 (size * scale_factor) *
+							     0.16, /* border width */
 							 &tmp_error);
 			if (!ret) {
 				asc_result_add_hint (cres,

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2018-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2018-2025 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -383,6 +383,26 @@ test_canvas (void)
 	g_assert_no_error (error);
 
 	asc_canvas_save_png (cv, "/tmp/asc-fontrender_test1.png", &error);
+	g_assert_no_error (error);
+	g_object_unref (cv);
+
+	cv = asc_canvas_new (64, 64);
+	asc_canvas_draw_shape (cv,
+			       ASC_CANVAS_SHAPE_HEXAGON,
+			       2,    /* border width */
+			       0.85, /* red */
+			       0.85, /* green */
+			       0.85, /* blue */
+			       &error);
+	g_assert_no_error (error);
+
+	asc_canvas_draw_text_line (cv,
+				   font,
+				   "Aa",
+				   10, /* border width */
+				   &error);
+	g_assert_no_error (error);
+	asc_canvas_save_png (cv, "/tmp/asc-fontrender_test2.png", &error);
 	g_assert_no_error (error);
 }
 

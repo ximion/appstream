@@ -27,6 +27,22 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
+/**
+ * AscCanvasShape:
+ * @ASC_CANVAS_SHAPE_CIRCLE:	 Circle
+ * @ASC_CANVAS_SHAPE_HEXAGON:	 Hexagon
+ * @ASC_CANVAS_ERROR_PENTAGON:	 Penatgon
+ *
+ * A type of shape to draw.
+ **/
+typedef enum {
+	ASC_CANVAS_SHAPE_CIRCLE,
+	ASC_CANVAS_SHAPE_HEXAGON,
+	ASC_CANVAS_SHAPE_PENTAGON,
+	/*< private >*/
+	ASC_CANVAS_SHAPE_LAST
+} AscCanvasShape;
+
 AS_INTERNAL_VISIBLE
 gboolean asc_canvas_draw_text_line (AscCanvas	*canvas,
 				    AscFont	*font,
@@ -40,5 +56,14 @@ gboolean asc_canvas_draw_text (AscCanvas   *canvas,
 			       gint	    border_width,
 			       gint	    line_pad,
 			       GError	  **error);
+
+AS_INTERNAL_VISIBLE
+gboolean asc_canvas_draw_shape (AscCanvas     *canvas,
+				AscCanvasShape shape,
+				gint	       border_width,
+				double	       red,
+				double	       green,
+				double	       blue,
+				GError	     **error);
 
 AS_END_PRIVATE_DECLS

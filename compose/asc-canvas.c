@@ -30,6 +30,7 @@
 
 #include <cairo.h>
 #include <cairo-ft.h>
+#include <math.h>
 #ifdef HAVE_SVG_SUPPORT
 #include <librsvg/rsvg.h>
 #endif
@@ -249,7 +250,10 @@ asc_canvas_draw_text_line (AscCanvas *canvas,
 	cairo_font_face_t *cff = NULL;
 	cairo_status_t status;
 	cairo_text_extents_t te;
+	cairo_font_extents_t fe;
 	gint text_size;
+	double x_origin;
+	double y_baseline;
 	gboolean ret = FALSE;
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&fontconfig_mutex);
 
@@ -279,7 +283,7 @@ asc_canvas_draw_text_line (AscCanvas *canvas,
 	}
 	cairo_set_font_face (priv->cr, cff);
 
-	text_size = 128;
+	text_size = 160; /* start with a large font size */
 	while (text_size-- > 0) {
 		cairo_set_font_size (priv->cr, text_size);
 		cairo_text_extents (priv->cr, text, &te);
@@ -290,10 +294,19 @@ asc_canvas_draw_text_line (AscCanvas *canvas,
 			break;
 	}
 
-	/* draw text */
-	cairo_move_to (priv->cr,
-		       (priv->width / 2) - te.width / 2 - te.x_bearing,
-		       (priv->height / 2) - te.height / 2 - te.y_bearing);
+	/* draw text, centered optically */
+	cairo_set_source_rgb (priv->cr, 0.0, 0.0, 0.0);
+
+	cairo_text_extents (priv->cr, text, &te);
+	cairo_font_extents (priv->cr, &fe);
+
+	/* horizontal: center the whole advance width (looks better for e.g. “F”) */
+	x_origin = (priv->width / 2.0) - te.x_advance / 2.0;
+
+	/* vertical: put the baseline so that ascent and descent straddle */
+	y_baseline = (priv->height / 2.0) + (fe.ascent - fe.descent) / 2.0;
+
+	cairo_move_to (priv->cr, x_origin, y_baseline);
 	cairo_set_source_rgb (priv->cr, 0.0, 0.0, 0.0);
 	cairo_show_text (priv->cr, text);
 
@@ -304,6 +317,84 @@ out:
 	if (cff != NULL)
 		cairo_font_face_destroy (cff);
 	return ret;
+}
+
+/**
+ * asc_canvas_draw_shape:
+ * @canvas: An #AscCanvas instance.
+ * @shape: An #AscCanvasShape to draw.
+ * @border_width: Border width around the shape, set to -1 to use defaults.
+ * @red: Red color value (0.0-1.0).
+ * @green: Green color value (0.0-1.0).
+ * @blue: Blue color value (0.0-1.0).
+ * @error: A #GError or %NULL
+ *
+ * Draw a shape on the canvas.
+ **/
+gboolean
+asc_canvas_draw_shape (AscCanvas *canvas,
+		       AscCanvasShape shape,
+		       gint border_width,
+		       double red,
+		       double green,
+		       double blue,
+		       GError **error)
+{
+	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+
+	/* set default border value */
+	if (border_width < 0)
+		border_width = 4;
+
+	if (shape == ASC_CANVAS_SHAPE_CIRCLE) {
+		double radius = MIN (priv->width, priv->height) / 2.0 - border_width;
+		cairo_set_source_rgb (priv->cr, red, green, blue);
+		cairo_arc (priv->cr, priv->width / 2.0, priv->height / 2.0, radius, 0, 2 * G_PI);
+		cairo_fill (priv->cr);
+	} else if (shape == ASC_CANVAS_SHAPE_HEXAGON) {
+		double radius = MIN (priv->width, priv->height) / 2.0 - border_width;
+		double angle_step = G_PI / 3.0; /* 60 degrees in radians */
+		cairo_set_source_rgb (priv->cr, red, green, blue);
+		cairo_move_to (priv->cr,
+			       priv->width / 2.0 + radius * cos (0),
+			       priv->height / 2.0 + radius * sin (0));
+		for (int i = 1; i < 6; i++) {
+			cairo_line_to (priv->cr,
+				       priv->width / 2.0 + radius * cos (i * angle_step),
+				       priv->height / 2.0 + radius * sin (i * angle_step));
+		}
+		cairo_close_path (priv->cr);
+		cairo_fill (priv->cr);
+	} else if (shape == ASC_CANVAS_SHAPE_PENTAGON) {
+		double radius = MIN (priv->width, priv->height) / 2.0 - border_width;
+		double angle_step = G_PI * 2 / 5; /* 72 degrees */
+		double angle_offset = -G_PI / 2;
+		double cx = priv->width / 2.0;
+		double cy = priv->height / 2.0;
+
+		cairo_set_source_rgb (priv->cr, red, green, blue);
+
+		cairo_new_path (priv->cr);
+		for (int i = 0; i < 5; i++) {
+			double angle = angle_step * i + angle_offset;
+			double x = cx + radius * cos (angle);
+			double y = cy + radius * sin (angle);
+			if (i == 0)
+				cairo_move_to (priv->cr, x, y);
+			else
+				cairo_line_to (priv->cr, x, y);
+		}
+		cairo_close_path (priv->cr);
+		cairo_fill (priv->cr);
+	} else {
+		g_set_error_literal (error,
+				     ASC_CANVAS_ERROR,
+				     ASC_CANVAS_ERROR_UNSUPPORTED,
+				     "Unsupported shape type.");
+		return FALSE;
+	}
+
+	return TRUE;
 }
 
 /**
