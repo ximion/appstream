@@ -384,7 +384,7 @@ asc_canvas_draw_font_card (AscCanvas *canvas,
 	gint line_height;
 	gint name_height, bar_height;
 	gint large_name_baseline;
-	const gchar *word_sample = "Aa";
+	const gchar *word_sample = NULL;
 	const gint bar_padding = 6;	  /* px of vertical padding in colored bottom bar */
 	const gint bar_text_spacing = 18; /* gap between white/black sample words in bar */
 	const gint post_pangram_space = 10;
@@ -457,6 +457,10 @@ asc_canvas_draw_font_card (AscCanvas *canvas,
 			const gchar *word = words[w];
 			cairo_text_extents (priv->cr, word, &te);
 
+			/* pick a decently long word as sample for later */
+			if (as_is_empty (word_sample) && strlen (word) >= 5)
+				word_sample = word;
+
 			/* break too-long word char-by-char */
 			if (te.width > inner_w) {
 				const gchar *p = word;
@@ -517,11 +521,14 @@ asc_canvas_draw_font_card (AscCanvas *canvas,
 
 	y += post_pangram_space;
 
-	/* get our bottom bar sample word */
-	if (words != NULL && words[0] != NULL && words[1] != NULL)
-		word_sample = words[1];
-	else
-		word_sample = asc_font_get_sample_icon_text (font);
+	/* get our bottom bar sample word, in case none that was long enough
+	 * had previously been found */
+	if (as_is_empty (word_sample)) {
+		if (words != NULL && words[0] != NULL)
+			word_sample = words[0];
+		else
+			word_sample = asc_font_get_sample_icon_text (font);
+	}
 
 	/* 5) bottom colored bar (side-by-side names, small size) */
 	size_bar = MAX (8, size_name * 0.40);
