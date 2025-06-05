@@ -528,8 +528,26 @@ process_font_data_for_component (AscResult *cres,
 
 	g_debug ("Rendering font data for %s", gcid);
 
-	/* process font files */
+	/* try to render icon with "Regular"-style font, if we find none we just pick the first font in the list */
 	has_icon = FALSE;
+	for (guint i = 0; i < selected_fonts->len; i++) {
+		g_autoptr(GList) language_list = NULL;
+		AscFont *font = ASC_FONT (g_ptr_array_index (selected_fonts, i));
+
+		if (!as_str_equal0 (asc_font_get_style (font), "Regular") &&
+		    !as_str_equal0 (asc_font_get_style (font), "regular"))
+			continue;
+		has_icon = asc_render_font_icon (cres,
+						 unit,
+						 font,
+						 cpt_icons_path,
+						 icons_export_dir,
+						 cpt,
+						 icon_policy);
+		break;
+	}
+
+	/* process font files */
 	for (guint i = 0; i < selected_fonts->len; i++) {
 		g_autoptr(GList) language_list = NULL;
 		AscFont *font = ASC_FONT (g_ptr_array_index (selected_fonts, i));
