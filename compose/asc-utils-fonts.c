@@ -37,9 +37,10 @@ struct {
 	gint width;
 	gint height;
 } font_screenshot_sizes[] = {
-	{ 1024, 78 },
-	{ 640,  48 },
-	{ 0,    0  }
+	{ 1560, 878 },
+	{ 752,  423 },
+	{ 624,  351 },
+	{ 0,    0   }
 };
 
 /**
@@ -59,6 +60,7 @@ asc_render_font_screenshots (AscResult *cres,
 	for (guint i = 0; i < fonts->len; i++) {
 		const gchar *font_id = NULL;
 		const gchar *custom_sample_text = NULL;
+		const gchar *bg_letter = NULL;
 		g_autofree gchar *scr_caption = NULL;
 		g_autofree gchar *scr_url_root = NULL;
 		g_autoptr(AsScreenshot) scr = NULL;
@@ -97,63 +99,67 @@ asc_render_font_screenshots (AscResult *cres,
 						 "screenshots",
 						 NULL);
 
+		if (as_str_equal0 (asc_font_get_preferred_language (font), "en"))
+			bg_letter = "a";
+		else
+			bg_letter = asc_font_get_sample_icon_text (font);
+
 		for (guint j = 0; font_screenshot_sizes[j].width > 0; j++) {
 			g_autofree gchar *img_name = NULL;
 			g_autofree gchar *img_filename = NULL;
 			g_autofree gchar *img_url = NULL;
 			g_autoptr(AsImage) img = NULL;
+			g_autoptr(AscCanvas) cv = NULL;
+			g_autoptr(GError) tmp_error = NULL;
+			gboolean ret;
 
-			img_name = g_strdup_printf ("image-%s_%ix%i.png",
+			img_name = g_strdup_printf ("image-%s_%i.png",
 						    font_id,
-						    font_screenshot_sizes[j].width,
-						    font_screenshot_sizes[j].height);
+						    font_screenshot_sizes[j].width);
 			img_filename = g_build_filename (cpt_screenshots_path, img_name, NULL);
 			img_url = g_build_filename (scr_url_root, img_name, NULL);
 
-			if (!g_file_test (img_filename, G_FILE_TEST_EXISTS)) {
-				g_autoptr(AscCanvas) cv = NULL;
-				g_autoptr(GError) tmp_error = NULL;
-				gboolean ret;
+			/* we didn't create a screenshot image yet - let's render it! */
+			cv = asc_canvas_new (font_screenshot_sizes[j].width,
+					     font_screenshot_sizes[j].height);
 
-				/* we didn't create a screenshot image yet - let's render it! */
-				cv = asc_canvas_new (font_screenshot_sizes[j].width,
-						     font_screenshot_sizes[j].height);
-				ret = asc_canvas_draw_text_line (cv,
-								 font,
-								 asc_font_get_sample_text (font),
-								 -1, /* border width */
-								 &tmp_error);
-				if (!ret) {
-					asc_result_add_hint (cres,
-							     cpt,
-							     "font-render-error",
-							     "name",
-							     asc_font_get_fullname (font),
-							     "error",
-							     tmp_error->message,
-							     NULL);
-					continue;
-				}
+			ret = asc_canvas_draw_font_card (cv,
+							 font,
+							 NULL, /* default info label */
+							 asc_font_get_sample_text (font),
+							 bg_letter,
+							 -1, /* default border width */
+							 &tmp_error);
+			if (!ret) {
+				asc_result_add_hint (cres,
+						     cpt,
+						     "font-render-error",
+						     "name",
+						     asc_font_get_fullname (font),
+						     "error",
+						     tmp_error->message,
+						     NULL);
+				continue;
+			}
 
-				g_debug ("Saving font screenshot image: %s", img_name);
-				ret = asc_canvas_save_png (cv, img_filename, &tmp_error);
-				if (!ret) {
-					asc_result_add_hint (cres,
-							     cpt,
-							     "font-render-error",
-							     "name",
-							     asc_font_get_fullname (font),
-							     "error",
-							     tmp_error->message,
-							     NULL);
-					continue;
-				}
+			g_debug ("Saving font screenshot image: %s", img_name);
+			ret = asc_canvas_save_png (cv, img_filename, &tmp_error);
+			if (!ret) {
+				asc_result_add_hint (cres,
+						     cpt,
+						     "font-render-error",
+						     "name",
+						     asc_font_get_fullname (font),
+						     "error",
+						     tmp_error->message,
+						     NULL);
+				continue;
 			}
 
 			img = as_image_new ();
 			as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
-			as_image_set_width (img, font_screenshot_sizes[j].width);
-			as_image_set_height (img, font_screenshot_sizes[j].height);
+			as_image_set_width (img, asc_canvas_get_width (cv));
+			as_image_set_height (img, asc_canvas_get_height (cv));
 			as_image_set_url (img, img_url);
 
 			as_screenshot_add_image (scr, img);

@@ -407,6 +407,37 @@ test_canvas (void)
 }
 
 /**
+ * test_render_font_card:
+ *
+ * Test font-card rendering on canvas.
+ */
+static void
+test_render_font_card (void)
+{
+	g_autofree gchar *font_fname = NULL;
+	g_autoptr(AscFont) font = NULL;
+	g_autoptr(AscCanvas) canvas = NULL;
+	g_autoptr(GError) error = NULL;
+
+	font_fname = g_build_filename (datadir, "Raleway-Regular.ttf", NULL);
+	font = asc_font_new_from_file (font_fname, &error);
+	g_assert_no_error (error);
+
+	canvas = asc_canvas_new (800, 600);
+	asc_canvas_draw_font_card (canvas,
+				   font,
+				   NULL, /* default info label */
+				   asc_font_find_pangram (font, "en", "Raleway"), /* pangram */
+				   NULL, /* default bg letter */
+				   -1,	 /* default margin    */
+				   &error);
+	g_assert_no_error (error);
+
+	asc_canvas_save_png (canvas, "/tmp/asc-font-card.png", &error);
+	g_assert_no_error (error);
+}
+
+/**
  * test_compose_hints:
  *
  * Test compose hints and issue reporting.
@@ -1036,6 +1067,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Compose/FontInfo", test_read_fontinfo);
 	g_test_add_func ("/AppStream/Compose/Image", test_image_transform);
 	g_test_add_func ("/AppStream/Compose/Canvas", test_canvas);
+	g_test_add_func ("/AppStream/Compose/FontCard", test_render_font_card);
 	g_test_add_func ("/AppStream/Compose/Hints", test_compose_hints);
 	g_test_add_func ("/AppStream/Compose/Result", test_compose_result);
 	g_test_add_func ("/AppStream/Compose/DesktopEntry", test_compose_desktop_entry);

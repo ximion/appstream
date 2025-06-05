@@ -35,6 +35,7 @@
 #include <librsvg/rsvg.h>
 #endif
 
+#include "as-utils-private.h"
 #include "asc-font-private.h"
 #include "asc-image.h"
 
@@ -320,6 +321,320 @@ out:
 }
 
 /**
+ * asc_find_font_size:
+ *
+ * Helper function to find the largest font size that fits
+ * “text” inside max_width_px.
+ */
+static gint
+asc_find_font_size (cairo_t *cr,
+		    cairo_font_face_t *face,
+		    const gchar *text,
+		    gint max_width_px,
+		    gint max_size_px)
+{
+	cairo_text_extents_t te;
+	cairo_set_font_face (cr, face);
+
+	for (gint sz = max_size_px; sz > 4; --sz) {
+		cairo_set_font_size (cr, sz);
+		cairo_text_extents (cr, text, &te);
+		if (te.width < max_width_px)
+			return sz;
+	}
+
+	return 4; /* fallback */
+}
+
+/**
+ * asc_canvas_draw_font_card:
+ * @canvas:       the #AscCanvas to paint on
+ * @font:         the #AscFont to showcase
+ * @info_label:   short info label for the current font
+ * @pangram:      pangram text (or %NULL for default)
+ * @bg_letter:    letter to use as background (e.g. “a”)
+ * @border_width: outer margin in px (or -1 for default)
+ * @error:        A #GError or %NULL
+ *
+ * Draws a font specimen card to showcase the selected font.
+ * Running this function may change the canvas height!
+ *
+ * Returns: %TRUE on success.
+ */
+gboolean
+asc_canvas_draw_font_card (AscCanvas *canvas,
+			   AscFont *font,
+			   const gchar *info_label,
+			   const gchar *pangram,
+			   const gchar *bg_letter,
+			   gint border_width,
+			   GError **error)
+{
+	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	cairo_status_t status;
+	cairo_font_face_t *cff = NULL;
+	cairo_font_extents_t fe, fe_name;
+	cairo_text_extents_t te;
+	g_autoptr(GPtrArray) pangram_lines = NULL;
+	g_auto(GStrv) words = NULL;
+	gint y; /* running pen position */
+	gint inner_w;
+	gint size_name, size_bg_letter, size_infolabel;
+	gint size_sample, size_bar;
+	gint line_height;
+	gint name_height, bar_height;
+	gint large_name_baseline;
+	const gchar *word_sample = "Aa";
+	const gint bar_padding = 6;	  /* px of vertical padding in colored bottom bar */
+	const gint bar_text_spacing = 18; /* gap between white/black sample words in bar */
+	const gint post_pangram_space = 10;
+
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&fontconfig_mutex);
+
+	/* defaults */
+	if (as_is_empty (bg_letter))
+		bg_letter = "a";
+	if (as_is_empty (pangram))
+		pangram = "The quick brown fox jumps over the lazy dog";
+	if (as_is_empty (info_label))
+		info_label = asc_font_get_style (font);
+	if (border_width < 0)
+		border_width = 16;
+
+	cff = cairo_ft_font_face_create_for_ft_face (asc_font_get_ftface (font), FT_LOAD_DEFAULT);
+	status = cairo_font_face_status (cff);
+	if (status != CAIRO_STATUS_SUCCESS) {
+		g_set_error (error,
+			     ASC_CANVAS_ERROR,
+			     ASC_CANVAS_ERROR_FONT,
+			     "Could not create Cairo font face: %d",
+			     status);
+		goto fail;
+	}
+
+	/* calculate dimensions */
+	inner_w = priv->width - 2 * border_width;
+	y = border_width;
+
+	/* 1) large font full name */
+	size_name = asc_find_font_size (priv->cr,
+					cff,
+					asc_font_get_fullname (font),
+					inner_w,
+					priv->height * 0.20);
+
+	cairo_set_font_face (priv->cr, cff);
+	cairo_set_font_size (priv->cr, size_name);
+	cairo_font_extents (priv->cr, &fe_name);
+	name_height = fe_name.ascent + fe_name.descent;
+	large_name_baseline = border_width + fe_name.ascent;
+	y += name_height;
+
+	/* 2) big translucent background latter (we’ll draw it later at this baseline) */
+	size_bg_letter = MIN (priv->height * 0.58, inner_w);
+
+	/* 3) info label text */
+	if (!as_is_empty (info_label)) {
+		size_infolabel = MAX (10, size_name * 0.40);
+		cairo_set_font_size (priv->cr, size_infolabel);
+		cairo_font_extents (priv->cr, &fe);
+		y += fe.ascent + fe.descent;
+	} else {
+		size_infolabel = 0;
+	}
+
+	/* 4) pangram size & wrapping */
+	size_sample = MAX (10, size_name * 0.35);
+	cairo_set_font_size (priv->cr, size_sample);
+	cairo_font_extents (priv->cr, &fe);
+	line_height = fe.ascent + fe.descent;
+
+	pangram_lines = g_ptr_array_new_with_free_func (g_free);
+	words = g_strsplit (pangram, " ", -1);
+	{
+		g_autoptr(GString) current = g_string_new (NULL);
+		for (guint w = 0; words[w] != NULL; ++w) {
+			const gchar *word = words[w];
+			cairo_text_extents (priv->cr, word, &te);
+
+			/* break too-long word char-by-char */
+			if (te.width > inner_w) {
+				const gchar *p = word;
+				while (*p) {
+					const gchar *s = p;
+					const gchar *e = p;
+					g_autofree gchar *chunk = NULL;
+					cairo_text_extents_t te2;
+					while (*e) {
+						const gchar *n = g_utf8_next_char (e);
+						gchar *tmp = g_strndup (s, n - s);
+						cairo_text_extents (priv->cr, tmp, &te2);
+						g_free (tmp);
+						if (te2.width > inner_w)
+							break;
+						e = n;
+					}
+					if (e == s)
+						e = g_utf8_next_char (e);
+					chunk = g_strndup (s, e - s);
+					if (current->len) {
+						g_ptr_array_add (pangram_lines,
+								 g_strdup (current->str));
+						g_string_truncate (current, 0);
+					}
+					g_ptr_array_add (pangram_lines, g_steal_pointer (&chunk));
+					p = e;
+				}
+				continue;
+			}
+
+			/* append word to current line if it fits, else start new line */
+			if (current->len) {
+				GString *test = g_string_new (current->str);
+				g_string_append_c (test, ' ');
+				g_string_append (test, word);
+				cairo_text_extents (priv->cr, test->str, &te);
+				g_string_free (test, TRUE);
+
+				if (te.width < inner_w) {
+					/* word fits */
+					g_string_append_c (current, ' ');
+					g_string_append (current, word);
+				} else {
+					g_ptr_array_add (pangram_lines, g_strdup (current->str));
+					g_string_assign (current, word);
+				}
+			} else {
+				g_string_assign (current, word);
+			}
+		}
+
+		if (current->len)
+			g_ptr_array_add (pangram_lines, g_strdup (current->str));
+	}
+
+	y += pangram_lines->len * line_height;
+
+	y += post_pangram_space;
+
+	/* get our bottom bar sample word */
+	if (words != NULL && words[0] != NULL && words[1] != NULL)
+		word_sample = words[1];
+	else
+		word_sample = asc_font_get_sample_icon_text (font);
+
+	/* 5) bottom colored bar (side-by-side names, small size) */
+	size_bar = MAX (8, size_name * 0.40);
+	cairo_set_font_size (priv->cr, size_bar);
+	cairo_font_extents (priv->cr, &fe);
+	bar_height = fe.ascent + fe.descent + 2 * bar_padding;
+	y += bar_height;
+
+	if (priv->height != y) {
+		cairo_surface_t *old;
+		cairo_t *newcr;
+
+		old = priv->srf;
+		priv->srf = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, priv->width, y);
+		newcr = cairo_create (priv->srf);
+		cairo_destroy (priv->cr);
+		priv->cr = newcr;
+		cairo_surface_destroy (old);
+		priv->height = y;
+	}
+
+	/* start drawing */
+	y = border_width;
+	cairo_set_source_rgb (priv->cr, 1, 1, 1);
+	cairo_paint (priv->cr);
+
+	/* large font name */
+	cairo_set_font_face (priv->cr, cff);
+	cairo_set_font_size (priv->cr, size_name);
+	cairo_text_extents (priv->cr, asc_font_get_fullname (font), &te);
+	cairo_move_to (priv->cr,
+		       border_width + (inner_w - te.width) / 2.0 - te.x_bearing,
+		       large_name_baseline);
+	cairo_set_source_rgb (priv->cr, 0, 0, 0);
+	cairo_show_text (priv->cr, asc_font_get_fullname (font));
+	y += name_height;
+
+	/* translucent big letter – baseline slightly below large name */
+	cairo_set_font_size (priv->cr, size_bg_letter);
+	cairo_font_extents (priv->cr, &fe);
+	cairo_text_extents (priv->cr, bg_letter, &te);
+	cairo_set_source_rgba (priv->cr, 0, 0, 0, 0.08);
+	cairo_move_to (priv->cr,
+		       priv->width - border_width - te.width - te.x_bearing,
+		       large_name_baseline + (gint) (fe.ascent * 0.30));
+	cairo_show_text (priv->cr, bg_letter);
+
+	/* info label */
+	if (size_infolabel) {
+		cairo_set_font_size (priv->cr, size_infolabel);
+		cairo_font_extents (priv->cr, &fe);
+		cairo_text_extents (priv->cr, info_label, &te);
+		cairo_set_source_rgb (priv->cr, 0.0, 0.46, 0.60);
+		cairo_move_to (priv->cr,
+			       border_width + (inner_w - te.width) / 2.0 - te.x_bearing,
+			       y + fe.ascent);
+		cairo_show_text (priv->cr, info_label);
+		y += fe.ascent + fe.descent;
+	}
+
+	/* pangram */
+	cairo_set_font_size (priv->cr, size_sample);
+	cairo_font_extents (priv->cr, &fe);
+	cairo_set_source_rgb (priv->cr, 0, 0, 0);
+
+	for (guint i = 0; i < pangram_lines->len; ++i) {
+		const gchar *line = g_ptr_array_index (pangram_lines, i);
+		cairo_move_to (priv->cr, border_width, y + fe.ascent);
+		cairo_show_text (priv->cr, line);
+		y += line_height;
+	}
+
+	/* add a little bit of space */
+	y += post_pangram_space;
+
+	/* colored bar */
+	cairo_set_source_rgb (priv->cr, 0.0, 0.46, 0.60);
+	cairo_rectangle (priv->cr, 0, y, priv->width, bar_height);
+	cairo_fill (priv->cr);
+
+	/* side-by-side names inside bar (white + black) */
+	cairo_set_font_size (priv->cr, size_bar);
+	cairo_font_extents (priv->cr, &fe);
+	cairo_text_extents (priv->cr, word_sample, &te);
+	{
+		gint combined_w, x0, base_bar;
+		combined_w = (gint) (te.width * 2 + bar_text_spacing);
+		x0 = border_width + (inner_w - combined_w) / 2.0 - te.x_bearing;
+		base_bar = y + bar_padding + fe.ascent;
+
+		cairo_set_source_rgb (priv->cr, 1, 1, 1);
+		cairo_move_to (priv->cr, x0, base_bar);
+		cairo_show_text (priv->cr, word_sample);
+
+		cairo_set_source_rgb (priv->cr, 0, 0, 0);
+		cairo_move_to (priv->cr, x0 + (gint) te.width + bar_text_spacing, base_bar);
+		cairo_show_text (priv->cr, word_sample);
+	}
+
+	cairo_surface_flush (priv->srf);
+
+	/* tidy up */
+	cairo_font_face_destroy (cff);
+
+	return TRUE;
+fail:
+	if (cff)
+		cairo_font_face_destroy (cff);
+
+	return FALSE;
+}
+
+/**
  * asc_canvas_draw_shape:
  * @canvas: An #AscCanvas instance.
  * @shape: An #AscCanvasShape to draw.
@@ -330,6 +645,8 @@ out:
  * @error: A #GError or %NULL
  *
  * Draw a shape on the canvas.
+ *
+ * Returns: %TRUE on success.
  **/
 gboolean
 asc_canvas_draw_shape (AscCanvas *canvas,

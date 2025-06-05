@@ -58,6 +58,15 @@ gboolean asc_canvas_draw_text (AscCanvas   *canvas,
 			       GError	  **error);
 
 AS_INTERNAL_VISIBLE
+gboolean asc_canvas_draw_font_card (AscCanvas	*canvas,
+				    AscFont	*font,
+				    const gchar *info_label,
+				    const gchar *pangram,
+				    const gchar *bg_letter,
+				    gint	 border_width,
+				    GError     **error);
+
+AS_INTERNAL_VISIBLE
 gboolean asc_canvas_draw_shape (AscCanvas     *canvas,
 				AscCanvasShape shape,
 				gint	       border_width,
