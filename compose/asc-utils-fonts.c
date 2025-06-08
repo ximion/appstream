@@ -649,7 +649,9 @@ asc_process_fonts (AscResult *cres,
 		const gchar *fname = g_ptr_array_index (contents, i);
 		if (!g_str_has_prefix (fname, fonts_dir))
 			continue;
-		if (!g_str_has_suffix (fname, ".ttf") && !g_str_has_suffix (fname, ".otf"))
+		if (!g_str_has_suffix (fname, ".ttf") &&
+		    !g_str_has_suffix (fname, ".otf") &&
+		    !g_str_has_suffix (fname, ".ttc"))
 			continue;
 
 		basename = g_path_get_basename (fname);
