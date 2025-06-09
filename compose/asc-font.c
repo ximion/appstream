@@ -805,7 +805,7 @@ const gchar *
 asc_font_get_sample_icon_text (AscFont *font)
 {
 	AscFontPrivate *priv = GET_PRIVATE (font);
-	if (as_is_empty (priv->sample_icon_text))
+	if (as_is_empty (priv->sample_icon_text) || g_utf8_strlen (priv->sample_icon_text, -1) > 3)
 		asc_font_determine_sample_texts (font);
 	return priv->sample_icon_text;
 }
