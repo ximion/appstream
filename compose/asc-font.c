@@ -161,7 +161,10 @@ asc_font_read_sfnt_data (AscFont *font)
 		switch (sname.name_id) {
 		case TT_NAME_ID_SAMPLE_TEXT:
 			g_free (priv->sample_icon_text);
-			priv->sample_icon_text = g_steal_pointer (&val);
+			if (g_utf8_strlen (val, -1) > 3)
+				priv->sample_icon_text = g_utf8_substring (val, 0, 3);
+			else
+				priv->sample_icon_text = g_steal_pointer (&val);
 			break;
 		case TT_NAME_ID_DESCRIPTION:
 			g_free (priv->description);
