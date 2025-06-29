@@ -30,6 +30,7 @@
 # gallegonovato <fran-carro@hotmail.es>, 2022, 2023, 2024.
 # Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted.weblate.org>, 2023.
 # xuars <yago.rana.gayoso@gmail.com>, 2025.
+# DP <dprietob@users.noreply.hosted.weblate.org>, 2025.
 #
 # Translators:
 # Adolfo Jayme Barrientos, 2014
@@ -38,15 +39,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-04-23 17:26+0200\n"
-"PO-Revision-Date: 2025-04-26 23:10+0000\n"
-"Last-Translator: xuars <yago.rana.gayoso@gmail.com>\n"
+"PO-Revision-Date: 2025-06-29 17:01+0000\n"
+"Last-Translator: DP <dprietob@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1770,10 +1771,7 @@ msgstr ""
 msgid ""
 "The enumeration must not be translated as a whole. In MetaInfo files, "
 "translate individual items (<li/> elements) instead."
-msgstr ""
-"Esta enumeración no es traducible en su totalidad. Traduzca cada elemento "
-"individualmente en el archivo metainfo (\n"
-"elemento <li/> )."
+msgstr "Esta enumeración no es traducible en su totalidad. Traduzca cada elemento individualmente en el archivo metainfo (elemento <li/> )."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -1815,7 +1813,7 @@ msgid ""
 "The description element contains raw text that is not in any paragraph or "
 "other permitted tag. This is not allowed and the additional text may be "
 "ignored by parsers or raise errors."
-msgstr ""
+msgstr "El elemento descripción contiene texto sin formato que no está en ningún párrafo u otra etiqueta permitida. Esto no está permitido y el texto adicional puede ser ignorado por los analizadores sintácticos o generar errores."
 
 #: src/as-validator-issue-tag.h:114
 msgid "This tag is not translatable."
@@ -2211,18 +2209,14 @@ msgstr ""
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Los elementos «requires» o «recommends» necesitan un valor para indicar una "
-"relación válida."
+msgstr "Los elementos `requires` o `recommends` necesitan un valor para indicar una relación válida."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:380
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr ""
-"Se encontró la propiedad «version» en el elemento requerido/recomendado de "
-"un tipo que no debería tener ni requerir una versión."
+msgstr "Se encontró la propiedad `version` en el elemento requerido/recomendado de un tipo que no debería tener ni requerir una versión."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:386
@@ -2466,10 +2460,7 @@ msgstr ""
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
-"Los iconos de tipo «stock» o «cached» no deben tener un URL o una ruta "
-"completa o relativa hacia el icono. Sólo se permiten los nombres de base o "
-"de elemento predefinido."
+msgstr "Los iconos de tipo `stock` o `cached` no deben tener un URL o una ruta completa o relativa hacia el icono. Sólo se permiten los nombres de base o de elemento predefinido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:553
@@ -2493,9 +2484,7 @@ msgstr ""
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr ""
-"Los archivos de meta-información pueden contener solo iconos «stock» o "
-"«remote»; no se permite el tipo «set»."
+msgstr "Los archivos de meta-información pueden contener solo iconos de tipo `stock` o `remote`; no se permite el tipo «set»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:575
@@ -2591,7 +2580,7 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:644
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr "El <developer_name/> no puede contener un hipervínculo."
+msgstr "El elemento hijo `name` de un bloque `developer` no puede contener un hipervínculo."
 
 #: src/as-validator-issue-tag.h:649
 msgid ""
@@ -2692,7 +2681,7 @@ msgid ""
 "The component is missing an untranslated long description, but has a "
 "translated one for the English locale. You need to provide a locale-less "
 "description in English as translation template."
-msgstr ""
+msgstr "Al componente le falta una descripción larga sin traducir, pero tiene una traducida para la configuración regional inglesa. Debe proporcionar una descripción sin localización en inglés como plantilla de traducción."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:718
@@ -2786,9 +2775,7 @@ msgstr ""
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"Se especificó una etiqueta `extends`, pero el componente no es del tipo "
-"«addon», «localization» o «repository»."
+msgstr "Se especificó una etiqueta `extends`, pero el componente no es del tipo `addon`, `localization` o `repository`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:779
@@ -2810,9 +2797,7 @@ msgstr ""
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
-msgstr ""
-"Este componente de `localización` no define ningún idioma para el que sea la "
-"localización."
+msgstr "Este componente de `localization` no define ningún idioma para el que sea la localización."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:797
@@ -3356,8 +3341,7 @@ msgstr "Falta un valor en la posición de referencia."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1205
 msgid "The `custom` tag can only contain `value` children."
-msgstr ""
-"La etiqueta `custom ` solo puede contener elementos secundarios `value`."
+msgstr "La etiqueta `custom` solo puede contener elementos hijos `value`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1211
