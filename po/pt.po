@@ -10,7 +10,7 @@
 # Ervin <zetsmart@gmail.com>, 2019, 2021.
 # Cassio Lamarck Silva Freitas <cassiolamarcksilvafreitas@gmail.com>, 2020, 2021.
 # Gustavo Maciel <gustamaciel2012@hotmail.com>, 2020, 2021.
-# Manuela Silva <mmsrs@sky.com>, 2020, 2021.
+# Manuela Silva <mmsrs@sky.com>, 2020, 2021, 2025.
 # Allan Lago <allanlago1@gmail.com>, 2020.
 # ssantos <ssantos@web.de>, 2020, 2021, 2022, 2023, 2024, 2025.
 # #-#-#-#-#  pt.po (appstream)  #-#-#-#-#
@@ -33,15 +33,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-04-23 17:26+0200\n"
-"PO-Revision-Date: 2025-04-29 23:00+0000\n"
-"Last-Translator: \"Peter J. Mello\" <admin@petermello.net>\n"
+"PO-Revision-Date: 2025-07-04 11:01+0000\n"
+"Last-Translator: Manuela Silva <mmsrs@sky.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -975,7 +975,7 @@ msgstr "Representações gráficas da escravatura moderna"
 #: src/as-curl.c:148
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr "Falha no download devido ao limite do servidor"
+msgstr "Não foi possível transferir devido ao limite do servidor"
 
 #: src/as-curl.c:155 src/as-curl.c:161
 #, c-format
@@ -986,13 +986,13 @@ msgstr "Não foi possível transferir o ficheiro: %s"
 #: src/as-curl.c:175
 #, c-format
 msgid "URL was not found on the server."
-msgstr "URL não foi encontrada no servidor."
+msgstr "O URL não foi encontrado no servidor."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:183
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr "Código de status inesperado: %ld"
+msgstr "Código de estado inesperado: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:420
@@ -1135,7 +1135,7 @@ msgstr "Microsoft Windows"
 #. the search.
 #: src/as-pool.c:101
 msgid "app;application;package;program;programme;suite;tool"
-msgstr "app;aplicação;aplicativo;pacote;programa;ferramenta"
+msgstr "app;aplicação;pacote;programa;conjunto;ferramenta"
 
 #: src/as-pool.c:1148
 msgid "Metadata files have errors:"
@@ -1152,12 +1152,12 @@ msgstr "Conjunto de ícones"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2508
 msgid "Data from locally installed software"
-msgstr "Dados do software instalado localmente"
+msgstr "Dados dos programas instalados localmente"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2511
 msgid "Software catalog data"
-msgstr "Dados das categorias do software"
+msgstr "Dados das categorias dos programas"
 
 #: src/as-provided.c:138
 msgid "Libraries"
@@ -1173,7 +1173,7 @@ msgstr "Tipos de Multimédia"
 
 #: src/as-provided.c:144
 msgid "Fonts"
-msgstr "Fontes"
+msgstr "Tipos de Letra"
 
 #: src/as-provided.c:146
 msgid "Modaliases"
@@ -1196,6 +1196,7 @@ msgid "Runtime Firmware"
 msgstr "Firmware em tempo de execução"
 
 #: src/as-provided.c:156
+#, fuzzy
 msgid "Flashed Firmware"
 msgstr "Firmware descarregado"
 
@@ -1205,11 +1206,11 @@ msgstr "Componente"
 
 #: src/as-relation.c:1350
 msgid "pointing device (e.g. a mouse)"
-msgstr "dispositivo apontador (um mouse, por exemplo)"
+msgstr "dispositivo apontador (por exemplo, um rato)"
 
 #: src/as-relation.c:1352
 msgid "keyboard"
-msgstr "Teclado"
+msgstr "teclado"
 
 #: src/as-relation.c:1354
 msgid "gamepad"
@@ -1227,20 +1228,19 @@ msgstr "mesa digitalizadora"
 #: src/as-relation.c:1363
 #, c-format
 msgid "This software requires a %s for input."
-msgstr "Este software precisa de um %s para a digitação."
+msgstr "Este programa reqjuer um %s para a digitação."
 
 #: src/as-relation.c:1368
 msgid "This software requires a touch input device."
-msgstr "Este software precisa de um dispositivo de entrada táctil."
+msgstr "Este programa reqjuer um dispositivo de entrada tátil."
 
 #: src/as-relation.c:1370
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
-"Este programa precisa um microfone para ser controlado via entrada de voz."
+msgstr "Este programa requer um microfone para ser controlado via entrada de voz."
 
 #: src/as-relation.c:1372
 msgid "This software requires a camera for input control."
-msgstr "Este programa precisa uma câmera para o controle de entrada."
+msgstr "Este programa requer uma câmara para o controle de entrada."
 
 #: src/as-relation.c:1374
 msgid "This software requires a method for console input."
@@ -1270,7 +1270,7 @@ msgstr "Este software recomenda um método para a entrada da consola."
 
 #: src/as-relation.c:1395
 msgid "pointing devices (e.g. mice)"
-msgstr "dispositivos apontadores (p. ex., ratinhos)"
+msgstr "dispositivos apontadores (por exemplo, ratos)"
 
 #: src/as-relation.c:1397
 msgid "keyboards"
@@ -1286,17 +1286,17 @@ msgstr "comandos de televisão"
 
 #: src/as-relation.c:1403
 msgid "graphics tablets"
-msgstr "pastilhas gráficas"
+msgstr "tablets gráficas"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1407
 #, c-format
 msgid "This software supports %s."
-msgstr "Este software suporta %s."
+msgstr "Este programa suporta %s."
 
 #: src/as-relation.c:1411
 msgid "This software supports touch input."
-msgstr "Este software suporta a entrada por controlo táctil."
+msgstr "Este programa suporta a entrada por controlo tátil."
 
 #: src/as-relation.c:1413
 msgid "This software can be controlled via voice input."
@@ -1308,12 +1308,11 @@ msgstr "Este programa pode ser controlado via câmera."
 
 #: src/as-relation.c:1418
 msgid "This software supports operation via console commands."
-msgstr "Este software suporta a operação através de comandos da consola."
+msgstr "Este programa suporta a operação através de comandos da consola."
 
 #: src/as-relation.c:1431
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
-"Foi encontrado um dispositivo apontador (p. ex., um ratinho ou um touchpad)."
+msgstr "Foi encontrado um dispositivo apontador (por exemplo, um rato ou controlador de jogos)."
 
 #: src/as-relation.c:1433
 msgid "Physical keyboard found."
@@ -1329,11 +1328,11 @@ msgstr "Foi encontrado o comando da televisão."
 
 #: src/as-relation.c:1439
 msgid "Graphics tablet found."
-msgstr "Foi encontrada uma pastilha gráfica."
+msgstr "Foi encontrada uma tablet gráfica."
 
 #: src/as-relation.c:1442
 msgid "Touch input device found."
-msgstr "Foi encontrado um dispositivo de entrada táctil."
+msgstr "Foi encontrado um dispositivo de entrada tátil."
 
 #: src/as-relation.c:1444
 msgid "Microphone for voice input control found."
@@ -1350,12 +1349,12 @@ msgstr "Está disponível uma interface de consola."
 #: src/as-relation.c:1509
 #, c-format
 msgid "Software '%s' was found"
-msgstr "Foi encontrado o software '%s'"
+msgstr "Foi encontrado o programa '%s'"
 
 #: src/as-relation.c:1518
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr "Falta o componente de software necessário '%s'."
+msgstr "O componente necessário do programa '%s'. está em falta."
 
 #: src/as-relation.c:1522
 #, c-format
