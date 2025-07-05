@@ -33,8 +33,8 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-04-23 17:26+0200\n"
-"PO-Revision-Date: 2025-07-04 11:01+0000\n"
-"Last-Translator: Manuela Silva <mmsrs@sky.com>\n"
+"PO-Revision-Date: 2025-07-05 09:01+0000\n"
+"Last-Translator: \"Peter J. Mello\" <admin@petermello.net>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -117,7 +117,7 @@ msgstr "Depuradores"
 #: src/as-category.c:93
 msgctxt "Category of Development"
 msgid "IDEs"
-msgstr "IDEs"
+msgstr "Ambientes de desenvolvimento integrado (IDEs)"
 
 #: src/as-category.c:102
 msgctxt "Category of Education"
@@ -1035,7 +1035,7 @@ msgstr "GNOME"
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
 #: src/as-desktop-env-data.h:99
 msgid "KDE Plasma"
-msgstr "KDE Plasma"
+msgstr "Plasma do KDE"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
@@ -1111,7 +1111,7 @@ msgstr "KDE Plasma (Escuro)"
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:103
 msgid "Plasma Mobile"
-msgstr "Plasma Mobile"
+msgstr "Plasma Móvel do KDE"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:105
@@ -1196,9 +1196,8 @@ msgid "Runtime Firmware"
 msgstr "Firmware em tempo de execução"
 
 #: src/as-provided.c:156
-#, fuzzy
 msgid "Flashed Firmware"
-msgstr "Firmware descarregado"
+msgstr "Firmware gravado"
 
 #: src/as-provided.c:158
 msgid "Component"
@@ -4582,7 +4581,7 @@ msgstr "avisos: %lu"
 #: tools/ascli-actions-validate.c:362
 #, c-format
 msgid "infos: %lu"
-msgstr "infos: %lu"
+msgstr "informações: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "pedantic"-type hints
 #: tools/ascli-actions-validate.c:369
