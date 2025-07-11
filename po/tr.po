@@ -23,6 +23,7 @@
 # Oğuz Ersen <oguz@ersen.moe>, 2022, 2023, 2024.
 # Sabri Ünal <libreajans@gmail.com>, 2022, 2023.
 # Sabri Ünal <yakushabb@gmail.com>, 2025.
+# Sasi Ba <sasiba8328@fuasha.com>, 2025.
 #
 # Translators:
 msgid ""
@@ -30,16 +31,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-04-23 17:26+0200\n"
-"PO-Revision-Date: 2025-01-15 03:00+0000\n"
-"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"PO-Revision-Date: 2025-07-11 17:26+0000\n"
+"Last-Translator: Sasi Ba <sasiba8328@fuasha.com>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1788,14 +1788,14 @@ msgstr ""
 msgid ""
 "The description element does not contain any valid content (paragraphs, "
 "enumerations, etc.)."
-msgstr ""
+msgstr "Açıklama öğesi geçerli bir içerik (paragraflar, madde işaretleri vb.) içermiyor."
 
 #: src/as-validator-issue-tag.h:108
 msgid ""
 "The description element contains raw text that is not in any paragraph or "
 "other permitted tag. This is not allowed and the additional text may be "
 "ignored by parsers or raise errors."
-msgstr ""
+msgstr "Açıklama (description) öğesi, herhangi bir paragraf veya izin verilen başka bir etiket içinde olmayan ham metin içeriyor. Bu duruma izin verilmez ve eklenen metin ayrıştırıcılar (parsers) tarafından yok sayılabilir ya da hata oluşturabilir."
 
 #: src/as-validator-issue-tag.h:114
 msgid "This tag is not translatable."
@@ -2642,7 +2642,7 @@ msgid ""
 "The component is missing an untranslated long description, but has a "
 "translated one for the English locale. You need to provide a locale-less "
 "description in English as translation template."
-msgstr ""
+msgstr "Bileşen, İngilizce yerelleştirmesi için çevrilmiş bir uzun açıklama içeriyor ancak çeviri şablonu olarak kullanılacak, yerel ayardan bağımsız (locale’siz) bir İngilizce açıklama eksik. Bir İngilizce açıklama sağlamanız gerekiyor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:718
