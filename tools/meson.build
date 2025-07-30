@@ -17,7 +17,9 @@ ascli_exe = executable('appstreamcli',
     install: true
 )
 
-meson.override_find_program('appstreamcli', ascli_exe)
+if not meson.is_cross_build()
+  meson.override_find_program('appstreamcli', ascli_exe)
+endif
 
 if get_option('compose')
     ascompose_src = [
