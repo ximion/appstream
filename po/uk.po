@@ -18,6 +18,7 @@
 # Сергій <sergiy.goncharuk.1@gmail.com>, 2024.
 # Максим Горпиніч <mgorpinic2005@gmail.com>, 2024.
 # Максим Горпиніч <maksimgorpinic4@gmail.com>, 2025.
+# "myroslav.m201461e65a7244654b72" <myroslav.m2014@gmail.com>, 2025.
 #
 # Translators:
 msgid ""
@@ -25,15 +26,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-04-23 17:26+0200\n"
-"PO-Revision-Date: 2025-05-12 21:02+0000\n"
-"Last-Translator: Максим Горпиніч <maksimgorpinic4@gmail.com>\n"
+"PO-Revision-Date: 2025-07-31 02:05+0000\n"
+"Last-Translator: \"myroslav.m201461e65a7244654b72\" <myroslav.m2014@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1087,7 +1088,7 @@ msgstr "Друг"
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:97
 msgid "Pantheon (Dark)"
-msgstr "Pantheon (Dark)"
+msgstr "Pantheon (темна)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
@@ -2031,7 +2032,7 @@ msgstr "Значення властивості `scale` має бути дода
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:252
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr "The image type must be either `source` or `thumbnail`."
+msgstr "Тип зображення повинен бути `source` або `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:258
@@ -2929,9 +2930,7 @@ msgstr "У записі випуску відсутня властивість `
 msgid ""
 "The release entry is missing the `date` property. Ensure to add it before "
 "publishing the snapshot release."
-msgstr ""
-"The release entry is missing the `date` property. Ensure to add it before "
-"publishing the snapshot release."
+msgstr "У елемента дати випуску немає `date`. Впевнітся його додати перед тим як публікувати снапшотний реліз"
 
 #: src/as-validator-issue-tag.h:981
 msgid "The release timestamp is invalid."
