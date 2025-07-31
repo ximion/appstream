@@ -11,7 +11,7 @@ install_data('its/metainfo.loc',
 if meson.is_cross_build()
     dependency('appstream', version: '>=' + as_version, native: true,
                not_found_message: 'Native appstream required for cross-building')
-    ascli_exe = find_program('appstreamcli')
+    ascli_exe = find_program('appstreamcli', native: true)
 endif
 
 # NOTE: We do not translate the release notes on purpose here.
