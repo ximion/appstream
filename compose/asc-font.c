@@ -164,7 +164,8 @@ asc_font_read_sfnt_data (AscFont *font)
 			if (!as_is_empty (val))
 				g_strchug (val);
 			if (g_utf8_strlen (val, -1) > 3) {
-				g_autofree gchar *substr = g_strchomp ( g_utf8_substring (val, 0, 3));
+				g_autofree gchar *substr = g_strchomp (
+				    g_utf8_substring (val, 0, 3));
 				if (!as_is_empty (substr))
 					priv->sample_icon_text = g_steal_pointer (&substr);
 			} else {
