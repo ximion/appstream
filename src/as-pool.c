@@ -558,7 +558,9 @@ as_pool_register_flatpak_dir (AsPool *pool, const gchar *flatpak_root_dir, AsCom
 		repo_fname = g_build_filename (flatpak_root_dir, repo_name, NULL);
 
 		/* jump one directory deeper */
-		if (g_file_info_get_file_type (repo_finfo) == G_FILE_TYPE_DIRECTORY) {
+		if (g_file_info_get_file_type (repo_finfo) == G_FILE_TYPE_DIRECTORY ||
+		    (g_file_info_get_file_type (repo_finfo) == G_FILE_TYPE_SYMBOLIC_LINK &&
+		     g_file_test (repo_fname, G_FILE_TEST_IS_DIR))) {
 			g_autoptr(GFileEnumerator) repo_direnum = NULL;
 			g_autoptr(GFile) repo_dir = NULL;
 
@@ -600,17 +602,21 @@ as_pool_register_flatpak_dir (AsPool *pool, const gchar *flatpak_root_dir, AsCom
 				}
 				if (repo_arch_finfo == NULL)
 					break;
-				if (g_file_info_get_file_type (repo_arch_finfo) !=
-				    G_FILE_TYPE_DIRECTORY)
-					continue;
 
 				arch_name = g_file_info_get_name (repo_arch_finfo);
-
-				/* add the Flatpak AppStream metadata dir */
 				fp_appstream_dir = g_build_filename (repo_fname,
 								     arch_name,
 								     "active",
 								     NULL);
+
+				if (g_file_info_get_file_type (repo_arch_finfo) !=
+					G_FILE_TYPE_DIRECTORY &&
+				    (g_file_info_get_file_type (repo_arch_finfo) !=
+					 G_FILE_TYPE_SYMBOLIC_LINK &&
+				     !g_file_test (fp_appstream_dir, G_FILE_TEST_IS_DIR)))
+					continue;
+
+				/* add the Flatpak AppStream metadata dir */
 				fp_appstream_icons_dir = g_build_filename (fp_appstream_dir,
 									   "icons",
 									   NULL);

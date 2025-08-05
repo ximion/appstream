@@ -392,7 +392,9 @@ as_cache_remove_old_data_from_dir (AsCache *cache, const gchar *cache_dir)
 		fname_full = g_build_filename (cache_dir, g_file_info_get_name (finfo), NULL);
 
 		/* jump one directory deeper */
-		if (g_file_info_get_file_type (finfo) == G_FILE_TYPE_DIRECTORY) {
+		if (g_file_info_get_file_type (finfo) == G_FILE_TYPE_DIRECTORY ||
+		    (g_file_info_get_file_type (finfo) == G_FILE_TYPE_SYMBOLIC_LINK &&
+		     g_file_test (fname_full, G_FILE_TEST_IS_DIR))) {
 			g_autoptr(GFileEnumerator) sd_direnum = NULL;
 			g_autoptr(GFile) sd_cdir = NULL;
 
