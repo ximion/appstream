@@ -26,8 +26,6 @@
 #include <glib-object.h>
 #include <gio/gio.h>
 
-#include "asc-font.h"
-
 G_BEGIN_DECLS
 
 #define ASC_TYPE_CANVAS (asc_canvas_get_type ())
