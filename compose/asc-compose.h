@@ -114,7 +114,7 @@ typedef void (*AscCheckMetadataEarlyFn) (AscResult *cres, const AscUnit *unit, g
  *
  * Returns: (not nullable) (transfer full): A new #GPtrArray containing the translation mapping.
  */
-typedef GPtrArray *(*AscTranslateDesktopTextFn) (const GKeyFile *de,
+typedef GPtrArray *(*AscTranslateDesktopTextFn) (GKeyFile *de,
 						 const gchar	*text,
 						 gpointer	 user_data);
 
