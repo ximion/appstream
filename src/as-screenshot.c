@@ -367,7 +367,7 @@ GPtrArray *
 as_screenshot_get_videos_all (AsScreenshot *screenshot)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
-	return priv->images;
+	return priv->videos;
 }
 
 /**
