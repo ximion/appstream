@@ -26,6 +26,20 @@
 #include "as-macros.h"
 
 G_BEGIN_DECLS
+
+#ifdef _MSC_VER
+
+#define AS_BEGIN_PRIVATE_DECLS G_BEGIN_DECLS
+#define AS_END_PRIVATE_DECLS G_END_DECLS
+
+#ifdef AS_STATIC
+# define AS_INTERNAL_VISIBLE
+#else
+# define AS_INTERNAL_VISIBLE __declspec(dllexport)
+#endif
+
+#else
+
 #pragma GCC visibility push(hidden)
 
 #define AS_BEGIN_PRIVATE_DECLS \
@@ -35,6 +49,8 @@ G_BEGIN_DECLS
 #define AS_END_PRIVATE_DECLS _Pragma ("GCC visibility pop") G_END_DECLS
 
 #define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
+
+#endif
 
 /**
  * as_str_equal0:
@@ -107,7 +123,10 @@ G_BEGIN_DECLS
 	}                                                  \
 	G_STMT_END
 
+#ifndef _MSC_VER
 #pragma GCC visibility pop
+#endif
+
 G_END_DECLS
 
 #endif /* __AS_MACROS_PRIVATE_H */
