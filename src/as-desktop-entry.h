@@ -29,9 +29,9 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-typedef GPtrArray *(*AsTranslateDesktopTextFn) (GKeyFile *de,
-						const gchar    *text,
-						gpointer	user_data);
+typedef GPtrArray *(*AsTranslateDesktopTextFn) (GKeyFile    *de,
+						const gchar *text,
+						gpointer     user_data);
 
 AS_INTERNAL_VISIBLE
 gboolean as_desktop_entry_parse_data (AsComponent	      *cpt,

@@ -450,7 +450,7 @@ gboolean
 as_screenshot_is_valid (AsScreenshot *screenshot)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
-	return priv->images->len > 0;
+	return priv->images->len > 0 || priv->videos->len > 0;
 }
 
 /**
