@@ -1,3 +1,26 @@
+Version 1.0.6
+~~~~~~~~~~~~~
+Released: 2025-08-14
+
+Features:
+ * compose: Accept .ttc font files
+ * compose: Give font icons a background shape
+ * compose: Render more elaborate font sample cards
+
+Bugfixes:
+ * compose: Insert screenshot tags for auto-generated font screenshots
+ * compose: Trim substring when truncating font sample text
+ * meson: don't override appstreamcli when cross-building
+ * compose: Prefer rendering font icon with "Regular" style
+ * compose: Sanitize font text samples before using them as icon
+ * Follow directory symlinks when looking for Flatpak data
+ * compose: Drop bad private-header include in public header
+ * compose: Drop unneeded const declaration for GKeyFile
+ * Fix typo that prevented video metadata from being composed properly
+
+Contributors:
+ Joey Riches, Marc-André Lureau, Matthias Klumpp
+
 Version 1.0.5
 ~~~~~~~~~~~~~
 Released: 2025-04-24
