@@ -38,10 +38,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2025-04-23 17:26+0200\n"
+"POT-Creation-Date: 2025-08-14 16:47+0200\n"
 "PO-Revision-Date: 2025-06-29 17:01+0000\n"
 "Last-Translator: DP <dprietob@users.noreply.hosted.weblate.org>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
+"translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,7 +91,7 @@ msgstr ""
 "software que proporciona un manejador Mediatype específico o para instalar "
 "software por su identificador de componente."
 
-#: src/as-cache.c:904
+#: src/as-cache.c:906
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "La zona de almacenamiento temporal «%s» no es de escritura."
@@ -1006,19 +1007,19 @@ msgstr ""
 
 #. TRANSLATORS: Name of the "Cinnamon" desktop environment.
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
-#: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:77
+#: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:79
 msgid "Cinnamon"
 msgstr "Cinnamon"
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
-#: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:79
+#: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:81
 msgid "Deepin"
 msgstr "Deepin"
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
-#: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:81
+#: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:83
 msgid "EDE"
 msgstr "EDE"
 
@@ -1029,7 +1030,7 @@ msgstr "Endless"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
-#: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:83
+#: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
 msgid "GNOME"
 msgstr "GNOME"
 
@@ -1037,19 +1038,19 @@ msgstr "GNOME"
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
 #. TRANSLATORS: Name of the "plasma" visual environment style.
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
-#: src/as-desktop-env-data.h:99
+#: src/as-desktop-env-data.h:103
 msgid "KDE Plasma"
 msgstr "KDE Plasma"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
-#: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:87
+#: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:91
 msgid "LXDE"
 msgstr "LXDE"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
-#: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:89
+#: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:93
 msgid "LXQt"
 msgstr "LXQt"
 
@@ -1060,13 +1061,13 @@ msgstr "MATE"
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
-#: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:95
+#: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:99
 msgid "Pantheon"
 msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
-#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:107
+#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:111
 msgid "Razor"
 msgstr "Razor"
 
@@ -1077,58 +1078,68 @@ msgstr "ROX"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
-#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:111
+#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:115
 msgid "Unity"
 msgstr "Unity"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
-#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:115
+#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:119
 msgid "Xfce"
 msgstr "Xfce"
 
+#. TRANSLATORS: Name of the "android" visual environment style.
+#: src/as-desktop-env-data.h:77
+msgid "Android"
+msgstr ""
+
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
-#: src/as-desktop-env-data.h:85
+#: src/as-desktop-env-data.h:87
 msgid "GNOME (Dark)"
 msgstr "GNOME (Oscuro)"
 
+#. TRANSLATORS: Name of the "ios" visual environment style.
+#: src/as-desktop-env-data.h:89
+msgid "iOS"
+msgstr ""
+
 #. TRANSLATORS: Name of the "macos" visual environment style.
-#: src/as-desktop-env-data.h:91
+#: src/as-desktop-env-data.h:95
 msgid "macOS"
 msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
-#: src/as-desktop-env-data.h:93
+#: src/as-desktop-env-data.h:97
 msgid "Mate"
 msgstr "Mate"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
-#: src/as-desktop-env-data.h:97
+#: src/as-desktop-env-data.h:101
 msgid "Pantheon (Dark)"
 msgstr "Pantheon (Oscuro)"
 
-#. TRANSLATORS: Name of the "plasma:dark" visual environment style.
-#: src/as-desktop-env-data.h:101
-msgid "KDE Plasma (Dark)"
-msgstr "KDE Plasma(Oscuro)"
-
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
-#: src/as-desktop-env-data.h:103
+#: src/as-desktop-env-data.h:105
 msgid "Plasma Mobile"
 msgstr "Plasma Móvil"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
-#: src/as-desktop-env-data.h:105
+#: src/as-desktop-env-data.h:107
 msgid "Plasma Mobile (Dark)"
 msgstr "Plasma Móvil (Oscuro)"
 
-#. TRANSLATORS: Name of the "rox" visual environment style.
+#. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:109
+msgid "KDE Plasma (Dark)"
+msgstr "KDE Plasma(Oscuro)"
+
+#. TRANSLATORS: Name of the "rox" visual environment style.
+#: src/as-desktop-env-data.h:113
 msgid "Rox"
 msgstr "Rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
-#: src/as-desktop-env-data.h:113
+#: src/as-desktop-env-data.h:117
 msgid "Microsoft Windows"
 msgstr "Microsoft Windows"
 
@@ -1141,25 +1152,25 @@ msgstr "Microsoft Windows"
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplicación;paquete;programa;suite;conjunto;herramienta"
 
-#: src/as-pool.c:1148
+#: src/as-pool.c:1154
 msgid "Metadata files have errors:"
 msgstr "Los archivos de metadatos tienen errores:"
 
-#: src/as-pool.c:2405
+#: src/as-pool.c:2411
 msgid "Group"
 msgstr "Grupo"
 
-#: src/as-pool.c:2460
+#: src/as-pool.c:2466
 msgid "Iconsets"
 msgstr "Conjuntos de iconos"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2508
+#: src/as-pool.c:2514
 msgid "Data from locally installed software"
 msgstr "Datos del software instalado localmente"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2511
+#: src/as-pool.c:2517
 msgid "Software catalog data"
 msgstr "Datos del catálogo de software"
 
@@ -1562,152 +1573,152 @@ msgid "GNU Affero General Public License v3.0 or later"
 msgstr "Licencia Pública General Affero de GNU v3.0 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:274
+#: src/as-spdx-data.h:282
 msgid "GNU Free Documentation License v1.1 only - invariants"
 msgstr "GNU Free Documentation License v1.1 únicamente - invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:276
+#: src/as-spdx-data.h:284
 msgid "GNU Free Documentation License v1.1 or later - invariants"
 msgstr "GNU Free Documentation License v1.1 o posterior - invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:278
+#: src/as-spdx-data.h:286
 msgid "GNU Free Documentation License v1.1 only - no invariants"
 msgstr "Sólo GNU Free Documentation License v1.1 - sin invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:280
+#: src/as-spdx-data.h:288
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
 msgstr "GNU Free Documentation License v1.1 o posterior - sin invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:282
+#: src/as-spdx-data.h:290
 msgid "GNU Free Documentation License v1.1 only"
 msgstr "Sólo GNU Free Documentation License v1.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:284
+#: src/as-spdx-data.h:292
 msgid "GNU Free Documentation License v1.1 or later"
 msgstr "GNU Free Documentation License v1.1 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:287
+#: src/as-spdx-data.h:295
 msgid "GNU Free Documentation License v1.2 only - invariants"
 msgstr "Sólo GNU Free Documentation License v1.2 - invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:289
+#: src/as-spdx-data.h:297
 msgid "GNU Free Documentation License v1.2 or later - invariants"
 msgstr "GNU Free Documentation License v1.2 o posterior - invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:291
+#: src/as-spdx-data.h:299
 msgid "GNU Free Documentation License v1.2 only - no invariants"
 msgstr "Sólo GNU Free Documentation License v1.2 - sin invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:293
+#: src/as-spdx-data.h:301
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
 msgstr "GNU Free Documentation License v1.2 o posterior - sin invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:295
+#: src/as-spdx-data.h:303
 msgid "GNU Free Documentation License v1.2 only"
 msgstr "Sólo GNU Free Documentation License v1.2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:297
+#: src/as-spdx-data.h:305
 msgid "GNU Free Documentation License v1.2 or later"
 msgstr "GNU Free Documentation License v1.2 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:300
+#: src/as-spdx-data.h:308
 msgid "GNU Free Documentation License v1.3 only - invariants"
 msgstr "Sólo GNU Free Documentation License v1.3 - invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:302
+#: src/as-spdx-data.h:310
 msgid "GNU Free Documentation License v1.3 or later - invariants"
 msgstr "GNU Free Documentation License v1.3 o posterior - invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:304
+#: src/as-spdx-data.h:312
 msgid "GNU Free Documentation License v1.3 only - no invariants"
 msgstr "Sólo GNU Free Documentation License v1.3 - sin invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:306
+#: src/as-spdx-data.h:314
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
 msgstr "GNU Free Documentation License v1.3 o posterior - sin invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:308
+#: src/as-spdx-data.h:316
 msgid "GNU Free Documentation License v1.3 only"
 msgstr "Sólo GNU Free Documentation License v1.3"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:310
+#: src/as-spdx-data.h:318
 msgid "GNU Free Documentation License v1.3 or later"
 msgstr "GNU Free Documentation License v1.3 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:314 src/as-spdx-data.h:318
+#: src/as-spdx-data.h:322 src/as-spdx-data.h:326
 msgid "GNU General Public License v1.0 only"
 msgstr "Sólo GNU General Public License v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:316 src/as-spdx-data.h:320
+#: src/as-spdx-data.h:324 src/as-spdx-data.h:328
 msgid "GNU General Public License v1.0 or later"
 msgstr "GNU General Public License v1.0 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:322 src/as-spdx-data.h:326
+#: src/as-spdx-data.h:330 src/as-spdx-data.h:334
 msgid "GNU General Public License v2.0 only"
 msgstr "Sólo GNU General Public License v2.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:324 src/as-spdx-data.h:328
+#: src/as-spdx-data.h:332 src/as-spdx-data.h:336
 msgid "GNU General Public License v2.0 or later"
 msgstr "GNU General Public License v2.0 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:335 src/as-spdx-data.h:339
+#: src/as-spdx-data.h:343 src/as-spdx-data.h:347
 msgid "GNU General Public License v3.0 only"
 msgstr "Sólo GNU General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:337 src/as-spdx-data.h:341
+#: src/as-spdx-data.h:345 src/as-spdx-data.h:349
 msgid "GNU General Public License v3.0 or later"
 msgstr "GNU General Public License v3.0 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:407 src/as-spdx-data.h:411
+#: src/as-spdx-data.h:417 src/as-spdx-data.h:421
 msgid "GNU Library General Public License v2 only"
 msgstr "Sólo GNU Library General Public License v2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:409 src/as-spdx-data.h:413
+#: src/as-spdx-data.h:419 src/as-spdx-data.h:423
 msgid "GNU Library General Public License v2 or later"
 msgstr "GNU Library General Public License v2 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:415 src/as-spdx-data.h:419
+#: src/as-spdx-data.h:425 src/as-spdx-data.h:429
 msgid "GNU Lesser General Public License v2.1 only"
 msgstr "Sólo GNU Lesser General Public License v2.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:417 src/as-spdx-data.h:421
+#: src/as-spdx-data.h:427 src/as-spdx-data.h:431
 msgid "GNU Lesser General Public License v2.1 or later"
 msgstr "GNU Lesser General Public License v2.1 o posterior"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:423 src/as-spdx-data.h:427
+#: src/as-spdx-data.h:433 src/as-spdx-data.h:437
 msgid "GNU Lesser General Public License v3.0 only"
 msgstr "Sólo GNU Lesser General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:425 src/as-spdx-data.h:429
+#: src/as-spdx-data.h:435 src/as-spdx-data.h:439
 msgid "GNU Lesser General Public License v3.0 or later"
 msgstr "GNU Lesser General Public License v3.0 o posterior"
 
@@ -1771,7 +1782,9 @@ msgstr ""
 msgid ""
 "The enumeration must not be translated as a whole. In MetaInfo files, "
 "translate individual items (<li/> elements) instead."
-msgstr "Esta enumeración no es traducible en su totalidad. Traduzca cada elemento individualmente en el archivo metainfo (elemento <li/> )."
+msgstr ""
+"Esta enumeración no es traducible en su totalidad. Traduzca cada elemento "
+"individualmente en el archivo metainfo (elemento <li/> )."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -1806,14 +1819,20 @@ msgstr ""
 msgid ""
 "The description element does not contain any valid content (paragraphs, "
 "enumerations, etc.)."
-msgstr "El elemento de la descripción no contiene ningún contenido válido (párrafos, enumeraciones, etc.)."
+msgstr ""
+"El elemento de la descripción no contiene ningún contenido válido (párrafos, "
+"enumeraciones, etc.)."
 
 #: src/as-validator-issue-tag.h:108
 msgid ""
 "The description element contains raw text that is not in any paragraph or "
 "other permitted tag. This is not allowed and the additional text may be "
 "ignored by parsers or raise errors."
-msgstr "El elemento descripción contiene texto sin formato que no está en ningún párrafo u otra etiqueta permitida. Esto no está permitido y el texto adicional puede ser ignorado por los analizadores sintácticos o generar errores."
+msgstr ""
+"El elemento descripción contiene texto sin formato que no está en ningún "
+"párrafo u otra etiqueta permitida. Esto no está permitido y el texto "
+"adicional puede ser ignorado por los analizadores sintácticos o generar "
+"errores."
 
 #: src/as-validator-issue-tag.h:114
 msgid "This tag is not translatable."
@@ -2209,14 +2228,18 @@ msgstr ""
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr "Los elementos `requires` o `recommends` necesitan un valor para indicar una relación válida."
+msgstr ""
+"Los elementos `requires` o `recommends` necesitan un valor para indicar una "
+"relación válida."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:380
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr "Se encontró la propiedad `version` en el elemento requerido/recomendado de un tipo que no debería tener ni requerir una versión."
+msgstr ""
+"Se encontró la propiedad `version` en el elemento requerido/recomendado de "
+"un tipo que no debería tener ni requerir una versión."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:386
@@ -2460,7 +2483,10 @@ msgstr ""
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr "Los iconos de tipo `stock` o `cached` no deben tener un URL o una ruta completa o relativa hacia el icono. Sólo se permiten los nombres de base o de elemento predefinido."
+msgstr ""
+"Los iconos de tipo `stock` o `cached` no deben tener un URL o una ruta "
+"completa o relativa hacia el icono. Sólo se permiten los nombres de base o "
+"de elemento predefinido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:553
@@ -2484,7 +2510,9 @@ msgstr ""
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr "Los archivos de meta-información pueden contener solo iconos de tipo `stock` o `remote`; no se permite el tipo «set»."
+msgstr ""
+"Los archivos de meta-información pueden contener solo iconos de tipo `stock` "
+"o `remote`; no se permite el tipo «set»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:575
@@ -2580,7 +2608,9 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:644
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr "El elemento hijo `name` de un bloque `developer` no puede contener un hipervínculo."
+msgstr ""
+"El elemento hijo `name` de un bloque `developer` no puede contener un "
+"hipervínculo."
 
 #: src/as-validator-issue-tag.h:649
 msgid ""
@@ -2681,7 +2711,10 @@ msgid ""
 "The component is missing an untranslated long description, but has a "
 "translated one for the English locale. You need to provide a locale-less "
 "description in English as translation template."
-msgstr "Al componente le falta una descripción larga sin traducir, pero tiene una traducida para la configuración regional inglesa. Debe proporcionar una descripción sin localización en inglés como plantilla de traducción."
+msgstr ""
+"Al componente le falta una descripción larga sin traducir, pero tiene una "
+"traducida para la configuración regional inglesa. Debe proporcionar una "
+"descripción sin localización en inglés como plantilla de traducción."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:718
@@ -2775,7 +2808,9 @@ msgstr ""
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr "Se especificó una etiqueta `extends`, pero el componente no es del tipo `addon`, `localization` o `repository`."
+msgstr ""
+"Se especificó una etiqueta `extends`, pero el componente no es del tipo "
+"`addon`, `localization` o `repository`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:779
@@ -2797,7 +2832,9 @@ msgstr ""
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
-msgstr "Este componente de `localization` no define ningún idioma para el que sea la localización."
+msgstr ""
+"Este componente de `localization` no define ningún idioma para el que sea la "
+"localización."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:797

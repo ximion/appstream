@@ -24,10 +24,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2025-04-23 17:26+0200\n"
+"POT-Creation-Date: 2025-08-14 16:47+0200\n"
 "PO-Revision-Date: 2025-06-10 23:01+0000\n"
 "Last-Translator: Kieli Puoli <kielipuoli@gmail.com>\n"
-"Language-Team: Finnish <https://hosted.weblate.org/projects/appstream/translations/fi/>\n"
+"Language-Team: Finnish <https://hosted.weblate.org/projects/appstream/"
+"translations/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,7 +64,7 @@ msgid ""
 "identifier."
 msgstr ""
 
-#: src/as-cache.c:904
+#: src/as-cache.c:906
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Välimuistin sijaintiin ”%s” ei voi kirjoittaa."
@@ -976,19 +977,19 @@ msgstr "Noudetun tiedoston koko oli nolla."
 
 #. TRANSLATORS: Name of the "Cinnamon" desktop environment.
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
-#: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:77
+#: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:79
 msgid "Cinnamon"
 msgstr ""
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
-#: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:79
+#: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:81
 msgid "Deepin"
 msgstr ""
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
-#: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:81
+#: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:83
 msgid "EDE"
 msgstr ""
 
@@ -999,7 +1000,7 @@ msgstr ""
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
-#: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:83
+#: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
 msgid "GNOME"
 msgstr "GNOME"
 
@@ -1007,19 +1008,19 @@ msgstr "GNOME"
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
 #. TRANSLATORS: Name of the "plasma" visual environment style.
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
-#: src/as-desktop-env-data.h:99
+#: src/as-desktop-env-data.h:103
 msgid "KDE Plasma"
 msgstr "KDE Plasma"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
-#: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:87
+#: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:91
 msgid "LXDE"
 msgstr "LXDE"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
-#: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:89
+#: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:93
 msgid "LXQt"
 msgstr "LXQt"
 
@@ -1030,13 +1031,13 @@ msgstr ""
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
-#: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:95
+#: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:99
 msgid "Pantheon"
 msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
-#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:107
+#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:111
 msgid "Razor"
 msgstr ""
 
@@ -1047,58 +1048,68 @@ msgstr ""
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
-#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:111
+#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:115
 msgid "Unity"
 msgstr ""
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
-#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:115
+#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:119
 msgid "Xfce"
 msgstr "Xfce"
 
+#. TRANSLATORS: Name of the "android" visual environment style.
+#: src/as-desktop-env-data.h:77
+msgid "Android"
+msgstr ""
+
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
-#: src/as-desktop-env-data.h:85
+#: src/as-desktop-env-data.h:87
 msgid "GNOME (Dark)"
 msgstr ""
 
+#. TRANSLATORS: Name of the "ios" visual environment style.
+#: src/as-desktop-env-data.h:89
+msgid "iOS"
+msgstr ""
+
 #. TRANSLATORS: Name of the "macos" visual environment style.
-#: src/as-desktop-env-data.h:91
+#: src/as-desktop-env-data.h:95
 msgid "macOS"
 msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
-#: src/as-desktop-env-data.h:93
+#: src/as-desktop-env-data.h:97
 msgid "Mate"
 msgstr ""
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
-#: src/as-desktop-env-data.h:97
+#: src/as-desktop-env-data.h:101
 msgid "Pantheon (Dark)"
 msgstr ""
 
-#. TRANSLATORS: Name of the "plasma:dark" visual environment style.
-#: src/as-desktop-env-data.h:101
-msgid "KDE Plasma (Dark)"
-msgstr ""
-
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
-#: src/as-desktop-env-data.h:103
+#: src/as-desktop-env-data.h:105
 msgid "Plasma Mobile"
 msgstr ""
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
-#: src/as-desktop-env-data.h:105
+#: src/as-desktop-env-data.h:107
 msgid "Plasma Mobile (Dark)"
 msgstr ""
 
-#. TRANSLATORS: Name of the "rox" visual environment style.
+#. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:109
+msgid "KDE Plasma (Dark)"
+msgstr ""
+
+#. TRANSLATORS: Name of the "rox" visual environment style.
+#: src/as-desktop-env-data.h:113
 msgid "Rox"
 msgstr ""
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
-#: src/as-desktop-env-data.h:113
+#: src/as-desktop-env-data.h:117
 msgid "Microsoft Windows"
 msgstr "Microsoft Windows"
 
@@ -1111,25 +1122,25 @@ msgstr "Microsoft Windows"
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 
-#: src/as-pool.c:1148
+#: src/as-pool.c:1154
 msgid "Metadata files have errors:"
 msgstr "Metadata-tiedostoissa on virheitä:"
 
-#: src/as-pool.c:2405
+#: src/as-pool.c:2411
 msgid "Group"
 msgstr ""
 
-#: src/as-pool.c:2460
+#: src/as-pool.c:2466
 msgid "Iconsets"
 msgstr ""
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2508
+#: src/as-pool.c:2514
 msgid "Data from locally installed software"
 msgstr "Paikallisesti asennetusta ohjelmistosta tulevat tiedot"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2511
+#: src/as-pool.c:2517
 msgid "Software catalog data"
 msgstr ""
 
@@ -1229,7 +1240,8 @@ msgstr "Tämän ohjelmiston syöttölaitteena on suositeltavaa olla %s."
 
 #: src/as-relation.c:1384
 msgid "This software recommends a touch input device."
-msgstr "Tämän ohjelmiston kanssa on suositeltavaa käyttää kosketussyöttölaitetta."
+msgstr ""
+"Tämän ohjelmiston kanssa on suositeltavaa käyttää kosketussyöttölaitetta."
 
 #: src/as-relation.c:1386
 msgid "This software recommends a microphone to be controlled via voice input."
@@ -1349,33 +1361,41 @@ msgstr "Löytyi seuraavan ohjelmiston tukema laitteisto: %s"
 #: src/as-relation.c:1568
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr "Järjestelmästä ei löytynyt tämän ohjelmiston edellyttämää pakollista laitteistoa: %s"
+msgstr ""
+"Järjestelmästä ei löytynyt tämän ohjelmiston edellyttämää pakollista "
+"laitteistoa: %s"
 
 #: src/as-relation.c:1573
 #, c-format
 msgid ""
 "Recommended hardware for this software was not found on this system: '%s'"
-msgstr "Järjestelmästä ei löytynyt tälle ohjelmistolle suositeltua laitteistoa: %s"
+msgstr ""
+"Järjestelmästä ei löytynyt tälle ohjelmistolle suositeltua laitteistoa: %s"
 
 #: src/as-relation.c:1578
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr "Tämä ohjelmisto tukee laitteistoa, jota ei löydy tästä järjestelmästä: %s"
+msgstr ""
+"Tämä ohjelmisto tukee laitteistoa, jota ei löydy tästä järjestelmästä: %s"
 
 #: src/as-relation.c:1617
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr "Tämä ohjelmisto edellyttää %s-ydintä, mutta järjestelmän käyttämä ydin on %s."
+msgstr ""
+"Tämä ohjelmisto edellyttää %s-ydintä, mutta järjestelmän käyttämä ydin on %s."
 
 #: src/as-relation.c:1623
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr "Tälle ohjelmistolle suositellaan %s-ydintä, mutta järjestelmän käyttämä ydin on %s."
+msgstr ""
+"Tälle ohjelmistolle suositellaan %s-ydintä, mutta järjestelmän käyttämä ydin "
+"on %s."
 
 #: src/as-relation.c:1629
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr "Tämä ohjelmisto tukee vain %s-ydintä, mutta saattaa silti toimia ytimellä %s."
+msgstr ""
+"Tämä ohjelmisto tukee vain %s-ydintä, mutta saattaa silti toimia ytimellä %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1383,7 +1403,9 @@ msgstr "Tämä ohjelmisto tukee vain %s-ydintä, mutta saattaa silti toimia ytim
 #: src/as-relation.c:1659
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr "%s %s %s on pakollinen tälle ohjelmistolle, mutta järjestelmän käytössä on %s %s."
+msgstr ""
+"%s %s %s on pakollinen tälle ohjelmistolle, mutta järjestelmän käytössä on "
+"%s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1412,7 +1434,9 @@ msgstr "Ydintä %s %s tuetaan."
 #, c-format
 msgid ""
 "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr "Tämä ohjelmisto edellyttää %s %.2f GiB:n muistia, mutta järjestelmän muisti on %.2f GiB."
+msgstr ""
+"Tämä ohjelmisto edellyttää %s %.2f GiB:n muistia, mutta järjestelmän muisti "
+"on %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
@@ -1420,7 +1444,9 @@ msgstr "Tämä ohjelmisto edellyttää %s %.2f GiB:n muistia, mutta järjestelm�
 #, c-format
 msgid ""
 "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr "Tälle ohjelmistolle suositellaan %s %.2f GiB:n muistia, mutta järjestelmän muisti on %.2f GiB."
+msgstr ""
+"Tälle ohjelmistolle suositellaan %s %.2f GiB:n muistia, mutta järjestelmän "
+"muisti on %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
@@ -1444,7 +1470,9 @@ msgstr "Tämä ohjelmisto tarvitsee graafista sisältöä."
 msgid ""
 "This software requires a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr "Tämä ohjelmisto edellyttää näyttöä, jonka leveimmän reunan koko on %s %lu pikseliä, mutta laitteen näyttö on %lu pikseliä."
+msgstr ""
+"Tämä ohjelmisto edellyttää näyttöä, jonka leveimmän reunan koko on %s %lu "
+"pikseliä, mutta laitteen näyttö on %lu pikseliä."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1504,152 +1532,152 @@ msgid "GNU Affero General Public License v3.0 or later"
 msgstr "GNU Affero General Public License v. 3.0 tai uudempi"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:274
+#: src/as-spdx-data.h:282
 msgid "GNU Free Documentation License v1.1 only - invariants"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:276
+#: src/as-spdx-data.h:284
 msgid "GNU Free Documentation License v1.1 or later - invariants"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:278
+#: src/as-spdx-data.h:286
 msgid "GNU Free Documentation License v1.1 only - no invariants"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:280
+#: src/as-spdx-data.h:288
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:282
+#: src/as-spdx-data.h:290
 msgid "GNU Free Documentation License v1.1 only"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:284
+#: src/as-spdx-data.h:292
 msgid "GNU Free Documentation License v1.1 or later"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:287
+#: src/as-spdx-data.h:295
 msgid "GNU Free Documentation License v1.2 only - invariants"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:289
+#: src/as-spdx-data.h:297
 msgid "GNU Free Documentation License v1.2 or later - invariants"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:291
+#: src/as-spdx-data.h:299
 msgid "GNU Free Documentation License v1.2 only - no invariants"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:293
+#: src/as-spdx-data.h:301
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:295
+#: src/as-spdx-data.h:303
 msgid "GNU Free Documentation License v1.2 only"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:297
+#: src/as-spdx-data.h:305
 msgid "GNU Free Documentation License v1.2 or later"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:300
+#: src/as-spdx-data.h:308
 msgid "GNU Free Documentation License v1.3 only - invariants"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:302
+#: src/as-spdx-data.h:310
 msgid "GNU Free Documentation License v1.3 or later - invariants"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:304
+#: src/as-spdx-data.h:312
 msgid "GNU Free Documentation License v1.3 only - no invariants"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:306
+#: src/as-spdx-data.h:314
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:308
+#: src/as-spdx-data.h:316
 msgid "GNU Free Documentation License v1.3 only"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:310
+#: src/as-spdx-data.h:318
 msgid "GNU Free Documentation License v1.3 or later"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:314 src/as-spdx-data.h:318
+#: src/as-spdx-data.h:322 src/as-spdx-data.h:326
 msgid "GNU General Public License v1.0 only"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:316 src/as-spdx-data.h:320
+#: src/as-spdx-data.h:324 src/as-spdx-data.h:328
 msgid "GNU General Public License v1.0 or later"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:322 src/as-spdx-data.h:326
+#: src/as-spdx-data.h:330 src/as-spdx-data.h:334
 msgid "GNU General Public License v2.0 only"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:324 src/as-spdx-data.h:328
+#: src/as-spdx-data.h:332 src/as-spdx-data.h:336
 msgid "GNU General Public License v2.0 or later"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:335 src/as-spdx-data.h:339
+#: src/as-spdx-data.h:343 src/as-spdx-data.h:347
 msgid "GNU General Public License v3.0 only"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:337 src/as-spdx-data.h:341
+#: src/as-spdx-data.h:345 src/as-spdx-data.h:349
 msgid "GNU General Public License v3.0 or later"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:407 src/as-spdx-data.h:411
+#: src/as-spdx-data.h:417 src/as-spdx-data.h:421
 msgid "GNU Library General Public License v2 only"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:409 src/as-spdx-data.h:413
+#: src/as-spdx-data.h:419 src/as-spdx-data.h:423
 msgid "GNU Library General Public License v2 or later"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:415 src/as-spdx-data.h:419
+#: src/as-spdx-data.h:425 src/as-spdx-data.h:429
 msgid "GNU Lesser General Public License v2.1 only"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:417 src/as-spdx-data.h:421
+#: src/as-spdx-data.h:427 src/as-spdx-data.h:431
 msgid "GNU Lesser General Public License v2.1 or later"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:423 src/as-spdx-data.h:427
+#: src/as-spdx-data.h:433 src/as-spdx-data.h:437
 msgid "GNU Lesser General Public License v3.0 only"
 msgstr ""
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:425 src/as-spdx-data.h:429
+#: src/as-spdx-data.h:435 src/as-spdx-data.h:439
 msgid "GNU Lesser General Public License v3.0 or later"
 msgstr ""
 
@@ -1711,7 +1739,9 @@ msgstr ""
 msgid ""
 "The description line does not start with a capitalized word, project name or "
 "number."
-msgstr "Kuvausrivi ei ala isolla kirjaimella alkavalla sanalla, projektin nimellä tai numerolla."
+msgstr ""
+"Kuvausrivi ei ala isolla kirjaimella alkavalla sanalla, projektin nimellä "
+"tai numerolla."
 
 #: src/as-validator-issue-tag.h:98
 msgid ""
@@ -1811,25 +1841,33 @@ msgstr "Komponentin tunnuksessa saa olla vain pieniä kirjaimia."
 msgid ""
 "The domain part of the rDNS component ID (first two parts) must only contain "
 "lowercase characters."
-msgstr "rDNS-komponentin tunnuksen toimialueosiossa (ensimmäiset kaksi osaa) saa olla vain pieniä kirjaimia."
+msgstr ""
+"rDNS-komponentin tunnuksen toimialueosiossa (ensimmäiset kaksi osaa) saa "
+"olla vain pieniä kirjaimia."
 
 #: src/as-validator-issue-tag.h:184
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr "Komponentti kuuluu Freedesktop-projektiin, mutta sen tunnus ei ala fd.o:n käänteisellä toimialuenimellä (\"org.freedesktop\")."
+msgstr ""
+"Komponentti kuuluu Freedesktop-projektiin, mutta sen tunnus ei ala fd.o:n "
+"käänteisellä toimialuenimellä (\"org.freedesktop\")."
 
 #: src/as-validator-issue-tag.h:189
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDE's reverse-DNS name (\"org.kde\")."
-msgstr "Komponentti kuuluu KDE-projektiin, mutta sen tunnus ei ala KDE:n käänteisellä toimialuenimellä (\"org.kde\")."
+msgstr ""
+"Komponentti kuuluu KDE-projektiin, mutta sen tunnus ei ala KDE:n "
+"käänteisellä toimialuenimellä (\"org.kde\")."
 
 #: src/as-validator-issue-tag.h:194
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr "Komponentti kuuluu GNOME-projektiin, mutta sen tunnus ei ala GNOMEn käänteisellä toimialuenimellä (\"org.gnome\")."
+msgstr ""
+"Komponentti kuuluu GNOME-projektiin, mutta sen tunnus ei ala GNOMEn "
+"käänteisellä toimialuenimellä (\"org.gnome\")."
 
 #: src/as-validator-issue-tag.h:199
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1840,7 +1878,10 @@ msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr "Lisenssin tunnusta ei löytynyt SPDX-tietokannasta. Varmista, että lisenssin tunnus on kirjoitettu SPDX:n kanssa yhteensopivalla tavalla ja että se on kelvollinen maksuttomien ohjelmistojen lisenssi."
+msgstr ""
+"Lisenssin tunnusta ei löytynyt SPDX-tietokannasta. Varmista, että lisenssin "
+"tunnus on kirjoitettu SPDX:n kanssa yhteensopivalla tavalla ja että se on "
+"kelvollinen maksuttomien ohjelmistojen lisenssi."
 
 #: src/as-validator-issue-tag.h:210
 msgid ""
@@ -1932,7 +1973,9 @@ msgstr "Näyttökuvaa ei löydy etähakemistosta. Onko kuva varmasti olemassa?"
 msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
-msgstr "Näyttötallennetta ei löydy etähakemistosta. Onko videotiedosto varmasti olemassa?"
+msgstr ""
+"Näyttötallennetta ei löydy etähakemistosta. Onko videotiedosto varmasti "
+"olemassa?"
 
 #: src/as-validator-issue-tag.h:299
 msgid ""
@@ -2162,7 +2205,9 @@ msgstr "Komponentilta puuttuu nimi (<name/>-tunniste)."
 msgid ""
 "The name of this component is excessively long and can likely not be "
 "displayed properly in most layouts."
-msgstr "Komponentin nimi on liian pitkä eikä todennäköisesti näy kunnolla useimmissa näkymissä."
+msgstr ""
+"Komponentin nimi on liian pitkä eikä todennäköisesti näy kunnolla useimmissa "
+"näkymissä."
 
 #: src/as-validator-issue-tag.h:500
 msgid "The component is missing a summary (<summary/> tag)."
@@ -2183,7 +2228,8 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:515
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr "Komponentin nimen ei (todennäköisesti) tulisi päättyä pisteeseen (`.`)."
+msgstr ""
+"Komponentin nimen ei (todennäköisesti) tulisi päättyä pisteeseen (`.`)."
 
 #: src/as-validator-issue-tag.h:520
 msgid "The component summary should not end with a dot (`.`)."
@@ -2195,7 +2241,9 @@ msgstr "Komponentin yhteenvedossa ei saa olla sarkaimia eikä rivinvaihtoja."
 
 #: src/as-validator-issue-tag.h:530
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr "Yhteenvedossa ei saa olla URL-osoitteita. Käytä linkeille `<url/>`-tunnisteita."
+msgstr ""
+"Yhteenvedossa ei saa olla URL-osoitteita. Käytä linkeille `<url/>`-"
+"tunnisteita."
 
 #: src/as-validator-issue-tag.h:535
 msgid ""
@@ -2259,7 +2307,9 @@ msgstr "Tälle arvolle odotettiin tulokseksi verkko-osoitetta."
 #: src/as-validator-issue-tag.h:595
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr "Tässä verkkolinkissä käytetään FTP-protokollaa. Kannattaa harkita HTTP(S)-protokollaan vaihtamista."
+msgstr ""
+"Tässä verkkolinkissä käytetään FTP-protokollaa. Kannattaa harkita HTTP(S)-"
+"protokollaan vaihtamista."
 
 #: src/as-validator-issue-tag.h:600
 msgid "An URL of this type has already been defined."
@@ -2321,7 +2371,8 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:655
 msgid "This `launchable` tag has an unknown type and can not be used."
-msgstr "Tämän `launchable`-tunnisteen tyyppi on tuntematon eikä sitä voi käyttää."
+msgstr ""
+"Tämän `launchable`-tunnisteen tyyppi on tuntematon eikä sitä voi käyttää."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:661
@@ -2361,25 +2412,33 @@ msgstr ""
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
-msgstr "Komponentilta puuttuu pitkä kuvaus. Tämäntyyppisillä komponenteilla on oltava pitkä kuvaus."
+msgstr ""
+"Komponentilta puuttuu pitkä kuvaus. Tämäntyyppisillä komponenteilla on "
+"oltava pitkä kuvaus."
 
 #: src/as-validator-issue-tag.h:696
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
-msgstr "Tälle fontille kannattaisi antaa pitkä kuvaus, jotta käyttäjät saisivat siitä paremman kuvan."
+msgstr ""
+"Tälle fontille kannattaisi antaa pitkä kuvaus, jotta käyttäjät saisivat "
+"siitä paremman kuvan."
 
 #: src/as-validator-issue-tag.h:701
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
-msgstr "Tälle komponentille on suositeltavaa antaa pitkä kuvaus, jotta käyttäjät saisivat siitä paremman kuvan."
+msgstr ""
+"Tälle komponentille on suositeltavaa antaa pitkä kuvaus, jotta käyttäjät "
+"saisivat siitä paremman kuvan."
 
 #: src/as-validator-issue-tag.h:706
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
-msgstr "Tällä peruskomponentilla ei ole pitkää kuvausta. Sellainen kannattaa ehkä lisätä."
+msgstr ""
+"Tällä peruskomponentilla ei ole pitkää kuvausta. Sellainen kannattaa ehkä "
+"lisätä."
 
 #: src/as-validator-issue-tag.h:711
 msgid ""
@@ -2420,21 +2479,27 @@ msgstr ""
 #: src/as-validator-issue-tag.h:743
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr "Tältä `web-application`-komponentilta puuttuu `launchable`-tunniste, jonka tyyppi on `url`."
+msgstr ""
+"Tältä `web-application`-komponentilta puuttuu `launchable`-tunniste, jonka "
+"tyyppi on `url`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:749
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
-msgstr "Tältä `web-application`-komponentilta puuttuu kelvollisten kuvakkeiden määrittelyyn käytettävä `icon`-tunniste."
+msgstr ""
+"Tältä `web-application`-komponentilta puuttuu kelvollisten kuvakkeiden "
+"määrittelyyn käytettävä `icon`-tunniste."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:755
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
-msgstr "Tältä `web-application`-komponentilta puuttuu luokituksia. `categories`-lohko todennäköisesti puuttuu."
+msgstr ""
+"Tältä `web-application`-komponentilta puuttuu luokituksia. `categories`-"
+"lohko todennäköisesti puuttuu."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:761
@@ -2460,7 +2525,8 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:779
 msgid "The component is an addon, but no `extends` tag was specified."
-msgstr "Komponentti on lisäosa, mutta sille ei ole annettu `extends`-tunnistetta."
+msgstr ""
+"Komponentti on lisäosa, mutta sille ei ole annettu `extends`-tunnistetta."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:785
@@ -2553,7 +2619,9 @@ msgstr ".desktop-tiedostoa ei voida lukea: %s"
 
 #: src/as-validator-issue-tag.h:867
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr "Tämän komponentin metatiedot viittaavat .desktop-tiedostoon, jota ei ole olemassa."
+msgstr ""
+"Tämän komponentin metatiedot viittaavat .desktop-tiedostoon, jota ei ole "
+"olemassa."
 
 #: src/as-validator-issue-tag.h:872
 msgid ""
@@ -2594,7 +2662,8 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:904
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr "Tästä hakemistosta tai hakemistorakenteesta ei löydy AppStream-metatietoja."
+msgstr ""
+"Tästä hakemistosta tai hakemistorakenteesta ei löydy AppStream-metatietoja."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:909
@@ -2985,7 +3054,9 @@ msgstr "Näytä ohjelmaversio."
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:219
 msgid "Do not use the network at all, not even for URL validity checks."
-msgstr "Älä käytä verkkoyhteyttä lainkaan - edes URL-osoitteiden kelvollisuuden tarkistuksiin."
+msgstr ""
+"Älä käytä verkkoyhteyttä lainkaan - edes URL-osoitteiden kelvollisuuden "
+"tarkistuksiin."
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:226
@@ -3180,7 +3251,8 @@ msgstr "Manuaalisesti valittu AppStreamin skannattavan metadatan hakemisto."
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:75
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr "Ohita välimuistin ikä ja luo uusi välimuisti ennen kyselyn suorittamista."
+msgstr ""
+"Ohita välimuistin ikä ja luo uusi välimuisti ennen kyselyn suorittamista."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:91
@@ -3211,7 +3283,9 @@ msgstr "Älä käytä verkkoyhteyttä."
 #: tools/appstreamcli.c:149
 msgid ""
 "Fail validation if any issue is emitted that is not of pedantic severity."
-msgstr "Hylkää vahvistus, jos jokin muu kuin pedanttisen vakavuustason ongelma ilmenee."
+msgstr ""
+"Hylkää vahvistus, jos jokin muu kuin pedanttisen vakavuustason ongelma "
+"ilmenee."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:155
@@ -3307,7 +3381,8 @@ msgstr ""
 #: tools/appstreamcli.c:836
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr "Parametrien vertailu edellyttää vähintään kahden versionumeron antamista."
+msgstr ""
+"Parametrien vertailu edellyttää vähintään kahden versionumeron antamista."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:865
@@ -3319,7 +3394,9 @@ msgstr "Tuntematon vertailusuhde ”%s”. Seuraavat ovat kelvollisia arvoja:"
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr "Liian monta parametria: tarvitaan joko kaksi versionumeroa tai versionumerot ja vertailuoperaattori."
+msgstr ""
+"Liian monta parametria: tarvitaan joko kaksi versionumeroa tai versionumerot "
+"ja vertailuoperaattori."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:932

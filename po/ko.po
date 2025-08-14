@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2025-04-23 17:26+0200\n"
+"POT-Creation-Date: 2025-08-14 16:47+0200\n"
 "PO-Revision-Date: 2023-12-23 14:15+0000\n"
 "Last-Translator: 박기준 <kei0108@ajou.ac.kr>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/appstream/"
@@ -77,7 +77,7 @@ msgstr ""
 "로 소프트웨어를 설치하기 위해 시스템 메타데이터 풀에 쉽게 액세스할 수 있습니"
 "다."
 
-#: src/as-cache.c:904
+#: src/as-cache.c:906
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "'%s' 캐시 위치에 기록할 수 없습니다."
@@ -984,7 +984,7 @@ msgstr "검색된 파일 크기가 0입니다."
 
 #. TRANSLATORS: Name of the "Cinnamon" desktop environment.
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
-#: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:77
+#: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:79
 msgid "Cinnamon"
 msgstr ""
 "시나몬(리눅스 및 유닉스 계열 운영 체제를 위한 자유로운 오픈 소스 데스크톱 환"
@@ -992,13 +992,13 @@ msgstr ""
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
-#: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:79
+#: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:81
 msgid "Deepin"
 msgstr "딥인 (직관적인 UI를 갖춘 데스크탑 환경)"
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
-#: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:81
+#: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:83
 msgid "EDE"
 msgstr ""
 "Equinox Desktop Environment의 약자로 단순하고 빠르다는 뜻의 조그마한 데스크"
@@ -1012,7 +1012,7 @@ msgstr "번들"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
-#: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:83
+#: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
 msgid "GNOME"
 msgstr ""
 "GNU Network Object Model Environment의 약자로 Linux의 GTK 라이브러리를 사용"
@@ -1022,7 +1022,7 @@ msgstr ""
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
 #. TRANSLATORS: Name of the "plasma" visual environment style.
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
-#: src/as-desktop-env-data.h:99
+#: src/as-desktop-env-data.h:103
 msgid "KDE Plasma"
 msgstr ""
 "그냥 KDE라고도 불리며 K Desktop Environment의 약자로 독일을 중심으로 한 인터"
@@ -1030,7 +1030,7 @@ msgstr ""
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
-#: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:87
+#: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:91
 msgid "LXDE"
 msgstr ""
 "Lightweight X11 Desktop Environment의 약자로유닉스와 POSIX 호환 플랫폼(리눅스"
@@ -1038,7 +1038,7 @@ msgstr ""
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
-#: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:89
+#: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:93
 msgid "LXQt"
 msgstr ""
 "완전한 데스크톱 환경을 제공하는 것을 목표로 하는, 개발 중인 소프트웨어 패키지"
@@ -1053,13 +1053,13 @@ msgstr ""
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
-#: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:95
+#: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:99
 msgid "Pantheon"
 msgstr "판테온은 사용자 친화적인 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
-#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:107
+#: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:111
 msgid "Razor"
 msgstr "단종된 무료 및 오픈 소스 데스크톱 환경"
 
@@ -1070,66 +1070,76 @@ msgstr "X 윈도 시스템을 위한 그래픽 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
-#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:111
+#: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:115
 msgid "Unity"
 msgstr "가장 유명한 리눅스 배포판인 우분투의 기본 데스크탑 환경"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
-#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:115
+#: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:119
 msgid "Xfce"
 msgstr "UNIX 계열 운영체제를 위해서 개발된 가벼운 데스크톱 환경"
 
+#. TRANSLATORS: Name of the "android" visual environment style.
+#: src/as-desktop-env-data.h:77
+msgid "Android"
+msgstr ""
+
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
-#: src/as-desktop-env-data.h:85
+#: src/as-desktop-env-data.h:87
 msgid "GNOME (Dark)"
 msgstr ""
 "GNU Network Object Model Environment의 약자로 Linux의 GTK 라이브러리를 사용"
 "한 오픈 소스 GUI 데스크톱 환경의 다크모드"
 
+#. TRANSLATORS: Name of the "ios" visual environment style.
+#: src/as-desktop-env-data.h:89
+msgid "iOS"
+msgstr ""
+
 #. TRANSLATORS: Name of the "macos" visual environment style.
-#: src/as-desktop-env-data.h:91
+#: src/as-desktop-env-data.h:95
 msgid "macOS"
 msgstr "Apple의 Mac에 쓰였던 운영 체제"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
-#: src/as-desktop-env-data.h:93
+#: src/as-desktop-env-data.h:97
 msgid "Mate"
 msgstr ""
 "Linux, BSD 및 illusmos 운영 체제에서 실행되는 무료 오픈 소스 소프트웨어로 구"
 "성된 데스크탑 환경"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
-#: src/as-desktop-env-data.h:97
+#: src/as-desktop-env-data.h:101
 #, fuzzy
 msgid "Pantheon (Dark)"
 msgstr "판테온은 사용자 친화적인 데스크톱 환경"
 
+#. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
+#: src/as-desktop-env-data.h:105
+msgid "Plasma Mobile"
+msgstr ""
+
+#. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
+#: src/as-desktop-env-data.h:107
+msgid "Plasma Mobile (Dark)"
+msgstr ""
+
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
-#: src/as-desktop-env-data.h:101
+#: src/as-desktop-env-data.h:109
 #, fuzzy
 msgid "KDE Plasma (Dark)"
 msgstr ""
 "그냥 KDE라고도 불리며 K Desktop Environment의 약자로 독일을 중심으로 한 인터"
 "내셔널 오픈소스 소프트웨어 커뮤니티"
 
-#. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
-#: src/as-desktop-env-data.h:103
-msgid "Plasma Mobile"
-msgstr ""
-
-#. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
-#: src/as-desktop-env-data.h:105
-msgid "Plasma Mobile (Dark)"
-msgstr ""
-
 #. TRANSLATORS: Name of the "rox" visual environment style.
-#: src/as-desktop-env-data.h:109
+#: src/as-desktop-env-data.h:113
 msgid "Rox"
 msgstr "X 윈도 시스템을 위한 그래픽 데스크톱 환경"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
-#: src/as-desktop-env-data.h:113
+#: src/as-desktop-env-data.h:117
 msgid "Microsoft Windows"
 msgstr "Microsoft에서 개발한 컴퓨터 GUI 운영체제, 윈도우"
 
@@ -1144,25 +1154,25 @@ msgstr ""
 "app;application;package;program;programme;suite;tool;앱;애플리케이션;패키지;"
 "프로그램;모음;도구;응용프로그램"
 
-#: src/as-pool.c:1148
+#: src/as-pool.c:1154
 msgid "Metadata files have errors:"
 msgstr "메타데이터 파일에 오류가 있습니다:"
 
-#: src/as-pool.c:2405
+#: src/as-pool.c:2411
 msgid "Group"
 msgstr "그룹"
 
-#: src/as-pool.c:2460
+#: src/as-pool.c:2466
 msgid "Iconsets"
 msgstr "아이콘셋"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2508
+#: src/as-pool.c:2514
 msgid "Data from locally installed software"
 msgstr "위치상 설치된 소프트웨어의 데이터"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2511
+#: src/as-pool.c:2517
 msgid "Software catalog data"
 msgstr "소프트웨어 카탈로그 데이터"
 
@@ -1555,152 +1565,152 @@ msgid "GNU Affero General Public License v3.0 or later"
 msgstr "GNU 아페로 일반 공중 사용 허가서 v3.0 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:274
+#: src/as-spdx-data.h:282
 msgid "GNU Free Documentation License v1.1 only - invariants"
 msgstr "오직 GNU 무료 문서 라이센스 v1.1 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:276
+#: src/as-spdx-data.h:284
 msgid "GNU Free Documentation License v1.1 or later - invariants"
 msgstr "GNU 무료 문서 라이센스 v1.1 혹은 이후 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:278
+#: src/as-spdx-data.h:286
 msgid "GNU Free Documentation License v1.1 only - no invariants"
 msgstr "오직 GNU 무료 문서 라이센스 v1.1 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:280
+#: src/as-spdx-data.h:288
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
 msgstr "GNU 무료 문서 라이센스 v1.1 혹은 이후 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:282
+#: src/as-spdx-data.h:290
 msgid "GNU Free Documentation License v1.1 only"
 msgstr "오직 GNU 무료 문서 라이센스 v1.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:284
+#: src/as-spdx-data.h:292
 msgid "GNU Free Documentation License v1.1 or later"
 msgstr "GNU 자유 문서 라이센스 v1.1 또는 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:287
+#: src/as-spdx-data.h:295
 msgid "GNU Free Documentation License v1.2 only - invariants"
 msgstr "오직 GNU 무료 문서 라이센스 v1.2 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:289
+#: src/as-spdx-data.h:297
 msgid "GNU Free Documentation License v1.2 or later - invariants"
 msgstr "GNU 무료 문서 라이센스 v1.2 또는 이후 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:291
+#: src/as-spdx-data.h:299
 msgid "GNU Free Documentation License v1.2 only - no invariants"
 msgstr "오직 GNU 무료 문서 라이센스 v1.2 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:293
+#: src/as-spdx-data.h:301
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
 msgstr "GNU 무료 문서 라이센스 v1.2 혹은 이후 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:295
+#: src/as-spdx-data.h:303
 msgid "GNU Free Documentation License v1.2 only"
 msgstr "오직 GNU 무료 문서 라이센스 v1.2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:297
+#: src/as-spdx-data.h:305
 msgid "GNU Free Documentation License v1.2 or later"
 msgstr "GNU 무료 문서 라이센스 v1.2 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:300
+#: src/as-spdx-data.h:308
 msgid "GNU Free Documentation License v1.3 only - invariants"
 msgstr "오직 GNU 무료 문서 라이센스 v1.3 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:302
+#: src/as-spdx-data.h:310
 msgid "GNU Free Documentation License v1.3 or later - invariants"
 msgstr "GNU 무료 문서 라이센스 v1.3 혹은 이후 - 불변속성"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:304
+#: src/as-spdx-data.h:312
 msgid "GNU Free Documentation License v1.3 only - no invariants"
 msgstr "오직 GNU 무료 문서 라이센스 v1.3 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:306
+#: src/as-spdx-data.h:314
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
 msgstr "GNU 무료 문서 라이센스 v1.3 혹은 그 이후 - 불변속성 없음"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:308
+#: src/as-spdx-data.h:316
 msgid "GNU Free Documentation License v1.3 only"
 msgstr "오직 GNU 무료 문서 라이센스 v1.3"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:310
+#: src/as-spdx-data.h:318
 msgid "GNU Free Documentation License v1.3 or later"
 msgstr "GNU 무료 문서 라이센스 v1.3 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:314 src/as-spdx-data.h:318
+#: src/as-spdx-data.h:322 src/as-spdx-data.h:326
 msgid "GNU General Public License v1.0 only"
 msgstr "오직 GNU 일반 공용 허가서 v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:316 src/as-spdx-data.h:320
+#: src/as-spdx-data.h:324 src/as-spdx-data.h:328
 msgid "GNU General Public License v1.0 or later"
 msgstr "GNU 일반 공용 허가서 v1.0 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:322 src/as-spdx-data.h:326
+#: src/as-spdx-data.h:330 src/as-spdx-data.h:334
 msgid "GNU General Public License v2.0 only"
 msgstr "오직 GNU 일반 공용 허가서 v2.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:324 src/as-spdx-data.h:328
+#: src/as-spdx-data.h:332 src/as-spdx-data.h:336
 msgid "GNU General Public License v2.0 or later"
 msgstr "GNU 일반 공용 허가서 v2.0 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:335 src/as-spdx-data.h:339
+#: src/as-spdx-data.h:343 src/as-spdx-data.h:347
 msgid "GNU General Public License v3.0 only"
 msgstr "오직 GNU 일반 공용 허가서 v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:337 src/as-spdx-data.h:341
+#: src/as-spdx-data.h:345 src/as-spdx-data.h:349
 msgid "GNU General Public License v3.0 or later"
 msgstr "GNU 일반 공용 허가서 v3.0 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:407 src/as-spdx-data.h:411
+#: src/as-spdx-data.h:417 src/as-spdx-data.h:421
 msgid "GNU Library General Public License v2 only"
 msgstr "오직 GNU 일반 공용 허가서 v2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:409 src/as-spdx-data.h:413
+#: src/as-spdx-data.h:419 src/as-spdx-data.h:423
 msgid "GNU Library General Public License v2 or later"
 msgstr "GNU 일반 공용 허가서 v2 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:415 src/as-spdx-data.h:419
+#: src/as-spdx-data.h:425 src/as-spdx-data.h:429
 msgid "GNU Lesser General Public License v2.1 only"
 msgstr "오직 GNU 일반 공용 허가서 v2.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:417 src/as-spdx-data.h:421
+#: src/as-spdx-data.h:427 src/as-spdx-data.h:431
 msgid "GNU Lesser General Public License v2.1 or later"
 msgstr "GNU 일반 공용 허가서 v2.1 혹은 이후"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:423 src/as-spdx-data.h:427
+#: src/as-spdx-data.h:433 src/as-spdx-data.h:437
 msgid "GNU Lesser General Public License v3.0 only"
 msgstr "오직 GNU 일반 공용 허가서 v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:425 src/as-spdx-data.h:429
+#: src/as-spdx-data.h:435 src/as-spdx-data.h:439
 msgid "GNU Lesser General Public License v3.0 or later"
 msgstr "GNU 일반 공용 허가서 v3.0 혹은 이후"
 
