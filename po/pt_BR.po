@@ -37,16 +37,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-08-14 16:47+0200\n"
-"PO-Revision-Date: 2025-04-24 15:21+0000\n"
+"PO-Revision-Date: 2025-08-15 03:02+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"appstream/translations/pt_BR/>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.11.1-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1093,7 +1092,7 @@ msgstr "Xfce"
 #. TRANSLATORS: Name of the "android" visual environment style.
 #: src/as-desktop-env-data.h:77
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
@@ -1103,7 +1102,7 @@ msgstr "GNOME (Escuro)"
 #. TRANSLATORS: Name of the "ios" visual environment style.
 #: src/as-desktop-env-data.h:89
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:95
@@ -1248,16 +1247,15 @@ msgstr "Este software requer um dispositivo do tipo '%s' como entrada."
 
 #: src/as-relation.c:1368
 msgid "This software requires a touch input device."
-msgstr "Este software requer um dispositivo com controle à toque."
+msgstr "Este software requer um dispositivo com controle por toque."
 
 #: src/as-relation.c:1370
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
-"Este programa precisa um microfone para ser controlado via entrada de voz."
+msgstr "Este software requer um microfone para ser controlado via entrada de voz."
 
 #: src/as-relation.c:1372
 msgid "This software requires a camera for input control."
-msgstr "Este programa precisa uma câmera para o controle de entrada."
+msgstr "Este software requer uma câmera para o controle de entrada."
 
 #: src/as-relation.c:1374
 msgid "This software requires a method for console input."
@@ -1272,16 +1270,15 @@ msgstr ""
 
 #: src/as-relation.c:1384
 msgid "This software recommends a touch input device."
-msgstr "Este programa recomenda um dispositivo de entrada de touch."
+msgstr "Este software recomenda um dispositivo de entrada por toque."
 
 #: src/as-relation.c:1386
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
-"Este programa recomenda um microfone para ser controlado via entrada de voz."
+msgstr "Este software recomenda um microfone para ser controlado via entrada de voz."
 
 #: src/as-relation.c:1388
 msgid "This software recommends a camera for input control."
-msgstr "Este programa recomenda uma câmera para o controle de entrada."
+msgstr "Este software recomenda uma câmera para o controle de entrada."
 
 #: src/as-relation.c:1390
 msgid "This software recommends a method for console input."
@@ -1315,15 +1312,15 @@ msgstr "Este software suporta %s."
 
 #: src/as-relation.c:1411
 msgid "This software supports touch input."
-msgstr "Este software suporta controle à toque."
+msgstr "Este software suporta controle por toque."
 
 #: src/as-relation.c:1413
 msgid "This software can be controlled via voice input."
-msgstr "Este programa pode ser controlado via entrada de voz."
+msgstr "Este software pode ser controlado via entrada de voz."
 
 #: src/as-relation.c:1415
 msgid "This software can be controlled via a camera."
-msgstr "Este programa pode ser controlado via câmera."
+msgstr "Este software pode ser controlado via câmera."
 
 #: src/as-relation.c:1418
 msgid "This software supports operation via console commands."
@@ -1351,7 +1348,7 @@ msgstr "Mesa digitalizadora encontrada."
 
 #: src/as-relation.c:1442
 msgid "Touch input device found."
-msgstr "Dispositivo com entrada à toque encontrado."
+msgstr "Dispositivo com entrada por toque encontrado."
 
 #: src/as-relation.c:1444
 msgid "Microphone for voice input control found."
