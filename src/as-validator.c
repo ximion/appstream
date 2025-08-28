@@ -188,7 +188,7 @@ as_validator_add_issue (AsValidator *validator,
 	const gchar *explanation;
 	AsIssueSeverity severity;
 	g_autofree gchar *location = NULL;
-	AsValidatorIssue *issue;
+	g_autoptr(AsValidatorIssue) issue = NULL;
 	gchar *id_str;
 	const AsValidatorIssueTag *tag_data = g_hash_table_lookup (priv->issue_tags, tag);
 
@@ -230,7 +230,7 @@ as_validator_add_issue (AsValidator *validator,
 	location = as_validator_issue_get_location (issue);
 	id_str = g_strdup_printf ("%s/%s/%s", location, tag_final, buffer);
 	/* str ownership is transferred to the hashtable */
-	if (g_hash_table_insert (priv->issues, id_str, issue)) {
+	if (g_hash_table_insert (priv->issues, id_str, g_object_ref (issue))) {
 		/* the issue is new, we can add it to our by-file listing */
 		const gchar *fname_key = priv->current_fname ? priv->current_fname : "";
 		GPtrArray *ilist = g_hash_table_lookup (priv->issues_per_file, fname_key);
@@ -4078,6 +4078,7 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname,
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (data->validator);
 	g_autofree gchar *cid_base = NULL;
+	AsLaunchable *de_launchable = NULL;
 
 	/* if we have no component-id, we can't check anything */
 	if (as_component_get_id (cpt) == NULL)
@@ -4104,95 +4105,93 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname,
 		}
 	}
 
+	/* if we aren't a desktop-app, then there's nothing else to do here */
+	if (as_component_get_kind (cpt) != AS_COMPONENT_KIND_DESKTOP_APP) {
+		as_validator_clear_current_cpt (data->validator);
+		as_validator_clear_current_fname (data->validator);
+		return;
+	}
+
 	/* check if the referenced .desktop file exists */
-	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
-		AsLaunchable *de_launchable = as_component_get_launchable (
-		    cpt,
-		    AS_LAUNCHABLE_KIND_DESKTOP_ID);
-		if ((de_launchable != NULL) &&
-		    (as_launchable_get_entries (de_launchable)->len > 0)) {
-			const gchar *desktop_id = g_ptr_array_index (
-			    as_launchable_get_entries (de_launchable),
-			    0);
+	de_launchable = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+	if ((de_launchable != NULL) && (as_launchable_get_entries (de_launchable)->len > 0)) {
+		const gchar *desktop_id = g_ptr_array_index (
+		    as_launchable_get_entries (de_launchable),
+		    0);
 
-			if (g_hash_table_contains (data->desktop_fnames, desktop_id)) {
-				g_autofree gchar *desktop_fname_full = NULL;
-				g_autoptr(GFile) dfile = NULL;
-				g_autoptr(GPtrArray) de_issues = NULL;
-				g_autoptr(GError) tmp_error = NULL;
+		if (g_hash_table_contains (data->desktop_fnames, desktop_id)) {
+			g_autofree gchar *desktop_fname_full = NULL;
+			g_autoptr(GFile) dfile = NULL;
+			g_autoptr(GPtrArray) de_issues = NULL;
+			g_autoptr(GError) tmp_error = NULL;
 
-				desktop_fname_full = g_build_filename (data->apps_dir,
-								       desktop_id,
-								       NULL);
-				dfile = g_file_new_for_path (desktop_fname_full);
-				de_issues = g_ptr_array_new_with_free_func (g_object_unref);
-				as_desktop_entry_parse_file (cpt,
-							     dfile,
-							     AS_FORMAT_VERSION_LATEST,
-							     TRUE, /* ignore NoDisplay */
-							     de_issues,
-							     NULL,
-							     NULL,
-							     &tmp_error);
-				if (tmp_error != NULL) {
-					as_validator_add_issue (data->validator,
-								NULL,
-								"desktop-file-load-failed",
-								"%s",
-								tmp_error->message);
-				} else {
-					/* we successfully loaded the desktop-entry data into the component, now perform some checks */
-
-					/* pass on the found desktop-entry issues */
-					for (guint i = 0; i < de_issues->len; i++) {
-						AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (
-						    g_ptr_array_index (de_issues, i));
-						g_autofree gchar *issue_id_str = NULL;
-
-						as_validator_issue_set_filename (issue, desktop_id);
-						issue_id_str = g_strdup_printf (
-						    "%s/%s/%s",
-						    desktop_id,
-						    as_validator_issue_get_tag (issue),
-						    as_validator_issue_get_hint (issue));
-
-						/* str ownership is transferred to the hashtable */
-						if (g_hash_table_insert (
-							priv->issues,
-							g_steal_pointer (&issue_id_str),
-							issue)) {
-							/* the issue is new, we can add it to our by-file listing */
-							GPtrArray *ilist = g_hash_table_lookup (
-							    priv->issues_per_file,
-							    desktop_id);
-							if (ilist == NULL) {
-								ilist =
-								    g_ptr_array_new_with_free_func (
-									g_object_unref);
-								g_hash_table_insert (
-								    priv->issues_per_file,
-								    g_strdup (desktop_id),
-								    ilist);
-							}
-							g_ptr_array_add (ilist,
-									 g_object_ref (issue));
-						}
-					}
-
-					/* check if we have any categories */
-					if (as_component_get_categories (cpt)->len == 0) {
-						as_validator_add_issue (data->validator,
-									NULL,
-									"app-categories-missing",
-									NULL);
-					}
-				}
-			} else {
+			desktop_fname_full = g_build_filename (data->apps_dir, desktop_id, NULL);
+			dfile = g_file_new_for_path (desktop_fname_full);
+			de_issues = g_ptr_array_new_with_free_func (g_object_unref);
+			as_desktop_entry_parse_file (cpt,
+						     dfile,
+						     AS_FORMAT_VERSION_LATEST,
+						     TRUE, /* ignore NoDisplay */
+						     de_issues,
+						     NULL,
+						     NULL,
+						     &tmp_error);
+			if (tmp_error != NULL) {
 				as_validator_add_issue (data->validator,
 							NULL,
-							"desktop-file-not-found",
-							NULL);
+							"desktop-file-load-failed",
+							"%s",
+							tmp_error->message);
+			} else {
+
+				/* we successfully loaded the desktop-entry data into the component,
+				 * now we can perform some checks */
+
+				/* pass on the found desktop-entry issues */
+				for (guint i = 0; i < de_issues->len; i++) {
+					AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (
+					    g_ptr_array_index (de_issues, i));
+					g_autofree gchar *issue_id_str = NULL;
+
+					as_validator_issue_set_filename (issue, desktop_id);
+					issue_id_str = g_strdup_printf (
+					    "%s/%s/%s",
+					    desktop_id,
+					    as_validator_issue_get_tag (issue),
+					    as_validator_issue_get_hint (issue));
+
+					/* str ownership is transferred to the hashtable */
+					if (g_hash_table_insert (priv->issues,
+								 g_steal_pointer (&issue_id_str),
+								 g_object_ref (issue))) {
+						/* the issue is new, we can add it to our by-file listing */
+						GPtrArray *ilist = g_hash_table_lookup (
+						    priv->issues_per_file,
+						    desktop_id);
+						if (ilist == NULL) {
+							ilist = g_ptr_array_new_with_free_func (
+							    g_object_unref);
+							g_hash_table_insert (priv->issues_per_file,
+									     g_strdup (desktop_id),
+									     ilist);
+						}
+						g_ptr_array_add (ilist, g_object_ref (issue));
+					}
+				}
+
+				/* check if we have any categories */
+				if (as_component_get_categories (cpt)->len == 0) {
+					as_validator_add_issue (data->validator,
+								NULL,
+								"app-categories-missing",
+								NULL);
+				}
 			}
+		} else {
+			as_validator_add_issue (data->validator,
+						NULL,
+						"desktop-file-not-found",
+						NULL);
 		}
 	}
 
