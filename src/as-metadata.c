@@ -281,63 +281,89 @@ as_metadata_yaml_parse_catalog_doc (AsMetadata *metad,
 				    GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-	yaml_parser_t parser;
-	yaml_event_t event;
+	struct fy_parser *parser = NULL;
+	struct fy_document *ydoc = NULL;
 	gboolean header = TRUE;
-	gboolean parse = TRUE;
 	gboolean ret = TRUE;
 	g_autoptr(GPtrArray) cpts = NULL;
+	struct fy_parse_cfg ycfg = { .search_path = "",
+				     .flags = FYPCF_DEFAULT_VERSION_1_2 | FYPCF_JSON_NONE };
 
 	/* we ignore empty data - usually happens if the file is broken, e.g. by disk corruption
 	 * or download interruption. */
 	if (data == NULL)
 		return NULL;
-	if (data_len < 0)
-		data_len = strlen (data);
 
 	/* create container for the components we find */
 	cpts = g_ptr_array_new_with_free_func (g_object_unref);
 
 	/* initialize YAML parser */
-	yaml_parser_initialize (&parser);
-	yaml_parser_set_input_string (&parser, (unsigned char *) data, data_len);
-
-	while (parse) {
-		if (!yaml_parser_parse (&parser, &event)) {
-			g_set_error (error,
+	ycfg.diag = as_yaml_error_diag_create ();
+	parser = fy_parser_create (&ycfg);
+	if (parser == NULL) {
+		g_set_error_literal (error,
 				     AS_METADATA_ERROR,
 				     AS_METADATA_ERROR_PARSE,
-				     "Invalid DEP-11 file found. Could not parse YAML: %s",
-				     parser.problem);
-			ret = FALSE;
-			break;
+				     "Failed to create YAML parser.");
+		fy_diag_destroy (ycfg.diag);
+		return NULL;
+	}
+
+	if (fy_parser_set_string (parser, data, (size_t) data_len) != 0) {
+		ret = FALSE;
+		goto out;
+	}
+
+	/* Parse each document in the YAML stream */
+	while ((ydoc = fy_parse_load_document (parser)) != NULL) {
+		struct fy_node *root = fy_document_root (ydoc);
+		struct fy_node_pair *fynp;
+		gpointer yiter = NULL;
+		gboolean header_found = FALSE;
+
+		if (root == NULL) {
+			fy_document_destroy (ydoc);
+			continue;
 		}
 
-		if (event.type == YAML_DOCUMENT_START_EVENT) {
-			GNode *n;
-			gboolean header_found = FALSE;
-			GError *tmp_error = NULL;
-			g_autoptr(GNode) root = NULL;
-
-			root = g_node_new (g_strdup (""));
-			as_yaml_parse_layer (&parser, root, &tmp_error);
-			if (tmp_error != NULL) {
-				/* stop immediately, since we found an error when parsing the document */
-				g_propagate_error (error, tmp_error);
-				g_free (root->data);
-				yaml_event_delete (&event);
+		if (!fy_node_is_mapping (root)) {
+			if (header) {
+				g_set_error_literal (
+				    error,
+				    AS_METADATA_ERROR,
+				    AS_METADATA_ERROR_FAILED,
+				    "Invalid DEP-11 file found: Root is not a mapping");
 				ret = FALSE;
-				parse = FALSE;
+				fy_document_destroy (ydoc);
 				break;
 			}
+			fy_document_destroy (ydoc);
+			continue;
+		}
 
-			if (header) {
-				for (n = root->children; n != NULL; n = n->next) {
-					const gchar *key;
-					const gchar *value;
+		if (header) {
+			/* Parse header document */
+			while ((fynp = fy_node_mapping_iterate (root, &yiter)) != NULL) {
+				struct fy_node *key_node = fy_node_pair_key (fynp);
+				struct fy_node *value_node = fy_node_pair_value (fynp);
+				const gchar *key;
+				const gchar *value;
 
-					if ((n->data == NULL) || (n->children == NULL)) {
-						parse = FALSE;
+				if (key_node == NULL || value_node == NULL) {
+					ret = FALSE;
+					g_set_error_literal (
+					    error,
+					    AS_METADATA_ERROR,
+					    AS_METADATA_ERROR_FAILED,
+					    "Invalid DEP-11 file found: Header invalid");
+					break;
+				}
+
+				key = fy_node_get_scalar0 (key_node);
+				value = fy_node_get_scalar0 (value_node);
+
+				if (g_strcmp0 (key, "File") == 0) {
+					if (g_strcmp0 (value, "DEP-11") != 0) {
 						ret = FALSE;
 						g_set_error_literal (
 						    error,
@@ -346,70 +372,57 @@ as_metadata_yaml_parse_catalog_doc (AsMetadata *metad,
 						    "Invalid DEP-11 file found: Header invalid");
 						break;
 					}
+					header_found = TRUE;
+				}
 
-					key = as_yaml_node_get_key (n);
-					value = as_yaml_node_get_value (n);
+				if (!header_found)
+					continue;
 
-					if (g_strcmp0 (key, "File") == 0) {
-						if (g_strcmp0 (value, "DEP-11") != 0) {
-							parse = FALSE;
-							ret = FALSE;
-							g_set_error_literal (
-							    error,
-							    AS_METADATA_ERROR,
-							    AS_METADATA_ERROR_FAILED,
-							    "Invalid DEP-11 file found: Header "
-							    "invalid");
-						}
-						header_found = TRUE;
-					}
-
-					if (!header_found)
+				if (g_strcmp0 (key, "Origin") == 0) {
+					if (value != NULL) {
+						as_context_set_origin (context, value);
+						as_metadata_set_origin (metad, value);
+					} else {
+						ret = FALSE;
+						g_set_error_literal (error,
+								     AS_METADATA_ERROR,
+								     AS_METADATA_ERROR_FAILED,
+								     "Invalid DEP-11 file found: "
+								     "No origin set in header.");
 						break;
-
-					if (g_strcmp0 (key, "Origin") == 0) {
-						if (value != NULL) {
-							as_context_set_origin (context, value);
-							as_metadata_set_origin (metad, value);
-						} else {
-							parse = FALSE;
-							ret = FALSE;
-							g_set_error_literal (
-							    error,
-							    AS_METADATA_ERROR,
-							    AS_METADATA_ERROR_FAILED,
-							    "Invalid DEP-11 file found: No origin "
-							    "set in header.");
-						}
-					} else if (g_strcmp0 (key, "Priority") == 0) {
-						if (value != NULL) {
-							gint priority = g_ascii_strtoll (value,
-											 NULL,
-											 10);
-							as_context_set_priority (context, priority);
-						}
-					} else if (g_strcmp0 (key, "MediaBaseUrl") == 0) {
-						if (value != NULL &&
-						    !as_flags_contains (
-							priv->parse_flags,
-							AS_PARSE_FLAG_IGNORE_MEDIABASEURL)) {
-							as_context_set_media_baseurl (context,
-										      value);
-							as_metadata_set_media_baseurl (metad,
-										       value);
-						}
-					} else if (g_strcmp0 (key, "Architecture") == 0) {
-						if (value != NULL) {
-							as_context_set_architecture (context,
-										     value);
-							as_metadata_set_architecture (metad, value);
-						}
+					}
+				} else if (g_strcmp0 (key, "Priority") == 0) {
+					if (value != NULL) {
+						gint priority = (gint) g_ascii_strtoll (value,
+											NULL,
+											10);
+						as_context_set_priority (context, priority);
+					}
+				} else if (g_strcmp0 (key, "MediaBaseUrl") == 0) {
+					if (value != NULL &&
+					    !as_flags_contains (
+						priv->parse_flags,
+						AS_PARSE_FLAG_IGNORE_MEDIABASEURL)) {
+						as_context_set_media_baseurl (context, value);
+						as_metadata_set_media_baseurl (metad, value);
+					}
+				} else if (g_strcmp0 (key, "Architecture") == 0) {
+					if (value != NULL) {
+						as_context_set_architecture (context, value);
+						as_metadata_set_architecture (metad, value);
 					}
 				}
 			}
+
+			if (!ret) {
+				fy_document_destroy (ydoc);
+				break;
+			}
+
 			header = FALSE;
 
 			if (!header_found) {
+				/* This is not a header document, treat it as a component */
 				AsComponent *cpt = as_component_new ();
 				if (as_component_load_from_yaml (cpt, context, root, NULL)) {
 					/* add found component to the results set */
@@ -417,28 +430,49 @@ as_metadata_yaml_parse_catalog_doc (AsMetadata *metad,
 				} else {
 					g_warning ("Parsing of YAML metadata failed: Could not "
 						   "read data for component.");
-					parse = FALSE;
-					ret = FALSE;
 					g_object_unref (cpt);
 				}
 			}
-
-			g_node_traverse (root,
-					 G_IN_ORDER,
-					 G_TRAVERSE_ALL,
-					 -1,
-					 as_yaml_free_node,
-					 NULL);
+		} else {
+			/* Parse component document */
+			AsComponent *cpt = as_component_new ();
+			if (as_component_load_from_yaml (cpt, context, root, NULL)) {
+				/* add found component to the results set */
+				g_ptr_array_add (cpts, cpt);
+			} else {
+				g_warning ("Parsing of YAML metadata failed: Could not read data "
+					   "for component.");
+				g_object_unref (cpt);
+			}
 		}
 
-		/* stop if end of stream is reached */
-		if (event.type == YAML_STREAM_END_EVENT)
-			parse = FALSE;
-
-		yaml_event_delete (&event);
+		fy_document_destroy (ydoc);
 	}
 
-	yaml_parser_delete (&parser);
+out:
+	/* check for errors */
+	if (fy_diag_got_error (ycfg.diag) || !ret) {
+		g_autofree gchar *yaml_error = as_yaml_make_error_message (ycfg.diag);
+
+		if (yaml_error == NULL) {
+			g_set_error_literal (error,
+					     AS_METADATA_ERROR,
+					     AS_METADATA_ERROR_PARSE,
+					     "Failed to parse YAML data.");
+		} else {
+			g_set_error (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_PARSE,
+				     "Failed to parse YAML: %s",
+				     yaml_error);
+		}
+
+		/* ensure we return FALSE, parsing failed */
+		ret = FALSE;
+	}
+
+	fy_parser_destroy (parser);
+	fy_diag_destroy (ycfg.diag);
 
 	/* return NULL on error, otherwise return the list of found components */
 	if (ret)
@@ -1267,14 +1301,14 @@ as_metadata_xml_serialize_to_catalog_without_rootnode (AsMetadata *metad,
  * Emit a DEP-11 header for the new document.
  */
 static void
-as_yamldata_write_header (AsContext *context, yaml_emitter_t *emitter)
+as_yamldata_write_header (AsContext *context, struct fy_emitter *emitter)
 {
-	gint res;
-	yaml_event_t event;
+	struct fy_event *fye;
 
-	yaml_document_start_event_initialize (&event, NULL, NULL, NULL, FALSE);
-	res = yaml_emitter_emit (emitter, &event);
-	g_assert (res);
+	fye = fy_emit_event_create (emitter, FYET_DOCUMENT_START, FALSE, NULL, NULL);
+	if (fye != NULL) {
+		fy_emit_event (emitter, fye);
+	}
 
 	as_yaml_mapping_start (emitter);
 
@@ -1296,24 +1330,28 @@ as_yamldata_write_header (AsContext *context, yaml_emitter_t *emitter)
 
 	as_yaml_mapping_end (emitter);
 
-	yaml_document_end_event_initialize (&event, 1);
-	res = yaml_emitter_emit (emitter, &event);
-	g_assert (res);
+	fye = fy_emit_event_create (emitter, FYET_DOCUMENT_END, TRUE);
+	if (fye != NULL) {
+		fy_emit_event (emitter, fye);
+	}
 }
 
 /**
- * as_yamldata_write_handler:
+ * as_yamldata_write_handler_cb:
  *
  * Helper function to store the emitted YAML document.
  */
 static int
-as_yamldata_write_handler (void *ptr, unsigned char *buffer, size_t size)
+as_yamldata_write_handler_cb (struct fy_emitter *emit,
+			      enum fy_emitter_write_type type,
+			      const char *str,
+			      int len,
+			      void *userdata)
 {
-	GString *str;
-	str = (GString *) ptr;
-	g_string_append_len (str, (const gchar *) buffer, size);
+	GString *result = (GString *) userdata;
+	g_string_append_len (result, str, len);
 
-	return 1;
+	return len;
 }
 
 /**
@@ -1327,8 +1365,9 @@ as_metadata_yaml_serialize_to_catalog (AsMetadata *metad,
 				       gboolean add_timestamp,
 				       GError **error)
 {
-	yaml_emitter_t emitter;
-	yaml_event_t event;
+	struct fy_emitter *emitter;
+	struct fy_emitter_cfg emitter_cfg = { 0 };
+	struct fy_event *fye;
 	GString *out_data;
 	gboolean res = FALSE;
 	guint i;
@@ -1336,34 +1375,46 @@ as_metadata_yaml_serialize_to_catalog (AsMetadata *metad,
 	if (cpts->len == 0)
 		return NULL;
 
-	yaml_emitter_initialize (&emitter);
-	yaml_emitter_set_indent (&emitter, 2);
-	yaml_emitter_set_unicode (&emitter, TRUE);
-	yaml_emitter_set_width (&emitter, 120);
-
 	/* create a GString to receive the output the emitter generates */
 	out_data = g_string_new ("");
-	yaml_emitter_set_output (&emitter, as_yamldata_write_handler, out_data);
+
+	/* configure the emitter */
+	emitter_cfg.flags = FYECF_MODE_BLOCK | FYECF_INDENT_2 | FYECF_WIDTH_132 |
+			    FYECF_VERSION_DIR_OFF | FYECF_TAG_DIR_OFF | FYECF_DOC_START_MARK_ON;
+	emitter_cfg.output = as_yamldata_write_handler_cb;
+	emitter_cfg.userdata = out_data;
+	emitter_cfg.diag = NULL;
+
+	/* create the emitter */
+	emitter = fy_emitter_create (&emitter_cfg);
+	if (emitter == NULL) {
+		g_set_error_literal (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_FAILED,
+				     "Failed to create YAML emitter.");
+		g_string_free (out_data, TRUE);
+		return NULL;
+	}
 
 	/* emit start event */
-	yaml_stream_start_event_initialize (&event, YAML_UTF8_ENCODING);
-	if (!yaml_emitter_emit (&emitter, &event))
+	fye = fy_emit_event_create (emitter, FYET_STREAM_START);
+	if (fye == NULL || fy_emit_event (emitter, fye) != 0)
 		goto error;
 
 	/* write header */
 	if (write_header)
-		as_yamldata_write_header (context, &emitter);
+		as_yamldata_write_header (context, emitter);
 
 	/* write components as YAML documents */
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
-		as_component_emit_yaml (cpt, context, &emitter);
+		as_component_emit_yaml (cpt, context, emitter);
 	}
 
 	/* emit end event */
-	yaml_stream_end_event_initialize (&event);
-	res = yaml_emitter_emit (&emitter, &event);
-	g_assert (res);
+	fye = fy_emit_event_create (emitter, FYET_STREAM_END);
+	if (fye == NULL || fy_emit_event (emitter, fye) != 0)
+		goto error;
 
 	res = TRUE;
 	goto out;
@@ -1375,9 +1426,8 @@ error:
 			     "Emission of YAML event failed.");
 
 out:
-	yaml_emitter_flush (&emitter);
 	/* destroy the Emitter object */
-	yaml_emitter_delete (&emitter);
+	fy_emitter_destroy (emitter);
 
 	if (res) {
 		return g_string_free (out_data, FALSE);
