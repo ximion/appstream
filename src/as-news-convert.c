@@ -135,11 +135,11 @@ as_releases_to_metainfo_xml_chunk (GPtrArray *releases, GError **error)
 static GPtrArray *
 as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
 {
-	yaml_parser_t parser;
-	yaml_event_t event;
-	gboolean parse = TRUE;
+	struct fy_parser *parser = NULL;
+	struct fy_document *ydoc = NULL;
 	gboolean ret = TRUE;
 	g_autoptr(GPtrArray) releases = NULL;
+	struct fy_parse_cfg ycfg = { .search_path = "", .flags = FYPCF_DEFAULT_VERSION_1_2 };
 
 	if (yaml_data == NULL) {
 		g_set_error (error,
@@ -152,187 +152,177 @@ as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
 	releases = g_ptr_array_new_with_free_func (g_object_unref);
 
 	/* initialize YAML parser */
-	yaml_parser_initialize (&parser);
-	yaml_parser_set_input_string (&parser, (unsigned char *) yaml_data, strlen (yaml_data));
+	ycfg.diag = as_yaml_error_diag_create ();
+	parser = fy_parser_create (&ycfg);
+	if (fy_parser_set_string (parser, yaml_data, -1) != 0) {
+		ret = FALSE;
+		goto out;
+	}
 
-	while (parse) {
-		if (!yaml_parser_parse (&parser, &event)) {
-			g_set_error (error,
-				     AS_METADATA_ERROR,
-				     AS_METADATA_ERROR_PARSE,
-				     "Could not parse YAML: %s",
-				     parser.problem);
+	while ((ydoc = fy_parse_load_document (parser)) != NULL) {
+		struct fy_node *root;
+		g_autoptr(AsRelease) rel = as_release_new ();
+
+		root = fy_document_root (ydoc);
+		if (!fy_node_is_mapping (root)) {
+			g_set_error_literal (error,
+					     AS_METADATA_ERROR,
+					     AS_METADATA_ERROR_FAILED,
+					     "Invalid YAML news file: Root is not a mapping");
 			ret = FALSE;
+			fy_document_destroy (ydoc);
 			break;
 		}
 
-		if (event.type == YAML_DOCUMENT_START_EVENT) {
-			GNode *n;
-			GError *tmp_error = NULL;
-			g_autoptr(GNode) root = NULL;
-			g_autoptr(AsRelease) rel = as_release_new ();
+		AS_YAML_MAPPING_FOREACH (npair, root) {
+			const gchar *key = as_yaml_node_get_key (npair);
+			struct fy_node *nval = fy_node_pair_value (npair);
 
-			root = g_node_new (g_strdup (""));
-			as_yaml_parse_layer (&parser, root, &tmp_error);
-			if (tmp_error != NULL) {
-				/* stop immediately, since we found an error when parsing the document */
-				g_propagate_error (error, tmp_error);
-				g_free (root->data);
-				yaml_event_delete (&event);
-				ret = FALSE;
-				parse = FALSE;
-				break;
+			if (key == NULL || nval == NULL) {
+				/* skip an empty node */
+				continue;
 			}
 
-			for (n = root->children; n != NULL; n = n->next) {
-				const gchar *key;
-				const gchar *value;
+			if (g_strcmp0 (key, "Version") == 0) {
+				as_release_set_version (rel, fy_node_get_scalar0 (nval));
+			} else if (g_strcmp0 (key, "Date") == 0) {
+				as_release_set_date (rel, fy_node_get_scalar0 (nval));
+			} else if (g_strcmp0 (key, "Type") == 0) {
+				AsReleaseKind rkind = as_release_kind_from_string (
+				    fy_node_get_scalar0 (nval));
+				if (rkind != AS_RELEASE_KIND_UNKNOWN)
+					as_release_set_kind (rel, rkind);
+			} else if ((g_strcmp0 (key, "Description") == 0) ||
+				   (g_strcmp0 (key, "Notes") == 0)) {
+				g_autoptr(GString) dsc = g_string_new ("");
 
-				if ((n->data == NULL) || (n->children == NULL)) {
-					/* skip an empty node */
-					continue;
-				}
+				if (fy_node_is_sequence (nval)) {
+					g_string_append (dsc, "<ul>");
+					AS_YAML_SEQUENCE_FOREACH (dn, nval) {
+						g_autofree gchar *escaped = g_markup_escape_text (
+						    fy_node_get_scalar0 (dn),
+						    -1);
+						g_string_append_printf (dsc,
+									"<li>%s</li>",
+									escaped);
+					}
+					g_string_append (dsc, "</ul>");
 
-				key = as_yaml_node_get_key (n);
-				value = as_yaml_node_get_value (n);
+				} else if (fy_node_is_scalar (nval)) {
+					/* we have a freeform text instead. Convert to paragraphs */
+					g_auto(GStrv)
+						   paras = g_strsplit (fy_node_get_scalar0 (nval),
+								       "\n\n",
+								       -1);
+					for (guint i = 0; paras[i] != NULL; i++) {
+						g_auto(GStrv) lines = NULL;
+						gboolean in_listing = FALSE;
+						gboolean in_paragraph = FALSE;
+						g_autofree gchar *escaped = g_markup_escape_text (
+						    paras[i],
+						    -1);
 
-				if (g_strcmp0 (key, "Version") == 0) {
-					as_release_set_version (rel, value);
-				} else if (g_strcmp0 (key, "Date") == 0) {
-					as_release_set_date (rel, value);
-				} else if (g_strcmp0 (key, "Type") == 0) {
-					AsReleaseKind rkind = as_release_kind_from_string (value);
-					if (rkind != AS_RELEASE_KIND_UNKNOWN)
-						as_release_set_kind (rel, rkind);
-				} else if ((g_strcmp0 (key, "Description") == 0) ||
-					   (g_strcmp0 (key, "Notes") == 0)) {
-					g_autoptr(GString) str = g_string_new ("");
-
-					if ((n->children != NULL) && (n->children->next != NULL)) {
-						GNode *dn;
-						g_string_append (str, "<ul>");
-						for (dn = n->children; dn != NULL; dn = dn->next) {
-							g_autofree gchar
-							    *escaped = g_markup_escape_text (
-								as_yaml_node_get_key (dn),
-								-1);
-							g_string_append_printf (str,
-										"<li>%s</li>",
-										escaped);
-						}
-						g_string_append (str, "</ul>");
-
-					} else {
-						/* we only have one list entry, or no list at all and a freeform text instead. Convert to paragraphs */
-						g_auto(GStrv)
-							   paras = g_strsplit (value, "\n\n", -1);
-						for (guint i = 0; paras[i] != NULL; i++) {
-							g_auto(GStrv) lines = NULL;
-							gboolean in_listing = FALSE;
-							gboolean in_paragraph = FALSE;
-							g_autofree gchar *escaped =
-							    g_markup_escape_text (paras[i], -1);
-
-							lines = g_strsplit (escaped, "\n", -1);
-							for (guint j = 0; lines[j] != NULL; j++) {
-								if (g_str_has_prefix (lines[j],
-										      " -") ||
-								    g_str_has_prefix (lines[j],
-										      " *")) {
-									/* we have a list */
-									if (in_paragraph) {
-										g_string_truncate (
-										    str,
-										    str->len - 1);
-										g_string_append (
-										    str,
-										    "</p>\n");
-										in_paragraph =
-										    FALSE;
-									}
-									if (in_listing) {
-										g_string_append (
-										    str,
-										    "</li>\n<li>");
-									} else {
-										g_string_append (
-										    str,
-										    "<ul>\n<li>");
-									}
-									g_string_append (str,
-											 lines[j] +
-											     3);
-									in_listing = TRUE;
-									continue;
-								} else if (in_listing) {
-									if (g_str_has_prefix (
-										lines[j],
-										"   ")) {
-										g_string_append_printf (
-										    str,
-										    " %s",
-										    lines[j] + 3);
-									} else {
-										g_string_append (
-										    str,
-										    "</li>\n</"
-										    "ul>\n");
-										in_listing = FALSE;
-										g_string_append_printf (
-										    str,
-										    "<p>%s\n",
-										    lines[j]);
-										in_paragraph = TRUE;
-									}
+						lines = g_strsplit (escaped, "\n", -1);
+						for (guint j = 0; lines[j] != NULL; j++) {
+							if (g_str_has_prefix (lines[j], " -") ||
+							    g_str_has_prefix (lines[j], " *")) {
+								/* we have a list */
+								if (in_paragraph) {
+									g_string_truncate (
+									    dsc,
+									    dsc->len - 1);
+									g_string_append (dsc,
+											 "</p>\n");
+									in_paragraph = FALSE;
+								}
+								if (in_listing) {
+									g_string_append (
+									    dsc,
+									    "</li>\n<li>");
 								} else {
+									g_string_append (
+									    dsc,
+									    "<ul>\n<li>");
+								}
+								g_string_append (dsc, lines[j] + 3);
+								in_listing = TRUE;
+								continue;
+							} else if (in_listing) {
+								if (g_str_has_prefix (lines[j],
+										      "   ")) {
 									g_string_append_printf (
-									    str,
+									    dsc,
+									    " %s",
+									    lines[j] + 3);
+								} else {
+									g_string_append (dsc,
+											 "</li>\n</"
+											 "ul>\n");
+									in_listing = FALSE;
+									g_string_append_printf (
+									    dsc,
 									    "<p>%s\n",
 									    lines[j]);
 									in_paragraph = TRUE;
 								}
-							}
-							if (in_listing)
-								g_string_append (str,
-										 "</li>\n</ul>\n");
-							if (in_paragraph) {
-								g_string_truncate (str,
-										   str->len - 1);
-								g_string_append (str, "</p>\n");
+							} else {
+								g_string_append_printf (dsc,
+											"<p>%s\n",
+											lines[j]);
+								in_paragraph = TRUE;
 							}
 						}
+						if (in_listing)
+							g_string_append (dsc, "</li>\n</ul>\n");
+						if (in_paragraph) {
+							g_string_truncate (dsc, dsc->len - 1);
+							g_string_append (dsc, "</p>\n");
+						}
 					}
-
-					/* FIXME: Silences an invalid null-dereference warning in GCC 13 which happens when
-					 * GString is used in g_autoptr() */
-					g_assert (str != NULL);
-
-					as_release_set_description (rel, str->str, "C");
 				}
-			}
 
-			if (as_release_get_version (rel) != NULL) {
-				g_ptr_array_add (releases, g_steal_pointer (&rel));
-				if (limit > 0 && releases->len >= (guint) limit)
-					parse = FALSE;
+				/* FIXME: Silences an invalid null-dereference warning in GCC >= 13
+				 * which happens when GString is used in g_autoptr() */
+				g_assert (dsc != NULL);
+				as_release_set_description (rel, dsc->str, "C");
 			}
-
-			g_node_traverse (root,
-					 G_IN_ORDER,
-					 G_TRAVERSE_ALL,
-					 -1,
-					 as_yaml_free_node,
-					 NULL);
 		}
 
-		/* stop if end of stream is reached */
-		if (event.type == YAML_STREAM_END_EVENT)
-			parse = FALSE;
+		if (as_release_get_version (rel) != NULL) {
+			g_ptr_array_add (releases, g_steal_pointer (&rel));
+			if (limit > 0 && releases->len >= (guint) limit) {
+				fy_document_destroy (ydoc);
+				break;
+			}
+		}
 
-		yaml_event_delete (&event);
+		fy_document_destroy (ydoc);
 	}
 
-	yaml_parser_delete (&parser);
+out:
+	/* check for errors */
+	if (fy_diag_got_error (ycfg.diag) || !ret) {
+		g_autofree gchar *yaml_error = as_yaml_make_error_message (ycfg.diag);
+
+		if (yaml_error == NULL) {
+			g_set_error_literal (error,
+					     AS_METADATA_ERROR,
+					     AS_METADATA_ERROR_PARSE,
+					     "Failed to parse YAML data.");
+		} else {
+			g_set_error (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_PARSE,
+				     "Failed to parse YAML: %s",
+				     yaml_error);
+		}
+
+		/* ensure we return FALSE, parsing failed */
+		ret = FALSE;
+	}
+
+	fy_parser_destroy (parser);
+	fy_diag_destroy (ycfg.diag);
 
 	/* return NULL on error, otherwise return the list of releases */
 	if (ret)
@@ -347,13 +337,16 @@ as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
  * Helper function to store the emitted YAML document.
  */
 static int
-as_news_yaml_write_handler_cb (void *ptr, unsigned char *buffer, size_t size)
+as_news_yaml_write_handler_cb (struct fy_emitter *emitter,
+			       enum fy_emitter_write_type type,
+			       const char *str,
+			       int len,
+			       void *userdata)
 {
-	GString *str;
-	str = (GString *) ptr;
-	g_string_append_len (str, (const gchar *) buffer, size);
+	GString *result = (GString *) userdata;
+	g_string_append_len (result, str, len);
 
-	return 1;
+	return len;
 }
 
 /**
@@ -362,24 +355,33 @@ as_news_yaml_write_handler_cb (void *ptr, unsigned char *buffer, size_t size)
 static gboolean
 as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 {
-	yaml_emitter_t emitter;
-	yaml_event_t event;
+	struct fy_emitter *emitter;
+	struct fy_emitter_cfg ecfg = { 0 };
+	struct fy_event *event;
 	gboolean res = FALSE;
 	gboolean report_validation_passed = TRUE;
 	GString *yaml_result = g_string_new ("");
 
-	yaml_emitter_initialize (&emitter);
-	yaml_emitter_set_indent (&emitter, 2);
-	yaml_emitter_set_unicode (&emitter, TRUE);
-	yaml_emitter_set_width (&emitter, 255);
-	yaml_emitter_set_output (&emitter, as_news_yaml_write_handler_cb, yaml_result);
+	/* configure the emitter */
+	ecfg.flags = FYECF_MODE_BLOCK | FYECF_INDENT_2 | FYECF_WIDTH_132 | FYECF_VERSION_DIR_OFF |
+		     FYECF_TAG_DIR_OFF;
+	ecfg.output = as_news_yaml_write_handler_cb;
+	ecfg.userdata = yaml_result;
+
+	/* create the emitter */
+	emitter = fy_emitter_create (&ecfg);
+	if (emitter == NULL) {
+		g_critical ("Failed to create YAML emitter.");
+		g_string_free (yaml_result, TRUE);
+		return FALSE;
+	}
 
 	/* emit start event */
-	yaml_stream_start_event_initialize (&event, YAML_UTF8_ENCODING);
-	if (!yaml_emitter_emit (&emitter, &event)) {
+	event = fy_emit_event_create (emitter, FYET_STREAM_START);
+	if (event == NULL || fy_emit_event (emitter, event) != 0) {
 		g_critical ("Failed to initialize YAML emitter.");
 		g_string_free (yaml_result, TRUE);
-		yaml_emitter_delete (&emitter);
+		fy_emitter_destroy (emitter);
 		return FALSE;
 	}
 
@@ -405,19 +407,19 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 		desc_markup = as_release_get_description (rel);
 
 		/* new document for this release */
-		yaml_document_start_event_initialize (&event, NULL, NULL, NULL, FALSE);
-		res = yaml_emitter_emit (&emitter, &event);
-		g_assert (res);
+		event = fy_emit_event_create (emitter, FYET_DOCUMENT_START, FALSE, NULL, NULL);
+		res = fy_emit_event (emitter, event);
+		g_assert (res == 0);
 
 		/* main dict start */
-		as_yaml_mapping_start (&emitter);
+		as_yaml_mapping_start (emitter);
 
-		as_yaml_emit_scalar_raw (&emitter, "Version");
-		as_yaml_emit_scalar_raw (&emitter, as_release_get_version (rel));
+		as_yaml_emit_scalar_raw (emitter, "Version");
+		as_yaml_emit_scalar_raw (emitter, as_release_get_version (rel));
 
-		as_yaml_emit_entry (&emitter, "Date", as_release_get_date (rel));
+		as_yaml_emit_entry (emitter, "Date", as_release_get_date (rel));
 		if (rkind != AS_RELEASE_KIND_STABLE)
-			as_yaml_emit_entry (&emitter, "Type", as_release_kind_to_string (rkind));
+			as_yaml_emit_entry (emitter, "Type", as_release_kind_to_string (rkind));
 
 		if (desc_markup != NULL) {
 			if (g_strstr_len (desc_markup, -1, "<p>") != NULL) {
@@ -425,7 +427,7 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 				g_autofree gchar *md = NULL;
 				md = as_markup_convert (desc_markup, AS_MARKUP_KIND_MARKDOWN, NULL);
 				if (md != NULL)
-					as_yaml_emit_long_entry_literal (&emitter,
+					as_yaml_emit_long_entry_literal (emitter,
 									 "Description",
 									 md);
 			} else {
@@ -447,8 +449,8 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 					goto xml_end;
 				}
 
-				as_yaml_emit_scalar (&emitter, "Description");
-				as_yaml_sequence_start (&emitter);
+				as_yaml_emit_scalar (emitter, "Description");
+				as_yaml_sequence_start (emitter);
 
 				for (iter = root->children; iter != NULL; iter = iter->next) {
 					xmlNode *iter2;
@@ -469,14 +471,14 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 								    as_xml_get_node_value_raw (
 									iter2);
 								as_yaml_emit_scalar (
-								    &emitter,
+								    emitter,
 								    as_strstripnl (content));
 							}
 						}
 					}
 				}
 
-				as_yaml_sequence_end (&emitter);
+				as_yaml_sequence_end (emitter);
 
 			xml_end:
 				if (doc != NULL)
@@ -487,21 +489,22 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 		as_context_set_locale (rel_context, rel_active_locale);
 
 		/* main dict end */
-		as_yaml_mapping_end (&emitter);
+		as_yaml_mapping_end (emitter);
+
 		/* finalize the document */
-		yaml_document_end_event_initialize (&event, 1);
-		res = yaml_emitter_emit (&emitter, &event);
-		g_assert (res);
+		event = fy_emit_event_create (emitter, FYET_DOCUMENT_END, 1);
+		res = fy_emit_event (emitter, event);
+		g_assert (res == 0);
 	}
 
 	/* end stream */
-	yaml_stream_end_event_initialize (&event);
-	res = yaml_emitter_emit (&emitter, &event);
-	g_assert (res);
+	event = fy_emit_event_create (emitter, FYET_STREAM_END);
+	res = fy_emit_event (emitter, event);
+	g_assert (res == 0);
 
-	yaml_emitter_flush (&emitter);
-	yaml_emitter_delete (&emitter);
+	fy_emitter_destroy (emitter);
 	*yaml_data = g_string_free (yaml_result, FALSE);
+
 	return report_validation_passed;
 }
 
