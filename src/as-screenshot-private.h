@@ -37,11 +37,11 @@ gboolean as_screenshot_load_from_xml (AsScreenshot *screenshot,
 				      GError	  **error);
 void	 as_screenshot_to_xml_node (AsScreenshot *screenshot, AsContext *ctx, xmlNode *root);
 
-gboolean as_screenshot_load_from_yaml (AsScreenshot *screenshot,
-				       AsContext    *ctx,
-				       GNode	    *node,
-				       GError	   **error);
-void as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, yaml_emitter_t *emitter);
+gboolean as_screenshot_load_from_yaml (AsScreenshot   *screenshot,
+				       AsContext      *ctx,
+				       struct fy_node *node,
+				       GError	     **error);
+void as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, struct fy_emitter *emitter);
 
 gint as_screenshot_get_position (AsScreenshot *screenshot);
 void as_screenshot_set_position (AsScreenshot *screenshot, gint pos);

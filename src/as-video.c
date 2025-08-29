@@ -449,15 +449,14 @@ as_video_to_xml_node (AsVideo *video, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_video_load_from_yaml (AsVideo *video, AsContext *ctx, GNode *node, GError **error)
+as_video_load_from_yaml (AsVideo *video, AsContext *ctx, struct fy_node *node, GError **error)
 {
 	AsVideoPrivate *priv = GET_PRIVATE (video);
-	GNode *n;
 
 	as_video_set_locale (video, "C");
-	for (n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
-		const gchar *value = as_yaml_node_get_value (n);
+	AS_YAML_MAPPING_FOREACH (npair, node) {
+		const gchar *key = as_yaml_node_get_key (npair);
+		const gchar *value = as_yaml_node_get_value (npair);
 
 		if (value == NULL)
 			continue; /* there should be no key without value */
@@ -504,7 +503,7 @@ as_video_load_from_yaml (AsVideo *video, AsContext *ctx, GNode *node, GError **e
  * Emit YAML data for this object.
  **/
 void
-as_video_emit_yaml (AsVideo *video, AsContext *ctx, yaml_emitter_t *emitter)
+as_video_emit_yaml (AsVideo *video, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsVideoPrivate *priv = GET_PRIVATE (video);
 	g_autofree gchar *url = NULL;

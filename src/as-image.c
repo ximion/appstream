@@ -439,7 +439,7 @@ as_image_to_xml_node (AsImage *image, AsContext *ctx, xmlNode *root)
 gboolean
 as_image_load_from_yaml (AsImage *image,
 			 AsContext *ctx,
-			 GNode *node,
+			 struct fy_node *node,
 			 AsImageKind kind,
 			 GError **error)
 {
@@ -447,9 +447,9 @@ as_image_load_from_yaml (AsImage *image,
 
 	priv->kind = kind;
 	as_image_set_locale (image, "C");
-	for (GNode *n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
-		const gchar *value = as_yaml_node_get_value (n);
+	AS_YAML_MAPPING_FOREACH (npair, node) {
+		const gchar *key = as_yaml_node_get_key (npair);
+		const gchar *value = as_yaml_node_get_value (npair);
 
 		if (value == NULL)
 			continue; /* there should be no key without value */
@@ -492,7 +492,7 @@ as_image_load_from_yaml (AsImage *image,
  * Emit YAML data for this object.
  **/
 void
-as_image_emit_yaml (AsImage *image, AsContext *ctx, yaml_emitter_t *emitter)
+as_image_emit_yaml (AsImage *image, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);
 	g_autofree gchar *url = NULL;

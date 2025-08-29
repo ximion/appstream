@@ -731,34 +731,37 @@ as_screenshot_to_xml_node (AsScreenshot *screenshot, AsContext *ctx, xmlNode *ro
  * Loads data from a YAML field.
  **/
 gboolean
-as_screenshot_load_from_yaml (AsScreenshot *screenshot, AsContext *ctx, GNode *node, GError **error)
+as_screenshot_load_from_yaml (AsScreenshot *screenshot,
+			      AsContext *ctx,
+			      struct fy_node *node,
+			      GError **error)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
-	GNode *n;
 
-	for (n = node->children; n != NULL; n = n->next) {
-		GNode *in;
-		const gchar *key = as_yaml_node_get_key (n);
-		const gchar *value = as_yaml_node_get_value (n);
+	AS_YAML_MAPPING_FOREACH (npair, node) {
+		const gchar *key = as_yaml_node_get_key (npair);
+		struct fy_node *nval = fy_node_pair_value (npair);
 
 		if (g_strcmp0 (key, "default") == 0) {
+			const gchar *value = as_yaml_node_get_value (npair);
 			if ((g_strcmp0 (value, "true") == 0) || (g_strcmp0 (value, "yes") == 0))
 				priv->kind = AS_SCREENSHOT_KIND_DEFAULT;
 			else
 				priv->kind = AS_SCREENSHOT_KIND_EXTRA;
 		} else if (g_strcmp0 (key, "environment") == 0) {
-			as_ref_string_assign_safe (&priv->environment, value);
+			as_ref_string_assign_transfer (&priv->environment,
+						       as_yaml_node_get_value_refstr (npair));
 		} else if (g_strcmp0 (key, "caption") == 0) {
 			/* the caption is a localized element */
-			as_yaml_set_localized_table (ctx, n, priv->caption);
+			as_yaml_set_localized_table (ctx, nval, priv->caption);
 		} else if (g_strcmp0 (key, "source-image") == 0) {
 			/* there can only be one source image */
 			g_autoptr(AsImage) image = as_image_new ();
-			if (as_image_load_from_yaml (image, ctx, n, AS_IMAGE_KIND_SOURCE, NULL))
+			if (as_image_load_from_yaml (image, ctx, nval, AS_IMAGE_KIND_SOURCE, NULL))
 				as_screenshot_add_image (screenshot, image);
 		} else if (g_strcmp0 (key, "thumbnails") == 0) {
 			/* the thumbnails are a list of images */
-			for (in = n->children; in != NULL; in = in->next) {
+			AS_YAML_SEQUENCE_FOREACH (in, nval) {
 				g_autoptr(AsImage) image = as_image_new ();
 				if (as_image_load_from_yaml (image,
 							     ctx,
@@ -768,9 +771,9 @@ as_screenshot_load_from_yaml (AsScreenshot *screenshot, AsContext *ctx, GNode *n
 					as_screenshot_add_image (screenshot, image);
 			}
 		} else if (g_strcmp0 (key, "videos") == 0) {
-			for (in = n->children; in != NULL; in = in->next) {
+			AS_YAML_SEQUENCE_FOREACH (vn, nval) {
 				g_autoptr(AsVideo) video = as_video_new ();
-				if (as_video_load_from_yaml (video, ctx, in, NULL))
+				if (as_video_load_from_yaml (video, ctx, vn, NULL))
 					as_screenshot_add_video (screenshot, video);
 			}
 		} else {
@@ -793,7 +796,7 @@ as_screenshot_load_from_yaml (AsScreenshot *screenshot, AsContext *ctx, GNode *n
  * Emit YAML data for this object.
  **/
 void
-as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, yaml_emitter_t *emitter)
+as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 	AsImage *source_img = NULL;
