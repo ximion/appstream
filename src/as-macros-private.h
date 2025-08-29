@@ -37,6 +37,16 @@ G_BEGIN_DECLS
 #define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
 
 /**
+ * AS_UNIQ:
+ * @base: base name
+ *
+ * Helper macro to generate unique names based on a base name.
+ *
+ * Returns: a unique name based on @base
+ */
+#define AS_UNIQ(base) base##__COUNTER__
+
+/**
  * as_str_equal0:
  * Returns TRUE if strings are equal, ignoring NULL strings.
  * This is a convenience wrapper around g_strcmp0

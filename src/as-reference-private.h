@@ -33,10 +33,10 @@ gboolean as_reference_load_from_xml (AsReference *reference,
 				     GError	**error);
 void	 as_reference_to_xml_node (AsReference *reference, AsContext *ctx, xmlNode *root);
 
-gboolean as_reference_load_from_yaml (AsReference *reference,
-				      AsContext	  *ctx,
-				      GNode	  *node,
-				      GError	 **error);
-void	 as_reference_emit_yaml (AsReference *reference, AsContext *ctx, yaml_emitter_t *emitter);
+gboolean as_reference_load_from_yaml (AsReference    *reference,
+				      AsContext	     *ctx,
+				      struct fy_node *node,
+				      GError	    **error);
+void as_reference_emit_yaml (AsReference *reference, AsContext *ctx, struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS

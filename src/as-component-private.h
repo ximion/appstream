@@ -107,11 +107,11 @@ gboolean as_component_load_from_xml (AsComponent *cpt,
 				     GError	**error);
 xmlNode *as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root);
 
-gboolean as_component_load_from_yaml (AsComponent *cpt,
-				      AsContext	  *ctx,
-				      GNode	  *root,
-				      GError	 **error);
-void	 as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitter);
+gboolean as_component_load_from_yaml (AsComponent    *cpt,
+				      AsContext	     *ctx,
+				      struct fy_node *root,
+				      GError	    **error);
+void	 as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS
 

@@ -1022,7 +1022,7 @@ as_review_to_xml_node (AsReview *review, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_review_load_from_yaml (AsReview *review, AsContext *ctx, GNode *node, GError **error)
+as_review_load_from_yaml (AsReview *review, AsContext *ctx, struct fy_node *node, GError **error)
 {
 	/* TODO */
 	return TRUE;
@@ -1037,7 +1037,7 @@ as_review_load_from_yaml (AsReview *review, AsContext *ctx, GNode *node, GError 
  * Emit YAML data for this object.
  **/
 void
-as_review_emit_yaml (AsReview *review, AsContext *ctx, yaml_emitter_t *emitter)
+as_review_emit_yaml (AsReview *review, AsContext *ctx, struct fy_emitter *emitter)
 {
 	/* TODO */
 	return;

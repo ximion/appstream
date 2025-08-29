@@ -270,19 +270,21 @@ as_suggested_to_xml_node (AsSuggested *suggested, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_suggested_load_from_yaml (AsSuggested *suggested, AsContext *ctx, GNode *node, GError **error)
+as_suggested_load_from_yaml (AsSuggested *suggested,
+			     AsContext *ctx,
+			     struct fy_node *node,
+			     GError **error)
 {
 	AsSuggestedPrivate *priv = GET_PRIVATE (suggested);
-	GNode *n;
 
-	for (n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
-		const gchar *value = as_yaml_node_get_value (n);
+	AS_YAML_MAPPING_FOREACH (pair, node) {
+		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *value = as_yaml_node_get_value (pair);
 
 		if (g_strcmp0 (key, "type") == 0) {
 			priv->kind = as_suggested_kind_from_string (value);
 		} else if (g_strcmp0 (key, "ids") == 0) {
-			as_yaml_list_to_str_array (n, priv->cpt_ids);
+			as_yaml_list_to_str_array (fy_node_pair_value (pair), priv->cpt_ids);
 		} else {
 			as_yaml_print_unknown ("Suggests", key);
 		}
@@ -300,7 +302,7 @@ as_suggested_load_from_yaml (AsSuggested *suggested, AsContext *ctx, GNode *node
  * Emit YAML data for this object.
  **/
 void
-as_suggested_emit_yaml (AsSuggested *suggested, AsContext *ctx, yaml_emitter_t *emitter)
+as_suggested_emit_yaml (AsSuggested *suggested, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsSuggestedPrivate *priv = GET_PRIVATE (suggested);
 

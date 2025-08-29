@@ -258,14 +258,13 @@ as_bundle_to_xml_node (AsBundle *bundle, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_bundle_load_from_yaml (AsBundle *bundle, AsContext *ctx, GNode *node, GError **error)
+as_bundle_load_from_yaml (AsBundle *bundle, AsContext *ctx, struct fy_node *node, GError **error)
 {
 	AsBundlePrivate *priv = GET_PRIVATE (bundle);
-	GNode *n;
 
-	for (n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
-		const gchar *value = as_yaml_node_get_value (n);
+	AS_YAML_MAPPING_FOREACH (npair, node) {
+		const gchar *key = as_yaml_node_get_key (npair);
+		const gchar *value = as_yaml_node_get_value (npair);
 
 		if (g_strcmp0 (key, "type") == 0) {
 			priv->kind = as_bundle_kind_from_string (value);
@@ -288,7 +287,7 @@ as_bundle_load_from_yaml (AsBundle *bundle, AsContext *ctx, GNode *node, GError 
  * Emit YAML data for this object.
  **/
 void
-as_bundle_emit_yaml (AsBundle *bundle, AsContext *ctx, yaml_emitter_t *emitter)
+as_bundle_emit_yaml (AsBundle *bundle, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsBundlePrivate *priv = GET_PRIVATE (bundle);
 

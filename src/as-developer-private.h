@@ -40,10 +40,10 @@ gboolean     as_developer_load_from_xml (AsDeveloper *devp,
 					 GError	    **error);
 void	     as_developer_to_xml_node (AsDeveloper *devp, AsContext *ctx, xmlNode *root);
 
-gboolean     as_developer_load_from_yaml (AsDeveloper *devp,
-					  AsContext   *ctx,
-					  GNode	      *node,
-					  GError     **error);
-void	     as_developer_emit_yaml (AsDeveloper *devp, AsContext *ctx, yaml_emitter_t *emitter);
+gboolean     as_developer_load_from_yaml (AsDeveloper	 *devp,
+					  AsContext	 *ctx,
+					  struct fy_node *node,
+					  GError	**error);
+void	     as_developer_emit_yaml (AsDeveloper *devp, AsContext *ctx, struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS

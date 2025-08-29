@@ -34,11 +34,11 @@ gboolean	       as_branding_load_from_xml (AsBranding *branding,
 						  GError    **error);
 void	 as_branding_to_xml_node (AsBranding *branding, AsContext *ctx, xmlNode *root);
 
-gboolean as_branding_load_from_yaml (AsBranding *branding,
-				     AsContext	*ctx,
-				     GNode	*node,
-				     GError    **error);
-void	 as_branding_emit_yaml (AsBranding *branding, AsContext *ctx, yaml_emitter_t *emitter);
+gboolean as_branding_load_from_yaml (AsBranding	    *branding,
+				     AsContext	    *ctx,
+				     struct fy_node *node,
+				     GError	   **error);
+void	 as_branding_emit_yaml (AsBranding *branding, AsContext *ctx, struct fy_emitter *emitter);
 
 #pragma GCC visibility pop
 G_END_DECLS

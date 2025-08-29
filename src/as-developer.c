@@ -298,18 +298,21 @@ as_developer_to_xml_node (AsDeveloper *devp, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_developer_load_from_yaml (AsDeveloper *devp, AsContext *ctx, GNode *node, GError **error)
+as_developer_load_from_yaml (AsDeveloper *devp,
+			     AsContext *ctx,
+			     struct fy_node *node,
+			     GError **error)
 {
 	AsDeveloperPrivate *priv = GET_PRIVATE (devp);
 
-	for (GNode *n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
+	AS_YAML_MAPPING_FOREACH (pair, node) {
+		const gchar *key = as_yaml_node_get_key (pair);
 
 		if (g_strcmp0 (key, "id") == 0) {
-			as_developer_set_id (devp, as_yaml_node_get_value (n));
+			as_developer_set_id (devp, as_yaml_node_get_value (pair));
 
 		} else if (g_strcmp0 (key, "name") == 0) {
-			as_yaml_set_localized_table (ctx, n, priv->name);
+			as_yaml_set_localized_table (ctx, fy_node_pair_value (pair), priv->name);
 
 		} else {
 			as_yaml_print_unknown ("developer", key);
@@ -329,7 +332,7 @@ as_developer_load_from_yaml (AsDeveloper *devp, AsContext *ctx, GNode *node, GEr
  * Emit YAML data for this object.
  **/
 void
-as_developer_emit_yaml (AsDeveloper *devp, AsContext *ctx, yaml_emitter_t *emitter)
+as_developer_emit_yaml (AsDeveloper *devp, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsDeveloperPrivate *priv = GET_PRIVATE (devp);
 

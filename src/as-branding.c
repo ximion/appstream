@@ -433,11 +433,13 @@ as_branding_to_xml_node (AsBranding *branding, AsContext *ctx, xmlNode *root)
 }
 
 static void
-as_branding_load_color_from_yaml (AsBranding *branding, GNode *node, AsBrandingColor *color)
+as_branding_load_color_from_yaml (AsBranding *branding,
+				  struct fy_node *node,
+				  AsBrandingColor *color)
 {
-	for (GNode *color_n = node->children; color_n != NULL; color_n = color_n->next) {
-		const gchar *key = as_yaml_node_get_key (color_n);
-		const gchar *value = as_yaml_node_get_value (color_n);
+	AS_YAML_MAPPING_FOREACH (cn_pair, node) {
+		const gchar *key = as_yaml_node_get_key (cn_pair);
+		const gchar *value = as_yaml_node_get_value (cn_pair);
 
 		if (g_strcmp0 (key, "type") == 0)
 			color->kind = as_color_kind_from_string (value);
@@ -458,15 +460,19 @@ as_branding_load_color_from_yaml (AsBranding *branding, GNode *node, AsBrandingC
  * Loads data from a YAML field.
  **/
 gboolean
-as_branding_load_from_yaml (AsBranding *branding, AsContext *ctx, GNode *node, GError **error)
+as_branding_load_from_yaml (AsBranding *branding,
+			    AsContext *ctx,
+			    struct fy_node *node,
+			    GError **error)
 {
 	AsBrandingPrivate *priv = GET_PRIVATE (branding);
 
-	for (GNode *n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
+	AS_YAML_MAPPING_FOREACH (pair, node) {
+		const gchar *key = as_yaml_node_get_key (pair);
 
 		if (g_strcmp0 (key, "colors") == 0) {
-			for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
+			struct fy_node *n = fy_node_pair_value (pair);
+			AS_YAML_SEQUENCE_FOREACH (sn, n) {
 				AsBrandingColor *color = as_branding_color_new (
 				    AS_COLOR_KIND_UNKNOWN,
 				    AS_COLOR_SCHEME_KIND_UNKNOWN);
@@ -495,7 +501,7 @@ as_branding_load_from_yaml (AsBranding *branding, AsContext *ctx, GNode *node, G
  * Emit YAML data for this object.
  **/
 void
-as_branding_emit_yaml (AsBranding *branding, AsContext *ctx, yaml_emitter_t *emitter)
+as_branding_emit_yaml (AsBranding *branding, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsBrandingPrivate *priv = GET_PRIVATE (branding);
 

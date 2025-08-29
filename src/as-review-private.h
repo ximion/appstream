@@ -35,8 +35,11 @@ G_BEGIN_DECLS
 gboolean as_review_load_from_xml (AsReview *review, AsContext *ctx, xmlNode *node, GError **error);
 void	 as_review_to_xml_node (AsReview *review, AsContext *ctx, xmlNode *root);
 
-gboolean as_review_load_from_yaml (AsReview *review, AsContext *ctx, GNode *node, GError **error);
-void	 as_review_emit_yaml (AsReview *review, AsContext *ctx, yaml_emitter_t *emitter);
+gboolean as_review_load_from_yaml (AsReview	  *review,
+				   AsContext	  *ctx,
+				   struct fy_node *node,
+				   GError	 **error);
+void	 as_review_emit_yaml (AsReview *review, AsContext *ctx, struct fy_emitter *emitter);
 
 #pragma GCC visibility pop
 G_END_DECLS

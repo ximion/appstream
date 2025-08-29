@@ -25,20 +25,18 @@
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 /* NOTE: The AsComponent load the AsLaunchable from XML, because it needs to aggregate multiple tags in one object. */
 
 void	 as_launchable_to_xml_node (AsLaunchable *launchable, AsContext *ctx, xmlNode *root);
 
-gboolean as_launchable_load_from_yaml (AsLaunchable *launch,
-				       AsContext    *ctx,
-				       GNode	    *node,
-				       GError	   **error);
-void	 as_launchable_emit_yaml (AsLaunchable *launch, AsContext *ctx, yaml_emitter_t *emitter);
+gboolean as_launchable_load_from_yaml (AsLaunchable	   *launch,
+				       AsContext	   *ctx,
+				       struct fy_node_pair *npair,
+				       GError		  **error);
+void	 as_launchable_emit_yaml (AsLaunchable *launch, AsContext *ctx, struct fy_emitter *emitter);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_LAUNCHABLE_PRIVATE_H */

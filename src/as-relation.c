@@ -1132,22 +1132,21 @@ as_relation_to_xml_node (AsRelation *relation, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, GError **error)
+as_relation_load_from_yaml (AsRelation *relation,
+			    AsContext *ctx,
+			    struct fy_node *node,
+			    GError **error)
 {
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
-	GNode *n;
 
-	if (node->children == NULL)
-		return FALSE;
-
-	for (n = node->children; n != NULL; n = n->next) {
-		const gchar *entry = as_yaml_node_get_key (n);
+	AS_YAML_MAPPING_FOREACH (pair, node) {
+		const gchar *entry = as_yaml_node_get_key (pair);
 		if (entry == NULL)
 			continue;
 
 		if (g_strcmp0 (entry, "version") == 0) {
 			g_autofree gchar *compare_str = NULL;
-			const gchar *ver_str = as_yaml_node_get_value (n);
+			const gchar *ver_str = as_yaml_node_get_value (pair);
 			if (strlen (ver_str) <= 2)
 				continue; /* this string is too short to contain any valid version */
 			compare_str = g_strndup (ver_str, 2);
@@ -1157,9 +1156,9 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 			g_strstrip (priv->version);
 		} else if (g_strcmp0 (entry, "side") == 0) {
 			priv->display_side_kind = as_display_side_kind_from_string (
-			    as_yaml_node_get_value (n));
+			    as_yaml_node_get_value (pair));
 		} else if (g_strcmp0 (entry, "bandwidth_mbitps") == 0) {
-			priv->bandwidth_mbitps = g_ascii_strtoll (as_yaml_node_get_value (n),
+			priv->bandwidth_mbitps = g_ascii_strtoll (as_yaml_node_get_value (pair),
 								  NULL,
 								  10);
 		} else {
@@ -1173,7 +1172,7 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 			if (kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
 				g_autofree gchar *value_str = NULL;
 				gint value_px;
-				const gchar *len_str = as_yaml_node_get_value (n);
+				const gchar *len_str = as_yaml_node_get_value (pair);
 				if (strlen (len_str) <= 2) {
 					/* this string is too short to contain a comparison operator */
 					value_str = g_strdup (len_str);
@@ -1197,7 +1196,7 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 							   g_variant_new_int32 (value_px));
 
 			} else if (kind == AS_RELATION_ITEM_KIND_MEMORY) {
-				gint value_i = g_ascii_strtoll (as_yaml_node_get_value (n),
+				gint value_i = g_ascii_strtoll (as_yaml_node_get_value (pair),
 								NULL,
 								10);
 				as_relation_set_value_var (relation, g_variant_new_int32 (value_i));
@@ -1205,17 +1204,17 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 			} else if (kind == AS_RELATION_ITEM_KIND_CONTROL) {
 				as_relation_set_value_var (
 				    relation,
-				    g_variant_new_int32 (
-					as_control_kind_from_string (as_yaml_node_get_value (n))));
+				    g_variant_new_int32 (as_control_kind_from_string (
+					as_yaml_node_get_value (pair))));
 
 			} else if (kind == AS_RELATION_ITEM_KIND_INTERNET) {
 				as_relation_set_value_var (
 				    relation,
-				    g_variant_new_int32 (
-					as_internet_kind_from_string (as_yaml_node_get_value (n))));
+				    g_variant_new_int32 (as_internet_kind_from_string (
+					as_yaml_node_get_value (pair))));
 
 			} else {
-				as_relation_set_value_str (relation, as_yaml_node_get_value (n));
+				as_relation_set_value_str (relation, as_yaml_node_get_value (pair));
 			}
 		}
 	}
@@ -1232,7 +1231,7 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
  * Emit YAML data for this object.
  **/
 void
-as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emitter)
+as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
 

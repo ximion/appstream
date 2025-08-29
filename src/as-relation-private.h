@@ -40,11 +40,11 @@ gboolean  as_relation_load_from_xml (AsRelation *relation,
 				     GError    **error);
 void	  as_relation_to_xml_node (AsRelation *relation, AsContext *ctx, xmlNode *root);
 
-gboolean  as_relation_load_from_yaml (AsRelation *relation,
-				      AsContext	 *ctx,
-				      GNode	 *node,
-				      GError	**error);
-void	  as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emitter);
+gboolean  as_relation_load_from_yaml (AsRelation     *relation,
+				      AsContext	     *ctx,
+				      struct fy_node *node,
+				      GError	    **error);
+void	  as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS
 

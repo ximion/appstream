@@ -41,13 +41,13 @@ gboolean as_content_rating_load_from_xml (AsContentRating *content_rating,
 					  GError	 **error);
 void as_content_rating_to_xml_node (AsContentRating *content_rating, AsContext *ctx, xmlNode *root);
 
-gboolean      as_content_rating_load_from_yaml (AsContentRating *content_rating,
-						AsContext	*ctx,
-						GNode		*node,
-						GError	       **error);
-void	      as_content_rating_emit_yaml (AsContentRating *content_rating,
-					   AsContext	   *ctx,
-					   yaml_emitter_t  *emitter);
+gboolean      as_content_rating_load_from_yaml (AsContentRating	    *content_rating,
+						AsContext	    *ctx,
+						struct fy_node_pair *npair,
+						GError		   **error);
+void	      as_content_rating_emit_yaml (AsContentRating   *content_rating,
+					   AsContext	     *ctx,
+					   struct fy_emitter *emitter);
 
 gboolean      as_is_oars_key (const gchar *id, AsOarsVersion version);
 

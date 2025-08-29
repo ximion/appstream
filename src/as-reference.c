@@ -317,21 +317,24 @@ as_reference_to_xml_node (AsReference *reference, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_reference_load_from_yaml (AsReference *reference, AsContext *ctx, GNode *node, GError **error)
+as_reference_load_from_yaml (AsReference *reference,
+			     AsContext *ctx,
+			     struct fy_node *node,
+			     GError **error)
 {
 	AsReferencePrivate *priv = GET_PRIVATE (reference);
 
-	for (GNode *n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
+	AS_YAML_MAPPING_FOREACH (pair, node) {
+		const gchar *key = as_yaml_node_get_key (pair);
 
 		if (as_str_equal0 (key, "type")) {
-			priv->kind = as_reference_kind_from_string (as_yaml_node_get_value (n));
+			priv->kind = as_reference_kind_from_string (as_yaml_node_get_value (pair));
 
 		} else if (as_str_equal0 (key, "value")) {
-			as_reference_set_value (reference, as_yaml_node_get_value (n));
+			as_reference_set_value (reference, as_yaml_node_get_value (pair));
 
 		} else if (as_str_equal0 (key, "registry")) {
-			as_reference_set_registry_name (reference, as_yaml_node_get_value (n));
+			as_reference_set_registry_name (reference, as_yaml_node_get_value (pair));
 
 		} else {
 			as_yaml_print_unknown ("reference", key);
@@ -357,7 +360,7 @@ as_reference_load_from_yaml (AsReference *reference, AsContext *ctx, GNode *node
  * Emit YAML data for this object.
  **/
 void
-as_reference_emit_yaml (AsReference *reference, AsContext *ctx, yaml_emitter_t *emitter)
+as_reference_emit_yaml (AsReference *reference, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsReferencePrivate *priv = GET_PRIVATE (reference);
 

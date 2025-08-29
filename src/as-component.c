@@ -5242,17 +5242,19 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
  * Process a keywords node and add the data to an #AsComponent
  */
 static void
-as_component_yaml_parse_keywords (AsComponent *cpt, AsContext *ctx, GNode *node)
+as_component_yaml_parse_keywords (AsComponent *cpt, AsContext *ctx, struct fy_node *node)
 {
-	GNode *tnode;
+	struct fy_node_pair *pair;
+	void *iter = NULL;
 
-	for (tnode = node->children; tnode != NULL; tnode = tnode->next) {
-		const gchar *locale = as_yaml_get_node_locale (ctx, tnode);
+	while ((pair = fy_node_mapping_iterate (node, &iter)) != NULL) {
+		const gchar *locale = as_yaml_get_node_locale (ctx, pair);
 		if (locale != NULL) {
 			g_autoptr(GPtrArray) keywords = NULL;
+			struct fy_node *value_node = fy_node_pair_value (pair);
 
 			keywords = g_ptr_array_new_with_free_func (g_free);
-			as_yaml_list_to_str_array (tnode, keywords);
+			as_yaml_list_to_str_array (value_node, keywords);
 
 			as_component_set_keywords (cpt, keywords, locale, FALSE);
 		}
@@ -5263,12 +5265,12 @@ as_component_yaml_parse_keywords (AsComponent *cpt, AsContext *ctx, GNode *node)
  * as_component_yaml_parse_urls:
  */
 static void
-as_component_yaml_parse_urls (AsComponent *cpt, GNode *node)
+as_component_yaml_parse_urls (AsComponent *cpt, struct fy_node *node)
 {
 	AsUrlKind url_kind;
-	for (GNode *n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
-		const gchar *value = as_yaml_node_get_value (n);
+	AS_YAML_MAPPING_FOREACH (pair, node) {
+		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *value = as_yaml_node_get_value (pair);
 
 		url_kind = as_url_kind_from_string (key);
 		if ((url_kind != AS_URL_KIND_UNKNOWN) && (value != NULL))
@@ -5280,9 +5282,11 @@ as_component_yaml_parse_urls (AsComponent *cpt, GNode *node)
  * as_component_yaml_parse_icon:
  */
 static void
-as_component_yaml_parse_icon (AsComponent *cpt, AsContext *ctx, GNode *node, AsIconKind kind)
+as_component_yaml_parse_icon (AsComponent *cpt,
+			      AsContext *ctx,
+			      struct fy_node *node,
+			      AsIconKind kind)
 {
-	GNode *n;
 	guint64 size;
 	guint scale;
 	g_autoptr(AsIcon) icon = NULL;
@@ -5290,9 +5294,9 @@ as_component_yaml_parse_icon (AsComponent *cpt, AsContext *ctx, GNode *node, AsI
 	icon = as_icon_new ();
 	as_icon_set_kind (icon, kind);
 
-	for (n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
-		const gchar *value = as_yaml_node_get_value (n);
+	AS_YAML_MAPPING_FOREACH (npair, node) {
+		const gchar *key = as_yaml_node_get_key (npair);
+		const gchar *value = as_yaml_node_get_value (npair);
 
 		if (g_strcmp0 (key, "width") == 0) {
 			size = g_ascii_strtoull (value, NULL, 10);
@@ -5334,12 +5338,12 @@ as_component_yaml_parse_icon (AsComponent *cpt, AsContext *ctx, GNode *node, AsI
  * as_component_yaml_parse_icons:
  */
 static void
-as_component_yaml_parse_icons (AsComponent *cpt, AsContext *ctx, GNode *node)
+as_component_yaml_parse_icons (AsComponent *cpt, AsContext *ctx, struct fy_node *node)
 {
-	GNode *n;
-	for (n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
-		const gchar *value = as_yaml_node_get_value (n);
+	AS_YAML_MAPPING_FOREACH (pair, node) {
+		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *value = as_yaml_node_get_value (pair);
+		struct fy_node *value_n = fy_node_pair_value (pair);
 
 		if (g_strcmp0 (key, "stock") == 0) {
 			g_autoptr(AsIcon) icon = as_icon_new ();
@@ -5354,22 +5358,22 @@ as_component_yaml_parse_icons (AsComponent *cpt, AsContext *ctx, GNode *node)
 				as_icon_set_filename (icon, value);
 				as_component_add_icon (cpt, icon);
 			} else {
-				GNode *sn;
 				/* we have a recent YAML file */
-				for (sn = n->children; sn != NULL; sn = sn->next)
+				AS_YAML_SEQUENCE_FOREACH (sn, value_n) {
 					as_component_yaml_parse_icon (cpt,
 								      ctx,
 								      sn,
 								      AS_ICON_KIND_CACHED);
+				}
 			}
 		} else if (g_strcmp0 (key, "local") == 0) {
-			GNode *sn;
-			for (sn = n->children; sn != NULL; sn = sn->next)
+			AS_YAML_SEQUENCE_FOREACH (sn, value_n) {
 				as_component_yaml_parse_icon (cpt, ctx, sn, AS_ICON_KIND_LOCAL);
+			}
 		} else if (g_strcmp0 (key, "remote") == 0) {
-			GNode *sn;
-			for (sn = n->children; sn != NULL; sn = sn->next)
+			AS_YAML_SEQUENCE_FOREACH (sn, value_n) {
 				as_component_yaml_parse_icon (cpt, ctx, sn, AS_ICON_KIND_REMOTE);
+			}
 		}
 	}
 }
@@ -5378,66 +5382,61 @@ as_component_yaml_parse_icons (AsComponent *cpt, AsContext *ctx, GNode *node)
  * as_component_yaml_parse_provides:
  */
 static void
-as_component_yaml_parse_provides (AsComponent *cpt, GNode *node)
+as_component_yaml_parse_provides (AsComponent *cpt, struct fy_node *node)
 {
-	GNode *n;
-	GNode *sn;
-
-	for (n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
+	AS_YAML_MAPPING_FOREACH (pair, node) {
+		const gchar *key = as_yaml_node_get_key (pair);
+		struct fy_node *n_val = fy_node_pair_value (pair);
 
 		if (g_strcmp0 (key, "ids") == 0) {
-			for (sn = n->children; sn != NULL; sn = sn->next) {
+			AS_YAML_SEQUENCE_FOREACH (sn, n_val) {
 				as_component_add_provided_item (cpt,
 								AS_PROVIDED_KIND_ID,
-								(gchar *) sn->data);
+								fy_node_get_scalar0 (sn));
 			}
 		} else if (g_strcmp0 (key, "libraries") == 0) {
-			for (sn = n->children; sn != NULL; sn = sn->next) {
+			AS_YAML_SEQUENCE_FOREACH (sn, n_val) {
 				as_component_add_provided_item (cpt,
 								AS_PROVIDED_KIND_LIBRARY,
-								(gchar *) sn->data);
+								fy_node_get_scalar0 (sn));
 			}
 		} else if (g_strcmp0 (key, "binaries") == 0) {
-			for (sn = n->children; sn != NULL; sn = sn->next) {
+			AS_YAML_SEQUENCE_FOREACH (sn, n_val) {
 				as_component_add_provided_item (cpt,
 								AS_PROVIDED_KIND_BINARY,
-								(gchar *) sn->data);
+								fy_node_get_scalar0 (sn));
 			}
 		} else if (g_strcmp0 (key, "fonts") == 0) {
-			GNode *dn;
-			for (sn = n->children; sn != NULL; sn = sn->next) {
-				for (dn = sn->children; dn != NULL; dn = dn->next) {
-					gchar *dvalue = NULL;
-					const gchar *dkey = (const gchar *) dn->data;
-					if (dn->children)
-						dvalue = (gchar *) dn->children->data;
-					if (dvalue == NULL)
-						continue;
-					if (g_strcmp0 (dkey, "name") == 0)
+			AS_YAML_SEQUENCE_FOREACH (sn, n_val) {
+				AS_YAML_MAPPING_FOREACH (dp, sn) {
+					const gchar *dkey = as_yaml_node_get_key (dp);
+					if (g_strcmp0 (dkey, "name") == 0) {
+						const gchar *dvalue = as_yaml_node_get_value (dp);
+						if (dvalue == NULL)
+							continue;
+
 						as_component_add_provided_item (
 						    cpt,
 						    AS_PROVIDED_KIND_FONT,
 						    dvalue);
+					}
 				}
 			}
 		} else if (g_strcmp0 (key, "modaliases") == 0) {
-			for (sn = n->children; sn != NULL; sn = sn->next) {
+			AS_YAML_SEQUENCE_FOREACH (sn, n_val) {
 				as_component_add_provided_item (cpt,
 								AS_PROVIDED_KIND_MODALIAS,
-								(gchar *) sn->data);
+								fy_node_get_scalar0 (sn));
 			}
 		} else if (g_strcmp0 (key, "firmware") == 0) {
-			GNode *dn;
-			for (sn = n->children; sn != NULL; sn = sn->next) {
-				gchar *kind = NULL;
-				gchar *fwdata = NULL;
-				for (dn = sn->children; dn != NULL; dn = dn->next) {
-					gchar *dvalue;
-					const gchar *dkey = (const gchar *) dn->data;
-					if (dn->children)
-						dvalue = (gchar *) dn->children->data;
-					else
+			AS_YAML_SEQUENCE_FOREACH (sn, n_val) {
+				const gchar *kind = NULL;
+				const gchar *fwdata = NULL;
+				AS_YAML_MAPPING_FOREACH (dp, sn) {
+					const gchar *dvalue;
+					const gchar *dkey = as_yaml_node_get_key (dp);
+					dvalue = as_yaml_node_get_value (dp);
+					if (dvalue == NULL)
 						continue;
 					if (g_strcmp0 (dkey, "type") == 0) {
 						kind = dvalue;
@@ -5462,27 +5461,26 @@ as_component_yaml_parse_provides (AsComponent *cpt, GNode *node)
 					    fwdata);
 			}
 		} else if (g_strcmp0 (key, "python3") == 0) {
-			for (sn = n->children; sn != NULL; sn = sn->next) {
+			AS_YAML_SEQUENCE_FOREACH (sn, n_val) {
 				as_component_add_provided_item (cpt,
 								AS_PROVIDED_KIND_PYTHON,
-								(gchar *) sn->data);
+								fy_node_get_scalar0 (sn));
 			}
 		} else if (g_strcmp0 (key, "mediatypes") == 0) {
-			for (sn = n->children; sn != NULL; sn = sn->next) {
+			AS_YAML_SEQUENCE_FOREACH (sn, n_val) {
 				as_component_add_provided_item (cpt,
 								AS_PROVIDED_KIND_MEDIATYPE,
-								(gchar *) sn->data);
+								fy_node_get_scalar0 (sn));
 			}
 		} else if (g_strcmp0 (key, "dbus") == 0) {
-			GNode *dn;
-			for (sn = n->children; sn != NULL; sn = sn->next) {
-				gchar *kind = NULL;
-				gchar *service = NULL;
-				for (dn = sn->children; dn != NULL; dn = dn->next) {
-					gchar *dvalue = NULL;
-					const gchar *dkey = (const gchar *) dn->data;
-					if (dn->children)
-						dvalue = (gchar *) dn->children->data;
+			AS_YAML_SEQUENCE_FOREACH (sn, n_val) {
+				const gchar *kind = NULL;
+				const gchar *service = NULL;
+				AS_YAML_MAPPING_FOREACH (dp, sn) {
+					const gchar *dvalue = NULL;
+					const gchar *dkey = as_yaml_node_get_key (dp);
+					if (fy_node_is_scalar (fy_node_pair_value (dp)))
+						dvalue = as_yaml_node_get_value (dp);
 					if (g_strcmp0 (dkey, "type") == 0) {
 						kind = dvalue;
 					} else if (g_strcmp0 (dkey, "service") == 0) {
@@ -5512,18 +5510,15 @@ as_component_yaml_parse_provides (AsComponent *cpt, GNode *node)
  * as_component_yaml_parse_languages:
  */
 static void
-as_component_yaml_parse_languages (AsComponent *cpt, GNode *node)
+as_component_yaml_parse_languages (AsComponent *cpt, struct fy_node *node)
 {
-	GNode *sn;
-
-	for (sn = node->children; sn != NULL; sn = sn->next) {
-		GNode *n;
+	AS_YAML_SEQUENCE_FOREACH (sn, node) {
 		g_autofree gchar *locale = NULL;
 		g_autofree gchar *percentage_str = NULL;
 
-		for (n = sn->children; n != NULL; n = n->next) {
-			const gchar *key = as_yaml_node_get_key (n);
-			const gchar *value = as_yaml_node_get_value (n);
+		AS_YAML_MAPPING_FOREACH (pair, sn) {
+			const gchar *key = as_yaml_node_get_key (pair);
+			const gchar *value = as_yaml_node_get_value (pair);
 
 			if (g_strcmp0 (key, "locale") == 0) {
 				if (locale == NULL)
@@ -5549,10 +5544,10 @@ as_component_yaml_parse_languages (AsComponent *cpt, GNode *node)
 static void
 as_component_yaml_parse_relations (AsComponent *cpt,
 				   AsContext *ctx,
-				   GNode *node,
+				   struct fy_node *node,
 				   AsRelationKind kind)
 {
-	for (GNode *n = node->children; n != NULL; n = n->next) {
+	AS_YAML_SEQUENCE_FOREACH (n, node) {
 		g_autoptr(AsRelation) relation = as_relation_new ();
 
 		as_relation_set_kind (relation, kind);
@@ -5565,14 +5560,16 @@ as_component_yaml_parse_relations (AsComponent *cpt,
  * as_component_yaml_parse_custom:
  */
 static void
-as_component_yaml_parse_custom (AsComponent *cpt, GNode *node)
+as_component_yaml_parse_custom (AsComponent *cpt, struct fy_node *node)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	struct fy_node_pair *npair;
+	gpointer iter = NULL;
 
-	for (GNode *sn = node->children; sn != NULL; sn = sn->next) {
+	while ((npair = fy_node_mapping_iterate (node, &iter)) != NULL) {
 		g_hash_table_insert (priv->custom,
-				     as_yaml_node_get_key_refstr (sn),
-				     as_yaml_node_get_value_refstr (sn));
+				     as_yaml_node_get_key_refstr (npair),
+				     as_yaml_node_get_value_refstr (npair));
 	}
 }
 
@@ -5586,10 +5583,17 @@ as_component_yaml_parse_custom (AsComponent *cpt, GNode *node)
  * Loads data from a YAML field.
  **/
 gboolean
-as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GError **error)
+as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, struct fy_node *root, GError **error)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	GNode *node;
+
+	if (fy_node_get_type (root) != FYNT_MAPPING) {
+		g_set_error_literal (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_FAILED,
+				     "Could not load component from YAML document: Not a mapping.");
+		return FALSE;
+	}
 
 	/* set context for this component */
 	as_component_set_context (cpt, ctx);
@@ -5597,32 +5601,32 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 	/* set component default priority */
 	priv->priority = as_context_get_priority (ctx);
 
-	for (node = root->children; node != NULL; node = node->next) {
+	AS_YAML_MAPPING_FOREACH (pair, root) {
 		const gchar *key;
-		const gchar *value;
+		struct fy_node *value_n;
 		AsTag field_id;
 
-		if (node->children == NULL)
-			continue;
-
-		key = as_yaml_node_get_key (node);
-		value = as_yaml_node_get_value (node);
+		key = as_yaml_node_get_key (pair);
+		value_n = fy_node_pair_value (pair);
 		field_id = as_yaml_tag_from_string (key);
 
 		if (field_id == AS_TAG_TYPE) {
+			const gchar *value = as_yaml_node_get_value (pair);
 			if (g_strcmp0 (value, "generic") == 0)
 				priv->kind = AS_COMPONENT_KIND_GENERIC;
 			else
 				priv->kind = as_component_kind_from_string (value);
 		} else if (field_id == AS_TAG_ID) {
-			as_component_set_id (cpt, value);
+			as_component_set_id (cpt, as_yaml_node_get_value (pair));
 		} else if (field_id == AS_TAG_PRIORITY) {
-			priv->priority = g_ascii_strtoll (value, NULL, 10);
+			priv->priority = g_ascii_strtoll (as_yaml_node_get_value (pair), NULL, 10);
 		} else if (field_id == AS_TAG_MERGE) {
-			priv->merge_kind = as_merge_kind_from_string (value);
+			priv->merge_kind = as_merge_kind_from_string (
+			    as_yaml_node_get_value (pair));
 		} else if (field_id == AS_TAG_DATE_EOL) {
-			as_component_set_date_eol (cpt, value);
+			as_component_set_date_eol (cpt, as_yaml_node_get_value (pair));
 		} else if (field_id == AS_TAG_PKGNAME) {
+			const gchar *value = as_yaml_node_get_value (pair);
 			g_strfreev (priv->pkgnames);
 
 			priv->pkgnames = g_new0 (gchar *, 1 + 1);
@@ -5630,19 +5634,19 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 			priv->pkgnames[1] = NULL;
 			g_object_notify ((GObject *) cpt, "pkgnames");
 		} else if (field_id == AS_TAG_SOURCE_PKGNAME) {
-			as_component_set_source_pkgname (cpt, value);
+			as_component_set_source_pkgname (cpt, as_yaml_node_get_value (pair));
 		} else if (field_id == AS_TAG_NAME) {
-			as_yaml_set_localized_table (ctx, node, priv->name);
+			as_yaml_set_localized_table (ctx, value_n, priv->name);
 			g_object_notify ((GObject *) cpt, "name");
 		} else if (field_id == AS_TAG_SUMMARY) {
-			as_yaml_set_localized_table (ctx, node, priv->summary);
+			as_yaml_set_localized_table (ctx, value_n, priv->summary);
 			g_object_notify ((GObject *) cpt, "summary");
 		} else if (field_id == AS_TAG_DESCRIPTION) {
-			as_yaml_set_localized_table (ctx, node, priv->description);
+			as_yaml_set_localized_table (ctx, value_n, priv->description);
 			g_object_notify ((GObject *) cpt, "description");
 		} else if (field_id == AS_TAG_DEVELOPER) {
 			g_autoptr(AsDeveloper) developer = as_developer_new ();
-			if (as_developer_load_from_yaml (developer, ctx, node, NULL)) {
+			if (as_developer_load_from_yaml (developer, ctx, value_n, NULL)) {
 				if (priv->developer != NULL)
 					g_object_unref (priv->developer);
 				priv->developer = g_steal_pointer (&developer);
@@ -5653,98 +5657,101 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 			if (priv->developer == NULL)
 				priv->developer = as_developer_new_with_context (ctx);
 			as_yaml_set_localized_table (ctx,
-						     node,
+						     value_n,
 						     as_developer_get_name_table (priv->developer));
 		} else if (field_id == AS_TAG_PROJECT_LICENSE) {
-			as_component_set_project_license (cpt, value);
+			as_component_set_project_license (cpt, as_yaml_node_get_value (pair));
 		} else if (field_id == AS_TAG_PROJECT_GROUP) {
-			as_component_set_project_group (cpt, value);
+			as_component_set_project_group (cpt, as_yaml_node_get_value (pair));
 		} else if (field_id == AS_TAG_CATEGORIES) {
-			as_yaml_list_to_str_array (node, priv->categories);
+			as_yaml_list_to_str_array (value_n, priv->categories);
 		} else if (field_id == AS_TAG_COMPULSORY_FOR_DESKTOP) {
-			as_yaml_list_to_str_array (node, priv->compulsory_for_desktops);
+			as_yaml_list_to_str_array (value_n, priv->compulsory_for_desktops);
 		} else if (field_id == AS_TAG_EXTENDS) {
-			as_yaml_list_to_str_array (node, priv->extends);
+			as_yaml_list_to_str_array (value_n, priv->extends);
 		} else if (field_id == AS_TAG_KEYWORDS) {
-			as_component_yaml_parse_keywords (cpt, ctx, node);
+			as_component_yaml_parse_keywords (cpt, ctx, value_n);
 		} else if (field_id == AS_TAG_URL) {
-			as_component_yaml_parse_urls (cpt, node);
+			as_component_yaml_parse_urls (cpt, value_n);
 		} else if (field_id == AS_TAG_ICON) {
-			as_component_yaml_parse_icons (cpt, ctx, node);
+			as_component_yaml_parse_icons (cpt, ctx, value_n);
 		} else if (field_id == AS_TAG_BUNDLE) {
-			for (GNode *n = node->children; n != NULL; n = n->next) {
+			AS_YAML_SEQUENCE_FOREACH (n, value_n) {
 				g_autoptr(AsBundle) bundle = as_bundle_new ();
 				if (as_bundle_load_from_yaml (bundle, ctx, n, NULL))
 					as_component_add_bundle (cpt, bundle);
 			}
 		} else if (field_id == AS_TAG_LAUNCHABLE) {
-			for (GNode *n = node->children; n != NULL; n = n->next) {
+			AS_YAML_MAPPING_FOREACH (npair, value_n) {
 				g_autoptr(AsLaunchable) launch = as_launchable_new ();
-				if (as_launchable_load_from_yaml (launch, ctx, n, NULL))
+				if (as_launchable_load_from_yaml (launch, ctx, npair, NULL))
 					as_component_add_launchable (cpt, launch);
 			}
 		} else if (field_id == AS_TAG_PROVIDES) {
-			as_component_yaml_parse_provides (cpt, node);
+			as_component_yaml_parse_provides (cpt, value_n);
 		} else if (field_id == AS_TAG_SCREENSHOTS) {
-			for (GNode *n = node->children; n != NULL; n = n->next) {
+			AS_YAML_SEQUENCE_FOREACH (n, value_n) {
 				g_autoptr(AsScreenshot) scr = as_screenshot_new ();
 				if (as_screenshot_load_from_yaml (scr, ctx, n, NULL))
 					as_component_add_screenshot (cpt, scr);
 			}
 		} else if (field_id == AS_TAG_LANGUAGES) {
-			as_component_yaml_parse_languages (cpt, node);
+			as_component_yaml_parse_languages (cpt, value_n);
 		} else if (field_id == AS_TAG_RELEASES) {
-			as_release_list_load_from_yaml (priv->releases, ctx, node, NULL);
+			as_release_list_load_from_yaml (priv->releases, ctx, value_n, NULL);
 
 		} else if (field_id == AS_TAG_SUGGESTS) {
-			for (GNode *n = node->children; n != NULL; n = n->next) {
+			AS_YAML_SEQUENCE_FOREACH (n, value_n) {
 				g_autoptr(AsSuggested) suggested = as_suggested_new ();
 				if (as_suggested_load_from_yaml (suggested, ctx, n, NULL))
 					as_component_add_suggested (cpt, suggested);
 			}
 		} else if (field_id == AS_TAG_CONTENT_RATING) {
-			for (GNode *n = node->children; n != NULL; n = n->next) {
+			AS_YAML_MAPPING_FOREACH (npair, value_n) {
 				g_autoptr(AsContentRating) rating = as_content_rating_new ();
-				if (as_content_rating_load_from_yaml (rating, ctx, n, NULL))
+				if (as_content_rating_load_from_yaml (rating, ctx, npair, NULL))
 					as_component_add_content_rating (cpt, rating);
 			}
 		} else if (field_id == AS_TAG_REPLACES) {
 			if (priv->replaces != NULL)
 				g_ptr_array_unref (priv->replaces);
 			priv->replaces = g_ptr_array_new_with_free_func (g_free);
-			for (GNode *n = node->children; n != NULL; n = n->next) {
-				for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
-					if (g_strcmp0 (as_yaml_node_get_key (sn), "id") != 0)
+
+			AS_YAML_SEQUENCE_FOREACH (n, value_n) {
+				AS_YAML_MAPPING_FOREACH (r_pair, n) {
+					if (g_strcmp0 (as_yaml_node_get_key (r_pair), "id") != 0)
 						continue;
-					g_ptr_array_add (priv->replaces,
-							 g_strdup (as_yaml_node_get_value (sn)));
+					g_ptr_array_add (
+					    priv->replaces,
+					    g_strdup (as_yaml_node_get_value (r_pair)));
 				}
 			}
 		} else if (field_id == AS_TAG_REQUIRES) {
 			as_component_yaml_parse_relations (cpt,
 							   ctx,
-							   node,
+							   value_n,
 							   AS_RELATION_KIND_REQUIRES);
 		} else if (field_id == AS_TAG_RECOMMENDS) {
 			as_component_yaml_parse_relations (cpt,
 							   ctx,
-							   node,
+							   value_n,
 							   AS_RELATION_KIND_RECOMMENDS);
 		} else if (field_id == AS_TAG_SUPPORTS) {
 			as_component_yaml_parse_relations (cpt,
 							   ctx,
-							   node,
+							   value_n,
 							   AS_RELATION_KIND_SUPPORTS);
 		} else if (field_id == AS_TAG_AGREEMENT) {
-			for (GNode *n = node->children; n != NULL; n = n->next) {
+			AS_YAML_SEQUENCE_FOREACH (n, value_n) {
 				g_autoptr(AsAgreement) agreement = as_agreement_new ();
 				if (as_agreement_load_from_yaml (agreement, ctx, n, NULL))
 					as_component_add_agreement (cpt, agreement);
 			}
 		} else if (field_id == AS_TAG_BRANDING) {
 			g_autoptr(AsBranding) branding = as_branding_new ();
-			if (as_branding_load_from_yaml (branding, ctx, node, NULL))
+			if (as_branding_load_from_yaml (branding, ctx, value_n, NULL))
 				as_component_set_branding (cpt, branding);
+
 		} else if (field_id == AS_TAG_NAME_VARIANT_SUFFIX) {
 			if (priv->name_variant_suffix != NULL)
 				g_hash_table_unref (priv->name_variant_suffix);
@@ -5753,36 +5760,35 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 			    g_str_equal,
 			    (GDestroyNotify) as_ref_string_release,
 			    g_free);
-			as_yaml_set_localized_table (ctx, node, priv->name_variant_suffix);
+			as_yaml_set_localized_table (ctx, value_n, priv->name_variant_suffix);
 		} else if (field_id == AS_TAG_TAGS) {
-			for (GNode *tags_n = node->children; tags_n != NULL;
-			     tags_n = tags_n->next) {
+			AS_YAML_SEQUENCE_FOREACH (tags_n, value_n) {
 				const gchar *ns = NULL;
 				const gchar *tag_value = NULL;
 
-				for (GNode *tag_n = tags_n->children; tag_n != NULL;
-				     tag_n = tag_n->next) {
-					const gchar *c_key = as_yaml_node_get_key (tag_n);
-					const gchar *c_value = as_yaml_node_get_value (tag_n);
-					if (g_strcmp0 (c_key, "namespace") == 0)
+				AS_YAML_MAPPING_FOREACH (tag_pair, tags_n) {
+					const gchar *c_key = as_yaml_node_get_key (tag_pair);
+					const gchar *c_value = as_yaml_node_get_value (tag_pair);
+					if (as_str_equal0 (c_key, "namespace"))
 						ns = c_value;
-					else if (g_strcmp0 (c_key, "tag") == 0)
+					else if (as_str_equal0 (c_key, "tag"))
 						tag_value = c_value;
 				}
+
 				as_component_add_tag (cpt, ns, tag_value);
 			}
 
 		} else if (field_id == AS_TAG_REFERENCES) {
-			for (GNode *n = node->children; n != NULL; n = n->next) {
+			AS_YAML_SEQUENCE_FOREACH (n, value_n) {
 				g_autoptr(AsReference) reference = as_reference_new ();
 				if (as_reference_load_from_yaml (reference, ctx, n, NULL))
 					as_component_add_reference (cpt, reference);
 			}
 
 		} else if (field_id == AS_TAG_CUSTOM) {
-			as_component_yaml_parse_custom (cpt, node);
+			as_component_yaml_parse_custom (cpt, value_n);
 		} else if (field_id == AS_TAG_REVIEWS) {
-			for (GNode *n = node->children; n != NULL; n = n->next) {
+			AS_YAML_SEQUENCE_FOREACH (n, value_n) {
 				g_autoptr(AsReview) review = as_review_new ();
 				if (as_review_load_from_yaml (review, ctx, n, NULL))
 					as_component_add_review (cpt, review);
@@ -5808,7 +5814,7 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
  * as_component_yaml_emit_icons:
  */
 static void
-as_component_yaml_emit_icons (AsComponent *cpt, yaml_emitter_t *emitter, GPtrArray *icons)
+as_component_yaml_emit_icons (AsComponent *cpt, struct fy_emitter *emitter, GPtrArray *icons)
 {
 	guint i;
 	GHashTableIter iter;
@@ -5902,7 +5908,7 @@ as_component_yaml_emit_icons (AsComponent *cpt, yaml_emitter_t *emitter, GPtrArr
  * as_component_yaml_emit_provides:
  */
 static void
-as_component_yaml_emit_provides (AsComponent *cpt, yaml_emitter_t *emitter)
+as_component_yaml_emit_provides (AsComponent *cpt, struct fy_emitter *emitter)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	guint i;
@@ -6071,7 +6077,7 @@ as_component_yaml_emit_provides (AsComponent *cpt, yaml_emitter_t *emitter)
  * as_component_yaml_emit_languages:
  */
 static void
-as_component_yaml_emit_languages (AsComponent *cpt, yaml_emitter_t *emitter)
+as_component_yaml_emit_languages (AsComponent *cpt, struct fy_emitter *emitter)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_autoptr(GList) keys = NULL;
@@ -6105,7 +6111,7 @@ as_component_yaml_emit_languages (AsComponent *cpt, yaml_emitter_t *emitter)
  * as_component_yaml_emit_custom:
  */
 static void
-as_component_yaml_emit_custom (AsComponent *cpt, yaml_emitter_t *emitter)
+as_component_yaml_emit_custom (AsComponent *cpt, struct fy_emitter *emitter)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_autoptr(GList) keys = NULL;
@@ -6137,16 +6143,16 @@ as_component_yaml_emit_custom (AsComponent *cpt, yaml_emitter_t *emitter)
  * Emit YAML data for this object.
  **/
 void
-as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitter)
+as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	gint res;
-	yaml_event_t event;
+	struct fy_event *event;
 
 	/* new document for this component */
-	yaml_document_start_event_initialize (&event, NULL, NULL, NULL, FALSE);
-	res = yaml_emitter_emit (emitter, &event);
-	g_assert (res);
+	event = fy_emit_event_create (emitter, FYET_DOCUMENT_START, FALSE, NULL, NULL);
+	res = fy_emit_event (emitter, event);
+	g_assert (res == 0);
 
 	/* open main mapping */
 	as_yaml_mapping_start (emitter);
@@ -6163,7 +6169,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_emit_entry (emitter, "Priority", priority_str);
 	}
 
-	/* merge strategy */
+	/* Merge strategy */
 	if (priv->merge_kind != AS_MERGE_KIND_NONE) {
 		as_yaml_emit_entry (emitter, "Merge", as_merge_kind_to_string (priv->merge_kind));
 	}
@@ -6457,9 +6463,10 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 	as_yaml_mapping_end (emitter);
 
 	/* finalize the document */
-	yaml_document_end_event_initialize (&event, 1);
-	res = yaml_emitter_emit (emitter, &event);
-	g_assert (res);
+	event = fy_emit_event_create (emitter, FYET_DOCUMENT_END, 1);
+	g_assert (event);
+	res = fy_emit_event (emitter, event);
+	g_assert (res == 0);
 }
 
 /**

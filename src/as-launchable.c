@@ -224,20 +224,25 @@ as_launchable_to_xml_node (AsLaunchable *launchable, AsContext *ctx, xmlNode *ro
  * as_launchable_load_from_yaml:
  * @launchable: an #AsLaunchable
  * @ctx: the AppStream document context.
- * @node: the YAML node.
+ * @npair: the YAML node pair.
  * @error: a #GError.
  *
  * Loads data from a YAML field.
  **/
 gboolean
-as_launchable_load_from_yaml (AsLaunchable *launch, AsContext *ctx, GNode *node, GError **error)
+as_launchable_load_from_yaml (AsLaunchable *launch,
+			      AsContext *ctx,
+			      struct fy_node_pair *npair,
+			      GError **error)
 {
 	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
-	GNode *n;
+	struct fy_node *nval = NULL;
 
-	priv->kind = as_launchable_kind_from_string (as_yaml_node_get_key (node));
-	for (n = node->children; n != NULL; n = n->next) {
-		const gchar *entry = as_yaml_node_get_key (n);
+	priv->kind = as_launchable_kind_from_string (as_yaml_node_get_key (npair));
+	nval = fy_node_pair_value (npair);
+
+	AS_YAML_SEQUENCE_FOREACH (lnode, nval) {
+		const gchar *entry = fy_node_get_scalar0 (lnode);
 		if (entry == NULL)
 			continue;
 		as_launchable_add_entry (launch, entry);
@@ -255,7 +260,7 @@ as_launchable_load_from_yaml (AsLaunchable *launch, AsContext *ctx, GNode *node,
  * Emit YAML data for this object.
  **/
 void
-as_launchable_emit_yaml (AsLaunchable *launch, AsContext *ctx, yaml_emitter_t *emitter)
+as_launchable_emit_yaml (AsLaunchable *launch, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
 

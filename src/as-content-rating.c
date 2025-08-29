@@ -1514,7 +1514,7 @@ as_content_rating_to_xml_node (AsContentRating *content_rating, AsContext *ctx, 
  * as_content_rating_load_from_yaml:
  * @content_rating: a #AsContentRating
  * @ctx: the AppStream document context.
- * @node: the YAML node.
+ * @npair: the YAML node pair.
  * @error: a #GError.
  *
  * Loads data from a YAML field.
@@ -1522,20 +1522,22 @@ as_content_rating_to_xml_node (AsContentRating *content_rating, AsContext *ctx, 
 gboolean
 as_content_rating_load_from_yaml (AsContentRating *content_rating,
 				  AsContext *ctx,
-				  GNode *node,
+				  struct fy_node_pair *npair,
 				  GError **error)
 {
-	GNode *n;
+	struct fy_node *node = fy_node_pair_value (npair);
+	as_content_rating_set_kind (content_rating, as_yaml_node_get_key (npair));
 
-	as_content_rating_set_kind (content_rating, as_yaml_node_get_key (node));
-	for (n = node->children; n != NULL; n = n->next) {
+	AS_YAML_MAPPING_FOREACH (cpair, node) {
 		AsContentRatingValue attr_value;
 
-		attr_value = as_content_rating_value_from_string (as_yaml_node_get_value (n));
+		attr_value = as_content_rating_value_from_string (as_yaml_node_get_value (cpair));
 		if (attr_value == AS_CONTENT_RATING_VALUE_UNKNOWN)
 			continue;
 
-		as_content_rating_set_value (content_rating, as_yaml_node_get_key (n), attr_value);
+		as_content_rating_set_value (content_rating,
+					     as_yaml_node_get_key (cpair),
+					     attr_value);
 	}
 
 	return TRUE;
@@ -1552,7 +1554,7 @@ as_content_rating_load_from_yaml (AsContentRating *content_rating,
 void
 as_content_rating_emit_yaml (AsContentRating *content_rating,
 			     AsContext *ctx,
-			     yaml_emitter_t *emitter)
+			     struct fy_emitter *emitter)
 {
 	AsContentRatingPrivate *priv = GET_PRIVATE (content_rating);
 	guint j;
