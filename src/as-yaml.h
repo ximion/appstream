@@ -25,65 +25,91 @@
 #ifndef __AS_YAML_H
 #define __AS_YAML_H
 
-#include <yaml.h>
+#include <libfyaml.h>
 #include "as-context.h"
 #include "as-metadata.h"
+#include "as-macros-private.h"
 #include "as-tag.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
-void		       as_yaml_parse_layer (yaml_parser_t *parser, GNode *data, GError **error);
+/**
+ * Helper macro for iterating through YAML sequences more compactly - we do this a lot!
+ * The macro ensures all variables are only visible within the loop body.
+ */
+#define AS_YAML_SEQUENCE_FOREACH(node_var, seq_node)                                        \
+	for (gpointer _iter_##seq_node = NULL; _iter_##seq_node == NULL;                    \
+	     _iter_##seq_node	       = GINT_TO_POINTER (1))                               \
+		 for (struct fy_node *node_var =                                    \
+			  fy_node_sequence_iterate ((seq_node), &_iter_##seq_node); \
+		      (node_var) != NULL;                                           \
+		      (node_var) = fy_node_sequence_iterate ((seq_node), &_iter_##seq_node))
 
-gboolean	       as_yaml_free_node (GNode *node, gpointer data);
+/**
+ * Helper macro for iterating through YAML mappings in a compact way, ensuring all variables
+ * are only visible within the loop body.
+ */
+#define AS_YAML_MAPPING_FOREACH(pair, map_node)                                            \
+	for (gpointer _iter_##map_node = NULL; _iter_##map_node == NULL;                   \
+	     _iter_##map_node	       = GINT_TO_POINTER (1))                              \
+		 for (struct fy_node_pair *pair =                                  \
+			  fy_node_mapping_iterate ((map_node), &_iter_##map_node); \
+		      (pair) != NULL;                                              \
+		      (pair) = fy_node_mapping_iterate ((map_node), &_iter_##map_node))
 
-const gchar	      *as_yaml_node_get_key (GNode *n);
-const gchar	      *as_yaml_node_get_value (GNode *n);
+struct fy_diag	      *as_yaml_error_diag_create (void);
+gchar		      *as_yaml_make_error_message (struct fy_diag *diag);
 
-GRefString	      *as_yaml_node_get_key_refstr (GNode *n);
-GRefString	      *as_yaml_node_get_value_refstr (GNode *n);
+const gchar	      *as_yaml_node_get_key (struct fy_node_pair *ynp);
+const gchar	      *as_yaml_node_get_value (struct fy_node_pair *ynp);
+
+GRefString	      *as_yaml_node_get_key_refstr (struct fy_node_pair *ynp);
+GRefString	      *as_yaml_node_get_value_refstr (struct fy_node_pair *ynp);
 
 void		       as_yaml_print_unknown (const gchar *root, const gchar *key);
 
 /* these functions have internal visibility, so appstream-compose can write YAML data */
 #pragma GCC visibility push(default)
-void		       as_yaml_mapping_start (yaml_emitter_t *emitter);
-void		       as_yaml_mapping_end (yaml_emitter_t *emitter);
+void		       as_yaml_mapping_start (struct fy_emitter *emitter);
+void		       as_yaml_mapping_end (struct fy_emitter *emitter);
 
-void		       as_yaml_sequence_start (yaml_emitter_t *emitter);
-void		       as_yaml_sequence_end (yaml_emitter_t *emitter);
+void		       as_yaml_sequence_start (struct fy_emitter *emitter);
+void		       as_yaml_sequence_end (struct fy_emitter *emitter);
 
-void		       as_yaml_emit_long_entry_literal (yaml_emitter_t *emitter,
-							const gchar    *key,
-							const gchar    *value);
-void		       as_yaml_emit_scalar_raw (yaml_emitter_t *emitter, const gchar *value);
-void		       as_yaml_emit_scalar (yaml_emitter_t *emitter, const gchar *value);
-void		       as_yaml_emit_scalar_uint64 (yaml_emitter_t *emitter, guint64 value);
-void		       as_yaml_emit_scalar_key (yaml_emitter_t *emitter, const gchar *key);
-void as_yaml_emit_entry (yaml_emitter_t *emitter, const gchar *key, const gchar *value);
-void as_yaml_emit_entry_uint64 (yaml_emitter_t *emitter, const gchar *key, guint64 value);
-void as_yaml_emit_entry_timestamp (yaml_emitter_t *emitter, const gchar *key, guint64 unixtime);
-void as_yaml_emit_long_entry (yaml_emitter_t *emitter, const gchar *key, const gchar *value);
-void as_yaml_emit_sequence (yaml_emitter_t *emitter, const gchar *key, GPtrArray *list);
+void		       as_yaml_emit_long_entry_literal (struct fy_emitter *emitter,
+							const gchar	  *key,
+							const gchar	  *value);
+void		       as_yaml_emit_scalar_raw (struct fy_emitter *emitter, const gchar *value);
+void		       as_yaml_emit_scalar (struct fy_emitter *emitter, const gchar *value);
+void		       as_yaml_emit_scalar_uint64 (struct fy_emitter *emitter, guint64 value);
+void		       as_yaml_emit_scalar_key (struct fy_emitter *emitter, const gchar *key);
+void as_yaml_emit_entry (struct fy_emitter *emitter, const gchar *key, const gchar *value);
+void as_yaml_emit_entry_uint64 (struct fy_emitter *emitter, const gchar *key, guint64 value);
+void as_yaml_emit_entry_timestamp (struct fy_emitter *emitter, const gchar *key, guint64 unixtime);
+void as_yaml_emit_long_entry (struct fy_emitter *emitter, const gchar *key, const gchar *value);
+void as_yaml_emit_sequence (struct fy_emitter *emitter, const gchar *key, GPtrArray *list);
 #pragma GCC visibility pop
-void as_yaml_emit_sequence_from_str_array (yaml_emitter_t *emitter,
-					   const gchar	  *key,
-					   GPtrArray	  *array);
-void as_yaml_emit_localized_strv (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab);
-void as_yaml_emit_localized_str_array (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab);
+void as_yaml_emit_sequence_from_str_array (struct fy_emitter *emitter,
+					   const gchar	     *key,
+					   GPtrArray	     *array);
+void as_yaml_emit_localized_strv (struct fy_emitter *emitter, const gchar *key, GHashTable *ltab);
+void as_yaml_emit_localized_str_array (struct fy_emitter *emitter,
+				       const gchar	 *key,
+				       GHashTable	 *ltab);
 
-GNode	    *as_yaml_get_localized_node (AsContext *ctx, GNode *node, gchar *locale_override);
-const gchar *as_yaml_get_node_locale (AsContext *ctx, GNode *node);
-void	     as_yaml_set_localized_table (AsContext *ctx, GNode *node, GHashTable *l10n_table);
+struct fy_node *as_yaml_get_localized_node (AsContext	   *ctx,
+					    struct fy_node *node,
+					    const gchar	   *locale_override);
+const gchar    *as_yaml_get_node_locale (AsContext *ctx, struct fy_node_pair *node_pair);
+void as_yaml_set_localized_table (AsContext *ctx, struct fy_node *node, GHashTable *l10n_table);
 
-void as_yaml_emit_localized_entry (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab);
-void as_yaml_emit_long_localized_entry (yaml_emitter_t *emitter,
-					const gchar    *key,
-					GHashTable     *ltab);
+void as_yaml_emit_localized_entry (struct fy_emitter *emitter, const gchar *key, GHashTable *ltab);
+void as_yaml_emit_long_localized_entry (struct fy_emitter *emitter,
+					const gchar	  *key,
+					GHashTable	  *ltab);
 
-void as_yaml_list_to_str_array (GNode *node, GPtrArray *array);
+void as_yaml_list_to_str_array (struct fy_node *node, GPtrArray *array);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_YAML_H */

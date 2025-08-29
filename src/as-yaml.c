@@ -28,12 +28,6 @@
  * @include: appstream.h
  */
 
-enum YamlNodeKind {
-	YAML_VAR,
-	YAML_VAL,
-	YAML_SEQ
-};
-
 /**
  * as_str_is_numeric:
  *
@@ -51,91 +45,57 @@ as_str_is_numeric (const gchar *s)
 }
 
 /**
- * as_yaml_parse_layer:
+ * as_yaml_error_diag_create:
  *
- * Create GNode tree from DEP-11 YAML document
+ * Helper method to create a fy_diag that is preconfigured
+ * for collecting errors.
+ *
+ * Returns: (transfer full): newly allocated #fy_diag structure
  */
-void
-as_yaml_parse_layer (yaml_parser_t *parser, GNode *data, GError **error)
+struct fy_diag *
+as_yaml_error_diag_create (void)
 {
-	GNode *last_leaf = data;
-	GNode *last_scalar;
-	yaml_event_t event;
-	gboolean parse = TRUE;
-	gboolean in_sequence = FALSE;
-	GError *tmp_error = NULL;
-	gchar *string_scalar;
-	int storage = YAML_VAR; /* the first element must always be of type VAR */
+	struct fy_diag_cfg dcfg;
+	struct fy_diag *ydiag;
 
-	while (parse) {
-		if (!yaml_parser_parse (parser, &event)) {
-			g_set_error (error,
-				     AS_METADATA_ERROR,
-				     AS_METADATA_ERROR_PARSE,
-				     "Metadata is invalid. Unable to parse YAML: %s",
-				     parser->problem);
-			break;
-		}
+	fy_diag_cfg_default (&dcfg);
+	dcfg.colorize = false;
+	dcfg.level = FYET_ERROR;
 
-		/* Parse value either as a new leaf in the mapping
-		 * or as a leaf value (one of them, in case it's a sequence) */
-		switch (event.type) {
-		case YAML_SCALAR_EVENT:
-			string_scalar = g_strdup ((gchar *) event.data.scalar.value);
-			g_strstrip (string_scalar);
-			if (storage)
-				g_node_append_data (last_leaf, string_scalar);
-			else
-				last_leaf = g_node_append (data, g_node_new (string_scalar));
-			storage ^= YAML_VAL;
-			break;
-		case YAML_SEQUENCE_START_EVENT:
-			storage = YAML_SEQ;
-			in_sequence = TRUE;
-			break;
-		case YAML_SEQUENCE_END_EVENT:
-			storage = YAML_VAR;
-			in_sequence = FALSE;
-			break;
-		case YAML_MAPPING_START_EVENT:
-			/* depth += 1 */
-			last_scalar = last_leaf;
-			if (in_sequence)
-				last_leaf = g_node_append (last_leaf, g_node_new (NULL));
+	ydiag = fy_diag_create (&dcfg);
+	fy_diag_set_collect_errors (ydiag, true);
 
-			as_yaml_parse_layer (parser, last_leaf, &tmp_error);
-			if (tmp_error != NULL) {
-				g_propagate_error (error, tmp_error);
-				parse = FALSE;
-			}
-
-			last_leaf = last_scalar;
-			storage ^= YAML_VAL; /* Flip VAR/VAL, without touching SEQ */
-			break;
-		case YAML_MAPPING_END_EVENT:
-		case YAML_STREAM_END_EVENT:
-		case YAML_DOCUMENT_END_EVENT:
-			/* depth -= 1 */
-			parse = FALSE;
-			break;
-		default:
-			break;
-		}
-
-		yaml_event_delete (&event);
-	}
+	return ydiag;
 }
 
 /**
- * as_yaml_free_node:
+ * as_yaml_make_error_message:
+ * @diag: the #fy_diag structure to extract errors from
+ *
+ * Helper method to create a nice error message from a libfyaml
+ * diagnostic structure.
+ *
+ * Returns: (transfer full): newly allocated error message, or NULL if no error.
  */
-gboolean
-as_yaml_free_node (GNode *node, gpointer data)
+gchar *
+as_yaml_make_error_message (struct fy_diag *diag)
 {
-	if (node->data != NULL)
-		g_free (node->data);
+	struct fy_diag_error *err;
+	g_autoptr(GString) msg;
+	gpointer iter = NULL;
 
-	return FALSE;
+	if (!fy_diag_got_error (diag))
+		return NULL;
+
+	msg = g_string_new ("");
+	while ((err = fy_diag_errors_iterate (diag, &iter)) != NULL) {
+		g_string_append_printf (msg, "%d:%d %s\n", err->line, err->column, err->msg);
+	}
+
+	if (msg->len > 0 && msg->str[msg->len - 1] == '\n')
+		g_string_truncate (msg, msg->len - 1);
+
+	return g_string_free (g_steal_pointer (&msg), FALSE);
 }
 
 /**
@@ -144,9 +104,17 @@ as_yaml_free_node (GNode *node, gpointer data)
  * Helper method to get the key of a node.
  */
 const gchar *
-as_yaml_node_get_key (GNode *n)
+as_yaml_node_get_key (struct fy_node_pair *ynp)
 {
-	return (const gchar *) n->data;
+	struct fy_node *key_n;
+	if (ynp == NULL)
+		return NULL;
+
+	key_n = fy_node_pair_key (ynp);
+	if (fy_node_is_scalar (key_n))
+		return fy_node_get_scalar0 (key_n);
+
+	return NULL;
 }
 
 /**
@@ -155,12 +123,17 @@ as_yaml_node_get_key (GNode *n)
  * Helper method to get the value of a node.
  */
 const gchar *
-as_yaml_node_get_value (GNode *n)
+as_yaml_node_get_value (struct fy_node_pair *ynp)
 {
-	if (n->children)
-		return (const gchar *) n->children->data;
-	else
+	struct fy_node *val_n;
+	if (ynp == NULL)
 		return NULL;
+
+	val_n = fy_node_pair_value (ynp);
+	if (fy_node_is_scalar (val_n))
+		return fy_node_get_scalar0 (val_n);
+
+	return NULL;
 }
 
 /**
@@ -169,9 +142,12 @@ as_yaml_node_get_value (GNode *n)
  * Helper method to get the key of a node.
  */
 GRefString *
-as_yaml_node_get_key_refstr (GNode *n)
+as_yaml_node_get_key_refstr (struct fy_node_pair *ynp)
 {
-	return g_ref_string_new_intern (as_yaml_node_get_key (n));
+	const gchar *key = as_yaml_node_get_key (ynp);
+	if (key == NULL)
+		return NULL;
+	return g_ref_string_new_intern (key);
 }
 
 /**
@@ -180,9 +156,12 @@ as_yaml_node_get_key_refstr (GNode *n)
  * Helper method to get the value of a node.
  */
 GRefString *
-as_yaml_node_get_value_refstr (GNode *n)
+as_yaml_node_get_value_refstr (struct fy_node_pair *ynp)
 {
-	return g_ref_string_new_intern (as_yaml_node_get_value (n));
+	const gchar *value = as_yaml_node_get_value (ynp);
+	if (value == NULL)
+		return NULL;
+	return g_ref_string_new_intern (value);
 }
 
 /**
@@ -198,158 +177,132 @@ as_yaml_print_unknown (const gchar *root, const gchar *key)
  * as_yaml_mapping_start:
  */
 void
-as_yaml_mapping_start (yaml_emitter_t *emitter)
+as_yaml_mapping_start (struct fy_emitter *emitter)
 {
-	yaml_event_t event;
+	struct fy_event *fye;
 
-	yaml_mapping_start_event_initialize (&event, NULL, NULL, 1, YAML_ANY_MAPPING_STYLE);
-	g_assert (yaml_emitter_emit (emitter, &event));
+	fye = fy_emit_event_create (emitter, FYET_MAPPING_START, FYNS_BLOCK, NULL, NULL);
+	if (fye != NULL)
+		fy_emit_event (emitter, fye);
 }
 
 /**
  * as_yaml_mapping_end:
  */
 void
-as_yaml_mapping_end (yaml_emitter_t *emitter)
+as_yaml_mapping_end (struct fy_emitter *emitter)
 {
-	yaml_event_t event;
+	struct fy_event *fye;
 
-	yaml_mapping_end_event_initialize (&event);
-	g_assert (yaml_emitter_emit (emitter, &event));
+	fye = fy_emit_event_create (emitter, FYET_MAPPING_END);
+	if (fye != NULL)
+		fy_emit_event (emitter, fye);
 }
 
 /**
  * as_yaml_sequence_start:
  */
 void
-as_yaml_sequence_start (yaml_emitter_t *emitter)
+as_yaml_sequence_start (struct fy_emitter *emitter)
 {
-	yaml_event_t event;
+	struct fy_event *fye;
 
-	yaml_sequence_start_event_initialize (&event, NULL, NULL, 1, YAML_ANY_SEQUENCE_STYLE);
-	g_assert (yaml_emitter_emit (emitter, &event));
+	fye = fy_emit_event_create (emitter, FYET_SEQUENCE_START, FYNS_BLOCK, NULL, NULL);
+	if (fye != NULL)
+		fy_emit_event (emitter, fye);
 }
 
 /**
  * as_yaml_sequence_end:
  */
 void
-as_yaml_sequence_end (yaml_emitter_t *emitter)
+as_yaml_sequence_end (struct fy_emitter *emitter)
 {
-	yaml_event_t event;
+	struct fy_event *fye;
 
-	yaml_sequence_end_event_initialize (&event);
-	g_assert (yaml_emitter_emit (emitter, &event));
+	fye = fy_emit_event_create (emitter, FYET_SEQUENCE_END);
+	if (fye != NULL)
+		fy_emit_event (emitter, fye);
 }
 
 /**
  * as_yaml_emit_scalar:
  */
 void
-as_yaml_emit_scalar (yaml_emitter_t *emitter, const gchar *value)
+as_yaml_emit_scalar (struct fy_emitter *emitter, const gchar *value)
 {
-	gint ret;
-	yaml_event_t event;
-	yaml_scalar_style_t style;
+	struct fy_event *fye;
+	enum fy_scalar_style style;
+
 	g_assert (value != NULL);
 
-	/* we always want the values to be represented as strings, and not have e.g. Python recognize them as ints later */
-	style = YAML_ANY_SCALAR_STYLE;
+	/* we always want the values to be represented as strings */
+	style = FYSS_ANY;
 	if (as_str_is_numeric (value))
-		style = YAML_SINGLE_QUOTED_SCALAR_STYLE;
+		style = FYSS_SINGLE_QUOTED;
 
-	yaml_scalar_event_initialize (&event,
-				      NULL,
-				      NULL,
-				      (yaml_char_t *) value,
-				      -1,
-				      TRUE,
-				      TRUE,
-				      style);
-	ret = yaml_emitter_emit (emitter, &event);
-	g_assert (ret);
+	fye = fy_emit_event_create (emitter, FYET_SCALAR, style, value, FY_NT, NULL, NULL);
+	if (fye != NULL)
+		fy_emit_event (emitter, fye);
 }
 
 /**
  * as_yaml_emit_scalar_raw:
  */
 void
-as_yaml_emit_scalar_raw (yaml_emitter_t *emitter, const gchar *value)
+as_yaml_emit_scalar_raw (struct fy_emitter *emitter, const gchar *value)
 {
-	gint ret;
-	yaml_event_t event;
+	struct fy_event *fye;
+
 	g_assert (value != NULL);
 
-	yaml_scalar_event_initialize (&event,
-				      NULL,
-				      NULL,
-				      (yaml_char_t *) value,
-				      -1,
-				      TRUE,
-				      TRUE,
-				      YAML_ANY_SCALAR_STYLE);
-	ret = yaml_emitter_emit (emitter, &event);
-	g_assert (ret);
+	fye = fy_emit_event_create (emitter, FYET_SCALAR, FYSS_ANY, value, FY_NT, NULL, NULL);
+	if (fye != NULL)
+		fy_emit_event (emitter, fye);
 }
 
 /**
  * as_yaml_emit_scalar_uint64:
  */
 void
-as_yaml_emit_scalar_uint64 (yaml_emitter_t *emitter, guint64 value)
+as_yaml_emit_scalar_uint64 (struct fy_emitter *emitter, guint64 value)
 {
-	gint ret;
-	yaml_event_t event;
+	struct fy_event *fye;
 	g_autofree gchar *value_str = NULL;
 
 	value_str = g_strdup_printf ("%" G_GUINT64_FORMAT, value);
-	yaml_scalar_event_initialize (&event,
-				      NULL,
-				      NULL,
-				      (yaml_char_t *) value_str,
-				      -1,
-				      TRUE,
-				      TRUE,
-				      YAML_ANY_SCALAR_STYLE);
-	ret = yaml_emitter_emit (emitter, &event);
-	g_assert (ret);
+	fye = fy_emit_event_create (emitter, FYET_SCALAR, FYSS_PLAIN, value_str, FY_NT, NULL, NULL);
+	if (fye != NULL)
+		fy_emit_event (emitter, fye);
 }
 
 /**
  * as_yaml_emit_scalar_key:
  */
 void
-as_yaml_emit_scalar_key (yaml_emitter_t *emitter, const gchar *key)
+as_yaml_emit_scalar_key (struct fy_emitter *emitter, const gchar *key)
 {
-	yaml_scalar_style_t keystyle;
-	yaml_event_t event;
-	gint ret;
+	struct fy_event *fye;
+	enum fy_scalar_style keystyle;
 
 	/* Some locale are "no", which - if unquoted - are interpreted as booleans.
-	 * Since we hever have boolean keys, we can disallow creating bool keys for all keys. */
-	keystyle = YAML_ANY_SCALAR_STYLE;
+	 * Since we never have boolean keys, we can disallow creating bool keys for all keys. */
+	keystyle = FYSS_ANY;
 	if (g_strcmp0 (key, "no") == 0)
-		keystyle = YAML_SINGLE_QUOTED_SCALAR_STYLE;
+		keystyle = FYSS_SINGLE_QUOTED;
 	if (g_strcmp0 (key, "yes") == 0)
-		keystyle = YAML_SINGLE_QUOTED_SCALAR_STYLE;
+		keystyle = FYSS_SINGLE_QUOTED;
 
-	yaml_scalar_event_initialize (&event,
-				      NULL,
-				      NULL,
-				      (yaml_char_t *) key,
-				      -1,
-				      TRUE,
-				      TRUE,
-				      keystyle);
-	ret = yaml_emitter_emit (emitter, &event);
-	g_assert (ret);
+	fye = fy_emit_event_create (emitter, FYET_SCALAR, keystyle, key, FY_NT, NULL, NULL);
+	if (fye != NULL)
+		fy_emit_event (emitter, fye);
 }
 
 /**
  * as_yaml_emit_entry:
  */
 void
-as_yaml_emit_entry (yaml_emitter_t *emitter, const gchar *key, const gchar *value)
+as_yaml_emit_entry (struct fy_emitter *emitter, const gchar *key, const gchar *value)
 {
 	if (value == NULL)
 		return;
@@ -362,7 +315,7 @@ as_yaml_emit_entry (yaml_emitter_t *emitter, const gchar *key, const gchar *valu
  * as_yaml_emit_entry_uint64:
  */
 void
-as_yaml_emit_entry_uint64 (yaml_emitter_t *emitter, const gchar *key, guint64 value)
+as_yaml_emit_entry_uint64 (struct fy_emitter *emitter, const gchar *key, guint64 value)
 {
 	as_yaml_emit_scalar_key (emitter, key);
 	as_yaml_emit_scalar_uint64 (emitter, value);
@@ -372,82 +325,59 @@ as_yaml_emit_entry_uint64 (yaml_emitter_t *emitter, const gchar *key, guint64 va
  * as_yaml_emit_entry_timestamp:
  */
 void
-as_yaml_emit_entry_timestamp (yaml_emitter_t *emitter, const gchar *key, guint64 unixtime)
+as_yaml_emit_entry_timestamp (struct fy_emitter *emitter, const gchar *key, guint64 unixtime)
 {
+	struct fy_event *fye;
 	g_autofree gchar *time_str = NULL;
-	yaml_event_t event;
-	gint ret;
 
 	as_yaml_emit_scalar_key (emitter, key);
 
 	time_str = g_strdup_printf ("%" G_GUINT64_FORMAT, unixtime);
-	yaml_scalar_event_initialize (&event,
-				      NULL,
-				      NULL,
-				      (yaml_char_t *) time_str,
-				      -1,
-				      TRUE,
-				      TRUE,
-				      YAML_ANY_SCALAR_STYLE);
-	ret = yaml_emitter_emit (emitter, &event);
-	g_assert (ret);
+	fye = fy_emit_event_create (emitter, FYET_SCALAR, FYSS_ANY, time_str, FY_NT, NULL, NULL);
+	if (fye != NULL) {
+		fy_emit_event (emitter, fye);
+	}
 }
 
 /**
  * as_yaml_emit_long_entry:
  */
 void
-as_yaml_emit_long_entry (yaml_emitter_t *emitter, const gchar *key, const gchar *value)
+as_yaml_emit_long_entry (struct fy_emitter *emitter, const gchar *key, const gchar *value)
 {
-	yaml_event_t event;
-	gint ret;
+	struct fy_event *fye;
 
 	if (value == NULL)
 		return;
 
 	as_yaml_emit_scalar_key (emitter, key);
-	yaml_scalar_event_initialize (&event,
-				      NULL,
-				      NULL,
-				      (yaml_char_t *) value,
-				      -1,
-				      TRUE,
-				      TRUE,
-				      YAML_FOLDED_SCALAR_STYLE);
-	ret = yaml_emitter_emit (emitter, &event);
-	g_assert (ret);
+	fye = fy_emit_event_create (emitter, FYET_SCALAR, FYSS_FOLDED, value, FY_NT, NULL, NULL);
+	if (fye != NULL)
+		fy_emit_event (emitter, fye);
 }
 
 /**
  * as_yaml_emit_long_entry_literal:
  */
 void
-as_yaml_emit_long_entry_literal (yaml_emitter_t *emitter, const gchar *key, const gchar *value)
+as_yaml_emit_long_entry_literal (struct fy_emitter *emitter, const gchar *key, const gchar *value)
 {
-	yaml_event_t event;
-	gint ret;
+	struct fy_event *fye;
 
 	if (value == NULL)
 		return;
 
 	as_yaml_emit_scalar_key (emitter, key);
-	yaml_scalar_event_initialize (&event,
-				      NULL,
-				      NULL,
-				      (yaml_char_t *) value,
-				      -1,
-				      TRUE,
-				      TRUE,
-				      YAML_LITERAL_SCALAR_STYLE);
-	ret = yaml_emitter_emit (emitter, &event);
-	g_assert (ret);
+	fye = fy_emit_event_create (emitter, FYET_SCALAR, FYSS_LITERAL, value, FY_NT, NULL, NULL);
+	if (fye != NULL)
+		fy_emit_event (emitter, fye);
 }
 
 /**
  * as_yaml_emit_sequence:
  */
 void
-as_yaml_emit_sequence (yaml_emitter_t *emitter, const gchar *key, GPtrArray *list)
+as_yaml_emit_sequence (struct fy_emitter *emitter, const gchar *key, GPtrArray *list)
 {
 	guint i;
 
@@ -456,7 +386,7 @@ as_yaml_emit_sequence (yaml_emitter_t *emitter, const gchar *key, GPtrArray *lis
 	if (list->len == 0)
 		return;
 
-	as_yaml_emit_scalar (emitter, key);
+	as_yaml_emit_scalar_key (emitter, key);
 
 	as_yaml_sequence_start (emitter);
 	for (i = 0; i < list->len; i++) {
@@ -467,16 +397,56 @@ as_yaml_emit_sequence (yaml_emitter_t *emitter, const gchar *key, GPtrArray *lis
 }
 
 /**
- * as_yaml_get_node_locale:
+ * as_yaml_get_localized_node:
+ * @ctx: AsContext
  * @node: A YAML node
+ * @locale_override: Locale override or %NULL
+ *
+ * Returns: A localized node if found, %NULL otherwise
+ */
+struct fy_node *
+as_yaml_get_localized_node (AsContext *ctx, struct fy_node *node, const gchar *locale_override)
+{
+	struct fy_node_pair *fynp;
+	void *iter = NULL;
+	const gchar *target_locale;
+
+	if (node == NULL || !fy_node_is_mapping (node))
+		return NULL;
+
+	target_locale = locale_override ? locale_override : as_context_get_locale (ctx);
+
+	/* Iterate through the mapping to find the locale */
+	while ((fynp = fy_node_mapping_iterate (node, &iter)) != NULL) {
+		struct fy_node *key_node = fy_node_pair_key (fynp);
+		const gchar *locale = NULL;
+
+		if (fy_node_is_scalar (key_node))
+			locale = fy_node_get_scalar0 (key_node);
+
+		if (locale != NULL) {
+			if (as_context_get_locale_use_all (ctx) || g_strcmp0 (locale, "C") == 0 ||
+			    as_utils_locale_is_compatible (target_locale, locale)) {
+				return fy_node_pair_value (fynp);
+			}
+		}
+	}
+
+	return NULL;
+}
+
+/**
+ * as_yaml_get_node_locale:
+ * @ctx: AsContext
+ * @node_pair: A YAML node pair
  *
  * Returns: The locale of a node, if the node should be considered for inclusion.
  * %NULL if the node should be ignored due to a not-matching locale.
  */
 const gchar *
-as_yaml_get_node_locale (AsContext *ctx, GNode *node)
+as_yaml_get_node_locale (AsContext *ctx, struct fy_node_pair *node_pair)
 {
-	const gchar *key = as_yaml_node_get_key (node);
+	const gchar *key = as_yaml_node_get_key (node_pair);
 
 	if (as_context_get_locale_use_all (ctx)) {
 		/* we should read all languages */
@@ -504,15 +474,25 @@ as_yaml_get_node_locale (AsContext *ctx, GNode *node)
  * Apply node values to a hash table holding the l10n data.
  */
 void
-as_yaml_set_localized_table (AsContext *ctx, GNode *node, GHashTable *l10n_table)
+as_yaml_set_localized_table (AsContext *ctx, struct fy_node *node, GHashTable *l10n_table)
 {
-	for (GNode *n = node->children; n != NULL; n = n->next) {
-		const gchar *locale = as_yaml_get_node_locale (ctx, n);
+	struct fy_node_pair *fynp;
+	void *iter = NULL;
+
+	if (node == NULL || !fy_node_is_mapping (node))
+		return;
+
+	while ((fynp = fy_node_mapping_iterate (node, &iter)) != NULL) {
+		const gchar *locale = as_yaml_get_node_locale (ctx, fynp);
+
 		if (locale != NULL) {
 			g_autofree gchar *locale_noenc = as_locale_strip_encoding (locale);
-			g_hash_table_insert (l10n_table,
-					     g_ref_string_new_intern (locale_noenc),
-					     g_strdup (as_yaml_node_get_value (n)));
+			const gchar *value = as_yaml_node_get_value (fynp);
+			if (value != NULL) {
+				g_hash_table_insert (l10n_table,
+						     g_ref_string_new_intern (locale_noenc),
+						     g_strdup (value));
+			}
 		}
 	}
 }
@@ -521,7 +501,7 @@ as_yaml_set_localized_table (AsContext *ctx, GNode *node, GHashTable *l10n_table
  * as_yaml_emit_localized_entry_with_func:
  */
 static void
-as_yaml_emit_localized_entry_with_func (yaml_emitter_t *emitter,
+as_yaml_emit_localized_entry_with_func (struct fy_emitter *emitter,
 					const gchar *key,
 					GHashTable *ltab,
 					GHFunc tfunc)
@@ -545,7 +525,7 @@ as_yaml_emit_localized_entry_with_func (yaml_emitter_t *emitter,
  * as_yaml_emit_lang_hashtable_entries:
  */
 static void
-as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, yaml_emitter_t *emitter)
+as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, struct fy_emitter *emitter)
 {
 	if (as_is_empty (value))
 		return;
@@ -561,7 +541,7 @@ as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, yaml_emitter_t *e
  * as_yaml_emit_localized_entry:
  */
 void
-as_yaml_emit_localized_entry (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
+as_yaml_emit_localized_entry (struct fy_emitter *emitter, const gchar *key, GHashTable *ltab)
 {
 	as_yaml_emit_localized_entry_with_func (emitter,
 						key,
@@ -573,7 +553,7 @@ as_yaml_emit_localized_entry (yaml_emitter_t *emitter, const gchar *key, GHashTa
  * as_yaml_emit_lang_hashtable_entries_long:
  */
 static void
-as_yaml_emit_lang_hashtable_entries_long (gchar *key, gchar *value, yaml_emitter_t *emitter)
+as_yaml_emit_lang_hashtable_entries_long (gchar *key, gchar *value, struct fy_emitter *emitter)
 {
 	if (as_is_empty (value))
 		return;
@@ -589,7 +569,7 @@ as_yaml_emit_lang_hashtable_entries_long (gchar *key, gchar *value, yaml_emitter
  * as_yaml_emit_long_localized_entry:
  */
 void
-as_yaml_emit_long_localized_entry (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
+as_yaml_emit_long_localized_entry (struct fy_emitter *emitter, const gchar *key, GHashTable *ltab)
 {
 	as_yaml_emit_localized_entry_with_func (emitter,
 						key,
@@ -601,10 +581,18 @@ as_yaml_emit_long_localized_entry (yaml_emitter_t *emitter, const gchar *key, GH
  * as_yaml_list_to_str_array:
  */
 void
-as_yaml_list_to_str_array (GNode *node, GPtrArray *array)
+as_yaml_list_to_str_array (struct fy_node *node, GPtrArray *array)
 {
-	for (GNode *n = node->children; n != NULL; n = n->next) {
-		const gchar *val = as_yaml_node_get_key (n);
+	struct fy_node *item_node;
+	void *iter = NULL;
+
+	if (node == NULL || !fy_node_is_sequence (node))
+		return;
+
+	while ((item_node = fy_node_sequence_iterate (node, &iter)) != NULL) {
+		const gchar *val = NULL;
+		if (fy_node_is_scalar (item_node))
+			val = fy_node_get_scalar0 (item_node);
 		if (val != NULL)
 			g_ptr_array_add (array, g_strdup (val));
 	}
@@ -614,10 +602,10 @@ as_yaml_list_to_str_array (GNode *node, GPtrArray *array)
  * as_yaml_emit_sequence_from_str_array:
  */
 void
-as_yaml_emit_sequence_from_str_array (yaml_emitter_t *emitter, const gchar *key, GPtrArray *array)
+as_yaml_emit_sequence_from_str_array (struct fy_emitter *emitter,
+				      const gchar *key,
+				      GPtrArray *array)
 {
-	guint i;
-
 	if (array == NULL)
 		return;
 	if (array->len == 0)
@@ -626,7 +614,7 @@ as_yaml_emit_sequence_from_str_array (yaml_emitter_t *emitter, const gchar *key,
 	as_yaml_emit_scalar_key (emitter, key);
 	as_yaml_sequence_start (emitter);
 
-	for (i = 0; i < array->len; i++) {
+	for (guint i = 0; i < array->len; i++) {
 		const gchar *val = (const gchar *) g_ptr_array_index (array, i);
 		as_yaml_emit_scalar (emitter, val);
 	}
@@ -638,7 +626,7 @@ as_yaml_emit_sequence_from_str_array (yaml_emitter_t *emitter, const gchar *key,
  * as_yaml_localized_list_helper:
  */
 static void
-as_yaml_localized_list_helper (gchar *key, gchar **strv, yaml_emitter_t *emitter)
+as_yaml_localized_list_helper (gchar *key, gchar **strv, struct fy_emitter *emitter)
 {
 	g_autofree gchar *locale_noenc = NULL;
 	if (strv == NULL)
@@ -662,7 +650,7 @@ as_yaml_localized_list_helper (gchar *key, gchar **strv, yaml_emitter_t *emitter
  * @ltab: Hash table of utf8->strv
  */
 void
-as_yaml_emit_localized_strv (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
+as_yaml_emit_localized_strv (struct fy_emitter *emitter, const gchar *key, GHashTable *ltab)
 {
 	if (ltab == NULL)
 		return;
@@ -684,7 +672,7 @@ as_yaml_emit_localized_strv (yaml_emitter_t *emitter, const gchar *key, GHashTab
  * @ltab: Hash table of utf8->GPtrArray[utf8]
  */
 void
-as_yaml_emit_localized_str_array (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
+as_yaml_emit_localized_str_array (struct fy_emitter *emitter, const gchar *key, GHashTable *ltab)
 {
 	GHashTableIter iter;
 	gpointer ht_key, ht_value;
@@ -707,7 +695,7 @@ as_yaml_emit_localized_str_array (yaml_emitter_t *emitter, const gchar *key, GHa
 
 		/* skip cruft */
 		if (as_is_cruft_locale (ht_key))
-			return;
+			continue;
 
 		locale_noenc = as_locale_strip_encoding (ht_key);
 		as_yaml_emit_scalar (emitter, locale_noenc);

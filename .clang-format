@@ -69,6 +69,9 @@ AttributeMacros: ['G_GNUC_NULL_TERMINATED']
 # statement macros
 StatementMacros: ['AS_BEGIN_PRIVATE_DECLS', 'AS_INTERNAL_VISIBLE']
 
+# our loop helpers
+ForEachMacros: ['AS_YAML_SEQUENCE_FOREACH', 'AS_YAML_MAPPING_FOREACH']
+
 # avoid breaking around an assignment operator
 PenaltyBreakAssignment: 250
 
