@@ -1097,16 +1097,17 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GError **error)
+as_release_load_from_yaml (AsRelease *release, AsContext *ctx, struct fy_node *node, GError **error)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 
 	/* propagate locale */
 	as_release_set_context (release, ctx);
 
-	for (GNode *n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
-		const gchar *value = as_yaml_node_get_value (n);
+	AS_YAML_MAPPING_FOREACH (pair, node) {
+		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *value = as_yaml_node_get_value (pair);
+		struct fy_node *value_n = fy_node_pair_value (pair);
 
 		if (as_str_equal0 (key, "unix-timestamp")) {
 			priv->timestamp = atol (value);
@@ -1128,14 +1129,12 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 		} else if (as_str_equal0 (key, "urgency")) {
 			priv->urgency = as_urgency_kind_from_string (value);
 		} else if (as_str_equal0 (key, "description")) {
-			as_yaml_set_localized_table (ctx, n, priv->description);
+			as_yaml_set_localized_table (ctx, value_n, priv->description);
 		} else if (as_str_equal0 (key, "url")) {
-			GNode *urls_n;
 			AsReleaseUrlKind url_kind;
-
-			for (urls_n = n->children; urls_n != NULL; urls_n = urls_n->next) {
-				const gchar *c_key = as_yaml_node_get_key (urls_n);
-				const gchar *c_value = as_yaml_node_get_value (urls_n);
+			AS_YAML_MAPPING_FOREACH (urls_p, value_n) {
+				const gchar *c_key = as_yaml_node_get_key (urls_p);
+				const gchar *c_value = as_yaml_node_get_value (urls_p);
 
 				url_kind = as_release_url_kind_from_string (c_key);
 				if ((url_kind != AS_RELEASE_URL_KIND_UNKNOWN) && (c_value != NULL))
@@ -1143,28 +1142,27 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 			}
 
 		} else if (as_str_equal0 (key, "issues")) {
-			for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
+			AS_YAML_SEQUENCE_FOREACH (sn, value_n) {
 				g_autoptr(AsIssue) issue = as_issue_new ();
 				if (as_issue_load_from_yaml (issue, ctx, sn, NULL))
 					as_release_add_issue (release, issue);
 			}
 
 		} else if (as_str_equal0 (key, "artifacts")) {
-			for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
+			AS_YAML_SEQUENCE_FOREACH (sn, value_n) {
 				g_autoptr(AsArtifact) artifact = as_artifact_new ();
 				if (as_artifact_load_from_yaml (artifact, ctx, sn, NULL))
 					as_release_add_artifact (release, artifact);
 			}
 
 		} else if (as_str_equal0 (key, "tags")) {
-			for (GNode *tags_n = n->children; tags_n != NULL; tags_n = tags_n->next) {
+			AS_YAML_SEQUENCE_FOREACH (tags_n, value_n) {
 				const gchar *ns = NULL;
 				const gchar *tag_value = NULL;
 
-				for (GNode *tag_n = tags_n->children; tag_n != NULL;
-				     tag_n = tag_n->next) {
-					const gchar *c_key = as_yaml_node_get_key (tag_n);
-					const gchar *c_value = as_yaml_node_get_value (tag_n);
+				AS_YAML_MAPPING_FOREACH (tag_pair, tags_n) {
+					const gchar *c_key = as_yaml_node_get_key (tag_pair);
+					const gchar *c_value = as_yaml_node_get_value (tag_pair);
 					if (g_strcmp0 (c_key, "namespace") == 0)
 						ns = c_value;
 					else if (g_strcmp0 (c_key, "tag") == 0)
@@ -1190,7 +1188,7 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
  * Emit YAML data for this object.
  **/
 void
-as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitter)
+as_release_emit_yaml (AsRelease *release, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 

@@ -270,13 +270,13 @@ as_issue_to_xml_node (AsIssue *issue, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_issue_load_from_yaml (AsIssue *issue, AsContext *ctx, GNode *node, GError **error)
+as_issue_load_from_yaml (AsIssue *issue, AsContext *ctx, struct fy_node *node, GError **error)
 {
 	AsIssuePrivate *priv = GET_PRIVATE (issue);
 
-	for (GNode *n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
-		const gchar *value = as_yaml_node_get_value (n);
+	AS_YAML_MAPPING_FOREACH (pair, node) {
+		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *value = as_yaml_node_get_value (pair);
 
 		if (G_UNLIKELY (value == NULL))
 			continue; /* there should be no key without value */
@@ -309,7 +309,7 @@ as_issue_load_from_yaml (AsIssue *issue, AsContext *ctx, GNode *node, GError **e
  * Emit YAML data for this object.
  **/
 void
-as_issue_emit_yaml (AsIssue *issue, AsContext *ctx, yaml_emitter_t *emitter)
+as_issue_emit_yaml (AsIssue *issue, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsIssuePrivate *priv = GET_PRIVATE (issue);
 

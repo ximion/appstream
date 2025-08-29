@@ -521,41 +521,47 @@ as_artifact_to_xml_node (AsArtifact *artifact, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_artifact_load_from_yaml (AsArtifact *artifact, AsContext *ctx, GNode *node, GError **error)
+as_artifact_load_from_yaml (AsArtifact *artifact,
+			    AsContext *ctx,
+			    struct fy_node *node,
+			    GError **error)
 {
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
 
-	for (GNode *n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
+	AS_YAML_MAPPING_FOREACH (pair, node) {
+		const gchar *key = as_yaml_node_get_key (pair);
 
 		if (g_strcmp0 (key, "type") == 0) {
-			priv->kind = as_artifact_kind_from_string (as_yaml_node_get_value (n));
+			priv->kind = as_artifact_kind_from_string (as_yaml_node_get_value (pair));
 
 		} else if (g_strcmp0 (key, "platform") == 0) {
-			as_ref_string_assign_safe (&priv->platform, as_yaml_node_get_value (n));
+			as_ref_string_assign_safe (&priv->platform, as_yaml_node_get_value (pair));
 
 		} else if (g_strcmp0 (key, "bundle") == 0) {
-			priv->bundle_kind = as_bundle_kind_from_string (as_yaml_node_get_value (n));
+			priv->bundle_kind = as_bundle_kind_from_string (
+			    as_yaml_node_get_value (pair));
 
 		} else if (g_strcmp0 (key, "locations") == 0) {
-			as_yaml_list_to_str_array (n, priv->locations);
+			as_yaml_list_to_str_array (fy_node_pair_value (pair), priv->locations);
 
 		} else if (g_strcmp0 (key, "filename") == 0) {
 			g_free (priv->filename);
-			priv->filename = g_strdup (as_yaml_node_get_value (n));
+			priv->filename = g_strdup (as_yaml_node_get_value (pair));
 
 		} else if (g_strcmp0 (key, "checksum") == 0) {
-			for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
+			struct fy_node *pair_value = fy_node_pair_value (pair);
+			AS_YAML_MAPPING_FOREACH (fynp, pair_value) {
 				g_autoptr(AsChecksum) cs = as_checksum_new ();
-				if (as_checksum_load_from_yaml (cs, ctx, sn, NULL))
+				if (as_checksum_load_from_yaml (cs, ctx, fynp, NULL))
 					as_artifact_add_checksum (artifact, cs);
 			}
 
 		} else if (g_strcmp0 (key, "size") == 0) {
-			for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
+			struct fy_node *pair_value = fy_node_pair_value (pair);
+			AS_YAML_MAPPING_FOREACH (s_pair, pair_value) {
 				AsSizeKind size_kind = as_size_kind_from_string (
-				    as_yaml_node_get_key (sn));
-				guint64 asize = g_ascii_strtoull (as_yaml_node_get_value (sn),
+				    as_yaml_node_get_key (s_pair));
+				guint64 asize = g_ascii_strtoull (as_yaml_node_get_value (s_pair),
 								  NULL,
 								  10);
 				if (size_kind == AS_SIZE_KIND_UNKNOWN)
@@ -582,7 +588,7 @@ as_artifact_load_from_yaml (AsArtifact *artifact, AsContext *ctx, GNode *node, G
  * Emit YAML data for this object.
  **/
 void
-as_artifact_emit_yaml (AsArtifact *artifact, AsContext *ctx, yaml_emitter_t *emitter)
+as_artifact_emit_yaml (AsArtifact *artifact, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
 

@@ -654,12 +654,15 @@ as_release_list_to_xml_node (AsReleaseList *rels, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_release_list_load_from_yaml (AsReleaseList *rels, AsContext *ctx, GNode *node, GError **error)
+as_release_list_load_from_yaml (AsReleaseList *rels,
+				AsContext *ctx,
+				struct fy_node *node,
+				GError **error)
 {
 	/* set new context */
 	as_release_list_set_context (rels, ctx);
 
-	for (GNode *n = node->children; n != NULL; n = n->next) {
+	AS_YAML_SEQUENCE_FOREACH (n, node) {
 		g_autoptr(AsRelease) release = as_release_new ();
 		if (as_release_load_from_yaml (release, ctx, n, NULL))
 			g_ptr_array_add (rels->entries, g_steal_pointer (&release));
@@ -677,7 +680,7 @@ as_release_list_load_from_yaml (AsReleaseList *rels, AsContext *ctx, GNode *node
  * Emit YAML data for this object.
  **/
 void
-as_release_list_emit_yaml (AsReleaseList *rels, AsContext *ctx, yaml_emitter_t *emitter)
+as_release_list_emit_yaml (AsReleaseList *rels, AsContext *ctx, struct fy_emitter *emitter)
 {
 	if (rels->entries->len == 0)
 		return;

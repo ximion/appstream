@@ -229,17 +229,20 @@ as_checksum_to_xml_node (AsChecksum *cs, AsContext *ctx, xmlNode *root)
  * as_checksum_load_from_yaml:
  * @cs: a #AsChecksum instance.
  * @ctx: the AppStream document context.
- * @node: the YAML node.
+ * @fynp: the YAML node pair.
  * @error: a #GError.
  *
  * Loads data from a YAML field.
  **/
 gboolean
-as_checksum_load_from_yaml (AsChecksum *cs, AsContext *ctx, GNode *node, GError **error)
+as_checksum_load_from_yaml (AsChecksum *cs,
+			    AsContext *ctx,
+			    struct fy_node_pair *fynp,
+			    GError **error)
 {
 	AsChecksumPrivate *priv = GET_PRIVATE (cs);
-	const gchar *key = as_yaml_node_get_key (node);
-	const gchar *value = as_yaml_node_get_value (node);
+	const gchar *key = as_yaml_node_get_key (fynp);
+	const gchar *value = as_yaml_node_get_value (fynp);
 
 	priv->kind = as_checksum_kind_from_string (key);
 	if (priv->kind == AS_CHECKSUM_KIND_NONE)
@@ -259,7 +262,7 @@ as_checksum_load_from_yaml (AsChecksum *cs, AsContext *ctx, GNode *node, GError 
  * Emit YAML data for this object.
  **/
 void
-as_checksum_emit_yaml (AsChecksum *cs, AsContext *ctx, yaml_emitter_t *emitter)
+as_checksum_emit_yaml (AsChecksum *cs, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsChecksumPrivate *priv = GET_PRIVATE (cs);
 	if (priv->kind == AS_CHECKSUM_KIND_NONE)
