@@ -41,11 +41,11 @@ void	 as_agreement_section_to_xml_node (AsAgreementSection *agreement_section,
 
 gboolean as_agreement_section_load_from_yaml (AsAgreementSection *agreement_section,
 					      AsContext		 *ctx,
-					      GNode		 *node,
+					      struct fy_node	 *node,
 					      GError		**error);
 void	 as_agreement_section_emit_yaml (AsAgreementSection *agreement_section,
 					 AsContext	    *ctx,
-					 yaml_emitter_t	    *emitter);
+					 struct fy_emitter  *emitter);
 
 AS_END_PRIVATE_DECLS
 

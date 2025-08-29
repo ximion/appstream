@@ -328,25 +328,26 @@ as_agreement_section_to_xml_node (AsAgreementSection *agreement_section,
 gboolean
 as_agreement_section_load_from_yaml (AsAgreementSection *agreement_section,
 				     AsContext *ctx,
-				     GNode *node,
+				     struct fy_node *node,
 				     GError **error)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
-	GNode *n;
 
 	/* propagate context */
 	as_agreement_section_set_context (agreement_section, ctx);
 
-	for (n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
+	AS_YAML_MAPPING_FOREACH (pair, node) {
+		const gchar *key = as_yaml_node_get_key (pair);
 
 		if (g_strcmp0 (key, "type") == 0) {
 			as_agreement_section_set_kind (agreement_section,
-						       as_yaml_node_get_value (n));
+						       as_yaml_node_get_value (pair));
 		} else if (g_strcmp0 (key, "name") == 0) {
-			as_yaml_set_localized_table (ctx, n, priv->name);
+			as_yaml_set_localized_table (ctx, fy_node_pair_value (pair), priv->name);
 		} else if (g_strcmp0 (key, "description") == 0) {
-			as_yaml_set_localized_table (ctx, n, priv->description);
+			as_yaml_set_localized_table (ctx,
+						     fy_node_pair_value (pair),
+						     priv->description);
 		} else {
 			as_yaml_print_unknown ("agreement_section", key);
 		}
@@ -366,7 +367,7 @@ as_agreement_section_load_from_yaml (AsAgreementSection *agreement_section,
 void
 as_agreement_section_emit_yaml (AsAgreementSection *agreement_section,
 				AsContext *ctx,
-				yaml_emitter_t *emitter)
+				struct fy_emitter *emitter)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
 

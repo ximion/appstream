@@ -363,26 +363,26 @@ as_agreement_to_xml_node (AsAgreement *agreement, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_agreement_load_from_yaml (AsAgreement *agreement, AsContext *ctx, GNode *node, GError **error)
+as_agreement_load_from_yaml (AsAgreement *agreement,
+			     AsContext *ctx,
+			     struct fy_node *node,
+			     GError **error)
 {
 	AsAgreementPrivate *priv = GET_PRIVATE (agreement);
-	GNode *n;
 
 	/* propagate context */
 	as_agreement_set_context (agreement, ctx);
 
-	for (n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
-		const gchar *value = as_yaml_node_get_value (n);
+	AS_YAML_MAPPING_FOREACH (pair, node) {
+		const gchar *key = as_yaml_node_get_key (pair);
 
 		if (g_strcmp0 (key, "type") == 0) {
-			priv->kind = as_agreement_kind_from_string (value);
+			priv->kind = as_agreement_kind_from_string (as_yaml_node_get_value (pair));
 		} else if (g_strcmp0 (key, "version-id") == 0) {
-			as_agreement_set_version_id (agreement, value);
+			as_agreement_set_version_id (agreement, as_yaml_node_get_value (pair));
 		} else if (g_strcmp0 (key, "sections") == 0) {
-			GNode *sn;
-
-			for (sn = n->children; sn != NULL; sn = sn->next) {
+			struct fy_node *value_n = fy_node_pair_value (pair);
+			AS_YAML_SEQUENCE_FOREACH (sn, value_n) {
 				g_autoptr(AsAgreementSection) asec = as_agreement_section_new ();
 
 				if (!as_agreement_section_load_from_yaml (asec, ctx, sn, error))
@@ -406,7 +406,7 @@ as_agreement_load_from_yaml (AsAgreement *agreement, AsContext *ctx, GNode *node
  * Emit YAML data for this object.
  **/
 void
-as_agreement_emit_yaml (AsAgreement *agreement, AsContext *ctx, yaml_emitter_t *emitter)
+as_agreement_emit_yaml (AsAgreement *agreement, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsAgreementPrivate *priv = GET_PRIVATE (agreement);
 
