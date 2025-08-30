@@ -147,6 +147,22 @@ as_yaml_node_get_value0 (struct fy_node_pair *ynp)
 }
 
 /**
+ * as_yaml_node_get_value:
+ *
+ * Helper method to get the value of a node as string+length.
+ * The resulting string is not zero-terminated!
+ */
+const gchar *
+as_yaml_node_get_value (struct fy_node_pair *ynp, size_t *lenp)
+{
+	struct fy_node *val_n = fy_node_pair_value (ynp);
+	if (val_n == NULL)
+		return NULL;
+
+	return fy_node_get_scalar (val_n, lenp);
+}
+
+/**
  * as_yaml_node_get_key_refstr:
  *
  * Helper method to get the key of a node.
@@ -172,6 +188,127 @@ as_yaml_node_get_value_refstr (struct fy_node_pair *ynp)
 	if (value == NULL)
 		return NULL;
 	return g_ref_string_new_intern (value);
+}
+
+/**
+ * as_yaml_get_localized_node:
+ * @ctx: AsContext
+ * @node: A YAML node
+ * @locale_override: Locale override or %NULL
+ *
+ * Returns: A localized node if found, %NULL otherwise
+ */
+struct fy_node *
+as_yaml_get_localized_node (AsContext *ctx, struct fy_node *node, const gchar *locale_override)
+{
+	struct fy_node_pair *fynp;
+	void *iter = NULL;
+	const gchar *target_locale;
+
+	if (node == NULL || !fy_node_is_mapping (node))
+		return NULL;
+
+	target_locale = locale_override ? locale_override : as_context_get_locale (ctx);
+
+	/* Iterate through the mapping to find the locale */
+	while ((fynp = fy_node_mapping_iterate (node, &iter)) != NULL) {
+		struct fy_node *key_node = fy_node_pair_key (fynp);
+		const gchar *locale = NULL;
+
+		if (fy_node_is_scalar (key_node))
+			locale = fy_node_get_scalar0 (key_node);
+
+		if (locale != NULL) {
+			if (as_context_get_locale_use_all (ctx) || g_strcmp0 (locale, "C") == 0 ||
+			    as_utils_locale_is_compatible (target_locale, locale)) {
+				return fy_node_pair_value (fynp);
+			}
+		}
+	}
+
+	return NULL;
+}
+
+/**
+ * as_yaml_get_node_locale:
+ * @ctx: AsContext
+ * @node_pair: A YAML node pair
+ *
+ * Returns: The locale of a node, if the node should be considered for inclusion.
+ * %NULL if the node should be ignored due to a not-matching locale.
+ */
+const gchar *
+as_yaml_get_node_locale (AsContext *ctx, struct fy_node_pair *node_pair)
+{
+	const gchar *key = as_yaml_node_get_key0 (node_pair);
+
+	if (as_context_get_locale_use_all (ctx)) {
+		/* we should read all languages */
+		return key;
+	}
+
+	/* we always include the untranslated strings */
+	if (g_strcmp0 (key, "C") == 0)
+		return key;
+
+	if (as_utils_locale_is_compatible (as_context_get_locale (ctx), key)) {
+		return key;
+	} else {
+		/* If we are here, we haven't found a matching locale.
+		 * In that case, we return %NULL to indicate that this element should not be added.
+		 */
+		return NULL;
+	}
+}
+
+/**
+ * as_yaml_set_localized_table:
+ *
+ * Apply node values to a hash table holding the l10n data.
+ */
+void
+as_yaml_set_localized_table (AsContext *ctx, struct fy_node *node, GHashTable *l10n_table)
+{
+	struct fy_node_pair *fynp;
+	void *iter = NULL;
+
+	if (node == NULL || !fy_node_is_mapping (node))
+		return;
+
+	while ((fynp = fy_node_mapping_iterate (node, &iter)) != NULL) {
+		const gchar *locale = as_yaml_get_node_locale (ctx, fynp);
+
+		if (locale != NULL) {
+			size_t value_len;
+			g_autofree gchar *locale_noenc = as_locale_strip_encoding (locale);
+			const gchar *value = as_yaml_node_get_value (fynp, &value_len);
+			if (value != NULL) {
+				g_hash_table_insert (l10n_table,
+						     g_ref_string_new_intern (locale_noenc),
+						     g_strndup (value, value_len));
+			}
+		}
+	}
+}
+
+/**
+ * as_yaml_list_to_str_array:
+ */
+void
+as_yaml_list_to_str_array (struct fy_node *node, GPtrArray *array)
+{
+	struct fy_node *item_node;
+	void *iter = NULL;
+
+	if (node == NULL || !fy_node_is_sequence (node))
+		return;
+
+	while ((item_node = fy_node_sequence_iterate (node, &iter)) != NULL) {
+		size_t val_len;
+		const gchar *val = fy_node_get_scalar (item_node, &val_len);
+		if (val != NULL)
+			g_ptr_array_add (array, g_strndup (val, val_len));
+	}
 }
 
 /**
@@ -410,107 +547,6 @@ as_yaml_emit_sequence (struct fy_emitter *emitter, const gchar *key, GPtrArray *
 }
 
 /**
- * as_yaml_get_localized_node:
- * @ctx: AsContext
- * @node: A YAML node
- * @locale_override: Locale override or %NULL
- *
- * Returns: A localized node if found, %NULL otherwise
- */
-struct fy_node *
-as_yaml_get_localized_node (AsContext *ctx, struct fy_node *node, const gchar *locale_override)
-{
-	struct fy_node_pair *fynp;
-	void *iter = NULL;
-	const gchar *target_locale;
-
-	if (node == NULL || !fy_node_is_mapping (node))
-		return NULL;
-
-	target_locale = locale_override ? locale_override : as_context_get_locale (ctx);
-
-	/* Iterate through the mapping to find the locale */
-	while ((fynp = fy_node_mapping_iterate (node, &iter)) != NULL) {
-		struct fy_node *key_node = fy_node_pair_key (fynp);
-		const gchar *locale = NULL;
-
-		if (fy_node_is_scalar (key_node))
-			locale = fy_node_get_scalar0 (key_node);
-
-		if (locale != NULL) {
-			if (as_context_get_locale_use_all (ctx) || g_strcmp0 (locale, "C") == 0 ||
-			    as_utils_locale_is_compatible (target_locale, locale)) {
-				return fy_node_pair_value (fynp);
-			}
-		}
-	}
-
-	return NULL;
-}
-
-/**
- * as_yaml_get_node_locale:
- * @ctx: AsContext
- * @node_pair: A YAML node pair
- *
- * Returns: The locale of a node, if the node should be considered for inclusion.
- * %NULL if the node should be ignored due to a not-matching locale.
- */
-const gchar *
-as_yaml_get_node_locale (AsContext *ctx, struct fy_node_pair *node_pair)
-{
-	const gchar *key = as_yaml_node_get_key0 (node_pair);
-
-	if (as_context_get_locale_use_all (ctx)) {
-		/* we should read all languages */
-		return key;
-	}
-
-	/* we always include the untranslated strings */
-	if (g_strcmp0 (key, "C") == 0) {
-		return key;
-	}
-
-	if (as_utils_locale_is_compatible (as_context_get_locale (ctx), key)) {
-		return key;
-	} else {
-		/* If we are here, we haven't found a matching locale.
-		 * In that case, we return %NULL to indicate that this element should not be added.
-		 */
-		return NULL;
-	}
-}
-
-/**
- * as_yaml_set_localized_table:
- *
- * Apply node values to a hash table holding the l10n data.
- */
-void
-as_yaml_set_localized_table (AsContext *ctx, struct fy_node *node, GHashTable *l10n_table)
-{
-	struct fy_node_pair *fynp;
-	void *iter = NULL;
-
-	if (node == NULL || !fy_node_is_mapping (node))
-		return;
-
-	while ((fynp = fy_node_mapping_iterate (node, &iter)) != NULL) {
-		const gchar *locale = as_yaml_get_node_locale (ctx, fynp);
-
-		if (locale != NULL) {
-			g_autofree gchar *locale_noenc = as_locale_strip_encoding (locale);
-			const gchar *value = as_yaml_node_get_value0 (fynp);
-			if (value != NULL) {
-				g_hash_table_insert (l10n_table,
-						     g_ref_string_new_intern (locale_noenc),
-						     g_strdup (value));
-			}
-		}
-	}
-}
-
-/**
  * as_yaml_emit_localized_entry_with_func:
  */
 static void
@@ -588,27 +624,6 @@ as_yaml_emit_long_localized_entry (struct fy_emitter *emitter, const gchar *key,
 						key,
 						ltab,
 						(GHFunc) as_yaml_emit_lang_hashtable_entries_long);
-}
-
-/**
- * as_yaml_list_to_str_array:
- */
-void
-as_yaml_list_to_str_array (struct fy_node *node, GPtrArray *array)
-{
-	struct fy_node *item_node;
-	void *iter = NULL;
-
-	if (node == NULL || !fy_node_is_sequence (node))
-		return;
-
-	while ((item_node = fy_node_sequence_iterate (node, &iter)) != NULL) {
-		const gchar *val = NULL;
-		if (fy_node_is_scalar (item_node))
-			val = fy_node_get_scalar0 (item_node);
-		if (val != NULL)
-			g_ptr_array_add (array, g_strdup (val));
-	}
 }
 
 /**
