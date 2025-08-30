@@ -5269,7 +5269,7 @@ as_component_yaml_parse_urls (AsComponent *cpt, struct fy_node *node)
 {
 	AsUrlKind url_kind;
 	AS_YAML_MAPPING_FOREACH (pair, node) {
-		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *key = as_yaml_node_get_key0 (pair);
 		const gchar *value = as_yaml_node_get_value (pair);
 
 		url_kind = as_url_kind_from_string (key);
@@ -5295,7 +5295,7 @@ as_component_yaml_parse_icon (AsComponent *cpt,
 	as_icon_set_kind (icon, kind);
 
 	AS_YAML_MAPPING_FOREACH (npair, node) {
-		const gchar *key = as_yaml_node_get_key (npair);
+		const gchar *key = as_yaml_node_get_key0 (npair);
 		const gchar *value = as_yaml_node_get_value (npair);
 
 		if (g_strcmp0 (key, "width") == 0) {
@@ -5341,7 +5341,7 @@ static void
 as_component_yaml_parse_icons (AsComponent *cpt, AsContext *ctx, struct fy_node *node)
 {
 	AS_YAML_MAPPING_FOREACH (pair, node) {
-		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *key = as_yaml_node_get_key0 (pair);
 		const gchar *value = as_yaml_node_get_value (pair);
 		struct fy_node *value_n = fy_node_pair_value (pair);
 
@@ -5385,7 +5385,7 @@ static void
 as_component_yaml_parse_provides (AsComponent *cpt, struct fy_node *node)
 {
 	AS_YAML_MAPPING_FOREACH (pair, node) {
-		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *key = as_yaml_node_get_key0 (pair);
 		struct fy_node *n_val = fy_node_pair_value (pair);
 
 		if (g_strcmp0 (key, "ids") == 0) {
@@ -5409,7 +5409,7 @@ as_component_yaml_parse_provides (AsComponent *cpt, struct fy_node *node)
 		} else if (g_strcmp0 (key, "fonts") == 0) {
 			AS_YAML_SEQUENCE_FOREACH (sn, n_val) {
 				AS_YAML_MAPPING_FOREACH (dp, sn) {
-					const gchar *dkey = as_yaml_node_get_key (dp);
+					const gchar *dkey = as_yaml_node_get_key0 (dp);
 					if (g_strcmp0 (dkey, "name") == 0) {
 						const gchar *dvalue = as_yaml_node_get_value (dp);
 						if (dvalue == NULL)
@@ -5434,7 +5434,7 @@ as_component_yaml_parse_provides (AsComponent *cpt, struct fy_node *node)
 				const gchar *fwdata = NULL;
 				AS_YAML_MAPPING_FOREACH (dp, sn) {
 					const gchar *dvalue;
-					const gchar *dkey = as_yaml_node_get_key (dp);
+					const gchar *dkey = as_yaml_node_get_key0 (dp);
 					dvalue = as_yaml_node_get_value (dp);
 					if (dvalue == NULL)
 						continue;
@@ -5478,7 +5478,7 @@ as_component_yaml_parse_provides (AsComponent *cpt, struct fy_node *node)
 				const gchar *service = NULL;
 				AS_YAML_MAPPING_FOREACH (dp, sn) {
 					const gchar *dvalue = NULL;
-					const gchar *dkey = as_yaml_node_get_key (dp);
+					const gchar *dkey = as_yaml_node_get_key0 (dp);
 					if (fy_node_is_scalar (fy_node_pair_value (dp)))
 						dvalue = as_yaml_node_get_value (dp);
 					if (g_strcmp0 (dkey, "type") == 0) {
@@ -5517,7 +5517,7 @@ as_component_yaml_parse_languages (AsComponent *cpt, struct fy_node *node)
 		g_autofree gchar *percentage_str = NULL;
 
 		AS_YAML_MAPPING_FOREACH (pair, sn) {
-			const gchar *key = as_yaml_node_get_key (pair);
+			const gchar *key = as_yaml_node_get_key0 (pair);
 			const gchar *value = as_yaml_node_get_value (pair);
 
 			if (g_strcmp0 (key, "locale") == 0) {
@@ -5527,7 +5527,7 @@ as_component_yaml_parse_languages (AsComponent *cpt, struct fy_node *node)
 				if (percentage_str == NULL)
 					percentage_str = g_strdup (value);
 			} else {
-				as_yaml_print_unknown ("Languages", key);
+				as_yaml_print_unknown ("Languages", key, -1);
 			}
 		}
 
@@ -5602,13 +5602,14 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, struct fy_node *r
 	priv->priority = as_context_get_priority (ctx);
 
 	AS_YAML_MAPPING_FOREACH (pair, root) {
-		const gchar *key;
-		struct fy_node *value_n;
+		const gchar *key_strp;
+		size_t key_len;
 		AsTag field_id;
+		struct fy_node *value_n;
 
-		key = as_yaml_node_get_key (pair);
+		key_strp = as_yaml_node_get_key (pair, &key_len);
+		field_id = as_yaml_tag_from_string (key_strp, key_len);
 		value_n = fy_node_pair_value (pair);
-		field_id = as_yaml_tag_from_string (key);
 
 		if (field_id == AS_TAG_TYPE) {
 			const gchar *value = as_yaml_node_get_value (pair);
@@ -5719,7 +5720,7 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, struct fy_node *r
 
 			AS_YAML_SEQUENCE_FOREACH (n, value_n) {
 				AS_YAML_MAPPING_FOREACH (r_pair, n) {
-					if (g_strcmp0 (as_yaml_node_get_key (r_pair), "id") != 0)
+					if (g_strcmp0 (as_yaml_node_get_key0 (r_pair), "id") != 0)
 						continue;
 					g_ptr_array_add (
 					    priv->replaces,
@@ -5767,7 +5768,7 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, struct fy_node *r
 				const gchar *tag_value = NULL;
 
 				AS_YAML_MAPPING_FOREACH (tag_pair, tags_n) {
-					const gchar *c_key = as_yaml_node_get_key (tag_pair);
+					const gchar *c_key = as_yaml_node_get_key0 (tag_pair);
 					const gchar *c_value = as_yaml_node_get_value (tag_pair);
 					if (as_str_equal0 (c_key, "namespace"))
 						ns = c_value;
@@ -5794,7 +5795,7 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, struct fy_node *r
 					as_component_add_review (cpt, review);
 			}
 		} else {
-			as_yaml_print_unknown ("root", key);
+			as_yaml_print_unknown ("root", key_strp, key_len);
 		}
 	}
 

@@ -238,7 +238,7 @@ as_launchable_load_from_yaml (AsLaunchable *launch,
 	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
 	struct fy_node *nval = NULL;
 
-	priv->kind = as_launchable_kind_from_string (as_yaml_node_get_key (npair));
+	priv->kind = as_launchable_kind_from_string (as_yaml_node_get_key0 (npair));
 	nval = fy_node_pair_value (npair);
 
 	AS_YAML_SEQUENCE_FOREACH (lnode, nval) {

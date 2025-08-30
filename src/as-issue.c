@@ -275,7 +275,7 @@ as_issue_load_from_yaml (AsIssue *issue, AsContext *ctx, struct fy_node *node, G
 	AsIssuePrivate *priv = GET_PRIVATE (issue);
 
 	AS_YAML_MAPPING_FOREACH (pair, node) {
-		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *key = as_yaml_node_get_key0 (pair);
 		const gchar *value = as_yaml_node_get_value (pair);
 
 		if (G_UNLIKELY (value == NULL))
@@ -293,7 +293,7 @@ as_issue_load_from_yaml (AsIssue *issue, AsContext *ctx, struct fy_node *node, G
 			priv->url = g_strdup (value);
 
 		} else {
-			as_yaml_print_unknown ("issue", key);
+			as_yaml_print_unknown ("issue", key, -1);
 		}
 	}
 

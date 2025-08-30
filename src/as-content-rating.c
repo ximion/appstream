@@ -1526,7 +1526,7 @@ as_content_rating_load_from_yaml (AsContentRating *content_rating,
 				  GError **error)
 {
 	struct fy_node *node = fy_node_pair_value (npair);
-	as_content_rating_set_kind (content_rating, as_yaml_node_get_key (npair));
+	as_content_rating_set_kind (content_rating, as_yaml_node_get_key0 (npair));
 
 	AS_YAML_MAPPING_FOREACH (cpair, node) {
 		AsContentRatingValue attr_value;
@@ -1536,7 +1536,7 @@ as_content_rating_load_from_yaml (AsContentRating *content_rating,
 			continue;
 
 		as_content_rating_set_value (content_rating,
-					     as_yaml_node_get_key (cpair),
+					     as_yaml_node_get_key0 (cpair),
 					     attr_value);
 	}
 

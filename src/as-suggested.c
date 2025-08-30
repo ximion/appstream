@@ -278,7 +278,7 @@ as_suggested_load_from_yaml (AsSuggested *suggested,
 	AsSuggestedPrivate *priv = GET_PRIVATE (suggested);
 
 	AS_YAML_MAPPING_FOREACH (pair, node) {
-		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *key = as_yaml_node_get_key0 (pair);
 		const gchar *value = as_yaml_node_get_value (pair);
 
 		if (g_strcmp0 (key, "type") == 0) {
@@ -286,7 +286,7 @@ as_suggested_load_from_yaml (AsSuggested *suggested,
 		} else if (g_strcmp0 (key, "ids") == 0) {
 			as_yaml_list_to_str_array (fy_node_pair_value (pair), priv->cpt_ids);
 		} else {
-			as_yaml_print_unknown ("Suggests", key);
+			as_yaml_print_unknown ("Suggests", key, -1);
 		}
 	}
 

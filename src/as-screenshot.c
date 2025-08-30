@@ -739,7 +739,7 @@ as_screenshot_load_from_yaml (AsScreenshot *screenshot,
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 
 	AS_YAML_MAPPING_FOREACH (npair, node) {
-		const gchar *key = as_yaml_node_get_key (npair);
+		const gchar *key = as_yaml_node_get_key0 (npair);
 		struct fy_node *nval = fy_node_pair_value (npair);
 
 		if (g_strcmp0 (key, "default") == 0) {
@@ -777,7 +777,7 @@ as_screenshot_load_from_yaml (AsScreenshot *screenshot,
 					as_screenshot_add_video (screenshot, video);
 			}
 		} else {
-			as_yaml_print_unknown ("screenshot", key);
+			as_yaml_print_unknown ("screenshot", key, -1);
 		}
 	}
 

@@ -455,7 +455,7 @@ as_video_load_from_yaml (AsVideo *video, AsContext *ctx, struct fy_node *node, G
 
 	as_video_set_locale (video, "C");
 	AS_YAML_MAPPING_FOREACH (npair, node) {
-		const gchar *key = as_yaml_node_get_key (npair);
+		const gchar *key = as_yaml_node_get_key0 (npair);
 		const gchar *value = as_yaml_node_get_value (npair);
 
 		if (value == NULL)
@@ -487,7 +487,7 @@ as_video_load_from_yaml (AsVideo *video, AsContext *ctx, struct fy_node *node, G
 		} else if (g_strcmp0 (key, "lang") == 0) {
 			as_video_set_locale (video, value);
 		} else {
-			as_yaml_print_unknown ("video", key);
+			as_yaml_print_unknown ("video", key, -1);
 		}
 	}
 

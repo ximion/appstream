@@ -241,7 +241,7 @@ as_checksum_load_from_yaml (AsChecksum *cs,
 			    GError **error)
 {
 	AsChecksumPrivate *priv = GET_PRIVATE (cs);
-	const gchar *key = as_yaml_node_get_key (fynp);
+	const gchar *key = as_yaml_node_get_key0 (fynp);
 	const gchar *value = as_yaml_node_get_value (fynp);
 
 	priv->kind = as_checksum_kind_from_string (key);

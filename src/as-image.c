@@ -448,7 +448,7 @@ as_image_load_from_yaml (AsImage *image,
 	priv->kind = kind;
 	as_image_set_locale (image, "C");
 	AS_YAML_MAPPING_FOREACH (npair, node) {
-		const gchar *key = as_yaml_node_get_key (npair);
+		const gchar *key = as_yaml_node_get_key0 (npair);
 		const gchar *value = as_yaml_node_get_value (npair);
 
 		if (value == NULL)
@@ -476,7 +476,7 @@ as_image_load_from_yaml (AsImage *image,
 		} else if (g_strcmp0 (key, "lang") == 0) {
 			as_image_set_locale (image, value);
 		} else {
-			as_yaml_print_unknown ("image", key);
+			as_yaml_print_unknown ("image", key, -1);
 		}
 	}
 

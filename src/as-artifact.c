@@ -529,7 +529,7 @@ as_artifact_load_from_yaml (AsArtifact *artifact,
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
 
 	AS_YAML_MAPPING_FOREACH (pair, node) {
-		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *key = as_yaml_node_get_key0 (pair);
 
 		if (g_strcmp0 (key, "type") == 0) {
 			priv->kind = as_artifact_kind_from_string (as_yaml_node_get_value (pair));
@@ -560,7 +560,7 @@ as_artifact_load_from_yaml (AsArtifact *artifact,
 			struct fy_node *pair_value = fy_node_pair_value (pair);
 			AS_YAML_MAPPING_FOREACH (s_pair, pair_value) {
 				AsSizeKind size_kind = as_size_kind_from_string (
-				    as_yaml_node_get_key (s_pair));
+				    as_yaml_node_get_key0 (s_pair));
 				guint64 asize = g_ascii_strtoull (as_yaml_node_get_value (s_pair),
 								  NULL,
 								  10);
@@ -572,7 +572,7 @@ as_artifact_load_from_yaml (AsArtifact *artifact,
 			}
 
 		} else {
-			as_yaml_print_unknown ("artifact", key);
+			as_yaml_print_unknown ("artifact", key, -1);
 		}
 	}
 

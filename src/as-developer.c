@@ -306,7 +306,7 @@ as_developer_load_from_yaml (AsDeveloper *devp,
 	AsDeveloperPrivate *priv = GET_PRIVATE (devp);
 
 	AS_YAML_MAPPING_FOREACH (pair, node) {
-		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *key = as_yaml_node_get_key0 (pair);
 
 		if (g_strcmp0 (key, "id") == 0) {
 			as_developer_set_id (devp, as_yaml_node_get_value (pair));
@@ -315,7 +315,7 @@ as_developer_load_from_yaml (AsDeveloper *devp,
 			as_yaml_set_localized_table (ctx, fy_node_pair_value (pair), priv->name);
 
 		} else {
-			as_yaml_print_unknown ("developer", key);
+			as_yaml_print_unknown ("developer", key, -1);
 		}
 	}
 

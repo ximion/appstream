@@ -1140,7 +1140,7 @@ as_relation_load_from_yaml (AsRelation *relation,
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
 
 	AS_YAML_MAPPING_FOREACH (pair, node) {
-		const gchar *entry = as_yaml_node_get_key (pair);
+		const gchar *entry = as_yaml_node_get_key0 (pair);
 		if (entry == NULL)
 			continue;
 

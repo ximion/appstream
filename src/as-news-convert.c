@@ -175,7 +175,7 @@ as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
 		}
 
 		AS_YAML_MAPPING_FOREACH (npair, root) {
-			const gchar *key = as_yaml_node_get_key (npair);
+			const gchar *key = as_yaml_node_get_key0 (npair);
 			struct fy_node *nval = fy_node_pair_value (npair);
 
 			if (key == NULL || nval == NULL) {

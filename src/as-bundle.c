@@ -263,7 +263,7 @@ as_bundle_load_from_yaml (AsBundle *bundle, AsContext *ctx, struct fy_node *node
 	AsBundlePrivate *priv = GET_PRIVATE (bundle);
 
 	AS_YAML_MAPPING_FOREACH (npair, node) {
-		const gchar *key = as_yaml_node_get_key (npair);
+		const gchar *key = as_yaml_node_get_key0 (npair);
 		const gchar *value = as_yaml_node_get_value (npair);
 
 		if (g_strcmp0 (key, "type") == 0) {
@@ -271,7 +271,7 @@ as_bundle_load_from_yaml (AsBundle *bundle, AsContext *ctx, struct fy_node *node
 		} else if (g_strcmp0 (key, "id") == 0) {
 			as_bundle_set_id (bundle, value);
 		} else {
-			as_yaml_print_unknown ("bundles", key);
+			as_yaml_print_unknown ("bundles", key, -1);
 		}
 	}
 

@@ -75,13 +75,14 @@ AS_BEGIN_PRIVATE_DECLS
 struct fy_diag	      *as_yaml_error_diag_create (void);
 gchar		      *as_yaml_make_error_message (struct fy_diag *diag);
 
-const gchar	      *as_yaml_node_get_key (struct fy_node_pair *ynp);
+const gchar	      *as_yaml_node_get_key0 (struct fy_node_pair *ynp);
+const gchar	      *as_yaml_node_get_key (struct fy_node_pair *ynp, size_t *lenp);
 const gchar	      *as_yaml_node_get_value (struct fy_node_pair *ynp);
 
 GRefString	      *as_yaml_node_get_key_refstr (struct fy_node_pair *ynp);
 GRefString	      *as_yaml_node_get_value_refstr (struct fy_node_pair *ynp);
 
-void		       as_yaml_print_unknown (const gchar *root, const gchar *key);
+void		       as_yaml_print_unknown (const gchar *root, const gchar *key, ssize_t key_len);
 
 /* these functions have internal visibility, so appstream-compose can write YAML data */
 #pragma GCC visibility push(default)

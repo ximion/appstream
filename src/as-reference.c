@@ -325,7 +325,7 @@ as_reference_load_from_yaml (AsReference *reference,
 	AsReferencePrivate *priv = GET_PRIVATE (reference);
 
 	AS_YAML_MAPPING_FOREACH (pair, node) {
-		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *key = as_yaml_node_get_key0 (pair);
 
 		if (as_str_equal0 (key, "type")) {
 			priv->kind = as_reference_kind_from_string (as_yaml_node_get_value (pair));
@@ -337,7 +337,7 @@ as_reference_load_from_yaml (AsReference *reference,
 			as_reference_set_registry_name (reference, as_yaml_node_get_value (pair));
 
 		} else {
-			as_yaml_print_unknown ("reference", key);
+			as_yaml_print_unknown ("reference", key, -1);
 		}
 	}
 

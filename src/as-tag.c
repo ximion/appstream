@@ -80,6 +80,7 @@ as_xml_tag_from_string (const gchar *tag)
 /**
  * as_yaml_tag_from_string:
  * @tag: the string.
+ * @len: length of the string, or -1 if unknown.
  *
  * Converts the YAML text representation to an enumerated value.
  *
@@ -88,7 +89,7 @@ as_xml_tag_from_string (const gchar *tag)
  * Since: 0.12.1
  **/
 AsTag
-as_yaml_tag_from_string (const gchar *tag)
+as_yaml_tag_from_string (const gchar *tag, ssize_t len)
 {
 	const struct yaml_tag_data *ky;
 	AsTag etag = AS_TAG_UNKNOWN;
@@ -97,8 +98,11 @@ as_yaml_tag_from_string (const gchar *tag)
 	if (tag == NULL)
 		return AS_TAG_UNKNOWN;
 
+	if (len < 0)
+		len = strlen (tag);
+
 	/* use a perfect hash */
-	ky = _as_yaml_tag_from_gperf (tag, strlen (tag));
+	ky = _as_yaml_tag_from_gperf (tag, len);
 	if (ky != NULL)
 		etag = ky->etag;
 

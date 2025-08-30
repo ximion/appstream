@@ -374,7 +374,7 @@ as_agreement_load_from_yaml (AsAgreement *agreement,
 	as_agreement_set_context (agreement, ctx);
 
 	AS_YAML_MAPPING_FOREACH (pair, node) {
-		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *key = as_yaml_node_get_key0 (pair);
 
 		if (g_strcmp0 (key, "type") == 0) {
 			priv->kind = as_agreement_kind_from_string (as_yaml_node_get_value (pair));
@@ -390,7 +390,7 @@ as_agreement_load_from_yaml (AsAgreement *agreement,
 				as_agreement_add_section (agreement, asec);
 			}
 		} else {
-			as_yaml_print_unknown ("agreement", key);
+			as_yaml_print_unknown ("agreement", key, -1);
 		}
 	}
 

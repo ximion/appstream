@@ -438,7 +438,7 @@ as_branding_load_color_from_yaml (AsBranding *branding,
 				  AsBrandingColor *color)
 {
 	AS_YAML_MAPPING_FOREACH (cn_pair, node) {
-		const gchar *key = as_yaml_node_get_key (cn_pair);
+		const gchar *key = as_yaml_node_get_key0 (cn_pair);
 		const gchar *value = as_yaml_node_get_value (cn_pair);
 
 		if (g_strcmp0 (key, "type") == 0)
@@ -468,7 +468,7 @@ as_branding_load_from_yaml (AsBranding *branding,
 	AsBrandingPrivate *priv = GET_PRIVATE (branding);
 
 	AS_YAML_MAPPING_FOREACH (pair, node) {
-		const gchar *key = as_yaml_node_get_key (pair);
+		const gchar *key = as_yaml_node_get_key0 (pair);
 
 		if (g_strcmp0 (key, "colors") == 0) {
 			struct fy_node *n = fy_node_pair_value (pair);
@@ -485,7 +485,7 @@ as_branding_load_from_yaml (AsBranding *branding,
 			}
 
 		} else {
-			as_yaml_print_unknown ("branding", key);
+			as_yaml_print_unknown ("branding", key, -1);
 		}
 	}
 

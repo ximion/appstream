@@ -99,22 +99,36 @@ as_yaml_make_error_message (struct fy_diag *diag)
 }
 
 /**
- * as_yaml_node_get_key:
+ * as_yaml_node_get_key0:
  *
- * Helper method to get the key of a node.
+ * Helper method to get the key of a node as zero-terminated string.
+ * If the key is not a scalar, NULL is returned.
  */
 const gchar *
-as_yaml_node_get_key (struct fy_node_pair *ynp)
+as_yaml_node_get_key0 (struct fy_node_pair *ynp)
 {
-	struct fy_node *key_n;
-	if (ynp == NULL)
+	struct fy_node *key_n = fy_node_pair_key (ynp);
+	if (key_n == NULL)
 		return NULL;
 
-	key_n = fy_node_pair_key (ynp);
-	if (fy_node_is_scalar (key_n))
-		return fy_node_get_scalar0 (key_n);
+	return fy_node_get_scalar0 (key_n);
+}
 
-	return NULL;
+/**
+ * as_yaml_node_get_key:
+ *
+ * Helper method to get the key of a node as string+length.
+ * The resulting string is not zero-terminated!
+ * If the key is not a scalar, NULL is returned.
+ */
+const gchar *
+as_yaml_node_get_key (struct fy_node_pair *ynp, size_t *lenp)
+{
+	struct fy_node *key_n = fy_node_pair_key (ynp);
+	if (key_n == NULL)
+		return NULL;
+
+	return fy_node_get_scalar (key_n, lenp);
 }
 
 /**
@@ -125,15 +139,11 @@ as_yaml_node_get_key (struct fy_node_pair *ynp)
 const gchar *
 as_yaml_node_get_value (struct fy_node_pair *ynp)
 {
-	struct fy_node *val_n;
-	if (ynp == NULL)
+	struct fy_node *val_n = fy_node_pair_value (ynp);
+	if (val_n == NULL)
 		return NULL;
 
-	val_n = fy_node_pair_value (ynp);
-	if (fy_node_is_scalar (val_n))
-		return fy_node_get_scalar0 (val_n);
-
-	return NULL;
+	return fy_node_get_scalar0 (val_n);
 }
 
 /**
@@ -144,7 +154,7 @@ as_yaml_node_get_value (struct fy_node_pair *ynp)
 GRefString *
 as_yaml_node_get_key_refstr (struct fy_node_pair *ynp)
 {
-	const gchar *key = as_yaml_node_get_key (ynp);
+	const gchar *key = as_yaml_node_get_key0 (ynp);
 	if (key == NULL)
 		return NULL;
 	return g_ref_string_new_intern (key);
@@ -168,9 +178,12 @@ as_yaml_node_get_value_refstr (struct fy_node_pair *ynp)
  * as_yaml_print_unknown:
  */
 void
-as_yaml_print_unknown (const gchar *root, const gchar *key)
+as_yaml_print_unknown (const gchar *root, const gchar *key, ssize_t key_len)
 {
-	g_debug ("YAML: Unknown field '%s/%s' found.", root, key);
+	if (key_len < 0)
+		g_debug ("YAML: Unknown field '%s/%s' found.", root, key);
+	else
+		g_debug ("YAML: Unknown field '%s/%.*s' found.", root, (int)key_len, key);
 }
 
 /**
@@ -446,7 +459,7 @@ as_yaml_get_localized_node (AsContext *ctx, struct fy_node *node, const gchar *l
 const gchar *
 as_yaml_get_node_locale (AsContext *ctx, struct fy_node_pair *node_pair)
 {
-	const gchar *key = as_yaml_node_get_key (node_pair);
+	const gchar *key = as_yaml_node_get_key0 (node_pair);
 
 	if (as_context_get_locale_use_all (ctx)) {
 		/* we should read all languages */
