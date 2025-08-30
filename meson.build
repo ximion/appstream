@@ -170,7 +170,7 @@ gobject_dep = dependency('gobject-2.0', version: '>= 2.62')
 gio_dep = dependency('gio-2.0', version: '>= 2.62')
 curl_dep = dependency('libcurl', version: '>= 7.62')
 xml2_dep = dependency('libxml-2.0')
-fyaml_dep = dependency('libfyaml')
+fyaml_dep = dependency('libfyaml', version: '>= 0.8')
 xmlb_dep = dependency('xmlb', version: '>= 0.3.14',
                       fallback: ['libxmlb', 'libxmlb_dep'],
                       default_options: ['gtkdoc=false', 'introspection=false'])
