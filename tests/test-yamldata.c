@@ -24,6 +24,7 @@
 #include "appstream.h"
 #include "as-screenshot-private.h"
 #include "as-metadata.h"
+#include "as-yaml.h"
 #include "as-test-utils.h"
 
 static gchar *datadir = NULL;
@@ -1416,7 +1417,11 @@ static const gchar *yamldata_screenshots = "Type: generic\n"
 					   "- environment: plasma:mobile\n"
 					   "  caption:\n"
 					   "    C: The app, on mobile!\n"
+#if AS_FYAML_CHECK_VERSION(0, 9)
 					   "  thumbnails: []\n"
+#else
+					   "  thumbnails:\n"
+#endif
 					   "  source-image:\n"
 					   "    url: https://example.org/alpha_mobile.png\n"
 					   "    width: 640\n"

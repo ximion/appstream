@@ -48,7 +48,6 @@ conf.set('HAVE_SYSTEMD', get_option('systemd'))
 conf.set('HAVE_SVG_SUPPORT', get_option('svg-support'))
 conf.set('HAVE_ZSTD', get_option('zstd-support'))
 
-configure_file(output: 'config.h', configuration: conf)
 root_inc_dir = include_directories ('.')
 
 #
@@ -206,6 +205,16 @@ endif
 
 # use gperf for faster string -> enum matching
 gperf = find_program('gperf')
+
+# Add libfyaml version macros for version checking in C code
+fyaml_ver_parts = fyaml_dep.version().split('.')
+fyaml_major = fyaml_ver_parts[0].to_int()
+fyaml_minor = fyaml_ver_parts[1].to_int()
+conf.set('_FYAML_MAJOR_VERSION', fyaml_major)
+conf.set('_FYAML_MINOR_VERSION', fyaml_minor)
+
+# configure config.h file (finally)
+configure_file(output: 'config.h', configuration: conf)
 
 #
 # Modules
