@@ -1301,14 +1301,16 @@ as_metadata_xml_serialize_to_catalog_without_rootnode (AsMetadata *metad,
  * Emit a DEP-11 header for the new document.
  */
 static void
-as_yamldata_write_header (AsContext *context, struct fy_emitter *emitter)
+as_yamldata_write_header (AsContext *context, struct fy_emitter *emitter, gboolean add_timestamp)
 {
-	struct fy_event *fye;
+	struct fy_event *ype;
 
-	fye = fy_emit_event_create (emitter, FYET_DOCUMENT_START, FALSE, NULL, NULL);
-	if (fye != NULL) {
-		fy_emit_event (emitter, fye);
-	}
+	ype = fy_emit_event_create (emitter,
+				    FYET_DOCUMENT_START,
+				    FALSE,
+				    fy_version_make (1, 2),
+				    NULL);
+	fy_emit_event (emitter, ype);
 
 	as_yaml_mapping_start (emitter);
 
@@ -1330,10 +1332,8 @@ as_yamldata_write_header (AsContext *context, struct fy_emitter *emitter)
 
 	as_yaml_mapping_end (emitter);
 
-	fye = fy_emit_event_create (emitter, FYET_DOCUMENT_END, TRUE);
-	if (fye != NULL) {
-		fy_emit_event (emitter, fye);
-	}
+	ype = fy_emit_event_create (emitter, FYET_DOCUMENT_END, TRUE);
+	fy_emit_event (emitter, ype);
 }
 
 /**
@@ -1366,27 +1366,23 @@ as_metadata_yaml_serialize_to_catalog (AsMetadata *metad,
 				       GError **error)
 {
 	struct fy_emitter *emitter;
-	struct fy_emitter_cfg emitter_cfg = { 0 };
-	struct fy_event *fye;
+	struct fy_event *ype;
 	GString *out_data;
 	gboolean res = FALSE;
-	guint i;
+	struct fy_emitter_cfg ecfg = { .flags = FYECF_MODE_BLOCK | FYECF_INDENT_2 |
+						FYECF_WIDTH_132 | FYECF_VERSION_DIR_OFF |
+						FYECF_TAG_DIR_OFF | FYECF_DOC_START_MARK_ON,
+				       .output = as_yamldata_write_handler_cb };
 
 	if (cpts->len == 0)
 		return NULL;
 
 	/* create a GString to receive the output the emitter generates */
 	out_data = g_string_new ("");
-
-	/* configure the emitter */
-	emitter_cfg.flags = FYECF_MODE_BLOCK | FYECF_INDENT_2 | FYECF_WIDTH_132 |
-			    FYECF_VERSION_DIR_OFF | FYECF_TAG_DIR_OFF | FYECF_DOC_START_MARK_ON;
-	emitter_cfg.output = as_yamldata_write_handler_cb;
-	emitter_cfg.userdata = out_data;
-	emitter_cfg.diag = NULL;
+	ecfg.userdata = out_data;
 
 	/* create the emitter */
-	emitter = fy_emitter_create (&emitter_cfg);
+	emitter = fy_emitter_create (&ecfg);
 	if (emitter == NULL) {
 		g_set_error_literal (error,
 				     AS_METADATA_ERROR,
@@ -1397,23 +1393,23 @@ as_metadata_yaml_serialize_to_catalog (AsMetadata *metad,
 	}
 
 	/* emit start event */
-	fye = fy_emit_event_create (emitter, FYET_STREAM_START);
-	if (fye == NULL || fy_emit_event (emitter, fye) != 0)
+	ype = fy_emit_event_create (emitter, FYET_STREAM_START);
+	if (ype == NULL || fy_emit_event (emitter, ype) != 0)
 		goto error;
 
 	/* write header */
 	if (write_header)
-		as_yamldata_write_header (context, emitter);
+		as_yamldata_write_header (context, emitter, add_timestamp);
 
 	/* write components as YAML documents */
-	for (i = 0; i < cpts->len; i++) {
+	for (guint i = 0; i < cpts->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 		as_component_emit_yaml (cpt, context, emitter);
 	}
 
 	/* emit end event */
-	fye = fy_emit_event_create (emitter, FYET_STREAM_END);
-	if (fye == NULL || fy_emit_event (emitter, fye) != 0)
+	ype = fy_emit_event_create (emitter, FYET_STREAM_END);
+	if (ype == NULL || fy_emit_event (emitter, ype) != 0)
 		goto error;
 
 	res = TRUE;

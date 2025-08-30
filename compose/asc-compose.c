@@ -1189,13 +1189,16 @@ asc_compose_process_icons (AscCompose *compose,
  * Helper function to store the emitted YAML document.
  */
 static int
-as_compose_yaml_write_handler_cb (void *ptr, unsigned char *buffer, size_t size)
+as_compose_yaml_write_handler_cb (struct fy_emitter *emit,
+				  enum fy_emitter_write_type type,
+				  const char *str,
+				  int len,
+				  void *userdata)
 {
-	GString *str;
-	str = (GString *) ptr;
-	g_string_append_len (str, (const gchar *) buffer, size);
+	GString *result = (GString *) userdata;
+	g_string_append_len (result, str, len);
 
-	return 1;
+	return len;
 }
 
 static gboolean
@@ -1775,70 +1778,82 @@ static gboolean
 asc_compose_export_hints_data_yaml (AscCompose *compose, GError **error)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	yaml_emitter_t emitter;
-	yaml_event_t event;
-	gboolean res = FALSE;
+	struct fy_emitter *emitter;
+	struct fy_event *event;
+	gint yr;
 	g_auto(GStrv) all_hint_tags = NULL;
 	g_autofree gchar *yaml_fname = NULL;
-	g_autoptr(GString) yaml_result = g_string_new ("");
+	g_autoptr(GString) yaml_result = NULL;
+	struct fy_emitter_cfg ecfg = { .flags = FYECF_MODE_BLOCK | FYECF_INDENT_2 |
+						FYECF_WIDTH_132 | FYECF_VERSION_DIR_ON |
+						FYECF_TAG_DIR_OFF | FYECF_DOC_START_MARK_ON,
+				       .output = as_compose_yaml_write_handler_cb };
 
 	/* don't export anything if export dir isn't set */
 	if (priv->hints_result_dir == NULL)
 		return TRUE;
 
-	yaml_emitter_initialize (&emitter);
-	yaml_emitter_set_indent (&emitter, 2);
-	yaml_emitter_set_unicode (&emitter, TRUE);
-	yaml_emitter_set_width (&emitter, 100);
-	yaml_emitter_set_output (&emitter, as_compose_yaml_write_handler_cb, yaml_result);
+	yaml_result = g_string_new ("");
+	ecfg.userdata = yaml_result;
+	emitter = fy_emitter_create (&ecfg);
+	if (emitter == NULL) {
+		g_set_error_literal (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_FAILED,
+				     "Failed to create YAML emitter.");
+		return FALSE;
+	}
 
 	/* emit start event */
-	yaml_stream_start_event_initialize (&event, YAML_UTF8_ENCODING);
-	if (!yaml_emitter_emit (&emitter, &event)) {
+	event = fy_emit_event_create (emitter, FYET_STREAM_START);
+	if (fy_emit_event (emitter, event) != 0) {
 		g_set_error_literal (error,
 				     ASC_COMPOSE_ERROR,
 				     ASC_COMPOSE_ERROR_FAILED,
 				     "Failed to initialize YAML emitter.");
-		yaml_emitter_delete (&emitter);
+		fy_emitter_destroy (emitter);
 		return FALSE;
 	}
 
 	/* new document for the tag list */
-	yaml_document_start_event_initialize (&event, NULL, NULL, NULL, FALSE);
-	res = yaml_emitter_emit (&emitter, &event);
-	g_assert (res);
+	event = fy_emit_event_create (emitter, FYET_DOCUMENT_START, FALSE, NULL, NULL);
+	yr = fy_emit_event (emitter, event);
+	g_assert (yr == 0);
 	all_hint_tags = asc_globals_get_hint_tags ();
 
-	as_yaml_sequence_start (&emitter);
+	as_yaml_sequence_start (emitter);
 	for (guint i = 0; all_hint_tags[i] != NULL; i++) {
 		const gchar *tag = all_hint_tags[i];
-		/* main dict start */
-		as_yaml_mapping_start (&emitter);
 
-		as_yaml_emit_entry (&emitter, "Tag", tag);
+		/* ignore internal tags used only for the testsuite */
+		if (g_str_has_prefix (tag, "x-dev-"))
+			continue;
+
+		/* main dict start */
+		as_yaml_mapping_start (emitter);
+
+		as_yaml_emit_entry (emitter, "Tag", tag);
 		as_yaml_emit_entry (
-		    &emitter,
+		    emitter,
 		    "Severity",
 		    as_issue_severity_to_string (asc_globals_hint_tag_severity (tag)));
-		as_yaml_emit_entry (&emitter,
-				    "Explanation",
-				    asc_globals_hint_tag_explanation (tag));
+		as_yaml_emit_entry (emitter, "Explanation", asc_globals_hint_tag_explanation (tag));
 		/* main dict end */
-		as_yaml_mapping_end (&emitter);
+		as_yaml_mapping_end (emitter);
 	}
-	as_yaml_sequence_end (&emitter);
+	as_yaml_sequence_end (emitter);
 
 	/* finalize the tag list document */
-	yaml_document_end_event_initialize (&event, 1);
-	res = yaml_emitter_emit (&emitter, &event);
-	g_assert (res);
+	event = fy_emit_event_create (emitter, FYET_DOCUMENT_END, TRUE);
+	yr = fy_emit_event (emitter, event);
+	g_assert (yr == 0);
 
 	/* new document for the actual issue hints */
-	yaml_document_start_event_initialize (&event, NULL, NULL, NULL, FALSE);
-	res = yaml_emitter_emit (&emitter, &event);
-	g_assert (res);
+	event = fy_emit_event_create (emitter, FYET_DOCUMENT_START, FALSE, NULL, NULL);
+	yr = fy_emit_event (emitter, event);
+	g_assert (yr == 0);
 
-	as_yaml_sequence_start (&emitter);
+	as_yaml_sequence_start (emitter);
 	for (guint i = 0; i < priv->results->len; i++) {
 		g_autofree const gchar **hints_cids = NULL;
 		AscResult *result = ASC_RESULT (g_ptr_array_index (priv->results, i));
@@ -1847,55 +1862,54 @@ asc_compose_export_hints_data_yaml (AscCompose *compose, GError **error)
 		if (hints_cids == NULL)
 			continue;
 
-		as_yaml_mapping_start (&emitter);
-		as_yaml_emit_entry (&emitter, "Unit", asc_result_get_bundle_id (result));
-		as_yaml_emit_scalar (&emitter, "Hints");
-		as_yaml_sequence_start (&emitter);
+		as_yaml_mapping_start (emitter);
+		as_yaml_emit_entry (emitter, "Unit", asc_result_get_bundle_id (result));
+		as_yaml_emit_scalar (emitter, "Hints");
+		as_yaml_sequence_start (emitter);
 		for (guint j = 0; hints_cids[j] != NULL; j++) {
 			GPtrArray *hints = asc_result_get_hints (result, hints_cids[j]);
 
-			as_yaml_mapping_start (&emitter);
-			as_yaml_emit_scalar (&emitter, hints_cids[j]);
-			as_yaml_sequence_start (&emitter);
+			as_yaml_mapping_start (emitter);
+			as_yaml_emit_scalar (emitter, hints_cids[j]);
+			as_yaml_sequence_start (emitter);
 			for (guint k = 0; k < hints->len; k++) {
 				GPtrArray *vars;
 				AscHint *hint = ASC_HINT (g_ptr_array_index (hints, k));
-				as_yaml_mapping_start (&emitter);
-				as_yaml_emit_entry (&emitter, "tag", asc_hint_get_tag (hint));
+				as_yaml_mapping_start (emitter);
+				as_yaml_emit_entry (emitter, "tag", asc_hint_get_tag (hint));
 
 				vars = asc_hint_get_explanation_vars_list (hint);
-				as_yaml_emit_scalar (&emitter, "variables");
-				as_yaml_mapping_start (&emitter);
+				as_yaml_emit_scalar (emitter, "variables");
+				as_yaml_mapping_start (emitter);
 				for (guint l = 0; l < vars->len; l += 2) {
-					as_yaml_emit_entry (&emitter,
+					as_yaml_emit_entry (emitter,
 							    g_ptr_array_index (vars, l),
 							    g_ptr_array_index (vars, l + 1));
 				}
-				as_yaml_mapping_end (&emitter);
+				as_yaml_mapping_end (emitter);
 
 				/* end hint mapping */
-				as_yaml_mapping_end (&emitter);
+				as_yaml_mapping_end (emitter);
 			}
-			as_yaml_sequence_end (&emitter);
-			as_yaml_mapping_end (&emitter);
+			as_yaml_sequence_end (emitter);
+			as_yaml_mapping_end (emitter);
 		}
-		as_yaml_sequence_end (&emitter);
-		as_yaml_mapping_end (&emitter);
+		as_yaml_sequence_end (emitter);
+		as_yaml_mapping_end (emitter);
 	}
-	as_yaml_sequence_end (&emitter);
+	as_yaml_sequence_end (emitter);
 
 	/* finalize the hints document */
-	yaml_document_end_event_initialize (&event, 1);
-	res = yaml_emitter_emit (&emitter, &event);
-	g_assert (res);
+	event = fy_emit_event_create (emitter, FYET_DOCUMENT_END, TRUE);
+	yr = fy_emit_event (emitter, event);
+	g_assert (yr == 0);
 
 	/* end stream */
-	yaml_stream_end_event_initialize (&event);
-	res = yaml_emitter_emit (&emitter, &event);
-	g_assert (res);
+	event = fy_emit_event_create (emitter, FYET_STREAM_END);
+	yr = fy_emit_event (emitter, event);
+	g_assert (yr == 0);
 
-	yaml_emitter_flush (&emitter);
-	yaml_emitter_delete (&emitter);
+	fy_emitter_destroy (emitter);
 
 	g_mkdir_with_parents (priv->hints_result_dir, 0755);
 	yaml_fname = g_strdup_printf ("%s/%s.hints.yaml", priv->hints_result_dir, priv->origin);
