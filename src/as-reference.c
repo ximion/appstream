@@ -328,13 +328,13 @@ as_reference_load_from_yaml (AsReference *reference,
 		const gchar *key = as_yaml_node_get_key0 (pair);
 
 		if (as_str_equal0 (key, "type")) {
-			priv->kind = as_reference_kind_from_string (as_yaml_node_get_value (pair));
+			priv->kind = as_reference_kind_from_string (as_yaml_node_get_value0 (pair));
 
 		} else if (as_str_equal0 (key, "value")) {
-			as_reference_set_value (reference, as_yaml_node_get_value (pair));
+			as_reference_set_value (reference, as_yaml_node_get_value0 (pair));
 
 		} else if (as_str_equal0 (key, "registry")) {
-			as_reference_set_registry_name (reference, as_yaml_node_get_value (pair));
+			as_reference_set_registry_name (reference, as_yaml_node_get_value0 (pair));
 
 		} else {
 			as_yaml_print_unknown ("reference", key, -1);

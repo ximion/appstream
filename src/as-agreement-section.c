@@ -341,7 +341,7 @@ as_agreement_section_load_from_yaml (AsAgreementSection *agreement_section,
 
 		if (g_strcmp0 (key, "type") == 0) {
 			as_agreement_section_set_kind (agreement_section,
-						       as_yaml_node_get_value (pair));
+						       as_yaml_node_get_value0 (pair));
 		} else if (g_strcmp0 (key, "name") == 0) {
 			as_yaml_set_localized_table (ctx, fy_node_pair_value (pair), priv->name);
 		} else if (g_strcmp0 (key, "description") == 0) {

@@ -276,7 +276,7 @@ as_issue_load_from_yaml (AsIssue *issue, AsContext *ctx, struct fy_node *node, G
 
 	AS_YAML_MAPPING_FOREACH (pair, node) {
 		const gchar *key = as_yaml_node_get_key0 (pair);
-		const gchar *value = as_yaml_node_get_value (pair);
+		const gchar *value = as_yaml_node_get_value0 (pair);
 
 		if (G_UNLIKELY (value == NULL))
 			continue; /* there should be no key without value */

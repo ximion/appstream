@@ -279,7 +279,7 @@ as_suggested_load_from_yaml (AsSuggested *suggested,
 
 	AS_YAML_MAPPING_FOREACH (pair, node) {
 		const gchar *key = as_yaml_node_get_key0 (pair);
-		const gchar *value = as_yaml_node_get_value (pair);
+		const gchar *value = as_yaml_node_get_value0 (pair);
 
 		if (g_strcmp0 (key, "type") == 0) {
 			priv->kind = as_suggested_kind_from_string (value);

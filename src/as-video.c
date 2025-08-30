@@ -456,7 +456,7 @@ as_video_load_from_yaml (AsVideo *video, AsContext *ctx, struct fy_node *node, G
 	as_video_set_locale (video, "C");
 	AS_YAML_MAPPING_FOREACH (npair, node) {
 		const gchar *key = as_yaml_node_get_key0 (npair);
-		const gchar *value = as_yaml_node_get_value (npair);
+		const gchar *value = as_yaml_node_get_value0 (npair);
 
 		if (value == NULL)
 			continue; /* there should be no key without value */

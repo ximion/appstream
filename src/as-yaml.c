@@ -132,12 +132,12 @@ as_yaml_node_get_key (struct fy_node_pair *ynp, size_t *lenp)
 }
 
 /**
- * as_yaml_node_get_value:
+ * as_yaml_node_get_value0:
  *
- * Helper method to get the value of a node.
+ * Helper method to get the value of a node as zero-terminated string.
  */
 const gchar *
-as_yaml_node_get_value (struct fy_node_pair *ynp)
+as_yaml_node_get_value0 (struct fy_node_pair *ynp)
 {
 	struct fy_node *val_n = fy_node_pair_value (ynp);
 	if (val_n == NULL)
@@ -168,7 +168,7 @@ as_yaml_node_get_key_refstr (struct fy_node_pair *ynp)
 GRefString *
 as_yaml_node_get_value_refstr (struct fy_node_pair *ynp)
 {
-	const gchar *value = as_yaml_node_get_value (ynp);
+	const gchar *value = as_yaml_node_get_value0 (ynp);
 	if (value == NULL)
 		return NULL;
 	return g_ref_string_new_intern (value);
@@ -183,7 +183,7 @@ as_yaml_print_unknown (const gchar *root, const gchar *key, ssize_t key_len)
 	if (key_len < 0)
 		g_debug ("YAML: Unknown field '%s/%s' found.", root, key);
 	else
-		g_debug ("YAML: Unknown field '%s/%.*s' found.", root, (int)key_len, key);
+		g_debug ("YAML: Unknown field '%s/%.*s' found.", root, (int) key_len, key);
 }
 
 /**
@@ -500,7 +500,7 @@ as_yaml_set_localized_table (AsContext *ctx, struct fy_node *node, GHashTable *l
 
 		if (locale != NULL) {
 			g_autofree gchar *locale_noenc = as_locale_strip_encoding (locale);
-			const gchar *value = as_yaml_node_get_value (fynp);
+			const gchar *value = as_yaml_node_get_value0 (fynp);
 			if (value != NULL) {
 				g_hash_table_insert (l10n_table,
 						     g_ref_string_new_intern (locale_noenc),

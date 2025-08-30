@@ -439,7 +439,7 @@ as_branding_load_color_from_yaml (AsBranding *branding,
 {
 	AS_YAML_MAPPING_FOREACH (cn_pair, node) {
 		const gchar *key = as_yaml_node_get_key0 (cn_pair);
-		const gchar *value = as_yaml_node_get_value (cn_pair);
+		const gchar *value = as_yaml_node_get_value0 (cn_pair);
 
 		if (g_strcmp0 (key, "type") == 0)
 			color->kind = as_color_kind_from_string (value);

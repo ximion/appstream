@@ -1106,7 +1106,7 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, struct fy_node *n
 
 	AS_YAML_MAPPING_FOREACH (pair, node) {
 		const gchar *key = as_yaml_node_get_key0 (pair);
-		const gchar *value = as_yaml_node_get_value (pair);
+		const gchar *value = as_yaml_node_get_value0 (pair);
 		struct fy_node *value_n = fy_node_pair_value (pair);
 
 		if (as_str_equal0 (key, "unix-timestamp")) {
@@ -1134,7 +1134,7 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, struct fy_node *n
 			AsReleaseUrlKind url_kind;
 			AS_YAML_MAPPING_FOREACH (urls_p, value_n) {
 				const gchar *c_key = as_yaml_node_get_key0 (urls_p);
-				const gchar *c_value = as_yaml_node_get_value (urls_p);
+				const gchar *c_value = as_yaml_node_get_value0 (urls_p);
 
 				url_kind = as_release_url_kind_from_string (c_key);
 				if ((url_kind != AS_RELEASE_URL_KIND_UNKNOWN) && (c_value != NULL))
@@ -1162,7 +1162,7 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, struct fy_node *n
 
 				AS_YAML_MAPPING_FOREACH (tag_pair, tags_n) {
 					const gchar *c_key = as_yaml_node_get_key0 (tag_pair);
-					const gchar *c_value = as_yaml_node_get_value (tag_pair);
+					const gchar *c_value = as_yaml_node_get_value0 (tag_pair);
 					if (g_strcmp0 (c_key, "namespace") == 0)
 						ns = c_value;
 					else if (g_strcmp0 (c_key, "tag") == 0)

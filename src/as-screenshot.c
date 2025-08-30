@@ -743,7 +743,7 @@ as_screenshot_load_from_yaml (AsScreenshot *screenshot,
 		struct fy_node *nval = fy_node_pair_value (npair);
 
 		if (g_strcmp0 (key, "default") == 0) {
-			const gchar *value = as_yaml_node_get_value (npair);
+			const gchar *value = as_yaml_node_get_value0 (npair);
 			if ((g_strcmp0 (value, "true") == 0) || (g_strcmp0 (value, "yes") == 0))
 				priv->kind = AS_SCREENSHOT_KIND_DEFAULT;
 			else

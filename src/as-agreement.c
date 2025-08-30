@@ -377,9 +377,9 @@ as_agreement_load_from_yaml (AsAgreement *agreement,
 		const gchar *key = as_yaml_node_get_key0 (pair);
 
 		if (g_strcmp0 (key, "type") == 0) {
-			priv->kind = as_agreement_kind_from_string (as_yaml_node_get_value (pair));
+			priv->kind = as_agreement_kind_from_string (as_yaml_node_get_value0 (pair));
 		} else if (g_strcmp0 (key, "version-id") == 0) {
-			as_agreement_set_version_id (agreement, as_yaml_node_get_value (pair));
+			as_agreement_set_version_id (agreement, as_yaml_node_get_value0 (pair));
 		} else if (g_strcmp0 (key, "sections") == 0) {
 			struct fy_node *value_n = fy_node_pair_value (pair);
 			AS_YAML_SEQUENCE_FOREACH (sn, value_n) {

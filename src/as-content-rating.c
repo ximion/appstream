@@ -1531,7 +1531,7 @@ as_content_rating_load_from_yaml (AsContentRating *content_rating,
 	AS_YAML_MAPPING_FOREACH (cpair, node) {
 		AsContentRatingValue attr_value;
 
-		attr_value = as_content_rating_value_from_string (as_yaml_node_get_value (cpair));
+		attr_value = as_content_rating_value_from_string (as_yaml_node_get_value0 (cpair));
 		if (attr_value == AS_CONTENT_RATING_VALUE_UNKNOWN)
 			continue;
 

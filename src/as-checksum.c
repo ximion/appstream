@@ -242,7 +242,7 @@ as_checksum_load_from_yaml (AsChecksum *cs,
 {
 	AsChecksumPrivate *priv = GET_PRIVATE (cs);
 	const gchar *key = as_yaml_node_get_key0 (fynp);
-	const gchar *value = as_yaml_node_get_value (fynp);
+	const gchar *value = as_yaml_node_get_value0 (fynp);
 
 	priv->kind = as_checksum_kind_from_string (key);
 	if (priv->kind == AS_CHECKSUM_KIND_NONE)

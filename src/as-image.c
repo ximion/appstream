@@ -449,7 +449,7 @@ as_image_load_from_yaml (AsImage *image,
 	as_image_set_locale (image, "C");
 	AS_YAML_MAPPING_FOREACH (npair, node) {
 		const gchar *key = as_yaml_node_get_key0 (npair);
-		const gchar *value = as_yaml_node_get_value (npair);
+		const gchar *value = as_yaml_node_get_value0 (npair);
 
 		if (value == NULL)
 			continue; /* there should be no key without value */

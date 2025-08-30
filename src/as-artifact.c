@@ -532,21 +532,21 @@ as_artifact_load_from_yaml (AsArtifact *artifact,
 		const gchar *key = as_yaml_node_get_key0 (pair);
 
 		if (g_strcmp0 (key, "type") == 0) {
-			priv->kind = as_artifact_kind_from_string (as_yaml_node_get_value (pair));
+			priv->kind = as_artifact_kind_from_string (as_yaml_node_get_value0 (pair));
 
 		} else if (g_strcmp0 (key, "platform") == 0) {
-			as_ref_string_assign_safe (&priv->platform, as_yaml_node_get_value (pair));
+			as_ref_string_assign_safe (&priv->platform, as_yaml_node_get_value0 (pair));
 
 		} else if (g_strcmp0 (key, "bundle") == 0) {
 			priv->bundle_kind = as_bundle_kind_from_string (
-			    as_yaml_node_get_value (pair));
+			    as_yaml_node_get_value0 (pair));
 
 		} else if (g_strcmp0 (key, "locations") == 0) {
 			as_yaml_list_to_str_array (fy_node_pair_value (pair), priv->locations);
 
 		} else if (g_strcmp0 (key, "filename") == 0) {
 			g_free (priv->filename);
-			priv->filename = g_strdup (as_yaml_node_get_value (pair));
+			priv->filename = g_strdup (as_yaml_node_get_value0 (pair));
 
 		} else if (g_strcmp0 (key, "checksum") == 0) {
 			struct fy_node *pair_value = fy_node_pair_value (pair);
@@ -561,7 +561,7 @@ as_artifact_load_from_yaml (AsArtifact *artifact,
 			AS_YAML_MAPPING_FOREACH (s_pair, pair_value) {
 				AsSizeKind size_kind = as_size_kind_from_string (
 				    as_yaml_node_get_key0 (s_pair));
-				guint64 asize = g_ascii_strtoull (as_yaml_node_get_value (s_pair),
+				guint64 asize = g_ascii_strtoull (as_yaml_node_get_value0 (s_pair),
 								  NULL,
 								  10);
 				if (size_kind == AS_SIZE_KIND_UNKNOWN)

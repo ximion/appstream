@@ -264,7 +264,7 @@ as_bundle_load_from_yaml (AsBundle *bundle, AsContext *ctx, struct fy_node *node
 
 	AS_YAML_MAPPING_FOREACH (npair, node) {
 		const gchar *key = as_yaml_node_get_key0 (npair);
-		const gchar *value = as_yaml_node_get_value (npair);
+		const gchar *value = as_yaml_node_get_value0 (npair);
 
 		if (g_strcmp0 (key, "type") == 0) {
 			priv->kind = as_bundle_kind_from_string (value);

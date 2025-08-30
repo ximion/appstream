@@ -43,10 +43,10 @@ AS_BEGIN_PRIVATE_DECLS
  * Check whether a libfyaml version equal to or greater than
  * major.minor is present.
  */
-#define AS_FYAML_CHECK_VERSION(major, minor) \
-    (_FYAML_MAJOR_VERSION > (major) || \
-     (_FYAML_MAJOR_VERSION == (major) && _FYAML_MINOR_VERSION > (minor)) || \
-     (_FYAML_MAJOR_VERSION == (major) && _FYAML_MINOR_VERSION == (minor)))
+#define AS_FYAML_CHECK_VERSION(major, minor)                                    \
+	(_FYAML_MAJOR_VERSION > (major) ||                                      \
+	 (_FYAML_MAJOR_VERSION == (major) && _FYAML_MINOR_VERSION > (minor)) || \
+	 (_FYAML_MAJOR_VERSION == (major) && _FYAML_MINOR_VERSION == (minor)))
 
 /**
  * Helper macro for iterating through YAML sequences more compactly - we do this a lot!
@@ -77,7 +77,7 @@ gchar		      *as_yaml_make_error_message (struct fy_diag *diag);
 
 const gchar	      *as_yaml_node_get_key0 (struct fy_node_pair *ynp);
 const gchar	      *as_yaml_node_get_key (struct fy_node_pair *ynp, size_t *lenp);
-const gchar	      *as_yaml_node_get_value (struct fy_node_pair *ynp);
+const gchar	      *as_yaml_node_get_value0 (struct fy_node_pair *ynp);
 
 GRefString	      *as_yaml_node_get_key_refstr (struct fy_node_pair *ynp);
 GRefString	      *as_yaml_node_get_value_refstr (struct fy_node_pair *ynp);
