@@ -46,6 +46,10 @@ fi;
 if [ "$1" = "codeql" ]; then
     build_type=debug
 fi;
+if [ "$1" = "coverity" ]; then
+    build_type=debug
+    build_docs=false
+fi;
 
 echo "C compiler: $CC"
 echo "C++ compiler: $CXX"

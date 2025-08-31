@@ -1,0 +1,46 @@
+name: Coverity Scan
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 10 * * 1'
+
+jobs:
+  coverity:
+    runs-on: ubuntu-24.04
+    env:
+      CC: gcc
+      CXX: g++
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-tags: true
+        fetch-depth: 0
+
+    - name: Create Build Environment
+      run: sudo ./tests/ci/install-deps-deb.sh
+
+    - name: Create Version String
+      id: version
+      run: |
+        git_commit=$(git rev-parse --short HEAD)
+        git_current_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo v1.0.0)
+        git_commit_no=$(git rev-list --count "${git_current_tag}..HEAD" 2>/dev/null)
+        git_version_full=${git_current_tag#v}; git_version_full=${git_version_full//-/.}
+        if [ "$git_commit_no" -gt 0 ]; then
+          git_version_full+="+git$git_commit_no"
+        fi
+
+        echo "Using version string: $git_version_full"
+        echo "git_version_full=$git_version_full" >> $GITHUB_OUTPUT
+
+    - name: Coverity
+      uses: vapier/coverity-scan-action@346291b388d0a99b2d82c8d46f5088d0fc494844
+      with:
+        email: ${{ secrets.COVERITY_SCAN_EMAIL }}
+        token: ${{ secrets.COVERITY_SCAN_TOKEN }}
+        version: ${{ steps.version.outputs.git_version_full }}
+        command: './tests/ci/run-build.sh coverity'
