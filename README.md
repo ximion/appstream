@@ -78,7 +78,7 @@ To help with the latter we provide the `autoformat.py` helper script to format c
  * glib2 (>= 2.58)
  * GObject-Introspection
  * libxml2
- * libyaml
+ * libfyaml (>= 0.8)
  * libcurl (>= 7.62)
  * libxmlb (>= 0.3.6)
  * xsltproc & docbook-style-xsl
