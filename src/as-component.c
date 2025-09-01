@@ -4382,7 +4382,7 @@ static void
 as_component_load_launchable_from_xml (AsComponent *cpt, xmlNode *node)
 {
 	AsLaunchableKind lkind;
-	AsLaunchable *launchable;
+	g_autoptr(AsLaunchable) launchable = NULL;
 	g_autofree gchar *lstr = NULL;
 	g_autofree gchar *value = NULL;
 
@@ -4396,7 +4396,8 @@ as_component_load_launchable_from_xml (AsComponent *cpt, xmlNode *node)
 		launchable = as_launchable_new ();
 		as_launchable_set_kind (launchable, lkind);
 		as_component_add_launchable (cpt, launchable);
-		g_object_unref (launchable);
+	} else {
+		launchable = g_object_ref (launchable);
 	}
 
 	value = as_xml_get_node_value (node);

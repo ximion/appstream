@@ -160,7 +160,7 @@ asc_font_read_sfnt_data (AscFont *font)
 
 		switch (sname.name_id) {
 		case TT_NAME_ID_SAMPLE_TEXT:
-			g_free (priv->sample_icon_text);
+			g_free (g_steal_pointer (&priv->sample_icon_text));
 			if (!as_is_empty (val))
 				g_strchug (val);
 			if (g_utf8_strlen (val, -1) > 3) {
@@ -168,9 +168,9 @@ asc_font_read_sfnt_data (AscFont *font)
 				    g_utf8_substring (val, 0, 3));
 				if (!as_is_empty (substr))
 					priv->sample_icon_text = g_steal_pointer (&substr);
-			} else {
-				priv->sample_icon_text = g_steal_pointer (&val);
 			}
+			if (priv->sample_icon_text == NULL)
+				priv->sample_icon_text = g_steal_pointer (&val);
 			break;
 		case TT_NAME_ID_DESCRIPTION:
 			g_free (priv->description);
@@ -766,8 +766,7 @@ asc_font_determine_sample_texts (AscFont *font)
 		priv->sample_text = g_string_free (sample_text, FALSE);
 		g_strstrip (priv->sample_text);
 
-		g_free (priv->sample_icon_text);
-		priv->sample_icon_text = NULL;
+		g_free (g_steal_pointer (&priv->sample_icon_text));
 
 		/* if we were unsuccessful at adding chars, set fallback again
 		 * (and in this case, also set the icon text to something useful again) */

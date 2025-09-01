@@ -4286,7 +4286,6 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 		file = g_file_new_for_path (fname);
 		if (!g_file_query_exists (file, NULL)) {
 			g_warning ("File '%s' suddenly vanished.", fname);
-			g_object_unref (file);
 			continue;
 		}
 

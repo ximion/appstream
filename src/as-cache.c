@@ -1588,7 +1588,7 @@ as_cache_get_component_count (AsCache *cache)
 	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
 
 	for (guint i = 0; i < priv->sections->len; i++) {
-		g_autoptr(XbNode) n = NULL;
+		XbNode *n = NULL;
 		g_autoptr(XbNode) node = NULL;
 		AsCacheSection *csec = (AsCacheSection *) g_ptr_array_index (priv->sections, i);
 

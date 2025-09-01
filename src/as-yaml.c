@@ -81,7 +81,7 @@ gchar *
 as_yaml_make_error_message (struct fy_diag *diag)
 {
 	struct fy_diag_error *err;
-	g_autoptr(GString) msg;
+	g_autoptr(GString) msg = NULL;
 	gpointer iter = NULL;
 
 	if (!fy_diag_got_error (diag))
