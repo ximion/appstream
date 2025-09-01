@@ -996,7 +996,9 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 					continue;
 				ns = as_xml_get_prop_value (sn, "namespace");
 				value = as_xml_get_node_value (sn);
-				as_release_add_tag (release, ns, value);
+
+				if (value != NULL)
+					as_release_add_tag (release, ns, value);
 			}
 		}
 	}
@@ -1168,7 +1170,9 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, struct fy_node *n
 					else if (g_strcmp0 (c_key, "tag") == 0)
 						tag_value = c_value;
 				}
-				as_release_add_tag (release, ns, tag_value);
+
+				if (tag_value != NULL)
+					as_release_add_tag (release, ns, tag_value);
 			}
 
 		} else {

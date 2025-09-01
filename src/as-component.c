@@ -4735,7 +4735,9 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 					continue;
 				ns = as_xml_get_prop_value (sn, "namespace");
 				value = as_xml_get_node_value (sn);
-				as_component_add_tag (cpt, ns, value);
+
+				if (value != NULL)
+					as_component_add_tag (cpt, ns, value);
 			}
 
 		} else if (tag_id == AS_TAG_REFERENCES) {
@@ -5777,7 +5779,8 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, struct fy_node *r
 						tag_value = c_value;
 				}
 
-				as_component_add_tag (cpt, ns, tag_value);
+				if (tag_value != NULL)
+					as_component_add_tag (cpt, ns, tag_value);
 			}
 
 		} else if (field_id == AS_TAG_REFERENCES) {
