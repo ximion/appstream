@@ -58,7 +58,12 @@ as_stemmer_finalize (GObject *object)
 #ifdef HAVE_STEMMING
 	AsStemmer *stemmer = AS_STEMMER (object);
 
-	sb_stemmer_delete (stemmer->sb);
+	{
+		/* we still lock here to create an easier-to-investigate crash in case the
+		 * object is ever destroyed while something else is using it in parallel. */
+		g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&stemmer->mutex);
+		sb_stemmer_delete (g_steal_pointer (&stemmer->sb));
+	}
 	g_mutex_clear (&stemmer->mutex);
 #endif
 

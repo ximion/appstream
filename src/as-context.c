@@ -145,17 +145,24 @@ as_context_finalize (GObject *object)
 	AsContext *ctx = AS_CONTEXT (object);
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 
-	as_ref_string_release (priv->locale);
-	as_ref_string_release (priv->origin);
-	as_ref_string_release (priv->media_baseurl);
-	as_ref_string_release (priv->arch);
-	as_ref_string_release (priv->fname);
-	g_mutex_clear (&priv->mutex);
+	{
+		/* we still lock here to create an easier-to-investigate crash in case the
+		 * object is ever destroyed while something else is using it in parallel. */
+		g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 
-	if (priv->free_origin_globs != NULL)
-		g_strfreev (priv->free_origin_globs);
-	if (priv->curl != NULL)
-		g_object_unref (priv->curl);
+		as_ref_string_release (priv->locale);
+		as_ref_string_release (priv->origin);
+		as_ref_string_release (priv->media_baseurl);
+		as_ref_string_release (priv->arch);
+		as_ref_string_release (priv->fname);
+
+		if (priv->free_origin_globs != NULL)
+			g_strfreev (priv->free_origin_globs);
+		if (priv->curl != NULL)
+			g_clear_object (&priv->curl);
+	}
+
+	g_mutex_clear (&priv->mutex);
 
 	G_OBJECT_CLASS (as_context_parent_class)->finalize (object);
 }

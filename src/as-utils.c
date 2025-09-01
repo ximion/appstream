@@ -2068,7 +2068,7 @@ as_utils_dns_to_rdns (const gchar *url, const gchar *suffix)
 		}
 	}
 
-	if (suffix == NULL)
+	if (as_is_empty (suffix))
 		g_string_truncate (new_cid, new_cid->len - 1);
 
 	return g_string_free (new_cid, FALSE);

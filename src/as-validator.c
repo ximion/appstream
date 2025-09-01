@@ -1068,7 +1068,8 @@ as_validator_check_description_tag (AsValidator *validator,
 			if (main_description) {
 				if (node_content != NULL)
 					g_strstrip (node_content);
-				if ((first_paragraph) && (strlen (node_content) < 80)) {
+				if (first_paragraph &&
+				    (node_content == NULL || strlen (node_content) < 80)) {
 					as_validator_add_issue (validator,
 								iter,
 								"description-first-para-too-short",
