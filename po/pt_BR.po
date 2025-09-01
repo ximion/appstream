@@ -36,10 +36,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2025-08-14 16:47+0200\n"
+"POT-Creation-Date: 2025-09-01 14:00+0200\n"
 "PO-Revision-Date: 2025-08-15 03:02+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
+"appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -426,554 +427,554 @@ msgstr "Utilitários"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. of the rating e.g. "Adults Only (solo adultos)"
-#: src/as-content-rating.c:284
+#: src/as-content-rating.c:283
 #, c-format
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: src/as-content-rating.c:430
+#: src/as-content-rating.c:429
 msgid "General"
 msgstr "Geral"
 
-#: src/as-content-rating.c:439
+#: src/as-content-rating.c:438
 msgid "ALL"
 msgstr "TODAS"
 
-#: src/as-content-rating.c:443 src/as-content-rating.c:552
+#: src/as-content-rating.c:442 src/as-content-rating.c:551
 msgid "Adults Only"
 msgstr "Adultos apenas"
 
-#: src/as-content-rating.c:445 src/as-content-rating.c:550
+#: src/as-content-rating.c:444 src/as-content-rating.c:549
 msgid "Mature"
 msgstr "Maduro"
 
-#: src/as-content-rating.c:447 src/as-content-rating.c:549
+#: src/as-content-rating.c:446 src/as-content-rating.c:548
 msgid "Teen"
 msgstr "Adolescente"
 
-#: src/as-content-rating.c:449 src/as-content-rating.c:548
+#: src/as-content-rating.c:448 src/as-content-rating.c:547
 msgid "Everyone 10+"
 msgstr "Todo mundo 10+"
 
-#: src/as-content-rating.c:451 src/as-content-rating.c:546
+#: src/as-content-rating.c:450 src/as-content-rating.c:545
 msgid "Everyone"
 msgstr "Todo mundo"
 
-#: src/as-content-rating.c:453 src/as-content-rating.c:545
+#: src/as-content-rating.c:452 src/as-content-rating.c:544
 msgid "Early Childhood"
 msgstr "Primeira infância"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:835
+#: src/as-content-rating.c:834
 msgid "No cartoon violence"
 msgstr "Sem violência de desenho animado"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:837
+#: src/as-content-rating.c:836
 msgid "Cartoon characters in unsafe situations"
 msgstr "Personagens de desenho animado em situações inseguras"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:839
+#: src/as-content-rating.c:838
 msgid "Cartoon characters in aggressive conflict"
 msgstr "Personagens de desenho animado em conflito agressivo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:841
+#: src/as-content-rating.c:840
 msgid "Graphic violence involving cartoon characters"
 msgstr "Cenas fortes com violência envolvendo personagens de desenho animado"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:846
+#: src/as-content-rating.c:845
 msgid "No fantasy violence"
 msgstr "Sem violência de fantasia"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:848
+#: src/as-content-rating.c:847
 msgid "Characters in unsafe situations easily distinguishable from reality"
 msgstr ""
 "Personagens em situações inseguras facilmente distinguíveis da realidade"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:850
+#: src/as-content-rating.c:849
 msgid "Characters in aggressive conflict easily distinguishable from reality"
 msgstr ""
 "Personagens em conflito agressivo facilmente distinguíveis da realidade"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:852
+#: src/as-content-rating.c:851
 msgid "Graphic violence easily distinguishable from reality"
 msgstr ""
 "Cenas fortes com violência envolvendo situações facilmente distinguíveis da "
 "realidade"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:857
+#: src/as-content-rating.c:856
 msgid "No realistic violence"
 msgstr "Sem violência realista"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:859
+#: src/as-content-rating.c:858
 msgid "Mildly realistic characters in unsafe situations"
 msgstr "Personagens levemente realísticos em situações inseguras"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:861
+#: src/as-content-rating.c:860
 msgid "Depictions of realistic characters in aggressive conflict"
 msgstr "Representações de personagens realísticos em conflito agressivo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:863
+#: src/as-content-rating.c:862
 msgid "Graphic violence involving realistic characters"
 msgstr "Cenas fortes de violência envolvendo personagens realísticos"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:868
+#: src/as-content-rating.c:867
 msgid "No bloodshed"
 msgstr "Sem derramamento de sangue"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:870
+#: src/as-content-rating.c:869
 msgid "Unrealistic bloodshed"
 msgstr "Derramamento de sangue não realista"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:872
+#: src/as-content-rating.c:871
 msgid "Realistic bloodshed"
 msgstr "Derramamento de sangue realista"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:874
+#: src/as-content-rating.c:873
 msgid "Depictions of bloodshed and the mutilation of body parts"
 msgstr ""
 "Representações de derramamento de sangue e mutilação de partes do corpo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:879
+#: src/as-content-rating.c:878
 msgid "No sexual violence"
 msgstr "Sem violência sexual"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:883
+#: src/as-content-rating.c:882
 msgid "Rape or other violent sexual behavior"
 msgstr "Estupro ou outro comportamento sexual violento"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:888
+#: src/as-content-rating.c:887
 msgid "No references to alcohol"
 msgstr "Sem referência a bebidas alcoólicas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:890
+#: src/as-content-rating.c:889
 msgid "References to alcoholic beverages"
 msgstr "Referências a bebidas alcoólicas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:892
+#: src/as-content-rating.c:891
 msgid "Use of alcoholic beverages"
 msgstr "Uso de bebidas alcoólicas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:898
+#: src/as-content-rating.c:897
 msgid "No references to illicit drugs"
 msgstr "Sem referência a drogas ilícitas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:900
+#: src/as-content-rating.c:899
 msgid "References to illicit drugs"
 msgstr "Referências a drogas ilícitas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:902
+#: src/as-content-rating.c:901
 msgid "Use of illicit drugs"
 msgstr "Use de drogas ilícitas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:908
+#: src/as-content-rating.c:907
 msgid "No references to tobacco products"
 msgstr "Sem referência a produtos de tabaco"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:910
+#: src/as-content-rating.c:909
 msgid "References to tobacco products"
 msgstr "Referências a produtos de tabaco"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:912
+#: src/as-content-rating.c:911
 msgid "Use of tobacco products"
 msgstr "Uso de produtos de tabaco"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:918
+#: src/as-content-rating.c:917
 msgid "No nudity of any sort"
 msgstr "Sem nudez de qualquer tipo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:920
+#: src/as-content-rating.c:919
 msgid "Brief artistic nudity"
 msgstr "Nudez artística breve"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:922
+#: src/as-content-rating.c:921
 msgid "Prolonged nudity"
 msgstr "Nudez prolongada"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:924
+#: src/as-content-rating.c:923
 msgid "Explicit nudity involving visible sexual organs"
 msgstr "Nudez explícita involvendo órgãos sexuais visíveis"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:929
+#: src/as-content-rating.c:928
 msgid "No references to or depictions of sexual nature"
 msgstr "Sem referência a ou representação de natureza sexual"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:931
+#: src/as-content-rating.c:930
 msgid "Provocative references or depictions"
 msgstr "Referências ou representações provocativas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:933
+#: src/as-content-rating.c:932
 msgid "Sexual references or depictions"
 msgstr "Referências ou representações sexuais"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:935
+#: src/as-content-rating.c:934
 msgid "Graphic sexual behavior"
 msgstr "Cenas fortes de comportamento sexual"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:940
+#: src/as-content-rating.c:939
 msgid "No profanity of any kind"
 msgstr "Sem profanação de qualquer tipo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:942
+#: src/as-content-rating.c:941
 msgid "Mild or infrequent use of profanity"
 msgstr "Uso leve ou infrequente de profanação"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:944
+#: src/as-content-rating.c:943
 msgid "Moderate use of profanity"
 msgstr "Uso moderado de profanação"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:946
+#: src/as-content-rating.c:945
 msgid "Strong or frequent use of profanity"
 msgstr "Uso forte e frequente de profanação"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:951
+#: src/as-content-rating.c:950
 msgid "No inappropriate humor"
 msgstr "Sem humor impróprio"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:953
+#: src/as-content-rating.c:952
 msgid "Slapstick humor"
 msgstr "Comédia pastelão"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:955
+#: src/as-content-rating.c:954
 msgid "Vulgar or bathroom humor"
 msgstr "Comédia vulgar ou de banheiro"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:957
+#: src/as-content-rating.c:956
 msgid "Mature or sexual humor"
 msgstr "Comédia para adultos ou sexual"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:962
+#: src/as-content-rating.c:961
 msgid "No discriminatory language of any kind"
 msgstr "Sem linguagem discriminatória de qualquer tipo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:964
+#: src/as-content-rating.c:963
 msgid "Negativity towards a specific group of people"
 msgstr "Negatividade direcionada a um grupo específico de pessoas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:966
+#: src/as-content-rating.c:965
 msgid "Discrimination designed to cause emotional harm"
 msgstr "Discriminação projetada a causa ofensa emocional"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:968
+#: src/as-content-rating.c:967
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
 msgstr ""
 "Discriminação explícita baseada em gênero, sexualidade, raça ou religião"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:973
+#: src/as-content-rating.c:972
 msgid "No advertising of any kind"
 msgstr "Sem publicidade de qualquer tipo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:975
+#: src/as-content-rating.c:974
 msgid "Product placement"
 msgstr "Colocação de produtos"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:977
+#: src/as-content-rating.c:976
 msgid "Explicit references to specific brands or trademarked products"
 msgstr "Referências explícitas a marcas ou produtos comerciais específicos"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:979
+#: src/as-content-rating.c:978
 msgid "Users are encouraged to purchase specific real-world items"
 msgstr "Usuários são encorajados a comprar itens específicos do mundo real"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:984
+#: src/as-content-rating.c:983
 msgid "No gambling of any kind"
 msgstr "Sem jogo de azar de qualquer tipo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:986
+#: src/as-content-rating.c:985
 msgid "Gambling on random events using tokens or credits"
 msgstr "Aposta em eventos aleatórios usando tokens ou créditos"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:988
+#: src/as-content-rating.c:987
 msgid "Gambling using “play” money"
 msgstr "Aposta usando dinheiro do jogo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:990
+#: src/as-content-rating.c:989
 msgid "Gambling using real money"
 msgstr "Aposta usando dinheiro de verdade"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:995
+#: src/as-content-rating.c:994
 msgid "No ability to spend money"
 msgstr "Sem habilidade de gastar dinheiro"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:997
+#: src/as-content-rating.c:996
 msgid "Users are encouraged to donate real money"
 msgstr "Usuários são encorajados a doar dinheiro real"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1000
+#: src/as-content-rating.c:999
 msgid "Ability to spend real money in-app"
 msgstr "Habilidade de gastar dinheiro real no aplicativo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1005
+#: src/as-content-rating.c:1004
 msgid "No way to chat with other users"
 msgstr "Impossível conversar com outros usuários"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1007
+#: src/as-content-rating.c:1006
 msgid "User-to-user interactions without chat functionality"
 msgstr "Interações usuário com usuário sem funcionalidade de bate-papo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1009
+#: src/as-content-rating.c:1008
 msgid "Moderated chat functionality between users"
 msgstr "Funcionalidade de bate-papo moderado entre usuários"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1011
+#: src/as-content-rating.c:1010
 msgid "Uncontrolled chat functionality between users"
 msgstr "Funcionalidade de bate-papo sem controle entre usuários"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1016
+#: src/as-content-rating.c:1015
 msgid "No way to talk with other users"
 msgstr "Impossível falar com outros usuários"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1019
+#: src/as-content-rating.c:1018
 msgid "Moderated audio or video chat functionality between users"
 msgstr ""
 "Funcionalidade de chamada de vídeo ou de áudio com controle entre usuários"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1021
+#: src/as-content-rating.c:1020
 msgid "Uncontrolled audio or video chat functionality between users"
 msgstr ""
 "Funcionalidade de chamada de vídeo ou de áudio sem controle entre usuários"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1026
+#: src/as-content-rating.c:1025
 msgid "No sharing of social network usernames or email addresses"
 msgstr ""
 "Sem compartilhamento de nomes de usuários ou endereços de e-mail de rede "
 "social"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1030
+#: src/as-content-rating.c:1029
 msgid "Sharing social network usernames or email addresses"
 msgstr ""
 "Compartilhamento de nomes de usuários ou endereços de e-mail de rede social"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1035
+#: src/as-content-rating.c:1034
 msgid "No sharing of user information with third parties"
 msgstr "Sem compartilhamento de informações de usuário com terceiros"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1037
+#: src/as-content-rating.c:1036
 msgid "Checking for the latest application version"
 msgstr "Verificação pela versão mais recente do aplicativo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1039
+#: src/as-content-rating.c:1038
 msgid "Sharing diagnostic data that does not let others identify the user"
 msgstr ""
 "Compartilhamento de dados de diagnóstico que não permitem que identifiquem o "
 "usuário"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1041
+#: src/as-content-rating.c:1040
 msgid "Sharing information that lets others identify the user"
 msgstr ""
 "Compartilhamento de informações que permitem que identifiquem o usuário"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1046
+#: src/as-content-rating.c:1045
 msgid "No sharing of physical location with other users"
 msgstr "Sem compartilhamento de localização física com outros usuários"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1050
+#: src/as-content-rating.c:1049
 msgid "Sharing physical location with other users"
 msgstr "Compartilhamento de localização física com outros usuários"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1071
+#: src/as-content-rating.c:1070
 msgid "No references to homosexuality"
 msgstr "Sem referência a homossexualidade"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1073
+#: src/as-content-rating.c:1072
 msgid "Indirect references to homosexuality"
 msgstr "Referências indiretas a homossexualidade"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1075
+#: src/as-content-rating.c:1074
 msgid "Kissing between people of the same gender"
 msgstr "Beijo entre pessoas do mesmo gênero"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1077
+#: src/as-content-rating.c:1076
 msgid "Graphic sexual behavior between people of the same gender"
 msgstr "Comportamento sexual gráfico entre pessoas do mesmo gênero"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1082
+#: src/as-content-rating.c:1081
 msgid "No references to prostitution"
 msgstr "Sem referência a prostituição"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1084
+#: src/as-content-rating.c:1083
 msgid "Indirect references to prostitution"
 msgstr "Referências indiretas a prostituição"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1086
+#: src/as-content-rating.c:1085
 msgid "Direct references to prostitution"
 msgstr "Referências diretas a prostituição"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1088
+#: src/as-content-rating.c:1087
 msgid "Graphic depictions of the act of prostitution"
 msgstr "Representações gráficas do ato de prostituição"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1093
+#: src/as-content-rating.c:1092
 msgid "No references to adultery"
 msgstr "Sem referência a adultério"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1095
+#: src/as-content-rating.c:1094
 msgid "Indirect references to adultery"
 msgstr "Referências indiretas a adultério"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1097
+#: src/as-content-rating.c:1096
 msgid "Direct references to adultery"
 msgstr "Referências diretas a adultério"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1099
+#: src/as-content-rating.c:1098
 msgid "Graphic depictions of the act of adultery"
 msgstr "Representações gráficas do ato de adultério"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1104
+#: src/as-content-rating.c:1103
 msgid "No sexualized characters"
 msgstr "Sem caracteres sexualizados"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1107
+#: src/as-content-rating.c:1106
 msgid "Scantily clad human characters"
 msgstr "Personagens humanos semi-nus"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1109
+#: src/as-content-rating.c:1108
 msgid "Overtly sexualized human characters"
 msgstr "Personagens humanos notoriamente sexualizado"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1114
+#: src/as-content-rating.c:1113
 msgid "No references to desecration"
 msgstr "Sem referência a profanação"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1116
+#: src/as-content-rating.c:1115
 msgid "Depictions of or references to historical desecration"
 msgstr "Representações de ou referências a profanação histórica"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1118
+#: src/as-content-rating.c:1117
 msgid "Depictions of modern-day human desecration"
 msgstr "Representações de profanação humana em dias modernos"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1120
+#: src/as-content-rating.c:1119
 msgid "Graphic depictions of modern-day desecration"
 msgstr "Representações gráficas de profanação em dias modernos"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1125
+#: src/as-content-rating.c:1124
 msgid "No visible dead human remains"
 msgstr "Sem restos de humanos mortos visíveis"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1127
+#: src/as-content-rating.c:1126
 msgid "Visible dead human remains"
 msgstr "Restos de humanos mortos visíveis"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1129
+#: src/as-content-rating.c:1128
 msgid "Dead human remains that are exposed to the elements"
 msgstr "Restos de humanos mortos que são expostos aos elementos"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1131
+#: src/as-content-rating.c:1130
 msgid "Graphic depictions of desecration of human bodies"
 msgstr "Representações gráficas de profanação de corpos humanos"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1136
+#: src/as-content-rating.c:1135
 msgid "No references to slavery"
 msgstr "Sem referência a escravidão"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1138
+#: src/as-content-rating.c:1137
 msgid "Depictions of or references to historical slavery"
 msgstr "Representações de ou referências a escravidão histórica"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1140
+#: src/as-content-rating.c:1139
 msgid "Depictions of modern-day slavery"
 msgstr "Representações de escravidão em dias modernos"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1142
+#: src/as-content-rating.c:1141
 msgid "Graphic depictions of modern-day slavery"
 msgstr "Representações gráficas de escravidão em dias modernos"
 
@@ -1251,7 +1252,8 @@ msgstr "Este software requer um dispositivo com controle por toque."
 
 #: src/as-relation.c:1370
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr "Este software requer um microfone para ser controlado via entrada de voz."
+msgstr ""
+"Este software requer um microfone para ser controlado via entrada de voz."
 
 #: src/as-relation.c:1372
 msgid "This software requires a camera for input control."
@@ -1274,7 +1276,8 @@ msgstr "Este software recomenda um dispositivo de entrada por toque."
 
 #: src/as-relation.c:1386
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr "Este software recomenda um microfone para ser controlado via entrada de voz."
+msgstr ""
+"Este software recomenda um microfone para ser controlado via entrada de voz."
 
 #: src/as-relation.c:1388
 msgid "This software recommends a camera for input control."

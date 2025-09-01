@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2025-08-14 16:47+0200\n"
+"POT-Creation-Date: 2025-09-01 14:00+0200\n"
 "PO-Revision-Date: 2024-06-23 17:10+0000\n"
 "Last-Translator: hugoalh <hugoalh@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -411,541 +411,541 @@ msgstr "公用程式"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. of the rating e.g. "Adults Only (solo adultos)"
-#: src/as-content-rating.c:284
+#: src/as-content-rating.c:283
 #, c-format
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: src/as-content-rating.c:430
+#: src/as-content-rating.c:429
 msgid "General"
 msgstr "一般"
 
-#: src/as-content-rating.c:439
+#: src/as-content-rating.c:438
 msgid "ALL"
 msgstr "所有"
 
-#: src/as-content-rating.c:443 src/as-content-rating.c:552
+#: src/as-content-rating.c:442 src/as-content-rating.c:551
 msgid "Adults Only"
 msgstr "僅限成人 (18+)"
 
-#: src/as-content-rating.c:445 src/as-content-rating.c:550
+#: src/as-content-rating.c:444 src/as-content-rating.c:549
 msgid "Mature"
 msgstr "成熟 (17+)"
 
-#: src/as-content-rating.c:447 src/as-content-rating.c:549
+#: src/as-content-rating.c:446 src/as-content-rating.c:548
 msgid "Teen"
 msgstr "青少年 (13-19)"
 
-#: src/as-content-rating.c:449 src/as-content-rating.c:548
+#: src/as-content-rating.c:448 src/as-content-rating.c:547
 msgid "Everyone 10+"
 msgstr "十歲以上 (10+)"
 
-#: src/as-content-rating.c:451 src/as-content-rating.c:546
+#: src/as-content-rating.c:450 src/as-content-rating.c:545
 msgid "Everyone"
 msgstr "任何人"
 
-#: src/as-content-rating.c:453 src/as-content-rating.c:545
+#: src/as-content-rating.c:452 src/as-content-rating.c:544
 msgid "Early Childhood"
 msgstr "幼兒 (3+)"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:835
+#: src/as-content-rating.c:834
 msgid "No cartoon violence"
 msgstr "沒有漫畫暴力"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:837
+#: src/as-content-rating.c:836
 msgid "Cartoon characters in unsafe situations"
 msgstr "漫畫角色處在非安全的情況下"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:839
+#: src/as-content-rating.c:838
 msgid "Cartoon characters in aggressive conflict"
 msgstr "漫畫角色有強勢衝突"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:841
+#: src/as-content-rating.c:840
 msgid "Graphic violence involving cartoon characters"
 msgstr "涉及漫畫角色的圖像暴力"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:846
+#: src/as-content-rating.c:845
 msgid "No fantasy violence"
 msgstr "沒有幻想暴力"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:848
+#: src/as-content-rating.c:847
 msgid "Characters in unsafe situations easily distinguishable from reality"
 msgstr "人物處在非安全的情況下但容易與現實區隔"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:850
+#: src/as-content-rating.c:849
 msgid "Characters in aggressive conflict easily distinguishable from reality"
 msgstr "人物有強勢衝突但容易與現實區隔"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:852
+#: src/as-content-rating.c:851
 msgid "Graphic violence easily distinguishable from reality"
 msgstr "圖像暴力但容易與現實區隔"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:857
+#: src/as-content-rating.c:856
 msgid "No realistic violence"
 msgstr "沒有現實暴力"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:859
+#: src/as-content-rating.c:858
 msgid "Mildly realistic characters in unsafe situations"
 msgstr "輕微真實人物處在非安全的情況下"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:861
+#: src/as-content-rating.c:860
 msgid "Depictions of realistic characters in aggressive conflict"
 msgstr "真實人物有強勢衝突的描繪"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:863
+#: src/as-content-rating.c:862
 msgid "Graphic violence involving realistic characters"
 msgstr "涉及真實人物的圖像暴力"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:868
+#: src/as-content-rating.c:867
 msgid "No bloodshed"
 msgstr "沒有殺人"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:870
+#: src/as-content-rating.c:869
 msgid "Unrealistic bloodshed"
 msgstr "非寫實的殺人"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:872
+#: src/as-content-rating.c:871
 msgid "Realistic bloodshed"
 msgstr "寫實的殺人"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:874
+#: src/as-content-rating.c:873
 msgid "Depictions of bloodshed and the mutilation of body parts"
 msgstr "殺人及殘害身體的描繪"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:879
+#: src/as-content-rating.c:878
 msgid "No sexual violence"
 msgstr "沒有性暴力"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:883
+#: src/as-content-rating.c:882
 msgid "Rape or other violent sexual behavior"
 msgstr "強暴或其他暴力式性行為"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:888
+#: src/as-content-rating.c:887
 msgid "No references to alcohol"
 msgstr "沒有涉及酒精"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:890
+#: src/as-content-rating.c:889
 msgid "References to alcoholic beverages"
 msgstr "涉及酒精性飲料"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:892
+#: src/as-content-rating.c:891
 msgid "Use of alcoholic beverages"
 msgstr "使用到酒精性飲料"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:898
+#: src/as-content-rating.c:897
 msgid "No references to illicit drugs"
 msgstr "沒有涉及非法藥物"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:900
+#: src/as-content-rating.c:899
 msgid "References to illicit drugs"
 msgstr "涉及非法藥物"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:902
+#: src/as-content-rating.c:901
 msgid "Use of illicit drugs"
 msgstr "使用到非法藥物"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:908
+#: src/as-content-rating.c:907
 msgid "No references to tobacco products"
 msgstr "沒有涉及菸草產品"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:910
+#: src/as-content-rating.c:909
 msgid "References to tobacco products"
 msgstr "涉及菸草產品"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:912
+#: src/as-content-rating.c:911
 msgid "Use of tobacco products"
 msgstr "使用到菸草產品"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:918
+#: src/as-content-rating.c:917
 msgid "No nudity of any sort"
 msgstr "沒有任何形式之裸體"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:920
+#: src/as-content-rating.c:919
 msgid "Brief artistic nudity"
 msgstr "短暫藝術性裸體"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:922
+#: src/as-content-rating.c:921
 msgid "Prolonged nudity"
 msgstr "長時間裸體"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:924
+#: src/as-content-rating.c:923
 msgid "Explicit nudity involving visible sexual organs"
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:929
+#: src/as-content-rating.c:928
 msgid "No references to or depictions of sexual nature"
 msgstr "沒有涉及性事或描繪性事"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:931
+#: src/as-content-rating.c:930
 msgid "Provocative references or depictions"
 msgstr "涉及刺激或描繪刺激"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:933
+#: src/as-content-rating.c:932
 msgid "Sexual references or depictions"
 msgstr "涉及性或描繪性"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:935
+#: src/as-content-rating.c:934
 msgid "Graphic sexual behavior"
 msgstr "圖像式性行為"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:940
+#: src/as-content-rating.c:939
 msgid "No profanity of any kind"
 msgstr "沒有任何形式之辱駡"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:942
+#: src/as-content-rating.c:941
 msgid "Mild or infrequent use of profanity"
 msgstr "輕微或少有使用辱駡"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:944
+#: src/as-content-rating.c:943
 msgid "Moderate use of profanity"
 msgstr "偶爾使用辱駡"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:946
+#: src/as-content-rating.c:945
 msgid "Strong or frequent use of profanity"
 msgstr "強烈或經常使用辱駡"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:951
+#: src/as-content-rating.c:950
 msgid "No inappropriate humor"
 msgstr "沒有不適切之幽默"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:953
+#: src/as-content-rating.c:952
 msgid "Slapstick humor"
 msgstr "低俗鬧劇式幽默"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:955
+#: src/as-content-rating.c:954
 msgid "Vulgar or bathroom humor"
 msgstr "粗俗或廁所式幽默"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:957
+#: src/as-content-rating.c:956
 msgid "Mature or sexual humor"
 msgstr "成人或性相關幽默"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:962
+#: src/as-content-rating.c:961
 msgid "No discriminatory language of any kind"
 msgstr "沒有任何形式之歧視用語"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:964
+#: src/as-content-rating.c:963
 msgid "Negativity towards a specific group of people"
 msgstr "排斥特定群體"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:966
+#: src/as-content-rating.c:965
 msgid "Discrimination designed to cause emotional harm"
 msgstr "刻意造成情緒傷害之歧視"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:968
+#: src/as-content-rating.c:967
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
 msgstr "根據性別、性能力、種族、信仰所作的針對性歧視"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:973
+#: src/as-content-rating.c:972
 msgid "No advertising of any kind"
 msgstr "沒有任何形式之行銷"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:975
+#: src/as-content-rating.c:974
 msgid "Product placement"
 msgstr "置入性產品行銷"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:977
+#: src/as-content-rating.c:976
 msgid "Explicit references to specific brands or trademarked products"
 msgstr "明確指涉特定廠牌或註冊商標之產品"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:979
+#: src/as-content-rating.c:978
 msgid "Users are encouraged to purchase specific real-world items"
 msgstr "鼓吹使用者購買特定真實世界商品"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:984
+#: src/as-content-rating.c:983
 msgid "No gambling of any kind"
 msgstr "任何形式之賭博"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:986
+#: src/as-content-rating.c:985
 msgid "Gambling on random events using tokens or credits"
 msgstr "使用代幣或儲值之隨機活動性賭博"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:988
+#: src/as-content-rating.c:987
 msgid "Gambling using “play” money"
 msgstr "使用「遊戲」財物之賭博"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:990
+#: src/as-content-rating.c:989
 msgid "Gambling using real money"
 msgstr "使用實體金錢的賭博"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:995
+#: src/as-content-rating.c:994
 msgid "No ability to spend money"
 msgstr "沒有金錢花費之功能"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:997
+#: src/as-content-rating.c:996
 msgid "Users are encouraged to donate real money"
 msgstr "鼓勵使用者捐贈實體金錢"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1000
+#: src/as-content-rating.c:999
 msgid "Ability to spend real money in-app"
 msgstr "可在程式中花費實體金錢"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1005
+#: src/as-content-rating.c:1004
 msgid "No way to chat with other users"
 msgstr "無法和其他使用者聊天"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1007
+#: src/as-content-rating.c:1006
 msgid "User-to-user interactions without chat functionality"
 msgstr "使用者與使用者間之互動不含聊天功能"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1009
+#: src/as-content-rating.c:1008
 msgid "Moderated chat functionality between users"
 msgstr "受審查的使用者間聊天功能"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1011
+#: src/as-content-rating.c:1010
 msgid "Uncontrolled chat functionality between users"
 msgstr "未受管制的使用者間聊天功能"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1016
+#: src/as-content-rating.c:1015
 msgid "No way to talk with other users"
 msgstr "無法和其他使用者對談"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1019
+#: src/as-content-rating.c:1018
 #, fuzzy
 msgid "Moderated audio or video chat functionality between users"
 msgstr "未受管制的使用者間音訊或視訊聊天功能"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1021
+#: src/as-content-rating.c:1020
 msgid "Uncontrolled audio or video chat functionality between users"
 msgstr "未受管制的使用者間音訊或視訊聊天功能"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1026
+#: src/as-content-rating.c:1025
 msgid "No sharing of social network usernames or email addresses"
 msgstr "不會分享社交網路使用者名稱或電子郵件爲止"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1030
+#: src/as-content-rating.c:1029
 msgid "Sharing social network usernames or email addresses"
 msgstr "分享社交網路使用者名稱或電子郵件位址"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1035
+#: src/as-content-rating.c:1034
 msgid "No sharing of user information with third parties"
 msgstr "不會與第三方單位分享使用者資訊"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1037
+#: src/as-content-rating.c:1036
 msgid "Checking for the latest application version"
 msgstr "檢查最新的應用程式版本"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1039
+#: src/as-content-rating.c:1038
 msgid "Sharing diagnostic data that does not let others identify the user"
 msgstr "分享無法讓他人辨識出使用者的診斷性數據資料"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1041
+#: src/as-content-rating.c:1040
 msgid "Sharing information that lets others identify the user"
 msgstr "分享可以讓其他人辨識出使用者的資訊"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1046
+#: src/as-content-rating.c:1045
 msgid "No sharing of physical location with other users"
 msgstr "不會與其他使用者分享實際地理位置"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1050
+#: src/as-content-rating.c:1049
 msgid "Sharing physical location with other users"
 msgstr "與其他使用者分享實際地理位置"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1071
+#: src/as-content-rating.c:1070
 msgid "No references to homosexuality"
 msgstr "沒有涉及同性戀議題"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1073
+#: src/as-content-rating.c:1072
 msgid "Indirect references to homosexuality"
 msgstr "間接涉及同性戀議題"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1075
+#: src/as-content-rating.c:1074
 msgid "Kissing between people of the same gender"
 msgstr "人類同性別親吻"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1077
+#: src/as-content-rating.c:1076
 msgid "Graphic sexual behavior between people of the same gender"
 msgstr "圖像式人類同性別性行為"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1082
+#: src/as-content-rating.c:1081
 msgid "No references to prostitution"
 msgstr "沒有涉及賣淫"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1084
+#: src/as-content-rating.c:1083
 msgid "Indirect references to prostitution"
 msgstr "間接涉及賣淫"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1086
+#: src/as-content-rating.c:1085
 msgid "Direct references to prostitution"
 msgstr "直接涉及賣淫"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1088
+#: src/as-content-rating.c:1087
 msgid "Graphic depictions of the act of prostitution"
 msgstr "圖像式賣淫動作描繪"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1093
+#: src/as-content-rating.c:1092
 msgid "No references to adultery"
 msgstr "沒有涉及通姦"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1095
+#: src/as-content-rating.c:1094
 msgid "Indirect references to adultery"
 msgstr "間接涉及通姦"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1097
+#: src/as-content-rating.c:1096
 msgid "Direct references to adultery"
 msgstr "直接涉及通姦"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1099
+#: src/as-content-rating.c:1098
 msgid "Graphic depictions of the act of adultery"
 msgstr "圖像式通姦行為描繪"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1104
+#: src/as-content-rating.c:1103
 msgid "No sexualized characters"
 msgstr "沒有性化角色"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1107
+#: src/as-content-rating.c:1106
 msgid "Scantily clad human characters"
 msgstr "衣著覆蓋極少的人類角色"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1109
+#: src/as-content-rating.c:1108
 msgid "Overtly sexualized human characters"
 msgstr "刻意性化的人類角色"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1114
+#: src/as-content-rating.c:1113
 msgid "No references to desecration"
 msgstr "沒有涉及褻瀆"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1116
+#: src/as-content-rating.c:1115
 msgid "Depictions of or references to historical desecration"
 msgstr "描繪或涉及史實上的褻瀆"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1118
+#: src/as-content-rating.c:1117
 msgid "Depictions of modern-day human desecration"
 msgstr "描繪當代人體褻瀆"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1120
+#: src/as-content-rating.c:1119
 msgid "Graphic depictions of modern-day desecration"
 msgstr "圖像式當代褻瀆描繪"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1125
+#: src/as-content-rating.c:1124
 msgid "No visible dead human remains"
 msgstr "不會看見亡者遺體"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1127
+#: src/as-content-rating.c:1126
 msgid "Visible dead human remains"
 msgstr "會看見亡者遺體"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1129
+#: src/as-content-rating.c:1128
 msgid "Dead human remains that are exposed to the elements"
 msgstr "亡者遺體暴露在相關元素中"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1131
+#: src/as-content-rating.c:1130
 msgid "Graphic depictions of desecration of human bodies"
 msgstr "圖像式褻瀆人體的描繪"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1136
+#: src/as-content-rating.c:1135
 msgid "No references to slavery"
 msgstr "沒有涉及奴隸行為"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1138
+#: src/as-content-rating.c:1137
 msgid "Depictions of or references to historical slavery"
 msgstr "描繪或涉及史實上的奴隸行為"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1140
+#: src/as-content-rating.c:1139
 msgid "Depictions of modern-day slavery"
 msgstr "描繪當代的奴隸行為"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1142
+#: src/as-content-rating.c:1141
 msgid "Graphic depictions of modern-day slavery"
 msgstr "圖像式當代奴隸行為描繪"
 

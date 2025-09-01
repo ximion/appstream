@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2025-08-14 16:47+0200\n"
+"POT-Creation-Date: 2025-09-01 14:00+0200\n"
 "PO-Revision-Date: 2025-05-06 03:01+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/appstream/"
@@ -395,543 +395,543 @@ msgstr "பயன்பாடுகள்"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. of the rating e.g. "Adults Only (solo adultos)"
-#: src/as-content-rating.c:284
+#: src/as-content-rating.c:283
 #, c-format
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: src/as-content-rating.c:430
+#: src/as-content-rating.c:429
 msgid "General"
 msgstr "பொது"
 
-#: src/as-content-rating.c:439
+#: src/as-content-rating.c:438
 msgid "ALL"
 msgstr "அனைத்தும்"
 
-#: src/as-content-rating.c:443 src/as-content-rating.c:552
+#: src/as-content-rating.c:442 src/as-content-rating.c:551
 msgid "Adults Only"
 msgstr "பெரியவர்கள் மட்டுமே"
 
-#: src/as-content-rating.c:445 src/as-content-rating.c:550
+#: src/as-content-rating.c:444 src/as-content-rating.c:549
 msgid "Mature"
 msgstr "முதிர்ந்த"
 
-#: src/as-content-rating.c:447 src/as-content-rating.c:549
+#: src/as-content-rating.c:446 src/as-content-rating.c:548
 msgid "Teen"
 msgstr "டீன் ஏச்"
 
-#: src/as-content-rating.c:449 src/as-content-rating.c:548
+#: src/as-content-rating.c:448 src/as-content-rating.c:547
 msgid "Everyone 10+"
 msgstr "எல்லோரும் 10+"
 
-#: src/as-content-rating.c:451 src/as-content-rating.c:546
+#: src/as-content-rating.c:450 src/as-content-rating.c:545
 msgid "Everyone"
 msgstr "எல்லோரும்"
 
-#: src/as-content-rating.c:453 src/as-content-rating.c:545
+#: src/as-content-rating.c:452 src/as-content-rating.c:544
 msgid "Early Childhood"
 msgstr "ஆரம்பகால குழந்தை பருவ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:835
+#: src/as-content-rating.c:834
 msgid "No cartoon violence"
 msgstr "கார்ட்டூன் வன்முறை இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:837
+#: src/as-content-rating.c:836
 msgid "Cartoon characters in unsafe situations"
 msgstr "பாதுகாப்பற்ற சூழ்நிலைகளில் கார்ட்டூன் எழுத்துக்கள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:839
+#: src/as-content-rating.c:838
 msgid "Cartoon characters in aggressive conflict"
 msgstr "வன்கவர்வு மோதலில் கார்ட்டூன் கதாபாத்திரங்கள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:841
+#: src/as-content-rating.c:840
 msgid "Graphic violence involving cartoon characters"
 msgstr "கார்ட்டூன் எழுத்துக்கள் சம்பந்தப்பட்ட கிராஃபிக் வன்முறை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:846
+#: src/as-content-rating.c:845
 msgid "No fantasy violence"
 msgstr "கற்பனை வன்முறை இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:848
+#: src/as-content-rating.c:847
 msgid "Characters in unsafe situations easily distinguishable from reality"
 msgstr ""
 "பாதுகாப்பற்ற சூழ்நிலைகளில் உள்ள எழுத்துக்கள் உண்மையில் இருந்து எளிதில் வேறுபடுகின்றன"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:850
+#: src/as-content-rating.c:849
 msgid "Characters in aggressive conflict easily distinguishable from reality"
 msgstr "வன்கவர்வு மோதலில் உள்ள கதாபாத்திரங்கள் உண்மையில் இருந்து எளிதில் வேறுபடுகின்றன"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:852
+#: src/as-content-rating.c:851
 msgid "Graphic violence easily distinguishable from reality"
 msgstr "கிராஃபிக் வன்முறை உண்மையில் இருந்து எளிதில் வேறுபடுகிறது"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:857
+#: src/as-content-rating.c:856
 msgid "No realistic violence"
 msgstr "யதார்த்தமான வன்முறை இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:859
+#: src/as-content-rating.c:858
 msgid "Mildly realistic characters in unsafe situations"
 msgstr "பாதுகாப்பற்ற சூழ்நிலைகளில் லேசான யதார்த்தமான எழுத்துக்கள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:861
+#: src/as-content-rating.c:860
 msgid "Depictions of realistic characters in aggressive conflict"
 msgstr "வன்கவர்வு மோதலில் யதார்த்தமான கதாபாத்திரங்களின் சித்தரிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:863
+#: src/as-content-rating.c:862
 msgid "Graphic violence involving realistic characters"
 msgstr "யதார்த்தமான எழுத்துக்கள் சம்பந்தப்பட்ட கிராஃபிக் வன்முறை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:868
+#: src/as-content-rating.c:867
 msgid "No bloodshed"
 msgstr "இரத்தக்களரி இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:870
+#: src/as-content-rating.c:869
 msgid "Unrealistic bloodshed"
 msgstr "நம்பத்தகாத இரத்தக்களரி"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:872
+#: src/as-content-rating.c:871
 msgid "Realistic bloodshed"
 msgstr "யதார்த்தமான இரத்தக்களரி"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:874
+#: src/as-content-rating.c:873
 msgid "Depictions of bloodshed and the mutilation of body parts"
 msgstr "இரத்தக் கொதிப்பு மற்றும் உடல் பாகங்களின் சிதைவு ஆகியவற்றின் சித்தரிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:879
+#: src/as-content-rating.c:878
 msgid "No sexual violence"
 msgstr "பாலியல் வன்முறை இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:883
+#: src/as-content-rating.c:882
 msgid "Rape or other violent sexual behavior"
 msgstr "கற்பழிப்பு அல்லது பிற வன்முறை பாலியல் நடத்தை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:888
+#: src/as-content-rating.c:887
 msgid "No references to alcohol"
 msgstr "ஆல்கஆல் பற்றிய குறிப்புகள் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:890
+#: src/as-content-rating.c:889
 msgid "References to alcoholic beverages"
 msgstr "மது பானங்கள் பற்றிய குறிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:892
+#: src/as-content-rating.c:891
 msgid "Use of alcoholic beverages"
 msgstr "மதுபானங்களின் பயன்பாடு"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:898
+#: src/as-content-rating.c:897
 msgid "No references to illicit drugs"
 msgstr "சட்டவிரோத மருந்துகள் பற்றிய குறிப்புகள் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:900
+#: src/as-content-rating.c:899
 msgid "References to illicit drugs"
 msgstr "சட்டவிரோத மருந்துகள் பற்றிய குறிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:902
+#: src/as-content-rating.c:901
 msgid "Use of illicit drugs"
 msgstr "சட்டவிரோத மருந்துகளின் பயன்பாடு"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:908
+#: src/as-content-rating.c:907
 msgid "No references to tobacco products"
 msgstr "புகையிலை பொருட்களைப் பற்றிய குறிப்புகள் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:910
+#: src/as-content-rating.c:909
 msgid "References to tobacco products"
 msgstr "புகையிலை தயாரிப்புகளுக்கான குறிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:912
+#: src/as-content-rating.c:911
 msgid "Use of tobacco products"
 msgstr "புகையிலை பொருட்களின் பயன்பாடு"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:918
+#: src/as-content-rating.c:917
 msgid "No nudity of any sort"
 msgstr "எந்தவொரு நிர்வாணமும் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:920
+#: src/as-content-rating.c:919
 msgid "Brief artistic nudity"
 msgstr "சுருக்கமான கலை நிர்வாணம்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:922
+#: src/as-content-rating.c:921
 msgid "Prolonged nudity"
 msgstr "நீடித்த நிர்வாணம்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:924
+#: src/as-content-rating.c:923
 msgid "Explicit nudity involving visible sexual organs"
 msgstr "புலப்படும் பாலியல் உறுப்புகள் சம்பந்தப்பட்ட வெளிப்படையான நிர்வாணம்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:929
+#: src/as-content-rating.c:928
 msgid "No references to or depictions of sexual nature"
 msgstr "பாலியல் இயல்பு பற்றிய குறிப்புகள் அல்லது சித்தரிப்புகள் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:931
+#: src/as-content-rating.c:930
 msgid "Provocative references or depictions"
 msgstr "ஆத்திரமூட்டும் குறிப்புகள் அல்லது சித்தரிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:933
+#: src/as-content-rating.c:932
 msgid "Sexual references or depictions"
 msgstr "பாலியல் குறிப்புகள் அல்லது சித்தரிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:935
+#: src/as-content-rating.c:934
 msgid "Graphic sexual behavior"
 msgstr "கிராஃபிக் பாலியல் நடத்தை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:940
+#: src/as-content-rating.c:939
 msgid "No profanity of any kind"
 msgstr "எந்த வகையிலும் அவதூறு இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:942
+#: src/as-content-rating.c:941
 msgid "Mild or infrequent use of profanity"
 msgstr "அவதூறுகளின் லேசான அல்லது அரிதான பயன்பாடு"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:944
+#: src/as-content-rating.c:943
 msgid "Moderate use of profanity"
 msgstr "அவதூறுகளின் மிதமான பயன்பாடு"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:946
+#: src/as-content-rating.c:945
 msgid "Strong or frequent use of profanity"
 msgstr "அவதூறுகளின் வலுவான அல்லது அடிக்கடி பயன்படுத்துதல்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:951
+#: src/as-content-rating.c:950
 msgid "No inappropriate humor"
 msgstr "பொருத்தமற்ற நகைச்சுவை இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:953
+#: src/as-content-rating.c:952
 msgid "Slapstick humor"
 msgstr "ச்லாப்ச்டிக் நகைச்சுவை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:955
+#: src/as-content-rating.c:954
 msgid "Vulgar or bathroom humor"
 msgstr "மோசமான அல்லது குளியலறை நகைச்சுவை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:957
+#: src/as-content-rating.c:956
 msgid "Mature or sexual humor"
 msgstr "முதிர்ந்த அல்லது பாலியல் நகைச்சுவை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:962
+#: src/as-content-rating.c:961
 msgid "No discriminatory language of any kind"
 msgstr "எந்த வகையிலும் பாரபட்சமான மொழி இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:964
+#: src/as-content-rating.c:963
 msgid "Negativity towards a specific group of people"
 msgstr "ஒரு குறிப்பிட்ட குழுவினருக்கு எதிர்மறை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:966
+#: src/as-content-rating.c:965
 msgid "Discrimination designed to cause emotional harm"
 msgstr "உணர்ச்சி தீங்கு விளைவிக்கும் வகையில் வடிவமைக்கப்பட்ட பாகுபாடு"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:968
+#: src/as-content-rating.c:967
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
 msgstr ""
 "பாலினம், பாலியல், இனம் அல்லது மதம் ஆகியவற்றின் அடிப்படையில் வெளிப்படையான பாகுபாடு"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:973
+#: src/as-content-rating.c:972
 msgid "No advertising of any kind"
 msgstr "எந்த வகையிலும் விளம்பரம் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:975
+#: src/as-content-rating.c:974
 msgid "Product placement"
 msgstr "தயாரிப்பு வேலை வாய்ப்பு"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:977
+#: src/as-content-rating.c:976
 msgid "Explicit references to specific brands or trademarked products"
 msgstr ""
 "குறிப்பிட்ட பிராண்டுகள் அல்லது வர்த்தக முத்திரை தயாரிப்புகளுக்கான வெளிப்படையான குறிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:979
+#: src/as-content-rating.c:978
 msgid "Users are encouraged to purchase specific real-world items"
 msgstr "குறிப்பிட்ட நிச உலக பொருட்களை வாங்க பயனர்கள் ஊக்குவிக்கப்படுகிறார்கள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:984
+#: src/as-content-rating.c:983
 msgid "No gambling of any kind"
 msgstr "எந்த வகையான சூதாட்டமும் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:986
+#: src/as-content-rating.c:985
 msgid "Gambling on random events using tokens or credits"
 msgstr "டோக்கன்கள் அல்லது வரவுகளைப் பயன்படுத்தி சீரற்ற நிகழ்வுகளில் சூதாட்டம்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:988
+#: src/as-content-rating.c:987
 msgid "Gambling using “play” money"
 msgstr "“ப்ளே” பணத்தைப் பயன்படுத்தி சூதாட்டம்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:990
+#: src/as-content-rating.c:989
 msgid "Gambling using real money"
 msgstr "உண்மையான பணத்தைப் பயன்படுத்தி சூதாட்டம்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:995
+#: src/as-content-rating.c:994
 msgid "No ability to spend money"
 msgstr "பணத்தை செலவழிக்கும் திறன் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:997
+#: src/as-content-rating.c:996
 msgid "Users are encouraged to donate real money"
 msgstr "பயனர்கள் உண்மையான பணத்தை நன்கொடையாக வழங்க ஊக்குவிக்கப்படுகிறார்கள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1000
+#: src/as-content-rating.c:999
 msgid "Ability to spend real money in-app"
 msgstr "பயன்பாட்டில் உண்மையான பணத்தை செலவழிக்கும் திறன்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1005
+#: src/as-content-rating.c:1004
 msgid "No way to chat with other users"
 msgstr "மற்ற பயனர்களுடன் அரட்டையடிக்க வழி இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1007
+#: src/as-content-rating.c:1006
 msgid "User-to-user interactions without chat functionality"
 msgstr "அரட்டை செயல்பாடு இல்லாமல் பயனர்-க்கு-பயனர் தொடர்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1009
+#: src/as-content-rating.c:1008
 msgid "Moderated chat functionality between users"
 msgstr "பயனர்களிடையே மிதமான அரட்டை செயல்பாடு"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1011
+#: src/as-content-rating.c:1010
 msgid "Uncontrolled chat functionality between users"
 msgstr "பயனர்களிடையே கட்டுப்பாடற்ற அரட்டை செயல்பாடு"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1016
+#: src/as-content-rating.c:1015
 msgid "No way to talk with other users"
 msgstr "மற்ற பயனர்களுடன் பேச வழி இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1019
+#: src/as-content-rating.c:1018
 msgid "Moderated audio or video chat functionality between users"
 msgstr "பயனர்களிடையே மிதமான ஆடியோ அல்லது வீடியோ அரட்டை செயல்பாடு"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1021
+#: src/as-content-rating.c:1020
 msgid "Uncontrolled audio or video chat functionality between users"
 msgstr "பயனர்களிடையே கட்டுப்பாடற்ற ஆடியோ அல்லது வீடியோ அரட்டை செயல்பாடு"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1026
+#: src/as-content-rating.c:1025
 msgid "No sharing of social network usernames or email addresses"
 msgstr "சமூக வலைப்பின்னல் பயனர்பெயர்கள் அல்லது மின்னஞ்சல் முகவரிகளின் பகிர்வு இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1030
+#: src/as-content-rating.c:1029
 msgid "Sharing social network usernames or email addresses"
 msgstr "சமூக வலைப்பின்னல் பயனர்பெயர்கள் அல்லது மின்னஞ்சல் முகவரிகளைப் பகிர்வது"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1035
+#: src/as-content-rating.c:1034
 msgid "No sharing of user information with third parties"
 msgstr "மூன்றாம் தரப்பினருடன் பயனர் தகவல்களைப் பகிரவில்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1037
+#: src/as-content-rating.c:1036
 msgid "Checking for the latest application version"
 msgstr "அண்மைக் கால பயன்பாட்டு பதிப்பைச் சரிபார்க்கிறது"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1039
+#: src/as-content-rating.c:1038
 msgid "Sharing diagnostic data that does not let others identify the user"
 msgstr "பயனரை அடையாளம் காண அனுமதிக்காத கண்டறியும் தரவைப் பகிர்வது"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1041
+#: src/as-content-rating.c:1040
 msgid "Sharing information that lets others identify the user"
 msgstr "பயனரை அடையாளம் காண மற்றவர்களை அனுமதிக்கும் தகவல்களைப் பகிர்வது"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1046
+#: src/as-content-rating.c:1045
 msgid "No sharing of physical location with other users"
 msgstr "பிற பயனர்களுடன் உடல் இருப்பிடத்தைப் பகிர்வதில்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1050
+#: src/as-content-rating.c:1049
 msgid "Sharing physical location with other users"
 msgstr "பிற பயனர்களுடன் உடல் இருப்பிடத்தைப் பகிர்வது"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1071
+#: src/as-content-rating.c:1070
 msgid "No references to homosexuality"
 msgstr "ஓரினச்சேர்க்கை பற்றிய குறிப்புகள் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1073
+#: src/as-content-rating.c:1072
 msgid "Indirect references to homosexuality"
 msgstr "ஓரினச்சேர்க்கை பற்றிய மறைமுக குறிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1075
+#: src/as-content-rating.c:1074
 msgid "Kissing between people of the same gender"
 msgstr "ஒரே பாலின மக்களுக்கு இடையே முத்தம்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1077
+#: src/as-content-rating.c:1076
 msgid "Graphic sexual behavior between people of the same gender"
 msgstr "ஒரே பாலின மக்களுக்கு இடையே கிராஃபிக் பாலியல் நடத்தை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1082
+#: src/as-content-rating.c:1081
 msgid "No references to prostitution"
 msgstr "விபச்சாரம் குறித்த குறிப்புகள் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1084
+#: src/as-content-rating.c:1083
 msgid "Indirect references to prostitution"
 msgstr "விபச்சாரம் குறித்த மறைமுக குறிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1086
+#: src/as-content-rating.c:1085
 msgid "Direct references to prostitution"
 msgstr "விபச்சாரம் குறித்த நேரடி குறிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1088
+#: src/as-content-rating.c:1087
 msgid "Graphic depictions of the act of prostitution"
 msgstr "விபச்சாரச் சட்டத்தின் கிராஃபிக் சித்தரிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1093
+#: src/as-content-rating.c:1092
 msgid "No references to adultery"
 msgstr "விபச்சாரம் பற்றிய குறிப்புகள் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1095
+#: src/as-content-rating.c:1094
 msgid "Indirect references to adultery"
 msgstr "விபச்சாரம் பற்றிய மறைமுக குறிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1097
+#: src/as-content-rating.c:1096
 msgid "Direct references to adultery"
 msgstr "விபச்சாரம் பற்றிய நேரடி குறிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1099
+#: src/as-content-rating.c:1098
 msgid "Graphic depictions of the act of adultery"
 msgstr "விபச்சாரத்தின் செயலின் கிராஃபிக் சித்தரிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1104
+#: src/as-content-rating.c:1103
 msgid "No sexualized characters"
 msgstr "பாலியல் ரீதியான கதாபாத்திரங்கள் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1107
+#: src/as-content-rating.c:1106
 msgid "Scantily clad human characters"
 msgstr "மிகவும் உடையணிந்த மனித கதாபாத்திரங்கள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1109
+#: src/as-content-rating.c:1108
 msgid "Overtly sexualized human characters"
 msgstr "வெளிப்படையாக பாலியல் ரீதியான மனித கதாபாத்திரங்கள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1114
+#: src/as-content-rating.c:1113
 msgid "No references to desecration"
 msgstr "இழிவுபடுத்தல் பற்றிய குறிப்புகள் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1116
+#: src/as-content-rating.c:1115
 msgid "Depictions of or references to historical desecration"
 msgstr "வரலாற்று இழிவின் சித்தரிப்புகள் அல்லது குறிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1118
+#: src/as-content-rating.c:1117
 msgid "Depictions of modern-day human desecration"
 msgstr "நவீனகால மனித இழிவின் சித்தரிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1120
+#: src/as-content-rating.c:1119
 msgid "Graphic depictions of modern-day desecration"
 msgstr "நவீனகால இழிவின் கிராஃபிக் சித்தரிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1125
+#: src/as-content-rating.c:1124
 msgid "No visible dead human remains"
 msgstr "காணக்கூடிய இறந்த மனித எச்சங்கள் எதுவும் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1127
+#: src/as-content-rating.c:1126
 msgid "Visible dead human remains"
 msgstr "காணக்கூடிய இறந்த மனித எச்சங்கள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1129
+#: src/as-content-rating.c:1128
 msgid "Dead human remains that are exposed to the elements"
 msgstr "இறந்த மனிதர்கள் உறுப்புகளுக்கு வெளிப்படும்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1131
+#: src/as-content-rating.c:1130
 msgid "Graphic depictions of desecration of human bodies"
 msgstr "மனித உடல்களை இழிவுபடுத்துவதற்கான கிராஃபிக் சித்தரிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1136
+#: src/as-content-rating.c:1135
 msgid "No references to slavery"
 msgstr "அடிமைத்தனத்தைப் பற்றிய குறிப்புகள் இல்லை"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1138
+#: src/as-content-rating.c:1137
 msgid "Depictions of or references to historical slavery"
 msgstr "வரலாற்று அடிமைத்தனத்தின் சித்தரிப்புகள் அல்லது குறிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1140
+#: src/as-content-rating.c:1139
 msgid "Depictions of modern-day slavery"
 msgstr "நவீனகால அடிமைத்தனத்தின் சித்தரிப்புகள்"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1142
+#: src/as-content-rating.c:1141
 msgid "Graphic depictions of modern-day slavery"
 msgstr "நவீனகால அடிமைத்தனத்தின் கிராஃபிக் சித்தரிப்புகள்"
 

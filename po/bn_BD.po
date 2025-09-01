@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2025-08-14 16:47+0200\n"
+"POT-Creation-Date: 2025-09-01 14:00+0200\n"
 "PO-Revision-Date: 2023-02-04 22:37+0000\n"
 "Last-Translator: Abu Huraira <abuhuraira@tutamail.com>\n"
 "Language-Team: Bengali (Bangladesh) <https://hosted.weblate.org/projects/"
@@ -396,541 +396,541 @@ msgstr "যন্ত্রপাতি"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. of the rating e.g. "Adults Only (solo adultos)"
-#: src/as-content-rating.c:284
+#: src/as-content-rating.c:283
 #, c-format
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: src/as-content-rating.c:430
+#: src/as-content-rating.c:429
 msgid "General"
 msgstr "সাধারণ"
 
-#: src/as-content-rating.c:439
+#: src/as-content-rating.c:438
 msgid "ALL"
 msgstr "সব"
 
-#: src/as-content-rating.c:443 src/as-content-rating.c:552
+#: src/as-content-rating.c:442 src/as-content-rating.c:551
 msgid "Adults Only"
 msgstr "শুধুমাত্র প্রাপ্তবয়স্কদের জন্য"
 
-#: src/as-content-rating.c:445 src/as-content-rating.c:550
+#: src/as-content-rating.c:444 src/as-content-rating.c:549
 msgid "Mature"
 msgstr "পরিণত বয়সের জন্য"
 
-#: src/as-content-rating.c:447 src/as-content-rating.c:549
+#: src/as-content-rating.c:446 src/as-content-rating.c:548
 msgid "Teen"
 msgstr "কিশোরকিশোরীদের জন্য"
 
-#: src/as-content-rating.c:449 src/as-content-rating.c:548
+#: src/as-content-rating.c:448 src/as-content-rating.c:547
 msgid "Everyone 10+"
 msgstr "১০ বছরের বেশি সকলের জন্য"
 
-#: src/as-content-rating.c:451 src/as-content-rating.c:546
+#: src/as-content-rating.c:450 src/as-content-rating.c:545
 msgid "Everyone"
 msgstr "সকলের জন্য"
 
-#: src/as-content-rating.c:453 src/as-content-rating.c:545
+#: src/as-content-rating.c:452 src/as-content-rating.c:544
 msgid "Early Childhood"
 msgstr "শৈশবের শুরুতে"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:835
+#: src/as-content-rating.c:834
 msgid "No cartoon violence"
 msgstr "কোনও কার্টুন সহিংসতা নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:837
+#: src/as-content-rating.c:836
 msgid "Cartoon characters in unsafe situations"
 msgstr "অনিরাপদ পরিস্থিতিতে থাকা কার্টুন চরিত্র"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:839
+#: src/as-content-rating.c:838
 msgid "Cartoon characters in aggressive conflict"
 msgstr "আক্রমণাত্মক দ্বন্দ্বের মাঝে থাকা কার্টুন চরিত্র"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:841
+#: src/as-content-rating.c:840
 msgid "Graphic violence involving cartoon characters"
 msgstr "দৃশ্যমান সহিংসতায় জড়িত কার্টুন ক্যারেক্টার"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:846
+#: src/as-content-rating.c:845
 msgid "No fantasy violence"
 msgstr "কোন কাল্পনিক সহিংসতা নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:848
+#: src/as-content-rating.c:847
 msgid "Characters in unsafe situations easily distinguishable from reality"
 msgstr "অনিরাপদ পরিস্থিতিতে থাকা চরিত্র যা সহজেই বাস্তবতা থেকে পৃথক করা যায়"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:850
+#: src/as-content-rating.c:849
 msgid "Characters in aggressive conflict easily distinguishable from reality"
 msgstr "আক্রমণাত্মক দ্বন্দ্বের মাঝে থাকা চরিত্র যা সহজেই বাস্তবতা থেকে পৃথক করা যায়"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:852
+#: src/as-content-rating.c:851
 msgid "Graphic violence easily distinguishable from reality"
 msgstr "দৃশ্যমান সহিংসতা যা সহজেই বাস্তবতা থেকে পৃথক করা যায়"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:857
+#: src/as-content-rating.c:856
 msgid "No realistic violence"
 msgstr "কোন বাস্তবের সাথে মিলে এমন সহিংসতা নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:859
+#: src/as-content-rating.c:858
 msgid "Mildly realistic characters in unsafe situations"
 msgstr "অনিরাপদ পরিস্থিতিতে থাকা বাস্তবের সাথে হালকা সামঞ্জস্যপূর্ণ চরিত্র"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:861
+#: src/as-content-rating.c:860
 msgid "Depictions of realistic characters in aggressive conflict"
 msgstr "আক্রমণাত্মক দ্বন্দ্বে লিপ্ত বাস্তবের সাথে সামঞ্জস্যপূর্ণ চরিত্রের দৃশ্য"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:863
+#: src/as-content-rating.c:862
 msgid "Graphic violence involving realistic characters"
 msgstr "দৃশ্যমান সহিংসতায় জড়িত বাস্তবের সাথে সামঞ্জস্যপূর্ণ চরিত্র"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:868
+#: src/as-content-rating.c:867
 msgid "No bloodshed"
 msgstr "কোনো রক্তপাত নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:870
+#: src/as-content-rating.c:869
 msgid "Unrealistic bloodshed"
 msgstr "অবাস্তবিক রক্তপাত"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:872
+#: src/as-content-rating.c:871
 msgid "Realistic bloodshed"
 msgstr "বাস্তবের সাথে সামঞ্জস্যপূর্ণ রক্তপাত"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:874
+#: src/as-content-rating.c:873
 msgid "Depictions of bloodshed and the mutilation of body parts"
 msgstr "রক্তপাত এবং দেহের অঙ্গপ্রত্যঙ্গ বিকৃতির দৃশ্য"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:879
+#: src/as-content-rating.c:878
 msgid "No sexual violence"
 msgstr "কোনও যৌন সহিংসতা নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:883
+#: src/as-content-rating.c:882
 msgid "Rape or other violent sexual behavior"
 msgstr "ধর্ষণ বা অন্যান্য সহিংস যৌন আচরণ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:888
+#: src/as-content-rating.c:887
 msgid "No references to alcohol"
 msgstr "মাদকের কোনও উল্লেখ নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:890
+#: src/as-content-rating.c:889
 msgid "References to alcoholic beverages"
 msgstr "মাদক দ্রব্যের উল্লেখ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:892
+#: src/as-content-rating.c:891
 msgid "Use of alcoholic beverages"
 msgstr "মাদকদ্রব্য ব্যবহার"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:898
+#: src/as-content-rating.c:897
 msgid "No references to illicit drugs"
 msgstr "অবৈধ নেষাদ্রব্যের কোনও উল্লেখ নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:900
+#: src/as-content-rating.c:899
 msgid "References to illicit drugs"
 msgstr "অবৈধ নেষাদ্রব্যের উল্লেখ আছে"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:902
+#: src/as-content-rating.c:901
 msgid "Use of illicit drugs"
 msgstr "অবৈধ নেষাদ্রব্যের ব্যবহার"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:908
+#: src/as-content-rating.c:907
 msgid "No references to tobacco products"
 msgstr "তামাক দ্রব্যের উল্লেখ নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:910
+#: src/as-content-rating.c:909
 msgid "References to tobacco products"
 msgstr "তামাক দ্রব্যের উল্লেখ আছে"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:912
+#: src/as-content-rating.c:911
 msgid "Use of tobacco products"
 msgstr "তামাক দ্রব্যের ব্যবহার"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:918
+#: src/as-content-rating.c:917
 msgid "No nudity of any sort"
 msgstr "কোনো ধরণের নগ্নতা নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:920
+#: src/as-content-rating.c:919
 msgid "Brief artistic nudity"
 msgstr "শৈল্পিক নগ্নতা"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:922
+#: src/as-content-rating.c:921
 msgid "Prolonged nudity"
 msgstr "দীর্ঘায়িত নগ্নতা"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:924
+#: src/as-content-rating.c:923
 msgid "Explicit nudity involving visible sexual organs"
 msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:929
+#: src/as-content-rating.c:928
 msgid "No references to or depictions of sexual nature"
 msgstr "যৌন প্রকৃতির কোনও উল্লেখ বা চিত্র নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:931
+#: src/as-content-rating.c:930
 msgid "Provocative references or depictions"
 msgstr "উস্কানিমূলক কিছুর উল্লেখ বা চিত্র"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:933
+#: src/as-content-rating.c:932
 msgid "Sexual references or depictions"
 msgstr "যৌনতার উল্লেখ বা চিত্র"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:935
+#: src/as-content-rating.c:934
 msgid "Graphic sexual behavior"
 msgstr "দৃশ্যমান যৌন আচরণ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:940
+#: src/as-content-rating.c:939
 msgid "No profanity of any kind"
 msgstr "কোনও ধরণের অশ্লীলতা নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:942
+#: src/as-content-rating.c:941
 msgid "Mild or infrequent use of profanity"
 msgstr "অশ্লীলতার হালকা বা বিরল ব্যবহার"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:944
+#: src/as-content-rating.c:943
 msgid "Moderate use of profanity"
 msgstr "অশ্লীলতার মাঝারি ব্যবহার"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:946
+#: src/as-content-rating.c:945
 msgid "Strong or frequent use of profanity"
 msgstr "তীব্র বা ঘন অশ্লীলতার ব্যবহার"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:951
+#: src/as-content-rating.c:950
 msgid "No inappropriate humor"
 msgstr "কোনও অনুপযুক্ত হাস্যরস নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:953
+#: src/as-content-rating.c:952
 msgid "Slapstick humor"
 msgstr "লজ্জাজনক হাস্যরস"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:955
+#: src/as-content-rating.c:954
 msgid "Vulgar or bathroom humor"
 msgstr "অশ্লীল বা বাথরুম সংশ্লিষ্ট হাস্যরস"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:957
+#: src/as-content-rating.c:956
 msgid "Mature or sexual humor"
 msgstr "পরিণত বা যৌন হাস্যরস"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:962
+#: src/as-content-rating.c:961
 msgid "No discriminatory language of any kind"
 msgstr "কোনও ধরণের বৈষম্যমূলক ভাষা নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:964
+#: src/as-content-rating.c:963
 msgid "Negativity towards a specific group of people"
 msgstr "একটি নির্দিষ্ট গোষ্ঠীর প্রতি নেতিবাচকতা"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:966
+#: src/as-content-rating.c:965
 msgid "Discrimination designed to cause emotional harm"
 msgstr "সংবেদনশীল ক্ষতির কারণ এমন বৈষম্য"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:968
+#: src/as-content-rating.c:967
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
 msgstr "লিঙ্গ, যৌনতা, জাতি বা ধর্মের ভিত্তিতে সুস্পষ্ট বৈষম্য"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:973
+#: src/as-content-rating.c:972
 msgid "No advertising of any kind"
 msgstr "কোনও ধরণের বিজ্ঞাপন নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:975
+#: src/as-content-rating.c:974
 msgid "Product placement"
 msgstr "পণ্য প্রচার"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:977
+#: src/as-content-rating.c:976
 msgid "Explicit references to specific brands or trademarked products"
 msgstr "কোনো নির্দিষ্ট ব্র্যান্ড বা ট্রেডমার্কযুক্ত পণ্যের সুস্পষ্ট উল্লেখ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:979
+#: src/as-content-rating.c:978
 msgid "Users are encouraged to purchase specific real-world items"
 msgstr "ব্যবহারকারীদের নির্দিষ্ট কোনো বাস্তব আইটেম কিনতে উৎসাহ প্রদান"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:984
+#: src/as-content-rating.c:983
 msgid "No gambling of any kind"
 msgstr "কোন ধরণের জুয়া নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:986
+#: src/as-content-rating.c:985
 msgid "Gambling on random events using tokens or credits"
 msgstr "টোকেন বা ক্রেডিট ব্যবহার করে বিভিন্ন ইভেন্টগুলিতে জুয়া রয়েছে"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:988
+#: src/as-content-rating.c:987
 msgid "Gambling using “play” money"
 msgstr "‘প্লে’ মানি ব্যাবহার করে জুয়ার সুযোগ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:990
+#: src/as-content-rating.c:989
 msgid "Gambling using real money"
 msgstr "বাস্তব অর্থ ব্যবহার করে জুয়ার সুযোগ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:995
+#: src/as-content-rating.c:994
 msgid "No ability to spend money"
 msgstr "টাকা খরচের ব্যবস্থা নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:997
+#: src/as-content-rating.c:996
 msgid "Users are encouraged to donate real money"
 msgstr "ব্যবহারকারীদের আসল টাকা দান করতে উৎসাহ প্রদান"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1000
+#: src/as-content-rating.c:999
 msgid "Ability to spend real money in-app"
 msgstr "অ্যাপের মধ্যে আসল টাকা খরচের ব্যবস্থা"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1005
+#: src/as-content-rating.c:1004
 msgid "No way to chat with other users"
 msgstr "অন্য ব্যবহারকারীদের সাথে চ্যাট করার কোনও উপায় নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1007
+#: src/as-content-rating.c:1006
 msgid "User-to-user interactions without chat functionality"
 msgstr "চ্যাট কার্যকারিতা ছাড়াই ব্যবহারকারী-ব্যবহারকারী পরস্পর কার্যক্রম"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1009
+#: src/as-content-rating.c:1008
 msgid "Moderated chat functionality between users"
 msgstr "ব্যবহারকারীদের মধ্যে মডারেটেড চ্যাট ব্যবস্থা"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1011
+#: src/as-content-rating.c:1010
 msgid "Uncontrolled chat functionality between users"
 msgstr "ব্যবহারকারীদের মধ্যে অনিয়ন্ত্রিত চ্যাট ব্যবস্থা"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1016
+#: src/as-content-rating.c:1015
 msgid "No way to talk with other users"
 msgstr "অন্য ব্যবহারকারীদের সাথে কথা বলার কোনও উপায় নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1019
+#: src/as-content-rating.c:1018
 #, fuzzy
 msgid "Moderated audio or video chat functionality between users"
 msgstr "ব্যবহারকারীদের মধ্যে অনিয়ন্ত্রিত অডিও বা ভিডিও চ্যাট ব্যবস্থা"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1021
+#: src/as-content-rating.c:1020
 msgid "Uncontrolled audio or video chat functionality between users"
 msgstr "ব্যবহারকারীদের মধ্যে অনিয়ন্ত্রিত অডিও বা ভিডিও চ্যাট ব্যবস্থা"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1026
+#: src/as-content-rating.c:1025
 msgid "No sharing of social network usernames or email addresses"
 msgstr "সামাজিক মাধ্যমের ইউজারনেম বা ইমেল ঠিকানা শেয়ার করা হয় না"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1030
+#: src/as-content-rating.c:1029
 msgid "Sharing social network usernames or email addresses"
 msgstr "সামাজিক মাধ্যমের ইউজারনেম বা ইমেল ঠিকানা শেয়ার করা হয়"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1035
+#: src/as-content-rating.c:1034
 msgid "No sharing of user information with third parties"
 msgstr "তৃতীয় পক্ষের সাথে ব্যবহারকারীর তথ্য শেয়ার করা হয় না"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1037
+#: src/as-content-rating.c:1036
 msgid "Checking for the latest application version"
 msgstr "সর্বশেষ অ্যাপ্লিকেশন সংস্করণটির জন্য পরীক্ষা করা হয়"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1039
+#: src/as-content-rating.c:1038
 msgid "Sharing diagnostic data that does not let others identify the user"
 msgstr "এমন ডায়াগনস্টিক ডেটা শেয়ার করা হয় যা দিয়ে ব্যবহারকারীকে সনাক্ত করা যায় না"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1041
+#: src/as-content-rating.c:1040
 msgid "Sharing information that lets others identify the user"
 msgstr "এমন ডায়াগনস্টিক ডেটা শেয়ার করা হয় যা দিয়ে ব্যবহারকারীকে সনাক্ত করা যায়"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1046
+#: src/as-content-rating.c:1045
 msgid "No sharing of physical location with other users"
 msgstr "অন্যান্য ব্যবহারকারীদের সাথে ভৌগলিক অবস্থান শেয়ার করা হয় না"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1050
+#: src/as-content-rating.c:1049
 msgid "Sharing physical location with other users"
 msgstr "অন্যান্য ব্যবহারকারীদের সাথে ভৌগলিক অবস্থান শেয়ার করা হয়"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1071
+#: src/as-content-rating.c:1070
 msgid "No references to homosexuality"
 msgstr "সমকামিতার কোনও উল্লেখ নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1073
+#: src/as-content-rating.c:1072
 msgid "Indirect references to homosexuality"
 msgstr "সমকামিতার অপ্রত্যক্ষ উল্লেখ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1075
+#: src/as-content-rating.c:1074
 msgid "Kissing between people of the same gender"
 msgstr "একই লিঙ্গ মানুষের মধ্যে চুম্বন"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1077
+#: src/as-content-rating.c:1076
 msgid "Graphic sexual behavior between people of the same gender"
 msgstr "একই লিঙ্গ মানুষের মধ্যে গ্রাফিক যৌন আচরণ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1082
+#: src/as-content-rating.c:1081
 msgid "No references to prostitution"
 msgstr "পতিতাবৃত্তির কোনও উল্লেখ নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1084
+#: src/as-content-rating.c:1083
 msgid "Indirect references to prostitution"
 msgstr "পতিতাবৃত্তির পরোক্ষ উল্লেখ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1086
+#: src/as-content-rating.c:1085
 msgid "Direct references to prostitution"
 msgstr "পতিতাবৃত্তির সরাসরি উল্লেখ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1088
+#: src/as-content-rating.c:1087
 msgid "Graphic depictions of the act of prostitution"
 msgstr "পতিতাবৃত্তি করার দৃশ্যমান চিত্র"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1093
+#: src/as-content-rating.c:1092
 msgid "No references to adultery"
 msgstr "ব্যভিচারের কোনও উল্লেখ নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1095
+#: src/as-content-rating.c:1094
 msgid "Indirect references to adultery"
 msgstr "ব্যভিচারের পরোক্ষ উল্লেখ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1097
+#: src/as-content-rating.c:1096
 msgid "Direct references to adultery"
 msgstr "ব্যভিচারের সরাসরি উল্লেখ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1099
+#: src/as-content-rating.c:1098
 msgid "Graphic depictions of the act of adultery"
 msgstr "ব্যভিচার করার দৃশ্যমান চিত্র"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1104
+#: src/as-content-rating.c:1103
 msgid "No sexualized characters"
 msgstr "কোনও যৌন চরিত্র নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1107
+#: src/as-content-rating.c:1106
 msgid "Scantily clad human characters"
 msgstr "স্বল্প পোষাকে মানব চরিত্র"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1109
+#: src/as-content-rating.c:1108
 msgid "Overtly sexualized human characters"
 msgstr "স্পষ্টত যৌনীকরণকৃত মানব চরিত্র"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1114
+#: src/as-content-rating.c:1113
 msgid "No references to desecration"
 msgstr "অবমাননার কোনও উল্লেখ নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1116
+#: src/as-content-rating.c:1115
 msgid "Depictions of or references to historical desecration"
 msgstr "ঐতিহাসিক কিছুর অবমাননার চিত্র বা রেফারেন্স"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1118
+#: src/as-content-rating.c:1117
 msgid "Depictions of modern-day human desecration"
 msgstr "আধুনিক সময়ের মানব অবমাননার চিত্র"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1120
+#: src/as-content-rating.c:1119
 msgid "Graphic depictions of modern-day desecration"
 msgstr "আধুনিক কালের অবমাননার গ্রাফিক চিত্র"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1125
+#: src/as-content-rating.c:1124
 msgid "No visible dead human remains"
 msgstr "কোনও দৃশ্যমান মৃত মানুষের অবশিষ্টাংশ নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1127
+#: src/as-content-rating.c:1126
 msgid "Visible dead human remains"
 msgstr "দৃশ্যমান মৃত মানুষের অবশিষ্টাংশ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1129
+#: src/as-content-rating.c:1128
 msgid "Dead human remains that are exposed to the elements"
 msgstr "এমন উপাদান যাতে মৃত মানুষের অবশিষ্টাংশ দৃশ্যমান রয়েছে"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1131
+#: src/as-content-rating.c:1130
 msgid "Graphic depictions of desecration of human bodies"
 msgstr "মানবদেহের বিকৃতির গ্রাফিক চিত্র"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1136
+#: src/as-content-rating.c:1135
 msgid "No references to slavery"
 msgstr "দাসত্বের কোনও উল্লেখ নেই"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1138
+#: src/as-content-rating.c:1137
 msgid "Depictions of or references to historical slavery"
 msgstr "ঐতিহাসিক দাসত্বের চিত্র বা উল্লেখ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1140
+#: src/as-content-rating.c:1139
 msgid "Depictions of modern-day slavery"
 msgstr "আধুনিক সময়ের দাসত্বের চিত্র"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1142
+#: src/as-content-rating.c:1141
 msgid "Graphic depictions of modern-day slavery"
 msgstr "আধুনিক সময়ের দাসত্বের গ্রাফিক চিত্র"
 
