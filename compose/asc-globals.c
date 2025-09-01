@@ -311,15 +311,12 @@ asc_globals_get_pangrams_for (const gchar *lang)
 	if ((lang != NULL) && (g_strcmp0 (lang, "en") != 0))
 		return NULL;
 
-	/* return cached value if possible */
-	if (priv->pangrams_en != NULL)
-		return priv->pangrams_en;
-
 	{
 		g_autoptr(GBytes) data = NULL;
 		g_auto(GStrv) strv = NULL;
 		g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->pangrams_mutex);
-		/* race protection, just to be sure */
+
+		/* return cached value if possible */
 		if (priv->pangrams_en != NULL)
 			return priv->pangrams_en;
 
