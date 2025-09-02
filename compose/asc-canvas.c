@@ -877,7 +877,7 @@ convert_alpha (guchar *dest_data,
 	src_data += src_stride * src_y + src_x * 4;
 
 	for (y = 0; y < height; y++) {
-		guint32 *src = (guint32 *) src_data;
+		guint32 *src = (guint32 *) (void *) src_data;
 
 		for (x = 0; x < width; x++) {
 			guint alpha = src[x] >> 24;
@@ -920,7 +920,7 @@ convert_no_alpha (guchar *dest_data,
 	src_data += src_stride * src_y + src_x * 4;
 
 	for (y = 0; y < height; y++) {
-		guint32 *src = (guint32 *) src_data;
+		guint32 *src = (guint32 *) (void *) src_data;
 
 		for (x = 0; x < width; x++) {
 			dest_data[x * 3 + 0] = src[x] >> 16;
