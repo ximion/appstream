@@ -2821,7 +2821,7 @@ as_utils_find_stock_icon_filename_full (const gchar *root_dir,
 {
 	guint min_size_idx = 0;
 	/* clang-format off */
-	const gchar *supported_ext[] = { ".png", ".svg", ".svgz", "", NULL };
+	const gchar *supported_ext[] = { ".png", ".svg", ".svgz", "jxl", "", NULL };
 	const struct {
 		guint size;
 		const gchar *size_str;

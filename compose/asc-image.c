@@ -73,20 +73,24 @@ asc_image_format_to_string (AscImageFormat format)
 {
 	if (format == ASC_IMAGE_FORMAT_PNG)
 		return "png";
-	if (format == ASC_IMAGE_FORMAT_JPEG)
-		return "jpeg";
-	if (format == ASC_IMAGE_FORMAT_GIF)
-		return "gif";
+	if (format == ASC_IMAGE_FORMAT_JXL)
+		return "jxl";
+	if (format == ASC_IMAGE_FORMAT_AVIF)
+		return "avif";
+	if (format == ASC_IMAGE_FORMAT_WEBP)
+		return "webp";
 	if (format == ASC_IMAGE_FORMAT_SVG)
 		return "svg";
 	if (format == ASC_IMAGE_FORMAT_SVGZ)
 		return "svgz";
-	if (format == ASC_IMAGE_FORMAT_WEBP)
-		return "webp";
-	if (format == ASC_IMAGE_FORMAT_AVIF)
-		return "avif";
+	if (format == ASC_IMAGE_FORMAT_JPEG)
+		return "jpeg";
+	if (format == ASC_IMAGE_FORMAT_GIF)
+		return "gif";
+
 	if (format == ASC_IMAGE_FORMAT_XPM)
 		return "xpm";
+
 	return NULL;
 }
 
@@ -103,20 +107,23 @@ asc_image_format_from_string (const gchar *str)
 {
 	if (g_strcmp0 (str, "png") == 0)
 		return ASC_IMAGE_FORMAT_PNG;
-	if (g_strcmp0 (str, "jpeg") == 0)
-		return ASC_IMAGE_FORMAT_JPEG;
-	if (g_strcmp0 (str, "gif") == 0)
-		return ASC_IMAGE_FORMAT_GIF;
+	if (g_strcmp0 (str, "jxl") == 0)
+		return ASC_IMAGE_FORMAT_JXL;
+	if (g_strcmp0 (str, "avif") == 0)
+		return ASC_IMAGE_FORMAT_AVIF;
+	if (g_strcmp0 (str, "webp") == 0)
+		return ASC_IMAGE_FORMAT_WEBP;
 	if (g_strcmp0 (str, "svg") == 0)
 		return ASC_IMAGE_FORMAT_SVG;
 	if (g_strcmp0 (str, "svgz") == 0)
 		return ASC_IMAGE_FORMAT_SVGZ;
-	if (g_strcmp0 (str, "webp") == 0)
-		return ASC_IMAGE_FORMAT_WEBP;
-	if (g_strcmp0 (str, "avif") == 0)
-		return ASC_IMAGE_FORMAT_AVIF;
+	if (g_strcmp0 (str, "jpeg") == 0)
+		return ASC_IMAGE_FORMAT_JPEG;
+	if (g_strcmp0 (str, "gif") == 0)
+		return ASC_IMAGE_FORMAT_GIF;
 	if (g_strcmp0 (str, "xpm") == 0)
 		return ASC_IMAGE_FORMAT_XPM;
+
 	return ASC_IMAGE_FORMAT_UNKNOWN;
 }
 
@@ -135,20 +142,23 @@ asc_image_format_from_filename (const gchar *fname)
 
 	if (g_str_has_suffix (fname_low, ".png"))
 		return ASC_IMAGE_FORMAT_PNG;
-	if (g_str_has_suffix (fname_low, ".jpeg") || g_str_has_suffix (fname_low, ".jpg"))
-		return ASC_IMAGE_FORMAT_JPEG;
-	if (g_str_has_suffix (fname_low, ".gif"))
-		return ASC_IMAGE_FORMAT_GIF;
+	if (g_str_has_suffix (fname_low, ".jxl"))
+		return ASC_IMAGE_FORMAT_JXL;
+	if (g_str_has_suffix (fname_low, ".avif"))
+		return ASC_IMAGE_FORMAT_AVIF;
+	if (g_str_has_suffix (fname_low, ".webp"))
+		return ASC_IMAGE_FORMAT_WEBP;
 	if (g_str_has_suffix (fname_low, ".svg"))
 		return ASC_IMAGE_FORMAT_SVG;
 	if (g_str_has_suffix (fname_low, ".svgz"))
 		return ASC_IMAGE_FORMAT_SVGZ;
-	if (g_str_has_suffix (fname_low, ".webp"))
-		return ASC_IMAGE_FORMAT_WEBP;
-	if (g_str_has_suffix (fname_low, ".avif"))
-		return ASC_IMAGE_FORMAT_AVIF;
+	if (g_str_has_suffix (fname_low, ".jpeg") || g_str_has_suffix (fname_low, ".jpg"))
+		return ASC_IMAGE_FORMAT_JPEG;
+	if (g_str_has_suffix (fname_low, ".gif"))
+		return ASC_IMAGE_FORMAT_GIF;
 	if (g_str_has_suffix (fname_low, ".xpm"))
 		return ASC_IMAGE_FORMAT_XPM;
+
 	return ASC_IMAGE_FORMAT_UNKNOWN;
 }
 
@@ -591,7 +601,7 @@ asc_image_load_filename (AscImage *image,
 		if (fmt == NULL) {
 			g_set_error_literal (error,
 					     ASC_IMAGE_ERROR,
-					     ASC_IMAGE_ERROR_FAILED,
+					     ASC_IMAGE_ERROR_UNSUPPORTED,
 					     "Image format was not recognized");
 			return FALSE;
 		}

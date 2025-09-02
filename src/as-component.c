@@ -2756,7 +2756,7 @@ as_component_add_icon_full (AsComponent *cpt,
 static void
 as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
 {
-	const gchar *extensions[] = { "png", "svg", "svgz", "gif", "ico", "xcf", NULL };
+	const gchar *extensions[] = { "png", "svg", "svgz", "jxl", "ico", "xpm", NULL };
 	const gchar *sizes[] = { "", "64x64", "128x128", NULL };
 	const gchar *icon_fname = NULL;
 	const gchar *origin;

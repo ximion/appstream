@@ -267,6 +267,7 @@ test_image_transform (void)
 {
 	g_autoptr(GHashTable) supported_fmts = NULL;
 	g_autofree gchar *sample_img_fname = NULL;
+	g_autofree gchar *sample_jxl_img_fname = NULL;
 	g_autoptr(AscImage) image = NULL;
 	g_autoptr(GError) error = NULL;
 	gboolean ret;
@@ -281,6 +282,7 @@ test_image_transform (void)
 	g_assert_true (g_hash_table_contains (supported_fmts, "jpeg"));
 
 	sample_img_fname = g_build_filename (datadir, "appstream-logo.png", NULL);
+	sample_jxl_img_fname = g_build_filename (datadir, "image.jxl", NULL);
 
 	/* load image from file */
 	image = asc_image_new_from_file (sample_img_fname, 0, ASC_IMAGE_LOAD_FLAG_NONE, &error);
@@ -304,8 +306,7 @@ test_image_transform (void)
 	g_assert_no_error (error);
 	g_assert_true (ret);
 
-	g_object_unref (image);
-	image = NULL;
+	g_clear_object (&image);
 
 	/* test reading image from memory */
 	g_file_get_contents (sample_img_fname, &data, &data_len, &error);
@@ -329,6 +330,22 @@ test_image_transform (void)
 				       &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
+	g_clear_object (&image);
+
+	/* test loading a JPEG-XL image */
+	image = asc_image_new_from_file (sample_jxl_img_fname, 0, ASC_IMAGE_LOAD_FLAG_NONE, &error);
+	if (g_hash_table_contains (supported_fmts, "jxl")) {
+		g_assert_no_error (error);
+		g_assert_nonnull (image);
+
+		g_assert_cmpint (asc_image_get_width (image), ==, 64);
+		g_assert_cmpint (asc_image_get_height (image), ==, 64);
+	} else {
+		g_assert_error (error, ASC_IMAGE_ERROR, ASC_IMAGE_ERROR_UNSUPPORTED);
+		g_assert_null (image);
+		g_clear_error (&error);
+	}
+	g_clear_object (&image);
 }
 
 /**
@@ -754,11 +771,11 @@ test_compose_directory_unit (void)
 	g_assert_true (ret);
 
 	contents = asc_unit_get_contents (ASC_UNIT (dirunit));
-	g_assert_cmpint (contents->len, ==, 16);
+	g_assert_cmpint (contents->len, ==, 17);
 	as_sort_strings (contents);
 
 	g_assert_cmpstr (g_ptr_array_index (contents, 0), ==, "/Raleway-Regular.ttf");
-	g_assert_cmpstr (g_ptr_array_index (contents, 5), ==, "/table.svgz");
+	g_assert_cmpstr (g_ptr_array_index (contents, 5), ==, "/sample-video.mkv");
 
 	/* read existent data */
 	g_assert_true (asc_unit_file_exists (ASC_UNIT (dirunit), "/usr/dummy"));
