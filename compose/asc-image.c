@@ -40,8 +40,8 @@ struct _AscImage {
 
 typedef struct {
 	GdkPixbuf *pix;
-	guint width;
-	guint height;
+	gint width;
+	gint height;
 } AscImagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscImage, asc_image, G_TYPE_OBJECT)
@@ -297,7 +297,7 @@ asc_image_load_pixbuf (AscImage *image,
 		       GdkPixbuf *pixbuf,
 		       gint dest_width,
 		       gint dest_height,
-		       guint src_size_min,
+		       gint src_size_min,
 		       AscImageLoadFlags flags,
 		       GError **error)
 {
@@ -309,8 +309,8 @@ asc_image_load_pixbuf (AscImage *image,
 	g_autoptr(GdkPixbuf) pixbuf_new = NULL;
 
 	/* check size */
-	if (gdk_pixbuf_get_width (pixbuf) < (gint) src_size_min &&
-	    gdk_pixbuf_get_height (pixbuf) < (gint) src_size_min) {
+	if (gdk_pixbuf_get_width (pixbuf) < src_size_min &&
+	    gdk_pixbuf_get_height (pixbuf) < src_size_min) {
 		g_set_error (error,
 			     ASC_IMAGE_ERROR,
 			     ASC_IMAGE_ERROR_FAILED,
@@ -680,8 +680,8 @@ asc_image_set_pixbuf (AscImage *image, GdkPixbuf *pixbuf)
 	g_set_object (&priv->pix, pixbuf);
 	if (pixbuf == NULL)
 		return;
-	priv->width = (guint) gdk_pixbuf_get_width (pixbuf);
-	priv->height = (guint) gdk_pixbuf_get_height (pixbuf);
+	priv->width = gdk_pixbuf_get_width (pixbuf);
+	priv->height = gdk_pixbuf_get_height (pixbuf);
 }
 
 /**
@@ -690,7 +690,7 @@ asc_image_set_pixbuf (AscImage *image, GdkPixbuf *pixbuf)
  *
  * Gets the image width.
  **/
-guint
+gint
 asc_image_get_width (AscImage *image)
 {
 	AscImagePrivate *priv = GET_PRIVATE (image);
@@ -703,7 +703,7 @@ asc_image_get_width (AscImage *image)
  *
  * Gets the image height.
  **/
-guint
+gint
 asc_image_get_height (AscImage *image)
 {
 	AscImagePrivate *priv = GET_PRIVATE (image);
@@ -719,12 +719,13 @@ asc_image_get_height (AscImage *image)
  * Scale the image to the given size.
  **/
 void
-asc_image_scale (AscImage *image, guint new_width, guint new_height)
+asc_image_scale (AscImage *image, gint new_width, gint new_height)
 {
 	AscImagePrivate *priv = GET_PRIVATE (image);
 	g_autoptr(GdkPixbuf) res_pix = NULL;
-	if (priv->pix == NULL)
-		return;
+
+	g_return_if_fail (new_width > 0 && new_height > 0);
+	g_return_if_fail (priv->pix != NULL);
 
 	res_pix = gdk_pixbuf_scale_simple (priv->pix, new_width, new_height, GDK_INTERP_BILINEAR);
 	if (res_pix == NULL)
@@ -743,10 +744,13 @@ asc_image_scale (AscImage *image, guint new_width, guint new_height)
  * its aspect ratio.
  **/
 void
-asc_image_scale_to_width (AscImage *image, guint new_width)
+asc_image_scale_to_width (AscImage *image, gint new_width)
 {
 	double scale;
-	guint new_height;
+	gint new_height;
+
+	g_return_if_fail (new_width > 0);
+
 	scale = (double) new_width / (double) asc_image_get_width (image);
 	new_height = floor (asc_image_get_height (image) * scale);
 
@@ -762,10 +766,13 @@ asc_image_scale_to_width (AscImage *image, guint new_width)
  * its aspect ratio.
  **/
 void
-asc_image_scale_to_height (AscImage *image, guint new_height)
+asc_image_scale_to_height (AscImage *image, gint new_height)
 {
 	double scale;
-	guint new_width;
+	gint new_width;
+
+	g_return_if_fail (new_height > 0);
+
 	scale = (double) new_height / (double) asc_image_get_height (image);
 	new_width = floor (asc_image_get_width (image) * scale);
 
@@ -781,8 +788,9 @@ asc_image_scale_to_height (AscImage *image, guint new_height)
  * and keep its aspect ratio.
  **/
 void
-asc_image_scale_to_fit (AscImage *image, guint size)
+asc_image_scale_to_fit (AscImage *image, gint size)
 {
+	g_return_if_fail (size > 0);
 	if (asc_image_get_height (image) > asc_image_get_width (image))
 		asc_image_scale_to_height (image, size);
 	else

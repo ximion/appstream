@@ -151,14 +151,14 @@ gboolean       asc_image_save_filename (AscImage	 *image,
 					AscImageSaveFlags flags,
 					GError		**error);
 
-guint	       asc_image_get_width (AscImage *image);
-guint	       asc_image_get_height (AscImage *image);
+gint	       asc_image_get_width (AscImage *image);
+gint	       asc_image_get_height (AscImage *image);
 
-void	       asc_image_scale (AscImage *image, guint new_width, guint new_height);
+void	       asc_image_scale (AscImage *image, gint new_width, gint new_height);
 
-void	       asc_image_scale_to_width (AscImage *image, guint new_width);
-void	       asc_image_scale_to_height (AscImage *image, guint new_height);
-void	       asc_image_scale_to_fit (AscImage *image, guint size);
+void	       asc_image_scale_to_width (AscImage *image, gint new_width);
+void	       asc_image_scale_to_height (AscImage *image, gint new_height);
+void	       asc_image_scale_to_fit (AscImage *image, gint size);
 
 gboolean       asc_render_svg_to_file (GInputStream  *stream,
 				       gint	      width,
