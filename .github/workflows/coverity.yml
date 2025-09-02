@@ -38,7 +38,7 @@ jobs:
         echo "git_version_full=$git_version_full" >> $GITHUB_OUTPUT
 
     - name: Coverity
-      uses: vapier/coverity-scan-action@346291b388d0a99b2d82c8d46f5088d0fc494844
+      uses: vapier/coverity-scan-action@8b9716ccb2a45ef65cb74d2a72cb55a9d2f8177e
       with:
         email: ${{ secrets.COVERITY_SCAN_EMAIL }}
         token: ${{ secrets.COVERITY_SCAN_TOKEN }}
