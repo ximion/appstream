@@ -285,7 +285,11 @@ test_image_transform (void)
 	sample_jxl_img_fname = g_build_filename (datadir, "image.jxl", NULL);
 
 	/* load image from file */
-	image = asc_image_new_from_file (sample_img_fname, 0, ASC_IMAGE_LOAD_FLAG_NONE, &error);
+	image = asc_image_new_from_file (sample_img_fname,
+					 -1,
+					 -1,
+					 ASC_IMAGE_LOAD_FLAG_NONE,
+					 &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (image);
 
@@ -314,9 +318,10 @@ test_image_transform (void)
 
 	image = asc_image_new_from_data (data,
 					 data_len,
-					 0,
-					 FALSE,
+					 -1,
+					 -1,
 					 ASC_IMAGE_LOAD_FLAG_NONE,
+					 ASC_IMAGE_FORMAT_UNKNOWN,
 					 &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (image);
@@ -333,7 +338,11 @@ test_image_transform (void)
 	g_clear_object (&image);
 
 	/* test loading a JPEG-XL image */
-	image = asc_image_new_from_file (sample_jxl_img_fname, 0, ASC_IMAGE_LOAD_FLAG_NONE, &error);
+	image = asc_image_new_from_file (sample_jxl_img_fname,
+					 -1,
+					 -1,
+					 ASC_IMAGE_LOAD_FLAG_NONE,
+					 &error);
 	if (g_hash_table_contains (supported_fmts, "jxl")) {
 		g_assert_no_error (error);
 		g_assert_nonnull (image);

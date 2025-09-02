@@ -126,31 +126,34 @@ GHashTable    *asc_image_supported_format_names (void);
 
 AscImage      *asc_image_new (void);
 AscImage      *asc_image_new_from_file (const gchar	 *fname,
-					guint		  dest_size,
+					gint		  dest_width,
+					gint		  dest_height,
 					AscImageLoadFlags flags,
 					GError		**error);
 AscImage      *asc_image_new_from_data (const void	 *data,
 					gssize		  len,
-					guint		  dest_size,
-					gboolean	  compressed,
+					gint		  dest_width,
+					gint		  dest_height,
 					AscImageLoadFlags flags,
+					AscImageFormat	  format_hint,
 					GError		**error);
 
 gboolean       asc_image_load_filename (AscImage	 *image,
 					const gchar	 *filename,
-					guint		  dest_size,
-					guint		  src_size_min,
+					gint		  dest_width,
+					gint		  dest_height,
+					gint		  src_size_min,
 					AscImageLoadFlags flags,
 					GError		**error);
 
 GdkPixbuf     *asc_image_save_pixbuf (AscImage	       *image,
-				      guint		width,
-				      guint		height,
+				      gint		width,
+				      gint		height,
 				      AscImageSaveFlags flags);
 gboolean       asc_image_save_filename (AscImage	 *image,
 					const gchar	 *filename,
-					guint		  width,
-					guint		  height,
+					gint		  width,
+					gint		  height,
 					AscImageSaveFlags flags,
 					GError		**error);
 

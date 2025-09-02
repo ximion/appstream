@@ -1042,8 +1042,11 @@ asc_compose_process_icons (AscCompose *compose,
 		img = asc_image_new_from_data (img_data,
 					       img_len,
 					       is_vector_icon ? size * scale_factor : 0,
-					       g_str_has_suffix (icon_fname, ".svgz"),
+					       is_vector_icon ? size * scale_factor : 0,
 					       ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE,
+					       g_str_has_suffix (icon_fname, ".svgz")
+						   ? ASC_IMAGE_FORMAT_SVGZ
+						   : ASC_IMAGE_FORMAT_UNKNOWN,
 					       &error);
 		if (img == NULL) {
 			asc_result_add_hint (cres,

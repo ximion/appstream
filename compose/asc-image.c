@@ -294,15 +294,16 @@ asc_image_supported_format_names (void)
 static gboolean
 asc_image_load_pixbuf (AscImage *image,
 		       GdkPixbuf *pixbuf,
-		       guint dest_size,
+		       gint dest_width,
+		       gint dest_height,
 		       guint src_size_min,
 		       AscImageLoadFlags flags,
 		       GError **error)
 {
-	guint pixbuf_height;
-	guint pixbuf_width;
-	guint tmp_height;
-	guint tmp_width;
+	gint pixbuf_height;
+	gint pixbuf_width;
+	gint tmp_height;
+	gint tmp_width;
 	g_autoptr(GdkPixbuf) pixbuf_tmp = NULL;
 	g_autoptr(GdkPixbuf) pixbuf_new = NULL;
 
@@ -319,9 +320,9 @@ asc_image_load_pixbuf (AscImage *image,
 	}
 
 	/* don't do anything to an icon with the perfect size */
-	pixbuf_width = (guint) gdk_pixbuf_get_width (pixbuf);
-	pixbuf_height = (guint) gdk_pixbuf_get_height (pixbuf);
-	if (pixbuf_width == dest_size && pixbuf_height == dest_size) {
+	pixbuf_width = gdk_pixbuf_get_width (pixbuf);
+	pixbuf_height = gdk_pixbuf_get_height (pixbuf);
+	if (pixbuf_width == dest_width && pixbuf_height == dest_height) {
 		asc_image_set_pixbuf (image, pixbuf);
 		return TRUE;
 	}
@@ -330,25 +331,21 @@ asc_image_load_pixbuf (AscImage *image,
 	 * good as icons are properly aligned in the UI layout */
 	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
 		pixbuf_new = gdk_pixbuf_scale_simple (pixbuf,
-						      (gint) dest_size,
-						      (gint) dest_size,
+						      dest_width,
+						      dest_height,
 						      GDK_INTERP_HYPER);
 		asc_image_set_pixbuf (image, pixbuf_new);
 		return TRUE;
 	}
 
 	/* never scale up, just pad */
-	if (pixbuf_width < dest_size && pixbuf_height < dest_size) {
-		g_debug ("icon padded to %ux%u as size %ux%u",
-			 dest_size,
-			 dest_size,
+	if (pixbuf_width < dest_width && pixbuf_height < dest_height) {
+		g_debug ("Image padded to %dx%d as size %dx%d",
+			 dest_width,
+			 dest_height,
 			 pixbuf_width,
 			 pixbuf_height);
-		pixbuf_new = gdk_pixbuf_new (GDK_COLORSPACE_RGB,
-					     TRUE,
-					     8,
-					     (gint) dest_size,
-					     (gint) dest_size);
+		pixbuf_new = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, dest_width, dest_height);
 		gdk_pixbuf_fill (pixbuf_new, 0x00000000);
 		gdk_pixbuf_copy_area (pixbuf,
 				      0,
@@ -356,8 +353,8 @@ asc_image_load_pixbuf (AscImage *image,
 				      (gint) pixbuf_width,
 				      (gint) pixbuf_height,
 				      pixbuf_new,
-				      (gint) (dest_size - pixbuf_width) / 2,
-				      (gint) (dest_size - pixbuf_height) / 2);
+				      (dest_width - pixbuf_width) / 2,
+				      (dest_height - pixbuf_height) / 2);
 		asc_image_set_pixbuf (image, pixbuf_new);
 		return TRUE;
 	}
@@ -365,26 +362,22 @@ asc_image_load_pixbuf (AscImage *image,
 	/* is the aspect ratio perfectly square */
 	if (pixbuf_width == pixbuf_height) {
 		pixbuf_new = gdk_pixbuf_scale_simple (pixbuf,
-						      (gint) dest_size,
-						      (gint) dest_size,
+						      dest_width,
+						      dest_height,
 						      GDK_INTERP_HYPER);
 		asc_image_set_pixbuf (image, pixbuf_new);
 		return TRUE;
 	}
 
 	/* create new square pixbuf with alpha padding */
-	pixbuf_new = gdk_pixbuf_new (GDK_COLORSPACE_RGB,
-				     TRUE,
-				     8,
-				     (gint) dest_size,
-				     (gint) dest_size);
+	pixbuf_new = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, dest_width, dest_height);
 	gdk_pixbuf_fill (pixbuf_new, 0x00000000);
 	if (pixbuf_width > pixbuf_height) {
-		tmp_width = dest_size;
-		tmp_height = dest_size * pixbuf_height / pixbuf_width;
+		tmp_width = dest_width;
+		tmp_height = dest_height * pixbuf_height / pixbuf_width;
 	} else {
-		tmp_width = dest_size * pixbuf_width / pixbuf_height;
-		tmp_height = dest_size;
+		tmp_width = dest_width * pixbuf_width / pixbuf_height;
+		tmp_height = dest_height;
 	}
 	pixbuf_tmp = gdk_pixbuf_scale_simple (pixbuf,
 					      (gint) tmp_width,
@@ -398,8 +391,8 @@ asc_image_load_pixbuf (AscImage *image,
 			      (gint) tmp_width,
 			      (gint) tmp_height,
 			      pixbuf_new,
-			      (gint) (dest_size - tmp_width) / 2,
-			      (gint) (dest_size - tmp_height) / 2);
+			      (dest_width - tmp_width) / 2,
+			      (dest_height - tmp_height) / 2);
 	asc_image_set_pixbuf (image, pixbuf_new);
 	return TRUE;
 }
@@ -407,7 +400,8 @@ asc_image_load_pixbuf (AscImage *image,
 /**
  * asc_image_new_from_file:
  * @fname: Name of the file to load.
- * @dest_size: The size of the constructed pixbuf, or 0 for the native size
+ * @dest_width: The suggested width of the constructed pixbuf, or 0 for the native size
+ * @dest_height: The suggested height of the constructed pixbuf, or 0 for the native size
  * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL
  *
@@ -415,14 +409,15 @@ asc_image_load_pixbuf (AscImage *image,
  **/
 AscImage *
 asc_image_new_from_file (const gchar *fname,
-			 guint dest_size,
+			 gint dest_width,
+			 gint dest_height,
 			 AscImageLoadFlags flags,
 			 GError **error)
 {
 	gboolean ret;
 	g_autoptr(AscImage) image = asc_image_new ();
 
-	ret = asc_image_load_filename (image, fname, dest_size, 0, flags, error);
+	ret = asc_image_load_filename (image, fname, dest_width, dest_height, 0, flags, error);
 	if (!ret)
 		return NULL;
 	return g_steal_pointer (&image);
@@ -432,9 +427,10 @@ asc_image_new_from_file (const gchar *fname,
  * asc_image_new_from_data:
  * @data: Data to load.
  * @len: Length of the data to load.
- * @dest_size: The size of the constructed pixbuf, or 0 for the native size
+ * @dest_width: The suggested width of the constructed pixbuf, or 0 for the native size
+ * @dest_height: The suggested height of the constructed pixbuf, or 0 for the native size
  * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
- * @compressed: %TRUE if passed data is gzip-compressed
+ * @format_hint: Assume the specified image format for data, use %ASC_IMAGE_FORMAT_UNKNOWN to guess.
  * @error: A #GError or %NULL
  *
  * Creates a new #AscImage from data in memory.
@@ -442,9 +438,10 @@ asc_image_new_from_file (const gchar *fname,
 AscImage *
 asc_image_new_from_data (const void *data,
 			 gssize len,
-			 guint dest_size,
-			 gboolean compressed,
+			 gint dest_width,
+			 gint dest_height,
 			 AscImageLoadFlags flags,
+			 AscImageFormat format_hint,
 			 GError **error)
 {
 	gboolean ret;
@@ -455,14 +452,14 @@ asc_image_new_from_data (const void *data,
 	g_autoptr(AscImage) image = asc_image_new ();
 
 	istream = g_memory_input_stream_new_from_data (data, len, NULL);
-	if (compressed) {
+	if (format_hint == ASC_IMAGE_FORMAT_SVGZ) {
 		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
 		dstream = g_converter_input_stream_new (istream, conv);
 	} else {
 		dstream = g_object_ref (istream);
 	}
 
-	if (dest_size == 0) {
+	if (dest_width <= 0 && dest_height <= 0) {
 		/* use the native size and don't perform any scaling */
 		pix = gdk_pixbuf_new_from_stream (dstream, NULL, error);
 		if (pix == NULL)
@@ -475,8 +472,8 @@ asc_image_new_from_data (const void *data,
 	/* load & scale */
 	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
 		pix = gdk_pixbuf_new_from_stream_at_scale (dstream,
-							   dest_size,
-							   dest_size,
+							   dest_width,
+							   dest_height,
 							   TRUE,
 							   NULL,
 							   error);
@@ -488,7 +485,7 @@ asc_image_new_from_data (const void *data,
 		if (pix == NULL)
 			return NULL;
 	}
-	ret = asc_image_load_pixbuf (image, pix, dest_size, 0, flags, error);
+	ret = asc_image_load_pixbuf (image, pix, dest_width, dest_height, 0, flags, error);
 	if (!ret)
 		return NULL;
 
@@ -556,8 +553,9 @@ asc_image_pixbuf_new_from_gz (const gchar *filename, gint width, gint height, GE
  * asc_image_load_filename:
  * @image: a #AscImage instance.
  * @filename: filename to read from
- * @dest_size: The size of the constructed pixbuf, or 0 for the native size
- * @src_size_min: The smallest source size allowed, or 0 for none
+ * @dest_width: The suggested width of the constructed pixbuf, or 0 for the native size
+ * @dest_height: The suggested height of the constructed pixbuf, or 0 for the native size
+ * @src_size_min: The smallest source size (width or height) allowed, or 0 for no limit
  * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL.
  *
@@ -568,8 +566,9 @@ asc_image_pixbuf_new_from_gz (const gchar *filename, gint width, gint height, GE
 gboolean
 asc_image_load_filename (AscImage *image,
 			 const gchar *filename,
-			 guint dest_size,
-			 guint src_size_min,
+			 gint dest_width,
+			 gint dest_height,
+			 gint src_size_min,
 			 AscImageLoadFlags flags,
 			 GError **error)
 {
@@ -617,9 +616,9 @@ asc_image_load_filename (AscImage *image,
 	}
 
 	/* load the image of the native size */
-	if (dest_size == 0) {
+	if (dest_width <= 0 && dest_height <= 0) {
 		g_autoptr(GdkPixbuf) pixbuf = NULL;
-		pixbuf = asc_image_pixbuf_new_from_gz (filename, 0, 0, error);
+		pixbuf = asc_image_pixbuf_new_from_gz (filename, -1, -1, error);
 		if (pixbuf == NULL)
 			return FALSE;
 		asc_image_set_pixbuf (image, pixbuf);
@@ -629,8 +628,8 @@ asc_image_load_filename (AscImage *image,
 	/* open file in native size */
 	if (is_svg) {
 		pixbuf_src = asc_image_pixbuf_new_from_gz (filename,
-							   (gint) dest_size,
-							   (gint) dest_size,
+							   (gint) dest_width,
+							   (gint) dest_height,
 							   error);
 	} else {
 		pixbuf_src = asc_image_pixbuf_new_from_gz (filename, 0, 0, error);
@@ -639,7 +638,13 @@ asc_image_load_filename (AscImage *image,
 		return FALSE;
 
 	/* create from pixbuf & resize */
-	return asc_image_load_pixbuf (image, pixbuf_src, dest_size, src_size_min, flags, error);
+	return asc_image_load_pixbuf (image,
+				      pixbuf_src,
+				      dest_width,
+				      dest_height,
+				      src_size_min,
+				      flags,
+				      error);
 }
 
 /**
@@ -795,14 +800,14 @@ asc_image_scale_to_fit (AscImage *image, guint size)
  * Returns: (transfer full): A #GdkPixbuf of the specified size
  **/
 GdkPixbuf *
-asc_image_save_pixbuf (AscImage *image, guint width, guint height, AscImageSaveFlags flags)
+asc_image_save_pixbuf (AscImage *image, gint width, gint height, AscImageSaveFlags flags)
 {
 	AscImagePrivate *priv = GET_PRIVATE (image);
 	GdkPixbuf *pixbuf = NULL;
-	guint tmp_height;
-	guint tmp_width;
-	guint pixbuf_height;
-	guint pixbuf_width;
+	gint tmp_height;
+	gint tmp_width;
+	gint pixbuf_height;
+	gint pixbuf_width;
 	g_autoptr(GdkPixbuf) pixbuf_tmp = NULL;
 
 	g_return_val_if_fail (ASC_IS_IMAGE (image), NULL);
@@ -812,23 +817,20 @@ asc_image_save_pixbuf (AscImage *image, guint width, guint height, AscImageSaveF
 		return NULL;
 
 	/* 0 means 'default' */
-	if (width == 0)
-		width = (guint) gdk_pixbuf_get_width (priv->pix);
-	if (height == 0)
-		height = (guint) gdk_pixbuf_get_height (priv->pix);
+	if (width <= 0)
+		width = gdk_pixbuf_get_width (priv->pix);
+	if (height <= 0)
+		height = gdk_pixbuf_get_height (priv->pix);
 
 	/* don't do anything to an image with the correct size */
-	pixbuf_width = (guint) gdk_pixbuf_get_width (priv->pix);
-	pixbuf_height = (guint) gdk_pixbuf_get_height (priv->pix);
+	pixbuf_width = gdk_pixbuf_get_width (priv->pix);
+	pixbuf_height = gdk_pixbuf_get_height (priv->pix);
 	if (width == pixbuf_width && height == pixbuf_height)
 		return g_object_ref (priv->pix);
 
 	/* is the aspect ratio of the source perfectly 16:9 */
 	if (flags == ASC_IMAGE_SAVE_FLAG_NONE || (pixbuf_width / 16) * 9 == pixbuf_height) {
-		pixbuf = gdk_pixbuf_scale_simple (priv->pix,
-						  (gint) width,
-						  (gint) height,
-						  GDK_INTERP_HYPER);
+		pixbuf = gdk_pixbuf_scale_simple (priv->pix, width, height, GDK_INTERP_HYPER);
 		if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_SHARPEN))
 			asc_pixbuf_sharpen (pixbuf, 1, -0.5);
 		if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_BLUR))
@@ -837,7 +839,7 @@ asc_image_save_pixbuf (AscImage *image, guint width, guint height, AscImageSaveF
 	}
 
 	/* create new 16:9 pixbuf with alpha padding */
-	pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, (gint) width, (gint) height);
+	pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, width, height);
 	gdk_pixbuf_fill (pixbuf, 0x00000000);
 	/* check the ratio to see which property needs to be fitted and which needs
 	 * to be reduced */
@@ -848,10 +850,7 @@ asc_image_save_pixbuf (AscImage *image, guint width, guint height, AscImageSaveF
 		tmp_width = height * pixbuf_width / pixbuf_height;
 		tmp_height = height;
 	}
-	pixbuf_tmp = gdk_pixbuf_scale_simple (priv->pix,
-					      (gint) tmp_width,
-					      (gint) tmp_height,
-					      GDK_INTERP_HYPER);
+	pixbuf_tmp = gdk_pixbuf_scale_simple (priv->pix, tmp_width, tmp_height, GDK_INTERP_HYPER);
 	if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_SHARPEN))
 		asc_pixbuf_sharpen (pixbuf_tmp, 1, -0.5);
 	if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_BLUR))
@@ -859,11 +858,11 @@ asc_image_save_pixbuf (AscImage *image, guint width, guint height, AscImageSaveF
 	gdk_pixbuf_copy_area (pixbuf_tmp,
 			      0,
 			      0, /* of src */
-			      (gint) tmp_width,
-			      (gint) tmp_height,
+			      tmp_width,
+			      tmp_height,
 			      pixbuf,
-			      (gint) (width - tmp_width) / 2,
-			      (gint) (height - tmp_height) / 2);
+			      (width - tmp_width) / 2,
+			      (height - tmp_height) / 2);
 	return pixbuf;
 }
 
@@ -883,8 +882,8 @@ asc_image_save_pixbuf (AscImage *image, guint width, guint height, AscImageSaveF
 gboolean
 asc_image_save_filename (AscImage *image,
 			 const gchar *filename,
-			 guint width,
-			 guint height,
+			 gint width,
+			 gint height,
 			 AscImageSaveFlags flags,
 			 GError **error)
 {

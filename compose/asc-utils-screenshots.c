@@ -531,9 +531,10 @@ asc_process_screenshot_images_lang (AscResult *cres,
 		/* save the source screenshot as PNG image */
 		src_image = asc_image_new_from_data (img_data,
 						     img_data_len,
-						     0,	    /* destination size */
-						     FALSE, /* compressed */
+						     -1, /* destination width */
+						     -1, /* destination height */
 						     ASC_IMAGE_LOAD_FLAG_NONE,
+						     ASC_IMAGE_FORMAT_UNKNOWN,
 						     &error);
 		if (error != NULL) {
 			g_autofree gchar *msg = g_strdup_printf (
@@ -621,9 +622,10 @@ asc_process_screenshot_images_lang (AscResult *cres,
 
 		thumb = asc_image_new_from_data (img_data,
 						 img_data_len,
-						 0,	/* destination size */
-						 FALSE, /* compressed */
+						 -1, /* destination width */
+						 -1, /* destination height */
 						 ASC_IMAGE_LOAD_FLAG_NONE,
+						 ASC_IMAGE_FORMAT_UNKNOWN,
 						 &error);
 		if (error != NULL) {
 			g_autofree gchar *msg = g_strdup_printf (
