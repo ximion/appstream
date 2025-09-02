@@ -26,12 +26,13 @@
  */
 
 #include "config.h"
-#include "asc-image.h"
+#include "asc-image-private.h"
 
 #include <gio/gio.h>
 #include <math.h>
 
 #include "asc-globals.h"
+#include "asc-canvas.h"
 
 struct _AscImage {
 	GObject parent_instance;
@@ -786,6 +787,61 @@ asc_image_scale_to_fit (AscImage *image, guint size)
 		asc_image_scale_to_height (image, size);
 	else
 		asc_image_scale_to_width (image, size);
+}
+
+/**
+ * asc_render_svg_to_file:
+ * @stream: Input stream with SVG data.
+ * @width: Target width.
+ * @height: Target height.
+ * @format: Target image format, e.g. %ASC_IMAGE_FORMAT_PNG
+ * @filename: Filename to write to.
+ * @error: A #GError or %NULL
+ *
+ * Renders SVG data from a stream to a file in a specific format.
+ *
+ * Returns: %TRUE for success
+ **/
+gboolean
+asc_render_svg_to_file (GInputStream *stream,
+			gint width,
+			gint height,
+			AscImageFormat format,
+			const gchar *filename,
+			GError **error)
+{
+	g_autoptr(AscCanvas) cv = NULL;
+	g_autoptr(GdkPixbuf) pixbuf = NULL;
+
+	g_return_val_if_fail (width > 0 && height > 0, FALSE);
+
+	if (format == ASC_IMAGE_FORMAT_UNKNOWN) {
+		g_set_error (error,
+			     ASC_IMAGE_ERROR,
+			     ASC_IMAGE_ERROR_UNSUPPORTED,
+			     "Unknown image format specified");
+		return FALSE;
+	}
+	if (format == ASC_IMAGE_FORMAT_SVG || format == ASC_IMAGE_FORMAT_SVGZ) {
+		g_set_error (error,
+			     ASC_IMAGE_ERROR,
+			     ASC_IMAGE_ERROR_UNSUPPORTED,
+			     "Can not render existing SVG data to SVG");
+		return FALSE;
+	}
+
+	cv = asc_canvas_new (width, height);
+	if (!asc_canvas_render_svg (cv, stream, error))
+		return FALSE;
+
+	if (format == ASC_IMAGE_FORMAT_PNG) {
+		/* we can just save that PNG directly */
+		return asc_canvas_save_png (cv, filename, error);
+	}
+
+	/* save to other formats */
+	pixbuf = asc_canvas_to_pixbuf (cv);
+	return gdk_pixbuf_save (pixbuf, filename, asc_image_format_to_string (format), error, NULL);
 }
 
 /**

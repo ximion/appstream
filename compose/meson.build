@@ -23,7 +23,6 @@ ascompose_src = [
 
 ascompose_pub_headers = [
     'appstream-compose.h',
-    'asc-canvas.h',
     'asc-compose.h',
     'asc-directory-unit.h',
     'asc-globals.h',
@@ -42,11 +41,12 @@ ascompose_pub_enums = glib.mkenums_simple('asc-enums-types',
 )
 
 ascompose_priv_headers = [
-    'asc-canvas-private.h',
+    'asc-canvas.h',
     'asc-font.h',
     'asc-font-private.h',
     'asc-globals-private.h',
     'asc-hint-tags.h',
+    'asc-image-private.h',
     'asc-utils-l10n.h',
     'asc-utils-metainfo.h',
     'asc-utils-screenshots.h',

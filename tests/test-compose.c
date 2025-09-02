@@ -25,9 +25,8 @@
 #include "asc-utils-l10n.h"
 #include "asc-utils-screenshots.h"
 #include "asc-utils-fonts.h"
-#include "asc-image.h"
+#include "asc-image-private.h"
 #include "asc-canvas.h"
-#include "asc-canvas-private.h"
 
 #include "as-utils-private.h"
 #include "as-test-utils.h"

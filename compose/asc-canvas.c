@@ -1,6 +1,11 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2025 Matthias Klumpp <matthias@tenstral.net>
+ *
+ * GdkPixbuf conversion authors:
+ *     Michael Zucchi <zucchi@zedzone.mmc.com.au>
+ *     Cody Russell <bratsche@dfw.net>
+ *     Federico Mena-Quintero <federico@gimp.org>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -26,7 +31,6 @@
 
 #include "config.h"
 #include "asc-canvas.h"
-#include "asc-canvas-private.h"
 
 #include <cairo.h>
 #include <cairo-ft.h>
@@ -37,7 +41,7 @@
 
 #include "as-utils-private.h"
 #include "asc-font-private.h"
-#include "asc-image.h"
+#include "asc-image-private.h"
 
 struct _AscCanvas {
 	GObject parent_instance;
@@ -856,4 +860,129 @@ asc_canvas_save_png (AscCanvas *canvas, const gchar *fname, GError **error)
 	}
 
 	return asc_optimize_png (fname, error);
+}
+
+static void
+convert_alpha (guchar *dest_data,
+	       int dest_stride,
+	       guchar *src_data,
+	       int src_stride,
+	       int src_x,
+	       int src_y,
+	       int width,
+	       int height)
+{
+	int x, y;
+
+	src_data += src_stride * src_y + src_x * 4;
+
+	for (y = 0; y < height; y++) {
+		guint32 *src = (guint32 *) src_data;
+
+		for (x = 0; x < width; x++) {
+			guint alpha = src[x] >> 24;
+
+			if (alpha == 0) {
+				dest_data[x * 4 + 0] = 0;
+				dest_data[x * 4 + 1] = 0;
+				dest_data[x * 4 + 2] = 0;
+			} else {
+				dest_data[x * 4 + 0] = (((src[x] & 0xff0000) >> 16) * 255 +
+							alpha / 2) /
+						       alpha;
+				dest_data[x * 4 + 1] = (((src[x] & 0x00ff00) >> 8) * 255 +
+							alpha / 2) /
+						       alpha;
+				dest_data[x * 4 + 2] = (((src[x] & 0x0000ff) >> 0) * 255 +
+							alpha / 2) /
+						       alpha;
+			}
+			dest_data[x * 4 + 3] = alpha;
+		}
+
+		src_data += src_stride;
+		dest_data += dest_stride;
+	}
+}
+
+static void
+convert_no_alpha (guchar *dest_data,
+		  int dest_stride,
+		  guchar *src_data,
+		  int src_stride,
+		  int src_x,
+		  int src_y,
+		  int width,
+		  int height)
+{
+	int x, y;
+
+	src_data += src_stride * src_y + src_x * 4;
+
+	for (y = 0; y < height; y++) {
+		guint32 *src = (guint32 *) src_data;
+
+		for (x = 0; x < width; x++) {
+			dest_data[x * 3 + 0] = src[x] >> 16;
+			dest_data[x * 3 + 1] = src[x] >> 8;
+			dest_data[x * 3 + 2] = src[x];
+		}
+
+		src_data += src_stride;
+		dest_data += dest_stride;
+	}
+}
+
+/**
+ * asc_canvas_to_pixbuf:
+ * @canvas: an #AscCanvas instance.
+ *
+ * Convert the canvas to a #GdkPixbuf.
+ *
+ * Returns: (transfer full) (nullable): a #GdkPixbuf or %NULL on error.
+ **/
+GdkPixbuf *
+asc_canvas_to_pixbuf (AscCanvas *canvas)
+{
+	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	cairo_content_t content;
+	GdkPixbuf *dest;
+
+	/* sanity check */
+	g_return_val_if_fail (priv->width > 0 && priv->height > 0, NULL);
+
+	content = cairo_surface_get_content (priv->srf) | CAIRO_CONTENT_COLOR;
+	dest = gdk_pixbuf_new (GDK_COLORSPACE_RGB,
+			       !!(content & CAIRO_CONTENT_ALPHA),
+			       8,
+			       priv->width,
+			       priv->height);
+
+	cairo_surface_flush (priv->srf);
+	if (cairo_surface_status (priv->srf) || dest == NULL) {
+		cairo_surface_destroy (priv->srf);
+		g_clear_object (&dest);
+		return NULL;
+	}
+
+	if (gdk_pixbuf_get_has_alpha (dest))
+		convert_alpha (gdk_pixbuf_get_pixels (dest),
+			       gdk_pixbuf_get_rowstride (dest),
+			       cairo_image_surface_get_data (priv->srf),
+			       cairo_image_surface_get_stride (priv->srf),
+			       0,
+			       0,
+			       priv->width,
+			       priv->height);
+	else
+		convert_no_alpha (gdk_pixbuf_get_pixels (dest),
+				  gdk_pixbuf_get_rowstride (dest),
+				  cairo_image_surface_get_data (priv->srf),
+				  cairo_image_surface_get_stride (priv->srf),
+				  0,
+				  0,
+				  priv->width,
+				  priv->height);
+
+	return dest;
 }

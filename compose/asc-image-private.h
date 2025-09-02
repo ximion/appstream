@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2025 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -18,28 +18,27 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __APPSTREAM_COMPOSE_H
-#define __APPSTREAM_COMPOSE_H
+#pragma once
 
-#ifndef I_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE
-#error You have to define I_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE
-#endif
+#include <glib-object.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
-#define __APPSTREAM_COMPOSE_H_INSIDE__
+#include "as-macros-private.h"
+#include "asc-image.h"
 
-#include <appstream.h>
+AS_BEGIN_PRIVATE_DECLS
 
-#include <asc-globals.h>
-#include <asc-compose.h>
-#include <asc-icon-policy.h>
-#include <asc-utils.h>
-#include <asc-hint.h>
-#include <asc-unit.h>
-#include <asc-directory-unit.h>
-#include <asc-result.h>
-#include <asc-image.h>
-#include <asc-enums-types.h>
+gboolean   asc_optimize_png (const gchar *fname, GError **error);
 
-#undef __APPSTREAM_COMPOSE_H_INSIDE__
+GdkPixbuf *asc_image_save_pixbuf (AscImage	   *image,
+				  gint		    width,
+				  gint		    height,
+				  AscImageSaveFlags flags);
 
-#endif /* __APPSTREAM_COMPOSE_H */
+GdkPixbuf *asc_image_get_pixbuf (AscImage *image);
+void	   asc_image_set_pixbuf (AscImage *image, GdkPixbuf *pixbuf);
+
+void	   asc_pixbuf_blur (GdkPixbuf *src, gint radius, gint iterations);
+void	   asc_pixbuf_sharpen (GdkPixbuf *src, gint radius, gdouble amount);
+
+AS_END_PRIVATE_DECLS

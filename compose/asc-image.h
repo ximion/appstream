@@ -25,7 +25,6 @@
 
 #include <glib-object.h>
 #include <appstream.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
 
 G_BEGIN_DECLS
 
@@ -121,7 +120,6 @@ const gchar   *asc_image_format_to_string (AscImageFormat format);
 AscImageFormat asc_image_format_from_string (const gchar *str);
 AscImageFormat asc_image_format_from_filename (const gchar *fname);
 
-gboolean       asc_optimize_png (const gchar *fname, GError **error);
 GHashTable    *asc_image_supported_format_names (void);
 
 AscImage      *asc_image_new (void);
@@ -146,19 +144,12 @@ gboolean       asc_image_load_filename (AscImage	 *image,
 					AscImageLoadFlags flags,
 					GError		**error);
 
-GdkPixbuf     *asc_image_save_pixbuf (AscImage	       *image,
-				      gint		width,
-				      gint		height,
-				      AscImageSaveFlags flags);
 gboolean       asc_image_save_filename (AscImage	 *image,
 					const gchar	 *filename,
 					gint		  width,
 					gint		  height,
 					AscImageSaveFlags flags,
 					GError		**error);
-
-GdkPixbuf     *asc_image_get_pixbuf (AscImage *image);
-void	       asc_image_set_pixbuf (AscImage *image, GdkPixbuf *pixbuf);
 
 guint	       asc_image_get_width (AscImage *image);
 guint	       asc_image_get_height (AscImage *image);
@@ -169,7 +160,11 @@ void	       asc_image_scale_to_width (AscImage *image, guint new_width);
 void	       asc_image_scale_to_height (AscImage *image, guint new_height);
 void	       asc_image_scale_to_fit (AscImage *image, guint size);
 
-void	       asc_pixbuf_blur (GdkPixbuf *src, gint radius, gint iterations);
-void	       asc_pixbuf_sharpen (GdkPixbuf *src, gint radius, gdouble amount);
+gboolean       asc_render_svg_to_file (GInputStream  *stream,
+				       gint	      width,
+				       gint	      height,
+				       AscImageFormat format,
+				       const gchar   *filename,
+				       GError	    **error);
 
 G_END_DECLS

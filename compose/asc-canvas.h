@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2025 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -25,8 +25,12 @@
 
 #include <glib-object.h>
 #include <gio/gio.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
-G_BEGIN_DECLS
+#include "as-macros-private.h"
+#include "asc-font.h"
+
+AS_BEGIN_PRIVATE_DECLS
 
 #define ASC_TYPE_CANVAS (asc_canvas_get_type ())
 G_DECLARE_FINAL_TYPE (AscCanvas, asc_canvas, ASC, CANVAS, GObject)
@@ -49,16 +53,69 @@ typedef enum {
 	ASC_CANVAS_ERROR_LAST
 } AscCanvasError;
 
-#define ASC_CANVAS_ERROR asc_canvas_error_quark ()
-GQuark	   asc_canvas_error_quark (void);
+/**
+ * AscCanvasShape:
+ * @ASC_CANVAS_SHAPE_CIRCLE:	 Circle
+ * @ASC_CANVAS_SHAPE_HEXAGON:	 Hexagon
+ * @ASC_CANVAS_ERROR_PENTAGON:	 Penatgon
+ *
+ * A type of shape to draw.
+ **/
+typedef enum {
+	ASC_CANVAS_SHAPE_CIRCLE,
+	ASC_CANVAS_SHAPE_HEXAGON,
+	ASC_CANVAS_SHAPE_PENTAGON,
+	/*< private >*/
+	ASC_CANVAS_SHAPE_LAST
+} AscCanvasShape;
 
+#define ASC_CANVAS_ERROR asc_canvas_error_quark ()
+GQuark asc_canvas_error_quark (void);
+
+AS_INTERNAL_VISIBLE
 AscCanvas *asc_canvas_new (gint width, gint height);
 
 guint	   asc_canvas_get_width (AscCanvas *canvas);
 guint	   asc_canvas_get_height (AscCanvas *canvas);
 
-gboolean   asc_canvas_render_svg (AscCanvas *canvas, GInputStream *stream, GError **error);
+AS_INTERNAL_VISIBLE
+gboolean asc_canvas_render_svg (AscCanvas *canvas, GInputStream *stream, GError **error);
 
+AS_INTERNAL_VISIBLE
 gboolean   asc_canvas_save_png (AscCanvas *canvas, const gchar *fname, GError **error);
 
-G_END_DECLS
+GdkPixbuf *asc_canvas_to_pixbuf (AscCanvas *canvas);
+
+AS_INTERNAL_VISIBLE
+gboolean asc_canvas_draw_text_line (AscCanvas	*canvas,
+				    AscFont	*font,
+				    const gchar *text,
+				    gint	 border_width,
+				    GError     **error);
+AS_INTERNAL_VISIBLE
+gboolean asc_canvas_draw_text (AscCanvas   *canvas,
+			       AscFont	   *font,
+			       const gchar *text,
+			       gint	    border_width,
+			       gint	    line_pad,
+			       GError	  **error);
+
+AS_INTERNAL_VISIBLE
+gboolean asc_canvas_draw_font_card (AscCanvas	*canvas,
+				    AscFont	*font,
+				    const gchar *info_label,
+				    const gchar *pangram,
+				    const gchar *bg_letter,
+				    gint	 border_width,
+				    GError     **error);
+
+AS_INTERNAL_VISIBLE
+gboolean asc_canvas_draw_shape (AscCanvas     *canvas,
+				AscCanvasShape shape,
+				gint	       border_width,
+				double	       red,
+				double	       green,
+				double	       blue,
+				GError	     **error);
+
+AS_END_PRIVATE_DECLS
