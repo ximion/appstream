@@ -286,8 +286,13 @@ as_metadata_yaml_parse_catalog_doc (AsMetadata *metad,
 	gboolean header = TRUE;
 	gboolean ret = TRUE;
 	g_autoptr(GPtrArray) cpts = NULL;
-	struct fy_parse_cfg ycfg = { .search_path = "",
-				     .flags = FYPCF_DEFAULT_VERSION_1_2 | FYPCF_JSON_NONE };
+	struct fy_parse_cfg ycfg = {
+		.search_path = "",
+		.flags =
+		    FYPCF_DEFAULT_VERSION_1_2 | /* AppStream YAML is always 1.2 or higher */
+		    FYPCF_ALLOW_DUPLICATE_KEYS /* allowing duplicate keys vastly improves parsing speed
+						* with libfyaml 0.9, which is what we care about here. */
+	};
 
 	/* we ignore empty data - usually happens if the file is broken, e.g. by disk corruption
 	 * or download interruption. */
