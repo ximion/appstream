@@ -239,7 +239,9 @@ out:
  * asc_canvas_draw_text_line:
  * @canvas: an #AscCanvas instance.
  * @font: an #AscFont to use for drawing the text.
+ * @text: the text to draw.
  * @border_width: Border with around the text, set to -1 to use defaults.
+ * @vertical_offset: Additional vertical offset for text positioning (positive moves down).
  * @error: A #GError or %NULL
  *
  * Draw a simple line of text without linebreaks to fill the canvas.
@@ -249,6 +251,7 @@ asc_canvas_draw_text_line (AscCanvas *canvas,
 			   AscFont *font,
 			   const gchar *text,
 			   gint border_width,
+			   gint vertical_offset,
 			   GError **error)
 {
 	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
@@ -305,11 +308,11 @@ asc_canvas_draw_text_line (AscCanvas *canvas,
 	cairo_text_extents (priv->cr, text, &te);
 	cairo_font_extents (priv->cr, &fe);
 
-	/* horizontal: center the whole advance width (looks better for e.g. “F”) */
+	/* horizontal: center the whole advance width (looks better for e.g. "F") */
 	x_origin = (priv->width / 2.0) - te.x_advance / 2.0;
 
-	/* vertical: put the baseline so that ascent and descent straddle */
-	y_baseline = (priv->height / 2.0) + (fe.ascent - fe.descent) / 2.0;
+	/* vertical: center the glyph bounding box around canvas center, then apply offset */
+	y_baseline = (priv->height / 2.0) - (te.y_bearing + te.height / 2.0) + vertical_offset;
 
 	cairo_move_to (priv->cr, x_origin, y_baseline);
 	cairo_set_source_rgb (priv->cr, 0.0, 0.0, 0.0);
@@ -693,25 +696,66 @@ asc_canvas_draw_shape (AscCanvas *canvas,
 		}
 		cairo_close_path (priv->cr);
 		cairo_fill (priv->cr);
-	} else if (shape == ASC_CANVAS_SHAPE_PENTAGON) {
+	} else if (shape == ASC_CANVAS_SHAPE_CVL_TRIANGLE) {
 		double radius = MIN (priv->width, priv->height) / 2.0 - border_width;
-		double angle_step = G_PI * 2 / 5; /* 72 degrees */
-		double angle_offset = -G_PI / 2;
 		double cx = priv->width / 2.0;
-		double cy = priv->height / 2.0;
+		double cy = priv->height / 2.0 +
+			    radius * 0.15;	  /* Move center down for better visual balance */
+		double triangle_radius = radius;  /* Use full radius to match circle and hexagon */
+		double angle_offset = -G_PI / 2;  /* Start from top */
+		double angle_step = G_PI * 2 / 3; /* 120 degrees between vertices */
+		double vertices[3][2];
+		double curve_radius = triangle_radius * 0.15; /* Subtle curve for better shape */
+		int i;
+
+		/* Create a curvilinear triangle using three circular arcs */
+		/* Each arc connects two vertices of an equilateral triangle */
 
 		cairo_set_source_rgb (priv->cr, red, green, blue);
-
 		cairo_new_path (priv->cr);
-		for (int i = 0; i < 5; i++) {
+
+		for (i = 0; i < 3; i++) {
 			double angle = angle_step * i + angle_offset;
-			double x = cx + radius * cos (angle);
-			double y = cy + radius * sin (angle);
-			if (i == 0)
-				cairo_move_to (priv->cr, x, y);
-			else
-				cairo_line_to (priv->cr, x, y);
+			vertices[i][0] = cx + triangle_radius * cos (angle);
+			vertices[i][1] = cy + triangle_radius * sin (angle);
 		}
+
+		/* Draw three curved sides connecting the vertices */
+		/* The curve radius determines how "bulged" the sides are */
+
+		cairo_move_to (priv->cr, vertices[0][0], vertices[0][1]);
+
+		for (i = 0; i < 3; i++) {
+			int next = (i + 1) % 3;
+
+			/* Calculate midpoint between current and next vertex */
+			double mid_x = (vertices[i][0] + vertices[next][0]) / 2.0;
+			double mid_y = (vertices[i][1] + vertices[next][1]) / 2.0;
+
+			/* Calculate direction from center to midpoint (outward direction) */
+			double center_to_mid_x = mid_x - cx;
+			double center_to_mid_y = mid_y - cy;
+			double center_to_mid_length = sqrt (center_to_mid_x * center_to_mid_x +
+							    center_to_mid_y * center_to_mid_y);
+
+			/* Normalize the outward direction */
+			double outward_x = center_to_mid_x / center_to_mid_length;
+			double outward_y = center_to_mid_y / center_to_mid_length;
+
+			/* Control point for the curve (outward from midpoint to create outward bulge) */
+			double ctrl_x = mid_x + outward_x * curve_radius;
+			double ctrl_y = mid_y + outward_y * curve_radius;
+
+			/* Draw curved line to next vertex */
+			cairo_curve_to (priv->cr,
+					ctrl_x,
+					ctrl_y,
+					ctrl_x,
+					ctrl_y,
+					vertices[next][0],
+					vertices[next][1]);
+		}
+
 		cairo_close_path (priv->cr);
 		cairo_fill (priv->cr);
 	} else {
@@ -723,6 +767,62 @@ asc_canvas_draw_shape (AscCanvas *canvas,
 	}
 
 	return TRUE;
+}
+
+/**
+ * asc_calculate_text_border_width_for_icon_shape:
+ * @bg_shape: The background shape.
+ * @canvas_size: The size of the canvas (width or height, assuming square).
+ * @shape_border_width: The border width used when drawing the shape.
+ *
+ * Calculate an appropriate border width for text placement inside a given shape.
+ * This ensures that text does not overlap the edges of the shape, especially for
+ * non-rectangular shapes like circles, hexagons, and triangles.
+ *
+ * Returns: The calculated border width for text placement.
+ **/
+gint
+asc_calculate_text_border_width_for_icon_shape (AscCanvasShape bg_shape,
+						gint canvas_size,
+						gint shape_border_width)
+{
+	switch (bg_shape) {
+	case ASC_CANVAS_SHAPE_CIRCLE:
+		/* For circles, calculate inscribed square dimensions to ensure text fits */
+		/* The inscribed square in a circle has side length = radius * sqrt(2) */
+		{
+			double radius = canvas_size / 2.0 - shape_border_width;
+			double inscribed_square_side = radius * sqrt (2);
+
+			return (gint) ((canvas_size - inscribed_square_side) / 2.0);
+		}
+	case ASC_CANVAS_SHAPE_HEXAGON:
+		/* For hexagons, calculate the inscribed rectangle that fits within all sides */
+		/* A regular hexagon with flat top/bottom has narrower width at middle */
+		{
+			double radius = canvas_size / 2.0 - shape_border_width;
+			double hex_width = radius * sqrt (3);
+			double hex_height = radius * 2.0;
+			/* use conservative safe area that's 75% of the hexagon's inscribed rectangle */
+			double safe_dimension = (hex_width < hex_height ? hex_width : hex_height) *
+						0.75;
+
+			return (gint) ((canvas_size - safe_dimension) / 2.0);
+		}
+	case ASC_CANVAS_SHAPE_CVL_TRIANGLE:
+		/* For curvilinear triangles, calculate the inscribed circle area */
+		/* The triangle is oriented with a vertex at the top */ {
+			double radius = canvas_size / 2.0 - shape_border_width;
+			double inscribed_circle_radius = radius / 2.0;
+			double safe_diameter = inscribed_circle_radius * 2.0 *
+					       1.1; /* 110% for better text utilization */
+
+			return (gint) ((canvas_size - safe_diameter) / 2.0);
+		}
+	default:
+		/* fallback */
+		return shape_border_width;
+	}
 }
 
 /**

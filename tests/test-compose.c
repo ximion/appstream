@@ -368,6 +368,9 @@ test_canvas (void)
 	g_autofree gchar *font_fname = NULL;
 	g_autofree gchar *data = NULL;
 	gsize data_len;
+	gint cv_size;
+	gint text_border_width, shape_border_width;
+	AscCanvasShape bg_shape;
 	g_autoptr(AscCanvas) cv = NULL;
 	g_autoptr(AscFont) font = NULL;
 	g_autoptr(GInputStream) stream = NULL;
@@ -411,20 +414,30 @@ test_canvas (void)
 	g_assert_no_error (error);
 	g_object_unref (cv);
 
-	cv = asc_canvas_new (64, 64);
+	cv_size = 128;
+	bg_shape = ASC_CANVAS_SHAPE_CVL_TRIANGLE;
+	shape_border_width = (gint) (cv_size * 0.032);
+	text_border_width = asc_calculate_text_border_width_for_icon_shape (bg_shape,
+									    cv_size,
+									    shape_border_width);
+
+	cv = asc_canvas_new (cv_size, cv_size);
 	asc_canvas_draw_shape (cv,
-			       ASC_CANVAS_SHAPE_HEXAGON,
-			       2,    /* border width */
-			       0.85, /* red */
-			       0.85, /* green */
-			       0.85, /* blue */
+			       bg_shape,
+			       shape_border_width,
+			       0.84, /* red */
+			       0.84, /* green */
+			       0.84, /* blue */
 			       &error);
 	g_assert_no_error (error);
 
 	asc_canvas_draw_text_line (cv,
 				   font,
 				   "Aa",
-				   10, /* border width */
+				   text_border_width,
+				   bg_shape == ASC_CANVAS_SHAPE_CVL_TRIANGLE
+				       ? (gint) ((cv_size / 2.0 - shape_border_width) * 0.15)
+				       : 0,
 				   &error);
 	g_assert_no_error (error);
 	asc_canvas_save_png (cv, "/tmp/asc-fontrender_test2.png", &error);

@@ -55,16 +55,16 @@ typedef enum {
 
 /**
  * AscCanvasShape:
- * @ASC_CANVAS_SHAPE_CIRCLE:	 Circle
- * @ASC_CANVAS_SHAPE_HEXAGON:	 Hexagon
- * @ASC_CANVAS_ERROR_PENTAGON:	 Penatgon
+ * @ASC_CANVAS_SHAPE_CIRCLE:		Circle
+ * @ASC_CANVAS_SHAPE_HEXAGON:		Hexagon
+ * @ASC_CANVAS_SHAPE_CVL_TRIANGLE:	Curvilinear Triangle
  *
  * A type of shape to draw.
  **/
 typedef enum {
 	ASC_CANVAS_SHAPE_CIRCLE,
 	ASC_CANVAS_SHAPE_HEXAGON,
-	ASC_CANVAS_SHAPE_PENTAGON,
+	ASC_CANVAS_SHAPE_CVL_TRIANGLE,
 	/*< private >*/
 	ASC_CANVAS_SHAPE_LAST
 } AscCanvasShape;
@@ -91,6 +91,7 @@ gboolean asc_canvas_draw_text_line (AscCanvas	*canvas,
 				    AscFont	*font,
 				    const gchar *text,
 				    gint	 border_width,
+				    gint	 vertical_offset,
 				    GError     **error);
 AS_INTERNAL_VISIBLE
 gboolean asc_canvas_draw_text (AscCanvas   *canvas,
@@ -117,5 +118,10 @@ gboolean asc_canvas_draw_shape (AscCanvas     *canvas,
 				double	       green,
 				double	       blue,
 				GError	     **error);
+
+AS_INTERNAL_VISIBLE
+gint asc_calculate_text_border_width_for_icon_shape (AscCanvasShape bg_shape,
+						     gint	    canvas_size,
+						     gint	    shape_border_width);
 
 AS_END_PRIVATE_DECLS

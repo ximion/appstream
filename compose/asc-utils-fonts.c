@@ -226,19 +226,30 @@ asc_render_font_icon (AscResult *cres,
 			g_autoptr(AscCanvas) cv = NULL;
 			g_autoptr(GError) tmp_error = NULL;
 			AscCanvasShape bg_shape;
+			gint shape_border_width;
+			gint text_border_width;
 			gboolean ret;
 
 			/* we didn't create an icon yet - let's render it! */
 			cv = asc_canvas_new (size * scale_factor, size * scale_factor);
 
 			bg_shape = g_str_hash (asc_font_get_id (font)) % ASC_CANVAS_SHAPE_LAST;
+
+			/* we want a small border around our shape */
+			shape_border_width = (gint) ((size * scale_factor) * 0.032);
+
+			/* calculate text border width based on shape type to ensure text fits properly within the shape */
+			text_border_width = asc_calculate_text_border_width_for_icon_shape (
+			    bg_shape,
+			    size * scale_factor,
+			    shape_border_width);
+
 			ret = asc_canvas_draw_shape (cv,
 						     bg_shape,
-						     (size * scale_factor) *
-							 0.032, /* border width */
-						     0.85,	/* red */
-						     0.85,	/* green */
-						     0.85,	/* blue */
+						     shape_border_width, /* border width */
+						     0.84,		 /* red */
+						     0.84,		 /* green */
+						     0.84,		 /* blue */
 						     &tmp_error);
 			if (!ret) {
 				asc_result_add_hint (cres,
@@ -252,12 +263,15 @@ asc_render_font_icon (AscResult *cres,
 				continue;
 			}
 
-			ret = asc_canvas_draw_text_line (cv,
-							 font,
-							 asc_font_get_sample_icon_text (font),
-							 (size * scale_factor) *
-							     0.16, /* border width */
-							 &tmp_error);
+			ret = asc_canvas_draw_text_line (
+			    cv,
+			    font,
+			    asc_font_get_sample_icon_text (font),
+			    text_border_width,
+			    bg_shape == ASC_CANVAS_SHAPE_CVL_TRIANGLE
+				? (gint) (((size * scale_factor) / 2.0 - shape_border_width) * 0.15)
+				: 0,
+			    &tmp_error);
 			if (!ret) {
 				asc_result_add_hint (cres,
 						     cpt,
