@@ -689,7 +689,7 @@ asc_canvas_draw_shape (AscCanvas *canvas,
 		cairo_move_to (priv->cr,
 			       priv->width / 2.0 + radius * cos (0),
 			       priv->height / 2.0 + radius * sin (0));
-		for (int i = 1; i < 6; i++) {
+		for (gint i = 1; i < 6; i++) {
 			cairo_line_to (priv->cr,
 				       priv->width / 2.0 + radius * cos (i * angle_step),
 				       priv->height / 2.0 + radius * sin (i * angle_step));
@@ -701,12 +701,10 @@ asc_canvas_draw_shape (AscCanvas *canvas,
 		double cx = priv->width / 2.0;
 		double cy = priv->height / 2.0 +
 			    radius * 0.15;	  /* Move center down for better visual balance */
-		double triangle_radius = radius;  /* Use full radius to match circle and hexagon */
 		double angle_offset = -G_PI / 2;  /* Start from top */
 		double angle_step = G_PI * 2 / 3; /* 120 degrees between vertices */
 		double vertices[3][2];
-		double curve_radius = triangle_radius * 0.15; /* Subtle curve for better shape */
-		int i;
+		double curve_radius = radius * 0.15; /* Subtle curve for better shape */
 
 		/* Create a curvilinear triangle using three circular arcs */
 		/* Each arc connects two vertices of an equilateral triangle */
@@ -714,10 +712,10 @@ asc_canvas_draw_shape (AscCanvas *canvas,
 		cairo_set_source_rgb (priv->cr, red, green, blue);
 		cairo_new_path (priv->cr);
 
-		for (i = 0; i < 3; i++) {
+		for (gint i = 0; i < 3; i++) {
 			double angle = angle_step * i + angle_offset;
-			vertices[i][0] = cx + triangle_radius * cos (angle);
-			vertices[i][1] = cy + triangle_radius * sin (angle);
+			vertices[i][0] = cx + radius * cos (angle);
+			vertices[i][1] = cy + radius * sin (angle);
 		}
 
 		/* Draw three curved sides connecting the vertices */
@@ -725,8 +723,8 @@ asc_canvas_draw_shape (AscCanvas *canvas,
 
 		cairo_move_to (priv->cr, vertices[0][0], vertices[0][1]);
 
-		for (i = 0; i < 3; i++) {
-			int next = (i + 1) % 3;
+		for (gint i = 0; i < 3; i++) {
+			gint next = (i + 1) % 3;
 
 			/* Calculate midpoint between current and next vertex */
 			double mid_x = (vertices[i][0] + vertices[next][0]) / 2.0;
