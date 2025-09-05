@@ -1,9 +1,12 @@
 
 core:
-- changed-files:
-  - any-glob-to-any-file: src/**
-  - any-glob-to-any-file: data/**
-  - all-globs-to-all-files: '!src/as-validator*'
+- all:
+  - changed-files:
+    - any-glob-to-any-file: src/**
+    - all-globs-to-all-files: '!src/as-validator*'
+- any:
+  - changed-files:
+    - any-glob-to-any-file: data/**
 
 specification:
 - changed-files:
