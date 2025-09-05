@@ -1,0 +1,30 @@
+
+core:
+- changed-files:
+  - any-glob-to-any-file: src/**
+  - any-glob-to-any-file: data/**
+  - all-globs-to-all-files: '!src/as-validator*'
+
+specification:
+- changed-files:
+  - any-glob-to-any-file: docs/**
+
+validator:
+- changed-files:
+  - any-glob-to-any-file: src/as-validator*
+
+compose:
+- changed-files:
+  - any-glob-to-any-file: compose/**
+
+qt:
+- changed-files:
+  - any-glob-to-any-file: qt/**
+
+tools:
+- changed-files:
+  - any-glob-to-any-file: tools/**
+
+tests:
+- changed-files:
+  - any-glob-to-any-file: tests/**
