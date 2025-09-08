@@ -1595,9 +1595,10 @@ as_cache_get_component_count (AsCache *cache)
 		node = xb_silo_get_root (csec->silo);
 		n = xb_node_get_child (node);
 		while (n != NULL) {
+			XbNode *current_n = n;
 			cpt_node_count++;
-			g_object_unref (n);
-			n = xb_node_get_next (n);
+			n = xb_node_get_next (current_n);
+			g_object_unref (current_n);
 		}
 	}
 
