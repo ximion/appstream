@@ -106,11 +106,12 @@ asc_extract_video_info (AscResult *cres, AsComponent *cpt, const gchar *vid_fnam
 					vid_fname,
 					NULL };
 
-	vinfo = asc_video_info_new ();
 	if (asc_globals_get_ffprobe_binary () == NULL)
 		return NULL;
 	if (vid_fname == NULL)
-		return vinfo;
+		return NULL;
+
+	vinfo = asc_video_info_new ();
 	vid_basename = g_path_get_basename (vid_fname);
 
 	ret = g_spawn_sync (NULL, /* working directory */
