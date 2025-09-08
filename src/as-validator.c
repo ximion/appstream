@@ -3249,7 +3249,8 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 										   cpt,
 										   iter);
 			if ((g_strcmp0 (prop, "cached") == 0) || (g_strcmp0 (prop, "stock") == 0)) {
-				if ((g_strrstr (node_content, "/") != NULL) ||
+				if ((node_content != NULL &&
+				     g_strrstr (node_content, "/") != NULL) ||
 				    (as_validate_is_url (node_content)))
 					as_validator_add_issue (validator,
 								iter,
