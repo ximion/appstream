@@ -1,3 +1,46 @@
+Version 1.1.0
+~~~~~~~~~~~~~
+Released: 2025-09-16
+
+Notes:
+ * This release switches to libfyaml for YAML parsing. This allows us to
+   support YAML 1.2 and limit parsing to it, enables better JSON parsing,
+   and lower peak memory use when processing YAML. It also allows for future
+   memory optimizations.
+   Parsing a more restricted set of YAML may also help security.
+ * This release also seals some internal libappstream-compose API
+   that was public for a while for use by appstream-generator.
+   It has no users anymore and should not have been public. This is one
+   step closer to declaring the compose C API stable as well.
+
+Features:
+ * Port YAML parsing to libfyaml
+ * Port YAML emission to libfyaml
+ * compose: Port to libfyaml
+ * yaml: Reduce string copies when comparing main keys, compare lengths first
+ * yaml: Reduce copies when filling locale tables and string list
+ * compose: Add support for JPEG-XL
+ * compose: Make the AscImage API more generic
+ * compose: Seal away all GdkPixbuf and AscCanvas references from public API
+
+Bugfixes:
+ * validator: Fix possible double dereference of the same issue instance
+ * tests: Pass tests with older versions of libfyaml
+ * Fix a few double-free issues in error conditions
+ * compose: Fix possible race condition when fetching pangrams
+ * compose: Draw better background shapes and center text properly for font icons
+ * parser: Guard against "tag" elements with NULL values
+ * yaml: Allow duplicate keys when parsing data (speeds up parsing dramatically)
+ * cache: Fix potential use-after-free issue when counting components
+
+Miscellaneous:
+ * Update COPYING with latest from FSF
+ * Update GPL-2.0.txt with latest from FSF
+ * compose: Prefer int over uint everywhere in AscImage API
+
+Contributors:
+ Marc-André Lureau, Matthias Klumpp
+
 Version 1.0.6
 ~~~~~~~~~~~~~
 Released: 2025-08-14
