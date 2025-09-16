@@ -1058,7 +1058,7 @@ static AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "runtime-no-provides",
 	  AS_ISSUE_SEVERITY_PEDANTIC,
-	  N_("Since a `runtime` component is comprised of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime.")
+	  N_("Since a `runtime` component consists of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime.")
 	},
 
 	{ "unknown-provides-item-type",
