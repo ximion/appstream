@@ -19,17 +19,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-09-16 21:23+0200\n"
-"PO-Revision-Date: 2025-08-15 23:02+0000\n"
+"PO-Revision-Date: 2025-09-17 08:02+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
-"Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/"
-"translations/sl/>\n"
+"Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 5.13\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -3122,15 +3120,11 @@ msgstr ""
 "»LicenseRef-free=https://example.com/licenses.html«"
 
 #: src/as-validator-issue-tag.h:1061
-#, fuzzy
 msgid ""
 "Since a `runtime` component consists of multiple other software components, "
 "their component-IDs may be listed in a `<provides/>` section for this "
 "runtime."
-msgstr ""
-"Ker je komponenta »runtime« sestavljena iz več drugih komponent programske "
-"opreme, so lahko njihovi ID-ji komponent navedeni v razdelku »<provides/>« "
-"za to izvajalno datoteko."
+msgstr "Ker je komponenta `runtime` sestavljena iz več drugih komponent programske opreme, so lahko njihovi ID-ji komponent navedeni v razdelku `<provides/>` za to izvajalno datoteko."
 
 #: src/as-validator-issue-tag.h:1066
 msgid ""
