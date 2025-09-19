@@ -47,16 +47,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-09-16 21:23+0200\n"
-"PO-Revision-Date: 2025-01-03 14:00+0000\n"
+"PO-Revision-Date: 2025-09-19 07:01+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1101,7 +1100,7 @@ msgstr "Xfce"
 #. TRANSLATORS: Name of the "android" visual environment style.
 #: src/as-desktop-env-data.h:77
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
@@ -1111,7 +1110,7 @@ msgstr "GNOME (Dunkel)"
 #. TRANSLATORS: Name of the "ios" visual environment style.
 #: src/as-desktop-env-data.h:89
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:95
@@ -1131,12 +1130,12 @@ msgstr "Pantheon (Dunkel)"
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:105
 msgid "Plasma Mobile"
-msgstr ""
+msgstr "Plasma Mobile"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:107
 msgid "Plasma Mobile (Dark)"
-msgstr ""
+msgstr "Plasma Mobile (Dunkel)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:109
@@ -1824,14 +1823,14 @@ msgstr ""
 msgid ""
 "The description element does not contain any valid content (paragraphs, "
 "enumerations, etc.)."
-msgstr ""
+msgstr "Das Beschreibungselement enthält keinen gültigen Inhalt (Absätze, Aufzählungen usw.)."
 
 #: src/as-validator-issue-tag.h:108
 msgid ""
 "The description element contains raw text that is not in any paragraph or "
 "other permitted tag. This is not allowed and the additional text may be "
 "ignored by parsers or raise errors."
-msgstr ""
+msgstr "Das Beschreibungselement enthält Rohtext, der nicht in einem Absatz oder einem anderen zulässigen Auszeichner enthalten ist. Dies ist nicht zulässig, und der zusätzliche Text kann von Parsern ignoriert werden oder Fehler verursachen."
 
 #: src/as-validator-issue-tag.h:114
 msgid "This tag is not translatable."
@@ -2088,7 +2087,7 @@ msgid ""
 "which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) "
 "was found, which is likely intended to be the translatable image. Please "
 "remove the XML localization attribute in this case."
-msgstr ""
+msgstr "Ein Bildschirmfoto muss mindestens ein unübersetztes Bild vom Typ `source` enthalten, das jedoch nicht gefunden werden konnte. Stattdessen wurde ein Auszeichner mit der Sprachumgebung `en` (`xml:lang=en`) gefunden, das wahrscheinlich als übersetzbares Bild vorgesehen ist. Bitte entfernen Sie in diesem Fall das XML-Lokalisierungsattribut."
 
 #: src/as-validator-issue-tag.h:289
 msgid ""
@@ -2715,7 +2714,7 @@ msgid ""
 "The component is missing an untranslated long description, but has a "
 "translated one for the English locale. You need to provide a locale-less "
 "description in English as translation template."
-msgstr ""
+msgstr "Der Komponente fehlt eine unübersetzte lange Beschreibung, aber es gibt eine übersetzte Beschreibung für die englische Spracheinstellung. Sie müssen eine sprachunabhängige Beschreibung in Englisch als Übersetzungsvorlage bereitstellen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:718
