@@ -81,7 +81,7 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 
 	{ "metainfo-no-summary",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  "Component does not contain a short summary. Ensure that the components MetaInfo file has a <code>summary</code> tag, or that its .desktop file "
+	  "Component does not contain a short summary. Ensure that the component's MetaInfo file has a <code>summary</code> tag, or that its .desktop file "
 	  "has a <code>Comment=</code> field set.<br/>"
 	  "More information can be found in the <a href=\"https://specifications.freedesktop.org/desktop-entry-spec/latest/localized-keys.html\">Desktop Entry specification</a> "
 	  "and the <a href=\"https://www.freedesktop.org/software/appstream/docs/sect-Metadata-Application.html#tag-dapp-summary\">MetaInfo specification</a>."
