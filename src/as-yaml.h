@@ -103,7 +103,6 @@ void		       as_yaml_sequence_end (struct fy_emitter *emitter);
 void		       as_yaml_emit_long_entry_literal (struct fy_emitter *emitter,
 							const gchar	  *key,
 							const gchar	  *value);
-void		       as_yaml_emit_scalar_raw (struct fy_emitter *emitter, const gchar *value);
 void		       as_yaml_emit_scalar (struct fy_emitter *emitter, const gchar *value);
 void		       as_yaml_emit_scalar_str (struct fy_emitter *emitter, const gchar *value);
 void		       as_yaml_emit_scalar_uint64 (struct fy_emitter *emitter, guint64 value);

@@ -414,8 +414,7 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 		/* main dict start */
 		as_yaml_mapping_start (emitter);
 
-		as_yaml_emit_scalar_raw (emitter, "Version");
-		as_yaml_emit_scalar_raw (emitter, as_release_get_version (rel));
+		as_yaml_emit_entry_str (emitter, "Version", as_release_get_version (rel));
 
 		as_yaml_emit_entry (emitter, "Date", as_release_get_date (rel));
 		if (rkind != AS_RELEASE_KIND_STABLE)

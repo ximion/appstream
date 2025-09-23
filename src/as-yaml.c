@@ -29,22 +29,6 @@
  */
 
 /**
- * as_str_is_numeric:
- *
- * Check if string is a number.
- */
-static gboolean
-as_str_is_numeric (const gchar *s)
-{
-	gchar *p;
-
-	if (s == NULL || *s == '\0' || g_ascii_isspace (*s))
-		return FALSE;
-	strtod (s, &p);
-	return *p == '\0';
-}
-
-/**
  * as_yaml_error_diag_create:
  *
  * Helper method to create a fy_diag that is preconfigured
@@ -382,16 +366,9 @@ void
 as_yaml_emit_scalar (struct fy_emitter *emitter, const gchar *value)
 {
 	struct fy_event *fye;
-	enum fy_scalar_style style;
+	g_return_if_fail (value != NULL);
 
-	g_assert (value != NULL);
-
-	/* we always want the values to be represented as strings */
-	style = FYSS_ANY;
-	if (as_str_is_numeric (value))
-		style = FYSS_SINGLE_QUOTED;
-
-	fye = fy_emit_event_create (emitter, FYET_SCALAR, style, value, FY_NT, NULL, NULL);
+	fye = fy_emit_event_create (emitter, FYET_SCALAR, FYSS_ANY, value, FY_NT, NULL, NULL);
 	if (fye != NULL)
 		fy_emit_event (emitter, fye);
 }
@@ -416,21 +393,6 @@ as_yaml_emit_scalar_str (struct fy_emitter *emitter, const gchar *value)
 				    FY_NT,
 				    NULL,
 				    NULL);
-	if (fye != NULL)
-		fy_emit_event (emitter, fye);
-}
-
-/**
- * as_yaml_emit_scalar_raw:
- */
-void
-as_yaml_emit_scalar_raw (struct fy_emitter *emitter, const gchar *value)
-{
-	struct fy_event *fye;
-
-	g_assert (value != NULL);
-
-	fye = fy_emit_event_create (emitter, FYET_SCALAR, FYSS_ANY, value, FY_NT, NULL, NULL);
 	if (fye != NULL)
 		fy_emit_event (emitter, fye);
 }
@@ -464,7 +426,7 @@ as_yaml_emit_scalar_key (struct fy_emitter *emitter, const gchar *key)
 	keystyle = FYSS_ANY;
 	if (g_strcmp0 (key, "no") == 0)
 		keystyle = FYSS_SINGLE_QUOTED;
-	if (g_strcmp0 (key, "yes") == 0)
+	else if (g_strcmp0 (key, "yes") == 0)
 		keystyle = FYSS_SINGLE_QUOTED;
 
 	fye = fy_emit_event_create (emitter, FYET_SCALAR, keystyle, key, FY_NT, NULL, NULL);
