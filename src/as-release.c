@@ -1200,7 +1200,7 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, struct fy_emitter *emi
 	as_yaml_mapping_start (emitter);
 
 	/* version */
-	as_yaml_emit_entry (emitter, "version", priv->version);
+	as_yaml_emit_entry_str (emitter, "version", priv->version);
 
 	/* type */
 	as_yaml_emit_entry (emitter, "type", as_release_kind_to_string (priv->kind));

@@ -397,6 +397,30 @@ as_yaml_emit_scalar (struct fy_emitter *emitter, const gchar *value)
 }
 
 /**
+ * as_yaml_emit_scalar_str:
+ * @emitter: the YAML emitter.
+ * @value: the string value to emit.
+ *
+ * Emit a string scalar and ensure it is always quoted.
+ */
+void
+as_yaml_emit_scalar_str (struct fy_emitter *emitter, const gchar *value)
+{
+	struct fy_event *fye;
+	g_return_if_fail (value != NULL);
+
+	fye = fy_emit_event_create (emitter,
+				    FYET_SCALAR,
+				    FYSS_SINGLE_QUOTED,
+				    value,
+				    FY_NT,
+				    NULL,
+				    NULL);
+	if (fye != NULL)
+		fy_emit_event (emitter, fye);
+}
+
+/**
  * as_yaml_emit_scalar_raw:
  */
 void
@@ -459,6 +483,24 @@ as_yaml_emit_entry (struct fy_emitter *emitter, const gchar *key, const gchar *v
 
 	as_yaml_emit_scalar_key (emitter, key);
 	as_yaml_emit_scalar (emitter, value);
+}
+
+/**
+ * as_yaml_emit_entry_str:
+ * @emitter: the YAML emitter.
+ * @key: the key to emit.
+ * @value: the string value to emit.
+ *
+ * Emit a kv pair, and ensure the string value is always quoted.
+ */
+void
+as_yaml_emit_entry_str (struct fy_emitter *emitter, const gchar *key, const gchar *value)
+{
+	if (value == NULL)
+		return;
+
+	as_yaml_emit_scalar_key (emitter, key);
+	as_yaml_emit_scalar_str (emitter, value);
 }
 
 /**

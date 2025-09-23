@@ -105,13 +105,17 @@ void		       as_yaml_emit_long_entry_literal (struct fy_emitter *emitter,
 							const gchar	  *value);
 void		       as_yaml_emit_scalar_raw (struct fy_emitter *emitter, const gchar *value);
 void		       as_yaml_emit_scalar (struct fy_emitter *emitter, const gchar *value);
+void		       as_yaml_emit_scalar_str (struct fy_emitter *emitter, const gchar *value);
 void		       as_yaml_emit_scalar_uint64 (struct fy_emitter *emitter, guint64 value);
 void		       as_yaml_emit_scalar_key (struct fy_emitter *emitter, const gchar *key);
+
 void as_yaml_emit_entry (struct fy_emitter *emitter, const gchar *key, const gchar *value);
+void as_yaml_emit_entry_str (struct fy_emitter *emitter, const gchar *key, const gchar *value);
 void as_yaml_emit_entry_uint64 (struct fy_emitter *emitter, const gchar *key, guint64 value);
 void as_yaml_emit_entry_timestamp (struct fy_emitter *emitter, const gchar *key, guint64 unixtime);
 void as_yaml_emit_long_entry (struct fy_emitter *emitter, const gchar *key, const gchar *value);
 void as_yaml_emit_sequence (struct fy_emitter *emitter, const gchar *key, GPtrArray *list);
+
 #pragma GCC visibility pop
 void as_yaml_emit_sequence_from_str_array (struct fy_emitter *emitter,
 					   const gchar	     *key,

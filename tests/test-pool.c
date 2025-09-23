@@ -1058,6 +1058,7 @@ main (int argc, char **argv)
 	}
 
 	/* ensure locale is reset, to avoid interference when stemming is enabled & tested */
+	setlocale (LC_ALL, "");
 	if (setlocale (LC_ALL, "C.UTF-8") == NULL)
 		g_warning ("Failed to set locale to C.UTF-8");
 

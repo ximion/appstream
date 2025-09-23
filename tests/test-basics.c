@@ -20,6 +20,8 @@
 
 #include <config.h>
 #include <glib.h>
+#include <locale.h>
+
 #include "appstream.h"
 #include "as-component-private.h"
 #include "as-component-box-private.h"
@@ -1243,6 +1245,8 @@ int
 main (int argc, char **argv)
 {
 	int ret;
+
+	setlocale (LC_ALL, "");
 
 	if (argc == 0) {
 		g_error ("No test directory specified!");

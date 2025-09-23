@@ -1320,9 +1320,10 @@ as_yamldata_write_header (AsContext *context, struct fy_emitter *emitter, gboole
 	as_yaml_mapping_start (emitter);
 
 	as_yaml_emit_entry (emitter, "File", "DEP-11");
-	as_yaml_emit_entry (emitter,
-			    "Version",
-			    as_format_version_to_string (as_context_get_format_version (context)));
+	as_yaml_emit_entry_str (
+	    emitter,
+	    "Version",
+	    as_format_version_to_string (as_context_get_format_version (context)));
 	as_yaml_emit_entry (emitter, "Origin", as_context_get_origin (context));
 	if (as_context_has_media_baseurl (context))
 		as_yaml_emit_entry (emitter,

@@ -21,6 +21,7 @@
 #include <glib.h>
 #include <glib/gprintf.h>
 #include <glib/gstdio.h>
+#include <locale.h>
 
 #include "appstream.h"
 #include "as-utils-private.h"
@@ -184,6 +185,7 @@ main (int argc, char **argv)
 {
 	int ret;
 
+	setlocale (LC_ALL, "");
 	g_test_init (&argc, &argv, NULL);
 
 	if (argc == 0) {

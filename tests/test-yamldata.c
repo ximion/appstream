@@ -20,6 +20,7 @@
 
 #include <glib.h>
 #include <glib/gprintf.h>
+#include <locale.h>
 
 #include "appstream.h"
 #include "as-screenshot-private.h"
@@ -1874,22 +1875,22 @@ test_yaml_rw_tags (void)
 static void
 test_yaml_rw_branding (void)
 {
-	static const gchar *yamldata_tags = "Type: generic\n"
-					    "ID: org.example.BrandingTest\n"
-					    "Branding:\n"
-					    "  colors:\n"
-					    "  - type: primary\n"
-					    "    scheme-preference: light\n"
-					    "    value: \"#ff00ff\"\n"
-					    "  - type: primary\n"
-					    "    scheme-preference: dark\n"
-					    "    value: \"#993d3d\"\n";
+	static const gchar *yamldata = "Type: generic\n"
+				       "ID: org.example.BrandingTest\n"
+				       "Branding:\n"
+				       "  colors:\n"
+				       "  - type: primary\n"
+				       "    scheme-preference: light\n"
+				       "    value: \"#ff00ff\"\n"
+				       "  - type: primary\n"
+				       "    scheme-preference: dark\n"
+				       "    value: \"#993d3d\"\n";
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
 	AsBranding *branding;
 
 	/* read */
-	cpt = as_yaml_test_read_data (yamldata_tags, NULL);
+	cpt = as_yaml_test_read_data (yamldata, NULL);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.BrandingTest");
 
 	/* validate */
@@ -1907,7 +1908,7 @@ test_yaml_rw_branding (void)
 
 	/* write */
 	res = as_yaml_test_serialize (cpt);
-	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_tags));
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata));
 }
 
 /**
@@ -1916,18 +1917,18 @@ test_yaml_rw_branding (void)
 static void
 test_yaml_rw_developer (void)
 {
-	static const gchar *yamldata_tags = "Type: generic\n"
-					    "ID: org.example.DeveloperTest\n"
-					    "Developer:\n"
-					    "  id: freedesktop.org\n"
-					    "  name:\n"
-					    "    C: FreeDesktop.org Project\n";
+	static const gchar *yamldata = "Type: generic\n"
+				       "ID: org.example.DeveloperTest\n"
+				       "Developer:\n"
+				       "  id: freedesktop.org\n"
+				       "  name:\n"
+				       "    C: FreeDesktop.org Project\n";
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
 	AsDeveloper *devp;
 
 	/* read */
-	cpt = as_yaml_test_read_data (yamldata_tags, NULL);
+	cpt = as_yaml_test_read_data (yamldata, NULL);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DeveloperTest");
 
 	/* validate */
@@ -1939,32 +1940,32 @@ test_yaml_rw_developer (void)
 
 	/* write */
 	res = as_yaml_test_serialize (cpt);
-	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_tags));
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata));
 }
 
 /**
- * test_yaml_rw_developer:
+ * test_yaml_rw_references:
  */
 static void
 test_yaml_rw_references (void)
 {
-	static const gchar *yamldata_tags = "Type: generic\n"
-					    "ID: org.example.ReferencesTest\n"
-					    "References:\n"
-					    "- type: doi\n"
-					    "  value: 10.1000/182\n"
-					    "- type: citation_cff\n"
-					    "  value: https://example.org/CITATION.cff\n"
-					    "- type: registry\n"
-					    "  value: SCR_000000\n"
-					    "  registry: SciCrunch\n";
+	static const gchar *yamldata = "Type: generic\n"
+				       "ID: org.example.ReferencesTest\n"
+				       "References:\n"
+				       "- type: doi\n"
+				       "  value: 10.1000/182\n"
+				       "- type: citation_cff\n"
+				       "  value: https://example.org/CITATION.cff\n"
+				       "- type: registry\n"
+				       "  value: SCR_000000\n"
+				       "  registry: SciCrunch\n";
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
 	GPtrArray *refs;
 	AsReference *ref;
 
 	/* read */
-	cpt = as_yaml_test_read_data (yamldata_tags, NULL);
+	cpt = as_yaml_test_read_data (yamldata, NULL);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReferencesTest");
 
 	/* validate */
@@ -1987,7 +1988,51 @@ test_yaml_rw_references (void)
 
 	/* write */
 	res = as_yaml_test_serialize (cpt);
-	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_tags));
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata));
+}
+
+/**
+ * test_yaml_rw_utf8:
+ */
+static void
+test_yaml_rw_utf8 (void)
+{
+	static const gchar *yamldata =
+	    "Type: generic\n"
+	    "ID: org.example.Utf8Test\n"
+	    "Name:\n"
+	    "  C: Test\n"
+	    "  uk: Тест\n"
+	    "Description:\n"
+	    "  C: >-\n"
+	    "    <p>JFtp is a graphical Java network and file transfer client. It supports FTP "
+	    "using its own FTP API and various other protocols like SMB,\n"
+	    "    SFTP, NFS, HTTP, and file I/O using third party APIs. It includes many advanced "
+	    "features such as recursive directory up/download, browsing\n"
+	    "    FTP servers while transferring files, FTP resuming and queueing, browsing the LAN "
+	    "for Windows shares, and more. Multiple connections can\n"
+	    "    open at a time in a Mozilla-style tabbed browsing environment.</p>\n"
+	    "  uk: >-\n"
+	    "    <p>Jftp — це графічний клієнт передачі даних мережею. Підтримка FTP реалізована "
+	    "за допомогою внутрішнього інтерфейсу, а підтримку протоколів\n"
+	    "    SMB, SFTP, NFS, HTTP та роботу з файлами — за допомогою зовнішніх інтерфейсів. "
+	    "Він має багато гарних можливостей, наприклад, рекурсивне\n"
+	    "    відправлення/завантаження, роботу з FTP-сервером під час передачі файлів, "
+	    "продовження та створення черг завантажень з FTP, перегляд локальної\n"
+	    "    мережі в пошуках спільних тек Windows, тощо. Може створювати по декілька "
+	    "з&apos;єднань одразу за допомогою подібного до Mozilla інтерфейсу\n"
+	    "    з вкладками.</p>\n";
+
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+
+	/* read */
+	cpt = as_yaml_test_read_data (yamldata, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Utf8Test");
+
+	/* write */
+	res = as_yaml_test_serialize (cpt);
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata));
 }
 
 /**
@@ -1997,6 +2042,8 @@ int
 main (int argc, char **argv)
 {
 	int ret;
+
+	setlocale (LC_ALL, "");
 
 	if (argc == 0) {
 		g_error ("No test directory specified!");
@@ -2056,6 +2103,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/YAML/ReadWrite/Branding", test_yaml_rw_branding);
 	g_test_add_func ("/YAML/ReadWrite/Developer", test_yaml_rw_developer);
 	g_test_add_func ("/YAML/ReadWrite/References", test_yaml_rw_references);
+	g_test_add_func ("/YAML/ReadWrite/Utf8", test_yaml_rw_utf8);
 
 	ret = g_test_run ();
 	g_free (datadir);

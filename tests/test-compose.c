@@ -19,6 +19,8 @@
  */
 
 #include <glib.h>
+#include <locale.h>
+
 #include "appstream-compose.h"
 #include "asc-font-private.h"
 #include "asc-utils-metainfo.h"
@@ -1078,6 +1080,8 @@ int
 main (int argc, char **argv)
 {
 	int ret;
+
+	setlocale (LC_ALL, "");
 
 	if (argc == 0) {
 		g_error ("No test directory specified!");
