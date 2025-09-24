@@ -27,6 +27,13 @@ if [ ! -d "$build_dir" ]; then
   echo "Build directory '$build_dir' did not exist. Can not continue."
   exit 1
 fi
+
+# FIXME: Older versions of libfyaml have a nasty bug which destroy some UTF-8 characters
+# when emitting YAML data. We want this to be fixed everywhere, but while distributions
+# patch or upgrade libfyaml, we give our CI a bit more leeway.
+# Hopefully we can remove this test override soon.
+export AS_TEST_QUIRKS="ignore-bad-fyaml"
+
 set -x
 
 #

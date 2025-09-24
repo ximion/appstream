@@ -2026,6 +2026,17 @@ test_yaml_rw_utf8 (void)
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
 
+	if (as_str_equal0 (g_getenv ("AS_TEST_QUIRKS"), "ignore-bad-fyaml")) {
+		const gchar *fy_version = fy_library_version ();
+		if (as_vercmp_simple (fy_version, "0.9") < 0) {
+			g_print ("**WARNING**: libfyaml version %s is too old, at least version "
+				 "0.9 is required to ensure UTF-8 is handled correctly\n."
+				 "SKIPPING YAML unicode check!",
+				 fy_version);
+			return;
+		}
+	}
+
 	/* read */
 	cpt = as_yaml_test_read_data (yamldata, NULL);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Utf8Test");

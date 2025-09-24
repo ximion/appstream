@@ -50,7 +50,8 @@ as_test_yaml_exe = executable ('as-test_yaml',
      as_test_common_src],
     dependencies: [appstream_dep,
                    gio_dep,
-                   xml2_dep],
+                   xml2_dep,
+                   fyaml_dep],
     include_directories: [root_inc_dir]
 )
 test ('as-test_yaml',
