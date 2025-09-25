@@ -689,6 +689,9 @@ asc_compose_get_locale_unit (AscCompose *compose)
  * This may be useful in case a special language pack layout is used,
  * but is generally not necessary to be set explicitly, as locale
  * will be found in the unit where the metadata is by default.
+ *
+ * Do not forget to open the locale unit, before running compose
+ * actions with it!
  */
 void
 asc_compose_set_locale_unit (AscCompose *compose, AscUnit *locale_unit)
