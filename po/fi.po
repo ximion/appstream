@@ -25,16 +25,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-09-16 21:23+0200\n"
-"PO-Revision-Date: 2025-06-10 23:01+0000\n"
-"Last-Translator: Kieli Puoli <kielipuoli@gmail.com>\n"
-"Language-Team: Finnish <https://hosted.weblate.org/projects/appstream/"
-"translations/fi/>\n"
+"PO-Revision-Date: 2025-09-27 00:01+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
+"Language-Team: Finnish <https://hosted.weblate.org/projects/appstream/translations/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -52,7 +51,7 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
+msgstr "AppStream on metadataerittely, jonka avulla ohjelmistokomponentit voivat antaa itsestään tietoja automatisoiduille järjestelmille ja loppukäyttäjille ennen ohjelmiston varsinaista asentamista. AppStream-projekti tarjoaa ominaisuuksia, joilla tätä metadataa voidaan helposti käyttää ja muuntaa, sekä muutamia lisäpalveluita ominaisuuksiltaan rikasten ohjelmistokeskusten ja vastaavien sovellusten rakentamiseen, jotka hyödyntävät ohjelmistometadataa."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -62,7 +61,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
+msgstr "Komentorivityökalu <em>appstreamcli</em> mahdollistaa AppStream XML- tai YAML-metatietojen lukemisen, kirjoittamisen ja muuntamisen sekä niiden yhteensopivuuden validoinnin spesifikaation kanssa. Se tarjoaa myös helpon pääsyn järjestelmän metatietopooliin, esimerkiksi tietyn Mediatype-käsittelijän tarjoavien ohjelmistojen kyselyyn tai ohjelmistojen asentamiseen sen komponenttitunnisteen perusteella."
 
 #: src/as-cache.c:906
 #, c-format
@@ -595,7 +594,7 @@ msgstr "Pitkäkestoista alastomuutta"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:923
 msgid "Explicit nudity involving visible sexual organs"
-msgstr ""
+msgstr "Näkyviin sukupuolielimiin liittyvä eksplisiittinen alastomuus"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:928
@@ -760,7 +759,6 @@ msgstr "Ei mahdollisuutta puhua muiden käyttäjien kanssa"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1018
-#, fuzzy
 msgid "Moderated audio or video chat functionality between users"
 msgstr "Valvomaton ääni- tai videokeskusteluominaisuus käyttäjien välillä"
 
@@ -953,9 +951,9 @@ msgid "Failed to download due to server limit"
 msgstr "Lataus epäonnistui palvelinrajoitusten vuoksi"
 
 #: src/as-curl.c:155 src/as-curl.c:161
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to download file: %s"
-msgstr ".desktop-tiedostoa ei voida lukea: %s"
+msgstr "Tiedoston lataus epäonnistui: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
 #: src/as-curl.c:175
@@ -1096,12 +1094,12 @@ msgstr ""
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:107
 msgid "Plasma Mobile (Dark)"
-msgstr ""
+msgstr "Plasma Mobile (tumma)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:109
 msgid "KDE Plasma (Dark)"
-msgstr ""
+msgstr "KDE Plasma (tumma)"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:113
@@ -1128,7 +1126,7 @@ msgstr "Metadata-tiedostoissa on virheitä:"
 
 #: src/as-pool.c:2411
 msgid "Group"
-msgstr ""
+msgstr "Ryhmä"
 
 #: src/as-pool.c:2466
 msgid "Iconsets"
@@ -1142,7 +1140,7 @@ msgstr "Paikallisesti asennetusta ohjelmistosta tulevat tiedot"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2517
 msgid "Software catalog data"
-msgstr ""
+msgstr "Ohjelmistoluettelotiedot"
 
 #: src/as-provided.c:138
 msgid "Libraries"
@@ -1153,9 +1151,8 @@ msgid "Binaries"
 msgstr "Binääritiedostoja"
 
 #: src/as-provided.c:142
-#, fuzzy
 msgid "Media types"
-msgstr "MIME-tyypit"
+msgstr "Mediatyypit"
 
 #: src/as-provided.c:144
 msgid "Fonts"
@@ -1183,7 +1180,7 @@ msgstr "Suorituksenaikainen laiteohjelmisto"
 
 #: src/as-provided.c:156
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Flash-toiminnon saanut laiteohjelmisto"
 
 #: src/as-provided.c:158
 msgid "Component"
@@ -1194,9 +1191,8 @@ msgid "pointing device (e.g. a mouse)"
 msgstr "osoitinlaite (esim. hiiri)"
 
 #: src/as-relation.c:1352
-#, fuzzy
 msgid "keyboard"
-msgstr "Lauta"
+msgstr "näppäimistö"
 
 #: src/as-relation.c:1354
 msgid "gamepad"
@@ -1230,7 +1226,7 @@ msgstr "Tämän ohjelmiston ohjaus edellyttää kameraa."
 
 #: src/as-relation.c:1374
 msgid "This software requires a method for console input."
-msgstr ""
+msgstr "Tämä ohjelmisto vaatii menetelmän konsolisyöttöä varten."
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1379
@@ -1245,15 +1241,15 @@ msgstr ""
 
 #: src/as-relation.c:1386
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Tämä ohjelmisto suosittelee mikrofonin ohjaamista äänitulon välityksellä."
 
 #: src/as-relation.c:1388
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "Tämä ohjelmisto suosittelee kameraa syötteen ohjaamista varten."
 
 #: src/as-relation.c:1390
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "Tämä ohjelmisto suosittelee menetelmää konsolisyöttöä varten."
 
 #: src/as-relation.c:1395
 msgid "pointing devices (e.g. mice)"
@@ -1481,7 +1477,7 @@ msgstr ""
 msgid ""
 "This software requires a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Tämä ohjelmisto vaatii näytön, jonka lyhyimmän reunan on kooltaan %s %lu piks, mutta tämän laitteen näytön lyhin reuna on %lu piks."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1490,7 +1486,7 @@ msgstr ""
 msgid ""
 "This software recommends a display with its longest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Tämä ohjelmisto suosittelee näyttöä, jonka pisin reuna on kooltaan %s %lu piks, mutta tämän laitteen näytön koko on %lu piks."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1499,7 +1495,7 @@ msgstr ""
 msgid ""
 "This software recommends a display with its shortest edge being %s %lu px in "
 "size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Tämä ohjelmisto suosittelee näyttöä, jonka lyhyimmän reunan koko on %s %lu piks, mutta tämän laitteen näytön koko on %lu piks."
 
 #: src/as-relation.c:1900
 msgid "Display size is sufficient for this software."
@@ -1509,22 +1505,22 @@ msgstr "Näytön koko riittää tälle ohjelmistolle."
 #, c-format
 msgid ""
 "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "Tyypin '%s' relaatiokohteiden tyytyväisyyden tarkistusta ei ole vielä toteutettu."
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "Affero General Public License v. 1.0 vain"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:41
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Affero General Public License v. 1.0 tai uudempi"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:44
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "GNU Affero General Public License v. 3.0 vain"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:46
@@ -1534,166 +1530,166 @@ msgstr "GNU Affero General Public License v. 3.0 tai uudempi"
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:287
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.1 vain - muunnelmina"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:289
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.1 tai uudempi - muunnelmina"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:291
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.1 vain - ei-muunnelmina"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:293
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.1 tai uudempi - ei-muunnelmina"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:295
 msgid "GNU Free Documentation License v1.1 only"
-msgstr ""
+msgstr "GNU Free Documentation License vain v. 1.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:297
 msgid "GNU Free Documentation License v1.1 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.1 tai uudempi"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:300
 msgid "GNU Free Documentation License v1.2 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.2 vain - muunnelmina"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:302
 msgid "GNU Free Documentation License v1.2 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.2 tai uudempi - muunnelmina"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:304
 msgid "GNU Free Documentation License v1.2 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.2 vain - ei-muunnelmina"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:306
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.2 tai uudempi - ei-muunnelmina"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:308
 msgid "GNU Free Documentation License v1.2 only"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.2 vain"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:310
 msgid "GNU Free Documentation License v1.2 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.2 tai uudempi"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:313
 msgid "GNU Free Documentation License v1.3 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.3 vain - muunnelmina"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:315
 msgid "GNU Free Documentation License v1.3 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.3 tai uudempi - muunnelmina"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:317
 msgid "GNU Free Documentation License v1.3 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.3 vain - ei-muunnelmina"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:319
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.3 tai uudempi - ei-muunnelmina"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:321
 msgid "GNU Free Documentation License v1.3 only"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.3 vain"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:323
 msgid "GNU Free Documentation License v1.3 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.3 tai uudempi"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:327 src/as-spdx-data.h:331
 msgid "GNU General Public License v1.0 only"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.0 vain"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:329 src/as-spdx-data.h:333
 msgid "GNU General Public License v1.0 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v. 1.0 tai uudempi"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:335 src/as-spdx-data.h:339
 msgid "GNU General Public License v2.0 only"
-msgstr ""
+msgstr "GNU General Public License v. 2.0 vain"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:337 src/as-spdx-data.h:341
 msgid "GNU General Public License v2.0 or later"
-msgstr ""
+msgstr "GNU General Public License v. 2.0 tai uudempi"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:348 src/as-spdx-data.h:352
 msgid "GNU General Public License v3.0 only"
-msgstr ""
+msgstr "GNU General Public License v. 3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:350 src/as-spdx-data.h:354
 msgid "GNU General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU General Public License v. 3.0 tai uudempi"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:422 src/as-spdx-data.h:426
 msgid "GNU Library General Public License v2 only"
-msgstr ""
+msgstr "GNU Library General Public License v. 2 vain"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:424 src/as-spdx-data.h:428
 msgid "GNU Library General Public License v2 or later"
-msgstr ""
+msgstr "GNU Library General Public License v. 2 tai uudempi"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:430 src/as-spdx-data.h:434
 msgid "GNU Lesser General Public License v2.1 only"
-msgstr ""
+msgstr "GNU Lesser General Public License v. 2.1 vain"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:432 src/as-spdx-data.h:436
 msgid "GNU Lesser General Public License v2.1 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License v. 2.1 tai uudempi"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:438 src/as-spdx-data.h:442
 msgid "GNU Lesser General Public License v3.0 only"
-msgstr ""
+msgstr "GNU Lesser General Public License v. 3.0 vain"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:440 src/as-spdx-data.h:444
 msgid "GNU Lesser General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License v. 3.0 tai uudempi"
 
 #: src/as-validator-issue-tag.h:42
 msgid "This tag requires a type property."
-msgstr ""
+msgstr "Tämä tagi vaatii type-ominaisuuden."
 
 #: src/as-validator-issue-tag.h:47
 msgid "Tags of this name are not permitted in this section."
-msgstr ""
+msgstr "Tämän nimisen tunnisteen käyttö tässä osiossa ei ole sallittua."
 
 #: src/as-validator-issue-tag.h:52
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
+msgstr "<description/>-tagia ei saa lokalisoida metatietotiedostoissa (ylävirran metadata). Lokalisoi sen sijaan yksittäiset kappaleet."
 
 #: src/as-validator-issue-tag.h:58
 msgid ""
@@ -1701,7 +1697,7 @@ msgid ""
 "localized individually in catalog metadata. Localize the whole <description/"
 "> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
 "generator`) will already do the right thing when compiling the data."
-msgstr ""
+msgstr "Tätä <description/>-tagin elementtiä (kappale, luettelo jne.) ei saa lokalisoida erikseen luettelon metatiedoissa. Lokalisoi sen sijaan koko <description/>-tagi. AppStreamin metatietoluettelogeneraattori (esim. `appstream-generator`) tekee jo oikein dataa koottaessaan."
 
 #: src/as-validator-issue-tag.h:64
 msgid ""
@@ -1709,13 +1705,13 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
+msgstr "AppStream-kuvaukset tukevat vain rajoitettua joukkoa tageja tekstin muotoiluun: kappaleita (<p/>) ja luetteloita (<ul/>, <ol/>). Tämä kuvausmerkintä sisältää virheellisen XML-tagin, jota ei näytettäisi oikein metainfo-erittelyä tukevissa sovelluksissa."
 
 #: src/as-validator-issue-tag.h:70
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr ""
+msgstr "Tämä kuvauskappale sisältää virheellisiä merkintöjä. Tällä hetkellä vain <em/> ja <code/> ovat sallittuja."
 
 #: src/as-validator-issue-tag.h:75
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -1733,7 +1729,7 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
+msgstr "Tämän komponentin ensimmäinen `description/p`-kappale saattaa olla liian lyhyt (< 80 merkkiä). Harkitse pidemmän kappaleen aloittamista parantaaksesi kuvauksen ulkoasua ohjelmistokeskuksissa ja antaaksesi yksityiskohtaisempia tietoja tästä komponentista heti ensimmäisessä kappaleessa."
 
 #: src/as-validator-issue-tag.h:93
 msgid ""
@@ -1747,41 +1743,41 @@ msgstr ""
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
+msgstr "Kuvaus sisältää verkko-osoitteen selkokielisenä tekstinä. Tämä ei ole sallittua, käytä <url/>-tagia linkkien jakamiseksi."
 
 #: src/as-validator-issue-tag.h:103
 msgid ""
 "The description element does not contain any valid content (paragraphs, "
 "enumerations, etc.)."
-msgstr ""
+msgstr "Description-elementti ei sisällä kelvollista sisältöä (kappaleita, luetteloita jne.)."
 
 #: src/as-validator-issue-tag.h:108
 msgid ""
 "The description element contains raw text that is not in any paragraph or "
 "other permitted tag. This is not allowed and the additional text may be "
 "ignored by parsers or raise errors."
-msgstr ""
+msgstr "description-elementti sisältää raakatekstiä, jota ei ole missään kappaleessa tai muussa sallitussa tagissa. Tämä ei ole sallittua, ja jäsentimet saattavat jättää lisätekstin huomiotta tai aiheuttaa virheitä."
 
 #: src/as-validator-issue-tag.h:114
 msgid "This tag is not translatable."
-msgstr ""
+msgstr "Tämä tagi ei ole käännettävä."
 
 #: src/as-validator-issue-tag.h:119
 msgid ""
 "This tag must only appear once in this context. Having multiple tags of this "
 "kind is not valid."
-msgstr ""
+msgstr "Tämän tagin saa esiintyä tässä kontekstissa vain kerran. Useiden tämäntyyppisten tunnisteiden käyttäminen ei kelpaa."
 
 #: src/as-validator-issue-tag.h:124
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
-msgstr ""
+msgstr "Mainittu tagi on tyhjä, mikä ei todennäköisesti ole tarkoituksellista, koska siinä pitäisi olla sisältöä."
 
 #: src/as-validator-issue-tag.h:129
 msgid ""
 "The mentioned tag has text content, even though it must not contain text."
-msgstr ""
+msgstr "Mainitussa tagissa on tekstisisältöä, vaikka se ei saa sisältää tekstiä."
 
 #: src/as-validator-issue-tag.h:134
 msgid ""
@@ -1800,6 +1796,8 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
+"Komponenttitunnus ei ole käänteinen verkkotunnusnimi. Päivitä tunnus tulevien ongelmien välttämiseksi ja varmistaaksesi yhteensopivuuden kaikkien AppStream-toteutusten kanssa.\n"
+"Voit myös harkita mukana tulevan .desktop-tiedoston nimen päivittämistä vastaamaan Desktop-Entry-määrityksen uusinta versiota ja käyttää sille myös rDNS-nimeä. Joka tapauksessa muista mainita uusi desktop-entry tämän komponentin <launchable/>-tagissa, jotta sovellus voidaan käynnistää ohjelmistokeskuksista ja metainfo-tietoihin liittyvästä .desktop-tiedostosta."
 
 #: src/as-validator-issue-tag.h:147
 msgid ""
@@ -1811,7 +1809,7 @@ msgstr ""
 msgid ""
 "The component ID contains an invalid character. Only ASCII characters, dots "
 "and numbers are permitted."
-msgstr ""
+msgstr "Komponenttitunnus sisältää virheellisen merkin. Vain ASCII-merkit, pisteet ja numerot ovat sallittuja."
 
 #: src/as-validator-issue-tag.h:157
 msgid "The component ID starts with punctuation. This is not allowed."
@@ -1823,7 +1821,7 @@ msgid ""
 "is strongly discouraged to improve interoperability with other tools such as "
 "D-Bus. A good option is to replace any hyphens with underscores (`_`). "
 "Hyphens are only allowed in the last segment of a component ID."
-msgstr ""
+msgstr "Komponenttitunnus sisältää yhdysmerkin/miinusmerkin toimialueosassaan. Yhdysmerkin käyttöä ei suositella yhteentoimivuuden parantamiseksi muiden työkalujen, kuten D-Busin, kanssa. Hyvä vaihtoehto on korvata yhdysmerkit alaviivoilla (`_`). Yhdysmerkkejä sallitaan vain komponenttitunnuksen viimeisessä segmentissä."
 
 #: src/as-validator-issue-tag.h:168
 msgid ""
@@ -1831,7 +1829,7 @@ msgid ""
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr ""
+msgstr "Komponenttitunnus sisältää numerolla alkavan segmentin. Käänteisen DNS-tunnuksen segmentin aloittamista numerolla ei suositella, jotta se toimii yhdessä muiden työkalujen, kuten D-Busin, kanssa. Ihannetapauksessa näiden segmenttien etuliitteeksi lisätään alaviiva."
 
 #: src/as-validator-issue-tag.h:174
 msgid "The component ID should only contain lowercase characters."
@@ -1890,7 +1888,7 @@ msgid ""
 "FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
 "collections without the risk of license violations due to mutually "
 "incompatible licenses."
-msgstr ""
+msgstr "Metatiedot itsessään näyttävät olevan lisensoituja monimutkaisen lisenssikokoelman alaisuudessa. Ole hyvä ja lisensoi data yksinkertaisella sallivalla lisenssillä, kuten FSFAP, MIT tai CC0-1.0, jotta jakelijat voivat sisällyttää sen sekakokoelmiin ilman lisenssirikkomusten riskiä keskenään yhteensopimattomien lisenssien vuoksi."
 
 #: src/as-validator-issue-tag.h:216
 msgid ""
@@ -1898,7 +1896,7 @@ msgid ""
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
 "0BSD to allow distributors to include it in mixed data collections without "
 "the risk of license violations due to mutually incompatible licenses."
-msgstr ""
+msgstr "Metatiedot itsessään eivät näytä olevan lisensoituja sallitulla lisenssillä. Ole hyvä ja lisensoi data sallivalla lisenssillä, kuten FSFAP, CC0-1.0 tai 0BSD, jotta jakelijat voivat sisällyttää sen sekakokoelmiin ilman lisenssirikkomusten riskiä keskenään yhteensopimattomien lisenssien vuoksi."
 
 #: src/as-validator-issue-tag.h:222
 msgid ""
@@ -1911,7 +1909,7 @@ msgstr ""
 msgid ""
 "The `environment` property is set to an unrecognized graphical environment/"
 "style combination."
-msgstr ""
+msgstr "`environment`-ominaisuus on asetettu tunnistamattomaan graafisen ympäristön ja tyylin yhdistelmään."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:234
@@ -1952,7 +1950,7 @@ msgstr "Näyttökuvaa ja kieltä kohden saa olla vain yksi `source`-kuva."
 #: src/as-validator-issue-tag.h:276
 msgid ""
 "A screenshot must have at least one untranslated image of type `source`."
-msgstr ""
+msgstr "Kuvakaappauksessa on oltava vähintään yksi kääntämätön kuva, jonka tyyppi on `source`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:282
@@ -1961,7 +1959,7 @@ msgid ""
 "which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) "
 "was found, which is likely intended to be the translatable image. Please "
 "remove the XML localization attribute in this case."
-msgstr ""
+msgstr "Kuvakaappauksessa on oltava vähintään yksi kääntämätön `source`-tyyppinen kuva, jota ei löytynyt. Sen sijaan löytyi tagi, jossa on `en`-kieliasetus (`xml:lang=en`), jonka on todennäköisesti tarkoitus olla käännettävä kuva. Poista XML-lokalisointiattribuutti tässä tapauksessa."
 
 #: src/as-validator-issue-tag.h:289
 msgid ""
@@ -1981,44 +1979,44 @@ msgstr ""
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
+msgstr "Harkitse turvallisen (HTTPS) URL-osoitteen käyttämistä tähän kuvakaappaukseen tai videoon viittaamiseen."
 
 #: src/as-validator-issue-tag.h:304
 msgid ""
 "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr ""
+msgstr "Kuvakaappauksessa on oltava vähintään yksi kuva, jonka skaalauskerroin on 1."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:310
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
+msgstr "Kuvakaappauksen on sisällettävä vähintään yksi kuva tai video, jotta siitä olisi hyötyä. Lisää siihen <image/>-elementti."
 
 #: src/as-validator-issue-tag.h:315
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
+msgstr "Kuvakaappauksen on sisällettävä joko kuvia tai videoita, mutta ei molempia samanaikaisesti. Käytä tätä kuvakaappausta ainoastaan joko staattisiin kuviin tai videoihin."
 
 #: src/as-validator-issue-tag.h:321
 msgid "The screenshot does not have a caption text. Consider adding one."
-msgstr ""
+msgstr "Kuvakaappauksessa ei ole kuvatekstiä. Harkitse sellaisen lisäämistä."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:327
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
-msgstr ""
+msgstr "Kuvakaappausvideossa ei määritetä `codec`-ominaisuudessa käytettyä videokoodekkia."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:333
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
-msgstr ""
+msgstr "Kuvakaappausvideossa ei määritetä, mitä säilömuotoa `container`-ominaisuudessa käytettiin."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:339
@@ -2026,7 +2024,7 @@ msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
+msgstr "AppStream ei tue valittua videokoodekkia, eivätkä ohjelmistokeskukset välttämättä pysty toistamaan videota. Tällä hetkellä tuetaan vain AV1- ja VP9-koodekkeja, käyttäen `codec`-ominaisuuden arvoina `av1` ja `vp9`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:346
@@ -2035,21 +2033,21 @@ msgid ""
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr ""
+msgstr "AppStream ei tue valittua videosäiliömuotoa, eivätkä ohjelmistokeskukset välttämättä pysty toistamaan videota. Tällä hetkellä tuetaan vain WebM- ja Matroska-videosäiliöitä, käyttäen `container`-ominaisuuden arvoina `webm` ja `mkv`."
 
 #: src/as-validator-issue-tag.h:352
 msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
+msgstr "Videoiden osalta tuetaan tällä hetkellä vain WebM- ja Matroska (.mkv) -säilömuotoja. Viitatun videon tiedostopääte ei kuulu kumpaankaan näistä muodoista."
 
 #: src/as-validator-issue-tag.h:358
 msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
 "screenshot."
-msgstr ""
+msgstr "Ohjelmistokomponentin oletusnäyttökuva ei saa olla video. Käytä staattista kuvaa oletusnäyttökuvana ja aseta video toissijaiseksi näyttökuvaksi."
 
 #: src/as-validator-issue-tag.h:363
 msgid "No screenshot is marked as default."
@@ -2059,21 +2057,21 @@ msgstr "Mitään näyttökuvaa ei ole merkitty oletukseksi."
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr ""
+msgstr "Vaaditaan/suositellaan-ryhmästä löytyi tuntematon tägi. Tämä on todennäköisesti virhe, koska tämän tyyppinen komponenttisuhde on tuntematon."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:374
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
+msgstr "`requires`- tai `recommends`-kohde vaatii arvon osoittamaan kelvollista suhdetta."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:380
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr ""
+msgstr "Vaaditusta/suositellusta kohteesta löytyi `version`-ominaisuus, jonka tyyppiä ei pitäisi olla tai vaatia versiota."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:386
@@ -2613,9 +2611,8 @@ msgid "The metainfo filename does not match the component ID."
 msgstr "Metatietotiedoston nimi ei vastaa komponentin tunnusta."
 
 #: src/as-validator-issue-tag.h:862
-#, fuzzy
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr ".desktop-tiedostoa ei voida lukea: %s"
+msgstr "Tähän komponenttiin liittyvää desktop-entry-tiedostoa ei voi ladata."
 
 #: src/as-validator-issue-tag.h:867
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -3464,14 +3461,14 @@ msgstr "Parametrien määrä ei kelpaa"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1157
-#, fuzzy, c-format
+#, c-format
 msgid "Compose operation failed to execute: %s"
-msgstr "Tarkastus epäonnistui: %s"
+msgstr "Laatimistoiminnon suorittaminen epäonnistui: %s"
 
 #: tools/appstreamcli.c:1167
-#, fuzzy, c-format
+#, c-format
 msgid "Compose failed: %s"
-msgstr "Tarkastus epäonnistui: %s"
+msgstr "Laatiminen epäonnistui: %s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:1224
@@ -3591,9 +3588,8 @@ msgstr "Asenna metadata-tiedosto oikeaan sijaintiin."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1515
-#, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr "Muuta keräilty XML YAML-muotoon tai toisin päin."
+msgstr "Muunna metatietoluettelon XML YAML:ksi tai toisin päin."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1522
@@ -3656,15 +3652,13 @@ msgstr ""
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:106
-#, fuzzy
 msgid "Metadata cache was updated successfully."
-msgstr "AppStreamin välimuisti päivitetty onnistuneesti."
+msgstr "Metadatan välimuisti päivitettiin."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:109
-#, fuzzy
 msgid "Metadata cache update is not necessary."
-msgstr "AppStreamin välimuistin päivittäminen ei ole tarpeellista."
+msgstr "Metadatan välimuistin päivittäminen ei ole tarpeellista."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -3718,9 +3712,9 @@ msgid "You need to specify a metadata file."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:367
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to install metadata file: %s"
-msgstr ".desktop-tiedostoa ei voida lukea: %s"
+msgstr "Metadatatiedostoa ei voi asentaa: %s"
 
 #: tools/ascli-actions-mdata.c:387
 msgid "You need to specify an input and output file."
@@ -3783,16 +3777,15 @@ msgid "ERROR"
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
-#, fuzzy
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr "Asenna komponentti-ID:tä vastaava ohjelmisto."
+msgstr "Sinun on määritettävä MetaInfo-tiedostonimi tai komponentin tunnus."
 
 #: tools/ascli-actions-mdata.c:714 tools/ascli-actions-mdata.c:838
 #: tools/ascli-actions-misc.c:133 tools/ascli-actions-misc.c:402
 #: tools/ascli-actions-misc.c:474
-#, fuzzy, c-format
+#, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr "Metadata-tiedostoa ”%s” ei ole olemassa."
+msgstr "Metatietotiedostoa '%s' ei ole olemassa."
 
 #. TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system.
 #: tools/ascli-actions-mdata.c:743
@@ -3927,9 +3920,9 @@ msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
 msgstr ""
 
 #: tools/ascli-actions-misc.c:161
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr ".desktop-tiedostoa ei voida lukea: %s"
+msgstr "Olemassa olevaa desktop-entry-tiedostopohjamallia ei voitu ladata: %s"
 
 #: tools/ascli-actions-misc.c:166
 #, c-format
@@ -3947,9 +3940,9 @@ msgid ""
 msgstr ""
 
 #: tools/ascli-actions-misc.c:330
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save desktop entry file: %s"
-msgstr ".desktop-tiedostoa ei voida lukea: %s"
+msgstr "Työpöydän syöttötiedostoa ei voida tallentaa: %s"
 
 #: tools/ascli-actions-misc.c:358
 msgid "You need to specify a NEWS file as input."
@@ -3982,9 +3975,8 @@ msgid "Unable to find operating system component '%s'!"
 msgstr ""
 
 #: tools/ascli-actions-misc.c:562
-#, fuzzy
 msgid "ID"
-msgstr "Kehitysympäristöt"
+msgstr "Tunnus"
 
 #: tools/ascli-actions-misc.c:563 tools/ascli-actions-misc.c:590
 #: tools/ascli-utils.c:304
@@ -4012,9 +4004,8 @@ msgid "Kernel"
 msgstr ""
 
 #: tools/ascli-actions-misc.c:591
-#, fuzzy
 msgid "Version"
-msgstr "Versio: %s"
+msgstr "Versio"
 
 #: tools/ascli-actions-misc.c:594
 msgid "Hardware"
@@ -4062,9 +4053,9 @@ msgid "Flatpak was not found! Please install it to continue."
 msgstr ""
 
 #: tools/ascli-actions-pkgmgr.c:96
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr "Ei voitu käynnistää pakettienhallintaa: %s"
+msgstr "Flatpak-prosessia ei voi käynnistää: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
 #, c-format
@@ -4109,9 +4100,9 @@ msgid "Can not override issue tag: %s"
 msgstr ""
 
 #: tools/ascli-actions-validate.c:299 tools/ascli-actions-validate.c:512
-#, fuzzy, c-format
+#, c-format
 msgid "File '%s' does not exist."
-msgstr "Metadata-tiedostoa ”%s” ei ole olemassa."
+msgstr "Tiedostoa '%s' ei ole olemassa."
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "error"-type hints
 #: tools/ascli-actions-validate.c:348
@@ -4142,9 +4133,9 @@ msgid "You need to specify at least one file to validate!"
 msgstr ""
 
 #: tools/ascli-actions-validate.c:406
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to add release metadata file: %s"
-msgstr ".desktop-tiedostoa ei voida lukea: %s"
+msgstr "Julkaisun metadatatiedostoa ei voi lisätä: %s"
 
 #: tools/ascli-actions-validate.c:416
 msgid ""
@@ -4180,9 +4171,8 @@ msgstr ""
 
 #. TRANSLATORS: A plain license ID (used as value in a key-value pair, like "Type: license")
 #: tools/ascli-actions-validate.c:675
-#, fuzzy
 msgid "license"
-msgstr "Lisenssi"
+msgstr "lisenssi"
 
 #. TRANSLATORS: A license exception (used as value in a key-value pair, like "Type: exception")
 #: tools/ascli-actions-validate.c:678
@@ -4201,9 +4191,8 @@ msgstr ""
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:690
-#, fuzzy
 msgid "License Type"
-msgstr "Lisenssi"
+msgstr "Lisenssityyppi"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:694
