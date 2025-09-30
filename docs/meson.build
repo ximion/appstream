@@ -7,35 +7,18 @@
 # where we install all our documentation to
 as_doc_target_dir = join_paths(get_option('datadir'), 'doc', 'appstream')
 
-# make manual pages
-manpages_xsl = 'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl'
-xsltproc = find_program('xsltproc')
-if run_command([xsltproc, '--nonet', manpages_xsl],
-                check: false).returncode() != 0
-    error('Unable to find Docbook XSL stylesheets for man pages')
-endif
+if get_option('man')
+    # make manual pages
+    manpages_xsl = 'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl'
+    xsltproc = find_program('xsltproc')
+    if run_command([xsltproc, '--nonet', manpages_xsl],
+                    check: false).returncode() != 0
+        error('Unable to find Docbook XSL stylesheets for man pages')
+    endif
 
-custom_target('man-appstreamcli',
-    input: 'xml/man/appstreamcli.1.xml',
-    output: 'appstreamcli.1',
-    install: true,
-    install_dir: join_paths(get_option('mandir'), 'man1'),
-    command: [
-        xsltproc,
-        '--nonet',
-        '--stringparam', 'man.output.quietly', '1',
-        '--stringparam', 'funcsynopsis.style', 'ansi',
-        '--stringparam', 'man.th.extra1.suppress', '1',
-        '-o', '@OUTPUT@',
-        manpages_xsl,
-        '@INPUT@'
-    ]
-)
-
-if get_option('compose')
-    custom_target('man-appstream-compose',
-        input: 'xml/man/appstreamcli-compose.1.xml',
-        output: 'appstreamcli-compose.1',
+    custom_target('man-appstreamcli',
+        input: 'xml/man/appstreamcli.1.xml',
+        output: 'appstreamcli.1',
         install: true,
         install_dir: join_paths(get_option('mandir'), 'man1'),
         command: [
@@ -49,7 +32,27 @@ if get_option('compose')
             '@INPUT@'
         ]
     )
-endif
+
+    if get_option('compose')
+        custom_target('man-appstream-compose',
+            input: 'xml/man/appstreamcli-compose.1.xml',
+            output: 'appstreamcli-compose.1',
+            install: true,
+            install_dir: join_paths(get_option('mandir'), 'man1'),
+            command: [
+                xsltproc,
+                '--nonet',
+                '--stringparam', 'man.output.quietly', '1',
+                '--stringparam', 'funcsynopsis.style', 'ansi',
+                '--stringparam', 'man.th.extra1.suppress', '1',
+                '-o', '@OUTPUT@',
+                manpages_xsl,
+                '@INPUT@'
+            ]
+        )
+    endif
+
+endif # end of get_option('man') check
 
 if get_option('docs') or get_option('apidocs')
   # we need Python for the helper scripts if any doc generation is enabled at all
@@ -183,4 +186,5 @@ elif get_option('install-docs')
             )
         endif
     endif
-endif
+
+endif # end of get_option('docs') check

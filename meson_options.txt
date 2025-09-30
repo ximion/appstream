@@ -44,6 +44,9 @@ option('zstd-support',
        description : 'Support Zstd for (de)compressing local / remote metadata'
 )
 
+#
+# For documentation
+#
 option('docs',
        type : 'boolean',
        value : false,
@@ -58,6 +61,11 @@ option('install-docs',
        type : 'boolean',
        value : true,
        description : 'Install documentation for API and specification'
+)
+option('man',
+       type : 'boolean',
+       value : true,
+       description : 'Build manual pages and install them'
 )
 
 #
