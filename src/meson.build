@@ -166,10 +166,6 @@ aslib_gperf_xml = custom_target(
     input: 'as-tag-xml.gperf',
     command: [
         gperf,
-        '--pic',
-        '--compare-strncmp',
-        '--readonly-tables',
-        '--compare-lengths',
         '@INPUT@',
         '--output-file',
         '@OUTPUT@'
@@ -181,10 +177,6 @@ aslib_gperf_yaml = custom_target(
     input: 'as-tag-yaml.gperf',
     command: [
         gperf,
-        '--pic',
-        '--compare-strncmp',
-        '--readonly-tables',
-        '--compare-lengths',
         '@INPUT@',
         '--output-file',
         '@OUTPUT@'

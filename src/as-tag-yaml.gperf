@@ -3,9 +3,11 @@
 %define hash-function-name _as_yaml_tag_hash
 %define lookup-function-name _as_yaml_tag_from_gperf
 %define string-pool-name yaml_tag_stringpool
-%readonly-tables
 %includes
 %pic
+%compare-strncmp
+%readonly-tables
+%compare-lengths
 %struct-type
 struct yaml_tag_data { int name; unsigned int etag; };
 %%
