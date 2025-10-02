@@ -28,6 +28,7 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
+/* clang-format off */
 #define AS_BEGIN_PRIVATE_DECLS \
 	G_BEGIN_DECLS          \
 	_Pragma ("GCC visibility push(hidden)")
@@ -37,6 +38,7 @@ G_BEGIN_DECLS
 	G_END_DECLS
 
 #define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
+/* clang-format on */
 
 /**
  * AS_UNIQ:

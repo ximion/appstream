@@ -27,10 +27,10 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-gboolean	       as_suggested_load_from_xml (AsSuggested *suggested,
-						   AsContext   *ctx,
-						   xmlNode     *node,
-						   GError     **error);
+gboolean as_suggested_load_from_xml (AsSuggested *suggested,
+				     AsContext	 *ctx,
+				     xmlNode	 *node,
+				     GError	**error);
 void	 as_suggested_to_xml_node (AsSuggested *suggested, AsContext *ctx, xmlNode *root);
 
 gboolean as_suggested_load_from_yaml (AsSuggested    *suggested,

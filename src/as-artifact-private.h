@@ -27,10 +27,10 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-gboolean	       as_artifact_load_from_xml (AsArtifact *artifact,
-						  AsContext  *ctx,
-						  xmlNode    *node,
-						  GError    **error);
+gboolean as_artifact_load_from_xml (AsArtifact *artifact,
+				    AsContext  *ctx,
+				    xmlNode    *node,
+				    GError    **error);
 void	 as_artifact_to_xml_node (AsArtifact *artifact, AsContext *ctx, xmlNode *root);
 
 gboolean as_artifact_load_from_yaml (AsArtifact	    *artifact,

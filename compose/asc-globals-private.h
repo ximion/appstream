@@ -25,7 +25,7 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-GPtrArray	      *asc_globals_get_pangrams_for (const gchar *lang);
-AscHintTag	      *asc_globals_get_hint_tag_details (const gchar *tag);
+GPtrArray  *asc_globals_get_pangrams_for (const gchar *lang);
+AscHintTag *asc_globals_get_hint_tag_details (const gchar *tag);
 
 AS_END_PRIVATE_DECLS
