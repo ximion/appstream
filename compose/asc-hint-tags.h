@@ -25,9 +25,9 @@
 
 #include <glib.h>
 #include "as-validator-issue.h"
+#include "as-macros-private.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 typedef struct {
 	GRefString     *tag;
@@ -46,5 +46,4 @@ typedef struct {
 
 extern AscHintTagStatic asc_hint_tag_list[];
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS

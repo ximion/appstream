@@ -25,8 +25,7 @@
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 gboolean as_bundle_load_from_xml (AsBundle *bundle, AsContext *ctx, xmlNode *node, GError **error);
 void	 as_bundle_to_xml_node (AsBundle *bundle, AsContext *ctx, xmlNode *root);
@@ -37,7 +36,6 @@ gboolean as_bundle_load_from_yaml (AsBundle	  *bundle,
 				   GError	 **error);
 void	 as_bundle_emit_yaml (AsBundle *bundle, AsContext *ctx, struct fy_emitter *emitter);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_BUNDLE_PRIVATE_H */

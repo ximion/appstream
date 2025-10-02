@@ -25,15 +25,13 @@
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 gboolean as_icon_load_from_xml (AsIcon *icon, AsContext *ctx, xmlNode *node, GError **error);
 void	 as_icon_to_xml_node (AsIcon *icon, AsContext *ctx, xmlNode *root);
 
 /* NOTE: For YAML, icons are loaded in AsComponent, due to how YAML is structured. */
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_ICON_PRIVATE_H */

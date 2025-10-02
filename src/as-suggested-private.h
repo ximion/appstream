@@ -25,8 +25,7 @@
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 gboolean	       as_suggested_load_from_xml (AsSuggested *suggested,
 						   AsContext   *ctx,
@@ -40,7 +39,6 @@ gboolean as_suggested_load_from_yaml (AsSuggested    *suggested,
 				      GError	    **error);
 void as_suggested_emit_yaml (AsSuggested *suggested, AsContext *ctx, struct fy_emitter *emitter);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_SUGGESTED_PRIVATE_H */

@@ -25,8 +25,7 @@
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 gboolean	       as_translation_load_from_xml (AsTranslation *tr,
 						     AsContext	   *ctx,
@@ -35,7 +34,6 @@ gboolean	       as_translation_load_from_xml (AsTranslation *tr,
 
 void as_translation_to_xml_node (AsTranslation *tr, AsContext *ctx, xmlNode *root);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_TRANSLATION_PRIVATE_H */

@@ -26,8 +26,7 @@
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 typedef enum {
 	AS_OARS_VERSION_UNKNOWN,
@@ -55,7 +54,6 @@ AsOarsVersion as_oars_version_from_string (const gchar *value);
 
 gboolean      as_content_rating_id_is_valid (const gchar *id, AsContentRatingValue value);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_CONTENT_RATING_PRIVATE_H */

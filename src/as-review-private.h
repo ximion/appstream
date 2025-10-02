@@ -29,8 +29,7 @@
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 gboolean as_review_load_from_xml (AsReview *review, AsContext *ctx, xmlNode *node, GError **error);
 void	 as_review_to_xml_node (AsReview *review, AsContext *ctx, xmlNode *root);
@@ -41,5 +40,4 @@ gboolean as_review_load_from_yaml (AsReview	  *review,
 				   GError	 **error);
 void	 as_review_emit_yaml (AsReview *review, AsContext *ctx, struct fy_emitter *emitter);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS

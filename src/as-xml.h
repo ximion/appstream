@@ -28,12 +28,13 @@
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <libxml/xmlsave.h>
+
 #include "as-context.h"
 #include "as-metadata.h"
+#include "as-macros-private.h"
 #include "as-tag.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 gchar		      *as_xml_get_node_value (const xmlNode *node);
 GRefString	      *as_xml_get_node_value_refstr (const xmlNode *node);
@@ -92,7 +93,6 @@ xmlDoc	*as_xml_parse_document (const gchar *data, gssize len, gboolean pedantic,
 
 gchar	*as_xml_node_free_to_str (xmlNode *root, GError **error);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_XML_H */

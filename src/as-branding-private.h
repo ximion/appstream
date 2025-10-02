@@ -25,8 +25,7 @@
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 gboolean	       as_branding_load_from_xml (AsBranding *branding,
 						  AsContext  *ctx,
@@ -40,7 +39,6 @@ gboolean as_branding_load_from_yaml (AsBranding	    *branding,
 				     GError	   **error);
 void	 as_branding_emit_yaml (AsBranding *branding, AsContext *ctx, struct fy_emitter *emitter);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_BRANDING_PRIVATE_H */

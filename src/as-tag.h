@@ -26,9 +26,9 @@
 #define __AS_TAG_H
 
 #include <glib.h>
+#include "as-macros-private.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 /**
  * AsTag:
@@ -143,7 +143,6 @@ AsTag as_xml_tag_from_string (const gchar *tag);
 
 AsTag as_yaml_tag_from_string (const gchar *tag, ssize_t len);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_TAG_H */

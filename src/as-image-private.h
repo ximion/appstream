@@ -25,8 +25,7 @@
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 gboolean as_image_load_from_xml (AsImage *image, AsContext *ctx, xmlNode *node, GError **error);
 void	 as_image_to_xml_node (AsImage *image, AsContext *ctx, xmlNode *root);
@@ -38,7 +37,6 @@ gboolean as_image_load_from_yaml (AsImage	 *image,
 				  GError	**error);
 void	 as_image_emit_yaml (AsImage *image, AsContext *ctx, struct fy_emitter *emitter);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_IMAGE_PRIVATE_H */

@@ -29,8 +29,7 @@
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 AsContext	      *as_agreement_get_context (AsAgreement *agreement);
 void		       as_agreement_set_context (AsAgreement *agreement, AsContext *context);
@@ -47,7 +46,6 @@ gboolean as_agreement_load_from_yaml (AsAgreement    *agreement,
 				      GError	    **error);
 void as_agreement_emit_yaml (AsAgreement *agreement, AsContext *ctx, struct fy_emitter *emitter);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_AGREEMENT_PRIVATE_H */

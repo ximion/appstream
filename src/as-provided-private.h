@@ -22,13 +22,12 @@
 #define __AS_PROVIDED_PRIVATE_H
 
 #include "as-provided.h"
+#include "as-macros-private.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 /* NOTE: XML and YAML parsing is done in AsComponent, since we can not do it efficiently here */
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_PROVIDED_PRIVATE_H */

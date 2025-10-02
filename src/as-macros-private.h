@@ -32,7 +32,9 @@ G_BEGIN_DECLS
 	G_BEGIN_DECLS          \
 	_Pragma ("GCC visibility push(hidden)")
 
-#define AS_END_PRIVATE_DECLS _Pragma ("GCC visibility pop") G_END_DECLS
+#define AS_END_PRIVATE_DECLS \
+	_Pragma ("GCC visibility pop") \
+	G_END_DECLS
 
 #define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
 

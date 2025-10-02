@@ -23,11 +23,9 @@
 #include "asc-globals.h"
 #include "asc-hint-tags.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 GPtrArray	      *asc_globals_get_pangrams_for (const gchar *lang);
 AscHintTag	      *asc_globals_get_hint_tag_details (const gchar *tag);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS

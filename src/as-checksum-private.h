@@ -25,8 +25,7 @@
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 gboolean as_checksum_load_from_xml (AsChecksum *cs, AsContext *ctx, xmlNode *node, GError **error);
 void	 as_checksum_to_xml_node (AsChecksum *cs, AsContext *ctx, xmlNode *root);
@@ -37,7 +36,6 @@ gboolean as_checksum_load_from_yaml (AsChecksum		 *cs,
 				     GError		**error);
 void	 as_checksum_emit_yaml (AsChecksum *cs, AsContext *ctx, struct fy_emitter *emitter);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_CHECKSUM_PRIVATE_H */

@@ -25,8 +25,7 @@
 #include "as-xml.h"
 #include "as-yaml.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 gboolean as_video_load_from_xml (AsVideo *video, AsContext *ctx, xmlNode *node, GError **error);
 void	 as_video_to_xml_node (AsVideo *video, AsContext *ctx, xmlNode *root);
@@ -37,7 +36,6 @@ gboolean as_video_load_from_yaml (AsVideo	 *video,
 				  GError	**error);
 void	 as_video_emit_yaml (AsVideo *video, AsContext *ctx, struct fy_emitter *emitter);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_VIDEO_PRIVATE_H */

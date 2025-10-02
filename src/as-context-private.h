@@ -23,9 +23,9 @@
 
 #include "as-context.h"
 #include "as-curl.h"
+#include "as-macros-private.h"
 
-G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
+AS_BEGIN_PRIVATE_DECLS
 
 const gchar	      *as_context_get_architecture (AsContext *ctx);
 void		       as_context_set_architecture (AsContext *ctx, const gchar *value);
@@ -45,7 +45,6 @@ AsCurl		      *as_context_get_curl (AsContext *ctx, GError **error);
 
 gboolean	       as_context_os_origin_is_free (AsContext *ctx, const gchar *origin);
 
-#pragma GCC visibility pop
-G_END_DECLS
+AS_END_PRIVATE_DECLS
 
 #endif /* __AS_CONTEXT_PRIVATE_H */
