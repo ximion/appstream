@@ -20,7 +20,7 @@
 # Deleted User <noreply+16368@weblate.org>, 2021.
 # Muhammet Kara <muhammet.kara@metu.edu.tr>, 2021.
 # Kemal Oktay Aktoğan <oktay454@disroot.org>, 2021.
-# Oğuz Ersen <oguz@ersen.moe>, 2022, 2023, 2024.
+# Oğuz Ersen <oguz@ersen.moe>, 2022, 2023, 2024, 2025.
 # Sabri Ünal <libreajans@gmail.com>, 2022, 2023.
 # Sabri Ünal <yakushabb@gmail.com>, 2025.
 # Sasi Ba <sasiba8328@fuasha.com>, 2025.
@@ -31,16 +31,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-10-02 20:08+0200\n"
-"PO-Revision-Date: 2025-08-30 04:01+0000\n"
-"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"PO-Revision-Date: 2025-10-05 06:02+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13.1-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -3131,15 +3130,11 @@ msgstr ""
 "`LicenseRef-free=https://example.com/licenses.html`"
 
 #: src/as-validator-issue-tag.h:1061
-#, fuzzy
 msgid ""
 "Since a `runtime` component consists of multiple other software components, "
 "their component-IDs may be listed in a `<provides/>` section for this "
 "runtime."
-msgstr ""
-"Bir `runtime` bileşeni diğer birden çok yazılım bileşeninden oluştuğu için, "
-"bileşen kimlikleri bu çalışma zamanı için bir `<provides/>` bölümünde "
-"listelenebilir."
+msgstr "Bir `runtime` bileşeni diğer birden çok yazılım bileşeninden oluştuğu için, bileşen kimlikleri bu çalışma zamanı için bir `<provides/>` bölümünde listelenebilir."
 
 #: src/as-validator-issue-tag.h:1066
 msgid ""
