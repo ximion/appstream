@@ -14,7 +14,7 @@
 # Cédric Valmary <cvalmary@yahoo.fr>, 2016
 # Tot en òc <totenoc@gmail.com>, 2016
 # Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>, 2007
-# Quentin PAGÈS <quentinantonin@free.fr>, 2021, 2023.
+# Quentin PAGÈS <quentinantonin@free.fr>, 2021, 2023, 2025.
 #
 # Translators:
 msgid ""
@@ -22,16 +22,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-10-02 20:08+0200\n"
-"PO-Revision-Date: 2023-10-09 04:01+0000\n"
+"PO-Revision-Date: 2025-10-25 23:02+0000\n"
 "Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
-"Language-Team: Occitan <https://hosted.weblate.org/projects/appstream/"
-"translations/oc/>\n"
+"Language-Team: Occitan <https://hosted.weblate.org/projects/appstream/translations/oc/>\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -89,17 +88,17 @@ msgstr "Endavant"
 #: src/as-category.c:90
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "Desbugadors"
 
 #: src/as-category.c:93
 msgctxt "Category of Development"
 msgid "IDEs"
-msgstr ""
+msgstr "Editors de còdi"
 
 #: src/as-category.c:102
 msgctxt "Category of Education"
 msgid "Featured"
-msgstr ""
+msgstr "Mesas en avant"
 
 #: src/as-category.c:105
 msgctxt "Category of Education"
@@ -139,17 +138,17 @@ msgstr "Aventura"
 #: src/as-category.c:133
 msgctxt "Category of Games"
 msgid "Arcade"
-msgstr ""
+msgstr "Arcada"
 
 #: src/as-category.c:136
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr ""
+msgstr "Blòts"
 
 #: src/as-category.c:139
 msgctxt "Category of Games"
 msgid "Board"
-msgstr ""
+msgstr "Platèu"
 
 #: src/as-category.c:142
 msgctxt "Category of Games"
@@ -249,7 +248,7 @@ msgstr "Poliças"
 #: src/as-category.c:218
 msgctxt "Category of Addons"
 msgid "Codecs"
-msgstr ""
+msgstr "Còdecs"
 
 #: src/as-category.c:221
 msgctxt "Category of Addons"
@@ -998,7 +997,7 @@ msgstr "EDE"
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #: src/as-desktop-env-data.h:49
 msgid "Endless"
-msgstr ""
+msgstr "Infinit"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
@@ -1063,7 +1062,7 @@ msgstr "Xfce"
 #. TRANSLATORS: Name of the "android" visual environment style.
 #: src/as-desktop-env-data.h:77
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
@@ -1073,7 +1072,7 @@ msgstr "GNOME (fosc)"
 #. TRANSLATORS: Name of the "ios" visual environment style.
 #: src/as-desktop-env-data.h:89
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:95
@@ -1094,12 +1093,12 @@ msgstr "Pantheon"
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:105
 msgid "Plasma Mobile"
-msgstr ""
+msgstr "Plasma Mobile"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:107
 msgid "Plasma Mobile (Dark)"
-msgstr ""
+msgstr "Plasma Mobile (Escur)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:109
@@ -1146,7 +1145,7 @@ msgstr ""
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2517
 msgid "Software catalog data"
-msgstr ""
+msgstr "Donadas del catalòg de logicials"
 
 #: src/as-provided.c:138
 msgid "Libraries"
@@ -1316,7 +1315,7 @@ msgstr "Telecomanda detectada."
 
 #: src/as-relation.c:1439
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "Tauleta grafica trobada"
 
 #: src/as-relation.c:1442
 msgid "Touch input device found."
@@ -3111,7 +3110,7 @@ msgstr ""
 
 #: tools/appstream-compose.c:412 tools/appstream-compose.c:414
 msgid "WARNING"
-msgstr ""
+msgstr "AVERTIMENT"
 
 #: tools/appstream-compose.c:446
 #, fuzzy
@@ -3710,7 +3709,7 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
 msgid "ERROR"
-msgstr ""
+msgstr "ERROR"
 
 #: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
 msgid "You need to specify a MetaInfo filename or component ID."
@@ -3739,7 +3738,7 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:761
 msgid "Recommendations:"
-msgstr ""
+msgstr "Recomandacions :"
 
 #: tools/ascli-actions-mdata.c:763
 msgid "No recommended items are set for this software."
@@ -3757,22 +3756,22 @@ msgstr ""
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:794
 msgid "Desktop"
-msgstr ""
+msgstr "Burèu"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:797
 msgid "Laptop"
-msgstr ""
+msgstr "Portable"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:800
 msgid "Server"
-msgstr ""
+msgstr "Servidor"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:803
 msgid "Tablet"
-msgstr ""
+msgstr "Tauleta"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:806
@@ -3781,7 +3780,7 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:808
 msgid "Unknown"
-msgstr ""
+msgstr "Desconegut"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
 #: tools/ascli-actions-mdata.c:875
@@ -3913,7 +3912,7 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:562
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: tools/ascli-actions-misc.c:563 tools/ascli-actions-misc.c:590
 #: tools/ascli-utils.c:304
@@ -3938,7 +3937,7 @@ msgstr "Descripcion"
 
 #: tools/ascli-actions-misc.c:589
 msgid "Kernel"
-msgstr ""
+msgstr "Nuclèu"
 
 #: tools/ascli-actions-misc.c:591
 msgid "Version"
@@ -3946,11 +3945,11 @@ msgstr "Version"
 
 #: tools/ascli-actions-misc.c:594
 msgid "Hardware"
-msgstr ""
+msgstr "Material"
 
 #: tools/ascli-actions-misc.c:597
 msgid "Physical Memory"
-msgstr ""
+msgstr "Memòria fisica"
 
 #: tools/ascli-actions-misc.c:601
 msgid "Devices with Modaliases"
@@ -3962,17 +3961,17 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:633
 msgid "unknown"
-msgstr ""
+msgstr "desconegut"
 
 #: tools/ascli-actions-misc.c:640 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
 msgid "yes"
-msgstr ""
+msgstr "òc"
 
 #: tools/ascli-actions-misc.c:642 tools/ascli-actions-validate.c:701
 #: tools/ascli-actions-validate.c:707
 msgid "no"
-msgstr ""
+msgstr "non"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -4108,9 +4107,8 @@ msgstr ""
 
 #. TRANSLATORS: A plain license ID (used as value in a key-value pair, like "Type: license")
 #: tools/ascli-actions-validate.c:675
-#, fuzzy
 msgid "license"
-msgstr "Licéncia"
+msgstr "licéncia"
 
 #. TRANSLATORS: A license exception (used as value in a key-value pair, like "Type: exception")
 #: tools/ascli-actions-validate.c:678
@@ -4125,13 +4123,12 @@ msgstr ""
 #. TRANSLATORS: An invalid license (used as value in a key-value pair, like "Type: invalid")
 #: tools/ascli-actions-validate.c:685
 msgid "invalid"
-msgstr ""
+msgstr "invalid"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:690
-#, fuzzy
 msgid "License Type"
-msgstr "Licéncia"
+msgstr "Tipe de licéncia"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:694
@@ -4152,11 +4149,11 @@ msgstr ""
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:712
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: tools/ascli-utils.c:301
 msgid "Identifier"
-msgstr ""
+msgstr "Identificador"
 
 #: tools/ascli-utils.c:303
 msgid "Internal ID"
