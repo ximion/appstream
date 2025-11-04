@@ -735,7 +735,7 @@ as_validator_check_type_property (AsValidator *validator, AsComponent *cpt, xmlN
 
 	prop = as_xml_get_prop_value (node, "type");
 	content = as_xml_get_node_value_raw (node);
-	if (prop == NULL) {
+	if (as_is_empty (prop)) {
 		as_validator_add_issue (validator,
 					node,
 					"type-property-required",
@@ -915,7 +915,7 @@ as_validator_first_word_capitalized (AsValidator *validator,
 	g_autofree gchar *first_word = NULL;
 	gchar *tmp;
 
-	if (text == NULL || text[0] == '\0')
+	if (as_is_empty (text))
 		return TRUE;
 
 	/* text starts with a number, that's fine */
@@ -1830,7 +1830,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				}
 
 				codec_str = as_xml_get_prop_value (iter2, "codec");
-				if (codec_str == NULL) {
+				if (as_is_empty (codec_str)) {
 					as_validator_add_issue (validator,
 								iter2,
 								"screenshot-video-codec-missing",
@@ -1848,7 +1848,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				}
 
 				container_str = as_xml_get_prop_value (iter2, "container");
-				if (container_str == NULL) {
+				if (as_is_empty (container_str)) {
 					as_validator_add_issue (
 					    validator,
 					    iter2,
@@ -2022,7 +2022,7 @@ as_validator_check_relations (AsValidator *validator,
 				continue;
 			}
 
-			if (compare_str == NULL) {
+			if (as_is_empty (compare_str)) {
 				as_validator_add_issue (validator,
 							iter,
 							"relation-item-missing-compare",
@@ -2435,7 +2435,9 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 
 	/* validate presence of version property */
 	prop = as_xml_get_prop_value (node, "version");
-	if (prop == NULL)
+	if (prop != NULL)
+		g_strstrip (prop);
+	if (as_is_empty (prop))
 		as_validator_add_issue (validator, node, "release-version-missing", "version");
 	g_free (prop);
 
@@ -2454,12 +2456,12 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 
 	/* validate date strings */
 	prop = as_xml_get_prop_value (node, "date");
-	if (prop != NULL) {
+	if (!as_is_empty (prop)) {
 		as_validator_validate_iso8601_complete_date (validator, node, prop);
 		g_free (prop);
 	} else {
 		g_autofree gchar *timestamp = as_xml_get_prop_value (node, "timestamp");
-		if (timestamp == NULL) {
+		if (as_is_empty (timestamp)) {
 			/* Neither timestamp, nor date property exists */
 			if (rel_kind == AS_RELEASE_KIND_SNAPSHOT)
 				as_validator_add_issue (validator,
@@ -3555,7 +3557,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	}
 
 	/* check if we have a homepage */
-	if (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE) == NULL) {
+	if (as_is_empty (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE))) {
 		AsComponentKind ckind;
 		ckind = as_component_get_kind (cpt);
 
@@ -3680,7 +3682,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	/* validate runtime specific stuff */
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_RUNTIME) {
 		const gchar *project_license = as_component_get_project_license (cpt);
-		if ((project_license == NULL) ||
+		if (as_is_empty (project_license) ||
 		    (!g_str_has_prefix (project_license, "LicenseRef")))
 			as_validator_add_issue (validator,
 						NULL,
@@ -3772,7 +3774,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			AsRelease *release = as_release_list_index (releases, i);
 			const gchar *version = as_release_get_version (release);
 			const gchar *version_prev = as_release_get_version (release_prev);
-			if (version == NULL || version_prev == NULL)
+			if (as_is_empty (version) || as_is_empty (version_prev))
 				continue;
 			if (as_vercmp_simple (version_prev, version) < 0) {
 				as_validator_add_issue (validator,
