@@ -16,7 +16,7 @@ jobs:
       CC: gcc
       CXX: g++
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         fetch-tags: true
         fetch-depth: 0
