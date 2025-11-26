@@ -52,7 +52,7 @@
 		</para>
 
 		<para>
-			To extract a GNU Gettext <filename>.pot</filename> file from your XML file, run itstool with the follwing arguments (replacing "foo" with
+			To extract a GNU Gettext <filename>.pot</filename> file from your XML file, run itstool with the following arguments (replacing "foo" with
 			your project name):
 		</para>
 		<programlisting language="Bash"><![CDATA[itstool -o $podir/foo_metadata.pot data/foo.metainfo.xml]]></programlisting>
