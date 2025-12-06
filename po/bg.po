@@ -2,20 +2,21 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # twlvnn kraftwerk <kraft_werk@tutanota.com>, 2025.
+# Kiril Panayotov <eccyboo@protonmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2025-10-02 20:08+0200\n"
-"PO-Revision-Date: 2025-09-25 21:01+0000\n"
-"Last-Translator: twlvnn kraftwerk <kraft_werk@tutanota.com>\n"
+"PO-Revision-Date: 2025-12-06 12:02+0000\n"
+"Last-Translator: Kiril Panayotov <eccyboo@protonmail.com>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/appstream/translations/bg/>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1023,7 +1024,7 @@ msgstr "Xfce"
 #. TRANSLATORS: Name of the "android" visual environment style.
 #: src/as-desktop-env-data.h:77
 msgid "Android"
-msgstr ""
+msgstr "Андроид"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
@@ -1033,7 +1034,7 @@ msgstr "GNOME (Тъмен)"
 #. TRANSLATORS: Name of the "ios" visual environment style.
 #: src/as-desktop-env-data.h:89
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:95
@@ -1742,11 +1743,11 @@ msgstr "Идентификаторът на лиценза не може да б
 
 #: src/as-validator-issue-tag.h:210
 msgid "The metadata itself seems to be licensed under a complex collection of licenses. Please license the data under a simple permissive license, like FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses."
-msgstr ""
+msgstr "Изглежда, че метаданните са лицензирани под много лицензи. Моля лицензирайте данните под опростен свободен лиценз като FSFAP, MIT или CC0-1.0, за да позволите дистрибуторите да ги включват в колекции без риск от нарушения предизвикани от несъвместими лицензи."
 
 #: src/as-validator-issue-tag.h:216
 msgid "The metadata itself does not seem to be licensed under a permissive license. Please license the data under a permissive license, like FSFAP, CC0-1.0 or 0BSD to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses."
-msgstr ""
+msgstr "Изглежда, че метаданните не са лицензирани под свободен лиценз. Моля лицензирайте данните под лиценз като FSFAP, MIT или CC0-1.0, за да позволите дистрибуторите да ги включват в колекции без риск от нарушения предизвикани от несъвместими лицензи."
 
 #: src/as-validator-issue-tag.h:222
 msgid "The update-contact does not appear to be a valid email address (escaping of `@` is only allowed as `_at_` or `_AT_`)."
@@ -2176,7 +2177,7 @@ msgstr "Компонент на вид „font“, но не е предоста
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:767
 msgid "Type `driver` component, but no modalias information was provided via a `provides/modalias` tag."
-msgstr ""
+msgstr "ПРЕВОДАЧИ: Моля, не превеждайте таговете на AppStream и имената на свойствата (намиращи се между обратни кавички)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:773
