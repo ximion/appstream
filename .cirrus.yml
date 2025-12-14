@@ -2,7 +2,7 @@ task:
   name: FreeBSD
   freebsd_instance:
     matrix:
-      - image_family: freebsd-14-2
+      - image_family: freebsd-15-0-amd64-ufs
   env:
     CC: /usr/bin/cc
     CXX: /usr/bin/c++
@@ -20,3 +20,4 @@ task:
                                                snowballstemmer textproc/py-gi-docgen vala
   build_script:
     - tests/ci/run-build.sh
+    - tests/ci/run-tests.sh
