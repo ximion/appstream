@@ -1636,8 +1636,9 @@ static const gchar *yamldata_releases_field =
     "    - https://example.com/source.tar.xz\n"
     "    checksum:\n"
     "      blake3: "
-    "8b28f613fa1ccdb1d303704839a0bb196424f425badfa4e4f43808f6812b6bcc0ae43374383bb6e46294d08155a64a"
-    "cbad92084387c73f696f00368ea106ebb4\n"
+    "'8b28f613fa1ccdb1d303704839a0bb196424f425badfa4e4f43808f6812b6bcc0ae43374383bb6e46294d08155a64"
+    "a"
+    "cbad92084387c73f696f00368ea106ebb4'\n"
     "    size: {}\n"
     "  - type: binary\n"
     "    platform: x86_64-linux-gnu\n"
@@ -1646,7 +1647,7 @@ static const gchar *yamldata_releases_field =
     "    - https://example.com/binary_amd64.flatpak\n"
     "    filename: binary-1.2.0_amd64.flatpak\n"
     "    checksum:\n"
-    "      blake3: 04839a\n"
+    "      blake3: '04839a'\n"
     "    size:\n"
     "      download: 24084\n"
     "      installed: 42052\n"
@@ -1997,40 +1998,41 @@ test_yaml_rw_references (void)
 static void
 test_yaml_rw_utf8 (void)
 {
-	static const gchar *yamldata =
-	    "Type: generic\n"
-	    "ID: org.example.Utf8Test\n"
-	    "Name:\n"
-	    "  C: Test\n"
-	    "  uk: Тест\n"
-	    "Description:\n"
-	    "  C: >-\n"
-	    "    <p>JFtp is a graphical Java network and file transfer client. It supports FTP "
-	    "using its own FTP API and various other protocols like SMB,\n"
-	    "    SFTP, NFS, HTTP, and file I/O using third party APIs. It includes many advanced "
-	    "features such as recursive directory up/download, browsing\n"
-	    "    FTP servers while transferring files, FTP resuming and queueing, browsing the LAN "
-	    "for Windows shares, and more. Multiple connections can\n"
-	    "    open at a time in a Mozilla-style tabbed browsing environment.</p>\n"
-	    "  uk: >-\n"
-	    "    <p>Jftp — це графічний клієнт передачі даних мережею. Підтримка FTP реалізована "
-	    "за допомогою внутрішнього інтерфейсу, а підтримку протоколів\n"
-	    "    SMB, SFTP, NFS, HTTP та роботу з файлами — за допомогою зовнішніх інтерфейсів. "
-	    "Він має багато гарних можливостей, наприклад, рекурсивне\n"
-	    "    відправлення/завантаження, роботу з FTP-сервером під час передачі файлів, "
-	    "продовження та створення черг завантажень з FTP, перегляд локальної\n"
-	    "    мережі в пошуках спільних тек Windows, тощо. Може створювати по декілька "
-	    "з&apos;єднань одразу за допомогою подібного до Mozilla інтерфейсу\n"
-	    "    з вкладками.</p>\n";
+	static const gchar
+	    *yamldata = "Type: generic\n"
+			"ID: org.example.Utf8Test\n"
+			"Name:\n"
+			"  C: Test\n"
+			"  uk: Тест\n"
+			"Description:\n"
+			"  C: >-\n"
+			"    <p>JFtp is a graphical Java network and file transfer client. It "
+			"supports FTP using its own FTP API and various other protocols like\n"
+			"    SMB, SFTP, NFS, HTTP, and file I/O using third party APIs. It "
+			"includes many advanced features such as recursive directory up/download,\n"
+			"    browsing FTP servers while transferring files, FTP resuming and "
+			"queueing, browsing the LAN for Windows shares, and more. Multiple\n"
+			"    connections can open at a time in a Mozilla-style tabbed browsing "
+			"environment.</p>\n"
+			"  uk: >-\n"
+			"    <p>Jftp — це графічний клієнт передачі даних мережею. Підтримка FTP "
+			"реалізована за допомогою внутрішнього інтерфейсу, а підтримку\n"
+			"    протоколів SMB, SFTP, NFS, HTTP та роботу з файлами — за допомогою "
+			"зовнішніх інтерфейсів. Він має багато гарних можливостей, наприклад,\n"
+			"    рекурсивне відправлення/завантаження, роботу з FTP-сервером під час "
+			"передачі файлів, продовження та створення черг завантажень з FTP,\n"
+			"    перегляд локальної мережі в пошуках спільних тек Windows, тощо. Може "
+			"створювати по декілька з&apos;єднань одразу за допомогою подібного\n"
+			"    до Mozilla інтерфейсу з вкладками.</p>\n";
 
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
 
 	if (as_str_equal0 (g_getenv ("AS_TEST_QUIRKS"), "ignore-bad-fyaml")) {
 		const gchar *fy_version = fy_library_version ();
-		if (as_vercmp_simple (fy_version, "0.9") < 0) {
+		if (as_vercmp_simple (fy_version, "0.9.2") < 0) {
 			g_print ("**WARNING**: libfyaml version %s is too old, at least version "
-				 "0.9 is required to ensure UTF-8 is handled correctly\n."
+				 "0.9.2 is required to ensure UTF-8 is handled correctly\n."
 				 "SKIPPING YAML unicode check!",
 				 fy_version);
 			return;
