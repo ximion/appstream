@@ -23,5 +23,5 @@ run_target ('l10n-update',
     command: ['ninja', '-C', meson.project_build_root(),
               'make-linguas',
               as_gettext_domain + '-pot',
-              as_gettext_domain + '-update-po']
+    ]
 )
