@@ -23,6 +23,11 @@ option('compose',
        value : false,
        description : 'Build libappstream-compose library and `appstreamcli compose` tool'
 )
+option('bash-completion',
+       type : 'boolean',
+       value : true,
+       description : 'Bash completion'
+)
 option('apt-support',
        type : 'boolean',
        value : false,
