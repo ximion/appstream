@@ -15,6 +15,7 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     gdb \
     git \
     meson \
+    bash-completion \
     gettext \
     gperf \
     gi-docgen \
@@ -41,7 +42,6 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     'pkgconfig(gdk-pixbuf-2.0)' \
     'pkgconfig(pango)' \
     'pkgconfig(Qt6Core)' \
-    qt6-linguist \
     sed \
     vala \
     xmlto

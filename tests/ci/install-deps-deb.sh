@@ -22,6 +22,7 @@ apt-get install -yq \
 eatmydata apt-get install -yq --no-install-recommends \
     meson \
     ninja-build \
+    bash-completion \
     git \
     gettext \
     itstool \

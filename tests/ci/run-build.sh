@@ -14,6 +14,7 @@ build_compose=true
 build_docs=false
 build_qt=true
 systemd=true
+bash_completion=true
 maintainer_mode=true
 static_analysis=false
 
@@ -26,6 +27,7 @@ fi;
 
 if [ "$ID" = "freebsd" ]; then
     systemd=false
+    bash_completion=false
 fi;
 
 build_type=debugoptimized
@@ -70,6 +72,7 @@ meson setup --buildtype=$build_type \
       -Dcompose=$build_compose \
       -Dapt-support=$apt_support \
       -Dsystemd=$systemd \
+      -Dbash-completion=$bash_completion \
       -Dvapi=true \
       ..
 
