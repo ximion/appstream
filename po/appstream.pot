@@ -7,7 +7,7 @@
 msgid   ""
 msgstr  "Project-Id-Version: appstream\n"
         "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-        "POT-Creation-Date: 2025-10-02 20:08+0200\n"
+        "POT-Creation-Date: 2026-01-27 11:34+0100\n"
         "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
         "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
         "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2573,8 +2573,8 @@ msgstr  ""
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:870 src/as-validator.c:1494 src/as-validator.c:1670
-#: src/as-validator.c:1891 src/as-validator.c:2546 src/as-validator.c:2568
-#: src/as-validator.c:2692 src/as-validator.c:3015
+#: src/as-validator.c:1891 src/as-validator.c:2548 src/as-validator.c:2570
+#: src/as-validator.c:2694 src/as-validator.c:3017
 #, c-format
 msgid   "Found: %s - Allowed: %s"
 msgstr  ""
@@ -3515,7 +3515,7 @@ msgid   "no"
 msgstr  ""
 
 #: tools/ascli-actions-pkgmgr.c:53
-msgid   "No suitable package manager CLI found. Please make sure that e.g. \"pkcon\" (part of PackageKit) is available."
+msgid   "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
 msgstr  ""
 
 #: tools/ascli-actions-pkgmgr.c:67
