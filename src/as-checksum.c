@@ -268,7 +268,7 @@ as_checksum_emit_yaml (AsChecksum *cs, AsContext *ctx, struct fy_emitter *emitte
 	if (priv->kind == AS_CHECKSUM_KIND_NONE)
 		return;
 
-	as_yaml_emit_entry_str (emitter, as_checksum_kind_to_string (priv->kind), priv->value);
+	as_yaml_emit_entry (emitter, as_checksum_kind_to_string (priv->kind), priv->value);
 }
 
 /**
