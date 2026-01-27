@@ -14,6 +14,9 @@ if get_option('bash-completion')
     rename: 'appstreamcli',
     install_dir: bash_completion_dep.get_variable(
                     pkgconfig: 'completionsdir',
-                    pkgconfig_define: ['prefix', get_option('prefix')])
+                    pkgconfig_define: [
+                        'prefix', get_option('prefix'),
+                        'datadir', get_option('prefix') / get_option('datadir')
+                    ])
   )
 endif
