@@ -15,7 +15,6 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     gdb \
     git \
     meson \
-    bash-completion \
     gettext \
     gperf \
     gi-docgen \
@@ -27,6 +26,7 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     gcovr \
     xz-devel \
     libuuid-devel \
+    'pkgconfig(bash-completion)' \
     'pkgconfig(gio-2.0)' \
     'pkgconfig(gobject-introspection-1.0)' \
     'pkgconfig(xmlb)' \
