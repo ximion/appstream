@@ -23,8 +23,7 @@ msgstr ""
 "POT-Creation-Date: 2026-01-27 11:34+0100\n"
 "PO-Revision-Date: 2025-11-17 07:51+0000\n"
 "Last-Translator: Fran Diéguez <fran.dieguez@mabishu.com>\n"
-"Language-Team: Galician <https://hosted.weblate.org/projects/appstream/"
-"translations/gl/>\n"
+"Language-Team: Galician <https://hosted.weblate.org/projects/appstream/translations/gl/>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,37 +40,12 @@ msgid "An utility to work with AppStream metadata"
 msgstr "Unha utilidade para traballar con metadatos de AppStream"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
-msgid ""
-"AppStream is a metadata specification which permits software components to "
-"provide information about themselves to automated systems and end-users "
-"before the software is actually installed. The AppStream project provides "
-"facilities to easily access and transform this metadata, as well as a few "
-"additional services for building feature-rich software centers and similar "
-"applications that make use of software metadata."
-msgstr ""
-"AppStream é unha especificación de metadatos que permite que os compoñentes "
-"do software proporcionen información sobre eles mesmos aos sistemas "
-"automatizados e aos usuarios finais, antes de que o software se instale "
-"realmente.O proxecto AppStream ofrece facilidades para acceder e transformar "
-"facilmente estes metadatos, así como algúns servizos adicionais para "
-"construír centros de software ricos en funcións e aplicacións similares que "
-"fan uso de metadatos de software."
+msgid "AppStream is a metadata specification which permits software components to provide information about themselves to automated systems and end-users before the software is actually installed. The AppStream project provides facilities to easily access and transform this metadata, as well as a few additional services for building feature-rich software centers and similar applications that make use of software metadata."
+msgstr "AppStream é unha especificación de metadatos que permite que os compoñentes do software proporcionen información sobre eles mesmos aos sistemas automatizados e aos usuarios finais, antes de que o software se instale realmente.O proxecto AppStream ofrece facilidades para acceder e transformar facilmente estes metadatos, así como algúns servizos adicionais para construír centros de software ricos en funcións e aplicacións similares que fan uso de metadatos de software."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
-msgid ""
-"The <em>appstreamcli</em> command-line tool allows to read, write, and "
-"transform AppStream XML or YAML metadata as well as to validate it for "
-"compliance with the specification. It also provides easy access to the "
-"system metadata pool, for example to query for software that provides a "
-"specific Mediatype handler or for installing software by its component "
-"identifier."
-msgstr ""
-"A ferramenta de liña de comandos <em>appstreamcli</em> permite ler, escribir "
-"e transformar metadatos XML ou YAML de AppStream, así como validalos para "
-"que cumpran coa especificación.Tamén proporciona un acceso sinxelo ao grupo "
-"de metadatos do sistema, por exemplo para consultar o software que "
-"proporciona un controlador de Mediatype específico ou para instalar software "
-"mediante o seu identificador de compoñente."
+msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
+msgstr "A ferramenta de liña de comandos <em>appstreamcli</em> permite ler, escribir e transformar metadatos XML ou YAML de AppStream, así como validalos para que cumpran coa especificación.Tamén proporciona un acceso sinxelo ao grupo de metadatos do sistema, por exemplo para consultar o software que proporciona un controlador de Mediatype específico ou para instalar software mediante o seu identificador de compoñente."
 
 #: src/as-cache.c:906
 #, c-format
@@ -476,14 +450,12 @@ msgstr "Sen violencia fantástica"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:847
 msgid "Characters in unsafe situations easily distinguishable from reality"
-msgstr ""
-"Personaxes en situacións non seguras distinguíbeis facilmante da realidade"
+msgstr "Personaxes en situacións non seguras distinguíbeis facilmante da realidade"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:849
 msgid "Characters in aggressive conflict easily distinguishable from reality"
-msgstr ""
-"Personaxes en conflitos agresivos distinguíbeis facilmente da realidade"
+msgstr "Personaxes en conflitos agresivos distinguíbeis facilmente da realidade"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:851
@@ -683,8 +655,7 @@ msgstr "Discriminación para causar dano emocional"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:967
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
-msgstr ""
-"Discriminación explícita baseada en xénero, sexualidade, raza ou relixión"
+msgstr "Discriminación explícita baseada en xénero, sexualidade, raza ou relixión"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:972
@@ -699,8 +670,7 @@ msgstr "Venta de produtos"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
 msgid "Explicit references to specific brands or trademarked products"
-msgstr ""
-"Referencias explícitas a marcas concretas ou produtos de marcas rexistradas"
+msgstr "Referencias explícitas a marcas concretas ou produtos de marcas rexistradas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:978
@@ -780,14 +750,12 @@ msgstr "Funcionalidade de son ou vídeo sen controlar entre usuarios"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1025
 msgid "No sharing of social network usernames or email addresses"
-msgstr ""
-"Non comparte nas redes socaiais de nomes de usuario ou enderezos de correo-e"
+msgstr "Non comparte nas redes socaiais de nomes de usuario ou enderezos de correo-e"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1029
 msgid "Sharing social network usernames or email addresses"
-msgstr ""
-"Compartición en redes sociais de nomes de usuario ou enderezos de correo-e"
+msgstr "Compartición en redes sociais de nomes de usuario ou enderezos de correo-e"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1034
@@ -802,9 +770,7 @@ msgstr "Buscando a última versión da aplicación"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1038
 msgid "Sharing diagnostic data that does not let others identify the user"
-msgstr ""
-"Compartición de datos de diagnóstico que non lle permite a outros "
-"identificar ao usuario"
+msgstr "Compartición de datos de diagnóstico que non lle permite a outros identificar ao usuario"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1040
@@ -1230,8 +1196,7 @@ msgstr "Este software require un dispositivo de entrada táctil."
 
 #: src/as-relation.c:1370
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
-"Este software require un micrófono para controlarse mediante entrada de voz."
+msgstr "Este software require un micrófono para controlarse mediante entrada de voz."
 
 #: src/as-relation.c:1372
 msgid "This software requires a camera for input control."
@@ -1253,9 +1218,7 @@ msgstr "Este software recomenda un dispositivo de entrada táctil."
 
 #: src/as-relation.c:1386
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
-"Este software recomenda un micrófono para ser controlado mediante entrada de "
-"voz."
+msgstr "Este software recomenda un micrófono para ser controlado mediante entrada de voz."
 
 #: src/as-relation.c:1388
 msgid "This software recommends a camera for input control."
@@ -1309,8 +1272,7 @@ msgstr "Este software admite a operación mediante comandos da consola."
 
 #: src/as-relation.c:1431
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
-"Atopouse un dispositivo sinalador (por exemplo, un rato ou un panel táctil)."
+msgstr "Atopouse un dispositivo sinalador (por exemplo, un rato ou un panel táctil)."
 
 #: src/as-relation.c:1433
 msgid "Physical keyboard found."
@@ -1372,15 +1334,12 @@ msgstr "Atopouse hardware compatible con este software: '%s'"
 #: src/as-relation.c:1568
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
-"Non se atopou o hardware necesario para este software neste sistema: '%s'"
+msgstr "Non se atopou o hardware necesario para este software neste sistema: '%s'"
 
 #: src/as-relation.c:1573
 #, c-format
-msgid ""
-"Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
-"Non se atopou o hardware recomendado para este software neste sistema: '%s'"
+msgid "Recommended hardware for this software was not found on this system: '%s'"
+msgstr "Non se atopou o hardware recomendado para este software neste sistema: '%s'"
 
 #: src/as-relation.c:1578
 #, c-format
@@ -1390,21 +1349,17 @@ msgstr "Este software admite hardware non presente neste sistema: '%s'"
 #: src/as-relation.c:1617
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
-"Este software require un kernel %s, pero este sistema está a executar %s."
+msgstr "Este software require un kernel %s, pero este sistema está a executar %s."
 
 #: src/as-relation.c:1623
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
-"Este software recomenda un kernel %s, pero este sistema está a executar %s."
+msgstr "Este software recomenda un kernel %s, pero este sistema está a executar %s."
 
 #: src/as-relation.c:1629
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr ""
-"Este software só admite un kernel %s, pero pode executarse en %s de todos os "
-"xeitos."
+msgstr "Este software só admite un kernel %s, pero pode executarse en %s de todos os xeitos."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1412,8 +1367,7 @@ msgstr ""
 #: src/as-relation.c:1659
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
-"Este software require %s %s %s, pero este sistema está a executar %s %s."
+msgstr "Este software require %s %s %s, pero este sistema está a executar %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1421,8 +1375,7 @@ msgstr ""
 #: src/as-relation.c:1671
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
-"Recoméndase o uso de %s %s %s, pero este sistema está a executar %s %s."
+msgstr "Recoméndase o uso de %s %s %s, pero este sistema está a executar %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
@@ -1441,20 +1394,15 @@ msgstr "O kernel %s %s é compatible."
 #. second is the expected amount of memory and fourth is the amount of memory we have.
 #: src/as-relation.c:1734
 #, c-format
-msgid ""
-"This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
-"Este software require %s %.2f GiB de memoria, pero este sistema ten %.2f GiB."
+msgid "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
+msgstr "Este software require %s %.2f GiB de memoria, pero este sistema ten %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
 #: src/as-relation.c:1743
 #, c-format
-msgid ""
-"This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
-"Este software recomenda %s %.2f GiB de memoria, pero este sistema ten %.2f "
-"GiB."
+msgid "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
+msgstr "Este software recomenda %s %.2f GiB de memoria, pero este sistema ten %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
@@ -1475,45 +1423,29 @@ msgstr "Este software necesita unha pantalla para o contido gráfico."
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1860
 #, c-format
-msgid ""
-"This software requires a display with its longest edge being %s %lu px in "
-"size, but the display of this device has %lu px."
-msgstr ""
-"Este software require unha pantalla co seu bordo máis longo de %s %lu px de "
-"tamaño, pero a pantalla deste dispositivo ten %lu px."
+msgid "This software requires a display with its longest edge being %s %lu px in size, but the display of this device has %lu px."
+msgstr "Este software require unha pantalla co seu bordo máis longo de %s %lu px de tamaño, pero a pantalla deste dispositivo ten %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1869
 #, c-format
-msgid ""
-"This software requires a display with its shortest edge being %s %lu px in "
-"size, but the display of this device has %lu px."
-msgstr ""
-"Este software require unha pantalla co seu bordo máis curto de tamaño %s %lu "
-"px, pero a pantalla deste dispositivo ten %lu px."
+msgid "This software requires a display with its shortest edge being %s %lu px in size, but the display of this device has %lu px."
+msgstr "Este software require unha pantalla co seu bordo máis curto de tamaño %s %lu px, pero a pantalla deste dispositivo ten %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1879
 #, c-format
-msgid ""
-"This software recommends a display with its longest edge being %s %lu px in "
-"size, but the display of this device has %lu px."
-msgstr ""
-"Este software recomenda unha pantalla co seu bordo máis longo de tamaño %s "
-"%lu px, pero a pantalla deste dispositivo ten %lu px."
+msgid "This software recommends a display with its longest edge being %s %lu px in size, but the display of this device has %lu px."
+msgstr "Este software recomenda unha pantalla co seu bordo máis longo de tamaño %s %lu px, pero a pantalla deste dispositivo ten %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1888
 #, c-format
-msgid ""
-"This software recommends a display with its shortest edge being %s %lu px in "
-"size, but the display of this device has %lu px."
-msgstr ""
-"Este software recomenda unha pantalla co seu bordo máis curto de tamaño %s "
-"%lu px, pero a pantalla deste dispositivo ten %lu px."
+msgid "This software recommends a display with its shortest edge being %s %lu px in size, but the display of this device has %lu px."
+msgstr "Este software recomenda unha pantalla co seu bordo máis curto de tamaño %s %lu px, pero a pantalla deste dispositivo ten %lu px."
 
 #: src/as-relation.c:1900
 msgid "Display size is sufficient for this software."
@@ -1521,11 +1453,8 @@ msgstr "O tamaño da pantalla é suficiente para este software."
 
 #: src/as-relation.c:1917
 #, c-format
-msgid ""
-"Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr ""
-"A verificación de satisfacción da relación de elementos do tipo '%s' aínda "
-"non está implementada."
+msgid "Satisfiability check for relation items of type '%s' is not implemented yet."
+msgstr "A verificación de satisfacción da relación de elementos do tipo '%s' aínda non está implementada."
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
@@ -1550,26 +1479,22 @@ msgstr "Licenza Xeral Pública Affero v3.0 ou posterior"
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:287
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
-"Unicamente Licencia de Documentación Libre de GNU v1.1 - con invariantes"
+msgstr "Unicamente Licencia de Documentación Libre de GNU v1.1 - con invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:289
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
-"Licencia de Documentación Libre de GNU v1.1 ou posterior - con invariantes"
+msgstr "Licencia de Documentación Libre de GNU v1.1 ou posterior - con invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:291
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
-"Unicamente Licencia de Documentación Libre de GNU v1.1 - sen invariantes"
+msgstr "Unicamente Licencia de Documentación Libre de GNU v1.1 - sen invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:293
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
-"Licencia de Documentación Libre de GNU v1.1 ou posterior - sen invariantes"
+msgstr "Licencia de Documentación Libre de GNU v1.1 ou posterior - sen invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:295
@@ -1584,26 +1509,22 @@ msgstr "Licencia de Documentación Libre de GNU v1.1 ou posterior"
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:300
 msgid "GNU Free Documentation License v1.2 only - invariants"
-msgstr ""
-"Unicamente Licencia de Documentación Libre de GNU v1.2 - con invariantes"
+msgstr "Unicamente Licencia de Documentación Libre de GNU v1.2 - con invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:302
 msgid "GNU Free Documentation License v1.2 or later - invariants"
-msgstr ""
-"Licencia de Documentación Libre de GNU v1.2 ou posterior - con invariantes"
+msgstr "Licencia de Documentación Libre de GNU v1.2 ou posterior - con invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:304
 msgid "GNU Free Documentation License v1.2 only - no invariants"
-msgstr ""
-"Unicamente Licencia de Documentación Libre de GNU v1.2 - sen invariantes"
+msgstr "Unicamente Licencia de Documentación Libre de GNU v1.2 - sen invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:306
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
-msgstr ""
-"Licencia de Documentación Libre de GNU v1.2 ou posterior - sen invariantes"
+msgstr "Licencia de Documentación Libre de GNU v1.2 ou posterior - sen invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:308
@@ -1618,26 +1539,22 @@ msgstr "Licencia de Documentación Libre de GNU v1.2 ou posterior"
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:313
 msgid "GNU Free Documentation License v1.3 only - invariants"
-msgstr ""
-"Unicamente Licencia de Documentación Libre de GNU v1.3 - con invariantes"
+msgstr "Unicamente Licencia de Documentación Libre de GNU v1.3 - con invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:315
 msgid "GNU Free Documentation License v1.3 or later - invariants"
-msgstr ""
-"Licencia de Documentación Libre de GNU v1.3 ou posterior - con invariantes"
+msgstr "Licencia de Documentación Libre de GNU v1.3 ou posterior - con invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:317
 msgid "GNU Free Documentation License v1.3 only - no invariants"
-msgstr ""
-"Unicamente Licencia de Documentación Libre de GNU v1.3 - sen invariantes"
+msgstr "Unicamente Licencia de Documentación Libre de GNU v1.3 - sen invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:319
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
-msgstr ""
-"Licencia de Documentación Libre de GNU v1.3 ou posterior - sen invariantes"
+msgstr "Licencia de Documentación Libre de GNU v1.3 ou posterior - sen invariantes"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:321
@@ -1718,98 +1635,47 @@ msgid "Tags of this name are not permitted in this section."
 msgstr "Non se permiten etiquetas deste nome nesta sección."
 
 #: src/as-validator-issue-tag.h:52
-msgid ""
-"A <description/> tag must not be localized in metainfo files (upstream "
-"metadata). Localize the individual paragraphs instead."
-msgstr ""
-"A etiqueta <description/> non debe ser localizada na metainformación dos "
-"ficheiros (metadatos de upstream). Localice un parárafo individual no lugar."
+msgid "A <description/> tag must not be localized in metainfo files (upstream metadata). Localize the individual paragraphs instead."
+msgstr "A etiqueta <description/> non debe ser localizada na metainformación dos ficheiros (metadatos de upstream). Localice un parárafo individual no lugar."
 
 #: src/as-validator-issue-tag.h:58
-msgid ""
-"This element (paragraph, list, etc.) of a <description/> tag must not be "
-"localized individually in catalog metadata. Localize the whole <description/"
-"> tag instead. The AppStream metadata catalog generator (e.g. `appstream-"
-"generator`) will already do the right thing when compiling the data."
-msgstr ""
-"Este elemento (parágrafo, lista, etc.) dunha etiqueta <description/> non se "
-"debe localizar individualmente nos metadatos do catálogo.Localice toda a "
-"etiqueta <description/> no seu lugar.O xerador do catálogo de metadatos de "
-"AppStream (por exemplo, `appstream-generator`) xa fará o correcto ao "
-"compilar os datos."
+msgid "This element (paragraph, list, etc.) of a <description/> tag must not be localized individually in catalog metadata. Localize the whole <description/> tag instead. The AppStream metadata catalog generator (e.g. `appstream-generator`) will already do the right thing when compiling the data."
+msgstr "Este elemento (parágrafo, lista, etc.) dunha etiqueta <description/> non se debe localizar individualmente nos metadatos do catálogo.Localice toda a etiqueta <description/> no seu lugar.O xerador do catálogo de metadatos de AppStream (por exemplo, `appstream-generator`) xa fará o correcto ao compilar os datos."
 
 #: src/as-validator-issue-tag.h:64
-msgid ""
-"AppStream descriptions support only a limited set of tags to format text: "
-"Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
-"an invalid XML tag that would not be rendered correctly in applications "
-"supporting the metainfo specification."
-msgstr ""
-"As descricións de AppStream só admiten un conxunto limitado de etiquetas "
-"para dar formato ao texto: parágrafos (<p/>) e listas (<ul/>, <ol/>).Esta "
-"marca de descrición contén unha etiqueta XML non válida que non se mostraría "
-"correctamente nas aplicacións que admitan a especificación de metainfo."
+msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
+msgstr "As descricións de AppStream só admiten un conxunto limitado de etiquetas para dar formato ao texto: parágrafos (<p/>) e listas (<ul/>, <ol/>).Esta marca de descrición contén unha etiqueta XML non válida que non se mostraría correctamente nas aplicacións que admitan a especificación de metainfo."
 
 #: src/as-validator-issue-tag.h:70
-msgid ""
-"This description paragraph contains invalid markup. Currently, only <em/> "
-"and <code/> are permitted."
-msgstr ""
-"Este parágrafo de descrición contén marcas non válidas.Actualmente, só se "
-"permiten <em/> e <code/>."
+msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
+msgstr "Este parágrafo de descrición contén marcas non válidas.Actualmente, só se permiten <em/> e <code/>."
 
 #: src/as-validator-issue-tag.h:75
 msgid "Enumerations must only have list items (<li/>) as children."
 msgstr "As enumeracións só deben ter elementos de lista (<li/>) como fillos."
 
 #: src/as-validator-issue-tag.h:80
-msgid ""
-"The enumeration must not be translated as a whole. In MetaInfo files, "
-"translate individual items (<li/> elements) instead."
-msgstr ""
-"A enumeración non debe ser traducida como un todo. Nos ficheiros MetaInfo, "
-"traduza os elementos individuais (<li/> elements) no seu lugar."
+msgid "The enumeration must not be translated as a whole. In MetaInfo files, translate individual items (<li/> elements) instead."
+msgstr "A enumeración non debe ser traducida como un todo. Nos ficheiros MetaInfo, traduza os elementos individuais (<li/> elements) no seu lugar."
 
 #: src/as-validator-issue-tag.h:86
-msgid ""
-"The first `description/p` paragraph of this component might be too short (< "
-"80 characters). Please consider starting with a longer paragraph to improve "
-"how the description looks like in software centers and to provide more "
-"detailed information on this component immediately in the first paragraph."
-msgstr ""
-"O primeiro parágrafo `description/p` deste compoñente pode ser demasiado "
-"curto (< 80 characters).Considere comezar cun parágrafo máis longo para "
-"mellorar o aspecto da descrición nos centros de software e proporcionar "
-"información máis detallada sobre este compoñente inmediatamente no primeiro "
-"parágrafo."
+msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
+msgstr "O primeiro parágrafo `description/p` deste compoñente pode ser demasiado curto (< 80 characters).Considere comezar cun parágrafo máis longo para mellorar o aspecto da descrición nos centros de software e proporcionar información máis detallada sobre este compoñente inmediatamente no primeiro parágrafo."
 
 #: src/as-validator-issue-tag.h:93
-msgid ""
-"The description line does not start with a capitalized word, project name or "
-"number."
-msgstr ""
-"A liña de descrición non comeza cunha palabra en maiúscula, nome do proxecto "
-"ou número."
+msgid "The description line does not start with a capitalized word, project name or number."
+msgstr "A liña de descrición non comeza cunha palabra en maiúscula, nome do proxecto ou número."
 
 #: src/as-validator-issue-tag.h:98
-msgid ""
-"The description contains a web URL in plain text. This is not allowed, "
-"please use the <url/> tag instead to share links."
-msgstr ""
-"A descrición contén un URL web en texto plano.Isto non está permitido, "
-"utiliza a etiqueta <url/> no seu lugar para compartir ligazóns."
+msgid "The description contains a web URL in plain text. This is not allowed, please use the <url/> tag instead to share links."
+msgstr "A descrición contén un URL web en texto plano.Isto non está permitido, utiliza a etiqueta <url/> no seu lugar para compartir ligazóns."
 
 #: src/as-validator-issue-tag.h:103
-msgid ""
-"The description element does not contain any valid content (paragraphs, "
-"enumerations, etc.)."
+msgid "The description element does not contain any valid content (paragraphs, enumerations, etc.)."
 msgstr ""
 
 #: src/as-validator-issue-tag.h:108
-msgid ""
-"The description element contains raw text that is not in any paragraph or "
-"other permitted tag. This is not allowed and the additional text may be "
-"ignored by parsers or raise errors."
+msgid "The description element contains raw text that is not in any paragraph or other permitted tag. This is not allowed and the additional text may be ignored by parsers or raise errors."
 msgstr ""
 
 #: src/as-validator-issue-tag.h:114
@@ -1817,196 +1683,93 @@ msgid "This tag is not translatable."
 msgstr "Esta etiqueta non se pode traducir."
 
 #: src/as-validator-issue-tag.h:119
-msgid ""
-"This tag must only appear once in this context. Having multiple tags of this "
-"kind is not valid."
-msgstr ""
-"Esta etiqueta só debe aparecer unha vez neste contexto.Non é válido ter "
-"varias etiquetas deste tipo."
+msgid "This tag must only appear once in this context. Having multiple tags of this kind is not valid."
+msgstr "Esta etiqueta só debe aparecer unha vez neste contexto.Non é válido ter varias etiquetas deste tipo."
 
 #: src/as-validator-issue-tag.h:124
-msgid ""
-"The mentioned tag is empty, which is highly likely not intended as it should "
-"have content."
-msgstr ""
-"A etiqueta mencionada está baleira, o que é moi probable que non se "
-"pretenda, xa que debería ter contido."
+msgid "The mentioned tag is empty, which is highly likely not intended as it should have content."
+msgstr "A etiqueta mencionada está baleira, o que é moi probable que non se pretenda, xa que debería ter contido."
 
 #: src/as-validator-issue-tag.h:129
-msgid ""
-"The mentioned tag has text content, even though it must not contain text."
-msgstr ""
-"A etiqueta mencionada ten contido de texto, aínda que non debe conter texto."
+msgid "The mentioned tag has text content, even though it must not contain text."
+msgstr "A etiqueta mencionada ten contido de texto, aínda que non debe conter texto."
 
 #: src/as-validator-issue-tag.h:134
-msgid ""
-"The component ID is required to follow a reverse domain-name scheme for its "
-"name. See the AppStream specification for details."
-msgstr ""
-"O ID de compoñente é necesario para seguir un esquema inverso de nomes de "
-"dominio para o seu nome.Consulte a especificación de AppStream para obter "
-"máis detalles."
+msgid "The component ID is required to follow a reverse domain-name scheme for its name. See the AppStream specification for details."
+msgstr "O ID de compoñente é necesario para seguir un esquema inverso de nomes de dominio para o seu nome.Consulte a especificación de AppStream para obter máis detalles."
 
 #: src/as-validator-issue-tag.h:139
 msgid ""
-"The component ID is not a reverse domain-name. Please update the ID to avoid "
-"future issues and be compatible with all AppStream implementations.\n"
-"You may also consider to update the name of the accompanying .desktop file "
-"to follow the latest version of the Desktop-Entry specification and use a "
-"rDNS name for it as well. In any case, do not forget to mention the new "
-"desktop-entry in a <launchable/> tag for this component to keep the "
-"application launchable from software centers and the .desktop file data "
-"associated with the metainfo data."
+"The component ID is not a reverse domain-name. Please update the ID to avoid future issues and be compatible with all AppStream implementations.\n"
+"You may also consider to update the name of the accompanying .desktop file to follow the latest version of the Desktop-Entry specification and use a rDNS name for it as well. In any case, do not forget to mention the new desktop-entry in a <launchable/> tag for this component to keep the application launchable from software centers and the .desktop file data associated with the metainfo data."
 msgstr ""
-"O ID do compoñente non é un nome de dominio inverso.Actualiza o ID para "
-"evitar problemas futuros e ser compatible con todas as implementacións de "
-"AppStream.\n"
-"Tamén pode considerar actualizar o nome do ficheiro .desktop que se acompaña "
-"para seguir a última versión da especificación Desktop-Entry e utilizar "
-"tamén un nome rDNS para el.En calquera caso, non esqueza mencionar a nova "
-"entrada de escritorio nunha etiqueta <launchable/> para este compoñente para "
-"manter a aplicación lanzable desde os centros de software e os datos do "
-"ficheiro .desktop asociados aos datos de metainfo."
+"O ID do compoñente non é un nome de dominio inverso.Actualiza o ID para evitar problemas futuros e ser compatible con todas as implementacións de AppStream.\n"
+"Tamén pode considerar actualizar o nome do ficheiro .desktop que se acompaña para seguir a última versión da especificación Desktop-Entry e utilizar tamén un nome rDNS para el.En calquera caso, non esqueza mencionar a nova entrada de escritorio nunha etiqueta <launchable/> para este compoñente para manter a aplicación lanzable desde os centros de software e os datos do ficheiro .desktop asociados aos datos de metainfo."
 
 #: src/as-validator-issue-tag.h:147
-msgid ""
-"The component ID might not follow the reverse domain-name schema (the TLD "
-"used by it is not known to the validator)."
-msgstr ""
-"É posible que o ID do compoñente non siga o esquema inverso do nome de "
-"dominio (o validador non coñece o TLD que utiliza)."
+msgid "The component ID might not follow the reverse domain-name schema (the TLD used by it is not known to the validator)."
+msgstr "É posible que o ID do compoñente non siga o esquema inverso do nome de dominio (o validador non coñece o TLD que utiliza)."
 
 #: src/as-validator-issue-tag.h:152
-msgid ""
-"The component ID contains an invalid character. Only ASCII characters, dots "
-"and numbers are permitted."
-msgstr ""
-"O ID do compoñente contén un carácter non válido.Só se permiten caracteres, "
-"puntos e números ASCII."
+msgid "The component ID contains an invalid character. Only ASCII characters, dots and numbers are permitted."
+msgstr "O ID do compoñente contén un carácter non válido.Só se permiten caracteres, puntos e números ASCII."
 
 #: src/as-validator-issue-tag.h:157
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
-"O ID do compoñente comeza con signos de puntuación.Isto non está permitido."
+msgstr "O ID do compoñente comeza con signos de puntuación.Isto non está permitido."
 
 #: src/as-validator-issue-tag.h:162
-msgid ""
-"The component ID contains a hyphen/minus in its domain part. Using a hyphen "
-"is strongly discouraged to improve interoperability with other tools such as "
-"D-Bus. A good option is to replace any hyphens with underscores (`_`). "
-"Hyphens are only allowed in the last segment of a component ID."
-msgstr ""
-"O ID do compoñente contén un guión medio na pare do dominio.Desaconséllase "
-"encarecidamente o uso dun guión para mellorar a interoperabilidade con "
-"outras ferramentas como o D-Bus. Unha boa opción é substituír os guións por "
-"guións baixos (`_`).  Os guións medios só se permiten no último segmento do "
-"ID do compoñente."
+msgid "The component ID contains a hyphen/minus in its domain part. Using a hyphen is strongly discouraged to improve interoperability with other tools such as D-Bus. A good option is to replace any hyphens with underscores (`_`). Hyphens are only allowed in the last segment of a component ID."
+msgstr "O ID do compoñente contén un guión medio na pare do dominio.Desaconséllase encarecidamente o uso dun guión para mellorar a interoperabilidade con outras ferramentas como o D-Bus. Unha boa opción é substituír os guións por guións baixos (`_`).  Os guións medios só se permiten no último segmento do ID do compoñente."
 
 #: src/as-validator-issue-tag.h:168
-msgid ""
-"The component ID contains a segment starting with a number. Starting a "
-"segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
-"interoperability with other tools such as D-Bus. Ideally, prefix these "
-"segments with an underscore."
-msgstr ""
-"O ID do compoñente contén un segmento que comeza cun número.Non se recomenda "
-"encarecidamente iniciar un segmento do ID de DNS inverso cun número para "
-"manter a interoperabilidade con outras ferramentas como D-Bus.O ideal é "
-"prefixar estes segmentos cun guión baixo."
+msgid "The component ID contains a segment starting with a number. Starting a segment of the reverse-DNS ID with a number is strongly discouraged, to keep interoperability with other tools such as D-Bus. Ideally, prefix these segments with an underscore."
+msgstr "O ID do compoñente contén un segmento que comeza cun número.Non se recomenda encarecidamente iniciar un segmento do ID de DNS inverso cun número para manter a interoperabilidade con outras ferramentas como D-Bus.O ideal é prefixar estes segmentos cun guión baixo."
 
 #: src/as-validator-issue-tag.h:174
 msgid "The component ID should only contain lowercase characters."
 msgstr "O ID do compoñente só debe conter caracteres en minúscula."
 
 #: src/as-validator-issue-tag.h:179
-msgid ""
-"The domain part of the rDNS component ID (first two parts) must only contain "
-"lowercase characters."
-msgstr ""
-"A parte do dominio do ID do compoñente rDNS (dúas primeiras partes) só debe "
-"conter caracteres en minúscula."
+msgid "The domain part of the rDNS component ID (first two parts) must only contain lowercase characters."
+msgstr "A parte do dominio do ID do compoñente rDNS (dúas primeiras partes) só debe conter caracteres en minúscula."
 
 #: src/as-validator-issue-tag.h:184
-msgid ""
-"The component is part of the Freedesktop project, but its ID does not start "
-"with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr ""
-"O compoñente forma parte do proxecto Freedesktop, pero o seu ID non comeza "
-"co nome de DNS inverso de fd.o (\"org.freedesktop\")."
+msgid "The component is part of the Freedesktop project, but its ID does not start with fd.o's reverse-DNS name (\"org.freedesktop\")."
+msgstr "O compoñente forma parte do proxecto Freedesktop, pero o seu ID non comeza co nome de DNS inverso de fd.o (\"org.freedesktop\")."
 
 #: src/as-validator-issue-tag.h:189
-msgid ""
-"The component is part of the KDE project, but its ID does not start with "
-"KDE's reverse-DNS name (\"org.kde\")."
-msgstr ""
-"O compoñente forma parte do proxecto KDE, pero o seu ID non comeza co nome "
-"de DNS inverso de KDE (\"org.kde\")."
+msgid "The component is part of the KDE project, but its ID does not start with KDE's reverse-DNS name (\"org.kde\")."
+msgstr "O compoñente forma parte do proxecto KDE, pero o seu ID non comeza co nome de DNS inverso de KDE (\"org.kde\")."
 
 #: src/as-validator-issue-tag.h:194
-msgid ""
-"The component is part of the GNOME project, but its ID does not start with "
-"GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr ""
-"O compoñente forma parte do proxecto GNOME, pero o seu ID non comeza co nome "
-"DNS inverso de GNOME (\"org.gnome\")."
+msgid "The component is part of the GNOME project, but its ID does not start with GNOME's reverse-DNS name (\"org.gnome\")."
+msgstr "O compoñente forma parte do proxecto GNOME, pero o seu ID non comeza co nome DNS inverso de GNOME (\"org.gnome\")."
 
 #: src/as-validator-issue-tag.h:199
 msgid "The SPDX license expression is invalid and could not be parsed."
 msgstr "A expresión da licenza SPDX non é válida e non se puido analizar."
 
 #: src/as-validator-issue-tag.h:204
-msgid ""
-"The license ID was not found in the SPDX database. Please check that the "
-"license ID is written in an SPDX-conformant way and is a valid free software "
-"license."
-msgstr ""
-"Non se atopou o ID de licenza na base de datos SPDX.Comprobe que o ID de "
-"licenza está escrito de forma conforme a SPDX e é unha licenza de software "
-"libre válida."
+msgid "The license ID was not found in the SPDX database. Please check that the license ID is written in an SPDX-conformant way and is a valid free software license."
+msgstr "Non se atopou o ID de licenza na base de datos SPDX.Comprobe que o ID de licenza está escrito de forma conforme a SPDX e é unha licenza de software libre válida."
 
 #: src/as-validator-issue-tag.h:210
-msgid ""
-"The metadata itself seems to be licensed under a complex collection of "
-"licenses. Please license the data under a simple permissive license, like "
-"FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
-"collections without the risk of license violations due to mutually "
-"incompatible licenses."
-msgstr ""
-"Os metadatos en si parecen estar licenciados baixo unha complexa colección "
-"de licenzas.Licenza dos datos baixo unha licenza permisiva simple, como "
-"FSFAP, MIT ou CC0-1.0 para permitir que os distribuidores os inclúan en "
-"coleccións de datos mixtas sen o risco de violacións da licenza debido a "
-"licenzas mutuamente incompatibles."
+msgid "The metadata itself seems to be licensed under a complex collection of licenses. Please license the data under a simple permissive license, like FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses."
+msgstr "Os metadatos en si parecen estar licenciados baixo unha complexa colección de licenzas.Licenza dos datos baixo unha licenza permisiva simple, como FSFAP, MIT ou CC0-1.0 para permitir que os distribuidores os inclúan en coleccións de datos mixtas sen o risco de violacións da licenza debido a licenzas mutuamente incompatibles."
 
 #: src/as-validator-issue-tag.h:216
-msgid ""
-"The metadata itself does not seem to be licensed under a permissive license. "
-"Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
-"0BSD to allow distributors to include it in mixed data collections without "
-"the risk of license violations due to mutually incompatible licenses."
-msgstr ""
-"Os metadatos en si non parecen estar licenciados baixo unha licenza "
-"permisiva.License os datos baixo unha licenza permisiva, como FSFAP, CC0-1.0 "
-"ou 0BSD para que os distribuidores poidan incluílos en coleccións de datos "
-"mixtas sen o risco de violacións da licenza debido a licenzas mutuamente "
-"incompatibles."
+msgid "The metadata itself does not seem to be licensed under a permissive license. Please license the data under a permissive license, like FSFAP, CC0-1.0 or 0BSD to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses."
+msgstr "Os metadatos en si non parecen estar licenciados baixo unha licenza permisiva.License os datos baixo unha licenza permisiva, como FSFAP, CC0-1.0 ou 0BSD para que os distribuidores poidan incluílos en coleccións de datos mixtas sen o risco de violacións da licenza debido a licenzas mutuamente incompatibles."
 
 #: src/as-validator-issue-tag.h:222
-msgid ""
-"The update-contact does not appear to be a valid email address (escaping of "
-"`@` is only allowed as `_at_` or `_AT_`)."
-msgstr ""
-"O contacto de actualización non parece ser un enderezo de correo electrónico "
-"válido (só se permite escape de `@` como `_at_` ou `_AT_`)."
+msgid "The update-contact does not appear to be a valid email address (escaping of `@` is only allowed as `_at_` or `_AT_`)."
+msgstr "O contacto de actualización non parece ser un enderezo de correo electrónico válido (só se permite escape de `@` como `_at_` ou `_AT_`)."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:228
-msgid ""
-"The `environment` property is set to an unrecognized graphical environment/"
-"style combination."
-msgstr ""
-"A propiedade do `environment` está configurada cunha combinación de entorno/"
-"estilo gráfico non recoñecida."
+msgid "The `environment` property is set to an unrecognized graphical environment/style combination."
+msgstr "A propiedade do `environment` está configurada cunha combinación de entorno/estilo gráfico non recoñecida."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:234
@@ -2031,14 +1794,12 @@ msgstr "O tipo de imaxe debe ser `source` ou `thumbnail`."
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:258
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
-"A propiedade `width` debe estar presente se o tipo de imaxe é `thumbnail`."
+msgstr "A propiedade `width` debe estar presente se o tipo de imaxe é `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:264
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
-"A propiedade `height` debe estar presente se o tipo de imaxe é `thumbnail`."
+msgstr "A propiedade `height` debe estar presente se o tipo de imaxe é `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:270
@@ -2047,334 +1808,167 @@ msgstr "Só pode haber unha imaxe `source` por captura de pantalla e idioma."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:276
-msgid ""
-"A screenshot must have at least one untranslated image of type `source`."
-msgstr ""
-"Unha captura de pantalla debe ter polo menos unha imaxe de tipo `source`."
+msgid "A screenshot must have at least one untranslated image of type `source`."
+msgstr "Unha captura de pantalla debe ter polo menos unha imaxe de tipo `source`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:282
-msgid ""
-"A screenshot must have at least one untranslated image of type `source`, "
-"which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) "
-"was found, which is likely intended to be the translatable image. Please "
-"remove the XML localization attribute in this case."
-msgstr ""
-"A captura de pantalla debe conter polo menos unha imaxe sen traducir do tipo "
-"`source`, pero non se atopou ningunha. No seu lugar, atopouse unha etiqueta "
-"cunha localización `en` (`xml:lang=en`), que probablemente se refira á imaxe "
-"traducible. Por favor, elimina o atributo de localización XML neste caso."
+msgid "A screenshot must have at least one untranslated image of type `source`, which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) was found, which is likely intended to be the translatable image. Please remove the XML localization attribute in this case."
+msgstr "A captura de pantalla debe conter polo menos unha imaxe sen traducir do tipo `source`, pero non se atopou ningunha. No seu lugar, atopouse unha etiqueta cunha localización `en` (`xml:lang=en`), que probablemente se refira á imaxe traducible. Por favor, elimina o atributo de localización XML neste caso."
 
 #: src/as-validator-issue-tag.h:289
-msgid ""
-"Unable to reach the screenshot image on its remote location - does the image "
-"exist?"
-msgstr ""
-"Non se pode acceder á imaxe da captura de pantalla na súa localización "
-"remota - Existe a imaxe?"
+msgid "Unable to reach the screenshot image on its remote location - does the image exist?"
+msgstr "Non se pode acceder á imaxe da captura de pantalla na súa localización remota - Existe a imaxe?"
 
 #: src/as-validator-issue-tag.h:294
-msgid ""
-"Unable to reach the screenshot video on its remote location - does the video "
-"file exist?"
-msgstr ""
-"Non se pode acceder ao vídeo da captura de pantalla na súa localización "
-"remota - Existe o ficheiro de vídeo?"
+msgid "Unable to reach the screenshot video on its remote location - does the video file exist?"
+msgstr "Non se pode acceder ao vídeo da captura de pantalla na súa localización remota - Existe o ficheiro de vídeo?"
 
 #: src/as-validator-issue-tag.h:299
-msgid ""
-"Consider using a secure (HTTPS) URL to reference this screenshot image or "
-"video."
-msgstr ""
-"Considera usar un URL seguro (HTTPS) para facer referencia a esta imaxe ou "
-"vídeo de captura de pantalla."
+msgid "Consider using a secure (HTTPS) URL to reference this screenshot image or video."
+msgstr "Considera usar un URL seguro (HTTPS) para facer referencia a esta imaxe ou vídeo de captura de pantalla."
 
 #: src/as-validator-issue-tag.h:304
-msgid ""
-"A screenshot must have at least one image that has a scaling factor of 1."
-msgstr ""
-"Unha captura de pantalla debe ter polo menos unha imaxe cun factor de escala "
-"de 1."
+msgid "A screenshot must have at least one image that has a scaling factor of 1."
+msgstr "Unha captura de pantalla debe ter polo menos unha imaxe cun factor de escala de 1."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:310
-msgid ""
-"A screenshot must contain at least one image or video in order to be useful. "
-"Please add an <image/> to it."
-msgstr ""
-"Unha captura de pantalla debe conter cando menos unha imaxe ou un vídeo para "
-"ser útil. Engádalle unha <image/>."
+msgid "A screenshot must contain at least one image or video in order to be useful. Please add an <image/> to it."
+msgstr "Unha captura de pantalla debe conter cando menos unha imaxe ou un vídeo para ser útil. Engádalle unha <image/>."
 
 #: src/as-validator-issue-tag.h:315
-msgid ""
-"A screenshot must contain either images or videos, but not both at the same "
-"time. Please use this screenshot exclusively for either static images or for "
-"videos."
-msgstr ""
-"Unha captura de pantalla debe conter unha imaxe ou un vídeo, pero non os "
-"dous á vez. Empregue esta captura exclusivamente para imaxes estáticas ou "
-"para os vídeos."
+msgid "A screenshot must contain either images or videos, but not both at the same time. Please use this screenshot exclusively for either static images or for videos."
+msgstr "Unha captura de pantalla debe conter unha imaxe ou un vídeo, pero non os dous á vez. Empregue esta captura exclusivamente para imaxes estáticas ou para os vídeos."
 
 #: src/as-validator-issue-tag.h:321
 msgid "The screenshot does not have a caption text. Consider adding one."
-msgstr ""
-"A captura de pantalla non ten un texto de subtítulo. Considere engadir un."
+msgstr "A captura de pantalla non ten un texto de subtítulo. Considere engadir un."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:327
-msgid ""
-"The screenshot video does not specify which video codec was used in a "
-"`codec` property."
-msgstr ""
-"O vídeo da captura de pantalla non especifica que códec de vídeo se utilizou "
-"nunha propiedade `codec`."
+msgid "The screenshot video does not specify which video codec was used in a `codec` property."
+msgstr "O vídeo da captura de pantalla non especifica que códec de vídeo se utilizou nunha propiedade `codec`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:333
-msgid ""
-"The screenshot video does not specify which container format was used in a "
-"`container` property."
-msgstr ""
-"O vídeo da captura de pantalla non especifica que formato de contedor se "
-"utilizou nunha propiedade `container`."
+msgid "The screenshot video does not specify which container format was used in a `container` property."
+msgstr "O vídeo da captura de pantalla non especifica que formato de contedor se utilizou nunha propiedade `container`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:339
-msgid ""
-"The selected video codec is not supported by AppStream and software centers "
-"may not be able to play the video. Only the AV1 and VP9 codecs are currently "
-"supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
-"O códec de vídeo seleccionado non é compatible con AppStream e é posible que "
-"os centros de software non poidan reproducir o vídeo. Actualmente só se "
-"admiten os códecs AV1 e VP9, usando `av1` e `vp9` como valores para a "
-"propiedade `codec`."
+msgid "The selected video codec is not supported by AppStream and software centers may not be able to play the video. Only the AV1 and VP9 codecs are currently supported, using `av1` and `vp9` as values for the `codec` property."
+msgstr "O códec de vídeo seleccionado non é compatible con AppStream e é posible que os centros de software non poidan reproducir o vídeo. Actualmente só se admiten os códecs AV1 e VP9, usando `av1` e `vp9` como valores para a propiedade `codec`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:346
-msgid ""
-"The selected video container format is not supported by AppStream and "
-"software centers may not be able to play the video. Only the WebM and "
-"Matroska video containers are currently supported, using `webm` and `mkv` as "
-"values for the `container` property."
-msgstr ""
-"O formato do contedor de vídeo seleccionado non é compatible con AppStream e "
-"é posible que os centros de software non poidan reproducir o "
-"vídeo.Actualmente só se admiten os contedores de vídeo WebM e Matroska, "
-"utilizando `webm` e `mkv` como valores para a propiedade `container`."
+msgid "The selected video container format is not supported by AppStream and software centers may not be able to play the video. Only the WebM and Matroska video containers are currently supported, using `webm` and `mkv` as values for the `container` property."
+msgstr "O formato do contedor de vídeo seleccionado non é compatible con AppStream e é posible que os centros de software non poidan reproducir o vídeo.Actualmente só se admiten os contedores de vídeo WebM e Matroska, utilizando `webm` e `mkv` como valores para a propiedade `container`."
 
 #: src/as-validator-issue-tag.h:352
-msgid ""
-"For videos, only the WebM and Matroska (.mkv) container formats are "
-"currently supported. The file extension of the referenced video does not "
-"belong to either of these formats."
-msgstr ""
-"Para os vídeos, actualmente só se admiten os formatos de contedores WebM e "
-"Matroska (.mkv). A extensión do ficheiro do vídeo referenciado non pertence "
-"a ningún destes formatos."
+msgid "For videos, only the WebM and Matroska (.mkv) container formats are currently supported. The file extension of the referenced video does not belong to either of these formats."
+msgstr "Para os vídeos, actualmente só se admiten os formatos de contedores WebM e Matroska (.mkv). A extensión do ficheiro do vídeo referenciado non pertence a ningún destes formatos."
 
 #: src/as-validator-issue-tag.h:358
-msgid ""
-"The default screenshot of a software component must not be a video. Use a "
-"static image as default screenshot and set the video as a secondary "
-"screenshot."
-msgstr ""
-"A captura de pantalla predeterminada dun compoñente de software non debe ser "
-"un vídeo. Usa unha imaxe estática como captura de pantalla predeterminada e "
-"configura o vídeo como captura de pantalla secundaria."
+msgid "The default screenshot of a software component must not be a video. Use a static image as default screenshot and set the video as a secondary screenshot."
+msgstr "A captura de pantalla predeterminada dun compoñente de software non debe ser un vídeo. Usa unha imaxe estática como captura de pantalla predeterminada e configura o vídeo como captura de pantalla secundaria."
 
 #: src/as-validator-issue-tag.h:363
 msgid "No screenshot is marked as default."
 msgstr "Non se marcou ningunha captura de pantalla como predeterminada."
 
 #: src/as-validator-issue-tag.h:368
-msgid ""
-"Found an unknown tag in a requires/recommends group. This is likely an "
-"error, because a component relation of this type is unknown."
-msgstr ""
-"Atopouse unha etiqueta descoñecida nun grupo de requirimentos/"
-"recomendacións. É probable que sexa un erro, porque se descoñece unha "
-"relación de compoñentes deste tipo."
+msgid "Found an unknown tag in a requires/recommends group. This is likely an error, because a component relation of this type is unknown."
+msgstr "Atopouse unha etiqueta descoñecida nun grupo de requirimentos/recomendacións. É probable que sexa un erro, porque se descoñece unha relación de compoñentes deste tipo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:374
-msgid ""
-"A `requires` or `recommends` item requires a value to denote a valid "
-"relation."
-msgstr ""
-"Un elemento `requires` ou `recommends` require un valor para denotar unha "
-"relación válida."
+msgid "A `requires` or `recommends` item requires a value to denote a valid relation."
+msgstr "Un elemento `requires` ou `recommends` require un valor para denotar unha relación válida."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:380
-msgid ""
-"Found `version` property on required/recommended item of a type that should "
-"not have or require a version."
-msgstr ""
-"Atopouse a propiedade `version` nun elemento requirido/recomendado dun tipo "
-"que non debería ter ou requirir unha versión."
+msgid "Found `version` property on required/recommended item of a type that should not have or require a version."
+msgstr "Atopouse a propiedade `version` nun elemento requirido/recomendado dun tipo que non debería ter ou requirir unha versión."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:386
-msgid ""
-"Found `version` property on this required/recommended item, but not "
-"`compare` property. It is recommended to explicitly define a comparison "
-"operation."
-msgstr ""
-"Atopouse a propiedade `version` neste elemento obrigatorio/recomendado, pero "
-"non a propiedade `compare`. Recoméndase definir explícitamente unha "
-"operación de comparación."
+msgid "Found `version` property on this required/recommended item, but not `compare` property. It is recommended to explicitly define a comparison operation."
+msgstr "Atopouse a propiedade `version` neste elemento obrigatorio/recomendado, pero non a propiedade `compare`. Recoméndase definir explícitamente unha operación de comparación."
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:392
-msgid ""
-"Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/"
-"ge` is permitted."
-msgstr ""
-"Operación de comparación non válida no elemento de relación.Só se permite un "
-"de `eq/ne/lt/gt/le/ge`."
+msgid "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/ge` is permitted."
+msgstr "Operación de comparación non válida no elemento de relación.Só se permite un de `eq/ne/lt/gt/le/ge`."
 
 #: src/as-validator-issue-tag.h:397
-msgid ""
-"The relation item has a comparison operation set, but does not support any "
-"comparisons."
-msgstr ""
-"O elemento de relación ten un conxunto de operacións de comparación, pero "
-"non admite ningunha comparación."
+msgid "The relation item has a comparison operation set, but does not support any comparisons."
+msgstr "O elemento de relación ten un conxunto de operacións de comparación, pero non admite ningunha comparación."
 
 #: src/as-validator-issue-tag.h:402
-msgid ""
-"This relation item has already been defined once for this or a different "
-"relation type. Please do not redefine relations."
-msgstr ""
-"Este elemento de relación xa se definiu unha vez para este ou outro tipo de "
-"relación. Non redefinir as relacións."
+msgid "This relation item has already been defined once for this or a different relation type. Please do not redefine relations."
+msgstr "Este elemento de relación xa se definiu unha vez para este ou outro tipo de relación. Non redefinir as relacións."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:408
-msgid ""
-"Found a memory size relation in a `requires` tag. This means users will not "
-"be able to even install the component without having enough RAM. This is "
-"usually not intended and you want to use `memory` in the `recommends` tag "
-"instead."
-msgstr ""
-"Atopouse unha relación de tamaño de memoria nunha etiqueta `requires`. Isto "
-"significa que os usuarios non poderán nin instalar o compoñente sen ter "
-"suficiente RAM. Normalmente, isto non está pensado e quere usar `memory` na "
-"etiqueta `recommends` no seu lugar."
+msgid "Found a memory size relation in a `requires` tag. This means users will not be able to even install the component without having enough RAM. This is usually not intended and you want to use `memory` in the `recommends` tag instead."
+msgstr "Atopouse unha relación de tamaño de memoria nunha etiqueta `requires`. Isto significa que os usuarios non poderán nin instalar o compoñente sen ter suficiente RAM. Normalmente, isto non está pensado e quere usar `memory` na etiqueta `recommends` no seu lugar."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:415
-msgid ""
-"Found a user input control relation in a `requires` tag. This means users "
-"will not be able to even install the component without having the defined "
-"input control available on the system. This is usually not intended and you "
-"want to use `control` in the `recommends` tag instead."
-msgstr ""
-"Atopouse unha relación de control de entrada de usuario nunha etiqueta "
-"`requires`.Isto significa que os usuarios non poderán nin instalar o "
-"compoñente sen ter dispoñible no sistema o control de entrada definido. "
-"Normalmente, isto non está pensado e quere usar `control` na etiqueta "
-"`recommends` no seu lugar."
+msgid "Found a user input control relation in a `requires` tag. This means users will not be able to even install the component without having the defined input control available on the system. This is usually not intended and you want to use `control` in the `recommends` tag instead."
+msgstr "Atopouse unha relación de control de entrada de usuario nunha etiqueta `requires`.Isto significa que os usuarios non poderán nin instalar o compoñente sen ter dispoñible no sistema o control de entrada definido. Normalmente, isto non está pensado e quere usar `control` na etiqueta `recommends` no seu lugar."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:422
-msgid ""
-"This `control` item defines an unknown input method and is invalid. Check "
-"the specification for a list of permitted values."
-msgstr ""
-"Este elemento `control` define un método de entrada descoñecido e non é "
-"válido. Consulte a especificación para obter unha lista de valores "
-"permitidos."
+msgid "This `control` item defines an unknown input method and is invalid. Check the specification for a list of permitted values."
+msgstr "Este elemento `control` define un método de entrada descoñecido e non é válido. Consulte a especificación para obter unha lista de valores permitidos."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:428
-msgid ""
-"This `display_length` item contains an invalid display length. Its value "
-"must be a positive integer value denoting logical pixels. Please refer to "
-"the AppStream specification for more information on this tag."
-msgstr ""
-"Este elemento `display_length` contén unha lonxitude de visualización non "
-"válida. O seu valor debe ser unha cadea abreviada ou un valor enteiro "
-"positivo que denote píxeles lóxicos. Consulte a especificación de AppStream "
-"para obter máis información sobre esta etiqueta."
+msgid "This `display_length` item contains an invalid display length. Its value must be a positive integer value denoting logical pixels. Please refer to the AppStream specification for more information on this tag."
+msgstr "Este elemento `display_length` contén unha lonxitude de visualización non válida. O seu valor debe ser unha cadea abreviada ou un valor enteiro positivo que denote píxeles lóxicos. Consulte a especificación de AppStream para obter máis información sobre esta etiqueta."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:435
-msgid ""
-"This `side` property of this `display_length` item contains an invalid "
-"value. It must either be `shortest` or `longest`, or unset to imply "
-"`shortest` to make the item value refer to either the shortest or longest "
-"side of the display."
-msgstr ""
-"Esta propiedade `side` deste elemento `display_length` contén un valor non "
-"válido. Debe ser o `shortest` ou o `longest`, ou desactivado para implicar "
-"`shortest` para que o valor do elemento se refira ao lado máis curto ou "
-"longo da pantalla."
+msgid "This `side` property of this `display_length` item contains an invalid value. It must either be `shortest` or `longest`, or unset to imply `shortest` to make the item value refer to either the shortest or longest side of the display."
+msgstr "Esta propiedade `side` deste elemento `display_length` contén un valor non válido. Debe ser o `shortest` ou o `longest`, ou desactivado para implicar `shortest` para que o valor do elemento se refira ao lado máis curto ou longo da pantalla."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:442
-msgid ""
-"This `hardware` item contains an invalid value. It should be a Computer "
-"Hardware ID (CHID) UUID without braces."
-msgstr ""
-"Este elemento `hardware` contén un valor non válido. Debe ser un UUID de ID "
-"de hardware informático (CHID) sen chaves."
+msgid "This `hardware` item contains an invalid value. It should be a Computer Hardware ID (CHID) UUID without braces."
+msgstr "Este elemento `hardware` contén un valor non válido. Debe ser un UUID de ID de hardware informático (CHID) sen chaves."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:448
-msgid ""
-"A `memory` item must only contain a non-zero integer value, depicting a "
-"system memory size in mebibyte (MiB)"
-msgstr ""
-"Un elemento de `memory` só debe conter un valor enteiro distinto de cero, "
-"que representa un tamaño da memoria do sistema en mebibyte (MiB)"
+msgid "A `memory` item must only contain a non-zero integer value, depicting a system memory size in mebibyte (MiB)"
+msgstr "Un elemento de `memory` só debe conter un valor enteiro distinto de cero, que representa un tamaño da memoria do sistema en mebibyte (MiB)"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:454
 msgid "The set tag value is not valid for an `internet` relation."
-msgstr ""
-"O valor da etiqueta definido non é válido para unha relación `internet`."
+msgstr "O valor da etiqueta definido non é válido para unha relación `internet`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:460
-msgid ""
-"The `bandwidth_mbitps` property is not allowed when using `offline-only` as "
-"value."
-msgstr ""
-"A propiedade `bandwidth_mbitps` non está permitida cando se usa `offline-"
-"only` como valor."
+msgid "The `bandwidth_mbitps` property is not allowed when using `offline-only` as value."
+msgstr "A propiedade `bandwidth_mbitps` non está permitida cando se usa `offline-only` como valor."
 
 #: src/as-validator-issue-tag.h:465
-msgid ""
-"The value of this property must be a positive integer value, describing the "
-"minimum required bandwidth in mbit/s."
-msgstr ""
-"O valor desta propiedade debe ser un valor enteiro positivo, que describa o "
-"ancho de banda mínimo necesario en Mbit/s."
+msgid "The value of this property must be a positive integer value, describing the minimum required bandwidth in mbit/s."
+msgstr "O valor desta propiedade debe ser un valor enteiro positivo, que describa o ancho de banda mínimo necesario en Mbit/s."
 
 #: src/as-validator-issue-tag.h:470
-msgid ""
-"The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"O tipo de compoñente establecido non é un tipo de compoñente AppStream "
-"válido e recoñecido."
+msgid "The set component type is not a recognized, valid AppStream component type."
+msgstr "O tipo de compoñente establecido non é un tipo de compoñente AppStream válido e recoñecido."
 
 #: src/as-validator-issue-tag.h:475
-msgid ""
-"The component has a priority value set. This is not allowed in metainfo "
-"files."
-msgstr ""
-"O compoñente ten un valor de prioridade definido.Isto non está permitido nos "
-"ficheiros de metainfo."
+msgid "The component has a priority value set. This is not allowed in metainfo files."
+msgstr "O compoñente ten un valor de prioridade definido.Isto non está permitido nos ficheiros de metainfo."
 
 #: src/as-validator-issue-tag.h:480
-msgid ""
-"The component has a `merge` method defined. This is not allowed in metainfo "
-"files."
-msgstr ""
-"O compoñente ten definido un método de `merge`. Isto non está permitido nos "
-"ficheiros de metainfo."
+msgid "The component has a `merge` method defined. This is not allowed in metainfo files."
+msgstr "O compoñente ten definido un método de `merge`. Isto non está permitido nos ficheiros de metainfo."
 
 #: src/as-validator-issue-tag.h:485
 msgid "The component is missing an ID (<id/> tag)."
@@ -2385,39 +1979,24 @@ msgid "The component is missing a name (<name/> tag)."
 msgstr "Ao compoñente falta un nome (etiqueta <name/>)."
 
 #: src/as-validator-issue-tag.h:495
-msgid ""
-"The name of this component is excessively long and can likely not be "
-"displayed properly in most layouts."
-msgstr ""
-"O nome deste compoñente é excesivamente longo e probablemente non se poida "
-"mostrar correctamente na maioría de plantillas."
+msgid "The name of this component is excessively long and can likely not be displayed properly in most layouts."
+msgstr "O nome deste compoñente é excesivamente longo e probablemente non se poida mostrar correctamente na maioría de plantillas."
 
 #: src/as-validator-issue-tag.h:500
 msgid "The component is missing a summary (<summary/> tag)."
 msgstr "Falta un resumo do compoñente (etiqueta <summary/>)."
 
 #: src/as-validator-issue-tag.h:505
-msgid ""
-"The <id/> tag still contains a `type` property, probably from an old "
-"conversion to the recent metainfo format."
-msgstr ""
-"A etiqueta <id/> aínda contén unha propiedade `type`, probablemente dunha "
-"conversión antiga ao formato de metainfo recente."
+msgid "The <id/> tag still contains a `type` property, probably from an old conversion to the recent metainfo format."
+msgstr "A etiqueta <id/> aínda contén unha propiedade `type`, probablemente dunha conversión antiga ao formato de metainfo recente."
 
 #: src/as-validator-issue-tag.h:510
-msgid ""
-"The `pkgname` tag appears multiple times. You should evaluate creating a "
-"metapackage containing the metainfo and .desktop files in order to avoid "
-"defining multiple package names per component."
-msgstr ""
-"A etiqueta `pkgname` aparece varias veces.Debería avaliar a creación dun "
-"metapaquete que conteña a metainfo e os ficheiros .desktop para evitar "
-"definir varios nomes de paquete por compoñente."
+msgid "The `pkgname` tag appears multiple times. You should evaluate creating a metapackage containing the metainfo and .desktop files in order to avoid defining multiple package names per component."
+msgstr "A etiqueta `pkgname` aparece varias veces.Debería avaliar a creación dun metapaquete que conteña a metainfo e os ficheiros .desktop para evitar definir varios nomes de paquete por compoñente."
 
 #: src/as-validator-issue-tag.h:515
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr ""
-"O nome do compoñente (probablemente) non debería rematar cun punto (`.`)."
+msgstr "O nome do compoñente (probablemente) non debería rematar cun punto (`.`)."
 
 #: src/as-validator-issue-tag.h:520
 msgid "The component summary should not end with a dot (`.`)."
@@ -2429,46 +2008,29 @@ msgstr "O resumo do compoñente non debe conter pestanas nin saltos de liña."
 
 #: src/as-validator-issue-tag.h:530
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr ""
-"O resumo non debe conter ningún URL. Use as etiquetas `<url/>` para as "
-"ligazóns."
+msgstr "O resumo non debe conter ningún URL. Use as etiquetas `<url/>` para as ligazóns."
 
 #: src/as-validator-issue-tag.h:535
-msgid ""
-"The summary text does not start with a capitalized word, project name or "
-"number."
-msgstr ""
-"O texto resumo non comeza cunha palabra en maiúscula, nome do proxecto ou "
-"número."
+msgid "The summary text does not start with a capitalized word, project name or number."
+msgstr "O texto resumo non comeza cunha palabra en maiúscula, nome do proxecto ou número."
 
 #: src/as-validator-issue-tag.h:540
-msgid ""
-"The summary text is very long, and will likely not be displayed properly "
-"everywhere. It should be <= 90 characters."
-msgstr ""
-"O texto do resumo é moi longo e probablemente non se mostre correctamente en "
-"todas partes. Debería ter <= 90 characters."
+msgid "The summary text is very long, and will likely not be displayed properly everywhere. It should be <= 90 characters."
+msgstr "O texto do resumo é moi longo e probablemente non se mostre correctamente en todas partes. Debería ter <= 90 characters."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:546
-msgid ""
-"Icons of type `stock` or `cached` must not contain an URL, a full or an "
-"relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
-"As iconas de tipo `stock` ou `cached` non deben conter un URL, unha ruta "
-"completa ou relativa á icona. Só se permiten nomes base de ficheiros ou "
-"nomes de accións."
+msgid "Icons of type `stock` or `cached` must not contain an URL, a full or an relative path to the icon. Only file basenames or stock names are allowed."
+msgstr "As iconas de tipo `stock` ou `cached` non deben conter un URL, unha ruta completa ou relativa á icona. Só se permiten nomes base de ficheiros ou nomes de accións."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:553
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
-msgstr ""
-"As iconas de tipo `remote` deben conter un URL para a icona referenciada."
+msgstr "As iconas de tipo `remote` deben conter un URL para a icona referenciada."
 
 #: src/as-validator-issue-tag.h:558
 msgid "Unable to reach remote icon at the given web location - does it exist?"
-msgstr ""
-"Non se pode acceder á icona remota na localización web indicada - Existe?"
+msgstr "Non se pode acceder á icona remota na localización web indicada - Existe?"
 
 #: src/as-validator-issue-tag.h:563
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
@@ -2476,28 +2038,17 @@ msgstr "Considere usar un URL seguro (HTTPS) para a ligazón da icona remota."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:569
-msgid ""
-"Metainfo files may only contain icons of type `stock` or `remote`, the set "
-"type is not allowed."
-msgstr ""
-"Os ficheiros de metainfo só poden conter iconas de tipo `stock` ou `remote`, "
-"o tipo definido non está permitido."
+msgid "Metainfo files may only contain icons of type `stock` or `remote`, the set type is not allowed."
+msgstr "Os ficheiros de metainfo só poden conter iconas de tipo `stock` ou `remote`, o tipo definido non está permitido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:575
-msgid ""
-"Invalid `type` property for this `url` tag. URLs of this type are not known "
-"in the AppStream specification."
-msgstr ""
-"Propiedade `type` non válida para esta etiqueta `url`. Os URL deste tipo non "
-"se coñecen na especificación de AppStream."
+msgid "Invalid `type` property for this `url` tag. URLs of this type are not known in the AppStream specification."
+msgstr "Propiedade `type` non válida para esta etiqueta `url`. Os URL deste tipo non se coñecen na especificación de AppStream."
 
 #: src/as-validator-issue-tag.h:580
-msgid ""
-"Unable to reach remote location that this URL references - does it exist?"
-msgstr ""
-"Non se pode alcanzar a localización remota á que fai referencia este URL - "
-"Existe?"
+msgid "Unable to reach remote location that this URL references - does it exist?"
+msgstr "Non se pode alcanzar a localización remota á que fai referencia este URL - Existe?"
 
 #: src/as-validator-issue-tag.h:585
 msgid "Consider using a secure (HTTPS) URL for this web link."
@@ -2508,8 +2059,7 @@ msgid "A web URL was expected for this value."
 msgstr "Esperábase un URL web para este valor."
 
 #: src/as-validator-issue-tag.h:595
-msgid ""
-"This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
+msgid "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
 msgstr "Esta ligazón web usa o protocolo FTP. Considera cambiar a HTTP(S)."
 
 #: src/as-validator-issue-tag.h:600
@@ -2518,72 +2068,41 @@ msgstr "Xa se definiu un URL deste tipo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:606
-msgid ""
-"This component is missing an `url` element of type `homepage` to link to the "
-"project's homepage."
-msgstr ""
-"A este compoñente fáltalle un elemento `url` do tipo `homepage` para ligar á "
-"páxina principal do proxecto."
+msgid "This component is missing an `url` element of type `homepage` to link to the project's homepage."
+msgstr "A este compoñente fáltalle un elemento `url` do tipo `homepage` para ligar á páxina principal do proxecto."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:612
-msgid ""
-"The toplevel `developer_name` element is deprecated. Please use the `name` "
-"element in a `developer` block instead."
-msgstr ""
-"O elemento `developer_name` de nivel superior está obsoleto. Por favor, "
-"utiliza o elemento `name` dentro dun bloque `developer`."
+msgid "The toplevel `developer_name` element is deprecated. Please use the `name` element in a `developer` block instead."
+msgstr "O elemento `developer_name` de nivel superior está obsoleto. Por favor, utiliza o elemento `name` dentro dun bloque `developer`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:619
-msgid ""
-"This component contains no `developer` element with information about its "
-"author."
-msgstr ""
-"Este compoñente non conten un elemento `developer` con información sobre o "
-"seu autor."
+msgid "This component contains no `developer` element with information about its author."
+msgstr "Este compoñente non conten un elemento `developer` con información sobre o seu autor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:625
-msgid ""
-"The `developer` element is missing an `id` property, containing a unique "
-"string ID for the developer. Consider adding a unique ID."
-msgstr ""
-"Ao elemento `developer` fáltalle a propiedade `id`, que debe conter un "
-"identificador único para o desarrollador. Considera engadir un ID único."
+msgid "The `developer` element is missing an `id` property, containing a unique string ID for the developer. Consider adding a unique ID."
+msgstr "Ao elemento `developer` fáltalle a propiedade `id`, que debe conter un identificador único para o desarrollador. Considera engadir un ID único."
 
 #: src/as-validator-issue-tag.h:631
-msgid ""
-"The developer-ID is invalid. It should be an rDNS string identifying the "
-"developer, or a Fediverse handle. It must also only contain lowercase ASCII "
-"letters, numbers and punctuation."
-msgstr ""
-"O ID do desarrollador non é válido. Debe ser unha cadea rDNS que identifique "
-"o responsable do desenvolvemento ou un identificador do Fediverse. Ademais, "
-"só pode conter letras minúsculas en ASCII, números e signos de puntuación."
+msgid "The developer-ID is invalid. It should be an rDNS string identifying the developer, or a Fediverse handle. It must also only contain lowercase ASCII letters, numbers and punctuation."
+msgstr "O ID do desarrollador non é válido. Debe ser unha cadea rDNS que identifique o responsable do desenvolvemento ou un identificador do Fediverse. Ademais, só pode conter letras minúsculas en ASCII, números e signos de puntuación."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:638
-msgid ""
-"The `developer` block does not have a `name` element with a human-readable "
-"project author name."
-msgstr ""
-"O bloque `developer` non contén un elemento `name` cun nome lexible para "
-"humanos do autor do proxecto."
+msgid "The `developer` block does not have a `name` element with a human-readable project author name."
+msgstr "O bloque `developer` non contén un elemento `name` cun nome lexible para humanos do autor do proxecto."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:644
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr ""
-"O elemento `name` dentro dun bloque `developer` non debe conter unha ligazón."
+msgstr "O elemento `name` dentro dun bloque `developer` non debe conter unha ligazón."
 
 #: src/as-validator-issue-tag.h:649
-msgid ""
-"The set value is not an identifier for a desktop environment as registered "
-"with Freedesktop.org."
-msgstr ""
-"O valor definido non é un identificador para un entorno de escritorio "
-"rexistrado en Freedesktop.org."
+msgid "The set value is not an identifier for a desktop environment as registered with Freedesktop.org."
+msgstr "O valor definido non é un identificador para un entorno de escritorio rexistrado en Freedesktop.org."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:655
@@ -2597,256 +2116,127 @@ msgstr "Esta etiqueta `bundle` ten un tipo descoñecido e non se pode usar."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:667
-msgid ""
-"The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr ""
-"A etiqueta `update_contact` non debe incluírse no catálogo XML AppStream."
+msgid "The `update_contact` tag should not be included in catalog AppStream XML."
+msgstr "A etiqueta `update_contact` non debe incluírse no catálogo XML AppStream."
 
 #: src/as-validator-issue-tag.h:672
-msgid ""
-"This tag is a GNOME-specific extension to AppStream and not part of the "
-"official specification. Do not expect it to work in all implementations and "
-"in all software centers."
-msgstr ""
-"Esta etiqueta é unha extensión específica de GNOME para AppStream e non "
-"forma parte da especificación oficial. Non esperes que funcione en todas as "
-"implementacións e en todos os centros de software."
+msgid "This tag is a GNOME-specific extension to AppStream and not part of the official specification. Do not expect it to work in all implementations and in all software centers."
+msgstr "Esta etiqueta é unha extensión específica de GNOME para AppStream e non forma parte da especificación oficial. Non esperes que funcione en todas as implementacións e en todos os centros de software."
 
 #: src/as-validator-issue-tag.h:678
-msgid ""
-"Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream "
-"also provides the <custom/> tag to add arbitrary custom data to metainfo "
-"files. This tag is read by AppStream libraries and may be useful instead of "
-"defining new custom toplevel or `x-`-prefixed tags if you just want to add "
-"custom data to a metainfo file."
-msgstr ""
-"Atopouse unha etiqueta non válida.As etiquetas non estándar deberían levar o "
-"prefixo `x-`. AppStream tamén proporciona a etiqueta <custom/> para engadir "
-"datos personalizados arbitrarios aos ficheiros de metainfo. Esta etiqueta é "
-"lida polas bibliotecas de AppStream e pode ser útil en lugar de definir "
-"novas etiquetas personalizadas de nivel superior ou con prefixo `x-` se só "
-"quere engadir datos personalizados a un ficheiro de metainformación."
+msgid "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream also provides the <custom/> tag to add arbitrary custom data to metainfo files. This tag is read by AppStream libraries and may be useful instead of defining new custom toplevel or `x-`-prefixed tags if you just want to add custom data to a metainfo file."
+msgstr "Atopouse unha etiqueta non válida.As etiquetas non estándar deberían levar o prefixo `x-`. AppStream tamén proporciona a etiqueta <custom/> para engadir datos personalizados arbitrarios aos ficheiros de metainfo. Esta etiqueta é lida polas bibliotecas de AppStream e pode ser útil en lugar de definir novas etiquetas personalizadas de nivel superior ou con prefixo `x-` se só quere engadir datos personalizados a un ficheiro de metainformación."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:686
-msgid ""
-"The essential tag `metadata_license` is missing. A license for the metadata "
-"itself always has to be defined."
-msgstr ""
-"Falta a etiqueta esencial `metadata_license`. Sempre hai que definir unha "
-"licenza para os propios metadatos."
+msgid "The essential tag `metadata_license` is missing. A license for the metadata itself always has to be defined."
+msgstr "Falta a etiqueta esencial `metadata_license`. Sempre hai que definir unha licenza para os propios metadatos."
 
 #: src/as-validator-issue-tag.h:691
-msgid ""
-"The component is missing a long description. Components of this type must "
-"have a long description."
-msgstr ""
-"Falta unha descrición longa ao compoñente. Os compoñentes deste tipo deben "
-"ter unha descrición longa."
+msgid "The component is missing a long description. Components of this type must have a long description."
+msgstr "Falta unha descrición longa ao compoñente. Os compoñentes deste tipo deben ter unha descrición longa."
 
 #: src/as-validator-issue-tag.h:696
-msgid ""
-"It would be useful to add a long description to this font to present it "
-"better to users."
-msgstr ""
-"Sería útil engadir unha descrición longa a este tipo de letra para "
-"presentalo mellor aos usuarios."
+msgid "It would be useful to add a long description to this font to present it better to users."
+msgstr "Sería útil engadir unha descrición longa a este tipo de letra para presentalo mellor aos usuarios."
 
 #: src/as-validator-issue-tag.h:701
-msgid ""
-"It is recommended to add a long description to this component to present it "
-"better to users."
-msgstr ""
-"Recoméndase engadir unha descrición longa a este compoñente para presentalo "
-"mellor aos usuarios."
+msgid "It is recommended to add a long description to this component to present it better to users."
+msgstr "Recoméndase engadir unha descrición longa a este compoñente para presentalo mellor aos usuarios."
 
 #: src/as-validator-issue-tag.h:706
-msgid ""
-"This generic component is missing a long description. It may be useful to "
-"add one."
-msgstr ""
-"A este compoñente xenérico falta unha descrición longa. Pode ser útil "
-"engadir un."
+msgid "This generic component is missing a long description. It may be useful to add one."
+msgstr "A este compoñente xenérico falta unha descrición longa. Pode ser útil engadir un."
 
 #: src/as-validator-issue-tag.h:711
-msgid ""
-"The component is missing an untranslated long description, but has a "
-"translated one for the English locale. You need to provide a locale-less "
-"description in English as translation template."
+msgid "The component is missing an untranslated long description, but has a translated one for the English locale. You need to provide a locale-less description in English as translation template."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:718
-msgid ""
-"This `desktop-application` component is missing a `desktop-id` launchable "
-"tag. This means that this application can not be launched and has no "
-"association with its desktop-entry file. It also means no icon data or "
-"category information from the desktop-entry file will be available, which "
-"will result in this application being ignored entirely."
-msgstr ""
-"A este compoñente `desktop-application` falta unha etiqueta iniciable "
-"`desktop-id`. Isto significa que esta aplicación non se pode iniciar e non "
-"ten ningunha asociación co seu ficheiro de entrada de escritorio.Tamén "
-"significa que non estará dispoñible ningún dato de icona ou información de "
-"categoría do ficheiro de entrada do escritorio, o que fará que esta "
-"aplicación se ignore por completo."
+msgid "This `desktop-application` component is missing a `desktop-id` launchable tag. This means that this application can not be launched and has no association with its desktop-entry file. It also means no icon data or category information from the desktop-entry file will be available, which will result in this application being ignored entirely."
+msgstr "A este compoñente `desktop-application` falta unha etiqueta iniciable `desktop-id`. Isto significa que esta aplicación non se pode iniciar e non ten ningunha asociación co seu ficheiro de entrada de escritorio.Tamén significa que non estará dispoñible ningún dato de icona ou información de categoría do ficheiro de entrada do escritorio, o que fará que esta aplicación se ignore por completo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:727
-msgid ""
-"This `desktop-application` component has no `desktop-id` launchable tag, "
-"however it contains all the necessary information to display the "
-"application. The omission of the launchable entry means that this "
-"application can not be launched directly from installers or software "
-"centers. If this is intended, this information can be ignored, otherwise it "
-"is strongly recommended to add a launchable tag as well."
-msgstr ""
-"Este compoñente `desktop-application` non ten ningunha etiqueta iniciable "
-"`desktop-id`, pero contén toda a información necesaria para mostrar a "
-"aplicación. A omisión da entrada iniciable significa que esta aplicación non "
-"se pode iniciar directamente desde instaladores ou centros de software. Se "
-"se pretende, esta información pódese ignorar, se non, recoméndase "
-"encarecidamente engadir tamén unha etiqueta que se poida iniciar."
+msgid "This `desktop-application` component has no `desktop-id` launchable tag, however it contains all the necessary information to display the application. The omission of the launchable entry means that this application can not be launched directly from installers or software centers. If this is intended, this information can be ignored, otherwise it is strongly recommended to add a launchable tag as well."
+msgstr "Este compoñente `desktop-application` non ten ningunha etiqueta iniciable `desktop-id`, pero contén toda a información necesaria para mostrar a aplicación. A omisión da entrada iniciable significa que esta aplicación non se pode iniciar directamente desde instaladores ou centros de software. Se se pretende, esta información pódese ignorar, se non, recoméndase encarecidamente engadir tamén unha etiqueta que se poida iniciar."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:737
-msgid ""
-"Type `console-application` component, but no information about binaries in "
-"$PATH was provided via a `provides/binary` tag."
-msgstr ""
-"Escriba o compoñente `console-application`, pero non se proporcionou "
-"información sobre os binarios en $PATH mediante unha etiqueta `provides/"
-"binary`."
+msgid "Type `console-application` component, but no information about binaries in $PATH was provided via a `provides/binary` tag."
+msgstr "Escriba o compoñente `console-application`, pero non se proporcionou información sobre os binarios en $PATH mediante unha etiqueta `provides/binary`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:743
-msgid ""
-"This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr ""
-"A este compoñente de `web-application` falta unha etiqueta `launchable` de "
-"tipo `url`."
+msgid "This `web-application` component is missing a `launchable` tag of type `url`."
+msgstr "A este compoñente de `web-application` falta unha etiqueta `launchable` de tipo `url`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:749
-msgid ""
-"This `web-application` component is missing a `icon` tag to specify a valid "
-"icon."
-msgstr ""
-"A este compoñente `web-application` falta unha etiqueta `icon` para "
-"especificar unha icona válida."
+msgid "This `web-application` component is missing a `icon` tag to specify a valid icon."
+msgstr "A este compoñente `web-application` falta unha etiqueta `icon` para especificar unha icona válida."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:755
-msgid ""
-"This `web-application` component is missing categorizations. A `categories` "
-"block is likely missing."
-msgstr ""
-"A este compoñente de `web-application` faltan categorizacións. É probable "
-"que falte un bloque de `categories`."
+msgid "This `web-application` component is missing categorizations. A `categories` block is likely missing."
+msgstr "A este compoñente de `web-application` faltan categorizacións. É probable que falte un bloque de `categories`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:761
-msgid ""
-"Type `font` component, but no font information was provided via a `provides/"
-"font` tag."
-msgstr ""
-"Escriba o compoñente `font`, pero non se proporcionou ningunha información "
-"sobre a fonte mediante unha etiqueta `provides/font`."
+msgid "Type `font` component, but no font information was provided via a `provides/font` tag."
+msgstr "Escriba o compoñente `font`, pero non se proporcionou ningunha información sobre a fonte mediante unha etiqueta `provides/font`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:767
-msgid ""
-"Type `driver` component, but no modalias information was provided via a "
-"`provides/modalias` tag."
-msgstr ""
-"Escriba o compoñente `driver`, pero non se proporcionou ningunha información "
-"de modalias mediante unha etiqueta `provides/modalias`."
+msgid "Type `driver` component, but no modalias information was provided via a `provides/modalias` tag."
+msgstr "Escriba o compoñente `driver`, pero non se proporcionou ningunha información de modalias mediante unha etiqueta `provides/modalias`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:773
-msgid ""
-"An `extends` tag is specified, but the component is not of type `addon`, "
-"`localization` or `repository`."
-msgstr ""
-"Especificouse unha etiqueta `extends`, pero o compoñente non é de tipo "
-"`addon`, localization` ou `repository`."
+msgid "An `extends` tag is specified, but the component is not of type `addon`, `localization` or `repository`."
+msgstr "Especificouse unha etiqueta `extends`, pero o compoñente non é de tipo `addon`, localization` ou `repository`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:779
 msgid "The component is an addon, but no `extends` tag was specified."
-msgstr ""
-"O compoñente é un complemento, pero non se especificou ningunha etiqueta "
-"`extends`."
+msgstr "O compoñente é un complemento, pero non se especificou ningunha etiqueta `extends`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:785
-msgid ""
-"This `localization` component is missing an `extends` tag, to specify the "
-"components it adds localization to."
-msgstr ""
-"A este compoñente de `localization` falta unha etiqueta `extends`, para "
-"especificar os compoñentes aos que engade localización."
+msgid "This `localization` component is missing an `extends` tag, to specify the components it adds localization to."
+msgstr "A este compoñente de `localization` falta unha etiqueta `extends`, para especificar os compoñentes aos que engade localización."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:791
-msgid ""
-"This `localization` component does not define any languages this "
-"localization is for."
-msgstr ""
-"Este compoñente de `localization` non define ningunha lingua para esta "
-"localización."
+msgid "This `localization` component does not define any languages this localization is for."
+msgstr "Este compoñente de `localization` non define ningunha lingua para esta localización."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:797
-msgid ""
-"This `service` component is missing a `launchable` tag of type `service`."
-msgstr ""
-"A este compoñente `service` falta unha etiqueta `launchable` de tipo "
-"`service`."
+msgid "This `service` component is missing a `launchable` tag of type `service`."
+msgstr "A este compoñente `service` falta unha etiqueta `launchable` de tipo `service`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:803
-msgid ""
-"Suggestions of any type other than `upstream` are not allowed in metainfo "
-"files."
-msgstr ""
-"Non se permiten suxestións de ningún tipo que non sexan `upstream` nos "
-"ficheiros de metainfo."
+msgid "Suggestions of any type other than `upstream` are not allowed in metainfo files."
+msgstr "Non se permiten suxestións de ningún tipo que non sexan `upstream` nos ficheiros de metainfo."
 
 #: src/as-validator-issue-tag.h:808
-msgid ""
-"The category name is not valid. Refer to the XDG Menu Specification for a "
-"list of valid category names."
-msgstr ""
-"O nome da categoría non é válido.Consulte a especificación do menú XDG para "
-"obter unha lista de nomes de categoría válidos."
+msgid "The category name is not valid. Refer to the XDG Menu Specification for a list of valid category names."
+msgstr "O nome da categoría non é válido.Consulte a especificación do menú XDG para obter unha lista de nomes de categoría válidos."
 
 #: src/as-validator-issue-tag.h:813
-msgid ""
-"All categories for this component have been ignored, either because they "
-"were invalid or because they are of low quality (e.g. custom 'X-' prefixed "
-"or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add "
-"more categories."
-msgstr ""
-"Todas as categorías deste compoñente foron ignoradas, ben porque non eran "
-"válidas ou porque eran de baixa calidade (por exemplo, categorías "
-"personalizadas con prefixo 'X-' ou de ferramentas como 'GTK' ou 'Qt'). Por "
-"favor, corrixe os nomes das categorías ou engade máis categorías."
+msgid "All categories for this component have been ignored, either because they were invalid or because they are of low quality (e.g. custom 'X-' prefixed or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add more categories."
+msgstr "Todas as categorías deste compoñente foron ignoradas, ben porque non eran válidas ou porque eran de baixa calidade (por exemplo, categorías personalizadas con prefixo 'X-' ou de ferramentas como 'GTK' ou 'Qt'). Por favor, corrixe os nomes das categorías ou engade máis categorías."
 
 #: src/as-validator-issue-tag.h:819
-msgid ""
-"This component is in no valid categories, even though it should be. Please "
-"check its metainfo file and desktop-entry file."
-msgstr ""
-"Este compoñente non está en categorías válidas, aínda que debería estar. "
-"Comprobe o seu ficheiro de metainformación e o ficheiro de entrada de "
-"escritorio."
+msgid "This component is in no valid categories, even though it should be. Please check its metainfo file and desktop-entry file."
+msgstr "Este compoñente non está en categorías válidas, aínda que debería estar. Comprobe o seu ficheiro de metainformación e o ficheiro de entrada de escritorio."
 
 #: src/as-validator-issue-tag.h:824
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr ""
-"O título da captura de pantalla é demasiado longo (debe ser <= 100 "
-"caracteres)"
+msgstr "O título da captura de pantalla é demasiado longo (debe ser <= 100 caracteres)"
 
 #: src/as-validator-issue-tag.h:829
 msgid "Unable to read file."
@@ -2858,33 +2248,17 @@ msgstr "O XML deste ficheiro está mal formado."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:840
-msgid ""
-"Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr ""
-"Atopouse unha etiqueta non válida nos metadatos do catálogo. Só se permiten "
-"as etiquetas `component`."
+msgid "Invalid tag found in catalog metadata. Only `component` tags are permitted."
+msgstr "Atopouse unha etiqueta non válida nos metadatos do catálogo. Só se permiten as etiquetas `component`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:846
-msgid ""
-"The metainfo file uses an ancient version of the AppStream specification, "
-"which can not be validated. Please migrate it to version 0.6 (or higher). "
-"Modern files use the `component` root tag and include many other "
-"differences, so check for changes carefully when modernizing the data."
-msgstr ""
-"O ficheiro metainfo usa unha versión antiga da especificación AppStream, que "
-"non se pode validar.Mígrao á versión 0.6 (ou superior). Os ficheiros "
-"modernos usan a etiqueta raíz `component` e inclúen moitas outras "
-"diferenzas, polo que debes revisar os cambios con atención ao modernizar os "
-"datos."
+msgid "The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher). Modern files use the `component` root tag and include many other differences, so check for changes carefully when modernizing the data."
+msgstr "O ficheiro metainfo usa unha versión antiga da especificación AppStream, que non se pode validar.Mígrao á versión 0.6 (ou superior). Os ficheiros modernos usan a etiqueta raíz `component` e inclúen moitas outras diferenzas, polo que debes revisar os cambios con atención ao modernizar os datos."
 
 #: src/as-validator-issue-tag.h:852
-msgid ""
-"This XML document has an unknown root tag. Maybe this file is not a metainfo "
-"document?"
-msgstr ""
-"Este documento XML ten unha etiqueta raíz descoñecida. Quizais este ficheiro "
-"non sexa un documento de metainfo?"
+msgid "This XML document has an unknown root tag. Maybe this file is not a metainfo document?"
+msgstr "Este documento XML ten unha etiqueta raíz descoñecida. Quizais este ficheiro non sexa un documento de metainfo?"
 
 #: src/as-validator-issue-tag.h:857
 msgid "The metainfo filename does not match the component ID."
@@ -2892,74 +2266,39 @@ msgstr "O nome do ficheiro de metainfo non coincide co ID do compoñente."
 
 #: src/as-validator-issue-tag.h:862
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr ""
-"Non se puido cargar o ficheiro de entrada de escritorio asociado a este "
-"compoñente."
+msgstr "Non se puido cargar o ficheiro de entrada de escritorio asociado a este compoñente."
 
 #: src/as-validator-issue-tag.h:867
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
-"Os metadatos deste compoñente fan referencia a un ficheiro .desktop "
-"inexistente."
+msgstr "Os metadatos deste compoñente fan referencia a un ficheiro .desktop inexistente."
 
 #: src/as-validator-issue-tag.h:872
-msgid ""
-"A category defined in the desktop-entry file is not valid. Refer to the XDG "
-"Menu Specification for a list of valid categories."
-msgstr ""
-"Unha categoría definida no ficheiro de entrada de escritorio non é válida. "
-"Consulte a especificación do menú XDG para obter unha lista de categorías "
-"válidas."
+msgid "A category defined in the desktop-entry file is not valid. Refer to the XDG Menu Specification for a list of valid categories."
+msgstr "Unha categoría definida no ficheiro de entrada de escritorio non é válida. Consulte a especificación do menú XDG para obter unha lista de categorías válidas."
 
 #: src/as-validator-issue-tag.h:877
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
-"Produciuse un erro ao ler algúns datos do ficheiro de entrada do escritorio."
+msgstr "Produciuse un erro ao ler algúns datos do ficheiro de entrada do escritorio."
 
 #: src/as-validator-issue-tag.h:882
-msgid ""
-"The value of this desktop-entry field contains invalid or non-printable "
-"UTF-8 characters, which can not be displayed properly."
-msgstr ""
-"O valor deste campo de entrada de escritorio contén caracteres UTF-8 non "
-"válidos ou non imprimibles, que non se poden mostrar correctamente."
+msgid "The value of this desktop-entry field contains invalid or non-printable UTF-8 characters, which can not be displayed properly."
+msgstr "O valor deste campo de entrada de escritorio contén caracteres UTF-8 non válidos ou non imprimibles, que non se poden mostrar correctamente."
 
 #: src/as-validator-issue-tag.h:887
-msgid ""
-"This desktop-entry field value is quoted, which is likely unintentional."
-msgstr ""
-"Este valor de campo de entrada de escritorio está citado, o que "
-"probablemente non sexa intencionado."
+msgid "This desktop-entry field value is quoted, which is likely unintentional."
+msgstr "Este valor de campo de entrada de escritorio está citado, o que probablemente non sexa intencionado."
 
 #: src/as-validator-issue-tag.h:892
-msgid ""
-"This desktop-entry file has the 'Hidden' property set. This is wrong for "
-"vendor-installed .desktop files, and nullifies all effects this .desktop "
-"file has (including MIME associations), which most certainly is not "
-"intentional."
-msgstr ""
-"Este ficheiro de entrada de escritorio ten definida a propiedade 'Oculto'. "
-"Isto é incorrecto para os ficheiros .desktop instalados polo provedor e "
-"anula todos os efectos que ten este ficheiro .desktop (incluídas as "
-"asociacións MIME), o que seguramente non é intencionado."
+msgid "This desktop-entry file has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional."
+msgstr "Este ficheiro de entrada de escritorio ten definida a propiedade 'Oculto'. Isto é incorrecto para os ficheiros .desktop instalados polo provedor e anula todos os efectos que ten este ficheiro .desktop (incluídas as asociacións MIME), o que seguramente non é intencionado."
 
 #: src/as-validator-issue-tag.h:898
-msgid ""
-"This desktop-entry file has the 'OnlyShowIn' property set with an empty "
-"value. This might not be intended, as this will hide the application from "
-"all desktops. If you do want to hide the application from all desktops, "
-"using 'NoDisplay=true' is more explicit."
-msgstr ""
-"Este ficheiro de entrada de escritorio ten a propiedade 'OnlyShowIn' "
-"definida cun valor baleiro.É posible que non se pretenda, xa que isto "
-"ocultará a aplicación de todos os escritorios.Se queres ocultar a aplicación "
-"de todos os escritorios, usar 'NoDisplay=true' é máis explícito."
+msgid "This desktop-entry file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit."
+msgstr "Este ficheiro de entrada de escritorio ten a propiedade 'OnlyShowIn' definida cun valor baleiro.É posible que non se pretenda, xa que isto ocultará a aplicación de todos os escritorios.Se queres ocultar a aplicación de todos os escritorios, usar 'NoDisplay=true' é máis explícito."
 
 #: src/as-validator-issue-tag.h:904
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr ""
-"Non se atoparon metadatos de AppStream neste directorio ou árbore de "
-"directorios."
+msgstr "Non se atoparon metadatos de AppStream neste directorio ou árbore de directorios."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:909
@@ -2967,64 +2306,37 @@ msgid "No XDG applications directory found."
 msgstr "Non se atopou ningún directorio de aplicacións XDG."
 
 #: src/as-validator-issue-tag.h:914
-msgid ""
-"The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
-"metainfo/`."
-msgstr ""
-"O ficheiro de metainfo gárdase nun camiño herdado.Colócao en `/usr/share/"
-"metainfo/`."
+msgid "The metainfo file is stored in a legacy path. Please place it in `/usr/share/metainfo/`."
+msgstr "O ficheiro de metainfo gárdase nun camiño herdado.Colócao en `/usr/share/metainfo/`."
 
 #: src/as-validator-issue-tag.h:919
 msgid "The metainfo file specifies multiple components. This is not allowed."
-msgstr ""
-"O ficheiro metainfo especifica varios compoñentes. Isto non está permitido."
+msgstr "O ficheiro metainfo especifica varios compoñentes. Isto non está permitido."
 
 #: src/as-validator-issue-tag.h:924
-msgid ""
-"The releases are not sorted in a latest to oldest version order. This is "
-"required as some tools will assume that the latest version is always at the "
-"top. Sorting releases also increases overall readability of the metainfo "
-"file."
-msgstr ""
-"Os lanzamentos non están ordenados por orde de versión máis recente a máis "
-"antiga.Isto é necesario xa que algunhas ferramentas suporán que a versión "
-"máis recente está sempre na parte superior.A clasificación das versións "
-"tamén aumenta a lexibilidade global do ficheiro metainfo."
+msgid "The releases are not sorted in a latest to oldest version order. This is required as some tools will assume that the latest version is always at the top. Sorting releases also increases overall readability of the metainfo file."
+msgstr "Os lanzamentos non están ordenados por orde de versión máis recente a máis antiga.Isto é necesario xa que algunhas ferramentas suporán que a versión máis recente está sempre na parte superior.A clasificación das versións tamén aumenta a lexibilidade global do ficheiro metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:932
-msgid ""
-"The type of the releases block is invalid. It needs to either `embedded` "
-"(the default) or `external`."
-msgstr ""
-"O tipo de bloque de versións non é válido. Debe ser `embedded` (o "
-"predeterminado) ou `external`."
+msgid "The type of the releases block is invalid. It needs to either `embedded` (the default) or `external`."
+msgstr "O tipo de bloque de versións non é válido. Debe ser `embedded` (o predeterminado) ou `external`."
 
 #: src/as-validator-issue-tag.h:937
-msgid ""
-"The URL to an external release metadata file is insecure. This is not "
-"allowed, please use HTTPS URLs only."
-msgstr ""
-"O URL dun ficheiro de metadatos de versión externa non é seguro. Isto non "
-"está permitido, utiliza só URL HTTPS."
+msgid "The URL to an external release metadata file is insecure. This is not allowed, please use HTTPS URLs only."
+msgstr "O URL dun ficheiro de metadatos de versión externa non é seguro. Isto non está permitido, utiliza só URL HTTPS."
 
 #: src/as-validator-issue-tag.h:942
 msgid "Failed to download release metadata."
 msgstr "Non foi posíbel descargar os metadatos da publicación."
 
 #: src/as-validator-issue-tag.h:947
-msgid ""
-"A local release metadata file was not found. It is strongly recommended to "
-"validate this metadata together with the main MetaInfo file."
-msgstr ""
-"Non se atopou un ficheiro de metadatos da versión local. Recoméndase "
-"encarecidamente validar estes metadatos xunto co ficheiro MetaInfo principal."
+msgid "A local release metadata file was not found. It is strongly recommended to validate this metadata together with the main MetaInfo file."
+msgstr "Non se atopou un ficheiro de metadatos da versión local. Recoméndase encarecidamente validar estes metadatos xunto co ficheiro MetaInfo principal."
 
 #: src/as-validator-issue-tag.h:953
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
-"O valor definido como urxencia de lanzamento non é un valor de urxencia "
-"coñecido."
+msgstr "O valor definido como urxencia de lanzamento non é un valor de urxencia coñecido."
 
 #: src/as-validator-issue-tag.h:958
 msgid "The value set as release type is invalid."
@@ -3037,21 +2349,13 @@ msgstr "A versión falta a propiedade `version`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:970
-msgid ""
-"The release entry is missing either the `date` (preferred) or the "
-"`timestamp` property."
-msgstr ""
-"Na entrada da versión falta ou ben a propiedade `date` (preferida) ou ben "
-"`timestamp`."
+msgid "The release entry is missing either the `date` (preferred) or the `timestamp` property."
+msgstr "Na entrada da versión falta ou ben a propiedade `date` (preferida) ou ben `timestamp`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:976
-msgid ""
-"The release entry is missing the `date` property. Ensure to add it before "
-"publishing the snapshot release."
-msgstr ""
-"A entrada da versión falta da propiedade `date`. Asegúrate de engadila antes "
-"de publicar a versión instantánea."
+msgid "The release entry is missing the `date` property. Ensure to add it before publishing the snapshot release."
+msgstr "A entrada da versión falta da propiedade `date`. Asegúrate de engadila antes de publicar a versión instantánea."
 
 #: src/as-validator-issue-tag.h:981
 msgid "The release timestamp is invalid."
@@ -3060,38 +2364,24 @@ msgstr "A marca de tempo de publicación non é válida."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:987
 msgid "The release description must be put inside a `description` tag"
-msgstr ""
-"A descrición da versión debe colocarse dentro dunha etiqueta `description`"
+msgstr "A descrición da versión debe colocarse dentro dunha etiqueta `description`"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:993
-msgid ""
-"The value set as artifact type is invalid. Must be either `source` or "
-"`binary`."
-msgstr ""
-"O valor definido como tipo de artefacto non é válido. Debe ser `source` ou "
-"`binary`."
+msgid "The value set as artifact type is invalid. Must be either `source` or `binary`."
+msgstr "O valor definido como tipo de artefacto non é válido. Debe ser `source` ou `binary`."
 
 #: src/as-validator-issue-tag.h:998
 msgid "The value set as artifact bundle type is invalid."
 msgstr "O valor definido como tipo de paquete de artefactos non é válido."
 
 #: src/as-validator-issue-tag.h:1003
-msgid ""
-"The platform triplet for this release is invalid. It must be in the form of "
-"`architecture-oskernel-osenv` - refer to the AppStream documentation or "
-"information on normalized GNU triplets for more information and valid fields."
-msgstr ""
-"O triplete da plataforma para esta versión non é válido.Debe ter a forma de "
-"`architecture-oskernel-osenv` - consulte a documentación de AppStream ou a "
-"información sobre os tripletes de GNU normalizados para obter máis "
-"información e campos válidos."
+msgid "The platform triplet for this release is invalid. It must be in the form of `architecture-oskernel-osenv` - refer to the AppStream documentation or information on normalized GNU triplets for more information and valid fields."
+msgstr "O triplete da plataforma para esta versión non é válido.Debe ter a forma de `architecture-oskernel-osenv` - consulte a documentación de AppStream ou a información sobre os tripletes de GNU normalizados para obter máis información e campos válidos."
 
 #: src/as-validator-issue-tag.h:1010
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
-"O algoritmo de suma de verificación seleccionado non é compatible ou "
-"descoñecido."
+msgstr "O algoritmo de suma de verificación seleccionado non é compatible ou descoñecido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1016
@@ -3099,118 +2389,63 @@ msgid "The size type is unknown. Must be `download` or `installed`."
 msgstr "Descoñécese o tipo de tamaño.Debe estar `download` ou `installed`."
 
 #: src/as-validator-issue-tag.h:1021
-msgid ""
-"The artifact filename must be a file basename, not a (relative or absolute) "
-"path."
-msgstr ""
-"O nome do ficheiro do artefacto debe ser un nome base do ficheiro, non unha "
-"ruta (relativa ou absoluta)."
+msgid "The artifact filename must be a file basename, not a (relative or absolute) path."
+msgstr "O nome do ficheiro do artefacto debe ser un nome base do ficheiro, non unha ruta (relativa ou absoluta)."
 
 #: src/as-validator-issue-tag.h:1026
 msgid "The value set as release issue type is invalid."
 msgstr "O valor definido como tipo de problema de lanzamento non é válido."
 
 #: src/as-validator-issue-tag.h:1031
-msgid ""
-"The issue is tagged at security vulnerability with a CVE number, but its "
-"value does not look like a valid CVE identifier."
-msgstr ""
-"O problema está etiquetado como vulnerabilidade de seguranza cun número CVE, "
-"pero o seu valor non parece un identificador CVE válido."
+msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
+msgstr "O problema está etiquetado como vulnerabilidade de seguranza cun número CVE, pero o seu valor non parece un identificador CVE válido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1037
-msgid ""
-"This component is missing information about releases. Consider adding a "
-"`releases` tag to describe releases and their changes."
-msgstr ""
-"Falta información sobre as versións a este compoñente.Considera engadir unha "
-"etiqueta `releases` para describir as versións e os seus cambios."
+msgid "This component is missing information about releases. Consider adding a `releases` tag to describe releases and their changes."
+msgstr "Falta información sobre as versións a este compoñente.Considera engadir unha etiqueta `releases` para describir as versións e os seus cambios."
 
 #: src/as-validator-issue-tag.h:1042
-msgid ""
-"The AppStream specification requires a complete, ISO 8601 date string with "
-"at least day-granularity to denote dates. Please ensure the date string is "
-"valid."
-msgstr ""
-"A especificación de AppStream require unha cadea de datas ISO 8601 completa "
-"con polo menos granularidade de días para indicar datas. Asegúrate de que a "
-"cadea de data é válida."
+msgid "The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. Please ensure the date string is valid."
+msgstr "A especificación de AppStream require unha cadea de datas ISO 8601 completa con polo menos granularidade de días para indicar datas. Asegúrate de que a cadea de data é válida."
 
 #: src/as-validator-issue-tag.h:1048
-msgid ""
-"This component extends, provides, requires or recommends itself, which is "
-"certainly not intended and may confuse users or machines dealing with this "
-"metadata."
-msgstr ""
-"Este compoñente esténdese, fornece, require ou recoméndase por si mesmo, o "
-"que certamente non está previsto e pode confundir aos usuarios ou ás "
-"máquinas que manexan estes metadatos."
+msgid "This component extends, provides, requires or recommends itself, which is certainly not intended and may confuse users or machines dealing with this metadata."
+msgstr "Este compoñente esténdese, fornece, require ou recoméndase por si mesmo, o que certamente non está previsto e pode confundir aos usuarios ou ás máquinas que manexan estes metadatos."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1055
-msgid ""
-"Licenses for `runtime` components are usually too complex to reflect them in "
-"a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
-"value for this component's `project_license`. E.g. `LicenseRef-free=https://"
-"example.com/licenses.html`"
-msgstr ""
-"As licenzas para os compoñentes de `runtime` adoitan ser demasiado complexas "
-"para reflectilos nunha simple expresión SPDX. Considere usar un `LicenseRef` "
-"e un URL web como valor para a `project_license` deste compoñente. P.ex. "
-"`LicenseRef-free=https://example.com/licenses.html`"
+msgid "Licenses for `runtime` components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL as value for this component's `project_license`. E.g. `LicenseRef-free=https://example.com/licenses.html`"
+msgstr "As licenzas para os compoñentes de `runtime` adoitan ser demasiado complexas para reflectilos nunha simple expresión SPDX. Considere usar un `LicenseRef` e un URL web como valor para a `project_license` deste compoñente. P.ex. `LicenseRef-free=https://example.com/licenses.html`"
 
 #: src/as-validator-issue-tag.h:1061
 #, fuzzy
-msgid ""
-"Since a `runtime` component consists of multiple other software components, "
-"their component-IDs may be listed in a `<provides/>` section for this "
-"runtime."
-msgstr ""
-"Dado que un compoñente «en tempo de execución» está composto por outros "
-"compoñentes de software, os seus ID de compoñente poden estar listados nunha "
-"sección «<provides/>» para este tempo de execución."
+msgid "Since a `runtime` component consists of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime."
+msgstr "Dado que un compoñente «en tempo de execución» está composto por outros compoñentes de software, os seus ID de compoñente poden estar listados nunha sección «<provides/>» para este tempo de execución."
 
 #: src/as-validator-issue-tag.h:1066
-msgid ""
-"The type of the item that the component provides is not known to AppStream."
+msgid "The type of the item that the component provides is not known to AppStream."
 msgstr "AppStream non coñece o tipo de elemento que proporciona o compoñente."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1072
-msgid ""
-"The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
-"`provides` block instead to indicate that your software provides a media "
-"handler for the given types."
-msgstr ""
-"A etiqueta `mimetypes` de nivel superior está obsoleta. Use as etiquetas "
-"`mediatype` nun bloque `provides` no seu lugar para indicar que o seu "
-"software fornece un controlador de medios para os tipos indicados."
+msgid "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead to indicate that your software provides a media handler for the given types."
+msgstr "A etiqueta `mimetypes` de nivel superior está obsoleta. Use as etiquetas `mediatype` nun bloque `provides` no seu lugar para indicar que o seu software fornece un controlador de medios para os tipos indicados."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1079
-msgid ""
-"This component has no `content_rating` tag to provide age rating "
-"information. You can generate the tag data online by answering a few "
-"questions at https://hughsie.github.io/oars/"
-msgstr ""
-"Este compoñente non ten ningunha etiqueta `content_rating` para proporcionar "
-"información de clasificación por idade. Podes xerar os datos da etiqueta en "
-"liña respondendo algunhas preguntas en https://hughsie.github.io/oars/"
+msgid "This component has no `content_rating` tag to provide age rating information. You can generate the tag data online by answering a few questions at https://hughsie.github.io/oars/"
+msgstr "Este compoñente non ten ningunha etiqueta `content_rating` para proporcionar información de clasificación por idade. Podes xerar os datos da etiqueta en liña respondendo algunhas preguntas en https://hughsie.github.io/oars/"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1086
-msgid ""
-"The `type` attribute of this `content_rating` element is missing or empty."
-msgstr ""
-"Falta o atributo `type` deste elemento `content_rating` ou está baleiro."
+msgid "The `type` attribute of this `content_rating` element is missing or empty."
+msgstr "Falta o atributo `type` deste elemento `content_rating` ou está baleiro."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1092
-msgid ""
-"The `type` attribute of the `content_rating` element has an invalid value."
-msgstr ""
-"O atributo `type` do elemento `content_rating` ten un valor non válido."
+msgid "The `type` attribute of the `content_rating` element has an invalid value."
+msgstr "O atributo `type` do elemento `content_rating` ten un valor non válido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1098
@@ -3219,16 +2454,13 @@ msgstr "A etiqueta `content_rating` só pode conter fillos `content_attribute`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1104
-msgid ""
-"The `id` attribute of the `content_attribute` element is missing or empty."
+msgid "The `id` attribute of the `content_attribute` element is missing or empty."
 msgstr "Falta o atributo `id` do elemento `content_attribute` ou está baleiro."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1110
-msgid ""
-"The `id` attribute of the `content_attribute` element has an invalid value."
-msgstr ""
-"O atributo `id` do elemento `content_attribute` ten un valor non válido."
+msgid "The `id` attribute of the `content_attribute` element has an invalid value."
+msgstr "O atributo `id` do elemento `content_attribute` ten un valor non válido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1116
@@ -3243,9 +2475,7 @@ msgstr "O valor da etiqueta `content_attribute` é descoñecido."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1128
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr ""
-"O valor da etiqueta `content_attribute` non é válido para o identificador "
-"indicado."
+msgstr "O valor da etiqueta `content_attribute` non é válido para o identificador indicado."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1134
@@ -3259,12 +2489,8 @@ msgstr "A esta `tag` fáltalle un atributo `namespace`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1146
-msgid ""
-"This tag or its namespace contains invalid characters. Only lower-cased "
-"ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"Esta etiqueta ou o seu espazo de nomes contén caracteres non válidos.Só se "
-"permiten letras ASCII minúsculas, números, puntos, guións e guións baixos."
+msgid "This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."
+msgstr "Esta etiqueta ou o seu espazo de nomes contén caracteres non válidos.Só se permiten letras ASCII minúsculas, números, puntos, guións e guións baixos."
 
 #: src/as-validator-issue-tag.h:1151
 msgid "The type of this color is not valid."
@@ -3276,58 +2502,33 @@ msgstr "O valor desta preferencia de esquema de cores non é válido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1162
-msgid ""
-"The name of the color scheme property is wrong. It should be "
-"`scheme_preference`."
-msgstr ""
-"O nome da propiedade do esquema de cores é incorrecto. Debería ser "
-"`scheme_preference`."
+msgid "The name of the color scheme property is wrong. It should be `scheme_preference`."
+msgstr "O nome da propiedade do esquema de cores é incorrecto. Debería ser `scheme_preference`."
 
 #: src/as-validator-issue-tag.h:1167
 msgid "This color is not a valid HTML color code."
 msgstr "Esta cor non é un código de cor HTML válido."
 
 #: src/as-validator-issue-tag.h:1172
-msgid ""
-"A color for this type/scheme combination was already set. Colors must be "
-"unique per type/scheme."
-msgstr ""
-"Xa se estableceu unha cor para esta combinación de tipo/esquema. As cores "
-"deben ser únicas para cada tipo/esquema."
+msgid "A color for this type/scheme combination was already set. Colors must be unique per type/scheme."
+msgstr "Xa se estableceu unha cor para esta combinación de tipo/esquema. As cores deben ser únicas para cada tipo/esquema."
 
 #: src/as-validator-issue-tag.h:1177
-msgid ""
-"The given DOI (Digital Object Identifier) for this reference item is not "
-"valid."
-msgstr ""
-"O DOI (Identificador de Obxecto Dixital) indicado para este elemento de "
-"referencia non é válido."
+msgid "The given DOI (Digital Object Identifier) for this reference item is not valid."
+msgstr "O DOI (Identificador de Obxecto Dixital) indicado para este elemento de referencia non é válido."
 
 #: src/as-validator-issue-tag.h:1182
-msgid ""
-"The value for this citation reference item must be an URL to a CFF (Citation "
-"File Format) file."
-msgstr ""
-"O valor para este elemento de referencia de citación debe ser unha URL a un "
-"ficheiro en formato CFF (Citation File Format)."
+msgid "The value for this citation reference item must be an URL to a CFF (Citation File Format) file."
+msgstr "O valor para este elemento de referencia de citación debe ser unha URL a un ficheiro en formato CFF (Citation File Format)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1188
-msgid ""
-"This registry reference item is missing the `name` property to denote the "
-"name of the registry it is about."
-msgstr ""
-"A este elemento de referencia do rexistro fáltalle a propiedade `name` para "
-"indicar o nome do rexistro ao que fai referencia."
+msgid "This registry reference item is missing the `name` property to denote the name of the registry it is about."
+msgstr "A este elemento de referencia do rexistro fáltalle a propiedade `name` para indicar o nome do rexistro ao que fai referencia."
 
 #: src/as-validator-issue-tag.h:1193
-msgid ""
-"The registry for this reference item is unknown. This may be due to a typing "
-"error, or the registry needs to be registered with AppStream."
-msgstr ""
-"O rexistro para este elemento de referencia é descoñecido. Isto pode deberse "
-"a un erro tipográfico ou a que o rexistro necesita ser dado de alta en "
-"AppStream."
+msgid "The registry for this reference item is unknown. This may be due to a typing error, or the registry needs to be registered with AppStream."
+msgstr "O rexistro para este elemento de referencia é descoñecido. Isto pode deberse a un erro tipográfico ou a que o rexistro necesita ser dado de alta en AppStream."
 
 #: src/as-validator-issue-tag.h:1199
 msgid "The reference item is missing a value."
@@ -3353,22 +2554,12 @@ msgstr "Este valor personalizado está baleiro."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1227
-msgid ""
-"A `keywords` tag must not be localized in metainfo files (upstream "
-"metadata). Localize the individual keyword entries instead."
-msgstr ""
-"A etiqueta `keywords` non debe ser localizada na metainformación dos "
-"ficheiros (metadatos de upstream). Localice as entradas individuais de "
-"palabras clave no seu lugar."
+msgid "A `keywords` tag must not be localized in metainfo files (upstream metadata). Localize the individual keyword entries instead."
+msgstr "A etiqueta `keywords` non debe ser localizada na metainformación dos ficheiros (metadatos de upstream). Localice as entradas individuais de palabras clave no seu lugar."
 
 #: src/as-validator.c:199
-msgid ""
-"The emitted issue tag is unknown in the tag registry of AppStream. This is a "
-"bug in the validator itself, please report this issue in our bugtracker."
-msgstr ""
-"Descoñécese a etiqueta do problema emitido no rexistro de etiquetas de "
-"AppStream. Este é un erro no propio validador, informe deste problema no "
-"noso rastreador de erros."
+msgid "The emitted issue tag is unknown in the tag registry of AppStream. This is a bug in the validator itself, please report this issue in our bugtracker."
+msgstr "Descoñécese a etiqueta do problema emitido no rexistro de etiquetas de AppStream. Este é un erro no propio validador, informe deste problema no noso rastreador de erros."
 
 #: src/as-validator.c:419
 msgid "URL format is invalid."
@@ -3395,12 +2586,8 @@ msgstr "Non se recoñece a etiqueta do problema '%s'."
 #. whitelisted for that.
 #: src/as-validator.c:711
 #, c-format
-msgid ""
-"It is not allowed to downgrade the severity of tag '%s' to one that allows "
-"validation to pass."
-msgstr ""
-"Non se permite baixar a severidade da etiqueta '%s' a unha que permita pasar "
-"a validación."
+msgid "It is not allowed to downgrade the severity of tag '%s' to one that allows validation to pass."
+msgstr "Non se permite baixar a severidade da etiqueta '%s' a unha que permita pasar a validación."
 
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
@@ -3432,8 +2619,7 @@ msgstr "Mostrar a versión do programa."
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:219
 msgid "Do not use the network at all, not even for URL validity checks."
-msgstr ""
-"Non uses a rede en absoluto, nin sequera para verificar a validez de URL."
+msgstr "Non uses a rede en absoluto, nin sequera para verificar a validez de URL."
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:226
@@ -3462,18 +2648,13 @@ msgstr "Sobrescribir o directorio de saída da icona."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:261
-msgid ""
-"Set the media output directory (for media data to be served by a webserver)."
-msgstr ""
-"Establece o directorio de saída multimedia (para que os datos multimedia "
-"sexan servidos por un servidor web)."
+msgid "Set the media output directory (for media data to be served by a webserver)."
+msgstr "Establece o directorio de saída multimedia (para que os datos multimedia sexan servidos por un servidor web)."
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:268
 msgid "Set a directory where HTML and text issue reports will be stored."
-msgstr ""
-"Establece un directorio onde se almacenarán os informes de problemas de "
-"texto e HTML."
+msgstr "Establece un directorio onde se almacenarán os informes de problemas de texto e HTML."
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:275
@@ -3487,30 +2668,18 @@ msgstr "Establece o URL onde se aloxará o contido multimedia exportado."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:289
-msgid ""
-"Makes all URLs in output data complete URLs and avoids the use of a shared "
-"URL prefix for all metadata."
-msgstr ""
-"Fai que todos os URL dos datos de saída sexan URL completos e evita o uso "
-"dun prefixo de URL compartido para todos os metadatos."
+msgid "Makes all URLs in output data complete URLs and avoids the use of a shared URL prefix for all metadata."
+msgstr "Fai que todos os URL dos datos de saída sexan URL completos e evita o uso dun prefixo de URL compartido para todos os metadatos."
 
 #. TRANSLATORS: ascompose flag description for: --icon-policy
 #: tools/appstream-compose.c:296
-msgid ""
-"An icon-policy string to set how icon sizes should be handled (refer to the "
-"man page for details)."
-msgstr ""
-"Unha cadea de política de iconas para definir como se deben xestionar os "
-"tamaños das iconas (consulta a páxina do manual para máis detalles)."
+msgid "An icon-policy string to set how icon sizes should be handled (refer to the man page for details)."
+msgstr "Unha cadea de política de iconas para definir como se deben xestionar os tamaños das iconas (consulta a páxina do manual para máis detalles)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:303
-msgid ""
-"A comma-separated list of custom keys that should be propagated to the "
-"output data."
-msgstr ""
-"Unha lista de claves personalizadas separadas por comas que deben ser "
-"propagadas aos datos de saída."
+msgid "A comma-separated list of custom keys that should be propagated to the output data."
+msgstr "Unha lista de claves personalizadas separadas por comas que deben ser propagadas aos datos de saída."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
@@ -3548,22 +2717,18 @@ msgid ""
 msgstr ""
 "Valor non válido para a opción `--print-report`: %s\n"
 "Os valores posibles son:\n"
-"`on-error` - só imprime un informe breve se a execución fallou "
-"(predeterminado)\n"
+"`on-error` - só imprime un informe breve se a execución fallou (predeterminado)\n"
 "`short` - xera un informe abreviado\n"
 "`full` - imprimirase un informe detallado"
 
 #: tools/appstream-compose.c:394
 #, c-format
 msgid "Automatically selected '%s' as data output location."
-msgstr ""
-"Seleccionouse automaticamente '%s' como localización de saída de datos."
+msgstr "Seleccionouse automaticamente '%s' como localización de saída de datos."
 
 #: tools/appstream-compose.c:399
 msgid "No destination directory set, please provide a data output location!"
-msgstr ""
-"Non se definiu ningún directorio de destino, proporcione unha localización "
-"de saída de datos!"
+msgstr "Non se definiu ningún directorio de destino, proporcione unha localización de saída de datos!"
 
 #: tools/appstream-compose.c:412 tools/appstream-compose.c:414
 msgid "WARNING"
@@ -3620,12 +2785,8 @@ msgid "Errors were raised during this compose run:"
 msgstr "Producíronse erros durante esta execución de redacción:"
 
 #: tools/appstream-compose.c:522
-msgid ""
-"Refer to the generated issue report data for details on the individual "
-"problems."
-msgstr ""
-"Consulte os datos do informe de problemas xerados para obter detalles sobre "
-"os problemas individuais."
+msgid "Refer to the generated issue report data for details on the individual problems."
+msgstr "Consulte os datos do informe de problemas xerados para obter detalles sobre os problemas individuais."
 
 #: tools/appstream-compose.c:526
 msgid "Overview of generated hints:"
@@ -3644,22 +2805,17 @@ msgstr "Estabelecer manualmente a localización da caché de AppStream."
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstreamcli.c:69
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr ""
-"Estabelecer manualmente a localización do metadato de AppStream para "
-"analizar."
+msgstr "Estabelecer manualmente a localización do metadato de AppStream para analizar."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:75
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
-"Ignora a idade da caché e crea unha nova caché antes de realizar a consulta."
+msgstr "Ignora a idade da caché e crea unha nova caché antes de realizar a consulta."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:91
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Formato de metadatos predeterminado (os valores válidos son \"xml\" e "
-"\"yaml\")."
+msgstr "Formato de metadatos predeterminado (os valores válidos son \"xml\" e \"yaml\")."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstreamcli.c:107
@@ -3683,17 +2839,13 @@ msgstr "Non usar o acceso á rede."
 
 #. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
 #: tools/appstreamcli.c:149
-msgid ""
-"Fail validation if any issue is emitted that is not of pedantic severity."
-msgstr ""
-"Produciuse un fallo na validación se se emite algún problema que non sexa de "
-"gravidade pedante."
+msgid "Fail validation if any issue is emitted that is not of pedantic severity."
+msgstr "Produciuse un fallo na validación se se emite algún problema que non sexa de gravidade pedante."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:155
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr ""
-"Formato do informe xerado (os valores válidos son \"text\" e \"yaml\")."
+msgstr "Formato do informe xerado (os valores válidos son \"text\" e \"yaml\")."
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:161
@@ -3719,18 +2871,12 @@ msgstr "A opción '%s' é descoñecida."
 #: tools/appstreamcli.c:223 tools/appstreamcli.c:1573
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Execute '%s --help' para ver a lista completa de opcións de liña de ordes "
-"dispoñíbeis."
+msgstr "Execute '%s --help' para ver a lista completa de opcións de liña de ordes dispoñíbeis."
 
 #: tools/appstreamcli.c:227
 #, c-format
-msgid ""
-"Run '%s --help' to see a list of available commands and options, and '%s %s "
-"--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Execute '%s --help' para ver a lista completa de comandos e opcións, e '%s "
-"%s --help' para ver a lista de opcións específica para este subcomando."
+msgid "Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."
+msgstr "Execute '%s --help' para ver a lista completa de comandos e opcións, e '%s %s --help' para ver a lista de opcións específica para este subcomando."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:282
@@ -3739,32 +2885,22 @@ msgstr "Forzar a actualización da caché."
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
 #: tools/appstreamcli.c:288
-msgid ""
-"Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
-"May be specified multiple times."
-msgstr ""
-"Limite a actualización da caché aos datos dunha fonte específica, p. ex.`os` "
-"ou `flatpak`.Pode especificarse varias veces."
+msgid "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."
+msgstr "Limite a actualización da caché aos datos dunha fonte específica, p. ex.`os` ou `flatpak`.Pode especificarse varias veces."
 
 #: tools/appstreamcli.c:546
-msgid ""
-"No license, license expression or license exception string was provided."
-msgstr ""
-"Non se proporcionou ningunha licenza, expresión de licenza ou cadea de "
-"excepción de licenza."
+msgid "No license, license expression or license exception string was provided."
+msgstr "Non se proporcionou ningunha licenza, expresión de licenza ou cadea de excepción de licenza."
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
 #: tools/appstreamcli.c:595
 msgid "Print more detailed output on why incompatibilities exist."
-msgstr ""
-"Mostra unha saída máis detallada sobre os motivos das incompatibilidades."
+msgstr "Mostra unha saída máis detallada sobre os motivos das incompatibilidades."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:632
 msgid "Set the data origin for the installed metadata catalog file."
-msgstr ""
-"Establece a orixe dos datos para o ficheiro de catálogo de metadatos "
-"instalado."
+msgstr "Establece a orixe dos datos para o ficheiro de catálogo de metadatos instalado."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:638
@@ -3773,37 +2909,22 @@ msgstr "Instala o ficheiro para o usuario actual, en lugar de globalmente."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:666
-msgid ""
-"Limit the command to use only components from the given bundling system "
-"(`flatpak` or `package`)."
-msgstr ""
-"Limite o comando para usar só compoñentes do sistema de agrupación indicado "
-"(`flatpak` ou `package`)."
+msgid "Limit the command to use only components from the given bundling system (`flatpak` or `package`)."
+msgstr "Limite o comando para usar só compoñentes do sistema de agrupación indicado (`flatpak` ou `package`)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:673
-msgid ""
-"Do not ask for which software component should be used and always choose the "
-"first entry."
-msgstr ""
-"Non pregunte por que compoñente de software debe utilizarse e escolle sempre "
-"a primeira entrada."
+msgid "Do not ask for which software component should be used and always choose the first entry."
+msgstr "Non pregunte por que compoñente de software debe utilizarse e escolle sempre a primeira entrada."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:707 tools/appstreamcli.c:742
-msgid ""
-"No valid bundle kind was specified. Only `package` and `flatpak` are "
-"currently recognized."
-msgstr ""
-"Non se especificou ningún tipo de paquete válido.Actualmente só se recoñecen "
-"`package` e `flatpak`."
+msgid "No valid bundle kind was specified. Only `package` and `flatpak` are currently recognized."
+msgstr "Non se especificou ningún tipo de paquete válido.Actualmente só se recoñecen `package` e `flatpak`."
 
 #: tools/appstreamcli.c:836
-msgid ""
-"You need to provide at least two version numbers to compare as parameters."
-msgstr ""
-"Debes proporcionar polo menos dous números de versión para comparar como "
-"parámetros."
+msgid "You need to provide at least two version numbers to compare as parameters."
+msgstr "Debes proporcionar polo menos dous números de versión para comparar como parámetros."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:865
@@ -3812,28 +2933,17 @@ msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Relación de comparación descoñecida '%s'. Os valores válidos son:"
 
 #: tools/appstreamcli.c:906
-msgid ""
-"Too many parameters: Need two version numbers or version numbers and a "
-"comparison operator."
-msgstr ""
-"Demasiados parámetros: precisan dous números de versión ou números de "
-"versión e un operador de comparación."
+msgid "Too many parameters: Need two version numbers or version numbers and a comparison operator."
+msgstr "Demasiados parámetros: precisan dous números de versión ou números de versión e un operador de comparación."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:932
-msgid ""
-"Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
-"Use o ficheiro .desktop indicado para cubrir os valores básicos do ficheiro "
-"metainfo."
+msgid "Use the given .desktop file to fill in the basic values of the metainfo file."
+msgstr "Use o ficheiro .desktop indicado para cubrir os valores básicos do ficheiro metainfo."
 
 #: tools/appstreamcli.c:940
-msgid ""
-"This command takes optional TYPE and FILE positional arguments, FILE being a "
-"file to write to (or \"-\" for standard output)."
-msgstr ""
-"Este comando toma argumentos de posición opcionais TYPE e FILE, sendo FILE "
-"un ficheiro no que escribir (ou \"-\" para a saída estándar)."
+msgid "This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."
+msgstr "Este comando toma argumentos de posición opcionais TYPE e FILE, sendo FILE un ficheiro no que escribir (ou \"-\" para a saída estándar)."
 
 #: tools/appstreamcli.c:944
 #, c-format
@@ -3843,42 +2953,26 @@ msgstr "O TIPO debe ser un tipo de compoñente válido, como: %s"
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstreamcli.c:982
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
-msgstr ""
-"Use a liña especificada para a clave 'Exec=' do ficheiro de entrada de "
-"escritorio."
+msgstr "Use a liña especificada para a clave 'Exec=' do ficheiro de entrada de escritorio."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1022
-msgid ""
-"Assume the input file is in the selected format ('yaml', 'text' or "
-"'markdown')."
-msgstr ""
-"Supoña que o ficheiro de entrada está no formato seleccionado ('yaml', "
-"'text' ou 'markdown')."
+msgid "Assume the input file is in the selected format ('yaml', 'text' or 'markdown')."
+msgstr "Supoña que o ficheiro de entrada está no formato seleccionado ('yaml', 'text' ou 'markdown')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1029
-msgid ""
-"Limit the number of release entries that end up in the metainfo file (<= 0 "
-"for unlimited)."
-msgstr ""
-"Limite o número de entradas de versión que acaban no ficheiro metainfo (<= 0 "
-"para ilimitado)."
+msgid "Limit the number of release entries that end up in the metainfo file (<= 0 for unlimited)."
+msgstr "Limite o número de entradas de versión que acaban no ficheiro metainfo (<= 0 para ilimitado)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1036
-msgid ""
-"Set the number of releases that should have descriptions marked for "
-"translation (latest releases are translated first, -1 for unlimited)."
-msgstr ""
-"Establece o número de lanzamentos que deberían ter descricións marcadas para "
-"a tradución (primeiro tradúcense as últimas versións, -1 para o número "
-"ilimitado)."
+msgid "Set the number of releases that should have descriptions marked for translation (latest releases are translated first, -1 for unlimited)."
+msgstr "Establece o número de lanzamentos que deberían ter descricións marcadas para a tradución (primeiro tradúcense as últimas versións, -1 para o número ilimitado)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1081
-msgid ""
-"Generate the output in the selected format ('yaml', 'text' or 'markdown')."
+msgid "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "Xera a saída no formato seleccionado ('yaml', 'text' ou 'markdown')."
 
 #: tools/appstreamcli.c:1126
@@ -3919,20 +3013,13 @@ msgid "Subcommands:"
 msgstr "Subcomandos:"
 
 #: tools/appstreamcli.c:1308
-msgid ""
-"You can find information about subcommand-specific options by passing \"--"
-"help\" to the subcommand."
-msgstr ""
-"Podes atopar información sobre opcións específicas do subcomando pasando \"--"
-"help\" ao subcomando."
+msgid "You can find information about subcommand-specific options by passing \"--help\" to the subcommand."
+msgstr "Podes atopar información sobre opcións específicas do subcomando pasando \"--help\" ao subcomando."
 
 #: tools/appstreamcli.c:1332
 #, c-format
-msgid ""
-"Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Comando '%s' descoñecido. Execute '%s --help' para ver a lista de comandos "
-"dispoñíbeis."
+msgid "Command '%s' is unknown. Run '%s --help' for a list of available commands."
+msgstr "Comando '%s' descoñecido. Execute '%s --help' para ver a lista de comandos dispoñíbeis."
 
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstreamcli.c:1374
@@ -3951,13 +3038,8 @@ msgstr "Obter información sobre un compoñente polo seu ID."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
 #: tools/appstreamcli.c:1403
-msgid ""
-"Get components which provide the given item. Needs an item type (e.g. lib, "
-"bin, python3, …) and item value as parameter."
-msgstr ""
-"Obter compoñentes que proporcionan o elemento dado.Necesita un tipo de "
-"elemento (por exemplo, lib, bin, python3, …) e un valor de elemento como "
-"parámetro."
+msgid "Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."
+msgstr "Obter compoñentes que proporcionan o elemento dado.Necesita un tipo de elemento (por exemplo, lib, bin, python3, …) e un valor de elemento como parámetro."
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1411
@@ -3982,9 +3064,7 @@ msgstr "Valide os ficheiros XML de AppStream para detectar problemas."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1443
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Validar unha árbore de ficheiros instalada dunha aplicación para obter "
-"metadatos válidos."
+msgstr "Validar unha árbore de ficheiros instalada dunha aplicación para obter metadatos válidos."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1451
@@ -3993,21 +3073,13 @@ msgstr "Comprobe a validez da cadea de licenza e imprima detalles sobre ela."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1459
-msgid ""
-"Check if requirements of a component (via its ID or MetaInfo file) are "
-"satisfied on this system."
-msgstr ""
-"Comproba se os requisitos dun compoñente (a través do seu ID ou ficheiro "
-"MetaInfo) se cumpren neste sistema."
+msgid "Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."
+msgstr "Comproba se os requisitos dun compoñente (a través do seu ID ou ficheiro MetaInfo) se cumpren neste sistema."
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
 #: tools/appstreamcli.c:1467
-msgid ""
-"Check compatibility of a component (via its ID or MetaInfo file) with common "
-"system and chassis types."
-msgstr ""
-"Verifica a compatibilidade dun compoñente (a través do seu ID ou ficheiro "
-"MetaInfo) cos tipos de sistema e chasis máis comúns."
+msgid "Check compatibility of a component (via its ID or MetaInfo file) with common system and chassis types."
+msgstr "Verifica a compatibilidade dun compoñente (a través do seu ID ou ficheiro MetaInfo) cos tipos de sistema e chasis máis comúns."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1476
@@ -4022,15 +3094,12 @@ msgstr "Elimina o software que coincida co ID de compoñente."
 #. TRANSLATORS: `appstreamcli status` command description.
 #: tools/appstreamcli.c:1491
 msgid "Display status information about available AppStream metadata."
-msgstr ""
-"Mostra información de estado sobre os metadatos de AppStream dispoñibles."
+msgstr "Mostra información de estado sobre os metadatos de AppStream dispoñibles."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1499
 msgid "Show information about the current device and used operating system."
-msgstr ""
-"Mostra información sobre o dispositivo actual e o sistema operativo "
-"utilizado."
+msgstr "Mostra información sobre o dispositivo actual e o sistema operativo utilizado."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1507
@@ -4049,18 +3118,13 @@ msgstr "Comparar dous números de versión."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
 #: tools/appstreamcli.c:1531
-msgid ""
-"Create a template for a metainfo file (to be filled out by the upstream "
-"project)."
-msgstr ""
-"Cree un modelo para un ficheiro de metainformación (que debe cubrir o "
-"proxecto upstream)."
+msgid "Create a template for a metainfo file (to be filled out by the upstream project)."
+msgstr "Cree un modelo para un ficheiro de metainformación (que debe cubrir o proxecto upstream)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1539
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr ""
-"Crea un ficheiro de entrada de escritorio a partir dun ficheiro de metainfo."
+msgstr "Crea un ficheiro de entrada de escritorio a partir dun ficheiro de metainfo."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstreamcli.c:1547
@@ -4070,15 +3134,12 @@ msgstr "Converte un ficheiro YAML ou NEWS de texto en versións de metainfo."
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
 #: tools/appstreamcli.c:1555
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr ""
-"Escribe texto NEWS ou ficheiro YAML con información dun ficheiro de metainfo."
+msgstr "Escribe texto NEWS ou ficheiro YAML con información dun ficheiro de metainfo."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1563
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr ""
-"Redactar un catálogo de metadatos de AppStream a partir de árbores de "
-"directorios."
+msgstr "Redactar un catálogo de metadatos de AppStream a partir de árbores de directorios."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1571
@@ -4091,8 +3152,7 @@ msgstr "Só se actualiza a caché de metadatos específica do usuario actual."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
-"Actualizando a caché de metadatos do software para o sistema operativo."
+msgstr "Actualizando a caché de metadatos do software para o sistema operativo."
 
 #: tools/ascli-actions-mdata.c:66
 msgid "Updating software metadata cache for Flatpak."
@@ -4105,8 +3165,7 @@ msgstr "Non existe un grupo de fontes de metadatos co nome '%s'!"
 
 #: tools/ascli-actions-mdata.c:98
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
-"É posible que necesites permisos de superusuario para realizar esta acción."
+msgstr "É posible que necesites permisos de superusuario para realizar esta acción."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:106
@@ -4148,9 +3207,7 @@ msgstr "Non se definiu ningún valor para o elemento a buscar."
 
 #: tools/ascli-actions-mdata.c:214
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
-"Tipo non válido para o elemento proporcionado seleccionado.Os valores "
-"válidos son:"
+msgstr "Tipo non válido para o elemento proporcionado seleccionado.Os valores válidos son:"
 
 #: tools/ascli-actions-mdata.c:230
 #, c-format
@@ -4186,31 +3243,19 @@ msgid "Metadata file '%s' does not exist."
 msgstr "O ficheiro de metadatos '%s' non existe."
 
 #: tools/ascli-actions-mdata.c:433
-msgid ""
-"Unable to convert file: Could not determine output format, please set it "
-"explicitly using '--format='."
-msgstr ""
-"Non foi posíbel converter o ficheiro: non se puido determinar o formato de "
-"saída, configúrao explícitamente usando '--format='."
+msgid "Unable to convert file: Could not determine output format, please set it explicitly using '--format='."
+msgstr "Non foi posíbel converter o ficheiro: non se puido determinar o formato de saída, configúrao explícitamente usando '--format='."
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
 #: tools/ascli-actions-mdata.c:481
-msgid ""
-"You need to give an AppStream software component type to generate a "
-"template. Possible values are:"
-msgstr ""
-"Debe dar un tipo de compoñente de software AppStream para xerar un modelo.Os "
-"valores posibles son:"
+msgid "You need to give an AppStream software component type to generate a template. Possible values are:"
+msgstr "Debe dar un tipo de compoñente de software AppStream para xerar un modelo.Os valores posibles son:"
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
 #: tools/ascli-actions-mdata.c:484
 #, c-format
-msgid ""
-"The software component type '%s' is not valid in AppStream. Possible values "
-"are:"
-msgstr ""
-"O tipo de compoñente de software '%s' non é válido en AppStream.Os valores "
-"posibles son:"
+msgid "The software component type '%s' is not valid in AppStream. Possible values are:"
+msgstr "O tipo de compoñente de software '%s' non é válido en AppStream.Os valores posibles son:"
 
 #: tools/ascli-actions-mdata.c:504
 #, c-format
@@ -4233,12 +3278,8 @@ msgid "Unable to save the template metainfo file: %s"
 msgstr "Non foi posíbel gardar o ficheiro de metainformación do modelo: %s"
 
 #: tools/ascli-actions-mdata.c:650
-msgid ""
-"Unable to check display size: Can not read information without GUI toolkit "
-"access."
-msgstr ""
-"Non se puido comprobar o tamaño da pantalla: non se pode ler a información "
-"sen o acceso ao kit de ferramentas da GUI."
+msgid "Unable to check display size: Can not read information without GUI toolkit access."
+msgstr "Non se puido comprobar o tamaño da pantalla: non se pode ler a información sen o acceso ao kit de ferramentas da GUI."
 
 #: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
 msgid "ERROR"
@@ -4378,44 +3419,31 @@ msgid "You need to specify a metainfo file as input."
 msgstr "Debe especificar cando menos un ficheiro a validar!"
 
 #: tools/ascli-actions-misc.c:123
-msgid ""
-"You need to specify a desktop-entry file to create or augment as output."
+msgid "You need to specify a desktop-entry file to create or augment as output."
 msgstr "Debe especificar cando menos un ficheiro a validar!"
 
 #: tools/ascli-actions-misc.c:152
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
-"Aumentando o ficheiro de entrada de escritorio existente '%s' cos datos de "
-"'%s'."
+msgstr "Aumentando o ficheiro de entrada de escritorio existente '%s' cos datos de '%s'."
 
 #: tools/ascli-actions-misc.c:161
 #, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr ""
-"Non se puido cargar o modelo de ficheiro de entrada de escritorio existente: "
-"%s"
+msgstr "Non se puido cargar o modelo de ficheiro de entrada de escritorio existente: %s"
 
 #: tools/ascli-actions-misc.c:166
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
-"Creando un novo ficheiro de entrada de escritorio '%s' usando datos de '%s'"
+msgstr "Creando un novo ficheiro de entrada de escritorio '%s' usando datos de '%s'"
 
 #: tools/ascli-actions-misc.c:226
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr ""
-"Non se proporcionou ningún nome de icona de accións no ficheiro de "
-"metainformación.Non se pode continuar."
+msgstr "Non se proporcionou ningún nome de icona de accións no ficheiro de metainformación.Non se pode continuar."
 
 #: tools/ascli-actions-misc.c:250
-msgid ""
-"No provided binary specified in metainfo file, and no exec command specified "
-"via '--exec'. Can not create 'Exec=' key."
-msgstr ""
-"Non se especifica ningún binario proporcionado no ficheiro metainfo e non se "
-"especifica ningún comando exec mediante '--exec'. Non se pode crear a chave "
-"\"Exec=\"."
+msgid "No provided binary specified in metainfo file, and no exec command specified via '--exec'. Can not create 'Exec=' key."
+msgstr "Non se especifica ningún binario proporcionado no ficheiro metainfo e non se especifica ningún comando exec mediante '--exec'. Non se pode crear a chave \"Exec=\"."
 
 #: tools/ascli-actions-misc.c:330
 #, c-format
@@ -4427,23 +3455,16 @@ msgid "You need to specify a NEWS file as input."
 msgstr "Debe especificar cando menos un ficheiro a validar!"
 
 #: tools/ascli-actions-misc.c:362
-msgid ""
-"You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr ""
-"Debes especificar un ficheiro metainfo para ampliar, ou '-' para imprimir en "
-"saída estándar."
+msgid "You need to specify a metainfo file to augment, or '-' to print to stdout."
+msgstr "Debes especificar un ficheiro metainfo para ampliar, ou '-' para imprimir en saída estándar."
 
 #: tools/ascli-actions-misc.c:368
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr ""
-"Non se especificou ningún nome de ficheiro de saída, modificando "
-"directamente o ficheiro metainfo."
+msgstr "Non se especificou ningún nome de ficheiro de saída, modificando directamente o ficheiro metainfo."
 
 #: tools/ascli-actions-misc.c:468
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr ""
-"Debes especificar un ficheiro NEWS como saída, ou '-' para imprimir en saída "
-"estándar."
+msgstr "Debes especificar un ficheiro NEWS como saída, ou '-' para imprimir en saída estándar."
 
 #: tools/ascli-actions-misc.c:496
 msgid "You need to specify a NEWS format to write the output in."
@@ -4523,12 +3544,8 @@ msgstr "non"
 
 #: tools/ascli-actions-pkgmgr.c:53
 #, fuzzy
-msgid ""
-"No suitable package manager tool found. Please make sure that e.g. "
-"\"pkgcli\" (part of PackageKit) is available."
-msgstr ""
-"Non se atopou ningunha CLI do xestor de paquetes axeitado.Asegúrese de que, "
-"por exemplo,\"pkcon\" (parte de PackageKit) está dispoñible."
+msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
+msgstr "Non se atopou ningunha CLI do xestor de paquetes axeitado.Asegúrese de que, por exemplo,\"pkcon\" (parte de PackageKit) está dispoñible."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -4547,9 +3564,7 @@ msgstr "Non foi posible iniciar o proceso Flatpak: %s"
 #: tools/ascli-actions-pkgmgr.c:154
 #, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr ""
-"Non foi posíbel atopar compoñentes co identificador '%s' e os filtros "
-"seleccionados!"
+msgstr "Non foi posíbel atopar compoñentes co identificador '%s' e os filtros seleccionados!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
@@ -4578,12 +3593,8 @@ msgstr "O compoñente '%s' non ten ningún candidato para a instalación."
 #. (tag is an issue tag, severity is the desired severity that it should be set to).
 #: tools/ascli-actions-validate.c:259
 #, c-format
-msgid ""
-"The format of validator issue override '%s' is invalid (should be "
-"'tag=severity')"
-msgstr ""
-"O formato da anulación do problema do validador '%s' non é válido (debe ser "
-"'tag=gravedade')"
+msgid "The format of validator issue override '%s' is invalid (should be 'tag=severity')"
+msgstr "O formato da anulación do problema do validador '%s' non é válido (debe ser 'tag=gravedade')"
 
 #: tools/ascli-actions-validate.c:268
 #, c-format
@@ -4631,12 +3642,10 @@ msgstr "Non foi posible engadir o ficheiro de metadatos da versión: %s"
 #: tools/ascli-actions-validate.c:416
 msgid ""
 "You need to specify at least one MetaInfo file to validate.\n"
-"Release metadata files can currently not be validated without their "
-"accompanying MetaInfo file."
+"Release metadata files can currently not be validated without their accompanying MetaInfo file."
 msgstr ""
 "Debe especificar polo menos un ficheiro MetaInfo para validar.\n"
-"Actualmente non se poden validar os ficheiros de metadatos da versión sen o "
-"ficheiro MetaInfo que o acompaña."
+"Actualmente non se poden validar os ficheiros de metadatos da versión sen o ficheiro MetaInfo que o acompaña."
 
 #: tools/ascli-actions-validate.c:444 tools/ascli-actions-validate.c:577
 msgid "Validation was successful."
@@ -4654,12 +3663,8 @@ msgstr "Fallou a validación: %s"
 
 #: tools/ascli-actions-validate.c:526 tools/ascli-actions-validate.c:647
 #, c-format
-msgid ""
-"The validator can not create reports in the '%s' format. You may select "
-"'yaml' or 'text' instead."
-msgstr ""
-"O validador non pode crear informes no formato '%s'. Podes seleccionar "
-"\"yaml\" ou 'text' no seu lugar."
+msgid "The validator can not create reports in the '%s' format. You may select 'yaml' or 'text' instead."
+msgstr "O validador non pode crear informes no formato '%s'. Podes seleccionar \"yaml\" ou 'text' no seu lugar."
 
 #: tools/ascli-actions-validate.c:551 tools/ascli-actions-validate.c:633
 msgid "You need to specify a root directory to start validation!"
