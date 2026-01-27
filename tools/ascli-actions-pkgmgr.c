@@ -46,11 +46,11 @@ exec_pm_action (const gchar *action, gchar **pkgnames)
 		exe = "/usr/bin/apt";
 #endif
 	if (exe == NULL) {
-		if (g_file_test ("/usr/bin/pkcon", G_FILE_TEST_EXISTS)) {
-			exe = "/usr/bin/pkcon";
+		if (g_file_test ("/usr/bin/pkgcli", G_FILE_TEST_EXISTS)) {
+			exe = "/usr/bin/pkgcli";
 		} else {
 			g_printerr ("%s\n",
-				    _("No suitable package manager CLI found. Please make sure that e.g. \"pkcon\" (part of PackageKit) is available."));
+				    _("No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."));
 			return ASCLI_EXIT_CODE_FAILED;
 		}
 	}
