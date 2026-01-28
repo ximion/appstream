@@ -5,7 +5,7 @@
 # Translators:
 # sebras <sebras@gmail.com>, 2015-2016.
 # Josef Andersson <l10nl18nsweja@gmail.com>, 2015, 2017.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2021, 2022, 2023, 2024, 2025.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2021, 2022, 2023, 2024, 2025, 2026.
 # Mattias Münster <mattiasmun@gmail.com>, 2019.
 # #-#-#-#-#  sv.po (appstream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
@@ -15,9 +15,9 @@
 # sebras <sebras@gmail.com>, 2015-2016
 # Göran Uddeborg <goeran@uddeborg.se>, 2016. #zanata
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2017. #zanata, 2021, 2022, 2023, 2024, 2025.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2017. #zanata, 2021, 2022, 2023, 2024, 2025, 2026.
 # Göran Uddeborg <goeran@uddeborg.se>, 2018. #zanata
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019. #zanata, 2021, 2022, 2023, 2024, 2025.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019. #zanata, 2021, 2022, 2023, 2024, 2025, 2026.
 # Ulf Lundh <ulf@lundh.me>, 2020.
 # Luna Jernberg <droidbittin@gmail.com>, 2022.
 # Kristoffer Grundström <swedishsailfishosuser@tutanota.com>, 2024.
@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-27 11:34+0100\n"
-"PO-Revision-Date: 2025-09-17 08:02+0000\n"
+"PO-Revision-Date: 2026-01-28 01:01+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
@@ -37,7 +37,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -3550,9 +3550,8 @@ msgid "no"
 msgstr "nej"
 
 #: tools/ascli-actions-pkgmgr.c:53
-#, fuzzy
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
-msgstr "Inget lämpligt CLI för pakethanterare hittades. Säkerställ att t.ex. ”pkcon” (en del av PackageKit) finns tillgänglig."
+msgstr "Inget lämpligt pakethanterarverktyg hittades. Säkerställ att t.ex. ”pkgcli” (en del av PackageKit) finns tillgängligt."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
