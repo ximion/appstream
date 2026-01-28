@@ -3,14 +3,14 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
-# Martin Srebotnjak <miles@filmsi.net>, 2015, 2024, 2025.
+# Martin Srebotnjak <miles@filmsi.net>, 2015, 2024, 2025, 2026.
 # Bojan <Bojanzinko@gmail.com>, 2019, 2021.
 # Klemen Skerbiš <klemen.skerbis1@gmail.com>, 2020, 2021.
 # #-#-#-#-#  sl.po (appstream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Martin Srebotnjak <miles@filmsi.net>, 2015, 2024, 2025.
+# Martin Srebotnjak <miles@filmsi.net>, 2015, 2024, 2025, 2026.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 #
 # Translators:
@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-27 11:34+0100\n"
-"PO-Revision-Date: 2025-09-17 08:02+0000\n"
+"PO-Revision-Date: 2026-01-28 01:01+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
 "Language: sl\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -3540,9 +3540,8 @@ msgid "no"
 msgstr "ne"
 
 #: tools/ascli-actions-pkgmgr.c:53
-#, fuzzy
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
-msgstr "Ni bilo mogoče najti ustreznega CLI-ja upravitelja paketov. Prepričajte se, da je na voljo npr. »pkcon« (del PackageKit-a)."
+msgstr "Ni bilo mogoče najti ustreznega orodja upravitelja paketov. Prepričajte se, da je na voljo npr. »pkgcli« (del PackageKit-a)."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
