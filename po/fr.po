@@ -32,7 +32,7 @@
 # Maxime Leroy <lisacintosh@gmail.com>, 2022.
 # ALIENOR PICAUD <alienor.picaud@orange.fr>, 2022.
 # ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>, 2024.
-# Léane GRASSER <leane.grasser@proton.me>, 2025.
+# Léane GRASSER <leane.grasser@proton.me>, 2025, 2026.
 #
 # Translators:
 msgid ""
@@ -40,7 +40,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-27 11:34+0100\n"
-"PO-Revision-Date: 2025-09-17 21:01+0000\n"
+"PO-Revision-Date: 2026-01-28 01:01+0000\n"
 "Last-Translator: Léane GRASSER <leane.grasser@proton.me>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
@@ -48,7 +48,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -3561,9 +3561,8 @@ msgid "no"
 msgstr "non"
 
 #: tools/ascli-actions-pkgmgr.c:53
-#, fuzzy
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
-msgstr "Aucun gestionnaire de paquet en ligne de commande approprié n’a été trouvé. Veuillez vérifier par exemple que « pkcon » (faisant partie de PackageKit) est disponible."
+msgstr "Aucun gestionnaire de paquets en ligne de commande approprié n’a été trouvé. Assurez-vous par exemple que \"pkgcli\" (faisant partie de PackageKit) est bien disponible."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
