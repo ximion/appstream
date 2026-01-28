@@ -2,8 +2,8 @@ AppStream Release Notes
 
 1. Set variables
 
-OLD_VERSION="1.1.1"
-NEW_VERSION="1.1.2"
+OLD_VERSION="1.1.2"
+NEW_VERSION="1.1.3"
 
 2. Ensure translations are synced from Weblate
 
@@ -12,9 +12,9 @@ NEW_VERSION="1.1.2"
 git shortlog v$OLD_VERSION.. | grep -i -v -E '^\s*(trivial:|l10n:)' | grep -v Merge > NEWS.new
 
 --------------------------------------------------------------------------------
-Version 1.1.2
+Version 1.1.3
 ~~~~~~~~~~~~~
-Released: 2025-xx-xx
+Released: 2026-xx-xx
 
 Notes:
 
@@ -33,15 +33,14 @@ Contributors:
 
 git commit -a -m "Release version $NEW_VERSION"
 git tag -s -f -m "Release $NEW_VERSION" v$NEW_VERSION <gpg password>
-git push --tags
-git push
+git push && git push --tags
 
 5. run './release.sh --version=$NEW_VERSION --git-tag=v$NEW_VERSION --sign'
 
-6. Upload tarball: scp -r *.tar.xz* annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/releases/
+6. Upload tarball: scp -r *.tar.xz* mak@annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/releases/
 
 7. Upload documentation:
-   scp -r build/release_install/usr/local/share/doc/appstream/html/* annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/docs/
+   scp -r build/release_install/usr/local/share/doc/appstream/html/* mak@annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/docs/
 
 8. Do post release version bump in meson.build, RELEASE
 
@@ -53,7 +52,7 @@ git push
 10. Send an email to appstream@lists.freedesktop.org
 
 =================================================
-AppStream 1.1.2 released!
+AppStream 1.1.3 released!
 
 Tarballs available here: https://www.freedesktop.org/software/appstream/releases/
 
