@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the appstream package.
 # Daniel Șerbănescu <daniel@serbanescu.dk>, 2020, 2021.
 # Alecsa Maria <alecsandra.suciu@alizaur.com>, 2021.
-# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024, 2025.
+# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-27 11:34+0100\n"
-"PO-Revision-Date: 2025-09-17 08:02+0000\n"
+"PO-Revision-Date: 2026-01-28 01:01+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/translations/ro/>\n"
 "Language: ro\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -3530,9 +3530,8 @@ msgid "no"
 msgstr "nu"
 
 #: tools/ascli-actions-pkgmgr.c:53
-#, fuzzy
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
-msgstr "Nu a fost găsită nicio interfață de linie de comandă adecvată pentru gestionarea pachetelor. Vă rugăm să vă asigurați că, de exemplu, «pkcon» (parte din PackageKit) este disponibil."
+msgstr "Nu s-a găsit niciun instrument adecvat pentru gestionarea pachetelor. Asigurați-vă că, de exemplu, «pkgcli» (parte din PackageKit) este disponibil."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
