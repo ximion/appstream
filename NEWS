@@ -1,3 +1,25 @@
+Version 1.1.2
+~~~~~~~~~~~~~
+Released: 2026-01-28
+
+Features:
+ * cli: Add rudimentary support for bash completion
+
+Specification:
+ * docs: Fix a minor typo on the translation quickstart page
+
+Bugfixes:
+ * validator: Catch more cases of existing, but empty properties
+ * tests: Fix tests with libfyaml > 0.9.2
+ * cli: Recommend/use pkgcli instead of pkcon if available
+
+Miscellaneous:
+ * Use our symbol visibility helper macros consistently everywhere
+ * meson: Do not update po files on l10n-update
+
+Contributors:
+ Matthias Klumpp, Philip Withnall
+
 Version 1.1.1
 ~~~~~~~~~~~~~
 Released: 2025-10-02
