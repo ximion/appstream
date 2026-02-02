@@ -30,6 +30,7 @@
 # Fernando Lopes <118869201+plasmus777@users.noreply.github.com>, 2023.
 # Gabriel Guerreiro <gabriel.eu.br@gmail.com>, 2024.
 # Rai Lima Ferreira <rai.lima17@gmail.com>, 2024.
+# Luiz Carlos Lucasv <csversut@gmail.com>, 2026.
 #
 # Translators:
 msgid ""
@@ -37,15 +38,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-28 11:14+0100\n"
-"PO-Revision-Date: 2025-09-17 08:02+0000\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"PO-Revision-Date: 2026-02-02 10:01+0000\n"
+"Last-Translator: Luiz Carlos Lucasv <csversut@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -91,7 +92,7 @@ msgstr "Destaque"
 #: src/as-category.c:90
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr "Debuggers"
+msgstr "Depuradores"
 
 #: src/as-category.c:93
 msgctxt "Category of Development"
@@ -3558,9 +3559,8 @@ msgid "no"
 msgstr "não"
 
 #: tools/ascli-actions-pkgmgr.c:53
-#, fuzzy
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
-msgstr "Nenhum gerenciado de pacotes CLI adequado encontrado. Por favor, certifique-se de que, ex.: “pkcon” (parte de PackageKit), está disponível."
+msgstr "Nenhuma ferramenta de gerenciamento de pacotes adequada foi encontrada. Certifique-se de que, por exemplo, o \"pkgcli\" (parte do PackageKit) esteja disponível."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
