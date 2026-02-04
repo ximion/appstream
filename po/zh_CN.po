@@ -33,7 +33,7 @@
 # Liu Tao <lyuutau@outlook.com>, 2021.
 # Zhou Nan <zhounan@nfschina.com>, 2021.
 # Donald Yiu <1456762857@qq.com>, 2021.
-# Flywater Zh <lumingzh@qq.com>, 2021, 2022, 2025.
+# Flywater Zh <lumingzh@qq.com>, 2021, 2022, 2025, 2026.
 # Eric <spice2wolf@gmail.com>, 2021.
 # 刘韬 <lyuutau@outlook.com>, 2021.
 # Dingzhong Chen <wsxy162@gmail.com>, 2021.
@@ -53,7 +53,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-28 11:14+0100\n"
-"PO-Revision-Date: 2025-09-22 12:01+0000\n"
+"PO-Revision-Date: 2026-02-04 13:01+0000\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -61,7 +61,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -3574,9 +3574,8 @@ msgid "no"
 msgstr "否"
 
 #: tools/ascli-actions-pkgmgr.c:53
-#, fuzzy
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
-msgstr "未找到可用的软件包管理器 CLI。请确定已安装类似“pkcon”（PackageKit 的一部分）的程序。"
+msgstr "未找到适配的软件包管理器工具。请确定已安装如“pkgcli”（PackageKit 的一部分）的程序。"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
