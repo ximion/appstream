@@ -384,15 +384,24 @@ void
 as_yaml_emit_scalar_str (struct fy_emitter *emitter, const gchar *value)
 {
 	struct fy_event *fye;
+	enum fy_scalar_style style = FYSS_PLAIN;
 	g_return_if_fail (value != NULL);
 
-	fye = fy_emit_event_create (emitter,
-				    FYET_SCALAR,
-				    FYSS_SINGLE_QUOTED,
-				    value,
-				    FY_NT,
-				    NULL,
-				    NULL);
+	/* Some strings are interpreted as booleans or numbers if unquoted, so we need to quote them.
+	 * This function needs to be very fast, so we may quote more than we need this way, but
+	 * comparing a bunch of bytes is very fast compared to scanning a string.
+	 * We use double-quoting, since English strings are more likely to contain apostrophes, so
+	 * double-quotes may lead to less escaping than single-quotes.
+	 * The punctuation check is done for numbers like +42, as well as to guard against YAML
+	 * weirdness in case any string starts with "#" or "!". */
+	if (as_is_empty (value))
+		style = FYSS_DOUBLE_QUOTED;
+	else if (g_ascii_isdigit (value[0]) || g_ascii_ispunct (value[0]))
+		style = FYSS_DOUBLE_QUOTED;
+	else if (as_str_equal0 (value, "true") || as_str_equal0 (value, "false"))
+		style = FYSS_DOUBLE_QUOTED;
+
+	fye = fy_emit_event_create (emitter, FYET_SCALAR, style, value, FY_NT, NULL, NULL);
 	if (fye != NULL)
 		fy_emit_event (emitter, fye);
 }
@@ -587,7 +596,7 @@ as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, struct fy_emitter
 	if (as_is_cruft_locale (key))
 		return;
 
-	as_yaml_emit_entry (emitter, key, as_strstripnl (value));
+	as_yaml_emit_entry_str (emitter, key, as_strstripnl (value));
 }
 
 /**
@@ -733,7 +742,7 @@ as_yaml_emit_localized_str_array (struct fy_emitter *emitter, const gchar *key, 
 		as_yaml_emit_scalar (emitter, locale_noenc);
 		as_yaml_sequence_start (emitter);
 		for (guint i = 0; i < array->len; i++)
-			as_yaml_emit_scalar (emitter, g_ptr_array_index (array, i));
+			as_yaml_emit_scalar_str (emitter, g_ptr_array_index (array, i));
 		as_yaml_sequence_end (emitter);
 	}
 

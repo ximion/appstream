@@ -67,7 +67,7 @@ as_yaml_test_read_data (const gchar *data, GError **error)
 
 	data_full = g_strdup_printf ("---\n"
 				     "File: DEP-11\n"
-				     "Version: '1.0'\n"
+				     "Version: \"1.0\"\n"
 				     "---\n%s",
 				     data);
 
@@ -108,7 +108,7 @@ as_yaml_test_compare_yaml (const gchar *result, const gchar *expected)
 	g_autofree gchar *expected_full = NULL;
 	expected_full = g_strdup_printf ("---\n"
 					 "File: DEP-11\n"
-					 "Version: '1.0'\n"
+					 "Version: \"1.0\"\n"
 					 "---\n%s",
 					 expected);
 	return as_test_compare_lines (result, expected_full);
@@ -198,14 +198,13 @@ test_h_create_dummy_screenshot (void)
 }
 
 /**
- * test_yamlwrite:
+ * test_yaml_write_misc:
  *
  * Test writing a YAML document.
  */
 static void
-test_yamlwrite_misc (void)
+test_yaml_write_misc (void)
 {
-	guint i;
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(AsScreenshot) scr = NULL;
 	g_autoptr(AsRelease) rel1 = NULL;
@@ -275,7 +274,7 @@ test_yamlwrite_misc (void)
 	    "- locale: en_GB\n"
 	    "  percentage: 100\n"
 	    "Releases:\n"
-	    "- version: '1.2'\n"
+	    "- version: \"1.2\"\n"
 	    "  type: stable\n"
 	    "  unix-timestamp: 1462288512\n"
 	    "  urgency: medium\n"
@@ -287,7 +286,7 @@ test_yamlwrite_misc (void)
 	    "    url: https://example.com/bugzilla/12345\n"
 	    "  - type: cve\n"
 	    "    id: CVE-2019-123456\n"
-	    "- version: '1.0'\n"
+	    "- version: \"1.0\"\n"
 	    "  type: development\n"
 	    "  unix-timestamp: 1460463132\n"
 	    "  description:\n"
@@ -337,7 +336,7 @@ test_yamlwrite_misc (void)
 	scr = test_h_create_dummy_screenshot ();
 	as_component_add_screenshot (cpt, scr);
 
-	for (i = 1; i <= 3; i++) {
+	for (guint i = 1; i <= 3; i++) {
 		g_autoptr(AsIcon) icon = NULL;
 
 		icon = as_icon_new ();
@@ -1617,7 +1616,7 @@ static const gchar *yamldata_releases_field =
     "Type: generic\n"
     "ID: org.example.ReleasesTest\n"
     "Releases:\n"
-    "- version: '1.2'\n"
+    "- version: \"1.2\"\n"
     "  type: stable\n"
     "  unix-timestamp: 1462288512\n"
     "  urgency: medium\n"
@@ -1650,7 +1649,7 @@ static const gchar *yamldata_releases_field =
     "    size:\n"
     "      download: 24084\n"
     "      installed: 42052\n"
-    "- version: '1.0'\n"
+    "- version: \"1.0\"\n"
     "  type: development\n"
     "  unix-timestamp: 1460463132\n"
     "  description:\n"
@@ -2048,6 +2047,55 @@ test_yaml_rw_utf8 (void)
 }
 
 /**
+ * test_yaml_write_weird_strings:
+ *
+ * Test writing odd stuff as strings.
+ */
+static void
+test_yaml_write_weird_strings (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+
+	const gchar *expected_yaml = "Type: desktop-application\n"
+				     "ID: org.gnome.TwentyFortyEight\n"
+				     "Package: \"2048\"\n"
+				     "Name:\n"
+				     "  C: \"2048\"\n"
+				     "  de: \"2048\"\n"
+				     "Summary:\n"
+				     "  fr: \"-42\"\n"
+				     "  eo: \"!! Weird!\"\n"
+				     "  C: Just a normal text.\n"
+				     "  de: \"# why?\"\n"
+				     "Keywords:\n"
+				     "  eo:\n"
+				     "  - \"2048\"\n"
+				     "  C:\n"
+				     "  - fun\n"
+				     "  de:\n"
+				     "  - \"8wtf\"\n";
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
+	as_component_set_id (cpt, "org.gnome.TwentyFortyEight");
+	as_component_set_pkgname (cpt, "2048");
+	as_component_set_name (cpt, "2048", "C");
+	as_component_set_name (cpt, "2048", "de");
+	as_component_set_summary (cpt, "Just a normal text.", "C");
+	as_component_set_summary (cpt, "# why?", "de");
+	as_component_set_summary (cpt, "-42", "fr");
+	as_component_set_summary (cpt, "!! Weird!", "eo");
+	as_component_add_keyword (cpt, "fun", "C");
+	as_component_add_keyword (cpt, "8wtf", "de");
+	as_component_add_keyword (cpt, "2048", "eo");
+
+	/* write & test */
+	res = as_yaml_test_serialize (cpt);
+	g_assert_true (as_yaml_test_compare_yaml (res, expected_yaml));
+}
+
+/**
  * main:
  */
 int
@@ -2074,7 +2122,8 @@ main (int argc, char **argv)
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
 	g_test_add_func ("/YAML/Basic", test_yaml_basic);
-	g_test_add_func ("/YAML/Write/Misc", test_yamlwrite_misc);
+	g_test_add_func ("/YAML/Write/Misc", test_yaml_write_misc);
+	g_test_add_func ("/YAML/Write/WeirdStrings", test_yaml_write_weird_strings);
 
 	g_test_add_func ("/YAML/Read/CorruptData", test_yaml_corrupt_data);
 	g_test_add_func ("/YAML/Read/Icons", test_yaml_read_icons);

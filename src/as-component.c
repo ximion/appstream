@@ -5858,7 +5858,7 @@ as_component_yaml_emit_icons (AsComponent *cpt, struct fy_emitter *emitter, GPtr
 		if (ikind == AS_ICON_KIND_STOCK) {
 			/* there can always be only one stock icon, so this is easy */
 			if (!stock_icon_added)
-				as_yaml_emit_entry (
+				as_yaml_emit_entry_str (
 				    emitter,
 				    as_icon_kind_to_string (ikind),
 				    as_icon_get_name (AS_ICON (g_ptr_array_index (ilist, 0))));
@@ -6190,12 +6190,12 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, struct fy_emitter *emi
 	}
 
 	/* SourcePackage */
-	as_yaml_emit_entry (emitter, "SourcePackage", priv->source_pkgname);
+	as_yaml_emit_entry_str (emitter, "SourcePackage", priv->source_pkgname);
 
 	/* Package */
 	/* NOTE: a DEP-11 components do *not* support multiple packages per component */
 	if ((priv->pkgnames != NULL) && (priv->pkgnames[0] != NULL))
-		as_yaml_emit_entry (emitter, "Package", priv->pkgnames[0]);
+		as_yaml_emit_entry_str (emitter, "Package", priv->pkgnames[0]);
 
 	/* Extends */
 	as_yaml_emit_sequence (emitter, "Extends", priv->extends);
