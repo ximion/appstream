@@ -2069,6 +2069,8 @@ test_yaml_write_weird_strings (void)
 				     "  C: Just a normal text.\n"
 				     "  de: \"# why?\"\n"
 				     "Keywords:\n"
+				     "  la:\n"
+				     "  - \"Auxilium: Help Contents=Adiuvantes Res\"\n"
 				     "  eo:\n"
 				     "  - \"2048\"\n"
 				     "  C:\n"
@@ -2089,6 +2091,7 @@ test_yaml_write_weird_strings (void)
 	as_component_add_keyword (cpt, "fun", "C");
 	as_component_add_keyword (cpt, "8wtf", "de");
 	as_component_add_keyword (cpt, "2048", "eo");
+	as_component_add_keyword (cpt, "Auxilium: Help Contents=Adiuvantes Res", "la");
 
 	/* write & test */
 	res = as_yaml_test_serialize (cpt);
