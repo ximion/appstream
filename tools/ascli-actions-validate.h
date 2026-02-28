@@ -31,12 +31,14 @@ gint ascli_validate_files (gchar      **argv,
 			   gboolean	pedantic,
 			   gboolean	validate_strict,
 			   gboolean	use_net,
+			   gboolean	ignore_empty,
 			   const gchar *overrides_str);
 gint ascli_validate_files_format (gchar	     **argv,
 				  gint	       argc,
 				  const gchar *format,
 				  gboolean     validate_strict,
 				  gboolean     use_net,
+				  gboolean     ignore_empty,
 				  const gchar *overrides_str);
 
 gint ascli_validate_tree (const gchar *root_dir,
