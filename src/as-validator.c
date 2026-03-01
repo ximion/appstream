@@ -3191,7 +3191,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							"%s",
 							node_content);
 
-			if (lang == NULL && node_content != NULL && strlen (node_content) > 40) {
+			if (lang == NULL && as_is_empty (node_content) && strlen (node_content) > 48) {
 				as_validator_add_issue (validator,
 							iter,
 							"component-name-too-long",
@@ -3205,14 +3205,14 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			lang = as_xml_get_prop_value (iter, "lang");
 
 			as_validator_check_appear_once (validator, iter, found_tags, TRUE);
-			if (g_str_has_suffix (summary, ".") && lang == NULL)
+			if (lang == NULL && g_str_has_suffix (summary, "."))
 				as_validator_add_issue (validator,
 							iter,
 							"summary-has-dot-suffix",
 							"%s",
 							summary);
 
-			if ((summary != NULL) && ((strstr (summary, "\n") != NULL) ||
+			if ((!as_is_empty (summary)) && ((strstr (summary, "\n") != NULL) ||
 						  (strstr (summary, "\t") != NULL))) {
 				as_validator_add_issue (validator,
 							iter,
@@ -3235,7 +3235,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							"summary-first-word-not-capitalized",
 							NULL);
 
-			if (lang == NULL && summary != NULL && strlen (summary) > 90) {
+			if (lang == NULL && !as_is_empty (summary) && strlen (summary) > 100) {
 				as_validator_add_issue (validator,
 							iter,
 							"summary-too-long",
