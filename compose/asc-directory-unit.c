@@ -150,19 +150,16 @@ static gboolean
 asc_directory_unit_find_files_recursive (GPtrArray *files,
 					 const gchar *path_orig,
 					 guint path_orig_len,
-					 const gchar *path,
 					 GError **error)
 {
 	g_autoptr(GHashTable) visited_dirs = NULL;
-	g_autofree gchar *absolute_lookup_path = NULL;
 	visited_dirs = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
-	absolute_lookup_path = g_build_filename (path_orig, path, NULL);
-	g_debug ("Indexing location: %s\n", absolute_lookup_path);
+	g_debug ("Indexing location: %s\n", path_orig);
 	return asc_directory_unit_find_files_recursive_internal (files,
 								 path_orig,
 								 path_orig_len,
-								 path,
+								 path_orig,
 								 visited_dirs,
 								 error);
 }
@@ -188,7 +185,6 @@ asc_directory_unit_open (AscUnit *unit, GError **error)
 		if (!asc_directory_unit_find_files_recursive (contents,
 							      priv->root_dir,
 							      root_dir_len,
-							      priv->root_dir,
 							      error))
 			return FALSE;
 	} else {
@@ -199,9 +195,8 @@ asc_directory_unit_open (AscUnit *unit, GError **error)
 			check_path = g_build_filename (priv->root_dir, rel_path, NULL);
 
 			if (!asc_directory_unit_find_files_recursive (contents,
-								      priv->root_dir,
-								      root_dir_len,
 								      check_path,
+								      root_dir_len,
 								      error))
 				return FALSE;
 		}
