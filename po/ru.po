@@ -35,7 +35,7 @@
 # Deleted User <noreply+31751@weblate.org>, 2021.
 # Сергей <sw@atrus.ru>, 2022.
 # faveoled <faveoled@yandex.com>, 2022.
-# Сергей <asvmail.as@gmail.com>, 2022, 2023, 2024, 2025.
+# Сергей <asvmail.as@gmail.com>, 2022, 2023, 2024, 2025, 2026.
 # lenemter <lenemter@gmail.com>, 2023.
 # vanapro1 <law820314@gmail.com>, 2025.
 msgid ""
@@ -43,7 +43,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-28 11:14+0100\n"
-"PO-Revision-Date: 2025-09-18 13:01+0000\n"
+"PO-Revision-Date: 2026-03-04 02:09+0000\n"
 "Last-Translator: Сергей <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
@@ -51,7 +51,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -3564,9 +3564,8 @@ msgid "no"
 msgstr "нет"
 
 #: tools/ascli-actions-pkgmgr.c:53
-#, fuzzy
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
-msgstr "Не найден подходящий CLI-менеджер пакетов. Пожалуйста, убедитесь, что, например, «pkcon» (часть PackageKit) доступен."
+msgstr "Подходящего инструмента для управления пакетами не найдено. Пожалуйста, убедитесь, что доступен, например, «pkgcli» (часть PackageKit)."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
