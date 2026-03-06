@@ -7,963 +7,964 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-28 11:14+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-03-06 03:10+0000\n"
+"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
+"Language-Team: Kazakh <https://hosted.weblate.org/projects/appstream/translations/kk/>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
-msgstr ""
+msgstr "AppStream CLI"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr ""
+msgstr "AppStream метадеректерімен жұмыс істеуге арналған утилита"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid "AppStream is a metadata specification which permits software components to provide information about themselves to automated systems and end-users before the software is actually installed. The AppStream project provides facilities to easily access and transform this metadata, as well as a few additional services for building feature-rich software centers and similar applications that make use of software metadata."
-msgstr ""
+msgstr "AppStream — бұл бағдарламалық қамтама компоненттеріне өздері туралы ақпаратты автоматтандырылған жүйелерге және түпкі пайдаланушыларға бағдарламалық қамтама нақты орнатылғанға дейін ұсынуға мүмкіндік беретін метадеректер спецификациясы. AppStream жобасы осы метадеректерге оңай қол жеткізу және оларды түрлендіру құралдарын, сондай-ақ бағдарламалық қамтама метадеректерін пайдаланатын мүмкіндіктері мол бағдарламалық орталықтар мен ұқсас қолданбаларды құрастыруға арналған бірнеше қосымша қызметтерді ұсынады."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
-msgstr ""
+msgstr "<em>appstreamcli</em> командалық жол сайманы AppStream XML немесе YAML метадеректерін оқуға, жазуға және түрлендіруге, сондай-ақ олардың спецификацияға сәйкестігін тексеруге мүмкіндік береді. Ол сондай-ақ жүйелік метадеректер пулына оңай қол жеткізуді қамтамасыз етеді, мысалы, белгілі бір Mediatype өңдеушісін ұсынатын бағдарламалық қамтаманы сұрау немесе бағдарламалық қамтаманы оның компонент идентификаторы бойынша орнату үшін."
 
 #: src/as-cache.c:906
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "'%s' кэш орнына жазу мүмкін емес."
 
 #: src/as-category.c:69
 msgctxt "Category of AudioVideo"
 msgid "Featured"
-msgstr ""
+msgstr "Таңдаулы"
 
 #: src/as-category.c:72
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr ""
+msgstr "Аудио жасау және түзету"
 
 #: src/as-category.c:78
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
-msgstr ""
+msgstr "Музыка ойнатқыштары"
 
 #: src/as-category.c:87
 msgctxt "Category of Development"
 msgid "Featured"
-msgstr ""
+msgstr "Таңдаулы"
 
 #: src/as-category.c:90
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "Түзеткіштер"
 
 #: src/as-category.c:93
 msgctxt "Category of Development"
 msgid "IDEs"
-msgstr ""
+msgstr "IDE-лер"
 
 #: src/as-category.c:102
 msgctxt "Category of Education"
 msgid "Featured"
-msgstr ""
+msgstr "Таңдаулы"
 
 #: src/as-category.c:105
 msgctxt "Category of Education"
 msgid "Astronomy"
-msgstr ""
+msgstr "Астрономия"
 
 #: src/as-category.c:108
 msgctxt "Category of Education"
 msgid "Chemistry"
-msgstr ""
+msgstr "Химия"
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Languages"
-msgstr ""
+msgstr "Тілдер"
 
 #: src/as-category.c:115
 msgctxt "Category of Education"
 msgid "Math"
-msgstr ""
+msgstr "Математика"
 
 #: src/as-category.c:124
 msgctxt "Category of Games"
 msgid "Featured"
-msgstr ""
+msgstr "Таңдаулы"
 
 #: src/as-category.c:127
 msgctxt "Category of Games"
 msgid "Action"
-msgstr ""
+msgstr "Экшн"
 
 #: src/as-category.c:130
 msgctxt "Category of Games"
 msgid "Adventure"
-msgstr ""
+msgstr "Шытырман"
 
 #: src/as-category.c:133
 msgctxt "Category of Games"
 msgid "Arcade"
-msgstr ""
+msgstr "Аркада"
 
 #: src/as-category.c:136
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr ""
+msgstr "Блоктар"
 
 #: src/as-category.c:139
 msgctxt "Category of Games"
 msgid "Board"
-msgstr ""
+msgstr "Үстел"
 
 #: src/as-category.c:142
 msgctxt "Category of Games"
 msgid "Card"
-msgstr ""
+msgstr "Карта"
 
 #: src/as-category.c:145
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr ""
+msgstr "Эмуляторлар"
 
 #: src/as-category.c:148
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr ""
+msgstr "Балаларға арналған"
 
 #: src/as-category.c:151
 msgctxt "Category of Games"
 msgid "Logic"
-msgstr ""
+msgstr "Логикалық"
 
 #: src/as-category.c:154
 msgctxt "Category of Games"
 msgid "Role Playing"
-msgstr ""
+msgstr "Рөлдік ойындар"
 
 #: src/as-category.c:157
 msgctxt "Category of Games"
 msgid "Sports"
-msgstr ""
+msgstr "Спорт"
 
 #: src/as-category.c:161
 msgctxt "Category of Games"
 msgid "Strategy"
-msgstr ""
+msgstr "Стратегия"
 
 #: src/as-category.c:169
 msgctxt "Category of Graphics"
 msgid "Featured"
-msgstr ""
+msgstr "Таңдаулы"
 
 #: src/as-category.c:172
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr ""
+msgstr "3D графикасы"
 
 #: src/as-category.c:175
 msgctxt "Category of Graphics"
 msgid "Photography"
-msgstr ""
+msgstr "Фотосурет"
 
 #: src/as-category.c:178
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr ""
+msgstr "Сканерлеу"
 
 #: src/as-category.c:181
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr ""
+msgstr "Векторлық графика"
 
 #: src/as-category.c:184
 msgctxt "Category of Graphics"
 msgid "Viewers"
-msgstr ""
+msgstr "Көру құралдары"
 
 #: src/as-category.c:192
 msgctxt "Category of Office"
 msgid "Featured"
-msgstr ""
+msgstr "Таңдаулы"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Calendar"
-msgstr ""
+msgstr "Күнтізбе"
 
 #: src/as-category.c:199
 msgctxt "Category of Office"
 msgid "Database"
-msgstr ""
+msgstr "Дерекқор"
 
 #: src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Finance"
-msgstr ""
+msgstr "Қаржы"
 
 #: src/as-category.c:206
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr ""
+msgstr "Мәтіндік процессор"
 
 #: src/as-category.c:215
 msgctxt "Category of Addons"
 msgid "Fonts"
-msgstr ""
+msgstr "Қаріптер"
 
 #: src/as-category.c:218
 msgctxt "Category of Addons"
 msgid "Codecs"
-msgstr ""
+msgstr "Кодектер"
 
 #: src/as-category.c:221
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr ""
+msgstr "Енгізу көздері"
 
 #: src/as-category.c:224
 msgctxt "Category of Addons"
 msgid "Language Packs"
-msgstr ""
+msgstr "Тіл дестелері"
 
 #: src/as-category.c:227
 msgctxt "Category of Addons"
 msgid "Localization"
-msgstr ""
+msgstr "Локализация"
 
 #: src/as-category.c:235
 msgctxt "Category of Science"
 msgid "Featured"
-msgstr ""
+msgstr "Таңдаулы"
 
 #: src/as-category.c:238
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
-msgstr ""
+msgstr "Жасанды интеллект"
 
 #: src/as-category.c:241
 msgctxt "Category of Science"
 msgid "Astronomy"
-msgstr ""
+msgstr "Астрономия"
 
 #: src/as-category.c:244
 msgctxt "Category of Science"
 msgid "Chemistry"
-msgstr ""
+msgstr "Химия"
 
 #: src/as-category.c:247
 msgctxt "Category of Science"
 msgid "Math"
-msgstr ""
+msgstr "Математика"
 
 #: src/as-category.c:252
 msgctxt "Category of Science"
 msgid "Robotics"
-msgstr ""
+msgstr "Робототехника"
 
 #: src/as-category.c:260
 msgctxt "Category of Communication"
 msgid "Featured"
-msgstr ""
+msgstr "Таңдаулы"
 
 #: src/as-category.c:263
 msgctxt "Category of Communication"
 msgid "Chat"
-msgstr ""
+msgstr "Чат"
 
 #: src/as-category.c:270
 msgctxt "Category of Communication"
 msgid "News"
-msgstr ""
+msgstr "Жаңалықтар"
 
 #: src/as-category.c:274
 msgctxt "Category of Communication"
 msgid "Web Browsers"
-msgstr ""
+msgstr "Веб-браузерлер"
 
 #: src/as-category.c:282
 msgctxt "Category of Utility"
 msgid "Featured"
-msgstr ""
+msgstr "Таңдаулы"
 
 #: src/as-category.c:285
 msgctxt "Category of Utility"
 msgid "Text Editors"
-msgstr ""
+msgstr "Мәтіндік редакторлар"
 
 #: src/as-category.c:288
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "Терминал эмуляторлары"
 
 #: src/as-category.c:291
 msgctxt "Category of Utility"
 msgid "File System"
-msgstr ""
+msgstr "Файлдық жүйе"
 
 #: src/as-category.c:294
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr ""
+msgstr "Жүйелік мониторинг"
 
 #: src/as-category.c:297
 msgctxt "Category of Utility"
 msgid "Security"
-msgstr ""
+msgstr "Қауіпсіздік"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: src/as-category.c:306
 msgid "Audio & Video"
-msgstr ""
+msgstr "Аудио және видео"
 
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:309
 msgid "Developer Tools"
-msgstr ""
+msgstr "Әзірлеуші саймандары"
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:312
 msgid "Education"
-msgstr ""
+msgstr "Білім беру"
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:315
 msgid "Games"
-msgstr ""
+msgstr "Ойындар"
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:318
 msgid "Graphics & Photography"
-msgstr ""
+msgstr "Графика және фотосурет"
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:321
 msgid "Office"
-msgstr ""
+msgstr "Офис"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
 #: src/as-category.c:324 tools/ascli-utils.c:417
 msgid "Add-ons"
-msgstr ""
+msgstr "Қосымшалар"
 
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:327
 msgid "Science"
-msgstr ""
+msgstr "Ғылым"
 
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:330
 msgid "Communication & News"
-msgstr ""
+msgstr "Байланыс және жаңалықтар"
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:333
 msgid "Utilities"
-msgstr ""
+msgstr "Саймандар"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. of the rating e.g. "Adults Only (solo adultos)"
 #: src/as-content-rating.c:283
 #, c-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: src/as-content-rating.c:429
 msgid "General"
-msgstr ""
+msgstr "Жалпы"
 
 #: src/as-content-rating.c:438
 msgid "ALL"
-msgstr ""
+msgstr "БАРЛЫҒЫ"
 
 #: src/as-content-rating.c:442 src/as-content-rating.c:551
 msgid "Adults Only"
-msgstr ""
+msgstr "Тек ересектерге арналған"
 
 #: src/as-content-rating.c:444 src/as-content-rating.c:549
 msgid "Mature"
-msgstr ""
+msgstr "Ересектерге арналған"
 
 #: src/as-content-rating.c:446 src/as-content-rating.c:548
 msgid "Teen"
-msgstr ""
+msgstr "Жасөспірімдерге арналған"
 
 #: src/as-content-rating.c:448 src/as-content-rating.c:547
 msgid "Everyone 10+"
-msgstr ""
+msgstr "10 жастан асқандардың барлығына арналған"
 
 #: src/as-content-rating.c:450 src/as-content-rating.c:545
 msgid "Everyone"
-msgstr ""
+msgstr "Барлығына арналған"
 
 #: src/as-content-rating.c:452 src/as-content-rating.c:544
 msgid "Early Childhood"
-msgstr ""
+msgstr "Ерте балалық шақ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:834
 msgid "No cartoon violence"
-msgstr ""
+msgstr "Мультфильмдік зорлық-зомбылық жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:836
 msgid "Cartoon characters in unsafe situations"
-msgstr ""
+msgstr "Қауіпті жағдайлардағы мультфильм кейіпкерлері"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:838
 msgid "Cartoon characters in aggressive conflict"
-msgstr ""
+msgstr "Агрессивті қақтығыстағы мультфильм кейіпкерлері"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:840
 msgid "Graphic violence involving cartoon characters"
-msgstr ""
+msgstr "Мультфильм кейіпкерлерінің қатысуымен болатын айқын зорлық-зомбылық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:845
 msgid "No fantasy violence"
-msgstr ""
+msgstr "Фэнтезилік зорлық-зомбылық жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:847
 msgid "Characters in unsafe situations easily distinguishable from reality"
-msgstr ""
+msgstr "Шындықтан оңай ажыратылатын қауіпті жағдайлардағы кейіпкерлер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:849
 msgid "Characters in aggressive conflict easily distinguishable from reality"
-msgstr ""
+msgstr "Шындықтан оңай ажыратылатын агрессивті қақтығыстағы кейіпкерлер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:851
 msgid "Graphic violence easily distinguishable from reality"
-msgstr ""
+msgstr "Шындықтан оңай ажыратылатын айқын зорлық-зомбылық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:856
 msgid "No realistic violence"
-msgstr ""
+msgstr "Шынайы зорлық-зомбылық жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:858
 msgid "Mildly realistic characters in unsafe situations"
-msgstr ""
+msgstr "Қауіпті жағдайлардағы шамалы шынайы кейіпкерлер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:860
 msgid "Depictions of realistic characters in aggressive conflict"
-msgstr ""
+msgstr "Агрессивті қақтығыстағы шынайы кейіпкерлердің бейнеленуі"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:862
 msgid "Graphic violence involving realistic characters"
-msgstr ""
+msgstr "Шынайы кейіпкерлердің қатысуымен болатын айқын зорлық-зомбылық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:867
 msgid "No bloodshed"
-msgstr ""
+msgstr "Қантөгіс жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:869
 msgid "Unrealistic bloodshed"
-msgstr ""
+msgstr "Шынайы емес қантөгіс"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:871
 msgid "Realistic bloodshed"
-msgstr ""
+msgstr "Шынайы қантөгіс"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:873
 msgid "Depictions of bloodshed and the mutilation of body parts"
-msgstr ""
+msgstr "Қантөгіс пен дене мүшелерін зақымдау бейнелері"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:878
 msgid "No sexual violence"
-msgstr ""
+msgstr "Жыныстық зорлық-зомбылық жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:882
 msgid "Rape or other violent sexual behavior"
-msgstr ""
+msgstr "Зорлау немесе басқа зорлық-зомбылықты жыныстық мінез-құлық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:887
 msgid "No references to alcohol"
-msgstr ""
+msgstr "Алкогольге сілтемелер жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:889
 msgid "References to alcoholic beverages"
-msgstr ""
+msgstr "Алкогольдік ішімдіктерге сілтемелер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:891
 msgid "Use of alcoholic beverages"
-msgstr ""
+msgstr "Алкогольдік ішімдіктерді қолдану"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:897
 msgid "No references to illicit drugs"
-msgstr ""
+msgstr "Заңсыз есірткіге сілтемелер жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:899
 msgid "References to illicit drugs"
-msgstr ""
+msgstr "Заңсыз есірткіге сілтемелер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:901
 msgid "Use of illicit drugs"
-msgstr ""
+msgstr "Заңсыз есірткіні қолдану"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:907
 msgid "No references to tobacco products"
-msgstr ""
+msgstr "Темекі бұйымдарына сілтемелер жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:909
 msgid "References to tobacco products"
-msgstr ""
+msgstr "Темекі бұйымдарына сілтемелер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:911
 msgid "Use of tobacco products"
-msgstr ""
+msgstr "Темекі бұйымдарын қолдану"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:917
 msgid "No nudity of any sort"
-msgstr ""
+msgstr "Ешқандай жалаңаштық жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:919
 msgid "Brief artistic nudity"
-msgstr ""
+msgstr "Қысқаша көркем жалаңаштық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:921
 msgid "Prolonged nudity"
-msgstr ""
+msgstr "Ұзақ жалаңаштық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:923
 msgid "Explicit nudity involving visible sexual organs"
-msgstr ""
+msgstr "Жыныс мүшелері көрінетін айқын жалаңаштық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:928
 msgid "No references to or depictions of sexual nature"
-msgstr ""
+msgstr "Жыныстық сипаттағы сілтемелер немесе бейнелер жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:930
 msgid "Provocative references or depictions"
-msgstr ""
+msgstr "Арандатушылық сілтемелер немесе бейнелер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:932
 msgid "Sexual references or depictions"
-msgstr ""
+msgstr "Жыныстық сілтемелер немесе бейнелер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:934
 msgid "Graphic sexual behavior"
-msgstr ""
+msgstr "Айқын жыныстық мінез-құлық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:939
 msgid "No profanity of any kind"
-msgstr ""
+msgstr "Ешқандай балағат сөздер жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:941
 msgid "Mild or infrequent use of profanity"
-msgstr ""
+msgstr "Балағат сөздерді жеңіл немесе сирек қолдану"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:943
 msgid "Moderate use of profanity"
-msgstr ""
+msgstr "Балағат сөздерді қалыпты қолдану"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:945
 msgid "Strong or frequent use of profanity"
-msgstr ""
+msgstr "Балағат сөздерді дөрекі немесе жиі қолдану"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:950
 msgid "No inappropriate humor"
-msgstr ""
+msgstr "Орынсыз әзілдер жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:952
 msgid "Slapstick humor"
-msgstr ""
+msgstr "Слэпстик әзіл"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:954
 msgid "Vulgar or bathroom humor"
-msgstr ""
+msgstr "Дөрекі немесе әдепсіз әзіл"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:956
 msgid "Mature or sexual humor"
-msgstr ""
+msgstr "Ересектерге арналған немесе жыныстық әзіл"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:961
 msgid "No discriminatory language of any kind"
-msgstr ""
+msgstr "Ешқандай кемсітушілік сөздер жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:963
 msgid "Negativity towards a specific group of people"
-msgstr ""
+msgstr "Адамдардың белгілі бір тобына деген теріс көзқарас"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:965
 msgid "Discrimination designed to cause emotional harm"
-msgstr ""
+msgstr "Эмоциялық зиян келтіруге бағытталған кемсітушілік"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:967
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
-msgstr ""
+msgstr "Жынысына, жыныстық бағдарына, нәсіліне немесе дініне негізделген айқын кемсітушілік"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:972
 msgid "No advertising of any kind"
-msgstr ""
+msgstr "Ешқандай жарнама жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:974
 msgid "Product placement"
-msgstr ""
+msgstr "Өнімді жарнамалау (product placement)"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
 msgid "Explicit references to specific brands or trademarked products"
-msgstr ""
+msgstr "Нақты брендтерге немесе сауда белгісі бар өнімдерге айқын сілтемелер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:978
 msgid "Users are encouraged to purchase specific real-world items"
-msgstr ""
+msgstr "Пайдаланушыларға шынайы өмірдегі белгілі бір тауарларды сатып алу ұсынылады"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:983
 msgid "No gambling of any kind"
-msgstr ""
+msgstr "Ешқандай құмар ойындар жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:985
 msgid "Gambling on random events using tokens or credits"
-msgstr ""
+msgstr "Токендерді немесе кредиттерді пайдаланып кездейсоқ оқиғаларға бәс тігу"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:987
 msgid "Gambling using “play” money"
-msgstr ""
+msgstr "«Ойын» ақшасын пайдаланып құмар ойындар ойнау"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:989
 msgid "Gambling using real money"
-msgstr ""
+msgstr "Нақты ақшаны пайдаланып құмар ойындар ойнау"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:994
 msgid "No ability to spend money"
-msgstr ""
+msgstr "Ақша жұмсау мүмкіндігі жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:996
 msgid "Users are encouraged to donate real money"
-msgstr ""
+msgstr "Пайдаланушыларға нақты ақшамен демеушілік ету ұсынылады"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:999
 msgid "Ability to spend real money in-app"
-msgstr ""
+msgstr "Қолданба ішінде нақты ақша жұмсау мүмкіндігі"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1004
 msgid "No way to chat with other users"
-msgstr ""
+msgstr "Басқа пайдаланушылармен чат арқылы сөйлесу мүмкіндігі жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1006
 msgid "User-to-user interactions without chat functionality"
-msgstr ""
+msgstr "Чат функциясынсыз пайдаланушылардың өзара әрекеттесуі"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1008
 msgid "Moderated chat functionality between users"
-msgstr ""
+msgstr "Пайдаланушылар арасындағы модерацияланатын чат функциясы"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1010
 msgid "Uncontrolled chat functionality between users"
-msgstr ""
+msgstr "Пайдаланушылар арасындағы бақыланбайтын чат функциясы"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1015
 msgid "No way to talk with other users"
-msgstr ""
+msgstr "Басқа пайдаланушылармен сөйлесу мүмкіндігі жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1018
 msgid "Moderated audio or video chat functionality between users"
-msgstr ""
+msgstr "Пайдаланушылар арасындағы модерацияланатын аудио немесе видео чат функциясы"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1020
 msgid "Uncontrolled audio or video chat functionality between users"
-msgstr ""
+msgstr "Пайдаланушылар арасындағы бақыланбайтын аудио немесе video чат функциясы"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1025
 msgid "No sharing of social network usernames or email addresses"
-msgstr ""
+msgstr "Әлеуметтік желідегі пайдаланушы атымен немесе электрондық пошта адрестерімен бөлісу жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1029
 msgid "Sharing social network usernames or email addresses"
-msgstr ""
+msgstr "Әлеуметтік желідегі пайдаланушы атымен немесе электрондық пошта адрестерімен бөлісу"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1034
 msgid "No sharing of user information with third parties"
-msgstr ""
+msgstr "Пайдаланушы ақпаратын үшінші тараптармен бөлісу жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1036
 msgid "Checking for the latest application version"
-msgstr ""
+msgstr "Қолданбаның соңғы нұсқасын тексеру"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1038
 msgid "Sharing diagnostic data that does not let others identify the user"
-msgstr ""
+msgstr "Басқаларға пайдаланушыны анықтауға мүмкіндік бермейтін диагностикалық деректермен бөлісу"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1040
 msgid "Sharing information that lets others identify the user"
-msgstr ""
+msgstr "Басқаларға пайдаланушыны анықтауға мүмкіндік беретін ақпаратпен бөлісу"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1045
 msgid "No sharing of physical location with other users"
-msgstr ""
+msgstr "Нақты орналасқан жерді басқа пайдаланушылармен бөлісу жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1049
 msgid "Sharing physical location with other users"
-msgstr ""
+msgstr "Нақты орналасқан жерді басқа пайдаланушылармен бөлісу"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1070
 msgid "No references to homosexuality"
-msgstr ""
+msgstr "Гомосексуализмге сілтемелер жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1072
 msgid "Indirect references to homosexuality"
-msgstr ""
+msgstr "Гомосексуализмге жанама сілтемелер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1074
 msgid "Kissing between people of the same gender"
-msgstr ""
+msgstr "Бір жынысты адамдардың сүйісуі"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1076
 msgid "Graphic sexual behavior between people of the same gender"
-msgstr ""
+msgstr "Бір жынысты адамдар арасындағы айқын жыныстық мінез-құлық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1081
 msgid "No references to prostitution"
-msgstr ""
+msgstr "Проституцияға сілтемелер жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1083
 msgid "Indirect references to prostitution"
-msgstr ""
+msgstr "Проституцияға жанама сілтемелер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1085
 msgid "Direct references to prostitution"
-msgstr ""
+msgstr "Проституцияға тікелей сілтемелер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1087
 msgid "Graphic depictions of the act of prostitution"
-msgstr ""
+msgstr "Проституция әрекетінің айқын бейнеленуі"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1092
 msgid "No references to adultery"
-msgstr ""
+msgstr "Неке адалдығын бұзуға сілтемелер жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1094
 msgid "Indirect references to adultery"
-msgstr ""
+msgstr "Неке адалдығын бұзуға жанама сілтемелер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1096
 msgid "Direct references to adultery"
-msgstr ""
+msgstr "Неке адалдығын бұзуға тікелей сілтемелер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1098
 msgid "Graphic depictions of the act of adultery"
-msgstr ""
+msgstr "Неке адалдығын бұзу әрекетінің айқын бейнеленуі"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1103
 msgid "No sexualized characters"
-msgstr ""
+msgstr "Сексуализацияланған кейіпкерлер жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1106
 msgid "Scantily clad human characters"
-msgstr ""
+msgstr "Ашық киінген адам кейіпкерлері"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1108
 msgid "Overtly sexualized human characters"
-msgstr ""
+msgstr "Тым сексуализацияланған адам кейіпкерлері"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1113
 msgid "No references to desecration"
-msgstr ""
+msgstr "Қорлауға сілтемелер жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1115
 msgid "Depictions of or references to historical desecration"
-msgstr ""
+msgstr "Тарихи қорлаудың бейнеленуі немесе оған сілтемелер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1117
 msgid "Depictions of modern-day human desecration"
-msgstr ""
+msgstr "Қазіргі заманғы адамды қорлаудың бейнеленуі"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1119
 msgid "Graphic depictions of modern-day desecration"
-msgstr ""
+msgstr "Қазіргі заманғы қорлаудың айқын бейнеленуі"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1124
 msgid "No visible dead human remains"
-msgstr ""
+msgstr "Адам мәйіттерінің қалдықтары көрінбейді"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1126
 msgid "Visible dead human remains"
-msgstr ""
+msgstr "Адам мәйіттерінің қалдықтары көрінеді"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1128
 msgid "Dead human remains that are exposed to the elements"
-msgstr ""
+msgstr "Сыртқы ортада қалған адам мәйіттерінің қалдықтары"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1130
 msgid "Graphic depictions of desecration of human bodies"
-msgstr ""
+msgstr "Адам денелерін қорлаудың айқын бейнеленуі"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1135
 msgid "No references to slavery"
-msgstr ""
+msgstr "Құлдыққа сілтемелер жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1137
 msgid "Depictions of or references to historical slavery"
-msgstr ""
+msgstr "Тарихи құлдықтың бейнеленуі немесе оған сілтемелер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1139
 msgid "Depictions of modern-day slavery"
-msgstr ""
+msgstr "Қазіргі заманғы құлдықтың бейнеленуі"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1141
 msgid "Graphic depictions of modern-day slavery"
-msgstr ""
+msgstr "Қазіргі заманғы құлдықтың айқын бейнеленуі"
 
 #. TRANSLATORS: We got a 429 error while trying to download data
 #: src/as-curl.c:148
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr ""
+msgstr "Сервер шектеуіне байланысты жүктеп алу сәтсіз аяқталды"
 
 #: src/as-curl.c:155 src/as-curl.c:161
 #, c-format
 msgid "Failed to download file: %s"
-msgstr ""
+msgstr "Файлды жүктеп алу сәтсіз аяқталды: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
 #: src/as-curl.c:175
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "URL серверден табылмады."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:183
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Күтпеген күй коды: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:420
 #, c-format
 msgid "Retrieved file size was zero."
-msgstr ""
+msgstr "Алынған файл өлшемі нөлге тең."
 
 #. TRANSLATORS: Name of the "Cinnamon" desktop environment.
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
 #: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:79
 msgid "Cinnamon"
-msgstr ""
+msgstr "Cinnamon"
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
 #: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:81
 msgid "Deepin"
-msgstr ""
+msgstr "Deepin"
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
 #: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:83
 msgid "EDE"
-msgstr ""
+msgstr "EDE"
 
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #: src/as-desktop-env-data.h:49
 msgid "Endless"
-msgstr ""
+msgstr "Endless"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
 #: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #. TRANSLATORS: Name of the "KDE" desktop environment.
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
@@ -971,108 +972,108 @@ msgstr ""
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
 #: src/as-desktop-env-data.h:103
 msgid "KDE Plasma"
-msgstr ""
+msgstr "KDE Plasma"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
 #: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:91
 msgid "LXDE"
-msgstr ""
+msgstr "LXDE"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
 #: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:93
 msgid "LXQt"
-msgstr ""
+msgstr "LXQt"
 
 #. TRANSLATORS: Name of the "MATE" desktop environment.
 #: src/as-desktop-env-data.h:59
 msgid "MATE"
-msgstr ""
+msgstr "MATE"
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
 #: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:99
 msgid "Pantheon"
-msgstr ""
+msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
 #: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:111
 msgid "Razor"
-msgstr ""
+msgstr "Razor"
 
 #. TRANSLATORS: Name of the "ROX" desktop environment.
 #: src/as-desktop-env-data.h:67
 msgid "ROX"
-msgstr ""
+msgstr "ROX"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
 #: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:115
 msgid "Unity"
-msgstr ""
+msgstr "Unity"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
 #: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:119
 msgid "Xfce"
-msgstr ""
+msgstr "Xfce"
 
 #. TRANSLATORS: Name of the "android" visual environment style.
 #: src/as-desktop-env-data.h:77
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
 msgid "GNOME (Dark)"
-msgstr ""
+msgstr "GNOME (Күңгірт)"
 
 #. TRANSLATORS: Name of the "ios" visual environment style.
 #: src/as-desktop-env-data.h:89
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:95
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:97
 msgid "Mate"
-msgstr ""
+msgstr "Mate"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
 msgid "Pantheon (Dark)"
-msgstr ""
+msgstr "Pantheon (Күңгірт)"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:105
 msgid "Plasma Mobile"
-msgstr ""
+msgstr "Plasma Mobile"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:107
 msgid "Plasma Mobile (Dark)"
-msgstr ""
+msgstr "Plasma Mobile (Күңгірт)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:109
 msgid "KDE Plasma (Dark)"
-msgstr ""
+msgstr "KDE Plasma (Күңгірт)"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:113
 msgid "Rox"
-msgstr ""
+msgstr "Rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:117
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -1081,270 +1082,270 @@ msgstr ""
 #. the search.
 #: src/as-pool.c:101
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
+msgstr "қолданба;қолданба;десте;бағдарлама;бағдарлама;жинақ;сайман"
 
 #: src/as-pool.c:1154
 msgid "Metadata files have errors:"
-msgstr ""
+msgstr "Метадеректер файлдарында қателер бар:"
 
 #: src/as-pool.c:2411
 msgid "Group"
-msgstr ""
+msgstr "Топ"
 
 #: src/as-pool.c:2466
 msgid "Iconsets"
-msgstr ""
+msgstr "Таңбашалар жинағы"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2514
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Жергілікті орнатылған бағдарламалық қамтама деректері"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2517
 msgid "Software catalog data"
-msgstr ""
+msgstr "Бағдарламалық қамтама каталогының деректері"
 
 #: src/as-provided.c:138
 msgid "Libraries"
-msgstr ""
+msgstr "Кітапханалар"
 
 #: src/as-provided.c:140
 msgid "Binaries"
-msgstr ""
+msgstr "Бинарлы файлдар"
 
 #: src/as-provided.c:142
 msgid "Media types"
-msgstr ""
+msgstr "Медиа типтері"
 
 #: src/as-provided.c:144
 msgid "Fonts"
-msgstr ""
+msgstr "Қаріптер"
 
 #: src/as-provided.c:146
 msgid "Modaliases"
-msgstr ""
+msgstr "Модальястар"
 
 #: src/as-provided.c:148
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 #: src/as-provided.c:150
 msgid "D-Bus System Services"
-msgstr ""
+msgstr "D-Bus жүйелік қызметтері"
 
 #: src/as-provided.c:152
 msgid "D-Bus Session Services"
-msgstr ""
+msgstr "D-Bus сессиялық қызметтері"
 
 #: src/as-provided.c:154
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Орындалатын микробағдарлама"
 
 #: src/as-provided.c:156
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Жазылған микробағдарлама"
 
 #: src/as-provided.c:158
 msgid "Component"
-msgstr ""
+msgstr "Компонент"
 
 #: src/as-relation.c:1350
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "нұсқау құрылғысы (мысалы, тышқан)"
 
 #: src/as-relation.c:1352
 msgid "keyboard"
-msgstr ""
+msgstr "пернетақта"
 
 #: src/as-relation.c:1354
 msgid "gamepad"
-msgstr ""
+msgstr "геймпад"
 
 #: src/as-relation.c:1356
 msgid "tv remote"
-msgstr ""
+msgstr "теледидар пульті"
 
 #: src/as-relation.c:1358
 msgid "graphics tablet"
-msgstr ""
+msgstr "графикалық планшет"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1363
 #, c-format
 msgid "This software requires a %s for input."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама енгізу үшін %s құрылғысын қажет етеді."
 
 #: src/as-relation.c:1368
 msgid "This software requires a touch input device."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама сенсорлық енгізу құрылғысын қажет етеді."
 
 #: src/as-relation.c:1370
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама дауыспен енгізу арқылы басқарылуы үшін микрофонды қажет етеді."
 
 #: src/as-relation.c:1372
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама енгізуді басқару үшін камераны қажет етеді."
 
 #: src/as-relation.c:1374
 msgid "This software requires a method for console input."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама консольдік енгізу әдісін қажет етеді."
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1379
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама енгізу үшін %s құрылғысын ұсынады."
 
 #: src/as-relation.c:1384
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама сенсорлық енгізу құрылғысын ұсынады."
 
 #: src/as-relation.c:1386
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама дауыспен енгізу арқылы басқарылуы үшін микрофонды ұсынады."
 
 #: src/as-relation.c:1388
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама енгізуді басқару үшін камераны ұсынады."
 
 #: src/as-relation.c:1390
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама консольдік енгізу әдісін ұсынады."
 
 #: src/as-relation.c:1395
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "нұсқау құрылғылары (мысалы, тышқандар)"
 
 #: src/as-relation.c:1397
 msgid "keyboards"
-msgstr ""
+msgstr "пернетақталар"
 
 #: src/as-relation.c:1399
 msgid "gamepads"
-msgstr ""
+msgstr "геймпадтар"
 
 #: src/as-relation.c:1401
 msgid "tv remotes"
-msgstr ""
+msgstr "теледидар пульттері"
 
 #: src/as-relation.c:1403
 msgid "graphics tablets"
-msgstr ""
+msgstr "графикалық планшеттер"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1407
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама %s құрылғысын қолдайды."
 
 #: src/as-relation.c:1411
 msgid "This software supports touch input."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама сенсорлық енгізуді қолдайды."
 
 #: src/as-relation.c:1413
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтаманы дауыспен енгізу арқылы басқаруға болады."
 
 #: src/as-relation.c:1415
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтаманы камера арқылы басқаруға болады."
 
 #: src/as-relation.c:1418
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама консольдік командалар арқылы жұмыс істеуді қолдайды."
 
 #: src/as-relation.c:1431
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "Нұсқау құрылғысы (мысалы, тышқан немесе тачпад) табылды."
 
 #: src/as-relation.c:1433
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "Физикалық пернетақта табылды."
 
 #: src/as-relation.c:1435
 msgid "Gamepad found."
-msgstr ""
+msgstr "Геймпад табылды."
 
 #: src/as-relation.c:1437
 msgid "TV remote found."
-msgstr ""
+msgstr "Теледидар пульті табылды."
 
 #: src/as-relation.c:1439
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "Графикалық планшет табылды."
 
 #: src/as-relation.c:1442
 msgid "Touch input device found."
-msgstr ""
+msgstr "Сенсорлық енгізу құрылғысы табылды."
 
 #: src/as-relation.c:1444
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "Дауыспен енгізуді басқаруға арналған микрофон табылды."
 
 #: src/as-relation.c:1446
 msgid "Camera for input control found."
-msgstr ""
+msgstr "Енгізуді басқаруға арналған камера табылды."
 
 #: src/as-relation.c:1448
 msgid "Console interface available."
-msgstr ""
+msgstr "Консоль интерфейсі қолжетімді."
 
 #: src/as-relation.c:1509
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "'%s' бағдарламалық қамтамасы табылды"
 
 #: src/as-relation.c:1518
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Қажетті '%s' бағдарламалық қамтама компоненті жоқ."
 
 #: src/as-relation.c:1522
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Ұсынылатын '%s' бағдарламалық қамтама компоненті жоқ."
 
 #: src/as-relation.c:1526
 #, c-format
 msgid "Found supported software component '%s'."
-msgstr ""
+msgstr "Қолдау көрсетілетін '%s' бағдарламалық қамтама компоненті табылды."
 
 #: src/as-relation.c:1559
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "Осы бағдарламалық қамтама қолдайтын аппараттық құрал табылды: '%s'"
 
 #: src/as-relation.c:1568
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Осы бағдарламалық қамтамаға қажетті аппараттық құрал бұл жүйеде табылмады: '%s'"
 
 #: src/as-relation.c:1573
 #, c-format
 msgid "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Осы бағдарламалық қамтамаға ұсынылатын аппараттық құрал бұл жүйеде табылмады: '%s'"
 
 #: src/as-relation.c:1578
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама осы жүйеде жоқ аппараттық құралды қолдайды: '%s'"
 
 #: src/as-relation.c:1617
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтамаға %s ядросы қажет, бірақ бұл жүйеде %s жұмыс істеп тұр."
 
 #: src/as-relation.c:1623
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама %s ядросын ұсынады, бірақ бұл жүйеде %s жұмыс істеп тұр."
 
 #: src/as-relation.c:1629
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама тек %s ядросын қолдайды, бірақ бәрібір %s жүйесінде жұмыс істеуі мүмкін."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1352,7 +1353,7 @@ msgstr ""
 #: src/as-relation.c:1659
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтамаға %s %s %s қажет, бірақ бұл жүйеде %s %s жұмыс істеп тұр."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1360,1215 +1361,1215 @@ msgstr ""
 #: src/as-relation.c:1671
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
+msgstr "%s %s %s пайдалану ұсынылады, бірақ бұл жүйеде %s %s жұмыс істеп тұр."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1682
 #, c-format
 msgid "This software supports %s %s %s."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама %s %s %s қолдайды."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1700
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "%s %s ядросына қолдау көрсетіледі."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
 #: src/as-relation.c:1734
 #, c-format
 msgid "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтамаға %s %.2f ГБ жад қажет, бірақ бұл жүйеде %.2f ГБ бар."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
 #: src/as-relation.c:1743
 #, c-format
 msgid "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама %s %.2f ГБ жадты ұсынады, бірақ бұл жүйеде %.2f ГБ бар."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1752
 #, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама %s %.2f ГБ жадты қолдайды."
 
 #: src/as-relation.c:1768
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "Бұл жүйеде осы бағдарламалық қамтама үшін жеткілікті жад бар."
 
 #: src/as-relation.c:1832
 msgid "This software needs a display for graphical content."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтамаға графикалық мазмұн үшін дисплей қажет."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1860
 #, c-format
 msgid "This software requires a display with its longest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтамаға ең ұзын жиегі %s %lu пиксель болатын дисплей қажет, бірақ бұл құрылғының дисплейі %lu пиксель."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1869
 #, c-format
 msgid "This software requires a display with its shortest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтамаға ең қысқа жиегі %s %lu пиксель болатын дисплей қажет, бірақ бұл құрылғының дисплейі %lu пиксель."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1879
 #, c-format
 msgid "This software recommends a display with its longest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтамаға ең ұзын жиегі %s %lu пиксель болатын дисплей ұсынылады, бірақ бұл құрылғының дисплейі %lu пиксель."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1888
 #, c-format
 msgid "This software recommends a display with its shortest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтамаға ең қысқа жиегі %s %lu пиксель болатын дисплей ұсынылады, бірақ бұл құрылғының дисплейі %lu пиксель."
 
 #: src/as-relation.c:1900
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "Дисплей өлшемі бұл бағдарламалық қамтама үшін жеткілікті."
 
 #: src/as-relation.c:1917
 #, c-format
 msgid "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "'%s' типті қатынас элементтерінің қанағаттандырылуын тексеру әлі іске асырылмаған."
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "Тек Affero General Public License v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:41
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Affero General Public License v1.0 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:44
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "Тек GNU Affero General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:46
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Affero General Public License v3.0 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:287
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "Тек GNU Free Documentation License v1.1 - инварианттармен"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:289
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 немесе кейінірек - инварианттармен"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:291
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
+msgstr "Тек GNU Free Documentation License v1.1 - инварианттарсыз"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:293
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 немесе кейінірек - инварианттарсыз"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:295
 msgid "GNU Free Documentation License v1.1 only"
-msgstr ""
+msgstr "Тек GNU Free Documentation License v1.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:297
 msgid "GNU Free Documentation License v1.1 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:300
 msgid "GNU Free Documentation License v1.2 only - invariants"
-msgstr ""
+msgstr "Тек GNU Free Documentation License v1.2 - инварианттармен"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:302
 msgid "GNU Free Documentation License v1.2 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 немесе кейінірек - инварианттармен"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:304
 msgid "GNU Free Documentation License v1.2 only - no invariants"
-msgstr ""
+msgstr "Тек GNU Free Documentation License v1.2 - инварианттарсыз"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:306
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 немесе кейінірек - инварианттарсыз"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:308
 msgid "GNU Free Documentation License v1.2 only"
-msgstr ""
+msgstr "Тек GNU Free Documentation License v1.2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:310
 msgid "GNU Free Documentation License v1.2 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:313
 msgid "GNU Free Documentation License v1.3 only - invariants"
-msgstr ""
+msgstr "Тек GNU Free Documentation License v1.3 - инварианттармен"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:315
 msgid "GNU Free Documentation License v1.3 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 немесе кейінірек - инварианттармен"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:317
 msgid "GNU Free Documentation License v1.3 only - no invariants"
-msgstr ""
+msgstr "Тек GNU Free Documentation License v1.3 - инварианттарсыз"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:319
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 немесе кейінірек - инварианттарсыз"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:321
 msgid "GNU Free Documentation License v1.3 only"
-msgstr ""
+msgstr "Тек GNU Free Documentation License v1.3"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:323
 msgid "GNU Free Documentation License v1.3 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:327 src/as-spdx-data.h:331
 msgid "GNU General Public License v1.0 only"
-msgstr ""
+msgstr "Тек GNU General Public License v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:329 src/as-spdx-data.h:333
 msgid "GNU General Public License v1.0 or later"
-msgstr ""
+msgstr "GNU General Public License v1.0 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:335 src/as-spdx-data.h:339
 msgid "GNU General Public License v2.0 only"
-msgstr ""
+msgstr "Тек GNU General Public License v2.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:337 src/as-spdx-data.h:341
 msgid "GNU General Public License v2.0 or later"
-msgstr ""
+msgstr "GNU General Public License v2.0 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:348 src/as-spdx-data.h:352
 msgid "GNU General Public License v3.0 only"
-msgstr ""
+msgstr "Тек GNU General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:350 src/as-spdx-data.h:354
 msgid "GNU General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU General Public License v3.0 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:422 src/as-spdx-data.h:426
 msgid "GNU Library General Public License v2 only"
-msgstr ""
+msgstr "Тек GNU Library General Public License v2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:424 src/as-spdx-data.h:428
 msgid "GNU Library General Public License v2 or later"
-msgstr ""
+msgstr "GNU Library General Public License v2 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:430 src/as-spdx-data.h:434
 msgid "GNU Lesser General Public License v2.1 only"
-msgstr ""
+msgstr "Тек GNU Lesser General Public License v2.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:432 src/as-spdx-data.h:436
 msgid "GNU Lesser General Public License v2.1 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License v2.1 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:438 src/as-spdx-data.h:442
 msgid "GNU Lesser General Public License v3.0 only"
-msgstr ""
+msgstr "Тек GNU Lesser General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:440 src/as-spdx-data.h:444
 msgid "GNU Lesser General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License v3.0 немесе кейінірек"
 
 #: src/as-validator-issue-tag.h:42
 msgid "This tag requires a type property."
-msgstr ""
+msgstr "Бұл тегке type қасиеті қажет."
 
 #: src/as-validator-issue-tag.h:47
 msgid "Tags of this name are not permitted in this section."
-msgstr ""
+msgstr "Бұл атаудағы тегтерге бұл бөлімде рұқсат етілмейді."
 
 #: src/as-validator-issue-tag.h:52
 msgid "A <description/> tag must not be localized in metainfo files (upstream metadata). Localize the individual paragraphs instead."
-msgstr ""
+msgstr "<description/> тегі metainfo файлдарында (бастапқы метадеректер) локализацияланбауы керек. Оның орнына жеке параграфтарды локализациялаңыз."
 
 #: src/as-validator-issue-tag.h:58
 msgid "This element (paragraph, list, etc.) of a <description/> tag must not be localized individually in catalog metadata. Localize the whole <description/> tag instead. The AppStream metadata catalog generator (e.g. `appstream-generator`) will already do the right thing when compiling the data."
-msgstr ""
+msgstr "<description/> тегінің бұл элементі (параграф, тізім т.б.) каталог метадеректерінде жеке локализацияланбауы керек. Оның орнына бүкіл <description/> тегін локализациялаңыз. AppStream метадеректер каталогының генераторы (мысалы, `appstream-generator`) деректерді құрастыру кезінде бәрін дұрыс жасайды."
 
 #: src/as-validator-issue-tag.h:64
 msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
-msgstr ""
+msgstr "AppStream сипаттамалары мәтінді пішімдеу үшін тек шектеулі тегтер жиынтығын қолдайды: параграфтар (<p/>) және тізімдер (<ul/>, <ol/>). Бұл сипаттама белгілеуінде metainfo спецификациясын қолдайтын қолданбаларда дұрыс көрсетілмейтін жарамсыз XML тегі бар."
 
 #: src/as-validator-issue-tag.h:70
 msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
-msgstr ""
+msgstr "Бұл сипаттама параграфында жарамсыз белгілеулер бар. Қазіргі уақытта тек <em/> және <code/> тегтеріне рұқсат етіледі."
 
 #: src/as-validator-issue-tag.h:75
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr ""
+msgstr "Тізімдердің еншілес элементтері тек тізім элементтері (<li/>) болуы керек."
 
 #: src/as-validator-issue-tag.h:80
 msgid "The enumeration must not be translated as a whole. In MetaInfo files, translate individual items (<li/> elements) instead."
-msgstr ""
+msgstr "Тізім толығымен аударылмауы керек. MetaInfo файлдарында оның орнына жеке элементтерді (<li/> элементтерін) аударыңыз."
 
 #: src/as-validator-issue-tag.h:86
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
-msgstr ""
+msgstr "Бұл компоненттің бірінші `description/p` параграфы тым қысқа болуы мүмкін (< 80 таңба). Сипаттаманың бағдарламалық орталықтарда көрінуін жақсарту үшін және бірінші параграфта осы компонент туралы толығырақ ақпарат беру үшін ұзағырақ параграфтан бастауды қарастырыңыз."
 
 #: src/as-validator-issue-tag.h:93
 msgid "The description line does not start with a capitalized word, project name or number."
-msgstr ""
+msgstr "Сипаттама жолы бас әріптен, жоба атауынан немесе саннан басталмайды."
 
 #: src/as-validator-issue-tag.h:98
 msgid "The description contains a web URL in plain text. This is not allowed, please use the <url/> tag instead to share links."
-msgstr ""
+msgstr "Сипаттамада жай мәтін түріндегі веб-URL бар. Бұған рұқсат етілмейді, сілтемелермен бөлісу үшін <url/> тегін пайдаланыңыз."
 
 #: src/as-validator-issue-tag.h:103
 msgid "The description element does not contain any valid content (paragraphs, enumerations, etc.)."
-msgstr ""
+msgstr "Сипаттама элементінде ешқандай жарамды мазмұн (параграфтар, тізімдер т.б.) жоқ."
 
 #: src/as-validator-issue-tag.h:108
 msgid "The description element contains raw text that is not in any paragraph or other permitted tag. This is not allowed and the additional text may be ignored by parsers or raise errors."
-msgstr ""
+msgstr "Сипаттама элементінде ешқандай параграфқа немесе басқа рұқсат етілген тегке жатпайтын шикі мәтін бар. Бұған рұқсат етілмейді және қосымша мәтін анализаторлар тарапынан ескерілмеуі немесе қателер тудыруы мүмкін."
 
 #: src/as-validator-issue-tag.h:114
 msgid "This tag is not translatable."
-msgstr ""
+msgstr "Бұл тег аударылмайды."
 
 #: src/as-validator-issue-tag.h:119
 msgid "This tag must only appear once in this context. Having multiple tags of this kind is not valid."
-msgstr ""
+msgstr "Бұл тег осы контексте тек бір рет пайда болуы керек. Мұндай түрдегі бірнеше тегтің болуы жарамсыз."
 
 #: src/as-validator-issue-tag.h:124
 msgid "The mentioned tag is empty, which is highly likely not intended as it should have content."
-msgstr ""
+msgstr "Аталған тег бос, бұл әдейі жасалмаған болуы әбден мүмкін, өйткені оның мазмұны болуы керек."
 
 #: src/as-validator-issue-tag.h:129
 msgid "The mentioned tag has text content, even though it must not contain text."
-msgstr ""
+msgstr "Аталған тегте мәтіндік мазмұн бар, бірақ онда мәтін болмауы керек."
 
 #: src/as-validator-issue-tag.h:134
 msgid "The component ID is required to follow a reverse domain-name scheme for its name. See the AppStream specification for details."
-msgstr ""
+msgstr "Компонент ID-і атауы үшін кері домендік атау схемасына сәйкес келуі керек. Толығырақ AppStream спецификациясынан қараңыз."
 
 #: src/as-validator-issue-tag.h:139
 msgid "The component ID is not a reverse domain-name. Please update the ID to avoid future issues and be compatible with all AppStream implementations.\n"
 "You may also consider to update the name of the accompanying .desktop file to follow the latest version of the Desktop-Entry specification and use a rDNS name for it as well. In any case, do not forget to mention the new desktop-entry in a <launchable/> tag for this component to keep the application launchable from software centers and the .desktop file data associated with the metainfo data."
-msgstr ""
+msgstr "Компонент ID-і кері домендік атау емес. Болашақтағы мәселелерді болдырмау және барлық AppStream іске асыруларымен үйлесімді болу үшін ID-ді жаңартыңыз. Сондай-ақ, ілеспе .desktop файлының атауын Desktop-Entry спецификациясының соңғы нұсқасына сәйкес келетіндей етіп жаңартып, ол үшін де rDNS атауын пайдалануды қарастыруыңызға болады. Кез келген жағдайда, қолданбаны бағдарламалық орталықтардан іске қосу мүмкіндігін сақтау және .desktop файлының деректерін metainfo деректерімен байланыстыру үшін осы компонентке арналған <launchable/> тегінде жаңа desktop-entry-ді атап өтуді ұмытпаңыз."
 
 #: src/as-validator-issue-tag.h:147
 msgid "The component ID might not follow the reverse domain-name schema (the TLD used by it is not known to the validator)."
-msgstr ""
+msgstr "Компонент ID-і кері домендік атау схемасына сәйкес келмеуі мүмкін (ол пайдаланатын TLD валидаторға белгісіз)."
 
 #: src/as-validator-issue-tag.h:152
 msgid "The component ID contains an invalid character. Only ASCII characters, dots and numbers are permitted."
-msgstr ""
+msgstr "Компонент ID-інде жарамсыз таңба бар. Тек ASCII таңбаларына, нүктелерге және сандарға рұқсат етіледі."
 
 #: src/as-validator-issue-tag.h:157
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
+msgstr "Компонент ID-і пунктуациядан басталады. Бұған рұқсат етілмейді."
 
 #: src/as-validator-issue-tag.h:162
 msgid "The component ID contains a hyphen/minus in its domain part. Using a hyphen is strongly discouraged to improve interoperability with other tools such as D-Bus. A good option is to replace any hyphens with underscores (`_`). Hyphens are only allowed in the last segment of a component ID."
-msgstr ""
+msgstr "Компонент ID-інің домендік бөлігінде дефис/минус бар. D-Bus сияқты басқа саймандармен өзара әрекеттесуді жақсарту үшін дефисті пайдалану ұсынылмайды. Жақсы нұсқа — кез келген дефисті астын сызу таңбасымен (`_`) ауыстыру. Дефистерге тек компонент ID-інің соңғы сегментінде рұқсат етіледі."
 
 #: src/as-validator-issue-tag.h:168
 msgid "The component ID contains a segment starting with a number. Starting a segment of the reverse-DNS ID with a number is strongly discouraged, to keep interoperability with other tools such as D-Bus. Ideally, prefix these segments with an underscore."
-msgstr ""
+msgstr "Компонент ID-інде саннан басталатын сегмент бар. D-Bus сияқты басқа саймандармен өзара әрекеттесуді сақтау үшін кері DNS ID сегментін саннан бастау ұсынылмайды. Ең дұрысы, бұл сегменттердің алдына астын сызу таңбасын қойыңыз."
 
 #: src/as-validator-issue-tag.h:174
 msgid "The component ID should only contain lowercase characters."
-msgstr ""
+msgstr "Компонент ID-і тек кіші әріптерден тұруы керек."
 
 #: src/as-validator-issue-tag.h:179
 msgid "The domain part of the rDNS component ID (first two parts) must only contain lowercase characters."
-msgstr ""
+msgstr "rDNS компонент ID-інің домендік бөлігі (алғашқы екі бөлігі) тек кіші әріптерден тұруы керек."
 
 #: src/as-validator-issue-tag.h:184
 msgid "The component is part of the Freedesktop project, but its ID does not start with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr ""
+msgstr "Компонент Freedesktop жобасының бөлігі болып табылады, бірақ оның ID-і fd.o-ның кері DNS атауымен (\"org.freedesktop\") басталмайды."
 
 #: src/as-validator-issue-tag.h:189
 msgid "The component is part of the KDE project, but its ID does not start with KDE's reverse-DNS name (\"org.kde\")."
-msgstr ""
+msgstr "Компонент KDE жобасының бөлігі болып табылады, бірақ оның ID-і KDE-нің кері DNS атауымен (\"org.kde\") басталмайды."
 
 #: src/as-validator-issue-tag.h:194
 msgid "The component is part of the GNOME project, but its ID does not start with GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr ""
+msgstr "Компонент GNOME жобасының бөлігі болып табылады, бірақ оның ID-і GNOME-ның кері DNS атауымен (\"org.gnome\") басталмайды."
 
 #: src/as-validator-issue-tag.h:199
 msgid "The SPDX license expression is invalid and could not be parsed."
-msgstr ""
+msgstr "SPDX лицензиялық өрнегі жарамсыз және оны талдау мүмкін болмады."
 
 #: src/as-validator-issue-tag.h:204
 msgid "The license ID was not found in the SPDX database. Please check that the license ID is written in an SPDX-conformant way and is a valid free software license."
-msgstr ""
+msgstr "Лицензия ID-і SPDX дерекқорынан табылмады. Лицензия ID-інің SPDX талаптарына сай жазылғанын және оның жарамды еркін бағдарламалық қамтама лицензиясы екенін тексеріңіз."
 
 #: src/as-validator-issue-tag.h:210
 msgid "The metadata itself seems to be licensed under a complex collection of licenses. Please license the data under a simple permissive license, like FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses."
-msgstr ""
+msgstr "Метадеректердің өзі лицензиялардың күрделі жиынтығымен лицензияланған сияқты. Дистрибьюторларға өзара үйлесімсіз лицензияларға байланысты лицензия бұзу қаупінсіз оны аралас деректер жинақтарына қосуға мүмкіндік беру үшін деректерді FSFAP, MIT немесе CC0-1.0 сияқты қарапайым рұқсат беруші лицензиямен лицензиялаңыз."
 
 #: src/as-validator-issue-tag.h:216
 msgid "The metadata itself does not seem to be licensed under a permissive license. Please license the data under a permissive license, like FSFAP, CC0-1.0 or 0BSD to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses."
-msgstr ""
+msgstr "Метадеректердің өзі рұқсат беруші лицензиямен лицензияланбаған сияқты. Дистрибьюторларға өзара үйлесімсіз лицензияларға байланысты лицензия бұзу қаупінсіз оны аралас деректер жинақтарына қосуға мүмкіндік беру үшін деректерді FSFAP, CC0-1.0 немесе 0BSD сияқты рұқсат беруші лицензиямен лицензиялаңыз."
 
 #: src/as-validator-issue-tag.h:222
 msgid "The update-contact does not appear to be a valid email address (escaping of `@` is only allowed as `_at_` or `_AT_`)."
-msgstr ""
+msgstr "Жаңарту контакты жарамды электрондық пошта адресі емес (`@` таңбасын экрандау тек `_at_` немесе `_AT_` түрінде рұқсат етіледі)."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:228
 msgid "The `environment` property is set to an unrecognized graphical environment/style combination."
-msgstr ""
+msgstr "`environment` қасиеті танылмаған графикалық орта/стиль комбинациясына орнатылған."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:234
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "`width` қасиеті оң бүтін сан болуы керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:240
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "`height` қасиеті оң бүтін сан болуы керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:246
 msgid "The `scale` property must be a positive integer."
-msgstr ""
+msgstr "`scale` қасиеті оң бүтін сан болуы керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:252
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
+msgstr "Сурет типі `source` немесе `thumbnail` болуы керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:258
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "Егер сурет типі `thumbnail` болса, `width` қасиеті көрсетілуі керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:264
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "Егер сурет типі `thumbnail` болса, `height` қасиеті көрсетілуі керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:270
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "Әр скриншот пен тіл үшін тек бір `source` суреті болуы мүмкін."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:276
 msgid "A screenshot must have at least one untranslated image of type `source`."
-msgstr ""
+msgstr "Скриншотта `source` типіндегі кем дегенде бір аударылмаған сурет болуы керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:282
 msgid "A screenshot must have at least one untranslated image of type `source`, which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) was found, which is likely intended to be the translatable image. Please remove the XML localization attribute in this case."
-msgstr ""
+msgstr "Скриншотта `source` типіндегі кем дегенде бір аударылмаған сурет болуы керек еді, бірақ ол табылмады. Оның орнына `en` локациясы бар (`xml:lang=en`) тег табылды, ол аударылатын сурет болуы мүмкін. Бұл жағдайда XML локализация атрибутын алып тастаңыз."
 
 #: src/as-validator-issue-tag.h:289
 msgid "Unable to reach the screenshot image on its remote location - does the image exist?"
-msgstr ""
+msgstr "Скриншот суретіне оның қашықтағы орны бойынша қол жеткізу мүмкін емес — сурет бар ма?"
 
 #: src/as-validator-issue-tag.h:294
 msgid "Unable to reach the screenshot video on its remote location - does the video file exist?"
-msgstr ""
+msgstr "Скриншот видеосына оның қашықтағы орны бойынша қол жеткізу мүмкін емес — видео файлы бар ма?"
 
 #: src/as-validator-issue-tag.h:299
 msgid "Consider using a secure (HTTPS) URL to reference this screenshot image or video."
-msgstr ""
+msgstr "Осы скриншот суретіне немесе видеосына сілтеме жасау үшін қауіпсіз (HTTPS) URL мекенжайын пайдалануды қарастырыңыз."
 
 #: src/as-validator-issue-tag.h:304
 msgid "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr ""
+msgstr "Скриншотта масштабтау коэффициенті 1-ге тең кем дегенде бір сурет болуы керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:310
 msgid "A screenshot must contain at least one image or video in order to be useful. Please add an <image/> to it."
-msgstr ""
+msgstr "Скриншот пайдалы болуы үшін оның құрамында кем дегенде бір сурет немесе видео болуы керек. Оған <image/> қосыңыз."
 
 #: src/as-validator-issue-tag.h:315
 msgid "A screenshot must contain either images or videos, but not both at the same time. Please use this screenshot exclusively for either static images or for videos."
-msgstr ""
+msgstr "Скриншотта не суреттер, не видеолар болуы керек, бірақ екеуі бірдей болмауы керек. Бұл скриншотты тек статикалық суреттер үшін немесе тек видеолар үшін пайдаланыңыз."
 
 #: src/as-validator-issue-tag.h:321
 msgid "The screenshot does not have a caption text. Consider adding one."
-msgstr ""
+msgstr "Скриншоттың сипаттама мәтіні жоқ. Біреуін қосуды қарастырыңыз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:327
 msgid "The screenshot video does not specify which video codec was used in a `codec` property."
-msgstr ""
+msgstr "Скриншот видеосында `codec` қасиетінде қай видео кодек пайдаланылғаны көрсетілмеген."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:333
 msgid "The screenshot video does not specify which container format was used in a `container` property."
-msgstr ""
+msgstr "Скриншот видеосында `container` қасиетінде қай контейнер форматы пайдаланылғаны көрсетілмеген."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:339
 msgid "The selected video codec is not supported by AppStream and software centers may not be able to play the video. Only the AV1 and VP9 codecs are currently supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
+msgstr "Таңдалған видео кодегі AppStream тарапынан қолдалмайды және бағдарламалық орталықтар видеоны ойната алмауы мүмкін. Қазіргі уақытта `codec` қасиеті үшін `av1` және `vp9` мәндерін пайдаланатын тек AV1 және VP9 кодектеріне қолдау көрсетіледі."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:346
 msgid "The selected video container format is not supported by AppStream and software centers may not be able to play the video. Only the WebM and Matroska video containers are currently supported, using `webm` and `mkv` as values for the `container` property."
-msgstr ""
+msgstr "Таңдалған видео контейнерінің форматы AppStream тарапынан қолдалмайды және бағдарламалық орталықтар видеоны ойната алмауы мүмкін. Қазіргі уақытта `container` қасиеті үшін `webm` және `mkv` мәндерін пайдаланатын тек WebM және Matroska видео контейнерлеріне қолдау көрсетіледі."
 
 #: src/as-validator-issue-tag.h:352
 msgid "For videos, only the WebM and Matroska (.mkv) container formats are currently supported. The file extension of the referenced video does not belong to either of these formats."
-msgstr ""
+msgstr "Видеолар үшін қазіргі уақытта тек WebM және Matroska (.mkv) контейнер форматтарына қолдау көрсетіледі. Сілтеме жасалған видеоның файл кеңейтімі осы форматтардың ешқайсысына жатпайды."
 
 #: src/as-validator-issue-tag.h:358
 msgid "The default screenshot of a software component must not be a video. Use a static image as default screenshot and set the video as a secondary screenshot."
-msgstr ""
+msgstr "Бағдарламалық қамтама компонентінің негізгі скриншоты видео болмауы керек. Негізгі скриншот ретінде статикалық суретті пайдаланыңыз, ал видеоны қосымша скриншот ретінде орнатыңыз."
 
 #: src/as-validator-issue-tag.h:363
 msgid "No screenshot is marked as default."
-msgstr ""
+msgstr "Ешбір скриншот негізгі ретінде белгіленбеген."
 
 #: src/as-validator-issue-tag.h:368
 msgid "Found an unknown tag in a requires/recommends group. This is likely an error, because a component relation of this type is unknown."
-msgstr ""
+msgstr "requires/recommends тобынан белгісіз тег табылды. Бұл қате болуы мүмкін, өйткені бұл типтегі компоненттік байланыс белгісіз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:374
 msgid "A `requires` or `recommends` item requires a value to denote a valid relation."
-msgstr ""
+msgstr "`requires` немесе `recommends` элементіне жарамды байланысты білдіру үшін мән қажет."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:380
 msgid "Found `version` property on required/recommended item of a type that should not have or require a version."
-msgstr ""
+msgstr "Нұсқасы болмауы немесе қажет етпеуі тиіс типтегі қажетті/ұсынылатын элементтен `version` қасиеті табылды."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:386
 msgid "Found `version` property on this required/recommended item, but not `compare` property. It is recommended to explicitly define a comparison operation."
-msgstr ""
+msgstr "Бұл қажетті/ұсынылатын элементтен `version` қасиеті табылды, бірақ `compare` қасиеті жоқ. Салыстыру операциясын нақты анықтау ұсынылады."
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:392
 msgid "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/ge` is permitted."
-msgstr ""
+msgstr "Қатынас элементіндегі салыстыру операциясы жарамсыз. Тек `eq/ne/lt/gt/le/ge` мәндерінің біреуіне рұқсат етіледі."
 
 #: src/as-validator-issue-tag.h:397
 msgid "The relation item has a comparison operation set, but does not support any comparisons."
-msgstr ""
+msgstr "Қатынас элементінде салыстыру операциясы орнатылған, бірақ ол ешқандай салыстыруды қолдамайды."
 
 #: src/as-validator-issue-tag.h:402
 msgid "This relation item has already been defined once for this or a different relation type. Please do not redefine relations."
-msgstr ""
+msgstr "Бұл қатынас элементі осы немесе басқа қатынас типі үшін бұрыннан анықталған. Қатынастарды қайта анықтамаңыз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:408
 msgid "Found a memory size relation in a `requires` tag. This means users will not be able to even install the component without having enough RAM. This is usually not intended and you want to use `memory` in the `recommends` tag instead."
-msgstr ""
+msgstr "`requires` тегінен жад өлшеміне қатысты байланыс табылды. Бұл пайдаланушылар жедел жады жеткілікті болмаса, компонентті орната да алмайтынын білдіреді. Әдетте бұл мақсат емес және оның орнына `recommends` тегінде `memory` мәнін пайдаланғыңыз келеді."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:415
 msgid "Found a user input control relation in a `requires` tag. This means users will not be able to even install the component without having the defined input control available on the system. This is usually not intended and you want to use `control` in the `recommends` tag instead."
-msgstr ""
+msgstr "`requires` тегінен пайдаланушының енгізуді басқару құралына қатысты байланыс табылды. Бұл пайдаланушылар жүйеде анықталған енгізуді басқару құралы болмаса, компонентті орната да алмайтынын білдіреді. Әдетте бұл мақсат емес және оның орнына `recommends` тегінде `control` мәнін пайдаланғыңыз келеді."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:422
 msgid "This `control` item defines an unknown input method and is invalid. Check the specification for a list of permitted values."
-msgstr ""
+msgstr "Бұл `control` элементі белгісіз енгізу әдісін анықтайды және жарамсыз. Рұқсат етілген мәндер тізімін спецификациядан қараңыз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:428
 msgid "This `display_length` item contains an invalid display length. Its value must be a positive integer value denoting logical pixels. Please refer to the AppStream specification for more information on this tag."
-msgstr ""
+msgstr "Бұл `display_length` элементінде жарамсыз дисплей ұзындығы бар. Оның мәні логикалық пиксельдерді білдіретін оң бүтін сан болуы керек. Бұл тег туралы қосымша ақпаратты AppStream спецификациясынан қараңыз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:435
 msgid "This `side` property of this `display_length` item contains an invalid value. It must either be `shortest` or `longest`, or unset to imply `shortest` to make the item value refer to either the shortest or longest side of the display."
-msgstr ""
+msgstr "Бұл `display_length` элементінің `side` қасиетінде жарамсыз мән бар. Элемент мәні дисплейдің ең қысқа немесе ең ұзын жағына қатысты болуы үшін ол `shortest` немесе `longest` болуы керек немесе `shortest` дегенді білдіру үшін бос қалдырылуы керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:442
 msgid "This `hardware` item contains an invalid value. It should be a Computer Hardware ID (CHID) UUID without braces."
-msgstr ""
+msgstr "Бұл `hardware` элементінде жарамсыз мән бар. Ол жақшасыз компьютерлік аппараттық ID (CHID) UUID болуы керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:448
 msgid "A `memory` item must only contain a non-zero integer value, depicting a system memory size in mebibyte (MiB)"
-msgstr ""
+msgstr "`memory` элементі тек мебибайтпен (MiB) жүйелік жад өлшемін көрсететін нөлден үлкен бүтін санды қамтуы керек"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:454
 msgid "The set tag value is not valid for an `internet` relation."
-msgstr ""
+msgstr "Орнатылған тег мәні `internet` қатынасы үшін жарамсыз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:460
 msgid "The `bandwidth_mbitps` property is not allowed when using `offline-only` as value."
-msgstr ""
+msgstr "Мән ретінде `offline-only` пайдаланылғанда `bandwidth_mbitps` қасиетіне рұқсат етілмейді."
 
 #: src/as-validator-issue-tag.h:465
 msgid "The value of this property must be a positive integer value, describing the minimum required bandwidth in mbit/s."
-msgstr ""
+msgstr "Бұл қасиеттің мәні мбит/с есебімен ең аз қажетті өткізу қабілетін сипаттайтын оң бүтін сан болуы керек."
 
 #: src/as-validator-issue-tag.h:470
 msgid "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
+msgstr "Орнатылған компонент типі танылған, жарамды AppStream компонент типі емес."
 
 #: src/as-validator-issue-tag.h:475
 msgid "The component has a priority value set. This is not allowed in metainfo files."
-msgstr ""
+msgstr "Компоненттің басымдық мәні орнатылған. Бұған metainfo файлдарында рұқсат етілмейді."
 
 #: src/as-validator-issue-tag.h:480
 msgid "The component has a `merge` method defined. This is not allowed in metainfo files."
-msgstr ""
+msgstr "Компоненттің `merge` әдісі анықталған. Бұған metainfo файлдарында рұқсат етілмейді."
 
 #: src/as-validator-issue-tag.h:485
 msgid "The component is missing an ID (<id/> tag)."
-msgstr ""
+msgstr "Компоненттің ID-і жоқ (<id/> тегі)."
 
 #: src/as-validator-issue-tag.h:490
 msgid "The component is missing a name (<name/> tag)."
-msgstr ""
+msgstr "Компоненттің атауы жоқ (<name/> тегі)."
 
 #: src/as-validator-issue-tag.h:495
 msgid "The name of this component is excessively long and can likely not be displayed properly in most layouts."
-msgstr ""
+msgstr "Бұл компоненттің атауы тым ұзын және көптеген жаймаларда дұрыс көрсетілмеуі мүмкін."
 
 #: src/as-validator-issue-tag.h:500
 msgid "The component is missing a summary (<summary/> tag)."
-msgstr ""
+msgstr "Компоненттің қысқаша сипаттамасы жоқ (<summary/> тегі)."
 
 #: src/as-validator-issue-tag.h:505
 msgid "The <id/> tag still contains a `type` property, probably from an old conversion to the recent metainfo format."
-msgstr ""
+msgstr "<id/> тегінде әлі де `type` қасиеті бар, бұл соңғы metainfo форматына ескі түрлендіруден қалған болуы мүмкін."
 
 #: src/as-validator-issue-tag.h:510
 msgid "The `pkgname` tag appears multiple times. You should evaluate creating a metapackage containing the metainfo and .desktop files in order to avoid defining multiple package names per component."
-msgstr ""
+msgstr "`pkgname` тегі бірнеше рет кездеседі. Бір компонент үшін бірнеше десте атауын анықтамау үшін metainfo және .desktop файлдарын қамтитын метадестені жасауды қарастыруыңыз керек."
 
 #: src/as-validator-issue-tag.h:515
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr ""
+msgstr "Компонент атауы (сірә) нүктемен (`.`) аяқталмауы керек."
 
 #: src/as-validator-issue-tag.h:520
 msgid "The component summary should not end with a dot (`.`)."
-msgstr ""
+msgstr "Компоненттің қысқаша сипаттамасы нүктемен (`.`) аяқталмауы керек."
 
 #: src/as-validator-issue-tag.h:525
 msgid "The component summary must not contain tabs or linebreaks."
-msgstr ""
+msgstr "Компоненттің қысқаша сипаттамасында табуляция немесе жол үзілімдері болмауы керек."
 
 #: src/as-validator-issue-tag.h:530
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr ""
+msgstr "Қысқаша сипаттамада ешқандай URL болмауы керек. Сілтемелер үшін `<url/>` тегтерін пайдаланыңыз."
 
 #: src/as-validator-issue-tag.h:535
 msgid "The summary text does not start with a capitalized word, project name or number."
-msgstr ""
+msgstr "Қысқаша сипаттама мәтіні бас әріптен, жоба атауынан немесе саннан басталмайды."
 
 #: src/as-validator-issue-tag.h:540
 msgid "The summary text is very long, and will likely not be displayed properly everywhere. It should be <= 90 characters."
-msgstr ""
+msgstr "Қысқаша сипаттама мәтіні өте ұзын және барлық жерде дұрыс көрсетілмеуі мүмкін. Ол 90 таңбадан аспауы керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:546
 msgid "Icons of type `stock` or `cached` must not contain an URL, a full or an relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
+msgstr "`stock` немесе `cached` типіндегі таңбашаларда таңбашаға баратын URL, толық немесе салыстырмалы жол болмауы керек. Тек файлдардың негізгі атауларына немесе стандартты атауларға рұқсат етіледі."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:553
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
-msgstr ""
+msgstr "`remote` типіндегі таңбашаларда сілтеме жасалған таңбашаға баратын URL болуы керек."
 
 #: src/as-validator-issue-tag.h:558
 msgid "Unable to reach remote icon at the given web location - does it exist?"
-msgstr ""
+msgstr "Берілген веб-мекенжай бойынша қашықтағы таңбашаға қол жеткізу мүмкін емес — ол бар ма?"
 
 #: src/as-validator-issue-tag.h:563
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
+msgstr "Қашықтағы таңбаша сілтемесі үшін қауіпсіз (HTTPS) URL мекенжайын пайдалануды қарастырыңыз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:569
 msgid "Metainfo files may only contain icons of type `stock` or `remote`, the set type is not allowed."
-msgstr ""
+msgstr "Metainfo файлдарында тек `stock` немесе `remote` типіндегі таңбашалар болуы мүмкін, орнатылған типке рұқсат етілмейді."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:575
 msgid "Invalid `type` property for this `url` tag. URLs of this type are not known in the AppStream specification."
-msgstr ""
+msgstr "Бұл `url` тегі үшін жарамсыз `type` қасиеті. Бұл типтегі URL мекенжайлары AppStream спецификациясында белгісіз."
 
 #: src/as-validator-issue-tag.h:580
 msgid "Unable to reach remote location that this URL references - does it exist?"
-msgstr ""
+msgstr "Осы URL сілтеме жасайтын қашықтағы орынға қол жеткізу мүмкін емес — ол бар ма?"
 
 #: src/as-validator-issue-tag.h:585
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr ""
+msgstr "Бұл веб-сілтеме үшін қауіпсіз (HTTPS) URL мекенжайын пайдалануды қарастырыңыз."
 
 #: src/as-validator-issue-tag.h:590
 msgid "A web URL was expected for this value."
-msgstr ""
+msgstr "Бұл мән үшін веб-URL күтілген еді."
 
 #: src/as-validator-issue-tag.h:595
 msgid "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr ""
+msgstr "Бұл веб-сілтеме FTP протоколын пайдаланады. Оның орнына HTTP(S) протоколына ауысуды қарастырыңыз."
 
 #: src/as-validator-issue-tag.h:600
 msgid "An URL of this type has already been defined."
-msgstr ""
+msgstr "Бұл типтегі URL мекенжайы бұрыннан анықталған."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:606
 msgid "This component is missing an `url` element of type `homepage` to link to the project's homepage."
-msgstr ""
+msgstr "Бұл компонентте жобаның үй бетіне сілтеме жасайтын `homepage` типіндегі `url` элементі жоқ."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:612
 msgid "The toplevel `developer_name` element is deprecated. Please use the `name` element in a `developer` block instead."
-msgstr ""
+msgstr "Жоғарғы деңгейдегі `developer_name` элементі ескірген. Оның орнына `developer` блогындағы `name` элементін пайдаланыңыз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:619
 msgid "This component contains no `developer` element with information about its author."
-msgstr ""
+msgstr "Бұл компонентте оның авторы туралы ақпараты бар `developer` элементі жоқ."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:625
 msgid "The `developer` element is missing an `id` property, containing a unique string ID for the developer. Consider adding a unique ID."
-msgstr ""
+msgstr "`developer` элементінде әзірлеуші үшін бірегей жолдық ID-ді қамтитын `id` қасиеті жоқ. Бірегей ID қосуды қарастырыңыз."
 
 #: src/as-validator-issue-tag.h:631
 msgid "The developer-ID is invalid. It should be an rDNS string identifying the developer, or a Fediverse handle. It must also only contain lowercase ASCII letters, numbers and punctuation."
-msgstr ""
+msgstr "Әзірлеуші ID-і жарамсыз. Ол әзірлеушіні анықтайтын rDNS жолы немесе Fediverse аты болуы керек. Сондай-ақ ол тек кіші ASCII әріптерінен, сандардан және пунктуациядан тұруы керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:638
 msgid "The `developer` block does not have a `name` element with a human-readable project author name."
-msgstr ""
+msgstr "`developer` блогында адам оқи алатын жоба авторының аты бар `name` элементі жоқ."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:644
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr ""
+msgstr "`developer` блогының `name` еншілес элементінде гиперсілтеме болмауы керек."
 
 #: src/as-validator-issue-tag.h:649
 msgid "The set value is not an identifier for a desktop environment as registered with Freedesktop.org."
-msgstr ""
+msgstr "Орнатылған мән Freedesktop.org жүйесінде тіркелген жұмыс үстелі ортасының идентификаторы емес."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:655
 msgid "This `launchable` tag has an unknown type and can not be used."
-msgstr ""
+msgstr "Бұл `launchable` тегінің типі белгісіз және оны пайдалану мүмкін емес."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:661
 msgid "This `bundle` tag has an unknown type and can not be used."
-msgstr ""
+msgstr "Бұл `bundle` тегінің типі белгісіз және оны пайдалану мүмкін емес."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:667
 msgid "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr ""
+msgstr "`update_contact` тегі каталогтық AppStream XML файлына қосылмауы керек."
 
 #: src/as-validator-issue-tag.h:672
 msgid "This tag is a GNOME-specific extension to AppStream and not part of the official specification. Do not expect it to work in all implementations and in all software centers."
-msgstr ""
+msgstr "Бұл тег AppStream үшін GNOME-ға тән кеңейтім болып табылады және ресми спецификацияның бөлігі емес. Оның барлық іске асыруларда және барлық бағдарламалық орталықтарда жұмыс істеуін күтпеңіз."
 
 #: src/as-validator-issue-tag.h:678
 msgid "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream also provides the <custom/> tag to add arbitrary custom data to metainfo files. This tag is read by AppStream libraries and may be useful instead of defining new custom toplevel or `x-`-prefixed tags if you just want to add custom data to a metainfo file."
-msgstr ""
+msgstr "Жарамсыз тег табылды. Стандартты емес тегтердің алдына `x-` префиксі қойылуы керек. AppStream сонымен қатар metainfo файлдарына еркін реттелетін деректерді қосу үшін <custom/> тегін ұсынады. Бұл тег AppStream кітапханаларымен оқылады және metainfo файлына реттелетін деректерді қосқыңыз келсе, жаңа реттелетін жоғарғы деңгейдегі немесе `x-` префиксі бар тегтерді анықтаудың орнына пайдалы болуы мүмкін."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:686
 msgid "The essential tag `metadata_license` is missing. A license for the metadata itself always has to be defined."
-msgstr ""
+msgstr "Маңызды `metadata_license` тегі жоқ. Метадеректердің өзіне арналған лицензия әрқашан анықталуы тиіс."
 
 #: src/as-validator-issue-tag.h:691
 msgid "The component is missing a long description. Components of this type must have a long description."
-msgstr ""
+msgstr "Компоненттің толық сипаттамасы жоқ. Бұл типтегі компоненттерде толық сипаттама болуы керек."
 
 #: src/as-validator-issue-tag.h:696
 msgid "It would be useful to add a long description to this font to present it better to users."
-msgstr ""
+msgstr "Бұл қаріпті пайдаланушыларға жақсырақ таныстыру үшін оған толық сипаттама қосқан пайдалы болар еді."
 
 #: src/as-validator-issue-tag.h:701
 msgid "It is recommended to add a long description to this component to present it better to users."
-msgstr ""
+msgstr "Бұл компонентті пайдаланушыларға жақсырақ таныстыру үшін оған толық сипаттама қосу ұсынылады."
 
 #: src/as-validator-issue-tag.h:706
 msgid "This generic component is missing a long description. It may be useful to add one."
-msgstr ""
+msgstr "Бұл жалпы компоненттің толық сипаттамасы жоқ. Біреуін қосқан пайдалы болуы мүмкін."
 
 #: src/as-validator-issue-tag.h:711
 msgid "The component is missing an untranslated long description, but has a translated one for the English locale. You need to provide a locale-less description in English as translation template."
-msgstr ""
+msgstr "Компоненттің аударылмаған толық сипаттамасы жоқ, бірақ ағылшын локациясы үшін аударылған сипаттамасы бар. Аударма үлгісі ретінде ағылшын тілінде локациясыз сипаттаманы ұсынуыңыз керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:718
 msgid "This `desktop-application` component is missing a `desktop-id` launchable tag. This means that this application can not be launched and has no association with its desktop-entry file. It also means no icon data or category information from the desktop-entry file will be available, which will result in this application being ignored entirely."
-msgstr ""
+msgstr "Бұл `desktop-application` компонентінде `desktop-id` launchable тегі жоқ. Бұл бұл қолданбаны іске қосу мүмкін емес және оның desktop-entry файлымен байланысы жоқ екенін білдіреді. Бұл сондай-ақ desktop-entry файлынан ешқандай таңбаша деректері немесе категория ақпараты қолжетімді болмайтынын білдіреді, нәтижесінде бұл қолданба мүлдем ескерілмейді."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:727
 msgid "This `desktop-application` component has no `desktop-id` launchable tag, however it contains all the necessary information to display the application. The omission of the launchable entry means that this application can not be launched directly from installers or software centers. If this is intended, this information can be ignored, otherwise it is strongly recommended to add a launchable tag as well."
-msgstr ""
+msgstr "Бұл `desktop-application` компонентінде `desktop-id` launchable тегі жоқ, бірақ онда қолданбаны көрсету үшін барлық қажетті ақпарат бар. Launchable жазбасының болмауы бұл қолданбаны орнатушылардан немесе бағдарламалық орталықтардан тікелей іске қосу мүмкін емес екенін білдіреді. Егер бұл әдейі жасалса, бұл ақпаратты ескермеуге болады, әйтпесе launchable тегін де қосу ұсынылады."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:737
 msgid "Type `console-application` component, but no information about binaries in $PATH was provided via a `provides/binary` tag."
-msgstr ""
+msgstr "`console-application` компонент типі, бірақ $PATH ішіндегі бинарлы файлдар туралы ақпарат `provides/binary` тегі арқылы берілмеген."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:743
 msgid "This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr ""
+msgstr "Бұл `web-application` компонентінде `url` типіндегі `launchable` тегі жоқ."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:749
 msgid "This `web-application` component is missing a `icon` tag to specify a valid icon."
-msgstr ""
+msgstr "Бұл `web-application` компонентінде жарамды таңбашаны көрсету үшін `icon` тегі жоқ."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:755
 msgid "This `web-application` component is missing categorizations. A `categories` block is likely missing."
-msgstr ""
+msgstr "Бұл `web-application` компонентінде категориялар жоқ. `categories` блогы жоқ сияқты."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:761
 msgid "Type `font` component, but no font information was provided via a `provides/font` tag."
-msgstr ""
+msgstr "`font` компонент типі, бірақ қаріп туралы ақпарат `provides/font` тегі арқылы берілмеген."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:767
 msgid "Type `driver` component, but no modalias information was provided via a `provides/modalias` tag."
-msgstr ""
+msgstr "`driver` компонент типі, бірақ modalias ақпараты `provides/modalias` тегі арқылы берілмеген."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:773
 msgid "An `extends` tag is specified, but the component is not of type `addon`, `localization` or `repository`."
-msgstr ""
+msgstr "`extends` тегі көрсетілген, бірақ компонент типі `addon`, `localization` немесе `repository` емес."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:779
 msgid "The component is an addon, but no `extends` tag was specified."
-msgstr ""
+msgstr "Компонент — қосымша, бірақ `extends` тегі көрсетілмеген."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:785
 msgid "This `localization` component is missing an `extends` tag, to specify the components it adds localization to."
-msgstr ""
+msgstr "Бұл `localization` компонентінде локализацияны қосатын компоненттерді көрсету үшін `extends` тегі жоқ."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:791
 msgid "This `localization` component does not define any languages this localization is for."
-msgstr ""
+msgstr "Бұл `localization` компоненті бұл локализация қай тілдерге арналғанын анықтамайды."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:797
 msgid "This `service` component is missing a `launchable` tag of type `service`."
-msgstr ""
+msgstr "Бұл `service` компонентінде `service` типіндегі `launchable` тегі жоқ."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:803
 msgid "Suggestions of any type other than `upstream` are not allowed in metainfo files."
-msgstr ""
+msgstr "Metainfo файлдарында `upstream` түрінен басқа ешқандай ұсыныстарға рұқсат етілмейді."
 
 #: src/as-validator-issue-tag.h:808
 msgid "The category name is not valid. Refer to the XDG Menu Specification for a list of valid category names."
-msgstr ""
+msgstr "Категория атауы жарамсыз. Жарамды категория атауларының тізімін XDG мәзір спецификациясынан қараңыз."
 
 #: src/as-validator-issue-tag.h:813
 msgid "All categories for this component have been ignored, either because they were invalid or because they are of low quality (e.g. custom 'X-' prefixed or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add more categories."
-msgstr ""
+msgstr "Бұл компоненттің барлық категориялары жарамсыз болғандықтан немесе сапасы төмен болғандықтан (мысалы, 'X-' префиксі бар немесе 'GTK' немесе 'Qt' сияқты тулкит категориялары) еленбеді. Категория атауларын түзетіңіз немесе көбірек категория қосыңыз."
 
 #: src/as-validator-issue-tag.h:819
 msgid "This component is in no valid categories, even though it should be. Please check its metainfo file and desktop-entry file."
-msgstr ""
+msgstr "Бұл компонент ешқандай жарамды категорияда жоқ, бірақ болуы тиіс. Оның metainfo файлын және desktop-entry файлын тексеріңіз."
 
 #: src/as-validator-issue-tag.h:824
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr ""
+msgstr "Скриншоттың сипаттамасы тым ұзын (100 таңбадан аспауы керек)"
 
 #: src/as-validator-issue-tag.h:829
 msgid "Unable to read file."
-msgstr ""
+msgstr "Файлды оқу мүмкін емес."
 
 #: src/as-validator-issue-tag.h:834
 msgid "The XML of this file is malformed."
-msgstr ""
+msgstr "Бұл файлдың XML құрылымы бұзылған."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:840
 msgid "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr ""
+msgstr "Каталог метадеректерінен жарамсыз тег табылды. Тек `component` тегтеріне рұқсат етіледі."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:846
 msgid "The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher). Modern files use the `component` root tag and include many other differences, so check for changes carefully when modernizing the data."
-msgstr ""
+msgstr "Metainfo файлы AppStream спецификациясының тексеруге келмейтін тым ескі нұсқасын пайдаланады. Оны 0.6 (немесе одан жоғары) нұсқасына көшіріңіз. Қазіргі заманғы файлдар `component` түбірлік тегін пайдаланады және көптеген басқа айырмашылықтары бар, сондықтан деректерді жаңарту кезінде өзгерістерді мұқият тексеріңіз."
 
 #: src/as-validator-issue-tag.h:852
 msgid "This XML document has an unknown root tag. Maybe this file is not a metainfo document?"
-msgstr ""
+msgstr "Бұл XML құжатының түбірлік тегі белгісіз. Мүмкін бұл файл metainfo құжаты емес шығар?"
 
 #: src/as-validator-issue-tag.h:857
 msgid "The metainfo filename does not match the component ID."
-msgstr ""
+msgstr "Metainfo файлының атауы компонент ID-іне сәйкес келмейді."
 
 #: src/as-validator-issue-tag.h:862
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr ""
+msgstr "Осы компонентпен байланысты desktop-entry файлын жүктеу мүмкін болмады."
 
 #: src/as-validator-issue-tag.h:867
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
+msgstr "Бұл компонент метадеректері жоқ .desktop файлына сілтеме жасайды."
 
 #: src/as-validator-issue-tag.h:872
 msgid "A category defined in the desktop-entry file is not valid. Refer to the XDG Menu Specification for a list of valid categories."
-msgstr ""
+msgstr "Desktop-entry файлында анықталған категория жарамсыз. Жарамды категориялар тізімін XDG мәзір спецификациясынан қараңыз."
 
 #: src/as-validator-issue-tag.h:877
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "Desktop-entry файлынан кейбір деректерді оқу кезінде қате кетті."
 
 #: src/as-validator-issue-tag.h:882
 msgid "The value of this desktop-entry field contains invalid or non-printable UTF-8 characters, which can not be displayed properly."
-msgstr ""
+msgstr "Бұл desktop-entry өрісінің мәнінде дұрыс көрсетілмейтін жарамсыз немесе басып шығарылмайтын UTF-8 таңбалары бар."
 
 #: src/as-validator-issue-tag.h:887
 msgid "This desktop-entry field value is quoted, which is likely unintentional."
-msgstr ""
+msgstr "Бұл desktop-entry өрісінің мәні тырнақшаға алынған, бұл байқаусызда жасалған болуы мүмкін."
 
 #: src/as-validator-issue-tag.h:892
 msgid "This desktop-entry file has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional."
-msgstr ""
+msgstr "Бұл desktop-entry файлында 'Hidden' қасиеті орнатылған. Бұл вендор орнатқан .desktop файлдары үшін қате және осы .desktop файлының барлық әсерлерін (соның ішінде MIME қауымдастықтарын) жояды, бұл әрине әдейі жасалмаған."
 
 #: src/as-validator-issue-tag.h:898
 msgid "This desktop-entry file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit."
-msgstr ""
+msgstr "Бұл desktop-entry файлында 'OnlyShowIn' қасиеті бос мәнмен орнатылған. Бұл қолданбаны барлық жұмыс үстелдерінен жасыратындықтан, әдейі жасалмаған болуы мүмкін. Егер сіз қолданбаны барлық жұмыс үстелдерінен жасырғыңыз келсе, 'NoDisplay=true' мәнін пайдалану нақтырақ болады."
 
 #: src/as-validator-issue-tag.h:904
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr ""
+msgstr "Бұл бумада немесе бума ағашында ешқандай AppStream метадеректері табылмады."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:909
 msgid "No XDG applications directory found."
-msgstr ""
+msgstr "XDG қолданбалар бумасы табылмады."
 
 #: src/as-validator-issue-tag.h:914
 msgid "The metainfo file is stored in a legacy path. Please place it in `/usr/share/metainfo/`."
-msgstr ""
+msgstr "Metainfo файлы ескірген жолда сақталған. Оны `/usr/share/metainfo/` ішіне орналастырыңыз."
 
 #: src/as-validator-issue-tag.h:919
 msgid "The metainfo file specifies multiple components. This is not allowed."
-msgstr ""
+msgstr "Metainfo файлы бірнеше компонентті көрсетеді. Бұған рұқсат етілмейді."
 
 #: src/as-validator-issue-tag.h:924
 msgid "The releases are not sorted in a latest to oldest version order. This is required as some tools will assume that the latest version is always at the top. Sorting releases also increases overall readability of the metainfo file."
-msgstr ""
+msgstr "Шығарылымдар жаңа нұсқадан ескі нұсқаға қарай реттелмеген. Бұл өте маңызды, өйткені кейбір саймандар соңғы нұсқа әрқашан жоғарыда болады деп есептейді. Шығарылымдарды сұрыптау metainfo файлының жалпы оқылуын да арттырады."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:932
 msgid "The type of the releases block is invalid. It needs to either `embedded` (the default) or `external`."
-msgstr ""
+msgstr "Шығарылымдар блогының типі жарамсыз. Ол не `embedded` (бастапқы), не `external` болуы керек."
 
 #: src/as-validator-issue-tag.h:937
 msgid "The URL to an external release metadata file is insecure. This is not allowed, please use HTTPS URLs only."
-msgstr ""
+msgstr "Сыртқы шығарылым метадеректері файлына баратын URL қауіпсіз емес. Бұған рұқсат етілмейді, тек HTTPS URL мекенжайларын пайдаланыңыз."
 
 #: src/as-validator-issue-tag.h:942
 msgid "Failed to download release metadata."
-msgstr ""
+msgstr "Шығарылым метадеректерін жүктеп алу сәтсіз аяқталды."
 
 #: src/as-validator-issue-tag.h:947
 msgid "A local release metadata file was not found. It is strongly recommended to validate this metadata together with the main MetaInfo file."
-msgstr ""
+msgstr "Жергілікті шығарылым метадеректері файлы табылмады. Бұл метадеректерді негізгі MetaInfo файлымен бірге тексеру ұсынылады."
 
 #: src/as-validator-issue-tag.h:953
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "Шығарылымның шұғылдығы ретінде орнатылған мән белгілі шұғылдық мәні емес."
 
 #: src/as-validator-issue-tag.h:958
 msgid "The value set as release type is invalid."
-msgstr ""
+msgstr "Шығарылым типі ретінде орнатылған мән жарамсыз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:964
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "Шығарылымда `version` қасиеті жоқ."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:970
 msgid "The release entry is missing either the `date` (preferred) or the `timestamp` property."
-msgstr ""
+msgstr "Шығарылым жазбасында `date` (артықшылықты) немесе `timestamp` қасиеті жоқ."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:976
 msgid "The release entry is missing the `date` property. Ensure to add it before publishing the snapshot release."
-msgstr ""
+msgstr "Шығарылым жазбасында `date` қасиеті жоқ. Снапшот шығарылымын жарияламас бұрын оны міндетті түрде қосыңыз."
 
 #: src/as-validator-issue-tag.h:981
 msgid "The release timestamp is invalid."
-msgstr ""
+msgstr "Шығарылымның уақыт белгісі жарамсыз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:987
 msgid "The release description must be put inside a `description` tag"
-msgstr ""
+msgstr "Шығарылым сипаттамасы `description` тегінің ішіне қойылуы керек"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:993
 msgid "The value set as artifact type is invalid. Must be either `source` or `binary`."
-msgstr ""
+msgstr "Артефакт типі ретінде орнатылған мән жарамсыз. Ол `source` немесе `binary` болуы керек."
 
 #: src/as-validator-issue-tag.h:998
 msgid "The value set as artifact bundle type is invalid."
-msgstr ""
+msgstr "Артефакт жинағының типі ретінде орнатылған мән жарамсыз."
 
 #: src/as-validator-issue-tag.h:1003
 msgid "The platform triplet for this release is invalid. It must be in the form of `architecture-oskernel-osenv` - refer to the AppStream documentation or information on normalized GNU triplets for more information and valid fields."
-msgstr ""
+msgstr "Бұл шығарылым үшін платформа триплеті жарамсыз. Ол `architecture-oskernel-osenv` түрінде болуы керек — толығырақ ақпарат пен жарамды өрістерді AppStream құжаттамасынан немесе нормаланған GNU триплеттері туралы ақпараттан қараңыз."
 
 #: src/as-validator-issue-tag.h:1010
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
+msgstr "Таңдалған бақылау сомасын есептеу алгоритміне қолдау көрсетілмейді немесе ол белгісіз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1016
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
+msgstr "Өлшем типі белгісіз. Ол `download` немесе `installed` болуы керек."
 
 #: src/as-validator-issue-tag.h:1021
 msgid "The artifact filename must be a file basename, not a (relative or absolute) path."
-msgstr ""
+msgstr "Артефакт файлының атауы (салыстырмалы немесе абсолютті) жол емес, файлдың негізгі атауы болуы керек."
 
 #: src/as-validator-issue-tag.h:1026
 msgid "The value set as release issue type is invalid."
-msgstr ""
+msgstr "Шығарылым мәселесінің типі ретінде орнатылған мән жарамсыз."
 
 #: src/as-validator-issue-tag.h:1031
 msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
-msgstr ""
+msgstr "Мәселе CVE нөмірі бар қауіпсіздік осалдығы ретінде белгіленген, бірақ оның мәні жарамды CVE идентификаторына ұқсамайды."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1037
 msgid "This component is missing information about releases. Consider adding a `releases` tag to describe releases and their changes."
-msgstr ""
+msgstr "Бұл компонентте шығарылымдар туралы ақпарат жоқ. Шығарылымдар мен олардың өзгерістерін сипаттау үшін `releases` тегін қосуды қарастырыңыз."
 
 #: src/as-validator-issue-tag.h:1042
 msgid "The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. Please ensure the date string is valid."
-msgstr ""
+msgstr "AppStream спецификациясы күндерді белгілеу үшін кем дегенде күн дәлдігі бар толық ISO 8601 күн жолын қажет етеді. Күн жолының жарамды екеніне көз жеткізіңіз."
 
 #: src/as-validator-issue-tag.h:1048
 msgid "This component extends, provides, requires or recommends itself, which is certainly not intended and may confuse users or machines dealing with this metadata."
-msgstr ""
+msgstr "Бұл компонент өзін-өзі кеңейтеді, ұсынады, қажет етеді немесе ұсынады, бұл әрине әдейі жасалмаған және осы метадеректермен жұмыс істейтін пайдаланушыларды немесе машиналарды шатастыруы мүмкін."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1055
 msgid "Licenses for `runtime` components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL as value for this component's `project_license`. E.g. `LicenseRef-free=https://example.com/licenses.html`"
-msgstr ""
+msgstr "`runtime` компоненттеріне арналған лицензиялар әдетте оларды қарапайым SPDX өрнегінде көрсету үшін тым күрделі. Осы компоненттің `project_license` мәні ретінде `LicenseRef` және веб-URL мекенжайын пайдалануды қарастырыңыз. Мысалы, `LicenseRef-free=https://example.com/licenses.html`"
 
 #: src/as-validator-issue-tag.h:1061
 msgid "Since a `runtime` component consists of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime."
-msgstr ""
+msgstr "`runtime` компоненті бірнеше басқа бағдарламалық қамтама компоненттерінен тұратындықтан, олардың компонент ID-лері осы runtime үшін `<provides/>` бөлімінде көрсетілуі мүмкін."
 
 #: src/as-validator-issue-tag.h:1066
 msgid "The type of the item that the component provides is not known to AppStream."
-msgstr ""
+msgstr "Компонент ұсынатын элементтің типі AppStream үшін белгісіз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1072
 msgid "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead to indicate that your software provides a media handler for the given types."
-msgstr ""
+msgstr "Жоғарғы деңгейдегі `mimetypes` тегі ескірген. Бағдарламалық қамтамаңыздың берілген типтер үшін медиа өңдеушіні ұсынатынын көрсету үшін `provides` блогында `mediatype` тегтерін пайдаланыңыз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1079
 msgid "This component has no `content_rating` tag to provide age rating information. You can generate the tag data online by answering a few questions at https://hughsie.github.io/oars/"
-msgstr ""
+msgstr "Бұл компонентте жас рейтингі туралы ақпарат беретін `content_rating` тегі жоқ. Тег деректерін https://hughsie.github.io/oars/ мекенжайында бірнеше сұраққа жауап беру арқылы онлайн түрде жасауға болады"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1086
 msgid "The `type` attribute of this `content_rating` element is missing or empty."
-msgstr ""
+msgstr "Бұл `content_rating` элементінің `type` атрибуты жоқ немесе бос."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1092
 msgid "The `type` attribute of the `content_rating` element has an invalid value."
-msgstr ""
+msgstr "`content_rating` элементінің `type` атрибутында жарамсыз мән бар."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1098
 msgid "The `content_rating` tag can only contain `content_attribute` children."
-msgstr ""
+msgstr "`content_rating` тегінде тек `content_attribute` еншілес элементтері болуы мүмкін."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1104
 msgid "The `id` attribute of the `content_attribute` element is missing or empty."
-msgstr ""
+msgstr "`content_attribute` элементінің `id` атрибуты жоқ немесе бос."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1110
 msgid "The `id` attribute of the `content_attribute` element has an invalid value."
-msgstr ""
+msgstr "`content_attribute` элементінің `id` атрибутында жарамсыз мән бар."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1116
 msgid "The `content_attribute` tag needs a value."
-msgstr ""
+msgstr "`content_attribute` тегіне мән қажет."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1122
 msgid "The `content_attribute` tag value is unknown."
-msgstr ""
+msgstr "`content_attribute` тегінің мәні белгісіз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1128
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr ""
+msgstr "`content_attribute` тегінің мәні берілген ID үшін жарамсыз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1134
 msgid "A `content_attribute` tag with this ID has already been defined."
-msgstr ""
+msgstr "Осы ID-і бар `content_attribute` тегі бұрыннан анықталған."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1140
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "Бұл `tag` элементінде `namespace` атрибуты жоқ."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1146
 msgid "This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
+msgstr "Бұл тегте немесе оның кеңістік атауында жарамсыз таңбалар бар. Тек кіші ASCII әріптеріне, сандарға, нүктелерге, дефистерге және астын сызу таңбаларына рұқсат етіледі."
 
 #: src/as-validator-issue-tag.h:1151
 msgid "The type of this color is not valid."
-msgstr ""
+msgstr "Бұл түстің типі жарамсыз."
 
 #: src/as-validator-issue-tag.h:1156
 msgid "The value of this color scheme preference is not valid."
-msgstr ""
+msgstr "Түс схемасының бұл таңдауының мәні жарамсыз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1162
 msgid "The name of the color scheme property is wrong. It should be `scheme_preference`."
-msgstr ""
+msgstr "Түс схемасы қасиетінің атауы қате. Ол `scheme_preference` болуы керек."
 
 #: src/as-validator-issue-tag.h:1167
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Бұл түс жарамды HTML түс коды емес."
 
 #: src/as-validator-issue-tag.h:1172
 msgid "A color for this type/scheme combination was already set. Colors must be unique per type/scheme."
-msgstr ""
+msgstr "Бұл тип/схема комбинациясы үшін түс бұрыннан орнатылған. Түстер әр тип/схема үшін бірегей болуы керек."
 
 #: src/as-validator-issue-tag.h:1177
 msgid "The given DOI (Digital Object Identifier) for this reference item is not valid."
-msgstr ""
+msgstr "Бұл сілтеме элементі үшін берілген DOI (Digital Object Identifier) жарамсыз."
 
 #: src/as-validator-issue-tag.h:1182
 msgid "The value for this citation reference item must be an URL to a CFF (Citation File Format) file."
-msgstr ""
+msgstr "Бұл дәйексөз сілтемесі элементінің мәні CFF (Citation File Format) файлына баратын URL болуы керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1188
 msgid "This registry reference item is missing the `name` property to denote the name of the registry it is about."
-msgstr ""
+msgstr "Бұл тізілім сілтемесі элементінде ол туралы тізілім атауын білдіретін `name` қасиеті жоқ."
 
 #: src/as-validator-issue-tag.h:1193
 msgid "The registry for this reference item is unknown. This may be due to a typing error, or the registry needs to be registered with AppStream."
-msgstr ""
+msgstr "Бұл сілтеме элементіне арналған тізілім белгісіз. Бұл теру қатесінен болуы мүмкін немесе тізілімді AppStream жүйесінде тіркеу қажет."
 
 #: src/as-validator-issue-tag.h:1199
 msgid "The reference item is missing a value."
-msgstr ""
+msgstr "Сілтеме элементінің мәні жоқ."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1205
 msgid "The `custom` tag can only contain `value` children."
-msgstr ""
+msgstr "`custom` тегінде тек `value` еншілес элементтері болуы мүмкін."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1211
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr ""
+msgstr "Бұл `custom` тегінің мәнінде `key` атрибуты жоқ."
 
 #: src/as-validator-issue-tag.h:1216
 msgid "A key can only be used once."
-msgstr ""
+msgstr "Кілтті тек бір рет қана пайдалануға болады."
 
 #: src/as-validator-issue-tag.h:1221
 msgid "This custom value is empty."
-msgstr ""
+msgstr "Бұл реттелетін мән бос."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1227
 msgid "A `keywords` tag must not be localized in metainfo files (upstream metadata). Localize the individual keyword entries instead."
-msgstr ""
+msgstr "`keywords` тегі metainfo файлдарында (бастапқы метадеректер) локализацияланбауы керек. Оның орнына жеке кілт сөздерді локализациялаңыз."
 
 #: src/as-validator.c:199
 msgid "The emitted issue tag is unknown in the tag registry of AppStream. This is a bug in the validator itself, please report this issue in our bugtracker."
-msgstr ""
+msgstr "Шығарылған мәселе тегі AppStream тегтер тізілімінде белгісіз. Бұл валидатордың өзіндегі қате, бұл мәселе туралы біздің трекерге хабарлаңыз."
 
 #: src/as-validator.c:419
 msgid "URL format is invalid."
-msgstr ""
+msgstr "URL форматы жарамсыз."
 
 #: src/as-validator.c:480 src/as-validator.c:525
 #, c-format
 msgid "The release metadata file '%s' is named incorrectly."
-msgstr ""
+msgstr "'%s' шығарылым метадеректері файлы қате аталған."
 
 #. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
 #: src/as-validator.c:673
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
-msgstr ""
+msgstr "'%s' тегі үшін мәселенің жаңа маңыздылығы жарамсыз."
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
 #: src/as-validator.c:684
 #, c-format
 msgid "The issue tag '%s' is not recognized."
-msgstr ""
+msgstr "'%s' мәселе тегі танылмады."
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 #. whitelisted for that.
 #: src/as-validator.c:711
 #, c-format
 msgid "It is not allowed to downgrade the severity of tag '%s' to one that allows validation to pass."
-msgstr ""
+msgstr "'%s' тегінің маңыздылығын тексеруден өтуге мүмкіндік беретін деңгейге дейін төмендетуге рұқсат етілмейді."
 
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
@@ -2577,112 +2578,114 @@ msgstr ""
 #: src/as-validator.c:2694 src/as-validator.c:3017
 #, c-format
 msgid "Found: %s - Allowed: %s"
-msgstr ""
+msgstr "Табылды: %s - Рұқсат етілген: %s"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #. TRANSLATORS: ascompose flag description for: --verbose
 #: tools/appstream-compose.c:198 tools/appstreamcli.c:1363
 msgid "Show extra debugging information."
-msgstr ""
+msgstr "Қосымша түзету ақпаратын көрсету."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #. TRANSLATORS: ascompose flag description for: --no-color
 #: tools/appstream-compose.c:205 tools/appstreamcli.c:1369
 msgid "Don't show colored output."
-msgstr ""
+msgstr "Түрлі-түсті шығысты көрсетпеу."
 
 #. TRANSLATORS: ascli flag description for: --version
 #. TRANSLATORS: ascompose flag description for: --version
 #: tools/appstream-compose.c:212 tools/appstreamcli.c:1357
 msgid "Show the program version."
-msgstr ""
+msgstr "Бағдарлама нұсқасын көрсету."
 
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:219
 msgid "Do not use the network at all, not even for URL validity checks."
-msgstr ""
+msgstr "Желіні мүлдем пайдаланбау, тіпті URL жарамдылығын тексеру үшін де."
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:226
 msgid "Set mode of the issue report that is printed to the console."
-msgstr ""
+msgstr "Консольге шығарылатын мәселелер туралы есептің режимін орнату."
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:233
 msgid "Override the default prefix (`/usr` by default)."
-msgstr ""
+msgstr "Бастапқы префиксті ауыстыру (әдетте `/usr`)."
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:240
 msgid "Set the result output directory."
-msgstr ""
+msgstr "Нәтижені шығару бумасын орнату."
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:247
 msgid "Override the catalog metadata output directory."
-msgstr ""
+msgstr "Каталог метадеректерін шығару бумасын ауыстыру."
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:254
 msgid "Override the icon output directory."
-msgstr ""
+msgstr "Таңбашаларды шығару бумасын ауыстыру."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:261
 msgid "Set the media output directory (for media data to be served by a webserver)."
-msgstr ""
+msgstr "Медиа деректерді шығару бумасын орнату (веб-сервер ұсынатын медиа деректер үшін)."
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:268
 msgid "Set a directory where HTML and text issue reports will be stored."
-msgstr ""
+msgstr "HTML және мәтіндік есептер сақталатын буманы орнату."
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:275
 msgid "Set the origin name"
-msgstr ""
+msgstr "Шығу тегінің атауын орнату"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:282
 msgid "Set the URL where the exported media content will be hosted."
-msgstr ""
+msgstr "Экспортталған медиа мазмұны орналастырылатын URL мекенжайын орнату."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:289
 msgid "Makes all URLs in output data complete URLs and avoids the use of a shared URL prefix for all metadata."
-msgstr ""
+msgstr "Шығыс деректердегі барлық URL мекенжайларын толық URL етеді және барлық метадеректер үшін ортақ URL префиксін пайдалануды болдырмайды."
 
 #. TRANSLATORS: ascompose flag description for: --icon-policy
 #: tools/appstream-compose.c:296
 msgid "An icon-policy string to set how icon sizes should be handled (refer to the man page for details)."
-msgstr ""
+msgstr "Таңбаша өлшемдерін қалай өңдеу керектігін орнатуға арналған icon-policy жолы (толығырақ man бетінен қараңыз)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:303
 msgid "A comma-separated list of custom keys that should be propagated to the output data."
-msgstr ""
+msgstr "Шығыс деректерге таратылуы тиіс реттелетін кілттердің үтірмен ажыратылған тізімі."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
 msgid "A comma-separated list of component-IDs to accept."
-msgstr ""
+msgstr "Қабылданатын компонент ID-лерінің үтірмен ажыратылған тізімі."
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:327
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Аргументтерді талдау сәтсіз аяқталды"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-compose.c:338 tools/appstreamcli.c:1597
 #, c-format
 msgid "AppStream version: %s"
-msgstr ""
+msgstr "AppStream нұсқасы: %s"
 
 #: tools/appstream-compose.c:342 tools/appstreamcli.c:1601
 #, c-format
 msgid "AppStream CLI tool version: %s\n"
 "AppStream library version: %s"
 msgstr ""
+"AppStream CLI сайман нұсқасы: %s\n"
+"AppStream кітапхана нұсқасы: %s"
 
 #: tools/appstream-compose.c:364
 #, c-format
@@ -2692,1048 +2695,1055 @@ msgid "Invalid value for `--print-report` option: %s\n"
 "`short` - generates an abridged report\n"
 "`full` - a detailed report will be printed"
 msgstr ""
+"`--print-report` опциясы үшін жарамсыз мән: %s\n"
+"Мүмкін мәндер:\n"
+"`on-error` - егер орындау сәтсіз аяқталса ғана қысқа есепті шығарады (бастапқы)\n"
+"`short` - қысқартылған есепті жасайды\n"
+"`full` - толық есеп шығарылады"
 
 #: tools/appstream-compose.c:394
 #, c-format
 msgid "Automatically selected '%s' as data output location."
-msgstr ""
+msgstr "Деректерді шығару орны ретінде '%s' автоматты түрде таңдалды."
 
 #: tools/appstream-compose.c:399
 msgid "No destination directory set, please provide a data output location!"
-msgstr ""
+msgstr "Мақсатты бума орнатылмаған, деректерді шығару орнын көрсетіңіз!"
 
 #: tools/appstream-compose.c:412 tools/appstream-compose.c:414
 msgid "WARNING"
-msgstr ""
+msgstr "ЕСКЕРТУ"
 
 #: tools/appstream-compose.c:446
 msgid "Unable to set icon policy"
-msgstr ""
+msgstr "Таңбаша саясатын орнату мүмкін емес"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:473
 #, c-format
 msgid "Only accepting components: %s"
-msgstr ""
+msgstr "Тек мына компоненттер қабылданады: %s"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:476
 #, c-format
 msgid "Only accepting component: %s"
-msgstr ""
+msgstr "Тек мына компонент қабылданады: %s"
 
 #. TRANSLATORS: Information about as-compose units to be processed
 #: tools/appstream-compose.c:481
 msgid "Processing directories:"
-msgstr ""
+msgstr "Бумаларды өңдеу:"
 
 #. TRANSLATORS: Information about as-compose units to be processed
 #: tools/appstream-compose.c:484
 msgid "Processing directory:"
-msgstr ""
+msgstr "Буманы өңдеу:"
 
 #. TRANSLATORS: Error message
 #: tools/appstream-compose.c:493
 msgid "Can not process invalid directory"
-msgstr ""
+msgstr "Жарамсыз буманы өңдеу мүмкін емес"
 
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:505
 msgid "Composing metadata..."
-msgstr ""
+msgstr "Метадеректер құрастырылуда..."
 
 #. TRANSLATORS: Error message
 #: tools/appstream-compose.c:510
 msgid "Failed to compose AppStream metadata"
-msgstr ""
+msgstr "AppStream метадеректерін құрастыру сәтсіз аяқталды"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:516
 msgid "Run failed, some data was ignored."
-msgstr ""
+msgstr "Орындау сәтсіз аяқталды, кейбір деректер еленбеді."
 
 #: tools/appstream-compose.c:519
 msgid "Errors were raised during this compose run:"
-msgstr ""
+msgstr "Осы құрастыру кезінде қателер туындады:"
 
 #: tools/appstream-compose.c:522
 msgid "Refer to the generated issue report data for details on the individual problems."
-msgstr ""
+msgstr "Жекелеген мәселелер туралы толық ақпаратты жасалған есеп деректерінен қараңыз."
 
 #: tools/appstream-compose.c:526
 msgid "Overview of generated hints:"
-msgstr ""
+msgstr "Жасалған нұсқауларға шолу:"
 
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:528
 msgid "Success!"
-msgstr ""
+msgstr "Сәтті!"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstreamcli.c:63
 msgid "Manually selected location of AppStream cache."
-msgstr ""
+msgstr "AppStream кэшінің орны қолмен таңдалды."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstreamcli.c:69
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr ""
+msgstr "Сканерленетін AppStream метадеректерінің орны қолмен таңдалды."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:75
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
+msgstr "Кэштің ескіруін ескермеу және сұрауды орындау алдында жаңа кэш құрастыру."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:91
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
+msgstr "Метадеректердің бастапқы форматы (жарамды мәндер — 'xml' және 'yaml')."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstreamcli.c:107
 msgid "Print detailed output about found components."
-msgstr ""
+msgstr "Табылған компоненттер туралы толық ақпаратты шығару."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstreamcli.c:128
 msgid "Also show pedantic hints."
-msgstr ""
+msgstr "Сондай-ақ егжей-тегжейлі нұсқауларды көрсету."
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
 #: tools/appstreamcli.c:135
 msgid "Print detailed explanation for found issues."
-msgstr ""
+msgstr "Табылған мәселелер туралы толық түсіндірмені шығару."
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstreamcli.c:142
 msgid "Do not use network access."
-msgstr ""
+msgstr "Желіге қол жеткізуді пайдаланбау."
 
 #. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
 #: tools/appstreamcli.c:149
 msgid "Fail validation if any issue is emitted that is not of pedantic severity."
-msgstr ""
+msgstr "Егер егжей-тегжейлі емес кез келген мәселе шығарылса, тексеруді сәтсіз деп есептеу."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:155
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr ""
+msgstr "Жасалған есептің форматы (жарамды мәндер — 'text' және 'yaml')."
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:161
 msgid "Override the severities of selected issue tags."
-msgstr ""
+msgstr "Таңдалған мәселе тегтерінің маңыздылығын ауыстыру."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #: tools/appstreamcli.c:179 tools/appstreamcli.c:1252
 msgid "AppStream command-line interface"
-msgstr ""
+msgstr "AppStream командалық жол интерфейсі"
 
 #: tools/appstreamcli.c:182
 #, c-format
 msgid "'%s' command"
-msgstr ""
+msgstr "'%s' командасы"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
 #: tools/appstreamcli.c:218
 #, c-format
 msgid "Option '%s' is unknown."
-msgstr ""
+msgstr "'%s' опциясы белгісіз."
 
 #: tools/appstreamcli.c:223 tools/appstreamcli.c:1573
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
+msgstr "Қолжетімді командалық жол опцияларының толық тізімін көру үшін '%s --help' командасын орындаңыз."
 
 #: tools/appstreamcli.c:227
 #, c-format
 msgid "Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."
-msgstr ""
+msgstr "Қолжетімді командалар мен опциялар тізімін көру үшін '%s --help', ал осы ішкі командаға тән опциялар тізімін көру үшін '%s %s --help' командасын орындаңыз."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:282
 msgid "Enforce a cache refresh."
-msgstr ""
+msgstr "Кэшті мәжбүрлі түрде жаңарту."
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
 #: tools/appstreamcli.c:288
 msgid "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."
-msgstr ""
+msgstr "Кэшті жаңартуды белгілі бір дереккөзбен шектеу, мысалы, `os` немесе `flatpak`. Бірнеше рет көрсетілуі мүмкін."
 
 #: tools/appstreamcli.c:546
 msgid "No license, license expression or license exception string was provided."
-msgstr ""
+msgstr "Лицензия, лицензия өрнегі немесе лицензия ерекшелігі жолы берілмеген."
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
 #: tools/appstreamcli.c:595
 msgid "Print more detailed output on why incompatibilities exist."
-msgstr ""
+msgstr "Үйлесімсіздіктердің туындау себептері туралы толық ақпаратты шығару."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:632
 msgid "Set the data origin for the installed metadata catalog file."
-msgstr ""
+msgstr "Орнатылған метадеректер каталогы файлы үшін деректердің шығу тегін орнату."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:638
 msgid "Install the file for the current user, instead of globally."
-msgstr ""
+msgstr "Файлды глобалды түрде орнатудың орнына ағымдағы пайдаланушы үшін орнату."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:666
 msgid "Limit the command to use only components from the given bundling system (`flatpak` or `package`)."
-msgstr ""
+msgstr "Команданы тек берілген жинақтау жүйесіндегі (`flatpak` немесе `package`) компоненттерді пайдаланумен шектеу."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:673
 msgid "Do not ask for which software component should be used and always choose the first entry."
-msgstr ""
+msgstr "Қай бағдарламалық қамтама компонентін пайдалану керектігін сұрамау және әрқашан бірінші жазбаны таңдау."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:707 tools/appstreamcli.c:742
 msgid "No valid bundle kind was specified. Only `package` and `flatpak` are currently recognized."
-msgstr ""
+msgstr "Жарамды жинақ түрі көрсетілмеген. Қазіргі уақытта тек `package` және `flatpak` танылады."
 
 #: tools/appstreamcli.c:836
 msgid "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
+msgstr "Параметр ретінде салыстыру үшін кем дегенде екі нұсқа нөмірін көрсетуіңіз керек."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:865
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Белгісіз салыстыру қатынасы '%s'. Жарамды мәндер:"
 
 #: tools/appstreamcli.c:906
 msgid "Too many parameters: Need two version numbers or version numbers and a comparison operator."
-msgstr ""
+msgstr "Параметрлер тым көп: Екі нұсқа нөмірі немесе нұсқа нөмірлері мен салыстыру операторы қажет."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:932
 msgid "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
+msgstr "Metainfo файлының негізгі мәндерін толтыру үшін берілген .desktop файлын пайдалану."
 
 #: tools/appstreamcli.c:940
 msgid "This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."
-msgstr ""
+msgstr "Бұл команда міндетті емес TYPE және FILE позициялық аргументтерін қабылдайды, мұндағы FILE — жазылатын файл (немесе стандартты шығыс үшін \"-\")."
 
 #: tools/appstreamcli.c:944
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr ""
+msgstr "TYPE жарамды компонент типі болуы керек, мысалы: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstreamcli.c:982
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
-msgstr ""
+msgstr "Desktop-entry файлының 'Exec=' кілті үшін көрсетілген жолды пайдалану."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1022
 msgid "Assume the input file is in the selected format ('yaml', 'text' or 'markdown')."
-msgstr ""
+msgstr "Енгізу файлы таңдалған форматта ('yaml', 'text' немесе 'markdown') деп есептеу."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1029
 msgid "Limit the number of release entries that end up in the metainfo file (<= 0 for unlimited)."
-msgstr ""
+msgstr "Metainfo файлына енетін шығарылым жазбаларының санын шектеу (шектеусіз болуы үшін <= 0)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1036
 msgid "Set the number of releases that should have descriptions marked for translation (latest releases are translated first, -1 for unlimited)."
-msgstr ""
+msgstr "Аударма үшін белгіленген сипаттамалары болуы тиіс шығарылымдар санын орнату (ең соңғы шығарылымдар бірінші аударылады, шектеусіз болуы үшін -1)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1081
 msgid "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr ""
+msgstr "Шығысты таңдалған форматта жасау ('yaml', 'text' немесе 'markdown')."
 
 #: tools/appstreamcli.c:1126
 #, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
-msgstr ""
+msgstr "AppStream Compose бинарлы файлы '%s' табылмады! Жұмысты жалғастыру мүмкін емес."
 
 #: tools/appstreamcli.c:1130
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
-msgstr ""
+msgstr "AppStream Compose қосымшасын мына команда арқылы орнатуыңызға болады: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1139
 msgid "Invalid number of parameters"
-msgstr ""
+msgstr "Параметрлер саны жарамсыз"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1157
 #, c-format
 msgid "Compose operation failed to execute: %s"
-msgstr ""
+msgstr "Compose операциясын орындау сәтсіз аяқталды: %s"
 
 #: tools/appstreamcli.c:1167
 #, c-format
 msgid "Compose failed: %s"
-msgstr ""
+msgstr "Құрастыру сәтсіз аяқталды: %s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:1224
 #, c-format
 msgid "(Alias: '%s')"
-msgstr ""
+msgstr "(Алиас: '%s')"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstreamcli.c:1254
 msgid "Subcommands:"
-msgstr ""
+msgstr "Ішкі командалар:"
 
 #: tools/appstreamcli.c:1308
 msgid "You can find information about subcommand-specific options by passing \"--help\" to the subcommand."
-msgstr ""
+msgstr "Ішкі командаға тән опциялар туралы ақпаратты ішкі командаға \"--help\" аргументін беру арқылы таба аласыз."
 
 #: tools/appstreamcli.c:1332
 #, c-format
 msgid "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
+msgstr "'%s' командасы белгісіз. Қолжетімді командалар тізімін көру үшін '%s --help' командасын орындаңыз."
 
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstreamcli.c:1374
 msgid "Enable profiling"
-msgstr ""
+msgstr "Профильдеуді іске қосу"
 
 #. TRANSLATORS: `appstreamcli search` command description.
 #: tools/appstreamcli.c:1389
 msgid "Search the component database."
-msgstr ""
+msgstr "Компоненттер дерекқорынан іздеу."
 
 #. TRANSLATORS: `appstreamcli get` command description.
 #: tools/appstreamcli.c:1396
 msgid "Get information about a component by its ID."
-msgstr ""
+msgstr "Компонент туралы ақпаратты оның ID-і бойынша алу."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
 #: tools/appstreamcli.c:1403
 msgid "Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."
-msgstr ""
+msgstr "Берілген элементті ұсынатын компоненттерді алу. Параметр ретінде элемент типі (мысалы, lib, bin, python3, …) және элемент мәні қажет."
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1411
 msgid "List components that are part of the specified categories."
-msgstr ""
+msgstr "Көрсетілген категорияларға жататын компоненттерді тізімдеу."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1420
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
+msgstr "ID-ге сәйкес келетін компонент үшін шикі XML метадеректерін шығару."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
 #: tools/appstreamcli.c:1428
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "Компонент метадеректерінің кэшін қайта құру."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
 #: tools/appstreamcli.c:1436
 msgid "Validate AppStream XML files for issues."
-msgstr ""
+msgstr "AppStream XML файлдарында мәселелердің бар-жоғын тексеру."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1443
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
+msgstr "Орнатылған қолданба файлдарының ағашында метадеректердің жарамдылығын тексеру."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1451
 msgid "Check license string for validity and print details about it."
-msgstr ""
+msgstr "Лицензия жолының жарамдылығын тексеру және ол туралы толық ақпаратты шығару."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1459
 msgid "Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."
-msgstr ""
+msgstr "Осы жүйеде компоненттің талаптары (оның ID-і немесе MetaInfo файлы арқылы) орындалатынын тексеру."
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
 #: tools/appstreamcli.c:1467
 msgid "Check compatibility of a component (via its ID or MetaInfo file) with common system and chassis types."
-msgstr ""
+msgstr "Компоненттің (оның ID-і немесе MetaInfo файлы арқылы) жалпы жүйе және шасси типтерімен үйлесімділігін тексеру."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1476
 msgid "Install software matching the component-ID."
-msgstr ""
+msgstr "Компонент ID-іне сәйкес келетін бағдарламалық қамтаманы орнату."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
 #: tools/appstreamcli.c:1483
 msgid "Remove software matching the component-ID."
-msgstr ""
+msgstr "Компонент ID-іне сәйкес келетін бағдарламалық қамтаманы өшіру."
 
 #. TRANSLATORS: `appstreamcli status` command description.
 #: tools/appstreamcli.c:1491
 msgid "Display status information about available AppStream metadata."
-msgstr ""
+msgstr "Қолжетімді AppStream метадеректері туралы күй ақпаратын көрсету."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1499
 msgid "Show information about the current device and used operating system."
-msgstr ""
+msgstr "Ағымдағы құрылғы және пайдаланылатын операциялық жүйе туралы ақпаратты көрсету."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1507
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "Метадеректер файлын дұрыс орынға орнату."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1515
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr ""
+msgstr "Каталог метадеректерінің XML-ін YAML-ға немесе керісінше түрлендіру."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1522
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Екі нұсқа нөмірін салыстыру."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
 #: tools/appstreamcli.c:1531
 msgid "Create a template for a metainfo file (to be filled out by the upstream project)."
-msgstr ""
+msgstr "Metainfo файлы үшін үлгі жасау (оны бастапқы жоба толтыруы тиіс)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1539
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr ""
+msgstr "Metainfo файлынан desktop-entry файлын жасау."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstreamcli.c:1547
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr ""
+msgstr "YAML немесе мәтіндік NEWS файлын metainfo шығарылымдарына түрлендіру."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
 #: tools/appstreamcli.c:1555
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr ""
+msgstr "Metainfo файлындағы ақпаратпен NEWS мәтіндік немесе YAML файлын жазу."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1563
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr ""
+msgstr "Бума ағаштарынан AppStream метадеректер каталогын құрастыру."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1571
 msgid "You need to specify a command."
-msgstr ""
+msgstr "Команданы көрсетуіңіз керек."
 
 #: tools/ascli-actions-mdata.c:49
 msgid "Only refreshing metadata cache specific to the current user."
-msgstr ""
+msgstr "Тек ағымдағы пайдаланушыға тән метадеректер кэші жаңартылуда."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
+msgstr "Операциялық жүйе үшін бағдарламалық қамтама метадеректерінің кэші жаңартылуда."
 
 #: tools/ascli-actions-mdata.c:66
 msgid "Updating software metadata cache for Flatpak."
-msgstr ""
+msgstr "Flatpak үшін бағдарламалық қамтама метадеректерінің кэші жаңартылуда."
 
 #: tools/ascli-actions-mdata.c:69
 #, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr ""
+msgstr "'%s' атауы бар метадеректер дереккөзі тобы жоқ!"
 
 #: tools/ascli-actions-mdata.c:98
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
+msgstr "Бұл әрекетті орындау үшін сізге әкімші құқықтары қажет болуы мүмкін."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:106
 msgid "Metadata cache was updated successfully."
-msgstr ""
+msgstr "Метадеректер кэші сәтті жаңартылды."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:109
 msgid "Metadata cache update is not necessary."
-msgstr ""
+msgstr "Метадеректер кэшін жаңарту қажет емес."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
 #: tools/ascli-actions-mdata.c:132 tools/ascli-actions-mdata.c:298
 #: tools/ascli-actions-pkgmgr.c:114
 msgid "You need to specify a component-ID."
-msgstr ""
+msgstr "Компонент ID-ін көрсетуіңіз керек."
 
 #: tools/ascli-actions-mdata.c:144 tools/ascli-actions-mdata.c:310
 #: tools/ascli-actions-mdata.c:734 tools/ascli-actions-mdata.c:866
 #: tools/ascli-actions-pkgmgr.c:127
 #, c-format
 msgid "Unable to find component with ID '%s'!"
-msgstr ""
+msgstr "ID-і '%s' болатын компонент табылмады!"
 
 #: tools/ascli-actions-mdata.c:167
 msgid "You need to specify a term to search for."
-msgstr ""
+msgstr "Іздеу үшін терминді көрсетуіңіз керек."
 
 #. TRANSLATORS: We got no full-text search results
 #: tools/ascli-actions-mdata.c:180
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "'%s' мәніне сәйкес келетін компонент табылмады."
 
 #: tools/ascli-actions-mdata.c:207
 msgid "No value for the item to search for was defined."
-msgstr ""
+msgstr "Ізделетін элементтің мәні анықталмаған."
 
 #: tools/ascli-actions-mdata.c:214
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
+msgstr "Ұсынылған элемент үшін жарамсыз тип таңдалды. Жарамды мәндер:"
 
 #: tools/ascli-actions-mdata.c:230
 #, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr ""
+msgstr "'%s::%s' ұсынатын компонент табылмады."
 
 #: tools/ascli-actions-mdata.c:256
 msgid "You need to specify categories to list."
-msgstr ""
+msgstr "Тізімдеу үшін категорияларды көрсетуіңіз керек."
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:270
 #, c-format
 msgid "No component found in categories %s."
-msgstr ""
+msgstr "%s категорияларынан ешқандай компонент табылмады."
 
 #: tools/ascli-actions-mdata.c:353
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "Метадеректер файлын көрсетуіңіз керек."
 
 #: tools/ascli-actions-mdata.c:367
 #, c-format
 msgid "Unable to install metadata file: %s"
-msgstr ""
+msgstr "Метадеректер файлын орнату мүмкін емес: %s"
 
 #: tools/ascli-actions-mdata.c:387
 msgid "You need to specify an input and output file."
-msgstr ""
+msgstr "Енгізу және шығару файлын көрсетуіңіз керек."
 
 #: tools/ascli-actions-mdata.c:394
 #, c-format
 msgid "Metadata file '%s' does not exist."
-msgstr ""
+msgstr "'%s' метадеректер файлы жоқ."
 
 #: tools/ascli-actions-mdata.c:433
 msgid "Unable to convert file: Could not determine output format, please set it explicitly using '--format='."
-msgstr ""
+msgstr "Файлды түрлендіру мүмкін емес: Шығыс форматын анықтау мүмкін болмады, оны '--format=' арқылы нақты орнатыңыз."
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
 #: tools/ascli-actions-mdata.c:481
 msgid "You need to give an AppStream software component type to generate a template. Possible values are:"
-msgstr ""
+msgstr "Үлгі жасау үшін AppStream бағдарламалық қамтама компонентінің типін көрсетуіңіз керек. Мүмкін мәндер:"
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
 #: tools/ascli-actions-mdata.c:484
 #, c-format
 msgid "The software component type '%s' is not valid in AppStream. Possible values are:"
-msgstr ""
+msgstr "'%s' бағдарламалық қамтама компонентінің типі AppStream-де жарамсыз. Мүмкін мәндер:"
 
 #: tools/ascli-actions-mdata.c:504
 #, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr ""
+msgstr "'%s' .desktop файлы жоқ."
 
 #: tools/ascli-actions-mdata.c:511
 #, c-format
 msgid "Unable to read the .desktop file: %s"
-msgstr ""
+msgstr ".desktop файлын оқу мүмкін емес: %s"
 
 #: tools/ascli-actions-mdata.c:601
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr ""
+msgstr "Metainfo файлының үлгісін құрастыру мүмкін емес: %s"
 
 #: tools/ascli-actions-mdata.c:610
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
-msgstr ""
+msgstr "Metainfo файлының үлгісін сақтау мүмкін емес: %s"
 
 #: tools/ascli-actions-mdata.c:650
 msgid "Unable to check display size: Can not read information without GUI toolkit access."
-msgstr ""
+msgstr "Дисплей өлшемін тексеру мүмкін емес: GUI тулкитіне қол жеткізусіз ақпаратты оқу мүмкін емес."
 
 #: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
 msgid "ERROR"
-msgstr ""
+msgstr "ҚАТЕ"
 
 #: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr ""
+msgstr "MetaInfo файлының атауын немесе компонент ID-ін көрсетуіңіз керек."
 
 #: tools/ascli-actions-mdata.c:714 tools/ascli-actions-mdata.c:838
 #: tools/ascli-actions-misc.c:133 tools/ascli-actions-misc.c:402
 #: tools/ascli-actions-misc.c:474
 #, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr ""
+msgstr "'%s' metainfo файлы жоқ."
 
 #. TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system.
 #: tools/ascli-actions-mdata.c:743
 #, c-format
 msgid "Relation check for: %s"
-msgstr ""
+msgstr "Мынау үшін қатынасты тексеру: %s"
 
 #: tools/ascli-actions-mdata.c:754
 msgid "Requirements:"
-msgstr ""
+msgstr "Талаптар:"
 
 #: tools/ascli-actions-mdata.c:756
 msgid "No required items are set for this software."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама үшін қажетті элементтер орнатылмаған."
 
 #: tools/ascli-actions-mdata.c:761
 msgid "Recommendations:"
-msgstr ""
+msgstr "Ұсыныстар:"
 
 #: tools/ascli-actions-mdata.c:763
 msgid "No recommended items are set for this software."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама үшін ұсынылатын элементтер орнатылмаған."
 
 #: tools/ascli-actions-mdata.c:768
 msgid "Supported:"
-msgstr ""
+msgstr "Қолдау көрсетілетін:"
 
 #: tools/ascli-actions-mdata.c:770
 msgid "No supported items are set for this software."
-msgstr ""
+msgstr "Бұл бағдарламалық қамтама үшін қолдау көрсетілетін элементтер орнатылмаған."
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:794
 msgid "Desktop"
-msgstr ""
+msgstr "Жұмыс үстелі"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:797
 msgid "Laptop"
-msgstr ""
+msgstr "Ноутбук"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:800
 msgid "Server"
-msgstr ""
+msgstr "Сервер"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:803
 msgid "Tablet"
-msgstr ""
+msgstr "Планшет"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:806
 msgid "Handset"
-msgstr ""
+msgstr "Смартфон"
 
 #: tools/ascli-actions-mdata.c:808
 msgid "Unknown"
-msgstr ""
+msgstr "Белгісіз"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
 #: tools/ascli-actions-mdata.c:875
 #, c-format
 msgid "Chassis compatibility check for: %s"
-msgstr ""
+msgstr "Мынау үшін шасси үйлесімділігін тексеру: %s"
 
 #: tools/ascli-actions-mdata.c:894
 msgid "Incompatible"
-msgstr ""
+msgstr "Үйлесімді емес"
 
 #: tools/ascli-actions-mdata.c:929
 msgid "Compatible"
-msgstr ""
+msgstr "Үйлесімді"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:47
 msgid "AppStream Status:"
-msgstr ""
+msgstr "AppStream күйі:"
 
 #: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:566
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Нұсқасы: %s"
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:55
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "ОЖ метадеректер дереккөздері:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:59
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "ОЖ метадеректері табылмады. Бұл әдеттен тыс жағдай."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:62
 msgid "Other metadata sources:"
-msgstr ""
+msgstr "Басқа метадеректер дереккөздері:"
 
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:69
 msgid "No metadata."
-msgstr ""
+msgstr "Метадеректер жоқ."
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:72
 msgid "Summary:"
-msgstr ""
+msgstr "Қысқаша мазмұны:"
 
 #: tools/ascli-actions-misc.c:86
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "Бізде %i бағдарламалық қамтама компоненті туралы ақпарат бар."
 
 #: tools/ascli-actions-misc.c:91
 #, c-format
 msgid "Error while loading the metadata pool: %s"
-msgstr ""
+msgstr "Метадеректер пулын жүктеу кезінде қате кетті: %s"
 
 #: tools/ascli-actions-misc.c:118 tools/ascli-actions-misc.c:463
 msgid "You need to specify a metainfo file as input."
-msgstr ""
+msgstr "Енгізу ретінде metainfo файлын көрсетуіңіз керек."
 
 #: tools/ascli-actions-misc.c:123
 msgid "You need to specify a desktop-entry file to create or augment as output."
-msgstr ""
+msgstr "Шығыс ретінде жасалатын немесе толықтырылатын desktop-entry файлын көрсетуіңіз керек."
 
 #: tools/ascli-actions-misc.c:152
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
+msgstr "Қолданыстағы '%s' desktop-entry файлы '%s' деректерімен толықтырылуда."
 
 #: tools/ascli-actions-misc.c:161
 #, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr ""
+msgstr "Қолданыстағы desktop-entry файлының үлгісін жүктеу мүмкін емес: %s"
 
 #: tools/ascli-actions-misc.c:166
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
+msgstr "'%s' деректерін пайдаланып жаңа '%s' desktop-entry файлы жасалуда"
 
 #: tools/ascli-actions-misc.c:226
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr ""
+msgstr "Metainfo файлында стандартты таңбаша атауы берілмеген. Жұмысты жалғастыру мүмкін емес."
 
 #: tools/ascli-actions-misc.c:250
 msgid "No provided binary specified in metainfo file, and no exec command specified via '--exec'. Can not create 'Exec=' key."
-msgstr ""
+msgstr "Metainfo файлында берілген бинарлы файл көрсетілмеген және '--exec' арқылы орындау командасы көрсетілмеген. 'Exec=' кілтін жасау мүмкін емес."
 
 #: tools/ascli-actions-misc.c:330
 #, c-format
 msgid "Unable to save desktop entry file: %s"
-msgstr ""
+msgstr "Desktop entry файлын сақтау мүмкін емес: %s"
 
 #: tools/ascli-actions-misc.c:358
 msgid "You need to specify a NEWS file as input."
-msgstr ""
+msgstr "Енгізу ретінде NEWS файлын көрсетуіңіз керек."
 
 #: tools/ascli-actions-misc.c:362
 msgid "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr ""
+msgstr "Толықтырылатын metainfo файлын немесе стандартты шығысқа шығару үшін '-' таңбасын көрсетуіңіз керек."
 
 #: tools/ascli-actions-misc.c:368
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr ""
+msgstr "Шығыс файл атауы көрсетілмеген, metainfo файлы тікелей өзгертілуде."
 
 #: tools/ascli-actions-misc.c:468
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr ""
+msgstr "Шығару үшін NEWS файлын немесе стандартты шығысқа шығару үшін '-' таңбасын көрсетуіңіз керек."
 
 #: tools/ascli-actions-misc.c:496
 msgid "You need to specify a NEWS format to write the output in."
-msgstr ""
+msgstr "Шығысты жазу үшін NEWS форматын көрсетуіңіз керек."
 
 #: tools/ascli-actions-misc.c:551
 msgid "Operating System Details"
-msgstr ""
+msgstr "Операциялық жүйе туралы мәліметтер"
 
 #: tools/ascli-actions-misc.c:555
 #, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr ""
+msgstr "'%s' операциялық жүйе компоненті табылмады!"
 
 #: tools/ascli-actions-misc.c:562
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: tools/ascli-actions-misc.c:563 tools/ascli-actions-misc.c:590
 #: tools/ascli-utils.c:304
 msgid "Name"
-msgstr ""
+msgstr "Аты"
 
 #: tools/ascli-actions-misc.c:564 tools/ascli-utils.c:305
 msgid "Summary"
-msgstr ""
+msgstr "Қысқаша сипаттама"
 
 #: tools/ascli-actions-misc.c:569 tools/ascli-utils.c:309
 msgid "Homepage"
-msgstr ""
+msgstr "Үй беті"
 
 #: tools/ascli-actions-misc.c:572 tools/ascli-utils.c:330
 msgid "Developer"
-msgstr ""
+msgstr "Әзірлеуші"
 
 #: tools/ascli-actions-misc.c:581 tools/ascli-utils.c:344
 msgid "Description"
-msgstr ""
+msgstr "Сипаттама"
 
 #: tools/ascli-actions-misc.c:589
 msgid "Kernel"
-msgstr ""
+msgstr "Ядро"
 
 #: tools/ascli-actions-misc.c:591
 msgid "Version"
-msgstr ""
+msgstr "Нұсқа"
 
 #: tools/ascli-actions-misc.c:594
 msgid "Hardware"
-msgstr ""
+msgstr "Аппараттық құрал"
 
 #: tools/ascli-actions-misc.c:597
 msgid "Physical Memory"
-msgstr ""
+msgstr "Физикалық жады"
 
 #: tools/ascli-actions-misc.c:601
 msgid "Devices with Modaliases"
-msgstr ""
+msgstr "Modalias-ы бар құрылғылар"
 
 #: tools/ascli-actions-misc.c:630
 msgid "User Input Controls"
-msgstr ""
+msgstr "Пайдаланушының енгізуді басқару құралдары"
 
 #: tools/ascli-actions-misc.c:633
 msgid "unknown"
-msgstr ""
+msgstr "белгісіз"
 
 #: tools/ascli-actions-misc.c:640 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
 msgid "yes"
-msgstr ""
+msgstr "иә"
 
 #: tools/ascli-actions-misc.c:642 tools/ascli-actions-validate.c:701
 #: tools/ascli-actions-validate.c:707
 msgid "no"
-msgstr ""
+msgstr "жоқ"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
-msgstr ""
+msgstr "Сәйкес десте менеджері сайманы табылмады. Мысалы, \"pkgcli\" (PackageKit бөлігі) қолжетімді екеніне көз жеткізіңіз."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr ""
+msgstr "Десте менеджерін іске қосу мүмкін емес: %s"
 
 #: tools/ascli-actions-pkgmgr.c:85
 msgid "Flatpak was not found! Please install it to continue."
-msgstr ""
+msgstr "Flatpak табылмады! Жұмысты жалғастыру үшін оны орнатыңыз."
 
 #: tools/ascli-actions-pkgmgr.c:96
 #, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr ""
+msgstr "Flatpak процесін іске қосу мүмкін емес: %s"
 
 #: tools/ascli-actions-pkgmgr.c:154
 #, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr ""
+msgstr "ID-і '%s' болатын және таңдалған сүзгі критерийлеріне сәйкес келетін компонент табылмады!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "Өшіру үшін бірнеше кандидат табылды:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "Орнату үшін бірнеше кандидат табылды:"
 
 #: tools/ascli-actions-pkgmgr.c:189
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Өшірілетін компоненттің нөмірін енгізіңіз:"
 
 #: tools/ascli-actions-pkgmgr.c:194
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Орнатылатын компоненттің нөмірін енгізіңіз:"
 
 #: tools/ascli-actions-pkgmgr.c:204
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "'%s' компоненті үшін орнату кандидаты жоқ."
 
 #. TRANSLATORS: User-supplied overrides string for appstreamcli was badly formatted
 #. (tag is an issue tag, severity is the desired severity that it should be set to).
 #: tools/ascli-actions-validate.c:259
 #, c-format
 msgid "The format of validator issue override '%s' is invalid (should be 'tag=severity')"
-msgstr ""
+msgstr "Валидатор мәселесін ауыстырудың '%s' форматы жарамсыз ('tag=severity' болуы керек)"
 
 #: tools/ascli-actions-validate.c:268
 #, c-format
 msgid "Can not override issue tag: %s"
-msgstr ""
+msgstr "Мәселе тегін ауыстыру мүмкін емес: %s"
 
 #: tools/ascli-actions-validate.c:299 tools/ascli-actions-validate.c:512
 #, c-format
 msgid "File '%s' does not exist."
-msgstr ""
+msgstr "'%s' файлы жоқ."
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "error"-type hints
 #: tools/ascli-actions-validate.c:348
 #, c-format
 msgid "errors: %lu"
-msgstr ""
+msgstr "қателер: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "warning"-type hints
 #: tools/ascli-actions-validate.c:355
 #, c-format
 msgid "warnings: %lu"
-msgstr ""
+msgstr "ескертулер: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "info"-type hints
 #: tools/ascli-actions-validate.c:362
 #, c-format
 msgid "infos: %lu"
-msgstr ""
+msgstr "мәліметтер: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "pedantic"-type hints
 #: tools/ascli-actions-validate.c:369
 #, c-format
 msgid "pedantic: %lu"
-msgstr ""
+msgstr "егжей-тегжейлі: %lu"
 
 #: tools/ascli-actions-validate.c:395 tools/ascli-actions-validate.c:499
 msgid "You need to specify at least one file to validate!"
-msgstr ""
+msgstr "Тексеру үшін кем дегенде бір файлды көрсетуіңіз керек!"
 
 #: tools/ascli-actions-validate.c:406
 #, c-format
 msgid "Unable to add release metadata file: %s"
-msgstr ""
+msgstr "Шығарылым метадеректері файлын қосу мүмкін емес: %s"
 
 #: tools/ascli-actions-validate.c:416
 msgid "You need to specify at least one MetaInfo file to validate.\n"
 "Release metadata files can currently not be validated without their accompanying MetaInfo file."
 msgstr ""
+"Тексеру үшін кем дегенде бір MetaInfo файлын көрсетуіңіз керек.\n"
+"Шығарылым метадеректері файлдарын қазіргі уақытта олардың ілеспе MetaInfo файлдарынсыз тексеру мүмкін емес."
 
 #: tools/ascli-actions-validate.c:444 tools/ascli-actions-validate.c:577
 msgid "Validation was successful."
-msgstr ""
+msgstr "Тексеру сәтті аяқталды."
 
 #: tools/ascli-actions-validate.c:446 tools/ascli-actions-validate.c:579
 #, c-format
 msgid "Validation was successful: %s"
-msgstr ""
+msgstr "Тексеру сәтті аяқталды: %s"
 
 #: tools/ascli-actions-validate.c:458 tools/ascli-actions-validate.c:591
 #, c-format
 msgid "Validation failed: %s"
-msgstr ""
+msgstr "Тексеру сәтсіз аяқталды: %s"
 
 #: tools/ascli-actions-validate.c:526 tools/ascli-actions-validate.c:647
 #, c-format
 msgid "The validator can not create reports in the '%s' format. You may select 'yaml' or 'text' instead."
-msgstr ""
+msgstr "Валидатор '%s' форматында есептер жасай алмайды. Оның орнына 'yaml' немесе 'text' форматын таңдауыңызға болады."
 
 #: tools/ascli-actions-validate.c:551 tools/ascli-actions-validate.c:633
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "Тексеруді бастау үшін түбірлік буманы көрсетуіңіз керек!"
 
 #. TRANSLATORS: A plain license ID (used as value in a key-value pair, like "Type: license")
 #: tools/ascli-actions-validate.c:675
 msgid "license"
-msgstr ""
+msgstr "лицензия"
 
 #. TRANSLATORS: A license exception (used as value in a key-value pair, like "Type: exception")
 #: tools/ascli-actions-validate.c:678
 msgid "license exception"
-msgstr ""
+msgstr "лицензия ерекшелігі"
 
 #. TRANSLATORS: A complex license expression (used as value in a key-value pair, like "Type: exception")
 #: tools/ascli-actions-validate.c:681
 msgid "license expression"
-msgstr ""
+msgstr "лицензия өрнегі"
 
 #. TRANSLATORS: An invalid license (used as value in a key-value pair, like "Type: invalid")
 #: tools/ascli-actions-validate.c:685
 msgid "invalid"
-msgstr ""
+msgstr "жарамсыз"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:690
 msgid "License Type"
-msgstr ""
+msgstr "Лицензия типі"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:694
 msgid "Canonical ID"
-msgstr ""
+msgstr "Канондық ID"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
 #: tools/ascli-actions-validate.c:698
 msgid "Suitable for AppStream metadata"
-msgstr ""
+msgstr "AppStream метадеректері үшін қолайлы"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
 #: tools/ascli-actions-validate.c:704
 msgid "Free and Open Source"
-msgstr ""
+msgstr "Еркін және ашық бастапқы кодты"
 
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:712
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: tools/ascli-utils.c:301
 msgid "Identifier"
-msgstr ""
+msgstr "Идентификатор"
 
 #: tools/ascli-utils.c:303
 msgid "Internal ID"
-msgstr ""
+msgstr "Ішкі ID"
 
 #: tools/ascli-utils.c:306
 msgid "Package"
-msgstr ""
+msgstr "Десте"
 
 #: tools/ascli-utils.c:307
 msgid "Bundle"
-msgstr ""
+msgstr "Жинақ"
 
 #: tools/ascli-utils.c:310
 msgid "Icon"
-msgstr ""
+msgstr "Таңбаша"
 
 #: tools/ascli-utils.c:336
 msgid "Extends"
-msgstr ""
+msgstr "Кеңейтеді"
 
 #: tools/ascli-utils.c:364
 msgid "Default Screenshot URL"
-msgstr ""
+msgstr "Бастапқы скриншот URL-і"
 
 #: tools/ascli-utils.c:374
 msgid "Project Group"
-msgstr ""
+msgstr "Жоба тобы"
 
 #. license
 #: tools/ascli-utils.c:377
 msgid "License"
-msgstr ""
+msgstr "Лицензия"
 
 #: tools/ascli-utils.c:383
 msgid "Categories"
-msgstr ""
+msgstr "Категориялар"
 
 #: tools/ascli-utils.c:391
 msgid "Compulsory for"
-msgstr ""
+msgstr "Міндетті"
 
 #. TRANSLATORS: Other software or interfaces that this software component provides
 #: tools/ascli-utils.c:425
 msgid "Provided Items"
-msgstr ""
+msgstr "Ұсынылған элементтер"
 
 #: tools/ascli-utils.c:523
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "1-ден %i-ге дейінгі санды енгізіңіз: "
