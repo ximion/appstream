@@ -19,6 +19,7 @@
 # 李前昀 <alexlee@all9fun.com>, 2021.
 # Mingye Wang <arthur200126@gmail.com>, 2021.
 # hugoalh <hugoalh@users.noreply.hosted.weblate.org>, 2024.
+# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2026.
 #
 # Translators:
 # Hotellook, 2014
@@ -27,15 +28,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-28 11:14+0100\n"
-"PO-Revision-Date: 2024-06-23 17:10+0000\n"
-"Last-Translator: hugoalh <hugoalh@users.noreply.hosted.weblate.org>\n"
-"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/appstream/translations/zh_Hant/>\n"
+"PO-Revision-Date: 2026-03-12 02:09+0000\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/projects/appstream/translations/zh_Hant/>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6-rc\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -3165,9 +3166,9 @@ msgid "Updating software metadata cache for Flatpak."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:69
-#, fuzzy, c-format
+#, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr "「%s」中介資料檔並不存在。"
+msgstr "名為「%s」的中介資料來源群組並不存在！"
 
 #: tools/ascli-actions-mdata.c:98
 msgid "You might need superuser permissions to perform this action."
@@ -3485,9 +3486,9 @@ msgid "Operating System Details"
 msgstr ""
 
 #: tools/ascli-actions-misc.c:555
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr "找不到 ID 為「%s」的組件！"
+msgstr "找不到作業系統組件「%s」！"
 
 #: tools/ascli-actions-misc.c:562
 #, fuzzy
@@ -3556,9 +3557,8 @@ msgid "no"
 msgstr ""
 
 #: tools/ascli-actions-pkgmgr.c:53
-#, fuzzy
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
-msgstr "找不到適當的軟體包管理程式 CLI。例如請確認「pkcon」是否可以使用（PackageKit 的一部分）。"
+msgstr "找不到適當的軟體包管理工具。請確認例如「pkgcli」（PackageKit 的一部分）是否可以使用。"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
