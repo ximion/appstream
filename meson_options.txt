@@ -21,7 +21,7 @@ option('qt',
 option('compose',
        type : 'boolean',
        value : false,
-       description : 'Build libappstream-compose library and `appstreamcli compose` tool'
+       description : 'Build appstream-compose (library, tool if tools are enabled)'
 )
 option('bash-completion',
        type : 'boolean',
@@ -47,6 +47,11 @@ option('zstd-support',
        type : 'boolean',
        value : true,
        description : 'Support Zstd for (de)compressing local / remote metadata'
+)
+option('tools',
+       type : 'boolean',
+       value : true,
+       description : 'Build/install command-line tools (appstreamcli, ascli compose if enabled)'
 )
 
 #

@@ -14,14 +14,16 @@ ascli_exe = executable('appstreamcli',
     dependencies: [appstream_dep,
                    gio_dep],
     include_directories: [root_inc_dir],
-    install: true
+    # appstreamcli is part of our build/test process, so we always
+    # build it, and just don't install it if tools are disabled
+    install: get_option('tools'),
 )
 
 if not meson.is_cross_build()
   meson.override_find_program('appstreamcli', ascli_exe)
 endif
 
-if get_option('compose')
+if get_option('compose') and get_option('tools')
     ascompose_src = [
         'appstream-compose.c',
         'ascli-utils.c',
@@ -34,7 +36,7 @@ if get_option('compose')
                        gio_dep],
         include_directories: [root_inc_dir],
         install_dir: get_option('libexecdir'),
-        install: true
+        install: true,
     )
 
     meson.override_find_program('appstreamcli-compose', ascompose_exe)
