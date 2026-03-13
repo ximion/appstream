@@ -231,7 +231,9 @@ subdir('src/')
 if get_option('compose')
     subdir('compose/')
 endif
-subdir('tools/')
+if get_option('tools')
+    subdir('tools/')
+endif
 subdir('po/')
 subdir('data/')
 subdir('contrib/')

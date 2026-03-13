@@ -48,6 +48,11 @@ option('zstd-support',
        value : true,
        description : 'Support Zstd for (de)compressing local / remote metadata'
 )
+option('tools',
+       type : 'boolean',
+       value : true,
+       description : 'Build appstreamcli'
+)
 
 #
 # For documentation
