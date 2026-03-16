@@ -528,6 +528,8 @@ as_news_text_guess_section (const gchar *lines)
 		return AS_NEWS_SECTION_KIND_HEADER;
 	if (g_strstr_len (lines, -1, "----") != NULL)
 		return AS_NEWS_SECTION_KIND_HEADER;
+	if (g_strstr_len (lines, -1, "====") != NULL)
+		return AS_NEWS_SECTION_KIND_HEADER;
 	if (g_strstr_len (lines, -1, "Bugfix:\n") != NULL)
 		return AS_NEWS_SECTION_KIND_BUGFIX;
 	if (g_strstr_len (lines, -1, "Bugfixes:\n") != NULL)
