@@ -53,7 +53,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-28 11:14+0100\n"
-"PO-Revision-Date: 2026-02-04 13:01+0000\n"
+"PO-Revision-Date: 2026-03-18 21:09+0000\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -61,7 +61,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1867,7 +1867,7 @@ msgstr "一张截图必须包含至少一个缩放系数为1的图像。"
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:310
 msgid "A screenshot must contain at least one image or video in order to be useful. Please add an <image/> to it."
-msgstr "一个有用的截图应该包含至少一个图片或视频。请添加<image/>给截图。"
+msgstr "一个有用的截图应该包含至少一个图片或视频。请向其添加 <image/>。"
 
 #: src/as-validator-issue-tag.h:315
 msgid "A screenshot must contain either images or videos, but not both at the same time. Please use this screenshot exclusively for either static images or for videos."
@@ -2016,11 +2016,11 @@ msgstr "组件名称过长，可能无法在多数布局中恰当显示。"
 
 #: src/as-validator-issue-tag.h:500
 msgid "The component is missing a summary (<summary/> tag)."
-msgstr "组件缺少一个摘要（<summary/>标记）。"
+msgstr "组件缺少一个摘要（<summary/> 标签）。"
 
 #: src/as-validator-issue-tag.h:505
 msgid "The <id/> tag still contains a `type` property, probably from an old conversion to the recent metainfo format."
-msgstr "<id/>标签仍然包含一个 `type` 属性，可能是从旧的转换到当前的 metainfo 格式。"
+msgstr "<id/> 标签仍然包含一个 `type` 属性，可能是从旧的转换到当前的 metainfo 格式。"
 
 #: src/as-validator-issue-tag.h:510
 msgid "The `pkgname` tag appears multiple times. You should evaluate creating a metapackage containing the metainfo and .desktop files in order to avoid defining multiple package names per component."
