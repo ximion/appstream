@@ -8,20 +8,21 @@
 # Michal Čihař <michal@weblate.org>, 2021.
 # alaazghoul <a.z9@live.com>, 2021.
 # Shippo <shiposhouyou@gmail.com>, 2021.
+# jonnysemon <jonnysemon@users.noreply.hosted.weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-28 11:14+0100\n"
-"PO-Revision-Date: 2021-12-22 15:45+0000\n"
-"Last-Translator: Hahato Toshino <ameer.amino95@gmail.com>\n"
+"PO-Revision-Date: 2026-03-30 22:09+0000\n"
+"Last-Translator: jonnysemon <jonnysemon@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/appstream/translations/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -33,11 +34,11 @@ msgstr "أداة للتعامل مع بيانات AppStream الوصفية"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid "AppStream is a metadata specification which permits software components to provide information about themselves to automated systems and end-users before the software is actually installed. The AppStream project provides facilities to easily access and transform this metadata, as well as a few additional services for building feature-rich software centers and similar applications that make use of software metadata."
-msgstr ""
+msgstr "إن AppStream عبارة عن مواصفة للبيانات الوصفية تتيح لمكونات البرمجيات تقديم معلومات عن نفسها للأنظمة الآلية والمستخدمين النهائيين قبل تثبيت البرنامج فعليًا. يوفر مشروع AppStream تسهيلات للوصول إلى هذه البيانات الوصفية وتحويلها بسهولة، بالإضافة إلى بعض الخدمات الإضافية لبناء مراكز برمجيات غنية بالميزات وتطبيقات مماثلة تستفيد من البيانات الوصفية للبرامج."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
-msgstr ""
+msgstr "تتيح أداة سطر الأوامر <em>appstreamcli</em> قراءة وكتابة وتحويل بيانات AppStream الوصفية بتنسيق XML أو YAML، بالإضافة إلى التحقق من مدى توافقها مع المواصفات. كما توفر وصولاً سهلاً إلى مجمع البيانات الوصفية للنظام، على سبيل المثال للاستعلام عن البرمجيات التي توفر معالج Mediatype معين أو لتثبيت البرامج عبر معرف المكون الخاص بها."
 
 #: src/as-cache.c:906
 #, c-format
@@ -418,7 +419,7 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:834
 msgid "No cartoon violence"
-msgstr ""
+msgstr "لا يوجد عُنف كرتوني"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:836
@@ -508,17 +509,17 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:887
 msgid "No references to alcohol"
-msgstr ""
+msgstr "لا توجد إشارات إلى الكحول"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:889
 msgid "References to alcoholic beverages"
-msgstr ""
+msgstr "إشارات إلى المشروبات الكحولية"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:891
 msgid "Use of alcoholic beverages"
-msgstr ""
+msgstr "تناول المشروبات الكحولية"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:897
@@ -553,7 +554,7 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:917
 msgid "No nudity of any sort"
-msgstr ""
+msgstr "لا يوجد عري بكافة أشكاله"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:919
@@ -593,7 +594,7 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:939
 msgid "No profanity of any kind"
-msgstr ""
+msgstr "لا توجد أي بذاءات من أي نوع"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:941
@@ -633,7 +634,7 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:961
 msgid "No discriminatory language of any kind"
-msgstr ""
+msgstr "لا توجد أي نوع من أنواع لغة التمييز"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:963
@@ -653,7 +654,7 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:972
 msgid "No advertising of any kind"
-msgstr ""
+msgstr "لا يوجد أي نوع من الإعلان بكافة أشكاله"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:974
@@ -673,7 +674,7 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:983
 msgid "No gambling of any kind"
-msgstr ""
+msgstr "لا يوجد قمار بكافة أشكاله"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:985
@@ -693,7 +694,7 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:994
 msgid "No ability to spend money"
-msgstr ""
+msgstr "لا توجد قدرة على إنفاق المال"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:996
@@ -703,12 +704,12 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:999
 msgid "Ability to spend real money in-app"
-msgstr "إمكانية صرف نقود حقيقية داخل التطبيق"
+msgstr "إمكانية إنفاق نقود حقيقية داخل التطبيق"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1004
 msgid "No way to chat with other users"
-msgstr ""
+msgstr "لا توجد وسيلة للدردشة مع مستخدمين آخرين"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1006
@@ -728,7 +729,7 @@ msgstr ""
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1015
 msgid "No way to talk with other users"
-msgstr ""
+msgstr "لا توجد طريقة لمحادثة مع مستخدمين آخرين"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1018
