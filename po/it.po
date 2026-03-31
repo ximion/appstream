@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-28 11:14+0100\n"
-"PO-Revision-Date: 2026-03-30 22:09+0000\n"
+"PO-Revision-Date: 2026-03-31 20:09+0000\n"
 "Last-Translator: Alessandro Scarozza <xan.scale@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
@@ -1439,200 +1439,200 @@ msgstr "Questo software richiede un display il cui bordo più lungo abbia una di
 #: src/as-relation.c:1869
 #, c-format
 msgid "This software requires a display with its shortest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Questo software richiede un display con il lato più corto di dimensioni %s %lu px, ma il display di questo dispositivo ha %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1879
 #, c-format
 msgid "This software recommends a display with its longest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Questo software consiglia un display con il lato più lungo di dimensioni %s %lu px, ma il display di questo dispositivo ha %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1888
 #, c-format
 msgid "This software recommends a display with its shortest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Questo software consiglia un display con il lato più corto di dimensioni %s %lu px, ma il display di questo dispositivo ha %lu px."
 
 #: src/as-relation.c:1900
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "Le dimensioni dello schermo sono sufficienti per questo software."
 
 #: src/as-relation.c:1917
 #, c-format
 msgid "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "Il controllo di soddisfacibilità per gli elementi di relazione di tipo '%s' non è ancora implementato."
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "Affero General Public License v1.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:41
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Affero General Public License v1.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:44
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "GNU Affero General Public License v3.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:46
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Affero General Public License v3.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:287
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 only - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:289
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 or later - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:291
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 only - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:293
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 or later - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:295
 msgid "GNU Free Documentation License v1.1 only"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:297
 msgid "GNU Free Documentation License v1.1 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:300
 msgid "GNU Free Documentation License v1.2 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 only - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:302
 msgid "GNU Free Documentation License v1.2 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 or later - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:304
 msgid "GNU Free Documentation License v1.2 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 only - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:306
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 or later - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:308
 msgid "GNU Free Documentation License v1.2 only"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:310
 msgid "GNU Free Documentation License v1.2 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:313
 msgid "GNU Free Documentation License v1.3 only - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 only - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:315
 msgid "GNU Free Documentation License v1.3 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 or later - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:317
 msgid "GNU Free Documentation License v1.3 only - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 only - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:319
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 or later - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:321
 msgid "GNU Free Documentation License v1.3 only"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:323
 msgid "GNU Free Documentation License v1.3 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:327 src/as-spdx-data.h:331
 msgid "GNU General Public License v1.0 only"
-msgstr ""
+msgstr "GNU General Public License v1.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:329 src/as-spdx-data.h:333
 msgid "GNU General Public License v1.0 or later"
-msgstr ""
+msgstr "GNU General Public License v1.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:335 src/as-spdx-data.h:339
 msgid "GNU General Public License v2.0 only"
-msgstr ""
+msgstr "GNU General Public License v2.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:337 src/as-spdx-data.h:341
 msgid "GNU General Public License v2.0 or later"
-msgstr ""
+msgstr "GNU General Public License v2.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:348 src/as-spdx-data.h:352
 msgid "GNU General Public License v3.0 only"
-msgstr ""
+msgstr "GNU General Public License v3.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:350 src/as-spdx-data.h:354
 msgid "GNU General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU General Public License v3.0 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:422 src/as-spdx-data.h:426
 msgid "GNU Library General Public License v2 only"
-msgstr ""
+msgstr "GNU Library General Public License v2 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:424 src/as-spdx-data.h:428
 msgid "GNU Library General Public License v2 or later"
-msgstr ""
+msgstr "GNU Library General Public License v2 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:430 src/as-spdx-data.h:434
 msgid "GNU Lesser General Public License v2.1 only"
-msgstr ""
+msgstr "GNU Lesser General Public License v2.1 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:432 src/as-spdx-data.h:436
 msgid "GNU Lesser General Public License v2.1 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License v2.1 or later"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:438 src/as-spdx-data.h:442
 msgid "GNU Lesser General Public License v3.0 only"
-msgstr ""
+msgstr "GNU Lesser General Public License v3.0 only"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:440 src/as-spdx-data.h:444
 msgid "GNU Lesser General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License v3.0 or later"
 
 #: src/as-validator-issue-tag.h:42
 msgid "This tag requires a type property."
@@ -1665,7 +1665,7 @@ msgstr "Gli elenchi devono avare solamente elementi consentiti (<li/>) come figl
 
 #: src/as-validator-issue-tag.h:80
 msgid "The enumeration must not be translated as a whole. In MetaInfo files, translate individual items (<li/> elements) instead."
-msgstr ""
+msgstr "L'elenco non deve essere tradotto nella sua interezza. Nei file MetaInfo, tradurre invece i singoli elementi (elementi <li/>)."
 
 #: src/as-validator-issue-tag.h:86
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
@@ -1673,7 +1673,7 @@ msgstr "Il primo paragrafo `description/p` di questo componente potrebbe essere 
 
 #: src/as-validator-issue-tag.h:93
 msgid "The description line does not start with a capitalized word, project name or number."
-msgstr ""
+msgstr "La riga descrittiva non inizia con una lettera maiuscola, nome di progetto o numero."
 
 #: src/as-validator-issue-tag.h:98
 msgid "The description contains a web URL in plain text. This is not allowed, please use the <url/> tag instead to share links."
@@ -1681,15 +1681,15 @@ msgstr "La descrizione contiene un URL web in testo semplice. Ciò non è permes
 
 #: src/as-validator-issue-tag.h:103
 msgid "The description element does not contain any valid content (paragraphs, enumerations, etc.)."
-msgstr ""
+msgstr "L'elemento description non contiene alcun contenuto valido (paragrafi, elenchi, ecc.)."
 
 #: src/as-validator-issue-tag.h:108
 msgid "The description element contains raw text that is not in any paragraph or other permitted tag. This is not allowed and the additional text may be ignored by parsers or raise errors."
-msgstr ""
+msgstr "L'elemento description contiene testo non elaborato che non è racchiuso in alcun paragrafo o altro tag consentito. Ciò non è consentito e il testo aggiuntivo potrebbe essere ignorato dai parser o generare errori."
 
 #: src/as-validator-issue-tag.h:114
 msgid "This tag is not translatable."
-msgstr ""
+msgstr "Questo tag non è traducibile."
 
 #: src/as-validator-issue-tag.h:119
 #, fuzzy
@@ -1786,42 +1786,42 @@ msgstr "Il contatto di aggiornamento non sembra essere un indirizzo email valido
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:228
 msgid "The `environment` property is set to an unrecognized graphical environment/style combination."
-msgstr ""
+msgstr "La proprietà `environment` è impostata su una combinazione ambiente grafico/stile non riconosciuta."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:234
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "La proprietà `width` deve essere un numero intero positivo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:240
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "La proprietà `height` deve essere un numero intero positivo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:246
 msgid "The `scale` property must be a positive integer."
-msgstr ""
+msgstr "La proprietà `scale` deve essere un numero intero positivo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:252
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
+msgstr "Il tipo di immagine deve essere `source` o `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:258
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "La proprietà `width` deve essere presente se il tipo di immagine è `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:264
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "La proprietà `height` deve essere presente se il tipo di immagine è `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:270
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "Può esserci una sola immagine `source` per ogni screenshot e lingua."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:276
@@ -1832,7 +1832,7 @@ msgstr "Una schermata deve contenere almeno un'immagine affinché sia utile. Agg
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:282
 msgid "A screenshot must have at least one untranslated image of type `source`, which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) was found, which is likely intended to be the translatable image. Please remove the XML localization attribute in this case."
-msgstr ""
+msgstr "Uno screenshot deve contenere almeno un'immagine non tradotta di tipo `source`, che non è stata trovata. È stato invece trovato un tag con localizzazione `en` (`xml:lang=en`), che probabilmente dovrebbe essere l'immagine traducibile. In questo caso, si prega di rimuovere l'attributo di localizzazione XML."
 
 #: src/as-validator-issue-tag.h:289
 msgid "Unable to reach the screenshot image on its remote location - does the image exist?"
@@ -1894,7 +1894,7 @@ msgstr "Lo screenshot predefinito di un componente software non deve essere un v
 
 #: src/as-validator-issue-tag.h:363
 msgid "No screenshot is marked as default."
-msgstr ""
+msgstr "Nessuno screenshot è contrassegnato come predefinito."
 
 #: src/as-validator-issue-tag.h:368
 msgid "Found an unknown tag in a requires/recommends group. This is likely an error, because a component relation of this type is unknown."
