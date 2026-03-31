@@ -40,6 +40,7 @@
 # Niclas <schroeder.niclas2001@gmail.com>, 2022.
 # Sebin Nyshkim <sebin.nyshkim@icloud.com>, 2022, 2023.
 # buhtz <c.buhtz@posteo.jp>, 2024.
+# Kolja Lampe <razzeee@gmail.com>, 2026.
 #
 # Translators:
 msgid ""
@@ -47,15 +48,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-28 11:14+0100\n"
-"PO-Revision-Date: 2025-09-19 07:01+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2026-03-31 20:09+0000\n"
+"Last-Translator: Kolja Lampe <razzeee@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2115,7 +2116,7 @@ msgstr "Dem Element `developer` fehlt eine Eigenschaft `id`, die eine eindeutige
 
 #: src/as-validator-issue-tag.h:631
 msgid "The developer-ID is invalid. It should be an rDNS string identifying the developer, or a Fediverse handle. It must also only contain lowercase ASCII letters, numbers and punctuation."
-msgstr ""
+msgstr "Die Entwickler-ID ist ungültig. Es sollte ein rDNS-String sein, der den Entwickler identifiziert, oder ein Fediverse Handle. Dieser darf nur ASCII-Kleinbuchstaben, Zahlen und Zeichensetzung enthalten."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:638
@@ -3019,7 +3020,7 @@ msgstr "Ungültige Anzahl von Parametern"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1157
-#, fuzzy, c-format
+#, c-format
 msgid "Compose operation failed to execute: %s"
 msgstr "Compose konnte nicht ausgeführt werden: %s"
 
