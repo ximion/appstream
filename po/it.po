@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-28 11:14+0100\n"
-"PO-Revision-Date: 2026-04-02 03:09+0000\n"
+"PO-Revision-Date: 2026-04-04 02:09+0000\n"
 "Last-Translator: Alessandro Scarozza <xan.scale@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
@@ -2290,7 +2290,7 @@ msgstr "Il file metainfo utilizza una versione obsoleta della specifica AppStrea
 
 #: src/as-validator-issue-tag.h:852
 msgid "This XML document has an unknown root tag. Maybe this file is not a metainfo document?"
-msgstr ""
+msgstr "Questo documento XML ha un tag radice sconosciuto. Forse questo file non è un documento di metadati?"
 
 #: src/as-validator-issue-tag.h:857
 msgid "The metainfo filename does not match the component ID."
@@ -2303,7 +2303,7 @@ msgstr "Impossibile leggere il file .desktop associato a questo componente."
 
 #: src/as-validator-issue-tag.h:867
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
+msgstr "I metadati di questo componente fanno riferimento a un file .desktop inesistente."
 
 #: src/as-validator-issue-tag.h:872
 #, fuzzy
@@ -2312,23 +2312,23 @@ msgstr "La categoria definita nel file .desktop non è valida. Fare riferimento 
 
 #: src/as-validator-issue-tag.h:877
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "Errore durante la lettura di alcuni dati dal file desktop-entry."
 
 #: src/as-validator-issue-tag.h:882
 msgid "The value of this desktop-entry field contains invalid or non-printable UTF-8 characters, which can not be displayed properly."
-msgstr ""
+msgstr "Il valore di questo campo desktop-entry contiene caratteri UTF-8 non validi o non stampabili, che non possono essere visualizzati correttamente."
 
 #: src/as-validator-issue-tag.h:887
 msgid "This desktop-entry field value is quoted, which is likely unintentional."
-msgstr ""
+msgstr "Il valore di questo campo desktop-entry è tra virgolette, il che probabilmente non è intenzionale."
 
 #: src/as-validator-issue-tag.h:892
 msgid "This desktop-entry file has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional."
-msgstr ""
+msgstr "Questo file desktop-entry ha la proprietà 'Hidden' impostata. Questo è errato per i file .desktop installati dal fornitore e annulla tutti gli effetti di questo file .desktop (incluse le associazioni MIME), il che non è certamente intenzionale."
 
 #: src/as-validator-issue-tag.h:898
 msgid "This desktop-entry file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit."
-msgstr ""
+msgstr "Questo file desktop-entry ha la proprietà 'OnlyShowIn' impostata su un valore vuoto. Questo potrebbe non essere l'effetto desiderato, poiché in questo modo l'applicazione verrà nascosta da tutti i desktop. Se si desidera nascondere l'applicazione da tutti i desktop, l'utilizzo di 'NoDisplay=true' è più esplicito."
 
 #: src/as-validator-issue-tag.h:904
 msgid "No AppStream metadata was found in this directory or directory tree."
@@ -2341,7 +2341,7 @@ msgstr "Nessuna directory applicazioni XDG trovata."
 
 #: src/as-validator-issue-tag.h:914
 msgid "The metainfo file is stored in a legacy path. Please place it in `/usr/share/metainfo/`."
-msgstr ""
+msgstr "Il file metainfo è memorizzato in un percorso obsoleto. Si prega di posizionarlo in `/usr/share/metainfo/`."
 
 #: src/as-validator-issue-tag.h:919
 msgid "The metainfo file specifies multiple components. This is not allowed."
@@ -2349,16 +2349,16 @@ msgstr "Il file metainfo specifica molteplici componenti. Questo non è permesso
 
 #: src/as-validator-issue-tag.h:924
 msgid "The releases are not sorted in a latest to oldest version order. This is required as some tools will assume that the latest version is always at the top. Sorting releases also increases overall readability of the metainfo file."
-msgstr ""
+msgstr "Le release non sono ordinate dalla versione più recente alla più vecchia. Ciò è necessario perché alcuni strumenti presuppongono che la versione più recente sia sempre in cima all'elenco. L'ordinamento delle release migliora inoltre la leggibilità complessiva del file di metadati."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:932
 msgid "The type of the releases block is invalid. It needs to either `embedded` (the default) or `external`."
-msgstr ""
+msgstr "Il tipo del blocco release non è valido. Deve essere `embedded` (impostazione predefinita) o `external`."
 
 #: src/as-validator-issue-tag.h:937
 msgid "The URL to an external release metadata file is insecure. This is not allowed, please use HTTPS URLs only."
-msgstr ""
+msgstr "L'URL di un file di metadati di rilascio esterno non è sicuro. Ciò non è consentito; si prega di utilizzare esclusivamente URL HTTPS."
 
 #: src/as-validator-issue-tag.h:942
 #, fuzzy
@@ -2367,78 +2367,78 @@ msgstr "Impossibile scaricare il file: %s"
 
 #: src/as-validator-issue-tag.h:947
 msgid "A local release metadata file was not found. It is strongly recommended to validate this metadata together with the main MetaInfo file."
-msgstr ""
+msgstr "Non è stato trovato alcun file di metadati di rilascio locale. Si raccomanda vivamente di convalidare questi metadati insieme al file MetaInfo principale."
 
 #: src/as-validator-issue-tag.h:953
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "Il valore impostato come urgenza di rilascio non è un valore di urgenza noto."
 
 #: src/as-validator-issue-tag.h:958
 msgid "The value set as release type is invalid."
-msgstr ""
+msgstr "Il valore impostato come tipo di rilascio non è valido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:964
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "Alla release manca la proprietà `version`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:970
 msgid "The release entry is missing either the `date` (preferred) or the `timestamp` property."
-msgstr ""
+msgstr "Nella voce relativa alla release manca la proprietà `date` (preferibile) o la proprietà `timestamp`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:976
 msgid "The release entry is missing the `date` property. Ensure to add it before publishing the snapshot release."
-msgstr ""
+msgstr "Nella voce di rilascio manca la proprietà `date`. Assicurati di aggiungerla prima di pubblicare la versione snapshot."
 
 #: src/as-validator-issue-tag.h:981
 msgid "The release timestamp is invalid."
-msgstr ""
+msgstr "Il timestamp della release non è valido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:987
 msgid "The release description must be put inside a `description` tag"
-msgstr ""
+msgstr "La descrizione della release deve essere inserita all'interno di un tag `description`"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:993
 msgid "The value set as artifact type is invalid. Must be either `source` or `binary`."
-msgstr ""
+msgstr "Il valore impostato come tipo di artefatto non è valido. Deve essere `source` o `binary`."
 
 #: src/as-validator-issue-tag.h:998
 msgid "The value set as artifact bundle type is invalid."
-msgstr ""
+msgstr "Il valore impostato come tipo di bundle di artefatti non è valido."
 
 #: src/as-validator-issue-tag.h:1003
 msgid "The platform triplet for this release is invalid. It must be in the form of `architecture-oskernel-osenv` - refer to the AppStream documentation or information on normalized GNU triplets for more information and valid fields."
-msgstr ""
+msgstr "La tripletta della piattaforma per questa versione non è valida. Deve essere nel formato `architecture-oskernel-osenv` - fare riferimento alla documentazione di AppStream o alle informazioni sulle triplette GNU normalizzate per ulteriori dettagli e campi validi."
 
 #: src/as-validator-issue-tag.h:1010
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
+msgstr "L'algoritmo di checksum selezionato non è supportato o è sconosciuto."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1016
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
+msgstr "Il tipo di dimensione è sconosciuto. Deve essere `download` o `installed`."
 
 #: src/as-validator-issue-tag.h:1021
 msgid "The artifact filename must be a file basename, not a (relative or absolute) path."
-msgstr ""
+msgstr "Il nome del file dell'artefatto deve essere un nome di base del file, non un percorso (relativo o assoluto)."
 
 #: src/as-validator-issue-tag.h:1026
 msgid "The value set as release issue type is invalid."
-msgstr ""
+msgstr "Il valore impostato come tipo di problema di rilascio non è valido."
 
 #: src/as-validator-issue-tag.h:1031
 msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
-msgstr ""
+msgstr "Il problema è contrassegnato come vulnerabilità di sicurezza con un numero CVE, ma il suo valore non sembra essere un identificatore CVE valido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1037
 msgid "This component is missing information about releases. Consider adding a `releases` tag to describe releases and their changes."
-msgstr ""
+msgstr "A questo componente mancano informazioni sulle release. Valuta la possibilità di aggiungere un tag `releases` per descrivere le release e le relative modifiche."
 
 #: src/as-validator-issue-tag.h:1042
 msgid "The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. Please ensure the date string is valid."
@@ -2446,7 +2446,7 @@ msgstr "La specifica AppStream richiede una data in formato ISO 8601 completa co
 
 #: src/as-validator-issue-tag.h:1048
 msgid "This component extends, provides, requires or recommends itself, which is certainly not intended and may confuse users or machines dealing with this metadata."
-msgstr ""
+msgstr "Questo componente estende, fornisce, richiede o raccomanda se stesso, cosa che certamente non è nelle intenzioni e potrebbe confondere gli utenti o le macchine che gestiscono questi metadati."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1055
@@ -2460,17 +2460,17 @@ msgstr "Poiché un componente 'runtime' è composto da altri multipli componenti
 
 #: src/as-validator-issue-tag.h:1066
 msgid "The type of the item that the component provides is not known to AppStream."
-msgstr ""
+msgstr "Il tipo di elemento fornito dal componente non è noto ad AppStream."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1072
 msgid "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead to indicate that your software provides a media handler for the given types."
-msgstr ""
+msgstr "Il tag di primo livello `mimetypes` è obsoleto. Si prega di utilizzare invece i tag `mediatype` all'interno di un blocco `provides` per indicare che il software fornisce un gestore multimediale per i tipi specificati."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1079
 msgid "This component has no `content_rating` tag to provide age rating information. You can generate the tag data online by answering a few questions at https://hughsie.github.io/oars/"
-msgstr ""
+msgstr "Questo componente non ha un tag `content_rating` per fornire informazioni sulla classificazione per età. Puoi generare i dati del tag online rispondendo ad alcune domande su https://hughsie.github.io/oars/"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1086
