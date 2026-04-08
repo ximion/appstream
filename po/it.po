@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-28 11:14+0100\n"
-"PO-Revision-Date: 2026-04-04 02:09+0000\n"
+"PO-Revision-Date: 2026-04-08 01:09+0000\n"
 "Last-Translator: Alessandro Scarozza <xan.scale@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
@@ -2475,52 +2475,52 @@ msgstr "Questo componente non ha un tag `content_rating` per fornire informazion
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1086
 msgid "The `type` attribute of this `content_rating` element is missing or empty."
-msgstr ""
+msgstr "L'attributo `type` di questo elemento `content_rating` è mancante o vuoto."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1092
 msgid "The `type` attribute of the `content_rating` element has an invalid value."
-msgstr ""
+msgstr "L'attributo `type` dell'elemento `content_rating` ha un valore non valido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1098
 msgid "The `content_rating` tag can only contain `content_attribute` children."
-msgstr ""
+msgstr "Il tag `content_rating` può contenere solo elementi figli di tipo `content_attribute`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1104
 msgid "The `id` attribute of the `content_attribute` element is missing or empty."
-msgstr ""
+msgstr "L'attributo `id` dell'elemento `content_attribute` è mancante o vuoto."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1110
 msgid "The `id` attribute of the `content_attribute` element has an invalid value."
-msgstr ""
+msgstr "L'attributo `id` dell'elemento `content_attribute` ha un valore non valido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1116
 msgid "The `content_attribute` tag needs a value."
-msgstr ""
+msgstr "Il tag `content_attribute` necessita di un valore."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1122
 msgid "The `content_attribute` tag value is unknown."
-msgstr ""
+msgstr "Il valore del tag `content_attribute` è sconosciuto."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1128
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr ""
+msgstr "Il valore del tag `content_attribute` non è valido per l'id specificato."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1134
 msgid "A `content_attribute` tag with this ID has already been defined."
-msgstr ""
+msgstr "È già stato definito un tag `content_attribute` con questo ID."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1140
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "A questo `tag` manca l'attributo `namespace`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1146
@@ -2535,59 +2535,59 @@ msgstr "L'XML di questo file non è corretto."
 
 #: src/as-validator-issue-tag.h:1156
 msgid "The value of this color scheme preference is not valid."
-msgstr ""
+msgstr "Il valore di questa preferenza dello schema colori non è valido."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1162
 msgid "The name of the color scheme property is wrong. It should be `scheme_preference`."
-msgstr ""
+msgstr "Il nome della proprietà dello schema colori è errato. Dovrebbe essere `scheme_preference`."
 
 #: src/as-validator-issue-tag.h:1167
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Questo colore non è un codice colore HTML valido."
 
 #: src/as-validator-issue-tag.h:1172
 msgid "A color for this type/scheme combination was already set. Colors must be unique per type/scheme."
-msgstr ""
+msgstr "Un colore per questa combinazione di tipo/schema è già stato impostato. I colori devono essere univoci per ogni tipo/schema."
 
 #: src/as-validator-issue-tag.h:1177
 msgid "The given DOI (Digital Object Identifier) for this reference item is not valid."
-msgstr ""
+msgstr "Il DOI (Digital Object Identifier) per questo elemento di riferimento non è valido."
 
 #: src/as-validator-issue-tag.h:1182
 msgid "The value for this citation reference item must be an URL to a CFF (Citation File Format) file."
-msgstr ""
+msgstr "Il valore per questo elemento di riferimento citativo deve essere un URL di un file CFF (Citation File Format)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1188
 msgid "This registry reference item is missing the `name` property to denote the name of the registry it is about."
-msgstr ""
+msgstr "A questo elemento di riferimento del registro manca la proprietà `name` che indica il nome del registro a cui si riferisce."
 
 #: src/as-validator-issue-tag.h:1193
 msgid "The registry for this reference item is unknown. This may be due to a typing error, or the registry needs to be registered with AppStream."
-msgstr ""
+msgstr "Il registro per questo elemento di riferimento è sconosciuto. Ciò potrebbe essere dovuto a un errore di digitazione oppure il registro deve essere registrato con AppStream."
 
 #: src/as-validator-issue-tag.h:1199
 msgid "The reference item is missing a value."
-msgstr ""
+msgstr "L'elemento di riferimento non ha un valore."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1205
 msgid "The `custom` tag can only contain `value` children."
-msgstr ""
+msgstr "Il tag `custom` può contenere solo elementi figli di tipo `value`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1211
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr ""
+msgstr "A questo valore del tag `custom` manca l'attributo `key`."
 
 #: src/as-validator-issue-tag.h:1216
 msgid "A key can only be used once."
-msgstr ""
+msgstr "Una chiave può essere utilizzata una sola volta."
 
 #: src/as-validator-issue-tag.h:1221
 msgid "This custom value is empty."
-msgstr ""
+msgstr "Questo valore personalizzato è vuoto."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1227
@@ -2601,31 +2601,31 @@ msgstr "Il tag del problema è sconosciuto nel registro dei tag di Appstream. Si
 
 #: src/as-validator.c:419
 msgid "URL format is invalid."
-msgstr ""
+msgstr "Il formato URL non è valido."
 
 #: src/as-validator.c:480 src/as-validator.c:525
 #, c-format
 msgid "The release metadata file '%s' is named incorrectly."
-msgstr ""
+msgstr "Il file dei metadati della release '%s' ha un nome errato."
 
 #. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
 #: src/as-validator.c:673
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
-msgstr ""
+msgstr "Il nuovo livello di gravità del problema per il tag '%s' non è valido."
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
 #: src/as-validator.c:684
 #, c-format
 msgid "The issue tag '%s' is not recognized."
-msgstr ""
+msgstr "Il tag del problema '%s' non è riconosciuto."
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 #. whitelisted for that.
 #: src/as-validator.c:711
 #, c-format
 msgid "It is not allowed to downgrade the severity of tag '%s' to one that allows validation to pass."
-msgstr ""
+msgstr "Non è consentito ridurre il livello di gravità del tag '%s' a uno che permetta il superamento della convalida."
 
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
@@ -2657,77 +2657,77 @@ msgstr "Mostra la versione del programma"
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:219
 msgid "Do not use the network at all, not even for URL validity checks."
-msgstr ""
+msgstr "Non utilizzare assolutamente la rete, neanche per verificare la validità degli URL."
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:226
 msgid "Set mode of the issue report that is printed to the console."
-msgstr ""
+msgstr "Imposta la modalità di visualizzazione del report dei problemi stampato sulla console."
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:233
 msgid "Override the default prefix (`/usr` by default)."
-msgstr ""
+msgstr "Sovrascrivi il prefisso predefinito (`/usr` per impostazione predefinita)."
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:240
 msgid "Set the result output directory."
-msgstr ""
+msgstr "Imposta la directory di output dei risultati."
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:247
 msgid "Override the catalog metadata output directory."
-msgstr ""
+msgstr "Sovrascrivi la directory di output dei metadati del catalogo."
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:254
 msgid "Override the icon output directory."
-msgstr ""
+msgstr "Sovrascrivi la directory di output delle icone."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:261
 msgid "Set the media output directory (for media data to be served by a webserver)."
-msgstr ""
+msgstr "Imposta la directory di output multimediale (per i dati multimediali da fornire tramite un server web)."
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:268
 msgid "Set a directory where HTML and text issue reports will be stored."
-msgstr ""
+msgstr "Imposta una directory in cui verranno archiviati i report dei problemi HTML e testo."
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:275
 msgid "Set the origin name"
-msgstr ""
+msgstr "Imposta il nome di origine"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:282
 msgid "Set the URL where the exported media content will be hosted."
-msgstr ""
+msgstr "Imposta l'URL in cui verrà ospitato il contenuto multimediale esportato."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:289
 msgid "Makes all URLs in output data complete URLs and avoids the use of a shared URL prefix for all metadata."
-msgstr ""
+msgstr "Rende completi tutti gli URL nei dati di output ed evita l'uso di un prefisso URL condiviso per tutti i metadati."
 
 #. TRANSLATORS: ascompose flag description for: --icon-policy
 #: tools/appstream-compose.c:296
 msgid "An icon-policy string to set how icon sizes should be handled (refer to the man page for details)."
-msgstr ""
+msgstr "Una stringa icon-policy per impostare come gestire le dimensioni delle icone (fare riferimento alla pagina man per i dettagli)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:303
 msgid "A comma-separated list of custom keys that should be propagated to the output data."
-msgstr ""
+msgstr "Un elenco di chiavi personalizzate, separate da virgole, che devono essere propagate ai dati di output."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:310
 msgid "A comma-separated list of component-IDs to accept."
-msgstr ""
+msgstr "Un elenco di ID dei componenti da accettare, separati da virgole."
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:327
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Impossibile analizzare gli argomenti"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-compose.c:338 tools/appstreamcli.c:1597
@@ -2753,19 +2753,24 @@ msgid ""
 "`short` - generates an abridged report\n"
 "`full` - a detailed report will be printed"
 msgstr ""
+"Valore non valido per l'opzione `--print-report`: %s\n"
+"I valori possibili sono:\n"
+"`on-error` - stampa un report breve solo se l'esecuzione non è andata a buon fine (impostazione predefinita)\n"
+"`short` - genera un report abbreviato\n"
+"`full` - verrà stampato un report dettagliato"
 
 #: tools/appstream-compose.c:394
 #, c-format
 msgid "Automatically selected '%s' as data output location."
-msgstr ""
+msgstr "Selezionata automaticamente la posizione '%s' come percorso di output dei dati."
 
 #: tools/appstream-compose.c:399
 msgid "No destination directory set, please provide a data output location!"
-msgstr ""
+msgstr "Non è stata impostata alcuna directory di destinazione. Si prega di specificare una posizione di output per i dati!"
 
 #: tools/appstream-compose.c:412 tools/appstream-compose.c:414
 msgid "WARNING"
-msgstr ""
+msgstr "WARNING"
 
 #: tools/appstream-compose.c:446
 #, fuzzy
