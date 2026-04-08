@@ -3,6 +3,7 @@
 # Install AppStream build dependencies
 #
 set -e
+. /etc/os-release
 set -x
 
 export DEBIAN_FRONTEND=noninteractive
@@ -44,7 +45,16 @@ eatmydata apt-get install -yq --no-install-recommends \
     gperf \
     valac
 
+# the Blake3 C library was not built on older distros
+blake3_dev_pkg="libblake3-dev"
+if { [ "$ID" = "ubuntu" ] && [ "$VERSION_ID" = "24.04" ]; } ||
+   { [ "$ID" = "debian" ] && [ "$VERSION_ID" = "13" ]; }; then
+    blake3_dev_pkg=""
+fi;
+
+# Compose dependencies
 eatmydata apt-get install -yq --no-install-recommends \
+    $blake3_dev_pkg \
     libgdk-pixbuf-2.0-dev \
     librsvg2-dev \
     libcairo2-dev \

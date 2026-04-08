@@ -10,6 +10,7 @@ set -e
 
 . /etc/os-release
 apt_support=false
+blake3_support=true
 build_compose=true
 build_docs=false
 build_qt=true
@@ -23,6 +24,12 @@ if [ "$ID" = "debian" ] || [ "$ID" = "ubuntu" ]; then
     apt_support=true
     # daps is available to build docs
     build_docs=true
+fi;
+
+# the Blake3 C library was not built on older distros
+if { [ "$ID" = "ubuntu" ] && [ "$VERSION_ID" = "24.04" ]; } ||
+   { [ "$ID" = "debian" ] && [ "$VERSION_ID" = "13" ]; }; then
+    blake3_support=false
 fi;
 
 if [ "$ID" = "freebsd" ]; then
@@ -74,6 +81,7 @@ meson setup --buildtype=$build_type \
       -Dsystemd=$systemd \
       -Dbash-completion=$bash_completion \
       -Dvapi=true \
+      -Dblake3-support=$blake3_support \
       ..
 
 #

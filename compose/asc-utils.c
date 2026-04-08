@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -28,18 +28,24 @@
 #include "asc-utils.h"
 #include "as-utils-private.h"
 
+#ifdef HAVE_BLAKE3
+#include <blake3.h>
+#endif
+
 /**
  * asc_build_component_global_id:
  * @component_id: an AppStream component ID.
- * @checksum: a MD5 hashsum as string generated from the component's combined metadata.
+ * @checksum: a checksum as string generated from the component's combined metadata.
  *
  * Builds a global component ID from a component-id
- * and a (usually MD5) checksum generated from the component data.
+ * and a checksum (usually Blake3) generated from the component data.
  *
  * The global-id is used as a global, unique identifier for a component.
  * (while the component-ID is local, e.g. for one source).
  * Its primary usecase is to identify a media directory on the filesystem which is
  * associated with this component.
+ *
+ * Returns: The new global ID. Free with %g_free.
  **/
 gchar *
 asc_build_component_global_id (const gchar *component_id, const gchar *checksum)
@@ -82,6 +88,52 @@ asc_build_component_global_id (const gchar *component_id, const gchar *checksum)
 
 		return g_strdup_printf ("%s/%s/%s/%s", pdiv_part, sdiv_part, cid_low, checksum);
 	}
+}
+
+/**
+ * asc_compute_content_checksum_for_data:
+ * @data: The data to hash.
+ * @length: Length of @data.
+ *
+ * Compute a checksum for the given content.
+ *
+ * The output of this function is intended to be used with %asc_build_component_global_id
+ * to form a unique global ID. The generated checksum is intended to be used as content-ID.
+ * Do not assume it is cryptographically secure or has a certain length!
+ *
+ * Returns: The hash as hexadecimal string. Free with %g_free
+ */
+gchar *
+asc_compute_content_checksum_for_data (const gchar *data, gsize length)
+{
+#ifdef HAVE_BLAKE3
+	blake3_hasher hasher;
+	uint8_t out[BLAKE3_OUT_LEN];
+
+	blake3_hasher_init (&hasher);
+	blake3_hasher_update (&hasher, data, length);
+
+	blake3_hasher_finalize (&hasher, out, BLAKE3_OUT_LEN);
+
+	/* we just take the first half of the hash (128 bits), which should be sufficiently strong
+	 * for our content-ID (especially combined with the rest of the GCID) while also being as
+	 * short as an MD5 hash */
+	/* clang-format off */
+	return g_strdup_printf (
+		"%02x%02x%02x%02x%02x%02x%02x%02x"
+		"%02x%02x%02x%02x%02x%02x%02x%02x",
+		out[0], out[1], out[2], out[3],
+		out[4], out[5], out[6], out[7],
+		out[8], out[9], out[10], out[11],
+		out[12], out[13], out[14], out[15]
+	);
+	/* clang-format on */
+#else
+	g_return_val_if_fail (data != NULL || length == 0, NULL);
+
+	/* just fall back to MD5 if we were built without Blake3 */
+	return g_compute_checksum_for_data (G_CHECKSUM_MD5, (const guchar *) data, length);
+#endif
 }
 
 /**

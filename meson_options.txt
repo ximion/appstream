@@ -38,6 +38,11 @@ option('gir',
        value : true,
        description : 'Build introspection data'
 )
+option('tools',
+       type : 'boolean',
+       value : true,
+       description : 'Build/install command-line tools (appstreamcli, ascli compose if enabled)'
+)
 option('svg-support',
        type : 'boolean',
        value : true,
@@ -48,10 +53,10 @@ option('zstd-support',
        value : true,
        description : 'Support Zstd for (de)compressing local / remote metadata'
 )
-option('tools',
+option('blake3-support',
        type : 'boolean',
        value : true,
-       description : 'Build/install command-line tools (appstreamcli, ascli compose if enabled)'
+       description : 'Use Blake3 for hashing in appstream-compose'
 )
 
 #

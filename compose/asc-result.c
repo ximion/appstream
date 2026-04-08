@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -347,7 +347,7 @@ asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, GBytes *b
 
 	old_hash = g_hash_table_lookup (priv->mdata_hashes, cpt);
 	if (old_hash == NULL) {
-		hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, data, data_len);
+		hash = asc_compute_content_checksum_for_data (data, data_len);
 	} else {
 		gsize old_hash_len;
 		g_autofree gchar *tmp = NULL;
@@ -357,7 +357,7 @@ asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, GBytes *b
 		memcpy (tmp, old_hash, old_hash_len);
 		memcpy (tmp + old_hash_len, data, data_len);
 
-		hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, tmp, old_hash_len + data_len);
+		hash = asc_compute_content_checksum_for_data (tmp, old_hash_len + data_len);
 	}
 
 	g_hash_table_insert (priv->mdata_hashes, cpt, hash);

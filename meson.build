@@ -47,6 +47,7 @@ conf.set('HAVE_STEMMING', get_option('stemming'))
 conf.set('HAVE_SYSTEMD', get_option('systemd'))
 conf.set('HAVE_SVG_SUPPORT', get_option('svg-support'))
 conf.set('HAVE_ZSTD', get_option('zstd-support'))
+conf.set('HAVE_BLAKE3', get_option('blake3-support'))
 
 root_inc_dir = include_directories ('.')
 

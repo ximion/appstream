@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -29,6 +29,7 @@
 G_BEGIN_DECLS
 
 gchar *asc_build_component_global_id (const gchar *component_id, const gchar *checksum);
+gchar *asc_compute_content_checksum_for_data (const gchar *data, gsize length);
 
 gchar *asc_filename_from_url (const gchar *url);
 

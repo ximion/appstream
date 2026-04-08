@@ -60,12 +60,13 @@ asclib_res = glib.compile_resources (
 )
 
 # extra dependencies we need just for AppStream Compose
+m_dep          = cc.find_library('m', required: false)
 cairo_dep      = dependency('cairo', version: '>= 1.12')
 gdkpixbuf_dep  = dependency('gdk-pixbuf-2.0')
 freetype_dep   = dependency('freetype2')
 pango_dep      = dependency('pango')
 fontconfig_dep = dependency('fontconfig')
-m_dep          = cc.find_library('m', required: false)
+blake3_dep     = dependency('libblake3', required: get_option('blake3-support'))
 if get_option ('svg-support')
     rsvg_dep       = dependency('librsvg-2.0', version: '>= 2.48')
 else
@@ -84,6 +85,8 @@ appstream_compose_lib = library ('appstream-compose',
     dependencies: [
         appstream_dep,
         m_dep,
+        blake3_dep,
+        fyaml_dep,
         gio_dep,
         cairo_dep,
         gdkpixbuf_dep,
@@ -91,7 +94,6 @@ appstream_compose_lib = library ('appstream-compose',
         freetype_dep,
         pango_dep,
         fontconfig_dep,
-        fyaml_dep,
     ],
     include_directories: [root_inc_dir],
     c_args: ['-DASC_COMPILATION'],
@@ -105,10 +107,12 @@ pkgc.generate(
     description: 'Helper functions to generate AppStream metadata and auxiliary data.',
     filebase: 'appstream-compose',
     subdirs: 'appstream-compose',
-    requires: ['glib-2.0',
-               'gio-2.0',
-               'gobject-2.0',
-               'appstream'],
+    requires: [
+        'glib-2.0',
+        'gio-2.0',
+        'gobject-2.0',
+        'appstream'
+    ],
 )
 
 appstream_compose_dep = declare_dependency(
@@ -117,11 +121,13 @@ appstream_compose_dep = declare_dependency(
         ascompose_pub_headers,
         ascompose_pub_enums
     ],
-    dependencies: [appstream_dep,
-                   glib_dep,
-                   gobject_dep,
-                   gio_dep,
-                   gdkpixbuf_dep],
+    dependencies: [
+        appstream_dep,
+        glib_dep,
+        gobject_dep,
+        gio_dep,
+        gdkpixbuf_dep
+    ],
     include_directories: [appstream_compose_lib_inc]
 )
 

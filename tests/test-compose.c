@@ -555,8 +555,18 @@ test_compose_result (void)
 	g_assert_cmpint (asc_result_components_count (cres), ==, 1);
 	g_assert_cmpint (asc_result_hints_count (cres), ==, 1);
 
+#ifdef HAVE_BLAKE3
+	g_assert_cmpstr (asc_result_gcid_for_component (cres, cpt),
+			 ==,
+			 "org/freedesktop/appstream.dummy/9dc221733838ad255d8a34978e062171");
+#endif
 	ret = asc_result_update_component_gcid_with_string (cres, cpt, "<moredata>");
 	g_assert_true (ret);
+#ifdef HAVE_BLAKE3
+	g_assert_cmpstr (asc_result_gcid_for_component (cres, cpt),
+			 ==,
+			 "org/freedesktop/appstream.dummy/027ffd3526b3b38dd775f3fd045d40eb");
+#endif
 
 	g_assert_true (asc_result_get_component (cres, "org.freedesktop.appstream.dummy") == cpt);
 
