@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-28 11:14+0100\n"
-"PO-Revision-Date: 2026-04-08 01:09+0000\n"
+"PO-Revision-Date: 2026-04-09 04:09+0000\n"
 "Last-Translator: Alessandro Scarozza <xan.scale@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
@@ -2781,33 +2781,33 @@ msgstr "Impossibile rimuovere la vecchia cache."
 #: tools/appstream-compose.c:473
 #, c-format
 msgid "Only accepting components: %s"
-msgstr ""
+msgstr "Si accettano solo i componenti: %s"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:476
 #, c-format
 msgid "Only accepting component: %s"
-msgstr ""
+msgstr "Accetta solo il componente: %s"
 
 #. TRANSLATORS: Information about as-compose units to be processed
 #: tools/appstream-compose.c:481
 msgid "Processing directories:"
-msgstr ""
+msgstr "Cartelle di elaborazione:"
 
 #. TRANSLATORS: Information about as-compose units to be processed
 #: tools/appstream-compose.c:484
 msgid "Processing directory:"
-msgstr ""
+msgstr "Cartella di elaborazione:"
 
 #. TRANSLATORS: Error message
 #: tools/appstream-compose.c:493
 msgid "Can not process invalid directory"
-msgstr ""
+msgstr "Impossibile elaborare la directory non valida"
 
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:505
 msgid "Composing metadata..."
-msgstr ""
+msgstr "Composizione dei metadati..."
 
 #. TRANSLATORS: Error message
 #: tools/appstream-compose.c:510
@@ -2818,24 +2818,24 @@ msgstr "Uno strumento per lavorare con metadati AppStream"
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:516
 msgid "Run failed, some data was ignored."
-msgstr ""
+msgstr "Esecuzione non riuscita, alcuni dati sono stati ignorati."
 
 #: tools/appstream-compose.c:519
 msgid "Errors were raised during this compose run:"
-msgstr ""
+msgstr "Durante l'esecuzione di questa composizione si sono verificati degli errori:"
 
 #: tools/appstream-compose.c:522
 msgid "Refer to the generated issue report data for details on the individual problems."
-msgstr ""
+msgstr "Per i dettagli sui singoli problemi, fare riferimento ai dati del rapporto di problema generato."
 
 #: tools/appstream-compose.c:526
 msgid "Overview of generated hints:"
-msgstr ""
+msgstr "Panoramica dei suggerimenti generati:"
 
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:528
 msgid "Success!"
-msgstr ""
+msgstr "Successo!"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstreamcli.c:63
@@ -2850,7 +2850,7 @@ msgstr "Imposta manualmente la posizione dei metadati AppStream da analizzare"
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:75
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
+msgstr "Ignora la data di scadenza della cache e crea una nuova cache prima di eseguire la query."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:91
@@ -2880,7 +2880,7 @@ msgstr "Non usa l'accesso alla rete"
 #. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
 #: tools/appstreamcli.c:149
 msgid "Fail validation if any issue is emitted that is not of pedantic severity."
-msgstr ""
+msgstr "La convalida fallisce se viene segnalato un problema che non sia di gravità pedante."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:155
@@ -2890,7 +2890,7 @@ msgstr "Formato del rapporto (valori validi sono «text» e «yaml»)"
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:161
 msgid "Override the severities of selected issue tags."
-msgstr ""
+msgstr "Sovrascrivi i livelli di gravità dei tag di problema selezionati."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #: tools/appstreamcli.c:179 tools/appstreamcli.c:1252
@@ -2926,11 +2926,11 @@ msgstr "Forza l'aggiornamento della cache"
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
 #: tools/appstreamcli.c:288
 msgid "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."
-msgstr ""
+msgstr "Limita l'aggiornamento della cache ai dati provenienti da una fonte specifica, ad esempio `os` o `flatpak`. Può essere specificato più volte."
 
 #: tools/appstreamcli.c:546
 msgid "No license, license expression or license exception string was provided."
-msgstr ""
+msgstr "Non è stata fornita alcuna licenza, indicazione di licenza o stringa di eccezione di licenza."
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
 #: tools/appstreamcli.c:595
@@ -2941,27 +2941,27 @@ msgstr "Stampa informazioni dettagliate riguardo ai componenti trovati"
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:632
 msgid "Set the data origin for the installed metadata catalog file."
-msgstr ""
+msgstr "Imposta l'origine dei dati per il file del catalogo dei metadati installato."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:638
 msgid "Install the file for the current user, instead of globally."
-msgstr ""
+msgstr "Installa il file per l'utente corrente, anziché a livello globale."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:666
 msgid "Limit the command to use only components from the given bundling system (`flatpak` or `package`)."
-msgstr ""
+msgstr "Limita il comando all'utilizzo dei soli componenti del sistema di bundling specificato (`flatpak` o `package`)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:673
 msgid "Do not ask for which software component should be used and always choose the first entry."
-msgstr ""
+msgstr "Non chiedere quale componente software utilizzare e scegli sempre la prima opzione."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:707 tools/appstreamcli.c:742
 msgid "No valid bundle kind was specified. Only `package` and `flatpak` are currently recognized."
-msgstr ""
+msgstr "Non è stato specificato alcun tipo di pacchetto valido. Attualmente sono riconosciuti solo i formati `package` e `flatpak`."
 
 #: tools/appstreamcli.c:836
 msgid "You need to provide at least two version numbers to compare as parameters."
@@ -3011,7 +3011,7 @@ msgstr "Limita il numero di voci di rilascio incluse nel file metainfo (0 per ne
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1036
 msgid "Set the number of releases that should have descriptions marked for translation (latest releases are translated first, -1 for unlimited)."
-msgstr ""
+msgstr "Imposta il numero di release per le quali devono essere contrassegnate le descrizioni da tradurre (le release più recenti vengono tradotte per prime, -1 per un numero illimitato)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1081
@@ -3022,17 +3022,17 @@ msgstr "Genera l'output nei formati selezionati («yaml» o «text»)"
 #: tools/appstreamcli.c:1126
 #, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
-msgstr ""
+msgstr "Il file binario '%s' di AppStream Compose non è stato trovato! Impossibile continuare."
 
 #: tools/appstreamcli.c:1130
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
-msgstr ""
+msgstr "Potresti essere in grado di installare il componente aggiuntivo AppStream Compose tramite: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
 #: tools/appstreamcli.c:1139
 msgid "Invalid number of parameters"
-msgstr ""
+msgstr "Numero di parametri non valido"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1157
@@ -3049,7 +3049,7 @@ msgstr "Validazione non riuscita: %s"
 #: tools/appstreamcli.c:1224
 #, c-format
 msgid "(Alias: '%s')"
-msgstr ""
+msgstr "(Alias: '%s')"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstreamcli.c:1254
@@ -3068,7 +3068,7 @@ msgstr "Comando '%s' sconosciuto. Eseguire \"%s --help\" per l'elenco completo d
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstreamcli.c:1374
 msgid "Enable profiling"
-msgstr ""
+msgstr "Abilita la profilazione"
 
 #. TRANSLATORS: `appstreamcli search` command description.
 #: tools/appstreamcli.c:1389
@@ -3083,12 +3083,12 @@ msgstr "Ottiene informazioni su un componente tramite il suo ID"
 #. TRANSLATORS: `appstreamcli what-provides` command description.
 #: tools/appstreamcli.c:1403
 msgid "Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."
-msgstr ""
+msgstr "Recupera i componenti che forniscono l'elemento specificato. Richiede come parametri un tipo di elemento (ad esempio lib, bin, python3, …) e il valore dell'elemento."
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1411
 msgid "List components that are part of the specified categories."
-msgstr ""
+msgstr "Elenca i componenti che fanno parte delle categorie specificate."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1420
@@ -3113,17 +3113,17 @@ msgstr "Esegue la validazione di un file di un'applicazione installata per metad
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1451
 msgid "Check license string for validity and print details about it."
-msgstr ""
+msgstr "Verifica la validità della stringa di licenza e stampa i dettagli relativi."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1459
 msgid "Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."
-msgstr ""
+msgstr "Verifica se i requisiti di un componente (tramite il suo ID o il file MetaInfo) sono soddisfatti su questo sistema."
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
 #: tools/appstreamcli.c:1467
 msgid "Check compatibility of a component (via its ID or MetaInfo file) with common system and chassis types."
-msgstr ""
+msgstr "Verifica la compatibilità di un componente (tramite il suo ID o il file MetaInfo) con i tipi di sistema e chassis più comuni."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1476
@@ -3143,7 +3143,7 @@ msgstr "Visualizza informazioni di stato riguardo ai metadati AppStream installa
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1499
 msgid "Show information about the current device and used operating system."
-msgstr ""
+msgstr "Mostra informazioni sul dispositivo corrente e sul sistema operativo in uso."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1507
