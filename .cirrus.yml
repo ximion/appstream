@@ -17,7 +17,7 @@ task:
     - env ASSUME_ALWAYS_YES=yes pkg update -f
     - env ASSUME_ALWAYS_YES=yes pkg install -y gettext-tools glib gobject-introspection gperf gtk-doc
                                                itstool libxmlb libfyaml meson pkgconf qt6-tools
-                                               snowballstemmer textproc/py-gi-docgen vala
+                                               snowballstemmer libblake3 textproc/py-gi-docgen vala
   build_script:
     - tests/ci/run-build.sh
     - tests/ci/run-tests.sh
