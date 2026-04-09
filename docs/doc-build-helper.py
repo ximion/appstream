@@ -28,7 +28,6 @@ import subprocess
 import shutil
 from pathlib import Path
 
-
 # additional CSS from system locations, we use it if available
 EXTRA_CSS = [['/usr/share/javascript/highlight.js/styles/routeros.css', 'highlight.css']]
 

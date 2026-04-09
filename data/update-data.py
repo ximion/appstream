@@ -18,7 +18,6 @@ from datetime import date
 from lxml import etree
 from tempfile import TemporaryDirectory
 
-
 IANA_TLD_LIST_URL = 'https://data.iana.org/TLD/tlds-alpha-by-domain.txt'
 SPDX_REPO_URL = 'https://github.com/spdx/license-list-data.git'
 MENU_SPEC_URL = 'https://gitlab.freedesktop.org/xdg/xdg-specs/raw/master/menu/menu-spec.xml'

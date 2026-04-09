@@ -3191,7 +3191,8 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							"%s",
 							node_content);
 
-			if (lang == NULL && as_is_empty (node_content) && strlen (node_content) > 48) {
+			if (lang == NULL && as_is_empty (node_content) &&
+			    strlen (node_content) > 48) {
 				as_validator_add_issue (validator,
 							iter,
 							"component-name-too-long",
@@ -3213,7 +3214,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							summary);
 
 			if ((!as_is_empty (summary)) && ((strstr (summary, "\n") != NULL) ||
-						  (strstr (summary, "\t") != NULL))) {
+							 (strstr (summary, "\t") != NULL))) {
 				as_validator_add_issue (validator,
 							iter,
 							"summary-has-tabs-or-linebreaks",
