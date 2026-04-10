@@ -21,7 +21,7 @@
 #pragma once
 
 #include <glib-object.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <vips/vips.h>
 
 #include "as-macros-private.h"
 #include "asc-image.h"
@@ -30,15 +30,7 @@ AS_BEGIN_PRIVATE_DECLS
 
 gboolean   asc_optimize_png (const gchar *fname, GError **error);
 
-GdkPixbuf *asc_image_save_pixbuf (AscImage	   *image,
-				  gint		    width,
-				  gint		    height,
-				  AscImageSaveFlags flags);
-
-GdkPixbuf *asc_image_get_pixbuf (AscImage *image);
-void	   asc_image_set_pixbuf (AscImage *image, GdkPixbuf *pixbuf);
-
-void	   asc_pixbuf_blur (GdkPixbuf *src, gint radius, gint iterations);
-void	   asc_pixbuf_sharpen (GdkPixbuf *src, gint radius, gdouble amount);
+VipsImage *asc_image_get_vips (AscImage *image);
+void	   asc_image_set_vips (AscImage *image, VipsImage *img);
 
 AS_END_PRIVATE_DECLS

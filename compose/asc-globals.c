@@ -27,6 +27,8 @@
 #include "config.h"
 #include "asc-globals-private.h"
 
+#include <vips/vips.h>
+
 #include "as-utils-private.h"
 #include "as-validator-issue-tag.h"
 #include "asc-resources.h"
@@ -528,4 +530,15 @@ asc_globals_hint_tag_explanation (const gchar *tag)
 	if (htag == NULL)
 		return NULL;
 	return htag->explanation;
+}
+
+void
+asc_globals_init_vips (const gchar *argv0)
+{
+	static gsize vips_initialized = 0;
+	if (g_once_init_enter (&vips_initialized)) {
+		if (VIPS_INIT (argv0) != 0)
+			g_warning ("Failed to initialize VIPS: %s", vips_error_buffer ());
+		g_once_init_leave (&vips_initialized, 1);
+	}
 }

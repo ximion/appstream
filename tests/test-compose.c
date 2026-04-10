@@ -276,9 +276,10 @@ test_image_transform (void)
 	g_autofree gchar *data = NULL;
 	gsize data_len;
 
-	/* check if our GdkPixbuf supports the minimum amount of image formats we need */
+	/* check if VIPS supports the minimum amount of image formats we need */
 	supported_fmts = asc_image_supported_format_names ();
 	g_assert_true (g_hash_table_contains (supported_fmts, "png"));
+	g_assert_true (g_hash_table_contains (supported_fmts, "jxl"));
 	g_assert_true (g_hash_table_contains (supported_fmts, "svg"));
 	g_assert_true (g_hash_table_contains (supported_fmts, "jpeg"));
 
@@ -298,7 +299,7 @@ test_image_transform (void)
 	g_assert_cmpint (asc_image_get_height (image), ==, 144);
 
 	/* scale image */
-	asc_image_scale (image, 64, 64);
+	asc_image_scale (image, 64, 64, NULL);
 	g_assert_cmpint (asc_image_get_width (image), ==, 64);
 	g_assert_cmpint (asc_image_get_height (image), ==, 64);
 
@@ -327,7 +328,7 @@ test_image_transform (void)
 	g_assert_no_error (error);
 	g_assert_nonnull (image);
 
-	asc_image_scale (image, 124, 124);
+	asc_image_scale (image, 124, 124, NULL);
 	ret = asc_image_save_filename (image,
 				       "/tmp/asc-iscale-d_test.png",
 				       0,
@@ -760,8 +761,8 @@ static void
 setup (Fixture *fixture, gconstpointer user_data)
 {
 	fixture->path = g_strdup (g_getenv ("PATH"));
-	/* not unset because glib has a hardcoded fallback */
-	g_setenv ("PATH", "", TRUE);
+	/* keep PATH set, but point it to nowhere to avoid GLib fallback behavior */
+	g_setenv ("PATH", "/nonexistent-appstream-test-path", TRUE);
 	asc_globals_clear ();
 }
 
@@ -779,6 +780,9 @@ teardown (Fixture *fixture, gconstpointer user_data)
 static void
 test_compose_optipng_not_found (Fixture *fixture, gconstpointer user_data)
 {
+	/* ensure VIPS is initialized before we start matching log output for this test. */
+	asc_globals_init_vips ("test-compose");
+
 	g_test_expect_message (G_LOG_DOMAIN,
 			       G_LOG_LEVEL_CRITICAL,
 			       "*Refusing to enable optipng: not found in $PATH");

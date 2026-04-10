@@ -645,9 +645,9 @@ asc_process_screenshot_images_lang (AscResult *cres,
 		}
 
 		if (target_width > target_height)
-			asc_image_scale_to_width (thumb, target_width);
+			asc_image_scale_to_width (thumb, target_width, NULL);
 		else
-			asc_image_scale_to_height (thumb, target_height);
+			asc_image_scale_to_height (thumb, target_height, NULL);
 
 		/* create thumbnail storage path and URL component*/
 		if (g_strcmp0 (locale, "C") == 0)

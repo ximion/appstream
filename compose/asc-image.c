@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C) 2014-2016 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -39,7 +39,7 @@ struct _AscImage {
 };
 
 typedef struct {
-	GdkPixbuf *pix;
+	VipsImage *vimg;
 	gint width;
 	gint height;
 } AscImagePrivate;
@@ -169,8 +169,8 @@ asc_image_finalize (GObject *object)
 	AscImage *image = ASC_IMAGE (object);
 	AscImagePrivate *priv = GET_PRIVATE (image);
 
-	if (priv->pix != NULL)
-		g_object_unref (priv->pix);
+	if (priv->vimg != NULL)
+		g_object_unref (priv->vimg);
 
 	G_OBJECT_CLASS (asc_image_parent_class)->finalize (object);
 }
@@ -267,142 +267,227 @@ asc_optimize_png (const gchar *fname, GError **error)
  * asc_image_supported_format_names:
  *
  * Get a set of image format names we can currently read
- * (via GdkPixbuf).
+ * (via VIPS).
  *
  * Returns: (transfer full): A hash set of format names.
  **/
 GHashTable *
 asc_image_supported_format_names (void)
 {
-	g_autoptr(GSList) fm_list = NULL;
 	GHashTable *res;
+	g_auto(GStrv) suffixes = NULL;
 
 	res = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-	fm_list = gdk_pixbuf_get_formats ();
 
-	if (fm_list == NULL)
-		return res;
+	suffixes = vips_foreign_get_suffixes ();
+	if (suffixes != NULL) {
+		for (guint i = 0; suffixes[i] != NULL; i++) {
+			const gchar *sfx = suffixes[i];
+			if (*sfx == '.')
+				sfx++;
 
-	for (GSList *l = fm_list; l != NULL; l = l->next)
-		g_hash_table_add (res, gdk_pixbuf_format_get_name (l->data));
+			if (g_ascii_strcasecmp (sfx, "png") == 0)
+				g_hash_table_add (res, g_strdup ("png"));
+			else if (g_ascii_strcasecmp (sfx, "jpeg") == 0 ||
+				 g_ascii_strcasecmp (sfx, "jpg") == 0)
+				g_hash_table_add (res, g_strdup ("jpeg"));
+			else if (g_ascii_strcasecmp (sfx, "webp") == 0)
+				g_hash_table_add (res, g_strdup ("webp"));
+			else if (g_ascii_strcasecmp (sfx, "avif") == 0 ||
+				 g_ascii_strcasecmp (sfx, "heif") == 0 ||
+				 g_ascii_strcasecmp (sfx, "heic") == 0)
+				g_hash_table_add (res, g_strdup ("avif"));
+			else if (g_ascii_strcasecmp (sfx, "jxl") == 0)
+				g_hash_table_add (res, g_strdup ("jxl"));
+			else if (g_ascii_strcasecmp (sfx, "gif") == 0)
+				g_hash_table_add (res, g_strdup ("gif"));
+		}
+	}
+
+	/* SVG/SVGZ support is handled via our AscCanvas/librsvg path */
+#ifdef HAVE_SVG_SUPPORT
+	g_hash_table_add (res, g_strdup ("svg"));
+	g_hash_table_add (res, g_strdup ("svgz"));
+#endif
 
 	return res;
 }
 
 /**
- * asc_image_load_pixbuf:
+ * asc_image_set_vips_error:
+ *
+ * Convert the VIPS error buffer into a #GError and clear the VIPS buffer.
+ **/
+static void
+asc_image_set_vips_error (GError **error, const gchar *context)
+{
+	g_set_error (error,
+		     ASC_IMAGE_ERROR,
+		     ASC_IMAGE_ERROR_FAILED,
+		     "%s: %s",
+		     context,
+		     vips_error_buffer ());
+	vips_error_clear ();
+}
+
+/**
+ * asc_image_vips_ensure_alpha:
+ *
+ * Return the image with an alpha channel, adding a fully-opaque one if absent.
+ *
+ * Returns: a new #VipsImage or reference.
+ **/
+static VipsImage *
+asc_image_vips_ensure_alpha (VipsImage *img, GError **error)
+{
+	VipsImage *out = NULL;
+
+	if (vips_image_hasalpha (img))
+		return g_object_ref (img);
+	if (vips_addalpha (img, &out, NULL) != 0) {
+		asc_image_set_vips_error (error, "Could not add alpha channel");
+		return NULL;
+	}
+	return out;
+}
+
+/**
+ * asc_image_load_vips:
+ *
+ * Smart-load a #VipsImage into an #AscImage, applying aspect-correct
+ * resizing and transparent padding to reach @dest_width x @dest_height.
  **/
 static gboolean
-asc_image_load_pixbuf (AscImage *image,
-		       GdkPixbuf *pixbuf,
-		       gint dest_width,
-		       gint dest_height,
-		       gint src_size_min,
-		       AscImageLoadFlags flags,
-		       GError **error)
+asc_image_load_vips (AscImage *image,
+		     VipsImage *vimg,
+		     gint dest_width,
+		     gint dest_height,
+		     gint src_size_min,
+		     AscImageLoadFlags flags,
+		     GError **error)
 {
-	gint pixbuf_height;
-	gint pixbuf_width;
-	gint tmp_height;
-	gint tmp_width;
-	g_autoptr(GdkPixbuf) pixbuf_tmp = NULL;
-	g_autoptr(GdkPixbuf) pixbuf_new = NULL;
+	gint img_width = vips_image_get_width (vimg);
+	gint img_height = vips_image_get_height (vimg);
+	gint tmp_width, tmp_height;
+	g_autoptr(VipsImage) scaled = NULL;
+	g_autoptr(VipsImage) with_alpha = NULL;
+	g_autoptr(VipsImage) out = NULL;
 
-	/* check size */
-	if (gdk_pixbuf_get_width (pixbuf) < src_size_min &&
-	    gdk_pixbuf_get_height (pixbuf) < src_size_min) {
+	/* check minimum source size */
+	if (src_size_min > 0 &&
+	    img_width < src_size_min &&
+	    img_height < src_size_min) {
 		g_set_error (error,
 			     ASC_IMAGE_ERROR,
 			     ASC_IMAGE_ERROR_FAILED,
 			     "Image was too small %ix%i",
-			     gdk_pixbuf_get_width (pixbuf),
-			     gdk_pixbuf_get_height (pixbuf));
+			     img_width,
+			     img_height);
 		return FALSE;
 	}
 
-	/* don't do anything to an icon with the perfect size */
-	pixbuf_width = gdk_pixbuf_get_width (pixbuf);
-	pixbuf_height = gdk_pixbuf_get_height (pixbuf);
-	if (pixbuf_width == dest_width && pixbuf_height == dest_height) {
-		asc_image_set_pixbuf (image, pixbuf);
+	/* nothing to do if the image already has the perfect size */
+	if (img_width == dest_width && img_height == dest_height) {
+		asc_image_set_vips (image, vimg);
 		return TRUE;
 	}
 
-	/* this makes icons look blurry, but allows the software center to look
-	 * good as icons are properly aligned in the UI layout */
+	/* force resize to exact target, ignoring aspect ratio (makes icons look
+	 * blurry, but ensures they are properly aligned in UI layouts) */
 	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
-		pixbuf_new = gdk_pixbuf_scale_simple (pixbuf,
-						      dest_width,
-						      dest_height,
-						      GDK_INTERP_HYPER);
-		asc_image_set_pixbuf (image, pixbuf_new);
+		if (vips_thumbnail_image (vimg, &out, dest_width,
+					  "height", dest_height,
+					  "size", VIPS_SIZE_FORCE,
+					  NULL) != 0) {
+			asc_image_set_vips_error (error, "Failed to resize image");
+			return FALSE;
+		}
+		asc_image_set_vips (image, out);
 		return TRUE;
 	}
 
-	/* never scale up, just pad */
-	if (pixbuf_width < dest_width && pixbuf_height < dest_height) {
+	/* never scale up - center-pad with transparency instead */
+	if (img_width < dest_width && img_height < dest_height) {
 		g_debug ("Image padded to %dx%d as size %dx%d",
 			 dest_width,
 			 dest_height,
-			 pixbuf_width,
-			 pixbuf_height);
-		pixbuf_new = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, dest_width, dest_height);
-		gdk_pixbuf_fill (pixbuf_new, 0x00000000);
-		gdk_pixbuf_copy_area (pixbuf,
-				      0,
-				      0, /* of src */
-				      (gint) pixbuf_width,
-				      (gint) pixbuf_height,
-				      pixbuf_new,
-				      (dest_width - pixbuf_width) / 2,
-				      (dest_height - pixbuf_height) / 2);
-		asc_image_set_pixbuf (image, pixbuf_new);
+			 img_width,
+			 img_height);
+
+		with_alpha = asc_image_vips_ensure_alpha (vimg, error);
+		if (with_alpha == NULL)
+			return FALSE;
+
+		if (vips_embed (with_alpha, &out,
+				(dest_width - img_width) / 2,
+				(dest_height - img_height) / 2,
+				dest_width, dest_height,
+				"extend", VIPS_EXTEND_BLACK, NULL) != 0) {
+			asc_image_set_vips_error (error, "Failed to pad image");
+			return FALSE;
+		}
+		asc_image_set_vips (image, out);
 		return TRUE;
 	}
 
-	/* is the aspect ratio perfectly square */
-	if (pixbuf_width == pixbuf_height) {
-		pixbuf_new = gdk_pixbuf_scale_simple (pixbuf,
-						      dest_width,
-						      dest_height,
-						      GDK_INTERP_HYPER);
-		asc_image_set_pixbuf (image, pixbuf_new);
+	/* aspect ratio is perfectly square - scale to exact target */
+	if (img_width == img_height) {
+		if (vips_thumbnail_image (vimg, &out, dest_width,
+					  "height", dest_height,
+					  "size", VIPS_SIZE_DOWN,
+					  NULL) != 0) {
+			asc_image_set_vips_error (error, "Failed to scale image");
+			return FALSE;
+		}
+		asc_image_set_vips (image, out);
 		return TRUE;
 	}
 
-	/* create new square pixbuf with alpha padding */
-	pixbuf_new = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, dest_width, dest_height);
-	gdk_pixbuf_fill (pixbuf_new, 0x00000000);
-	if (pixbuf_width > pixbuf_height) {
-		tmp_width = dest_width;
-		tmp_height = dest_height * pixbuf_height / pixbuf_width;
+	/* non-square: scale to fit, then center-pad with transparency */
+	if (img_width > img_height) {
+		tmp_width  = dest_width;
+		tmp_height = dest_height * img_height / img_width;
 	} else {
-		tmp_width = dest_width * pixbuf_width / pixbuf_height;
+		tmp_width  = dest_width * img_width / img_height;
 		tmp_height = dest_height;
 	}
-	pixbuf_tmp = gdk_pixbuf_scale_simple (pixbuf,
-					      (gint) tmp_width,
-					      (gint) tmp_height,
-					      GDK_INTERP_HYPER);
-	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_SHARPEN))
-		asc_pixbuf_sharpen (pixbuf_tmp, 1, -0.5);
-	gdk_pixbuf_copy_area (pixbuf_tmp,
-			      0,
-			      0, /* of src */
-			      (gint) tmp_width,
-			      (gint) tmp_height,
-			      pixbuf_new,
-			      (dest_width - tmp_width) / 2,
-			      (dest_height - tmp_height) / 2);
-	asc_image_set_pixbuf (image, pixbuf_new);
+
+	if (vips_thumbnail_image (vimg, &scaled, tmp_width,
+				  "height", tmp_height,
+				  "size", VIPS_SIZE_DOWN,
+				  NULL) != 0) {
+		asc_image_set_vips_error (error, "Failed to scale image");
+		return FALSE;
+	}
+
+	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_SHARPEN)) {
+		g_autoptr(VipsImage) sharpened = NULL;
+		/* best-effort sharpening; failure is non-fatal */
+		if (vips_sharpen (scaled, &sharpened, NULL) == 0)
+			g_set_object (&scaled, sharpened);
+	}
+
+	with_alpha = asc_image_vips_ensure_alpha (scaled, error);
+	if (with_alpha == NULL)
+		return FALSE;
+
+	if (vips_embed (with_alpha, &out,
+			(dest_width - tmp_width) / 2,
+			(dest_height - tmp_height) / 2,
+			dest_width, dest_height,
+			"extend", VIPS_EXTEND_BLACK, NULL) != 0) {
+		asc_image_set_vips_error (error, "Failed to pad image");
+		return FALSE;
+	}
+	asc_image_set_vips (image, out);
 	return TRUE;
 }
 
 /**
  * asc_image_new_from_file:
  * @fname: Name of the file to load.
- * @dest_width: The suggested width of the constructed pixbuf, or 0 for the native size
- * @dest_height: The suggested height of the constructed pixbuf, or 0 for the native size
+ * @dest_width: The suggested width of the image, or 0 for the native size
+ * @dest_height: The suggested height of the image, or 0 for the native size
  * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL
  *
@@ -428,8 +513,8 @@ asc_image_new_from_file (const gchar *fname,
  * asc_image_new_from_data:
  * @data: Data to load.
  * @len: Length of the data to load.
- * @dest_width: The suggested width of the constructed pixbuf, or 0 for the native size
- * @dest_height: The suggested height of the constructed pixbuf, or 0 for the native size
+ * @dest_width: The suggested width of the constructed image, or 0 for the native size
+ * @dest_height: The suggested height of the constructed image, or 0 for the native size
  * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
  * @format_hint: Assume the specified image format for data, use %ASC_IMAGE_FORMAT_UNKNOWN to guess.
  * @error: A #GError or %NULL
@@ -445,117 +530,73 @@ asc_image_new_from_data (const void *data,
 			 AscImageFormat format_hint,
 			 GError **error)
 {
-	gboolean ret;
-	g_autoptr(GInputStream) istream = NULL;
-	g_autoptr(GInputStream) dstream = NULL;
-	g_autoptr(GConverter) conv = NULL;
-	g_autoptr(GdkPixbuf) pix = NULL;
 	g_autoptr(AscImage) image = asc_image_new ();
 
-	istream = g_memory_input_stream_new_from_data (data, len, NULL);
-	if (format_hint == ASC_IMAGE_FORMAT_SVGZ) {
-		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
-		dstream = g_converter_input_stream_new (istream, conv);
-	} else {
-		dstream = g_object_ref (istream);
-	}
+	if (format_hint == ASC_IMAGE_FORMAT_SVG || format_hint == ASC_IMAGE_FORMAT_SVGZ) {
+#ifdef HAVE_SVG_SUPPORT
+		g_autoptr(GInputStream) istream = NULL;
+		g_autoptr(GInputStream) dstream = NULL;
+		g_autoptr(AscCanvas) cv = NULL;
+		VipsImage *svg_img;
 
-	if (dest_width <= 0 && dest_height <= 0) {
-		/* use the native size and don't perform any scaling */
-		pix = gdk_pixbuf_new_from_stream (dstream, NULL, error);
-		if (pix == NULL)
+		istream = g_memory_input_stream_new_from_data (data, len, NULL);
+		if (format_hint == ASC_IMAGE_FORMAT_SVGZ) {
+			g_autoptr(GConverter) conv = G_CONVERTER (
+			    g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
+			dstream = g_converter_input_stream_new (istream, conv);
+		} else {
+			dstream = g_object_ref (istream);
+		}
+
+		cv = asc_canvas_new (dest_width > 0 ? dest_width : 64,
+				     dest_height > 0 ? dest_height : 64);
+		if (!asc_canvas_render_svg (cv, dstream, error))
 			return NULL;
 
-		asc_image_set_pixbuf (image, pix);
+		svg_img = asc_canvas_to_image (cv, error);
+		if (svg_img == NULL)
+			return NULL;
+		asc_image_set_vips (image, svg_img);
+		g_object_unref (svg_img);
 		return g_steal_pointer (&image);
-	}
-
-	/* load & scale */
-	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
-		pix = gdk_pixbuf_new_from_stream_at_scale (dstream,
-							   dest_width,
-							   dest_height,
-							   TRUE,
-							   NULL,
-							   error);
-		if (pix == NULL)
-			return NULL;
-	} else {
-		/* just load, we will do resizing later */
-		pix = gdk_pixbuf_new_from_stream (dstream, NULL, error);
-		if (pix == NULL)
-			return NULL;
-	}
-	ret = asc_image_load_pixbuf (image, pix, dest_width, dest_height, 0, flags, error);
-	if (!ret)
-		return NULL;
-
-	return g_steal_pointer (&image);
-}
-
-/**
- * asc_image_pixbuf_new_from_gz:
- *
- * Wrapper to allow GdkPixbuf to load SVG images from SVGZ files as well.
- */
-static GdkPixbuf *
-asc_image_pixbuf_new_from_gz (const gchar *filename, gint width, gint height, GError **error)
-{
-	g_autoptr(GFile) file = NULL;
-	g_autoptr(GInputStream) file_stream = NULL;
-	g_autoptr(GInputStream) stream_data = NULL;
-	g_autoptr(GConverter) conv = NULL;
-	g_autoptr(GFileInfo) info = NULL;
-	const gchar *content_type = NULL;
-
-	file = g_file_new_for_path (filename);
-	if (!g_file_query_exists (file, NULL)) {
+#else
 		g_set_error_literal (error,
 				     ASC_IMAGE_ERROR,
-				     ASC_IMAGE_ERROR_FAILED,
-				     "Image file does not exist");
+				     ASC_IMAGE_ERROR_UNSUPPORTED,
+				     "AppStream was built without SVG support.");
 		return NULL;
-	}
-	info = g_file_query_info (file,
-				  G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-				  G_FILE_QUERY_INFO_NONE,
-				  NULL,
-				  NULL);
-	if (info != NULL)
-		content_type = g_file_info_get_attribute_string (
-		    info,
-		    G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-
-	file_stream = G_INPUT_STREAM (g_file_read (file, NULL, error));
-	if (file_stream == NULL)
-		return NULL;
-
-	if ((g_strcmp0 (content_type, "application/gzip") == 0) ||
-	    (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
-		/* decompress the GZip stream */
-		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
-		stream_data = g_converter_input_stream_new (file_stream, conv);
-	} else {
-		stream_data = g_object_ref (file_stream);
+#endif
 	}
 
-	if (width != 0 || height != 0)
-		return gdk_pixbuf_new_from_stream_at_scale (stream_data,
-							    width,
-							    height,
-							    TRUE,
-							    NULL,
-							    error);
-	else
-		return gdk_pixbuf_new_from_stream (stream_data, NULL, error);
+	/* all other formats are loaded via VIPS */
+	{
+		g_autoptr(VipsImage) img = NULL;
+
+		img = vips_image_new_from_buffer ((void *) data, (size_t) len, "", NULL);
+		if (img == NULL) {
+			asc_image_set_vips_error (error, "Failed to load image from buffer");
+			return NULL;
+		}
+
+		/* return at native size if no target dimensions were given */
+		if (dest_width <= 0 && dest_height <= 0) {
+			asc_image_set_vips (image, img);
+			return g_steal_pointer (&image);
+		}
+
+		if (!asc_image_load_vips (image, img, dest_width, dest_height, 0, flags, error))
+			return NULL;
+
+		return g_steal_pointer (&image);
+	}
 }
 
 /**
  * asc_image_load_filename:
  * @image: a #AscImage instance.
  * @filename: filename to read from
- * @dest_width: The suggested width of the constructed pixbuf, or 0 for the native size
- * @dest_height: The suggested height of the constructed pixbuf, or 0 for the native size
+ * @dest_width: The suggested width of the constructed image, or 0 for the native size
+ * @dest_height: The suggested height of the constructed image, or 0 for the native size
  * @src_size_min: The smallest source size (width or height) allowed, or 0 for no limit
  * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL.
@@ -573,13 +614,55 @@ asc_image_load_filename (AscImage *image,
 			 AscImageLoadFlags flags,
 			 GError **error)
 {
-	g_autoptr(GdkPixbuf) pixbuf_src = NULL;
-	gboolean is_svg = FALSE;
+	gboolean is_svg;
 
 	g_return_val_if_fail (ASC_IS_IMAGE (image), FALSE);
 
 	is_svg = g_str_has_suffix (filename, ".svg") || g_str_has_suffix (filename, ".svgz");
-#ifndef HAVE_SVG_SUPPORT
+
+	/* SVG/SVGZ: render via AscCanvas/librsvg for accurate vector scaling */
+#ifdef HAVE_SVG_SUPPORT
+	if (is_svg) {
+		g_autoptr(GFile) file = NULL;
+		g_autoptr(GInputStream) file_stream = NULL;
+		g_autoptr(GInputStream) stream_data = NULL;
+		g_autoptr(AscCanvas) cv = NULL;
+		VipsImage *svg_img;
+
+		file = g_file_new_for_path (filename);
+		if (!g_file_query_exists (file, NULL)) {
+			g_set_error_literal (error,
+					     ASC_IMAGE_ERROR,
+					     ASC_IMAGE_ERROR_FAILED,
+					     "Image file does not exist");
+			return FALSE;
+		}
+
+		file_stream = G_INPUT_STREAM (g_file_read (file, NULL, error));
+		if (file_stream == NULL)
+			return FALSE;
+
+		if (g_str_has_suffix (filename, ".svgz")) {
+			g_autoptr(GConverter) conv = G_CONVERTER (
+			    g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
+			stream_data = g_converter_input_stream_new (file_stream, conv);
+		} else {
+			stream_data = g_object_ref (file_stream);
+		}
+
+		cv = asc_canvas_new (dest_width > 0 ? dest_width : 64,
+				     dest_height > 0 ? dest_height : 64);
+		if (!asc_canvas_render_svg (cv, stream_data, error))
+			return FALSE;
+
+		svg_img = asc_canvas_to_image (cv, error);
+		if (svg_img == NULL)
+			return FALSE;
+		asc_image_set_vips (image, svg_img);
+		g_object_unref (svg_img);
+		return TRUE;
+	}
+#else
 	if (is_svg) {
 		g_warning ("Unable to load SVG graphic: AppStream built without SVG support.");
 		g_set_error_literal (error,
@@ -595,93 +678,107 @@ asc_image_load_filename (AscImage *image,
 
 	/* only support allowed types, unless support for any image is explicitly requested */
 	if (!as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED)) {
-		GdkPixbufFormat *fmt;
-		g_autofree gchar *name = NULL;
-		fmt = gdk_pixbuf_get_file_info (filename, NULL, NULL);
-		if (fmt == NULL) {
+		const gchar *loader;
+		g_autofree gchar *fmt_name = NULL;
+
+		loader = vips_foreign_find_load (filename);
+		if (loader == NULL) {
 			g_set_error_literal (error,
 					     ASC_IMAGE_ERROR,
 					     ASC_IMAGE_ERROR_UNSUPPORTED,
 					     "Image format was not recognized");
 			return FALSE;
 		}
-		name = gdk_pixbuf_format_get_name (fmt);
-		if (asc_image_format_from_string (name) == ASC_IMAGE_FORMAT_UNKNOWN) {
+
+		/* map the VIPS loader class name to our format name */
+		if (strstr (loader, "Png") || strstr (loader, "png"))
+			fmt_name = g_strdup ("png");
+		else if (strstr (loader, "Jpeg") || strstr (loader, "jpeg"))
+			fmt_name = g_strdup ("jpeg");
+		else if (strstr (loader, "Webp") || strstr (loader, "webp"))
+			fmt_name = g_strdup ("webp");
+		else if (strstr (loader, "Heif") || strstr (loader, "heif") ||
+			 strstr (loader, "Avif") || strstr (loader, "avif"))
+			fmt_name = g_strdup ("avif");
+		else if (strstr (loader, "Jxl") || strstr (loader, "jxl"))
+			fmt_name = g_strdup ("jxl");
+		else if (strstr (loader, "Gif") || strstr (loader, "gif"))
+			fmt_name = g_strdup ("gif");
+
+		if (fmt_name == NULL ||
+		    asc_image_format_from_string (fmt_name) == ASC_IMAGE_FORMAT_UNKNOWN) {
 			g_set_error (error,
 				     ASC_IMAGE_ERROR,
 				     ASC_IMAGE_ERROR_UNSUPPORTED,
-				     "Image format %s is not supported",
-				     name);
+				     "Image format from loader '%s' is not supported",
+				     loader);
 			return FALSE;
 		}
 	}
 
-	/* load the image of the native size */
-	if (dest_width <= 0 && dest_height <= 0) {
-		g_autoptr(GdkPixbuf) pixbuf = NULL;
-		pixbuf = asc_image_pixbuf_new_from_gz (filename, -1, -1, error);
-		if (pixbuf == NULL)
+	/* load image at native size */
+	{
+		g_autoptr(VipsImage) vimg = NULL;
+
+		vimg = vips_image_new_from_file (filename, NULL);
+		if (vimg == NULL) {
+			asc_image_set_vips_error (error, "Failed to load image");
 			return FALSE;
-		asc_image_set_pixbuf (image, pixbuf);
-		return TRUE;
-	}
+		}
 
-	/* open file in native size */
-	if (is_svg) {
-		pixbuf_src = asc_image_pixbuf_new_from_gz (filename,
-							   (gint) dest_width,
-							   (gint) dest_height,
-							   error);
-	} else {
-		pixbuf_src = asc_image_pixbuf_new_from_gz (filename, 0, 0, error);
-	}
-	if (pixbuf_src == NULL)
-		return FALSE;
+		/* return at native size if no target dimensions were given */
+		if (dest_width <= 0 && dest_height <= 0) {
+			asc_image_set_vips (image, vimg);
+			return TRUE;
+		}
 
-	/* create from pixbuf & resize */
-	return asc_image_load_pixbuf (image,
-				      pixbuf_src,
-				      dest_width,
-				      dest_height,
-				      src_size_min,
-				      flags,
-				      error);
+		return asc_image_load_vips (image,
+					    vimg,
+					    dest_width,
+					    dest_height,
+					    src_size_min,
+					    flags,
+					    error);
+	}
 }
 
 /**
- * asc_image_get_pixbuf:
+ * asc_image_get_vips:
  * @image: a #AscImage instance.
  *
- * Gets the image pixbuf if set.
+ * Gets the VIPS image if set.
  *
- * Returns: (transfer none): the #GdkPixbuf, or %NULL
+ * Returns: (transfer none): the #VipsImage, or %NULL
  **/
-GdkPixbuf *
-asc_image_get_pixbuf (AscImage *image)
+VipsImage *
+asc_image_get_vips (AscImage *image)
 {
 	AscImagePrivate *priv = GET_PRIVATE (image);
 	g_return_val_if_fail (ASC_IS_IMAGE (image), NULL);
-	return priv->pix;
+	return priv->vimg;
 }
 
 /**
- * asc_image_set_pixbuf:
+ * asc_image_set_vips:
  * @image: a #AscImage instance.
- * @pixbuf: the #GdkPixbuf, or %NULL
+ * @img: the #VipsImage, or %NULL
  *
- * Sets the image pixbuf.
+ * Sets the VIPS image.
  **/
 void
-asc_image_set_pixbuf (AscImage *image, GdkPixbuf *pixbuf)
+asc_image_set_vips (AscImage *image, VipsImage *vimg)
 {
 	AscImagePrivate *priv = GET_PRIVATE (image);
 	g_return_if_fail (ASC_IS_IMAGE (image));
 
-	g_set_object (&priv->pix, pixbuf);
-	if (pixbuf == NULL)
+	g_set_object (&priv->vimg, vimg);
+	if (priv->vimg == NULL) {
+		priv->width = 0;
+		priv->height = 0;
 		return;
-	priv->width = gdk_pixbuf_get_width (pixbuf);
-	priv->height = gdk_pixbuf_get_height (pixbuf);
+	}
+	priv->width = vips_image_get_width (priv->vimg);
+	priv->height = vips_image_get_height (priv->vimg);
 }
 
 /**
@@ -715,24 +812,30 @@ asc_image_get_height (AscImage *image)
  * @image: an #AscImage instance.
  * @new_width: The new width.
  * @new_height: the new height.
+ * @error: A #GError or %NULL
  *
  * Scale the image to the given size.
  **/
-void
-asc_image_scale (AscImage *image, gint new_width, gint new_height)
+gboolean
+asc_image_scale (AscImage *image, gint new_width, gint new_height, GError **error)
 {
 	AscImagePrivate *priv = GET_PRIVATE (image);
-	g_autoptr(GdkPixbuf) res_pix = NULL;
+	g_autoptr(VipsImage) out = NULL;
+	double hscale, vscale;
 
-	g_return_if_fail (new_width > 0 && new_height > 0);
-	g_return_if_fail (priv->pix != NULL);
+	g_return_val_if_fail (new_width > 0 && new_height > 0, FALSE);
+	g_return_val_if_fail (priv->vimg != NULL, FALSE);
 
-	res_pix = gdk_pixbuf_scale_simple (priv->pix, new_width, new_height, GDK_INTERP_BILINEAR);
-	if (res_pix == NULL)
-		g_error ("Unable to allocate enough memory for image scaling.");
+	hscale = (double) new_width / (double) vips_image_get_width (priv->vimg);
+	vscale = (double) new_height / (double) vips_image_get_height (priv->vimg);
 
-	/* set our current image to the scaled version */
-	asc_image_set_pixbuf (image, res_pix);
+	if (vips_resize (priv->vimg, &out, hscale, "vscale", vscale, NULL) != 0) {
+		asc_image_set_vips_error (error, "Unable to scale image");
+		return FALSE;
+	}
+
+	asc_image_set_vips (image, out);
+	return TRUE;
 }
 
 /**
@@ -743,40 +846,41 @@ asc_image_scale (AscImage *image, gint new_width, gint new_height)
  * Scale the image to the given width, preserving
  * its aspect ratio.
  **/
-void
-asc_image_scale_to_width (AscImage *image, gint new_width)
+gboolean
+asc_image_scale_to_width (AscImage *image, gint new_width, GError **error)
 {
 	double scale;
 	gint new_height;
 
-	g_return_if_fail (new_width > 0);
+	g_return_val_if_fail (new_width > 0, FALSE);
 
 	scale = (double) new_width / (double) asc_image_get_width (image);
 	new_height = floor (asc_image_get_height (image) * scale);
 
-	asc_image_scale (image, new_width, new_height);
+	return asc_image_scale (image, new_width, new_height, error);
 }
 
 /**
  * asc_image_scale_to_height:
  * @image: an #AscImage instance.
  * @new_height: the new height.
+ * @error: A #GError or %NULL
  *
  * Scale the image to the given height, preserving
  * its aspect ratio.
  **/
-void
-asc_image_scale_to_height (AscImage *image, gint new_height)
+gboolean
+asc_image_scale_to_height (AscImage *image, gint new_height, GError **error)
 {
 	double scale;
 	gint new_width;
 
-	g_return_if_fail (new_height > 0);
+	g_return_val_if_fail (new_height > 0, FALSE);
 
 	scale = (double) new_height / (double) asc_image_get_height (image);
 	new_width = floor (asc_image_get_width (image) * scale);
 
-	asc_image_scale (image, new_width, new_height);
+	return asc_image_scale (image, new_width, new_height, error);
 }
 
 /**
@@ -784,17 +888,17 @@ asc_image_scale_to_height (AscImage *image, gint new_height)
  * @image: an #AscImage instance.
  * @size: the maximum edge length.
  *
- * Scale the image to fir in a square with the given edge length,
+ * Scale the image to fit in a square with the given edge length,
  * and keep its aspect ratio.
  **/
-void
-asc_image_scale_to_fit (AscImage *image, gint size)
+gboolean
+asc_image_scale_to_fit (AscImage *image, gint size, GError **error)
 {
-	g_return_if_fail (size > 0);
+	g_return_val_if_fail (size > 0, FALSE);
 	if (asc_image_get_height (image) > asc_image_get_width (image))
-		asc_image_scale_to_height (image, size);
+		return asc_image_scale_to_height (image, size, error);
 	else
-		asc_image_scale_to_width (image, size);
+		return asc_image_scale_to_width (image, size, error);
 }
 
 /**
@@ -819,7 +923,7 @@ asc_render_svg_to_file (GInputStream *stream,
 			GError **error)
 {
 	g_autoptr(AscCanvas) cv = NULL;
-	g_autoptr(GdkPixbuf) pixbuf = NULL;
+	g_autoptr(VipsImage) vimg = NULL;
 
 	g_return_val_if_fail (width > 0 && height > 0, FALSE);
 
@@ -848,86 +952,20 @@ asc_render_svg_to_file (GInputStream *stream,
 	}
 
 	/* save to other formats */
-	pixbuf = asc_canvas_to_pixbuf (cv);
-	return gdk_pixbuf_save (pixbuf, filename, asc_image_format_to_string (format), error, NULL);
-}
-
-/**
- * asc_image_save_pixbuf:
- * @image: a #AscImage instance.
- * @width: target width, or 0 for default
- * @height: target height, or 0 for default
- * @flags: some #AscImageSaveFlags values, e.g. %ASC_IMAGE_SAVE_FLAG_PAD_16_9
- *
- * Resamples a pixbuf to a specific size.
- *
- * Returns: (transfer full): A #GdkPixbuf of the specified size
- **/
-GdkPixbuf *
-asc_image_save_pixbuf (AscImage *image, gint width, gint height, AscImageSaveFlags flags)
-{
-	AscImagePrivate *priv = GET_PRIVATE (image);
-	GdkPixbuf *pixbuf = NULL;
-	gint tmp_height;
-	gint tmp_width;
-	gint pixbuf_height;
-	gint pixbuf_width;
-	g_autoptr(GdkPixbuf) pixbuf_tmp = NULL;
-
-	g_return_val_if_fail (ASC_IS_IMAGE (image), NULL);
-
-	/* never set */
-	if (priv->pix == NULL)
-		return NULL;
-
-	/* 0 means 'default' */
-	if (width <= 0)
-		width = gdk_pixbuf_get_width (priv->pix);
-	if (height <= 0)
-		height = gdk_pixbuf_get_height (priv->pix);
-
-	/* don't do anything to an image with the correct size */
-	pixbuf_width = gdk_pixbuf_get_width (priv->pix);
-	pixbuf_height = gdk_pixbuf_get_height (priv->pix);
-	if (width == pixbuf_width && height == pixbuf_height)
-		return g_object_ref (priv->pix);
-
-	/* is the aspect ratio of the source perfectly 16:9 */
-	if (flags == ASC_IMAGE_SAVE_FLAG_NONE || (pixbuf_width / 16) * 9 == pixbuf_height) {
-		pixbuf = gdk_pixbuf_scale_simple (priv->pix, width, height, GDK_INTERP_HYPER);
-		if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_SHARPEN))
-			asc_pixbuf_sharpen (pixbuf, 1, -0.5);
-		if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_BLUR))
-			asc_pixbuf_blur (pixbuf, 5, 3);
-		return pixbuf;
+	vimg = asc_canvas_to_image (cv, error);
+	if (vimg == NULL)
+		return FALSE;
+	if (vips_image_write_to_file (vimg, filename, NULL) != 0) {
+		g_set_error (error,
+			     ASC_IMAGE_ERROR,
+			     ASC_IMAGE_ERROR_FAILED,
+			     "Failed to write image to '%s': %s",
+			     filename,
+			     vips_error_buffer ());
+		vips_error_clear ();
+		return FALSE;
 	}
-
-	/* create new 16:9 pixbuf with alpha padding */
-	pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, width, height);
-	gdk_pixbuf_fill (pixbuf, 0x00000000);
-	/* check the ratio to see which property needs to be fitted and which needs
-	 * to be reduced */
-	if (pixbuf_width * 9 > pixbuf_height * 16) {
-		tmp_width = width;
-		tmp_height = width * pixbuf_height / pixbuf_width;
-	} else {
-		tmp_width = height * pixbuf_width / pixbuf_height;
-		tmp_height = height;
-	}
-	pixbuf_tmp = gdk_pixbuf_scale_simple (priv->pix, tmp_width, tmp_height, GDK_INTERP_HYPER);
-	if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_SHARPEN))
-		asc_pixbuf_sharpen (pixbuf_tmp, 1, -0.5);
-	if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_BLUR))
-		asc_pixbuf_blur (pixbuf_tmp, 5, 3);
-	gdk_pixbuf_copy_area (pixbuf_tmp,
-			      0,
-			      0, /* of src */
-			      tmp_width,
-			      tmp_height,
-			      pixbuf,
-			      (width - tmp_width) / 2,
-			      (height - tmp_height) / 2);
-	return pixbuf;
+	return TRUE;
 }
 
 /**
@@ -951,210 +989,106 @@ asc_image_save_filename (AscImage *image,
 			 AscImageSaveFlags flags,
 			 GError **error)
 {
-	g_autoptr(GdkPixbuf) pixbuf = NULL;
+	AscImagePrivate *priv = GET_PRIVATE (image);
+	g_autoptr(VipsImage) scaled = NULL;
+	g_autoptr(VipsImage) alpha = NULL;
+	g_autoptr(VipsImage) out = NULL;
+	gint src_width, src_height;
+	gint tmp_width, tmp_height;
 
-	/* save source file */
-	pixbuf = asc_image_save_pixbuf (image, width, height, flags);
-	if (!gdk_pixbuf_save (pixbuf, filename, "png", error, NULL))
+	g_return_val_if_fail (ASC_IS_IMAGE (image), FALSE);
+
+	if (priv->vimg == NULL) {
+		g_set_error_literal (error, ASC_IMAGE_ERROR, ASC_IMAGE_ERROR_FAILED,
+				     "No image data to save");
 		return FALSE;
+	}
+
+	src_width = vips_image_get_width (priv->vimg);
+	src_height = vips_image_get_height (priv->vimg);
+
+	/* 0 means 'default' */
+	if (width <= 0)
+		width = src_width;
+	if (height <= 0)
+		height = src_height;
+
+	/* is the aspect ratio of the source perfectly 16:9 */
+	if (flags == ASC_IMAGE_SAVE_FLAG_NONE || (src_width / 16) * 9 == src_height) {
+		if (vips_thumbnail_image (priv->vimg,
+					  &scaled,
+					  width,
+					  "height",
+					  height,
+					  "size",
+					  VIPS_SIZE_FORCE,
+					  NULL) != 0) {
+			asc_image_set_vips_error (error, "Unable to scale image");
+			return FALSE;
+		}
+		out = g_object_ref (scaled);
+	} else {
+		/* create 16:9 output with alpha padding */
+		if (src_width * 9 > src_height * 16) {
+			tmp_width = width;
+			tmp_height = width * src_height / src_width;
+		} else {
+			tmp_width = height * src_width / src_height;
+			tmp_height = height;
+		}
+		if (vips_thumbnail_image (priv->vimg,
+					  &scaled,
+					  tmp_width,
+					  "height",
+					  tmp_height,
+					  "size",
+					  VIPS_SIZE_FORCE,
+					  NULL) != 0) {
+			asc_image_set_vips_error (error, "Unable to scale image for padding");
+			return FALSE;
+		}
+
+		alpha = asc_image_vips_ensure_alpha (scaled, error);
+		if (alpha == NULL)
+			return FALSE;
+
+		if (vips_embed (alpha,
+				&out,
+				(width - tmp_width) / 2,
+				(height - tmp_height) / 2,
+				width,
+				height,
+				"extend",
+				VIPS_EXTEND_BLACK,
+				NULL) != 0) {
+			asc_image_set_vips_error (error, "Unable to pad image to 16:9");
+			return FALSE;
+		}
+	}
+
+	if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_SHARPEN)) {
+		g_autoptr(VipsImage) sharpened = NULL;
+		if (vips_sharpen (out, &sharpened, NULL) != 0) {
+			asc_image_set_vips_error (error, "Unable to sharpen image");
+			return FALSE;
+		}
+		g_set_object (&out, sharpened);
+	}
+	if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_BLUR)) {
+		g_autoptr(VipsImage) blurred = NULL;
+		if (vips_gaussblur (out, &blurred, 3.0, NULL) != 0) {
+			asc_image_set_vips_error (error, "Unable to blur image");
+			return FALSE;
+		}
+		g_set_object (&out, blurred);
+	}
+
+	if (vips_pngsave (out, filename, NULL) != 0) {
+		asc_image_set_vips_error (error, "Unable to save image as PNG");
+		return FALSE;
+	}
 
 	if (!as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_OPTIMIZE))
 		return TRUE;
 	return asc_optimize_png (filename, error);
-}
-
-static void
-asc_pixbuf_blur_private (GdkPixbuf *src, GdkPixbuf *dest, gint radius, guchar *div_kernel_size)
-{
-	gint width, height, src_rowstride, dest_rowstride, n_channels;
-	guchar *p_src, *p_dest, *c1, *c2;
-	gint x, y, i, i1, i2, width_minus_1, height_minus_1, radius_plus_1;
-	gint r, g, b, a;
-	guchar *p_dest_row, *p_dest_col;
-
-	width = gdk_pixbuf_get_width (src);
-	height = gdk_pixbuf_get_height (src);
-	n_channels = gdk_pixbuf_get_n_channels (src);
-	radius_plus_1 = radius + 1;
-
-	/* horizontal blur */
-	p_src = gdk_pixbuf_get_pixels (src);
-	p_dest = gdk_pixbuf_get_pixels (dest);
-	src_rowstride = gdk_pixbuf_get_rowstride (src);
-	dest_rowstride = gdk_pixbuf_get_rowstride (dest);
-	width_minus_1 = width - 1;
-	for (y = 0; y < height; y++) {
-
-		/* calc the initial sums of the kernel */
-		r = g = b = a = 0;
-		for (i = -radius; i <= radius; i++) {
-			c1 = p_src + (CLAMP (i, 0, width_minus_1) * n_channels);
-			r += c1[0];
-			g += c1[1];
-			b += c1[2];
-		}
-
-		p_dest_row = p_dest;
-		for (x = 0; x < width; x++) {
-			/* set as the mean of the kernel */
-			p_dest_row[0] = div_kernel_size[r];
-			p_dest_row[1] = div_kernel_size[g];
-			p_dest_row[2] = div_kernel_size[b];
-			p_dest_row += n_channels;
-
-			/* the pixel to add to the kernel */
-			i1 = x + radius_plus_1;
-			if (i1 > width_minus_1)
-				i1 = width_minus_1;
-			c1 = p_src + (i1 * n_channels);
-
-			/* the pixel to remove from the kernel */
-			i2 = x - radius;
-			if (i2 < 0)
-				i2 = 0;
-			c2 = p_src + (i2 * n_channels);
-
-			/* calc the new sums of the kernel */
-			r += c1[0] - c2[0];
-			g += c1[1] - c2[1];
-			b += c1[2] - c2[2];
-		}
-
-		p_src += src_rowstride;
-		p_dest += dest_rowstride;
-	}
-
-	/* vertical blur */
-	p_src = gdk_pixbuf_get_pixels (dest);
-	p_dest = gdk_pixbuf_get_pixels (src);
-	src_rowstride = gdk_pixbuf_get_rowstride (dest);
-	dest_rowstride = gdk_pixbuf_get_rowstride (src);
-	height_minus_1 = height - 1;
-	for (x = 0; x < width; x++) {
-
-		/* calc the initial sums of the kernel */
-		r = g = b = a = 0;
-		for (i = -radius; i <= radius; i++) {
-			c1 = p_src + (CLAMP (i, 0, height_minus_1) * src_rowstride);
-			r += c1[0];
-			g += c1[1];
-			b += c1[2];
-		}
-
-		p_dest_col = p_dest;
-		for (y = 0; y < height; y++) {
-			/* set as the mean of the kernel */
-
-			p_dest_col[0] = div_kernel_size[r];
-			p_dest_col[1] = div_kernel_size[g];
-			p_dest_col[2] = div_kernel_size[b];
-			p_dest_col += dest_rowstride;
-
-			/* the pixel to add to the kernel */
-			i1 = y + radius_plus_1;
-			if (i1 > height_minus_1)
-				i1 = height_minus_1;
-			c1 = p_src + (i1 * src_rowstride);
-
-			/* the pixel to remove from the kernel */
-			i2 = y - radius;
-			if (i2 < 0)
-				i2 = 0;
-			c2 = p_src + (i2 * src_rowstride);
-
-			/* calc the new sums of the kernel */
-			r += c1[0] - c2[0];
-			g += c1[1] - c2[1];
-			b += c1[2] - c2[2];
-		}
-
-		p_src += n_channels;
-		p_dest += n_channels;
-	}
-}
-
-/**
- * as_pixbuf_blur:
- * @src: the GdkPixbuf.
- * @radius: the pixel radius for the gaussian blur, typical values are 1..3
- * @iterations: Amount to blur the image, typical values are 1..5
- *
- * Blurs an image. Warning, this method is s..l..o..w... for large images.
- *
- * Since: 0.14.0
- **/
-void
-asc_pixbuf_blur (GdkPixbuf *src, gint radius, gint iterations)
-{
-	gint kernel_size;
-	gint i;
-	g_autofree guchar *div_kernel_size = NULL;
-	g_autoptr(GdkPixbuf) tmp = NULL;
-
-	tmp = gdk_pixbuf_new (gdk_pixbuf_get_colorspace (src),
-			      gdk_pixbuf_get_has_alpha (src),
-			      gdk_pixbuf_get_bits_per_sample (src),
-			      gdk_pixbuf_get_width (src),
-			      gdk_pixbuf_get_height (src));
-	kernel_size = 2 * radius + 1;
-	div_kernel_size = g_new (guchar, 256 * kernel_size);
-	for (i = 0; i < 256 * kernel_size; i++)
-		div_kernel_size[i] = (guchar) (i / kernel_size);
-
-	while (iterations-- > 0)
-		asc_pixbuf_blur_private (src, tmp, radius, div_kernel_size);
-}
-
-#define interpolate_value(original, reference, distance) \
-	(CLAMP (((distance) * (reference)) + ((1.0 - (distance)) * (original)), 0, 255))
-
-/**
- * as_pixbuf_sharpen:
- * @src: the GdkPixbuf.
- * @radius: the pixel radius for the unsharp mask, typical values are 1..3
- * @amount: Amount to sharpen the image, typical values are -0.1 to -0.9
- *
- * Sharpens an image. Warning, this method is s..l..o..w... for large images.
- **/
-void
-asc_pixbuf_sharpen (GdkPixbuf *src, gint radius, gdouble amount)
-{
-	gint width, height, rowstride, n_channels;
-	gint x, y;
-	guchar *p_blurred;
-	guchar *p_blurred_row;
-	guchar *p_src;
-	guchar *p_src_row;
-	g_autoptr(GdkPixbuf) blurred = NULL;
-
-	blurred = gdk_pixbuf_copy (src);
-	asc_pixbuf_blur (blurred, radius, 3);
-
-	width = gdk_pixbuf_get_width (src);
-	height = gdk_pixbuf_get_height (src);
-	rowstride = gdk_pixbuf_get_rowstride (src);
-	n_channels = gdk_pixbuf_get_n_channels (src);
-
-	p_src = gdk_pixbuf_get_pixels (src);
-	p_blurred = gdk_pixbuf_get_pixels (blurred);
-
-	for (y = 0; y < height; y++) {
-		p_src_row = p_src;
-		p_blurred_row = p_blurred;
-		for (x = 0; x < width; x++) {
-			p_src_row[0] = (guchar) interpolate_value (p_src_row[0],
-								   p_blurred_row[0],
-								   amount);
-			p_src_row[1] = (guchar) interpolate_value (p_src_row[1],
-								   p_blurred_row[1],
-								   amount);
-			p_src_row[2] = (guchar) interpolate_value (p_src_row[2],
-								   p_blurred_row[2],
-								   amount);
-			p_src_row += n_channels;
-			p_blurred_row += n_channels;
-		}
-		p_src += rowstride;
-		p_blurred += rowstride;
-	}
 }

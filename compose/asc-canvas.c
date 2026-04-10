@@ -1,11 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2025 Matthias Klumpp <matthias@tenstral.net>
- *
- * GdkPixbuf conversion authors:
- *     Michael Zucchi <zucchi@zedzone.mmc.com.au>
- *     Cody Russell <bratsche@dfw.net>
- *     Federico Mena-Quintero <federico@gimp.org>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -35,6 +30,7 @@
 #include <cairo.h>
 #include <cairo-ft.h>
 #include <math.h>
+#include <vips/vips.h>
 #ifdef HAVE_SVG_SUPPORT
 #include <librsvg/rsvg.h>
 #endif
@@ -960,127 +956,70 @@ asc_canvas_save_png (AscCanvas *canvas, const gchar *fname, GError **error)
 	return asc_optimize_png (fname, error);
 }
 
-static void
-convert_alpha (guchar *dest_data,
-	       int dest_stride,
-	       guchar *src_data,
-	       int src_stride,
-	       int src_x,
-	       int src_y,
-	       int width,
-	       int height)
+/**
+ * cairo_png_write_to_bytearray:
+ *
+ * Cairo write callback that appends data to a GByteArray.
+ */
+static cairo_status_t
+cairo_png_write_to_bytearray (void *closure, const unsigned char *data, unsigned int len)
 {
-	int x, y;
-
-	src_data += src_stride * src_y + src_x * 4;
-
-	for (y = 0; y < height; y++) {
-		guint32 *src = (guint32 *) (void *) src_data;
-
-		for (x = 0; x < width; x++) {
-			guint alpha = src[x] >> 24;
-
-			if (alpha == 0) {
-				dest_data[x * 4 + 0] = 0;
-				dest_data[x * 4 + 1] = 0;
-				dest_data[x * 4 + 2] = 0;
-			} else {
-				dest_data[x * 4 + 0] = (((src[x] & 0xff0000) >> 16) * 255 +
-							alpha / 2) /
-						       alpha;
-				dest_data[x * 4 + 1] = (((src[x] & 0x00ff00) >> 8) * 255 +
-							alpha / 2) /
-						       alpha;
-				dest_data[x * 4 + 2] = (((src[x] & 0x0000ff) >> 0) * 255 +
-							alpha / 2) /
-						       alpha;
-			}
-			dest_data[x * 4 + 3] = alpha;
-		}
-
-		src_data += src_stride;
-		dest_data += dest_stride;
-	}
-}
-
-static void
-convert_no_alpha (guchar *dest_data,
-		  int dest_stride,
-		  guchar *src_data,
-		  int src_stride,
-		  int src_x,
-		  int src_y,
-		  int width,
-		  int height)
-{
-	int x, y;
-
-	src_data += src_stride * src_y + src_x * 4;
-
-	for (y = 0; y < height; y++) {
-		guint32 *src = (guint32 *) (void *) src_data;
-
-		for (x = 0; x < width; x++) {
-			dest_data[x * 3 + 0] = src[x] >> 16;
-			dest_data[x * 3 + 1] = src[x] >> 8;
-			dest_data[x * 3 + 2] = src[x];
-		}
-
-		src_data += src_stride;
-		dest_data += dest_stride;
-	}
+	GByteArray *array = closure;
+	g_byte_array_append (array, data, len);
+	return CAIRO_STATUS_SUCCESS;
 }
 
 /**
- * asc_canvas_to_pixbuf:
+ * asc_canvas_to_image:
  * @canvas: an #AscCanvas instance.
+ * @error: A #GError or %NULL
  *
- * Convert the canvas to a #GdkPixbuf.
+ * Convert the canvas to a #VipsImage by rendering it as PNG in memory
+ * and loading the result into VIPS.
  *
- * Returns: (transfer full) (nullable): a #GdkPixbuf or %NULL on error.
+ * Returns: (transfer full) (nullable): a #VipsImage or %NULL on error.
  **/
-GdkPixbuf *
-asc_canvas_to_pixbuf (AscCanvas *canvas)
+VipsImage *
+asc_canvas_to_image (AscCanvas *canvas, GError **error)
 {
 	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
-	cairo_content_t content;
-	GdkPixbuf *dest;
+	g_autoptr(GByteArray) png_data = NULL;
+	VipsImage *vimg;
+	cairo_status_t status;
 
 	/* sanity check */
 	g_return_val_if_fail (priv->width > 0 && priv->height > 0, NULL);
 
-	content = cairo_surface_get_content (priv->srf) | CAIRO_CONTENT_COLOR;
-	dest = gdk_pixbuf_new (GDK_COLORSPACE_RGB,
-			       !!(content & CAIRO_CONTENT_ALPHA),
-			       8,
-			       priv->width,
-			       priv->height);
-
 	cairo_surface_flush (priv->srf);
-	if (cairo_surface_status (priv->srf) || dest == NULL) {
-		cairo_surface_destroy (priv->srf);
-		g_clear_object (&dest);
+	if (cairo_surface_status (priv->srf) != CAIRO_STATUS_SUCCESS) {
+		g_set_error_literal (error,
+				     ASC_CANVAS_ERROR,
+				     ASC_CANVAS_ERROR_FAILED,
+				     "Cairo surface is in an error state");
 		return NULL;
 	}
 
-	if (gdk_pixbuf_get_has_alpha (dest))
-		convert_alpha (gdk_pixbuf_get_pixels (dest),
-			       gdk_pixbuf_get_rowstride (dest),
-			       cairo_image_surface_get_data (priv->srf),
-			       cairo_image_surface_get_stride (priv->srf),
-			       0,
-			       0,
-			       priv->width,
-			       priv->height);
-	else
-		convert_no_alpha (gdk_pixbuf_get_pixels (dest),
-				  gdk_pixbuf_get_rowstride (dest),
-				  cairo_image_surface_get_data (priv->srf),
-				  cairo_image_surface_get_stride (priv->srf),
-				  0,
-				  0,
-				  priv->width,
-				  priv->height);
+	png_data = g_byte_array_new ();
+	status = cairo_surface_write_to_png_stream (priv->srf, cairo_png_write_to_bytearray, png_data);
+	if (status != CAIRO_STATUS_SUCCESS) {
+		g_set_error (error,
+			     ASC_CANVAS_ERROR,
+			     ASC_CANVAS_ERROR_FAILED,
+			     "Failed to encode canvas as PNG: %s",
+			     cairo_status_to_string (status));
+		return NULL;
+	}
 
-	return dest;
+	vimg = vips_image_new_from_buffer (png_data->data, png_data->len, "", NULL);
+	if (vimg == NULL) {
+		g_set_error (error,
+			     ASC_CANVAS_ERROR,
+			     ASC_CANVAS_ERROR_FAILED,
+			     "Failed to load canvas PNG into VIPS: %s",
+			     vips_error_buffer ());
+		vips_error_clear ();
+		return NULL;
+	}
+
+	return vimg;
 }

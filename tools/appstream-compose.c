@@ -370,6 +370,9 @@ main (int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 
+	/* initialize VIPS explicitly */
+	asc_globals_init_vips (argv[0]);
+
 	/* create compose engine */
 	compose = asc_compose_new ();
 

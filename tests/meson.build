@@ -126,10 +126,11 @@ if get_option('compose')
     as_test_compose_exe = executable ('as-test_compose',
         ['test-compose.c',
          as_test_common_src],
-        dependencies: [appstream_compose_dep,
-                       gio_dep,
-                       freetype_dep,
-                       gdkpixbuf_dep],
+        dependencies: [
+            appstream_compose_dep,
+            gio_dep,
+            freetype_dep
+        ],
     )
     test ('as-test_compose',
         as_test_compose_exe,

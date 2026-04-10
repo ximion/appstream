@@ -25,7 +25,7 @@
 
 #include <glib-object.h>
 #include <gio/gio.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <vips/vips.h>
 
 #include "as-macros-private.h"
 #include "asc-font.h"
@@ -84,7 +84,7 @@ gboolean asc_canvas_render_svg (AscCanvas *canvas, GInputStream *stream, GError 
 AS_INTERNAL_VISIBLE
 gboolean   asc_canvas_save_png (AscCanvas *canvas, const gchar *fname, GError **error);
 
-GdkPixbuf *asc_canvas_to_pixbuf (AscCanvas *canvas);
+VipsImage *asc_canvas_to_image (AscCanvas *canvas, GError **error);
 
 AS_INTERNAL_VISIBLE
 gboolean asc_canvas_draw_text_line (AscCanvas	*canvas,

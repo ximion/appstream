@@ -1777,7 +1777,12 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	if (!as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_NO_FINAL_CHECK))
 		asc_compose_finalize_components (compose, ctask->result);
 
+	/* cleanup */
 	asc_unit_close (ctask->unit);
+
+	/* this may have been in a dedicated thread and we may have used VIPS, so we need to ensure
+	 * that all resources are cleaned up */
+	vips_thread_shutdown ();
 }
 
 static gboolean

@@ -66,4 +66,6 @@ gchar	      **asc_globals_get_hint_tags (void);
 AsIssueSeverity asc_globals_hint_tag_severity (const gchar *tag);
 const gchar    *asc_globals_hint_tag_explanation (const gchar *tag);
 
+void		asc_globals_init_vips (const gchar *argv0);
+
 G_END_DECLS
