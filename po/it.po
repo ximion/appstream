@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-01-28 11:14+0100\n"
-"PO-Revision-Date: 2026-04-09 04:09+0000\n"
+"PO-Revision-Date: 2026-04-14 21:09+0000\n"
 "Last-Translator: Alessandro Scarozza <xan.scale@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
@@ -1083,9 +1083,8 @@ msgstr "Plasma Mobile (Scuro)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:109
-#, fuzzy
 msgid "KDE Plasma (Dark)"
-msgstr "kde plasma"
+msgstr "KDE Plasma (scuro)"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:113
@@ -3195,15 +3194,15 @@ msgstr "È necessario specificare un comando."
 
 #: tools/ascli-actions-mdata.c:49
 msgid "Only refreshing metadata cache specific to the current user."
-msgstr ""
+msgstr "Aggiorna solo la cache dei metadati specifica per l'utente corrente."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
+msgstr "Aggiornamento della cache dei metadati del software per il sistema operativo."
 
 #: tools/ascli-actions-mdata.c:66
 msgid "Updating software metadata cache for Flatpak."
-msgstr ""
+msgstr "Aggiornamento della cache dei metadati del software per Flatpak."
 
 #: tools/ascli-actions-mdata.c:69
 #, fuzzy, c-format
@@ -3272,7 +3271,7 @@ msgstr "È necessario specificare un termine da cercare."
 #: tools/ascli-actions-mdata.c:270
 #, c-format
 msgid "No component found in categories %s."
-msgstr ""
+msgstr "Nessun componente trovato nelle categorie %s."
 
 #: tools/ascli-actions-mdata.c:353
 msgid "You need to specify a metadata file."
@@ -3329,11 +3328,11 @@ msgstr "Impossibile salvare il file modello metainfo: %s"
 
 #: tools/ascli-actions-mdata.c:650
 msgid "Unable to check display size: Can not read information without GUI toolkit access."
-msgstr ""
+msgstr "Impossibile verificare le dimensioni dello schermo: non è possibile leggere le informazioni senza l'accesso al toolkit GUI."
 
 #: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
 msgid "ERROR"
-msgstr ""
+msgstr "ERRORE"
 
 #: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
 #, fuzzy
@@ -3351,23 +3350,23 @@ msgstr "Il file metainfo «%s» non esiste."
 #: tools/ascli-actions-mdata.c:743
 #, c-format
 msgid "Relation check for: %s"
-msgstr ""
+msgstr "Verifica della relazione per: %s"
 
 #: tools/ascli-actions-mdata.c:754
 msgid "Requirements:"
-msgstr ""
+msgstr "Requisiti:"
 
 #: tools/ascli-actions-mdata.c:756
 msgid "No required items are set for this software."
-msgstr ""
+msgstr "Per questo software non sono previsti elementi obbligatori."
 
 #: tools/ascli-actions-mdata.c:761
 msgid "Recommendations:"
-msgstr ""
+msgstr "Raccomandazioni:"
 
 #: tools/ascli-actions-mdata.c:763
 msgid "No recommended items are set for this software."
-msgstr ""
+msgstr "Per questo software non sono stati impostati elementi consigliati."
 
 #: tools/ascli-actions-mdata.c:768
 #, fuzzy
@@ -3376,50 +3375,50 @@ msgstr "Sport"
 
 #: tools/ascli-actions-mdata.c:770
 msgid "No supported items are set for this software."
-msgstr ""
+msgstr "Per questo software non sono impostati elementi supportati."
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:794
 msgid "Desktop"
-msgstr ""
+msgstr "Desktop"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:797
 msgid "Laptop"
-msgstr ""
+msgstr "Laptop"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:800
 msgid "Server"
-msgstr ""
+msgstr "Server"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:803
 msgid "Tablet"
-msgstr ""
+msgstr "Tablet"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:806
 msgid "Handset"
-msgstr ""
+msgstr "Palmare"
 
 #: tools/ascli-actions-mdata.c:808
 msgid "Unknown"
-msgstr ""
+msgstr "Sconosciuto"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
 #: tools/ascli-actions-mdata.c:875
 #, c-format
 msgid "Chassis compatibility check for: %s"
-msgstr ""
+msgstr "Verifica della compatibilità del telaio per: %s"
 
 #: tools/ascli-actions-mdata.c:894
 msgid "Incompatible"
-msgstr ""
+msgstr "Incompatibile"
 
 #: tools/ascli-actions-mdata.c:929
 msgid "Compatible"
-msgstr ""
+msgstr "Compatibile"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:47
@@ -3434,22 +3433,22 @@ msgstr "Versione: %s"
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:55
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "Sorgenti dei metadati del SO:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:59
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "Nessun metadato del SO trovato. Questo è insolito."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:62
 msgid "Other metadata sources:"
-msgstr ""
+msgstr "Altre sorgenti di metadati:"
 
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:69
 msgid "No metadata."
-msgstr ""
+msgstr "Nessun metadato."
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:72
@@ -3529,7 +3528,7 @@ msgstr "È necessario specificare un file di ingresso e di uscita."
 
 #: tools/ascli-actions-misc.c:551
 msgid "Operating System Details"
-msgstr ""
+msgstr "Dettagli del sistema operativo"
 
 #: tools/ascli-actions-misc.c:555
 #, c-format
@@ -3564,7 +3563,7 @@ msgstr "Descrizione"
 
 #: tools/ascli-actions-misc.c:589
 msgid "Kernel"
-msgstr ""
+msgstr "Kernel"
 
 #: tools/ascli-actions-misc.c:591
 msgid "Version"
@@ -3572,11 +3571,11 @@ msgstr "Versione"
 
 #: tools/ascli-actions-misc.c:594
 msgid "Hardware"
-msgstr ""
+msgstr "Hardware"
 
 #: tools/ascli-actions-misc.c:597
 msgid "Physical Memory"
-msgstr ""
+msgstr "Memoria fisica"
 
 #: tools/ascli-actions-misc.c:601
 #, fuzzy
@@ -3585,21 +3584,21 @@ msgstr "Modalias"
 
 #: tools/ascli-actions-misc.c:630
 msgid "User Input Controls"
-msgstr ""
+msgstr "Comandi di input dell'utente"
 
 #: tools/ascli-actions-misc.c:633
 msgid "unknown"
-msgstr ""
+msgstr "sconosciuto"
 
 #: tools/ascli-actions-misc.c:640 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
 msgid "yes"
-msgstr ""
+msgstr "si"
 
 #: tools/ascli-actions-misc.c:642 tools/ascli-actions-validate.c:701
 #: tools/ascli-actions-validate.c:707
 msgid "no"
-msgstr ""
+msgstr "no"
 
 #: tools/ascli-actions-pkgmgr.c:53
 #, fuzzy
@@ -3613,7 +3612,7 @@ msgstr "Impossibile lanciare il gestore di pacchetti: %s"
 
 #: tools/ascli-actions-pkgmgr.c:85
 msgid "Flatpak was not found! Please install it to continue."
-msgstr ""
+msgstr "Flatpak non è stato trovato! Installalo per continuare."
 
 #: tools/ascli-actions-pkgmgr.c:96
 #, fuzzy, c-format
@@ -3628,20 +3627,20 @@ msgstr "Impossibile trovare un componente con ID \"%s\"."
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:165
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "Sono stati individuati diversi candidati da rimuovere:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:168
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "Sono stati individuati diversi candidati per l'installazione:"
 
 #: tools/ascli-actions-pkgmgr.c:189
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Inserisci il numero del componente da rimuovere:"
 
 #: tools/ascli-actions-pkgmgr.c:194
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Inserisci il numero del componente da installare:"
 
 #: tools/ascli-actions-pkgmgr.c:204
 #, c-format
@@ -3653,12 +3652,12 @@ msgstr "Il componente «%s» non ha alcun candidato per l'installazione."
 #: tools/ascli-actions-validate.c:259
 #, c-format
 msgid "The format of validator issue override '%s' is invalid (should be 'tag=severity')"
-msgstr ""
+msgstr "Il formato dell'override del problema del validatore '%s' non è valido (dovrebbe essere 'tag=severity')"
 
 #: tools/ascli-actions-validate.c:268
 #, c-format
 msgid "Can not override issue tag: %s"
-msgstr ""
+msgstr "Impossibile sovrascrivere il tag del problema: %s"
 
 #: tools/ascli-actions-validate.c:299 tools/ascli-actions-validate.c:512
 #, c-format
@@ -3703,6 +3702,8 @@ msgid ""
 "You need to specify at least one MetaInfo file to validate.\n"
 "Release metadata files can currently not be validated without their accompanying MetaInfo file."
 msgstr ""
+"È necessario specificare almeno un file MetaInfo da convalidare.\n"
+"Attualmente, i file di metadati delle release non possono essere convalidati senza il relativo file MetaInfo."
 
 #: tools/ascli-actions-validate.c:444 tools/ascli-actions-validate.c:577
 msgid "Validation was successful."
@@ -3721,7 +3722,7 @@ msgstr "Validazione non riuscita: %s"
 #: tools/ascli-actions-validate.c:526 tools/ascli-actions-validate.c:647
 #, c-format
 msgid "The validator can not create reports in the '%s' format. You may select 'yaml' or 'text' instead."
-msgstr ""
+msgstr "Il validatore non può creare report nel formato '%s'. È possibile selezionare 'yaml' o 'text' in alternativa."
 
 #: tools/ascli-actions-validate.c:551 tools/ascli-actions-validate.c:633
 msgid "You need to specify a root directory to start validation!"
@@ -3736,17 +3737,17 @@ msgstr "Licenza"
 #. TRANSLATORS: A license exception (used as value in a key-value pair, like "Type: exception")
 #: tools/ascli-actions-validate.c:678
 msgid "license exception"
-msgstr ""
+msgstr "eccezione di licenza"
 
 #. TRANSLATORS: A complex license expression (used as value in a key-value pair, like "Type: exception")
 #: tools/ascli-actions-validate.c:681
 msgid "license expression"
-msgstr ""
+msgstr "espressione della licenza"
 
 #. TRANSLATORS: An invalid license (used as value in a key-value pair, like "Type: invalid")
 #: tools/ascli-actions-validate.c:685
 msgid "invalid"
-msgstr ""
+msgstr "non valido"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:690
@@ -3757,7 +3758,7 @@ msgstr "Licenza"
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:694
 msgid "Canonical ID"
-msgstr ""
+msgstr "ID canonico"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
 #: tools/ascli-actions-validate.c:698
@@ -3768,12 +3769,12 @@ msgstr "Uno strumento per lavorare con metadati AppStream"
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
 #: tools/ascli-actions-validate.c:704
 msgid "Free and Open Source"
-msgstr ""
+msgstr "Libero e open source"
 
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:712
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: tools/ascli-utils.c:301
 msgid "Identifier"
@@ -3781,7 +3782,7 @@ msgstr "Identificatore"
 
 #: tools/ascli-utils.c:303
 msgid "Internal ID"
-msgstr ""
+msgstr "ID interno"
 
 #: tools/ascli-utils.c:306
 msgid "Package"
@@ -3828,7 +3829,7 @@ msgstr "Elementi forniti"
 #: tools/ascli-utils.c:523
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "Inserisci un numero compreso tra 1 e %i: "
 
 #, fuzzy
 #~ msgid "Show extra debugging information"
