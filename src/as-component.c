@@ -32,6 +32,7 @@
 #include "as-context-private.h"
 #include "as-icon-private.h"
 #include "as-screenshot-private.h"
+#include "as-promotional-private.h"
 #include "as-bundle-private.h"
 #include "as-release-list-private.h"
 #include "as-translation-private.h"
@@ -95,6 +96,7 @@ typedef struct {
 	GPtrArray *extends;		    /* of utf8 */
 	GPtrArray *addons;		    /* of AsComponent */
 	GPtrArray *screenshots;		    /* of AsScreenshot elements */
+	GPtrArray *promotionals;	    /* of AsPromotional elements */
 	GPtrArray *provided;		    /* of AsProvided */
 	GPtrArray *bundles;		    /* of AsBundle */
 	GPtrArray *suggestions;		    /* of AsSuggested elements */
@@ -426,6 +428,7 @@ as_component_init (AsComponent *cpt)
 	priv->categories = g_ptr_array_new_with_free_func (g_free);
 	priv->compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
 	priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->promotionals = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->provided = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->bundles = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->extends = g_ptr_array_new_with_free_func (g_free);
@@ -489,6 +492,7 @@ as_component_finalize (GObject *object)
 	g_ptr_array_unref (priv->compulsory_for_desktops);
 
 	g_ptr_array_unref (priv->screenshots);
+	g_ptr_array_unref (priv->promotionals);
 	g_ptr_array_unref (priv->provided);
 	g_ptr_array_unref (priv->bundles);
 	g_ptr_array_unref (priv->extends);
@@ -624,6 +628,37 @@ as_component_add_screenshot (AsComponent *cpt, AsScreenshot *sshot)
 	g_return_if_fail (sshot != NULL);
 
 	g_ptr_array_add (priv->screenshots, g_object_ref (sshot));
+}
+
+/**
+ * as_component_add_promotional:
+ * @cpt: a #AsComponent instance.
+ * @promotional: The #AsPromotional to add
+ *
+ * Add an #AsPromotional to this component.
+ **/
+void
+as_component_add_promotional (AsComponent *cpt, AsPromotional *promotional)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_return_if_fail (promotional != NULL);
+
+	g_ptr_array_add (priv->promotionals, g_object_ref (promotional));
+}
+
+/**
+ * as_component_get_promotionals:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get a list of all associated promotional images/videos.
+ *
+ * Returns: (element-type AsPromotional) (transfer none): an array of #AsPromotional instances
+ */
+GPtrArray *
+as_component_get_promotionals (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->promotionals;
 }
 
 /**
@@ -4752,6 +4787,22 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 					as_component_add_reference (cpt, reference);
 			}
 
+		} else if (tag_id == AS_TAG_PROMOTIONALS) {
+			xmlNode *iter2;
+
+			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
+				if (g_strcmp0 ((const gchar *) iter2->name, "promotional") == 0) {
+					g_autoptr(AsPromotional) promotional = as_promotional_new ();
+					if (as_promotional_load_from_xml (promotional,
+									  ctx,
+									  iter2,
+									  NULL))
+						as_component_add_promotional (cpt, promotional);
+				}
+			}
+
 		} else if (as_context_get_internal_mode (ctx)) {
 			g_autofree gchar *content = as_xml_get_node_value (iter);
 			/* internal information */
@@ -5207,6 +5258,17 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 		for (guint i = 0; i < priv->references->len; i++) {
 			AsReference *ref = AS_REFERENCE (g_ptr_array_index (priv->references, i));
 			as_reference_to_xml_node (ref, ctx, refs_node);
+		}
+	}
+
+	/* promotionals */
+	if (priv->promotionals->len > 0) {
+		xmlNode *pnode = as_xml_add_node (cnode, "promotionals");
+
+		for (guint i = 0; i < priv->promotionals->len; i++) {
+			AsPromotional *promo = AS_PROMOTIONAL (
+			    g_ptr_array_index (priv->promotionals, i));
+			as_promotional_to_xml_node (promo, ctx, pnode);
 		}
 	}
 
@@ -5788,6 +5850,13 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, struct fy_node *r
 				g_autoptr(AsReference) reference = as_reference_new ();
 				if (as_reference_load_from_yaml (reference, ctx, n, NULL))
 					as_component_add_reference (cpt, reference);
+			}
+
+		} else if (field_id == AS_TAG_PROMOTIONALS) {
+			AS_YAML_SEQUENCE_FOREACH (n, value_n) {
+				g_autoptr(AsPromotional) promotional = as_promotional_new ();
+				if (as_promotional_load_from_yaml (promotional, ctx, n, NULL))
+					as_component_add_promotional (cpt, promotional);
 			}
 
 		} else if (field_id == AS_TAG_CUSTOM) {
@@ -6443,6 +6512,20 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, struct fy_emitter *emi
 		for (guint i = 0; i < priv->references->len; i++) {
 			AsReference *ref = AS_REFERENCE (g_ptr_array_index (priv->references, i));
 			as_reference_emit_yaml (ref, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* Promotionals */
+	if (priv->promotionals->len > 0) {
+		as_yaml_emit_scalar (emitter, "Promotionals");
+		as_yaml_sequence_start (emitter);
+
+		for (guint i = 0; i < priv->promotionals->len; i++) {
+			AsPromotional *promo = AS_PROMOTIONAL (
+			    g_ptr_array_index (priv->promotionals, i));
+			as_promotional_emit_yaml (promo, ctx, emitter);
 		}
 
 		as_yaml_sequence_end (emitter);

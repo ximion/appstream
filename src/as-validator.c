@@ -1931,6 +1931,145 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 }
 
 /**
+ * as_validator_check_promotionals:
+ *
+ * Validate a "promotionals" tag.
+ **/
+static void
+as_validator_check_promotionals (AsValidator *validator, xmlNode *node, AsComponent *cpt)
+{
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		gboolean image_found = FALSE;
+		gboolean video_found = FALSE;
+		g_autofree gchar *contains_text_str = NULL;
+		g_autofree gchar *env_style = NULL;
+
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (g_strcmp0 ((const gchar *) iter->name, "promotional") != 0) {
+			as_validator_add_issue (
+			    validator,
+			    iter,
+			    "invalid-child-tag-name",
+			    _("Found: %s - Allowed: %s"), (const gchar *) iter->name, "promotional");
+			continue;
+		}
+
+		/* contains-text must be explicit */
+		contains_text_str = as_xml_get_prop_value (iter, "contains-text");
+		if (contains_text_str == NULL) {
+			as_validator_add_issue (validator,
+						iter,
+						"promotional-contains-text-missing",
+						NULL);
+		}
+
+		/* validate environment attribute */
+		env_style = as_xml_get_prop_value (iter, "environment");
+		if (env_style != NULL && !as_utils_is_gui_environment_style (env_style)) {
+			as_validator_add_issue (validator,
+						iter,
+						"screenshot-invalid-env-style",
+						"%s",
+						env_style);
+		}
+
+		for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+			const gchar *node_name2;
+			if (iter2->type != XML_ELEMENT_NODE)
+				continue;
+			node_name2 = (const gchar *) iter2->name;
+
+			if (g_strcmp0 (node_name2, "image") == 0) {
+				g_autofree gchar *image_url = as_xml_get_node_value (iter2);
+				g_autofree gchar *image_kind_str = as_xml_get_prop_value (iter2, "type");
+				g_autofree gchar *img_width_str = as_xml_get_prop_value (iter2, "width");
+				g_autofree gchar *img_height_str = as_xml_get_prop_value (iter2, "height");
+
+				image_found = TRUE;
+
+				/* check landscape orientation for source images */
+				if (g_strcmp0 (image_kind_str, "source") == 0 ||
+				    image_kind_str == NULL) {
+					if (img_width_str != NULL && img_height_str != NULL) {
+						gint64 w = g_ascii_strtoll (img_width_str, NULL, 10);
+						gint64 h = g_ascii_strtoll (img_height_str, NULL, 10);
+						if (w > 0 && h > 0 && w <= h) {
+							as_validator_add_issue (
+							    validator,
+							    iter2,
+							    "promotional-image-not-landscape",
+							    NULL);
+						}
+					}
+				}
+
+				if (!as_validate_is_url (image_url)) {
+					as_validator_add_issue (validator,
+								iter2,
+								"web-url-expected",
+								"%s",
+								image_url);
+					continue;
+				}
+				if (!as_validate_is_secure_url (image_url)) {
+					as_validator_add_issue (validator,
+								iter2,
+								"screenshot-media-url-not-secure",
+								"%s",
+								image_url);
+				}
+				as_validator_check_web_url (validator,
+							    iter2,
+							    image_url,
+							    "screenshot-image-not-found");
+			} else if (g_strcmp0 (node_name2, "video") == 0) {
+				g_autofree gchar *video_url = as_xml_get_node_value (iter2);
+				video_found = TRUE;
+
+				if (!as_validate_is_url (video_url)) {
+					as_validator_add_issue (validator,
+								iter2,
+								"web-url-expected",
+								"%s",
+								video_url);
+					continue;
+				}
+				if (!as_validate_is_secure_url (video_url)) {
+					as_validator_add_issue (validator,
+								iter2,
+								"screenshot-media-url-not-secure",
+								"%s",
+								video_url);
+				}
+				as_validator_check_web_url (validator,
+							    iter2,
+							    video_url,
+							    "screenshot-video-not-found");
+			} else if (g_strcmp0 (node_name2, "caption") == 0) {
+				/* captions are fine */
+			} else {
+				as_validator_add_issue (
+				    validator,
+				    iter2,
+				    "invalid-child-tag-name",
+				    _("Found: %s - Allowed: %s"),
+				      (const gchar *) iter2->name,
+				      "caption; image; video");
+			}
+		}
+
+		if (!image_found && !video_found) {
+			as_validator_add_issue (validator,
+						iter,
+						"promotional-no-media",
+						NULL);
+		}
+	}
+}
+
+/**
  * as_validator_check_relations:
  **/
 static void
@@ -3496,6 +3635,9 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		} else if (g_strcmp0 (node_name, "references") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 			as_validator_check_references (validator, iter);
+		} else if (g_strcmp0 (node_name, "promotionals") == 0) {
+			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
+			as_validator_check_promotionals (validator, iter, cpt);
 		} else if (g_strcmp0 (node_name, "name_variant_suffix") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 		} else if (g_strcmp0 (node_name, "custom") == 0) {

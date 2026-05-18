@@ -25,6 +25,7 @@
 #include "appstream.h"
 #include "as-component-private.h"
 #include "as-screenshot-private.h"
+#include "as-promotional-private.h"
 #include "as-xml.h"
 #include "as-test-utils.h"
 
@@ -2438,6 +2439,79 @@ test_xml_rw_references (void)
 }
 
 /**
+ * test_xml_rw_promotionals:
+ *
+ * Test reading and writing the "promotionals" tag.
+ */
+static void
+test_xml_rw_promotionals (void)
+{
+	/* clang-format off */
+	static const gchar *xmldata_promotionals =
+	    "<component>\n"
+	    "  <id>org.example.PromotionalsTest</id>\n"
+	    "  <promotionals>\n"
+	    "    <promotional contains-text=\"false\">\n"
+	    "      <caption>Hero banner</caption>\n"
+	    "      <image type=\"source\" width=\"1920\" height=\"1080\">https://example.org/hero.png</image>\n"
+	    "      <image type=\"thumbnail\" width=\"800\" height=\"450\">https://example.org/hero_small.png</image>\n"
+	    "    </promotional>\n"
+	    "    <promotional contains-text=\"true\" environment=\"gnome\">\n"
+	    "      <caption>Feature highlight</caption>\n"
+	    "      <image type=\"source\" width=\"1280\" height=\"720\">https://example.org/feature.png</image>\n"
+	    "    </promotional>\n"
+	    "  </promotionals>\n"
+	    "</component>\n";
+	/* clang-format on */
+
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	GPtrArray *promos;
+	AsPromotional *promo1;
+	AsPromotional *promo2;
+	GPtrArray *images;
+	AsImage *img;
+
+	/* read */
+	cpt = as_xml_test_read_data (xmldata_promotionals, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.PromotionalsTest");
+
+	promos = as_component_get_promotionals (cpt);
+	g_assert_nonnull (promos);
+	g_assert_cmpint (promos->len, ==, 2);
+
+	promo1 = AS_PROMOTIONAL (g_ptr_array_index (promos, 0));
+	promo2 = AS_PROMOTIONAL (g_ptr_array_index (promos, 1));
+
+	/* promo1 checks */
+	g_assert_cmpint (as_promotional_get_contains_text (promo1),
+			 ==,
+			 AS_PROMOTIONAL_CONTAINS_TEXT_NO);
+	g_assert_cmpint (as_promotional_get_media_kind (promo1),
+			 ==,
+			 AS_PROMOTIONAL_MEDIA_KIND_IMAGE);
+	as_promotional_set_context_locale (promo1, "C");
+	g_assert_cmpstr (as_promotional_get_caption (promo1), ==, "Hero banner");
+	images = as_promotional_get_images_all (promo1);
+	g_assert_cmpint (images->len, ==, 2);
+	img = AS_IMAGE (g_ptr_array_index (images, 0));
+	g_assert_cmpint (as_image_get_width (img), ==, 1920);
+	g_assert_cmpint (as_image_get_height (img), ==, 1080);
+
+	/* promo2 checks */
+	g_assert_cmpint (as_promotional_get_contains_text (promo2),
+			 ==,
+			 AS_PROMOTIONAL_CONTAINS_TEXT_YES);
+	g_assert_cmpstr (as_promotional_get_environment (promo2), ==, "gnome");
+	as_promotional_set_context_locale (promo2, "C");
+	g_assert_cmpstr (as_promotional_get_caption (promo2), ==, "Feature highlight");
+
+	/* write and compare */
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert_true (as_xml_test_compare_xml (res, xmldata_promotionals));
+}
+
+/**
  * main:
  */
 int
@@ -2512,6 +2586,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/ReadWrite/Developer", test_xml_rw_developer);
 	g_test_add_func ("/XML/ReadWrite/ExternalReleases", test_xml_rw_external_releases);
 	g_test_add_func ("/XML/ReadWrite/References", test_xml_rw_references);
+	g_test_add_func ("/XML/ReadWrite/Promotionals", test_xml_rw_promotionals);
 
 	ret = g_test_run ();
 	g_free (datadir);

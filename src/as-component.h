@@ -31,6 +31,7 @@
 #include "as-provided.h"
 #include "as-icon.h"
 #include "as-screenshot.h"
+#include "as-promotional.h"
 #include "as-release-list.h"
 #include "as-developer.h"
 #include "as-translation.h"
@@ -262,6 +263,9 @@ void	      as_component_sort_screenshots (AsComponent *cpt,
 					     const gchar *environment,
 					     const gchar *style,
 					     gboolean	  prioritize_style);
+
+GPtrArray    *as_component_get_promotionals (AsComponent *cpt);
+void	      as_component_add_promotional (AsComponent *cpt, AsPromotional *promotional);
 
 GPtrArray    *as_component_get_keywords (AsComponent *cpt);
 void	      as_component_set_keywords (AsComponent *cpt,
