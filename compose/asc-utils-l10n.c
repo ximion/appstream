@@ -125,9 +125,17 @@ asc_l10n_parse_file_gettext (AscLocaleContext *ctx,
 	bytes = asc_unit_read_data (unit, filename, error);
 	if (bytes == NULL)
 		return FALSE;
-	data = g_bytes_get_data (bytes, NULL);
+	gsize data_len = 0;
+	data = g_bytes_get_data (bytes, &data_len);
 
 	/* we only strictly need the header */
+	if (data_len < sizeof (AscLocaleGettextHeader)) {
+		g_set_error_literal (error,
+				     ASC_COMPOSE_ERROR,
+				     ASC_COMPOSE_ERROR_FAILED,
+				     "Gettext file is too small to be valid");
+		return FALSE;
+	}
 	memcpy (&h, data, sizeof (AscLocaleGettextHeader));
 	if (h.magic == 0x950412de)
 		swapped = FALSE;
@@ -299,6 +307,8 @@ asc_l10n_parse_file_qt (AscLocaleContext *ctx,
 	/* parse each section */
 	while (m < len) {
 		AscLocaleQmSection section = _read_uint8 (data, &m);
+		if (m + 4 > len)
+			break;
 		guint32 section_len = _read_uint32 (data, &m);
 		if (section_len > len - m) {
 			g_set_error_literal (error,
