@@ -29,6 +29,7 @@
 
 #include <glib/gstdio.h>
 #include <fontconfig/fontconfig.h>
+#include <fontconfig/fcfreetype.h>
 #include FT_SFNT_NAMES_H
 #include FT_TRUETYPE_IDS_H
 #include <pango/pango-language.h>
