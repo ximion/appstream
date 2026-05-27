@@ -61,21 +61,21 @@ endif
 
 sanitizer_libs = []
 if get_option('maintainer')
-    maintainer_c_args = ['-Werror',
-                         '-Wall',
-                         '-Wextra',
-                         '-Wcast-align',
-                         '-Wno-uninitialized',
-                         '-Wempty-body',
-                         '-Winit-self',
-                         '-Wnull-dereference',
-                         '-Wfloat-equal',
-                         '-Winline',
-                         '-Wno-error=comment',
-                         '-Werror=format-security',
+    maintainer_c_args = [
+      '-Werror',
+      '-Wall',
+      '-Wextra',
+      '-Wcast-align',
+      '-Wno-uninitialized',
+      '-Wempty-body',
+      '-Winit-self',
+      '-Wnull-dereference',
+      '-Wfloat-equal',
+      '-Wno-error=comment',
+      '-Werror=format-security',
 
-                         # used in rsvg's headers, so we can not make this fatal yet
-                         '-Wno-error=expansion-to-defined',
+      # used in rsvg's headers, so we can not make this fatal yet
+      '-Wno-error=expansion-to-defined',
     ]
     add_project_arguments(maintainer_c_args, language: 'c')
     add_project_arguments(maintainer_c_args, language: 'cpp')
