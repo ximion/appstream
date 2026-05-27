@@ -132,6 +132,8 @@ asc_compose_finalize (GObject *object)
 	if (priv->locale_unit != NULL)
 		g_object_unref (priv->locale_unit);
 
+	g_object_unref (priv->icon_policy);
+
 	g_mutex_clear (&priv->mutex);
 
 	G_OBJECT_CLASS (asc_compose_parent_class)->finalize (object);
