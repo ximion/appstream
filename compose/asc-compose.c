@@ -1757,7 +1757,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	/* clean up superfluous hints in case we were filtering the results, as some rejected
 	 * components may have generated errors while we were inspecting them */
 	if (filter_cpts) {
-		const gchar **cids = asc_result_get_component_ids_with_hints (ctask->result);
+		g_autofree const gchar **cids = asc_result_get_component_ids_with_hints (ctask->result);
 		for (guint i = 0; cids[i] != NULL; i++) {
 			if (!g_hash_table_contains (priv->allowed_cids, cids[i])) {
 				/* we want to catch out-of-scope XML errors as well, which have a CID
