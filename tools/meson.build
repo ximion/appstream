@@ -35,6 +35,7 @@ if get_option('compose') and get_option('tools')
                        appstream_compose_dep,
                        gio_dep],
         include_directories: [root_inc_dir],
+        c_args: ['-DI_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE'],
         install_dir: get_option('libexecdir'),
         install: true,
     )
