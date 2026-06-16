@@ -2973,6 +2973,9 @@ as_utils_guess_scope_from_path (const gchar *path)
 gchar *
 as_make_usertag_key (const gchar *ns, const gchar *tag)
 {
+	/* tags without namespace are not allowed, but we generate keys regardless
+	 * to be robust against bad input. The validator and emitter will reject the
+	 * bad data instead of this helper function. */
 	if (ns == NULL)
 		ns = "";
 	return g_strconcat (ns, "::", tag, NULL);

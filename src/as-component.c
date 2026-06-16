@@ -3348,9 +3348,8 @@ as_component_get_search_tokens (AsComponent *cpt)
 static gboolean
 as_component_has_desktop_group (AsComponent *cpt, const gchar *desktop_group)
 {
-	guint i;
 	g_auto(GStrv) split = g_strsplit (desktop_group, "::", -1);
-	for (i = 0; split[i] != NULL; i++) {
+	for (guint i = 0; split[i] != NULL; i++) {
 		if (!as_component_has_category (cpt, split[i]))
 			return FALSE;
 	}
@@ -5194,9 +5193,14 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 			xmlNode *tag_node = NULL;
 			g_auto(GStrv)
 				   parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
+			if (as_is_empty (parts[0])) {
+				g_debug ("Ignoring tag %s::tags::%s: Missing namespace",
+					 as_component_get_id (cpt),
+					 parts[1]);
+				continue;
+			}
 			tag_node = as_xml_add_text_node (tags_node, "tag", parts[1]);
-			if (!as_is_empty (parts[0]))
-				as_xml_add_text_prop (tag_node, "namespace", parts[0]);
+			as_xml_add_text_prop (tag_node, "namespace", parts[0]);
 		}
 	}
 
@@ -6424,10 +6428,15 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, struct fy_emitter *emi
 		for (guint i = 0; i < priv->tags->len; i++) {
 			g_auto(GStrv)
 				   parts = g_strsplit (g_ptr_array_index (priv->tags, i), "::", 2);
+			if (as_is_empty (parts[0])) {
+				g_debug ("Ignoring tag %s::tags::%s: Missing namespace",
+					 as_component_get_id (cpt),
+					 parts[1]);
+				continue;
+			}
 
 			as_yaml_mapping_start (emitter);
-			if (!as_is_empty (parts[0]))
-				as_yaml_emit_entry (emitter, "namespace", parts[0]);
+			as_yaml_emit_entry (emitter, "namespace", parts[0]);
 			as_yaml_emit_entry (emitter, "tag", parts[1]);
 			as_yaml_mapping_end (emitter);
 		}
