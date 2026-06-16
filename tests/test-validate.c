@@ -126,6 +126,23 @@ _astest_check_validate_issues (GList *issues, AsVResultCheck *checks_all)
 }
 
 /**
+ * _astest_issues_contain_tag:
+ *
+ * Check whether the given list of validator issues contains an issue
+ * with the given tag.
+ */
+static gboolean
+_astest_issues_contain_tag (GList *issues, const gchar *tag)
+{
+	for (GList *l = issues; l != NULL; l = l->next) {
+		AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (l->data);
+		if (g_strcmp0 (as_validator_issue_get_tag (issue), tag) == 0)
+			return TRUE;
+	}
+	return FALSE;
+}
+
+/**
  * test_validator_tag_sanity:
  */
 static void
@@ -412,6 +429,62 @@ test_validator_overrides (void)
 	g_assert_true (has_noreltime_issue);
 }
 
+/**
+ * test_validator_icon_format:
+ *
+ * Test that icons using an unsupported file format are flagged, while
+ * supported icon formats and screenshot images of any format are not.
+ */
+static void
+test_validator_icon_format (void)
+{
+	/* an icon referencing an unsupported format must be flagged */
+	{
+		g_autoptr(AsValidator) validator = as_validator_new ();
+		g_autoptr(GList) issues = NULL;
+		const gchar *SAMPLE_XML =
+		    "<component>\n"
+		    "  <id>org.example.Test</id>\n"
+		    "  <name>Test</name>\n"
+		    "  <summary>Just a unittest.</summary>\n"
+		    "  <description>\n"
+		    "    <p>First paragraph</p>\n"
+		    "  </description>\n"
+		    "  <icon type=\"remote\">https://example.org/icons/foo.webp</icon>\n"
+		    "</component>\n";
+
+		as_validator_validate_data (validator, SAMPLE_XML);
+		issues = as_validator_get_issues (validator);
+		g_assert_true (_astest_issues_contain_tag (issues, "icon-format-unsupported"));
+	}
+
+	/* supported icon formats, and screenshot images in any format, must not be flagged */
+	{
+		g_autoptr(AsValidator) validator = as_validator_new ();
+		g_autoptr(GList) issues = NULL;
+		const gchar *SAMPLE_XML =
+		    "<component>\n"
+		    "  <id>org.example.Test</id>\n"
+		    "  <name>Test</name>\n"
+		    "  <summary>Just a unittest.</summary>\n"
+		    "  <description>\n"
+		    "    <p>First paragraph</p>\n"
+		    "  </description>\n"
+		    "  <icon type=\"remote\">https://example.org/icons/foo.jxl</icon>\n"
+		    "  <screenshots>\n"
+		    "    <screenshot type=\"default\">\n"
+		    "      <caption>An example screenshot</caption>\n"
+		    "      <image type=\"source\">https://example.org/screens/a.webp</image>\n"
+		    "    </screenshot>\n"
+		    "  </screenshots>\n"
+		    "</component>\n";
+
+		as_validator_validate_data (validator, SAMPLE_XML);
+		issues = as_validator_get_issues (validator);
+		g_assert_false (_astest_issues_contain_tag (issues, "icon-format-unsupported"));
+	}
+}
+
 int
 main (int argc, char **argv)
 {
@@ -439,6 +512,7 @@ main (int argc, char **argv)
 			 test_validator_manyerrors_desktopapp);
 	g_test_add_func ("/AppStream/Validate/RelationIssues", test_validator_relationissues);
 	g_test_add_func ("/AppStream/Validate/Overrides", test_validator_overrides);
+	g_test_add_func ("/AppStream/Validate/IconFormat", test_validator_icon_format);
 
 	ret = g_test_run ();
 	g_free (datadir);

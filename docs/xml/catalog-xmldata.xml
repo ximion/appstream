@@ -306,6 +306,10 @@
 						If targeting a hi-DPI screen, this icon type may have a <literal>scale</literal> property.
 					</para>
 					<para>
+						Icons that reference an image file (types <literal>cached</literal>, <literal>local</literal> and <literal>remote</literal>) must be
+						either in the PNG or JXL format.
+					</para>
+					<para>
 						If specified, the <literal>scale</literal> property is defined as in the
 						<ulink url="https://specifications.freedesktop.org/icon-theme-spec/latest/#definitions">Freedesktop Icon Theme Specification</ulink>.
 						It’s an integer value ≥1 indicating how many pixels in the image represent a logical pixel on the display, in each dimension.

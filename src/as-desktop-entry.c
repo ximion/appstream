@@ -519,7 +519,8 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 				if (dot != NULL &&
 				    (g_strcmp0 (dot, ".png") == 0 || g_strcmp0 (dot, ".xpm") == 0 ||
 				     g_strcmp0 (dot, ".svg") == 0 ||
-				     g_strcmp0 (dot, ".svgz") == 0)) {
+				     g_strcmp0 (dot, ".svgz") == 0 ||
+				     g_strcmp0 (dot, ".jxl") == 0)) {
 					*dot = '\0';
 				}
 

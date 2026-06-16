@@ -3293,6 +3293,26 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 								prop);
 			}
 
+			/* check the icon file format - stock icons are theme names and
+			 * carry no format, so we only look at icons that reference a file */
+			if (node_content != NULL && !as_str_equal0 (prop, "stock")) {
+				const gchar *ext = strrchr (node_content, '.');
+				/* only check if there is an actual file extension
+				 * (a dot inside the basename, not part of a path) */
+				if (ext != NULL && ext[1] != '\0' && strchr (ext, '/') == NULL) {
+					g_autofree gchar *ext_lower = g_ascii_strdown (ext + 1, -1);
+					if ((g_strcmp0 (ext_lower, "png") != 0) &&
+					    (g_strcmp0 (ext_lower, "jxl") != 0) &&
+					    (g_strcmp0 (ext_lower, "svg") != 0) &&
+					    (g_strcmp0 (ext_lower, "svgz") != 0))
+						as_validator_add_issue (validator,
+									iter,
+									"icon-format-unsupported",
+									"%s",
+									node_content);
+				}
+			}
+
 		} else if (g_strcmp0 (node_name, "url") == 0) {
 			AsUrlKind url_kind;
 			g_autofree gchar *prop = as_validator_check_type_property (validator,

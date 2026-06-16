@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2018-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2018-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -567,6 +567,13 @@ static AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("Metainfo files may only contain icons of type `stock` or `remote`, the set type is not allowed."),
+	},
+
+	{ "icon-format-unsupported",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate names in backticks. */
+	  N_("This icon uses an unsupported file format. Icons should be PNG, JPEG-XL (`.jxl`) "
+	     "or vector graphics (`.svg`/`.svgz`) images."),
 	},
 
 	{ "url-invalid-type",
