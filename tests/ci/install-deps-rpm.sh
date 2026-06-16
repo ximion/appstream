@@ -17,6 +17,7 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     meson \
     gettext \
     gperf \
+    docbook5-style-xsl \
     gi-docgen \
     itstool \
     libasan \

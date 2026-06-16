@@ -40,6 +40,7 @@ eatmydata apt-get install -yq --no-install-recommends \
     qt6-base-dev \
     xmlto \
     daps \
+    docbook-xsl-ns \
     gobject-introspection \
     libstemmer-dev \
     gperf \
