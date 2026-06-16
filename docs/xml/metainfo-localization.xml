@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Metadata-Localization">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-Metadata-Localization">
 	<title>Localization</title>
 
-	<section id="spec-l10n-introduction">
+	<section xml:id="spec-l10n-introduction">
 		<title>Localization</title>
 		<para>
 			The <literal>localization</literal> component type describes language packs for individual software components or groups
@@ -24,7 +19,7 @@
 		</para>
 	</section>
 
-	<section id="spec-l10n-example">
+	<section xml:id="spec-l10n-example">
 		<title>Example file</title>
 		<para>
 			A localization metainfo file can look like this:
@@ -58,7 +53,7 @@
 
 	</section>
 
-	<section id="spec-l10n-filespec">
+	<section xml:id="spec-l10n-filespec">
 		<title>File specification</title>
 		<para>
 			Note that the XML root must have the <literal>type</literal> property set to <code>localization</code>.
@@ -66,7 +61,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry id="tag-id-l10n">
+			<varlistentry xml:id="tag-id-l10n">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -81,7 +76,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-l10n-extends">
+			<varlistentry xml:id="tag-l10n-extends">
 			<term>&lt;extends/&gt;</term>
 			<listitem>
 				<para>
@@ -91,7 +86,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-l10n-languages">
+			<varlistentry xml:id="tag-l10n-languages">
 				<term>&lt;languages/&gt;</term>
 				<listitem>
 					<para>
@@ -99,7 +94,7 @@
 					</para>
 					<para>
 						The tag is allowed to only occur once per component, and contains multiple <code>&lt;lang/&gt;</code> child nodes, which have
-						a <ulink url="https://www.gnu.org/software/gettext/manual/html_node/Language-Codes.html">language code</ulink> as value.
+						a <link xlink:href="https://www.gnu.org/software/gettext/manual/html_node/Language-Codes.html">language code</link> as value.
 						Each <code>&lt;lang/&gt;</code> node may have a <literal>percentage</literal> property, which describes the percentage value to which
 						a component has been translated.
 					</para>

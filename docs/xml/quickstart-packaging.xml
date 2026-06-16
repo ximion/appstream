@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Quickstart-Distros">
+<section xmlns="http://docbook.org/ns/docbook" version="5.2" xml:id="sect-Quickstart-Distros">
 	<title>For distributors packaging Appstream metadata</title>
 
-	<section id="qsr-distro-introduction">
+	<section xml:id="qsr-distro-introduction">
 		<title>Guidelines for distributors</title>
 		<para>
 			Distributors of projects with AppStream metadata perform an important role
@@ -17,7 +12,7 @@
 		</para>
 	</section>
 
-	<section id="qsr-distro-guidelines">
+	<section xml:id="qsr-distro-guidelines">
 		<title>Guidelines for distributors</title>
 		<para>
 			A binary package that contains AppStream desktop metadata  (<xref linkend="sect-Metadata-Application"/>)

@@ -1,19 +1,14 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Metadata-Runtime">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-Metadata-Runtime">
 	<title>Runtime</title>
 
-	<section id="spec-runtime-introduction">
+	<section xml:id="spec-runtime-introduction">
 		<title>Introduction</title>
 		<para>
 			Components of type <literal>runtime</literal> describe a collection of interdependent software components that are
 			required to run other software. They set a baseline of dependencies that other software can rely on and link against.
 			A very simple runtime may for example be a chroot environment of a minimal Linux system bootstrap.
-			Runtimes are often employed by software distribution systems such as <ulink url="https://flatpak.org/">Flatpak</ulink> or Valve's Steam, but may be
+			Runtimes are often employed by software distribution systems such as <link xlink:href="https://flatpak.org/">Flatpak</link> or Valve's Steam, but may be
 			used by others and may even be directly distributed as part of tranditional Linux distributions.
 		</para>
 		<para>
@@ -21,7 +16,7 @@
 		</para>
 	</section>
 
-	<section id="spec-runtime-example">
+	<section xml:id="spec-runtime-example">
 		<title>Example file</title>
 		<para>
 			A <literal>runtime</literal> metainfo file can look like this:
@@ -54,7 +49,7 @@
 
 	</section>
 
-	<section id="spec-runtime-filespec">
+	<section xml:id="spec-runtime-filespec">
 		<title>File specification</title>
 		<para>
 			Note that the XML root must have the <literal>type</literal> property set to <code>runtime</code>.
@@ -62,7 +57,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry id="tag-id-runtime">
+			<varlistentry xml:id="tag-id-runtime">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -71,7 +66,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-runtime-requires">
+			<varlistentry xml:id="tag-runtime-requires">
 			<term>&lt;requires/&gt;</term>
 			<listitem>
 				<para>
@@ -88,7 +83,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-runtime-project_license">
+			<varlistentry xml:id="tag-runtime-project_license">
 			<term>&lt;project_license/&gt;</term>
 			<listitem>
 				<para>
@@ -107,7 +102,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-runtime-provides">
+			<varlistentry xml:id="tag-runtime-provides">
 			<term>&lt;provides/&gt;</term>
 			<listitem>
 				<para>

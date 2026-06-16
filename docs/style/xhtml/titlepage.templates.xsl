@@ -157,7 +157,7 @@
        <xsl:call-template name="gentext">
          <xsl:with-param name="key">
             <xsl:choose>
-              <xsl:when test="count((../othercredit)|(../editor)) > 1"
+              <xsl:when test="count((othercredit|editor)|(../othercredit|../editor)) > 1"
                 >Contributors</xsl:when>
               <xsl:otherwise>Contributor</xsl:otherwise>
             </xsl:choose>
@@ -167,7 +167,7 @@
     </span>
     <xsl:call-template name="person.name.list">
       <xsl:with-param name="person.list"
-        select="(../othercredit)|(../editor)"/>
+        select="(othercredit|editor)|(../othercredit|../editor)"/>
     </xsl:call-template>
   </div>
 </xsl:template>
@@ -396,6 +396,9 @@
         <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="bookinfo/abstract"/>
         <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="info/abstract"/>
 
+        <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="bookinfo/mediaobject"/>
+        <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="info/mediaobject"/>
+
         <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="bookinfo/corpauthor"/>
         <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="info/corpauthor"/>
         <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="bookinfo/authorgroup"/>
@@ -440,6 +443,10 @@
   </xsl:template>
 
   <xsl:template match="abstract" mode="book.titlepage.recto.auto.mode">
+    <xsl:apply-templates select="."/>
+  </xsl:template>
+
+  <xsl:template match="mediaobject" mode="book.titlepage.recto.auto.mode">
     <xsl:apply-templates select="."/>
   </xsl:template>
 

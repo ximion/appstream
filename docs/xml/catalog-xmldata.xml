@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-AppStream-XML">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-AppStream-XML">
 	<title>AppStream Catalog XML</title>
 
-	<section id="spec-asxml-introduction">
+	<section xml:id="spec-asxml-introduction">
 		<title>Introduction</title>
 
 		<para>
@@ -17,7 +12,7 @@
 		</para>
 	</section>
 
-	<section id="spec-asxml-filenaming">
+	<section xml:id="spec-asxml-filenaming">
 		<title>File naming and location</title>
 		<para>
 			The XML files must have a unique name, which is usually the distribution's name and version, combined with the name of the repository/origin.
@@ -43,14 +38,14 @@
 		</important>
 	</section>
 
-	<section id="spec-asxml-general">
+	<section xml:id="spec-asxml-general">
 		<title>General XML structure</title>
 		<para>
 			The XML starts with a <code>&lt;components&gt;</code> tag as the root element. It has all the
 			<code>&lt;component&gt;</code> tags of different <literal>type</literal>s as children.
 		</para>
 		<para>
-			Data to fill the different component elements is usually taken from their <ulink url="https://specifications.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink>
+			Data to fill the different component elements is usually taken from their <link xlink:href="https://specifications.freedesktop.org/desktop-entry-spec/latest/">Desktop files</link>
 			and package data. However, if an upstream project ships metainfo files (see <xref linkend="chap-Metadata"/>),
 			values defined there should override data from any other source.
 		</para>
@@ -104,7 +99,7 @@
 		</variablelist>
 	</section>
 
-	<section id="spec-asxml-tags">
+	<section xml:id="spec-asxml-tags">
 		<title>Valid tags for all component types</title>
 		<para>
 			These tags can be applied to every component type (application, component, font, inputmethod) which
@@ -127,7 +122,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry id="tag-ct-component-id">
+			<varlistentry xml:id="tag-ct-component-id">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -137,7 +132,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-pkgname">
+			<varlistentry xml:id="tag-ct-pkgname">
 				<term>&lt;pkgname/&gt;</term>
 				<listitem>
 					<para>
@@ -157,7 +152,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-source_pkgname">
+			<varlistentry xml:id="tag-ct-source_pkgname">
 				<term>&lt;source_pkgname/&gt;</term>
 				<listitem>
 					<para>
@@ -170,7 +165,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-name">
+			<varlistentry xml:id="tag-ct-name">
 				<term>&lt;name/&gt;</term>
 				<listitem>
 					<para>
@@ -178,19 +173,19 @@
 					</para>
 					<para>
 						In case of a component of type <literal>desktop-application</literal>, the application name as defined in the application's
-						<ulink url="https://specifications.freedesktop.org/desktop-entry-spec/latest/">desktop file</ulink> is used.
+						<link xlink:href="https://specifications.freedesktop.org/desktop-entry-spec/latest/">desktop file</link> is used.
 					</para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-project_license">
+			<varlistentry xml:id="tag-ct-project_license">
 				<term>&lt;project_license/&gt;</term>
 				<listitem>
 					<para>
 						The <code>&lt;project_license/&gt;</code> tag is indicating the license of the component.
-						It should be a <ulink url="https://spdx.org/specifications">SPDX license expression</ulink>.
+						It should be a <link xlink:href="https://spdx.org/specifications">SPDX license expression</link>.
 						A full list of recognized licenses and their identifiers can be found at the
-						<ulink url="https://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+						<link xlink:href="https://spdx.org/licenses/">SPDX OpenSource License Registry</link>.
 					</para>
 					<para>
 						You can find more information about this tag at the metainfo description for <xref linkend="tag-project_license"/>.
@@ -198,7 +193,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-summary">
+			<varlistentry xml:id="tag-ct-summary">
 				<term>&lt;summary/&gt;</term>
 				<listitem>
 					<para>
@@ -212,7 +207,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-description">
+			<varlistentry xml:id="tag-ct-description">
 				<term>&lt;description/&gt;</term>
 				<listitem>
 					<para>
@@ -247,7 +242,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-url">
+			<varlistentry xml:id="tag-ct-url">
 				<term>&lt;url/&gt;</term>
 				<listitem>
 					<para>
@@ -260,7 +255,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-project_group">
+			<varlistentry xml:id="tag-ct-project_group">
 				<term>&lt;project_group/&gt;</term>
 				<listitem>
 					<para>
@@ -277,7 +272,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-icon">
+			<varlistentry xml:id="tag-ct-icon">
 				<term>&lt;icon/&gt;</term>
 				<listitem>
 					<para>
@@ -311,7 +306,7 @@
 					</para>
 					<para>
 						If specified, the <literal>scale</literal> property is defined as in the
-						<ulink url="https://specifications.freedesktop.org/icon-theme-spec/latest/#definitions">Freedesktop Icon Theme Specification</ulink>.
+						<link xlink:href="https://specifications.freedesktop.org/icon-theme-spec/latest/#definitions">Freedesktop Icon Theme Specification</link>.
 						It’s an integer value ≥1 indicating how many pixels in the image represent a logical pixel on the display, in each dimension.
 						This allows icons for hi-DPI screens to be displayed at the same logical size as on lower resolution screens, but without upscaling artifacts.
 					</para>
@@ -336,14 +331,14 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-categories">
+			<varlistentry xml:id="tag-ct-categories">
 				<term>&lt;categories/&gt;</term>
 				<listitem>
 					<para>
 						This tag can contain one or more <code><![CDATA[<category>]]></code> tags, describing the categories this component
 						is located in. This tag is usually applied to components of type <literal>desktop-application</literal>, although it might be used by others later.
 						This data is usually taken from Desktop files, a list of categories can be found in the
-						<ulink url="https://specifications.freedesktop.org/menu-spec/latest/category-registry.html">Freedesktop menu spec</ulink>.
+						<link xlink:href="https://specifications.freedesktop.org/menu-spec/latest/category-registry.html">Freedesktop menu spec</link>.
 						Example:
 					</para>
 					<programlisting language="XML"><![CDATA[<categories>
@@ -361,7 +356,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-keywords">
+			<varlistentry xml:id="tag-ct-keywords">
 				<term>&lt;keywords/&gt;</term>
 				<listitem>
 					<para>
@@ -393,7 +388,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-screenshots">
+			<varlistentry xml:id="tag-ct-screenshots">
 				<term>&lt;screenshots/&gt;</term>
 				<listitem>
 					<para>
@@ -461,7 +456,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-compulsory_for_desktop">
+			<varlistentry xml:id="tag-ct-compulsory_for_desktop">
 				<term>&lt;compulsory_for_desktop/&gt;</term>
 				<listitem>
 					<para>
@@ -474,7 +469,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-provides">
+			<varlistentry xml:id="tag-ct-provides">
 				<term>&lt;provides/&gt;</term>
 				<listitem>
 					<para>
@@ -487,7 +482,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-developer">
+			<varlistentry xml:id="tag-ct-developer">
 			<term>&lt;developer/&gt;</term>
 			<listitem>
 				<para>
@@ -496,7 +491,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-launchable">
+			<varlistentry xml:id="tag-ct-launchable">
 				<term>&lt;launchable/&gt;</term>
 				<listitem>
 					<para>
@@ -505,7 +500,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-releases">
+			<varlistentry xml:id="tag-ct-releases">
 				<term>&lt;releases/&gt;</term>
 				<listitem>
 					<para>
@@ -549,7 +544,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-languages">
+			<varlistentry xml:id="tag-ct-languages">
 				<term>&lt;languages/&gt;</term>
 				<listitem>
 					<para>
@@ -557,7 +552,7 @@
 					</para>
 					<para>
 						The tag is allowed to only occur once per component, and contains multiple <code>&lt;lang/&gt;</code> child nodes, which have
-						a <ulink url="https://www.gnu.org/software/gettext/manual/html_node/Language-Codes.html">language code</ulink> as value.
+						a <link xlink:href="https://www.gnu.org/software/gettext/manual/html_node/Language-Codes.html">language code</link> as value.
 						Each <code>&lt;lang/&gt;</code> node may have a <literal>percentage</literal> property, which describes the percentage value to which
 						a component has been translated.
 					</para>
@@ -577,7 +572,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-bundle">
+			<varlistentry xml:id="tag-ct-bundle">
 				<term>&lt;bundle/&gt;</term>
 				<listitem>
 					<para>
@@ -595,14 +590,14 @@
 						Currently supported solutions are:
 						<itemizedlist>
 							<listitem><para><code>package</code> - For distribution package names.</para></listitem>
-							<listitem><para><code>limba</code> - For <ulink url="https://people.freedesktop.org/~mak/limba/">Limba Project</ulink> bundles.</para></listitem>
-							<listitem><para><code>flatpak</code> - For <ulink url="https://flatpak.org/">Flatpak</ulink> bundles.</para></listitem>
-							<listitem><para><code>appimage</code> - For <ulink url="https://appimage.org/">AppImageKit</ulink> bundles.</para></listitem>
-							<listitem><para><code>snap</code> - For <ulink url="https://snapcraft.io/">Snappy</ulink> snap bundles.</para></listitem>
+							<listitem><para><code>limba</code> - For <link xlink:href="https://people.freedesktop.org/~mak/limba/">Limba Project</link> bundles.</para></listitem>
+							<listitem><para><code>flatpak</code> - For <link xlink:href="https://flatpak.org/">Flatpak</link> bundles.</para></listitem>
+							<listitem><para><code>appimage</code> - For <link xlink:href="https://appimage.org/">AppImageKit</link> bundles.</para></listitem>
+							<listitem><para><code>snap</code> - For <link xlink:href="https://snapcraft.io/">Snappy</link> snap bundles.</para></listitem>
 							<listitem><para><code>tarball</code> - For plain and possibly compressed tarballs.</para></listitem>
 							<listitem><para><code>cabinet</code> - For cabinet firmware deployments.</para></listitem>
-							<listitem><para><code>linglong</code> - For <ulink url="https://linglong.dev/">Linglong</ulink> bundles.</para></listitem>
-							<listitem><para><code>sysupdate</code> - For <ulink url="https://www.freedesktop.org/software/systemd/man/latest/systemd-sysupdate.html">systemd-sysupdate</ulink> bundles.</para></listitem>
+							<listitem><para><code>linglong</code> - For <link xlink:href="https://linglong.dev/">Linglong</link> bundles.</para></listitem>
+							<listitem><para><code>sysupdate</code> - For <link xlink:href="https://www.freedesktop.org/software/systemd/man/latest/systemd-sysupdate.html">systemd-sysupdate</link> bundles.</para></listitem>
 						</itemizedlist>
 					</para>
 					<para>
@@ -612,7 +607,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-suggests">
+			<varlistentry xml:id="tag-ct-suggests">
 				<term>&lt;suggests/&gt;</term>
 				<listitem>
 					<para>
@@ -637,7 +632,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-content_rating">
+			<varlistentry xml:id="tag-ct-content_rating">
 				<term>&lt;content_rating/&gt;</term>
 				<listitem>
 					<para>
@@ -646,7 +641,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-ct-agreement">
+			<varlistentry xml:id="tag-ct-agreement">
 				<term>&lt;agreement/&gt;</term>
 				<listitem>
 					<para>
@@ -660,7 +655,7 @@
 		</variablelist>
 	</section>
 
-	<section id="spec-asxml-example">
+	<section xml:id="spec-asxml-example">
 		<title>Example file</title>
 		<para>
 			This is an example AppStream metadata file:

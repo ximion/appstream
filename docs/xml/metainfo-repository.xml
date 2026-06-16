@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Metadata-Repository">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-Metadata-Repository">
 	<title>Repositories</title>
 
-	<section id="spec-repository-introduction">
+	<section xml:id="spec-repository-introduction">
 		<title>Introduction</title>
 		<para>
 			A repository component describes a remote archive of digital content, usually other
@@ -26,7 +21,7 @@
 
 	</section>
 
-	<section id="spec-repository-filespec">
+	<section xml:id="spec-repository-filespec">
 		<title>File specification</title>
 
 		<para>
@@ -42,7 +37,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry id="tag-id-repo">
+			<varlistentry xml:id="tag-id-repo">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -78,7 +73,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-extends-repo">
+			<varlistentry xml:id="tag-extends-repo">
 			<term>&lt;extends/&gt;</term>
 			<listitem>
 				<para>
@@ -96,11 +91,11 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-agreement-repo">
+			<varlistentry xml:id="tag-agreement-repo">
 			<term>&lt;agreement/&gt;</term>
 			<listitem>
 				<para>
-					It is recommended to add a <ulink url="https://www.eugdpr.org/">GDPR</ulink> compliant privacy statement to <literal>repository</literal>
+					It is recommended to add a <link xlink:href="https://www.eugdpr.org/">GDPR</link> compliant privacy statement to <literal>repository</literal>
 					components, in case any personal data is acquired when the repository is accessed.
 				</para>
 				<para>

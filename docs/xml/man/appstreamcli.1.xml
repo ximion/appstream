@@ -1,39 +1,27 @@
-<?xml version='1.0' encoding='ISO-8859-1'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-
-  <!-- Please adjust the date whenever revising the manpage. -->
-  <!ENTITY date        "<date>26 July,2012</date>">
-  <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
-       allowed: see man(7), man(1). -->
-  <!ENTITY package     "appstreamcli">
-  <!ENTITY gnu         "<acronym>GNU</acronym>">
-  <!ENTITY gpl         "&gnu; <acronym>GPL</acronym>">
-]>
-
-<refentry>
-	<refentryinfo>
+<?xml version='1.0' encoding='utf-8'?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2">
+	<info>
 	<title>appstreamcli</title>
 	<copyright>
 		<year>2012-2026</year>
 		<holder>Matthias Klumpp</holder>
 	</copyright>
 	<productname>AppStream</productname>
-	&date;
-	</refentryinfo>
+	<date>26 July,2012</date>
+	</info>
 
 	<refmeta>
 		<refentrytitle>appstreamcli</refentrytitle>
 		<manvolnum>1</manvolnum>
 	</refmeta>
 	<refnamediv>
-		<refname>&package;</refname>
+		<refname>appstreamcli</refname>
 		<refpurpose>Handle AppStream metadata formats and query AppStream data</refpurpose>
 	</refnamediv>
 
        <refsynopsisdiv>
 	       <cmdsynopsis>
-		       <command>&package;</command>
+		       <command>appstreamcli</command>
 		       <group>
 			       <option>COMMAND</option>
 		       </group>
@@ -43,10 +31,10 @@
 	<refsect1>
 		<title>Description</title>
 		<para>
-			This manual page documents briefly the <command>&package;</command> command.
+			This manual page documents briefly the <command>appstreamcli</command> command.
 		</para>
 		<para>
-			<command>&package;</command> is a small helper tool to work with AppStream metadata and
+			<command>appstreamcli</command> is a small helper tool to work with AppStream metadata and
 			access the AppStream component index from the command-line. The AppStream component
 			index contains a list of all available software components for your distribution, matched to their
 			package names.
@@ -54,7 +42,7 @@
 		</para>
 		<para>
 			For more information about the AppStream project and the other components which are part of it, take a look at
-			the AppStream pages at <ulink url="https://www.freedesktop.org/wiki/Distributions/AppStream/">Freedesktop.org</ulink>.
+			the AppStream pages at <link xlink:href="https://www.freedesktop.org/wiki/Distributions/AppStream/">Freedesktop.org</link>.
 		</para>
 	</refsect1>
 
@@ -89,13 +77,13 @@
 						Get components which handle the "text/xml" mediatype.
 					</para>
 					<para>
-						<command>&package;</command> what-provides mediatype "text/xml"
+						<command>appstreamcli</command> what-provides mediatype "text/xml"
 					</para>
 					<para>
 						Get component which provides the "libfoo.so.2" library.
 					</para>
 					<para>
-						<command>&package;</command> what-provides lib libfoo.so.2
+						<command>appstreamcli</command> what-provides lib libfoo.so.2
 					</para>
 				</listitem>
 			</varlistentry>
@@ -240,7 +228,7 @@
 					</para>
 					<para>
 						If a version number, a comparison operator and another version number are passed in as parameter, the result of the comparison
-						operation will be printed to stdout, and <command>&package;</command> will exit with a non-zero exit status in case the comparison
+						operation will be printed to stdout, and <command>appstreamcli</command> will exit with a non-zero exit status in case the comparison
 						failed.
 						The comparison operator can be one of the following:
 					</para>
@@ -267,8 +255,8 @@
 					</para>
 					<para>
 						The first <replaceable>TYPE</replaceable> parameter is the name of an AppStream component type. For a complete list check out
-						<ulink url="https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html">the documentation</ulink> or the help output
-						of <command>&package;</command> for this subcommand.
+						<link xlink:href="https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html">the documentation</link> or the help output
+						of <command>appstreamcli</command> for this subcommand.
 					</para>
 				</listitem>
 			</varlistentry>
@@ -325,7 +313,7 @@
 					</para>
 					<para>
 						The <option>--format</option> option can be used to explicitly specify the output format ("yaml" or "text"). If it is not set,
-						<command>&package;</command> will guess which format is most suitable.
+						<command>appstreamcli</command> will guess which format is most suitable.
 					</para>
 				</listitem>
 			</varlistentry>
@@ -372,7 +360,7 @@
 					<para>Do not access the network when validating metadata.</para>
 					<para>
 						The same effect can be achieved by setting the <envar>AS_VALIDATE_NONET</envar> environment variable
-						before running <command>&package;</command>.
+						before running <command>appstreamcli</command>.
 					</para>
 				</listitem>
 			</varlistentry>
@@ -380,7 +368,7 @@
 			<varlistentry>
 				<term><option>--version</option></term>
 				<listitem>
-					<para>Display the version number of &package;</para>
+					<para>Display the version number of <command>appstreamcli</command></para>
 				</listitem>
 			</varlistentry>
 

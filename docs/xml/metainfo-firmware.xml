@@ -1,17 +1,12 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Metadata-Firmware">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-Metadata-Firmware">
 	<title>Firmware</title>
 
-	<section id="spec-firmware-introduction">
+	<section xml:id="spec-firmware-introduction">
 		<title>Introduction</title>
 		<para>
 			Device firmware can be accompanied by AppStream upstream metadata, to be incorporated
-			by a distribution. Tools like <ulink url="https://github.com/hughsie/fwupd">fwupd</ulink> make
+			by a distribution. Tools like <link xlink:href="https://github.com/hughsie/fwupd">fwupd</link> make
 			use of this metadata to automatically update flashed firmware of devices found in the machine.
 			Additionally, this component type can also be used for firmware which is loaded onto the device at runtime.
 		</para>
@@ -20,7 +15,7 @@
 		</para>
 	</section>
 
-	<section id="spec-firmware-example">
+	<section xml:id="spec-firmware-example">
 		<title>Example file</title>
 		<para>
 			A firmware metainfo file should look like this:
@@ -66,12 +61,12 @@
 
 		<para>
 			You can find additional information on how to create a complete firmware package for flashed firmware upstream in
-			the <ulink url="https://github.com/hughsie/fwupd/blob/master/README.md">README document of fwupd</ulink>.
+			the <link xlink:href="https://github.com/hughsie/fwupd/blob/master/README.md">README document of fwupd</link>.
 		</para>
 
 	</section>
 
-	<section id="spec-firmware-filespec">
+	<section xml:id="spec-firmware-filespec">
 		<title>File specification</title>
 		<para>
 			Note that the XML root must have the <literal>type</literal> property set to <code>firmware</code>.
@@ -79,7 +74,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry id="tag-id-firmware">
+			<varlistentry xml:id="tag-id-firmware">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -90,7 +85,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-firmware-releases">
+			<varlistentry xml:id="tag-firmware-releases">
 			<term>&lt;releases/&gt;</term>
 			<listitem>
 				<para>
@@ -120,7 +115,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-firmware-provides">
+			<varlistentry xml:id="tag-firmware-provides">
 			<term>&lt;provides/&gt; ↪ &lt;firmware/&gt;</term>
 			<listitem>
 				<para>

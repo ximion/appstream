@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Metadata-InputMethod">
+<section xmlns="http://docbook.org/ns/docbook" version="5.2" xml:id="sect-Metadata-InputMethod">
 	<title>Input Methods</title>
 
-	<section id="spec-imdata-introduction">
+	<section xml:id="spec-imdata-introduction">
 		<title>Introduction</title>
 		<para>
 			It is a nice feature for a software center to allows users the installation of additional input methods.
@@ -22,7 +17,7 @@
 		</para>
 	</section>
 
-	<section id="spec-imdata-example">
+	<section xml:id="spec-imdata-example">
 		<title>Example file</title>
 		<para>
 			The input method metainfo file should look like this:
@@ -48,7 +43,7 @@
 </component>]]></programlisting>
 	</section>
 
-	<section id="spec-imdata-filespec">
+	<section xml:id="spec-imdata-filespec">
 		<title>File specification</title>
 		<para>
 			Note that the XML root must have the <literal>type</literal> property set to <literal>inputmethod</literal>.
@@ -56,7 +51,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry id="tag-id-inputmethod">
+			<varlistentry xml:id="tag-id-inputmethod">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>

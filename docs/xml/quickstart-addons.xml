@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Quickstart-Addons">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-Quickstart-Addons">
 	<title>For upstream projects providing addons</title>
 
-	<section id="qsr-addon-introduction">
+	<section xml:id="qsr-addon-introduction">
 		<title>Introduction</title>
 		<para>
 			Some software installed on the system is extensible via addons. To allow the user to install addons for
@@ -23,12 +18,12 @@
 		<tip>
 			<para>
 				To get you started quickly, the AppStream project provides a web-based form to quickly generate valid metainfo XML for some of the most
-				common use cases. Check it out on <ulink url="https://www.freedesktop.org/software/appstream/metainfocreator/#/">freedesktop.org/software/appstream/metainfocreator</ulink>.
+				common use cases. Check it out on <link xlink:href="https://www.freedesktop.org/software/appstream/metainfocreator/#/">freedesktop.org/software/appstream/metainfocreator</link>.
 			</para>
 		</tip>
 	</section>
 
-	<section id="qsr-addon-example">
+	<section xml:id="qsr-addon-example">
 		<title>Example file</title>
 		<para>
 			The file should contain something like this:
@@ -46,7 +41,7 @@
 </component>]]></programlisting>
 	</section>
 
-	<section id="qsr-addon-content">
+	<section xml:id="qsr-addon-content">
 		<title>Metadata file contents</title>
 		<para>
 			This is a list of tags you might want to define for your application. For a full list of possible tags, take a look at
@@ -158,7 +153,7 @@
 					Permissible license codes include:
 				</para>
 				<para>
-					The license codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+					The license codes correspond to the identifiers found at the <link xlink:href="http://spdx.org/licenses/">SPDX OpenSource License Registry</link>.
 					Take a look at <xref linkend="tag-metadata_license"/> for more details about this tag.
 				</para>
 			</listitem>

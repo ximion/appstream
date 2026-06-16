@@ -1,16 +1,11 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Metadata-IconTheme">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-Metadata-IconTheme">
 	<title>Icon Themes</title>
 
-	<section id="spec-iconthemedata-introduction">
+	<section xml:id="spec-iconthemedata-introduction">
 		<title>Introduction</title>
 		<para>
-			Icon themes as defined in the <ulink url="https://specifications.freedesktop.org/icon-theme-spec/latest/"> Freedesktop Icon Theme Specification</ulink>
+			Icon themes as defined in the <link xlink:href="https://specifications.freedesktop.org/icon-theme-spec/latest/"> Freedesktop Icon Theme Specification</link>
 			can contain <literal>icon-theme</literal> metainfo files to be installed by software centers.
 			This metainfo specification describes how metadata for icon themes should be structured.
 		</para>
@@ -22,7 +17,7 @@
 		</para>
 	</section>
 
-	<section id="spec-iconthemedata-example">
+	<section xml:id="spec-iconthemedata-example">
 		<title>Example file</title>
 		<para>
 			A minimal icon theme metainfo file can look like this:
@@ -58,7 +53,7 @@
 </component>]]></programlisting>
 	</section>
 
-	<section id="spec-iconthemedata-filespec">
+	<section xml:id="spec-iconthemedata-filespec">
 		<title>File specification</title>
 		<para>
 			Note that the XML root must have the <literal>type</literal> property set to <code>icon-theme</code>.
@@ -129,7 +124,7 @@
 				</para>
 				<para>
 					A good example on how that may look like is
-					<ulink url="https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/master/preview.png">the preview image of the Papirus icon theme</ulink>.
+					<link xlink:href="https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/master/preview.png">the preview image of the Papirus icon theme</link>.
 				</para>
 				<para>
 					See the generic component <xref linkend="tag-screenshots"/> for a detailed description of this tag.

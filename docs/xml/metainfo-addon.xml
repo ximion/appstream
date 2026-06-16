@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Metadata-Addon">
+<section xmlns="http://docbook.org/ns/docbook" version="5.2" xml:id="sect-Metadata-Addon">
 	<title>Addons</title>
 
-	<section id="spec-addondata-introduction">
+	<section xml:id="spec-addondata-introduction">
 		<title>Introduction</title>
 		<para>
 			Some components are not standalone, but rather extend existing software installed on the system and can only be used
@@ -19,7 +14,7 @@
 		</para>
 	</section>
 
-	<section id="spec-addondata-example">
+	<section xml:id="spec-addondata-example">
 		<title>Example file</title>
 		<para>
 			A addon metainfo file should look like this:
@@ -37,7 +32,7 @@
 </component>]]></programlisting>
 	</section>
 
-	<section id="spec-addondata-filespec">
+	<section xml:id="spec-addondata-filespec">
 		<title>File specification</title>
 		<para>
 			Note that the XML root must have the <literal>type</literal> property set to <code>addon</code>.
@@ -45,7 +40,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry id="tag-id-addon">
+			<varlistentry xml:id="tag-id-addon">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -54,7 +49,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-extends">
+			<varlistentry xml:id="tag-extends">
 			<term>&lt;extends/&gt;</term>
 			<listitem>
 				<para>

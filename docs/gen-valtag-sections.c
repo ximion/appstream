@@ -52,7 +52,7 @@ make_valtag_entry (const gchar *ns_prefix,
 	g_autofree gchar *explanation_xml = NULL;
 
 	const gchar *entry_tmpl =
-	    "			<varlistentry id=\"{{prefix}}-{{tag}}\">\n"
+	    "			<varlistentry xml:id=\"{{prefix}}-{{tag}}\">\n"
 	    "			<term>{{tag}}</term>\n"
 	    "			<listitem>\n"
 	    "				<para>Severity: <emphasis>{{severity}}</emphasis></para>\n"

@@ -1,39 +1,31 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE authorgroup PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-<authorgroup>
+<authorgroup xmlns="http://docbook.org/ns/docbook" version="5.2">
 	<author>
-		<firstname>Matthias</firstname>
-		<surname>Klumpp</surname>
+		<personname><firstname>Matthias</firstname><surname>Klumpp</surname></personname>
 		<affiliation>
 			<orgname>Debian</orgname>
 		</affiliation>
 		<email>mak@debian.org</email>
 	</author>
-	<author>
-		<firstname>Michael</firstname>
-		<surname>Vogt</surname>
+	<othercredit class="other" otherclass="contributor">
+		<personname><firstname>Michael</firstname><surname>Vogt</surname></personname>
 		<affiliation>
 			<orgname>Canonical / Ubuntu / Debian</orgname>
 		</affiliation>
 		<email>mvo@ubuntu.com</email>
-	</author>
-	<author>
-		<firstname>Richard</firstname>
-		<surname>Hughes</surname>
+	</othercredit>
+	<othercredit class="other" otherclass="contributor">
+		<personname><firstname>Richard</firstname><surname>Hughes</surname></personname>
 		<affiliation>
 			<orgname>Fedora / Red Hat</orgname>
 		</affiliation>
 		<email>richard@hughsie.com</email>
-	</author>
-	<author>
-		<firstname>Vincent</firstname>
-		<surname>Untz</surname>
+	</othercredit>
+	<othercredit class="other" otherclass="contributor">
+		<personname><firstname>Vincent</firstname><surname>Untz</surname></personname>
 		<affiliation>
 			<orgname>OpenSUSE</orgname>
 		</affiliation>
 		<email>vuntz@opensuse.org</email>
-	</author>
+	</othercredit>
 </authorgroup>

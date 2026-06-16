@@ -1,25 +1,14 @@
-<?xml version='1.0' encoding='ISO-8859-1'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-
-  <!ENTITY date        "<date>28 Aug,2020</date>">
-  <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
-       allowed: see man(7), man(1). -->
-  <!ENTITY package     "appstreamcli compose">
-  <!ENTITY gnu         "<acronym>GNU</acronym>">
-  <!ENTITY gpl         "&gnu; <acronym>GPL</acronym>">
-]>
-
-<refentry>
-	<refentryinfo>
+<?xml version='1.0' encoding='utf-8'?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2">
+	<info>
 	<title>appstreamcli compose</title>
 	<copyright>
 		<year>2020-2026</year>
 		<holder>Matthias Klumpp</holder>
 	</copyright>
 	<productname>AppStream</productname>
-	&date;
-	</refentryinfo>
+	<date>28 Aug,2020</date>
+	</info>
 
 	<refmeta>
 		<refentrytitle>appstreamcli compose</refentrytitle>
@@ -32,7 +21,7 @@
 
        <refsynopsisdiv>
 	       <cmdsynopsis>
-		       <command>&package;</command>
+		       <command>appstreamcli compose</command>
 		       <group>
 			       <option>COMMAND</option>
 		       </group>
@@ -42,10 +31,10 @@
 	<refsect1>
 		<title>Description</title>
 		<para>
-			This manual page documents briefly the <command>&package;</command> command.
+			This manual page documents briefly the <command>appstreamcli compose</command> command.
 		</para>
 		<para>
-			The <command>&package;</command> tool is used to construct AppStream metadata catalogs from directory trees.
+			The <command>appstreamcli compose</command> tool is used to construct AppStream metadata catalogs from directory trees.
 			The tool will also perform many related metadata generation actions, like resizing icons and
 			screenshots and merging in data from referenced desktop-entry files as well as translation status
 			information.
@@ -55,12 +44,12 @@
 			generator like <command>appstream-generator</command>.
 		</para>
 		<para>
-			In order for the <command>&package;</command> command to be available, you may need to install the
+			In order for the <command>appstreamcli compose</command> command to be available, you may need to install the
 			optional compose module for <command>appstreamcli</command> first.
 		</para>
 		<para>
 			For more information about the AppStream project and the other components which are part of it, take a look at
-			the AppStream pages at <ulink url="https://www.freedesktop.org/wiki/Distributions/AppStream/">Freedesktop.org</ulink>.
+			the AppStream pages at <link xlink:href="https://www.freedesktop.org/wiki/Distributions/AppStream/">Freedesktop.org</link>.
 		</para>
 	</refsect1>
 
@@ -256,7 +245,7 @@
 			<varlistentry>
 				<term><option>--version</option></term>
 				<listitem>
-					<para>Display the version number of &package;</para>
+					<para>Display the version number of <command>appstreamcli compose</command></para>
 				</listitem>
 			</varlistentry>
 

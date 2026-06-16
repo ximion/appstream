@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-AppStream-Misc-URIHandler">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-AppStream-Misc-URIHandler">
 	<title>URI Handler</title>
 
-	<section id="spec-asuri-introduction">
+	<section xml:id="spec-asuri-introduction">
 		<title>Introduction</title>
 		<para>
 			In order to allow installation of AppStream components from websites, software-centers implementing AppStream
@@ -20,7 +15,7 @@
 		</para>
 	</section>
 
-	<section id="spec-asuri-schema">
+	<section xml:id="spec-asuri-schema">
 		<title>URI schema</title>
 		<para>
 			Software centers handling <literal>appstream:</literal> URIs should provide a handler for the <literal>x-scheme-handler/appstream</literal>
@@ -43,7 +38,7 @@
 <a href="appstream:org.example.foo?alt=com.github.darthvader.foo,net.launchpad.vader.foo">Install Foo</a>]]></programlisting>
 	</section>
 
-	<section id="spec-asuri-button">
+	<section xml:id="spec-asuri-button">
 		<title>AppStream Buttons</title>
 		<para>
 			If you want to allow users to open your software in their local software center from your website, you might want to use
@@ -55,7 +50,7 @@
 			</imageobject>
 			<caption>
 				<para>
-					<ulink url="https://github.com/ximion/appstream/blob/master/docs/images/src/svg/appstream-button1.svg">SVG</ulink>
+					<link xlink:href="https://github.com/ximion/appstream/blob/master/docs/images/src/svg/appstream-button1.svg">SVG</link>
 				</para>
 			</caption>
 		</mediaobject>
@@ -65,7 +60,7 @@
 			</imageobject>
 			<caption>
 				<para>
-					<ulink url="https://github.com/ximion/appstream/blob/master/docs/images/src/svg/appstream-button2.svg">SVG</ulink>
+					<link xlink:href="https://github.com/ximion/appstream/blob/master/docs/images/src/svg/appstream-button2.svg">SVG</link>
 				</para>
 			</caption>
 		</mediaobject>

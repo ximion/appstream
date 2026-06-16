@@ -1,15 +1,10 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE bookinfo PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-<bookinfo id="book-AppStream-AppStream">
+<info xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.2" xml:id="book-AppStream-AppStream">
 	<title>AppStream</title>
 	<subtitle>Infrastructure for distro-agnostic software-centers and universal software component metadata</subtitle>
 	<productname>AppStream</productname>
 	<productnumber>1.0</productnumber>
 	<edition>1</edition>
-	<pubsnumber>0</pubsnumber>
 	<abstract>
 		<para>
 			AppStream is a collaborative effort for enhancing the way we interact with the software
@@ -23,15 +18,17 @@
 		</para>
 		<para>
 			You can find a C/GLib based reference implementation of the full specification at
-			<ulink url="https://github.com/ximion/appstream">github.com/ximion/appstream</ulink> and report bugs about the implementation
-			as well as the specification itself at the <ulink url="https://github.com/ximion/appstream/issues">issue tracker</ulink>.
+			<link xlink:href="https://github.com/ximion/appstream">github.com/ximion/appstream</link> and report bugs about the implementation
+			as well as the specification itself at the <link xlink:href="https://github.com/ximion/appstream/issues">issue tracker</link>.
 			The project also provides a web form for the simple creation of metainfo XML files for upstream maintainers at
-			<ulink url="https://www.freedesktop.org/software/appstream/metainfocreator/#/">freedesktop.org/software/appstream/metainfocreator</ulink>.
+			<link xlink:href="https://www.freedesktop.org/software/appstream/metainfocreator/#/">freedesktop.org/software/appstream/metainfocreator</link>.
 		</para>
 	</abstract>
-	<corpauthor>
-		<inlinegraphic fileref="appstream-logo.svg" width="64px" />
-	</corpauthor>
-	<xi:include href="Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
-	<xi:include href="Author_Group.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
-</bookinfo>
+	<mediaobject>
+		<imageobject>
+			<imagedata fileref="appstream-logo.svg" width="64px" />
+		</imageobject>
+	</mediaobject>
+	<xi:include href="Legal_Notice.xml" />
+	<xi:include href="Author_Group.xml" />
+</info>

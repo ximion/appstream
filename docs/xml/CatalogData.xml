@@ -1,9 +1,5 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-<chapter id="chap-CatalogData">
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.2" xml:id="chap-CatalogData">
 	<title>Catalog Metadata</title>
 	<para>
 		Additionally to the metainfo files shipped by upstream projects, AppStream also provides an XML and YAML format
@@ -13,8 +9,8 @@
 		This chapter documents this catalog metadata format and icon cache used on the client side.
 	</para>
 
-	<xi:include href="catalog-xmldata.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
-	<xi:include href="catalog-yamldata.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
-	<xi:include href="catalog-iconcache.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="catalog-xmldata.xml" />
+	<xi:include href="catalog-yamldata.xml" />
+	<xi:include href="catalog-iconcache.xml" />
 
 </chapter>

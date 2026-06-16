@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Metadata-GenericComponent">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-Metadata-GenericComponent">
 	<title>Generic Component</title>
 
-	<section id="spec-component-introduction">
+	<section xml:id="spec-component-introduction">
 	<title>Introduction</title>
 	<para>
 		For a distribution, it is good to know more about the content of a package. Which public interfaces (libraries? Python modules?) does it provide? Does it contain codecs? Does it
@@ -26,7 +21,7 @@
 	</para>
 	</section>
 
-	<section id="spec-component-location">
+	<section xml:id="spec-component-location">
 	<title>Filesystem locations</title>
 
 	<para>
@@ -52,7 +47,7 @@
 
 	</section>
 
-	<section id="spec-component-filespec">
+	<section xml:id="spec-component-filespec">
 	<title>XML Specification</title>
 
 	<para>
@@ -64,14 +59,14 @@
 		In addition to the <literal>type</literal> attribute denoting the component type in case the component is not a <code>generic</code> component,
 		the <literal>component</literal> tag may also have a <literal>date_eol</literal> attribute that sets a date when the component stops to
 		be supported entirely (this may be the case for superseded legacy software like <code>org.python.python2</code>). The attribute value can be any
-		complete date or time in <ulink url="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</ulink>.
+		complete date or time in <link xlink:href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</link>.
 	</para>
 	<para>
 		All possible tags which can be used with components of all types are:
 	</para>
 
 	<variablelist>
-		<varlistentry id="tag-id-generic">
+		<varlistentry xml:id="tag-id-generic">
 		<term>&lt;id/&gt;</term>
 		<listitem>
 		<para>
@@ -105,7 +100,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-metadata_license">
+		<varlistentry xml:id="tag-metadata_license">
 		<term>&lt;metadata_license/&gt;</term>
 		<listitem>
 		<para>
@@ -119,7 +114,7 @@
 			(only <code>AND</code> and <code>OR</code> operators allowed) allowing the use of the metadata file under one of the recognized licenses.
 		</para>
 		<para>
-			We do recognize a set of <ulink url="https://en.wikipedia.org/wiki/Permissive_software_licence">permissive</ulink> licenses that have been vetted
+			We do recognize a set of <link xlink:href="https://en.wikipedia.org/wiki/Permissive_software_licence">permissive</link> licenses that have been vetted
 			for mutual compatibility. This is important in order to allow the metainfo metadata to be combined with arbitrary other data in one file.
 			While copyleft licenses like the GPL are great for code, it is not feasible to test every copyleft license for mutual compatibility and compliance
 			when combining metainfo metadata with other data into one larger assembly fully automatically.
@@ -172,15 +167,15 @@
 			</listitem>
 		</itemizedlist>
 		<para>
-			The license codes correspond to the identifiers found at the <ulink url="https://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+			The license codes correspond to the identifiers found at the <link xlink:href="https://spdx.org/licenses/">SPDX OpenSource License Registry</link>.
 			For instance, <literal>CC-BY-SA-3.0</literal> corresponds to the license at
-			<ulink url="https://creativecommons.org/licenses/by-sa/3.0/">creativecommons.org/licenses/by-sa/3.0</ulink>.
+			<link xlink:href="https://creativecommons.org/licenses/by-sa/3.0/">creativecommons.org/licenses/by-sa/3.0</link>.
 			If you are looking for the simplest license to use for your metadata, using the <code>FSFAP</code> license is suggested.
 		</para>
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-name">
+		<varlistentry xml:id="tag-name">
 		<term>&lt;name/&gt;</term>
 		<listitem>
 			<para>
@@ -189,7 +184,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-summary">
+		<varlistentry xml:id="tag-summary">
 		<term>&lt;summary/&gt;</term>
 		<listitem>
 			<para>
@@ -199,7 +194,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-icon">
+		<varlistentry xml:id="tag-icon">
 		<term>&lt;icon/&gt;</term>
 		<listitem>
 			<para>
@@ -228,7 +223,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-description">
+		<varlistentry xml:id="tag-description">
 		<term>&lt;description/&gt;</term>
 		<listitem>
 		<para>
@@ -269,7 +264,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-categories">
+		<varlistentry xml:id="tag-categories">
 				<term>&lt;categories/&gt;</term>
 				<listitem>
 					<para>
@@ -277,7 +272,7 @@
 						is associated with.
 						This tag is usually applied to components of type <literal>desktop-application</literal>, but can be used with any component.
 						A list of valid category names can be found in the
-						<ulink url="https://specifications.freedesktop.org/menu-spec/latest/category-registry.html">Freedesktop menu specification</ulink>.
+						<link xlink:href="https://specifications.freedesktop.org/menu-spec/latest/category-registry.html">Freedesktop menu specification</link>.
 						Example:
 					</para>
 					<programlisting language="XML"><![CDATA[<categories>
@@ -287,7 +282,7 @@
 				</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-keywords">
+		<varlistentry xml:id="tag-keywords">
 				<term>&lt;keywords/&gt;</term>
 				<listitem>
 					<para>
@@ -308,7 +303,7 @@
 				</listitem>
 			</varlistentry>
 
-		<varlistentry id="tag-url">
+		<varlistentry xml:id="tag-url">
 		<term>&lt;url/&gt;</term>
 		<listitem>
 			<para>
@@ -411,7 +406,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-launchable">
+		<varlistentry xml:id="tag-launchable">
 		<term>&lt;launchable/&gt;</term>
 		<listitem>
 		<para>
@@ -428,7 +423,7 @@
                     <listitem>
                       <para>
                         The application can be launched via a desktop file. The value of the tag is a
-			<ulink url="https://specifications.freedesktop.org/desktop-entry-spec/latest/file-naming.html#desktop-file-id">desktop-file id</ulink>.
+			<link xlink:href="https://specifications.freedesktop.org/desktop-entry-spec/latest/file-naming.html#desktop-file-id">desktop-file id</link>.
                       </para>
                       <para>
                         In case a software component has multiple launchable entries,
@@ -468,10 +463,10 @@
                     <listitem>
                       <para>
                         The software can be launched from the menus of
-                        the <ulink url="https://cockpit-project.org">Cockpit</ulink> admin interface.
-                        The value of the tag is the name of a <ulink
-                        url="https://cockpit-project.org/guide/latest/packages.html">Cockpit
-                        package</ulink>.
+                        the <link xlink:href="https://cockpit-project.org">Cockpit</link> admin interface.
+                        The value of the tag is the name of a <link
+                        xlink:href="https://cockpit-project.org/guide/latest/packages.html">Cockpit
+                        package</link>.
                       </para>
                     </listitem>
                   </varlistentry>
@@ -492,7 +487,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-releases">
+		<varlistentry xml:id="tag-releases">
 		<term>&lt;releases/&gt;</term>
 		<listitem>
 			<para>
@@ -546,7 +541,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-provides">
+		<varlistentry xml:id="tag-provides">
 		<term>&lt;provides/&gt;</term>
 		<listitem>
 			<para>
@@ -558,7 +553,7 @@
 			A <literal>provides</literal> tag contains a number of children describing the type and name of the provided public interface items.
 			It is suggested that the build system auto-generates this tag and its children.
 			Currently allowed item types are listed below. If you miss something,
-			<ulink url="https://github.com/ximion/appstream/issues/new">file a bug against AppStream</ulink> so we can add the new type.
+			<link xlink:href="https://github.com/ximion/appstream/issues/new">file a bug against AppStream</link> so we can add the new type.
 			</para>
 
 			<variablelist>
@@ -674,7 +669,7 @@
 
 		</varlistentry>
 
-		<varlistentry id="tag-relations">
+		<varlistentry xml:id="tag-relations">
 		<term>&lt;requires/&gt;, &lt;recommends/&gt; &amp; &lt;supports/&gt;</term>
 		<listitem>
 			<para>
@@ -723,7 +718,7 @@
 			</para>
 
 			<variablelist>
-			<varlistentry id="tag-relations-id">
+			<varlistentry xml:id="tag-relations-id">
 				<term>&lt;id/&gt;</term>
 				<listitem>
 				<para>
@@ -736,7 +731,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-relations-modalias">
+			<varlistentry xml:id="tag-relations-modalias">
 				<term>&lt;modalias/&gt;</term>
 				<listitem>
 				<para>
@@ -750,7 +745,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-relations-kernel">
+			<varlistentry xml:id="tag-relations-kernel">
 				<term>&lt;kernel/&gt;</term>
 				<listitem>
 				<para>
@@ -764,7 +759,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-relations-memory">
+			<varlistentry xml:id="tag-relations-memory">
 				<term>&lt;memory/&gt;</term>
 				<listitem>
 				<para>
@@ -781,14 +776,14 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-relations-firmware">
+			<varlistentry xml:id="tag-relations-firmware">
 				<term>&lt;firmware/&gt;</term>
 				<listitem>
 				<para>
 					Depend on a specific device firmware. The value of this tag should either be a name like <literal>bootloader</literal>, be
 					empty to reference the firmware itself described by the <literal>firmware</literal>-type component this tag is contained in,
 					or contain a GUID.
-					This tag is commonly used and interpreted by the <ulink url="https://fwupd.org/">LVFS</ulink>.
+					This tag is commonly used and interpreted by the <link xlink:href="https://fwupd.org/">LVFS</link>.
 					Example:
 				</para>
 				<programlisting language="XML"><![CDATA[<requires>
@@ -800,19 +795,19 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-relations-hardware">
+			<varlistentry xml:id="tag-relations-hardware">
 				<term>&lt;hardware/&gt;</term>
 				<listitem>
 				<para>
 					Require, recommend or support a specific system hardware configuration. The value of this item is a
-					<ulink url="https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/using-chids">Computer Hardware ID (CHID)</ulink>
+					<link xlink:href="https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/using-chids">Computer Hardware ID (CHID)</link>
 					without any surrounding braces.
 				</para>
 				<para>
 					On Linux systems, the CHIDs of the system can be queried using the <command>sudo fwupdtool hwids</command> command.
 				</para>
 				<para>
-					This tag is commonly used and interpreted by the <ulink url="https://fwupd.org/">LVFS</ulink> and fwupd tool.
+					This tag is commonly used and interpreted by the <link xlink:href="https://fwupd.org/">LVFS</link> and fwupd tool.
 					Example:
 				</para>
 				<programlisting language="XML"><![CDATA[<requires>
@@ -822,7 +817,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-relations-control">
+			<varlistentry xml:id="tag-relations-control">
 				<term>&lt;control/&gt;</term>
 				<listitem>
 				<para>
@@ -878,7 +873,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-relations-display_length">
+			<varlistentry xml:id="tag-relations-display_length">
 				<term>&lt;display_length/&gt;</term>
 				<listitem>
 				<para>
@@ -961,7 +956,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-relations-internet">
+			<varlistentry xml:id="tag-relations-internet">
 				<term>&lt;internet/&gt;</term>
 				<listitem>
 				<para>
@@ -1038,7 +1033,7 @@
 
 		</varlistentry>
 
-		<varlistentry id="tag-replaces">
+		<varlistentry xml:id="tag-replaces">
 		<term>&lt;replaces/&gt;</term>
 		<listitem>
 			<para>
@@ -1068,7 +1063,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-mimetypes">
+		<varlistentry xml:id="tag-mimetypes">
 		<term>&lt;mimetypes/&gt;</term>
 		<listitem>
 			<para>
@@ -1084,7 +1079,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-project_group">
+		<varlistentry xml:id="tag-project_group">
 		<term>&lt;project_group/&gt;</term>
 		<listitem>
 		<para>
@@ -1101,7 +1096,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-compulsory_for_desktop">
+		<varlistentry xml:id="tag-compulsory_for_desktop">
 		<term>&lt;compulsory_for_desktop/&gt;</term>
 		<listitem>
 			<para>
@@ -1118,18 +1113,18 @@
 				The distributor decides which components should be made compulsory, however it is generally a good idea to follow upstream's recommendations on that matter.
 			</para>
 			<para>
-				A list of all allowed values for this tag is defined in the <ulink url="https://specifications.freedesktop.org/menu-spec/latest/onlyshowin-registry.html">XDG Menu Specification</ulink>.
+				A list of all allowed values for this tag is defined in the <link xlink:href="https://specifications.freedesktop.org/menu-spec/latest/onlyshowin-registry.html">XDG Menu Specification</link>.
 				Software center applications will only recognize these values.
 			</para>
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-project_license">
+		<varlistentry xml:id="tag-project_license">
 		<term>&lt;project_license/&gt;</term>
 		<listitem>
 			<para>
 				The <code>&lt;project_license/&gt;</code> tag is indicating the license of the component (application/library/addon/font/etc.) described in the metadata document.
-				It should be an <ulink url="https://spdx.org/specifications">SPDX license expression</ulink>. Please note the SPDX license IDs are case-sensitive in AppStream.
+				It should be an <link xlink:href="https://spdx.org/specifications">SPDX license expression</link>. Please note the SPDX license IDs are case-sensitive in AppStream.
 				Possible values include:
 				<itemizedlist>
 					<listitem><para><literal>GPL-2.0</literal></para></listitem>
@@ -1139,7 +1134,7 @@
 					<listitem><para><literal>LicenseRef-proprietary=https://example.com/mylicense.html</literal></para></listitem>
 				</itemizedlist>
 				A full list of recognized licenses and their identifiers can be found at the
-				<ulink url="https://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+				<link xlink:href="https://spdx.org/licenses/">SPDX OpenSource License Registry</link>.
 			</para>
 			<para>
 				Custom licenses which are not in the SPDX registry, like proprietary licenses, can be denoted using the <code>LicenseRef</code> notation.
@@ -1166,7 +1161,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-developer">
+		<varlistentry xml:id="tag-developer">
 		<term>&lt;developer/&gt;</term>
 		<listitem>
 		<para>
@@ -1187,7 +1182,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-developer_name">
+		<varlistentry xml:id="tag-developer_name">
 		<term>&lt;developer_name/&gt;</term>
 		<listitem>
 		<para>
@@ -1203,7 +1198,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-screenshots">
+		<varlistentry xml:id="tag-screenshots">
 		<term>&lt;screenshots/&gt;</term>
 		<listitem>
 		<para>
@@ -1220,7 +1215,7 @@
 			where <literal>{env}</literal> is a desktop-environment name in lowercase and <literal>{style}</literal> is a specific style
 			that the desktop environment recognizes, e.g. <code>light</code> and <code>dark</code> for light and dark themes.
 			The <literal>:{style}</literal> part of the environment property may be omitted if the environment's default style is used.
-			See <ulink url="https://github.com/ximion/appstream/blob/main/data/desktop-style-ids.txt">desktop-style-ids.txt</ulink> for a list
+			See <link xlink:href="https://github.com/ximion/appstream/blob/main/data/desktop-style-ids.txt">desktop-style-ids.txt</link> for a list
 			of currently recognized environment and style combinations.
 		</para>
 		<para>
@@ -1284,9 +1279,9 @@
 		</para>
 		<para>
 			The value of the <code>&lt;video/&gt;</code> tag is a direct HTTP/HTTPS URL to a video uploaded to a public location on the web. The video must be in a
-			<ulink url="https://www.matroska.org/">Matroska (.mkv)</ulink> or <ulink url="https://www.webmproject.org/">WebM</ulink> container and use either the
-			<ulink url="https://www.webmproject.org/vp9/">VP9</ulink> or <ulink url="https://aomedia.org/av1-features/">AV1</ulink> codec.
-			The video should ideally work without any audio, but if audio is needed, the <ulink url="https://opus-codec.org/">Opus</ulink> codec should be used.
+			<link xlink:href="https://www.matroska.org/">Matroska (.mkv)</link> or <link xlink:href="https://www.webmproject.org/">WebM</link> container and use either the
+			<link xlink:href="https://www.webmproject.org/vp9/">VP9</link> or <link xlink:href="https://aomedia.org/av1-features/">AV1</link> codec.
+			The video should ideally work without any audio, but if audio is needed, the <link xlink:href="https://opus-codec.org/">Opus</link> codec should be used.
 			Software centers may still play the video without any sound though. Additionally, AppStream metadata repositories (like in distributions such as Fedora and Debian)
 			may impose size limitations to video files delivered by their CDN, so it is recommended to keep the video file size below 10MiB.
 			There is also a chance that software centers do not display any video at all, so a video must never be in a default screenshot.
@@ -1366,7 +1361,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-translation">
+		<varlistentry xml:id="tag-translation">
 		<term>&lt;translation/&gt;</term>
 		<listitem>
 		<para>
@@ -1405,7 +1400,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-suggests">
+		<varlistentry xml:id="tag-suggests">
 		<term>&lt;suggests/&gt;</term>
 		<listitem>
 		<para>
@@ -1430,7 +1425,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-content_rating">
+		<varlistentry xml:id="tag-content_rating">
 		<term>&lt;content_rating/&gt;</term>
 		<listitem>
 		<para>
@@ -1439,7 +1434,7 @@
 		</para>
 		<para>
 			The tag must have a <literal>type</literal> property, indicating the type of the rating system that is used. At the moment, the
-			<ulink url="https://hughsie.github.io/oars/">Open Age Ratings Service</ulink> (value <code>oars-1.0</code>) is supported natively, but more services might be
+			<link xlink:href="https://hughsie.github.io/oars/">Open Age Ratings Service</link> (value <code>oars-1.0</code>) is supported natively, but more services might be
 			added in future.
 		</para>
 		<para>
@@ -1457,7 +1452,7 @@
 			for age ratings and no age restrictions apply.
 		</para>
 		<para>
-			The website of the Open Age Ratings Service provides <ulink url="https://hughsie.github.io/oars/generate.html">an online form</ulink> which will automatically generate AppStream
+			The website of the Open Age Ratings Service provides <link xlink:href="https://hughsie.github.io/oars/generate.html">an online form</link> which will automatically generate AppStream
 			compatible metadata based on a set of questions answered about the content.
 		</para>
 		<para>
@@ -1470,7 +1465,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-agreement">
+		<varlistentry xml:id="tag-agreement">
 		<term>&lt;agreement/&gt;</term>
 		<listitem>
 		<para>
@@ -1484,7 +1479,7 @@
 		</para>
 		<itemizedlist>
 			<listitem><para><literal>eula</literal> - an  end-user license agreement the user has to accept before installing the software.</para></listitem>
-			<listitem><para><literal>privacy</literal> - a privacy statement for the software, usually a <ulink url="https://www.eugdpr.org/">GDPR</ulink> compliant statement</para></listitem>
+			<listitem><para><literal>privacy</literal> - a privacy statement for the software, usually a <link xlink:href="https://www.eugdpr.org/">GDPR</link> compliant statement</para></listitem>
 		</itemizedlist>
 		<para>
 			The <code>&lt;agreement/&gt;</code> tag must have a <literal>version_id</literal> property, containing a version identifier for the license. It may be used by client applications to
@@ -1527,7 +1522,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-update_contact">
+		<varlistentry xml:id="tag-update_contact">
 		<term>&lt;update_contact/&gt;</term>
 		<listitem>
 		<para>
@@ -1550,7 +1545,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-name_variant_suffix">
+		<varlistentry xml:id="tag-name_variant_suffix">
 		<term>&lt;name_variant_suffix/&gt;</term>
 		<listitem>
 			<para>
@@ -1561,7 +1556,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-branding">
+		<varlistentry xml:id="tag-branding">
 		<term>&lt;branding/&gt;</term>
 		<listitem>
 		<para>
@@ -1591,7 +1586,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-tags">
+		<varlistentry xml:id="tag-tags">
 		<term>&lt;tags/&gt;</term>
 		<listitem>
 		<para>
@@ -1621,13 +1616,13 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-references">
+		<varlistentry xml:id="tag-references">
 		<term>&lt;references/&gt;</term>
 		<listitem>
 		<para>
 			The <code>&lt;references/&gt;</code> element is an optional tag to indicate references to this component in other registries.
 			This is primarily used for scientific registries, citation information and DOI
-			(<ulink url="https://en.wikipedia.org/wiki/Digital_object_identifier">Digital Object Identifier</ulink>) associations.
+			(<link xlink:href="https://en.wikipedia.org/wiki/Digital_object_identifier">Digital Object Identifier</link>) associations.
 		</para>
 		<para>
 			This information is primarily consumed by specialized tools, but may also be shown by software centers or read by the
@@ -1635,7 +1630,7 @@
 		</para>
 		<para>
 			The <literal>references</literal> element may have <literal>doi</literal> children containing DOI identifier strings as value,
-			<literal>citation_cff</literal> children containing a link to a citation file in CFF (<ulink url="https://citation-file-format.github.io/">Citation File Format</ulink>)
+			<literal>citation_cff</literal> children containing a link to a citation file in CFF (<link xlink:href="https://citation-file-format.github.io/">Citation File Format</link>)
 			format or <literal>registry</literal> children.
 			A <literal>registry</literal> child must have a <literal>name</literal> property containing the name of a registry referencing this component,
 			while the value of it must be the identification string in the respective registry.
@@ -1651,7 +1646,7 @@
 		</listitem>
 		</varlistentry>
 
-		<varlistentry id="tag-custom">
+		<varlistentry xml:id="tag-custom">
 		<term>&lt;custom/&gt;</term>
 		<listitem>
 		<para>

@@ -9,7 +9,7 @@ as_doc_target_dir = join_paths(get_option('datadir'), 'doc', 'appstream')
 
 if get_option('man')
     # make manual pages
-    manpages_xsl = 'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl'
+    manpages_xsl = 'http://docbook.sourceforge.net/release/xsl-ns/current/manpages/docbook.xsl'
     xsltproc = find_program('xsltproc')
     if run_command([xsltproc, '--nonet', manpages_xsl],
                     check: false).returncode() != 0

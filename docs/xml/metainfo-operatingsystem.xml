@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Metadata-OS">
+<section xmlns="http://docbook.org/ns/docbook" version="5.2" xml:id="sect-Metadata-OS">
 	<title>Operating System</title>
 
-	<section id="spec-os-introduction">
+	<section xml:id="spec-os-introduction">
 		<title>Introduction</title>
 		<para>
 			The <literal>operating-system</literal> component type describes a whole operating system such as GNU/Linux distributions
@@ -18,7 +13,7 @@
 		</para>
 	</section>
 
-	<section id="spec-os-example">
+	<section xml:id="spec-os-example">
 		<title>Example file</title>
 		<para>
 			An <literal>operating-system</literal> metainfo file can look like this:
@@ -61,7 +56,7 @@
 
 	</section>
 
-	<section id="spec-os-filespec">
+	<section xml:id="spec-os-filespec">
 		<title>File specification</title>
 		<para>
 			Note that the XML root must have the <literal>type</literal> property set to <code>operating-system</code>.
@@ -69,7 +64,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry id="tag-id-os">
+			<varlistentry xml:id="tag-id-os">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -86,7 +81,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-os-releases">
+			<varlistentry xml:id="tag-os-releases">
 			<term>&lt;releases/&gt;</term>
 			<listitem>
 				<para>

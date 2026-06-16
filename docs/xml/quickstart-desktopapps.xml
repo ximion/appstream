@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Quickstart-DesktopApps">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-Quickstart-DesktopApps">
 	<title>For GUI application upstream maintainers</title>
 
-	<section id="qsr-app-introduction">
+	<section xml:id="qsr-app-introduction">
 		<title>Introduction</title>
 		<para>
 			Every software center that exists allows the user to look at screenshots and a long description of the application before it is installed.
@@ -20,7 +15,7 @@
 		</para>
 		<para>
 			To solve this, we have defined a new data file, which the upstream project can optionally translate using the same technique as
-			<ulink url="https://specifications.freedesktop.org/desktop-entry-spec/latest/">Desktop Entry files</ulink> or GSetting schemas.
+			<link xlink:href="https://specifications.freedesktop.org/desktop-entry-spec/latest/">Desktop Entry files</link> or GSetting schemas.
 			The application metainfo specification is a subset of the AppStream metadata (see <xref linkend="sect-AppStream-XML"/>) and extends
 			the generic component metadata with fields specific for applications (see <xref linkend="sect-Metadata-GenericComponent"/>).
 		</para>
@@ -40,12 +35,12 @@
 		<tip>
 			<para>
 				To get you started quickly, the AppStream project provides a web-based form to quickly generate valid metainfo XML for some of the most
-				common use cases. Check it out on <ulink url="https://www.freedesktop.org/software/appstream/metainfocreator/#/">freedesktop.org/software/appstream/metainfocreator</ulink>.
+				common use cases. Check it out on <link xlink:href="https://www.freedesktop.org/software/appstream/metainfocreator/#/">freedesktop.org/software/appstream/metainfocreator</link>.
 			</para>
 		</tip>
 	</section>
 
-	<section id="qsr-app-example">
+	<section xml:id="qsr-app-example">
 		<title>Example file</title>
 		<para>
 			The file should contain something like this:
@@ -106,7 +101,7 @@
 </component>]]></programlisting>
 	</section>
 
-	<section id="qsr-app-contents">
+	<section xml:id="qsr-app-contents">
 		<title>Recommended metadata file contents</title>
 
 		<para>
@@ -138,7 +133,7 @@
 					in your data not being incorporated into the distribution metadata (so this is a required tag).
 				</para>
 				<para>
-					A <ulink url="https://en.wikipedia.org/wiki/Permissive_software_licence">permissive</ulink> license ensures your data can
+					A <link xlink:href="https://en.wikipedia.org/wiki/Permissive_software_licence">permissive</link> license ensures your data can
 					be combined with arbitrary other data in one file, without license conflics (this means copyleft licenses like the GPL are
 					not suitable as metadata license).
 					Possible license identifiers include:
@@ -164,11 +159,11 @@
 					</listitem>
 				</itemizedlist>
 				<para>
-					The license codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+					The license codes correspond to the identifiers found at the <link xlink:href="http://spdx.org/licenses/">SPDX OpenSource License Registry</link>.
 					Take a look at <xref linkend="tag-metadata_license"/> for more details about this tag.
 				</para>
 				<para>
-					If you are unsure about which license to pick, the <ulink url="https://spdx.org/licenses/FSFAP.html">FSFAP</ulink> or FSFUL license statement is usually
+					If you are unsure about which license to pick, the <link xlink:href="https://spdx.org/licenses/FSFAP.html">FSFAP</link> or FSFUL license statement is usually
 					a good choice, as it is short and safe to combine with other licenses.
 				</para>
 			</listitem>
@@ -277,7 +272,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="qsr-app-launchable-info">
+			<varlistentry xml:id="qsr-app-launchable-info">
 			<term>&lt;launchable/&gt;</term>
 			<listitem>
 			<para>
@@ -295,7 +290,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="qsr-app-screenshots-info">
+			<varlistentry xml:id="qsr-app-screenshots-info">
 			<term>&lt;screenshots/&gt;</term>
 			<listitem>
 				<para>
@@ -574,7 +569,7 @@
 		</variablelist>
 	</section>
 
-	<section id="qsr-app-contents-suggestions">
+	<section xml:id="qsr-app-contents-suggestions">
 		<title>Suggested metadata file contents</title>
 
 		<para>

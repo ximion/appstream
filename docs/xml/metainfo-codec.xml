@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Metadata-Codec">
+<section xmlns="http://docbook.org/ns/docbook" version="5.2" xml:id="sect-Metadata-Codec">
 	<title>Codecs</title>
 
-	<section id="spec-codecdata-introduction">
+	<section xml:id="spec-codecdata-introduction">
 		<title>Introduction</title>
 		<para>
 			Software centers might want to special-case codec handling. Therefore, we provide a component type for them.
@@ -20,7 +15,7 @@
 		</para>
 	</section>
 
-	<section id="spec-codecdata-example">
+	<section xml:id="spec-codecdata-example">
 		<title>Example file</title>
 		<para>
 			A codec metainfo file should look like this:
@@ -68,7 +63,7 @@
 </component>]]></programlisting>
 	</section>
 
-	<section id="spec-codecdata-filespec">
+	<section xml:id="spec-codecdata-filespec">
 		<title>File specification</title>
 		<para>
 			Note that the XML root must have the <literal>type</literal> property set to <code>codec</code>.
@@ -76,7 +71,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry id="tag-id-codec">
+			<varlistentry xml:id="tag-id-codec">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -94,7 +89,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-codec-provides">
+			<varlistentry xml:id="tag-codec-provides">
 			<term>&lt;provides/&gt; ↪ &lt;codec/&gt;</term>
 			<listitem>
 				<para>

@@ -1,18 +1,13 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Metadata-Application">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-Metadata-Application">
 	<title>Desktop Applications</title>
 
-	<section id="spec-appdata-introduction">
+	<section xml:id="spec-appdata-introduction">
 		<title>Introduction</title>
 		<para>
 			A desktop application is interactive software that presents a graphical interface to the user.
 			To appear in menus, the desktop application must include a
-			<ulink url="https://specifications.freedesktop.org/desktop-entry-spec/latest/">Freedesktop <filename>.desktop</filename></ulink> file.
+			<link xlink:href="https://specifications.freedesktop.org/desktop-entry-spec/latest/">Freedesktop <filename>.desktop</filename></link> file.
 		</para>
 		<para>
 			AppStream generators may pull data from the preexisting <filename>.desktop</filename> files to represent an application in the AppStream metadata pool. Upstream projects should
@@ -56,7 +51,7 @@
 		</note>
 	</section>
 
-	<section id="spec-appdata-filespec">
+	<section xml:id="spec-appdata-filespec">
 		<title>File specification</title>
 
 		<para>
@@ -86,7 +81,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry id="tag-id-desktopapp">
+			<varlistentry xml:id="tag-id-desktopapp">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -119,7 +114,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-dapp-name">
+			<varlistentry xml:id="tag-dapp-name">
 			<term>&lt;name/&gt;</term>
 			<listitem>
 				<para>
@@ -128,7 +123,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-dapp-summary">
+			<varlistentry xml:id="tag-dapp-summary">
 			<term>&lt;summary/&gt;</term>
 			<listitem>
 				<para>
@@ -138,7 +133,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-dapp-launchable">
+			<varlistentry xml:id="tag-dapp-launchable">
 			<term>&lt;launchable/&gt;</term>
 			<listitem>
 				<para>
@@ -159,7 +154,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-dapp-screenshots">
+			<varlistentry xml:id="tag-dapp-screenshots">
 			<term>&lt;screenshots/&gt;</term>
 			<listitem>
 				<para>
@@ -206,7 +201,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-dapp-provides">
+			<varlistentry xml:id="tag-dapp-provides">
 			<term>&lt;provides/&gt;</term>
 			<listitem>
 				<para>

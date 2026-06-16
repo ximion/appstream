@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Metadata-WebApplication">
+<section xmlns="http://docbook.org/ns/docbook" version="5.2" xml:id="sect-Metadata-WebApplication">
 	<title>Web Applications</title>
 
-	<section id="spec-webapp-introduction">
+	<section xml:id="spec-webapp-introduction">
 		<title>Introduction</title>
 		<para>
 			A web application is an application running remotely that is accessed via a web browser and built on the web platform.
@@ -29,7 +24,7 @@
 
 	</section>
 
-	<section id="spec-webapp-filespec">
+	<section xml:id="spec-webapp-filespec">
 		<title>File specification</title>
 
 		<para>
@@ -45,7 +40,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry id="tag-id-web-app">
+			<varlistentry xml:id="tag-id-web-app">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -81,7 +76,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-webapp-launchable">
+			<varlistentry xml:id="tag-webapp-launchable">
 			<term>&lt;launchable/&gt;</term>
 			<listitem>
 				<para>
@@ -94,7 +89,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-webapp-icon">
+			<varlistentry xml:id="tag-webapp-icon">
 			<term>&lt;icon/&gt;</term>
 			<listitem>
 				<para>

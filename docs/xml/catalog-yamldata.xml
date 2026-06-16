@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-AppStream-YAML">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-AppStream-YAML">
 	<title>AppStream Catalog YAML</title>
 
-	<section id="spec-dep11-introduction">
+	<section xml:id="spec-dep11-introduction">
 		<title>Introduction</title>
 
 		<para>
@@ -30,7 +25,7 @@
 	</section>
 
 
-	<section id="spec-dep11-filenaming">
+	<section xml:id="spec-dep11-filenaming">
 		<title>File naming and location</title>
 		<para>
 			Take a look at <xref linkend="spec-asxml-filenaming"/> for AppStream XML files for reference. While the XML data belongs into the <filename>xml</filename> subdirectory in
@@ -39,7 +34,7 @@
 		</para>
 	</section>
 
-	<section id="spec-dep11-general">
+	<section xml:id="spec-dep11-general">
 		<title>General DEP-11 YAML structure</title>
 		<para>
 			Each YAML file starts with a header document, which defines the basic properties of the metadata, which is followed by the actual metadata in form of one
@@ -114,7 +109,7 @@
 		</variablelist>
 	</section>
 
-	<section id="spec-dep11-translated">
+	<section xml:id="spec-dep11-translated">
 		<title>Translated fields</title>
 		<para>
 			Fields with translated values follow the following conventions:
@@ -143,7 +138,7 @@
 
 	</section>
 
-	<section id="spec-dep11-fields">
+	<section xml:id="spec-dep11-fields">
 		<title>Valid fields</title>
 		<para>
 			This document describes all valid fields in the DEP-11 YAML specification. The requirements for the values are exactly the same as in the XML specification,
@@ -151,7 +146,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry id="field-dep11-id">
+			<varlistentry xml:id="field-dep11-id">
 			<term>ID</term>
 			<listitem>
 				<para>
@@ -163,7 +158,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-priority">
+			<varlistentry xml:id="field-dep11-priority">
 			<term>Priority</term>
 			<listitem>
 				<para>
@@ -175,7 +170,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-type">
+			<varlistentry xml:id="field-dep11-type">
 				<term>Type</term>
 				<listitem>
 					<para>
@@ -195,7 +190,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-merge">
+			<varlistentry xml:id="field-dep11-merge">
 				<term>Merge</term>
 				<listitem>
 					<para>
@@ -207,7 +202,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-package">
+			<varlistentry xml:id="field-dep11-package">
 				<term>Package</term>
 				<listitem>
 					<para>
@@ -218,7 +213,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-sourcepackage">
+			<varlistentry xml:id="field-dep11-sourcepackage">
 				<term>SourcePackage</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-source_pkgname"/>.</para>
@@ -226,7 +221,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-name">
+			<varlistentry xml:id="field-dep11-name">
 				<term>Name</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-name"/>.</para>
@@ -234,7 +229,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-summary">
+			<varlistentry xml:id="field-dep11-summary">
 				<term>Summary</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-summary"/>.</para>
@@ -242,7 +237,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-project_license">
+			<varlistentry xml:id="field-dep11-project_license">
 				<term>ProjectLicense</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-project_license"/>.</para>
@@ -250,7 +245,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-description">
+			<varlistentry xml:id="field-dep11-description">
 				<term>Description</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-description"/>.</para>
@@ -262,7 +257,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-url">
+			<varlistentry xml:id="field-dep11-url">
 				<term>Url</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-url"/>.</para>
@@ -283,7 +278,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-projectgroup">
+			<varlistentry xml:id="field-dep11-projectgroup">
 				<term>ProjectGroup</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-project_group"/>.</para>
@@ -291,7 +286,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-icon">
+			<varlistentry xml:id="field-dep11-icon">
 				<term>Icon</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-icon"/>.</para>
@@ -352,7 +347,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-categories">
+			<varlistentry xml:id="field-dep11-categories">
 				<term>Categories</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-categories"/>.</para>
@@ -371,7 +366,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-keywords">
+			<varlistentry xml:id="field-dep11-keywords">
 				<term>Keywords</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-keywords"/>.</para>
@@ -398,7 +393,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-screenshots">
+			<varlistentry xml:id="field-dep11-screenshots">
 				<term>Screenshots</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-screenshots"/>.</para>
@@ -551,7 +546,7 @@
 			</varlistentry>
 
 
-			<varlistentry id="field-dep11-compulsoryfordesktop">
+			<varlistentry xml:id="field-dep11-compulsoryfordesktop">
 				<term>CompulsoryForDesktop</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-compulsory_for_desktop"/>.</para>
@@ -559,7 +554,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-provides">
+			<varlistentry xml:id="field-dep11-provides">
 				<term>Provides</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-provides"/>.</para>
@@ -675,7 +670,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-developer">
+			<varlistentry xml:id="field-dep11-developer">
 			<term>DeveloperName</term>
 			<listitem>
 				<para>See <xref linkend="tag-ct-developer"/>.</para>
@@ -683,7 +678,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-launchable">
+			<varlistentry xml:id="field-dep11-launchable">
 				<term>Launchable</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-launchable"/>.</para>
@@ -700,7 +695,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-releases">
+			<varlistentry xml:id="field-dep11-releases">
 			<term>Releases</term>
 			<listitem>
 				<para>See <xref linkend="tag-ct-releases"/>.</para>
@@ -772,7 +767,7 @@
 						<term>date</term>
 						<listitem>
 							<para>
-								The <ulink url="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</ulink> complete date of when this software was released.
+								The <link xlink:href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</link> complete date of when this software was released.
 							</para>
 							<para>
 								One of the <literal>unix-timestamp</literal> or <literal>date</literal> fields must be present.
@@ -840,7 +835,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-languages">
+			<varlistentry xml:id="field-dep11-languages">
 			<term>Languages</term>
 			<listitem>
 				<para>See <xref linkend="tag-ct-languages"/>.</para>
@@ -865,7 +860,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-bundles">
+			<varlistentry xml:id="field-dep11-bundles">
 			<term>Bundles</term>
 			<listitem>
 				<para>See <xref linkend="tag-ct-bundle"/>.</para>
@@ -884,7 +879,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-extends">
+			<varlistentry xml:id="field-dep11-extends">
 				<term>Extends</term>
 				<listitem>
 					<para>See <xref linkend="tag-extends"/>.</para>
@@ -896,7 +891,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-suggests">
+			<varlistentry xml:id="field-dep11-suggests">
 				<term>Suggests</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-suggests"/>.</para>
@@ -920,7 +915,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-content_rating">
+			<varlistentry xml:id="field-dep11-content_rating">
 				<term>ContentRating</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-content_rating"/>.</para>
@@ -940,7 +935,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-relations">
+			<varlistentry xml:id="field-dep11-relations">
 				<term>Requires, Recommends &amp; Supports</term>
 				<listitem>
 					<para>See <xref linkend="tag-relations"/>.</para>
@@ -976,7 +971,7 @@ Requires:
 			</varlistentry>
 
 
-			<varlistentry id="field-dep11-agreements">
+			<varlistentry xml:id="field-dep11-agreements">
 				<term>Agreements</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-agreement"/>.</para>
@@ -1001,7 +996,7 @@ Requires:
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-tags">
+			<varlistentry xml:id="field-dep11-tags">
 				<term>Tags</term>
 				<listitem>
 					<para>See <xref linkend="tag-tags"/>.</para>
@@ -1015,7 +1010,7 @@ Requires:
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-references">
+			<varlistentry xml:id="field-dep11-references">
 				<term>References</term>
 				<listitem>
 					<para>See <xref linkend="tag-references"/>.</para>
@@ -1032,7 +1027,7 @@ Requires:
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-custom">
+			<varlistentry xml:id="field-dep11-custom">
 				<term>Custom</term>
 				<listitem>
 					<para>See <xref linkend="tag-custom"/>.</para>
@@ -1045,7 +1040,7 @@ Requires:
 	</section>
 
 
-	<section id="spec-dep11-example">
+	<section xml:id="spec-dep11-example">
 		<title>Example YAML file</title>
 		<para>
 			This is an example AppStream DEP-11 metadata file:

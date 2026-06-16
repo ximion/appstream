@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Quickstart-Translation">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-Quickstart-Translation">
 	<title>Translating Metadata</title>
 
-	<section id="qsr-l10n-introduction">
+	<section xml:id="qsr-l10n-introduction">
 		<title>Introduction</title>
 		<para>
 			Most AppStream metadata can be translated, This page contains some practical instructions how to translate the
@@ -24,7 +19,7 @@
 		</note>
 	</section>
 
-	<section id="qsr-l10n-selection">
+	<section xml:id="qsr-l10n-selection">
 		<title>Selecting strings for translation</title>
 
 		<para>
@@ -41,7 +36,7 @@
 		</para>
 	</section>
 
-	<section id="qsr-l10n-itstool">
+	<section xml:id="qsr-l10n-itstool">
 		<title>Translating using Itstool</title>
 
 		<para>
@@ -70,11 +65,11 @@
 
 		<note>
 			<para>
-				You can find more information about Itstool <ulink url="http://itstool.org/">on their homepage</ulink>.
+				You can find more information about Itstool <link xlink:href="http://itstool.org/">on their homepage</link>.
 			</para>
 		</note>
 
-		<section id="qsr-l10n-itstool-meson">
+		<section xml:id="qsr-l10n-itstool-meson">
 			<title>Integrating with Meson</title>
 			<para>
 				First add your MetaInfo file to your <filename>POTFILES.in</filename> file and use Gettext for extraction

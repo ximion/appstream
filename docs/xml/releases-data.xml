@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Metadata-Releases">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-Metadata-Releases">
 	<title>Release Information</title>
 
-	<section id="spec-releases-introduction">
+	<section xml:id="spec-releases-introduction">
 		<title>Introduction</title>
 		<para>
 			This section documents the <xref linkend="tag-releases"/> tag that can be part of a <literal>component</literal> to provide
@@ -18,7 +13,7 @@
 		</para>
 	</section>
 
-	<section id="spec-releases-location">
+	<section xml:id="spec-releases-location">
 		<title>Locations</title>
 
 		<para>
@@ -36,7 +31,7 @@
 		</para>
 	</section>
 
-	<section id="spec-releases-example">
+	<section xml:id="spec-releases-example">
 		<title>Example data</title>
 		<para>
 			Release information may look like this:
@@ -76,7 +71,7 @@
 </releases>]]></programlisting>
 	</section>
 
-	<section id="spec-releases">
+	<section xml:id="spec-releases">
 		<title>Releases tag specification</title>
 		<para>
 			The <code><![CDATA[<releases>]]></code> tag contains <code>&lt;release/&gt;</code> children which
@@ -88,7 +83,7 @@
 		</para>
 		<para>
 			A <literal>release</literal> tag can have the properties <literal>version</literal>, <literal>date</literal> and <literal>timestamp</literal>.
-			The <literal>date</literal> property can have any time in <ulink url="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</ulink> format as its value and
+			The <literal>date</literal> property can have any time in <link xlink:href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</link> format as its value and
 			should be present for every release. At least day-level granularity is required, which means that the ISO 8601 string must contain at least a full date (e.g. 2020-08-12).
 			The <literal>timestamp</literal> tag contains the release time in the form of a UNIX epoch. This tag should not be used in metainfo files in newly
 			written metadata, but will still be parsed in case it is present. The <literal>timestamp</literal> property is mainly used in generated distro-metadata.
@@ -99,7 +94,7 @@
 		</para>
 		<para>
 			A <literal>release</literal> tag may also have a <literal>date_eol</literal> property that denotes the date when the release stops to receive
-			support from the software developers (end-of-life). Its value can be any complete date or time in <ulink url="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</ulink>.
+			support from the software developers (end-of-life). Its value can be any complete date or time in <link xlink:href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</link>.
 		</para>
 		<para>
 			Optionally, the <code>&lt;release/&gt;</code> tag may also have an <literal>urgency</literal> property, having one of the following values:
@@ -139,7 +134,7 @@
 			The <literal>release</literal> itself may have the following children:
 		</para>
 		<variablelist>
-			<varlistentry id="tag-release-description">
+			<varlistentry xml:id="tag-release-description">
 			<term>&lt;description/&gt;</term>
 			<listitem>
 				<para>
@@ -154,7 +149,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-release-url">
+			<varlistentry xml:id="tag-release-url">
 			<term>&lt;url/&gt;</term>
 			<listitem>
 				<para>
@@ -166,12 +161,12 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-release-issues">
+			<varlistentry xml:id="tag-release-issues">
 			<term>&lt;issues/&gt;</term>
 			<listitem>
 				<para>
 					The <literal>issues</literal> tag contains <literal>issue</literal> children defining issues resolved by this release.
-					It is used most commonly to mention <ulink url="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">CVE</ulink> IDs.
+					It is used most commonly to mention <link xlink:href="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">CVE</link> IDs.
 					Software which is interpreting the release notes for the component should present the list of issues separately from the release description. They should not be thought of as a bullet-point list of issues which follow straight on in prose from the <literal>description</literal> element’s value.
 				</para>
 				<para>
@@ -186,7 +181,7 @@
 					It may also have a <literal>url</literal> property, which should be a URL for a details page on the respective issue.
 				</para>
 				<para>
-					If <literal>type</literal> is <literal>cve</literal>, the element’s value must be a CVE ID in the <ulink url="https://www.cve.org/About/Process#cve-id">format defined by MITRE</ulink>.
+					If <literal>type</literal> is <literal>cve</literal>, the element’s value must be a CVE ID in the <link xlink:href="https://www.cve.org/About/Process#cve-id">format defined by MITRE</link>.
 					For example, <literal>CVE-2023-12345</literal>. Software consuming the release data of a component should be able to append the element’s value to <literal>https://nvd.nist.gov/vuln/detail/</literal> to get a page of information about the CVE.
 					If a <literal>url</literal> property is given, its value overrides any URL constructed from the CVE identifier.
 					The <literal>url</literal> property is optional if <literal>type</literal> is <literal>cve</literal>.
@@ -209,7 +204,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-release-artifacts">
+			<varlistentry xml:id="tag-release-artifacts">
 			<term>&lt;artifacts/&gt;</term>
 			<listitem>
 				<para>
@@ -221,8 +216,8 @@
 				<para>
 					In case of a <code>binary</code> type, an optional <literal>platform</literal> property may
 					also be set, containing a platform triplet (also known as normalized GNU triplet), such as <code>x86_64-linux-gnu</code>. Refer to
-					<ulink url="https://wiki.debian.org/Multiarch/Tuples#Used_solution">Debian multiarch tuples</ulink> for more information on normalized GNU triplets, and
-					<ulink url="https://github.com/ximion/appstream/blob/master/data/platforms.yml">AppStream's platforms.yml</ulink> for the triplet parts AppStream currently recognizes.
+					<link xlink:href="https://wiki.debian.org/Multiarch/Tuples#Used_solution">Debian multiarch tuples</link> for more information on normalized GNU triplets, and
+					<link xlink:href="https://github.com/ximion/appstream/blob/master/data/platforms.yml">AppStream's platforms.yml</link> for the triplet parts AppStream currently recognizes.
 					Note that AppStream only supports strictly three-part triplets in the form of <code>arch-oskernel-osenvironment</code>. Parts of the triplets which do not apply can be
 					replaced with <code>any</code>.
 				</para>
@@ -251,7 +246,7 @@
 							The <code>&lt;checksum/&gt;</code> tag has a <code>type</code> attribute, containing the name of the hash function that was used to create it.
 							Currently aupported values (and hash sums) are: <literal>sha1</literal>, <literal>sha256</literal>, <literal>sha512</literal>,
 							<literal>blake2b</literal> and <literal>blake3</literal>.
-							For most purposes (on 64-bit machines), using <ulink url="https://blake2.net">BLAKE2b</ulink> via <command>cksum -ablake2b [FILE]</command>
+							For most purposes (on 64-bit machines), using <link xlink:href="https://blake2.net">BLAKE2b</link> via <command>cksum -ablake2b [FILE]</command>
 							from GNU Coreutils is a good choice.
 						</para>
 						</listitem>
@@ -286,7 +281,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-release-tags">
+			<varlistentry xml:id="tag-release-tags">
 			<term>&lt;tags/&gt;</term>
 			<listitem>
 				<para>

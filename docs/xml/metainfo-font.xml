@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
-%BOOK_ENTITIES;
-]>
-
-<section id="sect-Metadata-Fonts">
+<section xmlns="http://docbook.org/ns/docbook" version="5.2" xml:id="sect-Metadata-Fonts">
 	<title>Fonts</title>
 
-	<section id="spec-fontdata-introduction">
+	<section xml:id="spec-fontdata-introduction">
 		<title>Introduction</title>
 		<para>
 			A software center can allow users to install additional fonts using font metadata.
@@ -32,7 +27,7 @@
 		</note>
 	</section>
 
-	<section id="spec-fontdata-example">
+	<section xml:id="spec-fontdata-example">
 		<title>Example file</title>
 		<para>
 			A minimal font metainfo file can look like this:
@@ -65,7 +60,7 @@
 </component>]]></programlisting>
 	</section>
 
-	<section id="spec-fontdata-filespec">
+	<section xml:id="spec-fontdata-filespec">
 		<title>File specification</title>
 		<para>
 			Note that the XML root must have the <literal>type</literal> property set to <code>font</code>.
@@ -150,7 +145,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-font-provides">
+			<varlistentry xml:id="tag-font-provides">
 			<term>&lt;provides/&gt; ↪ &lt;font/&gt;</term>
 			<listitem>
 				<para>
@@ -196,7 +191,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-font-languages">
+			<varlistentry xml:id="tag-font-languages">
 				<term>&lt;languages/&gt;</term>
 				<listitem>
 					<para>
