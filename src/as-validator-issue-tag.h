@@ -1142,7 +1142,7 @@ static AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	},
 
 	{ "usertag-missing-namespace",
-	  AS_ISSUE_SEVERITY_INFO,
+	  AS_ISSUE_SEVERITY_ERROR,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("This `tag` is missing a `namespace` attribute."),
 	},
