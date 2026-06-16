@@ -52,25 +52,25 @@ AS_BEGIN_PRIVATE_DECLS
  * Helper macro for iterating through YAML sequences more compactly - we do this a lot!
  * The macro ensures all variables are only visible within the loop body.
  */
-#define AS_YAML_SEQUENCE_FOREACH(node_var, seq_node)                                        \
-	for (gpointer _iter_##seq_node = NULL; _iter_##seq_node == NULL;                    \
-	     _iter_##seq_node	       = GINT_TO_POINTER (1))                               \
-		 for (struct fy_node *node_var =                                    \
-			  fy_node_sequence_iterate ((seq_node), &_iter_##seq_node); \
-		      (node_var) != NULL;                                           \
-		      (node_var) = fy_node_sequence_iterate ((seq_node), &_iter_##seq_node))
+#define AS_YAML_SEQUENCE_FOREACH(node_var, seq_node)                               \
+	for (gpointer _iter_##seq_node = NULL; _iter_##seq_node == NULL;           \
+	     _iter_##seq_node	       = GINT_TO_POINTER (1))                      \
+		for (struct fy_node *node_var =                                    \
+			 fy_node_sequence_iterate ((seq_node), &_iter_##seq_node); \
+		     (node_var) != NULL;                                           \
+		     (node_var) = fy_node_sequence_iterate ((seq_node), &_iter_##seq_node))
 
 /**
  * Helper macro for iterating through YAML mappings in a compact way, ensuring all variables
  * are only visible within the loop body.
  */
-#define AS_YAML_MAPPING_FOREACH(pair, map_node)                                            \
-	for (gpointer _iter_##map_node = NULL; _iter_##map_node == NULL;                   \
-	     _iter_##map_node	       = GINT_TO_POINTER (1))                              \
-		 for (struct fy_node_pair *pair =                                  \
-			  fy_node_mapping_iterate ((map_node), &_iter_##map_node); \
-		      (pair) != NULL;                                              \
-		      (pair) = fy_node_mapping_iterate ((map_node), &_iter_##map_node))
+#define AS_YAML_MAPPING_FOREACH(pair, map_node)                                   \
+	for (gpointer _iter_##map_node = NULL; _iter_##map_node == NULL;          \
+	     _iter_##map_node	       = GINT_TO_POINTER (1))                     \
+		for (struct fy_node_pair *pair =                                  \
+			 fy_node_mapping_iterate ((map_node), &_iter_##map_node); \
+		     (pair) != NULL;                                              \
+		     (pair) = fy_node_mapping_iterate ((map_node), &_iter_##map_node))
 
 struct fy_diag *as_yaml_error_diag_create (void);
 gchar	       *as_yaml_make_error_message (struct fy_diag *diag);
