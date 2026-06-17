@@ -39,6 +39,7 @@
 #include "as-yaml.h"
 #include "as-utils-private.h"
 #include "as-release-private.h"
+#include "as-issue.h"
 
 /**
  * as_news_format_kind_to_string:
@@ -285,6 +286,42 @@ as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
 				 * which happens when GString is used in g_autoptr() */
 				g_assert (dsc != NULL);
 				as_release_set_description (rel, dsc->str, "C");
+			} else if (as_str_equal0 (key, "Resolved") ||
+				   as_str_equal0 (key, "Issues")) {
+				if (!fy_node_is_sequence (nval))
+					continue;
+				AS_YAML_SEQUENCE_FOREACH (in, nval) {
+					g_autoptr(AsIssue) issue = as_issue_new ();
+
+					if (!fy_node_is_mapping (in))
+						continue;
+
+					AS_YAML_MAPPING_FOREACH (ipair, in) {
+						const gchar *ikey = as_yaml_node_get_key0 (ipair);
+						const gchar *ival = as_yaml_node_get_value0 (ipair);
+
+						if (ikey == NULL || ival == NULL)
+							continue;
+
+						if (g_strcmp0 (ikey, "name") == 0 ||
+						    g_strcmp0 (ikey, "id") == 0) {
+							as_issue_set_id (issue, ival);
+						} else if (g_strcmp0 (ikey, "cve") == 0) {
+							as_issue_set_kind (issue,
+									   AS_ISSUE_KIND_CVE);
+							as_issue_set_id (issue, ival);
+						} else if (g_strcmp0 (ikey, "type") == 0) {
+							as_issue_set_kind (
+							    issue,
+							    as_issue_kind_from_string (ival));
+						} else if (g_strcmp0 (ikey, "url") == 0) {
+							as_issue_set_url (issue, ival);
+						}
+					}
+
+					if (as_issue_get_id (issue) != NULL)
+						as_release_add_issue (rel, issue);
+				}
 			}
 		}
 
@@ -485,6 +522,34 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 			}
 		}
 
+		/* emit resolved issues */
+		{
+			GPtrArray *issues = as_release_get_issues (rel);
+			if (issues != NULL && issues->len > 0) {
+				as_yaml_emit_scalar (emitter, "Resolved");
+				as_yaml_sequence_start (emitter);
+				for (guint j = 0; j < issues->len; j++) {
+					AsIssue *issue = AS_ISSUE (g_ptr_array_index (issues, j));
+					const gchar *id = as_issue_get_id (issue);
+
+					if (id == NULL)
+						continue;
+
+					as_yaml_mapping_start (emitter);
+					if (as_issue_get_kind (issue) == AS_ISSUE_KIND_CVE) {
+						as_yaml_emit_entry (emitter, "cve", id);
+					} else {
+						as_yaml_emit_entry (emitter, "name", id);
+						as_yaml_emit_entry (emitter,
+								    "url",
+								    as_issue_get_url (issue));
+					}
+					as_yaml_mapping_end (emitter);
+				}
+				as_yaml_sequence_end (emitter);
+			}
+		}
+
 		as_context_set_locale (rel_context, rel_active_locale);
 
 		/* main dict end */
@@ -514,6 +579,7 @@ typedef enum {
 	AS_NEWS_SECTION_KIND_BUGFIX,
 	AS_NEWS_SECTION_KIND_FEATURES,
 	AS_NEWS_SECTION_KIND_MISC,
+	AS_NEWS_SECTION_KIND_ISSUES,
 	AS_NEWS_SECTION_KIND_TRANSLATION,
 	AS_NEWS_SECTION_KIND_DOCUMENTATION,
 	AS_NEWS_SECTION_KIND_CONTRIBUTORS,
@@ -552,6 +618,10 @@ as_news_text_guess_section (const gchar *lines)
 		return AS_NEWS_SECTION_KIND_MISC;
 	if (g_strstr_len (lines, -1, "Misc:\n") != NULL)
 		return AS_NEWS_SECTION_KIND_MISC;
+	if (g_strstr_len (lines, -1, "Resolved Issues:\n") != NULL)
+		return AS_NEWS_SECTION_KIND_ISSUES;
+	if (g_strstr_len (lines, -1, "Resolved:\n") != NULL)
+		return AS_NEWS_SECTION_KIND_ISSUES;
 	if (g_strstr_len (lines, -1, "Translations:\n") != NULL)
 		return AS_NEWS_SECTION_KIND_TRANSLATION;
 	if (g_strstr_len (lines, -1, "Translation:\n") != NULL)
@@ -679,25 +749,249 @@ as_news_text_to_release_hdr (AsRelease *release, GString *desc, const gchar *txt
 	return TRUE;
 }
 
-static gboolean
-as_news_text_to_list_markup (GString *desc, gchar **lines, GError **error)
+static const GRegex *
+as_news_cve_id_regex (void)
 {
-	guint i;
+	static GRegex *re = NULL;
+	static gsize initialized = 0;
+	if (g_once_init_enter (&initialized)) {
+		re = g_regex_new ("^CVE-[0-9]{4}-[0-9]+$",
+				  G_REGEX_CASELESS | G_REGEX_OPTIMIZE,
+				  0,
+				  NULL);
+		g_once_init_leave (&initialized, 1);
+	}
+	return re;
+}
 
-	as_news_text_add_markup (desc, "ul", NULL);
-	for (i = 0; lines[i] != NULL; i++) {
+static const GRegex *
+as_news_cve_word_regex (void)
+{
+	static GRegex *re = NULL;
+	static gsize initialized = 0;
+	if (g_once_init_enter (&initialized)) {
+		re = g_regex_new ("\\bCVE-[0-9]{4}-[0-9]+\\b",
+				  G_REGEX_CASELESS | G_REGEX_OPTIMIZE,
+				  0,
+				  NULL);
+		g_once_init_leave (&initialized, 1);
+	}
+	return re;
+}
+
+static const GRegex *
+as_news_md_link_regex (void)
+{
+	static GRegex *re = NULL;
+	static gsize initialized = 0;
+	if (g_once_init_enter (&initialized)) {
+		re = g_regex_new ("\\[([^]]+)\\]\\(([^)]+)\\)", G_REGEX_OPTIMIZE, 0, NULL);
+		g_once_init_leave (&initialized, 1);
+	}
+	return re;
+}
+
+/**
+ * as_news_text_id_is_cve:
+ *
+ * Check whether an issue identifier looks like a CVE name (e.g. CVE-2024-12345).
+ */
+static gboolean
+as_news_text_id_is_cve (const gchar *id)
+{
+	if (id == NULL)
+		return FALSE;
+	return g_regex_match (as_news_cve_id_regex (), id, 0, NULL);
+}
+
+/**
+ * as_news_text_id_is_issue_ref:
+ *
+ * Check whether an identifier should be treated as an issue reference.
+ * Issue identifiers start with `#` or `issue#`, or look like a CVE name.
+ */
+static gboolean
+as_news_text_id_is_issue_ref (const gchar *id)
+{
+	if (id == NULL)
+		return FALSE;
+	return g_str_has_prefix (id, "#") || g_str_has_prefix (id, "issue#") ||
+	       as_news_text_id_is_cve (id);
+}
+
+static void
+as_news_release_add_issue_dedup (AsRelease *rel, AsIssue *issue)
+{
+	GPtrArray *issues = as_release_get_issues (rel);
+	const gchar *id = as_issue_get_id (issue);
+
+	for (guint i = 0; i < issues->len; i++) {
+		AsIssue *existing = AS_ISSUE (g_ptr_array_index (issues, i));
+		if (as_str_equal0 (as_issue_get_id (existing), id))
+			return;
+	}
+	as_release_add_issue (rel, issue);
+}
+
+/**
+ * as_news_text_extract_issues:
+ * @text: a single bullet/paragraph line of description text.
+ * @rel: the release the detected issues are added to.
+ *
+ * Detects issue references in @text and registers them with @rel:
+ *  - Markdown links of the form `[text](url)` are flattened to just their `text`,
+ *    dropping the URL (Markdown links are not valid in AppStream description markup).
+ *    If `text` looks like an issue reference, the link is additionally registered as an issue.
+ *  - Bare CVE identifiers (e.g. CVE-2024-12345) are turned into issues and *kept*
+ *    in the returned text.
+ *
+ * Duplicate issue references (e.g. a CVE that appears both as a link and bare) are
+ * registered only once.
+ *
+ * Returns: (transfer full): the text with Markdown links flattened to their text.
+ */
+static gchar *
+as_news_text_extract_issues (const gchar *text, AsRelease *rel)
+{
+	g_autoptr(GMatchInfo) link_mi = NULL;
+	g_autoptr(GMatchInfo) cve_mi = NULL;
+	g_autoptr(GString) out = NULL;
+	gint pos = 0;
+
+	g_return_val_if_fail (rel != NULL, g_strdup (text));
+	if (text == NULL)
+		return NULL;
+
+	/* flatten Markdown issue links: [id](url) -> id (+ register the issue) */
+	out = g_string_new ("");
+	g_regex_match (as_news_md_link_regex (), text, 0, &link_mi);
+	while (g_match_info_matches (link_mi)) {
+		gint start = 0, end = 0;
+		g_autofree gchar *id = g_match_info_fetch (link_mi, 1);
+		g_autofree gchar *url = g_match_info_fetch (link_mi, 2);
+
+		g_match_info_fetch_pos (link_mi, 0, &start, &end);
+		/* copy the text leading up to the link verbatim */
+		g_string_append_len (out, text + pos, start - pos);
+
+		if (as_news_text_id_is_issue_ref (id)) {
+			g_autoptr(AsIssue) issue = as_issue_new ();
+			as_issue_set_id (issue, id);
+			/* CVE issues carry a canonical, derivable URL; for other issue
+			 * references keep the linked URL */
+			if (as_news_text_id_is_cve (id))
+				as_issue_set_kind (issue, AS_ISSUE_KIND_CVE);
+			else
+				as_issue_set_url (issue, url);
+			as_news_release_add_issue_dedup (rel, issue);
+		}
+
+		/* keep only the link text, dropping the URL */
+		g_string_append (out, id);
+
+		pos = end;
+		g_match_info_next (link_mi, NULL);
+	}
+	g_string_append (out, text + pos);
+
+	/* detect bare CVE references, but keep them in the prose */
+	g_regex_match (as_news_cve_word_regex (), out->str, 0, &cve_mi);
+	while (g_match_info_matches (cve_mi)) {
+		g_autofree gchar *cve = g_match_info_fetch (cve_mi, 0);
+		g_autoptr(AsIssue) issue = as_issue_new ();
+
+		as_issue_set_kind (issue, AS_ISSUE_KIND_CVE);
+		as_issue_set_id (issue, cve);
+		as_news_release_add_issue_dedup (rel, issue);
+
+		g_match_info_next (cve_mi, NULL);
+	}
+
+	return g_string_free (g_steal_pointer (&out), FALSE);
+}
+
+/**
+ * as_news_text_parse_issues_section:
+ *
+ * Parse a "Resolved Issues:" block of `* id: url` bullet lines. Recognized issue
+ * references are added as structured release issues. Lines that do not match the expected
+ * style are kept as plain list items in @desc.
+ */
+static void
+as_news_text_parse_issues_section (const gchar *section, GString *desc, AsRelease *rel)
+{
+	g_auto(GStrv) lines = g_strsplit (section, "\n", -1);
+	g_autoptr(GPtrArray) plain_items = g_ptr_array_new_with_free_func (g_free);
+
+	/* the first line is the section header, skip it */
+	for (guint i = 1; lines[i] != NULL; i++) {
 		guint prefix = 0;
+		const gchar *content;
+		const gchar *sep;
+		g_autofree gchar *id = NULL;
+		g_autofree gchar *url = NULL;
+		g_autoptr(AsIssue) issue = NULL;
+
 		g_strstrip (lines[i]);
 		if ((g_str_has_prefix (lines[i], "- ")) || (g_str_has_prefix (lines[i], "* ")))
 			prefix = 2;
-		as_news_text_add_markup (desc, "li", lines[i] + prefix);
+		content = lines[i] + prefix;
+		if (content[0] == '\0')
+			continue;
+
+		sep = g_strstr_len (content, -1, ": ");
+		if (sep != NULL) {
+			id = g_strndup (content, sep - content);
+			url = g_strdup (sep + 2);
+			g_strstrip (url);
+		} else {
+			id = g_strdup (content);
+		}
+		g_strstrip (id);
+
+		if (!as_news_text_id_is_issue_ref (id)) {
+			/* unrecognized line: keep it as a plain list item */
+			g_ptr_array_add (plain_items, g_strdup (content));
+			continue;
+		}
+
+		issue = as_issue_new ();
+		as_issue_set_id (issue, id);
+		if (url != NULL && url[0] != '\0')
+			as_issue_set_url (issue, url);
+		if (as_news_text_id_is_cve (id))
+			as_issue_set_kind (issue, AS_ISSUE_KIND_CVE);
+		as_news_release_add_issue_dedup (rel, issue);
+	}
+
+	/* render any unrecognized lines so their content is not lost */
+	if (plain_items->len > 0) {
+		as_news_text_add_markup (desc, "ul", NULL);
+		for (guint i = 0; i < plain_items->len; i++)
+			as_news_text_add_markup (desc, "li", g_ptr_array_index (plain_items, i));
+		as_news_text_add_markup (desc, "/ul", NULL);
+	}
+}
+
+static gboolean
+as_news_text_to_list_markup (GString *desc, gchar **lines, AsRelease *rel, GError **error)
+{
+	as_news_text_add_markup (desc, "ul", NULL);
+	for (guint i = 0; lines[i] != NULL; i++) {
+		guint prefix = 0;
+		g_autofree gchar *item = NULL;
+		g_strstrip (lines[i]);
+		if ((g_str_has_prefix (lines[i], "- ")) || (g_str_has_prefix (lines[i], "* ")))
+			prefix = 2;
+		item = as_news_text_extract_issues (lines[i] + prefix, rel);
+		as_news_text_add_markup (desc, "li", item);
 	}
 	as_news_text_add_markup (desc, "/ul", NULL);
 	return TRUE;
 }
 
 static gboolean
-as_news_text_to_para_markup (GString *desc, const gchar *txt, GError **error)
+as_news_text_to_para_markup (GString *desc, const gchar *txt, AsRelease *rel, GError **error)
 {
 	g_auto(GStrv) lines = NULL;
 	gboolean para_generated = FALSE;
@@ -707,12 +1001,14 @@ as_news_text_to_para_markup (GString *desc, const gchar *txt, GError **error)
 		lines = g_strsplit (txt, "\n", -1);
 		for (guint i = 1; lines[i] != NULL; i++) {
 			guint prefix = 0;
+			g_autofree gchar *para = NULL;
 			g_strstrip (lines[i]);
 			if ((g_str_has_prefix (lines[i], "- ")) ||
 			    (g_str_has_prefix (lines[i], "* ")))
 				prefix = 2;
 
-			as_news_text_add_markup (desc, "p", lines[i] + prefix);
+			para = as_news_text_extract_issues (lines[i] + prefix, rel);
+			as_news_text_add_markup (desc, "p", para);
 			para_generated = TRUE;
 		}
 	} else {
@@ -729,9 +1025,11 @@ as_news_text_to_para_markup (GString *desc, const gchar *txt, GError **error)
 		}
 		lines = g_strsplit (txt_content, "\n\n", -1);
 		for (guint i = 0; lines[i] != NULL; i++) {
+			g_autofree gchar *para = NULL;
 			g_strstrip (lines[i]);
 
-			as_news_text_add_markup (desc, "p", lines[i]);
+			para = as_news_text_extract_issues (lines[i], rel);
+			as_news_text_add_markup (desc, "p", para);
 			para_generated = TRUE;
 		}
 	}
@@ -755,12 +1053,13 @@ as_news_text_to_para_markup (GString *desc, const gchar *txt, GError **error)
 static GPtrArray *
 as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 {
-	guint i;
 	g_autoptr(GString) data_str = NULL;
 	g_autoptr(GString) desc = NULL;
 	g_auto(GStrv) split = NULL;
+	g_autoptr(GPtrArray) sections = NULL;
 	g_autoptr(GPtrArray) releases = NULL;
 	g_autoptr(AsRelease) rel = NULL;
+	AsNewsSectionKind prev_kind;
 	gboolean limit_reached = FALSE;
 
 	if (data == NULL) {
@@ -777,17 +1076,53 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 	data_str = g_string_new (data);
 	as_gstring_replace (data_str, "\n   ", " ", 0);
 
-	/* break up into sections */
+	/* Break up into sections. A block separated by a blank line that does not start
+	 * a new section is either a continuation of the preceding section (e.g. a list or
+	 * note resuming after an empty line) or, when it follows the version header,
+	 * freeform release prose. The former is merged back into its section (keeping the
+	 * blank line as a paragraph break), the latter is turned into a notes section, so
+	 * that no content is lost. */
 	desc = g_string_new ("");
 	split = g_strsplit (data_str->str, "\n\n", -1);
-	for (i = 0; split[i] != NULL; i++) {
-		g_auto(GStrv) lines = NULL;
+	sections = g_ptr_array_new_with_free_func (g_free);
+	prev_kind = AS_NEWS_SECTION_KIND_UNKNOWN;
+	for (guint i = 0; split[i] != NULL; i++) {
+		AsNewsSectionKind kind;
 
 		/* ignore empty sections */
 		if (split[i][0] == '\0')
 			continue;
 
-		switch (as_news_text_guess_section (split[i])) {
+		kind = as_news_text_guess_section (split[i]);
+		if (kind == AS_NEWS_SECTION_KIND_UNKNOWN && sections->len > 0 &&
+		    prev_kind != AS_NEWS_SECTION_KIND_HEADER) {
+			/* continuation of the preceding section */
+			guint last = sections->len - 1;
+			gchar *prev = g_ptr_array_index (sections, last);
+			sections->pdata[last] = g_strconcat (prev, "\n\n", split[i], NULL);
+			g_free (prev);
+		} else if (kind == AS_NEWS_SECTION_KIND_UNKNOWN) {
+			/* freeform prose with no section of its own: treat it as notes */
+			g_ptr_array_add (sections, g_strconcat ("Notes:\n", split[i], NULL));
+			prev_kind = AS_NEWS_SECTION_KIND_NOTES;
+		} else {
+			g_ptr_array_add (sections, g_strdup (split[i]));
+			prev_kind = kind;
+		}
+	}
+
+	for (guint i = 0; i < sections->len; i++) {
+		const gchar *section = g_ptr_array_index (sections, i);
+		AsNewsSectionKind section_kind = as_news_text_guess_section (section);
+		g_auto(GStrv) lines = NULL;
+
+		/* content sections are attached to the current release, so anything
+		 * appearing before the first version header has nowhere to go: skip it.
+		 * This also guarantees that @rel is non-NULL for all content below. */
+		if (section_kind != AS_NEWS_SECTION_KIND_HEADER && rel == NULL)
+			continue;
+
+		switch (section_kind) {
 		case AS_NEWS_SECTION_KIND_HEADER: {
 			/* flush old release content and create new release */
 			if (desc->len > 0) {
@@ -802,16 +1137,16 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 			rel = as_release_new ();
 
 			/* parse header */
-			if (!as_news_text_to_release_hdr (rel, desc, split[i], error)) {
+			if (!as_news_text_to_release_hdr (rel, desc, section, error)) {
 				g_prefix_error (error,
 						"Unable to parse NEWS header '%s': ",
-						split[i]);
+						section);
 				return NULL;
 			}
 			break;
 		}
 		case AS_NEWS_SECTION_KIND_BUGFIX:
-			lines = g_strsplit (split[i], "\n", -1);
+			lines = g_strsplit (section, "\n", -1);
 			if (g_strv_length (lines) == 2) {
 				as_news_text_add_markup (desc,
 							 "p",
@@ -821,15 +1156,15 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 							 "p",
 							 "This release fixes the following bugs:");
 			}
-			if (!as_news_text_to_list_markup (desc, lines + 1, error))
+			if (!as_news_text_to_list_markup (desc, lines + 1, rel, error))
 				return FALSE;
 			break;
 		case AS_NEWS_SECTION_KIND_NOTES:
-			if (!as_news_text_to_para_markup (desc, split[i], error))
+			if (!as_news_text_to_para_markup (desc, section, rel, error))
 				return FALSE;
 			break;
 		case AS_NEWS_SECTION_KIND_FEATURES:
-			lines = g_strsplit (split[i], "\n", -1);
+			lines = g_strsplit (section, "\n", -1);
 			if (g_strv_length (lines) == 2) {
 				as_news_text_add_markup (
 				    desc,
@@ -841,11 +1176,11 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 				    "p",
 				    "This release adds the following features:");
 			}
-			if (!as_news_text_to_list_markup (desc, lines + 1, error))
+			if (!as_news_text_to_list_markup (desc, lines + 1, rel, error))
 				return FALSE;
 			break;
 		case AS_NEWS_SECTION_KIND_MISC:
-			lines = g_strsplit (split[i], "\n", -1);
+			lines = g_strsplit (section, "\n", -1);
 			if (g_strv_length (lines) == 2) {
 				as_news_text_add_markup (
 				    desc,
@@ -857,13 +1192,16 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 				    "p",
 				    "This release includes the following changes:");
 			}
-			if (!as_news_text_to_list_markup (desc, lines + 1, error))
+			if (!as_news_text_to_list_markup (desc, lines + 1, rel, error))
 				return FALSE;
 			break;
+		case AS_NEWS_SECTION_KIND_ISSUES:
+			as_news_text_parse_issues_section (section, desc, rel);
+			break;
 		case AS_NEWS_SECTION_KIND_DOCUMENTATION:
-			lines = g_strsplit (split[i], "\n", -1);
+			lines = g_strsplit (section, "\n", -1);
 			as_news_text_add_markup (desc, "p", "This release updates documentation:");
-			if (!as_news_text_to_list_markup (desc, lines + 1, error))
+			if (!as_news_text_to_list_markup (desc, lines + 1, rel, error))
 				return FALSE;
 			break;
 		case AS_NEWS_SECTION_KIND_TRANSLATION:
@@ -872,26 +1210,26 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 		case AS_NEWS_SECTION_KIND_CONTRIBUTORS:
 			as_news_text_add_markup (desc, "p", "With contributions from:");
 
-			if (g_strstr_len (split[i], -1, "* ") != NULL ||
-			    g_strstr_len (split[i], -1, "- ") != NULL) {
-				lines = g_strsplit (split[i], "\n", -1);
-				if (!as_news_text_to_list_markup (desc, lines + 1, error))
+			if (g_strstr_len (section, -1, "* ") != NULL ||
+			    g_strstr_len (section, -1, "- ") != NULL) {
+				lines = g_strsplit (section, "\n", -1);
+				if (!as_news_text_to_list_markup (desc, lines + 1, rel, error))
 					return FALSE;
 			} else {
-				if (!as_news_text_to_para_markup (desc, split[i], error))
+				if (!as_news_text_to_para_markup (desc, section, rel, error))
 					return FALSE;
 			}
 			break;
 		case AS_NEWS_SECTION_KIND_TRANSLATORS:
 			as_news_text_add_markup (desc, "p", "Updated localization by:");
 
-			if (g_strstr_len (split[i], -1, "* ") != NULL ||
-			    g_strstr_len (split[i], -1, "- ") != NULL) {
-				lines = g_strsplit (split[i], "\n", -1);
-				if (!as_news_text_to_list_markup (desc, lines + 1, error))
+			if (g_strstr_len (section, -1, "* ") != NULL ||
+			    g_strstr_len (section, -1, "- ") != NULL) {
+				lines = g_strsplit (section, "\n", -1);
+				if (!as_news_text_to_list_markup (desc, lines + 1, rel, error))
 					return FALSE;
 			} else {
-				if (!as_news_text_to_para_markup (desc, split[i], error))
+				if (!as_news_text_to_para_markup (desc, section, rel, error))
 					return FALSE;
 			}
 			break;
@@ -900,7 +1238,7 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 				     AS_METADATA_ERROR,
 				     AS_METADATA_ERROR_FAILED,
 				     "Failed to detect section '%s'",
-				     split[i]);
+				     section);
 			return FALSE;
 		}
 
@@ -937,6 +1275,7 @@ as_news_releases_to_text (GPtrArray *releases, gchar **md_data, AsNewsFormatKind
 		g_autofree gchar *version = NULL;
 		g_autofree gchar *date = NULL;
 		g_autoptr(GDateTime) dt = NULL;
+		GPtrArray *issues;
 		AsRelease *rel = AS_RELEASE (g_ptr_array_index (releases, i));
 
 		/* write version with underline */
@@ -962,6 +1301,24 @@ as_news_releases_to_text (GPtrArray *releases, gchar **md_data, AsNewsFormatKind
 			if (md == NULL)
 				return FALSE;
 			g_string_append_printf (str, "%s\n", md);
+		}
+
+		/* write resolved issues */
+		issues = as_release_get_issues (rel);
+		if (issues != NULL && issues->len > 0) {
+			g_string_append (str, "\nResolved Issues:\n");
+			for (guint j = 0; j < issues->len; j++) {
+				AsIssue *issue = AS_ISSUE (g_ptr_array_index (issues, j));
+				const gchar *id = as_issue_get_id (issue);
+				const gchar *url = as_issue_get_url (issue);
+
+				if (id == NULL)
+					continue;
+				if (url != NULL)
+					g_string_append_printf (str, " * %s: %s\n", id, url);
+				else
+					g_string_append_printf (str, " * %s\n", id);
+			}
 		}
 		g_string_append (str, "\n");
 	}
