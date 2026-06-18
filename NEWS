@@ -1,3 +1,34 @@
+Version 1.1.3
+~~~~~~~~~~~~~
+Released: 2026-06-18
+
+Features:
+ * Officially support & read JXL images for icons, validate permitted filetypes
+ * meson: Allow disabling command-line tools
+ * news-convert: Recognize "=" as release block header
+ * news-convert: Handle extra linebreaks better and add support for issue-blocks
+ * compose: Create content hashes with Blake3 instead of MD5
+ * Update static data for category and license additions
+ * validator: Tags without namespace are an error
+
+Specification:
+ * docs: Convert to Docbook 5
+
+Bugfixes:
+ * yaml: Ensure certain values are always explicitly emitted as strings
+ * Never emit usertags that are missing a namespace
+ * compose: add bounds checks when parsing malformed translation files
+ * Explicitly add fcfreetype.h include to asc-font.c
+ * compose: Unref icon_policy in asc_compose_finalize
+ * compose: Free array from asc_result_get_component_ids_with_hints
+
+Miscellaneous:
+ * yaml: Improve string quoting heuristics
+ * meson: Drop -Winline from maintainer flags
+
+Contributors:
+ Matthias Klumpp, OrbisAI Security, Tom Pollard, bbhtt
+
 Version 1.1.2
 ~~~~~~~~~~~~~
 Released: 2026-01-28
@@ -47,6 +78,7 @@ Notes:
    and lower peak memory use when processing YAML. It also allows for future
    memory optimizations.
    Parsing a more restricted set of YAML may also help security.
+
  * This release also seals some internal libappstream-compose API
    that was public for a while for use by appstream-generator.
    It has no users anymore and should not have been public. This is one
