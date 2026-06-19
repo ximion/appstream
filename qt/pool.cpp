@@ -71,8 +71,14 @@ static void pool_ready_async_cb(AsPool *cpool, GAsyncResult *result, gpointer us
     if (as_pool_load_finish(cpool, result, &error)) {
         Q_EMIT d->q->loadFinished(true);
     } else {
-        const QString errorMessage = QString::fromUtf8(error->message);
-        d->lastError = errorMessage;
+        if (error) {
+            qCWarning(APPSTREAMQT_POOL) << "Error loading pool:" << error->message;
+            const QString errorMessage = QString::fromUtf8(error->message);
+            d->lastError = errorMessage;
+        } else {
+            qCWarning(APPSTREAMQT_POOL) << "Error loading pool: unknown error";
+            d->lastError = QStringLiteral("Unknown error");
+        }
         Q_EMIT d->q->loadFinished(false);
     }
 }
