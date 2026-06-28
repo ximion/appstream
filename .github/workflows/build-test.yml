@@ -130,3 +130,50 @@ jobs:
     - name: Test with asan, ubsan
       run: podman run -a stdout -a stderr --privileged -e COMPILER_VENDOR=$CVENDOR -e CC=gcc -e CXX=g++ -v `pwd`:/build appstream
            ./tests/ci/run-tests.sh sanitize
+
+  build-freebsd:
+    name: FreeBSD
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: cpa.sh {0}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Start VM
+        uses: cross-platform-actions/action@5ea7e8e4677bd726033a10b094ba1c5762b15dee #v1.3.0
+        with:
+          operating_system: freebsd
+          version: '15.1'
+
+      - name: Run
+        run: |
+          # Use latest package set
+          sudo mkdir -p /usr/local/etc/pkg/repos/
+          sudo cp /etc/pkg/FreeBSD.conf /usr/local/etc/pkg/repos/FreeBSD.conf
+          sudo sed -i.bak -e 's|/quarterly|/latest|' /usr/local/etc/pkg/repos/FreeBSD.conf
+
+          echo "::group::Dependencies installation"
+          sudo -E pkg install -y \
+              docbook-xsl-ns gettext-tools glib gobject-introspection \
+              gperf itstool libxmlb libfyaml meson pkgconf qt6-tools \
+              snowballstemmer libblake3 textproc/py-gi-docgen vala
+          echo "::endgroup::"
+
+          export CC=/usr/bin/cc
+          export CXX=/usr/bin/c++
+          # /usr/ports/Mk/Uses/localbase.mk localbase:ldflags
+          export LOCALBASE=/usr/local
+          export CFLAGS="-isystem $LOCALBASE/include"
+          export CPPFLAGS="$CFLAGS"
+          export CXXFLAGS="$CFLAGS"
+          export LDFLAGS="-L${LOCALBASE}/lib"
+
+          echo "::group::Building"
+          tests/ci/run-build.sh
+          echo "::endgroup::"
+
+          echo "::group::Testing"
+          tests/ci/run-tests.sh
+          echo "::endgroup::"
