@@ -80,11 +80,11 @@ inline QStringList valueWrap(GList *list)
 
 inline char **stringListToCharArray(const QStringList &list)
 {
-    char **array = (char **) g_malloc(sizeof(char *) * list.size() + 1);
+    char **array = (char **) g_malloc(sizeof(char *) * (list.size() + 1));
     for (int i = 0; i < list.size(); ++i) {
         const QByteArray string = list[i].toLocal8Bit();
         array[i] = (char *) g_malloc(sizeof(char) * (string.size() + 1));
-        strcpy(array[i], string.constData());
+        memcpy(array[i], string.constData(), string.size() + 1);
     }
     array[list.size()] = nullptr;
     return array;
