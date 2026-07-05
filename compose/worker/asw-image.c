@@ -20,21 +20,21 @@
  */
 
 /**
- * SECTION:asc-image
+ * SECTION:asw-image
  * @short_description: Basic image rendering functions.
  * @include: appstream-compose.h
  */
 
 #include "config.h"
-#include "asc-image-private.h"
+#include "asw-image-private.h"
 
 #include <gio/gio.h>
 #include <math.h>
 
 #include "asc-globals.h"
-#include "asc-canvas.h"
+#include "asw-canvas.h"
 
-struct _AscImage {
+struct _AswImage {
 	GObject parent_instance;
 };
 
@@ -42,18 +42,18 @@ typedef struct {
 	GdkPixbuf *pix;
 	gint width;
 	gint height;
-} AscImagePrivate;
+} AswImagePrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (AscImage, asc_image, G_TYPE_OBJECT)
-#define GET_PRIVATE(o) (asc_image_get_instance_private (o))
+G_DEFINE_TYPE_WITH_PRIVATE (AswImage, asw_image, G_TYPE_OBJECT)
+#define GET_PRIVATE(o) (asw_image_get_instance_private (o))
 
 /**
- * asc_image_error_quark:
+ * asw_image_error_quark:
  *
  * Return value: An error quark.
  **/
 GQuark
-asc_image_error_quark (void)
+asw_image_error_quark (void)
 {
 	static GQuark quark = 0;
 	if (!quark)
@@ -62,146 +62,146 @@ asc_image_error_quark (void)
 }
 
 /**
- * asc_image_format_to_string:
- * @format: the %AscImageFormat.
+ * asw_image_format_to_string:
+ * @format: the %AswImageFormat.
  *
  * Converts the enumerated value to an text representation.
  *
  * Returns: string version of @format
  **/
 const gchar *
-asc_image_format_to_string (AscImageFormat format)
+asw_image_format_to_string (AswImageFormat format)
 {
-	if (format == ASC_IMAGE_FORMAT_PNG)
+	if (format == ASW_IMAGE_FORMAT_PNG)
 		return "png";
-	if (format == ASC_IMAGE_FORMAT_JXL)
+	if (format == ASW_IMAGE_FORMAT_JXL)
 		return "jxl";
-	if (format == ASC_IMAGE_FORMAT_AVIF)
+	if (format == ASW_IMAGE_FORMAT_AVIF)
 		return "avif";
-	if (format == ASC_IMAGE_FORMAT_WEBP)
+	if (format == ASW_IMAGE_FORMAT_WEBP)
 		return "webp";
-	if (format == ASC_IMAGE_FORMAT_SVG)
+	if (format == ASW_IMAGE_FORMAT_SVG)
 		return "svg";
-	if (format == ASC_IMAGE_FORMAT_SVGZ)
+	if (format == ASW_IMAGE_FORMAT_SVGZ)
 		return "svgz";
-	if (format == ASC_IMAGE_FORMAT_JPEG)
+	if (format == ASW_IMAGE_FORMAT_JPEG)
 		return "jpeg";
-	if (format == ASC_IMAGE_FORMAT_GIF)
+	if (format == ASW_IMAGE_FORMAT_GIF)
 		return "gif";
 
-	if (format == ASC_IMAGE_FORMAT_XPM)
+	if (format == ASW_IMAGE_FORMAT_XPM)
 		return "xpm";
 
 	return NULL;
 }
 
 /**
- * asc_image_format_from_string:
+ * asw_image_format_from_string:
  * @str: the string.
  *
  * Converts the text representation to an enumerated value.
  *
- * Returns: a #AscImageFormat or %ASC_IMAGE_FORMAT_UNKNOWN for unknown
+ * Returns: a #AswImageFormat or %ASW_IMAGE_FORMAT_UNKNOWN for unknown
  **/
-AscImageFormat
-asc_image_format_from_string (const gchar *str)
+AswImageFormat
+asw_image_format_from_string (const gchar *str)
 {
 	if (g_strcmp0 (str, "png") == 0)
-		return ASC_IMAGE_FORMAT_PNG;
+		return ASW_IMAGE_FORMAT_PNG;
 	if (g_strcmp0 (str, "jxl") == 0)
-		return ASC_IMAGE_FORMAT_JXL;
+		return ASW_IMAGE_FORMAT_JXL;
 	if (g_strcmp0 (str, "avif") == 0)
-		return ASC_IMAGE_FORMAT_AVIF;
+		return ASW_IMAGE_FORMAT_AVIF;
 	if (g_strcmp0 (str, "webp") == 0)
-		return ASC_IMAGE_FORMAT_WEBP;
+		return ASW_IMAGE_FORMAT_WEBP;
 	if (g_strcmp0 (str, "svg") == 0)
-		return ASC_IMAGE_FORMAT_SVG;
+		return ASW_IMAGE_FORMAT_SVG;
 	if (g_strcmp0 (str, "svgz") == 0)
-		return ASC_IMAGE_FORMAT_SVGZ;
+		return ASW_IMAGE_FORMAT_SVGZ;
 	if (g_strcmp0 (str, "jpeg") == 0)
-		return ASC_IMAGE_FORMAT_JPEG;
+		return ASW_IMAGE_FORMAT_JPEG;
 	if (g_strcmp0 (str, "gif") == 0)
-		return ASC_IMAGE_FORMAT_GIF;
+		return ASW_IMAGE_FORMAT_GIF;
 	if (g_strcmp0 (str, "xpm") == 0)
-		return ASC_IMAGE_FORMAT_XPM;
+		return ASW_IMAGE_FORMAT_XPM;
 
-	return ASC_IMAGE_FORMAT_UNKNOWN;
+	return ASW_IMAGE_FORMAT_UNKNOWN;
 }
 
 /**
- * asc_image_format_from_filename:
+ * asw_image_format_from_filename:
  * @fname: the filename.
  *
  * Returns the image format type based on the given file's filename.
  *
- * Returns: a #AscImageFormat or %ASC_IMAGE_FORMAT_UNKNOWN for unknown
+ * Returns: a #AswImageFormat or %ASW_IMAGE_FORMAT_UNKNOWN for unknown
  **/
-AscImageFormat
-asc_image_format_from_filename (const gchar *fname)
+AswImageFormat
+asw_image_format_from_filename (const gchar *fname)
 {
 	g_autofree gchar *fname_low = g_ascii_strdown (fname, -1);
 
 	if (g_str_has_suffix (fname_low, ".png"))
-		return ASC_IMAGE_FORMAT_PNG;
+		return ASW_IMAGE_FORMAT_PNG;
 	if (g_str_has_suffix (fname_low, ".jxl"))
-		return ASC_IMAGE_FORMAT_JXL;
+		return ASW_IMAGE_FORMAT_JXL;
 	if (g_str_has_suffix (fname_low, ".avif"))
-		return ASC_IMAGE_FORMAT_AVIF;
+		return ASW_IMAGE_FORMAT_AVIF;
 	if (g_str_has_suffix (fname_low, ".webp"))
-		return ASC_IMAGE_FORMAT_WEBP;
+		return ASW_IMAGE_FORMAT_WEBP;
 	if (g_str_has_suffix (fname_low, ".svg"))
-		return ASC_IMAGE_FORMAT_SVG;
+		return ASW_IMAGE_FORMAT_SVG;
 	if (g_str_has_suffix (fname_low, ".svgz"))
-		return ASC_IMAGE_FORMAT_SVGZ;
+		return ASW_IMAGE_FORMAT_SVGZ;
 	if (g_str_has_suffix (fname_low, ".jpeg") || g_str_has_suffix (fname_low, ".jpg"))
-		return ASC_IMAGE_FORMAT_JPEG;
+		return ASW_IMAGE_FORMAT_JPEG;
 	if (g_str_has_suffix (fname_low, ".gif"))
-		return ASC_IMAGE_FORMAT_GIF;
+		return ASW_IMAGE_FORMAT_GIF;
 	if (g_str_has_suffix (fname_low, ".xpm"))
-		return ASC_IMAGE_FORMAT_XPM;
+		return ASW_IMAGE_FORMAT_XPM;
 
-	return ASC_IMAGE_FORMAT_UNKNOWN;
+	return ASW_IMAGE_FORMAT_UNKNOWN;
 }
 
 static void
-asc_image_finalize (GObject *object)
+asw_image_finalize (GObject *object)
 {
-	AscImage *image = ASC_IMAGE (object);
-	AscImagePrivate *priv = GET_PRIVATE (image);
+	AswImage *image = ASW_IMAGE (object);
+	AswImagePrivate *priv = GET_PRIVATE (image);
 
 	if (priv->pix != NULL)
 		g_object_unref (priv->pix);
 
-	G_OBJECT_CLASS (asc_image_parent_class)->finalize (object);
+	G_OBJECT_CLASS (asw_image_parent_class)->finalize (object);
 }
 
 static void
-asc_image_init (AscImage *image)
+asw_image_init (AswImage *image)
 {
 }
 
 static void
-asc_image_class_init (AscImageClass *klass)
+asw_image_class_init (AswImageClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	object_class->finalize = asc_image_finalize;
+	object_class->finalize = asw_image_finalize;
 }
 
 /**
- * asc_image_new:
+ * asw_image_new:
  *
- * Creates a new #AscImage.
+ * Creates a new #AswImage.
  **/
-AscImage *
-asc_image_new (void)
+AswImage *
+asw_image_new (void)
 {
-	AscImage *image;
-	image = g_object_new (ASC_TYPE_IMAGE, NULL);
-	return ASC_IMAGE (image);
+	AswImage *image;
+	image = g_object_new (ASW_TYPE_IMAGE, NULL);
+	return ASW_IMAGE (image);
 }
 
 /**
- * asc_optimize_png:
+ * asw_optimize_png:
  * @fname: Filename of the PNG image to optimize.
  * @error: A #GError or %NULL
  *
@@ -209,7 +209,7 @@ asc_image_new (void)
  * is available and this feature is enabled.
  **/
 gboolean
-asc_optimize_png (const gchar *fname, GError **error)
+asw_optimize_png (const gchar *fname, GError **error)
 {
 	gint exit_status;
 	gboolean r;
@@ -225,8 +225,8 @@ asc_optimize_png (const gchar *fname, GError **error)
 	optipng_path = asc_globals_get_optipng_binary ();
 	if (optipng_path == NULL) {
 		g_set_error (error,
-			     ASC_IMAGE_ERROR,
-			     ASC_IMAGE_ERROR_FAILED,
+			     ASW_IMAGE_ERROR,
+			     ASW_IMAGE_ERROR_FAILED,
 			     "optipng not found in $PATH");
 		return FALSE;
 	}
@@ -264,7 +264,7 @@ asc_optimize_png (const gchar *fname, GError **error)
 }
 
 /**
- * asc_image_supported_format_names:
+ * asw_image_supported_format_names:
  *
  * Get a set of image format names we can currently read
  * (via GdkPixbuf).
@@ -272,7 +272,7 @@ asc_optimize_png (const gchar *fname, GError **error)
  * Returns: (transfer full): A hash set of format names.
  **/
 GHashTable *
-asc_image_supported_format_names (void)
+asw_image_supported_format_names (void)
 {
 	g_autoptr(GSList) fm_list = NULL;
 	GHashTable *res;
@@ -290,15 +290,15 @@ asc_image_supported_format_names (void)
 }
 
 /**
- * asc_image_load_pixbuf:
+ * asw_image_load_pixbuf:
  **/
 static gboolean
-asc_image_load_pixbuf (AscImage *image,
+asw_image_load_pixbuf (AswImage *image,
 		       GdkPixbuf *pixbuf,
 		       gint dest_width,
 		       gint dest_height,
 		       gint src_size_min,
-		       AscImageLoadFlags flags,
+		       AswImageLoadFlags flags,
 		       GError **error)
 {
 	gint pixbuf_height;
@@ -312,8 +312,8 @@ asc_image_load_pixbuf (AscImage *image,
 	if (gdk_pixbuf_get_width (pixbuf) < src_size_min &&
 	    gdk_pixbuf_get_height (pixbuf) < src_size_min) {
 		g_set_error (error,
-			     ASC_IMAGE_ERROR,
-			     ASC_IMAGE_ERROR_FAILED,
+			     ASW_IMAGE_ERROR,
+			     ASW_IMAGE_ERROR_FAILED,
 			     "Image was too small %ix%i",
 			     gdk_pixbuf_get_width (pixbuf),
 			     gdk_pixbuf_get_height (pixbuf));
@@ -324,18 +324,18 @@ asc_image_load_pixbuf (AscImage *image,
 	pixbuf_width = gdk_pixbuf_get_width (pixbuf);
 	pixbuf_height = gdk_pixbuf_get_height (pixbuf);
 	if (pixbuf_width == dest_width && pixbuf_height == dest_height) {
-		asc_image_set_pixbuf (image, pixbuf);
+		asw_image_set_pixbuf (image, pixbuf);
 		return TRUE;
 	}
 
 	/* this makes icons look blurry, but allows the software center to look
 	 * good as icons are properly aligned in the UI layout */
-	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
+	if (as_flags_contains (flags, ASW_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
 		pixbuf_new = gdk_pixbuf_scale_simple (pixbuf,
 						      dest_width,
 						      dest_height,
 						      GDK_INTERP_HYPER);
-		asc_image_set_pixbuf (image, pixbuf_new);
+		asw_image_set_pixbuf (image, pixbuf_new);
 		return TRUE;
 	}
 
@@ -356,7 +356,7 @@ asc_image_load_pixbuf (AscImage *image,
 				      pixbuf_new,
 				      (dest_width - pixbuf_width) / 2,
 				      (dest_height - pixbuf_height) / 2);
-		asc_image_set_pixbuf (image, pixbuf_new);
+		asw_image_set_pixbuf (image, pixbuf_new);
 		return TRUE;
 	}
 
@@ -366,7 +366,7 @@ asc_image_load_pixbuf (AscImage *image,
 						      dest_width,
 						      dest_height,
 						      GDK_INTERP_HYPER);
-		asc_image_set_pixbuf (image, pixbuf_new);
+		asw_image_set_pixbuf (image, pixbuf_new);
 		return TRUE;
 	}
 
@@ -384,8 +384,8 @@ asc_image_load_pixbuf (AscImage *image,
 					      (gint) tmp_width,
 					      (gint) tmp_height,
 					      GDK_INTERP_HYPER);
-	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_SHARPEN))
-		asc_pixbuf_sharpen (pixbuf_tmp, 1, -0.5);
+	if (as_flags_contains (flags, ASW_IMAGE_LOAD_FLAG_SHARPEN))
+		asw_pixbuf_sharpen (pixbuf_tmp, 1, -0.5);
 	gdk_pixbuf_copy_area (pixbuf_tmp,
 			      0,
 			      0, /* of src */
@@ -394,55 +394,55 @@ asc_image_load_pixbuf (AscImage *image,
 			      pixbuf_new,
 			      (dest_width - tmp_width) / 2,
 			      (dest_height - tmp_height) / 2);
-	asc_image_set_pixbuf (image, pixbuf_new);
+	asw_image_set_pixbuf (image, pixbuf_new);
 	return TRUE;
 }
 
 /**
- * asc_image_new_from_file:
+ * asw_image_new_from_file:
  * @fname: Name of the file to load.
  * @dest_width: The suggested width of the constructed pixbuf, or 0 for the native size
  * @dest_height: The suggested height of the constructed pixbuf, or 0 for the native size
- * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
+ * @flags: a #AswImageLoadFlags, e.g. %ASW_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL
  *
- * Creates a new #AscImage from a file on the filesystem.
+ * Creates a new #AswImage from a file on the filesystem.
  **/
-AscImage *
-asc_image_new_from_file (const gchar *fname,
+AswImage *
+asw_image_new_from_file (const gchar *fname,
 			 gint dest_width,
 			 gint dest_height,
-			 AscImageLoadFlags flags,
+			 AswImageLoadFlags flags,
 			 GError **error)
 {
 	gboolean ret;
-	g_autoptr(AscImage) image = asc_image_new ();
+	g_autoptr(AswImage) image = asw_image_new ();
 
-	ret = asc_image_load_filename (image, fname, dest_width, dest_height, 0, flags, error);
+	ret = asw_image_load_filename (image, fname, dest_width, dest_height, 0, flags, error);
 	if (!ret)
 		return NULL;
 	return g_steal_pointer (&image);
 }
 
 /**
- * asc_image_new_from_data:
+ * asw_image_new_from_data:
  * @data: Data to load.
  * @len: Length of the data to load.
  * @dest_width: The suggested width of the constructed pixbuf, or 0 for the native size
  * @dest_height: The suggested height of the constructed pixbuf, or 0 for the native size
- * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
- * @format_hint: Assume the specified image format for data, use %ASC_IMAGE_FORMAT_UNKNOWN to guess.
+ * @flags: a #AswImageLoadFlags, e.g. %ASW_IMAGE_LOAD_FLAG_NONE
+ * @format_hint: Assume the specified image format for data, use %ASW_IMAGE_FORMAT_UNKNOWN to guess.
  * @error: A #GError or %NULL
  *
- * Creates a new #AscImage from data in memory.
+ * Creates a new #AswImage from data in memory.
  **/
-AscImage *
-asc_image_new_from_data (const void *data,
+AswImage *
+asw_image_new_from_data (const void *data,
 			 gssize len,
 			 gint dest_width,
 			 gint dest_height,
-			 AscImageLoadFlags flags,
-			 AscImageFormat format_hint,
+			 AswImageLoadFlags flags,
+			 AswImageFormat format_hint,
 			 GError **error)
 {
 	gboolean ret;
@@ -450,10 +450,10 @@ asc_image_new_from_data (const void *data,
 	g_autoptr(GInputStream) dstream = NULL;
 	g_autoptr(GConverter) conv = NULL;
 	g_autoptr(GdkPixbuf) pix = NULL;
-	g_autoptr(AscImage) image = asc_image_new ();
+	g_autoptr(AswImage) image = asw_image_new ();
 
 	istream = g_memory_input_stream_new_from_data (data, len, NULL);
-	if (format_hint == ASC_IMAGE_FORMAT_SVGZ) {
+	if (format_hint == ASW_IMAGE_FORMAT_SVGZ) {
 		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
 		dstream = g_converter_input_stream_new (istream, conv);
 	} else {
@@ -466,12 +466,12 @@ asc_image_new_from_data (const void *data,
 		if (pix == NULL)
 			return NULL;
 
-		asc_image_set_pixbuf (image, pix);
+		asw_image_set_pixbuf (image, pix);
 		return g_steal_pointer (&image);
 	}
 
 	/* load & scale */
-	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
+	if (as_flags_contains (flags, ASW_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
 		pix = gdk_pixbuf_new_from_stream_at_scale (dstream,
 							   dest_width,
 							   dest_height,
@@ -486,7 +486,7 @@ asc_image_new_from_data (const void *data,
 		if (pix == NULL)
 			return NULL;
 	}
-	ret = asc_image_load_pixbuf (image, pix, dest_width, dest_height, 0, flags, error);
+	ret = asw_image_load_pixbuf (image, pix, dest_width, dest_height, 0, flags, error);
 	if (!ret)
 		return NULL;
 
@@ -494,12 +494,12 @@ asc_image_new_from_data (const void *data,
 }
 
 /**
- * asc_image_pixbuf_new_from_gz:
+ * asw_image_pixbuf_new_from_gz:
  *
  * Wrapper to allow GdkPixbuf to load SVG images from SVGZ files as well.
  */
 static GdkPixbuf *
-asc_image_pixbuf_new_from_gz (const gchar *filename, gint width, gint height, GError **error)
+asw_image_pixbuf_new_from_gz (const gchar *filename, gint width, gint height, GError **error)
 {
 	g_autoptr(GFile) file = NULL;
 	g_autoptr(GInputStream) file_stream = NULL;
@@ -511,8 +511,8 @@ asc_image_pixbuf_new_from_gz (const gchar *filename, gint width, gint height, GE
 	file = g_file_new_for_path (filename);
 	if (!g_file_query_exists (file, NULL)) {
 		g_set_error_literal (error,
-				     ASC_IMAGE_ERROR,
-				     ASC_IMAGE_ERROR_FAILED,
+				     ASW_IMAGE_ERROR,
+				     ASW_IMAGE_ERROR_FAILED,
 				     "Image file does not exist");
 		return NULL;
 	}
@@ -551,13 +551,13 @@ asc_image_pixbuf_new_from_gz (const gchar *filename, gint width, gint height, GE
 }
 
 /**
- * asc_image_load_filename:
- * @image: a #AscImage instance.
+ * asw_image_load_filename:
+ * @image: a #AswImage instance.
  * @filename: filename to read from
  * @dest_width: The suggested width of the constructed pixbuf, or 0 for the native size
  * @dest_height: The suggested height of the constructed pixbuf, or 0 for the native size
  * @src_size_min: The smallest source size (width or height) allowed, or 0 for no limit
- * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
+ * @flags: a #AswImageLoadFlags, e.g. %ASW_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL.
  *
  * Reads an image from a file.
@@ -565,26 +565,26 @@ asc_image_pixbuf_new_from_gz (const gchar *filename, gint width, gint height, GE
  * Returns: %TRUE for success
  **/
 gboolean
-asc_image_load_filename (AscImage *image,
+asw_image_load_filename (AswImage *image,
 			 const gchar *filename,
 			 gint dest_width,
 			 gint dest_height,
 			 gint src_size_min,
-			 AscImageLoadFlags flags,
+			 AswImageLoadFlags flags,
 			 GError **error)
 {
 	g_autoptr(GdkPixbuf) pixbuf_src = NULL;
 	gboolean is_svg = FALSE;
 
-	g_return_val_if_fail (ASC_IS_IMAGE (image), FALSE);
+	g_return_val_if_fail (ASW_IS_IMAGE (image), FALSE);
 
 	is_svg = g_str_has_suffix (filename, ".svg") || g_str_has_suffix (filename, ".svgz");
 #ifndef HAVE_SVG_SUPPORT
 	if (is_svg) {
 		g_warning ("Unable to load SVG graphic: AppStream built without SVG support.");
 		g_set_error_literal (error,
-				     ASC_IMAGE_ERROR,
-				     ASC_IMAGE_ERROR_UNSUPPORTED,
+				     ASW_IMAGE_ERROR,
+				     ASW_IMAGE_ERROR_UNSUPPORTED,
 				     "AppStream was built without SVG support. This is an issue "
 				     "with your AppStream distribution. "
 				     "Please rebuild AppStream with SVG support enabled or contact "
@@ -594,22 +594,22 @@ asc_image_load_filename (AscImage *image,
 #endif
 
 	/* only support allowed types, unless support for any image is explicitly requested */
-	if (!as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED)) {
+	if (!as_flags_contains (flags, ASW_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED)) {
 		GdkPixbufFormat *fmt;
 		g_autofree gchar *name = NULL;
 		fmt = gdk_pixbuf_get_file_info (filename, NULL, NULL);
 		if (fmt == NULL) {
 			g_set_error_literal (error,
-					     ASC_IMAGE_ERROR,
-					     ASC_IMAGE_ERROR_UNSUPPORTED,
+					     ASW_IMAGE_ERROR,
+					     ASW_IMAGE_ERROR_UNSUPPORTED,
 					     "Image format was not recognized");
 			return FALSE;
 		}
 		name = gdk_pixbuf_format_get_name (fmt);
-		if (asc_image_format_from_string (name) == ASC_IMAGE_FORMAT_UNKNOWN) {
+		if (asw_image_format_from_string (name) == ASW_IMAGE_FORMAT_UNKNOWN) {
 			g_set_error (error,
-				     ASC_IMAGE_ERROR,
-				     ASC_IMAGE_ERROR_UNSUPPORTED,
+				     ASW_IMAGE_ERROR,
+				     ASW_IMAGE_ERROR_UNSUPPORTED,
 				     "Image format %s is not supported",
 				     name);
 			return FALSE;
@@ -619,27 +619,27 @@ asc_image_load_filename (AscImage *image,
 	/* load the image of the native size */
 	if (dest_width <= 0 && dest_height <= 0) {
 		g_autoptr(GdkPixbuf) pixbuf = NULL;
-		pixbuf = asc_image_pixbuf_new_from_gz (filename, -1, -1, error);
+		pixbuf = asw_image_pixbuf_new_from_gz (filename, -1, -1, error);
 		if (pixbuf == NULL)
 			return FALSE;
-		asc_image_set_pixbuf (image, pixbuf);
+		asw_image_set_pixbuf (image, pixbuf);
 		return TRUE;
 	}
 
 	/* open file in native size */
 	if (is_svg) {
-		pixbuf_src = asc_image_pixbuf_new_from_gz (filename,
+		pixbuf_src = asw_image_pixbuf_new_from_gz (filename,
 							   (gint) dest_width,
 							   (gint) dest_height,
 							   error);
 	} else {
-		pixbuf_src = asc_image_pixbuf_new_from_gz (filename, 0, 0, error);
+		pixbuf_src = asw_image_pixbuf_new_from_gz (filename, 0, 0, error);
 	}
 	if (pixbuf_src == NULL)
 		return FALSE;
 
 	/* create from pixbuf & resize */
-	return asc_image_load_pixbuf (image,
+	return asw_image_load_pixbuf (image,
 				      pixbuf_src,
 				      dest_width,
 				      dest_height,
@@ -649,33 +649,33 @@ asc_image_load_filename (AscImage *image,
 }
 
 /**
- * asc_image_get_pixbuf:
- * @image: a #AscImage instance.
+ * asw_image_get_pixbuf:
+ * @image: a #AswImage instance.
  *
  * Gets the image pixbuf if set.
  *
  * Returns: (transfer none): the #GdkPixbuf, or %NULL
  **/
 GdkPixbuf *
-asc_image_get_pixbuf (AscImage *image)
+asw_image_get_pixbuf (AswImage *image)
 {
-	AscImagePrivate *priv = GET_PRIVATE (image);
-	g_return_val_if_fail (ASC_IS_IMAGE (image), NULL);
+	AswImagePrivate *priv = GET_PRIVATE (image);
+	g_return_val_if_fail (ASW_IS_IMAGE (image), NULL);
 	return priv->pix;
 }
 
 /**
- * asc_image_set_pixbuf:
- * @image: a #AscImage instance.
+ * asw_image_set_pixbuf:
+ * @image: a #AswImage instance.
  * @pixbuf: the #GdkPixbuf, or %NULL
  *
  * Sets the image pixbuf.
  **/
 void
-asc_image_set_pixbuf (AscImage *image, GdkPixbuf *pixbuf)
+asw_image_set_pixbuf (AswImage *image, GdkPixbuf *pixbuf)
 {
-	AscImagePrivate *priv = GET_PRIVATE (image);
-	g_return_if_fail (ASC_IS_IMAGE (image));
+	AswImagePrivate *priv = GET_PRIVATE (image);
+	g_return_if_fail (ASW_IS_IMAGE (image));
 
 	g_set_object (&priv->pix, pixbuf);
 	if (pixbuf == NULL)
@@ -685,43 +685,43 @@ asc_image_set_pixbuf (AscImage *image, GdkPixbuf *pixbuf)
 }
 
 /**
- * asc_image_get_width:
- * @image: an #AscImage instance.
+ * asw_image_get_width:
+ * @image: an #AswImage instance.
  *
  * Gets the image width.
  **/
 gint
-asc_image_get_width (AscImage *image)
+asw_image_get_width (AswImage *image)
 {
-	AscImagePrivate *priv = GET_PRIVATE (image);
+	AswImagePrivate *priv = GET_PRIVATE (image);
 	return priv->width;
 }
 
 /**
- * asc_image_get_height:
- * @image: an #AscImage instance.
+ * asw_image_get_height:
+ * @image: an #AswImage instance.
  *
  * Gets the image height.
  **/
 gint
-asc_image_get_height (AscImage *image)
+asw_image_get_height (AswImage *image)
 {
-	AscImagePrivate *priv = GET_PRIVATE (image);
+	AswImagePrivate *priv = GET_PRIVATE (image);
 	return priv->height;
 }
 
 /**
- * asc_image_scale:
- * @image: an #AscImage instance.
+ * asw_image_scale:
+ * @image: an #AswImage instance.
  * @new_width: The new width.
  * @new_height: the new height.
  *
  * Scale the image to the given size.
  **/
 void
-asc_image_scale (AscImage *image, gint new_width, gint new_height)
+asw_image_scale (AswImage *image, gint new_width, gint new_height)
 {
-	AscImagePrivate *priv = GET_PRIVATE (image);
+	AswImagePrivate *priv = GET_PRIVATE (image);
 	g_autoptr(GdkPixbuf) res_pix = NULL;
 
 	g_return_if_fail (new_width > 0 && new_height > 0);
@@ -732,77 +732,77 @@ asc_image_scale (AscImage *image, gint new_width, gint new_height)
 		g_error ("Unable to allocate enough memory for image scaling.");
 
 	/* set our current image to the scaled version */
-	asc_image_set_pixbuf (image, res_pix);
+	asw_image_set_pixbuf (image, res_pix);
 }
 
 /**
- * asc_image_scale_to_width:
- * @image: an #AscImage instance.
+ * asw_image_scale_to_width:
+ * @image: an #AswImage instance.
  * @new_width: The new width.
  *
  * Scale the image to the given width, preserving
  * its aspect ratio.
  **/
 void
-asc_image_scale_to_width (AscImage *image, gint new_width)
+asw_image_scale_to_width (AswImage *image, gint new_width)
 {
 	double scale;
 	gint new_height;
 
 	g_return_if_fail (new_width > 0);
 
-	scale = (double) new_width / (double) asc_image_get_width (image);
-	new_height = floor (asc_image_get_height (image) * scale);
+	scale = (double) new_width / (double) asw_image_get_width (image);
+	new_height = floor (asw_image_get_height (image) * scale);
 
-	asc_image_scale (image, new_width, new_height);
+	asw_image_scale (image, new_width, new_height);
 }
 
 /**
- * asc_image_scale_to_height:
- * @image: an #AscImage instance.
+ * asw_image_scale_to_height:
+ * @image: an #AswImage instance.
  * @new_height: the new height.
  *
  * Scale the image to the given height, preserving
  * its aspect ratio.
  **/
 void
-asc_image_scale_to_height (AscImage *image, gint new_height)
+asw_image_scale_to_height (AswImage *image, gint new_height)
 {
 	double scale;
 	gint new_width;
 
 	g_return_if_fail (new_height > 0);
 
-	scale = (double) new_height / (double) asc_image_get_height (image);
-	new_width = floor (asc_image_get_width (image) * scale);
+	scale = (double) new_height / (double) asw_image_get_height (image);
+	new_width = floor (asw_image_get_width (image) * scale);
 
-	asc_image_scale (image, new_width, new_height);
+	asw_image_scale (image, new_width, new_height);
 }
 
 /**
- * asc_image_scale_to_fit:
- * @image: an #AscImage instance.
+ * asw_image_scale_to_fit:
+ * @image: an #AswImage instance.
  * @size: the maximum edge length.
  *
  * Scale the image to fir in a square with the given edge length,
  * and keep its aspect ratio.
  **/
 void
-asc_image_scale_to_fit (AscImage *image, gint size)
+asw_image_scale_to_fit (AswImage *image, gint size)
 {
 	g_return_if_fail (size > 0);
-	if (asc_image_get_height (image) > asc_image_get_width (image))
-		asc_image_scale_to_height (image, size);
+	if (asw_image_get_height (image) > asw_image_get_width (image))
+		asw_image_scale_to_height (image, size);
 	else
-		asc_image_scale_to_width (image, size);
+		asw_image_scale_to_width (image, size);
 }
 
 /**
- * asc_render_svg_to_file:
+ * asw_render_svg_to_file:
  * @stream: Input stream with SVG data.
  * @width: Target width.
  * @height: Target height.
- * @format: Target image format, e.g. %ASC_IMAGE_FORMAT_PNG
+ * @format: Target image format, e.g. %ASW_IMAGE_FORMAT_PNG
  * @filename: Filename to write to.
  * @error: A #GError or %NULL
  *
@@ -811,62 +811,62 @@ asc_image_scale_to_fit (AscImage *image, gint size)
  * Returns: %TRUE for success
  **/
 gboolean
-asc_render_svg_to_file (GInputStream *stream,
+asw_render_svg_to_file (GInputStream *stream,
 			gint width,
 			gint height,
-			AscImageFormat format,
+			AswImageFormat format,
 			const gchar *filename,
 			GError **error)
 {
-	g_autoptr(AscCanvas) cv = NULL;
+	g_autoptr(AswCanvas) cv = NULL;
 	g_autoptr(GdkPixbuf) pixbuf = NULL;
 
 	g_return_val_if_fail (width > 0 && height > 0, FALSE);
 
-	if (format == ASC_IMAGE_FORMAT_UNKNOWN) {
+	if (format == ASW_IMAGE_FORMAT_UNKNOWN) {
 		g_set_error (error,
-			     ASC_IMAGE_ERROR,
-			     ASC_IMAGE_ERROR_UNSUPPORTED,
+			     ASW_IMAGE_ERROR,
+			     ASW_IMAGE_ERROR_UNSUPPORTED,
 			     "Unknown image format specified");
 		return FALSE;
 	}
-	if (format == ASC_IMAGE_FORMAT_SVG || format == ASC_IMAGE_FORMAT_SVGZ) {
+	if (format == ASW_IMAGE_FORMAT_SVG || format == ASW_IMAGE_FORMAT_SVGZ) {
 		g_set_error (error,
-			     ASC_IMAGE_ERROR,
-			     ASC_IMAGE_ERROR_UNSUPPORTED,
+			     ASW_IMAGE_ERROR,
+			     ASW_IMAGE_ERROR_UNSUPPORTED,
 			     "Can not render existing SVG data to SVG");
 		return FALSE;
 	}
 
-	cv = asc_canvas_new (width, height);
-	if (!asc_canvas_render_svg (cv, stream, error))
+	cv = asw_canvas_new (width, height);
+	if (!asw_canvas_render_svg (cv, stream, error))
 		return FALSE;
 
-	if (format == ASC_IMAGE_FORMAT_PNG) {
+	if (format == ASW_IMAGE_FORMAT_PNG) {
 		/* we can just save that PNG directly */
-		return asc_canvas_save_png (cv, filename, error);
+		return asw_canvas_save_png (cv, filename, error);
 	}
 
 	/* save to other formats */
-	pixbuf = asc_canvas_to_pixbuf (cv);
-	return gdk_pixbuf_save (pixbuf, filename, asc_image_format_to_string (format), error, NULL);
+	pixbuf = asw_canvas_to_pixbuf (cv);
+	return gdk_pixbuf_save (pixbuf, filename, asw_image_format_to_string (format), error, NULL);
 }
 
 /**
- * asc_image_save_pixbuf:
- * @image: a #AscImage instance.
+ * asw_image_save_pixbuf:
+ * @image: a #AswImage instance.
  * @width: target width, or 0 for default
  * @height: target height, or 0 for default
- * @flags: some #AscImageSaveFlags values, e.g. %ASC_IMAGE_SAVE_FLAG_PAD_16_9
+ * @flags: some #AswImageSaveFlags values, e.g. %ASW_IMAGE_SAVE_FLAG_PAD_16_9
  *
  * Resamples a pixbuf to a specific size.
  *
  * Returns: (transfer full): A #GdkPixbuf of the specified size
  **/
 GdkPixbuf *
-asc_image_save_pixbuf (AscImage *image, gint width, gint height, AscImageSaveFlags flags)
+asw_image_save_pixbuf (AswImage *image, gint width, gint height, AswImageSaveFlags flags)
 {
-	AscImagePrivate *priv = GET_PRIVATE (image);
+	AswImagePrivate *priv = GET_PRIVATE (image);
 	GdkPixbuf *pixbuf = NULL;
 	gint tmp_height;
 	gint tmp_width;
@@ -874,7 +874,7 @@ asc_image_save_pixbuf (AscImage *image, gint width, gint height, AscImageSaveFla
 	gint pixbuf_width;
 	g_autoptr(GdkPixbuf) pixbuf_tmp = NULL;
 
-	g_return_val_if_fail (ASC_IS_IMAGE (image), NULL);
+	g_return_val_if_fail (ASW_IS_IMAGE (image), NULL);
 
 	/* never set */
 	if (priv->pix == NULL)
@@ -893,12 +893,12 @@ asc_image_save_pixbuf (AscImage *image, gint width, gint height, AscImageSaveFla
 		return g_object_ref (priv->pix);
 
 	/* is the aspect ratio of the source perfectly 16:9 */
-	if (flags == ASC_IMAGE_SAVE_FLAG_NONE || (pixbuf_width / 16) * 9 == pixbuf_height) {
+	if (flags == ASW_IMAGE_SAVE_FLAG_NONE || (pixbuf_width / 16) * 9 == pixbuf_height) {
 		pixbuf = gdk_pixbuf_scale_simple (priv->pix, width, height, GDK_INTERP_HYPER);
-		if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_SHARPEN))
-			asc_pixbuf_sharpen (pixbuf, 1, -0.5);
-		if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_BLUR))
-			asc_pixbuf_blur (pixbuf, 5, 3);
+		if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_SHARPEN))
+			asw_pixbuf_sharpen (pixbuf, 1, -0.5);
+		if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_BLUR))
+			asw_pixbuf_blur (pixbuf, 5, 3);
 		return pixbuf;
 	}
 
@@ -915,10 +915,10 @@ asc_image_save_pixbuf (AscImage *image, gint width, gint height, AscImageSaveFla
 		tmp_height = height;
 	}
 	pixbuf_tmp = gdk_pixbuf_scale_simple (priv->pix, tmp_width, tmp_height, GDK_INTERP_HYPER);
-	if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_SHARPEN))
-		asc_pixbuf_sharpen (pixbuf_tmp, 1, -0.5);
-	if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_BLUR))
-		asc_pixbuf_blur (pixbuf_tmp, 5, 3);
+	if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_SHARPEN))
+		asw_pixbuf_sharpen (pixbuf_tmp, 1, -0.5);
+	if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_BLUR))
+		asw_pixbuf_blur (pixbuf_tmp, 5, 3);
 	gdk_pixbuf_copy_area (pixbuf_tmp,
 			      0,
 			      0, /* of src */
@@ -931,12 +931,12 @@ asc_image_save_pixbuf (AscImage *image, gint width, gint height, AscImageSaveFla
 }
 
 /**
- * asc_image_save_filename:
- * @image: a #AscImage instance.
+ * asw_image_save_filename:
+ * @image: a #AswImage instance.
  * @filename: filename to write to
  * @width: target width, or 0 for default
  * @height: target height, or 0 for default
- * @flags: some #AscImageSaveFlags values, e.g. %ASC_IMAGE_SAVE_FLAG_PAD_16_9
+ * @flags: some #AswImageSaveFlags values, e.g. %ASW_IMAGE_SAVE_FLAG_PAD_16_9
  * @error: A #GError or %NULL.
  *
  * Saves the image to a file.
@@ -944,27 +944,27 @@ asc_image_save_pixbuf (AscImage *image, gint width, gint height, AscImageSaveFla
  * Returns: %TRUE for success
  **/
 gboolean
-asc_image_save_filename (AscImage *image,
+asw_image_save_filename (AswImage *image,
 			 const gchar *filename,
 			 gint width,
 			 gint height,
-			 AscImageSaveFlags flags,
+			 AswImageSaveFlags flags,
 			 GError **error)
 {
 	g_autoptr(GdkPixbuf) pixbuf = NULL;
 
 	/* save source file */
-	pixbuf = asc_image_save_pixbuf (image, width, height, flags);
+	pixbuf = asw_image_save_pixbuf (image, width, height, flags);
 	if (!gdk_pixbuf_save (pixbuf, filename, "png", error, NULL))
 		return FALSE;
 
-	if (!as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_OPTIMIZE))
+	if (!as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_OPTIMIZE))
 		return TRUE;
-	return asc_optimize_png (filename, error);
+	return asw_optimize_png (filename, error);
 }
 
 static void
-asc_pixbuf_blur_private (GdkPixbuf *src, GdkPixbuf *dest, gint radius, guchar *div_kernel_size)
+asw_pixbuf_blur_private (GdkPixbuf *src, GdkPixbuf *dest, gint radius, guchar *div_kernel_size)
 {
 	gint width, height, src_rowstride, dest_rowstride, n_channels;
 	guchar *p_src, *p_dest, *c1, *c2;
@@ -1084,7 +1084,7 @@ asc_pixbuf_blur_private (GdkPixbuf *src, GdkPixbuf *dest, gint radius, guchar *d
  * Since: 0.14.0
  **/
 void
-asc_pixbuf_blur (GdkPixbuf *src, gint radius, gint iterations)
+asw_pixbuf_blur (GdkPixbuf *src, gint radius, gint iterations)
 {
 	gint kernel_size;
 	gint i;
@@ -1102,7 +1102,7 @@ asc_pixbuf_blur (GdkPixbuf *src, gint radius, gint iterations)
 		div_kernel_size[i] = (guchar) (i / kernel_size);
 
 	while (iterations-- > 0)
-		asc_pixbuf_blur_private (src, tmp, radius, div_kernel_size);
+		asw_pixbuf_blur_private (src, tmp, radius, div_kernel_size);
 }
 
 #define interpolate_value(original, reference, distance) \
@@ -1117,7 +1117,7 @@ asc_pixbuf_blur (GdkPixbuf *src, gint radius, gint iterations)
  * Sharpens an image. Warning, this method is s..l..o..w... for large images.
  **/
 void
-asc_pixbuf_sharpen (GdkPixbuf *src, gint radius, gdouble amount)
+asw_pixbuf_sharpen (GdkPixbuf *src, gint radius, gdouble amount)
 {
 	gint width, height, rowstride, n_channels;
 	gint x, y;
@@ -1128,7 +1128,7 @@ asc_pixbuf_sharpen (GdkPixbuf *src, gint radius, gdouble amount)
 	g_autoptr(GdkPixbuf) blurred = NULL;
 
 	blurred = gdk_pixbuf_copy (src);
-	asc_pixbuf_blur (blurred, radius, 3);
+	asw_pixbuf_blur (blurred, radius, 3);
 
 	width = gdk_pixbuf_get_width (src);
 	height = gdk_pixbuf_get_height (src);

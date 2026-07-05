@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include "asc-font.h"
+#include "asw-font.h"
 #include "as-macros-private.h"
 
 #include <ft2build.h>
@@ -31,11 +31,11 @@ AS_BEGIN_PRIVATE_DECLS
 extern GMutex fontconfig_mutex;
 
 AS_INTERNAL_VISIBLE
-FT_Encoding asc_font_get_charset (AscFont *font);
+FT_Encoding asw_font_get_charset (AswFont *font);
 AS_INTERNAL_VISIBLE
-FT_Face asc_font_get_ftface (AscFont *font);
+FT_Face asw_font_get_ftface (AswFont *font);
 
 AS_INTERNAL_VISIBLE
-const gchar *asc_font_find_pangram (AscFont *font, const gchar *lang, const gchar *rand_id);
+const gchar *asw_font_find_pangram (AswFont *font, const gchar *lang, const gchar *rand_id);
 
 AS_END_PRIVATE_DECLS
