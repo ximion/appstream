@@ -24,21 +24,21 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include "as-macros-private.h"
-#include "asc-image.h"
+#include "asw-image.h"
 
 AS_BEGIN_PRIVATE_DECLS
 
-gboolean   asc_optimize_png (const gchar *fname, GError **error);
+gboolean   asw_optimize_png (const gchar *fname, GError **error);
 
-GdkPixbuf *asc_image_save_pixbuf (AscImage	   *image,
+GdkPixbuf *asw_image_save_pixbuf (AswImage	   *image,
 				  gint		    width,
 				  gint		    height,
-				  AscImageSaveFlags flags);
+				  AswImageSaveFlags flags);
 
-GdkPixbuf *asc_image_get_pixbuf (AscImage *image);
-void	   asc_image_set_pixbuf (AscImage *image, GdkPixbuf *pixbuf);
+GdkPixbuf *asw_image_get_pixbuf (AswImage *image);
+void	   asw_image_set_pixbuf (AswImage *image, GdkPixbuf *pixbuf);
 
-void	   asc_pixbuf_blur (GdkPixbuf *src, gint radius, gint iterations);
-void	   asc_pixbuf_sharpen (GdkPixbuf *src, gint radius, gdouble amount);
+void	   asw_pixbuf_blur (GdkPixbuf *src, gint radius, gint iterations);
+void	   asw_pixbuf_sharpen (GdkPixbuf *src, gint radius, gdouble amount);
 
 AS_END_PRIVATE_DECLS

@@ -24,13 +24,13 @@
  */
 
 /**
- * SECTION:asc-canvas
+ * SECTION:asw-canvas
  * @short_description: Draw text and render SVG graphics.
  * @include: appstream-compose.h
  */
 
 #include "config.h"
-#include "asc-canvas.h"
+#include "asw-canvas.h"
 
 #include <cairo.h>
 #include <cairo-ft.h>
@@ -40,10 +40,10 @@
 #endif
 
 #include "as-utils-private.h"
-#include "asc-font-private.h"
-#include "asc-image-private.h"
+#include "asw-font-private.h"
+#include "asw-image-private.h"
 
-struct _AscCanvas {
+struct _AswCanvas {
 	GObject parent_instance;
 };
 
@@ -53,18 +53,18 @@ typedef struct {
 
 	gint width;
 	gint height;
-} AscCanvasPrivate;
+} AswCanvasPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (AscCanvas, asc_canvas, G_TYPE_OBJECT)
-#define GET_PRIVATE(o) (asc_canvas_get_instance_private (o))
+G_DEFINE_TYPE_WITH_PRIVATE (AswCanvas, asw_canvas, G_TYPE_OBJECT)
+#define GET_PRIVATE(o) (asw_canvas_get_instance_private (o))
 
 /**
- * asc_canvas_error_quark:
+ * asw_canvas_error_quark:
  *
  * Return value: An error quark.
  **/
 GQuark
-asc_canvas_error_quark (void)
+asw_canvas_error_quark (void)
 {
 	static GQuark quark = 0;
 	if (!quark)
@@ -73,43 +73,43 @@ asc_canvas_error_quark (void)
 }
 
 static void
-asc_canvas_finalize (GObject *object)
+asw_canvas_finalize (GObject *object)
 {
-	AscCanvas *canvas = ASC_CANVAS (object);
-	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	AswCanvas *canvas = ASW_CANVAS (object);
+	AswCanvasPrivate *priv = GET_PRIVATE (canvas);
 
 	if (priv->cr != NULL)
 		cairo_destroy (priv->cr);
 	if (priv->srf != NULL)
 		cairo_surface_destroy (priv->srf);
 
-	G_OBJECT_CLASS (asc_canvas_parent_class)->finalize (object);
+	G_OBJECT_CLASS (asw_canvas_parent_class)->finalize (object);
 }
 
 static void
-asc_canvas_init (AscCanvas *canvas)
+asw_canvas_init (AswCanvas *canvas)
 {
 }
 
 static void
-asc_canvas_class_init (AscCanvasClass *klass)
+asw_canvas_class_init (AswCanvasClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	object_class->finalize = asc_canvas_finalize;
+	object_class->finalize = asw_canvas_finalize;
 }
 
 /**
- * asc_canvas_new:
+ * asw_canvas_new:
  *
- * Creates a new #AscFont.
+ * Creates a new #AswFont.
  *
- * Returns: (transfer full): an #AscCanvas
+ * Returns: (transfer full): an #AswCanvas
  **/
-AscCanvas *
-asc_canvas_new (gint width, gint height)
+AswCanvas *
+asw_canvas_new (gint width, gint height)
 {
-	AscCanvasPrivate *priv;
-	AscCanvas *canvas = ASC_CANVAS (g_object_new (ASC_TYPE_CANVAS, NULL));
+	AswCanvasPrivate *priv;
+	AswCanvas *canvas = ASW_CANVAS (g_object_new (ASW_TYPE_CANVAS, NULL));
 	priv = GET_PRIVATE (canvas);
 
 	priv->srf = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
@@ -122,44 +122,44 @@ asc_canvas_new (gint width, gint height)
 }
 
 /**
- * asc_canvas_get_width:
- * @canvas: an #AscCanvas instance.
+ * asw_canvas_get_width:
+ * @canvas: an #AswCanvas instance.
  *
  * Gets the canvas width.
  **/
 guint
-asc_canvas_get_width (AscCanvas *canvas)
+asw_canvas_get_width (AswCanvas *canvas)
 {
-	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	AswCanvasPrivate *priv = GET_PRIVATE (canvas);
 	return priv->width;
 }
 
 /**
- * asc_canvas_get_height:
- * @canvas: an #AscCanvas instance.
+ * asw_canvas_get_height:
+ * @canvas: an #AswCanvas instance.
  *
  * Gets the canvas height.
  **/
 guint
-asc_canvas_get_height (AscCanvas *canvas)
+asw_canvas_get_height (AswCanvas *canvas)
 {
-	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	AswCanvasPrivate *priv = GET_PRIVATE (canvas);
 	return priv->height;
 }
 
 /**
- * asc_canvas_render_svg:
- * @canvas: an #AscCanvas instance.
+ * asw_canvas_render_svg:
+ * @canvas: an #AswCanvas instance.
  * @stream: SVG data input stream.
  * @error: A #GError or %NULL
  *
  * Render an SVG graphic from the SVG data provided.
  **/
 gboolean
-asc_canvas_render_svg (AscCanvas *canvas, GInputStream *stream, GError **error)
+asw_canvas_render_svg (AswCanvas *canvas, GInputStream *stream, GError **error)
 {
 #ifdef HAVE_SVG_SUPPORT
-	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	AswCanvasPrivate *priv = GET_PRIVATE (canvas);
 	RsvgHandle *handle = NULL;
 	gboolean ret = FALSE;
 	gdouble srf_width, srf_height;
@@ -210,8 +210,8 @@ asc_canvas_render_svg (AscCanvas *canvas, GInputStream *stream, GError **error)
 	if (!ret) {
 		cairo_restore (priv->cr);
 		g_set_error_literal (error,
-				     ASC_CANVAS_ERROR,
-				     ASC_CANVAS_ERROR_DRAWING,
+				     ASW_CANVAS_ERROR,
+				     ASW_CANVAS_ERROR_DRAWING,
 				     "SVG graphic rendering failed.");
 		goto out;
 	}
@@ -225,8 +225,8 @@ out:
 #else
 	g_warning ("Unable to render SVG graphic: AppStream built without SVG support.");
 	g_set_error_literal (error,
-			     ASC_CANVAS_ERROR,
-			     ASC_CANVAS_ERROR_UNSUPPORTED,
+			     ASW_CANVAS_ERROR,
+			     ASW_CANVAS_ERROR_UNSUPPORTED,
 			     "AppStream was built without SVG support. This is an issue with your "
 			     "AppStream distribution. "
 			     "Please rebuild AppStream with SVG support enabled or contact your "
@@ -236,9 +236,9 @@ out:
 }
 
 /**
- * asc_canvas_draw_text_line:
- * @canvas: an #AscCanvas instance.
- * @font: an #AscFont to use for drawing the text.
+ * asw_canvas_draw_text_line:
+ * @canvas: an #AswCanvas instance.
+ * @font: an #AswFont to use for drawing the text.
  * @text: the text to draw.
  * @border_width: Border with around the text, set to -1 to use defaults.
  * @vertical_offset: Additional vertical offset for text positioning (positive moves down).
@@ -247,14 +247,14 @@ out:
  * Draw a simple line of text without linebreaks to fill the canvas.
  **/
 gboolean
-asc_canvas_draw_text_line (AscCanvas *canvas,
-			   AscFont *font,
+asw_canvas_draw_text_line (AswCanvas *canvas,
+			   AswFont *font,
 			   const gchar *text,
 			   gint border_width,
 			   gint vertical_offset,
 			   GError **error)
 {
-	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	AswCanvasPrivate *priv = GET_PRIVATE (canvas);
 	cairo_font_face_t *cff = NULL;
 	cairo_status_t status;
 	cairo_text_extents_t te;
@@ -271,20 +271,20 @@ asc_canvas_draw_text_line (AscCanvas *canvas,
 
 	if (text == NULL) {
 		g_set_error_literal (error,
-				     ASC_CANVAS_ERROR,
-				     ASC_CANVAS_ERROR_FAILED,
+				     ASW_CANVAS_ERROR,
+				     ASW_CANVAS_ERROR_FAILED,
 				     "Can not draw NULL string.");
 		return FALSE;
 	}
 
-	cff = cairo_ft_font_face_create_for_ft_face (asc_font_get_ftface (font), FT_LOAD_DEFAULT);
+	cff = cairo_ft_font_face_create_for_ft_face (asw_font_get_ftface (font), FT_LOAD_DEFAULT);
 
 	/* set font face for Cairo surface */
 	status = cairo_font_face_status (cff);
 	if (status != CAIRO_STATUS_SUCCESS) {
 		g_set_error (error,
-			     ASC_CANVAS_ERROR,
-			     ASC_CANVAS_ERROR_FONT,
+			     ASW_CANVAS_ERROR,
+			     ASW_CANVAS_ERROR_FONT,
 			     "Could not set font face for Cairo: %i",
 			     status);
 		goto out;
@@ -328,13 +328,13 @@ out:
 }
 
 /**
- * asc_find_font_size:
+ * asw_find_font_size:
  *
  * Helper function to find the largest font size that fits
  * “text” inside max_width_px.
  */
 static gint
-asc_find_font_size (cairo_t *cr,
+asw_find_font_size (cairo_t *cr,
 		    cairo_font_face_t *face,
 		    const gchar *text,
 		    gint max_width_px,
@@ -354,9 +354,9 @@ asc_find_font_size (cairo_t *cr,
 }
 
 /**
- * asc_canvas_draw_font_card:
- * @canvas:       the #AscCanvas to paint on
- * @font:         the #AscFont to showcase
+ * asw_canvas_draw_font_card:
+ * @canvas:       the #AswCanvas to paint on
+ * @font:         the #AswFont to showcase
  * @info_label:   short info label for the current font
  * @pangram:      pangram text (or %NULL for default)
  * @bg_letter:    letter to use as background (e.g. “a”)
@@ -369,15 +369,15 @@ asc_find_font_size (cairo_t *cr,
  * Returns: %TRUE on success.
  */
 gboolean
-asc_canvas_draw_font_card (AscCanvas *canvas,
-			   AscFont *font,
+asw_canvas_draw_font_card (AswCanvas *canvas,
+			   AswFont *font,
 			   const gchar *info_label,
 			   const gchar *pangram,
 			   const gchar *bg_letter,
 			   gint border_width,
 			   GError **error)
 {
-	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	AswCanvasPrivate *priv = GET_PRIVATE (canvas);
 	cairo_status_t status;
 	cairo_font_face_t *cff = NULL;
 	cairo_font_extents_t fe, fe_name;
@@ -404,16 +404,16 @@ asc_canvas_draw_font_card (AscCanvas *canvas,
 	if (as_is_empty (pangram))
 		pangram = "The quick brown fox jumps over the lazy dog";
 	if (as_is_empty (info_label))
-		info_label = asc_font_get_style (font);
+		info_label = asw_font_get_style (font);
 	if (border_width < 0)
 		border_width = 16;
 
-	cff = cairo_ft_font_face_create_for_ft_face (asc_font_get_ftface (font), FT_LOAD_DEFAULT);
+	cff = cairo_ft_font_face_create_for_ft_face (asw_font_get_ftface (font), FT_LOAD_DEFAULT);
 	status = cairo_font_face_status (cff);
 	if (status != CAIRO_STATUS_SUCCESS) {
 		g_set_error (error,
-			     ASC_CANVAS_ERROR,
-			     ASC_CANVAS_ERROR_FONT,
+			     ASW_CANVAS_ERROR,
+			     ASW_CANVAS_ERROR_FONT,
 			     "Could not create Cairo font face: %d",
 			     status);
 		goto fail;
@@ -424,9 +424,9 @@ asc_canvas_draw_font_card (AscCanvas *canvas,
 	y = border_width;
 
 	/* 1) large font full name */
-	size_name = asc_find_font_size (priv->cr,
+	size_name = asw_find_font_size (priv->cr,
 					cff,
-					asc_font_get_fullname (font),
+					asw_font_get_fullname (font),
 					inner_w,
 					priv->height * 0.20);
 
@@ -534,7 +534,7 @@ asc_canvas_draw_font_card (AscCanvas *canvas,
 		if (words != NULL && words[0] != NULL)
 			word_sample = words[0];
 		else
-			word_sample = asc_font_get_sample_icon_text (font);
+			word_sample = asw_font_get_sample_icon_text (font);
 	}
 
 	/* 5) bottom colored bar (side-by-side names, small size) */
@@ -565,12 +565,12 @@ asc_canvas_draw_font_card (AscCanvas *canvas,
 	/* large font name */
 	cairo_set_font_face (priv->cr, cff);
 	cairo_set_font_size (priv->cr, size_name);
-	cairo_text_extents (priv->cr, asc_font_get_fullname (font), &te);
+	cairo_text_extents (priv->cr, asw_font_get_fullname (font), &te);
 	cairo_move_to (priv->cr,
 		       border_width + (inner_w - te.width) / 2.0 - te.x_bearing,
 		       large_name_baseline);
 	cairo_set_source_rgb (priv->cr, 0, 0, 0);
-	cairo_show_text (priv->cr, asc_font_get_fullname (font));
+	cairo_show_text (priv->cr, asw_font_get_fullname (font));
 	y += name_height;
 
 	/* translucent big letter – baseline slightly below large name */
@@ -649,9 +649,9 @@ fail:
 }
 
 /**
- * asc_canvas_draw_shape:
- * @canvas: An #AscCanvas instance.
- * @shape: An #AscCanvasShape to draw.
+ * asw_canvas_draw_shape:
+ * @canvas: An #AswCanvas instance.
+ * @shape: An #AswCanvasShape to draw.
  * @border_width: Border width around the shape, set to -1 to use defaults.
  * @red: Red color value (0.0-1.0).
  * @green: Green color value (0.0-1.0).
@@ -663,26 +663,26 @@ fail:
  * Returns: %TRUE on success.
  **/
 gboolean
-asc_canvas_draw_shape (AscCanvas *canvas,
-		       AscCanvasShape shape,
+asw_canvas_draw_shape (AswCanvas *canvas,
+		       AswCanvasShape shape,
 		       gint border_width,
 		       double red,
 		       double green,
 		       double blue,
 		       GError **error)
 {
-	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	AswCanvasPrivate *priv = GET_PRIVATE (canvas);
 
 	/* set default border value */
 	if (border_width < 0)
 		border_width = 4;
 
-	if (shape == ASC_CANVAS_SHAPE_CIRCLE) {
+	if (shape == ASW_CANVAS_SHAPE_CIRCLE) {
 		double radius = MIN (priv->width, priv->height) / 2.0 - border_width;
 		cairo_set_source_rgb (priv->cr, red, green, blue);
 		cairo_arc (priv->cr, priv->width / 2.0, priv->height / 2.0, radius, 0, 2 * G_PI);
 		cairo_fill (priv->cr);
-	} else if (shape == ASC_CANVAS_SHAPE_HEXAGON) {
+	} else if (shape == ASW_CANVAS_SHAPE_HEXAGON) {
 		double radius = MIN (priv->width, priv->height) / 2.0 - border_width;
 		double angle_step = G_PI / 3.0; /* 60 degrees in radians */
 		cairo_set_source_rgb (priv->cr, red, green, blue);
@@ -696,7 +696,7 @@ asc_canvas_draw_shape (AscCanvas *canvas,
 		}
 		cairo_close_path (priv->cr);
 		cairo_fill (priv->cr);
-	} else if (shape == ASC_CANVAS_SHAPE_CVL_TRIANGLE) {
+	} else if (shape == ASW_CANVAS_SHAPE_CVL_TRIANGLE) {
 		double radius = MIN (priv->width, priv->height) / 2.0 - border_width;
 		double cx = priv->width / 2.0;
 		double cy = priv->height / 2.0 +
@@ -758,8 +758,8 @@ asc_canvas_draw_shape (AscCanvas *canvas,
 		cairo_fill (priv->cr);
 	} else {
 		g_set_error_literal (error,
-				     ASC_CANVAS_ERROR,
-				     ASC_CANVAS_ERROR_UNSUPPORTED,
+				     ASW_CANVAS_ERROR,
+				     ASW_CANVAS_ERROR_UNSUPPORTED,
 				     "Unsupported shape type.");
 		return FALSE;
 	}
@@ -768,7 +768,7 @@ asc_canvas_draw_shape (AscCanvas *canvas,
 }
 
 /**
- * asc_calculate_text_border_width_for_icon_shape:
+ * asw_calculate_text_border_width_for_icon_shape:
  * @bg_shape: The background shape.
  * @canvas_size: The size of the canvas (width or height, assuming square).
  * @shape_border_width: The border width used when drawing the shape.
@@ -780,12 +780,12 @@ asc_canvas_draw_shape (AscCanvas *canvas,
  * Returns: The calculated border width for text placement.
  **/
 gint
-asc_calculate_text_border_width_for_icon_shape (AscCanvasShape bg_shape,
+asw_calculate_text_border_width_for_icon_shape (AswCanvasShape bg_shape,
 						gint canvas_size,
 						gint shape_border_width)
 {
 	switch (bg_shape) {
-	case ASC_CANVAS_SHAPE_CIRCLE:
+	case ASW_CANVAS_SHAPE_CIRCLE:
 		/* For circles, calculate inscribed square dimensions to ensure text fits */
 		/* The inscribed square in a circle has side length = radius * sqrt(2) */
 		{
@@ -794,7 +794,7 @@ asc_calculate_text_border_width_for_icon_shape (AscCanvasShape bg_shape,
 
 			return (gint) ((canvas_size - inscribed_square_side) / 2.0);
 		}
-	case ASC_CANVAS_SHAPE_HEXAGON:
+	case ASW_CANVAS_SHAPE_HEXAGON:
 		/* For hexagons, calculate the inscribed rectangle that fits within all sides */
 		/* A regular hexagon with flat top/bottom has narrower width at middle */
 		{
@@ -807,7 +807,7 @@ asc_calculate_text_border_width_for_icon_shape (AscCanvasShape bg_shape,
 
 			return (gint) ((canvas_size - safe_dimension) / 2.0);
 		}
-	case ASC_CANVAS_SHAPE_CVL_TRIANGLE:
+	case ASW_CANVAS_SHAPE_CVL_TRIANGLE:
 		/* For curvilinear triangles, calculate the inscribed circle area */
 		/* The triangle is oriented with a vertex at the top */ {
 			double radius = canvas_size / 2.0 - shape_border_width;
@@ -824,9 +824,9 @@ asc_calculate_text_border_width_for_icon_shape (AscCanvasShape bg_shape,
 }
 
 /**
- * asc_canvas_draw_text:
- * @canvas: an #AscCanvas instance.
- * @font: an #AscFont to use for drawing the text.
+ * asw_canvas_draw_text:
+ * @canvas: an #AswCanvas instance.
+ * @font: an #AswFont to use for drawing the text.
  * @border_width: Border with around the text (set to -1 to use defaults).
  * @line_pad: Padding between lines (set to -1 to use defaults).
  * @error: A #GError or %NULL
@@ -834,14 +834,14 @@ asc_calculate_text_border_width_for_icon_shape (AscCanvasShape bg_shape,
  * Draw a longer text with linebreaks.
  **/
 gboolean
-asc_canvas_draw_text (AscCanvas *canvas,
-		      AscFont *font,
+asw_canvas_draw_text (AswCanvas *canvas,
+		      AswFont *font,
 		      const gchar *text,
 		      gint border_width,
 		      gint line_pad,
 		      GError **error)
 {
-	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	AswCanvasPrivate *priv = GET_PRIVATE (canvas);
 	gboolean ret = FALSE;
 	cairo_font_face_t *cff = NULL;
 	cairo_status_t status;
@@ -862,19 +862,19 @@ asc_canvas_draw_text (AscCanvas *canvas,
 
 	if (text == NULL) {
 		g_set_error_literal (error,
-				     ASC_CANVAS_ERROR,
-				     ASC_CANVAS_ERROR_FAILED,
+				     ASW_CANVAS_ERROR,
+				     ASW_CANVAS_ERROR_FAILED,
 				     "Can not draw NULL string.");
 		return FALSE;
 	}
 
-	cff = cairo_ft_font_face_create_for_ft_face (asc_font_get_ftface (font), FT_LOAD_DEFAULT);
+	cff = cairo_ft_font_face_create_for_ft_face (asw_font_get_ftface (font), FT_LOAD_DEFAULT);
 	/* set font face for Cairo surface */
 	status = cairo_font_face_status (cff);
 	if (status != CAIRO_STATUS_SUCCESS) {
 		g_set_error (error,
-			     ASC_CANVAS_ERROR,
-			     ASC_CANVAS_ERROR_FONT,
+			     ASW_CANVAS_ERROR,
+			     ASW_CANVAS_ERROR_FONT,
 			     "Could not set font face for Cairo: %i",
 			     status);
 		goto out;
@@ -934,30 +934,30 @@ out:
 }
 
 /**
- * asc_canvas_save_png:
- * @canvas: an #AscCanvas instance.
+ * asw_canvas_save_png:
+ * @canvas: an #AswCanvas instance.
  * @fname: Filename to save to.
  * @error: A #GError or %NULL
  *
  * Save canvas to PNG file.
  **/
 gboolean
-asc_canvas_save_png (AscCanvas *canvas, const gchar *fname, GError **error)
+asw_canvas_save_png (AswCanvas *canvas, const gchar *fname, GError **error)
 {
-	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	AswCanvasPrivate *priv = GET_PRIVATE (canvas);
 	cairo_status_t status;
 
 	status = cairo_surface_write_to_png (priv->srf, fname);
 	if (status != CAIRO_STATUS_SUCCESS) {
 		g_set_error (error,
-			     ASC_CANVAS_ERROR,
-			     ASC_CANVAS_ERROR_FONT,
+			     ASW_CANVAS_ERROR,
+			     ASW_CANVAS_ERROR_FONT,
 			     "Could not save canvas to PNG: %s",
 			     cairo_status_to_string (status));
 		return FALSE;
 	}
 
-	return asc_optimize_png (fname, error);
+	return asw_optimize_png (fname, error);
 }
 
 static void
@@ -1032,17 +1032,17 @@ convert_no_alpha (guchar *dest_data,
 }
 
 /**
- * asc_canvas_to_pixbuf:
- * @canvas: an #AscCanvas instance.
+ * asw_canvas_to_pixbuf:
+ * @canvas: an #AswCanvas instance.
  *
  * Convert the canvas to a #GdkPixbuf.
  *
  * Returns: (transfer full) (nullable): a #GdkPixbuf or %NULL on error.
  **/
 GdkPixbuf *
-asc_canvas_to_pixbuf (AscCanvas *canvas)
+asw_canvas_to_pixbuf (AswCanvas *canvas)
 {
-	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	AswCanvasPrivate *priv = GET_PRIVATE (canvas);
 	cairo_content_t content;
 	GdkPixbuf *dest;
 
