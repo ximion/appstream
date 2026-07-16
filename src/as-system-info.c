@@ -1123,7 +1123,8 @@ as_system_info_set_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side
 
 	if (side == AS_DISPLAY_SIDE_KIND_LONGEST)
 		priv->display_length_longest = value_dip;
-	priv->display_length_shortest = value_dip;
+	else
+		priv->display_length_shortest = value_dip;
 }
 
 /**

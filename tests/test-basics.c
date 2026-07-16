@@ -902,6 +902,7 @@ test_version_compare (void)
 static void
 test_system_info (void)
 {
+	g_autoptr(AsSystemInfo) sysinfo_tmpl = NULL;
 	g_autoptr(AsSystemInfo) sysinfo = as_system_info_new ();
 	g_autofree gchar *osrelease_fname = NULL;
 	g_autofree gchar *dev_name = NULL;
@@ -933,6 +934,18 @@ test_system_info (void)
 								&error);
 	if (error != NULL)
 		g_error_free (g_steal_pointer (&error));
+
+	/* test creation by chassis template */
+	sysinfo_tmpl = as_system_info_new_template_for_chassis (AS_CHASSIS_KIND_DESKTOP, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (
+	    as_system_info_get_display_length (sysinfo_tmpl, AS_DISPLAY_SIDE_KIND_SHORTEST),
+	    ==,
+	    800);
+	g_assert_cmpint (
+	    as_system_info_get_display_length (sysinfo_tmpl, AS_DISPLAY_SIDE_KIND_LONGEST),
+	    ==,
+	    1280);
 }
 
 /**
