@@ -13,7 +13,9 @@ if get_option('man')
     xsltproc = find_program('xsltproc')
     if run_command([xsltproc, '--nonet', manpages_xsl],
                     check: false).returncode() != 0
-        error('Unable to find Docbook XSL stylesheets for man pages')
+        error('Unable to find Docbook XSL stylesheets for man pages.\n' +
+              'You may need to install a package named `docbook-xsl-ns` or ' +
+              '`docbook5-style-xsl`, depending on your distribution.')
     endif
 
     custom_target('man-appstreamcli',
