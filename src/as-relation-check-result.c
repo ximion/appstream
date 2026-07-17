@@ -253,15 +253,18 @@ as_relation_check_results_get_compatibility_score (GPtrArray *rc_results)
 		status = as_relation_check_result_get_status (rcr);
 
 		/* Anything that is required and not fulfilled will give an instant 0% compatibility,
-		 * if we don't know the status of a required element, we give a strong penality. */
+		 * if we could not determine the status of a required element (it is unknown, or its
+		 * check failed with an error), we give a strong penality instead. */
 		if (rel_kind == AS_RELATION_KIND_REQUIRES) {
-			if (status == AS_RELATION_STATUS_UNKNOWN)
+			if (status == AS_RELATION_STATUS_UNKNOWN ||
+			    status == AS_RELATION_STATUS_ERROR)
 				score -= 30;
 			else if (status != AS_RELATION_STATUS_SATISFIED)
 				return 0;
 
-			/* if we are here, the requirement is satisfied, and if it is an input control,
-			 * we recognize an input control is available */
+			/* if we are here, the requirement is satisfied (or its status could not be
+			 * determined), and if it is an input control, we recognize an input control
+			 * is available */
 			if (rel_item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
 				have_control_supports = TRUE;
 				found_supported_control = TRUE;

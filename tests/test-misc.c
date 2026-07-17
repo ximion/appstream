@@ -582,6 +582,31 @@ test_syscompat_scores (void)
 	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_phone, sysinfo), ==, 100);
 }
 
+/**
+ * test_syscompat_score_error_status:
+ */
+static void
+test_syscompat_score_error_status (void)
+{
+	g_autoptr(GPtrArray) rc_results = g_ptr_array_new_with_free_func (g_object_unref);
+	g_autoptr(AsRelation) relation = as_relation_new ();
+	AsRelationCheckResult *rcr = NULL;
+
+	/* a required relation whose check failed with an error (e.g. an unknown display
+	 * size on a real system) must not zero the score, but instead receive the same
+	 * penalty as a relation with unknown status */
+	as_relation_set_kind (relation, AS_RELATION_KIND_REQUIRES);
+	as_relation_set_item_kind (relation, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
+	as_relation_set_value_px (relation, 768);
+
+	rcr = as_relation_check_result_new ();
+	as_relation_check_result_set_relation (rcr, relation);
+	as_relation_check_result_set_status (rcr, AS_RELATION_STATUS_ERROR);
+	g_ptr_array_add (rc_results, rcr);
+
+	g_assert_cmpint (as_relation_check_results_get_compatibility_score (rc_results), ==, 70);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -609,6 +634,8 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Misc/StripLocaleEncoding", test_locale_strip_encoding);
 	g_test_add_func ("/AppStream/Misc/RelationSatisfyCheck", test_relation_satisfy_check);
 	g_test_add_func ("/AppStream/Misc/SysCompatScores", test_syscompat_scores);
+	g_test_add_func ("/AppStream/Misc/SysCompatScoreErrorStatus",
+			 test_syscompat_score_error_status);
 
 	ret = g_test_run ();
 	g_free (datadir);
