@@ -896,6 +896,15 @@
 					Relations for the display length can be defined using a <literal>compare</literal> property as described in <xref linkend="tag-relations"/>.
 					If this property is not present, a value of <code>ge</code> (greater-or-equal) is implicitly assumed.
 				</para>
+				<para>
+					Keep in mind that constraints are checked against the shortest side of the display by default:
+					When setting an upper bound (via <code>lt</code> or <code>le</code>) to exclude large screens, you will
+					almost always want to set the <literal>side</literal> property to <code>longest</code>, as even very
+					large displays can have a comparatively short shortest edge.
+					A 4K television, for example, has a shortest edge of only 2160 logical pixels and would therefore
+					satisfy a <code>&lt;display_length compare="lt"&gt;3840&lt;/display_length&gt;</code> constraint
+					applied to the (default) shortest side.
+				</para>
 
 				<note>
 					<title>Determining Device Types</title>
@@ -949,7 +958,7 @@
 <!-- ensure this application is not run on a very large screen, or
      very small screen (no tiny handhelds or television screens) -->
 <requires>
-  <display_length compare="lt">3840</display_length>
+  <display_length side="longest" compare="lt">3840</display_length>
   <display_length compare="gt">360</display_length>
 </requires>]]></programlisting>
 				<para>Valid for: <literal>requires</literal>, <literal>recommends</literal></para>
