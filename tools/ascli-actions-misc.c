@@ -539,6 +539,8 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 	g_autoptr(AsSystemInfo) sysinfo = NULL;
 	g_autoptr(GError) error = NULL;
 	gulong total_memory;
+	gulong display_length_shortest;
+	gulong display_length_longest;
 	GPtrArray *modaliases;
 
 	sysinfo = as_system_info_new ();
@@ -595,6 +597,19 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 	total_memory = as_system_info_get_memory_total (sysinfo);
 	ascli_print_stdout ("%s: %lu MiB (%.2f GiB)",
 			    _("Physical Memory"), total_memory, total_memory / 1024.0);
+
+	display_length_shortest = as_system_info_get_display_length (sysinfo,
+								     AS_DISPLAY_SIDE_KIND_SHORTEST);
+	display_length_longest = as_system_info_get_display_length (sysinfo,
+								    AS_DISPLAY_SIDE_KIND_LONGEST);
+	if (display_length_shortest != 0 && display_length_longest != 0)
+		ascli_print_stdout ("%s: %lux%lu %s",
+				    _("Largest Display"),
+				      display_length_longest,
+				      display_length_shortest,
+				      _("logical px"));
+	else
+		ascli_print_stdout ("%s: %s", _("Largest Display"), _("unable to determine"));
 
 	modaliases = as_system_info_get_modaliases (sysinfo);
 	if (modaliases->len > 0) {

@@ -8,6 +8,11 @@ option('systemd',
        value : true,
        description : 'Build with systemd support'
 )
+option('wayland',
+       type : 'boolean',
+       value : true,
+       description : 'Autodetect display size on Wayland (build-time dependency on wayland-client headers only)'
+)
 option('vapi',
        type : 'boolean',
        value : false,

@@ -45,6 +45,7 @@ conf.set('_DEFAULT_SOURCE', true)
 conf.set('HAVE_APT_SUPPORT', get_option('apt-support'))
 conf.set('HAVE_STEMMING', get_option('stemming'))
 conf.set('HAVE_SYSTEMD', get_option('systemd'))
+conf.set('HAVE_WAYLAND', get_option('wayland'))
 conf.set('HAVE_SVG_SUPPORT', get_option('svg-support'))
 conf.set('HAVE_ZSTD', get_option('zstd-support'))
 conf.set('HAVE_BLAKE3', get_option('blake3-support'))
@@ -168,6 +169,7 @@ add_project_arguments('-DAS_COMPILATION', language: 'c')
 glib_dep = dependency('glib-2.0', version: '>= 2.62')
 gobject_dep = dependency('gobject-2.0', version: '>= 2.62')
 gio_dep = dependency('gio-2.0', version: '>= 2.62')
+gmodule_dep = dependency('gmodule-2.0', version: '>= 2.62')
 curl_dep = dependency('libcurl', version: '>= 7.62')
 xml2_dep = dependency('libxml-2.0')
 fyaml_dep = dependency('libfyaml', version: '>= 0.8')
@@ -183,6 +185,14 @@ if get_option('systemd')
     libsystemd_dep = dependency('libsystemd', required: get_option('systemd'))
 else
     libsystemd_dep = dependency('', required: false)
+endif
+if get_option('wayland')
+    # we only need the wayland-client headers at build time, the actual
+    # library is loaded dynamically at runtime if it is available
+    wayland_client_dep = dependency('wayland-client', version: '>= 1.15')
+    wayland_client_dep = wayland_client_dep.partial_dependency(compile_args: true, includes: true)
+else
+    wayland_client_dep = dependency('', required: false)
 endif
 
 if get_option ('gir')

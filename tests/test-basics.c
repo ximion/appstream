@@ -946,6 +946,21 @@ test_system_info (void)
 	    as_system_info_get_display_length (sysinfo_tmpl, AS_DISPLAY_SIDE_KIND_LONGEST),
 	    ==,
 	    1280);
+
+	/* We may not be in a Wayland session, so we can not check the values here, but
+	 * fetching the display length on a non-template system info triggers the display
+	 * size autodetection code, which we run to spot any crashes or leaks. */
+	{
+		gulong length_shortest;
+		gulong length_longest;
+
+		length_shortest = as_system_info_get_display_length (sysinfo,
+								     AS_DISPLAY_SIDE_KIND_SHORTEST);
+		length_longest = as_system_info_get_display_length (sysinfo,
+								    AS_DISPLAY_SIDE_KIND_LONGEST);
+		if (length_shortest != 0 || length_longest != 0)
+			g_assert_cmpint (length_longest, >=, length_shortest);
+	}
 }
 
 /**

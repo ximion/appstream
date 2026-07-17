@@ -65,6 +65,7 @@
 #endif
 
 #include "as-utils-private.h"
+#include "as-wayland-private.h"
 
 #define MB_IN_BYTES (1024 * 1024)
 
@@ -88,6 +89,7 @@ typedef struct {
 	guint tested_input_controls;
 
 	gboolean has_gui;
+	gboolean display_read;
 	gulong display_length_shortest;
 	gulong display_length_longest;
 
@@ -1082,11 +1084,47 @@ as_system_info_set_gui_available (AsSystemInfo *sysinfo, gboolean available)
 }
 
 /**
+ * as_system_info_try_autodetect_display_length:
+ * @sysinfo: a #AsSystemInfo instance.
+ *
+ * Try to determine the size of the largest connected display once,
+ * unless a value was already set explicitly.
+ */
+static void
+as_system_info_try_autodetect_display_length (AsSystemInfo *sysinfo)
+{
+	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	g_autoptr(GError) error = NULL;
+	gulong logical_w = 0;
+	gulong logical_h = 0;
+
+	if (priv->display_read)
+		return;
+	priv->display_read = TRUE;
+
+	if (priv->display_length_shortest != 0 || priv->display_length_longest != 0)
+		return;
+
+	if (as_wayland_display_get_largest_output_size (&logical_w, &logical_h, &error) !=
+	    AS_CHECK_RESULT_TRUE) {
+		g_debug ("Unable to autodetect the display size: %s",
+			 error != NULL ? error->message : "No display found.");
+		return;
+	}
+
+	priv->display_length_longest = MAX (logical_w, logical_h);
+	priv->display_length_shortest = MIN (logical_w, logical_h);
+}
+
+/**
  * as_system_info_get_display_length:
  * @sysinfo: a #AsSystemInfo instance.
  * @side: the #AsDisplaySideKind to select.
  *
  * Get the current display length for the given side kind.
+ *
+ * If no value was set explicitly and we are in a Wayland session,
+ * the size of the largest connected display is determined automatically.
  * If the display size is unknown, this function will return 0.
  *
  * Returns: the display size in logical pixels.
@@ -1097,6 +1135,8 @@ as_system_info_get_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side
 	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
 	g_return_val_if_fail (side < AS_DISPLAY_SIDE_KIND_LAST, 0);
 	g_return_val_if_fail (side != AS_DISPLAY_SIDE_KIND_UNKNOWN, 0);
+
+	as_system_info_try_autodetect_display_length (sysinfo);
 
 	if (side == AS_DISPLAY_SIDE_KIND_LONGEST)
 		return priv->display_length_longest;
@@ -1113,6 +1153,9 @@ as_system_info_get_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side
  * The size needs to be in device-independent pixels, see the
  * AppStream documentation for more information:
  * https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-relations-display_length
+ *
+ * Setting a value explicitly will disable any automatic detection
+ * of the display size.
  */
 void
 as_system_info_set_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side, gulong value_dip)
@@ -1120,6 +1163,8 @@ as_system_info_set_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side
 	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
 	g_return_if_fail (side < AS_DISPLAY_SIDE_KIND_LAST);
 	g_return_if_fail (side != AS_DISPLAY_SIDE_KIND_UNKNOWN);
+
+	priv->display_read = TRUE;
 
 	if (side == AS_DISPLAY_SIDE_KIND_LONGEST)
 		priv->display_length_longest = value_dip;
@@ -1171,6 +1216,7 @@ as_system_info_new_template_for_chassis (AsChassisKind chassis, GError **error)
 
 	/* the template sysinfo is not supposed to scan the curent system's devices */
 	priv->inputs_scanned = TRUE;
+	priv->display_read = TRUE;
 
 	/* we assume all input controls have been tested */
 	priv->tested_input_controls = G_MAXUINT;

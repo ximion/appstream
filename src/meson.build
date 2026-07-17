@@ -14,6 +14,7 @@ aslib_src = [
     'as-profile.c',
     'as-stemmer.c',
     'as-tag.c',
+    'as-wayland-private.c',
     'as-xml.c',
     'as-yaml.c',
     'as-zstd-decompressor.c',
@@ -135,6 +136,7 @@ aslib_priv_headers = [
     'as-tag.h',
     'as-utils-private.h',
     'as-validator-issue-tag.h',
+    'as-wayland-private.h',
     'as-xml.h',
     'as-yaml.h',
     'as-zstd-decompressor.h',
@@ -187,11 +189,13 @@ aslib_src = aslib_src + [aslib_gperf_xml, aslib_gperf_yaml]
 aslib_deps = [
     glib_dep,
     gobject_dep,
+    gmodule_dep,
     curl_dep,
     xmlb_dep,
     xml2_dep,
     fyaml_dep,
     libsystemd_dep,
+    wayland_client_dep,
     zstd_dep,
 ]
 if get_option ('stemming')
