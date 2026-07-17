@@ -37,6 +37,7 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     'pkgconfig(libblake3)' \
     'pkgconfig(libsystemd)' \
     'pkgconfig(librsvg-2.0)' \
+    'pkgconfig(wayland-client)' \
     'pkgconfig(libzstd)' \
     'pkgconfig(cairo)' \
     'pkgconfig(freetype2)' \
