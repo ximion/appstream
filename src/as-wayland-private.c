@@ -57,17 +57,53 @@ typedef int (*AsWlProxyAddListenerFn) (struct wl_proxy *proxy,
 				       void *data);
 typedef void (*AsWlProxyDestroyFn) (struct wl_proxy *proxy);
 
+/* The core wl_output protocol only advertises integer scale factors, so on a
+ * fractionally-scaled display the mode/scale calculation would be wrong.
+ * The xdg-output protocol reports the true logical size of each output instead.
+ * Its interfaces are generated protocol code and not exported by libwayland-client,
+ * so we declare the (frozen) v1 protocol data ourselves.
+ * The wl_output slot of the get_xdg_output types is filled at runtime with the
+ * wl_output_interface resolved from libwayland-client. */
+static const struct wl_interface *as_xdg_types_null[2] = { NULL, NULL };
+static const struct wl_interface *as_xdg_get_output_types[2] = { NULL, NULL };
+
+static const struct wl_message as_zxdg_output_v1_requests[] = {
+	{ "destroy", "", as_xdg_types_null },
+};
+static const struct wl_message as_zxdg_output_v1_events[] = {
+	{ "logical_position", "ii", as_xdg_types_null },
+	{ "logical_size",	  "ii", as_xdg_types_null },
+	{ "done",		  "",   as_xdg_types_null },
+};
+static const struct wl_interface as_zxdg_output_v1_interface = {
+	"zxdg_output_v1", 1, 1, as_zxdg_output_v1_requests, 3, as_zxdg_output_v1_events,
+};
+
+static const struct wl_message as_zxdg_output_manager_v1_requests[] = {
+	{ "destroy",	     "",	 as_xdg_types_null	   },
+	{ "get_xdg_output", "no", as_xdg_get_output_types },
+};
+static const struct wl_interface as_zxdg_output_manager_v1_interface = {
+	"zxdg_output_manager_v1", 1, 2, as_zxdg_output_manager_v1_requests, 0, NULL,
+};
+
+#define AS_ZXDG_OUTPUT_MANAGER_V1_GET_XDG_OUTPUT 1
+
 typedef struct {
 	struct wl_proxy *proxy;
+	struct wl_proxy *xdg_proxy;
 	gint32 width;
 	gint32 height;
 	gint32 scale;
+	gint32 logical_width;
+	gint32 logical_height;
 } AsWlOutputInfo;
 
 typedef struct {
 	AsWlProxyMarshalConstructorVersionedFn proxy_marshal_constructor_versioned;
 	AsWlProxyAddListenerFn proxy_add_listener;
 	const struct wl_interface *output_iface;
+	struct wl_proxy *xdg_output_manager;
 	GPtrArray *outputs;
 } AsWlRegistryContext;
 
@@ -121,6 +157,47 @@ static const struct wl_output_listener as_wl_output_listener = {
 	.scale = as_wl_output_handle_scale,
 };
 
+/* listener vtable matching the zxdg_output_v1 (version 1) event order */
+typedef struct {
+	void (*logical_position) (void *data, struct wl_proxy *xdg_output, int32_t x, int32_t y);
+	void (*logical_size) (void *data,
+			      struct wl_proxy *xdg_output,
+			      int32_t width,
+			      int32_t height);
+	void (*done) (void *data, struct wl_proxy *xdg_output);
+} AsXdgOutputListener;
+
+static void
+as_xdg_output_handle_logical_position (void *data,
+				       struct wl_proxy *xdg_output,
+				       int32_t x,
+				       int32_t y)
+{
+}
+
+static void
+as_xdg_output_handle_logical_size (void *data,
+				   struct wl_proxy *xdg_output,
+				   int32_t width,
+				   int32_t height)
+{
+	AsWlOutputInfo *info = data;
+
+	info->logical_width = width;
+	info->logical_height = height;
+}
+
+static void
+as_xdg_output_handle_done (void *data, struct wl_proxy *xdg_output)
+{
+}
+
+static const AsXdgOutputListener as_xdg_output_listener = {
+	.logical_position = as_xdg_output_handle_logical_position,
+	.logical_size = as_xdg_output_handle_logical_size,
+	.done = as_xdg_output_handle_done,
+};
+
 static void
 as_wl_registry_handle_global (void *data,
 			      struct wl_registry *registry,
@@ -132,6 +209,21 @@ as_wl_registry_handle_global (void *data,
 	AsWlOutputInfo *info = NULL;
 	struct wl_proxy *output_proxy = NULL;
 	uint32_t bind_version;
+
+	if (g_strcmp0 (interface, "zxdg_output_manager_v1") == 0) {
+		if (ctx->xdg_output_manager != NULL)
+			return;
+		ctx->xdg_output_manager = ctx->proxy_marshal_constructor_versioned (
+		    (struct wl_proxy *) registry,
+		    WL_REGISTRY_BIND,
+		    &as_zxdg_output_manager_v1_interface,
+		    1,
+		    name,
+		    as_zxdg_output_manager_v1_interface.name,
+		    1,
+		    NULL);
+		return;
+	}
 
 	if (g_strcmp0 (interface, "wl_output") != 0)
 		return;
@@ -258,10 +350,16 @@ as_wayland_display_get_largest_output_size (gulong *logical_width,
 		return AS_CHECK_RESULT_ERROR;
 	}
 
+	/* complete our hand-declared xdg-output protocol data with the
+	 * wl_output interface resolved from libwayland-client */
+	as_xdg_get_output_types[0] = &as_zxdg_output_v1_interface;
+	as_xdg_get_output_types[1] = output_iface;
+
 	outputs = g_ptr_array_new_with_free_func (g_free);
 	ctx.proxy_marshal_constructor_versioned = proxy_marshal_constructor_versioned;
 	ctx.proxy_add_listener = proxy_add_listener;
 	ctx.output_iface = output_iface;
+	ctx.xdg_output_manager = NULL;
 	ctx.outputs = outputs;
 
 	/* equivalent to the wl_display_get_registry() static-inline helper, which we
@@ -280,9 +378,40 @@ as_wayland_display_get_largest_output_size (gulong *logical_width,
 	}
 	proxy_add_listener (registry, (void (**) (void)) &as_wl_registry_listener, &ctx);
 
-	/* first roundtrip fetches the globals and binds the outputs,
-	 * the second one delivers the events of the bound outputs */
-	if (display_roundtrip (display) < 0 || display_roundtrip (display) < 0) {
+	/* first roundtrip fetches the globals and binds the outputs
+	 * as well as the xdg-output manager, if the compositor provides it */
+	if (display_roundtrip (display) < 0) {
+		g_set_error_literal (error,
+				     AS_SYSTEM_INFO_ERROR,
+				     AS_SYSTEM_INFO_ERROR_FAILED,
+				     "Failed to communicate with the Wayland compositor.");
+		ret = AS_CHECK_RESULT_ERROR;
+		goto out;
+	}
+
+	/* request the true logical size of each output via xdg-output, since the
+	 * core protocol only carries integer scale factors and would yield wrong
+	 * results on fractionally-scaled displays */
+	if (ctx.xdg_output_manager != NULL) {
+		for (guint i = 0; i < outputs->len; i++) {
+			AsWlOutputInfo *info = g_ptr_array_index (outputs, i);
+
+			info->xdg_proxy = proxy_marshal_constructor (
+			    ctx.xdg_output_manager,
+			    AS_ZXDG_OUTPUT_MANAGER_V1_GET_XDG_OUTPUT,
+			    &as_zxdg_output_v1_interface,
+			    NULL,
+			    info->proxy);
+			if (info->xdg_proxy == NULL)
+				continue;
+			proxy_add_listener (info->xdg_proxy,
+					    (void (**) (void)) &as_xdg_output_listener,
+					    info);
+		}
+	}
+
+	/* the second roundtrip delivers the events of the bound outputs */
+	if (display_roundtrip (display) < 0) {
 		g_set_error_literal (error,
 				     AS_SYSTEM_INFO_ERROR,
 				     AS_SYSTEM_INFO_ERROR_FAILED,
@@ -296,11 +425,17 @@ as_wayland_display_get_largest_output_size (gulong *logical_width,
 		AsWlOutputInfo *info = g_ptr_array_index (outputs, i);
 		gulong width, height, area;
 
-		if (info->width <= 0 || info->height <= 0 || info->scale <= 0)
-			continue;
-
-		width = info->width / info->scale;
-		height = info->height / info->scale;
+		if (info->logical_width > 0 && info->logical_height > 0) {
+			/* exact logical size as reported via xdg-output */
+			width = info->logical_width;
+			height = info->logical_height;
+		} else {
+			/* fall back to the approximate integer-scaled size */
+			if (info->width <= 0 || info->height <= 0 || info->scale <= 0)
+				continue;
+			width = info->width / info->scale;
+			height = info->height / info->scale;
+		}
 		area = width * height;
 		if (area > best_area) {
 			best_area = area;
@@ -316,8 +451,12 @@ as_wayland_display_get_largest_output_size (gulong *logical_width,
 out:
 	for (guint i = 0; i < outputs->len; i++) {
 		AsWlOutputInfo *info = g_ptr_array_index (outputs, i);
+		if (info->xdg_proxy != NULL)
+			proxy_destroy (info->xdg_proxy);
 		proxy_destroy (info->proxy);
 	}
+	if (ctx.xdg_output_manager != NULL)
+		proxy_destroy (ctx.xdg_output_manager);
 	if (registry != NULL)
 		proxy_destroy (registry);
 	display_disconnect (display);
