@@ -151,7 +151,8 @@ as_get_yml_data_origin (const gchar *fname)
 		origin = g_strdup (strv2[1]);
 
 		/* remove quotes, in case the string is quoted */
-		if ((g_str_has_prefix (origin, "\"")) && (g_str_has_suffix (origin, "\""))) {
+		if (strlen (origin) >= 2 && g_str_has_prefix (origin, "\"") &&
+		    g_str_has_suffix (origin, "\"")) {
 			g_autofree gchar *tmp = NULL;
 
 			tmp = origin;
