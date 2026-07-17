@@ -1147,8 +1147,8 @@ as_relation_load_from_yaml (AsRelation *relation,
 		if (g_strcmp0 (entry, "version") == 0) {
 			g_autofree gchar *compare_str = NULL;
 			const gchar *ver_str = as_yaml_node_get_value0 (pair);
-			if (strlen (ver_str) <= 2)
-				continue; /* this string is too short to contain any valid version */
+			if (ver_str == NULL || strlen (ver_str) <= 2)
+				continue; /* missing or too short to contain any valid version */
 			compare_str = g_strndup (ver_str, 2);
 			priv->compare = as_relation_compare_from_string (compare_str);
 			g_free (priv->version);
@@ -1158,9 +1158,10 @@ as_relation_load_from_yaml (AsRelation *relation,
 			priv->display_side_kind = as_display_side_kind_from_string (
 			    as_yaml_node_get_value0 (pair));
 		} else if (g_strcmp0 (entry, "bandwidth_mbitps") == 0) {
-			priv->bandwidth_mbitps = g_ascii_strtoll (as_yaml_node_get_value0 (pair),
-								  NULL,
-								  10);
+			const gchar *bw_str = as_yaml_node_get_value0 (pair);
+			priv->bandwidth_mbitps = (bw_str == NULL)
+						     ? 0
+						     : g_ascii_strtoll (bw_str, NULL, 10);
 		} else {
 			AsRelationItemKind kind = as_relation_item_kind_from_string (entry);
 			if (kind == AS_RELATION_ITEM_KIND_UNKNOWN) {
@@ -1173,6 +1174,8 @@ as_relation_load_from_yaml (AsRelation *relation,
 				g_autofree gchar *value_str = NULL;
 				gint value_px;
 				const gchar *len_str = as_yaml_node_get_value0 (pair);
+				if (len_str == NULL)
+					len_str = "";
 				if (strlen (len_str) <= 2) {
 					/* this string is too short to contain a comparison operator */
 					value_str = g_strdup (len_str);
@@ -1196,9 +1199,10 @@ as_relation_load_from_yaml (AsRelation *relation,
 							   g_variant_new_int32 (value_px));
 
 			} else if (kind == AS_RELATION_ITEM_KIND_MEMORY) {
-				gint value_i = g_ascii_strtoll (as_yaml_node_get_value0 (pair),
-								NULL,
-								10);
+				const gchar *mem_str = as_yaml_node_get_value0 (pair);
+				gint value_i = (mem_str == NULL)
+						   ? 0
+						   : g_ascii_strtoll (mem_str, NULL, 10);
 				as_relation_set_value_var (relation, g_variant_new_int32 (value_i));
 
 			} else if (kind == AS_RELATION_ITEM_KIND_CONTROL) {

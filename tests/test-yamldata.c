@@ -1300,6 +1300,34 @@ test_yaml_read_relations (void)
 	g_assert_cmpint (as_relation_get_value_internet_bandwidth (relation), ==, 0);
 }
 
+/* Relations with empty/absent scalar values. */
+static const gchar *yamldata_relations_empty = "Type: generic\n"
+					       "ID: org.example.RelationsEmptyTest\n"
+					       "Requires:\n"
+					       "- id: org.example.TestDependency\n"
+					       "  version:\n"
+					       "- memory:\n"
+					       "- display_length:\n"
+					       "- internet: always\n"
+					       "  bandwidth_mbitps:\n";
+
+/**
+ * test_yaml_read_relations_empty:
+ *
+ * Ensure that relations with empty scalar values are parsed without crashing.
+ */
+static void
+test_yaml_read_relations_empty (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+
+	cpt = as_yaml_test_read_data (yamldata_relations_empty, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.RelationsEmptyTest");
+
+	/* an empty version is ignored, so the ID relation carries no version constraint */
+	g_assert_cmpint (as_component_get_requires (cpt)->len, ==, 4);
+}
+
 static const gchar *yamldata_agreements = "Type: generic\n"
 					  "ID: org.example.AgreementsTest\n"
 					  "Agreements:\n"
@@ -2152,6 +2180,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/YAML/Write/Launchable", test_yaml_write_launchable);
 
 	g_test_add_func ("/YAML/Read/Relations", test_yaml_read_relations);
+	g_test_add_func ("/YAML/Read/RelationsEmpty", test_yaml_read_relations_empty);
 	g_test_add_func ("/YAML/Write/Relations", test_yaml_write_relations);
 
 	g_test_add_func ("/YAML/Read/Agreements", test_yaml_read_agreements);
