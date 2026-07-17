@@ -1249,8 +1249,8 @@ as_system_info_new_template_for_chassis (AsChassisKind chassis, GError **error)
 
 	if (chassis == AS_CHASSIS_KIND_TABLET) {
 		as_system_info_set_memory_total (sysinfo, 4096);
-		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_SHORTEST, 600);
-		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_LONGEST, 1024);
+		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_SHORTEST, 800);
+		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_LONGEST, 1280);
 		as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_TOUCH, TRUE);
 
 		return sysinfo;
