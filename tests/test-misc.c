@@ -569,7 +569,7 @@ test_syscompat_scores (void)
 	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_desktop_im, sysinfo), ==, 100);
 	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_desktop_ex, sysinfo), ==, 100);
 	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_multi, sysinfo), ==, 100);
-	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_phone, sysinfo), ==, 0);
+	g_assert_cmpint (asx_cpt_get_syscompat_score (cpt_phone, sysinfo), ==, 30);
 
 	/* test compatibility with handset systems */
 	g_clear_pointer (&sysinfo, g_object_unref);

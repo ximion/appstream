@@ -1212,8 +1212,8 @@ as_system_info_new_template_for_chassis (AsChassisKind chassis, GError **error)
 
 	if (chassis == AS_CHASSIS_KIND_HANDSET) {
 		as_system_info_set_memory_total (sysinfo, 4096);
-		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_SHORTEST, 320);
-		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_LONGEST, 480);
+		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_SHORTEST, 360);
+		as_system_info_set_display_length (sysinfo, AS_DISPLAY_SIDE_KIND_LONGEST, 720);
 		as_system_info_mark_input_control_status (sysinfo, AS_CONTROL_KIND_TOUCH, TRUE);
 
 		return sysinfo;
