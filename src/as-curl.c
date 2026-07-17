@@ -453,6 +453,21 @@ as_curl_new (GError **error)
 	curl_easy_setopt (priv->curl, CURLOPT_CONNECTTIMEOUT, 60L);
 	curl_easy_setopt (priv->curl, CURLOPT_FOLLOWLOCATION, 1L);
 
+	/* Only ever permit HTTP(S). Metainfo files provide arbitrary URLs (screenshots, videos,
+	 * external release data), so we must not let cURL follow them into other protocols such
+	 * as file://, ftp://, dict:// or smb://, which would allow local file access and potential
+	 * SSRF against the (sandboxed) compose infrastructure. This restriction also applies to
+	 * any URL we are redirected to. */
+#if CURL_AT_LEAST_VERSION(7, 85, 0)
+	curl_easy_setopt (priv->curl, CURLOPT_PROTOCOLS_STR, "http,https");
+	curl_easy_setopt (priv->curl, CURLOPT_REDIR_PROTOCOLS_STR, "http,https");
+#else
+	curl_easy_setopt (priv->curl, CURLOPT_PROTOCOLS, (long) (CURLPROTO_HTTP | CURLPROTO_HTTPS));
+	curl_easy_setopt (priv->curl,
+			  CURLOPT_REDIR_PROTOCOLS,
+			  (long) (CURLPROTO_HTTP | CURLPROTO_HTTPS));
+#endif
+
 	/* some servers redirect a lot, but 8 redirections seems to be enough for all common cases */
 	curl_easy_setopt (priv->curl, CURLOPT_MAXREDIRS, 8L);
 
