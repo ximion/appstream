@@ -1308,7 +1308,7 @@ as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, struct fy_emitter *
 		    "%s %s",
 		    as_relation_compare_to_symbols_string (priv->compare),
 		    priv->version);
-		as_yaml_emit_entry (emitter, "version", ver_str);
+		as_yaml_emit_entry_str (emitter, "version", ver_str);
 	}
 
 	as_yaml_mapping_end (emitter);
