@@ -1445,7 +1445,7 @@ static const gchar *yamldata_screenshots = "Type: generic\n"
 					   "- environment: plasma:mobile\n"
 					   "  caption:\n"
 					   "    C: The app, on mobile!\n"
-#if AS_FYAML_CHECK_VERSION(0, 9)
+#if AS_FYAML_CHECK_VERSION(0, 9, 0)
 					   "  thumbnails: []\n"
 #else
 					   "  thumbnails:\n"
@@ -2098,7 +2098,13 @@ test_yaml_write_weird_strings (void)
 				     "  de: \"# why?\"\n"
 				     "Keywords:\n"
 				     "  la:\n"
+	/* which quoting style libfyaml auto-selects for strings that contain
+	 * special characters (but need quoting for other reasons) changed with 0.9.5 */
+#if AS_FYAML_CHECK_VERSION(0, 9, 5)
+				     "  - 'Auxilium: Help Contents=Adiuvantes Res'\n"
+#else
 				     "  - \"Auxilium: Help Contents=Adiuvantes Res\"\n"
+#endif
 				     "  eo:\n"
 				     "  - \"2048\"\n"
 				     "  C:\n"

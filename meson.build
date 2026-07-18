@@ -221,8 +221,10 @@ gperf = find_program('gperf')
 fyaml_ver_parts = fyaml_dep.version().split('.')
 fyaml_major = fyaml_ver_parts[0].to_int()
 fyaml_minor = fyaml_ver_parts[1].to_int()
+fyaml_micro = fyaml_ver_parts.length() > 2 ? fyaml_ver_parts[2].to_int() : 0
 conf.set('_FYAML_MAJOR_VERSION', fyaml_major)
 conf.set('_FYAML_MINOR_VERSION', fyaml_minor)
+conf.set('_FYAML_MICRO_VERSION', fyaml_micro)
 
 # configure config.h file (finally)
 configure_file(output: 'config.h', configuration: conf)

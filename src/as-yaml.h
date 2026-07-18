@@ -39,14 +39,16 @@ AS_BEGIN_PRIVATE_DECLS
  * AS_FYAML_CHECK_VERSION:
  * @major: major version number
  * @minor: minor version number
+ * @micro: micro version number
  *
  * Check whether a libfyaml version equal to or greater than
- * major.minor is present.
+ * major.minor.micro is present.
  */
-#define AS_FYAML_CHECK_VERSION(major, minor)                                    \
+#define AS_FYAML_CHECK_VERSION(major, minor, micro)                             \
 	(_FYAML_MAJOR_VERSION > (major) ||                                      \
 	 (_FYAML_MAJOR_VERSION == (major) && _FYAML_MINOR_VERSION > (minor)) || \
-	 (_FYAML_MAJOR_VERSION == (major) && _FYAML_MINOR_VERSION == (minor)))
+	 (_FYAML_MAJOR_VERSION == (major) && _FYAML_MINOR_VERSION == (minor) && \
+	  _FYAML_MICRO_VERSION >= (micro)))
 
 /**
  * Helper macro for iterating through YAML sequences more compactly - we do this a lot!

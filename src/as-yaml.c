@@ -392,11 +392,14 @@ as_yaml_emit_scalar_str (struct fy_emitter *emitter, const gchar *value)
 	 * is a good tradeoff for speed (comparing a bunch of bytes is very fast).
 	 * We use double-quoting, since English strings are more likely to contain apostrophes, so
 	 * double-quotes may lead to less escaping than single-quotes.
-	 * By using FYSS_ANY, libfyaml will handle any dangerous internal punctuation ("=", "#", etc.)
-	 * for us, so we only need to test for numerics and booleans. */
+	 * Leading punctuation would make libfyaml quote the string as well, but which quoting
+	 * style it selects changed between versions, so we pin double-quoting ourselves to get
+	 * deterministic output.
+	 * By using FYSS_ANY otherwise, libfyaml will handle any dangerous internal punctuation
+	 * ("=", "#", etc.) for us. */
 	if (as_is_empty (value))
 		style = FYSS_DOUBLE_QUOTED;
-	else if (g_ascii_isdigit (value[0]) || value[0] == '-' || value[0] == '+')
+	else if (g_ascii_isdigit (value[0]) || g_ascii_ispunct (value[0]))
 		style = FYSS_DOUBLE_QUOTED;
 	else if (as_str_equal0 (value, "true") || as_str_equal0 (value, "false"))
 		style = FYSS_DOUBLE_QUOTED;
