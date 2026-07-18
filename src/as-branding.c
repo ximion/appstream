@@ -526,7 +526,7 @@ as_branding_emit_yaml (AsBranding *branding, AsContext *ctx, struct fy_emitter *
 			    "scheme-preference",
 			    as_color_scheme_kind_to_string (color->scheme_preference));
 
-		as_yaml_emit_entry (emitter, "value", color->value);
+		as_yaml_emit_entry_str (emitter, "value", color->value);
 
 		as_yaml_mapping_end (emitter);
 	}
