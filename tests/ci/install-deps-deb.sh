@@ -57,8 +57,8 @@ fi;
 # Compose dependencies
 eatmydata apt-get install -yq --no-install-recommends \
     $blake3_dev_pkg \
-    libgdk-pixbuf-2.0-dev \
-    librsvg2-dev \
     libcairo2-dev \
+    librsvg2-dev \
+    libvips-dev \
     libfontconfig-dev \
     libpango1.0-dev

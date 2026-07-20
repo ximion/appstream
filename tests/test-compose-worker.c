@@ -205,11 +205,12 @@ test_image_transform (void)
 	g_autofree gchar *data = NULL;
 	gsize data_len;
 
-	/* check if our GdkPixbuf supports the minimum amount of image formats we need */
+	/* check if our libvips supports the minimum amount of image formats we need */
 	supported_fmts = asw_image_supported_format_names ();
 	g_assert_true (g_hash_table_contains (supported_fmts, "png"));
 	g_assert_true (g_hash_table_contains (supported_fmts, "svg"));
 	g_assert_true (g_hash_table_contains (supported_fmts, "jpeg"));
+	g_assert_true (g_hash_table_contains (supported_fmts, "jxl"));
 
 	sample_img_fname = g_build_filename (datadir, "appstream-logo.png", NULL);
 	sample_jxl_img_fname = g_build_filename (datadir, "image.jxl", NULL);
@@ -273,17 +274,11 @@ test_image_transform (void)
 					 -1,
 					 ASW_IMAGE_LOAD_FLAG_NONE,
 					 &error);
-	if (g_hash_table_contains (supported_fmts, "jxl")) {
-		g_assert_no_error (error);
-		g_assert_nonnull (image);
+	g_assert_no_error (error);
+	g_assert_nonnull (image);
 
-		g_assert_cmpint (asw_image_get_width (image), ==, 64);
-		g_assert_cmpint (asw_image_get_height (image), ==, 64);
-	} else {
-		g_assert_error (error, ASC_MEDIA_ERROR, ASC_MEDIA_ERROR_UNSUPPORTED);
-		g_assert_null (image);
-		g_clear_error (&error);
-	}
+	g_assert_cmpint (asw_image_get_width (image), ==, 64);
+	g_assert_cmpint (asw_image_get_height (image), ==, 64);
 	g_clear_object (&image);
 }
 
@@ -324,6 +319,18 @@ test_canvas (void)
 
 	g_object_unref (cv);
 	cv = NULL;
+	g_object_unref (stream);
+
+	/* render the same SVG to a JPEG-XL file, exercising the canvas image conversion */
+	stream = g_memory_input_stream_new_from_data (data, data_len, NULL);
+	asw_render_svg_to_file (stream,
+				256,
+				256,
+				ASW_IMAGE_FORMAT_JXL,
+				"/tmp/asw-svgrender_test2.jxl",
+				&error);
+	g_assert_no_error (error);
+	g_assert_true (g_file_test ("/tmp/asw-svgrender_test2.jxl", G_FILE_TEST_EXISTS));
 
 	/* test font rendering */
 	font_fname = g_build_filename (datadir, "Raleway-Regular.ttf", NULL);
@@ -457,6 +464,7 @@ int
 main (int argc, char **argv)
 {
 	int ret;
+	g_autoptr(GError) error = NULL;
 
 	setlocale (LC_ALL, "");
 
@@ -468,6 +476,9 @@ main (int argc, char **argv)
 	g_assert_nonnull (argv[1]);
 	datadir = g_build_filename (argv[1], "samples", "compose", NULL);
 	g_assert_true (g_file_test (datadir, G_FILE_TEST_EXISTS));
+
+	if (!asw_image_backend_init (argv[0], &error))
+		g_error ("Failed to initialize image processing backend: %s", error->message);
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	g_test_init (&argc, &argv, NULL);
@@ -484,6 +495,7 @@ main (int argc, char **argv)
 
 	ret = g_test_run ();
 	g_free (datadir);
+	asw_image_backend_shutdown ();
 
 	return ret;
 }

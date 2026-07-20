@@ -514,7 +514,7 @@ asw_worker_handle_process_image (AswWorker *worker,
 		case ASC_IMAGE_SCALE_MODE_FIT_HEIGHT: {
 			/* scale a temporary image proportionally, then store it in its new native size */
 			g_autoptr(AswImage) scaled_img = asw_image_new ();
-			asw_image_set_pixbuf (scaled_img, asw_image_get_pixbuf (image));
+			asw_image_set_vips (scaled_img, asw_image_get_vips (image));
 			if (scale_mode == ASC_IMAGE_SCALE_MODE_FIT_WIDTH)
 				asw_image_scale_to_width (scaled_img, width);
 			else

@@ -151,7 +151,7 @@ if get_option('compose')
                        freetype_dep,
                        pango_dep,
                        fontconfig_dep,
-                       gdkpixbuf_dep],
+                       vips_dep],
         include_directories: [root_inc_dir,
                               include_directories('../compose/worker')],
         c_args: ['-DASC_COMPILATION',

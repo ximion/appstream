@@ -158,7 +158,7 @@ jobs:
           sudo -E pkg install -y \
               docbook-xsl-ns gettext-tools glib gobject-introspection \
               gperf itstool libxmlb libfyaml meson pkgconf qt6-tools \
-              snowballstemmer libblake3 textproc/py-gi-docgen vala
+              snowballstemmer libblake3 vips textproc/py-gi-docgen vala
           echo "::endgroup::"
 
           export CC=/usr/bin/cc

@@ -40,10 +40,47 @@ struct _AswImage {
 };
 
 typedef struct {
-	GdkPixbuf *pix;
+	VipsImage *vimg;
 	gint width;
 	gint height;
 } AswImagePrivate;
+
+/**
+ * AswImageSaverOptions:
+ *
+ * Fine-grained encoder settings used when writing images to disk.
+ */
+typedef struct {
+	gint png_compression;
+	gboolean png_palette;
+	gint png_effort;
+	gboolean jxl_lossless;
+	gint jxl_quality;
+	gint jxl_effort;
+} AswImageSaverOptions;
+
+/* Defaults for large images like screenshots: PNG at maximum compression
+ * (optipng squeezes out the rest, if enabled), JPEG-XL with a good
+ * quality/size balance. */
+static const AswImageSaverOptions asw_default_saver_options = {
+	.png_compression = 9,
+	.png_palette = FALSE,
+	.png_effort = 4,
+	.jxl_lossless = FALSE,
+	.jxl_quality = 90,
+	.jxl_effort = 7,
+};
+
+/* Settings for small images like icons: lossless JPEG-XL, which for
+ * icon-sized images is usually even smaller than lossy encoding. */
+static const AswImageSaverOptions asw_icon_saver_options = {
+	.png_compression = 9,
+	.png_palette = FALSE,
+	.png_effort = 4,
+	.jxl_lossless = TRUE,
+	.jxl_quality = 100,
+	.jxl_effort = 7,
+};
 
 G_DEFINE_TYPE_WITH_PRIVATE (AswImage, asw_image, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (asw_image_get_instance_private (o))
@@ -150,14 +187,151 @@ asw_image_format_from_filename (const gchar *fname)
 	return ASW_IMAGE_FORMAT_UNKNOWN;
 }
 
+/**
+ * asw_image_format_from_vips_loader:
+ *
+ * Map a libvips foreign-load operation class name (as returned by
+ * vips_foreign_find_load() and friends) to an #AswImageFormat.
+ */
+static AswImageFormat
+asw_image_format_from_vips_loader (const gchar *loader_name)
+{
+	if (loader_name == NULL)
+		return ASW_IMAGE_FORMAT_UNKNOWN;
+
+	if (g_str_has_prefix (loader_name, "VipsForeignLoadPng"))
+		return ASW_IMAGE_FORMAT_PNG;
+	if (g_str_has_prefix (loader_name, "VipsForeignLoadJpeg"))
+		return ASW_IMAGE_FORMAT_JPEG;
+	if (g_str_has_prefix (loader_name, "VipsForeignLoadJxl"))
+		return ASW_IMAGE_FORMAT_JXL;
+	if (g_str_has_prefix (loader_name, "VipsForeignLoadWebp"))
+		return ASW_IMAGE_FORMAT_WEBP;
+	if (g_str_has_prefix (loader_name, "VipsForeignLoadHeif"))
+		return ASW_IMAGE_FORMAT_AVIF;
+	if (g_str_has_prefix (loader_name, "VipsForeignLoadSvg"))
+		return ASW_IMAGE_FORMAT_SVG;
+	if (g_str_has_prefix (loader_name, "VipsForeignLoadNsgif") ||
+	    g_str_has_prefix (loader_name, "VipsForeignLoadGif"))
+		return ASW_IMAGE_FORMAT_GIF;
+
+	return ASW_IMAGE_FORMAT_UNKNOWN;
+}
+
+/**
+ * asw_vips_error:
+ *
+ * Set a #GError from the (thread-local) libvips error buffer and clear
+ * the buffer, so errors can never leak into subsequent operations.
+ *
+ * Returns: Always %FALSE, for convenient use in return statements.
+ */
+static gboolean
+asw_vips_error (const gchar *action, GError **error)
+{
+	g_autofree gchar *vips_msg = g_strdup (vips_error_buffer ());
+	vips_error_clear ();
+	g_set_error (error,
+		     ASC_MEDIA_ERROR,
+		     ASC_MEDIA_ERROR_FAILED,
+		     "%s: %s",
+		     action,
+		     g_strchomp (vips_msg));
+	return FALSE;
+}
+
+/**
+ * asw_image_backend_init:
+ * @argv0: The program name to register with libvips, or %NULL.
+ * @error: A #GError or %NULL
+ *
+ * Initialize the libvips-based image processing backend and verify that
+ * all image formats that we absolutely need are actually supported by
+ * the installed libvips library.
+ *
+ * Returns: %TRUE on success.
+ **/
+gboolean
+asw_image_backend_init (const gchar *argv0, GError **error)
+{
+	if (VIPS_INIT (argv0 != NULL ? argv0 : "appstream-compose"))
+		return asw_vips_error ("Unable to initialize libvips", error);
+
+	/* We process many unrelated, untrusted inputs sequentially, so a global
+	 * operation cache would only retain memory without any reuse benefit. */
+	vips_cache_set_max (0);
+
+	/* Harden against untrusted input: block all image loaders, then explicitly
+	 * permit only the formats that we want to support. */
+	vips_operation_block_set ("VipsForeignLoad", TRUE);
+	vips_operation_block_set ("VipsForeignLoadPng", FALSE);
+	vips_operation_block_set ("VipsForeignLoadJpeg", FALSE);
+	vips_operation_block_set ("VipsForeignLoadJxl", FALSE);
+	vips_operation_block_set ("VipsForeignLoadWebp", FALSE);
+	vips_operation_block_set ("VipsForeignLoadHeif", FALSE);
+	vips_operation_block_set ("VipsForeignLoadNsgif", FALSE);
+#ifdef HAVE_SVG_SUPPORT
+	vips_operation_block_set ("VipsForeignLoadSvg", FALSE);
+#endif
+
+	/* support for PNG and JPEG-XL is an absolute requirement */
+	if (vips_type_find ("VipsForeignLoad", "pngload_buffer") == 0 ||
+	    vips_type_find ("VipsForeignSave", "pngsave") == 0) {
+		g_set_error_literal (error,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_UNSUPPORTED,
+				     "The libvips library was built without PNG support. "
+				     "Please rebuild libvips with PNG support enabled or contact "
+				     "your distributor to enable it for you.");
+		return FALSE;
+	}
+	if (vips_type_find ("VipsForeignLoad", "jxlload_buffer") == 0 ||
+	    vips_type_find ("VipsForeignSave", "jxlsave") == 0) {
+		g_set_error_literal (error,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_UNSUPPORTED,
+				     "The libvips library was built without JPEG-XL (libjxl) "
+				     "support. Please rebuild libvips with JPEG-XL support enabled "
+				     "or contact your distributor to enable it for you.");
+		return FALSE;
+	}
+#ifdef HAVE_SVG_SUPPORT
+	if (vips_type_find ("VipsForeignLoad", "svgload_buffer") == 0) {
+		g_set_error_literal (error,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_UNSUPPORTED,
+				     "The libvips library was built without SVG (librsvg) support. "
+				     "Please rebuild libvips with SVG support enabled or contact "
+				     "your distributor to enable it for you.");
+		return FALSE;
+	}
+#endif
+
+	/* allow tracking down refcount issues in the media worker */
+	if (g_strcmp0 (g_getenv ("ASC_VIPS_LEAK"), "1") == 0)
+		vips_leak_set (TRUE);
+
+	return TRUE;
+}
+
+/**
+ * asw_image_backend_shutdown:
+ *
+ * Shut down the libvips-based image processing backend.
+ **/
+void
+asw_image_backend_shutdown (void)
+{
+	vips_shutdown ();
+}
+
 static void
 asw_image_finalize (GObject *object)
 {
 	AswImage *image = ASW_IMAGE (object);
 	AswImagePrivate *priv = GET_PRIVATE (image);
 
-	if (priv->pix != NULL)
-		g_object_unref (priv->pix);
+	g_clear_object (&priv->vimg);
 
 	G_OBJECT_CLASS (asw_image_parent_class)->finalize (object);
 }
@@ -254,142 +428,295 @@ asw_optimize_png (const gchar *fname, GError **error)
  * asw_image_supported_format_names:
  *
  * Get a set of image format names we can currently read
- * (via GdkPixbuf).
+ * (via libvips).
  *
  * Returns: (transfer full): A hash set of format names.
  **/
 GHashTable *
 asw_image_supported_format_names (void)
 {
-	g_autoptr(GSList) fm_list = NULL;
+	static const struct {
+		const gchar *loader_nick;
+		const gchar *format;
+	} loaders[] = {
+		{ "pngload_buffer",  "png"  },
+		{ "jpegload_buffer", "jpeg" },
+		{ "jxlload_buffer",  "jxl"  },
+		{ "webpload_buffer", "webp" },
+		{ "heifload_buffer", "avif" },
+		{ "gifload_buffer",  "gif"  },
+		{ NULL,		NULL   }
+	};
 	GHashTable *res;
 
 	res = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-	fm_list = gdk_pixbuf_get_formats ();
+	for (guint i = 0; loaders[i].loader_nick != NULL; i++) {
+		if (vips_type_find ("VipsForeignLoad", loaders[i].loader_nick) != 0)
+			g_hash_table_add (res, g_strdup (loaders[i].format));
+	}
 
-	if (fm_list == NULL)
-		return res;
-
-	for (GSList *l = fm_list; l != NULL; l = l->next)
-		g_hash_table_add (res, gdk_pixbuf_format_get_name (l->data));
+#ifdef HAVE_SVG_SUPPORT
+	if (vips_type_find ("VipsForeignLoad", "svgload_buffer") != 0) {
+		g_hash_table_add (res, g_strdup ("svg"));
+		g_hash_table_add (res, g_strdup ("svgz"));
+	}
+#endif
 
 	return res;
 }
 
 /**
- * asw_image_load_pixbuf:
+ * asw_vips_normalize:
+ *
+ * Normalize an image to the flat 8-bit (s)RGB representation that all
+ * subsequent operations expect, applying any ICC profile and reducing
+ * higher bit depths in the process.
+ */
+static gboolean
+asw_vips_normalize (VipsImage *in, VipsImage **out, GError **error)
+{
+	if (vips_thumbnail_image (in,
+				  out,
+				  vips_image_get_width (in),
+				  "height",
+				  vips_image_get_height (in),
+				  "size",
+				  VIPS_SIZE_FORCE,
+				  "no_rotate",
+				  TRUE,
+				  NULL) != 0)
+		return asw_vips_error ("Unable to normalize image", error);
+	return TRUE;
+}
+
+/**
+ * asw_vips_resize_exact:
+ *
+ * Resize an image to the exact given dimensions, using premultiplied
+ * alpha and a high-quality (Lanczos3) kernel.
+ */
+static gboolean
+asw_vips_resize_exact (VipsImage *in, VipsImage **out, gint width, gint height, GError **error)
+{
+	if (vips_thumbnail_image (in,
+				  out,
+				  width,
+				  "height",
+				  height,
+				  "size",
+				  VIPS_SIZE_FORCE,
+				  "no_rotate",
+				  TRUE,
+				  NULL) != 0)
+		return asw_vips_error ("Unable to resize image", error);
+	return TRUE;
+}
+
+/**
+ * asw_vips_pad_center:
+ *
+ * Center an image on a (usually larger) transparent canvas of the
+ * given dimensions, without scaling it.
+ */
+static gboolean
+asw_vips_pad_center (VipsImage *in,
+		     VipsImage **out,
+		     gint dest_width,
+		     gint dest_height,
+		     GError **error)
+{
+	g_autoptr(VipsImage) srgb = NULL;
+	g_autoptr(VipsImage) rgba = NULL;
+	VipsArrayDouble *bg;
+	static const double transparent[4] = { 0.0, 0.0, 0.0, 0.0 };
+	gint ret;
+
+	/* the padding is transparent, so the image itself needs an alpha channel too */
+	if (vips_colourspace (in, &srgb, VIPS_INTERPRETATION_sRGB, NULL) != 0)
+		return asw_vips_error ("Unable to convert image to sRGB", error);
+	if (vips_image_hasalpha (srgb)) {
+		rgba = g_object_ref (srgb);
+	} else {
+		if (vips_addalpha (srgb, &rgba, NULL) != 0)
+			return asw_vips_error ("Unable to add alpha channel to image", error);
+	}
+
+	bg = vips_array_double_new (transparent, 4);
+	ret = vips_embed (rgba,
+			  out,
+			  (dest_width - vips_image_get_width (rgba)) / 2,
+			  (dest_height - vips_image_get_height (rgba)) / 2,
+			  dest_width,
+			  dest_height,
+			  "extend",
+			  VIPS_EXTEND_BACKGROUND,
+			  "background",
+			  bg,
+			  NULL);
+	vips_area_unref (VIPS_AREA (bg));
+	if (ret != 0)
+		return asw_vips_error ("Unable to pad image", error);
+	return TRUE;
+}
+
+/**
+ * asw_image_store_vips:
+ *
+ * Fully evaluate an image pipeline into memory and make the result the
+ * current image data of @image.
+ * Decoding once into memory keeps the many renditions that may be derived
+ * from one image cheap, and ensures no lazy pipeline outlives the input
+ * buffer the image was loaded from.
+ */
+static gboolean
+asw_image_store_vips (AswImage *image, VipsImage *vimg, GError **error)
+{
+	g_autoptr(VipsImage) vimg_mem = NULL;
+
+	vimg_mem = vips_image_copy_memory (vimg);
+	if (vimg_mem == NULL)
+		return asw_vips_error ("Unable to read image data", error);
+	asw_image_set_vips (image, vimg_mem);
+	return TRUE;
+}
+
+/**
+ * asw_vips_blur:
+ * @in: Source image.
+ * @out: (out): Location for the blurred image.
+ * @sigma: Standard deviation of the gaussian blur.
+ * @error: A #GError or %NULL
+ *
+ * Blurs an image.
+ **/
+gboolean
+asw_vips_blur (VipsImage *in, VipsImage **out, gdouble sigma, GError **error)
+{
+	if (vips_gaussblur (in, out, sigma, NULL) != 0)
+		return asw_vips_error ("Unable to blur image", error);
+	return TRUE;
+}
+
+/**
+ * asw_vips_sharpen:
+ * @in: Source image.
+ * @out: (out): Location for the sharpened image.
+ * @sigma: Standard deviation of the unsharp mask, typical values are 1..3
+ * @amount: Amount to sharpen the image, typical values are 0.1 to 0.9
+ * @error: A #GError or %NULL
+ *
+ * Sharpens an image using an unsharp mask:
+ * out = (1 + amount) * in - amount * blurred
+ **/
+gboolean
+asw_vips_sharpen (VipsImage *in, VipsImage **out, gdouble sigma, gdouble amount, GError **error)
+{
+	g_autoptr(VipsImage) blurred = NULL;
+	g_autoptr(VipsImage) base = NULL;
+	g_autoptr(VipsImage) mask = NULL;
+	g_autoptr(VipsImage) sum = NULL;
+
+	if (vips_gaussblur (in, &blurred, sigma, NULL) != 0 ||
+	    vips_linear1 (in, &base, 1.0 + amount, 0.0, NULL) != 0 ||
+	    vips_linear1 (blurred, &mask, -amount, 0.0, NULL) != 0 ||
+	    vips_add (base, mask, &sum, NULL) != 0 || vips_cast_uchar (sum, out, NULL) != 0)
+		return asw_vips_error ("Unable to sharpen image", error);
+	return TRUE;
+}
+
+/**
+ * asw_image_load_vips:
  **/
 static gboolean
-asw_image_load_pixbuf (AswImage *image,
-		       GdkPixbuf *pixbuf,
-		       gint dest_width,
-		       gint dest_height,
-		       gint src_size_min,
-		       AswImageLoadFlags flags,
-		       GError **error)
+asw_image_load_vips (AswImage *image,
+		     VipsImage *vimg_raw,
+		     gint dest_width,
+		     gint dest_height,
+		     gint src_size_min,
+		     AswImageLoadFlags flags,
+		     GError **error)
 {
-	gint pixbuf_height;
-	gint pixbuf_width;
+	g_autoptr(VipsImage) vimg = NULL;
+	g_autoptr(VipsImage) vimg_scaled = NULL;
+	g_autoptr(VipsImage) vimg_new = NULL;
+	gint src_height;
+	gint src_width;
 	gint tmp_height;
 	gint tmp_width;
-	g_autoptr(GdkPixbuf) pixbuf_tmp = NULL;
-	g_autoptr(GdkPixbuf) pixbuf_new = NULL;
+
+	if (!asw_vips_normalize (vimg_raw, &vimg, error))
+		return FALSE;
+	src_width = vips_image_get_width (vimg);
+	src_height = vips_image_get_height (vimg);
 
 	/* check size */
-	if (gdk_pixbuf_get_width (pixbuf) < src_size_min &&
-	    gdk_pixbuf_get_height (pixbuf) < src_size_min) {
+	if (src_width < src_size_min && src_height < src_size_min) {
 		g_set_error (error,
 			     ASC_MEDIA_ERROR,
 			     ASC_MEDIA_ERROR_FAILED,
 			     "Image was too small %ix%i",
-			     gdk_pixbuf_get_width (pixbuf),
-			     gdk_pixbuf_get_height (pixbuf));
+			     src_width,
+			     src_height);
 		return FALSE;
 	}
 
 	/* don't do anything to an icon with the perfect size */
-	pixbuf_width = gdk_pixbuf_get_width (pixbuf);
-	pixbuf_height = gdk_pixbuf_get_height (pixbuf);
-	if (pixbuf_width == dest_width && pixbuf_height == dest_height) {
-		asw_image_set_pixbuf (image, pixbuf);
-		return TRUE;
-	}
+	if (src_width == dest_width && src_height == dest_height)
+		return asw_image_store_vips (image, vimg, error);
 
 	/* this makes icons look blurry, but allows the software center to look
 	 * good as icons are properly aligned in the UI layout */
 	if (as_flags_contains (flags, ASW_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
-		pixbuf_new = gdk_pixbuf_scale_simple (pixbuf,
-						      dest_width,
-						      dest_height,
-						      GDK_INTERP_HYPER);
-		asw_image_set_pixbuf (image, pixbuf_new);
-		return TRUE;
+		if (!asw_vips_resize_exact (vimg, &vimg_new, dest_width, dest_height, error))
+			return FALSE;
+		return asw_image_store_vips (image, vimg_new, error);
 	}
 
 	/* never scale up, just pad */
-	if (pixbuf_width < dest_width && pixbuf_height < dest_height) {
+	if (src_width < dest_width && src_height < dest_height) {
 		g_debug ("Image padded to %dx%d as size %dx%d",
 			 dest_width,
 			 dest_height,
-			 pixbuf_width,
-			 pixbuf_height);
-		pixbuf_new = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, dest_width, dest_height);
-		gdk_pixbuf_fill (pixbuf_new, 0x00000000);
-		gdk_pixbuf_copy_area (pixbuf,
-				      0,
-				      0, /* of src */
-				      (gint) pixbuf_width,
-				      (gint) pixbuf_height,
-				      pixbuf_new,
-				      (dest_width - pixbuf_width) / 2,
-				      (dest_height - pixbuf_height) / 2);
-		asw_image_set_pixbuf (image, pixbuf_new);
-		return TRUE;
+			 src_width,
+			 src_height);
+		if (!asw_vips_pad_center (vimg, &vimg_new, dest_width, dest_height, error))
+			return FALSE;
+		return asw_image_store_vips (image, vimg_new, error);
 	}
 
 	/* is the aspect ratio perfectly square */
-	if (pixbuf_width == pixbuf_height) {
-		pixbuf_new = gdk_pixbuf_scale_simple (pixbuf,
-						      dest_width,
-						      dest_height,
-						      GDK_INTERP_HYPER);
-		asw_image_set_pixbuf (image, pixbuf_new);
-		return TRUE;
+	if (src_width == src_height) {
+		if (!asw_vips_resize_exact (vimg, &vimg_new, dest_width, dest_height, error))
+			return FALSE;
+		return asw_image_store_vips (image, vimg_new, error);
 	}
 
-	/* create new square pixbuf with alpha padding */
-	pixbuf_new = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, dest_width, dest_height);
-	gdk_pixbuf_fill (pixbuf_new, 0x00000000);
-	if (pixbuf_width > pixbuf_height) {
+	/* scale, preserving the aspect ratio, and center on a transparent canvas */
+	if (src_width > src_height) {
 		tmp_width = dest_width;
-		tmp_height = dest_height * pixbuf_height / pixbuf_width;
+		tmp_height = dest_height * src_height / src_width;
 	} else {
-		tmp_width = dest_width * pixbuf_width / pixbuf_height;
+		tmp_width = dest_width * src_width / src_height;
 		tmp_height = dest_height;
 	}
-	pixbuf_tmp = gdk_pixbuf_scale_simple (pixbuf,
-					      (gint) tmp_width,
-					      (gint) tmp_height,
-					      GDK_INTERP_HYPER);
-	if (as_flags_contains (flags, ASW_IMAGE_LOAD_FLAG_SHARPEN))
-		asw_pixbuf_sharpen (pixbuf_tmp, 1, -0.5);
-	gdk_pixbuf_copy_area (pixbuf_tmp,
-			      0,
-			      0, /* of src */
-			      (gint) tmp_width,
-			      (gint) tmp_height,
-			      pixbuf_new,
-			      (dest_width - tmp_width) / 2,
-			      (dest_height - tmp_height) / 2);
-	asw_image_set_pixbuf (image, pixbuf_new);
-	return TRUE;
+	if (!asw_vips_resize_exact (vimg, &vimg_scaled, tmp_width, tmp_height, error))
+		return FALSE;
+	if (as_flags_contains (flags, ASW_IMAGE_LOAD_FLAG_SHARPEN)) {
+		g_autoptr(VipsImage) sharpened = NULL;
+		if (!asw_vips_sharpen (vimg_scaled, &sharpened, 1.4, 0.5, error))
+			return FALSE;
+		g_set_object (&vimg_scaled, sharpened);
+	}
+	if (!asw_vips_pad_center (vimg_scaled, &vimg_new, dest_width, dest_height, error))
+		return FALSE;
+	return asw_image_store_vips (image, vimg_new, error);
 }
 
 /**
  * asw_image_new_from_file:
  * @fname: Name of the file to load.
- * @dest_width: The suggested width of the constructed pixbuf, or 0 for the native size
- * @dest_height: The suggested height of the constructed pixbuf, or 0 for the native size
+ * @dest_width: The suggested width of the constructed image, or 0 for the native size
+ * @dest_height: The suggested height of the constructed image, or 0 for the native size
  * @flags: a #AswImageLoadFlags, e.g. %ASW_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL
  *
@@ -415,8 +742,8 @@ asw_image_new_from_file (const gchar *fname,
  * asw_image_new_from_data:
  * @data: Data to load.
  * @len: Length of the data to load.
- * @dest_width: The suggested width of the constructed pixbuf, or 0 for the native size
- * @dest_height: The suggested height of the constructed pixbuf, or 0 for the native size
+ * @dest_width: The suggested width of the constructed image, or 0 for the native size
+ * @dest_height: The suggested height of the constructed image, or 0 for the native size
  * @flags: a #AswImageLoadFlags, e.g. %ASW_IMAGE_LOAD_FLAG_NONE
  * @format_hint: Assume the specified image format for data, use %ASW_IMAGE_FORMAT_UNKNOWN to guess.
  * @error: A #GError or %NULL
@@ -432,117 +759,92 @@ asw_image_new_from_data (const void *data,
 			 AswImageFormat format_hint,
 			 GError **error)
 {
-	gboolean ret;
-	g_autoptr(GInputStream) istream = NULL;
-	g_autoptr(GInputStream) dstream = NULL;
-	g_autoptr(GConverter) conv = NULL;
-	g_autoptr(GdkPixbuf) pix = NULL;
+	g_autoptr(GBytes) raw_bytes = NULL;
+	g_autoptr(VipsImage) vimg = NULL;
 	g_autoptr(AswImage) image = asw_image_new ();
 
-	istream = g_memory_input_stream_new_from_data (data, len, NULL);
 	if (format_hint == ASW_IMAGE_FORMAT_SVGZ) {
+		/* decompress the GZip data first */
+		g_autoptr(GInputStream) istream = NULL;
+		g_autoptr(GInputStream) dstream = NULL;
+		g_autoptr(GConverter) conv = NULL;
+		g_autoptr(GOutputStream) ostream = NULL;
+
+		istream = g_memory_input_stream_new_from_data (data, len, NULL);
 		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
 		dstream = g_converter_input_stream_new (istream, conv);
-	} else {
-		dstream = g_object_ref (istream);
+		ostream = g_memory_output_stream_new_resizable ();
+		if (g_output_stream_splice (ostream,
+					    dstream,
+					    G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE |
+						G_OUTPUT_STREAM_SPLICE_CLOSE_TARGET,
+					    NULL,
+					    error) < 0)
+			return NULL;
+		raw_bytes = g_memory_output_stream_steal_as_bytes (
+		    G_MEMORY_OUTPUT_STREAM (ostream));
+		data = g_bytes_get_data (raw_bytes, NULL);
+		len = (gssize) g_bytes_get_size (raw_bytes);
 	}
 
 	if (dest_width <= 0 && dest_height <= 0) {
-		/* use the native size and don't perform any scaling */
-		pix = gdk_pixbuf_new_from_stream (dstream, NULL, error);
-		if (pix == NULL)
-			return NULL;
+		g_autoptr(VipsImage) vimg_norm = NULL;
 
-		asw_image_set_pixbuf (image, pix);
+		/* use the native size and don't perform any scaling */
+		vimg = vips_image_new_from_buffer (data, (size_t) len, "", NULL);
+		if (vimg == NULL) {
+			asw_vips_error ("Unable to load image", error);
+			return NULL;
+		}
+		if (!asw_vips_normalize (vimg, &vimg_norm, error))
+			return NULL;
+		if (!asw_image_store_vips (image, vimg_norm, error))
+			return NULL;
 		return g_steal_pointer (&image);
 	}
 
 	/* load & scale */
 	if (as_flags_contains (flags, ASW_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
-		pix = gdk_pixbuf_new_from_stream_at_scale (dstream,
-							   dest_width,
-							   dest_height,
-							   TRUE,
-							   NULL,
-							   error);
-		if (pix == NULL)
+		gint tmp_width = dest_width > 0 ? dest_width : dest_height;
+		gint tmp_height = dest_height > 0 ? dest_height : dest_width;
+
+		/* load already scaled to fit the target size, so any vector
+		 * graphics are rendered at the right resolution */
+		if (vips_thumbnail_buffer ((void *) data,
+					   (size_t) len,
+					   &vimg,
+					   tmp_width,
+					   "height",
+					   tmp_height,
+					   "size",
+					   VIPS_SIZE_BOTH,
+					   "no_rotate",
+					   TRUE,
+					   NULL) != 0) {
+			asw_vips_error ("Unable to load image", error);
 			return NULL;
+		}
 	} else {
 		/* just load, we will do resizing later */
-		pix = gdk_pixbuf_new_from_stream (dstream, NULL, error);
-		if (pix == NULL)
+		vimg = vips_image_new_from_buffer (data, (size_t) len, "", NULL);
+		if (vimg == NULL) {
+			asw_vips_error ("Unable to load image", error);
 			return NULL;
+		}
 	}
-	ret = asw_image_load_pixbuf (image, pix, dest_width, dest_height, 0, flags, error);
-	if (!ret)
+
+	if (!asw_image_load_vips (image, vimg, dest_width, dest_height, 0, flags, error))
 		return NULL;
 
 	return g_steal_pointer (&image);
 }
 
 /**
- * asw_image_pixbuf_new_from_gz:
- *
- * Wrapper to allow GdkPixbuf to load SVG images from SVGZ files as well.
- */
-static GdkPixbuf *
-asw_image_pixbuf_new_from_gz (const gchar *filename, gint width, gint height, GError **error)
-{
-	g_autoptr(GFile) file = NULL;
-	g_autoptr(GInputStream) file_stream = NULL;
-	g_autoptr(GInputStream) stream_data = NULL;
-	g_autoptr(GConverter) conv = NULL;
-	g_autoptr(GFileInfo) info = NULL;
-	const gchar *content_type = NULL;
-
-	file = g_file_new_for_path (filename);
-	if (!g_file_query_exists (file, NULL)) {
-		g_set_error_literal (error,
-				     ASC_MEDIA_ERROR,
-				     ASC_MEDIA_ERROR_FAILED,
-				     "Image file does not exist");
-		return NULL;
-	}
-	info = g_file_query_info (file,
-				  G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-				  G_FILE_QUERY_INFO_NONE,
-				  NULL,
-				  NULL);
-	if (info != NULL)
-		content_type = g_file_info_get_attribute_string (
-		    info,
-		    G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-
-	file_stream = G_INPUT_STREAM (g_file_read (file, NULL, error));
-	if (file_stream == NULL)
-		return NULL;
-
-	if ((g_strcmp0 (content_type, "application/gzip") == 0) ||
-	    (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
-		/* decompress the GZip stream */
-		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
-		stream_data = g_converter_input_stream_new (file_stream, conv);
-	} else {
-		stream_data = g_object_ref (file_stream);
-	}
-
-	if (width != 0 || height != 0)
-		return gdk_pixbuf_new_from_stream_at_scale (stream_data,
-							    width,
-							    height,
-							    TRUE,
-							    NULL,
-							    error);
-	else
-		return gdk_pixbuf_new_from_stream (stream_data, NULL, error);
-}
-
-/**
  * asw_image_load_filename:
  * @image: a #AswImage instance.
  * @filename: filename to read from
- * @dest_width: The suggested width of the constructed pixbuf, or 0 for the native size
- * @dest_height: The suggested height of the constructed pixbuf, or 0 for the native size
+ * @dest_width: The suggested width of the constructed image, or 0 for the native size
+ * @dest_height: The suggested height of the constructed image, or 0 for the native size
  * @src_size_min: The smallest source size (width or height) allowed, or 0 for no limit
  * @flags: a #AswImageLoadFlags, e.g. %ASW_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL.
@@ -560,7 +862,7 @@ asw_image_load_filename (AswImage *image,
 			 AswImageLoadFlags flags,
 			 GError **error)
 {
-	g_autoptr(GdkPixbuf) pixbuf_src = NULL;
+	g_autoptr(VipsImage) vimg_src = NULL;
 	gboolean is_svg = FALSE;
 
 	g_return_val_if_fail (ASW_IS_IMAGE (image), FALSE);
@@ -582,93 +884,103 @@ asw_image_load_filename (AswImage *image,
 
 	/* only support allowed types, unless support for any image is explicitly requested */
 	if (!as_flags_contains (flags, ASW_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED)) {
-		GdkPixbufFormat *fmt;
-		g_autofree gchar *name = NULL;
-		fmt = gdk_pixbuf_get_file_info (filename, NULL, NULL);
-		if (fmt == NULL) {
+		const gchar *loader_name = vips_foreign_find_load (filename);
+		if (loader_name == NULL) {
+			vips_error_clear ();
 			g_set_error_literal (error,
 					     ASC_MEDIA_ERROR,
 					     ASC_MEDIA_ERROR_UNSUPPORTED,
 					     "Image format was not recognized");
 			return FALSE;
 		}
-		name = gdk_pixbuf_format_get_name (fmt);
-		if (asw_image_format_from_string (name) == ASW_IMAGE_FORMAT_UNKNOWN) {
+		if (asw_image_format_from_vips_loader (loader_name) == ASW_IMAGE_FORMAT_UNKNOWN) {
 			g_set_error (error,
 				     ASC_MEDIA_ERROR,
 				     ASC_MEDIA_ERROR_UNSUPPORTED,
 				     "Image format %s is not supported",
-				     name);
+				     loader_name);
 			return FALSE;
 		}
 	}
 
-	/* load the image of the native size */
+	/* load the image at its native size */
 	if (dest_width <= 0 && dest_height <= 0) {
-		g_autoptr(GdkPixbuf) pixbuf = NULL;
-		pixbuf = asw_image_pixbuf_new_from_gz (filename, -1, -1, error);
-		if (pixbuf == NULL)
+		g_autoptr(VipsImage) vimg_norm = NULL;
+
+		vimg_src = vips_image_new_from_file (filename, NULL);
+		if (vimg_src == NULL)
+			return asw_vips_error ("Unable to load image", error);
+		if (!asw_vips_normalize (vimg_src, &vimg_norm, error))
 			return FALSE;
-		asw_image_set_pixbuf (image, pixbuf);
-		return TRUE;
+		return asw_image_store_vips (image, vimg_norm, error);
 	}
 
-	/* open file in native size */
+	/* open file in native size, but render vector graphics to fit the target size */
 	if (is_svg) {
-		pixbuf_src = asw_image_pixbuf_new_from_gz (filename,
-							   (gint) dest_width,
-							   (gint) dest_height,
-							   error);
-	} else {
-		pixbuf_src = asw_image_pixbuf_new_from_gz (filename, 0, 0, error);
-	}
-	if (pixbuf_src == NULL)
-		return FALSE;
+		gint tmp_width = dest_width > 0 ? dest_width : dest_height;
+		gint tmp_height = dest_height > 0 ? dest_height : dest_width;
 
-	/* create from pixbuf & resize */
-	return asw_image_load_pixbuf (image,
-				      pixbuf_src,
-				      dest_width,
-				      dest_height,
-				      src_size_min,
-				      flags,
-				      error);
+		if (vips_thumbnail (filename,
+				    &vimg_src,
+				    tmp_width,
+				    "height",
+				    tmp_height,
+				    "size",
+				    VIPS_SIZE_BOTH,
+				    "no_rotate",
+				    TRUE,
+				    NULL) != 0)
+			return asw_vips_error ("Unable to render SVG image", error);
+	} else {
+		vimg_src = vips_image_new_from_file (filename, NULL);
+		if (vimg_src == NULL)
+			return asw_vips_error ("Unable to load image", error);
+	}
+
+	/* resize as requested */
+	return asw_image_load_vips (image,
+				    vimg_src,
+				    dest_width,
+				    dest_height,
+				    src_size_min,
+				    flags,
+				    error);
 }
 
 /**
- * asw_image_get_pixbuf:
+ * asw_image_get_vips:
  * @image: a #AswImage instance.
  *
- * Gets the image pixbuf if set.
+ * Gets the image data as #VipsImage, if set.
  *
- * Returns: (transfer none): the #GdkPixbuf, or %NULL
+ * Returns: (transfer none): the #VipsImage, or %NULL
  **/
-GdkPixbuf *
-asw_image_get_pixbuf (AswImage *image)
+VipsImage *
+asw_image_get_vips (AswImage *image)
 {
 	AswImagePrivate *priv = GET_PRIVATE (image);
 	g_return_val_if_fail (ASW_IS_IMAGE (image), NULL);
-	return priv->pix;
+	return priv->vimg;
 }
 
 /**
- * asw_image_set_pixbuf:
+ * asw_image_set_vips:
  * @image: a #AswImage instance.
- * @pixbuf: the #GdkPixbuf, or %NULL
+ * @vimg: the #VipsImage, or %NULL
  *
- * Sets the image pixbuf.
+ * Sets the image data.
  **/
 void
-asw_image_set_pixbuf (AswImage *image, GdkPixbuf *pixbuf)
+asw_image_set_vips (AswImage *image, VipsImage *vimg)
 {
 	AswImagePrivate *priv = GET_PRIVATE (image);
 	g_return_if_fail (ASW_IS_IMAGE (image));
 
-	g_set_object (&priv->pix, pixbuf);
-	if (pixbuf == NULL)
+	g_set_object (&priv->vimg, vimg);
+	if (vimg == NULL)
 		return;
-	priv->width = gdk_pixbuf_get_width (pixbuf);
-	priv->height = gdk_pixbuf_get_height (pixbuf);
+	priv->width = vips_image_get_width (vimg);
+	priv->height = vips_image_get_height (vimg);
 }
 
 /**
@@ -709,17 +1021,15 @@ void
 asw_image_scale (AswImage *image, gint new_width, gint new_height)
 {
 	AswImagePrivate *priv = GET_PRIVATE (image);
-	g_autoptr(GdkPixbuf) res_pix = NULL;
+	g_autoptr(VipsImage) vimg_scaled = NULL;
+	g_autoptr(GError) error = NULL;
 
 	g_return_if_fail (new_width > 0 && new_height > 0);
-	g_return_if_fail (priv->pix != NULL);
+	g_return_if_fail (priv->vimg != NULL);
 
-	res_pix = gdk_pixbuf_scale_simple (priv->pix, new_width, new_height, GDK_INTERP_BILINEAR);
-	if (res_pix == NULL)
-		g_error ("Unable to allocate enough memory for image scaling.");
-
-	/* set our current image to the scaled version */
-	asw_image_set_pixbuf (image, res_pix);
+	if (!asw_vips_resize_exact (priv->vimg, &vimg_scaled, new_width, new_height, &error) ||
+	    !asw_image_store_vips (image, vimg_scaled, &error))
+		g_error ("Unable to scale image: %s", error->message);
 }
 
 /**
@@ -785,6 +1095,76 @@ asw_image_scale_to_fit (AswImage *image, gint size)
 }
 
 /**
+ * asw_image_save_vips_to_file:
+ *
+ * Encode an image to a file in the given format, using the provided
+ * encoder settings (or our defaults if @opts is %NULL).
+ */
+static gboolean
+asw_image_save_vips_to_file (VipsImage *vimg,
+			     const gchar *fname,
+			     AswImageFormat format,
+			     const AswImageSaverOptions *opts,
+			     GError **error)
+{
+	if (opts == NULL)
+		opts = &asw_default_saver_options;
+
+	switch (format) {
+	case ASW_IMAGE_FORMAT_PNG:
+		if (opts->png_palette) {
+			if (vips_pngsave (vimg,
+					  fname,
+					  "compression",
+					  opts->png_compression,
+					  "palette",
+					  TRUE,
+					  "effort",
+					  opts->png_effort,
+					  NULL) != 0)
+				return asw_vips_error ("Unable to save PNG image", error);
+		} else {
+			if (vips_pngsave (vimg,
+					  fname,
+					  "compression",
+					  opts->png_compression,
+					  NULL) != 0)
+				return asw_vips_error ("Unable to save PNG image", error);
+		}
+		return TRUE;
+	case ASW_IMAGE_FORMAT_JXL:
+		if (opts->jxl_lossless) {
+			if (vips_jxlsave (vimg,
+					  fname,
+					  "lossless",
+					  TRUE,
+					  "effort",
+					  opts->jxl_effort,
+					  NULL) != 0)
+				return asw_vips_error ("Unable to save JPEG-XL image", error);
+		} else {
+			if (vips_jxlsave (vimg,
+					  fname,
+					  "Q",
+					  opts->jxl_quality,
+					  "effort",
+					  opts->jxl_effort,
+					  NULL) != 0)
+				return asw_vips_error ("Unable to save JPEG-XL image", error);
+		}
+		return TRUE;
+	default:
+		/* we only support writing PNG and JPEG-XL images */
+		g_set_error (error,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_UNSUPPORTED,
+			     "Can not save image as %s",
+			     asw_image_format_to_string (format));
+		return FALSE;
+	}
+}
+
+/**
  * asw_render_svg_to_file:
  * @stream: Input stream with SVG data.
  * @width: Target width.
@@ -806,7 +1186,7 @@ asw_render_svg_to_file (GInputStream *stream,
 			GError **error)
 {
 	g_autoptr(AswCanvas) cv = NULL;
-	g_autoptr(GdkPixbuf) pixbuf = NULL;
+	g_autoptr(VipsImage) vimg = NULL;
 
 	g_return_val_if_fail (width > 0 && height > 0, FALSE);
 
@@ -834,87 +1214,108 @@ asw_render_svg_to_file (GInputStream *stream,
 		return asw_canvas_save_png (cv, filename, error);
 	}
 
-	/* save to other formats */
-	pixbuf = asw_canvas_to_pixbuf (cv);
-	return gdk_pixbuf_save (pixbuf, filename, asw_image_format_to_string (format), error, NULL);
+	/* save to other formats - this renders icons, so use the icon encoder settings */
+	vimg = asw_canvas_to_vips (cv, error);
+	if (vimg == NULL)
+		return FALSE;
+	return asw_image_save_vips_to_file (vimg, filename, format, &asw_icon_saver_options, error);
 }
 
 /**
- * asw_image_save_pixbuf:
+ * asw_image_save_vips:
  * @image: a #AswImage instance.
  * @width: target width, or 0 for default
  * @height: target height, or 0 for default
  * @flags: some #AswImageSaveFlags values, e.g. %ASW_IMAGE_SAVE_FLAG_PAD_16_9
+ * @error: A #GError or %NULL
  *
- * Resamples a pixbuf to a specific size.
+ * Resamples the image to a specific size.
  *
- * Returns: (transfer full): A #GdkPixbuf of the specified size
+ * Returns: (transfer full): A #VipsImage of the specified size
  **/
-GdkPixbuf *
-asw_image_save_pixbuf (AswImage *image, gint width, gint height, AswImageSaveFlags flags)
+VipsImage *
+asw_image_save_vips (AswImage *image,
+		     gint width,
+		     gint height,
+		     AswImageSaveFlags flags,
+		     GError **error)
 {
 	AswImagePrivate *priv = GET_PRIVATE (image);
-	GdkPixbuf *pixbuf = NULL;
+	g_autoptr(VipsImage) vimg_scaled = NULL;
+	g_autoptr(VipsImage) vimg_new = NULL;
 	gint tmp_height;
 	gint tmp_width;
-	gint pixbuf_height;
-	gint pixbuf_width;
-	g_autoptr(GdkPixbuf) pixbuf_tmp = NULL;
+	gint src_height;
+	gint src_width;
 
 	g_return_val_if_fail (ASW_IS_IMAGE (image), NULL);
 
 	/* never set */
-	if (priv->pix == NULL)
+	if (priv->vimg == NULL) {
+		g_set_error_literal (error,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_FAILED,
+				     "No image data was loaded.");
 		return NULL;
+	}
+
+	src_width = vips_image_get_width (priv->vimg);
+	src_height = vips_image_get_height (priv->vimg);
 
 	/* 0 means 'default' */
 	if (width <= 0)
-		width = gdk_pixbuf_get_width (priv->pix);
+		width = src_width;
 	if (height <= 0)
-		height = gdk_pixbuf_get_height (priv->pix);
+		height = src_height;
 
 	/* don't do anything to an image with the correct size */
-	pixbuf_width = gdk_pixbuf_get_width (priv->pix);
-	pixbuf_height = gdk_pixbuf_get_height (priv->pix);
-	if (width == pixbuf_width && height == pixbuf_height)
-		return g_object_ref (priv->pix);
+	if (width == src_width && height == src_height)
+		return g_object_ref (priv->vimg);
 
 	/* is the aspect ratio of the source perfectly 16:9 */
-	if (flags == ASW_IMAGE_SAVE_FLAG_NONE || (pixbuf_width / 16) * 9 == pixbuf_height) {
-		pixbuf = gdk_pixbuf_scale_simple (priv->pix, width, height, GDK_INTERP_HYPER);
-		if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_SHARPEN))
-			asw_pixbuf_sharpen (pixbuf, 1, -0.5);
-		if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_BLUR))
-			asw_pixbuf_blur (pixbuf, 5, 3);
-		return pixbuf;
+	if (flags == ASW_IMAGE_SAVE_FLAG_NONE || (src_width / 16) * 9 == src_height) {
+		if (!asw_vips_resize_exact (priv->vimg, &vimg_scaled, width, height, error))
+			return NULL;
+		if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_SHARPEN)) {
+			g_autoptr(VipsImage) sharpened = NULL;
+			if (!asw_vips_sharpen (vimg_scaled, &sharpened, 1.4, 0.5, error))
+				return NULL;
+			g_set_object (&vimg_scaled, sharpened);
+		}
+		if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_BLUR)) {
+			g_autoptr(VipsImage) blurred = NULL;
+			if (!asw_vips_blur (vimg_scaled, &blurred, 5.5, error))
+				return NULL;
+			g_set_object (&vimg_scaled, blurred);
+		}
+		return g_steal_pointer (&vimg_scaled);
 	}
 
-	/* create new 16:9 pixbuf with alpha padding */
-	pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, width, height);
-	gdk_pixbuf_fill (pixbuf, 0x00000000);
-	/* check the ratio to see which property needs to be fitted and which needs
-	 * to be reduced */
-	if (pixbuf_width * 9 > pixbuf_height * 16) {
+	/* scale and pad to a new 16:9 rectangle with transparency */
+	if (src_width * 9 > src_height * 16) {
 		tmp_width = width;
-		tmp_height = width * pixbuf_height / pixbuf_width;
+		tmp_height = width * src_height / src_width;
 	} else {
-		tmp_width = height * pixbuf_width / pixbuf_height;
+		tmp_width = height * src_width / src_height;
 		tmp_height = height;
 	}
-	pixbuf_tmp = gdk_pixbuf_scale_simple (priv->pix, tmp_width, tmp_height, GDK_INTERP_HYPER);
-	if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_SHARPEN))
-		asw_pixbuf_sharpen (pixbuf_tmp, 1, -0.5);
-	if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_BLUR))
-		asw_pixbuf_blur (pixbuf_tmp, 5, 3);
-	gdk_pixbuf_copy_area (pixbuf_tmp,
-			      0,
-			      0, /* of src */
-			      tmp_width,
-			      tmp_height,
-			      pixbuf,
-			      (width - tmp_width) / 2,
-			      (height - tmp_height) / 2);
-	return pixbuf;
+	if (!asw_vips_resize_exact (priv->vimg, &vimg_scaled, tmp_width, tmp_height, error))
+		return NULL;
+	if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_SHARPEN)) {
+		g_autoptr(VipsImage) sharpened = NULL;
+		if (!asw_vips_sharpen (vimg_scaled, &sharpened, 1.4, 0.5, error))
+			return NULL;
+		g_set_object (&vimg_scaled, sharpened);
+	}
+	if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_BLUR)) {
+		g_autoptr(VipsImage) blurred = NULL;
+		if (!asw_vips_blur (vimg_scaled, &blurred, 5.5, error))
+			return NULL;
+		g_set_object (&vimg_scaled, blurred);
+	}
+	if (!asw_vips_pad_center (vimg_scaled, &vimg_new, width, height, error))
+		return NULL;
+	return g_steal_pointer (&vimg_new);
 }
 
 /**
@@ -938,210 +1339,16 @@ asw_image_save_filename (AswImage *image,
 			 AswImageSaveFlags flags,
 			 GError **error)
 {
-	g_autoptr(GdkPixbuf) pixbuf = NULL;
+	g_autoptr(VipsImage) vimg = NULL;
 
 	/* save source file */
-	pixbuf = asw_image_save_pixbuf (image, width, height, flags);
-	if (!gdk_pixbuf_save (pixbuf, filename, "png", error, NULL))
+	vimg = asw_image_save_vips (image, width, height, flags, error);
+	if (vimg == NULL)
+		return FALSE;
+	if (!asw_image_save_vips_to_file (vimg, filename, ASW_IMAGE_FORMAT_PNG, NULL, error))
 		return FALSE;
 
 	if (!as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_OPTIMIZE))
 		return TRUE;
 	return asw_optimize_png (filename, error);
-}
-
-static void
-asw_pixbuf_blur_private (GdkPixbuf *src, GdkPixbuf *dest, gint radius, guchar *div_kernel_size)
-{
-	gint width, height, src_rowstride, dest_rowstride, n_channels;
-	guchar *p_src, *p_dest, *c1, *c2;
-	gint x, y, i, i1, i2, width_minus_1, height_minus_1, radius_plus_1;
-	gint r, g, b, a;
-	guchar *p_dest_row, *p_dest_col;
-
-	width = gdk_pixbuf_get_width (src);
-	height = gdk_pixbuf_get_height (src);
-	n_channels = gdk_pixbuf_get_n_channels (src);
-	radius_plus_1 = radius + 1;
-
-	/* horizontal blur */
-	p_src = gdk_pixbuf_get_pixels (src);
-	p_dest = gdk_pixbuf_get_pixels (dest);
-	src_rowstride = gdk_pixbuf_get_rowstride (src);
-	dest_rowstride = gdk_pixbuf_get_rowstride (dest);
-	width_minus_1 = width - 1;
-	for (y = 0; y < height; y++) {
-
-		/* calc the initial sums of the kernel */
-		r = g = b = a = 0;
-		for (i = -radius; i <= radius; i++) {
-			c1 = p_src + (CLAMP (i, 0, width_minus_1) * n_channels);
-			r += c1[0];
-			g += c1[1];
-			b += c1[2];
-		}
-
-		p_dest_row = p_dest;
-		for (x = 0; x < width; x++) {
-			/* set as the mean of the kernel */
-			p_dest_row[0] = div_kernel_size[r];
-			p_dest_row[1] = div_kernel_size[g];
-			p_dest_row[2] = div_kernel_size[b];
-			p_dest_row += n_channels;
-
-			/* the pixel to add to the kernel */
-			i1 = x + radius_plus_1;
-			if (i1 > width_minus_1)
-				i1 = width_minus_1;
-			c1 = p_src + (i1 * n_channels);
-
-			/* the pixel to remove from the kernel */
-			i2 = x - radius;
-			if (i2 < 0)
-				i2 = 0;
-			c2 = p_src + (i2 * n_channels);
-
-			/* calc the new sums of the kernel */
-			r += c1[0] - c2[0];
-			g += c1[1] - c2[1];
-			b += c1[2] - c2[2];
-		}
-
-		p_src += src_rowstride;
-		p_dest += dest_rowstride;
-	}
-
-	/* vertical blur */
-	p_src = gdk_pixbuf_get_pixels (dest);
-	p_dest = gdk_pixbuf_get_pixels (src);
-	src_rowstride = gdk_pixbuf_get_rowstride (dest);
-	dest_rowstride = gdk_pixbuf_get_rowstride (src);
-	height_minus_1 = height - 1;
-	for (x = 0; x < width; x++) {
-
-		/* calc the initial sums of the kernel */
-		r = g = b = a = 0;
-		for (i = -radius; i <= radius; i++) {
-			c1 = p_src + (CLAMP (i, 0, height_minus_1) * src_rowstride);
-			r += c1[0];
-			g += c1[1];
-			b += c1[2];
-		}
-
-		p_dest_col = p_dest;
-		for (y = 0; y < height; y++) {
-			/* set as the mean of the kernel */
-
-			p_dest_col[0] = div_kernel_size[r];
-			p_dest_col[1] = div_kernel_size[g];
-			p_dest_col[2] = div_kernel_size[b];
-			p_dest_col += dest_rowstride;
-
-			/* the pixel to add to the kernel */
-			i1 = y + radius_plus_1;
-			if (i1 > height_minus_1)
-				i1 = height_minus_1;
-			c1 = p_src + (i1 * src_rowstride);
-
-			/* the pixel to remove from the kernel */
-			i2 = y - radius;
-			if (i2 < 0)
-				i2 = 0;
-			c2 = p_src + (i2 * src_rowstride);
-
-			/* calc the new sums of the kernel */
-			r += c1[0] - c2[0];
-			g += c1[1] - c2[1];
-			b += c1[2] - c2[2];
-		}
-
-		p_src += n_channels;
-		p_dest += n_channels;
-	}
-}
-
-/**
- * as_pixbuf_blur:
- * @src: the GdkPixbuf.
- * @radius: the pixel radius for the gaussian blur, typical values are 1..3
- * @iterations: Amount to blur the image, typical values are 1..5
- *
- * Blurs an image. Warning, this method is s..l..o..w... for large images.
- *
- * Since: 0.14.0
- **/
-void
-asw_pixbuf_blur (GdkPixbuf *src, gint radius, gint iterations)
-{
-	gint kernel_size;
-	gint i;
-	g_autofree guchar *div_kernel_size = NULL;
-	g_autoptr(GdkPixbuf) tmp = NULL;
-
-	tmp = gdk_pixbuf_new (gdk_pixbuf_get_colorspace (src),
-			      gdk_pixbuf_get_has_alpha (src),
-			      gdk_pixbuf_get_bits_per_sample (src),
-			      gdk_pixbuf_get_width (src),
-			      gdk_pixbuf_get_height (src));
-	kernel_size = 2 * radius + 1;
-	div_kernel_size = g_new (guchar, 256 * kernel_size);
-	for (i = 0; i < 256 * kernel_size; i++)
-		div_kernel_size[i] = (guchar) (i / kernel_size);
-
-	while (iterations-- > 0)
-		asw_pixbuf_blur_private (src, tmp, radius, div_kernel_size);
-}
-
-#define interpolate_value(original, reference, distance) \
-	(CLAMP (((distance) * (reference)) + ((1.0 - (distance)) * (original)), 0, 255))
-
-/**
- * as_pixbuf_sharpen:
- * @src: the GdkPixbuf.
- * @radius: the pixel radius for the unsharp mask, typical values are 1..3
- * @amount: Amount to sharpen the image, typical values are -0.1 to -0.9
- *
- * Sharpens an image. Warning, this method is s..l..o..w... for large images.
- **/
-void
-asw_pixbuf_sharpen (GdkPixbuf *src, gint radius, gdouble amount)
-{
-	gint width, height, rowstride, n_channels;
-	gint x, y;
-	guchar *p_blurred;
-	guchar *p_blurred_row;
-	guchar *p_src;
-	guchar *p_src_row;
-	g_autoptr(GdkPixbuf) blurred = NULL;
-
-	blurred = gdk_pixbuf_copy (src);
-	asw_pixbuf_blur (blurred, radius, 3);
-
-	width = gdk_pixbuf_get_width (src);
-	height = gdk_pixbuf_get_height (src);
-	rowstride = gdk_pixbuf_get_rowstride (src);
-	n_channels = gdk_pixbuf_get_n_channels (src);
-
-	p_src = gdk_pixbuf_get_pixels (src);
-	p_blurred = gdk_pixbuf_get_pixels (blurred);
-
-	for (y = 0; y < height; y++) {
-		p_src_row = p_src;
-		p_blurred_row = p_blurred;
-		for (x = 0; x < width; x++) {
-			p_src_row[0] = (guchar) interpolate_value (p_src_row[0],
-								   p_blurred_row[0],
-								   amount);
-			p_src_row[1] = (guchar) interpolate_value (p_src_row[1],
-								   p_blurred_row[1],
-								   amount);
-			p_src_row[2] = (guchar) interpolate_value (p_src_row[2],
-								   p_blurred_row[2],
-								   amount);
-			p_src_row += n_channels;
-			p_blurred_row += n_channels;
-		}
-		p_src += rowstride;
-		p_blurred += rowstride;
-	}
 }

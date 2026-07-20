@@ -22,7 +22,7 @@
 
 #include <glib-object.h>
 #include <gio/gio.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <vips/vips.h>
 
 #include "as-macros-private.h"
 #include "asw-font.h"
@@ -81,7 +81,7 @@ gboolean asw_canvas_render_svg (AswCanvas *canvas, GInputStream *stream, GError 
 AS_INTERNAL_VISIBLE
 gboolean   asw_canvas_save_png (AswCanvas *canvas, const gchar *fname, GError **error);
 
-GdkPixbuf *asw_canvas_to_pixbuf (AswCanvas *canvas);
+VipsImage *asw_canvas_to_vips (AswCanvas *canvas, GError **error);
 
 AS_INTERNAL_VISIBLE
 gboolean asw_canvas_draw_text_line (AswCanvas	*canvas,
