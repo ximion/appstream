@@ -106,6 +106,9 @@ appstream_compose_dep = declare_dependency(
     include_directories: [appstream_compose_lib_inc]
 )
 
+# the media processing worker used (and spawned) by libappstream-compose
+subdir('worker')
+
 # Meson adds (in our case) bogus Requires.private lines which break
 # builds using libappstream. Fix this issue by post-processing the file.
 sed_prog = find_program('sed')

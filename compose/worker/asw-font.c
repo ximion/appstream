@@ -82,7 +82,7 @@ asw_font_error_quark (void)
 {
 	static GQuark quark = 0;
 	if (!quark)
-		quark = g_quark_from_static_string ("AscFontError");
+		quark = g_quark_from_static_string ("AswFontError");
 	return quark;
 }
 
@@ -359,6 +359,36 @@ asw_font_new_from_data (const void *data, gssize len, const gchar *file_basename
 }
 
 /**
+ * asw_font_new_from_fd:
+ * @fd: A (sealed) file descriptor containing the font data.
+ * @file_basename: Font file basename.
+ * @error: A #GError or %NULL
+ *
+ * Creates a new #AswFont from an open file descriptor, without
+ * requiring any filesystem access.
+ * The font file basename needs to be supplied as fallback
+ * and for heuristics.
+ **/
+AswFont *
+asw_font_new_from_fd (gint fd, const gchar *file_basename, GError **error)
+{
+	AswFont *font;
+	AswFontPrivate *priv;
+	g_autofree gchar *fd_path = g_strdup_printf ("/proc/self/fd/%d", fd);
+
+	font = asw_font_new_from_file (fd_path, error);
+	if (font == NULL)
+		return NULL;
+
+	/* the procfs path is useless as basename, override it with the real name */
+	priv = GET_PRIVATE (font);
+	g_free (priv->file_basename);
+	priv->file_basename = g_strdup (file_basename);
+
+	return font;
+}
+
+/**
  * asw_font_get_family:
  * @font: an #AswFont instance.
  *
@@ -552,6 +582,45 @@ asw_font_get_homepage (AswFont *font)
 }
 
 /**
+ * asw_get_pangrams_en:
+ *
+ * Obtain the list of English pangrams from the worker's built-in resources.
+ *
+ * Returns: (transfer none): List of pangrams, or %NULL on failure.
+ */
+static GPtrArray *
+asw_get_pangrams_en (void)
+{
+	static GPtrArray *pangrams_en = NULL;
+	static GMutex mutex;
+	g_autoptr(GBytes) data = NULL;
+	g_auto(GStrv) strv = NULL;
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&mutex);
+
+	/* return cached value if possible */
+	if (pangrams_en != NULL)
+		return pangrams_en;
+
+	/* load array from resources */
+	data = g_resource_lookup_data (asw_get_resource (),
+				       "/org/freedesktop/appstream-compose/pangrams/en.txt",
+				       G_RESOURCE_LOOKUP_FLAGS_NONE,
+				       NULL);
+	if (data == NULL)
+		return NULL;
+
+	strv = g_strsplit (g_bytes_get_data (data, NULL), "\n", -1);
+	if (strv == NULL)
+		return NULL;
+
+	pangrams_en = g_ptr_array_new_full (g_strv_length (strv), g_free);
+	for (guint i = 0; strv[i] != NULL; i++)
+		g_ptr_array_add (pangrams_en, g_strdup (strv[i]));
+
+	return pangrams_en;
+}
+
+/**
  * asw_font_find_pangram:
  *
  * Find a pangram for the given language, making a random but
@@ -579,7 +648,7 @@ asw_font_find_pangram (AswFont *font, const gchar *lang, const gchar *rand_id)
 				rand_id = asw_font_get_id (font);
 		}
 
-		pangrams = asc_globals_get_pangrams_for ("en");
+		pangrams = asw_get_pangrams_en ();
 		if (pangrams == NULL) {
 			g_warning ("No pangrams found for the english language, even though we "
 				   "should have some available.");
@@ -836,4 +905,128 @@ asw_font_set_sample_icon_text (AswFont *font, const gchar *text)
 		return;
 	g_free (priv->sample_icon_text);
 	priv->sample_icon_text = g_strdup (text);
+}
+
+/**
+ * asw_font_render_card_to_file:
+ * @font: an #AswFont instance.
+ * @png_fname: Filename of the resulting PNG image.
+ * @width: Requested card width.
+ * @height: Requested card height.
+ * @info_label: Short info label for the font, or %NULL for the default.
+ * @actual_width: (out) (optional): Actual width of the rendered card.
+ * @actual_height: (out) (optional): Actual height of the rendered card.
+ * @error: A #GError or %NULL
+ *
+ * Render a font specimen card for the given font and save it as PNG image.
+ * The card render may adjust the canvas height, so the actual dimensions
+ * are returned and must be used by the caller.
+ *
+ * Returns: %TRUE on success.
+ **/
+gboolean
+asw_font_render_card_to_file (AswFont *font,
+			      const gchar *png_fname,
+			      gint width,
+			      gint height,
+			      const gchar *info_label,
+			      gint *actual_width,
+			      gint *actual_height,
+			      GError **error)
+{
+	const gchar *bg_letter = NULL;
+	g_autoptr(AswCanvas) cv = NULL;
+
+	if (as_str_equal0 (asw_font_get_preferred_language (font), "en"))
+		bg_letter = "a";
+	else
+		bg_letter = asw_font_get_sample_icon_text (font);
+
+	cv = asw_canvas_new (width, height);
+	if (!asw_canvas_draw_font_card (cv,
+					font,
+					info_label,
+					asw_font_get_sample_text (font),
+					bg_letter,
+					-1, /* default border width */
+					error))
+		return FALSE;
+
+	if (!asw_canvas_save_png (cv, png_fname, error))
+		return FALSE;
+
+	if (actual_width != NULL)
+		*actual_width = asw_canvas_get_width (cv);
+	if (actual_height != NULL)
+		*actual_height = asw_canvas_get_height (cv);
+	return TRUE;
+}
+
+/**
+ * asw_font_render_icon_to_file:
+ * @font: an #AswFont instance.
+ * @png_fname: Filename of the resulting PNG image.
+ * @size: Icon canvas size in pixels (width and height).
+ * @actual_width: (out) (optional): Actual width of the rendered icon.
+ * @actual_height: (out) (optional): Actual height of the rendered icon.
+ * @error: A #GError or %NULL
+ *
+ * Render an icon for the given font, consisting of a background shape
+ * (deterministically selected based on the font ID) with the font's
+ * sample icon text drawn on top, and save it as PNG image.
+ *
+ * Returns: %TRUE on success.
+ **/
+gboolean
+asw_font_render_icon_to_file (AswFont *font,
+			      const gchar *png_fname,
+			      guint size,
+			      gint *actual_width,
+			      gint *actual_height,
+			      GError **error)
+{
+	AswCanvasShape bg_shape;
+	gint shape_border_width;
+	gint text_border_width;
+	g_autoptr(AswCanvas) cv = NULL;
+
+	bg_shape = g_str_hash (asw_font_get_id (font)) % ASW_CANVAS_SHAPE_LAST;
+
+	/* we want a small border around our shape */
+	shape_border_width = (gint) (size * 0.032);
+
+	/* calculate text border width based on shape type to ensure
+	 * text fits properly within the shape */
+	text_border_width = asw_calculate_text_border_width_for_icon_shape (bg_shape,
+									    size,
+									    shape_border_width);
+
+	cv = asw_canvas_new (size, size);
+	if (!asw_canvas_draw_shape (cv,
+				    bg_shape,
+				    shape_border_width,
+				    0.84, /* red */
+				    0.84, /* green */
+				    0.84, /* blue */
+				    error))
+		return FALSE;
+
+	if (!asw_canvas_draw_text_line (cv,
+					font,
+					asw_font_get_sample_icon_text (font),
+					text_border_width,
+					bg_shape == ASW_CANVAS_SHAPE_CVL_TRIANGLE
+					    ? (gint) ((size / 2.0 - shape_border_width) * 0.15)
+					    : 0,
+					error))
+		return FALSE;
+
+	if (!asw_canvas_save_png (cv, png_fname, error))
+		return FALSE;
+
+	if (actual_width != NULL)
+		*actual_width = asw_canvas_get_width (cv);
+	if (actual_height != NULL)
+		*actual_height = asw_canvas_get_height (cv);
+	return TRUE;
 }

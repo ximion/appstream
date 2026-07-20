@@ -68,7 +68,7 @@ asw_canvas_error_quark (void)
 {
 	static GQuark quark = 0;
 	if (!quark)
-		quark = g_quark_from_static_string ("AscCanvasError");
+		quark = g_quark_from_static_string ("AswCanvasError");
 	return quark;
 }
 
