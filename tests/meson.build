@@ -127,13 +127,39 @@ if get_option('compose')
         ['test-compose.c',
          as_test_common_src],
         dependencies: [appstream_compose_dep,
-                       gio_dep,
-                       freetype_dep,
-                       gdkpixbuf_dep],
+                       gio_dep],
         c_args: ['-DI_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE'],
     )
     test ('as-test_compose',
         as_test_compose_exe,
+        args: as_test_args,
+        env: as_test_env +
+            ['ASC_MEDIAWORKER=' + asc_mediaworker_exe.full_path(),
+             'LSAN_OPTIONS=suppressions=' +
+                join_paths(meson.current_source_dir(), 'lsan-suppr.txt')],
+        depends: [asc_mediaworker_exe],
+    )
+
+    # tests for the media worker internals, exercised in-process
+    as_test_compose_worker_exe = executable ('as-test_compose-worker',
+        ['test-compose-worker.c',
+         as_test_common_src],
+        link_with: [asw_core_lib],
+        dependencies: [appstream_compose_dep,
+                       gio_dep,
+                       cairo_dep,
+                       freetype_dep,
+                       pango_dep,
+                       fontconfig_dep,
+                       gdkpixbuf_dep],
+        include_directories: [root_inc_dir,
+                              include_directories('../compose/worker')],
+        c_args: ['-DASC_COMPILATION',
+                 '-DASW_COMPILATION',
+                 '-DI_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE'],
+    )
+    test ('as-test_compose-worker',
+        as_test_compose_worker_exe,
         args: as_test_args,
         env: as_test_env +
             ['LSAN_OPTIONS=suppressions=' +
