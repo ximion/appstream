@@ -34,20 +34,11 @@ namespace AppStream
 
 class ReleaseData;
 
-struct Checksum {
-    enum ChecksumKind {
-        KindNone,
-        KindSha256,
-        KindSha1
-    };
-    const ChecksumKind kind;
-    const QByteArray data;
-};
-
 class APPSTREAMQT_EXPORT Release
 {
     Q_GADGET
 public:
+    Release();
     Release(_AsRelease *release);
     Release(const Release &release);
     ~Release();
@@ -67,13 +58,6 @@ public:
         KindSnapshot
     };
     Q_ENUM(Kind)
-
-    enum SizeKind {
-        SizeUnknown,
-        SizeDownload,
-        SizeInstalled
-    };
-    Q_ENUM(SizeKind)
 
     enum UrgencyKind {
         UrgencyUnknown,
