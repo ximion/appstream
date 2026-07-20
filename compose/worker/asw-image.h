@@ -18,9 +18,6 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined(__APPSTREAM_COMPOSE_H) && !defined(ASW_COMPILATION)
-#error "Only <appstream-compose.h> can be included directly."
-#endif
 #pragma once
 
 #include <glib-object.h>
@@ -98,23 +95,6 @@ typedef enum {
 	/*< private >*/
 	ASW_IMAGE_FORMAT_LAST
 } AswImageFormat;
-
-/**
- * AswImageError:
- * @ASW_IMAGE_ERROR_FAILED:	 Generic failure.
- * @ASW_IMAGE_ERROR_UNSUPPORTED: The graphic type is not supported.
- *
- * An image processing error.
- **/
-typedef enum {
-	ASW_IMAGE_ERROR_FAILED,
-	ASW_IMAGE_ERROR_UNSUPPORTED,
-	/*< private >*/
-	ASW_IMAGE_ERROR_LAST
-} AswImageError;
-
-#define ASW_IMAGE_ERROR asw_image_error_quark ()
-GQuark	       asw_image_error_quark (void);
 
 const gchar   *asw_image_format_to_string (AswImageFormat format);
 AswImageFormat asw_image_format_from_string (const gchar *str);

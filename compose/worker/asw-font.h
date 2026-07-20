@@ -25,7 +25,7 @@
 G_BEGIN_DECLS
 
 #define ASW_TYPE_FONT (asw_font_get_type ())
-G_DECLARE_FINAL_TYPE (AswFont, asw_font, ASC, FONT, GObject)
+G_DECLARE_FINAL_TYPE (AswFont, asw_font, ASW, FONT, GObject)
 
 /**
  * AswFontError:
@@ -47,6 +47,7 @@ AswFont	    *asw_font_new_from_data (const void	 *data,
 				     gssize	  len,
 				     const gchar *file_basename,
 				     GError	**error);
+AswFont	    *asw_font_new_from_fd (gint fd, const gchar *file_basename, GError **error);
 
 const gchar *asw_font_get_family (AswFont *font);
 const gchar *asw_font_get_style (AswFont *font);
@@ -67,5 +68,20 @@ void	     asw_font_set_sample_text (AswFont *font, const gchar *text);
 
 const gchar *asw_font_get_sample_icon_text (AswFont *font);
 void	     asw_font_set_sample_icon_text (AswFont *font, const gchar *text);
+
+gboolean     asw_font_render_card_to_file (AswFont     *font,
+					   const gchar *png_fname,
+					   gint		width,
+					   gint		height,
+					   const gchar *info_label,
+					   gint	       *actual_width,
+					   gint	       *actual_height,
+					   GError     **error);
+gboolean     asw_font_render_icon_to_file (AswFont     *font,
+					   const gchar *png_fname,
+					   guint	size,
+					   gint	       *actual_width,
+					   gint	       *actual_height,
+					   GError     **error);
 
 G_END_DECLS

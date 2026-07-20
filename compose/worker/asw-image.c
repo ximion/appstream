@@ -32,6 +32,7 @@
 #include <math.h>
 
 #include "asc-globals.h"
+#include "asc-media.h"
 #include "asw-canvas.h"
 
 struct _AswImage {
@@ -46,20 +47,6 @@ typedef struct {
 
 G_DEFINE_TYPE_WITH_PRIVATE (AswImage, asw_image, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (asw_image_get_instance_private (o))
-
-/**
- * asw_image_error_quark:
- *
- * Return value: An error quark.
- **/
-GQuark
-asw_image_error_quark (void)
-{
-	static GQuark quark = 0;
-	if (!quark)
-		quark = g_quark_from_static_string ("AscImageError");
-	return quark;
-}
 
 /**
  * asw_image_format_to_string:
@@ -225,8 +212,8 @@ asw_optimize_png (const gchar *fname, GError **error)
 	optipng_path = asc_globals_get_optipng_binary ();
 	if (optipng_path == NULL) {
 		g_set_error (error,
-			     ASW_IMAGE_ERROR,
-			     ASW_IMAGE_ERROR_FAILED,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_NOT_FOUND,
 			     "optipng not found in $PATH");
 		return FALSE;
 	}
@@ -312,8 +299,8 @@ asw_image_load_pixbuf (AswImage *image,
 	if (gdk_pixbuf_get_width (pixbuf) < src_size_min &&
 	    gdk_pixbuf_get_height (pixbuf) < src_size_min) {
 		g_set_error (error,
-			     ASW_IMAGE_ERROR,
-			     ASW_IMAGE_ERROR_FAILED,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_FAILED,
 			     "Image was too small %ix%i",
 			     gdk_pixbuf_get_width (pixbuf),
 			     gdk_pixbuf_get_height (pixbuf));
@@ -511,8 +498,8 @@ asw_image_pixbuf_new_from_gz (const gchar *filename, gint width, gint height, GE
 	file = g_file_new_for_path (filename);
 	if (!g_file_query_exists (file, NULL)) {
 		g_set_error_literal (error,
-				     ASW_IMAGE_ERROR,
-				     ASW_IMAGE_ERROR_FAILED,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_FAILED,
 				     "Image file does not exist");
 		return NULL;
 	}
@@ -583,8 +570,8 @@ asw_image_load_filename (AswImage *image,
 	if (is_svg) {
 		g_warning ("Unable to load SVG graphic: AppStream built without SVG support.");
 		g_set_error_literal (error,
-				     ASW_IMAGE_ERROR,
-				     ASW_IMAGE_ERROR_UNSUPPORTED,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_UNSUPPORTED,
 				     "AppStream was built without SVG support. This is an issue "
 				     "with your AppStream distribution. "
 				     "Please rebuild AppStream with SVG support enabled or contact "
@@ -600,16 +587,16 @@ asw_image_load_filename (AswImage *image,
 		fmt = gdk_pixbuf_get_file_info (filename, NULL, NULL);
 		if (fmt == NULL) {
 			g_set_error_literal (error,
-					     ASW_IMAGE_ERROR,
-					     ASW_IMAGE_ERROR_UNSUPPORTED,
+					     ASC_MEDIA_ERROR,
+					     ASC_MEDIA_ERROR_UNSUPPORTED,
 					     "Image format was not recognized");
 			return FALSE;
 		}
 		name = gdk_pixbuf_format_get_name (fmt);
 		if (asw_image_format_from_string (name) == ASW_IMAGE_FORMAT_UNKNOWN) {
 			g_set_error (error,
-				     ASW_IMAGE_ERROR,
-				     ASW_IMAGE_ERROR_UNSUPPORTED,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_UNSUPPORTED,
 				     "Image format %s is not supported",
 				     name);
 			return FALSE;
@@ -825,15 +812,15 @@ asw_render_svg_to_file (GInputStream *stream,
 
 	if (format == ASW_IMAGE_FORMAT_UNKNOWN) {
 		g_set_error (error,
-			     ASW_IMAGE_ERROR,
-			     ASW_IMAGE_ERROR_UNSUPPORTED,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_UNSUPPORTED,
 			     "Unknown image format specified");
 		return FALSE;
 	}
 	if (format == ASW_IMAGE_FORMAT_SVG || format == ASW_IMAGE_FORMAT_SVGZ) {
 		g_set_error (error,
-			     ASW_IMAGE_ERROR,
-			     ASW_IMAGE_ERROR_UNSUPPORTED,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_UNSUPPORTED,
 			     "Can not render existing SVG data to SVG");
 		return FALSE;
 	}
