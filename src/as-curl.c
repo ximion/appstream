@@ -31,13 +31,15 @@
 #include <gio/gio.h>
 #include <curl/curl.h>
 
+#include "as-macros-private.h"
+
 struct _AsCurl {
 	GObject parent_instance;
 };
 
 typedef struct {
 	CURL *curl;
-	const gchar *user_agent;
+	gchar *user_agent;
 	guint n_retries;
 
 	curl_off_t bytes_downloaded;
@@ -72,6 +74,7 @@ as_curl_finalize (GObject *object)
 
 	if (priv->curl != NULL)
 		curl_easy_cleanup (priv->curl);
+	g_free (priv->user_agent);
 
 	G_OBJECT_CLASS (as_curl_parent_class)->finalize (object);
 }
@@ -81,7 +84,7 @@ as_curl_init (AsCurl *acurl)
 {
 	AsCurlPrivate *priv = GET_PRIVATE (acurl);
 
-	priv->user_agent = "appstream/" PACKAGE_VERSION;
+	priv->user_agent = g_strdup ("appstream/" PACKAGE_VERSION);
 
 	/* retry downloads 3 times by default */
 	priv->n_retries = 3;
@@ -250,6 +253,34 @@ as_curl_set_cainfo (AsCurl *acurl, const gchar *cainfo)
 }
 
 /**
+ * as_curl_get_user_agent:
+ * @acurl: an #AsCurl instance.
+ *
+ * Get the user agent used for HTTP requests.
+ **/
+const gchar *
+as_curl_get_user_agent (AsCurl *acurl)
+{
+	AsCurlPrivate *priv = GET_PRIVATE (acurl);
+	return priv->user_agent;
+}
+
+/**
+ * as_curl_set_user_agent:
+ * @acurl: an #AsCurl instance.
+ * @user_agent: the new user agent string.
+ *
+ * Set the user agent to use for HTTP requests.
+ **/
+void
+as_curl_set_user_agent (AsCurl *acurl, const gchar *user_agent)
+{
+	AsCurlPrivate *priv = GET_PRIVATE (acurl);
+	as_assign_string_safe (priv->user_agent, user_agent);
+	curl_easy_setopt (priv->curl, CURLOPT_USERAGENT, priv->user_agent);
+}
+
+/**
  * as_curl_get_retry_count:
  * @acurl: an #AsCurl instance.
  *
@@ -359,6 +390,63 @@ as_curl_download_to_filename (AsCurl *acurl, const gchar *url, const gchar *fnam
 		return FALSE;
 
 	return TRUE;
+}
+
+/**
+ * as_curl_post_bytes:
+ * @acurl: an #AsCurl instance.
+ * @url: URL to send the request to
+ * @content_type: media type of @payload, e.g. `application/json`
+ * @payload: the data to send
+ * @error: a #GError.
+ *
+ * Send data via an HTTP POST request and return the server reply
+ * as #GBytes, or %NULL on error.
+ *
+ * On HTTP error statuses the reply body is discarded and only the
+ * status code is reported via @error.
+ **/
+GBytes *
+as_curl_post_bytes (AsCurl *acurl,
+		    const gchar *url,
+		    const gchar *content_type,
+		    GBytes *payload,
+		    GError **error)
+{
+	AsCurlPrivate *priv = GET_PRIVATE (acurl);
+	g_autoptr(GByteArray) buf = g_byte_array_new ();
+	g_autofree gchar *ct_header = NULL;
+	struct curl_slist *headers = NULL;
+	gconstpointer payload_data;
+	gsize payload_len;
+	gboolean success;
+
+	ct_header = g_strconcat ("Content-Type: ", content_type, NULL);
+	headers = curl_slist_append (NULL, ct_header);
+
+	payload_data = g_bytes_get_data (payload, &payload_len);
+	curl_easy_setopt (priv->curl, CURLOPT_HTTPHEADER, headers);
+	curl_easy_setopt (priv->curl, CURLOPT_POSTFIELDS, payload_data);
+	curl_easy_setopt (priv->curl, CURLOPT_POSTFIELDSIZE_LARGE, (curl_off_t) payload_len);
+
+	curl_easy_setopt (priv->curl, CURLOPT_WRITEFUNCTION, as_curl_download_write_bytearray_cb);
+	curl_easy_setopt (priv->curl, CURLOPT_WRITEDATA, buf);
+	curl_easy_setopt (priv->curl, CURLOPT_XFERINFOFUNCTION, as_curl_progress_dummy_cb);
+	curl_easy_setopt (priv->curl, CURLOPT_XFERINFODATA, acurl);
+
+	success = as_curl_perform_download (acurl, TRUE, url, error);
+
+	/* reset the reused easy handle back to GET state */
+	curl_easy_setopt (priv->curl, CURLOPT_HTTPHEADER, NULL);
+	curl_easy_setopt (priv->curl, CURLOPT_POSTFIELDS, NULL);
+	curl_easy_setopt (priv->curl, CURLOPT_POSTFIELDSIZE_LARGE, (curl_off_t) -1);
+	curl_easy_setopt (priv->curl, CURLOPT_HTTPGET, 1L);
+	curl_slist_free_all (headers);
+
+	if (!success)
+		return NULL;
+
+	return g_byte_array_free_to_bytes (g_steal_pointer (&buf));
 }
 
 static int

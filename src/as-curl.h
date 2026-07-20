@@ -50,23 +50,32 @@ typedef enum {
 } AsCurlError;
 
 #define AS_CURL_ERROR as_curl_error_quark ()
-GQuark	 as_curl_error_quark (void);
+GQuark	     as_curl_error_quark (void);
 
-AsCurl	*as_curl_new (GError **error);
+AsCurl	    *as_curl_new (GError **error);
 
-void	 as_curl_set_cainfo (AsCurl *acurl, const gchar *cainfo);
+void	     as_curl_set_cainfo (AsCurl *acurl, const gchar *cainfo);
 
-guint	 as_curl_get_retry_count (AsCurl *acurl);
-void	 as_curl_set_retry_count (AsCurl *acurl, guint count);
+const gchar *as_curl_get_user_agent (AsCurl *acurl);
+void	     as_curl_set_user_agent (AsCurl *acurl, const gchar *user_agent);
 
-GBytes	*as_curl_download_bytes (AsCurl *acurl, const gchar *url, GError **error);
-gboolean as_curl_download_to_filename (AsCurl	   *acurl,
-				       const gchar *url,
-				       const gchar *fname,
-				       GError	  **error);
+guint	     as_curl_get_retry_count (AsCurl *acurl);
+void	     as_curl_set_retry_count (AsCurl *acurl, guint count);
 
-gboolean as_curl_check_url_exists (AsCurl *acurl, const gchar *url, GError **error);
+GBytes	    *as_curl_download_bytes (AsCurl *acurl, const gchar *url, GError **error);
+gboolean     as_curl_download_to_filename (AsCurl      *acurl,
+					   const gchar *url,
+					   const gchar *fname,
+					   GError     **error);
 
-gboolean as_curl_is_url (const gchar *url);
+GBytes	    *as_curl_post_bytes (AsCurl	     *acurl,
+				 const gchar *url,
+				 const gchar *content_type,
+				 GBytes	     *payload,
+				 GError	    **error);
+
+gboolean     as_curl_check_url_exists (AsCurl *acurl, const gchar *url, GError **error);
+
+gboolean     as_curl_is_url (const gchar *url);
 
 G_END_DECLS
