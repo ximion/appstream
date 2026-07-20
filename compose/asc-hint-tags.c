@@ -175,6 +175,11 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "Unable to store icon <code>{{fname}}</code>: {{msg}}"
 	},
 
+	{ "media-worker-error",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "The media-processing worker process failed while handling <code>{{fname}}</code>: {{msg}}"
+	},
+
 	{ "duplicate-component",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  "A component with this ID already exists. AppStream IDs must be unique, any subsequent components "

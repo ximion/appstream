@@ -26,6 +26,7 @@
 #include "as-curl.h"
 
 #include "asc-result.h"
+#include "asc-media.h"
 
 AS_BEGIN_PRIVATE_DECLS
 
@@ -47,13 +48,17 @@ typedef struct {
 } AscVideoInfo;
 
 AS_INTERNAL_VISIBLE
-AscVideoInfo *asc_extract_video_info (AscResult *cres, AsComponent *cpt, const gchar *vid_fname);
+AscVideoInfo *asc_extract_video_info (AscResult	  *cres,
+				      AsComponent *cpt,
+				      AscMedia	  *media,
+				      const gchar *vid_fname);
 AS_INTERNAL_VISIBLE
 void asc_video_info_free (AscVideoInfo *vinfo);
 
 void asc_process_screenshots (AscResult	  *cres,
 			      AsComponent *cpt,
 			      AsCurl	  *acurl,
+			      AscMedia	  *media,
 			      const gchar *media_export_root,
 			      const gchar *media_url_prefix,
 			      const gssize max_size_bytes,
