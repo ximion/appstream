@@ -37,7 +37,7 @@
 #include <asc-unit.h>
 #include <asc-directory-unit.h>
 #include <asc-result.h>
-#include <asc-image.h>
+#include <asc-media.h>
 #include <asc-enums-types.h>
 
 #undef __APPSTREAM_COMPOSE_H_INSIDE__

@@ -25,7 +25,9 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-GPtrArray  *asc_globals_get_pangrams_for (const gchar *lang);
-AscHintTag *asc_globals_get_hint_tag_details (const gchar *tag);
+AscHintTag  *asc_globals_get_hint_tag_details (const gchar *tag);
+
+const gchar *asc_globals_get_mediaworker_binary (void);
+void	     asc_globals_set_mediaworker_binary (const gchar *path);
 
 AS_END_PRIVATE_DECLS
