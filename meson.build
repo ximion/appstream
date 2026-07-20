@@ -140,15 +140,11 @@ add_project_arguments(
 )
 
 # Vendor extensions in system headers
-if host_machine.system() != 'netbsd'
-    # on NetBSD, defining POSIX_C_SOURCE *removes* non-POSIX symbols from namespace,
-    # while on all other systems it adds them. Hence we only define this when not on NetBSD.
-    add_project_arguments('-D_POSIX_C_SOURCE=201710L', language: 'c')
-endif
 
-if host_machine.system() == 'darwin'
-    # See https://github.com/ximion/appstream/issues/551
-    add_project_arguments('-D_DARWIN_C_SOURCE', language: 'c')
+# On glibc, _POSIX_C_SOURCE *adds* symbols to the namespace. On the BSDs and
+# Darwin it *removes* non-POSIX symbols instead, hiding things we need.
+if host_machine.system() == 'linux'
+    add_project_arguments('-D_POSIX_C_SOURCE=202405L', language: 'c')
 endif
 
 if cc.get_id() == 'clang'
