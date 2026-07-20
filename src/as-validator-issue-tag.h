@@ -363,6 +363,22 @@ static AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("No screenshot is marked as default.")
 	},
 
+	{ "promotional-contains-text-missing",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: `contains-text` is an AppStream XML property. Please do not translate it. */
+	  N_("A `promotional` element is missing the `contains-text` attribute. Please explicitly set it to `true` if the image contains text, or `false` otherwise.")
+	},
+
+	{ "promotional-image-not-landscape",
+	  AS_ISSUE_SEVERITY_INFO,
+	  N_("The promotional source image does not appear to be in landscape orientation (width > height). Promotional images should typically be wider than they are tall.")
+	},
+
+	{ "promotional-no-media",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("A `promotional` element must contain at least one image or video to be useful. Please add an `<image/>` to it.")
+	},
+
 	{ "relation-invalid-tag",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("Found an unknown tag in a requires/recommends group. This is likely an error, because a component relation of this type is unknown.")
