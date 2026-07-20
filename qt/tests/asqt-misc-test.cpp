@@ -27,6 +27,7 @@
 #include "bundle.h"
 #include "checksum.h"
 #include "component.h"
+#include "issue.h"
 #include "launchable.h"
 #include "metadata.h"
 #include "reference.h"
@@ -134,6 +135,10 @@ void MiscTest::testEnumRoundtrip()
                                          Screenshot::KindExtra,
                                          Screenshot::kindToString,
                                          Screenshot::stringToKind);
+    checkEnumRoundtrip<Issue::Kind>("Issue::Kind",
+                                    Issue::KindGcve,
+                                    Issue::kindToString,
+                                    Issue::stringToKind);
     checkEnumRoundtrip<Release::Kind>("Release::Kind",
                                       Release::KindSnapshot,
                                       Release::kindToString,
@@ -209,6 +214,25 @@ void MiscTest::testNewWrappers()
     QCOMPARE(release.version(), QStringLiteral("1.2.3"));
     QCOMPARE(release.urgency(), Release::UrgencyHigh);
     QCOMPARE(release.artifacts().size(), 1);
+
+    // issues resolved by a release, with URLs derived from their identifier
+    Issue cveIssue;
+    cveIssue.setKind(Issue::KindCve);
+    cveIssue.setId(QStringLiteral("CVE-2023-40224"));
+    QCOMPARE(cveIssue.kind(), Issue::KindCve);
+    QCOMPARE(cveIssue.url(), QStringLiteral("https://www.cve.org/CVERecord?id=CVE-2023-40224"));
+    QCOMPARE(cveIssue.jsonUrl(),
+             QStringLiteral("https://db.gcve.eu/api/vulnerability/CVE-2023-40224"));
+
+    Issue gcveIssue;
+    gcveIssue.setKind(Issue::KindGcve);
+    gcveIssue.setId(QStringLiteral("GCVE-1-2025-0001"));
+    QCOMPARE(gcveIssue.url(), QStringLiteral("https://db.gcve.eu/vuln/GCVE-1-2025-0001"));
+
+    release.addIssue(cveIssue);
+    release.addIssue(gcveIssue);
+    QCOMPARE(release.issues().size(), 2);
+    QCOMPARE(release.issues().at(1).id(), QStringLiteral("GCVE-1-2025-0001"));
 
     Reference reference;
     reference.setKind(Reference::KindDoi);

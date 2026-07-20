@@ -27,6 +27,7 @@
 #include "as-component-box-private.h"
 #include "as-system-info-private.h"
 #include "as-utils-private.h"
+#include "as-gcve.h"
 
 #include "as-test-utils.h"
 
@@ -614,6 +615,97 @@ test_spdx (void)
 	tmp = as_get_license_name ("CERN-OHL-W-2.0");
 	g_assert_cmpstr (tmp, ==, "CERN Open Hardware Licence Version 2 - Weakly Reciprocal");
 	g_free (tmp);
+}
+
+/**
+ * as_assert_issue_urls:
+ *
+ * Assert that an issue of the given kind and ID synthesizes the
+ * expected web and JSON data URLs.
+ */
+static void
+as_assert_issue_urls (AsIssueKind kind,
+		      const gchar *id,
+		      const gchar *expected_url,
+		      const gchar *expected_json_url)
+{
+	g_autoptr(AsIssue) issue = as_issue_new ();
+
+	as_issue_set_kind (issue, kind);
+	as_issue_set_id (issue, id);
+
+	g_assert_cmpstr (as_issue_get_url (issue), ==, expected_url);
+	g_assert_cmpstr (as_issue_get_json_url (issue), ==, expected_json_url);
+}
+
+/**
+ * test_gcve:
+ *
+ * Test GCVE ID validation, CVE translation and URL generation.
+ */
+static void
+test_gcve (void)
+{
+	g_autoptr(AsIssue) issue = NULL;
+	gchar *tmp;
+
+	/* ID validation */
+	g_assert_true (as_is_gcve_id ("GCVE-0-2023-40224"));
+	g_assert_true (as_is_gcve_id ("GCVE-1-2025-0002"));
+	g_assert_true (as_is_gcve_id ("GCVE-100-2025-42"));
+	g_assert_false (as_is_gcve_id ("CVE-2023-40224"));
+	g_assert_false (as_is_gcve_id ("GCVE-x-2023-40224"));
+	g_assert_false (as_is_gcve_id ("GCVE-0-23-40224"));
+	g_assert_false (as_is_gcve_id (""));
+	g_assert_false (as_is_gcve_id (NULL));
+
+	/* CVE -> GCVE translation */
+	tmp = as_gcve_id_from_cve ("CVE-2023-40224");
+	g_assert_cmpstr (tmp, ==, "GCVE-0-2023-40224");
+	g_free (tmp);
+
+	tmp = as_gcve_id_from_cve ("GCVE-1-2025-0002");
+	g_assert_cmpstr (tmp, ==, NULL);
+
+	tmp = as_gcve_id_from_cve ("no-cve-id");
+	g_assert_cmpstr (tmp, ==, NULL);
+
+	/* legacy CVE entries are resolved via the CVE Program database, while their
+	 * machine-readable data is fetched from the GCVE database */
+	as_assert_issue_urls (AS_ISSUE_KIND_CVE,
+			      "CVE-2023-40224",
+			      "https://www.cve.org/CVERecord?id=CVE-2023-40224",
+			      "https://db.gcve.eu/api/vulnerability/CVE-2023-40224");
+
+	/* GCVE identifiers are resolved via the GCVE database */
+	as_assert_issue_urls (AS_ISSUE_KIND_GCVE,
+			      "GCVE-1-2025-0002",
+			      "https://db.gcve.eu/vuln/GCVE-1-2025-0002",
+			      "https://db.gcve.eu/api/vulnerability/GCVE-1-2025-0002");
+	as_assert_issue_urls (AS_ISSUE_KIND_GCVE,
+			      "GCVE-100-2025-42",
+			      "https://db.gcve.eu/vuln/GCVE-100-2025-42",
+			      "https://db.gcve.eu/api/vulnerability/GCVE-100-2025-42");
+
+	/* IDs from the reserved GNA 0 namespace keep their GCVE web link, but the JSON
+	 * API only resolves their canonical CVE identifier */
+	as_assert_issue_urls (AS_ISSUE_KIND_GCVE,
+			      "GCVE-0-2023-40224",
+			      "https://db.gcve.eu/vuln/GCVE-0-2023-40224",
+			      "https://db.gcve.eu/api/vulnerability/CVE-2023-40224");
+
+	/* no URLs are synthesized for generic issues or malformed identifiers */
+	as_assert_issue_urls (AS_ISSUE_KIND_GENERIC, "CVE-2023-40224", NULL, NULL);
+	as_assert_issue_urls (AS_ISSUE_KIND_GCVE, "GCVE-x-2023-40224", NULL, NULL);
+	as_assert_issue_urls (AS_ISSUE_KIND_CVE, "CVE-23-40224", NULL, NULL);
+	as_assert_issue_urls (AS_ISSUE_KIND_CVE, "not-an-id", NULL, NULL);
+
+	/* an explicitly set URL always takes precedence */
+	issue = as_issue_new ();
+	as_issue_set_kind (issue, AS_ISSUE_KIND_CVE);
+	as_issue_set_id (issue, "CVE-2023-40224");
+	as_issue_set_url (issue, "https://example.com/security/1");
+	g_assert_cmpstr (as_issue_get_url (issue), ==, "https://example.com/security/1");
 }
 
 /**
@@ -1301,6 +1393,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Component", test_component);
 	g_test_add_func ("/AppStream/ComponentBox", test_component_box);
 	g_test_add_func ("/AppStream/SPDX", test_spdx);
+	g_test_add_func ("/AppStream/GCVE", test_gcve);
 	g_test_add_func ("/AppStream/DesktopEnv", test_desktop_env);
 	g_test_add_func ("/AppStream/TranslationFallback", test_translation_fallback);
 	g_test_add_func ("/AppStream/LocaleCompat", test_locale_compat);

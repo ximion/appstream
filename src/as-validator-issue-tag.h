@@ -1038,6 +1038,12 @@ static AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."),
 	},
 
+	{ "release-issue-is-gcve-but-no-gcve-id",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The issue is tagged as security vulnerability with a GCVE identifier, but its value does not "
+	     "follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."),
+	},
+
 	{ "releases-info-missing",
 	  AS_ISSUE_SEVERITY_PEDANTIC,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */

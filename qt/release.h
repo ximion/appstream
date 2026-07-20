@@ -28,6 +28,7 @@
 #include <QObject>
 #include "appstreamqt_export.h"
 #include "artifact.h"
+#include "issue.h"
 
 struct _AsRelease;
 
@@ -118,6 +119,12 @@ public:
     bool addTag(const QString &ns, const QString &tag);
     bool removeTag(const QString &ns, const QString &tag);
     void clearTags();
+
+    /**
+     * \return the list of issues resolved by this release.
+     */
+    QList<AppStream::Issue> issues() const;
+    void addIssue(const AppStream::Issue &issue);
 
 private:
     QSharedDataPointer<ReleaseData> d;

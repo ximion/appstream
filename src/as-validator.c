@@ -45,6 +45,7 @@
 #include "as-curl.h"
 #include "as-vercmp.h"
 #include "as-spdx.h"
+#include "as-gcve.h"
 #include "as-component.h"
 #include "as-component-private.h"
 #include "as-yaml.h"
@@ -2415,10 +2416,18 @@ as_validator_check_release_issue (AsValidator *validator, xmlNode *node)
 	/* validate value */
 	if (kind == AS_ISSUE_KIND_CVE) {
 		g_autofree gchar *value = as_xml_get_node_value (node);
-		if (!g_str_has_prefix (value, "CVE-"))
+		if (!as_is_cve_id (value))
 			as_validator_add_issue (validator,
 						node,
 						"release-issue-is-cve-but-no-cve-id",
+						"%s",
+						value);
+	} else if (kind == AS_ISSUE_KIND_GCVE) {
+		g_autofree gchar *value = as_xml_get_node_value (node);
+		if (!as_is_gcve_id (value))
+			as_validator_add_issue (validator,
+						node,
+						"release-issue-is-gcve-but-no-gcve-id",
 						"%s",
 						value);
 	}

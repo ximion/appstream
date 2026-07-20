@@ -1954,6 +1954,7 @@ static const gchar *xmldata_releases =
     "      <issues>\n"
     "        <issue url=\"https://example.com/bugzilla/12345\">bz#12345</issue>\n"
     "        <issue type=\"cve\">CVE-2019-123456</issue>\n"
+    "        <issue type=\"gcve\">GCVE-1-2025-0001</issue>\n"
     "      </issues>\n"
     "      <artifacts>\n"
     "        <artifact type=\"binary\" platform=\"x86_64-linux-gnu\" bundle=\"tarball\">\n"
@@ -2065,7 +2066,7 @@ test_xml_read_releases (void)
 	}
 
 	issues = as_release_get_issues (rel);
-	g_assert_cmpint (issues->len, ==, 2);
+	g_assert_cmpint (issues->len, ==, 3);
 	for (guint i = 0; i < issues->len; i++) {
 		AsIssue *issue = AS_ISSUE (g_ptr_array_index (issues, i));
 
@@ -2077,10 +2078,21 @@ test_xml_read_releases (void)
 
 		} else if (as_issue_get_kind (issue) == AS_ISSUE_KIND_CVE) {
 			g_assert_cmpstr (as_issue_get_id (issue), ==, "CVE-2019-123456");
-			g_assert_cmpstr (
-			    as_issue_get_url (issue),
-			    ==,
-			    "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-123456");
+			g_assert_cmpstr (as_issue_get_url (issue),
+					 ==,
+					 "https://www.cve.org/CVERecord?id=CVE-2019-123456");
+			g_assert_cmpstr (as_issue_get_json_url (issue),
+					 ==,
+					 "https://db.gcve.eu/api/vulnerability/CVE-2019-123456");
+
+		} else if (as_issue_get_kind (issue) == AS_ISSUE_KIND_GCVE) {
+			g_assert_cmpstr (as_issue_get_id (issue), ==, "GCVE-1-2025-0001");
+			g_assert_cmpstr (as_issue_get_url (issue),
+					 ==,
+					 "https://db.gcve.eu/vuln/GCVE-1-2025-0001");
+			g_assert_cmpstr (as_issue_get_json_url (issue),
+					 ==,
+					 "https://db.gcve.eu/api/vulnerability/GCVE-1-2025-0001");
 
 		} else {
 			g_assert_not_reached ();
@@ -2154,6 +2166,18 @@ test_xml_write_releases (void)
 	issue = as_issue_new ();
 	as_issue_set_kind (issue, AS_ISSUE_KIND_CVE);
 	as_issue_set_id (issue, "CVE-2019-123456");
+	/* requesting the derived URLs must not turn them into an explicit `url`
+	 * property when the issue is serialized */
+	g_assert_nonnull (as_issue_get_url (issue));
+	g_assert_nonnull (as_issue_get_json_url (issue));
+	as_release_add_issue (rel, issue);
+	g_object_unref (issue);
+
+	issue = as_issue_new ();
+	as_issue_set_kind (issue, AS_ISSUE_KIND_GCVE);
+	as_issue_set_id (issue, "GCVE-1-2025-0001");
+	g_assert_nonnull (as_issue_get_url (issue));
+	g_assert_nonnull (as_issue_get_json_url (issue));
 	as_release_add_issue (rel, issue);
 	g_object_unref (issue);
 

@@ -48,13 +48,15 @@ struct _AsIssueClass {
  * @AS_ISSUE_KIND_UNKNOWN:	Unknown issue type
  * @AS_ISSUE_KIND_GENERIC:	Generic issue type
  * @AS_ISSUE_KIND_CVE:		Common Vulnerabilities and Exposures issue
+ * @AS_ISSUE_KIND_GCVE:		Global CVE Allocation System issue. Since: 1.1.4
  *
- * Checksums supported by #AsRelease
+ * The issue type.
  **/
 typedef enum {
 	AS_ISSUE_KIND_UNKNOWN,
 	AS_ISSUE_KIND_GENERIC,
 	AS_ISSUE_KIND_CVE,
+	AS_ISSUE_KIND_GCVE,
 	/*< private >*/
 	AS_ISSUE_KIND_LAST
 } AsIssueKind;
@@ -72,6 +74,8 @@ void	     as_issue_set_id (AsIssue *issue, const gchar *id);
 
 const gchar *as_issue_get_url (AsIssue *issue);
 void	     as_issue_set_url (AsIssue *issue, const gchar *url);
+
+const gchar *as_issue_get_json_url (AsIssue *issue);
 
 G_END_DECLS
 

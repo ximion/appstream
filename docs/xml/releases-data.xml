@@ -174,7 +174,7 @@
 					machines. The content of an <literal>issue</literal> element is not translatable, but can be a string appropriate for the project's bug tracker.
 				</para>
 				<para>
-					The <literal>issue</literal> tag may have a <literal>type</literal> property, which should have a value of <literal>generic</literal> or <literal>cve</literal>.
+					The <literal>issue</literal> tag may have a <literal>type</literal> property, which should have a value of <literal>generic</literal>, <literal>cve</literal> or <literal>gcve</literal>.
 					If the <literal>type</literal> property is missing, a type of <literal>generic</literal> is assumed.
 				</para>
 				<para>
@@ -182,9 +182,17 @@
 				</para>
 				<para>
 					If <literal>type</literal> is <literal>cve</literal>, the element’s value must be a CVE ID in the <link xlink:href="https://www.cve.org/About/Process#cve-id">format defined by MITRE</link>.
-					For example, <literal>CVE-2023-12345</literal>. Software consuming the release data of a component should be able to append the element’s value to <literal>https://nvd.nist.gov/vuln/detail/</literal> to get a page of information about the CVE.
+					For example, <literal>CVE-2023-12345</literal>. Software consuming the release data of a component should be able to append the element’s value to <literal>https://www.cve.org/CVERecord?id=</literal>
+					to get a page of information about the CVE.
 					If a <literal>url</literal> property is given, its value overrides any URL constructed from the CVE identifier.
 					The <literal>url</literal> property is optional if <literal>type</literal> is <literal>cve</literal>.
+				</para>
+				<para>
+					If <literal>type</literal> is <literal>gcve</literal>, the element’s value must be a Global CVE identifier following the <literal>GCVE-&lt;GNA-ID&gt;-&lt;YEAR&gt;-&lt;UNIQUE-ID&gt;</literal> scheme
+					<link xlink:href="https://gcve.eu/about/">defined by the Global CVE Allocation System</link>, for example <literal>GCVE-1-2025-0001</literal>.
+					Software consuming the release data of a component should be able to append the element’s value to <literal>https://db.gcve.eu/vuln/</literal> to get a page of information about the vulnerability.
+					Identifiers from the reserved GCVE Numbering Authority ID <literal>0</literal> namespace for existing CVEs should preferably be represented using the <literal>cve</literal> issue type instead.
+					Like with CVE entries, an explicitly provided <literal>url</literal> property overrides any URL constructed from the GCVE identifier and is optional for this type.
 				</para>
 				<para>
 					For example:
@@ -199,7 +207,8 @@
 				</para>
 				<programlisting language="XML"><![CDATA[<issues>
   <issue type="cve">CVE-2021-28153</issue>
-  <issue url="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-27218">CVE-2021-27218</issue>
+  <issue type="gcve">GCVE-1-2025-0001</issue>
+  <issue url="https://www.cve.org/CVERecord?id=CVE-2021-27218">CVE-2021-27218</issue>
 </issues>]]></programlisting>
 			</listitem>
 			</varlistentry>

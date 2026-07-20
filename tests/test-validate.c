@@ -257,16 +257,20 @@ test_validator_manyerrors_desktopapp (void)
 		    34, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
+		    "release-issue-is-gcve-but-no-gcve-id", "nope",
+		    35, AS_ISSUE_SEVERITY_WARNING,
+		 },
+		{
 		    "artifact-invalid-platform-triplet", "OS/Kernel invalid: lunix",
-		    39, AS_ISSUE_SEVERITY_WARNING,
+		    40, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
 		    "artifact-filename-not-basename", "/root/file.dat",
-		    45, AS_ISSUE_SEVERITY_ERROR,
+		    46, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
 		    "release-type-invalid", "unstable",
-		    49, AS_ISSUE_SEVERITY_WARNING,
+		    50, AS_ISSUE_SEVERITY_WARNING,
 		 },
 
 		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }
