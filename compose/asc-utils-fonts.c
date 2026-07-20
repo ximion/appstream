@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2025 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -29,8 +29,7 @@
 
 #include "as-utils-private.h"
 #include "asc-globals.h"
-#include "asc-font.h"
-#include "asc-canvas.h"
+#include "asc-media-private.h"
 
 struct {
 	gint width;
@@ -43,15 +42,54 @@ struct {
 };
 
 /**
+ * AscFontEntry:
+ *
+ * A font found in the processed unit: its raw data together
+ * with the metadata extracted by the media worker.
+ */
+typedef struct {
+	AscFontInfo *info;
+	GBytes *data;
+	gchar *basename;
+} AscFontEntry;
+
+static AscFontEntry *
+asc_font_entry_new (AscFontInfo *info, GBytes *data, const gchar *basename)
+{
+	AscFontEntry *entry;
+
+	entry = g_new0 (AscFontEntry, 1);
+	entry->info = info;
+	entry->data = g_bytes_ref (data);
+	entry->basename = g_strdup (basename);
+
+	return entry;
+}
+
+static void
+asc_font_entry_free (AscFontEntry *entry)
+{
+	if (entry == NULL)
+		return;
+	asc_font_info_free (entry->info);
+	g_bytes_unref (entry->data);
+	g_free (entry->basename);
+	g_free (entry);
+}
+
+/**
  * asc_render_font_screenshots:
  *
- * Render a "screenshot" sample for this font.
+ * Render "screenshot" samples for the selected fonts.
  */
 static gboolean
 asc_render_font_screenshots (AscResult *cres,
 			     GPtrArray *fonts,
+			     AscMedia *media,
 			     const gchar *cpt_screenshots_path,
-			     AsComponent *cpt)
+			     AsComponent *cpt,
+			     const gchar *preferred_lang,
+			     const gchar *const *extra_langs)
 {
 	gboolean first = TRUE;
 	g_mkdir_with_parents (cpt_screenshots_path, 0755);
@@ -59,13 +97,15 @@ asc_render_font_screenshots (AscResult *cres,
 	for (guint i = 0; i < fonts->len; i++) {
 		const gchar *font_id = NULL;
 		const gchar *custom_sample_text = NULL;
-		const gchar *bg_letter = NULL;
+		const gchar *custom_icon_text = NULL;
 		g_autofree gchar *scr_caption = NULL;
 		g_autofree gchar *scr_url_root = NULL;
 		g_autoptr(AsScreenshot) scr = NULL;
-		AscFont *font = ASC_FONT (g_ptr_array_index (fonts, i));
+		g_autoptr(GPtrArray) targets = NULL;
+		g_autoptr(GError) tmp_error = NULL;
+		AscFontEntry *entry = g_ptr_array_index (fonts, i);
 
-		font_id = asc_font_get_id (font);
+		font_id = entry->info->id;
 		if (as_is_empty (font_id)) {
 			g_warning ("%s: Ignored font for screenshot rendering due to missing ID.",
 				   as_component_get_id (cpt));
@@ -79,86 +119,81 @@ asc_render_font_screenshots (AscResult *cres,
 		} else {
 			as_screenshot_set_kind (scr, AS_SCREENSHOT_KIND_EXTRA);
 		}
-		scr_caption = g_strconcat (asc_font_get_family (font),
-					   " ",
-					   asc_font_get_style (font),
-					   NULL);
+		scr_caption = g_strconcat (entry->info->family, " ", entry->info->style, NULL);
 		as_screenshot_set_caption (scr, scr_caption, "C");
 
-		/* check if we have a custom sample text value (useful for symbolic fonts)
-		 * we set this value for every fonr in the font-bundle, there is no way for this
+		/* check if we have custom sample text values (useful for symbolic fonts)
+		 * we use these values for every font in the font-bundle, there is no way for this
 		 * hack to select which font face should have the sample text.
 		 * Since this hack only affects very few exotic fonts and should generally not
 		 * be used, this should not be an issue. */
 		custom_sample_text = as_component_get_custom_value (cpt, "FontSampleText");
-		if (!as_is_empty (custom_sample_text))
-			asc_font_set_sample_text (font, custom_sample_text);
+		custom_icon_text = as_component_get_custom_value (cpt, "FontIconText");
 
 		scr_url_root = g_build_filename (asc_result_gcid_for_component (cres, cpt),
 						 "screenshots",
 						 NULL);
 
-		if (as_str_equal0 (asc_font_get_preferred_language (font), "en"))
-			bg_letter = "a";
-		else
-			bg_letter = asc_font_get_sample_icon_text (font);
-
+		targets = g_ptr_array_new_with_free_func ((GDestroyNotify) asc_image_target_free);
 		for (guint j = 0; font_screenshot_sizes[j].width > 0; j++) {
 			g_autofree gchar *img_name = NULL;
-			g_autofree gchar *img_filename = NULL;
-			g_autofree gchar *img_url = NULL;
-			g_autoptr(AsImage) img = NULL;
-			g_autoptr(AscCanvas) cv = NULL;
-			g_autoptr(GError) tmp_error = NULL;
-			gboolean ret;
 
 			img_name = g_strdup_printf ("image-%s_%i.png",
 						    font_id,
 						    font_screenshot_sizes[j].width);
-			img_filename = g_build_filename (cpt_screenshots_path, img_name, NULL);
-			img_url = g_build_filename (scr_url_root, img_name, NULL);
+			g_ptr_array_add (targets,
+					 asc_image_target_new (img_name,
+							       ASC_IMAGE_SCALE_MODE_EXACT,
+							       font_screenshot_sizes[j].width,
+							       font_screenshot_sizes[j].height));
+		}
 
-			/* we didn't create a screenshot image yet - let's render it! */
-			cv = asc_canvas_new (font_screenshot_sizes[j].width,
-					     font_screenshot_sizes[j].height);
+		/* render the font specimen cards via the media worker */
+		if (!asc_media_render_font_card (media,
+						 entry->data,
+						 entry->basename,
+						 preferred_lang,
+						 extra_langs,
+						 custom_sample_text,
+						 custom_icon_text,
+						 NULL, /* default info label */
+						 cpt_screenshots_path,
+						 targets,
+						 &tmp_error)) {
+			asc_result_add_hint (cres,
+					     cpt,
+					     "font-render-error",
+					     "name",
+					     entry->info->fullname,
+					     "error",
+					     tmp_error->message,
+					     NULL);
+			continue;
+		}
 
-			ret = asc_canvas_draw_font_card (cv,
-							 font,
-							 NULL, /* default info label */
-							 asc_font_get_sample_text (font),
-							 bg_letter,
-							 -1, /* default border width */
-							 &tmp_error);
-			if (!ret) {
+		for (guint j = 0; j < targets->len; j++) {
+			g_autofree gchar *img_url = NULL;
+			g_autoptr(AsImage) img = NULL;
+			AscImageTarget *target = g_ptr_array_index (targets, j);
+
+			if (target->error_msg != NULL) {
 				asc_result_add_hint (cres,
 						     cpt,
 						     "font-render-error",
 						     "name",
-						     asc_font_get_fullname (font),
+						     entry->info->fullname,
 						     "error",
-						     tmp_error->message,
+						     target->error_msg,
 						     NULL);
 				continue;
 			}
+			g_debug ("Saved font screenshot image: %s", target->name);
 
-			g_debug ("Saving font screenshot image: %s", img_name);
-			ret = asc_canvas_save_png (cv, img_filename, &tmp_error);
-			if (!ret) {
-				asc_result_add_hint (cres,
-						     cpt,
-						     "font-render-error",
-						     "name",
-						     asc_font_get_fullname (font),
-						     "error",
-						     tmp_error->message,
-						     NULL);
-				continue;
-			}
-
+			img_url = g_build_filename (scr_url_root, target->name, NULL);
 			img = as_image_new ();
 			as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
-			as_image_set_width (img, asc_canvas_get_width (cv));
-			as_image_set_height (img, asc_canvas_get_height (cv));
+			as_image_set_width (img, target->result_width);
+			as_image_set_height (img, target->result_height);
 			as_image_set_url (img, img_url);
 
 			as_screenshot_add_image (scr, img);
@@ -181,11 +216,14 @@ asc_render_font_screenshots (AscResult *cres,
 static gboolean
 asc_render_font_icon (AscResult *cres,
 		      AscUnit *unit,
-		      AscFont *font,
+		      AscFontEntry *entry,
+		      AscMedia *media,
 		      const gchar *cpt_icons_path,
 		      const gchar *icons_export_dir,
 		      AsComponent *cpt,
-		      AscIconPolicy *icon_policy)
+		      AscIconPolicy *icon_policy,
+		      const gchar *preferred_lang,
+		      const gchar *const *extra_langs)
 {
 	AscIconPolicyIter iter;
 	guint size;
@@ -210,89 +248,58 @@ asc_render_font_icon (AscResult *cres,
 		icon_dir = g_build_filename (cpt_icons_path, size_str, NULL);
 		g_mkdir_with_parents (icon_dir, 0755);
 
-		/* check if we have a custom icon text value (useful for symbolic fonts) */
+		/* check if we have a custom icon text value (useful for symbolic fonts)
+		 * the media worker will ensure that the value does not exceed 3 chars */
 		custom_icon_text = as_component_get_custom_value (cpt, "FontIconText");
-		if (!as_is_empty (custom_icon_text))
-			asc_font_set_sample_icon_text (
-			    font,
-			    custom_icon_text); /* Font will ensure that the value does not exceed 3 chars */
 
 		icon_name = g_strdup_printf ("%s_%s.png",
 					     asc_unit_get_bundle_id_safe (unit),
-					     asc_font_get_id (font));
+					     entry->info->id);
 		icon_full_path = g_build_filename (icon_dir, icon_name, NULL);
 
 		if (!g_file_test (icon_full_path, G_FILE_TEST_EXISTS)) {
-			g_autoptr(AscCanvas) cv = NULL;
+			g_autoptr(GPtrArray) targets = NULL;
 			g_autoptr(GError) tmp_error = NULL;
-			AscCanvasShape bg_shape;
-			gint shape_border_width;
-			gint text_border_width;
-			gboolean ret;
+			AscImageTarget *target = NULL;
 
-			/* we didn't create an icon yet - let's render it! */
-			cv = asc_canvas_new (size * scale_factor, size * scale_factor);
+			/* we didn't create an icon yet - let the media worker render it! */
+			targets = g_ptr_array_new_with_free_func (
+			    (GDestroyNotify) asc_image_target_free);
+			target = asc_image_target_new (icon_name,
+						       ASC_IMAGE_SCALE_MODE_EXACT,
+						       size * scale_factor,
+						       size * scale_factor);
+			g_ptr_array_add (targets, target);
 
-			bg_shape = g_str_hash (asc_font_get_id (font)) % ASC_CANVAS_SHAPE_LAST;
-
-			/* we want a small border around our shape */
-			shape_border_width = (gint) ((size * scale_factor) * 0.032);
-
-			/* calculate text border width based on shape type to ensure text fits properly within the shape */
-			text_border_width = asc_calculate_text_border_width_for_icon_shape (
-			    bg_shape,
-			    size * scale_factor,
-			    shape_border_width);
-
-			ret = asc_canvas_draw_shape (cv,
-						     bg_shape,
-						     shape_border_width, /* border width */
-						     0.84,		 /* red */
-						     0.84,		 /* green */
-						     0.84,		 /* blue */
-						     &tmp_error);
-			if (!ret) {
+			g_debug ("Rendering font icon: %s/%s", size_str, icon_name);
+			if (!asc_media_render_font_icon (media,
+							 entry->data,
+							 entry->basename,
+							 preferred_lang,
+							 extra_langs,
+							 NULL, /* custom sample text */
+							 custom_icon_text,
+							 icon_dir,
+							 targets,
+							 &tmp_error)) {
 				asc_result_add_hint (cres,
 						     cpt,
 						     "font-render-error",
 						     "name",
-						     asc_font_get_fullname (font),
+						     entry->info->fullname,
 						     "error",
 						     tmp_error->message,
 						     NULL);
 				continue;
 			}
-
-			ret = asc_canvas_draw_text_line (
-			    cv,
-			    font,
-			    asc_font_get_sample_icon_text (font),
-			    text_border_width,
-			    bg_shape == ASC_CANVAS_SHAPE_CVL_TRIANGLE
-				? (gint) (((size * scale_factor) / 2.0 - shape_border_width) * 0.15)
-				: 0,
-			    &tmp_error);
-			if (!ret) {
+			if (target->error_msg != NULL) {
 				asc_result_add_hint (cres,
 						     cpt,
 						     "font-render-error",
 						     "name",
-						     asc_font_get_fullname (font),
+						     entry->info->fullname,
 						     "error",
-						     tmp_error->message,
-						     NULL);
-				continue;
-			}
-			g_debug ("Saving font icon: %s/%s", size_str, icon_name);
-			ret = asc_canvas_save_png (cv, icon_full_path, &tmp_error);
-			if (!ret) {
-				asc_result_add_hint (cres,
-						     cpt,
-						     "font-render-error",
-						     "name",
-						     asc_font_get_fullname (font),
-						     "error",
-						     tmp_error->message,
+						     target->error_msg,
 						     NULL);
 				continue;
 			}
@@ -377,11 +384,11 @@ asc_render_font_icon (AscResult *cres,
 }
 
 static gint
-asc_font_cmp (gconstpointer a, gconstpointer b)
+asc_font_entry_cmp (gconstpointer a, gconstpointer b)
 {
-	AscFont *f1 = ASC_FONT (*((AscFont **) a));
-	AscFont *f2 = ASC_FONT (*((AscFont **) b));
-	return g_strcmp0 (asc_font_get_id (f1), asc_font_get_id (f2));
+	AscFontEntry *e1 = *((AscFontEntry **) a);
+	AscFontEntry *e2 = *((AscFontEntry **) b);
+	return g_strcmp0 (e1->info->id, e2->info->id);
 }
 
 /**
@@ -392,6 +399,7 @@ process_font_data_for_component (AscResult *cres,
 				 AscUnit *unit,
 				 AsComponent *cpt,
 				 GHashTable *all_fonts,
+				 AscMedia *media,
 				 const gchar *media_export_root,
 				 const gchar *icons_export_dir,
 				 AscIconPolicy *icon_policy,
@@ -404,6 +412,9 @@ process_font_data_for_component (AscResult *cres,
 	g_autofree gchar *cpt_icons_path = NULL;
 	g_autofree gchar *cpt_screenshots_path = NULL;
 	g_autoptr(GList) cpt_languages = NULL;
+	g_autoptr(GPtrArray) extra_langs_array = NULL;
+	g_autofree const gchar **extra_langs = NULL;
+	const gchar *preferred_lang = NULL;
 	gboolean has_icon = FALSE;
 
 	gcid = asc_result_gcid_for_component (cres, cpt);
@@ -448,48 +459,49 @@ process_font_data_for_component (AscResult *cres,
 		GHashTableIter ht_iter;
 		gpointer ht_value;
 
-		selected_fonts = g_ptr_array_new_full (g_hash_table_size (all_fonts),
-						       g_object_unref);
+		selected_fonts = g_ptr_array_new_full (g_hash_table_size (all_fonts), NULL);
 
-		tmp_array = g_ptr_array_new_full (g_hash_table_size (all_fonts), g_object_unref);
+		tmp_array = g_ptr_array_new_full (g_hash_table_size (all_fonts), NULL);
 		g_hash_table_iter_init (&ht_iter, all_fonts);
 		while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value))
-			g_ptr_array_add (tmp_array, g_object_ref (ASC_FONT (ht_value)));
+			g_ptr_array_add (tmp_array, ht_value);
 
 		/* prepend fonts that contain "regular" so we prefer the regular
 		 * font face for rendering samples over the other styles
 		 * also ensure that the font style list is sorted for more
 		 * deterministic results. */
-		g_ptr_array_sort (tmp_array, asc_font_cmp);
+		g_ptr_array_sort (tmp_array, asc_font_entry_cmp);
 		for (guint i = 0; i < tmp_array->len; i++) {
 			g_autofree gchar *font_style_id = NULL;
-			AscFont *font = ASC_FONT (g_ptr_array_index (tmp_array, i));
+			AscFontEntry *entry = g_ptr_array_index (tmp_array, i);
 
-			font_style_id = g_utf8_strdown (asc_font_get_style (font), -1);
+			font_style_id = g_utf8_strdown (entry->info->style ? entry->info->style
+									   : "",
+							-1);
 			if (!regular_found && g_strstr_len (font_style_id, -1, "regular") != NULL) {
-				g_ptr_array_insert (selected_fonts, 0, g_object_ref (font));
+				g_ptr_array_insert (selected_fonts, 0, entry);
 				/* if we found a font which has a style that equals "regular",
 				 * we can stop searching for the preferred font */
 				if (g_strcmp0 (font_style_id, "regular") == 0)
 					regular_found = TRUE;
 			} else {
-				g_ptr_array_add (selected_fonts, g_object_ref (font));
+				g_ptr_array_add (selected_fonts, entry);
 			}
 		}
 	} else {
-		selected_fonts = g_ptr_array_new_full (font_hints->len, g_object_unref);
+		selected_fonts = g_ptr_array_new_full (font_hints->len, NULL);
 
 		/* Find fonts based on the hints we have.
 		 * The hint as well as the dictionary keys are all lowercased, so we
 		 * can do case-insensitive matching here. */
 		for (guint i = 0; i < font_hints->len; i++) {
-			AscFont *font;
+			AscFontEntry *entry;
 			const gchar *font_hint = g_ptr_array_index (font_hints, i);
 
-			font = g_hash_table_lookup (all_fonts, font_hint);
-			if (font == NULL)
+			entry = g_hash_table_lookup (all_fonts, font_hint);
+			if (entry == NULL)
 				continue;
-			g_ptr_array_add (selected_fonts, g_object_ref (font));
+			g_ptr_array_add (selected_fonts, entry);
 		}
 	}
 
@@ -502,10 +514,10 @@ process_font_data_for_component (AscResult *cres,
 
 		font_names_str = g_string_new ("");
 		g_hash_table_iter_init (&ht_iter, all_fonts);
-		while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value))
-			g_string_append_printf (font_names_str,
-						"%s | ",
-						asc_font_get_fullname (ASC_FONT (ht_value)));
+		while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value)) {
+			AscFontEntry *entry = ht_value;
+			g_string_append_printf (font_names_str, "%s | ", entry->info->fullname);
+		}
 		if (font_names_str->len > 4)
 			g_string_truncate (font_names_str, font_names_str->len - 3);
 
@@ -519,24 +531,18 @@ process_font_data_for_component (AscResult *cres,
 	}
 
 	/* language information of fonts is often completely wrong. In case there was a metainfo file
-	 * with languages explicitly set, we take the first language and prefer that over the others. */
+	 * with languages explicitly set, we take the first language and prefer that over the others.
+	 * Languages mentioned in the metainfo file are also considered supported by the respective
+	 * fonts. These overrides are passed to the media worker with every render request. */
 	cpt_languages = as_component_get_languages (cpt);
 	if (cpt_languages != NULL) {
-		const gchar *first_lang = cpt_languages->data;
+		preferred_lang = cpt_languages->data;
 
-		for (guint i = 0; i < selected_fonts->len; i++) {
-			AscFont *font = ASC_FONT (g_ptr_array_index (selected_fonts, i));
-			asc_font_set_preferred_language (font, first_lang);
-		}
-
-		/* add languages mentioned in the metainfo file to list of supported languages
-		 * of the respective font */
-		for (GList *item = cpt_languages->next; item != NULL; item = item->next) {
-			for (guint i = 0; i < selected_fonts->len; i++) {
-				AscFont *font = ASC_FONT (g_ptr_array_index (selected_fonts, i));
-				asc_font_add_language (font, item->data);
-			}
-		}
+		extra_langs_array = g_ptr_array_new ();
+		for (GList *item = cpt_languages->next; item != NULL; item = item->next)
+			g_ptr_array_add (extra_langs_array, item->data);
+		g_ptr_array_add (extra_langs_array, NULL);
+		extra_langs = (const gchar **) extra_langs_array->pdata;
 	}
 
 	g_debug ("Rendering font data for %s", gcid);
@@ -544,58 +550,66 @@ process_font_data_for_component (AscResult *cres,
 	/* try to render icon with "Regular"-style font, if we find none we just pick the first font in the list */
 	has_icon = FALSE;
 	for (guint i = 0; i < selected_fonts->len; i++) {
-		AscFont *font = ASC_FONT (g_ptr_array_index (selected_fonts, i));
+		AscFontEntry *entry = g_ptr_array_index (selected_fonts, i);
 
-		if (!as_str_equal0 (asc_font_get_style (font), "Regular") &&
-		    !as_str_equal0 (asc_font_get_style (font), "regular"))
+		if (!as_str_equal0 (entry->info->style, "Regular") &&
+		    !as_str_equal0 (entry->info->style, "regular"))
 			continue;
-		g_debug ("Rendering font icon using '%s'", asc_font_get_id (font));
+		g_debug ("Rendering font icon using '%s'", entry->info->id);
 		has_icon = asc_render_font_icon (cres,
 						 unit,
-						 font,
+						 entry,
+						 media,
 						 cpt_icons_path,
 						 icons_export_dir,
 						 cpt,
-						 icon_policy);
+						 icon_policy,
+						 preferred_lang,
+						 extra_langs);
 		break;
 	}
 
 	/* process font files */
 	for (guint i = 0; i < selected_fonts->len; i++) {
-		g_autoptr(GList) language_list = NULL;
-		AscFont *font = ASC_FONT (g_ptr_array_index (selected_fonts, i));
+		AscFontEntry *entry = g_ptr_array_index (selected_fonts, i);
 
-		g_debug ("Processing font '%s'", asc_font_get_id (font));
+		g_debug ("Processing font '%s'", entry->info->id);
 
 		/* add language information */
-		language_list = asc_font_get_language_list (font);
-		for (GList *l = language_list; l != NULL; l = l->next) {
-			/* we have no idea how well the font supports the language's script,
-			 * but since it advertises support in its metadata, we just assume 100% here */
-			as_component_add_language (cpt, (const gchar *) l->data, 100);
+		if (entry->info->languages != NULL) {
+			for (guint j = 0; entry->info->languages[j] != NULL; j++) {
+				/* we have no idea how well the font supports the language's script,
+				 * but since it advertises support in its metadata, we just assume 100% here */
+				as_component_add_language (cpt, entry->info->languages[j], 100);
+			}
 		}
+		/* languages mentioned in the metainfo data are supported as well */
+		for (GList *item = cpt_languages ? cpt_languages->next : NULL; item != NULL;
+		     item = item->next)
+			as_component_add_language (cpt, item->data, 100);
 
 		/* render an icon for our font */
 		if (!has_icon)
 			has_icon = asc_render_font_icon (cres,
 							 unit,
-							 font,
+							 entry,
+							 media,
 							 cpt_icons_path,
 							 icons_export_dir,
 							 cpt,
-							 icon_policy);
+							 icon_policy,
+							 preferred_lang,
+							 extra_langs);
 
 		/* set additional metadata. The font metadata might be terrible, but if the data is bad
 		 * it hopefully motivates people to write proper metainfo files. */
 		if (as_is_empty (as_component_get_description (cpt)) &&
-		    !as_is_empty (asc_font_get_description (font)))
-			as_component_set_description (cpt, asc_font_get_description (font), "C");
+		    !as_is_empty (entry->info->description))
+			as_component_set_description (cpt, entry->info->description, "C");
 
 		if (as_is_empty (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE)) &&
-		    !as_is_empty (asc_font_get_homepage (font)))
-			as_component_add_url (cpt,
-					      AS_URL_KIND_HOMEPAGE,
-					      asc_font_get_homepage (font));
+		    !as_is_empty (entry->info->homepage))
+			as_component_add_url (cpt, AS_URL_KIND_HOMEPAGE, entry->info->homepage);
 	}
 
 	/* render all sample screenshots for all font styles we have */
@@ -607,8 +621,11 @@ process_font_data_for_component (AscResult *cres,
 		else
 			asc_render_font_screenshots (cres,
 						     selected_fonts,
+						     media,
 						     cpt_screenshots_path,
-						     cpt);
+						     cpt,
+						     preferred_lang,
+						     extra_langs);
 	}
 }
 
@@ -620,6 +637,7 @@ process_font_data_for_component (AscResult *cres,
 void
 asc_process_fonts (AscResult *cres,
 		   AscUnit *unit,
+		   AscMedia *media,
 		   const gchar *prefix,
 		   const gchar *media_export_root,
 		   const gchar *icons_export_dir,
@@ -647,16 +665,17 @@ asc_process_fonts (AscResult *cres,
 		return;
 
 	fonts_dir = g_build_filename (prefix, "share", "fonts", NULL);
-	all_fonts = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
+	all_fonts = g_hash_table_new_full (g_str_hash,
+					   g_str_equal,
+					   g_free,
+					   (GDestroyNotify) asc_font_entry_free);
 
 	/* create a map of all fonts that this unit contains */
 	contents = asc_unit_get_contents (unit);
 	for (guint i = 0; i < contents->len; i++) {
 		g_autoptr(GBytes) font_bytes = NULL;
-		const void *data;
-		gsize data_len;
 		g_autoptr(GError) tmp_error = NULL;
-		g_autoptr(AscFont) font = NULL;
+		AscFontInfo *finfo = NULL;
 		g_autofree gchar *basename = NULL;
 		g_autofree gchar *font_fullname_lower = NULL;
 		const gchar *fname = g_ptr_array_index (contents, i);
@@ -679,10 +698,17 @@ asc_process_fonts (AscResult *cres,
 					     NULL);
 			continue;
 		}
-		data = g_bytes_get_data (font_bytes, &data_len);
 
-		font = asc_font_new_from_data (data, data_len, basename, &tmp_error);
-		if (font == NULL) {
+		/* have the media worker extract the font metadata */
+		finfo = asc_media_read_font_info (media,
+						  font_bytes,
+						  basename,
+						  NULL, /* preferred language */
+						  NULL, /* extra languages */
+						  NULL, /* custom sample text */
+						  NULL, /* custom icon text */
+						  &tmp_error);
+		if (finfo == NULL) {
 			asc_result_add_hint (cres,
 					     NULL,
 					     "font-load-error",
@@ -696,11 +722,11 @@ asc_process_fonts (AscResult *cres,
 			continue;
 		}
 
-		g_debug ("Found font %s/%s", basename, asc_font_get_fullname (font));
-		font_fullname_lower = g_utf8_strdown (asc_font_get_fullname (font), -1);
+		g_debug ("Found font %s/%s", basename, finfo->fullname);
+		font_fullname_lower = g_utf8_strdown (finfo->fullname, -1);
 		g_hash_table_insert (all_fonts,
 				     g_steal_pointer (&font_fullname_lower),
-				     g_steal_pointer (&font));
+				     asc_font_entry_new (finfo, font_bytes, basename));
 	}
 
 	/* process fonts for all components */
@@ -710,6 +736,7 @@ asc_process_fonts (AscResult *cres,
 						 unit,
 						 cpt,
 						 all_fonts,
+						 media,
 						 media_export_root,
 						 icons_export_dir,
 						 icon_policy,

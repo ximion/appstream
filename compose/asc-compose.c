@@ -29,6 +29,7 @@
 
 #include <errno.h>
 #include <glib/gi18n.h>
+#include <glib/gstdio.h>
 
 #include "as-utils-private.h"
 #include "as-yaml.h"
@@ -43,7 +44,7 @@
 #include "asc-utils-l10n.h"
 #include "asc-utils-screenshots.h"
 #include "asc-utils-fonts.h"
-#include "asc-image.h"
+#include "asc-media-private.h"
 
 typedef struct {
 	GPtrArray *units;
@@ -946,6 +947,7 @@ asc_compose_process_icons (AscCompose *compose,
 			   AscResult *cres,
 			   AsComponent *cpt,
 			   AscUnit *unit,
+			   AscMedia *media,
 			   const gchar *icon_export_dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
@@ -997,12 +999,11 @@ asc_compose_process_icons (AscCompose *compose,
 		g_autofree gchar *res_icon_size_str = NULL;
 		g_autofree gchar *res_icon_sizedir = NULL;
 		g_autofree gchar *res_icon_basename = NULL;
-		g_autoptr(AscImage) img = NULL;
+		g_autoptr(GPtrArray) img_targets = NULL;
+		AscImageTarget *img_target = NULL;
 		g_autoptr(AsIcon) icon = NULL;
 		g_autoptr(GBytes) img_bytes = NULL;
 		gboolean is_vector_icon = FALSE;
-		const void *img_data;
-		gsize img_len;
 		g_autoptr(GError) error = NULL;
 
 		/* skip icon if its size should be skipped */
@@ -1043,31 +1044,6 @@ asc_compose_process_icons (AscCompose *compose,
 					     NULL);
 			return;
 		}
-		img_data = g_bytes_get_data (img_bytes, &img_len);
-		img = asc_image_new_from_data (img_data,
-					       img_len,
-					       is_vector_icon ? size * scale_factor : 0,
-					       is_vector_icon ? size * scale_factor : 0,
-					       ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE,
-					       g_str_has_suffix (icon_fname, ".svgz")
-						   ? ASC_IMAGE_FORMAT_SVGZ
-						   : ASC_IMAGE_FORMAT_UNKNOWN,
-					       &error);
-		if (img == NULL) {
-			asc_result_add_hint (cres,
-					     cpt,
-					     "file-read-error",
-					     "fname",
-					     icon_fname,
-					     "msg",
-					     error->message,
-					     NULL);
-			return;
-		}
-
-		/* we only take exact-ish size matches for 48x48px */
-		if (size == 48 && asc_image_get_width (img) > 48)
-			continue;
 
 		res_icon_size_str = (scale_factor == 1)
 					? g_strdup_printf ("%ix%i", size, size)
@@ -1078,21 +1054,74 @@ asc_compose_process_icons (AscCompose *compose,
 		res_icon_basename = g_strdup_printf ("%s.png", as_component_get_id (cpt));
 		res_icon_fname = g_build_filename (res_icon_sizedir, res_icon_basename, NULL);
 
-		/* scale & save the image */
+		/* let the media worker load, scale & store the icon */
 		g_debug ("Saving icon: %s", res_icon_fname);
-		if (!asc_image_save_filename (img,
-					      res_icon_fname,
-					      size * scale_factor,
-					      size * scale_factor,
-					      ASC_IMAGE_SAVE_FLAG_OPTIMIZE,
+		img_targets = g_ptr_array_new_with_free_func (
+		    (GDestroyNotify) asc_image_target_free);
+		img_target = asc_image_target_new (res_icon_basename,
+						   ASC_IMAGE_SCALE_MODE_EXACT,
+						   size * scale_factor,
+						   size * scale_factor);
+		img_target->save_flags = ASC_IMAGE_SAVE_FLAG_OPTIMIZE;
+		/* we only take exact-ish size matches for 48x48px */
+		if (size == 48)
+			img_target->skip_if_src_width_gt = 48;
+		g_ptr_array_add (img_targets, img_target);
+
+		if (!asc_media_process_image (media,
+					      img_bytes,
+					      g_str_has_suffix (icon_fname, ".svgz")
+						  ? ASC_IMAGE_FORMAT_SVGZ
+						  : ASC_IMAGE_FORMAT_UNKNOWN,
+					      is_vector_icon ? size * scale_factor : 0,
+					      is_vector_icon ? size * scale_factor : 0,
+					      ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE,
+					      res_icon_sizedir,
+					      img_targets,
+					      NULL, /* source width */
+					      NULL, /* source height */
 					      &error)) {
+			/* only genuine worker malfunctions get the worker-error hint */
+			if (error->domain == ASC_MEDIA_ERROR &&
+			    (error->code == ASC_MEDIA_ERROR_DEAD_WORKER ||
+			     error->code == ASC_MEDIA_ERROR_TIMEOUT ||
+			     error->code == ASC_MEDIA_ERROR_PROTOCOL ||
+			     error->code == ASC_MEDIA_ERROR_LIMIT_EXCEEDED))
+				asc_result_add_hint (cres,
+						     cpt,
+						     "media-worker-error",
+						     "fname",
+						     icon_fname,
+						     "msg",
+						     error->message,
+						     NULL);
+			else
+				asc_result_add_hint (cres,
+						     cpt,
+						     "file-read-error",
+						     "fname",
+						     icon_fname,
+						     "msg",
+						     error->message,
+						     NULL);
+			return;
+		}
+
+		/* skipped due to the 48x48px exact-match rule - drop the size
+		 * directory again if nothing else has been stored in it */
+		if (img_target->skipped) {
+			g_rmdir (res_icon_sizedir);
+			continue;
+		}
+
+		if (img_target->error_msg != NULL) {
 			asc_result_add_hint (cres,
 					     cpt,
 					     "icon-write-error",
 					     "fname",
 					     icon_fname,
 					     "msg",
-					     error->message,
+					     img_target->error_msg,
 					     NULL);
 			return;
 		}
@@ -1378,6 +1407,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	g_autoptr(GHashTable) de_fname_map = NULL;
 	g_autoptr(GPtrArray) found_cpts = NULL;
 	g_autoptr(AsCurl) acurl = NULL;
+	g_autoptr(AscMedia) media = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 	gboolean has_fonts = FALSE;
 	gboolean filter_cpts = FALSE;
@@ -1403,6 +1433,10 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	}
 	if (priv->cainfo != NULL)
 		as_curl_set_cainfo (acurl, priv->cainfo);
+
+	/* media processing interface for this task - its worker process
+	 * is only spawned if media actually needs to be processed */
+	media = asc_media_new ();
 
 	/* give unit a hint as to which paths we want to read */
 	share_dir = g_build_filename (priv->prefix, "share", NULL);
@@ -1719,6 +1753,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 						   ctask->result,
 						   cpt,
 						   ctask->unit,
+						   media,
 						   icons_export_dir);
 			/* skip the next steps if the component has been ignored */
 			if (asc_result_is_ignored (ctask->result, cpt))
@@ -1731,6 +1766,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 			    ctask->result,
 			    cpt,
 			    acurl,
+			    media,
 			    priv->media_result_dir,
 			    as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_NO_PARTIAL_URLS)
 				? priv->media_baseurl
@@ -1747,6 +1783,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	if (has_fonts && as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_PROCESS_FONTS)) {
 		asc_process_fonts (ctask->result,
 				   ctask->unit,
+				   media,
 				   priv->prefix,
 				   priv->media_result_dir,
 				   priv->icons_result_dir,

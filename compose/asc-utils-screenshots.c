@@ -28,6 +28,7 @@
 #include "asc-utils-screenshots.h"
 
 #include <glib/gstdio.h>
+#include <math.h>
 #include <sys/stat.h>
 #include <errno.h>
 
@@ -35,7 +36,7 @@
 
 #include "asc-globals.h"
 #include "asc-utils.h"
-#include "asc-image.h"
+#include "asc-media-private.h"
 
 struct {
 	gint width;
@@ -82,29 +83,14 @@ asc_get_filesize (const gchar *filename)
  * asc_extract_video_info: (skip):
  */
 AscVideoInfo *
-asc_extract_video_info (AscResult *cres, AsComponent *cpt, const gchar *vid_fname)
+asc_extract_video_info (AscResult *cres, AsComponent *cpt, AscMedia *media, const gchar *vid_fname)
 {
 	AscVideoInfo *vinfo = NULL;
-	gboolean ret = FALSE;
-	g_autofree gchar *ff_stdout = NULL;
-	g_autofree gchar *ff_stderr = NULL;
 	g_autofree gchar *vid_basename = NULL;
-	gint exit_status = 0;
-	g_auto(GStrv) lines = NULL;
-	g_autofree gchar *prev_codec_name = NULL;
+	g_autoptr(GMappedFile) mfile = NULL;
+	g_autoptr(GBytes) vid_bytes = NULL;
 	gboolean audio_okay = FALSE;
 	g_autoptr(GError) error = NULL;
-	const gchar *ffprobe_argv[] = { asc_globals_get_ffprobe_binary (),
-					"-v",
-					"quiet",
-					"-show_entries",
-					"stream=width,height,codec_name,codec_type",
-					"-show_entries",
-					"format=format_name",
-					"-of",
-					"default=noprint_wrappers=1",
-					vid_fname,
-					NULL };
 
 	if (asc_globals_get_ffprobe_binary () == NULL)
 		return NULL;
@@ -114,18 +100,9 @@ asc_extract_video_info (AscResult *cres, AsComponent *cpt, const gchar *vid_fnam
 	vinfo = asc_video_info_new ();
 	vid_basename = g_path_get_basename (vid_fname);
 
-	ret = g_spawn_sync (NULL, /* working directory */
-			    (gchar **) ffprobe_argv,
-			    NULL, /* envp */
-			    G_SPAWN_LEAVE_DESCRIPTORS_OPEN,
-			    NULL, /* child setup */
-			    NULL, /* user data */
-			    &ff_stdout,
-			    &ff_stderr,
-			    &exit_status,
-			    &error);
-	if (!ret) {
-		g_warning ("Failed to spawn ffprobe: %s", error->message);
+	mfile = g_mapped_file_new (vid_fname, FALSE, &error);
+	if (mfile == NULL) {
+		g_warning ("Unable to read video file '%s': %s", vid_fname, error->message);
 		asc_result_add_hint (cres,
 				     cpt,
 				     "screenshot-video-check-failed",
@@ -136,75 +113,28 @@ asc_extract_video_info (AscResult *cres, AsComponent *cpt, const gchar *vid_fnam
 				     NULL);
 		return vinfo;
 	}
+	vid_bytes = g_mapped_file_get_bytes (mfile);
 
-	if (exit_status != 0) {
-		g_autofree gchar *msg = NULL;
-		if (ff_stderr == NULL) {
-			ff_stderr = g_strdup (ff_stdout);
-		} else {
-			g_autofree gchar *dummy = ff_stderr;
-			ff_stderr = g_strconcat (ff_stderr, "\n", ff_stdout, NULL);
-		}
-		g_warning ("FFprobe on '%s' failed with error code %i: %s",
-			   vid_fname,
-			   exit_status,
-			   ff_stderr);
-		msg = g_strdup_printf ("Code %i, %s", exit_status, ff_stderr);
+	/* have the media worker run ffprobe on the video */
+	if (!asc_media_probe_video (media,
+				    vid_bytes,
+				    vid_basename,
+				    &vinfo->codec_name,
+				    &vinfo->audio_codec_name,
+				    &vinfo->format_name,
+				    &vinfo->width,
+				    &vinfo->height,
+				    &error)) {
+		g_warning ("Failed to probe video '%s': %s", vid_fname, error->message);
 		asc_result_add_hint (cres,
 				     cpt,
 				     "screenshot-video-check-failed",
 				     "fname",
 				     vid_basename,
 				     "msg",
-				     msg,
+				     error->message,
 				     NULL);
 		return vinfo;
-	}
-
-	/* NOTE: We are currently extracting information from ffprobe's simple output, but it also has a JSON
-	 * mode. Parsing JSON is a bit slower, but if it is more reliable we should switch to that. */
-	lines = g_strsplit (ff_stdout, "\n", -1);
-	for (guint i = 0; lines[i] != NULL; i++) {
-		gchar *tmp;
-		gchar *value;
-		gchar *key;
-		tmp = g_strstr_len (lines[i], -1, "=");
-		if (tmp == NULL)
-			continue;
-		value = tmp + 1;
-		key = lines[i];
-		tmp[0] = '\0';
-
-		if (g_strcmp0 (key, "codec_name") == 0) {
-			g_free (prev_codec_name);
-			prev_codec_name = g_strdup (value);
-			continue;
-		}
-		if (g_strcmp0 (key, "codec_type") == 0) {
-			if (g_strcmp0 (value, "video") == 0) {
-				if (vinfo->codec_name == NULL)
-					vinfo->codec_name = g_strdup (prev_codec_name);
-			} else if (g_strcmp0 (value, "audio") == 0) {
-				if (vinfo->audio_codec_name == NULL)
-					vinfo->audio_codec_name = g_strdup (prev_codec_name);
-			}
-			continue;
-		}
-		if (g_strcmp0 (key, "format_name") == 0) {
-			if (vinfo->format_name == NULL)
-				vinfo->format_name = g_strdup (value);
-			continue;
-		}
-		if (g_strcmp0 (key, "width") == 0) {
-			if (g_strcmp0 (value, "N/A") != 0)
-				vinfo->width = g_ascii_strtoll (value, NULL, 10);
-			continue;
-		}
-		if (g_strcmp0 (key, "height") == 0) {
-			if (g_strcmp0 (value, "N/A") != 0)
-				vinfo->height = g_ascii_strtoll (value, NULL, 10);
-			continue;
-		}
 	}
 
 	/* Check whether the video container is a supported format
@@ -275,6 +205,7 @@ asc_process_screenshot_videos (AscResult *cres,
 			       AsComponent *cpt,
 			       AsScreenshot *scr,
 			       AsCurl *acurl,
+			       AscMedia *media,
 			       const gchar *scr_export_dir,
 			       const gchar *scr_base_url,
 			       const gssize max_size_bytes,
@@ -362,7 +293,7 @@ asc_process_screenshot_videos (AscResult *cres,
 			continue;
 		}
 
-		vinfo = asc_extract_video_info (cres, cpt, scr_vid_path);
+		vinfo = asc_extract_video_info (cres, cpt, media, scr_vid_path);
 		/* if vinfo is NULL, we couldn't gather the required info because ffprobe is missing.
 		 * continue with incomplete metadata in that case */
 		if (vinfo != NULL) {
@@ -425,6 +356,7 @@ asc_process_screenshot_images_lang (AscResult *cres,
 				    AsImage *orig_img,
 				    const gchar *locale,
 				    AsCurl *acurl,
+				    AscMedia *media,
 				    const gchar *scr_export_dir,
 				    const gchar *scr_base_url,
 				    const gssize max_size_bytes,
@@ -434,10 +366,9 @@ asc_process_screenshot_images_lang (AscResult *cres,
 	const gchar *orig_img_url = NULL;
 	const gchar *gcid = NULL;
 	g_autoptr(GBytes) img_bytes = NULL;
-	gconstpointer img_data;
 	gsize img_data_len;
-	guint source_scr_width;
-	guint source_scr_height;
+	gint source_scr_width;
+	gint source_scr_height;
 	guint source_scr_scale;
 	gboolean thumbnails_generated = FALSE;
 	g_autoptr(GError) error = NULL;
@@ -478,7 +409,7 @@ asc_process_screenshot_images_lang (AscResult *cres,
 				     NULL);
 		return FALSE;
 	}
-	img_data = g_bytes_get_data (img_bytes, &img_data_len);
+	img_data_len = g_bytes_get_size (img_bytes);
 
 	gcid = asc_result_gcid_for_component (cres, cpt);
 	if (gcid == NULL) {
@@ -511,55 +442,28 @@ asc_process_screenshot_images_lang (AscResult *cres,
 		return FALSE;
 	}
 
-	/* ensure export dir exists */
-	if (g_mkdir_with_parents (scr_export_dir, 0755) != 0)
-		g_warning ("Failed to create directory tree '%s'", scr_export_dir);
+	source_scr_scale = as_image_get_scale (orig_img);
 
-	{
-		g_autoptr(AscImage) src_image = NULL;
-		g_autofree gchar *src_img_name = NULL;
-		g_autofree gchar *src_img_path = NULL;
-		g_autofree gchar *src_img_url = NULL;
+	/* if we should not create a screenshots store, we only read the image
+	 * dimensions and keep the original upstream URL as source */
+	if (!store_screenshots) {
 		g_autoptr(AsImage) simg = NULL;
+		gint src_width = 0;
+		gint src_height = 0;
 
-		if (g_strcmp0 (locale, "C") == 0)
-			src_img_name = g_strdup_printf ("image-%i_orig.png", scr_no);
-		else
-			src_img_name = g_strdup_printf ("image-%i_%s_orig.png", scr_no, locale);
-		src_img_path = g_build_filename (scr_export_dir, src_img_name, NULL);
-		src_img_url = g_build_filename (scr_base_url, src_img_name, NULL);
-
-		/* save the source screenshot as PNG image */
-		src_image = asc_image_new_from_data (img_data,
-						     img_data_len,
-						     -1, /* destination width */
-						     -1, /* destination height */
-						     ASC_IMAGE_LOAD_FLAG_NONE,
-						     ASC_IMAGE_FORMAT_UNKNOWN,
-						     &error);
-		if (error != NULL) {
-			g_autofree gchar *msg = g_strdup_printf (
-			    "Could not load source screenshot for storing: %s",
-			    error->message);
-			asc_result_add_hint (cres,
-					     cpt,
-					     "screenshot-save-error",
-					     "url",
-					     orig_img_url,
-					     "error",
-					     msg,
-					     NULL);
-			return FALSE;
-		}
-
-		if (!asc_image_save_filename (src_image,
-					      src_img_path,
-					      0,
-					      0,
-					      ASC_IMAGE_SAVE_FLAG_OPTIMIZE,
+		if (!asc_media_process_image (media,
+					      img_bytes,
+					      ASC_IMAGE_FORMAT_UNKNOWN,
+					      0, /* load width */
+					      0, /* load height */
+					      ASC_IMAGE_LOAD_FLAG_NONE,
+					      NULL, /* output dir */
+					      NULL, /* targets */
+					      &src_width,
+					      &src_height,
 					      &error)) {
 			g_autofree gchar *msg = g_strdup_printf (
-			    "Can not store source screenshot: %s",
+			    "Could not load source screenshot for storing: %s",
 			    error->message);
 			asc_result_add_hint (cres,
 					     cpt,
@@ -575,60 +479,160 @@ asc_process_screenshot_images_lang (AscResult *cres,
 		simg = as_image_new ();
 		as_image_set_kind (simg, AS_IMAGE_KIND_SOURCE);
 		as_image_set_locale (simg, locale);
+		as_image_set_width (simg, src_width);
+		as_image_set_height (simg, src_height);
+		as_image_set_scale (simg, source_scr_scale);
+		as_image_set_url (simg, orig_img_url);
+		as_screenshot_add_image (scr, simg);
+		return TRUE;
+	}
 
-		source_scr_width = asc_image_get_width (src_image);
-		source_scr_height = asc_image_get_height (src_image);
-		source_scr_scale = as_image_get_scale (orig_img);
+	/* ensure export dir exists */
+	if (g_mkdir_with_parents (scr_export_dir, 0755) != 0)
+		g_warning ("Failed to create directory tree '%s'", scr_export_dir);
+
+	{
+		g_autoptr(GPtrArray) img_targets = NULL;
+		g_autofree gchar *src_img_name = NULL;
+		g_autofree gchar *src_img_url = NULL;
+		AscImageTarget *src_target = NULL;
+		g_autoptr(AsImage) simg = NULL;
+		gint src_width = 0;
+		gint src_height = 0;
+
+		if (g_strcmp0 (locale, "C") == 0)
+			src_img_name = g_strdup_printf ("image-%i_orig.png", scr_no);
+		else
+			src_img_name = g_strdup_printf ("image-%i_%s_orig.png", scr_no, locale);
+		src_img_url = g_build_filename (scr_base_url, src_img_name, NULL);
+
+		/* save the source screenshot as PNG image, via the media worker */
+		img_targets = g_ptr_array_new_with_free_func (
+		    (GDestroyNotify) asc_image_target_free);
+		src_target = asc_image_target_new (src_img_name, ASC_IMAGE_SCALE_MODE_NONE, 0, 0);
+		src_target->save_flags = ASC_IMAGE_SAVE_FLAG_OPTIMIZE;
+		g_ptr_array_add (img_targets, src_target);
+
+		if (!asc_media_process_image (media,
+					      img_bytes,
+					      ASC_IMAGE_FORMAT_UNKNOWN,
+					      0, /* load width */
+					      0, /* load height */
+					      ASC_IMAGE_LOAD_FLAG_NONE,
+					      scr_export_dir,
+					      img_targets,
+					      &src_width,
+					      &src_height,
+					      &error)) {
+			g_autofree gchar *msg = g_strdup_printf (
+			    "Could not load source screenshot for storing: %s",
+			    error->message);
+			asc_result_add_hint (cres,
+					     cpt,
+					     "screenshot-save-error",
+					     "url",
+					     orig_img_url,
+					     "error",
+					     msg,
+					     NULL);
+			return FALSE;
+		}
+		if (src_target->error_msg != NULL) {
+			g_autofree gchar *msg = g_strdup_printf (
+			    "Can not store source screenshot: %s",
+			    src_target->error_msg);
+			asc_result_add_hint (cres,
+					     cpt,
+					     "screenshot-save-error",
+					     "url",
+					     orig_img_url,
+					     "error",
+					     msg,
+					     NULL);
+			return FALSE;
+		}
+
+		source_scr_width = src_width;
+		source_scr_height = src_height;
+
+		simg = as_image_new ();
+		as_image_set_kind (simg, AS_IMAGE_KIND_SOURCE);
+		as_image_set_locale (simg, locale);
 		as_image_set_width (simg, source_scr_width);
 		as_image_set_height (simg, source_scr_height);
 		as_image_set_scale (simg, source_scr_scale);
-
-		/* if we should not create a screenshots store, delete the just-downloaded file and set
-		 * the original upstream URL as source.
-		 * we still needed to download the screenshot to get information about its size. */
-		if (!store_screenshots) {
-			as_image_set_url (simg, orig_img_url);
-			as_screenshot_add_image (scr, simg);
-
-			/* drop screenshot storage directory, in this mode it is only ever used temporarily */
-			as_utils_delete_dir_recursive (scr_export_dir);
-			return TRUE;
-		}
-
 		as_image_set_url (simg, src_img_url);
 		as_screenshot_add_image (scr, simg);
 	}
 
-	/* generate & save thumbnails for the screenshot image */
+	/* generate & save thumbnails for the screenshot image
+	 * NOTE: we ignore higher scaling factors for thumbnailing for now */
 	thumbnails_generated = FALSE;
-	for (guint i = 0; target_screenshot_sizes[i].width != 0; i++) {
-		g_autoptr(AscImage) thumb = NULL;
-		g_autoptr(AsImage) img = NULL;
-		g_autofree gchar *thumb_img_name = NULL;
-		g_autofree gchar *thumb_img_path = NULL;
-		g_autofree gchar *thumb_img_url = NULL;
+	if (source_scr_scale <= 1) {
+		g_autoptr(GPtrArray) thumb_targets = NULL;
 
-		guint target_width = target_screenshot_sizes[i].width;
-		guint target_height = target_screenshot_sizes[i].height;
+		thumb_targets = g_ptr_array_new_with_free_func (
+		    (GDestroyNotify) asc_image_target_free);
+		for (guint i = 0; target_screenshot_sizes[i].width != 0; i++) {
+			g_autofree gchar *thumb_img_name = NULL;
+			AscImageTarget *target = NULL;
+			gint thumb_width;
+			gint thumb_height;
+			double scale;
 
-		/* ensure we will only downscale the screenshot for thumbnailing */
-		if (target_width > source_scr_width)
-			continue;
-		if (target_height > source_scr_height)
-			continue;
+			gint target_width = target_screenshot_sizes[i].width;
+			gint target_height = target_screenshot_sizes[i].height;
 
-		/* NOTE: we ignore higher scaling factors for thumbnailing for now */
-		if (source_scr_scale > 1)
-			continue;
+			/* calculate the expected thumbnail dimensions, as we need to know
+			 * the file names before dispatching the render request */
+			if (target_width > target_height) {
+				scale = (double) target_width / (double) source_scr_width;
+				thumb_width = target_width;
+				thumb_height = floor (source_scr_height * scale);
+			} else {
+				scale = (double) target_height / (double) source_scr_height;
+				thumb_width = floor (source_scr_width * scale);
+				thumb_height = target_height;
+			}
 
-		thumb = asc_image_new_from_data (img_data,
-						 img_data_len,
-						 -1, /* destination width */
-						 -1, /* destination height */
-						 ASC_IMAGE_LOAD_FLAG_NONE,
-						 ASC_IMAGE_FORMAT_UNKNOWN,
-						 &error);
-		if (error != NULL) {
+			/* create thumbnail storage name */
+			if (g_strcmp0 (locale, "C") == 0)
+				thumb_img_name = g_strdup_printf ("image-%i_%ix%i@%i.png",
+								  scr_no,
+								  thumb_width,
+								  thumb_height,
+								  1);
+			else
+				thumb_img_name = g_strdup_printf ("image-%i_%ix%i@%i_%s.png",
+								  scr_no,
+								  thumb_width,
+								  thumb_height,
+								  1,
+								  locale);
+
+			target = asc_image_target_new (thumb_img_name,
+						       target_width > target_height
+							   ? ASC_IMAGE_SCALE_MODE_FIT_WIDTH
+							   : ASC_IMAGE_SCALE_MODE_FIT_HEIGHT,
+						       target_width,
+						       target_height);
+			target->save_flags = ASC_IMAGE_SAVE_FLAG_OPTIMIZE;
+			/* ensure we will only downscale the screenshot for thumbnailing */
+			target->only_downscale = TRUE;
+			g_ptr_array_add (thumb_targets, target);
+		}
+
+		if (!asc_media_process_image (media,
+					      img_bytes,
+					      ASC_IMAGE_FORMAT_UNKNOWN,
+					      0, /* load width */
+					      0, /* load height */
+					      ASC_IMAGE_LOAD_FLAG_NONE,
+					      scr_export_dir,
+					      thumb_targets,
+					      NULL,
+					      NULL,
+					      &error)) {
 			g_autofree gchar *msg = g_strdup_printf (
 			    "Could not load source screenshot for thumbnailing: %s",
 			    error->message);
@@ -641,63 +645,43 @@ asc_process_screenshot_images_lang (AscResult *cres,
 					     msg,
 					     NULL);
 			g_error_free (g_steal_pointer (&error));
-			continue;
+			g_ptr_array_set_size (thumb_targets, 0);
 		}
 
-		if (target_width > target_height)
-			asc_image_scale_to_width (thumb, target_width);
-		else
-			asc_image_scale_to_height (thumb, target_height);
+		for (guint i = 0; i < thumb_targets->len; i++) {
+			g_autoptr(AsImage) img = NULL;
+			g_autofree gchar *thumb_img_url = NULL;
+			AscImageTarget *target = g_ptr_array_index (thumb_targets, i);
 
-		/* create thumbnail storage path and URL component*/
-		if (g_strcmp0 (locale, "C") == 0)
-			thumb_img_name = g_strdup_printf ("image-%i_%ix%i@%i.png",
-							  scr_no,
-							  asc_image_get_width (thumb),
-							  asc_image_get_height (thumb),
-							  1);
-		else
-			thumb_img_name = g_strdup_printf ("image-%i_%ix%i@%i_%s.png",
-							  scr_no,
-							  asc_image_get_width (thumb),
-							  asc_image_get_height (thumb),
-							  1,
-							  locale);
-		thumb_img_path = g_build_filename (scr_export_dir, thumb_img_name, NULL);
-		thumb_img_url = g_build_filename (scr_base_url, thumb_img_name, NULL);
+			if (target->skipped)
+				continue;
+			if (target->error_msg != NULL) {
+				g_autofree gchar *msg = g_strdup_printf (
+				    "Can not store thumbnail image: %s",
+				    target->error_msg);
+				asc_result_add_hint (cres,
+						     cpt,
+						     "screenshot-save-error",
+						     "url",
+						     orig_img_url,
+						     "error",
+						     msg,
+						     NULL);
+				continue;
+			}
 
-		/* store the thumbnail image on disk */
-		if (!asc_image_save_filename (thumb,
-					      thumb_img_path,
-					      0,
-					      0,
-					      ASC_IMAGE_SAVE_FLAG_OPTIMIZE,
-					      &error)) {
-			g_autofree gchar *msg = g_strdup_printf (
-			    "Can not store thumbnail image: %s",
-			    error->message);
-			asc_result_add_hint (cres,
-					     cpt,
-					     "screenshot-save-error",
-					     "url",
-					     orig_img_url,
-					     "error",
-					     msg,
-					     NULL);
-			g_error_free (g_steal_pointer (&error));
-			continue;
+			/* finally prepare the thumbnail definition and add it to the metadata */
+			thumb_img_url = g_build_filename (scr_base_url, target->name, NULL);
+			img = as_image_new ();
+			as_image_set_locale (img, locale);
+			as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
+			as_image_set_width (img, target->result_width);
+			as_image_set_height (img, target->result_height);
+			as_image_set_url (img, thumb_img_url);
+			as_screenshot_add_image (scr, img);
+
+			thumbnails_generated = TRUE;
 		}
-
-		/* finally prepare the thumbnail definition and add it to the metadata */
-		img = as_image_new ();
-		as_image_set_locale (img, locale);
-		as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
-		as_image_set_width (img, asc_image_get_width (thumb));
-		as_image_set_height (img, asc_image_get_height (thumb));
-		as_image_set_url (img, thumb_img_url);
-		as_screenshot_add_image (scr, img);
-
-		thumbnails_generated = TRUE;
 	}
 
 	if (!thumbnails_generated)
@@ -721,6 +705,7 @@ asc_process_screenshot_images (AscResult *cres,
 			       AsComponent *cpt,
 			       AsScreenshot *scr,
 			       AsCurl *acurl,
+			       AscMedia *media,
 			       const gchar *scr_export_dir,
 			       const gchar *scr_base_url,
 			       const gssize max_size_bytes,
@@ -769,6 +754,7 @@ asc_process_screenshot_images (AscResult *cres,
 							 AS_IMAGE (ht_value),
 							 (const gchar *) ht_key,
 							 acurl,
+							 media,
 							 scr_export_dir,
 							 scr_base_url,
 							 max_size_bytes,
@@ -788,6 +774,7 @@ void
 asc_process_screenshots (AscResult *cres,
 			 AsComponent *cpt,
 			 AsCurl *acurl,
+			 AscMedia *media,
 			 const gchar *media_export_root,
 			 const gchar *media_url_prefix,
 			 const gssize max_size_bytes,
@@ -848,6 +835,7 @@ asc_process_screenshots (AscResult *cres,
 									 cpt,
 									 scr,
 									 acurl,
+									 media,
 									 scr_export_dir,
 									 scr_base_url,
 									 max_size_bytes,
@@ -858,6 +846,7 @@ asc_process_screenshots (AscResult *cres,
 								 cpt,
 								 scr,
 								 acurl,
+								 media,
 								 scr_export_dir,
 								 scr_base_url,
 								 max_size_bytes,
