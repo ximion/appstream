@@ -63,14 +63,12 @@ typedef enum {
 	ASC_MEDIA_OP_LAST
 } AscMediaOp;
 
-AS_INTERNAL_VISIBLE
 gint asc_memfd_new_sealed (const gchar *name, gconstpointer data, gsize len, GError **error);
 AS_INTERNAL_VISIBLE
 gboolean asc_memfd_verify_sealed (gint fd, guint64 max_size, gsize *size_out, GError **error);
 AS_INTERNAL_VISIBLE
-GBytes *asc_memfd_map_bytes (gint fd, guint64 max_size, GError **error);
+GBytes	*asc_memfd_map_bytes (gint fd, guint64 max_size, GError **error);
 
-AS_INTERNAL_VISIBLE
 gboolean asc_media_wire_send_request (GSocket	  *socket,
 				      guint32	   request_id,
 				      AscMediaOp   op,
@@ -97,7 +95,6 @@ gboolean asc_media_wire_send_error_response (GSocket	  *socket,
 					     guint32	   request_id,
 					     const GError *op_error,
 					     GError	 **error);
-AS_INTERNAL_VISIBLE
 gboolean asc_media_wire_receive_response (GSocket   *socket,
 					  guint32   *request_id,
 					  guint32   *status,

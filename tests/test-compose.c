@@ -23,13 +23,11 @@
 #include <unistd.h>
 
 #include "appstream-compose.h"
-#include "asc-font-private.h"
 #include "asc-utils-metainfo.h"
 #include "asc-utils-l10n.h"
 #include "asc-utils-screenshots.h"
 #include "asc-utils-fonts.h"
-#include "asc-image-private.h"
-#include "asc-canvas.h"
+#include "asc-media-private.h"
 
 #include "as-utils-private.h"
 #include "as-test-utils.h"
@@ -42,10 +40,10 @@ typedef struct {
 } Fixture;
 
 /**
- * asc_assert_no_results_issue:
+ * asx_assert_no_results_issue:
  */
 static void
-asc_assert_no_hints_in_result (AscResult *cres)
+asx_assert_no_hints_in_result (AscResult *cres)
 {
 	g_autoptr(GPtrArray) hints = asc_result_fetch_hints_all (cres);
 
@@ -62,22 +60,22 @@ asc_assert_no_hints_in_result (AscResult *cres)
 }
 
 /**
- * test_utils:
- *
- * Test global and utility functions.
- */
-/**
- * test_workdir_path:
+ * asx_build_workdir_path:
  *
  * Build a path for @name within this test run's private working directory, so
  * concurrent runs never write to the same location.
  */
 static gchar *
-test_workdir_path (const gchar *name)
+asx_build_workdir_path (const gchar *name)
 {
 	return g_build_filename (workdir, name, NULL);
 }
 
+/**
+ * test_utils:
+ *
+ * Test global and utility functions.
+ */
 static void
 test_utils (void)
 {
@@ -177,348 +175,264 @@ test_compose_issue_tag_sanity (void)
 }
 
 /**
- * test_read_fontinfo:
+ * test_media_process_image:
  *
- * Extract font information from a font file.
+ * Process an image via the media worker process.
  */
 static void
-test_read_fontinfo (void)
+test_media_process_image (void)
 {
-	g_autofree gchar *font_fname = NULL;
-	g_autoptr(AscFont) font = NULL;
+	g_autoptr(AscMedia) media = asc_media_new ();
 	g_autoptr(GError) error = NULL;
-	g_autofree gchar *data = NULL;
-	gsize data_len;
-	g_autoptr(GList) lang_list = NULL;
-	const gchar *expected_langs_old_fontconfig[] = {
-		"aa",	  "ab",	   "af",  "an",	 "ast",	  "av",	   "ay",  "az-az", "ba",  "be",
-		"bg",	  "bi",	   "bin", "br",	 "bs",	  "bua",   "ca",  "ce",	   "ch",  "chm",
-		"co",	  "crh",   "cs",  "csb", "cv",	  "cy",	   "da",  "de",	   "en",  "eo",
-		"es",	  "et",	   "eu",  "fi",	 "fil",	  "fj",	   "fo",  "fr",	   "fur", "fy",
-		"gd",	  "gl",	   "gn",  "gv",	 "haw",	  "ho",	   "hr",  "hsb",   "ht",  "hu",
-		"ia",	  "id",	   "ie",  "ig",	 "ik",	  "io",	   "is",  "it",	   "jv",  "kaa",
-		"ki",	  "kj",	   "kk",  "kl",	 "ku-am", "ku-tr", "kum", "kv",	   "kw",  "kwm",
-		"ky",	  "la",	   "lb",  "lez", "lg",	  "li",	   "lt",  "lv",	   "mg",  "mh",
-		"mk",	  "mn-mn", "mo",  "ms",	 "mt",	  "na",	   "nb",  "nds",   "ng",  "nl",
-		"nn",	  "no",	   "nr",  "nso", "nv",	  "ny",	   "oc",  "om",	   "os",  "pap-an",
-		"pap-aw", "pl",	   "pt",  "qu",	 "quz",	  "rm",	   "rn",  "ro",	   "ru",  "rw",
-		"sah",	  "sc",	   "se",  "sel", "sg",	  "sh",	   "sk",  "sl",	   "sm",  "sma",
-		"smj",	  "smn",   "sn",  "so",	 "sq",	  "sr",	   "ss",  "st",	   "su",  "sv",
-		"sw",	  "tg",	   "tk",  "tl",	 "tn",	  "to",	   "tr",  "ts",	   "tt",  "ty",
-		"tyv",	  "uk",	   "uz",  "vi",	 "vo",	  "vot",   "wa",  "wen",   "wo",  "xh",
-		"yap",	  "za",	   "zu",  NULL
-	};
-	const gchar *expected_langs[] = {
-		"aa",	  "ab",	    "af",  "agr", "an",	 "ast", "av",  "ay",  "ayc",   "az-az",
-		"ba",	  "be",	    "bem", "bg",  "bi",	 "bin", "br",  "bs",  "bua",   "ca",
-		"ce",	  "ch",	    "chm", "co",  "crh", "cs",	"csb", "cv",  "cy",    "da",
-		"de",	  "dsb",    "en",  "eo",  "es",	 "et",	"eu",  "fi",  "fil",   "fj",
-		"fo",	  "fr",	    "fur", "fy",  "gd",	 "gl",	"gn",  "gv",  "haw",   "ho",
-		"hr",	  "hsb",    "ht",  "hu",  "ia",	 "id",	"ie",  "ig",  "ik",    "io",
-		"is",	  "it",	    "jv",  "kaa", "ki",	 "kj",	"kk",  "kl",  "ku-am", "ku-tr",
-		"kum",	  "kv",	    "kw",  "kwm", "ky",	 "la",	"lb",  "lez", "lg",    "li",
-		"lij",	  "lt",	    "lv",  "mfe", "mg",	 "mh",	"mhr", "miq", "mjw",   "mk",
-		"mn-mn",  "mo",	    "ms",  "mt",  "na",	 "nb",	"nds", "ng",  "nhn",   "niu",
-		"nl",	  "nn",	    "no",  "nr",  "nso", "nv",	"ny",  "oc",  "om",    "os",
-		"pap-an", "pap-aw", "pl",  "pt",  "qu",	 "quz", "rm",  "rn",  "ro",    "ru",
-		"rw",	  "sah",    "sc",  "se",  "sel", "sg",	"sgs", "sh",  "sk",    "sl",
-		"sm",	  "sma",    "smj", "smn", "sn",	 "so",	"sq",  "sr",  "ss",    "st",
-		"su",	  "sv",	    "sw",  "szl", "tg",	 "tk",	"tl",  "tn",  "to",    "tpi",
-		"tr",	  "ts",	    "tt",  "ty",  "tyv", "uk",	"unm", "uz",  "vi",    "vo",
-		"vot",	  "wa",	    "wae", "wen", "wo",	 "xh",	"yap", "yuw", "za",    "zu",
-		NULL
-	};
-
-	font_fname = g_build_filename (datadir, "Raleway-Regular.ttf", NULL);
-
-	/* test reading from file */
-	font = asc_font_new_from_file (font_fname, &error);
-	g_assert_no_error (error);
-	g_assert_cmpstr (asc_font_get_family (font), ==, "Raleway");
-	g_assert_cmpstr (asc_font_get_style (font), ==, "Regular");
-	g_object_unref (font);
-	font = NULL;
-
-	/* test reading from memory */
-	g_file_get_contents (font_fname, &data, &data_len, &error);
-	g_assert_no_error (error);
-
-	font = asc_font_new_from_data (data, data_len, "Raleway-Regular.ttf", &error);
-	g_assert_no_error (error);
-	g_assert_cmpstr (asc_font_get_family (font), ==, "Raleway");
-	g_assert_cmpstr (asc_font_get_style (font), ==, "Regular");
-	g_assert_cmpint (asc_font_get_charset (font), ==, FT_ENCODING_UNICODE);
-	g_assert_cmpstr (asc_font_get_homepage (font), ==, "http://pixelspread.com");
-	g_assert_cmpstr (asc_font_get_description (font),
-			 ==,
-			 "Raleway is an elegant sans-serif typeface family. "
-			 "Initially designed by Matt McInerney as a single thin weight, "
-			 "it was expanded into a 9 weight family by Pablo Impallari and "
-			 "Rodrigo Fuenzalida in 2012 and iKerned by Igino Marini. "
-			 "It is a display face and the download features both old style "
-			 "and lining numerals, standard and discretionary ligatures, a "
-			 "pretty complete set of diacritics, as well as a stylistic "
-			 "alternate inspired by more geometric sans-serif typefaces "
-			 "than its neo-grotesque inspired default character set.");
-
-	lang_list = asc_font_get_language_list (font);
-
-	{
-		guint i = 0;
-		gboolean fc_lang_success = TRUE;
-		for (GList *l = lang_list; l != NULL; l = l->next) {
-			g_assert_nonnull (expected_langs_old_fontconfig[i]);
-			if (!as_str_equal0 (expected_langs_old_fontconfig[i], l->data)) {
-				fc_lang_success = FALSE;
-				break;
-			}
-			i++;
-		}
-		if (!fc_lang_success) {
-			i = 0;
-			for (GList *l = lang_list; l != NULL; l = l->next) {
-				g_assert_nonnull (expected_langs[i]);
-				g_assert_cmpstr (expected_langs[i], ==, l->data);
-				i++;
-			}
-		}
-	}
-
-	/* uses "Noto Sans" */
-	g_assert_cmpstr (asc_font_get_sample_text (font),
-			 ==,
-			 "A mad boxer shot a quick, gloved jab to the jaw of his dizzy opponent.");
-	g_assert_cmpstr (asc_font_find_pangram (font, "en", "Raleway"),
-			 ==,
-			 "A mad boxer shot a quick, gloved jab to the jaw of his dizzy opponent.");
-
-	g_assert_cmpstr (asc_font_find_pangram (font, "en", "aaaaa"),
-			 ==,
-			 "Pack my box with five dozen liquor jugs.");
-	g_assert_cmpstr (asc_font_find_pangram (font, "en", "abcdefg"),
-			 ==,
-			 "Five or six big jet planes zoomed quickly past the tower.");
-}
-
-/**
- * test_image_transform:
- *
- * Test image related things, like transformations.
- */
-static void
-test_image_transform (void)
-{
-	g_autoptr(GHashTable) supported_fmts = NULL;
 	g_autofree gchar *sample_img_fname = NULL;
-	g_autofree gchar *sample_jxl_img_fname = NULL;
-	g_autofree gchar *out_fname = NULL;
-	g_autoptr(AscImage) image = NULL;
-	g_autoptr(GError) error = NULL;
+	g_autofree gchar *data = NULL;
+	g_autoptr(GBytes) img_bytes = NULL;
+	g_autoptr(GPtrArray) targets = NULL;
+	g_autofree gchar *out_dir = NULL;
+	g_autofree gchar *out_fname_orig = NULL;
+	g_autofree gchar *out_fname_scaled = NULL;
+	AscImageTarget *target;
+	gsize data_len;
+	gint src_width = 0;
+	gint src_height = 0;
 	gboolean ret;
 
-	g_autofree gchar *data = NULL;
-	gsize data_len;
-
-	/* check if our GdkPixbuf supports the minimum amount of image formats we need */
-	supported_fmts = asc_image_supported_format_names ();
-	g_assert_true (g_hash_table_contains (supported_fmts, "png"));
-	g_assert_true (g_hash_table_contains (supported_fmts, "svg"));
-	g_assert_true (g_hash_table_contains (supported_fmts, "jpeg"));
-
 	sample_img_fname = g_build_filename (datadir, "appstream-logo.png", NULL);
-	sample_jxl_img_fname = g_build_filename (datadir, "image.jxl", NULL);
-
-	/* load image from file */
-	image = asc_image_new_from_file (sample_img_fname,
-					 -1,
-					 -1,
-					 ASC_IMAGE_LOAD_FLAG_NONE,
-					 &error);
-	g_assert_no_error (error);
-	g_assert_nonnull (image);
-
-	g_assert_cmpint (asc_image_get_width (image), ==, 136);
-	g_assert_cmpint (asc_image_get_height (image), ==, 144);
-
-	/* scale image */
-	asc_image_scale (image, 64, 64);
-	g_assert_cmpint (asc_image_get_width (image), ==, 64);
-	g_assert_cmpint (asc_image_get_height (image), ==, 64);
-
-	out_fname = test_workdir_path ("asc-iscale_test.png");
-	ret = asc_image_save_filename (image, out_fname, 0, 0, ASC_IMAGE_SAVE_FLAG_NONE, &error);
-	g_assert_no_error (error);
-	g_assert_true (ret);
-
-	g_clear_object (&image);
-
-	/* test reading image from memory */
 	g_file_get_contents (sample_img_fname, &data, &data_len, &error);
 	g_assert_no_error (error);
+	img_bytes = g_bytes_new_take (g_steal_pointer (&data), data_len);
 
-	image = asc_image_new_from_data (data,
-					 data_len,
-					 -1,
-					 -1,
-					 ASC_IMAGE_LOAD_FLAG_NONE,
-					 ASC_IMAGE_FORMAT_UNKNOWN,
-					 &error);
-	g_assert_no_error (error);
-	g_assert_nonnull (image);
+	out_dir = asx_build_workdir_path ("asc-media-image-test");
+	g_assert_cmpint (g_mkdir_with_parents (out_dir, 0755), ==, 0);
 
-	asc_image_scale (image, 124, 124);
-	g_clear_pointer (&out_fname, g_free);
-	out_fname = test_workdir_path ("asc-iscale-d_test.png");
-	ret = asc_image_save_filename (image, out_fname, 0, 0, ASC_IMAGE_SAVE_FLAG_NONE, &error);
+	/* read the image dimensions without storing any rendition */
+	ret = asc_media_process_image (media,
+				       img_bytes,
+				       ASC_IMAGE_FORMAT_UNKNOWN,
+				       0,
+				       0,
+				       ASC_IMAGE_LOAD_FLAG_NONE,
+				       NULL, /* out dir */
+				       NULL, /* targets */
+				       &src_width,
+				       &src_height,
+				       &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
-	g_clear_object (&image);
+	g_assert_cmpint (src_width, ==, 136);
+	g_assert_cmpint (src_height, ==, 144);
 
-	/* test loading a JPEG-XL image */
-	image = asc_image_new_from_file (sample_jxl_img_fname,
-					 -1,
-					 -1,
-					 ASC_IMAGE_LOAD_FLAG_NONE,
-					 &error);
-	if (g_hash_table_contains (supported_fmts, "jxl")) {
-		g_assert_no_error (error);
-		g_assert_nonnull (image);
+	/* store the image in its original size and a scaled-down rendition */
+	targets = g_ptr_array_new_with_free_func ((GDestroyNotify) asc_image_target_free);
+	g_ptr_array_add (targets,
+			 asc_image_target_new ("orig.png", ASC_IMAGE_SCALE_MODE_NONE, 0, 0));
+	g_ptr_array_add (targets,
+			 asc_image_target_new ("64.png", ASC_IMAGE_SCALE_MODE_FIT_HEIGHT, 0, 64));
+	g_ptr_array_add (
+	    targets,
+	    asc_image_target_new ("too-big.png", ASC_IMAGE_SCALE_MODE_FIT_WIDTH, 4000, 0));
+	target = g_ptr_array_index (targets, 2);
+	target->only_downscale = TRUE;
 
-		g_assert_cmpint (asc_image_get_width (image), ==, 64);
-		g_assert_cmpint (asc_image_get_height (image), ==, 64);
-	} else {
-		g_assert_error (error, ASC_IMAGE_ERROR, ASC_IMAGE_ERROR_UNSUPPORTED);
-		g_assert_null (image);
-		g_clear_error (&error);
+	src_width = 0;
+	src_height = 0;
+	ret = asc_media_process_image (media,
+				       img_bytes,
+				       ASC_IMAGE_FORMAT_UNKNOWN,
+				       0,
+				       0,
+				       ASC_IMAGE_LOAD_FLAG_NONE,
+				       out_dir,
+				       targets,
+				       &src_width,
+				       &src_height,
+				       &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	g_assert_cmpint (src_width, ==, 136);
+	g_assert_cmpint (src_height, ==, 144);
+
+	target = g_ptr_array_index (targets, 0);
+	g_assert_false (target->skipped);
+	g_assert_null (target->error_msg);
+	g_assert_cmpint (target->result_width, ==, 136);
+	g_assert_cmpint (target->result_height, ==, 144);
+
+	target = g_ptr_array_index (targets, 1);
+	g_assert_false (target->skipped);
+	g_assert_null (target->error_msg);
+	g_assert_cmpint (target->result_height, ==, 64);
+	g_assert_cmpint (target->result_width, ==, 60);
+
+	/* the upscaling rendition must have been skipped */
+	target = g_ptr_array_index (targets, 2);
+	g_assert_true (target->skipped);
+	g_assert_null (target->error_msg);
+
+	out_fname_orig = g_build_filename (out_dir, "orig.png", NULL);
+	out_fname_scaled = g_build_filename (out_dir, "64.png", NULL);
+	g_assert_true (g_file_test (out_fname_orig, G_FILE_TEST_EXISTS));
+	g_assert_true (g_file_test (out_fname_scaled, G_FILE_TEST_EXISTS));
+	{
+		g_autofree gchar *check_fname = g_build_filename (out_dir, "too-big.png", NULL);
+		g_assert_false (g_file_test (check_fname, G_FILE_TEST_EXISTS));
 	}
-	g_clear_object (&image);
+
+	as_utils_delete_dir_recursive (out_dir);
 }
 
 /**
- * test_canvas:
+ * test_media_font:
  *
- * Test canvas.
+ * Read font metadata and render font media via the media worker process.
  */
 static void
-test_canvas (void)
+test_media_font (void)
 {
-	g_autofree gchar *sample_svg_fname = NULL;
+	g_autoptr(AscMedia) media = asc_media_new ();
+	g_autoptr(GError) error = NULL;
 	g_autofree gchar *font_fname = NULL;
 	g_autofree gchar *data = NULL;
+	g_autoptr(GBytes) font_bytes = NULL;
+	g_autoptr(AscFontInfo) finfo = NULL;
+	g_autoptr(GPtrArray) targets = NULL;
+	g_autofree gchar *out_dir = NULL;
+	AscImageTarget *target;
 	gsize data_len;
-	gint cv_size;
-	gint text_border_width, shape_border_width;
-	AscCanvasShape bg_shape;
-	g_autofree gchar *out_fname = NULL;
-	g_autoptr(AscCanvas) cv = NULL;
-	g_autoptr(AscFont) font = NULL;
-	g_autoptr(GInputStream) stream = NULL;
-	g_autoptr(GError) error = NULL;
+	gboolean ret;
 
-	sample_svg_fname = g_build_filename (datadir, "table.svgz", NULL);
-
-	/* read & render compressed SVG file */
-	g_file_get_contents (sample_svg_fname, &data, &data_len, &error);
-	g_assert_no_error (error);
-
-	stream = g_memory_input_stream_new_from_data (data, data_len, NULL);
-
-	cv = asc_canvas_new (512, 512);
-	asc_canvas_render_svg (cv, stream, &error);
-	g_assert_no_error (error);
-
-	out_fname = test_workdir_path ("asc-svgrender_test1.png");
-	asc_canvas_save_png (cv, out_fname, &error);
-	g_assert_no_error (error);
-
-	g_object_unref (cv);
-	cv = NULL;
-
-	/* test font rendering */
 	font_fname = g_build_filename (datadir, "Raleway-Regular.ttf", NULL);
-	font = asc_font_new_from_file (font_fname, &error);
+	g_file_get_contents (font_fname, &data, &data_len, &error);
 	g_assert_no_error (error);
+	font_bytes = g_bytes_new_take (g_steal_pointer (&data), data_len);
 
-	cv = asc_canvas_new (400, 100);
-
-	asc_canvas_draw_text (
-	    cv,
-	    font,
-	    "Hello World!\nSecond Line!\nThird line - äöüß!\nA very, very, very long line.",
-	    -1,
-	    -1,
-	    &error);
+	/* read font metadata */
+	finfo = asc_media_read_font_info (media,
+					  font_bytes,
+					  "Raleway-Regular.ttf",
+					  NULL, /* preferred language */
+					  NULL, /* extra languages */
+					  NULL, /* custom sample text */
+					  NULL, /* custom icon text */
+					  &error);
 	g_assert_no_error (error);
+	g_assert_nonnull (finfo);
 
-	g_clear_pointer (&out_fname, g_free);
-	out_fname = test_workdir_path ("asc-fontrender_test1.png");
-	asc_canvas_save_png (cv, out_fname, &error);
-	g_assert_no_error (error);
-	g_object_unref (cv);
+	g_assert_cmpstr (finfo->family, ==, "Raleway");
+	g_assert_cmpstr (finfo->style, ==, "Regular");
+	g_assert_cmpstr (finfo->id, ==, "raleway-regular");
+	g_assert_cmpstr (finfo->homepage, ==, "http://pixelspread.com");
+	g_assert_nonnull (finfo->sample_text);
+	g_assert_nonnull (finfo->languages);
+	g_assert_true (g_strv_contains ((const gchar *const *) finfo->languages, "en"));
 
-	cv_size = 128;
-	bg_shape = ASC_CANVAS_SHAPE_CVL_TRIANGLE;
-	shape_border_width = (gint) (cv_size * 0.032);
-	text_border_width = asc_calculate_text_border_width_for_icon_shape (bg_shape,
-									    cv_size,
-									    shape_border_width);
+	out_dir = asx_build_workdir_path ("asc-media-font-test");
+	g_assert_cmpint (g_mkdir_with_parents (out_dir, 0755), ==, 0);
 
-	cv = asc_canvas_new (cv_size, cv_size);
-	asc_canvas_draw_shape (cv,
-			       bg_shape,
-			       shape_border_width,
-			       0.84, /* red */
-			       0.84, /* green */
-			       0.84, /* blue */
-			       &error);
+	/* render a font specimen card */
+	targets = g_ptr_array_new_with_free_func ((GDestroyNotify) asc_image_target_free);
+	g_ptr_array_add (targets,
+			 asc_image_target_new ("card.png", ASC_IMAGE_SCALE_MODE_EXACT, 752, 423));
+	ret = asc_media_render_font_card (media,
+					  font_bytes,
+					  "Raleway-Regular.ttf",
+					  NULL, /* preferred language */
+					  NULL, /* extra languages */
+					  NULL, /* custom sample text */
+					  NULL, /* custom icon text */
+					  NULL, /* info label */
+					  out_dir,
+					  targets,
+					  &error);
 	g_assert_no_error (error);
+	g_assert_true (ret);
 
-	asc_canvas_draw_text_line (cv,
-				   font,
-				   "Aa",
-				   text_border_width,
-				   bg_shape == ASC_CANVAS_SHAPE_CVL_TRIANGLE
-				       ? (gint) ((cv_size / 2.0 - shape_border_width) * 0.15)
-				       : 0,
-				   &error);
+	target = g_ptr_array_index (targets, 0);
+	g_assert_null (target->error_msg);
+	g_assert_cmpint (target->result_width, ==, 752);
+	g_assert_cmpint (target->result_height, >, 0);
+	{
+		g_autofree gchar *check_fname = g_build_filename (out_dir, "card.png", NULL);
+		g_assert_true (g_file_test (check_fname, G_FILE_TEST_EXISTS));
+	}
+
+	/* render a font icon */
+	g_ptr_array_set_size (targets, 0);
+	g_ptr_array_add (targets,
+			 asc_image_target_new ("icon.png", ASC_IMAGE_SCALE_MODE_EXACT, 64, 64));
+	ret = asc_media_render_font_icon (media,
+					  font_bytes,
+					  "Raleway-Regular.ttf",
+					  NULL, /* preferred language */
+					  NULL, /* extra languages */
+					  NULL, /* custom sample text */
+					  NULL, /* custom icon text */
+					  out_dir,
+					  targets,
+					  &error);
 	g_assert_no_error (error);
-	g_clear_pointer (&out_fname, g_free);
-	out_fname = test_workdir_path ("asc-fontrender_test2.png");
-	asc_canvas_save_png (cv, out_fname, &error);
-	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	target = g_ptr_array_index (targets, 0);
+	g_assert_null (target->error_msg);
+	g_assert_cmpint (target->result_width, ==, 64);
+	g_assert_cmpint (target->result_height, ==, 64);
+	{
+		g_autofree gchar *check_fname = g_build_filename (out_dir, "icon.png", NULL);
+		g_assert_true (g_file_test (check_fname, G_FILE_TEST_EXISTS));
+	}
+
+	as_utils_delete_dir_recursive (out_dir);
 }
 
 /**
- * test_render_font_card:
+ * test_media_worker_failure:
  *
- * Test font-card rendering on canvas.
+ * Test that failures of the media worker process are handled gracefully.
  */
 static void
-test_render_font_card (void)
+test_media_worker_failure (void)
 {
-	g_autofree gchar *font_fname = NULL;
-	g_autofree gchar *out_fname = NULL;
-	g_autoptr(AscFont) font = NULL;
-	g_autoptr(AscCanvas) canvas = NULL;
+	g_autoptr(AscMedia) media = asc_media_new ();
 	g_autoptr(GError) error = NULL;
+	g_autoptr(GBytes) bad_bytes = NULL;
+	gboolean ret;
 
-	font_fname = g_build_filename (datadir, "Raleway-Regular.ttf", NULL);
-	font = asc_font_new_from_file (font_fname, &error);
-	g_assert_no_error (error);
+	/* a worker that quits immediately must yield a proper error */
+	asc_media_set_worker_path (media, "/bin/false");
+	ret = asc_media_ensure_worker (media, &error);
+	g_assert_error (error, ASC_MEDIA_ERROR, ASC_MEDIA_ERROR_DEAD_WORKER);
+	g_assert_false (ret);
+	g_clear_error (&error);
 
-	canvas = asc_canvas_new (800, 600);
-	asc_canvas_draw_font_card (canvas,
-				   font,
-				   NULL, /* default info label */
-				   asc_font_find_pangram (font, "en", "Raleway"), /* pangram */
-				   NULL, /* default bg letter */
-				   -1,	 /* default margin    */
-				   &error);
+	/* the instance must recover once a functional worker is available again */
+	asc_media_set_worker_path (media, NULL);
+	ret = asc_media_ensure_worker (media, &error);
 	g_assert_no_error (error);
+	g_assert_true (ret);
 
-	out_fname = test_workdir_path ("asc-font-card.png");
-	asc_canvas_save_png (canvas, out_fname, &error);
+	/* a broken input must fail the operation, but not the worker */
+	bad_bytes = as_gbytes_from_literal ("This is not a valid image.");
+	ret = asc_media_process_image (media,
+				       bad_bytes,
+				       ASC_IMAGE_FORMAT_UNKNOWN,
+				       0,
+				       0,
+				       ASC_IMAGE_LOAD_FLAG_NONE,
+				       NULL,
+				       NULL,
+				       NULL,
+				       NULL,
+				       &error);
+	g_assert_false (ret);
+	g_assert_nonnull (error);
+	g_assert_false (g_error_matches (error, ASC_MEDIA_ERROR, ASC_MEDIA_ERROR_DEAD_WORKER));
+	g_clear_error (&error);
+
+	/* ... and the worker must still respond afterwards */
+	ret = asc_media_ensure_worker (media, &error);
 	g_assert_no_error (error);
+	g_assert_true (ret);
 }
 
 /**
@@ -832,12 +746,12 @@ test_compose_optipng_not_found (Fixture *fixture, gconstpointer user_data)
 }
 
 /**
- * asc_test_make_file:
+ * asx_test_make_file:
  *
  * Create a file named @name with @contents in @dir.
  */
 static void
-asc_test_make_file (const gchar *dir, const gchar *name, const gchar *contents)
+asx_test_make_file (const gchar *dir, const gchar *name, const gchar *contents)
 {
 	g_autoptr(GError) error = NULL;
 	g_autofree gchar *fname = g_build_filename (dir, name, NULL);
@@ -849,24 +763,24 @@ asc_test_make_file (const gchar *dir, const gchar *name, const gchar *contents)
 }
 
 /**
- * asc_test_make_link:
+ * asx_test_make_link:
  *
  * Create a symlink named @name in @dir which points at @target.
  */
 static void
-asc_test_make_link (const gchar *dir, const gchar *name, const gchar *target)
+asx_test_make_link (const gchar *dir, const gchar *name, const gchar *target)
 {
 	g_autofree gchar *fname = g_build_filename (dir, name, NULL);
 	g_assert_cmpint (symlink (target, fname), ==, 0);
 }
 
 /**
- * asc_assert_unit_reads:
+ * asx_assert_unit_reads:
  *
  * Assert that @path resolves within @unit and yields exactly @contents.
  */
 static void
-asc_assert_unit_reads (AscUnit *unit, const gchar *path, const gchar *contents)
+asx_assert_unit_reads (AscUnit *unit, const gchar *path, const gchar *contents)
 {
 	g_autoptr(GError) error = NULL;
 	g_autoptr(GBytes) data = NULL;
@@ -886,12 +800,12 @@ asc_assert_unit_reads (AscUnit *unit, const gchar *path, const gchar *contents)
 }
 
 /**
- * asc_assert_unit_rejects:
+ * asx_assert_unit_rejects:
  *
  * Assert that @path does not resolve within @unit, failing with @code.
  */
 static void
-asc_assert_unit_rejects (AscUnit *unit, const gchar *path, gint code)
+asx_assert_unit_rejects (AscUnit *unit, const gchar *path, gint code)
 {
 	g_autoptr(GError) error = NULL;
 	g_autoptr(GBytes) data = NULL;
@@ -937,10 +851,10 @@ test_compose_directory_unit (void)
 				  "/usr/share/fonts/truetype/raleway/Raleway-Regular.ttf"));
 
 	/* read existent data */
-	asc_assert_unit_reads (ASC_UNIT (dirunit), "/usr/dummy", "Hello Universe!\n");
+	asx_assert_unit_reads (ASC_UNIT (dirunit), "/usr/dummy", "Hello Universe!\n");
 
 	/* read nonexistent data */
-	asc_assert_unit_rejects (ASC_UNIT (dirunit), "/nonexistent", G_FILE_ERROR_NOENT);
+	asx_assert_unit_rejects (ASC_UNIT (dirunit), "/nonexistent", G_FILE_ERROR_NOENT);
 }
 
 /**
@@ -974,30 +888,30 @@ test_compose_directory_unit_escape (void)
 	tmp_root = g_dir_make_tmp ("as-compose-escape-XXXXXX", &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (tmp_root);
-	asc_test_make_file (tmp_root, "secret.txt", "TOP SECRET");
+	asx_test_make_file (tmp_root, "secret.txt", "TOP SECRET");
 	secret_fname = g_build_filename (tmp_root, "secret.txt", NULL);
 
 	sibling_dir = g_build_filename (tmp_root, "rootfoo", NULL);
 	g_assert_cmpint (g_mkdir_with_parents (sibling_dir, 0755), ==, 0);
-	asc_test_make_file (sibling_dir, "secret.txt", "TOP SECRET");
+	asx_test_make_file (sibling_dir, "secret.txt", "TOP SECRET");
 
 	unit_root = g_build_filename (tmp_root, "root", NULL);
 	unit_subdir = g_build_filename (unit_root, "usr", NULL);
 	g_assert_cmpint (g_mkdir_with_parents (unit_subdir, 0755), ==, 0);
-	asc_test_make_file (unit_subdir, "data.txt", "Hello!");
+	asx_test_make_file (unit_subdir, "data.txt", "Hello!");
 
 	/* an empty file still has to be readable, even though there is nothing to map */
-	asc_test_make_file (unit_subdir, "empty.txt", "");
+	asx_test_make_file (unit_subdir, "empty.txt", "");
 
 	/* place a symlink inside the unit that points at the file outside of it, one
 	 * that stays within the unit, one that is absolute and therefore only makes
 	 * sense when read as a path within the unit, one that climbs out of the unit
 	 * using relative segments, and one that loops */
-	asc_test_make_link (unit_subdir, "escape-link", secret_fname);
-	asc_test_make_link (unit_subdir, "inner-link", "data.txt");
-	asc_test_make_link (unit_subdir, "abs-link", "/usr/data.txt");
-	asc_test_make_link (unit_subdir, "updown-link", "../../secret.txt");
-	asc_test_make_link (unit_subdir, "loop-link", "loop-link");
+	asx_test_make_link (unit_subdir, "escape-link", secret_fname);
+	asx_test_make_link (unit_subdir, "inner-link", "data.txt");
+	asx_test_make_link (unit_subdir, "abs-link", "/usr/data.txt");
+	asx_test_make_link (unit_subdir, "updown-link", "../../secret.txt");
+	asx_test_make_link (unit_subdir, "loop-link", "loop-link");
 
 	dirunit = asc_directory_unit_new (unit_root);
 	ret = asc_unit_open (ASC_UNIT (dirunit), &error);
@@ -1017,9 +931,9 @@ test_compose_directory_unit_escape (void)
 	/* a symlink that stays within the unit must still resolve, an absolute link
 	 * target is resolved from the unit's root rather than from the root of the
 	 * filesystem that we happen to run on, and an empty file is simply empty */
-	asc_assert_unit_reads (ASC_UNIT (dirunit), "/usr/inner-link", "Hello!");
-	asc_assert_unit_reads (ASC_UNIT (dirunit), "/usr/abs-link", "Hello!");
-	asc_assert_unit_reads (ASC_UNIT (dirunit), "/usr/empty.txt", "");
+	asx_assert_unit_reads (ASC_UNIT (dirunit), "/usr/inner-link", "Hello!");
+	asx_assert_unit_reads (ASC_UNIT (dirunit), "/usr/abs-link", "Hello!");
+	asx_assert_unit_reads (ASC_UNIT (dirunit), "/usr/empty.txt", "");
 
 	/* escaping the unit must not be possible, neither via relative path segments nor
 	 * via a symlink. A relative link that climbs out of the unit is pinned at its
@@ -1027,11 +941,11 @@ test_compose_directory_unit_escape (void)
 	 * outside, and the sibling directory of the root can not be reached by climbing
 	 * out of it either ("../rootfoo" vs. "../root"). A link that never resolves must
 	 * not send us in circles. */
-	asc_assert_unit_rejects (ASC_UNIT (dirunit), "/usr/../../secret.txt", G_FILE_ERROR_NOENT);
-	asc_assert_unit_rejects (ASC_UNIT (dirunit), "/usr/escape-link", G_FILE_ERROR_NOENT);
-	asc_assert_unit_rejects (ASC_UNIT (dirunit), "/usr/updown-link", G_FILE_ERROR_NOENT);
-	asc_assert_unit_rejects (ASC_UNIT (dirunit), "/../rootfoo", G_FILE_ERROR_NOENT);
-	asc_assert_unit_rejects (ASC_UNIT (dirunit), "/usr/loop-link", G_FILE_ERROR_LOOP);
+	asx_assert_unit_rejects (ASC_UNIT (dirunit), "/usr/../../secret.txt", G_FILE_ERROR_NOENT);
+	asx_assert_unit_rejects (ASC_UNIT (dirunit), "/usr/escape-link", G_FILE_ERROR_NOENT);
+	asx_assert_unit_rejects (ASC_UNIT (dirunit), "/usr/updown-link", G_FILE_ERROR_NOENT);
+	asx_assert_unit_rejects (ASC_UNIT (dirunit), "/../rootfoo", G_FILE_ERROR_NOENT);
+	asx_assert_unit_rejects (ASC_UNIT (dirunit), "/usr/loop-link", G_FILE_ERROR_LOOP);
 
 	/* a root directory that is reached through a symlink itself must not make
 	 * everything below it appear to be outside of the unit */
@@ -1043,18 +957,18 @@ test_compose_directory_unit_escape (void)
 	g_assert_no_error (error);
 	g_assert_true (ret);
 
-	asc_assert_unit_reads (ASC_UNIT (linked_dirunit), "/usr/abs-link", "Hello!");
-	asc_assert_unit_rejects (ASC_UNIT (linked_dirunit), "/usr/escape-link", G_FILE_ERROR_NOENT);
+	asx_assert_unit_reads (ASC_UNIT (linked_dirunit), "/usr/abs-link", "Hello!");
+	asx_assert_unit_rejects (ASC_UNIT (linked_dirunit), "/usr/escape-link", G_FILE_ERROR_NOENT);
 
 	/* a unit that indexes selected locations only has to resolve those within the
 	 * unit as well: one of them is a symlink to another location in the unit, the
 	 * other one leaves the unit entirely. */
 	unit_datadir = g_build_filename (unit_root, "as-compose-test-data", NULL);
 	g_assert_cmpint (g_mkdir_with_parents (unit_datadir, 0755), ==, 0);
-	asc_test_make_file (unit_datadir, "astest-thing.txt", "Hi!");
+	asx_test_make_file (unit_datadir, "astest-thing.txt", "Hi!");
 
-	asc_test_make_link (unit_root, "share", "/as-compose-test-data");
-	asc_test_make_link (unit_root, "escape-dir", sibling_dir);
+	asx_test_make_link (unit_root, "share", "/as-compose-test-data");
+	asx_test_make_link (unit_root, "escape-dir", sibling_dir);
 
 	partial_dirunit = asc_directory_unit_new (unit_root);
 	asc_unit_add_relevant_path (ASC_UNIT (partial_dirunit), "/share");
@@ -1073,7 +987,7 @@ test_compose_directory_unit_escape (void)
 	g_assert_true (asc_unit_dir_exists (ASC_UNIT (partial_dirunit), "/share"));
 	g_assert_false (asc_unit_dir_exists (ASC_UNIT (partial_dirunit), "/escape-dir"));
 
-	asc_assert_unit_reads (ASC_UNIT (partial_dirunit), "/share/astest-thing.txt", "Hi!");
+	asx_assert_unit_reads (ASC_UNIT (partial_dirunit), "/share/astest-thing.txt", "Hi!");
 
 	/* a location that leaves the unit must not be walked at all */
 	escape_dirunit = asc_directory_unit_new (unit_root);
@@ -1121,7 +1035,7 @@ test_compose_locale_stats (void)
 
 	/* try loading a Gettext translation */
 	asc_read_translation_status (cres, ASC_UNIT (dirunit), "/usr", 25);
-	asc_assert_no_hints_in_result (cres);
+	asx_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "en_GB"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "ru"), ==, 33);
 
@@ -1135,7 +1049,7 @@ test_compose_locale_stats (void)
 	as_component_add_translation (cpt, tr);
 
 	asc_read_translation_status (cres, ASC_UNIT (dirunit), "/usr", 25);
-	asc_assert_no_hints_in_result (cres);
+	asx_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, -1);
 
@@ -1149,7 +1063,7 @@ test_compose_locale_stats (void)
 	as_component_add_translation (cpt, tr);
 
 	asc_read_translation_status (cres, ASC_UNIT (dirunit), "/usr", 25);
-	asc_assert_no_hints_in_result (cres);
+	asx_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, -1);
 
@@ -1160,7 +1074,7 @@ test_compose_locale_stats (void)
 	as_component_add_translation (cpt, tr);
 
 	asc_read_translation_status (cres, ASC_UNIT (dirunit), "/usr", 25);
-	asc_assert_no_hints_in_result (cres);
+	asx_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, 100);
 }
@@ -1198,7 +1112,7 @@ test_compose_source_locale (void)
 
 	/* try loading a Gettext translation */
 	asc_read_translation_status (cres, ASC_UNIT (dirunit), "/usr", 25);
-	asc_assert_no_hints_in_result (cres);
+	asx_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "en_GB"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "ru"), ==, 33);
 
@@ -1214,6 +1128,7 @@ test_compose_video_info (void)
 {
 	g_autoptr(AscResult) cres = NULL;
 	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AscMedia) media = asc_media_new ();
 	g_autoptr(GError) error = NULL;
 	gboolean ret = FALSE;
 	g_autofree gchar *vid_fname = NULL;
@@ -1234,7 +1149,7 @@ test_compose_video_info (void)
 	}
 
 	vid_fname = g_build_filename (datadir, "sample-video.mkv", NULL);
-	vinfo = asc_extract_video_info (cres, cpt, vid_fname);
+	vinfo = asc_extract_video_info (cres, cpt, media, vid_fname);
 	g_assert_nonnull (vinfo);
 
 	g_assert_cmpstr (vinfo->codec_name, ==, "av1");
@@ -1260,8 +1175,9 @@ test_compose_font (void)
 	g_autoptr(AscResult) cres = NULL;
 	g_autoptr(AsMetadata) mdata = NULL;
 	g_autoptr(AscIconPolicy) icon_policy = NULL;
+	g_autoptr(AscMedia) media = asc_media_new ();
 	g_autoptr(AscDirectoryUnit) dirunit = asc_directory_unit_new (datadir);
-	g_autofree gchar *export_tmpdir = test_workdir_path ("asc-font-export");
+	g_autofree gchar *export_tmpdir = asx_build_workdir_path ("asc-font-export");
 
 	/* cleanup */
 	if (g_file_test (export_tmpdir, G_FILE_TEST_EXISTS)) {
@@ -1304,12 +1220,13 @@ test_compose_font (void)
 	icon_policy = asc_icon_policy_new ();
 	asc_process_fonts (cres,
 			   ASC_UNIT (dirunit),
+			   media,
 			   "/usr",
 			   export_tmpdir,
 			   NULL, /* no icon export dir */
 			   icon_policy,
 			   ASC_COMPOSE_FLAG_STORE_SCREENSHOTS | ASC_COMPOSE_FLAG_PROCESS_FONTS);
-	asc_assert_no_hints_in_result (cres);
+	asx_assert_no_hints_in_result (cres);
 }
 
 static void
@@ -1382,10 +1299,9 @@ main (int argc, char **argv)
 		    teardown);
 	g_test_add_func ("/AppStream/Compose/Utils", test_utils);
 	g_test_add_func ("/AppStream/Compose/IssueTagSanity", test_compose_issue_tag_sanity);
-	g_test_add_func ("/AppStream/Compose/FontInfo", test_read_fontinfo);
-	g_test_add_func ("/AppStream/Compose/Image", test_image_transform);
-	g_test_add_func ("/AppStream/Compose/Canvas", test_canvas);
-	g_test_add_func ("/AppStream/Compose/FontCard", test_render_font_card);
+	g_test_add_func ("/AppStream/Compose/MediaImage", test_media_process_image);
+	g_test_add_func ("/AppStream/Compose/MediaFont", test_media_font);
+	g_test_add_func ("/AppStream/Compose/MediaWorkerFailure", test_media_worker_failure);
 	g_test_add_func ("/AppStream/Compose/Hints", test_compose_hints);
 	g_test_add_func ("/AppStream/Compose/Result", test_compose_result);
 	g_test_add_func ("/AppStream/Compose/DesktopEntry", test_compose_desktop_entry);

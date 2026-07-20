@@ -59,12 +59,15 @@ typedef struct {
 } AscImageTarget;
 
 #define ASC_TYPE_IMAGE_TARGET (asc_image_target_get_type ())
-GType		asc_image_target_get_type (void);
+AS_INTERNAL_VISIBLE
+GType asc_image_target_get_type (void);
+AS_INTERNAL_VISIBLE
 AscImageTarget *asc_image_target_new (const gchar      *name,
 				      AscImageScaleMode scale_mode,
 				      gint		width,
 				      gint		height);
-void		asc_image_target_free (AscImageTarget *target);
+AS_INTERNAL_VISIBLE
+void asc_image_target_free (AscImageTarget *target);
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (AscImageTarget, asc_image_target_free)
 
 /**
