@@ -29,7 +29,6 @@
 
 #include "as-utils-private.h"
 #include "as-validator-issue-tag.h"
-#include "asc-resources.h"
 
 #define ASC_TYPE_GLOBALS (asc_globals_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AscGlobals, asc_globals, ASC, GLOBALS, GObject)
@@ -42,10 +41,8 @@ typedef struct {
 	gboolean use_optipng;
 	gchar *optipng_bin;
 	gchar *ffprobe_bin;
+	gchar *mediaworker_bin;
 	gchar *tmp_dir;
-
-	GMutex pangrams_mutex;
-	GPtrArray *pangrams_en;
 
 	GMutex hint_tags_mutex;
 	GHashTable *hint_tags;
@@ -56,24 +53,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (AscGlobals, asc_globals, G_TYPE_OBJECT)
 
 static AscGlobals *g_globals = NULL;
 static GMutex g_globals_mutex;
-
-/**
- * asc_get_resource_safe:
- *
- * A threadsafe variant to obtain the buit-in #GResource.
- */
-static GResource *
-asc_get_resource_safe (void)
-{
-	static GResource *resource = NULL;
-
-	if (g_once_init_enter (&resource)) {
-		GResource *res = asc_get_resource ();
-		g_once_init_leave (&resource, res);
-	}
-
-	return resource;
-}
 
 /**
  * asc_compose_error_quark:
@@ -111,10 +90,7 @@ asc_globals_finalize (GObject *object)
 	g_free (priv->tmp_dir);
 	g_free (priv->optipng_bin);
 	g_free (priv->ffprobe_bin);
-
-	g_mutex_clear (&priv->pangrams_mutex);
-	if (priv->pangrams_en != NULL)
-		g_ptr_array_unref (priv->pangrams_en);
+	g_free (priv->mediaworker_bin);
 
 	g_mutex_clear (&priv->hint_tags_mutex);
 	if (priv->hint_tags != NULL)
@@ -142,8 +118,19 @@ asc_globals_init (AscGlobals *globals)
 
 	priv->ffprobe_bin = g_find_program_in_path ("ffprobe");
 
+	/* find the media worker, preferring an explicit override for development
+	 * and test purposes over the installed binary */
+	priv->mediaworker_bin = g_strdup (g_getenv ("ASC_MEDIAWORKER"));
+	if (as_is_empty (priv->mediaworker_bin)) {
+		const gchar *mediaworker_libexec_exe = LIBEXECDIR "/asc-mediaworker";
+		g_free (priv->mediaworker_bin);
+		if (g_file_test (mediaworker_libexec_exe, G_FILE_TEST_IS_EXECUTABLE))
+			priv->mediaworker_bin = g_strdup (mediaworker_libexec_exe);
+		else
+			priv->mediaworker_bin = g_find_program_in_path ("asc-mediaworker");
+	}
+
 	g_mutex_init (&priv->hint_tags_mutex);
-	g_mutex_init (&priv->pangrams_mutex);
 }
 
 static void
@@ -297,46 +284,30 @@ asc_globals_set_ffprobe_binary (const gchar *path)
 }
 
 /**
- * asc_globals_get_pangrams_for:
+ * asc_globals_get_mediaworker_binary:
  *
- * Obtain a list of pangrams for the given language, currently
- * only "en" is supported.
- *
- * Returns: (transfer none) (element-type utf8): List of pangrams.
- */
-GPtrArray *
-asc_globals_get_pangrams_for (const gchar *lang)
+ * Get path to the "asc-mediaworker" binary that #AscMedia
+ * spawns for media processing.
+ **/
+const gchar *
+asc_globals_get_mediaworker_binary (void)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
-	if ((lang != NULL) && (g_strcmp0 (lang, "en") != 0))
-		return NULL;
+	return priv->mediaworker_bin;
+}
 
-	{
-		g_autoptr(GBytes) data = NULL;
-		g_auto(GStrv) strv = NULL;
-		g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->pangrams_mutex);
-
-		/* return cached value if possible */
-		if (priv->pangrams_en != NULL)
-			return priv->pangrams_en;
-
-		/* load array from resources */
-		data = g_resource_lookup_data (asc_get_resource_safe (),
-					       "/org/freedesktop/appstream-compose/pangrams/en.txt",
-					       G_RESOURCE_LOOKUP_FLAGS_NONE,
-					       NULL);
-		if (data == NULL)
-			return NULL;
-
-		strv = g_strsplit (g_bytes_get_data (data, NULL), "\n", -1);
-		if (strv == NULL)
-			return NULL;
-		priv->pangrams_en = g_ptr_array_new_full (g_strv_length (strv), g_free);
-		for (guint i = 0; strv[i] != NULL; i++)
-			g_ptr_array_add (priv->pangrams_en, g_strdup (strv[i]));
-	}
-
-	return priv->pangrams_en;
+/**
+ * asc_globals_set_mediaworker_binary:
+ *
+ * Set path to the "asc-mediaworker" binary that #AscMedia
+ * spawns for media processing.
+ **/
+void
+asc_globals_set_mediaworker_binary (const gchar *path)
+{
+	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	g_free (priv->mediaworker_bin);
+	priv->mediaworker_bin = g_strdup (path);
 }
 
 /**

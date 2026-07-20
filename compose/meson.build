@@ -3,15 +3,14 @@
 appstream_compose_lib_inc = include_directories ('.')
 
 ascompose_src = [
-    'asc-canvas.c',
     'asc-compose.c',
     'asc-directory-unit.c',
-    'asc-font.c',
     'asc-globals.c',
     'asc-hint.c',
     'asc-hint-tags.c',
     'asc-icon-policy.c',
-    'asc-image.c',
+    'asc-media.c',
+    'asc-media-ipc.c',
     'asc-result.c',
     'asc-unit.c',
     'asc-utils-l10n.c',
@@ -28,7 +27,7 @@ ascompose_pub_headers = [
     'asc-globals.h',
     'asc-hint.h',
     'asc-icon-policy.h',
-    'asc-image.h',
+    'asc-media.h',
     'asc-result.h',
     'asc-unit.h',
     'asc-utils.h'
@@ -41,42 +40,23 @@ ascompose_pub_enums = glib.mkenums_simple('asc-enums-types',
 )
 
 ascompose_priv_headers = [
-    'asc-canvas.h',
-    'asc-font.h',
-    'asc-font-private.h',
     'asc-globals-private.h',
     'asc-hint-tags.h',
-    'asc-image-private.h',
+    'asc-media-ipc.h',
+    'asc-media-private.h',
     'asc-utils-l10n.h',
     'asc-utils-metainfo.h',
     'asc-utils-screenshots.h',
     'asc-utils-fonts.h',
 ]
 
-asclib_res = glib.compile_resources (
-    'asc-resources', 'appstream-compose.gresource.xml',
-    c_name: 'asc',
-    source_dir: ['../data/compose']
-)
-
 # extra dependencies we need just for AppStream Compose
-m_dep          = cc.find_library('m', required: false)
-cairo_dep      = dependency('cairo', version: '>= 1.12')
-gdkpixbuf_dep  = dependency('gdk-pixbuf-2.0')
-freetype_dep   = dependency('freetype2')
-pango_dep      = dependency('pango')
-fontconfig_dep = dependency('fontconfig')
-blake3_dep     = dependency('libblake3', required: get_option('blake3-support'))
-if get_option ('svg-support')
-    rsvg_dep       = dependency('librsvg-2.0', version: '>= 2.48')
-else
-    rsvg_dep = dependency('', required: false)
-    warning('Building without SVG support. Therefore appstream-compose will be unable to render SVG icons.')
-endif
+m_dep        = cc.find_library('m', required: false)
+blake3_dep   = dependency('libblake3', required: get_option('blake3-support'))
+gio_unix_dep = dependency('gio-unix-2.0', version: '>= 2.62')
 
 appstream_compose_lib = library ('appstream-compose',
     [ascompose_src,
-     asclib_res,
      ascompose_pub_headers,
      ascompose_priv_headers,
      ascompose_pub_enums],
@@ -88,12 +68,7 @@ appstream_compose_lib = library ('appstream-compose',
         blake3_dep,
         fyaml_dep,
         gio_dep,
-        cairo_dep,
-        gdkpixbuf_dep,
-        rsvg_dep,
-        freetype_dep,
-        pango_dep,
-        fontconfig_dep,
+        gio_unix_dep,
     ],
     include_directories: [root_inc_dir],
     c_args: ['-DASC_COMPILATION',
@@ -126,8 +101,7 @@ appstream_compose_dep = declare_dependency(
         appstream_dep,
         glib_dep,
         gobject_dep,
-        gio_dep,
-        gdkpixbuf_dep
+        gio_dep
     ],
     include_directories: [appstream_compose_lib_inc]
 )
