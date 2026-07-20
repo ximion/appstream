@@ -30,6 +30,9 @@
 
 using namespace AppStream;
 
+static_assert(static_cast<int>(Provided::KindId) + 1 == AS_PROVIDED_KIND_LAST,
+              "Provided::Kind is out of sync with AsProvidedKind");
+
 class AppStream::ProvidedData : public QSharedData
 {
 public:

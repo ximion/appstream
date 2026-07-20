@@ -53,6 +53,35 @@ public:
     QString lastError;
 };
 
+static_assert(static_cast<int>(AppStream::CheckResult::True) + 1 == AS_CHECK_RESULT_LAST,
+              "AppStream::CheckResult is out of sync with AsCheckResult");
+static_assert(static_cast<int>(AppStream::ChassisKind::Handset) + 1 == AS_CHASSIS_KIND_LAST,
+              "AppStream::ChassisKind is out of sync with AsChassisKind");
+
+QString SystemInfo::chassisKindToString(ChassisKind kind)
+{
+    return valueWrap(as_chassis_kind_to_string(static_cast<AsChassisKind>(kind)));
+}
+
+AppStream::ChassisKind SystemInfo::stringToChassisKind(const QString &kindString)
+{
+    return static_cast<ChassisKind>(as_chassis_kind_from_string(qPrintable(kindString)));
+}
+
+SystemInfo *SystemInfo::newTemplateForChassis(ChassisKind kind, QString *errorMessage)
+{
+    g_autoptr(GError) error = nullptr;
+    g_autoptr(AsSystemInfo) sysInfo =
+        as_system_info_new_template_for_chassis(static_cast<AsChassisKind>(kind), &error);
+    if (sysInfo == nullptr) {
+        if (errorMessage != nullptr)
+            *errorMessage = error != nullptr ? QString::fromUtf8(error->message) : QString();
+        return nullptr;
+    }
+
+    return new SystemInfo(sysInfo);
+}
+
 SystemInfo::SystemInfo()
     : d(new SystemInfoData())
 {

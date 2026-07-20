@@ -59,7 +59,9 @@ public:
         ItemKindMemory,
         ItemKindFirmware,
         ItemKindControl,
-        ItemKindDisplayLength
+        ItemKindDisplayLength,
+        ItemKindHardware,
+        ItemKindInternet
     };
     Q_ENUM(ItemKind)
 
@@ -83,7 +85,8 @@ public:
         ControlKindGamepad,
         ControlKindVoice,
         ControlKindVision,
-        ControlKindTvRemote
+        ControlKindTvRemote,
+        ControlKindTablet
     };
     Q_ENUM(ControlKind)
 
@@ -93,6 +96,14 @@ public:
         DisplaySideKindLongest
     };
     Q_ENUM(DisplaySideKind)
+
+    enum InternetKind {
+        InternetKindUnknown,
+        InternetKindAlways,
+        InternetKindOfflineOnly,
+        InternetKindFirstRun
+    };
+    Q_ENUM(InternetKind)
 
     static QString kindToString(Kind kind);
     static Kind stringToKind(const QString &string);
@@ -109,6 +120,9 @@ public:
 
     static QString displaySideKindToString(DisplaySideKind kind);
     static DisplaySideKind stringToDisplaySideKind(const QString &string);
+
+    static QString internetKindToString(InternetKind ikind);
+    static InternetKind stringToInternetKind(const QString &string);
 
     Relation();
     Relation(_AsRelation *relation);

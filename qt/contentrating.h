@@ -48,6 +48,26 @@ public:
     };
     Q_ENUM(RatingValue)
 
+    enum System {
+        SystemUnknown,
+        SystemIncaa,
+        SystemAcb,
+        SystemDjctq,
+        SystemGsrr,
+        SystemPegi,
+        SystemKavi,
+        SystemUsk,
+        SystemEsra,
+        SystemCero,
+        SystemOflcnz,
+        SystemRussia,
+        SystemMda,
+        SystemGrac,
+        SystemEsrb,
+        SystemIarc
+    };
+    Q_ENUM(System)
+
     ContentRating();
     ContentRating(_AsContentRating *category);
     ContentRating(const ContentRating &category);
@@ -55,6 +75,15 @@ public:
 
     static RatingValue stringToRatingValue(const QString &ratingValue);
     static QString ratingValueToString(RatingValue ratingValue);
+
+    static QString systemToString(System system);
+    static System systemFromLocale(const QString &locale);
+    static QString systemFormatAge(System system, uint age);
+    static QStringList systemGetFormattedAges(System system);
+
+    static QStringList allRatingIds();
+    static uint attributeToCsmAge(const QString &id, RatingValue value);
+    static RatingValue attributeFromCsmAge(const QString &id, uint age);
 
     ContentRating &operator=(const ContentRating &category);
     bool operator==(const ContentRating &r) const;

@@ -81,7 +81,8 @@ public:
     enum MergeKind {
         MergeKindNone,
         MergeKindReplace,
-        MergeKindAppend
+        MergeKindAppend,
+        MergeKindRemoveComponent
     };
     Q_ENUM(MergeKind)
 
@@ -114,6 +115,9 @@ public:
 
     static Scope stringToScope(const QString &scopeString);
     static QString scopeToString(AppStream::Component::Scope scope);
+
+    static MergeKind stringToMergeKind(const QString &mergeKindString);
+    static QString mergeKindToString(AppStream::Component::MergeKind kind);
 
     Component(_AsComponent *cpt);
     Component();

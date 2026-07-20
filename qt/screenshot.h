@@ -47,12 +47,22 @@ class APPSTREAMQT_EXPORT Screenshot
     Q_GADGET
 
 public:
+    enum Kind {
+        KindUnknown,
+        KindDefault,
+        KindExtra
+    };
+    Q_ENUM(Kind)
+
     enum MediaKind {
         MediaKindUnknown,
         MediaKindImage,
         MediaKindVideo
     };
     Q_ENUM(MediaKind)
+
+    static Kind stringToKind(const QString &kindString);
+    static QString kindToString(Kind kind);
 
     Screenshot();
     Screenshot(_AsScreenshot *scr);
@@ -70,6 +80,17 @@ public:
      * A \ref Component should in general only have one default
      */
     bool isDefault() const;
+
+    /**
+     * \return the kind of this screenshot (default or extra)
+     */
+    Kind kind() const;
+    void setKind(Kind kind);
+
+    /**
+     * \return true if this screenshot is valid (has at least one image or video)
+     */
+    bool isValid() const;
 
     /**
      * \return the kind of media (image or video) that this screenshot consists of

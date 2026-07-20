@@ -26,6 +26,9 @@
 
 using namespace AppStream;
 
+static_assert(static_cast<int>(Translation::KindQt) + 1 == AS_TRANSLATION_KIND_LAST,
+              "Translation::Kind is out of sync with AsTranslationKind");
+
 class AppStream::TranslationData : public QSharedData
 {
 public:

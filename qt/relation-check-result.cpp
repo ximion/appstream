@@ -26,6 +26,9 @@
 
 using namespace AppStream;
 
+static_assert(static_cast<int>(RelationCheckResult::StatusSatisfied) + 1 == AS_RELATION_STATUS_LAST,
+              "RelationCheckResult::Status is out of sync with AsRelationStatus");
+
 class AppStream::RelationCheckResultData : public QSharedData
 {
 public:

@@ -30,6 +30,11 @@
 
 using namespace AppStream;
 
+static_assert(static_cast<int>(Screenshot::KindExtra) + 1 == AS_SCREENSHOT_KIND_LAST,
+              "Screenshot::Kind is out of sync with AsScreenshotKind");
+static_assert(static_cast<int>(Screenshot::MediaKindVideo) + 1 == AS_SCREENSHOT_MEDIA_KIND_LAST,
+              "Screenshot::MediaKind is out of sync with AsScreenshotMediaKind");
+
 class AppStream::ScreenshotData : public QSharedData
 {
 public:
@@ -90,9 +95,34 @@ _AsScreenshot *AppStream::Screenshot::cPtr() const
     return d->screenshot();
 }
 
+Screenshot::Kind Screenshot::stringToKind(const QString &kindString)
+{
+    return static_cast<Screenshot::Kind>(as_screenshot_kind_from_string(qPrintable(kindString)));
+}
+
+QString Screenshot::kindToString(Screenshot::Kind kind)
+{
+    return valueWrap(as_screenshot_kind_to_string(static_cast<AsScreenshotKind>(kind)));
+}
+
 bool Screenshot::isDefault() const
 {
     return as_screenshot_get_kind(d->m_scr) == AS_SCREENSHOT_KIND_DEFAULT;
+}
+
+Screenshot::Kind Screenshot::kind() const
+{
+    return static_cast<Screenshot::Kind>(as_screenshot_get_kind(d->m_scr));
+}
+
+void Screenshot::setKind(Screenshot::Kind kind)
+{
+    as_screenshot_set_kind(d->m_scr, static_cast<AsScreenshotKind>(kind));
+}
+
+bool Screenshot::isValid() const
+{
+    return as_screenshot_is_valid(d->m_scr);
 }
 
 Screenshot::MediaKind Screenshot::mediaKind() const

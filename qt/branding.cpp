@@ -23,6 +23,11 @@
 
 using namespace AppStream;
 
+static_assert(static_cast<int>(Branding::ColorKind::Primary) + 1 == AS_COLOR_KIND_LAST,
+              "Branding::ColorKind is out of sync with AsColorKind");
+static_assert(static_cast<int>(Branding::ColorSchemeKind::Dark) + 1 == AS_COLOR_SCHEME_KIND_LAST,
+              "Branding::ColorSchemeKind is out of sync with AsColorSchemeKind");
+
 class AppStream::BrandingData : public QSharedData
 {
 public:

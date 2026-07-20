@@ -42,7 +42,8 @@ public:
         KindUnknown,
         KindDesktopId,
         KindService,
-        KindCockpitManifest
+        KindCockpitManifest,
+        KindUrl
     };
     Q_ENUM(Kind)
 

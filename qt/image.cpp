@@ -25,8 +25,12 @@
 #include <QSize>
 #include <QUrl>
 #include <QDebug>
+#include "chelpers.h"
 
 using namespace AppStream;
+
+static_assert(static_cast<int>(Image::KindThumbnail) + 1 == AS_IMAGE_KIND_LAST,
+              "Image::Kind is out of sync with AsImageKind");
 
 class AppStream::ImageData : public QSharedData
 {

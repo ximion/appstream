@@ -40,11 +40,13 @@ public:
         Light,
         Dark,
     };
+    Q_ENUM(ColorSchemeKind)
 
     enum class ColorKind {
         Unknow,
         Primary,
     };
+    Q_ENUM(ColorKind)
 
     Branding();
     Branding(_AsBranding *);

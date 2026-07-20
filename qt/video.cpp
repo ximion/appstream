@@ -24,8 +24,14 @@
 #include <QSize>
 #include <QUrl>
 #include <QDebug>
+#include "chelpers.h"
 
 using namespace AppStream;
+
+static_assert(static_cast<int>(Video::CodecKindAV1) + 1 == AS_VIDEO_CODEC_KIND_LAST,
+              "Video::CodecKind is out of sync with AsVideoCodecKind");
+static_assert(static_cast<int>(Video::ContainerKindWebM) + 1 == AS_VIDEO_CONTAINER_KIND_LAST,
+              "Video::ContainerKind is out of sync with AsVideoContainerKind");
 
 class AppStream::VideoData : public QSharedData
 {

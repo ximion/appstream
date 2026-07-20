@@ -58,20 +58,18 @@ public:
     AsLaunchable *m_launchable;
 };
 
+static_assert(static_cast<int>(AppStream::Launchable::KindUrl) + 1 == AS_LAUNCHABLE_KIND_LAST,
+              "Launchable::Kind is out of sync with AsLaunchableKind");
+
 AppStream::Launchable::Kind AppStream::Launchable::stringToKind(const QString &kindString)
 {
-    if (kindString == QLatin1String("desktop-id")) {
-        return AppStream::Launchable::KindDesktopId;
-    }
-    return AppStream::Launchable::KindUnknown;
+    return static_cast<AppStream::Launchable::Kind>(
+        as_launchable_kind_from_string(qPrintable(kindString)));
 }
 
 QString AppStream::Launchable::kindToString(AppStream::Launchable::Kind kind)
 {
-    if (kind == AppStream::Launchable::KindDesktopId) {
-        return QLatin1String("desktop-id");
-    }
-    return QLatin1String("unknown");
+    return valueWrap(as_launchable_kind_to_string(static_cast<AsLaunchableKind>(kind)));
 }
 
 Launchable::Launchable()

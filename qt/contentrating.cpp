@@ -26,6 +26,12 @@
 
 using namespace AppStream;
 
+static_assert(static_cast<int>(ContentRating::RatingValueIntense) + 1
+                  == AS_CONTENT_RATING_VALUE_LAST,
+              "ContentRating::RatingValue is out of sync with AsContentRatingValue");
+static_assert(static_cast<int>(ContentRating::SystemIarc) + 1 == AS_CONTENT_RATING_SYSTEM_LAST,
+              "ContentRating::System is out of sync with AsContentRatingSystem");
+
 class AppStream::ContentRatingData : public QSharedData
 {
 public:
@@ -70,6 +76,53 @@ AppStream::ContentRating::ratingValueToString(AppStream::ContentRating::RatingVa
 {
     return QString::fromUtf8(
         as_content_rating_value_to_string(static_cast<AsContentRatingValue>(ratingValue)));
+}
+
+QString AppStream::ContentRating::systemToString(AppStream::ContentRating::System system)
+{
+    return valueWrap(
+        as_content_rating_system_to_string(static_cast<AsContentRatingSystem>(system)));
+}
+
+AppStream::ContentRating::System AppStream::ContentRating::systemFromLocale(const QString &locale)
+{
+    return static_cast<ContentRating::System>(
+        as_content_rating_system_from_locale(qPrintable(locale)));
+}
+
+QString AppStream::ContentRating::systemFormatAge(AppStream::ContentRating::System system, uint age)
+{
+    g_autofree gchar *str =
+        as_content_rating_system_format_age(static_cast<AsContentRatingSystem>(system), age);
+    return valueWrap(str);
+}
+
+QStringList
+AppStream::ContentRating::systemGetFormattedAges(AppStream::ContentRating::System system)
+{
+    g_auto(GStrv) ages =
+        as_content_rating_system_get_formatted_ages(static_cast<AsContentRatingSystem>(system));
+    return valueWrap(ages);
+}
+
+QStringList AppStream::ContentRating::allRatingIds()
+{
+    g_autofree const gchar **ids = as_content_rating_get_all_rating_ids();
+    return valueWrap(ids);
+}
+
+uint AppStream::ContentRating::attributeToCsmAge(const QString &id,
+                                                 AppStream::ContentRating::RatingValue value)
+{
+    return as_content_rating_attribute_to_csm_age(qPrintable(id),
+                                                  static_cast<AsContentRatingValue>(value));
+}
+
+AppStream::ContentRating::RatingValue
+AppStream::ContentRating::attributeFromCsmAge(const QString &id, uint age)
+{
+    return static_cast<ContentRating::RatingValue>(
+        as_content_rating_attribute_from_csm_age(qPrintable(id), age));
 }
 
 ContentRating::ContentRating()

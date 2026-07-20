@@ -27,6 +27,19 @@
 
 using namespace AppStream;
 
+static_assert(static_cast<int>(Relation::KindSupports) + 1 == AS_RELATION_KIND_LAST,
+              "Relation::Kind is out of sync with AsRelationKind");
+static_assert(static_cast<int>(Relation::ItemKindInternet) + 1 == AS_RELATION_ITEM_KIND_LAST,
+              "Relation::ItemKind is out of sync with AsRelationItemKind");
+static_assert(static_cast<int>(Relation::CompareGe) + 1 == AS_RELATION_COMPARE_LAST,
+              "Relation::Compare is out of sync with AsRelationCompare");
+static_assert(static_cast<int>(Relation::ControlKindTablet) + 1 == AS_CONTROL_KIND_LAST,
+              "Relation::ControlKind is out of sync with AsControlKind");
+static_assert(static_cast<int>(Relation::DisplaySideKindLongest) + 1 == AS_DISPLAY_SIDE_KIND_LAST,
+              "Relation::DisplaySideKind is out of sync with AsDisplaySideKind");
+static_assert(static_cast<int>(Relation::InternetKindFirstRun) + 1 == AS_INTERNET_KIND_LAST,
+              "Relation::InternetKind is out of sync with AsInternetKind");
+
 class AppStream::RelationData : public QSharedData
 {
 public:
@@ -115,6 +128,16 @@ QString Relation::displaySideKindToString(Relation::DisplaySideKind kind)
 Relation::DisplaySideKind Relation::stringToDisplaySideKind(const QString &string)
 {
     return static_cast<DisplaySideKind>(as_display_side_kind_from_string(qPrintable(string)));
+}
+
+QString Relation::internetKindToString(Relation::InternetKind ikind)
+{
+    return valueWrap(as_internet_kind_to_string(static_cast<AsInternetKind>(ikind)));
+}
+
+Relation::InternetKind Relation::stringToInternetKind(const QString &string)
+{
+    return static_cast<InternetKind>(as_internet_kind_from_string(qPrintable(string)));
 }
 
 Relation::Relation()

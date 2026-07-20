@@ -22,8 +22,12 @@
 
 #include <QSharedData>
 #include <QDebug>
+#include "chelpers.h"
 
 using namespace AppStream;
+
+static_assert(static_cast<int>(ReleaseList::KindExternal) + 1 == AS_RELEASE_LIST_KIND_LAST,
+              "ReleaseList::Kind is out of sync with AsReleaseListKind");
 
 class AppStream::ReleaseListData : public QSharedData
 {

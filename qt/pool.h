@@ -76,6 +76,7 @@ public:
         FlagPreferOsMetainfo = 1 << 6,
         FlagMonitor = 1 << 7,
     };
+    Q_FLAG(Flag)
     Q_DECLARE_FLAGS(Flags, Flag)
 
     /**

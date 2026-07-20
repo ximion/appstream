@@ -36,6 +36,15 @@ enum class CheckResult {
     True
 };
 
+enum class ChassisKind {
+    Unknown,
+    Desktop,
+    Laptop,
+    Server,
+    Tablet,
+    Handset
+};
+
 class SystemInfoData;
 class APPSTREAMQT_EXPORT SystemInfo : public QObject
 {
@@ -75,6 +84,15 @@ public:
     void setDisplayLength(Relation::DisplaySideKind kind, ulong valueDip);
 
     static QString currentDistroComponentId();
+
+    static QString chassisKindToString(ChassisKind kind);
+    static ChassisKind stringToChassisKind(const QString &kindString);
+
+    /**
+     * \return a new SystemInfo preset with typical values for the given chassis kind,
+     * or nullptr on error. The caller takes ownership of the returned object.
+     */
+    static SystemInfo *newTemplateForChassis(ChassisKind kind, QString *errorMessage = nullptr);
 
     /**
      * \return The last error message received.

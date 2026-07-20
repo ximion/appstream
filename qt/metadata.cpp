@@ -59,24 +59,23 @@ public:
     AsMetadata *m_metadata;
 };
 
+static_assert(static_cast<int>(AppStream::Metadata::FormatKindDesktopEntry) + 1
+                  == AS_FORMAT_KIND_LAST,
+              "Metadata::FormatKind is out of sync with AsFormatKind");
+static_assert(static_cast<int>(AppStream::Metadata::FormatVersionV10) + 1 == AS_FORMAT_VERSION_LAST,
+              "Metadata::FormatVersion is out of sync with AsFormatVersion");
+static_assert(static_cast<int>(AppStream::Metadata::FormatStyleCatalog) + 1 == AS_FORMAT_STYLE_LAST,
+              "Metadata::FormatStyle is out of sync with AsFormatStyle");
+
 AppStream::Metadata::FormatKind AppStream::Metadata::stringToFormatKind(const QString &kindString)
 {
-    if (kindString == QLatin1String("xml")) {
-        return FormatKind::FormatKindXml;
-    } else if (kindString == QLatin1String("yaml")) {
-        return FormatKind::FormatKindYaml;
-    }
-    return FormatKind::FormatKindUnknown;
+    return static_cast<AppStream::Metadata::FormatKind>(
+        as_format_kind_from_string(qPrintable(kindString)));
 }
 
 QString AppStream::Metadata::formatKindToString(AppStream::Metadata::FormatKind kind)
 {
-    if (kind == FormatKind::FormatKindXml) {
-        return QLatin1String("xml");
-    } else if (kind == FormatKind::FormatKindYaml) {
-        return QLatin1String("yaml");
-    }
-    return QLatin1String("unknown");
+    return valueWrap(as_format_kind_to_string(static_cast<AsFormatKind>(kind)));
 }
 
 AppStream::Metadata::FormatVersion

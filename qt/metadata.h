@@ -54,15 +54,8 @@ public:
     Q_ENUM(FormatKind)
 
     enum FormatVersion {
-        FormatVersionV06,
-        FormatVersionV07,
-        FormatVersionV08,
-        FormatVersionV09,
-        FormatVersionV010,
-        FormatVersionV011,
-        FormatVersionV012,
-        FormatVersionV013,
-        FormatVersionV014,
+        FormatVersionUnknown,
+        FormatVersionV10,
     };
     Q_ENUM(FormatVersion)
 

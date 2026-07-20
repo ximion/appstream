@@ -28,6 +28,9 @@
 
 using namespace AppStream;
 
+static_assert(static_cast<int>(Suggested::KindHeuristic) + 1 == AS_SUGGESTED_KIND_LAST,
+              "Suggested::Kind is out of sync with AsSuggestedKind");
+
 class AppStream::SuggestedData : public QSharedData
 {
 public:

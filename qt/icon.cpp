@@ -28,6 +28,9 @@
 
 using namespace AppStream;
 
+static_assert(static_cast<int>(Icon::KindRemote) + 1 == AS_ICON_KIND_LAST,
+              "Icon::Kind is out of sync with AsIconKind");
+
 class AppStream::IconData : public QSharedData
 {
 public:

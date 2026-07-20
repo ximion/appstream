@@ -100,6 +100,7 @@ public:
         FlagNone = 0,
         FlagNoChecks = 1 << 0,
     };
+    Q_FLAG(Flag)
     Q_DECLARE_FLAGS(Flags, Flag)
 
     ComponentBox(ComponentBox::Flags flags);

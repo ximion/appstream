@@ -42,6 +42,15 @@
 
 using namespace AppStream;
 
+static_assert(static_cast<int>(Component::KindIconTheme) + 1 == AS_COMPONENT_KIND_LAST,
+              "Component::Kind is out of sync with AsComponentKind");
+static_assert(static_cast<int>(Component::MergeKindRemoveComponent) + 1 == AS_MERGE_KIND_LAST,
+              "Component::MergeKind is out of sync with AsMergeKind");
+static_assert(static_cast<int>(Component::ScopeUser) + 1 == AS_COMPONENT_SCOPE_LAST,
+              "Component::Scope is out of sync with AsComponentScope");
+static_assert(static_cast<int>(Component::UrlKindContribute) + 1 == AS_URL_KIND_LAST,
+              "Component::UrlKind is out of sync with AsUrlKind");
+
 QString Component::kindToString(Component::Kind kind)
 {
     return QString::fromUtf8(as_component_kind_to_string(static_cast<AsComponentKind>(kind)));
@@ -73,6 +82,17 @@ QString Component::scopeToString(Component::Scope scope)
 Component::Scope Component::stringToScope(const QString &scopeString)
 {
     return static_cast<Component::Scope>(as_component_scope_from_string(qPrintable(scopeString)));
+}
+
+QString Component::mergeKindToString(Component::MergeKind kind)
+{
+    return valueWrap(as_merge_kind_to_string(static_cast<AsMergeKind>(kind)));
+}
+
+Component::MergeKind Component::stringToMergeKind(const QString &mergeKindString)
+{
+    return static_cast<Component::MergeKind>(
+        as_merge_kind_from_string(qPrintable(mergeKindString)));
 }
 
 class AppStream::ComponentData : public QSharedData
