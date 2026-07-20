@@ -27,6 +27,7 @@
 #include "as-component-box-private.h"
 #include "as-system-info-private.h"
 #include "as-utils-private.h"
+#include "as-gcve.h"
 
 #include "as-test-utils.h"
 
@@ -614,6 +615,74 @@ test_spdx (void)
 	tmp = as_get_license_name ("CERN-OHL-W-2.0");
 	g_assert_cmpstr (tmp, ==, "CERN Open Hardware Licence Version 2 - Weakly Reciprocal");
 	g_free (tmp);
+}
+
+/**
+ * test_gcve:
+ *
+ * Test GCVE ID validation, CVE translation and URL generation.
+ */
+static void
+test_gcve (void)
+{
+	gchar *tmp;
+
+	/* ID validation */
+	g_assert_true (as_is_gcve_id ("GCVE-0-2023-40224"));
+	g_assert_true (as_is_gcve_id ("GCVE-1-2025-0002"));
+	g_assert_true (as_is_gcve_id ("GCVE-100-2025-42"));
+	g_assert_false (as_is_gcve_id ("CVE-2023-40224"));
+	g_assert_false (as_is_gcve_id ("GCVE-x-2023-40224"));
+	g_assert_false (as_is_gcve_id ("GCVE-0-23-40224"));
+	g_assert_false (as_is_gcve_id (""));
+	g_assert_false (as_is_gcve_id (NULL));
+
+	/* CVE -> GCVE translation */
+	tmp = as_gcve_id_from_cve ("CVE-2023-40224");
+	g_assert_cmpstr (tmp, ==, "GCVE-0-2023-40224");
+	g_free (tmp);
+
+	tmp = as_gcve_id_from_cve ("GCVE-1-2025-0002");
+	g_assert_cmpstr (tmp, ==, NULL);
+
+	tmp = as_gcve_id_from_cve ("no-cve-id");
+	g_assert_cmpstr (tmp, ==, NULL);
+
+	/* GCVE -> CVE translation, only valid for the reserved GNA 0 */
+	tmp = as_gcve_id_to_cve ("GCVE-0-2023-40224");
+	g_assert_cmpstr (tmp, ==, "CVE-2023-40224");
+	g_free (tmp);
+
+	tmp = as_gcve_id_to_cve ("GCVE-1-2025-0002");
+	g_assert_cmpstr (tmp, ==, NULL);
+
+	/* website URL generation */
+	tmp = as_get_gcve_url ("CVE-2023-40224");
+	g_assert_cmpstr (tmp, ==, "https://db.gcve.eu/vuln/GCVE-0-2023-40224");
+	g_free (tmp);
+
+	tmp = as_get_gcve_url ("GCVE-1-2025-0002");
+	g_assert_cmpstr (tmp, ==, "https://db.gcve.eu/vuln/GCVE-1-2025-0002");
+	g_free (tmp);
+
+	tmp = as_get_gcve_url ("not-an-id");
+	g_assert_cmpstr (tmp, ==, NULL);
+
+	/* JSON data URL generation */
+	tmp = as_get_gcve_json_url ("GCVE-0-2023-40224");
+	g_assert_cmpstr (tmp, ==, "https://db.gcve.eu/api/vulnerability/CVE-2023-40224");
+	g_free (tmp);
+
+	tmp = as_get_gcve_json_url ("CVE-2023-40224");
+	g_assert_cmpstr (tmp, ==, "https://db.gcve.eu/api/vulnerability/CVE-2023-40224");
+	g_free (tmp);
+
+	tmp = as_get_gcve_json_url ("GCVE-100-2025-42");
+	g_assert_cmpstr (tmp, ==, "https://db.gcve.eu/api/vulnerability/GCVE-100-2025-42");
+	g_free (tmp);
+
+	tmp = as_get_gcve_json_url ("not-an-id");
+	g_assert_cmpstr (tmp, ==, NULL);
 }
 
 /**
@@ -1301,6 +1370,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Component", test_component);
 	g_test_add_func ("/AppStream/ComponentBox", test_component_box);
 	g_test_add_func ("/AppStream/SPDX", test_spdx);
+	g_test_add_func ("/AppStream/GCVE", test_gcve);
 	g_test_add_func ("/AppStream/DesktopEnv", test_desktop_env);
 	g_test_add_func ("/AppStream/TranslationFallback", test_translation_fallback);
 	g_test_add_func ("/AppStream/LocaleCompat", test_locale_compat);

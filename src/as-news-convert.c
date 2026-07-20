@@ -40,6 +40,7 @@
 #include "as-utils-private.h"
 #include "as-release-private.h"
 #include "as-issue.h"
+#include "as-gcve.h"
 
 /**
  * as_news_format_kind_to_string:
@@ -310,6 +311,10 @@ as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
 							as_issue_set_kind (issue,
 									   AS_ISSUE_KIND_CVE);
 							as_issue_set_id (issue, ival);
+						} else if (g_strcmp0 (ikey, "gcve") == 0) {
+							as_issue_set_kind (issue,
+									   AS_ISSUE_KIND_GCVE);
+							as_issue_set_id (issue, ival);
 						} else if (g_strcmp0 (ikey, "type") == 0) {
 							as_issue_set_kind (
 							    issue,
@@ -538,6 +543,9 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 					as_yaml_mapping_start (emitter);
 					if (as_issue_get_kind (issue) == AS_ISSUE_KIND_CVE) {
 						as_yaml_emit_entry (emitter, "cve", id);
+					} else if (as_issue_get_kind (issue) ==
+						   AS_ISSUE_KIND_GCVE) {
+						as_yaml_emit_entry (emitter, "gcve", id);
 					} else {
 						as_yaml_emit_entry (emitter, "name", id);
 						as_yaml_emit_entry (emitter,
@@ -808,7 +816,7 @@ as_news_text_id_is_cve (const gchar *id)
  * as_news_text_id_is_issue_ref:
  *
  * Check whether an identifier should be treated as an issue reference.
- * Issue identifiers start with `#` or `issue#`, or look like a CVE name.
+ * Issue identifiers start with `#` or `issue#`, or look like a CVE or GCVE name.
  */
 static gboolean
 as_news_text_id_is_issue_ref (const gchar *id)
@@ -816,7 +824,7 @@ as_news_text_id_is_issue_ref (const gchar *id)
 	if (id == NULL)
 		return FALSE;
 	return g_str_has_prefix (id, "#") || g_str_has_prefix (id, "issue#") ||
-	       as_news_text_id_is_cve (id);
+	       as_news_text_id_is_cve (id) || as_is_gcve_id (id);
 }
 
 static void
@@ -855,6 +863,7 @@ as_news_text_extract_issues (const gchar *text, AsRelease *rel)
 {
 	g_autoptr(GMatchInfo) link_mi = NULL;
 	g_autoptr(GMatchInfo) cve_mi = NULL;
+	g_autoptr(GMatchInfo) gcve_mi = NULL;
 	g_autoptr(GString) out = NULL;
 	gint pos = 0;
 
@@ -877,10 +886,12 @@ as_news_text_extract_issues (const gchar *text, AsRelease *rel)
 		if (as_news_text_id_is_issue_ref (id)) {
 			g_autoptr(AsIssue) issue = as_issue_new ();
 			as_issue_set_id (issue, id);
-			/* CVE issues carry a canonical, derivable URL; for other issue
-			 * references keep the linked URL */
+			/* CVE/GCVE issues carry a canonical, derivable URL; for other
+			 * issue references keep the linked URL */
 			if (as_news_text_id_is_cve (id))
 				as_issue_set_kind (issue, AS_ISSUE_KIND_CVE);
+			else if (as_is_gcve_id (id))
+				as_issue_set_kind (issue, AS_ISSUE_KIND_GCVE);
 			else
 				as_issue_set_url (issue, url);
 			as_news_release_add_issue_dedup (rel, issue);
@@ -905,6 +916,19 @@ as_news_text_extract_issues (const gchar *text, AsRelease *rel)
 		as_news_release_add_issue_dedup (rel, issue);
 
 		g_match_info_next (cve_mi, NULL);
+	}
+
+	/* detect bare GCVE references, but keep them in the prose */
+	g_regex_match (as_gcve_id_word_regex (), out->str, 0, &gcve_mi);
+	while (g_match_info_matches (gcve_mi)) {
+		g_autofree gchar *gcve = g_match_info_fetch (gcve_mi, 0);
+		g_autoptr(AsIssue) issue = as_issue_new ();
+
+		as_issue_set_kind (issue, AS_ISSUE_KIND_GCVE);
+		as_issue_set_id (issue, gcve);
+		as_news_release_add_issue_dedup (rel, issue);
+
+		g_match_info_next (gcve_mi, NULL);
 	}
 
 	return g_string_free (g_steal_pointer (&out), FALSE);

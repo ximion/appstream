@@ -31,6 +31,8 @@
 #include "config.h"
 #include "as-issue-private.h"
 
+#include "as-gcve.h"
+
 typedef struct {
 	AsIssueKind kind;
 	gchar *id;
@@ -56,6 +58,8 @@ as_issue_kind_to_string (AsIssueKind kind)
 		return "generic";
 	if (kind == AS_ISSUE_KIND_CVE)
 		return "cve";
+	if (kind == AS_ISSUE_KIND_GCVE)
+		return "gcve";
 	return "unknown";
 }
 
@@ -76,6 +80,8 @@ as_issue_kind_from_string (const gchar *kind_str)
 		return AS_ISSUE_KIND_GENERIC;
 	if (g_strcmp0 (kind_str, "cve") == 0)
 		return AS_ISSUE_KIND_CVE;
+	if (g_strcmp0 (kind_str, "gcve") == 0)
+		return AS_ISSUE_KIND_GCVE;
 	return AS_ISSUE_KIND_UNKNOWN;
 }
 
@@ -171,6 +177,11 @@ as_issue_set_id (AsIssue *issue, const gchar *id)
  * Gets the URL associacted with this issue, usually
  * referencing a bug report or issue description.
  *
+ * If no explicit URL was set for a CVE or GCVE issue, a link to the
+ * respective entry in the Global CVE Allocation System (GCVE) database
+ * is synthesized (since 1.1.4, previously cve.mitre.org was used
+ * for CVE entries).
+ *
  * Returns: the URL.
  **/
 const gchar *
@@ -178,12 +189,34 @@ as_issue_get_url (AsIssue *issue)
 {
 	AsIssuePrivate *priv = GET_PRIVATE (issue);
 
-	/* we can synthesize an URL if the issue type is a CVE entry */
-	if ((priv->url == NULL) && (priv->kind == AS_ISSUE_KIND_CVE) && (priv->id != NULL))
-		priv->url = g_strdup_printf ("https://cve.mitre.org/cgi-bin/cvename.cgi?name=%s",
-					     priv->id);
+	/* we can synthesize a URL if the issue references a CVE or GCVE entry */
+	if ((priv->url == NULL) && (priv->id != NULL) &&
+	    (priv->kind == AS_ISSUE_KIND_CVE || priv->kind == AS_ISSUE_KIND_GCVE))
+		priv->url = as_get_gcve_url (priv->id);
 
 	return priv->url;
+}
+
+/**
+ * as_issue_get_json_url:
+ * @issue: a #AsIssue instance.
+ *
+ * Gets a URL to fetch machine-readable JSON data about this issue
+ * from the Global CVE Allocation System (GCVE) database, if this
+ * issue references a CVE or GCVE entry.
+ *
+ * Returns: (transfer full) (nullable): the JSON data URL, or %NULL if none exists.
+ *
+ * Since: 1.1.4
+ **/
+gchar *
+as_issue_get_json_url (AsIssue *issue)
+{
+	AsIssuePrivate *priv = GET_PRIVATE (issue);
+
+	if (priv->kind != AS_ISSUE_KIND_CVE && priv->kind != AS_ISSUE_KIND_GCVE)
+		return NULL;
+	return as_get_gcve_json_url (priv->id);
 }
 
 /**

@@ -286,6 +286,8 @@ test_yaml_write_misc (void)
 	    "    url: https://example.com/bugzilla/12345\n"
 	    "  - type: cve\n"
 	    "    id: CVE-2019-123456\n"
+	    "  - type: gcve\n"
+	    "    id: GCVE-1-2025-0001\n"
 	    "- version: \"1.0\"\n"
 	    "  type: development\n"
 	    "  unix-timestamp: 1460463132\n"
@@ -391,6 +393,12 @@ test_yaml_write_misc (void)
 	issue = as_issue_new ();
 	as_issue_set_kind (issue, AS_ISSUE_KIND_CVE);
 	as_issue_set_id (issue, "CVE-2019-123456");
+	as_release_add_issue (rel2, issue);
+	g_object_unref (issue);
+
+	issue = as_issue_new ();
+	as_issue_set_kind (issue, AS_ISSUE_KIND_GCVE);
+	as_issue_set_id (issue, "GCVE-1-2025-0001");
 	as_release_add_issue (rel2, issue);
 	g_object_unref (issue);
 
@@ -1656,6 +1664,8 @@ static const gchar *yamldata_releases_field =
     "    url: https://example.com/bugzilla/12345\n"
     "  - type: cve\n"
     "    id: CVE-2019-123456\n"
+    "  - type: gcve\n"
+    "    id: GCVE-1-2025-0001\n"
     "  artifacts:\n"
     "  - type: source\n"
     "    bundle: tarball\n"
@@ -1752,6 +1762,12 @@ test_yaml_write_releases (void)
 	as_release_add_issue (rel2, issue);
 	g_object_unref (issue);
 
+	issue = as_issue_new ();
+	as_issue_set_kind (issue, AS_ISSUE_KIND_GCVE);
+	as_issue_set_id (issue, "GCVE-1-2025-0001");
+	as_release_add_issue (rel2, issue);
+	g_object_unref (issue);
+
 	/* artifacts */
 	af1 = as_artifact_new ();
 	as_artifact_set_kind (af1, AS_ARTIFACT_KIND_SOURCE);
@@ -1808,7 +1824,7 @@ test_yaml_read_releases (void)
 	g_assert_cmpstr (as_release_get_version (rel), ==, "1.2");
 
 	issues = as_release_get_issues (rel);
-	g_assert_cmpint (issues->len, ==, 2);
+	g_assert_cmpint (issues->len, ==, 3);
 	for (guint i = 0; i < issues->len; i++) {
 		AsIssue *issue = AS_ISSUE (g_ptr_array_index (issues, i));
 
@@ -1820,10 +1836,15 @@ test_yaml_read_releases (void)
 
 		} else if (as_issue_get_kind (issue) == AS_ISSUE_KIND_CVE) {
 			g_assert_cmpstr (as_issue_get_id (issue), ==, "CVE-2019-123456");
-			g_assert_cmpstr (
-			    as_issue_get_url (issue),
-			    ==,
-			    "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-123456");
+			g_assert_cmpstr (as_issue_get_url (issue),
+					 ==,
+					 "https://db.gcve.eu/vuln/GCVE-0-2019-123456");
+
+		} else if (as_issue_get_kind (issue) == AS_ISSUE_KIND_GCVE) {
+			g_assert_cmpstr (as_issue_get_id (issue), ==, "GCVE-1-2025-0001");
+			g_assert_cmpstr (as_issue_get_url (issue),
+					 ==,
+					 "https://db.gcve.eu/vuln/GCVE-1-2025-0001");
 
 		} else {
 			g_assert_not_reached ();

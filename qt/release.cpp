@@ -210,6 +210,19 @@ QList<Artifact> Release::artifacts() const
     return res;
 }
 
+QList<Issue> Release::issues() const
+{
+    GPtrArray *issues = as_release_get_issues(d->m_release);
+    QList<Issue> res;
+
+    res.reserve(issues->len);
+    for (uint i = 0; i < issues->len; i++) {
+        auto issue = AS_ISSUE(g_ptr_array_index(issues, i));
+        res.append(Issue(issue));
+    }
+    return res;
+}
+
 void Release::addArtifact(const AppStream::Artifact &artifact)
 {
     as_release_add_artifact(d->m_release, artifact.cPtr());
