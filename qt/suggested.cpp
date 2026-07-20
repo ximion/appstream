@@ -116,3 +116,18 @@ QDebug operator<<(QDebug s, const AppStream::Suggested &suggested)
     s.nospace() << "AppStream::Suggested(" << suggested.ids() << ")";
     return s.space();
 }
+
+bool Suggested::isValid() const
+{
+    return as_suggested_is_valid(d->m_suggested);
+}
+
+Suggested::Kind Suggested::stringToKind(const QString &kindString)
+{
+    return static_cast<Suggested::Kind>(as_suggested_kind_from_string(qPrintable(kindString)));
+}
+
+QString Suggested::kindToString(Suggested::Kind kind)
+{
+    return valueWrap(as_suggested_kind_to_string(static_cast<AsSuggestedKind>(kind)));
+}

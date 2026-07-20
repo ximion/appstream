@@ -31,12 +31,14 @@ namespace AppStream
 {
 
 class CategoryData;
+class Component;
 
 class APPSTREAMQT_EXPORT Category
 {
     Q_GADGET
 
 public:
+    Category();
     Category(_AsCategory *category);
     Category(const Category &category);
     ~Category();
@@ -50,12 +52,28 @@ public:
     _AsCategory *cPtr() const;
 
     QString id() const;
+    void setId(const QString &id);
+
     QString name() const;
+    void setName(const QString &name);
+
     QString summary() const;
+    void setSummary(const QString &summary);
+
     QString icon() const;
+    void setIcon(const QString &icon);
 
     QList<Category> children() const;
+    bool hasChildren() const;
+    void addChild(const Category &subcat);
+    void removeChild(const Category &subcat);
+
     QStringList desktopGroups() const;
+    void addDesktopGroup(const QString &groupName);
+
+    QList<AppStream::Component> components() const;
+    void addComponent(const AppStream::Component &cpt);
+    bool hasComponent(const AppStream::Component &cpt) const;
 
 private:
     QSharedDataPointer<CategoryData> d;

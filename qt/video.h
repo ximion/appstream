@@ -104,6 +104,15 @@ public:
      */
     QSize size() const;
 
+    QString locale() const;
+    void setLocale(const QString &locale);
+
+    static CodecKind stringToCodecKind(const QString &kindString);
+    static QString codecKindToString(CodecKind kind);
+
+    static ContainerKind stringToContainerKind(const QString &kindString);
+    static QString containerKindToString(ContainerKind kind);
+
 private:
     QSharedDataPointer<VideoData> d;
 };

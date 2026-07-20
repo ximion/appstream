@@ -140,6 +140,10 @@ public:
     void sort();
     void sortByScore();
 
+    void add(const Component &cpt);
+    void clear();
+    Flags flags() const;
+
 private:
     QSharedDataPointer<ComponentBoxData> d;
 };

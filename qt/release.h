@@ -23,9 +23,11 @@
 
 #include <QSharedDataPointer>
 #include <QString>
+#include <QDateTime>
+#include <QList>
 #include <QObject>
-#include <QCryptographicHash>
 #include "appstreamqt_export.h"
+#include "artifact.h"
 
 struct _AsRelease;
 
@@ -68,16 +70,54 @@ public:
     };
     Q_ENUM(UrgencyKind)
 
+    enum UrlKind {
+        UrlKindUnknown,
+        UrlKindDetails
+    };
+    Q_ENUM(UrlKind)
+
+    static Kind stringToKind(const QString &kindString);
+    static QString kindToString(Kind kind);
+
+    static UrgencyKind stringToUrgencyKind(const QString &urgencyString);
+    static QString urgencyKindToString(UrgencyKind urgency);
+
+    static UrlKind stringToUrlKind(const QString &kindString);
+    static QString urlKindToString(UrlKind kind);
+
     Kind kind() const;
+    void setKind(Kind kind);
 
     QString version() const;
+    void setVersion(const QString &version);
 
     QDateTime timestamp() const;
+    void setTimestamp(const QDateTime &timestamp);
+
     QDateTime timestampEol() const;
+    void setTimestampEol(const QDateTime &timestamp);
 
     QString description() const;
+    void setDescription(const QString &description, const QString &lang = {});
 
     UrgencyKind urgency() const;
+    void setUrgency(UrgencyKind urgency);
+
+    QList<AppStream::Artifact> artifacts() const;
+    void addArtifact(const AppStream::Artifact &artifact);
+
+    QString url(UrlKind kind) const;
+    void setUrl(UrlKind kind, const QString &url);
+
+    /**
+     * \return -1, 0 or 1 if this release is older, equal to, or newer than \a other
+     */
+    int vercmp(const Release &other) const;
+
+    bool hasTag(const QString &ns, const QString &tag) const;
+    bool addTag(const QString &ns, const QString &tag);
+    bool removeTag(const QString &ns, const QString &tag);
+    void clearTags();
 
 private:
     QSharedDataPointer<ReleaseData> d;

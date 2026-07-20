@@ -138,3 +138,13 @@ QDebug operator<<(QDebug s, const AppStream::Translation &translation)
     s.nospace() << "AppStream::Translation(" << translation.id() << ")";
     return s.space();
 }
+
+QString Translation::sourceLocale() const
+{
+    return valueWrap(as_translation_get_source_locale(d->m_translation));
+}
+
+void Translation::setSourceLocale(const QString &locale)
+{
+    as_translation_set_source_locale(d->m_translation, qPrintable(locale));
+}

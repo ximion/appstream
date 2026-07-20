@@ -112,6 +112,9 @@ public:
      */
     std::optional<AppStream::Image> image(uint width, uint height, uint scale) const;
 
+    void addImage(const AppStream::Image &image);
+    void clearImages();
+
     /**
      * \return the language-specific videos for this screenshot
      */
@@ -121,6 +124,8 @@ public:
      * \return all videos for this screenshot
      */
     QList<AppStream::Video> videosAll() const;
+
+    void addVideo(const AppStream::Video &video);
 
     /**
      * \return caption for this image or a null QString if no caption

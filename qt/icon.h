@@ -92,6 +92,15 @@ public:
     uint height() const;
     void setHeight(uint height);
 
+    uint scale() const;
+    void setScale(uint scale);
+
+    QString filename() const;
+    void setFilename(const QString &filename);
+
+    static Kind stringToKind(const QString &kindString);
+    static QString kindToString(Kind kind);
+
     /**
      * \returns the expected size of the image
      */

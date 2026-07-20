@@ -143,3 +143,33 @@ QDebug operator<<(QDebug s, const AppStream::Image &image)
                 << "x" << image.height() << "])";
     return s.space();
 }
+
+uint Image::scale() const
+{
+    return as_image_get_scale(d->m_img);
+}
+
+void Image::setScale(uint scale)
+{
+    as_image_set_scale(d->m_img, scale);
+}
+
+QString Image::locale() const
+{
+    return valueWrap(as_image_get_locale(d->m_img));
+}
+
+void Image::setLocale(const QString &locale)
+{
+    as_image_set_locale(d->m_img, qPrintable(locale));
+}
+
+Image::Kind Image::stringToKind(const QString &kindString)
+{
+    return static_cast<Image::Kind>(as_image_kind_from_string(qPrintable(kindString)));
+}
+
+QString Image::kindToString(Image::Kind kind)
+{
+    return valueWrap(as_image_kind_to_string(static_cast<AsImageKind>(kind)));
+}

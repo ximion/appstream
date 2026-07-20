@@ -26,12 +26,25 @@
 #include <QDebug>
 #include <QTimeZone>
 #include <QUrl>
+#include "chelpers.h"
 
 using namespace AppStream;
+
+static_assert(static_cast<int>(Release::KindSnapshot) + 1 == AS_RELEASE_KIND_LAST,
+              "Release::Kind is out of sync with AsReleaseKind");
+static_assert(static_cast<int>(Release::UrgencyCritical) + 1 == AS_URGENCY_KIND_LAST,
+              "Release::UrgencyKind is out of sync with AsUrgencyKind");
+static_assert(static_cast<int>(Release::UrlKindDetails) + 1 == AS_RELEASE_URL_KIND_LAST,
+              "Release::UrlKind is out of sync with AsReleaseUrlKind");
 
 class AppStream::ReleaseData : public QSharedData
 {
 public:
+    ReleaseData()
+    {
+        m_release = as_release_new();
+    }
+
     ReleaseData(AsRelease *rel)
         : m_release(rel)
     {
@@ -55,6 +68,42 @@ public:
 
     AsRelease *m_release;
 };
+
+Release::Kind Release::stringToKind(const QString &kindString)
+{
+    return static_cast<Release::Kind>(as_release_kind_from_string(qPrintable(kindString)));
+}
+
+QString Release::kindToString(Release::Kind kind)
+{
+    return valueWrap(as_release_kind_to_string(static_cast<AsReleaseKind>(kind)));
+}
+
+Release::UrgencyKind Release::stringToUrgencyKind(const QString &urgencyString)
+{
+    return static_cast<Release::UrgencyKind>(
+        as_urgency_kind_from_string(qPrintable(urgencyString)));
+}
+
+QString Release::urgencyKindToString(Release::UrgencyKind urgency)
+{
+    return valueWrap(as_urgency_kind_to_string(static_cast<AsUrgencyKind>(urgency)));
+}
+
+Release::UrlKind Release::stringToUrlKind(const QString &kindString)
+{
+    return static_cast<Release::UrlKind>(as_release_url_kind_from_string(qPrintable(kindString)));
+}
+
+QString Release::urlKindToString(Release::UrlKind kind)
+{
+    return valueWrap(as_release_url_kind_to_string(static_cast<AsReleaseUrlKind>(kind)));
+}
+
+Release::Release()
+    : d(new ReleaseData)
+{
+}
 
 Release::Release(_AsRelease *release)
     : d(new ReleaseData(release))
@@ -88,9 +137,19 @@ Release::Kind Release::kind() const
     return Release::Kind(as_release_get_kind(d->m_release));
 }
 
+void Release::setKind(Release::Kind kind)
+{
+    as_release_set_kind(d->m_release, static_cast<AsReleaseKind>(kind));
+}
+
 QString Release::version() const
 {
     return QString::fromUtf8(as_release_get_version(d->m_release));
+}
+
+void Release::setVersion(const QString &version)
+{
+    as_release_set_version(d->m_release, qPrintable(version));
 }
 
 QDateTime Release::timestamp() const
@@ -99,10 +158,21 @@ QDateTime Release::timestamp() const
     return timestamp > 0 ? QDateTime::fromSecsSinceEpoch(timestamp, QTimeZone::utc()) : QDateTime();
 }
 
+void Release::setTimestamp(const QDateTime &timestamp)
+{
+    as_release_set_timestamp(d->m_release, timestamp.isValid() ? timestamp.toSecsSinceEpoch() : 0);
+}
+
 QDateTime Release::timestampEol() const
 {
     const guint64 timestamp = as_release_get_timestamp_eol(d->m_release);
     return timestamp > 0 ? QDateTime::fromSecsSinceEpoch(timestamp, QTimeZone::utc()) : QDateTime();
+}
+
+void Release::setTimestampEol(const QDateTime &timestamp)
+{
+    as_release_set_timestamp_eol(d->m_release,
+                                 timestamp.isValid() ? timestamp.toSecsSinceEpoch() : 0);
 }
 
 QString Release::description() const
@@ -110,9 +180,74 @@ QString Release::description() const
     return QString::fromUtf8(as_release_get_description(d->m_release));
 }
 
+void Release::setDescription(const QString &description, const QString &lang)
+{
+    as_release_set_description(d->m_release,
+                               qPrintable(description),
+                               lang.isEmpty() ? NULL : qPrintable(lang));
+}
+
 Release::UrgencyKind Release::urgency() const
 {
     return Release::UrgencyKind(as_release_get_urgency(d->m_release));
+}
+
+void Release::setUrgency(Release::UrgencyKind urgency)
+{
+    as_release_set_urgency(d->m_release, static_cast<AsUrgencyKind>(urgency));
+}
+
+QList<Artifact> Release::artifacts() const
+{
+    QList<Artifact> res;
+
+    auto artifacts = as_release_get_artifacts(d->m_release);
+    res.reserve(artifacts->len);
+    for (uint i = 0; i < artifacts->len; i++) {
+        auto artifact = AS_ARTIFACT(g_ptr_array_index(artifacts, i));
+        res.append(Artifact(artifact));
+    }
+    return res;
+}
+
+void Release::addArtifact(const AppStream::Artifact &artifact)
+{
+    as_release_add_artifact(d->m_release, artifact.cPtr());
+}
+
+QString Release::url(Release::UrlKind kind) const
+{
+    return valueWrap(as_release_get_url(d->m_release, static_cast<AsReleaseUrlKind>(kind)));
+}
+
+void Release::setUrl(Release::UrlKind kind, const QString &url)
+{
+    as_release_set_url(d->m_release, static_cast<AsReleaseUrlKind>(kind), qPrintable(url));
+}
+
+int Release::vercmp(const Release &other) const
+{
+    return as_release_vercmp(d->m_release, other.cPtr());
+}
+
+bool Release::hasTag(const QString &ns, const QString &tag) const
+{
+    return as_release_has_tag(d->m_release, qPrintable(ns), qPrintable(tag));
+}
+
+bool Release::addTag(const QString &ns, const QString &tag)
+{
+    return as_release_add_tag(d->m_release, qPrintable(ns), qPrintable(tag));
+}
+
+bool Release::removeTag(const QString &ns, const QString &tag)
+{
+    return as_release_remove_tag(d->m_release, qPrintable(ns), qPrintable(tag));
+}
+
+void Release::clearTags()
+{
+    as_release_clear_tags(d->m_release);
 }
 
 QDebug operator<<(QDebug s, const AppStream::Release &release)

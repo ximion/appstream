@@ -73,6 +73,11 @@ public:
     const QStringList ids() const;
     void addSuggested(const QString &id);
 
+    bool isValid() const;
+
+    static Kind stringToKind(const QString &kindString);
+    static QString kindToString(Kind kind);
+
 private:
     QSharedDataPointer<SuggestedData> d;
 };

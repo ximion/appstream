@@ -200,6 +200,11 @@ ComponentBox Pool::search(const QString &term) const
     return absorbResultToCBox(as_pool_search(d->pool, qPrintable(term)));
 }
 
+QString Pool::locale() const
+{
+    return valueWrap(as_pool_get_locale(d->pool));
+}
+
 void Pool::setLocale(const QString &locale)
 {
     as_pool_set_locale(d->pool, qPrintable(locale));

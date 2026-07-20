@@ -154,3 +154,34 @@ QDebug operator<<(QDebug s, const AppStream::Video &video)
                 << video.codec() << "[" << video.width() << "x" << video.height() << "])";
     return s.space();
 }
+
+QString Video::locale() const
+{
+    return valueWrap(as_video_get_locale(d->m_vid));
+}
+
+void Video::setLocale(const QString &locale)
+{
+    as_video_set_locale(d->m_vid, qPrintable(locale));
+}
+
+Video::CodecKind Video::stringToCodecKind(const QString &kindString)
+{
+    return static_cast<Video::CodecKind>(as_video_codec_kind_from_string(qPrintable(kindString)));
+}
+
+QString Video::codecKindToString(Video::CodecKind kind)
+{
+    return valueWrap(as_video_codec_kind_to_string(static_cast<AsVideoCodecKind>(kind)));
+}
+
+Video::ContainerKind Video::stringToContainerKind(const QString &kindString)
+{
+    return static_cast<Video::ContainerKind>(
+        as_video_container_kind_from_string(qPrintable(kindString)));
+}
+
+QString Video::containerKindToString(Video::ContainerKind kind)
+{
+    return valueWrap(as_video_container_kind_to_string(static_cast<AsVideoContainerKind>(kind)));
+}

@@ -25,6 +25,7 @@
 #include <QUrl>
 #include <QMap>
 #include <QMultiHash>
+#include <QTimeZone>
 #include "branding.h"
 #include "chelpers.h"
 #include "icon.h"
@@ -262,6 +263,43 @@ void Component::setDescription(const QString &description, const QString &lang)
                                  lang.isEmpty() ? NULL : qPrintable(lang));
 }
 
+QStringList AppStream::Component::keywords() const
+{
+    return valueWrap(as_component_get_keywords(d->cpt));
+}
+
+void AppStream::Component::setKeywords(const QStringList &keywords, const QString &lang)
+{
+    g_autoptr(GPtrArray) array = g_ptr_array_new_with_free_func(g_free);
+    for (const QString &keyword : keywords)
+        g_ptr_array_add(array, g_strdup(qPrintable(keyword)));
+
+    as_component_set_keywords(d->cpt, array, lang.isEmpty() ? NULL : qPrintable(lang), TRUE);
+}
+
+void AppStream::Component::addKeyword(const QString &keyword, const QString &lang)
+{
+    as_component_add_keyword(d->cpt, qPrintable(keyword), lang.isEmpty() ? NULL : qPrintable(lang));
+}
+
+void AppStream::Component::clearKeywords(const QString &lang)
+{
+    as_component_clear_keywords(d->cpt, lang.isEmpty() ? NULL : qPrintable(lang));
+}
+
+QList<AppStream::Launchable> AppStream::Component::launchables() const
+{
+    QList<AppStream::Launchable> res;
+
+    auto launchables = as_component_get_launchables(d->cpt);
+    res.reserve(launchables->len);
+    for (uint i = 0; i < launchables->len; i++) {
+        auto launch = AS_LAUNCHABLE(g_ptr_array_index(launchables, i));
+        res.append(Launchable(launch));
+    }
+    return res;
+}
+
 AppStream::Launchable AppStream::Component::launchable(AppStream::Launchable::Kind kind) const
 {
     auto launch = as_component_get_launchable(d->cpt, (AsLaunchableKind) kind);
@@ -488,6 +526,11 @@ void AppStream::Component::addLanguage(const QString &locale, int percentage)
     as_component_add_language(d->cpt, qPrintable(locale), percentage);
 }
 
+void AppStream::Component::clearLanguages()
+{
+    as_component_clear_languages(d->cpt);
+}
+
 QList<AppStream::Translation> AppStream::Component::translations() const
 {
     QList<Translation> res;
@@ -540,6 +583,14 @@ Icon Component::icon(const QSize &size) const
     return Icon(res);
 }
 
+Icon Component::iconStock() const
+{
+    auto res = as_component_get_icon_stock(d->cpt);
+    if (res == NULL)
+        return Icon();
+    return Icon(res);
+}
+
 void AppStream::Component::addIcon(const AppStream::Icon &icon)
 {
     as_component_add_icon(d->cpt, icon.cPtr());
@@ -564,6 +615,11 @@ AppStream::Provided Component::provided(Provided::Kind kind) const
     if (prov == NULL)
         return Provided();
     return Provided(prov);
+}
+
+void AppStream::Component::addProvidedItem(Provided::Kind kind, const QString &item)
+{
+    as_component_add_provided_item(d->cpt, static_cast<AsProvidedKind>(kind), qPrintable(item));
 }
 
 void AppStream::Component::addProvided(const AppStream::Provided &provided)
@@ -654,7 +710,7 @@ Bundle Component::bundle(Bundle::Kind kind) const
     return Bundle(bundle);
 }
 
-void AppStream::Component::addBundle(const AppStream::Bundle &bundle) const
+void AppStream::Component::addBundle(const AppStream::Bundle &bundle)
 {
     as_component_add_bundle(d->cpt, bundle.cPtr());
 }
@@ -795,6 +851,105 @@ void Component::setBranding(const Branding &branding)
     as_component_set_branding(d->cpt, branding.cPtr());
 }
 
+QList<AppStream::Review> AppStream::Component::reviews() const
+{
+    QList<AppStream::Review> res;
+
+    auto reviews = as_component_get_reviews(d->cpt);
+    res.reserve(reviews->len);
+    for (uint i = 0; i < reviews->len; i++) {
+        auto review = AS_REVIEW(g_ptr_array_index(reviews, i));
+        res.append(Review(review));
+    }
+    return res;
+}
+
+void AppStream::Component::addReview(const AppStream::Review &review)
+{
+    as_component_add_review(d->cpt, review.cPtr());
+}
+
+QList<AppStream::Reference> AppStream::Component::references() const
+{
+    QList<AppStream::Reference> res;
+
+    auto references = as_component_get_references(d->cpt);
+    res.reserve(references->len);
+    for (uint i = 0; i < references->len; i++) {
+        auto reference = AS_REFERENCE(g_ptr_array_index(references, i));
+        res.append(Reference(reference));
+    }
+    return res;
+}
+
+void AppStream::Component::addReference(const AppStream::Reference &reference)
+{
+    as_component_add_reference(d->cpt, reference.cPtr());
+}
+
+QList<AppStream::Agreement> AppStream::Component::agreements() const
+{
+    QList<AppStream::Agreement> res;
+
+    auto agreements = as_component_get_agreements(d->cpt);
+    res.reserve(agreements->len);
+    for (uint i = 0; i < agreements->len; i++) {
+        auto agreement = AS_AGREEMENT(g_ptr_array_index(agreements, i));
+        res.append(Agreement(agreement));
+    }
+    return res;
+}
+
+void AppStream::Component::addAgreement(const AppStream::Agreement &agreement)
+{
+    as_component_add_agreement(d->cpt, agreement.cPtr());
+}
+
+std::optional<AppStream::Agreement>
+AppStream::Component::agreementByKind(AppStream::Agreement::Kind kind) const
+{
+    auto agreement = as_component_get_agreement_by_kind(d->cpt, static_cast<AsAgreementKind>(kind));
+    if (agreement == nullptr)
+        return std::nullopt;
+    return Agreement(agreement);
+}
+
+QString AppStream::Component::dateEol() const
+{
+    return valueWrap(as_component_get_date_eol(d->cpt));
+}
+
+void AppStream::Component::setDateEol(const QString &date)
+{
+    as_component_set_date_eol(d->cpt, qPrintable(date));
+}
+
+QDateTime AppStream::Component::timestampEol() const
+{
+    const guint64 timestamp = as_component_get_timestamp_eol(d->cpt);
+    return timestamp > 0 ? QDateTime::fromSecsSinceEpoch(timestamp, QTimeZone::utc()) : QDateTime();
+}
+
+QString AppStream::Component::branch() const
+{
+    return valueWrap(as_component_get_branch(d->cpt));
+}
+
+void AppStream::Component::setBranch(const QString &branch)
+{
+    as_component_set_branch(d->cpt, qPrintable(branch));
+}
+
+int AppStream::Component::priority() const
+{
+    return as_component_get_priority(d->cpt);
+}
+
+void AppStream::Component::setPriority(int priority)
+{
+    as_component_set_priority(d->cpt, priority);
+}
+
 bool Component::hasTag(const QString &ns, const QString &tagName)
 {
     return as_component_has_tag(d->cpt, qPrintable(ns), qPrintable(tagName));
@@ -805,9 +960,9 @@ bool Component::addTag(const QString &ns, const QString &tagName)
     return as_component_add_tag(d->cpt, qPrintable(ns), qPrintable(tagName));
 }
 
-void Component::removeTag(const QString &ns, const QString &tagName)
+bool Component::removeTag(const QString &ns, const QString &tagName)
 {
-    as_component_remove_tag(d->cpt, qPrintable(ns), qPrintable(tagName));
+    return as_component_remove_tag(d->cpt, qPrintable(ns), qPrintable(tagName));
 }
 
 void Component::clearTags()

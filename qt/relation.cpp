@@ -270,6 +270,26 @@ void Relation::setValuePx(int logicalPx)
     as_relation_set_value_px(d->relation(), logicalPx);
 }
 
+Relation::InternetKind Relation::valueInternetKind() const
+{
+    return static_cast<InternetKind>(as_relation_get_value_internet_kind(d->relation()));
+}
+
+void Relation::setValueInternetKind(Relation::InternetKind kind)
+{
+    as_relation_set_value_internet_kind(d->relation(), static_cast<AsInternetKind>(kind));
+}
+
+uint Relation::valueInternetBandwidth() const
+{
+    return as_relation_get_value_internet_bandwidth(d->relation());
+}
+
+void Relation::setValueInternetBandwidth(uint bandwidthMbitps)
+{
+    as_relation_set_value_internet_bandwidth(d->relation(), bandwidthMbitps);
+}
+
 bool Relation::versionCompare(const QString &version)
 {
     g_autoptr(GError) error = NULL;

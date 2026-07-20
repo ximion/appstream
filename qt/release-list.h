@@ -80,6 +80,11 @@ public:
     QString url() const;
     void setUrl(const QString &url);
 
+    void setSize(uint size);
+
+    static Kind stringToKind(const QString &kindString);
+    static QString kindToString(Kind kind);
+
 private:
     QSharedDataPointer<ReleaseListData> d;
 };

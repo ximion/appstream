@@ -70,9 +70,11 @@ public:
     static QString kindToString(Kind kind);
 
     Kind kind() const;
+    void setKind(Kind kind);
 
     QStringList items() const;
     bool hasItem(const QString &item) const;
+    void addItem(const QString &item);
 
     bool isEmpty() const;
 

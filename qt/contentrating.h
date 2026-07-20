@@ -104,6 +104,8 @@ public:
     QStringList ratingIds() const;
     QString description(const QString &id) const;
 
+    void addAttribute(const QString &id, RatingValue value);
+
 private:
     QSharedDataPointer<ContentRatingData> d;
 };

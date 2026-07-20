@@ -67,6 +67,9 @@ public:
     QString id() const;
     void setId(const QString &id);
 
+    QString sourceLocale() const;
+    void setSourceLocale(const QString &locale);
+
 private:
     QSharedDataPointer<TranslationData> d;
 };

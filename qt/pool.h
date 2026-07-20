@@ -128,6 +128,7 @@ public:
 
     ComponentBox search(const QString &term) const;
 
+    QString locale() const;
     void setLocale(const QString &locale);
 
     Pool::Flags flags() const;

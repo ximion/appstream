@@ -80,3 +80,8 @@ QString AppStream::SPDX::licenseUrl(const QString &license)
     g_autofree gchar *res = as_get_license_url(qPrintable(license));
     return QString::fromUtf8(res);
 }
+
+bool AppStream::SPDX::isMetadataLicenseId(const QString &licenseId)
+{
+    return as_license_is_metadata_license_id(qPrintable(licenseId));
+}

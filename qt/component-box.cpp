@@ -154,3 +154,23 @@ ComponentBox::iterator ComponentBox::erase(iterator it)
     as_component_box_remove_at(it.data->d->m_cbox, it.index);
     return it;
 }
+
+void ComponentBox::add(const Component &cpt)
+{
+    g_autoptr(GError) error = nullptr;
+    as_component_box_add(d->m_cbox, cpt.cPtr(), &error);
+    if (error) {
+        qWarning() << "error adding component" << error->message;
+    }
+}
+
+void ComponentBox::clear()
+{
+    as_component_box_clear(d->m_cbox);
+}
+
+ComponentBox::Flags ComponentBox::flags() const
+{
+    return static_cast<ComponentBox::Flags>(
+        static_cast<int>(as_component_box_get_flags(d->m_cbox)));
+}

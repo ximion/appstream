@@ -154,3 +154,18 @@ void ReleaseList::setUrl(const QString &url)
 {
     as_release_list_set_url(d->m_rels, qPrintable(url));
 }
+
+void ReleaseList::setSize(uint size)
+{
+    as_release_list_set_size(d->m_rels, size);
+}
+
+ReleaseList::Kind ReleaseList::stringToKind(const QString &kindString)
+{
+    return static_cast<ReleaseList::Kind>(as_release_list_kind_from_string(qPrintable(kindString)));
+}
+
+QString ReleaseList::kindToString(ReleaseList::Kind kind)
+{
+    return valueWrap(as_release_list_kind_to_string(static_cast<AsReleaseListKind>(kind)));
+}

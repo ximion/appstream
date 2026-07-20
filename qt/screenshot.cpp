@@ -184,6 +184,16 @@ std::optional<Image> Screenshot::image(uint width, uint height, uint scale) cons
     return res;
 }
 
+void Screenshot::addImage(const AppStream::Image &image)
+{
+    as_screenshot_add_image(d->m_scr, image.cPtr());
+}
+
+void Screenshot::clearImages()
+{
+    as_screenshot_clear_images(d->m_scr);
+}
+
 static QList<Video> videosPtrArrayToList(GPtrArray *videos)
 {
     QList<Video> res;
@@ -204,6 +214,11 @@ QList<Video> Screenshot::videos() const
 QList<Video> Screenshot::videosAll() const
 {
     return videosPtrArrayToList(as_screenshot_get_videos_all(d->m_scr));
+}
+
+void Screenshot::addVideo(const AppStream::Video &video)
+{
+    as_screenshot_add_video(d->m_scr, video.cPtr());
 }
 
 QDebug operator<<(QDebug s, const AppStream::Screenshot &screenshot)

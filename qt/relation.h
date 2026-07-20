@@ -164,6 +164,12 @@ public:
     int valuePx() const;
     void setValuePx(int logicalPx);
 
+    InternetKind valueInternetKind() const;
+    void setValueInternetKind(InternetKind kind);
+
+    uint valueInternetBandwidth() const;
+    void setValueInternetBandwidth(uint bandwidthMbitps);
+
     bool versionCompare(const QString &version);
 
     std::optional<RelationCheckResult> isSatisfied(SystemInfo *sysInfo, Pool *pool);

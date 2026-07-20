@@ -167,3 +167,33 @@ QDebug operator<<(QDebug s, const AppStream::Icon &image)
     s.nospace() << "[" << image.width() << "x" << image.height() << "])";
     return s;
 }
+
+uint Icon::scale() const
+{
+    return as_icon_get_scale(d->m_icon);
+}
+
+void Icon::setScale(uint scale)
+{
+    as_icon_set_scale(d->m_icon, scale);
+}
+
+QString Icon::filename() const
+{
+    return valueWrap(as_icon_get_filename(d->m_icon));
+}
+
+void Icon::setFilename(const QString &filename)
+{
+    as_icon_set_filename(d->m_icon, qPrintable(filename));
+}
+
+Icon::Kind Icon::stringToKind(const QString &kindString)
+{
+    return static_cast<Icon::Kind>(as_icon_kind_from_string(qPrintable(kindString)));
+}
+
+QString Icon::kindToString(Icon::Kind kind)
+{
+    return valueWrap(as_icon_kind_to_string(static_cast<AsIconKind>(kind)));
+}

@@ -198,6 +198,14 @@ QStringList AppStream::ContentRating::ratingIds() const
     return AppStream::valueWrap(as_content_rating_get_rating_ids(d->m_contentRating));
 }
 
+void AppStream::ContentRating::addAttribute(const QString &id,
+                                            AppStream::ContentRating::RatingValue value)
+{
+    as_content_rating_add_attribute(d->m_contentRating,
+                                    qPrintable(id),
+                                    static_cast<AsContentRatingValue>(value));
+}
+
 QDebug operator<<(QDebug s, const AppStream::ContentRating &contentRating)
 {
     s.nospace() << "AppStream::ContentRating(" << contentRating.kind() << contentRating.minimumAge()

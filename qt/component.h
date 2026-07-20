@@ -25,12 +25,17 @@
 #include <QUrl>
 #include <QStringList>
 #include <QSize>
+#include <QDateTime>
+#include <optional>
 #include "appstreamqt_export.h"
+#include "agreement.h"
 #include "provided.h"
 #include "bundle.h"
 #include "category.h"
 #include "contentrating.h"
 #include "launchable.h"
+#include "reference.h"
+#include "review.h"
 #include "translation.h"
 #include "release-list.h"
 #include "relation.h"
@@ -159,6 +164,12 @@ public:
     QString description() const;
     void setDescription(const QString &description, const QString &lang = {});
 
+    QStringList keywords() const;
+    void setKeywords(const QStringList &keywords, const QString &lang = {});
+    void addKeyword(const QString &keyword, const QString &lang = {});
+    void clearKeywords(const QString &lang = {});
+
+    QList<AppStream::Launchable> launchables() const;
     AppStream::Launchable launchable(AppStream::Launchable::Kind kind) const;
     void addLaunchable(const AppStream::Launchable &launchable);
 
@@ -184,7 +195,6 @@ public:
     bool isMemberOfCategory(const AppStream::Category &category) const;
 
     QStringList extends() const;
-    void setExtends(const QStringList &extends);
     void addExtends(const QString &extend);
 
     QList<AppStream::Component> addons() const;
@@ -207,6 +217,7 @@ public:
     QStringList languages() const;
     int language(const QString &locale) const;
     void addLanguage(const QString &locale, int percentage);
+    void clearLanguages();
 
     QList<AppStream::Translation> translations() const;
     void addTranslation(const AppStream::Translation &translation);
@@ -216,6 +227,7 @@ public:
 
     QList<AppStream::Icon> icons() const;
     AppStream::Icon icon(const QSize &size) const;
+    AppStream::Icon iconStock() const;
     void addIcon(const AppStream::Icon &icon);
 
     /**
@@ -229,6 +241,7 @@ public:
      */
     AppStream::Provided provided(Provided::Kind kind) const;
     void addProvided(const AppStream::Provided &provided);
+    void addProvidedItem(Provided::Kind kind, const QString &item);
 
     void sortScreenshots(const QString &environment, const QString &style, bool prioritizeStyle);
     QList<AppStream::Screenshot> screenshotsAll() const;
@@ -242,7 +255,7 @@ public:
     bool hasBundle() const;
     QList<AppStream::Bundle> bundles() const;
     AppStream::Bundle bundle(Bundle::Kind kind) const;
-    void addBundle(const AppStream::Bundle &bundle) const;
+    void addBundle(const AppStream::Bundle &bundle);
 
     QList<AppStream::Suggested> suggested() const;
     void addSuggested(const AppStream::Suggested &suggested);
@@ -266,6 +279,26 @@ public:
     AppStream::ContentRating contentRating(const QString &kind) const;
     void addContentRating(const AppStream::ContentRating &contentRating);
 
+    QList<AppStream::Review> reviews() const;
+    void addReview(const AppStream::Review &review);
+
+    QList<AppStream::Reference> references() const;
+    void addReference(const AppStream::Reference &reference);
+
+    QList<AppStream::Agreement> agreements() const;
+    void addAgreement(const AppStream::Agreement &agreement);
+    std::optional<AppStream::Agreement> agreementByKind(Agreement::Kind kind) const;
+
+    QString dateEol() const;
+    void setDateEol(const QString &date);
+    QDateTime timestampEol() const;
+
+    QString branch() const;
+    void setBranch(const QString &branch);
+
+    int priority() const;
+    void setPriority(int priority);
+
     QString nameVariantSuffix() const;
     void setNameVariantSuffix(const QString &variantSuffix, const QString &lang = {});
 
@@ -274,7 +307,7 @@ public:
 
     bool hasTag(const QString &ns, const QString &tagName);
     bool addTag(const QString &ns, const QString &tagName);
-    void removeTag(const QString &ns, const QString &tagName);
+    bool removeTag(const QString &ns, const QString &tagName);
     void clearTags();
 
     bool isFloss() const;

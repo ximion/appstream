@@ -119,6 +119,11 @@ Provided::Kind Provided::kind() const
     return Provided::Kind(as_provided_get_kind(d->m_prov));
 }
 
+void Provided::setKind(Provided::Kind kind)
+{
+    as_provided_set_kind(d->m_prov, static_cast<AsProvidedKind>(kind));
+}
+
 QStringList Provided::items() const
 {
     return valueWrap(as_provided_get_items(d->m_prov));
@@ -141,4 +146,9 @@ QDebug operator<<(QDebug s, const AppStream::Provided &Provided)
 {
     s.nospace() << "AppStream::Provided(" << Provided.kind() << ',' << Provided.items() << "])";
     return s.space();
+}
+
+void Provided::addItem(const QString &item)
+{
+    as_provided_add_item(d->m_prov, qPrintable(item));
 }

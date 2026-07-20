@@ -22,12 +22,18 @@
 
 #include <QDebug>
 #include "chelpers.h"
+#include "component.h"
 
 using namespace AppStream;
 
 class AppStream::CategoryData : public QSharedData
 {
 public:
+    CategoryData()
+    {
+        m_category = as_category_new();
+    }
+
     CategoryData(AsCategory *cat)
         : m_category(cat)
     {
@@ -51,6 +57,11 @@ public:
 
     AsCategory *m_category;
 };
+
+Category::Category()
+    : d(new CategoryData)
+{
+}
 
 Category::Category(_AsCategory *category)
     : d(new CategoryData(category))
@@ -84,9 +95,19 @@ QString Category::id() const
     return valueWrap(as_category_get_id(d->m_category));
 }
 
+void Category::setId(const QString &id)
+{
+    as_category_set_id(d->m_category, qPrintable(id));
+}
+
 QString Category::name() const
 {
     return valueWrap(as_category_get_name(d->m_category));
+}
+
+void Category::setName(const QString &name)
+{
+    as_category_set_name(d->m_category, qPrintable(name));
 }
 
 QString Category::summary() const
@@ -94,9 +115,56 @@ QString Category::summary() const
     return valueWrap(as_category_get_summary(d->m_category));
 }
 
+void Category::setSummary(const QString &summary)
+{
+    as_category_set_summary(d->m_category, qPrintable(summary));
+}
+
 QString Category::icon() const
 {
     return valueWrap(as_category_get_icon(d->m_category));
+}
+
+void Category::setIcon(const QString &icon)
+{
+    as_category_set_icon(d->m_category, qPrintable(icon));
+}
+
+bool Category::hasChildren() const
+{
+    return as_category_has_children(d->m_category);
+}
+
+void Category::addChild(const Category &subcat)
+{
+    as_category_add_child(d->m_category, subcat.cPtr());
+}
+
+void Category::removeChild(const Category &subcat)
+{
+    as_category_remove_child(d->m_category, subcat.cPtr());
+}
+
+QList<AppStream::Component> Category::components() const
+{
+    auto cpts = as_category_get_components(d->m_category);
+    QList<AppStream::Component> ret;
+    ret.reserve(cpts->len);
+    for (uint i = 0; i < cpts->len; i++) {
+        auto cpt = AS_COMPONENT(g_ptr_array_index(cpts, i));
+        ret << Component(cpt);
+    }
+    return ret;
+}
+
+void Category::addComponent(const AppStream::Component &cpt)
+{
+    as_category_add_component(d->m_category, cpt.cPtr());
+}
+
+bool Category::hasComponent(const AppStream::Component &cpt) const
+{
+    return as_category_has_component(d->m_category, cpt.cPtr());
 }
 
 QList<Category> Category::children() const
@@ -121,6 +189,11 @@ QStringList Category::desktopGroups() const
         ret << valueWrap(dg);
     }
     return ret;
+}
+
+void Category::addDesktopGroup(const QString &groupName)
+{
+    as_category_add_desktop_group(d->m_category, qPrintable(groupName));
 }
 
 QDebug operator<<(QDebug s, const AppStream::Category &category)
