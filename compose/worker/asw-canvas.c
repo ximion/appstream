@@ -2,11 +2,6 @@
  *
  * Copyright (C) 2016-2025 Matthias Klumpp <matthias@tenstral.net>
  *
- * GdkPixbuf conversion authors:
- *     Michael Zucchi <zucchi@zedzone.mmc.com.au>
- *     Cody Russell <bratsche@dfw.net>
- *     Federico Mena-Quintero <federico@gimp.org>
- *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
  * This library is free software: you can redistribute it and/or modify
@@ -960,127 +955,95 @@ asw_canvas_save_png (AswCanvas *canvas, const gchar *fname, GError **error)
 	return asw_optimize_png (fname, error);
 }
 
-static void
-convert_alpha (guchar *dest_data,
-	       int dest_stride,
-	       guchar *src_data,
-	       int src_stride,
-	       int src_x,
-	       int src_y,
-	       int width,
-	       int height)
-{
-	int x, y;
-
-	src_data += src_stride * src_y + src_x * 4;
-
-	for (y = 0; y < height; y++) {
-		guint32 *src = (guint32 *) (void *) src_data;
-
-		for (x = 0; x < width; x++) {
-			guint alpha = src[x] >> 24;
-
-			if (alpha == 0) {
-				dest_data[x * 4 + 0] = 0;
-				dest_data[x * 4 + 1] = 0;
-				dest_data[x * 4 + 2] = 0;
-			} else {
-				dest_data[x * 4 + 0] = (((src[x] & 0xff0000) >> 16) * 255 +
-							alpha / 2) /
-						       alpha;
-				dest_data[x * 4 + 1] = (((src[x] & 0x00ff00) >> 8) * 255 +
-							alpha / 2) /
-						       alpha;
-				dest_data[x * 4 + 2] = (((src[x] & 0x0000ff) >> 0) * 255 +
-							alpha / 2) /
-						       alpha;
-			}
-			dest_data[x * 4 + 3] = alpha;
-		}
-
-		src_data += src_stride;
-		dest_data += dest_stride;
-	}
-}
-
-static void
-convert_no_alpha (guchar *dest_data,
-		  int dest_stride,
-		  guchar *src_data,
-		  int src_stride,
-		  int src_x,
-		  int src_y,
-		  int width,
-		  int height)
-{
-	int x, y;
-
-	src_data += src_stride * src_y + src_x * 4;
-
-	for (y = 0; y < height; y++) {
-		guint32 *src = (guint32 *) (void *) src_data;
-
-		for (x = 0; x < width; x++) {
-			dest_data[x * 3 + 0] = src[x] >> 16;
-			dest_data[x * 3 + 1] = src[x] >> 8;
-			dest_data[x * 3 + 2] = src[x];
-		}
-
-		src_data += src_stride;
-		dest_data += dest_stride;
-	}
-}
-
 /**
- * asw_canvas_to_pixbuf:
+ * asw_canvas_to_vips:
  * @canvas: an #AswCanvas instance.
+ * @error: A #GError or %NULL
  *
- * Convert the canvas to a #GdkPixbuf.
+ * Convert the canvas to a #VipsImage.
  *
- * Returns: (transfer full) (nullable): a #GdkPixbuf or %NULL on error.
+ * Returns: (transfer full) (nullable): a #VipsImage or %NULL on error.
  **/
-GdkPixbuf *
-asw_canvas_to_pixbuf (AswCanvas *canvas)
+VipsImage *
+asw_canvas_to_vips (AswCanvas *canvas, GError **error)
 {
 	AswCanvasPrivate *priv = GET_PRIVATE (canvas);
-	cairo_content_t content;
-	GdkPixbuf *dest;
+	VipsImage *vimg;
+	const guchar *src_data;
+	int src_stride;
+	g_autofree guchar *rgba = NULL;
 
 	/* sanity check */
 	g_return_val_if_fail (priv->width > 0 && priv->height > 0, NULL);
 
-	content = cairo_surface_get_content (priv->srf) | CAIRO_CONTENT_COLOR;
-	dest = gdk_pixbuf_new (GDK_COLORSPACE_RGB,
-			       !!(content & CAIRO_CONTENT_ALPHA),
-			       8,
-			       priv->width,
-			       priv->height);
-
 	cairo_surface_flush (priv->srf);
-	if (cairo_surface_status (priv->srf) || dest == NULL) {
-		cairo_surface_destroy (priv->srf);
-		g_clear_object (&dest);
+	if (cairo_surface_status (priv->srf) != CAIRO_STATUS_SUCCESS) {
+		g_set_error (error,
+			     ASW_CANVAS_ERROR,
+			     ASW_CANVAS_ERROR_DRAWING,
+			     "Could not read canvas surface: %s",
+			     cairo_status_to_string (cairo_surface_status (priv->srf)));
 		return NULL;
 	}
 
-	if (gdk_pixbuf_get_has_alpha (dest))
-		convert_alpha (gdk_pixbuf_get_pixels (dest),
-			       gdk_pixbuf_get_rowstride (dest),
-			       cairo_image_surface_get_data (priv->srf),
-			       cairo_image_surface_get_stride (priv->srf),
-			       0,
-			       0,
-			       priv->width,
-			       priv->height);
-	else
-		convert_no_alpha (gdk_pixbuf_get_pixels (dest),
-				  gdk_pixbuf_get_rowstride (dest),
-				  cairo_image_surface_get_data (priv->srf),
-				  cairo_image_surface_get_stride (priv->srf),
-				  0,
-				  0,
-				  priv->width,
-				  priv->height);
+	src_data = cairo_image_surface_get_data (priv->srf);
+	src_stride = cairo_image_surface_get_stride (priv->srf);
 
-	return dest;
+	/* Convert the surface (native-endian premultiplied ARGB32) to
+	 * non-premultiplied RGBA for further processing with libvips. */
+	rgba = g_malloc ((gsize) priv->width * priv->height * 4);
+	for (gint y = 0; y < priv->height; y++) {
+		const guint32 *src = (const guint32 *) (const void *) (src_data +
+								       (gsize) y * src_stride);
+		guchar *dst = rgba + (gsize) y * priv->width * 4;
+
+		for (gint x = 0; x < priv->width; x++) {
+			guint32 px = src[x];
+			guint alpha = px >> 24;
+
+			if (alpha == 0) {
+				dst[x * 4 + 0] = 0;
+				dst[x * 4 + 1] = 0;
+				dst[x * 4 + 2] = 0;
+			} else {
+				dst[x * 4 + 0] = (((px & 0xff0000) >> 16) * 255 + alpha / 2) /
+						 alpha;
+				dst[x * 4 + 1] = (((px & 0x00ff00) >> 8) * 255 + alpha / 2) / alpha;
+				dst[x * 4 + 2] = (((px & 0x0000ff) >> 0) * 255 + alpha / 2) / alpha;
+			}
+			dst[x * 4 + 3] = alpha;
+		}
+	}
+
+	vimg = vips_image_new_from_memory_copy (rgba,
+						(gsize) priv->width * priv->height * 4,
+						priv->width,
+						priv->height,
+						4,
+						VIPS_FORMAT_UCHAR);
+	if (vimg != NULL) {
+		VipsImage *vimg_srgb = NULL;
+		/* mark the raw pixel data as sRGB with alpha, so encoders handle it right */
+		if (vips_copy (vimg,
+			       &vimg_srgb,
+			       "interpretation",
+			       VIPS_INTERPRETATION_sRGB,
+			       NULL) == 0) {
+			g_object_unref (vimg);
+			vimg = vimg_srgb;
+		} else {
+			g_clear_object (&vimg);
+		}
+	}
+	if (vimg == NULL) {
+		g_set_error (error,
+			     ASW_CANVAS_ERROR,
+			     ASW_CANVAS_ERROR_FAILED,
+			     "Could not convert canvas: %s",
+			     vips_error_buffer ());
+		vips_error_clear ();
+		return NULL;
+	}
+
+	return vimg;
 }

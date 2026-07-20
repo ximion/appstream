@@ -40,11 +40,12 @@ dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
     'pkgconfig(wayland-client)' \
     'pkgconfig(libzstd)' \
     'pkgconfig(cairo)' \
+    'pkgconfig(vips)' \
     'pkgconfig(freetype2)' \
     'pkgconfig(fontconfig)' \
-    'pkgconfig(gdk-pixbuf-2.0)' \
     'pkgconfig(pango)' \
     'pkgconfig(Qt6Core)' \
     sed \
+    vips-jxl \
     vala \
     xmlto

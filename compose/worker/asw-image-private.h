@@ -21,24 +21,32 @@
 #pragma once
 
 #include <glib-object.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <vips/vips.h>
 
 #include "as-macros-private.h"
 #include "asw-image.h"
 
 AS_BEGIN_PRIVATE_DECLS
 
+gboolean   asw_image_backend_init (const gchar *argv0, GError **error);
+void	   asw_image_backend_shutdown (void);
+
 gboolean   asw_optimize_png (const gchar *fname, GError **error);
 
-GdkPixbuf *asw_image_save_pixbuf (AswImage	   *image,
-				  gint		    width,
-				  gint		    height,
-				  AswImageSaveFlags flags);
+VipsImage *asw_image_save_vips (AswImage	 *image,
+				gint		  width,
+				gint		  height,
+				AswImageSaveFlags flags,
+				GError		**error);
 
-GdkPixbuf *asw_image_get_pixbuf (AswImage *image);
-void	   asw_image_set_pixbuf (AswImage *image, GdkPixbuf *pixbuf);
+VipsImage *asw_image_get_vips (AswImage *image);
+void	   asw_image_set_vips (AswImage *image, VipsImage *vimg);
 
-void	   asw_pixbuf_blur (GdkPixbuf *src, gint radius, gint iterations);
-void	   asw_pixbuf_sharpen (GdkPixbuf *src, gint radius, gdouble amount);
+gboolean   asw_vips_blur (VipsImage *in, VipsImage **out, gdouble sigma, GError **error);
+gboolean   asw_vips_sharpen (VipsImage	*in,
+			     VipsImage **out,
+			     gdouble	 sigma,
+			     gdouble	 amount,
+			     GError    **error);
 
 AS_END_PRIVATE_DECLS

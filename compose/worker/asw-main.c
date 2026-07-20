@@ -43,6 +43,7 @@
 #endif
 
 #include "asc-media-ipc.h"
+#include "asw-image-private.h"
 #include "asw-worker.h"
 
 int
@@ -50,11 +51,18 @@ main (int argc, char **argv)
 {
 	g_autoptr(AswWorker) worker = NULL;
 	g_autoptr(GError) error = NULL;
+	int ret;
 
 	if (argc == 2 &&
 	    (g_strcmp0 (argv[1], "--version") == 0 || g_strcmp0 (argv[1], "version") == 0)) {
 		printf ("AppStream compose media worker, version: %s\n", PACKAGE_VERSION);
 		return 0;
+	}
+
+	/* initialize libvips and verify it supports all image formats that we require */
+	if (!asw_image_backend_init (argv[0], &error)) {
+		fprintf (stderr, "asc-mediaworker: %s\n", error->message);
+		return 1;
 	}
 
 	/* we only ever write to a socket held by our parent process */
@@ -86,5 +94,7 @@ main (int argc, char **argv)
 		return 1;
 	}
 
-	return asw_worker_run (worker);
+	ret = asw_worker_run (worker);
+	asw_image_backend_shutdown ();
+	return ret;
 }
