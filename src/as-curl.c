@@ -117,6 +117,30 @@ as_curl_download_write_bytearray_cb (char *ptr, size_t size, size_t nmemb, void 
 	return realsize;
 }
 
+/**
+ * AsCurlResetFunc:
+ *
+ * Discard any data written to the download sink by a failed attempt,
+ * so a retry starts with a clean slate.
+ */
+typedef void (*AsCurlResetFunc) (gpointer udata);
+
+static void
+as_curl_reset_bytearray_cb (gpointer udata)
+{
+	g_byte_array_set_size ((GByteArray *) udata, 0);
+}
+
+static void
+as_curl_reset_file_cb (gpointer udata)
+{
+	GSeekable *seekable = G_SEEKABLE (udata);
+
+	g_seekable_seek (seekable, 0, G_SEEK_SET, NULL, NULL);
+	if (g_seekable_can_truncate (seekable))
+		g_seekable_truncate (seekable, 0, NULL, NULL);
+}
+
 static gboolean
 as_curl_perform_download_once (AsCurl *acurl,
 			       gboolean abort_is_error,
@@ -136,6 +160,8 @@ as_curl_perform_download_once (AsCurl *acurl,
 
 	if (curl_status != NULL)
 		*curl_status = res;
+	if (response_code != NULL)
+		*response_code = status_code;
 	if (res != CURLE_OK) {
 		/* check if this issue was an intentional abort */
 		if (!abort_is_error && res == CURLE_ABORTED_BY_CALLBACK)
@@ -166,9 +192,6 @@ as_curl_perform_download_once (AsCurl *acurl,
 	}
 
 verify_and_return:
-	if (response_code != NULL)
-		*response_code = status_code;
-
 	if (status_code == 404) {
 		g_set_error (
 		    error,
@@ -191,7 +214,13 @@ verify_and_return:
 }
 
 static gboolean
-as_curl_perform_download (AsCurl *acurl, gboolean abort_is_error, const gchar *url, GError **error)
+as_curl_perform_download (AsCurl *acurl,
+			  gboolean abort_is_error,
+			  gboolean idempotent,
+			  const gchar *url,
+			  AsCurlResetFunc reset_fn,
+			  gpointer reset_fn_udata,
+			  GError **error)
 {
 	AsCurlPrivate *priv = GET_PRIVATE (acurl);
 	guint n_retries_remaining = priv->n_retries;
@@ -200,8 +229,9 @@ as_curl_perform_download (AsCurl *acurl, gboolean abort_is_error, const gchar *u
 	curl_easy_setopt (priv->curl, CURLOPT_URL, url);
 	do {
 		g_autoptr(GError) tmp_error = NULL;
-		glong response_code;
+		glong response_code = 0;
 		CURLcode curl_status;
+		gboolean connection_failed;
 
 		success = as_curl_perform_download_once (acurl,
 							 abort_is_error,
@@ -215,17 +245,23 @@ as_curl_perform_download (AsCurl *acurl, gboolean abort_is_error, const gchar *u
 		}
 		n_retries_remaining--;
 
-		/* if any of these matched, we attempt a retry */
-		if (curl_status == CURLE_OPERATION_TIMEDOUT ||
-		    curl_status == CURLE_COULDNT_RESOLVE_HOST ||
-		    curl_status == CURLE_COULDNT_RESOLVE_PROXY ||
-		    curl_status == CURLE_COULDNT_CONNECT
+		/* if the connection could not even be established, no request reached the
+		 * server, so a retry is always safe, even for non-idempotent requests */
+		connection_failed = curl_status == CURLE_COULDNT_RESOLVE_HOST ||
+				    curl_status == CURLE_COULDNT_RESOLVE_PROXY ||
+				    curl_status == CURLE_COULDNT_CONNECT;
 
-		    || response_code >= 405) {
+		/* if any of these matched, we attempt a retry */
+		if (connection_failed ||
+		    (idempotent &&
+		     (curl_status == CURLE_OPERATION_TIMEDOUT || response_code >= 405))) {
 			g_debug ("Retrying failed download of %s (attempt: %d/%d)",
 				 url,
 				 priv->n_retries - n_retries_remaining,
 				 priv->n_retries);
+			/* discard any partial data received by the failed attempt */
+			if (reset_fn != NULL)
+				reset_fn (reset_fn_udata);
 			continue;
 		}
 
@@ -328,7 +364,13 @@ as_curl_download_bytes (AsCurl *acurl, const gchar *url, GError **error)
 	curl_easy_setopt (priv->curl, CURLOPT_XFERINFOFUNCTION, as_curl_progress_dummy_cb);
 	curl_easy_setopt (priv->curl, CURLOPT_XFERINFODATA, acurl);
 
-	if (!as_curl_perform_download (acurl, TRUE, url, error))
+	if (!as_curl_perform_download (acurl,
+				       TRUE,
+				       TRUE,
+				       url,
+				       as_curl_reset_bytearray_cb,
+				       buf,
+				       error))
 		return NULL;
 
 	return g_byte_array_free_to_bytes (g_steal_pointer (&buf));
@@ -386,7 +428,7 @@ as_curl_download_to_filename (AsCurl *acurl, const gchar *url, const gchar *fnam
 	curl_easy_setopt (priv->curl, CURLOPT_XFERINFOFUNCTION, as_curl_progress_dummy_cb);
 	curl_easy_setopt (priv->curl, CURLOPT_XFERINFODATA, acurl);
 
-	if (!as_curl_perform_download (acurl, TRUE, url, error))
+	if (!as_curl_perform_download (acurl, TRUE, TRUE, url, as_curl_reset_file_cb, fos, error))
 		return FALSE;
 
 	return TRUE;
@@ -408,8 +450,9 @@ as_curl_download_to_filename (AsCurl *acurl, const gchar *url, const gchar *fnam
  * If the server replied with an HTTP error status, @error is set, but any
  * data the server may have sent along (e.g. a JSON error description) is
  * made available via @error_reply.
- * If the request was retried, @error_reply may contain the concatenated
- * bodies of multiple replies, so callers must parse it defensively.
+ * Since a POST request may not be idempotent, it is only retried if the
+ * connection to the server could not be established at all, so no request
+ * can accidentally be processed twice by the server.
  **/
 GBytes *
 as_curl_post_bytes (AsCurl *acurl,
@@ -443,7 +486,13 @@ as_curl_post_bytes (AsCurl *acurl,
 	curl_easy_setopt (priv->curl, CURLOPT_XFERINFOFUNCTION, as_curl_progress_dummy_cb);
 	curl_easy_setopt (priv->curl, CURLOPT_XFERINFODATA, acurl);
 
-	success = as_curl_perform_download (acurl, TRUE, url, error);
+	success = as_curl_perform_download (acurl,
+					    TRUE,
+					    FALSE,
+					    url,
+					    as_curl_reset_bytearray_cb,
+					    buf,
+					    error);
 
 	/* reset the reused easy handle back to GET state */
 	curl_easy_setopt (priv->curl, CURLOPT_HTTPHEADER, NULL);
@@ -507,7 +556,13 @@ as_curl_check_url_exists (AsCurl *acurl, const gchar *url, GError **error)
 	curl_easy_setopt (priv->curl, CURLOPT_XFERINFODATA, acurl);
 
 	priv->bytes_downloaded = 0;
-	if (!as_curl_perform_download (acurl, FALSE, url, error))
+	if (!as_curl_perform_download (acurl,
+				       FALSE,
+				       TRUE,
+				       url,
+				       as_curl_reset_bytearray_cb,
+				       buf,
+				       error))
 		return FALSE;
 
 	/* check if it's a zero sized file */
