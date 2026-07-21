@@ -89,6 +89,31 @@
 			</varlistentry>
 
 			<varlistentry>
+				<term><option>list-reviews <replaceable>ID</replaceable></option></term>
+				<listitem>
+					<para>
+						List user reviews for the software component with the given ID,
+						fetched from an online service compatible with the Open Desktop
+						Ratings Service (ODRS).
+					</para>
+					<para>
+						The reviews are sorted by how helpful other users found them,
+						with the amount of reviews shown at once limited via the
+						<option>--limit</option> flag. Subsequent result pages can be
+						requested using the <option>--start</option> flag, which sets
+						the index of the first review to fetch.
+					</para>
+					<para>
+						By default, reviews matching the current system locale are
+						preferred, use the <option>--locale</option> flag to select a
+						different locale instead.
+						The <option>--server</option> flag can be used to fetch reviews
+						from a different ODRS-compatible server instead of the default one.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
 				<term><option>refresh</option></term>
 				<term><option>refresh-cache</option></term>
 				<listitem>

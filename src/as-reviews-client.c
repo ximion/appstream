@@ -29,6 +29,10 @@
  * This class is a client for the Open Desktop Ratings Service (ODRS) or
  * a compatible service, and can retrieve user reviews and ratings for
  * software components.
+ *
+ * All operations do blocking network I/O and this class is not thread-safe:
+ * When calling it from worker threads, use one instance per thread or
+ * serialize access to a shared instance with your own locking.
  */
 
 #include "config.h"
