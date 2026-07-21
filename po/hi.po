@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2026-07-20 22:54+0200\n"
+"POT-Creation-Date: 2026-07-21 21:21+0200\n"
 "PO-Revision-Date: 2024-05-10 06:59+0000\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/appstream/translations/hi/>\n"
@@ -911,30 +911,30 @@ msgid "Graphic depictions of modern-day slavery"
 msgstr "आधुनिक गुलामी का चित्रात्मक चित्रण"
 
 #. TRANSLATORS: We got a 429 error while trying to download data
-#: src/as-curl.c:148
+#: src/as-curl.c:177
 #, c-format
 msgid "Failed to download due to server limit"
 msgstr "सर्वर सीमा के कारण डाउनलोड करने में विफल"
 
-#: src/as-curl.c:155 src/as-curl.c:161
+#: src/as-curl.c:184 src/as-curl.c:190
 #, c-format
 msgid "Failed to download file: %s"
 msgstr "फाइल डाउनलोड करने में विफल: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
-#: src/as-curl.c:175
+#: src/as-curl.c:201
 #, c-format
 msgid "URL was not found on the server."
 msgstr "सर्वर पर URL नहीं मिला।"
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
-#: src/as-curl.c:183
+#: src/as-curl.c:209
 #, c-format
 msgid "Unexpected status code: %ld"
 msgstr "अप्रत्याशित स्थिति कोड: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-curl.c:420
+#: src/as-curl.c:574
 #, c-format
 msgid "Retrieved file size was zero."
 msgstr "पुनः प्राप्त फाइल का आकार शून्य था।"
@@ -1151,7 +1151,7 @@ msgstr "रनटाइम फर्मवेयर"
 msgid "Flashed Firmware"
 msgstr "फ्लैश किया गया फर्मवेयर"
 
-#: src/as-provided.c:158
+#: src/as-provided.c:158 tools/ascli-actions-misc.c:843
 msgid "Component"
 msgstr "घटक"
 
@@ -1446,6 +1446,31 @@ msgstr "इस सॉफ्टवेयर के लिए डिस्प्�
 #, c-format
 msgid "Satisfiability check for relation items of type '%s' is not implemented yet."
 msgstr "'%s' प्रकार के संबंध वस्तुओं के लिए संतुष्टि जांच अभी तक कार्यान्वित नहीं की गई है।"
+
+#. TRANSLATORS: The ODRS review server rejected our request, %s is the error message
+#: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
+#, c-format
+msgid "The reviews server rejected the request: %s"
+msgstr ""
+
+#. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
+#: src/as-reviews-client.c:983
+#, c-format
+msgid "Unable to communicate with the reviews server: %s"
+msgstr ""
+
+#: src/as-reviews-client.c:1070
+#, fuzzy
+#| msgid "Unknown"
+msgid "Unknown reason"
+msgstr "अज्ञात"
+
+#. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
+#: src/as-reviews-client.c:1247
+#, fuzzy, c-format
+#| msgid "Unable to spawn package manager: %s"
+msgid "Unable to fetch software rating: %s"
+msgstr "पैकेज प्रबंधक उत्पन्न करने में असमर्थ: %s"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
@@ -2604,19 +2629,19 @@ msgstr "पाया: %s - अनुमत: %s"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #. TRANSLATORS: ascompose flag description for: --verbose
-#: tools/appstream-compose.c:198 tools/appstreamcli.c:1363
+#: tools/appstream-compose.c:198 tools/appstreamcli.c:1458
 msgid "Show extra debugging information."
 msgstr "अतिरिक्त डिबगिंग जानकारी दिखाएं।"
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #. TRANSLATORS: ascompose flag description for: --no-color
-#: tools/appstream-compose.c:205 tools/appstreamcli.c:1369
+#: tools/appstream-compose.c:205 tools/appstreamcli.c:1464
 msgid "Don't show colored output."
 msgstr "रंगीन निर्गत न दिखाएं।"
 
 #. TRANSLATORS: ascli flag description for: --version
 #. TRANSLATORS: ascompose flag description for: --version
-#: tools/appstream-compose.c:212 tools/appstreamcli.c:1357
+#: tools/appstream-compose.c:212 tools/appstreamcli.c:1452
 msgid "Show the program version."
 msgstr "प्रोग्राम संस्करण दिखाएं।"
 
@@ -2696,12 +2721,12 @@ msgid "Failed to parse arguments"
 msgstr "तर्कों का विश्लेषण करने में विफल"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:338 tools/appstreamcli.c:1597
+#: tools/appstream-compose.c:338 tools/appstreamcli.c:1715
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream संस्करण: %s"
 
-#: tools/appstream-compose.c:342 tools/appstreamcli.c:1601
+#: tools/appstream-compose.c:342 tools/appstreamcli.c:1719
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2826,327 +2851,359 @@ msgstr "तयशुदा मेटाडेटा प्रारूप (म�
 msgid "Print detailed output about found components."
 msgstr "मिले घटकों के बारे में विस्तृत निर्गत छापें।"
 
+#. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
+#: tools/appstreamcli.c:126
+msgid "URL of the ODRS-compatible reviews server to use."
+msgstr ""
+
+#. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
+#: tools/appstreamcli.c:132
+msgid "Index of the first review to fetch, to page through all reviews."
+msgstr ""
+
+#. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
+#: tools/appstreamcli.c:138
+msgid "Maximum number of reviews to fetch."
+msgstr ""
+
+#. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
+#: tools/appstreamcli.c:144
+msgid "Locale to prefer for reviews, instead of the current system locale."
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
-#: tools/appstreamcli.c:128
+#: tools/appstreamcli.c:165
 msgid "Also show pedantic hints."
 msgstr "पांडित्यपूर्ण संकेत भी दिखाएं।"
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
-#: tools/appstreamcli.c:135
+#: tools/appstreamcli.c:172
 msgid "Print detailed explanation for found issues."
 msgstr "पाए गए मुद्दों के लिए विस्तृत विवरण छापें।"
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
-#: tools/appstreamcli.c:142
+#: tools/appstreamcli.c:179
 msgid "Do not use network access."
 msgstr "नेटवर्क पहुंच का उपयोग न करें।"
 
 #. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
-#: tools/appstreamcli.c:149
+#: tools/appstreamcli.c:186
 msgid "Fail validation if any issue is emitted that is not of pedantic severity."
 msgstr "यदि कोई समस्या उत्पन्न होती है जो पांडित्यपूर्ण गंभीरता की नहीं है तो सत्यापन विफल हो जाता है।"
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
-#: tools/appstreamcli.c:155
+#: tools/appstreamcli.c:192
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr "उत्पन्न रिपोर्ट का प्रारूप (मान्य मान 'text' और 'yaml' हैं)।"
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
-#: tools/appstreamcli.c:161
+#: tools/appstreamcli.c:198
 msgid "Override the severities of selected issue tags."
 msgstr "चयनित समस्या टैग की गंभीरता का अध्यारोहण करें।"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
-#: tools/appstreamcli.c:179 tools/appstreamcli.c:1252
+#: tools/appstreamcli.c:216 tools/appstreamcli.c:1347
 msgid "AppStream command-line interface"
 msgstr "AppStream कमांड-लाइन इंटरफ़ेस"
 
-#: tools/appstreamcli.c:182
+#: tools/appstreamcli.c:219
 #, c-format
 msgid "'%s' command"
 msgstr "'%s' कमांड"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstreamcli.c:218
+#: tools/appstreamcli.c:255
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "विकल्प '%s' अज्ञात है।"
 
-#: tools/appstreamcli.c:223 tools/appstreamcli.c:1573
+#: tools/appstreamcli.c:260 tools/appstreamcli.c:1691
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "उपलब्ध कमांड लाइन विकल्पों की पूरी सूची देखने के लिए '%s --help' चलाएं।"
 
-#: tools/appstreamcli.c:227
+#: tools/appstreamcli.c:264
 #, c-format
 msgid "Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."
 msgstr "उपलब्ध आदेशों और विकल्पों की सूची देखने के लिए '%s --help' चलाएं, और इस उपकमांड के लिए विशिष्ट विकल्पों की सूची देखने के लिए '%s %s --help' चलाएं।"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstreamcli.c:282
+#: tools/appstreamcli.c:319
 msgid "Enforce a cache refresh."
 msgstr "कैशे रिफ्रेश लागू करें।"
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
-#: tools/appstreamcli.c:288
+#: tools/appstreamcli.c:325
 msgid "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."
 msgstr "कैशे रीफ़्रेश को किसी विशिष्ट स्रोत से प्राप्त डेटा तक सीमित करें, उदा. `os` या `flatpak`। कई बार निर्दिष्ट किया जा सकता है।"
 
-#: tools/appstreamcli.c:546
+#: tools/appstreamcli.c:583
 msgid "No license, license expression or license exception string was provided."
 msgstr "कोई लाइसेंस, लाइसेंस अभिव्यक्ति या लाइसेंस अपवाद स्ट्रिंग प्रदान नहीं की गई थी।"
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
-#: tools/appstreamcli.c:595
+#: tools/appstreamcli.c:632
 msgid "Print more detailed output on why incompatibilities exist."
 msgstr "असंगतताएं क्यों मौजूद हैं, इस पर अधिक विस्तृत निर्गत छापें।"
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstreamcli.c:632
+#: tools/appstreamcli.c:669
 msgid "Set the data origin for the installed metadata catalog file."
 msgstr "स्थापित मेटाडेटा कैटलॉग फाइल के लिए डेटा मूल तय करें।"
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:638
+#: tools/appstreamcli.c:675
 msgid "Install the file for the current user, instead of globally."
 msgstr "वैश्विक स्तर के बजाय वर्तमान उपयोक्ता के लिए फाइल स्थापित करें।"
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:666
+#: tools/appstreamcli.c:703
 msgid "Limit the command to use only components from the given bundling system (`flatpak` or `package`)."
 msgstr "कमांड को केवल दिए गए बंडलिंग सिस्टम (`flatpak` या `package`) से घटकों का उपयोग करने तक सीमित करें।"
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:673
+#: tools/appstreamcli.c:710
 msgid "Do not ask for which software component should be used and always choose the first entry."
 msgstr "यह न पूछें कि किस सॉफ्टवेयर घटक का उपयोग किया जाना चाहिए और हमेशा पहली प्रविष्टि चुनें।"
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
-#: tools/appstreamcli.c:707 tools/appstreamcli.c:742
+#: tools/appstreamcli.c:744 tools/appstreamcli.c:779
 msgid "No valid bundle kind was specified. Only `package` and `flatpak` are currently recognized."
 msgstr "कोई मान्य बंडल प्रकार निर्दिष्ट नहीं किया गया था। वर्तमान में केवल `package` और `flatpak` को मान्यता दी गई है।"
 
-#: tools/appstreamcli.c:836
+#: tools/appstreamcli.c:931
 msgid "You need to provide at least two version numbers to compare as parameters."
 msgstr "पैरामीटर के रूप में तुलना करने के लिए आपको कम से कम दो संस्करण संख्याएं प्रदान करनी होंगी।"
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:865
+#: tools/appstreamcli.c:960
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "अज्ञात तुलना संबंध '%s'। मान्य मान हैं:"
 
-#: tools/appstreamcli.c:906
+#: tools/appstreamcli.c:1001
 msgid "Too many parameters: Need two version numbers or version numbers and a comparison operator."
 msgstr "बहुत सारे पैरामीटर: दो संस्करण संख्या या संस्करण संख्या और एक तुलना संकारक की आवश्यकता है।"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:932
+#: tools/appstreamcli.c:1027
 msgid "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "Metainfo फाइल के मूल मानों को भरने के लिए दी गई .desktop फाइल का उपयोग करें।"
 
-#: tools/appstreamcli.c:940
+#: tools/appstreamcli.c:1035
 msgid "This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."
 msgstr "यह कमांड वैकल्पिक TYPE और FILE स्थितीय तर्क लेता है, FILE लिखने के लिए एक फाइल है (या मानक निर्गत के लिए \"-\")।"
 
-#: tools/appstreamcli.c:944
+#: tools/appstreamcli.c:1039
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPE एक मान्य घटक-प्रकार होना चाहिए, जैसे: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:982
+#: tools/appstreamcli.c:1077
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr "डेस्कटॉप-प्रविष्टि फाइल की 'Exec=' कुंजी के लिए निर्दिष्ट पंक्ति का उपयोग करें।"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1022
+#: tools/appstreamcli.c:1117
 msgid "Assume the input file is in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "मान लें कि आगत फाइल चयनित प्रारूप ('yaml', 'text' या 'markdown') में है।"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1029
+#: tools/appstreamcli.c:1124
 msgid "Limit the number of release entries that end up in the metainfo file (<= 0 for unlimited)."
 msgstr "Metainfo फाइल में समाप्त होने वाली रिलीज़ प्रविष्टियों की संख्या सीमित करें (असीमित के लिए <= 0)।"
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1036
+#: tools/appstreamcli.c:1131
 msgid "Set the number of releases that should have descriptions marked for translation (latest releases are translated first, -1 for unlimited)."
 msgstr "उन रिलीज़ों की संख्या निर्धारित करें जिनमें अनुवाद के लिए विवरण चिह्नित होने चाहिए (नवीनतम रिलीज़ों का अनुवाद पहले किया जाता है, असीमित के लिए -1)।"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:1081
+#: tools/appstreamcli.c:1176
 msgid "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "चयनित प्रारूप ('yaml', 'text' या 'markdown') में निर्गत उत्पन्न करें।"
 
-#: tools/appstreamcli.c:1126
+#: tools/appstreamcli.c:1221
 #, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
 msgstr "AppStream Compose बाइनरी '%s' नहीं मिला! जारी नहीं रख सकते।"
 
-#: tools/appstreamcli.c:1130
+#: tools/appstreamcli.c:1225
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr "आप AppStream Compose ऐडऑन को इसके माध्यम से स्थापित करने में सक्षम हो सकते हैं: `%s`"
 
 #. TRANSLATORS: Unexpected number of parameters on the command-line
-#: tools/appstreamcli.c:1139
+#: tools/appstreamcli.c:1234
 msgid "Invalid number of parameters"
 msgstr "पैरामीटरों की अमान्य संख्या"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
-#: tools/appstreamcli.c:1157
+#: tools/appstreamcli.c:1252
 #, c-format
 msgid "Compose operation failed to execute: %s"
 msgstr "Compose अभियान निष्पादित करने में विफल: %s"
 
-#: tools/appstreamcli.c:1167
+#: tools/appstreamcli.c:1262
 #, c-format
 msgid "Compose failed: %s"
 msgstr "Compose विफल: %s"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:1224
+#: tools/appstreamcli.c:1319
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(उर्फ: '%s')"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1254
+#: tools/appstreamcli.c:1349
 msgid "Subcommands:"
 msgstr "उपकमांड:"
 
-#: tools/appstreamcli.c:1308
+#: tools/appstreamcli.c:1403
 msgid "You can find information about subcommand-specific options by passing \"--help\" to the subcommand."
 msgstr "आप उपकमांड पर \"--help\" पास करके उपकमांड-विशिष्ट विकल्पों के बारे में जानकारी प्राप्त कर सकते हैं।"
 
-#: tools/appstreamcli.c:1332
+#: tools/appstreamcli.c:1427
 #, c-format
 msgid "Command '%s' is unknown. Run '%s --help' for a list of available commands."
 msgstr "कमांड '%s' अज्ञात है। उपलब्ध आदेशों की सूची के लिए '%s --help' चलाएं।"
 
 #. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstreamcli.c:1374
+#: tools/appstreamcli.c:1469
 msgid "Enable profiling"
 msgstr "प्रोफाइलिंग सक्षम करें"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1389
+#: tools/appstreamcli.c:1484
 msgid "Search the component database."
 msgstr "घटक डेटाबेस खोजें।"
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1396
+#: tools/appstreamcli.c:1491
 msgid "Get information about a component by its ID."
 msgstr "किसी घटक के बारे में उसकी ID द्वारा जानकारी प्राप्त करें।"
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1403
+#: tools/appstreamcli.c:1498
 msgid "Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."
 msgstr "ऐसे घटक प्राप्त करें जो दी गई वस्तु प्रदान करते हैं। पैरामीटर के रूप में एक वस्तु प्रकार (जैसे lib, bin, Python3,…) और वस्तु मान की आवश्यकता है।"
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
-#: tools/appstreamcli.c:1411
+#: tools/appstreamcli.c:1506
 msgid "List components that are part of the specified categories."
 msgstr "उन घटकों की सूची बनाएं जो निर्दिष्ट श्रेणियों का हिस्सा हैं।"
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1420
+#: tools/appstreamcli.c:1515
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "ID से मेल खाने वाले घटक के लिए रॉ XML मेटाडेटा डंप करें।"
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1428
+#: tools/appstreamcli.c:1523
 msgid "Rebuild the component metadata cache."
 msgstr "घटक मेटाडेटा कैशे का पुनर्निर्माण करें।"
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1436
+#: tools/appstreamcli.c:1531
 msgid "Validate AppStream XML files for issues."
 msgstr "समस्याओं के लिए AppStream XML फाइलों को मान्य करें।"
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1443
+#: tools/appstreamcli.c:1538
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "मान्य मेटाडेटा के लिए किसी अनुप्रयोग के स्थापित फाइल-ट्री को मान्य करें।"
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1451
+#: tools/appstreamcli.c:1546
 msgid "Check license string for validity and print details about it."
 msgstr "मान्यता के लिए लाइसेंस स्ट्रिंग की जांच करें और इसके बारे में विवरण छापें।"
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1459
+#: tools/appstreamcli.c:1554
 msgid "Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."
 msgstr "जांचें कि क्या इस सिस्टम पर किसी घटक की आवश्यकताएं (इसकी ID या MetaInfo फाइल के माध्यम से) संतुष्ट हैं।"
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
-#: tools/appstreamcli.c:1467
+#: tools/appstreamcli.c:1562
 msgid "Check compatibility of a component (via its ID or MetaInfo file) with common system and chassis types."
 msgstr "सामान्य सिस्टम और चेसिस प्रकारों के साथ किसी घटक की संगतता (इसकी ID या MetaInfo फाइल के माध्यम से) की जांच करें।"
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1476
+#: tools/appstreamcli.c:1571
 msgid "Install software matching the component-ID."
 msgstr "component-ID से मेल खाने वाला सॉफ्टवेयर स्थापित करें।"
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1483
+#: tools/appstreamcli.c:1578
 msgid "Remove software matching the component-ID."
 msgstr "component-ID से मेल खाने वाले सॉफ्टवेयर को हटा दें।"
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1491
+#: tools/appstreamcli.c:1586
 msgid "Display status information about available AppStream metadata."
 msgstr "उपलब्ध AppStream मेटाडेटा के बारे में स्थिति जानकारी प्रदर्शित करें।"
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
-#: tools/appstreamcli.c:1499
+#: tools/appstreamcli.c:1594
 msgid "Show information about the current device and used operating system."
 msgstr "वर्तमान उपकरण और प्रयुक्त ऑपरेटिंग सिस्टम के बारे में जानकारी दिखाएं।"
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1507
+#: tools/appstreamcli.c:1602
 msgid "Install a metadata file into the right location."
 msgstr "मेटाडेटा फाइल को सही स्थान पर स्थापित करें।"
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1515
+#: tools/appstreamcli.c:1610
 msgid "Convert metadata catalog XML to YAML or vice versa."
 msgstr "मेटाडेटा कैटलॉग XML को YAML में बदलें या इसके विपरीत।"
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1522
+#: tools/appstreamcli.c:1617
 msgid "Compare two version numbers."
 msgstr "दो संस्करण संख्याओं की तुलना करें।"
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1531
+#: tools/appstreamcli.c:1626
 msgid "Create a template for a metainfo file (to be filled out by the upstream project)."
 msgstr "metainfo फाइल के लिए एक खाका बनाएं (अपस्ट्रीम परियोजना द्वारा भरा जाएगा)।"
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1539
+#: tools/appstreamcli.c:1634
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Metainfo फाइल से एक डेस्कटॉप-प्रविष्टि फाइल बनाएं।"
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1547
+#: tools/appstreamcli.c:1642
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "YAML या पाठ NEWS फाइल को metainfo रिलीज़ में परिवर्तित करें।"
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1555
+#: tools/appstreamcli.c:1650
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr "Metainfo फाइल से जानकारी के साथ NEWS पाठ या YAML फाइल लिखें।"
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1563
+#: tools/appstreamcli.c:1658
 msgid "Compose AppStream metadata catalog from directory trees."
 msgstr "निर्देशिका ट्री से AppStream मेटाडेटा कैटलॉग लिखें।"
 
+#. TRANSLATORS: `appstreamcli list-reviews` command description.
+#: tools/appstreamcli.c:1667
+#, fuzzy
+#| msgid "We have information on %i software components."
+msgid "List online user reviews for a software component."
+msgstr "हमारे पास %i सॉफ्टवेयर घटकों की जानकारी है।"
+
+#. TRANSLATORS: `appstreamcli submit-review` command description.
+#: tools/appstreamcli.c:1680
+msgid "Compose and submit an online review for a software component."
+msgstr ""
+
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1571
+#: tools/appstreamcli.c:1689
 msgid "You need to specify a command."
 msgstr "आपको एक आदेश निर्दिष्ट करना होगा।"
 
@@ -3184,6 +3241,7 @@ msgstr "मेटाडेटा कैशे अद्यतन आवश्य
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
 #: tools/ascli-actions-mdata.c:132 tools/ascli-actions-mdata.c:298
+#: tools/ascli-actions-misc.c:697 tools/ascli-actions-misc.c:784
 #: tools/ascli-actions-pkgmgr.c:114
 msgid "You need to specify a component-ID."
 msgstr "आपको एक component-ID निर्दिष्ट करने की आवश्यकता है।"
@@ -3492,7 +3550,8 @@ msgstr "ID"
 msgid "Name"
 msgstr "नाम"
 
-#: tools/ascli-actions-misc.c:566 tools/ascli-utils.c:305
+#: tools/ascli-actions-misc.c:566 tools/ascli-actions-misc.c:853
+#: tools/ascli-utils.c:305
 msgid "Summary"
 msgstr "सारांश"
 
@@ -3512,7 +3571,7 @@ msgstr "विवरण"
 msgid "Kernel"
 msgstr "कर्नेल"
 
-#: tools/ascli-actions-misc.c:593
+#: tools/ascli-actions-misc.c:593 tools/ascli-actions-misc.c:749
 msgid "Version"
 msgstr "संस्करण"
 
@@ -3559,6 +3618,88 @@ msgstr "हां"
 #: tools/ascli-actions-validate.c:707
 msgid "no"
 msgstr "नहीं"
+
+#: tools/ascli-actions-misc.c:715
+msgid "Overall rating"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:728
+#, fuzzy, c-format
+#| msgid "Found supported software component '%s'."
+msgid "No reviews found for component '%s'."
+msgstr "समर्थित सॉफ्टवेयर घटक '%s' मिला।"
+
+#: tools/ascli-actions-misc.c:743 tools/ascli-actions-misc.c:844
+msgid "Author"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:746
+msgid "Date"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:796
+#, c-format
+msgid "Composing a review for '%s' to be submitted to %s."
+msgstr ""
+
+#: tools/ascli-actions-misc.c:799
+msgid "Please only review the software itself, and mind that your review will be publicly visible."
+msgstr ""
+
+#. TRANSLATORS: Prompt when composing a review, %s is a user name
+#: tools/ascli-actions-misc.c:804
+#, c-format
+msgid "Your display name (leave empty to use '%s'):"
+msgstr ""
+
+#. TRANSLATORS: Prompt for a star rating when composing a review
+#: tools/ascli-actions-misc.c:811
+msgid "Star rating, from 1 (worst) to 5 (best):"
+msgstr ""
+
+#. TRANSLATORS: Prompt when composing a review
+#: tools/ascli-actions-misc.c:818
+msgid "Short summary of your review:"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:824
+msgid "The summary must not be empty and be no longer than 70 characters."
+msgstr ""
+
+#. TRANSLATORS: Prompt when composing a review
+#: tools/ascli-actions-misc.c:828
+msgid "Detailed review text (end with an empty line):"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:830
+msgid "The review text must not be empty."
+msgstr ""
+
+#: tools/ascli-actions-misc.c:851
+msgid "Rating"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:854
+msgid "Review"
+msgstr ""
+
+#. TRANSLATORS: Prompt before publishing a composed review
+#: tools/ascli-actions-misc.c:861
+msgid "Publish this review?"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:865
+msgid "Review submission cancelled."
+msgstr ""
+
+#: tools/ascli-actions-misc.c:875
+#, c-format
+msgid "Review submitted successfully (ID: %s). Thank you!"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:878
+msgid "Review submitted successfully. Thank you!"
+msgstr ""
 
 #: tools/ascli-actions-pkgmgr.c:53
 #, fuzzy
