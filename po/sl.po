@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-07-20 22:54+0200\n"
-"PO-Revision-Date: 2026-01-28 01:01+0000\n"
+"PO-Revision-Date: 2026-07-21 19:27+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
 "Language: sl\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2042,7 +2042,7 @@ msgstr "Datoteke metainfo lahko vsebujejo samo ikone vrste »stock« ali »remot
 #. TRANSLATORS: Please do not translate names in backticks.
 #: src/as-validator-issue-tag.h:575
 msgid "This icon uses an unsupported file format. Icons should be PNG, JPEG-XL (`.jxl`) or vector graphics (`.svg`/`.svgz`) images."
-msgstr ""
+msgstr "Ta ikona uporablja nepodprto vrsto datotek. Ikone morajo biti v zapisih PNG, JPEG-XL (`.jxl`) ali slike vektorske grafike (`.svg`/`.svgz`)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:582
@@ -2404,10 +2404,8 @@ msgid "The issue is tagged at security vulnerability with a CVE number, but its 
 msgstr "Težava je označena kot varnostna ranljivost s številko CVE, vendar njena vrednost ni videti kot veljaven identifikator CVE."
 
 #: src/as-validator-issue-tag.h:1043
-#, fuzzy
-#| msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
-msgstr "Težava je označena kot varnostna ranljivost s številko CVE, vendar njena vrednost ni videti kot veljaven identifikator CVE."
+msgstr "Težava je označena kot varnostna ranljivost s številko GCVE, vendar njena vrednost ne sledi shemi `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` sistema Global CVE Allocation System."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1050
@@ -3530,17 +3528,15 @@ msgstr "Fizični pomnilnik"
 
 #: tools/ascli-actions-misc.c:607 tools/ascli-actions-misc.c:612
 msgid "Largest Display"
-msgstr ""
+msgstr "Največji zaslon"
 
 #: tools/ascli-actions-misc.c:610
 msgid "logical px"
-msgstr ""
+msgstr "logične slik. točke"
 
 #: tools/ascli-actions-misc.c:612
-#, fuzzy
-#| msgid "Unable to read file."
 msgid "unable to determine"
-msgstr "Ni mogoče brati datoteke."
+msgstr "ni možno določiti"
 
 #: tools/ascli-actions-misc.c:616
 msgid "Devices with Modaliases"
